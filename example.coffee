@@ -49,7 +49,7 @@ exercise =
     {
       background: 'Simple fill-in-the-blank questions'
       questions: [
-        { stem: 'Photosynthesis ______ ATP', answers: [{ credit: 1, value: 'creates' }] }
+        { stem: 'Photosynthesis ____ ATP', answers: [{ credit: 1, value: 'creates' }] }
       ]
     }
     {
@@ -57,9 +57,9 @@ exercise =
 
         <table>
           <tr><th>Time</th><th>Distance</th><th>Velocity</th></tr>
-          <tr><td>t<sub>0</sub></td><td>___1___</td><td>___2___</td></tr>
-          <tr><td>t<sub>1</sub></td><td>___3___</td><td>___4___</td></tr>
-          <tr><td>t<sub>2</sub></td><td>___5___</td><td>___6___</td></tr>
+          <tr><td>t<sub>0</sub></td><td>____1</td><td>____2</td></tr>
+          <tr><td>t<sub>1</sub></td><td>____3</td><td>____4</td></tr>
+          <tr><td>t<sub>2</sub></td><td>____5</td><td>____6</td></tr>
         </table>
       '''
       questions: [
@@ -100,21 +100,21 @@ console.log(state)
 
 # Unescape a string with handlebars `{{ ... }}` templates
 makeDiv = (name, text, children=[]) ->
-  text = text.replace(/___(\d+)?___/g, '<input type="text"/>')
+  text = text.replace(/____(\d+)?/g, '<input type="text"/>')
   "<div class='#{name}'>#{Handlebars.compile(text)(state)}#{children.join('')}</div>"
 
 makeInput = (name, text) ->
-  text = text.replace(/___(\d+)?___/g, '<input type="text"/>')
+  text = text.replace(/____(\d+)?/g, '<input type="text"/>')
   "<input type='text' class='#{name}' placeholder=\"#{Handlebars.compile(text)(state)}\"/>"
 
 makeRadioDiv = (name, text) ->
-  text = text.replace(/___(\d+)?___/g, '<input type="text"/>')
+  text = text.replace(/____(\d+)?/g, '<input type="text"/>')
   "<div class='#{name}'><input type='radio'/> #{Handlebars.compile(text)(state)}</div>"
 
 
 parts = for part in exercise.parts
   questions = for question in part.questions
-    if /___(\d+)?___/.test(question.stem)
+    if /____(\d+)?/.test(question.stem)
       # Fill in the blank
       makeDiv('question', question.stem)
     else if question.answers.length > 1 and not config.short_answer
