@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <script src="./handlebars.js"></script>
+    <style>
+      input[type='text'] { width: 200px; }
+
+      *::before { color: #ccc; }
+
+      .part::before { content: 'Part: '; }
+      .question::before { content: 'Question: '; }
+      .stem::before { content: 'Stem: '; }
+      .answer::before { content: 'Answer: '; }
+      .choice::before { content: 'Choice: '; }
+    </style>
+  </head>
+  <body>
+    <div id="exercise"></div>
+    <script src="./example.js"></script>
+  </body>
+</html>
