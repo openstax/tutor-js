@@ -5,14 +5,15 @@ config =
 exercise =
   logic:
     inputs:
+      scale: { start: 1, end: 3 }
       mass:  { start: 1, end: 3 }
       speed: { start: 1, end: 3 }
     outputs:
-      ship_mass: ({mass, speed}) -> Math.pow(100, mass)
-      ship_speed: ({mass, speed}) -> Math.pow(10, speed)
-      ship_force: ({mass, speed}) -> Math.pow(100, mass) * Math.pow(10, speed)
-      ship_mass_grams: ({mass, speed}) -> Math.pow(100, mass) * 1000
-      ship_mass_div_speed: ({mass, speed}) -> Math.pow(100, mass) / Math.pow(10, speed)
+      ship_mass: ({scale, mass, speed}) -> scale * Math.pow(100, mass)
+      ship_speed: ({scale, mass, speed}) -> scale * Math.pow(10, speed)
+      ship_force: ({scale, mass, speed}) -> scale * Math.pow(100, mass) * scale * Math.pow(10, speed)
+      ship_mass_grams: ({scale, mass, speed}) -> scale * Math.pow(100, mass) * 1000
+      ship_mass_div_speed: ({scale, mass, speed}) -> scale * Math.pow(100, mass) / scale * Math.pow(10, speed)
 
   background: 'This exercise has many parts. Each one is a different type of question. Einstein makes a {{ ship_mass }} kg spaceship'
   parts: [
@@ -70,7 +71,9 @@ exercise =
 # Generate the variables
 state = {}
 for key, val of exercise.logic.inputs
-  state[key] = val.start # TODO: Make this random
+  min = val.start
+  max = val.end
+  state[key] = Math.floor(Math.random() * (max - min + 1)) + min
 
 for key, val of exercise.logic.outputs
   state[key] = val(state)
