@@ -76,7 +76,14 @@ for key, val of exercise.logic.inputs
   state[key] = Math.floor(Math.random() * (max - min + 1)) + min
 
 for key, val of exercise.logic.outputs
-  state[key] = val(state)
+  val = val(state)
+  try
+    val = parseInt(val)
+    # Inject commas
+    val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  catch
+    ''
+  state[key] = val
 
 
 console.log(state)

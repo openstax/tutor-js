@@ -158,7 +158,14 @@
   _ref1 = exercise.logic.outputs;
   for (key in _ref1) {
     val = _ref1[key];
-    state[key] = val(state);
+    val = val(state);
+    try {
+      val = parseInt(val);
+      val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    } catch (_error) {
+      '';
+    }
+    state[key] = val;
   }
 
   console.log(state);
