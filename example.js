@@ -95,7 +95,20 @@
           }
         ]
       }, {
-        background: 'Fill in this table:\n\n<table>\n  <tr><th>Time</th><th>Distance</th><th>Velocity</th></tr>\n  <tr><td>t<sub>0</sub></td><td>__1__</td><td>__2__</td></tr>\n  <tr><td>t<sub>1</sub></td><td>__3__</td><td>__4__</td></tr>\n  <tr><td>t<sub>2</sub></td><td>__5__</td><td>__6__</td></tr>\n</table>',
+        background: 'Simple fill-in-the-blank questions',
+        questions: [
+          {
+            stem: 'Photosynthesis ______ ATP',
+            answers: [
+              {
+                credit: 1,
+                value: 'creates'
+              }
+            ]
+          }
+        ]
+      }, {
+        background: 'Fill in this table (this is a multi-fill-in-the-blank):\n\n<table>\n  <tr><th>Time</th><th>Distance</th><th>Velocity</th></tr>\n  <tr><td>t<sub>0</sub></td><td>___1___</td><td>___2___</td></tr>\n  <tr><td>t<sub>1</sub></td><td>___3___</td><td>___4___</td></tr>\n  <tr><td>t<sub>2</sub></td><td>___5___</td><td>___6___</td></tr>\n</table>',
         questions: [
           {
             answers: [
@@ -174,17 +187,17 @@
     if (children == null) {
       children = [];
     }
-    text = text.replace(/__(\d+)?__/g, '<input type="text"/>');
+    text = text.replace(/___(\d+)?___/g, '<input type="text"/>');
     return "<div class='" + name + "'>" + (Handlebars.compile(text)(state)) + (children.join('')) + "</div>";
   };
 
   makeInput = function(name, text) {
-    text = text.replace(/__(\d+)?__/g, '<input type="text"/>');
+    text = text.replace(/___(\d+)?___/g, '<input type="text"/>');
     return "<input type='text' class='" + name + "' placeholder=\"" + (Handlebars.compile(text)(state)) + "\"/>";
   };
 
   makeRadioDiv = function(name, text) {
-    text = text.replace(/__(\d+)?__/g, '<input type="text"/>');
+    text = text.replace(/___(\d+)?___/g, '<input type="text"/>');
     return "<div class='" + name + "'><input type='radio'/> " + (Handlebars.compile(text)(state)) + "</div>";
   };
 
@@ -200,8 +213,8 @@
         _results1 = [];
         for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
           question = _ref3[_j];
-          if (/__(\d+)?__/.test(question.stem)) {
-            _results1.push(makeDiv('stem', question.stem));
+          if (/___(\d+)?___/.test(question.stem)) {
+            _results1.push(makeDiv('question', question.stem));
           } else if (question.answers.length > 1 && !config.short_answer) {
             choices = (function() {
               var _k, _len2, _ref4, _results2;
@@ -220,12 +233,12 @@
             _results1.push(makeDiv('question', question.stem, choices));
           } else {
             if (question.short_stem) {
-              a = makeDiv('stem', question.stem);
-              b = makeInput('stem', question.short_stem);
+              a = makeDiv('question', question.stem);
+              b = makeInput('question', question.short_stem);
               _results1.push("" + a + b);
             } else if (question.stem) {
-              a = makeDiv('stem', question.stem);
-              b = makeInput('stem', '');
+              a = makeDiv('question', question.stem);
+              b = makeInput('question', '');
               _results1.push("" + a + b);
             } else {
               _results1.push('');

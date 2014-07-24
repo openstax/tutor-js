@@ -45,15 +45,21 @@ exercise =
         }
       ]
     }
-    # Matching Part
+    # Fill in the blanks
     {
-      background: '''Fill in this table:
+      background: 'Simple fill-in-the-blank questions'
+      questions: [
+        { stem: 'Photosynthesis ______ ATP', answers: [{ credit: 1, value: 'creates' }] }
+      ]
+    }
+    {
+      background: '''Fill in this table (this is a multi-fill-in-the-blank):
 
         <table>
           <tr><th>Time</th><th>Distance</th><th>Velocity</th></tr>
-          <tr><td>t<sub>0</sub></td><td>__1__</td><td>__2__</td></tr>
-          <tr><td>t<sub>1</sub></td><td>__3__</td><td>__4__</td></tr>
-          <tr><td>t<sub>2</sub></td><td>__5__</td><td>__6__</td></tr>
+          <tr><td>t<sub>0</sub></td><td>___1___</td><td>___2___</td></tr>
+          <tr><td>t<sub>1</sub></td><td>___3___</td><td>___4___</td></tr>
+          <tr><td>t<sub>2</sub></td><td>___5___</td><td>___6___</td></tr>
         </table>
       '''
       questions: [
@@ -94,23 +100,23 @@ console.log(state)
 
 # Unescape a string with handlebars `{{ ... }}` templates
 makeDiv = (name, text, children=[]) ->
-  text = text.replace(/__(\d+)?__/g, '<input type="text"/>')
+  text = text.replace(/___(\d+)?___/g, '<input type="text"/>')
   "<div class='#{name}'>#{Handlebars.compile(text)(state)}#{children.join('')}</div>"
 
 makeInput = (name, text) ->
-  text = text.replace(/__(\d+)?__/g, '<input type="text"/>')
+  text = text.replace(/___(\d+)?___/g, '<input type="text"/>')
   "<input type='text' class='#{name}' placeholder=\"#{Handlebars.compile(text)(state)}\"/>"
 
 makeRadioDiv = (name, text) ->
-  text = text.replace(/__(\d+)?__/g, '<input type="text"/>')
+  text = text.replace(/___(\d+)?___/g, '<input type="text"/>')
   "<div class='#{name}'><input type='radio'/> #{Handlebars.compile(text)(state)}</div>"
 
 
 parts = for part in exercise.parts
   questions = for question in part.questions
-    if /__(\d+)?__/.test(question.stem)
+    if /___(\d+)?___/.test(question.stem)
       # Fill in the blank
-      makeDiv('stem', question.stem)
+      makeDiv('question', question.stem)
     else if question.answers.length > 1 and not config.short_answer
       # Multiple Choice
       choices = for answer in question.answers
@@ -121,12 +127,12 @@ parts = for part in exercise.parts
       makeDiv('question', question.stem, choices)
     else
       if question.short_stem
-        a = makeDiv('stem', question.stem)
-        b = makeInput('stem', question.short_stem)
+        a = makeDiv('question', question.stem)
+        b = makeInput('question', question.short_stem)
         "#{a}#{b}"
       else if question.stem
-        a = makeDiv('stem', question.stem)
-        b = makeInput('stem', '')
+        a = makeDiv('question', question.stem)
+        b = makeInput('question', '')
         "#{a}#{b}"
       else
         ''
