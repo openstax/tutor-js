@@ -1,0 +1,20 @@
+{
+  "name": "exercise-maker-js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/philschatz/exercise-maker-js",
+  "authors": [
+    "Philip Schatz <phil@cnx.org>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "loader": "stefanpenner/loader.js#3c79fbf03a4c625593cda783c0d51f0da2adaa37",
+    "requirejs": "~2.1.14"
+  }
+}
