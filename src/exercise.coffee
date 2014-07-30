@@ -1,9 +1,118 @@
+# @csx React.DOM
 config =
   short_answer: prompt('Do you prefer short answer questions ("" for no, anything else for yes)', '')
    #multiple_choice: true
 
+React = require('react')
 exercise = require('./test')
 {Compiler, DOMHelper, hooks} = require('./htmlbars')
+
+
+
+domify = (source, data) ->
+  source = source.replace(/____(\d+)?/g, '<input type="text"/>')
+  template     = Compiler.compile(source)
+  dom          = template(data, {hooks: hooks, dom: new DOMHelper()})
+  dom
+
+
+
+Exercise = React.createClass
+  render: ->
+    <div className="exercise">
+      <div className="background"></div>
+      {ExercisePart(part) for part in @props.parts}
+    </div>
+
+  componentDidMount: ->
+    stem = @getDOMNode().querySelector('.background')
+    content = domify(@props.background, state)
+    stem.appendChild(content)
+
+
+makeQuestion = (question, type=null) ->
+  unless type
+    if /____(\d+)?/.test(question.stem)
+      type = BlankQuestion
+    else if question.answers.length > 1 and not config.short_answer
+      # Multiple Choice
+      type = MultipleChoiceQuestion
+    else
+      type = SimpleQuestion
+  type(question)
+
+ExercisePart = React.createClass
+  render: ->
+    # A Matching Part does not render each question
+    if @props.background?.split('____').length > 2
+      questions = []
+    else
+      questions = @props.questions
+
+    <div className="part">
+      <div className="background"></div>
+      {makeQuestion(question) for question in questions}
+    </div>
+
+  componentDidMount: ->
+    stem = @getDOMNode().querySelector('.background')
+    background = @props.background
+    if @props.background?.split('____').length > 2
+      if config.short_answer
+        background = @props.background
+        keepBlankIndex = randRange(0, @props.questions.length - 1)
+        for question, i in @props.questions
+          if i isnt keepBlankIndex
+            answer = question.answers[0].content or question.answers[0].value
+            background = background.replace("____#{i + 1}", answer)
+
+    content = domify(background, state)
+    stem.appendChild(content)
+
+BlankQuestion = React.createClass
+  render: ->
+    <div className="question">
+      <div className="stem"></div>
+      <input type="text" placeholder={@props.short_stem} />
+    </div>
+  componentDidMount: ->
+    stem = @getDOMNode().querySelector('.stem')
+    content = domify(@props.stem, state)
+    stem.appendChild(content)
+
+
+SimpleQuestion = React.createClass
+  render: ->
+    <div className="question">
+      <div className="stem">{@props.stem}</div>
+      <input type="text" placeholder={@props.short_stem} />
+    </div>
+
+MultipleChoiceOption = React.createClass
+  render: ->
+    value = domify(@props.answer.value, state).textContent
+    <li className="option">
+      <input type="radio" name={@props.questionId} id={@props.id} value={value}/>
+      <label htmlFor={@props.id}></label>
+    </li>
+  componentDidMount: ->
+    label = @getDOMNode().querySelector('label')
+    content = domify(@props.answer.content or @props.answer.value, state)
+    label.appendChild(content)
+
+questionCounter = 0
+MultipleChoiceQuestion = React.createClass
+  render: ->
+    questionId = "id-#{questionCounter++}"
+    options = for answer, id in @props.answers
+      id = "#{questionId}-#{id}"
+      MultipleChoiceOption({answer, questionId, id})
+    <div className="question">
+      <div className="stem">{@props.stem}</div>
+      <ul className="options">{options}</ul>
+    </div>
+
+
 
 
 randRange = (min, max) ->
@@ -24,73 +133,12 @@ for key, val of exercise.logic.outputs
     ''
   state[key] = val
 
-
-
-domify = (source, data) ->
-  template     = Compiler.compile(source)
-  dom          = template(data, {hooks: hooks, dom: new DOMHelper()})
-  dom
-
 # -------------------------------
 # Generate the HTML
 
-# Unescape a string with handlebars `{{ ... }}` templates
-makeDiv = (name, text, children=[]) ->
-  text = text.replace(/____(\d+)?/g, '<input type="text"/>')
-  "<div class='#{name}'>#{text}#{children.join('')}</div>"
-
-makeInput = (name, text) ->
-  text = text.replace(/____(\d+)?/g, '<input type="text"/>')
-  "<input type='text' class='#{name}' placeholder=\"#{text}\"/>"
-
-nextId = 0
-makeRadioDiv = (questionId, name, value, text) ->
-  id = "id-#{nextId++}"
-  text = text.replace(/____(\d+)?/g, '<input type="text"/>')
-  "<div class='#{name}'><input type='radio' name='#{questionId}' id='#{id}' value='#{value}'/> <label for='#{id}'>#{text}</label></div>"
 
 
 
-parts = for part, partIndex in exercise.parts
-  if part.background and part.background.split('____').length > 2 and config.short_answer
-    background = part.background
-    keepBlankIndex = randRange(0, part.questions.length - 1)
-    for question, i in part.questions
-      if i isnt keepBlankIndex
-        answer = question.answers[0].content or question.answers[0].value
-        # answer = makeDiv('answer', answer)
-        background = background.replace("____#{i + 1}", answer)
-
-    makeDiv('part', background)
-
-  else
-    questions = for question, questionIndex in part.questions
-      if /____(\d+)?/.test(question.stem)
-        makeDiv('question', question.stem)
-
-      else if question.answers.length > 1 and not config.short_answer
-        # Multiple Choice
-        choices = for answer in question.answers
-          if answer.content
-            makeRadioDiv("id-#{partIndex}-#{questionIndex}", 'choice', answer.value, answer.content)
-          else
-            makeRadioDiv("id-#{partIndex}-#{questionIndex}", 'choice', answer.value, answer.value)
-        makeDiv('question', question.stem, choices)
-      else
-        if question.short_stem
-          a = makeDiv('question', question.stem)
-          b = makeInput('question', question.short_stem)
-          "#{a}#{b}"
-        else if question.stem
-          a = makeDiv('question', question.stem)
-          b = makeInput('question', '')
-          "#{a}#{b}"
-        else
-          ''
-
-    makeDiv('part', part.background, questions)
-
-
-$ex = document.getElementById('exercise')
-$ex.innerHTML = ''
-$ex.appendChild(domify makeDiv('background', exercise.background, parts), state)
+root = document.body
+root.innerHTML = ''
+React.renderComponent(Exercise(exercise), root)

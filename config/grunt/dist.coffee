@@ -6,7 +6,7 @@ module.exports = (grunt) ->
       bundleOptions:
         # standalone: 'Exercise'
         debug: true # Source Maps
-      transform: ['coffeeify']
+      transform: ['coffee-reactify']
     exercise:
       files:
         '.build/exercise.js': ['src/exercise.coffee']
