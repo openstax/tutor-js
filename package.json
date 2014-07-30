@@ -1,0 +1,14 @@
+{
+  "name": "exercise",
+  "version": "0.0.0",
+  "main": "dist/exercise.js",
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "coffeeify": "^0.7.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^2.1.4",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "load-grunt-tasks": "^0.6.0"
+  }
+}

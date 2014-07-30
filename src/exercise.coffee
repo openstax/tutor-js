@@ -73,9 +73,7 @@ exercise =
     }
   ]
 
-
-Handlebars    = requireModule('handlebars').default
-Compiler      = requireModule 'htmlbars-compiler/compiler'
+Compiler      = requireModule('htmlbars-compiler/compiler')
 {DOMHelper}   = requireModule('morph')
 {hooks}       = requireModule('htmlbars-runtime')
 
