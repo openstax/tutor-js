@@ -73,9 +73,7 @@ exercise =
     }
   ]
 
-Compiler      = requireModule('htmlbars-compiler/compiler')
-{DOMHelper}   = requireModule('morph')
-{hooks}       = requireModule('htmlbars-runtime')
+{Compiler, DOMHelper, hooks} = require('./htmlbars')
 
 
 randRange = (min, max) ->
