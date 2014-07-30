@@ -24,6 +24,6 @@ module.exports = (grunt) ->
           'htmlbars/htmlbars-compiler.amd.js'
           'htmlbars/htmlbars-runtime.amd.js'
           'htmlbars/morph.amd.js'
-          'nodefine.js'
+          'src/nodefine.js'
         ]
         'dist/exercise.js': ['.build/exercise.js']
