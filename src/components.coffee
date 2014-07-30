@@ -1,10 +1,8 @@
 # @csx React.DOM
-config =
-  short_answer: prompt('Do you prefer short answer questions ("" for no, anything else for yes)', '')
-   #multiple_choice: true
+
+prefer_short_answer = prompt('Do you prefer short answer questions ("" for no, anything else for yes)', '')
 
 React = require('react')
-exercise = require('./test')
 {Compiler, DOMHelper, hooks} = require('./htmlbars')
 
 
@@ -19,49 +17,54 @@ domify = (source, data) ->
 
 Exercise = React.createClass
   render: ->
+    {config, state} = @props
     <div className="exercise">
       <div className="background"></div>
-      {ExercisePart(part) for part in @props.parts}
+      {ExercisePart {state, config:part} for part in config.parts}
     </div>
 
   componentDidMount: ->
+    {config, state} = @props
     stem = @getDOMNode().querySelector('.background')
-    content = domify(@props.background, state)
+    content = domify(config.background, state)
     stem.appendChild(content)
 
 
-makeQuestion = (question, type=null) ->
+makeQuestion = ({config, state}, type=null) ->
+  question = config
   unless type
     if /____(\d+)?/.test(question.stem)
       type = BlankQuestion
-    else if question.answers.length > 1 and not config.short_answer
+    else if question.answers.length > 1 and not prefer_short_answer
       # Multiple Choice
       type = MultipleChoiceQuestion
     else
       type = SimpleQuestion
-  type(question)
+  type({config, state})
 
 ExercisePart = React.createClass
   render: ->
+    {config, state} = @props
     # A Matching Part does not render each question
-    if @props.background?.split('____').length > 2
+    if config.background?.split('____').length > 2
       questions = []
     else
-      questions = @props.questions
+      questions = config.questions
 
     <div className="part">
       <div className="background"></div>
-      {makeQuestion(question) for question in questions}
+      {makeQuestion {state, config:question} for question in questions}
     </div>
 
   componentDidMount: ->
+    {config, state} = @props
     stem = @getDOMNode().querySelector('.background')
-    background = @props.background
-    if @props.background?.split('____').length > 2
-      if config.short_answer
-        background = @props.background
-        keepBlankIndex = randRange(0, @props.questions.length - 1)
-        for question, i in @props.questions
+    background = config.background
+    if config.background?.split('____').length > 2
+      if prefer_short_answer
+        background = config.background
+        keepBlankIndex = randRange(0, config.questions.length - 1)
+        for question, i in config.questions
           if i isnt keepBlankIndex
             answer = question.answers[0].content or question.answers[0].value
             background = background.replace("____#{i + 1}", answer)
@@ -71,74 +74,55 @@ ExercisePart = React.createClass
 
 BlankQuestion = React.createClass
   render: ->
+    {config} = @props
     <div className="question">
       <div className="stem"></div>
-      <input type="text" placeholder={@props.short_stem} />
+      <input type="text" placeholder={config.short_stem} />
     </div>
   componentDidMount: ->
+    {config} = @props
+    state = @props.state
     stem = @getDOMNode().querySelector('.stem')
-    content = domify(@props.stem, state)
+    content = domify(config.stem, state)
     stem.appendChild(content)
 
 
 SimpleQuestion = React.createClass
   render: ->
+    {config} = @props
     <div className="question">
-      <div className="stem">{@props.stem}</div>
-      <input type="text" placeholder={@props.short_stem} />
+      <div className="stem">{config.stem}</div>
+      <input type="text" placeholder={config.short_stem} />
     </div>
 
 MultipleChoiceOption = React.createClass
   render: ->
-    value = domify(@props.answer.value, state).textContent
+    {state, answer, questionId, id} = @props
+    value = domify(answer.value, state).textContent
     <li className="option">
-      <input type="radio" name={@props.questionId} id={@props.id} value={value}/>
-      <label htmlFor={@props.id}></label>
+      <input type="radio" name={questionId} id={id} value={value}/>
+      <label htmlFor={id}></label>
     </li>
   componentDidMount: ->
+    {answer, state} = @props
     label = @getDOMNode().querySelector('label')
-    content = domify(@props.answer.content or @props.answer.value, state)
+    content = domify(answer.content or answer.value, state)
     label.appendChild(content)
 
 questionCounter = 0
 MultipleChoiceQuestion = React.createClass
   render: ->
+    {config, state} = @props
     questionId = "id-#{questionCounter++}"
-    options = for answer, id in @props.answers
+    options = for answer, id in config.answers
       id = "#{questionId}-#{id}"
-      MultipleChoiceOption({answer, questionId, id})
+      MultipleChoiceOption({state, answer, questionId, id})
+
     <div className="question">
-      <div className="stem">{@props.stem}</div>
+      <div className="stem">{config.stem}</div>
       <ul className="options">{options}</ul>
     </div>
 
 
 
-
-randRange = (min, max) ->
-  Math.floor(Math.random() * (max - min + 1)) + min
-
-# Generate the variables
-state = {}
-for key, val of exercise.logic.inputs
-  state[key] = randRange(val.start, val.end)
-
-for key, val of exercise.logic.outputs
-  val = val(state)
-  try
-    val = parseInt(val)
-    # Inject commas
-    val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  catch
-    ''
-  state[key] = val
-
-# -------------------------------
-# Generate the HTML
-
-
-
-
-root = document.body
-root.innerHTML = ''
-React.renderComponent(Exercise(exercise), root)
+module.exports = {Exercise}
