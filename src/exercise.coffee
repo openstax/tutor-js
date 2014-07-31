@@ -1,7 +1,7 @@
 
 React = require('react')
 {Exercise} = require('./components')
-exercise = require('./test')
+config = require('./test')
 
 
 
@@ -10,10 +10,10 @@ randRange = (min, max) ->
 
 # Generate the variables
 state = {}
-for key, val of exercise.logic.inputs
+for key, val of config.logic.inputs
   state[key] = randRange(val.start, val.end)
 
-for key, val of exercise.logic.outputs
+for key, val of config.logic.outputs
   val = val(state)
   try
     val = parseInt(val)
@@ -32,4 +32,4 @@ for key, val of exercise.logic.outputs
 
 root = document.getElementById('exercise')
 root.innerHTML = ''
-React.renderComponent(Exercise({config:exercise, state}), root)
+React.renderComponent(Exercise({config, state}), root)
