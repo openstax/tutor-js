@@ -1,6 +1,7 @@
 # @csx React.DOM
 
-prefer_short_answer = prompt('Do you prefer short answer questions ("" for no, anything else for yes)', '')
+# prefer_short_answer = prompt('Do you prefer short answer questions ("" for no, anything else for yes)', '')
+prefer_short_answer = false
 
 React = require('react')
 {Compiler, DOMHelper, hooks} = require('./htmlbars')
