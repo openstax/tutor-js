@@ -71,7 +71,7 @@ QuestionVariants = React.createClass
       return variants[0]
     else
       <div className="variants">
-        This question has variants. Click to Show
+        This question can be shown in several ways. Click to Show
         {formatCheckboxes}
         {variants}
       </div>
