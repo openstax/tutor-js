@@ -1,3 +1,12 @@
+# Possible formats = [
+#   'matching'
+#   'multiple-choice'
+#   'multiple-select'
+#   'short-answer'
+#   'true-false'
+#   'fill-in-the-blank'
+# ]
+
 module.exports =
   logic:
     inputs:
@@ -17,21 +26,14 @@ module.exports =
       background: 'The spaceship moves at {{ ship_speed }} m/s'
       questions: [
         {
-          stem: 'What is the rest mass? (Short answer)'
-          short_stem: 'Enter your answer in kg'
+          formats: ['short-answer']
+          stem: 'What is the rest mass in kg?'
           answers: [
             { credit: 1, value: '{{ ship_mass }}' }
           ]
         }
         {
-          stem: 'What is the rest mass?'
-          short_stem: 'Enter your answer in kg'
-          answers: [
-            { credit: 1, value: '{{ ship_mass }}' }
-            { credit: 0, value: '{{ ship_mass_grams }}', hint: 'Check the units' }
-          ]
-        }
-        {
+          formats: ['short-answer', 'multiple-choice']
           stem: 'What is the force if it slams into a wall?'
           short_stem: 'Enter your answer in N'
           answers: [
@@ -45,7 +47,22 @@ module.exports =
     {
       background: 'Simple fill-in-the-blank questions'
       questions: [
-        { stem: 'Photosynthesis ____ ATP', answers: [{ credit: 1, value: 'creates' }] }
+        {
+          formats: ['multiple-choice', 'fill-in-the-blank', 'true-false']
+          stem: 'If the ship is traveling {{ ship_speed }} m/s and slams into a wall, the impact force is ____ N.'
+          answers: [
+            { credit: 1, value: '{{ ship_force }}' }
+            { credit: 0, value: '{{ ship_mass_div_speed }}', hint: 'Remember 1 Newton (N) is 1 kg*m/s' }
+          ]
+        }
+        {
+          formats: ['fill-in-the-blank', 'true-false']
+          stem: 'Photosynthesis ____ ATP'
+          answers: [
+            { credit: 1, value: 'creates' }
+            { credit: 0, value: 'smells like' }
+          ]
+        }
       ]
     }
     {

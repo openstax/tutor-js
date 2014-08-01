@@ -2,7 +2,8 @@
   <head>
     <style>
 
-      .part { border: 1px dashed; padding: 1em; }
+      .part { border: 3px dashed; padding: 1em; }
+      .variants { border: 1px dashed green; padding: 1em; }
       .question { padding-top: 1em; }
 
       input[type='text'] { width: 200px; }
@@ -15,6 +16,19 @@
       .answer::before { content: 'Answer: '; }
       .item:not(:empty)::before { content: 'Item: '; }
       /*.choice::before { content: 'Choice: '; }*/
+
+
+input[type='checkbox'][data-format='matching']:not(:checked) ~ [data-format='matching'],
+input[type='checkbox'][data-format='multiple-choice']:not(:checked) ~ [data-format='multiple-choice'],
+input[type='checkbox'][data-format='multiple-select']:not(:checked) ~ [data-format='multiple-select'],
+input[type='checkbox'][data-format='short-answer']:not(:checked) ~ [data-format='short-answer'],
+input[type='checkbox'][data-format='true-false']:not(:checked) ~ [data-format='true-false'],
+input[type='checkbox'][data-format='fill-in-the-blank']:not(:checked) ~ [data-format='fill-in-the-blank']
+
+      { display: none;}
+    
+
+
     </style>
   </head>
   <body>

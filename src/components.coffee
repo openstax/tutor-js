@@ -8,8 +8,9 @@ React = require('react')
 
 
 
-domify = (source, data) ->
-  source = source.replace(/____(\d+)?/g, '<input type="text"/>')
+domify = (source, data, leaveBlanks) ->
+  unless leaveBlanks
+    source = source.replace(/____(\d+)?/g, '<input type="text"/>')
   template     = Compiler.compile(source)
   dom          = template(data, {hooks: hooks, dom: new DOMHelper()})
   dom
@@ -31,19 +32,49 @@ Exercise = React.createClass
     stem.appendChild(content)
 
 
-makeQuestion = ({config, state}, type=null) ->
-  question = config
-  unless type
-    if Array.isArray(question.items)
-      type = MatchingQuestion
-    else if /____(\d+)?/.test(question.stem)
-      type = BlankQuestion
-    else if question.answers.length > 1 and not prefer_short_answer
-      # Multiple Choice
-      type = MultipleChoiceQuestion
+getQuestionType = (format) ->
+  switch format
+    when 'matching' then MatchingQuestion
+    when 'multiple-choice' then MultipleChoiceQuestion
+    when 'multiple-select' then null
+    when 'short-answer' then SimpleQuestion
+    when 'true-false' then TrueFalseQuestion
+    when 'fill-in-the-blank' then BlankQuestion
+    else throw new Error("Unsupported format type '#{format}'")
+
+  # if Array.isArray(question.items)
+  #   type = MatchingQuestion
+  # else if /____(\d+)?/.test(question.stem)
+  #   type = BlankQuestion
+  # else if question.answers.length > 1 and not prefer_short_answer
+  #   # Multiple Choice
+  #   type = MultipleChoiceQuestion
+  # else
+  #   type = SimpleQuestion
+
+QuestionVariants = React.createClass
+  render: ->
+    {config, state} = @props
+
+    formatCheckboxes = []
+    for format, i in config.formats
+      formatCheckboxes.push(<input type="checkbox" data-format={format}/>)
+      formatCheckboxes.push(format)
+
+    variants = []
+    for format in config.formats
+      type = getQuestionType(format)
+      if type
+        variants.push(<div class="variant" data-format={format}>{type(@props)}</div>)
+
+    if variants.length is 1
+      return variants[0]
     else
-      type = SimpleQuestion
-  type({config, state})
+      <div className="variants">
+        This question has variants. Click to Show
+        {formatCheckboxes}
+        {variants}
+      </div>
 
 ExercisePart = React.createClass
   render: ->
@@ -56,7 +87,7 @@ ExercisePart = React.createClass
 
     <div className="part">
       <div className="background"></div>
-      {makeQuestion {state, config:question} for question in questions}
+      {QuestionVariants {state, config:question} for question in questions}
     </div>
 
   componentDidMount: ->
@@ -80,8 +111,8 @@ BlankQuestion = React.createClass
     {config} = @props
     <div className="question">
       <div className="stem"></div>
-      <input type="text" placeholder={config.short_stem} />
     </div>
+
   componentDidMount: ->
     {config} = @props
     state = @props.state
@@ -122,9 +153,47 @@ MultipleChoiceQuestion = React.createClass
       MultipleChoiceOption({state, answer, questionId, id})
 
     <div className="question">
-      <div className="stem">{config.stem}</div>
+      <div className="stem"></div>
       <ul className="options">{options}</ul>
     </div>
+
+  componentDidMount: ->
+    {config, state} = @props
+    stem = @getDOMNode().querySelector('.stem')
+    content = domify(config.stem, state, true) # true = leaveBlanks
+    stem.appendChild(content)
+
+
+TrueFalseQuestion = React.createClass
+  render: ->
+    {config, state} = @props
+    questionId = "id-#{questionCounter++}"
+    idTrue = "#{questionId}-true"
+    idFalse = "#{questionId}-false"
+
+    <div className="question true-false">
+      <div className="stem"></div>
+      <ul className="options">
+        <li className="option">
+          <input type="radio" name={questionId} id={idTrue} value="true"/>
+          <label htmlFor={idTrue}>True</label>
+        </li>
+        <li className="option">
+          <input type="radio" name={questionId} id={idFalse} value="true"/>
+          <label htmlFor={idFalse}>False</label>
+        </li>
+      </ul>
+    </div>
+
+  componentDidMount: ->
+    {config, state} = @props
+    stem = @getDOMNode().querySelector('.stem')
+    # If there is a blank in the stem then replace it with one of the answers
+    text = config.stem
+    if /____/.test(text)
+      text = text.replace(/____(\d+)?/, config.answers[0].value)
+    content = domify(text, state)
+    stem.appendChild(content)
 
 MatchingQuestion = React.createClass
   render: ->
