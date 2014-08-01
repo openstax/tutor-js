@@ -33,7 +33,9 @@ Exercise = React.createClass
 makeQuestion = ({config, state}, type=null) ->
   question = config
   unless type
-    if /____(\d+)?/.test(question.stem)
+    if Array.isArray(question.items)
+      type = MatchingQuestion
+    else if /____(\d+)?/.test(question.stem)
       type = BlankQuestion
     else if question.answers.length > 1 and not prefer_short_answer
       # Multiple Choice
@@ -123,6 +125,36 @@ MultipleChoiceQuestion = React.createClass
       <ul className="options">{options}</ul>
     </div>
 
+MatchingQuestion = React.createClass
+  render: ->
+    {config} = @props
+    rows = for answer in config.answers
+      <tr>
+        <td className="item"></td>
+        <td className="answer"></td>
+      </tr>
+
+    <table className="question matching">
+      <caption className="stem"></caption>
+      {rows}
+    </table>
+
+  componentDidMount: ->
+    {config, state} = @props
+
+    stem = @getDOMNode().querySelector('caption.stem')
+    domItems = @getDOMNode().querySelectorAll('td.item')
+    domAnswers = @getDOMNode().querySelectorAll('td.answer')
+
+    stem.appendChild(domify(config.stem, state))
+
+    for item, i in config.items
+      content = domify(item, state)
+      domItems[i].appendChild(content)
+
+    for answer, i in config.answers
+      content = domify(answer.content or answer.value, state)
+      domAnswers[i].appendChild(content)
 
 
 module.exports = {Exercise}

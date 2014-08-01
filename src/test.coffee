@@ -49,6 +49,21 @@ module.exports =
       ]
     }
     {
+      background: 'Matching question (for draw-a-line-to-match)'
+      questions: [
+        {
+          formats: ['matching']
+          stem: 'Match the words on the left with words on the right by drawing a line'
+          items: ['drive', 'fly']
+          answers: [
+            { credit: 1, value: 'car' }
+            { credit: 1, value: 'plane'}
+            { credit: 0, value: 'zebra'}
+          ]
+        }
+      ]
+    }
+    {
       background: '''Fill in this table (this is a multi-fill-in-the-blank):
 
         <table>

@@ -1,8 +1,6 @@
-
 React = require('react')
 {Exercise} = require('./components')
 config = require('./test')
-
 
 
 randRange = (min, max) ->
@@ -25,10 +23,6 @@ for key, val of config.logic.outputs
 
 # -------------------------------
 # Generate the HTML
-
-
-
-
 
 root = document.getElementById('exercise')
 root.innerHTML = ''
