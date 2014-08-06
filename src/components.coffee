@@ -3,39 +3,19 @@
 # prefer_short_answer = prompt('Do you prefer short answer questions ("" for no, anything else for yes)', '')
 prefer_short_answer = false
 
-React = require('react')
-{Compiler, DOMHelper, hooks} = require('./htmlbars')
-
-
-
-domify = (source, data, leaveBlanks) ->
-  unless leaveBlanks
-    source = source.replace(/____(\d+)?/g, '<input type="text"/>')
-  template     = Compiler.compile(source)
-  dom          = template(data, {hooks: hooks, dom: new DOMHelper()})
-  dom
-
-
-HTMLBarzipanMixin =
-  # htmlSelectors: {'.foo': (config) -> config.stem}
-  # htmlLeaveBlanks: {'.foo': true}
-  componentDidMount: ->
-    {config, state} = @props
-    for selector, fn of @htmlSelectors or {}
-      node = @getDOMNode().querySelector(selector)
-      content = domify(fn(config), state, @htmlLeaveBlanks?[selector])
-      node.appendChild(content)
+React = require 'react'
+HTMLBarsMixin = require './htmlbars-mixin'
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
   render: ->
     {index, before, after} = @props
     letter = String.fromCharCode(index + 97) # For uppercase use 65
-    <span class="answer-char">{before}{letter}{after}</span>
+    <span className="answer-char">{before}{letter}{after}</span>
 
 
 Exercise = React.createClass
-  mixins: [HTMLBarzipanMixin]
+  mixins: [HTMLBarsMixin]
   htmlSelectors:
     '.background': (config) -> config.background
 
@@ -80,7 +60,7 @@ QuestionVariants = React.createClass
     for format in config.formats
       type = getQuestionType(format)
       if type
-        variants.push(<div class="variant" data-format={format}>{type(@props)}</div>)
+        variants.push(<div className="variant" data-format={format}>{type(@props)}</div>)
 
     if variants.length is 1
       return variants[0]
@@ -92,6 +72,7 @@ QuestionVariants = React.createClass
       </div>
 
 ExercisePart = React.createClass
+  mixins: [HTMLBarsMixin]
   render: ->
     {config, state} = @props
     # A Matching Part does not render each question
@@ -118,11 +99,11 @@ ExercisePart = React.createClass
             answer = question.answers[0].content or question.answers[0].value
             background = background.replace("____#{i + 1}", answer)
 
-    content = domify(background, state)
+    content = @domify(background, state)
     stem.appendChild(content)
 
 BlankQuestion = React.createClass
-  mixins: [HTMLBarzipanMixin]
+  mixins: [HTMLBarsMixin]
   htmlSelectors:
     '.stem': (config) -> config.stem
 
@@ -143,14 +124,14 @@ SimpleQuestion = React.createClass
 
 
 SimpleMultipleChoiceOption = React.createClass
-  mixins: [HTMLBarzipanMixin]
+  mixins: [HTMLBarsMixin]
   htmlSelectors:
     '.templated-todo': (config) -> config.content or config.value
 
   render: ->
     {config, state, questionId, index} = @props
     id = config.id
-    value = domify(config.value, state).textContent
+    value = @domify(config.value, state).textContent
     <span>
       <span className="templated-todo"></span>
     </span>
@@ -161,7 +142,8 @@ MultiMultipleChoiceOption = React.createClass
     vals = []
     for id, i in idIndices
       unless config.value.indexOf(id) < 0
-        vals.push <AnswerLabeler before="(" after=")" index={config.value.indexOf(id)}/>
+        index = config.value.indexOf(id)
+        vals.push <AnswerLabeler key={index} before="(" after=")" index={index}/>
     <span className="multi">{vals}</span>
 
 MultipleChoiceOption = React.createClass
@@ -175,8 +157,8 @@ MultipleChoiceOption = React.createClass
     else
       SimpleMultipleChoiceOption(@props)
 
-    id = config.id
-    <li className="option">
+    id = "#{questionId}-#{config.id}"
+    <li key={id} className="option">
       <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <input type="radio" name={questionId} id={id} value={JSON.stringify(config.value)}/>
       <label htmlFor={id}>{option}</label>
@@ -186,7 +168,7 @@ MultipleChoiceOption = React.createClass
 
 questionCounter = 0
 MultipleChoiceQuestion = React.createClass
-  mixins: [HTMLBarzipanMixin]
+  mixins: [HTMLBarsMixin]
   htmlSelectors:
     '.stem': (config) -> config.stem
 
@@ -195,13 +177,12 @@ MultipleChoiceQuestion = React.createClass
 
   render: ->
     {config, state} = @props
-    questionId = "id-#{questionCounter++}"
-
+    questionId = config.id or "id-#{questionCounter++}"
     options = for answer, index in config.answers
       answer.id ?= "#{questionId}-#{index}"
       MultipleChoiceOption({state, config:answer, questionId, index})
 
-    <div className="question">
+    <div key={questionId} className="question">
       <div className="stem"></div>
       <ul className="options">{options}</ul>
     </div>
@@ -211,11 +192,10 @@ MultipleChoiceQuestion = React.createClass
 MultiSelectOption = React.createClass
   render: ->
     {config, state, questionId, index} = @props
-
     option = SimpleMultipleChoiceOption(@props)
+    id = "#{questionId}-#{config.id}"
 
-    id = config.id
-    <li className="option">
+    <li key={id} className="option">
       <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <input type="checkbox" name={questionId} id={id} value={config.value}/>
       <label htmlFor={id}>{option}</label>
@@ -223,7 +203,7 @@ MultiSelectOption = React.createClass
 
 
 MultiSelectQuestion = React.createClass
-  mixins: [HTMLBarzipanMixin]
+  mixins: [HTMLBarsMixin]
   htmlSelectors:
     '.stem': (config) -> config.stem
 
@@ -232,7 +212,7 @@ MultiSelectQuestion = React.createClass
 
   render: ->
     {config, state} = @props
-    questionId = "id-#{questionCounter++}"
+    questionId = config.id or "id-#{questionCounter++}"
 
     options = []
 
@@ -240,7 +220,7 @@ MultiSelectQuestion = React.createClass
       unless Array.isArray(answer.value)
         options.push MultiSelectOption({state, config:answer, questionId, index})
 
-    <div className="question">
+    <div key={questionId} className="question">
       <div className="stem"></div>
       <div>Check all that apply:</div>
       <ul className="options">{options}</ul>
@@ -249,7 +229,7 @@ MultiSelectQuestion = React.createClass
 
 
 TrueFalseQuestion = React.createClass
-  mixins: [HTMLBarzipanMixin]
+  mixins: [HTMLBarsMixin]
   htmlSelectors:
     '.stem': (config) ->
       # If there is a blank in the stem then replace it with one of the answers
@@ -260,7 +240,7 @@ TrueFalseQuestion = React.createClass
 
   render: ->
     {config, state} = @props
-    questionId = "id-#{questionCounter++}"
+    questionId = config.id or "id-#{questionCounter++}"
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
 
@@ -280,14 +260,14 @@ TrueFalseQuestion = React.createClass
 
 
 MatchingQuestion = React.createClass
-  mixins: [HTMLBarzipanMixin]
+  mixins: [HTMLBarsMixin]
   htmlSelectors:
     'caption.stem': (config) -> config.stem
 
   render: ->
     {config} = @props
     rows = for answer in config.answers
-      <tr>
+      <tr key={answer.id}>
         <td className="item"></td>
         <td className="answer"></td>
       </tr>
@@ -304,12 +284,12 @@ MatchingQuestion = React.createClass
     domAnswers = @getDOMNode().querySelectorAll('td.answer')
 
     for item, i in config.items
-      content = domify(item, state)
+      content = @domify(item, state)
       domItems[i].appendChild(content)
 
     for answer, i in config.answers
-      content = domify(answer.content or answer.value, state)
+      content = @domify(answer.content or answer.value, state)
       domAnswers[i].appendChild(content)
 
 
-module.exports = {Exercise}
+module.exports = {Exercise, getQuestionType}
