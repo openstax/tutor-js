@@ -26,6 +26,14 @@ HTMLBarzipanMixin =
       content = domify(fn(config), state, @htmlLeaveBlanks?[selector])
       node.appendChild(content)
 
+# Converts an index to `a-z` for question answers
+AnswerLabeler = React.createClass
+  render: ->
+    {index, before, after} = @props
+    letter = String.fromCharCode(index + 97) # For uppercase use 65
+    <span class="answer-char">{before}{letter}{after}</span>
+
+
 Exercise = React.createClass
   mixins: [HTMLBarzipanMixin]
   htmlSelectors:
@@ -132,18 +140,49 @@ SimpleQuestion = React.createClass
       <input type="text" placeholder={config.short_stem} />
     </div>
 
-MultipleChoiceOption = React.createClass
+
+
+SimpleMultipleChoiceOption = React.createClass
   mixins: [HTMLBarzipanMixin]
   htmlSelectors:
-    'label': (config) -> config.content or config.value
+    '.templated-todo': (config) -> config.content or config.value
 
   render: ->
-    {state, config, questionId, id} = @props
+    {config, state, questionId, index} = @props
+    id = config.id
     value = domify(config.value, state).textContent
+    <span>
+      <span className="templated-todo"></span>
+    </span>
+
+MultiMultipleChoiceOption = React.createClass
+  render: ->
+    {config, idIndices} = @props
+    vals = []
+    for id, i in idIndices
+      unless config.value.indexOf(id) < 0
+        vals.push <AnswerLabeler before="(" after=")" index={config.value.indexOf(id)}/>
+    <span className="multi">{vals}</span>
+
+MultipleChoiceOption = React.createClass
+  render: ->
+    {config, state, questionId, index} = @props
+
+    option = if Array.isArray(config.value)
+      @props.idIndices = for id in config.value
+        id
+      MultiMultipleChoiceOption(@props)
+    else
+      SimpleMultipleChoiceOption(@props)
+
+    id = config.id
     <li className="option">
-      <input type="radio" name={questionId} id={id} value={value}/>
-      <label htmlFor={id}></label>
+      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
+      <input type="radio" name={questionId} id={id} value={JSON.stringify(config.value)}/>
+      <label htmlFor={id}>{option}</label>
     </li>
+
+
 
 questionCounter = 0
 MultipleChoiceQuestion = React.createClass
@@ -157,9 +196,10 @@ MultipleChoiceQuestion = React.createClass
   render: ->
     {config, state} = @props
     questionId = "id-#{questionCounter++}"
-    options = for answer, id in config.answers
-      id = "#{questionId}-#{id}"
-      MultipleChoiceOption({state, config:answer, questionId, id})
+
+    options = for answer, index in config.answers
+      answer.id ?= "#{questionId}-#{index}"
+      MultipleChoiceOption({state, config:answer, questionId, index})
 
     <div className="question">
       <div className="stem"></div>

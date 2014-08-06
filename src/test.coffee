@@ -38,7 +38,17 @@ module.exports =
           short_stem: 'Enter your answer in N'
           answers: [
             { credit: 1, value: '{{ ship_force }}',          content: '{{ ship_force }} N' }
-            { credit: 0, value: '{{ ship_mass_div_speed }}', content: '{{ ship_mass_div_speed }} N', hint: 'Remember 1 Newton (N) is 1 kg*m/s' }
+            { credit: 0, value: '{{ ship_mass }}', content: '{{ ship_mass }} N', hint: 'Remember 1 Newton (N) is 1 kg*m/s' }
+          ]
+        }
+        {
+          formats: ['short-answer', 'multiple-choice']
+          stem: 'What is the force if it slams into a wall? (this has (a) and (b) options)'
+          short_stem: 'Enter your answer in N'
+          answers: [
+            { id: 'id123', credit: 0.5, value: '{{ ship_force }}',          content: '{{ ship_force }} N' }
+            { id: 'id456', credit: 0.5, value: '0{{ ship_force }}', content: '{{ ship_force }} + 0 N' }
+            { credit: 1, value: ['id456', 'id123'] }
           ]
         }
       ]
