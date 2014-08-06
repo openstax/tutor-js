@@ -16,20 +16,27 @@ domify = (source, data, leaveBlanks) ->
   dom
 
 
+HTMLBarzipanMixin =
+  # htmlSelectors: {'.foo': (config) -> config.stem}
+  # htmlLeaveBlanks: {'.foo': true}
+  componentDidMount: ->
+    {config, state} = @props
+    for selector, fn of @htmlSelectors or {}
+      node = @getDOMNode().querySelector(selector)
+      content = domify(fn(config), state, @htmlLeaveBlanks?[selector])
+      node.appendChild(content)
 
 Exercise = React.createClass
+  mixins: [HTMLBarzipanMixin]
+  htmlSelectors:
+    '.background': (config) -> config.background
+
   render: ->
     {config, state} = @props
     <div className="exercise">
       <div className="background"></div>
       {ExercisePart {state, config:part} for part in config.parts}
     </div>
-
-  componentDidMount: ->
-    {config, state} = @props
-    stem = @getDOMNode().querySelector('.background')
-    content = domify(config.background, state)
-    stem.appendChild(content)
 
 
 getQuestionType = (format) ->
@@ -107,19 +114,15 @@ ExercisePart = React.createClass
     stem.appendChild(content)
 
 BlankQuestion = React.createClass
+  mixins: [HTMLBarzipanMixin]
+  htmlSelectors:
+    '.stem': (config) -> config.stem
+
   render: ->
     {config} = @props
     <div className="question">
       <div className="stem"></div>
     </div>
-
-  componentDidMount: ->
-    {config} = @props
-    state = @props.state
-    stem = @getDOMNode().querySelector('.stem')
-    content = domify(config.stem, state)
-    stem.appendChild(content)
-
 
 SimpleQuestion = React.createClass
   render: ->
@@ -130,41 +133,50 @@ SimpleQuestion = React.createClass
     </div>
 
 MultipleChoiceOption = React.createClass
+  mixins: [HTMLBarzipanMixin]
+  htmlSelectors:
+    'label': (config) -> config.content or config.value
+
   render: ->
-    {state, answer, questionId, id} = @props
-    value = domify(answer.value, state).textContent
+    {state, config, questionId, id} = @props
+    value = domify(config.value, state).textContent
     <li className="option">
       <input type="radio" name={questionId} id={id} value={value}/>
       <label htmlFor={id}></label>
     </li>
-  componentDidMount: ->
-    {answer, state} = @props
-    label = @getDOMNode().querySelector('label')
-    content = domify(answer.content or answer.value, state)
-    label.appendChild(content)
 
 questionCounter = 0
 MultipleChoiceQuestion = React.createClass
+  mixins: [HTMLBarzipanMixin]
+  htmlSelectors:
+    '.stem': (config) -> config.stem
+
+  htmlLeaveBlanks:
+    '.stem': true
+
   render: ->
     {config, state} = @props
     questionId = "id-#{questionCounter++}"
     options = for answer, id in config.answers
       id = "#{questionId}-#{id}"
-      MultipleChoiceOption({state, answer, questionId, id})
+      MultipleChoiceOption({state, config:answer, questionId, id})
 
     <div className="question">
       <div className="stem"></div>
       <ul className="options">{options}</ul>
     </div>
 
-  componentDidMount: ->
-    {config, state} = @props
-    stem = @getDOMNode().querySelector('.stem')
-    content = domify(config.stem, state, true) # true = leaveBlanks
-    stem.appendChild(content)
-
 
 TrueFalseQuestion = React.createClass
+  mixins: [HTMLBarzipanMixin]
+  htmlSelectors:
+    '.stem': (config) ->
+      # If there is a blank in the stem then replace it with one of the answers
+      text = config.stem
+      if /____/.test(text)
+        text = text.replace(/____(\d+)?/, config.answers[0].value)
+      text
+
   render: ->
     {config, state} = @props
     questionId = "id-#{questionCounter++}"
@@ -185,17 +197,12 @@ TrueFalseQuestion = React.createClass
       </ul>
     </div>
 
-  componentDidMount: ->
-    {config, state} = @props
-    stem = @getDOMNode().querySelector('.stem')
-    # If there is a blank in the stem then replace it with one of the answers
-    text = config.stem
-    if /____/.test(text)
-      text = text.replace(/____(\d+)?/, config.answers[0].value)
-    content = domify(text, state)
-    stem.appendChild(content)
 
 MatchingQuestion = React.createClass
+  mixins: [HTMLBarzipanMixin]
+  htmlSelectors:
+    'caption.stem': (config) -> config.stem
+
   render: ->
     {config} = @props
     rows = for answer in config.answers
@@ -212,11 +219,8 @@ MatchingQuestion = React.createClass
   componentDidMount: ->
     {config, state} = @props
 
-    stem = @getDOMNode().querySelector('caption.stem')
     domItems = @getDOMNode().querySelectorAll('td.item')
     domAnswers = @getDOMNode().querySelectorAll('td.answer')
-
-    stem.appendChild(domify(config.stem, state))
 
     for item, i in config.items
       content = domify(item, state)
