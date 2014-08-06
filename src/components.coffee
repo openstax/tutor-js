@@ -51,7 +51,7 @@ getQuestionType = (format) ->
   switch format
     when 'matching' then MatchingQuestion
     when 'multiple-choice' then MultipleChoiceQuestion
-    when 'multiple-select' then null
+    when 'multiple-select' then MultiSelectQuestion
     when 'short-answer' then SimpleQuestion
     when 'true-false' then TrueFalseQuestion
     when 'fill-in-the-blank' then BlankQuestion
@@ -205,6 +205,47 @@ MultipleChoiceQuestion = React.createClass
       <div className="stem"></div>
       <ul className="options">{options}</ul>
     </div>
+
+
+
+MultiSelectOption = React.createClass
+  render: ->
+    {config, state, questionId, index} = @props
+
+    option = SimpleMultipleChoiceOption(@props)
+
+    id = config.id
+    <li className="option">
+      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
+      <input type="checkbox" name={questionId} id={id} value={config.value}/>
+      <label htmlFor={id}>{option}</label>
+    </li>
+
+
+MultiSelectQuestion = React.createClass
+  mixins: [HTMLBarzipanMixin]
+  htmlSelectors:
+    '.stem': (config) -> config.stem
+
+  htmlLeaveBlanks:
+    '.stem': true
+
+  render: ->
+    {config, state} = @props
+    questionId = "id-#{questionCounter++}"
+
+    options = []
+
+    for answer, index in config.answers
+      unless Array.isArray(answer.value)
+        options.push MultiSelectOption({state, config:answer, questionId, index})
+
+    <div className="question">
+      <div className="stem"></div>
+      <div>Check all that apply:</div>
+      <ul className="options">{options}</ul>
+    </div>
+
 
 
 TrueFalseQuestion = React.createClass

@@ -42,7 +42,7 @@ module.exports =
           ]
         }
         {
-          formats: ['short-answer', 'multiple-choice']
+          formats: ['short-answer', 'multiple-choice', 'multiple-select']
           stem: 'What is the force if it slams into a wall? (this has (a) and (b) options)'
           short_stem: 'Enter your answer in N'
           answers: [
