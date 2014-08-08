@@ -71,7 +71,7 @@ QuestionVariants = React.createClass
       <div className="variants">
         {formatCheckboxes}
         <div className="options">
-          This question can be shown in several ways. Click to Show
+          The question below can be shown in several ways. Click to Show
           {formatLabels}
         </div>
 
