@@ -33,7 +33,7 @@ module.exports =
           ]
         }
         {
-          formats: ['short-answer', 'multiple-choice']
+          formats: ['multiple-choice', 'short-answer']
           stem: 'What is the force if it slams into a wall?'
           short_stem: 'Enter your answer in N'
           answers: [
@@ -42,7 +42,7 @@ module.exports =
           ]
         }
         {
-          formats: ['short-answer', 'multiple-choice', 'multiple-select']
+          formats: ['multiple-select', 'multiple-choice', 'short-answer']
           stem: 'What is the force if it slams into a wall? (this has (a) and (b) options)'
           short_stem: 'Enter your answer in N'
           answers: [
@@ -58,7 +58,7 @@ module.exports =
       background: 'Simple fill-in-the-blank questions'
       questions: [
         {
-          formats: ['multiple-choice', 'fill-in-the-blank', 'true-false']
+          formats: ['fill-in-the-blank', 'true-false', 'multiple-choice']
           stem: 'If the ship is traveling {{ ship_speed }} m/s and slams into a wall, the impact force is ____ N.'
           answers: [
             { credit: 1, value: '{{ ship_force }}' }

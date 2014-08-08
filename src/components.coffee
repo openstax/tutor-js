@@ -78,6 +78,10 @@ QuestionVariants = React.createClass
         {variants}
       </div>
 
+  componentDidMount: ->
+    # Display the first variant (if there are multiple)
+    @getDOMNode().querySelector('input[type="checkbox"], input[type="radio"]')?.checked = true
+
 ExercisePart = React.createClass
   mixins: [HTMLBarsMixin]
   render: ->
