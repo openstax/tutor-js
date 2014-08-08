@@ -1,0 +1,108 @@
+.x-variant(@name) {
+  input[type='checkbox'][data-format=@{name}]:not(:checked) ~ [data-format=@{name}] {
+    display: none;
+  }
+
+  input[type='checkbox'][data-format=@{name}]:checked ~ .options label[data-format=@{name}] {
+    background-color: #ccc;
+  }
+}
+
+.exercise {
+  counter-reset: part, question 1;
+
+  font-family: sans-serif;
+
+  .part {
+    counter-increment: part;
+    // counter-reset: question;
+    &::before {
+      content: 'Part ' counter(part);
+      font-size: x-large;
+      font-weight: bold;
+      display: block;
+    }
+
+    .variants {
+      counter-increment: question;
+      .question { counter-increment: none; }
+
+      > input[type='checkbox'] { display: none; }
+
+      > .options {
+
+        background-color: beige;
+        margin: .5em;
+
+        label {
+          display: inline-block;
+          padding: 0 .5em;
+          margin: .25em .25em;
+          cursor: pointer;
+          border: 1px solid #ccc;
+          font-weight: bold;
+        }
+      }
+
+      .x-variant('matching');
+      .x-variant('multiple-choice');
+      .x-variant('multiple-select');
+      .x-variant('short-answer');
+      .x-variant('true-false');
+      .x-variant('fill-in-the-blank');
+
+    }
+
+    .question {
+      counter-increment: question;
+      counter-reset: answer;
+
+      .stem {
+        &::before {
+          content: counter(question) '. ';
+          font-size: large;
+          font-weight: bold;
+          display: inline;
+        }
+      }
+    }
+
+    // For matching questions
+    table.question {
+      min-width: 500px;
+
+      border-spacing: 10px;
+
+      td.item:not(:empty) {
+        text-align: right;
+        &::after {
+          content: '\25cb';
+          font-size: x-large;
+          margin-left: 1em;
+          margin-right: 4em;
+        }
+      }
+      td.answer {
+        text-align: left;
+        &::before {
+          content: '\25cb'; // '\25cf'
+          font-size: x-large;
+          margin-right: 1em;
+          margin-left: 4em;
+        }
+      }
+
+    }
+
+
+  }
+}
+
+.question { padding-top: 1em; }
+
+input[type='text'] { width: 200px; }
+
+*::before { font-weight: bold; }
+
+.stem::before { content: 'Stem: '; }
+/*.choice::before { content: 'Choice: '; }*/

@@ -1,0 +1,115 @@
+.exercise {
+  counter-reset: part, question 1;
+  font-family: sans-serif;
+}
+.exercise .part {
+  counter-increment: part;
+}
+.exercise .part::before {
+  content: 'Part ' counter(part);
+  font-size: x-large;
+  font-weight: bold;
+  display: block;
+}
+.exercise .part .variants {
+  counter-increment: question;
+}
+.exercise .part .variants .question {
+  counter-increment: none;
+}
+.exercise .part .variants > input[type='checkbox'] {
+  display: none;
+}
+.exercise .part .variants > .options {
+  background-color: beige;
+  margin: .5em;
+}
+.exercise .part .variants > .options label {
+  display: inline-block;
+  padding: 0 .5em;
+  margin: .25em .25em;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  font-weight: bold;
+}
+.exercise .part .variants input[type='checkbox'][data-format='matching']:not(:checked) ~ [data-format='matching'] {
+  display: none;
+}
+.exercise .part .variants input[type='checkbox'][data-format='matching']:checked ~ .options label[data-format='matching'] {
+  background-color: #ccc;
+}
+.exercise .part .variants input[type='checkbox'][data-format='multiple-choice']:not(:checked) ~ [data-format='multiple-choice'] {
+  display: none;
+}
+.exercise .part .variants input[type='checkbox'][data-format='multiple-choice']:checked ~ .options label[data-format='multiple-choice'] {
+  background-color: #ccc;
+}
+.exercise .part .variants input[type='checkbox'][data-format='multiple-select']:not(:checked) ~ [data-format='multiple-select'] {
+  display: none;
+}
+.exercise .part .variants input[type='checkbox'][data-format='multiple-select']:checked ~ .options label[data-format='multiple-select'] {
+  background-color: #ccc;
+}
+.exercise .part .variants input[type='checkbox'][data-format='short-answer']:not(:checked) ~ [data-format='short-answer'] {
+  display: none;
+}
+.exercise .part .variants input[type='checkbox'][data-format='short-answer']:checked ~ .options label[data-format='short-answer'] {
+  background-color: #ccc;
+}
+.exercise .part .variants input[type='checkbox'][data-format='true-false']:not(:checked) ~ [data-format='true-false'] {
+  display: none;
+}
+.exercise .part .variants input[type='checkbox'][data-format='true-false']:checked ~ .options label[data-format='true-false'] {
+  background-color: #ccc;
+}
+.exercise .part .variants input[type='checkbox'][data-format='fill-in-the-blank']:not(:checked) ~ [data-format='fill-in-the-blank'] {
+  display: none;
+}
+.exercise .part .variants input[type='checkbox'][data-format='fill-in-the-blank']:checked ~ .options label[data-format='fill-in-the-blank'] {
+  background-color: #ccc;
+}
+.exercise .part .question {
+  counter-increment: question;
+  counter-reset: answer;
+}
+.exercise .part .question .stem::before {
+  content: counter(question) '. ';
+  font-size: large;
+  font-weight: bold;
+  display: inline;
+}
+.exercise .part table.question {
+  min-width: 500px;
+  border-spacing: 10px;
+}
+.exercise .part table.question td.item:not(:empty) {
+  text-align: right;
+}
+.exercise .part table.question td.item:not(:empty)::after {
+  content: '\25cb';
+  font-size: x-large;
+  margin-left: 1em;
+  margin-right: 4em;
+}
+.exercise .part table.question td.answer {
+  text-align: left;
+}
+.exercise .part table.question td.answer::before {
+  content: '\25cb';
+  font-size: x-large;
+  margin-right: 1em;
+  margin-left: 4em;
+}
+.question {
+  padding-top: 1em;
+}
+input[type='text'] {
+  width: 200px;
+}
+*::before {
+  font-weight: bold;
+}
+.stem::before {
+  content: 'Stem: ';
+}
+/*.choice::before { content: 'Choice: '; }*/

@@ -81,11 +81,12 @@ module.exports =
         {
           formats: ['matching']
           stem: 'Match the words on the left with words on the right by drawing a line'
-          items: ['drive', 'fly']
+          items: ['foot', 'head', 'hand']
           answers: [
-            { credit: 1, value: 'car' }
-            { credit: 1, value: 'plane'}
-            { credit: 0, value: 'zebra'}
+            { credit: 1, value: 'sock' }
+            { credit: 1, value: 'hat'}
+            { credit: 1, value: 'glove'}
+            { credit: 0, value: 'rocket ship'}
           ]
         }
       ]

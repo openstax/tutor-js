@@ -47,14 +47,17 @@ getQuestionType = (format) ->
   # else
   #   type = SimpleQuestion
 
+variantCounter = 0
 QuestionVariants = React.createClass
   render: ->
     {config, state} = @props
 
-    formatCheckboxes = []
-    for format, i in config.formats
-      formatCheckboxes.push(<input type="checkbox" data-format={format}/>)
-      formatCheckboxes.push(format)
+    idPrefix = "id-variants-#{variantCounter++}" # HACK
+
+    formatCheckboxes = for format, i in config.formats
+      <input type="checkbox" data-format={format} id={"#{idPrefix}-#{format}"}/>
+    formatLabels = for format, i in config.formats
+      <label data-format={format} htmlFor={"#{idPrefix}-#{format}"}>{format}</label>
 
     variants = []
     for format in config.formats
@@ -66,8 +69,12 @@ QuestionVariants = React.createClass
       return variants[0]
     else
       <div className="variants">
-        This question can be shown in several ways. Click to Show
         {formatCheckboxes}
+        <div className="options">
+          This question can be shown in several ways. Click to Show
+          {formatLabels}
+        </div>
+
         {variants}
       </div>
 
@@ -159,8 +166,8 @@ MultipleChoiceOption = React.createClass
 
     id = "#{questionId}-#{config.id}"
     <li key={id} className="option">
-      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <input type="radio" name={questionId} id={id} value={JSON.stringify(config.value)}/>
+      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <label htmlFor={id}>{option}</label>
     </li>
 
