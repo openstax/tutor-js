@@ -203,8 +203,8 @@ MultiSelectOption = React.createClass
     id = "#{questionId}-#{config.id}"
 
     <li key={id} className="option">
-      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <input type="checkbox" name={questionId} id={id} value={config.value}/>
+      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <label htmlFor={id}>{option}</label>
     </li>
 

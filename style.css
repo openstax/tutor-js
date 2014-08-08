@@ -78,6 +78,12 @@
   font-weight: bold;
   display: inline;
 }
+.exercise .part .question .option input:checked ~ label {
+  background-color: #ccc;
+}
+.exercise .part .question .option label {
+  cursor: pointer;
+}
 .exercise .part table.question {
   min-width: 500px;
   border-spacing: 10px;
