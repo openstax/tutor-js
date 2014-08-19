@@ -16,10 +16,10 @@ AnswerLabeler = React.createClass
 Exercise = React.createClass
 
   render: ->
-    {config, state} = @props
+    {config} = @props
     <div className="exercise">
       <div className="background" dangerouslySetInnerHTML={__html:config.background}></div>
-      {ExercisePart {state, config:part} for part in config.parts}
+      {ExercisePart {config:part} for part in config.parts}
     </div>
 
 
@@ -36,7 +36,7 @@ getQuestionType = (format) ->
 variantCounter = 0
 QuestionVariants = React.createClass
   render: ->
-    {config, state} = @props
+    {config} = @props
 
     idPrefix = "id-variants-#{variantCounter++}" # HACK
 
@@ -72,13 +72,13 @@ QuestionVariants = React.createClass
 
 ExercisePart = React.createClass
   render: ->
-    {config, state} = @props
+    {config} = @props
 
     questions = config.questions
 
     <div className="part">
       <div className="background" dangerouslySetInnerHTML={__html:config.background}></div>
-      {QuestionVariants {state, config:question} for question in questions}
+      {QuestionVariants {config:question} for question in questions}
     </div>
 
 BlankQuestion = React.createClass
@@ -100,7 +100,7 @@ SimpleQuestion = React.createClass
 
 SimpleMultipleChoiceOption = React.createClass
   render: ->
-    {config, state, questionId, index} = @props
+    {config, questionId, index} = @props
     id = config.id
 
     <span className="templated-todo" dangerouslySetInnerHTML={__html:config.content or config.value}>
@@ -118,7 +118,7 @@ MultiMultipleChoiceOption = React.createClass
 
 MultipleChoiceOption = React.createClass
   render: ->
-    {config, state, questionId, index} = @props
+    {config, questionId, index} = @props
 
     option = if Array.isArray(config.value)
       @props.idIndices = for id in config.value
@@ -140,11 +140,11 @@ questionCounter = 0
 MultipleChoiceQuestion = React.createClass
 
   render: ->
-    {config, state} = @props
+    {config} = @props
     questionId = config.id or "id-#{questionCounter++}"
     options = for answer, index in config.answers
       answer.id ?= "#{questionId}-#{index}"
-      MultipleChoiceOption({state, config:answer, questionId, index})
+      MultipleChoiceOption({config:answer, questionId, index})
 
     <div key={questionId} className="question">
       <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
@@ -155,7 +155,7 @@ MultipleChoiceQuestion = React.createClass
 
 MultiSelectOption = React.createClass
   render: ->
-    {config, state, questionId, index} = @props
+    {config, questionId, index} = @props
     option = SimpleMultipleChoiceOption(@props)
     id = "#{questionId}-#{config.id}"
 
@@ -168,14 +168,14 @@ MultiSelectOption = React.createClass
 
 MultiSelectQuestion = React.createClass
   render: ->
-    {config, state} = @props
+    {config} = @props
     questionId = config.id or "id-#{questionCounter++}"
 
     options = []
 
     for answer, index in config.answers
       unless Array.isArray(answer.value)
-        options.push MultiSelectOption({state, config:answer, questionId, index})
+        options.push MultiSelectOption({config:answer, questionId, index})
 
     <div key={questionId} className="question">
       <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
@@ -187,7 +187,7 @@ MultiSelectQuestion = React.createClass
 
 TrueFalseQuestion = React.createClass
   render: ->
-    {config, state} = @props
+    {config} = @props
     questionId = config.id or "id-#{questionCounter++}"
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
