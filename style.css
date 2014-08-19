@@ -84,27 +84,28 @@
 .exercise .part .question .option label {
   cursor: pointer;
 }
-.exercise .part table.question {
+.exercise .part .matching > table {
   min-width: 500px;
   border-spacing: 10px;
 }
-.exercise .part table.question td.item:not(:empty) {
+.exercise .part .matching > table td.item:not(:empty) {
   text-align: right;
 }
-.exercise .part table.question td.item:not(:empty)::after {
+.exercise .part .matching > table td.item:not(:empty)::after {
   content: '\25cb';
   font-size: x-large;
   margin-left: 1em;
-  margin-right: 4em;
 }
-.exercise .part table.question td.answer {
+.exercise .part .matching > table td.spacer {
+  width: 100px;
+}
+.exercise .part .matching > table td.answer {
   text-align: left;
 }
-.exercise .part table.question td.answer::before {
+.exercise .part .matching > table td.answer::before {
   content: '\25cb';
   font-size: x-large;
   margin-right: 1em;
-  margin-left: 4em;
 }
 .question {
   padding-top: 1em;

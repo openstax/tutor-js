@@ -8,4 +8,13 @@ Compiler = requireModule('htmlbars-compiler/compiler')
 {hooks} = requireModule('htmlbars-runtime')
 {DOMHelper} = requireModule('morph')
 
-module.exports = {Compiler, hooks, DOMHelper}
+_templates = {}
+
+module.exports = (source) ->
+
+  # Cache the template
+  _templates[source] ?= Compiler.compile(source)
+  template = _templates[source]
+
+  (data) ->
+    template(data, {hooks: hooks, dom: new DOMHelper()})

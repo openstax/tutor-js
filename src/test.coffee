@@ -91,23 +91,23 @@ module.exports =
         }
       ]
     }
-    {
-      background: '''Fill in this table (this is a multi-fill-in-the-blank):
-
-        <table>
-          <tr><th>Time</th><th>Distance</th><th>Velocity</th></tr>
-          <tr><td>t<sub>0</sub></td><td>____1</td><td>____2</td></tr>
-          <tr><td>t<sub>1</sub></td><td>____3</td><td>____4</td></tr>
-          <tr><td>t<sub>2</sub></td><td>____5</td><td>____6</td></tr>
-        </table>
-      '''
-      questions: [
-        { answers: [{ credit: 1, value: 0 }] }
-        { answers: [{ credit: 1, value: -1, content: '{{ ship_mass }}' }] }
-        { answers: [{ credit: 1, value: '{{ ship_force }}' }] }
-        { answers: [{ credit: 1, value: 10, content: '{{ ship_speed }}' }] }
-        { answers: [{ credit: 1, value: 100, content: '{{ ship_force }}' }] }
-        { answers: [{ credit: 1, value: 1000, content: '{{ ship_mass_grams }}' }] }
-      ]
-    }
+    # {
+    #   background: '''Fill in this table (this is a multi-fill-in-the-blank):
+    #
+    #     <table>
+    #       <tr><th>Time</th><th>Distance</th><th>Velocity</th></tr>
+    #       <tr><td>t<sub>0</sub></td><td>____1</td><td>____2</td></tr>
+    #       <tr><td>t<sub>1</sub></td><td>____3</td><td>____4</td></tr>
+    #       <tr><td>t<sub>2</sub></td><td>____5</td><td>____6</td></tr>
+    #     </table>
+    #   '''
+    #   questions: [
+    #     { answers: [{ credit: 1, value: 0 }] }
+    #     { answers: [{ credit: 1, value: -1, content: '{{ ship_mass }}' }] }
+    #     { answers: [{ credit: 1, value: '{{ ship_force }}' }] }
+    #     { answers: [{ credit: 1, value: 10, content: '{{ ship_speed }}' }] }
+    #     { answers: [{ credit: 1, value: 100, content: '{{ ship_force }}' }] }
+    #     { answers: [{ credit: 1, value: 1000, content: '{{ ship_mass_grams }}' }] }
+    #   ]
+    # }
   ]

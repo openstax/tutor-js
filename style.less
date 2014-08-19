@@ -74,7 +74,7 @@
     }
 
     // For matching questions
-    table.question {
+    .matching > table {
       min-width: 500px;
 
       border-spacing: 10px;
@@ -85,16 +85,15 @@
           content: '\25cb';
           font-size: x-large;
           margin-left: 1em;
-          margin-right: 4em;
         }
       }
+      td.spacer { width: 100px; }
       td.answer {
         text-align: left;
         &::before {
           content: '\25cb'; // '\25cf'
           font-size: x-large;
           margin-right: 1em;
-          margin-left: 4em;
         }
       }
 
