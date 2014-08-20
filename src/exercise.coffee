@@ -33,8 +33,15 @@ transformToString = (val, state) ->
   DIV.appendChild(fragment)
   DIV.innerHTML
 
+
+ids = 0
+
 barsify = (obj) ->
   if typeof obj is 'object'
+
+    # Add Id's to objects unless the obj is an array or it is a multiselect option `(a) and (b)`
+    obj.id ?= "id-#{ids++}" unless Array.isArray(obj) or Array.isArray(obj.value)
+
     if obj.formats
       # Build each variant
       obj.variants = {}
@@ -54,6 +61,9 @@ barsify = (obj) ->
               stem: obj.stem.replace(/____/, '<input type="text"/>')
               answers: obj.answers
             o
+
+        # Make sure each question has an id
+        variant.id = "variantid-#{ids++}"
 
         obj.variants[format] = variant
 

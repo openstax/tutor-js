@@ -4,6 +4,7 @@
 prefer_short_answer = false
 
 React = require 'react'
+AnswerStore = require './answer-store'
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
@@ -88,14 +89,27 @@ BlankQuestion = React.createClass
       <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
     </div>
 
+  componentDidMount: ->
+    # Find the input box and attach listeners to it
+    input = @getDOMNode().querySelector('input')
+    input.onkeyup = input.onblur = =>
+      AnswerStore.answerQuestion(@props.config.id, input.value) if input.value
+
+
 SimpleQuestion = React.createClass
   render: ->
     {config} = @props
     <div className="question">
       <div className="stem">{config.stem}</div>
-      <input type="text" placeholder={config.short_stem} />
+      <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange />
     </div>
 
+  onChange: ->
+    val = @refs.prompt.getDOMNode().value
+    if val
+      AnswerStore.answerQuestion(@props.config.id, val)
+    else
+      AnswerStore.answerQuestion(@props.config.id, undefined)
 
 
 SimpleMultipleChoiceOption = React.createClass
@@ -129,21 +143,25 @@ MultipleChoiceOption = React.createClass
 
     id = "#{questionId}-#{config.id}"
     <li key={id} className="option">
-      <input type="radio" name={questionId} id={id} value={JSON.stringify(config.value)}/>
+      <input type="radio"
+        name={questionId}
+        id={id}
+        value={JSON.stringify(config.value)}
+        onChange=@onChange
+      />
       <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <label htmlFor={id}>{option}</label>
     </li>
 
+  onChange: ->
+    AnswerStore.answerQuestion(@props.questionId, @props.config.id or @props.config.value)
 
 
-questionCounter = 0
 MultipleChoiceQuestion = React.createClass
-
   render: ->
     {config} = @props
-    questionId = config.id or "id-#{questionCounter++}"
+    questionId = config.id
     options = for answer, index in config.answers
-      answer.id ?= "#{questionId}-#{index}"
       MultipleChoiceOption({config:answer, questionId, index})
 
     <div key={questionId} className="question">
@@ -160,35 +178,57 @@ MultiSelectOption = React.createClass
     id = "#{questionId}-#{config.id}"
 
     <li key={id} className="option">
-      <input type="checkbox" name={questionId} id={id} value={config.value}/>
+      <input type="checkbox"
+        name={questionId}
+        id={id}
+        value={config.value}
+        onChange=@onChange
+      />
       <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
       <label htmlFor={id}>{option}</label>
     </li>
+
+  onChange: ->
+    @state = !@state
+    @props.onChange(@props.config, @state)
 
 
 MultiSelectQuestion = React.createClass
   render: ->
     {config} = @props
-    questionId = config.id or "id-#{questionCounter++}"
+    questionId = config.id
 
     options = []
 
     for answer, index in config.answers
       unless Array.isArray(answer.value)
-        options.push MultiSelectOption({config:answer, questionId, index})
+        options.push MultiSelectOption({config:answer, questionId, index, @onChange})
 
     <div key={questionId} className="question">
       <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
-      <div>Check all that apply:</div>
+      <div>Select all that apply:</div>
       <ul className="options">{options}</ul>
     </div>
 
+
+  onChange: (answer, isChecked) ->
+    @state ?= []
+    if isChecked
+      @state.push(answer.id) if @state.indexOf(answer.id) < 0
+    else
+      i = @state.indexOf(answer.id)
+      @state.splice(i, 1) if i >= 0
+
+    if @state.length
+      AnswerStore.answerQuestion(@props.config.id, @state)
+    else
+      AnswerStore.answerQuestion(@props.config.id, undefined)
 
 
 TrueFalseQuestion = React.createClass
   render: ->
     {config} = @props
-    questionId = config.id or "id-#{questionCounter++}"
+    questionId = config.id
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
 
@@ -196,15 +236,18 @@ TrueFalseQuestion = React.createClass
       <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
       <ul className="options">
         <li className="option">
-          <input type="radio" name={questionId} id={idTrue} value="true"/>
+          <input type="radio" name={questionId} id={idTrue} value="true" onChange=@onTrue />
           <label htmlFor={idTrue}>True</label>
         </li>
         <li className="option">
-          <input type="radio" name={questionId} id={idFalse} value="true"/>
+          <input type="radio" name={questionId} id={idFalse} value="true" onChange=@onFalse />
           <label htmlFor={idFalse}>False</label>
         </li>
       </ul>
     </div>
+
+  onTrue:  -> AnswerStore.answerQuestion(@props.config.id, true)
+  onFalse: -> AnswerStore.answerQuestion(@props.config.id, false)
 
 
 MatchingQuestion = React.createClass
