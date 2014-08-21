@@ -8,6 +8,7 @@ AnswerStore = require './answer-store'
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
+  displayName: 'AnswerLabeler'
   render: ->
     {index, before, after} = @props
     letter = String.fromCharCode(index + 97) # For uppercase use 65
@@ -15,7 +16,7 @@ AnswerLabeler = React.createClass
 
 
 Exercise = React.createClass
-
+  displayName: 'Exercise'
   render: ->
     {config} = @props
     <div className="exercise">
@@ -36,6 +37,7 @@ getQuestionType = (format) ->
 
 variantCounter = 0
 QuestionVariants = React.createClass
+  displayName: 'QuestionVariants'
   render: ->
     {config} = @props
 
@@ -63,7 +65,6 @@ QuestionVariants = React.createClass
           The question below can be shown in several ways. Click to Show
           {formatLabels}
         </div>
-
         {variants}
       </div>
 
@@ -72,6 +73,7 @@ QuestionVariants = React.createClass
     @getDOMNode().querySelector('input[type="checkbox"], input[type="radio"]')?.checked = true
 
 ExercisePart = React.createClass
+  displayName: 'ExercisePart'
   render: ->
     {config} = @props
 
@@ -83,6 +85,7 @@ ExercisePart = React.createClass
     </div>
 
 BlankQuestion = React.createClass
+  displayName: 'BlankQuestion'
   render: ->
     {config} = @props
     <div className="question">
@@ -97,6 +100,7 @@ BlankQuestion = React.createClass
 
 
 SimpleQuestion = React.createClass
+  displayName: 'SimpleQuestion'
   render: ->
     {config} = @props
     <div className="question">
@@ -113,6 +117,7 @@ SimpleQuestion = React.createClass
 
 
 SimpleMultipleChoiceOption = React.createClass
+  displayName: 'SimpleMultipleChoiceOption'
   render: ->
     {config, questionId, index} = @props
     id = config.id
@@ -121,6 +126,7 @@ SimpleMultipleChoiceOption = React.createClass
     </span>
 
 MultiMultipleChoiceOption = React.createClass
+  displayName: 'MultiMultipleChoiceOption'
   render: ->
     {config, idIndices} = @props
     vals = []
@@ -131,6 +137,7 @@ MultiMultipleChoiceOption = React.createClass
     <span className="multi">{vals}</span>
 
 MultipleChoiceOption = React.createClass
+  displayName: 'MultipleChoiceOption'
   render: ->
     {config, questionId, index} = @props
 
@@ -158,6 +165,7 @@ MultipleChoiceOption = React.createClass
 
 
 MultipleChoiceQuestion = React.createClass
+  displayName: 'MultipleChoiceQuestion'
   render: ->
     {config} = @props
     questionId = config.id
@@ -172,6 +180,7 @@ MultipleChoiceQuestion = React.createClass
 
 
 MultiSelectOption = React.createClass
+  displayName: 'MultiSelectOption'
   render: ->
     {config, questionId, index} = @props
     option = SimpleMultipleChoiceOption(@props)
@@ -194,6 +203,7 @@ MultiSelectOption = React.createClass
 
 
 MultiSelectQuestion = React.createClass
+  displayName: 'MultiSelectQuestion'
   render: ->
     {config} = @props
     questionId = config.id
@@ -210,7 +220,6 @@ MultiSelectQuestion = React.createClass
       <ul className="options">{options}</ul>
     </div>
 
-
   onChange: (answer, isChecked) ->
     @state ?= []
     if isChecked
@@ -226,6 +235,7 @@ MultiSelectQuestion = React.createClass
 
 
 TrueFalseQuestion = React.createClass
+  displayName: 'TrueFalseQuestion'
   render: ->
     {config} = @props
     questionId = config.id
@@ -251,6 +261,7 @@ TrueFalseQuestion = React.createClass
 
 
 MatchingQuestion = React.createClass
+  displayName: 'MatchingQuestion'
   render: ->
     {config} = @props
     rows = for answer, i in config.answers

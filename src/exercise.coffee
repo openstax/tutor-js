@@ -79,3 +79,5 @@ barsify(config)
 root = document.getElementById('exercise')
 root.innerHTML = ''
 React.renderComponent(Exercise({config}), root)
+
+window.React = React # for dev tools
