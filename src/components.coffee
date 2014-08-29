@@ -155,29 +155,29 @@ MultipleChoiceOption = React.createClass
     id = "#{questionId}-#{config.id}"
 
     if isAnswered
-
       classes = ['option']
-      if @props.config.credit
+      if @props.config.credit is 1
         classes.push('correct')
       else if AnswerStore.getAnswer(@props.questionId) is (@props.config.id or @props.config.value)
         classes.push('incorrect')
 
       <li key={id} className={classes.join(' ')}>
-        <label className="letter" htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
-        <label className="answer" htmlFor={id}>{option}</label>
+        <span className="letter" htmlFor={id}><AnswerLabeler after=")" index={index}/> </span>
+        <span className="answer" htmlFor={id}>{option}</span>
       </li>
 
     else
 
       <li key={id} className="option">
-        <input type="radio"
-          name={questionId}
-          id={id}
-          value={JSON.stringify(config.value)}
-          onChange=@onChange
-        />
-        <label className="letter" htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
-        <label className="answer" htmlFor={id}>{option}</label>
+        <label>
+          <input type="radio"
+            name={questionId}
+            value={JSON.stringify(config.value)}
+            onChange=@onChange
+          />
+          <span className="letter"><AnswerLabeler after=")" index={index}/> </span>
+          <span className="answer">{option}</span>
+        </label>
       </li>
 
 
@@ -226,20 +226,36 @@ MultipleChoiceQuestion = React.createClass
 MultiSelectOption = React.createClass
   displayName: 'MultiSelectOption'
   render: ->
-    {config, questionId, index} = @props
+    {config, questionId, index, isAnswered} = @props
     option = SimpleMultipleChoiceOption(@props)
     id = "#{questionId}-#{config.id}"
 
-    <li key={id} className="option">
-      <input type="checkbox"
-        name={questionId}
-        id={id}
-        value={config.value}
-        onChange=@onChange
-      />
-      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
-      <label htmlFor={id}>{option}</label>
-    </li>
+    if isAnswered
+      classes = ['option']
+      if @props.config.credit
+        classes.push('correct')
+      else if AnswerStore.getAnswer(@props.questionId) is (@props.config.id or @props.config.value)
+        classes.push('incorrect')
+
+      <li key={id} className={classes.join(' ')}>
+        <span htmlFor={id}><AnswerLabeler after=")" index={index}/> </span>
+        <span htmlFor={id}>{option}</span>
+      </li>
+
+    else
+
+      <li key={id} className="option">
+        <label>
+          <input type="checkbox"
+            name={questionId}
+            id={id}
+            value={config.value}
+            onChange=@onChange
+          />
+          <span><AnswerLabeler after=")" index={index}/> </span>
+          <span>{option}</span>
+        </label>
+      </li>
 
   onChange: ->
     @state = !@state
@@ -248,60 +264,128 @@ MultiSelectOption = React.createClass
 
 MultiSelectQuestion = React.createClass
   displayName: 'MultiSelectQuestion'
+  getInitialState: ->
+    isAnswered: false
+    answers: []
+
   render: ->
     {config} = @props
+    {isAnswered} = @state
     questionId = config.id
 
     options = []
 
     for answer, index in config.answers
       unless Array.isArray(answer.value)
-        options.push MultiSelectOption({config:answer, questionId, index, @onChange})
+        options.push MultiSelectOption({config:answer, isAnswered, questionId, index, @onChange})
 
-    <div key={questionId} className="question">
+    classes = ['question']
+    classes.push('answered') if isAnswered
+
+    <div key={questionId} className={classes.join(' ')}>
       <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
       <div>Select all that apply:</div>
       <ul className="options">{options}</ul>
     </div>
 
   onChange: (answer, isChecked) ->
-    @state ?= []
     if isChecked
-      @state.push(answer.id) if @state.indexOf(answer.id) < 0
+      @state.answers.push(answer.id) if @state.answers.indexOf(answer.id) < 0
     else
-      i = @state.indexOf(answer.id)
-      @state.splice(i, 1) if i >= 0
+      i = @state.answers.indexOf(answer.id)
+      @state.answers.splice(i, 1) if i >= 0
 
-    if @state.length
+    if @state.answers.length
       AnswerStore.setAnswer(@props.config.id, @state)
     else
       AnswerStore.setAnswer(@props.config.id, undefined)
 
+  _onChange: (questionId, answer) ->
+    if @props.config.id is questionId
+      @setState {answer}
+
+  _onAnswered: (questionId) ->
+    if @props.config.id is questionId
+      @setState {isAnswered:true}
+
+  componentDidMount: ->
+    AnswerStore.on 'change', @_onChange
+    AnswerStore.on 'answered', @_onAnswered
+
+  componentWillUnmount: ->
+    AnswerStore.removeListener 'change', @_onChange
+    AnswerStore.removeListener 'answered', @_onAnswered
+
 
 TrueFalseQuestion = React.createClass
   displayName: 'TrueFalseQuestion'
+  getInitialState: ->
+    isAnswered: false
+
   render: ->
     {config} = @props
+    {isAnswered} = @state
     questionId = config.id
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
 
-    <div className="question true-false">
-      <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
-      <ul className="options">
-        <li className="option">
-          <input type="radio" name={questionId} id={idTrue} value="true" onChange=@onTrue />
-          <label htmlFor={idTrue}>True</label>
-        </li>
-        <li className="option">
-          <input type="radio" name={questionId} id={idFalse} value="true" onChange=@onFalse />
-          <label htmlFor={idFalse}>False</label>
-        </li>
-      </ul>
-    </div>
+    if isAnswered
+      trueClasses  = ['option']
+      falseClasses = ['option']
+
+      trueClasses.push('correct')
+      falseClasses.push('incorrect')
+
+      <div className="question answered true-false">
+        <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+        <ul className="options">
+          <li className={trueClasses.join(' ')}>
+            <span>True</span>
+          </li>
+          <li className={falseClasses.join(' ')}>
+            <span>False</span>
+          </li>
+        </ul>
+      </div>
+
+
+    else
+      <div className="question true-false">
+        <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+        <ul className="options">
+          <li className="option">
+            <label>
+              <input type="radio" name={questionId} value="true" onChange=@onTrue />
+              <span>True</span>
+            </label>
+          </li>
+          <li className="option">
+            <label>
+              <input type="radio" name={questionId} value="true" onChange=@onFalse />
+              <span>False</span>
+            </label>
+          </li>
+        </ul>
+      </div>
 
   onTrue:  -> AnswerStore.setAnswer(@props.config.id, true)
   onFalse: -> AnswerStore.setAnswer(@props.config.id, false)
+
+  _onChange: (questionId, answer) ->
+    if @props.config.id is questionId
+      @setState {answer}
+
+  _onAnswered: (questionId) ->
+    if @props.config.id is questionId
+      @setState {isAnswered:true}
+
+  componentDidMount: ->
+    AnswerStore.on 'change', @_onChange
+    AnswerStore.on 'answered', @_onAnswered
+
+  componentWillUnmount: ->
+    AnswerStore.removeListener 'change', @_onChange
+    AnswerStore.removeListener 'answered', @_onAnswered
 
 
 MatchingQuestion = React.createClass
