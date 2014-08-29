@@ -20,10 +20,13 @@ Exercise = React.createClass
   render: ->
     {config} = @props
     <div className="exercise">
+      <button onClick={@_submitAnswers}>Submit Answers</button>
       <div className="background" dangerouslySetInnerHTML={__html:config.background}></div>
       {ExercisePart {config:part} for part in config.parts}
     </div>
 
+  _submitAnswers: ->
+    AnswerStore.submitAnswers()
 
 getQuestionType = (format) ->
   switch format
@@ -96,7 +99,7 @@ BlankQuestion = React.createClass
     # Find the input box and attach listeners to it
     input = @getDOMNode().querySelector('input')
     input.onkeyup = input.onblur = =>
-      AnswerStore.answerQuestion(@props.config.id, input.value) if input.value
+      AnswerStore.setAnswer(@props.config.id, input.value) if input.value
 
 
 SimpleQuestion = React.createClass
@@ -111,9 +114,9 @@ SimpleQuestion = React.createClass
   onChange: ->
     val = @refs.prompt.getDOMNode().value
     if val
-      AnswerStore.answerQuestion(@props.config.id, val)
+      AnswerStore.setAnswer(@props.config.id, val)
     else
-      AnswerStore.answerQuestion(@props.config.id, undefined)
+      AnswerStore.setAnswer(@props.config.id, undefined)
 
 
 SimpleMultipleChoiceOption = React.createClass
@@ -138,8 +141,9 @@ MultiMultipleChoiceOption = React.createClass
 
 MultipleChoiceOption = React.createClass
   displayName: 'MultipleChoiceOption'
+
   render: ->
-    {config, questionId, index} = @props
+    {config, questionId, index, isAnswered} = @props
 
     option = if Array.isArray(config.value)
       @props.idIndices = for id in config.value
@@ -149,33 +153,73 @@ MultipleChoiceOption = React.createClass
       SimpleMultipleChoiceOption(@props)
 
     id = "#{questionId}-#{config.id}"
-    <li key={id} className="option">
-      <input type="radio"
-        name={questionId}
-        id={id}
-        value={JSON.stringify(config.value)}
-        onChange=@onChange
-      />
-      <label htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
-      <label htmlFor={id}>{option}</label>
-    </li>
+
+    if isAnswered
+
+      classes = ['option']
+      if @props.config.credit
+        classes.push('correct')
+      else if AnswerStore.getAnswer(@props.questionId) is (@props.config.id or @props.config.value)
+        classes.push('incorrect')
+
+      <li key={id} className={classes.join(' ')}>
+        <label className="letter" htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
+        <label className="answer" htmlFor={id}>{option}</label>
+      </li>
+
+    else
+
+      <li key={id} className="option">
+        <input type="radio"
+          name={questionId}
+          id={id}
+          value={JSON.stringify(config.value)}
+          onChange=@onChange
+        />
+        <label className="letter" htmlFor={id}><AnswerLabeler after=")" index={index}/> </label>
+        <label className="answer" htmlFor={id}>{option}</label>
+      </li>
+
 
   onChange: ->
-    AnswerStore.answerQuestion(@props.questionId, @props.config.id or @props.config.value)
+    AnswerStore.setAnswer(@props.questionId, @props.config.id or @props.config.value)
 
 
 MultipleChoiceQuestion = React.createClass
   displayName: 'MultipleChoiceQuestion'
+  getInitialState: ->
+    isAnswered: false
+
   render: ->
     {config} = @props
+    {isAnswered} = @state
     questionId = config.id
     options = for answer, index in config.answers
-      MultipleChoiceOption({config:answer, questionId, index})
+      MultipleChoiceOption({config:answer, questionId, index, isAnswered})
 
-    <div key={questionId} className="question">
+    classes = ['question']
+    classes.push('answered') if isAnswered
+
+    <div key={questionId} className={classes.join(' ')}>
       <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
       <ul className="options">{options}</ul>
     </div>
+
+  _onChange: (questionId, answer) ->
+    if @props.config.id is questionId
+      @setState {answer}
+
+  _onAnswered: (questionId) ->
+    if @props.config.id is questionId
+      @setState {isAnswered:true}
+
+  componentDidMount: ->
+    AnswerStore.on 'change', @_onChange
+    AnswerStore.on 'answered', @_onAnswered
+
+  componentWillUnmount: ->
+    AnswerStore.removeListener 'change', @_onChange
+    AnswerStore.removeListener 'answered', @_onAnswered
 
 
 
@@ -229,9 +273,9 @@ MultiSelectQuestion = React.createClass
       @state.splice(i, 1) if i >= 0
 
     if @state.length
-      AnswerStore.answerQuestion(@props.config.id, @state)
+      AnswerStore.setAnswer(@props.config.id, @state)
     else
-      AnswerStore.answerQuestion(@props.config.id, undefined)
+      AnswerStore.setAnswer(@props.config.id, undefined)
 
 
 TrueFalseQuestion = React.createClass
@@ -256,8 +300,8 @@ TrueFalseQuestion = React.createClass
       </ul>
     </div>
 
-  onTrue:  -> AnswerStore.answerQuestion(@props.config.id, true)
-  onFalse: -> AnswerStore.answerQuestion(@props.config.id, false)
+  onTrue:  -> AnswerStore.setAnswer(@props.config.id, true)
+  onFalse: -> AnswerStore.setAnswer(@props.config.id, false)
 
 
 MatchingQuestion = React.createClass

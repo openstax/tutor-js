@@ -1,3 +1,6 @@
+@answer-correct: #34b27d;
+@answer-incorrect: #cb4d4d;
+
 .x-variant(@name) {
   input[type='checkbox'][data-format=@{name}]:not(:checked) ~ [data-format=@{name}] {
     display: none;
@@ -57,6 +60,35 @@
       counter-increment: question;
       counter-reset: answer;
 
+      &.answered li.option {
+        .x-correctness(@color; @char) {
+          border: 3px solid @color;
+
+          &::before {
+            font: normal normal normal 14px/1 FontAwesome;
+            content: @char;
+            color: @color;
+          }
+          label.answer { background-color: lighten(@color, 30%); }
+        }
+
+        &::before {
+          display: inline-block;
+          width: 1.28571429em; // fa-fw
+          text-align: center; // fa-fw
+          content: '';
+        }
+
+        &.correct {
+          .x-correctness(@answer-correct; "\f00c"); // fa-check
+        }
+
+        &.incorrect {
+          .x-correctness(@answer-incorrect; "\f00d"); // fa-times
+        }
+      }
+
+
       .stem {
         &::before {
           content: counter(question) '. ';
@@ -66,10 +98,22 @@
         }
       }
 
-      .option {
-        input:checked ~ label { background-color: #ccc; }
+      ul.options {
 
-        label { cursor: pointer; }
+        padding: 0;
+        // margin: 0;
+
+        li.option {
+          list-style-type: none;
+
+          input:checked ~ label { background-color: #ccc; }
+          label { cursor: pointer; }
+          label.answer {
+            display: inline-block;
+            vertical-align: top;
+          }
+        }
+
       }
     }
 

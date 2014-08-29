@@ -72,17 +72,55 @@
   counter-increment: question;
   counter-reset: answer;
 }
+.exercise .part .question.answered li.option::before {
+  display: inline-block;
+  width: 1.28571429em;
+  text-align: center;
+  content: '';
+}
+.exercise .part .question.answered li.option.correct {
+  border: 3px solid #34b27d;
+}
+.exercise .part .question.answered li.option.correct::before {
+  font: normal normal normal 14px/1 FontAwesome;
+  content: "\f00c";
+  color: #34b27d;
+}
+.exercise .part .question.answered li.option.correct label.answer {
+  background-color: #9de2c5;
+}
+.exercise .part .question.answered li.option.incorrect {
+  border: 3px solid #cb4d4d;
+}
+.exercise .part .question.answered li.option.incorrect::before {
+  font: normal normal normal 14px/1 FontAwesome;
+  content: "\f00d";
+  color: #cb4d4d;
+}
+.exercise .part .question.answered li.option.incorrect label.answer {
+  background-color: #eec3c3;
+}
 .exercise .part .question .stem::before {
   content: counter(question) '. ';
   font-size: large;
   font-weight: bold;
   display: inline;
 }
-.exercise .part .question .option input:checked ~ label {
+.exercise .part .question ul.options {
+  padding: 0;
+}
+.exercise .part .question ul.options li.option {
+  list-style-type: none;
+}
+.exercise .part .question ul.options li.option input:checked ~ label {
   background-color: #ccc;
 }
-.exercise .part .question .option label {
+.exercise .part .question ul.options li.option label {
   cursor: pointer;
+}
+.exercise .part .question ul.options li.option label.answer {
+  display: inline-block;
+  vertical-align: top;
 }
 .exercise .part .matching > table {
   min-width: 500px;
