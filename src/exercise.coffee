@@ -47,8 +47,8 @@ barsify = (obj) ->
       obj.variants = {}
       for format in obj.formats
         variant = switch format
-          when 'multiple-choice' then {stem:obj.stem, answers:obj.answers}
-          when 'multiple-select' then {stem:obj.stem, answers:obj.answers}
+          when 'multiple-choice' then {stem:obj.stem, answers:obj.answers,correct:obj.correct}
+          when 'multiple-select' then {stem:obj.stem, answers:obj.answers,correct:obj.correct}
           when 'matching' then {stem:obj.stem, answers:obj.answers, items:obj.items}
           when 'true-false'
             a = obj.answers[0]

@@ -1,10 +1,26 @@
 # @csx React.DOM
 
-# prefer_short_answer = prompt('Do you prefer short answer questions ("" for no, anything else for yes)', '')
-prefer_short_answer = false
-
 React = require 'react'
 AnswerStore = require './answer-store'
+
+AnswerListener =
+  _onChange: (question, answer) ->
+    if @props.config is question
+      @setState {answer}
+
+  _onAnswered: (question) ->
+    if @props.config is question
+      @setState {isAnswered:true}
+
+  componentDidMount: ->
+    AnswerStore.on 'change', @_onChange
+    AnswerStore.on 'answered', @_onAnswered
+
+  componentWillUnmount: ->
+    AnswerStore.removeListener 'change', @_onChange
+    AnswerStore.removeListener 'answered', @_onAnswered
+
+
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
@@ -99,7 +115,7 @@ BlankQuestion = React.createClass
     # Find the input box and attach listeners to it
     input = @getDOMNode().querySelector('input')
     input.onkeyup = input.onblur = =>
-      AnswerStore.setAnswer(@props.config.id, input.value) if input.value
+      AnswerStore.setAnswer(@props.config, input.value) if input.value
 
 
 SimpleQuestion = React.createClass
@@ -114,9 +130,9 @@ SimpleQuestion = React.createClass
   onChange: ->
     val = @refs.prompt.getDOMNode().value
     if val
-      AnswerStore.setAnswer(@props.config.id, val)
+      AnswerStore.setAnswer(@props.config, val)
     else
-      AnswerStore.setAnswer(@props.config.id, undefined)
+      AnswerStore.setAnswer(@props.config, undefined)
 
 
 SimpleMultipleChoiceOption = React.createClass
@@ -139,12 +155,13 @@ MultiMultipleChoiceOption = React.createClass
         vals.push <AnswerLabeler key={index} before="(" after=")" index={index}/>
     <span className="multi">{vals}</span>
 
-MultipleChoiceOption = React.createClass
-  displayName: 'MultipleChoiceOption'
 
+MultipleChoiceOptionMixin =
   render: ->
-    {config, questionId, index, isAnswered} = @props
+    {inputType, config, questionId, index, isAnswered} = @props
 
+    # For radio boxes there is only 1 value, the id/value but
+    # for checkboxes the answer is an array of ids/values
     option = if Array.isArray(config.value)
       @props.idIndices = for id in config.value
         id
@@ -154,39 +171,44 @@ MultipleChoiceOption = React.createClass
 
     id = "#{questionId}-#{config.id}"
 
-    if isAnswered
-      classes = ['option']
-      if @props.config.credit is 1
-        classes.push('correct')
-      else if AnswerStore.getAnswer(@props.questionId) is (@props.config.id or @props.config.value)
-        classes.push('incorrect')
+    inputType = 'hidden' if isAnswered
 
-      <li key={id} className={classes.join(' ')}>
-        <span className="letter" htmlFor={id}><AnswerLabeler after=")" index={index}/> </span>
-        <span className="answer" htmlFor={id}>{option}</span>
-      </li>
+    classes = ['option']
+    classes.push('correct') if @props.isCorrect
+    classes.push('incorrect') if @props.isIncorrect
 
+    optionIdent = @props.config.id or @props.config.value
+    if Array.isArray(@props.answer)
+      isChecked = @props.answer.indexOf(optionIdent) >= 0
     else
+      isChecked = @props.answer is optionIdent
 
-      <li key={id} className="option">
-        <label>
-          <input type="radio"
-            name={questionId}
-            value={JSON.stringify(config.value)}
-            onChange=@onChange
-          />
-          <span className="letter"><AnswerLabeler after=")" index={index}/> </span>
-          <span className="answer">{option}</span>
-        </label>
-      </li>
+    <li key={id} className={classes.join(' ')}>
+      <label>
+        <input type={inputType}
+          name={questionId}
+          value={JSON.stringify(config.value)}
+          onChange=@onChange
+          checked={isChecked}
+        />
+        <span className="letter"><AnswerLabeler after=")" index={index}/> </span>
+        <span className="answer">{option}</span>
+      </label>
+    </li>
 
+
+MultipleChoiceOption = React.createClass
+  displayName: 'MultipleChoiceOption'
+  getDefaultProps: -> {inputType:'radio'}
+  mixins: [MultipleChoiceOptionMixin]
 
   onChange: ->
-    AnswerStore.setAnswer(@props.questionId, @props.config.id or @props.config.value)
+    @props.onChange(@props.config)
 
 
 MultipleChoiceQuestion = React.createClass
   displayName: 'MultipleChoiceQuestion'
+  mixins: [AnswerListener]
   getInitialState: ->
     isAnswered: false
 
@@ -194,8 +216,24 @@ MultipleChoiceQuestion = React.createClass
     {config} = @props
     {isAnswered} = @state
     questionId = config.id
-    options = for answer, index in config.answers
-      MultipleChoiceOption({config:answer, questionId, index, isAnswered})
+    options = for option, index in config.answers
+      isCorrect = false
+      isIncorrect = false
+      if config.answer is option.id # if my answer is this option
+        isCorrect = config.correct is config.answer
+        isIncorrect = !isCorrect
+
+      optionProps = {
+        config: option
+        answer: config.answer
+        questionId
+        index
+        isAnswered
+        isCorrect
+        isIncorrect
+        @onChange
+      }
+      MultipleChoiceOption(optionProps)
 
     classes = ['question']
     classes.push('answered') if isAnswered
@@ -205,65 +243,41 @@ MultipleChoiceQuestion = React.createClass
       <ul className="options">{options}</ul>
     </div>
 
-  _onChange: (questionId, answer) ->
-    if @props.config.id is questionId
-      @setState {answer}
-
-  _onAnswered: (questionId) ->
-    if @props.config.id is questionId
-      @setState {isAnswered:true}
-
-  componentDidMount: ->
-    AnswerStore.on 'change', @_onChange
-    AnswerStore.on 'answered', @_onAnswered
-
-  componentWillUnmount: ->
-    AnswerStore.removeListener 'change', @_onChange
-    AnswerStore.removeListener 'answered', @_onAnswered
-
+  onChange: (answer) ->
+    AnswerStore.setAnswer(@props.config, answer.id or answer.value)
 
 
 MultiSelectOption = React.createClass
   displayName: 'MultiSelectOption'
-  render: ->
-    {config, questionId, index, isAnswered} = @props
-    option = SimpleMultipleChoiceOption(@props)
-    id = "#{questionId}-#{config.id}"
-
-    if isAnswered
-      classes = ['option']
-      if @props.config.credit
-        classes.push('correct')
-      else if AnswerStore.getAnswer(@props.questionId) is (@props.config.id or @props.config.value)
-        classes.push('incorrect')
-
-      <li key={id} className={classes.join(' ')}>
-        <span htmlFor={id}><AnswerLabeler after=")" index={index}/> </span>
-        <span htmlFor={id}>{option}</span>
-      </li>
-
-    else
-
-      <li key={id} className="option">
-        <label>
-          <input type="checkbox"
-            name={questionId}
-            id={id}
-            value={config.value}
-            onChange=@onChange
-          />
-          <span><AnswerLabeler after=")" index={index}/> </span>
-          <span>{option}</span>
-        </label>
-      </li>
+  getDefaultProps: -> {inputType:'checkbox'}
+  mixins: [MultipleChoiceOptionMixin]
 
   onChange: ->
     @state = !@state
     @props.onChange(@props.config, @state)
 
 
+# http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
+ArrayEquals = (ary1, array) ->
+  # if the other array is a falsy value, return
+  return false  unless array
+  # compare lengths - can save a lot of time
+  return false  unless ary1.length is array.length
+  i = 0
+  l = ary1.length
+  while i < l
+    # Check if we have nested arrays
+    if ary1[i] instanceof Array and array[i] instanceof Array
+      # recurse into the nested arrays
+      return false  unless ary1[i].equals(array[i])
+    # Warning - two different object instances will never be equal: {x:20} != {x:20}
+    else return false  unless ary1[i] is array[i]
+    i++
+  true
+
 MultiSelectQuestion = React.createClass
   displayName: 'MultiSelectQuestion'
+  mixins: [AnswerListener]
   getInitialState: ->
     isAnswered: false
     answers: []
@@ -275,9 +289,28 @@ MultiSelectQuestion = React.createClass
 
     options = []
 
-    for answer, index in config.answers
-      unless Array.isArray(answer.value)
-        options.push MultiSelectOption({config:answer, isAnswered, questionId, index, @onChange})
+    for option, index in config.answers
+      unless Array.isArray(option.value)
+        isCorrect = false
+        isIncorrect = false
+        if config.answer?.indexOf(option.id) >= 0 # if my answer is this option
+          config.correct.sort() # Hack to compare 2 arrays since you could have checked in a different order
+          config.answer.sort()
+          isCorrect = ArrayEquals(config.correct, config.answer)
+          isIncorrect = !isCorrect
+
+        optionProps = {
+          config: option
+          answer: config.answer
+          isAnswered
+          isCorrect
+          isIncorrect
+          questionId
+          index
+          @onChange
+        }
+
+        options.push MultiSelectOption(optionProps)
 
     classes = ['question']
     classes.push('answered') if isAnswered
@@ -296,29 +329,14 @@ MultiSelectQuestion = React.createClass
       @state.answers.splice(i, 1) if i >= 0
 
     if @state.answers.length
-      AnswerStore.setAnswer(@props.config.id, @state)
+      AnswerStore.setAnswer(@props.config, @state.answers)
     else
-      AnswerStore.setAnswer(@props.config.id, undefined)
-
-  _onChange: (questionId, answer) ->
-    if @props.config.id is questionId
-      @setState {answer}
-
-  _onAnswered: (questionId) ->
-    if @props.config.id is questionId
-      @setState {isAnswered:true}
-
-  componentDidMount: ->
-    AnswerStore.on 'change', @_onChange
-    AnswerStore.on 'answered', @_onAnswered
-
-  componentWillUnmount: ->
-    AnswerStore.removeListener 'change', @_onChange
-    AnswerStore.removeListener 'answered', @_onAnswered
+      AnswerStore.setAnswer(@props.config, undefined)
 
 
 TrueFalseQuestion = React.createClass
   displayName: 'TrueFalseQuestion'
+  mixins: [AnswerListener]
   getInitialState: ->
     isAnswered: false
 
@@ -368,24 +386,8 @@ TrueFalseQuestion = React.createClass
         </ul>
       </div>
 
-  onTrue:  -> AnswerStore.setAnswer(@props.config.id, true)
-  onFalse: -> AnswerStore.setAnswer(@props.config.id, false)
-
-  _onChange: (questionId, answer) ->
-    if @props.config.id is questionId
-      @setState {answer}
-
-  _onAnswered: (questionId) ->
-    if @props.config.id is questionId
-      @setState {isAnswered:true}
-
-  componentDidMount: ->
-    AnswerStore.on 'change', @_onChange
-    AnswerStore.on 'answered', @_onAnswered
-
-  componentWillUnmount: ->
-    AnswerStore.removeListener 'change', @_onChange
-    AnswerStore.removeListener 'answered', @_onAnswered
+  onTrue:  -> AnswerStore.setAnswer(@props.config, true)
+  onFalse: -> AnswerStore.setAnswer(@props.config, false)
 
 
 MatchingQuestion = React.createClass

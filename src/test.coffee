@@ -29,7 +29,7 @@ module.exports =
           formats: ['short-answer']
           stem: 'What is the rest mass in kg?'
           answers: [
-            { credit: 1, value: '{{ ship_mass }}' }
+            { value: '{{ ship_mass }}' }
           ]
         }
         {
@@ -37,19 +37,23 @@ module.exports =
           stem: 'What is the force if it slams into a wall?'
           short_stem: 'Enter your answer in N'
           answers: [
-            { credit: 1, value: '{{ ship_force }}',          content: '{{ ship_force }} N' }
-            { credit: 0, value: '{{ ship_mass }}', content: '{{ ship_mass }} N', hint: 'Remember 1 Newton (N) is 1 kg*m/s' }
+            { id: 'id1', value: '{{ ship_force }}',          content: '{{ ship_force }} N' }
+            { id: 'id2', value: '{{ ship_mass }}', content: '{{ ship_mass }} N', hint: 'Remember 1 Newton (N) is 1 kg*m/s' }
           ]
+          # This would be populated by Tutor
+          correct: 'id1'
         }
         {
           formats: ['multiple-select', 'multiple-choice', 'short-answer']
           stem: 'What is the force if it slams into a wall? (this has (a) and (b) options)'
           short_stem: 'Enter your answer in N'
           answers: [
-            { id: 'id123', credit: 0.5, value: '{{ ship_force }}',          content: '{{ ship_force }} N' }
-            { id: 'id456', credit: 0.5, value: '0{{ ship_force }}', content: '{{ ship_force }} + 0 N' }
-            { credit: 1, value: ['id456', 'id123'] }
+            { id: 'id123', value: '{{ ship_force }}',  content: '{{ ship_force }} N' }
+            { id: 'id456', value: '0{{ ship_force }}', content: '{{ ship_force }} + 0 N' }
+            { value: ['id456', 'id123'] }
           ]
+          # This would be populated by Tutor
+          correct: ['id123', 'id456']
         }
       ]
     }
@@ -61,17 +65,19 @@ module.exports =
           formats: ['fill-in-the-blank', 'true-false', 'multiple-choice']
           stem: 'If the ship is traveling {{ ship_speed }} m/s and slams into a wall, the impact force is ____ N.'
           answers: [
-            { credit: 1, value: '{{ ship_force }}' }
-            { credit: 0, value: '{{ ship_mass_div_speed }}', hint: 'Remember 1 Newton (N) is 1 kg*m/s' }
+            { value: '{{ ship_force }}' }
+            { value: '{{ ship_mass_div_speed }}', hint: 'Remember 1 Newton (N) is 1 kg*m/s' }
           ]
+          correct: '{{ ship_force }}'
         }
         {
           formats: ['fill-in-the-blank', 'true-false']
           stem: 'Photosynthesis ____ ATP'
           answers: [
-            { credit: 1, value: 'creates' }
-            { credit: 0, value: 'smells like' }
+            { value: 'creates' }
+            { value: 'smells like' }
           ]
+          correct: 'creates'
         }
       ]
     }
