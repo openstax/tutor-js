@@ -223,6 +223,8 @@ MultipleChoiceQuestion = React.createClass
           answerState = 'correct'
         else
           answerState = 'incorrect'
+      else if config.correct is option.id and config.answers.length > 2
+        answerState = 'missed'
 
       optionProps = {
         config: option
@@ -354,8 +356,17 @@ TrueFalseQuestion = React.createClass
       trueClasses  = ['option']
       falseClasses = ['option']
 
-      trueClasses.push('correct')
-      falseClasses.push('incorrect')
+      if config.correct
+        correctClasses = trueClasses
+        incorrectClasses = falseClasses
+      else
+        correctClasses = falseClasses
+        incorrectClasses = trueClasses
+      if config.correct is !! config.answer
+        correctClasses.push('correct')
+      else
+        # correctClasses.push('missed') No need to show missed if there are only 2 options
+        incorrectClasses.push('incorrect')
 
       <div className="question answered true-false">
         <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>

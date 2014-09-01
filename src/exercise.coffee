@@ -55,6 +55,7 @@ barsify = (obj) ->
             o =
               stem: obj.stem.replace(/____/, a.content or a.value)
               answers: obj.answers
+              correct: true
             o
           else # 'short-answer' or 'fill-in-the-blank'
             o =
