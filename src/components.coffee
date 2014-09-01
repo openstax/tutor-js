@@ -174,8 +174,8 @@ MultipleChoiceOptionMixin =
     inputType = 'hidden' if isAnswered
 
     classes = ['option']
-    classes.push('correct') if @props.isCorrect
-    classes.push('incorrect') if @props.isIncorrect
+    # null (unanswered), 'correct', 'incorrect', 'missed'
+    classes.push(@props.answerState) if @props.answerState
 
     optionIdent = @props.config.id or @props.config.value
     if Array.isArray(@props.answer)
@@ -217,11 +217,12 @@ MultipleChoiceQuestion = React.createClass
     {isAnswered} = @state
     questionId = config.id
     options = for option, index in config.answers
-      isCorrect = false
-      isIncorrect = false
+      answerState = null
       if config.answer is option.id # if my answer is this option
-        isCorrect = config.correct is config.answer
-        isIncorrect = !isCorrect
+        if config.correct is config.answer
+          answerState = 'correct'
+        else
+          answerState = 'incorrect'
 
       optionProps = {
         config: option
@@ -229,8 +230,7 @@ MultipleChoiceQuestion = React.createClass
         questionId
         index
         isAnswered
-        isCorrect
-        isIncorrect
+        answerState
         @onChange
       }
       MultipleChoiceOption(optionProps)
@@ -293,18 +293,21 @@ MultiSelectQuestion = React.createClass
       unless Array.isArray(option.value)
         isCorrect = false
         isIncorrect = false
-        if config.answer?.indexOf(option.id) >= 0 # if my answer is this option
-          config.correct.sort() # Hack to compare 2 arrays since you could have checked in a different order
-          config.answer.sort()
-          isCorrect = ArrayEquals(config.correct, config.answer)
-          isIncorrect = !isCorrect
+        if config.answer?.indexOf(option.id) >= 0 # if my answer contains this option
+          if config.correct.indexOf(option.id) >= 0
+            answerState = 'correct'
+          else
+            answerState = 'incorrect'
+        else if config.correct.indexOf(option.id) >= 0 # This option was missed
+          answerState = 'missed'
+        else
+          answerState = null
 
         optionProps = {
           config: option
           answer: config.answer
           isAnswered
-          isCorrect
-          isIncorrect
+          answerState
           questionId
           index
           @onChange

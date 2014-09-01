@@ -100,6 +100,17 @@
 .exercise .part .question.answered li.option.incorrect label.answer {
   background-color: #eec3c3;
 }
+.exercise .part .question.answered li.option.missed {
+  border: 3px solid #34b27d;
+}
+.exercise .part .question.answered li.option.missed::before {
+  font: normal normal normal 14px/1 FontAwesome;
+  content: " ";
+  color: #34b27d;
+}
+.exercise .part .question.answered li.option.missed label.answer {
+  background-color: #9de2c5;
+}
 .exercise .part .question .stem::before {
   content: counter(question) '. ';
   font-size: large;
@@ -118,8 +129,8 @@
 .exercise .part .question ul.options li.option label {
   cursor: pointer;
 }
-.exercise .part .question ul.options li.option label.answer {
-  display: inline-block;
+.exercise .part .question ul.options li.option .answer {
+  display: inline-table;
   vertical-align: top;
 }
 .exercise .part .matching > table {

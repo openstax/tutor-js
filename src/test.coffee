@@ -48,8 +48,10 @@ module.exports =
           stem: 'What is the force if it slams into a wall? (this has (a) and (b) options)'
           short_stem: 'Enter your answer in N'
           answers: [
+            { id: 'wrong', value: '0' }
+            { id: 'wrong2', value: '1' }
             { id: 'id123', value: '{{ ship_force }}',  content: '{{ ship_force }} N' }
-            { id: 'id456', value: '0{{ ship_force }}', content: '{{ ship_force }} + 0 N' }
+            { id: 'id456', value: '0{{ ship_force }}', content: '{{ ship_force }} + 0 <br/> + 0 <br/> + 0 N' }
             { value: ['id456', 'id123'] }
           ]
           # This would be populated by Tutor

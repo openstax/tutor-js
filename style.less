@@ -86,6 +86,9 @@
         &.incorrect {
           .x-correctness(@answer-incorrect; "\f00d"); // fa-times
         }
+        &.missed {
+          .x-correctness(@answer-correct; " ");
+        }
       }
 
 
@@ -108,8 +111,9 @@
 
           input:checked ~ label { background-color: #ccc; }
           label { cursor: pointer; }
-          label.answer {
-            display: inline-block;
+
+          .answer {
+            display: inline-table;
             vertical-align: top;
           }
         }
