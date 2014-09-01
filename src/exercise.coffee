@@ -59,8 +59,9 @@ barsify = (obj) ->
             o
           else # 'short-answer' or 'fill-in-the-blank'
             o =
-              stem: obj.stem.replace(/____/, '<input type="text"/>')
+              stem: obj.stem
               answers: obj.answers
+              correct: obj.correct
             o
 
         # Make sure each question has an id

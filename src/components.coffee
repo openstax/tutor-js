@@ -4,6 +4,9 @@ React = require 'react'
 AnswerStore = require './answer-store'
 
 AnswerListener =
+  getInitialState: ->
+    isAnswered: false
+
   _onChange: (question, answer) ->
     if @props.config is question
       @setState {answer}
@@ -105,15 +108,28 @@ ExercisePart = React.createClass
 
 BlankQuestion = React.createClass
   displayName: 'BlankQuestion'
+  mixins: [AnswerListener]
   render: ->
     {config} = @props
-    <div className="question">
-      <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+    {stem} = config
+    {isAnswered} = @state
+
+    if isAnswered
+      # TODO: Make sure HTML is escaped!!!
+      if config.answer is config.correct
+        stem = stem.replace(/____/, "<span class='correct'>#{config.answer}</span>")
+      else
+        stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='correct'>#{config.correct}</span>")
+    else
+      stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
+
+    <div className="question fill-in-the-blank">
+      <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
     </div>
 
   componentDidMount: ->
     # Find the input box and attach listeners to it
-    input = @getDOMNode().querySelector('input')
+    input = @getDOMNode().querySelector('.blank')
     input.onkeyup = input.onblur = =>
       AnswerStore.setAnswer(@props.config, input.value) if input.value
 
@@ -209,8 +225,6 @@ MultipleChoiceOption = React.createClass
 MultipleChoiceQuestion = React.createClass
   displayName: 'MultipleChoiceQuestion'
   mixins: [AnswerListener]
-  getInitialState: ->
-    isAnswered: false
 
   render: ->
     {config} = @props
@@ -281,7 +295,6 @@ MultiSelectQuestion = React.createClass
   displayName: 'MultiSelectQuestion'
   mixins: [AnswerListener]
   getInitialState: ->
-    isAnswered: false
     answers: []
 
   render: ->
@@ -342,8 +355,6 @@ MultiSelectQuestion = React.createClass
 TrueFalseQuestion = React.createClass
   displayName: 'TrueFalseQuestion'
   mixins: [AnswerListener]
-  getInitialState: ->
-    isAnswered: false
 
   render: ->
     {config} = @props

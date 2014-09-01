@@ -60,17 +60,19 @@
       counter-increment: question;
       counter-reset: answer;
 
-      &.answered li.option {
-        .x-correctness(@color; @char) {
-          border: 3px solid @color;
+      .x-correctness(@color; @char) {
+        border: 3px solid @color;
 
-          &::before {
-            font: normal normal normal 14px/1 FontAwesome;
-            content: @char;
-            color: @color;
-          }
-          label.answer { background-color: lighten(@color, 30%); }
+        &::before {
+          font: normal normal normal 14px/1 FontAwesome;
+          content: @char;
+          color: @color;
         }
+        label.answer { background-color: lighten(@color, 30%); }
+      }
+
+
+      &.answered li.option {
 
         &::before {
           display: inline-block;
@@ -91,6 +93,24 @@
         }
       }
 
+
+      &.fill-in-the-blank .stem {
+        .correct::before,
+        .incorrect::before {
+          display: inline-block;
+          width: 1.28571429em; // fa-fw
+          text-align: center; // fa-fw
+          content: '';
+        }
+
+        .correct {
+          .x-correctness(@answer-correct; "\f00c"); // fa-check
+        }
+
+        .incorrect {
+          .x-correctness(@answer-incorrect; "\f00d"); // fa-times
+        }
+      }
 
       .stem {
         &::before {
