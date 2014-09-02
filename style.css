@@ -152,11 +152,11 @@
 .exercise .part .question ul.options li.option {
   list-style-type: none;
 }
-.exercise .part .question ul.options li.option input:checked ~ label {
-  background-color: #ccc;
-}
 .exercise .part .question ul.options li.option label {
   cursor: pointer;
+}
+.exercise .part .question ul.options li.option label input:checked ~ * {
+  background-color: #ccc;
 }
 .exercise .part .question ul.options li.option .answer {
   display: inline-table;

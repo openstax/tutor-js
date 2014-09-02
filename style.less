@@ -129,9 +129,11 @@
         li.option {
           list-style-type: none;
 
-          input:checked ~ label { background-color: #ccc; }
-          label { cursor: pointer; }
+          label {
+            cursor: pointer;
 
+            input:checked ~ * { background-color: #ccc; }
+          }
           .answer {
             display: inline-table;
             vertical-align: top;
