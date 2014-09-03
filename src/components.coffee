@@ -4,21 +4,6 @@ _ = require 'underscore'
 React = require 'react'
 AnswerStore = require './answer-store'
 
-AnswerListener =
-  getInitialState: ->
-    isAnswered: false
-
-  _onChange: (question, answer) ->
-    if @props.config is question
-      @setState {answer}
-
-  componentDidMount: ->
-    AnswerStore.on 'change', @_onChange
-
-  componentWillUnmount: ->
-    AnswerStore.removeListener 'change', @_onChange
-
-
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
@@ -104,7 +89,6 @@ ExercisePart = React.createClass
 
 BlankQuestion = React.createClass
   displayName: 'BlankQuestion'
-  mixins: [AnswerListener]
   render: ->
     {config} = @props
     {stem} = config
@@ -207,10 +191,11 @@ MultipleChoiceOptionMixin =
     <li key={id} className={classes.join(' ')}>
       <label>
         <input type={inputType}
+          ref="input"
           name={questionId}
           value={JSON.stringify(config.value)}
           onChange=@onChange
-          checked={isChecked}
+          defaultChecked={isChecked}
         />
         <span className="letter"><AnswerLabeler after=")" index={index}/> </span>
         <span className="answer">{option}</span>
@@ -229,7 +214,6 @@ MultipleChoiceOption = React.createClass
 
 MultipleChoiceQuestion = React.createClass
   displayName: 'MultipleChoiceQuestion'
-  mixins: [AnswerListener]
 
   render: ->
     {config} = @props
@@ -274,8 +258,9 @@ MultiSelectOption = React.createClass
   mixins: [MultipleChoiceOptionMixin]
 
   onChange: ->
-    @state = !@state
-    @props.onChange(@props.config, @state)
+    # NOTE: refs.input.state.checked only works for checkboxes (not radio buttons)
+    # but @refs.input.getDOMNode().checked works for both
+    @props.onChange(@props.config, @refs.input.getDOMNode().checked)
 
 
 # http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
@@ -298,7 +283,6 @@ ArrayEquals = (ary1, array) ->
 
 MultiSelectQuestion = React.createClass
   displayName: 'MultiSelectQuestion'
-  mixins: [AnswerListener]
   getInitialState: ->
     answers: []
 
@@ -365,7 +349,6 @@ MultiSelectQuestion = React.createClass
 
 TrueFalseQuestion = React.createClass
   displayName: 'TrueFalseQuestion'
-  mixins: [AnswerListener]
 
   render: ->
     {config} = @props
