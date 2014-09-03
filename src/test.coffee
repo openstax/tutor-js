@@ -33,7 +33,7 @@ module.exports =
           ]
         }
         {
-          formats: ['multiple-choice', 'short-answer']
+          formats: ['multiple-choice', 'multiple-select', 'short-answer']
           stem: 'What is the force if it slams into a wall?'
           short_stem: 'Enter your answer in N'
           answers: [
@@ -52,10 +52,10 @@ module.exports =
             { id: 'wrong2', value: '1' }
             { id: 'id123', value: '{{ ship_force }}',  content: '{{ ship_force }} N' }
             { id: 'id456', value: '0{{ ship_force }}', content: '{{ ship_force }} + 0 <br/> + 0 <br/> + 0 N' }
-            { value: ['id456', 'id123'] }
+            { id: 'id567', value: ['id456', 'id123'] }
           ]
           # This would be populated by Tutor
-          correct: ['id123', 'id456']
+          correct: 'id567'
         }
       ]
     }

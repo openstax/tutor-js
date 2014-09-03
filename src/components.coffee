@@ -1,5 +1,6 @@
 # @csx React.DOM
 
+_ = require 'underscore'
 React = require 'react'
 AnswerStore = require './answer-store'
 
@@ -11,17 +12,11 @@ AnswerListener =
     if @props.config is question
       @setState {answer}
 
-  _onAnswered: (question) ->
-    if @props.config is question
-      @setState {isAnswered:true}
-
   componentDidMount: ->
     AnswerStore.on 'change', @_onChange
-    AnswerStore.on 'answered', @_onAnswered
 
   componentWillUnmount: ->
     AnswerStore.removeListener 'change', @_onChange
-    AnswerStore.removeListener 'answered', @_onAnswered
 
 
 
@@ -318,12 +313,18 @@ MultiSelectQuestion = React.createClass
       unless Array.isArray(option.value)
         isCorrect = false
         isIncorrect = false
+
+        correctAnswers = _.find(config.answers, (a) -> a.id is config.correct).value
+        # If correctAnswers is not an array then there is only 1 correct answer
+        unless Array.isArray(correctAnswers)
+          correctAnswers = [config.correct]
+
         if config.answer?.indexOf(option.id) >= 0 # if my answer contains this option
-          if config.correct.indexOf(option.id) >= 0
+          if correctAnswers.indexOf(option.id) >= 0
             answerState = 'correct'
           else
             answerState = 'incorrect'
-        else if config.correct.indexOf(option.id) >= 0 # This option was missed
+        else if correctAnswers.indexOf(option.id) >= 0 # This option was missed
           answerState = 'missed'
         else
           answerState = null
