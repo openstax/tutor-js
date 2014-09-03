@@ -1,5 +1,5 @@
 .exercise {
-  counter-reset: part, question 1;
+  counter-reset: part question;
   font-family: sans-serif;
 }
 .exercise .part {

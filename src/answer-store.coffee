@@ -3,20 +3,22 @@
 {EventEmitter}  = require 'events'
 merge           = require 'react/lib/merge'
 
+pendingAnswers = {}
 questions = {}
 
 AnswerStore = merge EventEmitter.prototype,
   getAnswers: -> answers
-  getAnswer: (questionId) -> questions[questionId]?.answer
+  getAnswer: (question) -> pendingAnswers[question.id] or question.answer
   setAnswer: (question, answer) ->
     console.log("Answered #{question.id} with", answer)
     questions[question.id] = question
-    question.answer = answer
+    pendingAnswers[question.id] = answer
 
     @emit('change', question)
 
   submitAnswers: ->
-    for question, question of questions
+    for questionId, question of questions
+      questions[questionId].answer = pendingAnswers[questionId]
       @emit('answered', question)
 
 module.exports = AnswerStore

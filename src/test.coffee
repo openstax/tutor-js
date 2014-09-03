@@ -98,6 +98,34 @@ module.exports =
           ]
         }
       ]
+    } # End part
+
+    {
+      background: 'These questions have aleady been answered by the student and are meant to test that the Exercise knows not to render radio buttons, input boxes, etc'
+      questions: [
+        {
+          formats: ['short-answer']
+          stem: 'What is 2+2?'
+          answer: '42'
+        }
+        {
+          formats: ['fill-in-the-blank']
+          stem: '2+2 is ____'
+          answer: '0'
+          correct: '4'
+        }
+        {
+          formats: ['multiple-choice']
+          stem: 'What is 2+2?'
+          answers: [
+            {id: 'id1', value: '4'}
+            {id: 'id2', value: '42'}
+          ]
+          correct: 'id1'
+          answer: 'id1'
+        }
+
+      ]
     }
     # {
     #   background: '''Fill in this table (this is a multi-fill-in-the-blank):

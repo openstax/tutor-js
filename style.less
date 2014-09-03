@@ -1,6 +1,7 @@
 @answer-correct: #34b27d;
 @answer-incorrect: #cb4d4d;
 
+
 .x-variant(@name) {
   input[type='checkbox'][data-format=@{name}]:not(:checked) ~ [data-format=@{name}] {
     display: none;
@@ -12,13 +13,12 @@
 }
 
 .exercise {
-  counter-reset: part, question 1;
+  counter-reset: part question;
 
   font-family: sans-serif;
 
   .part {
     counter-increment: part;
-    // counter-reset: question;
     &::before {
       content: 'Part ' counter(part);
       font-size: x-large;

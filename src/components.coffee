@@ -46,6 +46,7 @@ Exercise = React.createClass
 
   _submitAnswers: ->
     AnswerStore.submitAnswers()
+    @forceUpdate()
 
 getQuestionType = (format) ->
   switch format
@@ -112,7 +113,7 @@ BlankQuestion = React.createClass
   render: ->
     {config} = @props
     {stem} = config
-    {isAnswered} = @state
+    isAnswered = !!config.answer
 
     if isAnswered
       # TODO: Make sure HTML is escaped!!!
@@ -130,7 +131,7 @@ BlankQuestion = React.createClass
   componentDidMount: ->
     # Find the input box and attach listeners to it
     input = @getDOMNode().querySelector('.blank')
-    input.onkeyup = input.onblur = =>
+    input?.onkeyup = input?.onblur = =>
       AnswerStore.setAnswer(@props.config, input.value) if input.value
 
 
@@ -138,10 +139,19 @@ SimpleQuestion = React.createClass
   displayName: 'SimpleQuestion'
   render: ->
     {config} = @props
-    <div className="question">
-      <div className="stem">{config.stem}</div>
-      <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange />
-    </div>
+    isAnswered = !!config.answer
+    answer = AnswerStore.getAnswer(config)
+
+    if isAnswered
+      <div className="question simple">
+        <div className="stem">{config.stem}</div>
+        Your answer: <strong>{answer}</strong>
+      </div>
+    else
+      <div className="question simple">
+        <div className="stem">{config.stem}</div>
+        <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer}/>
+      </div>
 
   onChange: ->
     val = @refs.prompt.getDOMNode().value
@@ -228,7 +238,7 @@ MultipleChoiceQuestion = React.createClass
 
   render: ->
     {config} = @props
-    {isAnswered} = @state
+    isAnswered = !!config.answer
     questionId = config.id
     options = for option, index in config.answers
       answerState = null
@@ -242,7 +252,7 @@ MultipleChoiceQuestion = React.createClass
 
       optionProps = {
         config: option
-        answer: config.answer
+        answer: AnswerStore.getAnswer(config)
         questionId
         index
         isAnswered
@@ -299,7 +309,7 @@ MultiSelectQuestion = React.createClass
 
   render: ->
     {config} = @props
-    {isAnswered} = @state
+    isAnswered = !!config.answer
     questionId = config.id
 
     options = []
@@ -320,7 +330,7 @@ MultiSelectQuestion = React.createClass
 
         optionProps = {
           config: option
-          answer: config.answer
+          answer: AnswerStore.getAnswer(config)
           isAnswered
           answerState
           questionId
@@ -358,7 +368,7 @@ TrueFalseQuestion = React.createClass
 
   render: ->
     {config} = @props
-    {isAnswered} = @state
+    isAnswered = !!config.answer
     questionId = config.id
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
