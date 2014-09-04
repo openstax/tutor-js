@@ -13,3 +13,4 @@ module.exports = (grunt) ->
     require("./#{GRUNT_DIR}/#{file}")(grunt)
 
   grunt.registerTask('dist', ['clean', 'browserify', 'concat'])
+  grunt.registerTask('test', ['clean', 'mochaTest'])

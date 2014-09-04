@@ -27,3 +27,10 @@ module.exports = (grunt) ->
           'src/nodefine.js' # This removes the define added by loader
         ]
         'dist/exercise.js': ['.build/exercise.js']
+
+  grunt.config 'mochaTest',
+    test:
+      options:
+        reporter: 'spec'
+        require: 'coffee-script'
+      src: ['test/*.spec.coffee']
