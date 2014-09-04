@@ -188,19 +188,29 @@ MultipleChoiceOptionMixin =
     else
       isChecked = @props.answer is optionIdent
 
+    contents = [
+      <span className="letter"><AnswerLabeler after=")" index={index}/> </span>
+      <span className="answer">{option}</span>
+    ]
+
+
+    unless isAnswered
+      contents =
+        <label>
+          <input type={inputType}
+            ref="input"
+            name={questionId}
+            value={JSON.stringify(config.value)}
+            onChange=@onChange
+            defaultChecked={isChecked}
+          />
+          {contents}
+        </label>
+
     <li key={id} className={classes.join(' ')}>
-      <label>
-        <input type={inputType}
-          ref="input"
-          name={questionId}
-          value={JSON.stringify(config.value)}
-          onChange=@onChange
-          defaultChecked={isChecked}
-        />
-        <span className="letter"><AnswerLabeler after=")" index={index}/> </span>
-        <span className="answer">{option}</span>
-      </label>
+      {contents}
     </li>
+
 
 
 MultipleChoiceOption = React.createClass
@@ -218,6 +228,7 @@ MultipleChoiceQuestion = React.createClass
   render: ->
     {config} = @props
     isAnswered = !!config.answer
+
     questionId = config.id
     options = for option, index in config.answers
       answerState = null
