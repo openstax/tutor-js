@@ -19,10 +19,9 @@ React = require 'react/addons'
 describe 'fill-in-the-blank', ->
   beforeEach ->
     @question =
+      format: 'fill-in-the-blank'
       id: 'QUESTION_ID-fill-in-the-blank'
       stem: '[QUESTION_STEM] with a blank ____ [STEM_AFTER_BLANK]'
-
-    @type = Components.getQuestionType('fill-in-the-blank')
 
     # Helpers
     @querySelector = (selector) =>
@@ -30,7 +29,7 @@ describe 'fill-in-the-blank', ->
     @querySelectorAll = (selector) =>
       @component.getDOMNode().querySelectorAll(selector)
     @render = =>
-      node = @type {config: @question}
+      node = Components.getQuestionType(@question.format) {config: @question}
       @component = React.renderComponent(node, @document.body)
 
 

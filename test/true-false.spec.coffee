@@ -19,10 +19,9 @@ React = require 'react/addons'
 describe 'true-false', ->
   beforeEach ->
     @question =
+      format: 'true-false'
       id: 'QUESTION_ID-true-false'
       stem: '[QUESTION_STEM]'
-
-    @type = Components.getQuestionType('true-false')
 
     # Helpers
     @querySelector = (selector) =>
@@ -30,7 +29,7 @@ describe 'true-false', ->
     @querySelectorAll = (selector) =>
       @component.getDOMNode().querySelectorAll(selector)
     @render = =>
-      node = @type {config: @question}
+      node = Components.getQuestionType(@question.format) {config: @question}
       @component = React.renderComponent(node, @document.body)
 
 

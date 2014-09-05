@@ -23,8 +23,8 @@ React = require 'react/addons'
 
 describe 'multiple-select', ->
   beforeEach ->
-    @document.body.innerHTML = ''
     @question =
+      format: 'multiple-select'
       id: 'QUESTION_ID-multiple-select'
       stem: '[QUESTION_STEM]'
       answers: [
@@ -33,15 +33,13 @@ describe 'multiple-select', ->
         { id: 'option3', value: ['option1', 'option2'] }
       ]
 
-    @type = Components.getQuestionType('multiple-select')
-
     # Helpers
     @querySelector = (selector) =>
       @component.getDOMNode().querySelector(selector)
     @querySelectorAll = (selector) =>
       @component.getDOMNode().querySelectorAll(selector)
     @render = =>
-      node = @type {config: @question}
+      node = Components.getQuestionType(@question.format) {config: @question}
       @component = React.renderComponent(node, @document.body)
 
 
