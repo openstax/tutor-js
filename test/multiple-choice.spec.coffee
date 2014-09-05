@@ -15,42 +15,46 @@ describe 'multiple-choice', ->
       answers: [
         { id: 'option1', value: '[OPTION_1]' }
         { id: 'option2', value: '[OPTION_2]' }
+        { id: 'option3', value: ['option1', 'option2'] }
       ]
 
     @type = Components.getQuestionType('multiple-choice')
 
-    # Helper
-    @querySelector = (selector) ->
+    # Helpers
+    @querySelector = (selector) =>
       @component.getDOMNode().querySelector(selector)
-
-  describe 'simple', ->
-    beforeEach ->
+    @render = =>
       node = @type {config: @question}
       @component = React.renderComponent(node, @document.body)
 
-    it 'renders with 2 options', ->
-      html = @component.getDOMNode().innerHTML
-      expect(html).to.contain('[QUESTION_STEM]')
-      expect(html).to.contain('[OPTION_1]')
-      expect(html).to.contain('[OPTION_2]')
+
+  describe 'simple', ->
+    beforeEach ->
+      @render()
+
+    it 'renders with 3 options', ->
+      text = @component.getDOMNode().textContent
+      expect(text).to.contain('[QUESTION_STEM]')
+      expect(text).to.contain('[OPTION_1]')
+      expect(text).to.contain('[OPTION_2]')
+      expect(text).to.contain('(a)(b)')
 
     it 'has radio options', ->
       inputs = TestUtils.scryRenderedDOMComponentsWithTag(@component, 'input')
-      expect(inputs).to.have.length(2)
+      expect(inputs).to.have.length(3)
 
     it 'sets the answer when a radio is clicked', ->
       expect(AnswerStore.getAnswer(@question)).to.not.exist
       inputs = TestUtils.scryRenderedDOMComponentsWithTag(@component, 'input')
       TestUtils.Simulate.change(inputs[0])
       expect(AnswerStore.getAnswer(@question)).to.equal('option1')
-      TestUtils.Simulate.change(inputs[1])
-      expect(AnswerStore.getAnswer(@question)).to.equal('option2')
+      TestUtils.Simulate.change(inputs[2])
+      expect(AnswerStore.getAnswer(@question)).to.equal('option3')
 
   describe 'with an answer', ->
     beforeEach ->
       @question.answer = 'option1'
-      node = @type {config: @question}
-      @component = React.renderComponent(node, @document.body)
+      @render()
 
     it 'no longer has radio options', ->
       inputs = TestUtils.scryRenderedDOMComponentsWithTag(@component, 'input')
@@ -60,8 +64,7 @@ describe 'multiple-choice', ->
     beforeEach ->
       @question.answer = 'option1'
       @question.correct = 'option1'
-      node = @type {config: @question}
-      @component = React.renderComponent(node, @document.body)
+      @render()
 
     it 'has a "correct" class on the option', ->
       expect(@querySelector('.question.answered .option.correct')).to.exist
@@ -71,21 +74,18 @@ describe 'multiple-choice', ->
     beforeEach ->
       @question.answer = 'option1'
       @question.correct = 'option2'
-      node = @type {config: @question}
-      @component = React.renderComponent(node, @document.body)
+      @render()
 
-    it 'does NOT have a "correct" or "missed" class on the correct option', ->
-      expect(@querySelector('.question.answered .option.incorrect')).to.exist
-      expect(@querySelector('.question.answered .option.correct')).to.not.exist
-      expect(@querySelector('.question.answered .option.missed')).to.not.exist
+    it 'does NOT have a "correct" class on the correct option', ->
+      expect(@querySelector('.question.answered .option.incorrect'), 'incorrect').to.exist
+      expect(@querySelector('.question.answered .option.correct'), 'correct').to.not.exist
 
   describe '3 options with an incorrect answer', ->
     beforeEach ->
       @question.answers.push {id: 'option3', value: '[OPTION_3]'}
       @question.answer = 'option1'
       @question.correct = 'option2'
-      node = @type {config: @question}
-      @component = React.renderComponent(node, @document.body)
+      @render()
 
     it 'DOES have a "missed" class on the correct option', ->
       expect(@querySelector('.question.answered .option.incorrect')).to.exist
