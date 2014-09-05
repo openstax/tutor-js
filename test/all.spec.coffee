@@ -17,12 +17,5 @@ afterEach ->
   global.window.close()
 
 
-# 'multiple-choice'
-# 'multiple-select'
 # 'short-answer'
-# 'true-false'
-# 'fill-in-the-blank'
 # 'matching'
-
-
-# console.log Object.keys(TestUtils)

@@ -99,19 +99,28 @@ BlankQuestion = React.createClass
       if config.answer is config.correct
         stem = stem.replace(/____/, "<span class='correct'>#{config.answer}</span>")
       else
-        stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='correct'>#{config.correct}</span>")
+        stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
     else
       stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
 
-    <div className="question fill-in-the-blank">
-      <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
-    </div>
+    if isAnswered
+      <div className="question answered fill-in-the-blank">
+        <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
+      </div>
+
+    else
+      <div className="question fill-in-the-blank">
+        <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
+      </div>
 
   componentDidMount: ->
     # Find the input box and attach listeners to it
     input = @getDOMNode().querySelector('.blank')
-    input?.onkeyup = input?.onblur = =>
-      AnswerStore.setAnswer(@props.config, input.value) if input.value
+    input?.onkeyup = input?.onblur = input?.onchange = =>
+      if input.value
+        AnswerStore.setAnswer(@props.config, input.value)
+      else
+        AnswerStore.setAnswer(@props.config, undefined)
 
 
 SimpleQuestion = React.createClass
