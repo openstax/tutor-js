@@ -10,6 +10,7 @@ AnswerStore = merge EventEmitter.prototype,
   getAnswers: -> answers
   getAnswer: (question) -> pendingAnswers[question.id] or question.answer
   setAnswer: (question, answer) ->
+    # console.log "Answering #{question.id} with", answer
     questions[question.id] = question
     pendingAnswers[question.id] = answer
 

@@ -269,9 +269,10 @@ MultiSelectOption = React.createClass
   mixins: [MultipleChoiceOptionMixin]
 
   onChange: ->
-    # NOTE: refs.input.state.checked only works for checkboxes (not radio buttons)
+    # NOTE: @refs.input.state.checked only works for checkboxes (not radio buttons)
     # but @refs.input.getDOMNode().checked works for both
-    @props.onChange(@props.config, @refs.input.getDOMNode().checked)
+    # and @refs.input.getDOMNode().checked does not work for Node tests ; (
+    @props.onChange(@props.config)
 
 
 # http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
@@ -309,20 +310,21 @@ MultiSelectQuestion = React.createClass
         isCorrect = false
         isIncorrect = false
 
-        correctAnswers = _.find(config.answers, (a) -> a.id is config.correct).value
-        # If correctAnswers is not an array then there is only 1 correct answer
-        unless Array.isArray(correctAnswers)
-          correctAnswers = [config.correct]
+        if isAnswered and config.correct
+          correctAnswers = _.find(config.answers, (a) -> a.id is config.correct).value
+          # If correctAnswers is not an array then there is only 1 correct answer
+          unless Array.isArray(correctAnswers)
+            correctAnswers = [config.correct]
 
-        if config.answer?.indexOf(option.id) >= 0 # if my answer contains this option
-          if correctAnswers.indexOf(option.id) >= 0
-            answerState = 'correct'
+          if config.answer?.indexOf(option.id) >= 0 # if my answer contains this option
+            if correctAnswers.indexOf(option.id) >= 0
+              answerState = 'correct'
+            else
+              answerState = 'incorrect'
+          else if correctAnswers.indexOf(option.id) >= 0 # This option was missed
+            answerState = 'missed'
           else
-            answerState = 'incorrect'
-        else if correctAnswers.indexOf(option.id) >= 0 # This option was missed
-          answerState = 'missed'
-        else
-          answerState = null
+            answerState = null
 
         optionProps = {
           config: option
@@ -346,11 +348,11 @@ MultiSelectQuestion = React.createClass
     </div>
 
   onChange: (answer, isChecked) ->
-    if isChecked
-      @state.answers.push(answer.id) if @state.answers.indexOf(answer.id) < 0
+    i = @state.answers.indexOf(answer.id)
+    if i >= 0
+      @state.answers.splice(i, 1)
     else
-      i = @state.answers.indexOf(answer.id)
-      @state.answers.splice(i, 1) if i >= 0
+      @state.answers.push(answer.id)
 
     if @state.answers.length
       AnswerStore.setAnswer(@props.config, @state.answers)
