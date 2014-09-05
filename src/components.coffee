@@ -365,7 +365,7 @@ TrueFalseQuestion = React.createClass
 
   render: ->
     {config} = @props
-    isAnswered = !!config.answer
+    isAnswered = config.answer?
     questionId = config.id
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
@@ -411,7 +411,7 @@ TrueFalseQuestion = React.createClass
           </li>
           <li className="option">
             <label>
-              <input type="radio" name={questionId} value="true" onChange=@onFalse />
+              <input type="radio" name={questionId} value="false" onChange=@onFalse />
               <span>False</span>
             </label>
           </li>

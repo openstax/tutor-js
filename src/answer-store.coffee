@@ -8,7 +8,12 @@ questions = {}
 
 AnswerStore = merge EventEmitter.prototype,
   getAnswers: -> answers
-  getAnswer: (question) -> pendingAnswers[question.id] or question.answer
+  getAnswer: (question) ->
+    answer = pendingAnswers[question.id]
+    if answer? # Handle the case of the answer being `false` (instead of just truthy)
+      answer
+    else
+      question.answer
   setAnswer: (question, answer) ->
     # console.log "Answering #{question.id} with", answer
     questions[question.id] = question
