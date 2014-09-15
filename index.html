@@ -6,6 +6,39 @@
   <body>
     <div id="exercise"></div>
     <script src="./dist/libs.js"></script>
+    <script src="./test/example.js"></script>
     <script src="./dist/exercise.js"></script>
+    <script>
+url = prompt('URL to fetch Exercise JSON\n (leave blank to use local test file)', '');
+if (url) {
+  request = new XMLHttpRequest();
+  request.open('GET', url, true);
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400){
+      // Success!
+      data = JSON.parse(request.responseText);
+
+      window.ExerciseComponent(document.getElementById('exercise'), data);
+    } else {
+      // We reached our target server, but it returned an error
+      alert('Woops, server returned a non 200 error');
+    }
+  };
+
+  request.onerror = function() {
+    // There was a connection error of some sort
+    alert('Woops, problem connecting to server');
+  };
+
+  request.send();
+
+} else {
+  window.ExerciseComponent(document.getElementById('exercise'), window.config);
+}
+
+
+
+    </script>
   </body>
 </html>

@@ -4,7 +4,7 @@ module.exports = (grunt) ->
       browserifyOptions:
         extensions: ['.js', '.coffee']
       bundleOptions:
-        # standalone: 'Exercise'
+        standalone: 'ExerciseComponent'
         debug: true # Source Maps
       transform: ['coffee-reactify']
     exercise:
