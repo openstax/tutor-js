@@ -1,0 +1,25 @@
+{
+  "name": "openstax-tutor",
+  "version": "0.0.0",
+  "description": "Client for OpenStax Tutor",
+  "main": "index.js",
+  "scripts": {
+    "test": "mkdir ./dist; browserify -t coffeeify -o dist/tutor.js index.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openstax/tutor-js.git"
+  },
+  "author": "Philip Schatz <http://philschatz.com>",
+  "license": "AGPL3",
+  "bugs": {
+    "url": "https://github.com/openstax/tutor-js/issues"
+  },
+  "homepage": "https://github.com/openstax/tutor-js",
+  "devDependencies": {
+    "backbone": "^1.1.2",
+    "browserify": "^5.12.0",
+    "coffeeify": "^0.7.0",
+    "react": "^0.11.2"
+  }
+}
