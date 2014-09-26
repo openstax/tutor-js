@@ -4,7 +4,8 @@
   "description": "Client for OpenStax Tutor",
   "main": "index.js",
   "scripts": {
-    "test": "mkdir ./dist; browserify -t coffeeify -o dist/tutor.js index.coffee"
+    "install": "bower install",
+    "test": "mkdir ./dist; browserify -t browserify-shim -t coffeeify -o dist/tutor.js index.coffee"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,20 @@
   "homepage": "https://github.com/openstax/tutor-js",
   "devDependencies": {
     "backbone": "^1.1.2",
+    "bootstrap": "^3.2.0",
     "browserify": "^5.12.0",
+    "browserify-shim": "^3.7.0",
     "coffeeify": "^0.7.0",
     "react": "^0.11.2"
+  },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "bootstrap": {
+      "depends": [ "jquery:$" ]
+    }
   }
 }

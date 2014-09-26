@@ -1,0 +1,27 @@
+{
+  "name": "openstax-tutor",
+  "version": "0.0.0",
+  "homepage": "https://github.com/openstax/tutor-js",
+  "authors": [
+    "Philip Schatz <http://philschatz.com>"
+  ],
+  "description": "Client for OpenStax Tutor",
+  "main": "dist/tutor.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "AGPL3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0"
+  }
+}
