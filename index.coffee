@@ -1,13 +1,11 @@
-# @cjsx React.DOM
-Backbone = require 'backbone'
-React    = require 'react'
-
 $ = require 'jquery'
 require 'bootstrap'
 
+Backbone = require 'backbone'
+Backbone.$ = $
 
-Hello = React.createClass
-  render: ->
-    <span className="hello">Hello World</span>
+Router = require './src/router'
+LinkInterceptor = require './src/link-interceptor'
 
-alert 'This works!'
+router = Router.start(document.body)
+LinkInterceptor.start(router)

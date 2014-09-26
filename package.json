@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install": "bower install",
-    "test": "browserify -t browserify-shim -t cjsxify -o bundle.js index.coffee",
-    "start": "beefy index.coffee:bundle.js 8181 --live -- --transform browserify-shim --transform cjsxify"
+    "test": "browserify --extension='.coffee' --transform browserify-shim --transform cjsxify --outfile ./bundle.js ./index.coffee",
+    "start": "rm ./bundle.js; beefy ./index.coffee:bundle.js 8181 --live -- --extension='.coffee' --transform browserify-shim --transform cjsxify"
   },
   "repository": {
     "type": "git",
