@@ -1,18 +1,21 @@
 Backbone = require 'backbone'
 React = require 'react'
-{Dashboard, AboutUs} = require './components'
+{Dashboard, Tasks, Invalid} = require './components'
 
 start = (mountPoint) ->
 
   Router = Backbone.Router.extend
     routes:
-      '': 'root'
-      'about': 'about'
+      ''        : 'root'
+      'tasks'   : 'tasks'
+      '*invalid': 'invalid'
 
     root: ->
       React.renderComponent(<Dashboard/>, mountPoint)
-    about: ->
-      React.renderComponent(<AboutUs/>, mountPoint)
+    tasks: ->
+      React.renderComponent(<Tasks/>, mountPoint)
+    invalid: (path) ->
+      React.renderComponent(<Invalid path=path />, mountPoint)
 
   router = new Router()
   Backbone.history.start({pushState: true})
