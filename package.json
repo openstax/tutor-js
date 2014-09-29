@@ -4,9 +4,9 @@
   "description": "Client for OpenStax Tutor",
   "main": "index.js",
   "scripts": {
-    "install": "bower install",
-    "test": "browserify --extension='.coffee' --transform browserify-shim --transform cjsxify --outfile ./bundle.js ./index.coffee",
-    "start": "rm ./bundle.js; beefy ./index.coffee:bundle.js 8181 --live --index index.html -- --extension='.coffee' --transform browserify-shim --transform cjsxify"
+    "install": "bower install && gulp dist",
+    "test": "gulp test",
+    "start": "gulp serve"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,13 @@
     "browserify": "^5.12.0",
     "browserify-shim": "^3.7.0",
     "cjsxify": "^0.2.5",
+    "coffee-script": "^1.8.0",
+    "gulp": "^3.8.8",
+    "gulp-webserver": "^0.8.2",
     "react": "^0.11.2",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^1.0.6"
   },
   "browser": {
     "jquery": "./bower_components/jquery/dist/jquery.js",
