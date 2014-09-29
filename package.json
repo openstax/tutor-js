@@ -24,7 +24,8 @@
     "browserify": "^5.12.0",
     "browserify-shim": "^3.7.0",
     "cjsxify": "^0.2.5",
-    "react": "^0.11.2"
+    "react": "^0.11.2",
+    "underscore": "^1.7.0"
   },
   "browser": {
     "jquery": "./bower_components/jquery/dist/jquery.js",

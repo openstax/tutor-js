@@ -2,6 +2,8 @@ Backbone = require 'backbone'
 React = require 'react'
 {Dashboard, Tasks, Invalid} = require './components'
 
+Models = require './models'
+
 start = (mountPoint) ->
 
   Router = Backbone.Router.extend
@@ -11,9 +13,10 @@ start = (mountPoint) ->
       '*invalid': 'invalid'
 
     root: ->
-      React.renderComponent(<Dashboard/>, mountPoint)
+      React.renderComponent(<Dashboard />, mountPoint)
     tasks: ->
-      React.renderComponent(<Tasks/>, mountPoint)
+      Models.Tasks.reload()
+      React.renderComponent(<Tasks model=Models.Tasks />, mountPoint)
     invalid: (path) ->
       React.renderComponent(<Invalid path=path />, mountPoint)
 
