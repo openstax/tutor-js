@@ -1,10 +1,21 @@
+$ = require 'jquery'
 Backbone = require 'backbone'
 React = require 'react'
 {Dashboard, Tasks, Invalid} = require './components'
 
 Models = require './models'
 
+
+Backbone.$ = $
+
+
 start = (mountPoint) ->
+
+  hasComponent = false
+  remount = (component) ->
+    React.unmountComponentAtNode(mountPoint) if hasComponent
+    React.renderComponent(component, mountPoint)
+    hasComponent = true
 
   Router = Backbone.Router.extend
     routes:
@@ -13,12 +24,12 @@ start = (mountPoint) ->
       '*invalid': 'invalid'
 
     root: ->
-      React.renderComponent(<Dashboard />, mountPoint)
+      remount <Dashboard />
     tasks: ->
       Models.Tasks.reload()
-      React.renderComponent(<Tasks model=Models.Tasks />, mountPoint)
+      remount <Tasks model=Models.Tasks />
     invalid: (path) ->
-      React.renderComponent(<Invalid path=path />, mountPoint)
+      remount <Invalid path=path />
 
   router = new Router()
   Backbone.history.start({pushState: true})

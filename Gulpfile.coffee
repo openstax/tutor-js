@@ -44,7 +44,7 @@ build = (isWatching)->
   buildBrowserify(srcPath, destDir, destFile, isWatching)
 
 buildTests = (isWatching) ->
-  destDir = './.tmp'
+  destDir = './.tmp' # This is referenced in ./test/karma.config.coffee
   destFile = 'all-tests.js'
   srcPath = './test/all-tests.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)

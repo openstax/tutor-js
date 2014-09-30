@@ -7,7 +7,7 @@ start = (router) ->
     return if e.isDefaultPrevented()
 
     # Don't intercept cmd/ctrl-clicks intended to open a link in a new tab
-    return if e.metaKey or e.which isnt 1
+    return if e.metaKey or e.which is 2 or e.which is 3
 
     $this = $(this)
     href = $this.attr('href')
