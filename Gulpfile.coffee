@@ -1,4 +1,5 @@
 gulp            = require 'gulp'
+karma           = require 'karma'
 webserver       = require 'gulp-webserver'
 source          = require 'vinyl-source-stream'
 browserify      = require 'browserify'
@@ -14,12 +15,9 @@ handleErrors = (title) -> (args...)->
   @emit('end')
 
 
-build = (isWatching)->
-  destDir = './'
-  destFile = 'bundle.js'
-  sourceName = './index.coffee'
+buildBrowserify = (srcPath, destDir, destFile, isWatching) ->
   args = (if isWatching then watchify.args else {})
-  args.entries = ['./index.coffee']
+  args.entries = [srcPath]
   args.extensions = ['.coffee']
   args.debug = true if isWatching
   bundler = browserify(args)
@@ -35,12 +33,43 @@ build = (isWatching)->
     .pipe(source(destFile))
     .pipe(gulp.dest(destDir))
 
-
-  bundler.on('update', bundle)
+  bundler.on('update', bundle) if isWatching
   bundle()
 
 
-gulp.task 'test', -> build(false)
+build = (isWatching)->
+  destDir = './'
+  destFile = 'bundle.js'
+  srcPath = './index.coffee'
+  buildBrowserify(srcPath, destDir, destFile, isWatching)
+
+buildTests = (isWatching) ->
+  destDir = './.tmp'
+  destFile = 'all-tests.js'
+  srcPath = './test/all-tests.coffee'
+  buildBrowserify(srcPath, destDir, destFile, isWatching)
+
+
+gulp.task 'test', (done) ->
+  buildTests(false)
+  .on 'end', ->
+    config =
+      configFile: __dirname + '/test/karma.config.coffee'
+      singleRun: true
+    karma.server.start(config, done)
+
+  return # Since this is async
+
+gulp.task 'tdd', (done) ->
+  buildTests(true)
+  .on 'end', ->
+    config =
+      configFile: __dirname + '/test/karma.config.coffee'
+    karma.server.start(config, done)
+
+  return # Since this is async
+
+
 gulp.task 'dist', -> build(false)
 gulp.task 'watch', -> build(true)
 gulp.task 'serve', ->
