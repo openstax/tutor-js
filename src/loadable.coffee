@@ -17,7 +17,7 @@ LoadableMixin =
   load: ->
     # TODO: depending on the URL set an Accept header
     beforeSend = (xhr) ->
-      xhr.setRequestHeader('Accept', 'application/vnd.exercises.openstax.v1')
+      xhr.setRequestHeader('Accept', 'application/vnd.openstax.tutor.v1+json')
 
     unless @_promiseState in ['LOADING', 'RESOLVED', 'REJECTED']
       @_promiseState = 'LOADING'
