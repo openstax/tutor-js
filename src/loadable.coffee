@@ -32,8 +32,12 @@ LoadableMixin =
     @load()
 
 
-class LoadableCollection extends Collection
 class LoadableModel extends Model
+class LoadableCollection extends Collection
+  parse: (json) ->
+    # Collections are search results and as such have `total_count` and `items` fields
+    throw new Error('Collections Should have a .items array') unless _.isArray(json.items)
+    json.items
 
 # Mixin the Loadable methods
 _.extend(LoadableCollection::, LoadableMixin)
