@@ -19,11 +19,12 @@ start = (mountPoint) ->
 
   Router = Backbone.Router.extend
     routes:
-      ''        : 'root'
-      'tasks'   : 'tasks'
-      '*invalid': 'invalid'
+      ''          : 'dashboard'
+      'dashboard' : 'dashboard'
+      'tasks'     : 'tasks'
+      '*invalid'  : 'invalid'
 
-    root: ->
+    dashboard: ->
       remount <Dashboard />
     tasks: ->
       Models.Tasks.reload()

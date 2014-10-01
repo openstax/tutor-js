@@ -11,11 +11,11 @@ navigate = (path) ->
 
 describe 'router', ->
   it 'should go to the home page', ->
-    navigate('/')
-    expect(window.location.pathname).to.equal('/')
+    navigate('/dashboard')
+    expect(window.location.pathname).to.equal('/dashboard')
 
   it 'should go to the tasks page when clicking the link', ->
-    navigate('/')
+    navigate('/dashboard')
     expect($('a')).to.have.length.at.least(1)
     $('a').click()
     expect(window.location.pathname).to.equal('/tasks')

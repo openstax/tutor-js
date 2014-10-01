@@ -33,7 +33,7 @@ Tasks = React.createClass
   mixins: [ModelMixin]
   renderResolved: ->
     <div>
-      <a href="/">Home</a>
+      <a href="/dashboard">Home</a>
       <br/>{@props.model.length} tasks
     </div>
 
@@ -41,7 +41,7 @@ Invalid = React.createClass
   render: ->
     <div>
       <h1>Woops, this is an invalid page {@props.path}</h1>
-      <a href="/">Home</a>
+      <a href="/dashboard">Home</a>
     </div>
 
 module.exports = {Dashboard, Tasks, Invalid}
