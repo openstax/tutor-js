@@ -8,11 +8,18 @@ AsyncState = require './async-state'
 
 App = React.createClass
   render: ->
-    @props.activeRouteHandler()
+    <div>
+      <div>
+        <Link to='dashboard'>Home</Link>
+        <Link to='tasks'>Tasks</Link>
+      </div>
+      {@props.activeRouteHandler()}
+      <div>Page Footer</div>
+    </div>
 
 Dashboard = React.createClass
   render: ->
-    <Link to='tasks'>Tasks</Link>
+    <div>Dashboard!</div>
 
 Tasks = React.createClass
   mixins: [AsyncState]
@@ -28,8 +35,7 @@ Tasks = React.createClass
         taskCount = "#{@state.results['total_count']} tasks"
 
       <div>
-        <Link to='dashboard'>Home</Link>
-        <br/>{taskCount}
+        {taskCount}
       </div>
 
     else if @state?.results_error
