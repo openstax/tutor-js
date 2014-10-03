@@ -19,7 +19,7 @@ App = React.createClass
               <span className='icon-bar'></span>
             </button>
 
-            <Link to='home' className='navbar-brand'>OpenStax Tutor</Link>
+            <Link to='dashboard' className='navbar-brand'>OpenStax Tutor</Link>
           </div>
 
           <div className='collapse navbar-collapse' id='ui-navbar-collapse'>
