@@ -1,8 +1,6 @@
-$ = require 'jquery'
-require 'bootstrap'
+require 'jquery'
+require 'bootstrap' # Attach bootstrap to jQuery
 
 Router = require './src/router'
-LinkInterceptor = require './src/link-interceptor'
 
-router = Router.start(document.body)
-LinkInterceptor.start(router)
+Router.start(document.body)

@@ -1,40 +1,21 @@
-$ = require 'jquery'
-Backbone = require 'backbone'
+# @cjsx React.DOM
 React = require 'react'
-{Dashboard, Tasks, Invalid} = require './components'
-
-Models = require './models'
-
-
-Backbone.$ = $
-
+{Routes, Route, Redirect, NotFoundRoute} = require 'react-router'
+{App, Dashboard, Tasks, Invalid} = require './components'
 
 start = (mountPoint) ->
 
-  hasComponent = false
-  remount = (component) ->
-    React.unmountComponentAtNode(mountPoint) if hasComponent
-    React.renderComponent(component, mountPoint)
-    hasComponent = true
+  router =
+    <Routes location='history'>
+      <Redirect path='/' to='dashboard' />
+      <Route path='/' handler={App}>
+        <Route path='dashboard' name='dashboard' handler={Dashboard} />
+        <Route path='tasks' name='tasks' handler={Tasks} />
+        <NotFoundRoute handler={Invalid}/>
+      </Route>
+    </Routes>
 
-  Router = Backbone.Router.extend
-    routes:
-      ''          : 'dashboard'
-      'dashboard' : 'dashboard'
-      'tasks'     : 'tasks'
-      '*invalid'  : 'invalid'
-
-    dashboard: ->
-      remount <Dashboard />
-    tasks: ->
-      Models.Tasks.reload()
-      remount <Tasks model=Models.Tasks />
-    invalid: (path) ->
-      remount <Invalid path=path />
-
-  router = new Router()
-  Backbone.history.start({pushState: true})
-  router
+  React.renderComponent(router, mountPoint)
 
 
 module.exports = {start}

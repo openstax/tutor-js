@@ -1,5 +1,4 @@
 Components = require '../src/components'
-Models = require '../src/models'
 
 {expect} = require 'chai'
 
