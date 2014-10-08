@@ -51,6 +51,26 @@ Dashboard = React.createClass
   render: ->
     <div>Dashboard!</div>
 
+ReadingTask = React.createClass
+  render: ->
+    <div className='panel panel-default'>
+      <div className='panel-heading'>
+        Reading Asignment
+
+        <span className='pull-right'>
+          <a className='btn btn-primary btn-sm' target='_window' href={@props.item.content_url}>Read Now</a>
+        </span>
+      </div>
+    </div>
+
+Task = React.createClass
+  render: ->
+    TaskType = switch @props.item.type
+      when 'reading' then ReadingTask
+      else throw new Error('Invalid task type')
+
+    <TaskType item={@props.item} />
+
 Tasks = React.createClass
   mixins: [AsyncState]
   statics:
@@ -60,13 +80,15 @@ Tasks = React.createClass
   render: ->
     if @state?.results
       if @state.results['total_count'] is 0
-        taskCount = 'No Tasks'
+        <div>No Tasks</div>
       else
-        taskCount = "#{@state.results['total_count']} tasks"
+        tasks = for item in @state.results.items
+          <Task item={item} />
 
-      <div>
-        {taskCount}
-      </div>
+        <div>
+          <div>{@state.results['total_count']} tasks</div>
+          {tasks}
+        </div>
 
     else if @state?.results_error
       <div>Error loading tasks. Please reload the page and try again</div>

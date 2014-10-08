@@ -1,1 +1,8 @@
-{"total_count": 0, "items":[]}
+{ "total_count": 1,
+  "items":[
+    { "id": 1,
+      "type": "reading",
+      "content_url": "http://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de@17.23:21/Introductory_Statistics"
+    }
+  ]
+}
