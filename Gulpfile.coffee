@@ -1,6 +1,7 @@
 gulp            = require 'gulp'
 karma           = require 'karma'
 webserver       = require 'gulp-webserver'
+less            = require 'gulp-less'
 source          = require 'vinyl-source-stream'
 browserify      = require 'browserify'
 watchify        = require 'watchify'
@@ -42,6 +43,11 @@ build = (isWatching)->
   destFile = 'bundle.js'
   srcPath = './index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
+  .on 'end', ->
+    # Build the CSS file
+    gulp.src('./style/tutor.less')
+    .pipe(less())
+    .pipe(gulp.dest(destDir))
 
 buildTests = (isWatching) ->
   destDir = './.tmp' # This is referenced in ./test/karma.config.coffee
