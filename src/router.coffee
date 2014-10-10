@@ -7,7 +7,7 @@ start = (mountPoint) ->
 
   router =
     <Routes location='history'>
-      <Redirect path='/' to='home' />
+      <Redirect path='/' to='dashboard' />
       <Route path='/' handler={App}>
         <Route path='dashboard' name='dashboard' handler={Dashboard} />
         <Route path='tasks' name='tasks' handler={Tasks} />
