@@ -1,9 +1,10 @@
 # @cjsx React.DOM
+$ = require 'jquery'
 React = require 'react'
 {Link} = require 'react-router'
 
 AsyncState = require './async-state'
-
+Cache = require './cache'
 
 
 App = React.createClass
@@ -52,24 +53,74 @@ Dashboard = React.createClass
     <div>Dashboard!</div>
 
 ReadingTask = React.createClass
+  mixins: [AsyncState]
+  statics:
+    getInitialAsyncState: (params, query, setState) ->
+      promise = Cache.fetchTask(params.id)
+      htmlPromise = promise.then (task) ->
+        throw new Error('no content_url') unless task.content_url
+        return $.ajax(task.content_url, {dataType:'html'})
+        .then (raw_html) ->
+          raw_html
+
+      task: promise
+      content_html: htmlPromise
+
+  # HACK to load images from http://archive.cnx.org
+  # <img src> tags are parsed **immediately** when the DOM node is created.
+  # Since the HTML contains references to `/resources/...` make sure the browser
+  # fetches the images from archive.cnx.org.
+  #
+  # But, as soon as the images are fetched, change the base back to tutor
+  # so all links do not point to archive.
+  componentWillUpdate: ->
+    if $('base')[0]
+      $('base').attr('href', 'http://archive.cnx.org')
+    else
+      $('body').append("<base href='http://archive.cnx.org' />")
+
+  componentDidUpdate: ->
+    $('base').attr('href', '')
+
   render: ->
+    if @state?.content_html
+
+      <div className='panel panel-default'>
+        <div className='panel-heading'>
+          Reading Asignment
+
+          <span className='pull-right'>
+            <a className='btn btn-primary btn-sm' target='_window' href={@state.task.content_url}>Open in new Tab</a>
+          </span>
+        </div>
+        <div className='panel-body' dangerouslySetInnerHTML={{__html: @state.content_html}} />
+      </div>
+
+    else if @state?.content_html_error
+      <div>Error loading Reading task. Please reload the page and try again</div>
+
+    else
+      <div>Loading...</div>
+
+
+TaskResult = React.createClass
+  render: ->
+    {id} = @props.item
+    {title, actionTitle} = switch @props.item.type
+      when 'reading' then {title: 'Reading Task', actionTitle: 'Read Now'}
+      else throw new Error('Invalid task type')
+
+
     <div className='panel panel-default'>
       <div className='panel-heading'>
-        Reading Asignment
+        <Link to='task' id={id}>{title}</Link>
 
         <span className='pull-right'>
-          <a className='btn btn-primary btn-sm' target='_window' href={@props.item.content_url}>Read Now</a>
+          <Link className='btn btn-primary btn-sm' to='task' id={id}>{actionTitle}</Link>
         </span>
       </div>
     </div>
 
-Task = React.createClass
-  render: ->
-    TaskType = switch @props.item.type
-      when 'reading' then ReadingTask
-      else throw new Error('Invalid task type')
-
-    <TaskType item={@props.item} />
 
 Tasks = React.createClass
   mixins: [AsyncState]
@@ -83,10 +134,10 @@ Tasks = React.createClass
         <div>No Tasks</div>
       else
         tasks = for item in @state.results.items
-          <Task item={item} />
+          <TaskResult item={item} />
 
         <div>
-          <div>{@state.results['total_count']} tasks</div>
+          <h3>Current Tasks ({@state.results['total_count']})</h3>
           {tasks}
         </div>
 
@@ -103,4 +154,4 @@ Invalid = React.createClass
       <Link to='dashboard'>Home</Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, Invalid}
+module.exports = {App, Dashboard, Tasks, ReadingTask, Invalid}
