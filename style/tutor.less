@@ -1,2 +1,17 @@
 @import '../node_modules/bootstrap/less/bootstrap.less';
-body { margin-top: 1px; }
+body {
+  max-width: 550px;
+  padding: 20px 0 0 40px;
+}
+
+
+.panel.ost-simulation {
+  .panel-body {
+    height: 100%;
+
+    iframe {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

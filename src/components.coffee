@@ -7,6 +7,11 @@ AsyncState = require './async-state'
 Cache = require './cache'
 
 
+# React swallows thrown errors so log them first
+err = (msgs...) ->
+  console.error(msgs...)
+  throw new Error(JSON.stringify(msgs...))
+
 App = React.createClass
   render: ->
     <div>
@@ -58,7 +63,7 @@ ReadingTask = React.createClass
     getInitialAsyncState: (params, query, setState) ->
       promise = Cache.fetchTask(params.id)
       htmlPromise = promise.then (task) ->
-        throw new Error('no content_url') unless task.content_url
+        err('no content_url') unless task.content_url
         return $.ajax(task.content_url, {dataType:'html'})
         .then (raw_html) ->
           raw_html
@@ -83,6 +88,12 @@ ReadingTask = React.createClass
     $('base').attr('href', '')
 
   render: ->
+    unless @state?.htmlPromise
+      htmlPromise = $.ajax(@props.task.content_url, {dataType:'html'})
+      .then (content_html) =>
+        @setState({content_html})
+
+
     if @state?.content_html
 
       <div className='panel panel-default'>
@@ -103,12 +114,46 @@ ReadingTask = React.createClass
       <div>Loading...</div>
 
 
+SimulationTask = React.createClass
+
+  render: ->
+    <div className='panel panel-default ost-simulation'>
+      <div className='panel-heading'>
+        Simulation
+
+        <span className='pull-right'>
+          <a className='btn btn-primary btn-sm' target='_window' href={@props.task.content_url}>Open in new Tab</a>
+        </span>
+      </div>
+      <div className='panel-body'>
+        <iframe src={@props.task.content_url} />
+      </div>
+    </div>
+
+SingleTask = React.createClass
+  mixins: [AsyncState]
+  statics:
+    getInitialAsyncState: (params, query, setState) ->
+      promise = Cache.fetchTask(params.id)
+      task: promise
+
+  render: ->
+    if @state?.task
+      Type = switch @state.task.type
+        when 'reading' then ReadingTask
+        when 'simulation' then SimulationTask
+        else err('BUG: Invalid task type', @props)
+      @transferPropsTo(<Type task={@state.task} />)
+    else
+      <div>Loading...</div>
+
 TaskResult = React.createClass
   render: ->
     {id} = @props.item
     {title, actionTitle} = switch @props.item.type
       when 'reading' then {title: 'Reading Task', actionTitle: 'Read Now'}
-      else throw new Error('Invalid task type')
+      when 'simulation' then {title: 'Simulation Task', actionTitle: 'Play Now'}
+      else err('Invalid task type')
 
 
     <div className='panel panel-default'>
@@ -154,4 +199,4 @@ Invalid = React.createClass
       <Link to='dashboard'>Home</Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, ReadingTask, Invalid}
+module.exports = {App, Dashboard, Tasks, SingleTask, Invalid}
