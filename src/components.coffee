@@ -77,8 +77,7 @@ ReadingTask = React.createClass
             raw_html
         return task.content_html
 
-      task: promise
-      content_html: htmlPromise
+      {content_html: htmlPromise}
 
   # HACK to load images from http://archive.cnx.org
   # <img src> tags are parsed **immediately** when the DOM node is created.
@@ -97,17 +96,18 @@ ReadingTask = React.createClass
     $('base').attr('href', '')
 
   render: ->
-    if @props.task.content_html
+    content_html = @props.task.content_html or @state?.content_html
+    if content_html
 
       <div className='panel panel-default'>
         <div className='panel-heading'>
           Reading Asignment
 
           <span className='pull-right'>
-            <a className='ui-action btn btn-primary btn-sm' target='_window' href={@state.task.content_url}>Open in new Tab</a>
+            <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.task.content_url}>Open in new Tab</a>
           </span>
         </div>
-        <div className='panel-body' dangerouslySetInnerHTML={{__html: @state.content_html}} />
+        <div className='panel-body' dangerouslySetInnerHTML={{__html: content_html}} />
       </div>
 
     else if @state?.content_html_error
@@ -139,8 +139,7 @@ SingleTask = React.createClass
   mixins: [AsyncState]
   statics:
     getInitialAsyncState: (params, query, setState) ->
-      promise = Cache.fetchTask(params.id)
-      task: promise
+      {task: Cache.fetchTask(params.id)}
 
   render: ->
     if @state?.task
