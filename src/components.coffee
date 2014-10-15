@@ -49,13 +49,7 @@ App = React.createClass
           </div>
         </div>
       </div>
-      <br/>
-      <br/>
-      <br/>
       {@props.activeRouteHandler()}
-      <br/>
-      <br/>
-      <br/>
       <div className='navbar navbar-default navbar-fixed-bottom' role='navigation'>
         <div className='container-fluid'>
           <div className='navbar-header'>
