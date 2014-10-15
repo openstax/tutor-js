@@ -126,12 +126,12 @@ ReadingTask = React.createClass
       <div>Loading...</div>
 
 
-SimulationTask = React.createClass
+InteractiveTask = React.createClass
 
   render: ->
-    <div className='panel panel-default ui-simulation'>
+    <div className='panel panel-default ui-interactive'>
       <div className='panel-heading'>
-        Simulation
+        Interactive
 
         <span className='pull-right'>
           <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.task.content_url}>Open in new Tab</a>
@@ -153,7 +153,7 @@ SingleTask = React.createClass
     if @state?.task
       Type = switch @state.task.type
         when 'reading' then ReadingTask
-        when 'simulation' then SimulationTask
+        when 'interactive' then InteractiveTask
         else err('BUG: Invalid task type', @props)
       @transferPropsTo(<Type task={@state.task} />)
     else
@@ -164,7 +164,7 @@ TaskResult = React.createClass
     {id} = @props.item
     {title, actionTitle} = switch @props.item.type
       when 'reading' then {title: 'Reading Task', actionTitle: 'Read Now'}
-      when 'simulation' then {title: 'Simulation Task', actionTitle: 'Play Now'}
+      when 'interactive' then {title: 'Interactive Task', actionTitle: 'Play Now'}
       else err('Invalid task type')
 
 

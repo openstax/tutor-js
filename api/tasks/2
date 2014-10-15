@@ -1,4 +1,4 @@
 { "id": 2,
-  "type": "simulation",
+  "type": "interactive",
   "content_url": "http://connexions.github.io/simulations"
 }
