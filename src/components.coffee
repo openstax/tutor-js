@@ -186,12 +186,12 @@ Tasks = React.createClass
   render: ->
     if @state?.results
       if @state.results['total_count'] is 0
-        <div>No Tasks</div>
+        <div className='ui-task-list ui-empty'>No Tasks</div>
       else
         tasks = for item in @state.results.items
           <TaskResult item={item} />
 
-        <div>
+        <div className='ui-task-list'>
           <h3>Current Tasks ({@state.results['total_count']})</h3>
           {tasks}
         </div>
