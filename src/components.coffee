@@ -86,14 +86,20 @@ ReadingTask = React.createClass
   #
   # But, as soon as the images are fetched, change the base back to tutor
   # so all links do not point to archive.
-  componentWillUpdate: ->
+  _changeBase: ->
     if $('base')[0]
       $('base').attr('href', 'http://archive.cnx.org')
     else
-      $('body').append("<base href='http://archive.cnx.org' />")
+      $('body').append('<base href="http://archive.cnx.org" />')
 
-  componentDidUpdate: ->
+  _resetBase: ->
     $('base').attr('href', '')
+
+  componentWillMount:  -> @_changeBase()
+  componentWillUpdate: -> @_changeBase()
+  componentDidMount:  -> @_resetBase()
+  componentDidUpdate: -> @_resetBase()
+
 
   render: ->
     content_html = @props.task.content_html or @state?.content_html
