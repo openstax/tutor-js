@@ -26,12 +26,18 @@ App = React.createClass
             </button>
 
             <Link to='dashboard' className='navbar-brand'>OpenStax Tutor</Link>
+
           </div>
 
           <div className='collapse navbar-collapse' id='ui-navbar-collapse'>
             <ul className='nav navbar-nav'>
               <li>
                 <Link to='tasks'>Tasks</Link>
+              </li>
+            </ul>
+            <ul className='nav navbar-nav navbar-right'>
+              <li>
+                <a data-method='delete' href='/accounts/logout' rel='nofollow'>Sign out!</a>
               </li>
             </ul>
           </div>
