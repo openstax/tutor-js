@@ -13,6 +13,12 @@ err = (msgs...) ->
   throw new Error(JSON.stringify(msgs...))
 
 App = React.createClass
+
+  logout: ->
+    $.ajax('/accounts/logout', {method: 'DELETE'})
+    .always ->
+      window.location.href = '/'
+
   render: ->
     <div>
       <div className='navbar navbar-default navbar-fixed-top' role='navigation'>
@@ -37,7 +43,7 @@ App = React.createClass
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               <li>
-                <a data-method='delete' href='/accounts/logout' rel='nofollow'>Sign out!</a>
+                <button className='btn btn-link' onClick={@logout}>Sign out!</button>
               </li>
             </ul>
           </div>
