@@ -5,13 +5,22 @@ body {
 }
 
 
-.panel.ost-simulation {
-  .panel-body {
-    height: 100%;
+.panel {
 
-    iframe {
+  &.ui-simulation {
+    .panel-body {
       height: 100%;
-      width: 100%;
+
+      iframe {
+        height: 100%;
+        width: 100%;
+      }
     }
+  }
+
+  // Similar to a dismissable alert, line up the action button in the panel heading
+  .ui-action {
+    position: relative;
+    top: -5px;
   }
 }

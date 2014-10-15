@@ -110,7 +110,7 @@ ReadingTask = React.createClass
           Reading Asignment
 
           <span className='pull-right'>
-            <a className='btn btn-primary btn-sm' target='_window' href={@state.task.content_url}>Open in new Tab</a>
+            <a className='ui-action btn btn-primary btn-sm' target='_window' href={@state.task.content_url}>Open in new Tab</a>
           </span>
         </div>
         <div className='panel-body' dangerouslySetInnerHTML={{__html: @state.content_html}} />
@@ -127,12 +127,12 @@ ReadingTask = React.createClass
 SimulationTask = React.createClass
 
   render: ->
-    <div className='panel panel-default ost-simulation'>
+    <div className='panel panel-default ui-simulation'>
       <div className='panel-heading'>
         Simulation
 
         <span className='pull-right'>
-          <a className='btn btn-primary btn-sm' target='_window' href={@props.task.content_url}>Open in new Tab</a>
+          <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.task.content_url}>Open in new Tab</a>
         </span>
       </div>
       <div className='panel-body'>
@@ -170,9 +170,8 @@ TaskResult = React.createClass
     <div className='panel panel-default'>
       <div className='panel-heading'>
         <Link to='task' id={id}>{title}</Link>
-
         <span className='pull-right'>
-          <Link className='btn btn-primary btn-sm' to='task' id={id}>{actionTitle}</Link>
+          <Link className='ui-action btn btn-primary btn-sm' to='task' id={id}>{actionTitle}</Link>
         </span>
       </div>
     </div>
