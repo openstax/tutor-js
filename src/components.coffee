@@ -31,7 +31,9 @@ App = React.createClass
               <span className='icon-bar'></span>
             </button>
 
-            <Link to='dashboard' className='navbar-brand'>OpenStax Tutor</Link>
+            <Link to='dashboard' className='navbar-brand'>
+              <i className='ui-brand-logo'></i>
+            </Link>
 
           </div>
 
