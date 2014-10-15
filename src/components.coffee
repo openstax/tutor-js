@@ -64,9 +64,12 @@ ReadingTask = React.createClass
       promise = Cache.fetchTask(params.id)
       htmlPromise = promise.then (task) ->
         err('no content_url') unless task.content_url
-        return $.ajax(task.content_url, {dataType:'html'})
-        .then (raw_html) ->
-          raw_html
+        unless task.content_html
+          return $.ajax(task.content_url, {dataType:'html'})
+          .then (raw_html) ->
+            task.content_html = raw_html
+            raw_html
+        return task.content_html
 
       task: promise
       content_html: htmlPromise
@@ -88,13 +91,7 @@ ReadingTask = React.createClass
     $('base').attr('href', '')
 
   render: ->
-    unless @state?.htmlPromise
-      htmlPromise = $.ajax(@props.task.content_url, {dataType:'html'})
-      .then (content_html) =>
-        @setState({content_html})
-
-
-    if @state?.content_html
+    if @props.task.content_html
 
       <div className='panel panel-default'>
         <div className='panel-heading'>
@@ -111,6 +108,7 @@ ReadingTask = React.createClass
       <div>Error loading Reading task. Please reload the page and try again</div>
 
     else
+
       <div>Loading...</div>
 
 
@@ -129,6 +127,7 @@ SimulationTask = React.createClass
         <iframe src={@props.task.content_url} />
       </div>
     </div>
+
 
 SingleTask = React.createClass
   mixins: [AsyncState]
@@ -171,7 +170,7 @@ Tasks = React.createClass
   mixins: [AsyncState]
   statics:
     getInitialAsyncState: (params, query, setState) ->
-      results: $.ajax('/api/user/tasks', {dataType:'json'})
+      results: Cache.fetchUserTasks()
 
   render: ->
     if @state?.results

@@ -10,12 +10,21 @@ module.exports = new class ObjectCache
     #   @_addType(type, obj)
     promise
 
-  _fetchType: (type, id) ->
-    cached = @_cache['task']?[id]
+  _fetchType: (type, id, url) ->
+    cached = @_cache[type]?[id]
     if cached
       cached
     else
-      @_addTypePromise(type, id, $.ajax("/api/tasks/#{id}", {dataType:'json'}))
+      @_addTypePromise(type, id, $.ajax(url, {dataType:'json'}))
 
   addTask: (obj) -> @_addType('task', obj) # TODO: Wrap in a promise
-  fetchTask: (id) -> @_fetchType('task', id)
+  fetchTask: (id) -> @_fetchType('task', id, "/api/tasks/#{id}")
+
+  fetchUserTasks: -> 
+    @_fetchType('tasks', 'user', '/api/user/tasks')
+    .then (results) =>
+      for task in results.items
+        promise = $.Deferred()
+        promise.resolve(task)
+        @_addTypePromise('task', task.id, promise)
+      results
