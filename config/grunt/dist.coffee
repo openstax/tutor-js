@@ -2,7 +2,7 @@ module.exports = (grunt) ->
   grunt.config 'browserify',
     options:
       browserifyOptions:
-        extensions: ['.js', '.coffee']
+        extensions: ['.js', '.coffee', '.cjsx']
       bundleOptions:
         standalone: 'ExerciseComponent'
         debug: true # Source Maps
