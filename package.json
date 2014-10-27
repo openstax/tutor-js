@@ -1,7 +1,7 @@
 {
   "name": "openstax-exercise",
   "version": "0.0.0",
-  "main": "dist/exercise.js",
+  "main": "./index.js",
   "scripts": {
     "test": "grunt test"
   },
