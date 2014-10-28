@@ -1,0 +1,27 @@
+{ "id": 3,
+  "type": "exercise",
+
+  "config": {
+    "background":"This exercise has many parts. Each one is a different type of question. Einstein makes a 10 kg spaceship",
+    "parts":[
+      {
+        "background":"The spaceship moves at 1 m/s",
+        "questions":[
+          {
+            "id": "123",
+            "format": "short-answer",
+            "stem":"What is the rest mass in kg?"
+          },{
+            "id": "234",
+            "format": "multiple-choice",
+            "stem":"What is the force if it slams into a wall?",
+            "answers":[
+              {"id":"id1","value":"10","content":"10 N"},
+              {"id":"id2","value":"1","content":"1 N"}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -19,7 +19,7 @@ handleErrors = (title) -> (args...)->
 buildBrowserify = (srcPath, destDir, destFile, isWatching) ->
   args = (if isWatching then watchify.args else {})
   args.entries = [srcPath]
-  args.extensions = ['.coffee']
+  args.extensions = ['.coffee', '.cjsx']
   args.debug = true if isWatching
   bundler = browserify(args)
   bundler.transform(browserifyShim)
