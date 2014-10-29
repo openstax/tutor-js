@@ -1,6 +1,6 @@
 _ = require 'underscore'
 React = require 'react'
-# AnswerStore = require './answer-store'
+{AnswerActions, AnswerStore} = require '../flux/answer'
 
 
 # Converts an index to `a-z` for question answers
@@ -43,9 +43,9 @@ BlankQuestion = React.createClass
     input = @getDOMNode().querySelector('.blank')
     input?.onkeyup = input?.onblur = input?.onchange = =>
       if input.value
-        # AnswerStore.setAnswer(@props.config, input.value)
+        AnswerActions.setAnswer(@props.config, input.value)
       else
-        # AnswerStore.setAnswer(@props.config, undefined)
+        AnswerActions.setAnswer(@props.config, undefined)
 
 
 SimpleQuestion = React.createClass
@@ -53,7 +53,7 @@ SimpleQuestion = React.createClass
   render: ->
     {config} = @props
     isAnswered = !!config.answer
-    answer = config.answer # AnswerStore.getAnswer(config)
+    answer = AnswerStore.getAnswer(config)
 
     if isAnswered
       <div className="question simple">
@@ -69,9 +69,9 @@ SimpleQuestion = React.createClass
   onChange: ->
     val = @refs.prompt.getDOMNode().value
     if val
-      # AnswerStore.setAnswer(@props.config, val)
+      AnswerActions.setAnswer(@props.config, val)
     else
-      # AnswerStore.setAnswer(@props.config, undefined)
+      AnswerActions.setAnswer(@props.config, undefined)
 
 
 SimpleMultipleChoiceOption = React.createClass
@@ -176,7 +176,7 @@ MultipleChoiceQuestion = React.createClass
 
       optionProps = {
         config: option
-        answer: config.answer # AnswerStore.getAnswer(config)
+        answer: AnswerStore.getAnswer(config)
         questionId
         index
         isAnswered
@@ -194,7 +194,7 @@ MultipleChoiceQuestion = React.createClass
     </div>
 
   onChange: (answer) ->
-    # AnswerStore.setAnswer(@props.config, answer.id or answer.value)
+    AnswerActions.setAnswer(@props.config, answer.id or answer.value)
 
 
 MultiSelectOption = React.createClass
@@ -262,7 +262,7 @@ MultiSelectQuestion = React.createClass
 
         optionProps = {
           config: option
-          answer: config.answer # AnswerStore.getAnswer(config)
+          answer: AnswerStore.getAnswer(config)
           isAnswered
           answerState
           questionId
@@ -289,9 +289,9 @@ MultiSelectQuestion = React.createClass
       @state.answers.push(answer.id)
 
     if @state.answers.length
-      # AnswerStore.setAnswer(@props.config, @state.answers)
+      AnswerActions.setAnswer(@props.config, @state.answers)
     else
-      # AnswerStore.setAnswer(@props.config, undefined)
+      AnswerActions.setAnswer(@props.config, undefined)
 
 
 TrueFalseQuestion = React.createClass
@@ -352,8 +352,8 @@ TrueFalseQuestion = React.createClass
         </ul>
       </div>
 
-  onTrue:  -> # AnswerStore.setAnswer(@props.config, true)
-  onFalse: -> # AnswerStore.setAnswer(@props.config, false)
+  onTrue:  -> AnswerActions.setAnswer(@props.config, true)
+  onFalse: -> AnswerActions.setAnswer(@props.config, false)
 
 
 MatchingQuestion = React.createClass
