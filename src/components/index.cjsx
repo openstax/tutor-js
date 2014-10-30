@@ -1,11 +1,13 @@
 # @cjsx React.DOM
-$ = require 'jquery'
+
 React = require 'react'
 {Link} = require 'react-router'
 
 AsyncState = require '../async-state'
-Cache = require '../cache'
+API = require '../api'
 {ReadingTask, InteractiveTask, ExerciseTask} = require './tasks'
+{TaskActions, TaskStore} = require '../flux/task'
+{CurrentUserActions} = require '../flux/current-user'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -14,10 +16,7 @@ err = (msgs...) ->
 
 App = React.createClass
 
-  logout: ->
-    $.ajax('/accounts/logout', {method: 'DELETE'})
-    .always ->
-      window.location.href = '/'
+  logout: -> CurrentUserActions.logout()
 
   render: ->
     <div>
@@ -68,21 +67,40 @@ Dashboard = React.createClass
 
 
 SingleTask = React.createClass
-  mixins: [AsyncState]
-  statics:
-    getInitialAsyncState: (params, query, setState) ->
-      {task: Cache.fetchTask(params.id)}
+
+  componentWillMount: ->
+    # Fetch the task if it has not been loaded yet
+    id = @props.params.id
+    if TaskStore.isUnknown(id)
+      TaskActions.load(id)
+
+    # TODO: Only update if this task changed, not the entire Store
+    @_forceUpdate = @forceUpdate.bind(@)
+    TaskStore.addChangeListener(@_forceUpdate)
+
+  componentWillUnmount: ->
+    TaskStore.removeChangeListener(@_forceUpdate)
 
   render: ->
-    if @state?.task
-      Type = switch @state.task.type
-        when 'reading' then ReadingTask
-        when 'interactive' then InteractiveTask
-        when 'exercise' then ExerciseTask
-        else err('BUG: Invalid task type', @props)
-      @transferPropsTo(<Type task={@state.task} />)
-    else
-      <div>Loading...</div>
+    id = @props.params.id
+    switch TaskStore.getAsyncStatus(id)
+      when 'loaded'
+        task = TaskStore.get(id)
+        Type = switch task.type
+          when 'reading' then ReadingTask
+          when 'interactive' then InteractiveTask
+          when 'exercise' then ExerciseTask
+          else err('BUG: Invalid task type', @props)
+        @transferPropsTo(<Type task={task} />)
+
+      when 'failed'
+        <div>Error. Please refresh</div>
+
+      when 'loading'
+        <div>Loading...</div>
+
+      else
+        <div>Starting loading</div>
 
 TaskResult = React.createClass
   render: ->
@@ -108,7 +126,7 @@ Tasks = React.createClass
   mixins: [AsyncState]
   statics:
     getInitialAsyncState: (params, query, setState) ->
-      results: Cache.fetchUserTasks()
+      results: API.fetchUserTasks()
 
   render: ->
     if @state?.results

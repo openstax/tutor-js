@@ -1,7 +1,5 @@
 $ = require 'jquery'
 React = require 'react'
-AsyncState = require '../async-state'
-Cache = require '../cache'
 
 {Exercise} = require './exercise'
 
@@ -13,20 +11,6 @@ err = (msgs...) ->
 
 module.exports =
   ReadingTask: React.createClass
-    mixins: [AsyncState]
-    statics:
-      getInitialAsyncState: (params, query, setState) ->
-        promise = Cache.fetchTask(params.id)
-        htmlPromise = promise.then (task) ->
-          err('no content_url') unless task.content_url
-          unless task.content_html
-            return $.ajax(task.content_url, {dataType:'html'})
-            .then (raw_html) ->
-              task.content_html = raw_html
-              raw_html
-          return task.content_html
-
-        {content_html: htmlPromise}
 
     # HACK to load images from http://archive.cnx.org
     # <img src> tags are parsed **immediately** when the DOM node is created.
@@ -44,7 +28,15 @@ module.exports =
     _resetBase: ->
       $('base').attr('href', '')
 
-    componentWillMount:  -> @_changeBase()
+    componentWillMount:  ->
+      @_changeBase()
+      # Fetch the content HTML and store it in the state
+      unless @props.task.content_html # or @state?.content_html
+        resolved = (content_html) => @setState({content_html})
+        rejected =                => @setState({content_html_error:true})
+        $.ajax(@props.task.content_url, {dataType:'html'})
+        .then(resolved, rejected)
+
     componentWillUpdate: -> @_changeBase()
     componentDidMount:  -> @_resetBase()
     componentDidUpdate: -> @_resetBase()
