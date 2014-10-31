@@ -3,6 +3,7 @@ flux = require 'flux-react'
 {CurrentUserActions, CurrentUserStore} = require './current-user'
 
 TaskActions = flux.createActions [
+  'reset'       # () ->
   'edit'        # (id, {})  ->
   'complete'    # (id) ->
   'save'        # (id) ->
@@ -21,11 +22,13 @@ TaskStore = flux.createStore
   actions: [
     # First 2 are common to all Stores
     CurrentUserActions.logout
+    TaskActions.reset
     TaskActions.FAILED
     TaskActions.load
     TaskActions.loaded
     TaskActions.edit
     TaskActions.complete
+    TaskActions.saved
   ]
 
   getInitialState: ->
@@ -34,9 +37,11 @@ TaskStore = flux.createStore
     errors: {}
     unsaved: {}
 
-  logout: ->
-    @state = @getInitialState()
+  reset: ->
+    _.extend(@state, @getInitialState())
     @emitChange()
+
+  logout: -> @reset()
 
   FAILED: (id, status, msg) ->
     @state.asyncStatus[id] = FAILED
@@ -60,8 +65,7 @@ TaskStore = flux.createStore
     @emitChange()
 
   complete: (id) ->
-    @state.editHandler(id, {complete:true})
-    @emitChange()
+    @edit(id, {complete:true})
 
   saved: (id, result) ->
     @state.local[id] = result

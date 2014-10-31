@@ -29,6 +29,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       else if statusMessage is 'parsererror' and statusCode is 200
         # Hack for local testing. Webserver returns 200 + HTML for 404's
         Actions.FAILED(id, 404, 'Error Parsing the JSON or a 404')
+      else if statusCode is 404
+        Actions.FAILED(id, statusCode, 'ERROR_NOTFOUND')
       else
         # Parse the error message and fail
         msg = JSON.parse(jqXhr.responseText)
@@ -43,15 +45,13 @@ loadSaveHelper = (Actions, pathMaker) ->
   apiHelper(Actions, Actions.save, Actions.saved, 'PUT', pathMaker)
 
 
+start = ->
+  loadSaveHelper TaskActions, (id) -> "/api/tasks/#{id}"
 
-loadSaveHelper TaskActions, (id) -> "/api/tasks/#{id}"
-
-CurrentUserActions.logout.addListener 'trigger', ->
-  $.ajax('/accounts/logout', {method: 'DELETE'})
-  .always ->
-    window.location.href = '/'
-
-
+  CurrentUserActions.logout.addListener 'trigger', ->
+    $.ajax('/accounts/logout', {method: 'DELETE'})
+    .always ->
+      window.location.href = '/'
 
 
 fetchUserTasks = ->
@@ -68,4 +68,4 @@ fetchUserTasks = ->
     results
 
 
-module.exports = {fetchUserTasks}
+module.exports = {start, fetchUserTasks}
