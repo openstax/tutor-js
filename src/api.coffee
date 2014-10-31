@@ -67,5 +67,8 @@ fetchUserTasks = ->
       TaskActions.loaded(task.id, task)
     results
 
+fetchRemoteHtml = (url) ->
+  $.ajax(url, {dataType:'html'})
 
-module.exports = {start, fetchUserTasks}
+
+module.exports = {start, fetchUserTasks, fetchRemoteHtml}

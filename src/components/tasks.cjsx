@@ -2,6 +2,7 @@ $ = require 'jquery'
 React = require 'react'
 
 {Exercise} = require './exercise'
+api = require '../api'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -34,7 +35,7 @@ module.exports =
       unless @props.task.content_html # or @state?.content_html
         resolved = (content_html) => @setState({content_html})
         rejected =                => @setState({content_html_error:true})
-        $.ajax(@props.task.content_url, {dataType:'html'})
+        api.fetchRemoteHtml(@props.task.content_url)
         .then(resolved, rejected)
 
     componentWillUpdate: -> @_changeBase()
