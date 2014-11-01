@@ -89,8 +89,6 @@ describe 'Question Types', ->
 
       expect(AnswerStore.getAnswer(config)).to.equal('ANSWER_TEXT')
 
-      console.log Object.keys TestUtils.Simulate
-
 
   describe 'multiple-choice', ->
     it 'should render the question', ->
