@@ -396,10 +396,9 @@ ExercisePart = React.createClass
 
     questionsConfig = config.questions
     questions = for questionConfig in questionsConfig
-      config = questionConfig
       format = questionConfig.format
       Type = getQuestionType(format)
-      props = {config}
+      props = {config:questionConfig}
 
       <div className="variant" data-format={format}>{Type(props)}</div>
 

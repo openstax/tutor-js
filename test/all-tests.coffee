@@ -2,7 +2,7 @@ Components = require '../src/components'
 
 {expect} = require 'chai'
 
-
+require './components'
 require './answer-store.spec'
 require './task-store.spec'
 
