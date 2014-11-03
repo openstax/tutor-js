@@ -136,3 +136,66 @@ describe 'Question Types', ->
       React.addons.TestUtils.Simulate.change(radio2)
 
       expect(AnswerStore.getAnswer(config)).to.equal('OPTION_2_ID')
+
+    describe 'Render Math in various parts', ->
+      INLINE_MATH = '<span data-math="\frac{3}{4}"></span>'
+      it 'should render Math in the exercise.background', ->
+        config =
+          id: '123'
+          background: INLINE_MATH
+          parts: []
+
+        $node = $("<div id='wrapper'></div>")
+        React.renderComponent(<Exercise config={config} />, $node[0])
+        expect($node.find('[data-math] > .katex')).to.have.length(1)
+
+
+      it 'should render Math in the part.background', ->
+        config =
+          id: '123'
+          background: ''
+          parts: [{
+            background: INLINE_MATH
+            questions: []
+          }]
+
+        $node = $("<div id='wrapper'></div>")
+        React.renderComponent(<Exercise config={config} />, $node[0])
+        expect($node.find('[data-math] > .katex')).to.have.length(1)
+
+
+      it 'should render Math in the true-false.stem', ->
+        config =
+          type: 'true-false'
+          stem: INLINE_MATH
+
+        $node = $("<div id='wrapper'></div>")
+        Type = getQuestionType(config.type)
+        React.renderComponent(<Type config={config} />, $node[0])
+        expect($node.find('[data-math] > .katex')).to.have.length(1)
+
+
+      it 'should render Math in the multiple-choice.stem', ->
+        config =
+          type: 'multiple-choice'
+          stem: INLINE_MATH
+          answers: []
+
+        $node = $("<div id='wrapper'></div>")
+        Type = getQuestionType(config.type)
+        React.renderComponent(<Type config={config} />, $node[0])
+        expect($node.find('[data-math] > .katex')).to.have.length(1)
+
+      it 'should render Math in the multiple-choice.answer', ->
+        config =
+          type: 'multiple-choice'
+          stem: ''
+          answers: [{
+            id: 'answer1'
+            content: INLINE_MATH
+          }]
+
+        $node = $("<div id='wrapper'></div>")
+        Type = getQuestionType(config.type)
+        React.renderComponent(<Type config={config} />, $node[0])
+        expect($node.find('[data-math] > .katex')).to.have.length(1)
