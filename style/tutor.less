@@ -55,3 +55,15 @@ body {
     }
   }
 }
+
+
+
+
+// Math Rendering
+// NOTE: This happens pretty quickly so it may be unnecessary
+[data-math]:not(.loaded) {
+  background-color: #eee;
+  color: #999;
+
+  &:before { content: attr(data-math); }
+}
