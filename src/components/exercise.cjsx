@@ -1,5 +1,6 @@
 _ = require 'underscore'
 React = require 'react'
+katex = require 'katex'
 {AnswerActions, AnswerStore} = require '../flux/answer'
 
 
@@ -10,6 +11,32 @@ AnswerLabeler = React.createClass
     {index, before, after} = @props
     letter = String.fromCharCode(index + 97) # For uppercase use 65
     <span className="answer-char">{before}{letter}{after}</span>
+
+
+ArbitraryHtmlAndMath = React.createClass
+  displayName: 'ArbitraryHtmlAndMath'
+  render: ->
+    classes = ['arbitrary-html-and-math']
+    classes.push(@props.className) if @props.className
+
+    if @props.block
+      <div className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
+    else
+      <span className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
+
+  componentDidMount: ->
+    for node in @getDOMNode().querySelectorAll('[data-math]:not(.loaded)')
+      $node = $(node)
+      formula = $node.attr('data-math')
+
+      # Divs with data-math should be rendered as a block
+      isBlock = node.tagName.toLowerCase() in ['div']
+
+      if isBlock
+        formula = "\\displaystyle {#{formula}}"
+
+      katex.render(formula, $node[0])
+      $node.addClass('loaded')
 
 
 BlankQuestion = React.createClass
@@ -30,12 +57,12 @@ BlankQuestion = React.createClass
 
     if isAnswered
       <div className="question answered fill-in-the-blank">
-        <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
+        <ArbitraryHtmlAndMath block=true className="stem" html={stem} />
       </div>
 
     else
       <div className="question fill-in-the-blank">
-        <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
+        <ArbitraryHtmlAndMath block=true className="stem" html={stem} />
       </div>
 
   componentDidMount: ->
@@ -79,9 +106,7 @@ SimpleMultipleChoiceOption = React.createClass
   render: ->
     {config, questionId, index} = @props
     id = config.id
-
-    <span className="templated-todo" dangerouslySetInnerHTML={__html:config.content or config.value}>
-    </span>
+    <ArbitraryHtmlAndMath className="stem" html={config.content or config.value} />
 
 MultiMultipleChoiceOption = React.createClass
   displayName: 'MultiMultipleChoiceOption'
@@ -189,7 +214,7 @@ MultipleChoiceQuestion = React.createClass
     classes.push('answered') if isAnswered
 
     <div key={questionId} className={classes.join(' ')}>
-      <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+      <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
       <ul className="options">{options}</ul>
     </div>
 
@@ -276,7 +301,7 @@ MultiSelectQuestion = React.createClass
     classes.push('answered') if isAnswered
 
     <div key={questionId} className={classes.join(' ')}>
-      <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+      <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
       <div>Select all that apply:</div>
       <ul className="options">{options}</ul>
     </div>
@@ -321,7 +346,7 @@ TrueFalseQuestion = React.createClass
         incorrectClasses.push('incorrect')
 
       <div className="question answered true-false">
-        <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+        <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
         <ul className="options">
           <li className={trueClasses.join(' ')}>
             <span>True</span>
@@ -335,7 +360,7 @@ TrueFalseQuestion = React.createClass
 
     else
       <div className="question true-false">
-        <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+        <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
         <ul className="options">
           <li className="option">
             <label>
@@ -364,14 +389,20 @@ MatchingQuestion = React.createClass
       item = config.items[i]
 
       <tr key={answer.id}>
-        <td className="item" dangerouslySetInnerHTML={__html:item}></td>
+        <td className="item">
+          <ArbitraryHtmlAndMath className="stem" html={item} />
+        </td>
         <td className="spacer"></td>
-        <td className="answer" dangerouslySetInnerHTML={__html:answer.content or answer.value}></td>
+        <td className="answer">
+          <ArbitraryHtmlAndMath className="stem" html={answer.content or answer.value} />
+        </td>
       </tr>
 
     <div className="question matching">
       <table>
-        <caption className="stem" dangerouslySetInnerHTML={__html:config.stem}></caption>
+        <caption>
+          <ArbitraryHtmlAndMath className="stem" html={config.stem} />
+        </caption>
         {rows}
       </table>
     </div>
@@ -403,7 +434,7 @@ ExercisePart = React.createClass
       <div className="variant" data-format={format}>{Type(props)}</div>
 
     <div className="part">
-      <div className="background" dangerouslySetInnerHTML={__html:config.background}></div>
+      <ArbitraryHtmlAndMath className="background" html={config.background} />
       {questions}
     </div>
 
@@ -413,7 +444,7 @@ Exercise = React.createClass
   render: ->
     {config} = @props
     <div className="exercise">
-      <div className="background" dangerouslySetInnerHTML={__html:config.background}></div>
+      <ArbitraryHtmlAndMath className="background" html={config.background} />
       {ExercisePart {config:part} for part in config.parts}
     </div>
 

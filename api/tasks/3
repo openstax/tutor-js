@@ -5,7 +5,7 @@
     "background":"This exercise has many parts. Each one is a different type of question. Einstein makes a 10 kg spaceship",
     "parts":[
       {
-        "background":"The spaceship moves at 1 m/s",
+        "background":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
         "questions":[
           {
             "id": "123",
