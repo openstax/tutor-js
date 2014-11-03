@@ -9,11 +9,11 @@ AnswerActions = flux.createActions [
 
 AnswerStore = flux.createStore
   actions: [AnswerActions.reset, AnswerActions.setAnswer]
-  getInitialState: ->
+  state:
     answers: {}
 
   reset: ->
-    _.extend(@state, @getInitialState())
+    @state.answers = {}
     @emitChange()
 
   setAnswer: (question, answer) ->

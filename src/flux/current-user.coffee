@@ -10,7 +10,7 @@ CurrentUserStore = flux.createStore
     CurrentUserActions.setToken
   ]
 
-  getInitialState: ->
+  state:
     token: null
 
   setToken: (token) ->

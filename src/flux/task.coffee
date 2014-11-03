@@ -31,14 +31,17 @@ TaskStore = flux.createStore
     TaskActions.saved
   ]
 
-  getInitialState: ->
+  state:
     asyncStatus: {}
     local: {}
     errors: {}
     unsaved: {}
 
   reset: ->
-    _.extend(@state, @getInitialState())
+    @state.asyncStatus = {}
+    @state.local = {}
+    @state.errors = {}
+    @state.unsaved = {}
     @emitChange()
 
   logout: -> @reset()
