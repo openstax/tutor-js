@@ -21,7 +21,9 @@ AnswerStore = flux.createStore
     @emitChange()
 
   exports:
-    getAnswer: (question) -> @answers[question.id] or question.answer
+    getAnswer: (question) ->
+      id = question.id
+      @answers[id] or question.answer
     getAllAnswers: -> @answers
 
 module.exports = {AnswerActions, AnswerStore}
