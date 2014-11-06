@@ -5,7 +5,7 @@ React = require 'react'
 
 AsyncState = require '../async-state'
 API = require '../api'
-{ReadingTask, InteractiveTask, ExerciseTask} = require './tasks'
+{ReadingTask, InteractiveTask, ExerciseTask, AssignmentTask} = require './tasks'
 {TaskActions, TaskStore} = require '../flux/task'
 {CurrentUserActions} = require '../flux/current-user'
 
@@ -90,6 +90,7 @@ SingleTask = React.createClass
           when 'reading' then ReadingTask
           when 'interactive' then InteractiveTask
           when 'exercise' then ExerciseTask
+          when 'assignment' then AssignmentTask
           else err('BUG: Invalid task type', @props)
         @transferPropsTo(<Type task={task} />)
 
@@ -109,6 +110,7 @@ TaskResult = React.createClass
       when 'reading' then {title: 'Reading Task', actionTitle: 'Read Now'}
       when 'interactive' then {title: 'Interactive Task', actionTitle: 'Play Now'}
       when 'exercise' then {title: 'Exercise Task', actionTitle: 'Answer Now'}
+      when 'assignment' then {title: 'Assignment', actionTitle: 'Work on Now'}
       else err('Invalid task type')
 
 

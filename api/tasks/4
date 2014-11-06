@@ -1,0 +1,10 @@
+{ "id": 4,
+  "type": "assignment",
+  "config": {
+    "steps": [
+      {"background": "First Exercise", "parts": []},
+      {"background": "Second Exercise", "parts": []},
+      {"background": "Third Exercise", "parts": []}
+    ]
+  }
+}

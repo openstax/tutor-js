@@ -72,6 +72,38 @@ module.exports =
      <Exercise config={@props.task.config} />
 
 
+  AssignmentTask: React.createClass
+    getInitialState: ->
+      # Grab the currentStep from the URL from SingleTask
+      if @props.params.currentStep?
+        try
+          currentStep = parseInt(@props.params.currentStep) - 1
+        catch e
+          currentStep = 0
+      else
+        currentStep = 0
+      {currentStep}
+
+    nextButton: ->
+      @setState({currentStep: @state.currentStep + 1})
+
+    render: ->
+      # @props.task.config.steps
+      exerciseConfig = @props.task.config.steps[@state.currentStep]
+
+      stepTotal = @props.task.config.steps.length
+      if @state.currentStep is stepTotal - 1
+        nextOrComplete = <button className='btn btn-primary disabled' onClick={@completeAssignment}>Complete</button>
+      else
+        nextOrComplete = <button className='btn btn-primary' onClick={@nextButton}>Next</button>
+
+      <div>
+        <span>Step {@state.currentStep + 1  } of {stepTotal}</span>
+        <Exercise config={exerciseConfig} />
+        {nextOrComplete}
+      </div>
+
+
   InteractiveTask: React.createClass
 
     render: ->
