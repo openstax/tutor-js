@@ -31,60 +31,59 @@ TaskStore = flux.createStore
     TaskActions.saved
   ]
 
-  state:
-    asyncStatus: {}
-    local: {}
-    errors: {}
-    unsaved: {}
+  _asyncStatus: {}
+  _local: {}
+  _errors: {}
+  _unsaved: {}
 
   reset: ->
-    @state.asyncStatus = {}
-    @state.local = {}
-    @state.errors = {}
-    @state.unsaved = {}
+    @_asyncStatus = {}
+    @_local = {}
+    @_errors = {}
+    @_unsaved = {}
     @emitChange()
 
   logout: -> @reset()
 
   FAILED: (id, status, msg) ->
-    @state.asyncStatus[id] = FAILED
-    delete @state.local[id]
-    @state.errors[id] = msg
+    @_asyncStatus[id] = FAILED
+    delete @_local[id]
+    @_errors[id] = msg
     @emitChange()
 
   load: (id) ->
-    @state.asyncStatus[id] = LOADING
+    @_asyncStatus[id] = LOADING
     @emitChange()
 
   loaded: (id, obj) ->
-    @state.asyncStatus[id] = LOADED
-    @state.local[id] = obj
+    @_asyncStatus[id] = LOADED
+    @_local[id] = obj
     @emitChange()
 
   edit: (id, obj) ->
     # TODO: Perform validation
-    @state.unsaved[id] ?= {}
-    _.extend(@state.unsaved[id], obj)
+    @_unsaved[id] ?= {}
+    _.extend(@_unsaved[id], obj)
     @emitChange()
 
   complete: (id) ->
     @edit(id, {complete:true})
 
   saved: (id, result) ->
-    @state.local[id] = result
-    delete @state.unsaved[id]
-    delete @state.errors[id]
+    @_local[id] = result
+    delete @_unsaved[id]
+    delete @_errors[id]
     @emitChange()
 
   exports:
-    isUnknown: (id) -> !@asyncStatus[id]
-    isLoading: (id) -> @asyncStatus[id] is LOADING
-    isLoaded: (id) -> @asyncStatus[id] is LOADED
-    isFailed: (id) -> @asyncStatus[id] is FAILED
-    getAsyncStatus: (id) -> @asyncStatus[id]
+    isUnknown: (id) -> !@_asyncStatus[id]
+    isLoading: (id) -> @_asyncStatus[id] is LOADING
+    isLoaded: (id) -> @_asyncStatus[id] is LOADED
+    isFailed: (id) -> @_asyncStatus[id] is FAILED
+    getAsyncStatus: (id) -> @_asyncStatus[id]
 
-    getUnsaved: (id) -> @unsaved[id]
+    getUnsaved: (id) -> @_unsaved[id]
     get: (id) ->
-      _.extend({}, @local[id], @unsaved[id])
+      _.extend({}, @_local[id], @_unsaved[id])
 
 module.exports = {TaskActions, TaskStore}

@@ -10,13 +10,11 @@ CurrentUserStore = flux.createStore
     CurrentUserActions.setToken
   ]
 
-  state:
-    token: null
+  _token: null
 
-  setToken: (token) ->
-    @state.token = token
+  setToken: (@_token) ->
 
   exports:
-    getToken: -> @token
+    getToken: -> @_token
 
 module.exports = {CurrentUserActions, CurrentUserStore}

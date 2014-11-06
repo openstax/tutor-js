@@ -9,21 +9,21 @@ AnswerActions = flux.createActions [
 
 AnswerStore = flux.createStore
   actions: [AnswerActions.reset, AnswerActions.setAnswer]
-  state:
-    answers: {}
+
+  _answers: {}
 
   reset: ->
-    @state.answers = {}
+    @_answers = {}
     @emitChange()
 
   setAnswer: (question, answer) ->
-    @state.answers[question.id] = answer
+    @_answers[question.id] = answer
     @emitChange()
 
   exports:
     getAnswer: (question) ->
       id = question.id
-      @answers[id] or question.answer
-    getAllAnswers: -> @answers
+      @_answers[id] or question.answer
+    getAllAnswers: -> @_answers
 
 module.exports = {AnswerActions, AnswerStore}
