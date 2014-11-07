@@ -60,10 +60,10 @@ App = React.createClass
       </div>
     </div>
 
+
 Dashboard = React.createClass
   render: ->
     <div>Dashboard!</div>
-
 
 
 SingleTask = React.createClass
@@ -103,6 +103,7 @@ SingleTask = React.createClass
       else
         <div>Starting loading</div>
 
+
 TaskResult = React.createClass
   render: ->
     {id} = @props.item
@@ -112,7 +113,6 @@ TaskResult = React.createClass
       when 'exercise' then {title: 'Exercise Task', actionTitle: 'Answer Now'}
       when 'assignment' then {title: 'Assignment', actionTitle: 'Work on Now'}
       else err('Invalid task type')
-
 
     <div className='panel panel-default'>
       <div className='panel-heading'>
@@ -148,6 +148,7 @@ Tasks = React.createClass
 
     else
       <div>Loading...</div>
+
 
 Invalid = React.createClass
   render: ->

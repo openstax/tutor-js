@@ -22,17 +22,17 @@ module.exports =
     #
     # But, as soon as the images are fetched, change the base back to tutor
     # so all links do not point to archive.
-    _changeBase: ->
+    changeBase: ->
       if $('base')[0]
         $('base').attr('href', 'http://archive.cnx.org')
       else
         $('body').append('<base href="http://archive.cnx.org" />')
 
-    _resetBase: ->
+    resetBase: ->
       $('base').attr('href', '')
 
     componentWillMount:  ->
-      @_changeBase()
+      @changeBase()
       # Fetch the content HTML and store it in the state
       unless @props.task.content_html # or @state?.content_html
         resolved = (content_html) => @setState({content_html})
@@ -40,9 +40,9 @@ module.exports =
         api.fetchRemoteHtml(@props.task.content_url)
         .then(resolved, rejected)
 
-    componentWillUpdate: -> @_changeBase()
-    componentDidMount:  -> @_resetBase()
-    componentDidUpdate: -> @_resetBase()
+    componentWillUpdate: -> @changeBase()
+    componentDidMount:  -> @resetBase()
+    componentDidUpdate: -> @resetBase()
 
 
     render: ->
@@ -118,7 +118,7 @@ module.exports =
         for question in part.questions
           unless AnswerStore.getAnswer(question)?
             isUnanswered = true
-            
+
       !isUnanswered
 
     render: ->
