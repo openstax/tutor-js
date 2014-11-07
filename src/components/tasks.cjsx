@@ -85,20 +85,32 @@ module.exports =
       else
         currentStep = 0
 
-      completedSteps = []
-      {currentStep, completedSteps}
+      stepCompletion = @getStepCompletion(@props.task.config)
+      {currentStep, stepCompletion}
 
     componentWillMount:   -> AnswerStore.addChangeListener(@update)
     componentWillUnmount: -> AnswerStore.removeChangeListener(@update)
 
     nextButton: ->
-      @setState({currentStep: @state.currentStep + 1})
+      # Find the 1st unanswered Step
+      stepCompletion = @getStepCompletion(@props.task.config)
+      for isCompleted, i in stepCompletion
+        unless isCompleted
+          @setState({currentStep: i})
+          break
+
+    goToStep: (num) -> () =>
+      # Curried for React
+      @setState({currentStep: num})
 
     update: ->
-      completedSteps = []
-      for step in @props.task.config.steps
-        completedSteps.push(@isExerciseCompleted(step))
-      @setState({completedSteps})
+      stepCompletion = @getStepCompletion(@props.task.config)
+      @setState({stepCompletion})
+
+    getStepCompletion: (taskConfig) ->
+      stepCompletion = for step in taskConfig.steps
+        @isExerciseCompleted(step)
+      stepCompletion
 
     isExerciseCompleted: (exerciseConfig) ->
       isUnanswered = false
@@ -106,25 +118,36 @@ module.exports =
         for question in part.questions
           unless AnswerStore.getAnswer(question)?
             isUnanswered = true
-
+            
       !isUnanswered
 
     render: ->
-      # @props.task.config.steps
-      exerciseConfig = @props.task.config.steps[@state.currentStep]
+      steps = @props.task.config.steps
+      exerciseConfig = steps[@state.currentStep]
 
-      stepTotal = @props.task.config.steps.length
-      if @state.currentStep is stepTotal - 1
-        nextOrComplete = <button className='btn btn-primary disabled' onClick={@completeAssignment}>Complete</button>
+      unansweredStepCount = 0
+      stepButtons = for step, i in steps
+        unless @state.stepCompletion[i]
+          unansweredStepCount += 1
+
+        if i is @state.currentStep
+          <button type='button' className='btn btn-info step current disabled' title='current'><strong>{i + 1}</strong></button>
+        else if @state.stepCompletion[i]
+          <button type='button' className='btn step completed disabled' title='completed'>{i + 1}</button>
+        else
+          <button type='button' className='btn btn-default step' onClick={@goToStep(i)}>{i + 1}</button>
+
+      if unansweredStepCount is 0
+        nextOrComplete = <button className='btn btn-success' onClick={@completeAssignment}>Complete</button>
       else
         # Determine if the Next button should be disabled by checking if all the questions have been answered
         classes = ['btn btn-primary']
-        unless @state.completedSteps[@state.currentStep]
+        unless @state.stepCompletion[@state.currentStep]
           classes.push('disabled')
         nextOrComplete = <button className={classes.join(' ')} onClick={@nextButton}>Next</button>
 
-      <div>
-        <span>Step {@state.currentStep + 1  } of {stepTotal}</span>
+      <div className='assignment-step'>
+        <div><span title='an Exercise may have multiple questions'>Steps:</span> {stepButtons}</div>
         <Exercise config={exerciseConfig} />
         {nextOrComplete}
       </div>

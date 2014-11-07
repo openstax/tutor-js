@@ -24,7 +24,7 @@ ArbitraryHtmlAndMath = React.createClass
     else
       <span className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
 
-  componentDidMount: ->
+  renderMath: ->
     for node in @getDOMNode().querySelectorAll('[data-math]:not(.loaded)')
       $node = $(node)
       formula = $node.attr('data-math')
@@ -37,6 +37,9 @@ ArbitraryHtmlAndMath = React.createClass
 
       katex.render(formula, $node[0])
       $node.addClass('loaded')
+
+  componentDidMount:  -> @renderMath()
+  componentDidUpdate: -> @renderMath()
 
 
 BlankQuestion = React.createClass
@@ -90,7 +93,7 @@ SimpleQuestion = React.createClass
     else
       <div className="question simple">
         <div className="stem">{config.stem}</div>
-        <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer}/>
+        <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer or ''}/>
       </div>
 
   onChange: ->
