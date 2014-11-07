@@ -1,8 +1,10 @@
 $ = require 'jquery'
 React = require 'react'
 
-{Exercise} = require './exercise'
 api = require '../api'
+{AnswerStore} = require '../flux/answer'
+{Exercise} = require './exercise'
+
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -82,10 +84,30 @@ module.exports =
           currentStep = 0
       else
         currentStep = 0
-      {currentStep}
+
+      completedSteps = []
+      {currentStep, completedSteps}
+
+    componentWillMount:   -> AnswerStore.addChangeListener(@update)
+    componentWillUnmount: -> AnswerStore.removeChangeListener(@update)
 
     nextButton: ->
       @setState({currentStep: @state.currentStep + 1})
+
+    update: ->
+      completedSteps = []
+      for step in @props.task.config.steps
+        completedSteps.push(@isExerciseCompleted(step))
+      @setState({completedSteps})
+
+    isExerciseCompleted: (exerciseConfig) ->
+      isUnanswered = false
+      for part in exerciseConfig.parts
+        for question in part.questions
+          unless AnswerStore.getAnswer(question)?
+            isUnanswered = true
+
+      !isUnanswered
 
     render: ->
       # @props.task.config.steps
@@ -95,7 +117,11 @@ module.exports =
       if @state.currentStep is stepTotal - 1
         nextOrComplete = <button className='btn btn-primary disabled' onClick={@completeAssignment}>Complete</button>
       else
-        nextOrComplete = <button className='btn btn-primary' onClick={@nextButton}>Next</button>
+        # Determine if the Next button should be disabled by checking if all the questions have been answered
+        classes = ['btn btn-primary']
+        unless @state.completedSteps[@state.currentStep]
+          classes.push('disabled')
+        nextOrComplete = <button className={classes.join(' ')} onClick={@nextButton}>Next</button>
 
       <div>
         <span>Step {@state.currentStep + 1  } of {stepTotal}</span>
