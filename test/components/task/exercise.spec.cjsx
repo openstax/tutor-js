@@ -10,8 +10,9 @@ React = require 'react'
 describe 'Exercise Task', ->
   it 'should render an Exercise with 0 parts', ->
     config =
-      background: 'EXERCISE_TEXT'
-      parts: []
+      content:
+        background: 'EXERCISE_TEXT'
+        parts: []
 
     html = React.renderComponentToString(<Exercise config={config} />)
     $node = $("<div id='wrapper'>#{html}</div>")
@@ -26,17 +27,18 @@ describe 'Exercise Task', ->
   describe 'Short Answer Question', ->
     it 'should render an Exercise with a short-answer question', ->
       config =
-        background: 'EXERCISE_TEXT'
-        parts: [
-          background: 'PART_TEXT'
-          questions: [
-            {
-              id: '123'
-              format: 'short-answer'
-              stem: 'QUESTION_STEM'
-            }
+        content:
+          background: 'EXERCISE_TEXT'
+          parts: [
+            background: 'PART_TEXT'
+            questions: [
+              {
+                id: '123'
+                format: 'short-answer'
+                stem: 'QUESTION_STEM'
+              }
+            ]
           ]
-        ]
 
       html = React.renderComponentToString(<Exercise config={config} />)
       $node = $("<div id='wrapper'>#{html}</div>")
@@ -141,9 +143,10 @@ describe 'Question Types', ->
       INLINE_MATH = '<span data-math="\frac{3}{4}"></span>'
       it 'should render Math in the exercise.background', ->
         config =
-          id: '123'
-          background: INLINE_MATH
-          parts: []
+          content:
+            id: '123'
+            background: INLINE_MATH
+            parts: []
 
         $node = $("<div id='wrapper'></div>")
         React.renderComponent(<Exercise config={config} />, $node[0])
@@ -152,12 +155,13 @@ describe 'Question Types', ->
 
       it 'should render Math in the part.background', ->
         config =
-          id: '123'
-          background: ''
-          parts: [{
-            background: INLINE_MATH
-            questions: []
-          }]
+          content:
+            id: '123'
+            background: ''
+            parts: [{
+              background: INLINE_MATH
+              questions: []
+            }]
 
         $node = $("<div id='wrapper'></div>")
         React.renderComponent(<Exercise config={config} />, $node[0])

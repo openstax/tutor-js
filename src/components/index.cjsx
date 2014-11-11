@@ -5,7 +5,7 @@ React = require 'react'
 
 AsyncState = require '../async-state'
 API = require '../api'
-{ReadingTask, InteractiveTask, ExerciseTask, AssignmentTask} = require './tasks'
+Task = require './task'
 {TaskActions, TaskStore} = require '../flux/task'
 {CurrentUserActions} = require '../flux/current-user'
 
@@ -86,13 +86,7 @@ SingleTask = React.createClass
     switch TaskStore.getAsyncStatus(id)
       when 'loaded'
         task = TaskStore.get(id)
-        Type = switch task.type
-          when 'reading' then ReadingTask
-          when 'interactive' then InteractiveTask
-          when 'exercise' then ExerciseTask
-          when 'assignment' then AssignmentTask
-          else err('BUG: Invalid task type', @props)
-        @transferPropsTo(<Type task={task} />)
+        return @transferPropsTo(<Task task={task} />)
 
       when 'failed'
         <div>Error. Please refresh</div>
@@ -107,12 +101,8 @@ SingleTask = React.createClass
 TaskResult = React.createClass
   render: ->
     {id} = @props.item
-    {title, actionTitle} = switch @props.item.type
-      when 'reading' then {title: 'Reading Task', actionTitle: 'Read Now'}
-      when 'interactive' then {title: 'Interactive Task', actionTitle: 'Play Now'}
-      when 'exercise' then {title: 'Exercise Task', actionTitle: 'Answer Now'}
-      when 'assignment' then {title: 'Assignment', actionTitle: 'Work on Now'}
-      else err('Invalid task type')
+    actionTitle = 'Work Now'
+    title = @props.item.title or err('BUG: Task without a title')
 
     <div className='panel panel-default'>
       <div className='panel-heading'>

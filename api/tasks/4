@@ -1,57 +1,61 @@
 { "id": 4,
-  "type": "assignment",
-  "config": {
-    "steps": [
-      {"background": "First Exercise", "parts":[
-          {
-            "questions":[
-              {
-                "id": "987",
-                "format": "short-answer",
-                "stem":"What is your favorite color?"
-              }
-            ]
-          }
-        ]
-      },
-      {"background": "Second Exercise", "parts":[
-          {
-            "questions":[
-              {
-                "id": "876",
-                "format": "multiple-choice",
-                "stem":"Is the glass half full or half empty?",
-                "answers":[
-                  {"id":"id3","content":"Half Full"},
-                  {"id":"id4","content":"Half Empty"}
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {"background": "Third Exercise", "parts":[
-          {
-            "background":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
-            "questions":[
-              {
-                "id": "123",
-                "format": "short-answer",
-                "stem":"What is the rest mass in kg?"
-              },{
-                "id": "234",
-                "format": "multiple-choice",
-                "stem":"What is the force if it slams into a wall?",
-                "answers":[
-                  {"id":"id1","value":"10","content":"10 N"},
-                  {"id":"id2","value":"1","content":"1 N"}
-                ]
-              }
-            ]
-          }
-        ]
+  "title": "Assignment",
+  "steps": [
+    { "type": "exercise",
+      "content": {
+        "background": "First Exercise",
+        "parts":[{
+          "questions":[
+            {
+              "id": "987",
+              "format": "short-answer",
+              "stem":"What is your favorite color?"
+            }
+          ]
+        }]
       }
+    },
+    { "type": "exercise",
+      "content": {
+        "background": "Second Exercise",
+        "parts":[{
+          "questions":[
+            {
+              "id": "876",
+              "format": "multiple-choice",
+              "stem":"Is the glass half full or half empty?",
+              "answers":[
+                {"id":"id3","content":"Half Full"},
+                {"id":"id4","content":"Half Empty"}
+              ]
+            }
+          ]
+        }]
+      }
+    },
+    { "type": "exercise",
+      "content": {
+        "background": "Third Exercise",
+        "parts":[{
+          "background":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+          "questions":[
+            {
+              "id": "123",
+              "format": "short-answer",
+              "stem":"What is the rest mass in kg?"
+            },{
+              "id": "234",
+              "format": "multiple-choice",
+              "stem":"What is the force if it slams into a wall?",
+              "answers":[
+                {"id":"id1","value":"10","content":"10 N"},
+                {"id":"id2","value":"1","content":"1 N"}
+              ]
+            }
+          ]
+        }]
+      }
+    }
+  ]
 
-    ]
-  }
 }

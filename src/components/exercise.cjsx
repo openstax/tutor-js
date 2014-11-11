@@ -447,8 +447,8 @@ Exercise = React.createClass
   render: ->
     {config} = @props
     <div className="exercise">
-      <ArbitraryHtmlAndMath className="background" html={config.background} />
-      {ExercisePart {config:part} for part in config.parts}
+      <ArbitraryHtmlAndMath className="background" html={config.content.background} />
+      {ExercisePart {config:part} for part in config.content.parts}
     </div>
 
 
