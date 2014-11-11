@@ -41,16 +41,18 @@ body {
 }
 
 .exercise {
-  .part {
-    .question {
-      .options {
-        list-style-type: none;
+  .question {
+    padding-top: .5em;
 
-        .option label {
-          cursor: pointer;
+    .options {
+      list-style-type: none;
+      padding-left: 0;
 
-          input[type='radio'] { margin-right: .5em; }
-        }
+      .option label {
+        cursor: pointer;
+        font-weight: normal; // bootstrap makes these bold
+
+        input[type='radio'] { margin-right: .5em; }
       }
     }
   }
