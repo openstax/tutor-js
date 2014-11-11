@@ -423,32 +423,22 @@ getQuestionType = (format) ->
   QUESTION_TYPES[format] or throw new Error("Unsupported format type '#{format}'")
 
 
-ExercisePart = React.createClass
-  displayName: 'ExercisePart'
+Exercise = React.createClass
+  displayName: 'Exercise'
   render: ->
     {config} = @props
 
-    questionsConfig = config.questions
-    questions = for questionConfig in questionsConfig
+    questions = for questionConfig in config.content.questions
       format = questionConfig.format
       Type = getQuestionType(format)
       props = {config:questionConfig}
 
       <div className="variant" data-format={format}>{Type(props)}</div>
 
-    <div className="part">
-      <ArbitraryHtmlAndMath className="background" html={config.background} />
-      {questions}
-    </div>
 
-
-Exercise = React.createClass
-  displayName: 'Exercise'
-  render: ->
-    {config} = @props
     <div className="exercise">
       <ArbitraryHtmlAndMath className="background" html={config.content.background} />
-      {ExercisePart {config:part} for part in config.content.parts}
+      {questions}
     </div>
 
 

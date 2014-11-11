@@ -8,11 +8,11 @@ React = require 'react'
 {AnswerActions, AnswerStore} = require '../../../src/flux/answer'
 
 describe 'Exercise Task', ->
-  it 'should render an Exercise with 0 parts', ->
+  it 'should render an Exercise with 0 questions', ->
     config =
       content:
         background: 'EXERCISE_TEXT'
-        parts: []
+        questions: []
 
     html = React.renderComponentToString(<Exercise config={config} />)
     $node = $("<div id='wrapper'>#{html}</div>")
@@ -21,7 +21,7 @@ describe 'Exercise Task', ->
     expect($node.find('.exercise')).to.have.length(1)
     expect($node.find('.background')).to.have.length(1)
     expect($node.find('.background').text()).to.equal('EXERCISE_TEXT')
-    expect($node.find('.part')).to.have.length(0)
+    expect($node.find('.question')).to.have.length(0)
 
 
   describe 'Short Answer Question', ->
@@ -29,15 +29,12 @@ describe 'Exercise Task', ->
       config =
         content:
           background: 'EXERCISE_TEXT'
-          parts: [
-            background: 'PART_TEXT'
-            questions: [
-              {
-                id: '123'
-                format: 'short-answer'
-                stem: 'QUESTION_STEM'
-              }
-            ]
+          questions: [
+            {
+              id: '123'
+              format: 'short-answer'
+              stem: 'QUESTION_STEM'
+            }
           ]
 
       html = React.renderComponentToString(<Exercise config={config} />)
@@ -47,9 +44,6 @@ describe 'Exercise Task', ->
       expect($node.find('.exercise')).to.have.length(1)
       expect($node.find('.exercise > .background')).to.have.length(1)
       expect($node.find('.exercise > .background').text()).to.equal('EXERCISE_TEXT')
-      expect($node.find('.part')).to.have.length(1)
-      expect($node.find('.part > .background')).to.have.length(1)
-      expect($node.find('.part > .background').text()).to.equal('PART_TEXT')
       expect($node.find('.question > .stem')).to.have.length(1)
       expect($node.find('.question > .stem').text()).to.equal('QUESTION_STEM')
 
@@ -146,22 +140,7 @@ describe 'Question Types', ->
           content:
             id: '123'
             background: INLINE_MATH
-            parts: []
-
-        $node = $("<div id='wrapper'></div>")
-        React.renderComponent(<Exercise config={config} />, $node[0])
-        expect($node.find('[data-math] > .katex')).to.have.length(1)
-
-
-      it 'should render Math in the part.background', ->
-        config =
-          content:
-            id: '123'
-            background: ''
-            parts: [{
-              background: INLINE_MATH
-              questions: []
-            }]
+            questions: []
 
         $node = $("<div id='wrapper'></div>")
         React.renderComponent(<Exercise config={config} />, $node[0])
