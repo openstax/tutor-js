@@ -19,19 +19,19 @@
       "steps": [{
         "type": "exercise",
         "content": {
-          "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+          "stimulus_html":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
           "questions":[
             {
               "id": "123",
               "format": "short-answer",
-              "stem":"What is the rest mass in kg?"
+              "stem_html":"What is the rest mass in kg?"
             },{
               "id": "234",
               "format": "multiple-choice",
-              "stem":"What is the force if it slams into a wall?",
+              "stem_html":"What is the force if it slams into a wall?",
               "answers":[
-                {"id":"id1","content":"10 N"},
-                {"id":"id2","content":"1 N"}
+                {"id":"id1","content_html":"10 N"},
+                {"id":"id2","content_html":"1 N"}
               ]
             }
           ]
@@ -44,27 +44,27 @@
       "steps": [
         { "type": "exercise",
           "content": {
-            "stimulus": "First Exercise",
+            "stimulus_html": "First Exercise",
             "questions":[
               {
                 "id": "987",
                 "format": "short-answer",
-                "stem":"What is your favorite color?"
+                "stem_html":"What is your favorite color?"
               }
             ]
           }
         },
         { "type": "exercise",
           "content": {
-            "stimulus": "Second Exercise",
+            "stimulus_html": "Second Exercise",
             "questions":[
               {
                 "id": "876",
                 "format": "multiple-choice",
-                "stem":"Is the glass half full or half empty?",
+                "stem_html":"Is the glass half full or half empty?",
                 "answers":[
-                  {"id":"id3","content":"Half Full"},
-                  {"id":"id4","content":"Half Empty"}
+                  {"id":"id3","content_html":"Half Full"},
+                  {"id":"id4","content_html":"Half Empty"}
                 ]
               }
             ]
@@ -72,19 +72,19 @@
         },
         { "type": "exercise",
           "content": {
-            "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+            "stimulus_html":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
             "questions":[
               {
                 "id": "123",
                 "format": "short-answer",
-                "stem":"What is the rest mass in kg?"
+                "stem_html":"What is the rest mass in kg?"
               },{
                 "id": "234",
                 "format": "multiple-choice",
-                "stem":"What is the force if it slams into a wall?",
+                "stem_html":"What is the force if it slams into a wall?",
                 "answers":[
-                  {"id":"id1","content":"10 N"},
-                  {"id":"id2","content":"1 N"}
+                  {"id":"id1","content_html":"10 N"},
+                  {"id":"id2","content_html":"1 N"}
                 ]
               }
             ]
