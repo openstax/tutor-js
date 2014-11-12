@@ -475,7 +475,7 @@ Exercise = React.createClass
 
 
     <div className="exercise">
-      <ArbitraryHtmlAndMath className="background" html={config.content.background} />
+      <ArbitraryHtmlAndMath className="stimulus" html={config.content.stimulus} />
       {questions}
     </div>
 

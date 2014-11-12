@@ -3,7 +3,7 @@
   "steps": [
     { "type": "exercise",
       "content": {
-        "background": "First Exercise",
+        "stimulus": "First Exercise",
         "questions":[
           {
             "id": "987",
@@ -15,7 +15,7 @@
     },
     { "type": "exercise",
       "content": {
-        "background": "Second Exercise",
+        "stimulus": "Second Exercise",
         "questions":[
           {
             "id": "876",
@@ -31,7 +31,7 @@
     },
     { "type": "exercise",
       "content": {
-        "background":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+        "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
         "questions":[
           {
             "id": "123",

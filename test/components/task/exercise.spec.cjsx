@@ -11,7 +11,7 @@ describe 'Exercise Task', ->
   it 'should render an Exercise with 0 questions', ->
     config =
       content:
-        background: 'EXERCISE_TEXT'
+        stimulus: 'EXERCISE_TEXT'
         questions: []
 
     html = React.renderComponentToString(<Exercise config={config} />)
@@ -19,8 +19,8 @@ describe 'Exercise Task', ->
 
     # Verify the node has the correct elements
     expect($node.find('.exercise')).to.have.length(1)
-    expect($node.find('.background')).to.have.length(1)
-    expect($node.find('.background').text()).to.equal('EXERCISE_TEXT')
+    expect($node.find('.stimulus')).to.have.length(1)
+    expect($node.find('.stimulus').text()).to.equal('EXERCISE_TEXT')
     expect($node.find('.question')).to.have.length(0)
 
 
@@ -28,7 +28,7 @@ describe 'Exercise Task', ->
     it 'should render an Exercise with a short-answer question', ->
       config =
         content:
-          background: 'EXERCISE_TEXT'
+          stimulus: 'EXERCISE_TEXT'
           questions: [
             {
               id: '123'
@@ -43,8 +43,8 @@ describe 'Exercise Task', ->
 
       # Verify the node has the correct elements
       expect($node.find('.exercise')).to.have.length(1)
-      expect($node.find('.exercise > .background')).to.have.length(1)
-      expect($node.find('.exercise > .background').text()).to.equal('EXERCISE_TEXT')
+      expect($node.find('.exercise > .stimulus')).to.have.length(1)
+      expect($node.find('.exercise > .stimulus').text()).to.equal('EXERCISE_TEXT')
       expect($node.find('.question > .stimulus')).to.have.length(1)
       expect($node.find('.question > .stimulus').text()).to.equal('QUESTION_STIMULUS')
       expect($node.find('.question > .stem')).to.have.length(1)
@@ -138,11 +138,11 @@ describe 'Question Types', ->
 
     describe 'Render Math in various parts', ->
       INLINE_MATH = '<span data-math="\frac{3}{4}"></span>'
-      it 'should render Math in the exercise.background', ->
+      it 'should render Math in the exercise.stimulus', ->
         config =
           content:
             id: '123'
-            background: INLINE_MATH
+            stimulus: INLINE_MATH
             questions: []
 
         $node = $("<div id='wrapper'></div>")

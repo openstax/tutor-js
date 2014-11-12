@@ -3,7 +3,7 @@
   "steps": [{
     "type": "exercise",
     "content": {
-      "background":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+      "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
       "questions":[
         {
           "id": "123",
