@@ -1,4 +1,6 @@
 @import '../node_modules/bootstrap/less/bootstrap.less';
+@import '../bower_components/katex/static/katex.less';
+
 body {
   padding-top: 60px; // For the top navbar
   padding-bottom: 50px;
@@ -39,17 +41,31 @@ body {
 }
 
 .exercise {
-  .part {
-    .question {
-      .options {
-        list-style-type: none;
+  .question {
+    padding-top: .5em;
 
-        .option label {
-          cursor: pointer;
+    .options {
+      list-style-type: none;
+      padding-left: 0;
 
-          input[type='radio'] { margin-right: .5em; }
-        }
+      .option label {
+        cursor: pointer;
+        font-weight: normal; // bootstrap makes these bold
+
+        input[type='radio'] { margin-right: .5em; }
       }
     }
   }
+}
+
+
+
+
+// Math Rendering
+// NOTE: This happens pretty quickly so it may be unnecessary
+[data-math]:not(.loaded) {
+  background-color: #eee;
+  color: #999;
+
+  &:before { content: attr(data-math); }
 }

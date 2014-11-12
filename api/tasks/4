@@ -1,0 +1,54 @@
+{ "id": 4,
+  "title": "Assignment",
+  "steps": [
+    { "type": "exercise",
+      "content": {
+        "stimulus": "First Exercise",
+        "questions":[
+          {
+            "id": "987",
+            "format": "short-answer",
+            "stem":"What is your favorite color?"
+          }
+        ]
+      }
+    },
+    { "type": "exercise",
+      "content": {
+        "stimulus": "Second Exercise",
+        "questions":[
+          {
+            "id": "876",
+            "format": "multiple-choice",
+            "stem":"Is the glass half full or half empty?",
+            "answers":[
+              {"id":"id3","content":"Half Full"},
+              {"id":"id4","content":"Half Empty"}
+            ]
+          }
+        ]
+      }
+    },
+    { "type": "exercise",
+      "content": {
+        "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+        "questions":[
+          {
+            "id": "123",
+            "format": "short-answer",
+            "stem":"What is the rest mass in kg?"
+          },{
+            "id": "234",
+            "format": "multiple-choice",
+            "stem":"What is the force if it slams into a wall?",
+            "answers":[
+              {"id":"id1","content":"10 N"},
+              {"id":"id2","content":"1 N"}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+
+}
