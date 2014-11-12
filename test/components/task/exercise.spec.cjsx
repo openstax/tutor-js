@@ -33,6 +33,7 @@ describe 'Exercise Task', ->
             {
               id: '123'
               format: 'short-answer'
+              stimulus: 'QUESTION_STIMULUS'
               stem: 'QUESTION_STEM'
             }
           ]
@@ -44,6 +45,8 @@ describe 'Exercise Task', ->
       expect($node.find('.exercise')).to.have.length(1)
       expect($node.find('.exercise > .background')).to.have.length(1)
       expect($node.find('.exercise > .background').text()).to.equal('EXERCISE_TEXT')
+      expect($node.find('.question > .stimulus')).to.have.length(1)
+      expect($node.find('.question > .stimulus').text()).to.equal('QUESTION_STIMULUS')
       expect($node.find('.question > .stem')).to.have.length(1)
       expect($node.find('.question > .stem').text()).to.equal('QUESTION_STEM')
 
