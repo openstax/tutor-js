@@ -96,8 +96,8 @@ describe 'Question Types', ->
         format: 'multiple-choice'
         stem: 'QUESTION_STEM'
         answers: [
-          {id:'id1',value:'VALUE_1',content:'OPTION_1'}
-          {id:'id2',value:'VALUE_2',content:'OPTION_2'}
+          {id:'id1',content:'OPTION_1'}
+          {id:'id2',content:'OPTION_2'}
         ]
 
       Type = getQuestionType('multiple-choice')
@@ -118,8 +118,8 @@ describe 'Question Types', ->
         format: 'multiple-choice'
         stem: 'QUESTION_STEM'
         answers: [
-          {id:'OPTION_1_ID',value:'VALUE_1',content:'OPTION_1'}
-          {id:'OPTION_2_ID',value:'VALUE_2',content:'OPTION_2'}
+          {id:'OPTION_1_ID',content:'OPTION_1'}
+          {id:'OPTION_2_ID',content:'OPTION_2'}
         ]
 
       Type = getQuestionType('multiple-choice')

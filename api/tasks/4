@@ -42,8 +42,8 @@
             "format": "multiple-choice",
             "stem":"What is the force if it slams into a wall?",
             "answers":[
-              {"id":"id1","value":"10","content":"10 N"},
-              {"id":"id2","value":"1","content":"1 N"}
+              {"id":"id1","content":"10 N"},
+              {"id":"id2","content":"1 N"}
             ]
           }
         ]
