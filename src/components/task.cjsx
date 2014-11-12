@@ -57,10 +57,9 @@ module.exports = React.createClass
     # TODO: Each step should have a boolean "completed" flag so we do not have to special-case in this code
     switch stepConfig.type
       when 'exercise'
-        for part in stepConfig.content.parts
-          for question in part.questions
-            unless AnswerStore.getAnswer(question)?
-              isUnanswered = true
+        for question in stepConfig.content.questions
+          unless AnswerStore.getAnswer(question)?
+            isUnanswered = true
       else
         isUnanswered = false
 

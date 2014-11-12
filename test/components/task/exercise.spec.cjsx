@@ -8,36 +8,34 @@ React = require 'react'
 {AnswerActions, AnswerStore} = require '../../../src/flux/answer'
 
 describe 'Exercise Task', ->
-  it 'should render an Exercise with 0 parts', ->
+  it 'should render an Exercise with 0 questions', ->
     config =
       content:
-        background: 'EXERCISE_TEXT'
-        parts: []
+        stimulus: 'EXERCISE_TEXT'
+        questions: []
 
     html = React.renderComponentToString(<Exercise config={config} />)
     $node = $("<div id='wrapper'>#{html}</div>")
 
     # Verify the node has the correct elements
     expect($node.find('.exercise')).to.have.length(1)
-    expect($node.find('.background')).to.have.length(1)
-    expect($node.find('.background').text()).to.equal('EXERCISE_TEXT')
-    expect($node.find('.part')).to.have.length(0)
+    expect($node.find('.stimulus')).to.have.length(1)
+    expect($node.find('.stimulus').text()).to.equal('EXERCISE_TEXT')
+    expect($node.find('.question')).to.have.length(0)
 
 
   describe 'Short Answer Question', ->
     it 'should render an Exercise with a short-answer question', ->
       config =
         content:
-          background: 'EXERCISE_TEXT'
-          parts: [
-            background: 'PART_TEXT'
-            questions: [
-              {
-                id: '123'
-                format: 'short-answer'
-                stem: 'QUESTION_STEM'
-              }
-            ]
+          stimulus: 'EXERCISE_TEXT'
+          questions: [
+            {
+              id: '123'
+              format: 'short-answer'
+              stimulus: 'QUESTION_STIMULUS'
+              stem: 'QUESTION_STEM'
+            }
           ]
 
       html = React.renderComponentToString(<Exercise config={config} />)
@@ -45,11 +43,10 @@ describe 'Exercise Task', ->
 
       # Verify the node has the correct elements
       expect($node.find('.exercise')).to.have.length(1)
-      expect($node.find('.exercise > .background')).to.have.length(1)
-      expect($node.find('.exercise > .background').text()).to.equal('EXERCISE_TEXT')
-      expect($node.find('.part')).to.have.length(1)
-      expect($node.find('.part > .background')).to.have.length(1)
-      expect($node.find('.part > .background').text()).to.equal('PART_TEXT')
+      expect($node.find('.exercise > .stimulus')).to.have.length(1)
+      expect($node.find('.exercise > .stimulus').text()).to.equal('EXERCISE_TEXT')
+      expect($node.find('.question > .stimulus')).to.have.length(1)
+      expect($node.find('.question > .stimulus').text()).to.equal('QUESTION_STIMULUS')
       expect($node.find('.question > .stem')).to.have.length(1)
       expect($node.find('.question > .stem').text()).to.equal('QUESTION_STEM')
 
@@ -99,8 +96,8 @@ describe 'Question Types', ->
         format: 'multiple-choice'
         stem: 'QUESTION_STEM'
         answers: [
-          {id:'id1',value:'VALUE_1',content:'OPTION_1'}
-          {id:'id2',value:'VALUE_2',content:'OPTION_2'}
+          {id:'id1',content:'OPTION_1'}
+          {id:'id2',content:'OPTION_2'}
         ]
 
       Type = getQuestionType('multiple-choice')
@@ -121,8 +118,8 @@ describe 'Question Types', ->
         format: 'multiple-choice'
         stem: 'QUESTION_STEM'
         answers: [
-          {id:'OPTION_1_ID',value:'VALUE_1',content:'OPTION_1'}
-          {id:'OPTION_2_ID',value:'VALUE_2',content:'OPTION_2'}
+          {id:'OPTION_1_ID',content:'OPTION_1'}
+          {id:'OPTION_2_ID',content:'OPTION_2'}
         ]
 
       Type = getQuestionType('multiple-choice')
@@ -141,27 +138,12 @@ describe 'Question Types', ->
 
     describe 'Render Math in various parts', ->
       INLINE_MATH = '<span data-math="\frac{3}{4}"></span>'
-      it 'should render Math in the exercise.background', ->
+      it 'should render Math in the exercise.stimulus', ->
         config =
           content:
             id: '123'
-            background: INLINE_MATH
-            parts: []
-
-        $node = $("<div id='wrapper'></div>")
-        React.renderComponent(<Exercise config={config} />, $node[0])
-        expect($node.find('[data-math] > .katex')).to.have.length(1)
-
-
-      it 'should render Math in the part.background', ->
-        config =
-          content:
-            id: '123'
-            background: ''
-            parts: [{
-              background: INLINE_MATH
-              questions: []
-            }]
+            stimulus: INLINE_MATH
+            questions: []
 
         $node = $("<div id='wrapper'></div>")
         React.renderComponent(<Exercise config={config} />, $node[0])
