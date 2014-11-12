@@ -1,4 +1,7 @@
 { "id": 2,
-  "type": "interactive",
-  "content_url": "http://connexions.github.io/simulations"
+  "title": "Interactive Task",
+  "steps": [{
+    "type": "interactive",
+    "content_url": "http://connexions.github.io/simulations"
+  }]
 }
