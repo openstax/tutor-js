@@ -1,21 +1,78 @@
 { "total_count": 3,
   "items":[
     { "id": 1,
-      "type": "reading",
-      "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html"
+      "title": "Reading Task",
+      "steps": [{
+        "type": "reading",
+        "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html"
+      }]
     },
     { "id": 2,
-      "type": "interactive",
-      "content_url": "http://connexions.github.io/simulations"
+      "title": "Interactive Task",
+      "steps": [{
+        "type": "interactive",
+        "content_url": "http://connexions.github.io/simulations"
+      }]
     },
     { "id": 3,
-      "type": "exercise",
+      "title": "Exercise Task",
+      "steps": [{
+        "type": "exercise",
+        "content": {
+          "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+          "questions":[
+            {
+              "id": "123",
+              "format": "short-answer",
+              "stem":"What is the rest mass in kg?"
+            },{
+              "id": "234",
+              "format": "multiple-choice",
+              "stem":"What is the force if it slams into a wall?",
+              "answers":[
+                {"id":"id1","content":"10 N"},
+                {"id":"id2","content":"1 N"}
+              ]
+            }
+          ]
 
-      "config": {
-        "background":"This exercise has many parts. Each one is a different type of question. Einstein makes a 10 kg spaceship",
-        "parts":[
-          {
-            "background":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
+        }
+      }]
+    },
+    { "id": 4,
+      "title": "Assignment",
+      "steps": [
+        { "type": "exercise",
+          "content": {
+            "stimulus": "First Exercise",
+            "questions":[
+              {
+                "id": "987",
+                "format": "short-answer",
+                "stem":"What is your favorite color?"
+              }
+            ]
+          }
+        },
+        { "type": "exercise",
+          "content": {
+            "stimulus": "Second Exercise",
+            "questions":[
+              {
+                "id": "876",
+                "format": "multiple-choice",
+                "stem":"Is the glass half full or half empty?",
+                "answers":[
+                  {"id":"id3","content":"Half Full"},
+                  {"id":"id4","content":"Half Empty"}
+                ]
+              }
+            ]
+          }
+        },
+        { "type": "exercise",
+          "content": {
+            "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",
             "questions":[
               {
                 "id": "123",
@@ -26,15 +83,17 @@
                 "format": "multiple-choice",
                 "stem":"What is the force if it slams into a wall?",
                 "answers":[
-                  {"id":"id1","value":"10","content":"10 N"},
-                  {"id":"id2","value":"1","content":"1 N"}
+                  {"id":"id1","content":"10 N"},
+                  {"id":"id2","content":"1 N"}
                 ]
               }
             ]
           }
-        ]
-      }
+        }
+      ]
+
     }
+
 
   ]
 }

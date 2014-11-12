@@ -24,7 +24,7 @@ ArbitraryHtmlAndMath = React.createClass
     else
       <span className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
 
-  componentDidMount: ->
+  renderMath: ->
     for node in @getDOMNode().querySelectorAll('[data-math]:not(.loaded)')
       $node = $(node)
       formula = $node.attr('data-math')
@@ -38,6 +38,9 @@ ArbitraryHtmlAndMath = React.createClass
       katex.render(formula, $node[0])
       $node.addClass('loaded')
 
+  componentDidMount:  -> @renderMath()
+  componentDidUpdate: -> @renderMath()
+
 
 BlankQuestion = React.createClass
   displayName: 'BlankQuestion'
@@ -45,6 +48,12 @@ BlankQuestion = React.createClass
     {config} = @props
     {stem} = config
     isAnswered = !!config.answer
+
+    if config.stimulus
+      stimulus =
+        <div className="stimulus">
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+        </div>
 
     if isAnswered
       # TODO: Make sure HTML is escaped!!!
@@ -57,11 +66,13 @@ BlankQuestion = React.createClass
 
     if isAnswered
       <div className="question answered fill-in-the-blank">
+        {stimulus}
         <ArbitraryHtmlAndMath block=true className="stem" html={stem} />
       </div>
 
     else
       <div className="question fill-in-the-blank">
+        {stimulus}
         <ArbitraryHtmlAndMath block=true className="stem" html={stem} />
       </div>
 
@@ -82,15 +93,23 @@ SimpleQuestion = React.createClass
     isAnswered = !!config.answer
     answer = AnswerStore.getAnswer(config)
 
+    if config.stimulus
+      stimulus =
+        <div className="stimulus">
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+        </div>
+
     if isAnswered
       <div className="question simple">
+        {stimulus}
         <div className="stem">{config.stem}</div>
         Your answer: <strong>{answer}</strong>
       </div>
     else
       <div className="question simple">
+        {stimulus}
         <div className="stem">{config.stem}</div>
-        <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer}/>
+        <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer or ''}/>
       </div>
 
   onChange: ->
@@ -300,7 +319,14 @@ MultiSelectQuestion = React.createClass
     classes = ['question']
     classes.push('answered') if isAnswered
 
+    if config.stimulus
+      stimulus =
+        <div className="stimulus">
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+        </div>
+
     <div key={questionId} className={classes.join(' ')}>
+      {stimulus}
       <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
       <div>Select all that apply:</div>
       <ul className="options">{options}</ul>
@@ -329,6 +355,12 @@ TrueFalseQuestion = React.createClass
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
 
+    if config.stimulus
+      stimulus =
+        <div className='stimulus'>
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+        </div>
+
     if isAnswered
       trueClasses  = ['option']
       falseClasses = ['option']
@@ -346,6 +378,7 @@ TrueFalseQuestion = React.createClass
         incorrectClasses.push('incorrect')
 
       <div className="question answered true-false">
+        {stimulus}
         <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
         <ul className="options">
           <li className={trueClasses.join(' ')}>
@@ -360,6 +393,7 @@ TrueFalseQuestion = React.createClass
 
     else
       <div className="question true-false">
+        {stimulus}
         <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
         <ul className="options">
           <li className="option">
@@ -398,7 +432,14 @@ MatchingQuestion = React.createClass
         </td>
       </tr>
 
+    if config.stimulus
+      stimulus =
+        <div className='stimulus'>
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+        </div>
+
     <div className="question matching">
+      {stimulus}
       <table>
         <caption>
           <ArbitraryHtmlAndMath className="stem" html={config.stem} />
@@ -420,32 +461,22 @@ getQuestionType = (format) ->
   QUESTION_TYPES[format] or throw new Error("Unsupported format type '#{format}'")
 
 
-ExercisePart = React.createClass
-  displayName: 'ExercisePart'
+Exercise = React.createClass
+  displayName: 'Exercise'
   render: ->
     {config} = @props
 
-    questionsConfig = config.questions
-    questions = for questionConfig in questionsConfig
+    questions = for questionConfig in config.content.questions
       format = questionConfig.format
       Type = getQuestionType(format)
       props = {config:questionConfig}
 
       <div className="variant" data-format={format}>{Type(props)}</div>
 
-    <div className="part">
-      <ArbitraryHtmlAndMath className="background" html={config.background} />
-      {questions}
-    </div>
 
-
-Exercise = React.createClass
-  displayName: 'Exercise'
-  render: ->
-    {config} = @props
     <div className="exercise">
-      <ArbitraryHtmlAndMath className="background" html={config.background} />
-      {ExercisePart {config:part} for part in config.parts}
+      <ArbitraryHtmlAndMath className="stimulus" html={config.content.stimulus} />
+      {questions}
     </div>
 
 
