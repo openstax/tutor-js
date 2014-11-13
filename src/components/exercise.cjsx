@@ -10,7 +10,7 @@ AnswerLabeler = React.createClass
   render: ->
     {index, before, after} = @props
     letter = String.fromCharCode(index + 97) # For uppercase use 65
-    <span className="answer-char">{before}{letter}{after}</span>
+    <span className='answer-char'>{before}{letter}{after}</span>
 
 
 ArbitraryHtmlAndMath = React.createClass
@@ -50,7 +50,7 @@ Question =
     isAnswered = !!config.answer
 
     if config.stimulus?
-      stimulus = <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+      stimulus = <ArbitraryHtmlAndMath block=true className='stimulus' html={config.stimulus} />
     classes = ['question', config.type]
     classes.push('answered') if isAnswered
 
@@ -83,7 +83,7 @@ BlankQuestion = React.createClass
     else
       stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
 
-    <ArbitraryHtmlAndMath block=true className="stem" html={stem} />
+    <ArbitraryHtmlAndMath block=true className='stem' html={stem} />
 
   componentDidMount: ->
     # Find the input box and attach listeners to it
@@ -106,7 +106,7 @@ SimpleQuestion = React.createClass
     if isAnswered
       <div className='answer'>Your answer: <strong>{answer}</strong></div>
     else
-      <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer or ''}/>
+      <input type='text' placeholder={config.short_stem} ref='prompt' onChange=@onChange value={answer or ''}/>
 
   onChange: ->
     val = @refs.prompt.getDOMNode().value
@@ -121,7 +121,7 @@ SimpleMultipleChoiceOption = React.createClass
   render: ->
     {config, questionId, index} = @props
     id = config.id
-    <ArbitraryHtmlAndMath className="stem" html={config.content or config.value} />
+    <ArbitraryHtmlAndMath className='stem' html={config.content or config.value} />
 
 MultiMultipleChoiceOption = React.createClass
   displayName: 'MultiMultipleChoiceOption'
@@ -131,8 +131,8 @@ MultiMultipleChoiceOption = React.createClass
     for id, i in idIndices
       unless config.value.indexOf(id) < 0
         index = config.value.indexOf(id)
-        vals.push <AnswerLabeler key={index} before="(" after=")" index={index}/>
-    <span className="multi">{vals}</span>
+        vals.push <AnswerLabeler key={index} before='(' after=')' index={index}/>
+    <span className='multi'>{vals}</span>
 
 
 MultipleChoiceOptionMixin =
@@ -163,8 +163,8 @@ MultipleChoiceOptionMixin =
       isChecked = @props.answer is optionIdent
 
     contents = [
-      <span key="letter" className="letter"><AnswerLabeler after=")" index={index}/> </span>
-      <span key="answer" className="answer">{option}</span>
+      <span key='letter' className='letter'><AnswerLabeler after=')' index={index}/> </span>
+      <span key='answer' className='answer'>{option}</span>
     ]
 
 
@@ -172,7 +172,7 @@ MultipleChoiceOptionMixin =
       contents =
         <label>
           <input type={inputType}
-            ref="input"
+            ref='input'
             name={questionId}
             value={JSON.stringify(config.value)}
             onChange=@onChange
@@ -229,8 +229,8 @@ MultipleChoiceQuestion = React.createClass
     classes.push('answered') if isAnswered
 
     <div key={questionId} className={classes.join(' ')}>
-      <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
-      <ul className="options">{options}</ul>
+      <ArbitraryHtmlAndMath block=true className='stem' html={config.stem} />
+      <ul className='options'>{options}</ul>
     </div>
 
   onChange: (answer) ->
@@ -315,7 +315,7 @@ MultiSelectQuestion = React.createClass
 
     <div key={questionId} className='question-body'>
       <div>Select all that apply:</div>
-      <ul className="options">{options}</ul>
+      <ul className='options'>{options}</ul>
     </div>
 
   onChange: (answer, isChecked) ->
@@ -358,8 +358,8 @@ TrueFalseQuestion = React.createClass
         # correctClasses.push('missed') No need to show missed if there are only 2 options
         incorrectClasses.push('incorrect')
 
-      <div className="question-body">
-        <ul className="options">
+      <div className='question-body'>
+        <ul className='options'>
           <li className={trueClasses.join(' ')}>
             <span>True</span>
           </li>
@@ -371,17 +371,17 @@ TrueFalseQuestion = React.createClass
 
 
     else
-      <div className="question-body">
-        <ul className="options">
-          <li className="option">
+      <div className='question-body'>
+        <ul className='options'>
+          <li className='option'>
             <label>
-              <input type="radio" name={questionId} value="true" onChange=@onTrue />
+              <input type='radio' name={questionId} value='true' onChange=@onTrue />
               <span>True</span>
             </label>
           </li>
-          <li className="option">
+          <li className='option'>
             <label>
-              <input type="radio" name={questionId} value="false" onChange=@onFalse />
+              <input type='radio' name={questionId} value='false' onChange=@onFalse />
               <span>False</span>
             </label>
           </li>
@@ -402,12 +402,12 @@ MatchingQuestion = React.createClass
       item = config.items[i]
 
       <tr key={answer.id}>
-        <td className="item">
-          <ArbitraryHtmlAndMath className="stem" html={item} />
+        <td className='item'>
+          <ArbitraryHtmlAndMath className='stem' html={item} />
         </td>
-        <td className="spacer"></td>
-        <td className="answer">
-          <ArbitraryHtmlAndMath className="stem" html={answer.content or answer.value} />
+        <td className='spacer'></td>
+        <td className='answer'>
+          <ArbitraryHtmlAndMath className='stem' html={answer.content or answer.value} />
         </td>
       </tr>
 
@@ -441,8 +441,8 @@ Exercise = React.createClass
       Type(props)
 
 
-    <div className="exercise">
-      <ArbitraryHtmlAndMath className="stimulus" html={config.content.stimulus} />
+    <div className='exercise'>
+      <ArbitraryHtmlAndMath className='stimulus' html={config.content.stimulus} />
       {questions}
     </div>
 
