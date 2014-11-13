@@ -1,4 +1,4 @@
-{ "total_count": 3,
+{ "total_count": 4,
   "items":[
     { "id": 1,
       "title": "Reading Task",
@@ -44,7 +44,6 @@
       "steps": [
         { "type": "exercise",
           "content": {
-            "stimulus": "First Exercise",
             "questions":[
               {
                 "id": "987",
@@ -60,7 +59,7 @@
         },
         { "type": "exercise",
           "content": {
-            "stimulus": "Second Exercise",
+            "stimulus": "Stimulus for Second Exercise",
             "questions":[
               {
                 "id": "876",
