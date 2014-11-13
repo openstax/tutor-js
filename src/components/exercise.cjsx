@@ -42,7 +42,7 @@ ArbitraryHtmlAndMath = React.createClass
   componentDidUpdate: -> @renderMath()
 
 
-Question =
+QuestionMixin =
   # renderBody: ->
   # renderStem: ->
   render: ->
@@ -51,7 +51,7 @@ Question =
 
     if config.stimulus?
       stimulus = <ArbitraryHtmlAndMath block=true className='stimulus' html={config.stimulus} />
-    classes = ['question', config.type]
+    classes = ['question', config.format]
     classes.push('answered') if isAnswered
 
     if @renderStem?
@@ -68,7 +68,7 @@ Question =
 
 BlankQuestion = React.createClass
   displayName: 'BlankQuestion'
-  mixins: [Question]
+  mixins: [QuestionMixin]
   renderStem: ->
     {config} = @props
     {stem} = config
@@ -97,7 +97,7 @@ BlankQuestion = React.createClass
 
 SimpleQuestion = React.createClass
   displayName: 'SimpleQuestion'
-  mixins: [Question]
+  mixins: [QuestionMixin]
   renderBody: ->
     {config} = @props
     isAnswered = !!config.answer
@@ -106,7 +106,12 @@ SimpleQuestion = React.createClass
     if isAnswered
       <div className='answer'>Your answer: <strong>{answer}</strong></div>
     else
-      <input type='text' placeholder={config.short_stem} ref='prompt' onChange=@onChange value={answer or ''}/>
+      <textarea
+          className='form-control'
+          rows='3'
+          ref='prompt'
+          placeholder={config.short_stem}
+          onChange=@onChange>{answer or ''}</textarea>
 
   onChange: ->
     val = @refs.prompt.getDOMNode().value
@@ -269,7 +274,7 @@ ArrayEquals = (ary1, array) ->
 
 MultiSelectQuestion = React.createClass
   displayName: 'MultiSelectQuestion'
-  mixins: [Question]
+  mixins: [QuestionMixin]
   getInitialState: ->
     answers: []
 
@@ -333,7 +338,7 @@ MultiSelectQuestion = React.createClass
 
 TrueFalseQuestion = React.createClass
   displayName: 'TrueFalseQuestion'
-  mixins: [Question]
+  mixins: [QuestionMixin]
 
   renderBody: ->
     {config} = @props
@@ -394,7 +399,7 @@ TrueFalseQuestion = React.createClass
 
 MatchingQuestion = React.createClass
   displayName: 'MatchingQuestion'
-  mixins: [Question]
+  mixins: [QuestionMixin]
 
   renderBody: ->
     {config} = @props

@@ -80,7 +80,7 @@ describe 'Question Types', ->
       $node = $("<div id='wrapper'></div>")
       React.renderComponent <Type config={config} />, $node[0]
 
-      input = $node.find('.question input[type="text"]')[0]
+      input = $node.find('.question textarea')[0]
 
       input.value = 'ANSWER_TEXT'
       React.addons.TestUtils.Simulate.change(input)
