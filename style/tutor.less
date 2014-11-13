@@ -8,12 +8,11 @@
 // Override bootstrap primary color
 @brand-primary: #ed5f33;
 
-
 // Font-awesome icons mapped to our types
 i.fa {
-  &.reading::before     { content: @fa-var-file-o; }
+  &.reading::before     { content: @fa-var-newspaper-o; } // or fa-var-file-text-o
   &.interactive::before { content: @fa-var-desktop; }
-  &.exercise::before    { content: '?'; font-weight: bold; }
+  &.exercise::before    { content: @fa-var-question; } // or fa-var-mortar-board
 }
 
 
@@ -54,6 +53,12 @@ body {
   .ui-action {
     position: relative;
     top: -5px;
+  }
+
+  // The little bit of gray text next to a task in the task list that says `(3 steps)`
+  .panel-heading small.details {
+    color: #ccc;
+    margin-left: .5em;
   }
 }
 

@@ -97,9 +97,7 @@ module.exports = React.createClass
           classes.push('btn-primary')
           title ?= "Click to view #{step.type}"
 
-
-
-        <button type='button' className={classes.join(' ')} title={title} onClick={@goToStep(i)}><i className="fa #{step.type}"></i>{i + 1}</button>
+        <button type='button' className={classes.join(' ')} title={title} onClick={@goToStep(i)}><i className="fa fa-fw #{step.type}"></i></button>
 
       if unansweredStepCount is 0
         nextOrComplete = <button className='btn btn-success' onClick={@completeTask}>Complete</button>
@@ -111,7 +109,9 @@ module.exports = React.createClass
         nextOrComplete = <button className={classes.join(' ')} onClick={@nextButton}>Continue</button>
 
       <div className='task-step'>
-        <div className='steps'><span title='a Task may have multiple steps'>Steps:</span> {stepButtons}</div>
+        <div className='steps btn-group'>
+          {stepButtons}
+        </div>
         <StepType config={stepConfig} />
         {nextOrComplete}
       </div>
