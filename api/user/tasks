@@ -54,6 +54,10 @@
             ]
           }
         },
+        {
+          "type": "interactive",
+          "content_url": "http://connexions.github.io/simulations"
+        },
         { "type": "exercise",
           "content": {
             "stimulus": "Second Exercise",

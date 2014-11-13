@@ -61,7 +61,7 @@ module.exports = React.createClass
           unless AnswerStore.getAnswer(question)?
             isUnanswered = true
       else
-        isUnanswered = false
+        isUnanswered = true
 
     !isUnanswered
 
