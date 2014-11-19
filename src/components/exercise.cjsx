@@ -49,10 +49,10 @@ BlankQuestion = React.createClass
     {stem} = config
     isAnswered = !!config.answer
 
-    if config.stimulus
+    if config.stimulus_html
       stimulus =
         <div className="stimulus">
-          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus_html} />
         </div>
 
     if isAnswered
@@ -93,22 +93,22 @@ SimpleQuestion = React.createClass
     isAnswered = !!config.answer
     answer = AnswerStore.getAnswer(config)
 
-    if config.stimulus
+    if config.stimulus_html
       stimulus =
         <div className="stimulus">
-          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus_html} />
         </div>
 
     if isAnswered
       <div className="question simple">
         {stimulus}
-        <div className="stem">{config.stem}</div>
+        <div className="stem">{config.stem_html}</div>
         Your answer: <strong>{answer}</strong>
       </div>
     else
       <div className="question simple">
         {stimulus}
-        <div className="stem">{config.stem}</div>
+        <div className="stem">{config.stem_html}</div>
         <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer or ''}/>
       </div>
 
@@ -125,7 +125,7 @@ SimpleMultipleChoiceOption = React.createClass
   render: ->
     {config, questionId, index} = @props
     id = config.id
-    <ArbitraryHtmlAndMath className="stem" html={config.content or config.value} />
+    <ArbitraryHtmlAndMath className="stem" html={config.content_html} />
 
 MultiMultipleChoiceOption = React.createClass
   displayName: 'MultiMultipleChoiceOption'
@@ -233,7 +233,7 @@ MultipleChoiceQuestion = React.createClass
     classes.push('answered') if isAnswered
 
     <div key={questionId} className={classes.join(' ')}>
-      <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
+      <ArbitraryHtmlAndMath block=true className="stem" html={config.stem_html} />
       <ul className="options">{options}</ul>
     </div>
 
@@ -319,15 +319,15 @@ MultiSelectQuestion = React.createClass
     classes = ['question']
     classes.push('answered') if isAnswered
 
-    if config.stimulus
+    if config.stimulus_html
       stimulus =
         <div className="stimulus">
-          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus_html} />
         </div>
 
     <div key={questionId} className={classes.join(' ')}>
       {stimulus}
-      <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
+      <ArbitraryHtmlAndMath block=true className="stem" html={config.stem_html} />
       <div>Select all that apply:</div>
       <ul className="options">{options}</ul>
     </div>
@@ -355,10 +355,10 @@ TrueFalseQuestion = React.createClass
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
 
-    if config.stimulus
+    if config.stimulus_html
       stimulus =
         <div className='stimulus'>
-          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus_html} />
         </div>
 
     if isAnswered
@@ -379,7 +379,7 @@ TrueFalseQuestion = React.createClass
 
       <div className="question answered true-false">
         {stimulus}
-        <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
+        <ArbitraryHtmlAndMath block=true className="stem" html={config.stem_html} />
         <ul className="options">
           <li className={trueClasses.join(' ')}>
             <span>True</span>
@@ -394,7 +394,7 @@ TrueFalseQuestion = React.createClass
     else
       <div className="question true-false">
         {stimulus}
-        <ArbitraryHtmlAndMath block=true className="stem" html={config.stem} />
+        <ArbitraryHtmlAndMath block=true className="stem" html={config.stem_html} />
         <ul className="options">
           <li className="option">
             <label>
@@ -428,21 +428,21 @@ MatchingQuestion = React.createClass
         </td>
         <td className="spacer"></td>
         <td className="answer">
-          <ArbitraryHtmlAndMath className="stem" html={answer.content or answer.value} />
+          <ArbitraryHtmlAndMath className="stem" html={answer.content_html} />
         </td>
       </tr>
 
-    if config.stimulus
+    if config.stimulus_html
       stimulus =
         <div className='stimulus'>
-          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus} />
+          <ArbitraryHtmlAndMath block=true className="stimulus" html={config.stimulus_html} />
         </div>
 
     <div className="question matching">
       {stimulus}
       <table>
         <caption>
-          <ArbitraryHtmlAndMath className="stem" html={config.stem} />
+          <ArbitraryHtmlAndMath className="stem" html={config.stem_html} />
         </caption>
         {rows}
       </table>
@@ -475,7 +475,7 @@ Exercise = React.createClass
 
 
     <div className="exercise">
-      <ArbitraryHtmlAndMath className="stimulus" html={config.content.stimulus} />
+      <ArbitraryHtmlAndMath className="stimulus" html={config.content.stimulus_html} />
       {questions}
     </div>
 

@@ -11,7 +11,7 @@ describe 'Exercise Task', ->
   it 'should render an Exercise with 0 questions', ->
     config =
       content:
-        stimulus: 'EXERCISE_TEXT'
+        stimulus_html: 'EXERCISE_TEXT'
         questions: []
 
     html = React.renderComponentToString(<Exercise config={config} />)
@@ -28,13 +28,13 @@ describe 'Exercise Task', ->
     it 'should render an Exercise with a short-answer question', ->
       config =
         content:
-          stimulus: 'EXERCISE_TEXT'
+          stimulus_html: 'EXERCISE_TEXT'
           questions: [
             {
               id: '123'
               format: 'short-answer'
-              stimulus: 'QUESTION_STIMULUS'
-              stem: 'QUESTION_STEM'
+              stimulus_html: 'QUESTION_STIMULUS'
+              stem_html: 'QUESTION_STEM'
             }
           ]
 
@@ -60,7 +60,7 @@ describe 'Question Types', ->
       config =
         id: '123'
         format: 'short-answer'
-        stem: 'QUESTION_STEM'
+        stem_html: 'QUESTION_STEM'
 
       Type = getQuestionType('short-answer')
       html = React.renderComponentToString(<Type config={config} />)
@@ -74,7 +74,7 @@ describe 'Question Types', ->
       config =
         id: '123'
         format: 'short-answer'
-        stem: 'QUESTION_STEM'
+        stem_html: 'QUESTION_STEM'
 
       Type = getQuestionType('short-answer')
       $node = $("<div id='wrapper'></div>")
@@ -94,10 +94,10 @@ describe 'Question Types', ->
       config =
         id: '123'
         format: 'multiple-choice'
-        stem: 'QUESTION_STEM'
+        stem_html: 'QUESTION_STEM'
         answers: [
-          {id:'id1',content:'OPTION_1'}
-          {id:'id2',content:'OPTION_2'}
+          {id:'id1',content_html:'OPTION_1'}
+          {id:'id2',content_html:'OPTION_2'}
         ]
 
       Type = getQuestionType('multiple-choice')
@@ -116,10 +116,10 @@ describe 'Question Types', ->
       config =
         id: '123'
         format: 'multiple-choice'
-        stem: 'QUESTION_STEM'
+        stem_html: 'QUESTION_STEM'
         answers: [
-          {id:'OPTION_1_ID',content:'OPTION_1'}
-          {id:'OPTION_2_ID',content:'OPTION_2'}
+          {id:'OPTION_1_ID',content_html:'OPTION_1'}
+          {id:'OPTION_2_ID',content_html:'OPTION_2'}
         ]
 
       Type = getQuestionType('multiple-choice')
@@ -142,7 +142,7 @@ describe 'Question Types', ->
         config =
           content:
             id: '123'
-            stimulus: INLINE_MATH
+            stimulus_html: INLINE_MATH
             questions: []
 
         $node = $("<div id='wrapper'></div>")
@@ -153,7 +153,7 @@ describe 'Question Types', ->
       it 'should render Math in the true-false.stem', ->
         config =
           type: 'true-false'
-          stem: INLINE_MATH
+          stem_html: INLINE_MATH
 
         $node = $("<div id='wrapper'></div>")
         Type = getQuestionType(config.type)
@@ -164,7 +164,7 @@ describe 'Question Types', ->
       it 'should render Math in the multiple-choice.stem', ->
         config =
           type: 'multiple-choice'
-          stem: INLINE_MATH
+          stem_html: INLINE_MATH
           answers: []
 
         $node = $("<div id='wrapper'></div>")
@@ -175,10 +175,10 @@ describe 'Question Types', ->
       it 'should render Math in the multiple-choice.answer', ->
         config =
           type: 'multiple-choice'
-          stem: ''
+          stem_html: ''
           answers: [{
             id: 'answer1'
-            content: INLINE_MATH
+            content_html: INLINE_MATH
           }]
 
         $node = $("<div id='wrapper'></div>")
