@@ -76,12 +76,28 @@ module.exports = React.createClass
         unless @state.stepCompletion[i]
           unansweredStepCount += 1
 
+        classes = ['btn step']
+        classes.push(step.type)
+
+        title = null
+
         if i is @state.currentStep
-          <button type='button' className='btn btn-info step current disabled' title='current'><strong>{i + 1}</strong></button>
-        else if @state.stepCompletion[i]
-          <button type='button' className='btn step completed disabled' title='completed'>{i + 1}</button>
+          classes.push('current')
+          classes.push('active')
+          # classes.push('disabled')
+          title = "Current Step (#{step.type})"
+
+        if @state.stepCompletion[i]
+          classes.push('completed')
+          classes.push('btn-default')
+          # classes.push('disabled')
+          title ?= "Step Completed (#{step.type}). Click to review"
+
         else
-          <button type='button' className='btn btn-default step' onClick={@goToStep(i)}>{i + 1}</button>
+          classes.push('btn-primary')
+          title ?= "Click to view #{step.type}"
+
+        <button type='button' className={classes.join(' ')} title={title} onClick={@goToStep(i)}><i className="fa fa-fw #{step.type}"></i></button>
 
       if unansweredStepCount is 0
         nextOrComplete = <button className='btn btn-success' onClick={@completeTask}>Complete</button>
@@ -90,10 +106,12 @@ module.exports = React.createClass
         classes = ['btn btn-primary']
         unless @state.stepCompletion[@state.currentStep]
           classes.push('disabled')
-        nextOrComplete = <button className={classes.join(' ')} onClick={@nextButton}>Next</button>
+        nextOrComplete = <button className={classes.join(' ')} onClick={@nextButton}>Continue</button>
 
       <div className='task-step'>
-        <div><span title='a Task may have multiple steps'>Steps:</span> {stepButtons}</div>
+        <div className='steps btn-group'>
+          {stepButtons}
+        </div>
         <StepType config={stepConfig} />
         {nextOrComplete}
       </div>

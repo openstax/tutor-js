@@ -104,9 +104,16 @@ TaskResult = React.createClass
     actionTitle = 'Work Now'
     title = @props.item.title or err('BUG: Task without a title')
 
+    if @props.item.steps.length is 1
+      mainType = @props.item.steps[0].type
+    else
+      mainType = ''
+      stepsInfo = <small className='details'>({@props.item.steps.length} steps)</small>
+
     <div className='panel panel-default'>
       <div className='panel-heading'>
-        <Link to='task' id={id}>{title}</Link>
+        <Link to='task' id={id}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
+        {stepsInfo}
         <span className='pull-right'>
           <Link className='ui-action btn btn-primary btn-sm' to='task' id={id}>{actionTitle}</Link>
         </span>
