@@ -11,6 +11,7 @@
     "coffee-reactify": "^0.4.0",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.7.0",
+    "flux-react": "2.3.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^2.1.4",
     "grunt-contrib-clean": "^0.6.0",
@@ -18,6 +19,7 @@
     "grunt-mocha": "^0.4.11",
     "grunt-mocha-test": "^0.11.0",
     "jsdom": "^1.0.0-pre.6",
+    "katex": "^0.1.1",
     "load-grunt-tasks": "^0.6.0",
     "react": "^0.11.1"
   },

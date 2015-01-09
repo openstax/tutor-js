@@ -45,7 +45,7 @@ window.config = {
   background: 'This exercise has many parts. Each one is a different type of question. Einstein makes a {{ ship_mass }} kg spaceship',
   parts: [
     {
-      background: 'The spaceship moves at {{ ship_speed }} m/s',
+      background: 'The spaceship moves at <span data-math="{{ ship_speed }}">{{ ship_speed }}</span> m/s',
       questions: [
         {
           formats: ['short-answer'],

@@ -1,4 +1,4 @@
-AnswerStore = require '../src/answer-store'
+{AnswerStore} = require '../src/flux/answer'
 Components = require '../src/components'
 
 React = require 'react/addons'

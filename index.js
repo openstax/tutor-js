@@ -1,10 +1,14 @@
 require('coffee-script/register');
 require('coffee-react/register');
 
-var AnswerStore = require('./src/answer-store');
+var AnswerActionsStore = require('./src/flux/answer');
+var ExerciseActionsStore = require('./src/flux/exercise');
 var Components = require('./src/components');
 module.exports = {
   Exercise: Components.Exercise,
   getQuestionType: Components.getQuestionType,
-  AnswerStore: AnswerStore
+  AnswerStore: AnswerActionsStore.AnswerStore,
+  AnswerActions: AnswerActionsStore.AnswerActions,
+  ExerciseStore: ExerciseActionsStore.ExerciseStore,
+  ExerciseActions: ExerciseActionsStore.ExerciseActions,
 };

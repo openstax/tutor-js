@@ -2,7 +2,9 @@
 
 _ = require 'underscore'
 React = require 'react'
-AnswerStore = require './answer-store'
+katex = require 'katex'
+{AnswerActions, AnswerStore} = require './flux/answer'
+{ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
 
 
 # Converts an index to `a-z` for question answers
@@ -11,142 +13,136 @@ AnswerLabeler = React.createClass
   render: ->
     {index, before, after} = @props
     letter = String.fromCharCode(index + 97) # For uppercase use 65
-    <span className="answer-char">{before}{letter}{after}</span>
+    <span className='answer-char'>{before}{letter}{after}</span>
 
 
-Exercise = React.createClass
-  displayName: 'Exercise'
+ViewArbitraryHtmlAndMath = React.createClass
+  displayName: 'ViewArbitraryHtmlAndMath'
   render: ->
-    {config} = @props
-    <div className="exercise">
-      <button onClick={@_submitAnswers}>Submit Answers</button>
-      <div className="background" dangerouslySetInnerHTML={__html:config.background}></div>
-      {ExercisePart {config:part} for part in config.parts}
-    </div>
+    classes = ['arbitrary-html-and-math']
+    classes.push(@props.className) if @props.className
 
-  _submitAnswers: ->
-    AnswerStore.submitAnswers()
-    @forceUpdate()
-
-getQuestionType = (format) ->
-  switch format
-    when 'matching' then MatchingQuestion
-    when 'multiple-choice' then MultipleChoiceQuestion
-    when 'multiple-select' then MultiSelectQuestion
-    when 'short-answer' then SimpleQuestion
-    when 'true-false' then TrueFalseQuestion
-    when 'fill-in-the-blank' then BlankQuestion
-    else throw new Error("Unsupported format type '#{format}'")
-
-variantCounter = 0
-QuestionVariants = React.createClass
-  displayName: 'QuestionVariants'
-  render: ->
-    {config} = @props
-
-    idPrefix = "id-variants-#{variantCounter++}" # HACK
-
-    formatCheckboxes = for format, i in config.formats
-      <input type="checkbox" data-format={format} id={"#{idPrefix}-#{format}"}/>
-    formatLabels = for format, i in config.formats
-      <label data-format={format} htmlFor={"#{idPrefix}-#{format}"}>{format}</label>
-
-    variants = []
-    for format in config.formats
-      type = getQuestionType(format)
-      if type
-        props =
-          config: config.variants[format]
-        variants.push(<div className="variant" data-format={format}>{type(props)}</div>)
-
-    if variants.length is 1
-      return variants[0]
+    if @props.block
+      <div className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
     else
-      <div className="variants">
-        {formatCheckboxes}
-        <div className="options">
-          The question below can be shown in several ways. Click to Show
-          {formatLabels}
-        </div>
-        {variants}
-      </div>
+      <span className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
 
-  componentDidMount: ->
-    # Display the first variant (if there are multiple)
-    @getDOMNode().querySelector('input[type="checkbox"], input[type="radio"]')?.checked = true
+  renderMath: ->
+    for node in @getDOMNode().querySelectorAll('[data-math]:not(.loaded)')
+      formula = node.getAttribute('data-math')
 
-ExercisePart = React.createClass
-  displayName: 'ExercisePart'
+      # Divs with data-math should be rendered as a block
+      isBlock = node.tagName.toLowerCase() in ['div']
+
+      if isBlock
+        formula = "\\displaystyle {#{formula}}"
+
+      katex.render(formula, node)
+      node.classList.add('loaded')
+
+  componentDidMount:  -> @renderMath()
+  componentDidUpdate: -> @renderMath()
+
+
+DefaultStemMixin =
+  renderStemView: ->
+    {config} = @props
+    <ViewArbitraryHtmlAndMath block=true className='stem' html={config.stem} />
+  renderStemReview: -> @renderStemView()
+
+
+QuestionMixin =
+  # renderStemView: ->
+  # renderStemReview: ->
+
+  # renderBodyView: ->
+  # renderBodyReview: ->
+
+  renderStimulus: ->
+    {config} = @props
+    <ViewArbitraryHtmlAndMath block=true className='stimulus' html={config.stimulus} />
+
   render: ->
     {config} = @props
 
-    questions = config.questions
+    if config.stimulus?
+      stimulus = @renderStimulus(config)
+    classes = ['question', config.format]
+    classes.push('answered') if ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.REVIEW
 
-    <div className="part">
-      <div className="background" dangerouslySetInnerHTML={__html:config.background}></div>
-      {QuestionVariants {config:question} for question in questions}
+    stem = switch ExerciseStore.getExerciseMode(config)
+      when EXERCISE_MODES.VIEW then @renderStemView(config)
+      when EXERCISE_MODES.REVIEW then @renderStemReview(config)
+      else throw new Error('BUG: Invalid exercise mode')
+
+    body = switch ExerciseStore.getExerciseMode(config)
+      when EXERCISE_MODES.VIEW then @renderBodyView(config)
+      when EXERCISE_MODES.REVIEW then @renderBodyReview(config)
+      else throw new Error('BUG: Invalid exercise mode')
+
+    <div className={classes.join(' ')} data-format={config.type}>
+      {stimulus}
+      {stem}
+      {body}
     </div>
+
 
 BlankQuestion = React.createClass
   displayName: 'BlankQuestion'
-  render: ->
-    {config} = @props
+  mixins: [QuestionMixin]
+
+  renderStemView: (config) ->
     {stem} = config
-    isAnswered = !!config.answer
+    stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
+    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} />
 
-    if isAnswered
-      # TODO: Make sure HTML is escaped!!!
-      if config.answer is config.correct
-        stem = stem.replace(/____/, "<span class='correct'>#{config.answer}</span>")
-      else
-        stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
+  renderStemReview: (config) ->
+    {stem} = config
+
+    # TODO: Make sure HTML is escaped!!!
+    if config.answer is config.correct
+      stem = stem.replace(/____/, "<span class='correct'>#{config.answer}</span>")
     else
-      stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
+      stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
 
-    if isAnswered
-      <div className="question answered fill-in-the-blank">
-        <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
-      </div>
+    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} />
 
-    else
-      <div className="question fill-in-the-blank">
-        <div className="stem" dangerouslySetInnerHTML={__html:stem}></div>
-      </div>
+  renderBodyView: (config) ->
+  renderBodyReview: (config) ->
 
   componentDidMount: ->
     # Find the input box and attach listeners to it
     input = @getDOMNode().querySelector('.blank')
     input?.onkeyup = input?.onblur = input?.onchange = =>
       if input.value
-        AnswerStore.setAnswer(@props.config, input.value)
+        AnswerActions.setAnswer(@props.config, input.value)
       else
-        AnswerStore.setAnswer(@props.config, undefined)
+        AnswerActions.setAnswer(@props.config, undefined)
 
 
 SimpleQuestion = React.createClass
   displayName: 'SimpleQuestion'
-  render: ->
-    {config} = @props
-    isAnswered = !!config.answer
-    answer = AnswerStore.getAnswer(config)
+  mixins: [QuestionMixin, DefaultStemMixin]
 
-    if isAnswered
-      <div className="question simple">
-        <div className="stem">{config.stem}</div>
-        Your answer: <strong>{answer}</strong>
-      </div>
-    else
-      <div className="question simple">
-        <div className="stem">{config.stem}</div>
-        <input type="text" placeholder={config.short_stem} ref="prompt" onChange=@onChange value={answer}/>
-      </div>
+  renderBodyReview: (config) ->
+    answer = AnswerStore.getAnswer(config)
+    <div className='answer'>Your answer: <strong>{answer}</strong></div>
+
+  renderBodyView: (config) ->
+    answer = AnswerStore.getAnswer(config)
+    <textarea
+        className='form-control'
+        rows='3'
+        ref='prompt'
+        placeholder={config.short_stem}
+        onChange=@onChange>{answer or ''}</textarea>
 
   onChange: ->
     val = @refs.prompt.getDOMNode().value
     if val
-      AnswerStore.setAnswer(@props.config, val)
+      AnswerActions.setAnswer(@props.config, val)
     else
-      AnswerStore.setAnswer(@props.config, undefined)
+      AnswerActions.setAnswer(@props.config, undefined)
 
 
 SimpleMultipleChoiceOption = React.createClass
@@ -154,9 +150,7 @@ SimpleMultipleChoiceOption = React.createClass
   render: ->
     {config, questionId, index} = @props
     id = config.id
-
-    <span className="templated-todo" dangerouslySetInnerHTML={__html:config.content or config.value}>
-    </span>
+    <ViewArbitraryHtmlAndMath className='answer-text' html={config.content or config.value} />
 
 MultiMultipleChoiceOption = React.createClass
   displayName: 'MultiMultipleChoiceOption'
@@ -166,8 +160,8 @@ MultiMultipleChoiceOption = React.createClass
     for id, i in idIndices
       unless config.value.indexOf(id) < 0
         index = config.value.indexOf(id)
-        vals.push <AnswerLabeler key={index} before="(" after=")" index={index}/>
-    <span className="multi">{vals}</span>
+        vals.push <AnswerLabeler key={index} before='(' after=')' index={index}/>
+    <span className='multi'>{vals}</span>
 
 
 MultipleChoiceOptionMixin =
@@ -198,16 +192,15 @@ MultipleChoiceOptionMixin =
       isChecked = @props.answer is optionIdent
 
     contents = [
-      <span key="letter" className="letter"><AnswerLabeler after=")" index={index}/> </span>
-      <span key="answer" className="answer">{option}</span>
+      <span key='letter' className='letter'><AnswerLabeler after=')' index={index}/> </span>
+      <span key='answer' className='answer'>{option}</span>
     ]
-
 
     unless isAnswered
       contents =
         <label>
           <input type={inputType}
-            ref="input"
+            ref='input'
             name={questionId}
             value={JSON.stringify(config.value)}
             onChange=@onChange
@@ -233,11 +226,11 @@ MultipleChoiceOption = React.createClass
 
 MultipleChoiceQuestion = React.createClass
   displayName: 'MultipleChoiceQuestion'
+  mixins: [QuestionMixin, DefaultStemMixin]
 
-  render: ->
-    {config} = @props
-    isAnswered = !!config.answer
-
+  getOptions: (config) ->
+    # TODO: remove isAnswered
+    isAnswered = ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.REVIEW
     questionId = config.id
     options = for option, index in config.answers
       answerState = null
@@ -260,16 +253,23 @@ MultipleChoiceQuestion = React.createClass
       }
       MultipleChoiceOption(optionProps)
 
+    return options
+
+  renderBodyView: (config) -> @renderBodyReview(config)
+  renderBodyReview: (config) ->
+    questionId = config.id
+    options = @getOptions(config)
+
     classes = ['question']
-    classes.push('answered') if isAnswered
+    classes.push('answered') if ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.REVIEW
 
     <div key={questionId} className={classes.join(' ')}>
-      <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
-      <ul className="options">{options}</ul>
+      <ViewArbitraryHtmlAndMath block=true className='stem' html={config.stem} />
+      <ul className='options'>{options}</ul>
     </div>
 
   onChange: (answer) ->
-    AnswerStore.setAnswer(@props.config, answer.id or answer.value)
+    AnswerActions.setAnswer(@props.config, answer.id or answer.value)
 
 
 MultiSelectOption = React.createClass
@@ -304,12 +304,13 @@ ArrayEquals = (ary1, array) ->
 
 MultiSelectQuestion = React.createClass
   displayName: 'MultiSelectQuestion'
+  mixins: [QuestionMixin, DefaultStemMixin]
   getInitialState: ->
     answers: []
 
-  render: ->
-    {config} = @props
-    isAnswered = !!config.answer
+
+  getOptions: (config) ->
+    isAnswered = ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.REVIEW
     questionId = config.id
 
     options = []
@@ -347,13 +348,16 @@ MultiSelectQuestion = React.createClass
 
         options.push MultiSelectOption(optionProps)
 
-    classes = ['question']
-    classes.push('answered') if isAnswered
+    return options
 
-    <div key={questionId} className={classes.join(' ')}>
-      <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
+  renderBodyView: (config) -> @renderBodyReview(config)
+  renderBodyReview: (config) ->
+    questionId = config.id
+    options = @getOptions(config)
+
+    <div key={questionId} className='question-body'>
       <div>Select all that apply:</div>
-      <ul className="options">{options}</ul>
+      <ul className='options'>{options}</ul>
     </div>
 
   onChange: (answer, isChecked) ->
@@ -364,93 +368,153 @@ MultiSelectQuestion = React.createClass
       @state.answers.push(answer.id)
 
     if @state.answers.length
-      AnswerStore.setAnswer(@props.config, @state.answers)
+      AnswerActions.setAnswer(@props.config, @state.answers)
     else
-      AnswerStore.setAnswer(@props.config, undefined)
+      AnswerActions.setAnswer(@props.config, undefined)
 
 
 TrueFalseQuestion = React.createClass
   displayName: 'TrueFalseQuestion'
+  mixins: [QuestionMixin, DefaultStemMixin]
 
-  render: ->
-    {config} = @props
-    isAnswered = config.answer?
+  renderBodyReview: (config) ->
     questionId = config.id
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
 
-    if isAnswered
-      trueClasses  = ['option']
-      falseClasses = ['option']
+    trueClasses  = ['option']
+    falseClasses = ['option']
 
-      if config.correct
-        correctClasses = trueClasses
-        incorrectClasses = falseClasses
-      else
-        correctClasses = falseClasses
-        incorrectClasses = trueClasses
-      if config.correct is !! config.answer
-        correctClasses.push('correct')
-      else
-        # correctClasses.push('missed') No need to show missed if there are only 2 options
-        incorrectClasses.push('incorrect')
-
-      <div className="question answered true-false">
-        <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
-        <ul className="options">
-          <li className={trueClasses.join(' ')}>
-            <span>True</span>
-          </li>
-          <li className={falseClasses.join(' ')}>
-            <span>False</span>
-          </li>
-        </ul>
-      </div>
-
-
+    if config.correct
+      correctClasses = trueClasses
+      incorrectClasses = falseClasses
     else
-      <div className="question true-false">
-        <div className="stem" dangerouslySetInnerHTML={__html:config.stem}></div>
-        <ul className="options">
-          <li className="option">
-            <label>
-              <input type="radio" name={questionId} value="true" onChange=@onTrue />
-              <span>True</span>
-            </label>
-          </li>
-          <li className="option">
-            <label>
-              <input type="radio" name={questionId} value="false" onChange=@onFalse />
-              <span>False</span>
-            </label>
-          </li>
-        </ul>
-      </div>
+      correctClasses = falseClasses
+      incorrectClasses = trueClasses
+    if config.correct is !! config.answer
+      correctClasses.push('correct')
+    else
+      # correctClasses.push('missed') No need to show missed if there are only 2 options
+      incorrectClasses.push('incorrect')
 
-  onTrue:  -> AnswerStore.setAnswer(@props.config, true)
-  onFalse: -> AnswerStore.setAnswer(@props.config, false)
+    <div className='question-body'>
+      <ul className='options'>
+        <li className={trueClasses.join(' ')}>
+          <span>True</span>
+        </li>
+        <li className={falseClasses.join(' ')}>
+          <span>False</span>
+        </li>
+      </ul>
+    </div>
+
+  renderBodyView: (config) ->
+    questionId = config.id
+    idTrue = "#{questionId}-true"
+    idFalse = "#{questionId}-false"
+
+    <div className='question-body'>
+      <ul className='options'>
+        <li className='option'>
+          <label>
+            <input type='radio' name={questionId} value='true' onChange=@onTrue />
+            <span>True</span>
+          </label>
+        </li>
+        <li className='option'>
+          <label>
+            <input type='radio' name={questionId} value='false' onChange=@onFalse />
+            <span>False</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+  onTrue:  -> AnswerActions.setAnswer(@props.config, true)
+  onFalse: -> AnswerActions.setAnswer(@props.config, false)
 
 
 MatchingQuestion = React.createClass
   displayName: 'MatchingQuestion'
-  render: ->
-    {config} = @props
+  mixins: [QuestionMixin, DefaultStemMixin]
+
+  renderBodyReview: (config) -> @renderBodyView(config)
+  renderBodyView: (config) ->
     rows = for answer, i in config.answers
       item = config.items[i]
 
       <tr key={answer.id}>
-        <td className="item" dangerouslySetInnerHTML={__html:item}></td>
-        <td className="spacer"></td>
-        <td className="answer" dangerouslySetInnerHTML={__html:answer.content or answer.value}></td>
+        <td className='item'>
+          <ViewArbitraryHtmlAndMath className='stem' html={item} />
+        </td>
+        <td className='spacer'></td>
+        <td className='answer'>
+          <ViewArbitraryHtmlAndMath className='stem' html={answer.content or answer.value} />
+        </td>
       </tr>
 
-    <div className="question matching">
-      <table>
-        <caption className="stem" dangerouslySetInnerHTML={__html:config.stem}></caption>
-        {rows}
-      </table>
+    <table>
+      {rows}
+    </table>
+
+
+QUESTION_TYPES =
+  'matching'          : MatchingQuestion
+  'multiple-choice'   : MultipleChoiceQuestion
+  'multiple-select'   : MultiSelectQuestion
+  'short-answer'      : SimpleQuestion
+  'true-false'        : TrueFalseQuestion
+  'fill-in-the-blank' : BlankQuestion
+
+getQuestionType = (format) ->
+  QUESTION_TYPES[format] or throw new Error("Unsupported format type '#{format}'")
+
+
+Part = React.createClass
+  displayName: 'Part'
+  render: ->
+    {config} = @props
+
+    questions = for questionConfig in config.questions
+      format = questionConfig.format
+      Type = getQuestionType(format)
+      props = {config:questionConfig}
+
+      Type(props)
+
+    <div className='part'>
+      <ViewArbitraryHtmlAndMath className='background' html={config.background} />
+      {questions}
     </div>
 
+
+Exercise = React.createClass
+  displayName: 'Exercise'
+  render: ->
+    {config} = @props
+
+    if config.content
+      questions = for questionConfig in config.content.questions
+        format = questionConfig.format
+        Type = getQuestionType(format)
+        props = {config:questionConfig}
+
+        Type(props)
+
+      <div className='exercise'>
+        <ViewArbitraryHtmlAndMath className='stimulus' html={config.content.stimulus} />
+        {questions}
+      </div>
+
+    else
+      parts = for partConfig in config.parts
+        props = {config:partConfig}
+        Part(props)
+
+      <div className='exercise'>
+        <ViewArbitraryHtmlAndMath className='background' html={config.background} />
+        {parts}
+      </div>
 
 
 module.exports = {Exercise, getQuestionType}

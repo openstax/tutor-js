@@ -48,6 +48,7 @@ module.exports = (root, config) ->
       if obj.formats
         # Build each variant
         obj.variants = {}
+        obj.format = obj.formats[0]
         for format in obj.formats
           variant = switch format
             when 'multiple-choice' then {stem:obj.stem, answers:obj.answers,correct:obj.correct, answer:obj.answer}

@@ -1,0 +1,132 @@
+_ = require 'underscore'
+flux = require 'flux-react'
+
+EXERCISE_MODES_TEMPLATE = [
+  'VIEW'      # just render the exercise (with radios and input boxes)
+  'REVIEW'    # like view but without checkboxes and the correct/incorrect answer selected
+  #'EDIT'      # view + all the edit buttons and quill if content clicked
+]
+
+EXERCISE_MODES = {}
+for val, i in EXERCISE_MODES_TEMPLATE
+  EXERCISE_MODES[val] = "ENUM_#{val}_#{i}" # To make sure it's not hardcoded
+
+ExerciseConfig = {
+  # Exercise has a current mode it is rendered as.
+  changeExerciseMode: (newMode) ->
+    @_currentMode = newMode
+    @emitChange()
+
+  changeBackground: (exercise, html) ->
+    exercise.background_html = html
+    @emitChange()
+
+  addPart: (exercise, part) ->
+    exercise.parts.push(part)
+    @emitChange()
+
+  removePart: (exercise, part) ->
+    exercise.parts.remove(part)
+    @emitChange()
+
+  # Part
+
+  changePart: (part, html) ->
+    part.stem_html = html
+    @emitChange()
+
+  addQuestion: (part, question) ->
+    part.questions.push(question)
+    @emitChange()
+
+  removeQuestion: (part, question) ->
+    part.questions.remove(question)
+    @emitChange()
+
+  # Question
+
+  changeQuestion: (question, html) ->
+    question.stem_html = html
+    @emitChange()
+
+  addAnswer: (question, answer) ->
+    question.answers.push(answer)
+    @emitChange()
+
+  removeAnswer: (question, answer) ->
+    question.answers.remove(answer)
+    @emitChange()
+
+  setAllAnswer: (question, isAnOption) ->
+    question.hasAllAnswer = isAnOption
+    @emitChange()
+
+  setNoneAnswer: (question, isAnOption) ->
+    question.hasNoneAnswer = isAnOption
+    @emitChange()
+
+  addMultiAnswer: (question, multiAnswer) ->
+    question.answers.push(multiAnswer)
+    @emitChange()
+
+  removeMultiAnswer: (question, multiAnswer) ->
+    question.answers.remove(multiAnswer)
+    @emitChange()
+
+  # Answer
+
+  changeAnswer: (answer, html) ->
+    answer.content_html = html
+    @emitChange()
+
+  changeAnswerCorrectness: (answer, isCorrect) ->
+    answer.isCorrect = isCorrect
+    @emitChange()
+
+  changeMultiAnswer: (multiAnswer, answerIds) ->
+    multiAnswer.answer_ids = answerIds
+    @emitChange()
+
+  changeMultiAnswerCorrectness: (multiAnswer, isCorrect) ->
+    multiAnswer.isCorrect = isCorrect
+    @emitChange()
+
+  exports:
+    getExerciseMode: (exercise) ->
+      # @_currentMode or EXERCISE_MODES.VIEW or throw new Error('BUG: Invalid default exercise mode')
+      # TODO: Remove this and rely on the state instead
+      if exercise.answer?
+        EXERCISE_MODES.REVIEW
+      else
+        EXERCISE_MODES.VIEW
+
+    getParts: (exercise) ->
+      exercise.parts
+    getQuestions: (part) ->
+      part.questions
+    getAnswers: (question) ->
+      question.answers
+
+    getPartBackground: (part) -> part.background_html
+    getQuestionStem: (question) -> question.stem_html
+    getAnswerContent: (answer) -> answer.content_html
+    getAnswerCorrectness: (answer) -> answer.isCorrect
+    getMultiAnswerAnswers: (multiAnswer) -> multiAnswer.answer_ids
+    getMultiAnswerCorrectness: (multiAnswer) -> multiAnswer.isCorrect
+    getId: (obj) -> obj.id
+    hasAllAnswer: (question) -> question.hasAllAnswer
+    hasNoneAnswer: (question) -> question.hasNoneAnswer
+}
+
+# Helper for creating a simple store for actions
+makeSimpleStore = (storeConfig) ->
+
+  actionsConfig = _.without(_.keys(storeConfig), 'exports')
+  actions = flux.createActions(actionsConfig)
+  storeConfig.actions = _.values(actions)
+  store = flux.createStore(storeConfig)
+  {actions, store}
+
+
+{actions: ExerciseActions, store: ExerciseStore} = makeSimpleStore(ExerciseConfig)
+module.exports = {ExerciseActions, ExerciseStore, EXERCISE_MODES}
