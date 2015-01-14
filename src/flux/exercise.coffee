@@ -18,7 +18,7 @@ ExerciseConfig = {
     @emitChange()
 
   changeBackground: (exercise, html) ->
-    exercise.background_html = html
+    exercise.background = html # TODO: Change to background_html
     @emitChange()
 
   addPart: (exercise, part) ->
@@ -32,7 +32,7 @@ ExerciseConfig = {
   # Part
 
   changePart: (part, html) ->
-    part.stem_html = html
+    part.background = html # TODO: switch to stem_html
     @emitChange()
 
   addQuestion: (part, question) ->
@@ -46,7 +46,11 @@ ExerciseConfig = {
   # Question
 
   changeQuestion: (question, html) ->
-    question.stem_html = html
+    question.stem = html # TODO: Switch to stem_html
+    @emitChange()
+
+  changeQuestionStimulus: (question, html) ->
+    question.stimulus = html # TODO: Switch to stimulus_html
     @emitChange()
 
   addAnswer: (question, answer) ->
@@ -76,7 +80,7 @@ ExerciseConfig = {
   # Answer
 
   changeAnswer: (answer, html) ->
-    answer.content_html = html
+    answer.content = html # TODO: Change to content_html
     @emitChange()
 
   changeAnswerCorrectness: (answer, isCorrect) ->
@@ -93,8 +97,7 @@ ExerciseConfig = {
 
   exports:
     getExerciseMode: (exercise) ->
-      # @_currentMode or EXERCISE_MODES.VIEW or throw new Error('BUG: Invalid default exercise mode')
-      # TODO: Remove this and rely on the state instead
+      return @_currentMode if @_currentMode
       if exercise.answer?
         EXERCISE_MODES.REVIEW
       else

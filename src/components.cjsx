@@ -6,6 +6,7 @@ katex = require 'katex'
 {AnswerActions, AnswerStore} = require './flux/answer'
 {ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
 
+ViewArbitraryHtmlAndMath = require './content'
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
@@ -16,39 +17,14 @@ AnswerLabeler = React.createClass
     <span className='answer-char'>{before}{letter}{after}</span>
 
 
-ViewArbitraryHtmlAndMath = React.createClass
-  displayName: 'ViewArbitraryHtmlAndMath'
-  render: ->
-    classes = ['arbitrary-html-and-math']
-    classes.push(@props.className) if @props.className
-
-    if @props.block
-      <div className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
-    else
-      <span className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
-
-  renderMath: ->
-    for node in @getDOMNode().querySelectorAll('[data-math]:not(.loaded)')
-      formula = node.getAttribute('data-math')
-
-      # Divs with data-math should be rendered as a block
-      isBlock = node.tagName.toLowerCase() in ['div']
-
-      if isBlock
-        formula = "\\displaystyle {#{formula}}"
-
-      katex.render(formula, node)
-      node.classList.add('loaded')
-
-  componentDidMount:  -> @renderMath()
-  componentDidUpdate: -> @renderMath()
-
-
 DefaultStemMixin =
   renderStemView: ->
     {config} = @props
-    <ViewArbitraryHtmlAndMath block=true className='stem' html={config.stem} />
+    <ViewArbitraryHtmlAndMath block=true className='stem' html={config.stem} onSaveContent={@onSaveStemContent} />
+
   renderStemReview: -> @renderStemView()
+  onSaveStemContent: (html) ->
+    ExerciseActions.changeQuestion(@props.config, html)
 
 
 QuestionMixin =
@@ -60,7 +36,10 @@ QuestionMixin =
 
   renderStimulus: ->
     {config} = @props
-    <ViewArbitraryHtmlAndMath block=true className='stimulus' html={config.stimulus} />
+    <ViewArbitraryHtmlAndMath block=true className='stimulus' html={config.stimulus} onSaveContent={@onSaveStimulusContent} />
+
+  onSaveStimulusContent: (html) ->
+    ExerciseActions.changeQuestionStimulus(@props.config, html)
 
   render: ->
     {config} = @props
@@ -94,7 +73,7 @@ BlankQuestion = React.createClass
   renderStemView: (config) ->
     {stem} = config
     stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
-    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} />
+    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} onSaveContent={@onSaveStemContent} />
 
   renderStemReview: (config) ->
     {stem} = config
@@ -105,10 +84,13 @@ BlankQuestion = React.createClass
     else
       stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
 
-    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} />
+    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} onSaveContent={@onSaveStemContent} />
 
   renderBodyView: (config) ->
   renderBodyReview: (config) ->
+
+  onSaveStemContent: (html) ->
+    ExerciseActions.changeQuestion(@props.config, html)
 
   componentDidMount: ->
     # Find the input box and attach listeners to it
@@ -150,7 +132,9 @@ SimpleMultipleChoiceOption = React.createClass
   render: ->
     {config, questionId, index} = @props
     id = config.id
-    <ViewArbitraryHtmlAndMath className='answer-text' html={config.content or config.value} />
+    <ViewArbitraryHtmlAndMath className='answer-text' html={config.content or config.value} onSaveContent={@onSaveContent} />
+
+  onSaveContent: (html) -> ExerciseActions.changeAnswer(@props.config, html)
 
 MultiMultipleChoiceOption = React.createClass
   displayName: 'MultiMultipleChoiceOption'
@@ -264,7 +248,6 @@ MultipleChoiceQuestion = React.createClass
     classes.push('answered') if ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.REVIEW
 
     <div key={questionId} className={classes.join(' ')}>
-      <ViewArbitraryHtmlAndMath block=true className='stem' html={config.stem} />
       <ul className='options'>{options}</ul>
     </div>
 
@@ -483,13 +466,21 @@ Part = React.createClass
       Type(props)
 
     <div className='part'>
-      <ViewArbitraryHtmlAndMath className='background' html={config.background} />
+      <ViewArbitraryHtmlAndMath className='background' html={config.background} onSaveContent={@onSaveBackground}/>
       {questions}
     </div>
+
+  onSaveBackground: (html) ->
+    ExerciseActions.changePart(@props.config, html)
 
 
 Exercise = React.createClass
   displayName: 'Exercise'
+  componentWillMount: ->
+    ExerciseStore.addChangeListener(@update)
+
+  update: -> @setState({}) # Just enough to trigger a re-render
+
   render: ->
     {config} = @props
 
@@ -502,7 +493,7 @@ Exercise = React.createClass
         Type(props)
 
       <div className='exercise'>
-        <ViewArbitraryHtmlAndMath className='stimulus' html={config.content.stimulus} />
+        <ViewArbitraryHtmlAndMath className='stimulus' html={config.content.stimulus} onSaveContent={@onSaveBackground} />
         {questions}
       </div>
 
@@ -512,9 +503,11 @@ Exercise = React.createClass
         Part(props)
 
       <div className='exercise'>
-        <ViewArbitraryHtmlAndMath className='background' html={config.background} />
+        <ViewArbitraryHtmlAndMath className='background' html={config.background} onSaveContent={@onSaveBackground} />
         {parts}
       </div>
 
+  onSaveBackground: (html) ->
+    ExerciseActions.changeBackground(@props.config, html)
 
 module.exports = {Exercise, getQuestionType}

@@ -21,6 +21,7 @@
     "jsdom": "^1.0.0-pre.6",
     "katex": "^0.1.1",
     "load-grunt-tasks": "^0.6.0",
+    "quill-with-math": "philschatz/quill-with-math#master",
     "react": "^0.11.1"
   },
   "dependencies": {
