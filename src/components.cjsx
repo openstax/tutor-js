@@ -6,7 +6,9 @@ katex = require 'katex'
 {AnswerActions, AnswerStore} = require './flux/answer'
 {ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
 
-ViewArbitraryHtmlAndMath = require './content'
+ViewEditHtml = require './view-edit-html'
+{QuickButton, QuickMenu} = require './quick-menu'
+
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
@@ -18,25 +20,60 @@ AnswerLabeler = React.createClass
 
 
 DefaultStemMixin =
-  renderStemView: ->
-    {config} = @props
-    <ViewArbitraryHtmlAndMath block=true className='stem' html={config.stem} onSaveContent={@onSaveStemContent} />
+  renderStemView: (config) ->
+    <ViewEditHtml
+      title="Edit Question Stem"
+      block=true
+      className='stem'
+      html={config.stem}
+      onSaveContent={@onSaveStemContent} />
 
-  renderStemReview: -> @renderStemView()
+  renderStemReview: (config) -> @renderStemView(config)
+  renderStemEdit: (config) ->
+    <div className="stem-container">
+      <ViewEditHtml
+        title="Edit Question Stem"
+        block=true
+        className='stem'
+        html={config.stem}
+        onSaveContent={@onSaveStemContent}>
+
+        <QuickMenu>
+          <QuickButton
+            actionTitle="Delete this question"
+            actionName="DeleteQuestion"
+            icon="fa-trash-o"
+            onAction={@onDeleteQuestion}
+            />
+        </QuickMenu>
+
+      </ViewEditHtml>
+    </div>
+
   onSaveStemContent: (html) ->
     ExerciseActions.changeQuestion(@props.config, html)
+
+  onDeleteQuestion: ->
+    confirm('Are you sure? This does nothing')
 
 
 QuestionMixin =
   # renderStemView: ->
   # renderStemReview: ->
+  # renderStemEdit: ->
 
   # renderBodyView: ->
   # renderBodyReview: ->
+  # renderBodyEdit: ->
 
   renderStimulus: ->
     {config} = @props
-    <ViewArbitraryHtmlAndMath block=true className='stimulus' html={config.stimulus} onSaveContent={@onSaveStimulusContent} />
+    <ViewEditHtml
+      title='Edit Question Stimulus'
+      block=true
+      className='stimulus'
+      html={config.stimulus}
+      onSaveContent={@onSaveStimulusContent} />
 
   onSaveStimulusContent: (html) ->
     ExerciseActions.changeQuestionStimulus(@props.config, html)
@@ -52,11 +89,13 @@ QuestionMixin =
     stem = switch ExerciseStore.getExerciseMode(config)
       when EXERCISE_MODES.VIEW then @renderStemView(config)
       when EXERCISE_MODES.REVIEW then @renderStemReview(config)
+      when EXERCISE_MODES.EDIT then @renderStemEdit(config)
       else throw new Error('BUG: Invalid exercise mode')
 
     body = switch ExerciseStore.getExerciseMode(config)
       when EXERCISE_MODES.VIEW then @renderBodyView(config)
       when EXERCISE_MODES.REVIEW then @renderBodyReview(config)
+      when EXERCISE_MODES.EDIT then @renderBodyEdit(config)
       else throw new Error('BUG: Invalid exercise mode')
 
     <div className={classes.join(' ')} data-format={config.type}>
@@ -73,7 +112,12 @@ BlankQuestion = React.createClass
   renderStemView: (config) ->
     {stem} = config
     stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
-    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} onSaveContent={@onSaveStemContent} />
+    <ViewEditHtml
+      title='Edit Question Stem'
+      block=true
+      className='stem'
+      html={stem}
+      onSaveContent={@onSaveStemContent} />
 
   renderStemReview: (config) ->
     {stem} = config
@@ -84,10 +128,18 @@ BlankQuestion = React.createClass
     else
       stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
 
-    <ViewArbitraryHtmlAndMath block=true className='stem' html={stem} onSaveContent={@onSaveStemContent} />
+    <ViewEditHtml
+      title='Edit Question Stem'
+      block=true
+      className='stem'
+      html={stem}
+      onSaveContent={@onSaveStemContent} />
+
+  renderStemEdit: (config) -> @renderStemView(config)
 
   renderBodyView: (config) ->
   renderBodyReview: (config) ->
+  renderBodyEdit: (config) -> @renderBodyView(config)
 
   onSaveStemContent: (html) ->
     ExerciseActions.changeQuestion(@props.config, html)
@@ -119,6 +171,9 @@ SimpleQuestion = React.createClass
         placeholder={config.short_stem}
         onChange=@onChange>{answer or ''}</textarea>
 
+  renderBodyEdit: (config) ->
+    <div className="input-box-will-be-here"></div>
+
   onChange: ->
     val = @refs.prompt.getDOMNode().value
     if val
@@ -132,7 +187,11 @@ SimpleMultipleChoiceOption = React.createClass
   render: ->
     {config, questionId, index} = @props
     id = config.id
-    <ViewArbitraryHtmlAndMath className='answer-text' html={config.content or config.value} onSaveContent={@onSaveContent} />
+    <ViewEditHtml
+      title='Edit Answer'
+      className='answer-text'
+      html={config.content or config.value}
+      onSaveContent={@onSaveContent} />
 
   onSaveContent: (html) -> ExerciseActions.changeAnswer(@props.config, html)
 
@@ -180,7 +239,9 @@ MultipleChoiceOptionMixin =
       <span key='answer' className='answer'>{option}</span>
     ]
 
-    unless isAnswered
+    if ExerciseStore.getExerciseMode() is EXERCISE_MODES.EDIT
+
+    else if not isAnswered
       contents =
         <label>
           <input type={inputType}
@@ -250,6 +311,8 @@ MultipleChoiceQuestion = React.createClass
     <div key={questionId} className={classes.join(' ')}>
       <ul className='options'>{options}</ul>
     </div>
+
+  renderBodyEdit: (config) -> @renderBodyView(config)
 
   onChange: (answer) ->
     AnswerActions.setAnswer(@props.config, answer.id or answer.value)
@@ -343,6 +406,8 @@ MultiSelectQuestion = React.createClass
       <ul className='options'>{options}</ul>
     </div>
 
+  renderBodyEdit: (config) -> @renderBodyView(config)
+
   onChange: (answer, isChecked) ->
     i = @state.answers.indexOf(answer.id)
     if i >= 0
@@ -413,6 +478,8 @@ TrueFalseQuestion = React.createClass
       </ul>
     </div>
 
+  renderBodyEdit: (config) -> @renderBodyView(config)
+
   onTrue:  -> AnswerActions.setAnswer(@props.config, true)
   onFalse: -> AnswerActions.setAnswer(@props.config, false)
 
@@ -428,17 +495,19 @@ MatchingQuestion = React.createClass
 
       <tr key={answer.id}>
         <td className='item'>
-          <ViewArbitraryHtmlAndMath className='stem' html={item} />
+          <ViewEditHtml title='Edit Matching Part' className='stem' html={item} />
         </td>
         <td className='spacer'></td>
         <td className='answer'>
-          <ViewArbitraryHtmlAndMath className='stem' html={answer.content or answer.value} />
+          <ViewEditHtml title='Edit Matching Match' className='answer' html={answer.content or answer.value} />
         </td>
       </tr>
 
     <table>
       {rows}
     </table>
+
+  renderBodyEdit: (config) -> @renderBodyView(config)
 
 
 QUESTION_TYPES =
@@ -466,7 +535,9 @@ Part = React.createClass
       Type(props)
 
     <div className='part'>
-      <ViewArbitraryHtmlAndMath className='background' html={config.background} onSaveContent={@onSaveBackground}/>
+      <ViewEditHtml
+        title='Edit Part Background'
+        className='background' html={config.background} onSaveContent={@onSaveBackground}/>
       {questions}
     </div>
 
@@ -493,7 +564,11 @@ Exercise = React.createClass
         Type(props)
 
       <div className='exercise'>
-        <ViewArbitraryHtmlAndMath className='stimulus' html={config.content.stimulus} onSaveContent={@onSaveBackground} />
+        <ViewEditHtml
+          title='Edit Stimulus for entire Exercise'
+          className='stimulus'
+          html={config.content.stimulus}
+          onSaveContent={@onSaveBackground} />
         {questions}
       </div>
 
@@ -503,7 +578,11 @@ Exercise = React.createClass
         Part(props)
 
       <div className='exercise'>
-        <ViewArbitraryHtmlAndMath className='background' html={config.background} onSaveContent={@onSaveBackground} />
+        <ViewEditHtml
+          title='Edit Background for entire Exercise'
+          className='background'
+          html={config.background}
+          onSaveContent={@onSaveBackground} />
         {parts}
       </div>
 

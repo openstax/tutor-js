@@ -1,6 +1,17 @@
+@import './bower_components/bootstrap/less/bootstrap.less';
+
 @answer-correct: #34b27d;
 @answer-incorrect: #cb4d4d;
 
+
+.quick-menu { float: right; }
+
+#exercise {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.view-container:hover { outline: 1px dotted #ccc; }
 
 .x-variant(@name) {
   input[type='checkbox'][data-format=@{name}]:not(:checked) ~ [data-format=@{name}] {

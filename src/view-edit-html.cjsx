@@ -5,6 +5,8 @@ React = require 'react'
 Quill = require 'quill-with-math'
 katex = require 'katex'
 
+{ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
+
 Viewer = React.createClass
   displayName: 'ContentViewer'
 
@@ -19,24 +21,30 @@ Viewer = React.createClass
     @props.onEditContent()
 
   render: () ->
-    if @props.html? and @props.html isnt ''
-      <div className="viewer-container hoverable" onClick={@handleEdit}>
-        {@props.children}
-        <div className="viewer" dangerouslySetInnerHTML={__html: @props.html}>
+    if ExerciseStore.getExerciseMode() is EXERCISE_MODES.EDIT
+
+      if @props.html? and @props.html isnt ''
+        <div className="viewer-container hoverable" onClick={@handleEdit}>
+          {@props.children}
+          <div className="viewer" dangerouslySetInnerHTML={__html: @props.html}>
+          </div>
         </div>
-      </div>
-    else if @props.html is ''
-      <div className="prompter-container" onClick={@handleEdit}>
-        <div className="intentional-empty-content">
-          <span className="prompt-add-tip">This area was made empty by the author. {@props.prompt_add}</span>
+      else if @props.html is ''
+        <div className="prompter-container" onClick={@handleEdit}>
+          <div className="intentional-empty-content">
+            <span className="prompt-add-tip">This area was made empty by the author. {@props.prompt_add}</span>
+          </div>
         </div>
-      </div>
-    else
-      <div className="prompter-container" onClick={@handleEdit}>
-        <div className="empty-content">
-          <span className="prompt-add-tip">{@props.prompt_add}</span>
+      else
+        <div className="prompter-container" onClick={@handleEdit}>
+          <div className="empty-content">
+            <span className="prompt-add-tip">{@props.prompt_add}</span>
+          </div>
         </div>
-      </div>
+
+    else # Not editable
+      <div className="viewer" dangerouslySetInnerHTML={__html: @props.html}></div>
+
 
   renderMath: ->
     for node in @getDOMNode().querySelectorAll('[data-math]:not(.loaded)')
@@ -119,11 +127,14 @@ Editor = React.createClass
     @props.onCancelEdit(@state.objects.editor.getHTML())
 
   render: () ->
-    classes = ['panel']
+    classes = ['panel', 'panel-warning']
     classes.push(@props.className)
 
     <div className={classes.join(' ')}>
-      <div className="panel-heading">{@props.title}</div>
+      <div className="panel-heading">
+        {@props.title}
+        {@props.children}
+      </div>
       <div className="panel-body">
         <div className="ql-toolbar" ref="toolbar">
           <span className="ql-format-group">
@@ -154,9 +165,6 @@ Editor = React.createClass
         <div className="ql-editor" ref="editor"></div>
       </div>
       <div className="panel-footer" ref="footer">
-        <div className="ql-tree-operations">
-          {@props.children}
-        </div>
         <div className="ql-operations">
           <button className="btn btn-default" onClick={@handleCancel}>Cancel</button>
           <button className="btn btn-primary" onClick={@handleSave}>Done</button>
@@ -198,7 +206,7 @@ Content = React.createClass
       <Editor
         ref="editor"
         className={@props.className}
-        title={@props.title}
+        title={@props.title or 'Edit this thingamajig'}
         html={@props.html}
         onCancelEdit={@onCancelEdit}
         onSaveContent={@onSaveContent}

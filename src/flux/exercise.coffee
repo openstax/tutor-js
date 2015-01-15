@@ -4,7 +4,7 @@ flux = require 'flux-react'
 EXERCISE_MODES_TEMPLATE = [
   'VIEW'      # just render the exercise (with radios and input boxes)
   'REVIEW'    # like view but without checkboxes and the correct/incorrect answer selected
-  #'EDIT'      # view + all the edit buttons and quill if content clicked
+  'EDIT'      # view + all the edit buttons and quill if content clicked
 ]
 
 EXERCISE_MODES = {}
@@ -98,7 +98,7 @@ ExerciseConfig = {
   exports:
     getExerciseMode: (exercise) ->
       return @_currentMode if @_currentMode
-      if exercise.answer?
+      if exercise?.answer?
         EXERCISE_MODES.REVIEW
       else
         EXERCISE_MODES.VIEW

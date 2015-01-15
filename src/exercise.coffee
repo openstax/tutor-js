@@ -1,8 +1,11 @@
 React = require('react')
 {Exercise} = require('./components')
 HTMLBars = require('./bars/htmlbars')
+ExerciseActionsStore = require('./flux/exercise')
 
 window.React = React # for dev tools
+window.ExerciseActionsStore = ExerciseActionsStore
+
 
 module.exports = (root, config) ->
 
