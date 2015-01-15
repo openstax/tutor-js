@@ -522,28 +522,6 @@ getQuestionType = (format) ->
   QUESTION_TYPES[format] or throw new Error("Unsupported format type '#{format}'")
 
 
-Part = React.createClass
-  displayName: 'Part'
-  render: ->
-    {config} = @props
-
-    questions = for questionConfig in config.questions
-      format = questionConfig.format
-      Type = getQuestionType(format)
-      props = {config:questionConfig}
-
-      Type(props)
-
-    <div className='part'>
-      <ViewEditHtml
-        title='Edit Part Background'
-        className='background' html={config.background} onSaveContent={@onSaveBackground}/>
-      {questions}
-    </div>
-
-  onSaveBackground: (html) ->
-    ExerciseActions.changePart(@props.config, html)
-
 
 Exercise = React.createClass
   displayName: 'Exercise'
@@ -555,6 +533,9 @@ Exercise = React.createClass
   render: ->
     {config} = @props
 
+    classes = ['exercise']
+    classes.push('mode-edit') if ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.EDIT
+
     if config.content
       questions = for questionConfig in config.content.questions
         format = questionConfig.format
@@ -563,7 +544,7 @@ Exercise = React.createClass
 
         Type(props)
 
-      <div className='exercise'>
+      <div className={classes.join(' ')}>
         <ViewEditHtml
           title='Edit Stimulus for entire Exercise'
           className='stimulus'
@@ -573,17 +554,20 @@ Exercise = React.createClass
       </div>
 
     else
-      parts = for partConfig in config.parts
-        props = {config:partConfig}
-        Part(props)
+      questions = for questionConfig in config.questions
+        format = questionConfig.format
+        Type = getQuestionType(format)
+        props = {config:questionConfig}
 
-      <div className='exercise'>
+        Type(props)
+
+      <div className={classes.join(' ')}>
         <ViewEditHtml
           title='Edit Background for entire Exercise'
           className='background'
           html={config.background}
           onSaveContent={@onSaveBackground} />
-        {parts}
+        {questions}
       </div>
 
   onSaveBackground: (html) ->

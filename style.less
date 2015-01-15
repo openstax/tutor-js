@@ -11,6 +11,8 @@
   margin: 0 auto;
 }
 
+.exercise.mode-edit .content-container.mode-view { cursor: pointer; }
+
 .view-container:hover { outline: 1px dotted #ccc; }
 
 .x-variant(@name) {
@@ -27,15 +29,6 @@
   counter-reset: part question;
 
   font-family: sans-serif;
-
-  .part {
-    counter-increment: part;
-    &::before {
-      content: 'Part ' counter(part);
-      font-size: x-large;
-      font-weight: bold;
-      display: block;
-    }
 
     .variants {
       counter-increment: question;
@@ -181,7 +174,6 @@
     }
 
 
-  }
 }
 
 .question { padding-top: 1em; }

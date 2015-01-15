@@ -43,16 +43,14 @@ window.config = {
     }
   },
   background: 'This exercise has many parts. Each one is a different type of question. Einstein makes a {{ ship_mass }} kg spaceship',
-  parts: [
-    {
-      background: 'The spaceship moves at <span data-math="{{ ship_speed }}">{{ ship_speed }}</span> m/s',
       questions: [
         {
           formats: ['short-answer'],
+          background: 'The spaceship moves at <span data-math="{{ ship_speed }}">{{ ship_speed }}</span> m/s',
           stem: 'What is the rest mass in kg?',
           answers: [
             {
-              value: '{{ ship_mass }}'
+              content_html: '{{ ship_mass }}'
             }
           ]
         }, {
@@ -97,13 +95,10 @@ window.config = {
             }
           ],
           correct: 'id567'
-        }
-      ]
-    }, {
-      background: 'Simple fill-in-the-blank questions',
-      questions: [
+        },
         {
           formats: ['fill-in-the-blank', 'true-false', 'multiple-choice'],
+          background: 'Simple fill-in-the-blank questions',
           stem: 'If the ship is traveling {{ ship_speed }} m/s and slams into a wall, the impact force is ____ N.',
           answers: [
             {
@@ -125,13 +120,10 @@ window.config = {
             }
           ],
           correct: 'creates'
-        }
-      ]
-    }, {
-      background: 'Matching question (for draw-a-line-to-match)',
-      questions: [
+        },
         {
           formats: ['matching'],
+          background: 'Matching question (for draw-a-line-to-match)',
           stem: 'Match the words on the left with words on the right by drawing a line',
           items: ['foot', 'head', 'hand'],
           answers: [
@@ -149,13 +141,10 @@ window.config = {
               value: 'rocket ship'
             }
           ]
-        }
-      ]
-    }, {
-      background: 'These questions have aleady been answered by the student and are meant to test that the Exercise knows not to render radio buttons, input boxes, etc',
-      questions: [
+        },
         {
           formats: ['short-answer'],
+          background: 'These questions have aleady been answered by the student and are meant to test that the Exercise knows not to render radio buttons, input boxes, etc',
           stem: 'What is 2+2?',
           answer: '42'
         }, {
@@ -179,6 +168,4 @@ window.config = {
           answer: 'id1'
         }
       ]
-    }
-  ]
 };
