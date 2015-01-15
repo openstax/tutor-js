@@ -21,6 +21,7 @@ if (url) {
       data = JSON.parse(request.responseText);
 
       window.ExerciseComponent(document.getElementById('exercise'), data);
+
     } else {
       // We reached our target server, but it returned an error
       alert('Woops, server returned a non 200 error');
@@ -36,6 +37,10 @@ if (url) {
 
 } else {
   window.ExerciseComponent(document.getElementById('exercise'), window.config);
+  window.ExerciseActionsStore.ExerciseActions.changeExerciseMode(
+    window.ExerciseActionsStore.EXERCISE_MODES.EDIT
+  );
+
 }
 
 

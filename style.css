@@ -6295,7 +6295,7 @@ button.close {
 .exercise.mode-edit .content-container.mode-view {
   cursor: pointer;
 }
-.view-container:hover {
+.viewer-container.hoverable:hover {
   outline: 1px dotted #ccc;
 }
 .exercise {
@@ -6362,6 +6362,7 @@ button.close {
 .exercise .question {
   counter-increment: question;
   counter-reset: answer;
+  margin-left: 20px;
 }
 .exercise .question.answered li.option::before {
   display: inline-block;
@@ -6431,11 +6432,15 @@ button.close {
 .exercise .question.fill-in-the-blank .stem .incorrect label.answer {
   background-color: #eec3c3;
 }
+.exercise .question .stem {
+  position: relative;
+}
 .exercise .question .stem::before {
   content: counter(question) '. ';
-  font-size: large;
   font-weight: bold;
   display: inline;
+  position: absolute;
+  left: -20px;
 }
 .exercise .question ul.options {
   padding: 0;
@@ -6452,6 +6457,7 @@ button.close {
 .exercise .question ul.options li.option .answer {
   display: inline-table;
   vertical-align: top;
+  width: 100%;
 }
 .exercise .matching > table {
   min-width: 500px;
@@ -6489,3 +6495,16 @@ input[type='text'] {
   content: 'Stem: ';
 }
 /*.choice::before { content: 'Choice: '; }*/
+.question-options,
+.question-body {
+  margin-left: 20px;
+}
+.question-options ul.options li.option,
+.question-body ul.options li.option {
+  position: relative;
+}
+.question-options ul.options li.option .letter,
+.question-body ul.options li.option .letter {
+  position: absolute;
+  left: -20px;
+}

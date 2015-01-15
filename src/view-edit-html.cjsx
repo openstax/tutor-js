@@ -26,24 +26,24 @@ Viewer = React.createClass
       if @props.html? and @props.html isnt ''
         <div className="viewer-container hoverable" onClick={@handleEdit}>
           {@props.children}
-          <div className="viewer" dangerouslySetInnerHTML={__html: @props.html}>
+          <div className="viewer #{@props.className}" dangerouslySetInnerHTML={__html: @props.html}>
           </div>
         </div>
       else if @props.html is ''
         <div className="prompter-container" onClick={@handleEdit}>
-          <div className="intentional-empty-content">
+          <div className="intentional-empty-content  #{@props.className}">
             <span className="prompt-add-tip">This area was made empty by the author. {@props.prompt_add}</span>
           </div>
         </div>
       else
         <div className="prompter-container" onClick={@handleEdit}>
-          <div className="empty-content">
+          <div className="empty-content  #{@props.className}">
             <span className="prompt-add-tip">{@props.prompt_add}</span>
           </div>
         </div>
 
     else # Not editable
-      <div className="viewer" dangerouslySetInnerHTML={__html: @props.html}></div>
+      <div className="viewer  #{@props.className}" dangerouslySetInnerHTML={__html: @props.html}></div>
 
 
   renderMath: ->
@@ -201,11 +201,11 @@ Content = React.createClass
     classes.push('mode-edit') if @state.mode is 'edit'
     classes.push('mode-view') if @state.mode is 'view' and hasContent
     classes.push('mode-prompt') if @state.mode is 'view' and not hasContent
+    classes.push(@props.className)
     classes = classes.join(' ')
     editor = () =>
       <Editor
         ref="editor"
-        className={@props.className}
         title={@props.title or 'Edit this thingamajig'}
         html={@props.html}
         onCancelEdit={@onCancelEdit}

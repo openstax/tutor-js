@@ -3,6 +3,8 @@
 @answer-correct: #34b27d;
 @answer-incorrect: #cb4d4d;
 
+@question-number-margin: 20px;
+
 
 .quick-menu { float: right; }
 
@@ -13,7 +15,7 @@
 
 .exercise.mode-edit .content-container.mode-view { cursor: pointer; }
 
-.view-container:hover { outline: 1px dotted #ccc; }
+.viewer-container.hoverable:hover { outline: 1px dotted #ccc; }
 
 .x-variant(@name) {
   input[type='checkbox'][data-format=@{name}]:not(:checked) ~ [data-format=@{name}] {
@@ -63,6 +65,8 @@
     .question {
       counter-increment: question;
       counter-reset: answer;
+
+      margin-left: @question-number-margin;
 
       .x-correctness(@color; @char) {
         border: 3px solid @color;
@@ -116,13 +120,18 @@
         }
       }
 
+
+
       .stem {
         &::before {
           content: counter(question) '. ';
-          font-size: large;
+          // font-size: large;
           font-weight: bold;
           display: inline;
+          position: absolute;
+          left: -@question-number-margin;
         }
+        position: relative;
       }
 
       ul.options {
@@ -141,6 +150,7 @@
           .answer {
             display: inline-table;
             vertical-align: top;
+            width: 100%;
           }
         }
 
@@ -184,3 +194,18 @@ input[type='text'] { width: 200px; }
 
 .stem::before { content: 'Stem: '; }
 /*.choice::before { content: 'Choice: '; }*/
+
+
+.question-options,
+.question-body {
+  margin-left: @question-number-margin;
+
+  ul.options li.option {
+    position: relative;
+
+    .letter {
+      position: absolute;
+      left: -@question-number-margin;
+    }
+  }
+}
