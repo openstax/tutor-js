@@ -24,7 +24,7 @@ module.exports = (grunt) ->
           'htmlbars/htmlbars-compiler.amd.js'
           'htmlbars/htmlbars-runtime.amd.js'
           'htmlbars/morph.amd.js'
-          'src/nodefine.js' # This removes the define added by loader
+          'src/bars/nodefine.js' # This removes the define added by loader
         ]
         'dist/exercise.js': ['.build/exercise.js']
 

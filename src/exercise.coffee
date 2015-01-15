@@ -1,6 +1,6 @@
 React = require('react')
 {Exercise} = require('./components')
-HTMLBars = require('./htmlbars')
+HTMLBars = require('./bars/htmlbars')
 
 window.React = React # for dev tools
 
