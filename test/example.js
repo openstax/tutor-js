@@ -42,12 +42,12 @@ window.config = {
       }
     }
   },
-  background: 'This exercise has many parts. Each one is a different type of question. Einstein makes a {{ ship_mass }} kg spaceship',
+  stimulus_html: 'This exercise has many parts. Each one is a different type of question. Einstein makes a {{ ship_mass }} kg spaceship',
       questions: [
         {
           formats: ['short-answer'],
-          background: 'The spaceship moves at <span data-math="{{ ship_speed }}">{{ ship_speed }}</span> m/s',
-          stem: 'What is the rest mass in kg?',
+          stimulus_html: 'The spaceship moves at <span data-math="{{ ship_speed }}">{{ ship_speed }}</span> m/s',
+          stem_html: 'What is the rest mass in kg?',
           answers: [
             {
               content_html: '{{ ship_mass }}'
@@ -55,113 +55,111 @@ window.config = {
           ]
         }, {
           formats: ['multiple-choice', 'multiple-select', 'short-answer'],
-          stem: 'What is the force if it slams into a wall?',
-          short_stem: 'Enter your answer in N',
+          stem_html: 'What is the force if it slams into a wall?',
+          short_stem_html: 'Enter your answer in N',
           answers: [
             {
               id: 'id1',
               value: '{{ ship_force }}',
-              content: '{{ ship_force }} N'
+              content_html: '{{ ship_force }} N'
             }, {
               id: 'id2',
               value: '{{ ship_mass }}',
-              content: '{{ ship_mass }} N',
+              content_html: '{{ ship_mass }} N',
               hint: 'Remember 1 Newton (N) is 1 kg*m/s'
             }
           ],
           correct: 'id1'
         }, {
           formats: ['multiple-select', 'multiple-choice', 'short-answer'],
-          stem: 'What is the force if it slams into a wall? (this has (a) and (b) options)',
-          short_stem: 'Enter your answer in N',
+          stem_html: 'What is the force if it slams into a wall? (this has (a) and (b) options)',
+          short_stem_html: 'Enter your answer in N',
           answers: [
             {
               id: 'wrong',
-              value: '0'
+              content_html: '0'
             }, {
               id: 'wrong2',
-              value: '1'
+              content_html: '1'
             }, {
               id: 'id123',
-              value: '{{ ship_force }}',
-              content: '{{ ship_force }} N'
+              content_html: '{{ ship_force }} N'
             }, {
               id: 'id456',
-              value: '0{{ ship_force }}',
-              content: '{{ ship_force }} + 0 <br/> + 0 <br/> + 0 N'
+              content_html: '{{ ship_force }} + 0 <br/> + 0 <br/> + 0 N'
             }, {
               id: 'id567',
-              value: ['id456', 'id123']
+              values: ['id456', 'id123']
             }
           ],
           correct: 'id567'
         },
         {
           formats: ['fill-in-the-blank', 'true-false', 'multiple-choice'],
-          background: 'Simple fill-in-the-blank questions',
-          stem: 'If the ship is traveling {{ ship_speed }} m/s and slams into a wall, the impact force is ____ N.',
+          stimulus_html: 'Simple fill-in-the-blank questions',
+          stem_html: 'If the ship is traveling {{ ship_speed }} m/s and slams into a wall, the impact force is ____ N.',
           answers: [
             {
-              value: '{{ ship_force }}'
+              content_html: '{{ ship_force }}'
             }, {
-              value: '{{ ship_mass_div_speed }}',
+              content_html: '{{ ship_mass_div_speed }}',
               hint: 'Remember 1 Newton (N) is 1 kg*m/s'
             }
           ],
           correct: '{{ ship_force }}'
         }, {
           formats: ['fill-in-the-blank', 'true-false'],
-          stem: 'Photosynthesis ____ ATP',
+          stem_html: 'Photosynthesis ____ ATP',
           answers: [
             {
-              value: 'creates'
+              content_html: 'creates'
             }, {
-              value: 'smells like'
+              content_html: 'smells like'
             }
           ],
           correct: 'creates'
         },
         {
           formats: ['matching'],
-          background: 'Matching question (for draw-a-line-to-match)',
-          stem: 'Match the words on the left with words on the right by drawing a line',
+          stimulus_html: 'Matching question (for draw-a-line-to-match)',
+          stem_html: 'Match the words on the left with words on the right by drawing a line',
           items: ['foot', 'head', 'hand'],
           answers: [
             {
               credit: 1,
-              value: 'sock'
+              content_html: 'sock'
             }, {
               credit: 1,
-              value: 'hat'
+              content_html: 'hat'
             }, {
               credit: 1,
-              value: 'glove'
+              content_html: 'glove'
             }, {
               credit: 0,
-              value: 'rocket ship'
+              content_html: 'rocket ship'
             }
           ]
         },
         {
           formats: ['short-answer'],
-          background: 'These questions have aleady been answered by the student and are meant to test that the Exercise knows not to render radio buttons, input boxes, etc',
-          stem: 'What is 2+2?',
+          stimulus_html: 'These questions have aleady been answered by the student and are meant to test that the Exercise knows not to render radio buttons, input boxes, etc',
+          stem_html: 'What is 2+2?',
           answer: '42'
         }, {
           formats: ['fill-in-the-blank'],
-          stem: '2+2 is ____',
+          stem_html: '2+2 is ____',
           answer: '0',
           correct: '4'
         }, {
           formats: ['multiple-choice'],
-          stem: 'What is 2+2?',
+          stem_html: 'What is 2+2?',
           answers: [
             {
               id: 'id1',
-              value: '4'
+              content_html: '4'
             }, {
               id: 'id2',
-              value: '42'
+              content_html: '42'
             }
           ],
           correct: 'id1',

@@ -17,40 +17,26 @@ ExerciseConfig = {
     @_currentMode = newMode
     @emitChange()
 
-  changeBackground: (exercise, html) ->
-    exercise.background = html # TODO: Change to background_html
+  changeExerciseStimulus: (exercise, html) ->
+    exercise.stimulus_html = html # TODO: Change to background_html
     @emitChange()
 
-  addPart: (exercise, part) ->
-    exercise.parts.push(part)
+  addQuestion: (exercise, question) ->
+    exercise.questions.push(question)
     @emitChange()
 
-  removePart: (exercise, part) ->
-    exercise.parts.remove(part)
-    @emitChange()
-
-  # Part
-
-  changePart: (part, html) ->
-    part.background = html # TODO: switch to stem_html
-    @emitChange()
-
-  addQuestion: (part, question) ->
-    part.questions.push(question)
-    @emitChange()
-
-  removeQuestion: (part, question) ->
-    part.questions.remove(question)
+  removeQuestion: (exercise, question) ->
+    exercise.questions.remove(question)
     @emitChange()
 
   # Question
 
   changeQuestion: (question, html) ->
-    question.stem = html # TODO: Switch to stem_html
+    question.stem_html = html
     @emitChange()
 
   changeQuestionStimulus: (question, html) ->
-    question.stimulus = html # TODO: Switch to stimulus_html
+    question.stimulus_html = html
     @emitChange()
 
   addAnswer: (question, answer) ->
@@ -80,7 +66,7 @@ ExerciseConfig = {
   # Answer
 
   changeAnswer: (answer, html) ->
-    answer.content = html # TODO: Change to content_html
+    answer.content_html = html
     @emitChange()
 
   changeAnswerCorrectness: (answer, isCorrect) ->
@@ -103,15 +89,13 @@ ExerciseConfig = {
       else
         EXERCISE_MODES.VIEW
 
-    getParts: (exercise) ->
-      exercise.parts
-    getQuestions: (part) ->
-      part.questions
+    getQuestions: (exercise) ->
+      exercise.questions
     getAnswers: (question) ->
       question.answers
 
-    getPartBackground: (part) -> part.background_html
     getQuestionStem: (question) -> question.stem_html
+    getQuestionStimulus: (question) -> question.stimulus_html
     getAnswerContent: (answer) -> answer.content_html
     getAnswerCorrectness: (answer) -> answer.isCorrect
     getMultiAnswerAnswers: (multiAnswer) -> multiAnswer.answer_ids

@@ -54,19 +54,19 @@ module.exports = (root, config) ->
         obj.format = obj.formats[0]
         for format in obj.formats
           variant = switch format
-            when 'multiple-choice' then {stem:obj.stem, answers:obj.answers,correct:obj.correct, answer:obj.answer}
-            when 'multiple-select' then {stem:obj.stem, answers:obj.answers,correct:obj.correct}
-            when 'matching' then {stem:obj.stem, answers:obj.answers, items:obj.items}
+            when 'multiple-choice' then {stem_html:obj.stem_html, answers:obj.answers,correct:obj.correct, answer:obj.answer}
+            when 'multiple-select' then {stem_html:obj.stem_html, answers:obj.answers,correct:obj.correct}
+            when 'matching' then {stem_html:obj.stem_html, answers:obj.answers, items:obj.items}
             when 'true-false'
               a = obj.answers[0]
               o =
-                stem: obj.stem.replace(/____/, a.content or a.value)
+                stem_html: obj.stem_html.replace(/____/, a.content or a.value)
                 answers: obj.answers
                 correct: true
               o
             else # 'short-answer' or 'fill-in-the-blank'
               o =
-                stem: obj.stem
+                stem_html: obj.stem_html
                 answers: obj.answers
                 correct: obj.correct
                 answer: obj.answer

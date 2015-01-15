@@ -25,7 +25,7 @@ DefaultStemMixin =
       title="Edit Question Stem"
       block=true
       className='stem'
-      html={config.stem}
+      html={config.stem_html}
       onSaveContent={@onSaveStemContent} />
 
   renderStemReview: (config) -> @renderStemView(config)
@@ -35,7 +35,7 @@ DefaultStemMixin =
         title="Edit Question Stem"
         block=true
         className='stem'
-        html={config.stem}
+        html={config.stem_html}
         onSaveContent={@onSaveStemContent}>
 
         <QuickMenu>
@@ -110,29 +110,29 @@ BlankQuestion = React.createClass
   mixins: [QuestionMixin]
 
   renderStemView: (config) ->
-    {stem} = config
-    stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
+    {stem_html} = config
+    stem_html = stem_html.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
     <ViewEditHtml
       title='Edit Question Stem'
       block=true
       className='stem'
-      html={stem}
+      html={stem_html}
       onSaveContent={@onSaveStemContent} />
 
   renderStemReview: (config) ->
-    {stem} = config
+    {stem_html} = config
 
     # TODO: Make sure HTML is escaped!!!
     if config.answer is config.correct
-      stem = stem.replace(/____/, "<span class='correct'>#{config.answer}</span>")
+      stem_html = stem_html.replace(/____/, "<span class='correct'>#{config.answer}</span>")
     else
-      stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
+      stem_html = stem_html.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
 
     <ViewEditHtml
       title='Edit Question Stem'
       block=true
       className='stem'
-      html={stem}
+      html={stem_html}
       onSaveContent={@onSaveStemContent} />
 
   renderStemEdit: (config) -> @renderStemView(config)
@@ -190,7 +190,7 @@ SimpleMultipleChoiceOption = React.createClass
     <ViewEditHtml
       title='Edit Answer'
       className='answer-text'
-      html={config.content or config.value}
+      html={config.content_html}
       onSaveContent={@onSaveContent} />
 
   onSaveContent: (html) -> ExerciseActions.changeAnswer(@props.config, html)
@@ -201,8 +201,8 @@ MultiMultipleChoiceOption = React.createClass
     {config, idIndices} = @props
     vals = []
     for id, i in idIndices
-      unless config.value.indexOf(id) < 0
-        index = config.value.indexOf(id)
+      unless config.values.indexOf(id) < 0
+        index = config.values.indexOf(id)
         vals.push <AnswerLabeler key={index} before='(' after=')' index={index}/>
     <span className='multi'>{vals}</span>
 
@@ -213,8 +213,8 @@ MultipleChoiceOptionMixin =
 
     # For radio boxes there is only 1 value, the id/value but
     # for checkboxes the answer is an array of ids/values
-    option = if Array.isArray(config.value)
-      @props.idIndices = for id in config.value
+    option = if Array.isArray(config.values)
+      @props.idIndices = for id in config.values
         id
       MultiMultipleChoiceOption(@props)
     else
@@ -228,7 +228,7 @@ MultipleChoiceOptionMixin =
     # null (unanswered), 'correct', 'incorrect', 'missed'
     classes.push(@props.answerState) if @props.answerState
 
-    optionIdent = @props.config.id or @props.config.value
+    optionIdent = @props.config.id
     if Array.isArray(@props.answer)
       isChecked = @props.answer.indexOf(optionIdent) >= 0
     else
@@ -247,7 +247,7 @@ MultipleChoiceOptionMixin =
           <input type={inputType}
             ref='input'
             name={questionId}
-            value={JSON.stringify(config.value)}
+            value={JSON.stringify(config.content_html)}
             onChange=@onChange
             defaultChecked={isChecked}
           />
@@ -305,7 +305,7 @@ MultipleChoiceQuestion = React.createClass
     questionId = config.id
     options = @getOptions(config)
 
-    classes = ['question']
+    classes = ['question-body']
     classes.push('answered') if ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.REVIEW
 
     <div key={questionId} className={classes.join(' ')}>
@@ -362,12 +362,12 @@ MultiSelectQuestion = React.createClass
     options = []
 
     for option, index in config.answers
-      unless Array.isArray(option.value)
+      unless Array.isArray(option.values)
         isCorrect = false
         isIncorrect = false
 
         if isAnswered and config.correct
-          correctAnswers = _.find(config.answers, (a) -> a.id is config.correct).value
+          correctAnswers = _.find(config.answers, (a) -> a.id is config.correct).values
           # If correctAnswers is not an array then there is only 1 correct answer
           unless Array.isArray(correctAnswers)
             correctAnswers = [config.correct]
@@ -499,7 +499,7 @@ MatchingQuestion = React.createClass
         </td>
         <td className='spacer'></td>
         <td className='answer'>
-          <ViewEditHtml title='Edit Matching Match' className='answer' html={answer.content or answer.value} />
+          <ViewEditHtml title='Edit Matching Match' className='answer' html={answer.content_html} />
         </td>
       </tr>
 
@@ -549,7 +549,7 @@ Exercise = React.createClass
           title='Edit Stimulus for entire Exercise'
           className='stimulus'
           html={config.content.stimulus}
-          onSaveContent={@onSaveBackground} />
+          onSaveContent={@onSaveStimulus} />
         {questions}
       </div>
 
@@ -565,12 +565,12 @@ Exercise = React.createClass
         <ViewEditHtml
           title='Edit Background for entire Exercise'
           className='background'
-          html={config.background}
-          onSaveContent={@onSaveBackground} />
+          html={config.stimulus_html}
+          onSaveContent={@onSaveStimulus} />
         {questions}
       </div>
 
-  onSaveBackground: (html) ->
-    ExerciseActions.changeBackground(@props.config, html)
+  onSaveStimulus: (html) ->
+    ExerciseActions.changeExerciseStimulus(@props.config, html)
 
 module.exports = {Exercise, getQuestionType}
