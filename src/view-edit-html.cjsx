@@ -140,33 +140,24 @@ Editor = React.createClass
         {@props.title}
         {@props.children}
       </div>
+      <div className="panel-heading ql-toolbar" ref="toolbar">
+        <span className="ql-format-group">
+          <span title="Bold" className="ql-format-button ql-bold"><i className="fa fa-fw fa-bold"></i></span>
+          <span className="ql-format-separator"></span>
+          <span title="Italic" className="ql-format-button ql-italic"><i className="fa fa-fw fa-italic"></i></span>
+        </span>
+        <span className="ql-format-group">
+          <span title="List" className="ql-format-button ql-list"><i className="fa fa-fw fa-list-ol"></i></span>
+          <span className="ql-format-separator"></span>
+          <span title="Bullet" className="ql-format-button ql-bullet"><i className="fa fa-fw fa-list-ul"></i></span>
+          <span className="ql-format-separator"></span>
+        </span>
+        <span className="ql-format-group">
+          <span title="Link" className="ql-format-button ql-link"><i className="fa fa-fw fa-link"></i></span>
+          <span title="Math" className="ql-format-button ql-math"><i className="fa-fw">x<sup>y</sup></i></span>
+        </span>
+      </div>
       <div className="panel-body">
-        <div className="ql-toolbar" ref="toolbar">
-          <span className="ql-format-group">
-            <span title="Bold" className="ql-format-button ql-bold"></span>
-            <span className="ql-format-separator"></span>
-            <span title="Italic" className="ql-format-button ql-italic"></span>
-            <span className="ql-format-separator"></span>
-            <span title="Underline" className="ql-format-button ql-underline"></span>
-            <span className="ql-format-separator"></span>
-            <span title="Strikethrough" className="ql-format-button ql-strike"></span>
-          </span>
-          <span className="ql-format-group">
-            <span title="List" className="ql-format-button ql-list"></span>
-            <span className="ql-format-separator"></span>
-            <span title="Bullet" className="ql-format-button ql-bullet"></span>
-            <span className="ql-format-separator"></span>
-            <select title="Text Alignment" defaultValue="left" className="ql-align">
-              <option value="left" label="Left"></option>
-              <option value="center" label="Center"></option>
-              <option value="right" label="Right"></option>
-              <option value="justify" label="Justify"></option>
-            </select>
-          </span>
-          <span className="ql-format-group">
-            <span title="Link" className="ql-format-button ql-link"></span>
-          </span>
-        </div>
         <div className="ql-editor" ref="editor"></div>
       </div>
       <div className="panel-footer" ref="footer">

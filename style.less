@@ -222,3 +222,33 @@ input[type='text'] { width: 200px; }
     }
   }
 }
+
+// HTML Editor toolbar
+.panel-heading.ql-toolbar {
+  background-color: #efefef;
+  color: #666;
+  border: none;
+
+  .ql-format-group {
+    margin: 0 5px;
+  }
+
+  .ql-format-group + .ql-format-group {
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+  }
+
+  .ql-format-button {
+    display: inline-block;
+    cursor: default;
+    padding: 5px;
+    margin: 0 5px;
+
+    &:not(.ql-active):hover { outline: 1px solid #ccc; }
+
+    &.ql-active {
+      background-color: rgba(0, 0, 0, .1);
+      box-shadow: inset 0 1px 2px;
+    }
+  }
+}
