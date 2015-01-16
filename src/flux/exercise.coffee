@@ -11,6 +11,14 @@ EXERCISE_MODES = {}
 for val, i in EXERCISE_MODES_TEMPLATE
   EXERCISE_MODES[val] = "ENUM_#{val}_#{i}" # To make sure it's not hardcoded
 
+aryRemove = (ary, item) ->
+  index = ary.indexOf(item)
+  if index >= 0
+    ary.splice(index, 1)
+  else
+    throw new Error('BUG: Item not found in array')
+  true
+
 ExerciseConfig = {
   # Exercise has a current mode it is rendered as.
   changeExerciseMode: (newMode) ->
@@ -26,7 +34,7 @@ ExerciseConfig = {
     @emitChange()
 
   removeQuestion: (exercise, question) ->
-    exercise.questions.remove(question)
+    aryRemove(exercise.questions, question)
     @emitChange()
 
   # Question
@@ -44,7 +52,7 @@ ExerciseConfig = {
     @emitChange()
 
   removeAnswer: (question, answer) ->
-    question.answers.remove(answer)
+    aryRemove(question.answers, answer)
     @emitChange()
 
   setAllAnswer: (question, isAnOption) ->
@@ -60,7 +68,7 @@ ExerciseConfig = {
     @emitChange()
 
   removeMultiAnswer: (question, multiAnswer) ->
-    question.answers.remove(multiAnswer)
+    aryRemove(question.answers, multiAnswer)
     @emitChange()
 
   # Answer

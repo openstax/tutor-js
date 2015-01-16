@@ -6289,7 +6289,7 @@ button.close {
   float: right;
 }
 #exercise {
-  max-width: 720px;
+  max-width: 500px;
   margin: 0 auto;
 }
 .exercise.mode-edit .content-container.mode-view {

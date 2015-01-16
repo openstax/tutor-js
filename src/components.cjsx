@@ -40,10 +40,10 @@ DefaultStemMixin =
 
         <QuickMenu>
           <QuickButton
-            actionTitle="Delete this question"
-            actionName="DeleteQuestion"
+            actionTitle="Remove this question"
+            actionName="RemoveQuestion"
             icon="fa-trash-o"
-            onAction={@onDeleteQuestion}
+            onAction={@onRemoveQuestion}
             />
         </QuickMenu>
 
@@ -53,8 +53,9 @@ DefaultStemMixin =
   onSaveStemContent: (html) ->
     ExerciseActions.changeQuestion(@props.config, html)
 
-  onDeleteQuestion: ->
-    confirm('Are you sure? This does nothing')
+  onRemoveQuestion: ->
+    if confirm('Are you sure you want to delete the entire question?')
+      ExerciseActions.removeQuestion(@props.exercise, @props.config)
 
 
 QuestionMixin =
@@ -191,9 +192,23 @@ SimpleMultipleChoiceOption = React.createClass
       title='Edit Answer'
       className='answer-text'
       html={config.content_html}
-      onSaveContent={@onSaveContent} />
+      onSaveContent={@onSaveContent}>
+
+      <QuickMenu>
+        <QuickButton
+          actionTitle="Delete this answer"
+          actionName="DeleteAnswer"
+          icon="fa-trash-o"
+          onAction={@onRemoveAnswer}
+          />
+      </QuickMenu>
+    </ViewEditHtml>
 
   onSaveContent: (html) -> ExerciseActions.changeAnswer(@props.config, html)
+  onRemoveAnswer: ->
+    if confirm('Are you sure you want to remove this answer?')
+      ExerciseActions.removeAnswer(@props.question, @props.config)
+
 
 MultiMultipleChoiceOption = React.createClass
   displayName: 'MultiMultipleChoiceOption'
@@ -288,6 +303,7 @@ MultipleChoiceQuestion = React.createClass
         answerState = 'missed'
 
       optionProps = {
+        question: @props.config
         config: option
         answer: AnswerStore.getAnswer(config)
         questionId
@@ -383,6 +399,7 @@ MultiSelectQuestion = React.createClass
             answerState = null
 
         optionProps = {
+          question: @props.config
           config: option
           answer: AnswerStore.getAnswer(config)
           isAnswered
@@ -557,7 +574,7 @@ Exercise = React.createClass
       questions = for questionConfig in config.questions
         format = questionConfig.format
         Type = getQuestionType(format)
-        props = {config:questionConfig}
+        props = {config:questionConfig, exercise:config}
 
         Type(props)
 
