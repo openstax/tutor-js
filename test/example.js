@@ -134,9 +134,6 @@ window.config = {
             }, {
               credit: 1,
               content_html: 'glove'
-            }, {
-              credit: 0,
-              content_html: 'rocket ship'
             }
           ]
         },

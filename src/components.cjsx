@@ -6,7 +6,7 @@ katex = require 'katex'
 {AnswerActions, AnswerStore} = require './flux/answer'
 {ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
 
-ViewEditHtml = require './view-edit-html'
+{ViewHtml, ViewEditHtml} = require './view-edit-html'
 {QuickButton, QuickMenu} = require './quick-menu'
 
 
@@ -21,12 +21,11 @@ AnswerLabeler = React.createClass
 
 DefaultStemMixin =
   renderStemView: (config) ->
-    <ViewEditHtml
-      title="Edit Question Stem"
+    <ViewHtml
       block=true
       className='stem'
       html={config.stem_html}
-      onSaveContent={@onSaveStemContent} />
+      />
 
   renderStemReview: (config) -> @renderStemView(config)
   renderStemEdit: (config) ->
@@ -40,6 +39,12 @@ DefaultStemMixin =
 
         <QuickMenu>
           <QuickButton
+            actionTitle="Add an answer"
+            actionName="AddAnswer"
+            icon="fa-plus"
+            onAction={@onAddAnswer}
+            />
+          <QuickButton
             actionTitle="Remove this question"
             actionName="RemoveQuestion"
             icon="fa-trash-o"
@@ -52,6 +57,9 @@ DefaultStemMixin =
 
   onSaveStemContent: (html) ->
     ExerciseActions.changeQuestion(@props.config, html)
+
+  onAddAnswer: ->
+    ExerciseActions.addAnswer(@props.config, {content_html: null})
 
   onRemoveQuestion: ->
     if confirm('Are you sure you want to delete the entire question?')
@@ -113,12 +121,11 @@ BlankQuestion = React.createClass
   renderStemView: (config) ->
     {stem_html} = config
     stem_html = stem_html.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
-    <ViewEditHtml
-      title='Edit Question Stem'
+    <ViewHtml
       block=true
       className='stem'
       html={stem_html}
-      onSaveContent={@onSaveStemContent} />
+      />
 
   renderStemReview: (config) ->
     {stem_html} = config
@@ -129,14 +136,35 @@ BlankQuestion = React.createClass
     else
       stem_html = stem_html.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
 
+    <ViewHtml
+      block=true
+      className='stem'
+      html={stem_html}
+      />
+
+  renderStemEdit: (config) ->
+    {stem_html} = config
     <ViewEditHtml
       title='Edit Question Stem'
       block=true
       className='stem'
       html={stem_html}
-      onSaveContent={@onSaveStemContent} />
+      onSaveContent={@onSaveStemContent}>
 
-  renderStemEdit: (config) -> @renderStemView(config)
+      <QuickMenu>
+        <QuickButton
+          actionTitle="Remove this question"
+          actionName="RemoveQuestion"
+          icon="fa-trash-o"
+          onAction={@onRemoveQuestion}
+          />
+      </QuickMenu>
+
+    </ViewEditHtml>
+
+  onRemoveQuestion: ->
+    if confirm('Are you sure you want to delete the entire question?')
+      ExerciseActions.removeQuestion(@props.exercise, @props.config)
 
   renderBodyView: (config) ->
   renderBodyReview: (config) ->
@@ -170,7 +198,9 @@ SimpleQuestion = React.createClass
         rows='3'
         ref='prompt'
         placeholder={config.short_stem}
-        onChange=@onChange>{answer or ''}</textarea>
+        value={answer or ''}
+        onChange=@onChange
+        />
 
   renderBodyEdit: (config) ->
     <div className="input-box-will-be-here"></div>
@@ -512,20 +542,34 @@ MatchingQuestion = React.createClass
 
       <tr key={answer.id}>
         <td className='item'>
-          <ViewEditHtml title='Edit Matching Part' className='stem' html={item} />
+          <ViewEditHtml
+            title='Edit Matching Part'
+            className='stem'
+            html={item}
+            onSaveContent={@onSaveMatchingStemContent}
+            />
+
         </td>
         <td className='spacer'></td>
         <td className='answer'>
-          <ViewEditHtml title='Edit Matching Match' className='answer' html={answer.content_html} />
+          <ViewEditHtml
+            title='Edit Matching Answer'
+            className='answer'
+            html={answer.content_html}
+            onSaveContent={@onSaveMatchingAnswerContent}
+            />
         </td>
       </tr>
 
     <table>
-      {rows}
+      <tbody>
+        {rows}
+      </tbody>
     </table>
 
   renderBodyEdit: (config) -> @renderBodyView(config)
-
+  onSaveMatchingStemContent: ->
+  onSaveMatchingAnswerContent: ->
 
 QUESTION_TYPES =
   'matching'          : MatchingQuestion
@@ -578,16 +622,45 @@ Exercise = React.createClass
 
         Type(props)
 
-      <div className={classes.join(' ')}>
+
+      viewableStimulus = () =>
+        <ViewHtml
+          className='background'
+          html={config.stimulus_html}
+          />
+
+      editableStimulus = () =>
         <ViewEditHtml
           title='Edit Background for entire Exercise'
           className='background'
           html={config.stimulus_html}
-          onSaveContent={@onSaveStimulus} />
+          onSaveContent={@onSaveStimulus}>
+          <QuickMenu>
+            <QuickButton
+              actionTitle="Add a new Question to the bottom of the exercise"
+              actionName="AddQuestion"
+              icon="fa-plus"
+              onAction={@onAddQuestion}
+              />
+          </QuickMenu>
+        </ViewEditHtml>
+
+      if ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.EDIT
+        stimulus = editableStimulus
+      else
+        stimulus = viewableStimulus
+
+
+      <div className={classes.join(' ')}>
+        {stimulus()}
         {questions}
       </div>
 
   onSaveStimulus: (html) ->
     ExerciseActions.changeExerciseStimulus(@props.config, html)
+
+  onAddQuestion: ->
+    ExerciseActions.addQuestion(@props.config, {stem_html: null, formats: ['multiple-choice']})
+
 
 module.exports = {Exercise, getQuestionType}

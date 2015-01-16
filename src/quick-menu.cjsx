@@ -17,7 +17,8 @@ QuickButton = React.createClass
     actionTitle: React.PropTypes.string
     icon: React.PropTypes.string
 
-  handleAction: () ->
+  handleAction: (evt) ->
+    evt.stopPropagation() # Prevent an element from toggling from View to Edit when clicking on QuickMenu
     @props.onAction(@props.actionName)
 
   render: () ->

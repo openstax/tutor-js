@@ -6447,6 +6447,7 @@ button.close {
 }
 .exercise .question ul.options li.option {
   list-style-type: none;
+  margin-top: 15px;
 }
 .exercise .question ul.options li.option label {
   cursor: pointer;
@@ -6454,9 +6455,15 @@ button.close {
 .exercise .question ul.options li.option label input:checked ~ * {
   background-color: #ccc;
 }
+.exercise .question ul.options li.option label input {
+  position: absolute;
+  left: -40px;
+}
 .exercise .question ul.options li.option .answer {
   display: inline-table;
   vertical-align: top;
+}
+.exercise .question ul.options li.option > .answer {
   width: 100%;
 }
 .exercise .matching > table {

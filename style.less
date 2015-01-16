@@ -142,14 +142,27 @@
         li.option {
           list-style-type: none;
 
+          margin-top: 15px; // enough for the quickmenu buttons to not stack up
+
           label {
             cursor: pointer;
 
             input:checked ~ * { background-color: #ccc; }
+
+            input {
+              // Move it to the left of the already-moved `(a)`
+              position: absolute;
+              left: -@question-number-margin * 2;
+            }
           }
           .answer {
             display: inline-table;
             vertical-align: top;
+          }
+
+          // When in edit mode make the answer wide so it is clickable
+          // and the quick buttons all line up on the right
+          > .answer {
             width: 100%;
           }
         }

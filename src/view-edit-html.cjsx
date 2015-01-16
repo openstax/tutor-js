@@ -88,7 +88,7 @@ Editor = React.createClass
     editor = new Quill @refs.editor.getDOMNode(), theme: @props.theme
     editor.addModule 'toolbar',
       container: @refs.toolbar.getDOMNode()
-    editor.setHTML @props.html
+    editor.setHTML @props.html or '' # for newly-added questions or answers
     @state.objects.editor = editor
     # Focus the editor at the end of the text
     len = editor.getLength() - 1
@@ -130,6 +130,11 @@ Editor = React.createClass
     classes = ['panel', 'panel-warning']
     classes.push(@props.className)
 
+    # Disable the cancel class if the previous value was null.
+    # This can occur when adding a new question or answer
+    cancelClasses = ['btn', 'btn-default']
+    cancelClasses.push('disabled') unless @props.html?
+
     <div className={classes.join(' ')}>
       <div className="panel-heading">
         {@props.title}
@@ -166,21 +171,24 @@ Editor = React.createClass
       </div>
       <div className="panel-footer" ref="footer">
         <div className="ql-operations">
-          <button className="btn btn-default" onClick={@handleCancel}>Cancel</button>
+          <button className={cancelClasses.join(' ')} onClick={@handleCancel}>Cancel</button>
           <button className="btn btn-primary" onClick={@handleSave}>Done</button>
         </div>
       </div>
     </div>
 
-Content = React.createClass
-  displayName: 'ContentContainer'
+ViewEditHtml = React.createClass
+  displayName: 'ViewEditHtml'
   propTypes:
     content: React.PropTypes.string
     title: React.PropTypes.string
     className: React.PropTypes.string
 
   getInitialState: () ->
-    mode: 'view'
+    if @props.html?
+      mode: 'view'
+    else
+      mode: 'edit'
 
   onEditContent: () ->
     @setState
@@ -228,4 +236,4 @@ Content = React.createClass
       {item}
     </div>
 
-module.exports = Content
+module.exports = {ViewHtml:Viewer, ViewEditHtml}
