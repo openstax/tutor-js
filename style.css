@@ -6299,6 +6299,15 @@ button.close {
 .viewer-container.hoverable:hover {
   outline: 1px dotted #ccc;
 }
+/* so quick buttons line up vertically with the dotted box */
+.viewer-container {
+  min-height: 35px;
+}
+.panel-heading .quick-menu {
+  top: -7px;
+  position: relative;
+  right: -17px;
+}
 .exercise {
   counter-reset: part question;
   font-family: sans-serif;
