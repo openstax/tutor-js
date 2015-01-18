@@ -9,7 +9,7 @@ module.exports = (grunt) ->
       transform: ['coffee-reactify']
     exercise:
       files:
-        '.build/exercise.js': ['src/exercise.coffee']
+        '.build/exercise.js': ['src/index.coffee']
 
   grunt.config 'clean',
     all: ['.build', 'dist']

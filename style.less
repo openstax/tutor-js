@@ -1,4 +1,5 @@
 @import './bower_components/bootstrap/less/bootstrap.less';
+@import './katex.css';
 
 @answer-correct: #34b27d;
 @answer-incorrect: #cb4d4d;
@@ -251,4 +252,20 @@ input[type='text'] { width: 200px; }
       box-shadow: inset 0 1px 2px;
     }
   }
+}
+.panel-body .ql-container {
+  // Ensure that the Math popup always has room
+  padding-bottom: 100px;
+
+  // Quill Math Editor styling
+  [data-math] { background-color: #eee; display: inline-block; margin: 1px; cursor: pointer; }
+  [data-math]:hover { border: 1px solid #3cc; margin: 0; }
+  .ql-active { font-weight: bold; }
+  .update.disabled { color: gray; }
+  .ql-tooltip {
+    padding: 5px 10px;
+    box-shadow: 0 6px 15px 0 rgba(0,0,0,0.2),0 4px 10px 0 rgba(0,0,0,.1);
+  }
+  .ql-tooltip.ql-math-tooltip .math-input { width: 200px; }
+
 }

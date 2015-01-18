@@ -322,7 +322,7 @@ MultipleChoiceQuestion = React.createClass
     # TODO: remove isAnswered
     isAnswered = ExerciseStore.getExerciseMode(config) is EXERCISE_MODES.REVIEW
     questionId = config.id
-    options = for option, index in config.answers
+    options = for option, index in config.answers or throw new Error('BUG: Question must always contain an answers array')
       answerState = null
       if config.answer is option.id # if my answer is this option
         if config.correct is config.answer
@@ -575,7 +575,7 @@ QUESTION_TYPES =
   'matching'          : MatchingQuestion
   'multiple-choice'   : MultipleChoiceQuestion
   'multiple-select'   : MultiSelectQuestion
-  'short-answer'      : SimpleQuestion
+  'free-response'     : SimpleQuestion
   'true-false'        : TrueFalseQuestion
   'fill-in-the-blank' : BlankQuestion
 
@@ -599,7 +599,7 @@ Exercise = React.createClass
 
     if config.content
       questions = for questionConfig in config.content.questions
-        format = questionConfig.format
+        format = questionConfig.format or questionConfig.formats[0] or throw new Error('BUG: invalid question format')
         Type = getQuestionType(format)
         props = {config:questionConfig}
 
@@ -616,7 +616,7 @@ Exercise = React.createClass
 
     else
       questions = for questionConfig in config.questions
-        format = questionConfig.format
+        format = questionConfig.format or questionConfig.formats[0] or throw new Error('BUG: invalid question format')
         Type = getQuestionType(format)
         props = {config:questionConfig, exercise:config}
 
@@ -660,7 +660,7 @@ Exercise = React.createClass
     ExerciseActions.changeExerciseStimulus(@props.config, html)
 
   onAddQuestion: ->
-    ExerciseActions.addQuestion(@props.config, {stem_html: null, formats: ['multiple-choice']})
+    ExerciseActions.addQuestion(@props.config, {stem_html: null, formats: ['multiple-choice'], answers: []})
 
 
 module.exports = {Exercise, getQuestionType}

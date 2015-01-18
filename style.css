@@ -1,3 +1,4 @@
+@import 'katex.css';
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -6539,4 +6540,30 @@ input[type='text'] {
 .panel-heading.ql-toolbar .ql-format-button.ql-active {
   background-color: rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px;
+}
+.panel-body .ql-container {
+  padding-bottom: 100px;
+}
+.panel-body .ql-container [data-math] {
+  background-color: #eee;
+  display: inline-block;
+  margin: 1px;
+  cursor: pointer;
+}
+.panel-body .ql-container [data-math]:hover {
+  border: 1px solid #3cc;
+  margin: 0;
+}
+.panel-body .ql-container .ql-active {
+  font-weight: bold;
+}
+.panel-body .ql-container .update.disabled {
+  color: gray;
+}
+.panel-body .ql-container .ql-tooltip {
+  padding: 5px 10px;
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+}
+.panel-body .ql-container .ql-tooltip.ql-math-tooltip .math-input {
+  width: 200px;
 }

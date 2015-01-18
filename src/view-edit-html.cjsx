@@ -88,6 +88,9 @@ Editor = React.createClass
     editor = new Quill @refs.editor.getDOMNode(), theme: @props.theme
     editor.addModule 'toolbar',
       container: @refs.toolbar.getDOMNode()
+    editor.addModule('link-tooltip', true)
+    editor.addModule('math-tooltip', true)
+
     editor.setHTML @props.html or '' # for newly-added questions or answers
     @state.objects.editor = editor
     # Focus the editor at the end of the text
