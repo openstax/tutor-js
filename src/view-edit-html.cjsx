@@ -63,6 +63,8 @@ Viewer = React.createClass
   componentDidUpdate: -> @renderMath()
 
 
+DOM_HELPER = document.createElement('div')
+
 Editor = React.createClass
   displayName: 'ContentEditor'
 
@@ -124,7 +126,18 @@ Editor = React.createClass
     if @state.objects.editor.getText().trim().length is 0
       @props.onSaveContent('')
     else
-      @props.onSaveContent(@state.objects.editor.getHTML())
+      html = @state.objects.editor.getHTML()
+      # Clean up the katex that was added
+      DOM_HELPER.innerHTML = html
+      for node in DOM_HELPER.querySelectorAll('[data-math]')
+        formula = node.getAttribute('data-math')
+        node.classList.remove('loaded')
+        # Put the formula in the innerHTML because browsers like to remove empty span tags
+        node.innerHTML = formula
+      html = DOM_HELPER.innerHTML
+      DOM_HELPER.innerHTML = '' # for memory
+
+      @props.onSaveContent(html)
 
   handleCancel: () ->
     @props.onCancelEdit(@state.objects.editor.getHTML())
