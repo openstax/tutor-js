@@ -358,7 +358,11 @@ MultipleChoiceQuestion = React.createClass
       <ul className='options'>{options}</ul>
     </div>
 
-  renderBodyEdit: (config) -> @renderBodyView(config)
+  renderBodyEdit: (config) ->
+    <div>
+      {@renderBodyView(config)}
+      <button className="btn btn-default action secondary add-answer" onClick={@onAddAnswer}></button>
+    </div>
 
   onChange: (answer) ->
     AnswerActions.setAnswer(@props.config, answer.id or answer.value)
@@ -632,6 +636,7 @@ Exercise = React.createClass
       editableStimulus = () =>
         <ViewEditHtml
           title='Edit Background for entire Exercise'
+          prompt_add='Click to add Background for entire Exercise'
           className='background'
           html={config.stimulus_html}
           onSaveContent={@onSaveStimulus}>
@@ -654,6 +659,7 @@ Exercise = React.createClass
       <div className={classes.join(' ')}>
         {stimulus()}
         {questions}
+        <button className="btn btn-default action secondary add-question" onClick={@onAddQuestion}></button>
       </div>
 
   onSaveStimulus: (html) ->

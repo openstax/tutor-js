@@ -14,6 +14,19 @@
   margin: 0 auto;
 }
 
+.prompter-container {
+  text-align: center;
+  border: 1px dotted #ccc;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  background-color: #f5f5dc;
+
+  position: relative;
+  opacity: .5;
+}
+
 .exercise.mode-edit .content-container.mode-view { cursor: pointer; }
 
 .viewer-container.hoverable:hover { outline: 1px dotted #ccc; }
@@ -24,6 +37,14 @@
   top: -7px;
   position: relative;
   right: -17px;
+}
+
+
+.add-answer:after { content: 'Add an Answer to Question ' counter(question); }
+.add-question:after { content: 'Add a Question to the Exercise'; }
+.add-answer,
+.add-question {
+  margin-top: 1em;
 }
 
 .x-variant(@name) {
