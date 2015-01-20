@@ -29,6 +29,12 @@ ExerciseConfig = {
     exercise.stimulus_html = html # TODO: Change to background_html
     @emitChange()
 
+  removeExerciseStimulus: (exercise) ->
+    # delete exercise.stimulus_html
+    # Ruby doesn't recognize an deleted stimulus so make it blank
+    exercise.stimulus_html = ''
+    @emitChange()
+
   addQuestion: (exercise, question) ->
     exercise.questions.push(question)
     @emitChange()
@@ -45,6 +51,10 @@ ExerciseConfig = {
 
   changeQuestionStimulus: (question, html) ->
     question.stimulus_html = html
+    @emitChange()
+
+  changeAnswers: (question, answers) ->
+    question.answers = answers
     @emitChange()
 
   addAnswer: (question, answer) ->

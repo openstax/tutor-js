@@ -7666,4 +7666,3 @@ define("morph/morph",
 
     __exports__["default"] = Morph;
   });
-define = void 0;

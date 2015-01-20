@@ -1,300 +1,424 @@
-@import './bower_components/bootstrap/less/bootstrap.less';
+@import './bower_components/font-awesome/css/font-awesome.min.css';
+@import './bower_components/materialize/dist/css/materialize.min.css';
 @import './katex.css';
 
-@answer-correct: #34b27d;
-@answer-incorrect: #cb4d4d;
 
-@question-number-margin: 20px;
+// @answer-correct: #34b27d;
+// @answer-incorrect: #cb4d4d;
+
+html { font-size: 12px; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+body { background-color: #efefef; margin-left: 100px; }
 
 
-.quick-menu { float: right; }
-
-#exercise {
-  max-width: 500px;
-  margin: 0 auto;
+// Mostly for the toolbar
+.x-user-select(@var) {
+     -moz-user-select: @var;
+  -webkit-user-select: @var;
 }
 
-.prompter-container {
-  text-align: center;
-  border: 1px dotted #ccc;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  cursor: pointer;
+// Toolbar/Navbar
+nav .nav-wrapper .brand-logo { margin-left: 1rem; }
+nav ul.side-nav { margin-right: 1rem; }
+nav .nav-wrapper a { color: white; }
+nav.double-height { height: 7.5rem; }
+
+.contenteditable-label {
+  color: #9e9e9e;
   position: relative;
-  background-color: #f5f5dc;
-
-  position: relative;
-  opacity: .5;
+  font-size: 1rem;
+  cursor: default;
 }
-
-.exercise.mode-edit .content-container.mode-view { cursor: pointer; }
-
-.viewer-container.hoverable:hover { outline: 1px dotted #ccc; }
-
-/* so quick buttons line up vertically with the dotted box */
-.viewer-container { min-height: 35px; }
-.panel-heading .quick-menu {
-  top: -7px;
-  position: relative;
-  right: -17px;
+#question-stem { margin-left: 1rem; }
+.answers-label {
+  left: -1rem;
 }
 
 
-.add-answer:after { content: 'Add an Answer to Question ' counter(question); }
-.add-question:after { content: 'Add a Question to the Exercise'; }
-.add-answer,
-.add-question {
-  margin-top: 1em;
-}
+.card a { margin-right: inherit; }
 
-.x-variant(@name) {
-  input[type='checkbox'][data-format=@{name}]:not(:checked) ~ [data-format=@{name}] {
-    display: none;
-  }
+.btn-toolbar.btn-close {
+  float: right;
+  padding: 0;
+  margin-right: .5rem;
 
-  input[type='checkbox'][data-format=@{name}]:checked ~ .options label[data-format=@{name}] {
-    background-color: #ccc;
+  i {
+    height: 32px;
+    line-height: 32px;
   }
 }
 
-.exercise {
-  counter-reset: part question;
-
-  font-family: sans-serif;
-
-    .variants {
-      counter-increment: question;
-      .question { counter-increment: none; }
-
-      > input[type='checkbox'] { display: none; }
-
-      > .options {
-
-        background-color: beige;
-        margin: .5em;
-
-        label {
-          display: inline-block;
-          padding: 0 .5em;
-          margin: .25em .25em;
-          cursor: pointer;
-          border: 1px solid #ccc;
-          font-weight: bold;
-        }
-      }
-
-      .x-variant('matching');
-      .x-variant('multiple-choice');
-      .x-variant('multiple-select');
-      .x-variant('short-answer');
-      .x-variant('true-false');
-      .x-variant('fill-in-the-blank');
-
-    }
-
-    .question {
-      counter-increment: question;
-      counter-reset: answer;
-
-      margin-left: @question-number-margin;
-
-      .x-correctness(@color; @char) {
-        border: 3px solid @color;
-
-        &::before {
-          font: normal normal normal 14px/1 FontAwesome;
-          content: @char;
-          color: @color;
-        }
-        label.answer { background-color: lighten(@color, 30%); }
-      }
-
-
-      &.answered li.option {
-
-        &::before {
-          display: inline-block;
-          width: 1.28571429em; // fa-fw
-          text-align: center; // fa-fw
-          content: '';
-        }
-
-        &.correct {
-          .x-correctness(@answer-correct; "\f00c"); // fa-check
-        }
-
-        &.incorrect {
-          .x-correctness(@answer-incorrect; "\f00d"); // fa-times
-        }
-        &.missed {
-          .x-correctness(@answer-correct; " ");
-        }
-      }
-
-
-      &.fill-in-the-blank .stem {
-        .correct::before,
-        .incorrect::before {
-          display: inline-block;
-          width: 1.28571429em; // fa-fw
-          text-align: center; // fa-fw
-          content: '';
-        }
-
-        .correct {
-          .x-correctness(@answer-correct; "\f00c"); // fa-check
-        }
-
-        .incorrect {
-          .x-correctness(@answer-incorrect; "\f00d"); // fa-times
-        }
-      }
-
-
-
-      .stem {
-        &::before {
-          content: counter(question) '. ';
-          // font-size: large;
-          font-weight: bold;
-          display: inline;
-          position: absolute;
-          left: -@question-number-margin;
-        }
-        position: relative;
-      }
-
-      ul.options {
-
-        padding: 0;
-        // margin: 0;
-
-        li.option {
-          list-style-type: none;
-
-          margin-top: 15px; // enough for the quickmenu buttons to not stack up
-
-          label {
-            cursor: pointer;
-
-            input:checked ~ * { background-color: #ccc; }
-
-            input {
-              // Move it to the left of the already-moved `(a)`
-              position: absolute;
-              left: -@question-number-margin * 2;
-            }
-          }
-          .answer {
-            display: inline-table;
-            vertical-align: top;
-          }
-
-          // When in edit mode make the answer wide so it is clickable
-          // and the quick buttons all line up on the right
-          > .answer {
-            width: 100%;
-          }
-        }
-
-      }
-    }
-
-    // For matching questions
-    .matching > table {
-      min-width: 500px;
-
-      border-spacing: 10px;
-
-      td.item:not(:empty) {
-        text-align: right;
-        &::after {
-          content: '\25cb';
-          font-size: x-large;
-          margin-left: 1em;
-        }
-      }
-      td.spacer { width: 100px; }
-      td.answer {
-        text-align: left;
-        &::before {
-          content: '\25cb'; // '\25cf'
-          font-size: x-large;
-          margin-right: 1em;
-        }
-      }
-
-    }
-
-
-}
-
-.question { padding-top: 1em; }
-
-input[type='text'] { width: 200px; }
-
-*::before { font-weight: bold; }
-
-.stem::before { content: 'Stem: '; }
-/*.choice::before { content: 'Choice: '; }*/
-
-
-.question-options,
-.question-body {
-  margin-left: @question-number-margin;
-
-  ul.options li.option {
-    position: relative;
-
-    .letter {
-      position: absolute;
-      left: -@question-number-margin;
-    }
-  }
-}
-
-// HTML Editor toolbar
-.panel-heading.ql-toolbar {
-  background-color: #efefef;
-  color: #666;
+.x-btn-dialog() {
+  margin-bottom: 0;
+  box-shadow: none;
   border: none;
-
-  .ql-format-group {
-    margin: 0 5px;
+  background-color: transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #4caf50;
+  &:hover {
+    color: #66bb6a;
   }
 
-  .ql-format-group + .ql-format-group {
-    border-left: 1px solid #ccc;
-    padding-left: 10px;
+}
+
+.btn-toolbar,
+.btn-dialog {
+  margin-bottom: 0;
+
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  .x-user-select(none);
+}
+.btn-dialog {
+  text-transform: uppercase;
+  color: #ffab40;
+}
+.btn-dialog:hover {
+  color: #ffd8a6;
+}
+.btn-dialog + .btn-dialog { margin-left: 1.5rem; }
+
+.btn-toolbar,
+.btn-dialog i {
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.btn-dialog-danger,
+.btn-dialog-danger i { color: #ccc; }
+.btn-dialog-danger:hover,
+.btn-dialog-danger:hover i { color: #f33; }
+
+.answers-table tr td { padding: 1rem 0; }
+
+td { vertical-align: initial; /* override the default in materializecss so we can set it to baseline */}
+col.answer-letter,
+col.answer-remove {
+width: 2rem;
+/* Must be set on the TD because of materialize vertical-align: baseline; */
+color: #ccc;
+}
+
+table.bordered tr:last-child { border-bottom: none; }
+
+.answer-add { color: #ccc; }
+
+.card-remove { float: right; }
+.card-remove button.btn-flat {
+/*padding-left: 0;*/
+padding-right: 0;
+}
+.card-remove button.btn-flat i {
+font-size: 2rem; /* This is the one actually set by materialize */
+color: #ccc;
+}
+.card-remove button.btn-flat:hover i {
+color: #666;
+}
+
+nav .nav-wrapper .btn-flat { color: white; padding: 0; height: 40px /*bottom of X is clipped*/; }
+
+
+.card.background {
+
+  &.mode-view .exercise-background { font-size: 1.5rem; }
+  &.mode-edit .ql-editor { font-size: 1.5rem; }
+}
+
+.card .card-content.has-default-action { cursor: pointer; }
+// Materialize hack. they remove formatting on all unordered lists ; (
+.card .card-content {
+  ul > li { list-style-type: initial; }
+  ul { padding-left: 40px; }
+  .ql-editor ul { padding: 0; }
+}
+
+
+
+.card.question {
+  counter-increment: question 1;
+  counter-reset: answer 0;
+
+  .answers-table {
+    display: table;
+    border-collapse: collapse;
+
+    border-top: 1px dotted #ccc;
+    margin-top: 1rem;
+
+    .answers-answer {
+      counter-increment: answer 1;
+      display: table-row;
+
+      .answer-letter {
+        display: table-cell;
+        width: 2rem;
+        padding-left: .5rem;
+        &:after { content: counter(answer, lower-latin) ')'; }
+      }
+
+      .answer-content {
+        display: table-cell;
+        padding: .5rem 0;
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: .5rem;
+      }
+    }
   }
 
-  .ql-format-button {
-    display: inline-block;
-    cursor: default;
-    padding: 5px;
-    margin: 0 5px;
 
-    &:not(.ql-active):hover { outline: 1px solid #ccc; }
 
-    &.ql-active {
-      background-color: rgba(0, 0, 0, .1);
-      box-shadow: inset 0 1px 2px;
+/* The Row */
+.answers-answer,
+.answers-add {
+display: table-row;
+// transition: background-color .3s ease;
+}
+// .answers-answer:hover { background-color: #efefef; }
+.answer-letter,
+.answer-actions {
+display: table-cell;
+width: 2rem;
+}
+.answer-letter { cursor: default; }
+
+
+
+  &.mode-view,
+  &.mode-preview {
+    &:before {
+      font-size: 3rem;
+      position: absolute;
+      content: counter(question);
+
+      margin-left: 3rem-1rem; // From materialize .card-content (-1rem for double-digit numbers)
+      margin-top: 1.7rem; // From materialize .card-content
+    }
+    .card-content {
+      margin-left: 4rem; // Enough room for double-digit question numbers
+
+      .question-stem {
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        min-height: 2rem; // center with the 3rem question number
+      }
+
+      .answers-table .answer-letter {
+        font-weight: bold;
+      }
+    }
+  }
+
+
+  &.mode-edit {
+    .question-toolbar-title:after {
+      content: ' ' counter(question);
+    }
+
+    label { font-size: 1rem; }
+
+    .answers-answer .answer-letter,
+    .answers-add    .answer-letter { color: #ccc; }
+    .answers-answer:not(:last-child) { border-bottom: 1px solid #d0d0d0; }
+    .answer-content-empty { color: #ccc; }
+
+    // Quill injects styles and set height:100% which causes text at the bottom to overflow into nothing
+    .answer-content .ql-container {
+      height: initial;
+      padding: 0;
+    }
+
+    .answers-answer.answer-new {
+      // Show the letter right before you click to add a new answer
+      &:not(:hover) .answer-letter:before { color: rgba(0,0,0,0); }
+      .answer-content { color: #ccc; cursor: pointer; }
+    }
+  }
+
+
+  &.mode-preview {
+    .answer-input-box { display: none; }
+
+    .answer-input-box:checked + label.answers-answer,
+    .answer-input-box:checked + label.answers-answer:hover {
+      background-color: #9e9e9e; // darker than hover
+    }
+
+    .answers-table {
+      width: 100%;
+
+      label.answers-answer {
+        transition: background-color .2s ease-in;
+        &:hover { background-color: #e0e0e0; }
+
+        //Materialize hack
+        color: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+        padding-left: 0;
+        height: inherit;
+        line-height: inherit;
+        //Materialize hack
+        //[type="radio"]:not(:checked) + label:before
+        &:before,
+        &:after { display: none; }
+
+      }
     }
   }
 }
-.panel-body .ql-container {
-  // Ensure that the Math popup always has room
-  padding-bottom: 100px;
 
-  // Quill Math Editor styling
-  [data-math] { background-color: #eee; display: inline-block; margin: 1px; cursor: pointer; }
-  [data-math]:hover { border: 1px solid #3cc; margin: 0; }
-  .ql-active { font-weight: bold; }
-  .update.disabled { color: gray; }
-  .ql-tooltip {
-    padding: 5px 10px;
-    box-shadow: 0 6px 15px 0 rgba(0,0,0,0.2),0 4px 10px 0 rgba(0,0,0,.1);
+// Special-case styling for an exercise with a single question.
+// do not show the question number
+.card-list.has-single-question .card.question {
+  &.mode-view,
+  &.mode-preview {
+    &:before {
+      display: none;
+    }
+    .card-content {
+      margin-left: 0; // No number so no need for the number
+    }
   }
-  .ql-tooltip.ql-math-tooltip .math-input { width: 200px; }
+}
 
+
+
+
+
+nav { cursor: default; }
+nav .nav-wrapper .brand-logo {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+nav .nav-wrapper .header-row-1,
+nav .nav-wrapper .header-row-2 {
+  i {
+    /* Need to keep the question-toolbar-formats in so the close button remains in place */
+    line-height: 32px;
+  }
+  .btn-toolbar {
+    font-size: 2rem;
+    line-height: 32px;
+    i { height: inherit; line-height: 32px; }
+
+    &:hover                   { background-color: rgba(0,0,0,.1); }
+    &.ql-active:not(:hover) { background-color: rgba(255,255,255,.2); }
+  }
+
+}
+nav .nav-wrapper .header-row-1 {
+  margin-top: 1rem;
+  line-height: 1rem;
+}
+nav .nav-wrapper .header-row-2 {
+  margin-left: 1rem;
+  line-height: 30px;
+}
+
+.card-content > .quill-wrapper {
+  // Make the main editable area visibly different so you know you can edit
+  border-radius: 5px;
+
+  padding: 1rem;
+  .ql-editor {
+    padding: 1rem;
+    // for a nice box shadow
+    // from GitHub
+    border-color: #aaa;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),0 0 5px rgba(167,167,167,0.5);
+
+    &:focus,
+    &.ql-has-active-popup {
+      // from GitHub
+      border-color: #51a7e8;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),0 0 5px rgba(81,167,232,0.5);
+    }
+  }
+}
+
+.card-content .quill-wrapper {
+  padding: .3rem;
+
+  // Ensure enough space below for the math popup so it does not get overflow-hidden
+  .ql-editor { transition: padding-bottom .3s ease-in; }
+  // .ql-is-active is a hack for the math popup because the editor loses focus
+  .ql-editor:focus,
+  .ql-editor.ql-has-active-popup {
+    padding-bottom: 12rem;
+  }
+  // If it is not focused then change the cursor so the user knows to click in it
+  .ql-editor:not(:focus):not(.ql-has-active-popup) {
+    cursor: pointer;
+  }
+
+  // Style the tooltip and buttons
+  .ql-math-tooltip {
+    // .z-depth-3
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #999;
+    width: 25rem;
+    overflow-x: hidden;
+    .x-user-select(none);
+
+    .title {
+      color: #9e9e9e;
+      margin-right: 1rem;
+    }
+    .math-input {
+      border: 1px solid black;
+      width: 17rem;
+      height: 2rem;
+      padding-left: .5rem;
+    }
+    .preview {
+      color: #616161;
+      margin: 5px auto;
+      width: 20rem;
+      text-align: center;
+      cursor: default;
+    }
+    .ql-btn-group {
+      border-top: 1px solid rgba(160,160,160,0.2); // from card-action-top
+
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: .5rem;
+
+      button {
+        .x-btn-dialog();
+      }
+    }
+  }
+}
+
+
+.ql-editor [data-math] {
+  .x-user-select(all);
+
+  .katex-inner {
+    // use .katex-inner to get the whole bounding box
+    background-color: #efefef;
+    outline: 1px solid #9e9e9e;
+    cursor: pointer;
+  }
+}
+
+
+// Style contenteditable text differently because we do not have control over it
+.has-html {
+  // So far:
+  // .exercise-background
+  // .answer-content
+  // .question-stem
+  div { margin-top: 1rem; }
 }
