@@ -16,13 +16,25 @@ View = React.createClass
   defaultAction: -> @props.onEditMode()
   renderActions: ->
     html = @props.model.stem_html
-    [
+    buttons = [
       <DialogButton onClick={@props.onEditMode}>Edit</DialogButton>
       <DialogButton onClick={@props.onPreviewMode}>Preview</DialogButton>
-      <DialogButton onClick={@onRemove} isDanger=true isRight=true>
+      <DialogButton onClick={@onRemove} isDanger=true isRight=true title="Remove Question">
         <i className="fa fa-trash-o"></i>
       </DialogButton>
     ]
+
+    unless ExerciseStore.isLastQuestion(@props.parent, @props.model)
+      buttons.push(<DialogButton onClick={@onMoveDown} isDanger=true isRight=true title="Move Question Down">
+        <i className="fa fa-arrow-down"></i>
+      </DialogButton>)
+
+    unless ExerciseStore.isFirstQuestion(@props.parent, @props.model)
+      buttons.push(<DialogButton onClick={@onMoveUp} isDanger=true isRight=true title="Move Question Up">
+        <i className="fa fa-arrow-up"></i>
+      </DialogButton>)
+
+    buttons
 
   renderContent: ->
     html = @props.model.stem_html
@@ -39,6 +51,9 @@ View = React.createClass
         {answers}
       </div>
     ]
+
+  onMoveUp:   -> ExerciseActions.moveQuestionUp(@props.parent, @props.model)
+  onMoveDown: -> ExerciseActions.moveQuestionDown(@props.parent, @props.model)
 
   onRemove: ->
     if confirm('Are you sure you want to remove the entire question?')
@@ -189,27 +204,41 @@ Edit = React.createClass
     answers.push({content_html: ''})
     @setState {answers, justAddedAnswer:true}
 
-  onCancel: -> @props.onViewMode()
+  onCancel: ->
+    if @props.onCancel
+      @props.onCancel()
+    else
+      @props.onViewMode()
   onDone: ->
     # Update the question stem..
     # If it changed then htmlGetter will be defined
     if @state.objects.htmlGetter
       html = @state.objects.htmlGetter()
+
+    if @props.onDone
+      @props.onDone(html, @state.answers)
+    else
       ExerciseActions.changeQuestion(@props.model, html)
-    # Update the list of answers
-    ExerciseActions.changeAnswers(@props.model, @state.answers)
-    @props.onViewMode()
+      # Update the list of answers
+      ExerciseActions.changeAnswers(@props.model, @state.answers)
+      @props.onViewMode()
 
 
 module.exports = React.createClass
   displayName: 'Question'
 
   render: ->
-    initialMode = switch ExerciseStore.getExerciseMode()
-      when EXERCISE_MODES.VIEW then 'mode-preview'
-      when EXERCISE_MODES.EDIT then 'mode-view'
-      when EXERCISE_MODES.REVIEW then 'mode-preview'
-      else throw new Error('BUG!')
+    if @props.initialMode
+      initialMode = @props.initialMode
+    else
+      initialMode = switch ExerciseStore.getExerciseMode()
+        when EXERCISE_MODES.VIEW then 'mode-preview'
+        when EXERCISE_MODES.EDIT then 'mode-view'
+        when EXERCISE_MODES.REVIEW then 'mode-preview'
+        else throw new Error('BUG!')
+
+    # `onCancel` and `onDone` are used by `Exercise`
+    # for new questions that have not been added yet.
 
     <MultiMode
       className="question"
@@ -219,4 +248,6 @@ module.exports = React.createClass
       model={@props.model}
       parent={@props.parent}
       initialMode={initialMode}
+      onCancel={@props.onCancel}
+      onDone={@props.onDone}
     />

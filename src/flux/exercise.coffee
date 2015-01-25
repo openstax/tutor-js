@@ -43,6 +43,21 @@ ExerciseConfig = {
     aryRemove(exercise.questions, question)
     @emitChange()
 
+  moveQuestionUp: (exercise, question) ->
+    i = exercise.questions.indexOf(question)
+    throw new Error('BUG: Invalid position') unless i > 0
+    exercise.questions.splice(i, 1)
+    exercise.questions.splice(i - 1, 0, question)
+    @emitChange()
+
+  moveQuestionDown: (exercise, question) ->
+    i = exercise.questions.indexOf(question)
+    unless i < exercise.questions.length - 1
+      throw new Error('BUG: Invalid position')
+    exercise.questions.splice(i, 1)
+    exercise.questions.splice(i + 1, 0, question)
+    @emitChange()
+
   # Question
 
   changeQuestion: (question, html) ->
@@ -121,6 +136,9 @@ ExerciseConfig = {
     getId: (obj) -> obj.id
     hasAllAnswer: (question) -> question.hasAllAnswer
     hasNoneAnswer: (question) -> question.hasNoneAnswer
+    isFirstQuestion: (exercise, question) -> exercise.questions[0] is question
+    isLastQuestion: (exercise, question) ->
+      exercise.questions[exercise.questions.length - 1] is question
 }
 
 # Helper for creating a simple store for actions

@@ -16,6 +16,9 @@ module.exports = React.createClass
     classes.push(@props.className) if @props.className
     classes = classes.join(' ')
 
+    # `onCancel` and `onDone` are used by `Exercise`
+    # for new questions that have not been added yet.
+
     childProps =
       className: classes
       model: @props.model
@@ -23,6 +26,8 @@ module.exports = React.createClass
       onEditMode: @onEditMode
       onViewMode: @onViewMode
       onPreviewMode: @onPreviewMode
+      onCancel: @props.onCancel
+      onDone: @props.onDone
       children: @props.children
 
     switch @state.mode

@@ -4,10 +4,14 @@ React = require 'react'
 CardList = require './card-list'
 Background = require './background'
 Question = require './question'
-{ExerciseStore} = require './flux/exercise'
+PrimaryAdd = require './primary-add'
+{ExerciseActions, ExerciseStore} = require './flux/exercise'
 
 module.exports = React.createClass
   displayName: 'Exercise'
+
+  getInitialState: ->
+    addingQuestion: null
 
   componentWillMount: ->
     ExerciseStore.addChangeListener(@update)
@@ -22,4 +26,40 @@ module.exports = React.createClass
     for question in @props.config.questions
       cards.push(<Question model={question} parent={@props.config} />)
 
-    <CardList className={classes}>{cards}</CardList>
+    if @state.addingQuestion
+      addOrBlankQuestion = null
+      cards.push(
+        <Question
+          model={@state.addingQuestion}
+          parent={@props.config}
+          initialMode="mode-edit"
+          onCancel={@onCancelAdd}
+          onDone={@onDoneAdd} />
+      )
+    else
+      addOrBlankQuestion =
+        <PrimaryAdd title="Add a New Question" onClick={@onAdd} />
+
+    <div className="exercise">
+      <CardList className={classes}>{cards}</CardList>
+      {addOrBlankQuestion}
+    </div>
+
+  onAdd: ->
+    blankQuestion =
+      formats: ['multiple-choice']
+      stem_html: ''
+      answers: []
+    @setState {addingQuestion: blankQuestion}
+
+  onCancelAdd: ->
+    @setState {addingQuestion: null}
+
+  onDoneAdd: (stem, answers) ->
+    question =
+      formats: ['multiple-choice']
+      stem_html: stem
+      answers: answers
+
+    ExerciseActions.addQuestion(@props.config, question)
+    @setState {addingQuestion: null}
