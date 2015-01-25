@@ -5,6 +5,7 @@ CardList = require './card-list'
 Background = require './background'
 Question = require './question'
 PrimaryAdd = require './primary-add'
+{MULTI_MODES} = require './multi-mode'
 {ExerciseActions, ExerciseStore} = require './flux/exercise'
 
 module.exports = React.createClass
@@ -32,7 +33,7 @@ module.exports = React.createClass
         <Question
           model={@state.addingQuestion}
           parent={@props.config}
-          initialMode="mode-edit"
+          initialMode={MULTI_MODES.EDIT}
           onCancel={@onCancelAdd}
           onDone={@onDoneAdd} />
       )

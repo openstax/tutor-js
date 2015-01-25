@@ -4,7 +4,7 @@ KatexMixin = require './katex-mixin'
 HeaderMixin = require './header-mixin'
 DialogButton = require './dialog-button'
 HtmlEditor = require './html-editor'
-MultiMode = require './multi-mode'
+{MultiMode, MULTI_MODES} = require './multi-mode'
 FORMATTING_BUTTONS = require './formatting-buttons'
 
 {ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
@@ -120,7 +120,7 @@ EditAnswer = React.createClass
         <HtmlEditor toolbarId="#hack-quill-toolbar-id" html={html} onChange={@props.onChange} noInitialFocus={@props.noInitialFocus} />
       </div>
       <div className="answer-actions">
-        <DialogButton isDanger={true} onClick={@props.onRemove}>
+        <DialogButton isDanger={true} onClick={@props.onRemove} title="Remove Answer">
           <i className="fa fa-trash-o"></i>
         </DialogButton>
       </div>
@@ -232,9 +232,9 @@ module.exports = React.createClass
       initialMode = @props.initialMode
     else
       initialMode = switch ExerciseStore.getExerciseMode()
-        when EXERCISE_MODES.VIEW then 'mode-preview'
-        when EXERCISE_MODES.EDIT then 'mode-view'
-        when EXERCISE_MODES.REVIEW then 'mode-preview'
+        when EXERCISE_MODES.VIEW then MULTI_MODES.VIEW
+        when EXERCISE_MODES.EDIT then MULTI_MODES.VIEW
+        when EXERCISE_MODES.REVIEW then MULTI_MODES.VIEW
         else throw new Error('BUG!')
 
     # `onCancel` and `onDone` are used by `Exercise`

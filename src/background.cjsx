@@ -4,7 +4,7 @@ KatexMixin = require './katex-mixin'
 HeaderMixin = require './header-mixin'
 DialogButton = require './dialog-button'
 HtmlEditor = require './html-editor'
-MultiMode = require './multi-mode'
+{MultiMode} = require './multi-mode'
 FORMATTING_BUTTONS = require './formatting-buttons'
 
 {ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'

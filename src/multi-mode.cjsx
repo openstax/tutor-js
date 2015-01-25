@@ -5,7 +5,7 @@ MODES =
   EDIT: 'mode-edit'
   PREVIEW: 'mode-preview'
 
-module.exports = React.createClass
+MultiMode = React.createClass
   displayName: 'MultiMode'
 
   getInitialState: ->
@@ -43,3 +43,6 @@ module.exports = React.createClass
   componentWillReceiveProps: (newProps) ->
     if newProps.initialMode isnt @props.initialMode
       @setState {mode: newProps.initialMode}
+
+
+module.exports = {MultiMode, MULTI_MODES: MODES}

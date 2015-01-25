@@ -64,55 +64,55 @@ ExerciseConfig = {
     question.stem_html = html
     @emitChange()
 
-  changeQuestionStimulus: (question, html) ->
-    question.stimulus_html = html
-    @emitChange()
-
+  # changeQuestionStimulus: (question, html) ->
+  #   question.stimulus_html = html
+  #   @emitChange()
+  
   changeAnswers: (question, answers) ->
     question.answers = answers
     @emitChange()
 
-  addAnswer: (question, answer) ->
-    question.answers.push(answer)
-    @emitChange()
-
-  removeAnswer: (question, answer) ->
-    aryRemove(question.answers, answer)
-    @emitChange()
-
-  setAllAnswer: (question, isAnOption) ->
-    question.hasAllAnswer = isAnOption
-    @emitChange()
-
-  setNoneAnswer: (question, isAnOption) ->
-    question.hasNoneAnswer = isAnOption
-    @emitChange()
-
-  addMultiAnswer: (question, multiAnswer) ->
-    question.answers.push(multiAnswer)
-    @emitChange()
-
-  removeMultiAnswer: (question, multiAnswer) ->
-    aryRemove(question.answers, multiAnswer)
-    @emitChange()
+  # addAnswer: (question, answer) ->
+  #   question.answers.push(answer)
+  #   @emitChange()
+  #
+  # removeAnswer: (question, answer) ->
+  #   aryRemove(question.answers, answer)
+  #   @emitChange()
+  #
+  # setAllAnswer: (question, isAnOption) ->
+  #   question.hasAllAnswer = isAnOption
+  #   @emitChange()
+  #
+  # setNoneAnswer: (question, isAnOption) ->
+  #   question.hasNoneAnswer = isAnOption
+  #   @emitChange()
+  #
+  # addMultiAnswer: (question, multiAnswer) ->
+  #   question.answers.push(multiAnswer)
+  #   @emitChange()
+  #
+  # removeMultiAnswer: (question, multiAnswer) ->
+  #   aryRemove(question.answers, multiAnswer)
+  #   @emitChange()
 
   # Answer
 
-  changeAnswer: (answer, html) ->
-    answer.content_html = html
-    @emitChange()
-
-  changeAnswerCorrectness: (answer, isCorrect) ->
-    answer.isCorrect = isCorrect
-    @emitChange()
-
-  changeMultiAnswer: (multiAnswer, answerIds) ->
-    multiAnswer.answer_ids = answerIds
-    @emitChange()
-
-  changeMultiAnswerCorrectness: (multiAnswer, isCorrect) ->
-    multiAnswer.isCorrect = isCorrect
-    @emitChange()
+  # changeAnswer: (answer, html) ->
+  #   answer.content_html = html
+  #   @emitChange()
+  #
+  # changeAnswerCorrectness: (answer, isCorrect) ->
+  #   answer.isCorrect = isCorrect
+  #   @emitChange()
+  #
+  # changeMultiAnswer: (multiAnswer, answerIds) ->
+  #   multiAnswer.answer_ids = answerIds
+  #   @emitChange()
+  #
+  # changeMultiAnswerCorrectness: (multiAnswer, isCorrect) ->
+  #   multiAnswer.isCorrect = isCorrect
+  #   @emitChange()
 
   exports:
     getExerciseMode: (exercise) ->
@@ -122,20 +122,20 @@ ExerciseConfig = {
       else
         EXERCISE_MODES.VIEW
 
-    getQuestions: (exercise) ->
-      exercise.questions
-    getAnswers: (question) ->
-      question.answers
+    # getQuestions: (exercise) ->
+    #   exercise.questions
+    # getAnswers: (question) ->
+    #   question.answers
 
-    getQuestionStem: (question) -> question.stem_html
-    getQuestionStimulus: (question) -> question.stimulus_html
-    getAnswerContent: (answer) -> answer.content_html
-    getAnswerCorrectness: (answer) -> answer.isCorrect
-    getMultiAnswerAnswers: (multiAnswer) -> multiAnswer.answer_ids
-    getMultiAnswerCorrectness: (multiAnswer) -> multiAnswer.isCorrect
-    getId: (obj) -> obj.id
-    hasAllAnswer: (question) -> question.hasAllAnswer
-    hasNoneAnswer: (question) -> question.hasNoneAnswer
+    # getQuestionStem: (question) -> question.stem_html
+    # getQuestionStimulus: (question) -> question.stimulus_html
+    # getAnswerContent: (answer) -> answer.content_html
+    # getAnswerCorrectness: (answer) -> answer.isCorrect
+    # getMultiAnswerAnswers: (multiAnswer) -> multiAnswer.answer_ids
+    # getMultiAnswerCorrectness: (multiAnswer) -> multiAnswer.isCorrect
+    # getId: (obj) -> obj.id
+    # hasAllAnswer: (question) -> question.hasAllAnswer
+    # hasNoneAnswer: (question) -> question.hasNoneAnswer
     isFirstQuestion: (exercise, question) -> exercise.questions[0] is question
     isLastQuestion: (exercise, question) ->
       exercise.questions[exercise.questions.length - 1] is question
