@@ -7,8 +7,8 @@
   },
   "devDependencies": {
     "browserify": "^5.12.0",
-    "cjsxify": "^0.2.5",
     "chai": "^1.9.1",
+    "cjsxify": "^0.2.5",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.7.0",
     "flux-react": "2.3.0",
