@@ -50,44 +50,44 @@ build = (isWatching)->
     .pipe(less())
     .pipe(gulp.dest(destDirCss))
 
-# buildTests = (isWatching) ->
-#   destDir = './.tmp' # This is referenced in ./test/karma.config.coffee
-#   destFile = 'all-tests.js'
-#   srcPath = './test/all-tests.coffee'
-#   buildBrowserify(srcPath, destDir, destFile, isWatching)
-#
-#
-# gulp.task 'test', (done) ->
-#   buildTests(false)
-#   .on 'end', ->
-#     config =
-#       configFile: __dirname + '/test/karma.config.coffee'
-#       singleRun: true
-#     karma.server.start(config, done)
-#
-#   return # Since this is async
-#
-# gulp.task 'tdd', (done) ->
-#   buildTests(true)
-#   .on 'end', ->
-#     config =
-#       configFile: __dirname + '/test/karma.config.coffee'
-#     karma.server.start(config, done)
-#
-#   return # Since this is async
+buildTests = (isWatching) ->
+  destDir = './.tmp' # This is referenced in ./test/karma.config.coffee
+  destFile = 'all-tests.js'
+  srcPath = './test/all-tests.coffee'
+  buildBrowserify(srcPath, destDir, destFile, isWatching)
+
+
+gulp.task 'test', (done) ->
+  buildTests(false)
+  .on 'end', ->
+    config =
+      configFile: __dirname + '/test/karma.config.coffee'
+      singleRun: true
+    karma.server.start(config, done)
+
+  return # Since this is async
+
+gulp.task 'tdd', (done) ->
+  buildTests(true)
+  .on 'end', ->
+    config =
+      configFile: __dirname + '/test/karma.config.coffee'
+    karma.server.start(config, done)
+
+  return # Since this is async
 
 
 gulp.task 'dist', -> build(false)
 gulp.task 'watch', -> build(true)
-# gulp.task 'serve', ->
-#   build(true)
-#   config = webserver
-#     port: process.env['PORT'] or undefined
-#     # host: '0.0.0.0'
-#     open: true
-#     livereload:
-#       filter: (f) -> console.log(arguments)
-#     fallback: 'index.html'
-#
-#   gulp.src('./')
-#     .pipe(config)
+gulp.task 'serve', ->
+  build(true)
+  config = webserver
+    port: process.env['PORT'] or undefined
+    # host: '0.0.0.0'
+    open: true
+    livereload:
+      filter: (f) -> console.log(arguments)
+    fallback: 'index.html'
+
+  gulp.src('./')
+    .pipe(config)
