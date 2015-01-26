@@ -1,124 +1,6 @@
 @import '../bower_components/font-awesome/css/font-awesome.min.css';
 @import '../bower_components/materialize/dist/css/materialize.min.css';
 @import '../style/katex.css';
-html {
-  font-size: 12px;
-}
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-body {
-  background-color: #efefef;
-  margin-left: 100px;
-}
-nav .nav-wrapper .brand-logo {
-  margin-left: 1rem;
-}
-nav ul.side-nav {
-  margin-right: 1rem;
-}
-nav .nav-wrapper a {
-  color: white;
-}
-nav.double-height {
-  height: 7.5rem;
-}
-.contenteditable-label {
-  color: #9e9e9e;
-  position: relative;
-  font-size: 1rem;
-  cursor: default;
-}
-#question-stem {
-  margin-left: 1rem;
-}
-.answers-label {
-  left: -1rem;
-}
-.card a {
-  margin-right: inherit;
-}
-.btn-toolbar.btn-close {
-  float: right;
-  padding: 0;
-  margin-right: .5rem;
-}
-.btn-toolbar.btn-close i {
-  height: 32px;
-  line-height: 32px;
-}
-.btn-toolbar,
-.btn-dialog {
-  margin-bottom: 0;
-  box-shadow: none;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-}
-.btn-dialog {
-  text-transform: uppercase;
-  color: #ffab40;
-}
-.btn-dialog:hover {
-  color: #ffd8a6;
-}
-.btn-dialog + .btn-dialog {
-  margin-left: 1.5rem;
-}
-.btn-toolbar,
-.btn-dialog i {
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
-.btn-dialog-danger,
-.btn-dialog-danger i {
-  color: #ccc;
-}
-.btn-dialog-danger:hover,
-.btn-dialog-danger:hover i {
-  color: #f33;
-}
-.answers-table tr td {
-  padding: 1rem 0;
-}
-td {
-  vertical-align: initial;
-  /* override the default in materializecss so we can set it to baseline */
-}
-col.answer-letter,
-col.answer-remove {
-  width: 2rem;
-  /* Must be set on the TD because of materialize vertical-align: baseline; */
-  color: #ccc;
-}
-table.bordered tr:last-child {
-  border-bottom: none;
-}
-.answer-add {
-  color: #ccc;
-}
-.card-remove {
-  float: right;
-}
-.card-remove button.btn-flat {
-  /*padding-left: 0;*/
-  padding-right: 0;
-}
-.card-remove button.btn-flat i {
-  font-size: 2rem;
-  /* This is the one actually set by materialize */
-  color: #ccc;
-}
-.card-remove button.btn-flat:hover i {
-  color: #666;
-}
-nav .nav-wrapper .btn-flat {
-  color: white;
-  padding: 0;
-  height: 40px /*bottom of X is clipped*/;
-}
 .card.background.mode-view .exercise-background {
   font-size: 1.5rem;
 }
@@ -136,6 +18,9 @@ nav .nav-wrapper .btn-flat {
 }
 .card .card-content .ql-editor ul {
   padding: 0;
+}
+.has-html div {
+  margin-top: 1rem;
 }
 .card.question {
   counter-increment: question 1;
@@ -262,6 +147,29 @@ nav .nav-wrapper .btn-flat {
 .card-list.has-single-question .card.question.mode-preview .card-content {
   margin-left: 0;
 }
+nav .nav-wrapper .btn-flat {
+  color: white;
+  padding: 0;
+  height: 40px /*bottom of X is clipped*/;
+}
+nav .nav-wrapper .brand-logo {
+  margin-left: 1rem;
+}
+nav .nav-wrapper a {
+  color: white;
+}
+nav.double-height {
+  height: 7.5rem;
+}
+.btn-toolbar.btn-close {
+  float: right;
+  padding: 0;
+  margin-right: .5rem;
+}
+.btn-toolbar.btn-close i {
+  height: 32px;
+  line-height: 32px;
+}
 nav {
   cursor: default;
 }
@@ -382,8 +290,46 @@ nav .nav-wrapper .header-row-2 {
   outline: 1px solid #9e9e9e;
   cursor: pointer;
 }
-.has-html div {
-  margin-top: 1rem;
+html {
+  font-size: 12px;
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #efefef;
+  margin-left: 100px;
+}
+.btn-toolbar,
+.btn-dialog {
+  margin-bottom: 0;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.btn-dialog {
+  text-transform: uppercase;
+  color: #ffab40;
+}
+.btn-dialog:hover {
+  color: #ffd8a6;
+}
+.btn-dialog + .btn-dialog {
+  margin-left: 1.5rem;
+}
+.btn-toolbar,
+.btn-dialog i {
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+.btn-dialog-danger,
+.btn-dialog-danger i {
+  color: #ccc;
+}
+.btn-dialog-danger:hover,
+.btn-dialog-danger:hover i {
+  color: #f33;
 }
 .btn-primary {
   position: fixed;

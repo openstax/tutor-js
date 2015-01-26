@@ -1,0 +1,147 @@
+.card.question {
+  counter-increment: question 1;
+  counter-reset: answer 0;
+
+  .answers-table {
+    display: table;
+    border-collapse: collapse;
+
+    border-top: 1px dotted #ccc;
+    margin-top: 1rem;
+
+    .answers-answer {
+      counter-increment: answer 1;
+      display: table-row;
+
+      .answer-letter {
+        display: table-cell;
+        width: 2rem;
+        padding-left: .5rem;
+        &:after { content: counter(answer, lower-latin) ')'; }
+      }
+
+      .answer-content {
+        display: table-cell;
+        padding: .5rem 0;
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: .5rem;
+      }
+    }
+  }
+
+
+
+/* The Row */
+.answers-answer,
+.answers-add {
+display: table-row;
+// transition: background-color .3s ease;
+}
+// .answers-answer:hover { background-color: #efefef; }
+.answer-letter,
+.answer-actions {
+display: table-cell;
+width: 2rem;
+}
+.answer-letter { cursor: default; }
+
+
+
+  &.mode-view,
+  &.mode-preview {
+    &:before {
+      font-size: 3rem;
+      position: absolute;
+      content: counter(question);
+
+      margin-left: 3rem-1rem; // From materialize .card-content (-1rem for double-digit numbers)
+      margin-top: 1.7rem; // From materialize .card-content
+    }
+    .card-content {
+      margin-left: 4rem; // Enough room for double-digit question numbers
+
+      .question-stem {
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        min-height: 2rem; // center with the 3rem question number
+      }
+
+      .answers-table .answer-letter {
+        font-weight: bold;
+      }
+    }
+  }
+
+
+  &.mode-edit {
+    .question-toolbar-title:after {
+      content: ' ' counter(question);
+    }
+
+    label { font-size: 1rem; }
+
+    .answers-answer .answer-letter,
+    .answers-add    .answer-letter { color: #ccc; }
+    .answers-answer:not(:last-child) { border-bottom: 1px solid #d0d0d0; }
+    .answer-content-empty { color: #ccc; }
+
+    // Quill injects styles and set height:100% which causes text at the bottom to overflow into nothing
+    .answer-content .ql-container {
+      height: initial;
+      padding: 0;
+    }
+
+    .answers-answer.answer-new {
+      // Show the letter right before you click to add a new answer
+      &:not(:hover) .answer-letter:before { color: rgba(0,0,0,0); }
+      .answer-content { color: #ccc; cursor: pointer; }
+    }
+  }
+
+
+  &.mode-preview {
+    .answer-input-box { display: none; }
+
+    .answer-input-box:checked + label.answers-answer,
+    .answer-input-box:checked + label.answers-answer:hover {
+      background-color: #9e9e9e; // darker than hover
+    }
+
+    .answers-table {
+      width: 100%;
+
+      label.answers-answer {
+        transition: background-color .2s ease-in;
+        &:hover { background-color: #e0e0e0; }
+
+        //Materialize hack
+        color: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+        padding-left: 0;
+        height: inherit;
+        line-height: inherit;
+        //Materialize hack
+        //[type="radio"]:not(:checked) + label:before
+        &:before,
+        &:after { display: none; }
+
+      }
+    }
+  }
+}
+
+// Special-case styling for an exercise with a single question.
+// do not show the question number
+.card-list.has-single-question .card.question {
+  &.mode-view,
+  &.mode-preview {
+    &:before {
+      display: none;
+    }
+    .card-content {
+      margin-left: 0; // No number so no need for the number
+    }
+  }
+}

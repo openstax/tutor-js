@@ -1,0 +1,48 @@
+nav .nav-wrapper .btn-flat { color: white; padding: 0; height: 40px /*bottom of X is clipped*/; }
+
+nav .nav-wrapper .brand-logo { margin-left: 1rem; }
+nav .nav-wrapper a { color: white; }
+nav.double-height { height: 7.5rem; }
+
+.btn-toolbar.btn-close {
+  float: right;
+  padding: 0;
+  margin-right: .5rem;
+
+  i {
+    height: 32px;
+    line-height: 32px;
+  }
+}
+
+
+
+nav { cursor: default; }
+nav .nav-wrapper .brand-logo {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+nav .nav-wrapper .header-row-1,
+nav .nav-wrapper .header-row-2 {
+  i {
+    /* Need to keep the question-toolbar-formats in so the close button remains in place */
+    line-height: 32px;
+  }
+  .btn-toolbar {
+    font-size: 2rem;
+    line-height: 32px;
+    i { height: inherit; line-height: 32px; }
+
+    &:hover                   { background-color: rgba(0,0,0,.1); }
+    &.ql-active:not(:hover) { background-color: rgba(255,255,255,.2); }
+  }
+
+}
+nav .nav-wrapper .header-row-1 {
+  margin-top: 1rem;
+  line-height: 1rem;
+}
+nav .nav-wrapper .header-row-2 {
+  margin-left: 1rem;
+  line-height: 30px;
+}

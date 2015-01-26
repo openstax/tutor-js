@@ -1,0 +1,22 @@
+.card.background {
+
+  &.mode-view .exercise-background { font-size: 1.5rem; }
+  &.mode-edit .ql-editor { font-size: 1.5rem; }
+}
+
+.card .card-content.has-default-action { cursor: pointer; }
+// Materialize hack. they remove formatting on all unordered lists ; (
+.card .card-content {
+  ul > li { list-style-type: initial; }
+  ul { padding-left: 40px; }
+  .ql-editor ul { padding: 0; }
+}
+
+// Style contenteditable text differently because we do not have control over it
+.has-html {
+  // So far:
+  // .exercise-background
+  // .answer-content
+  // .question-stem
+  div { margin-top: 1rem; }
+}
