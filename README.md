@@ -1,6 +1,7 @@
 # Development Instructions
 
 ```sh
+npm install -g gulp
 npm install
 bower install
 ```
