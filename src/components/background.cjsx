@@ -7,7 +7,7 @@ HtmlEditor = require './html-editor'
 {MultiMode} = require './multi-mode'
 FORMATTING_BUTTONS = require './formatting-buttons'
 
-{ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
+{ExerciseActions, ExerciseStore, EXERCISE_MODES} = require '../stores/exercise'
 
 View = React.createClass
   mixins: [CardMixin, KatexMixin]

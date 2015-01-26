@@ -4,11 +4,11 @@ var AnswerActions, AnswerStore, EXERCISE_MODES, Exercise, ExerciseActions, Exerc
 
 React = require('react');
 
-_ref = require('./flux/answer'), AnswerActions = _ref.AnswerActions, AnswerStore = _ref.AnswerStore;
+_ref = require('./stores/answer'), AnswerActions = _ref.AnswerActions, AnswerStore = _ref.AnswerStore;
 
-_ref1 = require('./flux/exercise'), ExerciseActions = _ref1.ExerciseActions, ExerciseStore = _ref1.ExerciseStore, EXERCISE_MODES = _ref1.EXERCISE_MODES;
+_ref1 = require('./stores/exercise'), ExerciseActions = _ref1.ExerciseActions, ExerciseStore = _ref1.ExerciseStore, EXERCISE_MODES = _ref1.EXERCISE_MODES;
 
-Exercise = require('./exercise');
+Exercise = require('./components/exercise');
 
 ajax = require('./ajax');
 
@@ -76,7 +76,7 @@ ajax({
 });
 
 
-},{"./ajax":178,"./exercise":183,"./flux/answer":184,"./flux/exercise":185,"react":176}],2:[function(require,module,exports){
+},{"./ajax":178,"./components/exercise":183,"./stores/answer":191,"./stores/exercise":192,"react":176}],2:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -36225,7 +36225,7 @@ MultiMode = require('./multi-mode').MultiMode;
 
 FORMATTING_BUTTONS = require('./formatting-buttons');
 
-_ref = require('./flux/exercise'), ExerciseActions = _ref.ExerciseActions, ExerciseStore = _ref.ExerciseStore, EXERCISE_MODES = _ref.EXERCISE_MODES;
+_ref = require('../stores/exercise'), ExerciseActions = _ref.ExerciseActions, ExerciseStore = _ref.ExerciseStore, EXERCISE_MODES = _ref.EXERCISE_MODES;
 
 View = React.createClass({
   mixins: [CardMixin, KatexMixin],
@@ -36361,7 +36361,7 @@ module.exports = React.createClass({
 });
 
 
-},{"./card-mixin":181,"./dialog-button":182,"./flux/exercise":185,"./formatting-buttons":186,"./header-mixin":187,"./html-editor":188,"./katex-mixin":189,"./multi-mode":190,"react":176}],180:[function(require,module,exports){
+},{"../stores/exercise":192,"./card-mixin":181,"./dialog-button":182,"./formatting-buttons":184,"./header-mixin":185,"./html-editor":186,"./katex-mixin":187,"./multi-mode":188,"react":176}],180:[function(require,module,exports){
 var React;
 
 React = require('react');
@@ -36466,7 +36466,7 @@ PrimaryAdd = require('./primary-add');
 
 MULTI_MODES = require('./multi-mode').MULTI_MODES;
 
-_ref = require('./flux/exercise'), ExerciseActions = _ref.ExerciseActions, ExerciseStore = _ref.ExerciseStore;
+_ref = require('../stores/exercise'), ExerciseActions = _ref.ExerciseActions, ExerciseStore = _ref.ExerciseStore;
 
 module.exports = React.createClass({
   displayName: 'Exercise',
@@ -36552,164 +36552,7 @@ module.exports = React.createClass({
 });
 
 
-},{"./background":179,"./card-list":180,"./flux/exercise":185,"./multi-mode":190,"./primary-add":191,"./question":192,"react":176}],184:[function(require,module,exports){
-var AnswerActions, AnswerStore, flux, _;
-
-_ = require('underscore');
-
-flux = require('flux-react');
-
-AnswerActions = flux.createActions(['reset', 'setAnswer']);
-
-AnswerStore = flux.createStore({
-  actions: [AnswerActions.reset, AnswerActions.setAnswer],
-  _answers: {},
-  reset: function() {
-    this._answers = {};
-    return this.emitChange();
-  },
-  setAnswer: function(question, answer) {
-    this._answers[question.id] = answer;
-    return this.emitChange();
-  },
-  exports: {
-    getAnswer: function(question) {
-      var id;
-      id = question.id;
-      if (this._answers[id] != null) {
-        return this._answers[id];
-      } else {
-        return question.answer;
-      }
-    },
-    getAllAnswers: function() {
-      return this._answers;
-    }
-  }
-});
-
-module.exports = {
-  AnswerActions: AnswerActions,
-  AnswerStore: AnswerStore
-};
-
-
-},{"flux-react":9,"underscore":177}],185:[function(require,module,exports){
-var EXERCISE_MODES, EXERCISE_MODES_TEMPLATE, ExerciseActions, ExerciseConfig, ExerciseStore, aryRemove, flux, i, makeSimpleStore, val, _, _i, _len, _ref;
-
-_ = require('underscore');
-
-flux = require('flux-react');
-
-EXERCISE_MODES_TEMPLATE = ['VIEW', 'REVIEW', 'EDIT'];
-
-EXERCISE_MODES = {};
-
-for (i = _i = 0, _len = EXERCISE_MODES_TEMPLATE.length; _i < _len; i = ++_i) {
-  val = EXERCISE_MODES_TEMPLATE[i];
-  EXERCISE_MODES[val] = "ENUM_" + val + "_" + i;
-}
-
-aryRemove = function(ary, item) {
-  var index;
-  index = ary.indexOf(item);
-  if (index >= 0) {
-    ary.splice(index, 1);
-  } else {
-    throw new Error('BUG: Item not found in array');
-  }
-  return true;
-};
-
-ExerciseConfig = {
-  changeExerciseMode: function(newMode) {
-    this._currentMode = newMode;
-    return this.emitChange();
-  },
-  changeExerciseStimulus: function(exercise, html) {
-    exercise.stimulus_html = html;
-    return this.emitChange();
-  },
-  removeExerciseStimulus: function(exercise) {
-    exercise.stimulus_html = '';
-    return this.emitChange();
-  },
-  addQuestion: function(exercise, question) {
-    exercise.questions.push(question);
-    return this.emitChange();
-  },
-  removeQuestion: function(exercise, question) {
-    aryRemove(exercise.questions, question);
-    return this.emitChange();
-  },
-  moveQuestionUp: function(exercise, question) {
-    i = exercise.questions.indexOf(question);
-    if (!(i > 0)) {
-      throw new Error('BUG: Invalid position');
-    }
-    exercise.questions.splice(i, 1);
-    exercise.questions.splice(i - 1, 0, question);
-    return this.emitChange();
-  },
-  moveQuestionDown: function(exercise, question) {
-    i = exercise.questions.indexOf(question);
-    if (!(i < exercise.questions.length - 1)) {
-      throw new Error('BUG: Invalid position');
-    }
-    exercise.questions.splice(i, 1);
-    exercise.questions.splice(i + 1, 0, question);
-    return this.emitChange();
-  },
-  changeQuestion: function(question, html) {
-    question.stem_html = html;
-    return this.emitChange();
-  },
-  changeAnswers: function(question, answers) {
-    question.answers = answers;
-    return this.emitChange();
-  },
-  exports: {
-    getExerciseMode: function(exercise) {
-      if (this._currentMode) {
-        return this._currentMode;
-      }
-      if ((exercise != null ? exercise.answer : void 0) != null) {
-        return EXERCISE_MODES.REVIEW;
-      } else {
-        return EXERCISE_MODES.VIEW;
-      }
-    },
-    isFirstQuestion: function(exercise, question) {
-      return exercise.questions[0] === question;
-    },
-    isLastQuestion: function(exercise, question) {
-      return exercise.questions[exercise.questions.length - 1] === question;
-    }
-  }
-};
-
-makeSimpleStore = function(storeConfig) {
-  var actions, actionsConfig, store;
-  actionsConfig = _.without(_.keys(storeConfig), 'exports');
-  actions = flux.createActions(actionsConfig);
-  storeConfig.actions = _.values(actions);
-  store = flux.createStore(storeConfig);
-  return {
-    actions: actions,
-    store: store
-  };
-};
-
-_ref = makeSimpleStore(ExerciseConfig), ExerciseActions = _ref.actions, ExerciseStore = _ref.store;
-
-module.exports = {
-  ExerciseActions: ExerciseActions,
-  ExerciseStore: ExerciseStore,
-  EXERCISE_MODES: EXERCISE_MODES
-};
-
-
-},{"flux-react":9,"underscore":177}],186:[function(require,module,exports){
+},{"../stores/exercise":192,"./background":179,"./card-list":180,"./multi-mode":188,"./primary-add":189,"./question":190,"react":176}],184:[function(require,module,exports){
 var Btn, React;
 
 React = require('react');
@@ -36751,7 +36594,7 @@ module.exports = [
 ];
 
 
-},{"react":176}],187:[function(require,module,exports){
+},{"react":176}],185:[function(require,module,exports){
 var React;
 
 React = require('react');
@@ -36777,7 +36620,7 @@ module.exports = {
 };
 
 
-},{"react":176}],188:[function(require,module,exports){
+},{"react":176}],186:[function(require,module,exports){
 var KatexMixin, MOST_RECENTLY_FOCUSED, Quill, React;
 
 React = require('react');
@@ -36859,7 +36702,7 @@ module.exports = React.createClass({
 });
 
 
-},{"./katex-mixin":189,"quill-with-math":30,"react":176}],189:[function(require,module,exports){
+},{"./katex-mixin":187,"quill-with-math":30,"react":176}],187:[function(require,module,exports){
 var DOM_HELPER, katex;
 
 katex = require('katex');
@@ -36910,7 +36753,7 @@ module.exports = {
 };
 
 
-},{"katex":11}],190:[function(require,module,exports){
+},{"katex":11}],188:[function(require,module,exports){
 var MODES, MultiMode, React;
 
 React = require('react');
@@ -36987,7 +36830,7 @@ module.exports = {
 };
 
 
-},{"react":176}],191:[function(require,module,exports){
+},{"react":176}],189:[function(require,module,exports){
 var React;
 
 React = require('react');
@@ -37006,7 +36849,7 @@ module.exports = React.createClass({
 });
 
 
-},{"react":176}],192:[function(require,module,exports){
+},{"react":176}],190:[function(require,module,exports){
 var CardMixin, DialogButton, EXERCISE_MODES, Edit, EditAnswer, ExerciseActions, ExerciseStore, FORMATTING_BUTTONS, HeaderMixin, HtmlEditor, KatexMixin, MULTI_MODES, MultiMode, Preview, React, Toolbar, View, aryRemove, _ref, _ref1;
 
 React = require('react');
@@ -37025,7 +36868,7 @@ _ref = require('./multi-mode'), MultiMode = _ref.MultiMode, MULTI_MODES = _ref.M
 
 FORMATTING_BUTTONS = require('./formatting-buttons');
 
-_ref1 = require('./flux/exercise'), ExerciseActions = _ref1.ExerciseActions, ExerciseStore = _ref1.ExerciseStore, EXERCISE_MODES = _ref1.EXERCISE_MODES;
+_ref1 = require('../stores/exercise'), ExerciseActions = _ref1.ExerciseActions, ExerciseStore = _ref1.ExerciseStore, EXERCISE_MODES = _ref1.EXERCISE_MODES;
 
 View = React.createClass({
   mixins: [CardMixin, KatexMixin],
@@ -37399,4 +37242,161 @@ module.exports = React.createClass({
 });
 
 
-},{"./card-mixin":181,"./dialog-button":182,"./flux/exercise":185,"./formatting-buttons":186,"./header-mixin":187,"./html-editor":188,"./katex-mixin":189,"./multi-mode":190,"react":176}]},{},[1]);
+},{"../stores/exercise":192,"./card-mixin":181,"./dialog-button":182,"./formatting-buttons":184,"./header-mixin":185,"./html-editor":186,"./katex-mixin":187,"./multi-mode":188,"react":176}],191:[function(require,module,exports){
+var AnswerActions, AnswerStore, flux, _;
+
+_ = require('underscore');
+
+flux = require('flux-react');
+
+AnswerActions = flux.createActions(['reset', 'setAnswer']);
+
+AnswerStore = flux.createStore({
+  actions: [AnswerActions.reset, AnswerActions.setAnswer],
+  _answers: {},
+  reset: function() {
+    this._answers = {};
+    return this.emitChange();
+  },
+  setAnswer: function(question, answer) {
+    this._answers[question.id] = answer;
+    return this.emitChange();
+  },
+  exports: {
+    getAnswer: function(question) {
+      var id;
+      id = question.id;
+      if (this._answers[id] != null) {
+        return this._answers[id];
+      } else {
+        return question.answer;
+      }
+    },
+    getAllAnswers: function() {
+      return this._answers;
+    }
+  }
+});
+
+module.exports = {
+  AnswerActions: AnswerActions,
+  AnswerStore: AnswerStore
+};
+
+
+},{"flux-react":9,"underscore":177}],192:[function(require,module,exports){
+var EXERCISE_MODES, EXERCISE_MODES_TEMPLATE, ExerciseActions, ExerciseConfig, ExerciseStore, aryRemove, flux, i, makeSimpleStore, val, _, _i, _len, _ref;
+
+_ = require('underscore');
+
+flux = require('flux-react');
+
+EXERCISE_MODES_TEMPLATE = ['VIEW', 'REVIEW', 'EDIT'];
+
+EXERCISE_MODES = {};
+
+for (i = _i = 0, _len = EXERCISE_MODES_TEMPLATE.length; _i < _len; i = ++_i) {
+  val = EXERCISE_MODES_TEMPLATE[i];
+  EXERCISE_MODES[val] = "ENUM_" + val + "_" + i;
+}
+
+aryRemove = function(ary, item) {
+  var index;
+  index = ary.indexOf(item);
+  if (index >= 0) {
+    ary.splice(index, 1);
+  } else {
+    throw new Error('BUG: Item not found in array');
+  }
+  return true;
+};
+
+ExerciseConfig = {
+  changeExerciseMode: function(newMode) {
+    this._currentMode = newMode;
+    return this.emitChange();
+  },
+  changeExerciseStimulus: function(exercise, html) {
+    exercise.stimulus_html = html;
+    return this.emitChange();
+  },
+  removeExerciseStimulus: function(exercise) {
+    exercise.stimulus_html = '';
+    return this.emitChange();
+  },
+  addQuestion: function(exercise, question) {
+    exercise.questions.push(question);
+    return this.emitChange();
+  },
+  removeQuestion: function(exercise, question) {
+    aryRemove(exercise.questions, question);
+    return this.emitChange();
+  },
+  moveQuestionUp: function(exercise, question) {
+    i = exercise.questions.indexOf(question);
+    if (!(i > 0)) {
+      throw new Error('BUG: Invalid position');
+    }
+    exercise.questions.splice(i, 1);
+    exercise.questions.splice(i - 1, 0, question);
+    return this.emitChange();
+  },
+  moveQuestionDown: function(exercise, question) {
+    i = exercise.questions.indexOf(question);
+    if (!(i < exercise.questions.length - 1)) {
+      throw new Error('BUG: Invalid position');
+    }
+    exercise.questions.splice(i, 1);
+    exercise.questions.splice(i + 1, 0, question);
+    return this.emitChange();
+  },
+  changeQuestion: function(question, html) {
+    question.stem_html = html;
+    return this.emitChange();
+  },
+  changeAnswers: function(question, answers) {
+    question.answers = answers;
+    return this.emitChange();
+  },
+  exports: {
+    getExerciseMode: function(exercise) {
+      if (this._currentMode) {
+        return this._currentMode;
+      }
+      if ((exercise != null ? exercise.answer : void 0) != null) {
+        return EXERCISE_MODES.REVIEW;
+      } else {
+        return EXERCISE_MODES.VIEW;
+      }
+    },
+    isFirstQuestion: function(exercise, question) {
+      return exercise.questions[0] === question;
+    },
+    isLastQuestion: function(exercise, question) {
+      return exercise.questions[exercise.questions.length - 1] === question;
+    }
+  }
+};
+
+makeSimpleStore = function(storeConfig) {
+  var actions, actionsConfig, store;
+  actionsConfig = _.without(_.keys(storeConfig), 'exports');
+  actions = flux.createActions(actionsConfig);
+  storeConfig.actions = _.values(actions);
+  store = flux.createStore(storeConfig);
+  return {
+    actions: actions,
+    store: store
+  };
+};
+
+_ref = makeSimpleStore(ExerciseConfig), ExerciseActions = _ref.actions, ExerciseStore = _ref.store;
+
+module.exports = {
+  ExerciseActions: ExerciseActions,
+  ExerciseStore: ExerciseStore,
+  EXERCISE_MODES: EXERCISE_MODES
+};
+
+
+},{"flux-react":9,"underscore":177}]},{},[1]);

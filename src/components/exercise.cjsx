@@ -6,7 +6,7 @@ Background = require './background'
 Question = require './question'
 PrimaryAdd = require './primary-add'
 {MULTI_MODES} = require './multi-mode'
-{ExerciseActions, ExerciseStore} = require './flux/exercise'
+{ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
 module.exports = React.createClass
   displayName: 'Exercise'

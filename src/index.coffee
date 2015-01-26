@@ -1,7 +1,7 @@
 React = require 'react'
-{AnswerActions, AnswerStore} = require './flux/answer'
-{ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './flux/exercise'
-Exercise = require './exercise'
+{AnswerActions, AnswerStore} = require './stores/answer'
+{ExerciseActions, ExerciseStore, EXERCISE_MODES} = require './stores/exercise'
+Exercise = require './components/exercise'
 ajax = require './ajax'
 
 

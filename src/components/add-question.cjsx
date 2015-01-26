@@ -2,7 +2,7 @@ React = require 'react'
 CardMixin = require './card-mixin'
 DialogButton = require './dialog-button'
 
-{ExerciseActions} = require './flux/exercise'
+{ExerciseActions} = require '../stores/exercise'
 
 module.exports = React.createClass
   mixins: [CardMixin]
