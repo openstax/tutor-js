@@ -40,14 +40,15 @@ buildBrowserify = (srcPath, destDir, destFile, isWatching) ->
 
 build = (isWatching)->
   destDir = './'
-  destFile = './dist/exercise.js'
+  destDirCss = './dist'
+  destFile = './dist/exercises.js'
   srcPath = './src/index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
   .on 'end', ->
     # Build the CSS file
-    gulp.src('./style.less')
+    gulp.src('./style/exercises.less')
     .pipe(less())
-    .pipe(gulp.dest(destDir))
+    .pipe(gulp.dest(destDirCss))
 
 # buildTests = (isWatching) ->
 #   destDir = './.tmp' # This is referenced in ./test/karma.config.coffee
