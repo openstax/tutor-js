@@ -1,51 +1,58 @@
+@import (reference) './mixins/card';
+
 .card.question {
   counter-increment: question 1;
   counter-reset: answer 0;
 
-  .answers-table {
-    display: table;
-    border-collapse: collapse;
+  .x-card();
 
-    border-top: 1px dotted #ccc;
-    margin-top: 1rem;
+  .card-content {
 
-    .answers-answer {
-      counter-increment: answer 1;
-      display: table-row;
+    .answers-table {
+      display: table;
+      border-collapse: collapse;
 
-      .answer-letter {
-        display: table-cell;
-        width: 2rem;
-        padding-left: .5rem;
-        &:after { content: counter(answer, lower-latin) ')'; }
-      }
+      border-top: 1px dotted #ccc;
+      margin-top: 1rem;
 
-      .answer-content {
-        display: table-cell;
-        padding: .5rem 0;
-        width: 100%;
-        padding-left: 1rem;
-        padding-right: .5rem;
+      .answers-answer {
+        counter-increment: answer 1;
+        display: table-row;
+
+        .answer-letter {
+          display: table-cell;
+          width: 2rem;
+          padding-left: .5rem;
+          &:after { content: counter(answer, lower-latin) ')'; }
+        }
+
+        .answer-content {
+          display: table-cell;
+          padding: .5rem 0;
+          width: 100%;
+          padding-left: 1rem;
+          padding-right: .5rem;
+        }
       }
     }
+
+
+
+    // The Row
+    .answers-answer,
+    .answers-add {
+      display: table-row;
+      // transition: background-color .3s ease;
+    }
+    // .answers-answer:hover { background-color: #efefef; }
+    .answer-letter,
+    .answer-actions {
+      display: table-cell;
+      width: 2rem;
+    }
+    .answer-letter { cursor: default; }
+
   }
-
-
-
-/* The Row */
-.answers-answer,
-.answers-add {
-display: table-row;
-// transition: background-color .3s ease;
-}
-// .answers-answer:hover { background-color: #efefef; }
-.answer-letter,
-.answer-actions {
-display: table-cell;
-width: 2rem;
-}
-.answer-letter { cursor: default; }
-
 
 
   &.mode-view,

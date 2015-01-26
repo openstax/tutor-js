@@ -1,0 +1,54 @@
+.x-toolbar() {
+  nav {
+    cursor: default;
+
+    &.double-height { height: 7.5rem; }
+
+    .nav-wrapper {
+
+      .btn-toolbar.btn-close {
+        float: right;
+        padding: 0;
+        margin-right: .5rem;
+
+        i {
+          height: 32px;
+          line-height: 32px;
+        }
+      }
+
+      .brand-logo {
+        margin-left: 1rem;
+        font-size: 1.5rem;
+        line-height: 2.5rem;
+      }
+
+      // Common stying for both rows in the toolbar
+      .x-header-row() {
+        i {
+          // Need to keep the question-toolbar-formats in so the close button remains in place
+          line-height: 32px;
+        }
+        .btn-toolbar {
+          font-size: 2rem;
+          line-height: 32px;
+          i { height: inherit; line-height: 32px; }
+
+          &:hover                   { background-color: rgba(0,0,0,.1); }
+          &.ql-active:not(:hover) { background-color: rgba(255,255,255,.2); }
+        }
+      }
+
+      .header-row-1 {
+        .x-header-row();
+        margin-top: 1rem;
+        line-height: 1rem;
+      }
+      .header-row-2 {
+        .x-header-row();
+        margin-left: 1rem;
+        line-height: 30px;
+      }
+    }
+  }
+}

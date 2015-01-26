@@ -1,67 +1,369 @@
 @import '../bower_components/font-awesome/css/font-awesome.min.css';
 @import '../bower_components/materialize/dist/css/materialize.min.css';
 @import '../style/katex.css';
+.card.background nav {
+  cursor: default;
+}
+.card.background nav.double-height {
+  height: 7.5rem;
+}
+.card.background nav .nav-wrapper .btn-toolbar.btn-close {
+  float: right;
+  padding: 0;
+  margin-right: .5rem;
+}
+.card.background nav .nav-wrapper .btn-toolbar.btn-close i {
+  height: 32px;
+  line-height: 32px;
+}
+.card.background nav .nav-wrapper .brand-logo {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+.card.background nav .nav-wrapper .header-row-1 {
+  margin-top: 1rem;
+  line-height: 1rem;
+}
+.card.background nav .nav-wrapper .header-row-1 i {
+  line-height: 32px;
+}
+.card.background nav .nav-wrapper .header-row-1 .btn-toolbar {
+  font-size: 2rem;
+  line-height: 32px;
+}
+.card.background nav .nav-wrapper .header-row-1 .btn-toolbar i {
+  height: inherit;
+  line-height: 32px;
+}
+.card.background nav .nav-wrapper .header-row-1 .btn-toolbar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.card.background nav .nav-wrapper .header-row-1 .btn-toolbar.ql-active:not(:hover) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.card.background nav .nav-wrapper .header-row-2 {
+  margin-left: 1rem;
+  line-height: 30px;
+}
+.card.background nav .nav-wrapper .header-row-2 i {
+  line-height: 32px;
+}
+.card.background nav .nav-wrapper .header-row-2 .btn-toolbar {
+  font-size: 2rem;
+  line-height: 32px;
+}
+.card.background nav .nav-wrapper .header-row-2 .btn-toolbar i {
+  height: inherit;
+  line-height: 32px;
+}
+.card.background nav .nav-wrapper .header-row-2 .btn-toolbar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.card.background nav .nav-wrapper .header-row-2 .btn-toolbar.ql-active:not(:hover) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.card.background .card-content > .quill-wrapper {
+  border-radius: 5px;
+  padding: 1rem;
+}
+.card.background .card-content > .quill-wrapper .ql-editor {
+  padding: 1rem;
+  border-color: #aaa;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(167, 167, 167, 0.5);
+}
+.card.background .card-content > .quill-wrapper .ql-editor:focus,
+.card.background .card-content > .quill-wrapper .ql-editor.ql-has-active-popup {
+  border-color: #51a7e8;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5);
+}
+.card.background .card-content .quill-wrapper {
+  padding: .3rem;
+}
+.card.background .card-content .quill-wrapper .ql-editor {
+  transition: padding-bottom 0.3s ease-in;
+}
+.card.background .card-content .quill-wrapper .ql-editor:focus,
+.card.background .card-content .quill-wrapper .ql-editor.ql-has-active-popup {
+  padding-bottom: 12rem;
+}
+.card.background .card-content .quill-wrapper .ql-editor:not(:focus):not(.ql-has-active-popup) {
+  cursor: pointer;
+}
+.card.background .card-content .quill-wrapper .ql-editor [data-math] {
+  -moz-user-select: all;
+  -webkit-user-select: all;
+}
+.card.background .card-content .quill-wrapper .ql-editor [data-math] .katex-inner {
+  background-color: #efefef;
+  outline: 1px solid #9e9e9e;
+  cursor: pointer;
+}
+.card.background .card-content .quill-wrapper .ql-math-tooltip {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid #999;
+  width: 25rem;
+  overflow-x: hidden;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.card.background .card-content .quill-wrapper .ql-math-tooltip .title {
+  color: #9e9e9e;
+  margin-right: 1rem;
+}
+.card.background .card-content .quill-wrapper .ql-math-tooltip .math-input {
+  border: 1px solid black;
+  width: 17rem;
+  height: 2rem;
+  padding-left: .5rem;
+}
+.card.background .card-content .quill-wrapper .ql-math-tooltip .preview {
+  color: #616161;
+  margin: 5px auto;
+  width: 20rem;
+  text-align: center;
+  cursor: default;
+}
+.card.background .card-content .quill-wrapper .ql-math-tooltip .ql-btn-group {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: .5rem;
+}
+.card.background .card-content .quill-wrapper .ql-math-tooltip .ql-btn-group button {
+  margin-bottom: 0;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #4caf50;
+}
+.card.background .card-content .quill-wrapper .ql-math-tooltip .ql-btn-group button:hover {
+  color: #66bb6a;
+}
+.card.background .card-content ul > li {
+  list-style-type: initial;
+}
+.card.background .card-content ul {
+  padding-left: 40px;
+}
+.card.background .card-content .ql-editor ul {
+  padding: 0;
+}
+.card.background .card-content.has-default-action {
+  cursor: pointer;
+}
+.card.background .card-content .has-html div {
+  margin-top: 1rem;
+}
 .card.background.mode-view .exercise-background {
   font-size: 1.5rem;
 }
 .card.background.mode-edit .ql-editor {
   font-size: 1.5rem;
 }
-.card .card-content.has-default-action {
-  cursor: pointer;
-}
-.card .card-content ul > li {
-  list-style-type: initial;
-}
-.card .card-content ul {
-  padding-left: 40px;
-}
-.card .card-content .ql-editor ul {
-  padding: 0;
-}
-.has-html div {
-  margin-top: 1rem;
-}
 .card.question {
   counter-increment: question 1;
   counter-reset: answer 0;
-  /* The Row */
 }
-.card.question .answers-table {
+.card.question nav {
+  cursor: default;
+}
+.card.question nav.double-height {
+  height: 7.5rem;
+}
+.card.question nav .nav-wrapper .btn-toolbar.btn-close {
+  float: right;
+  padding: 0;
+  margin-right: .5rem;
+}
+.card.question nav .nav-wrapper .btn-toolbar.btn-close i {
+  height: 32px;
+  line-height: 32px;
+}
+.card.question nav .nav-wrapper .brand-logo {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+.card.question nav .nav-wrapper .header-row-1 {
+  margin-top: 1rem;
+  line-height: 1rem;
+}
+.card.question nav .nav-wrapper .header-row-1 i {
+  line-height: 32px;
+}
+.card.question nav .nav-wrapper .header-row-1 .btn-toolbar {
+  font-size: 2rem;
+  line-height: 32px;
+}
+.card.question nav .nav-wrapper .header-row-1 .btn-toolbar i {
+  height: inherit;
+  line-height: 32px;
+}
+.card.question nav .nav-wrapper .header-row-1 .btn-toolbar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.card.question nav .nav-wrapper .header-row-1 .btn-toolbar.ql-active:not(:hover) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.card.question nav .nav-wrapper .header-row-2 {
+  margin-left: 1rem;
+  line-height: 30px;
+}
+.card.question nav .nav-wrapper .header-row-2 i {
+  line-height: 32px;
+}
+.card.question nav .nav-wrapper .header-row-2 .btn-toolbar {
+  font-size: 2rem;
+  line-height: 32px;
+}
+.card.question nav .nav-wrapper .header-row-2 .btn-toolbar i {
+  height: inherit;
+  line-height: 32px;
+}
+.card.question nav .nav-wrapper .header-row-2 .btn-toolbar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.card.question nav .nav-wrapper .header-row-2 .btn-toolbar.ql-active:not(:hover) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.card.question .card-content > .quill-wrapper {
+  border-radius: 5px;
+  padding: 1rem;
+}
+.card.question .card-content > .quill-wrapper .ql-editor {
+  padding: 1rem;
+  border-color: #aaa;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(167, 167, 167, 0.5);
+}
+.card.question .card-content > .quill-wrapper .ql-editor:focus,
+.card.question .card-content > .quill-wrapper .ql-editor.ql-has-active-popup {
+  border-color: #51a7e8;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5);
+}
+.card.question .card-content .quill-wrapper {
+  padding: .3rem;
+}
+.card.question .card-content .quill-wrapper .ql-editor {
+  transition: padding-bottom 0.3s ease-in;
+}
+.card.question .card-content .quill-wrapper .ql-editor:focus,
+.card.question .card-content .quill-wrapper .ql-editor.ql-has-active-popup {
+  padding-bottom: 12rem;
+}
+.card.question .card-content .quill-wrapper .ql-editor:not(:focus):not(.ql-has-active-popup) {
+  cursor: pointer;
+}
+.card.question .card-content .quill-wrapper .ql-editor [data-math] {
+  -moz-user-select: all;
+  -webkit-user-select: all;
+}
+.card.question .card-content .quill-wrapper .ql-editor [data-math] .katex-inner {
+  background-color: #efefef;
+  outline: 1px solid #9e9e9e;
+  cursor: pointer;
+}
+.card.question .card-content .quill-wrapper .ql-math-tooltip {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid #999;
+  width: 25rem;
+  overflow-x: hidden;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.card.question .card-content .quill-wrapper .ql-math-tooltip .title {
+  color: #9e9e9e;
+  margin-right: 1rem;
+}
+.card.question .card-content .quill-wrapper .ql-math-tooltip .math-input {
+  border: 1px solid black;
+  width: 17rem;
+  height: 2rem;
+  padding-left: .5rem;
+}
+.card.question .card-content .quill-wrapper .ql-math-tooltip .preview {
+  color: #616161;
+  margin: 5px auto;
+  width: 20rem;
+  text-align: center;
+  cursor: default;
+}
+.card.question .card-content .quill-wrapper .ql-math-tooltip .ql-btn-group {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: .5rem;
+}
+.card.question .card-content .quill-wrapper .ql-math-tooltip .ql-btn-group button {
+  margin-bottom: 0;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #4caf50;
+}
+.card.question .card-content .quill-wrapper .ql-math-tooltip .ql-btn-group button:hover {
+  color: #66bb6a;
+}
+.card.question .card-content ul > li {
+  list-style-type: initial;
+}
+.card.question .card-content ul {
+  padding-left: 40px;
+}
+.card.question .card-content .ql-editor ul {
+  padding: 0;
+}
+.card.question .card-content.has-default-action {
+  cursor: pointer;
+}
+.card.question .card-content .has-html div {
+  margin-top: 1rem;
+}
+.card.question .card-content .answers-table {
   display: table;
   border-collapse: collapse;
   border-top: 1px dotted #ccc;
   margin-top: 1rem;
 }
-.card.question .answers-table .answers-answer {
+.card.question .card-content .answers-table .answers-answer {
   counter-increment: answer 1;
   display: table-row;
 }
-.card.question .answers-table .answers-answer .answer-letter {
+.card.question .card-content .answers-table .answers-answer .answer-letter {
   display: table-cell;
   width: 2rem;
   padding-left: .5rem;
 }
-.card.question .answers-table .answers-answer .answer-letter:after {
+.card.question .card-content .answers-table .answers-answer .answer-letter:after {
   content: counter(answer, lower-latin) ')';
 }
-.card.question .answers-table .answers-answer .answer-content {
+.card.question .card-content .answers-table .answers-answer .answer-content {
   display: table-cell;
   padding: .5rem 0;
   width: 100%;
   padding-left: 1rem;
   padding-right: .5rem;
 }
-.card.question .answers-answer,
-.card.question .answers-add {
+.card.question .card-content .answers-answer,
+.card.question .card-content .answers-add {
   display: table-row;
 }
-.card.question .answer-letter,
-.card.question .answer-actions {
+.card.question .card-content .answer-letter,
+.card.question .card-content .answer-actions {
   display: table-cell;
   width: 2rem;
 }
-.card.question .answer-letter {
+.card.question .card-content .answer-letter {
   cursor: default;
 }
 .card.question.mode-view:before,
@@ -147,149 +449,6 @@
 .card-list.has-single-question .card.question.mode-preview .card-content {
   margin-left: 0;
 }
-nav .nav-wrapper .btn-flat {
-  color: white;
-  padding: 0;
-  height: 40px /*bottom of X is clipped*/;
-}
-nav .nav-wrapper .brand-logo {
-  margin-left: 1rem;
-}
-nav .nav-wrapper a {
-  color: white;
-}
-nav.double-height {
-  height: 7.5rem;
-}
-.btn-toolbar.btn-close {
-  float: right;
-  padding: 0;
-  margin-right: .5rem;
-}
-.btn-toolbar.btn-close i {
-  height: 32px;
-  line-height: 32px;
-}
-nav {
-  cursor: default;
-}
-nav .nav-wrapper .brand-logo {
-  font-size: 1.5rem;
-  line-height: 2.5rem;
-}
-nav .nav-wrapper .header-row-1 i,
-nav .nav-wrapper .header-row-2 i {
-  /* Need to keep the question-toolbar-formats in so the close button remains in place */
-  line-height: 32px;
-}
-nav .nav-wrapper .header-row-1 .btn-toolbar,
-nav .nav-wrapper .header-row-2 .btn-toolbar {
-  font-size: 2rem;
-  line-height: 32px;
-}
-nav .nav-wrapper .header-row-1 .btn-toolbar i,
-nav .nav-wrapper .header-row-2 .btn-toolbar i {
-  height: inherit;
-  line-height: 32px;
-}
-nav .nav-wrapper .header-row-1 .btn-toolbar:hover,
-nav .nav-wrapper .header-row-2 .btn-toolbar:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-nav .nav-wrapper .header-row-1 .btn-toolbar.ql-active:not(:hover),
-nav .nav-wrapper .header-row-2 .btn-toolbar.ql-active:not(:hover) {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-nav .nav-wrapper .header-row-1 {
-  margin-top: 1rem;
-  line-height: 1rem;
-}
-nav .nav-wrapper .header-row-2 {
-  margin-left: 1rem;
-  line-height: 30px;
-}
-.card-content > .quill-wrapper {
-  border-radius: 5px;
-  padding: 1rem;
-}
-.card-content > .quill-wrapper .ql-editor {
-  padding: 1rem;
-  border-color: #aaa;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(167, 167, 167, 0.5);
-}
-.card-content > .quill-wrapper .ql-editor:focus,
-.card-content > .quill-wrapper .ql-editor.ql-has-active-popup {
-  border-color: #51a7e8;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5);
-}
-.card-content .quill-wrapper {
-  padding: .3rem;
-}
-.card-content .quill-wrapper .ql-editor {
-  transition: padding-bottom 0.3s ease-in;
-}
-.card-content .quill-wrapper .ql-editor:focus,
-.card-content .quill-wrapper .ql-editor.ql-has-active-popup {
-  padding-bottom: 12rem;
-}
-.card-content .quill-wrapper .ql-editor:not(:focus):not(.ql-has-active-popup) {
-  cursor: pointer;
-}
-.card-content .quill-wrapper .ql-math-tooltip {
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 10px;
-  padding: 5px;
-  border: 1px solid #999;
-  width: 25rem;
-  overflow-x: hidden;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-}
-.card-content .quill-wrapper .ql-math-tooltip .title {
-  color: #9e9e9e;
-  margin-right: 1rem;
-}
-.card-content .quill-wrapper .ql-math-tooltip .math-input {
-  border: 1px solid black;
-  width: 17rem;
-  height: 2rem;
-  padding-left: .5rem;
-}
-.card-content .quill-wrapper .ql-math-tooltip .preview {
-  color: #616161;
-  margin: 5px auto;
-  width: 20rem;
-  text-align: center;
-  cursor: default;
-}
-.card-content .quill-wrapper .ql-math-tooltip .ql-btn-group {
-  border-top: 1px solid rgba(160, 160, 160, 0.2);
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: .5rem;
-}
-.card-content .quill-wrapper .ql-math-tooltip .ql-btn-group button {
-  margin-bottom: 0;
-  box-shadow: none;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  text-transform: uppercase;
-  color: #4caf50;
-}
-.card-content .quill-wrapper .ql-math-tooltip .ql-btn-group button:hover {
-  color: #66bb6a;
-}
-.ql-editor [data-math] {
-  -moz-user-select: all;
-  -webkit-user-select: all;
-}
-.ql-editor [data-math] .katex-inner {
-  background-color: #efefef;
-  outline: 1px solid #9e9e9e;
-  cursor: pointer;
-}
 html {
   font-size: 12px;
 }
@@ -315,6 +474,12 @@ body {
 .btn-dialog:hover {
   color: #ffd8a6;
 }
+.btn-dialog.btn-dialog-danger i {
+  color: #ccc;
+}
+.btn-dialog.btn-dialog-danger:hover i {
+  color: #f33;
+}
 .btn-dialog + .btn-dialog {
   margin-left: 1.5rem;
 }
@@ -322,14 +487,6 @@ body {
 .btn-dialog i {
   font-size: 1.5rem;
   transition: color 0.3s ease;
-}
-.btn-dialog-danger,
-.btn-dialog-danger i {
-  color: #ccc;
-}
-.btn-dialog-danger:hover,
-.btn-dialog-danger:hover i {
-  color: #f33;
 }
 .btn-primary {
   position: fixed;
