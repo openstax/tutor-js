@@ -6,25 +6,27 @@ ajax = require './ajax'
 
 
 # Just for debugging
+window.React = React
+window.ExerciseComponent = Exercise
 window.ExerciseActions = ExerciseActions
 window.ExerciseStore = ExerciseStore
 window.EXERCISE_MODES = EXERCISE_MODES
 window.logout = -> ExerciseActions.changeExerciseMode(EXERCISE_MODES.VIEW)
 
-# Determine if the user is logged in first
-ajax {type:'GET', url: '/api/user'}, (err, xhr) ->
+# Determine the URL to use based on the browser location
+if /\/exercises\/\d+/.test(window.location.pathname)
+  url = "/api#{window.location.pathname}"
 
-  isLoggedIn = !err
-  if isLoggedIn
-    ExerciseActions.changeExerciseMode(EXERCISE_MODES.EDIT)
-  else
-    ExerciseActions.changeExerciseMode(EXERCISE_MODES.VIEW)
+  # Determine if the user is logged in first
+  ajax {type:'GET', url: '/api/user'}, (err, xhr) ->
 
-  # ExerciseActions.changeExerciseMode(EXERCISE_MODES.VIEW)
+    isLoggedIn = !err
+    if isLoggedIn
+      ExerciseActions.changeExerciseMode(EXERCISE_MODES.EDIT)
+    else
+      ExerciseActions.changeExerciseMode(EXERCISE_MODES.VIEW)
 
-  # Determine the URL to use based on the browser location
-  if /\/exercises\/\d+/.test(window.location.pathname)
-    url = "/api#{window.location.pathname}"
+    # ExerciseActions.changeExerciseMode(EXERCISE_MODES.VIEW)
 
     # fetch the exercise JSON
     options =

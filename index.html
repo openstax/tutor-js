@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.css"/>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="./dist/exercises.css"/>
   </head>
   <body>
     <div id="exercise"></div>
-    <script src="./dist/exercise.js"></script>
+    <script src="./dist/exercises.js"></script>
     <script>
-url = prompt('URL to fetch Exercise JSON\n (leave blank to use local test file)', '');
+url = prompt('URL to fetch Exercise JSON\n (leave blank to use local test file)', '/test/example.json');
 if (url) {
   request = new XMLHttpRequest();
   request.open('GET', url, true);
@@ -18,7 +17,9 @@ if (url) {
       // Success!
       data = JSON.parse(request.responseText);
 
-      window.ExerciseComponent(document.getElementById('exercise'), data);
+      root = document.getElementById('exercise');
+      exercise = window.ExerciseComponent({config:data});
+      window.React.renderComponent(exercise, root);
 
     } else {
       // We reached our target server, but it returned an error
