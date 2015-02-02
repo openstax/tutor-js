@@ -39,8 +39,8 @@ buildBrowserify = (srcPath, destDir, destFile, isWatching) ->
 
 
 build = (isWatching)->
-  destDir = './'
-  destFile = 'bundle.js'
+  destDir = './dist'
+  destFile = 'tutor.js'
   srcPath = './index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
   .on 'end', ->
