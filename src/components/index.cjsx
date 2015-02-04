@@ -1,7 +1,7 @@
 # @cjsx React.DOM
 
 React = require 'react'
-{Link} = require 'react-router'
+{Link, transitionTo} = require 'react-router'
 
 AsyncState = require '../async-state'
 API = require '../api'
@@ -111,7 +111,7 @@ TaskResult = React.createClass
       stepsInfo = <small className='details'>({@props.item.steps.length} steps)</small>
 
     <div className='panel panel-default'>
-      <div className='panel-heading'>
+      <div className='panel-body' onClick={@onClick}>
         <Link to='task' id={id}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
         {stepsInfo}
         <span className='pull-right'>
@@ -119,6 +119,10 @@ TaskResult = React.createClass
         </span>
       </div>
     </div>
+
+  onClick: ->
+    {id} = @props.item
+    transitionTo('task', {id})
 
 
 Tasks = React.createClass
