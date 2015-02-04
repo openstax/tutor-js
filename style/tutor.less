@@ -1,4 +1,5 @@
 @import '../node_modules/bootstrap/less/bootstrap.less';
+@import '../bower_components/bootstrap-material-design/less/material-wfont.less';
 @import '../node_modules/font-awesome/less/font-awesome.less';
 @import '../bower_components/katex/static/katex.less';
 
@@ -6,7 +7,8 @@
 @fa-font-path: '../node_modules/font-awesome/fonts';
 
 // Override bootstrap primary color
-@brand-primary: #ed5f33;
+@primary: @blue;
+// @text-color: @white;
 
 // Font-awesome icons mapped to our types
 i.fa {
@@ -15,6 +17,11 @@ i.fa {
   &.exercise::before    { content: @fa-var-question; } // or fa-var-mortar-board
 }
 
+
+// Override the default text color from bootstrap-material-design
+.navbar-nav,
+.btn-primary,
+.btn-success { color: @white !important; }
 
 
 body {
@@ -33,6 +40,8 @@ body {
 
 .ui-task-list {
   max-width: 550px;
+
+  .panel { cursor: pointer; }
 }
 
 .panel {
