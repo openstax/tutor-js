@@ -446,8 +446,8 @@ Exercise = React.createClass
       Type(props)
 
 
-    <div className='panel panel-default exercise'>
-      <div className='panel-body'>
+    <div className='panel panel-default'>
+      <div className='panel-body exercise'>
         <ArbitraryHtmlAndMath className='stimulus' html={config.content.stimulus} />
         {questions}
       </div>
