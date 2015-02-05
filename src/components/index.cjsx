@@ -86,7 +86,7 @@ SingleTask = React.createClass
     switch TaskStore.getAsyncStatus(id)
       when 'loaded'
         task = TaskStore.get(id)
-        return @transferPropsTo(<Task task={task} />)
+        return @transferPropsTo(<Task model={task} />)
 
       when 'failed'
         <div>Error. Please refresh</div>

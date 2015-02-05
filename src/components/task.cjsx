@@ -4,13 +4,13 @@ React = require 'react'
 api = require '../api'
 {AnswerStore} = require '../flux/answer'
 {getStepType} = require './task-steps'
+Breadcrumbs = require './breadcrumbs'
 
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
-
 
 
 module.exports = React.createClass
@@ -25,7 +25,7 @@ module.exports = React.createClass
     else
       currentStep = 0
 
-    stepCompletion = @getStepCompletion(@props.task)
+    stepCompletion = @getStepCompletion(@props.model)
     {currentStep, stepCompletion}
 
   componentWillMount:   -> AnswerStore.addChangeListener(@update)
@@ -33,7 +33,7 @@ module.exports = React.createClass
 
   nextButton: ->
     # Find the 1st unanswered Step
-    stepCompletion = @getStepCompletion(@props.task)
+    stepCompletion = @getStepCompletion(@props.model)
     for isCompleted, i in stepCompletion
       unless isCompleted
         @setState({currentStep: i})
@@ -44,7 +44,7 @@ module.exports = React.createClass
     @setState({currentStep: num})
 
   update: ->
-    stepCompletion = @getStepCompletion(@props.task)
+    stepCompletion = @getStepCompletion(@props.model)
     @setState({stepCompletion})
 
   getStepCompletion: (taskConfig) ->
@@ -67,7 +67,7 @@ module.exports = React.createClass
     !isUnanswered
 
   render: ->
-    steps = @props.task.steps
+    steps = @props.model.steps
     stepConfig = steps[@state.currentStep]
     StepType = getStepType(stepConfig)
 
@@ -105,14 +105,12 @@ module.exports = React.createClass
       else
         # Determine if the Next button should be disabled by checking if all the questions have been answered
         classes = ['btn btn-primary']
-        unless @state.stepCompletion[@state.currentStep]
+        unless @props.model.steps[@state.currentStep].is_completed
           classes.push('disabled')
         nextOrComplete = <button className={classes.join(' ')} onClick={@nextButton}>Continue</button>
 
       <div className='task-step'>
-        <div className='steps btn-group'>
-          {stepButtons}
-        </div>
+        <Breadcrumbs model={@props.model} goToStep={@goToStep} currentStep={@state.currentStep} />
         <StepType config={stepConfig} />
         {nextOrComplete}
       </div>
