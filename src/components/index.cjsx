@@ -100,15 +100,15 @@ SingleTask = React.createClass
 
 TaskResult = React.createClass
   render: ->
-    {id} = @props.item
+    {id} = @props.model
     actionTitle = 'Work Now'
-    title = @props.item.title or err('BUG: Task without a title')
+    title = @props.model.title or err('BUG: Task without a title')
 
-    if @props.item.steps.length is 1
-      mainType = @props.item.steps[0].type
+    if @props.model.steps.length is 1
+      mainType = @props.model.steps[0].type
     else
       mainType = ''
-      stepsInfo = <small className='details'>({@props.item.steps.length} steps)</small>
+      stepsInfo = <small className='details'>({@props.model.steps.length} steps)</small>
 
     <div className='panel panel-default'>
       <div className='panel-body' onClick={@onClick}>
@@ -121,7 +121,7 @@ TaskResult = React.createClass
     </div>
 
   onClick: ->
-    {id} = @props.item
+    {id} = @props.model
     transitionTo('task', {id})
 
 
@@ -129,22 +129,22 @@ Tasks = React.createClass
   mixins: [AsyncState]
   statics:
     getInitialAsyncState: (params, query, setState) ->
-      results: API.fetchUserTasks()
+      model: API.fetchUserTasks()
 
   render: ->
-    if @state?.results
-      if @state.results['total_count'] is 0
+    if @state?.model
+      if @state.model['total_count'] is 0
         <div className='ui-task-list ui-empty'>No Tasks</div>
       else
-        tasks = for item in @state.results.items
-          <TaskResult item={item} />
+        tasks = for task in @state.model.items
+          <TaskResult model={task} />
 
         <div className='ui-task-list'>
-          <h3>Current Tasks ({@state.results['total_count']})</h3>
+          <h3>Current Tasks ({@state.model['total_count']})</h3>
           {tasks}
         </div>
 
-    else if @state?.results_error
+    else if @state?.model_error
       <div>Error loading tasks. Please reload the page and try again</div>
 
     else
