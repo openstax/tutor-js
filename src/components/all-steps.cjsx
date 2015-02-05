@@ -31,10 +31,10 @@ Reading = React.createClass
   componentWillMount:  ->
     @changeBase()
     # Fetch the content HTML and store it in the state
-    unless @props.config.content_html # or @state?.content_html
+    unless @props.model.content_html # or @state?.content_html
       resolved = (content_html) => @setState({content_html})
       rejected =                => @setState({content_html_error:true})
-      api.fetchRemoteHtml(@props.config.content_url)
+      api.fetchRemoteHtml(@props.model.content_url)
       .then(resolved, rejected)
 
   componentWillUpdate: -> @changeBase()
@@ -43,7 +43,7 @@ Reading = React.createClass
 
 
   render: ->
-    content_html = @props.config.content_html or @state?.content_html
+    content_html = @props.model.content_html or @state?.content_html
     if content_html
 
       <div className='panel panel-default'>
@@ -51,7 +51,7 @@ Reading = React.createClass
           Reading Asignment
 
           <span className='pull-right'>
-            <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.config.content_url}>Open in new Tab</a>
+            <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.model.content_url}>Open in new Tab</a>
           </span>
         </div>
         <div className='panel-body' dangerouslySetInnerHTML={{__html: content_html}} />
@@ -72,20 +72,13 @@ Interactive = React.createClass
         Interactive
 
         <span className='pull-right'>
-          <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.config.content_url}>Open in new Tab</a>
+          <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.model.content_url}>Open in new Tab</a>
         </span>
       </div>
       <div className='panel-body'>
-        <iframe src={@props.config.content_url} />
+        <iframe src={@props.model.content_url} />
       </div>
     </div>
 
 
-getStepType = (stepConfig) ->
-  switch stepConfig.type
-    when 'reading' then Reading
-    when 'interactive' then Interactive
-    when 'exercise' then Exercise
-    else err('BUG: Invalid task step type', stepConfig)
-
-module.exports = {Reading, Interactive, Exercise, getStepType}
+module.exports = {Reading, Interactive, Exercise}

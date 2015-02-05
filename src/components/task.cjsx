@@ -3,7 +3,7 @@ React = require 'react'
 
 api = require '../api'
 {AnswerStore} = require '../flux/answer'
-{getStepType} = require './task-steps'
+TaskStep = require './task-step'
 Breadcrumbs = require './breadcrumbs'
 
 
@@ -69,7 +69,6 @@ module.exports = React.createClass
   render: ->
     steps = @props.model.steps
     stepConfig = steps[@state.currentStep]
-    StepType = getStepType(stepConfig)
 
     if steps.length > 1
       unansweredStepCount = 0
@@ -111,13 +110,13 @@ module.exports = React.createClass
 
       <div className='task-step'>
         <Breadcrumbs model={@props.model} goToStep={@goToStep} currentStep={@state.currentStep} />
-        <StepType config={stepConfig} />
+        <TaskStep model={stepConfig} />
         {nextOrComplete}
       </div>
 
     else
 
       <div className='task-step single-step'>
-        <StepType config={stepConfig} />
+        <TaskStep model={stepConfig} />
         <button className='btn btn-success' onClick={@completeTask}>Complete</button>
       </div>

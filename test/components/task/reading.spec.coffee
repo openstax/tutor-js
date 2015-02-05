@@ -3,16 +3,16 @@ $ = require 'jquery'
 
 React = require 'react'
 
-{Reading} = require '../../../src/components/task-steps'
+{Reading} = require '../../../src/components/all-steps'
 
 describe 'Reading Task', ->
   it 'should fetch the content from archive.cnx.org', (done) ->
-    config =
+    model =
       type: 'reading'
       content_url: 'http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html'
 
     $node = $("<div id='wrapper'></div>")
-    React.renderComponent(<Reading config={config} />, $node[0])
+    React.renderComponent(<Reading model={model} />, $node[0])
 
     checkLoaded = ->
       expect($node.find('div[data-type="document-title"]').text()).to.equal('Experimental Design and Ethics')
