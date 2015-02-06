@@ -41,44 +41,21 @@ Reading = React.createClass
   componentDidMount:  -> @resetBase()
   componentDidUpdate: -> @resetBase()
 
-
   render: ->
     content_html = @props.model.content_html or @state?.content_html
     if content_html
-
-      <div className='panel panel-default'>
-        <div className='panel-heading'>
-          Reading Asignment
-
-          <span className='pull-right'>
-            <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.model.content_url}>Open in new Tab</a>
-          </span>
-        </div>
-        <div className='panel-body' dangerouslySetInnerHTML={{__html: content_html}} />
-      </div>
+      <div className='arbitrary-html' dangerouslySetInnerHTML={{__html: content_html}} />
 
     else if @state?.content_html_error
-      <div>Error loading Reading task. Please reload the page and try again</div>
+      <div>Error loading Reading Step. Please reload the page and try again</div>
 
     else
-
       <div>Loading...</div>
 
 
 Interactive = React.createClass
   render: ->
-    <div className='panel panel-default ui-interactive'>
-      <div className='panel-heading'>
-        Interactive
-
-        <span className='pull-right'>
-          <a className='ui-action btn btn-primary btn-sm' target='_window' href={@props.model.content_url}>Open in new Tab</a>
-        </span>
-      </div>
-      <div className='panel-body'>
-        <iframe src={@props.model.content_url} />
-      </div>
-    </div>
+    <iframe src={@props.model.content_url} />
 
 
 module.exports = {Reading, Interactive, Exercise}

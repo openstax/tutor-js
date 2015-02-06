@@ -108,10 +108,11 @@ SimpleQuestion = React.createClass
     else
       <textarea
           className='form-control'
-          rows='3'
+          rows='2'
           ref='prompt'
           placeholder={model.short_stem}
-          onChange=@onChange>{answer or ''}</textarea>
+          value={answer or ''}
+          onChange=@onChange />
 
   onChange: ->
     val = @refs.prompt.getDOMNode().value
@@ -442,15 +443,11 @@ Exercise = React.createClass
       format = questionConfig.format
       Type = getQuestionType(format)
       props = {model:questionConfig}
-
       Type(props)
 
-
-    <div className='panel panel-default'>
-      <div className='panel-body exercise'>
-        <ArbitraryHtmlAndMath className='stimulus' html={model.content.stimulus} />
-        {questions}
-      </div>
+    <div className='exercise'>
+      <ArbitraryHtmlAndMath className='stimulus' html={model.content.stimulus} />
+      {questions}
     </div>
 
 

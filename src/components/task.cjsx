@@ -3,6 +3,7 @@ React = require 'react'
 
 api = require '../api'
 {AnswerStore} = require '../flux/answer'
+{TaskStore, TaskActions} = require '../flux/task'
 TaskStep = require './task-step'
 Breadcrumbs = require './breadcrumbs'
 
@@ -23,34 +24,35 @@ module.exports = React.createClass
       catch e
         currentStep = 0
     else
-      currentStep = 0
+      model = TaskStore.get(@props.id)
+      # Determine the first uncompleted step
+      for step, i in model.steps
+        unless step.is_completed
+          currentStep = i
+          break
 
-    stepCompletion = @getStepCompletion(@props.model)
-    {currentStep, stepCompletion}
+    {currentStep}
 
   componentWillMount:   -> AnswerStore.addChangeListener(@update)
   componentWillUnmount: -> AnswerStore.removeChangeListener(@update)
 
-  nextButton: ->
-    # Find the 1st unanswered Step
-    stepCompletion = @getStepCompletion(@props.model)
-    for isCompleted, i in stepCompletion
-      unless isCompleted
-        @setState({currentStep: i})
+  getDefaultCurrentStep: ->
+    model = TaskStore.get(@props.id)
+    # Determine the first uncompleted step
+    currentStep = 0
+    for step, i in model.steps
+      unless step.is_completed
+        currentStep = i
         break
+    currentStep
+
 
   goToStep: (num) -> () =>
     # Curried for React
     @setState({currentStep: num})
 
   update: ->
-    stepCompletion = @getStepCompletion(@props.model)
-    @setState({stepCompletion})
-
-  getStepCompletion: (taskConfig) ->
-    stepCompletion = for step in taskConfig.steps
-      @areAllStepsCompleted(step)
-    stepCompletion
+    @setState({})
 
   areAllStepsCompleted: (stepConfig) ->
     isUnanswered = false
@@ -67,56 +69,36 @@ module.exports = React.createClass
     !isUnanswered
 
   render: ->
-    steps = @props.model.steps
+    {id} = @props
+    model = TaskStore.get(id)
+    steps = model.steps
     stepConfig = steps[@state.currentStep]
 
     if steps.length > 1
-      unansweredStepCount = 0
-      stepButtons = for step, i in steps
-        unless @state.stepCompletion[i]
-          unansweredStepCount += 1
+      breadcrumbs =
+        <div className="panel-header">
+          <Breadcrumbs model={model} goToStep={@goToStep} currentStep={@state.currentStep} />
+        </div>
 
-        classes = ['btn step']
-        classes.push(step.type)
-
-        title = null
-
-        if i is @state.currentStep
-          classes.push('current')
-          classes.push('active')
-          # classes.push('disabled')
-          title = "Current Step (#{step.type})"
-
-        if @state.stepCompletion[i]
-          classes.push('completed')
-          classes.push('btn-default')
-          # classes.push('disabled')
-          title ?= "Step Completed (#{step.type}). Click to review"
-
-        else
-          classes.push('btn-primary')
-          title ?= "Click to view #{step.type}"
-
-        <button type='button' className={classes.join(' ')} title={title} onClick={@goToStep(i)}><i className="fa fa-fw #{step.type}"></i></button>
-
-      if unansweredStepCount is 0
-        nextOrComplete = <button className='btn btn-success' onClick={@completeTask}>Complete</button>
-      else
-        # Determine if the Next button should be disabled by checking if all the questions have been answered
-        classes = ['btn btn-primary']
-        unless @props.model.steps[@state.currentStep].is_completed
-          classes.push('disabled')
-        nextOrComplete = <button className={classes.join(' ')} onClick={@nextButton}>Continue</button>
-
-      <div className='task-step'>
-        <Breadcrumbs model={@props.model} goToStep={@goToStep} currentStep={@state.currentStep} />
-        <TaskStep model={stepConfig} />
-        {nextOrComplete}
-      </div>
-
+    if TaskStore.isStepAnswered(id, @state.currentStep)
+      isDisabledClass = ''
     else
+      isDisabledClass = ' disabled'
 
-      <div className='task-step single-step'>
-        <TaskStep model={stepConfig} />
-        <button className='btn btn-success' onClick={@completeTask}>Complete</button>
+    <div className="task">
+      {breadcrumbs}
+      <div className="task-step panel panel-default">
+        <div className="panel-body">
+          <TaskStep taskId={id} id={@state.currentStep} model={stepConfig} onComplete={@onStepComplete} />
+        </div>
+        <div className="panel-footer">
+          <button className="btn btn-primary #{isDisabledClass}" onClick={@onStepComplete}>Continue</button>
+        </div>
       </div>
+    </div>
+
+  onStepComplete: ->
+    {id} = @props
+    stepId = @state.currentStep
+    TaskActions.completeStep(id, stepId)
+    @setState({currentStep: @getDefaultCurrentStep()})

@@ -1,5 +1,6 @@
 React = require 'react'
 
+{TaskStore} = require '../flux/task'
 {Reading, Interactive, Exercise} = require './all-steps'
 
 # React swallows thrown errors so log them first
@@ -22,9 +23,13 @@ module.exports = React.createClass
 
   propTypes:
     model: React.PropTypes.object.isRequired
+    taskId: React.PropTypes.string.isRequired
 
   render: ->
-    {type} = @props.model
+    {taskId, id, model} = @props
+    {type} = model
     Type = getStepType(type)
 
-    <Type model={@props.model} />
+    <Type
+      model={@props.model}
+    />

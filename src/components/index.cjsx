@@ -51,13 +51,6 @@ App = React.createClass
         </div>
       </div>
       {@props.activeRouteHandler()}
-      <div className='navbar navbar-default navbar-fixed-bottom' role='navigation'>
-        <div className='container-fluid'>
-          <div className='navbar-header'>
-            Page Footer
-          </div>
-        </div>
-      </div>
     </div>
 
 
@@ -85,8 +78,7 @@ SingleTask = React.createClass
     id = @props.params.id
     switch TaskStore.getAsyncStatus(id)
       when 'loaded'
-        task = TaskStore.get(id)
-        return @transferPropsTo(<Task model={task} />)
+        return @transferPropsTo(<Task id={id} />)
 
       when 'failed'
         <div>Error. Please refresh</div>
