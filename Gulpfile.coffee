@@ -43,11 +43,13 @@ build = (isWatching)->
   destFile = 'tutor.js'
   srcPath = './index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
-  .on 'end', ->
-    # Build the CSS file
-    gulp.src('./style/tutor.less')
-    .pipe(less())
-    .pipe(gulp.dest(destDir))
+
+gulp.task 'styles', ->
+  destDirCss = './dist'
+  # Build the CSS file
+  gulp.src('./style/tutor.less')
+  .pipe(less())
+  .pipe(gulp.dest(destDirCss))
 
 buildTests = (isWatching) ->
   destDir = './.tmp' # This is referenced in ./test/karma.config.coffee
@@ -57,6 +59,7 @@ buildTests = (isWatching) ->
 
 
 gulp.task 'test', (done) ->
+  console.log 'testing'
   buildTests(false)
   .on 'end', ->
     config =
@@ -76,10 +79,14 @@ gulp.task 'tdd', (done) ->
   return # Since this is async
 
 
-gulp.task 'dist', -> build(false)
-gulp.task 'watch', -> build(true)
-gulp.task 'serve', ->
-  build(true)
+gulp.task 'dist', ['build']
+gulp.task 'watch', ['build'], ->
+  gulp.watch ['src/**/*.coffee', 'src/**/*.cjsx', 'test/**/*.coffee'], ['build', 'test']
+  gulp.watch 'style/**/{*.less, *.css}', ['styles']
+
+gulp.task 'build', ['styles'], -> build(false)
+
+gulp.task 'serve', ['watch'], ->
   config = webserver
     port: process.env['PORT'] or undefined
     # host: '0.0.0.0'
