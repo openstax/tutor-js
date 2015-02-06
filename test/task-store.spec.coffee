@@ -19,7 +19,7 @@ describe 'Task Store', ->
     calledSynchronously = false
     TaskStore.addChangeListener ->
       calledSynchronously = true
-      calledSynchronously && done()
+      calledSynchronously and done()
     TaskActions.loaded(123, {hello:'world'})
     expect(TaskStore.get(123).hello).to.equal('world')
 
@@ -75,7 +75,7 @@ describe 'Task Store', ->
     calledSynchronously = 0
     TaskStore.addChangeListener ->
       calledSynchronously += 1
-      calledSynchronously == 3 && done()
+      calledSynchronously is 3 and done()
 
     TaskActions.loaded(id, {hello:'world'})
     expect(TaskStore.get(id).hello).to.equal('world')
@@ -96,7 +96,7 @@ describe 'Task Store', ->
     calledSynchronously = 0
     TaskStore.addChangeListener ->
       calledSynchronously += 1
-      calledSynchronously == 3 && done()
+      calledSynchronously is 3 and done()
 
     TaskActions.loaded(id, {hello:'world'})
 
@@ -114,7 +114,7 @@ describe 'Task Store', ->
     calledSynchronously = 0
     TaskStore.addChangeListener ->
       calledSynchronously += 1
-      calledSynchronously == 2 && done()
+      calledSynchronously is 2 and done()
 
     TaskActions.loaded(id, {hello:'world'})
 

@@ -16,13 +16,12 @@ describe 'Answer Store', ->
 
 
   it 'should store an answer and notify', (done) ->
-    debugger
     question = {id: 0}
 
     calledSynchronously = 0
     AnswerStore.addChangeListener ->
       calledSynchronously += 1
-      calledSynchronously == 2 && done()
+      calledSynchronously is 2 and done()
 
     AnswerActions.setAnswer(question, 'id123')
     expect(AnswerStore.getAnswer(question)).to.equal('id123')
