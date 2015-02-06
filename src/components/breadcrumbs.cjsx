@@ -13,10 +13,12 @@ module.exports = React.createClass
   render: ->
     steps = @props.model.steps
 
-    unansweredStepCount = 0
+    # Make sure the 1st incomplete step is displayed.
+    # Useful when the student clicks back to review a previous step
+    # (ie the reading step)
+    showedFirstIncompleteStep = false
+
     stepButtons = for step, i in steps
-      unless step.is_completed
-        unansweredStepCount += 1
 
       classes = ['btn step']
       classes.push(step.type)
@@ -35,9 +37,11 @@ module.exports = React.createClass
         # classes.push('disabled')
         title ?= "Step Completed (#{step.type}). Click to review"
 
+      else if showedFirstIncompleteStep
+        continue
       else
-        classes.push('btn-default')
-        title ?= "Click to view #{step.type}"
+        showedFirstIncompleteStep = true
+
 
       <button type='button' className={classes.join(' ')} title={title} onClick={@props.goToStep(i)}><i className="fa fa-fw #{step.type}"></i></button>
 
