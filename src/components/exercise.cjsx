@@ -2,7 +2,7 @@ _ = require 'underscore'
 React = require 'react'
 katex = require 'katex'
 {AnswerActions, AnswerStore} = require '../flux/answer'
-
+ArbitraryHtmlAndMath = require './html'
 
 # Converts an index to `a-z` for question answers
 AnswerLabeler = React.createClass
@@ -11,35 +11,6 @@ AnswerLabeler = React.createClass
     {index, before, after} = @props
     letter = String.fromCharCode(index + 97) # For uppercase use 65
     <span className='answer-char'>{before}{letter}{after}</span>
-
-
-ArbitraryHtmlAndMath = React.createClass
-  displayName: 'ArbitraryHtmlAndMath'
-  render: ->
-    classes = ['arbitrary-html-and-math']
-    classes.push(@props.className) if @props.className
-
-    if @props.block
-      <div className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
-    else
-      <span className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
-
-  renderMath: ->
-    for node in @getDOMNode().querySelectorAll('[data-math]:not(.loaded)')
-      $node = $(node)
-      formula = $node.attr('data-math')
-
-      # Divs with data-math should be rendered as a block
-      isBlock = node.tagName.toLowerCase() in ['div']
-
-      if isBlock
-        formula = "\\displaystyle {#{formula}}"
-
-      katex.render(formula, $node[0])
-      $node.addClass('loaded')
-
-  componentDidMount:  -> @renderMath()
-  componentDidUpdate: -> @renderMath()
 
 
 QuestionMixin =
