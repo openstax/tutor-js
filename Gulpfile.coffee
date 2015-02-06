@@ -58,8 +58,7 @@ buildTests = (isWatching) ->
   buildBrowserify(srcPath, destDir, destFile, isWatching)
 
 
-gulp.task 'test', (done) ->
-  console.log 'testing'
+gulp.task 'test', ['build'], (done) ->
   buildTests(false)
   .on 'end', ->
     config =
@@ -69,7 +68,7 @@ gulp.task 'test', (done) ->
 
   return # Since this is async
 
-gulp.task 'tdd', (done) ->
+gulp.task 'tdd', ['build'],  (done) ->
   buildTests(true)
   .on 'end', ->
     config =
