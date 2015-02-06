@@ -1,6 +1,7 @@
 _ = require 'underscore'
 flux = require 'flux-react'
 {CurrentUserActions, CurrentUserStore} = require './current-user'
+{AnswerStore} = require './answer'
 
 TaskActions = flux.createActions [
   'reset'       # () ->
@@ -10,6 +11,8 @@ TaskActions = flux.createActions [
   'saved'       # (id) ->
   'load'        # (id) ->
   'loaded'      # (id, taskObj) ->
+  'updateStep'  # (id, stepId, updateObj) ->
+  'completeStep'# (id, stepId) ->
   'FAILED'      # (id, statusCode, msgObj) ->
 ]
 
@@ -29,6 +32,7 @@ TaskStore = flux.createStore
     TaskActions.edit
     TaskActions.complete
     TaskActions.saved
+    TaskActions.completeStep
   ]
 
   _asyncStatus: {}
@@ -75,6 +79,15 @@ TaskStore = flux.createStore
     delete @_errors[id]
     @emitChange()
 
+  updateStep: (id, stepId, updateObj) ->
+    task = @_local[id]
+    _.extend(task.steps[stepId], updateObj)
+
+  completeStep: (id, stepId) ->
+    task = @_local[id]
+    task.steps[stepId].is_completed = true
+    @emitChange()
+
   exports:
     isUnknown: (id) -> !@_asyncStatus[id]
     isLoading: (id) -> @_asyncStatus[id] is LOADING
@@ -85,5 +98,15 @@ TaskStore = flux.createStore
     getUnsaved: (id) -> @_unsaved[id]
     get: (id) ->
       _.extend({}, @_local[id], @_unsaved[id])
+    isStepAnswered: (id, stepId) ->
+      step = @_local[id].steps[stepId]
+
+      isAnswered = true
+      if step.type is 'exercise'
+        for question in step.content.questions
+          unless AnswerStore.getAnswer(question)?
+            isAnswered = false
+            break
+      isAnswered
 
 module.exports = {TaskActions, TaskStore}

@@ -3,15 +3,15 @@ $ = require 'jquery'
 
 React = require 'react'
 
-{Interactive} = require '../../../src/components/task-steps'
+{Interactive} = require '../../../src/components/all-steps'
 
 describe 'Interactive Task', ->
   it 'should render an IFrame', ->
-    config =
+    model =
       type: 'reading'
       content_url: '/foo'
 
-    html = React.renderComponentToString(<Interactive config={config} />)
+    html = React.renderComponentToString(<Interactive model={model} />)
     $node = $("<div id='wrapper'>#{html}</div>")
 
     # Verify the node has the correct elements

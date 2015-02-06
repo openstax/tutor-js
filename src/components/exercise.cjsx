@@ -46,20 +46,20 @@ QuestionMixin =
   # renderBody: ->
   # renderStem: ->
   render: ->
-    {config} = @props
-    isAnswered = !!config.answer
+    {model} = @props
+    isAnswered = !!model.answer
 
-    if config.stimulus?
-      stimulus = <ArbitraryHtmlAndMath block=true className='stimulus' html={config.stimulus} />
-    classes = ['question', config.format]
+    if model.stimulus?
+      stimulus = <ArbitraryHtmlAndMath block=true className='stimulus' html={model.stimulus} />
+    classes = ['question', model.format]
     classes.push('answered') if isAnswered
 
     if @renderStem?
       stem = @renderStem()
     else
-      stem = <ArbitraryHtmlAndMath block=true className='stem' html={config.stem} />
+      stem = <ArbitraryHtmlAndMath block=true className='stem' html={model.stem} />
 
-    <div className={classes.join(' ')} data-format={config.type}>
+    <div className={classes.join(' ')} data-format={model.type}>
       {stimulus}
       {stem}
       {@renderBody()}
@@ -70,16 +70,16 @@ BlankQuestion = React.createClass
   displayName: 'BlankQuestion'
   mixins: [QuestionMixin]
   renderStem: ->
-    {config} = @props
-    {stem} = config
-    isAnswered = !!config.answer
+    {model} = @props
+    {stem} = model
+    isAnswered = !!model.answer
 
     if isAnswered
       # TODO: Make sure HTML is escaped!!!
-      if config.answer is config.correct
-        stem = stem.replace(/____/, "<span class='correct'>#{config.answer}</span>")
+      if model.answer is model.correct
+        stem = stem.replace(/____/, "<span class='correct'>#{model.answer}</span>")
       else
-        stem = stem.replace(/____/, "<span class='incorrect'>#{config.answer}</span><span class='missed'>#{config.correct}</span>")
+        stem = stem.replace(/____/, "<span class='incorrect'>#{model.answer}</span><span class='missed'>#{model.correct}</span>")
     else
       stem = stem.replace(/____/, '<input type="text" placeholder="fill this in" class="blank"/>')
 
@@ -90,70 +90,71 @@ BlankQuestion = React.createClass
     input = @getDOMNode().querySelector('.blank')
     input?.onkeyup = input?.onblur = input?.onchange = =>
       if input.value
-        AnswerActions.setAnswer(@props.config, input.value)
+        AnswerActions.setAnswer(@props.model, input.value)
       else
-        AnswerActions.setAnswer(@props.config, undefined)
+        AnswerActions.setAnswer(@props.model, undefined)
 
 
 SimpleQuestion = React.createClass
   displayName: 'SimpleQuestion'
   mixins: [QuestionMixin]
   renderBody: ->
-    {config} = @props
-    isAnswered = !!config.answer
-    answer = AnswerStore.getAnswer(config)
+    {model} = @props
+    isAnswered = !!model.answer
+    answer = AnswerStore.getAnswer(model)
 
     if isAnswered
       <div className='answer'>Your answer: <strong>{answer}</strong></div>
     else
       <textarea
           className='form-control'
-          rows='3'
+          rows='2'
           ref='prompt'
-          placeholder={config.short_stem}
-          onChange=@onChange>{answer or ''}</textarea>
+          placeholder={model.short_stem}
+          value={answer or ''}
+          onChange=@onChange />
 
   onChange: ->
     val = @refs.prompt.getDOMNode().value
     if val
-      AnswerActions.setAnswer(@props.config, val)
+      AnswerActions.setAnswer(@props.model, val)
     else
-      AnswerActions.setAnswer(@props.config, undefined)
+      AnswerActions.setAnswer(@props.model, undefined)
 
 
 SimpleMultipleChoiceOption = React.createClass
   displayName: 'SimpleMultipleChoiceOption'
   render: ->
-    {config, questionId, index} = @props
-    id = config.id
-    <ArbitraryHtmlAndMath className='stem' html={config.content or config.value} />
+    {model, questionId, index} = @props
+    id = model.id
+    <ArbitraryHtmlAndMath className='stem' html={model.content or model.value} />
 
 MultiMultipleChoiceOption = React.createClass
   displayName: 'MultiMultipleChoiceOption'
   render: ->
-    {config, idIndices} = @props
+    {model, idIndices} = @props
     vals = []
     for id, i in idIndices
-      unless config.value.indexOf(id) < 0
-        index = config.value.indexOf(id)
+      unless model.value.indexOf(id) < 0
+        index = model.value.indexOf(id)
         vals.push <AnswerLabeler key={index} before='(' after=')' index={index}/>
     <span className='multi'>{vals}</span>
 
 
 MultipleChoiceOptionMixin =
   render: ->
-    {inputType, config, questionId, index, isAnswered} = @props
+    {inputType, model, questionId, index, isAnswered} = @props
 
     # For radio boxes there is only 1 value, the id/value but
     # for checkboxes the answer is an array of ids/values
-    option = if Array.isArray(config.value)
-      @props.idIndices = for id in config.value
+    option = if Array.isArray(model.value)
+      @props.idIndices = for id in model.value
         id
       MultiMultipleChoiceOption(@props)
     else
       SimpleMultipleChoiceOption(@props)
 
-    id = "#{questionId}-#{config.id}"
+    id = "#{questionId}-#{model.id}"
 
     inputType = 'hidden' if isAnswered
 
@@ -161,7 +162,7 @@ MultipleChoiceOptionMixin =
     # null (unanswered), 'correct', 'incorrect', 'missed'
     classes.push(@props.answerState) if @props.answerState
 
-    optionIdent = @props.config.id or @props.config.value
+    optionIdent = @props.model.id or @props.model.value
     if Array.isArray(@props.answer)
       isChecked = @props.answer.indexOf(optionIdent) >= 0
     else
@@ -179,7 +180,7 @@ MultipleChoiceOptionMixin =
           <input type={inputType}
             ref='input'
             name={questionId}
-            value={JSON.stringify(config.value)}
+            value={JSON.stringify(model.value)}
             onChange=@onChange
             defaultChecked={isChecked}
           />
@@ -198,30 +199,30 @@ MultipleChoiceOption = React.createClass
   mixins: [MultipleChoiceOptionMixin]
 
   onChange: ->
-    @props.onChange(@props.config)
+    @props.onChange(@props.model)
 
 
 MultipleChoiceQuestion = React.createClass
   displayName: 'MultipleChoiceQuestion'
 
   render: ->
-    {config} = @props
-    isAnswered = !!config.answer
+    {model} = @props
+    isAnswered = !!model.answer
 
-    questionId = config.id
-    options = for option, index in config.answers
+    questionId = model.id
+    options = for option, index in model.answers
       answerState = null
-      if config.answer is option.id # if my answer is this option
-        if config.correct is config.answer
+      if model.answer is option.id # if my answer is this option
+        if model.correct is model.answer
           answerState = 'correct'
         else
           answerState = 'incorrect'
-      else if config.correct is option.id and config.answers.length > 2
+      else if model.correct is option.id and model.answers.length > 2
         answerState = 'missed'
 
       optionProps = {
-        config: option
-        answer: AnswerStore.getAnswer(config)
+        model: option
+        answer: AnswerStore.getAnswer(model)
         questionId
         index
         isAnswered
@@ -234,12 +235,12 @@ MultipleChoiceQuestion = React.createClass
     classes.push('answered') if isAnswered
 
     <div key={questionId} className={classes.join(' ')}>
-      <ArbitraryHtmlAndMath block=true className='stem' html={config.stem} />
+      <ArbitraryHtmlAndMath block=true className='stem' html={model.stem} />
       <ul className='options'>{options}</ul>
     </div>
 
   onChange: (answer) ->
-    AnswerActions.setAnswer(@props.config, answer.id or answer.value)
+    AnswerActions.setAnswer(@props.model, answer.id or answer.value)
 
 
 MultiSelectOption = React.createClass
@@ -251,7 +252,7 @@ MultiSelectOption = React.createClass
     # NOTE: @refs.input.state.checked only works for checkboxes (not radio buttons)
     # but @refs.input.getDOMNode().checked works for both
     # and @refs.input.getDOMNode().checked does not work for Node tests ; (
-    @props.onChange(@props.config)
+    @props.onChange(@props.model)
 
 
 # http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
@@ -279,24 +280,24 @@ MultiSelectQuestion = React.createClass
     answers: []
 
   renderBody: ->
-    {config} = @props
-    isAnswered = !!config.answer
-    questionId = config.id
+    {model} = @props
+    isAnswered = !!model.answer
+    questionId = model.id
 
     options = []
 
-    for option, index in config.answers
+    for option, index in model.answers
       unless Array.isArray(option.value)
         isCorrect = false
         isIncorrect = false
 
-        if isAnswered and config.correct
-          correctAnswers = _.find(config.answers, (a) -> a.id is config.correct).value
+        if isAnswered and model.correct
+          correctAnswers = _.find(model.answers, (a) -> a.id is model.correct).value
           # If correctAnswers is not an array then there is only 1 correct answer
           unless Array.isArray(correctAnswers)
-            correctAnswers = [config.correct]
+            correctAnswers = [model.correct]
 
-          if config.answer?.indexOf(option.id) >= 0 # if my answer contains this option
+          if model.answer?.indexOf(option.id) >= 0 # if my answer contains this option
             if correctAnswers.indexOf(option.id) >= 0
               answerState = 'correct'
             else
@@ -307,8 +308,8 @@ MultiSelectQuestion = React.createClass
             answerState = null
 
         optionProps = {
-          config: option
-          answer: AnswerStore.getAnswer(config)
+          model: option
+          answer: AnswerStore.getAnswer(model)
           isAnswered
           answerState
           questionId
@@ -331,9 +332,9 @@ MultiSelectQuestion = React.createClass
       @state.answers.push(answer.id)
 
     if @state.answers.length
-      AnswerActions.setAnswer(@props.config, @state.answers)
+      AnswerActions.setAnswer(@props.model, @state.answers)
     else
-      AnswerActions.setAnswer(@props.config, undefined)
+      AnswerActions.setAnswer(@props.model, undefined)
 
 
 TrueFalseQuestion = React.createClass
@@ -341,9 +342,9 @@ TrueFalseQuestion = React.createClass
   mixins: [QuestionMixin]
 
   renderBody: ->
-    {config} = @props
-    isAnswered = config.answer?
-    questionId = config.id
+    {model} = @props
+    isAnswered = model.answer?
+    questionId = model.id
     idTrue = "#{questionId}-true"
     idFalse = "#{questionId}-false"
 
@@ -351,13 +352,13 @@ TrueFalseQuestion = React.createClass
       trueClasses  = ['option']
       falseClasses = ['option']
 
-      if config.correct
+      if model.correct
         correctClasses = trueClasses
         incorrectClasses = falseClasses
       else
         correctClasses = falseClasses
         incorrectClasses = trueClasses
-      if config.correct is !! config.answer
+      if model.correct is !! model.answer
         correctClasses.push('correct')
       else
         # correctClasses.push('missed') No need to show missed if there are only 2 options
@@ -393,8 +394,8 @@ TrueFalseQuestion = React.createClass
         </ul>
       </div>
 
-  onTrue:  -> AnswerActions.setAnswer(@props.config, true)
-  onFalse: -> AnswerActions.setAnswer(@props.config, false)
+  onTrue:  -> AnswerActions.setAnswer(@props.model, true)
+  onFalse: -> AnswerActions.setAnswer(@props.model, false)
 
 
 MatchingQuestion = React.createClass
@@ -402,9 +403,9 @@ MatchingQuestion = React.createClass
   mixins: [QuestionMixin]
 
   renderBody: ->
-    {config} = @props
-    rows = for answer, i in config.answers
-      item = config.items[i]
+    {model} = @props
+    rows = for answer, i in model.answers
+      item = model.items[i]
 
       <tr key={answer.id}>
         <td className='item'>
@@ -436,21 +437,17 @@ getQuestionType = (format) ->
 Exercise = React.createClass
   displayName: 'Exercise'
   render: ->
-    {config} = @props
+    {model} = @props
 
-    questions = for questionConfig in config.content.questions
+    questions = for questionConfig in model.content.questions
       format = questionConfig.format
       Type = getQuestionType(format)
-      props = {config:questionConfig}
-
+      props = {model:questionConfig}
       Type(props)
 
-
-    <div className='panel panel-default'>
-      <div className='panel-body exercise'>
-        <ArbitraryHtmlAndMath className='stimulus' html={config.content.stimulus} />
-        {questions}
-      </div>
+    <div className='exercise'>
+      <ArbitraryHtmlAndMath className='stimulus' html={model.content.stimulus} />
+      {questions}
     </div>
 
 

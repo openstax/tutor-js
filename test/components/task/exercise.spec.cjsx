@@ -9,12 +9,12 @@ React = require 'react'
 
 describe 'Exercise Task', ->
   it 'should render an Exercise with 0 questions', ->
-    config =
+    model =
       content:
         stimulus: 'EXERCISE_TEXT'
         questions: []
 
-    html = React.renderComponentToString(<Exercise config={config} />)
+    html = React.renderComponentToString(<Exercise model={model} />)
     $node = $("<div id='wrapper'>#{html}</div>")
 
     # Verify the node has the correct elements
@@ -26,7 +26,7 @@ describe 'Exercise Task', ->
 
   describe 'Short Answer Question', ->
     it 'should render an Exercise with a short-answer question', ->
-      config =
+      model =
         content:
           stimulus: 'EXERCISE_TEXT'
           questions: [
@@ -38,7 +38,7 @@ describe 'Exercise Task', ->
             }
           ]
 
-      html = React.renderComponentToString(<Exercise config={config} />)
+      html = React.renderComponentToString(<Exercise model={model} />)
       $node = $("<div id='wrapper'>#{html}</div>")
 
       # Verify the node has the correct elements
@@ -57,13 +57,13 @@ describe 'Question Types', ->
 
   describe 'short-answer', ->
     it 'should render the question', ->
-      config =
+      model =
         id: '123'
         format: 'short-answer'
         stem: 'QUESTION_STEM'
 
       Type = getQuestionType('short-answer')
-      html = React.renderComponentToString(<Type config={config} />)
+      html = React.renderComponentToString(<Type model={model} />)
       $node = $("<div id='wrapper'>#{html}</div>")
 
       # Verify the node has the correct elements
@@ -71,14 +71,14 @@ describe 'Question Types', ->
       expect($node.find('.question > .stem').text()).to.equal('QUESTION_STEM')
 
     it 'should trigger a change in the AnswerStore', ->
-      config =
+      model =
         id: '123'
         format: 'short-answer'
         stem: 'QUESTION_STEM'
 
       Type = getQuestionType('short-answer')
       $node = $("<div id='wrapper'></div>")
-      React.renderComponent <Type config={config} />, $node[0]
+      React.renderComponent <Type model={model} />, $node[0]
 
       input = $node.find('.question textarea')[0]
 
@@ -86,12 +86,12 @@ describe 'Question Types', ->
       React.addons.TestUtils.Simulate.change(input)
       # React.addons.TestUtils.Simulate.keyDown(node, {key: "Enter"});
 
-      expect(AnswerStore.getAnswer(config)).to.equal('ANSWER_TEXT')
+      expect(AnswerStore.getAnswer(model)).to.equal('ANSWER_TEXT')
 
 
   describe 'multiple-choice', ->
     it 'should render the question', ->
-      config =
+      model =
         id: '123'
         format: 'multiple-choice'
         stem: 'QUESTION_STEM'
@@ -101,7 +101,7 @@ describe 'Question Types', ->
         ]
 
       Type = getQuestionType('multiple-choice')
-      html = React.renderComponentToString(<Type config={config} />)
+      html = React.renderComponentToString(<Type model={model} />)
       $node = $("<div id='wrapper'>#{html}</div>")
 
       # Verify the node has the correct elements
@@ -113,7 +113,7 @@ describe 'Question Types', ->
 
 
     it 'should trigger a change in the AnswerStore', ->
-      config =
+      model =
         id: '123'
         format: 'multiple-choice'
         stem: 'QUESTION_STEM'
@@ -124,56 +124,56 @@ describe 'Question Types', ->
 
       Type = getQuestionType('multiple-choice')
       $node = $("<div id='wrapper'></div>")
-      React.renderComponent(<Type config={config} />, $node[0])
+      React.renderComponent(<Type model={model} />, $node[0])
 
       [radio1, radio2] = $node.find('.option label input[type="radio"]')
       # radio1.checked = true
       React.addons.TestUtils.Simulate.change(radio1)
 
-      expect(AnswerStore.getAnswer(config)).to.equal('OPTION_1_ID')
+      expect(AnswerStore.getAnswer(model)).to.equal('OPTION_1_ID')
 
       React.addons.TestUtils.Simulate.change(radio2)
 
-      expect(AnswerStore.getAnswer(config)).to.equal('OPTION_2_ID')
+      expect(AnswerStore.getAnswer(model)).to.equal('OPTION_2_ID')
 
     describe 'Render Math in various parts', ->
       INLINE_MATH = '<span data-math="\frac{3}{4}"></span>'
       it 'should render Math in the exercise.stimulus', ->
-        config =
+        model =
           content:
             id: '123'
             stimulus: INLINE_MATH
             questions: []
 
         $node = $("<div id='wrapper'></div>")
-        React.renderComponent(<Exercise config={config} />, $node[0])
+        React.renderComponent(<Exercise model={model} />, $node[0])
         expect($node.find('[data-math] > .katex')).to.have.length(1)
 
 
       it 'should render Math in the true-false.stem', ->
-        config =
+        model =
           type: 'true-false'
           stem: INLINE_MATH
 
         $node = $("<div id='wrapper'></div>")
-        Type = getQuestionType(config.type)
-        React.renderComponent(<Type config={config} />, $node[0])
+        Type = getQuestionType(model.type)
+        React.renderComponent(<Type model={model} />, $node[0])
         expect($node.find('[data-math] > .katex')).to.have.length(1)
 
 
       it 'should render Math in the multiple-choice.stem', ->
-        config =
+        model =
           type: 'multiple-choice'
           stem: INLINE_MATH
           answers: []
 
         $node = $("<div id='wrapper'></div>")
-        Type = getQuestionType(config.type)
-        React.renderComponent(<Type config={config} />, $node[0])
+        Type = getQuestionType(model.type)
+        React.renderComponent(<Type model={model} />, $node[0])
         expect($node.find('[data-math] > .katex')).to.have.length(1)
 
       it 'should render Math in the multiple-choice.answer', ->
-        config =
+        model =
           type: 'multiple-choice'
           stem: ''
           answers: [{
@@ -182,6 +182,6 @@ describe 'Question Types', ->
           }]
 
         $node = $("<div id='wrapper'></div>")
-        Type = getQuestionType(config.type)
-        React.renderComponent(<Type config={config} />, $node[0])
+        Type = getQuestionType(model.type)
+        React.renderComponent(<Type model={model} />, $node[0])
         expect($node.find('[data-math] > .katex')).to.have.length(1)
