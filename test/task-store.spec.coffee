@@ -15,13 +15,13 @@ describe 'Task Store', ->
     expect(TaskStore.isUnknown(id)).to.be.true
 
 
-  it 'should load a task and notify', ->
+  it 'should load a task and notify', (done)->
     calledSynchronously = false
     TaskStore.addChangeListener ->
       calledSynchronously = true
+      calledSynchronously and done()
     TaskActions.loaded(123, {hello:'world'})
     expect(TaskStore.get(123).hello).to.equal('world')
-    expect(calledSynchronously).to.equal(true)
 
 
   it 'should load a task through the happy path', ->
@@ -70,11 +70,12 @@ describe 'Task Store', ->
     expect(TaskStore.isFailed(id)).to.be.true
 
 
-  it 'should remember what was changed', ->
+  it 'should remember what was changed', (done) ->
     id = 0
     calledSynchronously = 0
     TaskStore.addChangeListener ->
       calledSynchronously += 1
+      calledSynchronously is 3 and done()
 
     TaskActions.loaded(id, {hello:'world'})
     expect(TaskStore.get(id).hello).to.equal('world')
@@ -88,14 +89,14 @@ describe 'Task Store', ->
     expect(TaskStore.get(id)).to.deep.equal({hello:'foo', bar:'baz'})
     expect(TaskStore.getUnsaved(id)).to.deep.equal({hello:'foo', bar:'baz'})
 
-    expect(calledSynchronously).to.equal(3)
 
 
-  it 'should reset the unsaved set when save completes', ->
+  it 'should reset the unsaved set when save completes', (done) ->
     id = 0
     calledSynchronously = 0
     TaskStore.addChangeListener ->
       calledSynchronously += 1
+      calledSynchronously is 3 and done()
 
     TaskActions.loaded(id, {hello:'world'})
 
@@ -106,14 +107,14 @@ describe 'Task Store', ->
     expect(TaskStore.get(id)).to.deep.equal({hello:'baz'})
     expect(TaskStore.getUnsaved(id)).to.be.undefined
 
-    expect(calledSynchronously).to.equal(3)
 
 
-  it 'should mark the task as complete', ->
+  it 'should mark the task as complete', (done) ->
     id = 0
     calledSynchronously = 0
     TaskStore.addChangeListener ->
       calledSynchronously += 1
+      calledSynchronously is 2 and done()
 
     TaskActions.loaded(id, {hello:'world'})
 
@@ -122,5 +123,3 @@ describe 'Task Store', ->
 
     expect(TaskStore.get(id).complete).to.be.true
     expect(TaskStore.getUnsaved(id).complete).to.be.true
-
-    expect(calledSynchronously).to.equal(2)
