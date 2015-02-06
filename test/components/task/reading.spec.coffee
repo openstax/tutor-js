@@ -10,6 +10,7 @@ describe 'Reading Task', ->
     model =
       type: 'reading'
       content_url: 'http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html'
+      content_html: '<div data-type="document-title">Experimental Design and Ethics</div>'
 
     $node = $("<div id='wrapper'></div>")
     React.renderComponent(<Reading model={model} />, $node[0])

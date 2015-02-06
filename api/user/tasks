@@ -4,7 +4,8 @@
       "title": "Reading Task",
       "steps": [{
         "type": "reading",
-        "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html"
+        "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html",
+        "content_html": "<strong>This is a strong tag</strong><em>Emphasize me</em>"
       }]
     },
     { "id": 2,
@@ -71,7 +72,8 @@
         },
         {
           "type": "reading",
-          "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html"
+          "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html",
+          "content_html": "<strong>This is a strong tag</strong><em>Emphasize me</em>"
         },
         {
           "type": "interactive",
