@@ -15,15 +15,16 @@ describe 'Answer Store', ->
     expect(AnswerStore.getAllAnswers()).to.deep.equal({})
 
 
-  it 'should store an answer and notify', ->
+  it 'should store an answer and notify', (done) ->
+    debugger
     question = {id: 0}
 
     calledSynchronously = 0
     AnswerStore.addChangeListener ->
       calledSynchronously += 1
+      calledSynchronously == 2 && done()
 
     AnswerActions.setAnswer(question, 'id123')
     expect(AnswerStore.getAnswer(question)).to.equal('id123')
     AnswerActions.setAnswer(question, 'id234')
     expect(AnswerStore.getAnswer(question)).to.equal('id234')
-    expect(calledSynchronously).to.equal(2)
