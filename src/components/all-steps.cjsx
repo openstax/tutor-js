@@ -20,7 +20,7 @@ Reading = React.createClass
     @props.onNextStep()
   renderBody: ->
     {content_html} = @props.model
-    <ArbitraryHtmlAndMath html={content_html} />
+    <ArbitraryHtmlAndMath className="reading-step" html={content_html} />
 
 Interactive = React.createClass
   mixins: [StepMixin]
