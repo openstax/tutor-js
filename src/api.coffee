@@ -10,8 +10,11 @@ $ = require 'jquery'
 {TaskActions} = require './flux/task'
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
-  listenAction.addListener 'trigger', (id, payload=null) ->
-    url = pathMaker(id)
+  listenAction.addListener 'trigger', (args...) ->
+    payload = args[args.length - 1]
+    payload = null unless typeof payload is 'object'
+
+    url = pathMaker(args...)
     opts =
       method: httpMethod
       dataType: 'json'
@@ -21,20 +24,20 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       opts.data = JSON.stringify(payload)
       opts.processData = false
 
-    resolved = (results) -> successAction(id, results)
+    resolved = (results) -> successAction(results, args...)
     rejected = (jqXhr, statusMessage, err) ->
       statusCode = jqXhr.status
       if statusCode is 400
         CurrentUserActions.logout()
       else if statusMessage is 'parsererror' and statusCode is 200
         # Hack for local testing. Webserver returns 200 + HTML for 404's
-        Actions.FAILED(id, 404, 'Error Parsing the JSON or a 404')
+        Actions.FAILED(404, 'Error Parsing the JSON or a 404', args...)
       else if statusCode is 404
-        Actions.FAILED(id, statusCode, 'ERROR_NOTFOUND')
+        Actions.FAILED(statusCode, 'ERROR_NOTFOUND', args...)
       else
         # Parse the error message and fail
         msg = JSON.parse(jqXhr.responseText)
-        Actions.FAILED(id, statusCode, msg)
+        Actions.FAILED(statusCode, msg, args...)
 
 
     $.ajax(url, opts)
@@ -42,11 +45,15 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 
 loadSaveHelper = (Actions, pathMaker) ->
   apiHelper(Actions, Actions.load, Actions.loaded, 'GET', pathMaker)
-  apiHelper(Actions, Actions.save, Actions.saved, 'PUT', pathMaker)
+  apiHelper(Actions, Actions.save, Actions.saved, 'PATCH', pathMaker)
 
 
 start = ->
   loadSaveHelper TaskActions, (id) -> "/api/tasks/#{id}"
+
+  # Fake the PATCH for now
+  # apiHelper TaskActions, TaskActions.completeStep, TaskActions.saved, 'PATCH', (taskId, stepId) ->
+  #   "/api/tasks/#{taskId}/steps/#{stepId}"
 
   CurrentUserActions.logout.addListener 'trigger', ->
     $.ajax('/accounts/logout', {method: 'DELETE'})
@@ -64,11 +71,7 @@ fetchUserTasks = ->
   $.ajax(url, opts)
   .then (results) =>
     for task in results.items
-      TaskActions.loaded(task.id, task)
+      TaskActions.loaded(task, task.id)
     results
 
-fetchRemoteHtml = (url) ->
-  $.ajax(url, {dataType:'html'})
-
-
-module.exports = {start, fetchUserTasks, fetchRemoteHtml}
+module.exports = {start, fetchUserTasks}

@@ -17,19 +17,13 @@ err = (msgs...) ->
 module.exports = React.createClass
   displayName: 'Task'
   getInitialState: ->
-    # Grab the currentStep from the URL from SingleTask
-    if @props.params.currentStep?
-      try
-        currentStep = parseInt(@props.params.currentStep) - 1
-      catch e
-        currentStep = 0
-    else
-      model = TaskStore.get(@props.id)
-      # Determine the first uncompleted step
-      for step, i in model.steps
-        unless step.is_completed
-          currentStep = i
-          break
+    currentStep = 0
+    model = TaskStore.get(@props.id)
+    # Determine the first uncompleted step
+    for step, i in model.steps
+      unless step.is_completed
+        currentStep = i
+        break
 
     {currentStep}
 
@@ -65,18 +59,21 @@ module.exports = React.createClass
           <Breadcrumbs model={model} goToStep={@goToStep} currentStep={@state.currentStep} />
         </div>
 
-    if TaskStore.isStepAnswered(id, @state.currentStep)
-      isDisabledClass = ''
-    else
-      isDisabledClass = 'disabled'
-
     <div className="task">
       {breadcrumbs}
-      <TaskStep taskId={id} id={@state.currentStep} model={stepConfig} onComplete={@onStepComplete} />
+      <TaskStep
+        taskId={id}
+        id={@state.currentStep}
+        model={stepConfig}
+        onStepCompleted={@onStepCompleted}
+        onNextStep={@onNextStep}
+      />
     </div>
 
-  onStepComplete: ->
+  onStepCompleted: ->
     {id} = @props
     stepId = @state.currentStep
     TaskActions.completeStep(id, stepId)
+
+  onNextStep: ->
     @setState({currentStep: @getDefaultCurrentStep()})

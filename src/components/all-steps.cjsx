@@ -14,17 +14,20 @@ err = (msgs...) ->
 
 Reading = React.createClass
   mixins: [StepMixin]
-  isEnabled: -> true
-  onSaveAndContinue: -> @props.onComplete()
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onStepCompleted()
+    @props.onNextStep()
   renderBody: ->
     {content_html} = @props.model
     <ArbitraryHtmlAndMath html={content_html} />
 
 Interactive = React.createClass
   mixins: [StepMixin]
-  isEnabled: -> true
-  onSaveAndContinue: -> @props.onComplete()
-
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onStepCompleted()
+    @props.onNextStep()
   renderBody: ->
     <iframe src={@props.model.content_url} />
 
