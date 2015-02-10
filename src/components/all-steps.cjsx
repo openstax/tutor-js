@@ -15,7 +15,7 @@ Reading = React.createClass
   render: ->
     content_html = @props.model.content_html or @state?.content_html
     if content_html
-      <div className='arbitrary-html' dangerouslySetInnerHTML={{__html: content_html}} />
+      <div className='arbitrary-html reading-step' dangerouslySetInnerHTML={{__html: content_html}} />
 
     else if @state?.content_html_error
       <div>Error loading Reading Step. Please reload the page and try again</div>
