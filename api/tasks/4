@@ -31,7 +31,7 @@
     {
       "type": "reading",
       "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html",
-      "content_html": "<strong>This is a strong tag</strong><em>Emphasize me</em>"
+      "content_html": "<div class='note links-to-physics'><div class='title'>Links to Physics</div><div class='para'><div class='title'>Astrology: Galileo’s Ship</div><figure id='fig25-3'><img src='http://placekitten.com/g/500/300'><figcaption>Galileo Galilei (1564-1642)</figcaption></figure><div class='note grasp-check'><div class='title'>Grasp Check</div><div class='para'>Why did the tennis ball appear to be going straight up and down at the same time that it moved along a curved path?</div></div></div><p>The idea that a description of motion depends on the reference frame of the observer has been known for hundreds of years. The 17th-century astronomer Galileo Galilei <a href='#fig25-3'>[link]</a> was one o</p></div><div class='note tips-for-success'><div class='title'>Tips for Success!</div><div class='para'>In some books x or s is used instead of d to describe position. In addition, a subscript is sometimes used to describe horizontal position, dx, or vertical position, dy.</div></div>"
     },
     {
       "type": "interactive",
