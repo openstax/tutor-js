@@ -32,4 +32,6 @@ module.exports = React.createClass
 
     <Type
       model={@props.model}
+      onNextStep={@props.onNextStep}
+      onStepCompleted={@props.onStepCompleted}
     />

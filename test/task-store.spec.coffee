@@ -9,7 +9,7 @@ describe 'Task Store', ->
   it 'should clear the store', ->
     id = 0
     expect(TaskStore.isUnknown(id)).to.be.true
-    TaskActions.loaded(id, {hello:'foo'})
+    TaskActions.loaded({hello:'foo'}, id)
     expect(TaskStore.isUnknown(id)).to.be.false
     TaskActions.reset()
     expect(TaskStore.isUnknown(id)).to.be.true
@@ -38,7 +38,7 @@ describe 'Task Store', ->
     expect(TaskStore.isLoading(id)).to.be.true
     expect(TaskStore.isFailed(id)).to.be.false
 
-    TaskActions.loaded(id, {hello:'bar'})
+    TaskActions.loaded({hello:'bar'}, id)
 
     expect(TaskStore.isUnknown(id)).to.be.false
     expect(TaskStore.isLoaded(id)).to.be.true
@@ -62,51 +62,12 @@ describe 'Task Store', ->
     expect(TaskStore.isLoading(id)).to.be.true
     expect(TaskStore.isFailed(id)).to.be.false
 
-    TaskActions.FAILED(id, {err:'message'})
+    TaskActions.FAILED(404, {err:'message'}, id)
 
     expect(TaskStore.isUnknown(id)).to.be.false
     expect(TaskStore.isLoaded(id)).to.be.false
     expect(TaskStore.isLoading(id)).to.be.false
     expect(TaskStore.isFailed(id)).to.be.true
-
-
-  it 'should remember what was changed', (done) ->
-    id = 0
-    calledSynchronously = 0
-    TaskStore.addChangeListener ->
-      calledSynchronously += 1
-      calledSynchronously is 3 and done()
-
-    TaskActions.loaded(id, {hello:'world'})
-    expect(TaskStore.get(id).hello).to.equal('world')
-
-    # Add a new attribute
-    TaskActions.edit(id, {bar:'baz'})
-    expect(TaskStore.get(id)).to.deep.equal({hello:'world', bar:'baz'})
-    expect(TaskStore.getUnsaved(id)).to.deep.equal({bar:'baz'})
-
-    TaskActions.edit(id, {hello:'foo'})
-    expect(TaskStore.get(id)).to.deep.equal({hello:'foo', bar:'baz'})
-    expect(TaskStore.getUnsaved(id)).to.deep.equal({hello:'foo', bar:'baz'})
-
-
-
-  it 'should reset the unsaved set when save completes', (done) ->
-    id = 0
-    calledSynchronously = 0
-    TaskStore.addChangeListener ->
-      calledSynchronously += 1
-      calledSynchronously is 3 and done()
-
-    TaskActions.loaded(id, {hello:'world'})
-
-    # Add a new attribute
-    TaskActions.edit(id, {hello:'foo'})
-    TaskActions.saved(id, {hello:'baz'})
-
-    expect(TaskStore.get(id)).to.deep.equal({hello:'baz'})
-    expect(TaskStore.getUnsaved(id)).to.be.undefined
-
 
 
   it 'should mark the task as complete', (done) ->
