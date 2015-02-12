@@ -25,7 +25,6 @@ ExerciseFreeResponse = React.createClass
       <ArbitraryHtmlAndMath className="stimulus" block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
       <textarea
-        className="form-control"
         ref="freeResponse"
         placeholder="Enter your response"
         value={@state.freeResponse or ''}
