@@ -2,7 +2,6 @@ $ = require 'jquery'
 React = require 'react'
 
 api = require '../api'
-{AnswerStore} = require '../flux/answer'
 {TaskStore, TaskActions} = require '../flux/task'
 TaskStep = require './task-step'
 Breadcrumbs = require './breadcrumbs'
@@ -27,8 +26,8 @@ module.exports = React.createClass
 
     {currentStep}
 
-  componentWillMount:   -> AnswerStore.addChangeListener(@update)
-  componentWillUnmount: -> AnswerStore.removeChangeListener(@update)
+  componentWillMount:   -> TaskStore.addChangeListener(@update)
+  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
 
   getDefaultCurrentStep: ->
     model = TaskStore.get(@props.id)
@@ -62,9 +61,9 @@ module.exports = React.createClass
     <div className="task">
       {breadcrumbs}
       <TaskStep
-        taskId={id}
         id={@state.currentStep}
         model={stepConfig}
+        task={model}
         onStepCompleted={@onStepCompleted}
         onNextStep={@onNextStep}
       />
@@ -72,8 +71,9 @@ module.exports = React.createClass
 
   onStepCompleted: ->
     {id} = @props
-    stepId = @state.currentStep
-    TaskActions.completeStep(id, stepId)
+    model = TaskStore.get(id)
+    step = model.steps[@state.currentStep]
+    TaskActions.completeStep(model, step)
 
   onNextStep: ->
     @setState({currentStep: @getDefaultCurrentStep()})

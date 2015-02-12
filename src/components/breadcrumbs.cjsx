@@ -1,12 +1,12 @@
 React = require 'react'
-{AnswerStore} = require '../flux/answer'
+{TaskStore} = require '../flux/task'
 
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  componentWillMount:   -> AnswerStore.addChangeListener(@update)
-  componentWillUnmount: -> AnswerStore.removeChangeListener(@update)
+  componentWillMount:   -> TaskStore.addChangeListener(@update)
+  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
 
   update: -> @setState({})
 

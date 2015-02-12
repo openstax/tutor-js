@@ -11,10 +11,7 @@ $ = require 'jquery'
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
-    payload = args[args.length - 1]
-    payload = null unless typeof payload is 'object'
-
-    url = pathMaker(args...)
+    {url, payload} = pathMaker(args...)
     opts =
       method: httpMethod
       dataType: 'json'
@@ -24,7 +21,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       opts.data = JSON.stringify(payload)
       opts.processData = false
 
-    resolved = (results) -> successAction(results, args...)
+    resolved = (results) -> successAction(results, args...) # Include listenAction for faking
     rejected = (jqXhr, statusMessage, err) ->
       statusCode = jqXhr.status
       if statusCode is 400
@@ -49,11 +46,24 @@ loadSaveHelper = (Actions, pathMaker) ->
 
 
 start = ->
-  loadSaveHelper TaskActions, (id) -> "/api/tasks/#{id}"
+  apiHelper TaskActions, TaskActions.load, TaskActions.loaded, 'GET', (id) ->
+    url: "/api/tasks/#{id}"
 
-  # Fake the PATCH for now
-  # apiHelper TaskActions, TaskActions.completeStep, TaskActions.saved, 'PATCH', (taskId, stepId) ->
-  #   "/api/tasks/#{taskId}/steps/#{stepId}"
+  # apiHelper TaskActions, TaskActions.save, TaskActions.saved, 'PATCH', (id, obj) ->
+  #   url: "/api/tasks/#{id}"
+  #   payload: obj
+
+  apiHelper TaskActions, TaskActions.completeStep, TaskActions.saved, 'PUT', (task, step) ->
+    url: "/api/tasks/#{task.id}/steps/#{step.id}/completed"
+
+  apiHelper TaskActions, TaskActions.setFreeResponseAnswer, TaskActions.saved, 'PATCH', (task, step, free_response) ->
+    url: "/api/tasks/#{task.id}/steps/#{step.id}"
+    payload: {free_response}
+
+  apiHelper TaskActions, TaskActions.setAnswerId, TaskActions.saved, 'PATCH', (task, step, answer_id) ->
+    url: "/api/tasks/#{task.id}/steps/#{step.id}"
+    payload: {answer_id}
+
 
   CurrentUserActions.logout.addListener 'trigger', ->
     $.ajax('/accounts/logout', {method: 'DELETE'})

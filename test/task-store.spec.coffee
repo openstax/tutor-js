@@ -9,7 +9,7 @@ describe 'Task Store', ->
   it 'should clear the store', ->
     id = 0
     expect(TaskStore.isUnknown(id)).to.be.true
-    TaskActions.loaded({hello:'foo'}, id)
+    TaskActions.loaded({hello:'foo', steps:[]}, id)
     expect(TaskStore.isUnknown(id)).to.be.false
     TaskActions.reset()
     expect(TaskStore.isUnknown(id)).to.be.true
@@ -20,7 +20,7 @@ describe 'Task Store', ->
     TaskStore.addChangeListener ->
       calledSynchronously = true
       calledSynchronously and done()
-    TaskActions.loaded(123, {hello:'world'})
+    TaskActions.loaded({hello:'world', steps:[]}, 123)
     expect(TaskStore.get(123).hello).to.equal('world')
 
 
@@ -38,7 +38,7 @@ describe 'Task Store', ->
     expect(TaskStore.isLoading(id)).to.be.true
     expect(TaskStore.isFailed(id)).to.be.false
 
-    TaskActions.loaded({hello:'bar'}, id)
+    TaskActions.loaded({hello:'bar', steps:[]}, id)
 
     expect(TaskStore.isUnknown(id)).to.be.false
     expect(TaskStore.isLoaded(id)).to.be.true
@@ -68,19 +68,3 @@ describe 'Task Store', ->
     expect(TaskStore.isLoaded(id)).to.be.false
     expect(TaskStore.isLoading(id)).to.be.false
     expect(TaskStore.isFailed(id)).to.be.true
-
-
-  it 'should mark the task as complete', (done) ->
-    id = 0
-    calledSynchronously = 0
-    TaskStore.addChangeListener ->
-      calledSynchronously += 1
-      calledSynchronously is 2 and done()
-
-    TaskActions.loaded(id, {hello:'world'})
-
-    # Add a new attribute
-    TaskActions.complete(id)
-
-    expect(TaskStore.get(id).complete).to.be.true
-    expect(TaskStore.getUnsaved(id).complete).to.be.true
