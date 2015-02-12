@@ -5,12 +5,62 @@
 @answer-hover-color: #f9f9f9;
 @answer-select-color: #f0f0f0; // darker than hover
 
+.task-step .exercise,
+.question {
+  font-size: 1.5em;
+  padding: 0.5em 100px;
+  
+  textarea {
+    margin: 1em 0;
+    padding: 5px;
+    height: 200px;
+    width: 100%;
+    font-size: 0.8em;
+    line-height: 150%;
+  }
+
+  .free-response,
+  .free-response:before,
+  .question-feedback,
+  .question-feedback:before {
+    font-size: 0.75em;
+  }
+  .free-response:before {
+    content: "My Answer:";
+    display: inline-block;
+    float: left;
+    margin-left: -90px;
+    color: #999;
+  }
+  .free-response {
+    padding: 20px 10px;
+    background: #f0f0f0;
+    display: block;
+    width: 100%;
+    float: left;
+    margin: 1em 0;
+    line-height: 1em;
+  }
+  .answers-table {
+      font-size: 0.8em;
+      width: 100%;
+      float: left;
+  }
+  .question-feedback:before {
+    content: "Why?";
+    float: left;
+    margin: 3px 0 0 -50px;
+    color: #999;
+  }
+  .question-feedback {
+    margin: 1em 0;
+    display: block;
+    float: left;
+  }
+}
+
 .question {
     counter-reset: answer 0;
-
-
-
-
 /*
     // The Row
     .answers-answer,
