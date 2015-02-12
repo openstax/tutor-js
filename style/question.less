@@ -1,63 +1,31 @@
+@correct-answer-color: #78b042;
+@correct-answer-background: #e4f4b9;
+@wrong-answer-color: #c22032;
+@wrong-answer-background: #ffe0e0; 
+@answer-hover-color: #f9f9f9;
+@answer-select-color: #f0f0f0; // darker than hover
+
 .question {
     counter-reset: answer 0;
 
-    &.has-correct-answer {
-      .answer-input-box { display: none; }
-
-      .answer-correct .answer-label { background-color: #0f0; }
-      .answer-checked:not(.answer-correct) .answer-label { background-color: #f00; }
-    }
-
-    .answers-table {
-      display: table;
-      border-collapse: collapse;
-
-      border-top: 1px dotted #ccc;
-      margin-top: 1rem;
-
-      .answers-answer {
-        counter-increment: answer 1;
-        display: table-row;
-
-        .answer-letter {
-          display: table-cell;
-          width: 2rem;
-          padding-left: .5rem;
-          &:after { content: counter(answer, lower-latin) ')'; }
-        }
-
-        .answer-content {
-          display: table-cell;
-          padding: .5rem 0;
-          width: 100%;
-          padding-left: 1rem;
-          padding-right: .5rem;
-        }
-      }
-    }
 
 
 
+/*
     // The Row
     .answers-answer,
     .answers-add {
-      display: table-row;
+      //display: table-row;
       // transition: background-color .3s ease;
     }
     // .answers-answer:hover { background-color: #efefef; }
     .answer-letter,
     .answer-actions {
-      display: table-cell;
+      //display: table-cell;
       width: 2rem;
     }
     .answer-letter { cursor: default; }
-
-
-
-
-
-
-
+*/
   // &.mode-view,
   // &.mode-preview {
     // &:before {
@@ -68,6 +36,7 @@
     //   margin-left: 3rem-1rem; // From materialize .card-content (-1rem for double-digit numbers)
     //   margin-top: 1.7rem; // From materialize .card-content
     // }
+
     .card-content {
       margin-left: 4rem; // Enough room for double-digit question numbers
 
@@ -78,7 +47,6 @@
       }
 
       .answers-table .answer-letter {
-        font-weight: bold;
       }
     }
   // }
@@ -86,40 +54,115 @@
 
 
   // &.mode-preview {
-    .answer-input-box { display: table-cell; }
-
-&:not(.has-correct-answer) {
-
-    .answer-input-box:checked + label.answer-label,
-    .answer-input-box:checked + label.answer-label:hover {
-      background-color: #9e9e9e; // darker than hover
-    }
-
-}
 
     .answers-table {
+      .answers-answer {
+        counter-increment: answer 1;
+        display: block;
+        width: 100%;
+        clear: both;
+
+        .answer-letter {
+          display: inline-block;
+          width: 2rem;
+          font-weight: bold;
+          &:after { content: counter(answer, lower-latin) ')'; }
+        }
+
+        .answer-content {
+          display: inline-block;
+          padding: 1rem;
+          padding-right: 0;
+        }
+      }
+    }
+
+    .answer-input-box {
+      display: inline-block;
+      float: left;
+      font-size: 1.5em;
+      margin: 0.95em 0;
+      margin-left: -30px;
+    }
+
+    .answers-table label.answer-label {
+
+      margin: 0.5em 0;
+      padding-left: 0;
+      line-height: 1.5em;
+      display: inline-block;
       width: 100%;
+      float:left;
+      transition: background-color .2s ease-in;
+      transition: padding-left .2s ease-in;
 
-      label.answer-label {
-        display: table-cell;
-        transition: background-color .2s ease-in;
-        &:hover { background-color: #e0e0e0; }
+      //Materialize hack
+      color: inherit;
+      font-weight: inherit;
+      font-size: inherit;
+      padding-left: 0;
+      height: inherit;
+      line-height: inherit;
 
-        //Materialize hack
-        color: inherit;
-        font-weight: inherit;
-        font-size: inherit;
-        padding-left: 0;
-        height: inherit;
-        line-height: inherit;
-        //Materialize hack
-        //[type="radio"]:not(:checked) + label:before
-        &:before,
-        &:after { display: none; }
-
+      //Materialize hack
+      //[type="radio"]:not(:checked) + label:before
+      &:before,
+      &:after { display: none; }
+      &:hover { 
+        background-color: @answer-hover-color; 
+        padding-left: 10px;
       }
     }
   // }
+    &:not(.has-correct-answer) {
+
+      .answer-input-box:checked + label.answer-label,
+      .answer-input-box:checked + label.answer-label:hover {
+        background-color: @answer-select-color; // darker than hover
+        font-weight: bold;
+        line-height: 1.5em;
+        padding-left: 10px;
+      }
+
+    }
+    &.has-correct-answer {
+      .answer-input-box { display: none; }
+
+      .answers-table .answers-answer .answer-label {
+        padding-left: 10px;
+      }
+
+      .answers-table .answer-correct:before,
+      .answers-table .answer-checked:not(.answer-correct):before { 
+        content:"\f00c";
+        color:@correct-answer-color;
+        display: inline-block;
+        float: left;
+        font-size: 1.5em;
+        margin: 0.5em 0;
+        margin-left: -40px;
+      }
+
+      .answers-table .answer-correct .answer-label { 
+        background-color: @correct-answer-background; 
+        color:@correct-answer-color;
+       .answer-content:hover {
+          background-color: @correct-answer-background; 
+        }
+      }
+      .answers-table .answer-checked:not(.answer-correct):before { 
+        content:"\f00d";
+        color:@wrong-answer-color;
+      }
+      .answers-table .answer-checked:not(.answer-correct) .answer-label { 
+        background-color: @wrong-answer-background; 
+        color:@wrong-answer-color;
+        .answer-content:hover { 
+          background-color: @wrong-answer-background; 
+        }
+      }
+
+    }
 
 
 
