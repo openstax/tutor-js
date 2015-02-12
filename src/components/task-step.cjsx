@@ -23,15 +23,16 @@ module.exports = React.createClass
 
   propTypes:
     model: React.PropTypes.object.isRequired
-    taskId: React.PropTypes.string.isRequired
+    task: React.PropTypes.object.isRequired
 
   render: ->
-    {taskId, id, model} = @props
+    {model} = @props
     {type} = model
     Type = getStepType(type)
 
     <Type
       model={@props.model}
+      task={@props.task}
       onNextStep={@props.onNextStep}
       onStepCompleted={@props.onStepCompleted}
     />

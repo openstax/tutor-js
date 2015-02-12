@@ -10,13 +10,15 @@ CrudConfig =
   _asyncStatus: {}
   _local: {}
   _errors: {}
-  _unsaved: {}
+
+  # If the specific type needs to do something else to the object:
+  # _loaded : (obj, id) ->
+  # _saved : (obj, id) ->
 
   reset: ->
     @_asyncStatus = {}
     @_local = {}
     @_errors = {}
-    @_unsaved = {}
     @emitChange()
 
   FAILED: (status, msg, id) ->
@@ -33,6 +35,8 @@ CrudConfig =
     # id = obj.id
     @_asyncStatus[id] = LOADED
     @_local[id] = obj
+    # If the specific type needs to do something else to the object:
+    @_loaded?(obj, id)
     @emitChange()
 
   save: (id, obj) ->
@@ -43,8 +47,9 @@ CrudConfig =
     # id = result.id
     @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
     @_local[id] = result
-    delete @_unsaved[id]
     delete @_errors[id]
+    # If the specific type needs to do something else to the object:
+    @_saved?(result, id)
     @emitChange()
 
   exports:
