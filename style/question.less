@@ -113,16 +113,16 @@
         clear: both;
 
         .answer-letter {
-          display: inline-block;
+          display: table-cell;
           width: 2rem;
           font-weight: bold;
           &:after { content: counter(answer, lower-latin) ')'; }
         }
 
         .answer-content {
-          display: inline-block;
+          display: table-cell;
           padding: 1rem;
-          padding-right: 0;
+          padding-right: 0.5em;
         }
       }
     }
@@ -136,28 +136,17 @@
     }
 
     .answers-table label.answer-label {
-
+      display: table;
       margin: 0.5em 0;
       padding-left: 0;
       line-height: 1.5em;
-      display: inline-block;
+      display: table;
+      font-weight: normal;
       width: 100%;
       float:left;
       transition: background-color .2s ease-in;
       transition: padding-left .2s ease-in;
 
-      //Materialize hack
-      color: inherit;
-      font-weight: inherit;
-      font-size: inherit;
-      padding-left: 0;
-      height: inherit;
-      line-height: inherit;
-
-      //Materialize hack
-      //[type="radio"]:not(:checked) + label:before
-      &:before,
-      &:after { display: none; }
       &:hover { 
         background-color: @answer-hover-color; 
         padding-left: 10px;
@@ -184,7 +173,7 @@
 
       .answers-table .answer-correct:before,
       .answers-table .answer-checked:not(.answer-correct):before { 
-        content:"\f00c";
+        content:@fa-var-check;
         color:@correct-answer-color;
         display: inline-block;
         float: left;
@@ -201,7 +190,7 @@
         }
       }
       .answers-table .answer-checked:not(.answer-correct):before { 
-        content:"\f00d";
+        content:@fa-var-close;
         color:@wrong-answer-color;
       }
       .answers-table .answer-checked:not(.answer-correct) .answer-label { 
