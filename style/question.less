@@ -25,13 +25,6 @@
   .question-feedback:before {
     font-size: 0.75em;
   }
-  .free-response:before {
-    content: "My Answer:";
-    display: inline-block;
-    float: left;
-    margin-left: -90px;
-    color: #999;
-  }
   .free-response {
     padding: 20px 10px;
     background: #f0f0f0;
@@ -40,22 +33,30 @@
     float: left;
     margin: 1em 0;
     line-height: 1em;
+
+    &:before {
+      content: "My Answer:";
+      display: inline-block;
+      float: left;
+      margin-left: -90px;
+      color: #999;
+    }
   }
   .answers-table {
       font-size: 0.8em;
       width: 100%;
       float: left;
   }
-  .question-feedback:before {
-    content: "Why?";
-    float: left;
-    margin: 3px 0 0 -50px;
-    color: #999;
-  }
   .question-feedback {
     margin: 1em 0;
     display: block;
     float: left;
+    &:before {
+      content: "Why?";
+      float: left;
+      margin: 3px 0 0 -50px;
+      color: #999;
+    }
   }
 }
 
