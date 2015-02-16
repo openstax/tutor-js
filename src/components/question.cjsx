@@ -25,6 +25,7 @@ module.exports = React.createClass
   render: ->
     html = @props.model.stem_html
     qid = @props.model.id or "auto-#{idCounter++}"
+    hasCorrectAnswer = !! @props.correct_answer_id
 
     if @props.feedback_html
       feedback = <ArbitraryHtml className="question-feedback has-html" html={@props.feedback_html} />
@@ -38,8 +39,10 @@ module.exports = React.createClass
       classes.push('answer-correct fa') if isCorrect
       classes = classes.join(' ')
 
-      <div className={classes}>
-        <input
+      # Allow changes only when the correct answer is not provided
+      # TODO: This should only be allowed when not(taskStep.is_completed)
+      unless hasCorrectAnswer
+        radioBox = <input
           type="radio"
           className="answer-input-box"
           checked={isChecked}
@@ -47,13 +50,15 @@ module.exports = React.createClass
           name="#{qid}-options"
           onChange={@onChangeAnswer(answer)}
         />
+
+      <div className={classes}>
+        {radioBox}
         <label htmlFor="#{qid}-option-#{i}" className="answer-label">
           <div className="answer-letter" />
           <ArbitraryHtml className="answer-content" html={answer.content_html} />
         </label>
       </div>
 
-    hasCorrectAnswer = !! @props.correct_answer_id
     classes = ['question']
     classes.push('has-correct-answer') if hasCorrectAnswer
     classes = classes.join(' ')
