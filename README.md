@@ -4,17 +4,19 @@ The JavaScript client for openstax Tutor.
 
 ## Install
 
-1. install <http://nodejs.org> (from the website or using <http://brew.sh> if you’re already using it)
-1. install gulp and bower globally: `npm install -g gulp bower` (<http://gulpjs.com> and <http://bower.io>)
+1. install [nodejs](http://nodejs.org) from the website or using <http://brew.sh> if you’re already using it
+1. `npm install -g gulp bower` to install [gulp](http://gulpjs.com) and [bower](http://bower.io) globally
 1. `git clone https://github.com/openstax/tutor-js` to the directory of your choice
   - If you don’t have `git` installed you can install homebrew and then `brew install git`
 1. `cd tutor-js`
 1. `npm install`
-1. `npm test` (or `gulp dist`)   (builds the JS and CSS)
+1. `bower install`
 1. `npm start` (or `gulp serve`) (opens up a browser window)
 
 
 ## Development
+
+To run tests: `npm test`.
 
 To build the dist version run `gulp dist`.
 
