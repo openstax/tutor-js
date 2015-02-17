@@ -4,15 +4,18 @@ flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 TaskConfig =
+  _getStep: (taskId, stepId) ->
+    task = @_local[taskId]
+    step = _.find task.steps, (s) -> s.id is stepId
+    step
+
   updateStep: (id, stepId, updateObj) ->
-    task = @_local[id]
-    step  = _.find task.steps, (s) -> s.id is stepId
+    step = @_getStep(id, stepId)
     _.extend(step, updateObj)
 
   completeStep: (task, step) ->
-    task = @_local[task.id]
     # Only mark the step complete once
-    step  = _.find task.steps, (s) -> s.id is step.id
+    step = @_getStep(task.id, step.id)
     unless step.is_completed
       step.is_completed = true # This is tied to getDefaultCurrentStep in getNextStep and occurs before TaskActions.completed is fired
       @emitChange()
@@ -21,9 +24,8 @@ TaskConfig =
     # First arg is null and ignored because it was a PUT ./completed
     # @load(task.id)
 
-    task = @_local[task.id]
     # Only mark the step complete once
-    step  = _.find task.steps, (s) -> s.id is step.id
+    step = @_getStep(task.id, step.id)
     step.is_completed = true
     # HACK: Tack on a fake correct_answer and feedback
     if step.content?.questions?[0]?.answers[0]?
@@ -32,15 +34,13 @@ TaskConfig =
     @emitChange()
 
   setAnswerId: (task, step, answerId) ->
-    task = @_local[task.id]
-    step  = _.find task.steps, (s) -> s.id is step.id
+    step = @_getStep(task.id, step.id)
     step.answer_id = answerId
     @emitChange()
 
   setFreeResponseAnswer: (task, step, freeResponse) ->
     # Find the local objects for task and step
-    task = @_local[task.id]
-    step  = _.find task.steps, (s) -> s.id is step.id
+    step = @_getStep(task.id, step.id)
     step.free_response = freeResponse
     @emitChange()
 
@@ -54,23 +54,19 @@ TaskConfig =
   _saved: (obj, id) -> @_loaded(obj, id)
 
   exports:
-    isStepAnswered: (id, stepId) ->
-      task = @_local[id]
-      step  = _.find task.steps, (s) -> s.id is stepId
-
+    isStepAnswered: (taskId, stepId) ->
+      step = @_getStep(taskId, stepId)
       isAnswered = true
       if step.type is 'exercise'
         unless step.answer_id
           isAnswered = false
       isAnswered
 
-    getStepFreeResponse: (id, stepId) ->
-      task = @_local[id]
-      step  = _.find task.steps, (s) -> s.id is stepId
+    getStepFreeResponse: (taskId, stepId) ->
+      step = @_getStep(taskId, stepId)
       step.free_response
-    getStepAnswerId: (id, stepId) ->
-      task = @_local[id]
-      step  = _.find task.steps, (s) -> s.id is stepId
+    getStepAnswerId: (taskId, stepId) ->
+      step = @_getStep(taskId, stepId)
       step.answer_id
 
 
