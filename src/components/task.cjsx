@@ -18,11 +18,12 @@ module.exports = React.createClass
   getInitialState: ->
     currentStep = 0
     model = TaskStore.get(@props.id)
-    # Determine the first uncompleted step
-    for step, i in model.steps
-      unless step.is_completed
-        currentStep = i
-        break
+    if model
+      # Determine the first uncompleted step
+      for step, i in model.steps
+        unless step.is_completed
+          currentStep = i
+          break
 
     {currentStep}
 
@@ -47,6 +48,22 @@ module.exports = React.createClass
     @setState({})
 
   render: ->
+    {id} = @props
+    switch TaskStore.getAsyncStatus(id)
+      when 'loaded'
+        @renderBody()
+      when 'failed'
+        <div>Error. Please refresh</div>
+      when 'loading'
+        # If reloading then do not replace the entire DOM (and lose currentStep state)
+        if TaskStore.get(id)
+          @renderBody()
+        else
+          <div>Loading...</div>
+      else
+        <div>Starting loading</div>
+
+  renderBody: ->
     {id} = @props
     model = TaskStore.get(id)
     steps = model.steps

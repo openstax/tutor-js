@@ -22,16 +22,6 @@ TaskConfig =
 
   completed: (empty, task, step) ->
     # First arg is null and ignored because it was a PUT ./completed
-    # @load(task.id)
-
-    # Only mark the step complete once
-    step = @_getStep(task.id, step.id)
-    step.is_completed = true
-    # HACK: Tack on a fake correct_answer and feedback
-    if step.content?.questions?[0]?.answers[0]?
-      step.correct_answer_id = step.content.questions[0].answers[0].id
-      step.feedback_html = 'Some <em>FAKE</em> feedback'
-    @emitChange()
 
   setAnswerId: (task, step, answerId) ->
     step = @_getStep(task.id, step.id)
@@ -43,15 +33,6 @@ TaskConfig =
     step = @_getStep(task.id, step.id)
     step.free_response = freeResponse
     @emitChange()
-
-  _loaded: (obj, id) ->
-    # Add a .url field to both the task and each step so API can patch the answer and completion info
-    obj.url ?= "/api/tasks/#{id}"
-    for step, i in obj.steps
-      throw new Error('Bug! No Step ID Provided!') unless step.id
-      step.url ?= "/api/tasks/#{id}/steps/#{step.id}"
-
-  _saved: (obj, id) -> @_loaded(obj, id)
 
   exports:
     isStepAnswered: (taskId, stepId) ->

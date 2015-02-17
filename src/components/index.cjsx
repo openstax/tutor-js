@@ -76,18 +76,7 @@ SingleTask = React.createClass
 
   render: ->
     id = @props.params.id
-    switch TaskStore.getAsyncStatus(id)
-      when 'loaded'
-        return @transferPropsTo(<Task id={id} />)
-
-      when 'failed'
-        <div>Error. Please refresh</div>
-
-      when 'loading'
-        <div>Loading...</div>
-
-      else
-        <div>Starting loading</div>
+    @transferPropsTo(<Task key={id} id={id} />)
 
 
 TaskResult = React.createClass
