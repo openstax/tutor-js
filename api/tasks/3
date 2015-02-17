@@ -1,6 +1,7 @@
 { "id": 3,
   "title": "Exercise Task",
   "steps": [{
+    "id": "step-id-3-1",
     "type": "exercise",
     "content": {
       "stimulus":"The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s",

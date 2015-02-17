@@ -27,8 +27,12 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       if statusCode is 400
         CurrentUserActions.logout()
       else if statusMessage is 'parsererror' and statusCode is 200
-        # Hack for local testing. Webserver returns 200 + HTML for 404's
-        Actions.FAILED(404, 'Error Parsing the JSON or a 404', args...)
+        if httpMethod is 'PUT'
+          # HACK for PUT
+          successAction(null, args...)
+        else
+          # Hack for local testing. Webserver returns 200 + HTML for 404's
+          Actions.FAILED(404, 'Error Parsing the JSON or a 404', args...)
       else if statusCode is 404
         Actions.FAILED(statusCode, 'ERROR_NOTFOUND', args...)
       else
@@ -53,7 +57,7 @@ start = ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
 
-  apiHelper TaskActions, TaskActions.completeStep, TaskActions.saved, 'PUT', (task, step) ->
+  apiHelper TaskActions, TaskActions.completeStep, TaskActions.completed, 'PUT', (task, step) ->
     url: "/api/tasks/#{task.id}/steps/#{step.id}/completed"
 
   apiHelper TaskActions, TaskActions.setFreeResponseAnswer, TaskActions.saved, 'PATCH', (task, step, free_response) ->
