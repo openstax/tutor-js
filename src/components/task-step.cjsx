@@ -29,10 +29,11 @@ module.exports = React.createClass
     {model} = @props
     {type} = model
     Type = getStepType(type)
-
     <Type
       model={@props.model}
       task={@props.task}
+      id={@props.id}
+      goToStep={@props.goToStep}
       onNextStep={@props.onNextStep}
       onStepCompleted={@props.onStepCompleted}
     />
