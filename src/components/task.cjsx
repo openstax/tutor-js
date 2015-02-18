@@ -69,20 +69,14 @@ module.exports = React.createClass
     steps = model.steps
     stepConfig = steps[@state.currentStep]
 
-    if steps.length > 1
-      breadcrumbs =
-        <div className="panel-header">
-          <Breadcrumbs model={model} goToStep={@goToStep} currentStep={@state.currentStep} />
-        </div>
-
-    <div className="task">
-      {breadcrumbs}
+    <div key={id} className="task">
       <TaskStep
         id={@state.currentStep}
         model={stepConfig}
         task={model}
         onStepCompleted={@onStepCompleted}
         onNextStep={@onNextStep}
+        goToStep={@goToStep}
       />
     </div>
 

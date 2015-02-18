@@ -106,6 +106,7 @@ module.exports = React.createClass
         task={@props.task}
         onNextStep={@props.onNextStep}
         onStepCompleted={@props.onStepCompleted}
+        goToStep={@props.goToStep}
       />
     else if free_response
       # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
@@ -113,10 +114,12 @@ module.exports = React.createClass
         model={@props.model}
         task={@props.task}
         onStepCompleted={@props.onStepCompleted}
+        goToStep={@props.goToStep}
       />
     else
       # 1. `not(free_response)`: Show the question stem and a text area
       <ExerciseFreeResponse
         model={@props.model}
         task={@props.task}
+        goToStep={@props.goToStep}
       />
