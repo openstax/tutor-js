@@ -57,7 +57,10 @@ start = ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
 
-  apiHelper TaskActions, TaskActions.completeStep, TaskActions.completed, 'PUT', (task, step) ->
+  reloadAfterCompletion = (empty, task, step) ->
+    TaskActions.load(task.id)
+
+  apiHelper TaskActions, TaskActions.completeStep, reloadAfterCompletion, 'PUT', (task, step) ->
     url: "/api/tasks/#{task.id}/steps/#{step.id}/completed"
 
   apiHelper TaskActions, TaskActions.setFreeResponseAnswer, TaskActions.saved, 'PATCH', (task, step, free_response) ->
