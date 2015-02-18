@@ -53,7 +53,7 @@ module.exports = React.createClass
 
       if step.is_completed
         classes.push('completed')
-        if step.correct_answer_id is step.answer_id
+        if step.correct_answer_id is step.answer_id or not step.correct_answer_id
           classes.push('btn-success')
         else
           classes.push('btn-danger')
