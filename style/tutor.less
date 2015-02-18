@@ -2,7 +2,6 @@
 @import '../bower_components/bootstrap-material-design/less/material-wfont.less';
 @import '../node_modules/font-awesome/less/font-awesome.less';
 @import '../bower_components/katex/static/katex.less';
-@import './question.less';
 
 // Override the default path to the font-awesome fonts
 @fa-font-path: '../node_modules/font-awesome/fonts';
@@ -13,9 +12,9 @@
 
 // Font-awesome icons mapped to our types
 i.fa {
-  &.reading::before     { content: @fa-var-newspaper-o; } // or fa-var-file-text-o
-  &.interactive::before { content: @fa-var-desktop; }
-  &.exercise::before    { content: @fa-var-question; } // or fa-var-mortar-board
+  &.reading-crumb::before     { content: @fa-var-newspaper-o; } // or fa-var-file-text-o
+  &.interactive-crumb::before { content: @fa-var-desktop; }
+  &.exercise-crumb::before    { content: @fa-var-question; } // or fa-var-mortar-board
 }
 
 
@@ -102,5 +101,6 @@ body {
   &:before { content: attr(data-math); }
 }
 
-
+@import 'breadcrumbs';
 @import 'reading';
+@import 'question';
