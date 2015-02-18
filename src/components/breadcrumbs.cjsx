@@ -44,7 +44,7 @@ module.exports = React.createClass
       classes.push(crumbType)
       title = null
 
-      if i is @props.currentStep.id
+      if step.id is @props.currentStep.id
         classes.push('current')
         classes.push('active')
         classes.push('btn-primary')
@@ -67,7 +67,7 @@ module.exports = React.createClass
       #if shouldAnimate is true, add animation class to last breadcrumb
       animateLastBreadCrumb = lastBreadcrumb && @state.shouldAnimate
       classes.push("breadcrumbs-enter") if newBreadcrumb or animateLastBreadCrumb
-      classes.push("hide") if showedFirstIncompleteStep and (i isnt @props.currentStep.id)
+      classes.push("hide") if showedFirstIncompleteStep and (step.id isnt @props.currentStep.id)
 
       <button type='button' key={i} className={classes.join(' ')} title={title} onClick={@props.goToStep(i)}><i className="fa fa-fw #{crumbType}"></i></button>
 
