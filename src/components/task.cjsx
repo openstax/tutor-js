@@ -1,5 +1,6 @@
 $ = require 'jquery'
 React = require 'react'
+{Link} = require 'react-router'
 
 api = require '../api'
 {TaskStore, TaskActions} = require '../flux/task'
@@ -14,16 +15,15 @@ err = (msgs...) ->
 
 
 module.exports = React.createClass
-  displayName: 'Task'
+  displayName: 'ReadingTask'
   getInitialState: ->
-    currentStep = 0
     model = TaskStore.get(@props.id)
-    if model
-      # Determine the first uncompleted step
-      for step, i in model.steps
-        unless step.is_completed
-          currentStep = i
-          break
+    if model? and model.steps.length is 1
+      # For non-reading tasks that are simple (1 step) just skip the overview page
+      currentStep = 0
+    else
+      # Otherwise, start at the Overview page
+      currentStep = -1
 
     {currentStep}
 
@@ -33,11 +33,12 @@ module.exports = React.createClass
   getDefaultCurrentStep: ->
     model = TaskStore.get(@props.id)
     # Determine the first uncompleted step
-    currentStep = 0
+    currentStep = -1
     for step, i in model.steps
       unless step.is_completed
         currentStep = i
         break
+
     currentStep
 
   goToStep: (num) -> () =>
@@ -69,22 +70,63 @@ module.exports = React.createClass
     steps = model.steps
     stepConfig = steps[@state.currentStep]
 
+    allStepsCompleted = true
+    for step in model.steps
+      unless step.is_completed
+        allStepsCompleted = false
+
     if steps.length > 1
       breadcrumbs =
         <div className="panel-header">
           <Breadcrumbs model={model} goToStep={@goToStep} currentStep={@state.currentStep} />
         </div>
 
-    <div className="task">
-      {breadcrumbs}
-      <TaskStep
-        id={@state.currentStep}
-        model={stepConfig}
-        task={model}
-        onStepCompleted={@onStepCompleted}
-        onNextStep={@onNextStep}
-      />
-    </div>
+    if @state.currentStep > steps.length
+      throw new Error('BUG! currentStep is too large')
+    else if @state.currentStep < -1
+      throw new Error('BUG! currentStep is too small')
+
+    else if @state.currentStep is -1
+      if allStepsCompleted
+        <div className="task task-completed">
+          {breadcrumbs}
+          <div className="panel panel-default">
+            <div className="panel-body">
+              <h1>You Are Done.</h1>
+              <h3>Great Job!</h3>
+            </div>
+            <div className="panel-footer">
+              <Link to="dashboard" className="btn btn-primary">Back to Dashboard</Link>
+            </div>
+          </div>
+        </div>
+      else
+        <div className="task">
+          {breadcrumbs}
+          <div className="panel panel-default">
+            <div className="panel-body">
+              <h1>{model.title}</h1>
+              <p>Due At: {model.due_at}</p>
+            </div>
+            <div className="panel-footer">
+              <button className="btn btn-primary" onClick={@goToStep(0)}>Continue</button>
+            </div>
+          </div>
+        </div>
+    else
+      throw new Error('BUG: no valid step config') unless stepConfig
+
+      <div className="task">
+        {breadcrumbs}
+        <TaskStep
+          id={@state.currentStep}
+          model={stepConfig}
+          task={model}
+          onStepCompleted={@onStepCompleted}
+          onNextStep={@onNextStep}
+        />
+      </div>
+
 
   onStepCompleted: ->
     {id} = @props
