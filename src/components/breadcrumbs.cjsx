@@ -29,7 +29,7 @@ module.exports = React.createClass
     @state.shouldAnimate
 
   update: -> true
-    
+
   render: ->
     steps = @props.model.steps
 
@@ -53,7 +53,10 @@ module.exports = React.createClass
 
       if step.is_completed
         classes.push('completed')
-        classes.push('btn-success')
+        if step.correct_answer_id is step.answer_id
+          classes.push('btn-success')
+        else
+          classes.push('btn-danger')
         # classes.push('disabled')
         title ?= "Step Completed (#{step.type}). Click to review"
 
@@ -63,7 +66,7 @@ module.exports = React.createClass
         showedFirstIncompleteStep = true
         newBreadcrumb = step.id isnt @props.currentStep.id
         lastBreadcrumb = true
-      
+
       #if shouldAnimate is true, add animation class to last breadcrumb
       animateLastBreadCrumb = lastBreadcrumb && @state.shouldAnimate
       classes.push("breadcrumbs-enter") if newBreadcrumb or animateLastBreadCrumb

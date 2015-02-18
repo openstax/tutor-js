@@ -12,10 +12,16 @@
 
 // Font-awesome icons mapped to our types
 i.fa {
-  &.reading-crumb::before     { content: @fa-var-newspaper-o; } // or fa-var-file-text-o
+  &.reading-crumb::before     { content: @fa-var-file-text-o; } // or fa-var-file-text-o
   &.interactive-crumb::before { content: @fa-var-desktop; }
-  &.exercise-crumb::before    { content: @fa-var-question; } // or fa-var-mortar-board
 }
+
+&.exercise-crumb {
+  &:not(.btn-success):not(.btn-danger) i.fa.exercise-crumb::before   { content: @fa-var-question; } // or fa-var-mortar-board
+  &.btn-success i.fa.exercise-crumb::before { content: @fa-var-check; }
+  &.btn-danger i.fa.exercise-crumb::before { color: white; content: @fa-var-close; }
+}
+
 
 
 // Override the default text color from bootstrap-material-design
