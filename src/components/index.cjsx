@@ -1,10 +1,9 @@
 # @cjsx React.DOM
 
 React = require 'react'
-{Link, transitionTo} = require 'react-router'
+Router = require 'react-router'
+{RouteHandler, Link} = Router
 
-AsyncState = require '../async-state'
-API = require '../api'
 Task = require './task'
 {TaskActions, TaskStore} = require '../flux/task'
 {CurrentUserActions} = require '../flux/current-user'
@@ -50,7 +49,7 @@ App = React.createClass
           </div>
         </div>
       </div>
-      {@props.activeRouteHandler()}
+      <RouteHandler/>
     </div>
 
 
@@ -60,10 +59,11 @@ Dashboard = React.createClass
 
 
 SingleTask = React.createClass
+  mixins: [Router.State]
 
   componentWillMount: ->
     # Fetch the task if it has not been loaded yet
-    id = @props.params.id
+    id = @getParams().id
     if TaskStore.isUnknown(id)
       TaskActions.load(id)
 
@@ -75,11 +75,12 @@ SingleTask = React.createClass
     TaskStore.removeChangeListener(@_forceUpdate)
 
   render: ->
-    id = @props.params.id
+    id = @getParams().id
     @transferPropsTo(<Task key={id} id={id} />)
 
 
 TaskResult = React.createClass
+  mixins: [Router.Navigation]
   render: ->
     {id} = @props.model
     actionTitle = 'Work Now'
@@ -93,43 +94,49 @@ TaskResult = React.createClass
 
     <div className='panel panel-default'>
       <div className='panel-body' onClick={@onClick}>
-        <Link to='task' id={id}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
+        <Link to='task' params={{id}}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
         {stepsInfo}
         <span className='pull-right'>
-          <Link className='ui-action btn btn-primary btn-sm' to='task' id={id}>{actionTitle}</Link>
+          <Link to='task' params={{id}} className='ui-action btn btn-primary btn-sm'>{actionTitle}</Link>
         </span>
       </div>
     </div>
 
   onClick: ->
     {id} = @props.model
-    transitionTo('task', {id})
+    @transitionTo('task', {id})
 
 
 Tasks = React.createClass
-  mixins: [AsyncState]
-  statics:
-    getInitialAsyncState: (params, query, setState) ->
-      model: API.fetchUserTasks()
+
+  componentWillMount: ->
+    TaskActions.loadUserTasks()
+
+    @_forceUpdate = @forceUpdate.bind(@)
+    TaskStore.addChangeListener(@_forceUpdate)
+
+  componentWillUnmount: -> TaskStore.removeChangeListener(@_forceUpdate)
+
 
   render: ->
-    if @state?.model
-      if @state.model['total_count'] is 0
+    allTasks = TaskStore.getAll()
+    if allTasks
+      if allTasks.length is 0
         <div className='ui-task-list ui-empty'>No Tasks</div>
       else
-        tasks = for task in @state.model.items
+        tasks = for task in allTasks
           <TaskResult model={task} />
 
         <div className='ui-task-list'>
-          <h3>Current Tasks ({@state.model['total_count']})</h3>
+          <h3>Current Tasks ({allTasks.length})</h3>
           {tasks}
         </div>
 
-    else if @state?.model_error
-      <div>Error loading tasks. Please reload the page and try again</div>
-
-    else
-      <div>Loading...</div>
+    # else if
+    #   <div>Error loading tasks. Please reload the page and try again</div>
+    #
+    # else
+    #   <div>Loading...</div>
 
 
 Invalid = React.createClass

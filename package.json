@@ -4,7 +4,6 @@
   "description": "Client for OpenStax Tutor",
   "main": "index.js",
   "scripts": {
-    "install": "bower install && gulp dist",
     "test": "gulp test",
     "start": "gulp serve"
   },
@@ -36,8 +35,8 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "katex": "~0.1.1",
     "mocha": "~2.1.0",
-    "react": "~0.11.2",
-    "react-router": "~0.7.0",
+    "react": "~0.12.0",
+    "react-router": "~0.12.0",
     "underscore": "~1.7.0",
     "vinyl-source-stream": "~1.0.0",
     "watchify": "~2.3.0",

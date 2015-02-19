@@ -3,6 +3,6 @@ require 'bootstrap' # Attach bootstrap to jQuery
 
 api = require './src/api'
 api.start()
-Router = require './src/router'
+router = require './src/router'
 
-Router.start(document.body)
+router.start(document.body)

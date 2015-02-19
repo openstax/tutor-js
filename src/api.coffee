@@ -72,23 +72,22 @@ start = ->
     payload: {answer_id}
 
 
+  TaskActions.loadUserTasks.addListener 'trigger', ->
+    url = '/api/user/tasks'
+    opts =
+      dataType: 'json'
+      headers:
+        token: CurrentUserStore.getToken()
+
+    $.ajax(url, opts)
+    .then (results) ->
+      TaskActions.loadedUserTasks(results.items)
+
+
   CurrentUserActions.logout.addListener 'trigger', ->
     $.ajax('/accounts/logout', {method: 'DELETE'})
     .always ->
       window.location.href = '/'
 
 
-fetchUserTasks = ->
-  url = '/api/user/tasks'
-  opts =
-    dataType: 'json'
-    headers:
-      token: CurrentUserStore.getToken()
-
-  $.ajax(url, opts)
-  .then (results) =>
-    for task in results.items
-      TaskActions.loaded(task, task.id)
-    results
-
-module.exports = {start, fetchUserTasks}
+module.exports = {start}
