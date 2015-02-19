@@ -4,7 +4,6 @@
   "description": "Client for OpenStax Tutor",
   "main": "index.js",
   "scripts": {
-    "install": "bower install && gulp dist",
     "test": "gulp test",
     "start": "gulp serve"
   },
