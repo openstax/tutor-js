@@ -34,6 +34,15 @@ TaskConfig =
     step.free_response = freeResponse
     @emitChange()
 
+  loadUserTasks: ->
+    # Used by API
+  loadedUserTasks: (tasks) ->
+    # Used by API
+    for task in tasks
+      @loaded(task, task.id)
+
+    @emitChange()
+
   exports:
     isStepAnswered: (taskId, stepId) ->
       step = @_getStep(taskId, stepId)
@@ -49,6 +58,8 @@ TaskConfig =
     getStepAnswerId: (taskId, stepId) ->
       step = @_getStep(taskId, stepId)
       step.answer_id
+
+    getAll: -> _.values(@_local)
 
 
 extendConfig(TaskConfig, CrudConfig)
