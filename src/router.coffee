@@ -1,23 +1,28 @@
 # @cjsx React.DOM
 React = require 'react'
-{Routes, Route, Redirect, NotFoundRoute} = require 'react-router'
+Router = require 'react-router'
+{Route, Redirect, NotFoundRoute} = Router
 {App, Dashboard, Tasks, SingleTask, Invalid} = require './components'
+
+routes = (
+  <Route path='/' handler={App}>
+    <Redirect from='/' to='dashboard' />
+    <Route path='dashboard' name='dashboard' handler={Dashboard} />
+    <Route path='tasks' name='tasks' handler={Tasks} />
+    <Route path='tasks/:id' name='task' handler={SingleTask} />
+    <NotFoundRoute handler={Invalid} />
+  </Route>
+)
+
+# Remember the router for unit testing
+router = Router.create
+  routes: routes
+  location: Router.HistoryLocation
+
 
 start = (mountPoint) ->
 
-  router =
-    <Routes location='history'>
-      <Redirect path='/' to='dashboard' />
-      <Route path='/' handler={App}>
-        <Route path='dashboard' name='dashboard' handler={Dashboard} />
-        <Route path='tasks' name='tasks' handler={Tasks} />
-        <Route path='tasks/:id' name='task' handler={SingleTask} />
-        <Route path='tasks/:id/steps/:currentStep' name='taskStep' handler={SingleTask} />
-        <NotFoundRoute handler={Invalid}/>
-      </Route>
-    </Routes>
+  router.run (Handler) ->
+    React.render(<Handler/>, mountPoint)
 
-  React.renderComponent(router, mountPoint)
-
-
-module.exports = {start}
+module.exports = {start, router}
