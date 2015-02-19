@@ -1,56 +1,21 @@
 # @cjsx React.DOM
 
 React = require 'react'
+BS = require 'react-bootstrap'
 Router = require 'react-router'
 {RouteHandler, Link} = Router
 
+
+App = require './app'
 Task = require './task'
 {TaskActions, TaskStore} = require '../flux/task'
-{CurrentUserActions} = require '../flux/current-user'
+
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
 
-App = React.createClass
-
-  logout: -> CurrentUserActions.logout()
-
-  render: ->
-    <div>
-      <div className='navbar navbar-default navbar-fixed-top' role='navigation'>
-        <div className='container-fluid'>
-          <div className='navbar-header'>
-            <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#ui-navbar-collapse'>
-              <span className='sr-only'>Toggle navigation</span>
-              <span className='icon-bar'></span>
-              <span className='icon-bar'></span>
-              <span className='icon-bar'></span>
-            </button>
-
-            <Link to='dashboard' className='navbar-brand'>
-              <i className='ui-brand-logo'></i>
-            </Link>
-
-          </div>
-
-          <div className='collapse navbar-collapse' id='ui-navbar-collapse'>
-            <ul className='nav navbar-nav'>
-              <li>
-                <Link to='tasks'>Tasks</Link>
-              </li>
-            </ul>
-            <ul className='nav navbar-nav navbar-right'>
-              <li>
-                <button className='btn btn-link' onClick={@logout}>Sign out!</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <RouteHandler/>
-    </div>
 
 
 Dashboard = React.createClass
@@ -92,15 +57,13 @@ TaskResult = React.createClass
       mainType = ''
       stepsInfo = <small className='details'>({@props.model.steps.length} steps)</small>
 
-    <div className='panel panel-default'>
-      <div className='panel-body' onClick={@onClick}>
-        <Link to='task' params={{id}}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
-        {stepsInfo}
-        <span className='pull-right'>
-          <Link to='task' params={{id}} className='ui-action btn btn-primary btn-sm'>{actionTitle}</Link>
-        </span>
-      </div>
-    </div>
+    <BS.Panel bsStyle="default" onClick={@onClick}>
+      <Link to='task' params={{id}}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
+      {stepsInfo}
+      <span className='pull-right'>
+        <Link to='task' params={{id}} className='ui-action btn btn-primary btn-sm'>{actionTitle}</Link>
+      </span>
+    </BS.Panel>
 
   onClick: ->
     {id} = @props.model

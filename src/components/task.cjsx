@@ -1,5 +1,6 @@
 $ = require 'jquery'
 React = require 'react'
+BS = require 'react-bootstrap'
 {Link} = require 'react-router'
 
 api = require '../api'
@@ -88,30 +89,24 @@ module.exports = React.createClass
 
     else if @state.currentStep is -1
       if allStepsCompleted
+        footer = <Link to="dashboard" className="btn btn-primary">Back to Dashboard</Link>
+
         <div className="task task-completed">
           {breadcrumbs}
-          <div className="panel panel-default">
-            <div className="panel-body">
-              <h1>You Are Done.</h1>
-              <h3>Great Job!</h3>
-            </div>
-            <div className="panel-footer">
-              <Link to="dashboard" className="btn btn-primary">Back to Dashboard</Link>
-            </div>
-          </div>
+          <BS.Panel bsStyle="default" footer={footer}>
+            <h1>You Are Done.</h1>
+            <h3>Great Job!</h3>
+          </BS.Panel>
         </div>
       else
+        footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
+
         <div className="task">
           {breadcrumbs}
-          <div className="panel panel-default">
-            <div className="panel-body">
-              <h1>{model.title}</h1>
-              <p>Due At: {model.due_at}</p>
-            </div>
-            <div className="panel-footer">
-              <button className="btn btn-primary" onClick={@goToStep(0)}>Continue</button>
-            </div>
-          </div>
+          <BS.Panel bsStyle="default" footer={footer}>
+            <h1>{model.title}</h1>
+            <p>Due At: {model.due_at}</p>
+          </BS.Panel>
         </div>
     else
       throw new Error('BUG: no valid step config') unless stepConfig
