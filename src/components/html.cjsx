@@ -1,5 +1,6 @@
 React = require 'react'
 KatexMixin = require './katex-mixin'
+$ = require 'jquery'
 
 module.exports = React.createClass
   displayName: 'ArbitraryHtmlAndMath'
