@@ -1,14 +1,12 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 
 module.exports =
   render: ->
     isDisabledClass = 'disabled' unless @isContinueEnabled()
 
-    <div className="task-step panel panel-default">
-      <div className="panel-body">
-        {@renderBody()}
-      </div>
-      <div className="panel-footer">
-        <button className="btn btn-primary #{isDisabledClass}" onClick={@onContinue}>Continue</button>
-      </div>
-    </div>
+    footer = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+
+    <BS.Panel bsStyle="default" className="task-step" footer={footer}>
+      {@renderBody()}
+    </BS.Panel>

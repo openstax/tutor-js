@@ -1,4 +1,5 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 {TaskStore} = require '../flux/task'
 
 
@@ -20,7 +21,8 @@ module.exports = React.createClass
 
     stepButtons = for step, i in steps
 
-      classes = ['btn step']
+      bsStyle = null
+      classes = ['step']
       classes.push(step.type)
 
       title = null
@@ -33,7 +35,7 @@ module.exports = React.createClass
 
       if step.is_completed
         classes.push('completed')
-        classes.push('btn-primary')
+        bsStyle = 'primary'
         # classes.push('disabled')
         title ?= "Step Completed (#{step.type}). Click to review"
 
@@ -43,8 +45,8 @@ module.exports = React.createClass
         showedFirstIncompleteStep = true
 
 
-      <button type='button' className={classes.join(' ')} title={title} onClick={@props.goToStep(i)}><i className="fa fa-fw #{step.type}"></i></button>
+      <BS.Button bsStyle={bsStyle} className={classes.join(' ')} title={title} onClick={@props.goToStep(i)}><i className="fa fa-fw #{step.type}"></i></BS.Button>
 
-    <div className='steps btn-group'>
+    <BS.ButtonGroup className='steps'>
       {stepButtons}
-    </div>
+    </BS.ButtonGroup>
