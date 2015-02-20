@@ -1,6 +1,6 @@
 React = require 'react'
 
-{TaskStore} = require '../flux/task'
+{TaskStore} = require '../../flux/task'
 {Reading, Interactive, Exercise} = require './all-steps'
 
 # React swallows thrown errors so log them first

@@ -1,10 +1,10 @@
 _ = require 'underscore'
 React = require 'react'
 katex = require 'katex'
-{TaskActions} = require '../flux/task'
-ArbitraryHtmlAndMath = require './html'
+{TaskActions} = require '../../flux/task'
+ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
-Question = require './question'
+Question = require '../question'
 
 
 ExerciseFreeResponse = React.createClass
