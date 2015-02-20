@@ -1,13 +1,13 @@
 $ = require 'jquery'
 React = require 'react'
 BS = require 'react-bootstrap'
+moment = require 'moment'
 {Link} = require 'react-router'
 
 api = require '../api'
 {TaskStore, TaskActions} = require '../flux/task'
 TaskStep = require './task-step'
 Breadcrumbs = require './breadcrumbs'
-
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -105,7 +105,7 @@ module.exports = React.createClass
           {breadcrumbs}
           <BS.Panel bsStyle="default" footer={footer}>
             <h1>{model.title}</h1>
-            <p>Due At: {model.due_at}</p>
+            <p>Due At: {moment(model.due_at).format('LLL')}</p>
           </BS.Panel>
         </div>
     else

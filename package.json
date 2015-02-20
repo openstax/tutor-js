@@ -41,7 +41,8 @@
     "underscore": "~1.7.0",
     "vinyl-source-stream": "~1.0.0",
     "watchify": "~2.3.0",
-    "when": "~3.7.2"
+    "when": "~3.7.2",
+    "moment": "^2.9.0"
   },
   "browser": {
     "jquery": "./bower_components/jquery/dist/jquery.js",
