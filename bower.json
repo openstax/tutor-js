@@ -24,7 +24,6 @@
     "jquery": "~2.1.1",
     "bootstrap": "~3.2.0",
     "katex": "~0.1.1",
-    "bootstrap-material-design": "~0.2.2",
-    "moment": "~2.9.0"
+    "bootstrap-material-design": "~0.2.2"
   }
 }
