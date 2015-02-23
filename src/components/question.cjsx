@@ -1,7 +1,6 @@
 _ = require 'underscore'
 React = require 'react'
 ArbitraryHtml = require './html'
-StepMixin = require './step-mixin'
 
 idCounter = 0
 
