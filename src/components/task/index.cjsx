@@ -7,7 +7,7 @@ api = require '../../api'
 {TaskStore, TaskActions} = require '../../flux/task'
 TaskStep = require '../task-step'
 Breadcrumbs = require './breadcrumbs'
-
+Time = require '../time'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -100,12 +100,11 @@ module.exports = React.createClass
         </div>
       else
         footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
-
         <div className="task">
           {breadcrumbs}
           <BS.Panel bsStyle="default" footer={footer}>
             <h1>{model.title}</h1>
-            <p>Due At: {model.due_at}</p>
+            <p>Due At: <Time date={model.due_at}></Time></p>
           </BS.Panel>
         </div>
     else
