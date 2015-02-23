@@ -100,7 +100,6 @@ module.exports = React.createClass
         </div>
       else
         footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
-        console.log("In task::" + model.due_at)
         <div className="task">
           {breadcrumbs}
           <BS.Panel bsStyle="default" footer={footer}>
