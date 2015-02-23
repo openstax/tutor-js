@@ -1,4 +1,4 @@
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 {TaskStore} = require '../flux/task'
 
@@ -30,12 +30,16 @@ module.exports = React.createClass
       if i is @props.currentStep
         classes.push('current')
         classes.push('active')
+        bsStyle = 'primary'
         # classes.push('disabled')
         title = "Current Step (#{step.type})"
 
       if step.is_completed
         classes.push('completed')
-        bsStyle = 'primary'
+        if step.correct_answer_id is step.answer_id or not step.correct_answer_id
+          classes.push('btn-success')
+        else
+          classes.push('btn-danger')
         # classes.push('disabled')
         title ?= "Step Completed (#{step.type}). Click to review"
 
@@ -45,8 +49,12 @@ module.exports = React.createClass
         showedFirstIncompleteStep = true
 
 
+      classes.push("hidden-step") if showedFirstIncompleteStep and (i isnt @props.currentStep)
+
+
       <BS.Button bsStyle={bsStyle} className={classes.join(' ')} title={title} onClick={@props.goToStep(i)}><i className="fa fa-fw #{step.type}"></i></BS.Button>
 
-    <BS.ButtonGroup className='steps'>
+    CSSTransitionGroup = React.addons.CSSTransitionGroup
+    <CSSTransitionGroup transitionName="breadcrumbs" className='steps'>
       {stepButtons}
-    </BS.ButtonGroup>
+    </CSSTransitionGroup>
