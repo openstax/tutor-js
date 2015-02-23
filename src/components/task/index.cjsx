@@ -7,7 +7,7 @@ api = require '../../api'
 {TaskStore, TaskActions} = require '../../flux/task'
 TaskStep = require '../task-step'
 Breadcrumbs = require './breadcrumbs'
-Time = require './time'
+Time = require '../time'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
