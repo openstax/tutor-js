@@ -1,9 +1,9 @@
 $ = require 'jquery'
 React = require 'react'
 
-api = require '../api'
+api = require '../../api'
+ArbitraryHtmlAndMath = require '../html'
 Exercise = require './exercise-multiple-choice'
-ArbitraryHtmlAndMath = require './html'
 StepMixin = require './step-mixin'
 
 # React swallows thrown errors so log them first

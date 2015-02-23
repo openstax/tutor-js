@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{TaskStore} = require '../flux/task'
+{TaskStore} = require '../../flux/task'
 
 
 module.exports = React.createClass

@@ -3,9 +3,9 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {Link} = require 'react-router'
 
-api = require '../api'
-{TaskStore, TaskActions} = require '../flux/task'
-TaskStep = require './task-step'
+api = require '../../api'
+{TaskStore, TaskActions} = require '../../flux/task'
+TaskStep = require '../task-step'
 Breadcrumbs = require './breadcrumbs'
 Time = require './time'
 
