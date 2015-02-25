@@ -2,12 +2,13 @@
 @correct-answer-background: #e4f4b9;
 @wrong-answer-color: #c22032;
 @wrong-answer-background: #ffe0e0; 
-@answer-hover-color: #f9f9f9;
-@answer-select-color: #f0f0f0; // darker than hover
+@answer-hover-color: #e6f9fc;
+@answer-select-color: #e6f9fc; // darker than hover
 
 .task-step .exercise,
 .question {
   font-size: 1.5em;
+	font-weight: 500;
   padding: 0.5em 100px;
   
   textarea {
@@ -23,23 +24,28 @@
   .free-response:before,
   .question-feedback,
   .question-feedback:before {
-    font-size: 0.75em;
+    font-size: 0.8em;
   }
   .free-response {
-    padding: 20px 10px;
-    background: #f0f0f0;
+    padding: 20px 40px;
     display: block;
     width: 100%;
     float: left;
-    margin: 1em 0;
-    line-height: 1em;
+    margin: 1.5em 0 .25em 0;
+		color: #555555;
+		font-style: italic;
+    line-height: 1.5em;
+    background: #f5f5f5;
 
     &:before {
       content: "My Answer:";
       display: inline-block;
       float: left;
-      margin-left: -90px;
-      color: #999;
+      margin-left: -145px;
+			font-family: 'Architects Daughter', cursive;
+			font-size: .9em;
+			font-style: normal;
+      color: #888888;
     }
   }
   .answers-table {
@@ -48,14 +54,17 @@
       float: left;
   }
   .question-feedback {
-    margin: 1em 0;
+    margin: 2em 0 1em 0;
     display: block;
     float: left;
+		
     &:before {
       content: "Why?";
       float: left;
-      margin: 3px 0 0 -50px;
-      color: #999;
+      margin: 3px 0 0 -56px;
+			font-family: 'Architects Daughter', cursive;
+			font-size: .9em;
+      color: #888888;
     }
   }
 }
@@ -94,6 +103,7 @@
       .question-stem {
         font-size: 1.2rem;
         margin-top: 1.5rem;
+				margin-bottom: 1.5rem;
         min-height: 2rem; // center with the 3rem question number
       }
 
@@ -116,20 +126,22 @@
         .answer-letter {
           display: table-cell;
           width: 2rem;
-          font-weight: bold;
-          &:after { content: counter(answer, lower-latin) ')'; }
+					font-family: 'lato', sans-serif;
+          &:after { 
+						content: counter(answer, lower-latin) ')'; 
+					}
         }
 
         .answer-content {
           display: table-cell;
-          padding: 1rem;
-          padding-right: 0.5em;
+          padding: 20px 40px 20px 0;
+					font-family: 'lato', sans-serif;
         }
       }
     }
 
     .answer-input-box {
-      display: inline-block;
+      display: none;
       float: left;
       font-size: 1.5em;
       margin: 0.95em 0;
@@ -138,19 +150,18 @@
 
     .answers-table label.answer-label {
       display: table;
-      margin: 0.5em 0;
-      padding-left: 0;
+      margin: .25em 0;
+      padding-left: 40px;
       line-height: 1.5em;
-      display: table;
       font-weight: normal;
       width: 100%;
       float:left;
-      transition: background-color .2s ease-in;
-      transition: padding-left .2s ease-in;
+			background: #f3fcfd;
+      transition: background-color .1s ease-in;
+      transition: padding-left .05s ease-in;
 
       &:hover { 
         background-color: @answer-hover-color; 
-        padding-left: 10px;
       }
     }
   // }
@@ -159,17 +170,19 @@
       .answer-input-box:checked + label.answer-label,
       .answer-input-box:checked + label.answer-label:hover {
         background-color: @answer-select-color; // darker than hover
-        font-weight: bold;
+				font-family: 'Lato', sans-serif;
+        font-weight: 700;
         line-height: 1.5em;
-        padding-left: 10px;
+        padding-left: 60px;
       }
 
     }
     &.has-correct-answer {
       .answer-input-box { display: none; }
+			
 
       .answers-table .answers-answer .answer-label {
-        padding-left: 10px;
+        padding-left: 40px;
       }
 
       .answers-table .answer-correct:before,
@@ -178,14 +191,17 @@
         color:@correct-answer-color;
         display: inline-block;
         float: left;
-        font-size: 1.5em;
-        margin: 0.7em 0;
-        margin-left: -40px;
+				text-align: right;
+        font-size: 3.5em;
+				width: 65px;
+        margin-top: .125em;
+        margin-left: -80px;
       }
 
       .answers-table .answer-correct .answer-label { 
         background-color: @correct-answer-background; 
         color:@correct-answer-color;
+				font-weight: 900;
        .answer-content:hover {
           background-color: @correct-answer-background; 
         }

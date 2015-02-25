@@ -1,0 +1,20 @@
+@btn-border-radius: 4px;
+@primary-background: #f47642;
+@primary-hover-background: #fa804d;
+
+// Override the default text color from bootstrap-material-design
+.btn-primary,
+.btn-success { color: @white !important; }
+
+.btn-primary {
+	font-size: 18px;
+	text-transform: capitalize;
+	padding: 12px 36px;
+	border-radius: @btn-border-radius;
+	background: @primary-background !important;
+	
+	&:hover {
+		background: @primary-hover-background !important;
+		box-shadow: none !important;
+	}
+}
