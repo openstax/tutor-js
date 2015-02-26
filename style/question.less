@@ -8,8 +8,8 @@
 .task-step .exercise,
 .question {
   font-size: 2.1rem;
-	font-weight: 400;
-	padding: 0.5em 100px;
+  font-weight: 400;
+  padding: 0.5em 100px;
 
   textarea {
     margin: 1em 0;
@@ -25,11 +25,11 @@
   .question-feedback,
   .question-feedback:before {
     font-size: 4rem/2rem;
-		font-weight: 300;
+    font-weight: 300;
   }
   .free-response {
-		font-style: italic;
-		color: #888;
+    font-style: italic;
+    color: #888;
     padding: 20px 40px;
     display: block;
     width: 100%;
@@ -42,17 +42,17 @@
       display: inline-block;
       float: left;
       margin-left: -145px;
-			#fonts > .script;
-			color: #888;
+      #fonts > .script;
+      color: #888;
     }
   }
   .answers-table {
-      font-size: 0.8em;
-      width: 100%;
-      float: left;
+    font-size: 0.8em;
+    width: 100%;
+    float: left;
   }
   .question-feedback {
-		margin: 20px 0 10px 0;
+    margin: 20px 0 10px 0;
     display: block;
     float: left;
 
@@ -60,16 +60,16 @@
       content: "Why?";
       float: left;
       margin: 3px 0 0 -56px;
-			#fonts > .script;
-			color: #888;
+      #fonts > .script;
+      color: #888;
     }
   }
 }
 
 .question {
-    counter-reset: answer 0;
-		#fonts > .sans (2.1rem, 3rem);
-		font-weight: 400;
+  counter-reset: answer 0;
+  #fonts > .sans (2.1rem, 3rem);
+  font-weight: 400;
 /*
     // The Row
     .answers-answer,
@@ -124,7 +124,7 @@
           display: table-cell;
           width: 2rem;
           &:after {
-						content: counter(answer, lower-latin) ')';
+            content: counter(answer, lower-latin) ')';
 					}
         }
 
@@ -146,11 +146,11 @@
       display: table;
       margin: .25em 0;
       padding-left: 40px;
-			#fonts > .sans (2rem);
+      #fonts > .sans (2rem);
       font-weight: 400;
       width: 100%;
       float:left;
-			background: #f3fcfd;
+      background: #f3fcfd;
       transition: background-color .1s ease-in;
       transition: padding-left .05s ease-in;
 
@@ -164,7 +164,7 @@
       .answer-input-box:checked + label.answer-label,
       .answer-input-box:checked + label.answer-label:hover {
         font-weight: 700;
-				background-color: @answer-select-color; // darker than hover
+        background-color: @answer-select-color; // darker than hover
         padding-left: 60px;
       }
 
@@ -182,9 +182,9 @@
         color:@correct-answer-color;
         display: inline-block;
         float: left;
-				text-align: right;
+        text-align: right;
         font-size: 3.5em;
-				width: 65px;
+        width: 65px;
         margin-top: .125em;
         margin-left: -80px;
       }
@@ -192,7 +192,7 @@
       .answers-table .answer-correct .answer-label {
         background-color: @correct-answer-background;
         color:@correct-answer-color;
-				font-weight: 900;
+        font-weight: 900;
        .answer-content:hover {
           background-color: @correct-answer-background;
         }
