@@ -1,8 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-Widgets = require 'react-widgets'
-Datepicker = Widgets.DateTimePicker
+{DatePicker} = require 'react-widgets'
+
+{TaskPlanActions, TaskPlanStore} = require '../../flux/task-plan'
 
 SelectReadings = React.createClass
   mixins: [BS.OverlayMixin],
@@ -67,11 +68,11 @@ Reading = React.createClass
       </div>
       <div>
         <label htmlFor="due-date">Due Date</label>
-        <Datepicker 
+        <Datepicker
           id="due-date"
-          format="MMM dd, yyyy" 
-          time={false} 
-          calendar={true} 
+          format="MMM dd, yyyy"
+          time={false}
+          calendar={true}
           readOnly={false}
           onChange={@setDueAt}
           value={dueDate}/>
