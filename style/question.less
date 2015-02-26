@@ -1,16 +1,16 @@
 @correct-answer-color: #78b042;
 @correct-answer-background: #e4f4b9;
 @wrong-answer-color: #c22032;
-@wrong-answer-background: #ffe0e0; 
+@wrong-answer-background: #ffe0e0;
 @answer-hover-color: #e6f9fc;
 @answer-select-color: #e6f9fc; // darker than hover
 
 .task-step .exercise,
 .question {
-  font-size: 1.5em;
-	font-weight: 500;
-  padding: 0.5em 100px;
-  
+  font-size: 2.1rem;
+	font-weight: 400;
+	padding: 0.5em 100px;
+
   textarea {
     margin: 1em 0;
     padding: 5px;
@@ -24,17 +24,17 @@
   .free-response:before,
   .question-feedback,
   .question-feedback:before {
-    font-size: 0.8em;
+    font-size: 4rem/2rem;
+		font-weight: 300;
   }
   .free-response {
+		font-style: italic;
+		color: #888;
     padding: 20px 40px;
     display: block;
     width: 100%;
     float: left;
-    margin: 1.5em 0 .25em 0;
-		color: #555555;
-		font-style: italic;
-    line-height: 1.5em;
+    margin: 20px 0 5px 0;
     background: #f5f5f5;
 
     &:before {
@@ -42,10 +42,8 @@
       display: inline-block;
       float: left;
       margin-left: -145px;
-			font-family: 'Architects Daughter', cursive;
-			font-size: .9em;
-			font-style: normal;
-      color: #888888;
+			#fonts > .script;
+			color: #888;
     }
   }
   .answers-table {
@@ -54,23 +52,24 @@
       float: left;
   }
   .question-feedback {
-    margin: 2em 0 1em 0;
+		margin: 20px 0 10px 0;
     display: block;
     float: left;
-		
+
     &:before {
       content: "Why?";
       float: left;
       margin: 3px 0 0 -56px;
-			font-family: 'Architects Daughter', cursive;
-			font-size: .9em;
-      color: #888888;
+			#fonts > .script;
+			color: #888;
     }
   }
 }
 
 .question {
     counter-reset: answer 0;
+		#fonts > .sans (2.1rem, 3rem);
+		font-weight: 400;
 /*
     // The Row
     .answers-answer,
@@ -112,8 +111,6 @@
     }
   // }
 
-
-
   // &.mode-preview {
 
     .answers-table {
@@ -126,16 +123,14 @@
         .answer-letter {
           display: table-cell;
           width: 2rem;
-					font-family: 'lato', sans-serif;
-          &:after { 
-						content: counter(answer, lower-latin) ')'; 
+          &:after {
+						content: counter(answer, lower-latin) ')';
 					}
         }
 
         .answer-content {
           display: table-cell;
           padding: 20px 40px 20px 0;
-					font-family: 'lato', sans-serif;
         }
       }
     }
@@ -143,7 +138,6 @@
     .answer-input-box {
       display: none;
       float: left;
-      font-size: 1.5em;
       margin: 0.95em 0;
       margin-left: -30px;
     }
@@ -152,16 +146,16 @@
       display: table;
       margin: .25em 0;
       padding-left: 40px;
-      line-height: 1.5em;
-      font-weight: normal;
+			#fonts > .sans (2rem);
+      font-weight: 400;
       width: 100%;
       float:left;
 			background: #f3fcfd;
       transition: background-color .1s ease-in;
       transition: padding-left .05s ease-in;
 
-      &:hover { 
-        background-color: @answer-hover-color; 
+      &:hover {
+        background-color: @answer-hover-color;
       }
     }
   // }
@@ -169,24 +163,21 @@
 
       .answer-input-box:checked + label.answer-label,
       .answer-input-box:checked + label.answer-label:hover {
-        background-color: @answer-select-color; // darker than hover
-				font-family: 'Lato', sans-serif;
         font-weight: 700;
-        line-height: 1.5em;
+				background-color: @answer-select-color; // darker than hover
         padding-left: 60px;
       }
 
     }
     &.has-correct-answer {
       .answer-input-box { display: none; }
-			
 
       .answers-table .answers-answer .answer-label {
         padding-left: 40px;
       }
 
       .answers-table .answer-correct:before,
-      .answers-table .answer-checked:not(.answer-correct):before { 
+      .answers-table .answer-checked:not(.answer-correct):before {
         content:@fa-var-check;
         color:@correct-answer-color;
         display: inline-block;
@@ -198,28 +189,28 @@
         margin-left: -80px;
       }
 
-      .answers-table .answer-correct .answer-label { 
-        background-color: @correct-answer-background; 
+      .answers-table .answer-correct .answer-label {
+        background-color: @correct-answer-background;
         color:@correct-answer-color;
 				font-weight: 900;
        .answer-content:hover {
-          background-color: @correct-answer-background; 
+          background-color: @correct-answer-background;
         }
       }
-      .answers-table .answer-checked:not(.answer-correct):before { 
+      .answers-table .answer-checked:not(.answer-correct):before {
         content:@fa-var-close;
         color:@wrong-answer-color;
       }
-      .answers-table .answer-checked:not(.answer-correct) .answer-label { 
-        background-color: @wrong-answer-background; 
+      .answers-table .answer-checked:not(.answer-correct) .answer-label {
+        background-color: @wrong-answer-background;
         color:@wrong-answer-color;
-        .answer-content:hover { 
-          background-color: @wrong-answer-background; 
+				font-weight: 900;
+        .answer-content:hover {
+          background-color: @wrong-answer-background;
         }
       }
 
     }
-
 
 
 }
