@@ -11,8 +11,8 @@ routes = (
     <Route path='dashboard' name='dashboard' handler={Dashboard} />
     <Route path='tasks' name='tasks' handler={Tasks} />
     <Route path='tasks/:id' name='task' handler={SingleTask} />
-    <Route path='reading' name='createReading' handler={CreateReading} />
-    <Route path='reading/:id' name='editReading' handler={CreateReading} />
+    <Route path='readings' name='createReading' handler={CreateReading} />
+    <Route path='readings/:id' name='editReading' handler={CreateReading} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )
