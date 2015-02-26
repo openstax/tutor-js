@@ -1,3 +1,4 @@
+@import './react-widgets';
 @import '../node_modules/bootstrap/less/bootstrap.less';
 @import '../bower_components/bootstrap-material-design/less/material-wfont.less';
 @import '../node_modules/font-awesome/less/font-awesome.less';
@@ -6,6 +7,7 @@
 
 // Override the default path to the font-awesome fonts
 @fa-font-path: '../node_modules/font-awesome/fonts';
+
 
 // Override bootstrap primary color
 @primary: @blue;
@@ -102,5 +104,19 @@ body {
   &:before { content: attr(data-math); }
 }
 
-
+.create-reading {
+  label {
+    width: 150px;
+    display:inline-block;
+  }
+  #title {
+    line-height: 32px;
+    height: 32px;
+    margin-bottom: 1em;
+  }
+  .rw-datetimepicker {
+    display:inline-block;
+    max-width: 300px;
+  }
+}
 @import 'reading';
