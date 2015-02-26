@@ -62,12 +62,13 @@ Reading = React.createClass
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
       <div>
-        <label for="title">Name</label>
+        <label htmlFor="title">Name</label>
         <input id="title" type="text" value={@props.title}/>
       </div>
       <div>
-        <label for="due-date">Due Date</label>
+        <label htmlFor="due-date">Due Date</label>
         <Datepicker 
+          id="due-date"
           format="MMM dd, yyyy" 
           time={false} 
           calendar={true} 
