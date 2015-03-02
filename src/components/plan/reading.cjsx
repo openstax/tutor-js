@@ -1,10 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-Widgets = require 'react-widgets'
-Datepicker = Widgets.DateTimePicker
+Datepicker = (require 'react-widgets').DateTimePicker
 
-{TaskPlanActions, TaskPlanStore} = require '../../flux/task-plan'
+{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
 SelectReadings = React.createClass
   mixins: [BS.OverlayMixin],
@@ -42,21 +41,27 @@ SelectReadings = React.createClass
       </div>
     </BS.Modal>
 
-Reading = React.createClass
+ReadingPlan = React.createClass
   mixins: [Router.State]
-  getInitialState: -> {title: '', state: 'draft', topics: [], due_at: null}
-  getDefaultProps: -> {title: '', state: 'draft', topics: [], due_at: null}
+
+  getInitialState: ->
+    {id: @getParams().id}
+
   componentWillMount: ->
     # Fetch the task if it has not been loaded yet
-    id = @getParams().id
-    # leave flux stuff to phil
-    # if ReadingStore.isUnknown(id)
-    #  ReadingActions.load(id)
+    TaskPlanStore.addChangeListener(@update)
+
+  componentWillUnmount: ->
+    TaskPlanStore.removeChangeListener(@update)
+
+  update: ->
+    @setState({})
 
   setDueAt: (value) ->
-    @setState({
-      due_at: value
-    })
+    TaskPlanActions.updateDueAt(@state.id, value)
+
+  setTitle: (value) ->
+    TaskPlanActions.updateTitle(@state.id, value)
 
   render: ->
     id = @getParams().id
@@ -68,7 +73,7 @@ Reading = React.createClass
       <h1>{headerText}</h1>
       <div>
         <label htmlFor="title">Name</label>
-        <input id="title" type="text" value={@props.title}/>
+        <input id="title" type="text" onChange={@setTitle} value={@props.title}/>
       </div>
       <div>
         <label htmlFor="due-date">Due Date</label>
@@ -87,4 +92,4 @@ Reading = React.createClass
       </p>
     </BS.Panel>
 
-module.exports = Reading
+module.exports = ReadingPlan
