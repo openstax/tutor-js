@@ -3,7 +3,7 @@ React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Dashboard, Tasks, SingleTask, Invalid} = require './components'
-CreateReading = require './components/teacher/reading'
+ReadingPlan = require './components/plan/reading'
 
 routes = (
   <Route path='/' handler={App}>
@@ -11,8 +11,8 @@ routes = (
     <Route path='dashboard' name='dashboard' handler={Dashboard} />
     <Route path='tasks' name='tasks' handler={Tasks} />
     <Route path='tasks/:id' name='task' handler={SingleTask} />
-    <Route path='readings' name='createReading' handler={CreateReading} />
-    <Route path='readings/:id' name='editReading' handler={CreateReading} />
+    <Route path='readings' name='createReading' handler={ReadingPlan} />
+    <Route path='readings/:id' name='editReading' handler={ReadingPlan} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )

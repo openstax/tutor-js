@@ -1,7 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-{DatePicker} = require 'react-widgets'
+Widgets = require 'react-widgets'
+Datepicker = Widgets.DateTimePicker
 
 {TaskPlanActions, TaskPlanStore} = require '../../flux/task-plan'
 
@@ -16,6 +17,9 @@ SelectReadings = React.createClass
       isModalOpen: !@state.isModalOpen
     })
 
+  doneWithSelection: ->
+    return
+
   render: ->
     <BS.Button onClick={@handleToggle} bsStyle="primary">Edit Readings</BS.Button>
 
@@ -23,7 +27,7 @@ SelectReadings = React.createClass
     if !@state.isModalOpen
       return <span/>
 
-    <BS.Modal backdrop={true}>
+    <BS.Modal backdrop={true} onRequestHide=@doneWithSelection>
       <div className="modal-body">
         <ul>
           <li>List</li>
