@@ -6,12 +6,12 @@ TaskPlanConfig =
 
   updateTitle: (id, title) ->
     plan = @_getPlan(id)
-    _.extend(step, {title})
+    _.extend(plan, {title})
     @emitChange()
 
   updateDueAt: (id, due_at) ->
     plan = @_getPlan(id)
-    _.extend(step, {due_at})
+    _.extend(plan, {due_at})
     @emitChange()
 
   addTopic: (id, topicId) ->
