@@ -3,7 +3,7 @@ React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Dashboard, Tasks, SingleTask, Invalid} = require './components'
-ReadingPlan = require './components/plan/reading'
+ReadingPlan = require './components/task-plan/reading'
 
 routes = (
   <Route path='/' handler={App}>

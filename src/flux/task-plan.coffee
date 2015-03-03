@@ -36,7 +36,7 @@ TaskPlanConfig =
     }
 
   created: (result, id) ->
-    @_asyncStatus[id] = CREATED
+    @_asyncStatus[id] = CREATED # TODO: What async status should this be?
     @_local[id] = result
 
   exports:
