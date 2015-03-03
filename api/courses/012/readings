@@ -1,0 +1,68 @@
+[
+  {
+    "title": "Kinematics",
+    "number": "1",
+    "id": 123,
+    "children": [
+      {
+        "title": "Kinematics in 1 dim",
+        "number": "1.1",
+        "id": 234
+      },
+      {
+        "title": "Kinematics in 2 dim",
+        "number": "1.2",
+        "id": 235
+      },
+      {
+        "title": "Kinematics in 3 dim",
+        "number": "1.3",
+        "id": 236
+      }
+    ]
+  },
+  {
+    "title": "Mechanics",
+    "number": "2",
+    "id": 124,
+    "children": [
+      {
+        "title": "Mechanics in 1 dim",
+        "number": "2.1",
+        "id": 237
+      },
+      {
+        "title": "Mechanics in 2 dim",
+        "number": "2.2",
+        "id": 238
+      },
+      {
+        "title": "Mechanics in 3 dim",
+        "number": "2.3",
+        "id": 239
+      }
+    ]
+  },
+  {
+    "title": "Thermodynamics",
+    "number": "3",
+    "id": 125,
+    "children": [
+      {
+        "title": "Thermodynamics in 1 dim",
+        "number": "3.1",
+        "id": 240
+      },
+      {
+        "title": "Thermodynamics in 2 dim",
+        "number": "3.2",
+        "id": 241
+      },
+      {
+        "title": "Thermodynamics in 3 dim",
+        "number": "3.3",
+        "id": 242
+      }
+    ]
+  }
+]

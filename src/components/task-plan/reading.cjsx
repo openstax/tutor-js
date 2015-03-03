@@ -2,18 +2,19 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-Datepicker = (require 'react-widgets').DateTimePicker
+{DateTimePicker} = require 'react-widgets'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+{TocStore, TocActions} = require '../../flux/toc'
 
 SectionTopic = React.createClass
   toggleSection:->
     @props.toggleSection(@props.section)
-    
+
   render: ->
     isActive = 'info' if @props.active
-    <BS.ListGroupItem 
-      key={@props.section.id} 
+    <BS.ListGroupItem
+      key={@props.section.id}
       bsStyle= {isActive}
       onClick={@toggleSection}>{@props.section.number}. {@props.section.title}</BS.ListGroupItem>
 
@@ -21,66 +22,10 @@ SelectTopics = React.createClass
   mixins: [BS.OverlayMixin],
   getInitialState: -> { isModalOpen: false }
 
-  getInitialState: ->
-    {
-      chapters: [
-        {
-          title: "Kinematics",
-          number: "1",
-          id: 123,
-          children: [{
-            title: "Kinematics in 1 dim",
-            number: "1.1",
-            id: 234
-          }, {
-            title: "Kinematics in 2 dim",
-            number: "1.2",
-            id: 235
-          }, {
-            title: "Kinematics in 3 dim",
-            number: "1.3",
-            id: 236
-          }],
-        },
-        {
-          title: "Mechanics",
-          number: "2",
-          id: 124,
-          children: [{
-            title: "Mechanics in 1 dim",
-            number: "2.1",
-            id: 237
-          }, {
-            title: "Mechanics in 2 dim",
-            number: "2.2",
-            id: 238
-          }, {
-            title: "Mechanics in 3 dim",
-            number: "2.3",
-            id: 239
-          }],
+  componentWillMount:   -> TocStore.addChangeListener(@update)
+  componentWillUnmount: -> TocStore.removeChangeListener(@update)
 
-        },
-        {
-          title: "Thermodynamics",
-          number: "3",
-          id: 125,
-          children: [{
-            title: "Thermodynamics in 1 dim",
-            number: "3.1",
-            id: 240
-          }, {
-            title: "Thermodynamics in 2 dim",
-            number: "3.2",
-            id: 241
-          }, {
-            title: "Thermodynamics in 3 dim",
-            number: "3.3",
-            id: 242
-          }]
-        }
-      ]
-    }
+  update: -> @setState({})
 
   handleToggle: ->
     @setState({
@@ -102,9 +47,9 @@ SelectTopics = React.createClass
   renderSections: (section) ->
     active = TaskPlanStore.hasTopic(@props.planId, section.id)
     <SectionTopic active={active} section={section} toggleSection={@toggleSection}/>
-    
+
   renderChapterPanels: (chapter, i) ->
-    sections = _.map(chapter.children, _.bind(@renderSections, this))
+    sections = _.map(chapter.children, @renderSections)
     header = <h2>{chapter.number}. {chapter.title}</h2>
 
     <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
@@ -114,10 +59,13 @@ SelectTopics = React.createClass
     </BS.Panel>
 
   renderOverlay: ->
-    if !@state.isModalOpen
-      return <span/>
-  
-    chapters = _.map(@state.chapters, _.bind(@renderChapterPanels, this))
+    unless @state.isModalOpen
+      return <span className="-no-modal"/>
+    unless TocStore.isLoaded()
+      TocActions.load()
+      return <span className="-loading">Loading...</span>
+
+    chapters = _.map(TocStore.get(), @renderChapterPanels)
 
     <BS.Modal backdrop={true} onRequestHide=@doneWithSelection>
       <div className="modal-body">
@@ -129,6 +77,7 @@ SelectTopics = React.createClass
         <BS.Button onClick={@handleToggle}>Close</BS.Button>
       </div>
     </BS.Modal>
+
 
 ReadingPlan = React.createClass
   mixins: [Router.State]
@@ -154,12 +103,12 @@ ReadingPlan = React.createClass
 
   setTitle: (value) ->
     TaskPlanActions.updateTitle(@state.id, value)
-    
+
   savePlan: ->
     TaskPlanActions.save(@state.id)
 
-  renderTopics: (topic) ->
-    <li>{topic}</li>
+  renderTopics: (topicId) ->
+    <li>{TocStore.getSectionInfo(topicId).title}</li>
 
   render: ->
     id = @getParams().id
@@ -176,7 +125,7 @@ ReadingPlan = React.createClass
       </div>
       <div>
         <label htmlFor="due-date">Due Date</label>
-        <Datepicker
+        <DateTimePicker
           id="due-date"
           format="MMM dd, yyyy"
           time={false}
