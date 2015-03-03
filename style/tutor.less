@@ -119,4 +119,21 @@ body {
     max-width: 300px;
   }
 }
+.select-reading-modal {
+  .section {
+    padding: 0.5em 5px;
+    border-bottom: 1px solid #efefef;
+  }
+  .section:last-child {
+    border-bottom: 0;
+  }
+  .section.selected {
+    background: @state-info-bg;
+    color: @state-info-text;
+  }
+}
+
+.modal-backdrop.in {
+  height: 100%;
+}
 @import 'reading';

@@ -8,6 +8,7 @@
 $ = require 'jquery'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {TaskActions} = require './flux/task'
+{TocActions} = require './flux/toc'
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
@@ -56,6 +57,9 @@ start = ->
   # apiHelper TaskActions, TaskActions.save, TaskActions.saved, 'PATCH', (id, obj) ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
+
+  apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
+    url: '/api/courses/012/readings'
 
   reloadAfterCompletion = (empty, task, step) ->
     TaskActions.load(task.id)
