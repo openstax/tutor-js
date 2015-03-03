@@ -11,11 +11,13 @@ SectionTopic = React.createClass
     @props.toggleSection(@props.section)
     
   render: ->
-    isActive = 'selected' if @props.active
-    <div 
-      key={@props.section.id} 
-      className = {isActive}
-      onClick={@toggleSection}>{@props.section.number}. {@props.section.title}</div>
+    classes = ['section']
+    classes.push('selected') if @props.active
+
+    <div key={@props.section.id} className = {classes.join(' ')} onClick={@toggleSection}>
+      <span class="number">{@props.section.number}</span> - 
+      <span class="title">{@props.section.title}</span>
+    </div>
 
 SelectTopics = React.createClass
   mixins: [BS.OverlayMixin],
@@ -105,7 +107,11 @@ SelectTopics = React.createClass
     
   renderChapterPanels: (chapter, i) ->
     sections = _.map(chapter.children, _.bind(@renderSections, this))
-    header = <h2>{chapter.number}. {chapter.title}</h2>
+    header =
+      <h2 class="chapter-title">
+        <span class="number">{chapter.number}</span>. 
+        <span class="title">{chapter.title}</span>
+      </h2>
 
     <BS.Accordion>
       <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
@@ -120,7 +126,7 @@ SelectTopics = React.createClass
     chapters = _.map(@state.chapters, _.bind(@renderChapterPanels, this))
 
     <BS.Modal backdrop={true} onRequestHide=@doneWithSelection>
-      <div className="modal-body">
+      <div className="modal-body select-reading-modal">
         {chapters}
       </div>
       <div className="modal-footer">
