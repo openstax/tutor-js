@@ -11,11 +11,11 @@ SectionTopic = React.createClass
     @props.toggleSection(@props.section)
     
   render: ->
-    isActive = 'info' if @props.active
-    <BS.ListGroupItem 
+    isActive = 'selected' if @props.active
+    <div 
       key={@props.section.id} 
-      bsStyle= {isActive}
-      onClick={@toggleSection}>{@props.section.number}. {@props.section.title}</BS.ListGroupItem>
+      className = {isActive}
+      onClick={@toggleSection}>{@props.section.number}. {@props.section.title}</div>
 
 SelectTopics = React.createClass
   mixins: [BS.OverlayMixin],
@@ -107,11 +107,11 @@ SelectTopics = React.createClass
     sections = _.map(chapter.children, _.bind(@renderSections, this))
     header = <h2>{chapter.number}. {chapter.title}</h2>
 
-    <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
-      <BS.ListGroup>
+    <BS.Accordion>
+      <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
         {sections}
-      </BS.ListGroup>
-    </BS.Panel>
+      </BS.Panel>
+    </BS.Accordion>
 
   renderOverlay: ->
     if !@state.isModalOpen
@@ -121,9 +121,7 @@ SelectTopics = React.createClass
 
     <BS.Modal backdrop={true} onRequestHide=@doneWithSelection>
       <div className="modal-body">
-        <BS.Accordion>
-          {chapters}
-        </BS.Accordion>
+        {chapters}
       </div>
       <div className="modal-footer">
         <BS.Button onClick={@handleToggle}>Close</BS.Button>
