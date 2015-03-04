@@ -94,7 +94,37 @@ body {
 
 }
 
+.steps {
+  .step {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    transition: all .5s ease-in;
+    opacity: 1;
+    margin-left: 0;
+    transform: rotate(720deg);
+  }
+  .step.btn-danger {
+    color: white;
+  }
+  .step.hidden-step {
+    opacity: 0;
+    margin-left: -45px;
+    transition: all .5s ease-in;
+  }
 
+  .btn.step.btn-primary {
+    background-color:@blue-500;
+  }
+  .btn.breadcrumbs-enter {
+    margin-left: -45px;
+    transition: all .5s ease-in;
+  }
+  .btn.breadcrumbs-enter-active {
+    transform: rotate(720deg);
+    margin-left: 0;
+  }
+}
 // Math Rendering
 // NOTE: This happens pretty quickly so it may be unnecessary
 [data-math]:not(.loaded) {
