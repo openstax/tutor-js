@@ -16,8 +16,8 @@ SectionTopic = React.createClass
     classes.push('selected') if @props.active
 
     <div key={@props.section.id} className = {classes.join(' ')} onClick={@toggleSection}>
-      <span class="number">{@props.section.number}</span> -
-      <span class="title">{@props.section.title}</span>
+      <span className="number">{@props.section.number}</span> -
+      <span className="title">{@props.section.title}</span>
     </div>
 
 SelectTopics = React.createClass
@@ -53,9 +53,9 @@ SelectTopics = React.createClass
   renderChapterPanels: (chapter, i) ->
     sections = _.map(chapter.children, @renderSections)
     header =
-      <h2 class="chapter-title">
-        <span class="number">{chapter.number}</span>.
-        <span class="title">{chapter.title}</span>
+      <h2 className="chapter-title">
+        <span className="number">{chapter.number}</span>.
+        <span className="title">{chapter.title}</span>
       </h2>
 
     <BS.Accordion>
@@ -112,7 +112,8 @@ ReadingPlan = React.createClass
     TaskPlanActions.save(@state.id)
 
   renderTopics: (topicId) ->
-    <li>{TocStore.getSectionInfo(topicId).title}</li>
+    topic = TocStore.getSectionInfo(topicId)
+    <li>{topic.number} - {topic.title}</li>
 
   render: ->
     id = @getParams().id
@@ -120,6 +121,12 @@ ReadingPlan = React.createClass
     headerText = if id then 'Edit Reading' else 'Add Reading'
     dueDate = if @state.due_at then @state.due_at else @props.due_at
     topics = TaskPlanStore.getTopics(@state.id)
+
+    selectedReadingList =
+      <ul className="selected-reading-list">
+        <li><strong>Currently selected sections in this reading</strong></li>
+        {_.map(topics, @renderTopics)}
+      </ul> if topics.length
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
@@ -142,9 +149,7 @@ ReadingPlan = React.createClass
         <label>Select Readings</label>
         <SelectTopics planId={@state.id} selected={topics}/>
       </p>
-      <ul>
-        {_.map(topics, @renderTopics)}
-      </ul>
+      {selectedReadingList}
     </BS.Panel>
 
 module.exports = ReadingPlan
