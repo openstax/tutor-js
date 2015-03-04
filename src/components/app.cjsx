@@ -32,9 +32,6 @@ module.exports = React.createClass
               <li>
                 <Link to='tasks'>Tasks</Link>
               </li>
-              <li>
-                <Link to='createReading'>Add Reading</Link>
-              </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               <li>
