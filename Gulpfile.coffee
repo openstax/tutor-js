@@ -7,6 +7,11 @@ browserify      = require 'browserify'
 watchify        = require 'watchify'
 cjsxify         = require 'cjsxify'
 browserifyShim  = require 'browserify-shim'
+minifyCSS       = require 'gulp-minify-css'
+uglify          = require 'gulp-uglify'
+rev             = require 'gulp-rev'
+del             = require 'del'
+rename          = require 'gulp-rename'
 
 
 handleErrors = (title) -> (args...)->
@@ -44,7 +49,7 @@ build = (isWatching)->
   srcPath = './index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
 
-gulp.task 'styles', ->
+gulp.task 'styles', ['clean'], ->
   destDirCss = './dist'
   # Build the CSS file
   gulp.src('./style/tutor.less')
@@ -77,13 +82,43 @@ gulp.task 'tdd', ['build'],  (done) ->
 
   return # Since this is async
 
+gulp.task 'clean', (done) ->
+  del([
+    './dist/*.json',
+    './dist/*.js',
+    './dist/*.css'], done)
+
+gulp.task 'minjs', ['build'], ->
+  destDir = './dist/'
+  gulp.src('./dist/tutor.js')
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest(destDir))
+
+gulp.task 'mincss', ['build'], ->
+  destDir = './dist/'
+  gulp.src('./dist/tutor.css')
+    .pipe(minifyCSS({keepBreaks:true}))
+    .pipe(rename({extname: '.min.css'}))
+    .pipe(gulp.dest(destDir))
+
+gulp.task 'min', ['minjs', 'mincss']
+
+gulp.task 'rev', ['min'], ->
+  destDir = './dist/'
+  gulp.src('./dist/*.min.*')
+    .pipe(rev())
+    .pipe(gulp.dest(destDir))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(destDir))
 
 gulp.task 'dist', ['build']
+gulp.task 'prod', ['build', 'min', 'rev']
 gulp.task 'watch', ['build'], ->
   gulp.watch ['src/**/*.coffee', 'src/**/*.cjsx', 'test/**/*.coffee'], ['build', 'test']
   gulp.watch 'style/**/{*.less, *.css}', ['styles']
 
-gulp.task 'build', ['styles'], -> build(false)
+gulp.task 'build', ['clean', 'styles'], -> build(false)
 
 gulp.task 'serve', ['watch'], ->
   config = webserver
