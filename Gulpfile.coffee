@@ -7,6 +7,15 @@ browserify      = require 'browserify'
 watchify        = require 'watchify'
 cjsxify         = require 'cjsxify'
 # browserifyShim  = require 'browserify-shim'
+minifyCSS       = require 'gulp-minify-css'
+uglify          = require 'gulp-uglify'
+rev             = require 'gulp-rev'
+del             = require 'del'
+rename          = require 'gulp-rename'
+flatten         = require 'gulp-flatten'
+merge           = require 'merge-stream'
+tar             = require 'gulp-tar'
+gzip            = require 'gulp-gzip'
 
 
 handleErrors = (title) -> (args...)->
@@ -46,15 +55,16 @@ build = (isWatching)->
   destFile = './dist/exercises.js'
   srcPath = './src/index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
-  .on 'end', ->
-    # Build the CSS file
-    gulp.src('./style/exercises.less')
-    .pipe(less())
-    .pipe(gulp.dest(destDirCss))
 
-    gulp.src('bower_components/**/*.{eot,svg,ttf,woff}')
-    .pipe(gulp.dest(destDirFonts))
+gulp.task 'styles', ['cleanStyles'], ->
+  destDirCss = './dist/'
+  # Build the CSS file
+  gulp.src('./style/exercises.less')
+  .pipe(less())
+  .pipe(gulp.dest(destDirCss))
 
+gulp.task 'cleanStyles', (done) ->
+  del(['./dist/*.css'], done)
 
 buildTests = (isWatching) ->
   destDir = './.tmp' # This is referenced in ./test/karma.config.coffee
@@ -82,8 +92,80 @@ gulp.task 'tdd', (done) ->
 
   return # Since this is async
 
+gulp.task 'buildJS', ['cleanJS'], -> build(false)
 
-gulp.task 'dist', -> build(false)
+gulp.task 'cleanJS', (done) ->
+  del([
+    './dist/*.json',
+    './dist/*.js'], done)
+
+gulp.task 'copyResources', ['cleanResources'], ->
+  destDir = './dist/'
+  gulp.src('./style/**/*.svg')
+    .pipe(flatten())
+    .pipe(gulp.dest(destDir))
+
+gulp.task 'cleanResources', (done) ->
+  del(['./dist/**/*.svg'], done)
+
+gulp.task 'copyFonts', ['cleanFonts'], ->
+  destDirFonts = './dist/fonts/'
+  copyBowerFonts = gulp.src('bower_components/**/*.{eot,svg,ttf,woff,woff2}')
+    .pipe(flatten())
+    .pipe(gulp.dest(destDirFonts))
+  copyPkgFonts = gulp.src('node_modules/**/*.{eot,svg,ttf,woff,woff2}')
+    .pipe(flatten())
+    .pipe(gulp.dest(destDirFonts))
+  merge(copyBowerFonts, copyPkgFonts)
+
+gulp.task 'cleanFonts', (done) ->
+  del([
+    './dist/**/*.eot',
+    './dist/**/*.woff',
+    './dist/**/*.woff2',
+    './dist/**/*.ttf'], done)
+
+gulp.task 'minjs', ['build'], ->
+  destDir = './dist/'
+  gulp.src('./dist/exercises.js')
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest(destDir))
+
+gulp.task 'mincss', ['build'], ->
+  destDir = './dist/'
+  gulp.src('./dist/exercises.css')
+    .pipe(minifyCSS({keepBreaks:true}))
+    .pipe(rename({extname: '.min.css'}))
+    .pipe(gulp.dest(destDir))
+
+gulp.task 'min', ['minjs', 'mincss']
+
+gulp.task 'rev', ['min'], ->
+  destDir = './dist/'
+  gulp.src('./dist/*.min.*')
+    .pipe(rev())
+    .pipe(gulp.dest(destDir))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(destDir))
+
+gulp.task 'archive', ['cleanArchive', 'build', 'min', 'rev'], ->
+  gulp.src([
+    './dist/exercises.min-*.js',
+    './dist/exercises.min-*.css',
+    './dist/fonts'])
+    .pipe(tar('archive.tar'))
+    .pipe(gzip())
+    .pipe(gulp.dest('./dist/'))
+
+gulp.task 'cleanArchive', (done) ->
+  del(['./dist/*.tar', './dist/*.gz'], done)
+
+gulp.task 'dist', ['build']
+gulp.task 'prod', ['archive']
+gulp.task 'build',
+  ['buildJS', 'styles', 'copyResources', 'copyFonts']
+
 gulp.task 'watch', -> build(true)
 gulp.task 'serve', ->
   build(true)
