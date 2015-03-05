@@ -18,7 +18,7 @@ TaskPlanConfig =
     _.extend(plan, {title})
     @emitChange()
 
-  updateDueAt: (id, due_at) ->
+  updateDueAt: (id, due_at="") ->
     plan = @_getPlan(id)
     _.extend(plan, {due_at: due_at.toISOString()})
     @emitChange()
@@ -32,7 +32,7 @@ TaskPlanConfig =
     plan = @_getPlan(id)
 
     index = plan.settings.page_ids?.indexOf(topicId)
-    plan.topics.splice(index, 1)
+    plan.settings.page_ids?.splice(index, 1)
     @emitChange()
 
   publish: (id) ->
@@ -50,13 +50,13 @@ TaskPlanConfig =
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
-      plan?.topics?.indexOf(topicId) >= 0
+      plan?.settings.page_ids?.indexOf(topicId) >= 0
     getCreateKey: -> CREATE_KEY
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
 
 
-extendConfig(TaskPlanConfig, CrudConfig)
+extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)
 module.exports = {TaskPlanActions:actions, TaskPlanStore:store}
