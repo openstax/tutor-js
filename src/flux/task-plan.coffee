@@ -1,4 +1,5 @@
 _ = require 'underscore'
+moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 CREATE_KEY = "CREATING"
@@ -18,7 +19,7 @@ TaskPlanConfig =
     _.extend(plan, {title})
     @emitChange()
 
-  updateDueAt: (id, due_at="") ->
+  updateDueAt: (id, due_at=new moment()) ->
     plan = @_getPlan(id)
     _.extend(plan, {due_at: due_at.toISOString()})
     @emitChange()
@@ -37,7 +38,7 @@ TaskPlanConfig =
 
   publish: (id) ->
 
-  create: (due_at = null) ->
+  create: (due_at = new moment()) ->
     @_local[CREATE_KEY] = {
       due_at: due_at
     }
