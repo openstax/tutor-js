@@ -5,8 +5,13 @@ CREATE_KEY = "CREATING"
 
 TaskPlanConfig =
   _getPlan: (planId) ->
-    @_local[planId]?.topics = [] if (@_local[planId] and !@_local[planId].topics) #TODO take out once TaskPlan api is in place
+    @_local[planId] ?= {}
+    @_local[planId].settings ?= {}
+    @_local[planId].settings.page_ids ?= []
+    #TODO take out once TaskPlan api is in place
     @_local[planId]
+
+  FAILED: ->
 
   updateTitle: (id, title) ->
     plan = @_getPlan(id)
@@ -15,20 +20,22 @@ TaskPlanConfig =
 
   updateDueAt: (id, due_at) ->
     plan = @_getPlan(id)
-    _.extend(plan, {due_at})
+    _.extend(plan, {due_at: due_at.toISOString()})
     @emitChange()
 
   addTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    plan.topics.push(topicId) unless plan.topics?.indexOf(topicId) >= 0
+    plan.settings.page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
     @emitChange()
 
   removeTopic: (id, topicId) ->
     plan = @_getPlan(id)
 
-    index = plan.topics?.indexOf(topicId)
+    index = plan.settings.page_ids?.indexOf(topicId)
     plan.topics.splice(index, 1)
     @emitChange()
+
+  publish: (id) ->
 
   create: (due_at = null) ->
     @_local[CREATE_KEY] = {
@@ -36,8 +43,9 @@ TaskPlanConfig =
     }
 
   created: (result, id) ->
-    @_asyncStatus[id] = CREATED # TODO: What async status should this be?
-    @_local[id] = result
+    @_local[CREATE_KEY] = result.id # HACK to give react component the id
+    @_local[result.id] = result
+    @emitChange()
 
   exports:
     hasTopic: (id, topicId) ->
@@ -46,7 +54,7 @@ TaskPlanConfig =
     getCreateKey: -> CREATE_KEY
     getTopics: (id) ->
       plan = @_getPlan(id)
-      plan?.topics
+      plan?.settings.page_ids
 
 
 extendConfig(TaskPlanConfig, CrudConfig)
