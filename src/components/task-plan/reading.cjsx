@@ -97,19 +97,25 @@ ReadingPlan = React.createClass
   componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
 
   update: ->
+    if @state.id is 'CREATING'
+      id = TaskPlanStore.get('CREATING')
+    else
+      id = @state.id
+
     @setState({
-      id: @state.id,
-      topics: TaskPlanStore.getTopics(@state.id)
+      id: id,
+      topics: TaskPlanStore.getTopics(id)
     })
 
   setDueAt: (value) ->
     TaskPlanActions.updateDueAt(@state.id, value)
 
-  setTitle: (value) ->
+  setTitle: ->
+    value = @refs.title.getDOMNode().value
     TaskPlanActions.updateTitle(@state.id, value)
 
-  savePlan: ->
-    TaskPlanActions.save(@state.id)
+  publish: ->
+    TaskPlanActions.publish(@state.id)
 
   renderTopics: (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
@@ -117,7 +123,7 @@ ReadingPlan = React.createClass
 
   render: ->
     id = @getParams().id
-    footer = <BS.Button bsStyle="primary">Publish</BS.Button>
+    footer = <BS.Button bsStyle="primary" onClick={@publish}>Publish</BS.Button>
     headerText = if id then 'Edit Reading' else 'Add Reading'
     dueDate = if @state.due_at then @state.due_at else @props.due_at
     topics = TaskPlanStore.getTopics(@state.id)
@@ -126,13 +132,13 @@ ReadingPlan = React.createClass
       <ul className="selected-reading-list">
         <li><strong>Currently selected sections in this reading</strong></li>
         {_.map(topics, @renderTopics)}
-      </ul> if topics.length
+      </ul> if topics?.length
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
       <div>
         <label htmlFor="title">Name</label>
-        <input id="title" type="text" onChange={@setTitle} value={@props.title}/>
+        <input ref="title" id="title" type="text" onChange={@setTitle} value={@props.title}/>
       </div>
       <div>
         <label htmlFor="due-date">Due Date</label>

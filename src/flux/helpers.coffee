@@ -57,7 +57,7 @@ CrudConfig =
   saved: (result, id) ->
     # id = result.id
     @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
-    @_local[id] = result
+    @_local[id] = result if result
     delete @_errors[id]
     # If the specific type needs to do something else to the object:
     @_saved?(result, id)
