@@ -84,7 +84,7 @@ SelectTopics = React.createClass
 
 
 ReadingPlan = React.createClass
-  mixins: [Router.State]
+  mixins: [Router.State, Router.Navigation]
 
   getInitialState: ->
     if (@getParams().id)
@@ -116,6 +116,7 @@ ReadingPlan = React.createClass
 
   publish: ->
     TaskPlanActions.publish(@state.id)
+    @transitionTo('editReading', {id: @state.id})
 
   renderTopics: (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
