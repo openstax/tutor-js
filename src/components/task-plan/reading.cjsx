@@ -87,25 +87,16 @@ ReadingPlan = React.createClass
   mixins: [Router.State, Router.Navigation]
 
   getInitialState: ->
-    if (@getParams().id)
-      return {id: @getParams().id}
-    else
-      TaskPlanActions.create()
-      return {id: TaskPlanStore.getCreateKey()}
+    id = @getParams().id
+    unless id
+      id = TaskPlanStore.freshLocalId()
+      TaskPlanActions.create(id, due_at: new Date())
+    {id}
 
   componentWillMount: -> TaskPlanStore.addChangeListener(@update)
   componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
 
-  update: ->
-    if @state.id is 'CREATING'
-      id = TaskPlanStore.get('CREATING')
-    else
-      id = @state.id
-
-    @setState({
-      id: id,
-      topics: TaskPlanStore.getTopics(id)
-    })
+  update: -> @setState {}
 
   setDueAt: (value) ->
     TaskPlanActions.updateDueAt(@state.id, value)
@@ -115,8 +106,9 @@ ReadingPlan = React.createClass
     TaskPlanActions.updateTitle(@state.id, value)
 
   publish: ->
-    TaskPlanActions.publish(@state.id)
-    @transitionTo('editReading', {id: @state.id})
+    {id} = TaskPlanStore.get(@state.id)
+    TaskPlanActions.publish(id)
+    @transitionTo('editReading', {id})
 
   renderTopics: (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
