@@ -6,6 +6,11 @@ LOADED  = 'loaded'
 FAILED  = 'failed'
 SAVING  = 'saving'
 
+idCounter = 0
+CREATE_KEY = -> "_CREATING_#{idCounter++}"
+
+isNew = (id) -> /_CREATING_/.test(id)
+
 CrudConfig = ->
   {
     _asyncStatus: {}
@@ -52,17 +57,31 @@ CrudConfig = ->
       @emitChange()
 
     save: (id, obj) ->
+      # Note: id could be isNew()
       @_asyncStatus[id] = SAVING
       @emitChange()
 
     saved: (result, id) ->
       # id = result.id
       @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
-      @_local[id] = result if result
+      unless result
+        console.error('API ERROR: Server did not return JSON after saving')
+      @_local[id] = result if result # Sometimes the POST/PATCH does not return anything
+      @_local[result.id] = result if result
       delete @_errors[id]
       # If the specific type needs to do something else to the object:
       @_saved?(result, id)
       @emitChange()
+
+    create: (localId, attributes = {}) ->
+      throw new Error('BUG: MUST provide a local id') unless isNew(localId)
+      @_local[localId] = attributes
+
+    created: (result, localId) ->
+      @_local[localId] = result # HACK: So react component can still manipulate the same object
+      @_local[result.id] = result
+      @emitChange()
+
 
     exports:
       isUnknown: (id) -> !@_asyncStatus[id]
@@ -71,6 +90,8 @@ CrudConfig = ->
       isFailed: (id) -> @_asyncStatus[id] is FAILED
       getAsyncStatus: (id) -> @_asyncStatus[id]
       get: (id) -> @_local[id]
+      freshLocalId: -> CREATE_KEY()
+      isNew: (id) -> isNew(id)
   }
 
 # Helper for creating a simple store for actions

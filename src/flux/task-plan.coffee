@@ -1,7 +1,6 @@
 _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
-CREATE_KEY = "CREATING"
 
 TaskPlanConfig =
   _getPlan: (planId) ->
@@ -37,21 +36,10 @@ TaskPlanConfig =
 
   publish: (id) ->
 
-  create: (due_at = new Date()) ->
-    @_local[CREATE_KEY] = {
-      due_at: due_at
-    }
-
-  created: (result, id) ->
-    @_local[CREATE_KEY] = result.id # HACK to give react component the id
-    @_local[result.id] = result
-    @emitChange()
-
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids?.indexOf(topicId) >= 0
-    getCreateKey: -> CREATE_KEY
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
