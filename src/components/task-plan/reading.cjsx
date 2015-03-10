@@ -116,10 +116,20 @@ ReadingPlan = React.createClass
 
   render: ->
     id = @getParams().id
-    footer = <BS.Button bsStyle="primary" onClick={@publish}>Publish</BS.Button>
+
+    if id
+      plan = TaskPlanStore.get(id)    
+    else
+      plan = TaskPlanStore.get(@state.id)
+     
+    if plan.title and plan.due_at and plan.settings.page_ids.length > 0
+    then btnDisable = '' else btnDisable = 'disabled'
+     
+    footer = <BS.Button bsStyle="primary" className={btnDisable} onClick={@publish}>Publish</BS.Button>
     headerText = if id then 'Edit Reading' else 'Add Reading'
     dueDate = if @state.due_at then @state.due_at else @props.due_at
     topics = TaskPlanStore.getTopics(@state.id)
+    
 
     selectedReadingList =
       <ul className="selected-reading-list">
