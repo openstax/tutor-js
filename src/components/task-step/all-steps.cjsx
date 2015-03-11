@@ -1,4 +1,3 @@
-$ = require 'jquery'
 React = require 'react'
 
 api = require '../../api'
