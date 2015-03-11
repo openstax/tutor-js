@@ -21,3 +21,6 @@ module.exports = React.createClass
     addTarget = (i, link) ->
       $(link).attr("target", "_blank") unless $(link).attr('href')[0] is '#'
     links.each addTarget
+
+    # MathML should be rendered by MathJax (if available)
+    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub], @getDOMNode())
