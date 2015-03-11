@@ -121,11 +121,17 @@ ReadingPlan = React.createClass
       plan = TaskPlanStore.get(id)    
     else
       plan = TaskPlanStore.get(@state.id)
+
+    console.log('getParams().id: '+id)
+    console.log('@state.id: '+@state.id)
      
-    if plan.title and plan.due_at and plan.settings.page_ids.length > 0
-    then btnDisable = '' else btnDisable = 'disabled'
-     
-    footer = <BS.Button bsStyle="primary" className={btnDisable} onClick={@publish}>Publish</BS.Button>
+    isEnabled = plan.title and plan.due_at and plan.settings.page_ids.length > 0
+
+    classes = []
+    classes.push('disabled') unless isEnabled
+    classes = classes.join(' ')
+
+    footer = <BS.Button bsStyle="primary" className={classes} onClick={@publish}>Publish</BS.Button>
     headerText = if id then 'Edit Reading' else 'Add Reading'
     dueDate = if @state.due_at then @state.due_at else @props.due_at
     topics = TaskPlanStore.getTopics(@state.id)

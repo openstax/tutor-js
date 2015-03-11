@@ -8,11 +8,12 @@ module.exports = React.createClass
   render: ->
     classes = ['has-html']
     classes.push(@props.className) if @props.className
+    classes = classes.join(' ')
 
     if @props.block
-      <div className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
+      <div className={classes} dangerouslySetInnerHTML={__html:@props.html} />
     else
-      <span className={classes.join(' ')} dangerouslySetInnerHTML={__html:@props.html} />
+      <span className={classes} dangerouslySetInnerHTML={__html:@props.html} />
 
   componentDidMount: ->
     html = $(@getDOMNode())
