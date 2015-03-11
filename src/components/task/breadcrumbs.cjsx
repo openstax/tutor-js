@@ -37,6 +37,8 @@ module.exports = React.createClass
         classes.push('completed')
         bsStyle = 'primary'
         # classes.push('disabled')
+        classes = classes.join(' ')
+
         title ?= "Step Completed (#{step.type}). Click to review"
 
       else if showedFirstIncompleteStep
@@ -45,7 +47,9 @@ module.exports = React.createClass
         showedFirstIncompleteStep = true
 
 
-      <BS.Button bsStyle={bsStyle} className={classes.join(' ')} title={title} onClick={@props.goToStep(i)}><i className="fa fa-fw #{step.type}"></i></BS.Button>
+      <BS.Button bsStyle={bsStyle} className={classes} title={title} onClick={@props.goToStep(i)}>
+        <i className="fa fa-fw #{step.type}"></i>
+      </BS.Button>
 
     <BS.ButtonGroup className='steps'>
       {stepButtons}

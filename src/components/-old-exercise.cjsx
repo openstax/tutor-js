@@ -24,13 +24,14 @@ QuestionMixin =
       stimulus = <ArbitraryHtmlAndMath block=true className='stimulus' html={model.stimulus} />
     classes = ['question', model.format]
     classes.push('answered') if isAnswered
+    classes = classes.join(' ')
 
     if @renderStem?
       stem = @renderStem()
     else
       stem = <ArbitraryHtmlAndMath block=true className='stem' html={model.stem} />
 
-    <div className={classes.join(' ')} data-format={model.type}>
+    <div className={classes} data-format={model.type}>
       {stimulus}
       {stem}
       {@renderBody()}
@@ -132,6 +133,7 @@ MultipleChoiceOptionMixin =
     classes = ['option']
     # null (unanswered), 'correct', 'incorrect', 'missed'
     classes.push(@props.answerState) if @props.answerState
+    classes = classes.join(' ')
 
     optionIdent = @props.model.id or @props.model.value
     if Array.isArray(@props.answer)
@@ -158,7 +160,7 @@ MultipleChoiceOptionMixin =
           {contents}
         </label>
 
-    <li key={id} className={classes.join(' ')}>
+    <li key={id} className={classes}>
       {contents}
     </li>
 
@@ -204,8 +206,9 @@ MultipleChoiceQuestion = React.createClass
 
     classes = ['question']
     classes.push('answered') if isAnswered
+    classes = classes.join(' ')
 
-    <div key={questionId} className={classes.join(' ')}>
+    <div key={questionId} className={classes}>
       <ArbitraryHtmlAndMath block=true className='stem' html={model.stem} />
       <ul className='options'>{options}</ul>
     </div>
@@ -335,12 +338,15 @@ TrueFalseQuestion = React.createClass
         # correctClasses.push('missed') No need to show missed if there are only 2 options
         incorrectClasses.push('incorrect')
 
+      trueClasses = trueClasses.join(' ')
+      falseClasses = falseClasses.join(' ')
+
       <div className='question-body'>
         <ul className='options'>
-          <li className={trueClasses.join(' ')}>
+          <li className={trueClasses}>
             <span>True</span>
           </li>
-          <li className={falseClasses.join(' ')}>
+          <li className={falseClasses}>
             <span>False</span>
           </li>
         </ul>
