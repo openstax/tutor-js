@@ -8,11 +8,11 @@ ReadingPlan = require './components/task-plan/reading'
 routes = (
   <Route path='/' handler={App}>
     <Redirect from='/' to='dashboard' />
-    <Route path='dashboard' name='dashboard' handler={Dashboard} />
-    <Route path='tasks' name='tasks' handler={Tasks} />
-    <Route path='tasks/:id' name='task' handler={SingleTask} />
-    <Route path='readings' name='createReading' handler={ReadingPlan} />
-    <Route path='readings/:id' name='editReading' handler={ReadingPlan} />
+    <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
+    <Route path='tasks/?' name='tasks' handler={Tasks} />  
+    <Route path='tasks/:id/?' name='task' handler={SingleTask} />
+    <Route path='readings/?' name='createReading' handler={ReadingPlan} />
+    <Route path='readings/:id/?' name='editReading' handler={ReadingPlan} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )
