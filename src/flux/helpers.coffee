@@ -17,6 +17,7 @@ CrudConfig = ->
   {
     _asyncStatus: {}
     _local: {}
+    _changed: {}
     _errors: {}
 
     # If the specific type needs to do something else to the object:
@@ -26,6 +27,7 @@ CrudConfig = ->
     reset: ->
       @_asyncStatus = {}
       @_local = {}
+      @_changed = {}
       @_errors = {}
       @emitChange()
 
@@ -68,8 +70,14 @@ CrudConfig = ->
       @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
       unless result
         console.error('API ERROR: Server did not return JSON after saving')
-      @_local[id] = result if result # Sometimes the POST/PATCH does not return anything
-      @_local[result.id] = result if result
+      if result
+        @_local[id] = result # Sometimes the POST/PATCH does not return anything
+        @_local[result.id] = result
+        delete @_changed[result.id]
+      else
+        # Merge all the local changes into the new local object
+        @_local[id] = _.extend(@_local[id], @_changed[id])
+      delete @_changed[id]
       delete @_errors[id]
       # If the specific type needs to do something else to the object:
       @_saved?(result, id)
@@ -78,10 +86,18 @@ CrudConfig = ->
     create: (localId, attributes = {}) ->
       throw new Error('BUG: MUST provide a local id') unless isNew(localId)
       @_local[localId] = attributes
+      @_asyncStatus[localId] = LOADED
 
     created: (result, localId) ->
       @_local[localId] = result # HACK: So react component can still manipulate the same object
       @_local[result.id] = result
+      @_asyncStatus[localId] = LOADED
+      @_asyncStatus[result.id] = LOADED
+      @emitChange()
+
+    _change: (id, obj) ->
+      @_changed[id] ?= {}
+      _.extend(@_changed[id], obj)
       @emitChange()
 
     delete: (id) ->
@@ -92,13 +108,20 @@ CrudConfig = ->
       delete @_local[id]
       @emitChange()
 
+    clearChanged: (id) ->
+      delete @_changed[id]
+
     exports:
       isUnknown: (id) -> !@_asyncStatus[id]
       isLoading: (id) -> @_asyncStatus[id] is LOADING
       isLoaded: (id) -> @_asyncStatus[id] is LOADED
       isFailed: (id) -> @_asyncStatus[id] is FAILED
       getAsyncStatus: (id) -> @_asyncStatus[id]
-      get: (id) -> @_local[id]
+      get: (id) ->
+        return null unless @_asyncStatus[id] is LOADED
+        _.extend({}, @_local[id], @_changed[id])
+      isChanged: (id) -> !_.isEmpty(@_changed[id])
+      getChanged: (id) -> @_changed[id] or {}
       freshLocalId: -> CREATE_KEY()
       isNew: (id) -> isNew(id)
   }

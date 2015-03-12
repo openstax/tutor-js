@@ -13,26 +13,29 @@ TaskPlanConfig =
   FAILED: ->
 
   updateTitle: (id, title) ->
-    plan = @_getPlan(id)
-    _.extend(plan, {title})
-    @emitChange()
+    @_change(id, {title})
 
   updateDueAt: (id, due_at=new Date()) ->
-    plan = @_getPlan(id)
-    _.extend(plan, {due_at: due_at.toISOString()})
-    @emitChange()
+    @_change(id, {due_at: due_at.toISOString()})
 
   addTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    plan.settings.page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
-    @emitChange()
+    {page_ids} = plan.settings
+    page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
+
+    page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
+
+    @_change(id, {settings: page_ids})
 
   removeTopic: (id, topicId) ->
     plan = @_getPlan(id)
+    {page_ids} = plan.settings
+    page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
     index = plan.settings.page_ids?.indexOf(topicId)
     plan.settings.page_ids?.splice(index, 1)
-    @emitChange()
+
+    @_change(id, {settings: page_ids})
 
   publish: (id) ->
 

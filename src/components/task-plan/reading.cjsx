@@ -161,9 +161,13 @@ ReadingPlan = React.createClass
 
   render: ->
     id = @getPlanId()
+
+    unless TaskPlanStore.isLoaded(id)
+      <div className="loading">Loading...</div>
+
     plan = TaskPlanStore.get(id)
 
-    isEnabled = plan?.title and plan?.due_at and plan?.settings.page_ids.length > 0
+    isEnabled = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
 
     headerText = if id then 'Edit Reading' else 'Add Reading'
     topics = TaskPlanStore.getTopics(id)
