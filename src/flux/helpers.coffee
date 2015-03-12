@@ -5,6 +5,8 @@ LOADING = 'loading'
 LOADED  = 'loaded'
 FAILED  = 'failed'
 SAVING  = 'saving'
+DELETING = 'deleting'
+DELETED = 'deleted'
 
 idCounter = 0
 CREATE_KEY = -> "_CREATING_#{idCounter++}"
@@ -82,6 +84,12 @@ CrudConfig = ->
       @_local[result.id] = result
       @emitChange()
 
+    delete: (id) ->
+      @_asyncStatus[id] = DELETING
+
+    deleted: (result, id) ->
+      @_asyncStatus[id] = DELETED
+      @_local[id] = null
 
     exports:
       isUnknown: (id) -> !@_asyncStatus[id]
