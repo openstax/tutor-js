@@ -77,11 +77,12 @@ start = ->
     url: "/api/courses/1/plans/#{id}/publish"
 
   saveHelper = (id) ->
-    obj = TaskPlanStore.get(id)
+    {id} = TaskPlanStore.get(id) # Could be a local id
     # Use the obj.id because id could be the local id if freshly created
-    throw new Error('BUG: Failed to POST first') unless obj.id
+    throw new Error('BUG: Failed to POST first') unless id
+    obj = TaskPlanStore.getChanged(id)
 
-    url: "/api/courses/1/plans/#{obj.id}"
+    url: "/api/courses/1/plans/#{id}"
     payload: obj
 
   apiHelper TaskPlanActions, TaskPlanActions.updateTitle, TaskPlanActions.saved, 'PATCH', saveHelper

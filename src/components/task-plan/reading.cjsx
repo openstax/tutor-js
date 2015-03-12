@@ -88,7 +88,9 @@ ReadingPlan = React.createClass
 
   getInitialState: ->
     id = @getParams().id
-    unless id
+    if id
+      TaskPlanActions.load(id)
+    else
       id = TaskPlanStore.freshLocalId()
       TaskPlanActions.create(id, due_at: new Date())
     {id}
@@ -116,55 +118,55 @@ ReadingPlan = React.createClass
 
   render: ->
     id = @getParams().id
+    id = @state.id unless id
 
-    if id
-      plan = TaskPlanStore.get(id)    
+    if TaskPlanStore.isLoaded(id)
+
+      plan = TaskPlanStore.get(id)
+
+      isEnabled = plan.title and plan.due_at and plan.settings.page_ids.length > 0
+
+      classes = []
+      classes.push('disabled') unless isEnabled
+      classes = classes.join(' ')
+
+      footer = <BS.Button bsStyle="primary" className={classes} onClick={@publish}>Publish</BS.Button>
+      headerText = if id then 'Edit Reading' else 'Add Reading'
+      dueDate = if @state.due_at then @state.due_at else @props.due_at
+      topics = TaskPlanStore.getTopics(@state.id)
+
+
+      selectedReadingList =
+        <ul className="selected-reading-list">
+          <li><strong>Currently selected sections in this reading</strong></li>
+          {_.map(topics, @renderTopics)}
+        </ul> if topics?.length
+
+      <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
+        <h1>{headerText}</h1>
+        <div>
+          <label htmlFor="title">Name</label>
+          <input ref="title" id="title" type="text" onChange={@setTitle} value={@props.title}/>
+        </div>
+        <div>
+          <label htmlFor="due-date">Due Date</label>
+          <DateTimePicker
+            id="due-date"
+            format="MMM dd, yyyy"
+            time={false}
+            calendar={true}
+            readOnly={false}
+            onChange={@setDueAt}
+            value={dueDate}/>
+        </div>
+        <p>
+          <label>Select Readings</label>
+          <SelectTopics planId={@state.id} selected={topics}/>
+        </p>
+        {selectedReadingList}
+      </BS.Panel>
+
     else
-      plan = TaskPlanStore.get(@state.id)
-
-    console.log('getParams().id: '+id)
-    console.log('@state.id: '+@state.id)
-     
-    isEnabled = plan.title and plan.due_at and plan.settings.page_ids.length > 0
-
-    classes = []
-    classes.push('disabled') unless isEnabled
-    classes = classes.join(' ')
-
-    footer = <BS.Button bsStyle="primary" className={classes} onClick={@publish}>Publish</BS.Button>
-    headerText = if id then 'Edit Reading' else 'Add Reading'
-    dueDate = if @state.due_at then @state.due_at else @props.due_at
-    topics = TaskPlanStore.getTopics(@state.id)
-    
-
-    selectedReadingList =
-      <ul className="selected-reading-list">
-        <li><strong>Currently selected sections in this reading</strong></li>
-        {_.map(topics, @renderTopics)}
-      </ul> if topics?.length
-
-    <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
-      <h1>{headerText}</h1>
-      <div>
-        <label htmlFor="title">Name</label>
-        <input ref="title" id="title" type="text" onChange={@setTitle} value={@props.title}/>
-      </div>
-      <div>
-        <label htmlFor="due-date">Due Date</label>
-        <DateTimePicker
-          id="due-date"
-          format="MMM dd, yyyy"
-          time={false}
-          calendar={true}
-          readOnly={false}
-          onChange={@setDueAt}
-          value={dueDate}/>
-      </div>
-      <p>
-        <label>Select Readings</label>
-        <SelectTopics planId={@state.id} selected={topics}/>
-      </p>
-      {selectedReadingList}
-    </BS.Panel>
+      <div className="loading">Loading...</div>
 
 module.exports = ReadingPlan

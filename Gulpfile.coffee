@@ -70,7 +70,7 @@ buildTests = (isWatching) ->
   buildBrowserify(srcPath, destDir, destFile, isWatching)
 
 
-gulp.task 'test', ['build'], (done) ->
+gulp.task 'test', ['buildJS'], (done) ->
   buildTests(false)
   .on 'end', ->
     config =
