@@ -89,7 +89,8 @@ CrudConfig = ->
 
     deleted: (result, id) ->
       @_asyncStatus[id] = DELETED
-      @_local[id] = null
+      delete @_local[id]
+      @emitChange()
 
     exports:
       isUnknown: (id) -> !@_asyncStatus[id]
