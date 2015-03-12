@@ -1,6 +1,6 @@
+_ = require 'underscore'
 React = require 'react'
 KatexMixin = require './katex-mixin'
-$ = require 'jquery'
 
 module.exports = React.createClass
   displayName: 'ArbitraryHtmlAndMath'
@@ -16,8 +16,8 @@ module.exports = React.createClass
       <span className={classes} dangerouslySetInnerHTML={__html:@props.html} />
 
   componentDidMount: ->
-    html = $(@getDOMNode())
-    links = html.find("a")
-    addTarget = (i, link) ->
-      $(link).attr("target", "_blank") unless $(link).attr('href')[0] is '#'
-    links.each addTarget
+    # External links should open in a new window
+    root = @getDOMNode()
+    links = root.querySelectorAll('a')
+    _.each links, (link) ->
+      link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
