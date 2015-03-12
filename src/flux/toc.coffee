@@ -25,7 +25,7 @@ TocConfig =
     get: ->
       @_toc or throw new Error('BUG: Invalid course')
     getSectionInfo: (sectionId) ->
-      if (@_toc && @_sections)
+      if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
 
 
