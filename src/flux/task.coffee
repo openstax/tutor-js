@@ -6,7 +6,7 @@ flux = require 'flux-react'
 TaskConfig =
   _getStep: (taskId, stepId) ->
     task = @_local[taskId]
-    step = _.find task.steps, (s) -> s.id is stepId
+    step = _.find(task.steps, (s) -> s.id is stepId)
     step
 
   updateStep: (id, stepId, updateObj) ->
