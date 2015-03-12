@@ -5,6 +5,8 @@ Router = require 'react-router'
 {App, Dashboard, Tasks, SingleTask, Invalid} = require './components'
 ReadingPlan = require './components/task-plan/reading'
 
+Sandbox = require './sandbox'
+
 routes = (
   <Route path='/' handler={App}>
     <Redirect from='/' to='dashboard' />
@@ -13,6 +15,7 @@ routes = (
     <Route path='tasks/:id/?' name='task' handler={SingleTask} />
     <Route path='readings/?' name='createReading' handler={ReadingPlan} />
     <Route path='readings/:id/?' name='editReading' handler={ReadingPlan} />
+    <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )
