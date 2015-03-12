@@ -40,11 +40,12 @@ SelectTopics = React.createClass
     return
 
   render: ->
-    selectedReadingList =
-      <ul className="selected-reading-list">
-        <li><strong>Currently selected sections in this reading</strong></li>
-        {_.map(@props.selected, @renderTopics)}
-      </ul> if @props.selected.length && TocStore.isLoaded()
+    if (@props.selected.length and TocStore.isLoaded())
+      selectedReadingList =
+        <ul className="selected-reading-list">
+          <li><strong>Currently selected sections in this reading</strong></li>
+          {_.map(@props.selected, @renderTopics)}
+        </ul>
 
     <div>
       <label>Select Readings</label>
@@ -122,40 +123,50 @@ ReadingPlan = React.createClass
       id = TaskPlanStore.freshLocalId()
       plan = TaskPlanActions.create(id, due_at: new Date())
 
-    {id, plan}
+    {id}
 
   componentWillMount: -> TaskPlanStore.addChangeListener(@update)
   componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
 
+  getPlanId: () ->
+    @getParams().id or @state.id
+
   update: () ->
-    plan = TaskPlanStore.get(@state.id)
-    @setState {plan}
+    id = @getPlanId()
+    plan = TaskPlanStore.get(id)
+    if (id isnt plan.id)
+      @setState({id: plan.id})
+    else
+      @setState {}
 
   setDueAt: (value) ->
-    TaskPlanActions.updateDueAt(@state.id, value)
+    id = @getPlanId()
+    TaskPlanActions.updateDueAt(id, value)
 
   setTitle: ->
+    id = @getPlanId()
     value = @refs.title.getDOMNode().value
-    TaskPlanActions.updateTitle(@state.id, value)
+    TaskPlanActions.updateTitle(id, value)
 
   publishPlan: ->
-    {id} = TaskPlanStore.get(@state.id)
+    id = @getPlanId()
     TaskPlanActions.publish(id)
     @transitionTo('editReading', {id})
 
   deletePlan: () ->
-    id = @getParams().id
+    id = @getPlanId()
     @transitionTo('dashboard')
     TaskPlanActions.delete(id)
     {}
 
   render: ->
-    id = @getParams().id
+    id = @getPlanId()
+    plan = TaskPlanStore.get(id)
 
-    isEnabled = @state.plan?.title and @state.plan?.due_at and @state.plan?.settings.page_ids.length > 0
+    isEnabled = plan?.title and plan?.due_at and plan?.settings.page_ids.length > 0
 
     headerText = if id then 'Edit Reading' else 'Add Reading'
-    topics = TaskPlanStore.getTopics(@state.id)
+    topics = TaskPlanStore.getTopics(id)
     
     footer= <ReadingFooter enabled={isEnabled} onPublish={@publishPlan} onDelete={@deletePlan}/>
 
@@ -163,7 +174,7 @@ ReadingPlan = React.createClass
       <h1>{headerText}</h1>
       <div>
         <label htmlFor="title">Name</label>
-        <input ref="title" id="title" type="text" onChange={@setTitle} value={@state.plan?.title}/>
+        <input ref="title" id="title" type="text" onChange={@setTitle} value={plan?.title}/>
       </div>
       <div>
         <label htmlFor="due-date">Due Date</label>
@@ -174,9 +185,9 @@ ReadingPlan = React.createClass
           calendar={true}
           readOnly={false}
           onChange={@setDueAt}
-          value={new Date(@state.plan?.due_at)}/>
+          value={new Date(plan?.due_at)}/>
       </div>
-      <SelectTopics planId={@state.id} selected={topics}/>
+      <SelectTopics planId={id} selected={topics}/>
     </BS.Panel>
 
 module.exports = ReadingPlan
