@@ -22,7 +22,9 @@ SectionTopic = React.createClass
 
 SelectTopics = React.createClass
   mixins: [BS.OverlayMixin],
-  getInitialState: -> { isModalOpen: false }
+  getInitialState: ->
+    TocActions.load()
+    { isModalOpen: false }
 
   componentWillMount:   -> TocStore.addChangeListener(@update)
   componentWillUnmount: -> TocStore.removeChangeListener(@update)
@@ -38,7 +40,21 @@ SelectTopics = React.createClass
     return
 
   render: ->
-    <BS.Button onClick={@handleToggle} bsStyle="primary">Edit Readings</BS.Button>
+    selectedReadingList =
+      <ul className="selected-reading-list">
+        <li><strong>Currently selected sections in this reading</strong></li>
+        {_.map(@props.selected, @renderTopics)}
+      </ul> if @props.selected.length && TocStore.isLoaded()
+
+    <div>
+      <label>Select Readings</label>
+      <BS.Button onClick={@handleToggle} bsStyle="primary">Edit Readings</BS.Button>
+      {selectedReadingList}
+    </div>
+
+  renderTopics: (topicId) ->
+    topic = TocStore.getSectionInfo(topicId)
+    <li>{topic.number} - {topic.title}</li>
 
   toggleSection: (section) ->
     if (TaskPlanStore.hasTopic(@props.planId, section.id))
@@ -82,21 +98,38 @@ SelectTopics = React.createClass
       </div>
     </BS.Modal>
 
+ReadingFooter = React.createClass
+  render: ->
+    classes = []
+    classes.push('disabled') unless @props.enabled
+    classes = classes.join(' ')
+
+    deleteLink = <a onClick={@props.onDelete}>Delete this plan</a> if @props.enabled
+
+    <span>
+      <BS.Button bsStyle="primary" className={classes} onClick={@props.onPublish}>Publish</BS.Button>
+      {deleteLink}
+    </span>
 
 ReadingPlan = React.createClass
   mixins: [Router.State, Router.Navigation]
 
   getInitialState: ->
     id = @getParams().id
-    unless id
+    if (id)
+      TaskPlanActions.load(id)
+    else
       id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id, due_at: new Date())
-    {id}
+      plan = TaskPlanActions.create(id, due_at: new Date())
+
+    {id, plan}
 
   componentWillMount: -> TaskPlanStore.addChangeListener(@update)
   componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
 
-  update: -> @setState {}
+  update: () ->
+    plan = TaskPlanStore.get(@state.id)
+    @setState {plan}
 
   setDueAt: (value) ->
     TaskPlanActions.updateDueAt(@state.id, value)
@@ -105,49 +138,32 @@ ReadingPlan = React.createClass
     value = @refs.title.getDOMNode().value
     TaskPlanActions.updateTitle(@state.id, value)
 
-  publish: ->
+  publishPlan: ->
     {id} = TaskPlanStore.get(@state.id)
     TaskPlanActions.publish(id)
     @transitionTo('editReading', {id})
 
-  renderTopics: (topicId) ->
-    topic = TocStore.getSectionInfo(topicId)
-    <li>{topic.number} - {topic.title}</li>
+  deletePlan: () ->
+    id = @getParams().id
+    @transitionTo('dashboard')
+    TaskPlanActions.delete(id)
+    {}
 
   render: ->
     id = @getParams().id
 
-    if id
-      plan = TaskPlanStore.get(id)    
-    else
-      plan = TaskPlanStore.get(@state.id)
+    isEnabled = @state.plan?.title and @state.plan?.due_at and @state.plan?.settings.page_ids.length > 0
 
-    console.log('getParams().id: '+id)
-    console.log('@state.id: '+@state.id)
-     
-    isEnabled = plan.title and plan.due_at and plan.settings.page_ids.length > 0
-
-    classes = []
-    classes.push('disabled') unless isEnabled
-    classes = classes.join(' ')
-
-    footer = <BS.Button bsStyle="primary" className={classes} onClick={@publish}>Publish</BS.Button>
     headerText = if id then 'Edit Reading' else 'Add Reading'
-    dueDate = if @state.due_at then @state.due_at else @props.due_at
     topics = TaskPlanStore.getTopics(@state.id)
     
-
-    selectedReadingList =
-      <ul className="selected-reading-list">
-        <li><strong>Currently selected sections in this reading</strong></li>
-        {_.map(topics, @renderTopics)}
-      </ul> if topics?.length
+    footer= <ReadingFooter enabled={isEnabled} onPublish={@publishPlan} onDelete={@deletePlan}/>
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
       <div>
         <label htmlFor="title">Name</label>
-        <input ref="title" id="title" type="text" onChange={@setTitle} value={@props.title}/>
+        <input ref="title" id="title" type="text" onChange={@setTitle} value={@state.plan?.title}/>
       </div>
       <div>
         <label htmlFor="due-date">Due Date</label>
@@ -158,13 +174,9 @@ ReadingPlan = React.createClass
           calendar={true}
           readOnly={false}
           onChange={@setDueAt}
-          value={dueDate}/>
+          value={new Date(@state.plan?.due_at)}/>
       </div>
-      <p>
-        <label>Select Readings</label>
-        <SelectTopics planId={@state.id} selected={topics}/>
-      </p>
-      {selectedReadingList}
+      <SelectTopics planId={@state.id} selected={topics}/>
     </BS.Panel>
 
 module.exports = ReadingPlan
