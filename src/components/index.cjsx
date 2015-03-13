@@ -20,7 +20,13 @@ err = (msgs...) ->
 
 Dashboard = React.createClass
   render: ->
-    <div>Dashboard!</div>
+    <div>
+      Dashboard!
+      <p>
+        <Link className="btn btn-primary" to='createReading'>Add a Reading</Link>
+      </p>
+    </div>
+
 
 
 SingleTask = React.createClass

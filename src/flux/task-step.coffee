@@ -10,6 +10,6 @@ TaskStepConfig =
     @save(id)
 
 
-extendConfig(TaskConfig, CrudConfig)
+extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
 module.exports = {TaskActions:actions, TaskStore:store}

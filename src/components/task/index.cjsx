@@ -1,4 +1,3 @@
-$ = require 'jquery'
 React = require 'react'
 BS = require 'react-bootstrap'
 {Link} = require 'react-router'
