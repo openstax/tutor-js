@@ -25,17 +25,17 @@ TaskPlanConfig =
 
     page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
 
-    @_change(id, {settings: page_ids})
+    @_change(id, {settings: {page_ids}})
 
   removeTopic: (id, topicId) ->
     plan = @_getPlan(id)
     {page_ids} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
-    index = plan.settings.page_ids?.indexOf(topicId)
-    plan.settings.page_ids?.splice(index, 1)
+    index = page_ids?.indexOf(topicId)
+    page_ids?.splice(index, 1)
 
-    @_change(id, {settings: page_ids})
+    @_change(id, {settings : {page_ids}})
 
   publish: (id) ->
 

@@ -5,6 +5,8 @@ LOADING = 'loading'
 LOADED  = 'loaded'
 FAILED  = 'failed'
 SAVING  = 'saving'
+DELETING = 'deleting'
+DELETED = 'deleted'
 
 idCounter = 0
 CREATE_KEY = -> "_CREATING_#{idCounter++}"
@@ -96,6 +98,14 @@ CrudConfig = ->
     _change: (id, obj) ->
       @_changed[id] ?= {}
       _.extend(@_changed[id], obj)
+      @emitChange()
+
+    delete: (id) ->
+      @_asyncStatus[id] = DELETING
+
+    deleted: (result, id) ->
+      @_asyncStatus[id] = DELETED
+      delete @_local[id]
       @emitChange()
 
     clearChanged: (id) ->

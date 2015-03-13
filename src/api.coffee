@@ -93,6 +93,11 @@ start = ->
 
   apiHelper TaskPlanActions, TaskPlanActions.removeTopic, TaskPlanActions.saved, 'PATCH', saveHelper
 
+  apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
+
+  apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
+    url: "/api/courses/1/plans/#{id}"
+
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
     url: '/api/courses/1/readings'
 

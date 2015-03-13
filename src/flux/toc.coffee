@@ -25,7 +25,8 @@ TocConfig =
     get: ->
       @_toc or throw new Error('BUG: Invalid course')
     getSectionInfo: (sectionId) ->
-      @_sections[sectionId] or throw new Error('BUG: Invalid section')
+      if (@_toc and @_sections)
+        @_sections[sectionId] or throw new Error('BUG: Invalid section')
 
 
 {actions, store} = makeSimpleStore(TocConfig)
