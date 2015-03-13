@@ -3,6 +3,9 @@
 @import '../bower_components/bootstrap-material-design/less/material-wfont.less';
 @import '../node_modules/font-awesome/less/font-awesome.less';
 @import '../bower_components/katex/static/katex.less';
+@import './nav.less';
+@import './buttons.less';
+@import './typography.less';
 @import './question.less';
 
 // Override the default path to the font-awesome fonts
@@ -20,25 +23,18 @@ i.fa {
   &.exercise::before    { content: @fa-var-question; } // or fa-var-mortar-board
 }
 
-
-// Override the default text color from bootstrap-material-design
-.navbar-nav,
-.btn-primary,
-.btn-success { color: @white !important; }
-
-
 body {
   padding-top: 60px; // For the top navbar
   padding-bottom: 50px;
   padding-left: 40px;
   padding-right: 40px;
+  background: #f1f1f1;
 }
 
 .ui-brand-logo {
   display: inline-block;
-  height: 20px;
-  width: 143px;
-  background-image: url('logo-brand.svg');
+  height: 30px;
+  width: 217px;
 }
 
 .ui-task-list {
@@ -48,6 +44,10 @@ body {
 }
 
 .panel {
+  max-width: 1040px;
+  margin: 20px auto;
+  border-radius: 0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 
   &.ui-interactive {
     .panel-body {
@@ -74,6 +74,25 @@ body {
   }
 }
 
+.panel-header {
+  max-width: 1040px;
+  margin: 20px auto;
+  border-radius: 0;
+}
+
+.panel-body {
+  padding: 20px 50px;
+}
+
+.panel-footer {
+  margin: 0 150px;
+  padding: 0 0 20px 0;
+  background-color: #ffffff;
+  border-top: none;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .exercise {
   .question {
     padding-top: .5em;
@@ -94,6 +113,14 @@ body {
 
 }
 
+textarea {
+  border: 1px solid #d5d5d5;
+}
+
+textarea:focus {
+  border: 1px solid rgba(10, 192, 221, 1);
+  box-shadow: 0 0 10px rgba(10, 192, 221, .25);
+}
 
 // Math Rendering
 // NOTE: This happens pretty quickly so it may be unnecessary

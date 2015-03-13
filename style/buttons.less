@@ -1,0 +1,19 @@
+@btn-border-radius: 4px;
+@primary-background: #f47642;
+@primary-hover-background: #fa804d;
+
+// Override the defaults from bootstrap-material-design
+
+.btn-primary:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+  color: @white;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+  padding: 12px 36px;
+  border-radius: @btn-border-radius;
+  background: @primary-background;
+
+  &:hover {
+    background: @primary-hover-background;
+    box-shadow: none;
+	}
+}

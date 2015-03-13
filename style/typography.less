@@ -1,0 +1,31 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900,300,300italic,400italic,700);
+@import url(http://fonts.googleapis.com/css?family=Merriweather:300,300italic,700);
+@import url(http://fonts.googleapis.com/css?family=Architects+Daughter);
+
+#fonts {
+  .sans (@size: 1.5rem, @line-height: 3rem) {
+    font-family: 'Lato', Helvetica, sans-serif;
+    font-size: @size;
+    line-height: @line-height;
+  }
+  .serif (@size: 1rem, @line-height: 1.5rem) {
+    font-family: 'Merriweather', Georgia, Times, serif;
+    font-size: @size;
+    line-height: @line-height;
+  }
+  .script (@size: 1.5rem, @line-height: 3rem, @style: normal) {
+    font-family: 'Architects Daughter', cursive;
+    font-size: @size;
+    line-height: @line-height;
+    font-style: @style;
+  }
+}
+
+html { font-size: 62.5%; }
+
+body { #fonts > .sans }
+
+h1 {
+  #fonts > .sans(4rem, 5rem);
+  font-weight: 900;
+}
