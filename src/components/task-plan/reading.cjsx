@@ -184,8 +184,14 @@ ReadingPlan = React.createClass
       <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
         <h1>{headerText}</h1>
         <div>
-          <label htmlFor="reading-title">Name</label>
-          <input ref="title" id="reading-title" type="text" onChange={@setTitle} value={plan?.title}/>
+          <label htmlFor="reading-title">Title</label>
+          <input
+            ref="title"
+            id="reading-title"
+            type="text"
+            value={plan.title}
+            placeholder="Enter Title"
+            onChange={@setTitle} />
         </div>
         <div>
           <label htmlFor="reading-due-date">Due Date</label>
