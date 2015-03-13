@@ -46,6 +46,8 @@ SelectTopics = React.createClass
           <li><strong>Currently selected sections in this reading</strong></li>
           {_.map(@props.selected, @renderTopics)}
         </ul>
+    else
+      selectedReadingList = <div className="loading">Loading...</div>
 
     <div>
       <label>Select Readings</label>
@@ -157,7 +159,6 @@ ReadingPlan = React.createClass
     id = @getPlanId()
     @transitionTo('dashboard')
     TaskPlanActions.delete(id)
-    {}
 
   render: ->
     id = @getPlanId()
@@ -177,13 +178,13 @@ ReadingPlan = React.createClass
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
       <div>
-        <label htmlFor="title">Name</label>
-        <input ref="title" id="title" type="text" onChange={@setTitle} value={plan?.title}/>
+        <label htmlFor="reading-title">Name</label>
+        <input ref="title" id="reading-title" type="text" onChange={@setTitle} value={plan?.title}/>
       </div>
       <div>
-        <label htmlFor="due-date">Due Date</label>
+        <label htmlFor="reading-due-date">Due Date</label>
         <DateTimePicker
-          id="due-date"
+          id="reading-due-date"
           format="MMM dd, yyyy"
           time={false}
           calendar={true}
