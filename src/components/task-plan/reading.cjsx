@@ -115,7 +115,7 @@ ReadingFooter = React.createClass
     classes.push('disabled') unless @props.enabled
     classes = classes.join(' ')
 
-    deleteLink = <BS.Button bsStyle="danger" onClick={@props.onDelete}>Delete</BS.Button> if @props.enabled
+    deleteLink = <BS.Button bsStyle="link" onClick={@props.onDelete}>Delete</BS.Button> if @props.enabled
 
     <span>
       <BS.Button bsStyle="primary" className={classes} onClick={@props.onPublish}>Publish</BS.Button>
