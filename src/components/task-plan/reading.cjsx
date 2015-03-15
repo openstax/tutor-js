@@ -6,6 +6,7 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
+LoadableMixin = require '../loadable-mixin'
 
 SectionTopic = React.createClass
   render: ->
@@ -123,25 +124,24 @@ ReadingFooter = React.createClass
     </span>
 
 ReadingPlan = React.createClass
-  mixins: [Router.State, Router.Navigation]
+  mixins: [Router.State, Router.Navigation, LoadableMixin]
 
   getInitialState: ->
-    id = @getParams().id
+    {id} = @getParams()
     if (id)
       TaskPlanActions.load(id)
     else
       id = TaskPlanStore.freshLocalId()
-      plan = TaskPlanActions.create(id, due_at: new Date())
+      TaskPlanActions.create(id, due_at: new Date())
     {id}
 
-  componentWillMount: -> TaskPlanStore.addChangeListener(@update)
-  componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
+  getId: -> @getParams().id or @state.id
+  getFlux: ->
+    store: TaskPlanStore
+    actions: TaskPlanActions
 
-  getPlanId: () ->
-    @getParams().id or @state.id
-
-  update: () ->
-    id = @getPlanId()
+  update: ->
+    id = @getId()
     plan = TaskPlanStore.get(id)
     if plan and id isnt plan.id
       @setState({id: plan.id})
@@ -149,65 +149,60 @@ ReadingPlan = React.createClass
       @setState({})
 
   setDueAt: (value) ->
-    id = @getPlanId()
+    id = @getId()
     TaskPlanActions.updateDueAt(id, value)
 
   setTitle: ->
-    id = @getPlanId()
+    id = @getId()
     value = @refs.title.getDOMNode().value
     TaskPlanActions.updateTitle(id, value)
 
   publishPlan: ->
-    id = @getPlanId()
+    id = @getId()
     TaskPlanActions.publish(id)
     @transitionTo('editReading', {id})
 
   deletePlan: () ->
-    id = @getPlanId()
+    id = @getId()
     if confirm('Are you sure you want to delete this?')
       TaskPlanActions.delete(id)
       @transitionTo('dashboard')
 
-  render: ->
-    id = @getPlanId()
+  renderLoaded: ->
+    id = @getId()
+    plan = TaskPlanStore.get(id)
 
-    if TaskPlanStore.isLoaded(id)
-      plan = TaskPlanStore.get(id)
+    isEnabled = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
 
-      isEnabled = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
+    headerText = if id then 'Edit Reading' else 'Add Reading'
+    topics = TaskPlanStore.getTopics(id)
 
-      headerText = if id then 'Edit Reading' else 'Add Reading'
-      topics = TaskPlanStore.getTopics(id)
+    footer= <ReadingFooter enabled={isEnabled} onPublish={@publishPlan} onDelete={@deletePlan}/>
 
-      footer= <ReadingFooter enabled={isEnabled} onPublish={@publishPlan} onDelete={@deletePlan}/>
-
-      <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
-        <h1>{headerText}</h1>
-        <div>
-          <label htmlFor="reading-title">Title</label>
-          <input
-            ref="title"
-            id="reading-title"
-            type="text"
-            value={plan.title}
-            placeholder="Enter Title"
-            onChange={@setTitle} />
-        </div>
-        <div>
-          <label htmlFor="reading-due-date">Due Date</label>
-          <DateTimePicker
-            id="reading-due-date"
-            format="MMM dd, yyyy"
-            time={false}
-            calendar={true}
-            readOnly={false}
-            onChange={@setDueAt}
-            value={new Date(plan?.due_at)}/>
-        </div>
-        <SelectTopics planId={id} selected={topics}/>
-      </BS.Panel>
-
-    else
-      <div className="loading">Loading...</div>
+    <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
+      <h1>{headerText}</h1>
+      <div>
+        <label htmlFor="reading-title">Title</label>
+        <input
+          ref="title"
+          id="reading-title"
+          type="text"
+          value={plan.title}
+          placeholder="Enter Title"
+          onChange={@setTitle} />
+      </div>
+      <div>
+        <label htmlFor="reading-due-date">Due Date</label>
+        <DateTimePicker
+          id="reading-due-date"
+          format="MMM dd, yyyy"
+          time={false}
+          calendar={true}
+          readOnly={false}
+          onChange={@setDueAt}
+          value={new Date(plan?.due_at)}/>
+      </div>
+      <SelectTopics planId={id} selected={topics}/>
+    </BS.Panel>
 
 module.exports = ReadingPlan
