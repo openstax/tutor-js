@@ -139,7 +139,7 @@ start = ->
       TaskActions.loadedUserTasks(results.items)
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (course_id) ->
-    url: "/api/courses/#{course_id}/plans.json"
+    url: "/api/courses/#{course_id}/plans"
 
 
   CurrentUserActions.logout.addListener 'trigger', ->
