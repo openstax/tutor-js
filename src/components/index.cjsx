@@ -8,6 +8,7 @@ Router = require 'react-router'
 
 App = require './app'
 Task = require './task'
+LoadableMixin = require './loadable-mixin'
 {TaskActions, TaskStore} = require '../flux/task'
 
 
@@ -34,23 +35,14 @@ Dashboard = React.createClass
 
 
 SingleTask = React.createClass
-  mixins: [Router.State]
+  mixins: [Router.State, LoadableMixin]
 
-  componentWillMount: ->
-    # Fetch the task if it has not been loaded yet
-    id = @getParams().id
-    if TaskStore.isUnknown(id)
-      TaskActions.load(id)
+  getFlux: ->
+    store: TaskStore
+    actions: TaskActions
 
-    # TODO: Only update if this task changed, not the entire Store
-    @_forceUpdate = @forceUpdate.bind(@)
-    TaskStore.addChangeListener(@_forceUpdate)
-
-  componentWillUnmount: ->
-    TaskStore.removeChangeListener(@_forceUpdate)
-
-  render: ->
-    id = @getParams().id
+  renderLoaded: ->
+    {id} = @getParams()
     @transferPropsTo(<Task key={id} id={id} />)
 
 
@@ -84,12 +76,11 @@ Tasks = React.createClass
 
   componentWillMount: ->
     TaskActions.loadUserTasks()
+    TaskStore.addChangeListener(@update)
 
-    @_forceUpdate = @forceUpdate.bind(@)
-    TaskStore.addChangeListener(@_forceUpdate)
+  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
 
-  componentWillUnmount: -> TaskStore.removeChangeListener(@_forceUpdate)
-
+  update: -> @setState({})
 
   render: ->
     allTasks = TaskStore.getAll()

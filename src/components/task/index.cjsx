@@ -16,6 +16,7 @@ err = (msgs...) ->
 
 module.exports = React.createClass
   displayName: 'ReadingTask'
+
   getInitialState: ->
     model = TaskStore.get(@props.id)
     if model? and model.steps.length is 1
@@ -26,9 +27,6 @@ module.exports = React.createClass
       currentStep = -1
 
     {currentStep}
-
-  componentWillMount:   -> TaskStore.addChangeListener(@update)
-  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
 
   getDefaultCurrentStep: ->
     model = TaskStore.get(@props.id)
@@ -45,26 +43,7 @@ module.exports = React.createClass
     # Curried for React
     @setState({currentStep: num})
 
-  update: ->
-    @setState({})
-
   render: ->
-    {id} = @props
-    switch TaskStore.getAsyncStatus(id)
-      when 'loaded'
-        @renderBody()
-      when 'failed'
-        <div>Error. Please refresh</div>
-      when 'loading'
-        # If reloading then do not replace the entire DOM (and lose currentStep state)
-        if TaskStore.get(id)
-          @renderBody()
-        else
-          <div>Loading...</div>
-      else
-        <div>Starting loading</div>
-
-  renderBody: ->
     {id} = @props
     model = TaskStore.get(id)
     steps = model.steps
