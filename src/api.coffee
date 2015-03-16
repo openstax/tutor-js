@@ -12,6 +12,13 @@ _ = require 'underscore'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TocActions} = require './flux/toc'
 
+# Do some special things when running without a tutor-server backend.
+#
+# - suffix calls with `.json` so we can have `/plans` and `/plans/1`
+#   - otherwise there would be a file named `plans` and a directory named `plans`
+# - do not error when a PUT occurs
+IS_LOCAL = window.location.port is '8000' or window.__karma__
+
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
 
@@ -29,12 +36,14 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         opts.data = JSON.stringify(payload)
         opts.processData = false
 
+      url = "#{url}.json" if IS_LOCAL
+
       resolved = (results) -> successAction(results, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
         statusCode = jqXhr.status
         if statusCode is 400
           CurrentUserActions.logout()
-        else if statusMessage is 'parsererror' and statusCode is 200
+        else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
           if httpMethod is 'PUT'
             # HACK for PUT
             successAction(null, args...)
@@ -118,6 +127,7 @@ start = ->
 
   TaskActions.loadUserTasks.addListener 'trigger', ->
     url = '/api/user/tasks'
+    url = "#{url}.json" if IS_LOCAL
     opts =
       dataType: 'json'
       headers:
