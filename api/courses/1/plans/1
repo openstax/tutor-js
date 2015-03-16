@@ -1,10 +1,79 @@
 {
-    "id": 17,
-    "type": "reading",
-    "title": "Reading Title",
-    "opens_at": "2015-03-04T16:40:23.796Z",
-    "due_at": "2015-03-13T04:00:00.000Z",
-    "settings": {
-        "page_ids": [3, 2, 1]
-    }
+  "id": 17,
+  "type": "reading",
+  "title": "Reading Title",
+  "opens_at": "2015-03-04T16:40:23.796Z",
+  "due_at": "2015-03-13T04:00:00.000Z",
+  "settings": {
+    "page_ids": [
+      3,
+      2,
+      1
+    ]
+  },
+  "stats": {
+    "course": {
+      "total_count": 55,
+      "complete_count": 33,
+      "partially_complete_count": 22,
+      "current_pages": [
+        {
+          "correct_count": 27,
+          "incorrect_count": 28,
+          "page": {
+            "id": 203,
+            "number": "4.2",
+            "title": "aggregate virtual bandwidth"
+          }
+        },
+        {
+          "correct_count": 23,
+          "incorrect_count": 32,
+          "page": {
+            "id": 715,
+            "number": "5.4",
+            "title": "visualize back-end infrastructures"
+          }
+        }
+      ],
+      "spaced_pages": [
+        {
+          "correct_count": 26,
+          "incorrect_count": 1,
+          "page": {
+            "id": 796,
+            "number": "1.1",
+            "title": "unleash global convergence"
+          },
+          "previous_attempt": {
+            "correct_count": 13,
+            "incorrect_count": 2,
+            "page": {
+              "id": 924,
+              "number": "5.1",
+              "title": "unleash magnetic methodologies"
+            }
+          }
+        }
+      ]
+    },
+    "periods": [
+      {
+        "total_count": 23,
+        "complete_count": 17,
+        "partially_complete_count": 11,
+        "current_pages": [
+          {
+            "correct_count": 16,
+            "incorrect_count": 0,
+            "page": {
+              "id": 575,
+              "number": "5.4",
+              "title": "scale out-of-the-box technologies"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
