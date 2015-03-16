@@ -13,11 +13,16 @@ TaskPlan = React.createClass
   propTypes:
      plan: React.PropTypes.object.isRequired
 
+  mixins: [Router.Navigation]
+
+  onEditPlan: ->
+    @transitionTo('editReading', {id:@props.plan.id})
+
   render: ->
     start  = moment(@props.plan.opens_at)
     ending = moment(@props.plan.due_at)
     duration = moment.duration( ending.diff(start) ).humanize()
-    <BS.ListGroupItem header={@props.plan.title}>
+    <BS.ListGroupItem header={@props.plan.title} onClick={@onEditPlan}>
       {start.fromNow()} ({duration})
     </BS.ListGroupItem>
 
@@ -45,7 +50,7 @@ TeacherTaskPlanListing = React.createClass
     plans = for plan in TeacherTaskPlanStore.getCoursePlans(@props.courseId)
       <TaskPlan key={plan.id} plan={plan} />
     # pull in underscore.inflection ?
-    footer = "#{plans.length} #{if plans.length == 1 then "plan" else "plans"}"
+    footer = <Router.Link className="btn btn-primary" to='createReading'>Add a Reading</Router.Link>
     <BS.Panel header=title
         className="list-courses"
         bsStyle="primary"

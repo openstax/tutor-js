@@ -15,10 +15,10 @@ routes = (
     <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
     <Route path='tasks/?' name='tasks' handler={Tasks} />
     <Route path='tasks/:id/?' name='task' handler={SingleTask} />
-    <Route path='readings/?' name='createReading' handler={ReadingPlan} />
+    <Route path='readings/?' name='taskplans' handler={TeacherTaskPlans} />
+    <Route path='readings/new/?' name='createReading' handler={ReadingPlan} />
     <Route path='readings/:id/?' name='editReading' handler={ReadingPlan} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
-    <Route path='taskplans/?' name='taskplans' handler={TeacherTaskPlans} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )
