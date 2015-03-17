@@ -29,18 +29,26 @@ Stats = React.createClass
   percent: (num,total) ->
     Math.round((num/total) * 100)
 
+  percentDelta: (a,b) ->
+    if a > b
+      change = a - b
+      op = '+'
+    else
+      change = b - a
+      op = '-'
+    op + ' ' + Math.round((change / b) * 100)
 
     
   
-  renderCourseBar: (data, i) ->
+  renderCourseBar: (data) ->
     <div>
       <div className="reading-progress-heading">
         complete / in progress / not started
       </div>
       <BS.ProgressBar className="reading-progress-group">
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s" now={@percent(data.complete_count,data.total_count)} key={1} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(now)s" now={@percent(data.partially_complete_count,data.total_count)} key={2} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="danger" label="%(now)s" now={data.total_count - (data.complete_count + data.partially_complete_count)} key={3} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s" max={data.total_count+1} now={data.complete_count} key={1} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(now)s" max={data.total_count+1} now={data.partially_complete_count} key={2} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="danger" label="%(now)s" max={data.total_count+1} now={data.total_count - (data.complete_count + data.partially_complete_count)} key={3} />
       </BS.ProgressBar>
     </div> 
 
@@ -50,8 +58,8 @@ Stats = React.createClass
         {data.page.number} - {data.page.title}
       </div>
       <BS.ProgressBar className="reading-progress-group">
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(percent)s%" now={@percent(data.correct_count,55)} key={1} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(percent)s%" now={@percent(data.incorrect_count,55)} key={2} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(percent)s%" now={@percent(data.correct_count,data.correct_count+data.incorrect_count)} key={1} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(percent)s%" now={@percent(data.incorrect_count,data.correct_count+data.incorrect_count)} key={2} />
       </BS.ProgressBar>
     </div>
 

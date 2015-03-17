@@ -15,8 +15,8 @@ routes = (
     <Route path='tasks/:id/?' name='task' handler={SingleTask} />
     <Route path='readings/?' name='createReading' handler={ReadingPlan} />
     <Route path='readings/:id/?' name='editReading' handler={ReadingPlan} />
+    <Route path='readings/:id/stats/?' name='viewStats' handler={Stats} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
-    <Route path='plans/:id/stats/?' name='viewStats' handler={Stats} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )
