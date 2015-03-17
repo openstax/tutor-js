@@ -25,11 +25,11 @@ Dashboard = React.createClass
       <p>Dashboard!</p>
       <div className="-student">
         <p>Student:</p>
-        <Link className="btn" to="tasks">Task List</Link>
+        <Link className="btn btn-primary" to="tasks">Task List</Link>
       </div>
       <div className="-teacher">
         <p>Teacher:</p>
-        <Link className="btn btn-primary" to='createReading'>Add a Reading</Link>
+        <Link className="btn btn-primary" to='taskplans'>Plan List</Link>
       </div>
     </div>
 

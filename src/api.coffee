@@ -11,6 +11,7 @@ _ = require 'underscore'
 {TaskActions} = require './flux/task'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TocActions} = require './flux/toc'
+{TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -136,6 +137,9 @@ start = ->
     $.ajax(url, opts)
     .then (results) ->
       TaskActions.loadedUserTasks(results.items)
+
+  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (course_id) ->
+    url: "/api/courses/#{course_id}/plans"
 
 
   CurrentUserActions.logout.addListener 'trigger', ->
