@@ -9,9 +9,9 @@ module.exports =
     $(window).off("beforeunload", @confirmLeave)
 
     {store, actions} = @getFlux()
+    # TODO add isValid() to the CrudConfig so we can save
     if store.isChanged(@getId())
-      if confirm('You have unsaved changes.  Would you like to save before you leave?')
-        actions.save(@getId())
+      alert 'Your changes will be lost because you did not save.  Come back soon!'
 
   confirmLeave: ->
     {store} = @getFlux()
