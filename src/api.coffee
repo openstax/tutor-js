@@ -83,7 +83,7 @@ start = ->
         page_ids: []
 
   apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
-    url: "/api/courses/1/plans/#{id}/publish"
+    url: "/api/plans/#{id}/publish"
 
   saveHelper = (id) ->
     {id} = TaskPlanStore.get(id) # Could be a local id
@@ -91,7 +91,7 @@ start = ->
     throw new Error('BUG: Failed to POST first') unless id
     obj = TaskPlanStore.getChanged(id)
 
-    url: "/api/courses/1/plans/#{id}"
+    url: "/api/plans/#{id}"
     payload: obj
 
   apiHelper TaskPlanActions, TaskPlanActions.updateTitle, TaskPlanActions.saved, 'PATCH', saveHelper
@@ -105,7 +105,7 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
-    url: "/api/courses/1/plans/#{id}"
+    url: "/api/plans/#{id}"
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
     url: '/api/courses/1/readings'
@@ -114,14 +114,17 @@ start = ->
     TaskActions.load(task.id)
 
   apiHelper TaskActions, TaskActions.completeStep, reloadAfterCompletion, 'PUT', (task, step) ->
-    url: "/api/tasks/#{task.id}/steps/#{step.id}/completed"
+    console.warn('TODO: Refactor to use the TaskStep store directly')
+    url: "/api/steps/#{step.id}/completed"
 
   apiHelper TaskActions, TaskActions.setFreeResponseAnswer, TaskActions.saved, 'PATCH', (task, step, free_response) ->
-    url: "/api/tasks/#{task.id}/steps/#{step.id}"
+    console.warn('TODO: Refactor to use the TaskStep store directly')
+    url: "/api/steps/#{step.id}"
     payload: {free_response}
 
   apiHelper TaskActions, TaskActions.setAnswerId, TaskActions.saved, 'PATCH', (task, step, answer_id) ->
-    url: "/api/tasks/#{task.id}/steps/#{step.id}"
+    console.warn('TODO: Refactor to use the TaskStep store directly')
+    url: "/api/steps/#{step.id}"
     payload: {answer_id}
 
 

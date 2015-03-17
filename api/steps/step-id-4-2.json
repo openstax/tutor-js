@@ -1,0 +1,17 @@
+{ "id": "step-id-4-2",
+  "type": "exercise",
+  "content": {
+    "stimulus_html": "Stimulus for Second Exercise",
+    "questions":[
+      {
+        "id": "876",
+        "format": "multiple-choice",
+        "stem_html":"Is the glass half full or half empty?",
+        "answers":[
+          {"id":"id3","content_html":"Half Full"},
+          {"id":"id4","content_html":"Half Empty"}
+        ]
+      }
+    ]
+  }
+}
