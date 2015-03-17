@@ -53,7 +53,7 @@ ExerciseMultiChoice = React.createClass
 
     <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
       <div className="free-response">{free_response}</div>
-      <div>Choose the best answer from the following:</div>
+      <div className="multiple-choice-prompt">Choose the best answer from the following:</div>
     </Question>
 
   onAnswerChanged: (answer) ->
