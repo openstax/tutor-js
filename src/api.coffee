@@ -94,14 +94,6 @@ start = ->
     url: "/api/courses/1/plans/#{id}"
     payload: obj
 
-  apiHelper TaskPlanActions, TaskPlanActions.updateTitle, TaskPlanActions.saved, 'PATCH', saveHelper
-
-  apiHelper TaskPlanActions, TaskPlanActions.updateDueAt, TaskPlanActions.saved, 'PATCH', saveHelper
-
-  apiHelper TaskPlanActions, TaskPlanActions.addTopic, TaskPlanActions.saved, 'PATCH', saveHelper
-
-  apiHelper TaskPlanActions, TaskPlanActions.removeTopic, TaskPlanActions.saved, 'PATCH', saveHelper
-
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->

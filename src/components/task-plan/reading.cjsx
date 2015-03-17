@@ -7,6 +7,7 @@ Router = require 'react-router'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
 LoadableMixin = require '../loadable-mixin'
+ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
 SectionTopic = React.createClass
   render: ->
@@ -123,8 +124,10 @@ ReadingFooter = React.createClass
       {deleteLink}
     </span>
 
+
+
 ReadingPlan = React.createClass
-  mixins: [Router.State, Router.Navigation, LoadableMixin]
+  mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
 
   getInitialState: ->
     {id} = @getParams()
