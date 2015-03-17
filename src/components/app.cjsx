@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{RouteHandler, Link} = require 'react-router'
+Router = require 'react-router'
 
 {CurrentUserActions} = require '../flux/current-user'
 
@@ -21,19 +21,16 @@ module.exports = React.createClass
               <span className='icon-bar'></span>
             </button>
 
-            <Link to='dashboard' className='navbar-brand'>
+            <Router.Link to='dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
-            </Link>
+            </Router.Link>
 
           </div>
 
           <div className='collapse navbar-collapse' id='ui-navbar-collapse'>
             <ul className='nav navbar-nav'>
               <li>
-                <Link to='tasks'>Tasks</Link>
-              </li>
-              <li>
-                <Link to='taskplans'>Plans</Link>
+                <Router.Link to="dashboard">Dashboard</Router.Link>
               </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
@@ -44,5 +41,5 @@ module.exports = React.createClass
           </div>
         </div>
       </div>
-      <RouteHandler/>
+      <Router.RouteHandler/>
     </div>

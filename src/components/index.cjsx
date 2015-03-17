@@ -3,14 +3,15 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-{RouteHandler, Link} = Router
-
 
 App = require './app'
 Task = require './task'
 LoadableMixin = require './loadable-mixin'
 {TaskActions, TaskStore} = require '../flux/task'
 
+
+# Hack until we have the course listing page
+courseId = 1
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -25,11 +26,11 @@ Dashboard = React.createClass
       <p>Dashboard!</p>
       <div className="-student">
         <p>Student:</p>
-        <Link className="btn btn-primary" to="tasks">Task List</Link>
+        <Router.Link className="btn btn-primary" to="listTasks" params={{courseId}}>Task List</Router.Link>
       </div>
       <div className="-teacher">
         <p>Teacher:</p>
-        <Link className="btn btn-primary" to='taskplans'>Plan List</Link>
+        <Router.Link className="btn btn-primary" to="taskplans" params={{courseId}}>Plan List</Router.Link>
       </div>
     </div>
 
@@ -60,16 +61,16 @@ TaskResult = React.createClass
       stepsInfo = <small className='details'>({@props.model.steps.length} steps)</small>
 
     <BS.Panel bsStyle="default" onClick={@onClick}>
-      <Link to='task' params={{id}}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
+      <Router.Link to="viewTask" params={{courseId, id}}><i className="fa fa-fw #{mainType}"></i> {title}</Router.Link>
       {stepsInfo}
-      <span className='pull-right'>
-        <Link to='task' params={{id}} className='ui-action btn btn-primary btn-sm'>{actionTitle}</Link>
+      <span className="pull-right">
+        <Router.Link to="viewTask" params={{courseId, id}} className="ui-action btn btn-primary btn-sm">{actionTitle}</Router.Link>
       </span>
     </BS.Panel>
 
   onClick: ->
     {id} = @props.model
-    @transitionTo('task', {id})
+    @transitionTo('viewTask', {courseId, id})
 
 
 Tasks = React.createClass
@@ -107,7 +108,7 @@ Invalid = React.createClass
   render: ->
     <div>
       <h1>Woops, this is an invalid page {@props.path}</h1>
-      <Link to='dashboard'>Home</Link>
+      <Router.Link to="dashboard">Home</Router.Link>
     </div>
 
 module.exports = {App, Dashboard, Tasks, SingleTask, Invalid}

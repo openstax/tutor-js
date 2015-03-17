@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{Link} = require 'react-router'
+Router = require 'react-router'
 
 api = require '../../api'
 {TaskStore, TaskActions} = require '../../flux/task'
@@ -67,7 +67,7 @@ module.exports = React.createClass
 
     else if @state.currentStep is -1
       if allStepsCompleted
-        footer = <Link to="dashboard" className="btn btn-primary">Back to Dashboard</Link>
+        footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
 
         <div className="task task-completed">
           {breadcrumbs}
