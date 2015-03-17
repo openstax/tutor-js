@@ -1,5 +1,3 @@
-$ = require 'jquery'
-
 module.exports =
   # getFlux: -> {store, actions}
   # getId: -> id 
