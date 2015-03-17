@@ -8,6 +8,9 @@ Router = require 'react-router'
 {TocStore, TocActions} = require '../../flux/toc'
 LoadableMixin = require '../loadable-mixin'
 
+# Transitions need to be delayed so react has a chance to finish rendering so delay them
+delay = (fn) -> setTimeout(fn, 1)
+
 SectionTopic = React.createClass
   render: ->
     classes = ['section']
@@ -159,8 +162,10 @@ ReadingPlan = React.createClass
 
   publishPlan: ->
     id = @getId()
+    {courseId} = @getParams()
     TaskPlanActions.publish(id)
-    @transitionTo('editReading', {id})
+    delay =>
+      @transitionTo('editReading', {courseId, id})
 
   deletePlan: () ->
     id = @getId()
