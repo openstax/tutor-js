@@ -183,8 +183,10 @@ ReadingPlan = React.createClass
     id = @getId()
     plan = TaskPlanStore.get(id)
 
-    saveable = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
-    publishable = saveable and not TaskPlanStore.isChanged(id)
+    valid = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
+    publishable = valid and not TaskPlanStore.isChanged(id)
+    saveable = valid and TaskPlanStore.isChanged(id)
+
     deleteable = not TaskPlanStore.isNew(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
     topics = TaskPlanStore.getTopics(id)
