@@ -9,7 +9,7 @@ Router = require 'react-router'
 LoadableMixin = require '../loadable-mixin'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
-# For transitions, perform them after React event handling
+# Transitions need to be delayed so react has a chance to finish rendering so delay them
 delay = (fn) -> setTimeout(fn, 1)
 
 SectionTopic = React.createClass
@@ -166,12 +166,12 @@ ReadingPlan = React.createClass
   mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
 
   getInitialState: ->
-    {id} = @getParams()
+    {courseId, id} = @getParams()
     if (id)
       TaskPlanActions.load(id)
     else
       id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id)
+      TaskPlanActions.create(id, {_HACK_courseId: courseId})
     {id}
 
   getId: -> @getParams().id or @state.id
@@ -185,7 +185,8 @@ ReadingPlan = React.createClass
     id = @getId()
     if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
       {id} = TaskPlanStore.get(id)
-      delay => @transitionTo('editReading', {id})
+      {courseId} = @getParams()
+      delay => @transitionTo('editReading', {courseId, id})
     else
       @setState({})
 
