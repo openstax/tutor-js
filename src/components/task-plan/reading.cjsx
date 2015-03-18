@@ -9,9 +9,6 @@ Router = require 'react-router'
 LoadableMixin = require '../loadable-mixin'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
-# For transitions, perform them after React event handling
-delay = (fn) -> setTimeout(fn, 1)
-
 # Transitions need to be delayed so react has a chance to finish rendering so delay them
 delay = (fn) -> setTimeout(fn, 1)
 
@@ -118,25 +115,48 @@ SelectTopics = React.createClass
     </BS.Modal>
 
 ReadingFooter = React.createClass
+
+  onSave: ->
+    {id} = @props
+    TaskPlanActions.save(id)
+
+  onPublish: ->
+    {id} = @props
+    TaskPlanActions.publish(id)
+
+  onDelete: () ->
+    {id} = @props
+    if confirm('Are you sure you want to delete this?')
+      TaskPlanActions.delete(id)
+      @transitionTo('dashboard')
+
   render: ->
+    {id} = @props
+    plan = TaskPlanStore.get(id)
+
+    valid = TaskPlanStore.isValid(id)
+    publishable = valid and not TaskPlanStore.isChanged(id)
+    saveable = valid and TaskPlanStore.isChanged(id)
+    deleteable = not TaskPlanStore.isNew(id)
+
     classes = []
-    classes.push('disabled') unless @props.onSave
+    classes.push('disabled') unless publishable
     classes = classes.join(' ')
 
-    if @props.onPublish
-      publishButton = <BS.Button bsStyle="primary" onClick={@props.onPublish}>Publish</BS.Button>
-      saveStyle = "link"
-    else
-      saveStyle = "primary"
+    publishButton = <BS.Button bsStyle="link" className={classes} onClick={@onPublish}>Publish</BS.Button>
 
-    if @props.onDelete
-      deleteLink = <BS.Button bsStyle="link" onClick={@props.onDelete}>Delete</BS.Button>
+    if deleteable
+      deleteLink = <BS.Button bsStyle="link" onClick={@onDelete}>Delete</BS.Button>
 
-    saveLink = <BS.Button bsStyle={saveStyle} className={classes} onClick={@props.onSave}>Save as Draft</BS.Button>
+    classes = []
+    classes.push('disabled') unless saveable
+    classes = classes.join(' ')
 
-    <span>
-      {publishButton}
+    saveLink = <BS.Button bsStyle="primary" className={classes} onClick={@onSave}>Save as Draft</BS.Button>
+
+    <span className="-footer-buttons">
       {saveLink}
+      {publishButton}
       {deleteLink}
     </span>
 
@@ -151,7 +171,7 @@ ReadingPlan = React.createClass
       TaskPlanActions.load(id)
     else
       id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id, due_at: new Date())
+      TaskPlanActions.create(id)
     {id}
 
   getId: -> @getParams().id or @state.id
@@ -170,6 +190,10 @@ ReadingPlan = React.createClass
     else
       @setState({})
 
+  setOpensAt: (value) ->
+    id = @getId()
+    TaskPlanActions.updateOpensAt(id, value)
+
   setDueAt: (value) ->
     id = @getId()
     TaskPlanActions.updateDueAt(id, value)
@@ -179,42 +203,25 @@ ReadingPlan = React.createClass
     value = @refs.title.getDOMNode().value
     TaskPlanActions.updateTitle(id, value)
 
-  savePlan: ->
-    id = @getId()
-    {courseId} = @getParams()
-    # TODO: Provide the courseId when saving
-    TaskPlanActions.save(id)
-
-  publishPlan: ->
-    id = @getId()
-    TaskPlanActions.publish(id)
-
-  deletePlan: () ->
-    id = @getId()
-    if confirm('Are you sure you want to delete this?')
-      TaskPlanActions.delete(id)
-      @transitionTo('dashboard')
-
   renderLoaded: ->
     id = @getId()
     plan = TaskPlanStore.get(id)
 
-    valid = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
-    publishable = valid and not TaskPlanStore.isChanged(id)
-    saveable = valid and TaskPlanStore.isChanged(id)
-
-    deleteable = not TaskPlanStore.isNew(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
     topics = TaskPlanStore.getTopics(id)
 
-    footer= <ReadingFooter
-              onSave={@savePlan if saveable}
-              onPublish={@publishPlan if publishable}
-              onDelete={@deletePlan if deleteable}/>
+    # Restrict the due date to be after the open date
+    # and restrict the open date to be before the due date
+    if plan?.opens_at
+      opensAt = new Date(plan.opens_at)
+    if plan?.due_at
+      dueAt = new Date(plan.due_at)
+
+    footer= <ReadingFooter id={id} />
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
-      <div>
+      <div className="-reading-title">
         <label htmlFor="reading-title">Title</label>
         <input
           ref="title"
@@ -224,7 +231,19 @@ ReadingPlan = React.createClass
           placeholder="Enter Title"
           onChange={@setTitle} />
       </div>
-      <div>
+      <div className="-reading-open-date">
+        <label htmlFor="reading-open-date">Open Date</label>
+        <DateTimePicker
+          id="reading-open-date"
+          format="MMM dd, yyyy"
+          time={false}
+          calendar={true}
+          readOnly={false}
+          onChange={@setOpensAt}
+          max={dueAt}
+          value={opensAt}/>
+      </div>
+      <div className="-reading-due-date">
         <label htmlFor="reading-due-date">Due Date</label>
         <DateTimePicker
           id="reading-due-date"
@@ -233,7 +252,8 @@ ReadingPlan = React.createClass
           calendar={true}
           readOnly={false}
           onChange={@setDueAt}
-          value={new Date(plan?.due_at)}/>
+          min={opensAt}
+          value={dueAt}/>
       </div>
       <SelectTopics planId={id} selected={topics}/>
     </BS.Panel>

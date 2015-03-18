@@ -87,7 +87,6 @@ start = ->
     if TaskPlanStore.isNew(id)
       # HACK: to make the JSON valid
       obj.type ?= 'reading'
-      obj.opens_at ?= (new Date()).toISOString()
 
       url: '/api/courses/1/plans'
       httpMethod: 'POST'
