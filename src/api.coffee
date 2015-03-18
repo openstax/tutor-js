@@ -11,6 +11,7 @@ _ = require 'underscore'
 {TaskActions} = require './flux/task'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TocActions} = require './flux/toc'
+{TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -85,7 +86,7 @@ start = ->
         page_ids: []
 
   apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
-    url: "/api/courses/1/plans/#{id}/publish"
+    url: "/api/plans/#{id}/publish"
 
   saveHelper = (id) ->
     {id} = TaskPlanStore.get(id) # Could be a local id
@@ -98,8 +99,7 @@ start = ->
     else
       obj = TaskPlanStore.getChanged(id)
 
-
-    url: "/api/courses/1/plans/#{id}"
+    url: "/api/plans/#{id}"
     payload: obj
     httpMethod: method
 
@@ -109,7 +109,7 @@ start = ->
     url: "/api/courses/1/plans/#{id}"
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
-    url: "/api/courses/1/plans/#{id}"
+    url: "/api/plans/#{id}"
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
     url: '/api/courses/1/readings'
@@ -118,14 +118,17 @@ start = ->
     TaskActions.load(task.id)
 
   apiHelper TaskActions, TaskActions.completeStep, reloadAfterCompletion, 'PUT', (task, step) ->
-    url: "/api/tasks/#{task.id}/steps/#{step.id}/completed"
+    console.warn('TODO: Refactor to use the TaskStep store directly')
+    url: "/api/steps/#{step.id}/completed"
 
   apiHelper TaskActions, TaskActions.setFreeResponseAnswer, TaskActions.saved, 'PATCH', (task, step, free_response) ->
-    url: "/api/tasks/#{task.id}/steps/#{step.id}"
+    console.warn('TODO: Refactor to use the TaskStep store directly')
+    url: "/api/steps/#{step.id}"
     payload: {free_response}
 
   apiHelper TaskActions, TaskActions.setAnswerId, TaskActions.saved, 'PATCH', (task, step, answer_id) ->
-    url: "/api/tasks/#{task.id}/steps/#{step.id}"
+    console.warn('TODO: Refactor to use the TaskStep store directly')
+    url: "/api/steps/#{step.id}"
     payload: {answer_id}
 
 
@@ -140,6 +143,9 @@ start = ->
     $.ajax(url, opts)
     .then (results) ->
       TaskActions.loadedUserTasks(results.items)
+
+  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (course_id) ->
+    url: "/api/courses/#{course_id}/plans"
 
 
   CurrentUserActions.logout.addListener 'trigger', ->

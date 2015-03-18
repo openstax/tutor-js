@@ -9,6 +9,8 @@ module.exports = React.createClass
   componentWillMount:   -> TaskStore.addChangeListener(@update)
   componentWillUnmount: -> TaskStore.removeChangeListener(@update)
 
+  # TODO: flux-react 2.5 and 2.6 both remove the change listener but still fire @update
+  # after a component is unmounted.
   update: -> @setState({})
 
   render: ->
