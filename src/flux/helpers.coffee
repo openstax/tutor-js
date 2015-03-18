@@ -118,7 +118,7 @@ CrudConfig = ->
       isFailed: (id) -> @_asyncStatus[id] is FAILED
       getAsyncStatus: (id) -> @_asyncStatus[id]
       get: (id) ->
-        return null unless @_asyncStatus[id] is LOADED
+        return null unless @_asyncStatus[id] is LOADED or @_asyncStatus[id] is SAVING
         _.extend({}, @_local[id], @_changed[id])
       isChanged: (id) -> !_.isEmpty(@_changed[id])
       getChanged: (id) -> @_changed[id] or {}

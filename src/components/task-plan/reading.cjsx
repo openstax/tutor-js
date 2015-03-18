@@ -7,6 +7,10 @@ Router = require 'react-router'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
 LoadableMixin = require '../loadable-mixin'
+ConfirmLeaveMixin = require '../confirm-leave-mixin'
+
+# For transitions, perform them after React event handling
+delay = (fn) -> setTimeout(fn, 1)
 
 # Transitions need to be delayed so react has a chance to finish rendering so delay them
 delay = (fn) -> setTimeout(fn, 1)
@@ -116,18 +120,30 @@ SelectTopics = React.createClass
 ReadingFooter = React.createClass
   render: ->
     classes = []
-    classes.push('disabled') unless @props.enabled
+    classes.push('disabled') unless @props.onSave
     classes = classes.join(' ')
 
-    deleteLink = <BS.Button bsStyle="link" onClick={@props.onDelete}>Delete</BS.Button> if @props.enabled
+    if @props.onPublish
+      publishButton = <BS.Button bsStyle="primary" onClick={@props.onPublish}>Publish</BS.Button>
+      saveStyle = "link"
+    else
+      saveStyle = "primary"
+
+    if @props.onDelete
+      deleteLink = <BS.Button bsStyle="link" onClick={@props.onDelete}>Delete</BS.Button>
+
+    saveLink = <BS.Button bsStyle={saveStyle} className={classes} onClick={@props.onSave}>Save as Draft</BS.Button>
 
     <span>
-      <BS.Button bsStyle="primary" className={classes} onClick={@props.onPublish}>Publish</BS.Button>
+      {publishButton}
+      {saveLink}
       {deleteLink}
     </span>
 
+
+
 ReadingPlan = React.createClass
-  mixins: [Router.State, Router.Navigation, LoadableMixin]
+  mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
 
   getInitialState: ->
     {id} = @getParams()
@@ -143,11 +159,14 @@ ReadingPlan = React.createClass
     store: TaskPlanStore
     actions: TaskPlanActions
 
+  # If, as a result of a save creating a new object (and providing an id)
+  # then transition to editing the object
   update: ->
     id = @getId()
-    plan = TaskPlanStore.get(id)
-    if plan and id isnt plan.id
-      @setState({id: plan.id})
+    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
+      {id} = TaskPlanStore.get(id)
+      {courseId} = @getParams()
+      delay => @transitionTo('editReading', {courseId, id})
     else
       @setState({})
 
@@ -160,12 +179,15 @@ ReadingPlan = React.createClass
     value = @refs.title.getDOMNode().value
     TaskPlanActions.updateTitle(id, value)
 
-  publishPlan: ->
+  savePlan: ->
     id = @getId()
     {courseId} = @getParams()
+    # TODO: Provide the courseId when saving
+    TaskPlanActions.save(id)
+
+  publishPlan: ->
+    id = @getId()
     TaskPlanActions.publish(id)
-    delay =>
-      @transitionTo('editReading', {courseId, id})
 
   deletePlan: () ->
     id = @getId()
@@ -177,12 +199,18 @@ ReadingPlan = React.createClass
     id = @getId()
     plan = TaskPlanStore.get(id)
 
-    isEnabled = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
+    valid = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
+    publishable = valid and not TaskPlanStore.isChanged(id)
+    saveable = valid and TaskPlanStore.isChanged(id)
 
-    headerText = if id then 'Edit Reading' else 'Add Reading'
+    deleteable = not TaskPlanStore.isNew(id)
+    headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
     topics = TaskPlanStore.getTopics(id)
 
-    footer= <ReadingFooter enabled={isEnabled} onPublish={@publishPlan} onDelete={@deletePlan}/>
+    footer= <ReadingFooter
+              onSave={@savePlan if saveable}
+              onPublish={@publishPlan if publishable}
+              onDelete={@deletePlan if deleteable}/>
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>

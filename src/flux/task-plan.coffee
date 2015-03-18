@@ -8,7 +8,7 @@ TaskPlanConfig =
     @_local[planId].settings ?= {}
     @_local[planId].settings.page_ids ?= []
     #TODO take out once TaskPlan api is in place
-    @_local[planId]
+    _.extend({}, @_local[planId], @_changed[planId])
 
   FAILED: ->
 
@@ -16,7 +16,10 @@ TaskPlanConfig =
     @_change(id, {title})
 
   updateDueAt: (id, due_at=new Date()) ->
-    @_change(id, {due_at: due_at.toISOString()})
+    # Allow null due_at
+    if due_at
+      due_at = due_at.toISOString()
+    @_change(id, {due_at})
 
   addTopic: (id, topicId) ->
     plan = @_getPlan(id)
