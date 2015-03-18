@@ -28,10 +28,9 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
     # Make sure API calls occur **after** all local Action listeners complete
     delay 20, ->
       {url, payload, httpMethod:httpMethodOverride} = pathMaker(args...)
-      httpMethod = httpMethodOverride or httpMethod
 
       opts =
-        method: httpMethod
+        method: httpMethod or httpMethodOverride
         dataType: 'json'
         headers:
           token: CurrentUserStore.getToken()
@@ -77,36 +76,27 @@ start = ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
 
-  apiHelper TaskPlanActions, TaskPlanActions.create, TaskPlanActions.created, 'POST', () ->
-    url: '/api/courses/1/plans'
-    payload:
-      type: 'reading'
-      opens_at: '2015-03-04T16:40:23.796Z'
-      settings:
-        page_ids: []
-
   apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
     url: "/api/plans/#{id}/publish"
 
   saveHelper = (id) ->
-    {id} = TaskPlanStore.get(id) # Could be a local id
-    # Use the obj.id because id could be the local id if freshly created
-    throw new Error('BUG: Failed to POST first') unless id
-
+    obj = TaskPlanStore.getChanged(id)
     if TaskPlanStore.isNew(id)
-      obj = TaskPlanStore.get(id)
-      method = 'POST'
+      # HACK: to make the JSON valid
+      obj.type ?= 'reading'
+      obj.opens_at ?= (new Date()).toISOString()
+
+      url: '/api/courses/1/plans'
+      httpMethod: 'POST'
+      payload: obj
     else
-      obj = TaskPlanStore.getChanged(id)
+      url: "/api/plans/#{id}"
+      httpMethod: 'PATCH'
+      payload: obj
 
-    url: "/api/plans/#{id}"
-    payload: obj
-    httpMethod: method
+  apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, null, saveHelper
 
-  apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, 'PATCH', saveHelper
-
-  apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', (id) ->
-    url: "/api/plans/#{id}"
+  apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"

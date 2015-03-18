@@ -9,6 +9,9 @@ Router = require 'react-router'
 LoadableMixin = require '../loadable-mixin'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
+# For transitions, perform them after React event handling
+delay = (fn) -> setTimeout(fn, 1)
+
 SectionTopic = React.createClass
   render: ->
     classes = ['section']
@@ -153,6 +156,16 @@ ReadingPlan = React.createClass
     store: TaskPlanStore
     actions: TaskPlanActions
 
+  # If, as a result of a save creating a new object (and providing an id)
+  # then transition to editing the object
+  update: ->
+    id = @getId()
+    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
+      {id} = TaskPlanStore.get(id)
+      delay => @transitionTo('editReading', {id})
+    else
+      @setState({})
+
   setDueAt: (value) ->
     id = @getId()
     TaskPlanActions.updateDueAt(id, value)
@@ -165,13 +178,10 @@ ReadingPlan = React.createClass
   savePlan: ->
     id = @getId()
     TaskPlanActions.save(id)
-    newPlanId = TaskPlanStore.get(id).id
-    @transitionTo('editReading', {id : newPlanId})
 
   publishPlan: ->
     id = @getId()
     TaskPlanActions.publish(id)
-    @transitionTo('editReading', {id})
 
   deletePlan: () ->
     id = @getId()
@@ -191,7 +201,7 @@ ReadingPlan = React.createClass
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
     topics = TaskPlanStore.getTopics(id)
 
-    footer= <ReadingFooter 
+    footer= <ReadingFooter
               onSave={@savePlan if saveable}
               onPublish={@publishPlan if publishable}
               onDelete={@deletePlan if deleteable}/>
