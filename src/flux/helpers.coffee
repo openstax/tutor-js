@@ -85,7 +85,8 @@ CrudConfig = ->
 
     create: (localId, attributes = {}) ->
       throw new Error('BUG: MUST provide a local id') unless isNew(localId)
-      @_local[localId] = attributes
+      @_local[localId] = {}
+      @_changed[localId] = attributes
       @_asyncStatus[localId] = LOADED
 
     created: (result, localId) ->

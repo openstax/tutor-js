@@ -166,12 +166,12 @@ ReadingPlan = React.createClass
   mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
 
   getInitialState: ->
-    {id} = @getParams()
+    {courseId, id} = @getParams()
     if (id)
       TaskPlanActions.load(id)
     else
       id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id)
+      TaskPlanActions.create(id, {_HACK_courseId: courseId})
     {id}
 
   getId: -> @getParams().id or @state.id

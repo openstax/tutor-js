@@ -87,8 +87,10 @@ start = ->
     if TaskPlanStore.isNew(id)
       # HACK: to make the JSON valid
       obj.type ?= 'reading'
+      courseId = obj._HACK_courseId
+      delete obj._HACK_courseId
 
-      url: '/api/courses/1/plans'
+      url: "/api/courses/#{courseId}/plans"
       httpMethod: 'POST'
       payload: obj
     else
