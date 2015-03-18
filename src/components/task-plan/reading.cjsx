@@ -114,13 +114,23 @@ SelectTopics = React.createClass
 ReadingFooter = React.createClass
   render: ->
     classes = []
-    classes.push('disabled') unless @props.enabled
+    classes.push('disabled') unless @props.onPublish
     classes = classes.join(' ')
 
-    deleteLink = <BS.Button bsStyle="link" onClick={@props.onDelete}>Delete</BS.Button> if @props.enabled
+    if @props.onPublish
+      publishButton = <BS.Button bsStyle="primary" className={classes} onClick={@props.onPublish}>Publish</BS.Button>
+      saveStyle = "link"
+    else
+      saveStyle = "primary"
+
+    if @props.onDelete
+      deleteLink = <BS.Button bsStyle="link" onClick={@props.onDelete}>Delete</BS.Button>
+    if @props.onSave
+      saveLink = <BS.Button bsStyle={saveStyle} onClick={@props.onSave}>Save as Draft</BS.Button>
 
     <span>
-      <BS.Button bsStyle="primary" className={classes} onClick={@props.onPublish}>Publish</BS.Button>
+      {publishButton}
+      {saveLink}
       {deleteLink}
     </span>
 
@@ -160,6 +170,11 @@ ReadingPlan = React.createClass
     value = @refs.title.getDOMNode().value
     TaskPlanActions.updateTitle(id, value)
 
+  savePlan: ->
+    id = @getId()
+    TaskPlanActions.save(id)
+    @transitionTo('editReading', {id})
+
   publishPlan: ->
     id = @getId()
     TaskPlanActions.publish(id)
@@ -175,12 +190,16 @@ ReadingPlan = React.createClass
     id = @getId()
     plan = TaskPlanStore.get(id)
 
-    isEnabled = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
-
+    saveable = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
+    publishable = saveable and not TaskPlanStore.isChanged(id)
+    deleteable = not TaskPlanStore.isNew(id)
     headerText = if id then 'Edit Reading' else 'Add Reading'
     topics = TaskPlanStore.getTopics(id)
 
-    footer= <ReadingFooter enabled={isEnabled} onPublish={@publishPlan} onDelete={@deletePlan}/>
+    footer= <ReadingFooter 
+              onSave={@savePlan if saveable}
+              onPublish={@publishPlan if publishable}
+              onDelete={@deletePlan if deleteable}/>
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
