@@ -90,6 +90,12 @@ gulp.task 'tdd', ['build'],  (done) ->
   return # Since this is async
 
 gulp.task 'buildJS', ['cleanJS'], -> build(false)
+gulp.task 'watchJS', ['cleanJS'], (done)->
+  build(true)
+  buildTests(true).on 'end', ->
+    config =
+      configFile: __dirname + '/test/karma.config.coffee'
+    karma.server.start(config, done)
 
 gulp.task 'cleanJS', (done) ->
   del([
@@ -161,8 +167,7 @@ gulp.task 'cleanArchive', (done) ->
 
 gulp.task 'dist', ['build']
 gulp.task 'prod', ['archive']
-gulp.task 'watch', ['build'], ->
-  gulp.watch ['src/**/*.coffee', 'src/**/*.cjsx', 'test/**/*.coffee'], ['buildJS', 'test']
+gulp.task 'watch', ['build', 'watchJS'], ->
   gulp.watch 'style/**/{*.less, *.css}', ['styles']
 
 gulp.task 'build',
