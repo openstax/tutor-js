@@ -26,7 +26,9 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
     # Make sure API calls occur **after** all local Action listeners complete
     delay 20, ->
-      {url, payload} = pathMaker(args...)
+      {url, payload, httpMethod:httpMethodOverride} = pathMaker(args...)
+      httpMethod = httpMethodOverride or httpMethod
+
       opts =
         method: httpMethod
         dataType: 'json'
@@ -89,14 +91,22 @@ start = ->
     {id} = TaskPlanStore.get(id) # Could be a local id
     # Use the obj.id because id could be the local id if freshly created
     throw new Error('BUG: Failed to POST first') unless id
-    obj = TaskPlanStore.getChanged(id)
+
+    if TaskPlanStore.isNew(id)
+      obj = TaskPlanStore.get(id)
+      method = 'POST'
+    else
+      obj = TaskPlanStore.getChanged(id)
+
 
     url: "/api/courses/1/plans/#{id}"
     payload: obj
+    httpMethod: method
 
   apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, 'PATCH', saveHelper
 
-  apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
+  apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', (id) ->
+    url: "/api/courses/1/plans/#{id}"
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/courses/1/plans/#{id}"
