@@ -114,19 +114,19 @@ SelectTopics = React.createClass
 ReadingFooter = React.createClass
   render: ->
     classes = []
-    classes.push('disabled') unless @props.onPublish
+    classes.push('disabled') unless @props.onSave
     classes = classes.join(' ')
 
     if @props.onPublish
-      publishButton = <BS.Button bsStyle="primary" className={classes} onClick={@props.onPublish}>Publish</BS.Button>
+      publishButton = <BS.Button bsStyle="primary" onClick={@props.onPublish}>Publish</BS.Button>
       saveStyle = "link"
     else
       saveStyle = "primary"
 
     if @props.onDelete
       deleteLink = <BS.Button bsStyle="link" onClick={@props.onDelete}>Delete</BS.Button>
-    if @props.onSave
-      saveLink = <BS.Button bsStyle={saveStyle} onClick={@props.onSave}>Save as Draft</BS.Button>
+
+    saveLink = <BS.Button bsStyle={saveStyle} className={classes} onClick={@props.onSave}>Save as Draft</BS.Button>
 
     <span>
       {publishButton}
@@ -153,14 +153,6 @@ ReadingPlan = React.createClass
     store: TaskPlanStore
     actions: TaskPlanActions
 
-  update: ->
-    id = @getId()
-    plan = TaskPlanStore.get(id)
-    if plan and id isnt plan.id
-      @setState({id: plan.id})
-    else
-      @setState({})
-
   setDueAt: (value) ->
     id = @getId()
     TaskPlanActions.updateDueAt(id, value)
@@ -173,7 +165,8 @@ ReadingPlan = React.createClass
   savePlan: ->
     id = @getId()
     TaskPlanActions.save(id)
-    @transitionTo('editReading', {id})
+    newPlanId = TaskPlanStore.get(id).id
+    @transitionTo('editReading', {id : newPlanId})
 
   publishPlan: ->
     id = @getId()
@@ -193,7 +186,7 @@ ReadingPlan = React.createClass
     saveable = plan?.title and plan?.due_at and plan?.settings?.page_ids?.length > 0
     publishable = saveable and not TaskPlanStore.isChanged(id)
     deleteable = not TaskPlanStore.isNew(id)
-    headerText = if id then 'Edit Reading' else 'Add Reading'
+    headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
     topics = TaskPlanStore.getTopics(id)
 
     footer= <ReadingFooter 
