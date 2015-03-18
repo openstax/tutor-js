@@ -162,7 +162,7 @@ gulp.task 'cleanArchive', (done) ->
 gulp.task 'dist', ['build']
 gulp.task 'prod', ['archive']
 gulp.task 'watch', ['build'], ->
-  gulp.watch ['src/**/*.coffee', 'src/**/*.cjsx', 'test/**/*.coffee'], ['build', 'test']
+  gulp.watch ['src/**/*.coffee', 'src/**/*.cjsx', 'test/**/*.coffee'], ['buildJS', 'test']
   gulp.watch 'style/**/{*.less, *.css}', ['styles']
 
 gulp.task 'build',
