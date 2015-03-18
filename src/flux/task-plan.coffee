@@ -8,7 +8,7 @@ TaskPlanConfig =
     @_local[planId].settings ?= {}
     @_local[planId].settings.page_ids ?= []
     #TODO take out once TaskPlan api is in place
-    @_local[planId]
+    _.extend({}, @_local[planId], @_changed[planId])
 
   FAILED: ->
 
