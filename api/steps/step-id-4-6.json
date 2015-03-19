@@ -1,0 +1,18 @@
+{ "id": "step-id-4-6",
+  "type": "exercise",
+  "content": {
+    "questions":[
+      {
+        "id": "235",
+        "format": "multiple-choice",
+        "stem_html":"<p>The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s</p><p>What is the force if it slams into a wall?</p>",
+        "answers":[
+          {"id":"id1","content_html":"20 N"},
+          {"id":"id2","content_html":"2 N"},
+          {"id":"id3","content_html":"25 N"},
+          {"id":"id4","content_html":"10 N"}
+        ]
+      }
+    ]
+  }
+}
