@@ -1,6 +1,7 @@
 React = require 'react'
 
 {TaskStore} = require '../../flux/task'
+{TaskStepStore} = require '../../flux/task-step'
 {Reading, Interactive, Exercise} = require './all-steps'
 
 # React swallows thrown errors so log them first
@@ -22,17 +23,20 @@ module.exports = React.createClass
   displayName: 'TaskStep'
 
   propTypes:
-    model: React.PropTypes.object.isRequired
-    task: React.PropTypes.object.isRequired
+    id: React.PropTypes.string.isRequired
+
+  componentWillMount: -> TaskStepStore.addChangeListener(@update)
+  componentWillUnmount: -> TaskStepStore.removeChangeListener(@update)
+
+  update: -> @setState({})
 
   render: ->
-    {model} = @props
-    {type} = model
+    {id} = @props
+    {type} = TaskStepStore.get(id)
     Type = getStepType(type)
 
     <Type
-      model={@props.model}
-      task={@props.task}
+      id={id}
       onNextStep={@props.onNextStep}
       onStepCompleted={@props.onStepCompleted}
     />

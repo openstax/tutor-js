@@ -6,10 +6,37 @@ flux = require 'flux-react'
 TaskStepConfig =
 
   complete: (id) ->
-    @edit(id, {is_completed: true})
-    @save(id)
+    @_change(id, {is_completed: true})
+    @emitChange()
+
+  completed: (empty, step) ->
+    # First arg is null and ignored because it was a PUT ./completed
+
+  setAnswerId: (id, answer_id) ->
+    @_change(id, {answer_id})
+    @emitChange()
+
+  setFreeResponseAnswer: (id, free_response) ->
+    @_change(id, {free_response})
+    @emitChange()
+
+  exports:
+    isAnswered: (id) ->
+      step = @_get(id)
+      isAnswered = true
+      if step.type is 'exercise'
+        unless step.answer_id
+          isAnswered = false
+      isAnswered
+
+    getFreeResponse: (id) ->
+      step = @_get(id)
+      step.free_response
+    getAnswerId: (id) ->
+      step = @_get(id)
+      step.answer_id
 
 
-extendConfig(TaskConfig, new CrudConfig())
-{actions, store} = makeSimpleStore(TaskConfig)
-module.exports = {TaskActions:actions, TaskStore:store}
+extendConfig(TaskStepConfig, new CrudConfig())
+{actions, store} = makeSimpleStore(TaskStepConfig)
+module.exports = {TaskStepActions:actions, TaskStepStore:store}

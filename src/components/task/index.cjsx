@@ -3,7 +3,9 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 api = require '../../api'
-{TaskStore, TaskActions} = require '../../flux/task'
+{TaskStore} = require '../../flux/task'
+{TaskStepActions} = require '../../flux/task-step'
+
 TaskStep = require '../task-step'
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
@@ -91,9 +93,7 @@ module.exports = React.createClass
       <div className="task">
         {breadcrumbs}
         <TaskStep
-          id={@state.currentStep}
-          model={stepConfig}
-          task={model}
+          id={stepConfig.id}
           onStepCompleted={@onStepCompleted}
           onNextStep={@onNextStep}
         />
@@ -102,9 +102,10 @@ module.exports = React.createClass
 
   onStepCompleted: ->
     {id} = @props
+    # TODO: Operate on just the corrent step
     model = TaskStore.get(id)
     step = model.steps[@state.currentStep]
-    TaskActions.completeStep(model, step)
+    TaskStepActions.complete(step.id)
 
   onNextStep: ->
     @setState({currentStep: @getDefaultCurrentStep()})
