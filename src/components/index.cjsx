@@ -50,15 +50,18 @@ SingleTask = React.createClass
 TaskResult = React.createClass
   mixins: [Router.Navigation]
   render: ->
-    {id} = @props.model
-    actionTitle = 'Work Now'
-    title = @props.model.title or err('BUG: Task without a title')
+    {id} = @props
+    task = TaskStore.get(id)
+    steps = TaskStore.getSteps(id)
 
-    if @props.model.steps.length is 1
-      mainType = @props.model.steps[0].type
+    actionTitle = 'Work Now'
+    title = task.title or err('BUG: Task without a title')
+
+    if steps.length is 1
+      mainType = steps[0].type
     else
       mainType = ''
-      stepsInfo = <small className='details'>({@props.model.steps.length} steps)</small>
+      stepsInfo = <small className='details'>({steps.length} steps)</small>
 
     <BS.Panel bsStyle="default" onClick={@onClick}>
       <Router.Link to="viewTask" params={{courseId, id}}><i className="fa fa-fw #{mainType}"></i> {title}</Router.Link>
@@ -69,7 +72,7 @@ TaskResult = React.createClass
     </BS.Panel>
 
   onClick: ->
-    {id} = @props.model
+    {id} = @props
     @transitionTo('viewTask', {courseId, id})
 
 
@@ -90,7 +93,7 @@ Tasks = React.createClass
         <div className='ui-task-list ui-empty'>No Tasks</div>
       else
         tasks = for task in allTasks
-          <TaskResult model={task} />
+          <TaskResult id={task.id} />
 
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
