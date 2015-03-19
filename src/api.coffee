@@ -117,6 +117,9 @@ start = ->
     url: "/api/courses/#{courseId}/readings"
 
 
+  apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
+    url: "/api/steps/#{id}"
+
   # Go from complete to load so we fetch the new JSON
   apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.load, 'PUT', (id) ->
     url: "/api/steps/#{id}/completed"

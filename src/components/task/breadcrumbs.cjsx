@@ -14,7 +14,8 @@ module.exports = React.createClass
   update: -> @setState({})
 
   render: ->
-    steps = @props.model.steps
+    {id} = @props
+    steps = TaskStore.getSteps(id)
 
     # Make sure the 1st incomplete step is displayed.
     # Useful when the student clicks back to review a previous step

@@ -1,6 +1,6 @@
 _ = require 'underscore'
 flux = require 'flux-react'
-{TaskStepActions} = require './task-step'
+{TaskStepActions, TaskStepStore} = require './task-step'
 {CurrentUserActions, CurrentUserStore} = require './current-user'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
@@ -12,7 +12,13 @@ TaskConfig =
 
   _loaded: (obj, id) ->
     # Populate all the TaskSteps when a Task is loaded
-    for step in obj.steps
+    @_steps ?= {}
+    # Remove the steps so Components are forced to use `.getSteps()` to get
+    # the updated step objects
+    steps = obj.steps
+    delete obj.steps
+    @_steps[id] = steps
+    for step in steps
       TaskStepActions.loaded(step, step.id)
 
   loadUserTasks: ->
@@ -25,6 +31,10 @@ TaskConfig =
     @emitChange()
 
   exports:
+    getSteps: (id) ->
+      throw new Error('BUG: Steps not loaded') unless @_steps[id]
+      _.map @_steps[id], ({id}) ->
+        TaskStepStore.get(id)
     getAll: -> _.values(@_local)
 
 

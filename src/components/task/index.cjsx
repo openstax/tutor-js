@@ -4,24 +4,19 @@ Router = require 'react-router'
 
 api = require '../../api'
 {TaskStore} = require '../../flux/task'
-{TaskStepActions} = require '../../flux/task-step'
+{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
 TaskStep = require '../task-step'
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
 
-# React swallows thrown errors so log them first
-err = (msgs...) ->
-  console.error(msgs...)
-  throw new Error(JSON.stringify(msgs...))
-
-
 module.exports = React.createClass
   displayName: 'ReadingTask'
 
   getInitialState: ->
-    model = TaskStore.get(@props.id)
-    if model? and model.steps.length is 1
+    {id} = @props
+    steps = TaskStore.getSteps(id)
+    if steps.length is 1
       # For non-reading tasks that are simple (1 step) just skip the overview page
       currentStep = 0
     else
@@ -31,10 +26,11 @@ module.exports = React.createClass
     {currentStep}
 
   getDefaultCurrentStep: ->
-    model = TaskStore.get(@props.id)
+    {id} = @props
+    steps = TaskStore.getSteps(id)
     # Determine the first uncompleted step
     currentStep = -1
-    for step, i in model.steps
+    for step, i in steps
       unless step.is_completed
         currentStep = i
         break
@@ -48,18 +44,18 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     model = TaskStore.get(id)
-    steps = model.steps
+    steps = TaskStore.getSteps(id)
     stepConfig = steps[@state.currentStep]
 
     allStepsCompleted = true
-    for step in model.steps
+    for step in steps
       unless step.is_completed
         allStepsCompleted = false
 
     if steps.length > 1
       breadcrumbs =
         <div className="panel-header">
-          <Breadcrumbs model={model} goToStep={@goToStep} currentStep={@state.currentStep} />
+          <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} />
         </div>
 
     if @state.currentStep > steps.length
@@ -103,8 +99,8 @@ module.exports = React.createClass
   onStepCompleted: ->
     {id} = @props
     # TODO: Operate on just the corrent step
-    model = TaskStore.get(id)
-    step = model.steps[@state.currentStep]
+    steps = TaskStore.getSteps(id)
+    step = steps[@state.currentStep]
     TaskStepActions.complete(step.id)
 
   onNextStep: ->
