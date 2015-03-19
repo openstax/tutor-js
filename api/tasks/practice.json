@@ -1,0 +1,64 @@
+{ "id": "practice",
+  "HACK_LOCAL_STEP_COMPLETION": true,
+  "title": "Chapter 5 and Chapter 6 Practice",
+  "description_html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
+  "due_at": "2015-02-10T00:45:20.967Z",
+  "steps": [
+    { "id": "step-id-4-1",
+      "type": "exercise",
+      "is_completed": true,
+      "correct_answer_id": "id2",
+      "answer_id": "id1",
+      "free_response": "four",
+      "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
+      "content": {
+        "stimulus_html": "Addition is fun",
+        "questions":[
+          {
+            "id": "987",
+            "format": "multiple-choice",
+            "stem_html":"What is <span data-math='2+2'>2+2</span>?",
+            "answers":[
+              {"id":"id1","content_html":"22"},
+              {"id":"id2","content_html":"4"}
+            ]
+          }
+        ]
+      }
+    },
+    { "id": "step-id-4-2",
+      "type": "exercise",
+      "content": {
+        "stimulus_html": "Stimulus for Second Exercise",
+        "questions":[
+          {
+            "id": "876",
+            "format": "multiple-choice",
+            "stem_html":"Is the glass half full or half empty?",
+            "answers":[
+              {"id":"id3","content_html":"Half Full"},
+              {"id":"id4","content_html":"Half Empty"}
+            ]
+          }
+        ]
+      }
+    },
+    { "id": "step-id-4-5",
+      "type": "exercise",
+      "content": {
+        "questions":[
+          {
+            "id": "234",
+            "format": "multiple-choice",
+            "stem_html":"<p>The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s</p><p>What is the force if it slams into a wall?</p>",
+            "answers":[
+              {"id":"id1","content_html":"10 N"},
+              {"id":"id2","content_html":"1 N"}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+
+}
