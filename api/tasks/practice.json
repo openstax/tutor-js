@@ -1,5 +1,6 @@
 { "id": "practice",
   "HACK_LOCAL_STEP_COMPLETION": true,
+  "type": "practice",
   "title": "Chapter 5 and Chapter 6 Practice",
   "description_html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
   "due_at": "2015-02-10T00:45:20.967Z",

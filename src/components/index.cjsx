@@ -101,6 +101,8 @@ Tasks = React.createClass
         <div className='ui-task-list ui-empty'>No Tasks</div>
       else
         tasks = for task in allTasks
+          if task.type is "practice"
+            continue
           <TaskResult id={task.id} />
 
         <div className='ui-task-list'>
