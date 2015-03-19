@@ -47,6 +47,14 @@ SingleTask = React.createClass
     @transferPropsTo(<Task key={id} id={id} />)
 
 
+Practice = React.createClass
+  mixins: [Router.Navigation]
+  render: ->  
+    <BS.Button bsStyle="primary" onClick={@onClick}>Practice</BS.Button>
+  onClick: ->
+    @transitionTo('viewTask', {courseId, id: 'practice'})
+
+
 TaskResult = React.createClass
   mixins: [Router.Navigation]
   render: ->
@@ -98,6 +106,7 @@ Tasks = React.createClass
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
           {tasks}
+          <Practice />
         </div>
 
     # else if
