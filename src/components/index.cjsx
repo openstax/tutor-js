@@ -8,6 +8,7 @@ App = require './app'
 Task = require './task'
 LoadableMixin = require './loadable-mixin'
 {TaskActions, TaskStore} = require '../flux/task'
+{CourseActions, CourseStore} = require '../flux/course'
 
 
 # Hack until we have the course listing page
@@ -52,7 +53,10 @@ Practice = React.createClass
   render: ->  
     <BS.Button bsStyle="primary" onClick={@onClick}>Practice</BS.Button>
   onClick: ->
-    @transitionTo('viewTask', {courseId, id: 'practice'})
+    CourseActions.loadPractice(courseId)
+    # TODO make this not a hack -- needs to listen for when TaskStore has been updated and then transition
+    @transitionTo('viewTask', {courseId, id: 'Practice-Course-1'})
+    # @transitionTo('viewTask', {courseId, id: CourseStore.getPracticeId()})
 
 
 TaskResult = React.createClass

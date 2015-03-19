@@ -8,6 +8,7 @@
 $ = require 'jquery'
 _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
+{CourseActions} = require './flux/course'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
@@ -116,6 +117,8 @@ start = ->
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
     url: "/api/courses/#{courseId}/readings"
 
+  apiHelper CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', () ->
+    url: "/api/courses/#{courseId}/practice"
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     url: "/api/steps/#{id}"

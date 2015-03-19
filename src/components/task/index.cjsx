@@ -65,15 +65,33 @@ module.exports = React.createClass
 
     else if @state.currentStep is -1
       if allStepsCompleted
-        footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+        if model.type is 'practice'
+          # TODO hook up footer with the right link
+          # also, this logic for determining displaying intro or outro is getting a little clunky.
+          # would it be crazy to add the appropriate intro and outro as steps on task loaded or something?
+          footer = 
+            <div>
+              <Router.Link to="dashboard" className="btn btn-primary">Do more practice</Router.Link>
+              <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+            </div>
 
-        <div className="task task-completed">
-          {breadcrumbs}
-          <BS.Panel bsStyle="default" footer={footer}>
-            <h1>You Are Done.</h1>
-            <h3>Great Job!</h3>
-          </BS.Panel>
-        </div>
+          <div className="task task-completed">
+            {breadcrumbs}
+            <BS.Panel bsStyle="default" footer={footer}>
+              <h1>You earned a star!</h1>
+              <h3>Great Job!</h3>
+            </BS.Panel>
+          </div>
+        else 
+          footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+
+          <div className="task task-completed">
+            {breadcrumbs}
+            <BS.Panel bsStyle="default" footer={footer}>
+              <h1>You Are Done.</h1>
+              <h3>Great Job!</h3>
+            </BS.Panel>
+          </div>
       else
         footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
         <div className="task">
