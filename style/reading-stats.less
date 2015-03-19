@@ -4,14 +4,16 @@
 
 .reading-progress-container{
   width: 450px;
-  //border: 1px solid blue;
   position: relative;
 }
 
 .reading-progress-group{
   width:300px;
   height:20px;
+  overflow:visible;
+
   .reading-progress-bar{
+    min-width:15px;
 
   }
 }
@@ -25,18 +27,3 @@
   color:red;
 }
 
-
-
-
-// debug:
-
-.progress{
-  overflow:visible;
-}
-
-.progress-bar {
-    // overflow-x:visible;
-    // white-space:nowrap;
-    // display: inline-block;
-    min-width:20px;
-}

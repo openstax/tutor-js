@@ -4,27 +4,17 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+LoadableMixin = require '../loadable-mixin'
 
 Stats = React.createClass
-  mixins: [Router.State, Router.Navigation]
+  mixins: [Router.State, Router.Navigation, LoadableMixin]
 
-  getInitialState: ->
-    id = @getParams().id
-    if (id)
-      TaskPlanActions.load(id)
-    else
-      id = TaskPlanStore.freshLocalId()
-      plan = TaskPlanActions.create(id, due_at: new Date())
+  getFlux: ->
+    store: TaskPlanStore
+    actions: TaskPlanActions
 
-    {id}
+  getId: -> @getParams().id
 
-  componentWillMount: -> TaskPlanStore.addChangeListener(@update)
-  componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
-
-  getPlanId: () ->
-    @getParams().id or @state.id
-
-  update: -> @setState {}
 
   percent: (num,total) ->
     Math.round((num/total) * 100)
@@ -41,18 +31,16 @@ Stats = React.createClass
       op = '-'
     op + ' ' + Math.round((change / b) * 100)
 
-    
-  
+ 
   renderCourseBar: (data) ->
-    max = data.complete_count + data.partially_complete_count + (data.total_count - (data.complete_count + data.partially_complete_count))
     <div className="reading-progress-container">
       <div className="reading-progress-heading">
         complete / in progress / not started
       </div>
       <BS.ProgressBar className="reading-progress-group">
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s" max={max} now={data.complete_count} key={1} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(now)s" max={max} now={data.partially_complete_count} key={2} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="danger" label="%(now)s" max={max} now={data.total_count - (data.complete_count + data.partially_complete_count)} key={3} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s" now={data.complete_count} key={1} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(now)s" now={data.partially_complete_count} key={2} />
+        <BS.ProgressBar className="reading-progress-bar" bsStyle="danger" label="%(now)s" now={data.total_count - (data.complete_count + data.partially_complete_count)} key={3} />
       </BS.ProgressBar>
     </div> 
 
@@ -92,8 +80,10 @@ Stats = React.createClass
       </div>
     </div>
 
-  render: ->
-    id = @getPlanId()
+  renderLoaded: ->
+
+    id = @getId()
+    
 
     if TaskPlanStore.isLoaded(id)
 
