@@ -43,7 +43,9 @@ Video = React.createClass
   renderBody: ->
     {id} = @props
     {content_html, content_url} = TaskStepStore.get(id)
-    <ArbitraryHtmlAndMath className="-video-content" html={content_html} />
-    <a target="_top" src={content_url} />
+    <div className="-video-step">
+      <ArbitraryHtmlAndMath className="-video-content" html={content_html} />
+      <a target="_top" src={content_url} >video</a>
+    </div>
 
 module.exports = {Reading, Interactive, Video, Exercise}
