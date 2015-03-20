@@ -2,6 +2,8 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather:300,300italic,700);
 @import url(http://fonts.googleapis.com/css?family=Architects+Daughter);
 
+@body-font-color: #424242;
+
 #fonts {
   .sans (@size: 1.5rem, @line-height: 3rem) {
     font-family: 'Lato', Helvetica, sans-serif;
@@ -28,4 +30,9 @@ body { #fonts > .sans }
 h1 {
   #fonts > .sans(4rem, 5rem);
   font-weight: 900;
+}
+
+.reading-step p {
+  #fonts > .serif(1.8rem, 3.4rem);
+  color: @body-font-color;
 }
