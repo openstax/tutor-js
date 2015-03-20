@@ -7,10 +7,9 @@ CourseConfig =
 
   loadPractice: (courseId) ->
     @_local[courseId] ?= {}
-    @_local[courseId]['practices'] ?= []
 
   loadedPractice: (obj, courseId) ->
-    @_local[courseId]['practices'].push(obj)
+    @_local[courseId].practice = obj
     obj.type = 'practice'
 
     TaskActions.loaded(obj, obj.id)
@@ -19,13 +18,7 @@ CourseConfig =
 
   exports:
     getPracticeId: (courseId) ->
-      # returns most recently loaded practice for the course if available
-      if @_local?[courseId]?['practices']
-        id = _.last(@_local[courseId]['practices']).id
-      else
-        id = null
-
-      id
+      @_local?[courseId]?.practice?.id
 
     getPractice: (courseId) ->
       if @getPracticeId(courseId) then TaskStore.get(@getPracticeId(courseId)) else {}
