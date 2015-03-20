@@ -6,6 +6,8 @@ _ = require 'underscore'
 CourseConfig =
 
   createPractice: (courseId) ->
+    # @create(@freshLocalId())
+    # Contemplating how to use store with local id.
     @_local[courseId] ?= {}
 
   createdPractice: (obj, courseId) ->
@@ -13,10 +15,10 @@ CourseConfig =
     @loadedPractice(obj, courseId)
 
   loadPractice: (courseId) ->
-    @_local[courseId] ?= {}
+    @load(courseId, {})
 
   loadedPractice: (obj, courseId) ->
-    @_local[courseId].practice = obj
+    @loaded({practice: obj}, courseId)
     obj.type = 'practice'
 
     TaskActions.loaded(obj, obj.id)
@@ -25,14 +27,19 @@ CourseConfig =
 
   exports:
     getPracticeId: (courseId) ->
-      @_local?[courseId]?.practice?.id
+      @_get(courseId)?.practice?.id
 
     hasPractice: (courseId) ->
-      @_local?[courseId]?.practice?
+      @_get(courseId)?.practice?
 
     getPractice: (courseId) ->
-      if @getPracticeId(courseId) then TaskStore.get(@getPracticeId(courseId)) else {}
+      if @_get(courseId)?.practice?
+        task = TaskStore.get(@_get(courseId)?.practice?.id)
+        @emit('practice.loaded', task.id)
+      else
+        task = {}
 
+      task
 
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)

@@ -8,9 +8,11 @@ api = require '../../api'
 {CourseActions, CourseStore} = require '../../flux/course'
 
 TaskStep = require '../task-step'
+TaskEnd = require '../task-step/task-end'
+PracticeEnd = require '../task-step/practice-end'
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
-PracticeButton = require '../practice-button'
+
 
 module.exports = React.createClass
   displayName: 'ReadingTask'
@@ -70,33 +72,10 @@ module.exports = React.createClass
 
     else if @state.currentStep is -1
       if allStepsCompleted
-        if model.type is 'practice'
-          # TODO hook up footer with the right link
-          # also, this logic for determining displaying intro or outro is getting a little clunky.
-          # would it be crazy to add the appropriate intro and outro as steps on task loaded or something?
-          footer = 
-            <div>
-              <PracticeButton courseId={courseId} actionText="Do more practice" loadedTaskId={id} reloadPractice={@reloadTask}/>
-              <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
-            </div>
+        End = if model.type is 'practice' then PracticeEnd else TaskEnd
 
-          <div className="task task-completed">
-            {breadcrumbs}
-            <BS.Panel bsStyle="default" footer={footer}>
-              <h1>You earned a star!</h1>
-              <h3>Great Job!</h3>
-            </BS.Panel>
-          </div>
-        else 
-          footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+        <End breadcrumbs={breadcrumbs} courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
 
-          <div className="task task-completed">
-            {breadcrumbs}
-            <BS.Panel bsStyle="default" footer={footer}>
-              <h1>You Are Done.</h1>
-              <h3>Great Job!</h3>
-            </BS.Panel>
-          </div>
       else
         footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
         <div className="task">

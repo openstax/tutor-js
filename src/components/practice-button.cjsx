@@ -19,8 +19,8 @@ PracticeButton = React.createClass
     <BS.Button bsStyle="primary" onClick={@onClick}>{actionText}</BS.Button>
 
   onClick: ->
-    if CourseStore.hasPractice(@props.courseId)
-      CourseActions.loadPractice(@props.courseId)
+    if CourseStore.hasPractice(@props.courseId) and not @props.forceCreate
+      CourseStore.getPractice(@props.courseId)
     else
       CourseActions.createPractice(@props.courseId)
 
