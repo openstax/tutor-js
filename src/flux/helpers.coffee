@@ -47,7 +47,7 @@ CrudConfig = ->
       # HACK When working locally a step completion triggers a reload but the is_completed field on the TaskStep
       # is discarded. so, if is_completed is set on the local object but not on the returned JSON
       # Tack on a dummy correct_answer_id
-      if @_local[id] and obj.HACK_LOCAL_STEP_COMPLETION
+      if @_local[id] and obj.HACK_LOCAL_STEP_COMPLETION and @_local[id].steps
         for step in @_local[id].steps
           # HACK: Tack on a fake correct_answer and feedback to all completed steps that have an exercise but no correct_answer_id
           if step.is_completed and step.content?.questions?[0]?.answers[0]? and not step.correct_answer_id

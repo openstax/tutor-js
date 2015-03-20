@@ -5,6 +5,7 @@ Router = require 'react-router'
 api = require '../../api'
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{CourseActions, CourseStore} = require '../../flux/course'
 
 TaskStep = require '../task-step'
 Breadcrumbs = require './breadcrumbs'
@@ -12,6 +13,8 @@ Time = require '../time'
 
 module.exports = React.createClass
   displayName: 'ReadingTask'
+
+  mixins: [Router.State]
 
   getInitialState: ->
     {id} = @props
@@ -71,7 +74,7 @@ module.exports = React.createClass
           # would it be crazy to add the appropriate intro and outro as steps on task loaded or something?
           footer = 
             <div>
-              <Router.Link to="dashboard" className="btn btn-primary">Do more practice</Router.Link>
+              <BS.Button bsStyle="primary" onClick={@onDoMorePractice}>Do more practice</BS.Button>
               <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
             </div>
 
@@ -112,6 +115,19 @@ module.exports = React.createClass
           onNextStep={@onNextStep}
         />
       </div>
+
+
+  onDoMorePractice: ->
+    {courseId} = @getParams()
+    {id} = @props
+    # This is repeated code.  Seems like there should be a better way to do this.
+    CourseActions.loadPractice(courseId)
+    CourseStore.on 'change', ()=>
+      practiceId = CourseStore.getPracticeId(courseId)
+      if practiceId is not id
+        @transitionTo('viewTask', {courseId, id: practiceId})
+      else
+        @setState({currentStep: 0})
 
 
   onStepCompleted: ->
