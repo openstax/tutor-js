@@ -54,9 +54,10 @@ Practice = React.createClass
     <BS.Button bsStyle="primary" onClick={@onClick}>Practice</BS.Button>
   onClick: ->
     CourseActions.loadPractice(courseId)
-    # TODO make this not a hack -- needs to listen for when TaskStore has been updated and then transition
-    @transitionTo('viewTask', {courseId, id: 'Practice-Course-1'})
-    # @transitionTo('viewTask', {courseId, id: CourseStore.getPracticeId()})
+    CourseStore.on 'change', ()=>
+      practiceId = CourseStore.getPracticeId(courseId)
+      if practiceId
+        @transitionTo('viewTask', {courseId, id: practiceId})
 
 
 TaskResult = React.createClass
