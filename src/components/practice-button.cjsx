@@ -19,7 +19,10 @@ PracticeButton = React.createClass
     <BS.Button bsStyle="primary" onClick={@onClick}>{actionText}</BS.Button>
 
   onClick: ->
-    CourseActions.loadPractice(@props.courseId)
+    if CourseStore.hasPractice(@props.courseId)
+      CourseActions.loadPractice(@props.courseId)
+    else
+      CourseActions.createPractice(@props.courseId)
 
   transitionToPractice: (practiceId)->
     if practiceId is @props.loadedTaskId

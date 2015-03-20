@@ -5,6 +5,13 @@ _ = require 'underscore'
 
 CourseConfig =
 
+  createPractice: (courseId) ->
+    @_local[courseId] ?= {}
+
+  createdPractice: (obj, courseId) ->
+    @emit('practice.created', obj.id)
+    @loadedPractice(obj, courseId)
+
   loadPractice: (courseId) ->
     @_local[courseId] ?= {}
 
@@ -14,11 +21,14 @@ CourseConfig =
 
     TaskActions.loaded(obj, obj.id)
     @emit('practice.loaded', obj.id)
-    @emitChange()
+
 
   exports:
     getPracticeId: (courseId) ->
       @_local?[courseId]?.practice?.id
+
+    hasPractice: (courseId) ->
+      @_local?[courseId]?.practice?
 
     getPractice: (courseId) ->
       if @getPracticeId(courseId) then TaskStore.get(@getPracticeId(courseId)) else {}

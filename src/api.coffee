@@ -120,6 +120,9 @@ start = ->
   apiHelper CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', () ->
     url: "/api/courses/#{courseId}/practice"
 
+  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, 'POST', () ->
+    url: "/api/courses/#{courseId}/practice"
+
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     url: "/api/steps/#{id}"
 
