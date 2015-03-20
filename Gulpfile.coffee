@@ -82,7 +82,7 @@ gulp.task 'test', ['buildJS'], (done) ->
 
   return # Since this is async
 
-gulp.task 'tdd', ['build'],  (done) ->
+gulp.task 'tdd', ['buildJS'],  (done) ->
   buildTests(true)
   .on 'end', ->
     config =
