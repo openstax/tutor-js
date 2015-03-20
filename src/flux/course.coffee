@@ -14,6 +14,7 @@ CourseConfig =
     obj.type = 'practice'
 
     TaskActions.loaded(obj, obj.id)
+    @emit('practice.loaded', obj.id)
     @emitChange()
 
   exports:

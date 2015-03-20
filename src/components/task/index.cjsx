@@ -10,6 +10,7 @@ api = require '../../api'
 TaskStep = require '../task-step'
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
+PracticeButton = require '../practice-button'
 
 module.exports = React.createClass
   displayName: 'ReadingTask'
@@ -49,6 +50,7 @@ module.exports = React.createClass
     model = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
     stepConfig = steps[@state.currentStep]
+    {courseId} = @getParams()
 
     allStepsCompleted = true
     for step in steps
@@ -74,7 +76,7 @@ module.exports = React.createClass
           # would it be crazy to add the appropriate intro and outro as steps on task loaded or something?
           footer = 
             <div>
-              <BS.Button bsStyle="primary" onClick={@onDoMorePractice}>Do more practice</BS.Button>
+              <PracticeButton courseId={courseId} actionText="Do more practice" loadedTaskId={id} reloadPractice={@reloadTask}/>
               <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
             </div>
 
@@ -116,19 +118,8 @@ module.exports = React.createClass
         />
       </div>
 
-
-  onDoMorePractice: ->
-    {courseId} = @getParams()
-    {id} = @props
-    # This is repeated code.  Seems like there should be a better way to do this.
-    CourseActions.loadPractice(courseId)
-    CourseStore.on 'change', ()=>
-      practiceId = CourseStore.getPracticeId(courseId)
-      if practiceId is not id
-        @transitionTo('viewTask', {courseId, id: practiceId})
-      else
-        @setState({currentStep: 0})
-
+  reloadTask: ->
+    @setState({currentStep: 0})
 
   onStepCompleted: ->
     {id} = @props
