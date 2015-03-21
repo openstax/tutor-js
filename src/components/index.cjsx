@@ -97,7 +97,7 @@ Tasks = React.createClass
         </div>
       else
         tasks = for task in allTasks
-          if task.type is "practice"
+          if not task or task.type is "practice"
             continue
           <TaskResult id={task.id} />
 
