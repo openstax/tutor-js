@@ -8,6 +8,10 @@ TocConfig =
 
   FAILED: -> console.error("BUG: could not load readings")
 
+  reset: ->
+    @_toc = null
+    @_sections = {}
+
   load: ->
   loaded: (obj) ->
     @_toc = obj
