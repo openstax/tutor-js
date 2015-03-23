@@ -82,7 +82,7 @@ gulp.task 'test', ['buildJS'], (done) ->
 
   return # Since this is async
 
-gulp.task 'tdd', ['build'],  (done) ->
+gulp.task 'tdd', (done) ->
   buildTests(true)
   .on 'end', ->
     config =
@@ -169,8 +169,9 @@ gulp.task 'cleanArchive', (done) ->
 
 gulp.task 'dist', ['build']
 gulp.task 'prod', ['archive']
-gulp.task 'watch', ['build', 'watchJS'], ->
+gulp.task 'watch', ['watchJS', 'styles', 'copyResources', 'copyFonts'], () ->
   gulp.watch 'style/**/{*.less, *.css}', ['styles']
+  gulp.watch ['test/**/*.coffee'], ['tdd']
 
 gulp.task 'build',
   ['buildJS', 'styles', 'copyResources', 'copyFonts']
