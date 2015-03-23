@@ -1,6 +1,7 @@
 gulp            = require 'gulp'
 karma           = require 'karma'
-webserver       = require 'gulp-webserver'
+connect         = require 'gulp-connect'
+cors            = require 'cors'
 less            = require 'gulp-less'
 source          = require 'vinyl-source-stream'
 browserify      = require 'browserify'
@@ -172,13 +173,11 @@ gulp.task 'build',
 
 gulp.task 'serve', ['watch'], ->
   livereload.listen()
-  config = webserver
-    port: process.env['PORT'] or undefined
+  config =
+    port: process.env['PORT'] or 8000
     # host: '0.0.0.0'
-    open: true
-    livereload:
-      filter: (f) -> console.log(arguments)
+    # livereload: true # Use the livereload.listen to notify when the CSS file is rebuilt
     fallback: 'index.html'
+    middleware: -> [cors()] # For font loading from tutor-server
 
-  gulp.src('./')
-    .pipe(config)
+  connect.server(config)
