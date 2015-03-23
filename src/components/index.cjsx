@@ -40,37 +40,28 @@ Dashboard = React.createClass
 SingleTask = React.createClass
   mixins: [Router.State, LoadableMixin]
 
-  getInitialState: ->
-    {courseId, id} = @getParams()
-    # not the best way to determine is practice...wanted to use route name but that also seems risky
-    isPractice = not id?
-
-    state =
-      isPractice: isPractice
-      taskId: if isPractice then CourseStore.getPracticeId(courseId) else id
-      id: if isPractice then courseId else id
-      type: if isPractice then 'practice' else 'task'
-
-  update: ->
-    @setState({taskId: CourseStore.getPracticeId(@getParams().courseId)}) unless @state.taskId
-
   getFlux: ->
-
-    fluxes =
-      task:
-        store: TaskStore
-        actions: TaskActions
-      practice:
-        store: CourseStore
-        actions: CourseActions
-
-    fluxes[@state.type]
-
-  getId: ->
-    @state.id
+    store: TaskStore
+    actions: TaskActions
 
   renderLoaded: ->
-    @transferPropsTo(<Task key={@state.taskId} id={@state.taskId} />)
+    {id} = @getParams()
+    @transferPropsTo(<Task key={id} id={id} />)
+
+
+SinglePractice = React.createClass
+  mixins: [Router.State, LoadableMixin]
+
+  getFlux: ->
+    store: CourseStore
+    actions: CourseActions
+
+  getId: ->
+    @getParams().courseId
+
+  renderLoaded: ->
+    taskId = CourseStore.getPracticeId(@getId())
+    @transferPropsTo(<Task key={taskId} id={taskId} />)
 
 
 TaskResult = React.createClass
@@ -146,4 +137,4 @@ Invalid = React.createClass
       <Router.Link to="dashboard">Home</Router.Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, SingleTask, Invalid}
+module.exports = {App, Dashboard, Tasks, SingleTask, SinglePractice, Invalid}

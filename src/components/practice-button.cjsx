@@ -26,6 +26,7 @@ PracticeButton = React.createClass
       CourseActions.createPractice(@props.courseId)
 
   transitionToPractice: (practiceId)->
+
     if practiceId is @props.loadedTaskId
       @props.reloadPractice?()
     else
