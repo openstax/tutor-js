@@ -163,7 +163,6 @@ ReadingFooter = React.createClass
 
 
 ReadingPlan = React.createClass
-  mixins: [Router.Navigation, ConfirmLeaveMixin]
 
   setOpensAt: (value) ->
     {id} = @props
@@ -235,7 +234,7 @@ ReadingPlan = React.createClass
 
 
 ReadingShell = React.createClass
-  mixins: [Router.State, LoadableMixin]
+  mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
 
   getInitialState: ->
     {courseId, id} = @getParams()
