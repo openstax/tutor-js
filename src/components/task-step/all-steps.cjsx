@@ -34,4 +34,18 @@ Interactive = React.createClass
     {content_url} = TaskStepStore.get(id)
     <iframe src={content_url} />
 
-module.exports = {Reading, Interactive, Exercise}
+Video = React.createClass
+  mixins: [StepMixin]
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onStepCompleted()
+    @props.onNextStep()
+  renderBody: ->
+    {id} = @props
+    {content_html, content_url} = TaskStepStore.get(id)
+    <div className="-video-step">
+      <ArbitraryHtmlAndMath className="-video-content" html={content_html} />
+      <a target="_top" src={content_url} >video</a>
+    </div>
+
+module.exports = {Reading, Interactive, Video, Exercise}
