@@ -3,7 +3,7 @@ React = require 'react'
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableMixin = require '../loadable-mixin'
-{Reading, Interactive, Exercise} = require './all-steps'
+{Reading, Interactive, Video, Exercise} = require './all-steps'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -13,6 +13,7 @@ err = (msgs...) ->
 STEP_TYPES =
   reading     : Reading
   interactive : Interactive
+  video       : Video
   exercise    : Exercise
 
 getStepType = (typeName) ->
