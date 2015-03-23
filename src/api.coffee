@@ -118,10 +118,11 @@ start = ->
 
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
+    throw new Error('BUG: Wrong type') unless typeof id is 'string'
     url: "/api/steps/#{id}"
 
   # Go from complete to load so we fetch the new JSON
-  apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.load, 'PUT', (id) ->
+  apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
     url: "/api/steps/#{id}/completed"
 
   apiHelper TaskStepActions, TaskStepActions.setFreeResponseAnswer, TaskStepActions.saved, 'PATCH', (id, free_response) ->
