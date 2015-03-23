@@ -8,10 +8,10 @@ PracticeButton = React.createClass
   mixins: [Router.Navigation]
 
   componentWillMount: ->
-    CourseStore.on 'practice.loaded', this.transitionToPractice
+    CourseStore.on('practice.loaded', @transitionToPractice)
 
   componentWillUnmount: ->
-    CourseStore.off 'practice.*'
+    CourseStore.off('practice.loaded', @transitionToPractice)
 
   render: ->
     actionText = if @props.actionText then @props.actionText else 'Practice'
