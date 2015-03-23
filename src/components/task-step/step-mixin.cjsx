@@ -14,10 +14,23 @@ module.exports =
     store: TaskStepStore
     actions: TaskStepActions
 
+  tryAnother: ->
+    TaskStepActions.getRecovery(@getId())
+
+  showTryAnother: ->
+    step = TaskStepStore.get(@getId())
+    return step.has_recovery and step.correct_answer_id isnt step.answer_id
+
   renderLoaded: ->
     isDisabledClass = 'disabled' unless @isContinueEnabled()
 
-    footer = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+    tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @showTryAnother()
+    continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+
+    footer = <span>
+      {tryAnotherButton}
+      {continueButton}
+    </span>
 
     <BS.Panel bsStyle="default" className="task-step" footer={footer}>
       {@renderBody()}

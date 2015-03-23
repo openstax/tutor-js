@@ -20,6 +20,16 @@ TaskStepConfig =
     @_change(id, {free_response})
     @emitChange()
 
+  getRecovery: (id) ->
+    #clear changed when they try to recover for this id
+    @emitChange()
+
+  gotRecovery: (obj, id) ->
+    obj.recovery = obj.id
+    @loaded(obj, id)
+    @loaded(obj, obj.id)
+    @emitChange()
+
   exports:
     isAnswered: (id) ->
       step = @_get(id)

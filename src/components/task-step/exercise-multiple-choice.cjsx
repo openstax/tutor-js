@@ -104,7 +104,8 @@ module.exports = React.createClass
 
   render: ->
     {id} = @props
-    {content, free_response, is_completed} = TaskStepStore.get(id)
+    step = TaskStepStore.get(id)
+    {id, content, free_response, is_completed} = step
     # TODO: Assumes 1 question.
     question = content.questions[0]
 
