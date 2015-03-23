@@ -3,8 +3,6 @@ moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-TESTING_COURSE_ID=1
-
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 
 
@@ -12,11 +10,14 @@ TaskPlan = React.createClass
   displayName: 'TeacherTaskPlan'
   propTypes:
      plan: React.PropTypes.object.isRequired
+     courseId: React.PropTypes.object.isRequired
 
   mixins: [Router.Navigation]
 
   onEditPlan: ->
-    @transitionTo('editReading', {id:@props.plan.id})
+    {courseId} = @props
+    {id} = @props.plan
+    @transitionTo('editReading', {courseId, id})
 
   render: ->
     start  = moment(@props.plan.opens_at)
@@ -31,14 +32,9 @@ TeacherTaskPlanListing = React.createClass
   mixins: [Router.State, Router.Navigation]
   displayName: 'TeacherTaskPlanListing'
 
-  propTypes:
-     courseId: React.PropTypes.number
-
-  getDefaultProps: ->
-      courseId: TESTING_COURSE_ID
-
   componentDidMount:->
-    TeacherTaskPlanActions.load( @props.courseId )
+    {courseId} = @getParams()
+    TeacherTaskPlanActions.load( courseId )
 
   componentWillMount: -> TeacherTaskPlanStore.addChangeListener(@update)
   componentWillUnmount: -> TeacherTaskPlanStore.removeChangeListener(@update)
@@ -46,11 +42,12 @@ TeacherTaskPlanListing = React.createClass
   update: -> @setState({})
 
   render: ->
-    title = "Task plans for course ID #{@props.courseId}"
-    plans = for plan in TeacherTaskPlanStore.getCoursePlans(@props.courseId)
-      <TaskPlan key={plan.id} plan={plan} />
+    {courseId} = @getParams()
+    title = "Task plans for course ID #{courseId}"
+    plans = for plan in TeacherTaskPlanStore.getCoursePlans(courseId)
+      <TaskPlan key={plan.id} plan={plan}, courseId={courseId} />
     # pull in underscore.inflection ?
-    footer = <Router.Link className="btn btn-primary" to='createReading'>Add a Reading</Router.Link>
+    footer = <Router.Link className="btn btn-primary" to="createReading" params={{courseId}}>Add a Reading</Router.Link>
     <BS.Panel header=title
         className="list-courses"
         bsStyle="primary"

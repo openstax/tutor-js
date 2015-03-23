@@ -9,9 +9,13 @@ $ = require 'jquery'
 _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {TaskActions} = require './flux/task'
+{TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TocActions} = require './flux/toc'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
+
+# HACK: until we get a course listing page
+courseId = 1
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -43,10 +47,14 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       resolved = (results) -> successAction(results, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
         statusCode = jqXhr.status
-        if statusCode is 400
+        if statusCode is 200
+          # HACK For PUT returning nothing (actually, it returns HTML for some reason)
+          successAction(args...)
+
+        else if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
-          if httpMethod is 'PUT'
+          if httpMethod is 'PUT' or httpMethod is 'PATCH'
             # HACK for PUT
             successAction(null, args...)
           else
@@ -56,7 +64,10 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
           Actions.FAILED(statusCode, 'ERROR_NOTFOUND', args...)
         else
           # Parse the error message and fail
-          msg = JSON.parse(jqXhr.responseText)
+          try
+            msg = JSON.parse(jqXhr.responseText)
+          catch e
+            msg = jqXhr.responseText
           Actions.FAILED(statusCode, msg, args...)
 
 
@@ -84,9 +95,10 @@ start = ->
     if TaskPlanStore.isNew(id)
       # HACK: to make the JSON valid
       obj.type ?= 'reading'
-      obj.opens_at ?= (new Date()).toISOString()
+      courseId = obj._HACK_courseId
+      delete obj._HACK_courseId
 
-      url: '/api/courses/1/plans'
+      url: "/api/courses/#{courseId}/plans"
       httpMethod: 'POST'
       payload: obj
     else
@@ -102,23 +114,22 @@ start = ->
     url: "/api/plans/#{id}"
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
-    url: '/api/courses/1/readings'
+    url: "/api/courses/#{courseId}/readings"
 
-  reloadAfterCompletion = (empty, task, step) ->
-    TaskActions.load(task.id)
 
-  apiHelper TaskActions, TaskActions.completeStep, reloadAfterCompletion, 'PUT', (task, step) ->
-    console.warn('TODO: Refactor to use the TaskStep store directly')
-    url: "/api/steps/#{step.id}/completed"
+  apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
+    url: "/api/steps/#{id}"
 
-  apiHelper TaskActions, TaskActions.setFreeResponseAnswer, TaskActions.saved, 'PATCH', (task, step, free_response) ->
-    console.warn('TODO: Refactor to use the TaskStep store directly')
-    url: "/api/steps/#{step.id}"
+  # Go from complete to load so we fetch the new JSON
+  apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.load, 'PUT', (id) ->
+    url: "/api/steps/#{id}/completed"
+
+  apiHelper TaskStepActions, TaskStepActions.setFreeResponseAnswer, TaskStepActions.saved, 'PATCH', (id, free_response) ->
+    url: "/api/steps/#{id}"
     payload: {free_response}
 
-  apiHelper TaskActions, TaskActions.setAnswerId, TaskActions.saved, 'PATCH', (task, step, answer_id) ->
-    console.warn('TODO: Refactor to use the TaskStep store directly')
-    url: "/api/steps/#{step.id}"
+  apiHelper TaskStepActions, TaskStepActions.setAnswerId, TaskActions.saved, 'PATCH', (id, answer_id) ->
+    url: "/api/steps/#{id}"
     payload: {answer_id}
 
 
@@ -134,8 +145,8 @@ start = ->
     .then (results) ->
       TaskActions.loadedUserTasks(results.items)
 
-  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (course_id) ->
-    url: "/api/courses/#{course_id}/plans"
+  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/plans"
 
 
   CurrentUserActions.logout.addListener 'trigger', ->

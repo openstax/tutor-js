@@ -54,10 +54,12 @@ CrudConfig = ->
             step.correct_answer_id = step.content.questions[0].answers[0].id
             step.feedback_html = 'Some <em>FAKE</em> feedback'
 
-      else
+      else if obj
         @_local[id] = obj
-      # If the specific type needs to do something else to the object:
-      @_loaded?(obj, id)
+
+      if obj
+        # If the specific type needs to do something else to the object:
+        @_loaded?(obj, id)
       @emitChange()
 
     save: (id, obj) ->
@@ -68,13 +70,12 @@ CrudConfig = ->
     saved: (result, id) ->
       # id = result.id
       @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
-      unless result
-        console.error('API ERROR: Server did not return JSON after saving')
       if result
-        @_local[id] = result # Sometimes the POST/PATCH does not return anything
+        @_local[id] = result
         @_local[result.id] = result
         delete @_changed[result.id]
       else
+        console.warn('API WARN: Server did not return JSON after saving. Patching locally')
         # Merge all the local changes into the new local object
         @_local[id] = _.extend(@_local[id], @_changed[id])
       delete @_changed[id]
@@ -85,7 +86,8 @@ CrudConfig = ->
 
     create: (localId, attributes = {}) ->
       throw new Error('BUG: MUST provide a local id') unless isNew(localId)
-      @_local[localId] = attributes
+      @_local[localId] = {}
+      @_changed[localId] = attributes
       @_asyncStatus[localId] = LOADED
 
     created: (result, localId) ->
@@ -111,15 +113,18 @@ CrudConfig = ->
     clearChanged: (id) ->
       delete @_changed[id]
 
+    # Keep this here so other exports method have access to it
+    _get: (id) ->
+      return null unless @_asyncStatus[id] is LOADED or @_asyncStatus[id] is SAVING
+      _.extend({}, @_local[id], @_changed[id])
+
     exports:
       isUnknown: (id) -> !@_asyncStatus[id]
       isLoading: (id) -> @_asyncStatus[id] is LOADING
       isLoaded: (id) -> @_asyncStatus[id] is LOADED
       isFailed: (id) -> @_asyncStatus[id] is FAILED
       getAsyncStatus: (id) -> @_asyncStatus[id]
-      get: (id) ->
-        return null unless @_asyncStatus[id] is LOADED or @_asyncStatus[id] is SAVING
-        _.extend({}, @_local[id], @_changed[id])
+      get: (id) -> @_get(id)
       isChanged: (id) -> !_.isEmpty(@_changed[id])
       getChanged: (id) -> @_changed[id] or {}
       freshLocalId: -> CREATE_KEY()

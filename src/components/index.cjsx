@@ -3,14 +3,15 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-{RouteHandler, Link} = Router
-
 
 App = require './app'
 Task = require './task'
 LoadableMixin = require './loadable-mixin'
 {TaskActions, TaskStore} = require '../flux/task'
 
+
+# Hack until we have the course listing page
+courseId = 1
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -25,11 +26,11 @@ Dashboard = React.createClass
       <p>Dashboard!</p>
       <div className="-student">
         <p>Student:</p>
-        <Link className="btn btn-primary" to="tasks">Task List</Link>
+        <Router.Link className="btn btn-primary" to="listTasks" params={{courseId}}>Task List</Router.Link>
       </div>
       <div className="-teacher">
         <p>Teacher:</p>
-        <Link className="btn btn-primary" to='taskplans'>Plan List</Link>
+        <Router.Link className="btn btn-primary" to="taskplans" params={{courseId}}>Plan List</Router.Link>
       </div>
     </div>
 
@@ -49,27 +50,30 @@ SingleTask = React.createClass
 TaskResult = React.createClass
   mixins: [Router.Navigation]
   render: ->
-    {id} = @props.model
-    actionTitle = 'Work Now'
-    title = @props.model.title or err('BUG: Task without a title')
+    {id} = @props
+    task = TaskStore.get(id)
+    steps = TaskStore.getSteps(id)
 
-    if @props.model.steps.length is 1
-      mainType = @props.model.steps[0].type
+    actionTitle = 'Work Now'
+    title = task.title or err('BUG: Task without a title')
+
+    if steps.length is 1
+      mainType = steps[0].type
     else
       mainType = ''
-      stepsInfo = <small className='details'>({@props.model.steps.length} steps)</small>
+      stepsInfo = <small className='details'>({steps.length} steps)</small>
 
     <BS.Panel bsStyle="default" onClick={@onClick}>
-      <Link to='task' params={{id}}><i className="fa fa-fw #{mainType}"></i> {title}</Link>
+      <Router.Link to="viewTask" params={{courseId, id}}><i className="fa fa-fw #{mainType}"></i> {title}</Router.Link>
       {stepsInfo}
-      <span className='pull-right'>
-        <Link to='task' params={{id}} className='ui-action btn btn-primary btn-sm'>{actionTitle}</Link>
+      <span className="pull-right">
+        <Router.Link to="viewTask" params={{courseId, id}} className="ui-action btn btn-primary btn-sm">{actionTitle}</Router.Link>
       </span>
     </BS.Panel>
 
   onClick: ->
-    {id} = @props.model
-    @transitionTo('task', {id})
+    {id} = @props
+    @transitionTo('viewTask', {courseId, id})
 
 
 Tasks = React.createClass
@@ -89,7 +93,7 @@ Tasks = React.createClass
         <div className='ui-task-list ui-empty'>No Tasks</div>
       else
         tasks = for task in allTasks
-          <TaskResult model={task} />
+          <TaskResult id={task.id} />
 
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
@@ -107,7 +111,7 @@ Invalid = React.createClass
   render: ->
     <div>
       <h1>Woops, this is an invalid page {@props.path}</h1>
-      <Link to='dashboard'>Home</Link>
+      <Router.Link to="dashboard">Home</Router.Link>
     </div>
 
 module.exports = {App, Dashboard, Tasks, SingleTask, Invalid}

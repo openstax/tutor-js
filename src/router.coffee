@@ -6,6 +6,7 @@ Router = require 'react-router'
 ReadingPlan = require './components/task-plan/reading'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
+Stats = require './components/task-plan/reading-stats'
 
 Sandbox = require './sandbox'
 
@@ -13,11 +14,12 @@ routes = (
   <Route path='/' handler={App}>
     <Redirect from='/' to='dashboard' />
     <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
-    <Route path='tasks/?' name='tasks' handler={Tasks} />
-    <Route path='tasks/:id/?' name='task' handler={SingleTask} />
-    <Route path='readings/?' name='taskplans' handler={TeacherTaskPlans} />
-    <Route path='readings/new/?' name='createReading' handler={ReadingPlan} />
-    <Route path='readings/:id/?' name='editReading' handler={ReadingPlan} />
+    <Route path='courses/:courseId/tasks/?' name='listTasks' handler={Tasks} />
+    <Route path='courses/:courseId/tasks/:id/?' name='viewTask' handler={SingleTask} />
+    <Route path='courses/:courseId/readings/?' name='taskplans' handler={TeacherTaskPlans} />
+    <Route path='courses/:courseId/readings/new/?' name='createReading' handler={ReadingPlan} />
+    <Route path='courses/:courseId/readings/:id/?' name='editReading' handler={ReadingPlan} />
+    <Route path='courses/:courseId/readings/:id/stats/?' name='viewStats' handler={Stats} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>

@@ -16,6 +16,7 @@ flatten         = require 'gulp-flatten'
 merge           = require 'merge-stream'
 tar             = require 'gulp-tar'
 gzip            = require 'gulp-gzip'
+livereload      = require 'gulp-livereload'
 
 
 handleErrors = (title) -> (args...)->
@@ -59,6 +60,7 @@ gulp.task 'styles', ['cleanStyles'], ->
   gulp.src('./style/tutor.less')
   .pipe(less())
   .pipe(gulp.dest(destDirCss))
+  .pipe(livereload())
 
 gulp.task 'cleanStyles', (done) ->
   del(['./dist/*.css'], done)
@@ -174,6 +176,7 @@ gulp.task 'build',
   ['buildJS', 'styles', 'copyResources', 'copyFonts']
 
 gulp.task 'serve', ['watch'], ->
+  livereload.listen()
   config = webserver
     port: process.env['PORT'] or undefined
     # host: '0.0.0.0'

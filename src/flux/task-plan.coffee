@@ -15,7 +15,13 @@ TaskPlanConfig =
   updateTitle: (id, title) ->
     @_change(id, {title})
 
-  updateDueAt: (id, due_at=new Date()) ->
+  updateOpensAt: (id, opens_at) ->
+    # Allow null opens_at
+    if opens_at
+      opens_at = opens_at.toISOString()
+    @_change(id, {opens_at})
+
+  updateDueAt: (id, due_at) ->
     # Allow null due_at
     if due_at
       due_at = due_at.toISOString()
@@ -49,6 +55,9 @@ TaskPlanConfig =
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
+    isValid: (id) ->
+      plan = @_getPlan(id)
+      plan.title and plan.opens_at and plan.due_at and plan.settings?.page_ids?.length > 0
 
 
 extendConfig(TaskPlanConfig, new CrudConfig())

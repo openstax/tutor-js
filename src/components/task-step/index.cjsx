@@ -1,6 +1,8 @@
 React = require 'react'
 
 {TaskStore} = require '../../flux/task'
+{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+LoadableMixin = require '../loadable-mixin'
 {Reading, Interactive, Exercise} = require './all-steps'
 
 # React swallows thrown errors so log them first
@@ -21,18 +23,24 @@ getStepType = (typeName) ->
 module.exports = React.createClass
   displayName: 'TaskStep'
 
-  propTypes:
-    model: React.PropTypes.object.isRequired
-    task: React.PropTypes.object.isRequired
+  mixins: [LoadableMixin]
 
-  render: ->
-    {model} = @props
-    {type} = model
+  propTypes:
+    id: React.PropTypes.string.isRequired
+
+  getId: -> @props.id
+
+  getFlux: ->
+    store: TaskStepStore
+    actions: TaskStepActions
+
+  renderLoaded: ->
+    {id} = @props
+    {type} = TaskStepStore.get(id)
     Type = getStepType(type)
 
     <Type
-      model={@props.model}
-      task={@props.task}
+      id={id}
       onNextStep={@props.onNextStep}
       onStepCompleted={@props.onStepCompleted}
     />
