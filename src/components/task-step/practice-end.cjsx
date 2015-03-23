@@ -8,7 +8,7 @@ PracticeEnd = React.createClass
   render: ->
     footer = 
       <div>
-        <PracticeButton courseId={@props.courseId} actionText="Do more practice" loadedTaskId={@props.taskId} reloadPractice={@props.reloadPractice}/>
+        <PracticeButton courseId={@props.courseId} actionText="Do more practice" loadedTaskId={@props.taskId} reloadPractice={@props.reloadPractice} forceCreate="true"/>
         <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
       </div>
 

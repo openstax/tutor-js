@@ -12,18 +12,25 @@ CourseConfig =
 
   createdPractice: (obj, courseId) ->
     @emit('practice.created', obj.id)
-    @loadedPractice(obj, courseId)
+    @loaded(obj, courseId)
 
-  loadPractice: (courseId) ->
-    @load(courseId, {})
+  _loaded: (obj, courseId)->
+    loadedObj = obj
+    # also seems like a risky way to determine if a practice
+    # is being loaded into the course store
+    loadedObj = @loadPractice(obj, courseId) if obj.steps
 
-  loadedPractice: (obj, courseId) ->
-    @loaded({practice: obj}, courseId)
+    loadedObj
+
+  loadPractice: (obj, courseId) ->
+    loadedObj =
+      practice: obj
+
     obj.type = 'practice'
-
     TaskActions.loaded(obj, obj.id)
     @emit('practice.loaded', obj.id)
 
+    loadedObj
 
   exports:
     getPracticeId: (courseId) ->
@@ -35,7 +42,6 @@ CourseConfig =
     getPractice: (courseId) ->
       if @_get(courseId)?.practice?
         task = TaskStore.get(@_get(courseId)?.practice?.id)
-        @emit('practice.loaded', task.id)
       else
         task = {}
 

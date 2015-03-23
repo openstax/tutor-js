@@ -20,7 +20,8 @@ PracticeButton = React.createClass
 
   onClick: ->
     if CourseStore.hasPractice(@props.courseId) and not @props.forceCreate
-      CourseStore.getPractice(@props.courseId)
+      task = CourseStore.getPractice(@props.courseId)
+      @transitionToPractice(task.id)
     else
       CourseActions.createPractice(@props.courseId)
 
@@ -28,6 +29,6 @@ PracticeButton = React.createClass
     if practiceId is @props.loadedTaskId
       @props.reloadPractice?()
     else
-      @transitionTo('viewTask', {courseId: @props.courseId, id: practiceId})
+      @transitionTo('viewPractice', {courseId: @props.courseId})
 
 module.exports = PracticeButton

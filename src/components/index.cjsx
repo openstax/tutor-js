@@ -9,6 +9,7 @@ Task = require './task'
 LoadableMixin = require './loadable-mixin'
 PracticeButton = require './practice-button'
 {TaskActions, TaskStore} = require '../flux/task'
+{CourseActions, CourseStore} = require '../flux/course'
 
 
 # Hack until we have the course listing page
@@ -39,13 +40,37 @@ Dashboard = React.createClass
 SingleTask = React.createClass
   mixins: [Router.State, LoadableMixin]
 
+  getInitialState: ->
+    {courseId, id} = @getParams()
+    # not the best way to determine is practice...wanted to use route name but that also seems risky
+    isPractice = not id?
+
+    state =
+      isPractice: isPractice
+      taskId: if isPractice then CourseStore.getPracticeId(courseId) else id
+      id: if isPractice then courseId else id
+      type: if isPractice then 'practice' else 'task'
+
+  update: ->
+    @setState({taskId: CourseStore.getPracticeId(@getParams().courseId)}) unless @state.taskId
+
   getFlux: ->
-    store: TaskStore
-    actions: TaskActions
+
+    fluxes =
+      task:
+        store: TaskStore
+        actions: TaskActions
+      practice:
+        store: CourseStore
+        actions: CourseActions
+
+    fluxes[@state.type]
+
+  getId: ->
+    @state.id
 
   renderLoaded: ->
-    {id} = @getParams()
-    @transferPropsTo(<Task key={id} id={id} />)
+    @transferPropsTo(<Task key={@state.taskId} id={@state.taskId} />)
 
 
 TaskResult = React.createClass

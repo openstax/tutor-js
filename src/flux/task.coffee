@@ -21,6 +21,9 @@ TaskConfig =
     for step in steps
       TaskStepActions.loaded(step, step.id)
 
+    # explicit return obj to load onto @_local
+    obj
+
   loadUserTasks: ->
     # Used by API
   loadedUserTasks: (tasks) ->
