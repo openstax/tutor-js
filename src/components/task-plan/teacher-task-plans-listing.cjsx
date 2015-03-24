@@ -19,15 +19,23 @@ TaskPlan = React.createClass
     {id} = @props.plan
     @transitionTo('editReading', {courseId, id})
 
+  onViewStats: ->
+    {courseId} = @props
+    {id} = @props.plan
+    @transitionTo('viewStats', {courseId, id})
+
   render: ->
     {plan} = @props
     start  = moment(plan.opens_at)
     ending = moment(plan.due_at)
     duration = moment.duration( ending.diff(start) ).humanize()
 
-    <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
-      {start.fromNow()} ({duration})
-    </BS.ListGroupItem>
+    <div className="-list-item">
+      <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
+        {start.fromNow()} ({duration})
+      </BS.ListGroupItem>
+      <BS.Button bsStyle="link" className="-tasks-list-stats-button" onClick={@onViewStats}>View Stats</BS.Button>
+    </div>
 
 
 TeacherTaskPlanListing = React.createClass
