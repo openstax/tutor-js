@@ -71,7 +71,6 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
             msg = jqXhr.responseText
           Actions.FAILED(statusCode, msg, args...)
 
-
       $.ajax(url, opts)
       .then(resolved, rejected)
 
@@ -130,6 +129,9 @@ start = ->
   # Go from complete to load so we fetch the new JSON
   apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
     url: "/api/steps/#{id}/completed"
+
+  apiHelper TaskStepActions, TaskStepActions.loadRecovery, TaskStepActions.loadedRecovery, 'PUT', (id) ->
+    url: "/api/steps/#{id}/recovery"
 
   apiHelper TaskStepActions, TaskStepActions.setFreeResponseAnswer, TaskStepActions.saved, 'PATCH', (id, free_response) ->
     url: "/api/steps/#{id}"

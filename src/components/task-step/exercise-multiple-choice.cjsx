@@ -2,9 +2,11 @@ _ = require 'underscore'
 React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskActions} = require '../../flux/task'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
+BS = require 'react-bootstrap'
 
 
 ExerciseFreeResponse = React.createClass
@@ -98,13 +100,32 @@ ExerciseReview = React.createClass
   onContinue: ->
     @props.onNextStep()
 
+  tryAnother: ->
+    task_id = TaskStepStore.getTaskId(@getId())
+    TaskStepActions.loadRecovery(@getId())
+    TaskActions.load(task_id)
+
+  canTryAnother: ->
+    step = TaskStepStore.get(@getId())
+    return step.has_recovery and step.correct_answer_id isnt step.answer_id
+
+  renderFooterButtons: ->
+    isDisabledClass = 'disabled' unless @isContinueEnabled()
+    continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+    tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @canTryAnother()
+    <span>
+      {tryAnotherButton}
+      {continueButton}
+    </span>
+
 
 module.exports = React.createClass
   displayName: 'Exercise'
 
   render: ->
     {id} = @props
-    {content, free_response, is_completed} = TaskStepStore.get(id)
+    step = TaskStepStore.get(id)
+    {id, content, free_response, is_completed} = step
     # TODO: Assumes 1 question.
     question = content.questions[0]
 

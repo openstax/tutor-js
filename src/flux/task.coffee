@@ -19,7 +19,10 @@ TaskConfig =
     delete obj.steps
     @_steps[id] = steps
     for step in steps
+      #HACK: set the task_id so we have a link back to the task from the step
+      step.task_id = id
       TaskStepActions.loaded(step, step.id)
+    obj
 
     # explicit return obj to load onto @_local
     obj
