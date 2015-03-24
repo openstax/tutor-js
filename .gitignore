@@ -2,3 +2,5 @@
 /bower_components
 /.tmp
 /dist
+
+.DS_Store

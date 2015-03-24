@@ -7,7 +7,9 @@ Router = require 'react-router'
 App = require './app'
 Task = require './task'
 LoadableMixin = require './loadable-mixin'
+PracticeButton = require './practice-button'
 {TaskActions, TaskStore} = require '../flux/task'
+{CourseActions, CourseStore} = require '../flux/course'
 
 
 # Hack until we have the course listing page
@@ -45,6 +47,21 @@ SingleTask = React.createClass
   renderLoaded: ->
     {id} = @getParams()
     @transferPropsTo(<Task key={id} id={id} />)
+
+
+SinglePractice = React.createClass
+  mixins: [Router.State, LoadableMixin]
+
+  getFlux: ->
+    store: CourseStore
+    actions: CourseActions
+
+  getId: ->
+    @getParams().courseId
+
+  renderLoaded: ->
+    taskId = CourseStore.getPracticeId(@getId())
+    @transferPropsTo(<Task key={taskId} id={taskId} />)
 
 
 TaskResult = React.createClass
@@ -90,14 +107,20 @@ Tasks = React.createClass
     allTasks = TaskStore.getAll()
     if allTasks
       if allTasks.length is 0
-        <div className='ui-task-list ui-empty'>No Tasks</div>
+        <div className='ui-task-list ui-empty'>
+          <p>No Tasks</p>
+          <PracticeButton courseId={courseId}/>
+        </div>
       else
         tasks = for task in allTasks
+          if not task or task.type is "practice"
+            continue
           <TaskResult id={task.id} />
 
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
           {tasks}
+          <PracticeButton courseId={courseId}/>
         </div>
 
     # else if
@@ -114,4 +137,4 @@ Invalid = React.createClass
       <Router.Link to="dashboard">Home</Router.Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, SingleTask, Invalid}
+module.exports = {App, Dashboard, Tasks, SingleTask, SinglePractice, Invalid}
