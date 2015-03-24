@@ -21,7 +21,7 @@ module.exports = React.createClass
       currentStep = 0
     else
       # Otherwise, start at the Overview page
-      currentStep = -1
+      currentStep = @getDefaultCurrentStep()
 
     {currentStep}
 
@@ -32,7 +32,10 @@ module.exports = React.createClass
     currentStep = -1
     for step, i in steps
       unless step.is_completed
-        currentStep = i
+        if i is 0
+          currentStep = -1
+        else
+          currentStep = i
         break
 
     currentStep
