@@ -25,16 +25,35 @@
 
 html { font-size: 62.5%; }
 
-body { #fonts > .sans }
+body { 
+  #fonts > .sans;
+  color: @body-font-color;
+}
 
 h1 {
   #fonts > .sans(3.8rem, 4.6rem);
   font-weight: 900;
+  margin-bottom: 20px;
 }
 
-.reading-step p {
-  #fonts > .serif(1.75rem, 190%);
-  color: @body-font-color;
-  margin: 0 0 2.4rem 0;
-  padding: 0;
+h2 {
+  #fonts > .sans(3rem, 4.6rem);
+  font-weight: 900;
+}
+
+::-webkit-input-placeholder {
+  font-weight: 300;
+  font-style: italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-weight: 300;
+  font-style: italic;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  font-weight: 300;
+  font-style: italic;
+}
+:-ms-input-placeholder {  
+  font-weight: 300;
+  font-style: italic;
 }

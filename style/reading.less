@@ -1,30 +1,95 @@
-.reading-step {
-  .para {
-    margin-bottom: 1em;
+
+@physics-color-primary: #79b142;
+@physics-background-primary: #232e66;
+@physics-background-secondary: #79b142;
+// @tips-for-success-color:#bf007b;
+// @grasp-check-color:#39b531;
+// @grasp-check-color-background:#fff;
+@reading-title-font: #fonts > .sans;
+
+@import 'reading/video';
+@import 'reading/links-to-physics';
+@import 'reading/work-in-physics';
+// @import 'reading/tips-for-success';
+// @import 'reading/grasp-check';
+
+.task-step .panel-body {
+
+  .reading-step .section-opener .learning-objectives {
+    width: 100%;
+    min-height: 100px;
+    display: inline-flex;
+    color: #ffffff;
+    padding: 10px 40px;
+    background: @physics-background-secondary;
+
+    > div {
+      display: none
+    }
+
+    p {
+      color: rgba(255,255,255,.75);
+      #fonts > .sans;
+      text-transform: uppercase;
+      text-align: right;
+      margin: auto 15px;
+    }
+
+    ul {
+      margin: 0 0;
+      padding: 0 15px 0 30px;
+      border-left: 1px solid rgba(255,255,255,.4);
+    }
+
+  }
+
+  .section-opener ~ section h1 + p::first-letter, div[data-type="document-title"] ~ p::first-letter {
+    float: left;
+    #fonts > .sans(6.4rem, 6.4rem);
+    font-weight: 600;
+    color: @physics-color-primary;
+    margin: 0 4px 0 -4px;
+  }
+
+  .reading-step section[data-depth="1"], .reading-step .work-in-physics, .reading-step .links-to-physics {
+    padding: 0 140px;
+
+    section[data-depth="1"] {
+      padding: 0;
+    }
+
+  }
+
+  div[data-type="document-title"] ~ p {
+    padding: 0 140px;
+  }
+
+  p {
+    #fonts > .serif(1.75rem, 190%);
+    margin: 0 0 2.4rem 0;
+    padding: 0;
   }
 
   figure {
-    width: 100%;
-    margin-bottom: 1em;
-    text-align: center;
+    width: 60%;
+    float: left;
+    text-align: left;
+    margin: 0 30px 0 -80px;
+    padding: 0;
 
     img {
-      width: auto;
-      margin: 0 auto 1em;
+      width: 100%;
+      border: 1px solid @border-color;
+      margin: 0;
+      padding: 0;
+      align: left;
     }
+
     figcaption {
-      text-align:left;
+      font-style: italic;
+      line-height: 150%;
     }
+
   }
+
 }
-
-@links-to-physics-color:#d22120;
-@links-to-physics-background-color:#f5f5f5;
-@tips-for-success-color:#bf007b;
-@grasp-check-color:#39b531;
-@grasp-check-color-background:#fff;
-@reading-title-font:impact;
-
-@import 'reading/links-to-physics';
-@import 'reading/tips-for-success';
-@import 'reading/grasp-check';

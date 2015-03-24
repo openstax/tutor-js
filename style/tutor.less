@@ -7,7 +7,7 @@
 @import './nav.less';
 @import './buttons.less';
 @import './typography.less';
-@import './reading/ireading.less';
+@import './reading.less';
 @import './question.less';
 
 // Override the default path to the font-awesome fonts
@@ -18,30 +18,13 @@
 @primary: @blue;
 // @text-color: @white;
 
+@border-color: #e5e5e5;
+
 // Font-awesome icons mapped to our types
 i.fa {
   &.reading::before     { content: @fa-var-newspaper-o; } // or fa-var-file-text-o
   &.interactive::before { content: @fa-var-desktop; }
   &.exercise::before    { content: @fa-var-question; } // or fa-var-mortar-board
-}
-
-body {
-  padding-top: 60px; // For the top navbar
-  padding-bottom: 50px;
-  padding-left: 40px;
-  padding-right: 40px;
-  background: #f1f1f1;
-}
-
-.img {
-  
-}
-
-.ui-brand-logo {
-  display: inline-block;
-  height: 30px;
-  width: 217px;
-  background-image: url('../style/resources/logo-brand.svg');
 }
 
 .ui-task-list {
