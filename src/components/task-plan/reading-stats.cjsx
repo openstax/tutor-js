@@ -49,10 +49,6 @@ Stats = React.createClass
       correct = <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(percent)s%" now={@percent(data.correct_count,data.correct_count+data.incorrect_count)} key={1} />
     else
       correct = ' '
-    if data.incorrect_count > 0
-      incorrect = <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(percent)s%" now={@percent(data.incorrect_count,data.correct_count+data.incorrect_count)} key={2} />
-    else
-      incorrect = ' '
     <div>
       <div className="reading-progress-heading">
         {data.page.number} - {data.page.title}
@@ -60,7 +56,6 @@ Stats = React.createClass
       <div className="reading-progress-container">
         <BS.ProgressBar className="reading-progress-group">
           {correct}
-          {incorrect}
         </BS.ProgressBar>
 
       </div>
