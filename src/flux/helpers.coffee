@@ -54,12 +54,9 @@ CrudConfig = ->
             step.correct_answer_id = step.content.questions[0].answers[0].id
             step.feedback_html = 'Some <em>FAKE</em> feedback'
 
-      else if obj
-        @_local[id] = obj
-
       if obj
-        # If the specific type needs to do something else to the object:
-        @_loaded?(obj, id)
+        @_local[id] = @_loaded?(obj, id) or obj
+
       @emitChange()
 
     save: (id, obj) ->
@@ -70,6 +67,10 @@ CrudConfig = ->
     saved: (result, id) ->
       # id = result.id
       @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
+
+      obj = @_saved?(result, id)
+      result = obj if obj
+
       if result
         @_local[id] = result
         @_local[result.id] = result
@@ -81,7 +82,6 @@ CrudConfig = ->
       delete @_changed[id]
       delete @_errors[id]
       # If the specific type needs to do something else to the object:
-      @_saved?(result, id)
       @emitChange()
 
     create: (localId, attributes = {}) ->
