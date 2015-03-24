@@ -5,12 +5,18 @@ flux = require 'flux-react'
 
 TaskStepConfig =
 
+  _loaded: (obj, id) ->
+    if not obj.task_id
+      obj.task_id = @_local[id]?.task_id
+    obj
+
+  _saved: (obj, id) ->
+    obj.task_id = @_local[id].task_id
+    obj
+
   complete: (id) ->
     @_change(id, {is_completed: true})
     @emitChange()
-
-  completed: (empty, step) ->
-    # First arg is null and ignored because it was a PUT ./completed
 
   setAnswerId: (id, answer_id) ->
     @_change(id, {answer_id})
@@ -18,6 +24,13 @@ TaskStepConfig =
 
   setFreeResponseAnswer: (id, free_response) ->
     @_change(id, {free_response})
+    @emitChange()
+
+  loadRecovery: (id) ->
+    @emitChange()
+
+  loadedRecovery: (obj, id) ->
+    @clearChanged()
     @emitChange()
 
   exports:
@@ -28,6 +41,10 @@ TaskStepConfig =
         unless step.answer_id
           isAnswered = false
       isAnswered
+
+    getTaskId: (id) ->
+      step = @_get(id)
+      step.task_id
 
     getFreeResponse: (id) ->
       step = @_get(id)
