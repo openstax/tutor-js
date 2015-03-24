@@ -5,12 +5,16 @@ flux = require 'flux-react'
 
 TaskStepConfig =
 
+  _loaded: (obj, id) ->
+    _.extend(@_local[id], obj)
+
+  _saved: (obj, id) ->
+    obj.task_id = @_local[id].task_id
+    obj
+
   complete: (id) ->
     @_change(id, {is_completed: true})
     @emitChange()
-
-  completed: (empty, step) ->
-    # First arg is null and ignored because it was a PUT ./completed
 
   setAnswerId: (id, answer_id) ->
     @_change(id, {answer_id})
@@ -21,13 +25,10 @@ TaskStepConfig =
     @emitChange()
 
   getRecovery: (id) ->
-    #clear changed when they try to recover for this id
     @emitChange()
 
   gotRecovery: (obj, id) ->
-    obj.recovery = obj.id
-    @loaded(obj, id)
-    @loaded(obj, obj.id)
+    @clearChanged()
     @emitChange()
 
   exports:
