@@ -5,46 +5,35 @@ _ = require 'underscore'
 
 CourseConfig =
 
+  _practices: {}
+
   createPractice: (courseId) ->
-    # @create(@freshLocalId())
-    # Contemplating how to use store with local id.
-    @_local[courseId] ?= {}
-
   createdPractice: (obj, courseId) ->
-    @emit('practice.created', obj.id)
-    @loaded(obj, courseId)
+    @_loadedPractice(obj, courseId) # TODO: Maybe this should emit practice.created
 
-  _loaded: (obj, courseId)->
-    loadedObj = obj
-    # also seems like a risky way to determine if a practice
-    # is being loaded into the course store
-    loadedObj = @loadPractice(obj, courseId) if obj.steps
-
-    loadedObj
-
-  loadPractice: (obj, courseId) ->
-    loadedObj =
-      practice: obj
-
-    obj.type = 'practice'
+  _loadedPractice: (obj, courseId) ->
+    obj.type ?= 'practice' # Used to filter out the practice task from the student list
+    @_practices[courseId] = obj
     TaskActions.loaded(obj, obj.id)
     @emit('practice.loaded', obj.id)
 
-    loadedObj
+  _loaded: (obj, courseId) ->
+    if obj.practice
+      @_loadedPractice(obj.practice, courseId)
+    obj
+
 
   exports:
     getPracticeId: (courseId) ->
-      @_get(courseId)?.practice?.id
+      @_practices[courseId]?.id
 
     hasPractice: (courseId) ->
-      @_get(courseId)?.practice?
+      @_practices[courseId]?
 
     getPractice: (courseId) ->
-      if @_get(courseId)?.practice?
-        task = TaskStore.get(@_get(courseId)?.practice?.id)
-      else
-        task = {}
-
+      if @_practices[courseId]?
+        {id} = @_practices[courseId]
+        task = TaskStore.get(id)
       task
 
 extendConfig(CourseConfig, new CrudConfig())

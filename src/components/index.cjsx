@@ -1,5 +1,6 @@
 # @cjsx React.DOM
 
+_ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
@@ -10,6 +11,7 @@ LoadableMixin = require './loadable-mixin'
 PracticeButton = require './practice-button'
 {TaskActions, TaskStore} = require '../flux/task'
 {CourseActions, CourseStore} = require '../flux/course'
+{CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
 
 
 # Hack until we have the course listing page
@@ -23,18 +25,40 @@ err = (msgs...) ->
 
 
 Dashboard = React.createClass
+  componentWillMount: -> CurrentUserStore.addChangeListener(@update)
+  componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
+
+  update: -> @setState({})
   render: ->
-    <div className="-dashboard">
-      <p>Dashboard!</p>
-      <div className="-student">
-        <p>Student:</p>
-        <Router.Link className="btn btn-primary" to="listTasks" params={{courseId}}>Task List</Router.Link>
-      </div>
-      <div className="-teacher">
-        <p>Teacher:</p>
-        <Router.Link className="btn btn-primary" to="taskplans" params={{courseId}}>Plan List</Router.Link>
-      </div>
-    </div>
+    if CurrentUserStore.isCoursesLoaded()
+      courses = CurrentUserStore.getCourses()
+      if courses.length
+        courses = _.map courses, (course) ->
+          {id:courseId, name, roles} = course
+
+          isStudent = _.find roles, (role) -> role.type is 'student'
+          isTeacher = _.find roles, (role) -> role.type is 'teacher'
+          footer = []
+          if isStudent or not isTeacher # HACK since a student does not currently have a role
+            footer.push(<Router.Link className="btn btn-link -student" to="listTasks" params={{courseId}}>Task List (Student)</Router.Link>)
+
+          if isTeacher
+            footer.push(<Router.Link className="btn btn-link -teacher" to="taskplans" params={{courseId}}>Plan List (Teacher)</Router.Link>)
+
+          footer = <span className="-footer-buttons">{footer}</span>
+
+          <BS.Panel header={name} footer={footer} bsStyle="primary">
+            <h1>Course: "{name}" Dashboard!</h1>
+          </BS.Panel>
+
+        return <div className="-course-list">{courses}</div>
+      else
+        return <div className="-course-list-empty">No Courses</div>
+
+    else
+      CurrentUserActions.loadAllCourses()
+
+      <div className="-loading">Loading?</div>
 
 
 SingleTask = React.createClass
