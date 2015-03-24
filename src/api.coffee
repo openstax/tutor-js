@@ -130,7 +130,7 @@ start = ->
   apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
     url: "/api/steps/#{id}/completed"
 
-  apiHelper TaskStepActions, TaskStepActions.getRecovery, TaskStepActions.gotRecovery, 'PUT', (id) ->
+  apiHelper TaskStepActions, TaskStepActions.loadRecovery, TaskStepActions.loadedRecovery, 'PUT', (id) ->
     url: "/api/steps/#{id}/recovery"
 
   apiHelper TaskStepActions, TaskStepActions.setFreeResponseAnswer, TaskStepActions.saved, 'PATCH', (id, free_response) ->

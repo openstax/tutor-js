@@ -6,7 +6,9 @@ flux = require 'flux-react'
 TaskStepConfig =
 
   _loaded: (obj, id) ->
-    _.extend(@_local[id], obj)
+    if not obj.task_id
+      obj.task_id = @_local[id]?.task_id
+    obj
 
   _saved: (obj, id) ->
     obj.task_id = @_local[id].task_id
@@ -24,10 +26,10 @@ TaskStepConfig =
     @_change(id, {free_response})
     @emitChange()
 
-  getRecovery: (id) ->
+  loadRecovery: (id) ->
     @emitChange()
 
-  gotRecovery: (obj, id) ->
+  loadedRecovery: (obj, id) ->
     @clearChanged()
     @emitChange()
 
