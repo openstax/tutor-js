@@ -2,9 +2,11 @@ _ = require 'underscore'
 React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskActions} = require '../../flux/task'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
+BS = require 'react-bootstrap'
 
 
 ExerciseFreeResponse = React.createClass
@@ -97,6 +99,24 @@ ExerciseReview = React.createClass
 
   onContinue: ->
     @props.onNextStep()
+
+  tryAnother: ->
+    step = TaskStepStore.get(@getId())
+    TaskStepActions.getRecovery(@getId())
+    TaskActions.load(step.task_id)
+
+  showTryAnother: ->
+    step = TaskStepStore.get(@getId())
+    return step.has_recovery and step.correct_answer_id isnt step.answer_id
+
+  renderFooterButtons: ->
+    isDisabledClass = 'disabled' unless @isContinueEnabled()
+    continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+    tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @showTryAnother()
+    <span>
+      {tryAnotherButton}
+      {continueButton}
+    </span>
 
 
 module.exports = React.createClass
