@@ -57,7 +57,7 @@ SinglePractice = React.createClass
     actions: CourseActions
 
   getId: ->
-    @getParams().courseId
+    @getParams().courseId or @props.courseId
 
   renderLoaded: ->
     taskId = CourseStore.getPracticeId(@getId())
