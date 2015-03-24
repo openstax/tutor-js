@@ -1,10 +1,10 @@
 module.exports =
   # getFlux: -> {store, actions}
-  # getId: -> id 
+  # getId: -> id
   componentDidMount: ->
-    window.addEventListener 'beforeunload', @confirmLeave
+    window.addEventListener('beforeunload', @confirmLeave)
   componentWillUnmount: ->
-    window.removeEventListener "beforeunload", @confirmLeave
+    window.removeEventListener('beforeunload', @confirmLeave)
 
     {store, actions} = @getFlux()
     # TODO add isValid() to the CrudConfig so we can save
