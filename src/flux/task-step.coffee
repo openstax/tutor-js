@@ -40,6 +40,10 @@ TaskStepConfig =
           isAnswered = false
       isAnswered
 
+    getTaskId: (id) ->
+      step = @_get(id)
+      step.task_id
+
     getFreeResponse: (id) ->
       step = @_get(id)
       step.free_response

@@ -101,9 +101,9 @@ ExerciseReview = React.createClass
     @props.onNextStep()
 
   tryAnother: ->
-    step = TaskStepStore.get(@getId())
+    task_id = TaskStepStore.getTaskId(@getId())
     TaskStepActions.getRecovery(@getId())
-    TaskActions.load(step.task_id)
+    TaskActions.load(task_id)
 
   showTryAnother: ->
     step = TaskStepStore.get(@getId())
