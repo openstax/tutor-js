@@ -57,9 +57,7 @@ Stats = React.createClass
         <BS.ProgressBar className="reading-progress-group">
           {correct}
         </BS.ProgressBar>
-
       </div>
-
     </div>
 
   renderPracticeBars: (data, i) ->
