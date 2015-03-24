@@ -102,17 +102,17 @@ ExerciseReview = React.createClass
 
   tryAnother: ->
     task_id = TaskStepStore.getTaskId(@getId())
-    TaskStepActions.getRecovery(@getId())
+    TaskStepActions.loadRecovery(@getId())
     TaskActions.load(task_id)
 
-  showTryAnother: ->
+  canTryAnother: ->
     step = TaskStepStore.get(@getId())
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   renderFooterButtons: ->
     isDisabledClass = 'disabled' unless @isContinueEnabled()
     continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
-    tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @showTryAnother()
+    tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @canTryAnother()
     <span>
       {tryAnotherButton}
       {continueButton}
