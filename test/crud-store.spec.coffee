@@ -2,9 +2,18 @@
 
 {CrudConfig, makeSimpleStore, extendConfig} = require '../src/flux/helpers'
 
-CrudConfig = CrudConfig()
+TestCrudConfig = CrudConfig()
+{actions:CrudActions, store:CrudStore} = makeSimpleStore(TestCrudConfig)
 
-{actions:CrudActions, store:CrudStore} = makeSimpleStore(CrudConfig)
+
+ExtendedConfig =
+  _loaded: (obj, id) ->
+      nested : obj
+  exports:
+    testExtendedStore : ()->
+
+extendConfig(ExtendedConfig, new CrudConfig())
+{actions: ExtendedActions, store: ExtendedStore} = makeSimpleStore(ExtendedConfig)
 
 
 describe 'CRUD Store', ->
@@ -107,7 +116,23 @@ describe 'CRUD Store', ->
     expect(CrudStore.get(id)).to.deep.equal({hello:'bar'})
     expect(CrudStore.getChanged(id)).to.deep.equal({})
 
+
   it 'should be loaded when a new item is created', ->
     id = CrudStore.freshLocalId()
     CrudActions.create(id, {hello:'bar'})
     expect(CrudStore.isLoaded(id)).to.be.true
+
+
+  it 'should have additional actions if the config has been extended', ->
+    expect(ExtendedActions._loaded).to.be.a('function')
+
+
+  it 'should additional store functions if the config has been extended', ->
+    expect(ExtendedStore.testExtendedStore).to.be.a('function')
+
+
+  it 'should change what is loaded if _loaded function is defined', ->
+    id = 0
+    nestedStore = {hello: 'bar'}
+    ExtendedActions.loaded(nestedStore, id)
+    expect(ExtendedStore.get(id).nested).to.deep.equal(nestedStore)
