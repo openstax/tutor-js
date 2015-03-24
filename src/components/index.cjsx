@@ -50,6 +50,12 @@ SingleTask = React.createClass
 
 
 SinglePractice = React.createClass
+  render: ->
+    taskId = CourseStore.getPracticeId(@props.courseId)
+    <Task key={taskId} id={taskId} />
+
+
+SinglePracticeShell = React.createClass
   mixins: [Router.State, LoadableMixin]
 
   getFlux: ->
@@ -60,8 +66,9 @@ SinglePractice = React.createClass
     @getParams().courseId or @props.courseId
 
   renderLoaded: ->
-    taskId = CourseStore.getPracticeId(@getId())
-    @transferPropsTo(<Task key={taskId} id={taskId} />)
+    <SinglePractice courseId={@getId()}/>
+    # taskId = CourseStore.getPracticeId(@getId())
+    # @transferPropsTo(<Task key={taskId} id={taskId} />)
 
 
 TaskResult = React.createClass
@@ -137,4 +144,4 @@ Invalid = React.createClass
       <Router.Link to="dashboard">Home</Router.Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, SingleTask, SinglePractice, Invalid}
+module.exports = {App, Dashboard, Tasks, SingleTask, SinglePractice, SinglePracticeShell, Invalid}
