@@ -7,6 +7,9 @@ CourseConfig =
 
   _practices: {}
 
+  _isPractice: (obj) ->
+    obj.steps? # TODO: Find a more reliable way to determine if a practice is being loaded
+
   createPractice: (courseId) ->
   createdPractice: (obj, courseId) ->
     @_loadedPractice(obj, courseId) # TODO: Maybe this should emit practice.created
@@ -18,8 +21,8 @@ CourseConfig =
     @emit('practice.loaded', obj.id)
 
   _loaded: (obj, courseId) ->
-    if obj.practice
-      @_loadedPractice(obj.practice, courseId)
+    if @_isPractice(obj)
+      @_loadedPractice(obj, courseId)
     obj
 
 
