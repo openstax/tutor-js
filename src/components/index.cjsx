@@ -70,7 +70,7 @@ SingleTask = React.createClass
 
   renderLoaded: ->
     {id} = @getParams()
-    @transferPropsTo(<Task key={id} id={id} />)
+    <Task key={id} id={id} />
 
 
 SinglePractice = React.createClass
@@ -98,7 +98,7 @@ SinglePractice = React.createClass
     })
 
   renderLoaded: ->
-    @transferPropsTo(<Task key={@state.taskId} id={@state.taskId} />)
+    <Task key={@state.taskId} id={@state.taskId} />
 
 
 TaskResult = React.createClass
