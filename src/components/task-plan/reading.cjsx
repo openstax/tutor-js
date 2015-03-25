@@ -115,6 +115,7 @@ SelectTopics = React.createClass
     </BS.Modal>
 
 ReadingFooter = React.createClass
+  mixins: [Router.Navigation]
 
   onSave: ->
     {id} = @props
@@ -130,8 +131,12 @@ ReadingFooter = React.createClass
       TaskPlanActions.delete(id)
       @transitionTo('dashboard')
 
+  onViewStats: ->
+    {id, courseId} = @props
+    @transitionTo('viewStats', {courseId, id})
+
   render: ->
-    {id} = @props
+    {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
     valid = TaskPlanStore.isValid(id)
@@ -154,10 +159,13 @@ ReadingFooter = React.createClass
 
     saveLink = <BS.Button bsStyle="primary" className={classes} onClick={@onSave}>Save as Draft</BS.Button>
 
+    statsLink = <BS.Button bsStyle="link" className="-stats" onClick={@onViewStats}>Stats</BS.Button>
+
     <span className="-footer-buttons">
       {saveLink}
       {publishButton}
       {deleteLink}
+      {statsLink}
     </span>
 
 
@@ -178,7 +186,7 @@ ReadingPlan = React.createClass
     TaskPlanActions.updateTitle(id, value)
 
   render: ->
-    {id} = @props
+    {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
@@ -191,7 +199,7 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer= <ReadingFooter id={id} />
+    footer= <ReadingFooter id={id} courseId={courseId} />
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
@@ -263,6 +271,8 @@ ReadingShell = React.createClass
 
   renderLoaded: ->
     id = @getId()
-    <ReadingPlan id={id} />
+    {courseId} = @getParams()
+
+    <ReadingPlan id={id} courseId={courseId} />
 
 module.exports = {ReadingShell, ReadingPlan}
