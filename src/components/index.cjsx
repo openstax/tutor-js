@@ -76,6 +76,15 @@ SingleTask = React.createClass
 SinglePractice = React.createClass
   mixins: [Router.State, LoadableMixin]
 
+  componentWillMount: ->
+    CourseStore.on('practice.loaded', @update)
+
+  componentWillUnmount: ->
+    CourseStore.off('practice.loaded', @update)
+
+  getInitialState: ->
+      taskId: CourseStore.getPracticeId(@getId())
+
   getFlux: ->
     store: CourseStore
     actions: CourseActions
@@ -83,9 +92,13 @@ SinglePractice = React.createClass
   getId: ->
     @getParams().courseId
 
+  update: ->
+    @setState({
+      taskId:  CourseStore.getPracticeId(@getId())
+    })
+
   renderLoaded: ->
-    taskId = CourseStore.getPracticeId(@getId())
-    @transferPropsTo(<Task key={taskId} id={taskId} />)
+    @transferPropsTo(<Task key={@state.taskId} id={@state.taskId} />)
 
 
 TaskResult = React.createClass
