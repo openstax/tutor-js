@@ -2,7 +2,7 @@
 React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
-{App, Dashboard, Tasks, SingleTask, SinglePracticeShell, Invalid} = require './components'
+{App, Dashboard, Tasks, SingleTask, SinglePractice, Invalid} = require './components'
 {ReadingShell} = require './components/task-plan/reading'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
@@ -16,7 +16,7 @@ routes = (
     <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
     <Route path='courses/:courseId/tasks/?' name='listTasks' handler={Tasks} />
     <Route path='courses/:courseId/tasks/:id/?' name='viewTask' handler={SingleTask} />
-    <Route path='courses/:courseId/practice/' name='viewPractice' handler={SinglePracticeShell} />
+    <Route path='courses/:courseId/practice/' name='viewPractice' handler={SinglePractice} />
     <Route path='courses/:courseId/readings/?' name='taskplans' handler={TeacherTaskPlans} />
     <Route path='courses/:courseId/readings/new/?' name='createReading' handler={ReadingShell} />
     <Route path='courses/:courseId/readings/:id/?' name='editReading' handler={ReadingShell} />
