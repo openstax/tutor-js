@@ -57,13 +57,32 @@ describe 'Practice Component', ->
     helper(VALID_MODEL, 1, tests)
 
 
-  it 'should render next screen when to continue is clicked', (done) ->
+  it 'should render next screen when Continue is clicked', (done) ->
     tests = (node) ->
       continueButton = node.querySelector('button.btn-primary')
       introScreenText = node.innerText
 
       React.addons.TestUtils.Simulate.click(continueButton);
       expect(node.innerText).to.not.be.equal(introScreenText)
+
+      done()
+
+    helper(VALID_MODEL, 1, tests)
+
+
+  it 'should render multiple choice after free response', (done) ->
+    tests = (node) ->
+      continueButton = node.querySelector('button.btn-primary')
+      React.addons.TestUtils.Simulate.click(continueButton)
+
+      continueButton = node.querySelector('button.btn-primary')
+      textarea = node.querySelector('textarea')
+      textarea.value = 'Test Response'
+
+      expect(node.querySelector('.answers-table')).to.be.null
+
+      # React.addons.TestUtils.Simulate.click(continueButton)
+      # expect(node.querySelector('.answers-table')).to.not.be.null
 
       done()
 
