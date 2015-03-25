@@ -68,6 +68,11 @@ CrudConfig = ->
     saved: (result, id) ->
       # id = result.id
       @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
+
+      # If the specific type needs to do something else to the object:
+      obj = @_saved?(result, id)
+      result = obj if obj
+
       if result
         @_local[id] = result
         @_local[result.id] = result
@@ -79,7 +84,6 @@ CrudConfig = ->
       delete @_changed[id]
       delete @_errors[id]
       # If the specific type needs to do something else to the object:
-      @_saved?(result, id)
       @emitChange()
 
     create: (localId, attributes = {}) ->

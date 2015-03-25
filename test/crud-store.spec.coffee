@@ -8,9 +8,10 @@ TestCrudConfig = CrudConfig()
 
 ExtendedConfig =
   _loaded: (obj, id) ->
-      nested : obj
+      nested : obj unless obj.doNotModify
+
   exports:
-    testExtendedStore : ()->
+    testExtendedStore : () ->
 
 extendConfig(ExtendedConfig, new CrudConfig())
 {actions: ExtendedActions, store: ExtendedStore} = makeSimpleStore(ExtendedConfig)
@@ -131,8 +132,25 @@ describe 'CRUD Store', ->
     expect(ExtendedStore.testExtendedStore).to.be.a('function')
 
 
-  it 'should change what is loaded if _loaded function is defined', ->
+  it 'should not change what is loaded if _loaded function is undefined', ->
+    id = 0
+    storeObj = {hello: 'bar'}
+    CrudActions.loaded(storeObj, id)
+    expect(CrudActions._loaded).to.be.undefined
+    expect(CrudStore.get(id)).to.deep.equal(storeObj)
+
+
+  it 'should change what is loaded if _loaded function is defined and returns', ->
     id = 0
     nestedStore = {hello: 'bar'}
     ExtendedActions.loaded(nestedStore, id)
+    expect(ExtendedConfig._loaded(nestedStore, id)).to.not.be.undefined
     expect(ExtendedStore.get(id).nested).to.deep.equal(nestedStore)
+
+
+  it 'should not change what is loaded if _loaded function returns falsy', ->
+    id = 0
+    storeObj = {hello: 'bar', doNotModify: true}
+    ExtendedActions.loaded(storeObj, id)
+    expect(ExtendedConfig._loaded(storeObj, id)).to.be.undefined
+    expect(ExtendedStore.get(id)).to.deep.equal(storeObj)

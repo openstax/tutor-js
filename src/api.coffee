@@ -71,13 +71,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
             msg = jqXhr.responseText
           Actions.FAILED(statusCode, msg, args...)
 
-
       $.ajax(url, opts)
       .then(resolved, rejected)
-
-loadSaveHelper = (Actions, pathMaker) ->
-  apiHelper(Actions, Actions.load, Actions.loaded, 'GET', pathMaker)
-  apiHelper(Actions, Actions.save, Actions.saved, 'PATCH', pathMaker)
 
 
 start = ->
@@ -124,12 +119,16 @@ start = ->
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, () ->
     url: "/api/courses/#{courseId}/practice"
 
+
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     url: "/api/steps/#{id}"
 
   # Go from complete to load so we fetch the new JSON
   apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
     url: "/api/steps/#{id}/completed"
+
+  apiHelper TaskStepActions, TaskStepActions.loadRecovery, TaskStepActions.loadedRecovery, 'PUT', (id) ->
+    url: "/api/steps/#{id}/recovery"
 
   apiHelper TaskStepActions, TaskStepActions.setFreeResponseAnswer, TaskStepActions.saved, 'PATCH', (id, free_response) ->
     url: "/api/steps/#{id}"
@@ -154,6 +153,10 @@ start = ->
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/plans"
+
+
+  apiHelper CurrentUserActions, CurrentUserActions.loadAllCourses, CurrentUserActions.loadedAllCourses, 'GET', ->
+    url: '/api/courses'
 
 
   CurrentUserActions.logout.addListener 'trigger', ->
