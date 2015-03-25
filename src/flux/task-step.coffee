@@ -11,7 +11,7 @@ TaskStepConfig =
     obj
 
   _saved: (obj, id) ->
-    obj.task_id = @_local[id].task_id
+    obj.task_id = @_local[id]?.task_id
     obj
 
   complete: (id) ->
