@@ -1,10 +1,11 @@
 _ = require 'underscore'
 flux = require 'flux-react'
 {TaskStepActions, TaskStepStore} = require './task-step'
-{CurrentUserActions, CurrentUserStore} = require './current-user'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 TaskConfig =
+  _steps: {}
+
   _getStep: (taskId, stepId) ->
     task = @_local[taskId]
     step = _.find(task.steps, (s) -> s.id is stepId)

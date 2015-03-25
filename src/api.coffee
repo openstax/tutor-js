@@ -74,10 +74,6 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       $.ajax(url, opts)
       .then(resolved, rejected)
 
-loadSaveHelper = (Actions, pathMaker) ->
-  apiHelper(Actions, Actions.load, Actions.loaded, 'GET', pathMaker)
-  apiHelper(Actions, Actions.save, Actions.saved, 'PATCH', pathMaker)
-
 
 start = ->
   apiHelper TaskActions, TaskActions.load, TaskActions.loaded, 'GET', (id) ->
@@ -123,6 +119,7 @@ start = ->
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, () ->
     url: "/api/courses/#{courseId}/practice"
 
+
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     url: "/api/steps/#{id}"
 
@@ -156,6 +153,10 @@ start = ->
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/plans"
+
+
+  apiHelper CurrentUserActions, CurrentUserActions.loadAllCourses, CurrentUserActions.loadedAllCourses, 'GET', ->
+    url: '/api/courses'
 
 
   CurrentUserActions.logout.addListener 'trigger', ->
