@@ -14,6 +14,9 @@ module.exports =
   # getId: -> id Optional
   # renderLoaded: ->
 
+  contextTypes:
+    router: React.PropTypes.func
+
   componentWillMount: ->
     {store} = @getFlux()
     store.addChangeListener(@_update)
@@ -27,7 +30,7 @@ module.exports =
     if @getId?
       @getId()
     else
-      @getParams().id or throw new Error('BUG: id is required')
+      @context.router.getCurrentParams().id or throw new Error('BUG: id is required')
 
   render: ->
     {store, actions} = @getFlux()

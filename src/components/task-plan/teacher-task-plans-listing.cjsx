@@ -12,17 +12,18 @@ TaskPlan = React.createClass
      plan: React.PropTypes.object.isRequired
      courseId: React.PropTypes.object.isRequired
 
-  mixins: [Router.Navigation]
+  contextTypes:
+    router: React.PropTypes.func
 
   onEditPlan: ->
     {courseId} = @props
     {id} = @props.plan
-    @transitionTo('editReading', {courseId, id})
+    @context.router.transitionTo('editReading', {courseId, id})
 
   onViewStats: ->
     {courseId} = @props
     {id} = @props.plan
-    @transitionTo('viewStats', {courseId, id})
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
     {plan} = @props
@@ -39,11 +40,14 @@ TaskPlan = React.createClass
 
 
 TeacherTaskPlanListing = React.createClass
-  mixins: [Router.State, Router.Navigation]
+
+  contextTypes:
+    router: React.PropTypes.func
+
   displayName: 'TeacherTaskPlanListing'
 
   componentDidMount:->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     TeacherTaskPlanActions.load( courseId )
 
   componentWillMount: -> TeacherTaskPlanStore.addChangeListener(@update)
@@ -52,7 +56,7 @@ TeacherTaskPlanListing = React.createClass
   update: -> @setState({})
 
   render: ->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     title = "Task plans for course ID #{courseId}"
     plans = for plan in TeacherTaskPlanStore.getCoursePlans(courseId)
       <TaskPlan key={plan.id} plan={plan}, courseId={courseId} />
