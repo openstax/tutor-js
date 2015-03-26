@@ -7,13 +7,16 @@ Router = require 'react-router'
 LoadableMixin = require '../loadable-mixin'
 
 Stats = React.createClass
-  mixins: [Router.State, Router.Navigation, LoadableMixin]
+  mixins: [LoadableMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getFlux: ->
     store: TaskPlanStore
     actions: TaskPlanActions
 
-  getId: -> @getParams().id
+  getId: -> @context.router.getCurrentParams().id
 
 
   percent: (num,total) ->

@@ -17,7 +17,8 @@ Time = require '../time'
 module.exports = React.createClass
   displayName: 'ReadingTask'
 
-  mixins: [Router.State]
+  contextTypes:
+    router: React.PropTypes.func
 
   getInitialState: ->
     {id} = @props
@@ -55,7 +56,7 @@ module.exports = React.createClass
     model = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
     stepConfig = steps[@state.currentStep]
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
 
     allStepsCompleted = true
     for step in steps

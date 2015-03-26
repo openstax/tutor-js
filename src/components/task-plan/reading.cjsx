@@ -115,7 +115,9 @@ SelectTopics = React.createClass
     </BS.Modal>
 
 ReadingFooter = React.createClass
-  mixins: [Router.Navigation]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   onSave: ->
     {id} = @props
@@ -129,11 +131,11 @@ ReadingFooter = React.createClass
     {id} = @props
     if confirm('Are you sure you want to delete this?')
       TaskPlanActions.delete(id)
-      @transitionTo('dashboard')
+      @context.router.transitionTo('dashboard')
 
   onViewStats: ->
     {id, courseId} = @props
-    @transitionTo('viewStats', {courseId, id})
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
     {id, courseId} = @props
@@ -242,10 +244,13 @@ ReadingPlan = React.createClass
 
 
 ReadingShell = React.createClass
-  mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
+  mixins: [LoadableMixin, ConfirmLeaveMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getInitialState: ->
-    {courseId, id} = @getParams()
+    {courseId, id} = @context.router.getCurrentParams()
     if (id)
       TaskPlanActions.load(id)
     else
@@ -253,7 +258,7 @@ ReadingShell = React.createClass
       TaskPlanActions.create(id, {_HACK_courseId: courseId})
     {id}
 
-  getId: -> @getParams().id or @state.id
+  getId: -> @context.router.getCurrentParams().id or @state.id
   getFlux: ->
     store: TaskPlanStore
     actions: TaskPlanActions
@@ -264,14 +269,14 @@ ReadingShell = React.createClass
     id = @getId()
     if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
       {id} = TaskPlanStore.get(id)
-      {courseId} = @getParams()
-      delay => @transitionTo('editReading', {courseId, id})
+      {courseId} = @context.router.getCurrentParams()
+      delay => @context.router.transitionTo('editReading', {courseId, id})
     else
       @setState({})
 
   renderLoaded: ->
     id = @getId()
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
 
     <ReadingPlan id={id} courseId={courseId} />
 

@@ -5,7 +5,8 @@ Router = require 'react-router'
 {CourseActions, CourseStore} = require '../flux/course'
 
 PracticeButton = React.createClass
-  mixins: [Router.Navigation]
+  contextTypes:
+    router: React.PropTypes.func
 
   componentWillMount: ->
     CourseStore.on('practice.loaded', @transitionToPractice)
@@ -30,6 +31,6 @@ PracticeButton = React.createClass
     if practiceId is @props.loadedTaskId
       @props.reloadPractice?()
     else
-      @transitionTo('viewPractice', {courseId: @props.courseId})
+      @context.router.transitionTo('viewPractice', {courseId: @props.courseId})
 
 module.exports = PracticeButton

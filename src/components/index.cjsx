@@ -62,19 +62,25 @@ Dashboard = React.createClass
 
 
 SingleTask = React.createClass
-  mixins: [Router.State, LoadableMixin]
+  mixins: [LoadableMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getFlux: ->
     store: TaskStore
     actions: TaskActions
 
   renderLoaded: ->
-    {id} = @getParams()
-    @transferPropsTo(<Task key={id} id={id} />)
+    {id} = @context.router.getCurrentParams()
+    <Task key={id} id={id} />
 
 
 SinglePractice = React.createClass
-  mixins: [Router.State, LoadableMixin]
+  mixins: [LoadableMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   componentWillMount: ->
     CourseStore.on('practice.loaded', @update)
@@ -90,7 +96,7 @@ SinglePractice = React.createClass
     actions: CourseActions
 
   getId: ->
-    @getParams().courseId
+    @context.router.getCurrentParams().courseId
 
   update: ->
     @setState({
@@ -98,11 +104,13 @@ SinglePractice = React.createClass
     })
 
   renderLoaded: ->
-    @transferPropsTo(<Task key={@state.taskId} id={@state.taskId} />)
+    <Task key={@state.taskId} id={@state.taskId} />
 
 
 TaskResult = React.createClass
-  mixins: [Router.Navigation]
+  contextTypes:
+    router: React.PropTypes.func
+
   render: ->
     {id} = @props
     task = TaskStore.get(id)
@@ -127,7 +135,7 @@ TaskResult = React.createClass
 
   onClick: ->
     {id} = @props
-    @transitionTo('viewTask', {courseId, id})
+    @context.router.transitionTo('viewTask', {courseId, id})
 
 
 Tasks = React.createClass
