@@ -74,23 +74,26 @@ buildTests = (isWatching) ->
 
 
 gulp.task 'test', ['buildJS'], (done) ->
-  buildTests(false)
-  .on 'end', ->
-    config =
-      configFile: __dirname + '/test/karma.config.coffee'
-      singleRun: true
-    karma.server.start(config, done)
-
+  buildAndTest(false, done)
   return # Since this is async
 
-gulp.task 'tdd', ['buildJS'],  (done) ->
-  buildTests(true)
-  .on 'end', ->
-    config =
-      configFile: __dirname + '/test/karma.config.coffee'
-    karma.server.start(config, done)
-
+gulp.task 'tdd', (done) ->
+  buildAndTest(true, done)
   return # Since this is async
+
+buildAndTest = (shouldWatch, done) ->
+  build(shouldWatch).on 'end', ->
+    buildTests(shouldWatch).on 'end', ->
+      config =
+        configFile: __dirname + '/test/karma.config.coffee'
+        singleRun: not shouldWatch
+
+      if shouldWatch
+        karma.server.start(config)
+        done()
+      else
+        karma.server.start(config, done)
+
 
 gulp.task 'buildJS', ['cleanJS'], -> build(false)
 
@@ -164,9 +167,9 @@ gulp.task 'cleanArchive', (done) ->
 
 gulp.task 'dist', ['build']
 gulp.task 'prod', ['archive']
-gulp.task 'watch', ['build'], ->
-  gulp.watch ['src/**/*.coffee', 'src/**/*.cjsx', 'test/**/*.coffee'], ['buildJS', 'test']
+gulp.task 'watch', ['styles', 'copyResources', 'copyFonts', 'tdd'], () ->
   gulp.watch 'style/**/{*.less, *.css}', ['styles']
+  gulp.watch ['test/**/*.coffee'], ['tdd']
 
 gulp.task 'build',
   ['buildJS', 'styles', 'copyResources', 'copyFonts']
