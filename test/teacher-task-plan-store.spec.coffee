@@ -11,5 +11,6 @@ describe 'Teacher Task Plan Store', ->
     TeacherTaskPlanStore.addChangeListener ->
       calledSynchronously = true
       calledSynchronously and done()
-    TeacherTaskPlanActions.loaded({hello:'world', steps:[]}, 123)
-    expect(TeacherTaskPlanStore.get(123).hello).to.equal('world')
+    TeacherTaskPlanActions.loaded({items:[{hello:'world', steps:[]}]}, 123)
+    # Verify the taskPlanLoader unwraps the returned JSON and stores the items
+    expect(TeacherTaskPlanStore.get(123)[0].hello).to.equal('world')

@@ -5,13 +5,20 @@ Router = require 'react-router'
 api = require '../../api'
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{CourseActions, CourseStore} = require '../../flux/course'
 
 TaskStep = require '../task-step'
+TaskEnd = require '../task-step/task-end'
+PracticeEnd = require '../task-step/practice-end'
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
 
+
 module.exports = React.createClass
   displayName: 'ReadingTask'
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getInitialState: ->
     {id} = @props
@@ -21,7 +28,7 @@ module.exports = React.createClass
       currentStep = 0
     else
       # Otherwise, start at the Overview page
-      currentStep = -1
+      currentStep = @getDefaultCurrentStep()
 
     {currentStep}
 
@@ -32,7 +39,10 @@ module.exports = React.createClass
     currentStep = -1
     for step, i in steps
       unless step.is_completed
-        currentStep = i
+        if i is 0
+          currentStep = -1
+        else
+          currentStep = i
         break
 
     currentStep
@@ -46,6 +56,7 @@ module.exports = React.createClass
     model = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
     stepConfig = steps[@state.currentStep]
+    {courseId} = @context.router.getCurrentParams()
 
     allStepsCompleted = true
     for step in steps
@@ -65,15 +76,10 @@ module.exports = React.createClass
 
     else if @state.currentStep is -1
       if allStepsCompleted
-        footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+        End = if model.type is 'practice' then PracticeEnd else TaskEnd
 
-        <div className="task task-completed">
-          {breadcrumbs}
-          <BS.Panel bsStyle="default" footer={footer}>
-            <h1>You Are Done.</h1>
-            <h3>Great Job!</h3>
-          </BS.Panel>
-        </div>
+        <End breadcrumbs={breadcrumbs} courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
+
       else
         footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
         <div className="task">
@@ -95,6 +101,8 @@ module.exports = React.createClass
         />
       </div>
 
+  reloadTask: ->
+    @setState({currentStep: 0})
 
   onStepCompleted: ->
     {id} = @props

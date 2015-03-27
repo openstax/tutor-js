@@ -1,10 +1,11 @@
 _ = require 'underscore'
 flux = require 'flux-react'
 {TaskStepActions, TaskStepStore} = require './task-step'
-{CurrentUserActions, CurrentUserStore} = require './current-user'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 TaskConfig =
+  _steps: {}
+
   _getStep: (taskId, stepId) ->
     task = @_local[taskId]
     step = _.find(task.steps, (s) -> s.id is stepId)
@@ -19,7 +20,13 @@ TaskConfig =
     delete obj.steps
     @_steps[id] = steps
     for step in steps
+      #HACK: set the task_id so we have a link back to the task from the step
+      step.task_id = id
       TaskStepActions.loaded(step, step.id)
+    obj
+
+    # explicit return obj to load onto @_local
+    obj
 
   loadUserTasks: ->
     # Used by API

@@ -47,19 +47,17 @@ CrudConfig = ->
       # HACK When working locally a step completion triggers a reload but the is_completed field on the TaskStep
       # is discarded. so, if is_completed is set on the local object but not on the returned JSON
       # Tack on a dummy correct_answer_id
-      if @_local[id] and obj.HACK_LOCAL_STEP_COMPLETION
+      if @_local[id] and obj.HACK_LOCAL_STEP_COMPLETION and @_local[id].steps
         for step in @_local[id].steps
           # HACK: Tack on a fake correct_answer and feedback to all completed steps that have an exercise but no correct_answer_id
           if step.is_completed and step.content?.questions?[0]?.answers[0]? and not step.correct_answer_id
             step.correct_answer_id = step.content.questions[0].answers[0].id
             step.feedback_html = 'Some <em>FAKE</em> feedback'
 
-      else if obj
-        @_local[id] = obj
-
       if obj
         # If the specific type needs to do something else to the object:
-        @_loaded?(obj, id)
+        @_local[id] = @_loaded?(obj, id) or obj
+
       @emitChange()
 
     save: (id, obj) ->
@@ -70,6 +68,11 @@ CrudConfig = ->
     saved: (result, id) ->
       # id = result.id
       @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
+
+      # If the specific type needs to do something else to the object:
+      obj = @_saved?(result, id)
+      result = obj if obj
+
       if result
         @_local[id] = result
         @_local[result.id] = result
@@ -81,7 +84,6 @@ CrudConfig = ->
       delete @_changed[id]
       delete @_errors[id]
       # If the specific type needs to do something else to the object:
-      @_saved?(result, id)
       @emitChange()
 
     create: (localId, attributes = {}) ->

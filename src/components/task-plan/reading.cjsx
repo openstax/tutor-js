@@ -34,7 +34,7 @@ SectionTopic = React.createClass
 SelectTopics = React.createClass
   mixins: [BS.OverlayMixin]
   getInitialState: ->
-    TocActions.load()
+    TocActions.load() unless TocStore.isLoaded()
     { isModalOpen: false }
 
   componentWillMount:   -> TocStore.addChangeListener(@update)
@@ -116,6 +116,9 @@ SelectTopics = React.createClass
 
 ReadingFooter = React.createClass
 
+  contextTypes:
+    router: React.PropTypes.func
+
   onSave: ->
     {id} = @props
     TaskPlanActions.save(id)
@@ -128,10 +131,14 @@ ReadingFooter = React.createClass
     {id} = @props
     if confirm('Are you sure you want to delete this?')
       TaskPlanActions.delete(id)
-      @transitionTo('dashboard')
+      @context.router.transitionTo('dashboard')
+
+  onViewStats: ->
+    {id, courseId} = @props
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id} = @props
+    {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
     valid = TaskPlanStore.isValid(id)
@@ -139,72 +146,49 @@ ReadingFooter = React.createClass
     saveable = valid and TaskPlanStore.isChanged(id)
     deleteable = not TaskPlanStore.isNew(id)
 
-    classes = []
+    classes = ['-publish']
     classes.push('disabled') unless publishable
     classes = classes.join(' ')
 
     publishButton = <BS.Button bsStyle="link" className={classes} onClick={@onPublish}>Publish</BS.Button>
 
     if deleteable
-      deleteLink = <BS.Button bsStyle="link" onClick={@onDelete}>Delete</BS.Button>
+      deleteLink = <BS.Button bsStyle="link" className="-delete" onClick={@onDelete}>Delete</BS.Button>
 
-    classes = []
+    classes = ['-save']
     classes.push('disabled') unless saveable
     classes = classes.join(' ')
 
     saveLink = <BS.Button bsStyle="primary" className={classes} onClick={@onSave}>Save as Draft</BS.Button>
 
+    statsLink = <BS.Button bsStyle="link" className="-stats" onClick={@onViewStats}>Stats</BS.Button>
+
     <span className="-footer-buttons">
       {saveLink}
       {publishButton}
       {deleteLink}
+      {statsLink}
     </span>
 
 
 
 ReadingPlan = React.createClass
-  mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
-
-  getInitialState: ->
-    {courseId, id} = @getParams()
-    if (id)
-      TaskPlanActions.load(id)
-    else
-      id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id, {_HACK_courseId: courseId})
-    {id}
-
-  getId: -> @getParams().id or @state.id
-  getFlux: ->
-    store: TaskPlanStore
-    actions: TaskPlanActions
-
-  # If, as a result of a save creating a new object (and providing an id)
-  # then transition to editing the object
-  update: ->
-    id = @getId()
-    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
-      {id} = TaskPlanStore.get(id)
-      {courseId} = @getParams()
-      delay => @transitionTo('editReading', {courseId, id})
-    else
-      @setState({})
 
   setOpensAt: (value) ->
-    id = @getId()
+    {id} = @props
     TaskPlanActions.updateOpensAt(id, value)
 
   setDueAt: (value) ->
-    id = @getId()
+    {id} = @props
     TaskPlanActions.updateDueAt(id, value)
 
   setTitle: ->
-    id = @getId()
+    {id} = @props
     value = @refs.title.getDOMNode().value
     TaskPlanActions.updateTitle(id, value)
 
-  renderLoaded: ->
-    id = @getId()
+  render: ->
+    {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
@@ -217,7 +201,7 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer= <ReadingFooter id={id} />
+    footer= <ReadingFooter id={id} courseId={courseId} />
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
@@ -258,4 +242,42 @@ ReadingPlan = React.createClass
       <SelectTopics planId={id} selected={topics}/>
     </BS.Panel>
 
-module.exports = ReadingPlan
+
+ReadingShell = React.createClass
+  mixins: [LoadableMixin, ConfirmLeaveMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  getInitialState: ->
+    {courseId, id} = @context.router.getCurrentParams()
+    if (id)
+      TaskPlanActions.load(id)
+    else
+      id = TaskPlanStore.freshLocalId()
+      TaskPlanActions.create(id, {_HACK_courseId: courseId})
+    {id}
+
+  getId: -> @context.router.getCurrentParams().id or @state.id
+  getFlux: ->
+    store: TaskPlanStore
+    actions: TaskPlanActions
+
+  # If, as a result of a save creating a new object (and providing an id)
+  # then transition to editing the object
+  update: ->
+    id = @getId()
+    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
+      {id} = TaskPlanStore.get(id)
+      {courseId} = @context.router.getCurrentParams()
+      delay => @context.router.transitionTo('editReading', {courseId, id})
+    else
+      @setState({})
+
+  renderLoaded: ->
+    id = @getId()
+    {courseId} = @context.router.getCurrentParams()
+
+    <ReadingPlan id={id} courseId={courseId} />
+
+module.exports = {ReadingShell, ReadingPlan}

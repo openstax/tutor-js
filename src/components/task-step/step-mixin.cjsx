@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{TaskStepStore} = require '../../flux/task-step'
+{TaskActions} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableMixin = require '../loadable-mixin'
 
@@ -14,10 +14,18 @@ module.exports =
     store: TaskStepStore
     actions: TaskStepActions
 
-  renderLoaded: ->
+  renderGenericFooter: ->
     isDisabledClass = 'disabled' unless @isContinueEnabled()
+    continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+    <span>
+      {continueButton}
+    </span>
 
-    footer = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+  renderLoaded: ->
+    if @renderFooterButtons
+      footer = @renderFooterButtons()
+    else
+      footer = @renderGenericFooter()
 
     <BS.Panel bsStyle="default" className="task-step" footer={footer}>
       {@renderBody()}

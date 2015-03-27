@@ -9,6 +9,7 @@
       "is_completed": true,
       "correct_answer_id": "id2",
       "answer_id": "id1",
+      "has_recovery": true,
       "free_response": "four",
       "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
       "content": {
