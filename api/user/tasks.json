@@ -114,6 +114,33 @@
           }
         }
       ]
+    },
+    { "id": 5,
+      "HACK_LOCAL_STEP_COMPLETION": true,
+      "type": "homework",
+      "title": "Chapter 5 and Chapter 6 Homework",
+      "description_html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
+      "due_at": "2015-02-10T00:45:20.967Z",
+      "steps": [
+        { "id": "step-id-5-1",
+          "type": "exercise",
+          "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
+          "content": {
+            "stimulus_html": "Addition is fun",
+            "questions":[
+              {
+                "id": "987",
+                "format": "multiple-choice",
+                "stem_html":"What is <span data-math='2+2'>2+2</span>?",
+                "answers":[
+                  {"id":"id1","content_html":"22"},
+                  {"id":"id2","content_html":"4"}
+                ]
+              }
+            ]
+          }
+        }
+      ]
     }
 
   ]

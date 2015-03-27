@@ -8,8 +8,8 @@ api = require '../../api'
 {CourseActions, CourseStore} = require '../../flux/course'
 
 TaskStep = require '../task-step'
-TaskEnd = require '../task-step/task-end'
-PracticeEnd = require '../task-step/practice-end'
+Ends = require '../task-step/ends'
+
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
 
@@ -76,7 +76,8 @@ module.exports = React.createClass
 
     else if @state.currentStep is -1
       if allStepsCompleted
-        End = if model.type is 'practice' then PracticeEnd else TaskEnd
+        type = if model.type then model.type else 'task'
+        End = Ends[type]
 
         <End breadcrumbs={breadcrumbs} courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
 
