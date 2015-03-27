@@ -2,7 +2,7 @@
 _ = require 'underscore'
 React = require 'react/addons'
 Router = require 'react-router'
-Promise = require('es6-promise').Promise
+{Promise} = require('es6-promise')
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -18,8 +18,6 @@ div = document.createElement('div')
 
 routerHelper = (route) ->
   history = new Router.TestLocation([route])
-
-
   promise = new Promise (resolve, reject) ->
     Router.run routes, history, (Handler, state)->
       router = @
@@ -30,12 +28,12 @@ routerHelper = (route) ->
       )
 
 tasksHelper = (courseId) ->
-  routerHelper('/courses/' + courseId + '/tasks/')
+  routerHelper("/courses/#{courseId}/tasks")
 
 courseHelper = (model, courseId) ->
   # Load practice in CourseStore
   CourseActions.loaded(model, courseId)
-  routerHelper('/courses/' + courseId + '/practice/')
+  routerHelper("/courses/#{courseId}/practice")
 
 
 
@@ -59,6 +57,9 @@ exerciseTestActions =
 describe 'Practice Widget', ->
   beforeEach ->
     CourseActions.reset()
+    TaskActions.reset()
+    TaskStepActions.reset()
+
   afterEach ->
     React.unmountComponentAtNode(div)
 
@@ -130,7 +131,7 @@ describe 'Practice Widget', ->
 
       # Will eventually test based on task type.  Assuming exercise with free
       # response for now.
-      expect(step.freeResponse).to.be.undefined
+      expect(step.free_response).to.be.undefined
       textarea = exerciseTestActions.fillFreeResponse(div)
 
       expect(continueButton.className).to.not.contain('disabled')
@@ -145,4 +146,27 @@ describe 'Practice Widget', ->
       )
 
     courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
+
+
+  # it 'should render ending page', (done) ->
+
+  #   courseId = 1
+
+  #   course = _.clone(VALID_MODEL)
+
+  #   _.each(course.steps, (step) ->
+  #       step.is_completed = true
+  #       step.correct_answer_id = "id2"
+  #       step.answer_id = "id1"
+  #       step.free_response = "four"
+  #   )
+
+  #   tests = ({div, component}) ->
+
+  #     done()
+
+  #   courseHelper(course, courseId).then(tests).catch(done)
+
+  #   done()
+
 
