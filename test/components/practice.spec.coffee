@@ -2,6 +2,7 @@
 _ = require 'underscore'
 React = require 'react/addons'
 Router = require 'react-router'
+Promise = require('es6-promise').Promise
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -13,26 +14,28 @@ Router = require 'react-router'
 VALID_MODEL = require '../../api/courses/1/practice.json'
 
 
+div = document.createElement('div')
 
-routerHelper = (route, tests) ->
+routerHelper = (route) ->
   history = new Router.TestLocation([route])
 
-  div = document.createElement('div')
-  Router.run routes, history, (Handler, state)->
-    router = @
-    React.render(<Handler/>, div, ()->
-      component = @
-      tests?(div, component, state, router, history)
-      React.unmountComponentAtNode(div)
-    )
 
-tasksHelper = (courseId, tests) ->
-  routerHelper('/courses/' + courseId + '/tasks/', tests)
+  promise = new Promise (resolve, reject) ->
+    Router.run routes, history, (Handler, state)->
+      router = @
+      React.render(<Handler/>, div, ()->
+        component = @
+        result = {div, component, state, router, history}
+        resolve(result)
+      )
 
-courseHelper = (model, courseId, tests) ->
+tasksHelper = (courseId) ->
+  routerHelper('/courses/' + courseId + '/tasks/')
+
+courseHelper = (model, courseId) ->
   # Load practice in CourseStore
   CourseActions.loaded(model, courseId)
-  routerHelper('/courses/' + courseId + '/practice/', tests)
+  routerHelper('/courses/' + courseId + '/practice/')
 
 
 
@@ -56,66 +59,67 @@ exerciseTestActions =
 describe 'Practice Widget', ->
   beforeEach ->
     CourseActions.reset()
+  afterEach ->
+    React.unmountComponentAtNode(div)
 
   it 'should load the practice button on the course tasks page', (done) ->
-    tests = (node) ->
-
-      buttons = Array.prototype.slice.call(node.querySelectorAll('button.btn-primary'))
+    tests = ({div}) ->
+      buttons = Array.prototype.slice.call(div.querySelectorAll('button.btn-primary'))
       practiceButton = _.last(buttons)
       expect(practiceButton.innerText).to.equal('Practice')
       done()
 
-    tasksHelper(1, tests)
+    tasksHelper(1).then(tests).catch(done)
 
 
   it 'should load expected practice at the practice url', (done) ->
-    tests = (node) ->
-      expect(node.querySelector('h1')).to.not.be.null
-      expect(node.querySelector('h1').innerText).to.equal(VALID_MODEL.title)
+    tests = ({div}) ->
+      expect(div.querySelector('h1')).to.not.be.null
+      expect(div.querySelector('h1').innerText).to.equal(VALID_MODEL.title)
       done()
 
-    courseHelper(VALID_MODEL, 1, tests)
+    courseHelper(VALID_MODEL, 1).then(tests).catch(done)
 
 
-  it 'should load allow students to continue exercises', (done) ->
-    tests = (node) ->
-      continueButton = node.querySelector('button.btn-primary')
-      introScreenText = node.innerText
+  it 'should allow students to continue exercises', (done) ->
+    tests = ({div}) ->
+      continueButton = div.querySelector('button.btn-primary')
+      introScreenText = div.innerText
 
       expect(continueButton).to.not.be.null
       expect(continueButton.innerText).to.equal('Continue')
 
       React.addons.TestUtils.Simulate.click(continueButton);
 
-      expect(node.innerText).to.not.be.equal(introScreenText)
+      expect(div.innerText).to.not.be.equal(introScreenText)
 
       done()
 
-    courseHelper(VALID_MODEL, 1, tests)
+    courseHelper(VALID_MODEL, 1).then(tests).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
-    tests = (node) ->
-      introScreenText = node.innerText
+    tests = ({div}) ->
+      introScreenText = div.innerText
 
-      exerciseTestActions.clickContinueButton(node)
+      exerciseTestActions.clickContinueButton(div)
 
-      expect(node.innerText).to.not.be.equal(introScreenText)
+      expect(div.innerText).to.not.be.equal(introScreenText)
 
       done()
 
-    courseHelper(VALID_MODEL, 1, tests)
+    courseHelper(VALID_MODEL, 1).then(tests).catch(done)
 
 
   it 'should render multiple choice after free response', (done) ->
 
     courseId = 1
 
-    tests = (node, component) ->
+    tests = ({div, component}) ->
 
-      continueButton = exerciseTestActions.clickContinueButton(node)
+      continueButton = exerciseTestActions.clickContinueButton(div)
 
-      expect(node.querySelector('.answers-table')).to.be.null
+      expect(div.querySelector('.answers-table')).to.be.null
       expect(continueButton.className).to.contain('disabled')
       steps = TaskStore.getSteps(CourseStore.getPracticeId(courseId))
 
@@ -127,7 +131,7 @@ describe 'Practice Widget', ->
       # Will eventually test based on task type.  Assuming exercise with free
       # response for now.
       expect(step.freeResponse).to.be.undefined
-      textarea = exerciseTestActions.fillFreeResponse(node)
+      textarea = exerciseTestActions.fillFreeResponse(div)
 
       expect(continueButton.className).to.not.contain('disabled')
       React.addons.TestUtils.Simulate.click(continueButton)
@@ -136,10 +140,9 @@ describe 'Practice Widget', ->
       expect(step.free_response).to.equal(textarea.value)
 
       component.forceUpdate( ->
-        expect(node.querySelector('.answers-table')).to.not.be.null
+        expect(div.querySelector('.answers-table')).to.not.be.null
         done()
       )
 
-
-    courseHelper(VALID_MODEL, courseId, tests)
+    courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
 
