@@ -11,9 +11,12 @@ module.exports = React.createClass
     classes = classes.join(' ')
 
     if @props.block
-      <div className={classes} dangerouslySetInnerHTML={__html:@props.html} />
+      <div className={classes} dangerouslySetInnerHTML={@getHTMLFromProp()} />
     else
-      <span className={classes} dangerouslySetInnerHTML={__html:@props.html} />
+      <span className={classes} dangerouslySetInnerHTML={@getHTMLFromProp()} />
+
+  getHTMLFromProp: ()->
+      __html:@props.html if @props.html
 
   componentDidMount: ->
     # External links should open in a new window

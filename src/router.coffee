@@ -37,4 +37,4 @@ start = (mountPoint) ->
   router.run (Handler) ->
     React.render(<Handler/>, mountPoint)
 
-module.exports = {start, router}
+module.exports = {start, router, routes}
