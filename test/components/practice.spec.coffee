@@ -65,9 +65,7 @@ describe 'Practice Widget', ->
 
   it 'should load the practice button on the course tasks page', (done) ->
     tests = ({div}) ->
-      buttons = Array.prototype.slice.call(div.querySelectorAll('button.btn-primary'))
-      practiceButton = _.last(buttons)
-      expect(practiceButton.innerText).to.equal('Practice')
+      expect(div.querySelector('.-practice')).to.not.be.null
       done()
 
     tasksHelper(1).then(tests).catch(done)
