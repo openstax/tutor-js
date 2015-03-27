@@ -21,7 +21,7 @@ routerHelper = (route) ->
   promise = new Promise (resolve, reject) ->
     Router.run routes, history, (Handler, state)->
       router = @
-      React.render(<Handler/>, div, ()->
+      React.render(<Handler/>, div, ->
         component = @
         result = {div, component, state, router, history}
         resolve(result)
@@ -122,11 +122,13 @@ describe 'Practice Widget', ->
       expect(continueButton.className).to.contain('disabled')
       steps = TaskStore.getSteps(CourseStore.getPracticeId(courseId))
 
+      # TODO
       # not ideal.  wanted to find the step id off of the component's children
       # but that is a pain in the butt right now.
       stepId = steps[0].id
       step = TaskStepStore.get(stepId)
 
+      # TODO
       # Will eventually test based on task type.  Assuming exercise with free
       # response for now.
       expect(step.free_response).to.be.undefined
@@ -144,27 +146,4 @@ describe 'Practice Widget', ->
       )
 
     courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
-
-
-  # it 'should render ending page', (done) ->
-
-  #   courseId = 1
-
-  #   course = _.clone(VALID_MODEL)
-
-  #   _.each(course.steps, (step) ->
-  #       step.is_completed = true
-  #       step.correct_answer_id = "id2"
-  #       step.answer_id = "id1"
-  #       step.free_response = "four"
-  #   )
-
-  #   tests = ({div, component}) ->
-
-  #     done()
-
-  #   courseHelper(course, courseId).then(tests).catch(done)
-
-  #   done()
-
 
