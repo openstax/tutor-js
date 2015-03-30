@@ -81,7 +81,7 @@ module.exports = React.createClass
         <End breadcrumbs={breadcrumbs} courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
 
       else
-        footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
+        footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
         <div className="task">
           {breadcrumbs}
           <BS.Panel bsStyle="default" footer={footer}>
