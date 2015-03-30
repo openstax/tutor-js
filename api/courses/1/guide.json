@@ -1,0 +1,17 @@
+{
+  "title": "Physics",
+  "fields": [
+    {
+      "id": 123,
+      "title": "Kinematics",
+      "number": "5",
+      "questions_answered_count": 48,
+      "current_level": 0.5,
+      "page_ids": [
+        234,
+        345
+      ],
+      "practice_count": 12
+    }
+  ]
+}

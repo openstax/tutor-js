@@ -14,6 +14,16 @@ CourseConfig =
   createdPractice: (obj, courseId) ->
     @_loadedPractice(obj, courseId) # TODO: Maybe this should emit practice.created
 
+  _guides: {}
+
+  loadGuide: (courseId) ->
+    delete @_guides[courseId]
+    @emitChange()
+
+  loadedGuide: (obj, courseId) ->
+    @_guides[courseId]
+    @emitChange()
+
   _loadedPractice: (obj, courseId) ->
     obj.type ?= 'practice' # Used to filter out the practice task from the student list
     @_practices[courseId] = obj
@@ -27,6 +37,11 @@ CourseConfig =
 
 
   exports:
+    getGuide: (courseId) ->
+      @_guides[courseId] or throw new Error('BUG: Not loaded yet')
+
+    isGuideLoaded: (courseId) -> !! @_guides[courseId]
+
     getPracticeId: (courseId) ->
       @_practices[courseId]?.id
 
