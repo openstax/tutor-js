@@ -139,8 +139,8 @@ start = ->
     payload: {answer_id}
 
 
-  TaskActions.loadUserTasks.addListener 'trigger', ->
-    url = '/api/user/tasks'
+  TaskActions.loadUserTasks.addListener 'trigger', (courseId) ->
+    url = "/api/courses/#{courseId}/tasks"
     url = "#{url}.json" if IS_LOCAL
     opts =
       dataType: 'json'
