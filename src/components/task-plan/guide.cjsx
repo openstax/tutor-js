@@ -6,7 +6,7 @@ Router = require 'react-router'
 {CourseStore, CourseActions} = require '../../flux/course'
 LoadableMixin = require '../loadable-mixin'
 
-Guide = React.createClass
+GuideShell = React.createClass
   mixins: [LoadableMixin]
 
   contextTypes:
@@ -45,4 +45,4 @@ Guide = React.createClass
       CourseActions.loadGuide(id)
       <div className="-loading -guide">Loading Guide</div>
 
-module.exports = Guide
+module.exports = {GuideShell}
