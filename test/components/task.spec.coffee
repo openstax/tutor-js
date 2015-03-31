@@ -9,8 +9,10 @@ _ = require 'underscore'
 
 {SinglePractice, Tasks} = require '../../src/components'
 
-VALID_MODEL = require '../../api/tasks/4.json'
+courseId = 1
+taskId = 4
 
+VALID_MODEL = require '../../api/tasks/4.json'
 
 tasksHelper = (model, taskId, courseId) ->
 
@@ -32,7 +34,7 @@ describe 'Task Widget', ->
       taskTests.allowContinueFromIntro(result)
       done()
 
-    tasksHelper(VALID_MODEL, 4, 1).then(tests).catch(done)
+    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
@@ -40,15 +42,51 @@ describe 'Task Widget', ->
       taskTests.rendersNextStepOnContinue(result)
       done()
 
-    tasksHelper(VALID_MODEL, 4, 1).then(tests).catch(done)
+    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+
+
+  it 'should render empty free response for unanswered exercise', (done)->
+    tests = (result) ->
+      steps = TaskStore.getSteps(taskId)
+      taskTests.renderFreeResponse(result, steps).then(done)
+
+    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+
+
+  it 'should update store when free response is submitted', (done) ->
+    tests = (result) ->
+      steps = TaskStore.getSteps(taskId)
+      taskTests.submitFreeResponse(result, steps).then(done)
+
+    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+
 
   it 'should render multiple choice after free response', (done) ->
-
-    courseId = 1
-    taskId = 4
-
     tests = (result) ->
       steps = TaskStore.getSteps(taskId)
       taskTests.renderMultipleChoiceAfterFreeResponse(result, steps).then(done)
 
     tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+
+
+  it 'should update store when multiple choice answer is chosen', (done) ->
+    tests = (result) ->
+      steps = TaskStore.getSteps(taskId)
+      taskTests.answerMultipleChoice(result, steps).then(done)
+
+    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+
+
+  it 'should render an answer and feedback html for an answered question', (done) ->
+    tests = (result) ->
+      steps = TaskStore.getSteps(taskId)
+      taskTests.answerMultipleChoice(result, steps).then(done)
+
+    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+
+
+  # # TODO write these
+  # it 'should render next question on continue after answered', ->
+  # it 'should render the correct end panel based on task type', ->
+
+
