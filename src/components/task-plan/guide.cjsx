@@ -20,15 +20,18 @@ GuideShell = React.createClass
     {courseId} = @context.router.getCurrentParams()
     courseId
 
-  renderCrudeTable: (data) ->
-    <div className="-course-guide-table">
-      <div className="-course-guide-heading">
-        guide table
-      </div>
-      <BS.Table className="-reading-progress-group">
-        <thead>test</thead>
-      </BS.Table>
-    </div>
+  renderCrudeTable: (data,i) ->
+
+    <tr>
+      <td>{data.id}</td>
+      <td>{data.title}</td>
+      <td>{data.unit}</td>
+      <td>{data.questions_answered_count}</td>
+      <td>{data.current_level}</td>
+      <td className="-course-guide-table-pageids">{data.page_ids}</td>
+      <td>{data.practice_count}</td>
+    </tr>
+        
 
   renderLoaded: ->
     id = @getId()
@@ -38,7 +41,27 @@ GuideShell = React.createClass
       table = _.map(guide.fields, @renderCrudeTable)
 
       <BS.Panel className="-course-guide-container">
-        here it is: {table}
+        <div className="-course-guide-table">
+          <div className="-course-guide-heading">
+            <h2>guide data crude table</h2>
+          </div>
+            <BS.Table className="-reading-progress-group">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>title</th>
+                  <th>unit</th>
+                  <th>questions_answered_count</th>
+                  <th>current_level</th>
+                  <th>page_ids</th>
+                  <th>practice_count</th>
+                </tr>
+              </thead>
+              <tbody>
+                {table}
+              </tbody>
+            </BS.Table>
+          </div>
       </BS.Panel>
 
     else
