@@ -21,11 +21,11 @@ Guide = React.createClass
     courseId
 
   renderCrudeTable: (data) ->
-    <div className="course-guide-table">
-      <div className="course-guide-heading">
+    <div className="-course-guide-table">
+      <div className="-course-guide-heading">
         guide table
       </div>
-      <BS.Table className="reading-progress-group">
+      <BS.Table className="-reading-progress-group">
         <thead>test</thead>
       </BS.Table>
     </div>
@@ -37,7 +37,7 @@ Guide = React.createClass
       guide = CourseStore.getGuide(id)
       table = _.map(guide.fields, @renderCrudeTable)
 
-      <BS.Panel className="course-guide-container">
+      <BS.Panel className="-course-guide-container">
         here it is: {table}
       </BS.Panel>
 
