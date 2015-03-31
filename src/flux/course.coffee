@@ -21,7 +21,7 @@ CourseConfig =
     @emitChange()
 
   loadedGuide: (obj, courseId) ->
-    @_guides[courseId]
+    @_guides[courseId] = obj
     @emitChange()
 
   _loadedPractice: (obj, courseId) ->

@@ -16,8 +16,9 @@ Guide = React.createClass
     store: CourseStore
     actions: CourseActions
 
-  getId: -> @context.router.getCurrentParams().id
-
+  getId: ->
+    {courseId} = @context.router.getCurrentParams()
+    courseId
 
   renderCrudeTable: (data) ->
     <div className="course-guide-table">
@@ -29,25 +30,19 @@ Guide = React.createClass
       </BS.Table>
     </div>
 
-
-
   renderLoaded: ->
-
     id = @getId()
 
-
-
     if CourseStore.isGuideLoaded(id)
+      guide = CourseStore.getGuide(id)
+      table = _.map(guide.fields, @renderCrudeTable)
 
-      plan = CourseActions.loadGuide(id)
-      console.log(plan)
-      
-      table = _.map(plan.fields, @renderCrudeTable)
+      <BS.Panel className="course-guide-container">
+        here it is: {table}
+      </BS.Panel>
 
-    <BS.Panel className="course-guide-container">
-      here it is: {table}
-    </BS.Panel>
-
-
+    else
+      CourseActions.loadGuide(id)
+      <div className="-loading -guide">Loading Guide</div>
 
 module.exports = Guide
