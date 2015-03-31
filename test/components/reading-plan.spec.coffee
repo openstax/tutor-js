@@ -17,12 +17,15 @@ TEST_TOC = [
   }
 ]
 
+tomorrow = Date.now() + 1000*3600*24
+dayAfter = tomorrow + 1000*3600*24
+
 VALID_MODEL =
   type: 'reading'
   id: 111
   title: 'Test Title'
-  opens_at: '2015-03-19'
-  due_at: '2015-03-20'
+  opens_at: (new Date(tomorrow)).toString()
+  due_at:  (new Date(dayAfter)).toString()
   settings:
     page_ids: [1]
 
@@ -73,6 +76,18 @@ describe 'Reading Plan', ->
     model =
       type: 'reading'
       id: id
+
+    TaskPlanActions.created(model, id)
+    node = helper(model, true)
+    expect(node.querySelector('.-delete')).to.be.null
+
+  it 'should not allow delete when plan has opened already', ->
+    id = TaskPlanStore.freshLocalId()
+    yesterday = Date.now() - 3600*1000*24
+    model =
+      type: 'reading'
+      id: id
+      opens_at: (new Date(yesterday)).toString()
 
     TaskPlanActions.created(model, id)
     node = helper(model, true)

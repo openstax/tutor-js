@@ -144,7 +144,7 @@ ReadingFooter = React.createClass
     valid = TaskPlanStore.isValid(id)
     publishable = valid and not TaskPlanStore.isChanged(id)
     saveable = valid and TaskPlanStore.isChanged(id)
-    deleteable = not TaskPlanStore.isNew(id)
+    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.hasOpened(id)
 
     classes = ['-publish']
     classes.push('disabled') unless publishable
