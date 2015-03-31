@@ -15,9 +15,6 @@ _ = require 'underscore'
 {TocActions} = require './flux/toc'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 
-# HACK: until we get a course listing page
-courseId = 1
-
 # Do some special things when running without a tutor-server backend.
 #
 # - suffix calls with `.json` so we can have `/plans` and `/plans/1`
@@ -109,10 +106,10 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"
 
-  apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
+  apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/readings"
 
-  apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', () ->
+  apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/practice"
 
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local

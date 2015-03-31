@@ -14,9 +14,6 @@ PracticeButton = require './practice-button'
 {CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
 
 
-# Hack until we have the course listing page
-courseId = 1
-
 # React swallows thrown errors so log them first
 err = (msgs...) ->
   console.error(msgs...)
@@ -113,7 +110,7 @@ TaskResult = React.createClass
     router: React.PropTypes.func
 
   render: ->
-    {id} = @props
+    {courseId, id} = @props
     task = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
 
@@ -135,7 +132,7 @@ TaskResult = React.createClass
     </BS.Panel>
 
   onClick: ->
-    {id} = @props
+    {courseId, id} = @props
     @context.router.transitionTo('viewTask', {courseId, id})
 
 
@@ -154,7 +151,7 @@ Tasks = React.createClass
         tasks = for task in allTasks
           if not task or task.type is "practice"
             continue
-          <TaskResult id={task.id} />
+          <TaskResult id={task.id} courseId={courseId} />
 
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
