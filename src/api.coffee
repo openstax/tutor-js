@@ -42,6 +42,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       if payload?
         opts.data = JSON.stringify(payload)
         opts.processData = false
+        # For now, the backend is expecting JSON and cannot accept url-encoded forms
+        opts.contentType = 'application/json'
 
       url = "#{url}.json" if IS_LOCAL
 
