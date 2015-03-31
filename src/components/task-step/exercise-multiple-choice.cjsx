@@ -110,8 +110,10 @@ ExerciseReview = React.createClass
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   renderFooterButtons: ->
-    isDisabledClass = 'disabled' unless @isContinueEnabled()
-    continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+    # TODO switch to using React.addons.classSet for classname
+    buttonClasses = '-continue'
+    buttonClasses += 'disabled' unless @isContinueEnabled()
+    continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
     tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @canTryAnother()
     <span>
       {tryAnotherButton}

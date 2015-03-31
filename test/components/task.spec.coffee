@@ -42,22 +42,13 @@ describe 'Task Widget', ->
 
     tasksHelper(VALID_MODEL, 4, 1).then(tests).catch(done)
 
-# TODO valid model currently has a partially answered question so this test fails.
-# Do something about that for this test.
+  it 'should render multiple choice after free response', (done) ->
 
-  # it 'should render multiple choice after free response', (done) ->
+    courseId = 1
+    taskId = 4
 
-  #   courseId = 1
-  #   taskId = 4
+    tests = (result) ->
+      steps = TaskStore.getSteps(taskId)
+      taskTests.renderMultipleChoiceAfterFreeResponse(result, steps).then(done)
 
-  #   tests = (result) ->
-  #     steps = TaskStore.getSteps(taskId)
-
-  #     # TODO
-  #     # not ideal.  wanted to find the step id off of the component's children
-  #     # but that is a pain in the butt right now.
-  #     stepId = steps[0].id
-
-  #     taskTests.renderMultipleChoiceAfterFreeResponse(result, stepId).then(done)
-
-  #   tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)

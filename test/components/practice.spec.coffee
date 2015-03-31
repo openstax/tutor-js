@@ -69,13 +69,7 @@ describe 'Practice Widget', ->
 
     tests = (result) ->
       steps = TaskStore.getSteps(CourseStore.getPracticeId(courseId))
-
-      # TODO
-      # not ideal.  wanted to find the step id off of the component's children
-      # but that is a pain in the butt right now.
-      stepId = steps[0].id
-
-      taskTests.renderMultipleChoiceAfterFreeResponse(result, stepId).then(done)
+      taskTests.renderMultipleChoiceAfterFreeResponse(result, steps).then(done)
 
     courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
 
