@@ -1,5 +1,6 @@
 # @cjsx React.DOM
 
+_ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
@@ -10,10 +11,8 @@ LoadableMixin = require './loadable-mixin'
 PracticeButton = require './practice-button'
 {TaskActions, TaskStore} = require '../flux/task'
 {CourseActions, CourseStore} = require '../flux/course'
+{CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
 
-
-# Hack until we have the course listing page
-courseId = 1
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -23,51 +22,95 @@ err = (msgs...) ->
 
 
 Dashboard = React.createClass
+  componentWillMount: -> CurrentUserStore.addChangeListener(@update)
+  componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
+
+  update: -> @setState({})
   render: ->
-    <div className="-dashboard">
-      <p>Dashboard!</p>
-      <div className="-student">
-        <p>Student:</p>
-        <Router.Link className="btn btn-primary" to="listTasks" params={{courseId}}>Task List</Router.Link>
-      </div>
-      <div className="-teacher">
-        <p>Teacher:</p>
-        <Router.Link className="btn btn-primary" to="taskplans" params={{courseId}}>Plan List</Router.Link>
-      </div>
-    </div>
+    if CurrentUserStore.isCoursesLoaded()
+      courses = CurrentUserStore.getCourses()
+      if courses.length
+        courses = _.map courses, (course) ->
+          {id:courseId, name, roles} = course
+
+          isStudent = _.find roles, (role) -> role.type is 'student'
+          isTeacher = _.find roles, (role) -> role.type is 'teacher'
+          footer = []
+          if isStudent or not isTeacher # HACK since a student does not currently have a role
+            footer.push(<Router.Link className="btn btn-link -student" to="listTasks" params={{courseId}}>Task List (Student)</Router.Link>)
+
+          if isTeacher
+            footer.push(<Router.Link className="btn btn-link -teacher" to="taskplans" params={{courseId}}>Plan List (Teacher)</Router.Link>)
+
+          footer = <span className="-footer-buttons">{footer}</span>
+
+          <BS.Panel header={name} footer={footer} bsStyle="primary">
+            <h1>Course: "{name}" Dashboard!</h1>
+          </BS.Panel>
+
+        return <div className="-course-list">{courses}</div>
+      else
+        return <div className="-course-list-empty">No Courses</div>
+
+    else
+      CurrentUserActions.loadAllCourses()
+
+      <div className="-loading">Loading?</div>
 
 
 SingleTask = React.createClass
-  mixins: [Router.State, LoadableMixin]
+  mixins: [LoadableMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getFlux: ->
     store: TaskStore
     actions: TaskActions
 
   renderLoaded: ->
-    {id} = @getParams()
-    @transferPropsTo(<Task key={id} id={id} />)
+    {id} = @context.router.getCurrentParams()
+    <Task key={id} id={id} />
 
 
 SinglePractice = React.createClass
-  mixins: [Router.State, LoadableMixin]
+  mixins: [LoadableMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  componentWillMount: ->
+    CourseStore.on('practice.loaded', @update)
+
+  componentWillUnmount: ->
+    CourseStore.off('practice.loaded', @update)
+
+  getInitialState: ->
+      taskId: CourseStore.getPracticeId(@getId())
 
   getFlux: ->
     store: CourseStore
     actions: CourseActions
 
   getId: ->
-    @getParams().courseId
+    {courseId} = @context.router.getCurrentParams()
+    courseId
+
+  update: ->
+    @setState({
+      taskId:  CourseStore.getPracticeId(@getId())
+    })
 
   renderLoaded: ->
-    taskId = CourseStore.getPracticeId(@getId())
-    @transferPropsTo(<Task key={taskId} id={taskId} />)
+    <Task key={@state.taskId} id={@state.taskId} />
 
 
 TaskResult = React.createClass
-  mixins: [Router.Navigation]
+  contextTypes:
+    router: React.PropTypes.func
+
   render: ->
-    {id} = @props
+    {courseId, id} = @props
     task = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
 
@@ -89,21 +132,14 @@ TaskResult = React.createClass
     </BS.Panel>
 
   onClick: ->
-    {id} = @props
-    @transitionTo('viewTask', {courseId, id})
+    {courseId, id} = @props
+    @context.router.transitionTo('viewTask', {courseId, id})
 
 
 Tasks = React.createClass
 
-  componentWillMount: ->
-    TaskActions.loadUserTasks()
-    TaskStore.addChangeListener(@update)
-
-  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
-
-  update: -> @setState({})
-
   render: ->
+    {courseId} = @props
     allTasks = TaskStore.getAll()
     if allTasks
       if allTasks.length is 0
@@ -115,7 +151,7 @@ Tasks = React.createClass
         tasks = for task in allTasks
           if not task or task.type is "practice"
             continue
-          <TaskResult id={task.id} />
+          <TaskResult id={task.id} courseId={courseId} />
 
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
@@ -129,6 +165,22 @@ Tasks = React.createClass
     # else
     #   <div>Loading...</div>
 
+TasksShell = React.createClass
+  contextTypes:
+    router: React.PropTypes.func
+
+  componentWillMount: ->
+    {courseId} = @context.router.getCurrentParams()
+    TaskActions.loadUserTasks(courseId)
+    TaskStore.addChangeListener(@update)
+
+  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
+
+  update: -> @setState({})
+
+  render: ->
+    {courseId} = @context.router.getCurrentParams()
+    <Tasks courseId={courseId} />
 
 Invalid = React.createClass
   render: ->
@@ -137,4 +189,4 @@ Invalid = React.createClass
       <Router.Link to="dashboard">Home</Router.Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, SingleTask, SinglePractice, Invalid}
+module.exports = {App, Dashboard, Tasks, TasksShell, SingleTask, SinglePractice, Invalid}

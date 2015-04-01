@@ -34,7 +34,8 @@ SectionTopic = React.createClass
 SelectTopics = React.createClass
   mixins: [BS.OverlayMixin]
   getInitialState: ->
-    TocActions.load() unless TocStore.isLoaded()
+    {courseId} = @props
+    TocActions.load(courseId) unless TocStore.isLoaded()
     { isModalOpen: false }
 
   componentWillMount:   -> TocStore.addChangeListener(@update)
@@ -116,6 +117,9 @@ SelectTopics = React.createClass
 
 ReadingFooter = React.createClass
 
+  contextTypes:
+    router: React.PropTypes.func
+
   onSave: ->
     {id} = @props
     TaskPlanActions.save(id)
@@ -128,10 +132,14 @@ ReadingFooter = React.createClass
     {id} = @props
     if confirm('Are you sure you want to delete this?')
       TaskPlanActions.delete(id)
-      @transitionTo('dashboard')
+      @context.router.transitionTo('dashboard')
+
+  onViewStats: ->
+    {id, courseId} = @props
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id} = @props
+    {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
     valid = TaskPlanStore.isValid(id)
@@ -154,10 +162,13 @@ ReadingFooter = React.createClass
 
     saveLink = <BS.Button bsStyle="primary" className={classes} onClick={@onSave}>Save as Draft</BS.Button>
 
+    statsLink = <BS.Button bsStyle="link" className="-stats" onClick={@onViewStats}>Stats</BS.Button>
+
     <span className="-footer-buttons">
       {saveLink}
       {publishButton}
       {deleteLink}
+      {statsLink}
     </span>
 
 
@@ -178,7 +189,7 @@ ReadingPlan = React.createClass
     TaskPlanActions.updateTitle(id, value)
 
   render: ->
-    {id} = @props
+    {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
@@ -191,7 +202,7 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer= <ReadingFooter id={id} />
+    footer= <ReadingFooter id={id} courseId={courseId} />
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>
@@ -229,15 +240,18 @@ ReadingPlan = React.createClass
           min={opensAt}
           value={dueAt}/>
       </div>
-      <SelectTopics planId={id} selected={topics}/>
+      <SelectTopics courseId={courseId} planId={id} selected={topics}/>
     </BS.Panel>
 
 
 ReadingShell = React.createClass
-  mixins: [Router.State, Router.Navigation, LoadableMixin, ConfirmLeaveMixin]
+  mixins: [LoadableMixin, ConfirmLeaveMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getInitialState: ->
-    {courseId, id} = @getParams()
+    {courseId, id} = @context.router.getCurrentParams()
     if (id)
       TaskPlanActions.load(id)
     else
@@ -245,7 +259,7 @@ ReadingShell = React.createClass
       TaskPlanActions.create(id, {_HACK_courseId: courseId})
     {id}
 
-  getId: -> @getParams().id or @state.id
+  getId: -> @context.router.getCurrentParams().id or @state.id
   getFlux: ->
     store: TaskPlanStore
     actions: TaskPlanActions
@@ -256,13 +270,15 @@ ReadingShell = React.createClass
     id = @getId()
     if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
       {id} = TaskPlanStore.get(id)
-      {courseId} = @getParams()
-      delay => @transitionTo('editReading', {courseId, id})
+      {courseId} = @context.router.getCurrentParams()
+      delay => @context.router.transitionTo('editReading', {courseId, id})
     else
       @setState({})
 
   renderLoaded: ->
     id = @getId()
-    <ReadingPlan id={id} />
+    {courseId} = @context.router.getCurrentParams()
+
+    <ReadingPlan id={id} courseId={courseId} />
 
 module.exports = {ReadingShell, ReadingPlan}
