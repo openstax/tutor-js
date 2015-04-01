@@ -38,7 +38,7 @@ module.exports = React.createClass
     # Determine the first uncompleted step
     currentStep = -1
     for step, i in steps
-      unless step.is_completed
+      unless step?.is_completed
         if i is 0
           currentStep = -1
         else
@@ -60,7 +60,7 @@ module.exports = React.createClass
 
     allStepsCompleted = true
     for step in steps
-      unless step.is_completed
+      unless step?.is_completed
         allStepsCompleted = false
 
     if steps.length > 1

@@ -77,12 +77,12 @@ describe 'Task Widget', ->
     tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
 
-  it 'should render an answer and feedback html for an answered question', (done) ->
-    tests = (result) ->
-      steps = TaskStore.getSteps(taskId)
-      taskTests.answerMultipleChoice(result, steps).then(done)
+  # it 'should render an answer and feedback html for an answered question', (done) ->
+  #   tests = (result) ->
+  #     steps = TaskStore.getSteps(taskId)
+  #     taskTests.answerMultipleChoice(result, steps).then(done)
 
-    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+  #   tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
 
   # # TODO write these

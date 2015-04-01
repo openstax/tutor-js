@@ -1,4 +1,6 @@
 {expect} = require 'chai'
+_ = require 'underscore'
+
 React = require 'react/addons'
 Router = require 'react-router'
 {Promise} = require 'es6-promise'
@@ -45,16 +47,22 @@ routerStub =
     promise
 
 taskTestActions = 
-  fillFreeResponse: (node, response) ->
-    response ?= 'Test Response'
+  fillFreeResponse: (node, component,response) ->
+    promise = new Promise (resolve, reject) ->
+      try
+        response ?= 'Test Response'
 
-    textarea = node.querySelector('textarea')
-    textarea.value = response
-    React.addons.TestUtils.Simulate.focus(textarea)
-    React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
-    React.addons.TestUtils.Simulate.change(textarea)
+        textarea = node.querySelector('textarea')
+        textarea.value = response
+        React.addons.TestUtils.Simulate.focus(textarea)
+        React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
+        React.addons.TestUtils.Simulate.change(textarea)
 
-    textarea
+        routerStub.forceUpdate(component).then( ->
+          resolve(textarea)
+        )
+      catch error
+        reject(error)
 
   clickButton: (node, selector) ->
     selector ?= 'button.btn-primary'
@@ -94,15 +102,20 @@ taskTests =
     if steps[stepIter].is_completed
       taskTestActions.clickButton(div, '.-continue')
 
-      return routerStub.forceUpdate(component).then( ->
-        # new question has been loaded
-        stepIter = stepIter + 1
-        stepId = steps[stepIter].id
-        return taskTests._promisedStep({div, component, state, router, history}, stepId, checkStep)
+      stepIter = stepIter + 1
+      stepId = steps[stepIter].id
+      return taskTests._promisedStep({div, component, state, router, history}, stepId, checkStep)
 
-        # need to explict return, es6-promise can only accept certain results
-        # return null
-      )
+
+      # return routerStub.forceUpdate(component).then( ->
+      #   # new question has been loaded
+      #   stepIter = stepIter + 1
+      #   stepId = steps[stepIter].id
+      #   return taskTests._promisedStep({div, component, state, router, history}, stepId, checkStep)
+
+      #   # need to explict return, es6-promise can only accept certain results
+      #   # return null
+      # )
 
     stepId = steps[stepIter].id
     taskTests._promisedStep({div, component, state, router, history}, stepId, checkStep)
@@ -138,47 +151,41 @@ taskTests =
 
   checkForAnsweredFreeResponse: ({div, component, state, router, history}, stepId) ->
     continueButton = div.querySelector('.-continue')
-    textarea = taskTestActions.fillFreeResponse(div)
+    taskTestActions.fillFreeResponse(div, component).then((textarea)->
+      expect(continueButton.className).to.not.contain('disabled')
 
-    expect(continueButton.className).to.not.contain('disabled')
-    taskTestActions.click(continueButton)
+      taskTestActions.click(continueButton)
 
-    step = TaskStepStore.get(stepId)
-    expect(step.free_response).to.equal(textarea.value)
+      step = TaskStepStore.get(stepId)
+      expect(step.free_response).to.equal(textarea.value)
+      TaskStepActions.loaded(step, stepId)
+    )
 
   checkForEmptyMultipleChoice: ({div, component, state, router, history}, stepId) ->
     continueButton = div.querySelector('.-continue')
-    textarea = taskTestActions.fillFreeResponse(div)
-    taskTestActions.click(continueButton)
 
-    routerStub.forceUpdate(component).then( ->
+    taskTestActions.fillFreeResponse(div, component).then((textarea)->
+      taskTestActions.click(continueButton)
       expect(div.querySelector('.answers-table')).to.not.be.null
       expect(div.querySelector('.answer-checked')).to.be.null
-
-      # need to explict return, es6-promise can only accept certain results
-      return null
     )
 
   checkForAnsweredMultipleChoice: ({div, component, state, router, history}, stepId) ->
     continueButton = div.querySelector('.-continue')
-    textarea = taskTestActions.fillFreeResponse(div)
-    taskTestActions.click(continueButton)
+    taskTestActions.fillFreeResponse(div, component).then((textarea)->
 
-    routerStub.forceUpdate(component).then( ->
+      taskTestActions.click(continueButton)
       answer = step.content.questions[0].answers[0]
       React.addons.TestUtils.Simulate.change(div.querySelector('.question'), answer)
 
       step = TaskStepStore.get(stepId)
       expect(step.answer_id).to.not.be.null
       expect(step.answer_id).to.equal(answer.id)
-
-      # need to explict return, es6-promise can only accept certain results
-      return null
     )
 
   checkForSubmittedMultipleChoice: ({div, component, state, router, history}, stepId) ->
     continueButton = div.querySelector('.-continue')
-    textarea = taskTestActions.fillFreeResponse(div)
+    textarea = taskTestActions.fillFreeResponse(div, component)
     taskTestActions.click(continueButton)
 
     routerStub.forceUpdate(component).then( ->

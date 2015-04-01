@@ -24,6 +24,8 @@ module.exports = React.createClass
 
     stepButtons = for step, i in steps
 
+      continue unless step
+
       bsStyle = null
       classes = ['step']
       classes.push(step.type)
