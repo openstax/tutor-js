@@ -28,7 +28,7 @@ TaskConfig =
     # explicit return obj to load onto @_local
     obj
 
-  loadUserTasks: ->
+  loadUserTasks: (courseId) ->
     # Used by API
   loadedUserTasks: (tasks) ->
     # Used by API
