@@ -1,4 +1,4 @@
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
@@ -22,30 +22,13 @@ module.exports = React.createClass
 
   getInitialState: ->
     {id} = @props
-    steps = TaskStore.getSteps(id)
-    if steps.length is 1
-      # For non-reading tasks that are simple (1 step) just skip the overview page
-      currentStep = 0
-    else
-      # Otherwise, start at the Overview page
-      currentStep = @getDefaultCurrentStep()
+    currentStep = TaskStore.getDefaultStepIndex(id)
 
     {currentStep}
 
   getDefaultCurrentStep: ->
     {id} = @props
-    steps = TaskStore.getSteps(id)
-    # Determine the first uncompleted step
-    currentStep = -1
-    for step, i in steps
-      unless step?.is_completed
-        if i is 0
-          currentStep = -1
-        else
-          currentStep = i
-        break
-
-    currentStep
+    TaskStore.getCurrentStepIndex(id)
 
   goToStep: (num) -> () =>
     # Curried for React
@@ -63,7 +46,13 @@ module.exports = React.createClass
       unless step?.is_completed
         allStepsCompleted = false
 
-    if steps.length > 1
+    cx = React.addons.classSet
+    classes = cx({
+      'task': true
+      'task-completed': allStepsCompleted 
+    })
+
+    unless TaskStore.isSingleStepped(id)
       breadcrumbs =
         <div className="panel-header">
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} />
@@ -78,28 +67,29 @@ module.exports = React.createClass
       if allStepsCompleted
         End = if model.type is 'practice' then PracticeEnd else TaskEnd
 
-        <End breadcrumbs={breadcrumbs} courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
+        panel = <End courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
 
       else
         footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
-        <div className="task">
-          {breadcrumbs}
-          <BS.Panel bsStyle="default" footer={footer}>
-            <h1>{model.title}</h1>
-            <p>Due At: <Time date={model.due_at}></Time></p>
-          </BS.Panel>
-        </div>
+        
+        panel = <BS.Panel bsStyle="default" footer={footer}>
+                  <h1>{model.title}</h1>
+                  <p>Due At: <Time date={model.due_at}></Time></p>
+                </BS.Panel>
+
     else
       throw new Error('BUG: no valid step config') unless stepConfig
 
-      <div className="task">
-        {breadcrumbs}
-        <TaskStep
-          id={stepConfig.id}
-          onStepCompleted={@onStepCompleted}
-          onNextStep={@onNextStep}
-        />
-      </div>
+      panel = <TaskStep
+                id={stepConfig.id}
+                onStepCompleted={@onStepCompleted}
+                onNextStep={@onNextStep}
+              />
+
+    <div className={classes}>
+      {breadcrumbs}
+      {panel}
+    </div>
 
   reloadTask: ->
     @setState({currentStep: 0})
@@ -107,6 +97,7 @@ module.exports = React.createClass
   onStepCompleted: ->
     {id} = @props
     # TODO: Operate on just the corrent step
+    # step = TaskStore.getCurrentStep(id)
     steps = TaskStore.getSteps(id)
     step = steps[@state.currentStep]
     TaskStepActions.complete(step.id)

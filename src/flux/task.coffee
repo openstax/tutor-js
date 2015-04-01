@@ -3,6 +3,22 @@ flux = require 'flux-react'
 {TaskStepActions, TaskStepStore} = require './task-step'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
+getSteps = (steps) ->
+  _.map steps, ({id}) ->
+    TaskStepStore.get(id)
+
+getCurrentStepIndex = (steps) ->
+  currentStep = -1
+  for step, i in steps
+    unless step.is_completed
+      currentStep = i
+      break
+  currentStep
+
+getCurrentStep = (steps) ->
+  _.findWhere(steps, {is_completed: false})
+
+
 TaskConfig =
   _steps: {}
 
@@ -40,10 +56,34 @@ TaskConfig =
   exports:
     getSteps: (id) ->
       throw new Error('BUG: Steps not loaded') unless @_steps[id]
-      _.map @_steps[id], ({id}) ->
-        TaskStepStore.get(id)
+      getSteps(@_steps[id])
+
     getAll: -> _.values(@_local)
 
+    getCurrentStepIndex: (taskId) ->
+      steps = getSteps(@_steps[taskId])
+      # Determine the first uncompleted step
+      getCurrentStepIndex(steps)
+
+    getDefaultStepIndex: (taskId) ->
+      steps = getSteps(@_steps[taskId])
+
+      if steps.length is 1
+        return 0
+      stepIndex = getCurrentStepIndex(steps)
+
+      if stepIndex is 0 then -1 else stepIndex
+
+    getCurrentStep: (taskId) ->
+      steps = getSteps(@_steps[taskId])
+      step = getCurrentStep(steps)
+
+    isTaskCompleted: (taskId) ->
+      incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))
+      incompleteStep?
+
+    isSingleStepped: (taskId) ->
+      @_steps[taskId].length is 1
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)

@@ -12,12 +12,9 @@ PracticeEnd = React.createClass
         <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
       </div>
 
-    <div className="task task-completed">
-      {@props.breadcrumbs}
-      <BS.Panel bsStyle="default" footer={footer}>
-        <h1>You earned a star!</h1>
-        <h3>Great Job!</h3>
-      </BS.Panel>
-    </div>
+    <BS.Panel bsStyle="default" footer={footer}>
+      <h1>You earned a star!</h1>
+      <h3>Great Job!</h3>
+    </BS.Panel>
 
 module.exports = PracticeEnd
