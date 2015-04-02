@@ -34,7 +34,8 @@ SectionTopic = React.createClass
 SelectTopics = React.createClass
   mixins: [BS.OverlayMixin]
   getInitialState: ->
-    TocActions.load() unless TocStore.isLoaded()
+    {courseId} = @props
+    TocActions.load(courseId) unless TocStore.isLoaded()
     { isModalOpen: false }
 
   componentWillMount:   -> TocStore.addChangeListener(@update)
@@ -239,7 +240,7 @@ ReadingPlan = React.createClass
           min={opensAt}
           value={dueAt}/>
       </div>
-      <SelectTopics planId={id} selected={topics}/>
+      <SelectTopics courseId={courseId} planId={id} selected={topics}/>
     </BS.Panel>
 
 

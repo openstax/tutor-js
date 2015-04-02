@@ -1,10 +1,10 @@
-{ "id": "step-id-5-5",
+{ "id": "step-id-5-2",
   "type": "exercise",
   "content": {
-    "stimulus_html": "Stimulus for another Exercise",
+    "stimulus_html": "Stimulus for Second Exercise",
     "questions":[
       {
-        "id": "880",
+        "id": "876",
         "format": "multiple-choice",
         "stem_html":"Is the glass half full or half empty?",
         "answers":[

@@ -15,9 +15,6 @@ _ = require 'underscore'
 {TocActions} = require './flux/toc'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 
-# HACK: until we get a course listing page
-courseId = 1
-
 # Do some special things when running without a tutor-server backend.
 #
 # - suffix calls with `.json` so we can have `/plans` and `/plans/1`
@@ -42,6 +39,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       if payload?
         opts.data = JSON.stringify(payload)
         opts.processData = false
+        # For now, the backend is expecting JSON and cannot accept url-encoded forms
+        opts.contentType = 'application/json'
 
       url = "#{url}.json" if IS_LOCAL
 
@@ -109,10 +108,10 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"
 
-  apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', () ->
+  apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/readings"
 
-  apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', () ->
+  apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/practice"
 
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
@@ -121,6 +120,7 @@ start = ->
 
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
+    throw new Error('BUG: Wrong type') unless typeof id is 'string'
     url: "/api/steps/#{id}"
 
   # Go from complete to load so we fetch the new JSON
@@ -139,8 +139,8 @@ start = ->
     payload: {answer_id}
 
 
-  TaskActions.loadUserTasks.addListener 'trigger', ->
-    url = '/api/user/tasks'
+  TaskActions.loadUserTasks.addListener 'trigger', (courseId) ->
+    url = "/api/courses/#{courseId}/tasks"
     url = "#{url}.json" if IS_LOCAL
     opts =
       dataType: 'json'
