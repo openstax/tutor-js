@@ -60,7 +60,7 @@ TaskPlanConfig =
       plan.title and plan.opens_at and plan.due_at and plan.settings?.page_ids?.length > 0
     isPublished: (id) ->
       plan = @_getPlan(id)
-      not not plan?.published_at
+      !!plan?.published_at
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)
