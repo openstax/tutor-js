@@ -2,7 +2,7 @@ React = require 'react'
 
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-LoadableMixin = require '../loadable-mixin'
+LoadableItem = require '../loadable-item'
 {Reading, Interactive, Video, Exercise} = require './all-steps'
 
 # React swallows thrown errors so log them first
@@ -21,27 +21,34 @@ getStepType = (typeName) ->
   type or err('BUG: Invalid task step type', typeName)
 
 
-module.exports = React.createClass
-  displayName: 'TaskStep'
-
-  mixins: [LoadableMixin]
+TaskStepLoaded = React.createClass
+  displayName: 'TaskStepLoaded'
 
   propTypes:
     id: React.PropTypes.string.isRequired
+    onNextStep: React.PropTypes.func.isRequired
+    onStepCompleted: React.PropTypes.func.isRequired
 
-  getId: -> @props.id
-
-  getFlux: ->
-    store: TaskStepStore
-    actions: TaskStepActions
-
-  renderLoaded: ->
-    {id} = @props
+  render: ->
+    {id, onNextStep, onStepCompleted} = @props
     {type} = TaskStepStore.get(id)
     Type = getStepType(type)
 
     <Type
       id={id}
-      onNextStep={@props.onNextStep}
-      onStepCompleted={@props.onStepCompleted}
+      onNextStep={onNextStep}
+      onStepCompleted={onStepCompleted}
+    />
+
+module.exports = React.createClass
+  displayName: 'TaskStep'
+
+  render: ->
+    {id, onNextStep, onStepCompleted} = @props
+
+    <LoadableItem
+      id={id}
+      store={TaskStepStore}
+      actions={TaskStepActions}
+      renderItem={-> <TaskStepLoaded id={id} onNextStep={onNextStep} onStepCompleted={onStepCompleted}/>}
     />

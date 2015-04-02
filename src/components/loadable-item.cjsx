@@ -1,40 +1,31 @@
 React = require 'react'
 
-# This mixin is useful for viewing a single Object from the Backend (ie Task, TaskPlan).
+# This component is useful for viewing a single Object from the Backend (ie Task, TaskPlan).
 # It uses methods defined in `CrudConfig` (maybe that should be renamed) to:
 #
 # - display "Loading...", "Error", or the actual rendered component
 # - automatically listens to changes in the appropriate store to re-render
 # - calls `load` to fetch the latest version of the component when initially mounted
-#
-# Classes using this mixin must define `getFlux` and `renderLoaded`
 
-module.exports =
-  # getFlux: -> {store, actions}
-  # getId: -> id Optional
-  # renderLoaded: ->
-
-  contextTypes:
-    router: React.PropTypes.func
+module.exports = React.createClass
+  propTypes:
+    id: React.PropTypes.string.isRequired
+    store: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
+    renderItem: React.PropTypes.func.isRequired
+    update: React.PropTypes.func
 
   componentWillMount: ->
-    {store} = @getFlux()
+    {store} = @props
     store.addChangeListener(@_update)
   componentWillUnmount: ->
-    {store} = @getFlux()
+    {store} = @props
     store.removeChangeListener(@_update)
 
   _update: -> @update?() or @setState({})
 
-  _getId: ->
-    if @getId?
-      @getId()
-    else
-      @context.router.getCurrentParams().id or throw new Error('BUG: id is required')
-
   render: ->
-    {store, actions} = @getFlux()
-    id = @_getId()
+    {id, store, actions, renderItem} = @props
 
     if store.isUnknown(id)
       # The load is done here because otherwise it would need to be in `componentWillMount`
@@ -46,6 +37,6 @@ module.exports =
     else if store.isLoading(id)
       <div className="-loading">Loading...</div>
     else if store.isLoaded(id)
-      @renderLoaded()
+      renderItem() # TODO: send id as arg maybe
     else
       <div className="-error">Error Loading</div>

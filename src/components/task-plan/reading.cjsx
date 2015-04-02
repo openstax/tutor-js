@@ -6,7 +6,7 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
-LoadableMixin = require '../loadable-mixin'
+LoadableItem = require '../loadable-item'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
 # Transitions need to be delayed so react has a chance to finish rendering so delay them
@@ -245,7 +245,7 @@ ReadingPlan = React.createClass
 
 
 ReadingShell = React.createClass
-  mixins: [LoadableMixin, ConfirmLeaveMixin]
+  mixins: [ConfirmLeaveMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -259,6 +259,7 @@ ReadingShell = React.createClass
       TaskPlanActions.create(id, {_HACK_courseId: courseId})
     {id}
 
+  # Used by ConfirmLeaveMixin
   getId: -> @context.router.getCurrentParams().id or @state.id
   getFlux: ->
     store: TaskPlanStore
@@ -275,10 +276,16 @@ ReadingShell = React.createClass
     else
       @setState({})
 
-  renderLoaded: ->
+  render: ->
     id = @getId()
     {courseId} = @context.router.getCurrentParams()
 
-    <ReadingPlan id={id} courseId={courseId} />
+    <LoadableItem
+      id={id}
+      store={TaskPlanStore}
+      actions={TaskPlanActions}
+      renderItem={-> <ReadingPlan id={id} courseId={courseId} />}
+    />
+
 
 module.exports = {ReadingShell, ReadingPlan}

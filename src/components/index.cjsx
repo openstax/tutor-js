@@ -7,7 +7,7 @@ Router = require 'react-router'
 
 App = require './app'
 Task = require './task'
-LoadableMixin = require './loadable-mixin'
+LoadableItem = require './loadable-item'
 PracticeButton = require './practice-button'
 {TaskActions, TaskStore} = require '../flux/task'
 {CourseActions, CourseStore} = require '../flux/course'
@@ -59,23 +59,20 @@ Dashboard = React.createClass
 
 
 SingleTask = React.createClass
-  mixins: [LoadableMixin]
-
   contextTypes:
     router: React.PropTypes.func
 
-  getFlux: ->
-    store: TaskStore
-    actions: TaskActions
-
-  renderLoaded: ->
+  render: ->
     {id} = @context.router.getCurrentParams()
-    <Task key={id} id={id} />
+    <LoadableItem
+      id={id}
+      store={TaskStore}
+      actions={TaskActions}
+      renderItem={-> <Task key={id} id={id} />}
+    />
 
 
 SinglePractice = React.createClass
-  mixins: [LoadableMixin]
-
   contextTypes:
     router: React.PropTypes.func
 
@@ -88,10 +85,6 @@ SinglePractice = React.createClass
   getInitialState: ->
       taskId: CourseStore.getPracticeId(@getId())
 
-  getFlux: ->
-    store: CourseStore
-    actions: CourseActions
-
   getId: ->
     {courseId} = @context.router.getCurrentParams()
     courseId
@@ -101,8 +94,14 @@ SinglePractice = React.createClass
       taskId:  CourseStore.getPracticeId(@getId())
     })
 
-  renderLoaded: ->
-    <Task key={@state.taskId} id={@state.taskId} />
+  render: ->
+    id = @getId()
+    <LoadableItem
+      store={CourseStore}
+      actions={CourseActions}
+      id={id}
+      renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
+    />
 
 
 TaskResult = React.createClass
