@@ -171,8 +171,6 @@ ReadingFooter = React.createClass
       {statsLink}
     </span>
 
-
-
 ReadingPlan = React.createClass
 
   setOpensAt: (value) ->
@@ -243,42 +241,4 @@ ReadingPlan = React.createClass
       <SelectTopics courseId={courseId} planId={id} selected={topics}/>
     </BS.Panel>
 
-
-ReadingShell = React.createClass
-  mixins: [LoadableMixin, ConfirmLeaveMixin]
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  getInitialState: ->
-    {courseId, id} = @context.router.getCurrentParams()
-    if (id)
-      TaskPlanActions.load(id)
-    else
-      id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id, {_HACK_courseId: courseId})
-    {id}
-
-  getId: -> @context.router.getCurrentParams().id or @state.id
-  getFlux: ->
-    store: TaskPlanStore
-    actions: TaskPlanActions
-
-  # If, as a result of a save creating a new object (and providing an id)
-  # then transition to editing the object
-  update: ->
-    id = @getId()
-    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
-      {id} = TaskPlanStore.get(id)
-      {courseId} = @context.router.getCurrentParams()
-      delay => @context.router.transitionTo('editReading', {courseId, id})
-    else
-      @setState({})
-
-  renderLoaded: ->
-    id = @getId()
-    {courseId} = @context.router.getCurrentParams()
-
-    <ReadingPlan id={id} courseId={courseId} />
-
-module.exports = {ReadingShell, ReadingPlan}
+module.exports = {ReadingPlan}

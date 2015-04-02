@@ -1,0 +1,72 @@
+React = require 'react'
+LoadableMixin = require '../loadable-mixin'
+ConfirmLeaveMixin = require '../confirm-leave-mixin'
+{HomeworkPlan} = require './homework'
+{ReadingPlan} = require './reading'
+
+{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+
+PLAN_TYPES =
+  reading: ReadingPlan
+  homework: HomeworkPlan
+
+getPlanType = (typeName) ->
+  type = PLAN_TYPES[typeName]
+
+PlanShell = React.createClass
+  mixins: [LoadableMixin, ConfirmLeaveMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  getInitialState: ->
+    {courseId, type, id} = @context.router.getCurrentParams()
+
+    if not getPlanType(type)
+      @context.router.transitionTo('NotFoundRoute')
+      return
+      
+    if (id)
+      TaskPlanActions.load(id)
+    else
+      id = TaskPlanStore.freshLocalId()
+      TaskPlanActions.create(id, {
+        _HACK_courseId: courseId
+        type: type
+      })
+    {id}
+
+  getId: -> @context.router.getCurrentParams().id or @state.id
+
+  getType: ->
+    id = @getId()
+    if (TaskPlanStore.isNew(id))
+      typeName = @context.router.getCurrentParams().type
+    else
+      plan = TaskPlanStore.get(id)
+      typeName = plan?.type
+
+    getPlanType(typeName)
+
+  getFlux: ->
+    store: TaskPlanStore
+    actions: TaskPlanActions
+
+  # If, as a result of a save creating a new object (and providing an id)
+  # then transition to editing the object
+  update: ->
+    id = @getId()
+    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
+      {id, type} = TaskPlanStore.get(id)
+      {courseId} = @context.router.getCurrentParams()
+      delay => @context.router.transitionTo('editPlan', {courseId, type, id})
+    else
+      @setState({})
+
+  renderLoaded: ->
+    id = @getId()
+    {courseId} = @context.router.getCurrentParams()
+    Type = @getType()
+    <Type id={id} courseId={courseId} />
+
+module.exports = {PlanShell, ReadingPlan, HomeworkPlan}
