@@ -120,6 +120,7 @@ start = ->
 
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
+    throw new Error('BUG: Wrong type') unless typeof id is 'string'
     url: "/api/steps/#{id}"
 
   # Go from complete to load so we fetch the new JSON
