@@ -81,13 +81,13 @@ describe 'Reading Plan', ->
     node = helper(model, true)
     expect(node.querySelector('.-delete')).to.be.null
 
-  it 'should not allow delete when plan has opened already', ->
+  it 'should not show delete when plan is published already', ->
     id = TaskPlanStore.freshLocalId()
     yesterday = Date.now() - 3600*1000*24
     model =
       type: 'reading'
       id: id
-      opens_at: (new Date(yesterday)).toString()
+      published_at: (new Date(yesterday)).toString()
 
     TaskPlanActions.created(model, id)
     node = helper(model, true)
