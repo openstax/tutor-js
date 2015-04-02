@@ -10,6 +10,9 @@ ExtendedConfig =
   _loaded: (obj, id) ->
       nested : obj unless obj.doNotModify
 
+  _saved: (obj, id) ->
+      nested : obj unless obj.doNotModify
+
   exports:
     testExtendedStore : () ->
 
@@ -153,4 +156,25 @@ describe 'CRUD Store', ->
     storeObj = {hello: 'bar', doNotModify: true}
     ExtendedActions.loaded(storeObj, id)
     expect(ExtendedConfig._loaded(storeObj, id)).to.be.undefined
+    expect(ExtendedStore.get(id)).to.deep.equal(storeObj)
+
+  it 'should not change what is saved if _saved function is undefined', ->
+    id = 0
+    storeObj = {hello: 'bar'}
+    CrudActions.saved(storeObj, id)
+    expect(CrudActions._saved).to.be.undefined
+    expect(CrudStore.get(id)).to.deep.equal(storeObj)
+
+  it 'should change what is saved if _saved function is defined and returns', ->
+    id = 0
+    nestedStore = {hello: 'bar'}
+    ExtendedActions.saved(nestedStore, id)
+    expect(ExtendedConfig._saved(nestedStore, id)).to.not.be.undefined
+    expect(ExtendedStore.get(id).nested).to.deep.equal(nestedStore)
+
+  it 'should not change what is saved if _saved function returns falsy', ->
+    id = 0
+    storeObj = {hello: 'bar', doNotModify: true}
+    ExtendedActions.saved(storeObj, id)
+    expect(ExtendedConfig._saved(storeObj, id)).to.be.undefined
     expect(ExtendedStore.get(id)).to.deep.equal(storeObj)
