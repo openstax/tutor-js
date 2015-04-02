@@ -25,6 +25,7 @@
     "cjsxify": "0.2.6",
     "coffee-script": "~1.9.1",
     "cors": "^2.5.3",
+    "d3":"~3.5.5",
     "del": "~1.1.1",
     "flux-react": "~2.6.4",
     "font-awesome": "~4.3.0",

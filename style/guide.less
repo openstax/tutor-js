@@ -1,7 +1,46 @@
-.-course-guide-table-pageids span:after {
+.course-guide-table-pageids span:after {
 content: ", ";
 }
  
-.-course-guide-table-pageids span:last-child:after {
+.course-guide-table-pageids span:last-child:after {
 content: "";
+}
+
+
+
+
+.course-guide-line-graph .grid .tick line {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.course-guide-line-graph .grid path {
+      stroke-width: 0;
+}
+.course-guide-line-graph .domain {
+  fill: none;
+}
+
+
+.course-guide-line-graph{
+  outline:1px solid #333;
+}
+
+.course-guide-line-graph div.Chart{
+  width:100%;
+  height:500px;
+}
+
+.course-guide-line-graph .d3{
+  
+  width:inherit;
+  height:inherit;
+  overflow:visible;
+}
+
+.d3-guide-x-axis{
+  // outline:1px solid blue;
+}
+
+.d3-guide-y-axis{
+  // outline:1px solid green;
 }
