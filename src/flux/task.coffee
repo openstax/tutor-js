@@ -16,7 +16,9 @@ getCurrentStepIndex = (steps) ->
   currentStep
 
 getCurrentStep = (steps) ->
-  _.findWhere(steps, {is_completed: false})
+  _.find(steps, (step)->
+    not step.is_completed?
+  )
 
 
 TaskConfig =
@@ -74,13 +76,18 @@ TaskConfig =
 
       if stepIndex is 0 then -1 else stepIndex
 
+    getStepsIds: (id) ->
+      _.map(@_steps[id], (step)->
+        _.pick(step, 'id')
+      )
+
     getCurrentStep: (taskId) ->
       steps = getSteps(@_steps[taskId])
       step = getCurrentStep(steps)
 
     isTaskCompleted: (taskId) ->
       incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))
-      incompleteStep?
+      not incompleteStep
 
     isSingleStepped: (taskId) ->
       @_steps[taskId].length is 1

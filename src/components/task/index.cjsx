@@ -1,6 +1,7 @@
-React = require 'react/addons'
+React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+classNames = require 'classnames'
 
 api = require '../../api'
 {TaskStore} = require '../../flux/task'
@@ -15,6 +16,9 @@ Time = require '../time'
 
 
 module.exports = React.createClass
+  propTypes:
+    id: React.PropTypes.string
+
   displayName: 'ReadingTask'
 
   contextTypes:
@@ -23,8 +27,9 @@ module.exports = React.createClass
   getInitialState: ->
     {id} = @props
     currentStep = TaskStore.getDefaultStepIndex(id)
+    steps = TaskStore.getStepsIds(id)
 
-    {currentStep}
+    {currentStep, steps}
 
   getDefaultCurrentStep: ->
     {id} = @props
@@ -37,17 +42,13 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     model = TaskStore.get(id)
-    steps = TaskStore.getSteps(id)
-    stepConfig = steps[@state.currentStep]
+    stepConfig = @state.steps[@state.currentStep]
+
     {courseId} = @context.router.getCurrentParams()
 
-    allStepsCompleted = true
-    for step in steps
-      unless step?.is_completed
-        allStepsCompleted = false
+    allStepsCompleted = TaskStore.isTaskCompleted(id)
 
-    cx = React.addons.classSet
-    classes = cx({
+    classes = classNames({
       'task': true
       'task-completed': allStepsCompleted 
     })
@@ -58,9 +59,7 @@ module.exports = React.createClass
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} />
         </div>
 
-    if @state.currentStep > steps.length
-      throw new Error('BUG! currentStep is too large')
-    else if @state.currentStep < -1
+    if @state.currentStep < -1
       throw new Error('BUG! currentStep is too small')
 
     else if @state.currentStep is -1
@@ -96,11 +95,9 @@ module.exports = React.createClass
 
   onStepCompleted: ->
     {id} = @props
-    # TODO: Operate on just the corrent step
-    # step = TaskStore.getCurrentStep(id)
-    steps = TaskStore.getSteps(id)
-    step = steps[@state.currentStep]
+    step = @state.steps[@state.currentStep]
     TaskStepActions.complete(step.id)
 
   onNextStep: ->
-    @setState({currentStep: @getDefaultCurrentStep()})
+    {id} = @props
+    @setState({currentStep: @getDefaultCurrentStep(), steps: TaskStore.getStepsIds(id)})

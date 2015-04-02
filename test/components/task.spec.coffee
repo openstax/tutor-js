@@ -47,32 +47,28 @@ describe 'Task Widget', ->
 
   it 'should render empty free response for unanswered exercise', (done)->
     tests = (result) ->
-      steps = TaskStore.getSteps(taskId)
-      taskTests.renderFreeResponse(result, steps).then(done)
+      taskTests.renderFreeResponse(result, taskId).then(done)
 
     tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
 
   it 'should update store when free response is submitted', (done) ->
     tests = (result) ->
-      steps = TaskStore.getSteps(taskId)
-      taskTests.submitFreeResponse(result, steps).then(done)
+      taskTests.submitFreeResponse(result, taskId).then(done)
 
     tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
 
   it 'should render multiple choice after free response', (done) ->
     tests = (result) ->
-      steps = TaskStore.getSteps(taskId)
-      taskTests.renderMultipleChoiceAfterFreeResponse(result, steps).then(done)
+      taskTests.renderMultipleChoiceAfterFreeResponse(result, taskId).then(done)
 
     tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
 
   it 'should update store when multiple choice answer is chosen', (done) ->
     tests = (result) ->
-      steps = TaskStore.getSteps(taskId)
-      taskTests.answerMultipleChoice(result, steps).then(done)
+      taskTests.answerMultipleChoice(result, taskId).then(done)
 
     tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 

@@ -7,6 +7,7 @@ Router = require 'react-router'
 
 {routes} = require '../../../src/router'
 {TaskStepActions, TaskStepStore} = require '../../../src/flux/task-step'
+{TaskActions, TaskStore} = require '../../../src/flux/task'
 
 routerStub =
   container: document.createElement('div')
@@ -87,7 +88,8 @@ taskTests =
 
     promise
 
-  _doStepsHelper: ({div, component, state, router, history}, steps, checkStep) ->
+  _doStepsHelper: ({div, component, state, router, history}, taskId, checkStep) ->
+    steps = TaskStore.getSteps(taskId)
     taskTests = @
     continueButton = taskTestActions.clickButton(div)
 
@@ -99,7 +101,7 @@ taskTests =
 
     # if step is completed, force update to load the next step
     # TODO add condition for if free response is answered, but step is not complete
-    if steps[stepIter].is_completed
+    if steps[stepIter]?.is_completed
       taskTestActions.clickButton(div, '.-continue')
 
       stepIter = stepIter + 1
@@ -206,19 +208,19 @@ taskTests =
       return null
     )
 
-  renderFreeResponse: (reactProperties, steps) ->
-    @_doStepsHelper(reactProperties, steps, 'checkForEmptyFreeResponse')
+  renderFreeResponse: (reactProperties, taskId) ->
+    @_doStepsHelper(reactProperties, taskId, 'checkForEmptyFreeResponse')
 
-  submitFreeResponse: (reactProperties, steps) ->
-    @_doStepsHelper(reactProperties, steps, 'checkForAnsweredFreeResponse')
+  submitFreeResponse: (reactProperties, taskId) ->
+    @_doStepsHelper(reactProperties, taskId, 'checkForAnsweredFreeResponse')
 
-  renderMultipleChoiceAfterFreeResponse: (reactProperties, steps) ->
-    @_doStepsHelper(reactProperties, steps, 'checkForEmptyMultipleChoice')
+  renderMultipleChoiceAfterFreeResponse: (reactProperties, taskId) ->
+    @_doStepsHelper(reactProperties, taskId, 'checkForEmptyMultipleChoice')
 
-  answerMultipleChoice: (reactProperties, steps) ->
-    @_doStepsHelper(reactProperties, steps, 'checkForAnsweredMultipleChoice')
+  answerMultipleChoice: (reactProperties, taskId) ->
+    @_doStepsHelper(reactProperties, taskId, 'checkForAnsweredMultipleChoice')
 
-  submitMultipleChoice: (reactProperties, steps) ->
-    @_doStepsHelper(reactProperties, steps, 'checkForSubmittedMultipleChoice')
+  submitMultipleChoice: (reactProperties, taskId) ->
+    @_doStepsHelper(reactProperties, taskId, 'checkForSubmittedMultipleChoice')
 
 module.exports = {routerStub, taskTestActions, taskTests}

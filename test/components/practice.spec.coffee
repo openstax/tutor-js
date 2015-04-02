@@ -68,8 +68,7 @@ describe 'Practice Widget', ->
     courseId = 1
 
     tests = (result) ->
-      steps = TaskStore.getSteps(CourseStore.getPracticeId(courseId))
-      taskTests.renderMultipleChoiceAfterFreeResponse(result, steps).then(done)
+      taskTests.renderMultipleChoiceAfterFreeResponse(result, CourseStore.getPracticeId(courseId)).then(done)
 
     courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
 
