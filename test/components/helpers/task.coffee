@@ -220,6 +220,23 @@ taskTests =
 
     expect(div.innerText).to.not.be.equal(introScreenText)
 
+  _checkIsTargetStepId: (targetStepId, {taskDiv, taskComponent, stepId, taskId}) ->
+    expect(stepId).to.equal(targetStepId)
+
+    step = TaskStepStore.get(targetStepId)
+
+    componentStepId = taskComponent.getId?()
+    if componentStepId
+      expect(componentStepId).to.equal(targetStepId)
+
+  _checkIsDefaultStep: ({taskDiv, taskComponent, stepId, taskId}) ->
+    stepIndex = TaskStore.getCurrentStepIndex(taskId)
+    steps = TaskStore.getStepsIds(taskId)
+    targetStepId = steps[stepIndex].id
+
+    taskTests._checkIsTargetStepId(targetStepId, {taskDiv, taskComponent, stepId, taskId})
+    {taskDiv, taskComponent, stepId, taskId}
+
   _checkRenderFreeResponse: ({taskDiv, taskComponent, stepId, taskId}) ->
     continueButton = taskDiv.querySelector('.-continue')
 
@@ -267,12 +284,9 @@ taskTests =
   _checkIsNextStep: ({taskDiv, taskComponent, stepId, taskId}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
     steps = TaskStore.getStepsIds(taskId)
+    targetStepId = steps[stepIndex - 1].id
 
-    expect(stepId).to.equal(steps[stepIndex - 1].id)
-
-    step = TaskStepStore.get(steps[stepIndex].id)
-
-    # TODO test rendered div for the right step content
+    taskTests._checkIsTargetStepId(targetStepId, {taskDiv, taskComponent, stepId, taskId})
 
     # advance step
     stepId = steps[stepIndex].id
@@ -287,6 +301,8 @@ taskTests =
 
 
   # promisify for chainability in specs
+  checkIsDefaultStep: (args...)->
+    Promise.resolve(taskTests._checkIsDefaultStep(args...))
   checkRenderFreeResponse: (args...)->
     Promise.resolve(taskTests._checkRenderFreeResponse(args...))
   checkAnswerFreeResponse: (args...)->

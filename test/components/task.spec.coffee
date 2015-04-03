@@ -85,6 +85,8 @@ describe 'Task Widget', ->
     # run a full step through and check each step
     taskTests
       .renderStep(homeworkTaskId)
+      # checks if is first incomplete step
+      .then(taskTests.checkIsDefaultStep)
       .then(taskTestActions.fillFreeResponse)
       .then(taskTests.checkAnswerFreeResponse)
       .then(taskTestActions.saveFreeResponse)
@@ -101,7 +103,8 @@ describe 'Task Widget', ->
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
       .then(taskTestActions.clickContinue)
-      # TODO test for if the first incomplete step is rendered
+      # checks if is first incomplete step
+      .then(taskTests.checkIsDefaultStep)
       .then(taskTestActions.fillFreeResponse)
       .then(taskTests.checkAnswerFreeResponse)
       .then(taskTestActions.saveFreeResponse)
