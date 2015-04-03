@@ -17,12 +17,15 @@ TEST_TOC = [
   }
 ]
 
+tomorrow = Date.now() + 1000*3600*24
+dayAfter = tomorrow + 1000*3600*24
+
 VALID_MODEL =
   type: 'reading'
   id: 111
   title: 'Test Title'
-  opens_at: '2015-03-19'
-  due_at: '2015-03-20'
+  opens_at: (new Date(tomorrow)).toString()
+  due_at:  (new Date(dayAfter)).toString()
   settings:
     page_ids: [1]
 
@@ -77,5 +80,38 @@ describe 'Reading Plan', ->
     TaskPlanActions.created(model, id)
     node = helper(model, true)
     expect(node.querySelector('.-delete')).to.be.null
+
+
+  it 'should not show delete if plan is published', ->
+    yesterday = Date.now() - 3600*1000*24
+    model =
+      type: 'reading'
+      id: 1
+      published_at: (new Date(yesterday)).toString()
+
+    TaskPlanActions.created(model, 1)
+    node = helper(model, true)
+    expect(node.querySelector('.-delete')).to.be.null
+
+  it 'should not show delete if plan is new', ->
+    id = TaskPlanStore.freshLocalId()
+    model =
+      type: 'reading'
+      id: id
+
+    TaskPlanActions.created(model, id)
+    node = helper(model, true)
+    expect(node.querySelector('.-delete')).to.be.null
+
+  it 'should show delete if plan is not new and not published', ->
+    model =
+      type: 'reading'
+      id: 1
+
+    TaskPlanActions.created(model, 1)
+    node = helper(model, true)
+    expect(node.querySelector('.-delete')).to.not.be.null
+
+
 
   # TODO: Add unit tests to verify API calls

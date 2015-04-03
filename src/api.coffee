@@ -39,6 +39,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       if payload?
         opts.data = JSON.stringify(payload)
         opts.processData = false
+        # For now, the backend is expecting JSON and cannot accept url-encoded forms
+        opts.contentType = 'application/json'
 
       url = "#{url}.json" if IS_LOCAL
 
@@ -118,6 +120,7 @@ start = ->
 
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
+    throw new Error('BUG: Wrong type') unless typeof id is 'string'
     url: "/api/steps/#{id}"
 
   # Go from complete to load so we fetch the new JSON

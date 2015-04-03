@@ -3,13 +3,13 @@
 @wrong-answer-color: #c22032;
 @wrong-answer-background: #ffe0e0;
 @answer-hover-color: #e6f9fc;
-@answer-select-color: #e6f9fc; // darker than hover
+@answer-select-color: #def4f7; // darker than hover
 
 .task-step .exercise,
 .question {
   font-size: 2.1rem;
   font-weight: 400;
-  padding: 0.5em 100px;
+  padding: 10px 140px;
 
   textarea {
     margin: 1em 0;
@@ -30,7 +30,7 @@
   .free-response {
     font-style: italic;
     color: #888;
-    padding: 20px 40px;
+    padding: 15px 40px;
     display: block;
     width: 100%;
     margin: 20px 0 5px 0;
@@ -131,7 +131,7 @@
 
         .answer-content {
           display: table-cell;
-          padding: 20px 40px 20px 0;
+          padding: 15px 40px 15px 0;
         }
       }
     }
@@ -153,7 +153,6 @@
       float:left;
       background: #f3fcfd;
       transition: background-color .1s ease-in;
-      transition: padding-left .05s ease-in;
 
       &:hover {
         background-color: @answer-hover-color;
@@ -164,9 +163,9 @@
 
       .answer-input-box:checked + label.answer-label,
       .answer-input-box:checked + label.answer-label:hover {
-        font-weight: 700;
+        color: #2a2a2a;
+        font-weight: 600;
         background-color: @answer-select-color; // darker than hover
-        padding-left: 60px;
       }
 
     }

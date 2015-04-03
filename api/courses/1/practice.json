@@ -54,7 +54,7 @@
         ]
       }
     },
-    { "id": "step-id-5-4",
+    { "id": "step-id-practice-4",
       "type": "exercise",
       "content": {
         "questions":[
@@ -72,7 +72,7 @@
         ]
       }
     },
-    { "id": "step-id-5-5",
+    { "id": "step-id-practice-5",
       "type": "exercise",
       "content": {
         "stimulus_html": "Stimulus for another Exercise",
