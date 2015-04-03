@@ -20,6 +20,11 @@ getCurrentStep = (steps) ->
     not step.is_completed?
   )
 
+getIncompleteSteps = (steps) ->
+  _.filter(steps, (step)->
+    not step.is_completed?
+  )
+
 
 TaskConfig =
   _steps: {}
@@ -84,6 +89,10 @@ TaskConfig =
     getCurrentStep: (taskId) ->
       steps = getSteps(@_steps[taskId])
       step = getCurrentStep(steps)
+
+    getIncompleteSteps: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = getIncompleteSteps(allSteps)
 
     isTaskCompleted: (taskId) ->
       incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))

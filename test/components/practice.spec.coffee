@@ -94,3 +94,14 @@ describe 'Practice Widget', ->
       .submitMultipleChoice(taskId)
       .then(taskTests.checkSubmitMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
+
+
+  it 'should show practice done page on practice completion', (done) ->
+    taskId = CourseStore.getPracticeId(courseId)
+
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
+      .then(taskTestActions.clickContinue)
+      .then(taskTestActions.completeSteps)
+      .then(taskTests.checkIsCompletePage)
+      .then(_.delay(done, 100)).catch(done)

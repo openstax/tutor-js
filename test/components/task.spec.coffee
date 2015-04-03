@@ -95,8 +95,44 @@ describe 'Task Widget', ->
       .then(taskTests.checkSubmitMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
 
-  # # TODO write these
-  # it 'should render next question on continue after answered', ->
-  # it 'should render the correct end panel based on task type', ->
 
+  it 'should be able to work through a task and load next step from a route', (done) ->
+    # run a full step through and check each step
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
+      .then(taskTestActions.clickContinue)
+      # TODO test for if the first incomplete step is rendered
+      .then(taskTestActions.fillFreeResponse)
+      .then(taskTests.checkAnswerFreeResponse)
+      .then(taskTestActions.saveFreeResponse)
+      .then(taskTests.checkSubmitFreeResponse)
+      .then(taskTestActions.pickMultipleChoice)
+      .then(taskTests.checkAnswerMultipleChoice)
+      .then(taskTestActions.saveMultipleChoice)
+      .then(taskTests.checkSubmitMultipleChoice)
+      .then(taskTestActions.clickContinue)
+      .then(taskTests.checkIsNextStep)
+      .then(_.delay(done, 100)).catch(done)
+
+
+  it 'should show appropriate done page on completion', (done) ->
+    # run a full step through and check each step
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
+      .then(taskTestActions.clickContinue)
+      .then(taskTestActions.completeSteps)
+      .then(taskTests.checkIsCompletePage)
+      .then(_.delay(done, 100)).catch(done)
+
+
+  it 'should show homework done page on homework completion', (done) ->
+    homeworkTaskId = 5
+    TaskActions.loaded(homework_model, homeworkTaskId)
+
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .then(taskTestActions.clickContinue)
+      .then(taskTestActions.completeSteps)
+      .then(taskTests.checkIsCompletePage)
+      .then(_.delay(done, 100)).catch(done)
 
