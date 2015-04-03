@@ -78,7 +78,7 @@ describe 'Task Widget', ->
       .then(_.delay(done, 100)).catch(done)
 
 
-  it 'should render an answer and feedback html for an answered homework', (done) ->
+  it 'should be able to work through a step in homework', (done) ->
     homeworkTaskId = 5
     TaskActions.loaded(homework_model, homeworkTaskId)
 
