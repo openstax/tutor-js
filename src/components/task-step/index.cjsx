@@ -27,7 +27,7 @@ module.exports = React.createClass
   mixins: [LoadableMixin]
 
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.number.isRequired
 
   getId: -> @props.id
 
