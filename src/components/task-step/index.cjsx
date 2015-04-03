@@ -35,6 +35,10 @@ module.exports = React.createClass
     store: TaskStepStore
     actions: TaskStepActions
 
+  onStepCompleted: ->
+    id = @getId()
+    TaskStepActions.complete(id)
+
   renderLoaded: ->
     {id} = @props
     {type} = TaskStepStore.get(id)
@@ -43,5 +47,5 @@ module.exports = React.createClass
     <Type
       id={id}
       onNextStep={@props.onNextStep}
-      onStepCompleted={@props.onStepCompleted}
+      onStepCompleted={@onStepCompleted}
     />

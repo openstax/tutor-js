@@ -52,7 +52,7 @@ module.exports = React.createClass
         showedFirstIncompleteStep = true
 
 
-      <BS.Button bsStyle={bsStyle} className={classes} title={title} onClick={@props.goToStep(i)}>
+      <BS.Button bsStyle={bsStyle} className={classes} title={title} onClick={@props.goToStep(i)} key="step-#{i}">
         <i className="fa fa-fw #{step.type}"></i>
       </BS.Button>
 

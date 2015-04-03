@@ -10,6 +10,7 @@ BS = require 'react-bootstrap'
 
 
 ExerciseFreeResponse = React.createClass
+  displayName: 'ExerciseFreeResponse'
   mixins: [StepMixin]
 
   getInitialState: ->
@@ -52,6 +53,7 @@ ExerciseFreeResponse = React.createClass
 
 
 ExerciseMultiChoice = React.createClass
+  displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin]
 
   renderBody: ->
@@ -80,6 +82,7 @@ ExerciseMultiChoice = React.createClass
 
 
 ExerciseReview = React.createClass
+  displayName: 'ExerciseReview'
   mixins: [StepMixin]
 
   renderBody: ->
@@ -115,10 +118,10 @@ ExerciseReview = React.createClass
     buttonClasses += 'disabled' unless @isContinueEnabled()
     continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
     tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @canTryAnother()
-    <span>
+    <div>
       {tryAnotherButton}
       {continueButton}
-    </span>
+    </div>
 
 
 module.exports = React.createClass

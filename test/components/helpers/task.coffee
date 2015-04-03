@@ -8,6 +8,7 @@ Router = require 'react-router'
 {routes} = require '../../../src/router'
 {TaskStepActions, TaskStepStore} = require '../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
+TaskStep = require '../../../src/components/task-step'
 
 routerStub =
   container: document.createElement('div')
@@ -36,11 +37,11 @@ routerStub =
 
   # TODO force update wrong somewhere.
   # need to figure this out.
-  forceUpdate: (component) ->
+  forceUpdate: (component, args...) ->
     promise = new Promise (resolve, reject) ->
       try
         component.forceUpdate( ->
-          resolve(null)
+          resolve(args...)
         )
       catch error
         reject(error)
@@ -48,23 +49,6 @@ routerStub =
     promise
 
 taskTestActions = 
-  fillFreeResponse: (node, component,response) ->
-    promise = new Promise (resolve, reject) ->
-      try
-        response ?= 'Test Response'
-
-        textarea = node.querySelector('textarea')
-        textarea.value = response
-        React.addons.TestUtils.Simulate.focus(textarea)
-        React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
-        React.addons.TestUtils.Simulate.change(textarea)
-
-        routerStub.forceUpdate(component).then( ->
-          resolve(textarea)
-        )
-      catch error
-        reject(error)
-
   clickButton: (node, selector) ->
     selector ?= 'button.btn-primary'
 
@@ -72,55 +56,81 @@ taskTestActions =
     @click(button)
     button = node.querySelector(selector)
 
+
   click: (clickElementNode) ->
     React.addons.TestUtils.Simulate.click(clickElementNode)
 
 
+  _fillFreeResponse: ({taskDiv, taskComponent, stepId, response}) ->
+    response ?= 'Test Response'
+
+    textarea = taskDiv.querySelector('textarea')
+    textarea.value = response
+    React.addons.TestUtils.Simulate.focus(textarea)
+    React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
+    React.addons.TestUtils.Simulate.change(textarea)
+
+    {taskDiv, taskComponent, stepId, textarea}
+
+  fillFreeResponse: (args...)->
+    Promise.resolve(taskTestActions._fillFreeResponse(args...))
+
+  saveFreeResponse: ({taskDiv, taskComponent, stepId, textarea}) ->
+    taskTestActions.clickButton(taskDiv, '.-continue')
+    TaskStepActions.saved(stepId, {free_response : textarea.value})
+    routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId})
+
+  pickMultipleChoice: ({taskDiv, taskComponent, stepId}) ->
+    step = TaskStepStore.get(stepId)
+    answer = step.content.questions[0].answers[0]
+    answerElement = taskDiv.querySelector('.answer-input-box')
+
+    React.addons.TestUtils.Simulate.change(answerElement, answer)
+    TaskStepActions.saved(stepId, {answer_id : answer.id})
+    routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId, answer})
+
+  saveMultipleChoice: ({taskDiv, taskComponent, stepId}) ->
+    step = TaskStepStore.get(stepId)
+    correct_answer = step.content.questions[0].answers[1]
+    feedback_html = 'Fake Feedback'
+
+    taskTestActions.clickButton(taskDiv, '.-continue')
+
+    step.correct_answer_id ?= correct_answer.id
+    step.feedback_html = feedback_html
+    TaskStepActions.loaded(step, stepId)
+    routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId, correct_answer, feedback_html})
+
+
 taskTests =
 
-  _promisedStep: (reactProperties, stepId, checkStep) ->
+  container: document.createElement('div')
+
+  unmount: ->
+    React.unmountComponentAtNode(@container)
+    @container = document.createElement('div')
+
+  _renderTaskStep: (stepId, onNextStep) ->
+    taskDiv = @container
     promise = new Promise (resolve, reject) ->
       try
-        taskTests[checkStep](reactProperties, stepId)
-        resolve(null)
+        React.render(<TaskStep id={stepId} onNextStep={onNextStep}/>, taskDiv, ->
+          taskComponent = @
+          resolve({taskDiv, taskComponent, stepId})
+        )
       catch error
         reject(error)
 
     promise
 
-  _doStepsHelper: ({div, component, state, router, history}, taskId, checkStep) ->
-    steps = TaskStore.getSteps(taskId)
+  renderStep: (taskId) ->
+    {id} = TaskStore.getCurrentStep(taskId)
     taskTests = @
-    continueButton = taskTestActions.clickButton(div)
 
-    # TODO
-    # not ideal.  wanted to find the step id off of the component's children
-    # but that is a pain in the butt right now, so assuming step iter is 0 right now.
-    # Fixing will likely mean some task refactoring.
-    stepIter = 0
+    onNextStep = ()->
+      # TODO Do something for next step.
 
-    # if step is completed, force update to load the next step
-    # TODO add condition for if free response is answered, but step is not complete
-    if steps[stepIter]?.is_completed
-      taskTestActions.clickButton(div, '.-continue')
-
-      stepIter = stepIter + 1
-      stepId = steps[stepIter].id
-      return taskTests._promisedStep({div, component, state, router, history}, stepId, checkStep)
-
-
-      # return routerStub.forceUpdate(component).then( ->
-      #   # new question has been loaded
-      #   stepIter = stepIter + 1
-      #   stepId = steps[stepIter].id
-      #   return taskTests._promisedStep({div, component, state, router, history}, stepId, checkStep)
-
-      #   # need to explict return, es6-promise can only accept certain results
-      #   # return null
-      # )
-
-    stepId = steps[stepIter].id
-    taskTests._promisedStep({div, component, state, router, history}, stepId, checkStep)
+    @_renderTaskStep(id, onNextStep)
 
 
   allowContinueFromIntro: ({div, component, state, router, history}) ->
@@ -138,10 +148,10 @@ taskTests =
 
     expect(div.innerText).to.not.be.equal(introScreenText)
 
-  checkForEmptyFreeResponse: ({div, component, state, router, history}, stepId) ->
-    continueButton = div.querySelector('.-continue')
+  _checkRenderFreeResponse: ({taskDiv, taskComponent, stepId}) ->
+    continueButton = taskDiv.querySelector('.-continue')
 
-    expect(div.querySelector('.answers-table')).to.be.null
+    expect(taskDiv.querySelector('.answers-table')).to.be.null
     expect(continueButton.className).to.contain('disabled')
 
     # TODO
@@ -149,78 +159,74 @@ taskTests =
     # response for now.
     step = TaskStepStore.get(stepId)
     expect(step.free_response).to.be.undefined
-    expect(div.querySelector('textarea').value).to.equal('')
+    expect(taskDiv.querySelector('textarea').value).to.equal('')
+    {taskDiv, taskComponent, stepId}
 
-  checkForAnsweredFreeResponse: ({div, component, state, router, history}, stepId) ->
-    continueButton = div.querySelector('.-continue')
-    taskTestActions.fillFreeResponse(div, component).then((textarea)->
-      expect(continueButton.className).to.not.contain('disabled')
+  _checkAnswerFreeResponse: ({taskDiv, taskComponent, stepId, textarea}) ->
+    continueButton = taskDiv.querySelector('.-continue')
 
-      taskTestActions.click(continueButton)
+    expect(continueButton.className).to.not.contain('disabled')
 
-      step = TaskStepStore.get(stepId)
-      expect(step.free_response).to.equal(textarea.value)
-      TaskStepActions.loaded(step, stepId)
-    )
-
-  checkForEmptyMultipleChoice: ({div, component, state, router, history}, stepId) ->
-    continueButton = div.querySelector('.-continue')
-
-    taskTestActions.fillFreeResponse(div, component).then((textarea)->
-      taskTestActions.click(continueButton)
-      expect(div.querySelector('.answers-table')).to.not.be.null
-      expect(div.querySelector('.answer-checked')).to.be.null
-    )
-
-  checkForAnsweredMultipleChoice: ({div, component, state, router, history}, stepId) ->
-    continueButton = div.querySelector('.-continue')
-    taskTestActions.fillFreeResponse(div, component).then((textarea)->
-
-      taskTestActions.click(continueButton)
-      answer = step.content.questions[0].answers[0]
-      React.addons.TestUtils.Simulate.change(div.querySelector('.question'), answer)
-
-      step = TaskStepStore.get(stepId)
-      expect(step.answer_id).to.not.be.null
-      expect(step.answer_id).to.equal(answer.id)
-    )
-
-  checkForSubmittedMultipleChoice: ({div, component, state, router, history}, stepId) ->
-    continueButton = div.querySelector('.-continue')
-    textarea = taskTestActions.fillFreeResponse(div, component)
     taskTestActions.click(continueButton)
+    TaskStepActions.saved(stepId, {free_response : textarea.value})
+    step = TaskStepStore.get(stepId)
 
-    routerStub.forceUpdate(component).then( ->
-      answer = step.content.questions[0].answers[0]
-      React.addons.TestUtils.Simulate.change(div.querySelector('.question'), answer)
+    expect(step.free_response).to.equal(textarea.value)
+    {taskDiv, taskComponent, stepId, textarea}
 
-      step = TaskStepStore.get(stepId)
-      correct_answer = step.content.questions[0].answers[1]
-      step.correct_answer_id ?= correct_answer.id
-      step.feedback_html = 'Fake feedback'
-      TaskStepActions.loaded(step, stepId)
+  _checkSubmitFreeResponse: ({taskDiv, taskComponent, stepId}) ->
+    expect(taskDiv.querySelector('.answers-table')).to.not.be.null
+    expect(taskDiv.querySelector('.answer-checked')).to.be.null
+    {taskDiv, taskComponent, stepId}
 
-      expect(div.querySelector('.answer-correct').innerHTML).to.equal(correct_answer.content_html)
-      expect(div.querySelector('.answer-correct').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
-      expect(div.querySelector('.question-feedback').innerHTML).to.equal(step.feedback_html)
+  _checkAnswerMultipleChoice: ({taskDiv, taskComponent, stepId, answer}) ->
+    step = TaskStepStore.get(stepId)
 
-      # need to explict return, es6-promise can only accept certain results
-      return null
-    )
+    expect(step.answer_id).to.not.be.null
+    expect(step.answer_id).to.equal(answer.id)
+    {taskDiv, taskComponent, stepId, answer}
 
-  renderFreeResponse: (reactProperties, taskId) ->
-    @_doStepsHelper(reactProperties, taskId, 'checkForEmptyFreeResponse')
+  _checkSubmitMultipleChoice: ({taskDiv, taskComponent, stepId, correct_answer, feedback_html}) ->
+    expect(taskDiv.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
+    expect(taskDiv.querySelector('.answer-correct').innerHTML).to.not.equal(taskDiv.querySelector('.answer-checked').innerHTML)
+    expect(taskDiv.querySelector('.question-feedback').innerHTML).to.equal(feedback_html)
+    {taskDiv, taskComponent, stepId, correct_answer, feedback_html}
 
-  submitFreeResponse: (reactProperties, taskId) ->
-    @_doStepsHelper(reactProperties, taskId, 'checkForAnsweredFreeResponse')
+  # promisify for chainability in specs
+  checkRenderFreeResponse: (args...)->
+    Promise.resolve(taskTests._checkRenderFreeResponse(args...))
+  checkAnswerFreeResponse: (args...)->
+    Promise.resolve(taskTests._checkAnswerFreeResponse(args...))
+  checkSubmitFreeResponse: (args...)->
+    Promise.resolve(taskTests._checkSubmitFreeResponse(args...))
+  checkAnswerMultipleChoice: (args...)->
+    Promise.resolve(taskTests._checkAnswerMultipleChoice(args...))
+  checkSubmitMultipleChoice: (args...)->
+    Promise.resolve(taskTests._checkSubmitMultipleChoice(args...))
 
-  renderMultipleChoiceAfterFreeResponse: (reactProperties, taskId) ->
-    @_doStepsHelper(reactProperties, taskId, 'checkForEmptyMultipleChoice')
+  renderFreeResponse: (taskId) ->
+    @renderStep(taskId)
 
-  answerMultipleChoice: (reactProperties, taskId) ->
-    @_doStepsHelper(reactProperties, taskId, 'checkForAnsweredMultipleChoice')
+  answerFreeResponse: (taskId) ->
+    @renderStep(taskId)
+      .then(taskTestActions.fillFreeResponse)
 
-  submitMultipleChoice: (reactProperties, taskId) ->
-    @_doStepsHelper(reactProperties, taskId, 'checkForSubmittedMultipleChoice')
+  submitFreeResponse: (taskId) ->
+    @renderStep(taskId)
+      .then(taskTestActions.fillFreeResponse)
+      .then(taskTestActions.saveFreeResponse)
+
+  answerMultipleChoice: (taskId) ->
+    @renderStep(taskId)
+      .then(taskTestActions.fillFreeResponse)
+      .then(taskTestActions.saveFreeResponse)
+      .then(taskTestActions.pickMultipleChoice)
+
+  submitMultipleChoice: (taskId) ->
+    @renderStep(taskId)
+      .then(taskTestActions.fillFreeResponse)
+      .then(taskTestActions.saveFreeResponse)
+      .then(taskTestActions.pickMultipleChoice)
+      .then(taskTestActions.saveMultipleChoice)
 
 module.exports = {routerStub, taskTestActions, taskTests}

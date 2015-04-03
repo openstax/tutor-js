@@ -15,8 +15,7 @@ taskId = 4
 VALID_MODEL = require '../../api/tasks/4.json'
 
 tasksHelper = (model, taskId, courseId) ->
-
-  TaskActions.loaded(model, taskId)
+  TaskActions.loaded(_.clone(model), taskId)
   routerStub.goTo("/courses/#{courseId}/tasks/#{taskId}")
 
  
@@ -28,6 +27,7 @@ describe 'Task Widget', ->
 
   afterEach ->
     routerStub.unmount()
+    taskTests.unmount()
 
   it 'should allow students to continue tasks', (done) ->
     tests = (result) ->
@@ -44,42 +44,45 @@ describe 'Task Widget', ->
 
     tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
-
+  # _.delay needed to prevent weird problems.
   it 'should render empty free response for unanswered exercise', (done)->
-    tests = (result) ->
-      taskTests.renderFreeResponse(result, taskId).then(done)
-
-    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
+    taskTests
+      .renderFreeResponse(taskId)
+      .then(taskTests.checkRenderFreeResponse)
+      .then(_.delay(done, 100)).catch(done)
 
 
   it 'should update store when free response is submitted', (done) ->
-    tests = (result) ->
-      taskTests.submitFreeResponse(result, taskId).then(done)
-
-    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
+    taskTests
+      .answerFreeResponse(taskId)
+      .then(taskTests.checkAnswerFreeResponse)
+      .then(_.delay(done, 100)).catch(done)
 
 
   it 'should render multiple choice after free response', (done) ->
-    tests = (result) ->
-      taskTests.renderMultipleChoiceAfterFreeResponse(result, taskId).then(done)
-
-    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
+    taskTests
+      .submitFreeResponse(taskId)
+      .then(taskTests.checkSubmitFreeResponse)
+      .then(_.delay(done, 100)).catch(done)
 
 
   it 'should update store when multiple choice answer is chosen', (done) ->
-    tests = (result) ->
-      taskTests.answerMultipleChoice(result, taskId).then(done)
+    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
+    taskTests
+      .answerMultipleChoice(taskId)
+      .then(taskTests.checkAnswerMultipleChoice)
+      .then(_.delay(done, 100)).catch(done)
 
-    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
 
-
-  # it 'should render an answer and feedback html for an answered question', (done) ->
-  #   tests = (result) ->
-  #     steps = TaskStore.getSteps(taskId)
-  #     taskTests.answerMultipleChoice(result, steps).then(done)
-
-  #   tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
-
+  it 'should render an answer and feedback html for an answered question', (done) ->
+    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
+    taskTests
+      .submitMultipleChoice(taskId)
+      .then(taskTests.checkSubmitMultipleChoice)
+      .then(_.delay(done, 100)).catch(done)
 
   # # TODO write these
   # it 'should render next question on continue after answered', ->

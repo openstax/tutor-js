@@ -11,6 +11,7 @@ _ = require 'underscore'
 
 VALID_MODEL = require '../../api/courses/1/practice.json'
 
+courseId = 1
 
 tasksHelper = (courseId) ->
   routerStub.goTo("/courses/#{courseId}/tasks")
@@ -44,7 +45,7 @@ describe 'Practice Widget', ->
       expect(div.querySelector('h1').innerText).to.equal(VALID_MODEL.title)
       done()
 
-    courseHelper(VALID_MODEL, 1).then(tests).catch(done)
+    courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
 
 
   it 'should allow students to continue exercises', (done) ->
@@ -52,7 +53,7 @@ describe 'Practice Widget', ->
       taskTests.allowContinueFromIntro(result)
       done()
 
-    courseHelper(VALID_MODEL, 1).then(tests).catch(done)
+    courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
@@ -60,15 +61,17 @@ describe 'Practice Widget', ->
       taskTests.rendersNextStepOnContinue(result)
       done()
 
-    courseHelper(VALID_MODEL, 1).then(tests).catch(done)
+    courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
 
 
   it 'should render multiple choice after free response', (done) ->
 
-    courseId = 1
+    CourseActions.loaded(_.clone(VALID_MODEL), courseId)
+    taskId = CourseStore.getPracticeId(courseId)
 
-    tests = (result) ->
-      taskTests.renderMultipleChoiceAfterFreeResponse(result, CourseStore.getPracticeId(courseId)).then(done)
-
-    courseHelper(VALID_MODEL, courseId).then(tests).catch(done)
+    taskTests
+      .submitFreeResponse(CourseStore.getPracticeId(courseId))
+      .then(taskTests.checkSubmitFreeResponse)
+      .then(_.delay(done, 100))
+      .catch(done)
 

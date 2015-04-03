@@ -81,7 +81,6 @@ module.exports = React.createClass
 
       panel = <TaskStep
                 id={stepConfig.id}
-                onStepCompleted={@onStepCompleted}
                 onNextStep={@onNextStep}
               />
 
@@ -92,11 +91,6 @@ module.exports = React.createClass
 
   reloadTask: ->
     @setState({currentStep: 0})
-
-  onStepCompleted: ->
-    {id} = @props
-    step = @state.steps[@state.currentStep]
-    TaskStepActions.complete(step.id)
 
   onNextStep: ->
     {id} = @props
