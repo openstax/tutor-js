@@ -35,8 +35,6 @@ routerStub =
     React.unmountComponentAtNode(@container)
     @container = document.createElement('div')
 
-  # TODO force update wrong somewhere.
-  # need to figure this out.
   forceUpdate: (component, args...) ->
     promise = new Promise (resolve, reject) ->
       try
@@ -127,7 +125,7 @@ taskTests =
     {id} = TaskStore.getCurrentStep(taskId)
     taskTests = @
 
-    onNextStep = ()->
+    onNextStep = ->
       # TODO Do something for next step.
 
     @_renderTaskStep(id, onNextStep)

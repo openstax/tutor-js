@@ -13,28 +13,26 @@ courseId = 1
 taskId = 4
 
 VALID_MODEL = require '../../api/tasks/4.json'
-
-tasksHelper = (model, taskId, courseId) ->
-  TaskActions.loaded(_.clone(model), taskId)
-  routerStub.goTo("/courses/#{courseId}/tasks/#{taskId}")
-
+homework_model = require '../../api/tasks/5.json'
  
 describe 'Task Widget', ->
   beforeEach ->
-    CourseActions.reset()
-    TaskActions.reset()
-    TaskStepActions.reset()
+    TaskActions.loaded(VALID_MODEL, taskId)
 
   afterEach ->
     routerStub.unmount()
     taskTests.unmount()
+
+    CourseActions.reset()
+    TaskActions.reset()
+    TaskStepActions.reset()
 
   it 'should allow students to continue tasks', (done) ->
     tests = (result) ->
       taskTests.allowContinueFromIntro(result)
       done()
 
-    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+    routerStub.goTo("/courses/#{courseId}/tasks/#{taskId}").then(tests).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
@@ -42,11 +40,10 @@ describe 'Task Widget', ->
       taskTests.rendersNextStepOnContinue(result)
       done()
 
-    tasksHelper(VALID_MODEL, taskId, courseId).then(tests).catch(done)
+    routerStub.goTo("/courses/#{courseId}/tasks/#{taskId}").then(tests).catch(done)
 
   # _.delay needed to prevent weird problems.
   it 'should render empty free response for unanswered exercise', (done)->
-    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
     taskTests
       .renderFreeResponse(taskId)
       .then(taskTests.checkRenderFreeResponse)
@@ -54,7 +51,6 @@ describe 'Task Widget', ->
 
 
   it 'should update store when free response is submitted', (done) ->
-    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
     taskTests
       .answerFreeResponse(taskId)
       .then(taskTests.checkAnswerFreeResponse)
@@ -62,7 +58,6 @@ describe 'Task Widget', ->
 
 
   it 'should render multiple choice after free response', (done) ->
-    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
     taskTests
       .submitFreeResponse(taskId)
       .then(taskTests.checkSubmitFreeResponse)
@@ -70,7 +65,6 @@ describe 'Task Widget', ->
 
 
   it 'should update store when multiple choice answer is chosen', (done) ->
-    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
     taskTests
       .answerMultipleChoice(taskId)
       .then(taskTests.checkAnswerMultipleChoice)
@@ -78,9 +72,16 @@ describe 'Task Widget', ->
 
 
   it 'should render an answer and feedback html for an answered question', (done) ->
-    TaskActions.loaded(_.clone(VALID_MODEL), taskId)
     taskTests
       .submitMultipleChoice(taskId)
+      .then(taskTests.checkSubmitMultipleChoice)
+      .then(_.delay(done, 100)).catch(done)
+
+
+  it 'should render an answer and feedback html for an answered homework', (done) ->
+    TaskActions.loaded(homework_model, 5)
+    taskTests
+      .submitMultipleChoice(5)
       .then(taskTests.checkSubmitMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
 
