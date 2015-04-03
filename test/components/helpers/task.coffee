@@ -76,6 +76,7 @@ taskTestActions =
   saveFreeResponse: ({taskDiv, taskComponent, stepId, textarea}) ->
     taskTestActions.clickButton(taskDiv, '.-continue')
     TaskStepActions.saved(stepId, {free_response : textarea.value})
+
     routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId})
 
   pickMultipleChoice: ({taskDiv, taskComponent, stepId}) ->
@@ -85,6 +86,7 @@ taskTestActions =
 
     React.addons.TestUtils.Simulate.change(answerElement, answer)
     TaskStepActions.saved(stepId, {answer_id : answer.id})
+
     routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId, answer})
 
   saveMultipleChoice: ({taskDiv, taskComponent, stepId}) ->
@@ -97,6 +99,7 @@ taskTestActions =
     step.correct_answer_id ?= correct_answer.id
     step.feedback_html = feedback_html
     TaskStepActions.loaded(step, stepId)
+
     routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId, correct_answer, feedback_html})
 
 

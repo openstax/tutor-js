@@ -79,9 +79,19 @@ describe 'Task Widget', ->
 
 
   it 'should render an answer and feedback html for an answered homework', (done) ->
-    TaskActions.loaded(homework_model, 5)
+    homeworkTaskId = 5
+    TaskActions.loaded(homework_model, homeworkTaskId)
+
+    # run a full step through and check each step
     taskTests
-      .submitMultipleChoice(5)
+      .renderStep(homeworkTaskId)
+      .then(taskTestActions.fillFreeResponse)
+      .then(taskTests.checkAnswerFreeResponse)
+      .then(taskTestActions.saveFreeResponse)
+      .then(taskTests.checkSubmitFreeResponse)
+      .then(taskTestActions.pickMultipleChoice)
+      .then(taskTests.checkAnswerMultipleChoice)
+      .then(taskTestActions.saveMultipleChoice)
       .then(taskTests.checkSubmitMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
 
