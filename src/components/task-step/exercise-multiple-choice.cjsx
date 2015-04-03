@@ -60,9 +60,10 @@ ExerciseMultiChoice = React.createClass
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
+    FreeResponse = if question.format is 'multiple-choice' then <div className="free-response">{free_response}</div> else ''
 
     <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
-      <div className="free-response">{free_response}</div>
+      {FreeResponse}
       <div className="multiple-choice-prompt">Choose the best answer from the following:</div>
     </Question>
 
@@ -87,9 +88,10 @@ ExerciseReview = React.createClass
     {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
     # TODO: Assumes 1 question.
     question = content.questions[0]
+    FreeResponse = if question.format is 'multiple-choice' then <div className="free-response">{free_response}</div> else ''
 
     <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
-      <div className="free-response">{free_response}</div>
+      {FreeResponse}
     </Question>
 
   isContinueEnabled: ->
@@ -127,7 +129,7 @@ module.exports = React.createClass
     step = TaskStepStore.get(id)
     {id, content, free_response, is_completed} = step
     # TODO: Assumes 1 question.
-    question = content.questions[0]
+    {format} = content.questions[0]
 
     # This should handle the 4 different states an Exercise can be in:
     # 1. `not(free_response)`: Show the question stem and a text area
@@ -135,15 +137,21 @@ module.exports = React.createClass
     # 3. `correct_answer`: review how you did and show feedback (if any)
     # 4. `task.is_completed and answer` show your answer choice but no option to change it
 
+    # This should also handle when an Exercise format is a True-False:
+    # 5.  `question.format` is 'true-false' and not(is_completed): Show stem and true-false options
+    # 6.  `question.format` is 'true-false' and `correct_answer`: review how you did and show feedback (if any)
+
     if is_completed
       # 3. `correct_answer`: review how you did and show feedback (if any)
+      # 6.  `question.format` is 'true-false' and `correct_answer`: review how you did and show feedback (if any)
       <ExerciseReview
         id={id}
         onNextStep={@props.onNextStep}
         onStepCompleted={@props.onStepCompleted}
       />
-    else if free_response
+    else if free_response or format is 'true-false'
       # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
+      # 5.  `question.format` is 'true-false' and not(is_completed): Show stem and true-false options
       <ExerciseMultiChoice
         id={id}
         onStepCompleted={@props.onStepCompleted}
