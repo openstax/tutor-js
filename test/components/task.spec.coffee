@@ -115,6 +115,7 @@ describe 'Task Widget', ->
       .then(taskTests.checkSubmitMultipleChoice)
       .then(taskTestActions.clickContinue)
       .then(taskTests.checkIsNextStep)
+      .then(taskTestActions.advanceStep)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -137,5 +138,20 @@ describe 'Task Widget', ->
       .then(taskTestActions.clickContinue)
       .then(taskTestActions.completeSteps)
       .then(taskTests.checkIsCompletePage)
+      .then(_.delay(done, 100)).catch(done)
+
+
+  it 'should allow review completed steps with breadcrumbs', (done) ->
+    homeworkTaskId = 5
+    TaskActions.loaded(homework_model, homeworkTaskId)
+    targetStepIndex = 1
+
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .then(taskTestActions.clickContinue)
+      .then(taskTestActions.completeSteps)
+      .then(taskTestActions.clickBreadcrumb(targetStepIndex))
+      .then(taskTests.checkIsMatchStep(targetStepIndex))
+      .then(taskTests.checkIsNotCompletePage)
       .then(_.delay(done, 100)).catch(done)
 
