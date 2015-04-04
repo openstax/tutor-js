@@ -1,4 +1,3 @@
-{expect} = require 'chai'
 _ = require 'underscore'
 
 React = require 'react/addons'
@@ -9,6 +8,8 @@ Router = require 'react-router'
 {TaskStepActions, TaskStepStore} = require '../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
 TaskStep = require '../../../src/components/task-step'
+
+taskChecks = require './task-checks'
 
 routerStub =
   container: document.createElement('div')
@@ -58,9 +59,10 @@ taskTestActions =
   click: (clickElementNode) ->
     React.addons.TestUtils.Simulate.click(clickElementNode)
 
-  _clickContinue: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
+  _clickContinue: (args...) ->
+    {taskDiv} = args[0]
     taskTestActions.clickButton(taskDiv, '.-continue')
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
+    args[0]
 
   clickContinue: (args...)->
     Promise.resolve(taskTestActions._clickContinue(args...))
@@ -225,132 +227,7 @@ taskTests =
 
     promise
 
-  allowContinueFromIntro: ({div, component, state, router, history}) ->
-    expect(div.querySelector('.-continue')).to.not.be.null
-
-  rendersNextStepOnContinue: ({div, component, state, router, history}) ->
-    introScreenText = div.innerText
-
-    taskTestActions.clickButton(div)
-
-    expect(div.innerText).to.not.be.equal(introScreenText)
-
-  _checkIsTargetStepId: (targetStepId, {taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    expect(stepId).to.equal(targetStepId)
-
-    step = TaskStepStore.get(targetStepId)
-
-    componentStepId = taskComponent.getId?()
-    if componentStepId
-      expect(componentStepId).to.equal(targetStepId)
-
-  _checkIsDefaultStep: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    stepIndex = TaskStore.getCurrentStepIndex(taskId)
-    steps = TaskStore.getStepsIds(taskId)
-    targetStepId = steps[stepIndex].id
-
-    taskTests._checkIsTargetStepId(targetStepId, {taskDiv, taskComponent, stepId, taskId, state, router, history})
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
-
-  _checkRenderFreeResponse: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    continueButton = taskDiv.querySelector('.-continue')
-
-    expect(taskDiv.querySelector('.answers-table')).to.be.null
-    expect(continueButton.className).to.contain('disabled')
-
-    # TODO
-    # Will eventually test based on task type.  Assuming exercise with free
-    # response for now.
-    step = TaskStepStore.get(stepId)
-    expect(step.free_response).to.be.undefined
-    expect(taskDiv.querySelector('textarea').value).to.equal('')
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
-
-  _checkAnswerFreeResponse: ({taskDiv, taskComponent, stepId, taskId, state, router, history, textarea}) ->
-    continueButton = taskDiv.querySelector('.-continue')
-
-    expect(continueButton.className).to.not.contain('disabled')
-
-    taskTestActions.click(continueButton)
-    TaskStepActions.saved(stepId, {free_response : textarea.value})
-    step = TaskStepStore.get(stepId)
-
-    expect(step.free_response).to.equal(textarea.value)
-    {taskDiv, taskComponent, stepId, taskId, state, router, history, textarea}
-
-  _checkSubmitFreeResponse: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    expect(taskDiv.querySelector('.answers-table')).to.not.be.null
-    expect(taskDiv.querySelector('.answer-checked')).to.be.null
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
-
-  _checkAnswerMultipleChoice: ({taskDiv, taskComponent, stepId, taskId, state, router, history, answer}) ->
-    step = TaskStepStore.get(stepId)
-
-    expect(step.answer_id).to.not.be.null
-    expect(step.answer_id).to.equal(answer.id)
-    {taskDiv, taskComponent, stepId, taskId, state, router, history, answer}
-
-  _checkSubmitMultipleChoice: ({taskDiv, taskComponent, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
-    expect(taskDiv.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
-    expect(taskDiv.querySelector('.answer-correct').innerHTML).to.not.equal(taskDiv.querySelector('.answer-checked').innerHTML)
-    expect(taskDiv.querySelector('.question-feedback').innerHTML).to.equal(feedback_html)
-    {taskDiv, taskComponent, stepId, taskId, state, router, history, correct_answer, feedback_html}
-
-  _checkIsNextStep: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    stepIndex = TaskStore.getCurrentStepIndex(taskId)
-    steps = TaskStore.getStepsIds(taskId)
-    targetStepId = steps[stepIndex - 1].id
-
-    taskTests._checkIsTargetStepId(targetStepId, {taskDiv, taskComponent, stepId, taskId, state, router, history})
-
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
-
-  _checkIsMatchStep: (stepIndex, {taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    steps = TaskStore.getStepsIds(taskId)
-    targetStepId = steps[stepIndex].id
-
-    taskTests._checkIsTargetStepId(targetStepId, {taskDiv, taskComponent, stepId, taskId, state, router, history})
-
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
-
-  _checkIsNotCompletePage: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    {type} = TaskStore.get(taskId)
-    type ?= 'task'
-    expect(taskDiv.querySelector(".-#{type}-completed")).to.be.null
-
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
-
-  _checkIsCompletePage: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    {type} = TaskStore.get(taskId)
-    type ?= 'task'
-    expect(taskDiv.querySelector(".-#{type}-completed")).to.not.be.null
-
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
-
-
-  # promisify for chainability in specs
-  checkIsDefaultStep: (args...)->
-    Promise.resolve(taskTests._checkIsDefaultStep(args...))
-  checkRenderFreeResponse: (args...)->
-    Promise.resolve(taskTests._checkRenderFreeResponse(args...))
-  checkAnswerFreeResponse: (args...)->
-    Promise.resolve(taskTests._checkAnswerFreeResponse(args...))
-  checkSubmitFreeResponse: (args...)->
-    Promise.resolve(taskTests._checkSubmitFreeResponse(args...))
-  checkAnswerMultipleChoice: (args...)->
-    Promise.resolve(taskTests._checkAnswerMultipleChoice(args...))
-  checkSubmitMultipleChoice: (args...)->
-    Promise.resolve(taskTests._checkSubmitMultipleChoice(args...))
-  checkIsNextStep: (args...)->
-    Promise.resolve(taskTests._checkIsNextStep(args...))
-  checkIsMatchStep: (matchStepIndex) ->
-    (args...)->
-      Promise.resolve(taskTests._checkIsMatchStep(matchStepIndex, args...))
-  checkIsNotCompletePage: (args...)->
-    Promise.resolve(taskTests._checkIsNotCompletePage(args...))
-  checkIsCompletePage: (args...)->
-    Promise.resolve(taskTests._checkIsCompletePage(args...))
-
+  # convenience methods
   renderFreeResponse: (taskId) ->
     @renderStep(taskId)
 
@@ -376,4 +253,17 @@ taskTests =
       .then(taskTestActions.pickMultipleChoice)
       .then(taskTestActions.saveMultipleChoice)
 
-module.exports = {routerStub, taskTestActions, taskTests}
+  workExerciseAndCheck: (args...) ->
+    Promise.resolve(args...)
+      .then(taskChecks.checkIsDefaultStep)
+      .then(taskTestActions.fillFreeResponse)
+      .then(taskTestActions.clickContinue)
+      .then(taskChecks.checkAnswerFreeResponse)
+      .then(taskTestActions.saveFreeResponse)
+      .then(taskChecks.checkSubmitFreeResponse)
+      .then(taskTestActions.pickMultipleChoice)
+      .then(taskChecks.checkAnswerMultipleChoice)
+      .then(taskTestActions.saveMultipleChoice)
+      .then(taskChecks.checkSubmitMultipleChoice)
+
+module.exports = {routerStub, taskTestActions, taskTests, taskChecks}

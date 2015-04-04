@@ -10,8 +10,17 @@ taskChecks =
     expect(continueButton).to.not.be.null
     expect(continueButton.className).to.not.contain('disabled')
 
+    {taskDiv, taskComponent, state, router, history}
+
+  _checkIsIntroScreen: ({taskDiv, taskComponent, state, router, history}) ->
+    expect(taskDiv.querySelector('.-task-intro')).to.not.be.null
+
+    {taskDiv, taskComponent, state, router, history}
+
   _checkIsNotIntroScreen: ({taskDiv, taskComponent, state, router, history}) ->
     expect(taskDiv.querySelector('.-task-intro')).to.be.null
+
+    {taskDiv, taskComponent, state, router, history}
 
   _checkIsTargetStepId: (targetStepId, {taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
     expect(stepId).to.equal(targetStepId)
@@ -21,6 +30,8 @@ taskChecks =
     componentStepId = taskComponent.getId?()
     if componentStepId
       expect(componentStepId).to.equal(targetStepId)
+
+    {taskDiv, taskComponent, state, router, history}
 
   _checkIsDefaultStep: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
@@ -103,6 +114,8 @@ taskChecks =
   # promisify for chainability in specs
   checkAllowContinue: (args...)->
     Promise.resolve(taskChecks._checkAllowContinue(args...))
+  checkIsIntroScreen: (args...)->
+    Promise.resolve(taskChecks._checkIsIntroScreen(args...))
   checkIsNotIntroScreen: (args...)->
     Promise.resolve(taskChecks._checkIsNotIntroScreen(args...))
   checkIsDefaultStep: (args...)->

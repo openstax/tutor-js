@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{routerStub, taskTestActions, taskTests} = require './helpers/task'
+{routerStub, taskTestActions, taskTests, taskChecks} = require './helpers/task'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -28,53 +28,67 @@ describe 'Task Widget', ->
     TaskStepActions.reset()
 
   it 'should allow students to continue tasks', (done) ->
-    tests = (result) ->
-      taskTests.allowContinueFromIntro(result)
-      done()
+    # Using homework because this one has no completed steps
+    # and therefore actually has an intro screen
+    homeworkTaskId = 5
+    TaskActions.loaded(homework_model, homeworkTaskId)
 
-    routerStub.goTo("/courses/#{courseId}/tasks/#{taskId}").then(tests).catch(done)
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .then(taskChecks.checkIsIntroScreen)
+      .then(taskChecks.checkAllowContinue)
+      .then(_.delay(done, 100)).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
-    tests = (result) ->
-      taskTests.rendersNextStepOnContinue(result)
-      done()
+    # Using homework because this one has no completed steps
+    # and therefore actually has an intro screen
+    homeworkTaskId = 5
+    TaskActions.loaded(homework_model, homeworkTaskId)
 
-    routerStub.goTo("/courses/#{courseId}/tasks/#{taskId}").then(tests).catch(done)
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .then(taskTestActions.clickContinue)
+      .then(taskChecks.checkIsNotIntroScreen)
+      .then(taskChecks.heckIsDefaultStep)
+      .then(_.delay(done, 100)).catch(done)
+
+
 
   # _.delay needed to prevent weird problems.
   it 'should render empty free response for unanswered exercise', (done)->
     taskTests
       .renderFreeResponse(taskId)
-      .then(taskTests.checkRenderFreeResponse)
+      .then(taskChecks.checkRenderFreeResponse)
       .then(_.delay(done, 100)).catch(done)
 
 
   it 'should update store when free response is submitted', (done) ->
     taskTests
       .answerFreeResponse(taskId)
-      .then(taskTests.checkAnswerFreeResponse)
+      .then(taskTestActions.clickContinue)
+      .then(taskChecks.checkAnswerFreeResponse)
       .then(_.delay(done, 100)).catch(done)
 
 
   it 'should render multiple choice after free response', (done) ->
     taskTests
       .submitFreeResponse(taskId)
-      .then(taskTests.checkSubmitFreeResponse)
+      .then(taskChecks.checkSubmitFreeResponse)
       .then(_.delay(done, 100)).catch(done)
 
 
   it 'should update store when multiple choice answer is chosen', (done) ->
     taskTests
       .answerMultipleChoice(taskId)
-      .then(taskTests.checkAnswerMultipleChoice)
+      .then(taskChecks.checkAnswerMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
 
 
   it 'should render an answer and feedback html for an answered question', (done) ->
     taskTests
       .submitMultipleChoice(taskId)
-      .then(taskTests.checkSubmitMultipleChoice)
+      .then(taskChecks.checkSubmitMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -85,16 +99,7 @@ describe 'Task Widget', ->
     # run a full step through and check each step
     taskTests
       .renderStep(homeworkTaskId)
-      # checks if is first incomplete step
-      .then(taskTests.checkIsDefaultStep)
-      .then(taskTestActions.fillFreeResponse)
-      .then(taskTests.checkAnswerFreeResponse)
-      .then(taskTestActions.saveFreeResponse)
-      .then(taskTests.checkSubmitFreeResponse)
-      .then(taskTestActions.pickMultipleChoice)
-      .then(taskTests.checkAnswerMultipleChoice)
-      .then(taskTestActions.saveMultipleChoice)
-      .then(taskTests.checkSubmitMultipleChoice)
+      .then(taskTests.workExerciseAndCheck)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -103,18 +108,9 @@ describe 'Task Widget', ->
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
       .then(taskTestActions.clickContinue)
-      # checks if is first incomplete step
-      .then(taskTests.checkIsDefaultStep)
-      .then(taskTestActions.fillFreeResponse)
-      .then(taskTests.checkAnswerFreeResponse)
-      .then(taskTestActions.saveFreeResponse)
-      .then(taskTests.checkSubmitFreeResponse)
-      .then(taskTestActions.pickMultipleChoice)
-      .then(taskTests.checkAnswerMultipleChoice)
-      .then(taskTestActions.saveMultipleChoice)
-      .then(taskTests.checkSubmitMultipleChoice)
+      .then(taskTests.workExerciseAndCheck)
       .then(taskTestActions.clickContinue)
-      .then(taskTests.checkIsNextStep)
+      .then(taskChecks.checkIsNextStep)
       .then(taskTestActions.advanceStep)
       .then(_.delay(done, 100)).catch(done)
 
@@ -125,7 +121,7 @@ describe 'Task Widget', ->
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
       .then(taskTestActions.clickContinue)
       .then(taskTestActions.completeSteps)
-      .then(taskTests.checkIsCompletePage)
+      .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -137,7 +133,7 @@ describe 'Task Widget', ->
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
       .then(taskTestActions.clickContinue)
       .then(taskTestActions.completeSteps)
-      .then(taskTests.checkIsCompletePage)
+      .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -151,7 +147,7 @@ describe 'Task Widget', ->
       .then(taskTestActions.clickContinue)
       .then(taskTestActions.completeSteps)
       .then(taskTestActions.clickBreadcrumb(targetStepIndex))
-      .then(taskTests.checkIsMatchStep(targetStepIndex))
-      .then(taskTests.checkIsNotCompletePage)
+      .then(taskChecks.checkIsMatchStep(targetStepIndex))
+      .then(taskChecks.checkIsNotCompletePage)
       .then(_.delay(done, 100)).catch(done)
 

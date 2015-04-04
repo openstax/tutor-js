@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{routerStub, taskTestActions, taskTests} = require './helpers/task'
+{routerStub, taskTestActions, taskTests, taskChecks} = require './helpers/task'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -42,25 +42,28 @@ describe 'Practice Widget', ->
 
 
   it 'should allow students to continue exercises', (done) ->
-    tests = (result) ->
-      taskTests.allowContinueFromIntro(result)
-      done()
-
-    routerStub.goTo("/courses/#{courseId}/practice").then(tests).catch(done)
+    taskId = CourseStore.getPracticeId(courseId)
+    taskTests
+      .goToTask("/courses/#{courseId}/practice", taskId)
+      .then(taskChecks.checkIsIntroScreen)
+      .then(taskChecks.checkAllowContinue)
+      .then(_.delay(done, 100)).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
-    tests = (result) ->
-      taskTests.rendersNextStepOnContinue(result)
-      done()
-
-    routerStub.goTo("/courses/#{courseId}/practice").then(tests).catch(done)
+    taskId = CourseStore.getPracticeId(courseId)
+    taskTests
+      .goToTask("/courses/#{courseId}/practice", taskId)
+      .then(taskTestActions.clickContinue)
+      .then(taskChecks.checkIsNotIntroScreen)
+      .then(taskChecks.heckIsDefaultStep)
+      .then(_.delay(done, 100)).catch(done)
 
   it 'should render empty free response for unanswered exercise', (done)->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .renderFreeResponse(taskId)
-      .then(taskTests.checkRenderFreeResponse)
+      .then(taskChecks.checkRenderFreeResponse)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -68,7 +71,8 @@ describe 'Practice Widget', ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .answerFreeResponse(taskId)
-      .then(taskTests.checkAnswerFreeResponse)
+      .then(taskTestActions.clickContinue)
+      .then(taskChecks.checkAnswerFreeResponse)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -76,7 +80,7 @@ describe 'Practice Widget', ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .submitFreeResponse(taskId)
-      .then(taskTests.checkSubmitFreeResponse)
+      .then(taskChecks.checkSubmitFreeResponse)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -84,7 +88,7 @@ describe 'Practice Widget', ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .answerMultipleChoice(taskId)
-      .then(taskTests.checkAnswerMultipleChoice)
+      .then(taskChecks.checkAnswerMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -92,7 +96,7 @@ describe 'Practice Widget', ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .submitMultipleChoice(taskId)
-      .then(taskTests.checkSubmitMultipleChoice)
+      .then(taskChecks.checkSubmitMultipleChoice)
       .then(_.delay(done, 100)).catch(done)
 
 
@@ -103,5 +107,5 @@ describe 'Practice Widget', ->
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
       .then(taskTestActions.clickContinue)
       .then(taskTestActions.completeSteps)
-      .then(taskTests.checkIsCompletePage)
+      .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, 100)).catch(done)
