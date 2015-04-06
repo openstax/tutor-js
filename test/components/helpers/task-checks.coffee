@@ -62,13 +62,20 @@ taskChecks =
     {taskDiv, taskComponent, stepId, taskId, state, router, history, textarea}
 
   _checkSubmitFreeResponse: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
+    continueButton = taskDiv.querySelector('.-continue')
+
+    # Prevent continue until answer chosen, answers should be showing.
+    expect(continueButton.className).to.contain('disabled')
     expect(taskDiv.querySelector('.answers-table')).to.not.be.null
     expect(taskDiv.querySelector('.answer-checked')).to.be.null
     {taskDiv, taskComponent, stepId, taskId, state, router, history}
 
   _checkAnswerMultipleChoice: ({taskDiv, taskComponent, stepId, taskId, state, router, history, answer}) ->
     step = TaskStepStore.get(stepId)
+    continueButton = taskDiv.querySelector('.-continue')
 
+    # Continue should be allowed
+    expect(continueButton.className).to.not.contain('disabled')
     expect(step.answer_id).to.not.be.null
     expect(step.answer_id).to.equal(answer.id)
     {taskDiv, taskComponent, stepId, taskId, state, router, history, answer}

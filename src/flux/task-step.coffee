@@ -59,11 +59,12 @@ TaskStepConfig =
       step = @_get(id)
       return false unless step.type is 'exercise'
 
-      step.content.questions[0].formats.indexOf('free-response') > -1
+      step.content.questions?[0].formats?.indexOf('free-response') > -1
 
     # TODO: write a test for this.
     getPanels: (id) ->
       step = @_get(id)
+      # Assumed panel order for now
       panelOrders =
         freeResponse: 0
         multipleChoice: 1
