@@ -15,8 +15,9 @@ module.exports =
     actions: TaskStepActions
 
   renderGenericFooter: ->
-    isDisabledClass = 'disabled' unless @isContinueEnabled()
-    continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+    buttonClasses = '-continue'
+    buttonClasses += ' disabled' unless @isContinueEnabled()
+    continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
     <span>
       {continueButton}
     </span>
