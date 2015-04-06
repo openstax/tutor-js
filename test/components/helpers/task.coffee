@@ -72,6 +72,9 @@ taskTestActions =
     completedBreadcrumbs = Array.prototype.slice.call(completedBreadcrumbs)
 
     taskTestActions.click(completedBreadcrumbs[breadcrumbButtonIndex])
+    steps = TaskStore.getStepsIds(taskId)
+    # change step
+    stepId = steps[breadcrumbButtonIndex].id
 
     {taskDiv, taskComponent, stepId, taskId, state, router, history}
 
@@ -140,28 +143,34 @@ taskTestActions =
   advanceStep: (args...) ->
     Promise.resolve(taskTestActions._advanceStep(args...))
 
-  _getStepsForCompletion: (taskId) ->
+  _getActionsForStepCompletion: (step) ->
     actionsToNext =
       reading: ['clickContinue']
       interactive: ['clickContinue']
       video: ['clickContinue']
-      exercise: ['fillFreeResponse', 'saveFreeResponse', 'pickMultipleChoice', 'saveMultipleChoice', 'clickContinue']
-      # TODO handle true and false
+      freeResponse: ['fillFreeResponse', 'saveFreeResponse']
+      multipleChoice: ['pickMultipleChoice', 'saveMultipleChoice']
+      review: ['clickContinue']
 
+    stepPanels = TaskStepStore.getPanels(step.id)
+    actions = _.chain(stepPanels).map((panel) ->
+      _.clone(actionsToNext[panel])
+    ).flatten().value()
+
+  _getActionsForTaskCompletion: (taskId) ->
     incompleteSteps = TaskStore.getIncompleteSteps(taskId)
     allSteps = TaskStore.getSteps(taskId)
-    actions = _.map(incompleteSteps, (step, index) ->
-      actionsForStep = _.clone(actionsToNext[step.type])
+
+    actions = _.chain(incompleteSteps).map((step, index) ->
+      actionsForStep = taskTestActions._getActionsForStepCompletion(step)
       if index < incompleteSteps.length - 1
         actionsForStep.push('advanceStep')
-
       actionsForStep
-    )
-    actions = _.flatten(actions)
+    ).flatten().value()
 
   completeSteps: (args...) ->
     {taskId} = args[0]
-    actions = taskTestActions._getStepsForCompletion(taskId)
+    actions = taskTestActions._getActionsForTaskCompletion(taskId)
 
     actionsFns = _.map(actions, (action) ->
       taskTestActions[action]
@@ -261,6 +270,20 @@ taskTests =
       .then(taskChecks.checkAnswerFreeResponse)
       .then(taskTestActions.saveFreeResponse)
       .then(taskChecks.checkSubmitFreeResponse)
+      .then(taskTestActions.pickMultipleChoice)
+      .then(taskChecks.checkAnswerMultipleChoice)
+      .then(taskTestActions.saveMultipleChoice)
+      .then(taskChecks.checkSubmitMultipleChoice)
+
+  workExercise: (args...) ->
+    Promise.resolve(args...)
+      .then(taskTestActions.fillFreeResponse)
+      .then(taskTestActions.saveFreeResponse)
+      .then(taskTestActions.pickMultipleChoice)
+      .then(taskTestActions.saveMultipleChoice)
+
+  workTrueFalseAndCheck: (args...) ->
+    Promise.resolve(args...)
       .then(taskTestActions.pickMultipleChoice)
       .then(taskChecks.checkAnswerMultipleChoice)
       .then(taskTestActions.saveMultipleChoice)

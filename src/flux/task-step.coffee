@@ -1,4 +1,5 @@
 _ = require 'underscore'
+camelCase = require 'camelcase'
 flux = require 'flux-react'
 
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
@@ -60,6 +61,25 @@ TaskStepConfig =
 
       step.content.questions[0].formats.indexOf('free-response') > -1
 
+    # TODO: write a test for this.
+    getPanels: (id) ->
+      step = @_get(id)
+      panelOrders =
+        freeResponse: 0
+        multipleChoice: 1
+        review: 2
+
+      if step.type == 'exercise'
+        stepPanels = _.chain(step.content.questions[0].formats).map((format) ->
+          camelCase(format)
+        ).sortBy((panel) ->
+          panelOrders[panel]
+        ).value()
+        stepPanels.push('review')
+      else
+        stepPanels = [step.type]
+
+      stepPanels
 
 extendConfig(TaskStepConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskStepConfig)

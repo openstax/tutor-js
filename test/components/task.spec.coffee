@@ -125,6 +125,21 @@ describe 'Task Widget', ->
       .then(_.delay(done, 100)).catch(done)
 
 
+  it 'should be able to work through a true-false question', (done) ->
+    homeworkTaskId = 5
+    TaskActions.loaded(homework_model, homeworkTaskId)
+
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .then(taskTestActions.clickContinue)
+      .then(taskTests.workExercise)
+      .then(taskTestActions.clickContinue)
+      .then(taskTests.workExercise)
+      .then(taskTestActions.clickContinue)
+      .then(taskChecks.workTrueFalseAndCheck)
+      .then(_.delay(done, 100)).catch(done)
+
+
   it 'should show homework done page on homework completion', (done) ->
     homeworkTaskId = 5
     TaskActions.loaded(homework_model, homeworkTaskId)

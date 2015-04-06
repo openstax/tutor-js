@@ -21,6 +21,7 @@
     "bootstrap": "~3.3.2",
     "browserify": "~9.0.3",
     "browserify-shim": "~3.8.3",
+    "camelcase": "^1.0.2",
     "chai": "~2.1.1",
     "cjsxify": "0.2.6",
     "coffee-script": "~1.9.1",
@@ -54,6 +55,7 @@
     "react-router": "~0.13.2",
     "react-widgets": "^2.2.6",
     "underscore": "~1.8.2",
+    "underscore.string": "^3.0.3",
     "vinyl-source-stream": "~1.1.0",
     "watchify": "~2.4.0",
     "when": "~3.7.2"

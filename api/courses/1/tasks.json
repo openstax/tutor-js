@@ -27,7 +27,7 @@
           "questions":[
             {
               "id": "123",
-              "formats": ["short-answer"],
+              "formats": ["free-response"],
               "stem":"What is the rest mass in kg?"
             },{
               "id": "234",
