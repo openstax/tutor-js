@@ -10,6 +10,7 @@ BS = require 'react-bootstrap'
 
 
 ExerciseFreeResponse = React.createClass
+  displayName: 'ExerciseFreeResponse'
   mixins: [StepMixin]
 
   getInitialState: ->
@@ -52,6 +53,7 @@ ExerciseFreeResponse = React.createClass
 
 
 ExerciseMultiChoice = React.createClass
+  displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin]
 
   renderBody: ->
@@ -80,6 +82,7 @@ ExerciseMultiChoice = React.createClass
 
 
 ExerciseReview = React.createClass
+  displayName: 'ExerciseReview'
   mixins: [StepMixin]
 
   renderBody: ->
@@ -110,13 +113,15 @@ ExerciseReview = React.createClass
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   renderFooterButtons: ->
-    isDisabledClass = 'disabled' unless @isContinueEnabled()
-    continueButton = <BS.Button bsStyle="primary" className={isDisabledClass} onClick={@onContinue}>Continue</BS.Button>
+    # TODO switch to using React.addons.classSet for classname
+    buttonClasses = '-continue'
+    buttonClasses += 'disabled' unless @isContinueEnabled()
+    continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
     tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @canTryAnother()
-    <span>
+    <div className="-footer-buttons">
       {tryAnotherButton}
       {continueButton}
-    </span>
+    </div>
 
 
 module.exports = React.createClass

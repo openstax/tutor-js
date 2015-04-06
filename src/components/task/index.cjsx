@@ -15,6 +15,9 @@ Time = require '../time'
 
 
 module.exports = React.createClass
+  propTypes:
+    id: React.PropTypes.string
+
   displayName: 'ReadingTask'
 
   contextTypes:
@@ -22,30 +25,12 @@ module.exports = React.createClass
 
   getInitialState: ->
     {id} = @props
-    steps = TaskStore.getSteps(id)
-    if steps.length is 1
-      # For non-reading tasks that are simple (1 step) just skip the overview page
-      currentStep = 0
-    else
-      # Otherwise, start at the Overview page
-      currentStep = @getDefaultCurrentStep()
-
+    currentStep = TaskStore.getDefaultStepIndex(id)
     {currentStep}
 
   getDefaultCurrentStep: ->
     {id} = @props
-    steps = TaskStore.getSteps(id)
-    # Determine the first uncompleted step
-    currentStep = -1
-    for step, i in steps
-      unless step.is_completed
-        if i is 0
-          currentStep = -1
-        else
-          currentStep = i
-        break
-
-    currentStep
+    TaskStore.getCurrentStepIndex(id)
 
   goToStep: (num) -> () =>
     # Curried for React
@@ -54,24 +39,23 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     model = TaskStore.get(id)
-    steps = TaskStore.getSteps(id)
+    steps = TaskStore.getStepsIds(id)
     stepConfig = steps[@state.currentStep]
+
     {courseId} = @context.router.getCurrentParams()
 
-    allStepsCompleted = true
-    for step in steps
-      unless step.is_completed
-        allStepsCompleted = false
+    allStepsCompleted = TaskStore.isTaskCompleted(id)
 
-    if steps.length > 1
+    taskClasses = 'task'
+    taskClasses += ' task-completed' if allStepsCompleted
+
+    unless TaskStore.isSingleStepped(id)
       breadcrumbs =
         <div className="panel-header">
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} />
         </div>
 
-    if @state.currentStep > steps.length
-      throw new Error('BUG! currentStep is too large')
-    else if @state.currentStep < -1
+    if @state.currentStep < -1
       throw new Error('BUG! currentStep is too small')
 
     else if @state.currentStep is -1
@@ -79,38 +63,32 @@ module.exports = React.createClass
         type = if model.type then model.type else 'task'
         End = Ends[type]
 
-        <End breadcrumbs={breadcrumbs} courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
+        panel = <End courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
 
       else
-        footer = <BS.Button bsStyle="primary" onClick={@goToStep(0)}>Continue</BS.Button>
-        <div className="task">
-          {breadcrumbs}
-          <BS.Panel bsStyle="default" footer={footer}>
-            <h1>{model.title}</h1>
-            <p>Due At: <Time date={model.due_at}></Time></p>
-          </BS.Panel>
-        </div>
+        footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
+        
+        panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
+                  <h1>{model.title}</h1>
+                  <p>Due At: <Time date={model.due_at}></Time></p>
+                </BS.Panel>
+
     else
       throw new Error('BUG: no valid step config') unless stepConfig
 
-      <div className="task">
-        {breadcrumbs}
-        <TaskStep
-          id={stepConfig.id}
-          onStepCompleted={@onStepCompleted}
-          onNextStep={@onNextStep}
-        />
-      </div>
+      panel = <TaskStep
+                id={stepConfig.id}
+                onNextStep={@onNextStep}
+              />
+
+    <div className={taskClasses}>
+      {breadcrumbs}
+      {panel}
+    </div>
 
   reloadTask: ->
     @setState({currentStep: 0})
 
-  onStepCompleted: ->
-    {id} = @props
-    # TODO: Operate on just the corrent step
-    steps = TaskStore.getSteps(id)
-    step = steps[@state.currentStep]
-    TaskStepActions.complete(step.id)
-
   onNextStep: ->
+    {id} = @props
     @setState({currentStep: @getDefaultCurrentStep()})

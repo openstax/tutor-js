@@ -27,13 +27,17 @@ module.exports = React.createClass
   mixins: [LoadableMixin]
 
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.number.isRequired
 
   getId: -> @props.id
 
   getFlux: ->
     store: TaskStepStore
     actions: TaskStepActions
+
+  onStepCompleted: ->
+    id = @getId()
+    TaskStepActions.complete(id)
 
   renderLoaded: ->
     {id} = @props
@@ -43,5 +47,5 @@ module.exports = React.createClass
     <Type
       id={id}
       onNextStep={@props.onNextStep}
-      onStepCompleted={@props.onStepCompleted}
+      onStepCompleted={@onStepCompleted}
     />

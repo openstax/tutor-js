@@ -8,6 +8,7 @@ CourseConfig =
   _practices: {}
 
   _isPractice: (obj) ->
+    # TODO check with backend about task.type = 'practice' since task.type for homework = 'homework'
     obj.steps? # TODO: Find a more reliable way to determine if a practice is being loaded
 
   createPractice: (courseId) ->
