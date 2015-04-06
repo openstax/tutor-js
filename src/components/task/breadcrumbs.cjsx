@@ -24,7 +24,9 @@ module.exports = React.createClass
 
     stepButtons = for step, i in steps
 
-      continue unless step
+      # Step is falsy when the task store is loaded with a null step
+      # after request.  This is not desired behavior.
+      throw new Error('BUG! step is falsy in TaskStore') unless step
 
       bsStyle = null
       classes = ['step']

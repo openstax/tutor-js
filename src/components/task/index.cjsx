@@ -1,7 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-classNames = require 'classnames'
 
 api = require '../../api'
 {TaskStore} = require '../../flux/task'
@@ -27,9 +26,7 @@ module.exports = React.createClass
   getInitialState: ->
     {id} = @props
     currentStep = TaskStore.getDefaultStepIndex(id)
-    steps = TaskStore.getStepsIds(id)
-
-    {currentStep, steps}
+    {currentStep}
 
   getDefaultCurrentStep: ->
     {id} = @props
@@ -42,16 +39,15 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     model = TaskStore.get(id)
-    stepConfig = @state.steps[@state.currentStep]
+    steps = TaskStore.getStepsIds(id)
+    stepConfig = steps[@state.currentStep]
 
     {courseId} = @context.router.getCurrentParams()
 
     allStepsCompleted = TaskStore.isTaskCompleted(id)
 
-    classes = classNames({
-      'task': true
-      'task-completed': allStepsCompleted 
-    })
+    taskClasses = 'task'
+    taskClasses += ' task-completed' if allStepsCompleted
 
     unless TaskStore.isSingleStepped(id)
       breadcrumbs =
@@ -85,7 +81,7 @@ module.exports = React.createClass
                 onNextStep={@onNextStep}
               />
 
-    <div className={classes}>
+    <div className={taskClasses}>
       {breadcrumbs}
       {panel}
     </div>
@@ -95,4 +91,4 @@ module.exports = React.createClass
 
   onNextStep: ->
     {id} = @props
-    @setState({currentStep: @getDefaultCurrentStep(), steps: TaskStore.getStepsIds(id)})
+    @setState({currentStep: @getDefaultCurrentStep()})

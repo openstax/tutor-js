@@ -118,7 +118,7 @@ ExerciseReview = React.createClass
     buttonClasses += 'disabled' unless @isContinueEnabled()
     continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
     tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @canTryAnother()
-    <div>
+    <div className="-footer-buttons">
       {tryAnotherButton}
       {continueButton}
     </div>
