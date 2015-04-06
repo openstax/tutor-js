@@ -5,6 +5,7 @@ Router = require 'react-router'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 LoadableMixin = require '../loadable-mixin'
+PracticeButton = require '../practice-button'
 
 GuideShell = React.createClass
   mixins: [LoadableMixin]
@@ -21,6 +22,7 @@ GuideShell = React.createClass
     courseId
 
   renderCrudeTable: (data,i) ->
+    courseId = @getId()
 
     <tr>
       <td>{data.id}</td>
@@ -30,6 +32,7 @@ GuideShell = React.createClass
       <td>{data.current_level}</td>
       <td className="-course-guide-table-pageids">{data.page_ids}</td>
       <td>{data.practice_count}</td>
+      <td><PracticeButton courseId={courseId}/></td>
     </tr>
         
 
@@ -55,6 +58,7 @@ GuideShell = React.createClass
                   <th>current_level</th>
                   <th>page_ids</th>
                   <th>practice_count</th>
+                  <th>actions</th>
                 </tr>
               </thead>
               <tbody>
