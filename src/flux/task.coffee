@@ -4,8 +4,9 @@ flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 getSteps = (steps) ->
-  _.map steps, ({id}) ->
+  _.map(steps, ({id}) ->
     TaskStepStore.get(id)
+  )
 
 getCurrentStepIndex = (steps) ->
   currentStep = -1
@@ -16,12 +17,12 @@ getCurrentStepIndex = (steps) ->
   currentStep
 
 getCurrentStep = (steps) ->
-  _.find(steps, (step)->
+  _.find(steps, (step) ->
     not step.is_completed?
   )
 
 getIncompleteSteps = (steps) ->
-  _.filter(steps, (step)->
+  _.filter(steps, (step) ->
     not step.is_completed?
   )
 
@@ -82,7 +83,7 @@ TaskConfig =
       if stepIndex is 0 then -1 else stepIndex
 
     getStepsIds: (id) ->
-      _.map(@_steps[id], (step)->
+      _.map(@_steps[id], (step) ->
         _.pick(step, 'id')
       )
 
