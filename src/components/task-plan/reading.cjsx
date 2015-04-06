@@ -6,6 +6,8 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
+
+PlanFooter = require './footer'
 LoadableMixin = require '../loadable-mixin'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
@@ -115,61 +117,6 @@ SelectTopics = React.createClass
       </div>
     </BS.Modal>
 
-ReadingFooter = React.createClass
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  onSave: ->
-    {id} = @props
-    TaskPlanActions.save(id)
-
-  onPublish: ->
-    {id} = @props
-    TaskPlanActions.publish(id)
-
-  onDelete: () ->
-    {id} = @props
-    if confirm('Are you sure you want to delete this?')
-      TaskPlanActions.delete(id)
-      @context.router.transitionTo('dashboard')
-
-  onViewStats: ->
-    {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id})
-
-  render: ->
-    {id, courseId} = @props
-    plan = TaskPlanStore.get(id)
-
-    valid = TaskPlanStore.isValid(id)
-    publishable = valid and not TaskPlanStore.isChanged(id)
-    saveable = valid and TaskPlanStore.isChanged(id)
-    deleteable = not TaskPlanStore.isNew(id)
-
-    classes = ['-publish']
-    classes.push('disabled') unless publishable
-    classes = classes.join(' ')
-
-    publishButton = <BS.Button bsStyle="link" className={classes} onClick={@onPublish}>Publish</BS.Button>
-
-    if deleteable
-      deleteLink = <BS.Button bsStyle="link" className="-delete" onClick={@onDelete}>Delete</BS.Button>
-
-    classes = ['-save']
-    classes.push('disabled') unless saveable
-    classes = classes.join(' ')
-
-    saveLink = <BS.Button bsStyle="primary" className={classes} onClick={@onSave}>Save as Draft</BS.Button>
-
-    statsLink = <BS.Button bsStyle="link" className="-stats" onClick={@onViewStats}>Stats</BS.Button>
-
-    <span className="-footer-buttons">
-      {saveLink}
-      {publishButton}
-      {deleteLink}
-      {statsLink}
-    </span>
 
 ReadingPlan = React.createClass
 
@@ -200,7 +147,7 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer= <ReadingFooter id={id} courseId={courseId} />
+    footer= <PlanFooter id={id} courseId={courseId} />
 
     <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
       <h1>{headerText}</h1>

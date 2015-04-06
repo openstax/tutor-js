@@ -55,10 +55,22 @@ TaskPlanConfig =
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
+    getProblems: (id) ->
+      plan = @_getPlan(id)
+      plan?.settings.exercise_ids
+    getDescription: (id) ->
+      plan=@_getPlan(id)
+      plan?.settings.description
+
+    isHomework: (id) ->
+      plan = @_getPlan(id)
+      plan.type is 'homework'
     isValid: (id) ->
       plan = @_getPlan(id)
-      plan.title and plan.opens_at and plan.due_at and plan.settings?.page_ids?.length > 0
-
+      if (plan.type is 'reading')
+        return plan.title and plan.opens_at and plan.due_at and plan.settings?.page_ids?.length > 0
+      else if (plan.type is 'homework')
+        return plan.title and plan.due_at and plan.settings?.exercise_ids?.length > 0
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)
