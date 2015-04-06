@@ -6,7 +6,7 @@
     "questions":[
       {
         "id": "987",
-        "format": "multiple-choice",
+        "formats": ["multiple-choice", "free-response"],
         "stem_html":"What is <span data-math='2+2'>2+2</span>?",
         "answers":[
           {"id":"id1","content_html":"22"},

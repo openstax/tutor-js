@@ -13,7 +13,7 @@
         "questions":[
           {
             "id": "987",
-            "format": "multiple-choice",
+            "formats": ["free-response","multiple-choice"],
             "stem_html":"What is <span data-math='2+2'>2+2</span>?",
             "answers":[
               {"id":"id1","content_html":"22"},
@@ -29,7 +29,7 @@
         "questions":[
           {
             "id": "876",
-            "format": "multiple-choice",
+            "formats": ["free-response","multiple-choice"],
             "stem_html":"Is the glass half full or half empty?",
             "answers":[
               {"id":"id3","content_html":"Half Full"},
@@ -45,7 +45,7 @@
         "questions":[
           {
             "id": "877",
-            "format": "true-false",
+            "formats": ["multiple-choice"],
             "stem_html":"Is the glass half full or half empty?",
             "answers":[
               {"id":"id5","content_html":"True"},

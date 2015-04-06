@@ -49,9 +49,16 @@ TaskStepConfig =
     getFreeResponse: (id) ->
       step = @_get(id)
       step.free_response
+
     getAnswerId: (id) ->
       step = @_get(id)
       step.answer_id
+
+    hasFreeResponse: (id) ->
+      step = @_get(id)
+      return false unless step.type is 'exercise'
+
+      step.content.questions[0].formats.indexOf('free-response') > -1
 
 
 extendConfig(TaskStepConfig, new CrudConfig())
