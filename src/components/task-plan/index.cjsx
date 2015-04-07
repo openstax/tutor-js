@@ -1,5 +1,4 @@
 React = require 'react'
-LoadableMixin = require '../loadable-mixin'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 {HomeworkPlan} = require './homework'
 {ReadingPlan} = require './reading'
