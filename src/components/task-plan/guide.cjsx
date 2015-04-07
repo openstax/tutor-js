@@ -4,26 +4,13 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {CourseStore, CourseActions} = require '../../flux/course'
-LoadableMixin = require '../loadable-mixin'
+LoadableItem = require '../loadable-item'
 PracticeButton = require '../practice-button'
 
-GuideShell = React.createClass
-  mixins: [LoadableMixin]
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  getFlux: ->
-    store: CourseStore
-    actions: CourseActions
-    loadFn: CourseActions.loadGuide
-
-  getId: ->
-    {courseId} = @context.router.getCurrentParams()
-    courseId
+Guide = React.createClass
 
   renderCrudeTable: (data,i) ->
-    courseId = @getId()
+    {id} = @props
 
     <tr>
       <td>{data.id}</td>
@@ -33,12 +20,11 @@ GuideShell = React.createClass
       <td>{data.current_level}</td>
       <td className="-course-guide-table-pageids">{data.page_ids}</td>
       <td>{data.practice_count}</td>
-      <td><PracticeButton courseId={courseId} pageIds={data.page_ids}/></td>
+      <td><PracticeButton courseId={id} pageIds={data.page_ids}/></td>
     </tr>
         
-
-  renderLoaded: ->
-    id = @getId()
+  render: ->
+    {id} = @props
 
     guide = CourseStore.getGuide(id)
     table = _.map(guide.fields, @renderCrudeTable)
@@ -68,4 +54,20 @@ GuideShell = React.createClass
         </div>
     </BS.Panel>
 
-module.exports = {GuideShell}
+
+GuideShell = React.createClass
+  contextTypes:
+    router: React.PropTypes.func
+
+  render: ->
+    {courseId} = @context.router.getCurrentParams()
+
+    <LoadableItem
+      store={CourseStore}
+      actions={CourseActions}
+      load={CourseActions.loadGuide}
+      id={courseId}
+      renderItem={=> <Guide key={courseId} id={courseId} />}
+    />
+
+module.exports = {GuideShell, Guide}

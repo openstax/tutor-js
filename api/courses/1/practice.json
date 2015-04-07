@@ -5,10 +5,6 @@
   "steps": [
     { "id": "step-id-4-1",
       "type": "exercise",
-      "is_completed": true,
-      "correct_answer_id": "id2",
-      "answer_id": "id1",
-      "free_response": "four",
       "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
       "content": {
         "stimulus_html": "Addition is fun",
@@ -58,7 +54,7 @@
         ]
       }
     },
-    { "id": "step-id-5-4",
+    { "id": "step-id-practice-4",
       "type": "exercise",
       "content": {
         "questions":[
@@ -76,7 +72,7 @@
         ]
       }
     },
-    { "id": "step-id-5-5",
+    { "id": "step-id-practice-5",
       "type": "exercise",
       "content": {
         "stimulus_html": "Stimulus for another Exercise",

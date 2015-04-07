@@ -2,7 +2,7 @@ gulp            = require 'gulp'
 karma           = require 'karma'
 connect         = require 'gulp-connect'
 cors            = require 'cors'
-less            = require 'gulp-less'
+less            = require 'gulp-less-sourcemap'
 source          = require 'vinyl-source-stream'
 browserify      = require 'browserify'
 watchify        = require 'watchify'
@@ -138,7 +138,8 @@ gulp.task 'minjs', ['build'], ->
 gulp.task 'mincss', ['build'], ->
   destDir = './dist/'
   gulp.src('./dist/tutor.css')
-    .pipe(minifyCSS({keepBreaks:true}))
+    # TODO: Remove the `procesImport:false` and host the fonts locally
+    .pipe(minifyCSS({keepBreaks:true, processImport:false}))
     .pipe(rename({extname: '.min.css'}))
     .pipe(gulp.dest(destDir))
 

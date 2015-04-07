@@ -6,7 +6,7 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
-LoadableMixin = require '../loadable-mixin'
+LoadableItem = require '../loadable-item'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
 # Transitions need to be delayed so react has a chance to finish rendering so delay them
@@ -34,7 +34,8 @@ SectionTopic = React.createClass
 SelectTopics = React.createClass
   mixins: [BS.OverlayMixin]
   getInitialState: ->
-    TocActions.load() unless TocStore.isLoaded()
+    {courseId} = @props
+    TocActions.load(courseId) unless TocStore.isLoaded()
     { isModalOpen: false }
 
   componentWillMount:   -> TocStore.addChangeListener(@update)
@@ -144,7 +145,7 @@ ReadingFooter = React.createClass
     valid = TaskPlanStore.isValid(id)
     publishable = valid and not TaskPlanStore.isChanged(id)
     saveable = valid and TaskPlanStore.isChanged(id)
-    deleteable = not TaskPlanStore.isNew(id)
+    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isPublished(id)
 
     classes = ['-publish']
     classes.push('disabled') unless publishable
@@ -201,10 +202,9 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer= <ReadingFooter id={id} courseId={courseId} />
+    footer = <ReadingFooter id={id} courseId={courseId} />
 
-    <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
-      <h1>{headerText}</h1>
+    <BS.Panel bsStyle="primary" className="create-reading" footer={footer} header={headerText}>
       <div className="-reading-title">
         <label htmlFor="reading-title">Title</label>
         <input
@@ -239,12 +239,12 @@ ReadingPlan = React.createClass
           min={opensAt}
           value={dueAt}/>
       </div>
-      <SelectTopics planId={id} selected={topics}/>
+      <SelectTopics courseId={courseId} planId={id} selected={topics}/>
     </BS.Panel>
 
 
 ReadingShell = React.createClass
-  mixins: [LoadableMixin, ConfirmLeaveMixin]
+  mixins: [ConfirmLeaveMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -258,6 +258,7 @@ ReadingShell = React.createClass
       TaskPlanActions.create(id, {_HACK_courseId: courseId})
     {id}
 
+  # Used by ConfirmLeaveMixin
   getId: -> @context.router.getCurrentParams().id or @state.id
   getFlux: ->
     store: TaskPlanStore
@@ -274,10 +275,16 @@ ReadingShell = React.createClass
     else
       @setState({})
 
-  renderLoaded: ->
+  render: ->
     id = @getId()
     {courseId} = @context.router.getCurrentParams()
 
-    <ReadingPlan id={id} courseId={courseId} />
+    <LoadableItem
+      id={id}
+      store={TaskPlanStore}
+      actions={TaskPlanActions}
+      renderItem={-> <ReadingPlan id={id} courseId={courseId} />}
+    />
+
 
 module.exports = {ReadingShell, ReadingPlan}
