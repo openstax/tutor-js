@@ -24,9 +24,9 @@ Guide = React.createClass
       <td className="-course-guide-table-current_level">{data.current_level}</td>
       <td className="course-guide-table-page_ids">{data.page_ids}</td>
       <td className="-course-guide-table-practice_count">{data.practice_count}</td>
-      
+
     </tr>
-        
+
   render: ->
     {id} = @props
 
@@ -70,6 +70,8 @@ GuideShell = React.createClass
       store={CourseStore}
       actions={CourseActions}
       load={CourseActions.loadGuide}
+      isLoaded={CourseStore.isGuideLoaded}
+      isLoading={CourseStore.isGuideLoading}
       id={courseId}
       renderItem={=> <Guide key={courseId} id={courseId} />}
     />

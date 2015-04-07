@@ -19,25 +19,29 @@ module.exports = React.createClass
     load: React.PropTypes.func
 
   render: ->
-    {id, store, actions, load, renderItem} = @props
+    {id, store, actions, load, isLoaded, isLoading, renderItem} = @props
     load ?= actions.load
+    isLoaded ?= store.isLoaded
+    isLoading ?= store.isLoading
 
-    isLoading = ->
-      if store.isUnknown(id)
+    isLoadingOrLoad = ->
+      if isLoading(id)
+        true
+      else if isLoaded(id)
+        false
+      else if store.isUnknown(id)
         # The load is done here because otherwise it would need to be in `componentWillMount`
         # **and** componentWillUpdate(nextProps) making the API a bit more clunky
         unless store.isNew(id)
           load(id)
-        true
-      else if store.isLoading(id)
         true
       else
         false
 
     <Loadable
       store={store}
-      isLoading={isLoading}
-      isLoaded={-> store.isLoaded(id)}
+      isLoading={isLoadingOrLoad}
+      isLoaded={-> isLoaded(id)}
       isFailed={-> store.isFailed(id)}
       render={renderItem}
     />

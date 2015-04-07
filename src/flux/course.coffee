@@ -16,14 +16,16 @@ CourseConfig =
     @_loadedPractice(obj, courseId) # TODO: Maybe this should emit practice.created
 
   _guides: {}
+  _asyncStatusGuides: {}
 
   loadGuide: (courseId) ->
     delete @_guides[courseId]
+    @_asyncStatusGuides[courseId] = 'loading'
     @emitChange()
 
   loadedGuide: (obj, courseId) ->
     @_guides[courseId] = obj
-    @_asyncStatus[courseId] = 'loaded'
+    @_asyncStatusGuides[courseId] = 'loaded'
     @emitChange()
 
   loadPractice: (courseId) ->
@@ -50,6 +52,7 @@ CourseConfig =
     getGuide: (courseId) ->
       @_guides[courseId] or throw new Error('BUG: Not loaded yet')
 
+    isGuideLoading: (courseId) -> @_asyncStatusGuides[courseId] is 'loading'
     isGuideLoaded: (courseId) -> !! @_guides[courseId]
 
     getPracticeId: (courseId) ->
