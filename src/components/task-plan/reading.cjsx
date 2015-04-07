@@ -145,7 +145,7 @@ ReadingFooter = React.createClass
     valid = TaskPlanStore.isValid(id)
     publishable = valid and not TaskPlanStore.isChanged(id)
     saveable = valid and TaskPlanStore.isChanged(id)
-    deleteable = not TaskPlanStore.isNew(id)
+    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isPublished(id)
 
     classes = ['-publish']
     classes.push('disabled') unless publishable
@@ -202,10 +202,9 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer= <ReadingFooter id={id} courseId={courseId} />
+    footer = <ReadingFooter id={id} courseId={courseId} />
 
-    <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
-      <h1>{headerText}</h1>
+    <BS.Panel bsStyle="primary" className="create-reading" footer={footer} header={headerText}>
       <div className="-reading-title">
         <label htmlFor="reading-title">Title</label>
         <input
