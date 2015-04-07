@@ -1,6 +1,7 @@
 {expect} = require 'chai'
 
 require './components/reading-plan.spec'
+require './components/task.spec'
 require './components/practice.spec'
 
 require './crud-store.spec'

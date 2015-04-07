@@ -14,7 +14,7 @@ PracticeEnd = React.createClass
 
     <div className="task task-completed">
       {@props.breadcrumbs}
-      <BS.Panel bsStyle="default" footer={footer}>
+      <BS.Panel bsStyle="default" footer={footer} className='-practice-completed'>
         <h1>You earned a star!</h1>
         <h3>Great Job!</h3>
       </BS.Panel>
@@ -26,7 +26,7 @@ HomeworkEnd = React.createClass
 
     <div className="task task-completed">
       {@props.breadcrumbs}
-      <BS.Panel bsStyle="default" footer={footer}>
+      <BS.Panel bsStyle="default" footer={footer} className='-homework-completed'>
         <h1>Turn in your homework.</h1>
         <h3>Great Job!</h3>
       </BS.Panel>
@@ -38,7 +38,7 @@ TaskEnd = React.createClass
 
     <div className="task task-completed">
       {@props.breadcrumbs}
-      <BS.Panel bsStyle="default" footer={footer}>
+      <BS.Panel bsStyle="default" footer={footer} className='-task-completed'>
         <h1>You Are Done.</h1>
         <h3>Great Job!</h3>
       </BS.Panel>
