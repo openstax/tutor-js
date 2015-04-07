@@ -55,7 +55,6 @@
     "react-router": "~0.13.2",
     "react-widgets": "^2.2.6",
     "underscore": "~1.8.2",
-    "underscore.string": "^3.0.3",
     "vinyl-source-stream": "~1.1.0",
     "watchify": "~2.4.0",
     "when": "~3.7.2"

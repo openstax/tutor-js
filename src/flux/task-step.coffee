@@ -70,7 +70,7 @@ TaskStepConfig =
         multipleChoice: 1
         review: 2
 
-      if step.type == 'exercise'
+      if step.type is 'exercise'
         stepPanels = _.chain(step.content.questions[0].formats).map((format) ->
           camelCase(format)
         ).sortBy((panel) ->
