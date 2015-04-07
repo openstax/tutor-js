@@ -2,7 +2,7 @@
 React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
-{App, Dashboard, Tasks, SingleTask, SinglePractice, Invalid} = require './components'
+{App, Dashboard, TasksShell, SingleTask, SinglePractice, Invalid} = require './components'
 {ReadingShell} = require './components/task-plan/reading'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
@@ -15,7 +15,7 @@ routes = (
   <Route path='/' handler={App}>
     <Redirect from='/' to='dashboard' />
     <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
-    <Route path='courses/:courseId/tasks/?' name='listTasks' handler={Tasks} />
+    <Route path='courses/:courseId/tasks/?' name='listTasks' handler={TasksShell} />
     <Route path='courses/:courseId/tasks/:id/?' name='viewTask' handler={SingleTask} />
     <Route path='courses/:courseId/practice/?' name='viewPractice' handler={SinglePractice} />
     <Route path='courses/:courseId/readings/?' name='taskplans' handler={TeacherTaskPlans} />
@@ -39,4 +39,4 @@ start = (mountPoint) ->
   router.run (Handler) ->
     React.render(<Handler/>, mountPoint)
 
-module.exports = {start, router}
+module.exports = {start, router, routes}

@@ -2,6 +2,8 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather:300,300italic,700);
 @import url(http://fonts.googleapis.com/css?family=Architects+Daughter);
 
+@body-font-color: #424242;
+
 #fonts {
   .sans (@size: 1.5rem, @line-height: 3rem) {
     font-family: 'Lato', Helvetica, sans-serif;
@@ -23,9 +25,35 @@
 
 html { font-size: 62.5%; }
 
-body { #fonts > .sans }
+body { 
+  #fonts > .sans;
+  color: @body-font-color;
+}
 
 h1 {
-  #fonts > .sans(4rem, 5rem);
+  #fonts > .sans(3.8rem, 4.6rem);
   font-weight: 900;
+  margin-bottom: 20px;
+}
+
+h2 {
+  #fonts > .sans(3rem, 4.6rem);
+  font-weight: 900;
+}
+
+::-webkit-input-placeholder {
+  font-weight: 300;
+  font-style: italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-weight: 300;
+  font-style: italic;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  font-weight: 300;
+  font-style: italic;
+}
+:-ms-input-placeholder {  
+  font-weight: 300;
+  font-style: italic;
 }

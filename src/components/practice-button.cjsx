@@ -17,7 +17,7 @@ PracticeButton = React.createClass
   render: ->
     actionText = if @props.actionText then @props.actionText else 'Practice'
 
-    <BS.Button bsStyle="primary" onClick={@onClick}>{actionText}</BS.Button>
+    <BS.Button bsStyle="primary" className="-practice" onClick={@onClick}>{actionText}</BS.Button>
 
   onClick: ->
     if CourseStore.hasPractice(@props.courseId) and not @props.forceCreate

@@ -1,0 +1,60 @@
+
+body {
+  padding-top: 60px; // For the top navbar
+  padding-bottom: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+  background: #f1f1f1;
+}
+
+.task {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.panel {
+  margin: 20px auto;
+  border-radius: 0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+
+  &.ui-interactive {
+    .panel-body {
+      height: 100%;
+
+      iframe {
+        height: 100%;
+        width: 100%;
+        border: 1px solid black;
+      }
+    }
+  }
+
+  // Similar to a dismissable alert, line up the action button in the panel heading
+  .ui-action {
+    position: relative;
+    top: -5px;
+  }
+
+  // The little bit of gray text next to a task in the task list that says `(3 steps)`
+  .panel-heading small.details {
+    color: #ccc;
+    margin-left: .5em;
+  }
+}
+
+.panel-header {
+  margin: 20px auto;
+  border-radius: 0;
+}
+
+.panel-body {
+  padding: 20px 0;
+}
+
+.panel-footer {
+  padding: 20px 50px;
+  background-color: #f5f5f5;
+  border-top: 1px solid @border-color;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}

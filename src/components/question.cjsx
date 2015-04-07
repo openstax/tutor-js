@@ -12,7 +12,7 @@ idCounter = 0
 #   feedback_html
 
 module.exports = React.createClass
-
+  displayName: 'Question'
   getInitialState: ->
     answer: null
 
@@ -50,7 +50,7 @@ module.exports = React.createClass
           onChange={@onChangeAnswer(answer)}
         />
 
-      <div className={classes}>
+      <div className={classes} key="#{qid}-option-#{i}">
         {radioBox}
         <label htmlFor="#{qid}-option-#{i}" className="answer-label">
           <div className="answer-letter" />

@@ -7,15 +7,12 @@ Router = require 'react-router'
 
 App = require './app'
 Task = require './task'
-LoadableMixin = require './loadable-mixin'
+LoadableItem = require './loadable-item'
 PracticeButton = require './practice-button'
 {TaskActions, TaskStore} = require '../flux/task'
 {CourseActions, CourseStore} = require '../flux/course'
 {CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
 
-
-# Hack until we have the course listing page
-courseId = 1
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -62,23 +59,20 @@ Dashboard = React.createClass
 
 
 SingleTask = React.createClass
-  mixins: [LoadableMixin]
-
   contextTypes:
     router: React.PropTypes.func
 
-  getFlux: ->
-    store: TaskStore
-    actions: TaskActions
-
-  renderLoaded: ->
+  render: ->
     {id} = @context.router.getCurrentParams()
-    <Task key={id} id={id} />
+    <LoadableItem
+      id={id}
+      store={TaskStore}
+      actions={TaskActions}
+      renderItem={-> <Task key={id} id={id} />}
+    />
 
 
 SinglePractice = React.createClass
-  mixins: [LoadableMixin]
-
   contextTypes:
     router: React.PropTypes.func
 
@@ -91,20 +85,23 @@ SinglePractice = React.createClass
   getInitialState: ->
       taskId: CourseStore.getPracticeId(@getId())
 
-  getFlux: ->
-    store: CourseStore
-    actions: CourseActions
-
   getId: ->
-    @context.router.getCurrentParams().courseId
+    {courseId} = @context.router.getCurrentParams()
+    courseId
 
   update: ->
     @setState({
       taskId:  CourseStore.getPracticeId(@getId())
     })
 
-  renderLoaded: ->
-    <Task key={@state.taskId} id={@state.taskId} />
+  render: ->
+    id = @getId()
+    <LoadableItem
+      store={CourseStore}
+      actions={CourseActions}
+      id={id}
+      renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
+    />
 
 
 TaskResult = React.createClass
@@ -112,7 +109,7 @@ TaskResult = React.createClass
     router: React.PropTypes.func
 
   render: ->
-    {id} = @props
+    {courseId, id} = @props
     task = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
 
@@ -134,21 +131,14 @@ TaskResult = React.createClass
     </BS.Panel>
 
   onClick: ->
-    {id} = @props
+    {courseId, id} = @props
     @context.router.transitionTo('viewTask', {courseId, id})
 
 
 Tasks = React.createClass
 
-  componentWillMount: ->
-    TaskActions.loadUserTasks()
-    TaskStore.addChangeListener(@update)
-
-  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
-
-  update: -> @setState({})
-
   render: ->
+    {courseId} = @props
     allTasks = TaskStore.getAll()
     if allTasks
       if allTasks.length is 0
@@ -160,7 +150,7 @@ Tasks = React.createClass
         tasks = for task in allTasks
           if not task or task.type is "practice"
             continue
-          <TaskResult id={task.id} />
+          <TaskResult id={task.id} courseId={courseId} />
 
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
@@ -174,6 +164,22 @@ Tasks = React.createClass
     # else
     #   <div>Loading...</div>
 
+TasksShell = React.createClass
+  contextTypes:
+    router: React.PropTypes.func
+
+  componentWillMount: ->
+    {courseId} = @context.router.getCurrentParams()
+    TaskActions.loadUserTasks(courseId)
+    TaskStore.addChangeListener(@update)
+
+  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
+
+  update: -> @setState({})
+
+  render: ->
+    {courseId} = @context.router.getCurrentParams()
+    <Tasks courseId={courseId} />
 
 Invalid = React.createClass
   render: ->
@@ -182,4 +188,4 @@ Invalid = React.createClass
       <Router.Link to="dashboard">Home</Router.Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, SingleTask, SinglePractice, Invalid}
+module.exports = {App, Dashboard, Tasks, TasksShell, SingleTask, SinglePractice, Invalid}

@@ -3,9 +3,11 @@
 @import '../bower_components/bootstrap-material-design/less/material-wfont.less';
 @import '../node_modules/font-awesome/less/font-awesome.less';
 @import '../bower_components/katex/static/katex.less';
+@import './scaffold.less';
 @import './nav.less';
 @import './buttons.less';
 @import './typography.less';
+@import './reading.less';
 @import './question.less';
 
 // Override the default path to the font-awesome fonts
@@ -16,6 +18,8 @@
 @primary: @blue;
 // @text-color: @white;
 
+@border-color: #e5e5e5;
+
 // Font-awesome icons mapped to our types
 i.fa {
   &.reading::before     { content: @fa-var-newspaper-o; } // or fa-var-file-text-o
@@ -23,75 +27,10 @@ i.fa {
   &.exercise::before    { content: @fa-var-question; } // or fa-var-mortar-board
 }
 
-body {
-  padding-top: 60px; // For the top navbar
-  padding-bottom: 50px;
-  padding-left: 40px;
-  padding-right: 40px;
-  background: #f1f1f1;
-}
-
-.ui-brand-logo {
-  display: inline-block;
-  height: 30px;
-  width: 217px;
-  background-image: url('../style/resources/logo-brand.svg');
-}
-
 .ui-task-list {
   max-width: 550px;
 
   .panel { cursor: pointer; }
-}
-
-.panel {
-  max-width: 1040px;
-  margin: 20px auto;
-  border-radius: 0;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-
-  &.ui-interactive {
-    .panel-body {
-      height: 100%;
-
-      iframe {
-        height: 100%;
-        width: 100%;
-        border: 1px solid black;
-      }
-    }
-  }
-
-  // Similar to a dismissable alert, line up the action button in the panel heading
-  .ui-action {
-    position: relative;
-    top: -5px;
-  }
-
-  // The little bit of gray text next to a task in the task list that says `(3 steps)`
-  .panel-heading small.details {
-    color: #ccc;
-    margin-left: .5em;
-  }
-}
-
-.panel-header {
-  max-width: 1040px;
-  margin: 20px auto;
-  border-radius: 0;
-}
-
-.panel-body {
-  padding: 20px 50px;
-}
-
-.panel-footer {
-  margin: 0 150px;
-  padding: 0 0 20px 0;
-  background-color: #ffffff;
-  border-top: none;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
 }
 
 .exercise {
