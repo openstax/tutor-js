@@ -21,6 +21,7 @@
     "bootstrap": "~3.3.2",
     "browserify": "~9.0.3",
     "browserify-shim": "~3.8.3",
+    "camelcase": "^1.0.2",
     "chai": "~2.1.1",
     "cjsxify": "0.2.6",
     "coffee-script": "~1.9.1",

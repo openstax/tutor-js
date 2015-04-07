@@ -18,7 +18,9 @@ getCurrentStepIndex = (steps) ->
 
 getCurrentStep = (steps) ->
   _.find(steps, (step) ->
-    not step.is_completed?
+    # return for first step where step.is_completed = false or
+    # step.is_completed is undefined
+    not step.is_completed or not step.is_completed?
   )
 
 getIncompleteSteps = (steps) ->
