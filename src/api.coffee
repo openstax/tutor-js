@@ -115,7 +115,7 @@ start = ->
     url: "/api/courses/#{courseId}/practice"
 
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
-  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, () ->
+  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId) ->
     url: "/api/courses/#{courseId}/practice"
 
 
