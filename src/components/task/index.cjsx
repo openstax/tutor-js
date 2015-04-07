@@ -61,7 +61,7 @@ module.exports = React.createClass
     else if @state.currentStep is -1
       if allStepsCompleted
         type = if model.type then model.type else 'task'
-        End = Ends[type]
+        End = Ends.get(type)
 
         panel = <End courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
 

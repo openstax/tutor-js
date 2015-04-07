@@ -107,12 +107,14 @@ ExerciseReview = React.createClass
     @props.onNextStep()
 
   tryAnother: ->
-    task_id = TaskStepStore.getTaskId(@getId())
-    TaskStepActions.loadRecovery(@getId())
+    {id} = @props
+    task_id = TaskStepStore.getTaskId(id)
+    TaskStepActions.loadRecovery(id)
     TaskActions.load(task_id)
 
   canTryAnother: ->
-    step = TaskStepStore.get(@getId())
+    {id} = @props
+    step = TaskStepStore.get(id)
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   renderFooterButtons: ->

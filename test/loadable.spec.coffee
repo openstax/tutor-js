@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 React = require 'react'
 
-LoadableMixin = require '../src/components/loadable-mixin'
+LoadableItem = require '../src/components/loadable-item'
 {CrudConfig, makeSimpleStore, extendConfig} = require '../src/flux/helpers'
 
 CrudConfig = CrudConfig()
@@ -9,16 +9,19 @@ CrudConfig = CrudConfig()
 
 
 TestClass = React.createClass
-  mixins: [LoadableMixin]
-
   getId: -> @props.id
   getFlux: ->
     store: CrudStore
     actions: CrudActions
 
-  renderLoaded: ->
-    <div className="test-loaded">Loaded</div>
-
+  render: ->
+    {id} = @props
+    <LoadableItem
+      id={id}
+      store={CrudStore}
+      actions={CrudActions}
+      renderItem={-> <div className="test-loaded">Loaded</div>}
+    />
 
 DIV = document.createElement('div')
 
