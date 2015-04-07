@@ -3,6 +3,7 @@ LoadableMixin = require '../loadable-mixin'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 {HomeworkPlan} = require './homework'
 {ReadingPlan} = require './reading'
+LoadableItem = require '../loadable-item'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
@@ -14,7 +15,7 @@ getPlanType = (typeName) ->
   type = PLAN_TYPES[typeName]
 
 PlanShell = React.createClass
-  mixins: [LoadableMixin, ConfirmLeaveMixin]
+  mixins: [ConfirmLeaveMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -63,10 +64,16 @@ PlanShell = React.createClass
     else
       @setState({})
 
-  renderLoaded: ->
+  render: ->
     id = @getId()
     {courseId} = @context.router.getCurrentParams()
     Type = @getType()
-    <Type id={id} courseId={courseId} />
+
+    <LoadableItem
+      id={id}
+      store={TaskPlanStore}
+      actions={TaskPlanActions}
+      renderItem={-> <Type id={id} courseId={courseId} />}
+    />
 
 module.exports = {PlanShell, ReadingPlan, HomeworkPlan}
