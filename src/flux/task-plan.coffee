@@ -7,6 +7,7 @@ TaskPlanConfig =
     @_local[planId] ?= {}
     @_local[planId].settings ?= {}
     @_local[planId].settings.page_ids ?= []
+    @_local[planId].settings.exercise_ids ?= []
     #TODO take out once TaskPlan api is in place
     _.extend({}, @_local[planId], @_changed[planId])
 
@@ -14,6 +15,13 @@ TaskPlanConfig =
 
   updateTitle: (id, title) ->
     @_change(id, {title})
+
+  updateDescription:(id, description) ->
+    plan = @_getPlan(id)
+    {page_ids, exercise_ids} = plan.settings
+    page_ids = page_ids[..]
+    exercise_ids =exercise_ids[..]
+    @_change(id, {settings: {page_ids, exercise_ids, description}})
 
   updateOpensAt: (id, opens_at) ->
     # Allow null opens_at
@@ -52,12 +60,15 @@ TaskPlanConfig =
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids?.indexOf(topicId) >= 0
+
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
+
     getProblems: (id) ->
       plan = @_getPlan(id)
       plan?.settings.exercise_ids
+
     getDescription: (id) ->
       plan=@_getPlan(id)
       plan?.settings.description
@@ -65,12 +76,17 @@ TaskPlanConfig =
     isHomework: (id) ->
       plan = @_getPlan(id)
       plan.type is 'homework'
+
     isValid: (id) ->
       plan = @_getPlan(id)
       if (plan.type is 'reading')
         return plan.title and plan.opens_at and plan.due_at and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
         return plan.title and plan.due_at and plan.settings?.exercise_ids?.length > 0
+
+    isPublished: (id) ->
+      plan = @_getPlan(id)
+      !!plan?.published_at
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)

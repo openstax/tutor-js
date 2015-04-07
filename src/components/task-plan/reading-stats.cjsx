@@ -4,21 +4,9 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-LoadableMixin = require '../loadable-mixin'
+LoadableItem = require '../loadable-item'
 
 Stats = React.createClass
-  mixins: [LoadableMixin]
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  getFlux: ->
-    store: TaskPlanStore
-    actions: TaskPlanActions
-
-  getId: -> @context.router.getCurrentParams().id
-
-
   percent: (num,total) ->
     Math.round((num/total) * 100)
 
@@ -78,17 +66,13 @@ Stats = React.createClass
       </div>
     </div>
 
-  renderLoaded: ->
+  render: ->
+    {id} = @props
 
-    id = @getId()
-
-
-    if TaskPlanStore.isLoaded(id)
-
-      plan = TaskPlanStore.get(id)
-      course = @renderCourseBar(plan.stats.course)
-      chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
-      practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
+    plan = TaskPlanStore.get(id)
+    course = @renderCourseBar(plan.stats.course)
+    chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
+    practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
 
 
     <BS.Panel className="reading-stats-container">
@@ -100,6 +84,20 @@ Stats = React.createClass
       {practice}
     </BS.Panel>
 
+StatsShell = React.createClass
+  contextTypes:
+    router: React.PropTypes.func
+
+  getId: -> @context.router.getCurrentParams().id
+
+  render: ->
+    id = @getId()
+    <LoadableItem
+      id={id}
+      store={TaskPlanStore}
+      actions={TaskPlanActions}
+      renderItem={=> <Stats id={id} />}
+    />
 
 
-module.exports = Stats
+module.exports = StatsShell

@@ -6,9 +6,7 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
-
 PlanFooter = require './footer'
-LoadableMixin = require '../loadable-mixin'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
 # Transitions need to be delayed so react has a chance to finish rendering so delay them
@@ -149,8 +147,7 @@ ReadingPlan = React.createClass
 
     footer= <PlanFooter id={id} courseId={courseId} />
 
-    <BS.Panel bsStyle="default" className="create-reading" footer={footer}>
-      <h1>{headerText}</h1>
+    <BS.Panel bsStyle="primary" className="create-reading" footer={footer} header={headerText}>
       <div className="-reading-title">
         <label htmlFor="reading-title">Title</label>
         <input
@@ -189,3 +186,5 @@ ReadingPlan = React.createClass
     </BS.Panel>
 
 module.exports = {ReadingPlan}
+
+
