@@ -33,7 +33,7 @@ module.exports =
       @context.router.getCurrentParams().id or throw new Error('BUG: id is required')
 
   render: ->
-    {store, actions} = @getFlux()
+    {store, actions, loadFn} = @getFlux()
     id = @_getId()
 
     if store.isUnknown(id)
@@ -41,7 +41,10 @@ module.exports =
       # **and** componentWillUpdate(nextProps) making the API a bit more clunky
       # since `@getId()` would need to take an optional `nextProps`.
       unless store.isNew(id)
-        actions.load(id)
+        if loadFn
+          loadFn(id)
+        else
+          actions.load(id)
       <div className="-loading">Loading Started...</div>
     else if store.isLoading(id)
       <div className="-loading">Loading...</div>

@@ -94,6 +94,7 @@ SinglePractice = React.createClass
   getFlux: ->
     store: CourseStore
     actions: CourseActions
+    loadFn: CourseActions.loadPractice
 
   getId: ->
     @context.router.getCurrentParams().courseId
