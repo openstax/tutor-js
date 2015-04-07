@@ -23,6 +23,15 @@ CourseConfig =
 
   loadedGuide: (obj, courseId) ->
     @_guides[courseId] = obj
+    @_asyncStatus[courseId] = 'loaded'
+    @emitChange()
+
+  loadPractice: (courseId) ->
+    @load(courseId)
+
+  loadedPractice: (obj, courseId) ->
+    @_loadedPractice(obj, courseId)
+    @_asyncStatus[courseId] = 'loaded'
     @emitChange()
 
   _loadedPractice: (obj, courseId) ->

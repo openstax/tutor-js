@@ -111,8 +111,11 @@ start = ->
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/readings"
 
-  apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', (courseId) ->
+  apiHelper CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/practice"
+
+  # apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', () ->
+  #   url: "/api/courses/#{courseId}/practice"
 
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"

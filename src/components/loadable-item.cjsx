@@ -16,16 +16,18 @@ module.exports = React.createClass
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired
     update: React.PropTypes.func
+    load: React.PropTypes.func
 
   render: ->
-    {id, store, actions, renderItem} = @props
+    {id, store, actions, load, renderItem} = @props
+    load ?= actions.load
 
     isLoading = ->
       if store.isUnknown(id)
         # The load is done here because otherwise it would need to be in `componentWillMount`
         # **and** componentWillUpdate(nextProps) making the API a bit more clunky
         unless store.isNew(id)
-          actions.load(id)
+          load(id)
         true
       else if store.isLoading(id)
         true
