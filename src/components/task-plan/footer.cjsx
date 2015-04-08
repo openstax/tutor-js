@@ -27,7 +27,8 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId} = @props
+    {id, courseId, clickedSelectProblem} = @props
+
     plan = TaskPlanStore.get(id)
 
     valid = TaskPlanStore.isValid(id)
@@ -44,8 +45,8 @@ PlanFooter = React.createClass
     if deleteable
       deleteLink = <BS.Button bsStyle="link" className="-delete" onClick={@onDelete}>Delete</BS.Button>
 
-    if TaskPlanStore.isHomework(id)
-      selectProblems = <BS.Button bsStyle="primary" className="-select-problems" onClick={@onSelectProblems}>Select Problems</BS.Button>
+    if TaskPlanStore.isHomework(id) and not TaskPlanStore.isPublished(id)
+      selectProblems = <BS.Button bsStyle="primary" className="-select-problems" onClick={clickedSelectProblem}>Select Problems</BS.Button>
 
     classes = ['-save']
     classes.push('disabled') unless saveable
