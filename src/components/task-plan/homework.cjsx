@@ -1,5 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
+moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 {DateTimePicker} = require 'react-widgets'
@@ -11,13 +12,7 @@ ArbitraryHtmlAndMath = require '../html'
 {TocStore, TocActions} = require '../../flux/toc'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 
-ExerciseCard = React.createClass
-  toggleExercise: ->
-    if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-      TaskPlanActions.removeExercise(@props.planId, @props.exercise)
-    else
-      TaskPlanActions.addExercise(@props.planId, @props.exercise)
-
+ExerciseCardMixin =
   renderAnswers: (answer) ->
     <li>
       <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
@@ -26,80 +21,175 @@ ExerciseCard = React.createClass
   renderTags: (tag) ->
     <span className="-exercise-tag">{tag}</span>
 
-  render: ->
+  renderExercise: ->
     content = JSON.parse(@props.exercise.content)
     question = content.questions[0]
     renderedAnswers = _.map(question.answers, @renderAnswers)
     renderedTags = _.map(content.tags, @renderTags)
+
+    header = @renderHeader()
+    panelStyle = @getPanelStyle()
+
+    <BS.Panel bsStyle={panelStyle} header={header}>
+      <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
+      <ArbitraryHtmlAndMath className="-stem" block={true} html={question.stem_html} />
+      <ul>{renderedAnswers}</ul>
+      <p>{renderedTags}</p>
+    </BS.Panel>
+
+ReviewExerciseCard = React.createClass
+  mixins: [ExerciseCardMixin]
+
+  moveExerciseUp: ->
+    TaskPlanActions.moveExercise(@props.planId, @props.exercise, -1)
+
+  moveExerciseDown: ->
+    TaskPlanActions.moveExercise(@props.planId, @props.exercise, 1)
+
+  removeExercise: ->
+    TaskPlanActions.removeExercise(@props.planId, @props.exercise)
+
+  renderHeader: ->
+    <span>
+      <span class="-exercise-number">{@props.index+1}</span>
+      <BS.Button bsStyle="info" onClick={@moveExerciseUp} className="-move-exercise-up">^</BS.Button>
+      <BS.Button bsStyle="info" onClick={@moveExerciseDown} className="-move-exercise-up">v</BS.Button>
+      <BS.Button bsStyle="danger" onClick={@removeExercise} className="-remove-exercise-up">X</BS.Button>
+    </span>
+
+  getPanelStyle: ->
+    "default"
+
+  render: ->
+    @renderExercise()
+
+
+AddExerciseCard = React.createClass
+  mixins: [ExerciseCardMixin]
+
+  toggleExercise: ->
+    if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
+      TaskPlanActions.removeExercise(@props.planId, @props.exercise)
+    else
+      TaskPlanActions.addExercise(@props.planId, @props.exercise)
+
+  renderHeader: ->
     active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-
     toggleText = if not active then <span>+</span> else <span>-</span>
-    header = <span><BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button></span>
-    
-    panelStyle = if active then "info" else "default"
-    <BS.Col xs={12} md={6}>
-      <BS.Panel bsStyle={panelStyle} header={header}>
-        <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
-        <ArbitraryHtmlAndMath className="-stem" block={true} html={question.stem_html} />
-        <ul>{renderedAnswers}</ul>
-        <p>{renderedTags}</p>
-      </BS.Panel>
-    </BS.Col>
+    <span><BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button></span>
 
-AddProblems = React.createClass
+  getPanelStyle: ->
+    if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
+      return "info"
+    else
+      return "default"
+
+  render: ->
+    @renderExercise()
+
+ExercisesRenderMixin =
   componentWillMount:   -> ExerciseStore.addChangeListener(@update)
   componentWillUnmount: -> ExerciseStore.removeChangeListener(@update)
 
   update: ->
     @setState({})
 
-  reviewClicked: ->
 
-  renderExercise: (exercise) ->
-    <ExerciseCard planId={@props.planId} exercise={exercise}/>
-      
-  render: ->
+  renderLoading: ->
     {courseId, pageIds, hide} = @props
 
     unless @props.shouldShow
-      return <span className="-no-modal"/>
+      return <span className="-no-show"/>
     unless ExerciseStore.isLoaded(pageIds)
       ExerciseActions.load(courseId, pageIds)
       return <span className="-loading">Loading...</span>
+    
+    false
 
+
+ReviewExercises = React.createClass
+  mixins: [ExercisesRenderMixin]
+
+  renderExercise: (exercise, i) ->
+    <ReviewExerciseCard index={i} planId={@props.planId} exercise={exercise}/>
+
+  render: ->
+    load = @renderLoading()
+    if (load)
+      return load
+    {courseId, pageIds, hide, planId} = @props
+    exercise_ids = TaskPlanStore.getExercises(planId)
+    exercises = _.map(exercise_ids, ExerciseStore.getExerciseById)
+    renderedExercises = _.map(exercises, @renderExercise)
+    
+    <div>
+      {renderedExercises}
+    </div>
+
+AddExercises = React.createClass
+  mixins: [ExercisesRenderMixin]
+
+  renderExercise: (exercise) ->
+    <AddExerciseCard planId={@props.planId} exercise={exercise}/>
+
+  renderInRows: (renderedExercises) ->
+    rows = []
+    i=0
+    while i < renderedExercises.length
+      left = renderedExercises[i]
+      right = renderedExercises[i+1]
+      
+      newRow =
+        <BS.Row>
+          <BS.Col xs={12} md={6}>{left}</BS.Col>
+          <BS.Col xs={12} md={6}>{right}</BS.Col>
+        </BS.Row>
+
+      rows.push(newRow)
+      
+      i+=2
+    rows
+
+  render: ->
+    load = @renderLoading()
+    if (load)
+      return load
+
+    {courseId, pageIds, hide} = @props
     exercises = ExerciseStore.get(pageIds)
-
     if not exercises.length
       return <span className="-no-exercises">The sections you selected have no exercises.  Please select more sections.</span>
 
     renderedExercises = _.map(exercises, @renderExercise)
+    
     <div>
-
       <BS.Grid>
-        <BS.Row>
-          {renderedExercises}
-        </BS.Row>
+        {@renderInRows(renderedExercises)}
       </BS.Grid>
     </div>
+
 
 ExerciseSummary = React.createClass
   render: ->
     if not @props.shouldShow
       return <span></span>
 
-    if @props.canReview and @props.numSelected
+    numSelected = TaskPlanStore.getExercises(@props.planId).length
+    total = numSelected + 3
+
+    if @props.canReview and numSelected
       button = <BS.Button bsStyle="primary" onClick={@props.reviewClicked}>Review</BS.Button>
     else if @props.canAdd
       button = <BS.Button bsStyle="primary" onClick={@props.addClicked}>Add</BS.Button>
 
-    total = @props.numSelected + 3
+
 
     <BS.Panel className bsStyle="default">
       <BS.Grid>
         <BS.Row>
           <BS.Col sm={6} md={2} className="-selections-title">Selections</BS.Col>
           <BS.Col sm={6} md={2} className="-total"><h2>{total}</h2></BS.Col>
-          <BS.Col sm={6} md={2} className="-num-selected"><h2>{@props.numSelected}</h2>My Selections</BS.Col>
+          <BS.Col sm={6} md={2} className="-num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
           <BS.Col sm={6} md={2} className="-num-tutor"><h2>3</h2>Tutor Selections</BS.Col>
           <BS.Col sm={6} md={2} className="-tutor-added-later"><em>
             Tutor selections are added later to support spaced practice and personalized learning.
@@ -166,15 +256,14 @@ SelectTopics = React.createClass
   render: ->
     {courseId, planId, selected, hide} = @props
     unless @props.shouldShow
-      return <span className="-no-modal"/>
+      return <span className="-no-show"/>
     unless TocStore.isLoaded()
       TocActions.load(courseId)
       return <span className="-loading">Loading...</span>
 
     chapters = _.map(TocStore.get(), @renderChapterPanels)
     buttonStyle = if selected?.length then 'primary' else 'disabled'
-    shouldShowProblems = selected?.length and @state.showProblems
-    selectedExercises = TaskPlanStore.getExercises(planId)
+    shouldShowExercises = selected?.length and @state.showProblems
 
     if not @state.showProblems
       footer =
@@ -190,14 +279,14 @@ SelectTopics = React.createClass
         </div>
       </BS.Panel>
       <ExerciseSummary
-        shouldShow={shouldShowProblems} 
+        shouldShow={shouldShowExercises} 
         canReview={true}
-        reviewClicked={@props.hide}
-        numSelected={selectedExercises.length}/>
-      <AddProblems
+        reviewClicked={hide}
+        planId={planId}/>
+      <AddExercises
         courseId={courseId} 
         planId={planId} 
-        shouldShow={shouldShowProblems} 
+        shouldShow={shouldShowExercises} 
         pageIds={selected}
         hide={@hideSectionTopics}/>
     </div>
@@ -236,6 +325,7 @@ HomeworkPlan = React.createClass
     description = TaskPlanStore.getDescription(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Homework' else 'Edit Homework'
     topics = TaskPlanStore.getTopics(id)
+    shouldShowExercises = TaskPlanStore.getExercises(id)?.length and not @state?.showSectionTopics
 
     if plan?.due_at
       dueAt = new Date(plan.due_at)
@@ -243,8 +333,21 @@ HomeworkPlan = React.createClass
     today = new Date(plan.due_at)
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
-    formClasses = ['-create-homework']
+    formClasses = ['create-homework']
     if @state?.showSectionTopics then formClasses.push('hide')
+
+    if (TaskPlanStore.isPublished(id))
+      dueAtElem = <span>{new moment(dueAt).format('MMM Do, YYYY')}</span>
+    else
+      dueAtElem = <DateTimePicker
+                    id="homework-due-date"
+                    format="MMM dd, yyyy"
+                    time={false}
+                    calendar={true}
+                    readOnly={false}
+                    onChange={@setDueAt}
+                    min={new Date()}
+                    value={dueAt}/>
 
     <div>
       <BS.Panel bsStyle='default' className={formClasses.join(' ')} footer={footer}>
@@ -264,15 +367,8 @@ HomeworkPlan = React.createClass
               </div>
               <div className="-homework-due-date">
                 <label htmlFor="homework-due-date">Due Date</label>
-                <DateTimePicker
-                  id="homework-due-date"
-                  format="MMM dd, yyyy"
-                  time={false}
-                  calendar={true}
-                  readOnly={false}
-                  onChange={@setDueAt}
-                  min={today}
-                  value={dueAt}/>
+                {dueAtElem}
+                <p>Feedback will be released after the due date.</p>
               </div>
             </BS.Col>
             <BS.Col xs={12} md={6}>
@@ -292,6 +388,16 @@ HomeworkPlan = React.createClass
         shouldShow={@state.showSectionTopics} 
         hide={@hideSectionTopics}
         selected={topics}/>
+      <ExerciseSummary
+        shouldShow={shouldShowExercises} 
+        canAdd={not TaskPlanStore.isPublished(id)}
+        addClicked={@showSectionTopics}
+        planId={id}/>
+      <ReviewExercises
+        courseId={courseId} 
+        pageIds={topics}
+        shouldShow={shouldShowExercises} 
+        planId={id}/>
     </div>
 
 
