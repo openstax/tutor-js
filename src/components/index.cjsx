@@ -100,6 +100,8 @@ SinglePractice = React.createClass
       store={CourseStore}
       actions={CourseActions}
       load={CourseActions.loadPractice}
+      isLoaded={CourseStore.isPracticeLoaded}
+      isLoading={CourseStore.isPracticeLoading}
       id={id}
       renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
     />

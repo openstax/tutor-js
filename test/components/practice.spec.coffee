@@ -22,14 +22,15 @@ describe 'Practice Widget', ->
     TaskActions.reset()
     TaskStepActions.reset()
 
-    CourseActions.loaded(VALID_MODEL, courseId)
+  beforeEach ->
+    CourseActions.loadedPractice(VALID_MODEL, courseId)
 
-  it 'should load the practice button on the course tasks page', (done) ->
-    tests = ({div}) ->
-      expect(div.querySelector('.-practice')).to.not.be.null
-      done()
+  # it 'should load the practice button on the course tasks page', (done) ->
+  #   tests = ({div}) ->
+  #     expect(div.querySelector('.-practice')).to.not.be.null
+  #     done()
 
-    routerStub.goTo("/courses/#{courseId}/tasks").then(tests).catch(done)
+  #   routerStub.goTo("/courses/#{courseId}/tasks").then(tests).catch(done)
 
 
   it 'should load expected practice at the practice url', (done) ->

@@ -40,4 +40,4 @@ describe 'Learning Guide', ->
     expect(parseInt(node.querySelector('.-course-guide-table-questions_answered_count').innerText)).to.equal(VALID_MODEL.fields[0].questions_answered_count)
     expect(parseFloat(node.querySelector('.-course-guide-table-current_level').innerText)).to.equal(VALID_MODEL.fields[0].current_level)
     expect(parseInt(node.querySelector('.course-guide-table-page_ids span').innerText)).to.equal(VALID_MODEL.fields[0].page_ids[0])
-    expect(parseInt(node.querySelector('.-course-guide-table-practice_count').innerText)).to.equal(VALID_MODEL.fields[0].practice_count)
+    expect(node.querySelector('.-course-guide-table-practice_button')).to.not.be.null
