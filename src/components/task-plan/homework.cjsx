@@ -330,7 +330,6 @@ HomeworkPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    today = new Date(plan.due_at)
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
     formClasses = ['create-homework']
