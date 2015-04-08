@@ -53,13 +53,13 @@ ReviewExerciseCard = React.createClass
   renderHeader: ->
     unless @props.index is 0
       moveUp =
-        <BS.Button bsStyle="xs" onClick={@moveExerciseUp} className="-move-exercise-up">
+        <BS.Button onClick={@moveExerciseUp} className="btn-xs -move-exercise-up">
           <i className="fa fa-arrow-up"/>
         </BS.Button>
 
     # TODO: Add conditional logic for displaying this button
     moveDown =
-      <BS.Button bsStyle="xs" onClick={@moveExerciseDown} className="-move-exercise-down">
+      <BS.Button onClick={@moveExerciseDown} className="btn-xs -move-exercise-down">
         <i className="fa fa-arrow-down"/>
       </BS.Button>
 
@@ -68,7 +68,7 @@ ReviewExerciseCard = React.createClass
       <span className="pull-right card-actions">
         {moveUp}
         {moveDown}
-        <BS.Button bsStyle="xs" onClick={@removeExercise} className="-remove-exercise"><i className="fa fa-close"/></BS.Button>
+        <BS.Button onClick={@removeExercise} className="btn-xs -remove-exercise"><i className="fa fa-close"/></BS.Button>
       </span>
     </span>
 
