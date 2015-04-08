@@ -7,6 +7,7 @@ Router = require 'react-router'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
 Stats = require './components/task-plan/reading-stats'
+{GuideShell} = require './components/task-plan/guide'
 
 Sandbox = require './sandbox'
 
@@ -21,6 +22,7 @@ routes = (
     <Route path='courses/:courseId/:type/new/?' name='createPlan' handler={PlanShell} />
     <Route path='courses/:courseId/:type/:id/?' name='editPlan' handler={PlanShell} />
     <Route path='courses/:courseId/readings/:id/stats/?' name='viewStats' handler={Stats} />
+    <Route path='courses/:courseId/guide/?' name='viewGuide' handler={GuideShell} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>

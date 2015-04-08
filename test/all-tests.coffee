@@ -3,6 +3,7 @@
 require './components/reading-plan.spec'
 require './components/task.spec'
 require './components/practice.spec'
+require './components/guide.spec'
 
 require './crud-store.spec'
 require './task-store.spec'
