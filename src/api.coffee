@@ -119,15 +119,13 @@ start = ->
   apiHelper CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/practice"
 
-  # apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', () ->
-  #   url: "/api/courses/#{courseId}/practice"
-
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
 
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
-  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId) ->
+  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/practice"
+    payload: params
 
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->

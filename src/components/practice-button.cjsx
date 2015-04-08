@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+_ = require 'underscore'
 
 {CourseActions, CourseStore} = require '../flux/course'
 
@@ -20,11 +21,13 @@ PracticeButton = React.createClass
     <BS.Button bsStyle="primary" className="-practice" onClick={@onClick}>{actionText}</BS.Button>
 
   onClick: ->
+    params = _.omit(@props, 'courseId')
+
     if CourseStore.hasPractice(@props.courseId) and not @props.forceCreate
       task = CourseStore.getPractice(@props.courseId)
       @transitionToPractice(task.id)
     else
-      CourseActions.createPractice(@props.courseId)
+      CourseActions.createPractice(@props.courseId, params)
 
   transitionToPractice: (practiceId)->
 
