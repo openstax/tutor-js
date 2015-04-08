@@ -54,7 +54,7 @@ PlanShell = React.createClass
     if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
       {id, type} = TaskPlanStore.get(id)
       {courseId} = @context.router.getCurrentParams()
-      @context.router.transitionTo('editPlan', {courseId, type, id})
+      @setState({id})
     else
       @setState({})
 
