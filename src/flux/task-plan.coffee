@@ -42,16 +42,18 @@ TaskPlanConfig =
 
     page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
 
+    exercise_ids = []
     @_change(id, {settings: {page_ids, exercise_ids, description}})
 
   removeTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    {page_ids, exercise_ids, description} = plan.settings
+    {page_ids, description} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
-
+    
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
 
+    exercise_ids = []
     @_change(id, {settings: {page_ids, exercise_ids, description}})
 
   addExercise: (id, exercise) ->
@@ -59,17 +61,36 @@ TaskPlanConfig =
     {page_ids, exercise_ids, description} = plan.settings
     exercise_ids = exercise_ids[..]
 
-    exercise_ids.push(exercise.id) unless plan.settings.exercise_ids.indexOf(exercise.id) >= 0
+    unless plan.settings.exercise_ids.indexOf(exercise.id) >= 0
+      exercise_ids.push(exercise.id)
 
     @_change(id, {settings: {page_ids, exercise_ids, description}})
 
-  removeExercise: (id, topicId) ->
+  removeExercise: (id, exercise) ->
     plan = @_getPlan(id)
     {page_ids, exercise_ids, description} = plan.settings
     exercise_ids = exercise_ids[..]
 
-    index = exercise_ids?.indexOf(topicId)
+    index = exercise_ids?.indexOf(exercise.id)
     exercise_ids?.splice(index, 1)
+
+    @_change(id, {settings: {page_ids, exercise_ids, description}})
+
+  moveExercise: (id, exercise, step) ->
+    plan = @_getPlan(id)
+    {page_ids, exercise_ids, description} = plan.settings
+    exercise_ids = exercise_ids[..]
+
+    curIndex = exercise_ids?.indexOf(exercise.id)
+    newIndex = curIndex + step
+
+    if (newIndex < 0)
+      newIndex = 0
+    if not (newIndex < exercise_ids.length)
+      newIndex = exercise_ids.length - 1
+
+    exercise_ids[curIndex] = exercise_ids[newIndex]
+    exercise_ids[newIndex] = exercise.id
 
     @_change(id, {settings: {page_ids, exercise_ids, description}})
 
