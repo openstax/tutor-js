@@ -120,11 +120,15 @@ start = ->
 
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
-    throw new Error('BUG: Wrong type') unless typeof id is 'string'
+    throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'
     url: "/api/steps/#{id}"
 
+  # # Go from complete to load so we fetch the new JSON
+  # apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
+  #   url: "/api/steps/#{id}/completed"
+
   # Go from complete to load so we fetch the new JSON
-  apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
+  apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.completed, 'PUT', (id) ->
     url: "/api/steps/#{id}/completed"
 
   apiHelper TaskStepActions, TaskStepActions.loadRecovery, TaskStepActions.loadedRecovery, 'PUT', (id) ->

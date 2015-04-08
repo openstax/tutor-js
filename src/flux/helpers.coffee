@@ -19,6 +19,7 @@ CrudConfig = ->
     _local: {}
     _changed: {}
     _errors: {}
+    _reload: {}
 
     # If the specific type needs to do something else to the object:
     # _loaded : (obj, id) ->
@@ -29,6 +30,7 @@ CrudConfig = ->
       @_local = {}
       @_changed = {}
       @_errors = {}
+      @_reload = {}
       @emitChange()
 
     FAILED: (status, msg, id) ->
@@ -38,6 +40,7 @@ CrudConfig = ->
       @emitChange()
 
     load: (id) ->
+      @_reload[id] = false
       @_asyncStatus[id] = LOADING
       @emitChange()
 
@@ -131,6 +134,7 @@ CrudConfig = ->
       getChanged: (id) -> @_changed[id] or {}
       freshLocalId: -> CREATE_KEY()
       isNew: (id) -> isNew(id)
+      reload: (id) -> @_reload[id]
   }
 
 # Helper for creating a simple store for actions
