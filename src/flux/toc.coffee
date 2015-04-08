@@ -12,7 +12,7 @@ TocConfig =
     @_toc = null
     @_sections = {}
 
-  load: ->
+  load: (courseId) ->
   loaded: (obj) ->
     @_toc = obj
     # Load all the section id's for easy lookup later.

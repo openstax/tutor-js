@@ -6,11 +6,9 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
-LoadableItem = require '../loadable-item'
+PlanFooter = require './footer'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
-# Transitions need to be delayed so react has a chance to finish rendering so delay them
-delay = (fn) -> setTimeout(fn, 1)
 
 SectionTopic = React.createClass
   render: ->
@@ -98,10 +96,11 @@ SelectTopics = React.createClass
     </BS.Accordion>
 
   renderOverlay: ->
+    {courseId} = @props
     unless @state.isModalOpen
       return <span className="-no-modal"/>
     unless TocStore.isLoaded()
-      TocActions.load()
+      TocActions.load(courseId)
       return <span className="-loading">Loading...</span>
 
     chapters = _.map(TocStore.get(), @renderChapterPanels)
@@ -114,63 +113,6 @@ SelectTopics = React.createClass
         <BS.Button onClick={@handleToggle}>Close</BS.Button>
       </div>
     </BS.Modal>
-
-ReadingFooter = React.createClass
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  onSave: ->
-    {id} = @props
-    TaskPlanActions.save(id)
-
-  onPublish: ->
-    {id} = @props
-    TaskPlanActions.publish(id)
-
-  onDelete: () ->
-    {id} = @props
-    if confirm('Are you sure you want to delete this?')
-      TaskPlanActions.delete(id)
-      @context.router.transitionTo('dashboard')
-
-  onViewStats: ->
-    {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id})
-
-  render: ->
-    {id, courseId} = @props
-    plan = TaskPlanStore.get(id)
-
-    valid = TaskPlanStore.isValid(id)
-    publishable = valid and not TaskPlanStore.isChanged(id)
-    saveable = valid and TaskPlanStore.isChanged(id)
-    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isPublished(id)
-
-    classes = ['-publish']
-    classes.push('disabled') unless publishable
-    classes = classes.join(' ')
-
-    publishButton = <BS.Button bsStyle="link" className={classes} onClick={@onPublish}>Publish</BS.Button>
-
-    if deleteable
-      deleteLink = <BS.Button bsStyle="link" className="-delete" onClick={@onDelete}>Delete</BS.Button>
-
-    classes = ['-save']
-    classes.push('disabled') unless saveable
-    classes = classes.join(' ')
-
-    saveLink = <BS.Button bsStyle="primary" className={classes} onClick={@onSave}>Save as Draft</BS.Button>
-
-    statsLink = <BS.Button bsStyle="link" className="-stats" onClick={@onViewStats}>Stats</BS.Button>
-
-    <span className="-footer-buttons">
-      {saveLink}
-      {publishButton}
-      {deleteLink}
-      {statsLink}
-    </span>
-
 
 
 ReadingPlan = React.createClass
@@ -202,7 +144,7 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer = <ReadingFooter id={id} courseId={courseId} />
+    footer= <PlanFooter id={id} courseId={courseId} />
 
     <BS.Panel bsStyle="primary" className="create-reading" footer={footer} header={headerText}>
       <div className="-reading-title">
@@ -242,49 +184,6 @@ ReadingPlan = React.createClass
       <SelectTopics courseId={courseId} planId={id} selected={topics}/>
     </BS.Panel>
 
-
-ReadingShell = React.createClass
-  mixins: [ConfirmLeaveMixin]
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  getInitialState: ->
-    {courseId, id} = @context.router.getCurrentParams()
-    if (id)
-      TaskPlanActions.load(id)
-    else
-      id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id, {_HACK_courseId: courseId})
-    {id}
-
-  # Used by ConfirmLeaveMixin
-  getId: -> @context.router.getCurrentParams().id or @state.id
-  getFlux: ->
-    store: TaskPlanStore
-    actions: TaskPlanActions
-
-  # If, as a result of a save creating a new object (and providing an id)
-  # then transition to editing the object
-  update: ->
-    id = @getId()
-    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
-      {id} = TaskPlanStore.get(id)
-      {courseId} = @context.router.getCurrentParams()
-      delay => @context.router.transitionTo('editReading', {courseId, id})
-    else
-      @setState({})
-
-  render: ->
-    id = @getId()
-    {courseId} = @context.router.getCurrentParams()
-
-    <LoadableItem
-      id={id}
-      store={TaskPlanStore}
-      actions={TaskPlanActions}
-      renderItem={-> <ReadingPlan id={id} courseId={courseId} />}
-    />
+module.exports = {ReadingPlan}
 
 
-module.exports = {ReadingShell, ReadingPlan}
