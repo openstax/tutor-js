@@ -114,7 +114,7 @@ ExercisesRenderMixin =
     {courseId, pageIds, hide} = @props
 
     unless @props.shouldShow
-      return <span className="-no-show"/>
+      return <span className="-no-show"></span>
     unless ExerciseStore.isLoaded(pageIds)
       ExerciseActions.load(courseId, pageIds)
       return <span className="-loading">Loading...</span>
@@ -269,7 +269,7 @@ SelectTopics = React.createClass
   render: ->
     {courseId, planId, selected, hide} = @props
     unless @props.shouldShow
-      return <span className="-no-show"/>
+      return <span className="-no-show"></span>
     unless TocStore.isLoaded()
       TocActions.load(courseId)
       return <span className="-loading">Loading...</span>
