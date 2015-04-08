@@ -98,10 +98,11 @@ SelectTopics = React.createClass
     </BS.Accordion>
 
   renderOverlay: ->
+    {courseId} = @props
     unless @state.isModalOpen
       return <span className="-no-modal"/>
     unless TocStore.isLoaded()
-      TocActions.load()
+      TocActions.load(courseId)
       return <span className="-loading">Loading...</span>
 
     chapters = _.map(TocStore.get(), @renderChapterPanels)
