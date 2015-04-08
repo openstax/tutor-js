@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{routerStub, taskTestActions, taskTests, taskChecks} = require './helpers/task'
+{taskTestActions, taskTests, taskChecks} = require './helpers/task'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -20,7 +20,6 @@ describe 'Task Widget', ->
     TaskActions.loaded(VALID_MODEL, taskId)
 
   afterEach ->
-    routerStub.unmount()
     taskTests.unmount()
 
     CourseActions.reset()

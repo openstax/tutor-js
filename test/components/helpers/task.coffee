@@ -1,51 +1,14 @@
 _ = require 'underscore'
 
 React = require 'react/addons'
-Router = require 'react-router'
 {Promise} = require 'es6-promise'
 
-{routes} = require '../../../src/router'
 {TaskStepActions, TaskStepStore} = require '../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
 TaskStep = require '../../../src/components/task-step'
 
+routerStub = require './router'
 taskChecks = require './task-checks'
-
-routerStub =
-  container: document.createElement('div')
-
-  goTo: (route) ->
-    div = @container
-
-    history = new Router.TestLocation([route])
-    promise = new Promise (resolve, reject) ->
-      Router.run routes, history, (Handler, state)->
-        router = @
-        try
-          React.render(<Handler/>, div, ->
-            component = @
-            result = {div, component, state, router, history}
-            resolve(result)
-          )
-        catch error
-          reject(error)
-
-    promise
-
-  unmount: ->
-    React.unmountComponentAtNode(@container)
-    @container = document.createElement('div')
-
-  forceUpdate: (component, args...) ->
-    promise = new Promise (resolve, reject) ->
-      try
-        component.forceUpdate( ->
-          resolve(args...)
-        )
-      catch error
-        reject(error)
-
-    promise
 
 taskTestActions = 
   clickButton: (node, selector) ->
@@ -60,19 +23,19 @@ taskTestActions =
     React.addons.TestUtils.Simulate.click(clickElementNode)
 
   _clickContinue: (args...) ->
-    {taskDiv} = args[0]
-    taskTestActions.clickButton(taskDiv, '.-continue')
+    {div} = args[0]
+    taskTestActions.clickButton(div, '.-continue')
     args[0]
 
   forceUpdate: (args...) ->
-    {taskComponent, taskDiv} = args[0]
-    routerStub.forceUpdate(taskComponent, args...)
+    {component, div} = args[0]
+    routerStub.forceUpdate(component, args...)
 
   clickContinue: (args...)->
     Promise.resolve(taskTestActions._clickContinue(args...))
 
-  _clickBreadcrumb: (breadcrumbButtonIndex, {taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    completedBreadcrumbs = taskDiv.querySelectorAll('button.step.completed')
+  _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
+    completedBreadcrumbs = div.querySelectorAll('button.step.completed')
     completedBreadcrumbs = Array.prototype.slice.call(completedBreadcrumbs)
 
     taskTestActions.click(completedBreadcrumbs[breadcrumbButtonIndex])
@@ -80,70 +43,65 @@ taskTestActions =
     # change step
     stepId = steps[breadcrumbButtonIndex].id
 
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, state, router, history}
 
   clickBreadcrumb: (breadcrumbButtonIndex)->
     (args...) ->
       Promise.resolve(taskTestActions._clickBreadcrumb(breadcrumbButtonIndex, args...))
 
-  _fillFreeResponse: ({taskDiv, taskComponent, stepId, taskId, state, router, history, response}) ->
+  _fillFreeResponse: ({div, component, stepId, taskId, state, router, history, response}) ->
     response ?= 'Test Response'
 
-    textarea = taskDiv.querySelector('textarea')
+    textarea = div.querySelector('textarea')
     textarea.value = response
     React.addons.TestUtils.Simulate.focus(textarea)
     React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
     React.addons.TestUtils.Simulate.change(textarea)
 
-    {taskDiv, taskComponent, stepId, taskId, state, router, history, textarea}
+    {div, component, stepId, taskId, state, router, history, textarea}
 
   fillFreeResponse: (args...)->
     Promise.resolve(taskTestActions._fillFreeResponse(args...))
 
-  saveFreeResponse: ({taskDiv, taskComponent, stepId, taskId, state, router, history, textarea}) ->
-    taskTestActions.clickButton(taskDiv, '.-continue')
+  saveFreeResponse: ({div, component, stepId, taskId, state, router, history, textarea}) ->
+    taskTestActions.clickButton(div, '.-continue')
     TaskStepActions.saved(stepId, {free_response : textarea.value})
 
-    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history})
+    taskTestActions.forceUpdate({div, component, stepId, taskId, state, router, history})
 
-  pickMultipleChoice: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
+  pickMultipleChoice: ({div, component, stepId, taskId, state, router, history}) ->
     step = TaskStepStore.get(stepId)
     answer = step.content.questions[0].answers[0]
-    answerElement = taskDiv.querySelector('.answer-input-box')
+    answerElement = div.querySelector('.answer-input-box')
 
     React.addons.TestUtils.Simulate.change(answerElement, answer)
     TaskStepActions.saved(stepId, {answer_id : answer.id})
 
-    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history, answer})
+    taskTestActions.forceUpdate({div, component, stepId, taskId, state, router, history, answer})
 
-  saveMultipleChoice: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
+  saveMultipleChoice: ({div, component, stepId, taskId, state, router, history}) ->
     step = TaskStepStore.get(stepId)
     correct_answer = step.content.questions[0].answers[1]
     feedback_html = 'Fake Feedback'
 
-    taskTestActions.clickButton(taskDiv, '.-continue')
+    taskTestActions.clickButton(div, '.-continue')
 
     step.correct_answer_id ?= correct_answer.id
     step.feedback_html = feedback_html
     TaskStepActions.loaded(step, stepId, taskId)
 
-    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history, correct_answer, feedback_html})
+    taskTestActions.forceUpdate({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html})
 
-  _updateStep: (newStepId, {taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
-    stepId = newStepId
+  updateStep: (newStepId, {div, component, stepId, taskId, state, router, history}) ->
+    taskTestActions.forceUpdate({div, component, stepId: newStepId, taskId, state, router, history})
 
-    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history})
-
-  updateStep: (args...) ->
-    Promise.resolve(taskTestActions._updateStep(args...))
-
-  _advanceStep: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
+  _advanceStep: ({div, component, stepId, taskId, state, router, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
     steps = TaskStore.getStepsIds(taskId)
 
     # advance step
     stepId = steps[stepIndex].id
-    taskTestActions._updateStep(stepId, {taskDiv, taskComponent, stepId, taskId, state, router, history})
+    taskTestActions.updateStep(stepId, {div, component, stepId, taskId, state, router, history})
 
   advanceStep: (args...) ->
     Promise.resolve(taskTestActions._advanceStep(args...))
@@ -207,12 +165,12 @@ taskTests =
     @container = document.createElement('div')
 
   _renderTaskStep: (stepId, taskId, onNextStep) ->
-    taskDiv = @container
+    div = @container
     promise = new Promise (resolve, reject) ->
       try
-        React.render(<TaskStep id={stepId} onNextStep={onNextStep}/>, taskDiv, ->
-          taskComponent = @
-          resolve({taskDiv, taskComponent, stepId, taskId})
+        React.render(<TaskStep id={stepId} onNextStep={onNextStep}/>, div, ->
+          component = @
+          resolve({div, component, stepId, taskId})
         )
       catch error
         reject(error)
@@ -229,25 +187,9 @@ taskTests =
     @_renderTaskStep(id, taskId, onNextStep)
 
   goToTask: (route, taskId) ->
-    taskDiv = @container
+    div = @container
     {id} = TaskStore.getCurrentStep(taskId)
-
-    history = new Router.TestLocation([route])
-    promise = new Promise (resolve, reject) ->
-      Router.run routes, history, (Handler, state)->
-        router = @
-        try
-          React.render(<Handler/>, taskDiv, ->
-            taskComponent = @
-            stepId = id
-
-            result = {taskDiv, taskComponent, stepId, taskId, state, router, history}
-            resolve(result)
-          )
-        catch error
-          reject(error)
-
-    promise
+    routerStub._goTo(div, route, {stepId: id, taskId})
 
   # convenience methods
   renderFreeResponse: (taskId) ->
