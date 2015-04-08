@@ -20,7 +20,7 @@ TaskPlanConfig =
     plan = @_getPlan(id)
     {page_ids, exercise_ids} = plan.settings
     page_ids = page_ids[..]
-    exercise_ids =exercise_ids[..]
+    exercise_ids = exercise_ids[..]
     @_change(id, {settings: {page_ids, exercise_ids, description}})
 
   updateOpensAt: (id, opens_at) ->
@@ -37,22 +37,41 @@ TaskPlanConfig =
 
   addTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    {page_ids} = plan.settings
+    {page_ids, exercise_ids, description} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
     page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
 
-    @_change(id, {settings: {page_ids}})
+    @_change(id, {settings: {page_ids, exercise_ids, description}})
 
   removeTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    {page_ids} = plan.settings
+    {page_ids, exercise_ids, description} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
 
-    @_change(id, {settings : {page_ids}})
+    @_change(id, {settings: {page_ids, exercise_ids, description}})
+
+  addExercise: (id, exercise) ->
+    plan = @_getPlan(id)
+    {page_ids, exercise_ids, description} = plan.settings
+    exercise_ids = exercise_ids[..]
+
+    exercise_ids.push(exercise.id) unless plan.settings.exercise_ids.indexOf(exercise.id) >= 0
+
+    @_change(id, {settings: {page_ids, exercise_ids, description}})
+
+  removeExercise: (id, topicId) ->
+    plan = @_getPlan(id)
+    {page_ids, exercise_ids, description} = plan.settings
+    exercise_ids = exercise_ids[..]
+
+    index = exercise_ids?.indexOf(topicId)
+    exercise_ids?.splice(index, 1)
+
+    @_change(id, {settings: {page_ids, exercise_ids, description}})
 
   publish: (id) ->
 
@@ -65,7 +84,11 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       plan?.settings.page_ids
 
-    getProblems: (id) ->
+    hasExercise: (id, exerciseId) ->
+      plan = @_getPlan(id)
+      plan?.settings.exercise_ids?.indexOf(exerciseId) >= 0
+
+    getExercises: (id) ->
       plan = @_getPlan(id)
       plan?.settings.exercise_ids
 
