@@ -48,7 +48,8 @@ ReviewExerciseCard = React.createClass
     TaskPlanActions.moveExercise(@props.planId, @props.exercise, 1)
 
   removeExercise: ->
-    TaskPlanActions.removeExercise(@props.planId, @props.exercise)
+    if confirm('Are you sure you want to remove this exercise?')
+      TaskPlanActions.removeExercise(@props.planId, @props.exercise)
 
   renderHeader: ->
     unless @props.index is 0
