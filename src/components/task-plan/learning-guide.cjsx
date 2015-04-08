@@ -8,7 +8,7 @@ d3 = require 'd3'
 nvd3 = require 'nvd3'
 
 {LearningGuideStore, LearningGuideActions} = require '../../flux/learning-guide'
-LoadableMixin = require '../loadable-mixin'
+LoadableMixin = require '../loadable'
 
 Chart = React.createClass
 
