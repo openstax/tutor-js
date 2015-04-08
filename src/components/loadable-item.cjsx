@@ -21,7 +21,7 @@ module.exports = React.createClass
     {id, store, actions, renderItem} = @props
 
     isLoading = ->
-      if store.isUnknown(id)
+      if store.isUnknown(id) or store.reload(id)
         # The load is done here because otherwise it would need to be in `componentWillMount`
         # **and** componentWillUpdate(nextProps) making the API a bit more clunky
         unless store.isNew(id)

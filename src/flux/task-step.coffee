@@ -15,9 +15,15 @@ TaskStepConfig =
     obj.task_id = @_local[id]?.task_id
     obj
 
+  forceReload: (id) ->
+    @_reload[id] = true
+
   complete: (id) ->
     @_change(id, {is_completed: true})
     @emitChange()
+
+  completed: (obj, id) ->
+    @loaded(obj, id)
 
   setAnswerId: (id, answer_id) ->
     @_change(id, {answer_id})
@@ -54,6 +60,10 @@ TaskStepConfig =
     getAnswerId: (id) ->
       step = @_get(id)
       step.answer_id
+
+    hasContent: (id) ->
+      step = @_get(id)
+      step.content? or step.content_html? or step.content_url?
 
     hasFreeResponse: (id) ->
       step = @_get(id)
