@@ -76,7 +76,7 @@ AddExerciseCard = React.createClass
   renderHeader: ->
     active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
     toggleText = if not active then <span>+</span> else <span>-</span>
-    <span><BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button></span>
+    <BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button>
 
   getPanelStyle: ->
     if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
@@ -162,11 +162,9 @@ AddExercises = React.createClass
 
     renderedExercises = _.map(exercises, @renderExercise)
     
-    <div>
-      <BS.Grid>
-        {@renderInRows(renderedExercises)}
-      </BS.Grid>
-    </div>
+    <BS.Grid>
+      {@renderInRows(renderedExercises)}
+    </BS.Grid>
 
 
 ExerciseSummary = React.createClass
@@ -332,7 +330,7 @@ HomeworkPlan = React.createClass
 
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
-    formClasses = ['create-homework']
+    formClasses = ['edit-homework']
     if @state?.showSectionTopics then formClasses.push('hide')
 
     if (TaskPlanStore.isPublished(id))
@@ -349,8 +347,7 @@ HomeworkPlan = React.createClass
                     value={dueAt}/>
 
     <div>
-      <BS.Panel bsStyle='default' className={formClasses.join(' ')} footer={footer}>
-        <h1>{headerText}</h1>
+      <BS.Panel bsStyle='default' header={headerText} className={formClasses.join(' ')} footer={footer}>
         <BS.Grid>
           <BS.Row>
             <BS.Col xs={12} md={6}>
