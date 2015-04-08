@@ -26,10 +26,10 @@ ExerciseConfig =
   exports:
     isLoaded: (pageIds) ->
       !!@_exercises[pageIds.toString()]
+
     get: (pageIds)->
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
-    getQuestion: (exercise) ->
-      JSON.parse(exercies.content)
+
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]
 
