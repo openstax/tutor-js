@@ -4,7 +4,7 @@
     "questions":[
       {
         "id": "235",
-        "format": "multiple-choice",
+        "formats": ["multiple-choice", "free-response"],
         "stem_html":"<p>The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s</p><p>What is the force if it slams into a wall?</p>",
         "answers":[
           {"id":"id1","content_html":"20 N"},

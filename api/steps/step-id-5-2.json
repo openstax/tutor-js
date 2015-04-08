@@ -5,7 +5,7 @@
     "questions":[
       {
         "id": "876",
-        "format": "multiple-choice",
+        "formats": ["multiple-choice", "free-response"],
         "stem_html":"Is the glass half full or half empty?",
         "answers":[
           {"id":"id3","content_html":"Half Full"},

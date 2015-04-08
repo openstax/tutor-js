@@ -44,4 +44,8 @@ TaskEnd = React.createClass
       </BS.Panel>
     </div>
 
-module.exports = {task: TaskEnd, homework: HomeworkEnd, practice: PracticeEnd}
+ends = {task: TaskEnd, homework: HomeworkEnd, practice: PracticeEnd, reading: TaskEnd}
+
+module.exports =
+  get: (type) ->
+    ends[type] or TaskEnd

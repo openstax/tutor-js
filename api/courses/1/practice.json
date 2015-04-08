@@ -11,7 +11,7 @@
         "questions":[
           {
             "id": "987",
-            "format": "multiple-choice",
+            "formats": ["multiple-choice", "free-response"],
             "stem_html":"What is <span data-math='2+2'>2+2</span>?",
             "answers":[
               {"id":"id1","content_html":"22"},
@@ -28,7 +28,7 @@
         "questions":[
           {
             "id": "876",
-            "format": "multiple-choice",
+            "formats": ["multiple-choice", "free-response"],
             "stem_html":"Is the glass half full or half empty?",
             "answers":[
               {"id":"id3","content_html":"Half Full"},
@@ -44,7 +44,7 @@
         "questions":[
           {
             "id": "234",
-            "format": "multiple-choice",
+            "formats": ["multiple-choice", "free-response"],
             "stem_html":"<p>The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s</p><p>What is the force if it slams into a wall?</p>",
             "answers":[
               {"id":"id1","content_html":"10 N"},
@@ -60,7 +60,7 @@
         "questions":[
           {
             "id": "235",
-            "format": "multiple-choice",
+            "formats": ["multiple-choice", "free-response"],
             "stem_html":"<p>The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s</p><p>What is the force if it slams into a wall?</p>",
             "answers":[
               {"id":"id1","content_html":"20 N"},
@@ -79,7 +79,7 @@
         "questions":[
           {
             "id": "880",
-            "format": "multiple-choice",
+            "formats": ["multiple-choice", "free-response"],
             "stem_html":"Is the glass half full or half empty?",
             "answers":[
               {"id":"id3","content_html":"Half Full"},
