@@ -8,7 +8,7 @@ d3 = require 'd3'
 nvd3 = require 'nvd3'
 
 {LearningGuideStore, LearningGuideActions} = require '../../flux/learning-guide'
-LoadableMixin = require '../loadable'
+LoadableItem = require '../loadable-item'
 
 Chart = React.createClass
 
@@ -72,7 +72,6 @@ Chart = React.createClass
 
 
 LearningGuideShell = React.createClass
-  mixins: [LoadableMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -89,10 +88,16 @@ LearningGuideShell = React.createClass
       data: []
     }
 
-  renderLoaded: ->
+  render: ->
+    courseId=@getId()
     <BS.Panel className="course-guide-container">
       <div className="course-guide-line-chart">
-        <Chart courseId={@getId()} />
+        <LoadableItem
+          id={courseId}
+          store={LearningGuideStore}
+          actions={LearningGuideActions}
+          renderItem={=> <Chart courseId={courseId} />}
+        />
       </div>
     </BS.Panel>
 
