@@ -14,9 +14,10 @@ ArbitraryHtmlAndMath = require '../html'
 
 ExerciseCardMixin =
   renderAnswers: (answer) ->
-    <li>
+    <div className="answers-answer">
+      <div className="answer-letter" />
       <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
-    </li>
+    </div>
 
   renderTags: (tag) ->
     <span className="-exercise-tag">{tag}</span>
@@ -30,10 +31,10 @@ ExerciseCardMixin =
     header = @renderHeader()
     panelStyle = @getPanelStyle()
 
-    <BS.Panel bsStyle={panelStyle} header={header}>
+    <BS.Panel className="card exercise" bsStyle={panelStyle} header={header}>
       <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className="-stem" block={true} html={question.stem_html} />
-      <ul>{renderedAnswers}</ul>
+      <div className="answers-table">{renderedAnswers}</div>
       <p>{renderedTags}</p>
     </BS.Panel>
 
@@ -103,7 +104,7 @@ ExercisesRenderMixin =
     unless ExerciseStore.isLoaded(pageIds)
       ExerciseActions.load(courseId, pageIds)
       return <span className="-loading">Loading...</span>
-    
+
     false
 
 
@@ -121,8 +122,8 @@ ReviewExercises = React.createClass
     exercise_ids = TaskPlanStore.getExercises(planId)
     exercises = _.map(exercise_ids, ExerciseStore.getExerciseById)
     renderedExercises = _.map(exercises, @renderExercise)
-    
-    <div>
+
+    <div className="card-list exercises">
       {renderedExercises}
     </div>
 
@@ -138,7 +139,7 @@ AddExercises = React.createClass
     while i < renderedExercises.length
       left = renderedExercises[i]
       right = renderedExercises[i+1]
-      
+
       newRow =
         <BS.Row>
           <BS.Col xs={12} md={6}>{left}</BS.Col>
@@ -146,7 +147,7 @@ AddExercises = React.createClass
         </BS.Row>
 
       rows.push(newRow)
-      
+
       i+=2
     rows
 
@@ -161,7 +162,7 @@ AddExercises = React.createClass
       return <span className="-no-exercises">The sections you selected have no exercises.  Please select more sections.</span>
 
     renderedExercises = _.map(exercises, @renderExercise)
-    
+
     <BS.Grid>
       {@renderInRows(renderedExercises)}
     </BS.Grid>
@@ -282,14 +283,14 @@ SelectTopics = React.createClass
         </div>
       </BS.Panel>
       <ExerciseSummary
-        shouldShow={shouldShowExercises} 
+        shouldShow={shouldShowExercises}
         canReview={true}
         reviewClicked={hide}
         planId={planId}/>
       <AddExercises
-        courseId={courseId} 
-        planId={planId} 
-        shouldShow={shouldShowExercises} 
+        courseId={courseId}
+        planId={planId}
+        shouldShow={shouldShowExercises}
         pageIds={selected}
         hide={@hideSectionTopics}/>
     </div>
@@ -311,7 +312,7 @@ HomeworkPlan = React.createClass
     {id} = @props
     desc = @refs.description.getDOMNode().value
     TaskPlanActions.updateDescription(id, desc)
-  
+
   showSectionTopics: ->
     @setState({
       showSectionTopics: true
@@ -382,21 +383,21 @@ HomeworkPlan = React.createClass
           </BS.Row>
         </BS.Grid>
       </BS.Panel>
-      <SelectTopics 
-        courseId={courseId} 
-        planId={id} 
-        shouldShow={@state.showSectionTopics} 
+      <SelectTopics
+        courseId={courseId}
+        planId={id}
+        shouldShow={@state.showSectionTopics}
         hide={@hideSectionTopics}
         selected={topics}/>
       <ExerciseSummary
-        shouldShow={shouldShowExercises} 
+        shouldShow={shouldShowExercises}
         canAdd={not TaskPlanStore.isPublished(id)}
         addClicked={@showSectionTopics}
         planId={id}/>
       <ReviewExercises
-        courseId={courseId} 
+        courseId={courseId}
         pageIds={topics}
-        shouldShow={shouldShowExercises} 
+        shouldShow={shouldShowExercises}
         planId={id}/>
     </div>
 
