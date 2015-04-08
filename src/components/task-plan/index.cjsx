@@ -13,8 +13,14 @@ PLAN_TYPES =
 getPlanType = (typeName) ->
   type = PLAN_TYPES[typeName]
 
+# Transitions need to be delayed so react has a chance to finish rendering so delay them
+delay = (fn) -> setTimeout(fn, 1)
+
 PlanShell = React.createClass
   mixins: [ConfirmLeaveMixin]
+
+  componentWillMount:   -> TaskPlanStore.addChangeListener(@update)
+  componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
 
   contextTypes:
     router: React.PropTypes.func

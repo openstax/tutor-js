@@ -51,7 +51,7 @@ ReviewExerciseCard = React.createClass
 
   renderHeader: ->
     <span>
-      <span class="-exercise-number">{@props.index+1}</span>
+      <span className="-exercise-number">{@props.index+1}</span>
       <BS.Button bsStyle="info" onClick={@moveExerciseUp} className="-move-exercise-up">^</BS.Button>
       <BS.Button bsStyle="info" onClick={@moveExerciseDown} className="-move-exercise-up">v</BS.Button>
       <BS.Button bsStyle="danger" onClick={@removeExercise} className="-remove-exercise-up">X</BS.Button>
@@ -374,8 +374,7 @@ HomeworkPlan = React.createClass
             <BS.Col xs={12} md={6}>
               <div className="-homework-description">
                 <label htmlFor="homework-description">Description</label>
-                <textarea ref="description" id="homework-description" onChange={@setDescription}>
-                  {description}
+                <textarea ref="description" id="homework-description" value={description} onChange={@setDescription}>
                 </textarea>
               </div>
             </BS.Col>

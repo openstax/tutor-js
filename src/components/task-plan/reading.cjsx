@@ -9,8 +9,6 @@ Router = require 'react-router'
 PlanFooter = require './footer'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
-# Transitions need to be delayed so react has a chance to finish rendering so delay them
-delay = (fn) -> setTimeout(fn, 1)
 
 SectionTopic = React.createClass
   render: ->
