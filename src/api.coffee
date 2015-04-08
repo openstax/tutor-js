@@ -134,22 +134,12 @@ start = ->
     url: "/api/steps/#{id}"
     payload: {free_response}
 
-  apiHelper TaskStepActions, TaskStepActions.setAnswerId, TaskActions.saved, 'PATCH', (id, answer_id) ->
+  apiHelper TaskStepActions, TaskStepActions.setAnswerId, TaskStepActions.saved, 'PATCH', (id, answer_id) ->
     url: "/api/steps/#{id}"
     payload: {answer_id}
 
-
-  TaskActions.loadUserTasks.addListener 'trigger', (courseId) ->
-    url = "/api/courses/#{courseId}/tasks"
-    url = "#{url}.json" if IS_LOCAL
-    opts =
-      dataType: 'json'
-      headers:
-        token: CurrentUserStore.getToken()
-
-    $.ajax(url, opts)
-    .then (results) ->
-      TaskActions.loadedUserTasks(results.items)
+  apiHelper TaskActions, TaskActions.loadUserTasks, TaskActions.loadedUserTasks, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/tasks"
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/plans"
