@@ -64,6 +64,10 @@ taskTestActions =
     taskTestActions.clickButton(taskDiv, '.-continue')
     args[0]
 
+  forceUpdate: (args...) ->
+    {taskComponent, taskDiv} = args[0]
+    routerStub.forceUpdate(taskComponent, args...)
+
   clickContinue: (args...)->
     Promise.resolve(taskTestActions._clickContinue(args...))
 
@@ -100,7 +104,7 @@ taskTestActions =
     taskTestActions.clickButton(taskDiv, '.-continue')
     TaskStepActions.saved(stepId, {free_response : textarea.value})
 
-    routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId, taskId, state, router, history})
+    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history})
 
   pickMultipleChoice: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
     step = TaskStepStore.get(stepId)
@@ -110,7 +114,7 @@ taskTestActions =
     React.addons.TestUtils.Simulate.change(answerElement, answer)
     TaskStepActions.saved(stepId, {answer_id : answer.id})
 
-    routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId, taskId, state, router, history, answer})
+    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history, answer})
 
   saveMultipleChoice: ({taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
     step = TaskStepStore.get(stepId)
@@ -123,11 +127,12 @@ taskTestActions =
     step.feedback_html = feedback_html
     TaskStepActions.loaded(step, stepId, taskId)
 
-    routerStub.forceUpdate(taskComponent, {taskDiv, taskComponent, stepId, taskId, state, router, history, correct_answer, feedback_html})
+    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history, correct_answer, feedback_html})
 
   _updateStep: (newStepId, {taskDiv, taskComponent, stepId, taskId, state, router, history}) ->
     stepId = newStepId
-    {taskDiv, taskComponent, stepId, taskId, state, router, history}
+
+    taskTestActions.forceUpdate({taskDiv, taskComponent, stepId, taskId, state, router, history})
 
   updateStep: (args...) ->
     Promise.resolve(taskTestActions._updateStep(args...))
@@ -157,6 +162,8 @@ taskTestActions =
       _.clone(actionsToNext[panel])
     ).flatten().value()
 
+    actions
+
   _getActionsForTaskCompletion: (taskId) ->
     incompleteSteps = TaskStore.getIncompleteSteps(taskId)
     allSteps = TaskStore.getSteps(taskId)
@@ -167,6 +174,10 @@ taskTestActions =
         actionsForStep.push('advanceStep')
       actionsForStep
     ).flatten().value()
+
+    # a cricket for good luck
+    actions.push('forceUpdate')
+    actions
 
   completeSteps: (args...) ->
     {taskId} = args[0]
@@ -187,7 +198,7 @@ taskTestActions =
 
 taskTests =
 
-  delay: 250
+  delay: 100
 
   container: document.createElement('div')
 
