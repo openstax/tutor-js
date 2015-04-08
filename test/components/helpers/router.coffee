@@ -19,6 +19,7 @@ routerStub =
         try
           React.render(<Handler/>, div, ->
             component = @
+            # merge in custom results with the default kitchen sink of results
             result = _.defaults({div, component, state, router, history}, result)
             resolve(result)
           )

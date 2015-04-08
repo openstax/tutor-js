@@ -156,7 +156,7 @@ taskTestActions =
 
 taskTests =
 
-  delay: 100
+  delay: 200
 
   container: document.createElement('div')
 

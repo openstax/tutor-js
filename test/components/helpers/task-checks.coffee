@@ -1,5 +1,6 @@
 {expect} = require 'chai'
 {Promise} = require 'es6-promise'
+_ = require 'underscore'
 
 {TaskStepActions, TaskStepStore} = require '../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
@@ -95,14 +96,6 @@ taskChecks =
 
     {div, component, stepId, taskId, state, router, history}
 
-  _checkIsMatchStep: (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
-    steps = TaskStore.getStepsIds(taskId)
-    targetStepId = steps[stepIndex].id
-
-    taskChecks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
-
-    {div, component, stepId, taskId, state, router, history}
-
   _checkIsNotCompletePage: ({div, component, stepId, taskId, state, router, history}) ->
     {type} = TaskStore.get(taskId)
     type ?= 'task'
@@ -117,34 +110,25 @@ taskChecks =
 
     {div, component, stepId, taskId, state, router, history}
 
+# promisify for chainability in specs
+_.each(taskChecks, (check, checkName) ->
+  # rename without _ in front
+  promiseName = checkName.slice(1)
 
-  # promisify for chainability in specs
-  checkAllowContinue: (args...)->
-    Promise.resolve(taskChecks._checkAllowContinue(args...))
-  checkIsIntroScreen: (args...)->
-    Promise.resolve(taskChecks._checkIsIntroScreen(args...))
-  checkIsNotIntroScreen: (args...)->
-    Promise.resolve(taskChecks._checkIsNotIntroScreen(args...))
-  checkIsDefaultStep: (args...)->
-    Promise.resolve(taskChecks._checkIsDefaultStep(args...))
-  checkRenderFreeResponse: (args...)->
-    Promise.resolve(taskChecks._checkRenderFreeResponse(args...))
-  checkAnswerFreeResponse: (args...)->
-    Promise.resolve(taskChecks._checkAnswerFreeResponse(args...))
-  checkSubmitFreeResponse: (args...)->
-    Promise.resolve(taskChecks._checkSubmitFreeResponse(args...))
-  checkAnswerMultipleChoice: (args...)->
-    Promise.resolve(taskChecks._checkAnswerMultipleChoice(args...))
-  checkSubmitMultipleChoice: (args...)->
-    Promise.resolve(taskChecks._checkSubmitMultipleChoice(args...))
-  checkIsNextStep: (args...)->
-    Promise.resolve(taskChecks._checkIsNextStep(args...))
-  checkIsMatchStep: (matchStepIndex) ->
-    (args...)->
-      Promise.resolve(taskChecks._checkIsMatchStep(matchStepIndex, args...))
-  checkIsNotCompletePage: (args...)->
-    Promise.resolve(taskChecks._checkIsNotCompletePage(args...))
-  checkIsCompletePage: (args...)->
-    Promise.resolve(taskChecks._checkIsCompletePage(args...))
+  taskChecks[promiseName] = (args...) ->
+    Promise.resolve(check(args...))
+)
+
+# These guys messed up the groove, maybe will change the way these work later
+taskChecks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
+  steps = TaskStore.getStepsIds(taskId)
+  targetStepId = steps[stepIndex].id
+  taskChecks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+
+  {div, component, stepId, taskId, state, router, history}
+
+taskChecks.checkIsMatchStep = (matchStepIndex) ->
+  (args...)->
+    Promise.resolve(taskChecks._checkIsMatchStep(matchStepIndex, args...))
 
 module.exports = taskChecks
