@@ -40,12 +40,7 @@ PlanShell = React.createClass
 
   getType: ->
     id = @getId()
-    if (TaskPlanStore.isNew(id))
-      typeName = @context.router.getCurrentParams().type
-    else
-      plan = TaskPlanStore.get(id)
-      typeName = plan?.type
-
+    typeName = @context.router.getCurrentParams().type
     getPlanType(typeName)
 
   getFlux: ->
