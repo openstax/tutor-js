@@ -270,8 +270,13 @@ SelectTopics = React.createClass
           <BS.Button bsStyle="link" onClick={hide}>Cancel</BS.Button>
         </span>
 
+    header = <h1>
+      Add Problems
+      <BS.Button bsStyle="link" className="pull-right -close-reading" onClick={hide}>X</BS.Button>
+    </h1>
+
     <div>
-      <BS.Panel footer={footer}>
+      <BS.Panel header={header} footer={footer}>
         <div className="select-reading-modal">
           {chapters}
         </div>
