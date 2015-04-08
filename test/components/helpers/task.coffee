@@ -187,6 +187,8 @@ taskTestActions =
 
 taskTests =
 
+  delay: 250
+
   container: document.createElement('div')
 
   unmount: ->

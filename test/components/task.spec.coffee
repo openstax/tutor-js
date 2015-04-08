@@ -37,7 +37,7 @@ describe 'Task Widget', ->
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
       .then(taskChecks.checkIsIntroScreen)
       .then(taskChecks.checkAllowContinue)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
@@ -51,7 +51,7 @@ describe 'Task Widget', ->
       .then(taskTestActions.clickContinue)
       .then(taskChecks.checkIsNotIntroScreen)
       .then(taskChecks.heckIsDefaultStep)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
 
@@ -60,7 +60,7 @@ describe 'Task Widget', ->
     taskTests
       .renderFreeResponse(taskId)
       .then(taskChecks.checkRenderFreeResponse)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should update store when free response is submitted', (done) ->
@@ -68,28 +68,28 @@ describe 'Task Widget', ->
       .answerFreeResponse(taskId)
       .then(taskTestActions.clickContinue)
       .then(taskChecks.checkAnswerFreeResponse)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should render multiple choice after free response', (done) ->
     taskTests
       .submitFreeResponse(taskId)
       .then(taskChecks.checkSubmitFreeResponse)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should update store when multiple choice answer is chosen', (done) ->
     taskTests
       .answerMultipleChoice(taskId)
       .then(taskChecks.checkAnswerMultipleChoice)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should render an answer and feedback html for an answered question', (done) ->
     taskTests
       .submitMultipleChoice(taskId)
       .then(taskChecks.checkSubmitMultipleChoice)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should be able to work through a step in homework', (done) ->
@@ -100,7 +100,7 @@ describe 'Task Widget', ->
     taskTests
       .renderStep(homeworkTaskId)
       .then(taskTests.workExerciseAndCheck)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should be able to work through a task and load next step from a route', (done) ->
@@ -112,7 +112,7 @@ describe 'Task Widget', ->
       .then(taskTestActions.clickContinue)
       .then(taskChecks.checkIsNextStep)
       .then(taskTestActions.advanceStep)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should show appropriate done page on completion', (done) ->
@@ -122,7 +122,7 @@ describe 'Task Widget', ->
       .then(taskTestActions.clickContinue)
       .then(taskTestActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should be able to work through a true-false question', (done) ->
@@ -137,7 +137,7 @@ describe 'Task Widget', ->
       .then(taskTests.workExercise)
       .then(taskTestActions.clickContinue)
       .then(taskChecks.workTrueFalseAndCheck)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should show homework done page on homework completion', (done) ->
@@ -149,7 +149,7 @@ describe 'Task Widget', ->
       .then(taskTestActions.clickContinue)
       .then(taskTestActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should allow review completed steps with breadcrumbs', (done) ->
@@ -164,5 +164,5 @@ describe 'Task Widget', ->
       .then(taskTestActions.clickBreadcrumb(targetStepIndex))
       .then(taskChecks.checkIsMatchStep(targetStepIndex))
       .then(taskChecks.checkIsNotCompletePage)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
