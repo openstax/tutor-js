@@ -20,7 +20,7 @@ ExerciseCardMixin =
     </div>
 
   renderTags: (tag) ->
-    <span className="-exercise-tag">{tag}</span>
+    <span className="exercise-tag">{tag}</span>
 
   renderExercise: ->
     content = JSON.parse(@props.exercise.content)
@@ -35,7 +35,7 @@ ExerciseCardMixin =
       <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className="-stem" block={true} html={question.stem_html} />
       <div className="answers-table">{renderedAnswers}</div>
-      <p>{renderedTags}</p>
+      <div className="exercise-tags">{renderedTags}</div>
     </BS.Panel>
 
 ReviewExerciseCard = React.createClass
@@ -51,11 +51,25 @@ ReviewExerciseCard = React.createClass
     TaskPlanActions.removeExercise(@props.planId, @props.exercise)
 
   renderHeader: ->
-    <span>
+    unless @props.index is 0
+      moveUp =
+        <BS.Button bsStyle="xs" onClick={@moveExerciseUp} className="-move-exercise-up">
+          <i className="fa fa-arrow-up"/>
+        </BS.Button>
+
+    # TODO: Add conditional logic for displaying this button
+    moveDown =
+      <BS.Button bsStyle="xs" onClick={@moveExerciseDown} className="-move-exercise-down">
+        <i className="fa fa-arrow-down"/>
+      </BS.Button>
+
+    <span className="-exercise-header">
       <span className="-exercise-number">{@props.index+1}</span>
-      <BS.Button bsStyle="info" onClick={@moveExerciseUp} className="-move-exercise-up">^</BS.Button>
-      <BS.Button bsStyle="info" onClick={@moveExerciseDown} className="-move-exercise-up">v</BS.Button>
-      <BS.Button bsStyle="danger" onClick={@removeExercise} className="-remove-exercise-up">X</BS.Button>
+      <span className="pull-right card-actions">
+        {moveUp}
+        {moveDown}
+        <BS.Button bsStyle="xs" onClick={@removeExercise} className="-remove-exercise"><i className="fa fa-close"/></BS.Button>
+      </span>
     </span>
 
   getPanelStyle: ->
