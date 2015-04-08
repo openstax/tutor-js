@@ -10,11 +10,17 @@ ExerciseConfig =
 
   reset: ->
     @_exercises = []
+    @_exerciseCache = []
 
   load: (courseId, pageIds) ->
-
+    
   loaded: (obj, courseId, pageIds) ->
     @_exercises[pageIds.toString()] = obj.items
+    _exerciseCache = []
+    _.each obj.items, (exercise) ->
+      _exerciseCache[exercise.id] = exercise
+    
+    @_exerciseCache = _exerciseCache
     @emitChange()
 
   exports:
@@ -24,6 +30,8 @@ ExerciseConfig =
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
     getQuestion: (exercise) ->
       JSON.parse(exercies.content)
+    getExerciseById: (exercise_id) ->
+      @_exerciseCache[exercise_id]
 
 {actions, store} = makeSimpleStore(ExerciseConfig)
 module.exports = {ExerciseActions:actions, ExerciseStore:store}
