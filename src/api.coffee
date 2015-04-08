@@ -13,6 +13,7 @@ _ = require 'underscore'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TocActions} = require './flux/toc'
+{ExerciseActions} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 
 # Do some special things when running without a tutor-server backend.
@@ -108,6 +109,10 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"
 
+  apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->
+    page_id_str = pageIds.join('&page_ids[]=')
+    url: "/api/courses/#{courseId}/exercises?page_ids[]=#{page_id_str}"
+
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/readings"
 
@@ -126,11 +131,15 @@ start = ->
 
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
-    throw new Error('BUG: Wrong type') unless typeof id is 'string'
+    throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'
     url: "/api/steps/#{id}"
 
+  # # Go from complete to load so we fetch the new JSON
+  # apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
+  #   url: "/api/steps/#{id}/completed"
+
   # Go from complete to load so we fetch the new JSON
-  apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
+  apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.completed, 'PUT', (id) ->
     url: "/api/steps/#{id}/completed"
 
   apiHelper TaskStepActions, TaskStepActions.loadRecovery, TaskStepActions.loadedRecovery, 'PUT', (id) ->
@@ -140,22 +149,12 @@ start = ->
     url: "/api/steps/#{id}"
     payload: {free_response}
 
-  apiHelper TaskStepActions, TaskStepActions.setAnswerId, TaskActions.saved, 'PATCH', (id, answer_id) ->
+  apiHelper TaskStepActions, TaskStepActions.setAnswerId, TaskStepActions.saved, 'PATCH', (id, answer_id) ->
     url: "/api/steps/#{id}"
     payload: {answer_id}
 
-
-  TaskActions.loadUserTasks.addListener 'trigger', (courseId) ->
-    url = "/api/courses/#{courseId}/tasks"
-    url = "#{url}.json" if IS_LOCAL
-    opts =
-      dataType: 'json'
-      headers:
-        token: CurrentUserStore.getToken()
-
-    $.ajax(url, opts)
-    .then (results) ->
-      TaskActions.loadedUserTasks(results.items)
+  apiHelper TaskActions, TaskActions.loadUserTasks, TaskActions.loadedUserTasks, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/tasks"
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/plans"

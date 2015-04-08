@@ -42,6 +42,10 @@ module.exports = React.createClass
     steps = TaskStore.getStepsIds(id)
     stepConfig = steps[@state.currentStep]
 
+    # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
+    # we need to reload the step straight from the API
+    TaskStepActions.forceReload(stepConfig.id) if stepConfig and not TaskStepStore.hasContent(stepConfig.id)
+
     {courseId} = @context.router.getCurrentParams()
 
     allStepsCompleted = TaskStore.isTaskCompleted(id)
@@ -61,7 +65,7 @@ module.exports = React.createClass
     else if @state.currentStep is -1
       if allStepsCompleted
         type = if model.type then model.type else 'task'
-        End = Ends[type]
+        End = Ends.get(type)
 
         panel = <End courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
 

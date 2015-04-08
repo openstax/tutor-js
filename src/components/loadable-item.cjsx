@@ -29,7 +29,8 @@ module.exports = React.createClass
         true
       else if isLoaded(id)
         false
-      else if store.isUnknown(id)
+      else if store.isUnknown(id) or store.reload(id)
+
         # The load is done here because otherwise it would need to be in `componentWillMount`
         # **and** componentWillUpdate(nextProps) making the API a bit more clunky
         unless store.isNew(id)
@@ -44,4 +45,5 @@ module.exports = React.createClass
       isLoaded={-> isLoaded(id)}
       isFailed={-> store.isFailed(id)}
       render={renderItem}
+      update={update}
     />
