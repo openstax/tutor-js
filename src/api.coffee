@@ -13,6 +13,7 @@ _ = require 'underscore'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TocActions} = require './flux/toc'
+{ExerciseActions} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 
 # Do some special things when running without a tutor-server backend.
@@ -107,6 +108,10 @@ start = ->
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"
+
+  apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->
+    page_id_str = pageIds.join('&page_ids[]=')
+    url: "/api/courses/#{courseId}/exercises?page_ids[]=#{page_id_str}"
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/readings"
