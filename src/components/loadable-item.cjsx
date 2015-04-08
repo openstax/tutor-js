@@ -18,7 +18,7 @@ module.exports = React.createClass
     update: React.PropTypes.func
 
   render: ->
-    {id, store, actions, renderItem} = @props
+    {id, store, actions, renderItem, update} = @props
 
     isLoading = ->
       if store.isUnknown(id)
@@ -38,4 +38,5 @@ module.exports = React.createClass
       isLoaded={-> store.isLoaded(id)}
       isFailed={-> store.isFailed(id)}
       render={renderItem}
+      update={update}
     />

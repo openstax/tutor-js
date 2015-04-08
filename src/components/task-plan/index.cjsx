@@ -13,14 +13,8 @@ PLAN_TYPES =
 getPlanType = (typeName) ->
   type = PLAN_TYPES[typeName]
 
-# Transitions need to be delayed so react has a chance to finish rendering so delay them
-delay = (fn) -> setTimeout(fn, 1)
-
 PlanShell = React.createClass
   mixins: [ConfirmLeaveMixin]
-
-  componentWillMount:   -> TaskPlanStore.addChangeListener(@update)
-  componentWillUnmount: -> TaskPlanStore.removeChangeListener(@update)
 
   contextTypes:
     router: React.PropTypes.func
@@ -31,7 +25,7 @@ PlanShell = React.createClass
     if not getPlanType(type)
       @context.router.transitionTo('NotFoundRoute')
       return
-      
+
     if (id)
       TaskPlanActions.load(id)
     else
@@ -60,7 +54,7 @@ PlanShell = React.createClass
     if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
       {id, type} = TaskPlanStore.get(id)
       {courseId} = @context.router.getCurrentParams()
-      delay => @context.router.transitionTo('editPlan', {courseId, type, id})
+      @context.router.transitionTo('editPlan', {courseId, type, id})
     else
       @setState({})
 
@@ -73,6 +67,7 @@ PlanShell = React.createClass
       id={id}
       store={TaskPlanStore}
       actions={TaskPlanActions}
+      update={@update}
       renderItem={-> <Type id={id} courseId={courseId} />}
     />
 
