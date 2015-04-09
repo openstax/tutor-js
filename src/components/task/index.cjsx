@@ -12,6 +12,8 @@ Ends = require '../task-step/ends'
 
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
+ArbitraryHtml = require '../html'
+Details = require './details'
 
 
 module.exports = React.createClass
@@ -56,6 +58,7 @@ module.exports = React.createClass
     unless TaskStore.isSingleStepped(id)
       breadcrumbs =
         <div className="panel-header">
+          <Details model={model} />
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} />
         </div>
 
