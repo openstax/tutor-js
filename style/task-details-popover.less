@@ -1,42 +1,5 @@
-@white: #FFF;
-@popover-title-bg: @primary;
-@popover-border-color: @primary;
-@popover-arrow-color: @white;
-@popover-arrow-outer-fallback-color: @primary;
-@popover-arrow-outer-color: @primary;
-@popover-background: @white;
-
 @details-popover-arrow-width: 17px;
 @details-popover-arrow-outer-width: 18px;
-
-.popover-title {
-  color: #FFF;
-  border-radius: 0;
-  #fonts > .sans(1.75rem, 1.75rem);
-}
-.popover {
-  padding: 0;
-  #fonts > .sans(1.25rem, 1.5rem);
-  text-align: justify;
-  background: #FFF;
-  color: #333;
-
-  &.left .arrow:after, &.left .tooltip-arrow{
-    border-left-color: @popover-background;
-  }
-
-  &.right .arrow:after, &.right .tooltip-arrow{
-    border-right-color: @popover-background;
-  }
-
-  &.top .arrow:after, &.top .tooltip-arrow{
-    border-top-color: @popover-background;
-  }
-
-  &.bottom .arrow:after, &.bottom .tooltip-arrow{
-    border-bottom-color: @popover-background;
-  }
-}
 
 .task-details-popover{
   font-size: 0.8em;
