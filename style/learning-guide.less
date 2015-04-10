@@ -1,3 +1,4 @@
+
 .course-guide-line-chart {
     outline: 1px solid #333;
     svg {
@@ -9,6 +10,9 @@
                 font-size: 2px;
                 fill: white;
             }
+            circle {
+                fill: #B4CFDF;
+            }
             g {
                 &:hover{
                     opacity: 0.8;
@@ -16,14 +20,21 @@
                 cursor: pointer;
             }
         }
-        .gridlines {
+        .grid-lines {
             line{
                 stroke: lightGrey;
                 stroke-width: 0.1;
                 stroke-dasharray: 1 2;
             }
-            
         }
+        .plot-lines {
+            line{
+                stroke: #9EDAF6;
+                stroke-width: 0.4;
+                stroke-dasharray: 0.5 0.8;
+            }
+        }
+        
     }
   
 }

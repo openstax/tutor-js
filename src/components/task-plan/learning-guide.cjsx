@@ -45,13 +45,14 @@ Chart = React.createClass
     # If needed, explicit stacking could be specified
     this.drawVerticalLines(container, points);
     this.drawStaticImages(container, points);
+    this.drawPlotLines(container, points);
     this.drawCircles(container, fields, points);
 
   # Future improvement: Place clouds so they aren't
   # hidden behind the points
   drawStaticImages: (container, points)->
-    this.addImage(this.props.cloudsPath, width:10, x: 20, y: 10)
-    this.addImage(this.props.cloudsPath, width:16, x: 80, y: 20)
+    this.addImage(this.props.cloudsPath, width:10, x: 35, y: 10)
+    this.addImage(this.props.cloudsPath, width:16, x: 77, y: 20)
     this.addImage(this.props.hippoPath,  width: 8, x: 92, y: 50)
 
   drawCircles: (container, fields, points)->
@@ -80,10 +81,23 @@ Chart = React.createClass
       .attr("text-anchor", "middle")
       .attr("dy", "0.5")
 
-  drawVerticalLines: (container, points)->
-    console.log points
+  drawPlotLines: (container, points)->
     wrap = container.append('g')
-      .attr('class', 'gridlines')
+      .attr('class', 'plot-lines')
+       .selectAll("line")
+       .data( points[0...points.length-1] )
+       # ^^ We don't want to create a line for the last point
+
+    wrap.enter()
+      .append("line")
+      .attr("x1", (p)->p.x )
+      .attr("y1", (p)->p.y)
+      .attr("x2", (p,i)->points[i+1].x )
+      .attr("y2", (p,i)->points[i+1].y )
+
+  drawVerticalLines: (container, points)->
+    wrap = container.append('g')
+      .attr('class', 'grid-lines')
        .selectAll("line")
        .data(points)
 
@@ -92,7 +106,7 @@ Chart = React.createClass
       .attr("x1", (p)->p.x )
       .attr("y1", 0)
       .attr("x2", (p)->p.x )
-      .attr("y2", @props.height);
+      .attr("y2", @props.height)
 
   navigateToPractice: (activity)->
     console.log "Navigate to activity ID #{activity.id} (#{activity.title})"
