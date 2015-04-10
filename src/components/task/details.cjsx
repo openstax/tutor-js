@@ -25,12 +25,12 @@ module.exports = React.createClass
 
     if task.description_html
       detailPopover =
-        <BS.Popover title={title} className='-task-details-popover task-details-popover'>
+        <BS.Popover title={title} className='task-details-popover'>
           <Markdown text={task.description_html} />
         </BS.Popover>
       details =
         <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
-          <BS.Button bsStyle="default" className='-task-details task-details'>
+          <BS.Button bsStyle="default" className='task-details'>
             <i className='fa fa-info-circle'></i> {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
           </BS.Button>
         </BS.OverlayTrigger>
