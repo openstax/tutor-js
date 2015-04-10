@@ -47,6 +47,7 @@
     "karma-mocha-reporter": "~1.0.0",
     "karma-phantomjs-launcher": "~0.1.4",
     "katex": "~0.2.0",
+    "marked": "^0.3.3",
     "merge-stream": "~0.1.7",
     "mocha": "~2.2.1",
     "moment": "^2.9.0",
@@ -61,8 +62,7 @@
   },
   "browser": {
     "jquery": "./bower_components/jquery/dist/jquery.js",
-    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js",
-    "marked": "./bower_components/marked/lib/marked.js"
+    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
   },
   "browserify-shim": {
     "jquery": "$",
