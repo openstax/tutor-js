@@ -1,7 +1,7 @@
 { "id": 4,
   "HACK_LOCAL_STEP_COMPLETION": true,
   "title": "Chapter 5 and Chapter 6 Reading",
-  "description_html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
+  "description_html": "###Lorem ipsum dolor sit amet,\n\n consectetur adipiscing elit.\n\n1. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan\n\n1. et viverra justo commodo.\n\n1. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis\n\n1. parturient montes, nascetur ridiculus mus. Nam fermentum,\n\n1. nulla luctus pharetra vulputate, felis tellus\n\n1. mollis orci, sed rhoncus sapien nunc eget odio.",
   "due_at": "2015-02-10T00:45:20.967Z",
   "steps": [
     { "id": "step-id-4-1",
