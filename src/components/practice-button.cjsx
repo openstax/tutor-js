@@ -21,7 +21,7 @@ PracticeButton = React.createClass
     <BS.Button bsStyle="primary" className="-practice" onClick={@onClick}>{actionText}</BS.Button>
 
   onClick: ->
-    params = _.omit(@props, 'courseId')
+    params = _.pick(@props, 'page_ids')
 
     if CourseStore.hasPractice(@props.courseId) and not @props.forceCreate
       task = CourseStore.getPractice(@props.courseId)
