@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{taskTestActions, taskTests, taskChecks, commonActions} = require './helpers/task'
+{taskActions, taskTests, taskChecks} = require './helpers/task'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -47,7 +47,7 @@ describe 'Task Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNotIntroScreen)
       .then(taskChecks.heckIsDefaultStep)
       .then(_.delay(done, taskTests.delay)).catch(done)
@@ -65,7 +65,7 @@ describe 'Task Widget', ->
   it 'should update store when free response is submitted', (done) ->
     taskTests
       .answerFreeResponse(taskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkAnswerFreeResponse)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
@@ -106,11 +106,11 @@ describe 'Task Widget', ->
     # run a full step through and check each step
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskTests.workExerciseAndCheck)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNextStep)
-      .then(taskTestActions.advanceStep)
+      .then(taskActions.advanceStep)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
 
@@ -118,8 +118,8 @@ describe 'Task Widget', ->
     # run a full step through and check each step
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
-      .then(taskTestActions.clickContinue)
-      .then(taskTestActions.completeSteps)
+      .then(taskActions.clickContinue)
+      .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
@@ -130,11 +130,11 @@ describe 'Task Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskTests.workExercise)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskTests.workExercise)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.workTrueFalseAndCheck)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
@@ -145,8 +145,8 @@ describe 'Task Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
-      .then(taskTestActions.clickContinue)
-      .then(taskTestActions.completeSteps)
+      .then(taskActions.clickContinue)
+      .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
@@ -158,9 +158,9 @@ describe 'Task Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
-      .then(taskTestActions.clickContinue)
-      .then(taskTestActions.completeSteps)
-      .then(taskTestActions.clickBreadcrumb(targetStepIndex))
+      .then(taskActions.clickContinue)
+      .then(taskActions.completeSteps)
+      .then(taskActions.clickBreadcrumb(targetStepIndex))
       .then(taskChecks.checkIsMatchStep(targetStepIndex))
       .then(taskChecks.checkIsNotCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)
@@ -172,6 +172,6 @@ describe 'Task Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
-      .then(commonActions.clickMatch('.task-details'))
+      .then(taskActions.clickDetails)
       .then(taskChecks.checkIsPopoverOpen)
       .then(_.delay(done, taskTests.delay)).catch(done)
