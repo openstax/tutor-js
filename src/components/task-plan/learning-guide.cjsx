@@ -134,16 +134,8 @@ LearningGuideShell = React.createClass
     store: LearningGuideStore
     actions: LearningGuideActions
 
-  getId: ->
-    @context.router.getCurrentParams().courseId
-
-  getInitialState: ->
-    {
-      data: []
-    }
-
   render: ->
-    courseId=@getId()
+    courseId=@context.router.getCurrentParams().courseId
     <BS.Panel className="course-guide-container">
       <div className="course-guide-line-chart">
         <LoadableItem
