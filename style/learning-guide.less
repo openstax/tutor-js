@@ -3,16 +3,20 @@
     svg {
 
         width: 100%;
-
-        .tutor-chart-lines{
+        .circles{
             text {
-                // svg scale is only 100px wide
+                // the native resultion of the svg is only 100px wide
                 font-size: 2px;
                 fill: white;
             }
         }
-        .nv-line {
-            stroke-dasharray: 10,5;
+        .gridlines {
+            line{
+                stroke: lightGrey;
+                stroke-width: 0.1;
+                stroke-dasharray: 1 2;
+            }
+            
         }
     }
   

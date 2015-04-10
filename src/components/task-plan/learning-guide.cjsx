@@ -28,45 +28,75 @@ Chart = React.createClass
 
   drawChart: (guide)->
     # static images.  First two are local svg, hippo is hot linked image
+
+    container = d3.select(this.refs.svg.getDOMNode())
+     .attr("preserveAspectRatio", "xMidYMid meet")
+     .attr("viewBox", "0 0 #{this.props.width} #{this.props.height}")
+
+    fields = guide.fields
+    space_between = 100/fields.length+1
+    points = _.map(fields, (f,i)=>
+        {
+          x: Math.max(space_between * i + (space_between/2), 5)
+          y: @props.height - f.current_level * @props.height
+        }
+    )
+    # order matters. Items placed later will appear in front of earlier items
+    # If needed, explicit stacking could be specified
+    this.drawVerticalLines(container, points);
+    this.drawStaticImages(container, points);
+    this.drawCircles(container, fields, points);
+
+  # Future improvement: Place clouds so they aren't
+  # hidden behind the points
+  drawStaticImages: (container, points)->
     this.addImage(this.props.cloudsPath, width:10, x: 20, y: 10)
     this.addImage(this.props.cloudsPath, width:16, x: 80, y: 20)
     this.addImage(this.props.hippoPath,  width: 8, x: 92, y: 50)
 
-    WIDTH  = @props.width
-    HEIGHT = @props.height
-
-    fields = guide.fields
-    space_between = 100/fields.length+1
-
-    container = d3.select(this.refs.svg.getDOMNode())
-     .attr("preserveAspectRatio", "xMidYMid meet")
-     .attr("viewBox", "0 0 #{WIDTH} #{HEIGHT}")
-
+  drawCircles: (container, fields, points)->
     wrap = container.append('g')
-      .attr('class', 'tutor-chart-lines')
+      .attr('class', 'circles')
+       .selectAll("g")
+       .data(fields)
 
-    circles = wrap.selectAll("g")
-      .data(fields)
-
-    circleEnter = circles.enter()
+    circles = wrap.enter()
       .append("g")
       .attr("transform", (f,i)->
-        x=Math.max(space_between * i + (space_between/2), 5)
-        y=HEIGHT - f.current_level * HEIGHT
-        "translate(#{x},#{y})"
+        "translate(#{points[i].x},#{points[i].y})"
       )
 
-    circleEnter.append("circle")
+    circles.append("circle")
       .attr('r', (f)->
         # awaiting a better alogorithm for the circle radius
         Math.max(f.questions_answered_count / 20, 2)
       )
-    circleEnter.append("text")
+    circles.append("text")
       .text( (f)->
         f.questions_answered_count
       )
       .attr("text-anchor", "middle")
       .attr("dy", "0.5")
+
+  drawVerticalLines: (container, points)->
+    console.log points
+    wrap = container.append('g')
+      .attr('class', 'gridlines')
+       .selectAll("line")
+       .data(points)
+
+    vline = d3.svg.line()
+      .x( (d)-> xRange d.x )
+      .y( (d)-> yRange d.y )
+      .interpolate("basis");
+
+    lines = wrap.enter()
+      .append("line")
+      .attr("x1", (p)->p.x )
+      .attr("y1", 0)
+      .attr("x2", (p)->p.x )
+      .attr("y2", @props.height);
+
 
 
   componentDidMount: ->
