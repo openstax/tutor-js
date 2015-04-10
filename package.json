@@ -61,7 +61,8 @@
   },
   "browser": {
     "jquery": "./bower_components/jquery/dist/jquery.js",
-    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
+    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js",
+    "marked": "./bower_components/marked/lib/marked.js"
   },
   "browserify-shim": {
     "jquery": "$",

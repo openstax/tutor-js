@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Time = require '../time'
-Markdown = require('./markdown')
+Markdown = require '../markdown'
 
 module.exports = React.createClass
   render: ->

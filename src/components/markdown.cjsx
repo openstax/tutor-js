@@ -1,6 +1,7 @@
-{Converter} = require('showdown')
-converter = new Converter()
+React = require 'react'
+marked = require 'marked'
+ArbitraryHtml = require './html'
 
 module.exports = React.createClass
   render: ->
-    {converter.makeHtml(this.props.children.toString())}
+    <ArbitraryHtml html={marked(@props.children.toString())}/>
