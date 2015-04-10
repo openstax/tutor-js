@@ -67,4 +67,40 @@ componentStub =
   render: (component, result) ->
     @_render(@container, component, result)
 
-module.exports = {routerStub, componentStub}
+commonActions =
+  clickButton: (div, selector) ->
+    selector ?= 'button.btn-primary'
+    button = div.querySelector(selector)
+    commonActions.click(button)
+    button = div.querySelector(selector)
+
+  click: (clickElementNode) ->
+    React.addons.TestUtils.Simulate.click(clickElementNode)
+
+  _clickMatch: (selector, args...) ->
+    {div} = args[0]
+    commonActions.clickButton(div, selector)
+    args[0]
+
+  clickMatch: (selector)->
+    (args...) ->
+      Promise.resolve(commonActions._clickMatch(selector, args...))
+
+  _fillTextarea: (selector, response, args...) ->
+    {div} = args[0]
+    selector ?= 'textarea'
+    response ?= 'Test Response'
+
+    textarea = div.querySelector(selector)
+    textarea.value = response
+    React.addons.TestUtils.Simulate.focus(textarea)
+    React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
+    React.addons.TestUtils.Simulate.change(textarea)
+
+    _.defaults(args[0], {textarea})
+
+  fillTextarea: (selector, response) ->
+    (args...) ->
+      Promise.resolve(commonActions._fillTextarea(selector, response, args...))
+
+module.exports = {routerStub, componentStub, commonActions}

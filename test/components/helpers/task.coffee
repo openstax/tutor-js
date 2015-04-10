@@ -7,46 +7,21 @@ React = require 'react/addons'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
 TaskStep = require '../../../src/components/task-step'
 
-{routerStub, componentStub} = require './utilites'
+{routerStub, componentStub, commonActions} = require './utilites'
 taskChecks = require './task-checks'
 
 taskTestActions =
-  clickButton: (node, selector) ->
-    selector ?= 'button.btn-primary'
-
-    button = node.querySelector(selector)
-    @click(button)
-    button = node.querySelector(selector)
-
-
-  click: (clickElementNode) ->
-    React.addons.TestUtils.Simulate.click(clickElementNode)
-
   forceUpdate: (args...) ->
     {component, div} = args[0]
     routerStub.forceUpdate(component, args...)
 
-  _clickContinue: (args...) ->
-    {div} = args[0]
-    taskTestActions.clickButton(div, '.-continue')
-    args[0]
-
-  clickContinue: (args...)->
-    Promise.resolve(taskTestActions._clickContinue(args...))
-
-  _clickDetails: (args...) ->
-    {div} = args[0]
-    taskTestActions.clickButton(div, '.task-details')
-    args[0]
-
-  clickDetails: (args...)->
-    Promise.resolve(taskTestActions._clickDetails(args...))
+  clickContinue: commonActions.clickMatch('.-continue')
 
   _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
     completedBreadcrumbs = div.querySelectorAll('button.step.completed')
     completedBreadcrumbs = Array.prototype.slice.call(completedBreadcrumbs)
 
-    taskTestActions.click(completedBreadcrumbs[breadcrumbButtonIndex])
+    commonActions.click(completedBreadcrumbs[breadcrumbButtonIndex])
     steps = TaskStore.getStepsIds(taskId)
     # change step
     stepId = steps[breadcrumbButtonIndex].id
@@ -57,22 +32,10 @@ taskTestActions =
     (args...) ->
       Promise.resolve(taskTestActions._clickBreadcrumb(breadcrumbButtonIndex, args...))
 
-  _fillFreeResponse: ({div, component, stepId, taskId, state, router, history, response}) ->
-    response ?= 'Test Response'
-
-    textarea = div.querySelector('textarea')
-    textarea.value = response
-    React.addons.TestUtils.Simulate.focus(textarea)
-    React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
-    React.addons.TestUtils.Simulate.change(textarea)
-
-    {div, component, stepId, taskId, state, router, history, textarea}
-
-  fillFreeResponse: (args...)->
-    Promise.resolve(taskTestActions._fillFreeResponse(args...))
+  fillFreeResponse: commonActions.fillTextarea('textarea', 'Test Response')
 
   saveFreeResponse: ({div, component, stepId, taskId, state, router, history, textarea}) ->
-    taskTestActions.clickButton(div, '.-continue')
+    commonActions.clickButton(div, '.-continue')
     TaskStepActions.saved(stepId, {free_response : textarea.value})
 
     taskTestActions.forceUpdate({div, component, stepId, taskId, state, router, history})
@@ -91,8 +54,7 @@ taskTestActions =
     step = TaskStepStore.get(stepId)
     correct_answer = step.content.questions[0].answers[1]
     feedback_html = 'Fake Feedback'
-
-    taskTestActions.clickButton(div, '.-continue')
+    commonActions.clickButton(div, '.-continue')
 
     step.correct_answer_id ?= correct_answer.id
     step.feedback_html = feedback_html
@@ -243,4 +205,4 @@ taskTests =
       .then(taskTestActions.saveMultipleChoice)
       .then(taskChecks.checkSubmitMultipleChoice)
 
-module.exports = {routerStub, taskTestActions, taskTests, taskChecks}
+module.exports = {routerStub, commonActions, taskTestActions, taskTests, taskChecks}

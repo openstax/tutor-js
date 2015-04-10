@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{taskTestActions, taskTests, taskChecks} = require './helpers/task'
+{taskTestActions, taskTests, taskChecks, commonActions} = require './helpers/task'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -172,6 +172,6 @@ describe 'Task Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
-      .then(taskTestActions.clickDetails)
+      .then(commonActions.clickMatch('.task-details'))
       .then(taskChecks.checkIsPopoverOpen)
       .then(_.delay(done, taskTests.delay)).catch(done)
