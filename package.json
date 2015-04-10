@@ -62,7 +62,6 @@
   },
   "browser": {
     "jquery": "./bower_components/jquery/dist/jquery.js",
-    "nvd3": "./bower_components/nvd3/build/nv.d3.js",
     "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
   },
   "browserify-shim": {

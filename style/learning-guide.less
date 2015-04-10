@@ -1,15 +1,18 @@
 .course-guide-line-chart {
     outline: 1px solid #333;
     svg {
-        height: 500px;
-        width: 100%;
-        path.line {
-            fill: none;
-            stroke: #000;
-        }
 
-        .nv-axis.nv-x text {
-            border: 1px solid red;
+        width: 100%;
+
+        .tutor-chart-lines{
+            text {
+                // svg scale is only 100px wide
+                font-size: 2px;
+                fill: white;
+            }
+        }
+        .nv-line {
+            stroke-dasharray: 10,5;
         }
     }
   
