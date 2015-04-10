@@ -60,6 +60,7 @@ gulp.task 'styles', ['cleanStyles'], ->
   # Build the CSS file
   gulp.src('./style/tutor.less')
   .pipe(less())
+  .on('error', (error) -> console.warn error.message)
   .pipe(gulp.dest(destDirCss))
   .pipe(livereload())
 
