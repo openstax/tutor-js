@@ -26,7 +26,7 @@ module.exports = React.createClass
     if task.description_html
       detailPopover =
         <BS.Popover title={title} className='-task-details-popover task-details-popover'>
-          <Markdown>{task.description_html}</Markdown>
+          <Markdown text={task.description_html} />
         </BS.Popover>
       details =
         <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>

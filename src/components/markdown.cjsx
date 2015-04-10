@@ -4,4 +4,6 @@ ArbitraryHtml = require './html'
 
 module.exports = React.createClass
   render: ->
-    <ArbitraryHtml html={marked(@props.children.toString())}/>
+    {text} = @props
+    html = marked(text)
+    <ArbitraryHtml html={html}/>
