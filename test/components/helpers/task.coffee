@@ -7,10 +7,10 @@ React = require 'react/addons'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
 TaskStep = require '../../../src/components/task-step'
 
-routerStub = require './router'
+{routerStub, componentStub} = require './utilites'
 taskChecks = require './task-checks'
 
-taskTestActions = 
+taskTestActions =
   clickButton: (node, selector) ->
     selector ?= 'button.btn-primary'
 
@@ -166,16 +166,7 @@ taskTests =
 
   _renderTaskStep: (stepId, taskId, onNextStep) ->
     div = @container
-    promise = new Promise (resolve, reject) ->
-      try
-        React.render(<TaskStep id={stepId} onNextStep={onNextStep}/>, div, ->
-          component = @
-          resolve({div, component, stepId, taskId})
-        )
-      catch error
-        reject(error)
-
-    promise
+    componentStub._render(div, <TaskStep id={stepId} onNextStep={onNextStep}/>, {stepId, taskId})
 
   renderStep: (taskId) ->
     {id} = TaskStore.getCurrentStep(taskId)

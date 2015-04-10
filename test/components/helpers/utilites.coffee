@@ -46,5 +46,25 @@ routerStub =
 
     promise
 
+componentStub =
+  container: document.createElement('div')
+  _render: (div, component, result) ->
+    result ?= {}
 
-module.exports = routerStub
+    promise = new Promise (resolve, reject) ->
+      try
+        React.render(component, div, ->
+          component = @
+          # merge in custom results with the default kitchen sink of results
+          result = _.defaults({div, component}, result)
+          resolve(result)
+        )
+      catch error
+        reject(error)
+
+    promise
+
+  render: (component, result) ->
+    @_render(@container, component, result)
+
+module.exports = {routerStub, componentStub}
