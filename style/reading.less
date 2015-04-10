@@ -15,30 +15,34 @@
 
 .task-step .panel-body {
 
-  .reading-step .section-opener .learning-objectives {
-    width: 100%;
-    min-height: 100px;
-    display: inline-flex;
-    color: #ffffff;
-    padding: 10px 40px;
-    background: @physics-background-secondary;
+  .reading-step {
 
-    > div {
-      display: none
-    }
+    div[data-type="document-title"] {display: none;}
 
-    p {
-      color: rgba(255,255,255,.75);
-      #fonts > .sans;
-      text-transform: uppercase;
-      text-align: right;
-      margin: auto 15px;
-    }
+    .section-opener .learning-objectives {
+      width: 100%;
+      min-height: 100px;
+      display: inline-flex;
+      color: #ffcc99;
+      padding: 10px 40px;
+      background: @physics-background-secondary;
 
-    ul {
-      margin: 0 0;
-      padding: 0 15px 0 30px;
-      border-left: 1px solid rgba(255,255,255,.4);
+      > div {display: none;}
+
+      p {
+        color: rgba(255,255,255,.25);
+        #fonts > .sans;
+        text-transform: uppercase;
+        text-align: right;
+        margin: auto 15px;
+      }
+
+      ul {
+        margin: 0 0;
+        padding: 0 15px 0 30px;
+        border-left: 1px solid rgba(255,255,255,.4);
+      }
+
     }
 
   }
