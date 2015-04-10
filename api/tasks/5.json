@@ -2,7 +2,7 @@
   "HACK_LOCAL_STEP_COMPLETION": true,
   "type": "homework",
   "title": "Chapter 5 and Chapter 6 Reading",
-  "description_html": "###Lorem ipsum dolor sit amet,\n\n consectetur adipiscing elit.\n\n* Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan\n\n* et viverra justo commodo.\n\n* Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis\n\n* parturient montes, nascetur ridiculus mus. Nam fermentum,\n\n* nulla luctus pharetra vulputate, felis tellus\n\n* mollis orci, sed rhoncus sapien nunc eget odio.",
+  "description_html": "Test Description\n# Heading\nwith **markdown**",
   "due_at": "2015-02-10T00:45:20.967Z",
   "steps": [
     { "id": "step-id-5-1",
