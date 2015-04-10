@@ -73,10 +73,11 @@ module.exports = React.createClass
 
       else
         footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
+        dueDate = if model.due_at then <p>Due At: <Time date={model.due_at}></Time></p> else ''
 
         panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
                   <h1>{model.title}</h1>
-                  <p>Due At: <Time date={model.due_at}></Time></p>
+                  {dueDate}
                 </BS.Panel>
 
     else

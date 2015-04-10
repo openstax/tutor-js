@@ -15,7 +15,9 @@ actions =
 
   clickContinue: commonActions.clickMatch('.-continue')
 
-  clickDetails: commonActions.clickMatch('.task-details')
+  # Tricky, popovers use focus trigger for dismissable option
+  # http://getbootstrap.com/javascript/#dismiss-on-next-click
+  clickDetails: commonActions.focusMatch('.task-details')
 
   _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
     completedBreadcrumbs = div.querySelectorAll('button.step.completed')

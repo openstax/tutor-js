@@ -86,6 +86,16 @@ commonActions =
     (args...) ->
       Promise.resolve(commonActions._clickMatch(selector, args...))
 
+  _focusMatch: (selector, args...) ->
+    {div} = args[0]
+    elementNode = div.querySelector(selector)
+    React.addons.TestUtils.Simulate.focus(elementNode)
+    args[0]
+
+  focusMatch: (selector)->
+    (args...) ->
+      Promise.resolve(commonActions._focusMatch(selector, args...))
+
   _fillTextarea: (selector, response, args...) ->
     {div} = args[0]
     selector ?= 'textarea'

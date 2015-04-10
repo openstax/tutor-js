@@ -17,11 +17,14 @@ module.exports = React.createClass
     title: 'Instructions'
     dateFormat: 'l'
     dateLabel: 'Due'
-    trigger: 'click'
+    trigger: 'focus'
     placement: 'left'
 
   render: ->
     {task, title, dateFormat, dateLabel, trigger, placement} = @props
+
+    if not task.due_at?
+      return null
 
     if task.description_html
       detailPopover =
@@ -37,3 +40,5 @@ module.exports = React.createClass
     else
       details =
         <span className='-task-details task-details'>{dateLabel} <Time date={task.due_at} format={dateFormat}></Time></span>
+
+    details
