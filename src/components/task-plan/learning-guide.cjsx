@@ -65,7 +65,9 @@ Chart = React.createClass
       .attr("transform", (f,i)->
         "translate(#{points[i].x},#{points[i].y})"
       )
-
+      .on("click", (field)=>
+        @navigateToPractice(field)
+      )
     circles.append("circle")
       .attr('r', (f)->
         # awaiting a better alogorithm for the circle radius
@@ -85,19 +87,15 @@ Chart = React.createClass
        .selectAll("line")
        .data(points)
 
-    vline = d3.svg.line()
-      .x( (d)-> xRange d.x )
-      .y( (d)-> yRange d.y )
-      .interpolate("basis");
-
-    lines = wrap.enter()
+    wrap.enter()
       .append("line")
       .attr("x1", (p)->p.x )
       .attr("y1", 0)
       .attr("x2", (p)->p.x )
       .attr("y2", @props.height);
 
-
+  navigateToPractice: (activity)->
+    console.log "Navigate to activity ID #{activity.id} (#{activity.title})"
 
   componentDidMount: ->
     this.drawChart LearningGuideStore.get(this.props.courseId)
