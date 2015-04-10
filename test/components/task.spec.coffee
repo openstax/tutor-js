@@ -14,7 +14,7 @@ taskId = 4
 
 VALID_MODEL = require '../../api/tasks/4.json'
 homework_model = require '../../api/tasks/5.json'
- 
+
 describe 'Task Widget', ->
   beforeEach ->
     TaskActions.loaded(VALID_MODEL, taskId)
@@ -165,3 +165,13 @@ describe 'Task Widget', ->
       .then(taskChecks.checkIsNotCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
+  it 'should format the details page using markdown (for now)', (done) ->
+    homeworkTaskId = 5
+    TaskActions.loaded(homework_model, homeworkTaskId)
+    targetStepIndex = 1
+
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .then(taskTestActions.clickDetails)
+      .then(taskChecks.checkIsPopoverOpen)
+      .then(_.delay(done, taskTests.delay)).catch(done)

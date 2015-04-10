@@ -22,17 +22,25 @@ taskTestActions =
   click: (clickElementNode) ->
     React.addons.TestUtils.Simulate.click(clickElementNode)
 
+  forceUpdate: (args...) ->
+    {component, div} = args[0]
+    routerStub.forceUpdate(component, args...)
+
   _clickContinue: (args...) ->
     {div} = args[0]
     taskTestActions.clickButton(div, '.-continue')
     args[0]
 
-  forceUpdate: (args...) ->
-    {component, div} = args[0]
-    routerStub.forceUpdate(component, args...)
-
   clickContinue: (args...)->
     Promise.resolve(taskTestActions._clickContinue(args...))
+
+  _clickDetails: (args...) ->
+    {div} = args[0]
+    taskTestActions.clickButton(div, '.task-details')
+    args[0]
+
+  clickDetails: (args...)->
+    Promise.resolve(taskTestActions._clickDetails(args...))
 
   _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
     completedBreadcrumbs = div.querySelectorAll('button.step.completed')

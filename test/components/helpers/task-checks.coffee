@@ -5,7 +5,7 @@ _ = require 'underscore'
 {TaskStepActions, TaskStepStore} = require '../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
 
-taskChecks = 
+taskChecks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
     continueButton = div.querySelector('.-continue')
     expect(continueButton).to.not.be.null
@@ -107,6 +107,11 @@ taskChecks =
     {type} = TaskStore.get(taskId)
     type ?= 'task'
     expect(div.querySelector(".-#{type}-completed")).to.not.be.null
+
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkIsPopoverOpen: ({div, component, stepId, taskId, state, router, history}) ->
+    expect(document.querySelector('.task-details-popover h1')).to.not.be.null
 
     {div, component, stepId, taskId, state, router, history}
 
