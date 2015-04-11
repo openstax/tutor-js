@@ -1,0 +1,11 @@
+[{
+  "id":1,
+  "name":"Physics",
+  "roles":[{
+    "id":1,
+    "type":"teacher"
+  },{
+    "id":2,
+    "type":"student"
+  }]
+}]

@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
-
+CourseCalendar = require '../course-calendar'
 
 TaskPlan = React.createClass
   displayName: 'TeacherTaskPlan'
@@ -72,6 +72,8 @@ TeacherTaskPlanListing = React.createClass
       <BS.ListGroup id="tasks-list">
           {plans}
       </BS.ListGroup>
+
+      <CourseCalendar/>
     </BS.Panel>
 
 module.exports = TeacherTaskPlanListing
