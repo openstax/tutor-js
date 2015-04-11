@@ -37,7 +37,8 @@ Chart = React.createClass
      .attr("viewBox", "0 0 #{this.props.width} #{this.props.height}")
 
     fields = guide.fields
-    window.df = guide.fields
+
+
 
     units = []
     i = 0
@@ -118,6 +119,35 @@ Chart = React.createClass
       .attr('class', 'circles')
        .selectAll("g")
        .data(fields)
+
+
+    space_between = 100/fields.length+1
+    points = _.map(fields, (f,i)=>
+        {
+          x: Math.max(space_between * i + (space_between/2), 5)
+          y: @props.height - f.current_level * @props.height
+        }
+    )
+    # order matters. Items placed later will appear in front of earlier items
+    # If needed, explicit stacking could be specified
+    this.drawVerticalLines(container, points);
+    this.drawStaticImages(container, points);
+    this.drawPlotLines(container, points);
+    this.drawCircles(container, fields, points);
+
+  # Future improvement: Place clouds so they aren't
+  # hidden behind the points
+  drawStaticImages: (container, points)->
+    this.addImage(this.props.cloudsPath, width:10, x: 35, y: 10)
+    this.addImage(this.props.cloudsPath, width:16, x: 77, y: 20)
+    this.addImage(this.props.hippoPath,  width: 8, x: 92, y: 50)
+
+  drawCircles: (container, fields, points)->
+    wrap = container.append('g')
+      .attr('class', 'circles')
+       .selectAll("g")
+       .data(fields)
+
 
     circles = wrap.enter()
       .append("g")
