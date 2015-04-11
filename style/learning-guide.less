@@ -1,19 +1,65 @@
+
 .course-guide-line-chart {
+
     outline: 1px solid #333;
+
     svg {
 
         width: 100%;
+        overflow:visible;
 
-        .tutor-chart-lines{
+        .domain {
+            fill: none;
+        }
+
+.tutor-chart-x-axis{
+            
+
+            text{
+               font-size: 2px; 
+            }
+        }
+
+        .tutor-chart-y-axis{
+            
+
+            text{
+               font-size: 2px; 
+            }
+        }
+
+        .circles{
             text {
-                // svg scale is only 100px wide
+                // the native resultion of the svg is only 100px wide
                 font-size: 2px;
                 fill: white;
             }
+            circle {
+                fill: #B4CFDF;
+            }
+            g {
+                &:hover{
+                    opacity: 0.8;
+                }
+                cursor: pointer;
+            }
         }
-        .nv-line {
-            stroke-dasharray: 10,5;
+        .grid-lines {
+            line{
+                stroke: lightGrey;
+                stroke-width: 0.1;
+                stroke-dasharray: 1 2;
+            }
         }
+        .plot-lines {
+            line{
+                stroke: #9EDAF6;
+                stroke-width: 0.4;
+                stroke-dasharray: 0.5 0.8;
+            }
+        }
+
+        
     }
   
 }
