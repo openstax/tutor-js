@@ -15,11 +15,11 @@ module.exports = React.createClass
     store: React.PropTypes.object.isRequired
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired
-    update: React.PropTypes.func
+    saved: React.PropTypes.func
     load: React.PropTypes.func
 
   render: ->
-    {id, store, actions, load, isLoaded, isLoading, renderItem, update} = @props
+    {id, store, actions, load, isLoaded, isLoading, renderItem, saved} = @props
     load ?= actions.load
     isLoaded ?= store.isLoaded
     isLoading ?= store.isLoading
@@ -36,6 +36,9 @@ module.exports = React.createClass
         unless store.isNew(id)
           load(id)
         true
+      else if store.isNew(id) and store.get(id).id and saved
+        # If this store was just created, then call the onSaved prop
+        saved()
       else
         false
 
@@ -45,5 +48,4 @@ module.exports = React.createClass
       isLoaded={-> isLoaded(id)}
       isFailed={-> store.isFailed(id)}
       render={renderItem}
-      update={update}
     />

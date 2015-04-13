@@ -13,15 +13,33 @@ PLAN_TYPES =
 getPlanType = (typeName) ->
   type = PLAN_TYPES[typeName]
 
+HomeworkShell = React.createClass
+  displayName: 'HomeworkShell'
+  contextTypes:
+    router: React.PropTypes.func
+
+  render: ->
+    {courseId, id} = @context.router.getCurrentParams()
+    <PlanShell courseId={courseId} id={id} type="homework"/>
+
+ReadingShell = React.createClass
+  displayName: 'ReadingShell'
+  contextTypes:
+    router: React.PropTypes.func
+
+  render: ->
+    {courseId, id} = @context.router.getCurrentParams()
+    <PlanShell courseId={courseId} id={id} type="reading"/>
+
 PlanShell = React.createClass
-  mixins: [ConfirmLeaveMixin]
+  displayName: 'PlanShell'
 
   contextTypes:
     router: React.PropTypes.func
 
   getInitialState: ->
-    {courseId, type, id} = @context.router.getCurrentParams()
-
+    {courseId, id} = @context.router.getCurrentParams()
+    type = @props.type
     if not getPlanType(type)
       @context.router.transitionTo('NotFoundRoute')
       return
@@ -39,8 +57,7 @@ PlanShell = React.createClass
   getId: -> @context.router.getCurrentParams().id or @state.id
 
   getType: ->
-    id = @getId()
-    typeName = @context.router.getCurrentParams().type
+    typeName = @props.type
     getPlanType(typeName)
 
   getFlux: ->
@@ -49,14 +66,14 @@ PlanShell = React.createClass
 
   # If, as a result of a save creating a new object (and providing an id)
   # then transition to editing the object
-  update: ->
+  saved: ->
     id = @getId()
-    if TaskPlanStore.isNew(id) and TaskPlanStore.get(id).id
-      {id, type} = TaskPlanStore.get(id)
-      {courseId} = @context.router.getCurrentParams()
-      @setState({id})
-    else
-      @setState({})
+    {id, type} = TaskPlanStore.get(id)
+    {courseId} = @context.router.getCurrentParams()
+    if type is "homework"
+      @context.router.transitionTo('editHomework', {courseId, id})
+    else if type is "reading"
+      @context.router.transitionTo('editReading', {courseId, id})
 
   render: ->
     id = @getId()
@@ -67,8 +84,8 @@ PlanShell = React.createClass
       id={id}
       store={TaskPlanStore}
       actions={TaskPlanActions}
-      update={@update}
+      saved={@saved}
       renderItem={-> <Type id={id} courseId={courseId} />}
     />
 
-module.exports = {PlanShell, ReadingPlan, HomeworkPlan}
+module.exports = {ReadingShell, HomeworkShell}
