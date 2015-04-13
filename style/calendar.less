@@ -1,7 +1,10 @@
-// Sample bootstrap theme for react-calendar
 
 @import '../node_modules/bootstrap/less/bootstrap.less';
 @import '../bower_components/bootstrap-material-design/less/material-wfont.less';
+
+// Sample bootstrap theme for react-calendar
+// @import '../node_modules/react-calendar/less/bootstrap-theme.less';
+
 
 // TODO make this a mixin for flexible calendaringggg
 
@@ -42,7 +45,7 @@
     vertical-align: top;
     // margin: 0 0 10px 10px;
     &-header {
-      display: none;
+      // display: none;
       // width: 100%;
       // text-align: center;
       // font-weight: bolder;
@@ -85,6 +88,7 @@
     .cell();
     border-right: 1px solid @gray-lighter;
     cursor: pointer;
+    position: relative;
     &:hover {
       background-color: @brand-info;
     }
@@ -121,5 +125,54 @@
     &:active, &:visited {
       text-decoration: none;
     }
+  }
+}
+
+.plans {
+  position: absolute;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.plan {
+  display: block;
+  position: relative;
+  border: 1px solid @gray-light;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.reading{
+  background: fade(@brand-success, 20%);
+  border-color: @brand-success;
+
+  &:hover{
+    background: fade(@brand-success, 50%);
+  }
+}
+
+.exercise{
+  background: fade(@brand-primary, 20%);
+  border-color: @brand-primary;
+
+  &:hover{
+    background: fade(@brand-primary, 50%);
+  }
+}
+
+.essay{
+  background: fade(@brand-warning, 20%);
+  border-color: @brand-warning;
+
+  &:hover{
+    background: fade(@brand-warning, 50%);
   }
 }

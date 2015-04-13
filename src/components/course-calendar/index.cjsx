@@ -14,7 +14,6 @@ CourseCalendar = React.createClass
 
   render: ->
     Handler = displayAs[@state.displayAs]
-
-    <Handler/>
+    <Handler startDate={moment()} plansList={@props.plansList}/>
 
 module.exports = CourseCalendar

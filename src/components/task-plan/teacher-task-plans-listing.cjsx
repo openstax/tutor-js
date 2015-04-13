@@ -58,7 +58,9 @@ TeacherTaskPlanListing = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     title = "Task plans for course ID #{courseId}"
-    plans = for plan in TeacherTaskPlanStore.getCoursePlans(courseId)
+    plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+
+    plans = for plan in plansList
       <TaskPlan key={plan.id} plan={plan}, courseId={courseId} />
     # pull in underscore.inflection ?
     footer = <span>
@@ -73,7 +75,7 @@ TeacherTaskPlanListing = React.createClass
           {plans}
       </BS.ListGroup>
 
-      <CourseCalendar/>
+      <CourseCalendar plansList={plansList}/>
     </BS.Panel>
 
 module.exports = TeacherTaskPlanListing
