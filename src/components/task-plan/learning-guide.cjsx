@@ -14,7 +14,7 @@ Chart = React.createClass
       width: 100
       height: 60 # approx 2/3 width, adjust to suite
       cloudsPath: '/style/resources/clouds.svg'
-      hippoPath: 'http://nathan.stitt.org/images/hippo.png'
+      planePath: '/style/resources/openstax-plane.svg'
     }
 
   addImage: (url,options)->
@@ -27,39 +27,97 @@ Chart = React.createClass
       .attr("xlink:href", url)
 
   drawChart: (guide)->
-    # static images.  First two are local svg, hippo is hot linked image
-
     container = d3.select(this.refs.svg.getDOMNode())
-     .attr("preserveAspectRatio", "xMidYMid meet")
-     .attr("viewBox", "0 0 #{this.props.width} #{this.props.height}")
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .attr("viewBox", "0 0 #{this.props.width} #{this.props.height}")
 
     fields = guide.fields
     space_between = 100/fields.length+1
     points = _.map(fields, (f,i)=>
         {
-          x: Math.max(space_between * i + (space_between/2), 5)
+          x: Math.max(space_between * i + (space_between/4), 5)
           y: @props.height - f.current_level * @props.height
         }
     )
     # order matters. Items placed later will appear in front of earlier items
     # If needed, explicit stacking could be specified
+    this.drawBackgroundGradient(container)
     this.drawVerticalLines(container, points);
     this.drawStaticImages(container, points);
+    this.drawHills(container)
     this.drawPlotLines(container, points);
     this.drawCircles(container, fields, points);
+    this.drawPlane(container, points);
+
+  drawPlane: (container, points)->
+    point=_.last(points)
+    this.addImage(@props.planePath, x: point.x+2, y: point.y-3, height: 6, width: 8)
+
+  drawHills: (container)->
+    # might be nice to move this definition up into DefaultProps
+    fgPath = [
+      { x: -5, y: @props.height}
+      { x: @props.width*0.20, y: @props.height * 0.80 }
+      { x: @props.width*0.65, y: @props.height * 0.95 }
+      { x: @props.width+10, y: @props.height }
+    ]
+    bgPath = [
+      { x: @props.width*0.30, y: @props.height}
+      { x: @props.width*0.85, y: @props.height * 0.90 }
+      { x: @props.width*0.95, y: @props.height * 0.95 }
+      { x: @props.width+5, y: @props.height  }
+    ]
+    container.append("path")
+      .attr("d", d3.svg.line()
+        .x( (d) -> d.x )
+        .y( (d) -> d.y )
+        .interpolate("basis")(bgPath))
+      .attr("class", "background-hills")
+    container.append("path")
+      .attr("d", d3.svg.line()
+        .x( (d) -> d.x )
+        .y( (d) -> d.y )
+        .interpolate("basis")(fgPath))
+      .attr("class", "foreground-hills")
+
+
+  drawBackgroundGradient: (container)->
+    gradient = container.append("svg:defs")
+      .append("svg:linearGradient")
+      .attr("id", "gradient")
+      .attr("x1", "50%")
+      .attr("y1", "0%")
+      .attr("x2", "50%")
+      .attr("y2", "100%")
+      .attr("class", "background-gradient")
+      .attr("spreadMethod", "pad")
+
+    gradient.append("svg:stop")
+      .attr("offset", "0%")
+      .attr("class", "start")
+      .attr("stop-opacity", 1)
+
+    gradient.append("svg:stop")
+      .attr("offset", "100%")
+      .attr("class", "end")
+      .attr("stop-opacity", 1)
+
+    container.append("svg:rect")
+      .attr("width", @props.width)
+      .attr("height", @props.height)
+      .style("fill", "url(#gradient)")
 
   # Future improvement: Place clouds so they aren't
   # hidden behind the points
   drawStaticImages: (container, points)->
     this.addImage(this.props.cloudsPath, width:10, x: 35, y: 10)
     this.addImage(this.props.cloudsPath, width:16, x: 77, y: 20)
-    this.addImage(this.props.hippoPath,  width: 8, x: 92, y: 50)
 
   drawCircles: (container, fields, points)->
     wrap = container.append('g')
       .attr('class', 'circles')
-       .selectAll("g")
-       .data(fields)
+      .selectAll("g")
+      .data(fields)
 
     circles = wrap.enter()
       .append("g")
@@ -84,8 +142,8 @@ Chart = React.createClass
   drawPlotLines: (container, points)->
     wrap = container.append('g')
       .attr('class', 'plot-lines')
-       .selectAll("line")
-       .data( points[0...points.length-1] )
+      .selectAll("line")
+      .data( points[0...points.length-1] )
        # ^^ We don't want to create a line for the last point
 
     wrap.enter()
@@ -98,8 +156,8 @@ Chart = React.createClass
   drawVerticalLines: (container, points)->
     wrap = container.append('g')
       .attr('class', 'grid-lines')
-       .selectAll("line")
-       .data(points)
+      .selectAll("line")
+      .data(points)
 
     wrap.enter()
       .append("line")
@@ -118,7 +176,7 @@ Chart = React.createClass
     ## D3 commands to update SVG
 
   render: ->
-    <div className="Chart">
+    <div className="learning-guide-chart">
       <svg ref="svg">
       </svg>
       <div ref="footer" className="footer"></div>
@@ -135,16 +193,14 @@ LearningGuideShell = React.createClass
     actions: LearningGuideActions
 
   render: ->
-    courseId=@context.router.getCurrentParams().courseId
+    courseId = @props.courseId || @context.router.getCurrentParams().courseId
     <BS.Panel className="course-guide-container">
-      <div className="course-guide-line-chart">
-        <LoadableItem
-          id={courseId}
-          store={LearningGuideStore}
-          actions={LearningGuideActions}
-          renderItem={=> <Chart courseId={courseId} />}
-        />
-      </div>
+      <LoadableItem
+        id={courseId}
+        store={LearningGuideStore}
+        actions={LearningGuideActions}
+        renderItem={=> <Chart courseId={courseId} />}
+      />
     </BS.Panel>
 
 module.exports = {LearningGuideShell}
