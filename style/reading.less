@@ -28,13 +28,11 @@
         margin: 0;
       }
 
-      figcaption {
-        margin: 0 40px;
-      }
+      figcaption {margin: 0 40px;}
 
       + p {
-      clear: both;
-      padding-top: 40px;
+        clear: both;
+        padding-top: 40px;
       }
 
     }
@@ -49,7 +47,7 @@
 
       img {
         width: 100%;
-        border: 1px solid @border-color;
+        border: 1px solid (@border-color);
         margin: 10px 0 0 0;
         padding: 0;
         align: left;
@@ -58,12 +56,12 @@
       figcaption {
         display: table-caption;
         caption-side: bottom;
-        color: @caption-font-color;
+        color: (@caption-font-color);
         padding: 10px 0;
         font-style: italic;
         line-height: 150%;
         border-bottom: 1px solid;
-        border-color: @border-color;
+        border-color: (@border-color);
       }
 
     }
@@ -75,7 +73,7 @@
       margin-top: -20px;
       color: #ffffff;
       padding: 10px 40px;
-      background: @physics-background-secondary;
+      background: (@physics-background-secondary);
 
       > div {display: none;}
 
@@ -101,24 +99,22 @@
     float: left;
     #fonts > .sans(11rem, 9rem);
     font-weight: 600;
-    color: @physics-color-primary;
+    color: (@physics-color-primary);
     margin: 0 4px 0 -6px;
   }
 
   .reading-step {
     
-    section[data-depth="1"]:not(.section-opener), section[data-depth="2"], .work-in-physics, .links-to-physics, .worked-example, .virtual-physics {padding: 0 140px;}
+    section[data-depth="1"]:not(.section-opener),
+    section[data-depth="2"],
+    .worked-example,
+    .virtual-physics {padding: 0 140px;}
 
-    section[data-depth="1"] {
-      padding: 0;
-
-    }
+    section[data-depth="1"] {padding: 0;}
 
   }
 
-  div[data-type="document-title"] ~ p {
-    padding: 0 140px;
-  }
+  div[data-type="document-title"] ~ p {padding: 0 140px;}
 
   p {
     #fonts > .serif(1.75rem, 190%);
