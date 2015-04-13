@@ -6,11 +6,13 @@ React = require 'react'
 # - automatically listens to changes in the appropriate store to re-render
 # - calls `load` to fetch the latest version of the component when initially mounted
 
+delay = (fn) -> setTimeout(fn, 50)
+
 module.exports = React.createClass
   displayName: 'Loadable'
   propTypes:
     render: React.PropTypes.func.isRequired
-    update: React.PropTypes.func
+    saved: React.PropTypes.func
     store: React.PropTypes.object.isRequired
     isLoading: React.PropTypes.func.isRequired
     isLoaded: React.PropTypes.func.isRequired
@@ -23,7 +25,9 @@ module.exports = React.createClass
     {store} = @props
     store.removeChangeListener(@_update)
 
-  _update: -> @props.update?() or @setState({})
+  _update: ->
+    debugger
+    delay => @setState({})
 
   render: ->
     {isLoading, isLoaded, isFailed, render} = @props
