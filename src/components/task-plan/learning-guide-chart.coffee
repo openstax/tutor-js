@@ -1,10 +1,5 @@
-React = require 'react'
 _ = require 'underscore'
-BS = require 'react-bootstrap'
 d3 = require 'd3'
-
-{LearningGuideStore, LearningGuideActions} = require '../../flux/learning-guide'
-LoadableItem = require '../loadable-item'
 
 CLOUDS_PATH = '/style/resources/clouds.svg'
 PLANE_PATH = '/style/resources/openstax-plane.svg'
@@ -14,11 +9,12 @@ WIDTH = 100
 HEIGHT = 60 # approx 2/3 width, adjust to suite
 
 
-LearningGuide = React.createClass
-  displayName: 'LearningGuide'
+module.exports = class LearningGuideChart
 
-  addImage: (url,options)->
-    node = @refs.svg.getDOMNode()
+  constructor: (@svgNode, @navigateToPractice, @displayUnit) ->
+
+  addImage: (url,options) ->
+    node = @svgNode
     d3.select(node).append('svg:image')
       .attr('x',options.x)
       .attr('y',options.y)
@@ -26,18 +22,17 @@ LearningGuide = React.createClass
       .attr('height', options.height || 10)
       .attr('xlink:href', url)
 
-  drawChart: (guide)->
-    node = @refs.svg.getDOMNode()
+  drawChart: (guide) ->
+    node = @svgNode
 
-
-    container = d3.select(@refs.svg.getDOMNode())
+    container = d3.select(@svgNode)
       .attr('preserveAspectRatio', 'xMidYMid meet')
       .attr('viewBox', "0 0 #{WIDTH} #{HEIGHT}")
 
     fields = guide.fields
 
     space_between = WIDTH/fields.length+1
-    points = _.map(fields, (f,i)=>
+    points = _.map(fields, (f,i) =>
         {
           x: Math.max(space_between * i + (space_between/4), 5)
           y: HEIGHT - f.current_level * HEIGHT
@@ -58,12 +53,12 @@ LearningGuide = React.createClass
   # Future improvement: Place clouds so they aren't
   # hidden behind the points
 
-  drawStaticImages: (container, points)->
+  drawStaticImages: (container, points) ->
     @addImage(CLOUDS_PATH, width:10, x: 35, y: 10)
     @addImage(CLOUDS_PATH, width:16, x: 77, y: 20)
 
 
-  drawCircles: (container, fields, points)->
+  drawCircles: (container, fields, points) ->
     wrap = container.append('g')
       .attr('class', 'circles')
        .selectAll('g')
@@ -71,26 +66,26 @@ LearningGuide = React.createClass
 
     circles = wrap.enter()
       .append('g')
-      .attr('transform', (f,i)->
+      .attr('transform', (f,i) ->
         "translate(#{points[i].x},#{points[i].y})"
       )
-      .on('click', (field)=>
+      .on('click', (field) =>
         @navigateToPractice(field)
       )
     circles.append('circle')
-      .attr('r', (f)->
+      .attr('r', (f) ->
         # awaiting a better alogorithm for the circle radius
         Math.max(f.questions_answered_count / 20, 2)
       )
     circles.append('text')
-      .text( (f)->
+      .text( (f) ->
         f.questions_answered_count
       )
       .attr('text-anchor', 'middle')
       .attr('dy', '0.5')
 
 
-  drawXAxis: (container, fields, points)->
+  drawXAxis: (container, fields, points) ->
     wrap = container.append('g')
       .attr('class', 'x-axis')
       .selectAll('line')
@@ -99,10 +94,10 @@ LearningGuide = React.createClass
     label = wrap.enter()
       .append('g')
       .attr('class', 'point')
-      .attr('transform', (f,i)=>
+      .attr('transform', (f,i) =>
         "translate(#{points[i].x},#{HEIGHT - 4})"
       )
-      .on('click', (field)->
+      .on('click', (field) ->
         # remove 'active' class from all groups
         d3.selectAll(@parentElement.children).classed('active',false)
         # and add it to ourselves
@@ -113,15 +108,15 @@ LearningGuide = React.createClass
       .attr('class', 'arrow').attr('points',  '1,1.5 2,3 0,3').attr('transform', 'translate(-1,1)')
     label.append('text')
       .attr('text-anchor', 'middle').attr('dy', '1.8').attr('text-anchor', 'middle')
-      .text( (f,i)-> i+1 )
+      .text( (f,i) -> i+1 )
 
 
 
-  drawPlane: (container, points)->
+  drawPlane: (container, points) ->
     point=_.last(points)
     @addImage(PLANE_PATH, x: point.x+2, y: point.y-3, height: 6, width: 8)
 
-  drawHills: (container)->
+  drawHills: (container) ->
     # might be nice to move this definition up into DefaultProps
     fgPath = [
       { x: -5, y: HEIGHT}
@@ -149,7 +144,7 @@ LearningGuide = React.createClass
       .attr('class', 'foreground-hills')
 
 
-  drawBackgroundGradient: (container)->
+  drawBackgroundGradient: (container) ->
     gradient = container.append('svg:defs')
       .append('svg:linearGradient')
       .attr('id', 'gradient')
@@ -177,11 +172,11 @@ LearningGuide = React.createClass
 
   # Future improvement: Place clouds so they aren't
   # hidden behind the points
-  drawStaticImages: (container, points)->
-    @addImage(@props.cloudsPath, width:10, x: 35, y: 10)
-    @addImage(@props.cloudsPath, width:16, x: 77, y: 20)
+  drawStaticImages: (container, points) ->
+    @addImage(CLOUDS_PATH, width:10, x: 35, y: 10)
+    @addImage(CLOUDS_PATH, width:16, x: 77, y: 20)
 
-  drawCircles: (container, fields, points)->
+  drawCircles: (container, fields, points) ->
     wrap = container.append('g')
       .attr('class', 'circles')
       .selectAll('g')
@@ -189,25 +184,25 @@ LearningGuide = React.createClass
 
     circles = wrap.enter()
       .append('g')
-      .attr('transform', (f,i)->
+      .attr('transform', (f,i) ->
         "translate(#{points[i].x},#{points[i].y})"
       )
-      .on('click', (field)=>
+      .on('click', (field) =>
         @navigateToPractice(field)
       )
     circles.append('circle')
-      .attr('r', (f)->
+      .attr('r', (f) ->
         # awaiting a better alogorithm for the circle radius
         Math.max(f.questions_answered_count / 20, 2)
       )
     circles.append('text')
-      .text( (f)->
+      .text( (f) ->
         f.questions_answered_count
       )
       .attr('text-anchor', 'middle')
       .attr('dy', '0.5')
 
-  drawPlotLines: (container, points)->
+  drawPlotLines: (container, points) ->
     wrap = container.append('g')
       .attr('class', 'plot-lines')
       .selectAll('line')
@@ -216,12 +211,12 @@ LearningGuide = React.createClass
 
     wrap.enter()
       .append('line')
-      .attr('x1', (p)->p.x )
-      .attr('y1', (p)->p.y)
-      .attr('x2', (p,i)->points[i+1].x )
-      .attr('y2', (p,i)->points[i+1].y )
+      .attr('x1', (p) ->p.x )
+      .attr('y1', (p) ->p.y)
+      .attr('x2', (p,i) ->points[i+1].x )
+      .attr('y2', (p,i) ->points[i+1].y )
 
-  drawVerticalLines: (container, points)->
+  drawVerticalLines: (container, points) ->
     wrap = container.append('g')
       .attr('class', 'grid-lines')
       .selectAll('line')
@@ -229,45 +224,7 @@ LearningGuide = React.createClass
 
     wrap.enter()
       .append('line')
-      .attr('x1', (p)->p.x )
+      .attr('x1', (p) ->p.x )
       .attr('y1', 0)
-      .attr('x2', (p)->p.x )
+      .attr('x2', (p) ->p.x )
       .attr('y2', HEIGHT)
-
-  navigateToPractice: (unit)->
-    console.log "Navigate to practice unit ID #{unit.id} (#{unit.title})"
-
-  displayUnit: (unit)->
-      console.log "Display unit: ID #{unit.id} (#{unit.title})"
-
-  componentDidMount: ->
-    @drawChart LearningGuideStore.get(@props.courseId)
-
-  componentDidUpdate: ->
-    ## D3 commands to update SVG
-
-  render: ->
-    <div className="learning-guide-chart">
-      <svg ref="svg">
-      </svg>
-      <div ref="footer" className="footer"></div>
-    </div>
-
-
-LearningGuideShell = React.createClass
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  render: ->
-    {courseId} = @context.router.getCurrentParams()
-    <BS.Panel className="course-guide-container">
-      <LoadableItem
-        id={courseId}
-        store={LearningGuideStore}
-        actions={LearningGuideActions}
-        renderItem={-> <LearningGuide courseId={courseId} />}
-      />
-    </BS.Panel>
-
-module.exports = {LearningGuideShell, LearningGuide}
