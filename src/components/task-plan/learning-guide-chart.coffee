@@ -32,7 +32,7 @@ module.exports = class LearningGuideChart
     fields = guide.fields
 
     space_between = WIDTH/fields.length+1
-    points = _.map(fields, (f,i) =>
+    points = _.map(fields, (f,i) ->
         {
           x: Math.max(space_between * i + (space_between/4), 5)
           y: HEIGHT - f.current_level * HEIGHT
@@ -90,11 +90,11 @@ module.exports = class LearningGuideChart
       .attr('class', 'x-axis')
       .selectAll('line')
       .data(fields)
-    me=this
+    me = @ # Since displayUnit needs this and the 'this' scope still needs @parentElement
     label = wrap.enter()
       .append('g')
       .attr('class', 'point')
-      .attr('transform', (f,i) =>
+      .attr('transform', (f,i) ->
         "translate(#{points[i].x},#{HEIGHT - 4})"
       )
       .on('click', (field) ->
@@ -113,7 +113,7 @@ module.exports = class LearningGuideChart
 
 
   drawPlane: (container, points) ->
-    point=_.last(points)
+    point = _.last(points)
     @addImage(PLANE_PATH, x: point.x+2, y: point.y-3, height: 6, width: 8)
 
   drawHills: (container) ->
