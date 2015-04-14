@@ -2,32 +2,28 @@
   outline: 1px solid #333;
   svg {
     width: 100%;
-    .circles{
+    .circles {
       text {
         // the unscaled resolution of the svg is only 100px wide,
         // so 2px is 2% of the width of the chart, i.e. fairly large
         font-size: 1.9px;
         fill: white;
       }
-      circle {
-        fill: #B4CFDF;
-      }
+      circle { fill: #B4CFDF; }
       g {
-        &:hover{
-          opacity: 0.8;
-        }
         cursor: pointer;
+        &:hover { opacity: 0.8; }
       }
     }
     .grid-lines {
-      line{
+      line {
         stroke: lightGrey;
         stroke-width: 0.1;
         stroke-dasharray: 1 2;
       }
     }
     .plot-lines {
-      line{
+      line {
         stroke: #9EDAF6;
         stroke-width: 0.4;
         stroke-dasharray: 0.5 0.8;
@@ -35,19 +31,11 @@
     }
     .background-gradient {
       // despite the attribute being named "stop-color" this sets the starting color
-      .start {
-        stop-color: #CEEDFB;
-      }
-      .end {
-        stop-color: white;
-      }
+      .start { stop-color: #CEEDFB; }
+      .end   { stop-color: white; }
     }
-    .foreground-hills {
-      fill: #66A333;
-    }
-    .background-hills {
-      fill: #83B553;
-    }
+    .foreground-hills { fill: #66A333; }
+    .background-hills { fill: #83B553; }
     .x-axis {
       text {
         font-size: 1.8px;
@@ -60,18 +48,9 @@
       }
       .point {
         cursor: pointer;
-        &:hover {
-          .arrow {
-            fill: lightGrey;
-          }
-        }
-        &.active {
-          .arrow {
-            fill: white;
-          }
-        }
+        &:hover  .arrow { fill: lightGrey; }
+        &.active .arrow { fill: white; }
       }
     }
   }
 }
-
