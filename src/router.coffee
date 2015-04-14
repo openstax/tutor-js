@@ -4,10 +4,10 @@ Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Dashboard, TasksShell, SingleTask, SinglePractice, Invalid} = require './components'
 {PlanShell} = require './components/task-plan'
+{LearningGuideShell} = require './components/learning-guide'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
 Stats = require './components/task-plan/reading-stats'
-{GuideShell} = require './components/task-plan/guide'
 
 Sandbox = require './sandbox'
 
@@ -19,10 +19,10 @@ routes = (
     <Route path='courses/:courseId/tasks/:id/?' name='viewTask' handler={SingleTask} />
     <Route path='courses/:courseId/practice/?' name='viewPractice' handler={SinglePractice} />
     <Route path='courses/:courseId/readings/?' name='taskplans' handler={TeacherTaskPlans} />
+    <Route path='courses/:courseId/guide/?' name='viewGuide' handler={LearningGuideShell} />
     <Route path='courses/:courseId/:type/new/?' name='createPlan' handler={PlanShell} />
     <Route path='courses/:courseId/:type/:id/?' name='editPlan' handler={PlanShell} />
     <Route path='courses/:courseId/readings/:id/stats/?' name='viewStats' handler={Stats} />
-    <Route path='courses/:courseId/guide/?' name='viewGuide' handler={GuideShell} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>

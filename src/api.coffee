@@ -9,6 +9,7 @@ $ = require 'jquery'
 _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
+{LearningGuideActions} = require './flux/learning-guide'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
@@ -129,6 +130,8 @@ start = ->
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId) ->
     url: "/api/courses/#{courseId}/practice"
 
+  apiHelper LearningGuideActions, LearningGuideActions.load, LearningGuideActions.loaded, 'GET', (id) ->
+    url: "/api/courses/#{id}/guide"
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'
