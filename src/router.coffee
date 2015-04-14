@@ -4,7 +4,7 @@ Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Dashboard, TasksShell, SingleTask, SinglePractice, Invalid} = require './components'
 {PlanShell} = require './components/task-plan'
-{LearningGuideShell} = require './components/task-plan/learning-guide'
+{LearningGuideShell} = require './components/learning-guide'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
 Stats = require './components/task-plan/reading-stats'
