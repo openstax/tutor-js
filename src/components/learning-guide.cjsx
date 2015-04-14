@@ -8,6 +8,8 @@ LearningGuideChart = require './learning-guide-chart'
 
 LearningGuide = React.createClass
   displayName: 'LearningGuide'
+  propTypes:
+    courseId: React.PropTypes.any.isRequired
 
   navigateToPractice: (unit) ->
     alert "TODO: Navigate to practice unit ID #{unit.id} (#{unit.title})"
