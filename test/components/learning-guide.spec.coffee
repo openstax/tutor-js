@@ -6,7 +6,7 @@ ReactAddons    = require('react/addons')
 ReactTestUtils = React.addons.TestUtils
 
 {LearningGuideStore, LearningGuideActions} = require '../../src/flux/learning-guide'
-{LearningGuide} = require '../../src/components/task-plan/learning-guide'
+{LearningGuide} = require '../../src/components/learning-guide'
 
 GUIDE_DATA = require '../../api/courses/1/guide.json'
 COURSE_ID = '1' # needs to be a string, that's what LoadableItem expects

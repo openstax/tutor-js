@@ -1,8 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{LearningGuideStore, LearningGuideActions} = require '../../flux/learning-guide'
-LoadableItem = require '../loadable-item'
+{LearningGuideStore, LearningGuideActions} = require '../flux/learning-guide'
+LoadableItem = require './loadable-item'
 LearningGuideChart = require './learning-guide-chart'
 
 
