@@ -3,5 +3,7 @@ React = require 'react'
 
 module.exports = React.createClass
   render: ->
-    time = moment(@props.date).format('LLL')
+    {format, date} = @props
+    format ?= 'LLL'
+    time = moment(date).format(format)
     <time>{time}</time>

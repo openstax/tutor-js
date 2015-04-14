@@ -1,7 +1,8 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{routerStub, taskTestActions, taskTests, taskChecks} = require './helpers/task'
+{taskActions, taskTests, taskChecks} = require './helpers/task'
+{routerStub} = require './helpers/utilities'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -55,7 +56,7 @@ describe 'Practice Widget', ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .goToTask("/courses/#{courseId}/practice", taskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNotIntroScreen)
       .then(taskChecks.heckIsDefaultStep)
       .then(_.delay(done, taskTests.delay)).catch(done)
@@ -72,7 +73,7 @@ describe 'Practice Widget', ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .answerFreeResponse(taskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkAnswerFreeResponse)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
@@ -106,7 +107,7 @@ describe 'Practice Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
-      .then(taskTestActions.clickContinue)
-      .then(taskTestActions.completeSteps)
+      .then(taskActions.clickContinue)
+      .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)

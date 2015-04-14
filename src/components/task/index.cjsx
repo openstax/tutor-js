@@ -12,6 +12,7 @@ Ends = require '../task-step/ends'
 
 Breadcrumbs = require './breadcrumbs'
 Time = require '../time'
+Details = require './details'
 
 
 module.exports = React.createClass
@@ -56,6 +57,7 @@ module.exports = React.createClass
     unless TaskStore.isSingleStepped(id)
       breadcrumbs =
         <div className="panel-header">
+          <Details task={model} />
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} />
         </div>
 
@@ -71,10 +73,12 @@ module.exports = React.createClass
 
       else
         footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
-        
+        if model.due_at
+          dueDate = <div className="-due-at">Due At: <Time date={model.due_at}></Time></div>
+
         panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
                   <h1>{model.title}</h1>
-                  <p>Due At: <Time date={model.due_at}></Time></p>
+                  {dueDate}
                 </BS.Panel>
 
     else
