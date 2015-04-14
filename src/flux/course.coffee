@@ -6,6 +6,7 @@ _ = require 'underscore'
 CourseConfig =
 
   _practices: {}
+  _asyncStatusPractices: {}
 
   _isPractice: (obj) ->
     # TODO check with backend about task.type = 'practice' since task.type for homework = 'homework'
@@ -15,19 +16,52 @@ CourseConfig =
   createdPractice: (obj, courseId) ->
     @_loadedPractice(obj, courseId) # TODO: Maybe this should emit practice.created
 
+  _guides: {}
+  _asyncStatusGuides: {}
+
+  loadGuide: (courseId) ->
+    delete @_guides[courseId]
+    @_asyncStatusGuides[courseId] = 'loading'
+    @emitChange()
+
+  loadedGuide: (obj, courseId) ->
+    @_guides[courseId] = obj
+    @_asyncStatusGuides[courseId] = 'loaded'
+    @emitChange()
+
+  loadPractice: (courseId) ->
+    delete @_practices[courseId]
+    @_asyncStatusPractices[courseId] = 'loading'
+    @emitChange()
+
+  loadedPractice: (obj, courseId) ->
+    @_loadedPractice(obj, courseId)
+    @_asyncStatusPractices[courseId] = 'loaded'
+    @emitChange()
+
   _loadedPractice: (obj, courseId) ->
     obj.type ?= 'practice' # Used to filter out the practice task from the student list
     @_practices[courseId] = obj
     TaskActions.loaded(obj, obj.id)
     @emit('practice.loaded', obj.id)
 
-  _loaded: (obj, courseId) ->
-    if @_isPractice(obj)
-      @_loadedPractice(obj, courseId)
-    obj
-
+  _reset: ->
+    CrudConfig.reset.call(@)
+    @_guides = {}
+    @_asyncStatusGuides = {}
+    @_practices = {}
+    @_asyncStatusPractices = {}
 
   exports:
+    getGuide: (courseId) ->
+      @_guides[courseId] or throw new Error('BUG: Not loaded yet')
+
+    isGuideLoading: (courseId) -> @_asyncStatusGuides[courseId] is 'loading'
+    isGuideLoaded: (courseId) -> !! @_guides[courseId]
+
+    isPracticeLoading: (courseId) -> @_asyncStatusPractices[courseId] is 'loading'
+    isPracticeLoaded: (courseId) -> !! @_practices[courseId]
+
     getPracticeId: (courseId) ->
       @_practices[courseId]?.id
 

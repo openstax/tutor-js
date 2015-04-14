@@ -1,0 +1,56 @@
+.edit-homework {
+  label {
+    display: block;
+  }
+  .rw-datetimepicker {
+    max-width: 300px;
+  }
+  textarea {
+    width: 100%;
+    height: 150px;
+  }
+
+}
+
+
+// TODO: This should have a common container wit hthe above styling
+// TODO: This should just use the question rendering and styling in question.less
+.card.exercise {
+  > .panel-heading {
+    .card-actions {
+      // shift the buttons up because pull:right moves them down
+      position: relative;
+      top: -10px;
+    }
+  }
+  > .panel-body {
+    margin-left: 15px;
+    margin-right: 15px;
+
+    .answers-table {
+      counter-reset: answer;
+
+      .answers-answer {
+        counter-increment: answer;
+
+        .answer-letter {
+          display: inline;
+          margin-right: 1rem;
+
+          &::after { content: counter(answer, lower-latin) ')'; }
+        }
+      }
+    }
+
+    .exercise-tags {
+      color: #ccc;
+      .exercise-tag + .exercise-tag::before {
+        content: ',';
+        margin-right: 1rem;
+      }
+    }
+
+
+  }
+
+}

@@ -56,7 +56,8 @@ TaskConfig =
 
   loadUserTasks: (courseId) ->
     # Used by API
-  loadedUserTasks: (tasks) ->
+  loadedUserTasks: (obj) ->
+    tasks = obj.items
     # Used by API
     for task in tasks
       @loaded(task, task.id)
