@@ -37,7 +37,7 @@ Chart = React.createClass
 
     fields = guide.fields
 
-    space_between = 100/fields.length+1
+    space_between = @props.width/fields.length+1
     points = _.map(fields, (f,i)=>
         {
           x: Math.max(space_between * i + (space_between/4), 5)
