@@ -10,10 +10,10 @@ LearningGuide = React.createClass
   displayName: 'LearningGuide'
 
   navigateToPractice: (unit) ->
-    console.log "Navigate to practice unit ID #{unit.id} (#{unit.title})"
+    alert "TODO: Navigate to practice unit ID #{unit.id} (#{unit.title})"
 
   displayUnit: (unit) ->
-      console.log "Display unit: ID #{unit.id} (#{unit.title})"
+    alert "TODO: Display unit: ID #{unit.id} (#{unit.title})"
 
   componentDidMount: ->
     chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit)
