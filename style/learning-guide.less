@@ -48,6 +48,30 @@
     .background-hills {
       fill: #83B553;
     }
+    .x-axis {
+      text {
+        font-size: 1.8px;
+        fill: white;
+        font-family: serif;
+      }
+      .arrow {
+        fill: transparent;
+        stroke: transparent;
+      }
+      .point {
+        cursor: pointer;
+        &.active {
+          .arrow {
+            fill: white;
+          }
+        }
+        &:hover {
+          .arrow {
+            fill: lightGrey;
+          }
+        }
+      }
+    }
   }
 }
 

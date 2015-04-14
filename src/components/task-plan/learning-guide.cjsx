@@ -13,7 +13,7 @@ Chart = React.createClass
       # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
       width: 100
       height: 60 # approx 2/3 width, adjust to suite
-      
+
       cloudsPath: '/style/resources/clouds.svg'
       planePath: '/style/resources/openstax-plane.svg'
     }
@@ -30,97 +30,12 @@ Chart = React.createClass
   drawChart: (guide)->
     node = @refs.svg.getDOMNode()
 
-    # static images.  First two are local svg, hippo is hot linked image
-
 
     container = d3.select(this.refs.svg.getDOMNode())
       .attr("preserveAspectRatio", "xMidYMid meet")
       .attr("viewBox", "0 0 #{this.props.width} #{this.props.height}")
 
     fields = guide.fields
-
-
-
-    units = []
-    i = 0
-
-    while i < fields.length
-      units.push fields[i].unit
-      i++
-
-
-    domain = {
-      x: [
-          d3.min(units), 
-          d3.max(units)
-         ],
-      y: [0, 1]
-    }
-
-# scales
-
-    xScale = d3.scale
-      .linear()
-      .domain(domain.x)
-      .range([0, @props.width])
-
-    yScale = d3.scale
-      .linear()
-      .domain(domain.y)
-      .range([@props.height, 0])
-
-    # axes
-
-    xAxis = d3.svg.axis()
-      .scale(xScale)
-      .orient('bottom')
-      .ticks(5)
-
-    yAxis = d3.svg.axis()
-      .scale(yScale)
-      .orient('left')
-      .ticks(10)
-
-    xAxisGroup = container.append('g')
-      .attr('class','tutor-chart-x-axis')
-      .call(xAxis)
-      .attr("transform", "translate(0," + (@props.height) + ")")
-
-    yAxisGroup = container.append('g')
-      .attr('class','tutor-chart-y-axis')
-      .call(yAxis)
-      # axis container positioning needs to be more dynamic; right now im just making them visible.
-      .attr("transform", "translate(8,0)")
-
-
-
-    space_between = 100/fields.length+1
-    points = _.map(fields, (f,i)=>
-        {
-          x: Math.max(space_between * i + (space_between/2), 5)
-          y: @props.height - f.current_level * @props.height
-        }
-    )
-    # order matters. Items placed later will appear in front of earlier items
-    # If needed, explicit stacking could be specified
-    this.drawVerticalLines(container, points);
-    this.drawStaticImages(container, points);
-    this.drawPlotLines(container, points);
-    this.drawCircles(container, fields, points);
-
-  # Future improvement: Place clouds so they aren't
-  # hidden behind the points
-  drawStaticImages: (container, points)->
-    this.addImage(this.props.cloudsPath, width:10, x: 35, y: 10)
-    this.addImage(this.props.cloudsPath, width:16, x: 77, y: 20)
-    this.addImage(this.props.hippoPath,  width: 8, x: 92, y: 50)
-
-  drawCircles: (container, fields, points)->
-    wrap = container.append('g')
-      .attr('class', 'circles')
-       .selectAll("g")
-       .data(fields)
-
 
     space_between = 100/fields.length+1
     points = _.map(fields, (f,i)=>
@@ -132,12 +47,131 @@ Chart = React.createClass
     # order matters. Items placed later will appear in front of earlier items
     # If needed, explicit stacking could be specified
     this.drawBackgroundGradient(container)
-    this.drawVerticalLines(container, points);
-    this.drawStaticImages(container, points);
+    this.drawVerticalLines(container, points)
+    this.drawStaticImages(container, points)
     this.drawHills(container)
-    this.drawPlotLines(container, points);
-    this.drawCircles(container, fields, points);
-    this.drawPlane(container, points);
+    this.drawPlotLines(container, points)
+    this.drawCircles(container, fields, points)
+    this.drawPlane(container, points)
+    this.drawXAxis(container, points)
+
+    # units = []
+    # i = 0
+
+    # while i < fields.length
+    #   units.push fields[i].unit
+    #   i++
+
+
+    # domain = {
+    #   x: [
+    #       d3.min(units),
+    #       d3.max(units)
+    #      ],
+    #   y: [0, 1]
+    # }
+
+    # # scales
+
+    # xScale = d3.scale
+    #   .linear()
+    #   .domain(domain.x)
+    #   .range([0, @props.width])
+
+    # yScale = d3.scale
+    #   .linear()
+    #   .domain(domain.y)
+    #   .range([@props.height, 0])
+
+    # # axes
+
+    # xAxis = d3.svg.axis()
+    #   .scale(xScale)
+    #   .orient('bottom')
+    #   .ticks(5)
+
+    # yAxis = d3.svg.axis()
+    #   .scale(yScale)
+    #   .orient('left')
+    #   .ticks(10)
+
+    # xAxisGroup = container.append('g')
+    #   .attr('class','tutor-chart-x-axis')
+    #   .call(xAxis)
+    #   .attr("transform", "translate(0," + (@props.height) + ")")
+
+    # yAxisGroup = container.append('g')
+    #   .attr('class','tutor-chart-y-axis')
+    #   .call(yAxis)
+    #   # axis container positioning needs to be more dynamic; right now im just making them visible.
+    #   .attr("transform", "translate(8,0)")
+
+
+
+  # Future improvement: Place clouds so they aren't
+  # hidden behind the points
+  drawStaticImages: (container, points)->
+    this.addImage(this.props.cloudsPath, width:10, x: 35, y: 10)
+    this.addImage(this.props.cloudsPath, width:16, x: 77, y: 20)
+
+
+  drawCircles: (container, fields, points)->
+    wrap = container.append('g')
+      .attr('class', 'circles')
+       .selectAll("g")
+       .data(fields)
+
+    circles = wrap.enter()
+      .append("g")
+      .attr("transform", (f,i)->
+        "translate(#{points[i].x},#{points[i].y})"
+      )
+      .on("click", (field)=>
+        @navigateToPractice(field)
+      )
+    circles.append("circle")
+      .attr('r', (f)->
+        # awaiting a better alogorithm for the circle radius
+        Math.max(f.questions_answered_count / 20, 2)
+      )
+    circles.append("text")
+      .text( (f)->
+        f.questions_answered_count
+      )
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.5")
+
+
+  drawXAxis: (container, points)->
+    wrap = container.append('g')
+      .attr('class', 'x-axis')
+      .selectAll("line")
+      .data(points)
+
+    label = wrap.enter()
+      .append("g")
+      .attr('class', "point")
+      .attr("transform", (f,i)=>
+        "translate(#{points[i].x},#{@props.height-4})"
+      )
+      .on("click", (field)=>
+        @navigateToPractice(field)
+      )
+
+    label.append("polygon")
+      .attr('points',  "1,1.5 2,3 0,3")
+      .attr('class', "arrow")
+      .attr("transform", "translate(-1,1)")
+
+    label.append("text")
+      .text( (f,i)->
+        i+1
+      )
+      .attr("text-anchor", "middle")
+      .attr("dy", "1.8")
+      .attr("text-anchor", "middle")
+
+
 
   drawPlane: (container, points)->
     point=_.last(points)
@@ -208,7 +242,6 @@ Chart = React.createClass
       .attr('class', 'circles')
       .selectAll("g")
       .data(fields)
-
 
     circles = wrap.enter()
       .append("g")
