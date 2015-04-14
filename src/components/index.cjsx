@@ -22,6 +22,7 @@ err = (msgs...) ->
 
 
 Dashboard = React.createClass
+  displayName: 'Dashboard'
   componentWillMount: -> CurrentUserStore.addChangeListener(@update)
   componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
 
@@ -59,6 +60,7 @@ Dashboard = React.createClass
 
 
 SingleTask = React.createClass
+  displayName: 'SingleTask'
   contextTypes:
     router: React.PropTypes.func
 
@@ -73,6 +75,7 @@ SingleTask = React.createClass
 
 
 SinglePractice = React.createClass
+  displayName: 'SinglePractice'
   contextTypes:
     router: React.PropTypes.func
 
@@ -108,8 +111,12 @@ SinglePractice = React.createClass
 
 
 TaskResult = React.createClass
+  displayName: 'TaskResult'
   contextTypes:
     router: React.PropTypes.func
+  propTypes:
+    courseId: React.PropTypes.any.isRequired
+    id: React.PropTypes.any.isRequired
 
   render: ->
     {courseId, id} = @props
@@ -139,6 +146,9 @@ TaskResult = React.createClass
 
 
 Tasks = React.createClass
+  displayName: 'Tasks'
+  propTypes:
+    courseId: React.PropTypes.any.isRequired
 
   render: ->
     {courseId} = @props
