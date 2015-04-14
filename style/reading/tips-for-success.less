@@ -1,21 +1,19 @@
-.reading-step .note.tips-for-success {
-  margin-bottom: 1em;
+.panel-body .reading-step .tips-for-success {
+  margin: 20px 0;
+  padding: 20px 0;
+  #fonts > .sans(1.8rem, 2.8rem);
+  border-bottom: 1px solid (@border-color);
 
-  > .title {
-    background: @tips-for-success-color;
-    border-radius: 10px 10px 0 0;
-    color: white;
-    font-family: @reading-title-font;
-    padding: 10px 25px;
-    font-size: 2.2em;
-    width: 300px;
+  &:before {
+    display: inline-block;
+    content: "Tips for Success";
+    #fonts > .sans(3.2rem, 3.2rem);
+    font-weight: 900;
+    color: (@physics-color-primary);
+    white-space: nowrap;
+    background: #232e66;
+    padding: 10px 20px;
+    margin: 0 500px 15px 0;
   }
 
-  p, .para {
-    margin-top: -1px;
-    border: 1px solid @tips-for-success-color;
-    border-radius: 0 10px 10px 10px;
-    padding: 10px 25px 1em;
-    margin-bottom: 0;
-  }
 }
