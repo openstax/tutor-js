@@ -13,7 +13,6 @@ PracticeButton = React.createClass
   propTypes:
     courseId: React.PropTypes.number.isRequired
     pageIds: React.PropTypes.arrayOf(React.PropTypes.number).isRequired
-    actionText: React.PropTypes.string
     forceCreate: React.PropTypes.bool
     loadedTaskId: React.PropTypes.string
     reloadPractice: React.PropTypes.func
@@ -25,9 +24,9 @@ PracticeButton = React.createClass
     CourseStore.off('practice.loaded', @transitionToPractice)
 
   render: ->
-    actionText = if @props.actionText then @props.actionText else 'Practice'
-
-    <BS.Button bsStyle="primary" className="-practice" onClick={@onClick}>{actionText}</BS.Button>
+    <BS.Button bsStyle="primary" className="-practice" onClick={@onClick}>
+      {@props.children}
+    </BS.Button>
 
   onClick: ->
     {courseId, pageIds, forceCreate} = @props
