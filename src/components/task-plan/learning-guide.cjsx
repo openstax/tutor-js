@@ -19,20 +19,20 @@ LearningGuide = React.createClass
 
   addImage: (url,options)->
     node = @refs.svg.getDOMNode()
-    d3.select(node).append("svg:image")
+    d3.select(node).append('svg:image')
       .attr('x',options.x)
       .attr('y',options.y)
       .attr('width', options.width   || 10)
       .attr('height', options.height || 10)
-      .attr("xlink:href", url)
+      .attr('xlink:href', url)
 
   drawChart: (guide)->
     node = @refs.svg.getDOMNode()
 
 
     container = d3.select(@refs.svg.getDOMNode())
-      .attr("preserveAspectRatio", "xMidYMid meet")
-      .attr("viewBox", "0 0 #{WIDTH} #{HEIGHT}")
+      .attr('preserveAspectRatio', 'xMidYMid meet')
+      .attr('viewBox', "0 0 #{WIDTH} #{HEIGHT}")
 
     fields = guide.fields
 
@@ -66,53 +66,53 @@ LearningGuide = React.createClass
   drawCircles: (container, fields, points)->
     wrap = container.append('g')
       .attr('class', 'circles')
-       .selectAll("g")
+       .selectAll('g')
        .data(fields)
 
     circles = wrap.enter()
-      .append("g")
-      .attr("transform", (f,i)->
+      .append('g')
+      .attr('transform', (f,i)->
         "translate(#{points[i].x},#{points[i].y})"
       )
-      .on("click", (field)=>
+      .on('click', (field)=>
         @navigateToPractice(field)
       )
-    circles.append("circle")
+    circles.append('circle')
       .attr('r', (f)->
         # awaiting a better alogorithm for the circle radius
         Math.max(f.questions_answered_count / 20, 2)
       )
-    circles.append("text")
+    circles.append('text')
       .text( (f)->
         f.questions_answered_count
       )
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.5")
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.5')
 
 
   drawXAxis: (container, fields, points)->
     wrap = container.append('g')
       .attr('class', 'x-axis')
-      .selectAll("line")
+      .selectAll('line')
       .data(fields)
     me=this
     label = wrap.enter()
-      .append("g")
-      .attr('class', "point")
-      .attr("transform", (f,i)=>
+      .append('g')
+      .attr('class', 'point')
+      .attr('transform', (f,i)=>
         "translate(#{points[i].x},#{HEIGHT - 4})"
       )
-      .on("click", (field)->
-        # remove "active" class from all groups
+      .on('click', (field)->
+        # remove 'active' class from all groups
         d3.selectAll(@parentElement.children).classed('active',false)
         # and add it to ourselves
-        d3.select(this).classed("active",true)
+        d3.select(this).classed('active',true)
         me.displayUnit(field)
       )
-    label.append("polygon")
-      .attr('class', "arrow").attr('points',  "1,1.5 2,3 0,3").attr("transform", "translate(-1,1)")
-    label.append("text")
-      .attr("text-anchor", "middle").attr("dy", "1.8").attr("text-anchor", "middle")
+    label.append('polygon')
+      .attr('class', 'arrow').attr('points',  '1,1.5 2,3 0,3').attr('transform', 'translate(-1,1)')
+    label.append('text')
+      .attr('text-anchor', 'middle').attr('dy', '1.8').attr('text-anchor', 'middle')
       .text( (f,i)-> i+1 )
 
 
@@ -135,45 +135,45 @@ LearningGuide = React.createClass
       { x: WIDTH*0.95, y: HEIGHT * 0.95 }
       { x: WIDTH+5, y: HEIGHT  }
     ]
-    container.append("path")
-      .attr("d", d3.svg.line()
+    container.append('path')
+      .attr('d', d3.svg.line()
         .x( (d) -> d.x )
         .y( (d) -> d.y )
-        .interpolate("basis")(bgPath))
-      .attr("class", "background-hills")
-    container.append("path")
-      .attr("d", d3.svg.line()
+        .interpolate('basis')(bgPath))
+      .attr('class', 'background-hills')
+    container.append('path')
+      .attr('d', d3.svg.line()
         .x( (d) -> d.x )
         .y( (d) -> d.y )
-        .interpolate("basis")(fgPath))
-      .attr("class", "foreground-hills")
+        .interpolate('basis')(fgPath))
+      .attr('class', 'foreground-hills')
 
 
   drawBackgroundGradient: (container)->
-    gradient = container.append("svg:defs")
-      .append("svg:linearGradient")
-      .attr("id", "gradient")
-      .attr("x1", "50%")
-      .attr("y1", "0%")
-      .attr("x2", "50%")
-      .attr("y2", "100%")
-      .attr("class", "background-gradient")
-      .attr("spreadMethod", "pad")
+    gradient = container.append('svg:defs')
+      .append('svg:linearGradient')
+      .attr('id', 'gradient')
+      .attr('x1', '50%')
+      .attr('y1', '0%')
+      .attr('x2', '50%')
+      .attr('y2', '100%')
+      .attr('class', 'background-gradient')
+      .attr('spreadMethod', 'pad')
 
-    gradient.append("svg:stop")
-      .attr("offset", "0%")
-      .attr("class", "start")
-      .attr("stop-opacity", 1)
+    gradient.append('svg:stop')
+      .attr('offset', '0%')
+      .attr('class', 'start')
+      .attr('stop-opacity', 1)
 
-    gradient.append("svg:stop")
-      .attr("offset", "100%")
-      .attr("class", "end")
-      .attr("stop-opacity", 1)
+    gradient.append('svg:stop')
+      .attr('offset', '100%')
+      .attr('class', 'end')
+      .attr('stop-opacity', 1)
 
-    container.append("svg:rect")
-      .attr("width", WIDTH)
-      .attr("height", HEIGHT)
-      .style("fill", "url(#gradient)")
+    container.append('svg:rect')
+      .attr('width', WIDTH)
+      .attr('height', HEIGHT)
+      .style('fill', 'url(#gradient)')
 
   # Future improvement: Place clouds so they aren't
   # hidden behind the points
@@ -184,55 +184,55 @@ LearningGuide = React.createClass
   drawCircles: (container, fields, points)->
     wrap = container.append('g')
       .attr('class', 'circles')
-      .selectAll("g")
+      .selectAll('g')
       .data(fields)
 
     circles = wrap.enter()
-      .append("g")
-      .attr("transform", (f,i)->
+      .append('g')
+      .attr('transform', (f,i)->
         "translate(#{points[i].x},#{points[i].y})"
       )
-      .on("click", (field)=>
+      .on('click', (field)=>
         @navigateToPractice(field)
       )
-    circles.append("circle")
+    circles.append('circle')
       .attr('r', (f)->
         # awaiting a better alogorithm for the circle radius
         Math.max(f.questions_answered_count / 20, 2)
       )
-    circles.append("text")
+    circles.append('text')
       .text( (f)->
         f.questions_answered_count
       )
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.5")
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.5')
 
   drawPlotLines: (container, points)->
     wrap = container.append('g')
       .attr('class', 'plot-lines')
-      .selectAll("line")
+      .selectAll('line')
       .data( points[0...points.length-1] )
        # ^^ We don't want to create a line for the last point
 
     wrap.enter()
-      .append("line")
-      .attr("x1", (p)->p.x )
-      .attr("y1", (p)->p.y)
-      .attr("x2", (p,i)->points[i+1].x )
-      .attr("y2", (p,i)->points[i+1].y )
+      .append('line')
+      .attr('x1', (p)->p.x )
+      .attr('y1', (p)->p.y)
+      .attr('x2', (p,i)->points[i+1].x )
+      .attr('y2', (p,i)->points[i+1].y )
 
   drawVerticalLines: (container, points)->
     wrap = container.append('g')
       .attr('class', 'grid-lines')
-      .selectAll("line")
+      .selectAll('line')
       .data(points)
 
     wrap.enter()
-      .append("line")
-      .attr("x1", (p)->p.x )
-      .attr("y1", 0)
-      .attr("x2", (p)->p.x )
-      .attr("y2", HEIGHT)
+      .append('line')
+      .attr('x1', (p)->p.x )
+      .attr('y1', 0)
+      .attr('x2', (p)->p.x )
+      .attr('y2', HEIGHT)
 
   navigateToPractice: (unit)->
     console.log "Navigate to practice unit ID #{unit.id} (#{unit.title})"
