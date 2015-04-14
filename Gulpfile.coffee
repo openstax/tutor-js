@@ -159,7 +159,7 @@ gulp.task 'archive', ['cleanArchive', 'build', 'min', 'rev'], ->
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
     './dist/fonts',
-    './dist/logo-brand.svg'])
+    './dist/*.svg'])
     .pipe(tar('archive.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('./dist/'))
@@ -183,6 +183,12 @@ gulp.task 'serve', ['watch'], ->
     # host: '0.0.0.0'
     # livereload: true # Use the livereload.listen to notify when the CSS file is rebuilt
     fallback: 'index.html'
-    middleware: -> [cors()] # For font loading from tutor-server
+    middleware: -> [
+        cors(), # For font loading from tutor-server
+        (req, res, next) ->
+            if req.url.match(/\.svg$/)
+                res.setHeader('Content-Type','image/svg+xml');
+            next()
+    ]
 
   connect.server(config)

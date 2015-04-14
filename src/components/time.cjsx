@@ -7,5 +7,7 @@ module.exports = React.createClass
     date: React.PropTypes.string.isRequired
 
   render: ->
-    time = moment(@props.date).format('LLL')
+    {format, date} = @props
+    format ?= 'LLL'
+    time = moment(date).format(format)
     <time>{time}</time>

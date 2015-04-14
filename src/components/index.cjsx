@@ -157,7 +157,7 @@ Tasks = React.createClass
       if allTasks.length is 0
         <div className='ui-task-list ui-empty'>
           <p>No Tasks</p>
-          <PracticeButton courseId={courseId}/>
+          <PracticeButton courseId={courseId}>Practice</PracticeButton>
         </div>
       else
         tasks = for task in allTasks
@@ -168,7 +168,7 @@ Tasks = React.createClass
         <div className='ui-task-list'>
           <h3>Current Tasks ({allTasks.length})</h3>
           {tasks}
-          <PracticeButton courseId={courseId}/>
+          <PracticeButton courseId={courseId}>Practice</PracticeButton>
         </div>
 
     # else if

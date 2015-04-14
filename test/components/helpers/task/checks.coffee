@@ -2,10 +2,10 @@
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
 
-{TaskStepActions, TaskStepStore} = require '../../../src/flux/task-step'
-{TaskActions, TaskStore} = require '../../../src/flux/task'
+{TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
+{TaskActions, TaskStore} = require '../../../../src/flux/task'
 
-taskChecks = 
+checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
     continueButton = div.querySelector('.-continue')
     expect(continueButton).to.not.be.null
@@ -39,7 +39,7 @@ taskChecks =
     steps = TaskStore.getStepsIds(taskId)
     targetStepId = steps[stepIndex].id
 
-    taskChecks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
     {div, component, stepId, taskId, state, router, history}
 
   _checkRenderFreeResponse: ({div, component, stepId, taskId, state, router, history}) ->
@@ -92,7 +92,7 @@ taskChecks =
     steps = TaskStore.getStepsIds(taskId)
     targetStepId = steps[stepIndex - 1].id
 
-    taskChecks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
 
     {div, component, stepId, taskId, state, router, history}
 
@@ -110,25 +110,30 @@ taskChecks =
 
     {div, component, stepId, taskId, state, router, history}
 
+  _checkIsPopoverOpen: ({div, component, stepId, taskId, state, router, history}) ->
+    expect(document.querySelector('.task-details-popover h1')).to.not.be.null
+
+    {div, component, stepId, taskId, state, router, history}
+
 # promisify for chainability in specs
-_.each(taskChecks, (check, checkName) ->
+_.each(checks, (check, checkName) ->
   # rename without _ in front
   promiseName = checkName.slice(1)
 
-  taskChecks[promiseName] = (args...) ->
+  checks[promiseName] = (args...) ->
     Promise.resolve(check(args...))
 )
 
 # These guys messed up the groove, maybe will change the way these work later
-taskChecks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
+checks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
   steps = TaskStore.getStepsIds(taskId)
   targetStepId = steps[stepIndex].id
-  taskChecks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+  checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
 
   {div, component, stepId, taskId, state, router, history}
 
-taskChecks.checkIsMatchStep = (matchStepIndex) ->
+checks.checkIsMatchStep = (matchStepIndex) ->
   (args...)->
-    Promise.resolve(taskChecks._checkIsMatchStep(matchStepIndex, args...))
+    Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
-module.exports = taskChecks
+module.exports = checks
