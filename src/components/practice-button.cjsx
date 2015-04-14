@@ -6,8 +6,17 @@ _ = require 'underscore'
 {CourseActions, CourseStore} = require '../flux/course'
 
 PracticeButton = React.createClass
+  displayName: 'PracticeButton'
   contextTypes:
     router: React.PropTypes.func
+
+  propTypes:
+    courseId: React.PropTypes.number.isRequired
+    pageIds: React.PropTypes.arrayOf(React.PropTypes.number).isRequired
+    actionText: React.PropTypes.string
+    forceCreate: React.PropTypes.bool
+    loadedTaskId: React.PropTypes.string
+    reloadPractice: React.PropTypes.func
 
   componentWillMount: ->
     CourseStore.on('practice.loaded', @transitionToPractice)
@@ -21,19 +30,20 @@ PracticeButton = React.createClass
     <BS.Button bsStyle="primary" className="-practice" onClick={@onClick}>{actionText}</BS.Button>
 
   onClick: ->
-    params = _.pick(@props, 'page_ids')
+    {courseId, pageIds, forceCreate} = @props
 
-    if CourseStore.hasPractice(@props.courseId) and not @props.forceCreate
-      task = CourseStore.getPractice(@props.courseId)
+    if CourseStore.hasPractice(courseId) and not forceCreate
+      task = CourseStore.getPractice(courseId)
       @transitionToPractice(task.id)
     else
-      CourseActions.createPractice(@props.courseId, params)
+      CourseActions.createPractice(courseId, {page_ids: pageIds})
 
   transitionToPractice: (practiceId)->
+    {courseId, loadedTaskId} = @props
 
-    if practiceId is @props.loadedTaskId
+    if practiceId is loadedTaskId
       @props.reloadPractice?()
     else
-      @context.router.transitionTo('viewPractice', {courseId: @props.courseId})
+      @context.router.transitionTo('viewPractice', {courseId})
 
 module.exports = PracticeButton
