@@ -8,7 +8,9 @@ LoadableItem = require '../loadable-item'
 PracticeButton = require '../practice-button'
 
 Guide = React.createClass
-
+  displayName: 'Guide'
+  propTypes:
+    id: React.PropTypes.any.isRequired
 
   renderCrudeTable: (data,i) ->
     {id} = @props

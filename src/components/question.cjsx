@@ -4,15 +4,14 @@ ArbitraryHtml = require './html'
 
 idCounter = 0
 
-
-# props:
-#   model
-#   answer
-#   correct_answer
-#   feedback_html
-
 module.exports = React.createClass
   displayName: 'Question'
+  propTypes:
+    model: React.PropTypes.object.isRequired
+    answer_id: React.PropTypes.string
+    correct_answer_id: React.PropTypes.string
+    feedback_html: React.PropTypes.string
+
   getInitialState: ->
     answer: null
 

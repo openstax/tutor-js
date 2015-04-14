@@ -11,7 +11,7 @@ Loadable = require './loadable'
 module.exports = React.createClass
   displayName: 'LoadableItem'
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     store: React.PropTypes.object.isRequired
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired

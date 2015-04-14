@@ -4,9 +4,13 @@ BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
 PlanFooter = React.createClass
-
+  displayName: 'PlanFooter'
   contextTypes:
     router: React.PropTypes.func
+  propTypes:
+    id: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    clickedSelectProblem: React.PropTypes.func
 
   onSave: ->
     {id} = @props
