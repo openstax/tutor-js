@@ -55,61 +55,10 @@ Chart = React.createClass
     this.drawPlane(container, points)
     this.drawXAxis(container, fields, points)
 
-    # units = []
-    # i = 0
-
-    # while i < fields.length
-    #   units.push fields[i].unit
-    #   i++
-
-
-    # domain = {
-    #   x: [
-    #       d3.min(units),
-    #       d3.max(units)
-    #      ],
-    #   y: [0, 1]
-    # }
-
-    # # scales
-
-    # xScale = d3.scale
-    #   .linear()
-    #   .domain(domain.x)
-    #   .range([0, @props.width])
-
-    # yScale = d3.scale
-    #   .linear()
-    #   .domain(domain.y)
-    #   .range([@props.height, 0])
-
-    # # axes
-
-    # xAxis = d3.svg.axis()
-    #   .scale(xScale)
-    #   .orient('bottom')
-    #   .ticks(5)
-
-    # yAxis = d3.svg.axis()
-    #   .scale(yScale)
-    #   .orient('left')
-    #   .ticks(10)
-
-    # xAxisGroup = container.append('g')
-    #   .attr('class','tutor-chart-x-axis')
-    #   .call(xAxis)
-    #   .attr("transform", "translate(0," + (@props.height) + ")")
-
-    # yAxisGroup = container.append('g')
-    #   .attr('class','tutor-chart-y-axis')
-    #   .call(yAxis)
-    #   # axis container positioning needs to be more dynamic; right now im just making them visible.
-    #   .attr("transform", "translate(8,0)")
-
-
 
   # Future improvement: Place clouds so they aren't
   # hidden behind the points
+
   drawStaticImages: (container, points)->
     this.addImage(this.props.cloudsPath, width:10, x: 35, y: 10)
     this.addImage(this.props.cloudsPath, width:16, x: 77, y: 20)
