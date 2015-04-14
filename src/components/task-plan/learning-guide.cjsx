@@ -53,7 +53,7 @@ Chart = React.createClass
     this.drawPlotLines(container, points)
     this.drawCircles(container, fields, points)
     this.drawPlane(container, points)
-    this.drawXAxis(container, points)
+    this.drawXAxis(container, fields, points)
 
     # units = []
     # i = 0
@@ -142,34 +142,30 @@ Chart = React.createClass
       .attr("dy", "0.5")
 
 
-  drawXAxis: (container, points)->
+  drawXAxis: (container, fields, points)->
     wrap = container.append('g')
       .attr('class', 'x-axis')
       .selectAll("line")
-      .data(points)
-
+      .data(fields)
+    me=this
     label = wrap.enter()
       .append("g")
       .attr('class', "point")
       .attr("transform", (f,i)=>
         "translate(#{points[i].x},#{@props.height-4})"
       )
-      .on("click", (field)=>
-        @navigateToPractice(field)
+      .on("click", (field)->
+        # remove "active" class from all groups
+        d3.selectAll(this.parentElement.children).classed('active',false)
+        # and add it to ourselves
+        d3.select(this).classed("active",true)
+        me.displayUnit(field)
       )
-
     label.append("polygon")
-      .attr('points',  "1,1.5 2,3 0,3")
-      .attr('class', "arrow")
-      .attr("transform", "translate(-1,1)")
-
+      .attr('class', "arrow").attr('points',  "1,1.5 2,3 0,3").attr("transform", "translate(-1,1)")
     label.append("text")
-      .text( (f,i)->
-        i+1
-      )
-      .attr("text-anchor", "middle")
-      .attr("dy", "1.8")
-      .attr("text-anchor", "middle")
+      .attr("text-anchor", "middle").attr("dy", "1.8").attr("text-anchor", "middle")
+      .text( (f,i)-> i+1 )
 
 
 
@@ -290,8 +286,11 @@ Chart = React.createClass
       .attr("x2", (p)->p.x )
       .attr("y2", @props.height)
 
-  navigateToPractice: (activity)->
-    console.log "Navigate to activity ID #{activity.id} (#{activity.title})"
+  navigateToPractice: (unit)->
+    console.log "Navigate to practice unit ID #{unit.id} (#{unit.title})"
+
+  displayUnit: (unit)->
+      console.log "Display unit: ID #{unit.id} (#{unit.title})"
 
   componentDidMount: ->
     @drawChart LearningGuideStore.get(@props.courseId)
