@@ -35,13 +35,13 @@ LearningGuide = React.createClass
   componentDidUpdate: ->
     ## D3 commands to update SVG
 
-  render: -> 
+  render: ->
     {unit} = @state
-    
+
     if unit
-      unitInfo = <div>{unit.title}</div>
-      stars = <div>star rating</div>
-      practiceButton = <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton> 
+      unitInfo = <div className="-title">{unit.title}</div>
+      stars = <div className="-stars">star rating</div>
+      practiceButton = <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton>
 
     <div className="learning-guide-chart">
       <svg ref="svg" />
