@@ -11,13 +11,10 @@ CoursePlan = React.createClass
 
   propTypes:
     item: React.PropTypes.object.isRequired
-
-    trigger: React.PropTypes.string
-    placement: React.PropTypes.string
+    nthRange: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
-    trigger: 'focus'
-    placement: 'left'
+    nthRange: 0
 
   findPlanNodes: (planNode) ->
     container = @getDOMNode().parentElement.parentElement
@@ -25,36 +22,45 @@ CoursePlan = React.createClass
     samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
 
   syncHover: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.target)
+    samePlans = @findPlanNodes(mouseEvent.currentTarget)
     samePlans.forEach((element) ->
       element.classList.add('active')
     )
 
   removeHover: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.target)
+    samePlans = @findPlanNodes(mouseEvent.currentTarget)
     samePlans.forEach((element) ->
       element.classList.remove('active')
     )
 
-  showDetails: ->
+  showDetails: (clickEvent)->
     {item} = @props
     {plan, duration, offset} = item
 
+    # hack for testing for now.
+    clickEvent.currentTarget.childNodes[0]?.innerText = JSON.stringify(plan)
     alert(plan.title)
     console.info(plan)
 
   render: ->
-    {item} = @props
-    {plan, duration, offset} = item
+    {item, nthRange} = @props
+    {plan, duration, rangeDuration, offset} = item
 
-    durationLength = if duration.length('days') < 7 then duration.length('days') + 1 else duration.length('days')
-    planStyle = {
+    durationLength = duration.length('days')
+    planStyle =
       width: durationLength * 100 / 7 + '%'
       left: offset * 100 / 7 + '%'
-    }
 
     planClasses = "plan #{plan.type} course-plan-#{plan.id}"
 
-    <span style={planStyle} className={planClasses} onMouseEnter={@syncHover} onMouseLeave={@removeHover} onClick = {@showDetails}>{plan.title}</span>
+    if nthRange is 0
+      rangeLength = rangeDuration.length('days')
+      planLabelStyle =
+        width: rangeLength/durationLength * 100 + '%'
+      label = <label style={planLabelStyle}>{plan.title}</label>
+
+    <div style={planStyle} className={planClasses} onMouseEnter={@syncHover} onMouseLeave={@removeHover} onClick = {@showDetails}>
+      {label}
+    </div>
 
 module.exports = CoursePlan

@@ -20,20 +20,20 @@ CoursePlansByWeek = React.createClass
     window.removeEventListener('resize', @handleResize)
 
   handleResize: ->
-    React.findDOMNode(@refs['plans-by-week']).style.width = @getDOMNode().parentElement.clientWidth + 'px'
-    React.findDOMNode(@refs['plans-by-week']).style.left = @getDOMNode().parentElement.offsetLeft + 'px'
+    React.findDOMNode(@refs.plansByWeek).style.width = @getDOMNode().parentElement.clientWidth + 'px'
+    React.findDOMNode(@refs.plansByWeek).style.left = @getDOMNode().parentElement.offsetLeft + 'px'
 
   render: ->
     {range} = @props
     plans = _.map(range.plans, (item) ->
-        <CoursePlan item={item} key="course-plan-#{item.plan.id}" />
+        <CoursePlan item={item} nthRange={range.nthRange} key="course-plan-#{item.plan.id}" />
     , @)
 
     plansStyle = {
         top: (range.nthRange * 10 + 13.5 - range.plans.length*2.75) + 'rem'
     }
 
-    <div className='plans' style={plansStyle} ref='plans-by-week'>
+    <div className='plans' style={plansStyle} ref='plansByWeek'>
       {plans}
     </div>
 

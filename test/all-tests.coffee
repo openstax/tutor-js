@@ -4,6 +4,7 @@ require './components/reading-plan.spec'
 require './components/task.spec'
 require './components/practice.spec'
 require './components/learning-guide.spec'
+require './components/course-calendar.spec'
 
 require './crud-store.spec'
 require './task-store.spec'

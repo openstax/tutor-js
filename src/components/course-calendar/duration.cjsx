@@ -24,12 +24,11 @@ CourseDuration = React.createClass
   # can be reused for units, for example
   setDuration: (duration) ->
     (plan) ->
-      fullDuration = moment(plan.opens_at).twix(plan.due_at)
+      fullDuration = moment(plan.opens_at).twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
       plan.duration = fullDuration.intersection(duration)
 
   isInDuration: (duration) ->
     (plan) ->
-      plan.duration = plan.duration.intersection(duration)
       plan.duration.length('hours') > 0
 
   groupByRanges: (durationsInView) ->
@@ -44,7 +43,7 @@ CourseDuration = React.createClass
               rangeDuration: plan.duration.intersection(range)
               offset: moment(range.start).twix(plan.duration.start).length('days')
               duration: plan.duration
-              plan: _.omit(plan, 'days', 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
+              plan: _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
 
             rangeData.plans.push(planForRange)
       )
@@ -56,6 +55,8 @@ CourseDuration = React.createClass
 
   renderDurations: (durations, viewingDuration, groupingDurations)->
     durationsInView = _.chain(durations)
+      .clone()
+      # TODO these parts actually seem like they should be in flux
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
       .value()
@@ -71,7 +72,7 @@ CourseDuration = React.createClass
     {durations, viewingDuration, groupingDurations} = @props
     renderedDurations = @renderDurations(durations, viewingDuration, groupingDurations)
 
-    <div ref='course-durations'>
+    <div>
       {renderedDurations}
     </div>
 

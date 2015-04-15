@@ -18,7 +18,9 @@ CourseMonth = React.createClass
 
   propTypes:
     plansList: React.PropTypes.array.isRequired
-    startDate: React.PropTypes.instanceOf(moment)
+    startDate: (props, propName, componentName) ->
+      unless moment.isMoment(props[propName])
+        new Error("#{propName} should be a moment for #{componentName}")
 
   getInitialState: ->
     date: @props.startDate or moment()
@@ -45,14 +47,14 @@ CourseMonth = React.createClass
 
     <BS.Grid>
 
-      <CourseCalendarHeader duration='month' date={date} setDate={@setDate}/>
+      <CourseCalendarHeader duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
 
       <BS.Row>
         <BS.Col xs={12}>
 
           <Month date={date} monthNames={false} ref='calendar'/>
 
-          <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks}>
+          <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks} ref='courseDurations'>
             <CoursePlansByWeek/>
           </CourseDuration>
 
