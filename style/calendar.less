@@ -148,23 +148,24 @@
   border-radius: 4px;
   font-weight: bold;
   text-align: center;
+  transition: background .1s ease-in;
 }
 
 .reading{
   background: fade(@brand-success, 20%);
   border-color: @brand-success;
 
-  &:hover{
-    background: fade(@brand-success, 50%);
+  &:hover, &.active{
+    background: fade(@brand-success, 75%);
   }
 }
 
 .exercise{
   background: fade(@brand-primary, 20%);
-  border-color: @brand-primary;
+  border-color: @primary;
 
-  &:hover{
-    background: fade(@brand-primary, 50%);
+  &:hover, &.active{
+    background: fade(@primary, 75%);
   }
 }
 
@@ -172,7 +173,7 @@
   background: fade(@brand-warning, 20%);
   border-color: @brand-warning;
 
-  &:hover{
-    background: fade(@brand-warning, 50%);
+  &:hover, &.active{
+    background: fade(@brand-warning, 75%);
   }
 }

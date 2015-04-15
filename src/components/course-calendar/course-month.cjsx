@@ -7,6 +7,8 @@ BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
 
+CoursePlan = require './course-plan'
+
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 
 CourseMonth = React.createClass
@@ -17,7 +19,6 @@ CourseMonth = React.createClass
     calendarWidth: '100%'
 
   componentDidMount: ->
-    # External links should open in a new window
     @setState({
       calendarWidth: React.findDOMNode(@refs.calendar).clientWidth
     })
@@ -37,9 +38,10 @@ CourseMonth = React.createClass
       date: @state.date.clone().subtract(1, 'month')
     )
 
-  setPlanDuration: (plan) ->
-    duration = moment(plan.opens_at).twix(plan.due_at)
-    plan.duration = duration
+  setPlanDuration: (duration) ->
+    (plan) ->
+      fullDuration = moment(plan.opens_at).twix(plan.due_at)
+      plan.duration = fullDuration.intersection(duration)
 
   isPlanInDuration: (duration) ->
     (plan) ->
@@ -65,17 +67,10 @@ CourseMonth = React.createClass
 
       rangeData
 
-  renderPlanDays:(range) ->
+  renderPlanDays: (range) ->
     plans = _.map(range.plans, (item) ->
-        durationLength = if item.duration.length('days') < 7 then item.duration.length('days') + 1 else item.duration.length('days')
-        planStyle = {
-          width: durationLength * 100 / 7 + '%'
-          left: item.offset * 100 / 7 + '%'
-        }
-
-        planClasses = "plan #{item.plan.type}"
-        <span style={planStyle} className={planClasses} onClick={-> alert("Clicked #{item.plan.title}")} key={item.plan.id}>{item.plan.title}</span>
-    )
+        <CoursePlan item={item} key="course-plan-#{item.plan.id}" />
+    , @)
 
     plansStyle = {
         top: (range.nthRange * 10 + 13.5 - range.plans.length*2.75) + 'rem'
@@ -100,7 +95,7 @@ CourseMonth = React.createClass
     {calendarDuration, calendarWeeks} = @getDurationInfo(@state.date)
 
     plansInMonth = _.chain(@props.plansList)
-      .each(@setPlanDuration)
+      .each(@setPlanDuration(calendarDuration))
       .filter(@isPlanInDuration(calendarDuration))
       .value()
 
