@@ -48,10 +48,19 @@ module.exports = class LearningGuideChart
     @drawCircles(container, fields, points)
     @drawPlane(container, points)
     @drawXAxis(container, fields, points)
+    @drawTitle(container, guide)
 
 
-  # Future improvement: Place clouds so they aren't
-  # hidden behind the points
+  drawTitle: (container, guide) ->
+    wrap = container.append('g')
+      .append("svg:text")
+      .attr("text-anchor","middle")
+      .attr("x", WIDTH/2)
+      .attr("y", 5)
+      .attr('class', 'main-title')
+      .text("Your Flight Path | "+guide.title+" | All Topics")
+
+
 
   drawStaticImages: (container, points) ->
     @addImage(CLOUDS_PATH, width:10, x: 35, y: 10)
