@@ -7,80 +7,27 @@ BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
 
-CoursePlan = require './course-plan'
+CourseCalendarHeader = require './course-calendar-header'
+CourseDuration = require './course-duration'
+CoursePlansByWeek = require './course-plans-by-week'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
 
+  propTypes:
+    plansList: React.PropTypes.array.isRequired
+    startDate: React.PropTypes.instanceOf(moment)
+
   getInitialState: ->
     date: @props.startDate or moment()
-    calendarWidth: '100%'
 
-  componentDidMount: ->
-    @setState({
-      calendarWidth: React.findDOMNode(@refs.calendar).clientWidth
-    })
-
-  componentDidUpdate: ->
-    React.findDOMNode(@refs.plans).style.width = @state.calendarWidth
-
-  handleNextMonth: (clickEvent) ->
-    clickEvent.preventDefault()
-    @setState(
-      date: @state.date.clone().add(1, 'month')
-    )
-
-  handlePreviousMonth: (clickEvent) ->
-    clickEvent.preventDefault()
-    @setState(
-      date: @state.date.clone().subtract(1, 'month')
-    )
-
-  setPlanDuration: (duration) ->
-    (plan) ->
-      fullDuration = moment(plan.opens_at).twix(plan.due_at)
-      plan.duration = fullDuration.intersection(duration)
-
-  isPlanInDuration: (duration) ->
-    (plan) ->
-      plan.duration = plan.duration.intersection(duration)
-      plan.duration.length('hours') > 0
-
-  groupByRanges: (plansInMonth) ->
-    (range, nthRange) ->
-      rangeData =
-        nthRange: nthRange
-        plans: []
-
-      _.each(plansInMonth, (plan) ->
-          if plan.duration.overlaps(range)
-            planForRange =
-              rangeDuration: plan.duration.intersection(range)
-              offset: moment(range.start).twix(plan.duration.start).length('days')
-              duration: plan.duration
-              plan: _.omit(plan, 'days', 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
-
-            rangeData.plans.push(planForRange)
+  setDate: (date) ->
+    unless moment(date).isSame(@state.date, 'month')
+      @setState(
+        date: date
       )
-
-      rangeData
-
-  renderPlanDays: (range) ->
-    plans = _.map(range.plans, (item) ->
-        <CoursePlan item={item} key="course-plan-#{item.plan.id}" />
-    , @)
-
-    plansStyle = {
-        top: (range.nthRange * 10 + 13.5 - range.plans.length*2.75) + 'rem'
-        width: @state.calendarWidth
-        left: '15px'
-    }
-
-    <div className='plans' style={plansStyle} ref='plans'>
-      {plans}
-    </div>
 
   getDurationInfo: (date) ->
     startMonthBlock = date.clone().startOf('month').startOf('week')
@@ -91,43 +38,24 @@ CourseMonth = React.createClass
 
     {calendarDuration, calendarWeeks}
 
-  renderPlans: ->
-    {calendarDuration, calendarWeeks} = @getDurationInfo(@state.date)
-
-    plansInMonth = _.chain(@props.plansList)
-      .each(@setPlanDuration(calendarDuration))
-      .filter(@isPlanInDuration(calendarDuration))
-      .value()
-
-    plans = _.chain(calendarWeeks)
-      .map(@groupByRanges(plansInMonth))
-      .map(@renderPlanDays)
-      .value()
-
   render: ->
-
-    plansDays = @renderPlans()
-
-    # TODO see about doing a PR to the library after their react update to enable
-    # modifying MonthHeader as a feature
-    MonthHeader =
-      <BS.Row className='month-header'>
-        <BS.Col xs={4}>
-          <a href="#" className='month-header-control previous' onClick={@handlePreviousMonth}>&lt;</a>
-        </BS.Col>
-        <BS.Col xs={4} className='month-header-label'>{@state.date.format('MMMM YYYY')}</BS.Col>
-        <BS.Col xs={4}>
-          <a href="#" className='month-header-control next' onClick={@handleNextMonth}>&gt;</a>
-        </BS.Col>
-      </BS.Row>
-
+    {plansList} = @props
+    {date} = @state
+    {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     <BS.Grid>
-      {MonthHeader}
+
+      <CourseCalendarHeader duration='month' date={date} setDate={@setDate}/>
+
       <BS.Row>
         <BS.Col xs={12}>
-          <Month date={@state.date} monthNames={false} ref='calendar'/>
-          {plansDays}
+
+          <Month date={date} monthNames={false} ref='calendar'/>
+
+          <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks}>
+            <CoursePlansByWeek/>
+          </CourseDuration>
+
         </BS.Col>
       </BS.Row>
     </BS.Grid>

@@ -5,21 +5,23 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 
+# TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
 
-  triggerHover: (mouseEvent, key) ->
-    classes = '.' + Array.prototype.join.call(mouseEvent.target.classList, '.')
-    samePlans = document.querySelectorAll(classes)
-    samePlans = Array.prototype.slice.call(samePlans)
+  findPlanNodes: (planNode) ->
+    container = @getDOMNode().parentElement.parentElement
+    classes = '.' + Array.prototype.join.call(planNode.classList, '.')
+    samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
+
+  syncHover: (mouseEvent, key) ->
+    samePlans = @findPlanNodes(mouseEvent.target)
     samePlans.forEach((element) ->
       element.classList.add('active')
     )
 
   removeHover: (mouseEvent, key) ->
-    classes = '.' + Array.prototype.join.call(mouseEvent.target.classList, '.')
-    samePlans = document.querySelectorAll(classes)
-    samePlans = Array.prototype.slice.call(samePlans)
+    samePlans = @findPlanNodes(mouseEvent.target)
     samePlans.forEach((element) ->
       element.classList.remove('active')
     )
@@ -35,6 +37,6 @@ CoursePlan = React.createClass
     }
 
     planClasses = "plan #{plan.type} course-plan-#{plan.id}"
-    <span style={planStyle} className={planClasses} onClick={-> alert("Clicked #{plan.title}")} onMouseEnter={@triggerHover} onMouseLeave={@removeHover}>{plan.title}</span>
+    <span style={planStyle} className={planClasses} onClick={-> alert("Clicked #{plan.title}")} onMouseEnter={@syncHover} onMouseLeave={@removeHover}>{plan.title}</span>
 
 module.exports = CoursePlan

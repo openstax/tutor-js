@@ -3,46 +3,42 @@ twix = require 'twix'
 _ = require 'underscore'
 
 React = require 'react/addons'
-BS = require 'react-bootstrap'
 
 CourseDuration = React.createClass
   displayName: 'CourseDuration'
 
-  getInitialState: ->
-    durationWidth: '100%'
+  propTypes:
+    durations: React.PropTypes.array.isRequired
+    viewingDuration: React.PropTypes.instanceOf(twix).isRequired
+    groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired
+    children: React.PropTypes.element
 
-  componentDidMount: ->
-    @setState({
-      durationWidth: @getDOMNode().clientWidth
-    })
-
-  componentDidUpdate: ->
-    # React.findDOMNode(@refs.plans).style.width = @state.durationWidth
-
-  renderChildren: (range) =>
+  renderChildren: (range) ->
     React.Children.map(@props.children, (child) ->
         React.addons.cloneWithProps(child, {
           range: range
         })
     )
 
-  setPlanDuration: (duration) ->
+  # TODO see how to pull out plan specific logic to show that this
+  # can be reused for units, for example
+  setDuration: (duration) ->
     (plan) ->
       fullDuration = moment(plan.opens_at).twix(plan.due_at)
       plan.duration = fullDuration.intersection(duration)
 
-  isPlanInDuration: (duration) ->
+  isInDuration: (duration) ->
     (plan) ->
       plan.duration = plan.duration.intersection(duration)
       plan.duration.length('hours') > 0
 
-  groupByRanges: (plansInMonth) ->
+  groupByRanges: (durationsInView) ->
     (range, nthRange) ->
       rangeData =
         nthRange: nthRange
         plans: []
 
-      _.each(plansInMonth, (plan) ->
+      _.each(durationsInView, (plan) ->
           if plan.duration.overlaps(range)
             planForRange =
               rangeDuration: plan.duration.intersection(range)
@@ -58,22 +54,26 @@ CourseDuration = React.createClass
   renderGroupedDurations: (range) ->
     @renderChildren(range)
 
-  renderDurations: (viewingDuration, groupingDuration)->
-
-    durationsInView = _.chain(@props.durations)
-      .each(@setPlanDuration(viewingDuration))
-      .filter(@isPlanInDuration(viewingDuration))
+  renderDurations: (durations, viewingDuration, groupingDurations)->
+    durationsInView = _.chain(durations)
+      .each(@setDuration(viewingDuration))
+      .filter(@isInDuration(viewingDuration))
       .value()
 
-    renderedDurations = _.chain(groupingDuration)
+    renderedDurations = _.chain(groupingDurations)
       .map(@groupByRanges(durationsInView))
       .map(@renderGroupedDurations)
       .value()
 
-  render: ->
-    {viewingDuration, groupingDuration} = @props
+    renderedDurations
 
-    @renderDurations(viewingDuration, groupingDuration)
+  render: ->
+    {durations, viewingDuration, groupingDurations} = @props
+    renderedDurations = @renderDurations(durations, viewingDuration, groupingDurations)
+
+    <div ref='course-durations'>
+      {renderedDurations}
+    </div>
 
 
 module.exports = CourseDuration
