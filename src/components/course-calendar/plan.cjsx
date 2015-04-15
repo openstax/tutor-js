@@ -9,6 +9,16 @@ BS = require 'react-bootstrap'
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
 
+  propTypes:
+    item: React.PropTypes.object.isRequired
+
+    trigger: React.PropTypes.string
+    placement: React.PropTypes.string
+
+  getDefaultProps: ->
+    trigger: 'focus'
+    placement: 'left'
+
   findPlanNodes: (planNode) ->
     container = @getDOMNode().parentElement.parentElement
     classes = '.' + Array.prototype.join.call(planNode.classList, '.')
@@ -26,6 +36,13 @@ CoursePlan = React.createClass
       element.classList.remove('active')
     )
 
+  showDetails: ->
+    {item} = @props
+    {plan, duration, offset} = item
+
+    alert(plan.title)
+    console.info(plan)
+
   render: ->
     {item} = @props
     {plan, duration, offset} = item
@@ -37,6 +54,7 @@ CoursePlan = React.createClass
     }
 
     planClasses = "plan #{plan.type} course-plan-#{plan.id}"
-    <span style={planStyle} className={planClasses} onClick={-> alert("Clicked #{plan.title}")} onMouseEnter={@syncHover} onMouseLeave={@removeHover}>{plan.title}</span>
+
+    <span style={planStyle} className={planClasses} onMouseEnter={@syncHover} onMouseLeave={@removeHover} onClick = {@showDetails}>{plan.title}</span>
 
 module.exports = CoursePlan

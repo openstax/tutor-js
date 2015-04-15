@@ -7,9 +7,9 @@ BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
 
-CourseCalendarHeader = require './course-calendar-header'
-CourseDuration = require './course-duration'
-CoursePlansByWeek = require './course-plans-by-week'
+CourseCalendarHeader = require './header'
+CourseDuration = require './duration'
+CoursePlansByWeek = require './plans-by-week'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 

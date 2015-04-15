@@ -1,7 +1,7 @@
 moment = require 'moment'
 React = require 'react'
 
-CourseMonth = require './course-month'
+CourseMonth = require './month'
 
 displayAs =
   month: CourseMonth

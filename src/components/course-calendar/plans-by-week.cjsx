@@ -1,7 +1,7 @@
 _ = require 'underscore'
 
 React = require 'react'
-CoursePlan = require './course-plan'
+CoursePlan = require './plan'
 
 CoursePlansByWeek = React.createClass
   displayName: 'CoursePlansByWeek'
