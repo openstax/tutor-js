@@ -120,10 +120,26 @@ module.exports = class LearningGuideChart
       .text( (f,i) -> i+1 )
 
 
+  getLineAngle: (x1,x2,y1,y2) ->
+    deltaX = x2 - x1
+    deltaY = y2 - y1
+    rad = Math.atan2(deltaY, deltaX)
+    deg = rad * (180 / Math.PI)
+    deg
 
   drawPlane: (container, points) ->
     point = _.last(points)
-    @addImage(PLANE_PATH, x: point.x+2, y: point.y-3, height: 6, width: 8)
+    pointPrev = points[points.length-2] 
+    lineAngle = @getLineAngle(pointPrev.x,point.x,pointPrev.y,point.y)
+    node = @svgNode
+    d3.select(node).append('svg:image')
+      .attr('x',point.x+2)
+      .attr('y',point.y-3)
+      .attr('width', 8)
+      .attr('height', 6)
+      .attr('xlink:href', PLANE_PATH)
+      .attr("transform", "rotate(#{lineAngle},#{point.x},#{point.y})")
+
 
   drawHills: (container) ->
     # might be nice to move this definition up into DefaultProps
