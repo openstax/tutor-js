@@ -22,12 +22,10 @@ LearningGuide = React.createClass
     unit: false
 
   navigateToPractice: (unit) ->
-    console.log("Navigate to practice unit ID #{unit.id} (#{unit.title})")
     {courseId} = @props
     @context.router.transitionTo('viewPractice', {courseId})
 
   displayUnit: (unit) ->
-    console.log("Display unit: ID #{unit.id} (#{unit.title})")
     @setState({unit})
 
   componentDidMount: ->
