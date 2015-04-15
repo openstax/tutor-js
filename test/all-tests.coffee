@@ -10,6 +10,7 @@ require './components/task-homework-past-due.spec'
 require './components/practice.spec'
 require './components/learning-guide.spec'
 require './components/course-calendar.spec'
+require './components/student-dashboard.spec'
 
 require './crud-store.spec'
 require './task-store.spec'

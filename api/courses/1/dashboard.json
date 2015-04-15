@@ -1,0 +1,34 @@
+{
+  "title": "PHYS 1011 - Physics",
+  "current": [
+    {
+      "title": "Read Chapter 5.1 - 5.3",
+      "due_at": "2 days"
+    },{
+      "title": "Homework problems 5.2 and 5.3",
+      "due_at": "1 week"
+    }
+  ],
+  "upcoming":[
+    {
+      "title": "Read Chapter 5.1 - 5.3",
+      "start_at": "2 days",
+      "due_at": "2 week"
+    },{
+      "title": "Homework problems 5.2 and 5.3",
+      "start_at": "2 days",
+      "due_at": "2 week"
+    }
+  ],
+  "past":[
+    {
+      "title": "Read Chapter 5.1 - 5.3",
+      "start_at": "2 days",
+      "due_at": "2 week"
+    },{
+      "title": "Homework problems 5.2 and 5.3",
+      "start_at": "2 days",
+      "due_at": "2 week"
+    }
+  ]
+}
