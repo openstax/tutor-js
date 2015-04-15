@@ -31,7 +31,7 @@ module.exports = class LearningGuideChart
 
     fields = guide.fields
 
-    space_between = WIDTH/fields.length+1
+    space_between = WIDTH/fields.length + 1
     points = _.map(fields, (f,i) ->
         {
           x: Math.max(space_between * i + (space_between/4), 5)
@@ -48,10 +48,18 @@ module.exports = class LearningGuideChart
     @drawCircles(container, fields, points)
     @drawPlane(container, points)
     @drawXAxis(container, fields, points)
+    @drawTitle(container, guide)
 
 
-  # Future improvement: Place clouds so they aren't
-  # hidden behind the points
+  drawTitle: (container, guide) ->
+    wrap = container.append('g')
+      .append('svg:text')
+      .attr('text-anchor','middle')
+      .attr('x', WIDTH/2)
+      .attr('y', 5)
+      .attr('class', 'main-title')
+      .text("Your Flight Path | ${guide.title} | All Topics")
+
 
   drawStaticImages: (container, points) ->
     @addImage(CLOUDS_PATH, width:10, x: 35, y: 10)
@@ -111,10 +119,26 @@ module.exports = class LearningGuideChart
       .text( (f,i) -> i+1 )
 
 
+  getLineAngle: (x1,x2,y1,y2) ->
+    deltaX = x2 - x1
+    deltaY = y2 - y1
+    rad = Math.atan2(deltaY, deltaX)
+    deg = rad * (180 / Math.PI)
+    deg
 
   drawPlane: (container, points) ->
     point = _.last(points)
-    @addImage(PLANE_PATH, x: point.x+2, y: point.y-3, height: 6, width: 8)
+    pointPrev = points[points.length-2]
+    lineAngle = @getLineAngle(pointPrev.x, point.x, pointPrev.y, point.y)
+    node = @svgNode
+    d3.select(node).append('svg:image')
+      .attr('x',point.x+2)
+      .attr('y',point.y-3)
+      .attr('width', 8)
+      .attr('height', 6)
+      .attr('xlink:href', PLANE_PATH)
+      .attr('transform', "rotate(#{lineAngle},#{point.x},#{point.y})")
+
 
   drawHills: (container) ->
     # might be nice to move this definition up into DefaultProps
@@ -125,10 +149,10 @@ module.exports = class LearningGuideChart
       { x: WIDTH + 10,   y: HEIGHT }
     ]
     bgPath = [
-      { x: WIDTH*0.30, y: HEIGHT}
-      { x: WIDTH*0.85, y: HEIGHT * 0.90 }
-      { x: WIDTH*0.95, y: HEIGHT * 0.95 }
-      { x: WIDTH+5, y: HEIGHT  }
+      { x: WIDTH * 0.30, y: HEIGHT}
+      { x: WIDTH * 0.85, y: HEIGHT * 0.90 }
+      { x: WIDTH * 0.95, y: HEIGHT * 0.95 }
+      { x: WIDTH + 5, y: HEIGHT  }
     ]
     container.append('path')
       .attr('d', d3.svg.line()
