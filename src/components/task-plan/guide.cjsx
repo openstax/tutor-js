@@ -8,7 +8,9 @@ LoadableItem = require '../loadable-item'
 PracticeButton = require '../practice-button'
 
 Guide = React.createClass
-
+  displayName: 'Guide'
+  propTypes:
+    id: React.PropTypes.any.isRequired
 
   renderCrudeTable: (data,i) ->
     {id} = @props
@@ -21,7 +23,7 @@ Guide = React.createClass
       <td className="-course-guide-table-current_level">{data.current_level}</td>
       <td className="course-guide-table-page_ids">{data.page_ids}</td>
       <td className="-course-guide-table-practice_count">{data.practice_count}</td>
-      <td className="-course-guide-table-practice_button"><PracticeButton courseId={id} pageIds={data.page_ids}/></td>
+      <td className="-course-guide-table-practice_button"><PracticeButton courseId={id} page_ids={data.page_ids}>Practice</PracticeButton></td>
     </tr>
 
   render: ->

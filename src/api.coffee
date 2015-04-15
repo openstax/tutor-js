@@ -9,6 +9,7 @@ $ = require 'jquery'
 _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
+{LearningGuideActions} = require './flux/learning-guide'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
@@ -119,16 +120,16 @@ start = ->
   apiHelper CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/practice"
 
-  # apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', () ->
-  #   url: "/api/courses/#{courseId}/practice"
-
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
 
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
-  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId) ->
+  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/practice"
+    payload: params
 
+  apiHelper LearningGuideActions, LearningGuideActions.load, LearningGuideActions.loaded, 'GET', (id) ->
+    url: "/api/courses/#{id}/guide"
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'

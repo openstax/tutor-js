@@ -4,6 +4,11 @@ KatexMixin = require './katex-mixin'
 
 module.exports = React.createClass
   displayName: 'ArbitraryHtmlAndMath'
+  propTypes:
+    className: React.PropTypes.string
+    html: React.PropTypes.string
+    block: React.PropTypes.bool
+    
   mixins: [KatexMixin]
   render: ->
     classes = ['has-html']

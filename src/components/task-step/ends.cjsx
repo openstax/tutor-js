@@ -6,9 +6,14 @@ PracticeButton = require '../practice-button'
 
 PracticeEnd = React.createClass
   render: ->
-    footer = 
+    footer =
       <div>
-        <PracticeButton courseId={@props.courseId} actionText="Do more practice" loadedTaskId={@props.taskId} reloadPractice={@props.reloadPractice} forceCreate="true"/>
+        <PracticeButton
+          courseId={@props.courseId}
+          loadedTaskId={@props.taskId}
+          reloadPractice={@props.reloadPractice}
+          forceCreate={true}
+          >Do more practice</PracticeButton>
         <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
       </div>
 

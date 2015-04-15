@@ -10,7 +10,7 @@ TaskPlan = React.createClass
   displayName: 'TeacherTaskPlan'
   propTypes:
      plan: React.PropTypes.object.isRequired
-     courseId: React.PropTypes.object.isRequired
+     courseId: React.PropTypes.any.isRequired
 
   contextTypes:
     router: React.PropTypes.func

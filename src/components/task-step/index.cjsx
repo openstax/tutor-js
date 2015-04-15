@@ -25,7 +25,7 @@ TaskStepLoaded = React.createClass
   displayName: 'TaskStepLoaded'
 
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     onNextStep: React.PropTypes.func.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
 

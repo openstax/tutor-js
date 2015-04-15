@@ -1,0 +1,56 @@
+.learning-guide-chart {
+  outline: 1px solid #333;
+  svg {
+    width: 100%;
+    .circles {
+      text {
+        // the unscaled resolution of the svg is only 100px wide,
+        // so 2px is 2% of the width of the chart, i.e. fairly large
+        font-size: 1.9px;
+        fill: white;
+      }
+      circle { fill: #B4CFDF; }
+      g {
+        cursor: pointer;
+        &:hover { opacity: 0.8; }
+      }
+    }
+    .grid-lines {
+      line {
+        stroke: lightGrey;
+        stroke-width: 0.1;
+        stroke-dasharray: 1 2;
+      }
+    }
+    .plot-lines {
+      line {
+        stroke: #9EDAF6;
+        stroke-width: 0.4;
+        stroke-dasharray: 0.5 0.8;
+      }
+    }
+    .background-gradient {
+      // despite the attribute being named "stop-color" this sets the starting color
+      .start { stop-color: #CEEDFB; }
+      .end   { stop-color: white; }
+    }
+    .foreground-hills { fill: #66A333; }
+    .background-hills { fill: #83B553; }
+    .x-axis {
+      text {
+        font-size: 1.8px;
+        fill: white;
+        font-family: serif;
+      }
+      .arrow {
+        fill: transparent;
+        stroke: transparent;
+      }
+      .point {
+        cursor: pointer;
+        &:hover  .arrow { fill: lightGrey; }
+        &.active .arrow { fill: white; }
+      }
+    }
+  }
+}

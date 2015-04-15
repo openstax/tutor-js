@@ -1,11 +1,12 @@
 .panel-body .reading-step .work-in-physics {
   margin-top: 20px;
+  padding: 0 140px;
 
   &:before {
     content: "Work in Physics";
     #fonts > .sans(3.2rem, 3.2rem);
     font-weight: 900;
-    color: @physics-color-primary;
+    color: (@physics-color-primary);
     background: #232e66;
     padding: 10px 20px;
   }
@@ -19,15 +20,11 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     text-align: center;
-    background: @physics-background-secondary;
+    background: (@physics-background-secondary);
 
-    &:before {
-      content: "\2014  ";
-    }
+    &:before {content: "\2014  ";}
 
-    &:after {
-      content: "  \2014";
-    }
+    &:after {content: "  \2014";}
 
   }
 

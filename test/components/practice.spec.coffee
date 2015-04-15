@@ -1,7 +1,8 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{routerStub, taskTestActions, taskTests, taskChecks} = require './helpers/task'
+{taskActions, taskTests, taskChecks} = require './helpers/task'
+{routerStub} = require './helpers/utilities'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -48,33 +49,33 @@ describe 'Practice Widget', ->
       .goToTask("/courses/#{courseId}/practice", taskId)
       .then(taskChecks.checkIsIntroScreen)
       .then(taskChecks.checkAllowContinue)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .goToTask("/courses/#{courseId}/practice", taskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNotIntroScreen)
       .then(taskChecks.heckIsDefaultStep)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
   it 'should render empty free response for unanswered exercise', (done)->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .renderFreeResponse(taskId)
       .then(taskChecks.checkRenderFreeResponse)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should update store when free response is submitted', (done) ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .answerFreeResponse(taskId)
-      .then(taskTestActions.clickContinue)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkAnswerFreeResponse)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should render multiple choice after free response', (done) ->
@@ -82,7 +83,7 @@ describe 'Practice Widget', ->
     taskTests
       .submitFreeResponse(taskId)
       .then(taskChecks.checkSubmitFreeResponse)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should update store when multiple choice answer is chosen', (done) ->
@@ -90,7 +91,7 @@ describe 'Practice Widget', ->
     taskTests
       .answerMultipleChoice(taskId)
       .then(taskChecks.checkAnswerMultipleChoice)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should render an answer and feedback html for an answered question', (done) ->
@@ -98,7 +99,7 @@ describe 'Practice Widget', ->
     taskTests
       .submitMultipleChoice(taskId)
       .then(taskChecks.checkSubmitMultipleChoice)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
 
 
   it 'should show practice done page on practice completion', (done) ->
@@ -106,7 +107,7 @@ describe 'Practice Widget', ->
 
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
-      .then(taskTestActions.clickContinue)
-      .then(taskTestActions.completeSteps)
+      .then(taskActions.clickContinue)
+      .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then(_.delay(done, 200)).catch(done)
+      .then(_.delay(done, taskTests.delay)).catch(done)
