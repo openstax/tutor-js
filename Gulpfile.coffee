@@ -21,7 +21,7 @@ livereload      = require 'gulp-livereload'
 coffeelint      = require 'gulp-coffeelint'
 
 
-handleErrors = (title) -> (args...)->
+handleErrors = (title) => (args...) =>
   # TODO: Send error to notification center with gulp-notify
   console.error(title, args...)
   # Keep gulp from hanging on this task
@@ -50,13 +50,14 @@ buildBrowserify = (srcPath, destDir, destFile, isWatching) ->
   bundle()
 
 
-build = (isWatching)->
+build = (isWatching) ->
   destDir = './dist/'
   destFile = 'tutor.js'
   srcPath = './index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
 
 gulp.task 'lint', ->
+  gulp.src(['./src/**/*.{cjsx,coffee}', './*.coffee', './test/**/*.{cjsx,coffee}'])
   .pipe(coffeelint())
   .pipe(coffeelint.reporter())
 
@@ -174,8 +175,9 @@ gulp.task 'cleanArchive', (done) ->
 
 gulp.task 'dist', ['build']
 gulp.task 'prod', ['archive']
-gulp.task 'watch', ['styles', 'copyResources', 'copyFonts', 'tdd'], () ->
+gulp.task 'watch', ['styles', 'copyResources', 'copyFonts', 'tdd'], ->
   gulp.watch 'style/**/{*.less, *.css}', ['styles']
+  gulp.watch 'src/**/*.{cjsx,coffee}', ['lint']
   gulp.watch 'test/**/*.coffee', ['lint', 'tdd']
   gulp.watch '*.coffee', ['lint']
 
@@ -187,13 +189,14 @@ gulp.task 'serve', ['watch'], ->
   config =
     port: process.env['PORT'] or 8000
     # host: '0.0.0.0'
-    # livereload: true # Use the livereload.listen to notify when the CSS file is rebuilt
+    # livereload: true # Use the livereload.listen to notify when
+    # the CSS file is rebuilt
     fallback: 'index.html'
     middleware: -> [
         cors(), # For font loading from tutor-server
         (req, res, next) ->
             if req.url.match(/\.svg$/)
-                res.setHeader('Content-Type','image/svg+xml');
+                res.setHeader('Content-Type', 'image/svg+xml')
             next()
     ]
 

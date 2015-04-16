@@ -1,4 +1,3 @@
-# @cjsx React.DOM
 React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
