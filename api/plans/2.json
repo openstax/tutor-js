@@ -1,0 +1,48 @@
+{
+    "id": 2,
+    "type": "homework",
+    "title": "Homework",
+    "due_at": "2015-04-23T16:00:00.000Z",
+    "settings": {
+        "page_ids": [1, 2],
+        "exercise_ids": [10, 11],
+        "description": "asdf"
+    },
+    "stats": {
+        "course": {
+            "total_count": 0,
+            "complete_count": 0,
+            "partially_complete_count": 0,
+            "current_pages": [{
+                "page": {
+                    "id": 1,
+                    "number": 1,
+                    "title": "Introduction"
+                },
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
+                "page": {
+                    "id": 2,
+                    "number": 2,
+                    "title": "Force"
+                },
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }],
+            "spaced_pages": [{
+                "page": {
+                    "id": 0,
+                    "number": 0,
+                    "title": ""
+                },
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }]
+        },
+        "periods": []
+    }
+}
