@@ -26,9 +26,7 @@ PlanShell = React.createClass
       @context.router.transitionTo('NotFoundRoute')
       return
 
-    if (id)
-      TaskPlanActions.load(id)
-    else
+    if not id
       id = TaskPlanStore.freshLocalId()
       TaskPlanActions.create(id, {
         _HACK_courseId: courseId
