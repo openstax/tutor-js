@@ -192,9 +192,9 @@ ExerciseSummary = React.createClass
     total = numSelected + 3
 
     if @props.canReview and numSelected
-      button = <BS.Button bsStyle="primary" onClick={@props.reviewClicked}>Review</BS.Button>
+      button = <BS.Button bsStyle="primary" className="-review-exercises"  onClick={@props.reviewClicked}>Review</BS.Button>
     else if @props.canAdd
-      button = <BS.Button bsStyle="primary" onClick={@props.addClicked}>Add</BS.Button>
+      button = <BS.Button bsStyle="primary" className="-add-exercises" onClick={@props.addClicked}>Add</BS.Button>
 
     <BS.Panel className bsStyle="default">
       <BS.Grid>
@@ -308,6 +308,7 @@ SelectTopics = React.createClass
       TocActions.load(courseId)
       return <span className="-loading">Loading...</span>
 
+    selected = TaskPlanStore.getTopics(planId)
     chapters = _.map(TocStore.get(), @renderChapterPanels)
     buttonStyle = if selected?.length then 'primary' else 'disabled'
     shouldShowExercises = selected?.length and @state.showProblems
@@ -315,7 +316,7 @@ SelectTopics = React.createClass
     if not @state.showProblems
       footer =
         <span>
-          <BS.Button bsStyle={buttonStyle} onClick={@selectProblems}>Show Problems</BS.Button>
+          <BS.Button className="-show-problems" bsStyle={buttonStyle} onClick={@selectProblems}>Show Problems</BS.Button>
           <BS.Button bsStyle="link" onClick={hide}>Cancel</BS.Button>
         </span>
 
