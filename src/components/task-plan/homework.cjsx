@@ -196,8 +196,6 @@ ExerciseSummary = React.createClass
     else if @props.canAdd
       button = <BS.Button bsStyle="primary" onClick={@props.addClicked}>Add</BS.Button>
 
-
-
     <BS.Panel className bsStyle="default">
       <BS.Grid>
         <BS.Row>
@@ -219,9 +217,13 @@ SectionTopic = React.createClass
   render: ->
     classes = ['section']
     classes.push('selected') if @props.active
+    isChecked = 'checked' if @props.active
     classes = classes.join(' ')
 
     <div key={@props.section.id} className={classes} onClick={@toggleSection}>
+      <span className="-section-checkbox">
+        <input type="checkbox" checked={isChecked}/>
+      </span>
       <span className="-section-number">{@props.section.number}</span>
       <span className="-section-title">{@props.section.title}</span>
     </div>
@@ -232,6 +234,51 @@ SectionTopic = React.createClass
       TaskPlanActions.removeTopic(@props.planId, section.id)
     else
       TaskPlanActions.addTopic(@props.planId, section.id)
+
+ChapterAccordion = React.createClass
+
+  renderSections: (section) ->
+    active = TaskPlanStore.hasTopic(@props.planId, section.id)
+    <SectionTopic active={active} section={section} planId={@props.planId} />
+
+  areAllSectionsSelected: (allSelected, section) ->
+    @props.selected.indexOf(section.id) >= 0 and allSelected
+
+  toggleAllSections: (e) ->
+    e.stopPropagation()
+    if e.target.checked
+      action = TaskPlanActions.addTopic
+    else
+      action = TaskPlanActions.removeTopic
+
+    planId = @props.planId
+    _.each @props.chapter.children, (section) ->
+      action(planId, section.id)
+
+  areAnySectionsSelected: (anySelected, section) ->
+    @props.selected.indexOf(section.id) >= 0 or anySelected
+
+  render: ->
+    chapter = @props.chapter
+    sections = _.map(chapter.children, @renderSections)
+    allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true)
+    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, true) or @props.i is 0
+    activeKey = chapter.id if expandAccordion
+
+    header =
+      <h2 className="-chapter-title">
+        <span className="-chapter-checkbox">
+          <input type="checkbox" onChange={@toggleAllSections} checked={allChecked}/>
+        </span>
+        <span className="-chapter-number">{chapter.number}</span>
+        <span className="-chapter-title">{chapter.title}</span>
+      </h2>
+
+    <BS.Accordion activeKey={activeKey} >
+      <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
+        {sections}
+      </BS.Panel>
+    </BS.Accordion>
 
 SelectTopics = React.createClass
   getInitialState: ->
@@ -244,23 +291,9 @@ SelectTopics = React.createClass
 
   update: -> @setState({})
 
-  renderSections: (section) ->
-    active = TaskPlanStore.hasTopic(@props.planId, section.id)
-    <SectionTopic active={active} section={section} planId={@props.planId} />
 
   renderChapterPanels: (chapter, i) ->
-    sections = _.map(chapter.children, @renderSections)
-    header =
-      <h2 className="-chapter-title">
-        <span className="-chapter-number">{chapter.number}</span>
-        <span className="-chapter-title">{chapter.title}</span>
-      </h2>
-
-    <BS.Accordion>
-      <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
-        {sections}
-      </BS.Panel>
-    </BS.Accordion>
+    <ChapterAccordion {...@props} chapter={chapter}/>
 
   selectProblems: ->
     @setState({
