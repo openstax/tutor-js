@@ -5,6 +5,8 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 
+CoursePlanDetails = require './plan-details'
+
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
@@ -12,10 +14,31 @@ CoursePlan = React.createClass
   propTypes:
     item: React.PropTypes.object.isRequired
 
+  componentDidMount: ->
+    hide = @refs.trigger.hide
+    trigger = React.findDOMNode(@refs.trigger)
+    closeModal = @closeModal
+    @refs.trigger.hide  = ->
+      hide()
+      closeModal(trigger)
+      
+
   findPlanNodes: (planNode) ->
     container = @getDOMNode().parentElement.parentElement
     classes = '.' + Array.prototype.join.call(planNode.classList, '.')
     samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
+
+  toggleModal: (mouseEvent, key) ->
+    samePlans = @findPlanNodes(mouseEvent.currentTarget)
+    samePlans.forEach((element) ->
+      element.classList.add('open')
+    )
+
+  closeModal: (trigger) ->
+    samePlans = @findPlanNodes(trigger)
+    samePlans.forEach((element) ->
+      element.classList.remove('open')
+    )
 
   syncHover: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
@@ -28,15 +51,6 @@ CoursePlan = React.createClass
     samePlans.forEach((element) ->
       element.classList.remove('active')
     )
-
-  showDetails: (clickEvent)->
-    {item} = @props
-    {plan, duration, offset} = item
-
-    # hack for testing for now.
-    clickEvent.currentTarget.childNodes[0]?.innerText = JSON.stringify(plan)
-    alert(plan.title)
-    console.info(plan)
 
   render: ->
     {item} = @props
@@ -55,8 +69,12 @@ CoursePlan = React.createClass
         width: rangeLength/durationLength * 100 + '%'
       label = <label style={planLabelStyle}>{plan.title}</label>
 
-    <div style={planStyle} className={planClasses} onMouseEnter={@syncHover} onMouseLeave={@removeHover} onClick = {@showDetails}>
-      {label}
-    </div>
+    planModal = <CoursePlanDetails plan={plan}/>
+
+    <BS.ModalTrigger modal={planModal} ref="trigger">
+      <div style={planStyle} className={planClasses} onMouseEnter={@syncHover} onMouseLeave={@removeHover} onClick={@toggleModal}>
+        {label}
+      </div>
+    </BS.ModalTrigger>
 
 module.exports = CoursePlan

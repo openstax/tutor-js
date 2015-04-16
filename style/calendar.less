@@ -11,6 +11,10 @@
 @cell-width: 14.28%;
 @cell-height: 10rem;
 
+.modal-open {
+  overflow: auto;
+}
+
 
 .cell {
   display: inline-block;
@@ -163,7 +167,7 @@
   background: fade(@brand-success, 20%);
   border-color: @brand-success;
 
-  &:hover, &.active{
+  &:hover, &.active, &.open {
     background: fade(@brand-success, 75%);
   }
 }
@@ -172,7 +176,7 @@
   background: fade(@brand-primary, 20%);
   border-color: @primary;
 
-  &:hover, &.active{
+  &:hover, &.active, &.open {
     background: fade(@primary, 75%);
   }
 }
@@ -181,7 +185,7 @@
   background: fade(@brand-warning, 20%);
   border-color: @brand-warning;
 
-  &:hover, &.active{
+  &:hover, &.active, &.open {
     background: fade(@brand-warning, 75%);
   }
 }

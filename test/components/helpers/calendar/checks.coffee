@@ -85,7 +85,7 @@ checks._checkDoesViewShowPlan = (planId, {div, component, state, router, history
   plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
   plan = _.findWhere(plansList, {id: planId})
 
-  expect(JSON.parse(div.querySelector(".course-plan-#{plan.id}").innerText).title).to.equal(plan.title)
+  expect(document.querySelector(".modal-title").innerText).to.equal(plan.title)
 
 checks.checkDoesViewShowPlan = (planId) ->
   (args...) ->
