@@ -26,7 +26,7 @@ CoursePlansByWeek = React.createClass
   render: ->
     {range} = @props
     plans = _.map(range.plans, (item) ->
-        <CoursePlan item={item} nthRange={range.nthRange} key="course-plan-#{item.plan.id}" />
+        <CoursePlan item={item} key="course-plan-#{item.plan.id}" />
     , @)
 
     plansStyle = {

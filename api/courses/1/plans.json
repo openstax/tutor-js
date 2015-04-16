@@ -10,11 +10,38 @@
             "page_ids": [3, 2, 1]
         }
     },{
+        "id": 3,
+        "type": "reading",
+        "title": "Read Other Things",
+        "opens_at": "2015-02-28T16:40:23.796Z",
+        "due_at": "2015-03-01T04:00:00.000Z",
+        "settings": {
+            "page_ids": [3, 2, 1]
+        }
+    },{
         "id": 2,
         "type": "exercise",
         "title": "Complete exercise 12A on pg 12",
         "opens_at": "2015-03-04T11:40:23.796Z",
         "due_at": "2015-03-18T04:00:00.000Z",
+        "settings": {
+            "exercise_id": [11]
+        }
+    },{
+        "id": 5,
+        "type": "exercise",
+        "title": "Complete exercise 12A on pg 12",
+        "opens_at": "2015-03-31T11:40:23.796Z",
+        "due_at": "2015-04-01T04:00:00.000Z",
+        "settings": {
+            "exercise_id": [11]
+        }
+    },{
+        "id": 7,
+        "type": "exercise",
+        "title": "Complete exercise 12A on pg 12",
+        "opens_at": "2015-03-31T11:40:23.796Z",
+        "due_at": "2015-04-05T04:00:00.000Z",
         "settings": {
             "exercise_id": [11]
         }

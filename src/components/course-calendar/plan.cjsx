@@ -11,10 +11,6 @@ CoursePlan = React.createClass
 
   propTypes:
     item: React.PropTypes.object.isRequired
-    nthRange: React.PropTypes.number.isRequired
-
-  getDefaultProps: ->
-    nthRange: 0
 
   findPlanNodes: (planNode) ->
     container = @getDOMNode().parentElement.parentElement
@@ -43,8 +39,8 @@ CoursePlan = React.createClass
     console.info(plan)
 
   render: ->
-    {item, nthRange} = @props
-    {plan, duration, rangeDuration, offset} = item
+    {item} = @props
+    {plan, duration, rangeDuration, offset, index} = item
 
     durationLength = duration.length('days')
     planStyle =
@@ -53,7 +49,7 @@ CoursePlan = React.createClass
 
     planClasses = "plan #{plan.type} course-plan-#{plan.id}"
 
-    if nthRange is 0
+    if index is 0
       rangeLength = rangeDuration.length('days')
       planLabelStyle =
         width: rangeLength/durationLength * 100 + '%'

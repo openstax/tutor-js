@@ -25,7 +25,7 @@ checks =
 
     firstCalBox = div.querySelector('.rc-Day')
     firstTestDateMonthBox = testMoment.clone().startOf('month').startOf('week')
-    endTestDateMonthBox = testMoment.clone().endOf('month').endOf('week')
+    endTestDateMonthBox = testMoment.clone().endOf('month').endOf('week').add(1, 'millisecond')
     testMonthBox = firstTestDateMonthBox.twix(endTestDateMonthBox)
 
     isSameDay = testMoment.isSame(date,'month')
@@ -65,7 +65,7 @@ checks =
     expect(div.querySelectorAll('.plan').length).to.be.above(0)
 
     _.each(durations, (plan) ->
-        fullDuration = moment(plan.opens_at).twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
+        fullDuration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
         if fullDuration.overlaps(viewingDuration)
           expect(div.querySelectorAll(".course-plan-#{plan.id}").length).to.be.above(0)
     )

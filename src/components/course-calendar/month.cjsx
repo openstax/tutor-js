@@ -33,7 +33,8 @@ CourseMonth = React.createClass
 
   getDurationInfo: (date) ->
     startMonthBlock = date.clone().startOf('month').startOf('week')
-    endMonthBlock = date.clone().endOf('month').endOf('week')
+    # needs to be 12:00 AM the next day
+    endMonthBlock = date.clone().endOf('month').endOf('week').add(1, 'millisecond')
 
     calendarDuration = moment(startMonthBlock).twix(endMonthBlock)
     calendarWeeks = calendarDuration.split(moment.duration(1, 'week'))
