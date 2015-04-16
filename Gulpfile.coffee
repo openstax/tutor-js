@@ -18,6 +18,7 @@ merge           = require 'merge-stream'
 tar             = require 'gulp-tar'
 gzip            = require 'gulp-gzip'
 livereload      = require 'gulp-livereload'
+coffeelint      = require 'gulp-coffeelint'
 
 
 handleErrors = (title) -> (args...)->
@@ -55,6 +56,10 @@ build = (isWatching)->
   srcPath = './index.coffee'
   buildBrowserify(srcPath, destDir, destFile, isWatching)
 
+gulp.task 'lint', ->
+  .pipe(coffeelint())
+  .pipe(coffeelint.reporter())
+
 gulp.task 'styles', ['cleanStyles'], ->
   destDirCss = './dist'
   # Build the CSS file
@@ -74,11 +79,11 @@ buildTests = (isWatching) ->
   buildBrowserify(srcPath, destDir, destFile, isWatching)
 
 
-gulp.task 'test', ['buildJS'], (done) ->
+gulp.task 'test', ['buildJS', 'lint'], (done) ->
   buildAndTest(false, done)
   return # Since this is async
 
-gulp.task 'tdd', (done) ->
+gulp.task 'tdd', ['lint'], (done) ->
   buildAndTest(true, done)
   return # Since this is async
 
@@ -171,7 +176,8 @@ gulp.task 'dist', ['build']
 gulp.task 'prod', ['archive']
 gulp.task 'watch', ['styles', 'copyResources', 'copyFonts', 'tdd'], () ->
   gulp.watch 'style/**/{*.less, *.css}', ['styles']
-  gulp.watch ['test/**/*.coffee'], ['tdd']
+  gulp.watch 'test/**/*.coffee', ['lint', 'tdd']
+  gulp.watch '*.coffee', ['lint']
 
 gulp.task 'build',
   ['buildJS', 'styles', 'copyResources', 'copyFonts']
