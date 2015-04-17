@@ -18,6 +18,8 @@ CoursePlan = React.createClass
     hide = @refs.trigger.hide
     trigger = React.findDOMNode(@refs.trigger)
     closeModal = @closeModal
+
+    # alias modal hide to also make plan look un-selected
     @refs.trigger.hide  = ->
       hide()
       closeModal(trigger)
@@ -52,6 +54,14 @@ CoursePlan = React.createClass
       element.classList.remove('active')
     )
 
+  renderLabel: (rangeDuration, durationLength, plan, index) ->
+    if index is 0
+      rangeLength = rangeDuration.length('days')
+      planLabelStyle =
+        width: rangeLength/durationLength * 100 + '%'
+      label = <label style={planLabelStyle}>{plan.title}</label>
+
+
   render: ->
     {item} = @props
     {plan, duration, rangeDuration, offset, index} = item
@@ -63,11 +73,7 @@ CoursePlan = React.createClass
 
     planClasses = "plan #{plan.type} course-plan-#{plan.id}"
 
-    if index is 0
-      rangeLength = rangeDuration.length('days')
-      planLabelStyle =
-        width: rangeLength/durationLength * 100 + '%'
-      label = <label style={planLabelStyle}>{plan.title}</label>
+    label = @renderLabel(rangeDuration, durationLength, plan, index)
 
     planModal = <CoursePlanDetails plan={plan}/>
 

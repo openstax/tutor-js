@@ -15,9 +15,14 @@ CoursePlanDetails = React.createClass
   render: ->
     {plan} = @props
 
-    <BS.Modal {...@props} title={plan.title}>
+    <BS.Modal {...@props} title={plan.title} className="#{plan.type}-modal">
       <div className='modal-body'>
         <h1>Hello!</h1>
+      </div>
+      <div className='modal-footer'>
+        <BS.Button>Review Metrics</BS.Button>
+        <BS.Button>Edit Assignment</BS.Button>
+        <BS.Button>Reference View</BS.Button>
       </div>
     </BS.Modal>
 

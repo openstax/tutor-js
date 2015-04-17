@@ -11,6 +11,12 @@
 @cell-width: 14.28%;
 @cell-height: 10rem;
 
+@reading-color: @brand-success;
+@exercise-color: @primary;
+@essay-color: @brand-warning;
+@homework-color: @brand-danger;
+@interactive-color: @brand-info;
+
 .modal-open {
   overflow: auto;
 }
@@ -65,7 +71,7 @@
     }
     &--current {
       .rc-Month-header {
-        color: @brand-primary;
+        color: @primary;
       }
     }
   }
@@ -93,18 +99,37 @@
     border-right: 1px solid @gray-lighter;
     cursor: pointer;
     position: relative;
-    &:hover {
-      background-color: @brand-info;
+
+    &:after{
+      content: '+';
+      font-size: 2rem;
+      position: absolute;
+      bottom: 0;
+      right: 0.5rem;
+      color: @gray-light;
+      opacity: 0;
     }
+
+    &:hover {
+      background-color: fade(@primary, 10%);
+      &:after{
+        opacity: 1;
+      }
+    }
+
     &--outside {
       cursor: default;
       color: @gray-lighter;
       &:hover {
         background-color: transparent;
       }
+
+      &:after{
+        display: none;
+      }
     }
     &--current {
-      background-color: @brand-primary;
+      background-color: @primary;
     }
   }
 }
@@ -163,29 +188,54 @@
   }
 }
 
-.reading{
-  background: fade(@brand-success, 20%);
-  border-color: @brand-success;
+.plan(@type) {
+  @plan-color: ~"@{type}-color";
+
+  background: fade(@@plan-color, 20%);
+  border-color: @@plan-color;
 
   &:hover, &.active, &.open {
-    background: fade(@brand-success, 75%);
+    background: fade(@@plan-color, 75%);
   }
+
+  &-modal{
+    .modal-content{
+      .modal-header{
+        color: @@plan-color;
+        background: fade(@@plan-color, 20%);
+        padding-bottom: 10px;
+      }
+
+      .modal-body{
+        h1:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+
+    .btn:not(.btn-link):not(.btn-flat){
+      border: 1px solid @@plan-color;
+      color: @@plan-color;
+    }
+  }
+}
+
+.reading{
+  .plan(~"reading");
 }
 
 .exercise{
-  background: fade(@brand-primary, 20%);
-  border-color: @primary;
-
-  &:hover, &.active, &.open {
-    background: fade(@primary, 75%);
-  }
+  .plan(~"exercise");
 }
 
 .essay{
-  background: fade(@brand-warning, 20%);
-  border-color: @brand-warning;
+  .plan(~"essay");
+}
 
-  &:hover, &.active, &.open {
-    background: fade(@brand-warning, 75%);
-  }
+.homework{
+  .plan(~"homework");
+}
+
+.interactive{
+  .plan(~"interactive");
 }
