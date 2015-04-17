@@ -66,13 +66,12 @@ module.exports = class LearningGuideChart
 
   drawTitle: (container, guide) ->
     wrap = container.append('g')
-      .append("svg:text")
-      .attr("text-anchor","middle")
-      .attr("x", WIDTH/2)
-      .attr("y", 5)
+      .append('svg:text')
+      .attr('text-anchor','middle')
+      .attr('x', WIDTH/2)
+      .attr('y', 5)
       .attr('class', 'main-title')
-      .text("Your Flight Path | "+guide.title+" | All Topics")
-
+      .text("Your Flight Path | #{guide.title} | All Topics")
 
 
   drawStaticImages: (container, points) ->
@@ -153,8 +152,8 @@ module.exports = class LearningGuideChart
 
   drawPlane: (container, points) ->
     point = _.last(points)
-    pointPrev = points[points.length-2] 
-    lineAngle = @getLineAngle(pointPrev.x,point.x,pointPrev.y,point.y)
+    pointPrev = points[points.length-2]
+    lineAngle = @getLineAngle(pointPrev.x, point.x, pointPrev.y, point.y)
     node = @svgNode
     d3.select(node).append('svg:image')
       .attr('x',point.x+2)
@@ -162,7 +161,7 @@ module.exports = class LearningGuideChart
       .attr('width', 8)
       .attr('height', 6)
       .attr('xlink:href', PLANE_PATH)
-      .attr("transform", "rotate(#{lineAngle},#{point.x},#{point.y})")
+      .attr('transform', "rotate(#{lineAngle},#{point.x},#{point.y})")
 
 
   drawHills: (container) ->
@@ -174,10 +173,10 @@ module.exports = class LearningGuideChart
       { x: WIDTH + 10,   y: HEIGHT }
     ]
     bgPath = [
-      { x: WIDTH*0.30, y: HEIGHT}
-      { x: WIDTH*0.85, y: HEIGHT * 0.90 }
-      { x: WIDTH*0.95, y: HEIGHT * 0.95 }
-      { x: WIDTH+5, y: HEIGHT  }
+      { x: WIDTH * 0.30, y: HEIGHT}
+      { x: WIDTH * 0.85, y: HEIGHT * 0.90 }
+      { x: WIDTH * 0.95, y: HEIGHT * 0.95 }
+      { x: WIDTH + 5, y: HEIGHT  }
     ]
     container.append('path')
       .attr('d', d3.svg.line()

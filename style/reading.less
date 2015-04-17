@@ -5,91 +5,120 @@
 // @tips-for-success-color:#bf007b;
 // @grasp-check-color:#39b531;
 // @grasp-check-color-background:#fff;
-@reading-title-font: #fonts > .sans;
 
-@import 'reading/video';
-@import 'reading/links-to-physics';
-@import 'reading/work-in-physics';
-// @import 'reading/tips-for-success';
-// @import 'reading/grasp-check';
+@import './reading/video';
+@import './reading/links-to-physics';
+@import './reading/work-in-physics';
+@import './reading/tips-for-success';
+// @import './reading/grasp-check';
 
 .task-step .panel-body {
 
-  .reading-step .section-opener .learning-objectives {
-    width: 100%;
-    min-height: 100px;
-    display: inline-flex;
-    color: #ffffff;
-    padding: 10px 40px;
-    background: @physics-background-secondary;
+  .reading-step {
 
-    > div {
-      display: none
+    div[data-type="document-title"] {display: none;}
+
+    .splash {
+      width: 100%;
+      margin: -20px 0 0 0;
+
+      img {
+        border: 0;
+        margin: 0;
+      }
+
+      figcaption {margin: 0 40px;}
+
+      + p {
+        clear: both;
+        padding-top: 40px;
+      }
+
     }
 
-    p {
-      color: rgba(255,255,255,.75);
-      #fonts > .sans;
-      text-transform: uppercase;
-      text-align: right;
-      margin: auto 15px;
+    figure {
+      width: 60%;
+      float: left;
+      display: table;
+      text-align: left;
+      margin: 0 30px 0 -80px;
+      padding: 0;
+
+      img {
+        width: 100%;
+        border: 1px solid @border-color;
+        margin: 10px 0 0 0;
+        padding: 0;
+        align: left;
+      }
+
+      figcaption {
+        display: table-caption;
+        caption-side: bottom;
+        color: @caption-font-color;
+        padding: 10px 0;
+        font-style: italic;
+        line-height: 150%;
+        border-bottom: 1px solid;
+        border-color: @border-color;
+      }
+
     }
 
-    ul {
-      margin: 0 0;
-      padding: 0 15px 0 30px;
-      border-left: 1px solid rgba(255,255,255,.4);
+    .learning-objectives {
+      width: 100%;
+      min-height: 100px;
+      display: inline-flex;
+      margin-top: -20px;
+      color: #ffffff;
+      padding: 10px 40px;
+      background: @physics-background-secondary;
+
+      > div {display: none;}
+
+      p {
+        color: rgba(255,255,255,.75);
+        #fonts > .sans;
+        text-transform: uppercase;
+        text-align: right;
+        margin: auto 15px;
+      }
+
+      ul {
+        margin: 0 0;
+        padding: 0 15px 0 30px;
+        border-left: 1px solid rgba(255,255,255,.4);
+      }
+
     }
 
   }
 
   .section-opener ~ section h1 + p::first-letter, div[data-type="document-title"] ~ p::first-letter {
     float: left;
-    #fonts > .sans(6.4rem, 6.4rem);
+    #fonts > .sans(11rem, 9rem);
     font-weight: 600;
     color: @physics-color-primary;
-    margin: 0 4px 0 -4px;
+    margin: 0 4px 0 -6px;
   }
 
-  .reading-step section[data-depth="1"], .reading-step .work-in-physics, .reading-step .links-to-physics {
-    padding: 0 140px;
+  .reading-step {
 
-    section[data-depth="1"] {
-      padding: 0;
-    }
+    section[data-depth="1"]:not(.section-opener),
+    section[data-depth="2"],
+    .worked-example,
+    .virtual-physics {padding: 0 140px;}
+
+    section[data-depth="1"] {padding: 0;}
 
   }
 
-  div[data-type="document-title"] ~ p {
-    padding: 0 140px;
-  }
+  div[data-type="document-title"] ~ p {padding: 0 140px;}
 
   p {
     #fonts > .serif(1.75rem, 190%);
     margin: 0 0 2.4rem 0;
     padding: 0;
-  }
-
-  figure {
-    width: 60%;
-    float: left;
-    text-align: left;
-    margin: 0 30px 0 -80px;
-    padding: 0;
-
-    img {
-      width: 100%;
-      border: 1px solid @border-color;
-      margin: 0;
-      padding: 0;
-      align: left;
-    }
-
-    figcaption {
-      font-style: italic;
-      line-height: 150%;
-    }
-
   }
 
 }
