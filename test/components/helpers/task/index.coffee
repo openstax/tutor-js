@@ -20,18 +20,19 @@ tests =
     React.unmountComponentAtNode(@container)
     @container = document.createElement('div')
 
-  _renderTaskStep: (stepId, taskId, onNextStep) ->
+  _renderTaskStep: (stepId, taskId, onNextStep, goToStep) ->
     div = @container
-    componentStub._render(div, <TaskStep id={stepId} onNextStep={onNextStep}/>, {stepId, taskId})
+    componentStub._render(div, <TaskStep id={stepId} goToStep={goToStep} onNextStep={onNextStep}/>, {stepId, taskId})
 
   renderStep: (taskId) ->
     {id} = TaskStore.getCurrentStep(taskId)
     taskTests = @
 
+    # TODO Do something for these handlers
     onNextStep = ->
-      # TODO Do something for next step.
+    goToStep = (num)-> =>
 
-    @_renderTaskStep(id, taskId, onNextStep)
+    @_renderTaskStep(id, taskId, onNextStep, goToStep)
 
   goToTask: (route, taskId) ->
     div = @container

@@ -87,6 +87,11 @@ checks =
     expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html)
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
+  _checkRecoveryRefreshChoice: ({div, component, stepId, taskId, state, router, history}) ->
+    expect(div.querySelector('.footer-buttons').children.length).to.equal(3)
+    titles = _.pluck(div.querySelector('.footer-buttons').children, 'textContent')
+    expect(titles).to.deep.equal(['Try Another', 'Refresh My Memory', 'Move On'])
+
   _checkIsNextStep: ({div, component, stepId, taskId, state, router, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
     steps = TaskStore.getStepsIds(taskId)
