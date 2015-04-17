@@ -5,7 +5,7 @@ CLOUDS_PATH = '/style/resources/clouds.svg'
 PLANE_PATH = '/style/resources/openstax-plane.svg'
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
-WIDTH = 100
+WIDTH = 110
 HEIGHT = 60 # approx 2/3 width, adjust to suite
 
 
@@ -31,15 +31,22 @@ module.exports = class LearningGuideChart
 
     fields = guide.fields
 
-    space_between = WIDTH/fields.length + 1
+    leftMargin = 15
+    topMargin = 5
+
+    space_between = (WIDTH-leftMargin)/fields.length
+    
     points = _.map(fields, (f,i) ->
         {
-          x: Math.max(space_between * i + (space_between/4), 5)
-          y: HEIGHT - f.current_level * HEIGHT
+          x: Math.max(leftMargin + space_between * i)
+          y: (HEIGHT-topMargin) - (f.current_level/1.18) * (HEIGHT-topMargin)
         }
     )
+
+
     # order matters. Items placed later will appear in front of earlier items
     # If needed, explicit stacking could be specified
+
     @drawBackgroundGradient(container)
     @drawVerticalLines(container, points)
     @drawStaticImages(container, points)
@@ -48,6 +55,12 @@ module.exports = class LearningGuideChart
     @drawCircles(container, fields, points)
     @drawPlane(container, points)
     @drawXAxis(container, fields, points)
+
+    @drawYLabel(container,9,'Ace')
+    @drawYLabel(container,22,'Cruising')
+    @drawYLabel(container,36,'Too Low')
+    @drawYLabel(container,50,'Grounded')
+
     @drawTitle(container, guide)
 
 
@@ -58,7 +71,7 @@ module.exports = class LearningGuideChart
       .attr('x', WIDTH/2)
       .attr('y', 5)
       .attr('class', 'main-title')
-      .text("Your Flight Path | ${guide.title} | All Topics")
+      .text("Your Flight Path | #{guide.title} | All Topics")
 
 
   drawStaticImages: (container, points) ->
@@ -118,6 +131,16 @@ module.exports = class LearningGuideChart
       .attr('text-anchor', 'middle').attr('dy', '1.8').attr('text-anchor', 'middle')
       .text( (f,i) -> i+1 )
 
+  
+  drawYLabel: (container,ypos,text) ->
+    wrap = container.append('g')
+      .append("svg:text")
+      .attr("text-anchor","end")
+      .attr("x", 10)
+      .attr("y", ypos)
+      .attr('class', 'y-label')
+      .text(text)
+
 
   getLineAngle: (x1,x2,y1,y2) ->
     deltaX = x2 - x1
@@ -125,6 +148,7 @@ module.exports = class LearningGuideChart
     rad = Math.atan2(deltaY, deltaX)
     deg = rad * (180 / Math.PI)
     deg
+
 
   drawPlane: (container, points) ->
     point = _.last(points)
