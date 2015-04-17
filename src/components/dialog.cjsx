@@ -1,32 +1,52 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+###
+<Dialog
+  className="my-dialog-class"
+  header="Dialog Title"
+  confirmMsg="Are you sure you want to close?"
+  isChanged={-> true}
+  onCancel={-> alert 'Cancelling'}
+  >
+  body text
+</Dialog>
+###
+
 module.exports = React.createClass
   displayName: 'Dialog'
   propTypes:
     header: React.PropTypes.node.isRequired
-    cancelMsg: React.PropTypes.string.isRequired
-    isChanged: React.PropTypes.func.isRequired
+    onCancel: React.PropTypes.func.isRequired
+    isChanged: React.PropTypes.func
+    confirmMsg: React.PropTypes.string
     footer: React.PropTypes.node
-    primary: React.PropTypes.node
     cancel: React.PropTypes.node
-    onCancel: React.PropTypes.func
+    primary: React.PropTypes.node
     onPrimary: React.PropTypes.func
 
   onCancel: ->
-    {isChanged, cancelMsg, onCancel} = @props
-    if isChanged()
-      if confirm(cancelMsg)
+    {isChanged, confirmMsg, onCancel} = @props
+    if isChanged?() and confirmMsg
+      if confirm(confirmMsg)
         onCancel()
+    else
+      onCancel()
 
   render: ->
-    {className, header, footer, primary, cancel, onCancel, onPrimary} = @props
+    {className, header, footer, primary, cancel, isChanged} = @props
 
-    primary = <BS.Button bsStyle='primary' onClick={onPrimary}>{primary}</BS.Button>
-    cancel = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button> if cancel
-    close = <BS.Button className='pull-right' aria-role='close' onClick={@onCancel}>X</BS.Button>
-    header = [header, close]
-    footer = [primary, cancel, footer]
+    if cancel
+      cancelBtn = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button>
+
+    closeBtn = <BS.Button className='pull-right' aria-role='close' onClick={@onCancel}>X</BS.Button>
+    header = [header, closeBtn]
+    footer = [primary, cancelBtn, footer] if footer or primary or cancelBtn
+
+    classes = ['-dialog']
+    classes.push('-is-changed') if isChanged?()
+    classes.push(className) if className
+    className = classes.join(' ')
 
     <BS.Panel className={className} header={header} footer={footer}>
       {@props.children}
