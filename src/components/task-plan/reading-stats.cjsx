@@ -22,49 +22,62 @@ Stats = React.createClass
       op = '-'
     op + ' ' + Math.round((change / b) * 100)
 
+  percentCorrect: (data) ->
+    total_count = data.correct_count+data.incorrect_count
+    if total_count then @percent(data.correct_count, total_count) else 0
 
-  renderCourseBar: (data) ->
-    <div className="reading-progress-container">
-      <div className="reading-progress-heading">
-        complete / in progress / not started
-      </div>
-      <BS.ProgressBar className="reading-progress-group">
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s" now={data.complete_count} key={1} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(now)s" now={data.partially_complete_count} key={2} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="danger" label="%(now)s" now={data.total_count - (data.complete_count + data.partially_complete_count)} key={3} />
-      </BS.ProgressBar>
-    </div>
+  renderPercentCorrectBar: (data, type) ->
+    percentCorrect = @percentCorrect(data)
+    classes = 'reading-progress-bar'
+    classes += ' no-progress' unless percentCorrect
+    correct = <BS.ProgressBar className={classes} bsStyle="success" label="%(percent)s%" now={percentCorrect} key="page-progress-#{type}-#{data.page.id}" />
 
-  renderChapterBars: (data, i) ->
-    if data.correct_count > 0
-      correct = <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(percent)s%" now={@percent(data.correct_count,data.correct_count+data.incorrect_count)} key={1} />
-    else
-      correct = ' '
-    <div>
+  renderProgressBar: (data, type, index, previous) ->
+    studentCount = if type is 'practice' then <span className='reading-progress-student-count'>({data.student_count} students)</span>
+
+    <div key="#{type}-bar-#{index}">
       <div className="reading-progress-heading">
-        {data.page.number} - {data.page.title}
+        {data.page.number} {data.page.title} {studentCount}
       </div>
       <div className="reading-progress-container">
         <BS.ProgressBar className="reading-progress-group">
-          {correct}
-        </BS.ProgressBar>
-      </div>
-    </div>
-
-  renderPracticeBars: (data, i) ->
-    if data.previous_attempt
-      previous = <div className="reading-progress-delta">{@percentDelta(data.correct_count,data.previous_attempt.correct_count)}% change</div>
-    <div>
-      <div className="reading-progress-heading">
-        {data.page.number} - {data.page.title}
-      </div>
-      <div className="reading-progress-container">
-        <BS.ProgressBar className="reading-progress-group">
-          <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s%" now={@percent(data.correct_count,data.correct_count+data.incorrect_count)} key={1} />
+          {@renderPercentCorrectBar(data, type)}
         </BS.ProgressBar>
         {previous}
       </div>
     </div>
+
+  renderCourseBar: (data) ->
+    <BS.Grid className="data-container" key="course-bar">
+      <BS.Row>
+        <BS.Col xs={4}>
+          <label>Complete</label>
+          <div className = 'data-container-value text-complete'>
+            {data.complete_count}
+          </div>
+        </BS.Col>
+        <BS.Col xs={4}>
+          <label>In Progress</label>
+          <div className = 'data-container-value text-in-progress'>
+            {data.partially_complete_count}
+          </div>
+        </BS.Col>
+        <BS.Col xs={4}>
+          <label>Not Started</label>
+          <div className = 'data-container-value text-not-started'>
+            {data.total_count - (data.complete_count + data.partially_complete_count)}
+          </div>
+        </BS.Col>
+      </BS.Row>
+    </BS.Grid>
+
+  renderChapterBars: (data, i) ->
+    @renderProgressBar(data, 'chapter', i)
+
+  renderPracticeBars: (data, i) ->
+    if data.previous_attempt
+      previous = <div className="reading-progress-delta">{@percentDelta(data.correct_count,data.previous_attempt.correct_count)}% change</div>
+    @renderProgressBar(data, 'practice', i, previous)
 
   render: ->
     {id} = @props
@@ -74,14 +87,24 @@ Stats = React.createClass
     chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
 
+    if _.isEmpty(chapters)
+      chapters = <p className='reading-stats-none'>No Chapter Progress</p>
 
-    <BS.Panel className="reading-stats-container">
-      <label>course:</label>
-      {course}
-      <label>chapters:</label>
-      {chapters}
-      <label>practice:</label>
-      {practice}
+    if _.isEmpty(practice)
+      practice = <p className='reading-stats-none'>No Chapter Progress</p>
+
+
+    <BS.Panel className="reading-stats">
+      <section>
+        {course}
+      </section>
+      <section>
+        {chapters}
+      </section>
+      <section>
+        <label>Space Practice Performance</label>
+        {practice}
+      </section>
     </BS.Panel>
 
 StatsShell = React.createClass
@@ -100,4 +123,4 @@ StatsShell = React.createClass
     />
 
 
-module.exports = StatsShell
+module.exports = {StatsShell, Stats}

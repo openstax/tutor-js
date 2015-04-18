@@ -63,7 +63,7 @@ CoursePlan = React.createClass
 
 
   render: ->
-    {item} = @props
+    {item, courseId} = @props
     {plan, duration, rangeDuration, offset, index} = item
 
     durationLength = duration.length('days')
@@ -75,7 +75,7 @@ CoursePlan = React.createClass
 
     label = @renderLabel(rangeDuration, durationLength, plan, index)
 
-    planModal = <CoursePlanDetails plan={plan}/>
+    planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
 
     <BS.ModalTrigger modal={planModal} ref="trigger">
       <div style={planStyle} className={planClasses} onMouseEnter={@syncHover} onMouseLeave={@removeHover} onClick={@toggleModal}>

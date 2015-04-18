@@ -6,45 +6,13 @@ Router = require 'react-router'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 CourseCalendar = require '../course-calendar'
 
-TaskPlan = React.createClass
-  displayName: 'TeacherTaskPlan'
-  propTypes:
-     plan: React.PropTypes.object.isRequired
-     courseId: React.PropTypes.any.isRequired
+# TODO should probably make this a loadable?
+TeacherTaskPlans = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
 
-  onEditPlan: ->
-    {courseId} = @props
-    {id, type} = @props.plan
-    @context.router.transitionTo('editPlan', {courseId, type, id})
-
-  onViewStats: ->
-    {courseId} = @props
-    {id} = @props.plan
-    @context.router.transitionTo('viewStats', {courseId, id})
-
-  render: ->
-    {plan} = @props
-    start  = moment(plan.opens_at)
-    ending = moment(plan.due_at)
-    duration = moment.duration( ending.diff(start) ).humanize()
-
-    <div className="-list-item">
-      <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
-        {start.fromNow()} ({duration})
-      </BS.ListGroupItem>
-      <BS.Button bsStyle="link" className="-tasks-list-stats-button" onClick={@onViewStats}>View Stats</BS.Button>
-    </div>
-
-
-TeacherTaskPlanListing = React.createClass
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  displayName: 'TeacherTaskPlanListing'
+  displayName: 'TeacherTaskPlans'
 
   componentDidMount:->
     {courseId} = @context.router.getCurrentParams()
@@ -60,9 +28,6 @@ TeacherTaskPlanListing = React.createClass
     title = "Task plans for course ID #{courseId}"
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
 
-    plans = for plan in plansList
-      <TaskPlan key={plan.id} plan={plan}, courseId={courseId} />
-    # pull in underscore.inflection ?
     footer = <span>
       <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'reading'}>Add a Reading</Router.Link>
       <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'homework'}>Add a Homework</Router.Link>
@@ -71,11 +36,7 @@ TeacherTaskPlanListing = React.createClass
         className="list-courses"
         bsStyle="primary"
         footer=footer>
-      <BS.ListGroup id="tasks-list">
-          {plans}
-      </BS.ListGroup>
-
-      <CourseCalendar plansList={plansList}/>
+      <CourseCalendar plansList={plansList} courseId={courseId}/>
     </BS.Panel>
 
-module.exports = TeacherTaskPlanListing
+module.exports = TeacherTaskPlans

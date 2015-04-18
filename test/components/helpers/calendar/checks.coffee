@@ -5,6 +5,7 @@ moment = require 'moment'
 twix = require 'twix'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
+{TaskPlanStore, TaskPlanActions} = require '../../../../src/flux/task-plan'
 
 checks =
 
@@ -90,5 +91,14 @@ checks._checkDoesViewShowPlan = (planId, {div, component, state, router, history
 checks.checkDoesViewShowPlan = (planId) ->
   (args...) ->
     Promise.resolve(checks._checkDoesViewShowPlan(planId, args...))
+
+checks._checkDoesViewShowPlanStats = (planId, {div, component, state, router, history, courseId}) ->
+  plan = TaskPlanStore.get(planId)
+
+  expect(document.querySelector(".text-complete").innerText).to.equal(plan.stats.course.complete_count.toString())
+
+checks.checkDoesViewShowPlanStats = (planId) ->
+  (args...) ->
+    Promise.resolve(checks._checkDoesViewShowPlanStats(planId, args...))
 
 module.exports = checks

@@ -4,24 +4,49 @@ _ = require 'underscore'
 
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
+
+{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+{Stats} = require '../task-plan/reading-stats'
+LoadableItem = require '../loadable-item'
+
+StatsModalShell = React.createClass
+  getId: -> @props.id
+  render: ->
+    id = @getId()
+    <LoadableItem
+      id={id}
+      store={TaskPlanStore}
+      actions={TaskPlanActions}
+      renderItem={=> <Stats id={id} />}
+    />
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass
   displayName: 'CoursePlanDetails'
 
   propTypes:
-    item: React.PropTypes.object.isRequired
+    plan: React.PropTypes.object.isRequired
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  onViewStats: ->
+    {plan, courseId} = @props
+    {title, type, id} = plan
+    @context.router.transitionTo('editPlan', {courseId, id, type: type})
 
   render: ->
-    {plan} = @props
+    {plan, courseId} = @props
+    {title, type, id} = plan
 
-    <BS.Modal {...@props} title={plan.title} className="#{plan.type}-modal">
+    <BS.Modal {...@props} title={title} className="#{type}-modal plan-modal">
       <div className='modal-body'>
-        <h1>Hello!</h1>
+        <StatsModalShell id={id}/>
       </div>
       <div className='modal-footer'>
         <BS.Button>Review Metrics</BS.Button>
-        <BS.Button>Edit Assignment</BS.Button>
+        <BS.Button onClick={@onViewStats}>Edit Assignment</BS.Button>
         <BS.Button>Reference View</BS.Button>
       </div>
     </BS.Modal>

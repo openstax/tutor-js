@@ -12,10 +12,12 @@
 @cell-height: 10rem;
 
 @reading-color: @brand-success;
-@exercise-color: @primary;
+@homework-color: @primary;
+@exercise-color: @brand-info;
 @essay-color: @brand-warning;
-@homework-color: @brand-danger;
-@interactive-color: @brand-info;
+@interactive-color: @brand-danger;
+
+@progress-bar-width: 100%;
 
 .modal-open {
   overflow: auto;
@@ -25,7 +27,7 @@
 .cell {
   display: inline-block;
   width: @cell-width;
-  height: @cell-height;
+  height: inherit;
   padding: 5px;
   text-align: center;
 }
@@ -84,6 +86,7 @@
     }
     &-days {
       width: 100%;
+      height: inherit;
       border-left: 1px solid @gray-lighter;
       border-top: 1px solid @gray-lighter;
       display: inline-block;
@@ -180,7 +183,7 @@
   transition: background .1s ease-in;
   overflow: hidden;
 
-  label{
+  label {
     text-align: center;
     display: block;
     margin-bottom: 0;
@@ -198,44 +201,68 @@
     background: fade(@@plan-color, 75%);
   }
 
-  &-modal{
-    .modal-content{
-      .modal-header{
+  &-modal {
+    .modal-content {
+      .modal-header {
         color: @@plan-color;
         background: fade(@@plan-color, 20%);
-        padding-bottom: 10px;
-      }
-
-      .modal-body{
-        h1:first-child {
-          margin-top: 0;
-        }
       }
     }
 
-    .btn:not(.btn-link):not(.btn-flat){
+    .btn:not(.btn-link):not(.btn-flat) {
       border: 1px solid @@plan-color;
       color: @@plan-color;
     }
   }
 }
 
-.reading{
+.plan-modal {
+  .modal-content {
+    .modal-header {
+      padding-bottom: 10px;
+    }
+
+    .modal-body {
+      > :first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .panel {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .panel-body {
+    padding: 0;
+  }
+
+  .reading-stats {
+    section {
+      > div {
+        max-width: @progress-bar-width;
+      }
+    }
+  }
+}
+
+.reading {
   .plan(~"reading");
 }
 
-.exercise{
+.exercise {
   .plan(~"exercise");
 }
 
-.essay{
+.essay {
   .plan(~"essay");
 }
 
-.homework{
+.homework {
   .plan(~"homework");
 }
 
-.interactive{
+.interactive {
   .plan(~"interactive");
 }
