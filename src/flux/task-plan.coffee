@@ -20,7 +20,8 @@ TaskPlanConfig =
   FAILED: ->
 
   updateTutorSelection: (id, direction) ->
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
+    plan = @_getPlan(id)
+    {page_ids, exercise_ids, exercises_count_dynamic, description} = plan.settings
     exercises_count_dynamic += direction
 
     if (exercises_count_dynamic > TUTOR_SELECTIONS.max)
@@ -153,7 +154,7 @@ TaskPlanConfig =
     getTutorMinimum: -> TUTOR_SELECTIONS.min
     getTutorMaximum: -> TUTOR_SELECTIONS.max
 
-    getTutorSelections: ->
+    getTutorSelections: (id) ->
       plan = @_getPlan(id)
       plan.settings.exercises_count_dynamic
 

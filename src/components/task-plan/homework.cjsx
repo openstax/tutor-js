@@ -185,10 +185,10 @@ AddExercises = React.createClass
 
 ExerciseSummary = React.createClass
   addTutorSelection: ->
-    TaskPlanActions.updateTutorSelection(@props.planId, -1)
+    TaskPlanActions.updateTutorSelection(@props.planId, 1)
 
   removeTutorSelection: ->
-    TaskPlanActions.updateTutorSelection(@props.planId, 1)
+    TaskPlanActions.updateTutorSelection(@props.planId, -1)
 
   render: ->
     if not @props.shouldShow
@@ -198,16 +198,21 @@ ExerciseSummary = React.createClass
     numTutor = TaskPlanStore.getTutorSelections(@props.planId)
     total = numSelected + numTutor
 
-    if numTutor >= TaskPlanStore.getTutorMinimum()
-      addSelection =
-        <BS.Button onClick={@addTutorSelection} className="btn-xs -move-exercise-up">
-          <i className="fa fa-arrow-up"/>
-        </BS.Button>
+    if @props.canReview and numSelected
+      button = <BS.Button bsStyle="primary" onClick={@props.reviewClicked}>Review</BS.Button>
+    else if @props.canAdd
+      button = <BS.Button bsStyle="primary" onClick={@props.addClicked}>Add</BS.Button>
 
-    if numTutor <= TaskPlanStore.getTutorMaximum()
+    if numTutor > TaskPlanStore.getTutorMinimum()
       removeSelection =
         <BS.Button onClick={@removeTutorSelection} className="btn-xs -move-exercise-down">
           <i className="fa fa-arrow-down"/>
+        </BS.Button>
+
+    if numTutor < TaskPlanStore.getTutorMaximum()
+      addSelection =
+        <BS.Button onClick={@addTutorSelection} className="btn-xs -move-exercise-up">
+          <i className="fa fa-arrow-up"/>
         </BS.Button>
 
     <BS.Panel className bsStyle="default">
@@ -218,9 +223,9 @@ ExerciseSummary = React.createClass
           <BS.Col sm={6} md={2} className="-num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
           <BS.Col sm={6} md={2} className="-num-tutor">
             <h2>
-              {removeTutor}
+              {removeSelection}
               <span>{numTutor}</span>
-              {addTutor}
+              {addSelection}
             </h2>
             Tutor Selections
           </BS.Col>
