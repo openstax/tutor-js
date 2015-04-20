@@ -10,11 +10,15 @@ BS = require 'react-bootstrap'
 CourseCalendarHeader = require './header'
 CourseDuration = require './duration'
 CoursePlansByWeek = require './plans-by-week'
+CourseAdd = require './add'
+CourseAddMenuMixin = require './add-menu-mixin'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
+
+  mixins: [CourseAddMenuMixin]
 
   propTypes:
     plansList: React.PropTypes.array.isRequired
@@ -43,37 +47,23 @@ CourseMonth = React.createClass
 
     {calendarDuration, calendarWeeks}
 
-  handleClick: (clickedOn, moment, mouseEvent) ->
-    addOnDayMenu = React.findDOMNode(@refs.addOnDay)
+  handleClick: (componentName, dayMoment, mouseEvent) ->
+    # check that moment is after today -- cannot add to past day.
+    unless dayMoment.isBefore(moment()) or mouseEvent.currentTarget.className.includes('--outside')
+      @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
+      mouseEvent.currentTarget.classList.add('active')
 
-    addOnDayMenu.style.left = mouseEvent.pageX + 'px'
-    addOnDayMenu.style.top = mouseEvent.pageY + 'px'
-    addOnDayMenu.style.display = 'block'
+  checkAddOnDay: (componentName, dayMoment, mouseEvent) ->
+    unless mouseEvent.relatedTarget is React.findDOMNode(@refs.addOnDay)
+      @hideAddOnDay(componentName, dayMoment, mouseEvent)
 
-  renderAddActions: ->
-    {courseId} = @context.router.getCurrentParams()
+  undoActives: (componentName, dayMoment, mouseEvent) ->
+    unless dayMoment? and dayMoment.isSame(@refs.addOnDay.state.date, 'day')
+      @hideAddOnDay(componentName, dayMoment, mouseEvent)
 
-    links = [
-      {
-        text: 'Add iReading'
-        to: 'createPlan'
-        params:
-          courseId: courseId
-          type: 'reading'
-      }, {
-        text: 'Add Homework'
-        to: 'createPlan'
-        params:
-          courseId: courseId
-          type: 'homework'
-      }
-    ]
-
-    _.map(links, (link) ->
-        href = @context.router.makeHref(link.to, link.params)
-        <BS.MenuItem href = {href}>{link.text}</BS.MenuItem>
-    , @)
-
+  hideAddOnDay: (componentName, dayMoment, mouseEvent) ->
+    @refs.addOnDay.close()
+    document.querySelector('.active.rc-Day')?.classList.remove('active')
 
   render: ->
     {plansList} = @props
@@ -81,9 +71,7 @@ CourseMonth = React.createClass
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     <BS.Grid>
-      <BS.DropdownMenu ref='addOnDay'>
-        {@renderAddActions()}
-      </BS.DropdownMenu>
+      <CourseAdd ref='addOnDay'/>
       <BS.Row>
         <BS.Col xs={1}>
           <BS.DropdownButton title={<i className="fa fa-plus"></i>} noCaret>
@@ -98,7 +86,7 @@ CourseMonth = React.createClass
         <BS.Col xs={12}>
 
           <Month date={date} monthNames={false} ref='calendar'>
-            <Day onClick={@handleClick}/>
+            <Day onClick={@handleClick} onMouseLeave={@checkAddOnDay} onMouseEnter={@undoActives}/>
           </Month>
 
           <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks} ref='courseDurations'>

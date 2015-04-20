@@ -311,6 +311,9 @@ SelectTopics = React.createClass
     </div>
 
 HomeworkPlan = React.createClass
+  contextTypes:
+    router: React.PropTypes.func
+
   getInitialState: ->
     {showSectionTopics: false}
 
@@ -348,6 +351,9 @@ HomeworkPlan = React.createClass
 
     if plan?.due_at
       dueAt = new Date(plan.due_at)
+
+    if TaskPlanStore.isNew(id) and @context.router.getCurrentQuery().date
+      dueAt = new Date(@context.router.getCurrentQuery().date)
 
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
