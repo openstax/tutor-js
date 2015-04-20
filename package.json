@@ -39,6 +39,7 @@
     "browserify-shim": "~3.8.3",
     "chai": "~2.1.1",
     "cjsxify": "0.2.6",
+    "classnames": "^1.2.0",
     "coffee-script": "~1.9.1",
     "cors": "^2.5.3",
     "del": "~1.1.1",
