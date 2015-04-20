@@ -140,7 +140,7 @@ ReadingPlan = React.createClass
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
     topics = TaskPlanStore.getTopics(id)
 
-    if TaskPlanStore.isNew(id) and @context.router.getCurrentQuery().date
+    if TaskPlanStore.isNew(id) and @context?.router?.getCurrentQuery().date
       plan.due_at = new Date(@context.router.getCurrentQuery().date)
 
     # Restrict the due date to be after the open date
