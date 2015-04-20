@@ -7,7 +7,7 @@ ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
 BS = require 'react-bootstrap'
-classNames = require 'classnames'
+
 
 ExerciseFreeResponse = React.createClass
   displayName: 'ExerciseFreeResponse'
@@ -134,9 +134,11 @@ ExerciseReview = React.createClass
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   renderFooterButtons: ->
-    continueBtnClasses = classNames('-continue', {disabled: !@isContinueEnabled()})
+    # TODO: switch to using classnames library
+    buttonClasses = '-continue'
+    buttonClasses += 'disabled' unless @isContinueEnabled()
     continueButton =
-      <BS.Button bsStyle="primary" className={continueBtnClasses} onClick={@onContinue}>
+      <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>
         { if @canTryAnother() then "Move On" else "Continue" }
       </BS.Button>
     if @canTryAnother()
