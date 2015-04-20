@@ -123,16 +123,10 @@ ExerciseReview = React.createClass
     TaskActions.load(task_id)
 
   refreshMemory: ->
-    {id} = @props
-    steps = TaskStore.getSteps(TaskStepStore.getTaskId(id))
-    currentStepIndex = _.findIndex(steps, (step) -> step.id == id )
-    return if -1 == currentStepIndex # should never happen
-    # Find the last reading that we saw by starting at the
-    # current step and moving backwards in the list
-    for i in [currentStepIndex..0] by -1
-      if "reading" == steps[i].type
-        # goToStep returns an function with the step index in closure scope.
-        @props.goToStep(i)()
+    {index} = TaskStore.getReadingForTaskId(@props.id)
+    throw new Error('BUG: No reading found for task') unless index
+    # goToStep returns an function with the step index in closure scope
+    @props.goToStep(index)()
 
   canTryAnother: ->
     {id} = @props
