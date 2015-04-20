@@ -18,7 +18,10 @@ TaskPlan = React.createClass
   onEditPlan: ->
     {courseId} = @props
     {id, type} = @props.plan
-    @context.router.transitionTo('editPlan', {courseId, type, id})
+    if type is 'reading'
+      @context.router.transitionTo('editReading', {courseId, id})
+    else if type is 'homework'
+      @context.router.transitionTo('editHomework', {courseId, id})
 
   onViewStats: ->
     {courseId} = @props
@@ -59,11 +62,11 @@ TeacherTaskPlanListing = React.createClass
     {courseId} = @context.router.getCurrentParams()
     title = "Task plans for course ID #{courseId}"
     plans = for plan in TeacherTaskPlanStore.getCoursePlans(courseId)
-      <TaskPlan key={plan.id} plan={plan}, courseId={courseId} />
+      <TaskPlan key={plan.id} plan={plan} courseId={courseId} />
     # pull in underscore.inflection ?
     footer = <span>
-      <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'reading'}>Add a Reading</Router.Link>
-      <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'homework'}>Add a Homework</Router.Link>
+      <Router.Link className="btn btn-primary" to="createReading" params={courseId: courseId}>Add a Reading</Router.Link>
+      <Router.Link className="btn btn-primary" to="createHomework" params={courseId: courseId}>Add a Homework</Router.Link>
     </span>
     <BS.Panel header=title
         className="list-courses"
