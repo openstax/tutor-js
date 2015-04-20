@@ -16,12 +16,20 @@ module.exports = React.createClass
     isLoaded: React.PropTypes.func.isRequired
     isFailed: React.PropTypes.func.isRequired
 
-  componentWillMount: ->
+  _addListener: ->
     {store} = @props
     store.addChangeListener(@_update)
-  componentWillUnmount: ->
+
+  _removeListener: ->
     {store} = @props
     store.removeChangeListener(@_update)
+
+  componentWillMount:   -> @_addListener()
+  componentWillUnmount: -> @_removeListener()
+
+  # The following fixs an invariant violation when switching screens
+  componentWillUpdate: -> @_removeListener()
+  componentDidUpdate:  -> @_addListener()
 
   _update: -> @props.update?() or @setState({})
 
