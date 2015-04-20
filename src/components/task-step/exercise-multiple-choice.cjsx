@@ -141,10 +141,10 @@ ExerciseReview = React.createClass
       </BS.Button>
     if @canTryAnother()
       extraButtons = [
-        <BS.Button bsStyle="primary" onClick={@tryAnother}>
+        <BS.Button bsStyle="primary" className="-try-another" onClick={@tryAnother}>
           Try Another
         </BS.Button>
-        <BS.Button bsStyle="primary" onClick={@refreshMemory}>
+        <BS.Button bsStyle="primary" className="-refresh-memory" onClick={@refreshMemory}>
           Refresh My Memory
         </BS.Button>
       ]

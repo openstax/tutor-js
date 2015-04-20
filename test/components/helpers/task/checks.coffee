@@ -89,8 +89,10 @@ checks =
 
   _checkRecoveryRefreshChoice: ({div, component, stepId, taskId, state, router, history}) ->
     expect(div.querySelector('.footer-buttons').children.length).to.equal(3)
-    titles = _.pluck(div.querySelector('.footer-buttons').children, 'textContent')
-    expect(titles).to.deep.equal(['Try Another', 'Refresh My Memory', 'Move On'])
+    classes = _.pluck(div.querySelector('.footer-buttons').children, 'className')
+    expect(classes).to.deep.equal([
+      '-try-another btn btn-primary','-refresh-memory btn btn-primary','-continue btn btn-primary'
+    ])
 
   _checkIsNextStep: ({div, component, stepId, taskId, state, router, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
@@ -111,6 +113,7 @@ checks =
   _checkIsCompletePage: ({div, component, stepId, taskId, state, router, history}) ->
     {type} = TaskStore.get(taskId)
     type ?= 'task'
+    debugger
     expect(div.querySelector(".-#{type}-completed")).to.not.be.null
 
     {div, component, stepId, taskId, state, router, history}
