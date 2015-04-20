@@ -7,7 +7,7 @@ Router = require 'react-router'
 LoadableItem = require '../loadable-item'
 
 Stats = React.createClass
-  percent: (num,total) ->
+  _percent: (num,total) ->
     Math.round((num/total) * 100)
 
   percentDelta: (a,b) ->
@@ -22,15 +22,24 @@ Stats = React.createClass
       op = '-'
     op + ' ' + Math.round((change / b) * 100)
 
-  percentCorrect: (data) ->
-    total_count = data.correct_count+data.incorrect_count
-    if total_count then @percent(data.correct_count, total_count) else 0
+  percent: (data, correctOrIncorrect) ->
+    correctOrIncorrect ?= 'correct'
+    count = correctOrIncorrect + '_count'
 
-  renderPercentCorrectBar: (data, type) ->
-    percentCorrect = @percentCorrect(data)
+    total_count = data.correct_count+data.incorrect_count
+    if total_count then @_percent(data[count], total_count) else 0
+
+  renderPercentBar: (data, type, correctOrIncorrect) ->
+    correctOrIncorrect ?= 'correct'
+    percentCorrect = @percent(data, correctOrIncorrect)
+
+    bsStyles =
+      'correct' : 'success'
+      'incorrect' : 'danger'
+
     classes = 'reading-progress-bar'
     classes += ' no-progress' unless percentCorrect
-    correct = <BS.ProgressBar className={classes} bsStyle="success" label="%(percent)s%" now={percentCorrect} key="page-progress-#{type}-#{data.page.id}" />
+    correct = <BS.ProgressBar className={classes} bsStyle={bsStyles[correctOrIncorrect]} label="%(percent)s%" now={percentCorrect} key="page-progress-#{type}-#{data.page.id}-#{correctOrIncorrect}" />
 
   renderProgressBar: (data, type, index, previous) ->
     studentCount = if type is 'practice' then <span className='reading-progress-student-count'>({data.student_count} students)</span>
@@ -41,7 +50,8 @@ Stats = React.createClass
       </div>
       <div className="reading-progress-container">
         <BS.ProgressBar className="reading-progress-group">
-          {@renderPercentCorrectBar(data, type)}
+          {@renderPercentBar(data, type, 'correct')}
+          {@renderPercentBar(data, type, 'incorrect')}
         </BS.ProgressBar>
         {previous}
       </div>
@@ -87,24 +97,22 @@ Stats = React.createClass
     chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
 
-    if _.isEmpty(chapters)
-      chapters = <p className='reading-stats-none'>No Chapter Progress</p>
+    unless _.isEmpty(chapters)
+      chapters = <section>{chapters}</section>
+      practiceLabel = <label>Space Practice Performance</label>
 
-    if _.isEmpty(practice)
-      practice = <p className='reading-stats-none'>No Chapter Progress</p>
-
+    unless _.isEmpty(practice)
+      practice = <section>
+        {practiceLabel}
+        {practice}
+      </section>
 
     <BS.Panel className="reading-stats">
       <section>
         {course}
       </section>
-      <section>
-        {chapters}
-      </section>
-      <section>
-        <label>Space Practice Performance</label>
-        {practice}
-      </section>
+      {chapters}
+      {practice}
     </BS.Panel>
 
 StatsShell = React.createClass
