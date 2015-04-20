@@ -11,14 +11,12 @@ Router = require 'react-router'
 LoadableItem = require '../loadable-item'
 
 StatsModalShell = React.createClass
-  getId: -> @props.id
   render: ->
-    id = @getId()
     <LoadableItem
-      id={id}
+      id={@props.id}
       store={TaskPlanStore}
       actions={TaskPlanActions}
-      renderItem={=> <Stats id={id} />}
+      renderItem={=> <Stats {...@props}/>}
     />
 
 # TODO drag and drop, and resize behavior
@@ -45,9 +43,7 @@ CoursePlanDetails = React.createClass
         <StatsModalShell id={id}/>
       </div>
       <div className='modal-footer'>
-        <BS.Button>Review Metrics</BS.Button>
-        <BS.Button onClick={@onViewStats}>Edit Assignment</BS.Button>
-        <BS.Button>Reference View</BS.Button>
+        <Router.Link to='editPlan' className='btn' params={{courseId, id, type}}>Edit Assignment</Router.Link>
       </div>
     </BS.Modal>
 
