@@ -44,7 +44,6 @@ TeacherTaskPlanListing = React.createClass
   render: ->
     {plansList, courseId} = @props
     title = "Task plans for course ID #{courseId}"
-    plansList = 
 
     plans = for plan in plansList
       <TaskPlan key={plan.id} plan={plan} courseId={courseId} />

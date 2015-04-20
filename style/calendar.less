@@ -194,11 +194,13 @@
 .plan(@type) {
   @plan-color: ~"@{type}-color";
 
-  background: fade(@@plan-color, 20%);
-  border-color: @@plan-color;
+  &.plan {
+    background: fade(@@plan-color, 20%);
+    border-color: @@plan-color;
 
-  &:hover, &.active, &.open {
-    background: fade(@@plan-color, 75%);
+    &:hover, &.active, &.open {
+      background: fade(@@plan-color, 75%);
+    }
   }
 
   &-modal {
