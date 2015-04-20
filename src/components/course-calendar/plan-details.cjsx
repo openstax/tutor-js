@@ -29,10 +29,10 @@ CoursePlanDetails = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  onViewStats: ->
+  onClickEdit: ->
     {plan, courseId} = @props
     {title, type, id} = plan
-    @context.router.transitionTo('editPlan', {courseId, id, type: type})
+    @context.router.transitionTo('editPlan', {courseId, id, type})
 
   render: ->
     {plan, courseId} = @props
@@ -43,7 +43,7 @@ CoursePlanDetails = React.createClass
         <StatsModalShell id={id}/>
       </div>
       <div className='modal-footer'>
-        <Router.Link to='editPlan' className='btn' params={{courseId, id, type}}>Edit Assignment</Router.Link>
+        <BS.Button onClick={@onClickEdit}>Edit Assignment</BS.Button>
       </div>
     </BS.Modal>
 

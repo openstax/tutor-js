@@ -35,8 +35,11 @@ TaskPlan = React.createClass
 
 
 TeacherTaskPlanListing = React.createClass
-
   displayName: 'TeacherTaskPlanListing'
+
+  propTypes:
+     plan: React.PropTypes.object.isRequired
+     courseId: React.PropTypes.any.isRequired
 
   render: ->
     {plansList, courseId} = @props
