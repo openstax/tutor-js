@@ -67,96 +67,6 @@ body.modal-open {
   user-select: none;
 }
 
-
-// TODO: Is this used?
-.rc {
-  &-Calendar {
-    width: 100%;
-    &-header {
-      width: 100%;
-      text-align: center;
-      font-weight: bolder;
-    }
-  }
-  &-Month {
-    width: 100%;
-    display: inline-block;
-    vertical-align: top;
-
-    &-weekdays {
-      width: 100%;
-      &-weekday {
-        .calendar-cell(@calendar-cell-width);
-        height: 2rem;
-        font-weight: bolder;
-      }
-    }
-    &--current {
-      .rc-Month-header {
-        color: @primary;
-      }
-    }
-  }
-  &-Week {
-    width: 100%;
-    height: @calendar-cell-height;
-    &-number {
-      color: @gray-light;
-      .calendar-cell(@calendar-cell-width);
-    }
-    &-days {
-      width: 100%;
-      height: inherit;
-      border-left: 1px solid @gray-lighter;
-      border-top: 1px solid @gray-lighter;
-      display: inline-block;
-    }
-    &:last-child {
-      .rc-Week-days {
-        border-bottom: 1px solid @gray-lighter;
-      }
-    }
-  }
-  &-Day {
-    .calendar-cell(@calendar-cell-width);
-    border-right: 1px solid @gray-lighter;
-    cursor: pointer;
-    position: relative;
-
-    &:after{
-      content: '+';
-      font-size: 2rem;
-      position: absolute;
-      bottom: 0;
-      right: 0.5rem;
-      color: @gray-light;
-      opacity: 0;
-    }
-
-    &:hover {
-      background-color: fade(@primary, 10%);
-      &:after{
-        opacity: 1;
-      }
-    }
-
-    &--outside {
-      cursor: default;
-      color: @gray-lighter;
-      &:hover {
-        background-color: transparent;
-      }
-
-      &:after{
-        display: none;
-      }
-    }
-    &--current {
-      background-color: @primary;
-    }
-  }
-}
-
 .list-courses {
   .calendar-header {
     text-align: center;
@@ -177,6 +87,94 @@ body.modal-open {
       }
       &:active, &:visited {
         text-decoration: none;
+      }
+    }
+  }
+
+  .rc {
+    &-Calendar {
+      width: 100%;
+      &-header {
+        width: 100%;
+        text-align: center;
+        font-weight: bolder;
+      }
+    }
+    &-Month {
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+
+      &-weekdays {
+        width: 100%;
+        &-weekday {
+          .calendar-cell(@calendar-cell-width);
+          height: 2rem;
+          font-weight: bolder;
+        }
+      }
+      &--current {
+        .rc-Month-header {
+          color: @primary;
+        }
+      }
+    }
+    &-Week {
+      width: 100%;
+      height: @calendar-cell-height;
+      &-number {
+        color: @gray-light;
+        .calendar-cell(@calendar-cell-width);
+      }
+      &-days {
+        width: 100%;
+        height: inherit;
+        border-left: 1px solid @gray-lighter;
+        border-top: 1px solid @gray-lighter;
+        display: inline-block;
+      }
+      &:last-child {
+        .rc-Week-days {
+          border-bottom: 1px solid @gray-lighter;
+        }
+      }
+    }
+    &-Day {
+      .calendar-cell(@calendar-cell-width);
+      border-right: 1px solid @gray-lighter;
+      cursor: pointer;
+      position: relative;
+
+      &:after{
+        content: '+';
+        font-size: 2rem;
+        position: absolute;
+        bottom: 0;
+        right: 0.5rem;
+        color: @gray-light;
+        opacity: 0;
+      }
+
+      &:hover {
+        background-color: fade(@primary, 10%);
+        &:after{
+          opacity: 1;
+        }
+      }
+
+      &--outside {
+        cursor: default;
+        color: @gray-lighter;
+        &:hover {
+          background-color: transparent;
+        }
+
+        &:after{
+          display: none;
+        }
+      }
+      &--current {
+        background-color: @primary;
       }
     }
   }
