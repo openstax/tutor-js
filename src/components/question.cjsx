@@ -11,6 +11,7 @@ module.exports = React.createClass
     answer_id: React.PropTypes.string
     correct_answer_id: React.PropTypes.string
     feedback_html: React.PropTypes.string
+    onChange: React.PropTypes.func
 
   getInitialState: ->
     answer: null

@@ -175,3 +175,9 @@ describe 'Task Widget', ->
       .then(taskActions.clickDetails)
       .then(taskChecks.checkIsPopoverOpen)
       .then(_.delay(done, taskTests.delay)).catch(done)
+
+  it 'should allow recovery when available and answer is incorrect', (done) ->
+    taskTests
+      .submitMultipleChoice(taskId)
+      .then(taskChecks.checkRecoveryRefreshChoice)
+      .then(_.delay(done, taskTests.delay)).catch(done)

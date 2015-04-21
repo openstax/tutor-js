@@ -10,21 +10,29 @@ module.exports = React.createClass
   displayName: 'Loadable'
   propTypes:
     render: React.PropTypes.func.isRequired
-    update: React.PropTypes.func
+    saved: React.PropTypes.func
     store: React.PropTypes.object.isRequired
     isLoading: React.PropTypes.func.isRequired
     isLoaded: React.PropTypes.func.isRequired
     isFailed: React.PropTypes.func.isRequired
 
-  componentWillMount: ->
+  _addListener: ->
     {store} = @props
     store.addChangeListener(@_update)
-  componentWillUnmount: ->
+
+  _removeListener: ->
     {store} = @props
     store.removeChangeListener(@_update)
 
-  _update: -> @props.update?() or @setState({})
+  componentWillMount:   -> @_addListener()
+  componentWillUnmount: -> @_removeListener()
 
+  # The following fixs an invariant violation when switching screens
+  componentWillUpdate: -> @_removeListener()
+  componentDidUpdate:  -> @_addListener()
+
+  _update: -> @props.update?() or @setState({})
+  
   render: ->
     {isLoading, isLoaded, isFailed, render} = @props
 

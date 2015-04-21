@@ -5,6 +5,12 @@
 @answer-hover-color: #e6f9fc;
 @answer-select-color: #def4f7; // darker than hover
 
+.task-step {
+  .footer-buttons {
+    text-align: center;
+  }
+}
+
 .task-step .exercise,
 .question {
   font-size: 2.1rem;
@@ -12,11 +18,10 @@
   padding: 10px 140px;
 
   // KaTeX 1.0.2 generates both HTML and MathML
-  // The MathML is then converted by MathJax and causes screen flicker
-  // so for now the MathJax version is hidden.
   //
+  // Hide the HTML and use MathJax for rendering
   // TODO: Decide whether to remove KaTeX (involves additional code for MathJax)
-  .has-html .katex > .katex-mathml { display: none; }
+  .has-html .katex > .katex-html { display: none; }
 
   textarea {
     margin: 1em 0;
@@ -217,8 +222,5 @@
           background-color: @wrong-answer-background;
         }
       }
-
     }
-
-
 }

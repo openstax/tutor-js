@@ -3,25 +3,25 @@ moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
+Loadable = require '../loadable'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
+CourseCalendar = require '../course-calendar'
 
-
-TaskPlan = React.createClass
-  displayName: 'TeacherTaskPlan'
-  propTypes:
-     plan: React.PropTypes.object.isRequired
-     courseId: React.PropTypes.any.isRequired
+TeacherTaskPlans = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
 
   onEditPlan: ->
-    {courseId} = @props
-    {id, type} = @props.plan
-    @context.router.transitionTo('editPlan', {courseId, type, id})
+    {courseId, plan} = @props
+    {id, type} = plan
+    if type is 'reading'
+      @context.router.transitionTo('editReading', {courseId, id})
+    else if type is 'homework'
+      @context.router.transitionTo('editHomework', {courseId, id})
 
   onViewStats: ->
-    {courseId} = @props
+    {courseId, plan} = @props
     {id} = @props.plan
     @context.router.transitionTo('viewStats', {courseId, id})
 
@@ -58,20 +58,32 @@ TeacherTaskPlanListing = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     title = "Task plans for course ID #{courseId}"
-    plans = for plan in TeacherTaskPlanStore.getCoursePlans(courseId)
-      <TaskPlan key={plan.id} plan={plan}, courseId={courseId} />
+
+    plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+
+    plans = for plan in plansList
+      <TeacherTaskPlans key={plan.id} plan={plan}, courseId={courseId} />
+
     # pull in underscore.inflection ?
-    footer = <span>
-      <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'reading'}>Add a Reading</Router.Link>
-      <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'homework'}>Add a Homework</Router.Link>
+    footer = <span className="-footer">
+      <Router.Link className="btn btn-primary" to="createReading" params={courseId: courseId}>Add a Reading</Router.Link>
+      <Router.Link className="btn btn-primary" to="createHomework" params={courseId: courseId}>Add a Homework</Router.Link>
     </span>
-    <BS.Panel header=title
+
+    <BS.Panel header={title}
         className="list-courses"
         bsStyle="primary"
-        footer=footer>
-      <BS.ListGroup id="tasks-list">
-          {plans}
-      </BS.ListGroup>
+        footer={footer}>
+
+      <Loadable
+        store={TeacherTaskPlanStore}
+        isLoading={-> TeacherTaskPlanStore.isLoading(courseId)}
+        isLoaded={-> TeacherTaskPlanStore.isLoaded(courseId)}
+        isFailed={-> TeacherTaskPlanStore.isFailed(courseId)}
+        render={-> <CourseCalendar plansList={plansList} courseId={courseId}/>}
+        update={@update}
+      />
+
     </BS.Panel>
 
 module.exports = TeacherTaskPlanListing
