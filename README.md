@@ -24,3 +24,10 @@ The JavaScript client for openstax Tutor.
 - `gulp tdd` does what `dev` does plus reruns unit tests
 
 Use `PORT=8000 gulp serve` to change the default webserver port.
+
+After local updates are made:
+
+1. stop `gulp serve`
+1. `npm install`
+1. if `bower.json` changed, `bower install`
+1. restart `gulp serve`

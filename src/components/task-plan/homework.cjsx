@@ -39,6 +39,13 @@ ExerciseCardMixin =
     </BS.Panel>
 
 ReviewExerciseCard = React.createClass
+  displayName: 'ReviewExerciseCard'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    exercise: React.PropTypes.object.isRequired
+    index: React.PropTypes.number
+
   mixins: [ExerciseCardMixin]
 
   moveExerciseUp: ->
@@ -81,6 +88,12 @@ ReviewExerciseCard = React.createClass
 
 
 AddExerciseCard = React.createClass
+  displayName: 'AddExerciseCard'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    exercise: React.PropTypes.object.isRequired
+
   mixins: [ExerciseCardMixin]
 
   toggleExercise: ->
@@ -110,7 +123,6 @@ ExercisesRenderMixin =
   update: ->
     @setState({})
 
-
   renderLoading: ->
     {courseId, pageIds, hide} = @props
 
@@ -124,6 +136,14 @@ ExercisesRenderMixin =
 
 
 ReviewExercises = React.createClass
+  displayName: 'ReviewExercises'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    pageIds: React.PropTypes.array
+    shouldShow: React.PropTypes.bool
+
   mixins: [ExercisesRenderMixin]
 
   renderExercise: (exercise, i) ->
@@ -143,6 +163,15 @@ ReviewExercises = React.createClass
     </div>
 
 AddExercises = React.createClass
+  displayName: 'AddExercises'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    pageIds: React.PropTypes.array
+    shouldShow: React.PropTypes.bool
+    hide: React.PropTypes.func.isRequired
+
   mixins: [ExercisesRenderMixin]
 
   renderExercise: (exercise) ->
@@ -184,19 +213,44 @@ AddExercises = React.createClass
 
 
 ExerciseSummary = React.createClass
+  displayName: 'ExerciseSummary'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    shouldShow: React.PropTypes.bool
+    canAdd: React.PropTypes.bool
+    addClicked: React.PropTypes.func.isRequired
+
+  addTutorSelection: ->
+    TaskPlanActions.updateTutorSelection(@props.planId, 1)
+
+  removeTutorSelection: ->
+    TaskPlanActions.updateTutorSelection(@props.planId, -1)
+
   render: ->
     if not @props.shouldShow
       return <span></span>
 
     numSelected = TaskPlanStore.getExercises(@props.planId).length
-    total = numSelected + 3
+    numTutor = TaskPlanStore.getTutorSelections(@props.planId)
+    total = numSelected + numTutor
 
     if @props.canReview and numSelected
-      button = <BS.Button bsStyle="primary" onClick={@props.reviewClicked}>Review</BS.Button>
+      button = <BS.Button bsStyle="primary" className="-review-exercises"  onClick={@props.reviewClicked}>Review</BS.Button>
     else if @props.canAdd
-      button = <BS.Button bsStyle="primary" onClick={@props.addClicked}>Add</BS.Button>
+      button = <BS.Button bsStyle="primary" className="-add-exercises" onClick={@props.addClicked}>Add</BS.Button>
 
+    if TaskPlanStore.canDecreaseTutorExercises(@props.planId)
+      removeSelection =
+        <BS.Button onClick={@removeTutorSelection} className="btn-xs -move-exercise-down">
+          <i className="fa fa-arrow-down"/>
+        </BS.Button>
 
+    if TaskPlanStore.canIncreaseTutorExercises(@props.planId)
+      addSelection =
+        <BS.Button onClick={@addTutorSelection} className="btn-xs -move-exercise-up">
+          <i className="fa fa-arrow-up"/>
+        </BS.Button>
 
     <BS.Panel className bsStyle="default">
       <BS.Grid>
@@ -204,7 +258,14 @@ ExerciseSummary = React.createClass
           <BS.Col sm={6} md={2} className="-selections-title">Selections</BS.Col>
           <BS.Col sm={6} md={2} className="-total"><h2>{total}</h2></BS.Col>
           <BS.Col sm={6} md={2} className="-num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
-          <BS.Col sm={6} md={2} className="-num-tutor"><h2>3</h2>Tutor Selections</BS.Col>
+          <BS.Col sm={6} md={2} className="-num-tutor">
+            <h2>
+              {removeSelection}
+              <span>{numTutor}</span>
+              {addSelection}
+            </h2>
+            Tutor Selections
+          </BS.Col>
           <BS.Col sm={6} md={2} className="-tutor-added-later"><em>
             Tutor selections are added later to support spaced practice and personalized learning.
           </em></BS.Col>
@@ -216,12 +277,23 @@ ExerciseSummary = React.createClass
     </BS.Panel>
 
 SectionTopic = React.createClass
+  displayName: 'SectionTopic'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    section: React.PropTypes.object.isRequired
+    active: React.PropTypes.bool
+
   render: ->
     classes = ['section']
     classes.push('selected') if @props.active
+    isChecked = 'checked' if @props.active
     classes = classes.join(' ')
 
     <div key={@props.section.id} className={classes} onClick={@toggleSection}>
+      <span className="-section-checkbox">
+        <input type="checkbox" checked={isChecked}/>
+      </span>
       <span className="-section-number">{@props.section.number}</span>
       <span className="-section-title">{@props.section.title}</span>
     </div>
@@ -233,7 +305,69 @@ SectionTopic = React.createClass
     else
       TaskPlanActions.addTopic(@props.planId, section.id)
 
+ChapterAccordion = React.createClass
+  displayName: 'ChapterAccordion'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    chapter: React.PropTypes.object.isRequired
+    hide: React.PropTypes.func.isRequired
+    shouldShow: React.PropTypes.bool
+    selected: React.PropTypes.array
+
+  renderSections: (section) ->
+    active = TaskPlanStore.hasTopic(@props.planId, section.id)
+    <SectionTopic active={active} section={section} planId={@props.planId} />
+
+  areAllSectionsSelected: (allSelected, section) ->
+    @props.selected.indexOf(section.id) >= 0 and allSelected
+
+  toggleAllSections: (e) ->
+    if e.target.checked
+      action = TaskPlanActions.addTopic
+    else
+      action = TaskPlanActions.removeTopic
+
+    planId = @props.planId
+    _.each @props.chapter.children, (section) ->
+      action(planId, section.id)
+
+  areAnySectionsSelected: (anySelected, section) ->
+    @props.selected.indexOf(section.id) >= 0 or anySelected
+
+  render: ->
+    chapter = @props.chapter
+    sections = _.map(chapter.children, @renderSections)
+    allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true)
+    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, true) or @props.i is 0
+    activeKey = chapter.id if expandAccordion
+
+    header =
+      <h2 className="-chapter-title">
+        <span className="-chapter-checkbox">
+          <input type="checkbox" id="chapter-checkbox-#{chapter.id}"
+            onChange={@toggleAllSections} checked={allChecked}/>
+        </span>
+        <span className="-chapter-number">{chapter.number}</span>
+        <span className="-chapter-title">{chapter.title}</span>
+      </h2>
+
+    <BS.Accordion activeKey={activeKey}>
+      <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
+        {sections}
+      </BS.Panel>
+    </BS.Accordion>
+
 SelectTopics = React.createClass
+  displayName: 'SelectTopics'
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    shouldShow: React.PropTypes.bool
+    hide: React.PropTypes.func.isRequired
+    selected: React.PropTypes.array
+
   getInitialState: ->
     {courseId} = @props
     TocActions.load(courseId) unless TocStore.isLoaded()
@@ -244,23 +378,9 @@ SelectTopics = React.createClass
 
   update: -> @setState({})
 
-  renderSections: (section) ->
-    active = TaskPlanStore.hasTopic(@props.planId, section.id)
-    <SectionTopic active={active} section={section} planId={@props.planId} />
 
   renderChapterPanels: (chapter, i) ->
-    sections = _.map(chapter.children, @renderSections)
-    header =
-      <h2 className="-chapter-title">
-        <span className="-chapter-number">{chapter.number}</span>
-        <span className="-chapter-title">{chapter.title}</span>
-      </h2>
-
-    <BS.Accordion>
-      <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
-        {sections}
-      </BS.Panel>
-    </BS.Accordion>
+    <ChapterAccordion {...@props} chapter={chapter}/>
 
   selectProblems: ->
     @setState({
@@ -275,6 +395,7 @@ SelectTopics = React.createClass
       TocActions.load(courseId)
       return <span className="-loading">Loading...</span>
 
+    selected = TaskPlanStore.getTopics(planId)
     chapters = _.map(TocStore.get(), @renderChapterPanels)
     buttonStyle = if selected?.length then 'primary' else 'disabled'
     shouldShowExercises = selected?.length and @state.showProblems
@@ -282,7 +403,7 @@ SelectTopics = React.createClass
     if not @state.showProblems
       footer =
         <span>
-          <BS.Button bsStyle={buttonStyle} onClick={@selectProblems}>Show Problems</BS.Button>
+          <BS.Button className="-show-problems" bsStyle={buttonStyle} onClick={@selectProblems}>Show Problems</BS.Button>
           <BS.Button bsStyle="link" onClick={hide}>Cancel</BS.Button>
         </span>
 
@@ -311,6 +432,7 @@ SelectTopics = React.createClass
     </div>
 
 HomeworkPlan = React.createClass
+  displayName: 'HomeworkPlan'
   getInitialState: ->
     {showSectionTopics: false}
 

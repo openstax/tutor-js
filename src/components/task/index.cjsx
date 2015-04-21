@@ -86,6 +86,7 @@ module.exports = React.createClass
 
       panel = <TaskStep
                 id={stepConfig.id}
+                goToStep={@goToStep}
                 onNextStep={@onNextStep}
               />
 

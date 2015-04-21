@@ -76,6 +76,19 @@ TaskConfig =
       # Determine the first uncompleted step
       getCurrentStepIndex(steps)
 
+    # Returns the reading and it's step index for a given task's ID
+    getReadingForTaskId: (taskId)->
+      steps = getSteps(@_steps[taskId])
+      taskStepIndex = _.findIndex(steps, (step) -> step.id == id )
+      # should never happen if the taskId was valid
+      throw new Error('BUG: Invalid taskId.  Unable to find index') if taskStepIndex is -1
+      # Find the reading that appears before the given task
+      for i in [taskStepIndex..0] by -1
+        if "reading" == steps[i].type
+          return {reading: steps[i], index:i}
+      return {}
+
+
     getDefaultStepIndex: (taskId) ->
       steps = getSteps(@_steps[taskId])
 

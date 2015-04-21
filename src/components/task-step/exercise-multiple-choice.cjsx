@@ -2,7 +2,7 @@ _ = require 'underscore'
 React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-{TaskActions} = require '../../flux/task'
+{TaskActions,TaskStore} = require '../../flux/task'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
@@ -11,6 +11,9 @@ BS = require 'react-bootstrap'
 
 ExerciseFreeResponse = React.createClass
   displayName: 'ExerciseFreeResponse'
+  propTypes:
+    id: React.PropTypes.number.isRequired
+
   mixins: [StepMixin]
 
   getInitialState: ->
@@ -55,6 +58,9 @@ ExerciseFreeResponse = React.createClass
 ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin]
+  propTypes:
+    id: React.PropTypes.string.isRequired
+    onStepCompleted: React.PropTypes.func.isRequired
 
   renderBody: ->
     {id} = @props
@@ -85,6 +91,10 @@ ExerciseMultiChoice = React.createClass
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
   mixins: [StepMixin]
+  propTypes:
+    id: React.PropTypes.string.isRequired
+    onStepCompleted: React.PropTypes.func.isRequired
+    goToStep: React.PropTypes.func.isRequired
 
   renderBody: ->
     {id} = @props
@@ -94,7 +104,7 @@ ExerciseReview = React.createClass
     question = content.questions[0]
     FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
+    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html}>
       {FreeResponse}
     </Question>
 
@@ -112,25 +122,47 @@ ExerciseReview = React.createClass
     TaskStepActions.loadRecovery(id)
     TaskActions.load(task_id)
 
+  refreshMemory: ->
+    {index} = TaskStore.getReadingForTaskId(@props.id)
+    throw new Error('BUG: No reading found for task') unless index
+    # goToStep returns an function with the step index in closure scope
+    @props.goToStep(index)()
+
   canTryAnother: ->
     {id} = @props
     step = TaskStepStore.get(id)
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   renderFooterButtons: ->
-    # TODO switch to using React.addons.classSet for classname
+    # TODO: switch to using classnames library
     buttonClasses = '-continue'
     buttonClasses += 'disabled' unless @isContinueEnabled()
-    continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
-    tryAnotherButton = <BS.Button bsStyle="primary" onClick={@tryAnother}>Try Another</BS.Button> if @canTryAnother()
-    <div className="-footer-buttons">
-      {tryAnotherButton}
+    continueButton =
+      <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>
+        { if @canTryAnother() then "Move On" else "Continue" }
+      </BS.Button>
+    if @canTryAnother()
+      extraButtons = [
+        <BS.Button bsStyle="primary" className="-try-another" onClick={@tryAnother}>
+          Try Another
+        </BS.Button>
+        <BS.Button bsStyle="primary" className="-refresh-memory" onClick={@refreshMemory}>
+          Refresh My Memory
+        </BS.Button>
+      ]
+    <div className="footer-buttons">
+      {extraButtons}
       {continueButton}
     </div>
 
 
 module.exports = React.createClass
   displayName: 'Exercise'
+  propTypes:
+    id: React.PropTypes.number.isRequired
+    onStepCompleted: React.PropTypes.func.isRequired
+    goToStep: React.PropTypes.func.isRequired
+    onNextStep: React.PropTypes.func.isRequired
 
   render: ->
     {id} = @props
@@ -155,6 +187,7 @@ module.exports = React.createClass
       <ExerciseReview
         id={id}
         onNextStep={@props.onNextStep}
+        goToStep={@props.goToStep}
         onStepCompleted={@props.onStepCompleted}
       />
     else if free_response or not hasFreeResponse
