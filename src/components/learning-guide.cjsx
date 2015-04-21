@@ -28,8 +28,11 @@ LearningGuide = React.createClass
   displayUnit: (unit) ->
     @setState({unit})
 
+  displayTopic: (guide) ->
+    @setState({guide})
+
   componentDidMount: ->
-    chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit)
+    chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
     chart.drawChart(LearningGuideStore.get(@props.courseId))
 
   componentDidUpdate: ->

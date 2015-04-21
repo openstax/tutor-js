@@ -11,7 +11,7 @@ HEIGHT = 60 # approx 2/3 width, adjust to suite
 
 module.exports = class LearningGuideChart
 
-  constructor: (@svgNode, @navigateToPractice, @displayUnit) ->
+  constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic) ->
 
   addImage: (url,options) ->
     node = @svgNode
@@ -22,14 +22,19 @@ module.exports = class LearningGuideChart
       .attr('height', options.height || 10)
       .attr('xlink:href', url)
 
-  drawChart: (guide) ->
+  drawChart: (guide, showAll) ->
     node = @svgNode
 
     container = d3.select(@svgNode)
       .attr('preserveAspectRatio', 'xMidYMid meet')
       .attr('viewBox', "0 0 #{WIDTH} #{HEIGHT}")
 
-    fields = guide.fields
+    if showAll  
+      fields = guide.children
+    else
+      fields = guide.children[0].children
+
+    console.log(fields)
 
     leftMargin = 15
     topMargin = 5
@@ -65,45 +70,21 @@ module.exports = class LearningGuideChart
 
 
   drawTitle: (container, guide) ->
+    that = @
     wrap = container.append('g')
       .append('svg:text')
       .attr('text-anchor','middle')
       .attr('x', WIDTH/2)
       .attr('y', 5)
       .attr('class', 'main-title')
-      .text("Your Flight Path | #{guide.title} | All Topics")
-
-
-  drawStaticImages: (container, points) ->
-    @addImage(CLOUDS_PATH, width:10, x: 35, y: 10)
-    @addImage(CLOUDS_PATH, width:16, x: 77, y: 20)
-
-
-  drawCircles: (container, fields, points) ->
-    wrap = container.append('g')
-      .attr('class', 'circles')
-       .selectAll('g')
-       .data(fields)
-
-    circles = wrap.enter()
-      .append('g')
-      .attr('transform', (f,i) ->
-        "translate(#{points[i].x},#{points[i].y})"
+      .text("Your Flight Path | #{guide.title} | All Topics | ")
+      .append('svg:a')
+      .attr('class', 'show-course noselect')
+      .text('Show All '+guide.title)
+      .on('click', () ->
+        console.log('clicked title')
+        that.displayTopic(guide)
       )
-      .on('click', (field) =>
-        @navigateToPractice(field)
-      )
-    circles.append('circle')
-      .attr('r', (f) ->
-        # awaiting a better alogorithm for the circle radius
-        Math.max(f.questions_answered_count / 20, 2)
-      )
-    circles.append('text')
-      .text( (f) ->
-        f.questions_answered_count
-      )
-      .attr('text-anchor', 'middle')
-      .attr('dy', '0.5')
 
 
   drawXAxis: (container, fields, points) ->
@@ -129,7 +110,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'arrow').attr('points',  '1,1.5 2,3 0,3').attr('transform', 'translate(-1,1)')
     label.append('text')
       .attr('text-anchor', 'middle').attr('dy', '1.8').attr('text-anchor', 'middle')
-      .text( (f,i) -> i+1 )
+      .text( (f,i) -> f.chapter_section )
 
   
   drawYLabel: (container,ypos,text) ->
