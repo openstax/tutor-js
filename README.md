@@ -11,18 +11,19 @@ The JavaScript client for openstax Tutor.
 1. `cd tutor-js`
 1. `npm install`
 1. `bower install`
-1. `npm start` (or `gulp serve`) (opens up a browser window)
+1. `gulp serve`
+1. Point your browser to <http://localhost:8000> to use the mock data in `/api`
 
 
 ## Development
 
-To run tests: `npm test`.
+- `gulp test` runs unit tests
+- `gulp prod` builds minified files for production
+- `gulp serve` builds files and starts up a static webserver
+- `gulp dev` watches and rebuilds CSS and JS files and starts webserver
+- `gulp tdd` does what `dev` does plus reruns unit tests
 
-To build the dist version run `gulp dist`.
-
-To run a standalone webserver run `gulp serve`.
-
-To do TDD (rerun tests when the source code changes) run `gulp tdd`
+Use `PORT=8000 gulp serve` to change the default webserver port.
 
 After local updates are made:
 
