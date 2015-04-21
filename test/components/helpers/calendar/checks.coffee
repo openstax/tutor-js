@@ -5,6 +5,7 @@ moment = require 'moment'
 twix = require 'twix'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
+{TaskPlanStore, TaskPlanActions} = require '../../../../src/flux/task-plan'
 
 checks =
 
@@ -25,7 +26,7 @@ checks =
 
     firstCalBox = div.querySelector('.rc-Day')
     firstTestDateMonthBox = testMoment.clone().startOf('month').startOf('week')
-    endTestDateMonthBox = testMoment.clone().endOf('month').endOf('week')
+    endTestDateMonthBox = testMoment.clone().endOf('month').endOf('week').add(1, 'millisecond')
     testMonthBox = firstTestDateMonthBox.twix(endTestDateMonthBox)
 
     isSameDay = testMoment.isSame(date,'month')
@@ -65,7 +66,7 @@ checks =
     expect(div.querySelectorAll('.plan').length).to.be.above(0)
 
     _.each(durations, (plan) ->
-        fullDuration = moment(plan.opens_at).twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
+        fullDuration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
         if fullDuration.overlaps(viewingDuration)
           expect(div.querySelectorAll(".course-plan-#{plan.id}").length).to.be.above(0)
     )
@@ -85,10 +86,19 @@ checks._checkDoesViewShowPlan = (planId, {div, component, state, router, history
   plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
   plan = _.findWhere(plansList, {id: planId})
 
-  expect(JSON.parse(div.querySelector(".course-plan-#{plan.id}").innerText).title).to.equal(plan.title)
+  expect(document.querySelector(".modal-title").innerText).to.equal(plan.title)
 
 checks.checkDoesViewShowPlan = (planId) ->
   (args...) ->
     Promise.resolve(checks._checkDoesViewShowPlan(planId, args...))
+
+checks._checkDoesViewShowPlanStats = (planId, {div, component, state, router, history, courseId}) ->
+  plan = TaskPlanStore.get(planId)
+
+  expect(document.querySelector(".text-complete").innerText).to.equal(plan.stats.course.complete_count.toString())
+
+checks.checkDoesViewShowPlanStats = (planId) ->
+  (args...) ->
+    Promise.resolve(checks._checkDoesViewShowPlanStats(planId, args...))
 
 module.exports = checks
