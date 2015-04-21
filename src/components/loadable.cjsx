@@ -24,8 +24,15 @@ module.exports = React.createClass
     {store} = @props
     store.removeChangeListener(@_update)
 
-  _update: -> @setState({})
+  componentWillMount:   -> @_addListener()
+  componentWillUnmount: -> @_removeListener()
 
+  # The following fixs an invariant violation when switching screens
+  componentWillUpdate: -> @_removeListener()
+  componentDidUpdate:  -> @_addListener()
+
+  _update: -> @props.update?() or @setState({})
+  
   render: ->
     {isLoading, isLoaded, isFailed, render} = @props
 
