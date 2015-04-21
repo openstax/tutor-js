@@ -16,10 +16,11 @@ module.exports = React.createClass
     isLoaded: React.PropTypes.func.isRequired
     isFailed: React.PropTypes.func.isRequired
 
-  componentWillMount: ->
+  _addListener: ->
     {store} = @props
     store.addChangeListener(@_update)
-  componentWillUnmount: ->
+
+  _removeListener: ->
     {store} = @props
     store.removeChangeListener(@_update)
 

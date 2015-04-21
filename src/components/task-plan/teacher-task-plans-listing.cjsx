@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
-
+CourseCalendar = require '../course-calendar'
 
 TaskPlan = React.createClass
   displayName: 'TeacherTaskPlan'
@@ -61,8 +61,12 @@ TeacherTaskPlanListing = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     title = "Task plans for course ID #{courseId}"
-    plans = for plan in TeacherTaskPlanStore.getCoursePlans(courseId)
-      <TaskPlan key={plan.id} plan={plan} courseId={courseId} />
+
+    plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+
+    plans = for plan in plansList
+      <TaskPlan key={plan.id} plan={plan}, courseId={courseId} />
+
     # pull in underscore.inflection ?
     footer = <span>
       <Router.Link className="btn btn-primary" to="createReading" params={courseId: courseId}>Add a Reading</Router.Link>
@@ -75,6 +79,8 @@ TeacherTaskPlanListing = React.createClass
       <BS.ListGroup id="tasks-list">
           {plans}
       </BS.ListGroup>
+
+      <CourseCalendar plansList={plansList}/>
     </BS.Panel>
 
 module.exports = TeacherTaskPlanListing

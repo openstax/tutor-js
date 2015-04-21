@@ -1,0 +1,186 @@
+
+@import '../node_modules/bootstrap/less/bootstrap.less';
+@import '../bower_components/bootstrap-material-design/less/material-wfont.less';
+
+// Sample bootstrap theme for react-calendar
+// @import '../node_modules/react-calendar/less/bootstrap-theme.less';
+
+
+// TODO make this a mixin for flexible calendaringggg
+
+@cell-width: 14.28%;
+@cell-height: 10rem;
+
+
+.cell {
+  display: inline-block;
+  width: @cell-width;
+  height: @cell-height;
+  padding: 5px;
+  text-align: center;
+}
+
+.stopselect{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.rc {
+  &-Calendar {
+    width: 100%;
+    &-header {
+      width: 100%;
+      text-align: center;
+      font-weight: bolder;
+    }
+  }
+  &-Month {
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    // margin: 0 0 10px 10px;
+    &-header {
+      // display: none;
+      // width: 100%;
+      // text-align: center;
+      // font-weight: bolder;
+    }
+    &-weekdays {
+      width: 100%;
+      // margin-left: 32px;
+      &-weekday {
+        .cell();
+        height: 2rem;
+        font-weight: bolder;
+      }
+    }
+    &--current {
+      .rc-Month-header {
+        color: @brand-primary;
+      }
+    }
+  }
+  &-Week {
+    width: 100%;
+    height: @cell-height;
+    &-number {
+      color: @gray-light;
+      .cell();
+    }
+    &-days {
+      width: 100%;
+      border-left: 1px solid @gray-lighter;
+      border-top: 1px solid @gray-lighter;
+      display: inline-block;
+    }
+    &:last-child {
+      .rc-Week-days {
+        border-bottom: 1px solid @gray-lighter;
+      }
+    }
+  }
+  &-Day {
+    .cell();
+    border-right: 1px solid @gray-lighter;
+    cursor: pointer;
+    position: relative;
+    &:hover {
+      background-color: @brand-info;
+    }
+    &--outside {
+      cursor: default;
+      color: @gray-lighter;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    &--current {
+      background-color: @brand-primary;
+    }
+  }
+}
+
+.calendar-header {
+  text-align: center;
+  font-size: 3rem;
+
+  &-label {
+    font-weight: stronger;
+  }
+
+  &-control {
+    .stopselect();
+    display: block;
+    width: 100%;
+
+    &:hover {
+      background: @gray-lighter;
+      text-decoration: none;
+    }
+    &:active, &:visited {
+      text-decoration: none;
+    }
+  }
+}
+
+.plans {
+  position: absolute;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.plan {
+  display: block;
+  position: relative;
+  border: 1px solid @gray-light;
+  font-size: 1.25rem;
+  height: 2rem;
+  line-height: 2rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background .1s ease-in;
+
+  label{
+    text-align: center;
+    display: block;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
+
+.reading{
+  background: fade(@brand-success, 20%);
+  border-color: @brand-success;
+
+  &:hover, &.active{
+    background: fade(@brand-success, 75%);
+  }
+}
+
+.exercise{
+  background: fade(@brand-primary, 20%);
+  border-color: @primary;
+
+  &:hover, &.active{
+    background: fade(@primary, 75%);
+  }
+}
+
+.essay{
+  background: fade(@brand-warning, 20%);
+  border-color: @brand-warning;
+
+  &:hover, &.active{
+    background: fade(@brand-warning, 75%);
+  }
+}

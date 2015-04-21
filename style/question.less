@@ -12,11 +12,10 @@
   padding: 10px 140px;
 
   // KaTeX 1.0.2 generates both HTML and MathML
-  // The MathML is then converted by MathJax and causes screen flicker
-  // so for now the MathJax version is hidden.
   //
+  // Hide the HTML and use MathJax for rendering
   // TODO: Decide whether to remove KaTeX (involves additional code for MathJax)
-  .has-html .katex > .katex-mathml { display: none; }
+  .has-html .katex > .katex-html { display: none; }
 
   textarea {
     margin: 1em 0;
@@ -60,6 +59,7 @@
     font-size: 0.8em;
     width: 100%;
     float: left;
+    padding: 0 0 20px 0;
   }
   .question-feedback {
     margin: 20px 0 10px 0;
@@ -216,8 +216,5 @@
           background-color: @wrong-answer-background;
         }
       }
-
     }
-
-
 }
