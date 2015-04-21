@@ -16,7 +16,10 @@ TeacherTaskPlans = React.createClass
 
   componentDidMount:->
     {courseId} = @context.router.getCurrentParams()
-    TeacherTaskPlanActions.load( courseId )
+
+    # Bypass loading if plan is already loaded, as is the case in testing.
+    if not TeacherTaskPlanStore.isLoaded(courseId)
+      TeacherTaskPlanActions.load( courseId )
 
   componentWillMount: -> TeacherTaskPlanStore.addChangeListener(@update)
   componentWillUnmount: -> TeacherTaskPlanStore.removeChangeListener(@update)

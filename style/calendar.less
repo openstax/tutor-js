@@ -142,23 +142,25 @@ body.modal-open {
     &-Day {
       .calendar-cell(@calendar-cell-width);
       border-right: 1px solid @gray-lighter;
-      cursor: pointer;
       position: relative;
 
-      &:after{
-        content: '+';
-        font-size: 2rem;
-        position: absolute;
-        bottom: 0;
-        right: 0.5rem;
-        color: @gray-light;
-        opacity: 0;
-      }
-
-      &:hover, &.active {
-        background-color: fade(@primary, 10%);
+      &--upcoming {
+        cursor: pointer;
         &:after{
-          opacity: 1;
+          content: '+';
+          font-size: 2rem;
+          position: absolute;
+          bottom: 0;
+          right: 0.5rem;
+          color: @gray-light;
+          opacity: 0;
+        }
+
+        &:hover, &.active {
+          background-color: fade(@primary, 10%);
+          &:after{
+            opacity: 1;
+          }
         }
       }
 
@@ -173,6 +175,7 @@ body.modal-open {
           display: none;
         }
       }
+
       &--current {
         background-color: @primary;
       }

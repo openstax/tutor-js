@@ -7,6 +7,9 @@ _ = require 'underscore'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../src/flux/teacher-task-plan'
 {TaskPlanStore, TaskPlanActions} = require '../../src/flux/task-plan'
 
+React = require 'react/addons'
+CourseCalendar = require '../../src/components/course-calendar'
+
 planId = 1
 courseId = 1
 
@@ -19,8 +22,12 @@ describe 'Course Calendar', ->
     TaskPlanActions.loaded(VALID_PLAN_MODEL, planId)
 
     calendarTests
-      .renderCalendar(courseId)
+      .goToCalendar("/courses/#{courseId}/readings", courseId)
       .then((result) =>
+        calendarComponent = React.addons.TestUtils.findRenderedComponentWithType(result.component, CourseCalendar)
+        result.component = calendarComponent
+        result.div = React.findDOMNode(calendarComponent)
+
         @result = result
         done()
       )

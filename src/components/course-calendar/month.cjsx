@@ -60,10 +60,8 @@ CourseMonth = React.createClass
     {calendarDuration, calendarWeeks}
 
   handleClick: (componentName, dayMoment, mouseEvent) ->
-    # check that moment is after today -- cannot add to past day.
-    unless dayMoment.isBefore(moment()) or mouseEvent.currentTarget.className.includes('--outside')
-      @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
-      mouseEvent.currentTarget.classList.add('active')
+    @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
+    mouseEvent.currentTarget.classList.add('active')
 
   checkAddOnDay: (componentName, dayMoment, mouseEvent) ->
     unless mouseEvent.relatedTarget is React.findDOMNode(@refs.addOnDay)
@@ -77,10 +75,30 @@ CourseMonth = React.createClass
     @refs.addOnDay.close()
     document.querySelector('.active.rc-Day')?.classList.remove('active')
 
+
+  # render days based on whether they are past or upcoming
+  # past days do not allow adding of plans
+  renderDays: (calendarDuration, referenceDay) ->
+    referenceDay ?= moment()
+
+    durationDays = calendarDuration.iterate('days')
+    days = []
+    while durationDays.hasNext()
+      dayIter = durationDays.next()
+      if dayIter.isAfter(referenceDay, 'day')
+        day = <Day date={dayIter} onClick={@handleClick} onMouseLeave={@checkAddOnDay} onMouseEnter={@undoActives} modifiers={{upcoming: true}}/>
+      else
+        day = <Day date={dayIter} modifiers={{past: true}}/>
+      days.push(day)
+
+    days
+
   render: ->
     {plansList, courseId} = @props
     {date} = @state
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
+
+    days = @renderDays(calendarDuration)
 
     <BS.Grid>
       <CourseAdd ref='addOnDay'/>
@@ -98,7 +116,7 @@ CourseMonth = React.createClass
         <BS.Col xs={12}>
 
           <Month date={date} monthNames={false} ref='calendar'>
-            <Day onClick={@handleClick} onMouseLeave={@checkAddOnDay} onMouseEnter={@undoActives}/>
+            {days}
           </Month>
 
           <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks} courseId={courseId} ref='courseDurations'>
