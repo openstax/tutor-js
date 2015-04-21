@@ -10,3 +10,5 @@ node_js:
 before_install:
   - npm install -g gulp bower
   - bower install
+after_failure:
+  - npm list
