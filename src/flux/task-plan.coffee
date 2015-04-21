@@ -1,7 +1,7 @@
 _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
-TUTOR_SELECTIONS = 
+TUTOR_SELECTIONS =
   default: 3
   max: 4
   min: 2
@@ -65,7 +65,7 @@ TaskPlanConfig =
     plan = @_getPlan(id)
     {page_ids, description, exercises_count_dynamic} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
-    
+
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
 
@@ -160,7 +160,7 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       plan.settings.exercises_count_dynamic
 
-        
+
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)
 module.exports = {TaskPlanActions:actions, TaskPlanStore:store}
