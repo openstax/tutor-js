@@ -45,11 +45,11 @@ Stats = React.createClass
     studentCount = if type is 'practice' then <span className='reading-progress-student-count'>({data.student_count} students)</span>
 
     <div key="#{type}-bar-#{index}">
-      <div className="reading-progress-heading">
+      <div className='reading-progress-heading'>
         {data.page.number} {data.page.title} {studentCount}
       </div>
-      <div className="reading-progress-container">
-        <BS.ProgressBar className="reading-progress-group">
+      <div className='reading-progress-container'>
+        <BS.ProgressBar className='reading-progress-group'>
           {@renderPercentBar(data, type, 'correct')}
           {@renderPercentBar(data, type, 'incorrect')}
         </BS.ProgressBar>
@@ -57,8 +57,17 @@ Stats = React.createClass
       </div>
     </div>
 
-  renderCourseBar: (data) ->
-    <BS.Grid className="data-container" key="course-bar">
+  renderCourseBar: (data, type) ->
+    if type is 'homework' and data.mean_grade_percent
+      classAverage =
+        <BS.Row>
+          <BS.Col xs={12}>
+            <h3 className='reading-stats-average'><small>Average:</small> {data.mean_grade_percent}%</h3>
+          </BS.Col>
+        </BS.Row>
+
+    <BS.Grid className='data-container' key='course-bar'>
+      {classAverage}
       <BS.Row>
         <BS.Col xs={4}>
           <label>Complete</label>
@@ -93,17 +102,16 @@ Stats = React.createClass
     {id} = @props
 
     plan = TaskPlanStore.get(id)
-    course = @renderCourseBar(plan.stats.course)
+    course = @renderCourseBar(plan.stats.course, plan.type)
     chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
 
     unless _.isEmpty(chapters)
       chapters = <section>{chapters}</section>
-      practiceLabel = <label>Space Practice Performance</label>
 
     unless _.isEmpty(practice)
       practice = <section>
-        {practiceLabel}
+        <label>Space Practice Performance</label>
         {practice}
       </section>
 

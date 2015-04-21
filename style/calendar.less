@@ -8,8 +8,8 @@
 
 // TODO make this a mixin for flexible calendaringggg
 
-@cell-width: 14.28%;
-@cell-height: 10rem;
+@calendar-cell-width: 14.28%;
+@calendar-cell-height: 10rem;
 
 @reading-color: @brand-success;
 @homework-color: @primary;
@@ -50,9 +50,7 @@ body.modal-open {
   }
 }
 
-
-// TODO: Is this used?
-.cell {
+.calendar-cell(@cell-width) {
   display: inline-block;
   width: @cell-width;
   height: inherit;
@@ -60,8 +58,7 @@ body.modal-open {
   text-align: center;
 }
 
-// TODO: Is this used?
-.stopselect {
+.stopselect() {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -85,18 +82,11 @@ body.modal-open {
     width: 100%;
     display: inline-block;
     vertical-align: top;
-    // margin: 0 0 10px 10px;
-    &-header {
-      // display: none;
-      // width: 100%;
-      // text-align: center;
-      // font-weight: bolder;
-    }
+
     &-weekdays {
       width: 100%;
-      // margin-left: 32px;
       &-weekday {
-        .cell();
+        .calendar-cell(@calendar-cell-width);
         height: 2rem;
         font-weight: bolder;
       }
@@ -109,10 +99,10 @@ body.modal-open {
   }
   &-Week {
     width: 100%;
-    height: @cell-height;
+    height: @calendar-cell-height;
     &-number {
       color: @gray-light;
-      .cell();
+      .calendar-cell(@calendar-cell-width);
     }
     &-days {
       width: 100%;
@@ -128,7 +118,7 @@ body.modal-open {
     }
   }
   &-Day {
-    .cell();
+    .calendar-cell(@calendar-cell-width);
     border-right: 1px solid @gray-lighter;
     cursor: pointer;
     position: relative;
@@ -250,7 +240,6 @@ body.modal-open {
           }
         }
       }
-
     }
 
     .btn:not(.btn-link):not(.btn-flat) {

@@ -43,7 +43,7 @@ CoursePlanDetails = React.createClass
         <StatsModalShell id={id}/>
       </div>
       <div className='modal-footer'>
-        <BS.Button onClick={@onClickEdit}>Edit Assignment</BS.Button>
+        <BS.Button onClick={@onClickEdit}>Edit {type}</BS.Button>
       </div>
     </BS.Modal>
 
