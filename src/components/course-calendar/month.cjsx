@@ -13,7 +13,6 @@ CoursePlansByWeek = require './plans-by-week'
 CourseAdd = require './add'
 CourseAddMenuMixin = require './add-menu-mixin'
 
-{TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
@@ -38,9 +37,22 @@ CourseMonth = React.createClass
         date: date
       )
 
+  componentDidUpdate: ->
+    @setDayHeight(@refs.courseDurations.state.groupedDurations)
+
+  setDayHeight: (groupedDurations) ->
+    calendar = React.findDOMNode(@refs.calendar)
+    nodesWithHeights = calendar.querySelectorAll('.rc-Week')
+
+    Array.prototype.forEach.call(nodesWithHeights, (node, nthRange) ->
+        range = _.findWhere(groupedDurations, {nthRange: nthRange})
+        node.style.height = range.dayHeight + 'rem'
+    )
+
   getDurationInfo: (date) ->
     startMonthBlock = date.clone().startOf('month').startOf('week')
-    endMonthBlock = date.clone().endOf('month').endOf('week')
+    # needs to be 12:00 AM the next day
+    endMonthBlock = date.clone().endOf('month').endOf('week').add(1, 'millisecond')
 
     calendarDuration = moment(startMonthBlock).twix(endMonthBlock)
     calendarWeeks = calendarDuration.split(moment.duration(1, 'week'))
@@ -66,7 +78,7 @@ CourseMonth = React.createClass
     document.querySelector('.active.rc-Day')?.classList.remove('active')
 
   render: ->
-    {plansList} = @props
+    {plansList, courseId} = @props
     {date} = @state
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
@@ -89,7 +101,7 @@ CourseMonth = React.createClass
             <Day onClick={@handleClick} onMouseLeave={@checkAddOnDay} onMouseEnter={@undoActives}/>
           </Month>
 
-          <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks} ref='courseDurations'>
+          <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks} courseId={courseId} ref='courseDurations'>
             <CoursePlansByWeek/>
           </CourseDuration>
 

@@ -8,19 +8,57 @@
 
 // TODO make this a mixin for flexible calendaringggg
 
-@cell-width: 14.28%;
-@cell-height: 10rem;
+@calendar-cell-width: 14.28%;
+@calendar-cell-height: 10rem;
+
+@reading-color: @brand-success;
+@homework-color: @primary;
+@exercise-color: @brand-info;
+@essay-color: @brand-warning;
+@interactive-color: @brand-danger;
+
+@progress-bar-width: 100%;
 
 
-.cell {
+
+body.modal-open {
+  overflow: auto;
+}
+
+.x-plan(@plan-color) {
+  background: fade(@plan-color, 20%);
+  border-color: @plan-color;
+
+  &:hover,
+  &.active,
+  &.open {
+    background: fade(@plan-color, 75%);
+  }
+}
+
+.x-plan-modal(@plan-color) {
+  .modal-content {
+    .modal-header {
+      color: @plan-color;
+      background: fade(@plan-color, 20%);
+    }
+  }
+
+  .btn:not(.btn-link):not(.btn-flat) {
+    border: 1px solid @plan-color;
+    color: @plan-color;
+  }
+}
+
+.calendar-cell(@cell-width) {
   display: inline-block;
   width: @cell-width;
-  height: @cell-height;
+  height: inherit;
   padding: 5px;
   text-align: center;
 }
 
-.stopselect{
+.stopselect() {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -29,158 +67,191 @@
   user-select: none;
 }
 
+.list-courses {
+  .calendar-header {
+    text-align: center;
+    font-size: 3rem;
 
-.rc {
-  &-Calendar {
-    width: 100%;
-    &-header {
+    &-label {
+      font-weight: stronger;
+    }
+
+    &-control {
+      .stopselect();
+      display: block;
       width: 100%;
-      text-align: center;
-      font-weight: bolder;
+
+      &:hover {
+        background: @gray-lighter;
+        text-decoration: none;
+      }
+      &:active, &:visited {
+        text-decoration: none;
+      }
     }
   }
-  &-Month {
-    width: 100%;
-    display: inline-block;
-    vertical-align: top;
-    // margin: 0 0 10px 10px;
-    &-header {
-      // display: none;
-      // width: 100%;
-      // text-align: center;
-      // font-weight: bolder;
-    }
-    &-weekdays {
+
+  .rc {
+    &-Calendar {
       width: 100%;
-      // margin-left: 32px;
-      &-weekday {
-        .cell();
-        height: 2rem;
+      &-header {
+        width: 100%;
+        text-align: center;
         font-weight: bolder;
       }
     }
-    &--current {
-      .rc-Month-header {
-        color: @brand-primary;
-      }
-    }
-  }
-  &-Week {
-    width: 100%;
-    height: @cell-height;
-    &-number {
-      color: @gray-light;
-      .cell();
-    }
-    &-days {
+    &-Month {
       width: 100%;
-      border-left: 1px solid @gray-lighter;
-      border-top: 1px solid @gray-lighter;
       display: inline-block;
+      vertical-align: top;
+
+      &-weekdays {
+        width: 100%;
+        &-weekday {
+          .calendar-cell(@calendar-cell-width);
+          height: 2rem;
+          font-weight: bolder;
+        }
+      }
+      &--current {
+        .rc-Month-header {
+          color: @primary;
+        }
+      }
     }
-    &:last-child {
-      .rc-Week-days {
-        border-bottom: 1px solid @gray-lighter;
+    &-Week {
+      width: 100%;
+      height: @calendar-cell-height;
+      &-number {
+        color: @gray-light;
+        .calendar-cell(@calendar-cell-width);
+      }
+      &-days {
+        width: 100%;
+        height: inherit;
+        border-left: 1px solid @gray-lighter;
+        border-top: 1px solid @gray-lighter;
+        display: inline-block;
+      }
+      &:last-child {
+        .rc-Week-days {
+          border-bottom: 1px solid @gray-lighter;
+        }
+      }
+    }
+    &-Day {
+      .calendar-cell(@calendar-cell-width);
+      border-right: 1px solid @gray-lighter;
+      cursor: pointer;
+      position: relative;
+
+      &:after{
+        content: '+';
+        font-size: 2rem;
+        position: absolute;
+        bottom: 0;
+        right: 0.5rem;
+        color: @gray-light;
+        opacity: 0;
+      }
+
+      &:hover, &.active {
+        background-color: fade(@primary, 10%);
+        &:after{
+          opacity: 1;
+        }
+      }
+
+      &--outside {
+        cursor: default;
+        color: @gray-lighter;
+        &:hover {
+          background-color: transparent;
+        }
+
+        &:after{
+          display: none;
+        }
+      }
+      &--current {
+        background-color: @primary;
       }
     }
   }
-  &-Day {
-    .cell();
-    border-right: 1px solid @gray-lighter;
-    cursor: pointer;
-    position: relative;
-    &:hover, &.active {
-      background-color: @brand-info;
-    }
-    &--outside {
-      cursor: default;
-      color: @gray-lighter;
-      &:hover {
-        background-color: transparent;
-      }
-    }
-    &--current {
-      background-color: @brand-primary;
-    }
-  }
-}
 
-.calendar-header {
-  text-align: center;
-  font-size: 3rem;
-
-  &-label {
-    font-weight: stronger;
-  }
-
-  &-control {
-    .stopselect();
-    display: block;
+  .plans {
+    position: absolute;
+    left: 0;
+    z-index: 20;
     width: 100%;
-
-    &:hover {
-      background: @gray-lighter;
-      text-decoration: none;
-    }
-    &:active, &:visited {
-      text-decoration: none;
-    }
+    overflow: hidden;
+    box-sizing: border-box;
   }
-}
 
-.plans {
-  position: absolute;
-  left: 0;
-  z-index: 20;
-  width: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.plan {
-  display: block;
-  position: relative;
-  border: 1px solid @gray-light;
-  font-size: 1.25rem;
-  height: 2rem;
-  line-height: 2rem;
-  margin-top: 0.5rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background .1s ease-in;
-
-  label{
-    text-align: center;
+  .plan {
     display: block;
-    margin-bottom: 0;
+    position: relative;
+    border: 1px solid @gray-light;
+    font-size: 1.25rem;
+    height: 2rem;
+    line-height: 2rem;
+    margin-top: 0.5rem;
     cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background .1s ease-in;
+    overflow: hidden;
+
+    &.reading      { .x-plan(@reading-color); }
+    &.exercise     { .x-plan(@exercise-color); }
+    &.essay        { .x-plan(@essay-color); }
+    &.homework     { .x-plan(@homework-color); }
+    &.interactive  { .x-plan(@interactive-color); }
+
+    label {
+      text-align: center;
+      display: block;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
   }
 }
 
-.reading{
-  background: fade(@brand-success, 20%);
-  border-color: @brand-success;
 
-  &:hover, &.active{
-    background: fade(@brand-success, 75%);
+.plan-modal {
+
+  &.reading-modal      { .x-plan-modal(@reading-color); }
+  &.exercise-modal     { .x-plan-modal(@exercise-color); }
+  &.essay-modal        { .x-plan-modal(@essay-color); }
+  &.homework-modal     { .x-plan-modal(@homework-color); }
+  &.interactive-modal  { .x-plan-modal(@interactive-color); }
+
+  .modal-content {
+    .modal-header { padding-bottom: 10px; }
+    .modal-body {
+      > :first-child { margin-top: 0; }
+
+      .reading-stats {
+        section {
+          > div {
+            max-width: @progress-bar-width;
+          }
+        }
+      }
+    }
+
+    .btn:not(.btn-link):not(.btn-flat) {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
-}
 
-.exercise{
-  background: fade(@brand-primary, 20%);
-  border-color: @primary;
+  .panel {
+    margin: 0;
+    box-shadow: none;
 
-  &:hover, &.active{
-    background: fade(@primary, 75%);
+    .panel-body { padding: 0; }
   }
-}
 
-.essay{
-  background: fade(@brand-warning, 20%);
-  border-color: @brand-warning;
 
-  &:hover, &.active{
-    background: fade(@brand-warning, 75%);
-  }
 }
