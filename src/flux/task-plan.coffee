@@ -24,11 +24,8 @@ TaskPlanConfig =
     {page_ids, exercise_ids, exercises_count_dynamic, description} = plan.settings
     exercises_count_dynamic += direction
 
-    if (exercises_count_dynamic > TUTOR_SELECTIONS.max)
-      exercises_count_dynamic = TUTOR_SELEECTIONS.max
-
-    if (exercises_count_dynamic < TUTOR_SELECTIONS.min)
-      exercises_count_dynamic = TUTOR_SELEECTIONS.min
+    exercises_count_dynamic = Math.min(TUTOR_SELECTIONS.max, exercises_count_dynamic)
+    exercises_count_dynamic = Math.max(TUTOR_SELECTIONS.min, exercises_count_dynamic)
 
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
@@ -151,8 +148,13 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.published_at
 
-    getTutorMinimum: -> TUTOR_SELECTIONS.min
-    getTutorMaximum: -> TUTOR_SELECTIONS.max
+    canDecreaseTutorExercises: (id) ->
+      plan = @_getPlan(id)
+      plan.settings.exercises_count_dynamic > TUTOR_SELECTIONS.min
+
+    canIncreaseTutorExercises: (id) ->
+      plan = @_getPlan(id)
+      plan.settings.exercises_count_dynamic < TUTOR_SELECTIONS.max
 
     getTutorSelections: (id) ->
       plan = @_getPlan(id)

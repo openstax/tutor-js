@@ -203,13 +203,13 @@ ExerciseSummary = React.createClass
     else if @props.canAdd
       button = <BS.Button bsStyle="primary" onClick={@props.addClicked}>Add</BS.Button>
 
-    if numTutor > TaskPlanStore.getTutorMinimum()
+    if TaskPlanStore.canDecreaseTutorExercises(@props.planId)
       removeSelection =
         <BS.Button onClick={@removeTutorSelection} className="btn-xs -move-exercise-down">
           <i className="fa fa-arrow-down"/>
         </BS.Button>
 
-    if numTutor < TaskPlanStore.getTutorMaximum()
+    if TaskPlanStore.canIncreaseTutorExercises(@props.planId)
       addSelection =
         <BS.Button onClick={@addTutorSelection} className="btn-xs -move-exercise-up">
           <i className="fa fa-arrow-up"/>
