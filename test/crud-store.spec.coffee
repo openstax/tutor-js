@@ -8,13 +8,13 @@ TestCrudConfig = CrudConfig()
 
 ExtendedConfig =
   _loaded: (obj, id) ->
-      nested : obj unless obj.doNotModify
+    nested: obj unless obj.doNotModify
 
   _saved: (obj, id) ->
-      nested : obj unless obj.doNotModify
+    nested: obj unless obj.doNotModify
 
   exports:
-    testExtendedStore : () ->
+    testExtendedStore: -> console.log('crud-store testing')
 
 extendConfig(ExtendedConfig, new CrudConfig())
 {actions: ExtendedActions, store: ExtendedStore} = makeSimpleStore(ExtendedConfig)
@@ -33,7 +33,7 @@ describe 'CRUD Store', ->
     expect(CrudStore.isUnknown(id)).to.be.true
 
 
-  it 'should load a task and notify', (done)->
+  it 'should load a task and notify', (done) ->
     calledSynchronously = false
     CrudStore.addChangeListener ->
       calledSynchronously = true

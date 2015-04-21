@@ -6,7 +6,7 @@ describe 'Teacher Task Plan Store', ->
   afterEach ->
     TeacherTaskPlanActions.reset()
 
-  it 'should load tasks for a course and notify', (done)->
+  it 'should load tasks for a course and notify', (done) ->
     calledSynchronously = false
     TeacherTaskPlanStore.addChangeListener ->
       calledSynchronously = true
