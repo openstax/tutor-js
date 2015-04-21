@@ -27,8 +27,7 @@ routes = (
     <Route path='courses/:courseId/reading/new/?' name='createReading' handler={ReadingShell} />
     <Route path='courses/:courseId/reading/:id/?' name='editReading' handler={ReadingShell} />
     <Route path='courses/:courseId/:type/:id/stats/?' name='viewStats' handler={StatsShell} />
-    <Route path='courses/:courseId/readings/:id/stats/?' name='viewStats' handler={Stats} />
-    <Route path='courses/:courseId/dashboard/?' name='viewStudentDashboard' handler={StudentDashboard} /
+    <Route path='courses/:courseId/dashboard/?' name='viewStudentDashboard' handler={StudentDashboard} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>

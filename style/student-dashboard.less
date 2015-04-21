@@ -1,0 +1,84 @@
+.student-dashboard {
+  .bg {
+    // use a :before block to apply the opacity only to the
+    // background image, not the content itself
+    &:before{
+      content: "";
+      position: fixed;
+      z-index: -1;
+      top: 10px;
+      bottom: 0;
+      left: 50px;
+      right: 50px;
+      opacity: 0.2;
+    }
+    &.physics {
+      &:before{
+        background-image: url("/style/resources/student-dashboard/physics.jpg");
+      }
+    }
+  }
+  .big-header {
+    position: fixed;
+    left:0px;
+    top:50px;
+    left: 0px;
+    right: 0px;
+    height:220px;
+    overflow: hidden;
+    background-color:rgba(35, 46, 102, 1);
+    background-image:none;
+    color:#79B142;
+    text-align: center;
+    padding-top: 85px;
+    font-size:320px;
+    font-family:'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
+    font-weight:700;
+  }
+  .period-title {
+    width: 300px;
+    padding: 5px;
+    width: 300px;
+    margin: 20px 0;
+    height: 36px;
+    font-family: 'Lato-Regular', 'Lato';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #232E66;
+    background-color: #F7B217;
+    text-align: left;
+  }
+  .rbox {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    margin-top: 85px;    
+    button {
+      width: 100%;
+    }
+  }
+  .container {
+    margin-top: 50px;
+  }
+
+  .nav-tabs {
+    background: inherit;
+    li {
+      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      background: #F2F2F6;
+      a { color: #646464 !important; } 
+      &.active {
+        background: white;
+        a { color: #424242 !important; } 
+      }
+    }
+  }
+
+  .tab-pane {
+    .panel:first-child {
+      margin-top: 0px;
+    }
+  }
+
+}
