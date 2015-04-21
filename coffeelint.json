@@ -5,48 +5,48 @@
     ]
   },
   "indentation": {
-    "level": "error",
+    "level": "warn",
     "value": 2
   },
   "line_endings": {
     "value": "unix",
-    "level": "error"
+    "level": "warn"
   },
   "arrow_spacing": {
-    "level": "error"
+    "level": "warn"
   },
   "no_empty_functions": {
-    "level": "error"
+    "level": "warn"
   },
   "no_empty_param_list": {
-    "level": "error"
+    "level": "warn"
   },
   "no_interpolation_in_single_quotes": {
-    "level": "error"
+    "level": "warn"
   },
   "no_stand_alone_at": {
-    "level": "error"
+    "level": "warn"
   },
   "no_throwing_strings": {
-    "level": "error"
+    "level": "warn"
   },
   "no_unnecessary_double_quotes": {
     "level": "ignore"
   },
   "no_unnecessary_fat_arrows": {
-    "level": "error"
+    "level": "warn"
   },
   "prefer_english_operator": {
-    "level": "error"
+    "level": "warn"
   },
   "space_operators": {
-    "level": "error"
+    "level": "warn"
   },
   "spacing_after_comma": {
-    "level": "error"
+    "level": "warn"
   },
   "max_line_length": {
     "value": 130,
-    "level": "error"
+    "level": "warn"
   }
 }

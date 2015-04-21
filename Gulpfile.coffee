@@ -235,7 +235,9 @@ gulp.task '_tdd', ['_watchLint'], (done) ->
 gulp.task 'lint', ->
   gulp.src(['./src/**/*.{cjsx,coffee}', './*.coffee', './test/**/*.{cjsx,coffee}'])
   .pipe(coffeelint())
+  # Run through both reporters so lint failures are visible and Travis will error
   .pipe(coffeelint.reporter())
+  .pipe(coffeelint.reporter('fail'))
 
 # gulp.task 'dist', ['_build']
 gulp.task 'prod', ['_archive']
