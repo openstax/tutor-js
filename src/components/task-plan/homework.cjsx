@@ -39,6 +39,13 @@ ExerciseCardMixin =
     </BS.Panel>
 
 ReviewExerciseCard = React.createClass
+  displayName: 'ReviewExerciseCard'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    exercise: React.PropTypes.object.isRequired
+    index: React.PropTypes.number
+
   mixins: [ExerciseCardMixin]
 
   moveExerciseUp: ->
@@ -81,6 +88,12 @@ ReviewExerciseCard = React.createClass
 
 
 AddExerciseCard = React.createClass
+  displayName: 'AddExerciseCard'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    exercise: React.PropTypes.object.isRequired
+
   mixins: [ExerciseCardMixin]
 
   toggleExercise: ->
@@ -110,7 +123,6 @@ ExercisesRenderMixin =
   update: ->
     @setState({})
 
-
   renderLoading: ->
     {courseId, pageIds, hide} = @props
 
@@ -124,6 +136,14 @@ ExercisesRenderMixin =
 
 
 ReviewExercises = React.createClass
+  displayName: 'ReviewExercises'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    pageIds: React.PropTypes.array
+    shouldShow: React.PropTypes.bool
+
   mixins: [ExercisesRenderMixin]
 
   renderExercise: (exercise, i) ->
@@ -143,8 +163,17 @@ ReviewExercises = React.createClass
     </div>
 
 AddExercises = React.createClass
-  mixins: [ExercisesRenderMixin]
+  displayName: 'AddExercises'
 
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    pageIds: React.PropTypes.array
+    shouldShow: React.PropTypes.bool
+    hide: React.PropTypes.func.isRequired
+
+  mixins: [ExercisesRenderMixin]
+    
   renderExercise: (exercise) ->
     <AddExerciseCard planId={@props.planId} exercise={exercise}/>
 
@@ -184,6 +213,14 @@ AddExercises = React.createClass
 
 
 ExerciseSummary = React.createClass
+  displayName: 'ExerciseSummary'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    shouldShow: React.PropTypes.bool
+    canAdd: React.PropTypes.bool
+    addClicked: React.PropTypes.func.isRequired
+
   render: ->
     if not @props.shouldShow
       return <span></span>
@@ -214,6 +251,13 @@ ExerciseSummary = React.createClass
     </BS.Panel>
 
 SectionTopic = React.createClass
+  displayName: 'SectionTopic'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    section: React.PropTypes.object.isRequired
+    active: React.PropTypes.bool
+
   render: ->
     classes = ['section']
     classes.push('selected') if @props.active
@@ -236,6 +280,15 @@ SectionTopic = React.createClass
       TaskPlanActions.addTopic(@props.planId, section.id)
 
 ChapterAccordion = React.createClass
+  displayName: 'ChapterAccordion'
+
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    chapter: React.PropTypes.object.isRequired
+    hide: React.PropTypes.func.isRequired
+    shouldShow: React.PropTypes.bool
+    selected: React.PropTypes.array
 
   renderSections: (section) ->
     active = TaskPlanStore.hasTopic(@props.planId, section.id)
@@ -245,7 +298,6 @@ ChapterAccordion = React.createClass
     @props.selected.indexOf(section.id) >= 0 and allSelected
 
   toggleAllSections: (e) ->
-    e.stopPropagation()
     if e.target.checked
       action = TaskPlanActions.addTopic
     else
@@ -268,19 +320,28 @@ ChapterAccordion = React.createClass
     header =
       <h2 className="-chapter-title">
         <span className="-chapter-checkbox">
-          <input type="checkbox" onChange={@toggleAllSections} checked={allChecked}/>
+          <input type="checkbox" id="chapter-checkbox-#{chapter.id}"
+            onChange={@toggleAllSections} checked={allChecked}/>
         </span>
         <span className="-chapter-number">{chapter.number}</span>
         <span className="-chapter-title">{chapter.title}</span>
       </h2>
 
-    <BS.Accordion activeKey={activeKey} >
+    <BS.Accordion activeKey={activeKey}>
       <BS.Panel key={chapter.id} header={header} eventKey={chapter.id}>
         {sections}
       </BS.Panel>
     </BS.Accordion>
 
 SelectTopics = React.createClass
+  displayName: 'SelectTopics'
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.any.isRequired
+    shouldShow: React.PropTypes.bool
+    hide: React.PropTypes.func.isRequired
+    selected: React.PropTypes.array
+
   getInitialState: ->
     {courseId} = @props
     TocActions.load(courseId) unless TocStore.isLoaded()
@@ -345,6 +406,7 @@ SelectTopics = React.createClass
     </div>
 
 HomeworkPlan = React.createClass
+  displayName: 'HomeworkPlan'
   getInitialState: ->
     {showSectionTopics: false}
 
