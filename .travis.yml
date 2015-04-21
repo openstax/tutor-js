@@ -1,12 +1,10 @@
 # `sudo:false` for faster builds.
 sudo: false
-cache:
-  directories:
-    - node_modules
-    - bower_components
 language: node_js
 node_js:
   - "0.10"
 before_install:
   - npm install -g gulp bower
   - bower install
+after_failure:
+  - npm list
