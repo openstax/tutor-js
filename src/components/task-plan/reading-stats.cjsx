@@ -7,7 +7,7 @@ Router = require 'react-router'
 LoadableItem = require '../loadable-item'
 
 Stats = React.createClass
-  percent: (num,total) ->
+  _percent: (num,total) ->
     Math.round((num/total) * 100)
 
   percentDelta: (a,b) ->
@@ -22,65 +22,104 @@ Stats = React.createClass
       op = '-'
     op + ' ' + Math.round((change / b) * 100)
 
+  percent: (data, correctOrIncorrect) ->
+    correctOrIncorrect ?= 'correct'
+    count = correctOrIncorrect + '_count'
 
-  renderCourseBar: (data) ->
-    <div className="reading-progress-container">
-      <div className="reading-progress-heading">
-        complete / in progress / not started
-      </div>
-      <BS.ProgressBar className="reading-progress-group">
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s" now={data.complete_count} key={1} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="warning" label="%(now)s" now={data.partially_complete_count} key={2} />
-        <BS.ProgressBar className="reading-progress-bar" bsStyle="danger" label="%(now)s" now={data.total_count - (data.complete_count + data.partially_complete_count)} key={3} />
-      </BS.ProgressBar>
-    </div>
+    total_count = data.correct_count+data.incorrect_count
+    if total_count then @_percent(data[count], total_count) else 0
 
-  renderChapterBars: (data, i) ->
-    if data.correct_count > 0
-      correct = <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(percent)s%" now={@percent(data.correct_count,data.correct_count+data.incorrect_count)} key={1} />
-    else
-      correct = ' '
-    <div>
-      <div className="reading-progress-heading">
-        {data.page.number} - {data.page.title}
-      </div>
-      <div className="reading-progress-container">
-        <BS.ProgressBar className="reading-progress-group">
-          {correct}
-        </BS.ProgressBar>
-      </div>
-    </div>
+  renderPercentBar: (data, type, correctOrIncorrect) ->
+    correctOrIncorrect ?= 'correct'
+    percentCorrect = @percent(data, correctOrIncorrect)
 
-  renderPracticeBars: (data, i) ->
-    if data.previous_attempt
-      previous = <div className="reading-progress-delta">{@percentDelta(data.correct_count,data.previous_attempt.correct_count)}% change</div>
-    <div>
-      <div className="reading-progress-heading">
-        {data.page.number} - {data.page.title}
+    bsStyles =
+      'correct' : 'success'
+      'incorrect' : 'danger'
+
+    classes = 'reading-progress-bar'
+    classes += ' no-progress' unless percentCorrect
+    correct = <BS.ProgressBar className={classes} bsStyle={bsStyles[correctOrIncorrect]} label="%(percent)s%" now={percentCorrect} key="page-progress-#{type}-#{data.page.id}-#{correctOrIncorrect}" />
+
+  renderProgressBar: (data, type, index, previous) ->
+    studentCount = if type is 'practice' then <span className='reading-progress-student-count'>({data.student_count} students)</span>
+
+    <div key="#{type}-bar-#{index}">
+      <div className='reading-progress-heading'>
+        {data.page.number} {data.page.title} {studentCount}
       </div>
-      <div className="reading-progress-container">
-        <BS.ProgressBar className="reading-progress-group">
-          <BS.ProgressBar className="reading-progress-bar" bsStyle="success" label="%(now)s%" now={@percent(data.correct_count,data.correct_count+data.incorrect_count)} key={1} />
+      <div className='reading-progress-container'>
+        <BS.ProgressBar className='reading-progress-group'>
+          {@renderPercentBar(data, type, 'correct')}
+          {@renderPercentBar(data, type, 'incorrect')}
         </BS.ProgressBar>
         {previous}
       </div>
     </div>
 
+  renderCourseBar: (data, type) ->
+    if type is 'homework' and data.mean_grade_percent
+      classAverage =
+        <BS.Row>
+          <BS.Col xs={12}>
+            <h3 className='reading-stats-average'><small>Average:</small> {data.mean_grade_percent}%</h3>
+          </BS.Col>
+        </BS.Row>
+
+    <BS.Grid className='data-container' key='course-bar'>
+      {classAverage}
+      <BS.Row>
+        <BS.Col xs={4}>
+          <label>Complete</label>
+          <div className = 'data-container-value text-complete'>
+            {data.complete_count}
+          </div>
+        </BS.Col>
+        <BS.Col xs={4}>
+          <label>In Progress</label>
+          <div className = 'data-container-value text-in-progress'>
+            {data.partially_complete_count}
+          </div>
+        </BS.Col>
+        <BS.Col xs={4}>
+          <label>Not Started</label>
+          <div className = 'data-container-value text-not-started'>
+            {data.total_count - (data.complete_count + data.partially_complete_count)}
+          </div>
+        </BS.Col>
+      </BS.Row>
+    </BS.Grid>
+
+  renderChapterBars: (data, i) ->
+    @renderProgressBar(data, 'chapter', i)
+
+  renderPracticeBars: (data, i) ->
+    if data.previous_attempt
+      previous = <div className="reading-progress-delta">{@percentDelta(data.correct_count,data.previous_attempt.correct_count)}% change</div>
+    @renderProgressBar(data, 'practice', i, previous)
+
   render: ->
     {id} = @props
 
     plan = TaskPlanStore.get(id)
-    course = @renderCourseBar(plan.stats.course)
+    course = @renderCourseBar(plan.stats.course, plan.type)
     chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
 
+    unless _.isEmpty(chapters)
+      chapters = <section>{chapters}</section>
 
-    <BS.Panel className="reading-stats-container">
-      <label>course:</label>
-      {course}
-      <label>chapters:</label>
+    unless _.isEmpty(practice)
+      practice = <section>
+        <label>Space Practice Performance</label>
+        {practice}
+      </section>
+
+    <BS.Panel className="reading-stats">
+      <section>
+        {course}
+      </section>
       {chapters}
-      <label>practice:</label>
       {practice}
     </BS.Panel>
 
@@ -100,4 +139,4 @@ StatsShell = React.createClass
     />
 
 
-module.exports = StatsShell
+module.exports = {StatsShell, Stats}

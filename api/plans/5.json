@@ -1,0 +1,29 @@
+{
+    "id": 5,
+    "type": "exercise",
+    "title": "Complete exercise 12A on pg 12",
+    "opens_at": "2015-03-31T11:40:23.796Z",
+    "due_at": "2015-04-01T04:00:00.000Z",
+    "settings": {
+        "exercise_id": [11]
+    },
+    "stats": {
+        "course": {
+            "total_count": 10,
+            "complete_count": 0,
+            "partially_complete_count": 0,
+            "current_pages": [],
+            "spaced_pages": [{
+                "page": {
+                    "id": 0,
+                    "number": 0,
+                    "title": ""
+                },
+                "student_count": 10,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }]
+        },
+        "periods": []
+    }
+}
