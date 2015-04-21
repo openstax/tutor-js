@@ -186,7 +186,7 @@ gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
 gulp.task '_cleanArchive', (done) ->
   del(['./dist/*.tar', './dist/*.gz'], done)
 
-gulp.task '_build', ['lint', '_buildJS', '_styles']
+gulp.task '_build', ['_buildJS', '_styles']
 
 
 
@@ -244,7 +244,7 @@ gulp.task 'prod', ['_archive']
 
 gulp.task 'serve', ['_buildJS', '_styles', '_webserver']
 
-gulp.task 'test', ['lint', '_buildJS'], (done) ->
+gulp.task 'test', ['lint'], (done) ->
   buildAndTest(false, done)
   return # Since this is async
 
