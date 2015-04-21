@@ -4,7 +4,7 @@
   "description": "Client for OpenStax Tutor",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test prod",
+    "test": "gulp test && gulp prod",
     "start": "gulp serve"
   },
   "repository": {
