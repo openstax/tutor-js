@@ -1,29 +1,124 @@
-.reading-stats-container{
-  min-width:550px;
-}
+@progress-bar-height: 3rem;
 
-.reading-progress-container{
-  width: 450px;
-  position: relative;
-}
+.reading-stats {
 
-.reading-progress-group{
-  width:300px;
-  height:20px;
-  overflow:visible;
+  section {
 
-  .reading-progress-bar{
-    min-width:15px;
+    > div {
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
+    > label {
+      text-align: center;
+      display: block;
+      margin: 0;
+    }
+
+    &:not(:first-child){
+      padding-top: 1rem;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px dashed darken(@gray-lighter, 10%);
+    }
+  }
+
+  &-none {
+    text-align: center;
+    color: @gray-light;
+  }
+
+  &-average {
+    margin-top: 0;
+    margin-bottom: 2.6rem;
+    #fonts > .sans(2.6rem, 4rem);
+
+    small {
+      font-weight: 100;
+      color: @text-color;
+    }
   }
 }
 
-.reading-progress-delta{
-  right:0px;
-  top:0px;
-  height:20px;
-  line-height: 1rem;
-  position:absolute;
-  color:red;
+.progress {
+  background: @gray-lighter;
+  margin-bottom: 0;
+
+  &-bar{
+    line-height: @progress-bar-height;
+  }
 }
 
+.reading-progress {
+
+  &-container {
+    position: relative;
+    border: 1px solid darken(@gray-lighter, 10%);
+    margin-bottom: 2rem;
+  }
+
+  &-group {
+    height: @progress-bar-height;
+    overflow:visible;
+  }
+
+  &-bar{
+
+    &.no-progress {
+      span {
+        display: none;
+      }
+    }
+
+    &:not(.no-progress) {
+      min-width:15px;
+    }
+  }
+
+  &-delta {
+    right:0px;
+    top:0px;
+    height:20px;
+    line-height: 1rem;
+    position:absolute;
+    color:red;
+  }
+
+  &-student-count {
+    font-style: italic;
+  }
+}
+
+.data-container {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  &.container {
+    width: 100%;
+  }
+
+  label {
+    font-weight: 100;
+    margin: 0;
+    line-height: 2.5rem;
+    display: block;
+  }
+
+  &-value {
+    font-size: 4rem;
+  }
+}
+
+.text-complete {
+  color: @primary;
+}
+
+.text-in-progress {
+  color: @brand-warning;
+}
+
+.text-not-started {
+  color: lighten(@text-color, 50%);
+}

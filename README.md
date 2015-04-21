@@ -23,3 +23,10 @@ To build the dist version run `gulp dist`.
 To run a standalone webserver run `gulp serve`.
 
 To do TDD (rerun tests when the source code changes) run `gulp tdd`
+
+After local updates are made:
+
+1. stop `gulp serve`
+1. `npm install`
+1. if `bower.json` changed, `bower install`
+1. restart `gulp serve`

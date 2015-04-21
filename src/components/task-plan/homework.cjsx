@@ -173,7 +173,7 @@ AddExercises = React.createClass
     hide: React.PropTypes.func.isRequired
 
   mixins: [ExercisesRenderMixin]
-    
+
   renderExercise: (exercise) ->
     <AddExerciseCard planId={@props.planId} exercise={exercise}/>
 
@@ -221,17 +221,36 @@ ExerciseSummary = React.createClass
     canAdd: React.PropTypes.bool
     addClicked: React.PropTypes.func.isRequired
 
+  addTutorSelection: ->
+    TaskPlanActions.updateTutorSelection(@props.planId, 1)
+
+  removeTutorSelection: ->
+    TaskPlanActions.updateTutorSelection(@props.planId, -1)
+
   render: ->
     if not @props.shouldShow
       return <span></span>
 
     numSelected = TaskPlanStore.getExercises(@props.planId).length
-    total = numSelected + 3
+    numTutor = TaskPlanStore.getTutorSelections(@props.planId)
+    total = numSelected + numTutor
 
     if @props.canReview and numSelected
       button = <BS.Button bsStyle="primary" className="-review-exercises"  onClick={@props.reviewClicked}>Review</BS.Button>
     else if @props.canAdd
       button = <BS.Button bsStyle="primary" className="-add-exercises" onClick={@props.addClicked}>Add</BS.Button>
+
+    if TaskPlanStore.canDecreaseTutorExercises(@props.planId)
+      removeSelection =
+        <BS.Button onClick={@removeTutorSelection} className="btn-xs -move-exercise-down">
+          <i className="fa fa-arrow-down"/>
+        </BS.Button>
+
+    if TaskPlanStore.canIncreaseTutorExercises(@props.planId)
+      addSelection =
+        <BS.Button onClick={@addTutorSelection} className="btn-xs -move-exercise-up">
+          <i className="fa fa-arrow-up"/>
+        </BS.Button>
 
     <BS.Panel className bsStyle="default">
       <BS.Grid>
@@ -239,7 +258,14 @@ ExerciseSummary = React.createClass
           <BS.Col sm={6} md={2} className="-selections-title">Selections</BS.Col>
           <BS.Col sm={6} md={2} className="-total"><h2>{total}</h2></BS.Col>
           <BS.Col sm={6} md={2} className="-num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
-          <BS.Col sm={6} md={2} className="-num-tutor"><h2>3</h2>Tutor Selections</BS.Col>
+          <BS.Col sm={6} md={2} className="-num-tutor">
+            <h2>
+              {removeSelection}
+              <span>{numTutor}</span>
+              {addSelection}
+            </h2>
+            Tutor Selections
+          </BS.Col>
           <BS.Col sm={6} md={2} className="-tutor-added-later"><em>
             Tutor selections are added later to support spaced practice and personalized learning.
           </em></BS.Col>

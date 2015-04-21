@@ -5,15 +5,19 @@ _ = require 'underscore'
 {calendarActions, calendarTests, calendarChecks} = require './helpers/calendar'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../src/flux/teacher-task-plan'
+{TaskPlanStore, TaskPlanActions} = require '../../src/flux/task-plan'
 
-
+planId = 1
 courseId = 1
 
 VALID_MODEL = require '../../api/courses/1/plans.json'
+VALID_PLAN_MODEL = require '../../api/plans/1.json'
 
 describe 'Course Calendar', ->
   beforeEach (done)->
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
+    TaskPlanActions.loaded(VALID_PLAN_MODEL, planId)
+
     calendarTests
       .renderCalendar(courseId)
       .then((result) =>
@@ -70,11 +74,20 @@ describe 'Course Calendar', ->
         done()
       ).catch(done)
 
-  it 'should show plan detail when plan is clicked', (done) ->
+  it 'should show plan details when plan is clicked', (done) ->
     calendarActions
       .clickPrevious(@result)
-      .then(calendarActions.clickPlan(1))
-      .then(calendarChecks.checkDoesViewShowPlan(1))
+      .then(calendarActions.clickPlan(planId))
+      .then(calendarChecks.checkDoesViewShowPlan(planId))
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  it 'should show plan stats when plan is clicked', (done) ->
+    calendarActions
+      .clickPrevious(@result)
+      .then(calendarActions.clickPlan(planId))
+      .then(calendarChecks.checkDoesViewShowPlanStats(planId))
       .then((result) ->
         done()
       ).catch(done)
