@@ -170,7 +170,7 @@ start = ->
     url: '/api/courses'
 
   apiHelper StudentDashboardActions, StudentDashboardActions.load, StudentDashboardActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/dashboard"
+    url: "/api/courses/#{courseId}/tasks"
 
   CurrentUserActions.logout.addListener 'trigger', ->
     $.ajax('/accounts/logout', {method: 'DELETE'})
