@@ -12,7 +12,39 @@ TeacherTaskPlans = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  displayName: 'TeacherTaskPlans'
+  onEditPlan: ->
+    {courseId, plan} = @props
+    {id, type} = plan
+    if type is 'reading'
+      @context.router.transitionTo('editReading', {courseId, id})
+    else if type is 'homework'
+      @context.router.transitionTo('editHomework', {courseId, id})
+
+  onViewStats: ->
+    {courseId, plan} = @props
+    {id} = @props.plan
+    @context.router.transitionTo('viewStats', {courseId, id})
+
+  render: ->
+    {plan} = @props
+    start  = moment(plan.opens_at)
+    ending = moment(plan.due_at)
+    duration = moment.duration( ending.diff(start) ).humanize()
+
+    <div className="-list-item">
+      <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
+        {start.fromNow()} ({duration})
+      </BS.ListGroupItem>
+      <BS.Button bsStyle="link" className="-tasks-list-stats-button" onClick={@onViewStats}>View Stats</BS.Button>
+    </div>
+
+
+TeacherTaskPlanListing = React.createClass
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  displayName: 'TeacherTaskPlanListing'
 
   componentDidMount:->
     {courseId} = @context.router.getCurrentParams()
@@ -26,12 +58,18 @@ TeacherTaskPlans = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     title = "Task plans for course ID #{courseId}"
+
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
 
+    plans = for plan in plansList
+      <TeacherTaskPlans key={plan.id} plan={plan}, courseId={courseId} />
+
+    # pull in underscore.inflection ?
     footer = <span className="-footer">
-      <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'reading'}>Add a Reading</Router.Link>
-      <Router.Link className="btn btn-primary" to="createPlan" params={courseId: courseId, type: 'homework'}>Add a Homework</Router.Link>
+      <Router.Link className="btn btn-primary" to="createReading" params={courseId: courseId}>Add a Reading</Router.Link>
+      <Router.Link className="btn btn-primary" to="createHomework" params={courseId: courseId}>Add a Homework</Router.Link>
     </span>
+
     <BS.Panel header={title}
         className="list-courses"
         bsStyle="primary"
@@ -48,4 +86,4 @@ TeacherTaskPlans = React.createClass
 
     </BS.Panel>
 
-module.exports = TeacherTaskPlans
+module.exports = TeacherTaskPlanListing
