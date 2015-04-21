@@ -286,13 +286,13 @@ ExerciseSummary = React.createClass
           <i className="fa fa-arrow-up"/>
         </BS.Button>
 
-    <BS.Panel className bsStyle="default">
+    <BS.Panel className="exercise-summary" bsStyle="default">
       <BS.Grid>
         <BS.Row>
-          <BS.Col sm={6} md={2} className="-selections-title">Selections</BS.Col>
-          <BS.Col sm={6} md={2} className="-total"><h2>{total}</h2></BS.Col>
-          <BS.Col sm={6} md={2} className="-num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
-          <BS.Col sm={6} md={2} className="-num-tutor">
+          <BS.Col sm={6} md={2} className="selections-title">Selections</BS.Col>
+          <BS.Col sm={6} md={2} className="total"><h2>{total}</h2></BS.Col>
+          <BS.Col sm={6} md={2} className="num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
+          <BS.Col sm={6} md={2} className="num-tutor">
             <h2>
               {removeSelection}
               <span>{numTutor}</span>
@@ -300,7 +300,7 @@ ExerciseSummary = React.createClass
             </h2>
             Tutor Selections
           </BS.Col>
-          <BS.Col sm={6} md={2} className="-tutor-added-later"><em>
+          <BS.Col sm={6} md={2} className="tutor-added-later"><em>
             Tutor selections are added later to support spaced practice and personalized learning.
           </em></BS.Col>
           <BS.Col sm={6} md={2}>
