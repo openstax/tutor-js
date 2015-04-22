@@ -1,12 +1,12 @@
+# coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 flux = require 'flux-react'
 {TaskStepActions, TaskStepStore} = require './task-step'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 getSteps = (steps) ->
-  _.map(steps, ({id}) ->
+  _.map steps, ({id}) ->
     TaskStepStore.get(id)
-  )
 
 getCurrentStepIndex = (steps) ->
   currentStep = -1
@@ -17,16 +17,14 @@ getCurrentStepIndex = (steps) ->
   currentStep
 
 getCurrentStep = (steps) ->
-  _.find(steps, (step) ->
+  _.find steps, (step) ->
     # return for first step where step.is_completed = false or
     # step.is_completed is undefined
     not step.is_completed or not step.is_completed?
-  )
 
 getIncompleteSteps = (steps) ->
-  _.filter(steps, (step) ->
+  _.filter steps, (step) ->
     not step.is_completed?
-  )
 
 
 TaskConfig =
@@ -54,8 +52,7 @@ TaskConfig =
     # explicit return obj to load onto @_local
     obj
 
-  loadUserTasks: (courseId) ->
-    # Used by API
+  loadUserTasks: (courseId) -> # Used by API
   loadedUserTasks: (obj) ->
     tasks = obj.items
     # Used by API
@@ -77,14 +74,14 @@ TaskConfig =
       getCurrentStepIndex(steps)
 
     # Returns the reading and it's step index for a given task's ID
-    getReadingForTaskId: (taskId)->
+    getReadingForTaskId: (taskId) ->
       steps = getSteps(@_steps[taskId])
-      taskStepIndex = _.findIndex(steps, (step) -> step.id == id )
+      taskStepIndex = _.findIndex(steps, (step) -> step.id is id )
       # should never happen if the taskId was valid
       throw new Error('BUG: Invalid taskId.  Unable to find index') if taskStepIndex is -1
       # Find the reading that appears before the given task
       for i in [taskStepIndex..0] by -1
-        if "reading" == steps[i].type
+        if steps[i].type is 'reading'
           return {reading: steps[i], index:i}
       return {}
 

@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
@@ -17,7 +18,7 @@ TaskPlanConfig =
     #TODO take out once TaskPlan api is in place
     _.extend({}, @_local[planId], @_changed[planId])
 
-  FAILED: ->
+  FAILED: -> # used by API
 
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
@@ -110,7 +111,7 @@ TaskPlanConfig =
 
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
-  publish: (id) ->
+  publish: (id) -> # used by API
 
   exports:
     hasTopic: (id, topicId) ->
@@ -130,7 +131,7 @@ TaskPlanConfig =
       plan?.settings.exercise_ids
 
     getDescription: (id) ->
-      plan=@_getPlan(id)
+      plan = @_getPlan(id)
       plan?.settings.description
 
     isHomework: (id) ->

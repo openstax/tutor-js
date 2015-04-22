@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 
 {TaskActions, TaskStore} = require './task'
@@ -12,7 +13,7 @@ CourseConfig =
     # TODO check with backend about task.type = 'practice' since task.type for homework = 'homework'
     obj.steps? # TODO: Find a more reliable way to determine if a practice is being loaded
 
-  createPractice: (courseId) ->
+  createPractice: (courseId) -> # Used by API
   createdPractice: (obj, courseId) ->
     @_loadedPractice(obj, courseId) # TODO: Maybe this should emit practice.created
 
@@ -46,7 +47,7 @@ CourseConfig =
     @emit('practice.loaded', obj.id)
 
   _reset: ->
-    CrudConfig.reset.call(@)
+    CrudConfig.reset.call(this)
     @_guides = {}
     @_asyncStatusGuides = {}
     @_practices = {}
