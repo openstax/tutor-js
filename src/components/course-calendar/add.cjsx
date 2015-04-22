@@ -38,7 +38,7 @@ CourseAdd = React.createClass
 
     style['display'] = if @state.open then 'block' else 'none'
 
-    <BS.DropdownMenu ref='menu' style={style}>
+    <BS.DropdownMenu ref='addOnDayMenu' style={style}>
       {@renderAddActions()}
     </BS.DropdownMenu>
 

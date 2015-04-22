@@ -67,16 +67,9 @@ TeacherTaskPlanListing = React.createClass
     plans = for plan in plansList
       <TeacherTaskPlans key={plan.id} plan={plan}, courseId={courseId} />
 
-    # pull in underscore.inflection ?
-    footer = <span className="-footer">
-      <Router.Link className="btn btn-primary" to="createReading" params={courseId: courseId}>Add a Reading</Router.Link>
-      <Router.Link className="btn btn-primary" to="createHomework" params={courseId: courseId}>Add a Homework</Router.Link>
-    </span>
-
     <BS.Panel header={title}
         className="list-courses"
-        bsStyle="primary"
-        footer={footer}>
+        bsStyle="primary">
 
       <Loadable
         store={TeacherTaskPlanStore}

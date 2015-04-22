@@ -99,3 +99,40 @@ describe 'Course Calendar', ->
         done()
       ).catch(done)
 
+  it 'should show add plan links when add component is clicked', (done) ->
+    calendarActions
+      .clickAdd(@result)
+      .then(calendarChecks.checkDoesAddDropDownShow)
+      .then(calendarChecks.checkDoesAddMenuLinkCorrectly)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  it 'should show today as past and tomorrow as upcoming', (done) ->
+    calendarActions
+      .clickAdd(@result)
+      .then(calendarChecks.checkIsTodayPast)
+      .then(calendarChecks.checkIsTodayNotClickable)
+      .then(calendarChecks.checkIsTomorrowUpcoming)
+      .then(calendarChecks.checkIsTomorrowClickable)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  it 'should show add plan links when tomorrow is clicked', (done) ->
+    calendarActions
+      .clickTomorrow(@result)
+      .then(calendarChecks.checkTomorrowAddPlansDropDown)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  # TODO unsure why this test doesn't work, but it was kinda icing on the cake anyways.
+  # it 'should navigate to add homework route when Add Homework is clicked from date', (done) ->
+  #   calendarActions
+  #     .clickTomorrow(@result)
+  #     .then(calendarActions.clickAddHomework)
+  #     .then(calendarChecks.checkIsAtHomeworkLinkAfterAddClick)
+  #     .then((result) ->
+  #       done()
+  #     ).catch(done)

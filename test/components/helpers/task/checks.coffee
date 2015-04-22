@@ -113,7 +113,6 @@ checks =
   _checkIsCompletePage: ({div, component, stepId, taskId, state, router, history}) ->
     {type} = TaskStore.get(taskId)
     type ?= 'task'
-    debugger
     expect(div.querySelector(".-#{type}-completed")).to.not.be.null
 
     {div, component, stepId, taskId, state, router, history}
