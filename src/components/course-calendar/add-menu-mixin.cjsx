@@ -17,7 +17,7 @@ CourseAddMenuMixin =
     links = [
       {
         text: 'Add iReading'
-        to: 'createPlan'
+        to: 'createReading'
         params:
           courseId: courseId
           type: 'reading'
@@ -25,7 +25,7 @@ CourseAddMenuMixin =
           date: @state.addDate?.format('MM-DD-YYYY')
       }, {
         text: 'Add Homework'
-        to: 'createPlan'
+        to: 'createHomework'
         params:
           courseId: courseId
           type: 'homework'

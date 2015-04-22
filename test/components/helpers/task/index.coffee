@@ -26,11 +26,10 @@ tests =
 
   renderStep: (taskId) ->
     {id} = TaskStore.getCurrentStep(taskId)
-    taskTests = @
 
     # TODO Do something for these handlers
     onNextStep = ->
-    goToStep = (num)-> =>
+    goToStep = (num) -> =>
 
     @_renderTaskStep(id, taskId, onNextStep, goToStep)
 

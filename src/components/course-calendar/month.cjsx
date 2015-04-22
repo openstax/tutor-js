@@ -45,8 +45,8 @@ CourseMonth = React.createClass
     nodesWithHeights = calendar.querySelectorAll('.rc-Week')
 
     Array.prototype.forEach.call(nodesWithHeights, (node, nthRange) ->
-        range = _.findWhere(groupedDurations, {nthRange: nthRange})
-        node.style.height = range.dayHeight + 'rem'
+      range = _.findWhere(groupedDurations, {nthRange: nthRange})
+      node.style.height = range.dayHeight + 'rem'
     )
 
   getDurationInfo: (date) ->
@@ -86,7 +86,12 @@ CourseMonth = React.createClass
     while durationDays.hasNext()
       dayIter = durationDays.next()
       if dayIter.isAfter(referenceDay, 'day')
-        day = <Day date={dayIter} onClick={@handleClick} onMouseLeave={@checkAddOnDay} onMouseEnter={@undoActives} modifiers={{upcoming: true}}/>
+        day = <Day
+          date={dayIter}
+          onClick={@handleClick}
+          onMouseLeave={@checkAddOnDay}
+          onMouseEnter={@undoActives}
+          modifiers={{upcoming: true}}/>
       else
         day = <Day date={dayIter} modifiers={{past: true}}/>
       days.push(day)
@@ -119,7 +124,12 @@ CourseMonth = React.createClass
             {days}
           </Month>
 
-          <CourseDuration durations={plansList} viewingDuration={calendarDuration} groupingDurations={calendarWeeks} courseId={courseId} ref='courseDurations'>
+          <CourseDuration
+            durations={plansList}
+            viewingDuration={calendarDuration}
+            groupingDurations={calendarWeeks}
+            courseId={courseId}
+            ref='courseDurations'>
             <CoursePlansByWeek/>
           </CourseDuration>
 

@@ -58,7 +58,7 @@ CoursePlan = React.createClass
     if index is 0
       rangeLength = rangeDuration.length('days')
       planLabelStyle =
-        width: rangeLength/durationLength * 100 + '%'
+        width: rangeLength / durationLength * 100 + '%'
       label = <label style={planLabelStyle}>{plan.title}</label>
 
 
@@ -78,7 +78,11 @@ CoursePlan = React.createClass
     planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
 
     <BS.ModalTrigger modal={planModal} ref="trigger">
-      <div style={planStyle} className={planClasses} onMouseEnter={@syncHover} onMouseLeave={@removeHover} onClick={@toggleModal}>
+      <div style={planStyle}
+        className={planClasses}
+        onMouseEnter={@syncHover}
+        onMouseLeave={@removeHover}
+        onClick={@toggleModal}>
         {label}
       </div>
     </BS.ModalTrigger>

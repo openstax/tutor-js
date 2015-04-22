@@ -22,13 +22,13 @@ CourseAdd = React.createClass
       addDate: date
       positionLeft: x
       positionTop: y
-      open: true  
+      open: true
     })
 
   close: ->
     @setState({
       addDate: null
-      open: false  
+      open: false
     })
 
   render: ->

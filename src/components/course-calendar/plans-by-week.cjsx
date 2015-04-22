@@ -26,11 +26,11 @@ CoursePlansByWeek = React.createClass
   render: ->
     {range, courseId} = @props
     plans = _.map(range.plans, (item) ->
-        <CoursePlan item={item} key="course-plan-#{item.plan.id}" courseId={courseId}/>
-    , @)
+      <CoursePlan item={item} key="course-plan-#{item.plan.id}" courseId={courseId}/>
+    )
 
     plansStyle = {
-        top: (range.topOffset + 4 - range.plans.length*2.6) + 'rem'
+      top: (range.topOffset + 4 - range.plans.length * 2.6) + 'rem'
     }
 
     <div className='plans' style={plansStyle} ref='plansByWeek'>

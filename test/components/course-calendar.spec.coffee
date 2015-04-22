@@ -17,7 +17,7 @@ VALID_MODEL = require '../../api/courses/1/plans.json'
 VALID_PLAN_MODEL = require '../../api/plans/1.json'
 
 describe 'Course Calendar', ->
-  beforeEach (done)->
+  beforeEach (done) ->
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
     TaskPlanActions.loaded(VALID_PLAN_MODEL, planId)
 

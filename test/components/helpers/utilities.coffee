@@ -14,7 +14,7 @@ routerStub =
 
     history = new Router.TestLocation([route])
     promise = new Promise (resolve, reject) ->
-      Router.run routes, history, (Handler, state)->
+      Router.run routes, history, (Handler, state) ->
         router = @
         try
           React.render(<Handler/>, div, ->
@@ -82,7 +82,7 @@ commonActions =
     commonActions.clickButton(div, selector)
     args[0]
 
-  clickMatch: (selector)->
+  clickMatch: (selector) ->
     (args...) ->
       Promise.resolve(commonActions._clickMatch(selector, args...))
 
@@ -92,7 +92,7 @@ commonActions =
     React.addons.TestUtils.Simulate.focus(elementNode)
     args[0]
 
-  focusMatch: (selector)->
+  focusMatch: (selector) ->
     (args...) ->
       Promise.resolve(commonActions._focusMatch(selector, args...))
 
