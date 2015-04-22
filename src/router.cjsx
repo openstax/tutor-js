@@ -1,10 +1,9 @@
-# @cjsx React.DOM
 React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Dashboard, TasksShell, SingleTask, SinglePractice, Invalid} = require './components'
-{PlanShell} = require './components/task-plan'
 {LearningGuideShell} = require './components/learning-guide'
+{ReadingShell, HomeworkShell} = require './components/task-plan'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
 {StatsShell} = require './components/task-plan/reading-stats'
@@ -20,8 +19,10 @@ routes = (
     <Route path='courses/:courseId/practice/?' name='viewPractice' handler={SinglePractice} />
     <Route path='courses/:courseId/readings/?' name='taskplans' handler={TeacherTaskPlans} />
     <Route path='courses/:courseId/guide/?' name='viewGuide' handler={LearningGuideShell} />
-    <Route path='courses/:courseId/:type/new/?' name='createPlan' handler={PlanShell} />
-    <Route path='courses/:courseId/:type/:id/?' name='editPlan' handler={PlanShell} />
+    <Route path='courses/:courseId/homework/new/?' name='createHomework' handler={HomeworkShell} />
+    <Route path='courses/:courseId/homework/:id/?' name='editHomework' handler={HomeworkShell} />
+    <Route path='courses/:courseId/reading/new/?' name='createReading' handler={ReadingShell} />
+    <Route path='courses/:courseId/reading/:id/?' name='editReading' handler={ReadingShell} />
     <Route path='courses/:courseId/:type/:id/stats/?' name='viewStats' handler={StatsShell} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
@@ -35,7 +36,6 @@ router = Router.create
 
 
 start = (mountPoint) ->
-
   router.run (Handler) ->
     React.render(<Handler/>, mountPoint)
 

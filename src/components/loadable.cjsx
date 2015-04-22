@@ -10,7 +10,7 @@ module.exports = React.createClass
   displayName: 'Loadable'
   propTypes:
     render: React.PropTypes.func.isRequired
-    update: React.PropTypes.func
+    saved: React.PropTypes.func
     store: React.PropTypes.object.isRequired
     isLoading: React.PropTypes.func.isRequired
     isLoaded: React.PropTypes.func.isRequired
@@ -32,7 +32,7 @@ module.exports = React.createClass
   componentDidUpdate:  -> @_addListener()
 
   _update: -> @props.update?() or @setState({})
-
+  
   render: ->
     {isLoading, isLoaded, isFailed, render} = @props
 

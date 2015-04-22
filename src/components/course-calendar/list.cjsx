@@ -13,7 +13,13 @@ TaskPlan = React.createClass
   onEditPlan: ->
     {courseId} = @props
     {id, type} = @props.plan
-    @context.router.transitionTo('editPlan', {courseId, type, id})
+    # TODO: Remove this copy/pasta
+    switch type
+      when 'homework'
+        @context.router.transitionTo('editHomework', {courseId, id})
+      when 'reading'
+        @context.router.transitionTo('editReading', {courseId, id})
+      else throw new Error("BUG: Unknown plan type '#{type}'")
 
   onViewStats: ->
     {courseId} = @props

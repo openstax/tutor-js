@@ -35,7 +35,7 @@ module.exports = class LearningGuideChart
     topMargin = 5
 
     space_between = (WIDTH-leftMargin)/fields.length
-    
+
     points = _.map(fields, (f,i) ->
         {
           x: Math.max(leftMargin + space_between * i)
@@ -74,38 +74,6 @@ module.exports = class LearningGuideChart
       .text("Your Flight Path | #{guide.title} | All Topics")
 
 
-  drawStaticImages: (container, points) ->
-    @addImage(CLOUDS_PATH, width:10, x: 35, y: 10)
-    @addImage(CLOUDS_PATH, width:16, x: 77, y: 20)
-
-
-  drawCircles: (container, fields, points) ->
-    wrap = container.append('g')
-      .attr('class', 'circles')
-       .selectAll('g')
-       .data(fields)
-
-    circles = wrap.enter()
-      .append('g')
-      .attr('transform', (f,i) ->
-        "translate(#{points[i].x},#{points[i].y})"
-      )
-      .on('click', (field) =>
-        @navigateToPractice(field)
-      )
-    circles.append('circle')
-      .attr('r', (f) ->
-        # awaiting a better alogorithm for the circle radius
-        Math.max(f.questions_answered_count / 20, 2)
-      )
-    circles.append('text')
-      .text( (f) ->
-        f.questions_answered_count
-      )
-      .attr('text-anchor', 'middle')
-      .attr('dy', '0.5')
-
-
   drawXAxis: (container, fields, points) ->
     wrap = container.append('g')
       .attr('class', 'x-axis')
@@ -131,7 +99,7 @@ module.exports = class LearningGuideChart
       .attr('text-anchor', 'middle').attr('dy', '1.8').attr('text-anchor', 'middle')
       .text( (f,i) -> i+1 )
 
-  
+
   drawYLabel: (container,ypos,text) ->
     wrap = container.append('g')
       .append("svg:text")

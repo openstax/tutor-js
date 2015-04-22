@@ -32,7 +32,13 @@ CoursePlanDetails = React.createClass
   onClickEdit: ->
     {plan, courseId} = @props
     {title, type, id} = plan
-    @context.router.transitionTo('editPlan', {courseId, id, type})
+    # TODO: Remove this copy/pasta
+    switch type
+      when 'homework'
+        @context.router.transitionTo('editHomework', {courseId, id})
+      when 'reading'
+        @context.router.transitionTo('editReading', {courseId, id})
+      else throw new Error("BUG: Unknown plan type '#{type}'")
 
   render: ->
     {plan, courseId} = @props

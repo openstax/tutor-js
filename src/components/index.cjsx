@@ -1,5 +1,3 @@
-# @cjsx React.DOM
-
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'

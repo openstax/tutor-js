@@ -1,0 +1,52 @@
+{
+  "coffeelint": {
+    "transforms": [
+      "coffee-react-transform"
+    ]
+  },
+  "indentation": {
+    "level": "warn",
+    "value": 2
+  },
+  "line_endings": {
+    "value": "unix",
+    "level": "warn"
+  },
+  "arrow_spacing": {
+    "level": "warn"
+  },
+  "no_empty_functions": {
+    "level": "warn"
+  },
+  "no_empty_param_list": {
+    "level": "warn"
+  },
+  "no_interpolation_in_single_quotes": {
+    "level": "warn"
+  },
+  "no_stand_alone_at": {
+    "level": "warn"
+  },
+  "no_throwing_strings": {
+    "level": "warn"
+  },
+  "no_unnecessary_double_quotes": {
+    "level": "ignore"
+  },
+  "no_unnecessary_fat_arrows": {
+    "level": "warn"
+  },
+  "prefer_english_operator": {
+    "level": "warn"
+  },
+  "space_operators": {
+    "level": "warn"
+  },
+  "spacing_after_comma": {
+    "level": "warn"
+  },
+  "max_line_length": {
+    "value": 130,
+    "level": "warn"
+  }
+}
