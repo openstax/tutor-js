@@ -243,7 +243,7 @@ ExerciseSummary = React.createClass
 
   componentDidMount: () ->
     el = @getDOMNode()
-    @staticPosition = el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
+    @staticPosition = @getPosition(el)
     @handleScroll() # Update scroll position immediately on mount
     @optimizedScrollFunc = throttle('scroll', 'optimizedScroll')
     window.addEventListener('optimizedScroll', @handleScroll)
@@ -252,14 +252,19 @@ ExerciseSummary = React.createClass
     window.removeEventListener('scroll', @optimizedScrollFunc)
     window.removeEventListener('optimizedScroll', @handleScroll)
 
+  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
+
   handleScroll: (e) ->
     el = @getDOMNode()
     if not el.textContent then return # HACK: Ignore empty span that is also an ExerciseSummary
 
-    if document.body.scrollTop > @staticPosition
-      el?.classList.add('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+    if document.body.scrollTop + 60 > @staticPosition
+      el.classList.add('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+      document.body.style.marginTop = '120px'
     else
-      el?.classList.remove('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+      el.classList.remove('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+      document.body.style.marginTop = '0'
+      @staticPosition = @getPosition(el)
 
   render: ->
     if not @props.shouldShow
