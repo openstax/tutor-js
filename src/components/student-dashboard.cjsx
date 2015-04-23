@@ -58,7 +58,6 @@ UnknownEvent = React.createClass
   propTypes:
     event: React.PropTypes.object.isRequired
 
-
   render: ->
     event=@props.event
     <div>
@@ -74,10 +73,10 @@ EventRow = React.createClass
     feedback: React.PropTypes.string.isRequired
   render: ->
     <div className="task row #{@props.cssClass}">
-     <BS.Col className="icon" xs={1}></BS.Col>
-     <BS.Col xs={7}>{@props.children}</BS.Col>
-     <BS.Col xs={2}>{@props.feedback}</BS.Col>
-     <BS.Col xs={2} className="due-at">{moment(@props.event.due_at).format("ddd, MMMM Do")}</BS.Col>
+     <BS.Col xs={1}  sm={1} className="icon"></BS.Col>
+     <BS.Col xs={11} sm={7} className="title">{@props.children}</BS.Col>
+     <BS.Col xs={6}  sm={2} className="feedback">{@props.feedback}</BS.Col>
+     <BS.Col xs={5}  sm={2} className="due-at">{moment(@props.event.due_at).format("ddd, MMMM Do")}</BS.Col>
     </div>
 
 ReadingEvent = React.createClass
