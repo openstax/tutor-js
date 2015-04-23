@@ -5,7 +5,7 @@ Router = require 'react-router'
 {LearningGuideShell} = require './components/learning-guide'
 {PerformanceShell} = require './components/performance'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
-{StudentDashboard} = require './components/student-dashboard'
+{StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
 {StatsShell} = require './components/task-plan/reading-stats'
@@ -27,7 +27,7 @@ routes = (
     <Route path='courses/:courseId/reading/new/?' name='createReading' handler={ReadingShell} />
     <Route path='courses/:courseId/reading/:id/?' name='editReading' handler={ReadingShell} />
     <Route path='courses/:courseId/:type/:id/stats/?' name='viewStats' handler={StatsShell} />
-    <Route path='courses/:courseId/dashboard/?' name='viewStudentDashboard' handler={StudentDashboard} />
+    <Route path='courses/:courseId/dashboard/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>
