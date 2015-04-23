@@ -7,6 +7,9 @@ _ = require 'underscore'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../src/flux/teacher-task-plan'
 {TaskPlanStore, TaskPlanActions} = require '../../src/flux/task-plan'
 
+React = require 'react/addons'
+CourseCalendar = require '../../src/components/course-calendar'
+
 planId = 1
 courseId = 1
 
@@ -14,13 +17,17 @@ VALID_MODEL = require '../../api/courses/1/plans.json'
 VALID_PLAN_MODEL = require '../../api/plans/1.json'
 
 describe 'Course Calendar', ->
-  beforeEach (done)->
+  beforeEach (done) ->
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
     TaskPlanActions.loaded(VALID_PLAN_MODEL, planId)
 
     calendarTests
-      .renderCalendar(courseId)
+      .goToCalendar("/courses/#{courseId}/readings", courseId)
       .then((result) =>
+        calendarComponent = React.addons.TestUtils.findRenderedComponentWithType(result.component, CourseCalendar)
+        result.component = calendarComponent
+        result.div = React.findDOMNode(calendarComponent)
+
         @result = result
         done()
       )
@@ -92,3 +99,40 @@ describe 'Course Calendar', ->
         done()
       ).catch(done)
 
+  it 'should show add plan links when add component is clicked', (done) ->
+    calendarActions
+      .clickAdd(@result)
+      .then(calendarChecks.checkDoesAddDropDownShow)
+      .then(calendarChecks.checkDoesAddMenuLinkCorrectly)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  it 'should show today as past and tomorrow as upcoming', (done) ->
+    calendarActions
+      .clickAdd(@result)
+      .then(calendarChecks.checkIsTodayPast)
+      .then(calendarChecks.checkIsTodayNotClickable)
+      .then(calendarChecks.checkIsTomorrowUpcoming)
+      .then(calendarChecks.checkIsTomorrowClickable)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  it 'should show add plan links when tomorrow is clicked', (done) ->
+    calendarActions
+      .clickTomorrow(@result)
+      .then(calendarChecks.checkTomorrowAddPlansDropDown)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  # TODO unsure why this test doesn't work, but it was kinda icing on the cake anyways.
+  # it 'should navigate to add homework route when Add Homework is clicked from date', (done) ->
+  #   calendarActions
+  #     .clickTomorrow(@result)
+  #     .then(calendarActions.clickAddHomework)
+  #     .then(calendarChecks.checkIsAtHomeworkLinkAfterAddClick)
+  #     .then((result) ->
+  #       done()
+  #     ).catch(done)

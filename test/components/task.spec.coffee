@@ -55,7 +55,7 @@ describe 'Task Widget', ->
 
 
   # _.delay needed to prevent weird problems.
-  it 'should render empty free response for unanswered exercise', (done)->
+  it 'should render empty free response for unanswered exercise', (done) ->
     taskTests
       .renderFreeResponse(taskId)
       .then(taskChecks.checkRenderFreeResponse)

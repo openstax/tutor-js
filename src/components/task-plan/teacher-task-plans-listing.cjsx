@@ -48,7 +48,10 @@ TeacherTaskPlanListing = React.createClass
 
   componentDidMount:->
     {courseId} = @context.router.getCurrentParams()
-    TeacherTaskPlanActions.load( courseId )
+
+    # Bypass loading if plan is already loaded, as is the case in testing.
+    if not TeacherTaskPlanStore.isLoaded(courseId)
+      TeacherTaskPlanActions.load( courseId )
 
   componentWillMount: -> TeacherTaskPlanStore.addChangeListener(@update)
   componentWillUnmount: -> TeacherTaskPlanStore.removeChangeListener(@update)
@@ -64,16 +67,9 @@ TeacherTaskPlanListing = React.createClass
     plans = for plan in plansList
       <TeacherTaskPlans key={plan.id} plan={plan}, courseId={courseId} />
 
-    # pull in underscore.inflection ?
-    footer = <span className="-footer">
-      <Router.Link className="btn btn-primary" to="createReading" params={courseId: courseId}>Add a Reading</Router.Link>
-      <Router.Link className="btn btn-primary" to="createHomework" params={courseId: courseId}>Add a Homework</Router.Link>
-    </span>
-
     <BS.Panel header={title}
         className="list-courses"
-        bsStyle="primary"
-        footer={footer}>
+        bsStyle="primary">
 
       <Loadable
         store={TeacherTaskPlanStore}
