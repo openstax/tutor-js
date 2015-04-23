@@ -7,8 +7,8 @@ ReactTestUtils     = React.addons.TestUtils
 {StudentDashboard} = require '../../src/components/student-dashboard'
 {StudentDashboardStore, StudentDashboardActions} = require '../../src/flux/student-dashboard'
 
-DATA = require '../../api/courses/1/dashboard.json'
 COURSE_ID = '1'
+DATA = require "../../api/courses/#{COURSE_ID}/events.json"
 
 describe 'Student Dashboard Component', ->
   beforeEach (done) ->
@@ -16,7 +16,7 @@ describe 'Student Dashboard Component', ->
     StudentDashboardActions.loaded(DATA, COURSE_ID)
     routerStub.goTo("/courses/#{COURSE_ID}/dashboard")
       .then (result) =>
-        @dashboard = ReactTestUtils.findRenderedComponentWithType(result.component,StudentDashboard)
+        @dashboard = ReactTestUtils.findRenderedComponentWithType(result.component, StudentDashboard)
         @state = result
         done()
 
