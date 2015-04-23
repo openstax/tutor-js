@@ -5,6 +5,7 @@ React = require 'react/addons'
 {Promise} = require 'es6-promise'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
+Add = require '../../../../src/components/course-calendar/add'
 
 {routerStub, commonActions} = require '../utilities'
 
@@ -17,6 +18,19 @@ actions =
   clickPrevious: commonActions.clickMatch('.previous')
   clickPlan: (planId) ->
     commonActions.clickMatch(".course-plan-#{planId}")
+  clickAdd: (args...) ->
+    {component} = args[0]
+    addButton = React.findDOMNode(component.refs.calendarHandler.refs.addButtonGroup.refs.dropdownButton)
+    commonActions.clickDOMNode(addButton)(args[0])
+  clickTomorrow: (args...) ->
+    {component} = args[0]
+    upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
+    commonActions.clickComponent(upcomings[0])(args[0])
+  clickAddHomework: (args...) ->
+    {component} = args[0]
+    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+    commonActions.clickDOMNode(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0])(args[0])
+    args[0]
 
   _getMomentWithPlans: (courseId) ->
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)

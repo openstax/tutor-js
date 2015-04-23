@@ -60,7 +60,26 @@ body.modal-open {
   user-select: none;
 }
 
+.bootstrap-column-padding-override() {
+  // Overriding bootstrap's tricks for nice column floating.
+  // To help with calendar plans width rendering.  May be useful elsewhere.  Be careful when using --
+  // removes padding of columns.
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  [class^="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .list-courses {
+
+  .calendar-container{
+    .bootstrap-column-padding-override();
+  }
+
   .calendar-header {
     text-align: center;
     font-size: 3rem;
@@ -97,6 +116,7 @@ body.modal-open {
       width: 100%;
       display: inline-block;
       vertical-align: top;
+      position: relative;
 
       &-weekdays {
         width: 100%;
@@ -114,7 +134,11 @@ body.modal-open {
     }
     &-Week {
       width: 100%;
+
+      // Note: property below subject to change based on data
+      // See CALENDAR_DAY_DYNAMIC_HEIGHT in CourseMonth component
       height: @calendar-cell-height;
+
       &-number {
         color: @gray-light;
         .calendar-cell(@calendar-cell-width);
@@ -135,23 +159,25 @@ body.modal-open {
     &-Day {
       .calendar-cell(@calendar-cell-width);
       border-right: 1px solid @gray-lighter;
-      cursor: pointer;
       position: relative;
 
-      &:after{
-        content: '+';
-        font-size: 2rem;
-        position: absolute;
-        bottom: 0;
-        right: 0.5rem;
-        color: @gray-light;
-        opacity: 0;
-      }
-
-      &:hover {
-        background-color: fade(@primary, 10%);
+      &--upcoming {
+        cursor: pointer;
         &:after{
-          opacity: 1;
+          content: '+';
+          font-size: 2rem;
+          position: absolute;
+          bottom: 0;
+          right: 0.5rem;
+          color: @gray-light;
+          opacity: 0;
+        }
+
+        &:hover, &.active {
+          background-color: fade(@primary, 10%);
+          &:after{
+            opacity: 1;
+          }
         }
       }
 
@@ -166,6 +192,7 @@ body.modal-open {
           display: none;
         }
       }
+
       &--current {
         background-color: @primary;
       }
@@ -179,6 +206,9 @@ body.modal-open {
     width: 100%;
     overflow: hidden;
     box-sizing: border-box;
+    // CALENDAR_EVENT_DYNAMIC_POSITION
+    // Offset from top based on what week the event is in.
+    // See CoursePlansByWeek component
   }
 
   .plan {
@@ -194,6 +224,9 @@ body.modal-open {
     font-weight: bold;
     transition: background .1s ease-in;
     overflow: hidden;
+    // takes on CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
+    // Based on event duration and event offset from start of week
+    // see CoursePlan component
 
     &.reading      { .x-plan(@reading-color); }
     &.exercise     { .x-plan(@exercise-color); }
@@ -201,6 +234,10 @@ body.modal-open {
     &.homework     { .x-plan(@homework-color); }
     &.interactive  { .x-plan(@interactive-color); }
 
+
+    // CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
+    // Takes width based on visible width of plan to center label.
+    // see CoursePlan component
     label {
       text-align: center;
       display: block;

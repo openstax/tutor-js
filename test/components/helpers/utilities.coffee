@@ -14,7 +14,7 @@ routerStub =
 
     history = new Router.TestLocation([route])
     promise = new Promise (resolve, reject) ->
-      Router.run routes, history, (Handler, state)->
+      Router.run routes, history, (Handler, state) ->
         router = @
         try
           React.render(<Handler/>, div, ->
@@ -82,9 +82,35 @@ commonActions =
     commonActions.clickButton(div, selector)
     args[0]
 
-  clickMatch: (selector)->
+  clickMatch: (selector) ->
     (args...) ->
       Promise.resolve(commonActions._clickMatch(selector, args...))
+
+  _clickComponent: (target, args...) ->
+    targetNode = React.findDOMNode(target)
+    commonActions.click(targetNode)
+    args[0]
+
+  _clickComponentOfType: (targetComponent, args...) ->
+    {div, component} = args[0]
+    target = React.addons.TestUtils.findRenderedComponentWithType(component, targetComponent)
+    commonActions._clickComponent(target)
+
+  clickComponentOfType: (targetComponent) ->
+    (args...) ->
+      Promise.resolve(commonActions._clickComponentOfType(targetComponent, args...))
+
+  clickComponent: (targetComponent) ->
+    (args...) ->
+      Promise.resolve(commonActions._clickComponent(targetComponent, args...))
+
+  _clickDOMNode: (targetNode, args...) ->
+    commonActions.click(targetNode)
+    args[0]
+
+  clickDOMNode: (targetDOMNode) ->
+    (args...) ->
+      Promise.resolve(commonActions._clickDOMNode(targetDOMNode, args...))
 
   _focusMatch: (selector, args...) ->
     {div} = args[0]
@@ -92,7 +118,7 @@ commonActions =
     React.addons.TestUtils.Simulate.focus(elementNode)
     args[0]
 
-  focusMatch: (selector)->
+  focusMatch: (selector) ->
     (args...) ->
       Promise.resolve(commonActions._focusMatch(selector, args...))
 

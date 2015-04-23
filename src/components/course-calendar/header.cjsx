@@ -9,7 +9,7 @@ CourseCalendarHeader = React.createClass
   displayName: 'CourseCalendarHeader'
 
   propTypes:
-    duration: React.PropTypes.oneOf(['month','week','day']).isRequired
+    duration: React.PropTypes.oneOf(['month', 'week', 'day']).isRequired
     setDate: React.PropTypes.func
     date: (props, propName, componentName) ->
       unless moment.isMoment(props[propName])
