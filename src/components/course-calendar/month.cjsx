@@ -44,6 +44,8 @@ CourseMonth = React.createClass
     calendar = React.findDOMNode(@refs.calendar)
     nodesWithHeights = calendar.querySelectorAll('.rc-Week')
 
+    # Adjust calendar height for each week to accomodate the number of plans shown on this week
+    # CALENDAR_DAY_DYNAMIC_HEIGHT, see less for property that is overwritten.
     Array.prototype.forEach.call(nodesWithHeights, (node, nthRange) ->
       range = _.findWhere(groupedDurations, {nthRange: nthRange})
       node.style.height = range.dayHeight + 'rem'
@@ -105,7 +107,7 @@ CourseMonth = React.createClass
 
     days = @renderDays(calendarDuration)
 
-    <BS.Grid>
+    <BS.Grid className='calendar-container'>
       <CourseAdd ref='addOnDay'/>
       <BS.Row>
         <BS.Col xs={1}>

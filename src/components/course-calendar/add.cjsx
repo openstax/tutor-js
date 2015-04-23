@@ -32,6 +32,8 @@ CourseAdd = React.createClass
     })
 
   render: ->
+    # DYNAMIC_ADD_ON_CALENDAR_POSITIONING
+    # Positions Add menu on date
     style =
       left: @state.positionLeft
       top: @state.positionTop

@@ -55,6 +55,8 @@ CoursePlan = React.createClass
     )
 
   renderLabel: (rangeDuration, durationLength, plan, index) ->
+    # Adjust width based on plan duration, helps with label centering on view...for the most part.
+    # CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
     if index is 0
       rangeLength = rangeDuration.length('days')
       planLabelStyle =
@@ -67,6 +69,8 @@ CoursePlan = React.createClass
     {plan, duration, rangeDuration, offset, index} = item
 
     durationLength = duration.length('days')
+    # Adjust width based on plan duration and left position based on offset of plan from start of week
+    # CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
     planStyle =
       width: durationLength * 100 / 7 + '%'
       left: offset * 100 / 7 + '%'
