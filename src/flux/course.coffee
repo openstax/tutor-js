@@ -47,7 +47,7 @@ CourseConfig =
     @emit('practice.loaded', obj.id)
 
   _reset: ->
-    CrudConfig.reset.call(this)
+    CrudConfig.reset.call(@)
     @_guides = {}
     @_asyncStatusGuides = {}
     @_practices = {}
