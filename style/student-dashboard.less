@@ -43,11 +43,34 @@
     height: 36px;
     font-family: 'Lato-Regular', 'Lato';
     font-weight: 400;
-    font-style: normal;
     font-size: 18px;
     color: #232E66;
     background-color: #F7B217;
     text-align: left;
+  }
+
+  .panel-body {
+    .due-at { font-size: 1.3rem; }
+    .empty{ text-align: center; }
+    .icon {
+      height: 40px;
+      background-repeat: no-repeat;
+      background-position-x: 10px;
+    }
+    .reading{
+      .icon {
+        background-image: url("/style/resources/student-dashboard/reading.png");
+      }
+    }
+    .task {
+      clear:both;// mixin bs row?
+      min-height: 50px;
+      border-top: thin dotted #E7E7E7;
+    }
+  }
+  .panel-heading {
+    background-color: white;
+    border-bottom: thin dotted #E7E7E7;
   }
   .rbox {
     background-color: white;
@@ -67,10 +90,19 @@
     li {
       font-family: 'Lato-Black', 'Lato Black', 'Lato';
       background: #F2F2F6;
-      a { color: #646464 !important; } 
+      a {
+        font-family: 'Lato-Regular', 'Lato';
+        font-weight: 400;
+        font-size: 2.4rem;
+        color: #646464 !important;
+      }
       &.active {
         background: white;
-        a { color: #424242 !important; } 
+        a {
+          font-family: 'Lato-Black', 'Lato Black', 'Lato';
+          font-weight: 900;
+          color: #424242 !important;
+        }
       }
     }
   }

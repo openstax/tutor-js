@@ -2,6 +2,10 @@
 
 StudentDashboardConfig = {
 
+  exports:
+    tasksForCourseID:(courseId)->
+      @_get(courseId)?.items || []
+
 }
 
 extendConfig(StudentDashboardConfig, new CrudConfig())
