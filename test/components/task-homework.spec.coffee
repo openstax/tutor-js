@@ -93,11 +93,6 @@ describe 'Task Widget, homework specific things', ->
       .checkAreAllStepsShowing(@result)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-  it 'should show problem number for homework problems', (done) ->
-    taskChecks
-      .checkIsProblemNumberShowing(@result)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
   it 'should show last step when last problem is clicked', (done) ->
     steps = TaskStore.getStepsIds(homeworkTaskId)
     lastStepIndex = steps.length - 1

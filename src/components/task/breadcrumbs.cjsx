@@ -53,7 +53,6 @@ module.exports = React.createClass
 
       <BS.Button bsStyle={bsStyle} className={classes} title={title} onClick={@props.goToStep(crumb.key)} key="step-#{crumb.key}">
         <i className="fa fa-fw #{crumbType}"></i>
-        <span className="step-problem-number">{index + 1}</span>
       </BS.Button>
 
     <BS.ButtonGroup className='steps'>

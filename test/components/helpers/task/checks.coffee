@@ -135,22 +135,6 @@ checks =
 
     {div, component, stepId, taskId, state, router, history}
 
-  _checkIsProblemNumberShowing: ({div, component, stepId, taskId, state, router, history}) ->
-    steps = TaskStore.getStepsIds(taskId)
-    stepComponents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'step')
-
-    _.each stepComponents, (step, index) ->
-      stepNode = step.getDOMNode()
-      renderedStepNumber = stepNode.innerText
-      # Not the best, but will work for now.
-      problemNode = stepNode.childNodes[1]
-
-      unless stepNode.classList.contains 'end'
-        expect(renderedStepNumber).to.equal((index + 1).toString())
-        expect(problemNode.style.display).to.not.equal('none')
-
-    {div, component, stepId, taskId, state, router, history}
-
 # promisify for chainability in specs
 _.each(checks, (check, checkName) ->
   # rename without _ in front

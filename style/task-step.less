@@ -5,12 +5,15 @@
 @answer-hover-color: #e6f9fc;
 @answer-select-color: #def4f7; // darker than hover
 
-// WHOA. This is sneaky. And hilarious. Am I allowed?!
 // http://caniuse.com/#search=counter
 .task-homework{
+  .steps {
+    counter-reset: step;
+  }
   .step:not(.end) {
-    .step-problem-number {
-      display: block;
+    &:before {
+      content: counter(step);
+      counter-increment: step;
     }
     i {
       display: none;
@@ -18,11 +21,7 @@
   }
 }
 
-.step {
-  .step-problem-number {
-    display: none;
-  }
-}
+
 
 .task-step {
   .footer-buttons {
