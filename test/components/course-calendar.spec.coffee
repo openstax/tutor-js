@@ -22,7 +22,7 @@ describe 'Course Calendar', ->
     TaskPlanActions.loaded(VALID_PLAN_MODEL, planId)
 
     calendarTests
-      .goToCalendar("/courses/#{courseId}/readings", courseId)
+      .goToCalendar("/courses/#{courseId}/t/calendar", courseId)
       .then((result) =>
         calendarComponent = React.addons.TestUtils.findRenderedComponentWithType(result.component, CourseCalendar)
         result.component = calendarComponent
