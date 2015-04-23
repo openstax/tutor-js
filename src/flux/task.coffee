@@ -118,6 +118,9 @@ TaskConfig =
     isSingleStepped: (taskId) ->
       @_steps[taskId].length is 1
 
+    doesAllowSeeAhead: (taskId) ->
+      if @_get(taskId).type is 'homework' then true else false
+
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
 module.exports = {TaskActions:actions, TaskStore:store}

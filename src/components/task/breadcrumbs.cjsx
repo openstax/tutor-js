@@ -6,6 +6,15 @@ BS = require 'react-bootstrap'
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
+  propTypes:
+    id: React.PropTypes.any.isRequired
+    currentStep: React.PropTypes.number.isRequired
+    goToStep: React.PropTypes.func.isRequired
+    allowSeeAhead: React.PropTypes.bool.isRequired
+
+  getDefaultProps: ->
+    allowSeeAhead: false
+
   componentWillMount:   -> TaskStore.addChangeListener(@update)
   componentWillUnmount: -> TaskStore.removeChangeListener(@update)
 
@@ -14,7 +23,7 @@ module.exports = React.createClass
   update: -> @setState({})
 
   render: ->
-    {id} = @props
+    {id, allowSeeAhead} = @props
     steps = TaskStore.getSteps(id)
 
     # Make sure the 1st incomplete step is displayed.
@@ -49,7 +58,8 @@ module.exports = React.createClass
         title ?= "Step Completed (#{step.type}). Click to review"
 
       else if showedFirstIncompleteStep
-        continue
+        unless allowSeeAhead
+          continue
       else
         showedFirstIncompleteStep = true
 

@@ -53,12 +53,15 @@ module.exports = React.createClass
 
     taskClasses = 'task'
     taskClasses += ' task-completed' if allStepsCompleted
+    taskClasses += " task-#{model.type}"
 
     unless TaskStore.isSingleStepped(id)
+      allowSeeAhead = TaskStore.doesAllowSeeAhead(id)
+
       breadcrumbs =
         <div className="panel-header">
           <Details task={model} />
-          <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} />
+          <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} allowSeeAhead={allowSeeAhead}/>
         </div>
 
     if @state.currentStep < -1
