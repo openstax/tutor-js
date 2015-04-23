@@ -4,6 +4,7 @@ _ = require 'underscore'
 {StudentDashboardStore, StudentDashboardActions} = require '../flux/student-dashboard'
 LoadableItem = require './loadable-item'
 moment = require 'moment'
+isStepComplete = (step) -> step.is_completed
 
 DUMMY_COURSE_DATA = {
   type: { tag: "physics", title: "Physics" }
@@ -86,7 +87,11 @@ ReadingEvent = React.createClass
 
   render: ->
     event=@props.event
-    <EventRow feedback="In Progress" event=event cssClass="reading">
+    feedback = switch
+      when _.all(event.steps,isStepComplete) then "Complete"
+      when _.any(event.steps,isStepComplete) then "In progress"
+      else "Not started"
+    <EventRow feedback={feedback} event=event cssClass="reading">
         {event.title} | <a>reference view</a>
     </EventRow>
 
@@ -97,7 +102,11 @@ HomeworkEvent = React.createClass
 
   render: ->
     event=@props.event
-    <EventRow feedback="In Progress" event=event cssClass="homework">
+    feedback = if moment(event.due_at).isBefore() # Past due, show correct/incorrect
+      "#{_.all(event.steps, isStepComplete)}/#{event.steps.length} complete"
+    else
+      "?/? correct" # TODO: needs added to feed or an alternate calculation determined
+    <EventRow feedback={feedback} event=event cssClass="homework">
         {event.title} | <a>view feedback</a> | <a>recover credit</a>
     </EventRow>
 
