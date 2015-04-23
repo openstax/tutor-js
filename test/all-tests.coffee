@@ -2,6 +2,7 @@
 
 require './components/reading-plan.spec'
 require './components/task.spec'
+require './components/task-homework.spec'
 require './components/practice.spec'
 require './components/learning-guide.spec'
 require './components/course-calendar.spec'
