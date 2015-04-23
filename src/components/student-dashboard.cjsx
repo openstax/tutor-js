@@ -66,6 +66,20 @@ UnknownEvent = React.createClass
       {moment(event.due_at).format("ddd, MMMM Do")}
     </div>
 
+EventRow = React.createClass
+  displayName: 'EventRow'
+  propTypes:
+    cssClass: React.PropTypes.string.isRequired
+    event:    React.PropTypes.object.isRequired
+    feedback: React.PropTypes.string.isRequired
+  render: ->
+    <div className="task row #{@props.cssClass}">
+     <BS.Col className="icon" xs={1}></BS.Col>
+     <BS.Col xs={7}>{@props.children}</BS.Col>
+     <BS.Col xs={2}>{@props.feedback}</BS.Col>
+     <BS.Col xs={2} className="due-at">{moment(@props.event.due_at).format("ddd, MMMM Do")}</BS.Col>
+    </div>
+
 ReadingEvent = React.createClass
   displayName: 'ReadingEvent'
   propTypes:
@@ -73,16 +87,9 @@ ReadingEvent = React.createClass
 
   render: ->
     event=@props.event
-    <div className="task reading">
-     <BS.Col className="icon" xs={1}>
-     </BS.Col>
-     <BS.Col xs={9}>
-       {event.title} | <a>reference view</a>
-     </BS.Col>
-     <BS.Col xs={2} className="due-at">
-       {moment(event.due_at).format("ddd, MMMM Do")}
-     </BS.Col>
-    </div>
+    <EventRow feedback="In Progress" event=event cssClass="reading">
+        {event.title} | <a>reference view</a>
+    </EventRow>
 
 HomeworkEvent = React.createClass
   displayName: 'HomeworkEvent'
@@ -91,16 +98,9 @@ HomeworkEvent = React.createClass
 
   render: ->
     event=@props.event
-    <div className="task homework">
-     <BS.Col className="icon" xs={1}>
-     </BS.Col>
-     <BS.Col xs={9}>
-       {event.title} | <a>view feedback</a> | <a>recover credit</a>
-     </BS.Col>
-     <BS.Col xs={2} className="due-at">
-       {moment(event.due_at).format("ddd, MMMM Do")}
-     </BS.Col>
-    </div>
+    <EventRow feedback="In Progress" event=event cssClass="homework">
+        {event.title} | <a>view feedback</a> | <a>recover credit</a>
+    </EventRow>
 
 EventsViewPanel = React.createClass
   displayName: 'EventsViewPanel'
