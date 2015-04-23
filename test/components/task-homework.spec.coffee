@@ -41,7 +41,6 @@ describe 'Task Widget, homework specific things', ->
       .then(taskChecks.checkAllowContinue)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-
   it 'should render next screen when Continue is clicked', (done) ->
     # Using homework because this one has no completed steps
     # and therefore actually has an intro screen
@@ -51,14 +50,12 @@ describe 'Task Widget, homework specific things', ->
       .then(taskChecks.heckIsDefaultStep)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-
   it 'should be able to work through a step in homework', (done) ->
     # run a full step through and check each step
     taskTests
       .renderStep(homeworkTaskId)
       .then(taskTests.workExerciseAndCheck)
       .then(_.delay(done, taskTests.delay)).catch(done)
-
 
   it 'should be able to work through a true-false question', (done) ->
     taskActions
@@ -70,14 +67,12 @@ describe 'Task Widget, homework specific things', ->
       .then(taskChecks.workTrueFalseAndCheck)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-
   it 'should show homework done page on homework completion', (done) ->
     taskActions
       .clickContinue(@result)
       .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)
-
 
   it 'should allow review completed steps with breadcrumbs', (done) ->
     taskActions
@@ -92,4 +87,18 @@ describe 'Task Widget, homework specific things', ->
     taskActions
       .clickDetails(@result)
       .then(taskChecks.checkIsPopoverOpen)
+      .then(_.delay(done, taskTests.delay)).catch(done)
+
+  it 'should show breadcrumbs for all steps', (done) ->
+    taskChecks
+      .checkAreAllStepsShowing(@result)
+      .then(_.delay(done, taskTests.delay)).catch(done)
+
+  it 'should show last step when last breadcrumb is clicked', (done) ->
+    steps = TaskStore.getStepsIds(homeworkTaskId)
+    lastStepIndex = steps.length - 1
+
+    taskActions
+      .clickBreadcrumb(lastStepIndex)(@result)
+      .then(taskChecks.checkIsMatchStep(lastStepIndex))
       .then(_.delay(done, taskTests.delay)).catch(done)

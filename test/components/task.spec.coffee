@@ -32,7 +32,6 @@ describe 'Task Widget', ->
       .then(taskChecks.checkRenderFreeResponse)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-
   it 'should update store when free response is submitted', (done) ->
     taskTests
       .answerFreeResponse(taskId)
@@ -40,20 +39,17 @@ describe 'Task Widget', ->
       .then(taskChecks.checkAnswerFreeResponse)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-
   it 'should render multiple choice after free response', (done) ->
     taskTests
       .submitFreeResponse(taskId)
       .then(taskChecks.checkSubmitFreeResponse)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-
   it 'should update store when multiple choice answer is chosen', (done) ->
     taskTests
       .answerMultipleChoice(taskId)
       .then(taskChecks.checkAnswerMultipleChoice)
       .then(_.delay(done, taskTests.delay)).catch(done)
-
 
   it 'should render an answer and feedback html for an answered question', (done) ->
     taskTests
@@ -71,7 +67,6 @@ describe 'Task Widget', ->
       .then(taskChecks.checkIsNextStep)
       .then(taskActions.advanceStep)
       .then(_.delay(done, taskTests.delay)).catch(done)
-
 
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step

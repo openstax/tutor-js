@@ -20,10 +20,10 @@ actions =
   clickDetails: commonActions.focusMatch('.task-details')
 
   _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
-    completedBreadcrumbs = div.querySelectorAll('button.step.completed')
-    completedBreadcrumbs = Array.prototype.slice.call(completedBreadcrumbs)
+    breadcrumbs = div.querySelectorAll('button.step')
+    breadcrumbs = Array.prototype.slice.call(breadcrumbs)
 
-    commonActions.click(completedBreadcrumbs[breadcrumbButtonIndex])
+    commonActions.click(breadcrumbs[breadcrumbButtonIndex])
     steps = TaskStore.getStepsIds(taskId)
     # change step
     stepId = steps[breadcrumbButtonIndex].id
