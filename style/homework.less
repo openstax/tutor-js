@@ -1,3 +1,57 @@
+.exercise-summary {
+  text-align: center;
+
+  &.navbar-fixed-top-lower {
+    top: 60px;
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    font-size: 4rem;
+    font-weight: normal;
+    margin: 0;
+    line-height: 3rem;
+  }
+
+  .row > div {
+    height: 60px;
+    border-right: 1px solid lightgray;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .selections-title {
+    line-height: 60px;
+    text-transform: uppercase;
+  }
+
+  .total {
+    h2 {
+      font-size: 6rem;
+      font-weight: normal;
+      margin: 0;
+      line-height: 6rem;
+      color: rgb(245, 208, 25);
+    }
+  }
+
+  .num-selected,
+  .num-tutor {
+    span {
+      font-size: 1.3rem;
+    }
+  }
+
+  .tutor-added-later {
+    line-height: 1.8rem;
+    font-size: 1.3rem;
+    text-align: left;
+  }
+}
+
 .edit-homework {
   label {
     display: block;
