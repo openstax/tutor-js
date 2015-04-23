@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 flux = require 'flux-react'
 _ = require 'underscore'
 
@@ -12,14 +13,14 @@ ExerciseConfig =
     @_exercises = []
     @_exerciseCache = []
 
-  load: (courseId, pageIds) ->
-    
+  load: (courseId, pageIds) -> # Used by API
+
   loaded: (obj, courseId, pageIds) ->
     @_exercises[pageIds.toString()] = obj.items
     _exerciseCache = []
     _.each obj.items, (exercise) ->
       _exerciseCache[exercise.id] = exercise
-    
+
     @_exerciseCache = _exerciseCache
     @emitChange()
 
@@ -27,7 +28,7 @@ ExerciseConfig =
     isLoaded: (pageIds) ->
       !!@_exercises[pageIds.toString()]
 
-    get: (pageIds)->
+    get: (pageIds) ->
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
     getExerciseById: (exercise_id) ->

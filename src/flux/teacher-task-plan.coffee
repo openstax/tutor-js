@@ -10,8 +10,8 @@ TeacherTaskPlanConfig =
     @_local[id] = items
 
   exports:
-    getCoursePlans: (id)->
-        @_local[id] || []
+    getCoursePlans: (id) ->
+      @_local[id] or []
 
 
 extendConfig(TeacherTaskPlanConfig, new CrudConfig())

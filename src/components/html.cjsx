@@ -8,7 +8,7 @@ module.exports = React.createClass
     className: React.PropTypes.string
     html: React.PropTypes.string
     block: React.PropTypes.bool
-    
+
   mixins: [KatexMixin]
   render: ->
     classes = ['has-html']
@@ -20,8 +20,10 @@ module.exports = React.createClass
     else
       <span className={classes} dangerouslySetInnerHTML={@getHTMLFromProp()} />
 
-  getHTMLFromProp: ()->
-      __html:@props.html if @props.html
+  getHTMLFromProp: ->
+    {html} = @props
+    if html
+      __html: html
 
   componentDidMount: ->
     # External links should open in a new window

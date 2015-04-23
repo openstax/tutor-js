@@ -124,13 +124,13 @@ CrudConfig = ->
       _.extend({}, @_local[id], @_changed[id])
 
     exports:
-      isUnknown: (id) -> !@_asyncStatus[id]
+      isUnknown: (id) -> not @_asyncStatus[id]
       isLoading: (id) -> @_asyncStatus[id] is LOADING
       isLoaded: (id) -> @_asyncStatus[id] is LOADED
       isFailed: (id) -> @_asyncStatus[id] is FAILED
       getAsyncStatus: (id) -> @_asyncStatus[id]
       get: (id) -> @_get(id)
-      isChanged: (id) -> !_.isEmpty(@_changed[id])
+      isChanged: (id) -> not _.isEmpty(@_changed[id])
       getChanged: (id) -> @_changed[id] or {}
       freshLocalId: -> CREATE_KEY()
       isNew: (id) -> isNew(id)

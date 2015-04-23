@@ -17,8 +17,6 @@ err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
 
-
-
 Dashboard = React.createClass
   displayName: 'Dashboard'
   componentWillMount: -> CurrentUserStore.addChangeListener(@update)
@@ -36,10 +34,20 @@ Dashboard = React.createClass
           isTeacher = _.find roles, (role) -> role.type is 'teacher'
           footer = []
           if isStudent or not isTeacher # HACK since a student does not currently have a role
-            footer.push(<Router.Link className="btn btn-link -student" to="listTasks" params={{courseId}}>Task List (Student)</Router.Link>)
+            footer.push(
+              <Router.Link
+                className="btn btn-link -student"
+                to="listTasks"
+                params={{courseId}}>Task List (Student)</Router.Link>)
 
           if isTeacher
-            footer.push(<Router.Link className="btn btn-link -teacher" to="taskplans" params={{courseId}}>Plan List (Teacher)</Router.Link>)
+            footer.push(
+              <Router.Link
+                className="btn btn-link -teacher"
+                to="taskplans"
+                params={{courseId}}>
+                Plan List (Teacher)
+              </Router.Link>)
 
           footer = <span className="-footer-buttons">{footer}</span>
 
@@ -84,7 +92,7 @@ SinglePractice = React.createClass
     CourseStore.off('practice.loaded', @update)
 
   getInitialState: ->
-      taskId: CourseStore.getPracticeId(@getId())
+    taskId: CourseStore.getPracticeId(@getId())
 
   getId: ->
     {courseId} = @context.router.getCurrentParams()
@@ -131,10 +139,20 @@ TaskResult = React.createClass
       stepsInfo = <small className='details'>({steps.length} steps)</small>
 
     <BS.Panel bsStyle="default" onClick={@onClick}>
-      <Router.Link to="viewTask" params={{courseId, id}}><i className="fa fa-fw #{mainType}"></i> {title}</Router.Link>
+      <Router.Link
+        to="viewTask"
+        params={{courseId, id}}>
+        <i className="fa fa-fw #{mainType}"></i>
+        {title}
+      </Router.Link>
       {stepsInfo}
       <span className="pull-right">
-        <Router.Link to="viewTask" params={{courseId, id}} className="ui-action btn btn-primary btn-sm">{actionTitle}</Router.Link>
+        <Router.Link
+          to="viewTask"
+          params={{courseId, id}}
+          className="ui-action btn btn-primary btn-sm">
+          {actionTitle}
+        </Router.Link>
       </span>
     </BS.Panel>
 

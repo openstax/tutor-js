@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 flux = require 'flux-react'
 
@@ -20,9 +21,9 @@ CurrentUserStore = flux.createStore
   _token: null
   _courseIds: null # Just store the id's. They will be looked up in the course store
 
-  setToken: (@_token) ->
+  setToken: (@_token) -> # Save the token
 
-  loadAllCourses: ->
+  loadAllCourses: -> # Used by API
   loadedAllCourses: (results) ->
     # {items} = results # TODO: This JSON format is inconsistent with the paged results
     items = results

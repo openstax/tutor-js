@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 flux = require 'flux-react'
 
 {makeSimpleStore} = require './helpers'
@@ -12,7 +13,7 @@ TocConfig =
     @_toc = null
     @_sections = {}
 
-  load: (courseId) ->
+  load: (courseId) -> # used by API
   loaded: (obj) ->
     @_toc = obj
     # Load all the section id's for easy lookup later.
