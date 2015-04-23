@@ -30,6 +30,7 @@ CourseMonth = React.createClass
 
   getInitialState: ->
     date: @props.startDate or moment()
+    activeAddDate: null
 
   setDate: (date) ->
     unless moment(date).isSame(@state.date, 'month')
@@ -63,7 +64,9 @@ CourseMonth = React.createClass
 
   handleClick: (componentName, dayMoment, mouseEvent) ->
     @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
-    mouseEvent.currentTarget.classList.add('active')
+    @setState({
+      activeAddDate: dayMoment
+    })
 
   checkAddOnDay: (componentName, dayMoment, mouseEvent) ->
     unless mouseEvent.relatedTarget is React.findDOMNode(@refs.addOnDay)
@@ -75,7 +78,9 @@ CourseMonth = React.createClass
 
   hideAddOnDay: (componentName, dayMoment, mouseEvent) ->
     @refs.addOnDay.close()
-    document.querySelector('.active.rc-Day')?.classList.remove('active')
+    @setState({
+      activeAddDate: null
+    })
 
 
   # render days based on whether they are past or upcoming
@@ -85,17 +90,31 @@ CourseMonth = React.createClass
 
     durationDays = calendarDuration.iterate('days')
     days = []
+    hasActiveAddDate =  @state.activeAddDate?
+
     while durationDays.hasNext()
       dayIter = durationDays.next()
+
       if dayIter.isAfter(referenceDay, 'day')
+
         day = <Day
           date={dayIter}
           onClick={@handleClick}
-          onMouseLeave={@checkAddOnDay}
-          onMouseEnter={@undoActives}
           modifiers={{upcoming: true}}/>
+
+        if hasActiveAddDate
+          # Only attach hover event check when there is an active date.
+          # Otherwise, we would be rendering way too often.
+          day.props.onMouseLeave = @checkAddOnDay
+          day.props.onMouseEnter = @undoActives
+
+          if @state.activeAddDate.isSame(dayIter, 'day')
+            day.props.classes =
+              active: true
+
       else
         day = <Day date={dayIter} modifiers={{past: true}}/>
+
       days.push(day)
 
     days
