@@ -25,8 +25,10 @@ actions =
 
     commonActions.click(breadcrumbs[breadcrumbButtonIndex])
     steps = TaskStore.getStepsIds(taskId)
-    # change step
-    stepId = steps[breadcrumbButtonIndex].id
+
+    unless breadcrumbButtonIndex is steps.length
+      # change step
+      stepId = steps[breadcrumbButtonIndex].id
 
     {div, component, stepId, taskId, state, router, history}
 

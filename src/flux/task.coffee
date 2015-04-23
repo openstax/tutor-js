@@ -88,7 +88,6 @@ TaskConfig =
           return {reading: steps[i], index:i}
       return {}
 
-
     getDefaultStepIndex: (taskId) ->
       steps = getSteps(@_steps[taskId])
 

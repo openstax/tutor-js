@@ -8,17 +8,19 @@
 // WHOA. This is sneaky. And hilarious. Am I allowed?!
 // http://caniuse.com/#search=counter
 .task-homework{
-  .steps {
-    counter-reset: step;
-  }
-  .step {
-    &:before {
-      content: counter(step);
-      counter-increment: step;
+  .step:not(.end) {
+    .step-problem-number {
+      display: block;
     }
     i {
       display: none;
     }
+  }
+}
+
+.step {
+  .step-problem-number {
+    display: none;
   }
 }
 

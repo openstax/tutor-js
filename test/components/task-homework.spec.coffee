@@ -46,8 +46,7 @@ describe 'Task Widget, homework specific things', ->
     # and therefore actually has an intro screen
     taskActions
       .clickContinue(@result)
-      .then(taskChecks.checkIsNotIntroScreen)
-      .then(taskChecks.heckIsDefaultStep)
+      .then(taskChecks.checkIsDefaultStep)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
   it 'should be able to work through a step in homework', (done) ->
@@ -94,11 +93,25 @@ describe 'Task Widget, homework specific things', ->
       .checkAreAllStepsShowing(@result)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-  it 'should show last step when last breadcrumb is clicked', (done) ->
+  it 'should show problem number for homework problems', (done) ->
+    taskChecks
+      .checkIsProblemNumberShowing(@result)
+      .then(_.delay(done, taskTests.delay)).catch(done)
+
+  it 'should show last step when last problem is clicked', (done) ->
     steps = TaskStore.getStepsIds(homeworkTaskId)
     lastStepIndex = steps.length - 1
 
     taskActions
       .clickBreadcrumb(lastStepIndex)(@result)
       .then(taskChecks.checkIsMatchStep(lastStepIndex))
+      .then(_.delay(done, taskTests.delay)).catch(done)
+
+  it 'should show complete page when complete page is clicked', (done) ->
+    steps = TaskStore.getStepsIds(homeworkTaskId)
+    completeStepIndex = steps.length
+
+    taskActions
+      .clickBreadcrumb(completeStepIndex)(@result)
+      .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)

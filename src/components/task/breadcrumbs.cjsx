@@ -2,18 +2,19 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {TaskStore} = require '../../flux/task'
 
+_ = require 'underscore'
+
+CrumbMixin = require './crumb-mixin'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
+
+  mixins: [CrumbMixin]
 
   propTypes:
     id: React.PropTypes.any.isRequired
     currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
-    allowSeeAhead: React.PropTypes.bool.isRequired
-
-  getDefaultProps: ->
-    allowSeeAhead: false
 
   componentWillMount:   -> TaskStore.addChangeListener(@update)
   componentWillUnmount: -> TaskStore.removeChangeListener(@update)
@@ -23,49 +24,36 @@ module.exports = React.createClass
   update: -> @setState({})
 
   render: ->
-    {id, allowSeeAhead} = @props
-    steps = TaskStore.getSteps(id)
+    crumbs = @getCrumableCrumbs()
 
-    # Make sure the 1st incomplete step is displayed.
-    # Useful when the student clicks back to review a previous step
-    # (ie the reading step)
-    showedFirstIncompleteStep = false
-
-    stepButtons = for step, i in steps
-
-      # Step is falsy when the task store is loaded with a null step
-      # after request.  This is not desired behavior.
-      throw new Error('BUG! step is falsy in TaskStore') unless step
+    stepButtons = _.map crumbs, (crumb, index) =>
+      step = crumb.data
+      crumbType = step.type
 
       bsStyle = null
       classes = ['step']
-      classes.push(step.type)
-
       title = null
 
-      if i is @props.currentStep
+      if crumb.key is @props.currentStep
         classes.push('current')
         classes.push('active')
-        # classes.push('disabled')
         title = "Current Step (#{step.type})"
 
       if step.is_completed
         classes.push('completed')
         bsStyle = 'primary'
-        # classes.push('disabled')
-        classes = classes.join(' ')
-
         title ?= "Step Completed (#{step.type}). Click to review"
 
-      else if showedFirstIncompleteStep
-        unless allowSeeAhead
-          continue
-      else
-        showedFirstIncompleteStep = true
+      if crumb.type is 'end'
+        title = "#{step.title} Completion"
+        crumbType = crumb.type
 
+      classes.push crumbType
+      classes = classes.join ' '
 
-      <BS.Button bsStyle={bsStyle} className={classes} title={title} onClick={@props.goToStep(i)} key="step-#{i}">
-        <i className="fa fa-fw #{step.type}"></i>
+      <BS.Button bsStyle={bsStyle} className={classes} title={title} onClick={@props.goToStep(crumb.key)} key="step-#{crumb.key}">
+        <i className="fa fa-fw #{crumbType}"></i>
+        <span className="step-problem-number">{index + 1}</span>
       </BS.Button>
 
     <BS.ButtonGroup className='steps'>

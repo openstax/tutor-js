@@ -1,16 +1,16 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+_ = require 'underscore'
 
-api = require '../../api'
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-{CourseActions, CourseStore} = require '../../flux/course'
+
+CrumbMixin = require './crumb-mixin'
 
 TaskStep = require '../task-step'
 Ends = require '../task-step/ends'
-
 Breadcrumbs = require './breadcrumbs'
+
 Time = require '../time'
 Details = require './details'
 
@@ -21,77 +21,70 @@ module.exports = React.createClass
 
   displayName: 'ReadingTask'
 
+  mixins: [CrumbMixin]
+
   contextTypes:
     router: React.PropTypes.func
 
   getInitialState: ->
-    {id} = @props
-    currentStep = TaskStore.getDefaultStepIndex(id)
+    currentStep = @getDefaultCurrentStep()
     {currentStep}
 
-  getDefaultCurrentStep: ->
-    {id} = @props
-    TaskStore.getCurrentStepIndex(id)
-
-  goToStep: (num) -> () =>
+  goToStep: (stepKey) -> () =>
     # Curried for React
-    @setState({currentStep: num})
+    @setState({currentStep: stepKey})
 
-  render: ->
-    {id} = @props
-    model = TaskStore.get(id)
-    steps = TaskStore.getStepsIds(id)
-    stepConfig = steps[@state.currentStep]
+  goToCrumb: ->
+    crumbs = @generateCrumbs()
+    _.findWhere crumbs, {key: @state.currentStep}
 
-    # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
-    # we need to reload the step straight from the API
-    TaskStepActions.forceReload(stepConfig.id) if stepConfig and not TaskStepStore.hasContent(stepConfig.id)
-
-    {courseId} = @context.router.getCurrentParams()
-
-    allStepsCompleted = TaskStore.isTaskCompleted(id)
-
-    taskClasses = 'task'
-    taskClasses += ' task-completed' if allStepsCompleted
-    taskClasses += " task-#{model.type}"
-
-    unless TaskStore.isSingleStepped(id)
-      allowSeeAhead = TaskStore.doesAllowSeeAhead(id)
-
-      breadcrumbs =
-        <div className="panel-header">
-          <Details task={model} />
-          <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep} allowSeeAhead={allowSeeAhead}/>
-        </div>
-
-    if @state.currentStep < -1
-      throw new Error('BUG! currentStep is too small')
-
-    else if @state.currentStep is -1
-      if allStepsCompleted
-        type = if model.type then model.type else 'task'
-        End = Ends.get(type)
-
-        panel = <End courseId={courseId} taskId={id} reloadPractice={@reloadTask}/>
-
-      else
+  renderPanel: (type, data) ->
+    panels =
+      intro: (data) =>
         footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
-        if model.due_at
-          dueDate = <div className="-due-at">Due At: <Time date={model.due_at}></Time></div>
+        if data.due_at
+          dueDate = <div className="-due-at">Due At: <Time date={data.due_at}></Time></div>
 
         panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
-                  <h1>{model.title}</h1>
+                  <h1>{data.title}</h1>
                   {dueDate}
                 </BS.Panel>
 
-    else
-      throw new Error('BUG: no valid step config') unless stepConfig
+      step: (data) =>
+        # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
+        # we need to reload the step straight from the API
+        TaskStepActions.forceReload(data.id) if data and not TaskStepStore.hasContent(data.id)
 
-      panel = <TaskStep
-                id={stepConfig.id}
-                goToStep={@goToStep}
-                onNextStep={@onNextStep}
-              />
+        <TaskStep
+          id={data.id}
+          goToStep={@goToStep}
+          onNextStep={@onNextStep}
+        />
+
+      end: (data) =>
+        {courseId} = @context.router.getCurrentParams()
+        type = if data.type then data.type else 'task'
+        End = Ends.get(type)
+
+        panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
+
+    panels[type](data)
+
+  render: ->
+    {id} = @props
+    task = TaskStore.get(id)
+    crumb = @goToCrumb()
+    panel = @renderPanel(crumb.type, crumb.data)
+
+    taskClasses = "task task-#{task.type}"
+    taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
+
+    unless TaskStore.isSingleStepped(id)
+      breadcrumbs =
+        <div className="panel-header">
+          <Details task={task} />
+          <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep}/>
+        </div>
 
     <div className={taskClasses}>
       {breadcrumbs}
