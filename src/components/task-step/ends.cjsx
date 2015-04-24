@@ -32,8 +32,7 @@ HomeworkEnd = React.createClass
     <div className="task task-completed">
       {@props.breadcrumbs}
       <BS.Panel bsStyle="default" footer={footer} className='-homework-completed'>
-        <h1>Turn in your homework.</h1>
-        <h3>Great Job!</h3>
+        <h3>Your homework will be automatically turned in at the due date.</h3>
       </BS.Panel>
     </div>
 

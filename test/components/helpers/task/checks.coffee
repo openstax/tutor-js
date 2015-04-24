@@ -1,6 +1,7 @@
 {expect} = require 'chai'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
+React = require 'react/addons'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
@@ -33,14 +34,6 @@ checks =
       expect(componentStepId).to.equal(targetStepId)
 
     {div, component, state, router, history}
-
-  _checkIsDefaultStep: ({div, component, stepId, taskId, state, router, history}) ->
-    stepIndex = TaskStore.getCurrentStepIndex(taskId)
-    steps = TaskStore.getStepsIds(taskId)
-    targetStepId = steps[stepIndex].id
-
-    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
-    {div, component, stepId, taskId, state, router, history}
 
   _checkRenderFreeResponse: ({div, component, stepId, taskId, state, router, history}) ->
     continueButton = div.querySelector('.-continue')
@@ -117,8 +110,28 @@ checks =
 
     {div, component, stepId, taskId, state, router, history}
 
+  _checkIsDefaultStep: ({div, component, stepId, taskId, state, router, history}) ->
+    stepIndex = TaskStore.getCurrentStepIndex(taskId)
+    steps = TaskStore.getStepsIds(taskId)
+
+    return checks._checkIsIntroScreen({div, component, stepId, taskId, state, router, history}) if stepIndex is -1
+    return checks._checkIsCompletePage({div, component, stepId, taskId, state, router, history}) if stepIndex is steps.length
+
+    targetStepId = steps[stepIndex].id
+
+    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+    {div, component, stepId, taskId, state, router, history}
+
   _checkIsPopoverOpen: ({div, component, stepId, taskId, state, router, history}) ->
     expect(document.querySelector('.task-details-popover h1')).to.not.be.null
+
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkAreAllStepsShowing: ({div, component, stepId, taskId, state, router, history}) ->
+    steps = TaskStore.getStepsIds(taskId)
+    stepNodes = div.querySelectorAll('.step')
+
+    expect(stepNodes.length).to.equal(steps.length + 1)
 
     {div, component, stepId, taskId, state, router, history}
 

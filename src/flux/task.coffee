@@ -85,7 +85,6 @@ TaskConfig =
           return {reading: steps[i], index:i}
       return {}
 
-
     getDefaultStepIndex: (taskId) ->
       steps = getSteps(@_steps[taskId])
 
@@ -114,6 +113,9 @@ TaskConfig =
 
     isSingleStepped: (taskId) ->
       @_steps[taskId].length is 1
+
+    doesAllowSeeAhead: (taskId) ->
+      if @_get(taskId).type is 'homework' then true else false
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
