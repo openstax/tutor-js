@@ -29,7 +29,7 @@ module.exports = React.createClass
       <div className="container">
         <div className="big-header">{course.type.title}</div>
         <BS.Col xs={12} md={9}>
-          <div className="period-title">{course.title}</div>
+          <div className="course-title">{course.title}</div>
 
           <BS.TabbedArea animation={false}>
 
