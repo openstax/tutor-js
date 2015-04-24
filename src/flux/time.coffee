@@ -7,15 +7,13 @@ flux = require 'flux-react'
 
 TimeConfig =
 
-  setNow: (now) ->
+  setNow: (now, localNow=new Date()) ->
     # called by API
-    localNow = new Date()
     @_shiftMs = now.getTime() - localNow.getTime()
 
   exports:
-    getNow: ->
+    getNow: (localNow=new Date())->
       shift = @_shiftMs or 0
-      localNow = new Date()
       new Date(localNow.getTime() + shift)
 
 {actions, store} = makeSimpleStore(TimeConfig)
