@@ -1,4 +1,5 @@
 _ = require 'underscore'
+moment = require 'moment'
 React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
@@ -61,6 +62,7 @@ ExerciseMultiChoice = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
+    onNextStep: React.PropTypes.func
 
   renderBody: ->
     {id} = @props
@@ -86,6 +88,7 @@ ExerciseMultiChoice = React.createClass
 
   onContinue: ->
     @props.onStepCompleted()
+    @props.onNextStep?()
 
 
 ExerciseReview = React.createClass
@@ -104,9 +107,12 @@ ExerciseReview = React.createClass
     question = content.questions[0]
     FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html}>
+    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
       {FreeResponse}
     </Question>
+
+  onAnswerChanged: (answer) ->
+    console.log(answer)
 
   isContinueEnabled: ->
     {id} = @props
@@ -167,6 +173,7 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     step = TaskStepStore.get(id)
+    task = TaskStore.get(step.task_id)
     {id, content, free_response, is_completed} = step
     # TODO: Assumes 1 question.
     hasFreeResponse = TaskStepStore.hasFreeResponse(id)
@@ -181,10 +188,10 @@ module.exports = React.createClass
     # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
     # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
 
-    if is_completed
+    if (is_completed and not (task.type is 'homework')) or (is_completed and task.type is 'homework' and moment().isAfter(task.due_at, 'day'))
       # 3. `correct_answer`: review how you did and show feedback (if any)
       # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
-      <ExerciseReview
+      exercise = <ExerciseReview
         id={id}
         onNextStep={@props.onNextStep}
         goToStep={@props.goToStep}
@@ -193,12 +200,16 @@ module.exports = React.createClass
     else if free_response or not hasFreeResponse
       # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
       # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
-      <ExerciseMultiChoice
+      exercise = <ExerciseMultiChoice
         id={id}
         onStepCompleted={@props.onStepCompleted}
       />
+
+      exercise.props.onNextStep = @props.onNextStep if (task.type is 'homework' and moment().isBefore(task.due_at, 'day'))
     else
       # 1. `not(free_response)`: Show the question stem and a text area
-      <ExerciseFreeResponse
+      exercise = <ExerciseFreeResponse
         id={id}
       />
+
+    exercise
