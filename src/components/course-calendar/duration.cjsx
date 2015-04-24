@@ -54,15 +54,15 @@ CourseDuration = React.createClass
     dayHeights = _.pluck(ranges, 'dayHeight')
 
     _.each(ranges, (range, index) ->
-        range.topOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
-            memo + current
-        ).value()
+      range.topOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
+        memo + current
+      ).value()
     )
 
   renderChildren: (range) ->
     {courseId} = @props
     React.Children.map(@props.children, (child) ->
-        React.addons.cloneWithProps(child, {range, courseId})
+      React.addons.cloneWithProps(child, {range, courseId})
     )
 
   # TODO see how to pull out plan specific logic to show that this
@@ -88,17 +88,17 @@ CourseDuration = React.createClass
         plans: []
 
       _.each(durationsInView, (plan) ->
-          if plan.duration.overlaps(range)
-            counter[plan.id] ?= 0
-            planForRange =
-              rangeDuration: plan.duration.intersection(range)
-              offset: moment(range.start).twix(plan.duration.start).length('days')
-              duration: plan.duration
-              plan: _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
-              index: counter[plan.id]
+        if plan.duration.overlaps(range)
+          counter[plan.id] ?= 0
+          planForRange =
+            rangeDuration: plan.duration.intersection(range)
+            offset: moment(range.start).twix(plan.duration.start).length('days')
+            duration: plan.duration
+            plan: _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
+            index: counter[plan.id]
 
-            rangeData.plans.push(planForRange)
-            counter[plan.id] = counter[plan.id] + 1
+          rangeData.plans.push(planForRange)
+          counter[plan.id] = counter[plan.id] + 1
       )
 
       rangeData

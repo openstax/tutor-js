@@ -12,6 +12,20 @@ ArbitraryHtmlAndMath = require '../html'
 {TocStore, TocActions} = require '../../flux/toc'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 
+# Throttle events to only fire when a page is redrawn
+throttle = (type, name, obj) ->
+  obj = obj or window
+  running = false
+  func = () ->
+    if running then return
+    running = true
+    requestAnimationFrame () ->
+      obj.dispatchEvent(new CustomEvent(name))
+      running = false
+
+  obj.addEventListener(type, func)
+  return func
+
 ExerciseCardMixin =
   renderAnswers: (answer) ->
     <div className="answers-answer">
@@ -126,8 +140,6 @@ ExercisesRenderMixin =
   renderLoading: ->
     {courseId, pageIds, hide} = @props
 
-    unless @props.shouldShow
-      return <span className="-no-show"></span>
     unless ExerciseStore.isLoaded(pageIds)
       ExerciseActions.load(courseId, pageIds)
       return <span className="-loading">Loading...</span>
@@ -142,7 +154,6 @@ ReviewExercises = React.createClass
     planId: React.PropTypes.any.isRequired
     courseId: React.PropTypes.any.isRequired
     pageIds: React.PropTypes.array
-    shouldShow: React.PropTypes.bool
 
   mixins: [ExercisesRenderMixin]
 
@@ -169,7 +180,6 @@ AddExercises = React.createClass
     planId: React.PropTypes.any.isRequired
     courseId: React.PropTypes.any.isRequired
     pageIds: React.PropTypes.array
-    shouldShow: React.PropTypes.bool
     hide: React.PropTypes.func.isRequired
 
   mixins: [ExercisesRenderMixin]
@@ -217,7 +227,6 @@ ExerciseSummary = React.createClass
 
   propTypes:
     planId: React.PropTypes.any.isRequired
-    shouldShow: React.PropTypes.bool
     canAdd: React.PropTypes.bool
     addClicked: React.PropTypes.func.isRequired
 
@@ -227,10 +236,31 @@ ExerciseSummary = React.createClass
   removeTutorSelection: ->
     TaskPlanActions.updateTutorSelection(@props.planId, -1)
 
-  render: ->
-    if not @props.shouldShow
-      return <span></span>
+  componentDidMount: () ->
+    el = @getDOMNode()
+    @staticPosition = @getPosition(el)
+    @handleScroll() # Update scroll position immediately on mount
+    @optimizedScrollFunc = throttle('scroll', 'optimizedScroll')
+    window.addEventListener('optimizedScroll', @handleScroll)
 
+  componentWillUnmount: () ->
+    window.removeEventListener('scroll', @optimizedScrollFunc)
+    window.removeEventListener('optimizedScroll', @handleScroll)
+
+  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
+
+  handleScroll: (e) ->
+    el = @getDOMNode()
+
+    if document.body.scrollTop + 60 > @staticPosition
+      el.classList.add('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+      document.body.style.marginTop = '120px'
+    else
+      el.classList.remove('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+      document.body.style.marginTop = '0'
+      @staticPosition = @getPosition(el)
+
+  render: ->
     numSelected = TaskPlanStore.getExercises(@props.planId).length
     numTutor = TaskPlanStore.getTutorSelections(@props.planId)
     total = numSelected + numTutor
@@ -252,13 +282,13 @@ ExerciseSummary = React.createClass
           <i className="fa fa-arrow-up"/>
         </BS.Button>
 
-    <BS.Panel className bsStyle="default">
+    <BS.Panel className="exercise-summary" bsStyle="default">
       <BS.Grid>
         <BS.Row>
-          <BS.Col sm={6} md={2} className="-selections-title">Selections</BS.Col>
-          <BS.Col sm={6} md={2} className="-total"><h2>{total}</h2></BS.Col>
-          <BS.Col sm={6} md={2} className="-num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
-          <BS.Col sm={6} md={2} className="-num-tutor">
+          <BS.Col sm={6} md={2} className="selections-title">Selections</BS.Col>
+          <BS.Col sm={6} md={2} className="total"><h2>{total}</h2></BS.Col>
+          <BS.Col sm={6} md={2} className="num-selected"><h2>{numSelected}</h2>My Selections</BS.Col>
+          <BS.Col sm={6} md={2} className="num-tutor">
             <h2>
               {removeSelection}
               <span>{numTutor}</span>
@@ -266,7 +296,7 @@ ExerciseSummary = React.createClass
             </h2>
             Tutor Selections
           </BS.Col>
-          <BS.Col sm={6} md={2} className="-tutor-added-later"><em>
+          <BS.Col sm={6} md={2} className="tutor-added-later"><em>
             Tutor selections are added later to support spaced practice and personalized learning.
           </em></BS.Col>
           <BS.Col sm={6} md={2}>
@@ -313,7 +343,6 @@ ChapterAccordion = React.createClass
     courseId: React.PropTypes.any.isRequired
     chapter: React.PropTypes.object.isRequired
     hide: React.PropTypes.func.isRequired
-    shouldShow: React.PropTypes.bool
     selected: React.PropTypes.array
 
   renderSections: (section) ->
@@ -364,7 +393,6 @@ SelectTopics = React.createClass
   propTypes:
     planId: React.PropTypes.any.isRequired
     courseId: React.PropTypes.any.isRequired
-    shouldShow: React.PropTypes.bool
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
 
@@ -389,8 +417,6 @@ SelectTopics = React.createClass
 
   render: ->
     {courseId, planId, selected, hide} = @props
-    unless @props.shouldShow
-      return <span className="-no-show"></span>
     unless TocStore.isLoaded()
       TocActions.load(courseId)
       return <span className="-loading">Loading...</span>
@@ -412,27 +438,34 @@ SelectTopics = React.createClass
       <BS.Button bsStyle="link" className="pull-right -close-reading" onClick={hide}>X</BS.Button>
     </h1>
 
-    <div>
+    if shouldShowExercises
+      exerciseSummary = <ExerciseSummary
+          canReview={true}
+          reviewClicked={hide}
+          planId={planId}/>
+
+      addExercises = <AddExercises
+          courseId={courseId}
+          planId={planId}
+          pageIds={selected}
+          hide={@hideSectionTopics}/>
+
+    <div className="-homework-plan-exercise-select-topics">
       <BS.Panel header={header} footer={footer}>
         <div className="select-reading-modal">
           {chapters}
         </div>
       </BS.Panel>
-      <ExerciseSummary
-        shouldShow={shouldShowExercises}
-        canReview={true}
-        reviewClicked={hide}
-        planId={planId}/>
-      <AddExercises
-        courseId={courseId}
-        planId={planId}
-        shouldShow={shouldShowExercises}
-        pageIds={selected}
-        hide={@hideSectionTopics}/>
+      {exerciseSummary}
+      {addExercises}
     </div>
 
 HomeworkPlan = React.createClass
+  contextTypes:
+    router: React.PropTypes.func
+
   displayName: 'HomeworkPlan'
+
   getInitialState: ->
     {showSectionTopics: false}
 
@@ -471,6 +504,9 @@ HomeworkPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
+    if TaskPlanStore.isNew(id) and @context?.router?.getCurrentQuery().date
+      dueAt = new Date(@context.router.getCurrentQuery().date)
+
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
     formClasses = ['edit-homework']
@@ -489,7 +525,25 @@ HomeworkPlan = React.createClass
                     min={new Date()}
                     value={dueAt}/>
 
-    <div>
+    if @state.showSectionTopics
+      selectTopics = <SelectTopics
+        courseId={courseId}
+        planId={id}
+        hide={@hideSectionTopics}
+        selected={topics}/>
+
+    if shouldShowExercises
+      exerciseSummary = <ExerciseSummary
+        canAdd={not TaskPlanStore.isPublished(id)}
+        addClicked={@showSectionTopics}
+        planId={id}/>
+
+      reviewExercises = <ReviewExercises
+        courseId={courseId}
+        pageIds={topics}
+        planId={id}/>
+
+    <div className='-homework-plan'>
       <BS.Panel bsStyle='default' header={headerText} className={formClasses.join(' ')} footer={footer}>
         <BS.Grid>
           <BS.Row>
@@ -520,22 +574,9 @@ HomeworkPlan = React.createClass
           </BS.Row>
         </BS.Grid>
       </BS.Panel>
-      <SelectTopics
-        courseId={courseId}
-        planId={id}
-        shouldShow={@state.showSectionTopics}
-        hide={@hideSectionTopics}
-        selected={topics}/>
-      <ExerciseSummary
-        shouldShow={shouldShowExercises}
-        canAdd={not TaskPlanStore.isPublished(id)}
-        addClicked={@showSectionTopics}
-        planId={id}/>
-      <ReviewExercises
-        courseId={courseId}
-        pageIds={topics}
-        shouldShow={shouldShowExercises}
-        planId={id}/>
+      {selectTopics}
+      {exerciseSummary}
+      {reviewExercises}
     </div>
 
 

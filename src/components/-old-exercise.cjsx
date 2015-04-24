@@ -142,7 +142,9 @@ MultipleChoiceOptionMixin =
       isChecked = @props.answer is optionIdent
 
     contents = [
-      <span key='letter' className='letter'><AnswerLabeler after=')' index={index}/> </span>
+      <span key='letter' className='letter'>
+        <AnswerLabeler after=')' index={index}/>
+      </span>
       <span key='answer' className='answer'>{option}</span>
     ]
 

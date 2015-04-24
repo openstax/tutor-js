@@ -5,6 +5,24 @@
 @answer-hover-color: #e6f9fc;
 @answer-select-color: #def4f7; // darker than hover
 
+// http://caniuse.com/#search=counter
+.task-homework{
+  .steps {
+    counter-reset: step;
+  }
+  .step:not(.end) {
+    &:before {
+      content: counter(step);
+      counter-increment: step;
+    }
+    i {
+      display: none;
+    }
+  }
+}
+
+
+
 .task-step {
   .footer-buttons {
     text-align: center;

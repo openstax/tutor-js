@@ -15,7 +15,7 @@ describe 'Task Store', ->
     expect(TaskStore.isUnknown(id)).to.be.true
 
 
-  it 'should load a task and notify', (done)->
+  it 'should load a task and notify', (done) ->
     calledSynchronously = false
     TaskStore.addChangeListener ->
       calledSynchronously = true

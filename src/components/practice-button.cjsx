@@ -37,7 +37,7 @@ PracticeButton = React.createClass
     else
       CourseActions.createPractice(courseId, {page_ids: pageIds})
 
-  transitionToPractice: (practiceId)->
+  transitionToPractice: (practiceId) ->
     {courseId, loadedTaskId} = @props
 
     if practiceId is loadedTaskId

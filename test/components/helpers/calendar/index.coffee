@@ -30,8 +30,7 @@ tests =
 
   goToCalendar: (route, courseId) ->
     div = @container
-    plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
-    routerStub._goTo(div, route, {stepId: id, taskId})
+    routerStub._goTo(div, route, {courseId})
 
 
 
