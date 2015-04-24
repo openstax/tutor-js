@@ -1,4 +1,12 @@
 .student-dashboard {
+  @big-header-background:   #232e66;
+  @big-header-text:         #79B142;
+  @course-title:            #232E66;
+  @course-background:       #232E66;
+  @border-line: thin dotted #E7E7E7;
+
+  .container { margin-top: 50px; }
+
   .bg {
     // use a :before block to apply the opacity only to the
     // background image, not the content itself
@@ -13,81 +21,49 @@
       opacity: 0.2;
     }
     &.physics {
-      &:before{
-        background-image: url("/style/resources/student-dashboard/physics.jpg");
-      }
+      &:before{ background-image: url("/style/resources/student-dashboard/physics.jpg"); }
     }
   }
+
   .big-header {
     position: fixed;
-    left:0px;
-    top:50px;
     left: 0px;
     right: 0px;
+    top:50px;
     height:220px;
     overflow: hidden;
-    background-color:rgba(35, 46, 102, 1);
-    background-image:none;
-    color:#79B142;
+    background-color: @big-header-background;
+    color: @big-header-text;
     text-align: center;
     padding-top: 85px;
-    font-size:320px;
-    font-family:'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
-    font-weight:700;
+    font-size: 320px;
+    font-family: 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
+    font-weight: 700;
   }
+
   .period-title {
     width: 300px;
-    padding: 5px;
-    width: 300px;
-    margin: 20px 0;
     height: 36px;
+    padding: 5px;
+    margin: 20px 0;
     font-family: 'Lato-Regular', 'Lato';
     font-weight: 400;
     font-size: 18px;
-    color: #232E66;
-    background-color: #F7B217;
-    text-align: left;
+    color: @course-title;
+    background-color: @course-background;
   }
 
-  .panel-body {
-    .due-at {
-      font-size: 1.3rem;
-      text-align: right;
-    }
-    .empty{ text-align: center; }
-    .icon {
-      height: 40px;
-      background-repeat: no-repeat;
-      background-position-x: 10px;
-      background-size: 40px 40px;
-    }
-    .reading {
-      .icon { background-image: url("/style/resources/student-dashboard/reading.png"); }
-    }
-    .homework {
-      .icon { background-image: url("/style/resources/student-dashboard/homework.png"); }
-    }
-    .task {
-      clear:both;// mixin bs row?
-      min-height: 50px;
-      border-top: thin dotted #E7E7E7;
-    }
-  }
   .panel-heading {
-    background-color: white;
-    border-bottom: thin dotted #E7E7E7;
+    background-color: white; // override bootstrap default
+    border-bottom: @border-line;
   }
+
   .rbox {
     background-color: white;
     padding: 10px;
     text-align: center;
-    margin-top: 85px;    
-    button {
-      width: 100%;
-    }
-  }
-  .container {
-    margin-top: 50px;
+    margin-top: 85px;
+    button { width: 100%; }
   }
 
   .nav-tabs {
@@ -113,9 +89,31 @@
   }
 
   .tab-pane {
-    .panel:first-child {
-      margin-top: 0px;
+    .panel:first-child { margin-top: 0px; }
+  }
+
+  .panel-body {
+    .empty{ text-align: center; }
+    .icon { // using font-awesome icons
+      padding: 0;
+      text-align: right;
+      .fa-icon();
+      .fa-3x;
+    }
+    .reading .icon {
+      &:before{ content:@fa-var-book; }
+    }
+    .homework .icon {
+      &:before{ content:@fa-var-home; }
+    }
+    .exam .icon {
+      &:before{ content:@fa-var-pencil-square-o; }
+    }
+    .task {
+      min-height: 50px;
+      border-bottom: @border-line;
     }
   }
+
 
 }
