@@ -17,7 +17,7 @@ ExerciseCardMixin =
     <span className="exercise-tag">{tag}</span>
 
   renderExercise: ->
-    content = JSON.parse(@props.exercise.content)
+    content = @props.exercise.content
     question = content.questions[0]
     renderedAnswers = _.map(question.answers, @renderAnswers)
     renderedTags = _.map(content.tags, @renderTags)
