@@ -42,7 +42,7 @@ TaskEnd = React.createClass
 
     <div className="task task-completed">
       {@props.breadcrumbs}
-      <BS.Panel bsStyle="default" footer={footer} className='-task-completed'>
+      <BS.Panel bsStyle="default" footer={footer} className="-reading-completed">
         <h1>You Are Done.</h1>
         <h3>Great Job!</h3>
       </BS.Panel>

@@ -5,6 +5,7 @@ React = require 'react/addons'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
+{StepPanelStore} = require '../../../../src/flux/step-panel'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
@@ -77,6 +78,15 @@ checks =
   _checkSubmitMultipleChoice: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
     expect(div.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
     expect(div.querySelector('.answer-correct').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
+
+    expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html) if StepPanelStore.canReview(stepId)
+    {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
+
+  _checkNotFeedback: ({div, component, stepId, taskId, state, router, history}) ->
+    expect(div.querySelector('.question-feedback')).to.be.null
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkForFeedback: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
     expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html)
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 

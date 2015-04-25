@@ -4,6 +4,7 @@ React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskActions,TaskStore} = require '../../flux/task'
+{StepPanelStore} = require '../../flux/step-panel'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
@@ -112,6 +113,7 @@ ExerciseReview = React.createClass
     </Question>
 
   onAnswerChanged: (answer) ->
+    # TODO put cannot change answer dialog here
     console.log(answer)
 
   isContinueEnabled: ->
@@ -172,42 +174,32 @@ module.exports = React.createClass
 
   render: ->
     {id} = @props
-    step = TaskStepStore.get(id)
-    task = TaskStore.get(step.task_id)
-    {id, content, free_response, is_completed} = step
-    # TODO: Assumes 1 question.
-    hasFreeResponse = TaskStepStore.hasFreeResponse(id)
 
-    # This should handle the 4 different states an Exercise can be in:
-    # 1. `not(free_response)`: Show the question stem and a text area
-    # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
-    # 3. `correct_answer`: review how you did and show feedback (if any)
-    # 4. `task.is_completed and answer` show your answer choice but no option to change it
+    panel = StepPanelStore.getPanel id
+    canReview = StepPanelStore.canReview id
 
-    # This should also handle when an Exercise format is a True-False:
-    # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
-    # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
-
-    if (is_completed and not (task.type is 'homework')) or (is_completed and task.type is 'homework' and moment().isAfter(task.due_at, 'day'))
-      # 3. `correct_answer`: review how you did and show feedback (if any)
-      # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
+    if panel is 'review'
       exercise = <ExerciseReview
         id={id}
         onNextStep={@props.onNextStep}
         goToStep={@props.goToStep}
         onStepCompleted={@props.onStepCompleted}
       />
-    else if free_response or not hasFreeResponse
-      # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
-      # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
-      exercise = <ExerciseMultiChoice
-        id={id}
-        onStepCompleted={@props.onStepCompleted}
-      />
+    else if panel is 'multiple-choice'
+      if canReview
+        exercise = <ExerciseMultiChoice
+          id={id}
+          onStepCompleted={@props.onStepCompleted}
+        />
+      else
+        exercise = <ExerciseMultiChoice
+          id={id}
+          onStepCompleted={@props.onStepCompleted}
+          onNextStep={@props.onNextStep}
+        />
 
-      exercise.props.onNextStep = @props.onNextStep if (task.type is 'homework' and moment().isBefore(task.due_at, 'day'))
-    else
-      # 1. `not(free_response)`: Show the question stem and a text area
+    else if panel is 'free-response'
+
       exercise = <ExerciseFreeResponse
         id={id}
       />
