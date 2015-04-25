@@ -28,7 +28,7 @@ LearningGuide = React.createClass
   displayUnit: (unit) ->
     @setState({unit})
 
-  displayTopic: (guide) ->
+  displayTopic: ->
     @setState({showAll:true})
     @loadChart()
 

@@ -3,10 +3,17 @@ d3 = require 'd3'
 
 CLOUDS_PATH = '/style/resources/clouds.svg'
 PLANE_PATH = '/style/resources/openstax-plane.svg'
+CITYSCAPE_PATH = '/style/resources/cityscape.svg'
+
+# should be svg bound to the label text, but temp for now.
+FLAG_BLUE = '/style/resources/flag-blue.png'
+FLAG_GREEN = '/style/resources/flag-green.png'
+FLAG_YELLOW = '/style/resources/flag-yellow.png'
+FLAG_ORANGE = '/style/resources/flag-orange.png'
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
-WIDTH = 110
-HEIGHT = 60 # approx 2/3 width, adjust to suite
+WIDTH = 160
+HEIGHT = 49 # approx 2/3 width, adjust to suite
 
 
 module.exports = class LearningGuideChart
@@ -35,7 +42,7 @@ module.exports = class LearningGuideChart
       fields = guide.children[0].children
 
 
-    leftMargin = 15
+    leftMargin = 25
     topMargin = 5
 
 
@@ -55,18 +62,25 @@ module.exports = class LearningGuideChart
     @drawBackgroundGradient(container)
     @drawVerticalLines(container, points)
     @drawStaticImages(container, points)
-    @drawHills(container)
+    #@drawHills(container)
     @drawPlotLines(container, points)
     @drawCircles(container, fields, points)
     @drawPlane(container, points)
+
+
+    @drawXRect(container)
     @drawXAxis(container, fields, points)
 
-    @drawYLabel(container, 9, 'Ace')
-    @drawYLabel(container, 22, 'Cruising')
-    @drawYLabel(container, 36, 'Too Low')
-    @drawYLabel(container, 50, 'Grounded')
+    @drawYLabel(container, 8, 'Ace')
+    @drawYLabel(container, 19, 'Cruising')
+    @drawYLabel(container, 30, 'Too Low')
+    @drawYLabel(container, 41, 'Grounded')
+
+    @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
     @drawTitle(container, guide)
+
+    
 
 
   drawTitle: (container, guide) ->
@@ -74,20 +88,35 @@ module.exports = class LearningGuideChart
       .append('svg:text')
       .attr('text-anchor', 'middle')
       .attr('x', WIDTH / 2)
-      .attr('y', 5)
+      .attr('y', 3)
       .attr('class', 'main-title')
       .text("Your Flight Path | #{guide.title} | All Topics | ")
       .append('svg:a')
       .attr('class', 'show-course noselect')
       .text("Show All #{guide.title}")
       .on('click', =>
-        console.log('clicked title')
-        @displayTopic(guide)
+        @displayTopic()
       )
 
+  drawXRect: (container) ->
+    rectHeight = 4.49
+    wrap = container.append('svg:rect')
+      .attr('width', WIDTH)
+      .attr('height', rectHeight)
+      .attr('y', HEIGHT - rectHeight)
+      .attr('class', 'x-rect')
 
   drawXAxis: (container, fields, points) ->
+    rectHeight = 4.49
+    clip = container.append('svg:clipPath')
+      .attr('id', 'clip')
+      .append('svg:rect')
+      .attr('id', 'clip-rect')
+      .attr('width', WIDTH)
+      .attr('height', rectHeight)
+      .attr('y', HEIGHT - rectHeight)
     wrap = container.append('g')
+      .attr('clip-path', 'url(#clip)')
       .attr('class', 'x-axis')
       .selectAll('line')
       .data(fields)
@@ -105,18 +134,39 @@ module.exports = class LearningGuideChart
         d3.select(this).classed('active', true)
         me.displayUnit(field)
       )
+    label.append('circle')
+      .attr('r',3.7)
+      .attr('cy', 1.8)
+      .attr('class', 'x-axis-circle')
     label.append('polygon')
-      .attr('class', 'arrow').attr('points', '1,1.5 2,3 0,3').attr('transform', 'translate(-1,1)')
+      .attr('class', 'arrow')
+      .attr('points', '1,1.5 2,3 0,3')
+      .attr('transform', 'translate(-1,1)')
     label.append('text')
-      .attr('text-anchor', 'middle').attr('dy', '1.8').attr('text-anchor', 'middle')
+      .attr('class', 'x-axis-label')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '2.3')
+      .attr('text-anchor', 'middle')
       .text( (f, i) -> f.chapter_section )
 
 
+
+
+  drawYDesc: (container, ypos, text) ->
+    wrap = container.append('g')
+      .append("svg:text")
+      .attr("text-anchor","end")
+      .attr("x", 5)
+      .attr("y", ypos)
+      .attr('class', 'y-desc')
+      .attr('transform', "rotate(-90, 8, #{ypos})")
+      .text(text)
+      
   drawYLabel: (container, ypos, text) ->
     wrap = container.append('g')
       .append("svg:text")
       .attr("text-anchor", "end")
-      .attr("x", 10)
+      .attr("x", 20)
       .attr("y", ypos)
       .attr('class', 'y-label')
       .text(text)
@@ -198,11 +248,14 @@ module.exports = class LearningGuideChart
       .attr('height', HEIGHT)
       .style('fill', 'url(#gradient)')
 
-  # Future improvement: Place clouds so they aren't
-  # hidden behind the points
+
   drawStaticImages: (container, points) ->
-    @addImage(CLOUDS_PATH, width:10, x:35, y:10)
-    @addImage(CLOUDS_PATH, width:16, x:77, y:20)
+    @addImage(CITYSCAPE_PATH, width:81, height:13, x:32, y:HEIGHT - 17.49)
+
+    @addImage(FLAG_BLUE, width:10, height:2.5, x:13.2, y:6.3)
+    @addImage(FLAG_GREEN, width:20, height:2.5, x:6.8, y:17.3)
+    @addImage(FLAG_YELLOW, width:20, height:2.5, x:6.6, y:28.3)
+    @addImage(FLAG_ORANGE, width:20, height:2.5, x:6.3, y:39.3)
 
   drawCircles: (container, fields, points) ->
     wrap = container.append('g')
@@ -219,16 +272,24 @@ module.exports = class LearningGuideChart
         @navigateToPractice(field)
       )
     circles.append('circle')
-      .attr('r', (f) ->
-        # awaiting a better alogorithm for the circle radius
-        Math.max(f.questions_answered_count / 20, 2)
+      .attr('r',1.6)
+      .attr('class', (f) ->
+        lv = f.current_level
+        if lv > .75
+          'blue'
+        else if lv <= .75 and lv >= .50
+          'green'
+        else if lv <= .49 and lv >= .35
+          'yellow'
+        else if lv < .35
+          'orange'
       )
-    circles.append('text')
-      .text( (f) ->
-        f.questions_answered_count
-      )
-      .attr('text-anchor', 'middle')
-      .attr('dy', '0.5')
+    # circles.append('text')
+    #   .text( (f) ->
+    #     f.questions_answered_count
+    #   )
+    #   .attr('text-anchor', 'middle')
+    #   .attr('dy', '0.5')
 
   drawPlotLines: (container, points) ->
     wrap = container.append('g')
@@ -253,6 +314,6 @@ module.exports = class LearningGuideChart
     wrap.enter()
       .append('line')
       .attr('x1', (p) -> p.x )
-      .attr('y1', 0)
+      .attr('y1', 7)
       .attr('x2', (p) -> p.x )
       .attr('y2', HEIGHT)

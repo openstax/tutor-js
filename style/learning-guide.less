@@ -1,10 +1,14 @@
 .learning-guide-chart {
-  outline: 1px solid #333;
+  // outline: 1px solid #333;
   svg {
-    width: 100%;
+    // outline: 1px solid red;
+    width: 1440px;
+    height:442px;
     .main-title{
-      font-size: .15em; 
-      font-family: RobotoDraft;
+      font-size: .13em; 
+      font-family: Georgia;
+      font-weight:bold;
+      fill:#333333;
       .show-course{
         cursor:pointer;
         fill: #1D9FDC;
@@ -12,44 +16,56 @@
       }
     }
     .circles {
+      .green{
+        fill: #79b142;
+      }
+      .yellow{
+        fill: #f9be1d;
+      }
+      .orange{
+        fill: #f37541;
+      }
+      .blue{
+        fill: #232e66;
+      }
       text {
         // the unscaled resolution of the svg is only 100px wide,
         // so 2px is 2% of the width of the chart, i.e. fairly large
         font-size: 0.119em;
         fill: white;
       }
-      circle { fill: #B4CFDF; }
+      circle { stroke:white;stroke-width:.25; }
       g {
         cursor: pointer;
-        &:hover { opacity: 0.8; }
+        // &:hover { opacity: 0.8; }
       }
     }
     .grid-lines {
       line {
         stroke: lightGrey;
         stroke-width: 0.1;
-        stroke-dasharray: 1 2;
+        // stroke-dasharray: 1 2;
       }
     }
     .plot-lines {
       line {
-        stroke: #9EDAF6;
+        stroke: #FFF;
         stroke-width: 0.4;
-        stroke-dasharray: 0.5 0.8;
+        stroke-dasharray: 1.2 0.5;
       }
     }
     .background-gradient {
       // despite the attribute being named "stop-color" this sets the starting color
-      .start { stop-color: #CEEDFB; }
+      .start { stop-color: #c1d8e5; }
       .end   { stop-color: white; }
     }
     .foreground-hills { fill: #66A333; }
     .background-hills { fill: #83B553; }
     .x-axis {
       text {
-        font-size: 0.113em;
+        font-size: 0.13em;
         fill: white;
-        font-family: serif;
+        font-family: Palatino;
       }
       .arrow {
         fill: transparent;
@@ -60,15 +76,33 @@
         &:hover  .arrow { fill: lightGrey; }
         &.active .arrow { fill: white; }
       }
+      .point.active .x-axis-label{
+        font-weight:bold;
+      }
+    }
+    .x-rect{
+      fill:#79b142;
+    }
+    .x-axis-circle{
+      stroke:#c9dfb2;
+      fill:#84c34a;
+      stroke-width:.1; 
     }
     .y-label{
+      font-size: 0.09em; 
+      font-family: Georgia;
+      fill:#FFF;
+    }
+    .y-desc{
       font-size: 0.1em; 
-      font-family: RobotoDraft;
+      font-family: Georgia;
+      font-style: italic;
+      fill:#666;
     }
   }
   .footer{
     width:100%;
-    height:130px;
+    height:186px;
   }
 }
 

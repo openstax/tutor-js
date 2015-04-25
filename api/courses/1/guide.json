@@ -9,14 +9,14 @@
     "title": "Kinematics",
     "chapter_section": "1",
     "questions_answered_count": 50,
-    "current_level": 0.5,
+    "current_level": 1,
     "page_ids": [ 234, 345, 456 ],
 
     "children": [
       { 
         "id":124, 
         "title": "Kinematics in 1 dimension", 
-        "chapter_section": "1.1",
+        "chapter_section": "3-1",
         "questions_answered_count": 30,
         "current_level": 0.1,
         "page_ids": [ 234, 345 ]
@@ -24,9 +24,41 @@
       { 
         "id":125, 
         "title": "Kinematics in 2 dimensions", 
-        "chapter_section": "1.2",
+        "chapter_section": "3-2",
+        "questions_answered_count": 20,
+        "current_level": 0.25,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-3",
+        "questions_answered_count": 20,
+        "current_level": 0.48,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-4",
         "questions_answered_count": 20,
         "current_level": 0.7,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-5",
+        "questions_answered_count": 20,
+        "current_level": 0.8,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-6",
+        "questions_answered_count": 20,
+        "current_level": 1,
         "page_ids": [ 456 ]
       }
 
@@ -69,7 +101,7 @@
     "title": "Kinematics",
     "chapter_section": "3",
     "questions_answered_count": 50,
-    "current_level": 0.5,
+    "current_level": 0.3,
     "page_ids": [ 234, 345, 456 ],
 
     "children": [
