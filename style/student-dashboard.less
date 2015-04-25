@@ -100,15 +100,9 @@
       .fa-icon();
       .fa-3x;
     }
-    .reading .icon {
-      &:before{ content:@fa-var-book; }
-    }
-    .homework .icon {
-      &:before{ content:@fa-var-home; }
-    }
-    .exam .icon {
-      &:before{ content:@fa-var-pencil-square-o; }
-    }
+    .reading  .icon { #icon>.lg(reading); }
+    .homework .icon { #icon>.lg(homework); }
+    .exam     .icon { #icon>.lg(exam); }
     .task {
       min-height: 50px;
       border-bottom: @border-line;

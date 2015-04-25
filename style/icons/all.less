@@ -1,0 +1,62 @@
+@icon-path: '.';
+@icon-size-sm: 25px;
+@icon-size-lg: @icon-size-sm * 2;
+
+// # Overview
+// There are 2 ways of including the icons:
+// - add `<i class="icon-homework icon-sm" />` tag in the HTML
+// - use the `#icon>.sm(homework);` in the CSS
+
+
+// # Local mixins
+//
+.x-icon-size(@size) {
+  display: inline-block;
+  width: @size;
+  height: @size;
+  background-size: @size @size;
+}
+
+.x-icon-bg(@name) {
+  background-image: url("@{icon-path}/icon-@{name}.svg");
+}
+
+// # Method 1
+//
+// Similar to font-awesome icons:
+//
+// add `<i class="icon-homework icon-sm"></i>` in the HTML
+
+.icon-sm { .x-icon-size(@icon-size-sm); }
+.icon-lg { .x-icon-size(@icon-size-lg); }
+
+// Note: Use tokens instead of strings to be able to do LESS compile-time validation
+.icon-feedback { .x-icon-bg(feedback); }
+.icon-homework { .x-icon-bg(homework); }
+.icon-reading  { .x-icon-bg(reading); }
+.icon-recover  { .x-icon-bg(recover); }
+.icon-test     { .x-icon-bg(test); }
+
+
+// # Method 2
+//
+// Call the namespaced mixin to inject the correct CSS
+//
+// Example:
+//
+// ```less
+//
+// .list .item.homework .icon { #icon>.sm(homework); }
+//
+// ```
+#icon {
+  .sm(@name) {
+    .x-icon-size(@icon-size-sm);
+    .x-icon-bg(@name);
+  }
+
+  .lg(@name) {
+    .x-icon-size(@icon-size-lg);
+    .x-icon-bg(@name);
+  }
+}
