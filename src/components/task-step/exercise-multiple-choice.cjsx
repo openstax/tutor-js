@@ -113,13 +113,12 @@ ExerciseReview = React.createClass
     question = content.questions[0]
     FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
+    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChangeAttempt={@onChangeAnswerAttempt}>
       {FreeResponse}
     </Question>
 
-  onAnswerChanged: (answer) ->
-    # TODO put cannot change answer dialog here
-    console.log(answer)
+  onChangeAnswerAttempt: (answer) ->
+    # TODO show cannot change answer message here
 
   isContinueEnabled: ->
     {id} = @props
