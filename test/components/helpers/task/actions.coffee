@@ -87,13 +87,7 @@ actions =
         actions[action]
       )
 
-      # perform appropriate step actions for each incomplete step
-      # by chaining each promised step action
-      # Forces promises to execute in order.  The actions are order dependent
-      # so Promises.all will not work in this case.
-      actionsFns.reduce((current, next) ->
-        current.then(next)
-      , Promise.resolve(args...))
+      commonActions.playThroughFunctions(actionsFns)(args...)
 
   completeThisStep: (args...) ->
     {stepId} = args[0]
