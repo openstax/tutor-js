@@ -121,13 +121,13 @@ gulp.task '_cleanResources', (done) ->
 
 gulp.task '_copyFonts', ['_cleanFonts'], ->
   destDirFonts = './dist/fonts/'
-  copyBowerFonts = gulp.src('bower_components/**/*.{eot,svg,ttf,woff,woff2}')
+  gulp.src([
+      'bower_components/**/*.{eot,svg,ttf,woff,woff2}',
+      'node_modules/**/*.{eot,svg,ttf,woff,woff2}',
+      'style/fonts/**/*'
+    ])
     .pipe(flatten())
     .pipe(gulp.dest(destDirFonts))
-  copyPkgFonts = gulp.src('node_modules/**/*.{eot,svg,ttf,woff,woff2}')
-    .pipe(flatten())
-    .pipe(gulp.dest(destDirFonts))
-  merge(copyBowerFonts, copyPkgFonts)
 
 gulp.task '_cleanFonts', (done) ->
   del([
