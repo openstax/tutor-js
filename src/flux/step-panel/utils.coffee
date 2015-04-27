@@ -2,11 +2,12 @@ moment = require 'moment'
 _ = require 'underscore'
 
 policies = require './policies'
+{TimeStore} = require '../time'
 
 utils =
   _dueState: (task) ->
     state = 'before'
-    state = 'after' if moment().isAfter(task.due_at, 'day')
+    state = 'after' if moment(TimeStore.getNow()).isAfter(task.due_at, 'day')
 
     state
 
