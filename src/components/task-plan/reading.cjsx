@@ -123,7 +123,7 @@ ReadingPlan = React.createClass
                         planId={id} 
                         selected={topics}/>
 
-    <div>
+    <div className='-reading-container'>
       <BS.Panel bsStyle="primary" 
         className={formClasses.join(' ')} 
         footer={footer} 
