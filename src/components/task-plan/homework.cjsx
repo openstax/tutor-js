@@ -21,15 +21,17 @@ ChooseExercises = React.createClass
   render: ->
     {courseId, planId, selected, hide} = @props
 
-    buttonStyle = if @props.selected?.length then 'primary' else 'disabled'
-    shouldShowExercises = @props.selected?.length and @state?.showProblems
-
     header = <span>Add Problems</span>
+    selected = TaskPlanStore.getTopics(planId)
+    shouldShowExercises = @props.selected?.length and @state?.showProblems
+    classes = ['-show-problems']
+    classes.push('disabled') unless selected?.length
+    classes = classes.join(' ')
 
     primary =
-      <BS.Button 
-        className="-show-problems" 
-        bsStyle={buttonStyle} 
+      <BS.Button
+        className={classes}
+        bsStyle="primary"
         onClick={@selectProblems}>Show Problems
       </BS.Button>
 
@@ -44,7 +46,7 @@ ChooseExercises = React.createClass
           planId={planId}
           pageIds={selected}/>
 
-    <div className="-homework-plan-exercise-select-topics">
+    <div className="homework-plan-exercise-select-topics">
       <SelectTopics
         primary={primary}
         header={header}
@@ -141,9 +143,9 @@ HomeworkPlan = React.createClass
         planId={id}/>
 
     <div className='-homework-plan'>
-      <BS.Panel bsStyle='default' 
-        header={headerText} 
-        className={formClasses.join(' ')} 
+      <BS.Panel bsStyle='default'
+        header={headerText}
+        className={formClasses.join(' ')}
         footer={footer}>
 
         <BS.Grid>
@@ -168,10 +170,10 @@ HomeworkPlan = React.createClass
             <BS.Col xs={12} md={6}>
               <div className="-homework-description">
                 <label htmlFor="homework-description">Description</label>
-                <textarea 
-                  ref="description" 
-                  id="homework-description" 
-                  value={description} 
+                <textarea
+                  ref="description"
+                  id="homework-description"
+                  value={description}
                   onChange={@setDescription}>
                 </textarea>
               </div>
