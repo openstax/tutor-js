@@ -98,7 +98,8 @@ TaskConfig =
         return 0
       stepIndex = getCurrentStepIndex(steps)
 
-      if stepIndex is 0 then -1 else stepIndex
+      completeStep = _.find steps, {is_completed: true}
+      if stepIndex is 0 and not completeStep? then -1 else stepIndex
 
     getStepsIds: (id) ->
       _.map(@_steps[id], (step) ->
