@@ -16,16 +16,6 @@ ReviewReadings = React.createClass
   propTypes:
     selected: React.PropTypes.array
 
-  getInitialState: ->
-    {courseId} = @props
-    TocActions.load(courseId) unless TocStore.isLoaded()
-    { }
-
-  componentWillMount:   -> TocStore.addChangeListener(@update)
-  componentWillUnmount: -> TocStore.removeChangeListener(@update)
-
-  update: -> @setState({})
-
   renderSection: (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
     <li className="-selected-section">
@@ -33,11 +23,7 @@ ReviewReadings = React.createClass
       <span className="-section-title">{topic?.title}</span>
     </li>
 
-  render: ->
-    unless TocStore.isLoaded()
-      TocActions.load(@props.courseId)
-      return <span className="-loading">Loading...</span>
-
+  renderSelected: ->
     if @props.selected.length
       <ul className="selected-reading-list">
         <li><strong>Currently selected sections in this reading</strong></li>
@@ -45,6 +31,14 @@ ReviewReadings = React.createClass
       </ul>
     else
       <div className="-selected-reading-list-none">No Readings Selected Yet</div>
+
+  render: ->
+    <LoadableItem
+      id={@props.courseId}
+      store={TocStore}
+      actions={TocActions}
+      renderItem={@renderSelected}
+    />
 
 ChooseReadings = React.createClass
 

@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Dialog = require '../dialog'
+LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
@@ -95,27 +96,11 @@ SelectTopics = React.createClass
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
 
-  getInitialState: ->
-    {courseId} = @props
-    TocActions.load(courseId) unless TocStore.isLoaded()
-    { }
-
-  componentWillMount:   -> TocStore.addChangeListener(@update)
-  componentWillUnmount: -> TocStore.removeChangeListener(@update)
-
-  update: -> @setState({})
-
-
   renderChapterPanels: (chapter, i) ->
     <ChapterAccordion {...@props} chapter={chapter}/>
 
-
-  render: ->
-
+  renderDialog: ->
     {courseId, planId, selected, hide, header, primary} = @props
-    unless TocStore.isLoaded()
-      TocActions.load(courseId)
-      return <span className="-loading">Loading...</span>
 
     selected = TaskPlanStore.getTopics(planId)
     chapters = _.map(TocStore.get(), @renderChapterPanels)
@@ -132,5 +117,15 @@ SelectTopics = React.createClass
         {chapters}
       </div>
     </Dialog>
+
+  render: ->
+    
+    <LoadableItem
+      id={@props.courseId}
+      store={TocStore}
+      actions={TocActions}
+      renderItem={@renderDialog}
+    />
+
 
 module.exports = SelectTopics
