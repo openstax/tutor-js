@@ -118,7 +118,7 @@
     { "id": 5,
       "HACK_LOCAL_STEP_COMPLETION": true,
       "type": "homework",
-      "title": "Chapter 5 and Chapter 6 Homework",
+      "title": "Chapter 5 Homework Past Due, shows feedback",
       "description_html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
       "due_at": "2015-02-10T00:45:20.967Z",
       "steps": [
@@ -177,11 +177,11 @@
     { "id": 6,
       "HACK_LOCAL_STEP_COMPLETION": true,
       "type": "homework",
-      "title": "Chapter 5 and Chapter 6 Homework",
+      "title": "Chapter 6 Homework Before Due, no feedback",
       "description_html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
-      "due_at": "2015-05-10T00:45:20.967Z",
+      "due_at": "2016-02-10T00:45:20.967Z",
       "steps": [
-        { "id": "step-id-5-1",
+        { "id": "step-id-6-1",
           "type": "exercise",
           "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
           "content": {
@@ -198,7 +198,7 @@
               }
             ]
           }
-        },{ "id": "step-id-5-2",
+        },{ "id": "step-id-6-2",
           "type": "exercise",
           "content": {
             "stimulus_html": "Stimulus for Second Exercise",
@@ -214,7 +214,7 @@
               }
             ]
           }
-        },{ "id": "step-id-5-3",
+        },{ "id": "step-id-6-3",
           "type": "exercise",
           "content": {
             "stimulus_html": "Stimulus for Second Exercise",

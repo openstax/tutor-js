@@ -204,4 +204,6 @@ module.exports = React.createClass
     panel = StepPanelStore.getPanel id
     # panel is one of ['review', 'multiple-choice', 'free-response']
     renderPanelMethod = camelCase "render-#{panel}"
+
+    throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
     @[renderPanelMethod]?(id)
