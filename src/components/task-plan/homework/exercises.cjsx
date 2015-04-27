@@ -145,7 +145,12 @@ ReviewExercises = React.createClass
     load = @renderLoading()
     if (load)
       return load
+    
     {courseId, pageIds, planId} = @props
+
+    if not TaskPlanStore.getTopics(planId).length
+      return <div className='bug'>Failed loading exercises</div>
+
     exercise_ids = TaskPlanStore.getExercises(planId)
     exercises = _.map(exercise_ids, ExerciseStore.getExerciseById)
     renderedExercises = _.map(exercises, @renderExercise)
