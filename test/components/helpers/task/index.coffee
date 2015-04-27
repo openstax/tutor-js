@@ -65,31 +65,37 @@ tests =
       .then(actions.saveMultipleChoice)
 
   workExerciseAndCheck: (args...) ->
-    Promise.resolve(args...)
-      .then(checks.checkIsDefaultStep)
-      .then(actions.fillFreeResponse)
-      .then(actions.clickContinue)
-      .then(checks.checkAnswerFreeResponse)
-      .then(actions.saveFreeResponse)
-      .then(checks.checkSubmitFreeResponse)
-      .then(actions.pickMultipleChoice)
-      .then(checks.checkAnswerMultipleChoice)
-      .then(actions.saveMultipleChoice)
-      .then(checks.checkSubmitMultipleChoice)
+    steps = [
+      checks.checkIsDefaultStep
+      actions.fillFreeResponse
+      actions.clickContinue
+      checks.checkAnswerFreeResponse
+      actions.saveFreeResponse
+      checks.checkSubmitFreeResponse
+      actions.pickMultipleChoice
+      checks.checkAnswerMultipleChoice
+      actions.saveMultipleChoice
+      checks.checkSubmitMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
   workExercise: (args...) ->
-    Promise.resolve(args...)
-      .then(actions.fillFreeResponse)
-      .then(actions.saveFreeResponse)
-      .then(actions.pickMultipleChoice)
-      .then(actions.saveMultipleChoice)
+    steps = [
+      actions.fillFreeResponse
+      actions.saveFreeResponse
+      actions.pickMultipleChoice
+      actions.saveMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
   workTrueFalseAndCheck: (args...) ->
-    Promise.resolve(args...)
-      .then(actions.pickMultipleChoice)
-      .then(checks.checkAnswerMultipleChoice)
-      .then(actions.saveMultipleChoice)
-      .then(checks.checkSubmitMultipleChoice)
+    steps = [
+      actions.pickMultipleChoice
+      checks.checkAnswerMultipleChoice
+      actions.saveMultipleChoice
+      checks.checkSubmitMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
 module.exports =
   taskTests: tests

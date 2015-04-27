@@ -12,14 +12,20 @@ module.exports = React.createClass
     correct_answer_id: React.PropTypes.string
     feedback_html: React.PropTypes.string
     onChange: React.PropTypes.func
+    onChangeAttempt: React.PropTypes.func
 
   getInitialState: ->
     answer: null
 
   # Curried function to remember the answer
-  onChangeAnswer: (answer) -> =>
-    @setState {answer_id:answer.id}
-    @props.onChange(answer)
+  onChangeAnswer: (answer) ->
+    (changeEvent) =>
+      if @props.onChange?
+        @setState({answer_id:answer.id})
+        @props.onChange(answer)
+      else
+        changeEvent.preventDefault()
+        @props.onChangeAttempt?(answer)
 
   render: ->
     html = @props.model.stem_html
@@ -38,8 +44,6 @@ module.exports = React.createClass
       classes.push('answer-correct fa') if isCorrect
       classes = classes.join(' ')
 
-      # Allow changes only when the correct answer is not provided
-      # TODO: This should only be allowed when not(taskStep.is_completed)
       unless hasCorrectAnswer
         radioBox = <input
           type="radio"

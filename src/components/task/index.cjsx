@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+camelCase = require 'camelcase'
 
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
@@ -38,43 +39,47 @@ module.exports = React.createClass
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: @state.currentStep}
 
-  renderPanel: (type, data) ->
-    panels =
-      intro: (data) =>
-        footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
-        if data.due_at
-          dueDate = <div className="-due-at">Due At: <Time date={data.due_at}></Time></div>
+  renderIntro: (data) ->
+    footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
+    if data.due_at
+      dueDate = <div className="-due-at">Due At: <Time date={data.due_at}></Time></div>
 
-        panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
-                  <h1>{data.title}</h1>
-                  {dueDate}
-                </BS.Panel>
+    panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
+              <h1>{data.title}</h1>
+              {dueDate}
+            </BS.Panel>
 
-      step: (data) =>
-        # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
-        # we need to reload the step straight from the API
-        TaskStepActions.forceReload(data.id) if data and not TaskStepStore.hasContent(data.id)
+  renderStep: (data) ->
+    # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
+    # we need to reload the step straight from the API
+    TaskStepActions.forceReload(data.id) if data and not TaskStepStore.hasContent(data.id)
 
-        <TaskStep
-          id={data.id}
-          goToStep={@goToStep}
-          onNextStep={@onNextStep}
-        />
+    <TaskStep
+      id={data.id}
+      goToStep={@goToStep}
+      onNextStep={@onNextStep}
+    />
 
-      end: (data) =>
-        {courseId} = @context.router.getCurrentParams()
-        type = if data.type then data.type else 'task'
-        End = Ends.get(type)
+  renderEnd: (data) ->
+    {courseId} = @context.router.getCurrentParams()
+    type = if data.type then data.type else 'task'
+    End = Ends.get(type)
 
-        panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
+    panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
 
-    panels[type](data)
+  # add render methods for different panel types as needed here
 
   render: ->
     {id} = @props
     task = TaskStore.get(id)
+    # get the crumb that matches the current state
     crumb = @goToCrumb()
-    panel = @renderPanel(crumb.type, crumb.data)
+
+    # crumb.type is one of ['intro', 'step', 'end']
+    renderPanelMethod = camelCase "render-#{crumb.type}"
+
+    throw new Error("BUG: panel #{crumb.type} for #{task.type} does not have a render method") unless @[renderPanelMethod]?
+    panel = @[renderPanelMethod]?(crumb.data)
 
     taskClasses = "task task-#{task.type}"
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)

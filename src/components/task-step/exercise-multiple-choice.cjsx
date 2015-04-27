@@ -1,8 +1,12 @@
 _ = require 'underscore'
+moment = require 'moment'
+camelCase = require 'camelcase'
+
 React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskActions,TaskStore} = require '../../flux/task'
+{StepPanel} = require '../../helpers/policies'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
@@ -61,6 +65,7 @@ ExerciseMultiChoice = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
+    onNextStep: React.PropTypes.func
 
   renderBody: ->
     {id} = @props
@@ -70,7 +75,7 @@ ExerciseMultiChoice = React.createClass
     question = content.questions[0]
     FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
+    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} onChange={@onAnswerChanged}>
       {FreeResponse}
       <div className="multiple-choice-prompt">Choose the best answer from the following:</div>
     </Question>
@@ -85,7 +90,11 @@ ExerciseMultiChoice = React.createClass
     !!answer_id
 
   onContinue: ->
+    {id} = @props
+    canReview = StepPanel.canReview id
+
     @props.onStepCompleted()
+    @props.onNextStep() unless canReview
 
 
 ExerciseReview = React.createClass
@@ -104,9 +113,12 @@ ExerciseReview = React.createClass
     question = content.questions[0]
     FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html}>
+    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChangeAttempt={@onChangeAnswerAttempt}>
       {FreeResponse}
     </Question>
+
+  onChangeAnswerAttempt: (answer) ->
+    # TODO show cannot change answer message here
 
   isContinueEnabled: ->
     {id} = @props
@@ -164,41 +176,34 @@ module.exports = React.createClass
     goToStep: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired
 
-  render: ->
-    {id} = @props
-    step = TaskStepStore.get(id)
-    {id, content, free_response, is_completed} = step
-    # TODO: Assumes 1 question.
-    hasFreeResponse = TaskStepStore.hasFreeResponse(id)
-
-    # This should handle the 4 different states an Exercise can be in:
-    # 1. `not(free_response)`: Show the question stem and a text area
-    # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
-    # 3. `correct_answer`: review how you did and show feedback (if any)
-    # 4. `task.is_completed and answer` show your answer choice but no option to change it
-
-    # This should also handle when an Exercise format is a True-False:
-    # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
-    # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
-
-    if is_completed
-      # 3. `correct_answer`: review how you did and show feedback (if any)
-      # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
-      <ExerciseReview
+  renderReview: (id)->
+    <ExerciseReview
         id={id}
         onNextStep={@props.onNextStep}
         goToStep={@props.goToStep}
         onStepCompleted={@props.onStepCompleted}
-      />
-    else if free_response or not hasFreeResponse
-      # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
-      # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
-      <ExerciseMultiChoice
-        id={id}
-        onStepCompleted={@props.onStepCompleted}
-      />
-    else
-      # 1. `not(free_response)`: Show the question stem and a text area
-      <ExerciseFreeResponse
-        id={id}
-      />
+    />
+
+  renderMultipleChoice: (id)->
+    <ExerciseMultiChoice
+      id={id}
+      onStepCompleted={@props.onStepCompleted}
+      onNextStep={@props.onNextStep}
+    />
+
+  renderFreeResponse: (id)->
+    <ExerciseFreeResponse
+      id={id}
+    />
+
+  # add render methods for different panel types as needed here
+
+  render: ->
+    {id} = @props
+    # get panel to render based on step progress
+    panel = StepPanel.getPanel id
+    # panel is one of ['review', 'multiple-choice', 'free-response']
+    renderPanelMethod = camelCase "render-#{panel}"
+
+    throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
+    @[renderPanelMethod]?(id)

@@ -2,19 +2,20 @@
 
 {expect} = require 'chai'
 _ = require 'underscore'
+moment = require 'moment'
 
 {taskActions, taskTests, taskChecks} = require './helpers/task'
 
-{CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
 courseId = 1
-homeworkTaskId = 5
+homeworkTaskId = 6
 targetStepIndex = 1
-homework_model = require '../../api/tasks/5.json'
+homework_model = require '../../api/tasks/6.json'
+homework_model.due_at = moment().add(1, 'year').toDate()
 
-describe 'Task Widget, homework specific things', ->
+describe 'Task Widget, homework specific things, due in the future', ->
   beforeEach (done) ->
     TaskActions.loaded(homework_model, homeworkTaskId)
 
@@ -29,7 +30,6 @@ describe 'Task Widget, homework specific things', ->
   afterEach ->
     taskTests.unmount()
 
-    CourseActions.reset()
     TaskActions.reset()
     TaskStepActions.reset()
 
@@ -56,6 +56,17 @@ describe 'Task Widget, homework specific things', ->
       .then(taskTests.workExerciseAndCheck)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
+  it 'should not be able view feedback after completing a step', (done) ->
+    # run a full step through and check for feedback
+    taskActions
+      .clickContinue(@result)
+      .then(taskActions.fillFreeResponse)
+      .then(taskActions.saveFreeResponse)
+      .then(taskActions.pickMultipleChoice)
+      .then(taskActions.saveMultipleChoice)
+      .then(taskChecks.checkNotFeedback)
+      .then(_.delay(done, taskTests.delay)).catch(done)
+
   it 'should be able to work through a true-false question', (done) ->
     taskActions
       .clickContinue(@result)
@@ -73,7 +84,7 @@ describe 'Task Widget, homework specific things', ->
       .then(taskChecks.checkIsCompletePage)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-  it 'should allow review completed steps with breadcrumbs', (done) ->
+  it 'should allow viewing any step with breadcrumbs', (done) ->
     taskActions
       .clickContinue(@result)
       .then(taskActions.completeSteps)

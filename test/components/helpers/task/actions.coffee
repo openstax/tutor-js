@@ -5,6 +5,7 @@ React = require 'react/addons'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
+{StepPanel} = require '../../../../src/helpers/policies'
 
 {routerStub, commonActions} = require '../utilities'
 
@@ -57,11 +58,11 @@ actions =
   saveMultipleChoice: ({div, component, stepId, taskId, state, router, history}) ->
     step = TaskStepStore.get(stepId)
     correct_answer = step.content.questions[0].answers[1]
-    feedback_html = 'Fake Feedback'
     commonActions.clickButton(div, '.-continue')
-
     step.correct_answer_id ?= correct_answer.id
-    step.feedback_html = feedback_html
+
+    feedback_html = 'Fake Feedback'
+    step.feedback_html = feedback_html if StepPanel.canReview(stepId)
     TaskStepActions.loaded(step, stepId, taskId)
 
     actions.forceUpdate({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html})
@@ -80,28 +81,25 @@ actions =
   advanceStep: (args...) ->
     Promise.resolve(actions._advanceStep(args...))
 
-  _getActionsForStepCompletion: (step) ->
-    actionsToNext =
-      reading: ['clickContinue']
-      interactive: ['clickContinue']
-      video: ['clickContinue']
-      freeResponse: ['fillFreeResponse', 'saveFreeResponse']
-      multipleChoice: ['pickMultipleChoice', 'saveMultipleChoice']
-      review: ['clickContinue']
+  _playThroughActions: (actionsToPlay) ->
+    (args...) ->
+      actionsFns = _.map(actionsToPlay, (action) ->
+        actions[action]
+      )
 
-    stepPanels = TaskStepStore.getPanels(step.id)
-    actionsToPlay = _.chain(stepPanels).map((panel) ->
-      _.clone(actionsToNext[panel])
-    ).flatten().value()
+      commonActions.playThroughFunctions(actionsFns)(args...)
 
-    actionsToPlay
+  completeThisStep: (args...) ->
+    {stepId} = args[0]
+    actionsForStep = StepPanel.getRemainingActions(stepId)
+    actions._playThroughActions(actionsForStep)(args...)
 
   _getActionsForTaskCompletion: (taskId) ->
     incompleteSteps = TaskStore.getIncompleteSteps(taskId)
     allSteps = TaskStore.getSteps(taskId)
 
     actionsToPlay = _.chain(incompleteSteps).map((step, index) ->
-      actionsForStep = actions._getActionsForStepCompletion(step)
+      actionsForStep = StepPanel.getRemainingActions(step.id)
       if index < incompleteSteps.length - 1
         actionsForStep.push('advanceStep')
       actionsForStep
@@ -115,16 +113,7 @@ actions =
     {taskId} = args[0]
     actionsToPlay = actions._getActionsForTaskCompletion(taskId)
 
-    actionsFns = _.map(actionsToPlay, (action) ->
-      actions[action]
-    )
+    actions._playThroughActions(actionsToPlay)(args...)
 
-    # perform appropriate step actions for each incomplete step
-    # by chaining each promised step action
-    # Forces promises to execute in order.  The actions are order dependent
-    # so Promises.all will not work in this case.
-    actionsFns.reduce((current, next) ->
-      current.then(next)
-    , Promise.resolve(args...))
 
 module.exports = actions

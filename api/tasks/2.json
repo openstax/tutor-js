@@ -1,5 +1,6 @@
 { "id": 2,
   "title": "Interactive Task",
+  "type":"reading",
   "steps": [{
     "id": "step-id-2-1",
     "type": "interactive",
