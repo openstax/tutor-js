@@ -20,7 +20,7 @@ PlanFooter = React.createClass
     {id} = @props
     TaskPlanActions.publish(id)
 
-  onDelete: () ->
+  onDelete: ->
     {id} = @props
     if confirm('Are you sure you want to delete this?')
       TaskPlanActions.delete(id)
@@ -50,7 +50,11 @@ PlanFooter = React.createClass
       deleteLink = <BS.Button bsStyle="link" className="-delete" onClick={@onDelete}>Delete</BS.Button>
 
     if TaskPlanStore.isHomework(id) and not TaskPlanStore.isPublished(id)
-      selectProblems = <BS.Button bsStyle="primary" className="-select-problems" onClick={clickedSelectProblem}>Select Problems</BS.Button>
+      selectProblems = <BS.Button 
+        bsStyle="primary" 
+        className="-select-problems"
+        onClick={clickedSelectProblem}>Select Problems
+      </BS.Button>
 
     classes = ['-save']
     classes.push('disabled') unless saveable

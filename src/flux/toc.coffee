@@ -1,7 +1,7 @@
 # coffeelint: disable=no_empty_functions
 flux = require 'flux-react'
 
-{makeSimpleStore} = require './helpers'
+{CrudConfig, extendConfig, makeSimpleStore} = require './helpers'
 
 TocConfig =
   _toc: null
@@ -34,5 +34,6 @@ TocConfig =
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
 
 
+extendConfig(TocConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TocConfig)
 module.exports = {TocActions:actions, TocStore:store}
