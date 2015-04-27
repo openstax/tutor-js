@@ -7,6 +7,6 @@ module.exports = React.createClass
 
   render: ->
     content = @props.children or "No events this week"
-    <BS.Panel>
+    <BS.Panel header={@props.title}>
       <div className="empty">{content}</div>
     </BS.Panel>

@@ -3,6 +3,7 @@ BS     = require 'react-bootstrap'
 moment = require 'moment'
 EventsPanel = require './events-panel'
 EmptyPanel  = require './empty-panel'
+{TimeStore} = require '../../flux/time'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 
 module.exports = React.createClass
@@ -11,14 +12,13 @@ module.exports = React.createClass
     courseId: React.PropTypes.any.isRequired
 
   render: ->
-    today   = moment().startOf('day') # FIXME: Replace with server time
-    nextWeek = today.startOf('week').add(1, "week").format("YYYYww")
-    events = StudentDashboardStore.eventsByWeek(@props.courseId)
-    if events[nextWeek]
+    startAt = moment(TimeStore.getNow()).add(1, "week")
+    events  = StudentDashboardStore.weeklyEventsForDay(@props.courseId, startAt)
+    if events.length
       <EventsPanel
-        events=events[nextWeek]
+        className="-upcoming"
+        events=events
         title="Coming Up"
       />
     else
       <EmptyPanel/>
-

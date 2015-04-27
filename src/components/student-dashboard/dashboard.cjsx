@@ -25,7 +25,7 @@ module.exports = React.createClass
   render: ->
     courseId = @props.courseId
     info = StudentDashboardStore.get(courseId)
-    {longTitle,shortTitle} = StudentDashboardStore.getTitles(courseId)
+    {longTitle, shortTitle} = StudentDashboardStore.getTitles(courseId)
 
     <div className={shortTitle.toLowerCase() + " bg"}>
       <div className="container">

@@ -15,6 +15,7 @@ module.exports = React.createClass
     endAt:    React.PropTypes.object
     limit:    React.PropTypes.number
     title:    React.PropTypes.string
+    className: React.PropTypes.string
 
   renderTitle: ->
     if @props.title
@@ -30,6 +31,6 @@ module.exports = React.createClass
         <UnknownEventRow key={event.id} event={event}/>
 
   render: ->
-    <BS.Panel header={@renderTitle()}>
+    <BS.Panel className={@props.className} header={@renderTitle()}>
       {_.map(@props.events, @renderEvent)}
     </BS.Panel>
