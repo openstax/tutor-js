@@ -1,5 +1,5 @@
 # coffeelint: disable=no_empty_functions
-
+# policies.coffee describes the following situations.
 # This should handle the 4 different states an Exercise can be in:
 # 1. `not(free_response)`: Show the question stem and a text area
 # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
@@ -11,8 +11,8 @@
 # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
 
 # Also, also, also, this should handle with an exercise is part of a homework
-# 7. Before due
-# 8. After due
+# 7. Before due -- does not show feedback and moves on to the next question on question finish
+# 8. After due -- does show feedback before moving on
 
 _ = require 'underscore'
 moment = require 'moment'
