@@ -1,7 +1,9 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
+moment = require 'moment'
 flux = require 'flux-react'
 {TaskStepActions, TaskStepStore} = require './task-step'
+{TimeStore} = require './time'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 getSteps = (steps) ->
@@ -25,6 +27,10 @@ getCurrentStep = (steps) ->
 getIncompleteSteps = (steps) ->
   _.filter steps, (step) ->
     not step.is_completed?
+
+getCompleteSteps = (steps) ->
+  _.filter steps, (step) ->
+    step.is_completed?
 
 
 TaskConfig =
@@ -107,6 +113,10 @@ TaskConfig =
       allSteps = getSteps(@_steps[taskId])
       steps = getIncompleteSteps(allSteps)
 
+    getCompletedSteps: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = getCompleteSteps(allSteps)
+
     isTaskCompleted: (taskId) ->
       incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))
       not incompleteStep
@@ -116,6 +126,21 @@ TaskConfig =
 
     doesAllowSeeAhead: (taskId) ->
       if @_get(taskId).type is 'homework' then true else false
+
+    getCompletedStepsCount: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = getCompleteSteps(allSteps)
+
+      steps.length
+
+    getTotalStepsCount: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+
+      allSteps.length
+
+    isTaskPastDue: (taskId) ->
+      task = @_local[taskId]
+      moment(TimeStore.getNow()).isAfter(task.due_at, 'day')
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
