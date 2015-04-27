@@ -8,9 +8,11 @@ UpcomingPanel   = require './upcoming-panel'
 AllEventsByWeek = require './all-events-by-week'
 ThisWeekPanel   = require './this-week-panel'
 
+{StudentDashboardStore} = require '../../flux/student-dashboard'
+
 DUMMY_COURSE_DATA = {
   type: { tag: "physics", title: "Physics" }
-  title: "2nd Period  |  Mr. Andrew Garcia"
+  title: "2nd Period & Mr. Andrew Garcia"
   endDate: moment('2015-10-20')
 }
 
@@ -22,14 +24,14 @@ module.exports = React.createClass
 
   render: ->
     courseId = @props.courseId
+    info = StudentDashboardStore.get(courseId)
+    {longTitle,shortTitle} = StudentDashboardStore.getTitles(courseId)
 
-    course = DUMMY_COURSE_DATA
-
-    <div className={course.type.tag + " bg"}>
+    <div className={shortTitle.toLowerCase() + " bg"}>
       <div className="container">
-        <div className="big-header">{course.type.title}</div>
+        <div className="big-header">{shortTitle}</div>
         <BS.Col xs={12} md={9}>
-          <div className="course-title">{course.title}</div>
+          <div className="course-title">{longTitle}</div>
 
           <BS.TabbedArea animation={false}>
 

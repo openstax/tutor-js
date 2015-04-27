@@ -6,6 +6,9 @@ addEvents = (hash, events) ->
      week = hash[ moment(event.due_at).format("YYYYww") ] ||= []
      week.push(event)
 
+arrayToSentence = (arry)->
+  arry.slice(0, arry.length - 1).join(', ') + " & " + arry.slice(-1)
+
 StudentDashboardConfig = {
 
   _reset: ->
@@ -22,6 +25,11 @@ StudentDashboardConfig = {
       addEvents(@_weeks, data.exams) if data.exams
       @_weeks
 
+    getTitles: (courseId) ->
+      data = @_get(courseId)
+      shortTitle=data.course.name.split(' ')[0]
+      longTitle="#{data.course.name} | #{arrayToSentence(data.course.teacher_names)}"
+      {longTitle,shortTitle}
 }
 
 extendConfig(StudentDashboardConfig, new CrudConfig())

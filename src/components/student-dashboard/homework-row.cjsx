@@ -14,10 +14,10 @@ module.exports = React.createClass
 
   render: ->
     event = @props.event
-    feedback = if moment(event.due_at).isBefore() # Past due, show correct/incorrect
-      "#{_.all(event.steps, isStepComplete)}/#{event.steps.length} complete"
+    feedback = if event.correct_exercise_count
+      "#{event.correct_exercise_count}/#{event.exercise_count} correct"
     else
-      "?/? correct" # TODO: needs added to feed or an alternate calculation determined
+      "#{event.complete_exercise_count}/#{event.exercise_count} complete"
     <EventRow feedback={feedback} event=event cssClass="homework">
         {event.title} |
         <a>view feedback</a> |

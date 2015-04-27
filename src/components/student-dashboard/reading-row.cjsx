@@ -14,8 +14,8 @@ module.exports = React.createClass
   render: ->
     event = @props.event
     feedback = switch
-      when _.all(event.steps, isStepComplete) then "Complete"
-      when _.any(event.steps, isStepComplete) then "In progress"
+      when event.complete then "Complete"
+      when event.exercise_count > 0 then "In progress"
       else "Not started"
     <EventRow feedback={feedback} event=event cssClass="reading">
         {event.title} | <a>reference view</a>
