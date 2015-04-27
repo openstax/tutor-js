@@ -5,7 +5,7 @@ moment = require 'moment'
 {TaskActions, TaskStore} = require '../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../src/flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require '../src/flux/task-plan'
-{StepPanelStore} = require '../src/flux/step-panel'
+{StepPanel} = require '../src/helpers/policies'
 
 # fake model stuffs for homework, late homework, reading, and practice
 homeworkTaskId = 6
@@ -57,7 +57,7 @@ testForExerciseStepWithReview = (taskId) ->
 
 
     it 'should return free-response and multiple-choice as available panels', ->
-      panels = StepPanelStore.getPanelsWithStatus @stepId
+      panels = StepPanel.getPanelsWithStatus @stepId
 
       expect(panels.length).to.equal(3)
       expect(panels[0].name).to.equal('free-response')
@@ -65,20 +65,20 @@ testForExerciseStepWithReview = (taskId) ->
       expect(panels[2].name).to.equal('review')
 
     it 'should allow review for past due homework', ->
-      canReview = StepPanelStore.canReview @stepId
+      canReview = StepPanel.canReview @stepId
 
       expect(canReview).to.equal(true)
 
     it 'should return multiple-choice as the panel after free-response answered', ->
       TaskStepActions.setFreeResponseAnswer @stepId, 'Hello!'
-      panel = StepPanelStore.getPanel @stepId
+      panel = StepPanel.getPanel @stepId
 
       expect(panel).to.equal('multiple-choice')
 
     it 'should return multiple-choice as the panel after multiple-choice answered', ->
       TaskStepActions.setFreeResponseAnswer @stepId, 'Hello!'
       TaskStepActions.setAnswerId @stepId, @answerId
-      panel = StepPanelStore.getPanel @stepId
+      panel = StepPanel.getPanel @stepId
 
       expect(panel).to.equal('multiple-choice')
 
@@ -87,7 +87,7 @@ testForExerciseStepWithReview = (taskId) ->
       TaskStepActions.setAnswerId @stepId, @answerId
       fakeComplete @stepId
 
-      panel = StepPanelStore.getPanel @stepId
+      panel = StepPanel.getPanel @stepId
 
       expect(panel).to.equal('review')
 
@@ -102,7 +102,7 @@ describe 'Step Panel Store, homework before due', ->
     TaskStepActions.reset()
 
   it 'should return free-response and multiple-choice as available panels', ->
-    panels = StepPanelStore.getPanelsWithStatus(stepIds[0])
+    panels = StepPanel.getPanelsWithStatus(stepIds[0])
 
     expect(panels.length).to.equal(2)
     expect(panels[0].name).to.equal('free-response')
@@ -110,14 +110,14 @@ describe 'Step Panel Store, homework before due', ->
 
   it 'should return multiple-choice as the panel after free-response answered', ->
     TaskStepActions.setFreeResponseAnswer(stepIds[0], 'Hello!')
-    panel = StepPanelStore.getPanel(stepIds[0])
+    panel = StepPanel.getPanel(stepIds[0])
 
     expect(panel).to.equal('multiple-choice')
 
   it 'should return multiple-choice as the panel after multiple-choice answered', ->
     TaskStepActions.setFreeResponseAnswer(stepIds[0], 'Hello!')
     TaskStepActions.setAnswerId(stepIds[0], answerId)
-    panel = StepPanelStore.getPanel(stepIds[0])
+    panel = StepPanel.getPanel(stepIds[0])
 
     expect(panel).to.equal('multiple-choice')
 
@@ -126,7 +126,7 @@ describe 'Step Panel Store, homework before due', ->
     TaskStepActions.setAnswerId(stepIds[0], answerId)
     fakeComplete(stepIds[0])
 
-    panel = StepPanelStore.getPanel(stepIds[0])
+    panel = StepPanel.getPanel(stepIds[0])
 
     expect(panel).to.equal('multiple-choice')
 
@@ -140,7 +140,7 @@ describe 'Step Panel Store, reading, view non-exercise', ->
 
   it 'should return view panel for a non-exercise step', ->
     stepId = 'step-id-4-3'
-    panel = StepPanelStore.getPanel(stepId)
+    panel = StepPanel.getPanel(stepId)
     taskStep = TaskStepStore.get(stepId)
 
     expect(taskStep.type).to.not.equal('exercise')

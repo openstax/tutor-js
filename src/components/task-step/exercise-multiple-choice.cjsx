@@ -6,7 +6,7 @@ React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskActions,TaskStore} = require '../../flux/task'
-{StepPanelStore} = require '../../flux/step-panel'
+{StepPanel} = require '../../helpers/policies'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
@@ -91,7 +91,7 @@ ExerciseMultiChoice = React.createClass
 
   onContinue: ->
     {id} = @props
-    canReview = StepPanelStore.canReview id
+    canReview = StepPanel.canReview id
 
     @props.onStepCompleted()
     @props.onNextStep() unless canReview
@@ -201,7 +201,7 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     # get panel to render based on step progress
-    panel = StepPanelStore.getPanel id
+    panel = StepPanel.getPanel id
     # panel is one of ['review', 'multiple-choice', 'free-response']
     renderPanelMethod = camelCase "render-#{panel}"
 

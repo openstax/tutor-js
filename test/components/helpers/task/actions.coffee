@@ -5,7 +5,7 @@ React = require 'react/addons'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
-{StepPanelStore} = require '../../../../src/flux/step-panel'
+{StepPanel} = require '../../../../src/helpers/policies'
 
 {routerStub, commonActions} = require '../utilities'
 
@@ -62,7 +62,7 @@ actions =
     step.correct_answer_id ?= correct_answer.id
 
     feedback_html = 'Fake Feedback'
-    step.feedback_html = feedback_html if StepPanelStore.canReview(stepId)
+    step.feedback_html = feedback_html if StepPanel.canReview(stepId)
     TaskStepActions.loaded(step, stepId, taskId)
 
     actions.forceUpdate({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html})
@@ -91,7 +91,7 @@ actions =
 
   completeThisStep: (args...) ->
     {stepId} = args[0]
-    actionsForStep = StepPanelStore.getRemainingActions(stepId)
+    actionsForStep = StepPanel.getRemainingActions(stepId)
     actions._playThroughActions(actionsForStep)(args...)
 
   _getActionsForTaskCompletion: (taskId) ->
@@ -99,7 +99,7 @@ actions =
     allSteps = TaskStore.getSteps(taskId)
 
     actionsToPlay = _.chain(incompleteSteps).map((step, index) ->
-      actionsForStep = StepPanelStore.getRemainingActions(step.id)
+      actionsForStep = StepPanel.getRemainingActions(step.id)
       if index < incompleteSteps.length - 1
         actionsForStep.push('advanceStep')
       actionsForStep
