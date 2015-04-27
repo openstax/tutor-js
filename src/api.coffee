@@ -7,6 +7,8 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
+
+{TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {LearningGuideActions} = require './flux/learning-guide'
@@ -28,6 +30,9 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
 
+setNow = (jqXhr) ->
+  TimeActions.setNow(new Date(jqXhr.getResponseHeader('Date')))
+
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
     # Make sure API calls occur **after** all local Action listeners complete
@@ -47,8 +52,11 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 
       url = "#{url}.json" if IS_LOCAL
 
-      resolved = (results) -> successAction(results, args...) # Include listenAction for faking
+      resolved = (results, statusStr, jqXhr) ->
+        setNow(jqXhr)
+        successAction(results, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
+        setNow(jqXhr)
         statusCode = jqXhr.status
         if statusCode is 200
           # HACK For PUT returning nothing (actually, it returns HTML for some reason)
