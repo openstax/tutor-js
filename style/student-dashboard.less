@@ -42,7 +42,7 @@
   }
 
   .course-title {
-    width: 300px;
+    display: inline-block;
     height: 36px;
     padding: 5px;
     margin: 20px 0;
@@ -94,17 +94,18 @@
 
   .panel-body {
     .empty{ text-align: center; }
-    .icon { // using font-awesome icons
-      padding: 0;
-      text-align: right;
-      .fa-icon();
-      .fa-3x;
+    .icon {
+      min-height: 3rem;
+      background-size: 3rem;
+      background-repeat: no-repeat;
+      background-position: 50%;
     }
-    .reading  .icon { #icon>.lg(reading); }
-    .homework .icon { #icon>.lg(homework); }
-    .exam     .icon { #icon>.lg(exam); }
+    .reading  .icon { .x-icon-bg(reading); }
+    .homework .icon { .x-icon-bg(homework); }
+    .exam     .icon { .x-icon-bg(test); }
     .task {
-      min-height: 50px;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
       border-bottom: @border-line;
     }
   }
