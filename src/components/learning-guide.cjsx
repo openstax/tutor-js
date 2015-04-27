@@ -19,7 +19,7 @@ LearningGuide = React.createClass
     courseId: React.PropTypes.any.isRequired
 
   getInitialState: ->
-    unit: false
+    showAll: false
 
   navigateToPractice: (unit) ->
     {courseId} = @props
@@ -28,12 +28,16 @@ LearningGuide = React.createClass
   displayUnit: (unit) ->
     @setState({unit})
 
-  componentDidMount: ->
-    chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit)
-    chart.drawChart(LearningGuideStore.get(@props.courseId))
+  displayTopic: (guide) ->
+    @setState({showAll:true})
+    @loadChart()
 
-  componentDidUpdate: ->
-    ## D3 commands to update SVG
+  loadChart: ->
+    chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
+    chart.drawChart(LearningGuideStore.get(@props.courseId), @state.showAll)
+
+  componentDidMount: ->
+    @loadChart()
 
   render: ->
     {unit} = @state
@@ -41,7 +45,8 @@ LearningGuide = React.createClass
     if unit
       unitInfo = <div className="-title">{unit.title}</div>
       stars = <div className="-stars">star rating</div>
-      practiceButton = <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton>
+      practiceButton =
+      <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton>
 
     <div className="learning-guide-chart">
       <svg ref="svg" />

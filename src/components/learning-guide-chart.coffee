@@ -11,36 +11,41 @@ HEIGHT = 60 # approx 2/3 width, adjust to suite
 
 module.exports = class LearningGuideChart
 
-  constructor: (@svgNode, @navigateToPractice, @displayUnit) ->
+  constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic) ->
 
-  addImage: (url,options) ->
+  addImage: (url, options) ->
     node = @svgNode
     d3.select(node).append('svg:image')
-      .attr('x',options.x)
-      .attr('y',options.y)
-      .attr('width', options.width   || 10)
-      .attr('height', options.height || 10)
+      .attr('x', options.x)
+      .attr('y', options.y)
+      .attr('width', options.width   or 10)
+      .attr('height', options.height or 10)
       .attr('xlink:href', url)
 
-  drawChart: (guide) ->
+  drawChart: (guide, showAll) ->
     node = @svgNode
 
     container = d3.select(@svgNode)
       .attr('preserveAspectRatio', 'xMidYMid meet')
       .attr('viewBox', "0 0 #{WIDTH} #{HEIGHT}")
 
-    fields = guide.fields
+    if showAll
+      fields = guide.children
+    else
+      fields = guide.children[0].children
+
 
     leftMargin = 15
     topMargin = 5
 
-    space_between = (WIDTH-leftMargin)/fields.length
 
-    points = _.map(fields, (f,i) ->
-        {
-          x: Math.max(leftMargin + space_between * i)
-          y: (HEIGHT-topMargin) - (f.current_level/1.18) * (HEIGHT-topMargin)
-        }
+    space_between = (WIDTH - leftMargin) / fields.length
+
+    points = _.map(fields, (f, i) ->
+      {
+        x: Math.max(leftMargin + space_between * i)
+        y: (HEIGHT - topMargin) - (f.current_level / 1.18) * (HEIGHT - topMargin)
+      }
     )
 
 
@@ -56,10 +61,10 @@ module.exports = class LearningGuideChart
     @drawPlane(container, points)
     @drawXAxis(container, fields, points)
 
-    @drawYLabel(container,9,'Ace')
-    @drawYLabel(container,22,'Cruising')
-    @drawYLabel(container,36,'Too Low')
-    @drawYLabel(container,50,'Grounded')
+    @drawYLabel(container, 9, 'Ace')
+    @drawYLabel(container, 22, 'Cruising')
+    @drawYLabel(container, 36, 'Too Low')
+    @drawYLabel(container, 50, 'Grounded')
 
     @drawTitle(container, guide)
 
@@ -67,11 +72,18 @@ module.exports = class LearningGuideChart
   drawTitle: (container, guide) ->
     wrap = container.append('g')
       .append('svg:text')
-      .attr('text-anchor','middle')
-      .attr('x', WIDTH/2)
+      .attr('text-anchor', 'middle')
+      .attr('x', WIDTH / 2)
       .attr('y', 5)
       .attr('class', 'main-title')
-      .text("Your Flight Path | #{guide.title} | All Topics")
+      .text("Your Flight Path | #{guide.title} | All Topics | ")
+      .append('svg:a')
+      .attr('class', 'show-course noselect')
+      .text("Show All #{guide.title}")
+      .on('click', =>
+        console.log('clicked title')
+        @displayTopic(guide)
+      )
 
 
   drawXAxis: (container, fields, points) ->
@@ -83,34 +95,34 @@ module.exports = class LearningGuideChart
     label = wrap.enter()
       .append('g')
       .attr('class', 'point')
-      .attr('transform', (f,i) ->
-        "translate(#{points[i].x},#{HEIGHT - 4})"
+      .attr('transform', (f, i) ->
+        "translate(#{points[i].x}, #{HEIGHT - 4})"
       )
       .on('click', (field) ->
         # remove 'active' class from all groups
-        d3.selectAll(@parentElement.children).classed('active',false)
+        d3.selectAll(@parentElement.children).classed('active', false)
         # and add it to ourselves
-        d3.select(this).classed('active',true)
+        d3.select(this).classed('active', true)
         me.displayUnit(field)
       )
     label.append('polygon')
-      .attr('class', 'arrow').attr('points',  '1,1.5 2,3 0,3').attr('transform', 'translate(-1,1)')
+      .attr('class', 'arrow').attr('points', '1,1.5 2,3 0,3').attr('transform', 'translate(-1,1)')
     label.append('text')
       .attr('text-anchor', 'middle').attr('dy', '1.8').attr('text-anchor', 'middle')
-      .text( (f,i) -> i+1 )
+      .text( (f, i) -> f.chapter_section )
 
 
-  drawYLabel: (container,ypos,text) ->
+  drawYLabel: (container, ypos, text) ->
     wrap = container.append('g')
       .append("svg:text")
-      .attr("text-anchor","end")
+      .attr("text-anchor", "end")
       .attr("x", 10)
       .attr("y", ypos)
       .attr('class', 'y-label')
       .text(text)
 
 
-  getLineAngle: (x1,x2,y1,y2) ->
+  getLineAngle: (x1, x2, y1, y2) ->
     deltaX = x2 - x1
     deltaY = y2 - y1
     rad = Math.atan2(deltaY, deltaX)
@@ -120,16 +132,16 @@ module.exports = class LearningGuideChart
 
   drawPlane: (container, points) ->
     point = _.last(points)
-    pointPrev = points[points.length-2]
+    pointPrev = points[points.length - 2]
     lineAngle = @getLineAngle(pointPrev.x, point.x, pointPrev.y, point.y)
     node = @svgNode
     d3.select(node).append('svg:image')
-      .attr('x',point.x+2)
-      .attr('y',point.y-3)
+      .attr('x', point.x + 2)
+      .attr('y', point.y - 3)
       .attr('width', 8)
       .attr('height', 6)
       .attr('xlink:href', PLANE_PATH)
-      .attr('transform', "rotate(#{lineAngle},#{point.x},#{point.y})")
+      .attr('transform', "rotate(#{lineAngle}, #{point.x}, #{point.y})")
 
 
   drawHills: (container) ->
@@ -189,8 +201,8 @@ module.exports = class LearningGuideChart
   # Future improvement: Place clouds so they aren't
   # hidden behind the points
   drawStaticImages: (container, points) ->
-    @addImage(CLOUDS_PATH, width:10, x: 35, y: 10)
-    @addImage(CLOUDS_PATH, width:16, x: 77, y: 20)
+    @addImage(CLOUDS_PATH, width:10, x:35, y:10)
+    @addImage(CLOUDS_PATH, width:16, x:77, y:20)
 
   drawCircles: (container, fields, points) ->
     wrap = container.append('g')
@@ -200,8 +212,8 @@ module.exports = class LearningGuideChart
 
     circles = wrap.enter()
       .append('g')
-      .attr('transform', (f,i) ->
-        "translate(#{points[i].x},#{points[i].y})"
+      .attr('transform', (f, i) ->
+        "translate(#{points[i].x}, #{points[i].y})"
       )
       .on('click', (field) =>
         @navigateToPractice(field)
@@ -222,15 +234,15 @@ module.exports = class LearningGuideChart
     wrap = container.append('g')
       .attr('class', 'plot-lines')
       .selectAll('line')
-      .data( points[0...points.length-1] )
+      .data( points[0...points.length - 1] )
        # ^^ We don't want to create a line for the last point
 
     wrap.enter()
       .append('line')
-      .attr('x1', (p) ->p.x )
-      .attr('y1', (p) ->p.y)
-      .attr('x2', (p,i) ->points[i+1].x )
-      .attr('y2', (p,i) ->points[i+1].y )
+      .attr('x1', (p) -> p.x )
+      .attr('y1', (p) -> p.y)
+      .attr('x2', (p, i) -> points[i + 1].x )
+      .attr('y2', (p, i) -> points[i + 1].y )
 
   drawVerticalLines: (container, points) ->
     wrap = container.append('g')
@@ -240,7 +252,7 @@ module.exports = class LearningGuideChart
 
     wrap.enter()
       .append('line')
-      .attr('x1', (p) ->p.x )
+      .attr('x1', (p) -> p.x )
       .attr('y1', 0)
-      .attr('x2', (p) ->p.x )
+      .attr('x2', (p) -> p.x )
       .attr('y2', HEIGHT)
