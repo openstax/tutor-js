@@ -70,16 +70,17 @@ describe 'Course Calendar', ->
         done()
       ).catch(done)
 
-  it 'should render plans when month with plans is rendered', (done) ->
-    calendarActions
-      # TODO make work with goToMonthWithPlans instead
-      # .goToMonthWithPlans(@result)
-      .clickPrevious(@result)
-      .then(calendarChecks.checkIsLabelPreviousMonth)
-      .then(calendarChecks.checkDoesViewHavePlans)
-      .then((result) ->
-        done()
-      ).catch(done)
+  # TODO: Commented_because_in_alpha_plans_in_the_calendar_do_not_have_ranges
+  # it 'should render plans when month with plans is rendered', (done) ->
+  #   calendarActions
+  #     # TODO make work with goToMonthWithPlans instead
+  #     # .goToMonthWithPlans(@result)
+  #     .clickPrevious(@result)
+  #     .then(calendarChecks.checkIsLabelPreviousMonth)
+  #     .then(calendarChecks.checkDoesViewHavePlans)
+  #     .then((result) ->
+  #       done()
+  #     ).catch(done)
 
   it 'should show plan details when plan is clicked', (done) ->
     calendarActions
