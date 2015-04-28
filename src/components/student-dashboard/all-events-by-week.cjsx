@@ -14,6 +14,7 @@ module.exports = React.createClass
     startAt = moment(week, "YYYYww")
     <EventsPanel
       key={week}
+      className="-weeks-events"
       courseId={@props.courseId}
       events={events}
       startAt={startAt}
