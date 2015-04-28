@@ -6,24 +6,5 @@
     "due_at": "2015-04-01T04:00:00.000Z",
     "settings": {
         "exercise_id": [11]
-    },
-    "stats": {
-        "course": {
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "page": {
-                    "id": 0,
-                    "number": 0,
-                    "title": ""
-                },
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },
-        "periods": []
     }
 }
