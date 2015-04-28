@@ -16,30 +16,24 @@
             "complete_count": 10,
             "partially_complete_count": 0,
             "current_pages": [{
-                "page": {
-                    "id": 1,
-                    "number": 1,
-                    "title": "Introduction"
-                },
+                "id": 1,
+                "number": 1,
+                "title": "Introduction",
                 "student_count": 0,
                 "correct_count": 0,
                 "incorrect_count": 0
             }, {
-                "page": {
-                    "id": 2,
-                    "number": 2,
-                    "title": "Force"
-                },
+                "id": 2,
+                "number": 2,
+                "title": "Force",
                 "student_count": 0,
                 "correct_count": 0,
                 "incorrect_count": 0
             }],
             "spaced_pages": [{
-                "page": {
-                    "id": 0,
-                    "number": 0,
-                    "title": ""
-                },
+                "id": 0,
+                "number": 0,
+                "title": "",
                 "student_count": 10,
                 "correct_count": 120,
                 "incorrect_count": 50

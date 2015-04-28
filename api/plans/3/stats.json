@@ -16,11 +16,9 @@
             "partially_complete_count": 0,
             "current_pages": [],
             "spaced_pages": [{
-                "page": {
-                    "id": 0,
-                    "number": 0,
-                    "title": ""
-                },
+                "id": 0,
+                "number": 0,
+                "title": "",
                 "student_count": 10,
                 "correct_count": 120,
                 "incorrect_count": 50

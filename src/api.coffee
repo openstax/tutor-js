@@ -117,7 +117,7 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
-    url: "/api/plans/#{id}"
+    url: "/api/plans/#{id}/stats"
 
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->
     page_id_str = pageIds.join('&page_ids[]=')
@@ -170,7 +170,7 @@ start = ->
     url: "/api/courses/#{courseId}/tasks"
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/plans"
+    url: "/api/courses/#{courseId}/events"
 
 
   apiHelper CurrentUserActions, CurrentUserActions.loadAllCourses, CurrentUserActions.loadedAllCourses, 'GET', ->
