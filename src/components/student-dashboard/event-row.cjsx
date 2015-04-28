@@ -1,6 +1,7 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
 moment = require 'moment'
+Time   = require '../time'
 
 module.exports = React.createClass
   displayName: 'EventRow'
@@ -16,6 +17,6 @@ module.exports = React.createClass
       <BS.Col xs={11} sm={7} className="title">{@props.children}</BS.Col>
       <BS.Col xs={6}  sm={2} className="feedback">{@props.feedback}</BS.Col>
       <BS.Col xs={5}  sm={2} className="due-at">
-        {moment(@props.event.due_at).format("ddd, MMMM Do")}
+        <Time date={@props.event.due_at}/>
       </BS.Col>
     </div>

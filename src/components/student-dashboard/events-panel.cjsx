@@ -1,5 +1,6 @@
 React = require 'react'
 BS    = require 'react-bootstrap'
+Time  = require '../time'
 ReadingRow      = require './reading-row'
 HomeworkRow     = require './homework-row'
 EventRow        = require './event-row'
@@ -22,7 +23,7 @@ module.exports = React.createClass
     if @props.title
       <h3 className="-title">{@props.title}</h3>
     else
-      <span className="-title -date-range">{@props.startAt.format("MMMM Do")} - {@props.endAt.format("MMMM Do")}</span>
+      <span className="-title -date-range"><Time date={@props.startAt}/> - <Time date={@props.endAt}/></span>
 
   renderEvent: (event) ->
     switch event.type
