@@ -3,7 +3,7 @@ BS    = require 'react-bootstrap'
 ReadingRow      = require './reading-row'
 HomeworkRow     = require './homework-row'
 EventRow        = require './event-row'
-UnknownEventRow = require './unknown-event-row'
+GenericEventRow = require './generic-event-row'
 _ = require 'underscore'
 
 module.exports = React.createClass
@@ -29,7 +29,7 @@ module.exports = React.createClass
       when 'reading'  then <ReadingRow  courseId=@props.courseId key={event.id} event={event}/>
       when 'homework' then <HomeworkRow courseId=@props.courseId key={event.id} event={event}/>
       else
-        <UnknownEventRow courseId=@props.courseId key={event.id} event={event}/>
+        <GenericEventRow courseId=@props.courseId key={event.id} event={event}/>
 
   render: ->
     <BS.Panel className={@props.className} header={@renderTitle()}>
