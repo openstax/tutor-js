@@ -19,6 +19,7 @@ HEIGHT = 49 # approx 2/3 width, adjust to suite
 module.exports = class LearningGuideChart
 
   constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic) ->
+    @constructor = constructor
 
   addImage: (url, options) ->
     node = @svgNode
@@ -132,10 +133,18 @@ module.exports = class LearningGuideChart
         d3.selectAll(@parentElement.children).classed('active', false)
         # and add it to ourselves
         d3.select(this).classed('active', true)
+
+        caretOffset = this.attributes.transform.value.match(/\((.*),/).pop()
+        detailPane = document.querySelector('.learning-guide-chart .footer')
+        detailPane.className += " active"
+
+        # this is a rough calc for now, can center it better by subtracting container offset
+        detailPane.style.marginLeft = (caretOffset * 5.5) + "px"
+
         me.displayUnit(field)
       )
     label.append('circle')
-      .attr('r',3.7)
+      .attr('r', 3.7)
       .attr('cy', 1.8)
       .attr('class', 'x-axis-circle')
     label.append('polygon')
@@ -155,7 +164,7 @@ module.exports = class LearningGuideChart
   drawYDesc: (container, ypos, text) ->
     wrap = container.append('g')
       .append("svg:text")
-      .attr("text-anchor","end")
+      .attr("text-anchor", "end")
       .attr("x", 5)
       .attr("y", ypos)
       .attr('class', 'y-desc')
@@ -272,7 +281,7 @@ module.exports = class LearningGuideChart
         @navigateToPractice(field)
       )
     circles.append('circle')
-      .attr('r',1.6)
+      .attr('r', 1.6)
       .attr('class', (f) ->
         lv = f.current_level
         if lv > .75
