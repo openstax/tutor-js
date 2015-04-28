@@ -12,7 +12,7 @@ module.exports = React.createClass
 
   render: ->
     <div className="task row #{@props.className}">
-      <BS.Col xs={1}  sm={1} className="icon"></BS.Col>
+      <BS.Col xs={1}  sm={1}><i className={"icon-lg icon-#{@props.className}"}/></BS.Col>
       <BS.Col xs={11} sm={7} className="title">{@props.children}</BS.Col>
       <BS.Col xs={6}  sm={2} className="feedback">{@props.feedback}</BS.Col>
       <BS.Col xs={5}  sm={2} className="due-at">
