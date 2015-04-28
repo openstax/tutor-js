@@ -4,9 +4,10 @@
 @icon-size-xlg: @icon-size-sm * 6;
 
 // # Overview
-// There are 2 ways of including the icons:
+//
 // - add `<i class="icon-homework icon-sm" />` tag in the HTML
-// - use the `#icon>.sm(homework);` in the CSS
+//   - Similar to font-awesome icons
+// - use `<span class="icon-stack icon-lg">` for stacking icons
 
 
 // # Local mixins
@@ -47,14 +48,10 @@
   text-align: center;
 }
 
-// # Method 1
-//
-// Similar to font-awesome icons:
-//
-// add `<i class="icon-homework icon-sm"></i>` in the HTML
+// # Icon Classes
 
-.icon-sm { .x-icon-size(@icon-size-sm); }
-.icon-lg { .x-icon-size(@icon-size-lg); }
+.icon-sm  { .x-icon-size(@icon-size-sm); }
+.icon-lg  { .x-icon-size(@icon-size-lg); }
 .icon-xlg { .x-icon-size(@icon-size-xlg); }
 
 // Note: Use tokens instead of strings to be able to do LESS compile-time validation
@@ -66,27 +63,3 @@
 // The following are usually overlays on other icons
 .icon-correct  { .x-icon-bg(correct); }
 .icon-incorrect { .x-icon-bg(incorrect); }
-
-
-// # Method 2
-//
-// Call the namespaced mixin to inject the correct CSS
-//
-// Example:
-//
-// ```less
-//
-// .list .item.homework .icon { #icon>.sm(homework); }
-//
-// ```
-#icon {
-  .sm(@name) {
-    .x-icon-size(@icon-size-sm);
-    .x-icon-bg(@name);
-  }
-
-  .lg(@name) {
-    .x-icon-size(@icon-size-lg);
-    .x-icon-bg(@name);
-  }
-}
