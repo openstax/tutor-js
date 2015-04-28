@@ -29,10 +29,18 @@ describe 'Student Dashboard Component', ->
     StudentDashboardActions.loaded(DATA, COURSE_ID)
     done()
 
-  it 'displays the course title', ->
+  it 'displays the course title with teacher names combined', ->
     renderDashBoard().then (state) ->
       expect(state.div.querySelector('.course-title').innerText)
         .equal("Physics - Many Plan | Andrew Garcia & Bob Newhart")
+
+      newData = _.clone(DATA)
+      newData.course.teacher_names=["Teacher Jill"]
+      StudentDashboardActions.loaded(newData, COURSE_ID)
+      state.dashboard.setState(courseId: COURSE_ID) # triggers re-rendering
+      expect(state.div.querySelector('.course-title').innerText)
+        .equal("Physics - Many Plan | Teacher Jill")
+
 
   it 'renders this week panel',  ->
     TimeActions.setNow(NOW)
