@@ -145,6 +145,16 @@ checks =
 
     {div, component, stepId, taskId, state, router, history}
 
+  _checkEndReview: ({div, component, stepId, taskId, state, router, history}) ->
+    completedStepsInReview = div.querySelectorAll('.task-review-completed .task-step')
+    todoStepsInReview = div.querySelectorAll('.task-review-todo .task-step')
+
+    completedSteps = TaskStore.getCompletedSteps(taskId)
+    incompleteSteps = TaskStore.getIncompleteSteps(taskId)
+
+    expect(completedStepsInReview.length).to.equal(completedSteps.length)
+    expect(todoStepsInReview.length).to.equal(incompleteSteps.length)
+
 # promisify for chainability in specs
 _.each(checks, (check, checkName) ->
   # rename without _ in front
