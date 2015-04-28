@@ -10,6 +10,10 @@ module.exports = React.createClass
 
   propTypes:
     event: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.any.isRequired
+
+  viewReference: ->
+    alert "View Reference for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
 
   render: ->
     event = @props.event
@@ -18,5 +22,5 @@ module.exports = React.createClass
       when event.exercise_count > 0 then "In progress"
       else "Not started"
     <EventRow feedback={feedback} event=event cssClass="reading">
-        {event.title} | <a>reference view</a>
+        {event.title} | <a onClick={@viewReference}>reference view</a>
     </EventRow>

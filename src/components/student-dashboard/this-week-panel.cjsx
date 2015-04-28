@@ -17,6 +17,7 @@ module.exports = React.createClass
     if events.length
       <Events
         className="-this-week"
+        courseId={@props.courseId}
         events=events
         startAt={startAt}
         endAt={startAt.clone().add(1, 'week')}

@@ -11,6 +11,7 @@ module.exports = React.createClass
 
   propTypes:
     events:   React.PropTypes.array.isRequired
+    courseId: React.PropTypes.any.isRequired
     startAt:  React.PropTypes.object
     endAt:    React.PropTypes.object
     limit:    React.PropTypes.number
@@ -25,10 +26,10 @@ module.exports = React.createClass
 
   renderEvent: (event) ->
     switch event.type
-      when 'reading'  then <ReadingRow  key={event.id} event={event}/>
-      when 'homework' then <HomeworkRow key={event.id} event={event}/>
+      when 'reading'  then <ReadingRow  courseId=@props.courseId key={event.id} event={event}/>
+      when 'homework' then <HomeworkRow courseId=@props.courseId key={event.id} event={event}/>
       else
-        <UnknownEventRow key={event.id} event={event}/>
+        <UnknownEventRow courseId=@props.courseId key={event.id} event={event}/>
 
   render: ->
     <BS.Panel className={@props.className} header={@renderTitle()}>

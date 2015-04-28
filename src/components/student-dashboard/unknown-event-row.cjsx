@@ -7,6 +7,7 @@ module.exports = React.createClass
 
   propTypes:
     event: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.any.isRequired
 
   render: ->
     <EventRow feedback="" {...@props} cssClass="reading">

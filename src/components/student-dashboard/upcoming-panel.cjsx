@@ -17,6 +17,7 @@ module.exports = React.createClass
     if events.length
       <EventsPanel
         className="-upcoming"
+        courseId={@props.courseId}
         events=events
         title="Coming Up"
       />

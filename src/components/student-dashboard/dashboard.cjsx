@@ -10,24 +10,23 @@ ThisWeekPanel   = require './this-week-panel'
 
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 
-DUMMY_COURSE_DATA = {
-  type: { tag: "physics", title: "Physics" }
-  title: "2nd Period & Mr. Andrew Garcia"
-  endDate: moment('2015-10-20')
-}
-
 module.exports = React.createClass
   displayName: 'StudentDashboard'
 
   propTypes:
     courseId: React.PropTypes.any.isRequired
-    selectedTabIndex: React.PropTypes.number
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getInitialState: ->
     selectedTabIndex: 1
 
+  viewFlightPath: ->
+    @context.router.transitionTo('viewGuide', {courseId: @props.courseId})
+
   selectTab: (index) ->
-    this.setState(selectedTabIndex:index);
+    this.setState(selectedTabIndex:index)
 
   render: ->
     courseId = @props.courseId

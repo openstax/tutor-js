@@ -9,23 +9,30 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.any.isRequired
 
+  viewFeedback: (taskId) ->
+    alert "View Feedback for task ID: #{taskId} in course ID: #{@props.courseId}"
+
+  viewRecovery: (taskId) ->
+    alert "View Recovery for task ID: #{taskId} in course ID: #{@props.courseId}"
+
   recoverData: (event) ->
     name: 'Recovery'
     summary: "#{event.exercise_count} available"
+    clickHandler: @viewRecovery
 
   feedbackData: (event) ->
     summary = if event.correct_exercise_count
       "#{event.correct_exercise_count}/#{event.exercise_count} correct"
     else
       "#{event.complete_exercise_count}/#{event.exercise_count} complete"
-    { name: 'Feedback', summary: summary }
+    { name: 'Feedback', summary: summary, clickHandler: @viewFeedback }
 
   renderBlock: (event, i, all) ->
     feedback = "#{event.complete_exercise_count}/#{event.exercise_count} complete"
     data = if i % 2 then @feedbackData(event) else @recoverData(event)
     <BS.Col className={data.name.toLowerCase()} xs={12 / all.length}>
       <div>
-        <i/>
+        <i onClick={_.partial(data.clickHandler, event.id)}/>
         <h3 className="heading">View {data.name}</h3>
         <div className="title">{event.title}</div>
         <div className="summary">{data.summary}</div>
