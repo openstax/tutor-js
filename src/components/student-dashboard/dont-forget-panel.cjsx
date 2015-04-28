@@ -30,7 +30,7 @@ module.exports = React.createClass
   renderBlock: (event, i, all) ->
     feedback = "#{event.complete_exercise_count}/#{event.exercise_count} complete"
     data = if i % 2 then @feedbackData(event) else @recoverData(event)
-    <BS.Col className={data.name.toLowerCase()} xs={12 / all.length}>
+    <BS.Col key={event.id} className={data.name.toLowerCase()} xs={12 / all.length}>
       <div>
         <i onClick={_.partial(data.clickHandler, event.id)}/>
         <h3 className="heading">View {data.name}</h3>
