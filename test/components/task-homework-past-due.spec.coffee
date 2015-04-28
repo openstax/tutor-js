@@ -41,3 +41,20 @@ describe 'Task Widget, homework specific things, past due date', ->
       .then(taskActions.saveMultipleChoice)
       .then(taskChecks.checkForFeedback)
       .then(_.delay(done, taskTests.delay)).catch(done)
+
+  it 'should be able to go to review page after completing a step', (done) ->
+    steps = TaskStore.getStepsIds(homeworkTaskId)
+    completeStepIndex = steps.length
+
+    taskActions
+      .clickContinue(@result)
+      .then(taskActions.fillFreeResponse)
+      .then(taskActions.saveFreeResponse)
+      .then(taskActions.pickMultipleChoice)
+      .then(taskActions.saveMultipleChoice)
+      .then(taskActions.clickContinue)
+      .then(taskActions.clickBreadcrumb(completeStepIndex))
+      .then(taskChecks.checkIsCompletePage)
+      .then(taskChecks.checkEndReview)
+      .then(_.delay(done, taskTests.delay)).catch(done)
+

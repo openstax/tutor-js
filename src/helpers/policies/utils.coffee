@@ -1,13 +1,12 @@
-moment = require 'moment'
 _ = require 'underscore'
 
 policies = require './policies'
-{TimeStore} = require '../../flux/time'
+{TaskStore} = require '../../flux/task'
 
 utils =
   _dueState: (task) ->
     state = 'before'
-    state = 'after' if moment(TimeStore.getNow()).isAfter(task.due_at, 'day')
+    state = 'after' if task.due_at? and TaskStore.isTaskPastDue(task.id)
 
     state
 
