@@ -55,7 +55,7 @@ module.exports = React.createClass
               <UpcomingPanel   courseId={courseId}/>
             </BS.TabPane>
 
-            <BS.TabPane eventKey={2} tab='All Work'>
+            <BS.TabPane eventKey={2} tab='All Past Work'>
               <AllEventsByWeek courseId={courseId}/>
             </BS.TabPane>
 

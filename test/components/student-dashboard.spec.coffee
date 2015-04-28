@@ -60,12 +60,12 @@ describe 'Student Dashboard Component', ->
           'iReading 4: Newton\'s Third Law of Motion'
         ])
 
-  it 'renders upcoming week panel', ->
-    TimeActions.setNow(NOW)
+  it 'renders only upcoming events to week panel', ->
+    TimeActions.setNow(new Date("2015-04-24T11:15:58.856Z"))
     renderDashBoard().then (state) ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title>span:first-child')
       expect(_.pluck(tasks, 'textContent'))
-        .to.have.deep.equal(['Homework #1', 'Homework #2'])
+        .to.have.deep.equal(['Homework #3', 'Homework #4 (final)'])
 
   it 'renders Dont Forget panel', ->
     # Time is set after all events have occured

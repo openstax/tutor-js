@@ -1,6 +1,7 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
 moment = require 'moment'
+EmptyPanel  = require './empty-panel'
 EventsPanel = require './events-panel'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 _ = require 'underscore'
@@ -22,8 +23,8 @@ module.exports = React.createClass
     />
 
   render: ->
-    weeks = StudentDashboardStore.eventsByWeek(@props.courseId)
+    weeks = StudentDashboardStore.pastEventsByWeek(@props.courseId)
     if _.any(weeks)
       <div>{_.map(weeks, @renderWeek)}</div>
     else
-      <EmptyPanel>No Upcoming Events</EmptyPanel>
+      <EmptyPanel>No past tasks</EmptyPanel>
