@@ -26,14 +26,18 @@ module.exports = React.createClass
     @context.router.transitionTo('viewGuide', {courseId: @props.courseId})
 
   selectTab: (index) ->
-    this.setState(selectedTabIndex:index)
+    @setState(selectedTabIndex:index)
 
   render: ->
     courseId = @props.courseId
     info = StudentDashboardStore.get(courseId)
+    # Discussions are on-going on the best way to choose the image and text for the large title,
+    # this method will most likely change in the future.
+    #
+    # The large background image is currently set via CSS based on the lowercase
+    # version of the short title, which will be something like "physics"
     {longTitle, shortTitle} = StudentDashboardStore.getTitles(courseId)
-
-    <div className={shortTitle.toLowerCase() + " bg"}>
+    <div className={"#{shortTitle.toLowerCase()}  bg"}>
       <div className="container">
         <div className="big-header">{shortTitle}</div>
         <BS.Col xs={12} md={9}>
