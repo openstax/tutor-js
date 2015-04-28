@@ -18,6 +18,7 @@ module.exports = React.createClass
   recoverData: (event) ->
     name: 'Recovery'
     summary: "#{event.exercise_count} available"
+    icon: 'recover'
     clickHandler: @viewRecovery
 
   feedbackData: (event) ->
@@ -25,14 +26,14 @@ module.exports = React.createClass
       "#{event.correct_exercise_count}/#{event.exercise_count} correct"
     else
       "#{event.complete_exercise_count}/#{event.exercise_count} complete"
-    { name: 'Feedback', summary: summary, clickHandler: @viewFeedback }
+    { name: 'Feedback', summary: summary, icon: 'feedback', clickHandler: @viewFeedback }
 
   renderBlock: (event, i, all) ->
     feedback = "#{event.complete_exercise_count}/#{event.exercise_count} complete"
     data = if i % 2 then @feedbackData(event) else @recoverData(event)
-    <BS.Col key={event.id} className={data.name.toLowerCase()} xs={12 / all.length}>
+    <BS.Col key={event.id} xs={12 / all.length}>
       <div>
-        <i onClick={_.partial(data.clickHandler, event.id)}/>
+        <i className="icon-xlg icon-#{data.icon}" onClick={_.partial(data.clickHandler, event.id)}/>
         <h3 className="heading">View {data.name}</h3>
         <div className="title">{event.title}</div>
         <div className="summary">{data.summary}</div>

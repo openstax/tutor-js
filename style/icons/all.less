@@ -1,6 +1,7 @@
 @icon-path: '.';
 @icon-size-sm: 1rem;
-@icon-size-lg: @icon-size-sm * 2;
+@icon-size-lg: @icon-size-sm * 4;
+@icon-size-xlg: @icon-size-sm * 6;
 
 // # Overview
 // There are 2 ways of including the icons:
@@ -54,6 +55,7 @@
 
 .icon-sm { .x-icon-size(@icon-size-sm); }
 .icon-lg { .x-icon-size(@icon-size-lg); }
+.icon-xlg { .x-icon-size(@icon-size-xlg); }
 
 // Note: Use tokens instead of strings to be able to do LESS compile-time validation
 .icon-feedback { .x-icon-bg(feedback); }
