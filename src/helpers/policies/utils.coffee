@@ -32,7 +32,7 @@ utils =
 
   _isPanelPassed: (step, checks) ->
     panelPassed = _.reduce checks, (memo, next) ->
-      memo and step[next]?
+      memo and step[next]? and step[next]
     , true
 
     panelPassed
