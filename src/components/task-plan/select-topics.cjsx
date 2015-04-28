@@ -21,10 +21,10 @@ SectionTopic = React.createClass
     classes = classes.join(' ')
 
     <div key={@props.section.id} className={classes} onClick={@toggleSection}>
-      <span className="-section-checkbox">
+      <span className="section-checkbox">
         <input type="checkbox" checked={isChecked}/>
       </span>
-      <span className="-section-number">{@props.section.number}</span>
+      <span className="section-number">{@props.section.number}</span>
       <span className="-section-title">{@props.section.title}</span>
     </div>
 
@@ -74,7 +74,7 @@ ChapterAccordion = React.createClass
 
     header =
       <h2 className="-chapter-title">
-        <span className="-chapter-checkbox">
+        <span className="chapter-checkbox">
           <input type="checkbox" id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
         </span>
