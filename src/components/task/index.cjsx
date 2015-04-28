@@ -42,7 +42,7 @@ module.exports = React.createClass
   renderIntro: (data) ->
     footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
     if data.due_at
-      dueDate = <div className="-due-at">Due At: <Time date={data.due_at}></Time></div>
+      dueDate = <div className="-due-at">Due At: <Time date={data.due_at} format="LLL"></Time></div>
 
     panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
               <h1>{data.title}</h1>

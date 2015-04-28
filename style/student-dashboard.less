@@ -1,0 +1,154 @@
+.student-dashboard {
+  @big-header-background:   #232e66;
+  @big-header-text:         #79B142;
+  @course-title:            #232E66;
+  @course-background:       #F7B217;
+  @border-line: thin dotted #E7E7E7;
+
+  .container { margin-top: 50px; }
+
+  .bg {
+    // use a :before block to apply the opacity only to the
+    // background image, not the content itself
+    &:before{
+      content: "";
+      position: fixed;
+      z-index: -1;
+      top: 10px;
+      bottom: 0;
+      left: 50px;
+      right: 50px;
+      opacity: 0.2;
+    }
+    &.physics {
+      &:before{ background-image: url("/style/resources/student-dashboard/physics.jpg"); }
+    }
+  }
+
+  .big-header {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top:50px;
+    height:220px;
+    overflow: hidden;
+    background-color: @big-header-background;
+    color: @big-header-text;
+    text-align: center;
+    padding-top: 85px;
+    font-size: 320px;
+    font-family: 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
+    font-weight: 700;
+  }
+
+  .course-title {
+    display: inline-block;
+    height: 36px;
+    padding: 5px;
+    margin: 20px 0;
+    font-family: 'Lato-Regular', 'Lato';
+    font-weight: 400;
+    font-size: 1.8rem;
+    color: @course-title;
+    background-color: @course-background;
+  }
+
+  .panel-heading {
+    background-color: white; // override bootstrap default
+    border-bottom: @border-line;
+    font-family: 'Lato-Black', 'Lato Black', 'Lato';
+    font-weight: 900;
+    font-style: normal;
+    font-size: 2.4rem;
+    color: #424242;
+    .panel-title {
+      font-size: 2.4rem; // override bootstrap default
+    }
+  }
+
+  .rbox {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    margin-top: 85px;
+    button { width: 100%; }
+  }
+
+  .nav-tabs {
+    background: inherit;
+    li {
+      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      background: #F2F2F6;
+      a {
+        font-family: 'Lato-Regular', 'Lato';
+        font-weight: 400;
+        font-size: 2.4rem;
+        color: #646464 !important;
+      }
+      &.active {
+        background: white;
+        a {
+          font-family: 'Lato-Black', 'Lato Black', 'Lato';
+          font-weight: 900;
+          color: #424242 !important;
+        }
+      }
+    }
+  }
+
+  .tab-pane {
+    .panel:first-child { margin-top: 0px; }
+  }
+
+  .dont-forget {
+    .panel-body { text-align: center; }
+    i {
+      height: 5rem;
+      width: 100%;
+      display: block;
+      background-size: 5rem;
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+    }
+    .recovery i { .x-icon-bg(recover); }
+    .feedback i { .x-icon-bg(feedback); }
+    .heading {
+      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      font-weight: 900;
+      font-size: 1.8rem;
+      line-height: 1.8rem;
+      color: #333333;
+      margin: 10px 0 5px 0;
+    }
+    .title {
+      font-family: 'Lato-Regular', 'Lato';
+      font-weight: 400;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin: 0 0 5px 0;
+    }
+    .summary {
+      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      font-weight: 900;
+      font-size: 1.4rem;
+      line-height: 1.4rem;
+      color: #79B142;
+       
+    }
+  }
+  .panel.empty .panel-body { text-align: center; }
+  .panel-body {
+    a { cursor: pointer; }
+    .task {
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: @border-line;
+    }
+  }
+
+
+}
