@@ -12,14 +12,14 @@ module.exports = React.createClass
     courseId: React.PropTypes.any.isRequired
 
   render: ->
-    startAt = moment(TimeStore.getNow()).add(1, "week")
-    events  = StudentDashboardStore.weeklyEventsForDay(@props.courseId, startAt)
+    events  = StudentDashboardStore.upcomingEvents(@props.courseId)
     if events.length
       <EventsPanel
         className="-upcoming"
+        onTaskClick={@onTaskClick}
         courseId={@props.courseId}
         events=events
         title="Coming Up"
       />
     else
-      <EmptyPanel/>
+      <EmptyPanel>No upcoming events</EmptyPanel>

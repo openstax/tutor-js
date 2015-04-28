@@ -23,7 +23,9 @@ module.exports = React.createClass
     if @props.title
       <h3 className="-title">{@props.title}</h3>
     else
-      <span className="-title -date-range"><Time date={@props.startAt}/> - <Time date={@props.endAt}/></span>
+      <span className="-title -date-range">
+        <Time date={@props.startAt}/> - <Time date={@props.endAt}/>
+      </span>
 
   renderEvent: (event) ->
     switch event.type

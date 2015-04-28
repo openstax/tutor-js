@@ -12,12 +12,15 @@ module.exports = React.createClass
 
   propTypes:
     event: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.any.isRequired
 
-  viewFeedback: ->
+  viewFeedback: (e) ->
     alert "TODO: View feedback for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
+    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
 
-  viewRecovery: ->
+  viewRecovery: (e) ->
     alert "TODO: View recovery for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
+    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
 
   actionLinks: ->
     <span className="-actions"> | <a
@@ -35,6 +38,6 @@ module.exports = React.createClass
     # and feedback available and whether or not the student has already
     # accessed it.  For now we assume if the event's compete it can be recovered
     recoverable = event.complete
-    <EventRow feedback={feedback} event=event className="homework">
+    <EventRow {...@props} feedback={feedback} className="homework">
         {event.title}{@actionLinks() if recoverable}
     </EventRow>

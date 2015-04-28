@@ -30,6 +30,11 @@ StudentDashboardConfig = {
       addEvents(@_weeks, data.exams) if data.exams
       @_weeks
 
+    pastEventsByWeek: (courseId) ->
+      weeks = this.exports.eventsByWeek.call(this, courseId)
+      thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format("YYYYww")
+      _.pick(weeks, (events, week) -> week < thisWeek)
+
     weeklyEventsForDay: (courseId, day) ->
       events = this.exports.eventsByWeek.call(this, courseId)
       events[moment(day).startOf('isoweek').format("YYYYww")] or []
@@ -39,6 +44,18 @@ StudentDashboardConfig = {
       shortTitle = data.course.name.split(' ')[0]
       longTitle = "#{data.course.name} | #{arrayToSentence(data.course.teacher_names)}"
       {longTitle, shortTitle}
+
+    canWorkTask: (event) ->
+      # only homework and readings can be worked on
+      _.contains(['homework', 'reading'], event.type) and
+        # readings can always be performed
+        (event.type is 'reading' or
+            # other types (homework) must be incomplete and not past due
+            (not event.complete and moment(event.due_at).isAfter(TimeStore.getNow())))
+
+    upcomingEvents: (courseId) ->
+      now = TimeStore.getNow()
+      _.filter @_get(courseId)?.tasks, (event) -> new Date(event.due_at) > now
 
     # Return a few events that are past due
     # Options:

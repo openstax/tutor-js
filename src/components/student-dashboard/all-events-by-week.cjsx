@@ -22,7 +22,7 @@ module.exports = React.createClass
     />
 
   render: ->
-    weeks = StudentDashboardStore.eventsByWeek(@props.courseId)
+    weeks = StudentDashboardStore.pastEventsByWeek(@props.courseId)
     if _.any(weeks)
       <div>{_.map(weeks, @renderWeek)}</div>
     else

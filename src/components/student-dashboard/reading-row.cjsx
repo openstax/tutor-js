@@ -12,17 +12,17 @@ module.exports = React.createClass
     event: React.PropTypes.object.isRequired
     courseId: React.PropTypes.any.isRequired
 
-  viewReference: ->
+  viewReference: (e) ->
     alert "TODO: View Reference for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
+    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
 
   render: ->
-    event = @props.event
     feedback = switch
-      when event.complete then "Complete"
-      when event.exercise_count > 0 then "In progress"
+      when @props.event.complete then "Complete"
+      when @props.event.exercise_count > 0 then "In progress"
       else "Not started"
-    <EventRow feedback={feedback} event=event className="reading">
-      {event.title} | <span className="-actions">
+    <EventRow {...@props} feedback={feedback} className="reading">
+      { @props.event.title} | <span className="-actions">
         <a className="-reference" onClick={@viewReference}>reference view</a>
       </span>
     </EventRow>
