@@ -35,6 +35,6 @@ module.exports = React.createClass
     else
       "#{event.complete_exercise_count}/#{event.exercise_count} complete"
 
-    <EventRow feedback={feedback} event=event cssClass="homework">
+    <EventRow feedback={feedback} event=event className="homework">
         {event.title}{@recoveryLinks()}
     </EventRow>

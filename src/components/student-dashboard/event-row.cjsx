@@ -6,12 +6,12 @@ module.exports = React.createClass
   displayName: 'EventRow'
   
   propTypes:
-    cssClass: React.PropTypes.string.isRequired
+    className: React.PropTypes.string.isRequired
     event:    React.PropTypes.object.isRequired
     feedback: React.PropTypes.string.isRequired
 
   render: ->
-    <div className="task row #{@props.cssClass}">
+    <div className="task row #{@props.className}">
       <BS.Col xs={1}  sm={1} className="icon"></BS.Col>
       <BS.Col xs={11} sm={7} className="title">{@props.children}</BS.Col>
       <BS.Col xs={6}  sm={2} className="feedback">{@props.feedback}</BS.Col>
