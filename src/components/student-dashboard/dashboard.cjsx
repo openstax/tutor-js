@@ -8,6 +8,7 @@ UpcomingPanel   = require './upcoming-panel'
 AllEventsByWeek = require './all-events-by-week'
 ThisWeekPanel   = require './this-week-panel'
 
+PracticeButton = require '../practice-button'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 
 module.exports = React.createClass
@@ -78,6 +79,7 @@ module.exports = React.createClass
             >
               View My Flight Path
             </BS.Button>
+            <PracticeButton courseId={courseId}>Practice</PracticeButton>
           </div>
         </BS.Col>
       </div>
