@@ -2,6 +2,7 @@
 _ = require 'underscore'
 moment = require 'moment'
 
+{TimeActions, TimeStore} = require '../src/flux/time'
 {TaskActions, TaskStore} = require '../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../src/flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require '../src/flux/task-plan'
@@ -12,9 +13,9 @@ homeworkTaskId = 6
 homework_model = require '../api/tasks/6.json'
 homework_model.due_at = moment().add(1, 'year').toDate()
 
-late_homework_model = _.clone(homework_model)
+late_homework_model = require '../api/tasks/5.json'
 late_homework_model.due_at = moment().subtract(1, 'year').toDate()
-lateHomeworkId = 7
+lateHomeworkId = 5
 
 stepIds = _.pluck(homework_model.steps, 'id')
 answerId = homework_model.steps[0].content.questions[0].answers[0].id
@@ -42,6 +43,7 @@ testForExerciseStepWithReview = (taskId) ->
     beforeEach ->
       TaskActions.loaded(models[taskId], taskId)
       steps = TaskStore.getSteps(taskId)
+
       firstUnansweredExercise = _.find steps, (step) ->
         (step.type is 'exercise') and not step.is_completed
 

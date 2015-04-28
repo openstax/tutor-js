@@ -76,7 +76,7 @@ HomeworkEnd = React.createClass
       todoLabel = <h1>Problems To Do <small>{incompleteSteps.length} remaining</small></h1>
       todoReview = @renderReviewSteps incompleteSteps, todoLabel, 'todo'
 
-    <div className='task-review'>
+    <div className='task-review -homework-completed'>
       {todoReview}
       {completedReview}
     </div>
