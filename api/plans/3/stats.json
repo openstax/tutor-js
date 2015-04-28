@@ -2,12 +2,6 @@
     "id": 3,
     "type": "reading",
     "title": "Read Other Things",
-    "opens_at": "2015-02-28T16:40:23.796Z",
-    "due_at": "2015-03-01T04:00:00.000Z",
-    "published_at": "2015-04-17T22:13:17.210Z",
-    "settings": {
-        "page_ids": [3, 2, 1]
-    },
     "stats": {
         "course": {
             "mean_grade_percent": 71,

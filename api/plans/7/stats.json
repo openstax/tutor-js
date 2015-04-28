@@ -2,11 +2,6 @@
     "id": 7,
     "type": "exercise",
     "title": "Complete exercise 12A on pg 12",
-    "opens_at": "2015-03-31T11:40:23.796Z",
-    "due_at": "2015-04-05T04:00:00.000Z",
-    "settings": {
-        "exercise_id": [11]
-    },
     "stats": {
         "course": {
             "mean_grade_percent": 71,

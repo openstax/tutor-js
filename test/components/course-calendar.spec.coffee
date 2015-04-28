@@ -13,8 +13,8 @@ CourseCalendar = require '../../src/components/course-calendar'
 planId = 1
 courseId = 1
 
-VALID_MODEL = require '../../api/courses/1/plans.json'
-VALID_PLAN_MODEL = require '../../api/plans/1.json'
+VALID_MODEL = require '../../api/courses/1/events.json'
+VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
 
 describe 'Course Calendar', ->
   beforeEach (done) ->
