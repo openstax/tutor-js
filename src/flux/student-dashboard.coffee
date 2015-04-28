@@ -9,7 +9,10 @@ addEvents = (hash, events) ->
     week.push(event)
 
 arrayToSentence = (arry) ->
-  arry.slice(0, arry.length - 1).join(', ') + " & " + arry.slice(-1)
+  if arry.length > 1
+    arry.slice(0, arry.length - 1).join(', ') + " & " + arry.slice(-1)
+  else
+    arry[0]
 
 StudentDashboardConfig = {
 
