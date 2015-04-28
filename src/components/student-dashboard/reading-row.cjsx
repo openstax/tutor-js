@@ -22,5 +22,7 @@ module.exports = React.createClass
       when event.exercise_count > 0 then "In progress"
       else "Not started"
     <EventRow feedback={feedback} event=event className="reading">
-        {event.title} | <a onClick={@viewReference}>reference view</a>
+      {event.title} | <span className="-actions">
+        <a className="-reference" onClick={@viewReference}>reference view</a>
+      </span>
     </EventRow>

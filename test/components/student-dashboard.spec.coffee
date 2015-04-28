@@ -43,7 +43,7 @@ describe 'Student Dashboard Component', ->
     #  * one event a few days later
     #  * one event on the next sunday, the 19th.  As spece'd that should also be included
     renderDashBoard().then (state) ->
-      tasks = state.div.querySelectorAll('.-this-week .task .title span:first-child')
+      tasks = state.div.querySelectorAll('.-this-week .task .title>span:first-child')
       expect(tasks.length).equal(3)
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal([
@@ -53,8 +53,9 @@ describe 'Student Dashboard Component', ->
         ])
 
   it 'renders upcoming week panel', ->
+    TimeActions.setNow(NOW)
     renderDashBoard().then (state) ->
-      tasks = state.div.querySelectorAll('.-upcoming .task .title span:first-child')
+      tasks = state.div.querySelectorAll('.-upcoming .task .title>span:first-child')
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal(['Homework #1', 'Homework #2'])
 

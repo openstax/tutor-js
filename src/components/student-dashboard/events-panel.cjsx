@@ -20,9 +20,9 @@ module.exports = React.createClass
 
   renderTitle: ->
     if @props.title
-      <h3>{@props.title}</h3>
+      <h3 className="-title">{@props.title}</h3>
     else
-      <span>{@props.startAt.format("MMMM Do")} - {@props.endAt.format("MMMM Do")}</span>
+      <span className="-title -date-range">{@props.startAt.format("MMMM Do")} - {@props.endAt.format("MMMM Do")}</span>
 
   renderEvent: (event) ->
     switch event.type
