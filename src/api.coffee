@@ -19,7 +19,7 @@ _ = require 'underscore'
 {TocActions} = require './flux/toc'
 {ExerciseActions} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
-{StudentDashboardStore, StudentDashboardActions} = require './flux/student-dashboard'
+{StudentDashboardActions} = require './flux/student-dashboard'
 
 # Do some special things when running without a tutor-server backend.
 #
