@@ -1,7 +1,7 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
 moment = require 'moment'
-
+_ = require 'underscore'
 DontForgetPanel = require './dont-forget-panel'
 EmptyPanel      = require './empty-panel'
 UpcomingPanel   = require './upcoming-panel'
@@ -19,8 +19,15 @@ DUMMY_COURSE_DATA = {
 module.exports = React.createClass
   displayName: 'StudentDashboard'
 
-  contextTypes:
-    router: React.PropTypes.func
+  propTypes:
+    courseId: React.PropTypes.any.isRequired
+    selectedTabIndex: React.PropTypes.number
+
+  getInitialState: ->
+    selectedTabIndex: 1
+
+  selectTab: (index) ->
+    this.setState(selectedTabIndex:index);
 
   render: ->
     courseId = @props.courseId
@@ -33,7 +40,10 @@ module.exports = React.createClass
         <BS.Col xs={12} md={9}>
           <div className="course-title">{longTitle}</div>
 
-          <BS.TabbedArea animation={false}>
+          <BS.TabbedArea
+            activeKey = {@state.selectedTabIndex}
+            onSelect  = {@selectTab}
+            animation = {false}>
 
             <BS.TabPane eventKey={1} tab='This Week'>
               <ThisWeekPanel   courseId={courseId}/>
@@ -53,7 +63,7 @@ module.exports = React.createClass
             <h3>How am I doing?</h3>
             <BS.Button
               bsStyle="primary"
-              onClick={@viewWork}
+              onClick={_.partial(@selectTab, 2)}
               className="-view-my-work"
             >
               View All My Work
