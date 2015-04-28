@@ -14,10 +14,10 @@ module.exports = React.createClass
     event: React.PropTypes.object.isRequired
 
   viewFeedback: ->
-    alert "View feedback for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
+    alert "TODO: View feedback for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
 
   viewRecovery: ->
-    alert "View recovery for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
+    alert "TODO: View recovery for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
 
   recoveryLinks: ->
     if @props.event.is_complete

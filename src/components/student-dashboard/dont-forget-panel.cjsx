@@ -10,10 +10,10 @@ module.exports = React.createClass
     courseId: React.PropTypes.any.isRequired
 
   viewFeedback: (taskId) ->
-    alert "View Feedback for task ID: #{taskId} in course ID: #{@props.courseId}"
+    alert "TODO: View Feedback for task ID: #{taskId} in course ID: #{@props.courseId}"
 
   viewRecovery: (taskId) ->
-    alert "View Recovery for task ID: #{taskId} in course ID: #{@props.courseId}"
+    alert "TODO: View Recovery for task ID: #{taskId} in course ID: #{@props.courseId}"
 
   recoverData: (event) ->
     name: 'Recovery'
