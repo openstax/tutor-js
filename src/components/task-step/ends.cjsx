@@ -9,6 +9,13 @@ TaskStep = require './index'
 {TaskStepStore} = require '../../flux/task-step'
 
 PracticeEnd = React.createClass
+  displayName: 'PracticeEnd'
+
+  propTypes:
+    courseId: React.PropTypes.any.isRequired
+    taskId: React.PropTypes.any.isRequired
+    reloadPractice: React.PropTypes.func.isRequired
+
   render: ->
     footer =
       <div>
@@ -22,7 +29,6 @@ PracticeEnd = React.createClass
       </div>
 
     <div className="task task-completed">
-      {@props.breadcrumbs}
       <BS.Panel bsStyle="default" footer={footer} className='-practice-completed'>
         <h1>You earned a star!</h1>
         <h3>Great Job!</h3>
@@ -30,6 +36,10 @@ PracticeEnd = React.createClass
     </div>
 
 HomeworkEnd = React.createClass
+  displayName: 'HomeworkEnd'
+
+  propTypes:
+    taskId: React.PropTypes.any.isRequired
 
   _addListener: ->
     TaskStepStore.addChangeListener(@_update)
@@ -90,7 +100,6 @@ HomeworkEnd = React.createClass
     footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
 
     <div className="task task-completed">
-      {@props.breadcrumbs}
       <BS.Panel bsStyle="default" footer={footer} className='-homework-completed'>
         {congratsMessage}
         <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
@@ -111,11 +120,12 @@ HomeworkEnd = React.createClass
       @renderBeforeDue taskId
 
 TaskEnd = React.createClass
+  displayName: 'TaskEnd'
+
   render: ->
     footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
 
     <div className="task task-completed">
-      {@props.breadcrumbs}
       <BS.Panel bsStyle="default" footer={footer} className="-reading-completed">
         <h1>You Are Done.</h1>
         <h3>Great Job!</h3>
