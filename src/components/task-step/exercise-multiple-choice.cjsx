@@ -16,7 +16,8 @@ BS = require 'react-bootstrap'
 ExerciseFreeResponse = React.createClass
   displayName: 'ExerciseFreeResponse'
   propTypes:
-    id: React.PropTypes.number.isRequired
+    id: React.PropTypes.any.isRequired
+    focus: React.PropTypes.bool.isRequired
 
   mixins: [StepMixin]
 
@@ -47,7 +48,11 @@ ExerciseFreeResponse = React.createClass
         />
     </div>
 
-  componentDidMount: -> @refs.freeResponse.getDOMNode().focus()
+  componentDidMount: ->
+    @refs.freeResponse.getDOMNode().focus() if @props.focus
+
+  componentDidUpdate: ->
+    @refs.freeResponse.getDOMNode().focus() if @props.focus
 
   onFreeResponseChange: ->
     freeResponse = @refs.freeResponse.getDOMNode().value
@@ -63,7 +68,7 @@ ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func
 
@@ -101,7 +106,7 @@ ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
@@ -171,10 +176,14 @@ ExerciseReview = React.createClass
 module.exports = React.createClass
   displayName: 'Exercise'
   propTypes:
-    id: React.PropTypes.number.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired
+    focus: React.PropTypes.bool.isRequired
+
+  getDefaultProps: ->
+    focus: true
 
   renderReview: (id)->
     <ExerciseReview
@@ -194,6 +203,7 @@ module.exports = React.createClass
   renderFreeResponse: (id)->
     <ExerciseFreeResponse
       id={id}
+      focus={@props.focus}
     />
 
   # add render methods for different panel types as needed here

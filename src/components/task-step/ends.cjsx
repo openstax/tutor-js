@@ -51,20 +51,20 @@ HomeworkEnd = React.createClass
   componentWillUnmount: -> @_removeListener()
   componentWillUpdate: -> @_removeListener()
   componentDidUpdate:  -> @_addListener()
-  # override focus from within task steps to focus on first to do question
-  componentDidMount: -> document.querySelector('.task-step textarea')?.focus()
-
   _update: -> @setState({})
 
-  goToStep: () ->
-  onNextStep: () ->
+  goToStep: ->
+  onNextStep: ->
 
   renderReviewSteps: (steps, label, type) ->
-    stepsList = _.map steps, (step) =>
+    stepsList = _.map steps, (step, index) =>
       <TaskStep
         id={step.id}
         goToStep={@goToStep}
         onNextStep={@onNextStep}
+        key="task-review-#{step.id}"
+        # focus on first problem
+        focus={index is 0}
       />
 
     stepsReview =
@@ -80,11 +80,11 @@ HomeworkEnd = React.createClass
 
     if completedSteps.length
       completedLabel = <h1>Problems Review</h1>
-      completedReview = @renderReviewSteps completedSteps, completedLabel, 'completed'
+      completedReview = @renderReviewSteps(completedSteps, completedLabel, 'completed')
 
     if incompleteSteps.length
       todoLabel = <h1>Problems To Do <small>{incompleteSteps.length} remaining</small></h1>
-      todoReview = @renderReviewSteps incompleteSteps, todoLabel, 'todo'
+      todoReview = @renderReviewSteps(incompleteSteps, todoLabel, 'todo')
 
     <div className='task-review -homework-completed'>
       {todoReview}
@@ -92,8 +92,8 @@ HomeworkEnd = React.createClass
     </div>
 
   renderBeforeDue: (taskId) ->
-    completeSteps = TaskStore.getCompletedStepsCount taskId
-    totalSteps = TaskStore.getTotalStepsCount taskId
+    completeSteps = TaskStore.getCompletedStepsCount(taskId)
+    totalSteps = TaskStore.getTotalStepsCount(taskId)
 
     congratsMessage = <h1>It looks like you are done!</h1> if completeSteps is totalSteps
 
@@ -112,7 +112,7 @@ HomeworkEnd = React.createClass
 
   render: ->
     {taskId} = @props
-    isTaskPastDue = TaskStore.isTaskPastDue taskId
+    isTaskPastDue = TaskStore.isTaskPastDue(taskId)
 
     if isTaskPastDue
       @renderAfterDue taskId
