@@ -26,11 +26,11 @@ getCurrentStep = (steps) ->
 
 getIncompleteSteps = (steps) ->
   _.filter steps, (step) ->
-    step? and not step.is_completed?
+    step? and not step.is_completed
 
 getCompleteSteps = (steps) ->
   _.filter steps, (step) ->
-    step? and step.is_completed?
+    step? and step.is_completed
 
 
 TaskConfig =
