@@ -37,11 +37,15 @@ StudentDashboardConfig = {
       longTitle = "#{data.course.name} | #{arrayToSentence(data.course.teacher_names)}"
       {longTitle, shortTitle}
 
-    pastEvents: (courseId, options = {}) ->
-      _.defaults(options, {
+    # Return a few events that are past due
+    # Options:
+    #   limit: How many records to return, defaults to 4
+    #   startAt: Events older than this will be returned, default to TimeStore.getNow()
+    pastDueEvents: (courseId, options = {}) ->
+      _.defaults options,
         limit: 4
         startAt: TimeStore.getNow()
-      })
+
       _.chain(@_get(courseId)?.tasks or [])
         .filter( (event) ->
           new Date(event.due_at) < options.startAt
