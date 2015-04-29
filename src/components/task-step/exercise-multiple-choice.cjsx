@@ -5,7 +5,7 @@ camelCase = require 'camelcase'
 React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-{TaskActions,TaskStore} = require '../../flux/task'
+{TaskActions, TaskStore} = require '../../flux/task'
 {StepPanel} = require '../../helpers/policies'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
@@ -78,9 +78,14 @@ ExerciseMultiChoice = React.createClass
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
-    FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
+    if TaskStepStore.hasFreeResponse(id)
+      FreeResponse = <div className="free-response">{free_response}</div>
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} onChange={@onAnswerChanged}>
+    <Question
+      model={question}
+      answer_id={answer_id}
+      correct_answer_id={correct_answer_id}
+      onChange={@onAnswerChanged}>
       {FreeResponse}
       <div className="multiple-choice-prompt">Choose the best answer from the following:</div>
     </Question>
@@ -116,14 +121,21 @@ ExerciseReview = React.createClass
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
-    FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
+    if TaskStepStore.hasFreeResponse(id)
+      FreeResponse = <div className="free-response">{free_response}</div>
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChangeAttempt={@onChangeAnswerAttempt}>
+    <Question
+      model={question}
+      answer_id={answer_id}
+      correct_answer_id={correct_answer_id}
+      feedback_html={feedback_html}
+      onChangeAttempt={@onChangeAnswerAttempt}>
       {FreeResponse}
     </Question>
 
   onChangeAnswerAttempt: (answer) ->
     # TODO show cannot change answer message here
+    console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
 
   isContinueEnabled: ->
     {id} = @props
@@ -188,22 +200,22 @@ module.exports = React.createClass
   getDefaultProps: ->
     focus: true
 
-  renderReview: (id)->
+  renderReview: (id) ->
     <ExerciseReview
-        id={id}
-        onNextStep={@props.onNextStep}
-        goToStep={@props.goToStep}
-        onStepCompleted={@props.onStepCompleted}
+      id={id}
+      onNextStep={@props.onNextStep}
+      goToStep={@props.goToStep}
+      onStepCompleted={@props.onStepCompleted}
     />
 
-  renderMultipleChoice: (id)->
+  renderMultipleChoice: (id) ->
     <ExerciseMultiChoice
       id={id}
       onStepCompleted={@props.onStepCompleted}
       onNextStep={@props.onNextStep}
     />
 
-  renderFreeResponse: (id)->
+  renderFreeResponse: (id) ->
     <ExerciseFreeResponse
       id={id}
       focus={@props.focus}

@@ -35,7 +35,7 @@ describe 'Student Dashboard Component', ->
         .equal("Physics - Many Plan | Andrew Garcia & Bob Newhart")
 
       newData = _.clone(DATA)
-      newData.course.teacher_names=["Teacher Jill"]
+      newData.course.teacher_names = ["Teacher Jill"]
       StudentDashboardActions.loaded(newData, COURSE_ID)
       state.dashboard.setState(courseId: COURSE_ID) # triggers re-rendering
       expect(state.div.querySelector('.course-title').innerText)
