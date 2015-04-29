@@ -5,6 +5,23 @@
 @answer-hover-color: #e6f9fc;
 @answer-select-color: #def4f7; // darker than hover
 
+// We should move this, but pulling out tutor colors from logo svg as vars for now.
+@tutor-gray: #5F6062;
+@tutor-yellow: #F5D019;
+@tutor-blue: #232e66;
+@tutor-green: #73b452;
+@tutor-orange: #f47642;
+@tutor-aqua: #00C1DE;
+@tutor-light-gray: #A7A9AC;
+
+.circle(@radius){
+  font-size: @radius;
+  border-radius: 2 * @radius;
+  line-height: 2 * @radius;
+  min-width: 2 * @radius;
+}
+
+
 // http://caniuse.com/#search=counter
 .task-homework{
   .steps {
@@ -14,12 +31,49 @@
     &:before {
       content: counter(step);
       counter-increment: step;
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      left: 0;
     }
-    i {
+    i:not(.icon-incorrect):not(.icon-correct) {
       display: none;
     }
   }
 }
+
+.steps {
+  margin-left: -2px;
+  margin-right: -2px;
+
+  .step {
+    .circle(2rem);
+    position: relative;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 2px;
+    display: inline-block;
+    text-align: center;
+    background: @white;
+    color: @tutor-light-gray;
+    .transition(all .1s ease-in);
+
+    &:hover,
+    &.active {
+      .scale(1.4);
+      .box-shadow(0 1px 6px rgba(0, 0, 0, 0.12));
+      // z-index: 20;
+    }
+
+    &.active {
+      color: @tutor-orange;
+    }
+    &.completed {
+      color: @tutor-aqua;
+    }
+  }
+}
+
 
 .task-review-completed{
   .panel-footer {

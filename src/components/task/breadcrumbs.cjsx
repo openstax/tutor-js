@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {TaskStore} = require '../../flux/task'
+{StepPanel} = require '../../helpers/policies'
 
 _ = require 'underscore'
 
@@ -28,10 +29,11 @@ module.exports = React.createClass
 
     stepButtons = _.map crumbs, (crumb, index) =>
       step = crumb.data
+      canReview = StepPanel.canReview(step.id) if crumb.type is 'step'
       crumbType = step.type
 
       bsStyle = null
-      classes = ['step']
+      classes = ['step', 'icon-stack', 'icon-lg']
       title = null
 
       if crumb.key is @props.currentStep
@@ -44,6 +46,12 @@ module.exports = React.createClass
         bsStyle = 'primary'
         title ?= "Step Completed (#{step.type}). Click to review"
 
+        if canReview
+          if step.is_correct
+            status = <i className="icon-lg icon-correct"></i>
+          else if step.answer_id
+            status = <i className="icon-lg icon-incorrect"></i>
+
       if crumb.type is 'end'
         title = "#{step.title} Completion"
         crumbType = crumb.type
@@ -51,15 +59,15 @@ module.exports = React.createClass
       classes.push crumbType
       classes = classes.join ' '
 
-      <BS.Button
-        bsStyle={bsStyle}
+      <span
         className={classes}
         title={title}
         onClick={@props.goToStep(crumb.key)}
         key="step-#{crumb.key}">
-        <i className="fa fa-fw #{crumbType}"></i>
-      </BS.Button>
+        <i className="icon-lg icon-#{crumbType}"></i>
+        {status}
+      </span>
 
-    <BS.ButtonGroup className='steps'>
+    <div className='steps'>
       {stepButtons}
-    </BS.ButtonGroup>
+    </div>

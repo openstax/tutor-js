@@ -21,7 +21,7 @@ actions =
   clickDetails: commonActions.focusMatch('.task-details')
 
   _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = div.querySelectorAll('button.step')
+    breadcrumbs = div.querySelectorAll('.step')
     breadcrumbs = Array.prototype.slice.call(breadcrumbs)
 
     commonActions.click(breadcrumbs[breadcrumbButtonIndex])
