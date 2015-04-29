@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-LoadableItem = require '../loadable-item'
+Loadable = require '../loadable'
 
 Stats = React.createClass
   _percent: (num, total) ->
@@ -112,7 +112,7 @@ Stats = React.createClass
   render: ->
     {id} = @props
 
-    plan = TaskPlanStore.get(id)
+    plan = TaskPlanStore.getStats(id)
     course = @renderCourseBar(plan.stats.course, plan.type)
     chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
@@ -142,12 +142,14 @@ StatsShell = React.createClass
 
   render: ->
     id = @getId()
-    <LoadableItem
-      id={id}
-      store={TaskPlanStore}
-      actions={TaskPlanActions}
-      renderItem={-> <Stats id={id} />}
-    />
+    TaskPlanActions.loadStats(id) unless TaskPlanStore.isStatsLoaded(id)
 
+    <Loadable
+      store={TaskPlanStore}
+      isLoading={-> TaskPlanStore.isStatsLoading(id)}
+      isLoaded={-> TaskPlanStore.isStatsLoaded(id)}
+      isFailed={-> TaskPlanStore.isStatsFailed(id)}
+      render={-> <Stats id={id} />}
+    />
 
 module.exports = {StatsShell, Stats}

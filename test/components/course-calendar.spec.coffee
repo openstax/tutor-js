@@ -1,5 +1,6 @@
 {expect} = require 'chai'
 _ = require 'underscore'
+moment = require 'moment'
 {Promise} = require 'es6-promise'
 
 {calendarActions, calendarTests, calendarChecks} = require './helpers/calendar'
@@ -14,12 +15,15 @@ planId = 1
 courseId = 1
 
 VALID_MODEL = require '../../api/courses/1/events.json'
+# pin plan 1 to one month ago for testing
+VALID_MODEL.plans[0].due_at = moment().subtract(1, 'month').toDate()
 VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
 
 describe 'Course Calendar', ->
   beforeEach (done) ->
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
-    TaskPlanActions.loaded(VALID_PLAN_MODEL, planId)
+    TaskPlanActions.loadedStats(VALID_PLAN_MODEL, planId)
+    plan = TaskPlanStore.getStats(planId)
 
     calendarTests
       .goToCalendar("/courses/#{courseId}/readings", courseId)
@@ -70,17 +74,16 @@ describe 'Course Calendar', ->
         done()
       ).catch(done)
 
-  # TODO: Commented_because_in_alpha_plans_in_the_calendar_do_not_have_ranges
-  # it 'should render plans when month with plans is rendered', (done) ->
-  #   calendarActions
-  #     # TODO make work with goToMonthWithPlans instead
-  #     # .goToMonthWithPlans(@result)
-  #     .clickPrevious(@result)
-  #     .then(calendarChecks.checkIsLabelPreviousMonth)
-  #     .then(calendarChecks.checkDoesViewHavePlans)
-  #     .then((result) ->
-  #       done()
-  #     ).catch(done)
+  it 'should render plans when month with plans is rendered', (done) ->
+    calendarActions
+      # TODO make work with goToMonthWithPlans instead
+      # .goToMonthWithPlans(@result)
+      .clickPrevious(@result)
+      .then(calendarChecks.checkIsLabelPreviousMonth)
+      .then(calendarChecks.checkDoesViewHavePlans)
+      .then((result) ->
+        done()
+      ).catch(done)
 
   it 'should show plan details when plan is clicked', (done) ->
     calendarActions
