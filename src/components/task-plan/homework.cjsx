@@ -1,12 +1,13 @@
 React = require 'react'
 moment = require 'moment'
+_ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 PlanFooter = require './footer'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 {DateTimePicker} = require 'react-widgets'
-{AddExercises, ReviewExercises} = require './homework/exercises'
+{AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 
@@ -57,6 +58,8 @@ ChooseExercises = React.createClass
       {addExercises}
     </div>
 
+
+    
 HomeworkPlan = React.createClass
   contextTypes:
     router: React.PropTypes.func
@@ -135,6 +138,11 @@ HomeworkPlan = React.createClass
         addClicked={@showSectionTopics}
         planId={id}/>
 
+      exerciseTable = <ExerciseTable
+        courseId={courseId}
+        pageIds={topics}
+        planId={id}/>
+
       reviewExercises = <ReviewExercises
         courseId={courseId}
         pageIds={topics}
@@ -181,6 +189,7 @@ HomeworkPlan = React.createClass
       </BS.Panel>
       {chooseExercises}
       {exerciseSummary}
+      {exerciseTable}
       {reviewExercises}
     </div>
 
