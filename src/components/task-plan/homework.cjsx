@@ -69,6 +69,9 @@ HomeworkPlan = React.createClass
   displayName: 'HomeworkPlan'
 
   getInitialState: ->
+    if TaskPlanStore.isNew(@props.id) and @context?.router?.getCurrentQuery().date
+      dueAt = new Date(@context.router.getCurrentQuery().date)
+      @setDueAt(dueAt)
     {showSectionTopics: false}
 
   setDueAt: (value) ->
@@ -105,9 +108,6 @@ HomeworkPlan = React.createClass
 
     if plan?.due_at
       dueAt = new Date(plan.due_at)
-
-    if TaskPlanStore.isNew(id) and @context?.router?.getCurrentQuery().date
-      dueAt = new Date(@context.router.getCurrentQuery().date)
 
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
