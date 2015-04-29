@@ -4,6 +4,11 @@ _ = require 'underscore'
 
 {makeSimpleStore} = require './helpers'
 
+EXERCISE_TAGS =
+  TEK: 'tek'
+  LO: 'lo'
+  GENERIC: 'generic'
+
 ExerciseConfig =
   _exercises: []
 
@@ -31,8 +36,41 @@ ExerciseConfig =
     get: (pageIds) ->
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
+    getGroupedExercises: (pageIds) ->
+      _.groupBy(@_exercises[pageIds.toString()], 'chapter_section')
+
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]
+    
+    getTekString: (exercise_id) ->
+      tags = @_exerciseCache[exercise_id].tags
+      tekTags = _.where(tags, {type: EXERCISE_TAGS.TEK})
 
+      _.reduce(tekTags, (memo, tag) ->
+        memo + " / " + tag.id
+      , '')
+
+    getContent: (exercise_id) ->
+      @_exerciseCache[exercise_id].content.questions[0].stem_html
+      
+    getTagStrings: (exercise_id) ->
+      tags = @_exerciseCache[exercise_id].tags
+      
+      obj =
+        lo: ""
+        section: ""
+        tagString: ""
+
+      _.reduce(tags, (memo, tag) ->
+        if (tag.type is EXERCISE_TAGS.GENERIC)
+          tagArr = memo.tagString.split("/")
+          tagArr.push(tag.id)
+          memo.tagString = tagArr.join(" / ")
+        else if (tag.type is EXERCISE_TAGS.LO)
+          memo.lo = tag.id
+          memo.section = tag.chapter_section[0] + '-' + tag.chapter_section[1]
+        memo
+      , obj)
+      
 {actions, store} = makeSimpleStore(ExerciseConfig)
 module.exports = {ExerciseActions:actions, ExerciseStore:store}
