@@ -29,7 +29,10 @@ LearningGuide = React.createClass
     @setState({unit})
 
   displayTopic: ->
-    @setState({showAll:true})
+    if @state.showAll
+      @setState({showAll:false})
+    else
+      @setState({showAll:true})
     @loadChart()
 
   loadChart: ->
