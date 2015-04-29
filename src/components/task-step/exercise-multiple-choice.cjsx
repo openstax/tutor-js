@@ -141,7 +141,9 @@ ExerciseReview = React.createClass
     @props.onNextStep()
 
   refreshMemory: ->
-    {index} = TaskStore.getReadingForTaskId(@props.id)
+    {id} = @props
+    task_id = TaskStepStore.getTaskId(id)
+    {index} = TaskStore.getReadingForTaskId(task_id, id)
     throw new Error('BUG: No reading found for task') unless index
     # goToStep returns an function with the step index in closure scope
     @props.goToStep(index)()
