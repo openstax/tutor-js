@@ -171,7 +171,9 @@ ExerciseTable = React.createClass
 
     if (hasTeks)
       tekString = ExerciseStore.getTekString(exerciseId)
-      tekString = if not tekString then "-"
+      if not tekString
+        tekString = "-"
+
       teks = <td>{tekString}</td>
 
     <tr>
