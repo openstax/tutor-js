@@ -69,12 +69,18 @@ CourseDuration = React.createClass
   # can be reused for units, for example
   setDuration: (duration) ->
     (plan) ->
-      if plan.opens_at and plan.due_at
-        plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day').add(1, 'day'), {allDay: true})
-      else if plan.opens_at
-        plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
-      else if plan.due_at
+      # TODO: Commented_because_in_alpha_plans_in_the_calendar_do_not_have_ranges
+      # if plan.opens_at and plan.due_at
+      #   plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day').add(1, 'day'), {allDay: true})
+      # else if plan.opens_at
+      #   plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
+      # else if plan.due_at
+      if plan.due_at
         plan.duration = moment(plan.due_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
+      else if plan.opens_at # HACK. some plans don't have a due_at
+        plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
+      else
+        throw new Error('BUG! All Plans should have a due_at')
 
   isInDuration: (duration) ->
     (plan) ->
