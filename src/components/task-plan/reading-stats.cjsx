@@ -142,7 +142,7 @@ StatsShell = React.createClass
 
   render: ->
     id = @getId()
-    TaskPlanActions.loadStats(id)
+    TaskPlanActions.loadStats(id) unless TaskPlanStore.isStatsLoaded(id)
 
     <Loadable
       store={TaskPlanStore}

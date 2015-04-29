@@ -13,7 +13,7 @@ Loadable = require '../loadable'
 StatsModalShell = React.createClass
   render: ->
     {id} = @props
-    TaskPlanActions.loadStats(id)
+    TaskPlanActions.loadStats(id) unless TaskPlanStore.isStatsLoaded(id)
 
     <Loadable
       store={TaskPlanStore}

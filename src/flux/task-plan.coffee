@@ -180,8 +180,11 @@ TaskPlanConfig =
 
     getStats: (id) ->
       @_getStats(id)
+
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
+
     isStatsLoaded: (id) -> !! @_stats[id]
+
     isStatsFailed: (id) -> !! @_stats[id]
 
 extendConfig(TaskPlanConfig, new CrudConfig())
