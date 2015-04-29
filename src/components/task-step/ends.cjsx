@@ -17,15 +17,17 @@ PracticeEnd = React.createClass
     reloadPractice: React.PropTypes.func.isRequired
 
   render: ->
+    {courseId, taskId, reloadPractice} = @props
+
     footer =
-      <div>
+      <div className="-practice-end">
         <PracticeButton
-          courseId={@props.courseId}
-          loadedTaskId={@props.taskId}
-          reloadPractice={@props.reloadPractice}
+          courseId={courseId}
+          loadedTaskId={taskId}
+          reloadPractice={reloadPractice}
           forceCreate={true}
           >Do more practice</PracticeButton>
-        <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+        <Router.Link to="viewStudentDashboard" params={{courseId}} className="btn btn-primary">Back to Dashboard</Router.Link>
       </div>
 
     <div className="task task-completed">
@@ -39,6 +41,7 @@ HomeworkEnd = React.createClass
   displayName: 'HomeworkEnd'
 
   propTypes:
+    courseId: React.PropTypes.any.isRequired
     taskId: React.PropTypes.any.isRequired
 
   _addListener: ->
@@ -92,12 +95,13 @@ HomeworkEnd = React.createClass
     </div>
 
   renderBeforeDue: (taskId) ->
+    {courseId} = @props
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
     totalSteps = TaskStore.getTotalStepsCount(taskId)
 
     congratsMessage = <h1>It looks like you are done!</h1> if completeSteps is totalSteps
 
-    footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+    footer = <Router.Link to="viewStudentDashboard" params={{courseId}} className="btn btn-primary">Back to Dashboard</Router.Link>
 
     <div className="task task-completed">
       <BS.Panel bsStyle="default" footer={footer} className='-homework-completed'>
@@ -122,8 +126,12 @@ HomeworkEnd = React.createClass
 TaskEnd = React.createClass
   displayName: 'TaskEnd'
 
+  propTypes:
+    courseId: React.PropTypes.any.isRequired
+
   render: ->
-    footer = <Router.Link to="dashboard" className="btn btn-primary">Back to Dashboard</Router.Link>
+    {courseId} = @props
+    footer = <Router.Link to="viewStudentDashboard" params={{courseId}} className="btn btn-primary">Back to Dashboard</Router.Link>
 
     <div className="task task-completed">
       <BS.Panel bsStyle="default" footer={footer} className="-reading-completed">
