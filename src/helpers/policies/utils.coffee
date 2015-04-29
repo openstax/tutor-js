@@ -32,7 +32,8 @@ utils =
 
   _isPanelPassed: (step, checks) ->
     panelPassed = _.reduce checks, (memo, next) ->
-      memo and step[next]?
+      # needs to detect both if the property next exists and if the value is truthy
+      memo and step[next]? and step[next]
     , true
 
     panelPassed

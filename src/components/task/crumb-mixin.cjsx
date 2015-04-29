@@ -22,7 +22,7 @@ module.exports =
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
     # doesAllowSeeAhead is currently true for if task type is homework.
-    doesAllowSeeAhead = TaskStore.doesAllowSeeAhead id
+    doesAllowSeeAhead = TaskStore.doesAllowSeeAhead(id)
 
     doesAllowSeeAhead or index <= latestIndex
 
@@ -44,22 +44,22 @@ module.exports =
       crumbs.push
         key: index
         data: step
-        crumb: @shouldStepCrumb index
+        crumb: @shouldStepCrumb(index)
         type: 'step'
 
     # Completion
     crumbs.push
       key: steps.length
       data: task
-      crumb: @shouldStepCrumb steps.length
+      crumb: @shouldStepCrumb(steps.length)
       type: 'end'
 
     crumbs
 
   _generateCrumbs: (id) ->
     task = TaskStore.get(id)
-    steps = TaskStore.getSteps id
-    @_generateCrumbsFromSteps task, steps
+    steps = TaskStore.getSteps(id)
+    @_generateCrumbsFromSteps(task, steps)
 
   generateCrumbs: ->
     {id} = @props
