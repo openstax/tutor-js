@@ -37,7 +37,9 @@ ExerciseConfig =
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
     getGroupedExercises: (pageIds) ->
-      _.groupBy(@_exercises[pageIds.toString()], 'chapter_section')
+      _.groupBy(@_exercises[pageIds.toString()], (exercise) ->
+        _.findWhere(exercise.tags, {type: EXERCISE_TAGS.LO}).chapter_section
+      )
 
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]

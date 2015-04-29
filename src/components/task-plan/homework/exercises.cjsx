@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{TocStore} = require '../../../flux/toc'
 
 ExerciseCardMixin =
   renderAnswers: (answer) ->
@@ -268,20 +269,42 @@ AddExercises = React.createClass
       i += 2
     rows
 
+  renderSection: (key) ->
+    section = TocStore.getSectionLabel(key)
+    if not section
+      return <span></span>
+
+    <BS.Row>
+      <BS.Col xs={12}>
+        <label className='-exercises-section-label'>
+          {section.chapter_section[0]} - {section.chapter_section[1]}.
+          {section.title}
+        </label>
+      </BS.Col>
+    </BS.Row>
+
   render: ->
     load = @renderLoading()
     if (load)
       return load
 
     {courseId, pageIds} = @props
-    exercises = ExerciseStore.get(pageIds)
-    if not exercises.length
+    if not ExerciseStore.get(pageIds).length
       return <span className="-no-exercises">
         The sections you selected have no exercises.
         Please select more sections.
       </span>
 
-    renderedExercises = _.map(exercises, @renderExercise)
+    groups = ExerciseStore.getGroupedExercises(pageIds)
+    renderExercise = @renderExercise
+    renderSection = @renderSection
+
+    renderedExercises = _.reduce(groups, (memo, exercises, key) ->
+      section = renderSection(key)
+      exercises = _.map(exercises, renderExercise)
+      memo.push(section, exercises)
+      memo
+    , [])
 
     <BS.Grid>
       {@renderInRows(renderedExercises)}
