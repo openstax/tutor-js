@@ -5,7 +5,7 @@ _ = require 'underscore'
 {makeSimpleStore} = require './helpers'
 
 EXERCISE_TAGS =
-  TEK: 'tek'
+  TEK: 'teks'
   LO: 'lo'
   GENERIC: 'generic'
 
@@ -49,7 +49,7 @@ ExerciseConfig =
       tekTags = _.where(tags, {type: EXERCISE_TAGS.TEK})
 
       _.reduce(tekTags, (memo, tag) ->
-        memo + " / " + tag.id
+        memo + " / " + tag.name
       , '')
 
     getContent: (exercise_id) ->
@@ -69,7 +69,7 @@ ExerciseConfig =
           tagArr.push(tag.id)
           memo.tagString = tagArr.join(" / ")
         else if (tag.type is EXERCISE_TAGS.LO)
-          memo.lo = tag.id
+          memo.lo = tag.name
           memo.section = tag.chapter_section[0] + '-' + tag.chapter_section[1]
         memo
       , obj)
