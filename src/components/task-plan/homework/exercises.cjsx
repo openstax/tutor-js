@@ -171,6 +171,7 @@ ExerciseTable = React.createClass
 
     if (hasTeks)
       tekString = ExerciseStore.getTekString(exerciseId)
+      tekString = if not tekString then "-"
       teks = <td>{tekString}</td>
 
     <tr>
@@ -272,13 +273,12 @@ AddExercises = React.createClass
   renderSection: (key) ->
     section = TocStore.getSectionLabel(key)
     if not section
-      return <span></span>
+      return <BS.Row></BS.Row>
 
     <BS.Row>
       <BS.Col xs={12}>
         <label className='-exercises-section-label'>
-          {section.chapter_section[0]} - {section.chapter_section[1]}.
-          {section.title}
+          {section.chapter_section}. {section.title}
         </label>
       </BS.Col>
     </BS.Row>
@@ -298,16 +298,17 @@ AddExercises = React.createClass
     groups = ExerciseStore.getGroupedExercises(pageIds)
     renderExercise = @renderExercise
     renderSection = @renderSection
+    renderInRows = @renderInRows
 
     renderedExercises = _.reduce(groups, (memo, exercises, key) ->
       section = renderSection(key)
-      exercises = _.map(exercises, renderExercise)
-      memo.push(section, exercises)
-      memo
+      exerciseCards = _.map(exercises, renderExercise)
+      memo.push(section)
+      memo.concat(renderInRows(exerciseCards))
     , [])
 
     <BS.Grid>
-      {@renderInRows(renderedExercises)}
+      {renderedExercises}
     </BS.Grid>
 
 
