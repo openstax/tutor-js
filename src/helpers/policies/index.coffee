@@ -1,4 +1,3 @@
-# coffeelint: disable=no_empty_functions
 # policies.coffee describes the following situations.
 # This should handle the 4 different states an Exercise can be in:
 # 1. `not(free_response)`: Show the question stem and a text area

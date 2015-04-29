@@ -80,7 +80,7 @@ TaskConfig =
       getCurrentStepIndex(steps)
 
     # Returns the reading and it's step index for a given task's ID
-    getReadingForTaskId: (taskId) ->
+    getReadingForTaskId: (taskId, id) ->
       steps = getSteps(@_steps[taskId])
       taskStepIndex = _.findIndex(steps, (step) -> step.id is id )
       # should never happen if the taskId was valid

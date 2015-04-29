@@ -59,7 +59,11 @@ module.exports = React.createClass
       classes.push crumbType
       classes = classes.join ' '
 
-      <span className={classes} title={title} onClick={@props.goToStep(crumb.key)} key="step-#{crumb.key}">
+      <span
+        className={classes}
+        title={title}
+        onClick={@props.goToStep(crumb.key)}
+        key="step-#{crumb.key}">
         <i className="icon-lg icon-#{crumbType}"></i>
         {status}
       </span>

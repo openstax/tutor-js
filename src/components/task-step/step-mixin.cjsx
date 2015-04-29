@@ -10,7 +10,10 @@ module.exports =
   renderGenericFooter: ->
     buttonClasses = '-continue'
     buttonClasses += ' disabled' unless @isContinueEnabled()
-    continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
+    continueButton = <BS.Button
+      bsStyle="primary"
+      className={buttonClasses}
+      onClick={@onContinue}>Continue</BS.Button>
     <span>
       {continueButton}
     </span>

@@ -130,7 +130,10 @@ CourseMonth = React.createClass
       <CourseAdd ref='addOnDay'/>
       <BS.Row>
         <BS.Col xs={1}>
-          <BS.DropdownButton ref='addButtonGroup' title={<i className="fa fa-plus"></i>} noCaret>
+          <BS.DropdownButton
+            ref='addButtonGroup'
+            title={<i className="fa fa-plus"></i>}
+            noCaret>
             {@renderAddActions()}
           </BS.DropdownButton>
         </BS.Col>

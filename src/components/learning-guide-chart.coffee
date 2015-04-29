@@ -1,19 +1,21 @@
 _ = require 'underscore'
 d3 = require 'd3'
 
-CLOUDS_PATH = '/style/resources/clouds.svg'
-PLANE_PATH = '/style/resources/openstax-plane.svg'
-CITYSCAPE_PATH = '/style/resources/cityscape.svg'
+CLOUD_PATH = '/style/resources/learning-guide/cloud.svg'
+PLANE_PATH = '/style/resources/learning-guide/openstax-plane.svg'
+CITYSCAPE_PATH = '/style/resources/learning-guide/houston-skyline.svg'
 
-# should be svg bound to the label text, but temp for now.
-FLAG_BLUE = '/style/resources/flag-blue.png'
-FLAG_GREEN = '/style/resources/flag-green.png'
-FLAG_YELLOW = '/style/resources/flag-yellow.png'
-FLAG_ORANGE = '/style/resources/flag-orange.png'
+FLAG_BLUE = '/style/resources/learning-guide/flag-blue.svg'
+FLAG_GREEN = '/style/resources/learning-guide/flag-green.svg'
+FLAG_YELLOW = '/style/resources/learning-guide/flag-yellow.svg'
+FLAG_GREY = '/style/resources/learning-guide/flag-grey.svg'
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
 WIDTH = 160
-HEIGHT = 49 # approx 2/3 width, adjust to suite
+HEIGHT = 49 # approx 2/3 width, adjust to suit
+
+# used for green x-axis bar and clipping path
+XRECTHEIGHT = 4.49
 
 
 module.exports = class LearningGuideChart
@@ -21,7 +23,7 @@ module.exports = class LearningGuideChart
   constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic) ->
     @constructor = constructor
 
-  addImage: (url, options) ->
+  addImage: (url, options, className) ->
     node = @svgNode
     d3.select(node).append('svg:image')
       .attr('x', options.x)
@@ -29,6 +31,7 @@ module.exports = class LearningGuideChart
       .attr('width', options.width   or 10)
       .attr('height', options.height or 10)
       .attr('xlink:href', url)
+      .attr('class', className)
 
   drawChart: (guide, showAll) ->
     node = @svgNode
@@ -97,25 +100,25 @@ module.exports = class LearningGuideChart
       .text("Show All #{guide.title}")
       .on('click', =>
         @displayTopic()
+        detailPane = document.querySelector('.learning-guide-chart .footer')
+        detailPane.classList.remove('active')
       )
 
   drawXRect: (container) ->
-    rectHeight = 4.49
     wrap = container.append('svg:rect')
       .attr('width', WIDTH)
-      .attr('height', rectHeight)
-      .attr('y', HEIGHT - rectHeight)
+      .attr('height', XRECTHEIGHT)
+      .attr('y', HEIGHT - XRECTHEIGHT)
       .attr('class', 'x-rect')
 
   drawXAxis: (container, fields, points) ->
-    rectHeight = 4.49
     clip = container.append('svg:clipPath')
       .attr('id', 'clip')
       .append('svg:rect')
       .attr('id', 'clip-rect')
       .attr('width', WIDTH)
-      .attr('height', rectHeight)
-      .attr('y', HEIGHT - rectHeight)
+      .attr('height', XRECTHEIGHT)
+      .attr('y', HEIGHT - XRECTHEIGHT)
     wrap = container.append('g')
       .attr('clip-path', 'url(#clip)')
       .attr('class', 'x-axis')
@@ -136,7 +139,7 @@ module.exports = class LearningGuideChart
 
         caretOffset = this.attributes.transform.value.match(/\((.*),/).pop()
         detailPane = document.querySelector('.learning-guide-chart .footer')
-        detailPane.className += " active"
+        detailPane.classList.add('active')
 
         # this is a rough calc for now, can center it better by subtracting container offset
         detailPane.style.marginLeft = (caretOffset * 5.5) + "px"
@@ -259,12 +262,19 @@ module.exports = class LearningGuideChart
 
 
   drawStaticImages: (container, points) ->
-    @addImage(CITYSCAPE_PATH, width:81, height:13, x:32, y:HEIGHT - 17.49)
+    @addImage(CITYSCAPE_PATH, width:109.7, height:12, x:32, y:32.5)
 
     @addImage(FLAG_BLUE, width:10, height:2.5, x:13.2, y:6.3)
     @addImage(FLAG_GREEN, width:20, height:2.5, x:6.8, y:17.3)
     @addImage(FLAG_YELLOW, width:20, height:2.5, x:6.6, y:28.3)
-    @addImage(FLAG_ORANGE, width:20, height:2.5, x:6.3, y:39.3)
+    @addImage(FLAG_GREY, width:20, height:2.5, x:6.3, y:39.3)
+
+    @addImage(CLOUD_PATH, width:40, height:15, x:110, y:2, 'cloud cloud-opacity-70')
+    @addImage(CLOUD_PATH, width:18, height:7, x:105, y:4, 'cloud cloud-opacity-70')
+    @addImage(CLOUD_PATH, width:15, height:15, x:30, y:2, 'cloud cloud-opacity-40')
+    @addImage(CLOUD_PATH, width:20, height:10, x:38, y:7, 'cloud cloud-opacity-70')
+    @addImage(CLOUD_PATH, width:20, height:15, x:135, y:2, 'cloud cloud-opacity-50')
+    
 
   drawCircles: (container, fields, points) ->
     wrap = container.append('g')
@@ -291,7 +301,7 @@ module.exports = class LearningGuideChart
         else if lv <= .49 and lv >= .35
           'yellow'
         else if lv < .35
-          'orange'
+          'grey'
       )
     # circles.append('text')
     #   .text( (f) ->
