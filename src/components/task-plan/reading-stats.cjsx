@@ -7,14 +7,14 @@ Router = require 'react-router'
 Loadable = require '../loadable'
 
 Stats = React.createClass
-  _percent: (num,total) ->
-    Math.round((num/total) * 100)
+  _percent: (num, total) ->
+    Math.round((num / total) * 100)
 
-  percentDelta: (a,b) ->
+  percentDelta: (a, b) ->
     if a > b
       change = a - b
       op = '+'
-    else if a == b
+    else if a is b
       change = 0
       op = ''
     else
@@ -26,7 +26,7 @@ Stats = React.createClass
     correctOrIncorrect ?= 'correct'
     count = correctOrIncorrect + '_count'
 
-    total_count = data.correct_count+data.incorrect_count
+    total_count = data.correct_count + data.incorrect_count
     if total_count then @_percent(data[count], total_count) else 0
 
   renderPercentBar: (data, type, correctOrIncorrect) ->
@@ -39,10 +39,16 @@ Stats = React.createClass
 
     classes = 'reading-progress-bar'
     classes += ' no-progress' unless percentCorrect
-    correct = <BS.ProgressBar className={classes} bsStyle={bsStyles[correctOrIncorrect]} label="%(percent)s%" now={percentCorrect} key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
+    correct = <BS.ProgressBar 
+              className={classes} 
+              bsStyle={bsStyles[correctOrIncorrect]} 
+              label="%(percent)s%" 
+              now={percentCorrect} 
+              key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
 
   renderProgressBar: (data, type, index, previous) ->
-    studentCount = if type is 'practice' then <span className='reading-progress-student-count'>({data.student_count} students)</span>
+    practice = <span className='reading-progress-student-count'>({data.student_count} students)</span>
+    studentCount = if type is 'practice' then practice
 
     <div key="#{type}-bar-#{index}">
       <div className='reading-progress-heading'>
@@ -62,7 +68,9 @@ Stats = React.createClass
       classAverage =
         <BS.Row>
           <BS.Col xs={12}>
-            <h3 className='reading-stats-average'><small>Average:</small> {data.mean_grade_percent}%</h3>
+            <h3 className='reading-stats-average'>
+              <small>Average:</small> {data.mean_grade_percent}%
+            </h3>
           </BS.Col>
         </BS.Row>
 
@@ -95,7 +103,10 @@ Stats = React.createClass
 
   renderPracticeBars: (data, i) ->
     if data.previous_attempt
-      previous = <div className="reading-progress-delta">{@percentDelta(data.correct_count,data.previous_attempt.correct_count)}% change</div>
+      previous =
+        <div className="reading-progress-delta">
+          {@percentDelta(data.correct_count, data.previous_attempt.correct_count)}% change
+        </div>
     @renderProgressBar(data, 'practice', i, previous)
 
   render: ->
@@ -138,7 +149,7 @@ StatsShell = React.createClass
       isLoading={-> TaskPlanStore.isStatsLoading(id)}
       isLoaded={-> TaskPlanStore.isStatsLoaded(id)}
       isFailed={-> TaskPlanStore.isStatsFailed(id)}
-      render={=> <Stats id={id} />}
+      render={-> <Stats id={id} />}
     />
 
 module.exports = {StatsShell, Stats}
