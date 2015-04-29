@@ -118,6 +118,9 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
+    url: "/api/plans/#{id}"
+
+  apiHelper TaskPlanActions, TaskPlanActions.loadStats , TaskPlanActions.loadedStats, 'GET', (id) ->
     url: "/api/plans/#{id}/stats"
 
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->

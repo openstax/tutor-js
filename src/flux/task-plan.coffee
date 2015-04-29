@@ -8,6 +8,10 @@ TUTOR_SELECTIONS =
   min: 2
 
 TaskPlanConfig =
+
+  stats: {}
+  _asyncStatusStats: {}
+
   _getPlan: (planId) ->
     @_local[planId] ?= {}
     @_local[planId].settings ?= {}
@@ -111,6 +115,19 @@ TaskPlanConfig =
 
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
+  _getStats: (id) ->
+    @_stats[id]
+
+  loadStats: (id) ->
+    delete @_stats[id]
+    @_asyncStatusStats[id] = 'loading'
+    @emitChange()
+
+  loadedStats: (obj, id) ->
+    @_stats[id] = obj
+    @_asyncStatusStats[id] = 'loaded'
+    @emitChange()
+
   publish: (id) -> # used by API
 
   exports:
@@ -161,6 +178,11 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       plan.settings.exercises_count_dynamic
 
+    getStats: (id) ->
+      @_getStats(id)
+    isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
+    isStatsLoaded: (id) -> !! @_stats[id]
+    isStatsFailed: (id) -> !! @_stats[id]
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)
