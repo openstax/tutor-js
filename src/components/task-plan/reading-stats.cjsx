@@ -39,14 +39,14 @@ Stats = React.createClass
 
     classes = 'reading-progress-bar'
     classes += ' no-progress' unless percentCorrect
-    correct = <BS.ProgressBar className={classes} bsStyle={bsStyles[correctOrIncorrect]} label="%(percent)s%" now={percentCorrect} key="page-progress-#{type}-#{data.page.id}-#{correctOrIncorrect}" />
+    correct = <BS.ProgressBar className={classes} bsStyle={bsStyles[correctOrIncorrect]} label="%(percent)s%" now={percentCorrect} key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
 
   renderProgressBar: (data, type, index, previous) ->
     studentCount = if type is 'practice' then <span className='reading-progress-student-count'>({data.student_count} students)</span>
 
     <div key="#{type}-bar-#{index}">
       <div className='reading-progress-heading'>
-        {data.page.number} {data.page.title} {studentCount}
+        {data.number} {data.title} {studentCount}
       </div>
       <div className='reading-progress-container'>
         <BS.ProgressBar className='reading-progress-group'>

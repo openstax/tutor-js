@@ -1,0 +1,65 @@
+@icon-path: '.';
+@icon-size-sm: 1rem;
+@icon-size-lg: @icon-size-sm * 4;
+@icon-size-xlg: @icon-size-sm * 6;
+
+// # Overview
+//
+// - add `<i class="icon-homework icon-sm" />` tag in the HTML
+//   - Similar to font-awesome icons
+// - use `<span class="icon-stack icon-lg">` for stacking icons
+
+
+// # Local mixins
+//
+.x-icon-size(@size) {
+  display: inline-block;
+  width: @size;
+  height: @size;
+  background-size: @size @size;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.x-icon-bg(@name) {
+  background-image: url("@{icon-path}/icon-@{name}.svg");
+}
+
+// # Support stacking icons
+//
+// Example:
+//
+// ```html
+// <span class="icon-stack icon-lg">
+//   <i class="icon-lg icon-homework"></i>
+//   <i class="icon-lg icon-correct"></i>
+// </span>
+// ```
+
+.icon-stack {
+  position: relative;
+}
+
+.icon-stack > .icon-sm,
+.icon-stack > .icon-lg {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+// # Icon Classes
+
+.icon-sm  { .x-icon-size(@icon-size-sm); }
+.icon-lg  { .x-icon-size(@icon-size-lg); }
+.icon-xlg { .x-icon-size(@icon-size-xlg); }
+
+// Note: Use tokens instead of strings to be able to do LESS compile-time validation
+.icon-feedback { .x-icon-bg(feedback); }
+.icon-homework { .x-icon-bg(homework); }
+.icon-reading  { .x-icon-bg(reading); }
+.icon-recover  { .x-icon-bg(recover); }
+.icon-test     { .x-icon-bg(test); }
+// The following are usually overlays on other icons
+.icon-correct  { .x-icon-bg(correct); }
+.icon-incorrect { .x-icon-bg(incorrect); }

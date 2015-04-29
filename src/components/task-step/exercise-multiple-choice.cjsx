@@ -16,7 +16,8 @@ BS = require 'react-bootstrap'
 ExerciseFreeResponse = React.createClass
   displayName: 'ExerciseFreeResponse'
   propTypes:
-    id: React.PropTypes.number.isRequired
+    id: React.PropTypes.any.isRequired
+    focus: React.PropTypes.bool.isRequired
 
   mixins: [StepMixin]
 
@@ -47,7 +48,11 @@ ExerciseFreeResponse = React.createClass
         />
     </div>
 
-  componentDidMount: -> @refs.freeResponse.getDOMNode().focus()
+  componentDidMount: ->
+    @refs.freeResponse.getDOMNode().focus() if @props.focus
+
+  componentDidUpdate: ->
+    @refs.freeResponse.getDOMNode().focus() if @props.focus
 
   onFreeResponseChange: ->
     freeResponse = @refs.freeResponse.getDOMNode().value
@@ -63,7 +68,7 @@ ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func
 
@@ -101,7 +106,7 @@ ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
@@ -133,9 +138,12 @@ ExerciseReview = React.createClass
     task_id = TaskStepStore.getTaskId(id)
     TaskStepActions.loadRecovery(id)
     TaskActions.load(task_id)
+    @props.onNextStep()
 
   refreshMemory: ->
-    {index} = TaskStore.getReadingForTaskId(@props.id)
+    {id} = @props
+    task_id = TaskStepStore.getTaskId(id)
+    {index} = TaskStore.getReadingForTaskId(task_id, id)
     throw new Error('BUG: No reading found for task') unless index
     # goToStep returns an function with the step index in closure scope
     @props.goToStep(index)()
@@ -171,10 +179,14 @@ ExerciseReview = React.createClass
 module.exports = React.createClass
   displayName: 'Exercise'
   propTypes:
-    id: React.PropTypes.number.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired
+    focus: React.PropTypes.bool.isRequired
+
+  getDefaultProps: ->
+    focus: true
 
   renderReview: (id)->
     <ExerciseReview
@@ -194,16 +206,23 @@ module.exports = React.createClass
   renderFreeResponse: (id)->
     <ExerciseFreeResponse
       id={id}
+      focus={@props.focus}
     />
 
   # add render methods for different panel types as needed here
 
   render: ->
     {id} = @props
-    # get panel to render based on step progress
-    panel = StepPanel.getPanel id
-    # panel is one of ['review', 'multiple-choice', 'free-response']
-    renderPanelMethod = camelCase "render-#{panel}"
+    task_id = TaskStepStore.getTaskId(id)
 
-    throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
-    @[renderPanelMethod]?(id)
+    if TaskStore.isLoaded(task_id)
+      # get panel to render based on step progress
+      panel = StepPanel.getPanel(id)
+
+      # panel is one of ['review', 'multiple-choice', 'free-response']
+      renderPanelMethod = camelCase "render-#{panel}"
+
+      throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
+      @[renderPanelMethod]?(id)
+    else
+      <div className="-loading">Loading...</div>

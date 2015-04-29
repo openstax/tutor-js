@@ -1,13 +1,12 @@
-moment = require 'moment'
 _ = require 'underscore'
 
 policies = require './policies'
-{TimeStore} = require '../../flux/time'
+{TaskStore} = require '../../flux/task'
 
 utils =
   _dueState: (task) ->
     state = 'before'
-    state = 'after' if moment(TimeStore.getNow()).isAfter(task.due_at, 'day')
+    state = 'after' if task.due_at? and TaskStore.isTaskPastDue(task.id)
 
     state
 
@@ -33,7 +32,8 @@ utils =
 
   _isPanelPassed: (step, checks) ->
     panelPassed = _.reduce checks, (memo, next) ->
-      memo and step[next]?
+      # needs to detect both if the property next exists and if the value is truthy
+      memo and step[next]? and step[next]
     , true
 
     panelPassed

@@ -1,65 +1,132 @@
 {
-  "title": "Physics",
-  "fields": [
-    {
-      "id": 123,
-      "title": "Introduction to Physics",
-      "unit": 1,
-      "questions_answered_count": 48,
-      "current_level": 0.8,
-      "page_ids": [
-        234,
-        345
-      ],
-      "practice_count": 12
-    },
-        {
-      "id": 124,
-      "title": "Motion &amp; Kinematics",
-      "unit": 2,
-      "questions_answered_count": 55,
-      "current_level": 0.6,
-      "page_ids": [
-        234,
-        345
-      ],
-      "practice_count": 22
-    },
-        {
-      "id": 125,
-      "title": "Unit 3",
-      "unit": 3,
-      "questions_answered_count": 68,
-      "current_level": 0.45,
-      "page_ids": [
-        234,
-        345
-      ],
-      "practice_count": 3
-    },
-        {
-      "id": 126,
-      "title": "Unit 4",
-      "unit": 4,
-      "questions_answered_count": 67,
-      "current_level": 0.3,
-      "page_ids": [
-        234,
-        345
-      ],
-      "practice_count": 28
-    },
-        {
-      "id": 127,
-      "title": "Unit 5",
-      "unit": 5,
-      "questions_answered_count": 9,
-      "current_level": 0.5,
-      "page_ids": [
-        234,
-        345
-      ],
-      "practice_count": 7
-    }
-  ]
+"title": "Physics",
+"page_ids": [ 234, 345, 456 ],
+
+"children": [
+
+  { 
+    "id":123, 
+    "title": "Kinematics",
+    "chapter_section": "1",
+    "questions_answered_count": 50,
+    "current_level": 1,
+    "page_ids": [ 234, 345, 456 ],
+
+    "children": [
+      { 
+        "id":124, 
+        "title": "Kinematics in 1 dimension", 
+        "chapter_section": "3-1",
+        "questions_answered_count": 30,
+        "current_level": 0.1,
+        "page_ids": [ 234, 345 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-2",
+        "questions_answered_count": 20,
+        "current_level": 0.25,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-3",
+        "questions_answered_count": 20,
+        "current_level": 0.48,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-4",
+        "questions_answered_count": 20,
+        "current_level": 0.7,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-5",
+        "questions_answered_count": 20,
+        "current_level": 0.8,
+        "page_ids": [ 456 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3-6",
+        "questions_answered_count": 20,
+        "current_level": 1,
+        "page_ids": [ 456 ]
+      }
+
+    ]
+
+  },
+
+    { 
+    "id":123, 
+    "title": "Kinematics",
+    "chapter_section": "2",
+    "questions_answered_count": 50,
+    "current_level": 0.5,
+    "page_ids": [ 234, 345, 456 ],
+
+    "children": [
+      { 
+        "id":124, 
+        "title": "Kinematics in 1 dimension", 
+        "chapter_section": "2.1",
+        "questions_answered_count": 30,
+        "current_level": 0.1,
+        "page_ids": [ 234, 345 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "2.2",
+        "questions_answered_count": 20,
+        "current_level": 0.7,
+        "page_ids": [ 456 ]
+      }
+
+    ]
+
+  },
+
+    { 
+    "id":123, 
+    "title": "Kinematics",
+    "chapter_section": "3",
+    "questions_answered_count": 50,
+    "current_level": 0.3,
+    "page_ids": [ 234, 345, 456 ],
+
+    "children": [
+      { 
+        "id":124, 
+        "title": "Kinematics in 1 dimension", 
+        "chapter_section": "3.1",
+        "questions_answered_count": 30,
+        "current_level": 0.1,
+        "page_ids": [ 234, 345 ]
+      },
+      { 
+        "id":125, 
+        "title": "Kinematics in 2 dimensions", 
+        "chapter_section": "3.2",
+        "questions_answered_count": 20,
+        "current_level": 0.7,
+        "page_ids": [ 456 ]
+      }
+
+    ]
+
+  }
+
+
+
+]
 }

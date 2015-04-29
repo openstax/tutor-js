@@ -1,3 +1,5 @@
+@green: rgb(122, 176, 73);
+
 .exercise-summary {
   text-align: center;
 
@@ -84,6 +86,118 @@ table.exercise-table {
 
   td {
     padding: 5px;
+  }
+}
+
+.homework-plan-exercise-select-topics {
+  > .panel {
+    > .panel-heading {
+      padding: 0 15px;
+      background-color: @green;
+      color: white;
+      border-radius: 0;
+
+      > .panel-title {
+        span {
+          font-size: 2.4rem;
+        }
+
+        button {
+          padding: 0;
+          margin: 0;
+          color: white;
+          font-size: 3rem;
+          line-height: 4.6rem;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    > .panel-body {
+      padding: 20px;
+    }
+
+    > .panel-footer {
+      > span {
+        .btn-link {
+          padding: 12px 36px;
+          margin-left: 25px;
+          text-transform: none;
+          font-size: 1.8rem;
+          border: 1px solid lightgray;
+          border-radius: 0;
+
+          &:hover {
+            text-decoration: none;
+            background-color: rgb(240, 240, 240);
+          }
+        }
+      }
+    }
+  }
+}
+
+.select-reading-modal {
+  > .panel-group > .panel {
+    border-radius: 0;
+    box-shadow: none;
+
+    > .panel-heading {
+      position: relative;
+      padding: 0;
+      border-radius: 0;
+      border: 1px solid whitesmoke;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: none;
+        border: 1px solid white;
+        display: block;
+        pointer-events: none;
+        content: "";
+      }
+
+      > .panel-title {
+        padding: 8px;
+        font-size: 1.7rem;
+        font-weight: 700;
+        line-height: 1.7rem;
+        color: rgb(34, 46, 101);
+
+        > a > .chapter-checkbox {
+          margin-right: 25px;
+        }
+      }
+    }
+
+    > .panel-collapse > .panel-body {
+      padding: 0;
+      border: none;
+
+      > .section {
+        padding: 1px 8px;
+        border-bottom: 1px solid #efefef;
+        font-weight: 400;
+
+        > .section-checkbox {
+          margin-right: 25px;
+          font-size: 1.7rem;
+        }
+
+        > .section-number {
+          margin-right: 5px;
+          font-weight: bold;
+          color: @green;
+        }
+      }
+    }
   }
 }
 

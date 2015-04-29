@@ -1,0 +1,13 @@
+{
+    "id": 13,
+    "type": "homework",
+    "title": "Write short essay on the rise and fall of the Roman Empire",
+    "stats": {
+        "course": {
+            "total_count": 10,
+            "complete_count": 0,
+            "partially_complete_count": 0
+        },
+        "periods": []
+    }
+}
