@@ -37,6 +37,7 @@ Performance = React.createClass
     status = switch cell.status
       when "complete" then "Complete"
       when "in_progress" then "In progress"
+      when "not_started" then "Not started"
 
     <td>{status}</td>
 
