@@ -165,7 +165,7 @@ HomeworkPlan = React.createClass
                   ref="title"
                   id="homework-title"
                   type="text"
-                  value={plan.title}
+                  defaultValue={plan.title}
                   placeholder="Enter Title"
                   onChange={@setTitle} />
               </div>

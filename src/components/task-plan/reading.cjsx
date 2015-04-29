@@ -129,7 +129,7 @@ ReadingPlan = React.createClass
             ref="title"
             id="reading-title"
             type="text"
-            value={plan.title}
+            defaultValue={plan.title}
             placeholder="Enter Title"
             onChange={@setTitle} />
         </div>
