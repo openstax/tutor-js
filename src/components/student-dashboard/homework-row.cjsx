@@ -38,7 +38,7 @@ module.exports = React.createClass
     # and feedback available and whether or not the student has already
     # accessed it.
     # For now we assume if the event's compete and it's not on the current week it can be recovered
-    recoverable = event.complete and moment(event.due_at).startOf('isoweek').add(1,'week').isBefore(TimeStore.getNow())
+    recoverable = event.complete and moment(event.due_at).startOf('isoweek').add(1, 'week').isBefore(TimeStore.getNow())
     <EventRow {...@props} feedback={feedback} className="homework">
         {event.title}{@actionLinks() if recoverable}
     </EventRow>
