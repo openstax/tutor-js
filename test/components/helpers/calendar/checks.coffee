@@ -71,9 +71,9 @@ checks =
     expect(div.querySelectorAll('.plan').length).to.be.above(0)
 
     _.each(durations, (plan) ->
-        fullDuration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
-        if fullDuration.overlaps(viewingDuration)
-          expect(div.querySelectorAll(".course-plan-#{plan.id}").length).to.be.above(0)
+      fullDuration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
+      if fullDuration.overlaps(viewingDuration)
+        expect(div.querySelectorAll(".course-plan-#{plan.id}").length).to.be.above(0)
     )
 
     {div, component, state, router, history, courseId}

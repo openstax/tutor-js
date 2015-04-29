@@ -1,3 +1,5 @@
+# coffeelint: disable=no_empty_functions
+
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
@@ -25,9 +27,13 @@ PracticeEnd = React.createClass
           courseId={courseId}
           loadedTaskId={taskId}
           reloadPractice={reloadPractice}
-          forceCreate={true}
-          >Do more practice</PracticeButton>
-        <Router.Link to="viewStudentDashboard" params={{courseId}} className="btn btn-primary">Back to Dashboard</Router.Link>
+          forceCreate={true}>
+          Do more practice
+        </PracticeButton>
+        <Router.Link
+          to="viewStudentDashboard"
+          params={{courseId}}
+          className="btn btn-primary">Back to Dashboard</Router.Link>
       </div>
 
     <div className="task task-completed">
@@ -86,7 +92,8 @@ HomeworkEnd = React.createClass
       completedReview = @renderReviewSteps(completedSteps, completedLabel, 'completed')
 
     if incompleteSteps.length
-      todoLabel = <h1>Problems To Do <small>{incompleteSteps.length} remaining</small></h1>
+      todoLabel =
+        <h1>Problems To Do <small>{incompleteSteps.length} remaining</small></h1>
       todoReview = @renderReviewSteps(incompleteSteps, todoLabel, 'todo')
 
     <div className='task-review -homework-completed'>
@@ -101,7 +108,10 @@ HomeworkEnd = React.createClass
 
     congratsMessage = <h1>It looks like you are done!</h1> if completeSteps is totalSteps
 
-    footer = <Router.Link to="viewStudentDashboard" params={{courseId}} className="btn btn-primary">Back to Dashboard</Router.Link>
+    footer = <Router.Link
+      to="viewStudentDashboard"
+      params={{courseId}}
+      className="btn btn-primary">Back to Dashboard</Router.Link>
 
     <div className="task task-completed">
       <BS.Panel bsStyle="default" footer={footer} className='-homework-completed'>
@@ -131,7 +141,10 @@ TaskEnd = React.createClass
 
   render: ->
     {courseId} = @props
-    footer = <Router.Link to="viewStudentDashboard" params={{courseId}} className="btn btn-primary">Back to Dashboard</Router.Link>
+    footer = <Router.Link
+      to="viewStudentDashboard"
+      params={{courseId}}
+      className="btn btn-primary">Back to Dashboard</Router.Link>
 
     <div className="task task-completed">
       <BS.Panel bsStyle="default" footer={footer} className="-reading-completed">

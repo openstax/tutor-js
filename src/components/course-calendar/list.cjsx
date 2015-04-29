@@ -4,8 +4,8 @@ React = require 'react'
 TaskPlan = React.createClass
   displayName: 'TeacherTaskPlan'
   propTypes:
-     plan: React.PropTypes.object.isRequired
-     courseId: React.PropTypes.any.isRequired
+    plan: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.any.isRequired
 
   contextTypes:
     router: React.PropTypes.func
@@ -36,7 +36,12 @@ TaskPlan = React.createClass
       <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
         {start.fromNow()} ({duration})
       </BS.ListGroupItem>
-      <BS.Button bsStyle="link" className="-tasks-list-stats-button" onClick={@onViewStats}>View Stats</BS.Button>
+      <BS.Button
+        bsStyle="link"
+        className="-tasks-list-stats-button"
+        onClick={@onViewStats}>
+        View Stats
+      </BS.Button>
     </div>
 
 
@@ -44,8 +49,8 @@ TeacherTaskPlanListing = React.createClass
   displayName: 'TeacherTaskPlanListing'
 
   propTypes:
-     plan: React.PropTypes.object.isRequired
-     courseId: React.PropTypes.any.isRequired
+    plan: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.any.isRequired
 
   render: ->
     {plansList, courseId} = @props

@@ -51,7 +51,12 @@ module.exports = React.createClass
       classes.push crumbType
       classes = classes.join ' '
 
-      <BS.Button bsStyle={bsStyle} className={classes} title={title} onClick={@props.goToStep(crumb.key)} key="step-#{crumb.key}">
+      <BS.Button
+        bsStyle={bsStyle}
+        className={classes}
+        title={title}
+        onClick={@props.goToStep(crumb.key)}
+        key="step-#{crumb.key}">
         <i className="fa fa-fw #{crumbType}"></i>
       </BS.Button>
 

@@ -33,7 +33,7 @@ actions =
 
     {div, component, stepId, taskId, state, router, history}
 
-  clickBreadcrumb: (breadcrumbButtonIndex)->
+  clickBreadcrumb: (breadcrumbButtonIndex) ->
     (args...) ->
       Promise.resolve(actions._clickBreadcrumb(breadcrumbButtonIndex, args...))
 

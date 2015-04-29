@@ -94,7 +94,7 @@ checks =
     expect(div.querySelector('.footer-buttons').children.length).to.equal(3)
     classes = _.pluck(div.querySelector('.footer-buttons').children, 'className')
     expect(classes).to.deep.equal([
-      '-try-another btn btn-primary','-refresh-memory btn btn-primary','-continue btn btn-primary'
+      '-try-another btn btn-primary', '-refresh-memory btn btn-primary', '-continue btn btn-primary'
     ])
 
   _checkIsNextStep: ({div, component, stepId, taskId, state, router, history}) ->
@@ -173,7 +173,7 @@ checks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, state, r
   {div, component, stepId, taskId, state, router, history}
 
 checks.checkIsMatchStep = (matchStepIndex) ->
-  (args...)->
+  (args...) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
 module.exports = checks
