@@ -9,7 +9,7 @@ TUTOR_SELECTIONS =
 
 TaskPlanConfig =
 
-  stats: {}
+  _stats: {}
   _asyncStatusStats: {}
 
   _getPlan: (planId) ->

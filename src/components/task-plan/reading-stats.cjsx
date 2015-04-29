@@ -4,7 +4,6 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-LoadableItem = require '../loadable-item'
 Loadable = require '../loadable'
 
 Stats = React.createClass
@@ -132,13 +131,14 @@ StatsShell = React.createClass
 
   render: ->
     id = @getId()
+    TaskPlanActions.loadStats(id)
 
     <Loadable
       store={TaskPlanStore}
       isLoading={-> TaskPlanStore.isStatsLoading(id)}
       isLoaded={-> TaskPlanStore.isStatsLoaded(id)}
       isFailed={-> TaskPlanStore.isStatsFailed(id)}
-      renderItem={=> <Stats id={id} />}
+      render={=> <Stats id={id} />}
     />
 
 module.exports = {StatsShell, Stats}
