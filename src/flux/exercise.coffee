@@ -70,7 +70,7 @@ ExerciseConfig =
           memo.tagString = tagArr.join(" / ")
         else if (tag.type is EXERCISE_TAGS.LO)
           memo.lo = tag.name
-          memo.section = tag.chapter_section[0] + '-' + tag.chapter_section[1]
+          memo.section = tag.chapter_section
         memo
       , obj)
       
