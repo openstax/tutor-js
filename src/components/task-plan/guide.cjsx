@@ -12,7 +12,7 @@ Guide = React.createClass
   propTypes:
     id: React.PropTypes.any.isRequired
 
-  renderCrudeTable: (data,i) ->
+  renderCrudeTable: (data, i) ->
     {id} = @props
 
     <tr>
@@ -23,7 +23,9 @@ Guide = React.createClass
       <td className="-course-guide-table-current_level">{data.current_level}</td>
       <td className="course-guide-table-page_ids">{data.page_ids}</td>
       <td className="-course-guide-table-practice_count">{data.practice_count}</td>
-      <td className="-course-guide-table-practice_button"><PracticeButton courseId={id} page_ids={data.page_ids}>Practice</PracticeButton></td>
+      <td className="-course-guide-table-practice_button">
+        <PracticeButton courseId={id} page_ids={data.page_ids}>Practice</PracticeButton>
+      </td>
     </tr>
 
   render: ->
@@ -72,7 +74,7 @@ GuideShell = React.createClass
       isLoaded={CourseStore.isGuideLoaded}
       isLoading={CourseStore.isGuideLoading}
       id={courseId}
-      renderItem={=> <Guide key={courseId} id={courseId} />}
+      renderItem={-> <Guide key={courseId} id={courseId} />}
     />
 
 module.exports = {GuideShell, Guide}

@@ -61,7 +61,7 @@ describe 'Practice Widget', ->
       .then(taskChecks.heckIsDefaultStep)
       .then(_.delay(done, taskTests.delay)).catch(done)
 
-  it 'should render empty free response for unanswered exercise', (done)->
+  it 'should render empty free response for unanswered exercise', (done) ->
     taskId = CourseStore.getPracticeId(courseId)
     taskTests
       .renderFreeResponse(taskId)

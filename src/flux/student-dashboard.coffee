@@ -53,25 +53,18 @@ StudentDashboardConfig = {
             # other types (homework) must be incomplete and not past due
             (not event.complete and moment(event.due_at).isAfter(TimeStore.getNow())))
 
-    upcomingEvents: (courseId) ->
-      now = TimeStore.getNow()
-      _.filter @_get(courseId)?.tasks, (event) -> new Date(event.due_at) > now
-
-    # Return a few events that are past due
-    # Options:
-    #   limit: How many records to return, defaults to 4
-    #   startAt: Events older than this will be returned, default to TimeStore.getNow()
-    pastDueEvents: (courseId, options = {}) ->
-      _.defaults options,
-        limit: 4
-        startAt: TimeStore.getNow()
-
+    # Returns events who's due date has not passed
+    upcomingEvents: (courseId, now = TimeStore.getNow()) ->
       _.chain(@_get(courseId)?.tasks or [])
-        .filter( (event) ->
-          new Date(event.due_at) < options.startAt
-        )
+        .filter( (event) -> new Date(event.due_at) > now )
         .sortBy('due_at')
-        .last(options.limit)
+        .value()
+
+    # Returns events who's due date is in the past
+    pastDueEvents: (courseId, now = TimeStore.getNow()) ->
+      _.chain(@_get(courseId)?.tasks or [])
+        .filter( (event) -> new Date(event.due_at) < now )
+        .sortBy('due_at')
         .value()
 }
 

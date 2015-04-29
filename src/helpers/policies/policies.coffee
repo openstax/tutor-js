@@ -10,7 +10,7 @@ freeResponse =
 multipleChoice =
   name: 'multiple-choice'
   optional: 'checkQuestionFormat'
-  passCheck: ['answer_id','is_completed']
+  passCheck: ['answer_id', 'is_completed']
   actions: [
     'pickMultipleChoice'
     'saveMultipleChoice'

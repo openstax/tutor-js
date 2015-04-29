@@ -35,7 +35,10 @@ TeacherTaskPlans = React.createClass
       <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
         {start.fromNow()} ({duration})
       </BS.ListGroupItem>
-      <BS.Button bsStyle="link" className="-tasks-list-stats-button" onClick={@onViewStats}>View Stats</BS.Button>
+      <BS.Button
+        bsStyle="link"
+        className="-tasks-list-stats-button"
+        onClick={@onViewStats}>View Stats</BS.Button>
     </div>
 
 
@@ -46,7 +49,7 @@ TeacherTaskPlanListing = React.createClass
 
   displayName: 'TeacherTaskPlanListing'
 
-  componentDidMount:->
+  componentDidMount: ->
     {courseId} = @context.router.getCurrentParams()
 
     # Bypass loading if plan is already loaded, as is the case in testing.

@@ -39,7 +39,7 @@ fakeComplete = (stepId) ->
 
 # test for exercise step based on task id so that these tests can be repeated for different tasks
 testForExerciseStepWithReview = (taskId) ->
-  () ->
+  ->
     beforeEach ->
       TaskActions.loaded(models[taskId], taskId)
       steps = TaskStore.getSteps(taskId)
