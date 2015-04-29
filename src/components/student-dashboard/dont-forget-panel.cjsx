@@ -41,7 +41,7 @@ module.exports = React.createClass
     </BS.Col>
 
   render: ->
-    events  = _.last(StudentDashboardStore.pastDueEvents(@props.courseId),4)
+    events  = _.last(StudentDashboardStore.pastDueEvents(@props.courseId), 4)
     if events.length
       <BS.Panel className="dont-forget" header="Don't Forget">
         {_.map(events, @renderBlock)}
