@@ -15,7 +15,7 @@ DATA = require '../../api/courses/1/dashboard.json'
 NOW  = new Date('2015-04-13T14:15:58.856Z')
 renderDashBoard = ->
   new Promise (resolve, reject) ->
-    routerStub.goTo("/courses/#{COURSE_ID}/dashboard").then (result) ->
+    routerStub.goTo("/courses/#{COURSE_ID}/list").then (result) ->
       resolve(_.extend({
         dashboard: ReactTestUtils.findRenderedComponentWithType(result.component, StudentDashboardShell)
       }, result))
