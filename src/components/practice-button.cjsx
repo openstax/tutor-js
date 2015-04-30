@@ -24,7 +24,7 @@ PracticeButton = React.createClass
     CourseStore.off('practice.loaded', @transitionToPractice)
 
   render: ->
-    <BS.Button bsStyle="primary" className="-practice" onClick={@onClick}>
+    <BS.Button bsStyle='primary' className='-practice' onClick={@onClick}>
       {@props.children}
     </BS.Button>
 

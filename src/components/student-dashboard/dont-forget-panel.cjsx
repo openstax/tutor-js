@@ -34,16 +34,16 @@ module.exports = React.createClass
     <BS.Col key={event.id} xs={12 / all.length}>
       <div>
         <i className="icon-xlg icon-#{data.icon}" onClick={_.partial(data.clickHandler, event.id)}/>
-        <h3 className="heading">View {data.name}</h3>
-        <div className="title">{event.title}</div>
-        <div className="summary">{data.summary}</div>
+        <h3 className='heading'>View {data.name}</h3>
+        <div className='title'>{event.title}</div>
+        <div className='summary'>{data.summary}</div>
       </div>
     </BS.Col>
 
   render: ->
     events  = _.last(StudentDashboardStore.pastDueEvents(@props.courseId), 4)
     if events.length
-      <BS.Panel className="dont-forget" header="Don't Forget">
+      <BS.Panel className='dont-forget' header="Don't Forget">
         {_.map(events, @renderBlock)}
       </BS.Panel>
     else

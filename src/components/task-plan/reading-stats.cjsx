@@ -42,7 +42,7 @@ Stats = React.createClass
     correct = <BS.ProgressBar 
               className={classes} 
               bsStyle={bsStyles[correctOrIncorrect]} 
-              label="%(percent)s%" 
+              label='%(percent)s%' 
               now={percentCorrect} 
               key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
 
@@ -104,7 +104,7 @@ Stats = React.createClass
   renderPracticeBars: (data, i) ->
     if data.previous_attempt
       previous =
-        <div className="reading-progress-delta">
+        <div className='reading-progress-delta'>
           {@percentDelta(data.correct_count, data.previous_attempt.correct_count)}% change
         </div>
     @renderProgressBar(data, 'practice', i, previous)
@@ -126,7 +126,7 @@ Stats = React.createClass
         {practice}
       </section>
 
-    <BS.Panel className="reading-stats">
+    <BS.Panel className='reading-stats'>
       <section>
         {course}
       </section>

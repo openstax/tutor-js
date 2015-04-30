@@ -41,14 +41,14 @@ module.exports = React.createClass
     _.findWhere crumbs, {key: @state.currentStep}
 
   renderIntro: (data) ->
-    footer = <BS.Button bsStyle="primary" className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
+    footer = <BS.Button bsStyle='primary' className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
     if data.due_at
       dueDate =
-        <div className="-due-at">Due At: <Time
+        <div className='-due-at'>Due At: <Time
           date={data.due_at}
-          format="LLL"/></div>
+          format='LLL'/></div>
 
-    panel = <BS.Panel bsStyle="default" footer={footer} className='-task-intro'>
+    panel = <BS.Panel bsStyle='default' footer={footer} className='-task-intro'>
               <h1>{data.title}</h1>
               {dueDate}
             </BS.Panel>
@@ -90,7 +90,7 @@ module.exports = React.createClass
 
     unless TaskStore.isSingleStepped(id)
       breadcrumbs =
-        <div className="panel-header">
+        <div className='panel-header'>
           <Details task={task} />
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep}/>
         </div>

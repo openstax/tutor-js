@@ -25,14 +25,14 @@ module.exports = React.createClass
     workable = StudentDashboardStore.canWorkTask(@props.event)
     # FIXME - use classnames lib when available
     classnames = "task row #{@props.className}"
-    classnames += " workable" if workable
+    classnames += ' workable' if workable
     <div className={classnames} onClick={@onClick if workable}>
       <BS.Col xs={1}  sm={1}>
         <i className={"icon-lg icon-#{@props.className}"}/>
       </BS.Col>
-      <BS.Col xs={11} sm={7} className="title">{@props.children}</BS.Col>
-      <BS.Col xs={6}  sm={2} className="feedback">{@props.feedback}</BS.Col>
-      <BS.Col xs={5}  sm={2} className="due-at">
+      <BS.Col xs={11} sm={7} className='title'>{@props.children}</BS.Col>
+      <BS.Col xs={6}  sm={2} className='feedback'>{@props.feedback}</BS.Col>
+      <BS.Col xs={5}  sm={2} className='due-at'>
         <Time date={@props.event.due_at}/>
       </BS.Col>
     </div>

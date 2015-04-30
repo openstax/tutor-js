@@ -142,7 +142,7 @@ module.exports = class LearningGuideChart
         detailPane.classList.add('active')
 
         # this is a rough calc for now, can center it better by subtracting container offset
-        detailPane.style.marginLeft = (caretOffset * 5.5) + "px"
+        detailPane.style.marginLeft = (caretOffset * 5.5) + 'px'
 
         me.displayUnit(field)
       )
@@ -166,20 +166,20 @@ module.exports = class LearningGuideChart
 
   drawYDesc: (container, ypos, text) ->
     wrap = container.append('g')
-      .append("svg:text")
-      .attr("text-anchor", "end")
-      .attr("x", 5)
-      .attr("y", ypos)
+      .append('svg:text')
+      .attr('text-anchor', 'end')
+      .attr('x', 5)
+      .attr('y', ypos)
       .attr('class', 'y-desc')
       .attr('transform', "rotate(-90, 8, #{ypos})")
       .text(text)
 
   drawYLabel: (container, ypos, text) ->
     wrap = container.append('g')
-      .append("svg:text")
-      .attr("text-anchor", "end")
-      .attr("x", 20)
-      .attr("y", ypos)
+      .append('svg:text')
+      .attr('text-anchor', 'end')
+      .attr('x', 20)
+      .attr('y', ypos)
       .attr('class', 'y-label')
       .text(text)
 

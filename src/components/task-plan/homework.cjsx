@@ -32,7 +32,7 @@ ChooseExercises = React.createClass
     primary =
       <BS.Button
         className={classes}
-        bsStyle="primary"
+        bsStyle='primary'
         onClick={@selectProblems}>Show Problems
       </BS.Button>
 
@@ -47,7 +47,7 @@ ChooseExercises = React.createClass
           planId={planId}
           pageIds={selected}/>
 
-    <div className="homework-plan-exercise-select-topics">
+    <div className='homework-plan-exercise-select-topics'>
       <SelectTopics
         primary={primary}
         header={header}
@@ -61,7 +61,7 @@ ChooseExercises = React.createClass
     </div>
 
 
-    
+
 HomeworkPlan = React.createClass
   contextTypes:
     router: React.PropTypes.func
@@ -118,8 +118,8 @@ HomeworkPlan = React.createClass
       dueAtElem = <span>{new moment(dueAt).format('MMM Do, YYYY')}</span>
     else
       dueAtElem = <DateTimePicker
-                    id="homework-due-date"
-                    format="MMM dd, yyyy"
+                    id='homework-due-date'
+                    format='MMM dd, yyyy'
                     time={false}
                     calendar={true}
                     readOnly={false}
@@ -159,28 +159,28 @@ HomeworkPlan = React.createClass
         <BS.Grid>
           <BS.Row>
             <BS.Col xs={12} md={6}>
-              <div className="-homework-title">
-                <label htmlFor="homework-title">Title</label>
+              <div className='-homework-title'>
+                <label htmlFor='homework-title'>Title</label>
                 <input
-                  ref="title"
-                  id="homework-title"
-                  type="text"
+                  ref='title'
+                  id='homework-title'
+                  type='text'
                   defaultValue={plan.title}
-                  placeholder="Enter Title"
+                  placeholder='Enter Title'
                   onChange={@setTitle} />
               </div>
-              <div className="-homework-due-date">
-                <label htmlFor="homework-due-date">Due Date</label>
+              <div className='-homework-due-date'>
+                <label htmlFor='homework-due-date'>Due Date</label>
                 {dueAtElem}
                 <p>Feedback will be released after the due date.</p>
               </div>
             </BS.Col>
             <BS.Col xs={12} md={6}>
-              <div className="-homework-description">
-                <label htmlFor="homework-description">Description</label>
+              <div className='-homework-description'>
+                <label htmlFor='homework-description'>Description</label>
                 <textarea
-                  ref="description"
-                  id="homework-description"
+                  ref='description'
+                  id='homework-description'
                   value={description}
                   onChange={@setDescription}>
                 </textarea>

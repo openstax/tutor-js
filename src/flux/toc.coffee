@@ -8,7 +8,7 @@ TocConfig =
   _toc: null
   _sections: {}
 
-  FAILED: -> console.error("BUG: could not load readings")
+  FAILED: -> console.error('BUG: could not load readings')
 
   reset: ->
     @_toc = null

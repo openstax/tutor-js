@@ -15,7 +15,7 @@ StudentDashboardShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <div className="student-dashboard ">
+    <div className='student-dashboard '>
       <LoadableItem
         id={courseId}
         store={StudentDashboardStore}

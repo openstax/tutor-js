@@ -35,33 +35,33 @@ Dashboard = React.createClass
           if isStudent or not isTeacher # HACK since a student does not currently have a role
             footer.push(
               <Router.Link
-                className="btn btn-link -student"
-                to="viewStudentDashboard"
+                className='btn btn-link -student'
+                to='viewStudentDashboard'
                 params={{courseId}}>Task List (Student)</Router.Link>)
 
           if isTeacher
             footer.push(
               <Router.Link
-                className="btn btn-link -teacher"
-                to="taskplans"
+                className='btn btn-link -teacher'
+                to='taskplans'
                 params={{courseId}}>
                 Plan List (Teacher)
               </Router.Link>)
 
-          footer = <span className="-footer-buttons">{footer}</span>
+          footer = <span className='-footer-buttons'>{footer}</span>
 
-          <BS.Panel header={name} footer={footer} bsStyle="primary">
-            <h1>Course: "{name}" Dashboard!</h1>
+          <BS.Panel header={name} footer={footer} bsStyle='primary'>
+            <h1>Course: '{name}' Dashboard!</h1>
           </BS.Panel>
 
-        return <div className="-course-list">{courses}</div>
+        return <div className='-course-list'>{courses}</div>
       else
-        return <div className="-course-list-empty">No Courses</div>
+        return <div className='-course-list-empty'>No Courses</div>
 
     else
       CurrentUserActions.loadAllCourses()
 
-      <div className="-loading">Loading?</div>
+      <div className='-loading'>Loading?</div>
 
 
 SingleTask = React.createClass
@@ -137,19 +137,19 @@ TaskResult = React.createClass
       mainType = ''
       stepsInfo = <small className='details'>({steps.length} steps)</small>
 
-    <BS.Panel bsStyle="default" onClick={@onClick}>
+    <BS.Panel bsStyle='default' onClick={@onClick}>
       <Router.Link
-        to="viewTask"
+        to='viewTask'
         params={{courseId, id}}>
         <i className="fa fa-fw #{mainType}"></i>
         {title}
       </Router.Link>
       {stepsInfo}
-      <span className="pull-right">
+      <span className='pull-right'>
         <Router.Link
-          to="viewTask"
+          to='viewTask'
           params={{courseId, id}}
-          className="ui-action btn btn-primary btn-sm">
+          className='ui-action btn btn-primary btn-sm'>
           {actionTitle}
         </Router.Link>
       </span>
@@ -164,7 +164,7 @@ Invalid = React.createClass
   render: ->
     <div>
       <h1>Woops, this is an invalid page {@props.path}</h1>
-      <Router.Link to="dashboard">Home</Router.Link>
+      <Router.Link to='dashboard'>Home</Router.Link>
     </div>
 
 module.exports = {App, Dashboard, SingleTask, SinglePractice, Invalid}

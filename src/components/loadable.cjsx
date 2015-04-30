@@ -2,7 +2,7 @@ React = require 'react'
 
 # This component is useful for viewing something that needs to be loaded.
 #
-# - display "Loading...", "Error", or the actual rendered component
+# - display 'Loading...', 'Error', or the actual rendered component
 # - automatically listens to changes in the appropriate store to re-render
 # - calls `load` to fetch the latest version of the component when initially mounted
 
@@ -37,10 +37,10 @@ module.exports = React.createClass
     {isLoading, isLoaded, isFailed, render} = @props
 
     if isLoading()
-      <div className="-loading">Loading...</div>
+      <div className='-loading'>Loading...</div>
     else if isLoaded()
       render()
     else if isFailed()
-      <div className="-error">Error Loading</div>
+      <div className='-error'>Error Loading</div>
     else
-      <div className="-bug">Error Loading (Bug: Invalid State)</div>
+      <div className='-bug'>Error Loading (Bug: Invalid State)</div>

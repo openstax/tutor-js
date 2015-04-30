@@ -46,30 +46,30 @@ LearningGuide = React.createClass
     {unit} = @state
 
     if unit
-      chapter = <div className="chapter">{unit.chapter_section}</div>
-      title = <div className="title">{unit.title}</div>
+      chapter = <div className='chapter'>{unit.chapter_section}</div>
+      title = <div className='title'>{unit.title}</div>
       problemsWorked =
-        <div className="problems-worked">
-          <div className="count">{unit.questions_answered_count}</div>
-          <div className="count-desc">problems worked</div>
+        <div className='problems-worked'>
+          <div className='count'>{unit.questions_answered_count}</div>
+          <div className='count-desc'>problems worked</div>
         </div>
       practiceButton =
-        <div className="practice-button-wrap">
+        <div className='practice-button-wrap'>
           <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton>
         </div>
       helpText =
-        <div className="help-text">
+        <div className='help-text'>
           Total problems you have done in readings, homeworks and practice
         </div>
 
-    <div className="learning-guide-chart">
-      <svg ref="svg" />
-      <div ref="footer" className="footer">
-        <div ref="footer-content-wrap" className="footer-content-wrap">
-          <div className="header">
+    <div className='learning-guide-chart'>
+      <svg ref='svg' />
+      <div ref='footer' className='footer'>
+        <div ref='footer-content-wrap' className='footer-content-wrap'>
+          <div className='header'>
             {chapter}{title}
           </div>
-          <div className="row-wrap">
+          <div className='row-wrap'>
             {problemsWorked}
             {practiceButton}
           </div>
@@ -86,14 +86,14 @@ LearningGuideShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <div className="learning-guide-chart-wrap">
+    <div className='learning-guide-chart-wrap'>
       <LoadableItem
         id={courseId}
         store={LearningGuideStore}
         actions={LearningGuideActions}
         renderItem={-> <LearningGuide courseId={courseId} />}
       />
-      <div className="green-bar-repeat"></div>
+      <div className='green-bar-repeat'></div>
     </div>
 
 module.exports = {LearningGuideShell, LearningGuide}

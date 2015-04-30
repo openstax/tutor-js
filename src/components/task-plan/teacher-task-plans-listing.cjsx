@@ -31,13 +31,13 @@ TeacherTaskPlans = React.createClass
     ending = moment(plan.due_at)
     duration = moment.duration( ending.diff(start) ).humanize()
 
-    <div className="-list-item">
+    <div className='-list-item'>
       <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
         {start.fromNow()} ({duration})
       </BS.ListGroupItem>
       <BS.Button
-        bsStyle="link"
-        className="-tasks-list-stats-button"
+        bsStyle='link'
+        className='-tasks-list-stats-button'
         onClick={@onViewStats}>View Stats</BS.Button>
     </div>
 
@@ -71,8 +71,8 @@ TeacherTaskPlanListing = React.createClass
       <TeacherTaskPlans key={plan.id} plan={plan}, courseId={courseId} />
 
     <BS.Panel header={title}
-        className="list-courses"
-        bsStyle="primary">
+        className='list-courses'
+        bsStyle='primary'>
 
       <Loadable
         store={TeacherTaskPlanStore}

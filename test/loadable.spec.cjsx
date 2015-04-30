@@ -20,7 +20,7 @@ TestClass = React.createClass
       id={id}
       store={CrudStore}
       actions={CrudActions}
-      renderItem={-> <div className="test-loaded">Loaded</div>}
+      renderItem={-> <div className='test-loaded'>Loaded</div>}
     />
 
 DIV = document.createElement('div')
@@ -55,13 +55,13 @@ describe 'Loadable Mixin', ->
     expect(CrudStore.isUnknown(id)).to.be.true
     CrudActions.load.once 'trigger', (myId) ->
       delay ->
-        # Verify "Loading..." is in the DOM
+        # Verify 'Loading...' is in the DOM
         expect(DIV.querySelector('.-loading')).to.not.be.null
         CrudActions.loaded({foo:true}, myId)
 
     CrudActions.loaded.once 'trigger', (obj, myId) ->
       delay ->
-        # Verify "Loaded" (from renderLoaded above) is in the DOM
+        # Verify 'Loaded' (from renderLoaded above) is in the DOM
         expect(DIV.querySelector('.test-loaded')).to.not.be.null
         done()
 
@@ -73,13 +73,13 @@ describe 'Loadable Mixin', ->
     expect(CrudStore.isUnknown(id)).to.be.true
     CrudActions.load.once 'trigger', (myId) ->
       delay ->
-        # Verify "Loading..." is in the DOM
+        # Verify 'Loading...' is in the DOM
         expect(DIV.querySelector('.-loading')).to.not.be.null
-        CrudActions.FAILED(400, {msg:"Some error message"}, myId)
+        CrudActions.FAILED(400, {msg:'Some error message'}, myId)
 
     CrudActions.FAILED.once 'trigger', (obj, myId) ->
       delay ->
-        # Verify "Error" is in the DOM
+        # Verify 'Error' is in the DOM
         expect(DIV.querySelector('.-error')).to.not.be.null
         done()
 

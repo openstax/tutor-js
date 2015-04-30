@@ -44,15 +44,15 @@ PlanFooter = React.createClass
     classes.push('disabled') unless publishable
     classes = classes.join(' ')
 
-    publishButton = <BS.Button bsStyle="link" className={classes} onClick={@onPublish}>Publish</BS.Button>
+    publishButton = <BS.Button bsStyle='link' className={classes} onClick={@onPublish}>Publish</BS.Button>
 
     if deleteable
-      deleteLink = <BS.Button bsStyle="link" className="-delete" onClick={@onDelete}>Delete</BS.Button>
+      deleteLink = <BS.Button bsStyle='link' className='-delete' onClick={@onDelete}>Delete</BS.Button>
 
     if TaskPlanStore.isHomework(id) and not TaskPlanStore.isPublished(id)
       selectProblems = <BS.Button 
-        bsStyle="primary" 
-        className="-select-problems"
+        bsStyle='primary' 
+        className='-select-problems'
         onClick={clickedSelectProblem}>Select Problems
       </BS.Button>
 
@@ -60,11 +60,11 @@ PlanFooter = React.createClass
     classes.push('disabled') unless saveable
     classes = classes.join(' ')
 
-    saveLink = <BS.Button bsStyle="primary" className={classes} onClick={@onSave}>Save as Draft</BS.Button>
+    saveLink = <BS.Button bsStyle='primary' className={classes} onClick={@onSave}>Save as Draft</BS.Button>
 
-    statsLink = <BS.Button bsStyle="link" className="-stats" onClick={@onViewStats}>Stats</BS.Button>
+    statsLink = <BS.Button bsStyle='link' className='-stats' onClick={@onViewStats}>Stats</BS.Button>
 
-    <span className="-footer-buttons">
+    <span className='-footer-buttons'>
       {selectProblems}
       {saveLink}
       {publishButton}

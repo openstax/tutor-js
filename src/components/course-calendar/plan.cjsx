@@ -81,7 +81,7 @@ CoursePlan = React.createClass
 
     planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
 
-    <BS.ModalTrigger modal={planModal} ref="trigger">
+    <BS.ModalTrigger modal={planModal} ref='trigger'>
       <div style={planStyle}
         className={planClasses}
         onMouseEnter={@syncHover}
