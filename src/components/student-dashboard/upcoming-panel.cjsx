@@ -16,11 +16,11 @@ module.exports = React.createClass
     events  = StudentDashboardStore.upcomingEvents(@props.courseId, startAt)
     if events.length
       <EventsPanel
-        className="-upcoming"
+        className='-upcoming'
         onTaskClick={@onTaskClick}
         courseId={@props.courseId}
         events=events
-        title="Coming Up"
+        title='Coming Up'
       />
     else
       <EmptyPanel>No upcoming events</EmptyPanel>

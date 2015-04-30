@@ -21,11 +21,11 @@ SectionTopic = React.createClass
     classes = classes.join(' ')
 
     <div key={@props.section.id} className={classes} onClick={@toggleSection}>
-      <span className="section-checkbox">
-        <input type="checkbox" checked={isChecked}/>
+      <span className='section-checkbox'>
+        <input type='checkbox' checked={isChecked}/>
       </span>
-      <span className="section-number">{@props.section.number}</span>
-      <span className="-section-title">{@props.section.title}</span>
+      <span className='section-number'>{@props.section.number}</span>
+      <span className='-section-title'>{@props.section.title}</span>
     </div>
 
   toggleSection: ->
@@ -73,13 +73,13 @@ ChapterAccordion = React.createClass
     activeKey = chapter.id if expandAccordion
 
     header =
-      <h2 className="-chapter-title">
-        <span className="chapter-checkbox">
-          <input type="checkbox" id="chapter-checkbox-#{chapter.id}"
+      <h2 className='-chapter-title'>
+        <span className='chapter-checkbox'>
+          <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
         </span>
-        <span className="-chapter-number">{chapter.number}</span>
-        <span className="-chapter-title">{chapter.title}</span>
+        <span className='-chapter-number'>{chapter.number}</span>
+        <span className='-chapter-title'>{chapter.title}</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>
@@ -106,14 +106,14 @@ SelectTopics = React.createClass
     chapters = _.map(TocStore.get(), @renderChapterPanels)
 
     <Dialog
-      className="my-dialog-class"
+      className='my-dialog-class'
       header={header}
       primary={primary}
-      confirmMsg="Are you sure you want to close?"
+      confirmMsg='Are you sure you want to close?'
       isChanged={-> true}
       onCancel={hide}>
 
-      <div className="select-reading-modal">
+      <div className='select-reading-modal'>
         {chapters}
       </div>
     </Dialog>

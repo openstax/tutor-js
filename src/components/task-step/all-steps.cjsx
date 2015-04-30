@@ -21,7 +21,7 @@ Reading = React.createClass
   renderBody: ->
     {id} = @props
     {content_html} = TaskStepStore.get(id)
-    <ArbitraryHtmlAndMath className="reading-step" html={content_html} />
+    <ArbitraryHtmlAndMath className='reading-step' html={content_html} />
 
 Interactive = React.createClass
   mixins: [StepMixin]
@@ -43,9 +43,9 @@ Video = React.createClass
   renderBody: ->
     {id} = @props
     {content_html, content_url} = TaskStepStore.get(id)
-    <div className="-video-step">
-      <ArbitraryHtmlAndMath className="-video-content" html={content_html} />
-      <a target="_top" src={content_url} >video</a>
+    <div className='-video-step'>
+      <ArbitraryHtmlAndMath className='-video-content' html={content_html} />
+      <a target='_top' src={content_url} >video</a>
     </div>
 
 module.exports = {Reading, Interactive, Video, Exercise}

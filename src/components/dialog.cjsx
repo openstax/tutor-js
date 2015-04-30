@@ -3,9 +3,9 @@ BS = require 'react-bootstrap'
 
 ###
 <Dialog
-  className="my-dialog-class"
-  header="Dialog Title"
-  confirmMsg="Are you sure you want to close?"
+  className='my-dialog-class'
+  header='Dialog Title'
+  confirmMsg='Are you sure you want to close?'
   isChanged={-> true}
   onCancel={-> alert 'Cancelling'}
   >

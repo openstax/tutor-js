@@ -21,9 +21,9 @@ module.exports = React.createClass
 
   renderTitle: ->
     if @props.title
-      <h3 className="-title">{@props.title}</h3>
+      <h3 className='-title'>{@props.title}</h3>
     else
-      <span className="-title -date-range">
+      <span className='-title -date-range'>
         <Time date={@props.startAt}/> - <Time date={@props.endAt}/>
       </span>
 

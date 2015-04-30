@@ -33,7 +33,7 @@ module.exports = React.createClass
     hasCorrectAnswer = !! @props.correct_answer_id
 
     if @props.feedback_html
-      feedback = <ArbitraryHtml className="question-feedback has-html" html={@props.feedback_html} />
+      feedback = <ArbitraryHtml className='question-feedback has-html' html={@props.feedback_html} />
 
     answers = _.map @props.model.answers, (answer, i) =>
       isChecked = answer.id in [@props.answer_id, @state.answer_id]
@@ -46,8 +46,8 @@ module.exports = React.createClass
 
       unless hasCorrectAnswer
         radioBox = <input
-          type="radio"
-          className="answer-input-box"
+          type='radio'
+          className='answer-input-box'
           checked={isChecked}
           id="#{qid}-option-#{i}"
           name="#{qid}-options"
@@ -56,9 +56,9 @@ module.exports = React.createClass
 
       <div className={classes} key="#{qid}-option-#{i}">
         {radioBox}
-        <label htmlFor="#{qid}-option-#{i}" className="answer-label">
-          <div className="answer-letter" />
-          <ArbitraryHtml className="answer-content" html={answer.content_html} />
+        <label htmlFor="#{qid}-option-#{i}' className='answer-label">
+          <div className='answer-letter' />
+          <ArbitraryHtml className='answer-content' html={answer.content_html} />
         </label>
       </div>
 
@@ -67,9 +67,9 @@ module.exports = React.createClass
     classes = classes.join(' ')
 
     <div className={classes}>
-      <ArbitraryHtml className="question-stem" block={true} html={html} />
+      <ArbitraryHtml className='question-stem' block={true} html={html} />
       {@props.children}
-      <div className="answers-table">
+      <div className='answers-table'>
         {answers}
       </div>
       {feedback}

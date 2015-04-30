@@ -16,14 +16,14 @@ Guide = React.createClass
     {id} = @props
 
     <tr>
-      <td className="-course-guide-table-id">{data.id}</td>
-      <td className="-course-guide-table-title">{data.title}</td>
-      <td className="-course-guide-table-unit">{data.unit}</td>
-      <td className="-course-guide-table-questions_answered_count">{data.questions_answered_count}</td>
-      <td className="-course-guide-table-current_level">{data.current_level}</td>
-      <td className="course-guide-table-page_ids">{data.page_ids}</td>
-      <td className="-course-guide-table-practice_count">{data.practice_count}</td>
-      <td className="-course-guide-table-practice_button">
+      <td className='-course-guide-table-id'>{data.id}</td>
+      <td className='-course-guide-table-title'>{data.title}</td>
+      <td className='-course-guide-table-unit'>{data.unit}</td>
+      <td className='-course-guide-table-questions_answered_count'>{data.questions_answered_count}</td>
+      <td className='-course-guide-table-current_level'>{data.current_level}</td>
+      <td className='course-guide-table-page_ids'>{data.page_ids}</td>
+      <td className='-course-guide-table-practice_count'>{data.practice_count}</td>
+      <td className='-course-guide-table-practice_button'>
         <PracticeButton courseId={id} page_ids={data.page_ids}>Practice</PracticeButton>
       </td>
     </tr>
@@ -34,12 +34,12 @@ Guide = React.createClass
     guide = CourseStore.getGuide(id)
     table = _.map(guide.fields, @renderCrudeTable)
 
-    <BS.Panel className="-course-guide-container">
-      <div className="-course-guide-group">
-        <div className="-course-guide-heading">
+    <BS.Panel className='-course-guide-container'>
+      <div className='-course-guide-group'>
+        <div className='-course-guide-heading'>
           <h2>guide data crude table</h2>
         </div>
-          <BS.Table className="-course-guide-table">
+          <BS.Table className='-course-guide-table'>
             <thead>
               <tr>
                 <th>id</th>

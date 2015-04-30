@@ -4,7 +4,7 @@ Loadable = require './loadable'
 # This component is useful for viewing a single Object from the Backend (ie Task, TaskPlan).
 # It uses methods defined in `CrudConfig` (maybe that should be renamed) to:
 #
-# - display "Loading...", "Error", or the actual rendered component
+# - display 'Loading...', 'Error', or the actual rendered component
 # - automatically listens to changes in the appropriate store to re-render
 # - calls `load` to fetch the latest version of the component when initially mounted
 

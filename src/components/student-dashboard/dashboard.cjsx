@@ -36,13 +36,13 @@ module.exports = React.createClass
     # this method will most likely change in the future.
     #
     # The large background image is currently set via CSS based on the lowercase
-    # version of the short title, which will be something like "physics"
+    # version of the short title, which will be something like 'physics'
     {longTitle, shortTitle} = StudentDashboardStore.getTitles(courseId)
     <div className={"#{shortTitle.toLowerCase()}  bg"}>
-      <div className="container">
-        <div className="big-header">{shortTitle}</div>
+      <div className='container'>
+        <div className='big-header'>{shortTitle}</div>
         <BS.Col xs={12} md={9}>
-          <div className="course-title">{longTitle}</div>
+          <div className='course-title'>{longTitle}</div>
 
           <BS.TabbedArea
             activeKey = {@state.selectedTabIndex}
@@ -63,19 +63,19 @@ module.exports = React.createClass
 
         </BS.Col>
         <BS.Col xs={12} md={3}>
-          <div className="rbox">
+          <div className='rbox'>
             <h3>How am I doing?</h3>
             <BS.Button
-              bsStyle="primary"
+              bsStyle='primary'
               onClick={_.partial(@selectTab, 2)}
-              className="-view-my-work"
+              className='-view-my-work'
             >
               View All My Work
             </BS.Button>
             <BS.Button
-              bsStyle="primary"
+              bsStyle='primary'
               onClick={@viewFlightPath}
-              className="-view-flightpath"
+              className='-view-flightpath'
             >
               View My Flight Path
             </BS.Button>

@@ -37,12 +37,12 @@ ExerciseFreeResponse = React.createClass
     # TODO: Assumes 1 question.
     question = content.questions[0]
 
-    <div className="exercise">
-      <ArbitraryHtmlAndMath className="stimulus" block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
+    <div className='exercise'>
+      <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
+      <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <textarea
-        ref="freeResponse"
-        placeholder="Enter your response"
+        ref='freeResponse'
+        placeholder='Enter your response'
         value={@state.freeResponse or ''}
         onChange={@onFreeResponseChange}
         />
@@ -79,7 +79,7 @@ ExerciseMultiChoice = React.createClass
     # TODO: Assumes 1 question.
     question = content.questions[0]
     if TaskStepStore.hasFreeResponse(id)
-      FreeResponse = <div className="free-response">{free_response}</div>
+      FreeResponse = <div className='free-response'>{free_response}</div>
 
     <Question
       model={question}
@@ -87,7 +87,7 @@ ExerciseMultiChoice = React.createClass
       correct_answer_id={correct_answer_id}
       onChange={@onAnswerChanged}>
       {FreeResponse}
-      <div className="multiple-choice-prompt">Choose the best answer from the following:</div>
+      <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
     </Question>
 
   onAnswerChanged: (answer) ->
@@ -122,7 +122,7 @@ ExerciseReview = React.createClass
     # TODO: Assumes 1 question.
     question = content.questions[0]
     if TaskStepStore.hasFreeResponse(id)
-      FreeResponse = <div className="free-response">{free_response}</div>
+      FreeResponse = <div className='free-response'>{free_response}</div>
 
     <Question
       model={question}
@@ -170,19 +170,19 @@ ExerciseReview = React.createClass
     buttonClasses = '-continue'
     buttonClasses += 'disabled' unless @isContinueEnabled()
     continueButton =
-      <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>
-        { if @canTryAnother() then "Move On" else "Continue" }
+      <BS.Button bsStyle='primary' className={buttonClasses} onClick={@onContinue}>
+        { if @canTryAnother() then 'Move On' else 'Continue' }
       </BS.Button>
     if @canTryAnother()
       extraButtons = [
-        <BS.Button bsStyle="primary" className="-try-another" onClick={@tryAnother}>
+        <BS.Button bsStyle='primary' className='-try-another' onClick={@tryAnother}>
           Try Another
         </BS.Button>
-        <BS.Button bsStyle="primary" className="-refresh-memory" onClick={@refreshMemory}>
+        <BS.Button bsStyle='primary' className='-refresh-memory' onClick={@refreshMemory}>
           Refresh My Memory
         </BS.Button>
       ]
-    <div className="footer-buttons">
+    <div className='footer-buttons'>
       {extraButtons}
       {continueButton}
     </div>
@@ -237,4 +237,4 @@ module.exports = React.createClass
       throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
       @[renderPanelMethod]?(id)
     else
-      <div className="-loading">Loading...</div>
+      <div className='-loading'>Loading...</div>

@@ -7,7 +7,7 @@ _ = require 'underscore'
 ExerciseConfig =
   _exercises: []
 
-  FAILED: -> console.error("BUG: could not load exercises")
+  FAILED: -> console.error('BUG: could not load exercises')
 
   reset: ->
     @_exercises = []

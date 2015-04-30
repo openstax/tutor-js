@@ -18,19 +18,19 @@ ReviewReadings = React.createClass
 
   renderSection: (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
-    <li className="-selected-section">
-      <span className="-section-number">{topic?.number}</span>
-      <span className="-section-title">{topic?.title}</span>
+    <li className='-selected-section'>
+      <span className='-section-number'>{topic?.number}</span>
+      <span className='-section-title'>{topic?.title}</span>
     </li>
 
   renderSelected: ->
     if @props.selected.length
-      <ul className="selected-reading-list">
+      <ul className='selected-reading-list'>
         <li><strong>Currently selected sections in this reading</strong></li>
         {_.map(@props.selected, @renderSection)}
       </ul>
     else
-      <div className="-selected-reading-list-none">No Readings Selected Yet</div>
+      <div className='-selected-reading-list-none'>No Readings Selected Yet</div>
 
   render: ->
     <LoadableItem
@@ -48,7 +48,7 @@ ChooseReadings = React.createClass
 
     primary =
       <BS.Button 
-        className="-show-problems" 
+        className='-show-problems' 
         bsStyle={buttonStyle} 
         onClick={@props.hide}>Add Readings
       </BS.Button>
@@ -118,26 +118,26 @@ ReadingPlan = React.createClass
                         selected={topics}/>
 
     <div className='-reading-container'>
-      <BS.Panel bsStyle="primary" 
+      <BS.Panel bsStyle='primary' 
         className={formClasses.join(' ')} 
         footer={footer} 
         header={headerText}>
 
-        <div className="-reading-title">
-          <label htmlFor="reading-title">Title</label>
+        <div className='-reading-title'>
+          <label htmlFor='reading-title'>Title</label>
           <input
-            ref="title"
-            id="reading-title"
-            type="text"
+            ref='title'
+            id='reading-title'
+            type='text'
             value={plan.title}
-            placeholder="Enter Title"
+            placeholder='Enter Title'
             onChange={@setTitle} />
         </div>
-        <div className="-reading-open-date">
-          <label htmlFor="reading-open-date">Open Date</label>
+        <div className='-reading-open-date'>
+          <label htmlFor='reading-open-date'>Open Date</label>
           <DateTimePicker
-            id="reading-open-date"
-            format="MMM dd, yyyy"
+            id='reading-open-date'
+            format='MMM dd, yyyy'
             time={false}
             calendar={true}
             readOnly={false}
@@ -145,11 +145,11 @@ ReadingPlan = React.createClass
             max={dueAt}
             value={opensAt}/>
         </div>
-        <div className="-reading-due-date">
-          <label htmlFor="reading-due-date">Due Date</label>
+        <div className='-reading-due-date'>
+          <label htmlFor='reading-due-date'>Due Date</label>
           <DateTimePicker
-            id="reading-due-date"
-            format="MMM dd, yyyy"
+            id='reading-due-date'
+            format='MMM dd, yyyy'
             time={false}
             calendar={true}
             readOnly={false}
@@ -158,10 +158,10 @@ ReadingPlan = React.createClass
             value={dueAt}/>
         </div>
         <div>
-          <label htmlFor="reading-select">Select Readings</label>
-          <BS.Button id="reading-select" 
+          <label htmlFor='reading-select'>Select Readings</label>
+          <BS.Button id='reading-select' 
             onClick={@showSectionTopics} 
-            bsStyle="primary">Edit Readings
+            bsStyle='primary'>Edit Readings
           </BS.Button>
           <ReviewReadings courseId={courseId} selected={topics}/>
         </div>

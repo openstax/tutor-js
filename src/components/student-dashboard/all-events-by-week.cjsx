@@ -12,10 +12,10 @@ module.exports = React.createClass
     courseId: React.PropTypes.any.isRequired
 
   renderWeek:(events, week) ->
-    startAt = moment(week, "YYYYww")
+    startAt = moment(week, 'YYYYww')
     <EventsPanel
       key={week}
-      className="-weeks-events"
+      className='-weeks-events'
       courseId={@props.courseId}
       events={events}
       startAt={startAt}

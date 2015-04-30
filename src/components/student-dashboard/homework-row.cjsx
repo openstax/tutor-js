@@ -23,9 +23,9 @@ module.exports = React.createClass
     e.preventDefault() # needed to stop event from propagating the click up to the event click handler
 
   actionLinks: ->
-    <span className="-actions"> | <a
-      onClick={@viewFeedback} className="-feedback">view feedback</a> | <a
-      onClick={@viewRecovery} className="-recover">recover credit</a>
+    <span className='-actions'> | <a
+      onClick={@viewFeedback} className='-feedback'>view feedback</a> | <a
+      onClick={@viewRecovery} className='-recover'>recover credit</a>
     </span>
 
   render: ->
@@ -39,6 +39,6 @@ module.exports = React.createClass
     # accessed it.
     # For now we assume if the event's compete and it's not on the current week it can be recovered
     recoverable = event.complete and moment(event.due_at).startOf('isoweek').add(1, 'week').isBefore(TimeStore.getNow())
-    <EventRow {...@props} feedback={feedback} className="homework">
+    <EventRow {...@props} feedback={feedback} className='homework'>
         {event.title}{@actionLinks() if recoverable}
     </EventRow>

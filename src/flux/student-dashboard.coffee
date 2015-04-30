@@ -5,12 +5,12 @@ moment = require 'moment'
 
 addEvents = (hash, events) ->
   for event in events
-    week = hash[ moment(event.due_at).startOf('isoweek').format("YYYYww") ] ||= []
+    week = hash[ moment(event.due_at).startOf('isoweek').format('YYYYww') ] ||= []
     week.push(event)
 
 arrayToSentence = (arry) ->
   if arry.length > 1
-    arry.slice(0, arry.length - 1).join(', ') + " & " + arry.slice(-1)
+    arry.slice(0, arry.length - 1).join(', ') + ' & ' + arry.slice(-1)
   else
     arry[0]
 
@@ -32,12 +32,12 @@ StudentDashboardConfig = {
 
     pastEventsByWeek: (courseId) ->
       weeks = this.exports.eventsByWeek.call(this, courseId)
-      thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format("YYYYww")
+      thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format('YYYYww')
       _.pick(weeks, (events, week) -> week < thisWeek)
 
     weeklyEventsForDay: (courseId, day) ->
       events = this.exports.eventsByWeek.call(this, courseId)
-      events[moment(day).startOf('isoweek').format("YYYYww")] or []
+      events[moment(day).startOf('isoweek').format('YYYYww')] or []
 
     getTitles: (courseId) ->
       data = @_get(courseId)

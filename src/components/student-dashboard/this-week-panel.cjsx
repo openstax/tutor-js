@@ -16,7 +16,7 @@ module.exports = React.createClass
     events  = StudentDashboardStore.weeklyEventsForDay(@props.courseId, startAt)
     if events.length
       <Events
-        className="-this-week"
+        className='-this-week'
         courseId={@props.courseId}
         events=events
         startAt={startAt}

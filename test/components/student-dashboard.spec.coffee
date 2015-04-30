@@ -11,8 +11,8 @@ ReactTestUtils = React.addons.TestUtils
 {StudentDashboardStore, StudentDashboardActions} = require '../../src/flux/student-dashboard'
 
 COURSE_ID = '1'
-DATA = require "../../api/courses/1/dashboard.json"
-NOW  = new Date("2015-04-13T14:15:58.856Z")
+DATA = require '../../api/courses/1/dashboard.json'
+NOW  = new Date('2015-04-13T14:15:58.856Z')
 renderDashBoard = ->
   new Promise (resolve, reject) ->
     routerStub.goTo("/courses/#{COURSE_ID}/dashboard").then (result) ->
@@ -32,14 +32,14 @@ describe 'Student Dashboard Component', ->
   it 'displays the course title with teacher names combined', ->
     renderDashBoard().then (state) ->
       expect(state.div.querySelector('.course-title').innerText)
-        .equal("Physics - Many Plan | Andrew Garcia & Bob Newhart")
+        .equal('Physics - Many Plan | Andrew Garcia & Bob Newhart')
 
       newData = _.clone(DATA)
-      newData.course.teacher_names = ["Teacher Jill"]
+      newData.course.teacher_names = ['Teacher Jill']
       StudentDashboardActions.loaded(newData, COURSE_ID)
       state.dashboard.setState(courseId: COURSE_ID) # triggers re-rendering
       expect(state.div.querySelector('.course-title').innerText)
-        .equal("Physics - Many Plan | Teacher Jill")
+        .equal('Physics - Many Plan | Teacher Jill')
 
 
   it 'renders this week panel',  ->
@@ -61,7 +61,7 @@ describe 'Student Dashboard Component', ->
         ])
 
   it 'renders only upcoming events to week panel', ->
-    TimeActions.setNow(new Date("2015-04-24T11:15:58.856Z"))
+    TimeActions.setNow(new Date('2015-04-24T11:15:58.856Z'))
     renderDashBoard().then (state) ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title>span:first-child')
       expect(_.pluck(tasks, 'textContent'))
@@ -69,7 +69,7 @@ describe 'Student Dashboard Component', ->
 
   it 'renders Dont Forget panel', ->
     # Time is set after all events have occured
-    TimeActions.setNow(new Date("2015-06-01T14:15:58.856Z"))
+    TimeActions.setNow(new Date('2015-06-01T14:15:58.856Z'))
     renderDashBoard().then (state) ->
       events = state.div.querySelectorAll('.dont-forget .panel-body .title')
       # For now all we're doing is rendering the 4 most recent past-due events
@@ -85,7 +85,7 @@ describe 'Student Dashboard Component', ->
 
   it 'renders only as many events as are available', ->
     # Time is set after only one event has occured
-    TimeActions.setNow(new Date("2015-04-12T09:15:58.856Z"))
+    TimeActions.setNow(new Date('2015-04-12T09:15:58.856Z'))
     renderDashBoard().then (state) ->
       events = state.div.querySelectorAll('.dont-forget .panel-body .title')
       # For now all we're doing is rendering the 4 most recent past-due events

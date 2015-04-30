@@ -22,7 +22,7 @@ PracticeEnd = React.createClass
     {courseId, taskId, reloadPractice} = @props
 
     footer =
-      <div className="-practice-end">
+      <div className='-practice-end'>
         <PracticeButton
           courseId={courseId}
           loadedTaskId={taskId}
@@ -31,13 +31,13 @@ PracticeEnd = React.createClass
           Do more practice
         </PracticeButton>
         <Router.Link
-          to="viewStudentDashboard"
+          to='viewStudentDashboard'
           params={{courseId}}
-          className="btn btn-primary">Back to Dashboard</Router.Link>
+          className='btn btn-primary'>Back to Dashboard</Router.Link>
       </div>
 
-    <div className="task task-completed">
-      <BS.Panel bsStyle="default" footer={footer} className='-practice-completed'>
+    <div className='task task-completed'>
+      <BS.Panel bsStyle='default' footer={footer} className='-practice-completed'>
         <h1>You earned a star!</h1>
         <h3>Great Job!</h3>
       </BS.Panel>
@@ -109,12 +109,12 @@ HomeworkEnd = React.createClass
     congratsMessage = <h1>It looks like you are done!</h1> if completeSteps is totalSteps
 
     footer = <Router.Link
-      to="viewStudentDashboard"
+      to='viewStudentDashboard'
       params={{courseId}}
-      className="btn btn-primary">Back to Dashboard</Router.Link>
+      className='btn btn-primary'>Back to Dashboard</Router.Link>
 
-    <div className="task task-completed">
-      <BS.Panel bsStyle="default" footer={footer} className='-homework-completed'>
+    <div className='task task-completed'>
+      <BS.Panel bsStyle='default' footer={footer} className='-homework-completed'>
         {congratsMessage}
         <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
         <ul>
@@ -142,12 +142,12 @@ TaskEnd = React.createClass
   render: ->
     {courseId} = @props
     footer = <Router.Link
-      to="viewStudentDashboard"
+      to='viewStudentDashboard'
       params={{courseId}}
-      className="btn btn-primary">Back to Dashboard</Router.Link>
+      className='btn btn-primary'>Back to Dashboard</Router.Link>
 
-    <div className="task task-completed">
-      <BS.Panel bsStyle="default" footer={footer} className="-reading-completed">
+    <div className='task task-completed'>
+      <BS.Panel bsStyle='default' footer={footer} className='-reading-completed'>
         <h1>You Are Done.</h1>
         <h3>Great Job!</h3>
       </BS.Panel>
