@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{TocStore} = require '../../../flux/toc'
 
 ExerciseCardMixin =
   renderAnswers: (answer) ->
@@ -127,7 +128,6 @@ ExercisesRenderMixin =
 
     false
 
-
 ReviewExercises = React.createClass
   displayName: 'ReviewExercises'
 
@@ -158,6 +158,88 @@ ReviewExercises = React.createClass
     <div className="card-list exercises">
       {renderedExercises}
     </div>
+
+ExerciseTable = React.createClass
+  displayName: "ExerciseTable"
+  mixins: [ExercisesRenderMixin]
+  propTypes:
+    planId: React.PropTypes.any.isRequired
+
+  renderExerciseRow: (exerciseId, index, hasTeks) ->
+    {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
+    content = ExerciseStore.getContent(exerciseId)
+
+    if (hasTeks)
+      tekString = ExerciseStore.getTekString(exerciseId)
+      if not tekString
+        tekString = "-"
+
+      teks = <td>{tekString}</td>
+
+    <tr>
+      <td>{index + 1}</td>
+      <td>{section}</td>
+      <td className="ellipses">{content}</td>
+      <td className="ellipses">{lo}</td>
+      {teks}
+      <td className="ellipses">{tagString}</td>
+    </tr>
+
+  renderTutorRow: (index, hasTeks) ->
+    if hasTeks
+      teksColumn = <td>-</td>
+
+    numSelected = TaskPlanStore.getExercises(@props.planId).length
+    number = index + numSelected + 1
+
+    <tr>
+      <td>{number}</td>
+      <td>-</td>
+      <td>Tutor Selection</td>
+      {teksColumn}
+      <td>-</td>
+      <td>-</td>
+    </tr>
+
+  shouldShowTeks: (exerciseIds) ->
+    findTek = (memo, id) ->
+      tekString = ExerciseStore.getTekString(id)
+      memo or tekString
+
+    _.reduce(exerciseIds, findTek, false)
+
+  render: ->
+    load = @renderLoading()
+    if (load)
+      return load
+
+    tutorSelection = TaskPlanStore.getTutorSelections(@props.planId)
+    exerciseIds = TaskPlanStore.getExercises(@props.planId)
+    renderSelectedRow = @renderExerciseRow
+    renderTutorRow = @renderTutorRow
+    hasTeks = @shouldShowTeks(exerciseIds)
+    if (hasTeks)
+      teksHead = <td>TEKS</td>
+
+    getExerciseRows =  (exerciseId, index) -> renderSelectedRow(exerciseId, index, hasTeks)
+    getTutorRows = (index) -> renderTutorRow(index, hasTeks)
+
+    <table className="exercise-table">
+      <thead>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>Problem Question</td>
+          <td>Learning Objective</td>
+          {teksHead}
+          <td>Details</td>
+        </tr>
+      </thead>
+      <tbody>
+        {_.map(exerciseIds, getExerciseRows)}
+        {_.times(tutorSelection, getTutorRows)}
+      </tbody>
+    </table>
 
 AddExercises = React.createClass
   displayName: 'AddExercises'
@@ -190,24 +272,46 @@ AddExercises = React.createClass
       i += 2
     rows
 
+  renderSection: (key) ->
+    section = TocStore.getSectionLabel(key)
+    if not section
+      return <BS.Row></BS.Row>
+
+    <BS.Row>
+      <BS.Col xs={12}>
+        <label className='-exercises-section-label'>
+          {section.chapter_section}. {section.title}
+        </label>
+      </BS.Col>
+    </BS.Row>
+
   render: ->
     load = @renderLoading()
     if (load)
       return load
 
     {courseId, pageIds} = @props
-    exercises = ExerciseStore.get(pageIds)
-    if not exercises.length
+    if not ExerciseStore.get(pageIds).length
       return <span className="-no-exercises">
         The sections you selected have no exercises.
         Please select more sections.
       </span>
 
-    renderedExercises = _.map(exercises, @renderExercise)
+    groups = ExerciseStore.getGroupedExercises(pageIds)
+    renderExercise = @renderExercise
+    renderSection = @renderSection
+    renderInRows = @renderInRows
+
+    renderedExercises = _.reduce(groups, (memo, exercises, key) ->
+      section = renderSection(key)
+      exerciseCards = _.map(exercises, renderExercise)
+      memo.push(section)
+      memo.concat(renderInRows(exerciseCards))
+    , [])
 
     <BS.Grid>
-      {@renderInRows(renderedExercises)}
+      {renderedExercises}
     </BS.Grid>
 
 
-module.exports = {AddExercises, ReviewExercises}
+module.exports = {AddExercises, ReviewExercises, ExerciseTable}

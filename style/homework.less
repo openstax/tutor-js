@@ -68,6 +68,27 @@
 
 }
 
+table.exercise-table {
+  width: 100%;
+
+  thead {
+    background: darkblue;
+    color: #fff;
+  }
+
+
+  td.ellipses {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }
+
+  td {
+    padding: 5px;
+  }
+}
+
 .homework-plan-exercise-select-topics {
   > .panel {
     > .panel-heading {
@@ -179,7 +200,6 @@
     }
   }
 }
-
 
 // TODO: This should have a common container wit hthe above styling
 // TODO: This should just use the question rendering and styling in question.less

@@ -1,12 +1,13 @@
 React = require 'react'
 moment = require 'moment'
+_ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 PlanFooter = require './footer'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 {DateTimePicker} = require 'react-widgets'
-{AddExercises, ReviewExercises} = require './homework/exercises'
+{AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 
@@ -59,6 +60,8 @@ ChooseExercises = React.createClass
       {addExercises}
     </div>
 
+
+    
 HomeworkPlan = React.createClass
   contextTypes:
     router: React.PropTypes.func
@@ -66,6 +69,9 @@ HomeworkPlan = React.createClass
   displayName: 'HomeworkPlan'
 
   getInitialState: ->
+    if TaskPlanStore.isNew(@props.id) and @context?.router?.getCurrentQuery().date
+      dueAt = new Date(@context.router.getCurrentQuery().date)
+      @setDueAt(dueAt)
     {showSectionTopics: false}
 
   setDueAt: (value) ->
@@ -102,9 +108,6 @@ HomeworkPlan = React.createClass
 
     if plan?.due_at
       dueAt = new Date(plan.due_at)
-    else if TaskPlanStore.isNew(id) and @context?.router?.getCurrentQuery().date
-      dueAt = new Date(@context.router.getCurrentQuery().date)
-      @setDueAt(dueAt)
 
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
@@ -137,6 +140,11 @@ HomeworkPlan = React.createClass
         addClicked={@showSectionTopics}
         planId={id}/>
 
+      exerciseTable = <ExerciseTable
+        courseId={courseId}
+        pageIds={topics}
+        planId={id}/>
+
       reviewExercises = <ReviewExercises
         courseId={courseId}
         pageIds={topics}
@@ -157,7 +165,7 @@ HomeworkPlan = React.createClass
                   ref="title"
                   id="homework-title"
                   type="text"
-                  value={plan.title}
+                  defaultValue={plan.title}
                   placeholder="Enter Title"
                   onChange={@setTitle} />
               </div>
@@ -183,6 +191,7 @@ HomeworkPlan = React.createClass
       </BS.Panel>
       {chooseExercises}
       {exerciseSummary}
+      {exerciseTable}
       {reviewExercises}
     </div>
 

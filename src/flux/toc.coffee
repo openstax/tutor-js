@@ -1,5 +1,6 @@
 # coffeelint: disable=no_empty_functions
 flux = require 'flux-react'
+_ = require 'underscore'
 
 {CrudConfig, extendConfig, makeSimpleStore} = require './helpers'
 
@@ -32,7 +33,10 @@ TocConfig =
     getSectionInfo: (sectionId) ->
       if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
-
+    getSectionLabel: (key) ->
+      _.find(@_sections, (section) ->
+        section.chapter_section is key
+      )
 
 extendConfig(TocConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TocConfig)
