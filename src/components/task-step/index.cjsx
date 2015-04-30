@@ -31,36 +31,30 @@ TaskStepLoaded = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
 
   render: ->
-    {id, goToStep, onNextStep, onStepCompleted} = @props
+    {id} = @props
     {type} = TaskStepStore.get(id)
     Type = getStepType(type)
 
-    <Type
-      id={id}
-      onNextStep={onNextStep}
-      goToStep={goToStep}
-      onStepCompleted={onStepCompleted}
-    />
+    <Type {...@props}/>
 
 module.exports = React.createClass
   displayName: 'TaskStep'
+
+  propTypes:
+    id: React.PropTypes.any.isRequired
+    onNextStep: React.PropTypes.func.isRequired
+    goToStep: React.PropTypes.func.isRequired
 
   onStepCompleted: ->
     {id} = @props
     TaskStepActions.complete(id)
 
   render: ->
-    {id, onNextStep, goToStep, onStepCompleted} = @props
+    {id} = @props
 
     <LoadableItem
       id={id}
       store={TaskStepStore}
       actions={TaskStepActions}
-      renderItem={=>
-        <TaskStepLoaded id={id}
-          onNextStep={onNextStep}
-          goToStep={goToStep}
-          onStepCompleted={@onStepCompleted}
-        />
-      }
+      renderItem={=> <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>}
     />

@@ -1,3 +1,5 @@
+# coffeelint: disable=no_empty_functions
+
 React = require 'react/addons'
 {Promise} = require 'es6-promise'
 
@@ -22,14 +24,16 @@ tests =
 
   _renderTaskStep: (stepId, taskId, onNextStep, goToStep) ->
     div = @container
-    componentStub._render(div, <TaskStep id={stepId} goToStep={goToStep} onNextStep={onNextStep}/>, {stepId, taskId})
+    componentStub._render(div,
+      <TaskStep id={stepId} goToStep={goToStep} onNextStep={onNextStep}/>,
+      {stepId, taskId})
 
   renderStep: (taskId) ->
     {id} = TaskStore.getCurrentStep(taskId)
 
     # TODO Do something for these handlers
     onNextStep = ->
-    goToStep = (num) -> =>
+    goToStep = (num) -> ->
 
     @_renderTaskStep(id, taskId, onNextStep, goToStep)
 
@@ -65,31 +69,37 @@ tests =
       .then(actions.saveMultipleChoice)
 
   workExerciseAndCheck: (args...) ->
-    Promise.resolve(args...)
-      .then(checks.checkIsDefaultStep)
-      .then(actions.fillFreeResponse)
-      .then(actions.clickContinue)
-      .then(checks.checkAnswerFreeResponse)
-      .then(actions.saveFreeResponse)
-      .then(checks.checkSubmitFreeResponse)
-      .then(actions.pickMultipleChoice)
-      .then(checks.checkAnswerMultipleChoice)
-      .then(actions.saveMultipleChoice)
-      .then(checks.checkSubmitMultipleChoice)
+    steps = [
+      checks.checkIsDefaultStep
+      actions.fillFreeResponse
+      actions.clickContinue
+      checks.checkAnswerFreeResponse
+      actions.saveFreeResponse
+      checks.checkSubmitFreeResponse
+      actions.pickMultipleChoice
+      checks.checkAnswerMultipleChoice
+      actions.saveMultipleChoice
+      checks.checkSubmitMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
   workExercise: (args...) ->
-    Promise.resolve(args...)
-      .then(actions.fillFreeResponse)
-      .then(actions.saveFreeResponse)
-      .then(actions.pickMultipleChoice)
-      .then(actions.saveMultipleChoice)
+    steps = [
+      actions.fillFreeResponse
+      actions.saveFreeResponse
+      actions.pickMultipleChoice
+      actions.saveMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
   workTrueFalseAndCheck: (args...) ->
-    Promise.resolve(args...)
-      .then(actions.pickMultipleChoice)
-      .then(checks.checkAnswerMultipleChoice)
-      .then(actions.saveMultipleChoice)
-      .then(checks.checkSubmitMultipleChoice)
+    steps = [
+      actions.pickMultipleChoice
+      checks.checkAnswerMultipleChoice
+      actions.saveMultipleChoice
+      checks.checkSubmitMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
 module.exports =
   taskTests: tests

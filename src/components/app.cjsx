@@ -34,7 +34,7 @@ module.exports = React.createClass
           <div className='collapse navbar-collapse' id='ui-navbar-collapse'>
             <ul className='nav navbar-nav'>
               <li>
-                <Router.Link to="dashboard">Dashboard</Router.Link>
+                <Router.Link to='dashboard'>Dashboard</Router.Link>
               </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>

@@ -75,6 +75,8 @@ buildAndTest = (shouldWatch, done) ->
       config =
         configFile: __dirname + '/test/karma.config.coffee'
         singleRun: not shouldWatch
+        proxies:
+          '/api': '/api'
 
       if shouldWatch
         karma.server.start(config)
@@ -121,13 +123,13 @@ gulp.task '_cleanResources', (done) ->
 
 gulp.task '_copyFonts', ['_cleanFonts'], ->
   destDirFonts = './dist/fonts/'
-  copyBowerFonts = gulp.src('bower_components/**/*.{eot,svg,ttf,woff,woff2}')
+  gulp.src([
+      'bower_components/**/*.{eot,svg,ttf,woff,woff2}',
+      'node_modules/**/*.{eot,svg,ttf,woff,woff2}',
+      'style/fonts/**/*'
+    ])
     .pipe(flatten())
     .pipe(gulp.dest(destDirFonts))
-  copyPkgFonts = gulp.src('node_modules/**/*.{eot,svg,ttf,woff,woff2}')
-    .pipe(flatten())
-    .pipe(gulp.dest(destDirFonts))
-  merge(copyBowerFonts, copyPkgFonts)
 
 gulp.task '_cleanFonts', (done) ->
   del([
@@ -177,8 +179,8 @@ gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
   gulp.src([
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
-    './dist/fonts',
-    './dist/*.svg'])
+    './dist/fonts/*',
+    './dist/*.svg'], {base: './dist'})
     .pipe(tar('archive.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('./dist/'))
@@ -216,7 +218,10 @@ gulp.task '_webserver', ->
         (req, res, next) ->
             if req.url.match(/\.svg$/)
                 res.setHeader('Content-Type', 'image/svg+xml')
+            if req.url.match(/\.ttf$/)
+                res.setHeader('Content-Type', 'font/ttf')
             next()
+            
     ]
   connect.server(config)
 

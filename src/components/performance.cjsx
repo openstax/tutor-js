@@ -29,14 +29,15 @@ Performance = React.createClass
 
   renderStudentCell: (cell) ->
     switch cell.type
-      when "reading" then @renderReadingCell(cell)
-      when "homework" then @renderHomeworkCell(cell)
+      when 'reading' then @renderReadingCell(cell)
+      when 'homework' then @renderHomeworkCell(cell)
       else throw new Error('Unknown cell type')
 
   renderReadingCell: (cell) ->
     status = switch cell.status
-      when "complete" then "Complete"
-      when "in_progress" then "In progress"
+      when 'complete' then 'Complete'
+      when 'in_progress' then 'In progress'
+      when 'not_started' then 'Not started'
 
     <td>{status}</td>
 
@@ -50,13 +51,13 @@ Performance = React.createClass
     averages = _.map(performance.data_headings, @renderAverageCell)
     student_rows = _.map(performance.students, @renderStudentRow)
 
-    <div className="performance-book">
-      <BS.Panel className="-course-performance-container">
-        <div className="-course-performance-group">
-          <div className="-course-performance-heading">
+    <div className='performance-book'>
+      <BS.Panel className='-course-performance-container'>
+        <div className='-course-performance-group'>
+          <div className='-course-performance-heading'>
             <h2>Performance Book</h2>
           </div>
-          <BS.Table className="-course-performance-table">
+          <BS.Table className='-course-performance-table'>
             <thead>
               <tr>
                 <th>Student</th>
@@ -81,7 +82,7 @@ PerformanceShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <BS.Panel className="course-performance-container">
+    <BS.Panel className='course-performance-container'>
       <LoadableItem
         id={courseId}
         store={PerformanceStore}

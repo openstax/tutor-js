@@ -1,8 +1,12 @@
 _ = require 'underscore'
+moment = require 'moment'
+camelCase = require 'camelcase'
+
 React = require 'react'
 katex = require 'katex'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-{TaskActions,TaskStore} = require '../../flux/task'
+{TaskActions, TaskStore} = require '../../flux/task'
+{StepPanel} = require '../../helpers/policies'
 ArbitraryHtmlAndMath = require '../html'
 StepMixin = require './step-mixin'
 Question = require '../question'
@@ -12,7 +16,8 @@ BS = require 'react-bootstrap'
 ExerciseFreeResponse = React.createClass
   displayName: 'ExerciseFreeResponse'
   propTypes:
-    id: React.PropTypes.number.isRequired
+    id: React.PropTypes.any.isRequired
+    focus: React.PropTypes.bool.isRequired
 
   mixins: [StepMixin]
 
@@ -32,18 +37,22 @@ ExerciseFreeResponse = React.createClass
     # TODO: Assumes 1 question.
     question = content.questions[0]
 
-    <div className="exercise">
-      <ArbitraryHtmlAndMath className="stimulus" block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
+    <div className='exercise'>
+      <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
+      <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <textarea
-        ref="freeResponse"
-        placeholder="Enter your response"
+        ref='freeResponse'
+        placeholder='Enter your response'
         value={@state.freeResponse or ''}
         onChange={@onFreeResponseChange}
         />
     </div>
 
-  componentDidMount: -> @refs.freeResponse.getDOMNode().focus()
+  componentDidMount: ->
+    @refs.freeResponse.getDOMNode().focus() if @props.focus
+
+  componentDidUpdate: ->
+    @refs.freeResponse.getDOMNode().focus() if @props.focus
 
   onFreeResponseChange: ->
     freeResponse = @refs.freeResponse.getDOMNode().value
@@ -59,8 +68,9 @@ ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
+    onNextStep: React.PropTypes.func
 
   renderBody: ->
     {id} = @props
@@ -68,11 +78,16 @@ ExerciseMultiChoice = React.createClass
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
-    FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
+    if TaskStepStore.hasFreeResponse(id)
+      FreeResponse = <div className='free-response'>{free_response}</div>
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html} onChange={@onAnswerChanged}>
+    <Question
+      model={question}
+      answer_id={answer_id}
+      correct_answer_id={correct_answer_id}
+      onChange={@onAnswerChanged}>
       {FreeResponse}
-      <div className="multiple-choice-prompt">Choose the best answer from the following:</div>
+      <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
     </Question>
 
   onAnswerChanged: (answer) ->
@@ -85,14 +100,18 @@ ExerciseMultiChoice = React.createClass
     !!answer_id
 
   onContinue: ->
+    {id} = @props
+    canReview = StepPanel.canReview id
+
     @props.onStepCompleted()
+    @props.onNextStep() unless canReview
 
 
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
@@ -102,11 +121,21 @@ ExerciseReview = React.createClass
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
-    FreeResponse = if TaskStepStore.hasFreeResponse(id) then <div className="free-response">{free_response}</div> else ''
+    if TaskStepStore.hasFreeResponse(id)
+      FreeResponse = <div className='free-response'>{free_response}</div>
 
-    <Question model={question} answer_id={answer_id} correct_answer_id={correct_answer_id} feedback_html={feedback_html}>
+    <Question
+      model={question}
+      answer_id={answer_id}
+      correct_answer_id={correct_answer_id}
+      feedback_html={feedback_html}
+      onChangeAttempt={@onChangeAnswerAttempt}>
       {FreeResponse}
     </Question>
+
+  onChangeAnswerAttempt: (answer) ->
+    # TODO show cannot change answer message here
+    console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
 
   isContinueEnabled: ->
     {id} = @props
@@ -121,9 +150,12 @@ ExerciseReview = React.createClass
     task_id = TaskStepStore.getTaskId(id)
     TaskStepActions.loadRecovery(id)
     TaskActions.load(task_id)
+    @props.onNextStep()
 
   refreshMemory: ->
-    {index} = TaskStore.getReadingForTaskId(@props.id)
+    {id} = @props
+    task_id = TaskStepStore.getTaskId(id)
+    {index} = TaskStore.getReadingForTaskId(task_id, id)
     throw new Error('BUG: No reading found for task') unless index
     # goToStep returns an function with the step index in closure scope
     @props.goToStep(index)()
@@ -138,19 +170,19 @@ ExerciseReview = React.createClass
     buttonClasses = '-continue'
     buttonClasses += 'disabled' unless @isContinueEnabled()
     continueButton =
-      <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>
-        { if @canTryAnother() then "Move On" else "Continue" }
+      <BS.Button bsStyle='primary' className={buttonClasses} onClick={@onContinue}>
+        { if @canTryAnother() then 'Move On' else 'Continue' }
       </BS.Button>
     if @canTryAnother()
       extraButtons = [
-        <BS.Button bsStyle="primary" className="-try-another" onClick={@tryAnother}>
+        <BS.Button bsStyle='primary' className='-try-another' onClick={@tryAnother}>
           Try Another
         </BS.Button>
-        <BS.Button bsStyle="primary" className="-refresh-memory" onClick={@refreshMemory}>
+        <BS.Button bsStyle='primary' className='-refresh-memory' onClick={@refreshMemory}>
           Refresh My Memory
         </BS.Button>
       ]
-    <div className="footer-buttons">
+    <div className='footer-buttons'>
       {extraButtons}
       {continueButton}
     </div>
@@ -159,46 +191,50 @@ ExerciseReview = React.createClass
 module.exports = React.createClass
   displayName: 'Exercise'
   propTypes:
-    id: React.PropTypes.number.isRequired
+    id: React.PropTypes.any.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired
+    focus: React.PropTypes.bool.isRequired
+
+  getDefaultProps: ->
+    focus: true
+
+  renderReview: (id) ->
+    <ExerciseReview
+      id={id}
+      onNextStep={@props.onNextStep}
+      goToStep={@props.goToStep}
+      onStepCompleted={@props.onStepCompleted}
+    />
+
+  renderMultipleChoice: (id) ->
+    <ExerciseMultiChoice
+      id={id}
+      onStepCompleted={@props.onStepCompleted}
+      onNextStep={@props.onNextStep}
+    />
+
+  renderFreeResponse: (id) ->
+    <ExerciseFreeResponse
+      id={id}
+      focus={@props.focus}
+    />
+
+  # add render methods for different panel types as needed here
 
   render: ->
     {id} = @props
-    step = TaskStepStore.get(id)
-    {id, content, free_response, is_completed} = step
-    # TODO: Assumes 1 question.
-    hasFreeResponse = TaskStepStore.hasFreeResponse(id)
+    task_id = TaskStepStore.getTaskId(id)
 
-    # This should handle the 4 different states an Exercise can be in:
-    # 1. `not(free_response)`: Show the question stem and a text area
-    # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
-    # 3. `correct_answer`: review how you did and show feedback (if any)
-    # 4. `task.is_completed and answer` show your answer choice but no option to change it
+    if TaskStore.isLoaded(task_id)
+      # get panel to render based on step progress
+      panel = StepPanel.getPanel(id)
 
-    # This should also handle when an Exercise format is a True-False:
-    # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
-    # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
+      # panel is one of ['review', 'multiple-choice', 'free-response']
+      renderPanelMethod = camelCase "render-#{panel}"
 
-    if is_completed
-      # 3. `correct_answer`: review how you did and show feedback (if any)
-      # 6.  `question.formats` does not have 'free-response' and `correct_answer`: review how you did and show feedback (if any)
-      <ExerciseReview
-        id={id}
-        onNextStep={@props.onNextStep}
-        goToStep={@props.goToStep}
-        onStepCompleted={@props.onStepCompleted}
-      />
-    else if free_response or not hasFreeResponse
-      # 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options
-      # 5.  `question.formats` does not have 'free-response' and not(is_completed): Show stem and true-false options
-      <ExerciseMultiChoice
-        id={id}
-        onStepCompleted={@props.onStepCompleted}
-      />
+      throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
+      @[renderPanelMethod]?(id)
     else
-      # 1. `not(free_response)`: Show the question stem and a text area
-      <ExerciseFreeResponse
-        id={id}
-      />
+      <div className='-loading'>Loading...</div>

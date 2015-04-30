@@ -7,25 +7,5 @@
     "published_at": "2015-04-17T22:13:17.210Z",
     "settings": {
         "page_ids": [3, 2, 1]
-    },
-    "stats": {
-        "course": {
-            "mean_grade_percent": 71,
-            "total_count": 10,
-            "complete_count": 10,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "page": {
-                    "id": 0,
-                    "number": 0,
-                    "title": ""
-                },
-                "student_count": 10,
-                "correct_count": 120,
-                "incorrect_count": 50
-            }]
-        },
-        "periods": []
     }
 }

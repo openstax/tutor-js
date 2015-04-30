@@ -6,7 +6,6 @@ Router = require 'react-router'
 App = require './app'
 Task = require './task'
 LoadableItem = require './loadable-item'
-PracticeButton = require './practice-button'
 {TaskActions, TaskStore} = require '../flux/task'
 {CourseActions, CourseStore} = require '../flux/course'
 {CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
@@ -36,33 +35,33 @@ Dashboard = React.createClass
           if isStudent or not isTeacher # HACK since a student does not currently have a role
             footer.push(
               <Router.Link
-                className="btn btn-link -student"
-                to="listTasks"
+                className='btn btn-link -student'
+                to='viewStudentDashboard'
                 params={{courseId}}>Task List (Student)</Router.Link>)
 
           if isTeacher
             footer.push(
               <Router.Link
-                className="btn btn-link -teacher"
-                to="taskplans"
+                className='btn btn-link -teacher'
+                to='taskplans'
                 params={{courseId}}>
                 Plan List (Teacher)
               </Router.Link>)
 
-          footer = <span className="-footer-buttons">{footer}</span>
+          footer = <span className='-footer-buttons'>{footer}</span>
 
-          <BS.Panel header={name} footer={footer} bsStyle="primary">
-            <h1>Course: "{name}" Dashboard!</h1>
+          <BS.Panel header={name} footer={footer} bsStyle='primary'>
+            <h1>Course: '{name}' Dashboard!</h1>
           </BS.Panel>
 
-        return <div className="-course-list">{courses}</div>
+        return <div className='-course-list'>{courses}</div>
       else
-        return <div className="-course-list-empty">No Courses</div>
+        return <div className='-course-list-empty'>No Courses</div>
 
     else
       CurrentUserActions.loadAllCourses()
 
-      <div className="-loading">Loading?</div>
+      <div className='-loading'>Loading?</div>
 
 
 SingleTask = React.createClass
@@ -138,19 +137,19 @@ TaskResult = React.createClass
       mainType = ''
       stepsInfo = <small className='details'>({steps.length} steps)</small>
 
-    <BS.Panel bsStyle="default" onClick={@onClick}>
+    <BS.Panel bsStyle='default' onClick={@onClick}>
       <Router.Link
-        to="viewTask"
+        to='viewTask'
         params={{courseId, id}}>
         <i className="fa fa-fw #{mainType}"></i>
         {title}
       </Router.Link>
       {stepsInfo}
-      <span className="pull-right">
+      <span className='pull-right'>
         <Router.Link
-          to="viewTask"
+          to='viewTask'
           params={{courseId, id}}
-          className="ui-action btn btn-primary btn-sm">
+          className='ui-action btn btn-primary btn-sm'>
           {actionTitle}
         </Router.Link>
       </span>
@@ -161,60 +160,11 @@ TaskResult = React.createClass
     @context.router.transitionTo('viewTask', {courseId, id})
 
 
-Tasks = React.createClass
-  displayName: 'Tasks'
-  propTypes:
-    courseId: React.PropTypes.any.isRequired
-
-  render: ->
-    {courseId} = @props
-    allTasks = TaskStore.getAll()
-    if allTasks
-      if allTasks.length is 0
-        <div className='ui-task-list ui-empty'>
-          <p>No Tasks</p>
-          <PracticeButton courseId={courseId}>Practice</PracticeButton>
-        </div>
-      else
-        tasks = for task in allTasks
-          if not task or task.type is "practice"
-            continue
-          <TaskResult id={task.id} courseId={courseId} />
-
-        <div className='ui-task-list'>
-          <h3>Current Tasks ({allTasks.length})</h3>
-          {tasks}
-          <PracticeButton courseId={courseId}>Practice</PracticeButton>
-        </div>
-
-    # else if
-    #   <div>Error loading tasks. Please reload the page and try again</div>
-    #
-    # else
-    #   <div>Loading...</div>
-
-TasksShell = React.createClass
-  contextTypes:
-    router: React.PropTypes.func
-
-  componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
-    TaskActions.loadUserTasks(courseId)
-    TaskStore.addChangeListener(@update)
-
-  componentWillUnmount: -> TaskStore.removeChangeListener(@update)
-
-  update: -> @setState({})
-
-  render: ->
-    {courseId} = @context.router.getCurrentParams()
-    <Tasks courseId={courseId} />
-
 Invalid = React.createClass
   render: ->
     <div>
       <h1>Woops, this is an invalid page {@props.path}</h1>
-      <Router.Link to="dashboard">Home</Router.Link>
+      <Router.Link to='dashboard'>Home</Router.Link>
     </div>
 
-module.exports = {App, Dashboard, Tasks, TasksShell, SingleTask, SinglePractice, Invalid}
+module.exports = {App, Dashboard, SingleTask, SinglePractice, Invalid}

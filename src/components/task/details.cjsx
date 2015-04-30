@@ -33,12 +33,15 @@ module.exports = React.createClass
         </BS.Popover>
       details =
         <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
-          <BS.Button bsStyle="default" className='task-details'>
-            <i className='fa fa-info-circle'></i> {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
+          <BS.Button bsStyle='default' className='task-details'>
+            <i className='fa fa-info-circle'></i>&nbsp;
+            {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
           </BS.Button>
         </BS.OverlayTrigger>
     else
       details =
-        <span className='-task-details task-details'>{dateLabel} <Time date={task.due_at} format={dateFormat}></Time></span>
+        <span className='-task-details task-details'>
+          {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
+        </span>
 
     details

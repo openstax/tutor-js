@@ -1,6 +1,92 @@
-@import url(//fonts.googleapis.com/css?family=Lato:400,900,300,300italic,400italic,700);
-@import url(//fonts.googleapis.com/css?family=Merriweather:300,300italic,700);
-@import url(//fonts.googleapis.com/css?family=Architects+Daughter);
+@googleFontApi: "//fonts.googleapis.com/css?family=";
+@fontPath: "/fonts/";
+
+@font-face {
+  font-family: 'Architects Daughter';
+  src: local('Architects Daughter'),
+       local('ArchitectsDaughter'),
+       // url("@{googleFontApi}Architects+Daughter"),
+       url("@{fontPath}ArchitectsDaughter.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "Lato";
+    src: local('Lato-Light'),
+         // url("@{googleFontApi}Lato:300"),
+         url("@{fontPath}Lato-Light.ttf") format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: local('Lato-LightItalic'),
+         // url("@{googleFontApi}Lato:300italic"),
+         url("@{fontPath}Lato-LightItalic.ttf") format('truetype');
+    font-weight: 300;
+    font-style: italic, oblique;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: local('Lato-Regular'),
+         // url("@{googleFontApi}Lato:400"),
+         url("@{fontPath}Lato-Regular.ttf") format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: local('Lato-RegularItalic'),
+         // url("@{googleFontApi}Lato:400italic"),
+         url("@{fontPath}Lato-RegularItalic.ttf") format('truetype');
+    font-weight: 400;
+    font-style: italic, oblique;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: local('Lato-Bold'),
+         // url("@{googleFontApi}Lato:700"),
+         url("@{fontPath}Lato-Bold.ttf") format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: local('Lato-Black'),
+         // url("@{googleFontApi}Lato:900"),
+         url("@{fontPath}Lato-Black.ttf") format('truetype');
+    font-weight: 900;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: local('Merriweather Light'),
+       local('Merriweather-Light'),
+       // url("@{googleFontApi}Merriweather:300"),
+       url("@{fontPath}Merriweather-Light.ttf") format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: local('Merriweather Light Italic'),
+       local('Merriweather-LightItalic'),
+       // url("@{googleFontApi}Merriweather:300italic"),
+       url("@{fontPath}Merriweather-LightItalic.ttf") format('truetype');
+  font-weight: 300;
+  font-style: italic, oblique;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: local('Merriweather Bold'),
+       local('Merriweather-Bold'),
+       // url("@{googleFontApi}Merriweather:700"),
+       url("@{fontPath}Merriweather-Bold.ttf") format('truetype');
+  font-weight: 700;
+}
+
 
 @body-font-color: #424242;
 @caption-font-color: #646464;

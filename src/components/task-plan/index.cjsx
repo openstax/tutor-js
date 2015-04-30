@@ -20,7 +20,7 @@ HomeworkShell = React.createClass
 
   render: ->
     {courseId, id} = @context.router.getCurrentParams()
-    <PlanShell courseId={courseId} id={id} type="homework"/>
+    <PlanShell courseId={courseId} id={id} type='homework'/>
 
 ReadingShell = React.createClass
   displayName: 'ReadingShell'
@@ -29,7 +29,7 @@ ReadingShell = React.createClass
 
   render: ->
     {courseId, id} = @context.router.getCurrentParams()
-    <PlanShell courseId={courseId} id={id} type="reading"/>
+    <PlanShell courseId={courseId} id={id} type='reading'/>
 
 PlanShell = React.createClass
   displayName: 'PlanShell'
@@ -68,9 +68,9 @@ PlanShell = React.createClass
     id = @getId()
     {id, type} = TaskPlanStore.get(id)
     {courseId} = @context.router.getCurrentParams()
-    if type is "homework"
+    if type is 'homework'
       @context.router.transitionTo('editHomework', {courseId, id})
-    else if type is "reading"
+    else if type is 'reading'
       @context.router.transitionTo('editReading', {courseId, id})
 
   render: ->

@@ -1,13 +1,14 @@
 # coffeelint: disable=no_empty_functions
 flux = require 'flux-react'
+_ = require 'underscore'
 
-{makeSimpleStore} = require './helpers'
+{CrudConfig, extendConfig, makeSimpleStore} = require './helpers'
 
 TocConfig =
   _toc: null
   _sections: {}
 
-  FAILED: -> console.error("BUG: could not load readings")
+  FAILED: -> console.error('BUG: could not load readings')
 
   reset: ->
     @_toc = null
@@ -32,7 +33,11 @@ TocConfig =
     getSectionInfo: (sectionId) ->
       if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
+    getSectionLabel: (key) ->
+      _.find(@_sections, (section) ->
+        section.chapter_section is key
+      )
 
-
+extendConfig(TocConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TocConfig)
 module.exports = {TocActions:actions, TocStore:store}

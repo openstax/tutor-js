@@ -8,16 +8,21 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {Stats} = require '../task-plan/reading-stats'
-LoadableItem = require '../loadable-item'
+Loadable = require '../loadable'
 
 StatsModalShell = React.createClass
   render: ->
-    <LoadableItem
-      id={@props.id}
+    {id} = @props
+    TaskPlanActions.loadStats(id) unless TaskPlanStore.isStatsLoaded(id)
+
+    <Loadable
       store={TaskPlanStore}
-      actions={TaskPlanActions}
-      renderItem={=> <Stats {...@props}/>}
+      isLoading={-> TaskPlanStore.isStatsLoading(id)}
+      isLoaded={-> TaskPlanStore.isStatsLoaded(id)}
+      isFailed={-> TaskPlanStore.isStatsFailed(id)}
+      render={=> <Stats {...@props}/>}
     />
+
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass

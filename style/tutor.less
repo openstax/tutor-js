@@ -10,6 +10,8 @@
 @import './task-step';
 @import './homework';
 @import './learning-guide';
+@import './student-dashboard';
+@import './icons/all';
 
 // Override the default path to the font-awesome fonts
 @fa-font-path: 'fonts';
@@ -25,6 +27,7 @@ i.fa {
   &.reading::before     { content: @fa-var-newspaper-o; } // or fa-var-file-text-o
   &.interactive::before { content: @fa-var-desktop; }
   &.exercise::before    { content: @fa-var-question; } // or fa-var-mortar-board
+  &.end::before    { content: @fa-var-star; }
 }
 
 .ui-task-list {
@@ -107,6 +110,13 @@ ul.selected-reading-list {
 .modal-backdrop.in {
   height: 100%;
 }
+
+
+// KaTeX 1.0.2 generates both HTML and MathML
+//
+// Hide the HTML and use MathJax for rendering
+// TODO: Decide whether to remove KaTeX (involves additional code for MathJax)
+.has-html .katex > .katex-html { display: none; }
 
 @import './reading';
 @import './reading-stats';

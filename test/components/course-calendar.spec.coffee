@@ -1,5 +1,6 @@
 {expect} = require 'chai'
 _ = require 'underscore'
+moment = require 'moment'
 {Promise} = require 'es6-promise'
 
 {calendarActions, calendarTests, calendarChecks} = require './helpers/calendar'
@@ -13,13 +14,16 @@ CourseCalendar = require '../../src/components/course-calendar'
 planId = 1
 courseId = 1
 
-VALID_MODEL = require '../../api/courses/1/plans.json'
-VALID_PLAN_MODEL = require '../../api/plans/1.json'
+VALID_MODEL = require '../../api/courses/1/events.json'
+# pin plan 1 to one month ago for testing
+VALID_MODEL.plans[0].due_at = moment().subtract(1, 'month').toDate()
+VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
 
 describe 'Course Calendar', ->
   beforeEach (done) ->
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
-    TaskPlanActions.loaded(VALID_PLAN_MODEL, planId)
+    TaskPlanActions.loadedStats(VALID_PLAN_MODEL, planId)
+    plan = TaskPlanStore.getStats(planId)
 
     calendarTests
       .goToCalendar("/courses/#{courseId}/t/calendar", courseId)

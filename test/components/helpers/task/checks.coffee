@@ -1,9 +1,11 @@
 {expect} = require 'chai'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
+React = require 'react/addons'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
+{StepPanel} = require '../../../../src/helpers/policies'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
@@ -33,14 +35,6 @@ checks =
       expect(componentStepId).to.equal(targetStepId)
 
     {div, component, state, router, history}
-
-  _checkIsDefaultStep: ({div, component, stepId, taskId, state, router, history}) ->
-    stepIndex = TaskStore.getCurrentStepIndex(taskId)
-    steps = TaskStore.getStepsIds(taskId)
-    targetStepId = steps[stepIndex].id
-
-    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
-    {div, component, stepId, taskId, state, router, history}
 
   _checkRenderFreeResponse: ({div, component, stepId, taskId, state, router, history}) ->
     continueButton = div.querySelector('.-continue')
@@ -84,6 +78,15 @@ checks =
   _checkSubmitMultipleChoice: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
     expect(div.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
     expect(div.querySelector('.answer-correct').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
+
+    expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html) if StepPanel.canReview(stepId)
+    {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
+
+  _checkNotFeedback: ({div, component, stepId, taskId, state, router, history}) ->
+    expect(div.querySelector('.question-feedback')).to.be.null
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkForFeedback: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
     expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html)
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
@@ -91,7 +94,7 @@ checks =
     expect(div.querySelector('.footer-buttons').children.length).to.equal(3)
     classes = _.pluck(div.querySelector('.footer-buttons').children, 'className')
     expect(classes).to.deep.equal([
-      '-try-another btn btn-primary','-refresh-memory btn btn-primary','-continue btn btn-primary'
+      '-try-another btn btn-primary', '-refresh-memory btn btn-primary', '-continue btn btn-primary'
     ])
 
   _checkIsNextStep: ({div, component, stepId, taskId, state, router, history}) ->
@@ -117,10 +120,40 @@ checks =
 
     {div, component, stepId, taskId, state, router, history}
 
+  _checkIsDefaultStep: ({div, component, stepId, taskId, state, router, history}) ->
+    stepIndex = TaskStore.getCurrentStepIndex(taskId)
+    steps = TaskStore.getStepsIds(taskId)
+
+    return checks._checkIsIntroScreen({div, component, stepId, taskId, state, router, history}) if stepIndex is -1
+    return checks._checkIsCompletePage({div, component, stepId, taskId, state, router, history}) if stepIndex is steps.length
+
+    targetStepId = steps[stepIndex].id
+
+    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+    {div, component, stepId, taskId, state, router, history}
+
   _checkIsPopoverOpen: ({div, component, stepId, taskId, state, router, history}) ->
     expect(document.querySelector('.task-details-popover h1')).to.not.be.null
 
     {div, component, stepId, taskId, state, router, history}
+
+  _checkAreAllStepsShowing: ({div, component, stepId, taskId, state, router, history}) ->
+    steps = TaskStore.getStepsIds(taskId)
+    stepNodes = div.querySelectorAll('.step')
+
+    expect(stepNodes.length).to.equal(steps.length + 1)
+
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkEndReview: ({div, component, stepId, taskId, state, router, history}) ->
+    completedStepsInReview = div.querySelectorAll('.task-review-completed .task-step')
+    todoStepsInReview = div.querySelectorAll('.task-review-todo .task-step')
+
+    completedSteps = TaskStore.getCompletedSteps(taskId)
+    incompleteSteps = TaskStore.getIncompleteSteps(taskId)
+
+    expect(completedStepsInReview.length).to.equal(completedSteps.length)
+    expect(todoStepsInReview.length).to.equal(incompleteSteps.length)
 
 # promisify for chainability in specs
 _.each(checks, (check, checkName) ->
@@ -140,7 +173,7 @@ checks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, state, r
   {div, component, stepId, taskId, state, router, history}
 
 checks.checkIsMatchStep = (matchStepIndex) ->
-  (args...)->
+  (args...) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
 module.exports = checks

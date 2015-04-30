@@ -10,7 +10,10 @@ module.exports =
   renderGenericFooter: ->
     buttonClasses = '-continue'
     buttonClasses += ' disabled' unless @isContinueEnabled()
-    continueButton = <BS.Button bsStyle="primary" className={buttonClasses} onClick={@onContinue}>Continue</BS.Button>
+    continueButton = <BS.Button
+      bsStyle='primary'
+      className={buttonClasses}
+      onClick={@onContinue}>Continue</BS.Button>
     <span>
       {continueButton}
     </span>
@@ -18,6 +21,6 @@ module.exports =
   render: ->
     footer = @renderFooterButtons?() or @renderGenericFooter()
 
-    <BS.Panel bsStyle="default" className="task-step" footer={footer}>
+    <BS.Panel bsStyle='default' className='task-step' footer={footer}>
       {@renderBody()}
     </BS.Panel>

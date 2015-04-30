@@ -14,6 +14,6 @@ module.exports =
   confirmLeave: (e) ->
     {store} = @getFlux()
     if store.isChanged(@getId())
-      msg = "You have unsaved changes.  Are you sure you want to leave?"
+      msg = 'You have unsaved changes.  Are you sure you want to leave?'
       (e or window.event).returnValue = msg     # Gecko and Trident
       msg                                        # Gecko and WebKit

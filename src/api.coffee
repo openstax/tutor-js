@@ -7,6 +7,8 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
+
+{TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {LearningGuideActions} = require './flux/learning-guide'
@@ -17,6 +19,7 @@ _ = require 'underscore'
 {TocActions} = require './flux/toc'
 {ExerciseActions} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
+{StudentDashboardActions} = require './flux/student-dashboard'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -27,6 +30,9 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
+
+setNow = (jqXhr) ->
+  TimeActions.setNow(new Date(jqXhr.getResponseHeader('Date')))
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
@@ -47,8 +53,11 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 
       url = "#{url}.json" if IS_LOCAL
 
-      resolved = (results) -> successAction(results, args...) # Include listenAction for faking
+      resolved = (results, statusStr, jqXhr) ->
+        setNow(jqXhr)
+        successAction(results, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
+        setNow(jqXhr)
         statusCode = jqXhr.status
         if statusCode is 200
           # HACK For PUT returning nothing (actually, it returns HTML for some reason)
@@ -111,6 +120,9 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"
 
+  apiHelper TaskPlanActions, TaskPlanActions.loadStats , TaskPlanActions.loadedStats, 'GET', (id) ->
+    url: "/api/plans/#{id}/stats"
+
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->
     page_id_str = pageIds.join('&page_ids[]=')
     url: "/api/courses/#{courseId}/exercises?page_ids[]=#{page_id_str}"
@@ -162,12 +174,14 @@ start = ->
     url: "/api/courses/#{courseId}/tasks"
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/plans"
+    url: "/api/courses/#{courseId}/events"
 
 
   apiHelper CurrentUserActions, CurrentUserActions.loadAllCourses, CurrentUserActions.loadedAllCourses, 'GET', ->
     url: '/api/courses'
 
+  apiHelper StudentDashboardActions, StudentDashboardActions.load, StudentDashboardActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/dashboard"
 
   CurrentUserActions.logout.addListener 'trigger', ->
     $.ajax('/accounts/logout', {method: 'DELETE'})

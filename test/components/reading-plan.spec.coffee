@@ -17,8 +17,8 @@ TEST_TOC = [
   }
 ]
 
-tomorrow = Date.now() + 1000*3600*24
-dayAfter = tomorrow + 1000*3600*24
+tomorrow = Date.now() + 1000 * 3600 * 24
+dayAfter = tomorrow + 1000 * 3600 * 24
 
 VALID_MODEL =
   type: 'reading'
@@ -83,7 +83,7 @@ describe 'Reading Plan', ->
 
 
   it 'should not show delete if plan is published', ->
-    yesterday = Date.now() - 3600*1000*24
+    yesterday = Date.now() - 3600 * 1000 * 24
     model =
       type: 'reading'
       id: 1
