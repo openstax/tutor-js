@@ -1,14 +1,14 @@
 _ = require 'underscore'
 d3 = require 'd3'
+{AppConfigStore} = require '../flux/app-config'
 
-CLOUD_PATH = '/style/resources/learning-guide/cloud.svg'
-PLANE_PATH = '/style/resources/learning-guide/openstax-plane.svg'
-CITYSCAPE_PATH = '/style/resources/learning-guide/houston-skyline.svg'
-
-FLAG_BLUE = '/style/resources/learning-guide/flag-blue.svg'
-FLAG_GREEN = '/style/resources/learning-guide/flag-green.svg'
-FLAG_YELLOW = '/style/resources/learning-guide/flag-yellow.svg'
-FLAG_GREY = '/style/resources/learning-guide/flag-grey.svg'
+CITYSCAPE_PATH = 'learning-guide/houston-skyline.svg'
+CLOUD_PATH     = 'learning-guide/cloud.svg'
+PLANE_PATH     = 'learning-guide/openstax-plane.svg'
+FLAG_BLUE      = 'learning-guide/flag-blue.svg'
+FLAG_GREEN     = 'learning-guide/flag-green.svg'
+FLAG_YELLOW    = 'learning-guide/flag-yellow.svg'
+FLAG_GREY      = 'learning-guide/flag-grey.svg'
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
 WIDTH = 160
@@ -30,7 +30,7 @@ module.exports = class LearningGuideChart
       .attr('y', options.y)
       .attr('width', options.width   or 10)
       .attr('height', options.height or 10)
-      .attr('xlink:href', url)
+      .attr('xlink:href', AppConfigStore.urlForResource(url))
       .attr('class', className)
 
   drawChart: (guide, showAll) ->
@@ -84,7 +84,7 @@ module.exports = class LearningGuideChart
 
     @drawTitle(container, guide)
 
-    
+
 
 
   drawTitle: (container, guide) ->
@@ -173,7 +173,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'y-desc')
       .attr('transform', "rotate(-90, 8, #{ypos})")
       .text(text)
-      
+
   drawYLabel: (container, ypos, text) ->
     wrap = container.append('g')
       .append("svg:text")
@@ -262,6 +262,7 @@ module.exports = class LearningGuideChart
 
 
   drawStaticImages: (container, points) ->
+
     @addImage(CITYSCAPE_PATH, width:109.7, height:12, x:32, y:32.5)
 
     @addImage(FLAG_BLUE, width:10, height:2.5, x:13.2, y:6.3)
@@ -274,7 +275,7 @@ module.exports = class LearningGuideChart
     @addImage(CLOUD_PATH, width:15, height:15, x:30, y:2, 'cloud cloud-opacity-40')
     @addImage(CLOUD_PATH, width:20, height:10, x:38, y:7, 'cloud cloud-opacity-70')
     @addImage(CLOUD_PATH, width:20, height:15, x:135, y:2, 'cloud cloud-opacity-50')
-    
+
 
   drawCircles: (container, fields, points) ->
     wrap = container.append('g')
