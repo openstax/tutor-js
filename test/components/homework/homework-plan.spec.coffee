@@ -39,7 +39,7 @@ describe 'Homework Builder', ->
       expect(div.querySelectorAll('.card.exercise').length).to.equal(VALID_MODEL.settings.exercise_ids.length)
       done()
 
-    routerStub.goTo("/courses/#{courseId}/homework/#{VALID_MODEL.id}")
+    routerStub.goTo("/courses/#{courseId}/t/homeworks/#{VALID_MODEL.id}")
       .then(tests)
       .catch(done)
 
@@ -55,7 +55,7 @@ describe 'Homework Builder', ->
       expect(div.querySelector('.-select-problems')).to.be.null
       done()
 
-    routerStub.goTo("/courses/#{courseId}/homework/#{PUBLISHED_MODEL.id}")
+    routerStub.goTo("/courses/#{courseId}/t/homeworks/#{PUBLISHED_MODEL.id}")
       .then(tests)
       .catch(done)
 
@@ -73,6 +73,5 @@ describe 'Homework Builder', ->
       expect(div.querySelector('.-select-problems')).to.not.be.null
       done()
 
-    routerStub.goTo("/courses/#{courseId}/homework/#{VALID_MODEL.id}")
+    routerStub.goTo("/courses/#{courseId}/t/homeworks/#{VALID_MODEL.id}")
       .then(checkAddButtonExists)
-
