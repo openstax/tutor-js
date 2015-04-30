@@ -12,8 +12,8 @@ AppConfig =
   exports:
     getAssetsHost: ->
       return @_assetsHost if @_assetsHost?
-      # http://caniuse.com/#feat=css-sel3 (substring selector is IE 8+)
-      tutorStyle = document.head.querySelector('link[href$="tutor.css"]')
+      # http://caniuse.com/#feat=css-sel3 (substring selector is IE 9+)
+      tutorStyle = document.head.querySelector('link[href*="tutor"]')
       # if we didn't find the styling css, use "/" string.
       # That'll cause the anchor test below to be a relative link and use the document's scheme/host/port
       href = if tutorStyle then tutorStyle.getAttribute('href') else "/"
