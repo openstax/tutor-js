@@ -177,8 +177,8 @@ gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
   gulp.src([
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
-    './dist/fonts',
-    './dist/*.svg'])
+    './dist/fonts/*',
+    './dist/*.svg'], {base: './dist'})
     .pipe(tar('archive.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('./dist/'))
