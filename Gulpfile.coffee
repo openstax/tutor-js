@@ -75,6 +75,8 @@ buildAndTest = (shouldWatch, done) ->
       config =
         configFile: __dirname + '/test/karma.config.coffee'
         singleRun: not shouldWatch
+        proxies:
+          '/api': '/api'
 
       if shouldWatch
         karma.server.start(config)
