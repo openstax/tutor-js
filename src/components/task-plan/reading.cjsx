@@ -47,9 +47,9 @@ ChooseReadings = React.createClass
     header = <span>Select Readings</span>
 
     primary =
-      <BS.Button 
-        className='-show-problems' 
-        bsStyle={buttonStyle} 
+      <BS.Button
+        className='-show-problems'
+        bsStyle={buttonStyle}
         onClick={@props.hide}>Add Readings
       </BS.Button>
 
@@ -113,14 +113,14 @@ ReadingPlan = React.createClass
       formClasses.push('hide')
       selectReadings = <ChooseReadings
                         hide={@hideSectionTopics}
-                        courseId={courseId} 
-                        planId={id} 
+                        courseId={courseId}
+                        planId={id}
                         selected={topics}/>
 
     <div className='-reading-container'>
-      <BS.Panel bsStyle='primary' 
-        className={formClasses.join(' ')} 
-        footer={footer} 
+      <BS.Panel bsStyle='primary'
+        className={formClasses.join(' ')}
+        footer={footer}
         header={headerText}>
 
         <div className='-reading-title'>
@@ -129,7 +129,7 @@ ReadingPlan = React.createClass
             ref='title'
             id='reading-title'
             type='text'
-            value={plan.title}
+            defaultValue={plan.title}
             placeholder='Enter Title'
             onChange={@setTitle} />
         </div>
@@ -159,8 +159,8 @@ ReadingPlan = React.createClass
         </div>
         <div>
           <label htmlFor='reading-select'>Select Readings</label>
-          <BS.Button id='reading-select' 
-            onClick={@showSectionTopics} 
+          <BS.Button id='reading-select'
+            onClick={@showSectionTopics}
             bsStyle='primary'>Edit Readings
           </BS.Button>
           <ReviewReadings courseId={courseId} selected={topics}/>
@@ -170,5 +170,3 @@ ReadingPlan = React.createClass
     </div>
 
 module.exports = {ReadingPlan}
-
-
