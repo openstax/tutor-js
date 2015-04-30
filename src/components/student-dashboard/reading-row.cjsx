@@ -14,7 +14,7 @@ module.exports = React.createClass
 
   viewReference: (e) ->
     alert "TODO: View Reference for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
-    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
+    e.stopPropagation() # needed to stop event from propagating the click up to the event click handler
 
   render: ->
     feedback = switch

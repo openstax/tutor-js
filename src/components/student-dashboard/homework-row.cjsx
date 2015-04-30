@@ -14,13 +14,17 @@ module.exports = React.createClass
     event: React.PropTypes.object.isRequired
     courseId: React.PropTypes.any.isRequired
 
+  contextTypes:
+    router: React.PropTypes.func
+
   viewFeedback: (e) ->
-    alert "TODO: View feedback for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
-    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
+    @context.router.transitionTo 'viewTask',
+      {courseId:@props.courseId, id: @props.event.id}
+    e.stopPropagation() # needed to stop event from propagating the click up to the event click handler
 
   viewRecovery: (e) ->
     alert "TODO: View recovery for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
-    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
+    e.stopPropagation() # needed to stop event from propagating the click up to the event click handler
 
   actionLinks: ->
     <span className="-actions"> | <a
