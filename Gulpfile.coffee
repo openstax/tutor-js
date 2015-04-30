@@ -217,6 +217,8 @@ gulp.task '_webserver', ->
             if req.url.match(/\.svg$/)
                 res.setHeader('Content-Type', 'image/svg+xml')
             next()
+            if req.url.match(/\.ttf$/)
+                res.setHeader('Content-Type', 'font/ttf')
     ]
   connect.server(config)
 
