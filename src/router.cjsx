@@ -1,10 +1,11 @@
 React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
-{App, Dashboard, TasksShell, SingleTask, SinglePractice, Invalid} = require './components'
+{App, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {LearningGuideShell} = require './components/learning-guide'
 {PerformanceShell} = require './components/performance'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
+{StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
 {StatsShell} = require './components/task-plan/reading-stats'
@@ -16,7 +17,7 @@ routes = (
     <Redirect from='/' to='dashboard' />
     <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
     <Route path='courses/:courseId/?'>
-      <Route path='list/?' name='listTasks' handler={TasksShell} />
+      <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
       <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} />
       <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
       <Route path='guide/?' name='viewGuide' handler={LearningGuideShell} />
