@@ -20,11 +20,11 @@ module.exports = React.createClass
   viewFeedback: (e) ->
     @context.router.transitionTo 'viewTask',
       {courseId:@props.courseId, id: @props.event.id}
-    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
+    e.stopPropagation() # needed to stop event from propagating the click up to the event click handler
 
   viewRecovery: (e) ->
     alert "TODO: View recovery for task ID: #{@props.event.id} in course ID: #{@props.courseId}"
-    e.preventDefault() # needed to stop event from propagating the click up to the event click handler
+    e.stopPropagation() # needed to stop event from propagating the click up to the event click handler
 
   actionLinks: ->
     <span className="-actions"> | <a
