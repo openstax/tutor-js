@@ -3,6 +3,8 @@ _ = require 'underscore'
 policies = require './policies'
 {TaskStore} = require '../../flux/task'
 
+DEFAULT = 'default'
+
 utils =
   _dueState: (task) ->
     state = 'before'
@@ -18,8 +20,9 @@ utils =
 
   _getPolicy: (task, step, policyFor) ->
 
-    taskType = if task.type? then task.type else 'reading'
-    throw new Error("BUG: #{taskType} does not have a policy. Check src/helpers/policies/policies file.") unless policies[taskType]?
+    taskType = task.type
+    taskType = DEFAULT unless policies[taskType]?
+
     possiblePolicies = policies[taskType][step.type][policyFor]
 
     policy = possiblePolicies.default if possiblePolicies.default?

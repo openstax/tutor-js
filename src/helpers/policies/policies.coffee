@@ -63,17 +63,7 @@ policies =
           before: stepNoFeedback
           after: stepFeedbackImmediate
 
-  practice:
-    exercise:
-      panels:
-        default: stepFeedbackImmediate
-
-  chapter_practice:
-    exercise:
-      panels:
-        default: stepFeedbackImmediate
-
-  reading:
+  default:
     exercise:
       panels:
         default: stepFeedbackImmediate
