@@ -51,7 +51,7 @@ Dashboard = React.createClass
           footer = <span className='-footer-buttons'>{footer}</span>
 
           <BS.Panel header={name} footer={footer} bsStyle='primary'>
-            <h1>Course: '{name}' Dashboard!</h1>
+            <h1>Course: "{name}" Dashboard!</h1>
           </BS.Panel>
 
         return <div className='-course-list'>{courses}</div>

@@ -56,7 +56,7 @@ module.exports = React.createClass
 
       <div className={classes} key="#{qid}-option-#{i}">
         {radioBox}
-        <label htmlFor="#{qid}-option-#{i}' className='answer-label">
+        <label htmlFor="#{qid}-option-#{i}" className='answer-label'>
           <div className='answer-letter' />
           <ArbitraryHtml className='answer-content' html={answer.content_html} />
         </label>
