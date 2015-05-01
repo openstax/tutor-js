@@ -11,4 +11,4 @@ describe 'Server Time', ->
     TimeActions.setNow(SERVER_TIME, LOCAL_TIME)
     time = TimeStore.getNow(LOCAL_TIME)
     # Use strings so millisecs do not matter
-    expect("#{time}').to.equal('#{SERVER_TIME}")
+    expect("#{time}").to.equal("#{SERVER_TIME}")
