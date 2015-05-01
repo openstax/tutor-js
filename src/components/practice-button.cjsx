@@ -31,11 +31,14 @@ PracticeButton = React.createClass
   onClick: ->
     {courseId, pageIds, forceCreate} = @props
 
+    if pageIds
+      buttonQuery = {page_ids: pageIds}
+
     if CourseStore.hasPractice(courseId) and not forceCreate
       task = CourseStore.getPractice(courseId)
       @transitionToPractice(task.id)
     else
-      CourseActions.createPractice(courseId, {page_ids: pageIds})
+      CourseActions.createPractice(courseId, buttonQuery)
 
   transitionToPractice: (practiceId) ->
     {courseId, loadedTaskId} = @props
