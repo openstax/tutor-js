@@ -53,6 +53,20 @@ stepViewOnly = [
 #         states:
 #           #{state}: #{info}
 
+defaultPolicies =
+  exercise:
+    panels:
+      default: stepFeedbackImmediate
+  reading:
+    panels:
+      default: stepViewOnly
+  video:
+    panels:
+      default: stepViewOnly
+  interactive:
+    panels:
+      default: stepViewOnly
+
 policies =
 
   homework:
@@ -68,23 +82,8 @@ policies =
       panels:
         default: stepFeedbackImmediate
 
-  chapter_practice:
-    exercise:
-      panels:
-        default: stepFeedbackImmediate
+  reading: defaultPolicies
 
-  reading:
-    exercise:
-      panels:
-        default: stepFeedbackImmediate
-    reading:
-      panels:
-        default: stepViewOnly
-    video:
-      panels:
-        default: stepViewOnly
-    interactive:
-      panels:
-        default: stepViewOnly
+  default: defaultPolicies
 
 module.exports = policies
