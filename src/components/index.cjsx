@@ -90,8 +90,15 @@ SinglePractice = React.createClass
   componentWillUnmount: ->
     CourseStore.off('practice.loaded', @update)
 
+  createPractice: (courseId) ->
+    query = @context?.router?.getCurrentQuery()
+    CourseActions.createPractice(courseId, query)
+
   getInitialState: ->
-    taskId: CourseStore.getPracticeId(@getId())
+    @createPractice(@getId())
+
+    # force a new practice each time
+    taskId: undefined
 
   getId: ->
     {courseId} = @context.router.getCurrentParams()
@@ -103,16 +110,16 @@ SinglePractice = React.createClass
     })
 
   render: ->
-    id = @getId()
-    <LoadableItem
-      store={CourseStore}
-      actions={CourseActions}
-      load={CourseActions.loadPractice}
-      isLoaded={CourseStore.isPracticeLoaded}
-      isLoading={CourseStore.isPracticeLoading}
-      id={id}
-      renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
-    />
+    if @state.taskId
+      <LoadableItem
+        id={@state.taskId}
+        store={TaskStore}
+        actions={TaskActions}
+        renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
+      />
+    else
+      <div>Loading...</div>
+
 
 
 TaskResult = React.createClass
