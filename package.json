@@ -27,7 +27,7 @@
     "markdown-it": "^4.1.1",
     "moment": "^2.9.0",
     "react": "0.13.1",
-    "react-bootstrap": "~0.18.0",
+    "react-bootstrap": "0.20.3",
     "react-calendar": "^0.4.0",
     "react-router": "~0.13.2",
     "react-widgets": "^2.2.6",
