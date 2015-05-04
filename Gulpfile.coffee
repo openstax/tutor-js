@@ -113,9 +113,9 @@ gulp.task '_cleanCSS', (done) ->
   del(['./dist/*.css'], done)
 
 gulp.task '_copyResources', ['_cleanResources'], ->
-  destDir = './dist/'
-  gulp.src('./resources/images/**/*.svg')
-    .pipe(flatten())
+  destDir = './dist/style/resources'
+  baseDir = './resources/images'
+  gulp.src("#{baseDir}/**/*.svg", base: baseDir)
     .pipe(gulp.dest(destDir))
 
 gulp.task '_cleanResources', (done) ->
@@ -180,7 +180,7 @@ gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
     './dist/fonts/*',
-    './dist/*.svg'], {base: './dist'})
+    './dist/style/resources/**/*.svg'], {base: './dist'})
     .pipe(tar('archive.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('./dist/'))
@@ -221,7 +221,7 @@ gulp.task '_webserver', ->
             if req.url.match(/\.ttf$/)
                 res.setHeader('Content-Type', 'application/octet-stream')
             next()
-            
+
     ]
   connect.server(config)
 
