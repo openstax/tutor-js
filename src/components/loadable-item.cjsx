@@ -19,7 +19,7 @@ module.exports = React.createClass
     load: React.PropTypes.func
 
   render: ->
-    {id, store, actions, load, isLoaded, isLoading, renderItem, saved} = @props
+    {id, store, actions, load, isLoaded, isLoading, renderItem, saved, renderStatus} = @props
     load ?= actions.load
     isLoaded ?= store.isLoaded
     isLoading ?= store.isLoading
@@ -48,4 +48,5 @@ module.exports = React.createClass
       isLoaded={-> isLoaded(id)}
       isFailed={-> store.isFailed(id)}
       render={renderItem}
+      renderStatus={renderStatus}
     />

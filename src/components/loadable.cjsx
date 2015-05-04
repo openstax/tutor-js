@@ -20,7 +20,7 @@ module.exports = React.createClass
   getDefaultProps: ->
 
     # Enables a renderStatus prop function with a component other than a div
-    renderStatus: (status, message)->
+    renderStatus: (status, message) ->
       <div className="-#{status}">{message}</div>
 
   _addListener: ->
