@@ -20,15 +20,26 @@ Dashboard = React.createClass
   displayName: 'Dashboard'
   componentWillMount: -> CurrentUserStore.addChangeListener(@update)
   componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
+  
+  contextTypes:
+    router: React.PropTypes.func
 
   update: -> @setState({})
+
   render: ->
     if CurrentUserStore.isCoursesLoaded()
       courses = CurrentUserStore.getCourses()
+      if courses.length is 1
+        roles = courses[0].roles
+        if roles.length is 1
+          singleCourseId = courses[0].id
+          if roles[0].type is 'student'
+            @context.router.transitionTo('viewStudentDashboard', {courseId: singleCourseId})
+          if roles[0].type is 'teacher'
+            @context.router.transitionTo('taskplans', {courseId: singleCourseId})
       if courses.length
         courses = _.map courses, (course) ->
           {id:courseId, name, roles} = course
-
           isStudent = _.find roles, (role) -> role.type is 'student'
           isTeacher = _.find roles, (role) -> role.type is 'teacher'
           footer = []
