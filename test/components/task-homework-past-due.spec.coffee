@@ -22,8 +22,7 @@ describe 'Task Widget, homework specific things, past due date', ->
       .then((result) =>
         @result = result
         done()
-      )
-      .catch(done)
+      ).catch(done)
 
   afterEach ->
     taskTests.unmount()

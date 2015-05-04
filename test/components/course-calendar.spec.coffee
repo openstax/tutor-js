@@ -34,8 +34,7 @@ describe 'Course Calendar', ->
 
         @result = result
         done()
-      )
-      .catch(done)
+      ).catch(done)
 
   afterEach ->
     calendarTests.unmount()

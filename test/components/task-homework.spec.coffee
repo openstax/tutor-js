@@ -24,8 +24,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
       .then((result) =>
         @result = result
         done()
-      )
-      .catch(done)
+      ).catch(done)
 
   afterEach ->
     taskTests.unmount()

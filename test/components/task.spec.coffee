@@ -15,8 +15,15 @@ taskId = 4
 VALID_MODEL = require '../../api/tasks/4.json'
 
 describe 'Task Widget', ->
-  beforeEach ->
+  beforeEach (done) ->
     TaskActions.loaded(VALID_MODEL, taskId)
+
+    taskTests
+      .renderStep(taskId)
+      .then((result) =>
+        @result = result
+        done()
+      ).catch(done)
 
   afterEach ->
     taskTests.unmount()
@@ -27,58 +34,89 @@ describe 'Task Widget', ->
 
   # _.delay needed to prevent weird problems.
   it 'should render empty free response for unanswered exercise', (done) ->
-    taskTests
-      .renderFreeResponse(taskId)
-      .then(taskChecks.checkRenderFreeResponse)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+    taskChecks
+      .checkRenderFreeResponse(@result)
+      .then((result) ->
+        done()
+      ).catch(done)
 
   it 'should update store when free response is submitted', (done) ->
     taskTests
-      .answerFreeResponse(taskId)
+      .answerFreeResponse(@result)
       .then(taskActions.clickContinue)
       .then(taskChecks.checkAnswerFreeResponse)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then((result) ->
+        done()
+      ).catch(done)
 
   it 'should render multiple choice after free response', (done) ->
     taskTests
-      .submitFreeResponse(taskId)
+      .submitFreeResponse(@result)
       .then(taskChecks.checkSubmitFreeResponse)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then((result) ->
+        done()
+      ).catch(done)
 
   it 'should update store when multiple choice answer is chosen', (done) ->
     taskTests
-      .answerMultipleChoice(taskId)
+      .answerMultipleChoice(@result)
       .then(taskChecks.checkAnswerMultipleChoice)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then((result) ->
+        done()
+      ).catch(done)
 
   it 'should render an answer and feedback html for an answered question', (done) ->
     taskTests
-      .submitMultipleChoice(taskId)
+      .submitMultipleChoice(@result)
       .then(taskChecks.checkSubmitMultipleChoice)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+  it 'should allow recovery when available and answer is incorrect', (done) ->
+    taskTests
+      .submitMultipleChoice(@result)
+      .then(taskChecks.checkRecoveryRefreshChoice)
+      .then((result) ->
+        done()
+      ).catch(done)
+
+
+describe 'Task Widget, through routes', ->
+  beforeEach (done) ->
+    TaskActions.loaded(VALID_MODEL, taskId)
+    taskTests
+      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
+      .then((result) =>
+        @result = result
+        done()
+      ).catch(done)
+
+  afterEach ->
+    taskTests.unmount()
+
+    CourseActions.reset()
+    TaskActions.reset()
+    TaskStepActions.reset()
 
   it 'should be able to work through a task and load next step from a route', (done) ->
     # run a full step through and check each step
-    taskTests
-      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
-      .then(taskActions.clickContinue)
+    taskActions
+      .clickContinue(@result)
       .then(taskTests.workExerciseAndCheck)
       .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNextStep)
       .then(taskActions.advanceStep)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then((result) ->
+        done()
+      ).catch(done)
 
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
-    taskTests
-      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
-      .then(taskActions.clickContinue)
+    taskActions
+      .clickContinue(@result)
       .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
-  it 'should allow recovery when available and answer is incorrect', (done) ->
-    taskTests
-      .submitMultipleChoice(taskId)
-      .then(taskChecks.checkRecoveryRefreshChoice)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then((result) ->
+        done()
+      ).catch(done)
