@@ -23,7 +23,7 @@ describe 'Task Widget', ->
       .then((result) =>
         @result = result
         done()
-      ).catch(done)
+      , done)
 
   afterEach ->
     taskTests.unmount()
@@ -36,50 +36,50 @@ describe 'Task Widget', ->
   it 'should render empty free response for unanswered exercise', (done) ->
     taskChecks
       .checkRenderFreeResponse(@result)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should update store when free response is submitted', (done) ->
     taskTests
       .answerFreeResponse(@result)
       .then(taskActions.clickContinue)
       .then(taskChecks.checkAnswerFreeResponse)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render multiple choice after free response', (done) ->
     taskTests
       .submitFreeResponse(@result)
       .then(taskChecks.checkSubmitFreeResponse)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should update store when multiple choice answer is chosen', (done) ->
     taskTests
       .answerMultipleChoice(@result)
       .then(taskChecks.checkAnswerMultipleChoice)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render an answer and feedback html for an answered question', (done) ->
     taskTests
       .submitMultipleChoice(@result)
       .then(taskChecks.checkSubmitMultipleChoice)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should allow recovery when available and answer is incorrect', (done) ->
     taskTests
       .submitMultipleChoice(@result)
       .then(taskChecks.checkRecoveryRefreshChoice)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
 
 describe 'Task Widget, through routes', ->
@@ -90,7 +90,7 @@ describe 'Task Widget, through routes', ->
       .then((result) =>
         @result = result
         done()
-      ).catch(done)
+      , done)
 
   afterEach ->
     taskTests.unmount()
@@ -107,9 +107,9 @@ describe 'Task Widget, through routes', ->
       .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNextStep)
       .then(taskActions.advanceStep)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
@@ -117,6 +117,6 @@ describe 'Task Widget, through routes', ->
       .clickContinue(@result)
       .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)

@@ -34,7 +34,7 @@ describe 'Course Calendar', ->
 
         @result = result
         done()
-      ).catch(done)
+      , done)
 
   afterEach ->
     calendarTests.unmount()
@@ -43,35 +43,35 @@ describe 'Course Calendar', ->
   it 'should render calendar', (done) ->
     calendarChecks
       .checkIsCalendarRendered(@result)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render on current month', (done) ->
     calendarChecks
       .checkIsDateToday(@result)
       .then(calendarChecks.checkIsLabelThisMonth)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render next month when next is clicked', (done) ->
     calendarActions
       .clickNext(@result)
       .then(calendarChecks.checkIsDateNextMonth)
       .then(calendarChecks.checkIsLabelNextMonth)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render previous month when previous is clicked', (done) ->
     calendarActions
       .clickPrevious(@result)
       .then(calendarChecks.checkIsDatePreviousMonth)
       .then(calendarChecks.checkIsLabelPreviousMonth)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render plans when month with plans is rendered', (done) ->
     calendarActions
@@ -80,36 +80,36 @@ describe 'Course Calendar', ->
       .clickPrevious(@result)
       .then(calendarChecks.checkIsLabelPreviousMonth)
       .then(calendarChecks.checkDoesViewHavePlans)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should show plan details when plan is clicked', (done) ->
     calendarActions
       .clickPrevious(@result)
       .then(calendarActions.clickPlan(planId))
       .then(calendarChecks.checkDoesViewShowPlan(planId))
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should show plan stats when plan is clicked', (done) ->
     calendarActions
       .clickPrevious(@result)
       .then(calendarActions.clickPlan(planId))
       .then(calendarChecks.checkDoesViewShowPlanStats(planId))
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should show add plan links when add component is clicked', (done) ->
     calendarActions
       .clickAdd(@result)
       .then(calendarChecks.checkDoesAddDropDownShow)
       .then(calendarChecks.checkDoesAddMenuLinkCorrectly)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should show today as past and tomorrow as upcoming', (done) ->
     calendarActions
@@ -118,17 +118,17 @@ describe 'Course Calendar', ->
       .then(calendarChecks.checkIsTodayNotClickable)
       .then(calendarChecks.checkIsTomorrowUpcoming)
       .then(calendarChecks.checkIsTomorrowClickable)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should show add plan links when tomorrow is clicked', (done) ->
     calendarActions
       .clickTomorrow(@result)
       .then(calendarChecks.checkTomorrowAddPlansDropDown)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   # TODO unsure why this test doesn't work, but it was kinda icing on the cake anyways.
   # it 'should navigate to add homework route when Add Homework is clicked from date', (done) ->
@@ -136,6 +136,6 @@ describe 'Course Calendar', ->
   #     .clickTomorrow(@result)
   #     .then(calendarActions.clickAddHomework)
   #     .then(calendarChecks.checkIsAtHomeworkLinkAfterAddClick)
-  #     .then((result) ->
+  #     .then( ->
   #       done()
-  #     ).catch(done)
+  #      , done)

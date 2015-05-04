@@ -24,7 +24,7 @@ describe 'Practice Widget', ->
       .then((result) =>
         @result = result
         done()
-      ).catch(done)
+      , done)
 
   afterEach ->
     taskTests.unmount()
@@ -36,42 +36,42 @@ describe 'Practice Widget', ->
   it 'should render empty free response for unanswered exercise', (done) ->
     taskChecks
       .checkRenderFreeResponse(@result)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should update store when free response is submitted', (done) ->
     taskTests
       .answerFreeResponse(@result)
       .then(taskActions.clickContinue)
       .then(taskChecks.checkAnswerFreeResponse)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render multiple choice after free response', (done) ->
     taskTests
       .submitFreeResponse(@result)
       .then(taskChecks.checkSubmitFreeResponse)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should update store when multiple choice answer is chosen', (done) ->
     taskTests
       .answerMultipleChoice(@result)
       .then(taskChecks.checkAnswerMultipleChoice)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
   it 'should render an answer and feedback html for an answered question', (done) ->
     taskTests
       .submitMultipleChoice(@result)
       .then(taskChecks.checkSubmitMultipleChoice)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
 describe 'Practice Widget, through route', ->
 
@@ -84,7 +84,7 @@ describe 'Practice Widget, through route', ->
       .then((result) =>
         @result = result
         done()
-      ).catch(done)
+      , done)
 
   afterEach ->
     taskTests.unmount()
@@ -94,11 +94,10 @@ describe 'Practice Widget, through route', ->
     TaskStepActions.reset()
 
 
-  it 'should load expected practice at the practice url', (done) ->
+  it 'should load expected practice at the practice url', ->
     tests = ({div}) ->
       expect(div.querySelector('h1')).to.not.be.null
       expect(div.querySelector('h1').innerText).to.equal(VALID_MODEL.title)
-      done()
 
     tests(@result)
 
@@ -107,18 +106,18 @@ describe 'Practice Widget, through route', ->
     taskChecks
       .checkIsIntroScreen(@result)
       .then(taskChecks.checkAllowContinue)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
     taskActions
       .clickContinue(@result)
       .then(taskChecks.checkIsNotIntroScreen)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
 
 
   it 'should show practice done page on practice completion', (done) ->
@@ -126,6 +125,6 @@ describe 'Practice Widget, through route', ->
       .clickContinue(@result)
       .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then((result) ->
+      .then( ->
         done()
-      ).catch(done)
+      , done)
