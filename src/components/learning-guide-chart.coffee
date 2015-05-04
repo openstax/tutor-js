@@ -202,7 +202,7 @@ module.exports = class LearningGuideChart
       .attr('y', point.y - 3)
       .attr('width', 8)
       .attr('height', 6)
-      .attr('xlink:href', PLANE_PATH)
+      .attr('xlink:href', AppConfigStore.urlForResource(PLANE_PATH))
       .attr('transform', "rotate(#{lineAngle}, #{point.x}, #{point.y})")
 
 
