@@ -105,4 +105,4 @@ module.exports = React.createClass
 
   onNextStep: ->
     {id} = @props
-    @setState({currentStep: @getDefaultCurrentStep()})
+    @setState({currentStep: @state.currentStep + 1})
