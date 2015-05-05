@@ -35,11 +35,11 @@ Dashboard = React.createClass
           singleCourseId = courses[0].id
           if roles[0].type is 'student'
             _.defer  =>
-              @context.router.transitionTo('viewStudentDashboard', {courseId: singleCourseId})
+              @context.router.replaceWith('viewStudentDashboard', {courseId: singleCourseId})
             null
           if roles[0].type is 'teacher'
             _.defer  =>
-              @context.router.transitionTo('taskplans', {courseId: singleCourseId})
+              @context.router.replaceWith('taskplans', {courseId: singleCourseId})
             null
       if courses.length
         courses = _.map courses, (course) ->
