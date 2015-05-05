@@ -26,21 +26,21 @@ Dashboard = React.createClass
 
   update: -> @setState({})
 
+  redirectToSingleCourse: (courseId, roleType) ->
+    destination = switch roleType
+      when 'student' then 'viewStudentDashboard'
+      when 'teacher' then 'taskplans'
+      else
+        throw new Error("BUG: Unrecognized role type #{roleType}")
+    _.defer => @context.router.replaceWith(destination, {courseId: courseId})
+
   render: ->
     if CurrentUserStore.isCoursesLoaded()
       courses = CurrentUserStore.getCourses()
-      if courses.length is 1
-        roles = courses[0].roles
-        if roles.length is 1
-          singleCourseId = courses[0].id
-          if roles[0].type is 'student'
-            _.defer  =>
-              @context.router.replaceWith('viewStudentDashboard', {courseId: singleCourseId})
-            null
-          if roles[0].type is 'teacher'
-            _.defer  =>
-              @context.router.replaceWith('taskplans', {courseId: singleCourseId})
-            null
+      if courses.length is 1 and courses[0].roles?.length is 1
+        @redirectToSingleCourse(courses[0].id, courses[0].roles[0].type)
+        return null # explicitly return null so React won't render
+
       if courses.length
         courses = _.map courses, (course) ->
           {id:courseId, name, roles} = course
