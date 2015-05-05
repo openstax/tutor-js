@@ -2,7 +2,31 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{CurrentUserActions} = require '../flux/current-user'
+{CurrentUserStore, CurrentUserActions} = require '../flux/current-user'
+
+UserName = React.createClass
+
+  getInitialState: ->
+    name: CurrentUserStore.getName()
+
+  _update: ->
+    this.setState(name: CurrentUserStore.getName())
+
+  componentWillMount: ->
+    unless @state.name
+      @_addListener()
+      CurrentUserActions.loadName()
+
+  render: ->
+    <p className="navbar-text user-name">{@state.name}</p>
+
+  ## These methods are all copied from Loadable.  Extract into mixin?
+  _addListener: ->    CurrentUserStore.addChangeListener(@_update)
+  _removeListener: -> CurrentUserStore.removeChangeListener(@_update)
+  componentWillUnmount: -> @_removeListener()
+  componentWillUpdate:  -> @_removeListener()
+  componentDidUpdate:   -> @_addListener()
+
 
 module.exports = React.createClass
   displayName: 'Navigation'
@@ -13,6 +37,7 @@ module.exports = React.createClass
   logout: -> CurrentUserActions.logout()
 
   render: ->
+
     <div className='navbar navbar-default navbar-fixed-top' role='navigation'>
       <div className='container-fluid'>
         <div className='navbar-header'>
@@ -40,6 +65,9 @@ module.exports = React.createClass
             </li>
           </ul>
           <ul className='nav navbar-nav navbar-right'>
+            <li>
+              <UserName/>
+            </li>
             <li>
               <BS.Button bsStyle='link' onClick={@logout}>Sign out!</BS.Button>
             </li>

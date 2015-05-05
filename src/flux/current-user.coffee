@@ -8,6 +8,8 @@ CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
   'loadAllCourses'
   'loadedAllCourses'
+  'loadName'
+  'loadedName'
   'logout'    # () ->    # API Hooks onto this action and transitions
 ]
 
@@ -16,12 +18,18 @@ CurrentUserStore = flux.createStore
     CurrentUserActions.setToken
     CurrentUserActions.loadAllCourses
     CurrentUserActions.loadedAllCourses
+    CurrentUserActions.loadName
+    CurrentUserActions.loadedName
   ]
 
   _token: null
   _courseIds: null # Just store the id's. They will be looked up in the course store
 
   setToken: (@_token) -> # Save the token
+
+  loadName: -> # Used by API
+  loadedName: (results) ->
+    @_name = results.name
 
   loadAllCourses: -> # Used by API
   loadedAllCourses: (results) ->
@@ -37,6 +45,7 @@ CurrentUserStore = flux.createStore
   exports:
     getToken: -> @_token
     isCoursesLoaded: -> !!@_courses
+    getName: -> @_name
     getCourses: ->
       _.map @_courses, (id) ->
         CourseStore.get(id)
