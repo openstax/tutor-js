@@ -5,6 +5,31 @@ Router = require 'react-router'
 {CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
 {CourseStore} = require '../flux/course'
 
+UserName = React.createClass
+
+  getInitialState: ->
+    name: CurrentUserStore.getName()
+
+  _update: ->
+    this.setState(name: CurrentUserStore.getName())
+
+  componentWillMount: ->
+    unless @state.name
+      @_addListener()
+      CurrentUserActions.loadName()
+
+  render: ->
+    <span {...@props}>{@state.name}</span>
+
+  ## These methods are all copied from Loadable.  Extract into mixin?
+  _addListener: ->    CurrentUserStore.addChangeListener(@_update)
+  _removeListener: -> CurrentUserStore.removeChangeListener(@_update)
+  componentWillUnmount: -> @_removeListener()
+  componentWillUpdate:  -> @_removeListener()
+  componentDidUpdate:   -> @_addListener()
+
+
+
 module.exports = React.createClass
   displayName: 'Navigation'
 
@@ -63,7 +88,7 @@ module.exports = React.createClass
     <BS.Navbar brand={brand} fixedTop fluid>
       {course}
       <BS.Nav right>
-        <BS.DropdownButton eventKey={1} title={name}>
+        <BS.DropdownButton eventKey={1} title={<UserName/>}>
           {courseItems}
           <BS.MenuItem eventKey={4} onClick={@logout}>Sign Out!</BS.MenuItem>
         </BS.DropdownButton>
