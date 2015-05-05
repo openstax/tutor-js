@@ -1,19 +1,3 @@
-@import './colors';
-@import './react-widgets';
-@import '../node_modules/bootstrap/less/bootstrap';
-@import '../bower_components/bootstrap-material-design/less/material-wfont';
-@import '../node_modules/font-awesome/less/font-awesome';
-@import './scaffold';
-@import './nav';
-@import './buttons';
-@import './typography';
-@import './reading';
-@import './task-step';
-@import './homework';
-@import './learning-guide';
-@import './student-dashboard';
-@import './icons/all';
-
 // Override the default path to the font-awesome fonts
 @fa-font-path: 'fonts';
 
@@ -21,7 +5,7 @@
 @primary: @blue;
 // @text-color: @white;
 
-@border-color: #e5e5e5;
+@border-color: @tutor-neutral-light;
 
 // Font-awesome icons mapped to our types
 i.fa {
@@ -118,10 +102,3 @@ ul.selected-reading-list {
 // Hide the HTML and use MathJax for rendering
 // TODO: Decide whether to remove KaTeX (involves additional code for MathJax)
 .has-html .katex > .katex-html { display: none; }
-
-@import './reading';
-@import './reading-stats';
-@import './sandbox';
-@import './popover';
-@import './task-details-popover';
-@import './calendar';

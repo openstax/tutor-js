@@ -103,7 +103,7 @@ gulp.task '_cleanJS', (done) ->
 gulp.task '_css', ['_cleanCSS'], ->
   destDirCss = './dist'
   # Build the CSS file
-  gulp.src('./style/tutor.less')
+  gulp.src('./resources/styles/tutor.less')
   .pipe(less())
   .on('error', (error) -> console.warn error.message)
   .pipe(gulp.dest(destDirCss))
@@ -114,7 +114,7 @@ gulp.task '_cleanCSS', (done) ->
 
 gulp.task '_copyResources', ['_cleanResources'], ->
   destDir = './dist/'
-  gulp.src('./style/**/*.svg')
+  gulp.src('./resources/images/**/*.svg')
     .pipe(flatten())
     .pipe(gulp.dest(destDir))
 
@@ -126,7 +126,7 @@ gulp.task '_copyFonts', ['_cleanFonts'], ->
   gulp.src([
       'bower_components/**/*.{eot,svg,ttf,woff,woff2}',
       'node_modules/**/*.{eot,svg,ttf,woff,woff2}',
-      'style/fonts/**/*'
+      'resources/fonts/**/*'
     ])
     .pipe(flatten())
     .pipe(gulp.dest(destDirFonts))
@@ -219,7 +219,7 @@ gulp.task '_webserver', ->
             if req.url.match(/\.svg$/)
                 res.setHeader('Content-Type', 'image/svg+xml')
             if req.url.match(/\.ttf$/)
-                res.setHeader('Content-Type', 'font/ttf')
+                res.setHeader('Content-Type', 'application/octet-stream')
             next()
             
     ]
@@ -254,9 +254,9 @@ gulp.task 'test', ['lint'], (done) ->
   return # Since this is async
 
 gulp.task 'dev', ['_watchLint', '_styles', '_webserver'], ->
-  gulp.watch 'style/**/{*.less, *.css}', ['_css']
+  gulp.watch 'resources/styles/**/{*.less, *.css}', ['_css']
   build(true)
 
 gulp.task 'tdd', ['_styles', '_tdd', '_webserver'], ->
-  gulp.watch 'style/**/{*.less, *.css}', ['_css']
+  gulp.watch 'resources/styles/**/{*.less, *.css}', ['_css']
   gulp.watch ['test/**/*.coffee'], ['_tdd']
