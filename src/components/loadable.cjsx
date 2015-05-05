@@ -15,13 +15,21 @@ module.exports = React.createClass
     isLoading: React.PropTypes.func.isRequired
     isLoaded: React.PropTypes.func.isRequired
     isFailed: React.PropTypes.func.isRequired
-    renderStatus: React.PropTypes.func.isRequired
+    renderLoading: React.PropTypes.func.isRequired
+    renderError: React.PropTypes.func.isRequired
+    renderBug: React.PropTypes.func.isRequired
 
   getDefaultProps: ->
 
     # Enables a renderStatus prop function with a component other than a div
-    renderStatus: (status, message) ->
-      <div className="-#{status}">{message}</div>
+    renderLoading: ->
+      <div className='-loading'>Loading...</div>
+
+    renderError: ->
+      <div className='-error'>Error Loading...</div>
+
+    renderBug: ->
+      <div className='-bug'>Error Loading (Bug: Invalid State)</div>
 
   _addListener: ->
     {store} = @props
@@ -41,13 +49,13 @@ module.exports = React.createClass
   _update: -> @props.update?() or @setState({})
   
   render: ->
-    {isLoading, isLoaded, isFailed, render, renderStatus} = @props
+    {isLoading, isLoaded, isFailed, render, renderLoading, renderError, renderBug} = @props
 
     if isLoading()
-      renderStatus('loading', 'Loading...')
+      renderLoading()
     else if isLoaded()
       render()
     else if isFailed()
-      renderStatus('error', 'Error Loading')
+      renderError()
     else
-      renderStatus('bug', 'Error Loading (Bug: Invalid State)')
+      renderBug()
