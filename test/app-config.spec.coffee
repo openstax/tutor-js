@@ -10,6 +10,14 @@ describe 'App Configuration', ->
     AppConfigActions.setAssetsHost("https://crazy-bobs-cheap-servers.testing/")
     expect( AppConfigStore.getAssetsHost() ).to.equal("https://crazy-bobs-cheap-servers.testing/")
 
+  it 'sets production environment', ->
+    expect( AppConfigStore.isProductionEnvironment() ).to.eq(false)
+    AppConfigActions.setProductionEnvironment(true)
+    expect( AppConfigStore.isProductionEnvironment() ).to.eq(true)
+
   it 'calculates resource links', ->
     expect(AppConfigStore.urlForResource("a-pretty-image.svg"))
       .to.include("/style/resources/a-pretty-image.svg")
+    AppConfigActions.setProductionEnvironment(true)
+    expect(AppConfigStore.urlForResource("a-pretty-image.svg"))
+      .to.include("/assets/style/resources/a-pretty-image.svg")
