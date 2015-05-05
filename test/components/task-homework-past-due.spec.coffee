@@ -22,8 +22,7 @@ describe 'Task Widget, homework specific things, past due date', ->
       .then((result) =>
         @result = result
         done()
-      )
-      .catch(done)
+      , done)
 
   afterEach ->
     taskTests.unmount()
@@ -40,7 +39,9 @@ describe 'Task Widget, homework specific things, past due date', ->
       .then(taskActions.pickMultipleChoice)
       .then(taskActions.saveMultipleChoice)
       .then(taskChecks.checkForFeedback)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should be able to go to review page after completing a step', (done) ->
     steps = TaskStore.getStepsIds(homeworkTaskId)
@@ -56,5 +57,6 @@ describe 'Task Widget, homework specific things, past due date', ->
       .then(taskActions.clickBreadcrumb(completeStepIndex))
       .then(taskChecks.checkIsCompletePage)
       .then(taskChecks.checkEndReview)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
+      .then( ->
+        done()
+      , done)

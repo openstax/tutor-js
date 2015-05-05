@@ -22,8 +22,9 @@ LearningGuide = React.createClass
     showAll: false
 
   navigateToPractice: (unit) ->
+    {page_ids} = unit
     {courseId} = @props
-    @context.router.transitionTo('viewPractice', {courseId})
+    @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
 
   displayUnit: (unit) ->
     @setState({unit})
