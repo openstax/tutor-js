@@ -15,99 +15,116 @@ VALID_MODEL = require '../../api/courses/1/practice.json'
 courseId = 1
 
 describe 'Practice Widget', ->
+  beforeEach (done) ->
+    CourseActions.loadedPractice(VALID_MODEL, courseId)
+    taskId = CourseStore.getPracticeId(courseId)
+
+    taskTests
+      .renderStep(taskId)
+      .then((result) =>
+        @result = result
+        done()
+      , done)
+
   afterEach ->
-    routerStub.unmount()
     taskTests.unmount()
 
     CourseActions.reset()
     TaskActions.reset()
     TaskStepActions.reset()
 
-  beforeEach ->
+  it 'should render empty free response for unanswered exercise', (done) ->
+    taskChecks
+      .checkRenderFreeResponse(@result)
+      .then( ->
+        done()
+      , done)
+
+  it 'should update store when free response is submitted', (done) ->
+    taskTests
+      .answerFreeResponse(@result)
+      .then(taskActions.clickContinue)
+      .then(taskChecks.checkAnswerFreeResponse)
+      .then( ->
+        done()
+      , done)
+
+  it 'should render multiple choice after free response', (done) ->
+    taskTests
+      .submitFreeResponse(@result)
+      .then(taskChecks.checkSubmitFreeResponse)
+      .then( ->
+        done()
+      , done)
+
+  it 'should update store when multiple choice answer is chosen', (done) ->
+    taskTests
+      .answerMultipleChoice(@result)
+      .then(taskChecks.checkAnswerMultipleChoice)
+      .then( ->
+        done()
+      , done)
+
+  it 'should render an answer and feedback html for an answered question', (done) ->
+    taskTests
+      .submitMultipleChoice(@result)
+      .then(taskChecks.checkSubmitMultipleChoice)
+      .then( ->
+        done()
+      , done)
+
+describe 'Practice Widget, through route', ->
+
+  beforeEach (done) ->
     CourseActions.loadedPractice(VALID_MODEL, courseId)
+    taskId = CourseStore.getPracticeId(courseId)
 
-  # it 'should load the practice button on the course tasks page', (done) ->
-  #   tests = ({div}) ->
-  #     expect(div.querySelector('.-practice')).to.not.be.null
-  #     done()
+    taskTests
+      .goToTask("/courses/#{courseId}/practice", taskId)
+      .then((result) =>
+        @result = result
+        done()
+      , done)
 
-  #   routerStub.goTo("/courses/#{courseId}/tasks").then(tests).catch(done)
+  afterEach ->
+    taskTests.unmount()
+
+    CourseActions.reset()
+    TaskActions.reset()
+    TaskStepActions.reset()
 
 
-  it 'should load expected practice at the practice url', (done) ->
+  it 'should load expected practice at the practice url', ->
     tests = ({div}) ->
       expect(div.querySelector('h1')).to.not.be.null
       expect(div.querySelector('h1').innerText).to.equal(VALID_MODEL.title)
-      done()
 
-    routerStub.goTo("/courses/#{courseId}/practice").then(tests).catch(done)
+    tests(@result)
 
 
   it 'should allow students to continue exercises', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-    taskTests
-      .goToTask("/courses/#{courseId}/practice", taskId)
-      .then(taskChecks.checkIsIntroScreen)
+    taskChecks
+      .checkIsIntroScreen(@result)
       .then(taskChecks.checkAllowContinue)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
 
   it 'should render next screen when Continue is clicked', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-    taskTests
-      .goToTask("/courses/#{courseId}/practice", taskId)
-      .then(taskActions.clickContinue)
+    taskActions
+      .clickContinue(@result)
       .then(taskChecks.checkIsNotIntroScreen)
-      .then(taskChecks.heckIsDefaultStep)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
-  it 'should render empty free response for unanswered exercise', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-    taskTests
-      .renderFreeResponse(taskId)
-      .then(taskChecks.checkRenderFreeResponse)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
-
-  it 'should update store when free response is submitted', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-    taskTests
-      .answerFreeResponse(taskId)
-      .then(taskActions.clickContinue)
-      .then(taskChecks.checkAnswerFreeResponse)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
-
-  it 'should render multiple choice after free response', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-    taskTests
-      .submitFreeResponse(taskId)
-      .then(taskChecks.checkSubmitFreeResponse)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
-
-  it 'should update store when multiple choice answer is chosen', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-    taskTests
-      .answerMultipleChoice(taskId)
-      .then(taskChecks.checkAnswerMultipleChoice)
-      .then(_.delay(done, taskTests.delay)).catch(done)
-
-
-  it 'should render an answer and feedback html for an answered question', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-    taskTests
-      .submitMultipleChoice(taskId)
-      .then(taskChecks.checkSubmitMultipleChoice)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
 
   it 'should show practice done page on practice completion', (done) ->
-    taskId = CourseStore.getPracticeId(courseId)
-
-    taskTests
-      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
-      .then(taskActions.clickContinue)
+    taskActions
+      .clickContinue(@result)
       .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)

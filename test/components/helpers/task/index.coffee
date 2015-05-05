@@ -46,27 +46,35 @@ tests =
   renderFreeResponse: (taskId) ->
     @renderStep(taskId)
 
-  answerFreeResponse: (taskId) ->
-    @renderStep(taskId)
-      .then(actions.fillFreeResponse)
+  answerFreeResponse: (args...) ->
+    steps = [
+      actions.fillFreeResponse
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
-  submitFreeResponse: (taskId) ->
-    @renderStep(taskId)
-      .then(actions.fillFreeResponse)
-      .then(actions.saveFreeResponse)
+  submitFreeResponse: (args...) ->
+    steps = [
+      actions.fillFreeResponse
+      actions.saveFreeResponse
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
-  answerMultipleChoice: (taskId) ->
-    @renderStep(taskId)
-      .then(actions.fillFreeResponse)
-      .then(actions.saveFreeResponse)
-      .then(actions.pickMultipleChoice)
+  answerMultipleChoice: (args...) ->
+    steps = [
+      actions.fillFreeResponse
+      actions.saveFreeResponse
+      actions.pickMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
-  submitMultipleChoice: (taskId) ->
-    @renderStep(taskId)
-      .then(actions.fillFreeResponse)
-      .then(actions.saveFreeResponse)
-      .then(actions.pickMultipleChoice)
-      .then(actions.saveMultipleChoice)
+  submitMultipleChoice: (args...) ->
+    steps = [
+      actions.fillFreeResponse
+      actions.saveFreeResponse
+      actions.pickMultipleChoice
+      actions.saveMultipleChoice
+    ]
+    commonActions.playThroughFunctions(steps)(args...)
 
   workExerciseAndCheck: (args...) ->
     steps = [
