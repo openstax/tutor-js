@@ -1,13 +1,13 @@
 React = require 'react'
 Router = require 'react-router'
 
-Nav = require './nav'
+Navbar = require './navbar'
 
 module.exports = React.createClass
   displayName: 'App'
 
   render: ->
     <div>
-      <Nav/>
+      <Navbar/>
       <Router.RouteHandler/>
     </div>

@@ -2,33 +2,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
-{CourseStore} = require '../flux/course'
+UserName = require './username'
 
-UserName = React.createClass
-
-  getInitialState: ->
-    name: CurrentUserStore.getName()
-
-  _update: ->
-    this.setState(name: CurrentUserStore.getName())
-
-  componentWillMount: ->
-    unless @state.name
-      @_addListener()
-      CurrentUserActions.loadName()
-
-  render: ->
-    <span {...@props}>{@state.name}</span>
-
-  ## These methods are all copied from Loadable.  Extract into mixin?
-  _addListener: ->    CurrentUserStore.addChangeListener(@_update)
-  _removeListener: -> CurrentUserStore.removeChangeListener(@_update)
-  componentWillUnmount: -> @_removeListener()
-  componentWillUpdate:  -> @_removeListener()
-  componentDidUpdate:   -> @_addListener()
-
-
+{CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
+{CourseStore} = require '../../flux/course'
 
 module.exports = React.createClass
   displayName: 'Navigation'
@@ -74,8 +51,6 @@ module.exports = React.createClass
     ]
 
   render: ->
-
-    name = 'Pretend Name'
 
     brand = <Router.Link to='dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
