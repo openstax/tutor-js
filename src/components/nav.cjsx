@@ -2,7 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{CurrentUserActions} = require '../flux/current-user'
+{CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
+{CourseStore} = require '../flux/course'
 
 module.exports = React.createClass
   displayName: 'Navigation'
@@ -10,40 +11,61 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  getInitialState: ->
+    course: undefined
+
+  getCourseAsStudent: ->
+    {courseId} = @context.router.getCurrentParams()
+    course = CourseStore.get(courseId)
+
+  componentWillMount: ->
+    course = @getCourseAsStudent()
+    @setState({course}) if course
+
+  componentWillReceiveProps: ->
+    course = @getCourseAsStudent()
+    @setState({course}) if course
+
   logout: -> CurrentUserActions.logout()
 
+  renderCourseLink: (course) ->
+    courseId = course.id
+
+    <Router.Link to='viewStudentDashboard' params={{courseId}} className='navbar-brand'>
+      {course.name}
+    </Router.Link>
+
+  renderCourseItems: (course) ->
+    courseId = course.id
+
+    items = [
+      <BS.MenuItem
+      href={@context.router.makeHref('viewStudentDashboard', {courseId})}
+      eventKey={2}>Dashboard</BS.MenuItem>
+      <BS.MenuItem
+        href={@context.router.makeHref('viewGuide', {courseId})}
+        eventKey={3}>Learning Guide</BS.MenuItem>
+      <BS.MenuItem divider />
+    ]
+
   render: ->
-    <div className='navbar navbar-default navbar-fixed-top' role='navigation'>
-      <div className='container-fluid'>
-        <div className='navbar-header'>
-          <button
-              type='button'
-              className='navbar-toggle collapsed'
-              data-toggle='collapse'
-              data-target='#ui-navbar-collapse'>
-            <span className='sr-only'>Toggle navigation</span>
-            <span className='icon-bar'></span>
-            <span className='icon-bar'></span>
-            <span className='icon-bar'></span>
-          </button>
 
-          <Router.Link to='dashboard' className='navbar-brand'>
-            <i className='ui-brand-logo'></i>
-          </Router.Link>
+    name = 'Pretend Name'
 
-        </div>
+    brand = <Router.Link to='dashboard' className='navbar-brand'>
+              <i className='ui-brand-logo'></i>
+            </Router.Link>
 
-        <div className='collapse navbar-collapse' id='ui-navbar-collapse'>
-          <ul className='nav navbar-nav'>
-            <li>
-              <Router.Link to='dashboard'>Dashboard</Router.Link>
-            </li>
-          </ul>
-          <ul className='nav navbar-nav navbar-right'>
-            <li>
-              <BS.Button bsStyle='link' onClick={@logout}>Sign out!</BS.Button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    if @state.course?
+      course = @renderCourseLink(@state.course)
+      courseItems = @renderCourseItems(@state.course)
+
+    <BS.Navbar brand={brand} fixedTop fluid>
+      {course}
+      <BS.Nav right>
+        <BS.DropdownButton eventKey={1} title={name}>
+          {courseItems}
+          <BS.MenuItem eventKey={4} onClick={@logout}>Sign Out!</BS.MenuItem>
+        </BS.DropdownButton>
+      </BS.Nav>
+    </BS.Navbar>
