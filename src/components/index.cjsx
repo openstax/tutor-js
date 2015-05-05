@@ -20,7 +20,7 @@ Dashboard = React.createClass
   displayName: 'Dashboard'
   componentWillMount: -> CurrentUserStore.addChangeListener(@update)
   componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
-  
+
   contextTypes:
     router: React.PropTypes.func
 
@@ -34,9 +34,13 @@ Dashboard = React.createClass
         if roles.length is 1
           singleCourseId = courses[0].id
           if roles[0].type is 'student'
-            @context.router.transitionTo('viewStudentDashboard', {courseId: singleCourseId})
+            _.defer  =>
+              @context.router.transitionTo('viewStudentDashboard', {courseId: singleCourseId})
+            null
           if roles[0].type is 'teacher'
-            @context.router.transitionTo('taskplans', {courseId: singleCourseId})
+            _.defer  =>
+              @context.router.transitionTo('taskplans', {courseId: singleCourseId})
+            null
       if courses.length
         courses = _.map courses, (course) ->
           {id:courseId, name, roles} = course
