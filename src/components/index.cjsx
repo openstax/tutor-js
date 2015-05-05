@@ -110,16 +110,12 @@ SinglePractice = React.createClass
     })
 
   render: ->
-    if @state.taskId
-      <LoadableItem
-        id={@state.taskId}
-        store={TaskStore}
-        actions={TaskActions}
-        renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
-      />
-    else
-      <div>Loading...</div>
-
+    <LoadableItem
+      id={@state.taskId}
+      store={TaskStore}
+      actions={TaskActions}
+      renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
+    />
 
 
 TaskResult = React.createClass

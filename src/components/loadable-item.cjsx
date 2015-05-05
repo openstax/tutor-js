@@ -27,6 +27,9 @@ module.exports = React.createClass
     isLoading ?= store.isLoading
 
     isLoadingOrLoad = ->
+      # if id is undefined, render as loading. loadableItem is waiting for id to be retrieved.
+      return true unless id?
+
       if isLoading(id)
         true
       else if isLoaded(id)
