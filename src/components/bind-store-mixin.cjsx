@@ -11,10 +11,12 @@ module.exports =
       @setState({})
 
   _addListener: ->
+    @addBindListener?()
     bindStore = @_bindStore()
     bindStore.addChangeListener(@_bindUpdate) if @_bindStore?
 
   _removeListener: ->
+    @removeBindListener?()
     bindStore = @_bindStore()
     bindStore.removeChangeListener(@_bindUpdate) if @_bindStore?
 

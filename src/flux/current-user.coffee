@@ -47,6 +47,18 @@ CurrentUserStore = flux.createStore
     getToken: -> @_token
     isCoursesLoaded: -> !!@_courses
     getName: -> @_name
+    getCourseRole: (courseId) ->
+      course = CourseStore.get(courseId)
+      courseRoles = course?.roles or []
+      role = 'guest'
+
+      if _.findWhere(courseRoles, type: 'teacher')?
+        role = 'teacher'
+      else if _.findWhere(courseRoles, type: 'student')?
+        role = 'student'
+
+      role
+
     getCourses: ->
       _.map @_courses, (id) ->
         CourseStore.get(id)
