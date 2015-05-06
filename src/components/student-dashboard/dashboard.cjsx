@@ -15,7 +15,7 @@ module.exports = React.createClass
   displayName: 'StudentDashboard'
 
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   contextTypes:
     router: React.PropTypes.func
@@ -79,7 +79,6 @@ module.exports = React.createClass
             >
               View My Flight Path
             </BS.Button>
-            <PracticeButton courseId={courseId}>Practice</PracticeButton>
           </div>
         </BS.Col>
       </div>

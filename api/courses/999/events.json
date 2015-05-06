@@ -1,7 +1,7 @@
 {
   "plans": [
     {
-        "id": 1,
+        "id": "1",
         "type": "reading",
         "title": "Read Pages 9-11",
         "opens_at": "2015-03-04T16:40:23.796Z",
@@ -10,7 +10,7 @@
             "page_ids": [3, 2, 1]
         }
     },{
-        "id": 3,
+        "id": "3",
         "type": "reading",
         "title": "Read Other Things",
         "opens_at": "2015-02-28T16:40:23.796Z",
@@ -19,7 +19,7 @@
             "page_ids": [3, 2, 1]
         }
     },{
-        "id": 2,
+        "id": "2",
         "type": "homework",
         "title": "Complete exercise 12A on pg 12",
         "opens_at": "2015-03-04T11:40:23.796Z",
@@ -29,7 +29,7 @@
             "exercises_count_dynamic": 2
         }
     },{
-        "id": 5,
+        "id": "5",
         "type": "homework",
         "title": "Complete exercise 12A on pg 12",
         "opens_at": "2015-03-31T11:40:23.796Z",
@@ -38,7 +38,7 @@
             "exercise_id": [11]
         }
     },{
-        "id": 7,
+        "id": "7",
         "type": "homework",
         "title": "Complete exercise 12A on pg 12",
         "opens_at": "2015-03-31T11:40:23.796Z",
@@ -47,7 +47,7 @@
             "exercise_id": [11]
         }
     },{
-        "id": 13,
+        "id": "13",
         "type": "homework",
         "title": "Write short essay on the rise and fall of the Roman Empire",
         "due_at": "2015-10-14T12:00:00.000Z",

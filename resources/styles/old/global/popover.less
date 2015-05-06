@@ -1,37 +1,37 @@
 // This is largely taken from bootstrap since they do not provide a mixin for popovers
-@white: #FFF;
-@popover-title-bg: @primary;
+@popover-title-bg: @tutor-white;
 @popover-border-color: @primary;
-@popover-arrow-color: @white;
+@popover-arrow-color: @tutor-white;
 @popover-arrow-outer-fallback-color: @primary;
 @popover-arrow-outer-color: @primary;
-@popover-background: @white;
+@popover-background: @tutor-white;
 
 .popover-title {
-  color: #FFF;
+  color: @popover-title-bg;
   border-radius: 0;
   #fonts > .sans(1.75rem, 1.75rem);
 }
+
 .popover {
   padding: 0;
   #fonts > .sans(1.25rem, 1.5rem);
   text-align: justify;
-  background: #FFF;
-  color: #333;
+  background: @popover-background;
+  color: @tutor-neutral-darker;
 
   &.left .arrow:after, &.left .tooltip-arrow{
-    border-left-color: @popover-background;
+    border-left-color: @popover-arrow-color;
   }
 
   &.right .arrow:after, &.right .tooltip-arrow{
-    border-right-color: @popover-background;
+    border-right-color: @popover-arrow-color;
   }
 
   &.top .arrow:after, &.top .tooltip-arrow{
-    border-top-color: @popover-background;
+    border-top-color: @popover-arrow-color;
   }
 
   &.bottom .arrow:after, &.bottom .tooltip-arrow{
-    border-bottom-color: @popover-background;
+    border-bottom-color: @popover-arrow-color;
   }
 }

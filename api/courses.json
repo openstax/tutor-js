@@ -1,31 +1,10 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name":"Local Test Course",
     "roles": [
       {
-        "type": "teacher"
-      },
-      {
         "type": "student"
-      }
-    ]
-  },
-  {
-    "id": 998,
-    "name":"Local Student Course (goes nowhere)",
-    "roles": [
-      {
-        "type": "student"
-      }
-    ]
-  },
-  {
-    "id": 999,
-    "name":"Local Teacher Course (goes nowhere)",
-    "roles": [
-      {
-        "type": "teacher"
       }
     ]
   }

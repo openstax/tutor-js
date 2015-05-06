@@ -21,14 +21,29 @@ Dashboard = React.createClass
   componentWillMount: -> CurrentUserStore.addChangeListener(@update)
   componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
 
+  contextTypes:
+    router: React.PropTypes.func
+
   update: -> @setState({})
+
+  redirectToSingleCourse: (courseId, roleType) ->
+    destination = switch roleType
+      when 'student' then 'viewStudentDashboard'
+      when 'teacher' then 'taskplans'
+      else
+        throw new Error("BUG: Unrecognized role type #{roleType}")
+    _.defer => @context.router.replaceWith(destination, {courseId: courseId})
+
   render: ->
     if CurrentUserStore.isCoursesLoaded()
       courses = CurrentUserStore.getCourses()
+      if courses.length is 1 and courses[0].roles?.length is 1
+        @redirectToSingleCourse(courses[0].id, courses[0].roles[0].type)
+        return null # explicitly return null so React won't render
+
       if courses.length
         courses = _.map courses, (course) ->
           {id:courseId, name, roles} = course
-
           isStudent = _.find roles, (role) -> role.type is 'student'
           isTeacher = _.find roles, (role) -> role.type is 'teacher'
           footer = []
@@ -51,7 +66,7 @@ Dashboard = React.createClass
           footer = <span className='-footer-buttons'>{footer}</span>
 
           <BS.Panel header={name} footer={footer} bsStyle='primary'>
-            <h1>Course: '{name}' Dashboard!</h1>
+            <h1>Course: "{name}" Dashboard!</h1>
           </BS.Panel>
 
         return <div className='-course-list'>{courses}</div>
@@ -90,8 +105,15 @@ SinglePractice = React.createClass
   componentWillUnmount: ->
     CourseStore.off('practice.loaded', @update)
 
+  createPractice: (courseId) ->
+    query = @context?.router?.getCurrentQuery()
+    CourseActions.createPractice(courseId, query)
+
   getInitialState: ->
-    taskId: CourseStore.getPracticeId(@getId())
+    @createPractice(@getId())
+
+    # force a new practice each time
+    taskId: undefined
 
   getId: ->
     {courseId} = @context.router.getCurrentParams()
@@ -103,16 +125,16 @@ SinglePractice = React.createClass
     })
 
   render: ->
-    id = @getId()
-    <LoadableItem
-      store={CourseStore}
-      actions={CourseActions}
-      load={CourseActions.loadPractice}
-      isLoaded={CourseStore.isPracticeLoaded}
-      isLoading={CourseStore.isPracticeLoading}
-      id={id}
-      renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
-    />
+    if @state.taskId
+      <LoadableItem
+        id={@state.taskId}
+        store={TaskStore}
+        actions={TaskActions}
+        renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
+      />
+    else
+      <div>Loading...</div>
+
 
 
 TaskResult = React.createClass
@@ -120,8 +142,8 @@ TaskResult = React.createClass
   contextTypes:
     router: React.PropTypes.func
   propTypes:
-    courseId: React.PropTypes.any.isRequired
-    id: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
 
   render: ->
     {courseId, id} = @props

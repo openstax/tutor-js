@@ -88,7 +88,7 @@
 }
 
 
-@body-font-color: #424242;
+@body-font-color: @tutor-neutral-darker;
 @caption-font-color: #646464;
 
 #fonts {
@@ -110,7 +110,9 @@
   }
 }
 
-html { font-size: 62.5%; }
+html {
+  font-size: 62.5%; // 10px by default, with deference to user's settings
+}
 
 body {
   #fonts > .sans;

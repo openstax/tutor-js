@@ -16,14 +16,15 @@ LearningGuide = React.createClass
     router: React.PropTypes.func
 
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
     showAll: false
 
   navigateToPractice: (unit) ->
+    {page_ids} = unit
     {courseId} = @props
-    @context.router.transitionTo('viewPractice', {courseId})
+    @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
 
   displayUnit: (unit) ->
     @setState({unit})
