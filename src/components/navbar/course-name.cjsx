@@ -11,6 +11,9 @@ BindStoreMixin = require '../bind-store-mixin'
 CourseName = React.createClass
   displayName: 'CourseName'
 
+  propTypes:
+    course: React.PropTypes.object.isRequired
+
   render: ->
     {course} = @props
     coursenameComponent = null

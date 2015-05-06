@@ -4,21 +4,21 @@ flux = require 'flux-react'
 
 {CourseActions, CourseStore} = require './course'
 
-# TODO consider putting this with policies?  especially when this same data will be used for other
+# TODO consider putting this with policies?  especially when this same data could be used for other
 # roles based stuffs?
-ROLES =
-  admin:
-    rank: 3
-    label: 'admin'
-  teacher:
-    rank: 2
-    label: 'teacher'
-  student:
-    rank: 1
-    label: 'student'
-  guest:
-    rank: 0
-    label: 'guest'
+# Roles listed in ascending order of rank, where admin will have most permissions
+RANKS = [
+  'guest'
+  'student'
+  'teacher'
+  'admin'
+]
+
+getRankByRole = (roleType) ->
+  rank = RANKS.indexOf(roleType)
+  console.warn("Warning: #{roleType} does not exist.  Rank of -1 assigned.  Check session status.") if rank < 0
+
+  rank
 
 ROUTES =
   dashboard:
@@ -68,7 +68,7 @@ CurrentUserStore = flux.createStore
       .pluck('type')
       .sortBy((roleType) ->
         # sort by rank -- Teacher role will take precedence over student role for example
-        -1 * ROLES[roleType].rank
+        -1 * getRankByRole(roleType)
       )
       .first()
       .value()
