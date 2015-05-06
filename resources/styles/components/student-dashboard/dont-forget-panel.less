@@ -1,38 +1,25 @@
 .student-dashboard {
   .dont-forget {
     .panel-body { text-align: center; }
-    .heading {
-      #fonts .sans(1.8rem, 1.8rem);
-      font-weight: 900;
-      color: @tutor-neutral-darker;
-      margin: 10px 0 5px 0;
-    }
+    // .heading {
+    //   #fonts .sans(1.8rem, 1.8rem);
+    //   font-weight: 900;
+    //   color: @tutor-neutral-darker;
+    //   margin: 10px 0 5px 0;
+    // }
     .title {
-      font-family: 'Lato-Regular', 'Lato';
+      #fonts .sans(1.2rem, 1.2rem);
       font-weight: 400;
-      font-size: 1.2rem;
-      line-height: 1.2rem;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
       margin: 0 0 5px 0;
     }
     .summary {
-      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      #fonts .sans(1.4rem, 1.4rem);
       font-weight: 900;
-      font-size: 1.4rem;
-      line-height: 1.4rem;
       color: #79B142;
-      
     }
   }
-  .panel-body {
-    a { cursor: pointer; } // the tags lack href attribute
-    .task {
-      padding-bottom: 5px;
-      margin-bottom: 5px;
-      border-bottom: thin dotted @tutor-neutral-dark;
-      &.workable { cursor: pointer; }
-    }
-  }
+  
 }

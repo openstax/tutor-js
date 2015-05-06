@@ -20,10 +20,12 @@ module.exports = React.createClass
     className: React.PropTypes.string
 
   renderTitle: ->
+    # BootstrapReact will overwrite the className attribute with "panel-title"
+    # so we use different elements in order to target via styles
     if @props.title
-      <h3 className='-title'>{@props.title}</h3>
+      <h3>{@props.title}</h3>
     else
-      <span className='-title -date-range'>
+      <span>
         <Time date={@props.startAt}/> - <Time date={@props.endAt}/>
       </span>
 

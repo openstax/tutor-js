@@ -5,17 +5,32 @@
     .panel:first-child { margin-top: 0px; }
   }
   
-  .panel-heading {
+  .panel > .panel-heading {
+    color: @tutor-neutral-darker;
     background-color: white; // override bootstrap default
     border-bottom: thin dotted @tutor-neutral-dark;
-    font-family: 'Lato-Black', 'Lato Black', 'Lato';
+    #fonts .serif(2.4rem, 2.8rem);
     font-weight: 900;
-    font-style: normal;
-    font-size: 2.4rem;
-    color: #424242;
-    .panel-title {
-      font-size: 2.4rem; // override bootstrap default
+
+    // Do to a limitation of BootstrapReact, the title
+    // cannot have a custom css class applied to it, it's always panel-title
+    
+    // As a workaround, a span is used for date ranges
+    span.panel-title {
+      #fonts .sans(1.4rem, 1.4rem);
+      font-weight: 400;
+      text-transform: uppercase;
     }
+
+    // h3 is a custom titled panel
+    h3.panel-title {
+      padding: 0.5rem 0;
+    }
+    
+  }
+
+  .panel-body {
+    a { cursor: pointer; } // the tags lack href attribute
   }
 
 }

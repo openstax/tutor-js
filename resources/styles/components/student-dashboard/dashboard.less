@@ -28,7 +28,7 @@
     height:220px;
     overflow: hidden;
     background-color: @tutor-tertiary;
-    color: darken(@tutor-quaternary, 15%);
+    color: @tutor-secondary;
     text-align: center;
     padding-top: 85px;
     font-size: 320px;
@@ -53,23 +53,27 @@
     padding: 10px;
     text-align: center;
     margin-top: 85px;
-    button { width: 100%; }
+    button {
+      width: 100%;
+      // override bootstrap styling
+      &.btn-primary { padding: 12px 0 !important; }
+    }
   }
 
   .nav-tabs {
     background: inherit;
     li {
-      #fonts .sans(2.4rem, 2.4rem);
-      background: #F2F2F6;
+      #fonts .serif(2.4rem, 2.4rem);
+      background: @tutor-neutral-lighter;
       a {
         font-weight: 400;
-        color: #646464 !important;
+        color: @tutor-neutral-dark !important;
       }
       &.active {
-        background: white;
+        background: @tutor-neutral-lightest;
         a {
           font-weight: 900;
-          color: #424242 !important;
+          color: @tutor-neutral-darker !important;
         }
       }
     }
