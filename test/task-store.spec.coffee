@@ -7,7 +7,7 @@ describe 'Task Store', ->
     TaskActions.reset()
 
   it 'should clear the store', ->
-    id = 0
+    id = '0'
     expect(TaskStore.isUnknown(id)).to.be.true
     TaskActions.loaded({hello:'foo', steps:[]}, id)
     expect(TaskStore.isUnknown(id)).to.be.false
@@ -25,7 +25,7 @@ describe 'Task Store', ->
 
 
   it 'should load a task through the happy path', ->
-    id = 0
+    id = '0'
     expect(TaskStore.isUnknown(id)).to.be.true
     expect(TaskStore.isLoaded(id)).to.be.false
     expect(TaskStore.isLoading(id)).to.be.false
@@ -49,7 +49,7 @@ describe 'Task Store', ->
 
 
   it 'should note when a load failed', ->
-    id = 0
+    id = '0'
     expect(TaskStore.isUnknown(id)).to.be.true
     expect(TaskStore.isLoaded(id)).to.be.false
     expect(TaskStore.isLoading(id)).to.be.false

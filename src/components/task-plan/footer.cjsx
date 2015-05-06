@@ -8,8 +8,8 @@ PlanFooter = React.createClass
   contextTypes:
     router: React.PropTypes.func
   propTypes:
-    id: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     clickedSelectProblem: React.PropTypes.func
 
   saved: ->

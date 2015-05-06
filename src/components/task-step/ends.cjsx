@@ -16,8 +16,8 @@ PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
 
   propTypes:
-    courseId: React.PropTypes.any.isRequired
-    taskId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
+    taskId: React.PropTypes.string.isRequired
     reloadPractice: React.PropTypes.func.isRequired
 
   render: ->
@@ -53,8 +53,8 @@ HomeworkEnd = React.createClass
   bindStore: TaskStepStore
 
   propTypes:
-    courseId: React.PropTypes.any.isRequired
-    taskId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
+    taskId: React.PropTypes.string.isRequired
 
   # _addListener: ->
   #   TaskStepStore.addChangeListener(@_update)
@@ -143,7 +143,7 @@ TaskEnd = React.createClass
   displayName: 'TaskEnd'
 
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   render: ->
     {courseId} = @props

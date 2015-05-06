@@ -3,6 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 
 ArbitraryHtmlAndMath = require '../../html'
+ChapterSection = require '../chapter-section'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TocStore} = require '../../../flux/toc'
@@ -37,7 +38,7 @@ ReviewExerciseCard = React.createClass
   displayName: 'ReviewExerciseCard'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     exercise: React.PropTypes.object.isRequired
     index: React.PropTypes.number
 
@@ -87,7 +88,7 @@ AddExerciseCard = React.createClass
   displayName: 'AddExerciseCard'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     exercise: React.PropTypes.object.isRequired
 
   mixins: [ExerciseCardMixin]
@@ -132,8 +133,8 @@ ReviewExercises = React.createClass
   displayName: 'ReviewExercises'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     pageIds: React.PropTypes.array
 
   mixins: [ExercisesRenderMixin]
@@ -163,7 +164,7 @@ ExerciseTable = React.createClass
   displayName: "ExerciseTable"
   mixins: [ExercisesRenderMixin]
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
@@ -178,7 +179,9 @@ ExerciseTable = React.createClass
 
     <tr>
       <td>{index + 1}</td>
-      <td>{section}</td>
+      <td>
+        <ChapterSection section={section}/>
+      </td>
       <td className="ellipses">{content}</td>
       <td className="ellipses">{lo}</td>
       {teks}
@@ -245,8 +248,8 @@ AddExercises = React.createClass
   displayName: 'AddExercises'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     pageIds: React.PropTypes.array
 
   mixins: [ExercisesRenderMixin]
@@ -280,7 +283,7 @@ AddExercises = React.createClass
     <BS.Row>
       <BS.Col xs={12}>
         <label className='-exercises-section-label'>
-          {section.chapter_section}. {section.title}
+          <ChapterSection section={section.chapter_section}/>. {section.title}
         </label>
       </BS.Col>
     </BS.Row>

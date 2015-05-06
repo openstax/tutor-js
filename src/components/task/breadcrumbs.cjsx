@@ -13,7 +13,7 @@ module.exports = React.createClass
   mixins: [CrumbMixin]
 
   propTypes:
-    id: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
     currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
 

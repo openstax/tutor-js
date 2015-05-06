@@ -12,7 +12,7 @@ _ = require 'underscore'
 
 VALID_MODEL = require '../../api/courses/1/practice.json'
 
-courseId = 1
+courseId = '1'
 
 describe 'Practice Widget', ->
   beforeEach (done) ->

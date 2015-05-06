@@ -29,7 +29,7 @@ module.exports = React.createClass
     if @isMounted()
       {courseId} = @context.router.getCurrentParams()
 
-      unless @state.course?.id.toString() is courseId
+      unless @state.course?.id is courseId
         course = CourseStore.get(courseId)
         @setState({course})
 

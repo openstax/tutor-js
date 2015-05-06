@@ -5,7 +5,7 @@ TaskPlan = React.createClass
   displayName: 'TeacherTaskPlan'
   propTypes:
     plan: React.PropTypes.object.isRequired
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   contextTypes:
     router: React.PropTypes.func
@@ -50,7 +50,7 @@ TeacherTaskPlanListing = React.createClass
 
   propTypes:
     plan: React.PropTypes.object.isRequired
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   render: ->
     {plansList, courseId} = @props

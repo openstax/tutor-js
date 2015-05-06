@@ -14,6 +14,12 @@ ExerciseSummary = require './homework/exercise-summary'
 ChooseExercises = React.createClass
   displayName: 'ChooseExercises'
 
+  propTypes:
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
+    selected: React.PropTypes.array.isRequired
+    hide: React.PropTypes.func.isRequired
+
   selectProblems: ->
     @setState({
       showProblems: true
