@@ -52,7 +52,7 @@
         "tags": [{
             "id": "k12phys-ch04-s02-lo01",
             "type": "lo",
-            "chapter_section": "4.2"
+            "chapter_section": [1, 2]
         }, {
             "id": "practice-concepts",
             "type": "generic"
@@ -124,7 +124,7 @@
         "tags": [{
             "id": "k12phys-ch04-s02-lo01",
             "type": "lo",
-            "chapter_section": "4.2"
+            "chapter_section": [1, 2]
         }, {
             "id": "practice-concepts",
             "type": "generic"
@@ -196,7 +196,7 @@
         "tags": [{
             "id": "k12phys-ch04-s02-lo01",
             "type": "lo",
-            "chapter_section": "4.2"
+            "chapter_section": [1, 2]
         }, {
             "id": "practice-concepts",
             "type": "generic"
@@ -268,7 +268,7 @@
         "tags": [{
             "id": "k12phys-ch04-s02-lo01",
             "type": "lo",
-            "chapter_section": "4.2"
+            "chapter_section": [1, 2]
         }, {
             "id": "practice-concepts",
             "type": "generic"
@@ -340,7 +340,7 @@
         "tags": [{
             "id": "k12phys-ch04-s02-lo01",
             "type": "lo",
-            "chapter_section": "4.2"
+            "chapter_section": [1, 2]
         }, {
             "id": "practice-concepts",
             "type": "generic"
@@ -412,7 +412,7 @@
         "tags": [{
             "id": "k12phys-ch04-s02-lo01",
             "type": "lo",
-            "chapter_section": "4.2"
+            "chapter_section": [1, 2]
         }, {
             "id": "practice-concepts",
             "type": "generic"
