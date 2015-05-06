@@ -6,6 +6,8 @@ Router = require 'react-router'
 _ = require 'underscore'
 
 PracticeButton = require '../practice-button'
+BindStoreMixin = require '../bind-store-mixin'
+
 TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
@@ -46,21 +48,25 @@ PracticeEnd = React.createClass
 HomeworkEnd = React.createClass
   displayName: 'HomeworkEnd'
 
+  mixins: [BindStoreMixin]
+
+  bindStore: TaskStepStore
+
   propTypes:
     courseId: React.PropTypes.any.isRequired
     taskId: React.PropTypes.any.isRequired
 
-  _addListener: ->
-    TaskStepStore.addChangeListener(@_update)
+  # _addListener: ->
+  #   TaskStepStore.addChangeListener(@_update)
 
-  _removeListener: ->
-    TaskStepStore.removeChangeListener(@_update)
+  # _removeListener: ->
+  #   TaskStepStore.removeChangeListener(@_update)
 
-  componentWillMount:   -> @_addListener()
-  componentWillUnmount: -> @_removeListener()
-  componentWillUpdate: -> @_removeListener()
-  componentDidUpdate:  -> @_addListener()
-  _update: -> @setState({})
+  # componentWillMount:   -> @_addListener()
+  # componentWillUnmount: -> @_removeListener()
+  # componentWillUpdate: -> @_removeListener()
+  # componentDidUpdate:  -> @_addListener()
+  # _update: -> @setState({})
 
   goToStep: ->
   onNextStep: ->
