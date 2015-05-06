@@ -26,11 +26,11 @@ module.exports = React.createClass
     course: undefined
 
   handleCourseChanges: ->
-    {courseId} = @context.router.getCurrentParams()
+    if @isMounted()
+      {courseId} = @context.router.getCurrentParams()
 
-    unless @state.course?.id.toString() is courseId
-      course = CourseStore.get(courseId)
-      if @isMounted()
+      unless @state.course?.id.toString() is courseId
+        course = CourseStore.get(courseId)
         @setState({course})
 
   # Also need to listen to when location finally updates.
@@ -88,9 +88,15 @@ module.exports = React.createClass
           <CourseName course={course}/>
         </BS.Nav>
         <BS.Nav right navbar>
-          <BS.DropdownButton eventKey={1} title={<UserName/>}>
+          <BS.DropdownButton
+            eventKey={1}
+            title={<UserName/>}
+            ref='navDropDown'>
             {menuItems}
-            <BS.MenuItem eventKey={4} onClick={@logout} key='dropdown-item-logout'>Sign Out!</BS.MenuItem>
+            <BS.MenuItem
+              eventKey={4}
+              onClick={@logout}
+              key='dropdown-item-logout'>Sign Out!</BS.MenuItem>
           </BS.DropdownButton>
         </BS.Nav>
       </BS.CollapsableNav>

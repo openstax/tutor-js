@@ -1,5 +1,11 @@
 {expect} = require 'chai'
 
+# For some reason, this navbar component test will have warnings about setting
+# state when component is unmounted if it's after some of the other specs.
+# The tests still run and progress just fine despite the warnings, but for now,
+# I'm leaving this test here.
+# TODO figure out why.
+require './components/navbar.spec'
 require './components/homework/homework-plan.spec'
 require './components/homework/exercise-summary.spec'
 require './components/reading-plan.spec'

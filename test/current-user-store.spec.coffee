@@ -2,12 +2,20 @@
 _ = require 'underscore'
 
 {CurrentUserActions, CurrentUserStore} = require '../src/flux/current-user'
+{CourseActions, CourseStore} = require '../src/flux/course'
 
 USER_MODEL = require '../api/user.json'
 
-STUDENT_COURSE_ONE_MODELS = require '../api/courses.json'
+STUDENT_COURSE_ONE_MODEL = {
+  id: 1
+  name: 'Local Test Course One'
+  roles: [
+    {
+      "type": "student"
+    }
+  ]
+}
 
-STUDENT_COURSE_ONE_MODEL = STUDENT_COURSE_ONE_MODELS[0]
 TEACHER_COURSE_TWO_MODEL = {
   id: 2
   name: 'Local Test Course Two'
@@ -63,6 +71,7 @@ describe 'Current User Store', ->
 
   afterEach ->
     CurrentUserActions.reset()
+    CourseActions.reset()
 
   it 'should load name and courses', ->
 
