@@ -20,8 +20,7 @@ COURSE_NAME = COURSES_LIST[0].name
 COURSE_ID = COURSES_LIST[0].id
 
 STUDENT_DASHBOARD_MODEL = require '../../api/courses/1/dashboard.json'
-# TODO will need to update after updating teacher task plans to load from dashboard as well.
-TEACHER_DASHBOARD_MODEL = require '../../api/courses/1/events.json'
+TEACHER_DASHBOARD_MODEL = STUDENT_DASHBOARD_MODEL
 
 STUDENT_DASHROUTE = 'viewStudentDashboard'
 TEACHER_DASHROUTE = 'taskplans'
