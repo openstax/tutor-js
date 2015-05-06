@@ -1,0 +1,21 @@
+.student-dashboard {
+
+  // The first panel inside a tab should be positioned at the top with no margin
+  .tab-pane {
+    .panel:first-child { margin-top: 0px; }
+  }
+  
+  .panel-heading {
+    background-color: white; // override bootstrap default
+    border-bottom: thin dotted @tutor-neutral-dark;
+    font-family: 'Lato-Black', 'Lato Black', 'Lato';
+    font-weight: 900;
+    font-style: normal;
+    font-size: 2.4rem;
+    color: #424242;
+    .panel-title {
+      font-size: 2.4rem; // override bootstrap default
+    }
+  }
+
+}

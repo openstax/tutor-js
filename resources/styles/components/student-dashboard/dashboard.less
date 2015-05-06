@@ -1,9 +1,4 @@
 .student-dashboard {
-  @big-header-background:   #232e66;
-  @big-header-text:         #79B142;
-  @course-title:            #232E66;
-  @course-background:       #F7B217;
-  @border-line: thin dotted #E7E7E7;
 
   .container { margin-top: 50px; }
 
@@ -32,8 +27,8 @@
     top:50px;
     height:220px;
     overflow: hidden;
-    background-color: @big-header-background;
-    color: @big-header-text;
+    background-color: @tutor-tertiary;
+    color: darken(@tutor-quaternary, 15%);
     text-align: center;
     padding-top: 85px;
     font-size: 320px;
@@ -49,21 +44,8 @@
     font-family: 'Lato-Regular', 'Lato';
     font-weight: 400;
     font-size: 1.8rem;
-    color: @course-title;
-    background-color: @course-background;
-  }
-
-  .panel-heading {
-    background-color: white; // override bootstrap default
-    border-bottom: @border-line;
-    font-family: 'Lato-Black', 'Lato Black', 'Lato';
-    font-weight: 900;
-    font-style: normal;
-    font-size: 2.4rem;
-    color: #424242;
-    .panel-title {
-      font-size: 2.4rem; // override bootstrap default
-    }
+    color: @tutor-black;
+    background-color: @tutor-quaternary;
   }
 
   .rbox {
@@ -93,50 +75,6 @@
           color: #424242 !important;
         }
       }
-    }
-  }
-
-  .tab-pane {
-    .panel:first-child { margin-top: 0px; }
-  }
-
-  .dont-forget {
-    .panel-body { text-align: center; }
-    .heading {
-      font-family: 'Lato-Black', 'Lato Black', 'Lato';
-      font-weight: 900;
-      font-size: 1.8rem;
-      line-height: 1.8rem;
-      color: #333333;
-      margin: 10px 0 5px 0;
-    }
-    .title {
-      font-family: 'Lato-Regular', 'Lato';
-      font-weight: 400;
-      font-size: 1.2rem;
-      line-height: 1.2rem;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      margin: 0 0 5px 0;
-    }
-    .summary {
-      font-family: 'Lato-Black', 'Lato Black', 'Lato';
-      font-weight: 900;
-      font-size: 1.4rem;
-      line-height: 1.4rem;
-      color: #79B142;
-       
-    }
-  }
-  .panel.empty .panel-body { text-align: center; }
-  .panel-body {
-    a { cursor: pointer; } // the tags lack href attribute
-    .task {
-      padding-bottom: 5px;
-      margin-bottom: 5px;
-      border-bottom: @border-line;
-      &.workable { cursor: pointer; }
     }
   }
 

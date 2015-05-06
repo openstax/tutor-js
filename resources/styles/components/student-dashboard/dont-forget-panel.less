@@ -1,0 +1,40 @@
+.student-dashboard {
+  .dont-forget {
+    .panel-body { text-align: center; }
+    .heading {
+      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      font-weight: 900;
+      font-size: 1.8rem;
+      line-height: 1.8rem;
+      color: #333333;
+      margin: 10px 0 5px 0;
+    }
+    .title {
+      font-family: 'Lato-Regular', 'Lato';
+      font-weight: 400;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin: 0 0 5px 0;
+    }
+    .summary {
+      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      font-weight: 900;
+      font-size: 1.4rem;
+      line-height: 1.4rem;
+      color: #79B142;
+      
+    }
+  }
+  .panel-body {
+    a { cursor: pointer; } // the tags lack href attribute
+    .task {
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: thin dotted @tutor-neutral-dark;
+      &.workable { cursor: pointer; }
+    }
+  }
+}
