@@ -16,12 +16,17 @@ CourseDuration = React.createClass
   getInitialState: ->
     groupedDurations: []
 
-  componentWillReceiveProps: (nextProps) ->
-    {durations, viewingDuration, groupingDurations} = nextProps
+  updateGroupedDurations: (props) ->
+    {durations, viewingDuration, groupingDurations} = props
 
     groupedDurations = @groupDurations(durations, viewingDuration, groupingDurations)
 
     @setState({groupedDurations})
+
+  componentWillMount: ->
+    @updateGroupedDurations(@props)
+  componentWillReceiveProps: (nextProps) ->
+    @updateGroupedDurations(nextProps)
 
   groupDurations: (durations, viewingDuration, groupingDurations) ->
     durationsInView = _.chain(durations)
