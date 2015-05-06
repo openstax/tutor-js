@@ -4,6 +4,22 @@ flux = require 'flux-react'
 
 {CourseActions, CourseStore} = require './course'
 
+# TODO consider putting this with policies?  especially when this same data will be used for other
+# roles based stuffs?
+ROLES =
+  admin:
+    rank: 3
+    label: 'admin'
+  teacher:
+    rank: 2
+    label: 'teacher'
+  student:
+    rank: 1
+    label: 'student'
+  guest:
+    rank: 0
+    label: 'guest'
+
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
   'loadAllCourses'
@@ -24,13 +40,14 @@ CurrentUserStore = flux.createStore
 
   _token: null
   _courseIds: null # Just store the id's. They will be looked up in the course store
+  # TODO also consider putting this with policies?
   _routes:
     dashboard:
       label: 'Dashboard'
       roles:
         teacher: 'taskplans'
         student: 'viewStudentDashboard'
-        default: 'dashboard'
+        default: 'root'
     guide:
       label: 'Learning Guide'
       roles:
@@ -41,13 +58,16 @@ CurrentUserStore = flux.createStore
 
   _getCourseRole: (courseId) ->
     course = CourseStore.get(courseId)
-    courseRoles = course?.roles or []
-    role = 'guest'
+    courseRoles = course?.roles or [{type: 'guest'}]
 
-    if _.findWhere(courseRoles, type: 'teacher')?
-      role = 'teacher'
-    else if _.findWhere(courseRoles, type: 'student')?
-      role = 'student'
+    role = _.chain(courseRoles)
+      .pluck('type')
+      .sortBy((roleType) ->
+        # sort by rank -- Teacher role will take precedence over student role for example
+        -1 * ROLES[roleType].rank
+      )
+      .first()
+      .value()
 
     role
 
@@ -73,6 +93,7 @@ CurrentUserStore = flux.createStore
     getToken: -> @_token
     isCoursesLoaded: -> !!@_courses
     getName: -> @_name
+
     getCourseRole: (courseId) ->
       @_getCourseRole(courseId)
 
