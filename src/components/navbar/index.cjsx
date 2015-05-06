@@ -4,7 +4,7 @@ Router = require 'react-router'
 _ = require 'underscore'
 
 UserName = require './username'
-{CourseName, CourseMenuMixin} = require './coursename'
+CourseName = require './course-name'
 BindStoreMixin = require '../bind-store-mixin'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
@@ -13,7 +13,7 @@ BindStoreMixin = require '../bind-store-mixin'
 module.exports = React.createClass
   displayName: 'Navigation'
 
-  mixins: [BindStoreMixin, CourseMenuMixin]
+  mixins: [BindStoreMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -30,8 +30,8 @@ module.exports = React.createClass
 
     unless @state.course?.id.toString() is courseId
       course = CourseStore.get(courseId)
-      menuRole = CurrentUserStore.getCourseRole(courseId)
-      @setState({course, menuRole})
+      if @isMounted()
+        @setState({course})
 
   # Also need to listen to when location finally updates.
   # This is especially crucial for redirect from dashboard because component mounts
@@ -53,8 +53,8 @@ module.exports = React.createClass
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)
 
-  renderMenuItems: (courseId, menuRole) ->
-    menuRoutes = @getMenuRoutes(menuRole)
+  renderMenuItems: (courseId) ->
+    menuRoutes = CurrentUserStore.getMenuRoutes(courseId)
 
     menuItems = _.map menuRoutes, (route, index) =>
       isActive = @context.router.isActive(route.name, {courseId})
@@ -69,25 +69,25 @@ module.exports = React.createClass
         eventKey={index + 2}>{route.label}</BS.MenuItem>
 
     if menuItems.length
-      menuItems.push(<BS.MenuItem divider />)
+      menuItems.push(<BS.MenuItem divider key='dropdown-item-divider'/>)
 
     menuItems
 
   render: ->
-    {course, menuRole} = @state
+    {course} = @state
     {courseId} = @context.router.getCurrentParams()
-    menuItems = @renderMenuItems(courseId, menuRole) if courseId
+    menuItems = @renderMenuItems(courseId) if courseId
 
     brand = <Router.Link to='dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
             </Router.Link>
 
     <BS.Navbar brand={brand} fixedTop fluid>
-      <CourseName course={course} menuRole={menuRole}/>
+      <CourseName course={course}/>
       <BS.Nav right>
         <BS.DropdownButton eventKey={1} title={<UserName/>}>
           {menuItems}
-          <BS.MenuItem eventKey={4} onClick={@logout}>Sign Out!</BS.MenuItem>
+          <BS.MenuItem eventKey={4} onClick={@logout} key='dropdown-item-logout'>Sign Out!</BS.MenuItem>
         </BS.DropdownButton>
       </BS.Nav>
     </BS.Navbar>
