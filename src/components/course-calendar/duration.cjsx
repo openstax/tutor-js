@@ -15,11 +15,20 @@ CourseDuration = React.createClass
 
   getInitialState: ->
     groupedDurations: []
+    durationsByStartDate: []
 
   componentWillReceiveProps: (nextProps) ->
     {durations, viewingDuration, groupingDurations} = nextProps
 
     groupedDurations = @groupDurations(durations, viewingDuration, groupingDurations)
+
+    durationsByStartDate = _.chain(groupedDurations)
+      .pluck('plans')
+      .flatten()
+      .value()
+
+    console.log(durationsByStartDate)
+
 
     @setState({groupedDurations})
 
@@ -34,21 +43,53 @@ CourseDuration = React.createClass
 
     groupedDurations = _.chain(groupingDurations)
       .map(@groupByRanges(durationsInView))
-      .map(@calcDayHeight)
+      .each(@calcDayHeight)
       .tap(@calcTopOffset)
       .value()
+
+  _rankPlansWithinDuration: (range) ->
+    overlapCount = 0
+    overlapLists = [[]]
+    _.each(range.plans, (plan, thisPlanIndex) ->
+      planToCompareTo = range.plans[thisPlanIndex + 1]
+
+      overlapLists[overlapLists.length - 1].push(plan)
+      plan.rank = overlapCount
+
+      return unless planToCompareTo?
+
+      if plan.rangeDuration.overlaps(planToCompareTo.rangeDuration)
+        overlapCount = overlapCount + 1
+      else
+        overlapCount = 0
+        overlapLists.push([])
+    )
+
+    range.plansByOverlaps = overlapLists
 
   _calcDayHeight: (plans) ->
     plans * 3 + 1
 
   calcDayHeight:  (range) ->
+
+    @_rankPlansWithinDuration(range)
+
+    console.log("range.plansByOverlaps")
+    console.log(range.plansByOverlaps)
+
     dayHeight = 10
+
+    _.each(range.plansByOverlaps, (plans) ->
+
+      if plans?.length > 2
+        dayHeight = @_calcDayHeight(plans.length)
+
+    )
 
     if range?.plans?.length > 2
       dayHeight = @_calcDayHeight(range.plans.length)
 
     range.dayHeight = dayHeight
-    range
 
   calcTopOffset: (ranges) ->
     dayHeights = _.pluck(ranges, 'dayHeight')
