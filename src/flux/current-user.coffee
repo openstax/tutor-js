@@ -20,6 +20,19 @@ ROLES =
     rank: 0
     label: 'guest'
 
+ROUTES =
+  dashboard:
+    label: 'Dashboard'
+    roles:
+      teacher: 'taskplans'
+      student: 'viewStudentDashboard'
+      default: 'root'
+  guide:
+    label: 'Learning Guide'
+    roles:
+      student: 'viewGuide'
+
+
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
   'loadAllCourses'
@@ -27,6 +40,7 @@ CurrentUserActions = flux.createActions [
   'loadName'
   'loadedName'
   'logout'    # () ->    # API Hooks onto this action and transitions
+  'reset'
 ]
 
 CurrentUserStore = flux.createStore
@@ -36,25 +50,15 @@ CurrentUserStore = flux.createStore
     CurrentUserActions.loadedAllCourses
     CurrentUserActions.loadName
     CurrentUserActions.loadedName
+    CurrentUserActions.reset
   ]
 
   _token: null
+  # DEPRECATE?  courseIds being stored on _courses?
   _courseIds: null # Just store the id's. They will be looked up in the course store
-  # TODO also consider putting this with policies?
-  _routes:
-    dashboard:
-      label: 'Dashboard'
-      roles:
-        teacher: 'taskplans'
-        student: 'viewStudentDashboard'
-        default: 'root'
-    guide:
-      label: 'Learning Guide'
-      roles:
-        student: 'viewGuide'
 
   _getRouteByRole: (routeType, menuRole) ->
-    @_routes[routeType].roles[menuRole] or @_routes[routeType].roles.default
+    ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
 
   _getCourseRole: (courseId) ->
     course = CourseStore.get(courseId)
@@ -89,6 +93,11 @@ CurrentUserStore = flux.createStore
 
     @emitChange()
 
+  reset: ->
+    @_token = null
+    @_name = 'Guest'
+    @_courses = null
+
   exports:
     getToken: -> @_token
     isCoursesLoaded: -> !!@_courses
@@ -118,7 +127,7 @@ CurrentUserStore = flux.createStore
 
           if routeName?
             name: routeName
-            label: @_routes[routeType].label
+            label: ROUTES[routeType].label
         )
         .compact()
         .value()
