@@ -1,0 +1,34 @@
+.stopselect() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.list-courses {
+  .calendar-header {
+    text-align: center;
+    font-size: 3rem;
+
+    &-label {
+      font-weight: stronger;
+    }
+
+    &-control {
+      .stopselect();
+      display: block;
+      width: 100%;
+
+      &:hover {
+        background: @gray-lighter;
+        text-decoration: none;
+      }
+      &:active, &:visited {
+        text-decoration: none;
+      }
+    }
+  }
+}
