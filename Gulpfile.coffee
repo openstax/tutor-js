@@ -115,6 +115,7 @@ gulp.task '_cleanCSS', (done) ->
 gulp.task '_copyResources', ['_cleanResources'], ->
   destDir = './dist'
   gulp.src("./resources/images/**/*.svg")
+    .pipe(flatten())
     .pipe(gulp.dest(destDir))
 
 gulp.task '_cleanResources', (done) ->

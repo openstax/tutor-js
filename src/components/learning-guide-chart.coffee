@@ -2,13 +2,13 @@ _ = require 'underscore'
 d3 = require 'd3'
 {AppConfigStore} = require '../flux/app-config'
 
-CITYSCAPE_PATH = 'learning-guide/houston-skyline.svg'
-CLOUD_PATH     = 'learning-guide/cloud.svg'
-PLANE_PATH     = 'learning-guide/openstax-plane.svg'
-FLAG_BLUE      = 'learning-guide/flag-blue.svg'
-FLAG_GREEN     = 'learning-guide/flag-green.svg'
-FLAG_YELLOW    = 'learning-guide/flag-yellow.svg'
-FLAG_GREY      = 'learning-guide/flag-grey.svg'
+CITYSCAPE_PATH = 'houston-skyline.svg'
+CLOUD_PATH     = 'cloud.svg'
+PLANE_PATH     = 'openstax-plane.svg'
+FLAG_BLUE      = 'flag-blue.svg'
+FLAG_GREEN     = 'flag-green.svg'
+FLAG_YELLOW    = 'flag-yellow.svg'
+FLAG_GREY      = 'flag-grey.svg'
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
 WIDTH = 160
