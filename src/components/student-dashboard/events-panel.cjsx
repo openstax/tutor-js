@@ -12,7 +12,7 @@ module.exports = React.createClass
 
   propTypes:
     events:   React.PropTypes.array.isRequired
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
     startAt:  React.PropTypes.object
     endAt:    React.PropTypes.object
     limit:    React.PropTypes.number

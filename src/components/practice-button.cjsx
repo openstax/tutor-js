@@ -8,8 +8,8 @@ PracticeButton = React.createClass
     router: React.PropTypes.func
 
   propTypes:
-    courseId: React.PropTypes.number.isRequired
-    pageIds: React.PropTypes.arrayOf(React.PropTypes.number)
+    courseId: React.PropTypes.string.isRequired
+    pageIds: React.PropTypes.arrayOf(React.PropTypes.string)
 
   goToPractice: ->
     {courseId, pageIds} = @props

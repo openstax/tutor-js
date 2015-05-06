@@ -9,7 +9,7 @@ EmptyPanel  = require './empty-panel'
 module.exports = React.createClass
   displayName: 'ThisWeekPanel'
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   render: ->
     startAt = moment(TimeStore.getNow())

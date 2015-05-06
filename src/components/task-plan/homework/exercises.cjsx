@@ -37,7 +37,7 @@ ReviewExerciseCard = React.createClass
   displayName: 'ReviewExerciseCard'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     exercise: React.PropTypes.object.isRequired
     index: React.PropTypes.number
 
@@ -87,7 +87,7 @@ AddExerciseCard = React.createClass
   displayName: 'AddExerciseCard'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     exercise: React.PropTypes.object.isRequired
 
   mixins: [ExerciseCardMixin]
@@ -132,8 +132,8 @@ ReviewExercises = React.createClass
   displayName: 'ReviewExercises'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     pageIds: React.PropTypes.array
 
   mixins: [ExercisesRenderMixin]
@@ -163,7 +163,7 @@ ExerciseTable = React.createClass
   displayName: "ExerciseTable"
   mixins: [ExercisesRenderMixin]
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
@@ -245,8 +245,8 @@ AddExercises = React.createClass
   displayName: 'AddExercises'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     pageIds: React.PropTypes.array
 
   mixins: [ExercisesRenderMixin]

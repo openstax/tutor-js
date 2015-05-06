@@ -22,12 +22,12 @@
       "data": [
         {
           "type": "reading",
-          "id": 456,
+          "id": "456",
           "status": "complete"
         },
         {
           "type": "homework",
-          "id": 890,
+          "id": "890",
           "status": "in_progress",
           "exercise_count": 8,
           "correct_exercise_count": 4,
@@ -35,12 +35,12 @@
         },
         {
           "type": "reading",
-          "id": 123,
+          "id": "123",
           "status": "complete"
         },
         {
           "type": "homework",
-          "id": 712,
+          "id": "712",
           "status": "in_progress",
           "exercise_count": 8,
           "correct_exercise_count": 3,
@@ -54,12 +54,12 @@
       "data": [
         {
           "type": "reading",
-          "id": 257,
+          "id": "257",
           "status": "complete"
         },
         {
           "type": "homework",
-          "id": 313,
+          "id": "313",
           "status": "in_progress",
           "exercise_count": 8,
           "correct_exercise_count": 7,
@@ -67,12 +67,12 @@
         },
         {
           "type": "reading",
-          "id": 99,
+          "id": "99",
           "status": "in_progress"
         },
         {
           "type": "homework",
-          "id": 888,
+          "id": "888",
           "status": "in_progress",
           "exercise_count": 8,
           "correct_exercise_count": 7,

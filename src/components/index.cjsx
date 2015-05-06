@@ -142,8 +142,8 @@ TaskResult = React.createClass
   contextTypes:
     router: React.PropTypes.func
   propTypes:
-    courseId: React.PropTypes.any.isRequired
-    id: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
 
   render: ->
     {courseId, id} = @props

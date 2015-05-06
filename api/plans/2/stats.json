@@ -1,5 +1,5 @@
 {
-    "id": 2,
+    "id": "2",
     "type": "homework",
     "title": "Homework",
     "stats": {
@@ -9,14 +9,14 @@
             "complete_count": 10,
             "partially_complete_count": 0,
             "current_pages": [{
-                "id": 1,
+                "id": "1",
                 "number": 1,
                 "title": "Introduction",
                 "student_count": 0,
                 "correct_count": 0,
                 "incorrect_count": 0
             }, {
-                "id": 2,
+                "id": "2",
                 "number": 2,
                 "title": "Force",
                 "student_count": 0,
@@ -24,7 +24,7 @@
                 "incorrect_count": 0
             }],
             "spaced_pages": [{
-                "id": 0,
+                "id": "0",
                 "number": 0,
                 "title": "",
                 "student_count": 10,
