@@ -2,13 +2,13 @@ _ = require 'underscore'
 d3 = require 'd3'
 {AppConfigStore} = require '../flux/app-config'
 
-CITYSCAPE_PATH = 'learning-guide/houston-skyline.svg'
-CLOUD_PATH     = 'learning-guide/cloud.svg'
-PLANE_PATH     = 'learning-guide/openstax-plane.svg'
-FLAG_BLUE      = 'learning-guide/flag-blue.svg'
-FLAG_GREEN     = 'learning-guide/flag-green.svg'
-FLAG_YELLOW    = 'learning-guide/flag-yellow.svg'
-FLAG_GREY      = 'learning-guide/flag-grey.svg'
+CITYSCAPE_PATH = 'images/learning-guide/houston-skyline.svg'
+CLOUD_PATH     = 'images/learning-guide/cloud.svg'
+PLANE_PATH     = 'images/learning-guide/openstax-plane.svg'
+FLAG_BLUE      = 'images/learning-guide/flag-blue.svg'
+FLAG_GREEN     = 'images/learning-guide/flag-green.svg'
+FLAG_YELLOW    = 'images/learning-guide/flag-yellow.svg'
+FLAG_GREY      = 'images/learning-guide/flag-grey.svg'
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
 WIDTH = 160
@@ -96,7 +96,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'main-title')
       .text("Your Flight Path | #{guide.title} | All Topics | ")
       .append('svg:a')
-      .attr('class', 'show-course noselect')
+      .attr('class', 'show-course')
       .text("Show All #{guide.title}")
       .on('click', =>
         @displayTopic()
@@ -296,13 +296,13 @@ module.exports = class LearningGuideChart
       .attr('class', (f) ->
         lv = f.current_level
         if lv > .75
-          'blue'
+          'ace'
         else if lv <= .75 and lv >= .50
-          'green'
+          'cruising'
         else if lv <= .49 and lv >= .35
-          'yellow'
+          'too-low'
         else if lv < .35
-          'grey'
+          'grounded'
       )
     # circles.append('text')
     #   .text( (f) ->

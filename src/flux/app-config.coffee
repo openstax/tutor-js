@@ -25,7 +25,7 @@ AppConfig =
       @_assetsHost = "#{a.protocol}//#{a.host}"
 
     urlForResource: (path) ->
-      this.exports.getAssetsHost.call(this) + "/style/resources/#{path}"
+      this.exports.getAssetsHost.call(this) + "/resources/#{path}"
 
 {actions, store} = makeSimpleStore(AppConfig)
 module.exports = {AppConfigActions:actions, AppConfigStore:store}
