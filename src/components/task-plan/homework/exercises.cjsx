@@ -100,7 +100,7 @@ AddExerciseCard = React.createClass
 
   renderHeader: ->
     active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-    toggleText = if not active then <span>+</span> else <span>-</span>
+    toggleText = unless active then <span>+</span> else <span>-</span>
     <BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button>
 
   getPanelStyle: ->
@@ -148,7 +148,7 @@ ReviewExercises = React.createClass
     
     {courseId, pageIds, planId} = @props
 
-    if not TaskPlanStore.getTopics(planId).length
+    unless TaskPlanStore.getTopics(planId).length
       return <div className='-bug'>Failed loading exercises</div>
 
     exercise_ids = TaskPlanStore.getExercises(planId)
@@ -170,11 +170,11 @@ ExerciseTable = React.createClass
     content = ExerciseStore.getContent(exerciseId)
 
     if (hasTeks)
-      tekString = ExerciseStore.getTekString(exerciseId)
-      if not tekString
-        tekString = "-"
+      teksString = ExerciseStore.getTeksString(exerciseId)
+      unless teksString
+        teksString = "-"
 
-      teks = <td>{tekString}</td>
+      teks = <td>{teksString}</td>
 
     <tr>
       <td>{index + 1}</td>
@@ -203,8 +203,8 @@ ExerciseTable = React.createClass
 
   shouldShowTeks: (exerciseIds) ->
     findTek = (memo, id) ->
-      tekString = ExerciseStore.getTekString(id)
-      memo or tekString
+      teksString = ExerciseStore.getTeksString(id)
+      memo or teksString
 
     _.reduce(exerciseIds, findTek, false)
 
@@ -274,7 +274,7 @@ AddExercises = React.createClass
 
   renderSection: (key) ->
     section = TocStore.getSectionLabel(key)
-    if not section
+    unless section
       return <BS.Row></BS.Row>
 
     <BS.Row>
@@ -291,7 +291,7 @@ AddExercises = React.createClass
       return load
 
     {courseId, pageIds} = @props
-    if not ExerciseStore.get(pageIds).length
+    unless ExerciseStore.get(pageIds).length
       return <span className="-no-exercises">
         The sections you selected have no exercises.
         Please select more sections.

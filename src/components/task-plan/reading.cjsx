@@ -66,6 +66,12 @@ ReadingPlan = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  getInitialState: ->
+    if TaskPlanStore.isNew(@props.id) and @context?.router?.getCurrentQuery().date
+      dueAt = new Date(@context.router.getCurrentQuery().date)
+      @setDueAt(dueAt)
+    {}
+
   setOpensAt: (value) ->
     {id} = @props
     TaskPlanActions.updateOpensAt(id, value)
@@ -96,9 +102,6 @@ ReadingPlan = React.createClass
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['create-reading']
-
-    if TaskPlanStore.isNew(id) and @context?.router?.getCurrentQuery().date
-      plan.due_at = new Date(@context.router.getCurrentQuery().date)
 
     # Restrict the due date to be after the open date
     # and restrict the open date to be before the due date
