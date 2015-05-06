@@ -24,8 +24,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
       .then((result) =>
         @result = result
         done()
-      )
-      .catch(done)
+      , done)
 
   afterEach ->
     taskTests.unmount()
@@ -39,7 +38,9 @@ describe 'Task Widget, homework specific things, due in the future', ->
     taskChecks
       .checkIsIntroScreen(@result)
       .then(taskChecks.checkAllowContinue)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should render next screen when Continue is clicked', (done) ->
     # Using homework because this one has no completed steps
@@ -47,14 +48,18 @@ describe 'Task Widget, homework specific things, due in the future', ->
     taskActions
       .clickContinue(@result)
       .then(taskChecks.checkIsDefaultStep)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should be able to work through a step in homework', (done) ->
     # run a full step through and check each step
     taskTests
       .renderStep(homeworkTaskId)
       .then(taskTests.workExerciseAndCheck)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should not be able view feedback after completing a step', (done) ->
     # run a full step through and check for feedback
@@ -65,7 +70,9 @@ describe 'Task Widget, homework specific things, due in the future', ->
       .then(taskActions.pickMultipleChoice)
       .then(taskActions.saveMultipleChoice)
       .then(taskChecks.checkNotFeedback)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should be able to work through a true-false question', (done) ->
     taskActions
@@ -75,14 +82,18 @@ describe 'Task Widget, homework specific things, due in the future', ->
       .then(taskTests.workExercise)
       .then(taskActions.clickContinue)
       .then(taskChecks.workTrueFalseAndCheck)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should show homework done page on homework completion', (done) ->
     taskActions
       .clickContinue(@result)
       .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should allow viewing any step with breadcrumbs', (done) ->
     taskActions
@@ -91,18 +102,24 @@ describe 'Task Widget, homework specific things, due in the future', ->
       .then(taskActions.clickBreadcrumb(targetStepIndex))
       .then(taskChecks.checkIsMatchStep(targetStepIndex))
       .then(taskChecks.checkIsNotCompletePage)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should format the details page using markdown (for now)', (done) ->
     taskActions
       .clickDetails(@result)
       .then(taskChecks.checkIsPopoverOpen)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should show breadcrumbs for all steps', (done) ->
     taskChecks
       .checkAreAllStepsShowing(@result)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should show last step when last problem is clicked', (done) ->
     steps = TaskStore.getStepsIds(homeworkTaskId)
@@ -111,7 +128,9 @@ describe 'Task Widget, homework specific things, due in the future', ->
     taskActions
       .clickBreadcrumb(lastStepIndex)(@result)
       .then(taskChecks.checkIsMatchStep(lastStepIndex))
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)
 
   it 'should show complete page when complete page is clicked', (done) ->
     steps = TaskStore.getStepsIds(homeworkTaskId)
@@ -120,4 +139,6 @@ describe 'Task Widget, homework specific things, due in the future', ->
     taskActions
       .clickBreadcrumb(completeStepIndex)(@result)
       .then(taskChecks.checkIsCompletePage)
-      .then(_.delay(done, taskTests.delay)).catch(done)
+      .then( ->
+        done()
+      , done)

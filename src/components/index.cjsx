@@ -21,14 +21,29 @@ Dashboard = React.createClass
   componentWillMount: -> CurrentUserStore.addChangeListener(@update)
   componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
 
+  contextTypes:
+    router: React.PropTypes.func
+
   update: -> @setState({})
+
+  redirectToSingleCourse: (courseId, roleType) ->
+    destination = switch roleType
+      when 'student' then 'viewStudentDashboard'
+      when 'teacher' then 'taskplans'
+      else
+        throw new Error("BUG: Unrecognized role type #{roleType}")
+    _.defer => @context.router.replaceWith(destination, {courseId: courseId})
+
   render: ->
     if CurrentUserStore.isCoursesLoaded()
       courses = CurrentUserStore.getCourses()
+      if courses.length is 1 and courses[0].roles?.length is 1
+        @redirectToSingleCourse(courses[0].id, courses[0].roles[0].type)
+        return null # explicitly return null so React won't render
+
       if courses.length
         courses = _.map courses, (course) ->
           {id:courseId, name, roles} = course
-
           isStudent = _.find roles, (role) -> role.type is 'student'
           isTeacher = _.find roles, (role) -> role.type is 'teacher'
           footer = []
