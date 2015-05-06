@@ -1,5 +1,7 @@
 React = require 'react'
 
+BindStoreMixin = require './bind-store-mixin'
+
 # This component is useful for viewing something that needs to be loaded.
 #
 # - display 'Loading...', 'Error', or the actual rendered component
@@ -16,22 +18,12 @@ module.exports = React.createClass
     isLoaded: React.PropTypes.func.isRequired
     isFailed: React.PropTypes.func.isRequired
 
-  _addListener: ->
-    {store} = @props
-    store.addChangeListener(@_update)
+  mixins: [BindStoreMixin]
 
-  _removeListener: ->
-    {store} = @props
-    store.removeChangeListener(@_update)
+  bindStore: ->
+    @props.store
 
-  componentWillMount:   -> @_addListener()
-  componentWillUnmount: -> @_removeListener()
-
-  # The following fixs an invariant violation when switching screens
-  componentWillUpdate: -> @_removeListener()
-  componentDidUpdate:  -> @_addListener()
-
-  _update: -> @props.update?() or @setState({})
+  bindUpdate: -> @props.update?() or @setState({})
   
   render: ->
     {isLoading, isLoaded, isFailed, render} = @props

@@ -31,3 +31,14 @@ After local updates are made:
 1. `npm install`
 1. if `bower.json` changed, `bower install`
 1. restart `gulp serve`
+
+### Pre-production
+
+Before starting up vagrant, you can debug using a more production-like config by:
+
+1. `gulp prod`
+2. unzip `/dist/archive.tar.gz` into an `assets/` directory
+3. serve the `assets/` directory via NGINX or something with CORS enabled
+4. update the paths in `tutor-server/conf/secrets.yml` to point to `http://localhost:[NGINX-PORT]/assets/tutor.min-####.css` and `tutor.min-####.js` respectively
+5. in `tutor-server` run `rails s`
+6. go to <http://localhost:3001>

@@ -13,7 +13,7 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 Sandbox = require './sandbox'
 
 routes = (
-  <Route path='/' handler={App}>
+  <Route path='/' handler={App} name='root'>
     <Redirect from='/' to='dashboard' />
     <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
     <Route path='courses/:courseId/?'>
