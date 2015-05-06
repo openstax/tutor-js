@@ -9,8 +9,8 @@ _ = require 'underscore'
 
 {SinglePractice, Tasks} = require '../../src/components'
 
-courseId = 1
-taskId = 4
+courseId = '1'
+taskId = '4'
 
 VALID_MODEL = require '../../api/tasks/4.json'
 

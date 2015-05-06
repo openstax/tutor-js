@@ -9,8 +9,8 @@ moment = require 'moment'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
-courseId = 1
-homeworkTaskId = 6
+courseId = '1'
+homeworkTaskId = '6'
 targetStepIndex = 1
 homework_model = require '../../api/tasks/6.json'
 homework_model.due_at = moment().add(1, 'year').toDate()
