@@ -16,7 +16,7 @@ LearningGuide = React.createClass
     router: React.PropTypes.func
 
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
     showAll: false
