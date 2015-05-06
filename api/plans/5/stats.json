@@ -1,5 +1,5 @@
 {
-    "id": 5,
+    "id": "5",
     "type": "exercise",
     "title": "Complete exercise 12A on pg 12",
     "stats": {
@@ -9,7 +9,7 @@
             "partially_complete_count": 0,
             "current_pages": [],
             "spaced_pages": [{
-                "id": 0,
+                "id": "0",
                 "number": 0,
                 "title": "",
                 "student_count": 10,
