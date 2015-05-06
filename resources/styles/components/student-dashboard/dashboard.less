@@ -16,7 +16,7 @@
       opacity: 0.2;
     }
     &.physics {
-      &:before{ background-image: url("/style/resources/student-dashboard/physics.jpg"); }
+      &:before{ .tutor-background-image("physics.jpg"); }
     }
   }
 
@@ -41,7 +41,7 @@
     height: 36px;
     padding: 5px;
     margin: 20px 0;
-    font-family: 'Lato-Regular', 'Lato';
+    #fonts > .sans(1.8rem, 2rem);
     font-weight: 400;
     font-size: 1.8rem;
     color: @tutor-black;
@@ -59,18 +59,15 @@
   .nav-tabs {
     background: inherit;
     li {
-      font-family: 'Lato-Black', 'Lato Black', 'Lato';
+      #fonts .sans(2.4rem, 2.4rem);
       background: #F2F2F6;
       a {
-        font-family: 'Lato-Regular', 'Lato';
         font-weight: 400;
-        font-size: 2.4rem;
         color: #646464 !important;
       }
       &.active {
         background: white;
         a {
-          font-family: 'Lato-Black', 'Lato Black', 'Lato';
           font-weight: 900;
           color: #424242 !important;
         }
