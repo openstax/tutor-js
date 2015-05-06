@@ -2,66 +2,75 @@
   {
     "title": "Kinematics",
     "number": "1",
-    "id": 123,
+    "id": "123",
     "children": [
       {
+        "type": "page",
         "title": "Kinematics in 1 dim",
-        "number": "1.1",
-        "id": 234
+        "chapter_section": [1, 1],
+        "id": "234"
       },
       {
+        "type": "page",
         "title": "Kinematics in 2 dim",
-        "number": "1.2",
-        "id": 235
+        "chapter_section": [1, 2],
+        "id": "235"
       },
       {
+        "type": "page",
         "title": "Kinematics in 3 dim",
-        "number": "1.3",
-        "id": 236
+        "chapter_section": [1, 3],
+        "id": "236"
       }
     ]
   },
   {
     "title": "Mechanics",
     "number": "2",
-    "id": 124,
+    "id": "124",
     "children": [
       {
+        "type": "page",
         "title": "Mechanics in 1 dim",
-        "number": "2.1",
-        "id": 237
+        "chapter_section": [2, 1],
+        "id": "237"
       },
       {
+        "type": "page",
         "title": "Mechanics in 2 dim",
-        "number": "2.2",
-        "id": 238
+        "chapter_section": [2, 2],
+        "id": "238"
       },
       {
+        "type": "page",
         "title": "Mechanics in 3 dim",
-        "number": "2.3",
-        "id": 239
+        "chapter_section": [2, 3],
+        "id": "239"
       }
     ]
   },
   {
     "title": "Thermodynamics",
     "number": "3",
-    "id": 125,
+    "id": "125",
     "children": [
       {
+        "type": "page",
         "title": "Thermodynamics in 1 dim",
-        "number": "3.1",
-        "id": 240
+        "chapter_section": [3, 1],
+        "id": "240"
       },
       {
+        "type": "page",
         "title": "Thermodynamics in 2 dim",
-        "number": "3.2",
-        "id": 241
+        "chapter_section": [3, 2],
+        "id": "241"
       },
       {
+        "type": "page",
         "title": "Thermodynamics in 3 dim",
-        "number": "3.3",
-        "id": 242
+        "chapter_section": [3, 2],
+        "id": "242"
       }
     ]
   }

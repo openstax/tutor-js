@@ -12,7 +12,7 @@ _ = require 'underscore'
 module.exports = React.createClass
   displayName: 'LoadableItem'
   propTypes:
-    id: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
     store: React.PropTypes.object.isRequired
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired

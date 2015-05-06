@@ -8,11 +8,11 @@ React = require 'react'
 
 TEST_TOC = [
   {
-    id: 2
+    id: '2'
     title: 'Chapter title'
     type: 'part'
     children: [
-      {id: 1, type: 'page', title: 'Introduction'}
+      {id: '1', type: 'page', title: 'Introduction'}
     ]
   }
 ]
@@ -22,12 +22,12 @@ dayAfter = tomorrow + 1000 * 3600 * 24
 
 VALID_MODEL =
   type: 'reading'
-  id: 111
+  id: '111'
   title: 'Test Title'
   opens_at: (new Date(tomorrow)).toString()
   due_at:  (new Date(dayAfter)).toString()
   settings:
-    page_ids: [1]
+    page_ids: ['1']
 
 
 helper = (model, doChangeTitle) ->
@@ -51,7 +51,7 @@ describe 'Reading Plan', ->
   it 'should not allow save/publish when empty', ->
     model =
       type: 'reading'
-      id: 0
+      id: '0'
 
     node = helper(model, false)
     expect(node.querySelector('.-save.disabled')).to.not.be.null
@@ -86,10 +86,10 @@ describe 'Reading Plan', ->
     yesterday = Date.now() - 3600 * 1000 * 24
     model =
       type: 'reading'
-      id: 1
+      id: '1'
       published_at: (new Date(yesterday)).toString()
 
-    TaskPlanActions.created(model, 1)
+    TaskPlanActions.created(model, '1')
     node = helper(model, true)
     expect(node.querySelector('.-delete')).to.be.null
 
@@ -106,9 +106,9 @@ describe 'Reading Plan', ->
   it 'should show delete if plan is not new and not published', ->
     model =
       type: 'reading'
-      id: 1
+      id: '1'
 
-    TaskPlanActions.created(model, 1)
+    TaskPlanActions.created(model, '1')
     node = helper(model, true)
     expect(node.querySelector('.-delete')).to.not.be.null
 

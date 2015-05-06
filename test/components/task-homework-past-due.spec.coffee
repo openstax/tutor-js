@@ -8,9 +8,9 @@ _ = require 'underscore'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
-courseId = 1
-homeworkTaskId = 5
-targetStepIndex = 1
+courseId = '1'
+homeworkTaskId = '5'
+
 homework_model = require '../../api/tasks/5.json'
 
 describe 'Task Widget, homework specific things, past due date', ->

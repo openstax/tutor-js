@@ -1,0 +1,17 @@
+.navbar-fixed-top {
+
+  // override the bootstrap defaults with tutor defaults
+  &.navbar.navbar{
+    border-bottom: 1px solid @border-color;
+    background-color: @tutor-white;
+  }
+
+  .container-fluid { padding: 0 40px; }
+
+  .ui-brand-logo {
+    display: inline-block;
+    height: 30px;
+    width: 217px;
+    .tutor-background-image('logo-brand.svg');
+  }
+}

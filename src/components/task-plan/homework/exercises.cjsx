@@ -3,6 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 
 ArbitraryHtmlAndMath = require '../../html'
+ChapterSection = require '../chapter-section'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TocStore} = require '../../../flux/toc'
@@ -37,7 +38,7 @@ ReviewExerciseCard = React.createClass
   displayName: 'ReviewExerciseCard'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     exercise: React.PropTypes.object.isRequired
     index: React.PropTypes.number
 
@@ -87,7 +88,7 @@ AddExerciseCard = React.createClass
   displayName: 'AddExerciseCard'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     exercise: React.PropTypes.object.isRequired
 
   mixins: [ExerciseCardMixin]
@@ -100,7 +101,7 @@ AddExerciseCard = React.createClass
 
   renderHeader: ->
     active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-    toggleText = if not active then <span>+</span> else <span>-</span>
+    toggleText = unless active then <span>+</span> else <span>-</span>
     <BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button>
 
   getPanelStyle: ->
@@ -132,8 +133,8 @@ ReviewExercises = React.createClass
   displayName: 'ReviewExercises'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     pageIds: React.PropTypes.array
 
   mixins: [ExercisesRenderMixin]
@@ -148,7 +149,7 @@ ReviewExercises = React.createClass
     
     {courseId, pageIds, planId} = @props
 
-    if not TaskPlanStore.getTopics(planId).length
+    unless TaskPlanStore.getTopics(planId).length
       return <div className='-bug'>Failed loading exercises</div>
 
     exercise_ids = TaskPlanStore.getExercises(planId)
@@ -163,22 +164,24 @@ ExerciseTable = React.createClass
   displayName: "ExerciseTable"
   mixins: [ExercisesRenderMixin]
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
     content = ExerciseStore.getContent(exerciseId)
 
     if (hasTeks)
-      tekString = ExerciseStore.getTekString(exerciseId)
-      if not tekString
-        tekString = "-"
+      teksString = ExerciseStore.getTeksString(exerciseId)
+      unless teksString
+        teksString = "-"
 
-      teks = <td>{tekString}</td>
+      teks = <td>{teksString}</td>
 
     <tr>
       <td>{index + 1}</td>
-      <td>{section}</td>
+      <td>
+        <ChapterSection section={section}/>
+      </td>
       <td className="ellipses">{content}</td>
       <td className="ellipses">{lo}</td>
       {teks}
@@ -203,8 +206,8 @@ ExerciseTable = React.createClass
 
   shouldShowTeks: (exerciseIds) ->
     findTek = (memo, id) ->
-      tekString = ExerciseStore.getTekString(id)
-      memo or tekString
+      teksString = ExerciseStore.getTeksString(id)
+      memo or teksString
 
     _.reduce(exerciseIds, findTek, false)
 
@@ -245,8 +248,8 @@ AddExercises = React.createClass
   displayName: 'AddExercises'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     pageIds: React.PropTypes.array
 
   mixins: [ExercisesRenderMixin]
@@ -274,13 +277,13 @@ AddExercises = React.createClass
 
   renderSection: (key) ->
     section = TocStore.getSectionLabel(key)
-    if not section
+    unless section
       return <BS.Row></BS.Row>
 
     <BS.Row>
       <BS.Col xs={12}>
         <label className='-exercises-section-label'>
-          {section.chapter_section}. {section.title}
+          <ChapterSection section={section.chapter_section}/>. {section.title}
         </label>
       </BS.Col>
     </BS.Row>
@@ -291,7 +294,7 @@ AddExercises = React.createClass
       return load
 
     {courseId, pageIds} = @props
-    if not ExerciseStore.get(pageIds).length
+    unless ExerciseStore.get(pageIds).length
       return <span className="-no-exercises">
         The sections you selected have no exercises.
         Please select more sections.

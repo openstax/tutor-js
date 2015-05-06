@@ -5,7 +5,7 @@ _ = require 'underscore'
 {makeSimpleStore} = require './helpers'
 
 EXERCISE_TAGS =
-  TEK: 'teks'
+  TEKS: 'teks'
   LO: 'lo'
   GENERIC: 'generic'
 
@@ -44,13 +44,10 @@ ExerciseConfig =
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]
     
-    getTekString: (exercise_id) ->
+    getTeksString: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
-      tekTags = _.where(tags, {type: EXERCISE_TAGS.TEK})
-
-      _.reduce(tekTags, (memo, tag) ->
-        memo + " / " + tag.name
-      , '')
+      teksTags = _.where(tags, {type: EXERCISE_TAGS.TEKS})
+      _.pluck(teksTags, 'name').join(" / ")
 
     getContent: (exercise_id) ->
       @_exerciseCache[exercise_id].content.questions[0].stem_html

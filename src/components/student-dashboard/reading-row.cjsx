@@ -10,7 +10,7 @@ module.exports = React.createClass
 
   propTypes:
     event: React.PropTypes.object.isRequired
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   viewReference: (e) ->
     alert "TODO: View Reference for task ID: #{@props.event.id} in course ID: #{@props.courseId}"

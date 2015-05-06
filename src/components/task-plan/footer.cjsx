@@ -8,12 +8,18 @@ PlanFooter = React.createClass
   contextTypes:
     router: React.PropTypes.func
   propTypes:
-    id: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     clickedSelectProblem: React.PropTypes.func
+
+  saved: ->
+    courseId = @props.courseId
+    TaskPlanStore.removeChangeListener(@saved)
+    @context.router.transitionTo('taskplans', {courseId})
 
   onSave: ->
     {id} = @props
+    TaskPlanStore.addChangeListener(@saved)
     TaskPlanActions.save(id)
 
   onPublish: ->

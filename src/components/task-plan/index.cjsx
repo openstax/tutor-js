@@ -62,17 +62,6 @@ PlanShell = React.createClass
     store: TaskPlanStore
     actions: TaskPlanActions
 
-  # If, as a result of a save creating a new object (and providing an id)
-  # then transition to editing the object
-  saved: ->
-    id = @getId()
-    {id, type} = TaskPlanStore.get(id)
-    {courseId} = @context.router.getCurrentParams()
-    if type is 'homework'
-      @context.router.transitionTo('editHomework', {courseId, id})
-    else if type is 'reading'
-      @context.router.transitionTo('editReading', {courseId, id})
-
   render: ->
     id = @getId()
     {courseId} = @context.router.getCurrentParams()
@@ -82,7 +71,6 @@ PlanShell = React.createClass
       id={id}
       store={TaskPlanStore}
       actions={TaskPlanActions}
-      saved={@saved}
       renderItem={-> <Type id={id} courseId={courseId} />}
     />
 

@@ -1,7 +1,7 @@
 {
     "tasks": [
         {
-            "id": 3,
+            "id": "3",
             "title": "iReading 1: Force",
             "opens_at": "2015-04-02T14:15:58.856Z",
             "due_at": "2015-04-12T08:15:58.856Z",
@@ -11,7 +11,7 @@
             "complete_exercise_count": 0
         },
         {
-            "id": 5,
+            "id": "5",
             "title": "iReading 2: Newton's First Law of Motion: Inertia",
             "opens_at": "2015-04-07T14:15:58.856Z",
             "due_at": "2015-04-13T08:15:58.856Z",
@@ -21,7 +21,7 @@
             "complete_exercise_count": 2
         },
         {
-            "id": 7,
+            "id": "7",
             "title": "iReading 3: Newton's Second Law of Motion:",
             "opens_at": "2015-04-22T14:15:58.856Z",
             "due_at": "2015-04-16T14:15:58.856Z",
@@ -31,7 +31,7 @@
             "complete_exercise_count": 0
         },
         {
-            "id": 9,
+            "id": "9",
             "title": "iReading 4: Newton's Third Law of Motion",
             "opens_at": "2015-05-07T14:15:58.856Z",
             "due_at": "2015-04-19T14:15:58.856Z",
@@ -41,7 +41,7 @@
             "complete_exercise_count": 0
         },
         {
-            "id": 11,
+            "id": "11",
             "title": "Homework #1",
             "opens_at": "2015-04-04T14:15:58.856Z",
             "due_at": "2015-04-20T14:15:58.856Z",
@@ -52,7 +52,7 @@
             "correct_exercise_count": 6
         },
         {
-            "id": 13,
+            "id": "13",
             "title": "Homework #2",
             "opens_at": "2015-04-09T14:15:58.856Z",
             "due_at": "2015-04-21T14:15:58.856Z",
@@ -63,7 +63,7 @@
             "correct_exercise_count": 7
         },
         {
-            "id": 15,
+            "id": "15",
             "title": "Homework #3",
             "opens_at": "2015-04-24T14:15:58.856Z",
             "due_at": "2015-05-04T23:15:58.856Z",
@@ -73,7 +73,7 @@
             "complete_exercise_count": 6
         },
         {
-            "id": 17,
+            "id": "17",
             "title": "Homework #4 (final)",
             "opens_at": "2015-05-09T14:15:58.856Z",
             "due_at": "2015-05-19T14:15:58.856Z",
@@ -84,7 +84,7 @@
         }
     ],
     "role": {
-        "id": 9,
+        "id": "9",
         "type": "student"
     },
     "course": {

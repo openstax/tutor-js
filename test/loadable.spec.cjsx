@@ -34,7 +34,7 @@ describe 'Loadable Mixin', ->
 
 
   it 'should work with id=0', (done) ->
-    id = 0
+    id = '0'
     expect(CrudStore.isUnknown(id)).to.be.true
     CrudActions.load.once 'trigger', (args...) ->
       done()
@@ -42,7 +42,7 @@ describe 'Loadable Mixin', ->
 
 
   it 'should call load when props updated', (done) ->
-    id = 123
+    id = '123'
     expect(CrudStore.isUnknown(id)).to.be.true
     CrudActions.load.once 'trigger', (myId) ->
       expect(myId).to.equal(id)
@@ -51,7 +51,7 @@ describe 'Loadable Mixin', ->
 
 
   it 'should reflect the state changes from loading to loaded', (done) ->
-    id = 234
+    id = '234'
     expect(CrudStore.isUnknown(id)).to.be.true
     CrudActions.load.once 'trigger', (myId) ->
       delay ->
@@ -69,7 +69,7 @@ describe 'Loadable Mixin', ->
 
 
   it 'should show an error when loading fails', (done) ->
-    id = 345
+    id = '345'
     expect(CrudStore.isUnknown(id)).to.be.true
     CrudActions.load.once 'trigger', (myId) ->
       delay ->

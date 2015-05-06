@@ -7,7 +7,7 @@ module.exports = React.createClass
 
   displayName: 'DontForgetPanel'
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   viewFeedback: (taskId) ->
     alert "TODO: View Feedback for task ID: #{taskId} in course ID: #{@props.courseId}"
