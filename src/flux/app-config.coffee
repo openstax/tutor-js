@@ -22,7 +22,6 @@ AppConfig =
       # In development the css is served from the 'dist' directory, but the images are not
       # In production everythings under "assets" and works fine
       prefix = this.exports.getAssetsPrefix.call(this)
-        .replace("dist", "resources/images")
       "#{prefix}#{path}"
 
 

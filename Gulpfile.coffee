@@ -113,9 +113,8 @@ gulp.task '_cleanCSS', (done) ->
   del(['./dist/*.css'], done)
 
 gulp.task '_copyResources', ['_cleanResources'], ->
-  destDir = './dist/style/resources'
-  baseDir = './resources/images'
-  gulp.src("#{baseDir}/**/*.svg", base: baseDir)
+  destDir = './dist'
+  gulp.src("./resources/images/**/*.svg")
     .pipe(gulp.dest(destDir))
 
 gulp.task '_cleanResources', (done) ->
@@ -180,7 +179,7 @@ gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
     './dist/fonts/*',
-    './dist/style/resources/**/*.svg'], {base: './dist/style/resources'})
+    './dist/**/*.svg'])
     .pipe(tar('archive.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('./dist/'))
