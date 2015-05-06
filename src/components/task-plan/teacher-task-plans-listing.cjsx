@@ -80,6 +80,7 @@ TeacherTaskPlanListing = React.createClass
         isLoaded={-> TeacherTaskPlanStore.isLoaded(courseId)}
         isFailed={-> TeacherTaskPlanStore.isFailed(courseId)}
         render={-> <CourseCalendar plansList={plansList} courseId={courseId}/>}
+        renderLoading={-> <CourseCalendar className='calendar-loading'/>}
         update={@update}
       />
 

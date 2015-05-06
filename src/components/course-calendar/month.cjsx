@@ -120,13 +120,16 @@ CourseMonth = React.createClass
     days
 
   render: ->
-    {plansList, courseId} = @props
+    {plansList, courseId, className} = @props
     {date} = @state
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     days = @renderDays(calendarDuration)
 
-    <BS.Grid className='calendar-container'>
+    calendarClassName = 'calendar-container'
+    calendarClassName = calendarClassName + " #{className}" if className
+
+    <BS.Grid className={calendarClassName}>
       <CourseAdd ref='addOnDay'/>
       <BS.Row>
         <BS.Col xs={1}>

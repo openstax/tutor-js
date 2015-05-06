@@ -1,0 +1,24 @@
+.list-courses {
+  .calendar-header {
+    text-align: center;
+    font-size: 3rem;
+
+    &-label {
+      font-weight: stronger;
+    }
+
+    &-control {
+      .no-select();
+      display: block;
+      width: 100%;
+
+      &:hover {
+        background: @gray-lighter;
+        text-decoration: none;
+      }
+      &:active, &:visited {
+        text-decoration: none;
+      }
+    }
+  }
+}
