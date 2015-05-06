@@ -3,6 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 
 ArbitraryHtmlAndMath = require '../../html'
+ChapterSection = require '../chapter-section'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TocStore} = require '../../../flux/toc'
@@ -178,7 +179,9 @@ ExerciseTable = React.createClass
 
     <tr>
       <td>{index + 1}</td>
-      <td>{section}</td>
+      <td>
+        <ChapterSection section={section}/>
+      </td>
       <td className="ellipses">{content}</td>
       <td className="ellipses">{lo}</td>
       {teks}
@@ -280,7 +283,7 @@ AddExercises = React.createClass
     <BS.Row>
       <BS.Col xs={12}>
         <label className='-exercises-section-label'>
-          {section.chapter_section}. {section.title}
+          <ChapterSection section={section.chapter_section}/>. {section.title}
         </label>
       </BS.Col>
     </BS.Row>
