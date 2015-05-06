@@ -16,6 +16,8 @@ courseId = '1'
 
 describe 'Practice Widget', ->
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    CourseActions.HACK_DO_NOT_RELOAD(true)
     CourseActions.loadedPractice(VALID_MODEL, courseId)
     taskId = CourseStore.getPracticeId(courseId)
 
@@ -32,6 +34,9 @@ describe 'Practice Widget', ->
     CourseActions.reset()
     TaskActions.reset()
     TaskStepActions.reset()
+
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    CourseActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should render empty free response for unanswered exercise', (done) ->
     taskChecks

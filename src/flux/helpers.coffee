@@ -40,6 +40,8 @@ CrudConfig = ->
       @emitChange()
 
     load: (id) ->
+      # Add a shortcut for unit testing
+      return if @_asyncStatus[id] is LOADED and @_HACK_DO_NOT_RELOAD
       @_reload[id] = false
       @_asyncStatus[id] = LOADING
       @emitChange()
@@ -117,6 +119,8 @@ CrudConfig = ->
 
     clearChanged: (id) ->
       delete @_changed[id]
+
+    HACK_DO_NOT_RELOAD: (bool) -> @_HACK_DO_NOT_RELOAD = bool
 
     # Keep this here so other exports method have access to it
     _get: (id) ->

@@ -23,11 +23,14 @@ renderDashBoard = ->
 
 
 describe 'Student Dashboard Component', ->
-  beforeEach (done) ->
+  beforeEach ->
     TimeActions.setNow(NOW)
     StudentDashboardActions.reset()
+    StudentDashboardActions.HACK_DO_NOT_RELOAD(true)
     StudentDashboardActions.loaded(DATA, COURSE_ID)
-    done()
+
+  afterEach ->
+    StudentDashboardActions.HACK_DO_NOT_RELOAD(false)
 
   it 'displays the course title with teacher names combined', ->
     renderDashBoard().then (state) ->
