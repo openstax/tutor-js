@@ -17,6 +17,9 @@ homework_model.due_at = moment().add(1, 'year').toDate()
 
 describe 'Task Widget, homework specific things, due in the future', ->
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
+
     TaskActions.loaded(homework_model, homeworkTaskId)
 
     taskTests
@@ -31,6 +34,9 @@ describe 'Task Widget, homework specific things, due in the future', ->
 
     TaskActions.reset()
     TaskStepActions.reset()
+
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should allow students to continue tasks', (done) ->
     # Using homework because this one has no completed steps

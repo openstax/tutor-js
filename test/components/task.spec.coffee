@@ -18,6 +18,7 @@ describe 'Task Widget', ->
   beforeEach (done) ->
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
+
     TaskActions.loaded(VALID_MODEL, taskId)
 
     taskTests
@@ -90,6 +91,7 @@ describe 'Task Widget', ->
 describe 'Task Widget, through routes', ->
   beforeEach (done) ->
     TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
     TaskActions.loaded(VALID_MODEL, taskId)
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
@@ -106,6 +108,7 @@ describe 'Task Widget, through routes', ->
     TaskStepActions.reset()
 
     TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should be able to work through a task and load next step from a route', (done) ->
     # run a full step through and check each step

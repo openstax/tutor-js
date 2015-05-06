@@ -17,7 +17,9 @@ courseId = '1'
 describe 'Practice Widget', ->
   beforeEach (done) ->
     TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
     CourseActions.HACK_DO_NOT_RELOAD(true)
+
     CourseActions.loadedPractice(VALID_MODEL, courseId)
     taskId = CourseStore.getPracticeId(courseId)
 
@@ -36,6 +38,7 @@ describe 'Practice Widget', ->
     TaskStepActions.reset()
 
     TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
     CourseActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should render empty free response for unanswered exercise', (done) ->
@@ -81,6 +84,10 @@ describe 'Practice Widget', ->
 describe 'Practice Widget, through route', ->
 
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
+    CourseActions.HACK_DO_NOT_RELOAD(true)
+
     CourseActions.loadedPractice(VALID_MODEL, courseId)
     taskId = CourseStore.getPracticeId(courseId)
 
@@ -98,6 +105,9 @@ describe 'Practice Widget, through route', ->
     TaskActions.reset()
     TaskStepActions.reset()
 
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
+    CourseActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should load expected practice at the practice url', ->
     tests = ({div}) ->
