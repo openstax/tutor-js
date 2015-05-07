@@ -3,7 +3,7 @@ moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-Loadable = require '../loadable'
+LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 CourseCalendar = require '../course-calendar'
 
@@ -74,12 +74,11 @@ TeacherTaskPlanListing = React.createClass
         className='list-courses'
         bsStyle='primary'>
 
-      <Loadable
+      <LoadableItem
         store={TeacherTaskPlanStore}
-        isLoading={-> TeacherTaskPlanStore.isLoading(courseId)}
-        isLoaded={-> TeacherTaskPlanStore.isLoaded(courseId)}
-        isFailed={-> TeacherTaskPlanStore.isFailed(courseId)}
-        render={-> <CourseCalendar plansList={plansList} courseId={courseId}/>}
+        actions={TeacherTaskPlanActions}
+        id={courseId}
+        renderItem={-> <CourseCalendar plansList={plansList} courseId={courseId}/>}
         renderLoading={-> <CourseCalendar className='calendar-loading'/>}
         update={@update}
       />

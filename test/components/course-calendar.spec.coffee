@@ -21,6 +21,8 @@ VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
 
 describe 'Course Calendar', ->
   beforeEach (done) ->
+    TeacherTaskPlanActions.HACK_DO_NOT_RELOAD(true)
+
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
     TaskPlanActions.loadedStats(VALID_PLAN_MODEL, planId)
     plan = TaskPlanStore.getStats(planId)
@@ -39,6 +41,8 @@ describe 'Course Calendar', ->
   afterEach ->
     calendarTests.unmount()
     TeacherTaskPlanActions.reset()
+    TeacherTaskPlanActions.HACK_DO_NOT_RELOAD(false)
+
 
   it 'should render calendar', (done) ->
     calendarChecks
