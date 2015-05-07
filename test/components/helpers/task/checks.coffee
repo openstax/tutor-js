@@ -7,6 +7,8 @@ React = require 'react/addons'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
 {StepPanel} = require '../../../../src/helpers/policies'
 
+Breadcrumb = require '../../../../src/components/task/breadcrumb'
+
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
     continueButton = div.querySelector('.-continue')
@@ -154,6 +156,26 @@ checks =
 
     expect(completedStepsInReview.length).to.equal(completedSteps.length)
     expect(todoStepsInReview.length).to.equal(incompleteSteps.length)
+
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkHasAllBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
+    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+    steps = TaskStore.getStepsIds(taskId)
+
+    expect(breadcrumbs.length).to.equal(steps.length + 1)
+
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkHasReviewableBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
+    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+    completedSteps = TaskStore.getCompletedSteps(taskId)
+
+    expect(breadcrumbs.length).to.equal(completedSteps.length + 1)
+
+    {div, component, stepId, taskId, state, router, history}
+
+
 
 # promisify for chainability in specs
 _.each(checks, (check, checkName) ->

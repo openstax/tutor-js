@@ -128,3 +128,10 @@ describe 'Practice Widget, through route', ->
       .then( ->
         done()
       , done)
+
+  it 'should show all breadcrumbs for practice', (done) ->
+    taskChecks
+      .checkHasAllBreadcrumbs(@result)
+      .then( ->
+        done()
+      , done)

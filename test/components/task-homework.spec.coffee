@@ -142,3 +142,10 @@ describe 'Task Widget, homework specific things, due in the future', ->
       .then( ->
         done()
       , done)
+
+  it 'should show all breadcrumbs for homework', (done) ->
+    taskChecks
+      .checkHasAllBreadcrumbs(@result)
+      .then( ->
+        done()
+      , done)

@@ -111,6 +111,15 @@ describe 'Task Widget, through routes', ->
         done()
       , done)
 
+  it 'should show progressing breadcrumbs', (done) ->
+    # run a full step through and check each step
+    taskActions
+      .clickContinue(@result)
+      .then(taskChecks.checkHasReviewableBreadcrumbs)
+      .then( ->
+        done()
+      , done)
+
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
     taskActions
