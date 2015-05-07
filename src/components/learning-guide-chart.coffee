@@ -17,7 +17,7 @@ WIDTH = 160
 HEIGHT = 49 # approx 2/3 width, adjust to suit
 
 # used for green x-axis bar and clipping path
-XRECTHEIGHT = 4.49
+XRECTHEIGHT = 5.1
 
 
 module.exports = class LearningGuideChart
@@ -85,7 +85,6 @@ module.exports = class LearningGuideChart
     @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
     @drawTitle(container, guide)
-
 
 
 
@@ -161,7 +160,10 @@ module.exports = class LearningGuideChart
       .attr('text-anchor', 'middle')
       .attr('dy', '2.3')
       .attr('text-anchor', 'middle')
-      .text( (f, i) -> f.chapter_section )
+      .text( (f, i) ->
+        subsection = if f.chapter_section[1]? then '.' + f.chapter_section[1] else ''
+        f.chapter_section[0] + subsection
+        )
 
 
 
