@@ -1,61 +1,70 @@
-@lg-width: 1440px;
-@lg-height: 442px;
+@guide-width: 1440px;
+@guide-height: 442px;
 
-.learning-guide{
-  width:100%;
-  background-repeat:repeat;
-  position:relative;
-  .x-axis-bg-repeat{
+.learning-guide {
+  width: 100%;
+  background-repeat: repeat;
+  position: relative;
+
+  .x-axis-bg-repeat {
     // global body padding-left/right prevents line from reaching ends at the moment...body classes with component name?
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:41px;
-    background:@tutor-lg-green;
-    z-index:-1;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 41px;
+    background: @tutor-guide-green;
+    z-index: -1;
   }
   .learning-guide-chart {
-    width:@lg-width;
-    height:@lg-height;
-    margin:0 auto;
+    width: @guide-width;
+    height: @guide-height;
+    margin: 0 auto;
+
     svg {
-      width: @lg-width;
-      height:@lg-height;
-      .main-title{
-        font-size: .13em; 
+      width: @guide-width;
+      height: @guide-height;
+
+      .main-title {
+        font-size: .13em;
         font-family: Georgia;
-        font-weight:bold;
-        fill:#333333;
-        .show-course{
+        font-weight: bold;
+        fill: #333333;
+
+        .show-course {
           .no-select();
-          cursor:pointer;
+          cursor: pointer;
           fill: #1D9FDC;
-          font-size:.8em;
+          font-size: .8em;
         }
       }
       .circles {
-        .ace{
+        .ace {
           fill: @tutor-tertiary;
         }
-        .cruising{
-          fill: @tutor-lg-green;
+        .cruising {
+          fill: @tutor-guide-green;
         }
-        .too-low{
+        .too-low {
           fill: @tutor-quaternary;
         }
-        .grounded{
+        .grounded {
           fill: @tutor-neutral-darker;
         }
         text {
-          // the unscaled resolution of the svg is only 100px wide,
-          // so 2px is 2% of the width of the chart, i.e. fairly large
+          // the unscaled resolution of the svg is only 100px wide, // so 2px is 2% of the width of the chart, i.e. fairly large
           font-size: 0.119em;
           fill: white;
         }
-        circle { stroke:white;stroke-width:.25; }
+        circle {
+          stroke: white;
+          stroke-width: .25;
+        }
         g {
           cursor: pointer;
-          // &:hover { opacity: 0.8; }
+
+          // &:hover {
+            opacity: 0.8;
+          }
         }
       }
       .grid-lines {
@@ -74,11 +83,19 @@
       }
       .background-gradient {
         // despite the attribute being named "stop-color" this sets the starting color
-        .start { stop-color: #c1d8e5; }
-        .end   { stop-color: white; }
+        .start {
+          stop-color: #c1d8e5;
+        }
+        .end {
+          stop-color: white;
+        }
       }
-      .foreground-hills { fill: #66A333; }
-      .background-hills { fill: #83B553; }
+      .foreground-hills {
+        fill: #66A333;
+      }
+      .background-hills {
+        fill: #83B553;
+      }
       .x-axis {
         text {
           font-size: 0.13em;
@@ -91,108 +108,132 @@
         }
         .point {
           cursor: pointer;
-          &:hover  .arrow { fill: lightGrey; }
-          &.active .arrow { fill: white; }
+
+          &:hover  .arrow {
+            fill: lightGrey;
+          }
+          &.active .arrow {
+            fill: white;
+          }
         }
-        .point.active .x-axis-label{
-          font-weight:bold;
+        .point.active .x-axis-label {
+          font-weight: bold;
         }
       }
-      .x-rect{
-        fill:@tutor-lg-green;
+      .x-rect {
+        fill: @tutor-guide-green;
       }
-      .x-axis-circle{
-        stroke:#c9dfb2;
-        fill:#84c34a;
-        stroke-width:.1; 
+      .x-axis-circle {
+        stroke: #c9dfb2;
+        fill: #84c34a;
+        stroke-width: .1;
       }
-      .y-label{
-        font-size: 0.09em; 
+      .y-label {
+        font-size: 0.09em;
         font-family: Georgia;
-        fill:#FFF;
+        fill: #FFF;
       }
-      .y-desc{
-        font-size: 0.1em; 
+      .y-desc {
+        font-size: 0.1em;
         font-family: Georgia;
         font-style: italic;
-        fill:#666;
+        fill: #666;
       }
-      .cloud{
-
+      .cloud {
       }
-      .cloud-opacity-10{opacity:.1}
-      .cloud-opacity-20{opacity:.2}
-      .cloud-opacity-30{opacity:.3}
-      .cloud-opacity-40{opacity:.4}
-      .cloud-opacity-50{opacity:.5}
-      .cloud-opacity-60{opacity:.6}
-      .cloud-opacity-70{opacity:.7}
-      .cloud-opacity-80{opacity:.8}
-      .cloud-opacity-90{opacity:.9}
-      .cloud-opacity-100{opacity:1}
+      .cloud-opacity-10 {
+        opacity: .1
+      }
+      .cloud-opacity-20 {
+        opacity: .2
+      }
+      .cloud-opacity-30 {
+        opacity: .3
+      }
+      .cloud-opacity-40 {
+        opacity: .4
+      }
+      .cloud-opacity-50 {
+        opacity: .5
+      }
+      .cloud-opacity-60 {
+        opacity: .6
+      }
+      .cloud-opacity-70 {
+        opacity: .7
+      }
+      .cloud-opacity-80 {
+        opacity: .8
+      }
+      .cloud-opacity-90 {
+        opacity: .9
+      }
+      .cloud-opacity-100 {
+        opacity: 1
+      }
     }
-    .footer{
-      width:600px;
-      height:185px;
-      margin-top:-9px;
-      margin-left:0px;
-      border-width:1px 0px 1px 1px;
+    .footer {
+      width: 600px;
+      height: 185px;
+      margin-top: -9px;
+      margin-left: 0px;
+      border-width: 1px 0px 1px 1px;
       border-style: solid;
-      border-color:#e5e5e5;
-      background:#fff;
-      display:none;
+      border-color: #e5e5e5;
+      background: #fff;
+      display: none;
     }
-    .footer.active{
-      display:block;
+    .footer.active {
+      display: block;
     }
-    .footer-content-wrap{
-      padding:10px 20px 15px 20px;
-      .header{
+    .footer-content-wrap {
+      padding: 10px 20px 15px 20px;
+
+      .header {
         border-bottom: 1px dashed #e5e5e5;
         padding-bottom: 9px;
       }
-      .chapter{
-        display:inline;
-        font-weight:bold;
-        color:@tutor-lg-green;
+      .chapter {
+        display: inline;
+        font-weight: bold;
+        color: @tutor-guide-green;
       }
       .chapter:after {
         content: "\00a0";
       }
-      .title{
-        display:inline;
-        font-weight:bold;
+      .title {
+        display: inline;
+        font-weight: bold;
       }
-      .row-wrap{
-        width:86%;
-        height:90px;
-        padding-top:5px;
-        margin-top:5px;
+      .row-wrap {
+        width: 86%;
+        height: 90px;
+        padding-top: 5px;
+        margin-top: 5px;
       }
-      .problems-worked{
-        float:left;
-        padding-top:12px;
-        margin:0 auto;
-        width:300px;
-        .count{
-          font-size:3.2em;
+      .problems-worked {
+        float: left;
+        padding-top: 12px;
+        margin: 0 auto;
+        width: 300px;
+
+        .count {
+          font-size: 3.2em;
           text-align: center;
           color: #f9be1d;
         }
-        .count-desc{
+        .count-desc {
           text-align: center;
         }
       }
-      .practice-button-wrap{
-        float:right;
+      .practice-button-wrap {
+        float: right;
       }
-      .help-text{
-        font-size: .8em; 
+      .help-text {
+        font-size: .8em;
         font-family: Georgia;
         font-style: italic;
-        color:#666;
+        color: #666;
       }
-      
     }
   }
-}
