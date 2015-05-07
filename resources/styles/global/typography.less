@@ -1,92 +1,27 @@
-@googleFontApi: "//fonts.googleapis.com/css?family=";
-@fontPath: "/fonts/";
-
-@font-face {
-  font-family: 'Architects Daughter';
-  src: local('Architects Daughter'),
-       local('ArchitectsDaughter'),
-       // url("@{googleFontApi}Architects+Daughter"),
-       url("@{fontPath}ArchitectsDaughter.ttf") format('truetype');
+.tutor-font-face(@name, @filename, @weight, @style:normal) {
+  @font-face {
+    font-family: @name;
+    src: local(@name),
+    url('fonts/@{filename}.woff2') format('woff2'),
+    url('fonts/@{filename}.woff') format('woff');
+    font-weight: @weight;
+    font-style: @style;
+  }
 }
 
-@font-face {
-    font-family: "Lato";
-    src: local('Lato-Light'),
-         // url("@{googleFontApi}Lato:300"),
-         url("@{fontPath}Lato-Light.ttf") format('truetype');
-    font-weight: 300;
-}
+.tutor-font-face('Lato-Light',       'lato-v11-latin-300',       300);
+.tutor-font-face('Lato',             'lato-v11-latin-regular',   400);
+.tutor-font-face('Lato-Italic',      'lato-v11-latin-italic',    400, 'italic');
+.tutor-font-face('Lato-Bold',        'lato-v11-latin-700',       700);
+.tutor-font-face('Lato-Black',       'lato-v11-latin-900',       900);
+.tutor-font-face('Lato-LightItalic', 'lato-v11-latin-300italic', 300, 'italic');
 
-@font-face {
-    font-family: "Lato";
-    src: local('Lato-LightItalic'),
-         // url("@{googleFontApi}Lato:300italic"),
-         url("@{fontPath}Lato-LightItalic.ttf") format('truetype');
-    font-weight: 300;
-    font-style: italic, oblique;
-}
+.tutor-font-face('MerriWeather-Light',       'merriweatherv11-latin-300',       300);
+.tutor-font-face('MerriWeather-LightItalic', 'merriweatherv11-latin-300italic', 300, 'italic');
+.tutor-font-face('MerriWeather',             'merriweather-v8-latin-regular',   400);
+.tutor-font-face('MerriWeather-Bold',        'merriweatherv11-latin-700',       700);
 
-@font-face {
-    font-family: "Lato";
-    src: local('Lato-Regular'),
-         // url("@{googleFontApi}Lato:400"),
-         url("@{fontPath}Lato-Regular.ttf") format('truetype');
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: "Lato";
-    src: local('Lato-RegularItalic'),
-         // url("@{googleFontApi}Lato:400italic"),
-         url("@{fontPath}Lato-RegularItalic.ttf") format('truetype');
-    font-weight: 400;
-    font-style: italic, oblique;
-}
-
-@font-face {
-    font-family: "Lato";
-    src: local('Lato-Bold'),
-         // url("@{googleFontApi}Lato:700"),
-         url("@{fontPath}Lato-Bold.ttf") format('truetype');
-    font-weight: 700;
-}
-
-@font-face {
-    font-family: "Lato";
-    src: local('Lato-Black'),
-         // url("@{googleFontApi}Lato:900"),
-         url("@{fontPath}Lato-Black.ttf") format('truetype');
-    font-weight: 900;
-}
-
-@font-face {
-  font-family: 'Merriweather';
-  src: local('Merriweather Light'),
-       local('Merriweather-Light'),
-       // url("@{googleFontApi}Merriweather:300"),
-       url("@{fontPath}Merriweather-Light.ttf") format('truetype');
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: 'Merriweather';
-  src: local('Merriweather Light Italic'),
-       local('Merriweather-LightItalic'),
-       // url("@{googleFontApi}Merriweather:300italic"),
-       url("@{fontPath}Merriweather-LightItalic.ttf") format('truetype');
-  font-weight: 300;
-  font-style: italic, oblique;
-}
-
-@font-face {
-  font-family: 'Merriweather';
-  src: local('Merriweather Bold'),
-       local('Merriweather-Bold'),
-       // url("@{googleFontApi}Merriweather:700"),
-       url("@{fontPath}Merriweather-Bold.ttf") format('truetype');
-  font-weight: 700;
-}
-
+.tutor-font-face('Architects Daughter', 'Architects Daughter',  'architects-daughter-v6-latin-regular', 400);
 
 @body-font-color: @tutor-neutral-darker;
 @caption-font-color: #646464;
