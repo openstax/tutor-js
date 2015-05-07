@@ -10,7 +10,7 @@ module.exports = React.createClass
   propTypes:
     className: React.PropTypes.string.isRequired
     event:     React.PropTypes.object.isRequired
-    courseId:  React.PropTypes.any.isRequired
+    courseId:  React.PropTypes.string.isRequired
     feedback:  React.PropTypes.string.isRequired
 
   contextTypes:

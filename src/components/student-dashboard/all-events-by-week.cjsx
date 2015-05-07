@@ -9,7 +9,7 @@ _ = require 'underscore'
 module.exports = React.createClass
   displayName: 'AllEventsByWeek'
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   renderWeek:(events, week) ->
     startAt = moment(week, 'YYYYww')

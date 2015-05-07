@@ -8,7 +8,7 @@ _ = require 'underscore'
 LoadableItem = require './loadable-item'
 LearningGuideChart = require './learning-guide-chart'
 PracticeButton = require './practice-button'
-
+ChapterSection = require './task-plan/chapter-section'
 
 LearningGuide = React.createClass
   displayName: 'LearningGuide'
@@ -16,7 +16,7 @@ LearningGuide = React.createClass
     router: React.PropTypes.func
 
   propTypes:
-    courseId: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
     showAll: false
@@ -47,7 +47,9 @@ LearningGuide = React.createClass
     {unit} = @state
 
     if unit
-      chapter = <div className='chapter'>{unit.chapter_section}</div>
+      chapter = <div className='chapter'>
+        <ChapterSection section={unit.chapter_section}/>
+      </div>
       title = <div className='title'>{unit.title}</div>
       problemsWorked =
         <div className='problems-worked'>

@@ -125,16 +125,12 @@ SinglePractice = React.createClass
     })
 
   render: ->
-    if @state.taskId
-      <LoadableItem
-        id={@state.taskId}
-        store={TaskStore}
-        actions={TaskActions}
-        renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
-      />
-    else
-      <div>Loading...</div>
-
+    <LoadableItem
+      id={@state.taskId}
+      store={TaskStore}
+      actions={TaskActions}
+      renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
+    />
 
 
 TaskResult = React.createClass
@@ -142,8 +138,8 @@ TaskResult = React.createClass
   contextTypes:
     router: React.PropTypes.func
   propTypes:
-    courseId: React.PropTypes.any.isRequired
-    id: React.PropTypes.any.isRequired
+    courseId: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
 
   render: ->
     {courseId, id} = @props

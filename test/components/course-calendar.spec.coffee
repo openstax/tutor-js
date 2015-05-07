@@ -11,10 +11,10 @@ moment = require 'moment'
 React = require 'react/addons'
 CourseCalendar = require '../../src/components/course-calendar'
 
-planId = 1
-courseId = 1
+planId = '1'
+courseId = '1'
 
-VALID_MODEL = require '../../api/courses/1/events.json'
+VALID_MODEL = require '../../api/courses/1/dashboard.json'
 # pin plan 1 to one month ago for testing
 VALID_MODEL.plans[0].due_at = moment().subtract(1, 'month').toDate()
 VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'

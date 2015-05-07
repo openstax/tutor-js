@@ -16,7 +16,7 @@ BS = require 'react-bootstrap'
 ExerciseFreeResponse = React.createClass
   displayName: 'ExerciseFreeResponse'
   propTypes:
-    id: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
   mixins: [StepMixin]
@@ -68,7 +68,7 @@ ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func
 
@@ -111,7 +111,7 @@ ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
   mixins: [StepMixin]
   propTypes:
-    id: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
@@ -191,7 +191,7 @@ ExerciseReview = React.createClass
 module.exports = React.createClass
   displayName: 'Exercise'
   propTypes:
-    id: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired

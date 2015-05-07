@@ -17,6 +17,21 @@ module.exports = React.createClass
     isLoading: React.PropTypes.func.isRequired
     isLoaded: React.PropTypes.func.isRequired
     isFailed: React.PropTypes.func.isRequired
+    renderLoading: React.PropTypes.func.isRequired
+    renderError: React.PropTypes.func.isRequired
+    renderBug: React.PropTypes.func.isRequired
+
+  getDefaultProps: ->
+
+    # Enables a renderStatus prop function with a component other than a div
+    renderLoading: ->
+      <div className='-loading'>Loading...</div>
+
+    renderError: ->
+      <div className='-error'>Error Loading...</div>
+
+    renderBug: ->
+      <div className='-bug'>Error Loading (Bug: Invalid State)</div>
 
   mixins: [BindStoreMixin]
 
@@ -26,13 +41,13 @@ module.exports = React.createClass
   bindUpdate: -> @props.update?() or @setState({})
   
   render: ->
-    {isLoading, isLoaded, isFailed, render} = @props
+    {isLoading, isLoaded, isFailed, render, renderLoading, renderError, renderBug} = @props
 
     if isLoading()
-      <div className='-loading'>Loading...</div>
+      renderLoading()
     else if isLoaded()
       render()
     else if isFailed()
-      <div className='-error'>Error Loading</div>
+      renderError()
     else
-      <div className='-bug'>Error Loading (Bug: Invalid State)</div>
+      renderBug()

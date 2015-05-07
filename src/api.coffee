@@ -174,7 +174,7 @@ start = ->
     url: "/api/courses/#{courseId}/tasks"
 
   apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/events"
+    url: "/api/courses/#{courseId}/dashboard"
 
   apiHelper CurrentUserActions, CurrentUserActions.loadName, CurrentUserActions.loadedName, 'GET', ->
     url: '/api/user'

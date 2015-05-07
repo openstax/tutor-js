@@ -10,7 +10,7 @@ SectionTopic = React.createClass
   displayName: 'SectionTopic'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     section: React.PropTypes.object.isRequired
     active: React.PropTypes.bool
 
@@ -39,8 +39,8 @@ ChapterAccordion = React.createClass
   displayName: 'ChapterAccordion'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     chapter: React.PropTypes.object.isRequired
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
@@ -91,8 +91,8 @@ ChapterAccordion = React.createClass
 SelectTopics = React.createClass
   displayName: 'SelectTopics'
   propTypes:
-    planId: React.PropTypes.any.isRequired
-    courseId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
 

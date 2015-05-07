@@ -1,5 +1,6 @@
 React = require 'react'
 Loadable = require './loadable'
+_ = require 'underscore'
 
 # This component is useful for viewing a single Object from the Backend (ie Task, TaskPlan).
 # It uses methods defined in `CrudConfig` (maybe that should be renamed) to:
@@ -11,7 +12,7 @@ Loadable = require './loadable'
 module.exports = React.createClass
   displayName: 'LoadableItem'
   propTypes:
-    id: React.PropTypes.any.isRequired
+    id: React.PropTypes.string.isRequired
     store: React.PropTypes.object.isRequired
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired
@@ -19,12 +20,16 @@ module.exports = React.createClass
     load: React.PropTypes.func
 
   render: ->
-    {id, store, actions, load, isLoaded, isLoading, renderItem, saved} = @props
+    {id, store, actions, load, isLoaded, isLoading, renderItem, saved, renderLoading, renderError, renderBug} = @props
+
     load ?= actions.load
     isLoaded ?= store.isLoaded
     isLoading ?= store.isLoading
 
     isLoadingOrLoad = ->
+      # if id is undefined, render as loading. loadableItem is waiting for id to be retrieved.
+      return true unless id?
+
       if isLoading(id)
         true
       else if isLoaded(id)
@@ -42,10 +47,13 @@ module.exports = React.createClass
       else
         false
 
+    renderModes = {renderLoading, renderError, renderBug}
+
     <Loadable
       store={store}
       isLoading={isLoadingOrLoad}
       isLoaded={-> isLoaded(id)}
       isFailed={-> store.isFailed(id)}
       render={renderItem}
+      {renderModes}
     />

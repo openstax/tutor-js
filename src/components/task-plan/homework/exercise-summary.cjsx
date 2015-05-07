@@ -20,7 +20,7 @@ ExerciseSummary = React.createClass
   displayName: 'ExerciseSummary'
 
   propTypes:
-    planId: React.PropTypes.any.isRequired
+    planId: React.PropTypes.string.isRequired
     canAdd: React.PropTypes.bool
     canReview: React.PropTypes.bool
     addClicked: React.PropTypes.func
