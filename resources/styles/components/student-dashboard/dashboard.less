@@ -1,6 +1,11 @@
 .student-dashboard {
-
-  .container { margin-top: 50px; }
+  @small-height-breakpoint: 600px;
+  .container {
+    margin-top: 100px;
+    // if the screen is short, move up even though it means
+    // the background "course type banner" won't be as visible
+    @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 40px; }
+  }
 
   .bg {
     // use a :before block to apply the opacity only to the
@@ -36,23 +41,12 @@
     font-weight: 700;
   }
 
-  .course-title {
-    display: inline-block;
-    height: 36px;
-    padding: 5px;
-    margin: 20px 0;
-    #fonts > .sans(1.8rem, 2rem);
-    font-weight: 400;
-    font-size: 1.8rem;
-    color: @tutor-black;
-    background-color: @tutor-quaternary;
-  }
-
-  .rbox {
+  .right-actions-box {
     background-color: white;
     padding: 10px;
     text-align: center;
-    margin-top: 85px;
+    margin-top: 20px;
+    @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
     button {
       width: 100%;
       // override bootstrap styling
