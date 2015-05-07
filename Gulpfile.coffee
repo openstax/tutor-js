@@ -214,13 +214,16 @@ gulp.task '_webserver', ->
     # the CSS file is rebuilt
     fallback: 'index.html'
     middleware: -> [
-        cors(), # For font loading from tutor-server
-        (req, res, next) ->
-            if req.url.match(/\.svg$/)
-                res.setHeader('Content-Type', 'image/svg+xml')
-            if req.url.match(/\.ttf$/)
-                res.setHeader('Content-Type', 'application/octet-stream')
-            next()
+      cors(), # For font loading from tutor-server
+      (req, res, next) ->
+        if req.url.match(/\.svg$/)
+          res.setHeader('Content-Type', 'image/svg+xml')
+        if req.url.match(/woff[2]?$/)
+          name = req.url[req.url.lastIndexOf('/') + 1 .. req.url.length]
+          ext  = name[name.lastIndexOf('.') + 1 .. name.length]
+          res.setHeader("Content-Disposition", "attachment; filename=\"#{name}\"")
+          res.setHeader('Content-Type', "application/font-#{ext}")
+        next()
 
     ]
   connect.server(config)
