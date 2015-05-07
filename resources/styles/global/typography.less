@@ -1,24 +1,25 @@
 .tutor-font-face(@family, @name, @filename, @weight, @style:normal) {
-	@font-face {
-	        font-family: @family;
-		src: local(@name),
-                     url('fonts/@{filename}.woff2') format('woff2'),
-                     url('fonts/@{filename}.woff') format('woff');
-		font-weight: @weight;
-		font-style: @style;
-	}
+  @font-face {
+    font-family: @family;
+    src: local(@name),
+    url('fonts/@{filename}.woff2') format('woff2'),
+    url('fonts/@{filename}.woff') format('woff');
+    font-weight: @weight;
+    font-style: @style;
+  }
 }
 
-.tutor-font-face('Lato', 'Lato-Regular',        'lato-v11-latin-regular',   400);
-.tutor-font-face('Lato', 'Lato-RegularItalic',  'lato-v11-latin-italic',    400, 'italic');
 .tutor-font-face('Lato', 'Lato-Bold',           'lato-v11-latin-700',       700);
 .tutor-font-face('Lato', 'Lato-Black',          'lato-v11-latin-900',       900);
-.tutor-font-face('Lato', 'Lato-Light',          'lato-v11-latin-300',       300);
 .tutor-font-face('Lato', 'Lato-LightItalic',    'lato-v11-latin-300italic', 300, 'italic');
+.tutor-font-face('Lato', 'Lato-Light',          'lato-v11-latin-300',       300);
+.tutor-font-face('Lato', 'Lato-RegularItalic',  'lato-v11-latin-italic',    400, 'italic');
+.tutor-font-face('Lato', 'Lato-Regular',        'lato-v11-latin-regular',   400);
 
-.tutor-font-face('MerriWeather', 'MerriWeather-Light',          'merriweatherv11-latin-300',       300);
-.tutor-font-face('MerriWeather', 'MerriWeather-LightItalic',    'merriweatherv11-latin-300italic', 300, 'italic');
-.tutor-font-face('MerriWeather', 'MerriWeather-Bold',           'merriweatherv11-latin-700',       700);
+.tutor-font-face('MerriWeather', 'MerriWeather-Light',          'merriweather-v8-latin-300',       300);
+.tutor-font-face('MerriWeather', 'MerriWeather-LightItalic',    'merriweather-v8-latin-300italic', 300, 'italic');
+.tutor-font-face('MerriWeather', 'MerriWeather-Bold',           'merriweather-v8-latin-700',       700);
+.tutor-font-face('MerriWeather', 'MerriWeather',                'merriweather-v8-latin-regular',   400);
 
 .tutor-font-face('Architects Daughter', 'Architects Daughter',  'architects-daughter-v6-latin-regular', 400);
 
@@ -28,20 +29,23 @@
 #fonts {
   .sans (@size: 1.5rem, @line-height: 3rem) {
     font-family: 'Lato', Helvetica, sans-serif;
-    font-weight: normal;
+    font-weight: 400;
+    font-style: normal;
     font-size: @size;
     line-height: @line-height;
   }
   .serif (@size: 1rem, @line-height: 1.5rem) {
     font-family: 'Merriweather', Georgia, Times, serif;
-    font-weight: normal;
+    font-weight: 400;
+    font-style: normal;
     font-size: @size;
     line-height: @line-height;
   }
   .script (@size: 1.5rem, @line-height: 3rem, @style: normal) {
     font-family: 'Architects Daughter', cursive;
     font-size: @size;
-    font-weight: normal;
+    font-weight: 400;
+    font-style: normal;
     line-height: @line-height;
     font-style: @style;
   }
