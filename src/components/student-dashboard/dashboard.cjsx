@@ -50,9 +50,8 @@ module.exports = React.createClass
             animation = {false}>
 
             <BS.TabPane eventKey={1} tab='This Week'>
-              <ThisWeekPanel   courseId={courseId}/>
-              <DontForgetPanel courseId={courseId}/>
-              <UpcomingPanel   courseId={courseId}/>
+              <ThisWeekPanel courseId={courseId}/>
+              <UpcomingPanel courseId={courseId}/>
             </BS.TabPane>
 
             <BS.TabPane eventKey={2} tab='All Past Work'>
