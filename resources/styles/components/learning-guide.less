@@ -1,0 +1,236 @@
+@guide-width: 1270px;
+@guide-height: 390px;
+// colors
+@guide-green: rgb(121, 177, 66);
+@guide-xaxis-circle-fill-green: rgb(132, 195, 74);
+@guide-bg-gradient: rgb(193, 216, 229);
+
+.learning-guide {
+  width: 100%;
+  background-repeat: repeat;
+  position: relative;
+
+  .x-axis-bg-repeat {
+    // global body padding-left/right prevents line from reaching ends at the moment...body classes with component name?
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 41px;
+    background: @guide-green;
+    z-index: -1;
+  }
+
+  .learning-guide-chart {
+    width: @guide-width;
+    height: @guide-height;
+    margin: 0 auto;
+
+    svg {
+      width: @guide-width;
+      height: @guide-height;
+
+      .main-title {
+        font-size: .2rem;
+        #fonts > .guide-header();
+        font-weight: bold;
+        fill: @tutor-neutral-darker;
+
+        .show-course {
+          .no-select();
+          cursor: pointer;
+          fill: @tutor-tertiary-light;
+          font-size: .15rem;
+        }
+      }
+      .circles {
+        .ace {
+          fill: @tutor-tertiary;
+        }
+        .cruising {
+          fill: @guide-green;
+        }
+        .too-low {
+          fill: @tutor-quaternary;
+        }
+        .grounded {
+          fill: @tutor-neutral-darker;
+        }
+        text {
+          // the unscaled resolution of the svg is only 100px wide, // so 2px is 2% of the width of the chart, i.e. fairly large
+          font-size: .15rem;
+          fill: @tutor-white;
+        }
+        circle {
+          stroke: white;
+          stroke-width: .25;
+        }
+        g {
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+      .grid-lines {
+        line {
+          stroke: @tutor-neutral-light;
+          stroke-width: 0.1;
+          // stroke-dasharray: 1 2;
+        }
+      }
+      .plot-lines {
+        line {
+          stroke: @tutor-white;
+          stroke-width: 0.4;
+          stroke-dasharray: 1.2 0.5;
+        }
+      }
+      .background-gradient {
+        // despite the attribute being named "stop-color" this sets the starting color
+        .start {
+          stop-color: @guide-bg-gradient;
+        }
+        .end {
+          stop-color: @tutor-white;
+        }
+      }
+      .x-axis {
+        text {
+          fill: @tutor-white;
+          #fonts > .sans(.2rem);
+        }
+        .arrow {
+          fill: transparent;
+          stroke: transparent;
+        }
+        .point {
+          cursor: pointer;
+
+          &:hover  .arrow {
+            fill: @tutor-neutral-light;
+          }
+          &.active .arrow {
+            fill: @tutor-white;
+          }
+        }
+        .point.active .x-axis-label {
+          font-weight: bold;
+        }
+      }
+      .x-rect {
+        fill: @guide-green;
+      }
+      .x-axis-circle {
+        stroke: @tutor-neutral-light;
+        fill: @guide-xaxis-circle-fill-green;
+        stroke-width: .1;
+      }
+      .y-label {
+        font-size: .15rem;
+        #fonts > .guide-label();
+        fill: @tutor-white;
+      }
+      .y-desc {
+        font-size: .15rem;
+        #fonts > .guide-label();
+        font-style: italic;
+        fill: @tutor-neutral;
+      }
+      .cloud-opacity-10 {
+        opacity: .1
+      }
+      .cloud-opacity-20 {
+        opacity: .2
+      }
+      .cloud-opacity-30 {
+        opacity: .3
+      }
+      .cloud-opacity-40 {
+        opacity: .4
+      }
+      .cloud-opacity-50 {
+        opacity: .5
+      }
+      .cloud-opacity-60 {
+        opacity: .6
+      }
+      .cloud-opacity-70 {
+        opacity: .7
+      }
+      .cloud-opacity-80 {
+        opacity: .8
+      }
+      .cloud-opacity-90 {
+        opacity: .9
+      }
+      .cloud-opacity-100 {
+        opacity: 1
+      }
+    }
+    .footer {
+      width: 600px;
+      height: 185px;
+      margin-top: -9px;
+      margin-left: 0px;
+      border-width: 1px 0px 1px 1px;
+      border-style: solid;
+      border-color: @tutor-neutral-light;
+      background: @tutor-white;
+      display: none;
+    }
+    .footer.active {
+      display: block;
+    }
+    .footer-content-wrap {
+      padding: 10px 20px 15px 20px;
+
+      .header {
+        border-bottom: 1px dashed @tutor-neutral-light;
+        padding-bottom: 9px;
+      }
+      .chapter {
+        display: inline;
+        font-weight: bold;
+        color: @guide-green;
+      }
+      .chapter:after {
+        content: "\00a0";
+      }
+      .title {
+        display: inline;
+        font-weight: bold;
+      }
+      .row-wrap {
+        width: 86%;
+        height: 90px;
+        padding-top: 5px;
+        margin-top: 5px;
+      }
+      .problems-worked {
+        float: left;
+        padding-top: 12px;
+        margin: 0 auto;
+        width: 300px;
+
+        .count {
+          font-size: 4rem;
+          text-align: center;
+          color: @tutor-quaternary;
+        }
+        .count-desc {
+          text-align: center;
+        }
+      }
+      .practice-button-wrap {
+        float: right;
+      }
+      .help-text {
+        font-size: 1.2rem;
+        #fonts > .guide-label();
+        font-style: italic;
+        color: @tutor-neutral-dark;
+      }
+    }
+  }
+}

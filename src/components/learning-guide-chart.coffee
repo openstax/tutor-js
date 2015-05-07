@@ -2,6 +2,7 @@ _ = require 'underscore'
 d3 = require 'd3'
 {AppConfigStore} = require '../flux/app-config'
 
+
 CITYSCAPE_PATH = 'houston-skyline.svg'
 CLOUD_PATH     = 'cloud.svg'
 PLANE_PATH     = 'openstax-plane.svg'
@@ -10,12 +11,13 @@ FLAG_GREEN     = 'flag-green.svg'
 FLAG_YELLOW    = 'flag-yellow.svg'
 FLAG_GREY      = 'flag-grey.svg'
 
+
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
 WIDTH = 160
 HEIGHT = 49 # approx 2/3 width, adjust to suit
 
 # used for green x-axis bar and clipping path
-XRECTHEIGHT = 4.49
+XRECTHEIGHT = 5.1
 
 
 module.exports = class LearningGuideChart
@@ -66,7 +68,6 @@ module.exports = class LearningGuideChart
     @drawBackgroundGradient(container)
     @drawVerticalLines(container, points)
     @drawStaticImages(container, points)
-    #@drawHills(container)
     @drawPlotLines(container, points)
     @drawCircles(container, fields, points)
     @drawPlane(container, points)
@@ -86,7 +87,6 @@ module.exports = class LearningGuideChart
 
 
 
-
   drawTitle: (container, guide) ->
     wrap = container.append('g')
       .append('svg:text')
@@ -96,7 +96,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'main-title')
       .text("Your Flight Path | #{guide.title} | All Topics | ")
       .append('svg:a')
-      .attr('class', 'show-course noselect')
+      .attr('class', 'show-course')
       .text("Show All #{guide.title}")
       .on('click', =>
         @displayTopic()
@@ -148,7 +148,7 @@ module.exports = class LearningGuideChart
       )
     label.append('circle')
       .attr('r', 3.7)
-      .attr('cy', 1.8)
+      .attr('cy', 1.7)
       .attr('class', 'x-axis-circle')
     label.append('polygon')
       .attr('class', 'arrow')
@@ -159,9 +159,10 @@ module.exports = class LearningGuideChart
       .attr('text-anchor', 'middle')
       .attr('dy', '2.3')
       .attr('text-anchor', 'middle')
-      .text( (f, i) -> f.chapter_section )
-
-
+      .text( (f, i) ->
+        subsection = if f.chapter_section[1]? then '.' + f.chapter_section[1] else ''
+        f.chapter_section[0] + subsection
+        )
 
 
   drawYDesc: (container, ypos, text) ->
@@ -206,34 +207,6 @@ module.exports = class LearningGuideChart
       .attr('transform', "rotate(#{lineAngle}, #{point.x}, #{point.y})")
 
 
-  drawHills: (container) ->
-    # might be nice to move this definition up into DefaultProps
-    fgPath = [
-      { x: -5, y: HEIGHT}
-      { x: WIDTH * 0.20, y: HEIGHT * 0.80 }
-      { x: WIDTH * 0.65, y: HEIGHT * 0.95 }
-      { x: WIDTH + 10,   y: HEIGHT }
-    ]
-    bgPath = [
-      { x: WIDTH * 0.30, y: HEIGHT}
-      { x: WIDTH * 0.85, y: HEIGHT * 0.90 }
-      { x: WIDTH * 0.95, y: HEIGHT * 0.95 }
-      { x: WIDTH + 5, y: HEIGHT  }
-    ]
-    container.append('path')
-      .attr('d', d3.svg.line()
-        .x( (d) -> d.x )
-        .y( (d) -> d.y )
-        .interpolate('basis')(bgPath))
-      .attr('class', 'background-hills')
-    container.append('path')
-      .attr('d', d3.svg.line()
-        .x( (d) -> d.x )
-        .y( (d) -> d.y )
-        .interpolate('basis')(fgPath))
-      .attr('class', 'foreground-hills')
-
-
   drawBackgroundGradient: (container) ->
     gradient = container.append('svg:defs')
       .append('svg:linearGradient')
@@ -270,11 +243,11 @@ module.exports = class LearningGuideChart
     @addImage(FLAG_YELLOW, width:20, height:2.5, x:6.6, y:28.3)
     @addImage(FLAG_GREY, width:20, height:2.5, x:6.3, y:39.3)
 
-    @addImage(CLOUD_PATH, width:40, height:15, x:110, y:2, 'cloud cloud-opacity-70')
-    @addImage(CLOUD_PATH, width:18, height:7, x:105, y:4, 'cloud cloud-opacity-70')
-    @addImage(CLOUD_PATH, width:15, height:15, x:30, y:2, 'cloud cloud-opacity-40')
-    @addImage(CLOUD_PATH, width:20, height:10, x:38, y:7, 'cloud cloud-opacity-70')
-    @addImage(CLOUD_PATH, width:20, height:15, x:135, y:2, 'cloud cloud-opacity-50')
+    @addImage(CLOUD_PATH, width:40, height:15, x:110, y:2, 'cloud-opacity-70')
+    @addImage(CLOUD_PATH, width:18, height:7, x:105, y:4, 'cloud-opacity-70')
+    @addImage(CLOUD_PATH, width:15, height:15, x:30, y:2, 'cloud-opacity-40')
+    @addImage(CLOUD_PATH, width:20, height:10, x:38, y:7, 'cloud-opacity-70')
+    @addImage(CLOUD_PATH, width:20, height:15, x:135, y:2, 'cloud-opacity-50')
 
 
   drawCircles: (container, fields, points) ->
@@ -296,13 +269,13 @@ module.exports = class LearningGuideChart
       .attr('class', (f) ->
         lv = f.current_level
         if lv > .75
-          'blue'
+          'ace'
         else if lv <= .75 and lv >= .50
-          'green'
+          'cruising'
         else if lv <= .49 and lv >= .35
-          'yellow'
+          'too-low'
         else if lv < .35
-          'grey'
+          'grounded'
       )
     # circles.append('text')
     #   .text( (f) ->
