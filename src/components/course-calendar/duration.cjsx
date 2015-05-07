@@ -3,6 +3,7 @@ twix = require 'twix'
 _ = require 'underscore'
 
 React = require 'react/addons'
+CoursePlan = require './plan'
 
 CourseDuration = React.createClass
   displayName: 'CourseDuration'
@@ -30,7 +31,7 @@ CourseDuration = React.createClass
     console.log(durationsByStartDate)
 
 
-    @setState({groupedDurations})
+    @setState({groupedDurations, durationsByStartDate})
 
   groupDurations: (durations, viewingDuration, groupingDurations) ->
     durationsInView = _.chain(durations)
@@ -50,7 +51,7 @@ CourseDuration = React.createClass
   _rankPlansWithinDuration: (range) ->
     overlapCount = 0
     overlapLists = [[]]
-    _.each(range.plans, (plan, thisPlanIndex) ->
+    _.each range.plans, (plan, thisPlanIndex) ->
       planToCompareTo = range.plans[thisPlanIndex + 1]
 
       overlapLists[overlapLists.length - 1].push(plan)
@@ -63,7 +64,6 @@ CourseDuration = React.createClass
       else
         overlapCount = 0
         overlapLists.push([])
-    )
 
     range.plansByOverlaps = overlapLists
 
@@ -73,21 +73,18 @@ CourseDuration = React.createClass
   calcDayHeight:  (range) ->
 
     @_rankPlansWithinDuration(range)
-
-    console.log("range.plansByOverlaps")
-    console.log(range.plansByOverlaps)
-
     dayHeight = 10
 
     _.each(range.plansByOverlaps, (plans) ->
-
       if plans?.length > 2
-        dayHeight = @_calcDayHeight(plans.length)
+        calcedHeight = @_calcDayHeight(plans.length)
+        if calcedHeight > dayHeight
+          dayHeight = calcedHeight
 
+      _.each(plans, (plan) ->
+        plan.order = plans.length - plan.rank
+      )
     )
-
-    if range?.plans?.length > 2
-      dayHeight = @_calcDayHeight(range.plans.length)
 
     range.dayHeight = dayHeight
 
@@ -153,8 +150,13 @@ CourseDuration = React.createClass
   renderGroupedDurations: (range) ->
     @renderChildren(range)
 
+  renderDurationsByPlan: (item) ->
+    {courseId} = @props
+    <CoursePlan item={item} key="course-plan-#{item.plan.id}" courseId={courseId}/>
+
   renderDurations: ->
-    renderedDurations = _.map(@state.groupedDurations, @renderGroupedDurations)
+    # renderedDurations = _.map(@state.groupedDurations, @renderGroupedDurations)
+    renderedDurations = _.map(@state.durationsByStartDate, @renderDurationsByPlan)
 
   render: ->
     {durations, viewingDuration, groupingDurations} = @props
