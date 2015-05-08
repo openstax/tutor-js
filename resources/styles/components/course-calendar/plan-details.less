@@ -4,8 +4,7 @@
 .x-plan-modal(@plan-color) {
   .modal-content {
     .modal-header {
-      color: @plan-color;
-      background: fade(@plan-color, 20%);
+      background: @plan-color;
     }
   }
 
@@ -28,7 +27,10 @@ body.modal-open {
   &.interactive-modal  { .x-plan-modal(@interactive-color); }
 
   .modal-content {
-    .modal-header { padding-bottom: 10px; }
+    .modal-header {
+      // color: @tutor-white;
+      padding-bottom: 10px;
+    }
     .modal-body {
       > :first-child { margin-top: 0; }
 

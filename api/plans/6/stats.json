@@ -1,0 +1,22 @@
+{
+    "id": "6",
+    "type": "exercise",
+    "title": "Complete exercise 12A on pg 12",
+    "stats": {
+        "course": {
+            "total_count": 10,
+            "complete_count": 0,
+            "partially_complete_count": 0,
+            "current_pages": [],
+            "spaced_pages": [{
+                "id": "0",
+                "number": 0,
+                "title": "",
+                "student_count": 10,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }]
+        },
+        "periods": []
+    }
+}

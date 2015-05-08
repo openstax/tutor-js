@@ -9,7 +9,7 @@ BS = require 'react-bootstrap'
 
 CourseCalendarHeader = require './header'
 CourseDuration = require './duration'
-CoursePlansByWeek = require './plans-by-week'
+CoursePlan = require './plan'
 CourseAdd = require './add'
 CourseAddMenuMixin = require './add-menu-mixin'
 
@@ -39,16 +39,16 @@ CourseMonth = React.createClass
       )
 
   componentDidUpdate: ->
-    @setDayHeight(@refs.courseDurations.state.groupedDurations)
+    @setDayHeight(@refs.courseDurations.state.ranges)
 
-  setDayHeight: (groupedDurations) ->
+  setDayHeight: (ranges) ->
     calendar = React.findDOMNode(@refs.calendar)
     nodesWithHeights = calendar.querySelectorAll('.rc-Week')
 
     # Adjust calendar height for each week to accomodate the number of plans shown on this week
     # CALENDAR_DAY_DYNAMIC_HEIGHT, see less for property that is overwritten.
     Array.prototype.forEach.call(nodesWithHeights, (node, nthRange) ->
-      range = _.findWhere(groupedDurations, {nthRange: nthRange})
+      range = _.findWhere(ranges, {nthRange: nthRange})
       node.style.height = range.dayHeight + 'rem'
     )
 
@@ -157,7 +157,7 @@ CourseMonth = React.createClass
             groupingDurations={calendarWeeks}
             courseId={courseId}
             ref='courseDurations'>
-            <CoursePlansByWeek/>
+            <CoursePlan/>
           </CourseDuration>
 
         </BS.Col>
