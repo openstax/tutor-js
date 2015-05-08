@@ -49,14 +49,14 @@ CourseDuration = React.createClass
     dayHeights = _.pluck(ranges, 'dayHeight')
 
     _.each(ranges, (range, index) ->
-      topOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
+      weekTopOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
         memo + current
       ).value()
 
       _.each(range.plansByOverlaps, (plans) ->
         _.each(plans, (plan, order) ->
           plan.order = plans.length - order
-          plan.topOffset = topOffset
+          plan.weekTopOffset = weekTopOffset
         )
       )
     )
