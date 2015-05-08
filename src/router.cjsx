@@ -18,7 +18,8 @@ routes = (
     <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
     <Route path='courses/:courseId/?'>
       <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
-      <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} />
+      <Route path='tasks/:id?/?:stepIndex?' name='viewTask' handler={SingleTask}/>
+
       <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
       <Route path='guide/?' name='viewGuide' handler={LearningGuideShell} />
       <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
