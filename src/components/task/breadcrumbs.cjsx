@@ -5,19 +5,16 @@ _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
 Breadcrumb = require './breadcrumb'
-BindStoreMixin = require '../bind-store-mixin'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [CrumbMixin, BindStoreMixin]
+  mixins: [CrumbMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
     currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
-
-  bindStore: TaskStore
 
   render: ->
     crumbs = @getCrumableCrumbs()
