@@ -18,9 +18,25 @@ module.exports = React.createClass
     renderItem: React.PropTypes.func.isRequired
     saved: React.PropTypes.func
     load: React.PropTypes.func
+    renderLoading: React.PropTypes.func
+    update: React.PropTypes.func
+
+  componentDidMount: -> @reload({})
+  componentDidUpdate: (oldProps) -> @reload(oldProps)
+
+  reload: (oldProps) ->
+    {id, store, load, actions} = @props
+
+    # Skip reloading if all the props are the same (the case in the Calendar for some reason)
+    if oldProps.id is id and oldProps.store is store and oldProps.actions is actions and oldProps.load is load
+      return
+
+    load ?= actions.load
+    unless store.isNew(id)
+      load(id)
 
   render: ->
-    {id, store, actions, load, isLoaded, isLoading, renderItem, saved, renderLoading, renderError, renderBug} = @props
+    {id, store, actions, load, isLoaded, isLoading, renderItem, saved, renderLoading, renderError, renderBug, update} = @props
 
     load ?= actions.load
     isLoaded ?= store.isLoaded
@@ -35,11 +51,6 @@ module.exports = React.createClass
       else if isLoaded(id)
         false
       else if store.isUnknown(id) or store.reload(id)
-
-        # The load is done here because otherwise it would need to be in `componentWillMount`
-        # **and** componentWillUpdate(nextProps) making the API a bit more clunky
-        unless store.isNew(id)
-          load(id)
         true
       else if store.isNew(id) and store.get(id).id and saved
         # If this store was just created, then call the onSaved prop
@@ -55,5 +66,7 @@ module.exports = React.createClass
       isLoaded={-> isLoaded(id)}
       isFailed={-> store.isFailed(id)}
       render={renderItem}
+      renderLoading={renderLoading}
+      update={update}
       {renderModes}
     />

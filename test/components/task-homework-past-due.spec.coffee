@@ -15,6 +15,9 @@ homework_model = require '../../api/tasks/5.json'
 
 describe 'Task Widget, homework specific things, past due date', ->
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
+
     TaskActions.loaded(homework_model, homeworkTaskId)
 
     taskTests
@@ -29,6 +32,9 @@ describe 'Task Widget, homework specific things, past due date', ->
 
     TaskActions.reset()
     TaskStepActions.reset()
+
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should be able view feedback after completing a step', (done) ->
     # run a full step through and check for feedback
