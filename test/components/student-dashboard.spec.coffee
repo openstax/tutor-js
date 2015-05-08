@@ -20,8 +20,6 @@ renderDashBoard = ->
         dashboard: ReactTestUtils.findRenderedComponentWithType(result.component, StudentDashboardShell)
       }, result))
 
-
-
 describe 'Student Dashboard Component', ->
   beforeEach (done) ->
     TimeActions.setNow(NOW)
@@ -39,7 +37,7 @@ describe 'Student Dashboard Component', ->
     #  * one event a few days later
     #  * one event on the next sunday, the 19th.  As spece'd that should also be included
     renderDashBoard().then (state) ->
-      tasks = state.div.querySelectorAll('.-this-week .task .title>span:first-child')
+      tasks = state.div.querySelectorAll('.-this-week .task .title')
       expect(tasks.length).equal(3)
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal([
@@ -51,10 +49,9 @@ describe 'Student Dashboard Component', ->
   it 'renders only upcoming events to week panel', ->
     TimeActions.setNow(new Date('2015-04-24T11:15:58.856Z'))
     renderDashBoard().then (state) ->
-      tasks = state.div.querySelectorAll('.-upcoming .task .title>span:first-child')
+      tasks = state.div.querySelectorAll('.-upcoming .task .title')
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal(['Homework #3', 'Homework #4 (final)'])
-
 
   it 'renders only as many events as are available', ->
     # Time is set after only one event has occured
