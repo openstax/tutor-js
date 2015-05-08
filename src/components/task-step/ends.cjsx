@@ -10,7 +10,7 @@ BindStoreMixin = require '../bind-store-mixin'
 
 TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
-{TaskStepStore, TaskStepActions} = require '../../flux/task-step'
+{TaskStepStore} = require '../../flux/task-step'
 
 PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
@@ -52,6 +52,7 @@ HomeworkEnd = React.createClass
   bindStore: TaskStepStore
   bindEvent: 'step.completed'
   bindUpdate: ->
+    # update on complete
     @setState({})
 
   propTypes:
