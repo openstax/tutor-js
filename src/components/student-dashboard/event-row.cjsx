@@ -18,8 +18,8 @@ module.exports = React.createClass
 
   onClick: ->
     @context.router.transitionTo 'viewTask',
-      {courseId:@props.courseId, id: @props.event.id}
-
+      # url is 1 based so it matches the breadcrumb button numbers. 1==first step
+      {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
 
   render: ->
     workable = StudentDashboardStore.canWorkTask(@props.event)

@@ -28,12 +28,20 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   getInitialState: ->
-    currentStep = @getDefaultCurrentStep()
-    {currentStep}
+    {stepIndex} = @context.router.getCurrentParams()
+    # url is 1 based so it matches the breadcrumb button numbers
+    crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
+    {currentStep: crumbKey}
+
 
   goToStep: (stepKey) ->
+# Curried for React
     =>
-      # Curried for React
+      params = @context.router.getCurrentParams()
+      # url is 1 based so it matches the breadcrumb button numbers
+      params.stepIndex = stepKey + 1
+      params.id = @props.id # if we were rendered directly, the router might not have the id
+      @context.router.replaceWith('viewTask', params)
       @setState({currentStep: stepKey})
 
   goToCrumb: ->
