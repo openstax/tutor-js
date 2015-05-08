@@ -13,16 +13,17 @@ module.exports =
     defaultIndex = TaskStore.getDefaultStepIndex(id)
     steps = TaskStore.getSteps id
 
-    if defaultIndex is -1 and TaskStore.isTaskCompleted(id)
-      defaultIndex = steps.length
+    if defaultIndex is -1
+      if TaskStore.isTaskCompleted(id)
+        defaultIndex = steps.length
+      else
+        defaultIndex = 0
 
     defaultIndex
 
   shouldStepCrumb: (index) ->
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
-    # show initial crumb if on intro panel
-    latestIndex = 0 if latestIndex is -1
 
     # doesAllowSeeAhead is currently true for if task type is homework.
     doesAllowSeeAhead = TaskStore.doesAllowSeeAhead(id)
