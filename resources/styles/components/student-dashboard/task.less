@@ -1,6 +1,9 @@
 .student-dashboard {
   .task {
     margin-bottom: 5px;
+    border: 1px solid @tutor-white;
+    background: @tutor-white;
+    // need a border specified, otherwise it causes the rows to jump when the hover effect applies one
     border-bottom: thin dotted @tutor-neutral-bright;
     // if the screen is wide enought, set a hight and use line-height to vertically center content.
     // This breaks when the responsive small view kicks in and it becomes multi-line
@@ -16,11 +19,14 @@
         white-space: nowrap;
       }
     }
+
+    
     // A task that is workable can be clicked
     &.workable {
       cursor: pointer;
       &:hover {
         background-color: @tutor-neutral-lighter;
+        border: 1px dotted @tutor-neutral-light;
         // on hover grow the icon from 4rem (40pxish) to 56 and adjust size so it grows in both dimensions
         .icon {
           background-position-y: 0px;
@@ -30,7 +36,7 @@
           background-size: 56px 56px;
           position: absolute;
           top: -3px;
-          left: 3px;
+          left: 6px;
           overflow: visible;
         }
       }
