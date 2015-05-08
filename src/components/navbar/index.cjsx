@@ -55,7 +55,7 @@ module.exports = React.createClass
     @context.router.transitionTo(routeName, params)
 
   shouldHide: ->
-    @state.scrollTop > 60 and document.getElementsByClassName('task')
+    @state.scrollTop > 60 and document.querySelector('.task-view')
 
   renderMenuItems: (courseId) ->
     menuRoutes = CurrentUserStore.getMenuRoutes(courseId)

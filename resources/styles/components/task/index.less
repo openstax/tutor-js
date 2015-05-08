@@ -1,12 +1,4 @@
-.fixed-bar() {
-  left: 0;
-  position: fixed;
-  width: 100%;
-  background-color: fadeout(@tutor-white, 20%);
-}
-
-
-.task-view {
+body.task-view {
   padding-top: 2 * @tutor-navbar-height;
   padding-bottom: @tutor-navbar-height;
 
@@ -15,7 +7,7 @@
     .transition(transform 0.2s ease-out);
 
     top: @tutor-navbar-height;
-    .fixed-bar();
+    .fixed-bar(fadeout(@tutor-white, 20%));
     padding: 1rem @tutor-navbar-padding-horizontal;
     margin: 0;
 
