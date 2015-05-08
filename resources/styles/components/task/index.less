@@ -1,0 +1,35 @@
+.fixed-bar() {
+  left: 0;
+  position: fixed;
+  width: 100%;
+  background-color: fadeout(@tutor-white, 20%);
+}
+
+
+.task-view {
+  padding-top: 2 * @tutor-navbar-height;
+  padding-bottom: @tutor-navbar-height;
+
+  .panel-header {
+    .transition(transform 0.2s ease-out);
+
+    top: @tutor-navbar-height;
+    .fixed-bar();
+    padding: 1rem @tutor-navbar-padding-horizontal;
+    margin: 0;
+
+    button.task-details {
+      float: right;
+      position: static;
+    }
+  }
+  .panel-footer {
+    .fixed-bar();
+    bottom: 0;
+  }
+  .panel-header-stubborn {
+    .transform-origin(0 0);
+    .translate(0, -@tutor-navbar-height);
+  }
+
+}

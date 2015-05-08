@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
+{ScrollListenerMixin} = require 'react-scroll-components'
+
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
@@ -22,14 +24,23 @@ module.exports = React.createClass
 
   displayName: 'ReadingTask'
 
-  mixins: [CrumbMixin]
+  mixins: [CrumbMixin, ScrollListenerMixin]
 
   contextTypes:
     router: React.PropTypes.func
 
+  componentWillMount: ->
+    document.body.classList.add('task-view')
+
+  componentWillUnmount: ->
+    document.body.classList.remove('task-view')
+
   getInitialState: ->
     currentStep = @getDefaultCurrentStep()
     {currentStep}
+
+  shouldPinBreadcrumbs: ->
+    @state.scrollTop > 60
 
   goToStep: (stepKey) ->
     =>
@@ -79,6 +90,9 @@ module.exports = React.createClass
     # get the crumb that matches the current state
     crumb = @goToCrumb()
 
+    headerClasses = 'panel-header'
+    headerClasses += ' panel-header-stubborn' if @shouldPinBreadcrumbs()
+
     # crumb.type is one of ['intro', 'step', 'end']
     renderPanelMethod = camelCase "render-#{crumb.type}"
 
@@ -90,7 +104,7 @@ module.exports = React.createClass
 
     unless TaskStore.isSingleStepped(id)
       breadcrumbs =
-        <div className='panel-header'>
+        <div className={headerClasses}>
           <Details task={task} />
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep}/>
         </div>

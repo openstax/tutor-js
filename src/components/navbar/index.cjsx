@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
+{ScrollListenerMixin} = require 'react-scroll-components'
 
 UserName = require './username'
 CourseName = require './course-name'
@@ -13,7 +14,7 @@ BindStoreMixin = require '../bind-store-mixin'
 module.exports = React.createClass
   displayName: 'Navigation'
 
-  mixins: [BindStoreMixin]
+  mixins: [BindStoreMixin, ScrollListenerMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -53,6 +54,9 @@ module.exports = React.createClass
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)
 
+  shouldHide: ->
+    @state.scrollTop > 60 and document.getElementsByClassName('task')
+
   renderMenuItems: (courseId) ->
     menuRoutes = CurrentUserStore.getMenuRoutes(courseId)
 
@@ -82,7 +86,9 @@ module.exports = React.createClass
               <i className='ui-brand-logo'></i>
             </Router.Link>
 
-    <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
+    classes = 'navbar-shy' if @shouldHide()
+
+    <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid className={classes}>
       <BS.CollapsableNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>
