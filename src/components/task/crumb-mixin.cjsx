@@ -25,7 +25,7 @@ module.exports =
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
 
-    # doesAllowSeeAhead is currently true for if task type is homework.
+    # doesAllowSeeAhead is currently true for if task type is homework and for practices.
     doesAllowSeeAhead = TaskStore.doesAllowSeeAhead(id)
 
     doesAllowSeeAhead or index <= latestIndex

@@ -10,6 +10,10 @@
   font-weight: 400;
   padding: 10px 140px;
 
+  counter-reset: answer 0;
+  #fonts > .sans (2.1rem, 3rem);
+  font-weight: 400;
+
   textarea {
     margin: 1em 0;
     padding: 5px;
@@ -40,7 +44,7 @@
       display: inline-block;
       float: left;
       margin-left: -145px;
-      #fonts > .script;
+      #fonts > .script();
       color: #888;
     }
   }
@@ -63,16 +67,10 @@
       content: "Why?";
       float: left;
       margin: 3px 0 0 -56px;
-      #fonts > .script;
+      #fonts > .script();
       color: #888;
     }
   }
-}
-
-.question {
-  counter-reset: answer 0;
-  #fonts > .sans (2.1rem, 3rem);
-  font-weight: 400;
 
   .card-content {
     margin-left: 4rem; // Enough room for double-digit question numbers
@@ -120,7 +118,7 @@
     #fonts > .sans (2rem);
     font-weight: 400;
     width: 100%;
-    float:left;
+    float: left;
     background: #f3fcfd;
     transition: background-color .1s ease-in;
 
@@ -145,8 +143,8 @@
 
     .answers-table .answer-correct:before,
     .answers-table .answer-checked:not(.answer-correct):before {
-      content:@fa-var-check;
-      color:@correct-answer-color;
+      content: @fa-var-check;
+      color: @correct-answer-color;
       display: inline-block;
       float: left;
       text-align: right;
@@ -158,7 +156,7 @@
 
     .answers-table .answer-correct .answer-label {
       background-color: @correct-answer-background;
-      color:@correct-answer-color;
+      color: @correct-answer-color;
       font-weight: 900;
 
       .answer-content:hover {
@@ -166,12 +164,12 @@
       }
     }
     .answers-table .answer-checked:not(.answer-correct):before {
-      content:@fa-var-close;
-      color:@wrong-answer-color;
+      content: @fa-var-close;
+      color: @wrong-answer-color;
     }
     .answers-table .answer-checked:not(.answer-correct) .answer-label {
       background-color: @wrong-answer-background;
-      color:@wrong-answer-color;
+      color: @wrong-answer-color;
       font-weight: 900;
 
       .answer-content:hover {

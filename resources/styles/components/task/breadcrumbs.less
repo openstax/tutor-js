@@ -1,4 +1,4 @@
-.circle(@radius){
+.crumb-circle(@radius){
   font-size: @radius;
   border-radius: 2 * @radius;
   line-height: 2 * @radius;
@@ -7,7 +7,9 @@
 
 
 // http://caniuse.com/#search=counter
-.task-homework, .task-practice, .task-chapter_practice{
+.task-homework,
+.task-practice,
+.task-chapter_practice {
   .steps {
     counter-reset: step;
   }
@@ -31,7 +33,7 @@
   margin-right: -2px;
 
   .step {
-    .circle(2rem);
+    .crumb-circle(2rem);
     position: relative;
     font-weight: 500;
     cursor: pointer;
