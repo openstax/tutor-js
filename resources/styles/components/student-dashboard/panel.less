@@ -10,7 +10,7 @@
     background-color: white; // override bootstrap default
     #fonts .serif(2.4rem, 2.8rem);
     font-weight: 900;
-    padding: 20px 15px;
+    padding: 20px 0 0 15px;
     // Do to a limitation of BootstrapReact, the title
     // cannot have a custom css class applied to it, it's always panel-title
     // As a workaround, a span is used for date ranges
@@ -26,5 +26,12 @@
     padding: 0;
   }
 
+  .row.labels {
+    #fonts .sans(1.5rem, 1.4rem);
+    font-weight: 400;
+    font-style: italic;
+    color: @tutor-neutral;
+    height: 20px;
+  }
 
 }
