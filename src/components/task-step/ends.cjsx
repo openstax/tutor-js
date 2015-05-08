@@ -68,6 +68,7 @@ HomeworkEnd = React.createClass
         key="task-review-#{step.id}"
         # focus on first problem
         focus={index is 0}
+        review={true}
       />
 
     stepsReview =
