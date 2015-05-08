@@ -13,15 +13,19 @@ module.exports =
     defaultIndex = TaskStore.getDefaultStepIndex(id)
     steps = TaskStore.getSteps id
 
-    if defaultIndex is -1 and TaskStore.isTaskCompleted(id)
-      defaultIndex = steps.length
+    if defaultIndex is -1
+      if TaskStore.isTaskCompleted(id)
+        defaultIndex = steps.length
+      else
+        defaultIndex = 0
 
     defaultIndex
 
   shouldStepCrumb: (index) ->
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
-    # doesAllowSeeAhead is currently true for if task type is homework.
+
+    # doesAllowSeeAhead is currently true for if task type is homework and for practices.
     doesAllowSeeAhead = TaskStore.doesAllowSeeAhead(id)
 
     doesAllowSeeAhead or index <= latestIndex
@@ -32,12 +36,6 @@ module.exports =
 
     # The following pushing of objects onto crumbs could be abstracted some more.
     # That would come in handy for any further case/task specific configuration needed for crumbs
-    # Intro
-    crumbs.push
-      key: -1
-      data: task
-      crumb: false
-      type: 'intro'
 
     # Step crumbs
     _.each steps, (step, index) =>

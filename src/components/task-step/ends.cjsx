@@ -56,18 +56,6 @@ HomeworkEnd = React.createClass
     courseId: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
 
-  # _addListener: ->
-  #   TaskStepStore.addChangeListener(@_update)
-
-  # _removeListener: ->
-  #   TaskStepStore.removeChangeListener(@_update)
-
-  # componentWillMount:   -> @_addListener()
-  # componentWillUnmount: -> @_removeListener()
-  # componentWillUpdate: -> @_removeListener()
-  # componentDidUpdate:  -> @_addListener()
-  # _update: -> @setState({})
-
   goToStep: ->
   onNextStep: ->
 
@@ -80,6 +68,7 @@ HomeworkEnd = React.createClass
         key="task-review-#{step.id}"
         # focus on first problem
         focus={index is 0}
+        review={true}
       />
 
     stepsReview =

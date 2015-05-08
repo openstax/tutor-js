@@ -126,7 +126,13 @@ TaskConfig =
       @_steps[taskId].length is 1
 
     doesAllowSeeAhead: (taskId) ->
-      if @_get(taskId).type is 'homework' then true else false
+      allowed = [
+        'homework'
+        'practice'
+        'chapter_practice'
+      ]
+
+      if allowed.indexOf(@_get(taskId).type) > -1 then true else false
 
     getCompletedStepsCount: (taskId) ->
       allSteps = getSteps(@_steps[taskId])

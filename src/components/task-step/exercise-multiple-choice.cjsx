@@ -37,7 +37,7 @@ ExerciseFreeResponse = React.createClass
     # TODO: Assumes 1 question.
     question = content.questions[0]
 
-    <div className='exercise'>
+    <div className='exercise-free-response'>
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <textarea
@@ -166,13 +166,16 @@ ExerciseReview = React.createClass
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   renderFooterButtons: ->
-    # TODO: switch to using classnames library
+    {review} = @props
+
     buttonClasses = '-continue'
     buttonClasses += 'disabled' unless @isContinueEnabled()
-    continueButton =
-      <BS.Button bsStyle='primary' className={buttonClasses} onClick={@onContinue}>
-        { if @canTryAnother() then 'Move On' else 'Continue' }
-      </BS.Button>
+
+    unless review
+      continueButton =
+        <BS.Button bsStyle='primary' className={buttonClasses} onClick={@onContinue}>
+          { if @canTryAnother() then 'Move On' else 'Continue' }
+        </BS.Button>
     if @canTryAnother()
       extraButtons = [
         <BS.Button bsStyle='primary' className='-try-another' onClick={@tryAnother}>
@@ -206,6 +209,7 @@ module.exports = React.createClass
       onNextStep={@props.onNextStep}
       goToStep={@props.goToStep}
       onStepCompleted={@props.onStepCompleted}
+      review={@props.review}
     />
 
   renderMultipleChoice: (id) ->

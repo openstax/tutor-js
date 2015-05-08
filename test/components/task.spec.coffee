@@ -112,9 +112,9 @@ describe 'Task Widget, through routes', ->
 
   it 'should be able to work through a task and load next step from a route', (done) ->
     # run a full step through and check each step
-    taskActions
-      .clickContinue(@result)
-      .then(taskTests.workExerciseAndCheck)
+
+    taskTests
+      .workExerciseAndCheck(@result)
       .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNextStep)
       .then(taskActions.advanceStep)
@@ -122,11 +122,25 @@ describe 'Task Widget, through routes', ->
         done()
       , done)
 
+  it 'should be able to work through tasks and show progressing breadcrumbs', (done) ->
+    # run a full step through and check each step
+
+    taskActions
+      .completeThisStep(@result)
+      .then(taskActions.advanceStep)
+      .then(taskChecks.checkHasReviewableBreadcrumbs)
+      .then(taskActions.completeThisStep)
+      .then(taskActions.advanceStep)
+      .then(taskChecks.checkHasReviewableBreadcrumbs)
+      .then( ->
+        done()
+      , done)
+
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
+
     taskActions
-      .clickContinue(@result)
-      .then(taskActions.completeSteps)
+      .completeSteps(@result)
       .then(taskChecks.checkIsCompletePage)
       .then( ->
         done()

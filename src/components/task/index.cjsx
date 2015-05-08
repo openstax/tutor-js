@@ -48,19 +48,6 @@ module.exports = React.createClass
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: @state.currentStep}
 
-  renderIntro: (data) ->
-    footer = <BS.Button bsStyle='primary' className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
-    if data.due_at
-      dueDate =
-        <div className='-due-at'>Due At: <Time
-          date={data.due_at}
-          format='LLL'/></div>
-
-    panel = <BS.Panel bsStyle='default' footer={footer} className='-task-intro'>
-              <h1>{data.title}</h1>
-              {dueDate}
-            </BS.Panel>
-
   renderStep: (data) ->
     # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
     # we need to reload the step straight from the API
