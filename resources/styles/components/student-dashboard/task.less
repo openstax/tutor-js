@@ -1,8 +1,30 @@
 .student-dashboard {
   .task {
-    padding-bottom: 5px;
     margin-bottom: 5px;
     border-bottom: thin dotted @tutor-neutral-bright;
-    &.workable { cursor: pointer; }
+    // if the screen is wide enought, set a hight and use line-height to vertically center content.
+    // This breaks when the responsive small view kicks in and it becomes multi-line
+    @media screen and ( min-width: @screen-sm-min ){ 
+      height: 50px;
+      // move the icon 5px down, so it's vertically centered in the 50px high row
+      .icon {
+        background-position-y: 5px;
+        height: 45px;
+      }
+      .title, .feedback, .due-at {
+        line-height: 50px;
+        white-space: nowrap;
+      }
+    }
+    // A task that is workable can be clicked
+    &.workable {
+      cursor: pointer;
+      &:hover {
+        background-color: @tutor-neutral-lighter;
+        box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.75);
+      }
+    }
+    transition: all 0.1s ease-in;
   }
+  
 }
