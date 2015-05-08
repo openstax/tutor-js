@@ -199,9 +199,11 @@ module.exports = React.createClass
     goToStep: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired
     focus: React.PropTypes.bool.isRequired
+    review: React.PropTypes.bool.isRequired
 
   getDefaultProps: ->
     focus: true
+    review: false
 
   renderReview: (id) ->
     <ExerciseReview

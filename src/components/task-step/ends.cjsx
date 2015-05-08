@@ -10,7 +10,7 @@ BindStoreMixin = require '../bind-store-mixin'
 
 TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
-{TaskStepStore} = require '../../flux/task-step'
+{TaskStepStore, TaskStepActions} = require '../../flux/task-step'
 
 PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
@@ -60,6 +60,7 @@ HomeworkEnd = React.createClass
   onNextStep: ->
 
   renderReviewSteps: (steps, label, type) ->
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
     stepsList = _.map steps, (step, index) =>
       <TaskStep
         id={step.id}
