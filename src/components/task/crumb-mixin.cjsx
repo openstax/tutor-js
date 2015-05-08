@@ -36,12 +36,6 @@ module.exports =
 
     # The following pushing of objects onto crumbs could be abstracted some more.
     # That would come in handy for any further case/task specific configuration needed for crumbs
-    # Intro
-    crumbs.push
-      key: -1
-      data: task
-      crumb: false
-      type: 'intro'
 
     # Step crumbs
     _.each steps, (step, index) =>
