@@ -52,16 +52,3 @@ describe 'Student Dashboard Component', ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title')
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal(['Homework #3', 'Homework #4 (final)'])
-
-  it 'renders only as many events as are available', ->
-    # Time is set after only one event has occured
-    TimeActions.setNow(new Date('2015-04-12T09:15:58.856Z'))
-    renderDashBoard().then (state) ->
-      events = state.div.querySelectorAll('.dont-forget .panel-body .title')
-      # For now all we're doing is rendering the 4 most recent past-due events
-      expect(_.pluck(events, 'textContent'))
-        .to.have.deep.equal([
-          'iReading 1: Force'
-        ])
-      expect(state.div.querySelector('.dont-forget .panel-body>div').className)
-        .to.include('col-xs-12')
