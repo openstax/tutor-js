@@ -37,7 +37,7 @@ ExerciseFreeResponse = React.createClass
     # TODO: Assumes 1 question.
     question = content.questions[0]
 
-    <div className='exercise'>
+    <div className='question'>
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <textarea
