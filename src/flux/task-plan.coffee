@@ -115,6 +115,7 @@ TaskPlanConfig =
 
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
+
   _getStats: (id) ->
     @_stats[id]
 
@@ -129,6 +130,7 @@ TaskPlanConfig =
     @emitChange()
 
   publish: (id) -> # used by API
+    @emitChange()
 
   exports:
     hasTopic: (id, topicId) ->
