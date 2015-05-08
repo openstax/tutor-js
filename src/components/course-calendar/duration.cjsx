@@ -64,7 +64,7 @@ CourseDuration = React.createClass
   # For displaying ranges for units in the future
   setDurationRange: (plan) ->
     if plan.opens_at and plan.due_at
-      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day').add(1, 'day'), {allDay: true})
+      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
     else if plan.opens_at
       plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
     else if plan.due_at
