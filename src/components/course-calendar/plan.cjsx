@@ -54,13 +54,17 @@ CoursePlan = React.createClass
       element.classList.remove('active')
     )
 
-  renderLabel: (rangeDuration, durationLength, plan, index) ->
+  renderLabel: (rangeDuration, durationLength, plan, index, offset) ->
     # Adjust width based on plan duration, helps with label centering on view...for the most part.
     # CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
     if index is 0
       rangeLength = rangeDuration.length('days')
       planLabelStyle =
         width: rangeLength / durationLength * 100 + '%'
+
+      if offset < 0
+        planLabelStyle.float = 'right'
+
       label = <label style={planLabelStyle}>{plan.title}</label>
 
 
@@ -78,7 +82,7 @@ CoursePlan = React.createClass
 
     planClasses = "plan #{plan.type} course-plan-#{plan.id}"
 
-    label = @renderLabel(rangeDuration, durationLength, plan, index)
+    label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
     planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
 
