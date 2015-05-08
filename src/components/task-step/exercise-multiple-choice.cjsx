@@ -106,7 +106,6 @@ ExerciseMultiChoice = React.createClass
     @props.onStepCompleted()
     @props.onNextStep() unless canReview
 
-
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
   mixins: [StepMixin]
@@ -219,6 +218,7 @@ module.exports = React.createClass
       id={id}
       onStepCompleted={@props.onStepCompleted}
       onNextStep={@props.onNextStep}
+      review={@props.review}
     />
 
   renderFreeResponse: (id) ->

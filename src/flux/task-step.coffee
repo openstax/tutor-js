@@ -24,6 +24,7 @@ TaskStepConfig =
 
   completed: (obj, id) ->
     @loaded(obj, id)
+    @emit('step.completed', id)
 
   setAnswerId: (id, answer_id) ->
     @_change(id, {answer_id})

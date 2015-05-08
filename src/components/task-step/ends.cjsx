@@ -49,8 +49,10 @@ HomeworkEnd = React.createClass
   displayName: 'HomeworkEnd'
 
   mixins: [BindStoreMixin]
-
   bindStore: TaskStepStore
+  bindEvent: 'step.completed'
+  bindUpdate: ->
+    @setState({})
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -60,7 +62,6 @@ HomeworkEnd = React.createClass
   onNextStep: ->
 
   renderReviewSteps: (steps, label, type) ->
-    TaskStepActions.HACK_DO_NOT_RELOAD(true)
     stepsList = _.map steps, (step, index) =>
       <TaskStep
         id={step.id}
