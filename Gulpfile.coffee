@@ -114,18 +114,18 @@ gulp.task '_cleanCSS', (done) ->
 
 gulp.task '_copyResources', ['_cleanResources'], ->
   destDir = './dist'
-  gulp.src("./resources/images/**/*.svg")
+  gulp.src("./resources/images/**/*.{svg,png,jpg}")
     .pipe(flatten())
     .pipe(gulp.dest(destDir))
 
 gulp.task '_cleanResources', (done) ->
-  del(['./dist/**/*.svg'], done)
+  del(['./dist/**/*.{svg,png,jpg}'], done)
 
 gulp.task '_copyFonts', ['_cleanFonts'], ->
   destDirFonts = './dist/fonts/'
   gulp.src([
-      'bower_components/**/*.{eot,svg,ttf,woff,woff2}',
-      'node_modules/**/*.{eot,svg,ttf,woff,woff2}',
+      'bower_components/**/*.{eot,svg,png,jpg,ttf,woff,woff2}',
+      'node_modules/**/*.{eot,svg,png,jpg,ttf,woff,woff2}',
       'resources/fonts/**/*'
     ])
     .pipe(flatten())
@@ -180,7 +180,7 @@ gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
     './dist/fonts/*',
-    './dist/**/*.svg'])
+    './dist/**/*.{svg,png,jpg}'])
     .pipe(tar('archive.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('./dist/'))
@@ -214,13 +214,16 @@ gulp.task '_webserver', ->
     # the CSS file is rebuilt
     fallback: 'index.html'
     middleware: -> [
-        cors(), # For font loading from tutor-server
-        (req, res, next) ->
-            if req.url.match(/\.svg$/)
-                res.setHeader('Content-Type', 'image/svg+xml')
-            if req.url.match(/\.ttf$/)
-                res.setHeader('Content-Type', 'application/octet-stream')
-            next()
+      cors(), # For font loading from tutor-server
+      (req, res, next) ->
+        if req.url.match(/\.svg$/)
+          res.setHeader('Content-Type', 'image/svg+xml')
+        if req.url.match(/woff[2]?$/)
+          name = req.url[req.url.lastIndexOf('/') + 1 .. req.url.length]
+          ext  = name[name.lastIndexOf('.') + 1 .. name.length]
+          res.setHeader("Content-Disposition", "attachment; filename=\"#{name}\"")
+          res.setHeader('Content-Type', "application/font-#{ext}")
+        next()
 
     ]
   connect.server(config)

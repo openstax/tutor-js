@@ -89,14 +89,14 @@ LearningGuideShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <div className='learning-guide-chart-wrap'>
+    <div className='learning-guide'>
       <LoadableItem
         id={courseId}
         store={LearningGuideStore}
         actions={LearningGuideActions}
         renderItem={-> <LearningGuide courseId={courseId} />}
       />
-      <div className='green-bar-repeat'></div>
+      <div className='x-axis-bg-repeat'></div>
     </div>
 
 module.exports = {LearningGuideShell, LearningGuide}

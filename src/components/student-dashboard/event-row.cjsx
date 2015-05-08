@@ -28,7 +28,7 @@ module.exports = React.createClass
     classnames += ' workable' if workable
     <div className={classnames} onClick={@onClick if workable}>
       <BS.Col xs={1}  sm={1}>
-        <i className={"icon-lg icon-#{@props.className}"}/>
+        <i className={"icon icon-lg icon-#{@props.className}"}/>
       </BS.Col>
       <BS.Col xs={11} sm={7} className='title'>{@props.children}</BS.Col>
       <BS.Col xs={6}  sm={2} className='feedback'>{@props.feedback}</BS.Col>

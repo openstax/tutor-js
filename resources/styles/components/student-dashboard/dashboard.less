@@ -1,0 +1,77 @@
+.student-dashboard {
+  @small-height-breakpoint: 600px;
+  .container {
+    margin-top: 100px;
+    // if the screen is short, move up even though it means
+    // the background "course type banner" won't be as visible
+    @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 40px; }
+  }
+
+  .bg {
+    // use a :before block to apply the opacity only to the
+    // background image, not the content itself
+    &:before{
+      content: "";
+      position: fixed;
+      z-index: -1;
+      top: 10px;
+      bottom: 0;
+      left: 50px;
+      right: 50px;
+      opacity: 0.2;
+    }
+    &.physics {
+      &:before{ .tutor-background-image("physics.jpg"); }
+    }
+  }
+
+  .big-header {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top:50px;
+    height:220px;
+    overflow: hidden;
+    background-color: @tutor-tertiary;
+    color: @tutor-secondary;
+    text-align: center;
+    padding-top: 85px;
+    font-size: 320px;
+    font-family: 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
+    font-weight: 700;
+  }
+
+  .right-actions-box {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+    @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
+    button {
+      width: 100%;
+      // override bootstrap styling
+      &.btn-primary { padding: 12px 0 !important; }
+    }
+  }
+
+  .nav-tabs {
+    background: inherit;
+    li {
+      #fonts .serif(2.4rem, 2.4rem);
+      background: @tutor-neutral-lighter;
+      a {
+        font-weight: 400;
+        color: @tutor-neutral-dark !important;
+      }
+      &.active {
+        background: @tutor-neutral-lightest;
+        a {
+          font-weight: 900;
+          color: @tutor-neutral-darker !important;
+        }
+      }
+    }
+  }
+
+
+}
