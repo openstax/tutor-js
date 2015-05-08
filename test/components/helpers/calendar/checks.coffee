@@ -72,7 +72,7 @@ checks =
 
     # TODO: Commented_because_in_alpha_plans_in_the_calendar_do_not_have_ranges
     # _.each(durations, (plan) ->
-    #   fullDuration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).add(1, 'day').endOf('day'), {allDay: true})
+    #   fullDuration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
     #   if fullDuration.overlaps(viewingDuration)
     #     expect(div.querySelectorAll(".course-plan-#{plan.id}").length).to.be.above(0)
     # )

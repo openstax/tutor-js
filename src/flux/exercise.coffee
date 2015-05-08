@@ -21,13 +21,18 @@ ExerciseConfig =
   load: (courseId, pageIds) -> # Used by API
 
   loaded: (obj, courseId, pageIds) ->
-    @_exercises[pageIds.toString()] = obj.items
+    key = pageIds.toString()
+    return if @_exercises[key] and @_HACK_DO_NOT_RELOAD
+    
+    @_exercises[key] = obj.items
     _exerciseCache = []
     _.each obj.items, (exercise) ->
       _exerciseCache[exercise.id] = exercise
 
     @_exerciseCache = _exerciseCache
     @emitChange()
+
+  HACK_DO_NOT_RELOAD: (bool) -> @_HACK_DO_NOT_RELOAD = bool
 
   exports:
     isLoaded: (pageIds) ->
@@ -43,7 +48,7 @@ ExerciseConfig =
 
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]
-    
+
     getTeksString: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
       teksTags = _.where(tags, {type: EXERCISE_TAGS.TEKS})
@@ -51,10 +56,10 @@ ExerciseConfig =
 
     getContent: (exercise_id) ->
       @_exerciseCache[exercise_id].content.questions[0].stem_html
-      
+
     getTagStrings: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
-      
+
       obj =
         lo: ""
         section: ""
@@ -70,6 +75,6 @@ ExerciseConfig =
           memo.section = tag.chapter_section
         memo
       , obj)
-      
+
 {actions, store} = makeSimpleStore(ExerciseConfig)
 module.exports = {ExerciseActions:actions, ExerciseStore:store}

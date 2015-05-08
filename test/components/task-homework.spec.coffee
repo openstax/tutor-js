@@ -17,6 +17,9 @@ homework_model.due_at = moment().add(1, 'year').toDate()
 
 describe 'Task Widget, homework specific things, due in the future', ->
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
+
     TaskActions.loaded(homework_model, homeworkTaskId)
 
     taskTests
@@ -32,22 +35,13 @@ describe 'Task Widget, homework specific things, due in the future', ->
     TaskActions.reset()
     TaskStepActions.reset()
 
-  it 'should allow students to continue tasks', (done) ->
-    # Using homework because this one has no completed steps
-    # and therefore actually has an intro screen
-    taskChecks
-      .checkIsIntroScreen(@result)
-      .then(taskChecks.checkAllowContinue)
-      .then( ->
-        done()
-      , done)
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should render next screen when Continue is clicked', (done) ->
     # Using homework because this one has no completed steps
     # and therefore actually has an intro screen
-    taskActions
-      .clickContinue(@result)
-      .then(taskChecks.checkIsDefaultStep)
+    taskChecks.checkIsDefaultStep(@result)
       .then( ->
         done()
       , done)
@@ -64,8 +58,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
   it 'should not be able view feedback after completing a step', (done) ->
     # run a full step through and check for feedback
     taskActions
-      .clickContinue(@result)
-      .then(taskActions.fillFreeResponse)
+      .fillFreeResponse(@result)
       .then(taskActions.saveFreeResponse)
       .then(taskActions.pickMultipleChoice)
       .then(taskActions.saveMultipleChoice)
@@ -75,9 +68,8 @@ describe 'Task Widget, homework specific things, due in the future', ->
       , done)
 
   it 'should be able to work through a true-false question', (done) ->
-    taskActions
-      .clickContinue(@result)
-      .then(taskTests.workExercise)
+    taskTests
+      .workExercise(@result)
       .then(taskActions.clickContinue)
       .then(taskTests.workExercise)
       .then(taskActions.clickContinue)
@@ -88,8 +80,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
 
   it 'should show homework done page on homework completion', (done) ->
     taskActions
-      .clickContinue(@result)
-      .then(taskActions.completeSteps)
+      .completeSteps(@result)
       .then(taskChecks.checkIsCompletePage)
       .then( ->
         done()
@@ -97,8 +88,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
 
   it 'should allow viewing any step with breadcrumbs', (done) ->
     taskActions
-      .clickContinue(@result)
-      .then(taskActions.completeSteps)
+      .completeSteps(@result)
       .then(taskActions.clickBreadcrumb(targetStepIndex))
       .then(taskChecks.checkIsMatchStep(targetStepIndex))
       .then(taskChecks.checkIsNotCompletePage)
@@ -139,6 +129,13 @@ describe 'Task Widget, homework specific things, due in the future', ->
     taskActions
       .clickBreadcrumb(completeStepIndex)(@result)
       .then(taskChecks.checkIsCompletePage)
+      .then( ->
+        done()
+      , done)
+
+  it 'should show all breadcrumbs for homework', (done) ->
+    taskChecks
+      .checkHasAllBreadcrumbs(@result)
       .then( ->
         done()
       , done)

@@ -37,12 +37,11 @@ module.exports = React.createClass
     #
     # The large background image is currently set via CSS based on the lowercase
     # version of the short title, which will be something like 'physics'
-    {longTitle, shortTitle} = StudentDashboardStore.getTitles(courseId)
+    {shortTitle} = StudentDashboardStore.getTitles(courseId)
     <div className={"#{shortTitle.toLowerCase()}  bg"}>
       <div className='container'>
         <div className='big-header'>{shortTitle}</div>
         <BS.Col xs={12} md={9}>
-          <div className='course-title'>{longTitle}</div>
 
           <BS.TabbedArea
             activeKey = {@state.selectedTabIndex}
@@ -50,9 +49,8 @@ module.exports = React.createClass
             animation = {false}>
 
             <BS.TabPane eventKey={1} tab='This Week'>
-              <ThisWeekPanel   courseId={courseId}/>
-              <DontForgetPanel courseId={courseId}/>
-              <UpcomingPanel   courseId={courseId}/>
+              <ThisWeekPanel courseId={courseId}/>
+              <UpcomingPanel courseId={courseId}/>
             </BS.TabPane>
 
             <BS.TabPane eventKey={2} tab='All Past Work'>
@@ -63,7 +61,7 @@ module.exports = React.createClass
 
         </BS.Col>
         <BS.Col xs={12} md={3}>
-          <div className='rbox'>
+          <div className='right-actions-box'>
             <h3>How am I doing?</h3>
             <BS.Button
               bsStyle='primary'

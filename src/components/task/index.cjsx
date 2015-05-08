@@ -36,33 +36,28 @@ module.exports = React.createClass
     document.body.classList.remove('task-view')
 
   getInitialState: ->
-    currentStep = @getDefaultCurrentStep()
-    {currentStep}
+    {stepIndex} = @context.router.getCurrentParams()
+    # url is 1 based so it matches the breadcrumb button numbers
+    crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
+    {currentStep: crumbKey}
+
 
   shouldPinBreadcrumbs: ->
     @state.scrollTop > 60
 
   goToStep: (stepKey) ->
+# Curried for React
     =>
-      # Curried for React
+      params = @context.router.getCurrentParams()
+      # url is 1 based so it matches the breadcrumb button numbers
+      params.stepIndex = stepKey + 1
+      params.id = @props.id # if we were rendered directly, the router might not have the id
+      @context.router.replaceWith('viewTask', params)
       @setState({currentStep: stepKey})
 
   goToCrumb: ->
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: @state.currentStep}
-
-  renderIntro: (data) ->
-    footer = <BS.Button bsStyle='primary' className='-continue' onClick={@goToStep(0)}>Continue</BS.Button>
-    if data.due_at
-      dueDate =
-        <div className='-due-at'>Due At: <Time
-          date={data.due_at}
-          format='LLL'/></div>
-
-    panel = <BS.Panel bsStyle='default' footer={footer} className='-task-intro'>
-              <h1>{data.title}</h1>
-              {dueDate}
-            </BS.Panel>
 
   renderStep: (data) ->
     # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,

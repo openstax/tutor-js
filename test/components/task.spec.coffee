@@ -16,6 +16,9 @@ VALID_MODEL = require '../../api/tasks/4.json'
 
 describe 'Task Widget', ->
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
+
     TaskActions.loaded(VALID_MODEL, taskId)
 
     taskTests
@@ -31,6 +34,9 @@ describe 'Task Widget', ->
     CourseActions.reset()
     TaskActions.reset()
     TaskStepActions.reset()
+
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
   # _.delay needed to prevent weird problems.
   it 'should render empty free response for unanswered exercise', (done) ->
@@ -84,6 +90,8 @@ describe 'Task Widget', ->
 
 describe 'Task Widget, through routes', ->
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
     TaskActions.loaded(VALID_MODEL, taskId)
     taskTests
       .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
@@ -99,11 +107,14 @@ describe 'Task Widget, through routes', ->
     TaskActions.reset()
     TaskStepActions.reset()
 
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
+
   it 'should be able to work through a task and load next step from a route', (done) ->
     # run a full step through and check each step
-    taskActions
-      .clickContinue(@result)
-      .then(taskTests.workExerciseAndCheck)
+
+    taskTests
+      .workExerciseAndCheck(@result)
       .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNextStep)
       .then(taskActions.advanceStep)
@@ -111,11 +122,25 @@ describe 'Task Widget, through routes', ->
         done()
       , done)
 
+  it 'should be able to work through tasks and show progressing breadcrumbs', (done) ->
+    # run a full step through and check each step
+
+    taskActions
+      .completeThisStep(@result)
+      .then(taskActions.advanceStep)
+      .then(taskChecks.checkHasReviewableBreadcrumbs)
+      .then(taskActions.completeThisStep)
+      .then(taskActions.advanceStep)
+      .then(taskChecks.checkHasReviewableBreadcrumbs)
+      .then( ->
+        done()
+      , done)
+
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
+
     taskActions
-      .clickContinue(@result)
-      .then(taskActions.completeSteps)
+      .completeSteps(@result)
       .then(taskChecks.checkIsCompletePage)
       .then( ->
         done()

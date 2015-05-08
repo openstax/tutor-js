@@ -16,6 +16,10 @@ courseId = '1'
 
 describe 'Practice Widget', ->
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
+    CourseActions.HACK_DO_NOT_RELOAD(true)
+
     CourseActions.loadedPractice(VALID_MODEL, courseId)
     taskId = CourseStore.getPracticeId(courseId)
 
@@ -32,6 +36,10 @@ describe 'Practice Widget', ->
     CourseActions.reset()
     TaskActions.reset()
     TaskStepActions.reset()
+
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
+    CourseActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should render empty free response for unanswered exercise', (done) ->
     taskChecks
@@ -76,6 +84,10 @@ describe 'Practice Widget', ->
 describe 'Practice Widget, through route', ->
 
   beforeEach (done) ->
+    TaskActions.HACK_DO_NOT_RELOAD(true)
+    TaskStepActions.HACK_DO_NOT_RELOAD(true)
+    CourseActions.HACK_DO_NOT_RELOAD(true)
+
     CourseActions.loadedPractice(VALID_MODEL, courseId)
     taskId = CourseStore.getPracticeId(courseId)
 
@@ -93,28 +105,19 @@ describe 'Practice Widget, through route', ->
     TaskActions.reset()
     TaskStepActions.reset()
 
+    TaskActions.HACK_DO_NOT_RELOAD(false)
+    TaskStepActions.HACK_DO_NOT_RELOAD(false)
+    CourseActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should load expected practice at the practice url', ->
     tests = ({div}) ->
-      expect(div.querySelector('h1')).to.not.be.null
-      expect(div.querySelector('h1').innerText).to.equal(VALID_MODEL.title)
+      expect(div.querySelector('.task-practice')).to.not.be.null
+      expect(div.querySelector('.task-practice .stimulus').innerText).to.equal(VALID_MODEL.steps[0].content.stimulus_html)
 
     tests(@result)
 
-
-  it 'should allow students to continue exercises', (done) ->
-    taskChecks
-      .checkIsIntroScreen(@result)
-      .then(taskChecks.checkAllowContinue)
-      .then( ->
-        done()
-      , done)
-
-
-  it 'should render next screen when Continue is clicked', (done) ->
-    taskActions
-      .clickContinue(@result)
-      .then(taskChecks.checkIsNotIntroScreen)
+  it 'should not render intro screen', (done) ->
+    taskChecks.checkIsNotIntroScreen(@result)
       .then( ->
         done()
       , done)
@@ -122,9 +125,15 @@ describe 'Practice Widget, through route', ->
 
   it 'should show practice done page on practice completion', (done) ->
     taskActions
-      .clickContinue(@result)
-      .then(taskActions.completeSteps)
+      .completeSteps(@result)
       .then(taskChecks.checkIsCompletePage)
+      .then( ->
+        done()
+      , done)
+
+  it 'should show all breadcrumbs for practice', (done) ->
+    taskChecks
+      .checkHasAllBreadcrumbs(@result)
       .then( ->
         done()
       , done)

@@ -40,9 +40,13 @@ module.exports = React.createClass
   # changes, this component never update it's state with the course in that case.
   addBindListener: ->
     @context.router.getLocation().addChangeListener(@handleCourseChanges)
+    CurrentUserStore.addChangeListener(@updateAll)
 
   removeBindListener: ->
     @context.router.getLocation().removeChangeListener(@handleCourseChanges)
+    CurrentUserStore.removeChangeListener(@updateAll)
+
+  updateAll: -> @setState({})
 
   bindUpdate: ->
     @handleCourseChanges()
@@ -88,12 +92,16 @@ module.exports = React.createClass
 
     classes = 'navbar-shy' if @shouldHide()
 
+    if CurrentUserStore.isAdmin()
+      adminLink = <BS.Button href='/admin' bsStyle='danger' bsSize='small'>Admin</BS.Button>
+
     <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid className={classes}>
       <BS.CollapsableNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>
         </BS.Nav>
         <BS.Nav right navbar>
+          {adminLink}
           <BS.DropdownButton
             eventKey={1}
             title={<UserName/>}

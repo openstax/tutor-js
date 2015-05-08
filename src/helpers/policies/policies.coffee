@@ -82,6 +82,11 @@ policies =
       panels:
         default: stepFeedbackImmediate
 
+  chapter_practice:
+    exercise:
+      panels:
+        default: stepFeedbackImmediate
+
   reading: defaultPolicies
 
   default: defaultPolicies

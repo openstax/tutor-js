@@ -1,0 +1,49 @@
+@details-popover-arrow-width: 17px;
+@details-popover-arrow-outer-width: 18px;
+
+.task-details-popover{
+  font-size: 0.8em;
+  max-width: 500px;
+  // THE GREATEST SIN IN CSS!  Sorry, just really want the popover height to not matter =(
+  // This overrides inline styles added by bootstrap popover to position the popovers
+  top: 5.6rem !important;
+
+  .has-html{
+    h1, h2, h3, h4, h5, h6 {
+      &:first-child {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  > .arrow {
+    border-width: @details-popover-arrow-width;
+  }
+  > .arrow:after {
+    border-width: @details-popover-arrow-width;
+    content: "";
+  }
+
+  &.left .arrow{
+    top: 0;
+    right: -@details-popover-arrow-outer-width;
+    margin-top: 0;
+
+    &:after{
+      bottom: -@details-popover-arrow-width;
+      border-left-color: @popover-title-bg;
+    }
+  }
+
+  &.right .arrow:after{
+    border-right-color: @popover-title-bg;
+  }
+
+  &.top .arrow:after{
+    border-top-color: @popover-title-bg;
+  }
+
+  &.bottom .arrow:after{
+    border-bottom-color: @popover-title-bg;
+  }
+}

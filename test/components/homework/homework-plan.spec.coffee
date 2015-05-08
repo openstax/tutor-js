@@ -21,6 +21,10 @@ window.alert = ->
 describe 'Homework Builder', ->
   beforeEach ->
     #load homeworks and load exercises
+    TaskPlanActions.HACK_DO_NOT_RELOAD(true)
+    ExerciseActions.HACK_DO_NOT_RELOAD(true)
+    TocActions.HACK_DO_NOT_RELOAD(true)
+
     TaskPlanActions.loaded(VALID_MODEL, VALID_MODEL.id)
     ExerciseActions.loaded(EXERCISES, courseId, VALID_MODEL.settings.page_ids)
     TocActions.loaded(READINGS)
@@ -29,6 +33,10 @@ describe 'Homework Builder', ->
     routerStub.unmount()
     TaskPlanActions.reset()
     ExerciseActions.reset()
+
+    TaskPlanActions.HACK_DO_NOT_RELOAD(false)
+    ExerciseActions.HACK_DO_NOT_RELOAD(false)
+    TocActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should load expected homework at the homework url', (done) ->
     #loads homework title, and has correct number of exercises

@@ -80,6 +80,7 @@ CurrentUserStore = flux.createStore
   loadName: -> # Used by API
   loadedName: (results) ->
     @_name = results.name
+    @_isAdmin = results.is_admin
     @emitChange()
 
   loadAllCourses: -> # Used by API
@@ -102,6 +103,7 @@ CurrentUserStore = flux.createStore
     getToken: -> @_token
     isCoursesLoaded: -> !!@_courses
     getName: -> @_name
+    isAdmin: -> @_isAdmin
 
     getCourseRole: (courseId) ->
       @_getCourseRole(courseId)

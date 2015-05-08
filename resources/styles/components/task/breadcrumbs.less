@@ -1,0 +1,61 @@
+.crumb-circle(@radius){
+  font-size: @radius;
+  border-radius: 2 * @radius;
+  line-height: 2 * @radius;
+  min-width: 2 * @radius;
+}
+
+
+// http://caniuse.com/#search=counter
+.task-homework,
+.task-practice,
+.task-chapter_practice {
+  .steps {
+    counter-reset: step;
+  }
+  .step:not(.end) {
+    &:before {
+      content: counter(step);
+      counter-increment: step;
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      left: 0;
+    }
+    i:not(.icon-incorrect):not(.icon-correct) {
+      display: none;
+    }
+  }
+}
+
+.steps {
+  margin-left: -2px;
+  margin-right: -2px;
+
+  .step {
+    .crumb-circle(2rem);
+    position: relative;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 2px;
+    display: inline-block;
+    text-align: center;
+    background: @white;
+    color: @tutor-neutral-light;
+    .transition(all .1s ease-in);
+
+    &:hover,
+    &.active {
+      .scale(1.4);
+      .box-shadow(0 1px 6px rgba(0, 0, 0, 0.12));
+      // z-index: 20;
+    }
+
+    &.active {
+      color: @tutor-primary;
+    }
+    &.completed {
+      color: @tutor-tertiary-light;
+    }
+  }
+}
