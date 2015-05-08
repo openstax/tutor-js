@@ -46,12 +46,8 @@ StudentDashboardConfig = {
       {longTitle, shortTitle}
 
     canWorkTask: (event) ->
-      # only homework and readings can be worked on
-      _.contains(['homework', 'reading'], event.type) and
-        # readings can always be performed
-        (event.type is 'reading' or
-            # other types (homework) must be incomplete and not past due
-            (not event.complete and moment(event.due_at).isAfter(TimeStore.getNow())))
+      # currently all tasks are workable
+      return true
 
     # Returns events who's due date has not passed
     upcomingEvents: (courseId, now = TimeStore.getNow()) ->

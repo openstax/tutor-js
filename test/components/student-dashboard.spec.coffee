@@ -20,8 +20,6 @@ renderDashBoard = ->
         dashboard: ReactTestUtils.findRenderedComponentWithType(result.component, StudentDashboardShell)
       }, result))
 
-
-
 describe 'Student Dashboard Component', ->
   beforeEach ->
     TimeActions.setNow(NOW)
@@ -31,18 +29,6 @@ describe 'Student Dashboard Component', ->
 
   afterEach ->
     StudentDashboardActions.HACK_DO_NOT_RELOAD(false)
-
-  it 'displays the course title with teacher names combined', ->
-    renderDashBoard().then (state) ->
-      expect(state.div.querySelector('.course-title').innerText)
-        .equal('Physics - Many Plan | Andrew Garcia & Bob Newhart')
-
-      newData = _.clone(DATA)
-      newData.course.teacher_names = ['Teacher Jill']
-      StudentDashboardActions.loaded(newData, COURSE_ID)
-      state.dashboard.setState(courseId: COURSE_ID) # triggers re-rendering
-      expect(state.div.querySelector('.course-title').innerText)
-        .equal('Physics - Many Plan | Teacher Jill')
 
 
   it 'renders this week panel',  ->
@@ -54,7 +40,7 @@ describe 'Student Dashboard Component', ->
     #  * one event a few days later
     #  * one event on the next sunday, the 19th.  As spece'd that should also be included
     renderDashBoard().then (state) ->
-      tasks = state.div.querySelectorAll('.-this-week .task .title>span:first-child')
+      tasks = state.div.querySelectorAll('.-this-week .task .title')
       expect(tasks.length).equal(3)
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal([
@@ -66,35 +52,6 @@ describe 'Student Dashboard Component', ->
   it 'renders only upcoming events to week panel', ->
     TimeActions.setNow(new Date('2015-04-24T11:15:58.856Z'))
     renderDashBoard().then (state) ->
-      tasks = state.div.querySelectorAll('.-upcoming .task .title>span:first-child')
+      tasks = state.div.querySelectorAll('.-upcoming .task .title')
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal(['Homework #3', 'Homework #4 (final)'])
-
-  it 'renders Dont Forget panel', ->
-    # Time is set after all events have occured
-    TimeActions.setNow(new Date('2015-06-01T14:15:58.856Z'))
-    renderDashBoard().then (state) ->
-      events = state.div.querySelectorAll('.dont-forget .panel-body .title')
-      # For now all we're doing is rendering the 4 most recent past-due events
-      expect(_.pluck(events, 'textContent'))
-        .to.have.deep.equal([
-          'Homework #1'
-          'Homework #2'
-          'Homework #3'
-          'Homework #4 (final)'
-        ])
-      expect(state.div.querySelector('.dont-forget .panel-body>div').className)
-        .include('col-xs-3')
-
-  it 'renders only as many events as are available', ->
-    # Time is set after only one event has occured
-    TimeActions.setNow(new Date('2015-04-12T09:15:58.856Z'))
-    renderDashBoard().then (state) ->
-      events = state.div.querySelectorAll('.dont-forget .panel-body .title')
-      # For now all we're doing is rendering the 4 most recent past-due events
-      expect(_.pluck(events, 'textContent'))
-        .to.have.deep.equal([
-          'iReading 1: Force'
-        ])
-      expect(state.div.querySelector('.dont-forget .panel-body>div').className)
-        .to.include('col-xs-12')
