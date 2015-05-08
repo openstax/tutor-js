@@ -66,7 +66,7 @@ CoursePlan = React.createClass
 
   render: ->
     {item, courseId} = @props
-    {plan, duration, rangeDuration, offset, index} = item
+    {plan, duration, rangeDuration, offset, index, topOffset, order} = item
 
     durationLength = duration.length('days')
     # Adjust width based on plan duration and left position based on offset of plan from start of week
@@ -74,6 +74,7 @@ CoursePlan = React.createClass
     planStyle =
       width: durationLength * 100 / 7 + '%'
       left: offset * 100 / 7 + '%'
+      top: (topOffset + 4 - order * 3) + 'rem'
 
     planClasses = "plan #{plan.type} course-plan-#{plan.id}"
 

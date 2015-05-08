@@ -9,7 +9,7 @@ BS = require 'react-bootstrap'
 
 CourseCalendarHeader = require './header'
 CourseDuration = require './duration'
-CoursePlansByWeek = require './plans-by-week'
+CoursePlan = require './plan'
 CourseAdd = require './add'
 CourseAddMenuMixin = require './add-menu-mixin'
 
@@ -157,7 +157,7 @@ CourseMonth = React.createClass
             groupingDurations={calendarWeeks}
             courseId={courseId}
             ref='courseDurations'>
-            <CoursePlansByWeek/>
+            <CoursePlan/>
           </CourseDuration>
 
         </BS.Col>

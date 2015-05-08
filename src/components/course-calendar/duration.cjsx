@@ -1,6 +1,7 @@
 moment = require 'moment'
 twix = require 'twix'
 _ = require 'underscore'
+camelCase = require 'camelcase'
 
 React = require 'react/addons'
 CoursePlan = require './plan'
@@ -29,8 +30,6 @@ CourseDuration = React.createClass
       .value()
 
     console.log(durationsByStartDate)
-
-
     @setState({groupedDurations, durationsByStartDate})
 
   groupDurations: (durations, viewingDuration, groupingDurations) ->
@@ -47,6 +46,70 @@ CourseDuration = React.createClass
       .each(@calcDayHeight)
       .tap(@calcTopOffset)
       .value()
+
+  _calcDayHeight: (plans) ->
+    plans * 3.6 + 1
+
+  calcDayHeight:  (range) ->
+
+    @_rankPlansWithinDuration(range)
+    dayHeight = 10
+
+    _.each(range.plansByOverlaps, (plans) =>
+      if plans?.length > 2
+        calcedHeight = @_calcDayHeight(plans.length)
+        if calcedHeight > dayHeight
+          dayHeight = calcedHeight
+
+      _.each(plans, (plan) ->
+        plan.order = plans.length - plan.rank
+      )
+    )
+
+    range.dayHeight = dayHeight
+
+  calcTopOffset: (ranges) ->
+    dayHeights = _.pluck(ranges, 'dayHeight')
+
+    _.each(ranges, (range, index) ->
+      topOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
+        memo + current
+      ).value()
+
+      _.each(range.plans, (plan) ->
+        plan.topOffset = topOffset
+      )
+    )
+
+  # For displaying ranges for units in the future
+  setDurationRange: (plan) ->
+    if plan.opens_at and plan.due_at
+      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day').add(1, 'day'), {allDay: true})
+    else if plan.opens_at
+      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
+    else if plan.due_at
+      plan.duration = moment(plan.due_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
+
+  setDurationDay: (plan) ->
+    if plan.due_at
+      plan.duration = moment(plan.due_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
+    else if plan.opens_at # HACK. some plans don't have a due_at
+      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
+    else
+      throw new Error('BUG! All Plans should have a due_at')
+
+  # TODO see how to pull out plan specific logic to show that this
+  # can be reused for units, for example
+  setDuration: (duration) ->
+    (plan) =>
+      # pinned to 'day' display for now. can be 'range' for units in the future.
+      plan.mode = 'day'
+      durationMethod = camelCase("set-duration-#{plan.mode}")
+      @[durationMethod](plan)
+
+  isInDuration: (duration) ->
+    (plan) ->
+      plan.duration.length('hours') > 0
 
   _rankPlansWithinDuration: (range) ->
     overlapCount = 0
@@ -66,63 +129,6 @@ CourseDuration = React.createClass
         overlapLists.push([])
 
     range.plansByOverlaps = overlapLists
-
-  _calcDayHeight: (plans) ->
-    plans * 3 + 1
-
-  calcDayHeight:  (range) ->
-
-    @_rankPlansWithinDuration(range)
-    dayHeight = 10
-
-    _.each(range.plansByOverlaps, (plans) ->
-      if plans?.length > 2
-        calcedHeight = @_calcDayHeight(plans.length)
-        if calcedHeight > dayHeight
-          dayHeight = calcedHeight
-
-      _.each(plans, (plan) ->
-        plan.order = plans.length - plan.rank
-      )
-    )
-
-    range.dayHeight = dayHeight
-
-  calcTopOffset: (ranges) ->
-    dayHeights = _.pluck(ranges, 'dayHeight')
-
-    _.each(ranges, (range, index) ->
-      range.topOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
-        memo + current
-      ).value()
-    )
-
-  renderChildren: (range) ->
-    {courseId} = @props
-    React.Children.map(@props.children, (child) ->
-      React.addons.cloneWithProps(child, {range, courseId})
-    )
-
-  # TODO see how to pull out plan specific logic to show that this
-  # can be reused for units, for example
-  setDuration: (duration) ->
-    (plan) ->
-      # TODO: Commented_because_in_alpha_plans_in_the_calendar_do_not_have_ranges
-      # if plan.opens_at and plan.due_at
-      #   plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day').add(1, 'day'), {allDay: true})
-      # else if plan.opens_at
-      #   plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
-      # else if plan.due_at
-      if plan.due_at
-        plan.duration = moment(plan.due_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
-      else if plan.opens_at # HACK. some plans don't have a due_at
-        plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
-      else
-        throw new Error('BUG! All Plans should have a due_at')
-
-  isInDuration: (duration) ->
-    (plan) ->
-      plan.duration.length('hours') > 0
 
   groupByRanges: (durationsInView) ->
     counter = {}
@@ -147,16 +153,14 @@ CourseDuration = React.createClass
 
       rangeData
 
-  renderGroupedDurations: (range) ->
-    @renderChildren(range)
-
-  renderDurationsByPlan: (item) ->
+  renderChildren: (item) ->
     {courseId} = @props
-    <CoursePlan item={item} key="course-plan-#{item.plan.id}" courseId={courseId}/>
+    React.Children.map(@props.children, (child) ->
+      React.addons.cloneWithProps(child, {item, courseId})
+    )
 
   renderDurations: ->
-    # renderedDurations = _.map(@state.groupedDurations, @renderGroupedDurations)
-    renderedDurations = _.map(@state.durationsByStartDate, @renderDurationsByPlan)
+    renderedDurations = _.map(@state.durationsByStartDate, @renderChildren)
 
   render: ->
     {durations, viewingDuration, groupingDurations} = @props
