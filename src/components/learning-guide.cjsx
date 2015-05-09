@@ -19,26 +19,37 @@ LearningGuide = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    showAll: false
+    showAll: true
+    chapter: 1
 
   navigateToPractice: (unit) ->
     {page_ids} = unit
     {courseId} = @props
     @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
 
-  displayUnit: (unit) ->
-    @setState({unit})
+  displayUnit: (unit, chapter) ->
+    @setState({unit, chapter: chapter})
 
-  displayTopic: ->
+  displayChapter: ->
     if @state.showAll
-      @setState({showAll:false})
+      @setState({showAll:false}, -> @loadChart())
+      @hidePanel()
+    
+  displayTopic: ->
+    {courseId} = @props
+    if @state.showAll is false
+      @setState({showAll:true}, -> @loadChart())
+      @hidePanel()
     else
-      @setState({showAll:true})
-    @loadChart()
+      @context.router.transitionTo('dashboard', {courseId})
+   
+  hidePanel: ->
+    detailPane = document.querySelector('.learning-guide-chart .footer')
+    detailPane.classList.remove('active')
 
   loadChart: ->
     chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
-    chart.drawChart(LearningGuideStore.get(@props.courseId), @state.showAll)
+    chart.drawChart(LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter)
 
   componentDidMount: ->
     @loadChart()
@@ -60,6 +71,12 @@ LearningGuide = React.createClass
         <div className='practice-button-wrap'>
           <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton>
         </div>
+      chapterButton =
+        <div className='chapter-button-wrap'>
+          <BS.Button bsStyle='primary' onClick={@displayChapter}>
+            View This Chapter
+          </BS.Button>
+        </div>
       helpText =
         <div className='help-text'>
           Total problems you have done in readings, homeworks and practice
@@ -75,6 +92,7 @@ LearningGuide = React.createClass
           <div className='row-wrap'>
             {problemsWorked}
             {practiceButton}
+            {if @state.showAll then chapterButton}
           </div>
           {helpText}
         </div>
