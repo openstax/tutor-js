@@ -10,7 +10,11 @@ ChapterSection = require '../chapter-section'
 
 ExerciseCardMixin =
   renderAnswers: (answer) ->
-    <div className="answers-answer">
+    classes = ["answers-answer"]
+    if answer.correctness is "1.0"
+      classes.push("correct")
+
+    <div className={classes.join(" ")}>
       <div className="answer-letter" />
       <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
     </div>
@@ -29,7 +33,7 @@ ExerciseCardMixin =
 
     <BS.Panel className="card exercise" bsStyle={panelStyle} header={header}>
       <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className="-stem" block={true} html={question.stem_html} />
+      <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
       <div className="answers-table">{renderedAnswers}</div>
       <div className="exercise-tags">{renderedTags}</div>
     </BS.Panel>
@@ -282,7 +286,7 @@ AddExercises = React.createClass
 
     <BS.Row>
       <BS.Col xs={12}>
-        <label className='-exercises-section-label'>
+        <label className='exercises-section-label'>
           <ChapterSection section={section.chapter_section}/>. {section.title}
         </label>
       </BS.Col>
@@ -312,7 +316,7 @@ AddExercises = React.createClass
       memo.concat(renderInRows(exerciseCards))
     , [])
 
-    <BS.Grid>
+    <BS.Grid className="add-exercise-list">
       {renderedExercises}
     </BS.Grid>
 
