@@ -10,5 +10,6 @@ browsers: ['Chrome']```
 
 Notes:
 1. Some tests seem to fail in the chrome instance, not sure why.  Will look into this
+
 1. One very annoying thing is that it opens up a chrome instance every time you run the tests.  Will look into this as well.
 
