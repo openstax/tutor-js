@@ -72,7 +72,7 @@ ReviewExerciseCard = React.createClass
       </BS.Button>
 
     <span className="-exercise-header">
-      <span className="-exercise-number">{@props.index + 1}</span>
+      <span className="exercise-number">{@props.index + 1}</span>
       <span className="pull-right card-actions">
         {moveUp}
         {moveDown}
@@ -182,7 +182,7 @@ ExerciseTable = React.createClass
       teks = <td>{teksString}</td>
 
     <tr>
-      <td>{index + 1}</td>
+      <td className="exercise-number">{index + 1}</td>
       <td>
         <ChapterSection section={section}/>
       </td>
@@ -200,7 +200,7 @@ ExerciseTable = React.createClass
     number = index + numSelected + 1
 
     <tr>
-      <td>{number}</td>
+      <td className="exercise-number">{number}</td>
       <td>-</td>
       <td>Tutor Selection</td>
       {teksColumn}

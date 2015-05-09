@@ -1,14 +1,44 @@
 @selected-exercise-background: #fdf6d1;
 @hovered-exercise-background: rgba(241, 241, 241, 0.4);
 
+
 table.exercise-table {
   width: 100%;
+  border-collapse: collapse;
 
   thead {
-    background: darkblue;
+    background: @tutor-tertiary;
     color: #fff;
+    font-size: 1.8rem;
   }
 
+  tbody {
+    tr td {
+      border: 1px solid @tutor-neutral-light;
+      font-size: 1.2rem;
+      &:first-child {
+        border-left: 0px;
+      } 
+      &:last-child {
+        border-right: 0px;
+      }
+    }
+    tr:nth-child(even) {
+      background: white;
+    }
+    tr:nth-child(odd) {
+      background: @tutor-neutral-bright;
+    }
+  }
+  td.exercise-number {
+    color: @tutor-primary;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .chapter-section {
+    color: @chapter-section-green;
+  }
 
   td.ellipses {
     white-space: nowrap;
@@ -36,12 +66,10 @@ table.exercise-table {
 
       .btn-primary,
       .btn-primary:hover {
+        .homework-circle-btn(100px);
+
         color: @tutor-neutral-darker;
         background: white;
-        border: 1px solid @tutor-neutral-lighter;
-        border-radius: 50%;
-        height: 100px;
-        width: 100px;
         font-weight: bold;
       }
     }
@@ -55,12 +83,14 @@ table.exercise-table {
     background:@selected-exercise-background;
   }
 }
+
 label.exercises-section-label {
   font-size: 2.8rem;
   .chapter-section {
     color: @chapter-section-green;
   }
 }
+
 // TODO: This should have a common container wit hthe above styling
 // TODO: This should just use the question rendering and styling in question.less
 .card.exercise {
@@ -115,4 +145,24 @@ label.exercises-section-label {
 
   }
 
+}
+
+.card-list.exercises {
+  .panel-heading {
+    background:@tutor-neutral-bright;
+    height: 50px;
+    padding: 10px;
+    border-bottom:1px solid @tutor-neutral-light;
+    .exercise-number {
+      color: @tutor-primary;
+    }
+  }
+
+  .card-actions button {
+    .homework-circle-btn(25px);
+    padding: 0;
+    margin-right: 15px;
+    color: @tutor-neutral-darker;
+    background: white;
+  }
 }
