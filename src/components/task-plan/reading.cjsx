@@ -161,7 +161,6 @@ ReadingPlan = React.createClass
             value={dueAt}/>
         </div>
         <div>
-          <label htmlFor='reading-select'>Select Readings</label>
           <BS.Button id='reading-select'
             onClick={@showSectionTopics}
             bsStyle='primary'>Edit Readings

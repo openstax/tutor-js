@@ -54,20 +54,17 @@ describe 'Reading Plan', ->
       id: '0'
 
     node = helper(model, false)
-    expect(node.querySelector('.-save.disabled')).to.not.be.null
     expect(node.querySelector('.-publish.disabled')).to.not.be.null
     expect(node.querySelector('.-delete')).to.not.be.null
 
   it 'should have the right buttons when valid but not changed', ->
     node = helper(VALID_MODEL, false)
-    expect(node.querySelector('.-save.disabled')).to.not.be.null
     expect(node.querySelector('.-publish.disabled')).to.be.null
     expect(node.querySelector('.-delete')).to.not.be.null
 
-  it 'should allow save when the title is changed', ->
+  it 'should allow publish/save when the title is changed', ->
     node = helper(VALID_MODEL, true)
-    expect(node.querySelector('.-save.disabled')).to.be.null
-    expect(node.querySelector('.-publish.disabled')).to.not.be.null
+    expect(node.querySelector('.-publish.disabled')).to.be.null
     expect(node.querySelector('.-delete')).to.not.be.null
 
 
