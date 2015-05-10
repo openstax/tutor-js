@@ -5,21 +5,27 @@ _ = require 'underscore'
 PinnedHeader = React.createClass
   displayName: 'PinnedHeader'
   render: ->
-    <div className='pinned-header'>
+    {className} = @props
+
+    <div className="pinned-header #{className}">
       {@props.children}
     </div>
 
 PinnedFooter = React.createClass
   displayName: 'PinnedFooter'
   render: ->
-    <div className='pinned-footer'>
+    {className} = @props
+
+    <div className="pinned-footer #{className}">
       {@props.children}
     </div>
 
 CardBody = React.createClass
   displayName: 'CardBody'
   render: ->
-    <div className='card-body'>
+    {className} = @props
+
+    <div className="card-body #{className}">
       {@props.children}
       <PinnedFooter>
         {@props.footer}
