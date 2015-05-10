@@ -14,6 +14,8 @@ TaskStep = require '../task-step'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
+PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+
 Time = require '../time'
 Details = require './details'
 
@@ -24,26 +26,16 @@ module.exports = React.createClass
 
   displayName: 'ReadingTask'
 
-  mixins: [CrumbMixin, ScrollListenerMixin]
+  mixins: [CrumbMixin]
 
   contextTypes:
     router: React.PropTypes.func
-
-  componentWillMount: ->
-    document.body.classList.add('task-view')
-
-  componentWillUnmount: ->
-    document.body.classList.remove('task-view')
 
   getInitialState: ->
     {stepIndex} = @context.router.getCurrentParams()
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
     {currentStep: crumbKey}
-
-
-  shouldPinBreadcrumbs: ->
-    @state.scrollTop > 60
 
   goToStep: (stepKey) ->
 # Curried for React
@@ -82,11 +74,10 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     task = TaskStore.get(id)
+    return null unless task?
+
     # get the crumb that matches the current state
     crumb = @goToCrumb()
-
-    headerClasses = 'panel-header'
-    headerClasses += ' panel-header-stubborn' if @shouldPinBreadcrumbs()
 
     # crumb.type is one of ['intro', 'step', 'end']
     renderPanelMethod = camelCase "render-#{crumb.type}"
@@ -98,16 +89,17 @@ module.exports = React.createClass
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
     unless TaskStore.isSingleStepped(id)
-      breadcrumbs =
-        <div className={headerClasses}>
+      breadcrumbs = [
           <Details task={task} />
           <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep}/>
-        </div>
+        ]
 
-    <div className={taskClasses}>
-      {breadcrumbs}
+    <PinnedHeaderFooterCard
+      className={taskClasses}
+      header={breadcrumbs}
+      cardType='task'>
       {panel}
-    </div>
+    </PinnedHeaderFooterCard>
 
   reloadTask: ->
     @setState({currentStep: 0})

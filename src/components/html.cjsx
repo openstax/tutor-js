@@ -33,4 +33,4 @@ module.exports = React.createClass
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
 
     # MathML should be rendered by MathJax (if available)
-    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub], @getDOMNode())
+    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub], root)

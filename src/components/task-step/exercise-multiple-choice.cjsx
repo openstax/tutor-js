@@ -231,14 +231,12 @@ module.exports = React.createClass
     {id} = @props
     task_id = TaskStepStore.getTaskId(id)
 
-    if TaskStore.isLoaded(task_id)
-      # get panel to render based on step progress
-      panel = StepPanel.getPanel(id)
+    # get panel to render based on step progress
+    panel = StepPanel.getPanel(id)
 
-      # panel is one of ['review', 'multiple-choice', 'free-response']
-      renderPanelMethod = camelCase "render-#{panel}"
+    # panel is one of ['review', 'multiple-choice', 'free-response']
+    renderPanelMethod = camelCase "render-#{panel}"
 
-      throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
-      @[renderPanelMethod]?(id)
-    else
-      <div className='-loading'>Loading...</div>
+    throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
+    @[renderPanelMethod]?(id)
+

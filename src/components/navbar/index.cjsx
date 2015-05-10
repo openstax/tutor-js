@@ -14,7 +14,7 @@ BindStoreMixin = require '../bind-store-mixin'
 module.exports = React.createClass
   displayName: 'Navigation'
 
-  mixins: [BindStoreMixin, ScrollListenerMixin]
+  mixins: [BindStoreMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -58,9 +58,6 @@ module.exports = React.createClass
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)
 
-  shouldHide: ->
-    @state.scrollTop > 60 and document.querySelector('.task-view')
-
   renderMenuItems: (courseId) ->
     menuRoutes = CurrentUserStore.getMenuRoutes(courseId)
 
@@ -90,12 +87,10 @@ module.exports = React.createClass
               <i className='ui-brand-logo'></i>
             </Router.Link>
 
-    classes = 'navbar-shy' if @shouldHide()
-
     if CurrentUserStore.isAdmin()
       adminLink = <BS.Button href='/admin' bsStyle='danger' bsSize='small'>Admin</BS.Button>
 
-    <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid className={classes}>
+    <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
       <BS.CollapsableNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>

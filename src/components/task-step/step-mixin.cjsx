@@ -4,6 +4,8 @@ BS = require 'react-bootstrap'
 {TaskActions} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableItem = require '../loadable-item'
+{CardBody} = require '../pinned-header-footer-card/sections'
+
 
 module.exports =
 
@@ -21,6 +23,6 @@ module.exports =
   render: ->
     footer = @renderFooterButtons?() or @renderGenericFooter()
 
-    <BS.Panel bsStyle='default' className='task-step' footer={footer}>
+    <CardBody className='task-step' footer={footer}>
       {@renderBody()}
-    </BS.Panel>
+    </CardBody>
