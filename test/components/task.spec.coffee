@@ -136,6 +136,22 @@ describe 'Task Widget, through routes', ->
         done()
       , done)
 
+  it 'should show spaced practice label for a spaced practice group step', (done) ->
+    # run a full step through and check each step
+
+    taskChecks
+      .checkHasExpectedGroupLabel(@result)
+      .then(taskActions.completeThisStep)
+      .then(taskActions.advanceStep)
+      .then(taskActions.completeThisStep)
+      .then(taskActions.advanceStep)
+      .then(taskActions.completeThisStep)
+      .then(taskActions.advanceStep)
+      .then(taskChecks.checkHasExpectedGroupLabel)
+      .then( ->
+        done()
+      , done)
+
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
 
