@@ -131,7 +131,7 @@ CourseMonth = React.createClass
 
     <BS.Grid className={calendarClassName}>
       <CourseAdd ref='addOnDay'/>
-      <BS.Row>
+      <BS.Row className='calendar-nav'>
         <BS.Col xs={1}>
           <BS.DropdownButton
             ref='addButtonGroup'
@@ -144,7 +144,7 @@ CourseMonth = React.createClass
 
       <CourseCalendarHeader duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
 
-      <BS.Row>
+      <BS.Row className='calendar-body'>
         <BS.Col xs={12}>
 
           <Month date={date} monthNames={false} ref='calendar'>
