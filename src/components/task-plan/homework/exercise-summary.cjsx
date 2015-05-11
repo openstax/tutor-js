@@ -97,11 +97,11 @@ ExerciseSummary = React.createClass
             My Selections
           </BS.Col>
           <BS.Col sm={6} md={2} className="num-tutor">
-            <h2>
+            <div className="tutor-selections">
               {removeSelection}
-              <span>{numTutor}</span>
+              <h2>{numTutor}</h2>
               {addSelection}
-            </h2>
+            </div>
             Tutor Selections
           </BS.Col>
           <BS.Col sm={6} md={2} className="tutor-added-later"><em>
