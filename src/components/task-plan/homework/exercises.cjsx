@@ -29,7 +29,7 @@ ExerciseCardMixin =
 
     <BS.Panel className="card exercise" bsStyle={panelStyle} header={header}>
       <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className="-stem" block={true} html={question.stem_html} />
+      <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
       <div className="answers-table">{renderedAnswers}</div>
       <div className="exercise-tags">{renderedTags}</div>
     </BS.Panel>

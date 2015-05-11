@@ -1,0 +1,54 @@
+.exercise.card {
+  position: relative;
+
+  // Selected card
+  &.panel-info {
+    background-color: rgb(253, 246, 209);
+  }
+
+  .panel-heading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    background-color: fade(@tutor-neutral-lighter, 35%);
+    border: none;
+
+    .btn.btn-primary {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 100px;
+      width: 100px;
+      margin-top: -50px;
+      margin-left: -50px;
+      background-color: @tutor-white;
+      border: 1px solid @tutor-neutral-lighter;
+      border-radius: 100px;
+      color: @tutor-black;
+
+      &:hover {
+        background-color: white;
+        border: 1px solid @tutor-neutral-lighter;
+      }
+    }
+  }
+
+  &:hover {
+    .panel-heading {
+      display: block;
+    }
+  }
+
+  .panel-body {
+    .stem {
+      font-weight: 700;
+    }
+
+    .answers-table {
+
+    }
+  }
+}
