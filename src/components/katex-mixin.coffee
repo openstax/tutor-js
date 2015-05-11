@@ -15,6 +15,8 @@ module.exports =
 
       katex.render(formula, node)
       node.classList.add('loaded')
+      # MathML should be rendered by MathJax (if available)
+      window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, node])
 
   sanitizeKatexHtml: (html) ->
     # Clean up the katex that was added
