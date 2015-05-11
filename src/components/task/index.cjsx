@@ -90,8 +90,12 @@ module.exports = React.createClass
 
     unless TaskStore.isSingleStepped(id)
       breadcrumbs = [
-          <Details task={task} />
-          <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep}/>
+          <Details task={task} key="task-#{id}-details"/>
+          <Breadcrumbs
+            id={id}
+            goToStep={@goToStep}
+            currentStep={@state.currentStep}
+            key="task-#{id}-breadcrumbs"/>
         ]
 
     <PinnedHeaderFooterCard

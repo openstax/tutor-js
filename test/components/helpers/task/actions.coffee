@@ -7,12 +7,17 @@ React = require 'react/addons'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
 {StepPanel} = require '../../../../src/helpers/policies'
 
+TaskStep = require '../../../../src/components/task-step'
 {routerStub, commonActions} = require '../utilities'
 
 actions =
   forceUpdate: (args...) ->
     {component, div} = args[0]
-    routerStub.forceUpdate(component, args...)
+    taskStep = React.addons.TestUtils.scryRenderedComponentsWithType(component, TaskStep)
+    if taskStep.length is 1
+      routerStub.forceUpdate(taskStep[0], args...)
+    else
+      routerStub.forceUpdate(component, args...)
 
   clickContinue: commonActions.clickMatch('.-continue')
 
