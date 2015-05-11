@@ -45,6 +45,7 @@ ChapterAccordion = React.createClass
     chapter: React.PropTypes.object.isRequired
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
+    expanded: React.PropTypes.bool
 
   renderSections: (section) ->
     active = TaskPlanStore.hasTopic(@props.planId, section.id)
@@ -67,10 +68,10 @@ ChapterAccordion = React.createClass
     @props.selected.indexOf(section.id) >= 0 or anySelected
 
   render: ->
-    {chapter, expand} = @props
+    {chapter, expanded} = @props
     sections = _.map(chapter.children, @renderSections)
     allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true)
-    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expand
+    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expanded
 
     activeKey = chapter.id if expandAccordion
 
@@ -101,8 +102,8 @@ SelectTopics = React.createClass
     selected: React.PropTypes.array
 
   renderChapterPanels: (chapter, i) ->
-    expand = not @props.selected?.length and i is 0
-    <ChapterAccordion {...@props} expand={expand} chapter={chapter}/>
+    expanded = not @props.selected?.length and i is 0
+    <ChapterAccordion {...@props} expanded={expanded} chapter={chapter}/>
 
   renderDialog: ->
     {courseId, planId, selected, hide, header, primary} = @props
