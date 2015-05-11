@@ -21,7 +21,7 @@ module.exports = React.createClass
     isChanged: React.PropTypes.func
     confirmMsg: React.PropTypes.string
     footer: React.PropTypes.node
-    cancel: React.PropTypes.node
+    cancel: React.PropTypes.any
     primary: React.PropTypes.node
     onPrimary: React.PropTypes.func
 
@@ -39,11 +39,16 @@ module.exports = React.createClass
     if cancel
       cancelBtn = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button>
 
-    closeBtn = <BS.Button className='pull-right' aria-role='close' onClick={@onCancel}>X</BS.Button>
+    closeBtn = <BS.Button 
+      className='pull-right close-icon' 
+      aria-role='close' 
+      onClick={@onCancel}>
+        <i className="fa fa-close"></i>
+    </BS.Button>
     header = [header, closeBtn]
     footer = [primary, cancelBtn, footer] if footer or primary or cancelBtn
 
-    classes = ['-dialog']
+    classes = ['default-dialog']
     classes.push('-is-changed') if isChanged?()
     classes.push(className) if className
     className = classes.join(' ')

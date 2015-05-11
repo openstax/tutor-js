@@ -104,11 +104,22 @@ HomeworkPlan = React.createClass
       showSectionTopics: false
     })
 
+  cancel: ->
+    {id} = @props
+    TaskPlanActions.reset(id)
+    @context.router.transitionTo('dashboard')
+
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
     description = TaskPlanStore.getDescription(id)
-    headerText = if TaskPlanStore.isNew(id) then 'Add Homework' else 'Edit Homework'
+    headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
+    closeBtn = <BS.Button 
+      className='pull-right close-icon' 
+      aria-role='close' 
+      onClick={@cancel}>
+        <i className="fa fa-close"></i>
+    </BS.Button>
     topics = TaskPlanStore.getTopics(id)
     shouldShowExercises = TaskPlanStore.getExercises(id)?.length and not @state?.showSectionTopics
 
@@ -156,9 +167,10 @@ HomeworkPlan = React.createClass
         pageIds={topics}
         planId={id}/>
 
-    <div className='-homework-plan'>
+    header = [headerText, closeBtn]
+    <div className='homework-plan'>
       <BS.Panel bsStyle='default'
-        header={headerText}
+        header={header}
         className={formClasses.join(' ')}
         footer={footer}>
 

@@ -1,15 +1,22 @@
 @chapter-section-green: rgb(122, 176, 73);
 
-.select-reading-modal {
+.select-reading-chapters {
   > .panel-group > .panel {
     border-radius: 0;
     box-shadow: none;
 
+    input {
+      float: left;
+      margin: 2px 20px 0 0;
+    }
+
     > .panel-heading {
       position: relative;
       padding: 0;
+      height: 40px;
       border-radius: 0;
-      border: 1px solid whitesmoke;
+      background: @tutor-neutral-light;
+      font-size: 1.6rem;
 
       &::before {
         position: absolute;
@@ -25,14 +32,13 @@
       }
 
       > .panel-title {
-        padding: 8px;
-        font-size: 1.7rem;
+        padding: 10px;
         font-weight: 700;
         line-height: 1.7rem;
-        color: rgb(34, 46, 101);
+        color: @tutor-tertiary;
 
-        > a > .chapter-checkbox {
-          margin-right: 25px;
+        span {
+          font-size: 1.7rem;
         }
       }
     }
@@ -47,16 +53,32 @@
         font-weight: 400;
 
         > .section-checkbox {
-          margin-right: 25px;
           font-size: 1.7rem;
+
+          input {
+            margin-top: 8px;
+          }
         }
 
-        > .section-number {
-          margin-right: 5px;
+        > .chapter-section {
           font-weight: bold;
           color: @chapter-section-green;
         }
       }
     }
+  }
+}
+
+.select-reading-chapters {
+  .section {
+    padding: 0.5em 5px;
+    border-bottom: 1px solid @tutor-neutral-light;
+  }
+  .section:last-child {
+    border-bottom: 0;
+  }
+  .section.selected {
+    background: @state-info-bg;
+    color: @state-info-text;
   }
 }

@@ -40,8 +40,39 @@
 
   .num-selected,
   .num-tutor {
+    h2 {
+      margin-top: 10px;
+    }
+
     span {
       font-size: 1.3rem;
+    }
+
+    button {
+      .homework-circle-btn(25px);
+      padding: 0;
+      margin: -15px 0 0 0;
+      color: @tutor-neutral-darker;
+      background: white;
+      
+      &:first-child {
+        margin-right: 15px;
+      }
+
+      &:last-child {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .num-tutor {
+    h2 {
+      display: inline;
+    }
+
+    div.tutor-selections {
+      margin-top: 10px;
+      height: 30px;
     }
   }
 

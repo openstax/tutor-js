@@ -15,6 +15,12 @@
 .task-step .panel-body {
 
   .reading-step {
+    section[data-depth="1"]:not(.section-opener),
+    section[data-depth="2"],
+    .worked-example,
+    .virtual-physics {padding: 0 140px;}
+
+    section[data-depth="1"] {padding: 0;}
 
     div[data-type="document-title"] {display: none;}
 
@@ -100,17 +106,6 @@
     font-weight: 600;
     color: @physics-color-primary;
     margin: 0 4px 0 -6px;
-  }
-
-  .reading-step {
-
-    section[data-depth="1"]:not(.section-opener),
-    section[data-depth="2"],
-    .worked-example,
-    .virtual-physics {padding: 0 140px;}
-
-    section[data-depth="1"] {padding: 0;}
-
   }
 
   div[data-type="document-title"] ~ p {padding: 0 140px;}

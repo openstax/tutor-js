@@ -45,6 +45,7 @@ ChapterAccordion = React.createClass
     chapter: React.PropTypes.object.isRequired
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
+    expanded: React.PropTypes.bool
 
   renderSections: (section) ->
     active = TaskPlanStore.hasTopic(@props.planId, section.id)
@@ -67,10 +68,11 @@ ChapterAccordion = React.createClass
     @props.selected.indexOf(section.id) >= 0 or anySelected
 
   render: ->
-    chapter = @props.chapter
+    {chapter, expanded} = @props
     sections = _.map(chapter.children, @renderSections)
     allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true)
-    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, true) or @props.i is 0
+    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expanded
+
     activeKey = chapter.id if expandAccordion
 
     header =
@@ -100,7 +102,8 @@ SelectTopics = React.createClass
     selected: React.PropTypes.array
 
   renderChapterPanels: (chapter, i) ->
-    <ChapterAccordion {...@props} chapter={chapter}/>
+    expanded = not @props.selected?.length and i is 0
+    <ChapterAccordion {...@props} expanded={expanded} chapter={chapter}/>
 
   renderDialog: ->
     {courseId, planId, selected, hide, header, primary} = @props
@@ -109,14 +112,15 @@ SelectTopics = React.createClass
     chapters = _.map(TocStore.get(), @renderChapterPanels)
 
     <Dialog
-      className='my-dialog-class'
+      className='select-reading-dialog'
       header={header}
       primary={primary}
       confirmMsg='Are you sure you want to close?'
+      cancel={true}
       isChanged={-> true}
       onCancel={hide}>
 
-      <div className='select-reading-modal'>
+      <div className='select-reading-chapters'>
         {chapters}
       </div>
     </Dialog>
