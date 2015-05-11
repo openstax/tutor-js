@@ -82,14 +82,6 @@
         "questions_answered_count": 30,
         "current_level": 0.1,
         "page_ids": [ "234", "345" ]
-      },
-      {
-        "id": "125",
-        "title": "Kinematics in 2 dimensions",
-        "chapter_section": ["2","2"],
-        "questions_answered_count": 20,
-        "current_level": 0.7,
-        "page_ids": [ "456" ]
       }
 
     ]

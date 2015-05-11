@@ -33,13 +33,13 @@ LearningGuide = React.createClass
   displayChapter: ->
     if @state.showAll
       @setState({showAll:false}, -> @loadChart())
-      @hidePanel()
+      #@hidePanel()
     
   displayTopic: ->
     {courseId} = @props
     if @state.showAll is false
       @setState({showAll:true}, -> @loadChart())
-      @hidePanel()
+      #@hidePanel()
     else
       @context.router.transitionTo('dashboard', {courseId})
    

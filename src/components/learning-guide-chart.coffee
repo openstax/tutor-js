@@ -62,7 +62,10 @@ module.exports = class LearningGuideChart
 
 
     # order matters. Items placed later will appear in front of earlier items
-    # If needed, explicit stacking could be specified
+
+    # must be called first to clear before re-render
+    @destroyChart(container)
+    
 
     @drawBackgroundGradient(container)
     @drawVerticalLines(container, points)
@@ -70,7 +73,6 @@ module.exports = class LearningGuideChart
     @drawPlotLines(container, points)
     @drawCircles(container, fields, points)
     @drawPlane(container, points)
-
 
     @drawXRect(container)
     @drawXAxis(container, fields, points)
@@ -82,14 +84,23 @@ module.exports = class LearningGuideChart
 
     @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
-    @drawTitle(container, guide, showAll)
+    @drawTitle(container, guide, showAll, chapter)
+   
+    @showDefaultPanel(fields)
+    
 
+  destroyChart: (container) ->
+    container.selectAll("g").remove()
+    container.selectAll("image").remove()
+    container.selectAll("defs").remove()
+    container.selectAll(".x-rect, #clip, .gradient-rect").remove()
 
-
-  drawTitle: (container, guide, showAll) ->
+  drawTitle: (container, guide, showAll, chapter) ->
     if showAll
+      mainTitle = "Your Flight Path | #{guide.title} | All Topics | "
       backButtonText = "Back to Dashboard"
     else
+      mainTitle = "Your Flight Path | #{guide.children[chapter - 1].title} | "
       backButtonText = "Show All #{guide.title}"
     wrap = container.append('g')
       .append('svg:text')
@@ -97,7 +108,7 @@ module.exports = class LearningGuideChart
       .attr('x', WIDTH / 2)
       .attr('y', 3)
       .attr('class', 'main-title')
-      .text("Your Flight Path | #{guide.title} | All Topics | ")
+      .text(mainTitle)
       .append('svg:a')
       .attr('class', 'show-course')
       .text(backButtonText)
@@ -155,6 +166,12 @@ module.exports = class LearningGuideChart
         )
 
 
+
+  showDefaultPanel: (fields) ->
+    field = fields[0]
+    @showPanel(document.querySelector('.x-axis .point:first-child'), document.querySelector('.x-axis .point'))
+    @displayUnit(field, parseInt(field.chapter_section[0]))
+
   showPanel: (target, children) ->
     # remove 'active' class from all groups
     d3.selectAll(children).classed('active', false)
@@ -198,7 +215,10 @@ module.exports = class LearningGuideChart
 
   drawPlane: (container, points) ->
     point = _.last(points)
-    pointPrev = points[points.length - 2]
+    if points.length > 1
+      pointPrev = points[points.length - 2]
+    else
+      pointPrev = point
     lineAngle = @getLineAngle(pointPrev.x, point.x, pointPrev.y, point.y)
     node = @svgNode
     d3.select(node).append('svg:image')
@@ -234,6 +254,7 @@ module.exports = class LearningGuideChart
     container.append('svg:rect')
       .attr('width', WIDTH)
       .attr('height', HEIGHT)
+      .attr('class', 'gradient-rect')
       .style('fill', 'url(#gradient)')
 
 
