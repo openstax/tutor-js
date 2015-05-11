@@ -11,6 +11,7 @@ BindStoreMixin = require '../bind-store-mixin'
 TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
+{CardBody} = require '../pinned-header-footer-card/sections'
 
 PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
@@ -39,10 +40,10 @@ PracticeEnd = React.createClass
       </div>
 
     <div className='task task-completed'>
-      <BS.Panel bsStyle='default' footer={footer} className='-practice-completed'>
+      <CardBody footer={footer} className='-practice-completed'>
         <h1>You earned a star!</h1>
         <h3>Great Job!</h3>
-      </BS.Panel>
+      </CardBody>
     </div>
 
 HomeworkEnd = React.createClass
@@ -112,14 +113,14 @@ HomeworkEnd = React.createClass
       className='btn btn-primary'>Back to Dashboard</Router.Link>
 
     <div className='task task-completed'>
-      <BS.Panel bsStyle='default' footer={footer} className='-homework-completed'>
+      <CardBody footer={footer} className='-homework-completed'>
         {congratsMessage}
         <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
         <ul>
           <li>You can still review and update your answers until the due date.</li>
           <li>Your homework will be automatically turned in on the due date.</li>
         </ul>
-      </BS.Panel>
+      </CardBody>
     </div>
 
   render: ->
@@ -145,10 +146,10 @@ TaskEnd = React.createClass
       className='btn btn-primary'>Back to Dashboard</Router.Link>
 
     <div className='task task-completed'>
-      <BS.Panel bsStyle='default' footer={footer} className='-reading-completed'>
+      <CardBody footer={footer} className='-reading-completed'>
         <h1>You Are Done.</h1>
         <h3>Great Job!</h3>
-      </BS.Panel>
+      </CardBody>
     </div>
 
 ends = {task: TaskEnd, homework: HomeworkEnd, practice: PracticeEnd, reading: TaskEnd}

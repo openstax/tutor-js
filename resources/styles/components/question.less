@@ -110,6 +110,7 @@
     float: left;
     background: #f3fcfd;
     transition: background-color .1s ease-in;
+    cursor: pointer;
 
     &:hover {
       background-color: @answer-hover-color;
@@ -124,23 +125,47 @@
   }
 
   &.has-correct-answer {
+
+    .answers-table label.answer-label {
+      cursor: auto;
+    }
+
     .answer-input-box { display: none; }
 
     .answers-table .answers-answer .answer-label {
       padding-left: 40px;
     }
 
-    .answers-table .answer-correct:before,
-    .answers-table .answer-checked:not(.answer-correct):before {
-      content: @fa-var-check;
-      color: @correct-answer-color;
-      display: inline-block;
-      float: left;
-      text-align: right;
-      font-size: 3.5em;
-      width: 65px;
-      margin-top: .125em;
-      margin-left: -80px;
+    .answers-table {
+
+      .answer-correct:not(.answer-checked):before {
+        content: "Correct Answer:";
+        display: inline-block;
+        float: left;
+        margin-left: -145px;
+        #fonts > .script();
+        color: #888;
+      }
+
+      .answer-checked {
+        &:before{
+          display: inline-block;
+          float: left;
+          text-align: right;
+          font-size: 3.5em;
+          width: 65px;
+          margin-top: .125em;
+          margin-left: -80px;
+        }
+        &.answer-correct:before {
+          content: @fa-var-check;
+          color: @correct-answer-color;
+        }
+        &:not(.answer-correct):before {
+          content: @fa-var-close;
+          color: @wrong-answer-color;
+        }
+      }
     }
 
     .answers-table .answer-correct .answer-label {
@@ -151,10 +176,6 @@
       .answer-content:hover {
         background-color: @correct-answer-background;
       }
-    }
-    .answers-table .answer-checked:not(.answer-correct):before {
-      content: @fa-var-close;
-      color: @wrong-answer-color;
     }
     .answers-table .answer-checked:not(.answer-correct) .answer-label {
       background-color: @wrong-answer-background;

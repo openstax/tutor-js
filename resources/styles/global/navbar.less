@@ -1,4 +1,9 @@
+@tutor-navbar-height: 61px;
+@tutor-navbar-padding-horizontal: 4rem;
+
 .navbar-fixed-top {
+
+  .transition(transform 0.2s ease-out);
 
   // override the bootstrap defaults with tutor defaults
   &.navbar.navbar{
@@ -6,7 +11,7 @@
     background-color: @tutor-white;
   }
 
-  .container-fluid { padding: 0 40px; }
+  .container-fluid { padding: 0 @tutor-navbar-padding-horizontal; }
 
   .ui-brand-logo {
     display: inline-block;
