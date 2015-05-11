@@ -25,4 +25,5 @@ module.exports =
 
     <CardBody className='task-step' footer={footer}>
       {@renderBody()}
+      {@renderGroup?()}
     </CardBody>

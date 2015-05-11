@@ -8,6 +8,7 @@ React = require 'react/addons'
 {StepPanel} = require '../../../../src/helpers/policies'
 
 Breadcrumb = require '../../../../src/components/task/breadcrumb'
+Group = require '../../../../src/components/task-step/exercise/group'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
@@ -175,6 +176,16 @@ checks =
 
     {div, component, stepId, taskId, state, router, history}
 
+  _checkHasExpectedGroupLabel: ({div, component, stepId, taskId, state, router, history}) ->
+    group = React.addons.TestUtils.findRenderedComponentWithType(component, Group)
+    step = TaskStepStore.get(stepId)
+
+    if step.group is 'personalized'
+      expect(group.getDOMNode().innerText).to.contain('Personalized')
+    else if step.group is 'spaced practice'
+      expect(group.getDOMNode().innerText).to.contain('Review')
+
+    {div, component, stepId, taskId, state, router, history}
 
 
 # promisify for chainability in specs

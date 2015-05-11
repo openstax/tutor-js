@@ -1,16 +1,22 @@
-_ = require 'underscore'
-moment = require 'moment'
-camelCase = require 'camelcase'
-
 React = require 'react'
-katex = require 'katex'
-{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-{TaskActions, TaskStore} = require '../../flux/task'
-{StepPanel} = require '../../helpers/policies'
-ArbitraryHtmlAndMath = require '../html'
-StepMixin = require './step-mixin'
-Question = require '../question'
+moment = require 'moment'
+
 BS = require 'react-bootstrap'
+ArbitraryHtmlAndMath = require '../../html'
+StepMixin = require '../step-mixin'
+Question = require '../../question'
+ExerciseGroup = require './group'
+
+{TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
+{TaskActions, TaskStore} = require '../../../flux/task'
+{StepPanel} = require '../../../helpers/policies'
+
+ExerciseMixin =
+  renderGroup: ->
+    {id} = @props
+    {group, related_content} = TaskStepStore.get(id)
+
+    <ExerciseGroup group={group} related_content={related_content}/>
 
 
 ExerciseFreeResponse = React.createClass
@@ -19,7 +25,7 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  mixins: [StepMixin]
+  mixins: [StepMixin, ExerciseMixin]
 
   getInitialState: ->
     {id} = @props
@@ -66,7 +72,7 @@ ExerciseFreeResponse = React.createClass
 
 ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
-  mixins: [StepMixin]
+  mixins: [StepMixin, ExerciseMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -108,7 +114,7 @@ ExerciseMultiChoice = React.createClass
 
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
-  mixins: [StepMixin]
+  mixins: [StepMixin, ExerciseMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -189,56 +195,4 @@ ExerciseReview = React.createClass
       {continueButton}
     </div>
 
-
-module.exports = React.createClass
-  displayName: 'Exercise'
-  propTypes:
-    id: React.PropTypes.string.isRequired
-    onStepCompleted: React.PropTypes.func.isRequired
-    goToStep: React.PropTypes.func.isRequired
-    onNextStep: React.PropTypes.func.isRequired
-    focus: React.PropTypes.bool.isRequired
-    review: React.PropTypes.bool.isRequired
-
-  getDefaultProps: ->
-    focus: true
-    review: false
-
-  renderReview: (id) ->
-    <ExerciseReview
-      id={id}
-      onNextStep={@props.onNextStep}
-      goToStep={@props.goToStep}
-      onStepCompleted={@props.onStepCompleted}
-      review={@props.review}
-    />
-
-  renderMultipleChoice: (id) ->
-    <ExerciseMultiChoice
-      id={id}
-      onStepCompleted={@props.onStepCompleted}
-      onNextStep={@props.onNextStep}
-      review={@props.review}
-    />
-
-  renderFreeResponse: (id) ->
-    <ExerciseFreeResponse
-      id={id}
-      focus={@props.focus}
-    />
-
-  # add render methods for different panel types as needed here
-
-  render: ->
-    {id} = @props
-    task_id = TaskStepStore.getTaskId(id)
-
-    # get panel to render based on step progress
-    panel = StepPanel.getPanel(id)
-
-    # panel is one of ['review', 'multiple-choice', 'free-response']
-    renderPanelMethod = camelCase "render-#{panel}"
-
-    throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
-    @[renderPanelMethod]?(id)
-
+module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview}

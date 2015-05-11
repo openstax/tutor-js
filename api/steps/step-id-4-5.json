@@ -12,5 +12,10 @@
         ]
       }
     ]
-  }
+  },
+  "group": "personalized",
+  "related_content": [{
+      "title": "Physics is cool, yo",
+      "chapter_section": "1.3"
+  }]
 }
