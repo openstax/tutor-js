@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
+{ScrollListenerMixin} = require 'react-scroll-components'
+
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
@@ -11,6 +13,8 @@ CrumbMixin = require './crumb-mixin'
 TaskStep = require '../task-step'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
+
+PinnedHeaderFooterCard = require '../pinned-header-footer-card'
 
 Time = require '../time'
 Details = require './details'
@@ -32,7 +36,6 @@ module.exports = React.createClass
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
     {currentStep: crumbKey}
-
 
   goToStep: (stepKey) ->
 # Curried for React
@@ -71,6 +74,8 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     task = TaskStore.get(id)
+    return null unless task?
+
     # get the crumb that matches the current state
     crumb = @goToCrumb()
 
@@ -84,16 +89,21 @@ module.exports = React.createClass
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
     unless TaskStore.isSingleStepped(id)
-      breadcrumbs =
-        <div className='panel-header'>
-          <Details task={task} />
-          <Breadcrumbs id={id} goToStep={@goToStep} currentStep={@state.currentStep}/>
-        </div>
+      breadcrumbs = [
+          <Details task={task} key="task-#{id}-details"/>
+          <Breadcrumbs
+            id={id}
+            goToStep={@goToStep}
+            currentStep={@state.currentStep}
+            key="task-#{id}-breadcrumbs"/>
+        ]
 
-    <div className={taskClasses}>
-      {breadcrumbs}
+    <PinnedHeaderFooterCard
+      className={taskClasses}
+      header={breadcrumbs}
+      cardType='task'>
       {panel}
-    </div>
+    </PinnedHeaderFooterCard>
 
   reloadTask: ->
     @setState({currentStep: 0})

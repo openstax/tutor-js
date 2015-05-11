@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
+{ScrollListenerMixin} = require 'react-scroll-components'
 
 UserName = require './username'
 CourseName = require './course-name'
@@ -88,7 +89,6 @@ module.exports = React.createClass
 
     if CurrentUserStore.isAdmin()
       adminLink = <BS.Button href='/admin' bsStyle='danger' bsSize='small'>Admin</BS.Button>
-
 
     <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
       <BS.CollapsableNav eventKey={0}>

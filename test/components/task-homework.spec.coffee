@@ -88,8 +88,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
 
   it 'should allow viewing any step with breadcrumbs', (done) ->
     taskActions
-      .completeSteps(@result)
-      .then(taskActions.clickBreadcrumb(targetStepIndex))
+      .clickBreadcrumb(targetStepIndex)(@result)
       .then(taskChecks.checkIsMatchStep(targetStepIndex))
       .then(taskChecks.checkIsNotCompletePage)
       .then( ->

@@ -55,7 +55,7 @@ checks =
 
   _checkAnswerFreeResponse: ({div, component, stepId, taskId, state, router, history, textarea}) ->
     step = TaskStepStore.get(stepId)
-
+    expect(step.free_response.length).to.not.equal(0)
     expect(step.free_response).to.equal(textarea.value)
     {div, component, stepId, taskId, state, router, history, textarea}
 
@@ -208,5 +208,21 @@ checks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, state, r
 checks.checkIsMatchStep = (matchStepIndex) ->
   (args...) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
+
+
+checks._logStuff = (logMessage, args...) ->
+  {div, stepId, router} = args[0]
+  step = TaskStepStore.get(stepId)
+  console.info(logMessage)
+  console.info(router.getCurrentPath())
+  console.info(router.getCurrentParams())
+  console.info(step)
+  console.info(div)
+
+  args[0]
+
+checks.logStuff = (logMessage) ->
+  (args...) ->
+    Promise.resolve(checks._logStuff(logMessage, args...))
 
 module.exports = checks
