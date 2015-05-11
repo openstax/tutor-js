@@ -33,19 +33,14 @@ LearningGuide = React.createClass
   displayChapter: ->
     if @state.showAll
       @setState({showAll:false}, -> @loadChart())
-      #@hidePanel()
     
   displayTopic: ->
     {courseId} = @props
     if @state.showAll is false
       @setState({showAll:true}, -> @loadChart())
-      #@hidePanel()
     else
       @context.router.transitionTo('dashboard', {courseId})
    
-  hidePanel: ->
-    detailPane = document.querySelector('.learning-guide-chart .footer')
-    detailPane.classList.remove('active')
 
   loadChart: ->
     chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
