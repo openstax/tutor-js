@@ -12,7 +12,7 @@ CourseName = React.createClass
   displayName: 'CourseName'
 
   propTypes:
-    course: React.PropTypes.object.isRequired
+    course: React.PropTypes.object
 
   render: ->
     {course} = @props
