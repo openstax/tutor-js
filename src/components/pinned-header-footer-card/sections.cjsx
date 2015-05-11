@@ -4,6 +4,10 @@ _ = require 'underscore'
 
 PinnedHeader = React.createClass
   displayName: 'PinnedHeader'
+
+  propTypes:
+    className: React.PropTypes.string
+
   render: ->
     {className} = @props
     classes = 'pinned-header'
@@ -13,11 +17,20 @@ PinnedHeader = React.createClass
       {@props.children}
     </div>
 
-PinnedFooter = React.createClass
-  displayName: 'PinnedFooter'
+PinnableFooter = React.createClass
+  displayName: 'PinnableFooter'
+
+  propTypes:
+    className: React.PropTypes.string
+    pinned: React.PropTypes.bool.isRequired
+
+  getDefaultProps: ->
+    pinned: true
+
   render: ->
-    {className} = @props
-    classes = 'pinned-footer'
+    {className, pinned} = @props
+    classPrefix = if pinned then 'pinned' else 'card'
+    classes = "#{classPrefix}-footer"
     classes += " #{className}" if className?
 
     <div className={classes}>
@@ -26,16 +39,25 @@ PinnedFooter = React.createClass
 
 CardBody = React.createClass
   displayName: 'CardBody'
+
+  propTypes:
+    className: React.PropTypes.string
+    footerClassName: React.PropTypes.string
+    pinned: React.PropTypes.bool.isRequired
+
+  getDefaultProps: ->
+    pinned: true
+
   render: ->
-    {className} = @props
+    {className, pinned, footerClassName} = @props
     classes = 'card-body'
     classes += " #{className}" if className?
 
     <div className={classes}>
       {@props.children}
-      <PinnedFooter>
+      <PinnableFooter pinned={pinned} className={footerClassName}>
         {@props.footer}
-      </PinnedFooter>
+      </PinnableFooter>
     </div>
 
-module.exports = {PinnedHeader, CardBody, PinnedFooter}
+module.exports = {PinnedHeader, CardBody, PinnableFooter}

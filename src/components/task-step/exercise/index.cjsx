@@ -20,6 +20,7 @@ module.exports = React.createClass
   getDefaultProps: ->
     focus: true
     review: false
+    pinned: true
 
   renderReview: (id) ->
     <ExerciseReview
@@ -28,6 +29,7 @@ module.exports = React.createClass
       goToStep={@props.goToStep}
       onStepCompleted={@props.onStepCompleted}
       review={@props.review}
+      pinned={@props.pinned}
     />
 
   renderMultipleChoice: (id) ->
@@ -36,12 +38,14 @@ module.exports = React.createClass
       onStepCompleted={@props.onStepCompleted}
       onNextStep={@props.onNextStep}
       review={@props.review}
+      pinned={@props.pinned}
     />
 
   renderFreeResponse: (id) ->
     <ExerciseFreeResponse
       id={id}
       focus={@props.focus}
+      pinned={@props.pinned}
     />
 
   # add render methods for different panel types as needed here
