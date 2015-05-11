@@ -1,0 +1,168 @@
+@selected-exercise-background: #fdf6d1;
+@hovered-exercise-background: rgba(241, 241, 241, 0.4);
+
+
+table.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background: @tutor-tertiary;
+    color: #fff;
+    font-size: 1.8rem;
+  }
+
+  tbody {
+    tr td {
+      border: 1px solid @tutor-neutral-light;
+      font-size: 1.2rem;
+      &:first-child {
+        border-left: 0px;
+      } 
+      &:last-child {
+        border-right: 0px;
+      }
+    }
+    tr:nth-child(even) {
+      background: white;
+    }
+    tr:nth-child(odd) {
+      background: @tutor-neutral-bright;
+    }
+  }
+  td.exercise-number {
+    color: @tutor-primary;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .chapter-section {
+    color: @chapter-section-green;
+  }
+
+  td.ellipses {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }
+
+  td {
+    padding: 5px;
+  }
+}
+.add-exercise-list {
+  .card.exercise {
+    position: relative;
+
+    .panel-heading {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: @hovered-exercise-background;
+      text-align: center;
+      padding-top: 15%;
+
+      .btn-primary,
+      .btn-primary:hover {
+        .homework-circle-btn(100px);
+
+        color: @tutor-neutral-darker;
+        background: white;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .card.exercise:hover .panel-heading {
+    display: block;
+  }
+
+  .panel-info {
+    background:@selected-exercise-background;
+  }
+}
+
+label.exercises-section-label {
+  font-size: 2.8rem;
+  .chapter-section {
+    color: @chapter-section-green;
+  }
+}
+
+// TODO: This should have a common container wit hthe above styling
+// TODO: This should just use the question rendering and styling in question.less
+.card.exercise {
+  > .panel-heading {
+    .card-actions {
+      // shift the buttons up because pull:right moves them down
+      position: relative;
+      top: -10px;
+    }
+  }
+  > .panel-body {
+    margin-left: 15px;
+    margin-right: 15px;
+    .stem {
+      font-weight: bold;
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+    }
+
+    .answers-table {
+      counter-reset: answer;
+      margin-bottom: 1rem;
+      .answers-answer.correct {
+        //TODO: get icon from Fred, and update this to use icon instead of changing color to green
+        color: @chapter-section-green;
+      }
+
+      .answers-answer {
+        padding-left: 15px;
+        counter-increment: answer;
+
+        .answer-letter {
+          margin-right: 1rem;
+          float: left;
+
+          &::after { content: counter(answer, lower-latin) ')'; }
+        }
+        .answer {
+          display: table;
+        }
+      }
+    }
+
+    .exercise-tags {
+      color: #ccc;
+      .exercise-tag + .exercise-tag::before {
+        content: ',';
+        margin-right: 1rem;
+      }
+    }
+
+
+  }
+
+}
+
+.card-list.exercises {
+  .panel-heading {
+    background:@tutor-neutral-bright;
+    height: 50px;
+    padding: 10px;
+    border-bottom:1px solid @tutor-neutral-light;
+    .exercise-number {
+      color: @tutor-primary;
+    }
+  }
+
+  .card-actions button {
+    .homework-circle-btn(25px);
+    padding: 0;
+    margin-right: 15px;
+    color: @tutor-neutral-darker;
+    background: white;
+  }
+}

@@ -5,6 +5,7 @@ Dialog = require '../dialog'
 LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+ChapterSection = require './chapter-section'
 
 SectionTopic = React.createClass
   displayName: 'SectionTopic'
@@ -24,8 +25,8 @@ SectionTopic = React.createClass
       <span className='section-checkbox'>
         <input type='checkbox' checked={isChecked}/>
       </span>
-      <span className='section-number'>{@props.section.number}</span>
-      <span className='-section-title'>{@props.section.title}</span>
+      <ChapterSection section={@props.section.chapter_section}/>.
+      <span className='-section-title'> {@props.section.title}</span>
     </div>
 
   toggleSection: ->
@@ -78,8 +79,10 @@ ChapterAccordion = React.createClass
           <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
         </span>
-        <span className='-chapter-number'>{chapter.number}</span>
-        <span className='-chapter-title'>{chapter.title}</span>
+        <span className='-chapter-number'>
+          Chapter <ChapterSection section={chapter.chapter_section}/> -
+        </span>
+        <span className='-chapter-title'> {chapter.title}</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>

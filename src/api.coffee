@@ -51,7 +51,9 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         # For now, the backend is expecting JSON and cannot accept url-encoded forms
         opts.contentType = 'application/json'
 
-      url = "#{url}.json" if IS_LOCAL
+      if IS_LOCAL
+        [uri, params] = url.split("?")
+        url = "#{uri}.json?#{params}"
 
       resolved = (results, statusStr, jqXhr) ->
         setNow(jqXhr)
