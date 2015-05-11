@@ -3,7 +3,7 @@ React = require 'react'
 api = require '../../api'
 {TaskStepStore} = require '../../flux/task-step'
 ArbitraryHtmlAndMath = require '../html'
-Exercise = require './exercise-multiple-choice'
+Exercise = require './exercise'
 StepMixin = require './step-mixin'
 
 # React swallows thrown errors so log them first
