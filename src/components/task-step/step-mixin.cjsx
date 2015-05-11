@@ -23,4 +23,5 @@ module.exports =
 
     <BS.Panel bsStyle='default' className='task-step' footer={footer}>
       {@renderBody()}
+      {@renderGroup?()}
     </BS.Panel>
