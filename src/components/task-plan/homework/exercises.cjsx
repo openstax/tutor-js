@@ -118,9 +118,6 @@ AddExerciseCard = React.createClass
     @renderExercise()
 
 ExercisesRenderMixin =
-  componentWillMount:   -> ExerciseStore.addChangeListener(@update)
-  componentWillUnmount: -> ExerciseStore.removeChangeListener(@update)
-
   update: ->
     @setState({})
 
@@ -128,8 +125,11 @@ ExercisesRenderMixin =
     {courseId, pageIds} = @props
 
     unless ExerciseStore.isLoaded(pageIds)
+      ExerciseStore.addChangeListener(@update)
       ExerciseActions.load(courseId, pageIds)
       return <span className="-loading">Loading...</span>
+    else
+      ExerciseStore.removeChangeListener(@update)
 
     false
 
