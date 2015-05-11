@@ -50,8 +50,11 @@ HomeworkEnd = React.createClass
   displayName: 'HomeworkEnd'
 
   mixins: [BindStoreMixin]
-
   bindStore: TaskStepStore
+  bindEvent: 'step.completed'
+  bindUpdate: ->
+    # update on complete
+    @setState({})
 
   propTypes:
     courseId: React.PropTypes.string.isRequired

@@ -5,6 +5,7 @@ Dialog = require '../dialog'
 LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+ChapterSection = require './chapter-section'
 
 SectionTopic = React.createClass
   displayName: 'SectionTopic'
@@ -24,8 +25,8 @@ SectionTopic = React.createClass
       <span className='section-checkbox'>
         <input type='checkbox' checked={isChecked}/>
       </span>
-      <span className='section-number'>{@props.section.number}</span>
-      <span className='-section-title'>{@props.section.title}</span>
+      <ChapterSection section={@props.section.chapter_section}/>.
+      <span className='-section-title'> {@props.section.title}</span>
     </div>
 
   toggleSection: ->
@@ -44,6 +45,7 @@ ChapterAccordion = React.createClass
     chapter: React.PropTypes.object.isRequired
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
+    expanded: React.PropTypes.bool
 
   renderSections: (section) ->
     active = TaskPlanStore.hasTopic(@props.planId, section.id)
@@ -66,10 +68,11 @@ ChapterAccordion = React.createClass
     @props.selected.indexOf(section.id) >= 0 or anySelected
 
   render: ->
-    chapter = @props.chapter
+    {chapter, expanded} = @props
     sections = _.map(chapter.children, @renderSections)
     allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true)
-    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, true) or @props.i is 0
+    expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expanded
+
     activeKey = chapter.id if expandAccordion
 
     header =
@@ -78,8 +81,10 @@ ChapterAccordion = React.createClass
           <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
         </span>
-        <span className='-chapter-number'>{chapter.number}</span>
-        <span className='-chapter-title'>{chapter.title}</span>
+        <span className='-chapter-number'>
+          Chapter <ChapterSection section={chapter.chapter_section}/> -
+        </span>
+        <span className='-chapter-title'> {chapter.title}</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>
@@ -97,7 +102,8 @@ SelectTopics = React.createClass
     selected: React.PropTypes.array
 
   renderChapterPanels: (chapter, i) ->
-    <ChapterAccordion {...@props} chapter={chapter}/>
+    expanded = not @props.selected?.length and i is 0
+    <ChapterAccordion {...@props} expanded={expanded} chapter={chapter}/>
 
   renderDialog: ->
     {courseId, planId, selected, hide, header, primary} = @props
@@ -106,14 +112,15 @@ SelectTopics = React.createClass
     chapters = _.map(TocStore.get(), @renderChapterPanels)
 
     <Dialog
-      className='my-dialog-class'
+      className='select-reading-dialog'
       header={header}
       primary={primary}
       confirmMsg='Are you sure you want to close?'
+      cancel={true}
       isChanged={-> true}
       onCancel={hide}>
 
-      <div className='select-reading-modal'>
+      <div className='select-reading-chapters'>
         {chapters}
       </div>
     </Dialog>

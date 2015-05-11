@@ -5,7 +5,10 @@ module.exports = React.createClass
   propTypes:
     section: React.PropTypes.array.isRequired
   render: ->
-    <span>
-      {@props.section[0]}.{@props.section[1]}
+    chapter = @props.section[0]
+    if @props.section.length is 2
+      section = ".#{@props.section[1]}"
+    <span className="chapter-section">
+      {chapter}{section}
     </span>
 

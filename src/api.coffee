@@ -51,7 +51,9 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         # For now, the backend is expecting JSON and cannot accept url-encoded forms
         opts.contentType = 'application/json'
 
-      url = "#{url}.json" if IS_LOCAL
+      if IS_LOCAL
+        [uri, params] = url.split("?")
+        url = "#{uri}.json?#{params}"
 
       resolved = (results, statusStr, jqXhr) ->
         setNow(jqXhr)
@@ -93,9 +95,11 @@ start = ->
   # apiHelper TaskActions, TaskActions.save, TaskActions.saved, 'PATCH', (id, obj) ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
-
   apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
     url: "/api/plans/#{id}/publish"
+
+  afterPlanSave = (result, id) ->
+    TaskPlanActions.publish(result.id)
 
   saveHelper = (id) ->
     obj = TaskPlanStore.getChanged(id)
@@ -113,7 +117,7 @@ start = ->
       httpMethod: 'PATCH'
       payload: obj
 
-  apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, null, saveHelper
+  apiHelper TaskPlanActions, TaskPlanActions.save, afterPlanSave, null, saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 

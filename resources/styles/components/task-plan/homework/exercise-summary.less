@@ -1,0 +1,86 @@
+.exercise-summary {
+  text-align: center;
+
+  &.navbar-fixed-top-lower {
+    top: 60px;
+    margin: 0;
+    padding: 0;
+    .tutor-shadow(1);
+  }
+
+  h2 {
+    font-size: 4rem;
+    font-weight: normal;
+    margin: 0;
+    line-height: 3rem;
+  }
+
+  .row > div {
+    height: 60px;
+    border-right: 1px solid lightgray;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .selections-title {
+    line-height: 60px;
+    text-transform: uppercase;
+  }
+
+  .total {
+    h2 {
+      font-size: 6rem;
+      font-weight: normal;
+      margin: 0;
+      line-height: 6rem;
+      color: rgb(245, 208, 25);
+    }
+  }
+
+  .num-selected,
+  .num-tutor {
+    h2 {
+      margin-top: 10px;
+    }
+
+    span {
+      font-size: 1.3rem;
+    }
+
+    button {
+      .homework-circle-btn(25px);
+      padding: 0;
+      margin: -15px 0 0 0;
+      color: @tutor-neutral-darker;
+      background: white;
+      
+      &:first-child {
+        margin-right: 15px;
+      }
+
+      &:last-child {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .num-tutor {
+    h2 {
+      display: inline;
+    }
+
+    div.tutor-selections {
+      margin-top: 10px;
+      height: 30px;
+    }
+  }
+
+  .tutor-added-later {
+    line-height: 1.8rem;
+    font-size: 1.3rem;
+    text-align: left;
+  }
+}
+

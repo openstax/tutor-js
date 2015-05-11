@@ -1,0 +1,84 @@
+@chapter-section-green: rgb(122, 176, 73);
+
+.select-reading-chapters {
+  > .panel-group > .panel {
+    border-radius: 0;
+    box-shadow: none;
+
+    input {
+      float: left;
+      margin: 2px 20px 0 0;
+    }
+
+    > .panel-heading {
+      position: relative;
+      padding: 0;
+      height: 40px;
+      border-radius: 0;
+      background: @tutor-neutral-light;
+      font-size: 1.6rem;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: none;
+        border: 1px solid white;
+        display: block;
+        pointer-events: none;
+        content: "";
+      }
+
+      > .panel-title {
+        padding: 10px;
+        font-weight: 700;
+        line-height: 1.7rem;
+        color: @tutor-tertiary;
+
+        span {
+          font-size: 1.7rem;
+        }
+      }
+    }
+
+    > .panel-collapse > .panel-body {
+      padding: 0;
+      border: none;
+
+      > .section {
+        padding: 1px 8px;
+        border-bottom: 1px solid #efefef;
+        font-weight: 400;
+
+        > .section-checkbox {
+          font-size: 1.7rem;
+
+          input {
+            margin-top: 8px;
+          }
+        }
+
+        > .chapter-section {
+          font-weight: bold;
+          color: @chapter-section-green;
+        }
+      }
+    }
+  }
+}
+
+.select-reading-chapters {
+  .section {
+    padding: 0.5em 5px;
+    border-bottom: 1px solid @tutor-neutral-light;
+  }
+  .section:last-child {
+    border-bottom: 0;
+  }
+  .section.selected {
+    background: @state-info-bg;
+    color: @state-info-text;
+  }
+}

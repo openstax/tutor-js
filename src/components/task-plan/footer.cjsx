@@ -17,14 +17,10 @@ PlanFooter = React.createClass
     TaskPlanStore.removeChangeListener(@saved)
     @context.router.transitionTo('taskplans', {courseId})
 
-  onSave: ->
+  onPublish: ->
     {id} = @props
     TaskPlanStore.addChangeListener(@saved)
     TaskPlanActions.save(id)
-
-  onPublish: ->
-    {id} = @props
-    TaskPlanActions.publish(id)
 
   onDelete: ->
     {id} = @props
@@ -41,16 +37,14 @@ PlanFooter = React.createClass
 
     plan = TaskPlanStore.get(id)
 
-    valid = TaskPlanStore.isValid(id)
-    publishable = valid and not TaskPlanStore.isChanged(id)
-    saveable = valid and TaskPlanStore.isChanged(id)
+    publishable = TaskPlanStore.isValid(id) and not TaskPlanStore.isPublished(id)
     deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isPublished(id)
 
     classes = ['-publish']
     classes.push('disabled') unless publishable
     classes = classes.join(' ')
 
-    publishButton = <BS.Button bsStyle='link' className={classes} onClick={@onPublish}>Publish</BS.Button>
+    publishButton = <BS.Button bsStyle='primary' className={classes} onClick={@onPublish}>Publish</BS.Button>
 
     if deleteable
       deleteLink = <BS.Button bsStyle='link' className='-delete' onClick={@onDelete}>Delete</BS.Button>
@@ -62,20 +56,10 @@ PlanFooter = React.createClass
         onClick={clickedSelectProblem}>Select Problems
       </BS.Button>
 
-    classes = ['-save']
-    classes.push('disabled') unless saveable
-    classes = classes.join(' ')
-
-    saveLink = <BS.Button bsStyle='primary' className={classes} onClick={@onSave}>Save as Draft</BS.Button>
-
-    statsLink = <BS.Button bsStyle='link' className='-stats' onClick={@onViewStats}>Stats</BS.Button>
-
     <span className='-footer-buttons'>
       {selectProblems}
-      {saveLink}
       {publishButton}
       {deleteLink}
-      {statsLink}
     </span>
 
 module.exports = PlanFooter
