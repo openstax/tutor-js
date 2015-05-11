@@ -1,7 +1,7 @@
 [
   {
     "title": "Kinematics",
-    "number": "1",
+    "chapter_section":[1],
     "id": "123",
     "children": [
       {
@@ -26,7 +26,7 @@
   },
   {
     "title": "Mechanics",
-    "number": "2",
+    "chapter_section":[2],
     "id": "124",
     "children": [
       {
@@ -51,7 +51,7 @@
   },
   {
     "title": "Thermodynamics",
-    "number": "3",
+    "chapter_section":[3],
     "id": "125",
     "children": [
       {

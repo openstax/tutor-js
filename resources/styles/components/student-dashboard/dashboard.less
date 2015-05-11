@@ -18,7 +18,7 @@
       bottom: 0;
       left: 50px;
       right: 50px;
-      opacity: 0.2;
+      opacity: 0.05;
     }
     &.physics {
       &:before{ .tutor-background-image("physics.jpg"); }
@@ -29,14 +29,14 @@
     position: fixed;
     left: 0px;
     right: 0px;
-    top:50px;
+    top:60px;
     height:220px;
     overflow: hidden;
     background-color: @tutor-tertiary;
     color: @tutor-secondary;
     text-align: center;
     padding-top: 85px;
-    font-size: 320px;
+    font-size: 300px;
     font-family: 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
     font-weight: 700;
   }
@@ -45,7 +45,7 @@
     background-color: white;
     padding: 10px;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0;
     @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
     button {
       width: 100%;
@@ -57,10 +57,10 @@
   .nav-tabs {
     background: inherit;
     li {
-      #fonts .serif(2.4rem, 2.4rem);
+      #fonts .sans(2.4rem, 2.4rem);
       background: @tutor-neutral-lighter;
       a {
-        font-weight: 400;
+        font-weight: 900;
         color: @tutor-neutral-dark !important;
       }
       &.active {
@@ -69,6 +69,11 @@
           font-weight: 900;
           color: @tutor-neutral-darker !important;
         }
+      }
+      // BootstrapReact doesn't support setting a class on a specific tab
+      &:nth-of-type(2){
+        #fonts .sans(2.1rem, 2.1rem);
+        padding-top: 0.4rem;
       }
     }
   }

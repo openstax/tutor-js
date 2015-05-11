@@ -59,42 +59,6 @@ textarea:focus {
   &:before { content: attr(data-math); }
 }
 
-.create-reading {
-  label {
-    width: 150px;
-    display:inline-block;
-  }
-  #title {
-    line-height: 32px;
-    height: 32px;
-    margin-bottom: 1em;
-  }
-  .rw-datetimepicker {
-    display:inline-block;
-    max-width: 300px;
-  }
-}
-.select-reading-modal {
-  .section {
-    padding: 0.5em 5px;
-    border-bottom: 1px solid #efefef;
-  }
-  .section:last-child {
-    border-bottom: 0;
-  }
-  .section.selected {
-    background: @state-info-bg;
-    color: @state-info-text;
-  }
-}
-ul.selected-reading-list {
-  list-style: none;
-  margin-left: 150px;
-  padding-left: 0;
-}
-.modal-backdrop.in {
-  height: 100%;
-}
 
 
 // KaTeX 1.0.2 generates both HTML and MathML

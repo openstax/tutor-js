@@ -41,26 +41,7 @@ module.exports = React.createClass
     <div className={"#{shortTitle.toLowerCase()}  bg"}>
       <div className='container'>
         <div className='big-header'>{shortTitle}</div>
-        <BS.Col xs={12} md={9}>
-
-          <BS.TabbedArea
-            activeKey = {@state.selectedTabIndex}
-            onSelect  = {@selectTab}
-            animation = {false}>
-
-            <BS.TabPane eventKey={1} tab='This Week'>
-              <ThisWeekPanel courseId={courseId}/>
-              <UpcomingPanel courseId={courseId}/>
-            </BS.TabPane>
-
-            <BS.TabPane eventKey={2} tab='All Past Work'>
-              <AllEventsByWeek courseId={courseId}/>
-            </BS.TabPane>
-
-          </BS.TabbedArea>
-
-        </BS.Col>
-        <BS.Col xs={12} md={3}>
+        <BS.Col mdPush={9} xs={12} md={3}>
           <div className='right-actions-box'>
             <h3>How am I doing?</h3>
             <BS.Button
@@ -79,5 +60,26 @@ module.exports = React.createClass
             </BS.Button>
           </div>
         </BS.Col>
+
+        <BS.Col mdPull={3} xs={12} md={9}>
+
+          <BS.TabbedArea
+            activeKey = {@state.selectedTabIndex}
+            onSelect  = {@selectTab}
+            animation = {false}>
+
+            <BS.TabPane eventKey={1} tab='This Week'>
+              <ThisWeekPanel courseId={courseId}/>
+              <UpcomingPanel courseId={courseId}/>
+            </BS.TabPane>
+
+            <BS.TabPane eventKey={2} tab='All Past Work'>
+              <AllEventsByWeek courseId={courseId}/>
+            </BS.TabPane>
+
+          </BS.TabbedArea>
+
+        </BS.Col>
+
       </div>
     </div>

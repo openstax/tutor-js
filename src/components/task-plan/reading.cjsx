@@ -95,13 +95,24 @@ ReadingPlan = React.createClass
       showSectionTopics: false
     })
 
+  cancel: ->
+    {id} = @props
+    TaskPlanActions.reset(id)
+    @context.router.transitionTo('dashboard')
+
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
-    headerText = if TaskPlanStore.isNew(id) then 'Add Reading' else 'Edit Reading'
+    headerText = if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'
     topics = TaskPlanStore.getTopics(id)
-    formClasses = ['create-reading']
+    formClasses = ['edit-reading']
+    closeBtn = <BS.Button 
+      className='pull-right close-icon' 
+      aria-role='close' 
+      onClick={@cancel}>
+        <i className="fa fa-close"></i>
+    </BS.Button>
 
     # Restrict the due date to be after the open date
     # and restrict the open date to be before the due date
@@ -111,6 +122,7 @@ ReadingPlan = React.createClass
       dueAt = new Date(plan.due_at)
 
     footer = <PlanFooter id={id} courseId={courseId} />
+    header = [headerText, closeBtn]
 
     if (@state?.showSectionTopics)
       formClasses.push('hide')
@@ -120,11 +132,11 @@ ReadingPlan = React.createClass
                         planId={id}
                         selected={topics}/>
 
-    <div className='-reading-container'>
+    <div className='reading-plan'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
         footer={footer}
-        header={headerText}>
+        header={header}>
 
         <div className='-reading-title'>
           <label htmlFor='reading-title'>Title</label>
@@ -161,7 +173,6 @@ ReadingPlan = React.createClass
             value={dueAt}/>
         </div>
         <div>
-          <label htmlFor='reading-select'>Select Readings</label>
           <BS.Button id='reading-select'
             onClick={@showSectionTopics}
             bsStyle='primary'>Edit Readings
