@@ -15,6 +15,9 @@
 .task-step {
 
   .reading-step {
+    // pull in common stylings for book contents
+    @import '../book-content';
+  
     section[data-depth="1"]:not(.section-opener),
     section[data-depth="2"],
     .worked-example,
@@ -39,7 +42,17 @@
         clear: both;
         padding-top: 40px;
       }
-
+      .overlay {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: @tutor-white;
+        top: -100px;
+        font-size: 3rem;
+        line-height: 100px;
+        height: 100px;
+        padding: 0 20px;
+        text-overflow: ellipsis;
+      }
     }
 
     figure {
@@ -71,32 +84,6 @@
 
     }
 
-    .learning-objectives {
-      width: 100%;
-      min-height: 100px;
-      display: inline-flex;
-      margin-top: -20px;
-      color: #ffffff;
-      padding: 10px 40px;
-      background: @physics-background-secondary;
-
-      > div {display: none;}
-
-      p {
-        color: rgba(255,255,255,.75);
-        #fonts > .sans;
-        text-transform: uppercase;
-        text-align: right;
-        margin: auto 15px;
-      }
-
-      ul {
-        margin: 0 0;
-        padding: 0 15px 0 30px;
-        border-left: 1px solid rgba(255,255,255,.4);
-      }
-
-    }
 
   }
 

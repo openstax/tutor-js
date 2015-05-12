@@ -8,14 +8,13 @@ ArbitraryHtmlAndMath = require '../html'
 Exercise = require './exercise'
 Pluralize = require '../pluralize'
 StepMixin = require './step-mixin'
-
 # React swallows thrown errors so log them first
 err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
 
-
 Reading = React.createClass
+  displayName: "Reading"
   mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
@@ -25,6 +24,17 @@ Reading = React.createClass
     {id} = @props
     {content_html} = TaskStepStore.get(id)
     <ArbitraryHtmlAndMath className='reading-step' html={content_html} />
+
+  componentDidMount:  -> @insertOverlays()
+  componentDidUpdate: -> @insertOverlays()
+  insertOverlays: ->
+    root = @getDOMNode()
+    {title} = TaskStepStore.get(@props.id)
+    for img in root.querySelectorAll('.splash img')
+      overlay = document.createElement("div")
+      overlay.className = 'overlay'
+      overlay.innerHTML = title
+      img.parentElement.appendChild(overlay)
 
 Interactive = React.createClass
   mixins: [StepMixin]
