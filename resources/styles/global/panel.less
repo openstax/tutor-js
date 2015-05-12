@@ -1,20 +1,20 @@
-@green: rgb(122, 176, 73);
-
 .panel {
+  box-shadow: none !important;
+
   > .panel-heading {
     position: relative;
     padding: 5px 15px;
-    background-color: @green;
+    background-color: @tutor-secondary;
     color: white;
     border-radius: 0;
     border: 2px solid @tutor-secondary-light;
 
     span {
-      vertical-align: middle;
+      vertical-align: top;
       font-size: 2.4rem;
       font-weight: 900;
     }
-    
+
     .dialog& {
       button {
         position: absolute;
@@ -23,7 +23,7 @@
         padding: 0;
         margin: 0;
         color: white;
-        font-size: 3rem;
+        font-size: 2.8rem;
 
         &:hover {
           text-decoration: none;

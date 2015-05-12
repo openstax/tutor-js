@@ -39,18 +39,13 @@ module.exports = React.createClass
     if cancel
       cancelBtn = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button>
 
-    closeBtn = <BS.Button 
-      className='close-icon' 
-      aria-role='close' 
-      onClick={@onCancel}>
-        <i className="fa fa-close"></i>
-    </BS.Button>
+    closeBtn = <BS.Button className='close-icon' aria-role='close' onClick={@onCancel}>X</BS.Button>
     header = [header, closeBtn]
     footer = [primary, cancelBtn, footer] if footer or primary or cancelBtn
 
-    classes = ['default-dialog']
+    classes = ['dialog default-dialog']
 
-    classes.push('-is-changed') if isChanged?()
+    classes.push('is-changed') if isChanged?()
     classes.push(className) if className
     className = classes.join(' ')
 
