@@ -47,7 +47,9 @@ Stats = React.createClass
               key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
 
   renderProgressBar: (data, type, index, previous) ->
-    studentCount = <span className='reading-progress-student-count'>({data.student_count} students)</span>
+    studentCount = <span className='reading-progress-student-count'>
+        ({data.student_count} students)
+      </span>
 
     <div key="#{type}-bar-#{index}">
       <div className='reading-progress-heading'>
