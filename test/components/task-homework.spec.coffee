@@ -6,6 +6,7 @@ moment = require 'moment'
 
 {taskActions, taskTests, taskChecks} = require './helpers/task'
 
+{TimeActions, TimeStore} = require '../../src/flux/time'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
@@ -13,7 +14,7 @@ courseId = '1'
 homeworkTaskId = '6'
 targetStepIndex = 1
 homework_model = require '../../api/tasks/6.json'
-homework_model.due_at = moment().add(1, 'year').toDate()
+homework_model.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate()
 
 describe 'Task Widget, homework specific things, due in the future', ->
   beforeEach (done) ->
