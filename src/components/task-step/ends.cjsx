@@ -11,7 +11,7 @@ BindStoreMixin = require '../bind-store-mixin'
 TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
-{CardBody} = require '../pinned-header-footer-card/sections'
+{CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
 
 PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
@@ -64,6 +64,8 @@ HomeworkEnd = React.createClass
   onNextStep: ->
 
   renderReviewSteps: (steps, label, type) ->
+    {courseId} = @props
+
     stepsList = _.map steps, (step, index) =>
       <TaskStep
         id={step.id}
@@ -73,12 +75,19 @@ HomeworkEnd = React.createClass
         # focus on first problem
         focus={index is 0}
         review={true}
+        pinned={false}
       />
 
     stepsReview =
       <div className="task task-review-#{type}">
         {label}
         {stepsList}
+        <PinnableFooter>
+          <Router.Link
+            to='viewStudentDashboard'
+            params={{courseId}}
+            className='btn btn-primary'>Back to Dashboard</Router.Link>
+        </PinnableFooter>
       </div>
 
   renderAfterDue: (taskId) ->
