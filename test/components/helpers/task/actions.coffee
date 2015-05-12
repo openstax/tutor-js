@@ -8,12 +8,19 @@ React = require 'react/addons'
 {StepPanel} = require '../../../../src/helpers/policies'
 
 TaskStep = require '../../../../src/components/task-step'
+Breadcrumbs = require '../../../../src/components/task/breadcrumbs'
+
 {routerStub, commonActions} = require '../utilities'
 
 actions =
   forceUpdate: (args...) ->
     {component, div} = args[0]
     taskStep = React.addons.TestUtils.scryRenderedComponentsWithType(component, TaskStep)
+    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumbs)
+
+    if breadcrumbs.length is 1
+      routerStub.forceUpdate(breadcrumbs[0], args...)
+
     if taskStep.length is 1
       routerStub.forceUpdate(taskStep[0], args...)
     else
@@ -93,6 +100,15 @@ actions =
       )
 
       commonActions.playThroughFunctions(actionsFns)(args...)
+
+  _loadStep: (stepId, stepData, args...) ->
+    {taskId} = args[0]
+    TaskStepActions.loaded(stepData, stepId, taskId)
+    args[0]
+
+  loadStep: (stepId, stepData) ->
+    (args...) ->
+      Promise.resolve(actions._loadStep(stepId, stepData, args...))
 
   completeThisStep: (args...) ->
     {stepId} = args[0]

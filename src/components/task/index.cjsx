@@ -37,8 +37,8 @@ module.exports = React.createClass
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
     {currentStep: crumbKey}
 
+  # Curried for React
   goToStep: (stepKey) ->
-# Curried for React
     =>
       params = @context.router.getCurrentParams()
       # url is 1 based so it matches the breadcrumb button numbers
@@ -52,10 +52,6 @@ module.exports = React.createClass
     _.findWhere crumbs, {key: @state.currentStep}
 
   renderStep: (data) ->
-    # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
-    # we need to reload the step straight from the API
-    TaskStepActions.forceReload(data.id) if data and not TaskStepStore.hasContent(data.id)
-
     <TaskStep
       id={data.id}
       taskId={@props.id}
