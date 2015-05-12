@@ -97,24 +97,30 @@ CourseMonth = React.createClass
 
       if dayIter.isAfter(referenceDay, 'day')
 
-        day = <Day
-          date={dayIter}
-          onClick={@handleClick}
-          modifiers={{upcoming: true}}/>
+        modifiers =
+          upcoming: true
+
+        otherProps =
+          onClick: @handleClick
 
         if hasActiveAddDate
           # Only attach hover event check when there is an active date.
-          # Otherwise, we would be rendering way too often.
-          day.props.onMouseLeave = @checkAddOnDay
-          day.props.onMouseEnter = @undoActives
+          # Otherwise, we would be re-rendering way too often.
+          otherProps.onMouseLeave = @checkAddOnDay
+          otherProps.onMouseEnter = @undoActives
 
           if @state.activeAddDate.isSame(dayIter, 'day')
-            day.props.classes =
+            otherProps.classes =
               active: true
 
       else
-        day = <Day date={dayIter} modifiers={{past: true}}/>
+        modifiers =
+          past: true
 
+        if dayIter.isSame(referenceDay, 'day')
+          modifiers.current = true
+
+      day = <Day date={dayIter} modifiers={modifiers} {...otherProps}/>
       days.push(day)
 
     days
