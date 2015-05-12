@@ -10,6 +10,7 @@ FLAG_BLUE      = 'flag-blue.svg'
 FLAG_GREEN     = 'flag-green.svg'
 FLAG_YELLOW    = 'flag-yellow.svg'
 FLAG_GREY      = 'flag-grey.svg'
+ICON_PENCIL    = 'icon-pencil.svg'
 
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
@@ -161,15 +162,18 @@ module.exports = class LearningGuideChart
       .attr('dy', '2.3')
       .attr('text-anchor', 'middle')
       .text( (f, i) ->
-        subsection = if f.chapter_section[1]? then '.' + f.chapter_section[1] else ''
-        f.chapter_section[0] + subsection
+        if f.chapter_section instanceof Array
+          subsection = if f.chapter_section[1]? then '.' + f.chapter_section[1] else ''
+          f.chapter_section[0] + subsection
+        else
+          f.chapter_section
         )
 
 
 
   showDefaultPanel: (fields) ->
     field = fields[0]
-    @showPanel(document.querySelector('.x-axis .point:first-child'), document.querySelector('.x-axis .point'))
+    @showPanel(@svgNode.querySelector('.x-axis .point:first-child'), @svgNode.querySelector('.x-axis .point'))
     @displayUnit(field, parseInt(field.chapter_section[0]))
 
   showPanel: (target, children) ->
@@ -179,7 +183,7 @@ module.exports = class LearningGuideChart
     d3.select(target).classed('active', true)
 
     caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
-    detailPane = document.querySelector('.learning-guide-chart .footer')
+    detailPane = this.svgNode.parentElement.querySelector('.footer')
     detailPane.classList.add('active')
 
     # this is a rough calc for now, can center it better by subtracting container offset
@@ -301,12 +305,14 @@ module.exports = class LearningGuideChart
         else if lv < .35
           'grounded'
       )
-    # circles.append('text')
-    #   .text( (f) ->
-    #     f.questions_answered_count
-    #   )
-    #   .attr('text-anchor', 'middle')
-    #   .attr('dy', '0.5')
+    circles.append('svg:image')
+      .attr('xlink:href', AppConfigStore.urlForResource(ICON_PENCIL))
+      .attr('class', 'icon-pencil')
+      .attr('x', -1)
+      .attr('y', -1.4)
+      .attr('width', 2.4)
+      .attr('height', 2.4)
+
 
   drawPlotLines: (container, points) ->
     wrap = container.append('g')
