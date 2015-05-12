@@ -5,7 +5,7 @@ camelCase = require 'camelcase'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 
-{TaskStore} = require '../../flux/task'
+{TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
 CrumbMixin = require './crumb-mixin'
@@ -37,8 +37,8 @@ module.exports = React.createClass
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
     {currentStep: crumbKey}
 
+  # Curried for React
   goToStep: (stepKey) ->
-# Curried for React
     =>
       params = @context.router.getCurrentParams()
       # url is 1 based so it matches the breadcrumb button numbers
@@ -52,12 +52,9 @@ module.exports = React.createClass
     _.findWhere crumbs, {key: @state.currentStep}
 
   renderStep: (data) ->
-    # Since backend does not give us all the steps/steps content until we do the reading or work on certain steps,
-    # we need to reload the step straight from the API
-    TaskStepActions.forceReload(data.id) if data and not TaskStepStore.hasContent(data.id)
-
     <TaskStep
       id={data.id}
+      taskId={@props.id}
       goToStep={@goToStep}
       onNextStep={@onNextStep}
     />
@@ -110,4 +107,9 @@ module.exports = React.createClass
 
   onNextStep: ->
     {id} = @props
+
+    placeholder = TaskStore.getPlaceholder(id)
+    if placeholder? and not TaskStore.hasIncompleteCoreStepsIndexes(id)
+      TaskStepActions.load(placeholder.id)
+
     @setState({currentStep: @state.currentStep + 1})

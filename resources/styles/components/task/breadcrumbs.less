@@ -15,8 +15,8 @@
   }
   .step:not(.end) {
     &:before {
-      content: counter(step);
       counter-increment: step;
+      content: counter(step);
       position: absolute;
       width: 100%;
       text-align: center;
@@ -24,6 +24,12 @@
     }
     i:not(.icon-incorrect):not(.icon-correct) {
       display: none;
+    }
+
+    &.placeholder {
+      &:before {
+        content: '?';
+      }
     }
   }
 }

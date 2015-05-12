@@ -5,7 +5,7 @@
     "questions":[
       {
         "id": "877",
-        "format": ["multiple-choice"],
+        "formats": ["multiple-choice"],
         "stem_html":"Is the glass half full or half empty?",
         "answers":[
           {"id":"id5","content_html":"True"},
@@ -14,7 +14,7 @@
       }
     ]
   },
-  "group": "personalized",
+  "group": "core",
   "related_content": [{
       "title": "Physics is cool, yo",
       "chapter_section": "5.3"

@@ -1,0 +1,9 @@
+{ "id": "step-id-6-4",
+  "type": "placeholder",
+  "placeholder_for": "exercise",
+  "group": "personalized",
+  "related_content": [{
+      "title": "Physics is cool, yo",
+      "chapter_section": "5.6"
+  }]
+}

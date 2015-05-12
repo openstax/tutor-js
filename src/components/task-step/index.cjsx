@@ -3,7 +3,7 @@ React = require 'react'
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableItem = require '../loadable-item'
-{Reading, Interactive, Video, Exercise} = require './all-steps'
+{Reading, Interactive, Video, Exercise, Placeholder} = require './all-steps'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -15,6 +15,7 @@ STEP_TYPES =
   interactive : Interactive
   video       : Video
   exercise    : Exercise
+  placeholder : Placeholder
 
 getStepType = (typeName) ->
   type = STEP_TYPES[typeName]
