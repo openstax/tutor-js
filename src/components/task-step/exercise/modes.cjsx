@@ -168,6 +168,7 @@ ExerciseReview = React.createClass
   tryAnother: ->
     {id} = @props
     task_id = TaskStepStore.getTaskId(id)
+    # emits step.recovered event that is bounded on
     TaskStepActions.loadRecovery(id)
 
   refreshMemory: ->
