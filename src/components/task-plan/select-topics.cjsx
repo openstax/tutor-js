@@ -25,7 +25,7 @@ SectionTopic = React.createClass
       <span className='section-checkbox'>
         <input type='checkbox' checked={isChecked}/>
       </span>
-      <ChapterSection section={@props.section.chapter_section}/>.
+      <ChapterSection section={@props.section.chapter_section}/>
       <span className='-section-title'> {@props.section.title}</span>
     </div>
 
