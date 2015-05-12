@@ -10,7 +10,7 @@ FLAG_BLUE      = 'flag-blue.svg'
 FLAG_GREEN     = 'flag-green.svg'
 FLAG_YELLOW    = 'flag-yellow.svg'
 FLAG_GREY      = 'flag-grey.svg'
-ICON_PENCIL    = 'icon-pencil.svg'
+PENCIL_PATH    = 'guide-pencil.svg'
 
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
@@ -306,7 +306,7 @@ module.exports = class LearningGuideChart
           'grounded'
       )
     circles.append('svg:image')
-      .attr('xlink:href', AppConfigStore.urlForResource(ICON_PENCIL))
+      .attr('xlink:href', AppConfigStore.urlForResource(PENCIL_PATH))
       .attr('class', 'icon-pencil')
       .attr('x', -1)
       .attr('y', -1.4)
