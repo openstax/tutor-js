@@ -17,7 +17,7 @@
   .reading-step {
     // pull in common stylings for book contents
     @import '../book-content';
-    
+  
     section[data-depth="1"]:not(.section-opener),
     section[data-depth="2"],
     .worked-example,
@@ -42,7 +42,17 @@
         clear: both;
         padding-top: 40px;
       }
-
+      .overlay {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: @tutor-white;
+        top: -100px;
+        font-size: 3rem;
+        line-height: 100px;
+        height: 100px;
+        padding: 0 20px;
+        text-overflow: ellipsis;
+      }
     }
 
     figure {
