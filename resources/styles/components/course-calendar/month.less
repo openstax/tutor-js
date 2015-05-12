@@ -102,20 +102,21 @@
       &-days {
         width: 100%;
         height: inherit;
-        border-left: 1px solid @gray-lighter;
-        border-top: 1px solid @gray-lighter;
+        border-left: 1px solid @tutor-neutral-light;
         display: inline-block;
       }
       &:last-child {
         .rc-Week-days {
-          border-bottom: 1px solid @gray-lighter;
+          border-bottom: 1px solid @tutor-neutral-light;
         }
       }
     }
     &-Day {
       .calendar-cell(@calendar-cell-width);
-      border-right: 1px solid @gray-lighter;
+      border-top: 1px solid @tutor-neutral-light;
+      border-right: 1px solid @tutor-neutral-light;
       position: relative;
+      cursor: default;
 
       &--upcoming {
         cursor: pointer;
@@ -125,12 +126,12 @@
           position: absolute;
           bottom: 0;
           right: 0.5rem;
-          color: @gray-light;
+          color: @tutor-primary;
           opacity: 0;
         }
 
         &:hover, &.active {
-          background-color: fade(@primary, 10%);
+          background-color: fade(@tutor-primary, 10%);
           &:after{
             opacity: 1;
           }
@@ -138,19 +139,15 @@
       }
 
       &--outside {
-        cursor: default;
-        color: @gray-lighter;
-        &:hover {
-          background-color: transparent;
-        }
-
-        &:after{
-          display: none;
-        }
+        color: @tutor-neutral-light;
       }
 
       &--current {
-        background-color: @primary;
+        color: @tutor-primary;
+      }
+
+      &--past {
+        background-color: @tutor-neutral-lightest;
       }
     }
   }

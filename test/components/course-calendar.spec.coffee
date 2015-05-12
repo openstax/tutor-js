@@ -4,6 +4,7 @@ moment = require 'moment'
 {Promise} = require 'es6-promise'
 
 {calendarActions, calendarTests, calendarChecks} = require './helpers/calendar'
+{TimeActions, TimeStore} = require '../../src/flux/time'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../src/flux/teacher-task-plan'
 {TaskPlanStore, TaskPlanActions} = require '../../src/flux/task-plan'
@@ -16,7 +17,7 @@ courseId = '1'
 
 VALID_MODEL = require '../../api/courses/1/dashboard.json'
 # pin plan 1 to one month ago for testing
-VALID_MODEL.plans[0].due_at = moment().subtract(1, 'month').toDate()
+VALID_MODEL.plans[0].due_at = moment(TimeStore.getNow()).subtract(1, 'month').toDate()
 VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
 
 describe 'Course Calendar', ->

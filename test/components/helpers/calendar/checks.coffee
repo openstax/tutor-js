@@ -9,6 +9,7 @@ React = require 'react/addons'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
 {TaskPlanStore, TaskPlanActions} = require '../../../../src/flux/task-plan'
+{TimeActions, TimeStore} = require '../../../../src/flux/time'
 
 Add = require '../../../../src/components/course-calendar/add'
 
@@ -47,22 +48,22 @@ checks =
     {div, component, state, router, history, courseId}
 
   _checkIsDateToday: (args...) ->
-    checks.doesDateMatchMonthOf(moment(), args...)
+    checks.doesDateMatchMonthOf(moment(TimeStore.getNow()), args...)
 
   _checkIsLabelThisMonth: (args...) ->
-    checks.doesLabelMatchMonthOf(moment(), args...)
+    checks.doesLabelMatchMonthOf(moment(TimeStore.getNow()), args...)
 
   _checkIsDateNextMonth: (args...) ->
-    checks.doesDateMatchMonthOf(moment().add(1, 'month'), args...)
+    checks.doesDateMatchMonthOf(moment(TimeStore.getNow()).add(1, 'month'), args...)
 
   _checkIsLabelNextMonth: (args...) ->
-    checks.doesLabelMatchMonthOf(moment().add(1, 'month'), args...)
+    checks.doesLabelMatchMonthOf(moment(TimeStore.getNow()).add(1, 'month'), args...)
 
   _checkIsDatePreviousMonth: (args...) ->
-    checks.doesDateMatchMonthOf(moment().subtract(1, 'month'), args...)
+    checks.doesDateMatchMonthOf(moment(TimeStore.getNow()).subtract(1, 'month'), args...)
 
   _checkIsLabelPreviousMonth: (args...) ->
-    checks.doesLabelMatchMonthOf(moment().subtract(1, 'month'), args...)
+    checks.doesLabelMatchMonthOf(moment(TimeStore.getNow()).subtract(1, 'month'), args...)
 
   _checkDoesViewHavePlans: ({div, component, state, router, history, courseId}) ->
     {durations, viewingDuration} = component.refs.calendarHandler.refs.courseDurations.props
@@ -98,7 +99,7 @@ checks =
     past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
     shouldBeToday = _.last(past)
 
-    isToday = shouldBeToday._reactInternalInstance._context.date.isSame(moment(), 'day')
+    isToday = shouldBeToday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()), 'day')
     expect(isToday).to.be.true
     {div, component, state, router, history, courseId}
 
@@ -106,7 +107,7 @@ checks =
     upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     shouldBeTomorrow = _.first(upcomings)
 
-    isTomorrow = shouldBeTomorrow._reactInternalInstance._context.date.isSame(moment().add(1, 'day'), 'day')
+    isTomorrow = shouldBeTomorrow._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day')
     expect(isTomorrow).to.be.true
     {div, component, state, router, history, courseId}
 
@@ -132,7 +133,7 @@ checks =
     addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
 
-    isTomorrow = addOnDayDropdown.state.addDate.isSame(moment().add(1, 'day'), 'day')
+    isTomorrow = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day')
     # add date for drop down should be tomorrow
     expect(isTomorrow).to.be.true
 

@@ -6,6 +6,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
+{TimeStore} = require '../../flux/time'
 
 CourseCalendarHeader = require './header'
 CourseDuration = require './duration'
@@ -29,7 +30,7 @@ CourseMonth = React.createClass
     router: React.PropTypes.func
 
   getInitialState: ->
-    date: @props.startDate or moment()
+    date: @props.startDate or moment(TimeStore.getNow())
     activeAddDate: null
 
   setDate: (date) ->
@@ -85,8 +86,8 @@ CourseMonth = React.createClass
 
   # render days based on whether they are past or upcoming
   # past days do not allow adding of plans
-  renderDays: (calendarDuration, referenceDay) ->
-    referenceDay ?= moment()
+  renderDays: (calendarDuration, referenceDate) ->
+    referenceDate ?= moment(TimeStore.getNow())
 
     durationDays = calendarDuration.iterate('days')
     days = []
@@ -95,26 +96,32 @@ CourseMonth = React.createClass
     while durationDays.hasNext()
       dayIter = durationDays.next()
 
-      if dayIter.isAfter(referenceDay, 'day')
+      if dayIter.isAfter(referenceDate, 'day')
 
-        day = <Day
-          date={dayIter}
-          onClick={@handleClick}
-          modifiers={{upcoming: true}}/>
+        modifiers =
+          upcoming: true
+
+        otherProps =
+          onClick: @handleClick
 
         if hasActiveAddDate
           # Only attach hover event check when there is an active date.
-          # Otherwise, we would be rendering way too often.
-          day.props.onMouseLeave = @checkAddOnDay
-          day.props.onMouseEnter = @undoActives
+          # Otherwise, we would be re-rendering way too often.
+          otherProps.onMouseLeave = @checkAddOnDay
+          otherProps.onMouseEnter = @undoActives
 
           if @state.activeAddDate.isSame(dayIter, 'day')
-            day.props.classes =
+            otherProps.classes =
               active: true
 
       else
-        day = <Day date={dayIter} modifiers={{past: true}}/>
+        modifiers =
+          past: true
 
+        if dayIter.isSame(referenceDate, 'day')
+          modifiers.current = true
+
+      day = <Day date={dayIter} modifiers={modifiers} {...otherProps}/>
       days.push(day)
 
     days

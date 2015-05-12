@@ -11,10 +11,10 @@ moment = require 'moment'
 # fake model stuffs for homework, late homework, reading, and practice
 homeworkTaskId = 6
 homework_model = require '../api/tasks/6.json'
-homework_model.due_at = moment().add(1, 'year').toDate()
+homework_model.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate()
 
 late_homework_model = require '../api/tasks/5.json'
-late_homework_model.due_at = moment().subtract(1, 'year').toDate()
+late_homework_model.due_at = moment(TimeStore.getNow()).subtract(1, 'year').toDate()
 lateHomeworkId = 5
 
 stepIds = _.pluck(homework_model.steps, 'id')
