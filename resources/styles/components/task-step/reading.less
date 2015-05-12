@@ -15,21 +15,9 @@
 .task-step {
 
   .reading-step {
-
-    .learning-objectives {
-      #fonts .sans(1.8rem, 1.8rem);
-      ul {
-        display: flex;
-        flex-direction: column;
-      }
-      .ost-learning-objective-def {
-        font-weight: 300;
-        font-size: 1.5rem;
-        list-style-type: none;
-        flex: 1;
-      }
-    }
-
+    // pull in common stylings for book contents
+    @import '../book-content';
+    
     section[data-depth="1"]:not(.section-opener),
     section[data-depth="2"],
     .worked-example,
@@ -86,32 +74,6 @@
 
     }
 
-    .learning-objectives {
-      width: 100%;
-      min-height: 100px;
-      display: inline-flex;
-      margin-top: -20px;
-      color: #ffffff;
-      padding: 10px 40px;
-      background: @physics-background-secondary;
-
-      > div {display: none;}
-
-      p {
-        color: rgba(255,255,255,.75);
-        #fonts > .sans;
-        text-transform: uppercase;
-        text-align: right;
-        margin: auto 15px;
-      }
-
-      ul {
-        margin: 0 0;
-        padding: 0 15px 0 30px;
-        border-left: 1px solid rgba(255,255,255,.4);
-      }
-
-    }
 
   }
 
