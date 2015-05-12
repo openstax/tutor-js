@@ -76,6 +76,9 @@ policies =
         states:
           before: stepNoFeedback
           after: stepFeedbackImmediate
+    placeholder:
+      panels:
+        default: stepViewOnly
 
   practice:
     exercise:

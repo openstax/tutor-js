@@ -5,7 +5,7 @@ camelCase = require 'camelcase'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 
-{PinnedHeader, CardBody, PinnedFooter} = require './sections'
+{PinnedHeader, CardBody, PinnableFooter} = require './sections'
 
 module.exports = React.createClass
   displayName: 'PinnedHeaderFooterCard'

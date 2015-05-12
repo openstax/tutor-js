@@ -8,6 +8,7 @@ React = require 'react/addons'
 {StepPanel} = require '../../../../src/helpers/policies'
 
 Breadcrumb = require '../../../../src/components/task/breadcrumb'
+Group = require '../../../../src/components/task-step/exercise/group'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
@@ -175,6 +176,16 @@ checks =
 
     {div, component, stepId, taskId, state, router, history}
 
+  _checkHasExpectedGroupLabel: ({div, component, stepId, taskId, state, router, history}) ->
+    group = React.addons.TestUtils.findRenderedComponentWithType(component, Group)
+    step = TaskStepStore.get(stepId)
+
+    if step.group is 'personalized'
+      expect(group.getDOMNode().innerText).to.contain('Personalized')
+    else if step.group is 'spaced practice'
+      expect(group.getDOMNode().innerText).to.contain('Review')
+
+    {div, component, stepId, taskId, state, router, history}
 
 
 # promisify for chainability in specs
@@ -198,6 +209,43 @@ checks.checkIsMatchStep = (matchStepIndex) ->
   (args...) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
+checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
+  incompleteCoreIndexes = TaskStore.getIncompleteCoreStepsIndexes(taskId)
+
+  coreIndexes = _.map incompleteCoreIndexes, (coreIndex) ->
+    coreIndex + 1
+
+  coreIndexesLabel = coreIndexes.join(' - ')
+
+  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+  placeholderBreadcrumb = breadcrumbs[stepIndex]
+
+  placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
+
+  expect(placeholderBreadcrumbDOM.className).to.contain('placeholder')
+  expect(div.innerText).to.contain(coreIndexesLabel)
+
+  {div, component, stepId, taskId, state, router, history}
+
+checks.checkIsPendingStep = (matchStepIndex) ->
+  (args...) ->
+    Promise.resolve(checks._checkIsPendingStep(matchStepIndex, args...))
+
+
+checks._checkIsNotPendingStep = (stepIndex, args...) ->
+  {component} = args[0]
+  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+  placeholderBreadcrumb = breadcrumbs[stepIndex]
+
+  placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
+
+  expect(placeholderBreadcrumbDOM.className).to.not.contain('placeholder')
+  checks._checkIsMatchStep(stepIndex, args[0])
+
+checks.checkIsNotPendingStep = (matchStepIndex) ->
+  (args...) ->
+    Promise.resolve(checks._checkIsNotPendingStep(matchStepIndex, args...))
 
 checks._logStuff = (logMessage, args...) ->
   {div, stepId, router} = args[0]

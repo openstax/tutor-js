@@ -39,9 +39,6 @@ module.exports = React.createClass
       isChecked = answer.id in [@props.answer_id, @state.answer_id]
       isCorrect = answer.id is @props.correct_answer_id
 
-      # Don't render distracting answers
-      return null if hasCorrectAnswer and not (isChecked or isCorrect)
-
       classes = ['answers-answer']
       classes.push('answer-checked fa') if isChecked
       classes.push('answer-correct fa') if isCorrect

@@ -21,7 +21,11 @@ module.exports = React.createClass
     {currentStep, goToStep} = @props
 
     stepButtons = _.map crumbs, (crumb) ->
-      <Breadcrumb crumb={crumb} currentStep={currentStep} goToStep={goToStep}/>
+      <Breadcrumb
+        crumb={crumb}
+        currentStep={currentStep}
+        goToStep={goToStep}
+        key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
     <div className='steps'>
       {stepButtons}

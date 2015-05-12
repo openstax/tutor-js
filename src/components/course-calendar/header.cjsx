@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 React = require 'react'
 BS = require 'react-bootstrap'
+{TimeStore} = require '../../flux/time'
 
 CourseCalendarHeader = React.createClass
   displayName: 'CourseCalendarHeader'
@@ -21,7 +22,7 @@ CourseCalendarHeader = React.createClass
     format: 'MMMM YYYY'
 
   getInitialState: ->
-    date: @props.date or moment()
+    date: @props.date or moment(TimeStore.getNow())
 
   componentDidUpdate: ->
     {setDate} = @props

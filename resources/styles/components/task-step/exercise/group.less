@@ -1,0 +1,12 @@
+// Font-awesome icons mapped to our types
+i.fa {
+  &.fa-spaced-practice::before     { content: @fa-var-backward; } // or fa-var-file-text-o
+  &.fa-personalized::before    { content: @fa-var-user; }
+}
+
+.task-step-group {
+  .opacity(0.35);
+  .size-exercise-card();
+  padding-top: 2rem;
+  padding-bottom: 0;
+}

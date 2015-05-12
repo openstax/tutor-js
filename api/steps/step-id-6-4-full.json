@@ -1,7 +1,7 @@
-{ "id": "step-id-6-3",
+{ "id": "step-id-6-4",
   "type": "exercise",
   "content": {
-    "stimulus_html": "Stimulus for Second Exercise",
+    "stimulus_html": "Stimulus for Personalized Exercise",
     "questions":[
       {
         "id": "877",
@@ -14,9 +14,9 @@
       }
     ]
   },
-  "group": "core",
+  "group": "personalized",
   "related_content": [{
       "title": "Physics is cool, yo",
-      "chapter_section": "6.3"
+      "chapter_section": "6.4"
   }]
 }

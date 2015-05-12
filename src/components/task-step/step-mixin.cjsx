@@ -22,7 +22,9 @@ module.exports =
 
   render: ->
     footer = @renderFooterButtons?() or @renderGenericFooter()
+    {pinned} = @props
 
-    <CardBody className='task-step' footer={footer}>
+    <CardBody className='task-step' footer={footer} pinned={pinned}>
       {@renderBody()}
+      {@renderGroup?()}
     </CardBody>

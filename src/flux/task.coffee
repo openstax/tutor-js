@@ -32,7 +32,6 @@ getCompleteSteps = (steps) ->
   _.filter steps, (step) ->
     step? and step.is_completed
 
-
 TaskConfig =
   _steps: {}
 
@@ -117,6 +116,33 @@ TaskConfig =
     getCompletedSteps: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       steps = getCompleteSteps(allSteps)
+
+    getIncompleteCoreStepsIndexes: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      firstIndex =   _.findIndex allSteps, (step) ->
+        step? and not step.is_completed and step.group is 'core'
+
+      lastIndex = _.findLastIndex allSteps, (step) ->
+        step? and not step.is_completed and step.group is 'core'
+
+      coreSteps = [
+        firstIndex
+      ]
+      unless lastIndex is firstIndex
+        coreSteps.push lastIndex
+
+      coreSteps
+
+    hasIncompleteCoreStepsIndexes: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = _.find(allSteps, (step) ->
+        step? and not step.is_completed and step.group is 'core'
+      )
+      steps?
+
+    getPlaceholder: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      _.findWhere(allSteps, type: 'placeholder')
 
     isTaskCompleted: (taskId) ->
       incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))

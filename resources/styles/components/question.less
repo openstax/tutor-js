@@ -7,6 +7,7 @@
 
 .question {
   .size-exercise-card();
+  .clearfix();
 
   counter-reset: answer 0;
   #fonts > .sans (2.1rem, 3rem);
@@ -41,12 +42,6 @@
     display: block;
     margin: 30px 0 10px 0;
   }
-  .answers-table {
-    font-size: 0.8em;
-    width: 100%;
-    float: left;
-    padding: 0 0 20px 0;
-  }
   .question-feedback {
     margin: 20px 0 10px 0;
     display: block;
@@ -74,6 +69,11 @@
   }
 
   .answers-table {
+    font-size: 0.8em;
+    width: 100%;
+    float: left;
+    padding: 0 0 20px 0;
+
     .answers-answer {
       counter-increment: answer 1;
       display: block;
@@ -91,6 +91,23 @@
         padding: 15px 40px 15px 0;
       }
     }
+
+    label.answer-label {
+      display: table;
+      margin: 5px 0;
+      padding-left: 40px;
+      #fonts > .sans (2rem);
+      font-weight: 400;
+      width: 100%;
+      float: left;
+      background: #f3fcfd;
+      transition: background-color .1s ease-in;
+      cursor: pointer;
+
+      &:hover {
+        background-color: @answer-hover-color;
+      }
+    }
   }
 
   .answer-input-box {
@@ -98,45 +115,30 @@
     float: left;
     margin: 0.95em 0;
     margin-left: -30px;
-  }
 
-  .answers-table label.answer-label {
-    display: table;
-    margin: 5px 0;
-    padding-left: 40px;
-    #fonts > .sans (2rem);
-    font-weight: 400;
-    width: 100%;
-    float: left;
-    background: #f3fcfd;
-    transition: background-color .1s ease-in;
-    cursor: pointer;
-
-    &:hover {
-      background-color: @answer-hover-color;
+    &:checked + label.answer-label,
+    &:checked + label.answer-label:hover {
+      color: #2a2a2a;
+      font-weight: 600;
+      background-color: @answer-select-color; // darker than hover
     }
-  }
-
-  .answer-input-box:checked + label.answer-label,
-  .answer-input-box:checked + label.answer-label:hover {
-    color: #2a2a2a;
-    font-weight: 600;
-    background-color: @answer-select-color; // darker than hover
   }
 
   &.has-correct-answer {
 
-    .answers-table label.answer-label {
-      cursor: auto;
-    }
-
-    .answer-input-box { display: none; }
-
-    .answers-table .answers-answer .answer-label {
-      padding-left: 40px;
-    }
-
     .answers-table {
+
+      .answers-answer label.answer-label {
+        padding-left: 40px;
+        cursor: auto;
+      }
+
+      // For questions showing feedback,
+      // if the answers are not correct and are not chosen, hide the distracting answer.
+      // answers-answer still needs to render so that answer-letter increments as expected.
+      .answers-answer:not(.answer-correct):not(.answer-checked) .answer-label{
+        display: none;
+      }
 
       .answer-correct:not(.answer-checked):before {
         content: "Correct Answer:";
@@ -166,24 +168,25 @@
           color: @wrong-answer-color;
         }
       }
-    }
 
-    .answers-table .answer-correct .answer-label {
-      background-color: @correct-answer-background;
-      color: @correct-answer-color;
-      font-weight: 900;
-
-      .answer-content:hover {
+      .answer-correct .answer-label {
         background-color: @correct-answer-background;
-      }
-    }
-    .answers-table .answer-checked:not(.answer-correct) .answer-label {
-      background-color: @wrong-answer-background;
-      color: @wrong-answer-color;
-      font-weight: 900;
+        color: @correct-answer-color;
+        font-weight: 900;
 
-      .answer-content:hover {
+        .answer-content:hover {
+          background-color: @correct-answer-background;
+        }
+      }
+
+      .answer-checked:not(.answer-correct) .answer-label {
         background-color: @wrong-answer-background;
+        color: @wrong-answer-color;
+        font-weight: 900;
+
+        .answer-content:hover {
+          background-color: @wrong-answer-background;
+        }
       }
     }
   }

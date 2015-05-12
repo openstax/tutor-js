@@ -21,7 +21,8 @@
             ]
           }
         ]
-      }
+      },
+      "group": "core"
     },{ "id": "step-id-5-2",
       "type": "exercise",
       "content": {
@@ -37,7 +38,8 @@
             ]
           }
         ]
-      }
+      },
+      "group": "core"
     },{ "id": "step-id-5-3",
       "type": "exercise",
       "content": {
@@ -53,7 +55,12 @@
             ]
           }
         ]
-      }
+      },
+      "group": "core",
+      "related_content": [{
+          "title": "Physics is cool, yo",
+          "chapter_section": "5.3"
+      }]
     }
   ]
 

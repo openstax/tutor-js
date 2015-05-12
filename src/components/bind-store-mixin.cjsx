@@ -27,8 +27,10 @@ module.exports =
     bindStore.off(@boundEvent, @_bindUpdate) if @_bindStore?
 
   componentWillMount:   -> @_addListener()
-  componentDidUpdate:   -> @_addListener()
-
-  # The following fixs an invariant violation when switching screens
   componentWillUnmount: -> @_removeListener()
+
+  # TODO do we deprecate these?
+  # I imagine we don't need these now
+  # The following fixs an invariant violation when switching screens
+  componentDidUpdate:   -> @_addListener()
   componentWillUpdate:  -> @_removeListener()
