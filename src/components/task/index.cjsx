@@ -5,7 +5,7 @@ camelCase = require 'camelcase'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 
-{TaskStore} = require '../../flux/task'
+{TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
 CrumbMixin = require './crumb-mixin'
@@ -58,6 +58,7 @@ module.exports = React.createClass
 
     <TaskStep
       id={data.id}
+      taskId={@props.id}
       goToStep={@goToStep}
       onNextStep={@onNextStep}
     />
@@ -110,4 +111,9 @@ module.exports = React.createClass
 
   onNextStep: ->
     {id} = @props
+
+    placeholder = TaskStore.getPlaceholder(id)
+    if placeholder? and not TaskStore.hasIncompleteCoreStepsIndexes(id)
+      TaskStepActions.load(placeholder.id)
+
     @setState({currentStep: @state.currentStep + 1})

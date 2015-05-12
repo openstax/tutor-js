@@ -32,6 +32,48 @@ getCompleteSteps = (steps) ->
   _.filter steps, (step) ->
     step? and step.is_completed
 
+getCoreSteps = (steps) ->
+  _.filter steps, (step) ->
+    step? and step.group is 'core'
+
+getFirstCoreStepIndex = (steps) ->
+  _.findIndex steps, (step) ->
+    step? and step.group is 'core'
+
+getFirstCoreStepIndex = (steps) ->
+  _.findIndex steps, (step) ->
+    step? and step.group is 'core'
+
+getLastCoreStepIndex = (steps) ->
+  _.findLastIndex steps, (step) ->
+    step? and step.group is 'core'
+
+getCoreStepsIndexes = (steps) ->
+  firstIndex = getFirstCoreStepIndex(steps)
+  lastIndex = getLastCoreStepIndex(steps)
+
+  coreSteps = [
+    firstIndex
+  ]
+  unless lastIndex is firstIndex
+    coreSteps.push lastIndex
+
+  coreSteps
+
+getIncompleteCoreStepsIndexes = (steps) ->
+  firstIndex =   _.findIndex steps, (step) ->
+    step? and not step.is_completed and step.group is 'core'
+
+  lastIndex = _.findLastIndex steps, (step) ->
+    step? and not step.is_completed and step.group is 'core'
+
+  coreSteps = [
+    firstIndex
+  ]
+  unless lastIndex is firstIndex
+    coreSteps.push lastIndex
+
+  coreSteps
 
 TaskConfig =
   _steps: {}
@@ -117,6 +159,29 @@ TaskConfig =
     getCompletedSteps: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       steps = getCompleteSteps(allSteps)
+
+    getCoreSteps: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = getCoreSteps(allSteps)
+
+    getCoreStepsIndexes: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = getCoreStepsIndexes(allSteps)
+
+    getIncompleteCoreStepsIndexes: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = getIncompleteCoreStepsIndexes(allSteps)
+
+    hasIncompleteCoreStepsIndexes: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      steps = _.find(allSteps, (step) ->
+        step? and not step.is_completed and step.group is 'core'
+      )
+      steps?
+
+    getPlaceholder: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      _.findWhere(allSteps, type: 'placeholder')
 
     isTaskCompleted: (taskId) ->
       incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))

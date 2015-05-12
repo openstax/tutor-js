@@ -1,9 +1,12 @@
 React = require 'react'
+_ = require 'underscore'
 
 api = require '../../api'
 {TaskStepStore} = require '../../flux/task-step'
+{TaskStore} = require '../../flux/task'
 ArbitraryHtmlAndMath = require '../html'
 Exercise = require './exercise'
+Pluralize = require '../pluralize'
 StepMixin = require './step-mixin'
 
 # React swallows thrown errors so log them first
@@ -48,4 +51,24 @@ Video = React.createClass
       <a target='_top' src={content_url} >video</a>
     </div>
 
-module.exports = {Reading, Interactive, Video, Exercise}
+Placeholder = React.createClass
+  mixins: [StepMixin]
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onNextStep()
+  renderBody: ->
+    {taskId} = @props
+    coreStepsIndexes = TaskStore.getIncompleteCoreStepsIndexes(taskId)
+    coreStepLabels = _.map coreStepsIndexes, (index) ->
+      index + 1
+
+    coreStepRange = coreStepLabels.join(' - ')
+
+    <div className='-placeholder-step'>
+      <h2>This question depends on <Pluralize
+        items={coreStepLabels}>question</Pluralize> {coreStepRange}.</h2>
+      <p>Please complete <Pluralize
+        items={coreStepLabels}>it</Pluralize> before this question.</p>
+    </div>
+
+module.exports = {Reading, Interactive, Video, Exercise, Placeholder}
