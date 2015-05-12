@@ -40,7 +40,7 @@ module.exports = React.createClass
       cancelBtn = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button>
 
     closeBtn = <BS.Button 
-      className='pull-right close-icon' 
+      className='close-icon' 
       aria-role='close' 
       onClick={@onCancel}>
         <i className="fa fa-close"></i>
@@ -49,6 +49,7 @@ module.exports = React.createClass
     footer = [primary, cancelBtn, footer] if footer or primary or cancelBtn
 
     classes = ['default-dialog']
+
     classes.push('-is-changed') if isChanged?()
     classes.push(className) if className
     className = classes.join(' ')
