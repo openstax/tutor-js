@@ -120,6 +120,21 @@ ExerciseReview = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
+  componentWillMount:   ->
+    TaskStepStore.on('step.recovered', @goToRecovered)
+
+  componentWillUnmount: ->
+    TaskStepStore.off('step.recovered', @goToRecovered)
+
+  loadRecovered: ->
+    @props.onNextStep()
+    TaskStore.off('change', @loadRecovered)
+
+  goToRecovered: (recoveredStep) ->
+    {task_id} = recoveredStep
+    TaskStore.on('change', @loadRecovered)
+    TaskActions.load(task_id)
+
   renderBody: ->
     {id} = @props
     {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
@@ -154,8 +169,6 @@ ExerciseReview = React.createClass
     {id} = @props
     task_id = TaskStepStore.getTaskId(id)
     TaskStepActions.loadRecovery(id)
-    TaskActions.load(task_id)
-    @props.onNextStep()
 
   refreshMemory: ->
     {id} = @props
