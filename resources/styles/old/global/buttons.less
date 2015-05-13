@@ -1,19 +1,55 @@
 @btn-border-radius: 4px;
+@default-border: rgba(66,66,66,.1);
+@default-background: rgba(245,245,245,.4);
+@default-background-hover: rgba(255,255,255,.8);
 @primary-background: #f47642;
-@primary-hover-background: #fa804d;
+@primary-background-hover: #fa804d;
 
 // Override the defaults from bootstrap-material-design
 
+.btn:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+  padding: 8px 16px;
+  font-size: 1.4rem;
+  border-radius: @btn-border-radius;
+  transition: box-shadow 0.2s, background 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2); //I don't know why this doesn't work
+  }
+}
+
+.btn:hover:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2); //repeating above values here
+}
+
+.btn-lg:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+  font-size: 1.8rem;
+  padding: 12px 36px;
+}
+
+.btn-sm:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+  font-size: 1.2rem;
+  //padding: unsure at this time
+}
+
+.btn-default:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+  color: #424242 !important; //!important to overide local styles in plan-details.less. we can remove after integration
+  text-transform: capitalize;
+  background: @default-background;
+  border: 1px solid @default-border !important; //!important to overide local styles in plan-details.less. we can remove after integration
+
+  &:hover {
+    background: @default-background-hover;
+  }
+}
+
 .btn-primary:not(.btn-link):not(.btn-flat):not(.btn-fab) {
   color: @white;
-  font-size: 1.8rem;
+  font-weight: 600;
   text-transform: capitalize;
-  padding: 12px 36px;
-  border-radius: @btn-border-radius;
   background: @primary-background;
 
   &:hover {
-    background: @primary-hover-background;
-    box-shadow: none;
-	}
+    background: @primary-background-hover;
+  }
 }
