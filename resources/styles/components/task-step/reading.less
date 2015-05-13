@@ -1,33 +1,11 @@
-
-@physics-color-primary: #79b142;
-@physics-background-primary: #232e66;
-@physics-background-secondary: #79b142;
-// @tips-for-success-color:#bf007b;
-// @grasp-check-color:#39b531;
-// @grasp-check-color-background:#fff;
-
 @import './reading/video';
-@import './reading/links-to-physics';
-@import './reading/work-in-physics';
-@import './reading/tips-for-success';
-// @import './reading/grasp-check';
 
 .task-step {
 
   .reading-step {
     // pull in common stylings for book contents
-    @import '../book-content';
+    @import './reading/book-content/index';
   }
-
-  .section-opener ~ section h1 + p::first-letter, div[data-type="document-title"] ~ p::first-letter {
-    float: left;
-    #fonts > .sans(11rem, 9rem);
-    font-weight: 600;
-    color: @physics-color-primary;
-    margin: 0 4px 0 -6px;
-  }
-
-  div[data-type="document-title"] ~ p {padding: 0 140px;}
 
   p {
     #fonts > .serif(1.75rem, 190%);
