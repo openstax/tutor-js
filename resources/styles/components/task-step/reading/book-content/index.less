@@ -26,7 +26,7 @@ cnx-pi { display: none; }
   width: 100%;
   min-height: 100px;
   display: inline-flex;
-  margin-top: -20px;
+  margin-top: -@tutor-card-body-padding-vertical;
   color: #ffffff;
   padding: 10px 40px;
   background: @physics-background-secondary;
@@ -73,6 +73,7 @@ div[data-type="document-title"] ~ p::first-letter {
   margin: 0 4px 0 -6px;
 }
 
+div[data-type="document-title"] { display: none; }
 div[data-type="document-title"] ~ p {padding: 0 140px;}
 
 
@@ -85,7 +86,7 @@ div[data-type="document-title"] ~ p {padding: 0 140px;}
 
 .splash {
   width: 100%;
-  margin: -20px 0 0 0;
+  margin: -@tutor-card-body-padding-vertical 0 0 0;
 
   img {
     border: 0;
