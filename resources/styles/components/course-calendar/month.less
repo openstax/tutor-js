@@ -22,7 +22,6 @@
   width: @cell-width;
   height: inherit;
   padding: 5px;
-  text-align: center;
 }
 
 
@@ -74,6 +73,7 @@
         width: 100%;
         &-weekday {
           .calendar-cell(@calendar-cell-width);
+          text-align: center;
           height: 2rem;
           font-weight: bolder;
         }
@@ -117,6 +117,8 @@
       border-right: 1px solid @tutor-neutral-light;
       position: relative;
       cursor: default;
+      line-height: 1.5rem;
+      text-align: right;
 
       &--upcoming {
         cursor: pointer;
@@ -138,16 +140,18 @@
         }
       }
 
+      &--past {
+        color: @tutor-neutral;
+        background-color: @tutor-neutral-lightest;
+      }
+
       &--outside {
         color: @tutor-neutral-light;
       }
 
       &--current {
         color: @tutor-primary;
-      }
-
-      &--past {
-        background-color: @tutor-neutral-lightest;
+        font-weight: bold;
       }
     }
   }

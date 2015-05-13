@@ -1,11 +1,19 @@
 .x-plan(@plan-color) {
   background: fade(@plan-color, 20%);
-  border-color: @plan-color;
+  border: none;
+  // color: darken(@plan-color, 25%);
+  color: @tutor-neutral-darker;
+  border-left: 3px solid @plan-color;
+  margin-left: 2px;
 
   &:hover,
   &.active,
   &.open {
-    background: fade(@plan-color, 75%);
+    background: fade(@plan-color, 40%);
+    margin-top: -0.5rem;
+    height: 3rem;
+    line-height: 3rem;
+    z-index: 2;
   }
 }
 
@@ -21,7 +29,7 @@
     line-height: 2rem;
     margin-top: 0.5rem;
     cursor: pointer;
-    border-radius: 4px;
+    // border-radius: 4px;
     font-weight: bold;
     transition: background .1s ease-in;
     overflow: hidden;
@@ -30,11 +38,7 @@
     // see CoursePlan component
 
     &.reading      { .x-plan(@reading-color); }
-    &.exercise     { .x-plan(@exercise-color); }
-    &.essay        { .x-plan(@essay-color); }
     &.homework     { .x-plan(@homework-color); }
-    &.interactive  { .x-plan(@interactive-color); }
-
 
     // CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
     // Takes width based on visible width of plan to center label.
