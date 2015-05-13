@@ -1,3 +1,5 @@
+@pinned-top-heading-buffer: @navbar-height + 1;
+
 body.pinned-view {
   padding-top: 2.5 * @tutor-navbar-height;
   padding-bottom: 1.5 * @tutor-navbar-height;
@@ -6,6 +8,6 @@ body.pinned-view {
 body.pinned-on {
   .pinned-header, .navbar-fixed-top {
     .transform-origin(0 0);
-    .translate(0, -@tutor-navbar-height);
+    .translate(0, -@pinned-top-heading-buffer);
   }
 }
