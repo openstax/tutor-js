@@ -35,14 +35,17 @@ module.exports = React.createClass
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
 
     # Clone the array because the browser will mutable it
-    nodes = root.querySelectorAll('[data-math]') or []
+    nodes = root.querySelectorAll('[data-math]:not(.math-rendered)') or []
     nodes = _.toArray(nodes)
 
     _.each nodes, (node) ->
       formula = node.getAttribute('data-math')
       # Divs with data-math should be rendered as a block
       isBlock = node.tagName.toLowerCase() in ['div']
+      if isBlock
+        formula = "\\displaystyle {#{formula}}"
 
+      node.classList.remove('math-rendered')
       node.textContent = "{{MATH}}#{formula}{{MATH}}"
 
     cb = ->
