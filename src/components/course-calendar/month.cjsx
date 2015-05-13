@@ -143,7 +143,7 @@ CourseMonth = React.createClass
       <BS.Row className='calendar-body'>
         <BS.Col xs={12}>
 
-          <Month date={date} monthNames={false} ref='calendar'>
+          <Month date={date} monthNames={false} weekdayFormat='ddd' ref='calendar'>
             {days}
           </Month>
 
