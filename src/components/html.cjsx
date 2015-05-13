@@ -40,13 +40,13 @@ module.exports = React.createClass
 
     _.each nodes, (node) ->
       formula = node.getAttribute('data-math')
+
       # Divs with data-math should be rendered as a block
       isBlock = node.tagName.toLowerCase() in ['div']
       if isBlock
-        formula = "\\displaystyle {#{formula}}"
-
-      node.classList.remove('math-rendered')
-      node.textContent = "{{MATH}}#{formula}{{MATH}}"
+        node.textContent = "{{MATH_BLOCK}}#{formula}{{MATH_BLOCK}}"
+      else
+        node.textContent = "{{MATH}}#{formula}{{MATH}}"
 
     cb = ->
       _.each nodes, (node) ->

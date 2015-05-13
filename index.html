@@ -6,7 +6,10 @@
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       showProcessingMessages: false,
-      tex2jax: { inlineMath: [['{{MATH}}','{{MATH}}']] }
+      tex2jax: {
+        inlineMath: [['{{MATH}}','{{MATH}}']],
+        displayMath: [['{{MATH_BLOCK}}', '{{MATH_BLOCK}}']]
+      }
     });
     </script>
     <script src="//cdn.mathjax.org/mathjax/2.5-latest/MathJax.js?config=TeX-MML-AM_HTMLorMML-full" async></script>
