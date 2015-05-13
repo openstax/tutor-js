@@ -41,7 +41,8 @@ body.modal-open {
       margin: 0;
       line-height: 6rem;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         .opacity(0.75);
       }
     }
@@ -76,11 +77,14 @@ body.modal-open {
     .panel-body { padding: 0; }
   }
 
-  .progress .progress-bar-success {
-    background-color: @tutor-secondary;
-  }
-  .progress .progress-bar-danger {
-    background-color: @tutor-danger;
+  // TODO Remove after Bootstrap loading refactor
+  .progress {
+    .progress-bar-success {
+      background-color: @tutor-secondary;
+    }
+    .progress-bar-danger {
+      background-color: @tutor-danger;
+    }
   }
 
 }

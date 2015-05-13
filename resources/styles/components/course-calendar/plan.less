@@ -1,22 +1,28 @@
+@calendar-plan-top-margin: 0.5rem;
+@calendar-plan-active-height: 3.5rem;
+@calendar-plan-height: 2rem;
+@calendar-plan-top-offset: (@calendar-plan-active-height - @calendar-plan-height)/2;
+@calendar-plan-active-top-offset: @calendar-plan-top-offset - @calendar-plan-top-margin;
+
+@calendar-plan-left-offset: 2px;
+@calendar-plan-left-label-offset: 2 * @calendar-plan-left-offset + 2;
+
 .x-plan(@plan-color) {
-  background: fade(@plan-color, 20%);
-  border: none;
   color: @tutor-neutral-darker;
   border-left: 3px solid @plan-color;
-  margin-left: 2px;
+
+  label{
+    background: fade(@plan-color, 20%);
+  }
 
   &:hover,
   &.active,
   &.open {
-    background: fade(@plan-color, 40%);
-    margin-top: -0.5rem;
-    height: 3rem;
-    line-height: 3rem;
-    z-index: 2;
+    label{
+      background: fade(@plan-color, 50%);
+    }
   }
 }
-
-
 
 .list-courses {
   .plan {
@@ -24,13 +30,15 @@
     position: absolute;
     border: 1px solid @gray-light;
     font-size: 1.25rem;
-    height: 2rem;
-    line-height: 2rem;
-    margin-top: 0.5rem;
+    max-height: @calendar-plan-height;
+    height: @calendar-plan-active-height;
+    line-height: @calendar-plan-active-height;
+    margin-top: @calendar-plan-top-margin;
+    margin-left: @calendar-plan-left-offset;
     cursor: pointer;
-    // border-radius: 4px;
+    border: none;
     font-weight: bold;
-    transition: background .1s ease-in;
+    transition: max-height .1s ease-in, margin-top .1s ease-in;
     overflow: hidden;
     // takes on CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
     // Based on event duration and event offset from start of week
@@ -43,10 +51,25 @@
     // Takes width based on visible width of plan to center label.
     // see CoursePlan component
     label {
+      margin-left: -@calendar-plan-left-label-offset;
       text-align: center;
       display: block;
+      margin-top: -@calendar-plan-top-offset;
       margin-bottom: 0;
       cursor: pointer;
+      transition: background .1s ease-in, margin-top .1s ease-in;
+    }
+
+    &:hover,
+    &.active,
+    &.open {
+      max-height: @calendar-plan-active-height;
+      margin-top: -@calendar-plan-active-top-offset;
+      z-index: 2;
+
+      label {
+        margin-top: 0;
+      }
     }
   }
 }

@@ -81,7 +81,7 @@ CoursePlan = React.createClass
     #   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
     #       stack on top of other plans that overlap in duration.
     planStyle =
-      width: (durationLength * 100 / 7 - 0.5) + '%'
+      width: durationLength * 100 / 7 + '%'
       left: offset * 100 / 7 + '%'
       top: (weekTopOffset + 4 - order * 3) + 'rem'
 
