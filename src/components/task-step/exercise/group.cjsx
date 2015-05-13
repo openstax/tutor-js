@@ -12,7 +12,12 @@ rules =
   personalized:
     show: true
     label: 'Personalized'
+  #  TODO deprecate spaced practice when BE is updated
   'spaced practice':
+    show: true
+    label: (related) ->
+      "Review - #{related.chapter_section} #{related.title}"
+  spaced_practice:
     show: true
     label: (related) ->
       "Review - #{related.chapter_section} #{related.title}"
