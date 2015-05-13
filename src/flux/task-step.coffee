@@ -40,6 +40,7 @@ TaskStepConfig =
   loadedRecovery: (obj, id) ->
     @clearChanged()
     @emitChange()
+    @emit('step.recovered', obj)
 
   exports:
     isAnswered: (id) ->

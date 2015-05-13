@@ -53,7 +53,11 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 
       if IS_LOCAL
         [uri, params] = url.split("?")
-        url = "#{uri}.json?#{params}"
+        if opts.method is 'GET'
+          url = "#{uri}.json?#{params}"
+        else
+          url = "#{uri}/#{opts.method}.json?#{params}"
+          opts.method = 'GET'
 
       resolved = (results, statusStr, jqXhr) ->
         setNow(jqXhr)
