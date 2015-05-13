@@ -49,3 +49,11 @@ textarea:focus {
   border: 1px solid rgba(10, 192, 221, 1);
   box-shadow: 0 0 10px rgba(10, 192, 221, .25);
 }
+
+// Math Rendering
+[data-math]{
+  &:not(.math-rendered) {
+    visibility: hidden;
+    // &:before { content: attr(data-math); }
+  }
+}

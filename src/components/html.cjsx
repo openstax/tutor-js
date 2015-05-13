@@ -34,12 +34,23 @@ module.exports = React.createClass
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
 
-    _.each root.querySelectorAll('[data-math]'), (node) ->
+    # Clone the array because the browser will mutable it
+    nodes = root.querySelectorAll('[data-math]') or []
+    nodes = _.toArray(nodes)
+
+    _.each nodes, (node) ->
       formula = node.getAttribute('data-math')
+      # Divs with data-math should be rendered as a block
+      isBlock = node.tagName.toLowerCase() in ['div']
+
       node.textContent = "{{MATH}}#{formula}{{MATH}}"
 
+    cb = ->
+      _.each nodes, (node) ->
+        node.classList.add('math-rendered')
+
     # MathML should be rendered by MathJax (if available)
-    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root])
+    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root], cb)
     # Once MathML finishes processing, manually cleanup after it to prevent
     # React "Invariant Violation" exceptions.
     # MathJax calls Queued events in order, so this should always execute after typesetting
