@@ -4,7 +4,10 @@
 .x-plan-modal(@plan-color) {
   .modal-content {
     .modal-header {
-      background: @plan-color;
+      background: fade(@plan-color, 20%);
+      border: none;
+      color: @tutor-neutral-darker;
+      border-left: 12px solid @plan-color;
     }
   }
 
@@ -25,8 +28,22 @@ body.modal-open {
 
   .modal-content {
     .modal-header {
-      // color: @tutor-white;
-      padding-bottom: 10px;
+      padding-top: 0;
+      padding-bottom: 0;
+
+      h4 {
+        font-weight: 900;
+        line-height: 6rem;
+      }
+    }
+    .close {
+      .opacity(0.5);
+      margin: 0;
+      line-height: 6rem;
+
+      &:hover, &:focus {
+        .opacity(0.75);
+      }
     }
     .modal-body {
       > :first-child { margin-top: 0; }

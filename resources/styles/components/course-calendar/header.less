@@ -9,11 +9,20 @@
 
     &-control {
       .no-select();
+      color: @tutor-neutral;
       display: block;
       width: 100%;
 
+      &.previous {
+        text-align: right;
+      }
+
+      &.next {
+        text-align: left;
+      }
+
       &:hover {
-        background: @gray-lighter;
+        color: @tutor-neutral-darker;
         text-decoration: none;
       }
       &:active, &:visited {

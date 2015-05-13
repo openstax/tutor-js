@@ -122,21 +122,9 @@
 
       &--upcoming {
         cursor: pointer;
-        &:after{
-          content: '+';
-          font-size: 2rem;
-          position: absolute;
-          bottom: 0;
-          right: 0.5rem;
-          color: @tutor-primary;
-          opacity: 0;
-        }
 
         &:hover, &.active {
-          background-color: fade(@tutor-primary, 10%);
-          &:after{
-            opacity: 1;
-          }
+          background-color: fade(@tutor-tertiary-light, 10%);
         }
       }
 
