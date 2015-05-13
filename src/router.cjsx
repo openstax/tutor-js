@@ -22,8 +22,8 @@ routes = (
 
       <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
       <Route path='guide/?' name='viewGuide' handler={LearningGuideShell} />
-      <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
 
+      <Route path='t/performance/?' name='viewPerformance' handler={PerformanceShell} />
       <Route path='t/calendar/?' name='taskplans' handler={TeacherTaskPlans} />
       <Route path='t/homeworks/new/?' name='createHomework' handler={HomeworkShell} />
       <Route path='t/homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
