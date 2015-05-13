@@ -11,9 +11,40 @@
 // @grasp-check-color:#39b531;
 // @grasp-check-color-background:#fff;
 
-@import './links-to-physics';
-@import './work-in-physics';
-@import './tips-for-success';
+.tutor-reading-step-banner-icon(@img){
+  background: @tutor-secondary url(@img);
+  background-repeat: no-repeat;
+  text-indent: 30px;
+  background-position: 5px;
+  background-size: 40px 40px;
+}
+
+// If the parent element that included this file has a .note[data-label] that is the first child
+// that should be used as title
+&{
+  > .note:first-child[data-has-label=true] {
+    // create a :before element and pop it up on the top of the card
+    &:before {
+      content: attr(data-label);
+      #fonts > .sans(3.2rem, 3.2rem);
+      font-weight: 900;
+      color: @tutor-tertiary;
+      background: @tutor-secondary;
+      padding: 10px 20px;
+      position: absolute;
+      top: -50px;
+      left: 0;
+      height: 50px;
+    }
+    .title {
+      margin: 10px 20px;
+      #fonts > .sans(3rem, 3rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+  }
+}
+
 
 
 // Hide CNX Processing instructions
@@ -142,3 +173,8 @@ figure {
   }
 
 }
+
+// task specific styling comes last so it can override the above styles
+@import './links-to-physics';
+@import './work-in-physics';
+@import './tips-for-success';
