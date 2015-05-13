@@ -1,20 +1,21 @@
 .learning-objectives {
 
-  #fonts .sans(1.8rem, 1.8rem);
-  
+  #fonts > .sans(1.8rem, 1.8rem);
+
   width: 100%;
   min-height: 100px;
   display: inline-flex;
   margin-top: -20px;
   color: #ffffff;
   padding: 10px 40px;
-  background: @page-background;
+  background: @physics-background-secondary;
 
-  > div {display: none;}
+  // TODO: What is this hiding?
+  > div { display: none; }
 
   p {
     color: rgba(255,255,255,.75);
-    #fonts > .sans;
+    #fonts > .sans();
     text-transform: uppercase;
     text-align: right;
     margin: auto 15px;
