@@ -1,6 +1,5 @@
 _ = require 'underscore'
 React = require 'react'
-KatexMixin = require './katex-mixin'
 
 module.exports = React.createClass
   displayName: 'ArbitraryHtmlAndMath'
@@ -9,7 +8,6 @@ module.exports = React.createClass
     html: React.PropTypes.string
     block: React.PropTypes.bool
 
-  mixins: [KatexMixin]
   render: ->
     classes = ['has-html']
     classes.push(@props.className) if @props.className
@@ -35,6 +33,10 @@ module.exports = React.createClass
     links = root.querySelectorAll('a')
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
+
+    _.each root.querySelectorAll('[data-math]'), (node) ->
+      formula = node.getAttribute('data-math')
+      node.textContent = "{{MATH}}#{formula}{{MATH}}"
 
     # MathML should be rendered by MathJax (if available)
     window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root])
