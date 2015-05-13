@@ -24,7 +24,9 @@ module.exports =
   shouldStepCrumb: (index) ->
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
-
+    console.log("latestIndex")
+    console.log(latestIndex)
+    console.log(index)
     # doesAllowSeeAhead is currently true for if task type is homework and for practices.
     doesAllowSeeAhead = TaskStore.doesAllowSeeAhead(id)
 
@@ -57,7 +59,36 @@ module.exports =
   _generateCrumbs: (id) ->
     task = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
-    @_generateCrumbsFromSteps(task, steps)
+    crumbs = @_generateCrumbsFromSteps(task, steps)
+    @modifyCrumbs(task, crumbs)
+    console.log(crumbs)
+    crumbs
+
+  # can possibly abstract this more and pull this out somewhere else and have it be configurable with an object,
+  # as I have an over-tendency to, but not going to until we start to add more cases where we need to do something
+  # like this.
+  modifyCrumbs: (task, crumbs) ->
+    if task.type is 'reading'
+
+      coreGroups = [
+        'core'
+        'default'
+      ]
+
+      firstPractice = _.find crumbs, (crumb) ->
+        (crumb.type is 'step') and (coreGroups.indexOf(crumb.data.group) is -1)
+
+      if firstPractice?
+        coachCrumb =
+          data:
+            task_id: task.id
+          crumb: @shouldStepCrumb(firstPractice.key)
+          type: 'spacer'
+
+        crumbs.splice(firstPractice.key, 0, coachCrumb)
+
+        _.each crumbs, (crumb, index) ->
+          crumb.key = index
 
   generateCrumbs: ->
     {id} = @props
