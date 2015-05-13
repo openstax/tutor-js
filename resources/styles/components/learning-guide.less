@@ -170,17 +170,18 @@
     }
     .footer {
       width: 600px;
-      height: 185px;
+      height: 250px;
       margin-top: -9px;
       margin-left: 0px;
       border-width: 1px 0px 1px 1px;
       border-style: solid;
       border-color: @tutor-neutral-light;
       background: @tutor-white;
-      display: none;
+      opacity:0;
+      transition: opacity 0.1s linear;
     }
     .footer.active {
-      display: block;
+      opacity:1;
     }
     .footer-content-wrap {
       padding: 10px 20px 15px 20px;
@@ -203,7 +204,7 @@
       }
       .row-wrap {
         width: 86%;
-        height: 90px;
+        height: 150px;
         padding-top: 5px;
         margin-top: 5px;
       }
@@ -223,6 +224,9 @@
         }
       }
       .practice-button-wrap {
+        float: right;
+      }
+      .chapter-button-wrap {
         float: right;
       }
       .help-text {

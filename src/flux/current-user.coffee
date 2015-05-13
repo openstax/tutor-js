@@ -31,6 +31,10 @@ ROUTES =
     label: 'Learning Guide'
     roles:
       student: 'viewGuide'
+  performance:
+    label: 'Performance Book'
+    roles:
+      teacher: 'viewPerformance'
 
 
 CurrentUserActions = flux.createActions [
@@ -118,10 +122,7 @@ CurrentUserStore = flux.createStore
 
     getMenuRoutes: (courseId) ->
       menuRole = @_getCourseRole(courseId)
-      routes = [
-        'dashboard'
-        'guide'
-      ]
+      routes = _.keys(ROUTES)
 
       _.chain(routes)
         .map((routeType) =>

@@ -61,6 +61,10 @@ TEACHER_MENU = [
     name: 'taskplans'
     label: 'Dashboard'
   }
+  {
+    name: 'viewPerformance'
+    label: 'Performance Book'
+  }
 ]
 
 describe 'Current User Store', ->

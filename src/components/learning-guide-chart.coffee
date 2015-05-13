@@ -10,6 +10,7 @@ FLAG_BLUE      = 'flag-blue.svg'
 FLAG_GREEN     = 'flag-green.svg'
 FLAG_YELLOW    = 'flag-yellow.svg'
 FLAG_GREY      = 'flag-grey.svg'
+PENCIL_PATH    = 'guide-pencil.svg'
 
 
 # SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
@@ -22,7 +23,7 @@ XRECTHEIGHT = 5.1
 
 module.exports = class LearningGuideChart
 
-  constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic) ->
+  constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic, @displayChapter) ->
     @constructor = constructor
 
   addImage: (url, options, className) ->
@@ -35,7 +36,7 @@ module.exports = class LearningGuideChart
       .attr('xlink:href', AppConfigStore.urlForResource(url))
       .attr('class', className)
 
-  drawChart: (guide, showAll) ->
+  drawChart: (guide, showAll, chapter) ->
     node = @svgNode
 
     container = d3.select(@svgNode)
@@ -45,12 +46,11 @@ module.exports = class LearningGuideChart
     if showAll
       fields = guide.children
     else
-      fields = guide.children[0].children
+      fields = guide.children[chapter - 1].children
 
 
     leftMargin = 25
     topMargin = 5
-
 
     space_between = (WIDTH - leftMargin) / fields.length
 
@@ -63,7 +63,10 @@ module.exports = class LearningGuideChart
 
 
     # order matters. Items placed later will appear in front of earlier items
-    # If needed, explicit stacking could be specified
+
+    # must be called first to clear before re-render
+    @destroyChart(container)
+    
 
     @drawBackgroundGradient(container)
     @drawVerticalLines(container, points)
@@ -72,36 +75,46 @@ module.exports = class LearningGuideChart
     @drawCircles(container, fields, points)
     @drawPlane(container, points)
 
-
     @drawXRect(container)
     @drawXAxis(container, fields, points)
 
-    @drawYLabel(container, 8, 'Ace')
-    @drawYLabel(container, 19, 'Cruising')
-    @drawYLabel(container, 30, 'Too Low')
-    @drawYLabel(container, 41, 'Grounded')
+    @drawYLabel(container, 7, 'Ace')
+    @drawYLabel(container, 18, 'Cruising')
+    @drawYLabel(container, 29, 'Too Low')
+    @drawYLabel(container, 40.7, 'Grounded')
 
     @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
-    @drawTitle(container, guide)
+    @drawTitle(container, guide, showAll, chapter)
+   
+    @showDefaultPanel(fields)
+    
 
+  destroyChart: (container) ->
+    container.selectAll("g").remove()
+    container.selectAll("image").remove()
+    container.selectAll("defs").remove()
+    container.selectAll(".x-rect, #clip, .gradient-rect").remove()
 
-
-  drawTitle: (container, guide) ->
+  drawTitle: (container, guide, showAll, chapter) ->
+    if showAll
+      mainTitle = "Your Flight Path | #{guide.title} | All Topics | "
+      backButtonText = "Back to Dashboard"
+    else
+      mainTitle = "Your Flight Path | #{guide.children[chapter - 1].title} | "
+      backButtonText = "Show All #{guide.title}"
     wrap = container.append('g')
       .append('svg:text')
       .attr('text-anchor', 'middle')
       .attr('x', WIDTH / 2)
       .attr('y', 3)
       .attr('class', 'main-title')
-      .text("Your Flight Path | #{guide.title} | All Topics | ")
+      .text(mainTitle)
       .append('svg:a')
       .attr('class', 'show-course')
-      .text("Show All #{guide.title}")
+      .text(backButtonText)
       .on('click', =>
         @displayTopic()
-        detailPane = document.querySelector('.learning-guide-chart .footer')
-        detailPane.classList.remove('active')
       )
 
   drawXRect: (container) ->
@@ -132,19 +145,8 @@ module.exports = class LearningGuideChart
         "translate(#{points[i].x}, #{HEIGHT - 4})"
       )
       .on('click', (field) ->
-        # remove 'active' class from all groups
-        d3.selectAll(@parentElement.children).classed('active', false)
-        # and add it to ourselves
-        d3.select(this).classed('active', true)
-
-        caretOffset = this.attributes.transform.value.match(/\((.*),/).pop()
-        detailPane = document.querySelector('.learning-guide-chart .footer')
-        detailPane.classList.add('active')
-
-        # this is a rough calc for now, can center it better by subtracting container offset
-        detailPane.style.marginLeft = (caretOffset * 5.5) + 'px'
-
-        me.displayUnit(field)
+        me.showPanel(this, @parentElement.children)
+        me.displayUnit(field, parseInt(field.chapter_section[0]))
       )
     label.append('circle')
       .attr('r', 3.7)
@@ -160,10 +162,32 @@ module.exports = class LearningGuideChart
       .attr('dy', '2.3')
       .attr('text-anchor', 'middle')
       .text( (f, i) ->
-        subsection = if f.chapter_section[1]? then '.' + f.chapter_section[1] else ''
-        f.chapter_section[0] + subsection
+        if f.chapter_section instanceof Array
+          subsection = if f.chapter_section[1]? then '.' + f.chapter_section[1] else ''
+          f.chapter_section[0] + subsection
+        else
+          f.chapter_section
         )
 
+
+
+  showDefaultPanel: (fields) ->
+    field = fields[0]
+    @showPanel(@svgNode.querySelector('.x-axis .point:first-child'), @svgNode.querySelector('.x-axis .point'))
+    @displayUnit(field, parseInt(field.chapter_section[0]))
+
+  showPanel: (target, children) ->
+    # remove 'active' class from all groups
+    d3.selectAll(children).classed('active', false)
+    # and add it to ourselves
+    d3.select(target).classed('active', true)
+
+    caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
+    detailPane = this.svgNode.parentElement.querySelector('.footer')
+    detailPane.classList.add('active')
+
+    # this is a rough calc for now, can center it better by subtracting container offset
+    detailPane.style.marginLeft = (caretOffset * 4.7) + 'px'
 
   drawYDesc: (container, ypos, text) ->
     wrap = container.append('g')
@@ -195,7 +219,10 @@ module.exports = class LearningGuideChart
 
   drawPlane: (container, points) ->
     point = _.last(points)
-    pointPrev = points[points.length - 2]
+    if points.length > 1
+      pointPrev = points[points.length - 2]
+    else
+      pointPrev = point
     lineAngle = @getLineAngle(pointPrev.x, point.x, pointPrev.y, point.y)
     node = @svgNode
     d3.select(node).append('svg:image')
@@ -231,6 +258,7 @@ module.exports = class LearningGuideChart
     container.append('svg:rect')
       .attr('width', WIDTH)
       .attr('height', HEIGHT)
+      .attr('class', 'gradient-rect')
       .style('fill', 'url(#gradient)')
 
 
@@ -238,10 +266,10 @@ module.exports = class LearningGuideChart
 
     @addImage(CITYSCAPE_PATH, width:109.7, height:12, x:32, y:32.5)
 
-    @addImage(FLAG_BLUE, width:10, height:2.5, x:13.2, y:6.3)
-    @addImage(FLAG_GREEN, width:20, height:2.5, x:6.8, y:17.3)
-    @addImage(FLAG_YELLOW, width:20, height:2.5, x:6.6, y:28.3)
-    @addImage(FLAG_GREY, width:20, height:2.5, x:6.3, y:39.3)
+    @addImage(FLAG_BLUE, width:10, height:2.5, x:13.2, y:5.3)
+    @addImage(FLAG_GREEN, width:20, height:2.5, x:6.8, y:16.3)
+    @addImage(FLAG_YELLOW, width:20, height:2.5, x:6.6, y:27.3)
+    @addImage(FLAG_GREY, width:20, height:2.5, x:6.3, y:39)
 
     @addImage(CLOUD_PATH, width:40, height:15, x:110, y:2, 'cloud-opacity-70')
     @addImage(CLOUD_PATH, width:18, height:7, x:105, y:4, 'cloud-opacity-70')
@@ -277,12 +305,14 @@ module.exports = class LearningGuideChart
         else if lv < .35
           'grounded'
       )
-    # circles.append('text')
-    #   .text( (f) ->
-    #     f.questions_answered_count
-    #   )
-    #   .attr('text-anchor', 'middle')
-    #   .attr('dy', '0.5')
+    circles.append('svg:image')
+      .attr('xlink:href', AppConfigStore.urlForResource(PENCIL_PATH))
+      .attr('class', 'icon-pencil')
+      .attr('x', -1)
+      .attr('y', -1.4)
+      .attr('width', 2.4)
+      .attr('height', 2.4)
+
 
   drawPlotLines: (container, points) ->
     wrap = container.append('g')
