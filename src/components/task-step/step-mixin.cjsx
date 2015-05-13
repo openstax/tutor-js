@@ -16,9 +16,8 @@ module.exports =
       bsStyle='primary'
       className={buttonClasses}
       onClick={@onContinue}>Continue</BS.Button>
-    <span>
-      {continueButton}
-    </span>
+
+    {continueButton}
 
   render: ->
     footer = @renderFooterButtons?() or @renderGenericFooter()
