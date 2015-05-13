@@ -44,7 +44,7 @@ module.exports = React.createClass
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
-      @context.router.replaceWith('viewTask', params)
+      @context.router.replaceWith('viewTaskStep', params)
       @setState({currentStep: stepKey})
 
   goToCrumb: ->
