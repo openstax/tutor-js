@@ -39,7 +39,7 @@ module.exports = React.createClass
     @props.store
 
   bindUpdate: -> @props.update?() or @setState({})
-  
+
   render: ->
     {isLoading, isLoaded, isFailed, render, renderLoading, renderError, renderBug} = @props
 
@@ -50,4 +50,4 @@ module.exports = React.createClass
     else if isFailed()
       renderError()
     else
-      renderBug()
+      render()
