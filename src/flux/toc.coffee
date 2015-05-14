@@ -17,9 +17,10 @@ TocConfig =
   load: (courseId) -> # used by API
   loaded: (obj) ->
     @_toc = obj
+    chapters = obj[0].children
     # Load all the section id's for easy lookup later.
     # They are globally unique so we do not have to worry about the course.
-    for chap in obj
+    for chap in chapters
       for section in chap.children
         @_sections[section.id] = section
 
@@ -29,7 +30,7 @@ TocConfig =
     isLoaded: ->
       !!@_toc
     get: ->
-      @_toc or throw new Error('BUG: Invalid course')
+      @_toc[0].children or throw new Error('BUG: Invalid course')
     getSectionInfo: (sectionId) ->
       if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
