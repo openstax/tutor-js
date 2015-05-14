@@ -30,7 +30,9 @@ TocConfig =
     isLoaded: ->
       !!@_toc
     get: ->
-      @_toc[0].children
+      if @_toc?.length
+        @_toc[0].children
+      
     getSectionInfo: (sectionId) ->
       if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
