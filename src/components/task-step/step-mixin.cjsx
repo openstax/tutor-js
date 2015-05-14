@@ -30,15 +30,12 @@ module.exports =
       {@renderGroup?()}
     </CardBody>
 
-  componentDidMount:  ->
-    @setBannerClass()
+  componentDidMount:  -> @setBannerClass()
+  componentDidUpdate: -> @setBannerClass()
 
+  # If the rendered content has a matching element that will be used as the banner,
+  # add a "with-ui-banner" css class.  This way the component can be styled to match
   setBannerClass: ->
     has_banner = _.contains(@state.classNames, "with-ui-banner")
     if not has_banner and this.getDOMNode().querySelector(":first-child[data-label]")
-      # The defer's needed to break out of the rendering loop so the store has time to
-      # mark itself as loaded
-      # TODO: investigate why
-      _.delay =>
-        @setState classNames: @state.classNames.concat ["with-ui-banner"] if @isMounted()
-      , 20
+      @setState classNames: @state.classNames.concat ["with-ui-banner"]

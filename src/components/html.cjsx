@@ -25,10 +25,7 @@ module.exports = React.createClass
     if html
       __html: html
 
-  # We never bother to update the HTML since it's static and will never be changed after it's fetched
-  shouldComponentUpdate: -> false
   componentDidMount:  -> @updateDOMNode()
-  # should never be called since we're not updating.  leaving in for correctness in case that changes
   componentDidUpdate: -> @updateDOMNode()
 
   # Perform manipulation on HTML contained inside the components node.
