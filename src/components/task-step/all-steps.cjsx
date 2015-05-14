@@ -56,12 +56,12 @@ Video = React.createClass
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
+
   renderBody: ->
     {id} = @props
-    {content_html, content_url} = TaskStepStore.get(id)
-    <div className='-video-step'>
-      <ArbitraryHtmlAndMath className='-video-content' html={content_html} />
-      <a target='_top' src={content_url} >video</a>
+    {content_html} = TaskStepStore.get(id)
+    <div className='video-step'>
+      <ArbitraryHtmlAndMath className='video-content' html={content_html} />
     </div>
 
 Placeholder = React.createClass
