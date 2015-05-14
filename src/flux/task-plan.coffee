@@ -7,6 +7,10 @@ TUTOR_SELECTIONS =
   max: 4
   min: 2
 
+PLAN_TYPE =
+  homework: 'homework'
+  reading: 'reading'
+
 TaskPlanConfig =
 
   _stats: {}
@@ -16,8 +20,10 @@ TaskPlanConfig =
     @_local[planId] ?= {}
     @_local[planId].settings ?= {}
     @_local[planId].settings.page_ids ?= []
-    @_local[planId].settings.exercise_ids ?= []
-    @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
+
+    if @_local[planId]?.type is PLAN_TYPE.homework or @_changed[planId]?.type is PLAN_TYPE.homework
+      @_local[planId].settings.exercise_ids ?= []
+      @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
 
     #TODO take out once TaskPlan api is in place
     _.extend({}, @_local[planId], @_changed[planId])
@@ -155,7 +161,7 @@ TaskPlanConfig =
 
     isHomework: (id) ->
       plan = @_getPlan(id)
-      plan.type is 'homework'
+      plan.type is PLAN_TYPE.homework
 
     isValid: (id) ->
       plan = @_getPlan(id)
