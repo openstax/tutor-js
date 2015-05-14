@@ -11,12 +11,14 @@
 // @grasp-check-color:#39b531;
 // @grasp-check-color-background:#fff;
 
+@reading-ui-banner-height: 40px;
+
 .tutor-reading-step-banner-icon(@img){
   background: @tutor-secondary url(@img);
   background-repeat: no-repeat;
-  text-indent: 30px;
+  text-indent: @reading-ui-banner-height - 10px;
   background-position: 5px;
-  background-size: 40px 40px;
+  background-size: @reading-ui-banner-height - 10px @reading-ui-banner-height - 10px;
 }
 
 // If the parent element that included this file has a .note[data-label] that is the first child
@@ -26,15 +28,15 @@
     // create a :before element and pop it up on the top of the card
     &:before {
       content: attr(data-label);
-      #fonts > .sans(3.2rem, 3.2rem);
+      #fonts > .sans(@reading-ui-banner-height - 10px, @reading-ui-banner-height);
       font-weight: 900;
       color: @tutor-tertiary;
       background: @tutor-secondary;
-      padding: 10px 20px;
+      padding: 0 10px;
       position: absolute;
-      top: -50px;
+      top: -@reading-ui-banner-height;
       left: 0;
-      height: 50px;
+      height: @reading-ui-banner-height;
     }
     .title {
       margin: 10px 20px;
