@@ -68,7 +68,7 @@ module.exports = React.createClass
     panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
 
   renderSpacer: (data) ->
-    <Spacer/>
+    <Spacer onNextStep={@onNextStep}/>
 
   # add render methods for different panel types as needed here
 

@@ -89,7 +89,8 @@ Spacer = React.createClass
     @props.onNextStep()
   renderBody: ->
     <div className='-spacer-step'>
-      <h2>Hello!</h2>
+      <h1>Concept Coach</h1>
+      <p>Reinforce what you have learned in this reading and prior readings.</p>
     </div>
 
 module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer}

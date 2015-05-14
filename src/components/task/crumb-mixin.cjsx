@@ -24,9 +24,7 @@ module.exports =
   shouldStepCrumb: (index) ->
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
-    console.log("latestIndex")
-    console.log(latestIndex)
-    console.log(index)
+
     # doesAllowSeeAhead is currently true for if task type is homework and for practices.
     doesAllowSeeAhead = TaskStore.doesAllowSeeAhead(id)
 
@@ -61,13 +59,16 @@ module.exports =
     steps = TaskStore.getSteps(id)
     crumbs = @_generateCrumbsFromSteps(task, steps)
     @modifyCrumbs(task, crumbs)
-    console.log(crumbs)
     crumbs
 
   # can possibly abstract this more and pull this out somewhere else and have it be configurable with an object,
   # as I have an over-tendency to, but not going to until we start to add more cases where we need to do something
   # like this.
   modifyCrumbs: (task, crumbs) ->
+
+    {currentStep} = @props
+
+    # insert spacer panel/crumb for reading task that have spaced practices or personalized problems
     if task.type is 'reading'
 
       coreGroups = [
@@ -79,16 +80,24 @@ module.exports =
         (crumb.type is 'step') and (coreGroups.indexOf(crumb.data.group) is -1)
 
       if firstPractice?
-        coachCrumb =
+        spacerCrumb =
           data:
             task_id: task.id
+            # TODO switch with official icon.  using test as stand-in
+            type: 'test'
           crumb: @shouldStepCrumb(firstPractice.key)
           type: 'spacer'
 
-        crumbs.splice(firstPractice.key, 0, coachCrumb)
+        crumbs.splice(firstPractice.key, 0, spacerCrumb)
 
+        # # Comment in to hide next breadcrumb if needed.
+        # shouldCrumbFirstPractice = @shouldStepCrumb(firstPractice.key + 1) or (firstPractice.key + 1) is currentStep
+        # crumbs[firstPractice.key + 1].crumb = shouldCrumbFirstPractice
+
+        # re-key crumbs
         _.each crumbs, (crumb, index) ->
           crumb.key = index
+
 
   generateCrumbs: ->
     {id} = @props
