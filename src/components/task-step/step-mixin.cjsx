@@ -1,16 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
-{TaskActions} = require '../../flux/task'
-{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-LoadableItem = require '../loadable-item'
-{CardBody} = require '../pinned-header-footer-card/sections'
 _ = require 'underscore'
 
-module.exports =
+LoadableItem = require '../loadable-item'
+{CardBody} = require '../pinned-header-footer-card/sections'
 
-  getInitialState: ->
-    classNames: ['task-step']
+module.exports =
 
   renderGenericFooter: ->
     buttonClasses = '-continue'
@@ -25,7 +20,9 @@ module.exports =
   render: ->
     footer = @renderFooterButtons?() or @renderGenericFooter()
     {pinned} = @props
-    <CardBody className={@state.classNames.join(' ')} footer={footer} pinned={pinned}>
+    classNames = 'task-step'
+    classNames += ' tutor-ui-banner' if @state?.hasBanner
+    <CardBody className={classNames} footer={footer} pinned={pinned}>
       {@renderBody()}
       {@renderGroup?()}
     </CardBody>
@@ -36,6 +33,6 @@ module.exports =
   # If the rendered content has a matching element that will be used as the banner,
   # add a "with-ui-banner" css class.  This way the component can be styled to match
   setBannerClass: ->
-    has_banner = _.contains(@state.classNames, "with-ui-banner")
-    if not has_banner and this.getDOMNode().querySelector(":first-child[data-label]")
-      @setState classNames: @state.classNames.concat ["with-ui-banner"]
+    bannerMissing = not @state?.hasBanner
+    if bannerMissing and this.getDOMNode().querySelector(".note:first-child[data-has-label]")
+      @setState hasBanner: true
