@@ -44,7 +44,7 @@ module.exports = React.createClass
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
-      @context.router.replaceWith('viewTask', params)
+      @context.router.replaceWith('viewTaskStep', params)
       @setState({currentStep: stepKey})
 
   goToCrumb: ->
@@ -112,4 +112,4 @@ module.exports = React.createClass
     if placeholder? and not TaskStore.hasIncompleteCoreStepsIndexes(id)
       TaskStepActions.load(placeholder.id)
 
-    @setState({currentStep: @state.currentStep + 1})
+    @goToStep(@state.currentStep + 1)()

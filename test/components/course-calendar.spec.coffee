@@ -107,18 +107,9 @@ describe 'Course Calendar', ->
         done()
       , done)
 
-  it 'should show add plan links when add component is clicked', (done) ->
-    calendarActions
-      .clickAdd(@result)
-      .then(calendarChecks.checkDoesAddDropDownShow)
-      .then(calendarChecks.checkDoesAddMenuLinkCorrectly)
-      .then( ->
-        done()
-      , done)
-
   it 'should show today as past and tomorrow as upcoming', (done) ->
-    calendarActions
-      .clickAdd(@result)
+    calendarChecks
+      .checkIsTodayPast(@result)
       .then(calendarChecks.checkIsTodayPast)
       .then(calendarChecks.checkIsTodayNotClickable)
       .then(calendarChecks.checkIsTomorrowUpcoming)

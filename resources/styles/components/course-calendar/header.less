@@ -1,19 +1,33 @@
+@calendar-header-padding-bottom: 2rem;
+
 .list-courses {
   .calendar-header {
     text-align: center;
     font-size: 3rem;
+    border-bottom: 1px solid @tutor-neutral-light;
 
     &-label {
       font-weight: stronger;
+      padding-bottom: @calendar-header-padding-bottom;
     }
 
     &-control {
       .no-select();
+      color: @tutor-neutral;
       display: block;
       width: 100%;
+      padding-bottom: @calendar-header-padding-bottom;
+
+      &.previous {
+        text-align: left;
+      }
+
+      &.next {
+        text-align: right;
+      }
 
       &:hover {
-        background: @gray-lighter;
+        color: @tutor-neutral-darker;
         text-decoration: none;
       }
       &:active, &:visited {

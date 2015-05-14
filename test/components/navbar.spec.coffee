@@ -41,6 +41,10 @@ TEACHER_MENU = [
     name: TEACHER_DASHROUTE
     label: 'Dashboard'
   }
+  {
+    name: 'viewPerformance'
+    label: 'Performance Book'
+  }
 ]
 
 testParams =
