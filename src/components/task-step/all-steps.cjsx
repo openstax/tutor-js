@@ -33,9 +33,9 @@ Reading = React.createClass
     for img in root.querySelectorAll('.splash img')
       overlay = document.createElement('div')
       # don't apply overlay twice or if cnx content already includes it
-      continue if img.parentElement.querySelector('.ui-overlay')
+      continue if img.parentElement.querySelector('.tutor-ui-overlay')
       # Prefix the class to distinguish it from a class in the original HTML content
-      overlay.className = 'ui-overlay'
+      overlay.className = 'tutor-ui-overlay'
       overlay.innerHTML = title
       img.parentElement.appendChild(overlay)
 
