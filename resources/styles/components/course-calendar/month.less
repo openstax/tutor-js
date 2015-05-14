@@ -22,7 +22,6 @@
   width: @cell-width;
   height: inherit;
   padding: 5px;
-  text-align: center;
 }
 
 
@@ -74,6 +73,7 @@
         width: 100%;
         &-weekday {
           .calendar-cell(@calendar-cell-width);
+          text-align: center;
           height: 2rem;
           font-weight: bolder;
         }
@@ -117,25 +117,20 @@
       border-right: 1px solid @tutor-neutral-light;
       position: relative;
       cursor: default;
+      line-height: 1.5rem;
+      text-align: right;
 
       &--upcoming {
         cursor: pointer;
-        &:after{
-          content: '+';
-          font-size: 2rem;
-          position: absolute;
-          bottom: 0;
-          right: 0.5rem;
-          color: @tutor-primary;
-          opacity: 0;
-        }
 
         &:hover, &.active {
-          background-color: fade(@tutor-primary, 10%);
-          &:after{
-            opacity: 1;
-          }
+          background-color: fade(@tutor-tertiary-light, 10%);
         }
+      }
+
+      &--past {
+        color: @tutor-neutral;
+        background-color: @tutor-neutral-lightest;
       }
 
       &--outside {
@@ -144,10 +139,7 @@
 
       &--current {
         color: @tutor-primary;
-      }
-
-      &--past {
-        background-color: @tutor-neutral-lightest;
+        font-weight: bold;
       }
     }
   }

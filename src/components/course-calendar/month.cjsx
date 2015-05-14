@@ -136,25 +136,14 @@ CourseMonth = React.createClass
     calendarClassName = 'calendar-container'
     calendarClassName = calendarClassName + " #{className}" if className
 
-    <BS.Grid className={calendarClassName}>
+    <BS.Grid className={calendarClassName} fluid>
       <CourseAdd ref='addOnDay'/>
-      <BS.Row className='calendar-nav'>
-        <BS.Col xs={1}>
-          <BS.DropdownButton
-            ref='addButtonGroup'
-            title={<i className='fa fa-plus'></i>}
-            noCaret>
-            {@renderAddActions()}
-          </BS.DropdownButton>
-        </BS.Col>
-      </BS.Row>
-
       <CourseCalendarHeader duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12}>
 
-          <Month date={date} monthNames={false} ref='calendar'>
+          <Month date={date} monthNames={false} weekdayFormat='ddd' ref='calendar'>
             {days}
           </Month>
 
