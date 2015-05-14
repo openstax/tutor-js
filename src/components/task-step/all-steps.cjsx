@@ -57,13 +57,6 @@ Video = React.createClass
     @props.onStepCompleted()
     @props.onNextStep()
 
-  renderFooterButtons: ->
-    {content_url} = TaskStepStore.get(@props.id)
-    <div>
-      {@renderGenericFooter()}
-      <a className="btn btn-info pull-right" href={content_url}>Visit Video</a>
-    </div>
-
   renderBody: ->
     {id} = @props
     {content_html} = TaskStepStore.get(id)
