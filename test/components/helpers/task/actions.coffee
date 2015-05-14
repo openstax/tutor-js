@@ -9,6 +9,7 @@ React = require 'react/addons'
 
 TaskStep = require '../../../../src/components/task-step'
 Breadcrumbs = require '../../../../src/components/task/breadcrumbs'
+{ExerciseReview} = require '../../../../src/components/task-step/exercise/modes'
 
 {routerStub, commonActions} = require '../utilities'
 
@@ -27,6 +28,7 @@ actions =
       routerStub.forceUpdate(component, args...)
 
   clickContinue: commonActions.clickMatch('.-continue')
+  clickTryAnother: commonActions.clickMatch('.-try-another')
 
   # Tricky, popovers use focus trigger for dismissable option
   # http://getbootstrap.com/javascript/#dismiss-on-next-click
@@ -109,6 +111,30 @@ actions =
   loadStep: (stepId, stepData) ->
     (args...) ->
       Promise.resolve(actions._loadStep(stepId, stepData, args...))
+
+  _loadRecovery: (stepId, stepData, args...) ->
+    TaskStepActions.loadedRecovery(stepData, stepId)
+    args[0]
+
+  loadRecovery: (stepId, stepData) ->
+    (args...) ->
+      Promise.resolve(actions._loadRecovery(stepId, stepData, args...))
+
+  _loadTask: (taskData, args...) ->
+    {taskId} = args[0]
+    TaskActions.loaded(taskData, taskId)
+    args[0]
+
+  loadTask: (taskData) ->
+    (args...) ->
+      Promise.resolve(actions._loadTask(taskData, args...))
+
+  forceRecovery: (args...) ->
+    {component} = args[0]
+    exerciseReview = React.addons.TestUtils.findRenderedComponentWithType(component, ExerciseReview)
+    exerciseReview.props.onNextStep()
+
+    actions.forceUpdate(args[0])
 
   completeThisStep: (args...) ->
     {stepId} = args[0]

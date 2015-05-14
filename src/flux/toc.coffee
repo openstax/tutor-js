@@ -29,7 +29,7 @@ TocConfig =
     isLoaded: ->
       !!@_toc
     get: ->
-      @_toc or throw new Error('BUG: Invalid course')
+      @_toc
     getSectionInfo: (sectionId) ->
       if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')

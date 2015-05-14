@@ -31,8 +31,9 @@ Reading = React.createClass
     root = @getDOMNode()
     {title} = TaskStepStore.get(@props.id)
     for img in root.querySelectorAll('.splash img')
-      overlay = document.createElement("div")
-      overlay.className = 'overlay'
+      overlay = document.createElement('div')
+      # Prefix the class to distinguish it from a class in the original HTML content
+      overlay.className = 'ui-overlay'
       overlay.innerHTML = title
       img.parentElement.appendChild(overlay)
 

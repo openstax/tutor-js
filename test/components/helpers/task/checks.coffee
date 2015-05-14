@@ -99,6 +99,14 @@ checks =
     expect(classes).to.deep.equal([
       '-try-another btn btn-primary', '-refresh-memory btn btn-primary', '-continue btn btn-primary'
     ])
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkRecoveryContent: ({div, component, stepId, taskId, state, router, history}) ->
+    expect(div.innerText).to.contain('recovery')
+    expect(div.querySelector('.footer-buttons')).to.be.null
+    expect(div.querySelector('.-continue')).to.not.be.null
+
+    {div, component, stepId, taskId, state, router, history}
 
   _checkIsNextStep: ({div, component, stepId, taskId, state, router, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
@@ -182,7 +190,8 @@ checks =
 
     if step.group is 'personalized'
       expect(group.getDOMNode().innerText).to.contain('Personalized')
-    else if step.group is 'spaced practice'
+    # TODO deprecate spaced practice when BE is updated
+    else if step.group is 'spaced_practice' or step.group is 'spaced practice'
       expect(group.getDOMNode().innerText).to.contain('Review')
 
     {div, component, stepId, taskId, state, router, history}
@@ -248,8 +257,9 @@ checks.checkIsNotPendingStep = (matchStepIndex) ->
     Promise.resolve(checks._checkIsNotPendingStep(matchStepIndex, args...))
 
 checks._logStuff = (logMessage, args...) ->
-  {div, stepId, router} = args[0]
+  {div, stepId, taskId, router} = args[0]
   step = TaskStepStore.get(stepId)
+
   console.info(logMessage)
   console.info(router.getCurrentPath())
   console.info(router.getCurrentParams())

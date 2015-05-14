@@ -51,6 +51,29 @@
           "chapter_section": "1.3"
       }]
     },
+    { "id": "step-id-4-2-recovery",
+      "type": "exercise",
+      "content": {
+        "stimulus_html": "Recovery for iReading Exercise",
+        "questions":[
+          {
+            "id": "877",
+            "formats": ["multiple-choice"],
+            "stem_html":"Is the glass half full or half recovery?",
+            "answers":[
+              {"id":"id5","content_html":"True"},
+              {"id":"id6","content_html":"False"}
+            ]
+          }
+        ]
+      },
+      "task_id": "4",
+      "group": "personalized",
+      "related_content": [{
+          "title": "Physics is cool, yo",
+          "chapter_section": "5.3"
+      }]
+    },
     { "id": "step-id-4-3",
       "type": "reading",
       "content_url": "http://archive.cnx.org/contents/3e1fc4c6-b090-47c1-8170-8578198cc3f0@8.html",

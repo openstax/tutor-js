@@ -1,0 +1,23 @@
+{ "id": "step-id-4-2-recovery",
+  "type": "exercise",
+  "content": {
+    "stimulus_html": "Recovery for iReading Exercise",
+    "questions":[
+      {
+        "id": "877",
+        "formats": ["multiple-choice"],
+        "stem_html":"Is the glass half full or half recovery?",
+        "answers":[
+          {"id":"id5","content_html":"True"},
+          {"id":"id6","content_html":"False"}
+        ]
+      }
+    ]
+  },
+  "task_id": "4",
+  "group": "core",
+  "related_content": [{
+      "title": "Physics is cool, yo",
+      "chapter_section": "5.3"
+  }]
+}

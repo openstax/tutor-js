@@ -13,6 +13,8 @@ courseId = '1'
 taskId = '4'
 
 VALID_MODEL = require '../../api/tasks/4.json'
+VALID_RECOVERY_MODEL = require '../../api/tasks/4-recovered.json'
+VALID_RECOVERY_STEP = require '../../api/steps/step-id-4-2/recovery/PUT.json'
 
 describe 'Task Widget', ->
   beforeEach (done) ->
@@ -151,6 +153,18 @@ describe 'Task Widget, through routes', ->
       .then( ->
         done()
       , done)
+
+
+  it 'should show recovery step when try another is clicked', (done) ->
+    taskTests
+      .submitMultipleChoice(@result)
+      .then(taskChecks.checkRecoveryRefreshChoice)
+      .then(taskActions.clickTryAnother)
+      .then(taskActions.loadRecovery('step-id-4-2-recovery', VALID_RECOVERY_STEP))
+      .then(taskActions.loadTask(VALID_RECOVERY_MODEL))
+      .then(taskActions.forceRecovery)
+      .then(taskChecks.checkRecoveryContent)
+      .then(_.delay(done, 1800)).catch(done)
 
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step

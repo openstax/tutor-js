@@ -124,7 +124,7 @@ CrudConfig = ->
 
     # Keep this here so other exports method have access to it
     _get: (id) ->
-      return null unless @_asyncStatus[id] is LOADED or @_asyncStatus[id] is SAVING
+      return null unless @_local[id] or @_asyncStatus[id] is SAVING
       _.extend({}, @_local[id], @_changed[id])
 
     exports:
