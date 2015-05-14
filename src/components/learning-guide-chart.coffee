@@ -88,6 +88,9 @@ module.exports = class LearningGuideChart
     @drawTitle(container, guide, showAll, chapter)
    
     @showDefaultPanel(fields)
+
+    window.addEventListener("resize", @panelOnResize)
+    # this calls but cannot clear it on CDU here (?)
     
 
   destroyChart: (container) ->
@@ -170,6 +173,10 @@ module.exports = class LearningGuideChart
         )
 
 
+  panelOnResize: =>
+    ref = @showPanel(@svgNode.querySelector('.x-axis .point.active'), @svgNode.querySelector('.x-axis .point'))
+    _.throttle(ref, 1000)
+    console.log('resize')
 
   showDefaultPanel: (fields) ->
     field = fields[0]
@@ -183,11 +190,15 @@ module.exports = class LearningGuideChart
     d3.select(target).classed('active', true)
 
     caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
+    viewboxWidth = this.svgNode.attributes.viewBox.value.split(' ')[2]
+    svgClientWidth = this.svgNode.clientWidth
+
     detailPane = this.svgNode.parentElement.querySelector('.footer')
     detailPane.classList.add('active')
 
-    # this is a rough calc for now, can center it better by subtracting container offset
-    detailPane.style.marginLeft = (caretOffset * 4.7) + 'px'
+    panelOffset = (svgClientWidth - detailPane.clientWidth) / viewboxWidth
+
+    detailPane.style.marginLeft = (caretOffset * panelOffset) + 'px'
 
   drawYDesc: (container, ypos, text) ->
     wrap = container.append('g')
