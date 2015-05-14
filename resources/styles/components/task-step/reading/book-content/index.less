@@ -21,9 +21,8 @@
   background-size: @reading-ui-banner-height - 10px @reading-ui-banner-height - 10px;
 }
 
-// If the parent element that included this file has a .note[data-label] that is the first child
-// that should be used as title
-&{
+// If the first child element is a .note[data-has-label], that should be used as title
+.tutor-reading-ui-banner {
   > .note:first-child[data-has-label=true] {
     // create a :before element and pop it up on the top of the card
     &:before {
@@ -46,6 +45,7 @@
     }
   }
 }
+
 
 
 
