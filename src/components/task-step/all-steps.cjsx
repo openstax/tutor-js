@@ -56,12 +56,19 @@ Video = React.createClass
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
+
+  renderFooterButtons: ->
+    {content_url} = TaskStepStore.get(@props.id)
+    <div>
+      {@renderGenericFooter()}
+      <a className="btn btn-info pull-right" href={content_url}>Visit Video</a>
+    </div>
+
   renderBody: ->
     {id} = @props
-    {content_html, content_url} = TaskStepStore.get(id)
-    <div className='-video-step'>
-      <ArbitraryHtmlAndMath className='-video-content' html={content_html} />
-      <a target='_top' src={content_url} >video</a>
+    {content_html} = TaskStepStore.get(id)
+    <div className='video-step'>
+      <ArbitraryHtmlAndMath className='video-content' html={content_html} />
     </div>
 
 Placeholder = React.createClass
