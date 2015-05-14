@@ -61,38 +61,30 @@ module.exports =
     @modifyCrumbs(task, crumbs)
     crumbs
 
-  # can possibly abstract this more and pull this out somewhere else and have it be configurable with an object,
-  # as I have an over-tendency to, but not going to until we start to add more cases where we need to do something
-  # like this.
-  modifyCrumbs: (task, crumbs) ->
 
+  # can possibly abstract this more and pull this out somewhere else if needed in the future
+  modifyCrumbs: (task, crumbs) ->
     {currentStep} = @props
 
     # insert spacer panel/crumb for reading task that have spaced practices or personalized problems
     if task.type is 'reading'
+      notCore = _.find crumbs, (crumb) ->
+        (crumb.type is 'step') and not TaskStepStore.isCore(crumb.data.id)
 
-      coreGroups = [
-        'core'
-        'default'
-      ]
-
-      firstPractice = _.find crumbs, (crumb) ->
-        (crumb.type is 'step') and (coreGroups.indexOf(crumb.data.group) is -1)
-
-      if firstPractice?
+      if notCore?
         spacerCrumb =
           data:
             task_id: task.id
             # TODO switch with official icon.  using test as stand-in
             type: 'test'
-          crumb: @shouldStepCrumb(firstPractice.key)
+          crumb: @shouldStepCrumb(notCore.key)
           type: 'spacer'
 
-        crumbs.splice(firstPractice.key, 0, spacerCrumb)
+        crumbs.splice(notCore.key, 0, spacerCrumb)
 
         # # Comment in to hide next breadcrumb if needed.
-        # shouldCrumbFirstPractice = @shouldStepCrumb(firstPractice.key + 1) or (firstPractice.key + 1) is currentStep
-        # crumbs[firstPractice.key + 1].crumb = shouldCrumbFirstPractice
+        # shouldCrumbnotCore = @shouldStepCrumb(notCore.key + 1) or (notCore.key + 1) is currentStep
+        # crumbs[notCore.key + 1].crumb = shouldCrumbnotCore
 
         # re-key crumbs
         _.each crumbs, (crumb, index) ->

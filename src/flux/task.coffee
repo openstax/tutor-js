@@ -120,10 +120,10 @@ TaskConfig =
     getIncompleteCoreStepsIndexes: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       firstIndex =   _.findIndex allSteps, (step) ->
-        step? and not step.is_completed and step.group is 'core'
+        step? and not step.is_completed and TaskStepStore.isCore(step.id)
 
       lastIndex = _.findLastIndex allSteps, (step) ->
-        step? and not step.is_completed and step.group is 'core'
+        step? and not step.is_completed and TaskStepStore.isCore(step.id)
 
       coreSteps = [
         firstIndex
@@ -136,9 +136,15 @@ TaskConfig =
     hasIncompleteCoreStepsIndexes: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       steps = _.find(allSteps, (step) ->
-        step? and not step.is_completed and step.group is 'core'
+        step? and not step.is_completed and TaskStepStore.isCore(step.id)
       )
       steps?
+
+    getFirstNonCoreIndex: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      stepIndex = _.findIndex(allSteps, (step) ->
+        step? and not TaskStepStore.isCore(step.id)
+      )
 
     getPlaceholder: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
