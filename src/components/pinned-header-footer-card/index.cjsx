@@ -14,6 +14,10 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     buffer: 60
+    scrollSpeedBuffer: 20
+
+  getInitialState: ->
+    pinned: false
 
   mixins: [ScrollListenerMixin]
 
@@ -27,8 +31,24 @@ module.exports = React.createClass
   componentWillUnmount: ->
     document.body.classList.remove(@documentBodyClass)
 
-  shouldPinHeader: (scrollTop) ->
-    scrollTop > @props.buffer
+  isScrollingSlowed: (prevScrollTop, currentScrollTop) ->
+    Math.abs(prevScrollTop - currentScrollTop) <= @props.scrollSpeedBuffer
+
+  isScrollingUp: (prevScrollTop, currentScrollTop) ->
+    (prevScrollTop - currentScrollTop) > @props.scrollSpeedBuffer
+
+  shouldPinHeader: (prevScrollTop, currentScrollTop) ->
+    if @isScrollingSlowed(prevScrollTop, currentScrollTop)
+      # keep as previous pinned state
+      shouldPinHeader = @state.pinned
+    else if @isScrollingUp(prevScrollTop, currentScrollTop)
+      # unpinned on upscroll
+      shouldPinHeader = false
+    else
+      # otherwise, on down scroll, check if the scroll position is past buffer
+      shouldPinHeader = (currentScrollTop > @props.buffer)
+
+    shouldPinHeader
 
   shouldComponentUpdate: (nextProps, nextState) ->
     # ignore scrolling state changes when checking should component update
@@ -36,7 +56,7 @@ module.exports = React.createClass
     nextStateNoScroll = _.omit(nextState, 'isScrolling', 'scrollTop')
 
     # manually check if should pin has changed
-    didShouldPinChange = not @shouldPinHeader(@state.scrollTop) is @shouldPinHeader(nextState.scrollTop)
+    didShouldPinChange = not @state.pinned is @shouldPinHeader(@state.scrollTop, nextState.scrollTop)
     # check props and non-scroll states
     didPropsUpdate = not _.isEqual(@props, nextProps)
     didStateUpdate = not _.isEqual(stateNoScroll, nextStateNoScroll)
@@ -49,7 +69,8 @@ module.exports = React.createClass
       'add' # add class if shouldPinHeader is true
     ]
 
-    shouldPinHeader = @shouldPinHeader(@state.scrollTop) * 1
+    @setState(pinned : @shouldPinHeader(prevState.scrollTop, @state.scrollTop))
+    shouldPinHeader = @state.pinned * 1
     classAction = addOrRemove[shouldPinHeader]
     document.body.classList[classAction]('pinned-on')
 
