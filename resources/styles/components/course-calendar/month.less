@@ -84,7 +84,7 @@
         }
       }
 
-      &:after {
+      &::after {
         opacity: 0;
       }
     }
@@ -122,19 +122,16 @@
 
       &--upcoming {
         cursor: pointer;
-        &:after{
-          content: '+';
-          font-size: 2rem;
-          position: absolute;
-          top: 0.5rem;
-          left: 0.5rem;
-          color: @tutor-tertiary-light;
-          opacity: 0;
-        }
+
         &:hover, &.active {
           background-color: fade(@tutor-tertiary-light, 10%);
-          &:after{
-            opacity: 1;
+          &::after{
+            content: '+';
+            font-size: 2rem;
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            color: @tutor-tertiary-light;
           }
         }
       }
