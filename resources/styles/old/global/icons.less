@@ -64,6 +64,12 @@
 .icon-reading  { .x-icon-bg(reading); }
 .icon-recover  { .x-icon-bg(recover); }
 .icon-test     { .x-icon-bg(test); }
+.icon-placeholder {
+  &:before {
+    content: '?';
+    font-style: normal;
+  }
+}
 // The following are usually overlays on other icons
 .icon-correct  { .x-icon-bg(correct); }
 .icon-incorrect { .x-icon-bg(incorrect); }
