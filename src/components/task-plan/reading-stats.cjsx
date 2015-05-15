@@ -29,22 +29,31 @@ Stats = React.createClass
     total_count = data.correct_count + data.incorrect_count
     if total_count then @_percent(data[count], total_count) else 0
 
-  renderPercentBar: (data, type, correctOrIncorrect) ->
-    correctOrIncorrect ?= 'correct'
-    percentCorrect = @percent(data, correctOrIncorrect)
-
+  renderPercentBar: (data, type, percent, correctOrIncorrect) ->
     bsStyles =
       'correct' : 'success'
       'incorrect' : 'danger'
 
     classes = 'reading-progress-bar'
-    classes += ' no-progress' unless percentCorrect
-    correct = <BS.ProgressBar 
-              className={classes} 
-              bsStyle={bsStyles[correctOrIncorrect]} 
-              label='%(percent)s%' 
-              now={percentCorrect} 
-              key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
+    classes += ' no-progress' unless percent
+    correct = <BS.ProgressBar
+                className={classes}
+                bsStyle={bsStyles[correctOrIncorrect]}
+                label='%(percent)s%'
+                now={percent}
+                key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
+
+  renderPercentBars: (data, type) ->
+    percents =
+      correct: @percent(data, 'correct')
+      incorrect: @percent(data, 'incorrect')
+
+    # make sure percents add up to 100
+    if percents.incorrect + percents.correct > 100
+      percents.incorrect = 100 - percents.correct
+
+    _.map percents, (percent, correctOrIncorrect) =>
+      @renderPercentBar(data, type, percent, correctOrIncorrect)
 
   renderProgressBar: (data, type, index, previous) ->
     studentCount = <span className='reading-progress-student-count'>
@@ -57,45 +66,51 @@ Stats = React.createClass
       </div>
       <div className='reading-progress-container'>
         <BS.ProgressBar className='reading-progress-group'>
-          {@renderPercentBar(data, type, 'correct')}
-          {@renderPercentBar(data, type, 'incorrect')}
+          {@renderPercentBars(data, type)}
         </BS.ProgressBar>
         {previous}
       </div>
     </div>
 
+  renderCourseStat: (stat, cols = 4) ->
+    key = "reading-stats-#{stat.type}"
+    <BS.Col xs={cols} className={key} key={key}>
+      <label>{stat.label}</label>
+      <div className = "data-container-value text-#{stat.type}">
+        {stat.value}
+      </div>
+    </BS.Col>
+
   renderCourseBar: (data, type) ->
+    cols = 4
+    stats = [{
+        type: 'complete'
+        label: 'Complete'
+        value: data.complete_count
+      }, {
+        type: 'in-progress'
+        label: 'In Progress'
+        value: data.partially_complete_count
+      }, {
+        type: 'not-started'
+        label: 'Not Started'
+        value: data.total_count - (data.complete_count + data.partially_complete_count)
+    }]
+
     if type is 'homework' and data.mean_grade_percent
-      classAverage =
-        <BS.Row>
-          <BS.Col xs={12}>
-            <h3 className='reading-stats-average'>
-              <small>Average:</small> {data.mean_grade_percent}%
-            </h3>
-          </BS.Col>
-        </BS.Row>
+      stats.unshift(
+        type: 'average'
+        label: 'Average'
+        value: "#{data.mean_grade_percent}%"
+      )
+
+    cols = 12 / stats.length
+    statsColumns = _.map stats, (stat) =>
+      @renderCourseStat(stat, cols)
 
     <BS.Grid className='data-container' key='course-bar'>
-      {classAverage}
       <BS.Row>
-        <BS.Col xs={4}>
-          <label>Complete</label>
-          <div className = 'data-container-value text-complete'>
-            {data.complete_count}
-          </div>
-        </BS.Col>
-        <BS.Col xs={4}>
-          <label>In Progress</label>
-          <div className = 'data-container-value text-in-progress'>
-            {data.partially_complete_count}
-          </div>
-        </BS.Col>
-        <BS.Col xs={4}>
-          <label>Not Started</label>
-          <div className = 'data-container-value text-not-started'>
-            {data.total_count - (data.complete_count + data.partially_complete_count)}
-          </div>
-        </BS.Col>
+        {statsColumns}
       </BS.Row>
     </BS.Grid>
 

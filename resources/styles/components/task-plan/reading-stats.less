@@ -21,8 +21,15 @@
     }
 
     &:not(:last-child) {
-      border-bottom: 1px dashed darken(@gray-lighter, 10%);
+      border-bottom: @tutor-teacher-plan-stats-border-style;
     }
+
+    &:last-child {
+      .reading-progress-container {
+        margin-bottom: 0;
+      }
+    }
+
   }
 
   &-none {
@@ -31,14 +38,7 @@
   }
 
   &-average {
-    margin-top: 0;
-    margin-bottom: 2.6rem;
-    #fonts > .sans(2.6rem, 4rem);
-
-    small {
-      font-weight: 100;
-      color: @text-color;
-    }
+    border-right: @tutor-teacher-plan-stats-border-style;
   }
 }
 
@@ -55,7 +55,6 @@
 
   &-container {
     position: relative;
-    border: 1px solid darken(@gray-lighter, 10%);
     margin-bottom: 2rem;
   }
 
@@ -94,7 +93,7 @@
 
 .data-container {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 
   &.container {
     width: 100%;
@@ -110,17 +109,22 @@
   &-value {
     font-size: 4rem;
     font-weight: 100;
+    margin-bottom: 0.75rem;
   }
 }
 
 .text-complete {
-  color: @tutor-tertiary-light;
+  color: @tutor-info;
 }
 
 .text-in-progress {
-  color: @tutor-quaternary;
+  color: @tutor-warning;
 }
 
 .text-not-started {
   color: @tutor-neutral;
+}
+
+.text-average {
+  color: @tutor-success;
 }
