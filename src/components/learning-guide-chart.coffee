@@ -101,8 +101,8 @@ module.exports = class LearningGuideChart
       mainTitle = "Your Flight Path | #{guide.title} | All Topics | "
       backButtonText = "Back to Dashboard"
     else
-      mainTitle = "Your Flight Path | #{guide.children[0].title} | "
-      backButtonText = "Show All #{guide.title}"
+      mainTitle = "Your Flight Path | #{guide.children[chapter].title} | "
+      backButtonText = "Show All Chapters"
     wrap = container.append('g')
       .append('svg:text')
       .attr('text-anchor', 'middle')
