@@ -1,26 +1,33 @@
-@green: rgb(122, 176, 73);
-
 .panel {
+  box-shadow: none !important;
+
   > .panel-heading {
-    padding: 0 15px;
-    background-color: @green;
+    position: relative;
+    padding: 5px 15px;
+    background-color: @tutor-secondary;
     color: white;
     border-radius: 0;
+    border: 2px solid @tutor-secondary-light;
 
     span {
+      vertical-align: top;
       font-size: 2.4rem;
+      font-weight: 900;
     }
-    
-    &.dialog {
+
+    .dialog& {
       button {
+        position: absolute;
+        right: 15px;
+        top: 0;
         padding: 0;
         margin: 0;
         color: white;
-        font-size: 3rem;
-        line-height: 4.6rem;
+        font-size: 2.8rem;
 
         &:hover {
           text-decoration: none;
+          box-shadow: none !important; // override Bootstrap styling
         }
       }
     }
