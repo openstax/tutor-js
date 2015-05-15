@@ -82,7 +82,7 @@ checks =
     expect(div.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
     expect(div.querySelector('.answer-correct').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
 
-    expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html) if StepPanel.canReview(stepId)
+    expect(div.querySelector('.question-feedback').childNodes[0].innerHTML).to.equal(feedback_html) if StepPanel.canReview(stepId)
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
   _checkNotFeedback: ({div, component, stepId, taskId, state, router, history}) ->
@@ -90,7 +90,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkForFeedback: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
-    expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html)
+    expect(div.querySelector('.question-feedback').childNodes[0].innerHTML).to.equal(feedback_html)
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
   _checkRecoveryRefreshChoice: ({div, component, stepId, taskId, state, router, history}) ->
