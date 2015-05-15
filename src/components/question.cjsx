@@ -33,7 +33,10 @@ module.exports = React.createClass
     hasCorrectAnswer = !! @props.correct_answer_id
 
     if @props.feedback_html
-      feedback = <ArbitraryHtml className='question-feedback has-html' html={@props.feedback_html} />
+      feedback = <ArbitraryHtml
+        className='question-feedback has-html'
+        html={@props.feedback_html}
+        block={true}/>
 
     answers = _.map @props.model.answers, (answer, i) =>
       isChecked = answer.id in [@props.answer_id, @state.answer_id]

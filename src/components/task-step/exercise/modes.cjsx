@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 StepMixin = require '../step-mixin'
 Question = require '../../question'
+FreeResponse = require './free-response'
 ExerciseGroup = require './group'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
@@ -84,15 +85,13 @@ ExerciseMultiChoice = React.createClass
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
-    if TaskStepStore.hasFreeResponse(id)
-      FreeResponse = <div className='free-response'>{free_response}</div>
 
     <Question
       model={question}
       answer_id={answer_id}
       correct_answer_id={correct_answer_id}
       onChange={@onAnswerChanged}>
-      {FreeResponse}
+      <FreeResponse id={id} free_response={free_response}/>
       <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
     </Question>
 
@@ -141,8 +140,6 @@ ExerciseReview = React.createClass
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
-    if TaskStepStore.hasFreeResponse(id)
-      FreeResponse = <div className='free-response'>{free_response}</div>
 
     <Question
       model={question}
@@ -150,7 +147,7 @@ ExerciseReview = React.createClass
       correct_answer_id={correct_answer_id}
       feedback_html={feedback_html}
       onChangeAttempt={@onChangeAnswerAttempt}>
-      {FreeResponse}
+      <FreeResponse id={id} free_response={free_response}/>
     </Question>
 
   onChangeAnswerAttempt: (answer) ->
