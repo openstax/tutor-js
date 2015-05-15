@@ -35,7 +35,7 @@ module.exports = React.createClass
     if @props.feedback_html
       feedback = <ArbitraryHtml
         className='question-feedback has-html'
-        html={@props.feedback_html}
+        html="<div class='question-feedback-content'>#{@props.feedback_html}</div>"
         block={true}/>
 
     answers = _.map @props.model.answers, (answer, i) =>

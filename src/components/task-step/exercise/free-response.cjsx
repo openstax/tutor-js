@@ -15,7 +15,9 @@ FreeResponse = React.createClass
     FreeResponse = null
 
     if TaskStepStore.hasFreeResponse(id) and free_response.length
-      FreeResponse = <div className='free-response'><p>{free_response}</p></div>
+      FreeResponse = <div className='free-response'>
+        <div className='free-response-content'>{free_response}</div>
+        </div>
 
     FreeResponse
 
