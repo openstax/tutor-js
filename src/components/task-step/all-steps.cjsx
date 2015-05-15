@@ -92,4 +92,15 @@ Placeholder = React.createClass
         items={coreStepLabels}>it</Pluralize> before this question.</p>
     </div>
 
-module.exports = {Reading, Interactive, Video, Exercise, Placeholder}
+Spacer = React.createClass
+  mixins: [StepMixin]
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onNextStep()
+  renderBody: ->
+    <div className='-spacer-step'>
+      <h1>Concept Coach</h1>
+      <p>Reinforce what you have learned in this reading and prior readings.</p>
+    </div>
+
+module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer}

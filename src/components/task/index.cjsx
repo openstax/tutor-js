@@ -11,6 +11,7 @@ camelCase = require 'camelcase'
 CrumbMixin = require './crumb-mixin'
 
 TaskStep = require '../task-step'
+{Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
@@ -65,6 +66,9 @@ module.exports = React.createClass
     End = Ends.get(type)
 
     panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
+
+  renderSpacer: (data) ->
+    <Spacer onNextStep={@onNextStep}/>
 
   # add render methods for different panel types as needed here
 
