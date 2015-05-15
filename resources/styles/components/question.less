@@ -1,9 +1,26 @@
-@correct-answer-color: #78b042;
-@correct-answer-background: #e4f4b9;
-@wrong-answer-color: #c22032;
-@wrong-answer-background: #ffe0e0;
-@answer-hover-color: #e6f9fc;
-@answer-select-color: #def4f7; // darker than hover
+@correct-answer-color: @tutor-success;
+@correct-answer-background: lighten(@tutor-success, 40%);
+@wrong-answer-color: @tutor-danger;
+@wrong-answer-background: lighten(@tutor-danger, 55%);
+
+@answer-background: lighten(@tutor-info, 53%);
+@answer-hover-color: lighten(@tutor-info, 48%);
+@answer-select-color: lighten(@tutor-info, 45%); // darker than hover
+
+@free-response-color: @tutor-neutral-dark;
+
+@answer-label-color: @tutor-neutral-dark;
+
+@answer-height: 60px;
+
+.answer-label() {
+  display: inline-block;
+  float: left;
+  #fonts > .script();
+  color: @answer-label-color;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 .question {
   .size-exercise-card();
@@ -12,6 +29,7 @@
   counter-reset: answer 0;
   #fonts > .sans (2.1rem, 3rem);
   font-weight: 400;
+  padding-top: .5em;
 
   .free-response,
   .free-response:before,
@@ -22,7 +40,7 @@
   }
   .free-response {
     font-style: italic;
-    color: #888;
+    color: @free-response-color;
     padding: 15px 40px;
     display: block;
     width: 100%;
@@ -31,11 +49,8 @@
 
     &:before {
       content: "My Answer:";
-      display: inline-block;
-      float: left;
       margin-left: -145px;
-      #fonts > .script();
-      color: #888;
+      .answer-label();
     }
   }
   .multiple-choice-prompt {
@@ -49,10 +64,8 @@
 
     &:before {
       content: "Why?";
-      float: left;
-      margin: 3px 0 0 -56px;
-      #fonts > .script();
-      color: #888;
+      margin-left: -56px;
+      .answer-label();
     }
   }
 
@@ -100,7 +113,7 @@
       font-weight: 400;
       width: 100%;
       float: left;
-      background: #f3fcfd;
+      background: @answer-background;
       transition: background-color .1s ease-in;
       cursor: pointer;
 
@@ -118,7 +131,6 @@
 
     &:checked + label.answer-label,
     &:checked + label.answer-label:hover {
-      color: #2a2a2a;
       font-weight: 600;
       background-color: @answer-select-color; // darker than hover
     }
@@ -142,11 +154,9 @@
 
       .answer-correct:not(.answer-checked):before {
         content: "Correct Answer:";
-        display: inline-block;
-        float: left;
         margin-left: -145px;
-        #fonts > .script();
-        color: #888;
+        .answer-label();
+        line-height: @answer-height;
       }
 
       .answer-checked {
