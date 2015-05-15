@@ -26,8 +26,13 @@ Reading = React.createClass
     {content_html} = TaskStepStore.get(id)
     <ArbitraryHtmlAndMath className='reading-step' html={content_html} />
 
-  componentDidMount:  -> @insertOverlays()
-  componentDidUpdate: -> @insertOverlays()
+  componentDidMount:  ->
+    @insertOverlays()
+    @detectImgAspectRatio()
+
+  componentDidUpdate: ->
+    @insertOverlays()
+    @detectImgAspectRatio()
 
   insertOverlays: ->
     root = @getDOMNode()
@@ -42,6 +47,15 @@ Reading = React.createClass
       overlay.innerHTML = title
       img.parentElement.appendChild(overlay)
 
+  detectImgAspectRatio: ->
+    root = @getDOMNode()
+    for img in root.querySelectorAll('img')
+      # Wait until an image loads before trying to detect its dimensions
+      img.onload = ->
+        if @width > @height
+          @parentNode.classList.add('tutor-ui-horizontal-img')
+        else
+          @parentNode.classList.add('tutor-ui-vertical-img')
 
 
 Interactive = React.createClass

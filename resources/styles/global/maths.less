@@ -1,0 +1,14 @@
+// Math Rendering
+// NOTE: This happens pretty quickly so it may be unnecessary
+[data-math]:not(.loaded) {
+  background-color: #eee;
+  color: #999;
+
+  &:before { content: attr(data-math); }
+}
+
+// KaTeX 1.0.2 generates both HTML and MathML
+//
+// Hide the HTML and use MathJax for rendering
+// TODO: Decide whether to remove KaTeX (involves additional code for MathJax)
+.has-html .katex > .katex-html { display: none; }
