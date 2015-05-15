@@ -21,7 +21,7 @@
     }
 
     &:not(:last-child) {
-      border-bottom: 1px dotted @tutor-neutral-light;
+      border-bottom: @tutor-teacher-plan-stats-border-style;
     }
 
     &:last-child {
@@ -38,7 +38,7 @@
   }
 
   &-average {
-    border-right: 1px dotted @tutor-neutral-light;
+    border-right: @tutor-teacher-plan-stats-border-style;
   }
 }
 
@@ -114,11 +114,11 @@
 }
 
 .text-complete {
-  color: @tutor-tertiary-light;
+  color: @tutor-info;
 }
 
 .text-in-progress {
-  color: @tutor-quaternary;
+  color: @tutor-warning;
 }
 
 .text-not-started {
@@ -126,5 +126,5 @@
 }
 
 .text-average {
-  color: @tutor-secondary;
+  color: @tutor-success;
 }
