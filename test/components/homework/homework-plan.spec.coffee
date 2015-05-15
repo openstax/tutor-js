@@ -25,9 +25,9 @@ describe 'Homework Builder', ->
     ExerciseActions.HACK_DO_NOT_RELOAD(true)
     TocActions.HACK_DO_NOT_RELOAD(true)
 
+    TocActions.loaded(READINGS)
     TaskPlanActions.loaded(VALID_MODEL, VALID_MODEL.id)
     ExerciseActions.loaded(EXERCISES, courseId, VALID_MODEL.settings.page_ids)
-    TocActions.loaded(READINGS)
 
   afterEach ->
     routerStub.unmount()

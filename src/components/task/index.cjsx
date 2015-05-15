@@ -11,6 +11,7 @@ camelCase = require 'camelcase'
 CrumbMixin = require './crumb-mixin'
 
 TaskStep = require '../task-step'
+{Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
@@ -44,7 +45,7 @@ module.exports = React.createClass
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
-      @context.router.replaceWith('viewTask', params)
+      @context.router.replaceWith('viewTaskStep', params)
       @setState({currentStep: stepKey})
 
   goToCrumb: ->
@@ -65,6 +66,9 @@ module.exports = React.createClass
     End = Ends.get(type)
 
     panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
+
+  renderSpacer: (data) ->
+    <Spacer onNextStep={@onNextStep}/>
 
   # add render methods for different panel types as needed here
 

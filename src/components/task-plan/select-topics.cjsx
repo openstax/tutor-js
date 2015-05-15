@@ -25,7 +25,7 @@ SectionTopic = React.createClass
       <span className='section-checkbox'>
         <input type='checkbox' checked={isChecked}/>
       </span>
-      <ChapterSection section={@props.section.chapter_section}/>.
+      <ChapterSection section={@props.section.chapter_section}/>
       <span className='-section-title'> {@props.section.title}</span>
     </div>
 
@@ -76,15 +76,15 @@ ChapterAccordion = React.createClass
     activeKey = chapter.id if expandAccordion
 
     header =
-      <h2 className='-chapter-title'>
+      <h2 className='chapter-title'>
         <span className='chapter-checkbox'>
           <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
         </span>
-        <span className='-chapter-number'>
+        <span className='chapter-number'>
           Chapter <ChapterSection section={chapter.chapter_section}/> -
         </span>
-        <span className='-chapter-title'> {chapter.title}</span>
+        <span className='chapter-title'> {chapter.title}</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>
