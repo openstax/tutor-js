@@ -20,6 +20,7 @@ Reading = React.createClass
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
+
   renderBody: ->
     {id} = @props
     {content_html} = TaskStepStore.get(id)
@@ -27,10 +28,12 @@ Reading = React.createClass
 
   componentDidMount:  -> @insertOverlays()
   componentDidUpdate: -> @insertOverlays()
+
   insertOverlays: ->
     root = @getDOMNode()
     {title} = TaskStepStore.get(@props.id)
     for img in root.querySelectorAll('.splash img')
+      continue if img.parentElement.querySelector('.ui-overlay')
       overlay = document.createElement('div')
       # don't apply overlay twice or if cnx content already includes it
       continue if img.parentElement.querySelector('.tutor-ui-overlay')
@@ -39,7 +42,10 @@ Reading = React.createClass
       overlay.innerHTML = title
       img.parentElement.appendChild(overlay)
 
+
+
 Interactive = React.createClass
+  displayName: "Interactive"
   mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
@@ -51,6 +57,7 @@ Interactive = React.createClass
     <iframe src={content_url} />
 
 Video = React.createClass
+  displayName: "Video"
   mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
@@ -65,6 +72,7 @@ Video = React.createClass
     </div>
 
 Placeholder = React.createClass
+  displayName: "Placeholder"
   mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
