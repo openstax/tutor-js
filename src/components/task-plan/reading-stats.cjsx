@@ -64,38 +64,45 @@ Stats = React.createClass
       </div>
     </div>
 
+  renderCourseStat: (stat, cols = 4) ->
+    key = "reading-stats-#{stat.type}"
+    <BS.Col xs={cols} className={key} key={key}>
+      <label>{stat.label}</label>
+      <div className = "data-container-value text-#{stat.type}">
+        {stat.value}
+      </div>
+    </BS.Col>
+
   renderCourseBar: (data, type) ->
+    cols = 4
+    stats = [{
+        type: 'complete'
+        label: 'Complete'
+        value: data.complete_count
+      }, {
+        type: 'in-progress'
+        label: 'In Progress'
+        value: data.partially_complete_count
+      }, {
+        type: 'not-started'
+        label: 'Not Started'
+        value: data.total_count - (data.complete_count + data.partially_complete_count)
+    }]
+
     if type is 'homework' and data.mean_grade_percent
-      classAverage =
-        <BS.Row>
-          <BS.Col xs={12}>
-            <h3 className='reading-stats-average'>
-              <small>Average:</small> {data.mean_grade_percent}%
-            </h3>
-          </BS.Col>
-        </BS.Row>
+      stats.unshift(
+        type: 'average'
+        label: 'Average'
+        value: "#{data.mean_grade_percent}%"
+      )
+
+    cols = 12 / stats.length
+    statsColumns = _.map stats, (stat) =>
+      @renderCourseStat(stat, cols)
 
     <BS.Grid className='data-container' key='course-bar'>
-      {classAverage}
       <BS.Row>
-        <BS.Col xs={4}>
-          <label>Complete</label>
-          <div className = 'data-container-value text-complete'>
-            {data.complete_count}
-          </div>
-        </BS.Col>
-        <BS.Col xs={4}>
-          <label>In Progress</label>
-          <div className = 'data-container-value text-in-progress'>
-            {data.partially_complete_count}
-          </div>
-        </BS.Col>
-        <BS.Col xs={4}>
-          <label>Not Started</label>
-          <div className = 'data-container-value text-not-started'>
-            {data.total_count - (data.complete_count + data.partially_complete_count)}
-          </div>
-        </BS.Col>
+        {statsColumns}
       </BS.Row>
     </BS.Grid>
 
