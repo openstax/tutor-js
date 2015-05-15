@@ -51,6 +51,14 @@ TaskStepConfig =
           isAnswered = false
       isAnswered
 
+    isCore: (id) ->
+      step = @_get(id)
+      coreGroups = [
+        'core'
+        'default'
+      ]
+      coreGroups.indexOf(step.group) > -1
+
     getTaskId: (id) ->
       step = @_get(id)
       step.task_id

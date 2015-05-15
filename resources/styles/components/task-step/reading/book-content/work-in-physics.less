@@ -2,30 +2,22 @@
   margin-top: 20px;
   padding: 0 140px;
 
-  &:before {
-    content: "Work in Physics";
-    #fonts > .sans(3.2rem, 3.2rem);
-    font-weight: 900;
-    color: @physics-color-primary;
-    background: #232e66;
-    padding: 10px 20px;
+  // match the specificity of the rule so we can add our icon
+  &.ost-assessed-feature.note[data-label] {
+    &:before {
+      .tutor-reading-step-banner-icon("icon-laptop.svg");
+    }
   }
 
-  div[data-type="title"] {
-    margin: 10px 0 20px 0;
-    padding: 10px 20px;
-    #fonts > .sans(2rem, 2.4rem);
-    color: white;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center;
-    background: @physics-background-secondary;
-
-    &:before {content: "\2014  ";} //em dash space
-
-    &:after {content: "  \2014";} // space em dash
-
+  figure {
+    width: 100%;
+    margin: 0;
+    img {
+      width: 100%;
+    }
   }
-
+  > p:first-of-type {
+    .tutor-reading-first-letter();
+  }
+  
 }

@@ -11,10 +11,53 @@
 // @grasp-check-color:#39b531;
 // @grasp-check-color-background:#fff;
 
-@import './links-to-physics';
-@import './work-in-physics';
-@import './tips-for-success';
+@reading-ui-banner-height: 40px;
 
+.tutor-reading-step-banner-icon(@img){
+  background: @tutor-secondary url(@img);
+  background-repeat: no-repeat;
+  text-indent: @reading-ui-banner-height - 10px;
+  background-position: 5px;
+  background-size: @reading-ui-banner-height - 10px @reading-ui-banner-height - 10px;
+}
+
+// If the first child element is a .note[data-has-label], that should be used as title
+.tutor-reading-ui-banner {
+  > .note:first-child[data-has-label=true] {
+    // create a :before element and pop it up on the top of the card
+    &:before {
+      content: attr(data-label);
+      #fonts > .sans(@reading-ui-banner-height - 10px, @reading-ui-banner-height);
+      font-weight: 900;
+      color: @tutor-tertiary;
+      background: @tutor-secondary;
+      padding: 0 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: @reading-ui-banner-height;
+    }
+    .title {
+      margin: @reading-ui-banner-height 20px 5px 20px;
+      #fonts > .sans(3rem, 3rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+  }
+}
+
+
+
+
+.tutor-reading-first-letter {
+  &::first-letter{
+    float: left;
+    #fonts > .sans(11rem, 9rem);
+    font-weight: 600;
+    color: @physics-color-primary;
+    margin: 0 4px 0 -6px;
+  }
+}
 
 // Hide CNX Processing instructions
 cnx-pi { display: none; }
@@ -46,10 +89,8 @@ cnx-pi { display: none; }
     margin: 0 0;
     padding: 0 15px 0 30px;
     border-left: 1px solid rgba(255,255,255,.4);
-    ul {
-      display: flex;
-      flex-direction: column;
-    }
+    display: flex;
+    flex-direction: column;
     .ost-learning-objective-def {
       font-weight: 300;
       font-size: 1.5rem;
@@ -59,19 +100,18 @@ cnx-pi { display: none; }
       display: flex;
       justify-content: center;
       flex-direction: column;
+      .MathJax {
+        margin-left: 2rem;
+      }
     }
   }
 
 }
 
 
-.section-opener ~ section h1 + p::first-letter,
-div[data-type="document-title"] ~ p::first-letter {
-  float: left;
-  #fonts > .sans(11rem, 9rem);
-  font-weight: 600;
-  color: @physics-color-primary;
-  margin: 0 4px 0 -6px;
+.section-opener ~ section h1 + p,
+div[data-type="document-title"] ~ p {
+  .tutor-reading-first-letter();
 }
 
 div[data-type="document-title"] { display: none; }
@@ -100,11 +140,11 @@ div[data-type="document-title"] ~ p {padding: 0 140px;}
     clear: both;
     padding-top: 40px;
   }
-  .ui-overlay {
+  .tutor-ui-overlay {
     position: relative;
     background-color: rgba(0, 0, 0, 0.6);
     color: @tutor-white;
-    top: -100px;
+    margin-top: -100px;
     font-size: 3rem;
     line-height: 100px;
     height: 100px;
@@ -146,3 +186,8 @@ figure {
   }
 
 }
+
+// task specific styling comes last so it can override the above styles
+@import './links-to-physics';
+@import './work-in-physics';
+@import './tips-for-success';
