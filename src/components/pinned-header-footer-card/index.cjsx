@@ -14,7 +14,7 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     buffer: 60
-    scrollSpeedBuffer: 10
+    scrollSpeedBuffer: 20
 
   getInitialState: ->
     pinned: false
@@ -40,17 +40,30 @@ module.exports = React.createClass
   isScrollingDown: (prevScrollTop, currentScrollTop) ->
     currentScrollTop > prevScrollTop
 
+  isScrollPassBuffer: (prevScrollTop, currentScrollTop) ->
+    currentScrollTop > @props.buffer
+
   shouldPinHeader: (prevScrollTop, currentScrollTop) ->
-    if @isScrollingDown(prevScrollTop, currentScrollTop)
-      # on down scroll, check if the scroll position is past buffer
-      shouldPinHeader = (currentScrollTop > @props.buffer)
-    # if upscrolling is slow
-    else if @isScrollingSlowed(prevScrollTop, currentScrollTop)
-      # keep as current pinned state
-      shouldPinHeader = @state.pinned
-    else if @isScrollingUp(prevScrollTop, currentScrollTop)
-      # unpinned on upscroll
+    # should not pin regardless of scroll direction if the scroll top is above buffer
+    unless @isScrollPassBuffer(prevScrollTop, currentScrollTop)
       shouldPinHeader = false
+
+    # otherwise, when scroll top is below buffer
+    # and on down scroll
+    else if @isScrollingDown(prevScrollTop, currentScrollTop)
+      # header should pin
+      shouldPinHeader = true
+
+    # or when up scrolling is slow
+    else if @isScrollingSlowed(prevScrollTop, currentScrollTop)
+      # leave the pinning as is
+      shouldPinHeader = @state.pinned
+
+    # else, the only case left is if up scrolling is fast
+    else
+      # unpin on fast up scroll
+      shouldPinHeader = false
+
 
     shouldPinHeader
 
