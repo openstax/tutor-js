@@ -49,6 +49,16 @@
 
 
 
+.tutor-reading-first-letter {
+  &::first-letter{
+    float: left;
+    #fonts > .sans(11rem, 9rem);
+    font-weight: 600;
+    color: @physics-color-primary;
+    margin: 0 4px 0 -6px;
+  }
+}
+
 // Hide CNX Processing instructions
 cnx-pi { display: none; }
 
@@ -99,13 +109,9 @@ cnx-pi { display: none; }
 }
 
 
-.section-opener ~ section h1 + p::first-letter,
-div[data-type="document-title"] ~ p::first-letter {
-  float: left;
-  #fonts > .sans(11rem, 9rem);
-  font-weight: 600;
-  color: @physics-color-primary;
-  margin: 0 4px 0 -6px;
+.section-opener ~ section h1 + p,
+div[data-type="document-title"] ~ p {
+  .tutor-reading-first-letter();
 }
 
 div[data-type="document-title"] { display: none; }
