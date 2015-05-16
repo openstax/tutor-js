@@ -22,7 +22,7 @@ actions =
     {component} = args[0]
     addButton = React.findDOMNode(component.refs.calendarHandler.refs.addButtonGroup.refs.dropdownButton)
     commonActions.clickDOMNode(addButton)(args[0])
-  clickTomorrow: (args...) ->
+  clickToday: (args...) ->
     {component} = args[0]
     upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     commonActions.clickComponent(upcomings[0])(args[0])

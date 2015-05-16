@@ -14,6 +14,10 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     buffer: 60
+    scrollSpeedBuffer: 20
+
+  getInitialState: ->
+    pinned: false
 
   mixins: [ScrollListenerMixin]
 
@@ -27,20 +31,55 @@ module.exports = React.createClass
   componentWillUnmount: ->
     document.body.classList.remove(@documentBodyClass)
 
-  shouldPinHeader: (scrollTop) ->
-    scrollTop > @props.buffer
+  isScrollingSlowed: (prevScrollTop, currentScrollTop) ->
+    Math.abs(prevScrollTop - currentScrollTop) <= @props.scrollSpeedBuffer
+
+  isScrollingUp: (prevScrollTop, currentScrollTop) ->
+    currentScrollTop < prevScrollTop
+
+  isScrollingDown: (prevScrollTop, currentScrollTop) ->
+    currentScrollTop > prevScrollTop
+
+  isScrollPassBuffer: (prevScrollTop, currentScrollTop) ->
+    currentScrollTop > @props.buffer
+
+  shouldPinHeader: (prevScrollTop, currentScrollTop) ->
+    # should not pin regardless of scroll direction if the scroll top is above buffer
+    unless @isScrollPassBuffer(prevScrollTop, currentScrollTop)
+      shouldPinHeader = false
+
+    # otherwise, when scroll top is below buffer
+    # and on down scroll
+    else if @isScrollingDown(prevScrollTop, currentScrollTop)
+      # header should pin
+      shouldPinHeader = true
+
+    # or when up scrolling is slow
+    else if @isScrollingSlowed(prevScrollTop, currentScrollTop)
+      # leave the pinning as is
+      shouldPinHeader = @state.pinned
+
+    # else, the only case left is if up scrolling is fast
+    else
+      # unpin on fast up scroll
+      shouldPinHeader = false
+
+
+    shouldPinHeader
 
   shouldComponentUpdate: (nextProps, nextState) ->
     # ignore scrolling state changes when checking should component update
     stateNoScroll = _.omit(@state, 'isScrolling', 'scrollTop')
     nextStateNoScroll = _.omit(nextState, 'isScrolling', 'scrollTop')
 
-    # manually check if should pin has changed
-    didShouldPinChange = not @shouldPinHeader(@state.scrollTop) is @shouldPinHeader(nextState.scrollTop)
+    # manually check if pinned will change
+    didShouldPinChange = not @state.pinned is @shouldPinHeader(@state.scrollTop, nextState.scrollTop)
     # check props and non-scroll states
     didPropsUpdate = not _.isEqual(@props, nextProps)
     didStateUpdate = not _.isEqual(stateNoScroll, nextStateNoScroll)
 
+    # component should only update if pin state will change and non-scroll props or state will change
+    # this is to bypass the component trying to update at every frame the user is scrolling
     didShouldPinChange or didPropsUpdate or didStateUpdate
 
   componentDidUpdate: (prevProps, prevState) ->
@@ -48,8 +87,9 @@ module.exports = React.createClass
       'remove' # remove class if shouldPinHeader is false
       'add' # add class if shouldPinHeader is true
     ]
-
-    shouldPinHeader = @shouldPinHeader(@state.scrollTop) * 1
+    # set the pinned state
+    @setState(pinned : @shouldPinHeader(prevState.scrollTop, @state.scrollTop))
+    shouldPinHeader = @state.pinned * 1
     classAction = addOrRemove[shouldPinHeader]
     document.body.classList[classAction]('pinned-on')
 

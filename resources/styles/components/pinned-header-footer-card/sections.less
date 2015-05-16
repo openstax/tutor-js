@@ -3,6 +3,11 @@
   .fixed-bar(fadeout(@tutor-white, 20%));
   padding: 10px @tutor-navbar-padding-horizontal;
   bottom: 0;
+
+  .btn {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .card-footer {
@@ -13,6 +18,7 @@
   background: @tutor-white;
   padding: @tutor-card-body-padding-vertical 0;
   margin-bottom: 4rem;
+  position: relative; // needed so components inside can position themselves using absolute
   .clearfix();
 }
 
@@ -20,7 +26,7 @@
   .tutor-shadow(1);
   .transition(transform 0.2s ease-out);
 
-  top: @tutor-navbar-height;
+  top: @pinned-top-heading-buffer;
   .fixed-bar(fadeout(@tutor-white, 20%));
   padding: 10px @tutor-navbar-padding-horizontal;
   margin: 0;

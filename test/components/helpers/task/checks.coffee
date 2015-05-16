@@ -179,8 +179,16 @@ checks =
   _checkHasReviewableBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
     breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
     completedSteps = TaskStore.getCompletedSteps(taskId)
+    {type} = TaskStore.get(taskId)
 
-    expect(breadcrumbs.length).to.equal(completedSteps.length + 1)
+    expectedCrumbs = completedSteps.length + 1
+
+    if type is 'reading'
+      nonCoreIndex = TaskStore.getFirstNonCoreIndex(taskId)
+      if nonCoreIndex > -1 and completedSteps.length >= nonCoreIndex
+        expectedCrumbs = expectedCrumbs + 1
+
+    expect(breadcrumbs.length).to.equal(expectedCrumbs)
 
     {div, component, stepId, taskId, state, router, history}
 
@@ -190,11 +198,16 @@ checks =
 
     if step.group is 'personalized'
       expect(group.getDOMNode().innerText).to.contain('Personalized')
-    else if step.group is 'spaced practice'
+    # TODO deprecate spaced practice when BE is updated
+    else if step.group is 'spaced_practice' or step.group is 'spaced practice'
       expect(group.getDOMNode().innerText).to.contain('Review')
 
     {div, component, stepId, taskId, state, router, history}
 
+  _checkIsSpacerPanel: ({div, component, stepId, taskId, state, router, history}) ->
+    expect(div.querySelector('.-spacer-step')).to.not.be.null
+
+    {div, component, stepId, taskId, state, router, history}
 
 # promisify for chainability in specs
 _.each(checks, (check, checkName) ->

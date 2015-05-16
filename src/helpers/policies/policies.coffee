@@ -66,6 +66,9 @@ defaultPolicies =
   interactive:
     panels:
       default: stepViewOnly
+  placeholder:
+    panels:
+      default: stepViewOnly
 
 policies =
 

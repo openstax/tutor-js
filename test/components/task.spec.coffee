@@ -112,11 +112,21 @@ describe 'Task Widget, through routes', ->
     TaskActions.HACK_DO_NOT_RELOAD(false)
     TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
+  it 'should be render a spacer panel for the non-core step', (done) ->
+    # run a full step through and check each step
+
+    taskChecks
+      .checkIsSpacerPanel(@result)
+      .then( ->
+        done()
+      , done)
+
   it 'should be able to work through a task and load next step from a route', (done) ->
     # run a full step through and check each step
 
-    taskTests
-      .workExerciseAndCheck(@result)
+    taskActions
+      .clickContinue(@result)
+      .then(taskTests.workExerciseAndCheck)
       .then(taskActions.clickContinue)
       .then(taskChecks.checkIsNextStep)
       .then(taskActions.advanceStep)
@@ -128,7 +138,8 @@ describe 'Task Widget, through routes', ->
     # run a full step through and check each step
 
     taskActions
-      .completeThisStep(@result)
+      .clickContinue(@result)
+      .then(taskActions.completeThisStep)
       .then(taskActions.advanceStep)
       .then(taskChecks.checkHasReviewableBreadcrumbs)
       .then(taskActions.completeThisStep)
@@ -141,8 +152,9 @@ describe 'Task Widget, through routes', ->
   it 'should show spaced practice label for a spaced practice group step', (done) ->
     # run a full step through and check each step
 
-    taskChecks
-      .checkHasExpectedGroupLabel(@result)
+    taskActions
+      .clickContinue(@result)
+      .then(taskChecks.checkHasExpectedGroupLabel)
       .then(taskActions.completeThisStep)
       .then(taskActions.advanceStep)
       .then(taskActions.completeThisStep)
@@ -156,8 +168,10 @@ describe 'Task Widget, through routes', ->
 
 
   it 'should show recovery step when try another is clicked', (done) ->
-    taskTests
-      .submitMultipleChoice(@result)
+
+    taskActions
+      .clickContinue(@result)
+      .then(taskTests.submitMultipleChoice)
       .then(taskChecks.checkRecoveryRefreshChoice)
       .then(taskActions.clickTryAnother)
       .then(taskActions.loadRecovery('step-id-4-2-recovery', VALID_RECOVERY_STEP))
@@ -168,9 +182,9 @@ describe 'Task Widget, through routes', ->
 
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
-
     taskActions
-      .completeSteps(@result)
+      .clickContinue(@result)
+      .then(taskActions.completeSteps)
       .then(taskChecks.checkIsCompletePage)
       .then( ->
         done()

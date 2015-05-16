@@ -1,11 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{TaskActions} = require '../../flux/task'
-{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-LoadableItem = require '../loadable-item'
 {CardBody} = require '../pinned-header-footer-card/sections'
-
 
 module.exports =
 
@@ -16,14 +12,12 @@ module.exports =
       bsStyle='primary'
       className={buttonClasses}
       onClick={@onContinue}>Continue</BS.Button>
-    <span>
-      {continueButton}
-    </span>
+
+    {continueButton}
 
   render: ->
     footer = @renderFooterButtons?() or @renderGenericFooter()
     {pinned} = @props
-
     <CardBody className='task-step' footer={footer} pinned={pinned}>
       {@renderBody()}
       {@renderGroup?()}
