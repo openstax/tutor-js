@@ -1,5 +1,5 @@
 @progress-bar-width: 100%;
-
+@modal-padding: 20px;
 
 .x-plan-modal(@plan-color) {
   .modal-content {
@@ -47,6 +47,8 @@ body.modal-open {
       }
     }
     .modal-body {
+      padding: @modal-padding;
+
       > :first-child { margin-top: 0; }
 
       .reading-stats {
@@ -59,9 +61,13 @@ body.modal-open {
     }
 
     .modal-footer {
-      border-top: 1px solid @tutor-neutral-light;
+      padding: 0 @modal-padding @modal-padding @modal-padding;
       text-align: left;
-      padding-top: 24px;
+    }
+
+    .modal-footer-menu {
+      border-top: @tutor-teacher-plan-stats-border-style;  
+      padding-top: @modal-padding;    
     }
 
     .btn:not(.btn-link):not(.btn-flat) {
@@ -76,15 +82,4 @@ body.modal-open {
 
     .panel-body { padding: 0; }
   }
-
-  // TODO Remove after Bootstrap loading refactor
-  .progress {
-    .progress-bar-success {
-      background-color: @tutor-secondary;
-    }
-    .progress-bar-danger {
-      background-color: @tutor-danger;
-    }
-  }
-
 }

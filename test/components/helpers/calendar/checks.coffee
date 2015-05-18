@@ -95,47 +95,47 @@ checks =
 
     {div, component, state, router, history, courseId}
 
-  _checkIsTodayPast: ({div, component, state, router, history, courseId}) ->
+  _checkIsYesterdayPast: ({div, component, state, router, history, courseId}) ->
     past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
-    shouldBeToday = _.last(past)
+    shouldBeYesterday = _.last(past)
+
+    isYesterday = shouldBeYesterday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day')
+    expect(isYesterday).to.be.true
+    {div, component, state, router, history, courseId}
+
+  _checkIsTodayUpcoming: ({div, component, state, router, history, courseId}) ->
+    upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
+    shouldBeToday = _.first(upcomings)
 
     isToday = shouldBeToday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()), 'day')
     expect(isToday).to.be.true
     {div, component, state, router, history, courseId}
 
-  _checkIsTomorrowUpcoming: ({div, component, state, router, history, courseId}) ->
-    upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
-    shouldBeTomorrow = _.first(upcomings)
-
-    isTomorrow = shouldBeTomorrow._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day')
-    expect(isTomorrow).to.be.true
-    {div, component, state, router, history, courseId}
-
-  _checkIsTodayNotClickable: ({div, component, state, router, history, courseId}) ->
+  _checkIsYesterdayNotClickable: ({div, component, state, router, history, courseId}) ->
     past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
-    shouldBeToday = _.last(past)
-    expect(shouldBeToday.props.onClick).to.be.an('undefined')
+    shouldBeYesterday = _.last(past)
+    expect(shouldBeYesterday.props.onClick).to.be.an('undefined')
 
     {div, component, state, router, history, courseId}
 
-  _checkIsTomorrowClickable: ({div, component, state, router, history, courseId}) ->
+  _checkIsTodayClickable: ({div, component, state, router, history, courseId}) ->
     upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
-    shouldBeTomorrow = _.first(upcomings)
-    expect(shouldBeTomorrow.props.onClick).to.be.a('function')
+    shouldBeToday = _.first(upcomings)
+    expect(shouldBeToday.props.onClick).to.be.a('function')
 
     {div, component, state, router, history, courseId}
 
-  _checkTomorrowAddPlansDropDown: ({div, component, state, router, history, courseId}) ->
+  _checkTodayAddPlansDropDown: ({div, component, state, router, history, courseId}) ->
     upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
-    shouldBeTomorrow = _.first(upcomings)
-    expect(shouldBeTomorrow.getDOMNode().classList.contains('active')).to.be.true
+    shouldBeToday = _.first(upcomings)
+    expect(shouldBeToday.getDOMNode().classList.contains('active')).to.be.true
 
     addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
 
-    isTomorrow = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day')
-    # add date for drop down should be tomorrow
-    expect(isTomorrow).to.be.true
+    isToday = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()), 'day')
+    # add date for drop down should be Today
+    expect(isToday).to.be.true
 
     routeQuery = {date: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
     targetReadingLink = router.makeHref('createReading', {courseId}, routeQuery)

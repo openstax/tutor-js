@@ -8,12 +8,17 @@ React = require 'react'
 
 TEST_TOC = [
   {
-    id: '2'
-    title: 'Chapter title'
-    type: 'part'
-    children: [
-      {id: '1', type: 'page', title: 'Introduction'}
-    ]
+    "id":"1",
+    "title":"Updated Tutor HS Physics Content - legacy",
+    "type":"part",
+    children: [{
+      id: '2'
+      title: 'Chapter title'
+      type: 'part'
+      children: [
+        {id: '1', type: 'page', title: 'Introduction'}
+      ]
+    }]
   }
 ]
 

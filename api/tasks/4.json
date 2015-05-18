@@ -26,7 +26,8 @@
             ]
           }
         ]
-      }
+      },
+      "group": "core"
     },
     { "id": "step-id-4-2",
       "type": "exercise",

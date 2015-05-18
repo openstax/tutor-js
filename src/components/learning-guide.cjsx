@@ -21,7 +21,7 @@ LearningGuide = React.createClass
   getInitialState: ->
     showAll: true
     footerOffset: 0
-    chapter: 1
+    chapter: 0
 
   navigateToPractice: (unit) ->
     {page_ids} = unit
@@ -61,7 +61,6 @@ LearningGuide = React.createClass
 
   render: ->
     {unit} = @state
-
     if unit
       chapter = <div className='chapter'>
         <ChapterSection section={unit.chapter_section}/>

@@ -57,7 +57,39 @@ module.exports =
   _generateCrumbs: (id) ->
     task = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
-    @_generateCrumbsFromSteps(task, steps)
+    crumbs = @_generateCrumbsFromSteps(task, steps)
+    @modifyCrumbs(task, crumbs)
+    crumbs
+
+
+  # can possibly abstract this more and pull this out somewhere else if needed in the future
+  modifyCrumbs: (task, crumbs) ->
+    {currentStep} = @props
+
+    # insert spacer panel/crumb for reading task that have spaced practices or personalized problems
+    if task.type is 'reading'
+      notCore = _.find crumbs, (crumb) ->
+        (crumb.type is 'step') and not TaskStepStore.isCore(crumb.data.id)
+
+      if notCore?
+        spacerCrumb =
+          data:
+            task_id: task.id
+            # TODO switch with official icon.  using test as stand-in
+            type: 'test'
+          crumb: @shouldStepCrumb(notCore.key)
+          type: 'spacer'
+
+        crumbs.splice(notCore.key, 0, spacerCrumb)
+
+        # # Comment in to hide next breadcrumb if needed.
+        # shouldCrumbnotCore = @shouldStepCrumb(notCore.key + 1) or (notCore.key + 1) is currentStep
+        # crumbs[notCore.key + 1].crumb = shouldCrumbnotCore
+
+        # re-key crumbs
+        _.each crumbs, (crumb, index) ->
+          crumb.key = index
+
 
   generateCrumbs: ->
     {id} = @props
