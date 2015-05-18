@@ -7,7 +7,9 @@ module.exports = React.createClass
   propTypes:
     className: React.PropTypes.string
     html: React.PropTypes.string
-    block: React.PropTypes.bool
+    block: React.PropTypes.bool.isRequired
+  getDefaultProps: ->
+    block: false
 
   mixins: [KatexMixin]
   render: ->
