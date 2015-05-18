@@ -41,14 +41,6 @@ describe 'Task Widget, homework specific things, due in the future', ->
     TaskActions.HACK_DO_NOT_RELOAD(false)
     TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
-  it 'should render next screen when Continue is clicked', (done) ->
-    # Using homework because this one has no completed steps
-    # and therefore actually has an intro screen
-    taskChecks.checkIsDefaultStep(@result)
-      .then( ->
-        done()
-      , done)
-
   it 'should be able to work through a step in homework', (done) ->
     # run a full step through and check each step
     taskTests
@@ -71,11 +63,8 @@ describe 'Task Widget, homework specific things, due in the future', ->
       , done)
 
   it 'should be able to work through a true-false question', (done) ->
-    taskTests
-      .workExercise(@result)
-      .then(taskActions.clickContinue)
-      .then(taskTests.workExercise)
-      .then(taskActions.clickContinue)
+    taskActions
+      .clickBreadcrumb(2)(@result)
       .then(taskChecks.workTrueFalseAndCheck)
       .then( ->
         done()

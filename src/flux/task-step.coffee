@@ -9,6 +9,7 @@ TaskStepConfig =
   _loaded: (obj, id) ->
     if not obj.task_id
       obj.task_id = @_local[id]?.task_id
+    @emit("step.loaded", id)
     obj
 
   _saved: (obj, id) ->
@@ -58,6 +59,10 @@ TaskStepConfig =
         'default'
       ]
       coreGroups.indexOf(step.group) > -1
+
+    isPlaceholder: (id) ->
+      step = @_get(id)
+      step.type is 'placeholder'
 
     getTaskId: (id) ->
       step = @_get(id)

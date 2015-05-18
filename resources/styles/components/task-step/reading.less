@@ -4,6 +4,8 @@
     // pull in common stylings for book contents
     @import './reading/book-content/index';
     .tutor-reading-ui-banner();
+    // should the watch-physics step be part of book content?
+    @import './reading/watch-physics';
   }
 
   p {
@@ -11,4 +13,8 @@
     margin: 0 0 2.4rem 0;
   }
 
+}
+
+.task-reading {
+  @import './reading/completed';
 }

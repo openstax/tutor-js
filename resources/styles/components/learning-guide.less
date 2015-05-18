@@ -1,5 +1,7 @@
-@guide-width: 1270px;
-@guide-height: 390px;
+@guide-width: 100%;
+@guide-height: 100%;
+@guide-min-width: 1000px;
+@guide-max-width: 1600px;
 // colors
 @guide-green: rgb(121, 177, 66);
 @guide-xaxis-circle-fill-green: rgb(132, 195, 74);
@@ -23,11 +25,15 @@
   .learning-guide-chart {
     width: @guide-width;
     height: @guide-height;
+    min-width: @guide-min-width;
+    max-width: @guide-max-width;
     margin: 0 auto;
 
     svg {
       width: @guide-width;
       height: @guide-height;
+      min-width: @guide-min-width;
+      max-width: @guide-max-width;
 
       .main-title {
         font-size: .2rem;
