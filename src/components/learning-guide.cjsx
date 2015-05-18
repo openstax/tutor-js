@@ -43,17 +43,17 @@ LearningGuide = React.createClass
 
 
   loadChart: ->
-    @refs.chart = new LearningGuideChart(@refs.svg.getDOMNode()
+    @chart = new LearningGuideChart(@refs.svg.getDOMNode()
       LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter
       {@navigateToPractice, @displayUnit, @displayTopic}
     )
 
   componentDidMount: ->
     @loadChart()
-    window.addEventListener("resize", @refs.chart.panelOnResize, false)
+    window.addEventListener("resize", @chart.panelOnResize, false)
 
   componentWillUnmount: ->
-    window.removeEventListener("resize", @refs.chart.panelOnResize, false)
+    window.removeEventListener("resize", @chart.panelOnResize, false)
     console.log('unmount')
 
 
