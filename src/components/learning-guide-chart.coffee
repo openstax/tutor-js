@@ -198,12 +198,7 @@ module.exports = class LearningGuideChart
 
     panelOffset = (svgClientWidth - detailPane.clientWidth) / viewboxWidth
 
-
-
-    detailPane.style.marginLeft = (caretOffset * panelOffset) + 'px'
-
-    #detailPane.style.marginLeft = (caretOffset * panelOffset) / 10 + '%'
-
+    @callbacks.setFooterOffset(caretOffset * panelOffset)
 
 
 
