@@ -1,13 +1,17 @@
 .links-to-physics {
-  margin-top: 20px;
+
   padding: 0 60px;
 
   // match the specificity of the rule so we can add our icon
   &.ost-assessed-feature.note[data-label] {
     &:before {
       .tutor-reading-step-banner-icon("icon-laptop.svg");
+      
       padding-left: 40px;
     }
+  }
+  & > .title:first-child {
+    .tutor-reading-ui-banner-title-with-top-line();
   }
 
 }

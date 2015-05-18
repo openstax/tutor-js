@@ -6,7 +6,6 @@
   &.ost-assessed-feature.note[data-label] {
     &:before {
       .tutor-reading-step-banner-icon("icon-laptop.svg");
-      padding-left: 40px;
     }
   }
 
@@ -19,6 +18,10 @@
   }
   > p:first-of-type {
     .tutor-reading-first-letter();
+  }
+  
+  & > .title:first-child {
+    .tutor-reading-ui-banner-title-with-top-line();
   }
   
 }

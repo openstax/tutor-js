@@ -7,11 +7,20 @@
 
 @reading-ui-banner-height: 40px;
 .tutor-reading-step-banner-icon(@img){
-  background: @tutor-secondary url(@img);
+  background: @tutor-tertiary url(@img);
   background-repeat: no-repeat;
-  text-indent: @reading-ui-banner-height - 10px;
+  text-indent: @reading-ui-banner-height - 5px;
   background-position: 5px;
   background-size: @reading-ui-banner-height - 10px @reading-ui-banner-height - 10px;
+}
+
+.tutor-reading-ui-banner-title-with-top-line {
+  margin-top: 0;
+  border-top: 1px solid @tutor-neutral-light;
+  color: @tutor-black;
+  font-weight: 900;
+  font-size: 3rem;
+  padding-top: 1.5rem;
 }
 
 // If the first child element is a .note[data-has-label], that should be used as title
@@ -19,37 +28,29 @@
   
   > .note:first-child {
 
-    margin-top: -@tutor-card-body-padding - 2px;
-    
     &:before {
       content: attr(data-label);
-      #fonts > .sans(@reading-ui-banner-height - 10px, @reading-ui-banner-height);
-      font-weight: 900;
-      color: @tutor-tertiary;
-      background: @tutor-secondary;
+      #fonts > .sans(@reading-ui-banner-height - 18px, @reading-ui-banner-height);
+      font-weight: 400;
+      color: @tutor-secondary;
+      background: @tutor-tertiary;
       padding: 0 10px;
       height: @reading-ui-banner-height;
-
+      display: inline-block;
     }
 
     > [data-type=exercise] {
-
-      content: "";
-      display: block;
       margin: 0;
-      width: 100%;
       margin-top: -3px;
       border-top: 1px solid @tutor-neutral-light;
-
       > [data-type=title]:first-child {
-        
         margin: @tutor-card-body-padding/2 @tutor-card-body-padding;
         #fonts > .sans(3rem, 3rem);
         font-weight: 900;
         letter-spacing: 2px;
       }
-      
     }
+    
     .problem, .solution, .commentary {
       margin-left: @tutor-card-body-padding;
       margin-right: @tutor-card-body-padding
@@ -136,7 +137,6 @@ div[data-type="document-title"] ~ p {padding: 0 140px;}
 .worked-example,
 .virtual-physics { padding: 0 140px; }
 
-> section { padding: 0; }
 
 .splash {
   width: 100%;
