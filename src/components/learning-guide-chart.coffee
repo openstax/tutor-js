@@ -46,7 +46,7 @@ module.exports = class LearningGuideChart
     if showAll
       fields = guide.children
     else
-      fields = guide.children[chapter - 1].children
+      fields = guide.children[chapter].children
 
 
     leftMargin = 25
@@ -101,8 +101,8 @@ module.exports = class LearningGuideChart
       mainTitle = "Your Flight Path | #{guide.title} | All Topics | "
       backButtonText = "Back to Dashboard"
     else
-      mainTitle = "Your Flight Path | #{guide.children[chapter - 1].title} | "
-      backButtonText = "Show All #{guide.title}"
+      mainTitle = "Your Flight Path | #{guide.children[chapter].title} | "
+      backButtonText = "Show All Chapters"
     wrap = container.append('g')
       .append('svg:text')
       .attr('text-anchor', 'middle')
@@ -146,7 +146,14 @@ module.exports = class LearningGuideChart
       )
       .on('click', (field) ->
         me.showPanel(this, @parentElement.children)
-        me.displayUnit(field, parseInt(field.chapter_section[0]))
+        if field.chapter_section instanceof Array
+          thisChap = field.chapter_section[0]
+          chapterIndex = _.map(fields, (f) -> f.chapter_section[0])
+        else
+          thisChap = field.chapter_section
+          chapterIndex = _.map(fields, (f) -> f.chapter_section)
+        thisIndex = chapterIndex.indexOf(field.chapter_section[0])
+        me.displayUnit(field, thisIndex)
       )
     label.append('circle')
       .attr('r', 3.7)
@@ -174,7 +181,7 @@ module.exports = class LearningGuideChart
   showDefaultPanel: (fields) ->
     field = fields[0]
     @showPanel(@svgNode.querySelector('.x-axis .point:first-child'), @svgNode.querySelector('.x-axis .point'))
-    @displayUnit(field, parseInt(field.chapter_section[0]))
+    @displayUnit(field, 0)
 
   showPanel: (target, children) ->
     # remove 'active' class from all groups
