@@ -89,8 +89,6 @@ module.exports = class LearningGuideChart
    
     @showDefaultPanel(fields)
 
-    window.addEventListener("resize", @panelOnResize)
-    # this calls but cannot clear it on CDU here (?)
     
 
   destroyChart: (container) ->
@@ -174,14 +172,17 @@ module.exports = class LearningGuideChart
 
 
   panelOnResize: =>
-    ref = @showPanel(@svgNode.querySelector('.x-axis .point.active'), @svgNode.querySelector('.x-axis .point'))
-    _.throttle(ref, 1000)
+    @showPanel(@svgNode.querySelector('.x-axis .point.active'), @svgNode.querySelector('.x-axis .point'))
     console.log('resize')
+
 
   showDefaultPanel: (fields) ->
     field = fields[0]
     @showPanel(@svgNode.querySelector('.x-axis .point:first-child'), @svgNode.querySelector('.x-axis .point'))
     @displayUnit(field, parseInt(field.chapter_section[0]))
+
+  percent: (num, total) ->
+    Math.round((num / total) * 100)
 
   showPanel: (target, children) ->
     # remove 'active' class from all groups
@@ -190,6 +191,7 @@ module.exports = class LearningGuideChart
     d3.select(target).classed('active', true)
 
     caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
+
     viewboxWidth = this.svgNode.attributes.viewBox.value.split(' ')[2]
     svgClientWidth = this.svgNode.clientWidth
 
@@ -198,7 +200,14 @@ module.exports = class LearningGuideChart
 
     panelOffset = (svgClientWidth - detailPane.clientWidth) / viewboxWidth
 
+
+
     detailPane.style.marginLeft = (caretOffset * panelOffset) + 'px'
+
+    #detailPane.style.marginLeft = (caretOffset * panelOffset) / 10 + '%'
+
+
+
 
   drawYDesc: (container, ypos, text) ->
     wrap = container.append('g')

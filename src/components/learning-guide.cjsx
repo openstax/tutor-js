@@ -43,20 +43,18 @@ LearningGuide = React.createClass
    
 
   loadChart: ->
-    chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
-    chart.drawChart(LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter)
+    @refs.chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
+    @refs.chart.drawChart(LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter)
 
 
   componentDidMount: ->
     @loadChart()
-    #window.addEventListener("resize", LearningGuideChart.prototype.panelOnResize)
-
-    # In order to remove the resize listener I need to store the same reference to child component
-    # function but also call it from componentDidUnmount which is in parent
-    # also I need the scope of this/svgNode in LearningGuideChart, haven't found a solution yet.
+    window.addEventListener("resize", @refs.chart.panelOnResize, false)
 
   componentWillUnmount: ->
-    window.removeEventListener("resize", LearningGuideChart.prototype.panelOnResize)
+    window.removeEventListener("resize", @refs.chart.panelOnResize, false)
+    console.log('unmount')
+
 
   render: ->
     {unit} = @state
