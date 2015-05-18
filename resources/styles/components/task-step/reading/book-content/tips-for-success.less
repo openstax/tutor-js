@@ -1,19 +1,38 @@
 .tips-for-success {
-  margin: 20px 0;
-  padding: 20px 0;
-  #fonts > .sans(1.8rem, 2.8rem);
-  border-bottom: 1px solid @border-color;
 
   &:before {
+    height: 35px;
+    content: attr(data-label);
+    background: @tutor-quaternary url("icon-light-bulb.svg");
+    color: @tutor-black;
+    background-repeat: no-repeat;
     display: inline-block;
-    content: "Tips for Success";
-    #fonts > .sans(3.2rem, 3.2rem);
-    font-weight: 900;
-    color: @tutor-secondary;
-    white-space: nowrap;
-    background: #232e66;
-    padding: 10px 20px;
-    margin: 0 500px 15px 0;
+    text-indent: 30px;
+    background-position: 10px 5px;
+    background-size: 25px 25px;
+    padding: 0 10px;
+    margin: 0;
   }
+  > ul:first-child {
+    padding-top: 10px;
+    border-top: 1px solid @tutor-neutral-light;
 
+    list-style: none;
+    
+    > li {
+      &:before {
+        content: "";
+
+        width: .5em;
+        height: .5em;
+        background-color: @tutor-secondary;
+        float: left;
+        margin: .8em 1em 0;
+        border-radius: 50%;
+      }
+      ol {
+        margin-left: 1.2em;
+      }
+    }
+  }      
 }
