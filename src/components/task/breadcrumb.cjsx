@@ -2,6 +2,7 @@ React = require 'react'
 {StepPanel} = require '../../helpers/policies'
 
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskStore} = require '../../flux/task'
 
 module.exports = React.createClass
   displayName: 'Breadcrumb'
@@ -10,17 +11,27 @@ module.exports = React.createClass
     {crumb} = @props
 
     if crumb.type is 'step' and TaskStepStore.isPlaceholder(crumb.data.id)
+      TaskStepStore.on('step.completed', @checkPlaceholder)
       TaskStepStore.on('step.loaded', @update)
 
-  componentWillUnmount: ->
+  removeListeners: ->
+    TaskStepStore.off('step.completed', @checkPlaceholder)
     TaskStepStore.off('step.loaded', @update)
+
+  componentWillUnmount: ->
+    @removeListeners()
+
+  checkPlaceholder: ->
+    {task_id, id} = @props.crumb.data
+    unless TaskStore.hasIncompleteCoreStepsIndexes(task_id)
+      TaskStepActions.load(id)
 
   update: (id) ->
     {crumb} = @props
 
     if (crumb.data.id is id) and not TaskStepStore.isPlaceholder(crumb.data.id)
       @setState({})
-      TaskStepStore.off('step.loaded', @update)
+      @removeListeners()
 
   propTypes:
     crumb: React.PropTypes.object.isRequired

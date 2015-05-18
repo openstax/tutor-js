@@ -110,10 +110,4 @@ module.exports = React.createClass
     @setState({currentStep: 0})
 
   onNextStep: ->
-    {id} = @props
-
-    placeholder = TaskStore.getPlaceholder(id)
-    if placeholder? and not TaskStore.hasIncompleteCoreStepsIndexes(id)
-      TaskStepActions.load(placeholder.id)
-
     @goToStep(@state.currentStep + 1)()
