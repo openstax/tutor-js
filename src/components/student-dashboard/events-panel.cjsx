@@ -37,8 +37,10 @@ module.exports = React.createClass
   render: ->
     <BS.Panel className={@props.className}>
       <div className="row labels">
-        <BS.Col xs={2} sm={8}>{@renderTitle()}</BS.Col>
-        <BS.Col xs={5} sm={2} className='progress-label'>Progress</BS.Col>
+        <BS.Col xs={12} sm={8}>{@renderTitle()}</BS.Col>
+        <BS.Col xs={5} xsOffset={2} smOffset={0} sm={2} className='progress-label'>
+          Progress
+        </BS.Col>
         <BS.Col xs={5} sm={2} className='due-at-label'>Due</BS.Col>
       </div>
       {_.map(@props.events, @renderEvent)}
