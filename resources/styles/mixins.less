@@ -23,6 +23,23 @@
     0 1px  6px 0 rgba(0, 0, 0, 0.12);
 }
 
+.tutor-framed-video(@iframe-width:  720px, @iframe-height: 405px, @iframe-shadow-size: 0px){
+  position: relative;
+  width:  @iframe-width  + @iframe-shadow-size * 2;
+  height: @iframe-height + @iframe-shadow-size * 2;
+  margin: auto;
+  padding: 0;
+  box-shadow: 0 @iframe-shadow-size @iframe-shadow-size 0 @tutor-neutral-dark inset;
+  iframe {
+    position: absolute;
+    top:    @iframe-shadow-size;
+    left:   @iframe-shadow-size;
+    width:  @iframe-width;
+    height: @iframe-height;
+  }
+}
+
+
 // If you want to use these please uncomment.
 // .tutor-shadow(2) {
 //   box-shadow:

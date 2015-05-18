@@ -7,36 +7,47 @@
 
 @reading-ui-banner-height: 40px;
 .tutor-reading-step-banner-icon(@img){
-  background: @tutor-secondary url(@img);
+  background: @tutor-tertiary url(@img);
   background-repeat: no-repeat;
-  text-indent: @reading-ui-banner-height - 10px;
+  text-indent: @reading-ui-banner-height - 5px;
   background-position: 5px;
   background-size: @reading-ui-banner-height - 10px @reading-ui-banner-height - 10px;
 }
 
+.tutor-reading-main-title {
+  margin-top: 0;
+  border-top: 1px solid @tutor-neutral-light;
+  color: @tutor-black;
+  font-weight: 900;
+  font-size: 3rem;
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
 // If the first child element is a .note[data-has-label], that should be used as title
 .tutor-reading-ui-banner {
-  > .note:first-child[data-has-label=true] {
-    // create a :before element and pop it up on the top of the card
+  
+  > .note:first-child {
+
     &:before {
       content: attr(data-label);
-      #fonts > .sans(@reading-ui-banner-height - 10px, @reading-ui-banner-height);
-      font-weight: 900;
-      color: @tutor-tertiary;
-      background: @tutor-secondary;
+      #fonts > .sans(@reading-ui-banner-height - 18px, @reading-ui-banner-height);
+      font-weight: 400;
+      color: @tutor-secondary;
+      background: @tutor-tertiary;
       padding: 0 10px;
-      position: absolute;
-      top: 0;
-      left: 0;
       height: @reading-ui-banner-height;
-    }
-    .title {
-      margin: @reading-ui-banner-height 20px 5px 20px;
-      #fonts > .sans(3rem, 3rem);
-      font-weight: 900;
-      letter-spacing: 2px;
+      display: inline-block;
     }
   }
+}
+
+.note > .title, .commentary [data-type=title] {
+  color: @tutor-secondary;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 20px 0;
+  font-size: 2rem;
 }
 
 .tutor-reading-first-letter {
@@ -110,7 +121,6 @@ div[data-type="document-title"] ~ p {padding: 0 140px;}
 .worked-example,
 .virtual-physics { padding: 0 140px; }
 
-> section { padding: 0; }
 
 .splash {
   width: 100%;
@@ -176,7 +186,8 @@ figure {
 
 // task specific styling comes last so it can override the above styles
 @import './links-to-physics';
+@import './worked-examples';
 @import './work-in-physics';
 @import './tips-for-success';
 @import './grasp-check';
-
+@import './glossary';

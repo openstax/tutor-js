@@ -112,7 +112,7 @@ Spacer = React.createClass
   onContinue: ->
     @props.onNextStep()
   renderBody: ->
-    <div className='-spacer-step'>
+    <div className='spacer-step'>
       <h1>Concept Coach</h1>
       <p>Reinforce what you have learned in this reading and prior readings.</p>
     </div>

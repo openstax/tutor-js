@@ -156,8 +156,10 @@ TaskEnd = React.createClass
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>
-        <h1>You Are Done.</h1>
-        <h3>Great Job!</h3>
+        <div className="completed-message">
+          <h1>You Are Done.</h1>
+          <h3>Great Job!</h3>
+        </div>
       </CardBody>
     </div>
 
