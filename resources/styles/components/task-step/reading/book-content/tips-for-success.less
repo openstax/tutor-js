@@ -6,7 +6,9 @@
     background: @tutor-quaternary url("icon-light-bulb.svg");
     color: @tutor-black;
     background-repeat: no-repeat;
-    display: table-cell;
+    // table cell is chosen since it needs to be only as wide as the text,
+    // yet still break to a new line after the content
+    display: table-cell; 
     text-indent: 30px;
     background-position: 10px 5px;
     background-size: 25px 25px;
@@ -16,7 +18,6 @@
   > ul:first-child {
     padding-top: 10px;
     border-top: 1px solid @tutor-neutral-light;
-
     list-style: none;
     
     > li {
