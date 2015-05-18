@@ -33,19 +33,20 @@ LearningGuide = React.createClass
   displayChapter: ->
     if @state.showAll
       @setState({showAll:false}, -> @loadChart())
-    
+
   displayTopic: ->
     {courseId} = @props
     if @state.showAll is false
       @setState({showAll:true}, -> @loadChart())
     else
       @context.router.transitionTo('dashboard', {courseId})
-   
+
 
   loadChart: ->
-    @refs.chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
-    @refs.chart.drawChart(LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter)
-
+    @refs.chart = new LearningGuideChart(@refs.svg.getDOMNode()
+      LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter
+      {@navigateToPractice, @displayUnit, @displayTopic}
+    )
 
   componentDidMount: ->
     @loadChart()

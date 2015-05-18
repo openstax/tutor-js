@@ -23,20 +23,8 @@ XRECTHEIGHT = 5.1
 
 module.exports = class LearningGuideChart
 
-  constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic, @displayChapter) ->
-    @constructor = constructor
+  constructor: (@svgNode, guide, showAll, chapter, @callbacks) ->
 
-  addImage: (url, options, className) ->
-    node = @svgNode
-    d3.select(node).append('svg:image')
-      .attr('x', options.x)
-      .attr('y', options.y)
-      .attr('width', options.width   or 10)
-      .attr('height', options.height or 10)
-      .attr('xlink:href', AppConfigStore.urlForResource(url))
-      .attr('class', className)
-
-  drawChart: (guide, showAll, chapter) ->
     node = @svgNode
 
     container = d3.select(@svgNode)
@@ -66,7 +54,7 @@ module.exports = class LearningGuideChart
 
     # must be called first to clear before re-render
     @destroyChart(container)
-    
+
 
     @drawBackgroundGradient(container)
     @drawVerticalLines(container, points)
@@ -86,10 +74,19 @@ module.exports = class LearningGuideChart
     @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
     @drawTitle(container, guide, showAll, chapter)
-   
+
     @showDefaultPanel(fields)
 
-    
+
+  addImage: (url, options, className) ->
+    node = @svgNode
+    d3.select(node).append('svg:image')
+      .attr('x', options.x)
+      .attr('y', options.y)
+      .attr('width', options.width   or 10)
+      .attr('height', options.height or 10)
+      .attr('xlink:href', AppConfigStore.urlForResource(url))
+      .attr('class', className)
 
   destroyChart: (container) ->
     container.selectAll("g").remove()
@@ -115,7 +112,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'show-course')
       .text(backButtonText)
       .on('click', =>
-        @displayTopic()
+        @callbacks.displayTopic()
       )
 
   drawXRect: (container) ->
@@ -147,7 +144,7 @@ module.exports = class LearningGuideChart
       )
       .on('click', (field) ->
         me.showPanel(this, @parentElement.children)
-        me.displayUnit(field, parseInt(field.chapter_section[0]))
+        me.callbacks.displayUnit(field, parseInt(field.chapter_section[0]))
       )
     label.append('circle')
       .attr('r', 3.7)
@@ -179,7 +176,7 @@ module.exports = class LearningGuideChart
   showDefaultPanel: (fields) ->
     field = fields[0]
     @showPanel(@svgNode.querySelector('.x-axis .point:first-child'), @svgNode.querySelector('.x-axis .point'))
-    @displayUnit(field, parseInt(field.chapter_section[0]))
+    @callbacks.displayUnit(field, parseInt(field.chapter_section[0]))
 
   percent: (num, total) ->
     Math.round((num / total) * 100)
@@ -310,7 +307,7 @@ module.exports = class LearningGuideChart
         "translate(#{points[i].x}, #{points[i].y})"
       )
       .on('click', (field) =>
-        @navigateToPractice(field)
+        @callbacks.navigateToPractice(field)
       )
     circles.append('circle')
       .attr('r', 1.6)
