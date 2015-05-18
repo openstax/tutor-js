@@ -20,6 +20,7 @@ LearningGuide = React.createClass
 
   getInitialState: ->
     showAll: true
+    footerOffset: 0
     chapter: 0
 
   navigateToPractice: (unit) ->
@@ -33,21 +34,30 @@ LearningGuide = React.createClass
   displayChapter: ->
     if @state.showAll
       @setState({showAll:false}, -> @loadChart())
-    
+
   displayTopic: ->
     {courseId} = @props
     if @state.showAll is false
       @setState({showAll:true}, -> @loadChart())
     else
       @context.router.transitionTo('dashboard', {courseId})
-   
+
+  setFooterOffset: (offset) ->
+    @setState(footerOffset: offset)
 
   loadChart: ->
-    chart = new LearningGuideChart(@refs.svg.getDOMNode(), @navigateToPractice, @displayUnit, @displayTopic)
-    chart.drawChart(LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter)
+    @chart.destroy() if @chart
+    @chart = new LearningGuideChart(@refs.svg.getDOMNode()
+      LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter
+      {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset}
+    )
 
   componentDidMount: ->
     @loadChart()
+
+  componentWillUnmount: ->
+    @chart.destroy()
+
 
   render: ->
     {unit} = @state
@@ -78,7 +88,7 @@ LearningGuide = React.createClass
 
     <div className='learning-guide-chart'>
       <svg ref='svg' />
-      <div ref='footer' className='footer'>
+      <div ref='footer' className='footer' style={marginLeft: @state.footerOffset}>
         <div ref='footer-content-wrap' className='footer-content-wrap'>
           <div className='header'>
             {chapter}{title}
@@ -108,7 +118,6 @@ LearningGuideShell = React.createClass
         actions={LearningGuideActions}
         renderItem={-> <LearningGuide courseId={courseId} />}
       />
-      <div className='x-axis-bg-repeat'></div>
     </div>
 
 module.exports = {LearningGuideShell, LearningGuide}
