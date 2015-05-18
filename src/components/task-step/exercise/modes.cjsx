@@ -74,6 +74,20 @@ ExerciseFreeResponse = React.createClass
 ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
   mixins: [StepMixin, ExerciseMixin]
+  componentWillMount:   ->
+    {id, onNextStep} = @props
+    canReview = StepPanel.canReview id
+
+    unless canReview
+      TaskStepStore.on('step.completed', onNextStep)
+
+  componentWillUnmount: ->
+    {id, onNextStep} = @props
+    canReview = StepPanel.canReview id
+
+    unless canReview
+      TaskStepStore.off('step.completed', onNextStep)
+
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -105,11 +119,7 @@ ExerciseMultiChoice = React.createClass
     !!answer_id
 
   onContinue: ->
-    {id} = @props
-    canReview = StepPanel.canReview id
-
     @props.onStepCompleted()
-    @props.onNextStep() unless canReview
 
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'

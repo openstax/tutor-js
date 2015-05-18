@@ -6,14 +6,21 @@ React = require 'react'
 module.exports = React.createClass
   displayName: 'Breadcrumb'
 
-  componentWillMount:   ->
-    if @props.type is 'placeholder'
-      TaskStepStore.addChangeListener(@update)
-      
-  componentWillUnmount: ->
-    TaskStepStore.removeChangeListener(@update)
+  componentWillMount: ->
+    {crumb} = @props
 
-  update: -> @setState({})
+    if crumb.type is 'step' and TaskStepStore.isPlaceholder(crumb.data.id)
+      TaskStepStore.on('step.loaded', @update)
+
+  componentWillUnmount: ->
+    TaskStepStore.off('step.loaded', @update)
+
+  update: (id) ->
+    {crumb} = @props
+
+    if (crumb.data.id is id) and not TaskStepStore.isPlaceholder(crumb.data.id)
+      @setState({})
+      TaskStepStore.off('step.loaded', @update)
 
   propTypes:
     crumb: React.PropTypes.object.isRequired
@@ -23,6 +30,10 @@ module.exports = React.createClass
   render: ->
     {crumb, currentStep, goToStep} = @props
     step = crumb.data
+    if crumb.type is 'step'
+      # get the freshest version of the step
+      step = TaskStepStore.get(crumb.data.id)
+
     canReview = StepPanel.canReview(step.id) if crumb.type is 'step' and step?
     crumbType = step?.type
 
