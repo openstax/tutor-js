@@ -24,6 +24,7 @@ XRECTHEIGHT = 5.1
 module.exports = class LearningGuideChart
 
   constructor: (@svgNode, guide, showAll, chapter, @callbacks) ->
+    window.addEventListener("resize", @onResize, false)
 
     node = @svgNode
 
@@ -167,11 +168,11 @@ module.exports = class LearningGuideChart
           f.chapter_section
         )
 
+  destroy: ->
+    window.removeEventListener("resize", @onResize, false)
 
-  panelOnResize: =>
+  onResize: =>
     @showPanel(@svgNode.querySelector('.x-axis .point.active'), @svgNode.querySelector('.x-axis .point'))
-    console.log('resize')
-
 
   showDefaultPanel: (fields) ->
     field = fields[0]
