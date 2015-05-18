@@ -1,27 +1,13 @@
 .task-step .video-step {
-
+  
+  padding: @tutor-card-body-padding;
+  
   .video-content > .note:first-child .title{
     display: none;
   }
 
-  @iframe-width:  720px;
-  @iframe-height: 405px;
-  @iframe-shadow-size: 3px;
-
   .embed-responsive-16by9 {
-    position: relative;
-    width:  @iframe-width  + @iframe-shadow-size * 2;
-    height: @iframe-height + @iframe-shadow-size * 2;
-    margin: auto;
-    padding: 0;
-    box-shadow: 0 @iframe-shadow-size @iframe-shadow-size 0 @tutor-neutral-dark inset;
-    iframe {
-      position: absolute;
-      top:    @iframe-shadow-size;
-      left:   @iframe-shadow-size;
-      width:  @iframe-width;
-      height: @iframe-height;
-    }
+    .tutor-framed-video();
   }
 }
 
