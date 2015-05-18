@@ -1,25 +1,49 @@
 @correct-answer-color: @tutor-success;
-@correct-answer-background: lighten(@tutor-success, 40%);
+@correct-answer-background: lighten(saturate(@tutor-success, 60%), 38%);
 @wrong-answer-color: @tutor-danger;
 @wrong-answer-background: lighten(@tutor-danger, 55%);
 
 @answer-background: lighten(@tutor-info, 53%);
 @answer-hover-color: lighten(@tutor-info, 48%);
-@answer-select-color: lighten(@tutor-info, 45%); // darker than hover
+@answer-select-color: lighten(@tutor-info, 44%); // darker than hover
 
 @free-response-color: @tutor-neutral-dark;
 
 @answer-label-color: @tutor-neutral-dark;
 
-@answer-height: 60px;
+@answer-vertical-spacing: 5px;
+@answer-checked-font-weight: 600;
+
+.answer() {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: @answer-vertical-spacing 0;
+}
 
 .answer-label() {
   display: inline-block;
-  float: left;
-  #fonts > .script();
+  margin-left: -@tutor-card-body-padding-horizontal;
+  width: @tutor-card-body-padding-horizontal;
+  text-align: right;
+  padding-right: 8px;
+}
+
+.answer-text-label() {
+  #fonts > .script(1.4rem);
   color: @answer-label-color;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  font-weight: 400;
+}
+
+.answer-icon-label() {
+  font-size: 3.5em;
+}
+
+.answer-content() {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 0;
+  #fonts > .sans (1.8rem, 2.4rem);
 }
 
 .question {
@@ -31,91 +55,82 @@
   font-weight: 400;
   padding-top: .5em;
 
-  .free-response,
-  .free-response:before,
-  .question-feedback,
-  .question-feedback:before {
-    font-size: 4rem/2rem;
-    font-weight: 300;
+  .question-stem {
+    margin-bottom: 20px;
   }
-  .free-response {
-    font-style: italic;
-    color: @free-response-color;
-    padding: 15px 40px;
-    display: block;
-    width: 100%;
-    margin: 20px 0 5px 0;
-    background: #f5f5f5;
 
-    &:before {
-      content: "My Answer:";
-      margin-left: -145px;
+  .free-response, .question-feedback{
+    .answer();
+
+    &-content {
+      .answer-content();
+    }
+
+    &::before {
       .answer-label();
+      .answer-text-label();
     }
   }
+
+  .free-response {
+    &-content {
+      font-style: italic;
+      font-weight: 300;
+      color: @free-response-color;
+      background: #f5f5f5;
+    }
+
+    &::before {
+      content: "My Answer:";
+    }
+  }
+
+  .question-feedback {
+    margin-top: 20px;
+
+    &-content {
+      padding: 0;
+    }
+
+    &::before {
+      content: "Why?";
+    }
+  }
+
   .multiple-choice-prompt {
     display: block;
     margin: 30px 0 10px 0;
-  }
-  .question-feedback {
-    margin: 20px 0 10px 0;
-    display: block;
-    float: left;
-
-    &:before {
-      content: "Why?";
-      margin-left: -56px;
-      .answer-label();
-    }
-  }
-
-  .card-content {
-    margin-left: 4rem; // Enough room for double-digit question numbers
-
-    .question-stem {
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
-      min-height: 2rem; // center with the 3rem question number
-    }
-
   }
 
   .answers-table {
     font-size: 0.8em;
     width: 100%;
-    float: left;
-    padding: 0 0 20px 0;
 
     .answers-answer {
       counter-increment: answer 1;
-      display: block;
-      width: 100%;
-      clear: both;
+      .answer();
+      margin: 0;
 
       .answer-letter {
         display: table-cell;
-        width: 2rem;
-        &:after { content: counter(answer, lower-latin) ')'; }
+        width: 2.5rem;
+        &:after {
+          content: counter(answer, lower-latin) ')';
+        }
       }
 
       .answer-content {
         display: table-cell;
-        padding: 15px 40px 15px 0;
       }
     }
 
     label.answer-label {
       display: table;
-      margin: 5px 0;
-      padding-left: 40px;
-      #fonts > .sans (2rem);
-      font-weight: 400;
-      width: 100%;
-      float: left;
       background: @answer-background;
       transition: background-color .1s ease-in;
       cursor: pointer;
+      .answer-content();
+      margin: @answer-vertical-spacing 0;
 
       &:hover {
         background-color: @answer-hover-color;
@@ -125,13 +140,10 @@
 
   .answer-input-box {
     display: none;
-    float: left;
-    margin: 0.95em 0;
-    margin-left: -30px;
 
     &:checked + label.answer-label,
     &:checked + label.answer-label:hover {
-      font-weight: 600;
+      font-weight: @answer-checked-font-weight;
       background-color: @answer-select-color; // darker than hover
     }
   }
@@ -141,7 +153,6 @@
     .answers-table {
 
       .answers-answer label.answer-label {
-        padding-left: 40px;
         cursor: auto;
       }
 
@@ -152,28 +163,22 @@
         display: none;
       }
 
-      .answer-correct:not(.answer-checked):before {
+      .answer-correct:not(.answer-checked)::before {
         content: "Correct Answer:";
-        margin-left: -145px;
         .answer-label();
-        line-height: @answer-height;
+        .answer-text-label();
       }
 
       .answer-checked {
-        &:before{
-          display: inline-block;
-          float: left;
-          text-align: right;
-          font-size: 3.5em;
-          width: 65px;
-          margin-top: .125em;
-          margin-left: -80px;
+        &::before{
+          .answer-label();
+          .answer-icon-label();
         }
-        &.answer-correct:before {
+        &.answer-correct::before {
           content: @fa-var-check;
           color: @correct-answer-color;
         }
-        &:not(.answer-correct):before {
+        &:not(.answer-correct)::before {
           content: @fa-var-close;
           color: @wrong-answer-color;
         }
@@ -182,7 +187,7 @@
       .answer-correct .answer-label {
         background-color: @correct-answer-background;
         color: @correct-answer-color;
-        font-weight: 900;
+        font-weight: @answer-checked-font-weight;
 
         .answer-content:hover {
           background-color: @correct-answer-background;
@@ -192,7 +197,7 @@
       .answer-checked:not(.answer-correct) .answer-label {
         background-color: @wrong-answer-background;
         color: @wrong-answer-color;
-        font-weight: 900;
+        font-weight: @answer-checked-font-weight;
 
         .answer-content:hover {
           background-color: @wrong-answer-background;
