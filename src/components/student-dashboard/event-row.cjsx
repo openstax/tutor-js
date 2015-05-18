@@ -27,7 +27,7 @@ module.exports = React.createClass
     classnames = "task row #{@props.className}"
     classnames += ' workable' if workable
     <div className={classnames} onClick={@onClick if workable}>
-      <BS.Col xs={2}  sm={1}>
+      <BS.Col xs={2}  sm={1} className={"icon-column"}>
         <i className={"icon icon-lg icon-#{@props.className}"}/>
       </BS.Col>
       <BS.Col xs={10} sm={7} className='title'>{@props.children}</BS.Col>

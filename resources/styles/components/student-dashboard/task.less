@@ -4,16 +4,23 @@
   // if the screen is wide enought, set a hight and use line-height to vertically center content.
   // This breaks when the responsive small view kicks in and it becomes multi-line
   @media screen and ( min-width: @screen-sm-min ){ 
-    height: 60px;
-    // move the icon 5px down, so it's vertically centered in the 50px high row
+    height: @panel-row-height;
+
+    .icon-column {
+      height: @panel-row-height;
+      padding: 0;
+    }
     .icon {
-      background-position-y: 5px;
-      height: 45px;
-      position: absolute;
-      top: 5px;
+      background-position: center;
+      height: @panel-row-height;
+      min-width: @panel-row-height;
+      width: 100%;
+    }
+    .title {
+      padding-left: 0;
     }
     .title, .feedback, .due-at {
-      line-height: 50px;
+      line-height: @panel-row-height;
       white-space: nowrap;
     }
   }
@@ -23,20 +30,11 @@
     cursor: pointer;
     &:hover {
       background-color: @tutor-neutral-lighter;
-      // on hover grow the icon from 4rem (40pxish) to 56 and adjust size so it grows in both dimensions
-      .icon {
-        background-position-y: 0px;
-        background-position-x: 0px;
-        height: 56px;
-        width: 56px;
-        background-size: 56px 56px;
-        top: 0px;
-        left: 6px;
-        overflow: visible;
-        z-index: 1;
-      }
+      // on hover grow the icon from 4rem (40pxish) to 56
+      .icon { background-size: 56px 56px; }
     }
   }
   transition: all 0.1s ease-in;
+
 }
 
