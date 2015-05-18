@@ -26,7 +26,7 @@ module.exports = React.createClass
       <h3>{@props.title}</h3>
     else
       <span>
-        <Time date={@props.startAt}/> - <Time date={@props.endAt}/>
+        <Time date={@props.startAt}/> &ndash; <Time date={@props.endAt}/>
       </span>
 
   renderEvent: (event) ->
