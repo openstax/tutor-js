@@ -1,37 +1,32 @@
-.student-dashboard {
-  @panel-row-height: 60px;
+// The first panel inside a tab should be positioned at the top with no margin
+.tab-pane {
+  .panel:first-child { margin-top: 0px; }
+}
 
-  // The first panel inside a tab should be positioned at the top with no margin
-  .tab-pane {
-    .panel:first-child { margin-top: 0px; }
+.labels {
+  background-color: white; // override bootstrap default
+
+  margin: 0;
+  #fonts .sans(1.5rem, @panel-row-height);
+  font-weight: 400;
+  font-style: italic;
+  color: @tutor-neutral;
+
+  .title {
+    #fonts .serif(2.4rem, @panel-row-height);
+    font-weight: 900;
+    color: @tutor-neutral-darker;
   }
   
-  .labels {
-    background-color: white; // override bootstrap default
-
-    margin: 0;
-    #fonts .sans(1.5rem, @panel-row-height);
-    font-weight: 400;
-    font-style: italic;
-    color: @tutor-neutral;
-
-    .title {
-      #fonts .serif(2.4rem, @panel-row-height);
-      font-weight: 900;
-      color: @tutor-neutral-darker;
-    }
-    
-    .date-range {
-      #fonts .sans(1.4rem, @panel-row-height);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
+  .date-range {
+    #fonts .sans(1.4rem, @panel-row-height);
+    font-weight: 700;
+    text-transform: uppercase;
   }
-
-  .panel > .panel-body {
-    padding: 0;
-  }
-
 
 }
+
+.panel > .panel-body {
+  padding: 0;
+}
+
