@@ -3,26 +3,27 @@
   border-top: thin dotted @tutor-neutral-light;
   // if the screen is wide enought, set a hight and use line-height to vertically center content.
   // This breaks when the responsive small view kicks in and it becomes multi-line
-  @media screen and ( min-width: @screen-sm-min ){ 
+  .icon-column {
     height: @panel-row-height;
+    padding: 0;
+  }
+  .icon {
+    background-position: center;
+    height: @panel-row-height;
+    min-width: @panel-row-height;
+    width: 100%;
+  }
+  .title {
+    padding-left: 0;
+  }
+  .title, .feedback, .due-at {
+    line-height: @panel-row-height;
+    white-space: nowrap;
+  }
 
-    .icon-column {
-      height: @panel-row-height;
-      padding: 0;
-    }
-    .icon {
-      background-position: center;
-      height: @panel-row-height;
-      min-width: @panel-row-height;
-      width: 100%;
-    }
-    .title {
-      padding-left: 0;
-    }
-    .title, .feedback, .due-at {
-      line-height: @panel-row-height;
-      white-space: nowrap;
-    }
+  @media screen and ( max-width: @screen-sm-min ){
+    .icon-column { height: @panel-row-height*2; }
+    .icon {        height: @panel-row-height*2; }
   }
 
   // A task that is workable can be clicked
