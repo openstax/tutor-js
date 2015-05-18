@@ -205,7 +205,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkIsSpacerPanel: ({div, component, stepId, taskId, state, router, history}) ->
-    expect(div.querySelector('.-spacer-step')).to.not.be.null
+    expect(div.querySelector('.spacer-step')).to.not.be.null
 
     {div, component, stepId, taskId, state, router, history}
 

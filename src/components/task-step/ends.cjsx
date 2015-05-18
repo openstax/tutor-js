@@ -39,10 +39,12 @@ PracticeEnd = React.createClass
           className='btn btn-primary'>Back to Dashboard</Router.Link>
       </div>
 
-    <div className='task task-completed'>
+    <div className='task task-end'>
       <CardBody footer={footer} className='-practice-completed'>
-        <h1>You earned a star!</h1>
-        <h3>Great Job!</h3>
+        <div className='step-end'>
+          <h1>You earned a star!</h1>
+          <h3>Great Job!</h3>
+        </div>
       </CardBody>
     </div>
 
@@ -121,14 +123,16 @@ HomeworkEnd = React.createClass
       params={{courseId}}
       className='btn btn-primary'>Back to Dashboard</Router.Link>
 
-    <div className='task task-completed'>
+    <div className='task task-end'>
       <CardBody footer={footer} className='-homework-completed'>
-        {congratsMessage}
-        <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
-        <ul>
-          <li>You can still review and update your answers until the due date.</li>
-          <li>Your homework will be automatically turned in on the due date.</li>
-        </ul>
+        <div className='step-end'>
+          {congratsMessage}
+          <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
+          <ul>
+            <li>You can still review and update your answers until the due date.</li>
+            <li>Your homework will be automatically turned in on the due date.</li>
+          </ul>
+        </div>
       </CardBody>
     </div>
 
@@ -154,10 +158,12 @@ TaskEnd = React.createClass
       params={{courseId}}
       className='btn btn-primary'>Back to Dashboard</Router.Link>
 
-    <div className='task task-completed'>
+    <div className='task task-end'>
       <CardBody footer={footer} className='-reading-completed'>
-        <h1>You Are Done.</h1>
-        <h3>Great Job!</h3>
+        <div className='step-end'>
+          <h1>You Are Done.</h1>
+          <h3>Great Job!</h3>
+        </div>
       </CardBody>
     </div>
 
