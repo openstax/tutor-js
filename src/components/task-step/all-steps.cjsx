@@ -65,10 +65,13 @@ Interactive = React.createClass
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
+
   renderBody: ->
     {id} = @props
     {content_url} = TaskStepStore.get(id)
-    <iframe src={content_url} />
+    <div className="interactive">
+      <iframe ref="iframe" src={content_url}/>
+    </div>
 
 Video = React.createClass
   displayName: "Video"
