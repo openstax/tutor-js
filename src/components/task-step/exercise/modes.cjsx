@@ -105,11 +105,11 @@ ExerciseMultiChoice = React.createClass
     !!answer_id
 
   onContinue: ->
-    {id} = @props
+    {id, onNextStep, onStepCompleted} = @props
     canReview = StepPanel.canReview id
 
-    @props.onStepCompleted()
-    @props.onNextStep() unless canReview
+    onStepCompleted()
+    onNextStep() unless canReview
 
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
