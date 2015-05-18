@@ -14,13 +14,14 @@
   background-size: @reading-ui-banner-height - 10px @reading-ui-banner-height - 10px;
 }
 
-.tutor-reading-ui-banner-title-with-top-line {
+.tutor-reading-main-title {
   margin-top: 0;
   border-top: 1px solid @tutor-neutral-light;
   color: @tutor-black;
   font-weight: 900;
   font-size: 3rem;
   padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 // If the first child element is a .note[data-has-label], that should be used as title
@@ -37,23 +38,6 @@
       padding: 0 10px;
       height: @reading-ui-banner-height;
       display: inline-block;
-    }
-
-    > [data-type=exercise] {
-      margin: 0;
-      margin-top: -3px;
-      border-top: 1px solid @tutor-neutral-light;
-      > [data-type=title]:first-child {
-        margin: @tutor-card-body-padding/2 @tutor-card-body-padding;
-        #fonts > .sans(3rem, 3rem);
-        font-weight: 900;
-        letter-spacing: 2px;
-      }
-    }
-    
-    .problem, .solution, .commentary {
-      margin-left: @tutor-card-body-padding;
-      margin-right: @tutor-card-body-padding
     }
   }
 }

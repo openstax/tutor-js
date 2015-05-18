@@ -1,13 +1,15 @@
 .tutor-reading-ui-banner {
   
-  > .worked-examples.note:first-child {
-
+  > .worked-example.note:first-child {
 
     &:before {
       .tutor-reading-step-banner-icon("icon-calculator.svg");
-      padding-left: 40px;
     }
-
+    
+    > .exercise > [data-type=title] {
+      .tutor-reading-main-title();
+    }
+  
   }
 
 }
