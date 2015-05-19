@@ -20,8 +20,14 @@ ExerciseCardMixin =
     </div>
 
   renderTags: (tag) ->
-    tagContent = if tag.name then tag.name else tag.id
-    <span className="exercise-tag">{tagContent}</span>
+    {content, isLO} = ExerciseStore.getTagContent(tag)
+    classes = ['exercise-tag']
+
+    if isLO
+      classes = ['lo-tag']
+      loLabel = 'LO: '
+
+    <span className={classes.join(' ')}>{loLabel} {content}</span>
 
   renderExercise: ->
     content = @props.exercise.content
