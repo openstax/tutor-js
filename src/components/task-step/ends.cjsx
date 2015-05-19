@@ -39,10 +39,17 @@ PracticeEnd = React.createClass
           className='btn btn-primary'>Back to Dashboard</Router.Link>
       </div>
 
+    completeSteps = TaskStore.getCompletedStepsCount(taskId)
+    totalSteps = TaskStore.getTotalStepsCount(taskId)
+
+    congratsMessage = <h1>You are done.  Great job!</h1> if completeSteps is totalSteps
+
     <div className='task task-completed'>
       <CardBody footer={footer} className='-practice-completed'>
-        <h1>You earned a star!</h1>
-        <h3>Great Job!</h3>
+        <div className='completed-message'>
+          {congratsMessage}
+          <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
+        </div>
       </CardBody>
     </div>
 
@@ -114,7 +121,7 @@ HomeworkEnd = React.createClass
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
     totalSteps = TaskStore.getTotalStepsCount(taskId)
 
-    congratsMessage = <h1>It looks like you are done!</h1> if completeSteps is totalSteps
+    congratsMessage = <h1>You are done! Great job!</h1> if completeSteps is totalSteps
 
     footer = <Router.Link
       to='viewStudentDashboard'
@@ -165,7 +172,7 @@ TaskEnd = React.createClass
       </CardBody>
     </div>
 
-ends = {task: TaskEnd, homework: HomeworkEnd, practice: PracticeEnd, reading: TaskEnd}
+ends = {task: TaskEnd, homework: HomeworkEnd, practice: PracticeEnd, chapter_practice: PracticeEnd, reading: TaskEnd}
 
 module.exports =
   get: (type) ->
