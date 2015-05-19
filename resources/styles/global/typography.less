@@ -25,6 +25,7 @@
 
 @body-font-color: @tutor-neutral-darker;
 @caption-font-color: #646464;
+@html-font-size: 10px;
 
 #fonts {
   .sans (@size: 1.5rem, @line-height: 3rem) {
@@ -58,7 +59,7 @@
 }
 
 html {
-  font-size: 62.5%; // 10px by default, with deference to user's settings
+  font-size: @html-font-size; // 10px by default, with deference to user's settings
 }
 
 body {
