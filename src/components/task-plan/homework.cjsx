@@ -6,7 +6,7 @@ Router = require 'react-router'
 PlanFooter = require './footer'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
-{DateTimePicker} = require 'react-widgets'
+{TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
@@ -84,14 +84,12 @@ HomeworkPlan = React.createClass
     {id} = @props
     TaskPlanActions.updateDueAt(id, value)
 
-  setTitle: ->
+  setTitle:(title, titleNode) ->
     {id} = @props
-    value = @refs.title.getDOMNode().value
-    TaskPlanActions.updateTitle(id, value)
+    TaskPlanActions.updateTitle(id, title)
 
-  setDescription: ->
+  setDescription:(desc, descNode) ->
     {id} = @props
-    desc = @refs.description.getDOMNode().value
     TaskPlanActions.updateDescription(id, desc)
 
   showSectionTopics: ->
@@ -123,18 +121,20 @@ HomeworkPlan = React.createClass
 
     footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
-    formClasses = ['edit-homework']
+    formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
 
     if (TaskPlanStore.isPublished(id))
-      dueAtElem = <span>{new moment(dueAt).format('MMM Do, YYYY')}</span>
+      dueAtElem = <span>Due Date: {new moment(dueAt).format('MMM Do, YYYY')}</span>
     else
-      dueAtElem = <DateTimePicker
+      dueAtElem = <TutorDateInput
                     id='homework-due-date'
                     format='MMM dd, yyyy'
                     time={false}
+                    label='Due Date'
                     calendar={true}
                     readOnly={false}
+                    className="form-control"
                     onChange={@setDueAt}
                     min={new Date()}
                     value={dueAt}/>
@@ -163,6 +163,7 @@ HomeworkPlan = React.createClass
         planId={id}/>
 
     header = [headerText, closeBtn]
+
     <div className='homework-plan'>
       <BS.Panel bsStyle='default'
         header={header}
@@ -171,33 +172,25 @@ HomeworkPlan = React.createClass
 
         <BS.Grid>
           <BS.Row>
-            <BS.Col xs={12} md={6}>
+            <BS.Col xs={12} md={8}>
               <div className='-homework-title'>
-                <label htmlFor='homework-title'>Title</label>
-                <input
-                  ref='title'
+                <TutorInput
+                  label='Name'
                   id='homework-title'
-                  type='text'
-                  defaultValue={plan.title}
-                  placeholder='Enter Title'
+                  default={plan.title}
                   onChange={@setTitle} />
               </div>
-              <div className='-homework-due-date'>
-                <label htmlFor='homework-due-date'>Due Date</label>
-                {dueAtElem}
-                <p>Feedback will be released after the due date.</p>
-              </div>
             </BS.Col>
-            <BS.Col xs={12} md={6}>
-              <div className='-homework-description'>
-                <label htmlFor='homework-description'>Description</label>
-                <textarea
-                  ref='description'
-                  id='homework-description'
-                  value={description}
-                  onChange={@setDescription}>
-                </textarea>
-              </div>
+            <BS.Col xs={12} md={4}>
+              {dueAtElem}
+              <p>Feedback will be released after the due date.</p>
+            </BS.Col>
+            <BS.Col xs={12} md={12}>
+              <TutorTextArea
+                label='Description'
+                id='homework-description'
+                default={description}
+                onChange={@setDescription} />
             </BS.Col>
           </BS.Row>
         </BS.Grid>
