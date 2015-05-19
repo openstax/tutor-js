@@ -43,7 +43,6 @@ describe 'Homework Builder', ->
     tests = ({div}) ->
       expect(div.querySelector('#homework-title').value).to.equal(VALID_MODEL.title)
       expect(div.querySelector('#homework-due-date')).to.be.not.null
-      expect(div.querySelector('.-select-problems')).to.be.not.null
       expect(div.querySelectorAll('.card.exercise').length).to.equal(VALID_MODEL.settings.exercise_ids.length)
       done()
 
