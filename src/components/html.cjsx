@@ -59,12 +59,12 @@ module.exports = React.createClass
     # Once MathML finishes processing, manually cleanup after it to prevent
     # React "Invariant Violation" exceptions.
     # MathJax calls Queued events in order, so this should always execute after typesetting
-    # window.MathJax?.Hub.Queue([ ->
-    #   for nodeId in ['MathJax_Message', 'MathJax_Hidden', 'MathJax_Font_Test']
-    #     el = document.getElementById(nodeId)
-    #     break unless el # the elements won't exist if MathJax didn't do anything
-    #     # Some of the elements are wrapped by divs without selectors under body
-    #     # Select the parentElement unless it's already directly under body.
-    #     el = el.parentElement unless el.parentElement is document.body
-    #     el.parentElement.removeChild(el)
-    # ])
+    window.MathJax?.Hub.Queue([ ->
+      for nodeId in ['MathJax_Message', 'MathJax_Hidden', 'MathJax_Font_Test']
+        el = document.getElementById(nodeId)
+        break unless el # the elements won't exist if MathJax didn't do anything
+        # Some of the elements are wrapped by divs without selectors under body
+        # Select the parentElement unless it's already directly under body.
+        el = el.parentElement unless el.parentElement is document.body
+        el.parentElement.removeChild(el)
+    ])
