@@ -7,9 +7,9 @@ TUTOR_SELECTIONS =
   max: 4
   min: 2
 
-PLAN_TYPE =
-  homework: 'homework'
-  reading: 'reading'
+PLAN_TYPES =
+  HOMEWORK: 'homework'
+  READING: 'reading'
 
 TaskPlanConfig =
 
@@ -21,12 +21,20 @@ TaskPlanConfig =
     @_local[planId].settings ?= {}
     @_local[planId].settings.page_ids ?= []
 
-    if @_local[planId]?.type is PLAN_TYPE.homework or @_changed[planId]?.type is PLAN_TYPE.homework
+    if @_local[planId]?.type is PLAN_TYPES.HOMEWORK or @_changed[planId]?.type is PLAN_TYPES.HOMEWORK
       @_local[planId].settings.exercise_ids ?= []
       @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
 
     #TODO take out once TaskPlan api is in place
     _.extend({}, @_local[planId], @_changed[planId])
+    obj = _.extend({}, @_local[planId], @_changed[planId])
+
+    # iReadings should not contain exercise_ids and will cause a silent 422 on publish
+    if obj.type is PLAN_TYPES.READING
+      delete obj.settings.exercise_ids
+      delete obj.settings.exercises_count_dynamic
+
+    obj
 
   FAILED: -> # used by API
 
@@ -161,7 +169,7 @@ TaskPlanConfig =
 
     isHomework: (id) ->
       plan = @_getPlan(id)
-      plan.type is PLAN_TYPE.homework
+      plan.type is PLAN_TYPES.HOMEWORK
 
     isValid: (id) ->
       plan = @_getPlan(id)
