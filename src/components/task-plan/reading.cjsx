@@ -161,7 +161,6 @@ ReadingPlan = React.createClass
             <BS.Col xs={12} md={8}>
               <TutorInput
                 label='Name'
-                inputRef='title'
                 id='reading-title'
                 default={plan.title}
                 onChange={@setTitle} />
