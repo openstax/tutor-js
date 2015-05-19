@@ -1,0 +1,41 @@
+.tutor-book-content {
+  .tips-for-success {
+
+    &:before {
+      height: 35px;
+      content: attr(data-label);
+      background: @tutor-quaternary url("icon-light-bulb.svg");
+      color: @tutor-black;
+      background-repeat: no-repeat;
+      // table cell is chosen since it needs to be only as wide as the text,
+      // yet still break to a new line after the content
+      display: table-cell; 
+      text-indent: 30px;
+      background-position: 10px 5px;
+      background-size: 25px 25px;
+      padding: 0 10px;
+      margin: 0;
+    }
+    > ul:first-child {
+      padding-top: 10px;
+      border-top: 1px solid @tutor-neutral-light;
+      list-style: none;
+      
+      > li {
+        &:before {
+          content: "";
+
+          width: .5em;
+          height: .5em;
+          background-color: @tutor-secondary;
+          float: left;
+          margin: .8em 1em 0;
+          border-radius: 50%;
+        }
+        ol {
+          margin-left: 1.2em;
+        }
+      }
+    }      
+  }
+}
