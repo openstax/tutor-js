@@ -20,13 +20,11 @@ module.exports = React.createClass
     className: React.PropTypes.string
 
   renderTitle: ->
-    # BootstrapReact will overwrite the className attribute with "panel-title"
-    # so we use different elements in order to target via styles
     if @props.title
-      <h3>{@props.title}</h3>
+      <span className="title">{@props.title}</span>
     else
-      <span>
-        <Time date={@props.startAt}/> - <Time date={@props.endAt}/>
+      <span className="date-range">
+        <Time date={@props.startAt}/> &ndash; <Time date={@props.endAt}/>
       </span>
 
   renderEvent: (event) ->
@@ -37,10 +35,12 @@ module.exports = React.createClass
         <GenericEventRow courseId=@props.courseId key={event.id} event={event}/>
 
   render: ->
-    <BS.Panel className={@props.className} header={@renderTitle()}>
+    <BS.Panel className={@props.className}>
       <div className="row labels">
-        <BS.Col xs={2} sm={8}/>
-        <BS.Col xs={5} sm={2} className='progress-label'>Progress</BS.Col>
+        <BS.Col xs={12} sm={8}>{@renderTitle()}</BS.Col>
+        <BS.Col xs={5} xsOffset={2} smOffset={0} sm={2} className='progress-label'>
+          Progress
+        </BS.Col>
         <BS.Col xs={5} sm={2} className='due-at-label'>Due</BS.Col>
       </div>
       {_.map(@props.events, @renderEvent)}
