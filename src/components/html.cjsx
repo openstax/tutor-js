@@ -36,8 +36,10 @@ module.exports = React.createClass
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
 
-    # Clone the array because the browser will mutable it
     nodes = root.querySelectorAll('[data-math]:not(.math-rendered)') or []
+    # return immediatly if there's nothing to do
+    return if nodes.length is 0
+    # Clone the array because the browser will mutable it
     nodes = _.toArray(nodes)
 
     _.each nodes, (node) ->
