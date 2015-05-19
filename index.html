@@ -7,8 +7,12 @@
     MathJax.Hub.Config({
       showProcessingMessages: false,
       tex2jax: {
-        inlineMath: [['{{MATH}}','{{MATH}}']],
-        displayMath: [['{{MATH_BLOCK}}', '{{MATH_BLOCK}}']]
+        displayMath: [['‌‌‌','‌‌‌']], // 3 U+200C zero-width non-joiner
+        inlineMath:  [['​​​','​​​']]  // 3 U+200B zero-width space
+      },
+      styles: {
+        "#MathJax_Message": { visibility: "hidden", left: "", right: 0},
+        "#MathJax_MSIE_Frame": {visibility: "hidden", left: "", right: 0}
       }
     });
     </script>
