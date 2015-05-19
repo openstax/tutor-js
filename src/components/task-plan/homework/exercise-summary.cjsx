@@ -72,7 +72,7 @@ ExerciseSummary = React.createClass
       button = <BS.Button 
         bsStyle="primary" 
         className="-add-exercises" 
-        onClick={@props.addClicked}>Add
+        onClick={@props.addClicked}>Add More...
       </BS.Button>
 
     if TaskPlanStore.canDecreaseTutorExercises(@props.planId)
