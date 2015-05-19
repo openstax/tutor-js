@@ -1,17 +1,17 @@
-.tutor-book-content {
-  .links-to-physics {
+// This file is part of the book-content mixin and should not be included directly
+.links-to-physics {
 
-    padding: 0 60px;
+  padding: 0 60px;
 
-    // match the specificity of the rule so we can add our icon
-    &.ost-assessed-feature.note[data-label] {
-      &:before {
-        .tutor-book-content.tutor-reading-step-banner-icon("icon-laptop.svg");
-      }
+  // match the specificity of the rule so we can add our icon
+  &.ost-assessed-feature.note[data-label] {
+    &:before {
+      .tutor-reading-step-banner-icon("icon-laptop.svg");
     }
-    & > .title:first-child {
-      .tutor-book-content.tutor-reading-main-title();
-    }
-
   }
+  & > .title:first-child {
+    .tutor-reading-main-title();
+  }
+
 }
+

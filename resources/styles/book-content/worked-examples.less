@@ -1,16 +1,15 @@
-.tutor-book-content {
-  .tutor-reading-ui-banner {
-    
-    > .worked-example.note:first-child {
+// This file is part of the book-content mixin and should not be included directly
+.tutor-reading-ui-banner {
+  
+  > .worked-example.note:first-child {
 
-      &:before {
-        .tutor-book-content.tutor-reading-step-banner-icon("icon-calculator.svg");
-      }
-      
-      > .exercise > [data-type=title] {
-        .tutor-book-content.tutor-reading-main-title();
-      }
-      
+    &:before {
+      .tutor-reading-step-banner-icon("icon-calculator.svg");
     }
+    
+    > .exercise > [data-type=title] {
+      .tutor-reading-main-title();
+    }
+    
   }
 }

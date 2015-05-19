@@ -1,0 +1,35 @@
+// Mixins used internally by the book-content mixin
+
+// TODO: refactor internally to replace the "tutor-reading-" prefix with "book-content-"
+
+.tutor-reading-step-banner-icon(@img){
+  background: @tutor-tertiary url(@img);
+  background-repeat: no-repeat;
+  text-indent: @reading-ui-banner-height - 5px;
+  background-position: 5px;
+  background-size: @reading-ui-banner-height - 10px @reading-ui-banner-height - 10px;
+}
+
+.tutor-reading-main-title() {
+  margin-top: 0;
+  border-top: 1px solid @tutor-neutral-light;
+  color: @tutor-black;
+  font-weight: 900;
+  font-size: 3rem;
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+
+.tutor-reading-first-letter() {
+  &::first-letter{
+    float: left;
+    #fonts > .sans(11rem, 9rem);
+    font-weight: 600;
+    color: @tutor-secondary;
+    margin: 0 4px 0 -6px;
+  }
+  // ensure that the p is heigh enough for the drop cap
+  // to fit beside it, otherwise it will overlay on top of the next element
+  min-height: 8rem;
+}
