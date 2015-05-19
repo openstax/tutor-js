@@ -49,7 +49,7 @@
       font-size: 1.3rem;
     }
 
-    button {
+    button.btn.btn-default {
       .homework-circle-btn(25px);
       padding: 0;
       margin: -15px 0 0 0;
@@ -69,6 +69,14 @@
   .num-tutor {
     h2 {
       display: inline;
+      //Styles below make the tutor selection number stay in place when
+      //either the add or remove button is hidden
+      &:first-child {
+        margin-left: 40px;
+      }
+      &:last-child {
+        margin-right: 40px;
+      }
     }
 
     div.tutor-selections {
