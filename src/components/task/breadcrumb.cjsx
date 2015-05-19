@@ -65,8 +65,10 @@ module.exports = React.createClass
       if canReview
         if step.is_correct
           status = <i className='icon-lg icon-correct'></i>
+          classes.push('status-correct')
         else if step.answer_id
           status = <i className='icon-lg icon-incorrect'></i>
+          classes.push('status-incorrect')
 
     if crumb.type is 'end'
       title = "#{step.title} Completion"
