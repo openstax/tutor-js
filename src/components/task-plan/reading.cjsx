@@ -29,7 +29,7 @@ ReviewReadingLi = React.createClass
     <li className='-selected-section'>
       <ChapterSection section={topic.chapter_section}/>
       <span className='section-title'>{topic?.title}</span>
-      <BS.Button className="removeTopicBtn" onClick={@removeTopic} bsStyle="default">X</BS.Button>
+      <BS.Button className="remove-topic" onClick={@removeTopic} bsStyle="default">X</BS.Button>
     </li>
 
 ReviewReadings = React.createClass
@@ -133,8 +133,8 @@ ReadingPlan = React.createClass
 
     # Restrict the due date to be after the open date
     # and restrict the open date to be before the due date
-    if plan?.opens_at
-      opensAt = new Date(plan.opens_at)
+    opensAt = TaskPlanStore.getOpensAt(id)
+
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
