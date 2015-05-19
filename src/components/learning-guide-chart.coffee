@@ -144,8 +144,7 @@ module.exports = class LearningGuideChart
         "translate(#{points[i].x}, #{HEIGHT - 4})"
       )
       .on('click', (field) ->
-        me.showPanel(this, @parentElement.children)
-
+        me.showPanel(this, @parentElement.childNodes)
         if field.chapter_section instanceof Array
           thisChap = field.chapter_section[0]
           chapterIndex = _.map(fields, (f) -> f.chapter_section[0])
