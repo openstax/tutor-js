@@ -37,7 +37,7 @@ TutorDateInput = React.createClass
     classes = ['form-control']
     unless @props.value then classes.push('empty')
     <div className="form-control-wrapper">
-      <input type='text' className={classes.join(' ')} />
+      <input type='text' disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
       <DateTimePicker {...@props}/>
     </div>
