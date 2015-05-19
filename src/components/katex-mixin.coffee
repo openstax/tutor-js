@@ -13,8 +13,11 @@ module.exports =
       if isBlock
         formula = "\\displaystyle {#{formula}}"
 
-      katex.render(formula, node)
-      node.classList.add('loaded')
+      try
+        katex.render(formula, node)
+        node.classList.add('loaded')
+      catch e
+        console.error(e)
 
   sanitizeKatexHtml: (html) ->
     # Clean up the katex that was added
