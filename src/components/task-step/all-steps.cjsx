@@ -102,7 +102,7 @@ Placeholder = React.createClass
 
     coreStepRange = coreStepLabels.join(' - ')
 
-    <div className='-placeholder-step'>
+    <div className='placeholder-step'>
       <h2>This question depends on <Pluralize
         items={coreStepLabels}>question</Pluralize> {coreStepRange}.</h2>
       <p>Please complete <Pluralize

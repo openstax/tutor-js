@@ -123,12 +123,14 @@ HomeworkEnd = React.createClass
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
-        {congratsMessage}
-        <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
-        <ul>
-          <li>You can still review and update your answers until the due date.</li>
-          <li>Your homework will be automatically turned in on the due date.</li>
-        </ul>
+        <div className='completed-message'>
+          {congratsMessage}
+          <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
+          <ul>
+            <li>You can still review and update your answers until the due date.</li>
+            <li>Your homework will be automatically turned in on the due date.</li>
+          </ul>
+        </div>
       </CardBody>
     </div>
 

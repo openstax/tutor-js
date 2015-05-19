@@ -38,7 +38,7 @@ ExerciseGroup = React.createClass
     groupDOM = null
 
     if rules[group].show
-      className = group.replace(' ', '-')
+      className = group.replace(' ', '_')
       labels = if _.isFunction(rules[group].label) then _.map(related_content, rules[group].label) else rules[group].label
 
       groupDOM = <p className='task-step-group'>
