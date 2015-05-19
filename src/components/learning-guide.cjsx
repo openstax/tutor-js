@@ -77,7 +77,7 @@ LearningGuide = React.createClass
         </div>
       chapterButton =
         <div className='chapter-button-wrap'>
-          <BS.Button bsStyle='primary' onClick={@displayChapter}>
+          <BS.Button className="chapter-button" bsStyle='primary' onClick={@displayChapter}>
             View This Chapter
           </BS.Button>
         </div>
