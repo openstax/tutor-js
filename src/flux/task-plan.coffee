@@ -32,6 +32,7 @@ TaskPlanConfig =
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
       delete obj.settings.exercise_ids
+      delete obj.settings.exercises_count_dynamic
 
     obj
 
