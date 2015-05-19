@@ -4,33 +4,51 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 {DateTimePicker} = require 'react-widgets'
 
+{TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TocStore, TocActions} = require '../../flux/toc'
 SelectTopics = require './select-topics'
 PlanFooter = require './footer'
+ChapterSection = require './chapter-section'
 LoadableItem = require '../loadable-item'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
+
+ReviewReadingLi = React.createClass
+  displayName: 'ReviewReadingLi'
+  propTypes:
+    planId: React.PropTypes.string.isRequired
+    topicId: React.PropTypes.string.isRequired
+
+  removeTopic: ->
+    TaskPlanActions.removeTopic(@props.planId, @props.topicId)
+
+  render: ->
+
+    topic = TocStore.getSectionInfo(@props.topicId)
+
+    <li className='-selected-section'>
+      <ChapterSection section={topic.chapter_section}/>
+      <span className='section-title'>{topic?.title}</span>
+      <BS.Button className="removeTopicBtn" onClick={@removeTopic} bsStyle="default">X</BS.Button>
+    </li>
 
 ReviewReadings = React.createClass
   displayName: 'ReviewReadings'
   propTypes:
+    planId: React.PropTypes.string.isRequired
     selected: React.PropTypes.array
 
   renderSection: (topicId) ->
-    topic = TocStore.getSectionInfo(topicId)
-    <li className='-selected-section'>
-      <span className='-section-number'>{topic?.number}</span>
-      <span className='-section-title'>{topic?.title}</span>
-    </li>
+    <ReviewReadingLi topicId={topicId} planId={@props.planId}/>
 
   renderSelected: ->
     if @props.selected.length
       <ul className='selected-reading-list'>
-        <li><strong>Currently selected sections in this reading</strong></li>
+        <li>Currently selected sections in this reading</li>
         {_.map(@props.selected, @renderSection)}
       </ul>
     else
-      <div className='-selected-reading-list-none'>No Readings Selected Yet</div>
+      <div className='-selected-reading-list-none'></div>
 
   render: ->
     <LoadableItem
@@ -80,10 +98,9 @@ ReadingPlan = React.createClass
     {id} = @props
     TaskPlanActions.updateDueAt(id, value)
 
-  setTitle: ->
+  setTitle: (title) ->
     {id} = @props
-    value = @refs.title.getDOMNode().value
-    TaskPlanActions.updateTitle(id, value)
+    TaskPlanActions.updateTitle(id, title)
 
   showSectionTopics: ->
     @setState({
@@ -106,7 +123,7 @@ ReadingPlan = React.createClass
 
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'
     topics = TaskPlanStore.getTopics(id)
-    formClasses = ['edit-reading']
+    formClasses = ['edit-reading', 'dialog']
     closeBtn = <BS.Button 
       className='pull-right close-icon' 
       aria-role='close' 
@@ -123,6 +140,8 @@ ReadingPlan = React.createClass
 
     footer = <PlanFooter id={id} courseId={courseId} />
     header = [headerText, closeBtn]
+    
+    addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
 
     if (@state?.showSectionTopics)
       formClasses.push('hide')
@@ -131,54 +150,44 @@ ReadingPlan = React.createClass
                         courseId={courseId}
                         planId={id}
                         selected={topics}/>
-
     <div className='reading-plan'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
         footer={footer}
         header={header}>
 
-        <div className='-reading-title'>
-          <label htmlFor='reading-title'>Title</label>
-          <input
-            ref='title'
-            id='reading-title'
-            type='text'
-            defaultValue={plan.title}
-            placeholder='Enter Title'
-            onChange={@setTitle} />
-        </div>
-        <div className='-reading-open-date'>
-          <label htmlFor='reading-open-date'>Open Date</label>
-          <DateTimePicker
-            id='reading-open-date'
-            format='MMM dd, yyyy'
-            time={false}
-            calendar={true}
-            readOnly={false}
-            onChange={@setOpensAt}
-            max={dueAt}
-            value={opensAt}/>
-        </div>
-        <div className='-reading-due-date'>
-          <label htmlFor='reading-due-date'>Due Date</label>
-          <DateTimePicker
-            id='reading-due-date'
-            format='MMM dd, yyyy'
-            time={false}
-            calendar={true}
-            readOnly={false}
-            onChange={@setDueAt}
-            min={opensAt}
-            value={dueAt}/>
-        </div>
-        <div>
-          <BS.Button id='reading-select'
-            onClick={@showSectionTopics}
-            bsStyle='primary'>Edit Readings
-          </BS.Button>
-          <ReviewReadings courseId={courseId} selected={topics}/>
-        </div>
+        <BS.Grid>
+          <BS.Row>
+            <BS.Col xs={12} md={8}>
+              <TutorInput
+                label='Name'
+                inputRef='title'
+                id='reading-title'
+                default={plan.title}
+                onChange={@setTitle} />
+            </BS.Col>
+            <BS.Col xs={12} md={4}>
+              <TutorDateInput
+                id='reading-due-date'
+                className="form-control"
+                label='Due Date'
+                format='MMM dd, yyyy'
+                time={false}
+                calendar={true}
+                readOnly={false}
+                onChange={@setDueAt}
+                min={opensAt}
+                value={dueAt}/>
+            </BS.Col>
+            <BS.Col xs={12} md={12}>
+              <ReviewReadings courseId={courseId} planId={id} selected={topics}/>
+              <BS.Button id='reading-select'
+                onClick={@showSectionTopics}
+                bsStyle='default'>+ {addReadingText}
+              </BS.Button>
+            </BS.Col>
+          </BS.Row>
+        </BS.Grid>
       </BS.Panel>
       {selectReadings}
     </div>

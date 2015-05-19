@@ -29,6 +29,9 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
+    #set opens_at for plans
+    obj.opens_at = new Date()
+
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
       delete obj.settings.exercise_ids
@@ -174,7 +177,7 @@ TaskPlanConfig =
     isValid: (id) ->
       plan = @_getPlan(id)
       if (plan.type is 'reading')
-        return plan.title and plan.opens_at and plan.due_at and plan.settings?.page_ids?.length > 0
+        return plan.title and plan.due_at and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
         return plan.title and plan.due_at and plan.settings?.exercise_ids?.length > 0
 
