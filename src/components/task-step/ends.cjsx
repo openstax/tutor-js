@@ -63,7 +63,7 @@ HomeworkEnd = React.createClass
   goToStep: ->
   onNextStep: ->
 
-  renderReviewSteps: (steps, label, type) ->
+  renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
 
     stepsList = _.map steps, (step, index) =>
@@ -76,6 +76,7 @@ HomeworkEnd = React.createClass
         focus={index is 0}
         review={true}
         pinned={false}
+        taskId={taskId}
       />
 
     stepsReview =
@@ -97,12 +98,12 @@ HomeworkEnd = React.createClass
 
     if completedSteps.length
       completedLabel = <h1>Problems Review</h1>
-      completedReview = @renderReviewSteps(completedSteps, completedLabel, 'completed')
+      completedReview = @renderReviewSteps(taskId, completedSteps, completedLabel, 'completed')
 
     if incompleteSteps.length
       todoLabel =
         <h1>Problems To Do <small>{incompleteSteps.length} remaining</small></h1>
-      todoReview = @renderReviewSteps(incompleteSteps, todoLabel, 'todo')
+      todoReview = @renderReviewSteps(taskId, incompleteSteps, todoLabel, 'todo')
 
     <div className='task-review -homework-completed'>
       {todoReview}
