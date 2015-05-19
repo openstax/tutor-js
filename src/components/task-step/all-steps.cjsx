@@ -91,9 +91,9 @@ Video = React.createClass
 Placeholder = React.createClass
   displayName: "Placeholder"
   mixins: [StepMixin]
-  isContinueEnabled: -> 
+  isContinueEnabled: ->
     {review} = @props
-    not review
+    not review?.length
   onContinue: ->
     @props.onNextStep()
   renderBody: ->

@@ -48,20 +48,13 @@ PracticeEnd = React.createClass
 
 HomeworkEnd = React.createClass
   displayName: 'HomeworkEnd'
-
-  mixins: [BindStoreMixin]
-  bindStore: TaskStepStore
-  bindEvent: 'step.completed'
-  bindUpdate: ->
-    # update on complete
-    @setState({})
-
   propTypes:
     courseId: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
 
   goToStep: ->
   onNextStep: ->
+    @setState({})
 
   renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
@@ -74,7 +67,7 @@ HomeworkEnd = React.createClass
         key="task-review-#{step.id}"
         # focus on first problem
         focus={index is 0}
-        review={true}
+        review={type}
         pinned={false}
         taskId={taskId}
       />
