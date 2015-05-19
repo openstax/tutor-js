@@ -288,7 +288,7 @@ AddExercises = React.createClass
     <BS.Row>
       <BS.Col xs={12}>
         <label className='exercises-section-label'>
-          <ChapterSection section={section.chapter_section}/>. {section.title}
+          <ChapterSection section={section.chapter_section}/> {section.title}
         </label>
       </BS.Col>
     </BS.Row>
