@@ -38,11 +38,12 @@ ExerciseGroup = React.createClass
     groupDOM = null
 
     if rules[group].show
-      className = group.replace(' ', '-')
+      className = group.replace(' ', '_')
       labels = if _.isFunction(rules[group].label) then _.map(related_content, rules[group].label) else rules[group].label
 
       groupDOM = <p className='task-step-group'>
-          <i className="fa fa-#{className}"></i> {labels}
+          <i className="icon-md icon-#{className}"></i>
+          <span className='task-step-group-label'>{labels}</span>
         </p>
 
     groupDOM

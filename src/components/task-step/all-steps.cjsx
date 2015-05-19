@@ -65,10 +65,13 @@ Interactive = React.createClass
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
+
   renderBody: ->
     {id} = @props
     {content_url} = TaskStepStore.get(id)
-    <iframe src={content_url} />
+    <div className="interactive">
+      <iframe ref="iframe" src={content_url}/>
+    </div>
 
 Video = React.createClass
   displayName: "Video"
@@ -99,7 +102,7 @@ Placeholder = React.createClass
 
     coreStepRange = coreStepLabels.join(' - ')
 
-    <div className='-placeholder-step'>
+    <div className='placeholder-step'>
       <h2>This question depends on <Pluralize
         items={coreStepLabels}>question</Pluralize> {coreStepRange}.</h2>
       <p>Please complete <Pluralize
@@ -112,7 +115,7 @@ Spacer = React.createClass
   onContinue: ->
     @props.onNextStep()
   renderBody: ->
-    <div className='-spacer-step'>
+    <div className='spacer-step'>
       <h1>Concept Coach</h1>
       <p>Reinforce what you have learned in this reading and prior readings.</p>
     </div>

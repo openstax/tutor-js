@@ -1,5 +1,7 @@
-@guide-width: 1270px;
-@guide-height: 390px;
+@guide-width: 100%;
+@guide-height: 100%;
+@guide-min-width: 1000px;
+@guide-max-width: 1600px;
 // colors
 @guide-green: rgb(121, 177, 66);
 @guide-xaxis-circle-fill-green: rgb(132, 195, 74);
@@ -23,11 +25,15 @@
   .learning-guide-chart {
     width: @guide-width;
     height: @guide-height;
+    min-width: @guide-min-width;
+    max-width: @guide-max-width;
     margin: 0 auto;
 
     svg {
       width: @guide-width;
       height: @guide-height;
+      min-width: @guide-min-width;
+      max-width: @guide-max-width;
 
       .main-title {
         font-size: .2rem;
@@ -170,7 +176,7 @@
     }
     .footer {
       width: 600px;
-      height: 250px;
+      height: 220px;
       margin-top: -9px;
       margin-left: 0px;
       border-width: 1px 0px 1px 1px;
@@ -204,7 +210,7 @@
       }
       .row-wrap {
         width: 86%;
-        height: 150px;
+        height: 120px;
         padding-top: 5px;
         margin-top: 5px;
       }

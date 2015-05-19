@@ -70,7 +70,7 @@ ChapterAccordion = React.createClass
   render: ->
     {chapter, expanded} = @props
     sections = _.map(chapter.children, @renderSections)
-    allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true)
+    allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true) and chapter.children?.length
     expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expanded
 
     activeKey = chapter.id if expandAccordion
@@ -116,7 +116,7 @@ SelectTopics = React.createClass
       header={header}
       primary={primary}
       confirmMsg='Are you sure you want to close?'
-      cancel={true}
+      cancel='Cancel'
       isChanged={-> true}
       onCancel={hide}>
 

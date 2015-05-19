@@ -73,11 +73,16 @@ actions =
     step = TaskStepStore.get(stepId)
     correct_answer = step.content.questions[0].answers[1]
     commonActions.clickButton(div, '.-continue')
-    step.correct_answer_id ?= correct_answer.id
+    canReview = StepPanel.canReview(stepId)
+    feedback_html = ''
 
-    feedback_html = 'Fake Feedback'
-    step.feedback_html = feedback_html if StepPanel.canReview(stepId)
-    TaskStepActions.loaded(step, stepId, taskId)
+    if canReview
+      step.correct_answer_id ?= correct_answer.id
+      feedback_html = 'Fake Feedback'
+      step.feedback_html = feedback_html
+
+    step.is_completed = true
+    TaskStepActions.completed(step, stepId)
 
     actions.forceUpdate({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html})
 

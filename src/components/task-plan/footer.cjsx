@@ -28,6 +28,12 @@ PlanFooter = React.createClass
       TaskPlanActions.delete(id)
       @context.router.transitionTo('dashboard')
 
+  onCancel: ->
+    {id} = @props
+    if confirm('Are you sure you want to cancel?')
+      TaskPlanActions.reset(id)
+      @context.router.transitionTo('dashboard')
+
   onViewStats: ->
     {id, courseId} = @props
     @context.router.transitionTo('viewStats', {courseId, id, type: 'homework'})
@@ -49,7 +55,9 @@ PlanFooter = React.createClass
     if deleteable
       deleteLink = <BS.Button bsStyle='link' className='-delete' onClick={@onDelete}>Delete</BS.Button>
 
-    if TaskPlanStore.isHomework(id) and not TaskPlanStore.isPublished(id)
+    hasExercises = TaskPlanStore.getExercises(id)?.length
+    if TaskPlanStore.isHomework(id) and not TaskPlanStore.isPublished(id) and not hasExercises
+      publishButton = null
       selectProblems = <BS.Button 
         bsStyle='primary' 
         className='-select-problems'
@@ -60,6 +68,7 @@ PlanFooter = React.createClass
       {selectProblems}
       {publishButton}
       {deleteLink}
+      <BS.Button aria-role='close' onClick={@onCancel}>Cancel</BS.Button>
     </span>
 
 module.exports = PlanFooter

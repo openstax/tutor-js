@@ -79,10 +79,16 @@ checks =
     {div, component, stepId, taskId, state, router, history, answer}
 
   _checkSubmitMultipleChoice: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
-    expect(div.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
-    expect(div.querySelector('.answer-correct').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
+    canReview = StepPanel.canReview(stepId)
 
-    expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html) if StepPanel.canReview(stepId)
+    if canReview
+      expect(div.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
+      expect(div.querySelector('.answer-correct').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
+
+      expect(div.querySelector('.question-feedback').childNodes[0].innerHTML).to.equal(feedback_html)
+    else
+      expect(div.querySelector('.answer-correct')).to.be.null
+
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
   _checkNotFeedback: ({div, component, stepId, taskId, state, router, history}) ->
@@ -90,7 +96,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkForFeedback: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
-    expect(div.querySelector('.question-feedback').innerHTML).to.equal(feedback_html)
+    expect(div.querySelector('.question-feedback').childNodes[0].innerHTML).to.equal(feedback_html)
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
   _checkRecoveryRefreshChoice: ({div, component, stepId, taskId, state, router, history}) ->
@@ -205,7 +211,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkIsSpacerPanel: ({div, component, stepId, taskId, state, router, history}) ->
-    expect(div.querySelector('.-spacer-step')).to.not.be.null
+    expect(div.querySelector('.spacer-step')).to.not.be.null
 
     {div, component, stepId, taskId, state, router, history}
 

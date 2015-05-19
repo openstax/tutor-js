@@ -57,6 +57,11 @@ ExerciseConfig =
     getContent: (exercise_id) ->
       @_exerciseCache[exercise_id].content.questions[0].stem_html
 
+    getTagContent: (tag) ->
+      content = if tag.name then tag.name else tag.id
+      isLO = tag.type is EXERCISE_TAGS.LO
+      {content, isLO}
+
     getTagStrings: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
 

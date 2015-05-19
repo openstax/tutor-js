@@ -9,19 +9,36 @@
     height: 32px;
     margin-bottom: 1em;
   }
-
-  .rw-datetimepicker {
-    display:inline-block;
-    max-width: 300px;
-  }
 }
 
 ul.selected-reading-list {
   list-style: none;
-  margin-left: 150px;
   padding-left: 0;
+  margin-top: 2em;
+
+  li {
+    border-bottom: 1px solid @tutor-neutral-lighter;
+
+    &:first-child {
+      color: @tutor-neutral;
+    }
+
+    > button.remove-topic.btn.btn-default {
+      font-size: 1.2rem;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      margin: 0.5em 0 0 0;
+      float: right;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+
+    > span:first-child {
+      margin-right: 5px;
+    }
+  }
 }
 
-.modal-backdrop.in {
-  height: 100%;
-}

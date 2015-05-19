@@ -20,13 +20,20 @@ ExerciseCardMixin =
     </div>
 
   renderTags: (tag) ->
-    <span className="exercise-tag">{tag}</span>
+    {content, isLO} = ExerciseStore.getTagContent(tag)
+    classes = ['exercise-tag']
+
+    if isLO
+      classes = ['lo-tag']
+      loLabel = 'LO: '
+
+    <span className={classes.join(' ')}>{loLabel} {content}</span>
 
   renderExercise: ->
     content = @props.exercise.content
     question = content.questions[0]
     renderedAnswers = _.map(question.answers, @renderAnswers)
-    renderedTags = _.map(content.tags, @renderTags)
+    renderedTags = _.map(@props.exercise.tags, @renderTags)
 
     header = @renderHeader()
     panelStyle = @getPanelStyle()
@@ -287,7 +294,7 @@ AddExercises = React.createClass
     <BS.Row>
       <BS.Col xs={12}>
         <label className='exercises-section-label'>
-          <ChapterSection section={section.chapter_section}/>. {section.title}
+          <ChapterSection section={section.chapter_section}/> {section.title}
         </label>
       </BS.Col>
     </BS.Row>

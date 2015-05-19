@@ -40,10 +40,6 @@ table.exercise-table {
     text-align: center;
   }
 
-  .chapter-section {
-    color: @tutor-secondary;
-  }
-
   td.ellipses {
     white-space: nowrap;
     overflow: hidden;
@@ -58,10 +54,6 @@ table.exercise-table {
 
 label.exercises-section-label {
   font-size: 2.8rem;
-
-  .chapter-section {
-    color: @tutor-secondary;
-  }
 }
 
 .exercise.card {
@@ -79,7 +71,7 @@ label.exercises-section-label {
     bottom: 0;
     left: 0;
     display: none;
-    background-color: fade(@tutor-neutral-lighter, 35%);
+    background-color: fade(@tutor-neutral-lighter, 0%);
     border: none;
 
     .btn.btn-primary {
@@ -90,13 +82,13 @@ label.exercises-section-label {
       width: 100px;
       margin-top: -50px;
       margin-left: -50px;
-      background-color: @tutor-white;
+      background-color: fade(@tutor-white, 75%);
       border: 1px solid @tutor-neutral-lighter;
       border-radius: 100px;
       color: @tutor-black;
 
       &:hover {
-        background-color: white;
+        background-color: fade(@tutor-white, 100%);
         border: 1px solid @tutor-neutral-lighter;
       }
     }
@@ -119,8 +111,14 @@ label.exercises-section-label {
       counter-reset: answer;
       margin-bottom: 1rem;
       .answers-answer.correct {
-        //TODO: get icon from Fred, and update this to use icon instead of changing color to green
         color: @tutor-secondary;
+        padding-left: 0;
+        &::before {
+          .fa;
+          float: left;
+          margin-top: 0.5em;
+          content: @fa-var-check;
+        }
       }
 
       .answers-answer {
@@ -146,14 +144,41 @@ label.exercises-section-label {
         content: ',';
         margin-right: 1rem;
       }
+
+      .lo-tag {
+        margin-right: 1rem;
+        display: block;
+        content: '';
+      }
     }
   }
 }
 
 .card-list.exercises {
+  .panel-heading {
+    background:@tutor-neutral-bright;
+    height: 50px;
+    padding: 10px;
+    border-bottom: 1px solid @tutor-neutral-light;
+    display: block;
+    .exercise-number {
+      color: @tutor-primary;
+    }
+  }
+
+  .card-actions button.btn-default {
+    .homework-circle-btn(25px);
+    padding: 0;
+    margin:0 15px 0 0;
+    color: @tutor-neutral-darker;
+    background: white;
+  }
+
   > .exercise > .panel-body {
     .stem {
       margin-top: 3rem;
     }
   }
 }
+
+

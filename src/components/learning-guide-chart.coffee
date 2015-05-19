@@ -23,20 +23,9 @@ XRECTHEIGHT = 5.1
 
 module.exports = class LearningGuideChart
 
-  constructor: (@svgNode, @navigateToPractice, @displayUnit, @displayTopic, @displayChapter) ->
-    @constructor = constructor
+  constructor: (@svgNode, guide, showAll, chapter, @callbacks) ->
+    window.addEventListener("resize", @onResize, false)
 
-  addImage: (url, options, className) ->
-    node = @svgNode
-    d3.select(node).append('svg:image')
-      .attr('x', options.x)
-      .attr('y', options.y)
-      .attr('width', options.width   or 10)
-      .attr('height', options.height or 10)
-      .attr('xlink:href', AppConfigStore.urlForResource(url))
-      .attr('class', className)
-
-  drawChart: (guide, showAll, chapter) ->
     node = @svgNode
 
     container = d3.select(@svgNode)
@@ -46,7 +35,7 @@ module.exports = class LearningGuideChart
     if showAll
       fields = guide.children
     else
-      fields = guide.children[chapter - 1].children
+      fields = guide.children[chapter].children
 
 
     leftMargin = 25
@@ -66,7 +55,7 @@ module.exports = class LearningGuideChart
 
     # must be called first to clear before re-render
     @destroyChart(container)
-    
+
 
     @drawBackgroundGradient(container)
     @drawVerticalLines(container, points)
@@ -86,9 +75,19 @@ module.exports = class LearningGuideChart
     @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
     @drawTitle(container, guide, showAll, chapter)
-   
+
     @showDefaultPanel(fields)
-    
+
+
+  addImage: (url, options, className) ->
+    node = @svgNode
+    d3.select(node).append('svg:image')
+      .attr('x', options.x)
+      .attr('y', options.y)
+      .attr('width', options.width   or 10)
+      .attr('height', options.height or 10)
+      .attr('xlink:href', AppConfigStore.urlForResource(url))
+      .attr('class', className)
 
   destroyChart: (container) ->
     container.selectAll("g").remove()
@@ -101,8 +100,8 @@ module.exports = class LearningGuideChart
       mainTitle = "Your Flight Path | #{guide.title} | All Topics | "
       backButtonText = "Back to Dashboard"
     else
-      mainTitle = "Your Flight Path | #{guide.children[chapter - 1].title} | "
-      backButtonText = "Show All #{guide.title}"
+      mainTitle = "Your Flight Path | #{guide.children[chapter].title} | "
+      backButtonText = "Show All Chapters"
     wrap = container.append('g')
       .append('svg:text')
       .attr('text-anchor', 'middle')
@@ -114,7 +113,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'show-course')
       .text(backButtonText)
       .on('click', =>
-        @displayTopic()
+        @callbacks.displayTopic()
       )
 
   drawXRect: (container) ->
@@ -146,7 +145,16 @@ module.exports = class LearningGuideChart
       )
       .on('click', (field) ->
         me.showPanel(this, @parentElement.children)
-        me.displayUnit(field, parseInt(field.chapter_section[0]))
+
+        if field.chapter_section instanceof Array
+          thisChap = field.chapter_section[0]
+          chapterIndex = _.map(fields, (f) -> f.chapter_section[0])
+        else
+          thisChap = field.chapter_section
+          chapterIndex = _.map(fields, (f) -> f.chapter_section)
+        thisIndex = chapterIndex.indexOf(field.chapter_section[0])
+        me.callbacks.displayUnit(field, thisIndex)
+
       )
     label.append('circle')
       .attr('r', 3.7)
@@ -169,12 +177,17 @@ module.exports = class LearningGuideChart
           f.chapter_section
         )
 
+  destroy: ->
+    window.removeEventListener("resize", @onResize, false)
 
+  onResize: =>
+    @showPanel(@svgNode.querySelector('.x-axis .point.active'), @svgNode.querySelector('.x-axis .point'))
 
   showDefaultPanel: (fields) ->
     field = fields[0]
     @showPanel(@svgNode.querySelector('.x-axis .point:first-child'), @svgNode.querySelector('.x-axis .point'))
-    @displayUnit(field, parseInt(field.chapter_section[0]))
+    @callbacks.displayUnit(field, 0)
+
 
   showPanel: (target, children) ->
     # remove 'active' class from all groups
@@ -183,11 +196,18 @@ module.exports = class LearningGuideChart
     d3.select(target).classed('active', true)
 
     caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
+
+    viewboxWidth = this.svgNode.attributes.viewBox.value.split(' ')[2]
+    svgClientWidth = this.svgNode.clientWidth
+
     detailPane = this.svgNode.parentElement.querySelector('.footer')
     detailPane.classList.add('active')
 
-    # this is a rough calc for now, can center it better by subtracting container offset
-    detailPane.style.marginLeft = (caretOffset * 4.7) + 'px'
+    panelOffset = (svgClientWidth - detailPane.clientWidth) / viewboxWidth
+
+    @callbacks.setFooterOffset(caretOffset * panelOffset)
+
+
 
   drawYDesc: (container, ypos, text) ->
     wrap = container.append('g')
@@ -290,7 +310,7 @@ module.exports = class LearningGuideChart
         "translate(#{points[i].x}, #{points[i].y})"
       )
       .on('click', (field) =>
-        @navigateToPractice(field)
+        @callbacks.navigateToPractice(field)
       )
     circles.append('circle')
       .attr('r', 1.6)

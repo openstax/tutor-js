@@ -1,7 +1,6 @@
 .work-in-physics {
   margin-top: 20px;
-  padding: 0 140px;
-
+  padding: 0 @tutor-card-body-padding-horizontal;
   // match the specificity of the rule so we can add our icon
   &.ost-assessed-feature.note[data-label] {
     &:before {
@@ -18,6 +17,10 @@
   }
   > p:first-of-type {
     .tutor-reading-first-letter();
+  }
+  
+  & > .title:first-child {
+    .tutor-reading-main-title();
   }
   
 }
