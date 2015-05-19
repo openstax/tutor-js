@@ -1,0 +1,149 @@
+// This file is part of the book-content mixin and should not be included directly
+
+// The first child element is a .note[data-has-label], that should be used as title
+> .note:first-child {
+
+  &:before {
+    content: attr(data-label);
+    #fonts > .sans(@reading-ui-banner-height - 18px, @reading-ui-banner-height);
+    font-weight: 400;
+    color: @tutor-secondary;
+    background: @tutor-tertiary;
+    padding: 0 10px;
+    height: @reading-ui-banner-height;
+    display: inline-block;
+  }
+}
+
+.note > .title, .commentary [data-type=title] {
+  color: @tutor-secondary;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 20px 0;
+  font-size: 2rem;
+}
+
+
+// Hide CNX Processing instructions
+cnx-pi { display: none; }
+
+.learning-objectives {
+  #fonts > .sans(1.8rem, 1.8rem);
+  width: 100%;
+  min-height: 100px;
+  display: inline-flex;
+  margin-top: -@tutor-card-body-padding-vertical;
+  color: #ffffff;
+  padding: 10px 40px;
+  background: @tutor-secondary;
+
+  // hide the "Section learning Objectives" phrase
+  > div[data-type=title] { display: none; }
+
+  p {
+    color: rgba(255,255,255,.75);
+    #fonts > .sans();
+    text-transform: uppercase;
+    text-align: right;
+    margin: auto 15px;
+  }
+
+  ul {
+    margin: 0 0;
+    padding: 0 15px 0 30px;
+    border-left: 1px solid rgba(255,255,255,.4);
+    display: flex;
+    flex-direction: column;
+    .ost-learning-objective-def {
+      font-weight: 300;
+      font-size: 1.5rem;
+      line-height: 3rem;
+      list-style-type: none;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .MathJax {
+        margin-left: 2rem;
+      }
+    }
+  }
+
+}
+
+.section-opener ~ section h1 + p:first-of-type,
+div[data-type="document-title"] ~ p:first-of-type {
+  .tutor-reading-first-letter();
+}
+
+div[data-type="document-title"] { display: none; }
+div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizontal;}
+
+
+> section:not(.section-opener),
+> section > section,
+.worked-example,
+.virtual-physics { padding: 0 140px; }
+
+
+.splash {
+  width: 100%;
+  margin: -@tutor-card-body-padding-vertical 0 0 0;
+
+  img {
+    border: 0;
+    margin: 0;
+  }
+
+  figcaption { margin: 0 40px; }
+
+  + p {
+    clear: both;
+    padding-top: 40px;
+  }
+  .tutor-ui-overlay {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: @tutor-white;
+    margin-top: -100px;
+    font-size: 3rem;
+    line-height: 100px;
+    height: 100px;
+    padding: 0 20px;
+    text-overflow: ellipsis;
+  }
+}
+
+figure {
+  width: 100%;
+  display: table;
+  text-align: left;
+  margin-right: 30px;
+  padding: 0;
+
+  &.tutor-ui-vertical-img {
+    @media (min-width: @screen-sm-min) {
+      width: 50%;
+      float: left;
+    }
+  }
+
+  img {
+    width: 100%;
+    border: 1px solid @border-color;
+    margin: 10px 0 0 0;
+    padding: 0;
+  }
+
+  figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    color: @caption-font-color;
+    padding: 10px 0;
+    font-style: italic;
+    line-height: 150%;
+    border-bottom: 1px solid;
+    border-color: @border-color;
+  }
+
+}
