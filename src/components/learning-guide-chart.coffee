@@ -23,7 +23,7 @@ XRECTHEIGHT = 5.1
 
 module.exports = class LearningGuideChart
 
-  constructor: (@svgNode, guide, showAll, chapter, @callbacks) ->
+  constructor: (@svgNode, guide, showAll, chapter, separator, @callbacks) ->
     window.addEventListener("resize", @onResize, false)
 
     node = @svgNode
@@ -65,7 +65,7 @@ module.exports = class LearningGuideChart
     @drawPlane(container, points)
 
     @drawXRect(container)
-    @drawXAxis(container, fields, points)
+    @drawXAxis(container, fields, points, separator)
 
     @drawYLabel(container, 8.7, 'Ace')
     @drawYLabel(container, 18.5, 'Cruising')
@@ -123,7 +123,7 @@ module.exports = class LearningGuideChart
       .attr('y', HEIGHT - XRECTHEIGHT)
       .attr('class', 'x-rect')
 
-  drawXAxis: (container, fields, points) ->
+  drawXAxis: (container, fields, points, separator) ->
     clip = container.append('svg:clipPath')
       .attr('id', 'clip')
       .append('svg:rect')
@@ -169,22 +169,25 @@ module.exports = class LearningGuideChart
       .attr('dy', '2.3')
       .attr('text-anchor', 'middle')
       .text( (f, i) ->
-        if f.chapter_section instanceof Array
-          subsection = if f.chapter_section[1]? then '.' + f.chapter_section[1] else ''
-          f.chapter_section[0] + subsection
-        else
-          f.chapter_section
-        )
+        me.callbacks.sectionFormat(f.chapter_section, separator)
+      )
+
 
   destroy: ->
     window.removeEventListener("resize", @onResize, false)
 
   onResize: =>
-    @showPanel(@svgNode.querySelector('.x-axis .point.active'), @svgNode.querySelector('.x-axis .point'))
+    @showPanel(
+      @svgNode.querySelector('.x-axis .point.active'),
+      @svgNode.querySelector('.x-axis .point')
+      )
 
   showDefaultPanel: (fields) ->
     field = fields[0]
-    @showPanel(@svgNode.querySelector('.x-axis .point:first-child'), @svgNode.querySelector('.x-axis .point'))
+    @showPanel(
+      @svgNode.querySelector('.x-axis .point:first-child'),
+      @svgNode.querySelector('.x-axis .point')
+      )
     @callbacks.displayUnit(field, 0)
 
 

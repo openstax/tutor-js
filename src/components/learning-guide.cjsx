@@ -22,6 +22,7 @@ LearningGuide = React.createClass
     showAll: true
     footerOffset: 0
     chapter: 0
+    sectionSeparator: '.'
 
   navigateToPractice: (unit) ->
     {page_ids} = unit
@@ -45,11 +46,18 @@ LearningGuide = React.createClass
   setFooterOffset: (offset) ->
     @setState(footerOffset: offset)
 
+  sectionFormat: (section, separator) ->
+    if section instanceof Array
+      subsection = if section[1]? then separator + section[1] else ''
+      section[0] + subsection
+    else
+      section
+
   loadChart: ->
     @chart.destroy() if @chart
     @chart = new LearningGuideChart(@refs.svg.getDOMNode()
-      LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter
-      {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset}
+      LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter, @state.sectionSeparator
+      {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset, @sectionFormat}
     )
 
   componentDidMount: ->
@@ -63,7 +71,7 @@ LearningGuide = React.createClass
     {unit} = @state
     if unit
       chapter = <div className='chapter'>
-        <ChapterSection section={unit.chapter_section}/>
+        {@sectionFormat(unit.chapter_section, @state.sectionSeparator)}
       </div>
       title = <div className='title'>{unit.title}</div>
       problemsWorked =
