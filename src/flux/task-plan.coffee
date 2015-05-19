@@ -27,6 +27,13 @@ TaskPlanConfig =
 
     #TODO take out once TaskPlan api is in place
     _.extend({}, @_local[planId], @_changed[planId])
+    obj = _.extend({}, @_local[planId], @_changed[planId])
+
+    # iReadings should not contain exercise_ids and will cause a silent 422 on publish
+    if obj.type is PLAN_TYPE.reading
+      delete obj.settings.exercise_ids
+
+    obj
 
   FAILED: -> # used by API
 
