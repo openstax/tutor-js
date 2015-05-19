@@ -1,0 +1,24 @@
+// override line-height styles for paper form controls
+.form-control-wrapper {
+  line-height: 1em;
+
+  .rw-datetimepicker.rw-widget {
+    position: absolute;
+    top: 0;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    input.rw-input {
+      background: transparent;
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .rw-select {
+      border: 0;
+    }
+  }
+}
