@@ -10,9 +10,8 @@
     }
     .icon {
       background-position: center;
-      height: @student-dashboard-row-height;
-      min-width: @student-dashboard-row-height;
-      width: 100%;
+      // * 10 on icon-size-lg because less doesn't automatically convert icon-size-lg to px
+      margin: (@student-dashboard-row-height - @icon-size-lg * 10)/2;
     }
     .title {
       padding-left: 0;
@@ -24,7 +23,10 @@
 
     @media screen and ( max-width: @screen-sm-min ){
       .column-icon { height: @student-dashboard-row-height*2; }
-      .icon {        height: @student-dashboard-row-height*2; }
+      .icon {
+        margin-top: (@student-dashboard-row-height * 2 - @icon-size-lg * 10)/2;
+        margin-bottom: (@student-dashboard-row-height * 2 - @icon-size-lg * 10)/2;
+      }
     }
 
     // A task that is workable can be clicked
@@ -32,7 +34,7 @@
       cursor: pointer;
       &:hover {
         background-color: @tutor-neutral-lighter;
-        .icon { background-size: @student-dashboard-row-height - 4; }
+        .icon { .tutor-icon-active(1.2); }
       }
     }
     transition: all 0.1s ease-in;
