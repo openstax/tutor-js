@@ -5,15 +5,13 @@ BS = require 'react-bootstrap'
 TutorInput = React.createClass
   propTypes:
     label: React.PropTypes.string.isRequired
-    ref: React.PropTypes.string
     id: React.PropTypes.string
     className: React.PropTypes.string
     onChange: React.PropTypes.func
     value: React.PropTypes.any
 
-  onChange: ->
-    domNode = @refs[@props.inputRef].getDOMNode()
-    @props.onChange(domNode?.value, domNode)
+  onChange: (event) ->
+    @props.onChange(event.target?.value, event.target)
 
   render: ->
     classes = ['form-control']
@@ -22,7 +20,6 @@ TutorInput = React.createClass
 
     <div className="form-control-wrapper">
       <input
-        ref={@props.inputRef}
         id={@props.id}
         type='text'
         className={classes.join(' ')}
@@ -45,15 +42,13 @@ TutorDateInput = React.createClass
 TutorTextArea = React.createClass
   propTypes:
     label: React.PropTypes.string.isRequired
-    ref: React.PropTypes.string
     id: React.PropTypes.string
     className: React.PropTypes.string
     onChange: React.PropTypes.func
     value: React.PropTypes.any
 
   onChange: ->
-    domNode = @refs[@props.inputRef].getDOMNode()
-    @props.onChange(domNode?.value, domNode)
+    @props.onChange(event.target?.value, event.target)
 
   render: ->
     classes = ['form-control']
@@ -62,7 +57,6 @@ TutorTextArea = React.createClass
 
     <div className="form-control-wrapper">
       <textarea
-        ref={@props.inputRef}
         id={@props.inputId}
         type='text'
         className={classes.join(' ')}

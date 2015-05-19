@@ -176,7 +176,6 @@ HomeworkPlan = React.createClass
               <div className='-homework-title'>
                 <TutorInput
                   label='Name'
-                  inputRef='title'
                   id='homework-title'
                   default={plan.title}
                   onChange={@setTitle} />
@@ -189,7 +188,6 @@ HomeworkPlan = React.createClass
             <BS.Col xs={12} md={12}>
               <TutorTextArea
                 label='Description'
-                inputRef='description'
                 id='homework-description'
                 default={description}
                 onChange={@setDescription} />
