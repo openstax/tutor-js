@@ -39,14 +39,14 @@ module.exports = class LearningGuideChart
 
 
     leftMargin = 25
-    topMargin = 5
+    topMargin = 10
 
     space_between = (WIDTH - leftMargin) / fields.length
 
     points = _.map(fields, (f, i) ->
       {
         x: Math.max(leftMargin + space_between * i)
-        y: (HEIGHT - topMargin) - (f.current_level / 1.18) * (HEIGHT - topMargin)
+        y: (HEIGHT - topMargin) - (f.current_level / 1.28) * (HEIGHT - topMargin)
       }
     )
 
@@ -67,10 +67,10 @@ module.exports = class LearningGuideChart
     @drawXRect(container)
     @drawXAxis(container, fields, points)
 
-    @drawYLabel(container, 7, 'Ace')
-    @drawYLabel(container, 18, 'Cruising')
+    @drawYLabel(container, 8.7, 'Ace')
+    @drawYLabel(container, 18.5, 'Cruising')
     @drawYLabel(container, 29, 'Too Low')
-    @drawYLabel(container, 40.7, 'Grounded')
+    @drawYLabel(container, 39.4, 'Grounded')
 
     @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
@@ -285,10 +285,10 @@ module.exports = class LearningGuideChart
 
     @addImage(CITYSCAPE_PATH, width:109.7, height:12, x:32, y:32.5)
 
-    @addImage(FLAG_BLUE, width:10, height:2.5, x:13.2, y:5.3)
-    @addImage(FLAG_GREEN, width:20, height:2.5, x:6.8, y:16.3)
+    @addImage(FLAG_BLUE, width:10, height:2.5, x:13.2, y:7)
+    @addImage(FLAG_GREEN, width:20, height:2.5, x:6.8, y:16.8)
     @addImage(FLAG_YELLOW, width:20, height:2.5, x:6.6, y:27.3)
-    @addImage(FLAG_GREY, width:20, height:2.5, x:6.3, y:39)
+    @addImage(FLAG_GREY, width:20, height:2.5, x:6.3, y:37.7)
 
     @addImage(CLOUD_PATH, width:40, height:15, x:110, y:2, 'cloud-opacity-70')
     @addImage(CLOUD_PATH, width:18, height:7, x:105, y:4, 'cloud-opacity-70')
