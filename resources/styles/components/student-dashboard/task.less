@@ -32,8 +32,7 @@
       cursor: pointer;
       &:hover {
         background-color: @tutor-neutral-lighter;
-        // on hover grow the icon from 4rem (40pxish) to 56
-        .icon { background-size: 56px 56px; }
+        .icon { background-size: @student-dashboard-row-height - 4; }
       }
     }
     transition: all 0.1s ease-in;
