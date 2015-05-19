@@ -111,8 +111,14 @@ label.exercises-section-label {
       counter-reset: answer;
       margin-bottom: 1rem;
       .answers-answer.correct {
-        //TODO: get icon from Fred, and update this to use icon instead of changing color to green
         color: @tutor-secondary;
+        padding-left: 0;
+        &::before {
+          .fa;
+          float: left;
+          margin-top: 0.5em;
+          content: @fa-var-check;
+        }
       }
 
       .answers-answer {
