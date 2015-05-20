@@ -7,6 +7,7 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
+CSRF_Token = $('meta[name=csrf-token]').attr('content')
 
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
@@ -44,6 +45,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         method: httpMethod or httpMethodOverride
         dataType: 'json'
         headers:
+          'X-CSRF-Token': CSRF_Token,
           token: CurrentUserStore.getToken()
       if payload?
         opts.data = JSON.stringify(payload)
