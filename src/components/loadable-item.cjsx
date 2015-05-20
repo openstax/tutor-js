@@ -27,6 +27,8 @@ module.exports = React.createClass
   reload: (oldProps) ->
     {id, store, load, actions} = @props
 
+    return unless id?
+
     # Skip reloading if all the props are the same (the case in the Calendar for some reason)
     if oldProps.id is id and oldProps.store is store and oldProps.actions is actions and oldProps.load is load
       return
