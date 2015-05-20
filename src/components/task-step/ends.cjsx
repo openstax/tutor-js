@@ -1,6 +1,6 @@
 # coffeelint: disable=no_empty_functions
 
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
@@ -13,6 +13,8 @@ TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
+
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
@@ -59,22 +61,15 @@ PracticeEnd = React.createClass
 
 HomeworkEnd = React.createClass
   displayName: 'HomeworkEnd'
-
-  mixins: [BindStoreMixin]
-  bindStore: TaskStepStore
-  bindEvent: 'step.completed'
-  bindUpdate: ->
-    # update on complete
-    @setState({})
-
   propTypes:
     courseId: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
 
   goToStep: ->
   onNextStep: ->
+    @setState({})
 
-  renderReviewSteps: (steps, label, type) ->
+  renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
 
     stepsList = _.map steps, (step, index) =>
@@ -85,14 +80,17 @@ HomeworkEnd = React.createClass
         key="task-review-#{step.id}"
         # focus on first problem
         focus={index is 0}
-        review={true}
+        review={type}
         pinned={false}
+        taskId={taskId}
       />
 
     stepsReview =
       <div className="task task-review-#{type}">
         {label}
-        {stepsList}
+        <ReactCSSTransitionGroup transitionName="homework-review-problem">
+          {stepsList}
+        </ReactCSSTransitionGroup>
         <PinnableFooter>
           <Router.Link
             to='viewStudentDashboard'
@@ -105,15 +103,18 @@ HomeworkEnd = React.createClass
     completedSteps = TaskStore.getCompletedSteps taskId
     incompleteSteps = TaskStore.getIncompleteSteps taskId
     totalSteps = TaskStore.getTotalStepsCount taskId
+    completedLabel = null
+    todoLabel = null
 
     if completedSteps.length
       completedLabel = <h1>Problems Review</h1>
-      completedReview = @renderReviewSteps(completedSteps, completedLabel, 'completed')
 
     if incompleteSteps.length
       todoLabel =
         <h1>Problems To Do <small>{incompleteSteps.length} remaining</small></h1>
-      todoReview = @renderReviewSteps(incompleteSteps, todoLabel, 'todo')
+
+    completedReview = @renderReviewSteps(taskId, completedSteps, completedLabel, 'completed')
+    todoReview = @renderReviewSteps(taskId, incompleteSteps, todoLabel, 'todo')
 
     <div className='task-review -homework-completed'>
       {todoReview}
