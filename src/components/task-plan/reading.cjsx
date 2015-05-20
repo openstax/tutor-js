@@ -85,9 +85,9 @@ ReadingPlan = React.createClass
     router: React.PropTypes.func
 
   getInitialState: ->
-    if TaskPlanStore.isNew(@props.id) and @context?.router?.getCurrentQuery().date
-      #firefox doesn't like dates with dashes in them
-      dateStr = @context.router.getCurrentQuery().date.replace(/-/g, ' ')
+    #firefox doesn't like dates with dashes in them
+    dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, ' ')
+    if TaskPlanStore.isNew(@props.id) and dateStr
       dueAt = new Date(dateStr)
       @setDueAt(dueAt)
     {}
