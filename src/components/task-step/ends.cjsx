@@ -92,15 +92,18 @@ HomeworkEnd = React.createClass
     completedSteps = TaskStore.getCompletedSteps taskId
     incompleteSteps = TaskStore.getIncompleteSteps taskId
     totalSteps = TaskStore.getTotalStepsCount taskId
+    completedLabel = null
+    todoLabel = null
 
     if completedSteps.length
       completedLabel = <h1>Problems Review</h1>
-      completedReview = @renderReviewSteps(taskId, completedSteps, completedLabel, 'completed')
 
     if incompleteSteps.length
       todoLabel =
         <h1>Problems To Do <small>{incompleteSteps.length} remaining</small></h1>
-      todoReview = @renderReviewSteps(taskId, incompleteSteps, todoLabel, 'todo')
+
+    completedReview = @renderReviewSteps(taskId, completedSteps, completedLabel, 'completed')
+    todoReview = @renderReviewSteps(taskId, incompleteSteps, todoLabel, 'todo')
 
     <div className='task-review -homework-completed'>
       {todoReview}
