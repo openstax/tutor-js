@@ -1,6 +1,6 @@
 # coffeelint: disable=no_empty_functions
 
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
@@ -12,6 +12,8 @@ TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
+
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
@@ -75,7 +77,9 @@ HomeworkEnd = React.createClass
     stepsReview =
       <div className="task task-review-#{type}">
         {label}
-        {stepsList}
+        <ReactCSSTransitionGroup transitionName="homework-review-problem">
+          {stepsList}
+        </ReactCSSTransitionGroup>
         <PinnableFooter>
           <Router.Link
             to='viewStudentDashboard'
