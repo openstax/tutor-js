@@ -91,7 +91,7 @@ module.exports = React.createClass
       adminLink = <BS.Button href='/admin' bsStyle='danger' bsSize='small'>Admin</BS.Button>
 
     <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
-      <BS.CollapsableNav eventKey={0}>
+      <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>
         </BS.Nav>
@@ -108,5 +108,5 @@ module.exports = React.createClass
               key='dropdown-item-logout'>Sign Out!</BS.MenuItem>
           </BS.DropdownButton>
         </BS.Nav>
-      </BS.CollapsableNav>
+      </BS.CollapsibleNav>
     </BS.Navbar>
