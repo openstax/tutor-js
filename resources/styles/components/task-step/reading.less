@@ -1,9 +1,10 @@
+@import '../../book-content/index';
+
 .task-step {
 
   .reading-step {
     // pull in common stylings for book contents
-    @import './reading/book-content/index';
-    .tutor-reading-ui-banner();
+    .tutor-book-content();
     // should the watch-physics step be part of book content?
     @import './reading/watch-physics';
   }
@@ -15,7 +16,5 @@
 
 }
 
-.task-reading {
-  @import './reading/completed';
-  @import './reading/interactive';
-}
+@import './reading/completed';
+@import './reading/interactive';

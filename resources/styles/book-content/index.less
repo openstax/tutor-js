@@ -1,0 +1,17 @@
+// A mixin to style book content from CNX
+.tutor-book-content() {
+  @reading-ui-banner-height: 40px;
+
+  @import './mixins';
+
+  @import './base';
+  // type specific styling comes last so it can override the above styles
+  @import './links-to-physics';
+  @import './worked-examples';
+  @import './work-in-physics';
+  @import './tips-for-success';
+  @import './fun-in-physics';
+  @import './grasp-check';
+  @import './glossary';
+
+}
