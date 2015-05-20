@@ -128,7 +128,6 @@ gulp.task '_copyFonts', ['_cleanFonts'], ->
       'node_modules/**/*.{eot,svg,png,jpg,ttf,woff,woff2}',
       'resources/fonts/**/*'
     ])
-    .pipe(flatten())
     .pipe(gulp.dest(destDirFonts))
 
 gulp.task '_cleanFonts', (done) ->
