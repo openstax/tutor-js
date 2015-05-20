@@ -25,6 +25,14 @@ module.exports = React.createClass
     if html
       __html: html
 
+  # rendering uses dangerouslySetInnerHTML and then runs MathJax,
+  # Both of which React can't optimize like it's normal render operations
+  # Accordingly, only update if any of our props have actually changed
+  shouldComponentUpdate: (nextProps, nextState) ->
+    for propName, value of nextProps
+      return true if @props[propName] isnt value
+    return false
+
   componentDidMount:  -> @updateDOMNode()
   componentDidUpdate: -> @updateDOMNode()
 
