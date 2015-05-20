@@ -37,8 +37,7 @@ module.exports = React.createClass
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
 
     nodes = root.querySelectorAll('[data-math]:not(.math-rendered)') or []
-    # return immediatly if there's nothing to do
-    return if nodes.length is 0
+
     # Clone the array because the browser will mutable it
     nodes = _.toArray(nodes)
 
@@ -46,22 +45,22 @@ module.exports = React.createClass
       formula = node.getAttribute('data-math')
 
       # Divs with data-math should be rendered as a block
-      isBlock = node.tagName.toLowerCase() in ['div']
-      if isBlock
-        node.textContent = "‌‌‌#{formula}‌‌‌" # bounded by 3 U+200C zero-width non-joiner
+      if node.tagName.toLowerCase() is 'div'
+        node.textContent = "\u200c\u200c\u200c#{formula}\u200c\u200c\u200c"
       else
-        node.textContent = "​​​#{formula}​​​" # bounded by 3 U+200B zero-width space
-
-    cb = ->
-      _.each nodes, (node) ->
-        node.classList.add('math-rendered')
+        node.textContent = "\u200b\u200b\u200b#{formula}\u200b\u200b\u200b"
 
     # MathML should be rendered by MathJax (if available)
-    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root], cb)
-    # Once MathML finishes processing, manually cleanup after it to prevent
+    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root])
+
+    # Once MathJax finishes processing, mark all the nodes as
+    # rended and then manually cleanup the MathJax message nodes to prevent
     # React "Invariant Violation" exceptions.
     # MathJax calls Queued events in order, so this should always execute after typesetting
     window.MathJax?.Hub.Queue([ ->
+      _.each nodes, (node) ->
+        node.classList.add('math-rendered')
+
       for nodeId in ['MathJax_Message', 'MathJax_Hidden', 'MathJax_Font_Test']
         el = document.getElementById(nodeId)
         break unless el # the elements won't exist if MathJax didn't do anything

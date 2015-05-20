@@ -7,8 +7,8 @@
     MathJax.Hub.Config({
       showProcessingMessages: false,
       tex2jax: {
-        displayMath: [['‌‌‌','‌‌‌']], // 3 U+200C zero-width non-joiner
-        inlineMath:  [['​​​','​​​']]  // 3 U+200B zero-width space
+        displayMath: [['\u200c\u200c\u200c','\u200c\u200c\u200c']], // zero-width non-joiner
+        inlineMath:  [['\u200b\u200b\u200b','\u200b\u200b\u200b']]  // zero-width space
       },
       styles: {
         "#MathJax_Message": { visibility: "hidden", left: "", right: 0},
