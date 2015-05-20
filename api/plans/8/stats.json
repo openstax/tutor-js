@@ -11,7 +11,7 @@
             "current_pages": [],
             "spaced_pages": [{
                 "id": "0",
-                "number": 0,
+                "chapter_section": [8, 2],
                 "title": "",
                 "student_count": 10,
                 "correct_count": 120,

@@ -5,8 +5,14 @@ Router = require 'react-router'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 Loadable = require '../loadable'
+ChapterSectionMixin = require '../chapter-section-mixin'
 
 Stats = React.createClass
+  propTypes:
+    id: React.PropTypes.string.isRequired
+
+  mixins: [ChapterSectionMixin]
+
   _percent: (num, total) ->
     Math.round((num / total) * 100)
 
@@ -62,7 +68,7 @@ Stats = React.createClass
 
     <div key="#{type}-bar-#{index}">
       <div className='reading-progress-heading'>
-        {data.number} {data.title} {studentCount}
+        {@sectionFormat(data.chapter_section, @state.sectionSeparator)} {data.title} {studentCount}
       </div>
       <div className='reading-progress-container'>
         <BS.ProgressBar className='reading-progress-group'>

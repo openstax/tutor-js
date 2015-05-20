@@ -6,6 +6,7 @@
         "course": {
             "total_count": 10,
             "complete_count": 0,
+            "chapter_section": [1, 2],
             "partially_complete_count": 0
         },
         "periods": []
