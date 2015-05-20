@@ -7,8 +7,7 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
-CSRF_Token = $('meta[name=csrf-token]').attr('content')
-
+CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
