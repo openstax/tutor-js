@@ -100,6 +100,7 @@ SinglePractice = React.createClass
     router: React.PropTypes.func
 
   componentWillMount: ->
+    @createPractice(@getId())
     CourseStore.on('practice.loaded', @update)
 
   componentWillUnmount: ->
@@ -110,10 +111,8 @@ SinglePractice = React.createClass
     CourseActions.createPractice(courseId, query)
 
   getInitialState: ->
-    @createPractice(@getId())
-
     # force a new practice each time
-    taskId: undefined
+    taskId: null
 
   getId: ->
     {courseId} = @context.router.getCurrentParams()

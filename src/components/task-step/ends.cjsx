@@ -9,6 +9,7 @@ PracticeButton = require '../practice-button'
 BindStoreMixin = require '../bind-store-mixin'
 
 TaskStep = require './index'
+{CourseStore} = require '../../flux/course'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
@@ -24,12 +25,15 @@ PracticeEnd = React.createClass
   render: ->
     {courseId, taskId, reloadPractice} = @props
 
+    pageIds = CourseStore.getPracticePageIds(courseId)
+
     footer =
       <div className='-practice-end'>
         <PracticeButton
           courseId={courseId}
           loadedTaskId={taskId}
           reloadPractice={reloadPractice}
+          pageIds={pageIds}
           forceCreate={true}>
           Do more practice
         </PracticeButton>
