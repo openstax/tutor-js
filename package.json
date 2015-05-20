@@ -28,7 +28,7 @@
     "moment": "^2.9.0",
     "pluralize": "^1.1.2",
     "react": "0.13.1",
-    "react-bootstrap": "~0.18.0",
+    "react-bootstrap": "~0.22.0",
     "react-calendar": "^0.4.0",
     "react-router": "~0.13.2",
     "react-scroll-components": "^0.2.2",
