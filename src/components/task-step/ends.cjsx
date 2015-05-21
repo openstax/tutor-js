@@ -69,6 +69,15 @@ HomeworkEnd = React.createClass
   onNextStep: ->
     @setState({})
 
+  renderCompletionMessage: (completeSteps, totalSteps) ->
+    congratsMessage = <h1>You are done! Great job!</h1> if completeSteps is totalSteps
+
+    [
+      {congratsMessage}
+      <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
+    ]
+
+
   renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
 
@@ -102,7 +111,7 @@ HomeworkEnd = React.createClass
   renderAfterDue: (taskId) ->
     completedSteps = TaskStore.getCompletedSteps taskId
     incompleteSteps = TaskStore.getIncompleteSteps taskId
-    totalSteps = TaskStore.getTotalStepsCount taskId
+    totalStepsCount = TaskStore.getTotalStepsCount taskId
     completedLabel = null
     todoLabel = null
 
@@ -117,16 +126,19 @@ HomeworkEnd = React.createClass
     todoReview = @renderReviewSteps(taskId, incompleteSteps, todoLabel, 'todo')
 
     <div className='task-review -homework-completed'>
+      <CardBody>
+        <div className='completed-message'>
+          {@renderCompletionMessage(completedSteps.length, totalStepsCount)}
+        </div>
+      </CardBody>
       {todoReview}
       {completedReview}
     </div>
 
   renderBeforeDue: (taskId) ->
     {courseId} = @props
-    completeSteps = TaskStore.getCompletedStepsCount(taskId)
-    totalSteps = TaskStore.getTotalStepsCount(taskId)
-
-    congratsMessage = <h1>You are done! Great job!</h1> if completeSteps is totalSteps
+    completedStepsCount = TaskStore.getCompletedStepsCount(taskId)
+    totalStepsCount = TaskStore.getTotalStepsCount(taskId)
 
     footer = <Router.Link
       to='viewStudentDashboard'
@@ -136,8 +148,7 @@ HomeworkEnd = React.createClass
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
         <div className='completed-message'>
-          {congratsMessage}
-          <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
+          {@renderCompletionMessage(completedStepsCount, totalStepsCount)}
           <ul>
             <li>You can still review and update your answers until the due date.</li>
             <li>Your homework will be automatically turned in on the due date.</li>
