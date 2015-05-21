@@ -28,7 +28,7 @@
             "type": "reading",
             "complete": false,
             "exercise_count": 2,
-            "complete_exercise_count": 0
+            "complete_exercise_count": 1
         },
         {
             "id": "9",
@@ -79,7 +79,7 @@
             "due_at": "2015-05-19T14:15:58.856Z",
             "type": "homework",
             "complete": true,
-            "exercise_count": 7,
+            "exercise_count": 3,
             "complete_exercise_count": 7
         }
     ],
