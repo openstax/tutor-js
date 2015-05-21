@@ -58,18 +58,16 @@ module.exports = React.createClass
       else
         node.textContent = "\u200b\u200b\u200b#{formula}\u200b\u200b\u200b"
       window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, node])
+      # mark node as processed
+      node.classList.add('math-rendered')
 
     # render MathML with MathJax
     window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
 
-    # Once MathJax finishes processing, mark all the nodes as
-    # rended and then manually cleanup the MathJax message nodes to prevent
+    # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
     # React "Invariant Violation" exceptions.
-    # MathJax calls Queued events in order, so this should always execute after typesetting
+    # MathJax calls queued events in order, so this will be called after processing completes
     window.MathJax?.Hub.Queue([ ->
-      _.each nodes, (node) ->
-        node.classList.add('math-rendered')
-
       for nodeId in ['MathJax_Message', 'MathJax_Hidden', 'MathJax_Font_Test']
         el = document.getElementById(nodeId)
         break unless el # the elements won't exist if MathJax didn't do anything
