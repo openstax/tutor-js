@@ -1,8 +1,9 @@
 @icon-path: '.';
-@icon-size-sm: 1rem;
-@icon-size-md: @icon-size-sm * 2;
-@icon-size-lg: @icon-size-sm * 4;
-@icon-size-xlg: @icon-size-sm * 6;
+@icon-size-xs: 1rem;
+@icon-size-sm: @icon-size-xs * 1.6;
+@icon-size-md: @icon-size-xs * 2;
+@icon-size-lg: @icon-size-xs * 4;
+@icon-size-xlg: @icon-size-xs * 6;
 
 // # Overview
 //
@@ -52,6 +53,7 @@
 
 // # Icon Classes
 
+.icon-xs  { .x-icon-size(@icon-size-xs); }
 .icon-sm  { .x-icon-size(@icon-size-sm); }
 .icon-md  { .x-icon-size(@icon-size-md); }
 .icon-lg  { .x-icon-size(@icon-size-lg); }
@@ -71,9 +73,9 @@
 .icon-spaced_practice  { .x-icon-bg(review); }
 .icon-personalized     { .x-icon-bg(personalized); }
 
-.icon-md.icon-personalized {
-  width: @icon-size-md * 2;
-  background-size: @icon-size-md * 2 @icon-size-md;
+.icon-sm.icon-personalized {
+  width: @icon-size-sm * 2;
+  background-size: @icon-size-sm * 2 @icon-size-sm;
 }
 
 .icon-placeholder {
