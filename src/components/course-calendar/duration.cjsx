@@ -42,7 +42,7 @@ CourseDuration = React.createClass
       # TODO these parts actually seem like they should be in flux
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
-      .sortBy('opens_at')
+      .sortBy('due_at')
       .value()
 
     groupedDurations = _.chain(groupingDurations)
