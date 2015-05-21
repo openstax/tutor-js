@@ -128,6 +128,7 @@ gulp.task '_copyFonts', ['_cleanFonts'], ->
       'node_modules/**/*.{eot,svg,png,jpg,ttf,woff,woff2}',
       'resources/fonts/**/*'
     ])
+    .pipe(flatten())
     .pipe(gulp.dest(destDirFonts))
 
 gulp.task '_cleanFonts', (done) ->
@@ -179,7 +180,7 @@ gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
     './dist/fonts/*',
-    './dist/**/*.{svg,png,jpg}'])
+    './dist/**/*.{svg,png,jpg}'], base: './dist')
     .pipe(tar('archive.tar'))
     .pipe(gzip())
     .pipe(gulp.dest('./dist/'))
