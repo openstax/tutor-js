@@ -54,17 +54,17 @@ legend {
     position: relative;
     a:hover {
       background-color: transparent;
-      color: @primary;
+      color: @tutor-neutral-darker;
     }
   }
-  .variations(~" li a:hover", color, @primary);
+  .variations(~" li a:hover", color, @tutor-neutral-darker);
 }
 
 // Active state
 .dropdown-menu {
-  .variations(~" > .active > a", background-color, @primary);
-  .variations(~" > .active > a:hover", background-color, @primary);
-  .variations(~" > .active > a:focus", background-color, @primary);
+  .variations(~" > .active > a", background-color, @tutor-neutral-light);
+  .variations(~" > .active > a:hover", background-color, @tutor-neutral-darker);
+  .variations(~" > .active > a:focus", background-color, @tutor-neutral-lighter);
 }
 
 // Alerts
