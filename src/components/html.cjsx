@@ -45,21 +45,22 @@ module.exports = React.createClass
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
 
     nodes = root.querySelectorAll('[data-math]:not(.math-rendered)') or []
+    hasMath = root.querySelector('math')
 
-    # Clone the array because the browser will mutable it
-    nodes = _.toArray(nodes)
+    # Return immediatly if no [data-math] or <math> elements are present
+    return unless _.any(nodes) or hasMath
 
-    _.each nodes, (node) ->
+    for node in nodes
       formula = node.getAttribute('data-math')
-
-      # Divs with data-math should be rendered as a block
+      # divs with data-math should be rendered as a block
       if node.tagName.toLowerCase() is 'div'
         node.textContent = "\u200c\u200c\u200c#{formula}\u200c\u200c\u200c"
       else
         node.textContent = "\u200b\u200b\u200b#{formula}\u200b\u200b\u200b"
+      window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, node])
 
-    # MathML should be rendered by MathJax (if available)
-    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root])
+    # render MathML with MathJax
+    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
 
     # Once MathJax finishes processing, mark all the nodes as
     # rended and then manually cleanup the MathJax message nodes to prevent
