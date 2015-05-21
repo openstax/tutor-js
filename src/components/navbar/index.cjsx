@@ -6,6 +6,7 @@ _ = require 'underscore'
 
 UserName = require './username'
 CourseName = require './course-name'
+SignOut = require './signout'
 BindStoreMixin = require '../bind-store-mixin'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
@@ -52,8 +53,6 @@ module.exports = React.createClass
     @handleCourseChanges()
 
   bindStore: CourseStore
-
-  logout: -> CurrentUserActions.logout()
 
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)
@@ -104,8 +103,9 @@ module.exports = React.createClass
             {menuItems}
             <BS.MenuItem
               eventKey={4}
-              onClick={@logout}
-              key='dropdown-item-logout'>Sign Out!</BS.MenuItem>
+              key='dropdown-item-logout'>
+                <SignOut className='btn btn-link btn-xs'>Sign Out!</SignOut>
+            </BS.MenuItem>
           </BS.DropdownButton>
         </BS.Nav>
       </BS.CollapsibleNav>

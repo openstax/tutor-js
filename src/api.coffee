@@ -7,7 +7,6 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
-
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
@@ -44,6 +43,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         method: httpMethod or httpMethodOverride
         dataType: 'json'
         headers:
+          'X-CSRF-Token': CurrentUserStore.getCSRFToken(),
           token: CurrentUserStore.getToken()
       if payload?
         opts.data = JSON.stringify(payload)
@@ -194,9 +194,11 @@ start = ->
     url: "/api/courses/#{courseId}/dashboard"
 
   CurrentUserActions.logout.addListener 'trigger', ->
-    $.ajax('/accounts/logout', {method: 'DELETE'})
-    .always ->
-      window.location.href = '/'
+    # Logging out programatically needs to be done via a form submission or follow redirects
+    # $.ajax('/accounts/logout', {method: 'DELETE'})
+    # .always ->
+    console.warn('Logging out programatically needs to be done via a form submission or follow redirects')
+    window.location.href = '/'
 
 
 module.exports = {start}

@@ -2,6 +2,8 @@ React = require 'react'
 camelCase = require 'camelcase'
 _ = require 'underscore'
 
+ChapterSectionMixin = require '../../chapter-section-mixin'
+
 defaultGroup = {
   show: false
 }
@@ -15,15 +17,34 @@ rules =
   #  TODO deprecate spaced practice when BE is updated
   'spaced practice':
     show: true
-    label: (related) ->
-      "Review - #{related.chapter_section} #{related.title}"
+
   spaced_practice:
     show: true
-    label: (related) ->
-      "Review - #{related.chapter_section} #{related.title}"
+
+GroupRulesMixin =
+  getInitialState: ->
+    rules: rules
+
+  getPossibleGroups: ->
+    _.keys(@state.rules)
+
+  buildLabel: (related) ->
+    sectionSeparator = @state.sectionSeparator
+    chapterSection = @sectionFormat(related.chapter_section, sectionSeparator)
+    "Review - #{chapterSection} #{related.title}"
+
+  getGroupLabel: (group, related_content) ->
+
+    if @state.rules[group].label?
+      labels = @state.rules[group].label
+    else
+      labels = _.map(related_content, @buildLabel)
+
+    labels
 
 ExerciseGroup = React.createClass
   displayName: 'ExerciseGroup'
+  mixins: [ChapterSectionMixin, GroupRulesMixin]
 
   propTypes:
     group: React.PropTypes.oneOf(_.keys(rules)).isRequired
@@ -39,12 +60,12 @@ ExerciseGroup = React.createClass
 
     if rules[group].show
       className = group.replace(' ', '_')
-      labels = if _.isFunction(rules[group].label) then _.map(related_content, rules[group].label) else rules[group].label
+      labels = @getGroupLabel(group, related_content)
 
-      groupDOM = <p className='task-step-group'>
-          <i className="icon-md icon-#{className}"></i>
+      groupDOM = <div className='task-step-group'>
+          <i className="icon-sm icon-#{className}"></i>
           <span className='task-step-group-label'>{labels}</span>
-        </p>
+        </div>
 
     groupDOM
 
