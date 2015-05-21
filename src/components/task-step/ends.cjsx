@@ -69,13 +69,13 @@ HomeworkEnd = React.createClass
   onNextStep: ->
     @setState({})
 
-  renderCompletionMessage: (completeSteps, totalSteps) ->
+  renderStatusMessage: (completeSteps, totalSteps) ->
     congratsMessage = <h1>You are done! Great job!</h1> if completeSteps is totalSteps
 
-    [
+    <div className='task-status-message'>
       {congratsMessage}
       <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
-    ]
+    </div>
 
 
   renderReviewSteps: (taskId, steps, label, type) ->
@@ -128,7 +128,7 @@ HomeworkEnd = React.createClass
     <div className='task-review -homework-completed'>
       <CardBody>
         <div className='completed-message'>
-          {@renderCompletionMessage(completedSteps.length, totalStepsCount)}
+          {@renderStatusMessage(completedSteps.length, totalStepsCount)}
         </div>
       </CardBody>
       {todoReview}
@@ -148,7 +148,7 @@ HomeworkEnd = React.createClass
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
         <div className='completed-message'>
-          {@renderCompletionMessage(completedStepsCount, totalStepsCount)}
+          {@renderStatusMessage(completedStepsCount, totalStepsCount)}
           <ul>
             <li>You can still review and update your answers until the due date.</li>
             <li>Your homework will be automatically turned in on the due date.</li>
