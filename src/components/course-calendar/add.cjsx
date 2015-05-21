@@ -35,7 +35,7 @@ CourseAdd = React.createClass
 
   render: ->
     {referenceDate, addDate, open} = @state
-    className='course-add-dropdown'
+    className = 'course-add-dropdown'
 
     # DYNAMIC_ADD_ON_CALENDAR_POSITIONING
     # Positions Add menu on date
