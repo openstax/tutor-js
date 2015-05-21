@@ -74,7 +74,7 @@ CourseMonth = React.createClass
       @hideAddOnDay(componentName, dayMoment, mouseEvent)
 
   undoActives: (componentName, dayMoment, mouseEvent) ->
-    unless dayMoment? and dayMoment.isSame(@refs.addOnDay.state.date, 'day')
+    unless dayMoment? and dayMoment.isSame(@refs.addOnDay.state.addDate, 'day')
       @hideAddOnDay(componentName, dayMoment, mouseEvent)
 
   hideAddOnDay: (componentName, dayMoment, mouseEvent) ->
