@@ -54,8 +54,6 @@ module.exports = React.createClass
 
   bindStore: CourseStore
 
-  logout: -> CurrentUserActions.logout()
-
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)
 

@@ -1,6 +1,8 @@
 React = require 'react'
+{CurrentUserStore} = require '../../flux/current-user'
 
 LOGOUT_URL = '/accounts/logout'
+CSRF_Token = CurrentUserStore.getCSRFToken()
 
 module.exports = React.createClass
 
@@ -16,6 +18,7 @@ module.exports = React.createClass
       className='-logout-form'
       method='post'>
       <input type='hidden' name='_method' value='delete'/>
+      <input type='hidden' name='authenticity_token' value={CSRF_Token}/>
       <button className={classes} aria-label="Sign out">
         {children}
       </button>

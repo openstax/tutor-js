@@ -4,6 +4,12 @@ flux = require 'flux-react'
 
 {CourseActions, CourseStore} = require './course'
 
+# Read the CSRF token from document's meta tag.  If not found, log a warning but proceed
+# on the assumption that the server knows what it's doing.
+CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
+console?.warn?("CSRF token was not found, proceeding without CSRF protection") unless CSRF_Token
+
+
 # TODO consider putting this with policies?  especially when this same data could be used for other
 # roles based stuffs?
 # Roles listed in ascending order of rank, where admin will have most permissions
@@ -105,6 +111,7 @@ CurrentUserStore = flux.createStore
 
   exports:
     getToken: -> @_token
+    getCSRFToken: -> CSRF_Token
     isCoursesLoaded: -> !!@_courses
     getName: -> @_name
     isAdmin: -> @_isAdmin

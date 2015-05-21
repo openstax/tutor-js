@@ -27,11 +27,6 @@ _ = require 'underscore'
 # - do not error when a PUT occurs
 IS_LOCAL = window.location.port is '8000' or window.__karma__
 
-# Read the CSRF token from document's meta tag.  If not found, log a warning but proceed
-# on the assumption that the server knows what it's doing.
-CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
-console?.warn?("CSRF token was not found, proceeding without CSRF protection") unless CSRF_Token
-
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
 
@@ -48,7 +43,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         method: httpMethod or httpMethodOverride
         dataType: 'json'
         headers:
-          'X-CSRF-Token': CSRF_Token,
+          'X-CSRF-Token': CurrentUserStore.getCSRFToken(),
           token: CurrentUserStore.getToken()
       if payload?
         opts.data = JSON.stringify(payload)
@@ -199,9 +194,11 @@ start = ->
     url: "/api/courses/#{courseId}/dashboard"
 
   CurrentUserActions.logout.addListener 'trigger', ->
-    $.ajax('/accounts/logout', {method: 'DELETE'})
-    .always ->
-      window.location.href = '/'
+    # Logging out programatically needs to be done via a form submission or follow redirects
+    # $.ajax('/accounts/logout', {method: 'DELETE'})
+    # .always ->
+    console.warn('Logging out programatically needs to be done via a form submission or follow redirects')
+    window.location.href = '/'
 
 
 module.exports = {start}
