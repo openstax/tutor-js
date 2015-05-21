@@ -9,11 +9,14 @@ LoadableItem = require './loadable-item'
 LearningGuideChart = require './learning-guide-chart'
 PracticeButton = require './practice-button'
 ChapterSection = require './task-plan/chapter-section'
+ChapterSectionMixin = require './chapter-section-mixin'
 
 LearningGuide = React.createClass
   displayName: 'LearningGuide'
   contextTypes:
     router: React.PropTypes.func
+
+  mixins: [ChapterSectionMixin]
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -22,7 +25,6 @@ LearningGuide = React.createClass
     showAll: true
     footerOffset: 0
     chapter: 0
-    sectionSeparator: '.'
 
   navigateToPractice: (unit) ->
     {page_ids} = unit
@@ -45,13 +47,6 @@ LearningGuide = React.createClass
 
   setFooterOffset: (offset) ->
     @setState(footerOffset: offset)
-
-  sectionFormat: (section, separator) ->
-    if section instanceof Array
-      subsection = if section[1]? then separator + section[1] else ''
-      section[0] + subsection
-    else
-      section
 
   loadChart: ->
     @chart.destroy() if @chart
