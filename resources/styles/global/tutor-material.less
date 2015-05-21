@@ -44,7 +44,7 @@ legend {
 @import "@{material-path}/_navbar";
 
 .dropdown-menu {
-  border: 0;
+  border: 0; 
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   .divider {
     background-color: rgba(229, 229, 229, 0.12);
@@ -52,19 +52,20 @@ legend {
   li {
     overflow: hidden;
     position: relative;
-    a:hover {
-      background-color: transparent;
-      color: @tutor-neutral-darker;
-    }
+    // a:hover {
+    //   color: @tutor-neutral-darker;
+    //   background-color: @tutor-neutral-light;
+    // }
   }
   .variations(~" li a:hover", color, @tutor-neutral-darker);
-}
+  .variations(~" li a:hover", background-color, @tutor-neutral-bright);
 
-// Active state
-.dropdown-menu {
+  // Active state
+  .variations(~" > .active > a", color, @tutor-neutral-darker);
   .variations(~" > .active > a", background-color, @tutor-neutral-light);
-  .variations(~" > .active > a:hover", background-color, @tutor-neutral-darker);
-  .variations(~" > .active > a:focus", background-color, @tutor-neutral-lighter);
+  .variations(~" > .active > a:hover", background-color, @tutor-neutral-light);
+  .variations(~" > .active > a:hover", color, @tutor-neutral-darker);
+  .variations(~" > .active > a:hover", cursor, default);
 }
 
 // Alerts
