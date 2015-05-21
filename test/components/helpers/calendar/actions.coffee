@@ -26,6 +26,10 @@ actions =
     {component} = args[0]
     upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     commonActions.clickComponent(upcomings[0])(args[0])
+  clickYesterday: (args...) ->
+    {component} = args[0]
+    pasts = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
+    commonActions.clickComponent(_.last(pasts))(args[0])
   clickAddHomework: (args...) ->
     {component} = args[0]
     addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)

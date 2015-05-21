@@ -111,10 +111,17 @@ checks =
     expect(isToday).to.be.true
     {div, component, state, router, history, courseId}
 
-  _checkIsYesterdayNotClickable: ({div, component, state, router, history, courseId}) ->
+  _checkIsYesterdayClickable: ({div, component, state, router, history, courseId}) ->
     past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
     shouldBeYesterday = _.last(past)
-    expect(shouldBeYesterday.props.onClick).to.be.an('undefined')
+    expect(shouldBeYesterday.props.onClick).to.be.a('function')
+
+    {div, component, state, router, history, courseId}
+
+  _checkYesterdayAddPlansWarning: ({div, component, state, router, history, courseId}) ->
+    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+    expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
+    expect(addOnDayDropdown.getDOMNode().innerText).to.contain('Cannot add')
 
     {div, component, state, router, history, courseId}
 
