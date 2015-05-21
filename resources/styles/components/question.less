@@ -16,9 +16,14 @@
 
 .answer() {
   display: flex;
+  display: -webkit-flex;
   align-items: center;
   width: 100%;
   margin: @answer-vertical-spacing 0;
+
+  // safari
+  display: -webkit-box;
+  -webkit-box-align: center;
 }
 
 .answer-label() {
