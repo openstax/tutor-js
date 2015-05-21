@@ -7,7 +7,6 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
-
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
@@ -28,6 +27,11 @@ _ = require 'underscore'
 # - do not error when a PUT occurs
 IS_LOCAL = window.location.port is '8000' or window.__karma__
 
+# Read the CSRF token from document's meta tag.  If not found, log a warning but proceed
+# on the assumption that the server knows what it's doing.
+CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
+console?.warn?("CSRF token was not found, proceeding without CSRF protection") unless CSRF_Token
+
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
 
@@ -44,6 +48,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         method: httpMethod or httpMethodOverride
         dataType: 'json'
         headers:
+          'X-CSRF-Token': CSRF_Token,
           token: CurrentUserStore.getToken()
       if payload?
         opts.data = JSON.stringify(payload)
