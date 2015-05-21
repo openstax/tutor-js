@@ -136,7 +136,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'x-axis')
       .selectAll('line')
       .data(fields)
-    me = @ # Since displayUnit needs this and the 'this' scope still needs @parentElement
+    me = @ # Since displayUnit needs this and the 'this' scope still needs @parentNode
     label = wrap.enter()
       .append('g')
       .attr('class', 'point')
@@ -144,7 +144,7 @@ module.exports = class LearningGuideChart
         "translate(#{points[i].x}, #{HEIGHT - 4})"
       )
       .on('click', (field) ->
-        me.showPanel(this, @parentElement.childNodes)
+        me.showPanel(this, @parentNode.childNodes)
         if field.chapter_section instanceof Array
           thisChap = field.chapter_section[0]
           chapterIndex = _.map(fields, (f) -> f.chapter_section[0])
@@ -197,12 +197,14 @@ module.exports = class LearningGuideChart
     # and add it to ourselves
     d3.select(target).classed('active', true)
 
-    caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
+    #caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
+    caretOffset = target.attributes.transform.value.match(/translate\([0-9]*/g)
+    caretOffset = caretOffset[0].replace('translate(', '')
 
     viewboxWidth = this.svgNode.attributes.viewBox.value.split(' ')[2]
     svgClientWidth = this.svgNode.clientWidth
 
-    detailPane = this.svgNode.parentElement.querySelector('.footer')
+    detailPane = this.svgNode.parentNode.querySelector('.footer')
     detailPane.classList.add('active')
 
     panelOffset = (svgClientWidth - detailPane.clientWidth) / viewboxWidth
