@@ -16,6 +16,15 @@ window._STORES =
   TIME: require './src/flux/time'
   TOC: require './src/flux/toc'
 
+window.MathJax?.Hub.Config(
+  showProcessingMessages: false
+  tex2jax:
+    displayMath: [['\u200c\u200c\u200c', '\u200c\u200c\u200c']] # zero-width non-joiner
+    inlineMath:  [['\u200b\u200b\u200b', '\u200b\u200b\u200b']] # zero-width space
+  styles:
+    "#MathJax_Message":    visibility: "hidden", left: "", right: 0
+    "#MathJax_MSIE_Frame": visibility: "hidden", left: "", right: 0
+)
 api = require './src/api'
 api.start()
 router = require './src/router'
