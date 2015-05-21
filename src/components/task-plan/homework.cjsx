@@ -75,8 +75,9 @@ HomeworkPlan = React.createClass
   displayName: 'HomeworkPlan'
 
   getInitialState: ->
-    if TaskPlanStore.isNew(@props.id) and @context?.router?.getCurrentQuery().date
-      dueAt = new Date(@context.router.getCurrentQuery().date)
+    dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, ' ')
+    if TaskPlanStore.isNew(@props.id) and dateStr
+      dueAt = new Date(dateStr)
       @setDueAt(dueAt)
     {showSectionTopics: false}
 

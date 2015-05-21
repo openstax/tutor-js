@@ -13,8 +13,9 @@ CourseConfig =
     # TODO check with backend about task.type = 'practice' since task.type for homework = 'homework'
     obj.steps? # TODO: Find a more reliable way to determine if a practice is being loaded
 
-  createPractice: (courseId) -> # Used by API
-  createdPractice: (obj, courseId) ->
+  createPractice: (courseId, params) -> # Used by API
+  createdPractice: (obj, courseId, params) ->
+    obj.created_for = params
     @_loadedPractice(obj, courseId) # TODO: Maybe this should emit practice.created
 
   _guides: {}
@@ -65,6 +66,9 @@ CourseConfig =
 
     getPracticeId: (courseId) ->
       @_practices[courseId]?.id
+
+    getPracticePageIds: (courseId) ->
+      @_practices[courseId]?.created_for?.page_ids
 
     hasPractice: (courseId) ->
       @_practices[courseId]?

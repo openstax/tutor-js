@@ -187,7 +187,7 @@ ExerciseReview = React.createClass
     buttonClasses = '-continue'
     buttonClasses += 'disabled' unless @isContinueEnabled()
 
-    unless review
+    unless review is 'completed'
       continueButton =
         <BS.Button bsStyle='primary' className={buttonClasses} onClick={@onContinue}>
           { if @canTryAnother() then 'Move On' else 'Continue' }

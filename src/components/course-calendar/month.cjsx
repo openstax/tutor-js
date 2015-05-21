@@ -74,7 +74,7 @@ CourseMonth = React.createClass
       @hideAddOnDay(componentName, dayMoment, mouseEvent)
 
   undoActives: (componentName, dayMoment, mouseEvent) ->
-    unless dayMoment? and dayMoment.isSame(@refs.addOnDay.state.date, 'day')
+    unless dayMoment? and dayMoment.isSame(@refs.addOnDay.state.addDate, 'day')
       @hideAddOnDay(componentName, dayMoment, mouseEvent)
 
   hideAddOnDay: (componentName, dayMoment, mouseEvent) ->
@@ -107,18 +107,18 @@ CourseMonth = React.createClass
         if dayIter.isSame(referenceDate, 'day')
           modifiers.current = true
 
-        otherProps =
-          onClick: @handleClick
+      otherProps =
+        onClick: @handleClick
 
-        if hasActiveAddDate
-          # Only attach hover event check when there is an active date.
-          # Otherwise, we would be re-rendering way too often.
-          otherProps.onMouseLeave = @checkAddOnDay
-          otherProps.onMouseEnter = @undoActives
+      if hasActiveAddDate
+        # Only attach hover event check when there is an active date.
+        # Otherwise, we would be re-rendering way too often.
+        otherProps.onMouseLeave = @checkAddOnDay
+        otherProps.onMouseEnter = @undoActives
 
-          if @state.activeAddDate.isSame(dayIter, 'day')
-            otherProps.classes =
-              active: true
+        if @state.activeAddDate.isSame(dayIter, 'day')
+          otherProps.classes =
+            active: true
 
       day = <Day date={dayIter} modifiers={modifiers} {...otherProps}/>
       days.push(day)

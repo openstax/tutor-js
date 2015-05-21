@@ -111,17 +111,25 @@ describe 'Course Calendar', ->
     calendarChecks
       .checkIsYesterdayPast(@result)
       .then(calendarChecks.checkIsYesterdayPast)
-      .then(calendarChecks.checkIsYesterdayNotClickable)
+      .then(calendarChecks.checkIsYesterdayClickable)
       .then(calendarChecks.checkIsTodayUpcoming)
       .then(calendarChecks.checkIsTodayClickable)
       .then( ->
         done()
       , done)
 
-  it 'should show add plan links when tomorrow is clicked', (done) ->
+  it 'should show add plan links when today is clicked', (done) ->
     calendarActions
       .clickToday(@result)
       .then(calendarChecks.checkTodayAddPlansDropDown)
+      .then( ->
+        done()
+      , done)
+
+  it 'should show cannot add plan warning when yesterday is clicked', (done) ->
+    calendarActions
+      .clickYesterday(@result)
+      .then(calendarChecks.checkYesterdayAddPlansWarning)
       .then( ->
         done()
       , done)
