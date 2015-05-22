@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 React = require 'react'
 BS = require 'react-bootstrap'
+CourseAddMenuMixin = require './add-menu-mixin'
 {TimeStore} = require '../../flux/time'
 
 CourseCalendarHeader = React.createClass
@@ -17,6 +18,8 @@ CourseCalendarHeader = React.createClass
         new Error("#{propName} should be a moment for #{componentName}")
     format: React.PropTypes.string.isRequired
 
+  mixins: [ CourseAddMenuMixin ]
+
   getDefaultProps: ->
     duration: 'month'
     format: 'MMMM YYYY'
@@ -27,6 +30,7 @@ CourseCalendarHeader = React.createClass
   componentDidUpdate: ->
     {setDate} = @props
     setDate?(@state.date)
+
 
   handleNavigate: (subtractOrAdd, clickEvent) ->
     {duration, setDate} = @props
@@ -46,8 +50,15 @@ CourseCalendarHeader = React.createClass
     {format, duration} = @props
 
     <BS.Row className='calendar-header'>
-
-        <BS.Col xs={4} xsPush={4} xsPull={4} className='calendar-header-label'>
+        <BS.Col xs={2}>
+          <BS.DropdownButton
+            className='add-assignment'
+            title='Add Assignment'
+            bsStyle='primary'>
+            {@renderAddActions()}
+            </BS.DropdownButton>
+        </BS.Col>
+        <BS.Col xs={4} xsPush={2} xsPull={4} className='calendar-header-label'>
           <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>
             <i className='fa fa-caret-left'></i>
           </a>
