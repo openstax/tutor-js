@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 {DateTimePicker} = require 'react-widgets'
 
 TutorInput = React.createClass
@@ -30,13 +31,40 @@ TutorInput = React.createClass
 
 TutorDateInput = React.createClass
 
+  getInitialState: ->
+    {expandCalendar: false}
+
+  expandCalendar: ->
+    @setState({expandCalendar: true})
+
+  dateSelected: (value) ->
+    @setState({expandCalendar: false})
+    @props.onChange(value)
+
+  onToggle: (open) ->
+    console.log(open)
+
   render: ->
     classes = ['form-control']
     unless @props.value then classes.push('empty')
-    <div className="form-control-wrapper">
-      <input type='text' disabled className={classes.join(' ')} />
+    if @state.expandCalendar
+      @props.open = 'calendar'
+      @props.onToggle = @onToggle
+    else
+      @props.open = false
+      
+    dateProps = _.map(@props, _.clone)
+    dateProps.onChange = @dateSelected
+
+    if (dateProps.onChange is @props.onChange)
+      console.log('same')
+    else
+      console.log('different')
+
+    <div onBlur={@closeCalendar} onFocus={@expandCalendar} className="form-control-wrapper">
+      <input type='text' onFocus={@expandCalendar} disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
-      <DateTimePicker {...@props}/>
+      <DateTimePicker {...dateProps}/>
     </div>
 
 TutorTextArea = React.createClass
