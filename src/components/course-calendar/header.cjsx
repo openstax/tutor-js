@@ -46,17 +46,17 @@ CourseCalendarHeader = React.createClass
     {format, duration} = @props
 
     <BS.Row className='calendar-header'>
-      <BS.Col xs={4}>
-        <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>
-          <i className='fa fa-caret-left'></i>
-        </a>
-      </BS.Col>
-      <BS.Col xs={4} className='calendar-header-label'>{date.format(format)}</BS.Col>
-      <BS.Col xs={4}>
-        <a href='#' className='calendar-header-control next' onClick={@handleNext}>
-          <i className='fa fa-caret-right'></i>
-        </a>
-      </BS.Col>
+
+        <BS.Col xs={4} xsPush={4} xsPull={4} className='calendar-header-label'>
+          <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>
+            <i className='fa fa-caret-left'></i>
+          </a>
+          {date.format(format)}
+          <a href='#' className='calendar-header-control next' onClick={@handleNext}>
+            <i className='fa fa-caret-right'></i>
+          </a>
+        </BS.Col>
+
     </BS.Row>
 
 
