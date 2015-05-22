@@ -10,6 +10,7 @@ ThisWeekPanel   = require './this-week-panel'
 
 PracticeButton = require '../practice-button'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
+{CourseStore} = require '../../flux/course'
 
 module.exports = React.createClass
   displayName: 'StudentDashboard'
@@ -32,15 +33,11 @@ module.exports = React.createClass
   render: ->
     courseId = @props.courseId
     info = StudentDashboardStore.get(courseId)
-    # Discussions are on-going on the best way to choose the image and text for the large title,
-    # this method will most likely change in the future.
-    #
-    # The large background image is currently set via CSS based on the lowercase
-    # version of the short title, which will be something like 'physics'
-    {shortTitle} = StudentDashboardStore.getTitles(courseId)
-    <div className={"#{shortTitle.toLowerCase()}  bg"}>
+    # The large background image is currently set via CSS based on
+    # the short title of the course, which will be something like 'Physics'
+    shortName = CourseStore.getShortName(courseId)
+    <div className="tutor-booksplash-background" data-title={shortName}>
       <div className='container'>
-        <div className='big-header'>{shortTitle}</div>
         <BS.Col mdPush={9} xs={12} md={3}>
           <div className='right-actions-box'>
             <h3>How am I doing?</h3>

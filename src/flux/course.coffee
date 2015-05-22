@@ -79,6 +79,10 @@ CourseConfig =
         task = TaskStore.get(id)
       task
 
+    getShortName: (courseId) ->
+      title = @_get(courseId)?.name or ""
+      title.split(' ')[0]
+
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)
 module.exports = {CourseActions:actions, CourseStore:store}

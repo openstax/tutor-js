@@ -39,12 +39,6 @@ StudentDashboardConfig = {
       events = this.exports.eventsByWeek.call(this, courseId)
       events[moment(day).startOf('isoweek').format('YYYYww')] or []
 
-    getTitles: (courseId) ->
-      data = @_get(courseId)
-      shortTitle = data.course.name.split(' ')[0]
-      longTitle = "#{data.course.name} | #{arrayToSentence(data.course.teacher_names)}"
-      {longTitle, shortTitle}
-
     canWorkTask: (event) ->
       # currently all tasks are workable
       return true
