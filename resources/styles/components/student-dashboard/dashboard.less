@@ -1,10 +1,7 @@
 .student-dashboard {
   @small-height-breakpoint: 600px;
   .container {
-    margin-top: 100px;
-    // if the screen is short, move up even though it means
-    // the background "course type banner" won't be as visible
-    @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 40px; }
+    .tutor-booksplash-adjust-top-margin();
   }
 
   .right-actions-box {
