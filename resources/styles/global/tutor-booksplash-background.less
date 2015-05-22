@@ -36,9 +36,9 @@
   // custom backgrounds images for different types
   &[data-title=Physics]:after{ .tutor-background-image("physics.jpg"); }
 }
-.tutor-booksplash-adjust-top-margin(@normal-top-margin: 100px, @short-top-margin: 35px){
-  margin-top: @normal-top-margin;
+.tutor-booksplash-adjust-top-padding(@normal-top-padding: 100px, @short-top-padding: 35px){
+  padding-top: @normal-top-padding;
   // if the screen is short, move up even though it means
   // the booksplash background won't be as visible
-  @media screen and ( max-height: 600px ){ margin-top: @short-top-margin; }
+  @media screen and ( max-height: 600px ){ padding-top: @short-top-padding; }
 }
