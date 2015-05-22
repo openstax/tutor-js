@@ -32,12 +32,14 @@ module.exports = React.createClass
           <Markdown text={task.description_html} />
         </BS.Popover>
       details =
-        <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
-          <BS.Button bsStyle='default' className='task-details'>
-            <i className='fa fa-info-circle'></i>&nbsp;
-            {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
-          </BS.Button>
-        </BS.OverlayTrigger>
+        <span className='task-details'>
+          {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
+          <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
+            <BS.Button bsStyle=''>
+              <i className='fa fa-info-circle'></i>
+            </BS.Button>
+          </BS.OverlayTrigger>
+        </span>
     else
       details =
         <span className='-task-details task-details'>

@@ -68,7 +68,7 @@ module.exports = React.createClass
     panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
 
   renderSpacer: (data) ->
-    <Spacer onNextStep={@onNextStep}/>
+    <Spacer onNextStep={@onNextStep} taskId={@props.id}/>
 
   # add render methods for different panel types as needed here
 
@@ -90,14 +90,11 @@ module.exports = React.createClass
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
     unless TaskStore.isSingleStepped(id)
-      breadcrumbs = [
-          <Details task={task} key="task-#{id}-details"/>
-          <Breadcrumbs
-            id={id}
-            goToStep={@goToStep}
-            currentStep={@state.currentStep}
-            key="task-#{id}-breadcrumbs"/>
-        ]
+      breadcrumbs = <Breadcrumbs
+        id={id}
+        goToStep={@goToStep}
+        currentStep={@state.currentStep}
+        key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard
       className={taskClasses}
