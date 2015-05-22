@@ -1,5 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
+moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 {DateTimePicker} = require 'react-widgets'
@@ -10,6 +11,7 @@ Router = require 'react-router'
 SelectTopics = require './select-topics'
 PlanFooter = require './footer'
 ChapterSection = require './chapter-section'
+PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 
@@ -80,44 +82,8 @@ ChooseReadings = React.createClass
       hide={@props.hide} />
 
 ReadingPlan = React.createClass
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  getInitialState: ->
-    #firefox doesn't like dates with dashes in them
-    dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, ' ')
-    if TaskPlanStore.isNew(@props.id) and dateStr
-      dueAt = new Date(dateStr)
-      @setDueAt(dueAt)
-    {}
-
-  setOpensAt: (value) ->
-    {id} = @props
-    TaskPlanActions.updateOpensAt(id, value)
-
-  setDueAt: (value) ->
-    {id} = @props
-    TaskPlanActions.updateDueAt(id, value)
-
-  setTitle: (title) ->
-    {id} = @props
-    TaskPlanActions.updateTitle(id, title)
-
-  showSectionTopics: ->
-    @setState({
-      showSectionTopics: true
-    })
-
-  hideSectionTopics: ->
-    @setState({
-      showSectionTopics: false
-    })
-
-  cancel: ->
-    {id} = @props
-    TaskPlanActions.reset(id)
-    @context.router.transitionTo('dashboard')
+  displayName: 'ReadingPlan'
+  mixins: [PlanMixin]
 
   render: ->
     {id, courseId} = @props
