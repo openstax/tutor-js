@@ -35,8 +35,10 @@ module.exports = React.createClass
     info = StudentDashboardStore.get(courseId)
     # The large background image is currently set via CSS based on
     # the short title of the course, which will be something like 'Physics'
-    shortName = CourseStore.getShortName(courseId)
-    <div className="tutor-booksplash-background" data-title={shortName}>
+    <div className="tutor-booksplash-background"
+      data-title={CourseStore.getShortName(courseId)}
+      data-category={CourseStore.getCategory(courseId)}>
+
       <div className='container'>
         <BS.Col mdPush={9} xs={12} md={3}>
           <div className='right-actions-box'>

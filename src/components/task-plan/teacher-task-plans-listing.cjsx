@@ -64,13 +64,11 @@ TeacherTaskPlanListing = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-
-    courseName = CourseStore.getShortName(courseId)
-
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
 
-
-    <div className="tutor-booksplash-background" data-title={courseName}>
+    <div className="tutor-booksplash-background"
+      data-title={CourseStore.getShortName(courseId)}
+      data-category={CourseStore.getCategory(courseId)}>
 
       <BS.Panel
           className='list-courses'
