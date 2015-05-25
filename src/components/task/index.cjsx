@@ -49,7 +49,7 @@ module.exports = React.createClass
     # Instead, reset the refreshFor state
     # and advance step to the next step after.
     @untrackRefreshStep()
-    @setState({currentStep: nextState.currentStep + 1})
+    @goToStep(nextState.currentStep + 1)()
     return false
 
   trackRefreshStep: ->
