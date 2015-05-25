@@ -1,44 +1,7 @@
 .student-dashboard {
   @small-height-breakpoint: 600px;
   .container {
-    margin-top: 100px;
-    // if the screen is short, move up even though it means
-    // the background "course type banner" won't be as visible
-    @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 40px; }
-  }
-
-  .bg {
-    // use a :before block to apply the opacity only to the
-    // background image, not the content itself
-    &:before{
-      content: "";
-      position: fixed;
-      z-index: -1;
-      top: 10px;
-      bottom: 0;
-      left: 50px;
-      right: 50px;
-      opacity: 0.05;
-    }
-    &.physics {
-      &:before{ .tutor-background-image("physics.jpg"); }
-    }
-  }
-
-  .big-header {
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top:60px;
-    height:220px;
-    overflow: hidden;
-    background-color: @tutor-tertiary;
-    color: @tutor-secondary;
-    text-align: center;
-    padding-top: 85px;
-    font-size: 300px;
-    font-family: 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
-    font-weight: 700;
+    .tutor-booksplash-adjust-top-padding();
   }
 
   .right-actions-box {

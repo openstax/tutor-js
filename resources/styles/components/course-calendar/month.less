@@ -27,8 +27,13 @@
 
 
 .list-courses {
+  background-color: transparent;
+  .tutor-booksplash-adjust-top-padding(120px);
+  
   .calendar-container{
+    background-color: @tutor-white;
     .bootstrap-column-padding-override();
+    padding-bottom: @tutor-card-body-padding-vertical;
   }
 
   .calendar-body {
@@ -72,6 +77,7 @@
 
       &-weekdays {
         width: 100%;
+        background-color: @tutor-white;
         &-weekday {
           .calendar-cell(@calendar-cell-width);
           text-align: center;

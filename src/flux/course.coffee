@@ -79,6 +79,17 @@ CourseConfig =
         task = TaskStore.get(id)
       task
 
+    # This is currently bassed on the course title.
+    # eventually the backend will provide it as part of the course's metadata.
+    getCategory: (courseId) ->
+      this.exports
+        .getShortName.call(this, courseId)
+        .toLowerCase()
+
+    getShortName: (courseId) ->
+      title = @_get(courseId)?.name or ""
+      _.first(title.split(' '))
+
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)
 module.exports = {CourseActions:actions, CourseStore:store}
