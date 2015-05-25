@@ -40,9 +40,9 @@ PracticeEnd = React.createClass
           Do more practice
         </PracticeButton>
         <Router.Link
-          to='viewStudentDashboard'
+          to='viewGuide'
           params={{courseId}}
-          className='btn btn-primary'>Back to Dashboard</Router.Link>
+          className='btn btn-default'>Return to Flight Path</Router.Link>
       </div>
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
