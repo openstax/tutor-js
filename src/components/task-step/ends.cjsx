@@ -42,7 +42,7 @@ PracticeEnd = React.createClass
         <Router.Link
           to='viewStudentDashboard'
           params={{courseId}}
-          className='btn btn-primary'>Back to Dashboard</Router.Link>
+          className='btn btn-default'>Return to Flight Path</Router.Link>
       </div>
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
@@ -104,7 +104,7 @@ HomeworkEnd = React.createClass
           <Router.Link
             to='viewStudentDashboard'
             params={{courseId}}
-            className='btn btn-primary'>Back to Dashboard</Router.Link>
+            className='btn btn-primary'>Return to Flight Path</Router.Link>
         </PinnableFooter>
       </div>
 
@@ -143,7 +143,7 @@ HomeworkEnd = React.createClass
     footer = <Router.Link
       to='viewStudentDashboard'
       params={{courseId}}
-      className='btn btn-primary'>Back to Dashboard</Router.Link>
+      className='btn btn-primary'>Return to Flight Path</Router.Link>
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
@@ -177,7 +177,7 @@ TaskEnd = React.createClass
     footer = <Router.Link
       to='viewStudentDashboard'
       params={{courseId}}
-      className='btn btn-primary'>Back to Dashboard</Router.Link>
+      className='btn btn-primary'>Return to Flight Path</Router.Link>
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>
