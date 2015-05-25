@@ -28,6 +28,7 @@ module.exports = React.createClass
       onNextStep={@props.onNextStep}
       goToStep={@props.goToStep}
       onStepCompleted={@props.onStepCompleted}
+      trackRefreshStep={@props.trackRefreshStep}
       review={@props.review}
       pinned={@props.pinned}
     />
