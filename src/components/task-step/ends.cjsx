@@ -40,7 +40,7 @@ PracticeEnd = React.createClass
           Do more practice
         </PracticeButton>
         <Router.Link
-          to='viewStudentDashboard'
+          to='viewGuide'
           params={{courseId}}
           className='btn btn-default'>Return to Flight Path</Router.Link>
       </div>
@@ -104,7 +104,7 @@ HomeworkEnd = React.createClass
           <Router.Link
             to='viewStudentDashboard'
             params={{courseId}}
-            className='btn btn-primary'>Return to Flight Path</Router.Link>
+            className='btn btn-primary'>Back to Dashboard</Router.Link>
         </PinnableFooter>
       </div>
 
@@ -143,7 +143,7 @@ HomeworkEnd = React.createClass
     footer = <Router.Link
       to='viewStudentDashboard'
       params={{courseId}}
-      className='btn btn-primary'>Return to Flight Path</Router.Link>
+      className='btn btn-primary'>Back to Dashboard</Router.Link>
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
@@ -177,7 +177,7 @@ TaskEnd = React.createClass
     footer = <Router.Link
       to='viewStudentDashboard'
       params={{courseId}}
-      className='btn btn-primary'>Return to Flight Path</Router.Link>
+      className='btn btn-primary'>Back to Dashboard</Router.Link>
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>
