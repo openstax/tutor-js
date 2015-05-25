@@ -35,9 +35,10 @@ CrudConfig = ->
 
     FAILED: (status, msg, id) ->
       @_asyncStatus[id] = FAILED
-      delete @_local[id]
       @_errors[id] = msg
-      @emitChange()
+      unless status is 0 # indicates network failure
+        delete @_local[id]
+        @emitChange()
 
     load: (id) ->
       # Add a shortcut for unit testing
