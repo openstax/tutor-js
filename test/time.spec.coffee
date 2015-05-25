@@ -20,6 +20,7 @@ describe 'Server Time', ->
 
   it 'can be set from string', ->
     now = new Date()
-    TimeActions.setFromString('Thu Nov 10 2011 18:00:00 GMT-0600 (CST)', now)
+    iso_string = 'Fri Nov 11 2011 00:00:00 GMT+0000 (UTC)'
+    TimeActions.setFromString(iso_string, now)
     time = TimeStore.getNow(now)
-    expect(time.toDateString()).to.equal('Thu Nov 10 2011')
+    expect( new Date(iso_string).toDateString() ).to.equal( time.toDateString() )
