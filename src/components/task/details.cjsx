@@ -18,7 +18,7 @@ module.exports = React.createClass
     dateFormat: 'l'
     dateLabel: 'Due'
     trigger: 'focus'
-    placement: 'left'
+    placement: 'top'
 
   render: ->
     {task, title, dateFormat, dateLabel, trigger, placement} = @props
@@ -42,7 +42,7 @@ module.exports = React.createClass
         </span>
     else
       details =
-        <span className='-task-details task-details'>
+        <span className='task-details'>
           {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
         </span>
 

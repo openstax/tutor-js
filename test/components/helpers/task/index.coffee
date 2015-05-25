@@ -25,7 +25,7 @@ tests =
   _renderTaskStep: (stepId, taskId, onNextStep, goToStep) ->
     div = @container
     componentStub._render(div,
-      <TaskStep id={stepId} goToStep={goToStep} onNextStep={onNextStep}/>,
+      <TaskStep id={stepId} taskId={taskId} goToStep={goToStep} onNextStep={onNextStep}/>,
       {stepId, taskId})
 
   renderStep: (taskId) ->
