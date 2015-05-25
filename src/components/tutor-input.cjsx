@@ -47,11 +47,11 @@ TutorTextArea = React.createClass
     onChange: React.PropTypes.func
     value: React.PropTypes.any
 
-  getInitialState: ->
-    {height: '2em'}
+  resize: (event) ->
+    event.target.style.height = ''
+    event.target.style.height = "#{event.target.scrollHeight}px"
 
   onChange: (event) ->
-    @setState({height: event.target.scrollHeight})
     @props.onChange(event.target?.value, event.target)
 
   render: ->
@@ -64,10 +64,11 @@ TutorTextArea = React.createClass
         id={@props.inputId}
         ref='textarea'
         type='text'
+        onKeyUp={@resize}
+        onPaste={@resize}
         className={classes.join(' ')}
         defaultValue={@props.default}
-        onChange={@onChange} 
-        style= {height: @state.height}/>
+        onChange={@onChange} />
       <div className="floating-label">{@props.label}</div>
     </div>
 
