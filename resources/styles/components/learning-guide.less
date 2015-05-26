@@ -175,71 +175,70 @@
         opacity: 1
       }
     }
+
+    .header {
+      font-size: 1.8rem;
+      border-bottom: 1px dashed @tutor-neutral-light;
+      padding-bottom: 5px;
+    }
+    .chapter {
+      display: inline;
+      font-weight: bold;
+      color: @guide-green;
+    }
+    .chapter:after {
+      content: "\00a0";
+    }
+    .title {
+      display: inline;
+      font-weight: bold;
+      margin-left: 5px;
+    }
     .footer {
       position: relative;
-      height: 220px;
+      height: 120px;
       top: -9px; // FIXME: Can't figure out what element or style is pushing the footer down
       margin-left: 0px;
       border-width: 1px 0px 1px 1px;
       border-style: solid;
       border-color: @tutor-neutral-light;
       background: @tutor-white;
-    }
-    .footer.active {
-      opacity:1;
-    }
-    .footer-content-wrap {
-      padding: 10px 20px 15px 20px;
-
-      .header {
-        border-bottom: 1px dashed @tutor-neutral-light;
-        padding-bottom: 9px;
-      }
-      .chapter {
-        display: inline;
-        font-weight: bold;
-        color: @guide-green;
-      }
-      .chapter:after {
-        content: "\00a0";
-      }
-      .title {
-        display: inline;
-        font-weight: bold;
-      }
-      .row-wrap {
-        width: 86%;
-        height: 120px;
-        padding-top: 5px;
+      padding: 5px 20px;
+      .body {
         margin-top: 5px;
-      }
-      .problems-worked {
-        float: left;
-        padding-top: 12px;
-        margin: 0 auto;
-        width: 300px;
-
-        .count {
-          font-size: 4rem;
-          text-align: center;
-          color: @tutor-quaternary;
+        .problems-worked {
+          width: 240px;
+          float: left;
+          .count {
+            font-size: 5rem;
+            text-align: center;
+            color: @tutor-quaternary;
+            display: inline;
+            float: left;
+            line-height: 60px;
+          }
+          .count-desc {
+            line-height: 20px;
+            width: 170px;
+            font-weight: 300;
+            float: left;
+            margin-left: 10px;
+            b {
+              display: block;
+            }
+          }
         }
-        .count-desc {
-          text-align: center;
+        button {
+          height: 40px;
+          margin-top: 10px;
         }
-      }
-      .practice-button-wrap {
-        float: right;
-      }
-      .chapter-button-wrap {
-        float: right;
-      }
-      .help-text {
-        font-size: 1.2rem;
-        #fonts > .guide-label();
-        font-style: italic;
-        color: @tutor-neutral-dark;
+        .chapter-button {
+          margin-left: 10px;
+        }
       }
     }
+  }
+  .footer.active {
+    opacity:1;
   }
 }

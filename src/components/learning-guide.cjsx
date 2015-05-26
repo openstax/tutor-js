@@ -66,22 +66,18 @@ LearningGuide = React.createClass
       problemsWorked =
         <div className='problems-worked'>
           <div className='count'>{unit.questions_answered_count}</div>
-          <div className='count-desc'>problems worked</div>
+          <div className='count-desc'>
+            <b>problems worked</b>
+            in readings, homeworks, and practice
+          </div>
         </div>
       practiceButton =
-        <div className='practice-button-wrap'>
           <PracticeButton showAll={@state.showAll} courseId={@props.courseId} pageIds={unit.page_ids}/>
-        </div>
       chapterToggleButton =
-        <div className='chapter-button-wrap'>
           <BS.Button className="chapter-button" onClick={@toggleChapter}>
             {if @state.showAll then 'Expand Chapter' else 'Back to overall'}
           </BS.Button>
-        </div>
-      helpText =
-        <div className='help-text'>
-          Total problems you have done in readings, homeworks and practice
-        </div>
+
     footerWidth = 600
     <div className='learning-guide-chart'>
       <svg ref='svg' />
@@ -90,17 +86,18 @@ LearningGuide = React.createClass
         width: footerWidth
         marginLeft: -1 * footerWidth * (@state.footerOffsetPercent / 100)
         }>
-        <div ref='footer-content-wrap' className='footer-content-wrap'>
-          <div className='header'>
-            {chapter}{title}
-          </div>
-          <div className='row-wrap'>
-            {problemsWorked}
-            {practiceButton}
-            {chapterToggleButton}
-          </div>
-          {helpText}
+
+        <div className='header'>
+          {chapter}{title}
         </div>
+        <div className='body'>
+          {problemsWorked}
+          <div className='problems-worked-explained'>
+          </div>
+          {practiceButton}
+          {chapterToggleButton}
+        </div>
+
       </div>
     </div>
 
