@@ -42,12 +42,18 @@ Stats = React.createClass
 
     classes = 'reading-progress-bar'
     classes += ' no-progress' unless percent
+
+    label = "#{percent}%"
+    label = "#{label} #{correctOrIncorrect}" if percent is 100
+
     correct = <BS.ProgressBar
                 className={classes}
                 bsStyle={bsStyles[correctOrIncorrect]}
-                label='%(percent)s%'
+                label={label}
                 now={percent}
-                key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
+                key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}"
+                type="#{correctOrIncorrect}"
+                alt="#{percent}% #{correctOrIncorrect}"/>
 
   renderPercentBars: (data, type) ->
     percents =
@@ -66,9 +72,13 @@ Stats = React.createClass
         ({data.student_count} students)
       </span>
 
-    <div key="#{type}-bar-#{index}">
+    <div key="#{type}-bar-#{index}" className='reading-progress'>
       <div className='reading-progress-heading'>
-        {@sectionFormat(data.chapter_section, @state.sectionSeparator)} {data.title} {studentCount}
+        <strong>
+          <span className='text-success'>
+            {@sectionFormat(data.chapter_section, @state.sectionSeparator)}
+          </span> {data.title}
+        </strong> {studentCount}
       </div>
       <div className='reading-progress-container'>
         <BS.ProgressBar className='reading-progress-group'>
@@ -140,7 +150,10 @@ Stats = React.createClass
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
 
     unless _.isEmpty(chapters)
-      chapters = <section>{chapters}</section>
+      chapters = <section>
+        <label>Current Topics Performance</label>
+        {chapters}
+      </section>
 
     unless _.isEmpty(practice)
       practice = <section>
