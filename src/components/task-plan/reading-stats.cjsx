@@ -47,7 +47,9 @@ Stats = React.createClass
                 bsStyle={bsStyles[correctOrIncorrect]}
                 label='%(percent)s%'
                 now={percent}
-                key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}" />
+                key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}"
+                title="#{percent}% #{correctOrIncorrect}"
+                alt="#{percent}% #{correctOrIncorrect}"/>
 
   renderPercentBars: (data, type) ->
     percents =
