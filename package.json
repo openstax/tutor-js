@@ -23,7 +23,6 @@
     "d3": "^3.5.5",
     "flux-react": "~2.6.4",
     "font-awesome": "~4.3.0",
-    "katex": "~0.2.0",
     "markdown-it": "^4.1.1",
     "moment": "^2.9.0",
     "pluralize": "^1.1.2",
