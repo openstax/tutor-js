@@ -50,7 +50,7 @@ TutorDateInput = React.createClass
     unless @props.value then classes.push('empty')
     open = false
 
-    if @state.expandCalendar
+    if @state.expandCalendar and not @props.readOnly
       open = 'calendar'
       onToggle = @onToggle
 
@@ -66,7 +66,7 @@ TutorDateInput = React.createClass
         onToggle={onToggle}
         className="form-control"
         onChange={@dateSelected}
-        readOnly={false}
+        readOnly={@props.readOnly}
         min={@props.min}
         value={@props.value}
       />
