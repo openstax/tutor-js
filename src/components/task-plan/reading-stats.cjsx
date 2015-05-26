@@ -66,7 +66,7 @@ Stats = React.createClass
         ({data.student_count} students)
       </span>
 
-    <div key="#{type}-bar-#{index}">
+    <div key="#{type}-bar-#{index}" className='reading-progress'>
       <div className='reading-progress-heading'>
         <strong>
           <span className='text-success'>
