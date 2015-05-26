@@ -71,7 +71,7 @@ LearningGuide = React.createClass
         </div>
       practiceButton =
         <div className='practice-button-wrap'>
-          <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton>
+          <PracticeButton showAll={@state.showAll} courseId={@props.courseId} pageIds={unit.page_ids}/>
         </div>
       chapterButton =
         <div className='chapter-button-wrap'>
