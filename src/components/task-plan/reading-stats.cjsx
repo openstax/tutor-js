@@ -68,7 +68,11 @@ Stats = React.createClass
 
     <div key="#{type}-bar-#{index}">
       <div className='reading-progress-heading'>
-        {@sectionFormat(data.chapter_section, @state.sectionSeparator)} {data.title} {studentCount}
+        <strong>
+          <span className='text-success'>
+            {@sectionFormat(data.chapter_section, @state.sectionSeparator)}
+          </span> {data.title}
+        </strong> {studentCount}
       </div>
       <div className='reading-progress-container'>
         <BS.ProgressBar className='reading-progress-group'>
