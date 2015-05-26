@@ -13,7 +13,7 @@ FLAG_GREY      = 'flag-grey.svg'
 PENCIL_PATH    = 'guide-pencil.svg'
 
 
-# SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
+# SVG is vector so width/height don't really matter.
 WIDTH = 160
 HEIGHT = 49 # approx 2/3 width, adjust to suit
 
@@ -24,7 +24,6 @@ XRECTHEIGHT = 5.1
 module.exports = class LearningGuideChart
 
   constructor: (@svgNode, guide, showAll, chapter, separator, @callbacks) ->
-    window.addEventListener("resize", @onResize, false)
 
     node = @svgNode
 
@@ -65,7 +64,7 @@ module.exports = class LearningGuideChart
     @drawPlane(container, points)
 
     @drawXRect(container)
-    @drawXAxis(container, fields, points, separator)
+    @drawXAxis(container, fields, points, separator, showAll)
 
     @drawYLabel(container, 8.7, 'Ace')
     @drawYLabel(container, 18.5, 'Cruising')
@@ -123,7 +122,14 @@ module.exports = class LearningGuideChart
       .attr('y', HEIGHT - XRECTHEIGHT)
       .attr('class', 'x-rect')
 
-  drawXAxis: (container, fields, points, separator) ->
+  drawXAxis: (container, fields, points, separator, showAll) ->
+    container.append('g')
+      .append('svg:text')
+      .attr('x', 6)
+      .attr('y', HEIGHT - 1.8)
+      .attr('class', 'x-desc')
+      .text( if showAll then "Chapters" else "Sections")
+
     clip = container.append('svg:clipPath')
       .attr('id', 'clip')
       .append('svg:rect')
@@ -136,7 +142,7 @@ module.exports = class LearningGuideChart
       .attr('class', 'x-axis')
       .selectAll('line')
       .data(fields)
-    me = @ # Since displayUnit needs this and the 'this' scope still needs @parentElement
+    me = @ # Since displayUnit needs this and the 'this' scope still needs @parentNode
     label = wrap.enter()
       .append('g')
       .attr('class', 'point')
@@ -144,7 +150,7 @@ module.exports = class LearningGuideChart
         "translate(#{points[i].x}, #{HEIGHT - 4})"
       )
       .on('click', (field) ->
-        me.showPanel(this, @parentElement.childNodes)
+        me.showPanel(this, @parentNode.childNodes)
         if field.chapter_section instanceof Array
           thisChap = field.chapter_section[0]
           chapterIndex = _.map(fields, (f) -> f.chapter_section[0])
@@ -172,16 +178,6 @@ module.exports = class LearningGuideChart
         me.callbacks.sectionFormat(f.chapter_section, separator)
       )
 
-
-  destroy: ->
-    window.removeEventListener("resize", @onResize, false)
-
-  onResize: =>
-    @showPanel(
-      @svgNode.querySelector('.x-axis .point.active'),
-      @svgNode.querySelector('.x-axis .point')
-      )
-
   showDefaultPanel: (fields) ->
     field = fields[0]
     @showPanel(
@@ -195,27 +191,20 @@ module.exports = class LearningGuideChart
     # remove 'active' class from all groups
     d3.selectAll(children).classed('active', false)
     # and add it to ourselves
-    d3.select(target).classed('active', true)
+    target = d3.select(target)
+    target.classed('active', true)
+    # read the values from the transform attribute
+    transform = d3.transform(target.attr("transform"))
 
-    caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
-
-    viewboxWidth = this.svgNode.attributes.viewBox.value.split(' ')[2]
-    svgClientWidth = this.svgNode.clientWidth
-
-    detailPane = this.svgNode.parentElement.querySelector('.footer')
-    detailPane.classList.add('active')
-
-    panelOffset = (svgClientWidth - detailPane.clientWidth) / viewboxWidth
-
-    @callbacks.setFooterOffset(caretOffset * panelOffset)
-
+    leftOffsetPercent = transform.translate[0] / WIDTH * 100
+    @callbacks.setFooterOffset(leftOffsetPercent)
 
 
   drawYDesc: (container, ypos, text) ->
     wrap = container.append('g')
       .append('svg:text')
       .attr('text-anchor', 'end')
-      .attr('x', 5)
+      .attr('x', 8.5)
       .attr('y', ypos)
       .attr('class', 'y-desc')
       .attr('transform', "rotate(-90, 8, #{ypos})")
