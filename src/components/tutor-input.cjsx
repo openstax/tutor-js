@@ -42,29 +42,34 @@ TutorDateInput = React.createClass
     @props.onChange(value)
 
   onToggle: (open) ->
+    @setState({expandCalendar: false})
     console.log(open)
 
   render: ->
     classes = ['form-control']
     unless @props.value then classes.push('empty')
+    open = false
+
     if @state.expandCalendar
-      @props.open = 'calendar'
-      @props.onToggle = @onToggle
-    else
-      @props.open = false
-      
-    dateProps = _.map(@props, _.clone)
-    dateProps.onChange = @dateSelected
+      open = 'calendar'
+      onToggle = @onToggle
 
-    if (dateProps.onChange is @props.onChange)
-      console.log('same')
-    else
-      console.log('different')
-
-    <div onBlur={@closeCalendar} onFocus={@expandCalendar} className="form-control-wrapper">
+    <div className="form-control-wrapper">
       <input type='text' onFocus={@expandCalendar} disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
-      <DateTimePicker {...dateProps}/>
+      <DateTimePicker onFocus={@expandCalendar} 
+        id={@props.id}
+        format='MMM dd, yyyy'
+        time={false}
+        calendar={true}
+        open={open}
+        onToggle={onToggle}
+        className="form-control"
+        onChange={@dateSelected}
+        readOnly={false}
+        min={@props.min}
+        value={@props.value}
+      />
     </div>
 
 TutorTextArea = React.createClass
