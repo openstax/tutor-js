@@ -53,11 +53,6 @@ CoursePlanDetails = React.createClass
       <div className='modal-body'>
         <StatsModalShell id={id}/>
       </div>
-      <div className='modal-footer'>
-        <div className='modal-footer-menu'>
-          <BS.Button onClick={@onClickEdit}>Edit {type}</BS.Button>
-        </div>
-      </div>
     </BS.Modal>
 
 
