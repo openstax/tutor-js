@@ -32,11 +32,14 @@
 .answer-text-label() {
   #fonts > .script(1.4rem);
   color: @answer-label-color;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .answer-icon-label() {
   font-size: 3.5em;
+  font-family: 'FontAwesome';
+  font-weight: normal;
+  color: inherit;
 }
 
 .answer-content() {
@@ -148,6 +151,14 @@
     }
   }
 
+  .answer-checked {
+    &::before{
+      .answer-label();
+      .answer-text-label();
+      content: "My Choice:";
+    }
+  }
+
   &.has-correct-answer {
 
     .answers-table {
@@ -171,7 +182,6 @@
 
       .answer-checked {
         &::before{
-          .answer-label();
           .answer-icon-label();
         }
         &.answer-correct::before {
