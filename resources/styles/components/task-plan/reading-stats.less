@@ -68,14 +68,39 @@
 
   &-bar{
 
+    position: relative;
+
     &.no-progress {
       span {
         display: none;
       }
     }
 
+    span {
+      cursor: default;
+    }
+
     &:not(.no-progress) {
       min-width:15px;
+    }
+
+    &::after {
+      content: attr(type);
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      width: 100px;
+      margin-left: -50px;
+      text-align: center;
+      color: @tutor-neutral;
+      .opacity(0);
+      .transition(opacity 1s);
+    }
+
+    &:hover {
+      &::after {
+        .opacity(1);
+      }
     }
   }
 
