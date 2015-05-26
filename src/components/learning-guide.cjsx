@@ -45,11 +45,10 @@ LearningGuide = React.createClass
     else
       @context.router.transitionTo('dashboard', {courseId})
 
-  setFooterOffset: (offset) ->
-    @setState(footerOffset: offset)
+  setFooterOffset: (offsetPercent) ->
+    @setState(footerOffsetPercent: offsetPercent)
 
   loadChart: ->
-    @chart.destroy() if @chart
     @chart = new LearningGuideChart(@refs.svg.getDOMNode()
       LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter, @state.sectionSeparator
       {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset, @sectionFormat}
@@ -57,10 +56,6 @@ LearningGuide = React.createClass
 
   componentDidMount: ->
     @loadChart()
-
-  componentWillUnmount: ->
-    @chart.destroy()
-
 
   render: ->
     {unit} = @state
@@ -88,10 +83,14 @@ LearningGuide = React.createClass
         <div className='help-text'>
           Total problems you have done in readings, homeworks and practice
         </div>
-
+    footerWidth = 600
     <div className='learning-guide-chart'>
       <svg ref='svg' />
-      <div ref='footer' className='footer' style={marginLeft: @state.footerOffset}>
+      <div ref='footer' className='footer' style={
+        left: @state.footerOffsetPercent + '%'
+        width: footerWidth
+        marginLeft: -1 * footerWidth * (@state.footerOffsetPercent / 100)
+        }>
         <div ref='footer-content-wrap' className='footer-content-wrap'>
           <div className='header'>
             {chapter}{title}

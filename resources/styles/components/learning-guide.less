@@ -176,16 +176,14 @@
       }
     }
     .footer {
-      width: 600px;
+      position: relative;
       height: 220px;
-      margin-top: -9px;
+      top: -9px; // FIXME: Can't figure out what element or style is pushing the footer down
       margin-left: 0px;
       border-width: 1px 0px 1px 1px;
       border-style: solid;
       border-color: @tutor-neutral-light;
       background: @tutor-white;
-      opacity:0;
-      transition: opacity 0.1s linear;
     }
     .footer.active {
       opacity:1;

@@ -13,7 +13,7 @@ FLAG_GREY      = 'flag-grey.svg'
 PENCIL_PATH    = 'guide-pencil.svg'
 
 
-# SVG is vector so width/height don't really matter.  100 is just a convenient # to multiple by
+# SVG is vector so width/height don't really matter.
 WIDTH = 160
 HEIGHT = 49 # approx 2/3 width, adjust to suit
 
@@ -24,7 +24,7 @@ XRECTHEIGHT = 5.1
 module.exports = class LearningGuideChart
 
   constructor: (@svgNode, guide, showAll, chapter, separator, @callbacks) ->
-    window.addEventListener("resize", @onResize, false)
+    #window.addEventListener("resize", @onResize, false)
 
     node = @svgNode
 
@@ -173,14 +173,14 @@ module.exports = class LearningGuideChart
       )
 
 
-  destroy: ->
-    window.removeEventListener("resize", @onResize, false)
+  #destroy: ->
+#window.removeEventListener("resize", @onResize, false)
 
-  onResize: =>
-    @showPanel(
-      @svgNode.querySelector('.x-axis .point.active'),
-      @svgNode.querySelector('.x-axis .point')
-      )
+  # onResize: =>
+  #   @showPanel(
+  #     @svgNode.querySelector('.x-axis .point.active'),
+  #     @svgNode.querySelector('.x-axis .point')
+  #     )
 
   showDefaultPanel: (fields) ->
     field = fields[0]
@@ -198,17 +198,8 @@ module.exports = class LearningGuideChart
     d3.select(target).classed('active', true)
 
     caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
-
-    viewboxWidth = this.svgNode.attributes.viewBox.value.split(' ')[2]
-    svgClientWidth = this.svgNode.clientWidth
-
-    detailPane = this.svgNode.parentElement.querySelector('.footer')
-    detailPane.classList.add('active')
-
-    panelOffset = (svgClientWidth - detailPane.clientWidth) / viewboxWidth
-
-    @callbacks.setFooterOffset(caretOffset * panelOffset)
-
+    leftOffsetPercent = parseInt(caretOffset) / WIDTH * 100
+    @callbacks.setFooterOffset(leftOffsetPercent)
 
 
   drawYDesc: (container, ypos, text) ->
