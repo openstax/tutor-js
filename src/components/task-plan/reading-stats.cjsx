@@ -42,10 +42,14 @@ Stats = React.createClass
 
     classes = 'reading-progress-bar'
     classes += ' no-progress' unless percent
+
+    label = "#{percent}%"
+    label = "#{label} #{correctOrIncorrect}" if percent is 100
+
     correct = <BS.ProgressBar
                 className={classes}
                 bsStyle={bsStyles[correctOrIncorrect]}
-                label='%(percent)s%'
+                label={label}
                 now={percent}
                 key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}"
                 title="#{percent}% #{correctOrIncorrect}"
