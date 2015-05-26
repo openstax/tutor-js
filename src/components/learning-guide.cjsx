@@ -34,9 +34,8 @@ LearningGuide = React.createClass
   displayUnit: (unit, chapter) ->
     @setState({unit, chapter: chapter})
 
-  displayChapter: ->
-    if @state.showAll
-      @setState({showAll:false}, -> @loadChart())
+  toggleChapter: ->
+    @setState({showAll: not @state.showAll}, -> @loadChart())
 
   displayTopic: ->
     {courseId} = @props
@@ -73,10 +72,10 @@ LearningGuide = React.createClass
         <div className='practice-button-wrap'>
           <PracticeButton showAll={@state.showAll} courseId={@props.courseId} pageIds={unit.page_ids}/>
         </div>
-      chapterButton =
+      chapterToggleButton =
         <div className='chapter-button-wrap'>
-          <BS.Button className="chapter-button" bsStyle='primary' onClick={@displayChapter}>
-            View This Chapter
+          <BS.Button className="chapter-button" onClick={@toggleChapter}>
+            {if @state.showAll then 'Expand Chapter' else 'Back to overall'}
           </BS.Button>
         </div>
       helpText =
@@ -98,7 +97,7 @@ LearningGuide = React.createClass
           <div className='row-wrap'>
             {problemsWorked}
             {practiceButton}
-            {if @state.showAll then chapterButton}
+            {chapterToggleButton}
           </div>
           {helpText}
         </div>
