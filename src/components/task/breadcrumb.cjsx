@@ -77,6 +77,7 @@ module.exports = React.createClass
     if crumb.type is 'end'
       title = "#{step.title} Completion"
       crumbType = crumb.type
+      crumbType = 'completed' if step?.is_completed
 
     classes.push(step.group) if step?.group?
     classes.push crumbType
