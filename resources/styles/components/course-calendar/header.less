@@ -1,29 +1,37 @@
-@calendar-header-padding-bottom: 2rem;
+@calendar-header-padding: 2rem;
 
 .list-courses {
+  // override bootstrap default style
+  &.panel { margin-top: 0px; }
+
   .calendar-header {
     text-align: center;
     font-size: 3rem;
     border-bottom: 1px solid @tutor-neutral-light;
 
+    .add-assignment {
+      .pull-left;
+      margin-top: @calendar-header-padding;
+      .caret { margin-left: 0.5rem; }
+    }
+    
     &-label {
       font-weight: stronger;
-      padding-bottom: @calendar-header-padding-bottom;
+      padding: @calendar-header-padding 0;
     }
 
     &-control {
       .no-select();
-      color: @tutor-neutral;
-      display: block;
-      width: 100%;
-      padding-bottom: @calendar-header-padding-bottom;
+      color: @tutor-neutral-darker;
+      padding: 0 @calendar-header-padding;
+      display: inline-block;
 
       &.previous {
-        text-align: left;
+        float: left;
       }
 
       &.next {
-        text-align: right;
+        float: right;
       }
 
       &:hover {

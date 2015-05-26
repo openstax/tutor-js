@@ -6,7 +6,6 @@ api = require '../../api'
 {TaskStore} = require '../../flux/task'
 ArbitraryHtmlAndMath = require '../html'
 Exercise = require './exercise'
-Pluralize = require '../pluralize'
 StepMixin = require './step-mixin'
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -97,18 +96,9 @@ Placeholder = React.createClass
   onContinue: ->
     @props.onNextStep()
   renderBody: ->
-    {taskId} = @props
-    coreStepsIndexes = TaskStore.getIncompleteCoreStepsIndexes(taskId)
-    coreStepLabels = _.map coreStepsIndexes, (index) ->
-      index + 1
-
-    coreStepRange = coreStepLabels.join(' - ')
-
     <div className='placeholder-step'>
-      <h2>This question depends on <Pluralize
-        items={coreStepLabels}>question</Pluralize> {coreStepRange}.</h2>
-      <p>Please complete <Pluralize
-        items={coreStepLabels}>it</Pluralize> before this question.</p>
+      <p>This is a personalized question that will become available
+        to you after you answer more homework problems in this assignment.</p>
     </div>
 
 Spacer = React.createClass

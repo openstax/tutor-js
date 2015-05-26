@@ -173,6 +173,9 @@ ExerciseReview = React.createClass
     task_id = TaskStepStore.getTaskId(id)
     {index} = TaskStore.getReadingForTaskId(task_id, id)
     throw new Error('BUG: No reading found for task') unless index
+
+    # Track what step is refreshed so that it can be skipped after refreshing.
+    @props.trackRefreshStep()
     # goToStep returns an function with the step index in closure scope
     @props.goToStep(index)()
 

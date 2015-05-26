@@ -47,7 +47,11 @@ TutorTextArea = React.createClass
     onChange: React.PropTypes.func
     value: React.PropTypes.any
 
-  onChange: ->
+  resize: (event) ->
+    event.target.style.height = ''
+    event.target.style.height = "#{event.target.scrollHeight}px"
+
+  onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
 
   render: ->
@@ -58,7 +62,10 @@ TutorTextArea = React.createClass
     <div className="form-control-wrapper">
       <textarea
         id={@props.inputId}
+        ref='textarea'
         type='text'
+        onKeyUp={@resize}
+        onPaste={@resize}
         className={classes.join(' ')}
         defaultValue={@props.default}
         onChange={@onChange} />

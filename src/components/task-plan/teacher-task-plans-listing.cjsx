@@ -5,6 +5,7 @@ Router = require 'react-router'
 
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
+{CourseStore} = require '../../flux/course'
 CourseCalendar = require '../course-calendar'
 
 TeacherTaskPlans = React.createClass
@@ -63,26 +64,26 @@ TeacherTaskPlanListing = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    title = "Task plans for course ID #{courseId}"
-
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
 
-    plans = for plan in plansList
-      <TeacherTaskPlans key={plan.id} plan={plan}, courseId={courseId} />
+    <div className="tutor-booksplash-background"
+      data-title={CourseStore.getShortName(courseId)}
+      data-category={CourseStore.getCategory(courseId)}>
 
-    <BS.Panel header={title}
-        className='list-courses'
-        bsStyle='primary'>
+      <BS.Panel
+          className='list-courses'
+          bsStyle='primary'>
 
-      <LoadableItem
-        store={TeacherTaskPlanStore}
-        actions={TeacherTaskPlanActions}
-        id={courseId}
-        renderItem={-> <CourseCalendar plansList={plansList} courseId={courseId}/>}
-        renderLoading={-> <CourseCalendar className='calendar-loading'/>}
-        update={@update}
-      />
+        <LoadableItem
+          store={TeacherTaskPlanStore}
+          actions={TeacherTaskPlanActions}
+          id={courseId}
+          renderItem={-> <CourseCalendar plansList={plansList} courseId={courseId}/>}
+          renderLoading={-> <CourseCalendar className='calendar-loading'/>}
+          update={@update}
+        />
 
-    </BS.Panel>
+      </BS.Panel>
+    </div>
 
 module.exports = TeacherTaskPlanListing

@@ -36,7 +36,27 @@ module.exports = React.createClass
     {stepIndex} = @context.router.getCurrentParams()
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
-    {currentStep: crumbKey}
+    {
+      currentStep: crumbKey
+      refreshFor: false
+    }
+
+  shouldComponentUpdate: (nextProps, nextState) ->
+    return true unless nextState.currentStep is nextState.refreshFor
+
+    # If attempt next step is a step that triggered a refresh,
+    # don't update on this cycle.
+    # Instead, reset the refreshFor state
+    # and advance step to the next step after.
+    @untrackRefreshStep()
+    @goToStep(nextState.currentStep + 1)()
+    return false
+
+  trackRefreshStep: ->
+    @setState({refreshFor: @state.currentStep})
+
+  untrackRefreshStep: ->
+    @setState({refreshFor: false})
 
   # Curried for React
   goToStep: (stepKey) ->
@@ -58,6 +78,7 @@ module.exports = React.createClass
       taskId={@props.id}
       goToStep={@goToStep}
       onNextStep={@onNextStep}
+      trackRefreshStep={@trackRefreshStep}
     />
 
   renderEnd: (data) ->

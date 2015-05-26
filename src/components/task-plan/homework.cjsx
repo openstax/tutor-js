@@ -6,6 +6,7 @@ Router = require 'react-router'
 PlanFooter = require './footer'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
+PlanMixin = require './plan-mixin'
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -69,44 +70,12 @@ ChooseExercises = React.createClass
 
 
 HomeworkPlan = React.createClass
-  contextTypes:
-    router: React.PropTypes.func
-
   displayName: 'HomeworkPlan'
-
-  getInitialState: ->
-    dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, ' ')
-    if TaskPlanStore.isNew(@props.id) and dateStr
-      dueAt = new Date(dateStr)
-      @setDueAt(dueAt)
-    {showSectionTopics: false}
-
-  setDueAt: (value) ->
-    {id} = @props
-    TaskPlanActions.updateDueAt(id, value)
-
-  setTitle:(title, titleNode) ->
-    {id} = @props
-    TaskPlanActions.updateTitle(id, title)
+  mixins: [PlanMixin]
 
   setDescription:(desc, descNode) ->
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)
-
-  showSectionTopics: ->
-    @setState({
-      showSectionTopics: true
-    })
-
-  hideSectionTopics: ->
-    @setState({
-      showSectionTopics: false
-    })
-
-  cancel: ->
-    {id} = @props
-    TaskPlanActions.reset(id)
-    @context.router.transitionTo('dashboard')
 
   render: ->
     {id, courseId} = @props

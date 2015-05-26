@@ -3,11 +3,6 @@
 _ = require 'underscore'
 moment = require 'moment'
 
-addEvents = (hash, events) ->
-  for event in events
-    week = hash[ moment(event.due_at).startOf('isoweek').format('YYYYww') ] ||= []
-    week.push(event)
-
 arrayToSentence = (arry) ->
   if arry.length > 1
     arry.slice(0, arry.length - 1).join(', ') + ' & ' + arry.slice(-1)
@@ -23,12 +18,15 @@ StudentDashboardConfig = {
   exports:
 
     eventsByWeek: (courseId) ->
-      return @_weeks if @weeks
+      return @_weeks if @_weeks
       data = @_get(courseId)
-      @_weeks = {}
-      addEvents(@_weeks, data.tasks) if data.tasks
-      addEvents(@_weeks, data.exams) if data.exams
-      @_weeks
+      tasks = data.tasks or []
+      weeks = _.groupBy tasks, (event) ->
+        moment(event.due_at).startOf('isoweek').format('YYYYww')
+      sorted = {}
+      for weekId, events of weeks
+        sorted[weekId] = _.sortBy(events, 'due_at')
+      @_weeks = sorted
 
     pastEventsByWeek: (courseId) ->
       weeks = this.exports.eventsByWeek.call(this, courseId)
@@ -38,12 +36,6 @@ StudentDashboardConfig = {
     weeklyEventsForDay: (courseId, day) ->
       events = this.exports.eventsByWeek.call(this, courseId)
       events[moment(day).startOf('isoweek').format('YYYYww')] or []
-
-    getTitles: (courseId) ->
-      data = @_get(courseId)
-      shortTitle = data.course.name.split(' ')[0]
-      longTitle = "#{data.course.name} | #{arrayToSentence(data.course.teacher_names)}"
-      {longTitle, shortTitle}
 
     canWorkTask: (event) ->
       # currently all tasks are workable

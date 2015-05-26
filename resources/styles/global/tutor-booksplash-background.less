@@ -1,0 +1,44 @@
+// Applies a fixed background effect to a container that includes a large fixed header
+//
+// It's intended to be customized for different looks depending on the type of content
+// the user is styling, i.e. Physics, Biology, etc
+.tutor-booksplash-background {
+
+  &:before {
+    content: attr(data-title);
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    background-color: @tutor-tertiary;
+    color: @tutor-secondary;
+    text-align: center;
+    font-size: 300px;
+    line-height: 200px;
+    font-family: 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
+    font-weight: 700;
+    z-index: -1;
+  }
+  
+  // The background is applied as a :after block so the opacity can
+  // be applied to only the background image, not the content itself
+  &:after {
+    content: "";
+    position: fixed;
+    z-index: -2;
+    top: 200px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.05;
+  }
+  
+  // custom backgrounds images for different types
+  &[data-category=physics]:after{ .tutor-background-image("physics.jpg"); }
+}
+.tutor-booksplash-adjust-top-padding(@normal-top-padding: 100px, @short-top-padding: 35px){
+  padding-top: @normal-top-padding;
+  // if the screen is short, move up even though it means
+  // the booksplash background won't be as visible
+  @media screen and ( max-height: 600px ){ padding-top: @short-top-padding; }
+}

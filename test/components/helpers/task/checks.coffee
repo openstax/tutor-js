@@ -237,20 +237,13 @@ checks.checkIsMatchStep = (matchStepIndex) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
 checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
-  incompleteCoreIndexes = TaskStore.getIncompleteCoreStepsIndexes(taskId)
-
-  coreIndexes = _.map incompleteCoreIndexes, (coreIndex) ->
-    coreIndex + 1
-
-  coreIndexesLabel = coreIndexes.join(' - ')
-
   breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
   placeholderBreadcrumb = breadcrumbs[stepIndex]
 
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
 
   expect(placeholderBreadcrumbDOM.className).to.contain('placeholder')
-  expect(div.innerText).to.contain(coreIndexesLabel)
+  expect(div.querySelector('.placeholder-step')).to.not.be.null
 
   {div, component, stepId, taskId, state, router, history}
 
