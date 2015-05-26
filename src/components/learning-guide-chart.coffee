@@ -191,10 +191,12 @@ module.exports = class LearningGuideChart
     # remove 'active' class from all groups
     d3.selectAll(children).classed('active', false)
     # and add it to ourselves
-    d3.select(target).classed('active', true)
+    target = d3.select(target)
+    target.classed('active', true)
+    # read the values from the transform attribute
+    transform = d3.transform(target.attr("transform"))
 
-    caretOffset = target.attributes.transform.value.match(/\((.*),/).pop()
-    leftOffsetPercent = parseInt(caretOffset) / WIDTH * 100
+    leftOffsetPercent = transform.translate[0] / WIDTH * 100
     @callbacks.setFooterOffset(leftOffsetPercent)
 
 
