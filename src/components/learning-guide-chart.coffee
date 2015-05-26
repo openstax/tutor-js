@@ -64,7 +64,7 @@ module.exports = class LearningGuideChart
     @drawPlane(container, points)
 
     @drawXRect(container)
-    @drawXAxis(container, fields, points, separator)
+    @drawXAxis(container, fields, points, separator, showAll)
 
     @drawYLabel(container, 8.7, 'Ace')
     @drawYLabel(container, 18.5, 'Cruising')
@@ -122,7 +122,14 @@ module.exports = class LearningGuideChart
       .attr('y', HEIGHT - XRECTHEIGHT)
       .attr('class', 'x-rect')
 
-  drawXAxis: (container, fields, points, separator) ->
+  drawXAxis: (container, fields, points, separator, showAll) ->
+    container.append('g')
+      .append('svg:text')
+      .attr('x', 6)
+      .attr('y', HEIGHT - 1.8)
+      .attr('class', 'x-desc')
+      .text( if showAll then "Chapters" else "Sections")
+
     clip = container.append('svg:clipPath')
       .attr('id', 'clip')
       .append('svg:rect')
@@ -195,7 +202,7 @@ module.exports = class LearningGuideChart
     wrap = container.append('g')
       .append('svg:text')
       .attr('text-anchor', 'end')
-      .attr('x', 5)
+      .attr('x', 8.5)
       .attr('y', ypos)
       .attr('class', 'y-desc')
       .attr('transform', "rotate(-90, 8, #{ypos})")
