@@ -2,15 +2,19 @@
 @guide-height: 100%;
 @guide-min-width: 1000px;
 @guide-max-width: 1600px;
+@guide-min-height: 306px;
+@guide-max-height: 490px;
 // colors
 @guide-green: rgb(121, 177, 66);
 @guide-xaxis-circle-fill-green: rgb(132, 195, 74);
 @guide-bg-gradient: rgb(193, 216, 229);
 
+
 .learning-guide {
   width: 100%;
+  height:100%;
   background-repeat: repeat;
-  position: relative;
+  
 
   .x-axis-bg-repeat {
     // global body padding-left/right prevents line from reaching ends at the moment...body classes with component name?
@@ -243,5 +247,153 @@
         color: @tutor-neutral-dark;
       }
     }
+  }
+}
+
+
+
+// IE10/11 resize hack
+// these breakpoints correspond approx. with what height:auto calculates in other browsers.
+// only targets IE10 and above.
+
+@media screen and (max-width: 1079px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 306px !important;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 306px !important;
+  }
+}
+@media screen and (min-width: 1100px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 312px !important;
+  }
+}
+@media screen and (min-width: 1120px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 318px !important;
+  }
+}
+@media screen and (min-width: 1140px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 324px !important;
+  }
+}
+@media screen and (min-width: 1160px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 330px !important;
+  }
+}
+@media screen and (min-width: 1180px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 336px !important;
+  }
+}
+@media screen and (min-width: 1200px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 342px !important;
+  }
+}
+@media screen and (min-width: 1220px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 348px !important;
+  }
+}
+@media screen and (min-width: 1240px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 354px !important;
+  }
+}
+@media screen and (min-width: 1260px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 360px !important;
+  }
+}
+@media screen and (min-width: 1280px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 366px !important;
+  }
+}
+@media screen and (min-width: 1300px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 372px !important;
+  }
+}
+@media screen and (min-width: 1320px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 378px !important;
+  }
+}
+@media screen and (min-width: 1340px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 384px !important;
+  }
+}
+@media screen and (min-width: 1360px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 390px !important;
+  }
+}
+@media screen and (min-width: 1380px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 396px !important;
+  }
+}
+@media screen and (min-width: 1400px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 402px !important;
+  }
+}
+@media screen and (min-width: 1420px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 408px !important;
+  }
+}
+@media screen and (min-width: 1440px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 414px !important;
+  }
+}
+@media screen and (min-width: 1460px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 420px !important;
+  }
+}
+@media screen and (min-width: 1480px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 426px !important;
+  }
+}
+@media screen and (min-width: 1500px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 432px !important;
+  }
+}
+@media screen and (min-width: 1520px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 438px !important;
+  }
+}
+@media screen and (min-width: 1540px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 444px !important;
+  }
+}
+@media screen and (min-width: 1560px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 450px !important;
+  }
+}
+@media screen and (min-width: 1580px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 456px !important;
+  }
+}
+@media screen and (min-width: 1600px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 462px !important;
   }
 }
