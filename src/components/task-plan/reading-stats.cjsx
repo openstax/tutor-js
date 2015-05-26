@@ -140,7 +140,10 @@ Stats = React.createClass
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
 
     unless _.isEmpty(chapters)
-      chapters = <section>{chapters}</section>
+      chapters = <section>
+        <label>Current Topics Performance</label>
+        {chapters}
+      </section>
 
     unless _.isEmpty(practice)
       practice = <section>
