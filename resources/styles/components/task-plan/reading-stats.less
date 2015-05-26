@@ -18,11 +18,14 @@
 
     &:not(:first-child){
       padding-top: 10px;
+
+      &:not(:last-child){
+        padding-bottom: 20px;
+      }
     }
 
     &:not(:last-child) {
       border-bottom: @tutor-teacher-plan-stats-border-style;
-      padding-bottom: 20px;
     }
 
     .reading-progress:last-child {
