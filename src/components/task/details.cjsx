@@ -28,7 +28,7 @@ module.exports = React.createClass
 
     if task.description_html
       detailPopover =
-        <BS.Popover title={title} className='task-details-popover'>
+        <BS.Popover className='task-details-popover'>
           <Markdown text={task.description_html} />
         </BS.Popover>
       details =
