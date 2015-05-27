@@ -6,3 +6,8 @@ textarea {
     box-shadow: 0 0 10px fade(@tutor-tertiary-light, 25%);
   }
 }
+
+.form-control:focus, .form-control.focus {
+  background-image: linear-gradient(@info, @info), linear-gradient(@input-underline-color, @input-underline-color);
+  animation: input-highlight 0.5s forwards;
+}
