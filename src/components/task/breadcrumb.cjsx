@@ -6,6 +6,10 @@ React = require 'react'
 
 module.exports = React.createClass
   displayName: 'Breadcrumb'
+  propTypes:
+    crumb: React.PropTypes.object.isRequired
+    currentStep: React.PropTypes.number.isRequired
+    goToStep: React.PropTypes.func.isRequired
 
   componentWillMount: ->
     {crumb} = @props
@@ -34,11 +38,6 @@ module.exports = React.createClass
 
     if (crumb.data.id is id)
       @setState({})
-
-  propTypes:
-    crumb: React.PropTypes.object.isRequired
-    currentStep: React.PropTypes.number.isRequired
-    goToStep: React.PropTypes.func.isRequired
 
   render: ->
     {crumb, currentStep, goToStep} = @props
@@ -84,6 +83,7 @@ module.exports = React.createClass
       className={classes}
       title={title}
       onClick={goToStep(crumb.key)}
+      data-chapter={crumb.sectionLabel}
       key="step-#{crumb.key}">
       <i className="icon-lg icon-#{crumbType}"></i>
       {status}

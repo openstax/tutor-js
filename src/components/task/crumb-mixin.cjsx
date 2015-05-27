@@ -30,6 +30,17 @@ module.exports =
 
     doesAllowSeeAhead or index <= latestIndex
 
+  _buildSectionLabel: (chapter_section, crumbs) ->
+    chapterSection = _.clone(chapter_section)
+
+    # ignore 0 in chapter sections
+    chapterSection.pop() if _.last(chapterSection) is 0
+    sectionLabel = @sectionFormat?(chapterSection, @state.sectionSeparator) if chapterSection?
+
+    # don't label crumbs that don't start a section
+    sectionLabel = null if _.findWhere(crumbs, {sectionLabel: sectionLabel})?
+    sectionLabel
+
   _generateCrumbsFromSteps: (task, steps) ->
     crumbs = []
     task.is_completed = TaskStore.isTaskCompleted(task.id)
@@ -43,6 +54,7 @@ module.exports =
         key: index
         data: step
         crumb: @shouldStepCrumb(index)
+        sectionLabel: @_buildSectionLabel(step.chapter_section, crumbs)
         type: 'step'
 
     # Completion

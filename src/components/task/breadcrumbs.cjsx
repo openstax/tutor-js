@@ -5,12 +5,13 @@ React = require 'react'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
+ChapterSectionMixin = require '../chapter-section-mixin'
 Breadcrumb = require './breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [CrumbMixin]
+  mixins: [ChapterSectionMixin, CrumbMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
