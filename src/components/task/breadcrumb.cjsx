@@ -10,7 +10,6 @@ module.exports = React.createClass
   componentWillMount: ->
     {crumb} = @props
 
-    TaskStepStore.setMaxListeners(20)
     TaskStepStore.on('step.completed', @update)
 
     if crumb.type is 'step' and TaskStepStore.isPlaceholder(crumb.data.id)
@@ -18,7 +17,6 @@ module.exports = React.createClass
       TaskStepStore.on('step.loaded', @update)
 
   removeListeners: ->
-    TaskStepStore.setMaxListeners(10)
     TaskStepStore.off('step.completed', @update)
     TaskStepStore.off('step.completed', @checkPlaceholder)
     TaskStepStore.off('step.loaded', @update)
