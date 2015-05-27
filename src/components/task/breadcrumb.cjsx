@@ -6,11 +6,14 @@ React = require 'react'
 
 module.exports = React.createClass
   displayName: 'Breadcrumb'
+  propTypes:
+    crumb: React.PropTypes.object.isRequired
+    currentStep: React.PropTypes.number.isRequired
+    goToStep: React.PropTypes.func.isRequired
 
   componentWillMount: ->
     {crumb} = @props
 
-    TaskStepStore.setMaxListeners(20)
     TaskStepStore.on('step.completed', @update)
 
     if crumb.type is 'step' and TaskStepStore.isPlaceholder(crumb.data.id)
@@ -18,7 +21,6 @@ module.exports = React.createClass
       TaskStepStore.on('step.loaded', @update)
 
   removeListeners: ->
-    TaskStepStore.setMaxListeners(10)
     TaskStepStore.off('step.completed', @update)
     TaskStepStore.off('step.completed', @checkPlaceholder)
     TaskStepStore.off('step.loaded', @update)
@@ -37,11 +39,6 @@ module.exports = React.createClass
     if (crumb.data.id is id)
       @setState({})
 
-  propTypes:
-    crumb: React.PropTypes.object.isRequired
-    currentStep: React.PropTypes.number.isRequired
-    goToStep: React.PropTypes.func.isRequired
-
   render: ->
     {crumb, currentStep, goToStep} = @props
     step = crumb.data
@@ -53,7 +50,7 @@ module.exports = React.createClass
     crumbType = step?.type
 
     bsStyle = null
-    classes = ['step', 'icon-stack', 'icon-lg']
+    classes = ['task-breadcrumbs-step', 'icon-stack', 'icon-lg']
     title = null
 
     if crumb.key is currentStep
@@ -86,6 +83,7 @@ module.exports = React.createClass
       className={classes}
       title={title}
       onClick={goToStep(crumb.key)}
+      data-chapter={crumb.sectionLabel}
       key="step-#{crumb.key}">
       <i className="icon-lg icon-#{crumbType}"></i>
       {status}
