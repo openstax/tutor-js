@@ -47,14 +47,15 @@ PracticeEnd = React.createClass
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
     totalSteps = TaskStore.getTotalStepsCount(taskId)
-
-    congratsMessage = <h1>You are done.  Great job!</h1> if completeSteps is totalSteps
-
+    completionMessage = if completeSteps is totalSteps
+      "You are done."
+    else
+      "You have answered #{completeSteps} of #{totalSteps} questions."
     <div className='task task-completed'>
       <CardBody footer={footer} className='-practice-completed'>
         <div className='completed-message'>
-          {congratsMessage}
-          <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
+          <h1>{completionMessage}</h1>
+          <h3>{TaskStore.getFeedbackMessage(@props.taskId)}</h3>
         </div>
       </CardBody>
     </div>
@@ -183,7 +184,7 @@ TaskEnd = React.createClass
       <CardBody footer={footer} className='-reading-completed'>
         <div className="completed-message">
           <h1>You Are Done.</h1>
-          <h3>Great Job!</h3>
+          <h3>{TaskStore.getFeedbackMessage(@props.taskId)}</h3>
         </div>
       </CardBody>
     </div>
