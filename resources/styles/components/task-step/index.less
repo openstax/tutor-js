@@ -1,5 +1,12 @@
 .size-exercise-card() {
   font-size: 2.1rem;
   font-weight: 400;
-  padding: 10px 140px;
+  padding: @tutor-card-body-padding;
+}
+
+.size-task-step-card() {
+  padding: @tutor-card-body-padding;
+  @media (max-width: @tutor-card-padding-collapse-breakpoint) {
+    padding: @tutor-card-body-padding-vertical @tutor-card-body-narrow-padding-horizontal;
+  }
 }
