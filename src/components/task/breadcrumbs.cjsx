@@ -26,7 +26,9 @@ module.exports = React.createClass
     #     if there are placeholder steps.
     #   One for step being viewed in the panel itself
     #     this is the + 1 to the max listeners being returned
-    TaskStepStore.setMaxListeners(listeners + 1) if listeners?
+    #
+    # Only update max listeners if it is greater than the default of 10
+    TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
 
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
