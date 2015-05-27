@@ -3,9 +3,9 @@
 @wrong-answer-color: @tutor-incorrect-color;
 @wrong-answer-background: @tutor-incorrect-background;
 
-@answer-background: lighten(@tutor-info, 53%);
-@answer-hover-color: lighten(@tutor-info, 48%);
-@answer-select-color: lighten(@tutor-info, 44%); // darker than hover
+@answer-background: @tutor-answer-background;
+@answer-hover-background: lighten(@tutor-info, 48%);
+@answer-select-background: lighten(@tutor-info, 44%); // darker than hover
 
 @free-response-color: @tutor-neutral-dark;
 
@@ -37,11 +37,14 @@
 .answer-text-label() {
   #fonts > .script(1.4rem);
   color: @answer-label-color;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .answer-icon-label() {
+  .fa-icon();
   font-size: 3.5em;
+  font-weight: normal;
+  color: inherit;
 }
 
 .answer-content() {
@@ -138,7 +141,7 @@
       margin: @answer-vertical-spacing 0;
 
       &:hover {
-        background-color: @answer-hover-color;
+        background-color: @answer-hover-background;
       }
     }
   }
@@ -149,7 +152,15 @@
     &:checked + label.answer-label,
     &:checked + label.answer-label:hover {
       font-weight: @answer-checked-font-weight;
-      background-color: @answer-select-color; // darker than hover
+      background-color: @answer-select-background; // darker than hover
+    }
+  }
+
+  .answer-checked {
+    &::before{
+      .answer-label();
+      .answer-text-label();
+      content: "My Choice:";
     }
   }
 
@@ -176,7 +187,6 @@
 
       .answer-checked {
         &::before{
-          .answer-label();
           .answer-icon-label();
         }
         &.answer-correct::before {
