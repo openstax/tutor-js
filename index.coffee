@@ -1,6 +1,8 @@
 require 'jquery'
 require 'bootstrap' # Attach bootstrap to jQuery
 
+MathJax = window.MathJax
+
 window._STORES =
   APP_CONFIG: require './src/flux/app-config'
   COURSE: require './src/flux/course'
@@ -16,7 +18,7 @@ window._STORES =
   TIME: require './src/flux/time'
   TOC: require './src/flux/toc'
 
-window.MathJax?.Hub.Config(
+MATHJAX_CONFIG =
   showProcessingMessages: false
   tex2jax:
     displayMath: [['\u200c\u200c\u200c', '\u200c\u200c\u200c']] # zero-width non-joiner
@@ -24,7 +26,16 @@ window.MathJax?.Hub.Config(
   styles:
     "#MathJax_Message":    visibility: "hidden", left: "", right: 0
     "#MathJax_MSIE_Frame": visibility: "hidden", left: "", right: 0
-)
+
+if MathJax?.Hub
+  MathJax.Hub.Config(MATHJAX_CONFIG)
+  MathJax.Hub.Configured()
+else
+  MATHJAX_CONFIG.AuthorInit = ->
+    MathJax.Hub.Configured()
+
+  window.MathJax = MATHJAX_CONFIG
+
 api = require './src/api'
 api.start()
 router = require './src/router'
