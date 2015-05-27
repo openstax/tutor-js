@@ -1,6 +1,5 @@
 _ = require 'underscore'
 React = require 'react'
-KatexMixin = require './katex-mixin'
 
 module.exports = React.createClass
   displayName: 'ArbitraryHtmlAndMath'
@@ -11,7 +10,6 @@ module.exports = React.createClass
   getDefaultProps: ->
     block: false
 
-  mixins: [KatexMixin]
   render: ->
     classes = ['has-html']
     classes.push(@props.className) if @props.className
@@ -27,6 +25,14 @@ module.exports = React.createClass
     if html
       __html: html
 
+  # rendering uses dangerouslySetInnerHTML and then runs MathJax,
+  # Both of which React can't optimize like it's normal render operations
+  # Accordingly, only update if any of our props have actually changed
+  shouldComponentUpdate: (nextProps, nextState) ->
+    for propName, value of nextProps
+      return true if @props[propName] isnt value
+    return false
+
   componentDidMount:  -> @updateDOMNode()
   componentDidUpdate: -> @updateDOMNode()
 
@@ -38,12 +44,30 @@ module.exports = React.createClass
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
 
-    # MathML should be rendered by MathJax (if available)
-    window.MathJax?.Hub.Queue(['Typeset', MathJax.Hub, root])
-    # Once MathML finishes processing, manually cleanup after it to prevent
+    nodes = root.querySelectorAll('[data-math]:not(.math-rendered)') or []
+    hasMath = root.querySelector('math')
+
+    # Return immediatly if no [data-math] or <math> elements are present
+    return unless window.MathJax and (_.any(nodes) or hasMath)
+
+    for node in nodes
+      formula = node.getAttribute('data-math')
+      # divs with data-math should be rendered as a block
+      if node.tagName.toLowerCase() is 'div'
+        node.textContent = "\u200c\u200c\u200c#{formula}\u200c\u200c\u200c"
+      else
+        node.textContent = "\u200b\u200b\u200b#{formula}\u200b\u200b\u200b"
+      window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, node])
+      # mark node as processed
+      node.classList.add('math-rendered')
+
+    # render MathML with MathJax
+    window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
+
+    # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
     # React "Invariant Violation" exceptions.
-    # MathJax calls Queued events in order, so this should always execute after typesetting
-    window.MathJax?.Hub.Queue([ ->
+    # MathJax calls queued events in order, so this will be called after processing completes
+    window.MathJax.Hub.Queue([ ->
       for nodeId in ['MathJax_Message', 'MathJax_Hidden', 'MathJax_Font_Test']
         el = document.getElementById(nodeId)
         break unless el # the elements won't exist if MathJax didn't do anything

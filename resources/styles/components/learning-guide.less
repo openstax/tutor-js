@@ -9,6 +9,7 @@
 
 .learning-guide {
   width: 100%;
+  height: 100%;
   background-repeat: repeat;
   position: relative;
 
@@ -139,10 +140,17 @@
         fill: @tutor-white;
       }
       .y-desc {
-        font-size: .15rem;
+        font-size: .18rem;
         #fonts > .guide-label();
         font-style: italic;
         fill: @tutor-neutral;
+      }
+      .x-desc {
+        font-size: .2rem;
+        #fonts > .guide-label();
+        font-style: italic;
+        fill: @tutor-white;
+        font-weight: 300;
       }
       .cloud-opacity-10 {
         opacity: .1
@@ -175,73 +183,217 @@
         opacity: 1
       }
     }
+
+    .header {
+      font-size: 1.8rem;
+      border-bottom: 1px dashed @tutor-neutral-light;
+      padding-bottom: 5px;
+    }
+    .chapter {
+      display: inline;
+      font-weight: bold;
+      color: @guide-green;
+    }
+    .chapter:after {
+      content: "\00a0";
+    }
+    .title {
+      display: inline;
+      font-weight: bold;
+      margin-left: 5px;
+    }
     .footer {
-      width: 600px;
-      height: 220px;
-      margin-top: -9px;
+      position: relative;
+      height: 120px;
+      top: -9px; // FIXME: Can't figure out what element or style is pushing the footer down
       margin-left: 0px;
       border-width: 1px 0px 1px 1px;
       border-style: solid;
       border-color: @tutor-neutral-light;
       background: @tutor-white;
-      opacity:0;
-      transition: opacity 0.1s linear;
-    }
-    .footer.active {
-      opacity:1;
-    }
-    .footer-content-wrap {
-      padding: 10px 20px 15px 20px;
-
-      .header {
-        border-bottom: 1px dashed @tutor-neutral-light;
-        padding-bottom: 9px;
-      }
-      .chapter {
-        display: inline;
-        font-weight: bold;
-        color: @guide-green;
-      }
-      .chapter:after {
-        content: "\00a0";
-      }
-      .title {
-        display: inline;
-        font-weight: bold;
-      }
-      .row-wrap {
-        width: 86%;
-        height: 120px;
-        padding-top: 5px;
+      padding: 5px 10px;
+      .body {
         margin-top: 5px;
-      }
-      .problems-worked {
-        float: left;
-        padding-top: 12px;
-        margin: 0 auto;
-        width: 300px;
-
-        .count {
-          font-size: 4rem;
-          text-align: center;
-          color: @tutor-quaternary;
+        .problems-worked {
+          width: 245px;
+          float: left;
+          .count {
+            font-size: 5rem;
+            text-align: center;
+            color: @tutor-quaternary;
+            display: inline;
+            float: left;
+            line-height: 60px;
+          }
+          .count-desc {
+            line-height: 20px;
+            width: 175px;
+            font-weight: 300;
+            float: left;
+            margin-left: 10px;
+            b {
+              display: block;
+            }
+          }
         }
-        .count-desc {
-          text-align: center;
+        button {
+          height: 40px;
+          margin-top: 10px;
         }
-      }
-      .practice-button-wrap {
-        float: right;
-      }
-      .chapter-button-wrap {
-        float: right;
-      }
-      .help-text {
-        font-size: 1.2rem;
-        #fonts > .guide-label();
-        font-style: italic;
-        color: @tutor-neutral-dark;
+        .chapter-button {
+          margin-left: 10px;
+        }
       }
     }
+  }
+  .footer.active {
+    opacity:1;
+  }
+}
+
+
+// IE10/11 resize hack
+// these breakpoints correspond approx. with what height:auto calculates in other browsers.
+// only targets IE10 and above.
+
+@media screen and (max-width: 1079px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 306px !important;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 306px !important;
+  }
+}
+@media screen and (min-width: 1100px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 312px !important;
+  }
+}
+@media screen and (min-width: 1120px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 318px !important;
+  }
+}
+@media screen and (min-width: 1140px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 324px !important;
+  }
+}
+@media screen and (min-width: 1160px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 330px !important;
+  }
+}
+@media screen and (min-width: 1180px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 336px !important;
+  }
+}
+@media screen and (min-width: 1200px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 342px !important;
+  }
+}
+@media screen and (min-width: 1220px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 348px !important;
+  }
+}
+@media screen and (min-width: 1240px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 354px !important;
+  }
+}
+@media screen and (min-width: 1260px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 360px !important;
+  }
+}
+@media screen and (min-width: 1280px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 366px !important;
+  }
+}
+@media screen and (min-width: 1300px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 372px !important;
+  }
+}
+@media screen and (min-width: 1320px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 378px !important;
+  }
+}
+@media screen and (min-width: 1340px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 384px !important;
+  }
+}
+@media screen and (min-width: 1360px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 390px !important;
+  }
+}
+@media screen and (min-width: 1380px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 396px !important;
+  }
+}
+@media screen and (min-width: 1400px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 402px !important;
+  }
+}
+@media screen and (min-width: 1420px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 408px !important;
+  }
+}
+@media screen and (min-width: 1440px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 414px !important;
+  }
+}
+@media screen and (min-width: 1460px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 420px !important;
+  }
+}
+@media screen and (min-width: 1480px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 426px !important;
+  }
+}
+@media screen and (min-width: 1500px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 432px !important;
+  }
+}
+@media screen and (min-width: 1520px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 438px !important;
+  }
+}
+@media screen and (min-width: 1540px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 444px !important;
+  }
+}
+@media screen and (min-width: 1560px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 450px !important;
+  }
+}
+@media screen and (min-width: 1580px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 456px !important;
+  }
+}
+@media screen and (min-width: 1600px) {
+  _:-ms-lang(x), .learning-guide { 
+    height: 462px !important;
   }
 }

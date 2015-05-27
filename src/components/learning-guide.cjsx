@@ -34,9 +34,8 @@ LearningGuide = React.createClass
   displayUnit: (unit, chapter) ->
     @setState({unit, chapter: chapter})
 
-  displayChapter: ->
-    if @state.showAll
-      @setState({showAll:false}, -> @loadChart())
+  toggleChapter: ->
+    @setState({showAll: not @state.showAll}, -> @loadChart())
 
   displayTopic: ->
     {courseId} = @props
@@ -45,11 +44,10 @@ LearningGuide = React.createClass
     else
       @context.router.transitionTo('dashboard', {courseId})
 
-  setFooterOffset: (offset) ->
-    @setState(footerOffset: offset)
+  setFooterOffset: (offsetPercent) ->
+    @setState(footerOffsetPercent: offsetPercent)
 
   loadChart: ->
-    @chart.destroy() if @chart
     @chart = new LearningGuideChart(@refs.svg.getDOMNode()
       LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter, @state.sectionSeparator
       {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset, @sectionFormat}
@@ -57,10 +55,6 @@ LearningGuide = React.createClass
 
   componentDidMount: ->
     @loadChart()
-
-  componentWillUnmount: ->
-    @chart.destroy()
-
 
   render: ->
     {unit} = @state
@@ -72,37 +66,38 @@ LearningGuide = React.createClass
       problemsWorked =
         <div className='problems-worked'>
           <div className='count'>{unit.questions_answered_count}</div>
-          <div className='count-desc'>problems worked</div>
+          <div className='count-desc'>
+            <b>problems worked</b>
+            in readings, homeworks, and practice
+          </div>
         </div>
       practiceButton =
-        <div className='practice-button-wrap'>
-          <PracticeButton courseId={@props.courseId} pageIds={unit.page_ids}>Practice</PracticeButton>
-        </div>
-      chapterButton =
-        <div className='chapter-button-wrap'>
-          <BS.Button className="chapter-button" bsStyle='primary' onClick={@displayChapter}>
-            View This Chapter
+          <PracticeButton showAll={@state.showAll} courseId={@props.courseId} pageIds={unit.page_ids}/>
+      chapterToggleButton =
+          <BS.Button className="chapter-button" onClick={@toggleChapter}>
+            {if @state.showAll then 'Expand Chapter' else 'Back to overall'}
           </BS.Button>
-        </div>
-      helpText =
-        <div className='help-text'>
-          Total problems you have done in readings, homeworks and practice
-        </div>
 
+    footerWidth = 600
     <div className='learning-guide-chart'>
       <svg ref='svg' />
-      <div ref='footer' className='footer' style={marginLeft: @state.footerOffset}>
-        <div ref='footer-content-wrap' className='footer-content-wrap'>
-          <div className='header'>
-            {chapter}{title}
-          </div>
-          <div className='row-wrap'>
-            {problemsWorked}
-            {practiceButton}
-            {if @state.showAll then chapterButton}
-          </div>
-          {helpText}
+      <div ref='footer' className='footer' style={
+        left: @state.footerOffsetPercent + '%'
+        width: footerWidth
+        marginLeft: -1 * footerWidth * (@state.footerOffsetPercent / 100)
+        }>
+
+        <div className='header'>
+          {chapter}{title}
         </div>
+        <div className='body'>
+          {problemsWorked}
+          <div className='problems-worked-explained'>
+          </div>
+          {practiceButton}
+          {chapterToggleButton}
+        </div>
+
       </div>
     </div>
 
