@@ -18,9 +18,15 @@ module.exports = React.createClass
     currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
 
-  componentWillReceiveProps: ->
-    crumbs = @getCrumableCrumbs()
-    TaskStepStore.setMaxListeners(3 * crumbs.length) if crumbs?
+  componentWillMount: ->
+    listeners = @getMaxListeners()
+    # TaskStepStore listeners include:
+    #   One per step for the crumb status updates
+    #   Two additional listeners for step loading and completion
+    #     if there are placeholder steps.
+    #   One for step being viewed in the panel itself
+    #     this is the + 1 to the max listeners being returned
+    TaskStepStore.setMaxListeners(listeners + 1) if listeners?
 
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
