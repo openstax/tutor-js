@@ -16,10 +16,10 @@
 .task-homework,
 .task-practice,
 .task-chapter_practice {
-  .steps {
+  .task-breadcrumbs {
     counter-reset: step;
   }
-  .step:not(.end) {
+  .task-breadcrumbs-step:not(.end) {
     &:before {
       counter-increment: step;
       content: counter(step);
@@ -31,8 +31,9 @@
   }
 }
 
+// label readings with chapter info if it exists
 .task-reading {
-  .step[data-chapter]{
+  .task-breadcrumbs-step[data-chapter] {
 
     background: @reading-color;
     color: @tutor-white;
@@ -54,12 +55,12 @@
   }
 }
 
-.steps {
+.task-breadcrumbs {
   margin-left: -2px;
   margin-right: -2px;
 }
 
-.step {
+.task-breadcrumbs-step {
   .crumb-circle(2rem);
   position: relative;
   font-weight: 500;

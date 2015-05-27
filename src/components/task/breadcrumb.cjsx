@@ -50,7 +50,7 @@ module.exports = React.createClass
     crumbType = step?.type
 
     bsStyle = null
-    classes = ['step', 'icon-stack', 'icon-lg']
+    classes = ['task-breadcrumbs-step', 'icon-stack', 'icon-lg']
     title = null
 
     if crumb.key is currentStep

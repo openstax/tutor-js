@@ -36,6 +36,6 @@ module.exports = React.createClass
         goToStep={goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
-    <div className='steps'>
+    <div className='task-breadcrumbs'>
       {stepButtons}
     </div>
