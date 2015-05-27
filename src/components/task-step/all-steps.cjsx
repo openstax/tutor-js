@@ -67,9 +67,9 @@ Interactive = React.createClass
 
   renderBody: ->
     {id} = @props
-    {content_url} = TaskStepStore.get(id)
-    <div className="interactive">
-      <iframe ref="iframe" src={content_url}/>
+    {content_html} = TaskStepStore.get(id)
+    <div className="interactive-step">
+      <ArbitraryHtmlAndMath className='interactive-content' html={content_html} />
     </div>
 
 Video = React.createClass

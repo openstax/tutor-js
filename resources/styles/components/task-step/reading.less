@@ -3,17 +3,11 @@
 .task-step {
 
   .reading-step {
-    // pull in common stylings for book contents
-    .tutor-book-content();
-    // should the watch-physics step be part of book content?
-    @import './reading/watch-physics';
+    p {
+      #fonts > .serif(1.75rem, 190%);
+      margin: 0 0 2.4rem 0;
+    }
   }
-
-  p {
-    #fonts > .serif(1.75rem, 190%);
-    margin: 0 0 2.4rem 0;
-  }
-
 }
 
 @import './reading/completed';
