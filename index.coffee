@@ -16,7 +16,7 @@ window._STORES =
   TIME: require './src/flux/time'
   TOC: require './src/flux/toc'
 
-window.MathJax?.Hub.Config(
+MATHJAX_CONFIG =
   showProcessingMessages: false
   tex2jax:
     displayMath: [['\u200c\u200c\u200c', '\u200c\u200c\u200c']] # zero-width non-joiner
@@ -24,7 +24,20 @@ window.MathJax?.Hub.Config(
   styles:
     "#MathJax_Message":    visibility: "hidden", left: "", right: 0
     "#MathJax_MSIE_Frame": visibility: "hidden", left: "", right: 0
-)
+
+if window.MathJax?.Hub
+  window.MathJax.Hub.Config(MATHJAX_CONFIG)
+  window.MathJax.Hub.Configured()
+else
+  # If the MathJax.js file has not loaded yet:
+  # Call MathJax.Configured once MathJax loads and
+  # loads this config JSON since the CDN URL
+  # says to `delayStartupUntil=configured`
+  MATHJAX_CONFIG.AuthorInit = ->
+    window.MathJax.Hub.Configured()
+
+  window.MathJax = MATHJAX_CONFIG
+
 api = require './src/api'
 api.start()
 router = require './src/router'

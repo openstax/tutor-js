@@ -48,7 +48,8 @@ module.exports = React.createClass
     hasMath = root.querySelector('math')
 
     # Return immediatly if no [data-math] or <math> elements are present
-    return unless window.MathJax and (_.any(nodes) or hasMath)
+    # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
+    return unless window.MathJax.Hub?.Queue? and (_.any(nodes) or hasMath)
 
     for node in nodes
       formula = node.getAttribute('data-math')
