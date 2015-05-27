@@ -42,6 +42,7 @@ Stats = React.createClass
 
     classes = 'reading-progress-bar'
     classes += ' no-progress' unless percent
+    classes += ' progress-bar-striped' if correctOrIncorrect is 'incorrect'
 
     label = "#{percent}%"
     label = "#{label} #{correctOrIncorrect}" if percent is 100
