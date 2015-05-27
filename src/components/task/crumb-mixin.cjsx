@@ -40,11 +40,7 @@ module.exports =
     listeners[stepType] or 1
 
   _buildSectionLabel: (chapter_section, crumbs) ->
-    chapterSection = _.clone(chapter_section)
-
-    # ignore 0 in chapter sections
-    chapterSection.pop() if _.last(chapterSection) is 0
-    sectionLabel = @sectionFormat?(chapterSection, @state.sectionSeparator) if chapterSection?
+    sectionLabel = @sectionFormat?(chapter_section, @state.sectionSeparator) if chapter_section?
 
     # don't label crumbs that don't start a section
     sectionLabel = null if _.findWhere(crumbs, {sectionLabel: sectionLabel})?
