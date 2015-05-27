@@ -38,9 +38,7 @@
     background: @reading-color;
     color: @tutor-white;
 
-    &.active {
-      color: @tutor-white;
-    }
+    &.active,
     &.completed {
       color: @tutor-white;
     }
@@ -69,7 +67,7 @@
   display: inline-block;
   text-align: center;
   background: @tutor-white;
-  color: @tutor-neutral-light;
+  color: @tutor-neutral;
 
   &:hover,
   &.active {
@@ -80,7 +78,8 @@
     color: @tutor-primary;
   }
   &.completed {
-    color: @tutor-tertiary-light;
+    background: @tutor-answer-background;
+    color: @tutor-answer-color;
   }
   &.status-correct {
     background: @tutor-correct-background;

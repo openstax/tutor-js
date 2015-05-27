@@ -18,7 +18,7 @@ module.exports = React.createClass
     dateFormat: 'l'
     dateLabel: 'Due'
     trigger: 'focus'
-    placement: 'left'
+    placement: 'top'
 
   render: ->
     {task, title, dateFormat, dateLabel, trigger, placement} = @props
@@ -28,19 +28,21 @@ module.exports = React.createClass
 
     if task.description_html
       detailPopover =
-        <BS.Popover title={title} className='task-details-popover'>
+        <BS.Popover className='task-details-popover'>
           <Markdown text={task.description_html} />
         </BS.Popover>
       details =
-        <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
-          <BS.Button bsStyle='default' className='task-details'>
-            <i className='fa fa-info-circle'></i>&nbsp;
-            {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
-          </BS.Button>
-        </BS.OverlayTrigger>
+        <span className='task-details'>
+          {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
+          <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
+            <BS.Button bsStyle=''>
+              <i className='fa fa-info-circle'></i>
+            </BS.Button>
+          </BS.OverlayTrigger>
+        </span>
     else
       details =
-        <span className='-task-details task-details'>
+        <span className='task-details'>
           {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
         </span>
 

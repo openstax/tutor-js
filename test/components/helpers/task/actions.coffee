@@ -32,7 +32,7 @@ actions =
 
   # Tricky, popovers use focus trigger for dismissable option
   # http://getbootstrap.com/javascript/#dismiss-on-next-click
-  clickDetails: commonActions.focusMatch('.task-details')
+  clickDetails: commonActions.focusMatch('.task-details .btn')
 
   _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
     breadcrumbs = div.querySelectorAll('.task-breadcrumbs-step')
