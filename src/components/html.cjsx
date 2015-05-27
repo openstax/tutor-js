@@ -48,7 +48,8 @@ module.exports = React.createClass
     hasMath = root.querySelector('math')
 
     # Return immediatly if no [data-math] or <math> elements are present
-    return unless window.MathJax and (_.any(nodes) or hasMath)
+    # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
+    return unless window.MathJax.Hub?.Queue? and (_.any(nodes) or hasMath)
 
     for node in nodes
       formula = node.getAttribute('data-math')
@@ -57,18 +58,17 @@ module.exports = React.createClass
         node.textContent = "\u200c\u200c\u200c#{formula}\u200c\u200c\u200c"
       else
         node.textContent = "\u200b\u200b\u200b#{formula}\u200b\u200b\u200b"
-      # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
-      window.MathJax.Hub?.Queue?(['Typeset', MathJax.Hub, node])
+      window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, node])
       # mark node as processed
       node.classList.add('math-rendered')
 
     # render MathML with MathJax
-    window.MathJax.Hub?.Queue?(['Typeset', MathJax.Hub, root]) if hasMath
+    window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
 
     # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
     # React "Invariant Violation" exceptions.
     # MathJax calls queued events in order, so this will be called after processing completes
-    window.MathJax.Hub?.Queue?([ ->
+    window.MathJax.Hub.Queue([ ->
       for nodeId in ['MathJax_Message', 'MathJax_Hidden', 'MathJax_Font_Test']
         el = document.getElementById(nodeId)
         break unless el # the elements won't exist if MathJax didn't do anything
