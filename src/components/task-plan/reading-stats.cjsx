@@ -36,20 +36,15 @@ Stats = React.createClass
     if total_count then @_percent(data[count], total_count) else 0
 
   renderPercentBar: (data, type, percent, correctOrIncorrect) ->
-    bsStyles =
-      'correct' : 'success'
-      'incorrect' : 'danger'
-
     classes = 'reading-progress-bar'
+    classes += " progress-bar-#{correctOrIncorrect}"
     classes += ' no-progress' unless percent
-    classes += ' progress-bar-striped' if correctOrIncorrect is 'incorrect'
 
     label = "#{percent}%"
     label = "#{label} #{correctOrIncorrect}" if percent is 100
 
     correct = <BS.ProgressBar
                 className={classes}
-                bsStyle={bsStyles[correctOrIncorrect]}
                 label={label}
                 now={percent}
                 key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}"
