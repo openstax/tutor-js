@@ -62,7 +62,6 @@ LearningGuide = React.createClass
 
   render: ->
     {unit} = @state
-    {overall} = @state
     if unit
       chapter = <div className='chapter'>
         {@sectionFormat(unit.chapter_section, @state.sectionSeparator)}
