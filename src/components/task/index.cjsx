@@ -38,25 +38,38 @@ module.exports = React.createClass
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
     {
       currentStep: crumbKey
-      refreshFor: false
+      refreshFrom: false
+      refreshTo: false
     }
 
   shouldComponentUpdate: (nextProps, nextState) ->
-    return true unless nextState.currentStep is nextState.refreshFor
+    return false unless @state.refreshTo is nextState.refreshTo
+
+    return true if nextState.refreshFrom is false
+
+    return true if nextState.currentStep is nextState.refreshTo
+
+    return true if nextState.currentStep is nextState.refreshFrom
 
     # If attempt next step is a step that triggered a refresh,
     # don't update on this cycle.
-    # Instead, reset the refreshFor state
+    # Instead, reset the refreshFrom state
     # and advance step to the next step after.
+    @goToStep(nextState.refreshFrom + 1)()
     @untrackRefreshStep()
-    @goToStep(nextState.currentStep + 1)()
     return false
 
-  trackRefreshStep: ->
-    @setState({refreshFor: @state.currentStep})
+  trackRefreshStep: (refreshTo) ->
+    @setState({refreshFrom: @state.currentStep, refreshTo: refreshTo})
 
   untrackRefreshStep: ->
-    @setState({refreshFor: false})
+    @setState({refreshFrom: false, refreshTo: false})
+
+  afterRecovery: ->
+    if @state.refreshTo
+      @goToStep(@state.refreshTo)()
+    else
+      @onNextStep()
 
   # Curried for React
   goToStep: (stepKey) ->
@@ -79,6 +92,7 @@ module.exports = React.createClass
       goToStep={@goToStep}
       onNextStep={@onNextStep}
       trackRefreshStep={@trackRefreshStep}
+      afterRecovery={@afterRecovery}
     />
 
   renderEnd: (data) ->

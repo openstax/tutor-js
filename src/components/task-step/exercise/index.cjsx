@@ -30,6 +30,7 @@ module.exports = React.createClass
       goToStep={@props.goToStep}
       onStepCompleted={@props.onStepCompleted}
       trackRefreshStep={@props.trackRefreshStep}
+      afterRecovery={@props.afterRecovery}
       review={@props.review}
       pinned={@props.pinned}
       taskId={@props.taskId}

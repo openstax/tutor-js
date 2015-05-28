@@ -28,7 +28,9 @@ module.exports = React.createClass
     #     this is the + 1 to the max listeners being returned
     #
     # Only update max listeners if it is greater than the default of 10
-    TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
+    TaskStepStore.setMaxListeners(100)
+     # if listeners? and (listeners + 1) > 10
+    # TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
 
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)

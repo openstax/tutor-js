@@ -126,12 +126,11 @@ ExerciseReview = React.createClass
     TaskStepStore.off('step.recovered', @goToRecovered)
 
   loadRecovered: ->
-    @props.onNextStep()
-    TaskStore.off('change', @loadRecovered)
+    @props.afterRecovery()
 
   goToRecovered: (recoveredStep) ->
     {task_id} = recoveredStep
-    TaskStore.on('change', @loadRecovered)
+    TaskStepStore.once('change', @loadRecovered)
     TaskActions.load(task_id)
 
   renderBody: ->
@@ -164,7 +163,6 @@ ExerciseReview = React.createClass
 
   tryAnother: ->
     {id} = @props
-    task_id = TaskStepStore.getTaskId(id)
     # emits step.recovered event that is bounded on
     TaskStepActions.loadRecovery(id)
 
@@ -175,9 +173,8 @@ ExerciseReview = React.createClass
     throw new Error('BUG: No reading found for task') unless index
 
     # Track what step is refreshed so that it can be skipped after refreshing.
-    @props.trackRefreshStep()
-    # goToStep returns an function with the step index in closure scope
-    @props.goToStep(index)()
+    @props.trackRefreshStep(index)
+    TaskStepActions.loadRecovery(id)
 
   canTryAnother: ->
     {id} = @props
