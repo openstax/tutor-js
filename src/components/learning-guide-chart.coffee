@@ -140,21 +140,13 @@ module.exports = class LearningGuideChart
       .on('click', (field) ->
         me.showPanel(this, @parentNode.childNodes)
         if field.chapter_section instanceof Array
-          thisChap = field.chapter_section[0]
           chapterIndex = _.map(fields, (f) -> f.chapter_section[0])
           thisIndex = chapterIndex.indexOf(field.chapter_section[0])
         else
-          thisChap = field.chapter_section
           chapterIndex = _.map(fields, (f) -> f.chapter_section)
           thisIndex = chapterIndex.indexOf(field.chapter_section)
-  
-        if showAll
-          overallIndex = _.map(guide.children, (f) -> f.title)
-          thisOverall = overallIndex.indexOf(field.title)
-        else
-          thisOverall = null
         
-        me.callbacks.displayUnit(field, thisIndex, thisOverall)
+        me.callbacks.displayUnit(field, thisIndex)
 
       )
     label.append('circle')

@@ -32,8 +32,8 @@ LearningGuide = React.createClass
     {courseId} = @props
     @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
 
-  displayUnit: (unit, chapter, title) ->
-    @setState({unit, chapter: chapter, overall: title})
+  displayUnit: (unit, chapter) ->
+    @setState({unit, chapter: chapter})
 
   displayTitle: (title) ->
     @setState({title: title})
