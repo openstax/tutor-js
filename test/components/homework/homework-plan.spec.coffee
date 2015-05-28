@@ -58,7 +58,7 @@ describe 'Homework Builder', ->
     #set homework to not published
     #check if due date input exists
     tests = ({div}) ->
-      expect(div.querySelector('#homework-due-date input').disabled).to.not.be.null
+      expect(div.querySelector('#homework-due-date')).to.be.null
       expect(div.querySelector('.-select-problems')).to.be.null
       done()
 
