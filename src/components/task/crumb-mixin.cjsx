@@ -30,6 +30,22 @@ module.exports =
 
     doesAllowSeeAhead or index <= latestIndex
 
+  _getStepListeners: (stepType) ->
+    #   One per step for the crumb status updates
+    #   Two additional listeners for step loading and completion
+    #     if there are placeholder steps.
+    listeners =
+      placeholder: 3
+
+    listeners[stepType] or 1
+
+  _buildSectionLabel: (chapter_section, crumbs) ->
+    sectionLabel = @sectionFormat?(chapter_section, @state.sectionSeparator) if chapter_section?
+
+    # don't label crumbs that don't start a section
+    sectionLabel = null if _.findWhere(crumbs, {sectionLabel: sectionLabel})?
+    sectionLabel
+
   _generateCrumbsFromSteps: (task, steps) ->
     crumbs = []
     task.is_completed = TaskStore.isTaskCompleted(task.id)
@@ -43,14 +59,18 @@ module.exports =
         key: index
         data: step
         crumb: @shouldStepCrumb(index)
+        sectionLabel: @_buildSectionLabel(step.chapter_section, crumbs)
         type: 'step'
+        listeners: @_getStepListeners(step.type)
 
     # Completion
+    crumbType = 'end'
     crumbs.push
       key: steps.length
       data: task
       crumb: @shouldStepCrumb(steps.length)
-      type: 'end'
+      type: crumbType
+      listeners: @_getStepListeners(crumbType)
 
     crumbs
 
@@ -72,13 +92,15 @@ module.exports =
         (crumb.type is 'step') and not TaskStepStore.isCore(crumb.data.id)
 
       if notCore?
+        crumbType = 'spacer'
         spacerCrumb =
           data:
             task_id: task.id
             # TODO switch with official icon.  using test as stand-in
             type: 'test'
           crumb: @shouldStepCrumb(notCore.key)
-          type: 'spacer'
+          type: crumbType
+          listeners: @_getStepListeners(crumbType)
 
         crumbs.splice(notCore.key, 0, spacerCrumb)
 
@@ -100,3 +122,9 @@ module.exports =
     allCrumbs = @generateCrumbs()
     crumbableCrumbs = _.where allCrumbs,
       crumb: true
+
+  getMaxListeners: ->
+    crumbs = @getCrumableCrumbs()
+    listeners = _.reduce crumbs, (memo, crumb) ->
+      memo + crumb.listeners
+    , 0

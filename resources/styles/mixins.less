@@ -43,13 +43,19 @@
 
 .tutor-completed-message() {
   text-align: center;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   h1, h3 {
-    #fonts > .sans(4.5rem, 300px);
+    #fonts > .sans(4.5rem);
     font-weight: 700;
     display: inline-block;
   }
-  h1 {
-    margin-right: 2rem;
+  h3 {
+    #fonts > .sans(4rem);
+    font-weight: 700;
   }
 }
 
