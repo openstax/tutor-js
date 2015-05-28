@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 {DateTimePicker} = require 'react-widgets'
 
 TutorInput = React.createClass
@@ -30,13 +31,67 @@ TutorInput = React.createClass
 
 TutorDateInput = React.createClass
 
+  getInitialState: ->
+    {expandCalendar: false}
+
+  expandCalendar: ->
+    @setState({expandCalendar: true})
+
+  isValid: (value) ->
+    valid = true
+    valid = false if (@props.min and value < @props.min)
+    valid = false if (@props.max and value > @props.max)
+    valid
+
+  dateSelected: (value) ->
+    valid = @isValid(value)
+    @props.onChange(value) if (valid)
+    @setState({expandCalendar: false, valid: valid})
+
+  onToggle: (open) ->
+    @setState({expandCalendar: open})
+
+  clickHandler: (event) ->
+    if (event.target.tagName is "INPUT" and not @state.expandCalendar)
+      @setState({expandCalendar: true})
+
+  parseDate: (dateStr) ->
+    date = new Date(dateStr)
+    min = @props.min or ""
+    if (not date or not @isValid(date))
+      date = new Date(min)
+
+    date
+
   render: ->
     classes = ['form-control']
     unless @props.value then classes.push('empty')
+    open = false
+
+    if @state.expandCalendar and not @props.readOnly and not @state.justToggled
+      open = 'calendar'
+      onToggle = @onToggle
+
+    value = @props.value
+
     <div className="form-control-wrapper">
       <input type='text' disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
-      <DateTimePicker {...@props}/>
+      <DateTimePicker onClick={@clickHandler}
+        onFocus={@expandCalendar} 
+        parse={@parseDate}
+        id={@props.id}
+        format='MMM dd, yyyy'
+        time={false}
+        calendar={true}
+        open={open}
+        onToggle={onToggle}
+        className="form-control"
+        onChange={@dateSelected}
+        readOnly={@props.readOnly}
+        min={@props.min}
+        value={value}
+      />
     </div>
 
 TutorTextArea = React.createClass
