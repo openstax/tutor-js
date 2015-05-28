@@ -64,7 +64,7 @@ module.exports = class LearningGuideChart
     @drawPlane(container, points)
 
     @drawXRect(container)
-    @drawXAxis(container, fields, points, separator, showAll)
+    @drawXAxis(container, fields, points, separator, showAll, guide)
 
     @drawYLabel(container, 8.7, 'Ace')
     @drawYLabel(container, 18.5, 'Cruising')
@@ -73,7 +73,7 @@ module.exports = class LearningGuideChart
 
     @drawYDesc(container, 8, 'Current Estimate of Understanding')
 
-    @drawTitle(container, guide, showAll, chapter)
+    @setTitle(guide, showAll, chapter)
 
     @showDefaultPanel(fields)
 
@@ -94,26 +94,14 @@ module.exports = class LearningGuideChart
     container.selectAll("defs").remove()
     container.selectAll(".x-rect, #clip, .gradient-rect").remove()
 
-  drawTitle: (container, guide, showAll, chapter) ->
+  setTitle: (guide, showAll, chapter) ->
     if showAll
-      mainTitle = "Your Flight Path | #{guide.title} | All Topics | "
-      backButtonText = "Back to Dashboard"
+      mainTitle = guide.title
     else
-      mainTitle = "Your Flight Path | #{guide.children[chapter].title} | "
-      backButtonText = "Show All Chapters"
-    wrap = container.append('g')
-      .append('svg:text')
-      .attr('text-anchor', 'middle')
-      .attr('x', WIDTH / 2)
-      .attr('y', 3)
-      .attr('class', 'main-title')
-      .text(mainTitle)
-      .append('svg:a')
-      .attr('class', 'show-course')
-      .text(backButtonText)
-      .on('click', =>
-        @callbacks.displayTopic()
-      )
+      mainTitle = guide.children[chapter].title
+
+    @callbacks.displayTitle(mainTitle)
+
 
   drawXRect: (container) ->
     wrap = container.append('svg:rect')
@@ -122,7 +110,7 @@ module.exports = class LearningGuideChart
       .attr('y', HEIGHT - XRECTHEIGHT)
       .attr('class', 'x-rect')
 
-  drawXAxis: (container, fields, points, separator, showAll) ->
+  drawXAxis: (container, fields, points, separator, showAll, guide) ->
     container.append('g')
       .append('svg:text')
       .attr('x', 6)
@@ -154,11 +142,19 @@ module.exports = class LearningGuideChart
         if field.chapter_section instanceof Array
           thisChap = field.chapter_section[0]
           chapterIndex = _.map(fields, (f) -> f.chapter_section[0])
+          thisIndex = chapterIndex.indexOf(field.chapter_section[0])
         else
           thisChap = field.chapter_section
           chapterIndex = _.map(fields, (f) -> f.chapter_section)
-        thisIndex = chapterIndex.indexOf(field.chapter_section[0])
-        me.callbacks.displayUnit(field, thisIndex)
+          thisIndex = chapterIndex.indexOf(field.chapter_section)
+  
+        if showAll
+          overallIndex = _.map(guide.children, (f) -> f.title)
+          thisOverall = overallIndex.indexOf(field.title)
+        else
+          thisOverall = null
+        
+        me.callbacks.displayUnit(field, thisIndex, thisOverall)
 
       )
     label.append('circle')
