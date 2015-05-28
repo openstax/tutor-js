@@ -30,14 +30,65 @@ TutorInput = React.createClass
 
 TutorDateInput = React.createClass
 
+  getInitialState: ->
+    {expandCalendar: false}
+
+  expandCalendar: ->
+    @setState({expandCalendar: true})
+
+  isValid: (value) ->
+    valid = true
+    valid = false if (@props.min and value < @props.min)
+    valid = false if (@props.max and value > @props.max)
+    valid
+
+  dateSelected: (value) ->
+    valid = @isValid(value)
+
+    if (not valid)
+      value = @props.min or null
+
+    date = new Date(value)
+    @props.onChange(date)
+    @setState({expandCalendar: false, valid: valid})
+
+  onToggle: (open) ->
+    @setState({expandCalendar: open})
+
+  clickHandler: (event) ->
+    if (event.target.tagName is "INPUT" and not @state.expandCalendar)
+      @setState({expandCalendar: true})
+
   render: ->
     classes = ['form-control']
     unless @props.value then classes.push('empty')
+    open = false
+
+    if @state.expandCalendar and not @props.readOnly
+      open = 'calendar'
+      onToggle = @onToggle
+
+    value = @props.value
+
     <div className="form-control-wrapper">
       <input type='text' disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
-      <DateTimePicker {...@props}/>
+      <DateTimePicker onClick={@clickHandler}
+        onFocus={@expandCalendar} 
+        id={@props.id}
+        format='MMM dd, yyyy'
+        time={false}
+        calendar={true}
+        open={open}
+        onToggle={onToggle}
+        className="form-control"
+        onChange={@dateSelected}
+        readOnly={@props.readOnly}
+        min={@props.min}
+        value={value}
+      />
     </div>
+
 
 TutorTextArea = React.createClass
   propTypes:
