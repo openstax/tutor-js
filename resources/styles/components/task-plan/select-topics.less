@@ -1,30 +1,31 @@
 .select-reading-chapters {
+  .panel {
+    box-shadow: none;
 
-  .panel-heading {
-    position: relative;
-    background: @tutor-neutral-lighter;
-    outline: 1px solid @tutor-neutral-lightest;
-    border: 1px solid @tutor-white;
+    .panel-heading {
+      position: relative;
+      background: @tutor-neutral-lighter;
 
-    > .panel-title {
-      line-height: 1.2rem;
+      > .panel-title {
+        line-height: 1.2rem;
 
-      .chapter-checkbox,
-      .chapter-number,
-      .chapter-title {
-        vertical-align: middle;
+        .chapter-checkbox,
+        .chapter-number,
+        .chapter-title {
+          vertical-align: middle;
 
-        span {
-          font-size: 1.7rem;
-          font-weight: 700;
-          color: @tutor-tertiary;
-          line-height: normal;
-          vertical-align: baseline;
-        }
+          span {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: @tutor-tertiary;
+            line-height: normal;
+            vertical-align: baseline;
+          }
 
-        input {
-          margin: 0 20px 0 0;
-          vertical-align: baseline;
+          input {
+            margin: 0 20px 0 0;
+            vertical-align: baseline;
+          }
         }
       }
     }
@@ -35,7 +36,7 @@
     border: none !important;
 
     > .section {
-      padding: 1px 8px;
+      padding: 1px 20px;
       border-bottom: 1px solid @tutor-neutral-light;
       font-weight: 400;
 
@@ -49,7 +50,7 @@
       }
 
       > .section-checkbox {
-        margin: 0 19px 0 7px;
+        margin-right: 15px;
         font-size: 1.7rem;
       }
     }

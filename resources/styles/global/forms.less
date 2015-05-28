@@ -9,5 +9,38 @@ textarea {
 
 .form-control:focus, .form-control.focus {
   background-image: linear-gradient(@info, @info), linear-gradient(@input-underline-color, @input-underline-color);
-  animation: input-highlight 0.5s forwards;
+  animation: input-highlight 0.125s forwards;
+}
+
+.form-control-wrapper {
+  .form-control:focus ~ .floating-label {
+    color: @info;
+  }
+  .rw-datetimepicker.rw-widget {
+  	input.rw-input {
+			height: 30px;
+			color: #424242;
+		}
+	}
+}
+
+.form-control {
+  font-size: 1.8rem;
+  color: #424242;
+}
+
+.edit-homework textarea {
+    height: 30px;
+}
+
+#homework-due-date {
+	.rw-select { 
+		margin: -10px -10px 0 0;
+	}
+}
+
+.note {
+	color: @tutor-neutral;
+	font-size: 1.4rem;
+	font-style: italic;
 }

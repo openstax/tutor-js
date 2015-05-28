@@ -140,12 +140,12 @@ HomeworkPlan = React.createClass
         className={formClasses.join(' ')}
         footer={footer}>
 
-        <BS.Grid>
+        <BS.Grid fluid>
           <BS.Row>
             <BS.Col xs={12} md={8}>
               <div className='-homework-title'>
                 <TutorInput
-                  label='Name'
+                  label='Assignment Name'
                   id='homework-title'
                   default={plan.title}
                   onChange={@setTitle} />
@@ -153,7 +153,7 @@ HomeworkPlan = React.createClass
             </BS.Col>
             <BS.Col xs={12} md={4}>
               {dueAtElem}
-              <p>Feedback will be released after the due date.</p>
+              <p className='note'>Feedback will be released after the due date.</p>
             </BS.Col>
             <BS.Col xs={12} md={12}>
               <TutorTextArea
