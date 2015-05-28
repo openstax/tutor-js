@@ -25,6 +25,7 @@ LearningGuide = React.createClass
     showAll: true
     footerOffset: 0
     chapter: 0
+    title: ''
 
   navigateToPractice: (unit) ->
     {page_ids} = unit
@@ -33,6 +34,9 @@ LearningGuide = React.createClass
 
   displayUnit: (unit, chapter) ->
     @setState({unit, chapter: chapter})
+
+  displayTitle: (title) ->
+    @setState({title: title})
 
   toggleChapter: ->
     @setState({showAll: not @state.showAll}, -> @loadChart())
@@ -50,7 +54,7 @@ LearningGuide = React.createClass
   loadChart: ->
     @chart = new LearningGuideChart(@refs.svg.getDOMNode()
       LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter, @state.sectionSeparator
-      {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset, @sectionFormat}
+      {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset, @sectionFormat, @displayTitle}
     )
 
   componentDidMount: ->
@@ -77,9 +81,28 @@ LearningGuide = React.createClass
           <BS.Button className="chapter-button" onClick={@toggleChapter}>
             {if @state.showAll then 'Expand Chapter' else 'Back to overall'}
           </BS.Button>
+      mainToggleButton =
+          <BS.Button className="chapter-button" onClick={@toggleChapter}>
+            {if @state.showAll then 'Expand Chapter' else 'Overall Guide'}
+          </BS.Button>
+      course = LearningGuideStore.get(@props.courseId)
+      pathLabel = 'My Flight Path'
+      chapterTitle = @state.title
+      if @state.showAll
+        overallLabel = ' - Overall'
 
     footerWidth = 600
     <div className='learning-guide-chart'>
+      <div className='title-bar'>
+        <div className='title'>
+          <span className='span-wrap'>
+            <span className='path-label'>{pathLabel}</span>
+              {chapterTitle}
+            <span className='overall-label'>{overallLabel}</span>
+          </span>
+        </div>
+        <div className='button'>{if not @state.showAll then mainToggleButton}</div>
+      </div>
       <svg ref='svg' />
       <div ref='footer' className='footer' style={
         left: @state.footerOffsetPercent + '%'
