@@ -32,7 +32,11 @@ TocConfig =
     get: ->
       if @_toc?.length
         @_toc[0].children
-      
+    
+    getChapterSection: (sectionId) ->
+      if (@_toc and @_sections)
+        @_sections[sectionId]?.chapter_section or throw new Error('BUG: Invalid section')
+
     getSectionInfo: (sectionId) ->
       if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
