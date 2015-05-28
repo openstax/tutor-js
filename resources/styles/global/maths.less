@@ -1,10 +1,12 @@
 // Math Rendering
-// NOTE: This happens pretty quickly so it may be unnecessary
-[data-math]:not(.loaded) {
-  background-color: #eee;
-  color: #999;
+// Hides all data-math elements, but still reserves their space in the DOM.
+// when .MathJax renders them, it'll be inside a .MathJax element which is displayed
+[data-math]{
+    visibility: hidden;
 
-  &:before { content: attr(data-math); }
+    .MathJax {
+      visibility: visible;
+    }
 }
 
 // KaTeX 1.0.2 generates both HTML and MathML

@@ -3,8 +3,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
 <svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" xml:space="preserve">
-<circle fill="#FFFFFF" cx="20" cy="20" r="20"/>
-<rect x="28.758" y="12.375" transform="matrix(0.8965 0.4431 -0.4431 0.8965 13.855 -10.5536)" fill="#5F6263" width="1.512" height="24"/>
+<circle fill="#F47642" cx="20" cy="20" r="20"/>
+<rect x="28.758" y="12.375" transform="matrix(0.8965 0.4431 -0.4431 0.8965 13.855 -10.5536)" fill="#FFFFFF" width="1.512" height="24"/>
 <g>
 	<rect x="9.405" y="8.034" transform="matrix(0.8965 0.443 -0.443 0.8965 9.1115 -6.9373)" fill="#FFFFFF" width="20" height="16"/>
 	<rect x="12.839" y="5.333" transform="matrix(0.8965 0.443 -0.443 0.8965 4.8354 -6.0363)" fill="#5F6263" width="5" height="4"/>

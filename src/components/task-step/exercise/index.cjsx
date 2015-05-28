@@ -11,6 +11,7 @@ module.exports = React.createClass
   displayName: 'Exercise'
   propTypes:
     id: React.PropTypes.string.isRequired
+    taskId: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired
@@ -31,6 +32,7 @@ module.exports = React.createClass
       trackRefreshStep={@props.trackRefreshStep}
       review={@props.review}
       pinned={@props.pinned}
+      taskId={@props.taskId}
     />
 
   renderMultipleChoice: (id) ->
@@ -40,6 +42,7 @@ module.exports = React.createClass
       onNextStep={@props.onNextStep}
       review={@props.review}
       pinned={@props.pinned}
+      taskId={@props.taskId}
     />
 
   renderFreeResponse: (id) ->
@@ -47,13 +50,13 @@ module.exports = React.createClass
       id={id}
       focus={@props.focus}
       pinned={@props.pinned}
+      taskId={@props.taskId}
     />
 
   # add render methods for different panel types as needed here
 
   render: ->
     {id} = @props
-    task_id = TaskStepStore.getTaskId(id)
 
     # get panel to render based on step progress
     panel = StepPanel.getPanel(id)

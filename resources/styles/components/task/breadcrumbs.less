@@ -5,22 +5,25 @@
   min-width: 2 * @radius;
 }
 
+.crumb-text(){
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+}
 
 // http://caniuse.com/#search=counter
 .task-homework,
 .task-practice,
 .task-chapter_practice {
-  .steps {
+  .task-breadcrumbs {
     counter-reset: step;
   }
-  .step:not(.end) {
+  .task-breadcrumbs-step:not(.end) {
     &:before {
       counter-increment: step;
       content: counter(step);
-      position: absolute;
-      width: 100%;
-      text-align: center;
-      left: 0;
+      .crumb-text();
     }
     i:not(.icon-incorrect):not(.icon-correct) {
       display: none;
@@ -28,39 +31,62 @@
   }
 }
 
-.steps {
+// label readings with chapter info if it exists
+.task-reading {
+  .task-breadcrumbs-step[data-chapter] {
+
+    background: @reading-color;
+    color: @tutor-white;
+
+    &.active,
+    &.completed {
+      color: @tutor-white;
+    }
+
+    &::before {
+      content: attr(data-chapter);
+      .crumb-text();
+    }
+    i:not(.icon-incorrect):not(.icon-correct) {
+      display: none;
+    }
+  }
+}
+
+.task-breadcrumbs {
   margin-left: -2px;
   margin-right: -2px;
+}
 
-  .step {
-    .crumb-circle(2rem);
-    position: relative;
-    font-weight: 500;
-    cursor: pointer;
-    margin: 2px;
-    display: inline-block;
-    text-align: center;
-    background: @white;
-    color: @tutor-neutral-light;
+.task-breadcrumbs-step {
+  .crumb-circle(2rem);
+  position: relative;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 2px;
+  display: inline-block;
+  text-align: center;
+  background: @tutor-white;
+  color: @tutor-neutral;
 
-    &:hover,
-    &.active {
-      .tutor-icon-active();
-    }
+  &:hover,
+  &.active {
+    .tutor-icon-active();
+  }
 
-    &.active {
-      color: @tutor-primary;
-    }
-    &.completed {
-      color: @tutor-tertiary-light;
-    }
-    &.status-correct {
-      background: @tutor-correct-background;
-      color: @tutor-correct-color;
-    }
-    &.status-incorrect {
-      background: @tutor-incorrect-background;
-      color: @tutor-incorrect-color;
-    }
+  &.active {
+    color: @tutor-primary;
+  }
+  &.completed {
+    background: @tutor-answer-background;
+    color: @tutor-answer-color;
+  }
+  &.status-correct {
+    background: @tutor-correct-background;
+    color: @tutor-correct-color;
+  }
+  &.status-incorrect {
+    background: @tutor-incorrect-background;
+    color: @tutor-incorrect-color;
   }
 }

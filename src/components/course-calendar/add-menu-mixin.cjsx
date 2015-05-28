@@ -23,7 +23,7 @@ CourseAddMenuMixin =
 
     links = [
       {
-        text: 'Add iReading'
+        text: 'Add Reading'
         to: 'createReading'
         params:
           courseId: courseId
