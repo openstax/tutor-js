@@ -124,7 +124,7 @@ ReadingPlan = React.createClass
         footer={footer}
         header={header}>
 
-        <BS.Grid>
+        <BS.Grid fluid>
           <BS.Row>
             <BS.Col xs={12} md={8}>
               <TutorInput
