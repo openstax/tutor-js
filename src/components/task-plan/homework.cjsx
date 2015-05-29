@@ -82,7 +82,7 @@ HomeworkPlan = React.createClass
     plan = TaskPlanStore.get(id)
     description = TaskPlanStore.getDescription(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
-    closeBtn = <BS.Button className='close-icon' aria-role='close' onClick={@cancel}>X</BS.Button>
+    closeBtn = <span className='close button' aria-role='close' onClick={@cancel}>x</span>
     topics = TaskPlanStore.getTopics(id)
     shouldShowExercises = TaskPlanStore.getExercises(id)?.length and not @state?.showSectionTopics
 
