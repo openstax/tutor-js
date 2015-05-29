@@ -120,12 +120,6 @@ TaskConfig =
       allSteps = getSteps(@_steps[taskId])
       steps = getCompleteSteps(allSteps)
 
-    # return a feedback message for the given taskId
-    # Currently simply returns "Great job"
-    # Different logic might be employed based on progress and accuracy
-    getFeedbackMessage: (taskId) ->
-      return "Great job"
-
     getIncompleteCoreStepsIndexes: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       firstIndex =   _.findIndex allSteps, (step) ->
