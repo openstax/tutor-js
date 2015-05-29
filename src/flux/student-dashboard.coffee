@@ -13,12 +13,10 @@ StudentDashboardConfig = {
 
   _reset: ->
     CrudConfig.reset.call(this)
-    delete @_weeks
 
   exports:
 
     eventsByWeek: (courseId) ->
-      return @_weeks if @_weeks
       data = @_get(courseId)
       tasks = data.tasks or []
       weeks = _.groupBy tasks, (event) ->
@@ -26,7 +24,7 @@ StudentDashboardConfig = {
       sorted = {}
       for weekId, events of weeks
         sorted[weekId] = _.sortBy(events, 'due_at')
-      @_weeks = sorted
+      sorted
 
     pastEventsByWeek: (courseId) ->
       weeks = this.exports.eventsByWeek.call(this, courseId)
