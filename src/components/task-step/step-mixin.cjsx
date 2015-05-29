@@ -8,12 +8,12 @@ Details = require '../task/details'
 
 module.exports =
 
-  renderGenericFooter: ->
+  renderContinueButton: ->
     buttonClasses = '-continue'
     loading = TaskStepStore.isLoading(@props.id) or TaskStepStore.isLoading(@props.id)
     if loading or not @isContinueEnabled()
       buttonClasses += ' disabled'
-    text = if loading then 'Loading …' else 'Continue'
+    text = if loading then 'Loading …' else (@continueButtonText?() or 'Continue')
     continueButton = <BS.Button
       bsStyle='primary'
       className={buttonClasses}
@@ -28,7 +28,7 @@ module.exports =
     {taskId} = @props
 
     task = TaskStore.get(taskId)
-    footer = @renderFooterButtons?() or @renderGenericFooter()
+    footer = @renderFooterButtons?() or @renderContinueButton()
 
     footer = <div>
       {footer}

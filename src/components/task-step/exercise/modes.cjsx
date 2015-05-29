@@ -165,17 +165,12 @@ ExerciseReview = React.createClass
     step = TaskStepStore.get(id)
     return step.has_recovery and step.correct_answer_id isnt step.answer_id
 
+  continueButtonText: ->
+    if @canTryAnother() then 'Move On' else 'Continue'
+
   renderFooterButtons: ->
     {review} = @props
 
-    buttonClasses = '-continue'
-    buttonClasses += 'disabled' unless @isContinueEnabled()
-
-    unless review is 'completed'
-      continueButton =
-        <BS.Button bsStyle='primary' className={buttonClasses} onClick={@onContinue}>
-          { if @canTryAnother() then 'Move On' else 'Continue' }
-        </BS.Button>
     if @canTryAnother()
       extraButtons = [
         <BS.Button bsStyle='primary' className='-try-another' onClick={@tryAnother}>
@@ -187,7 +182,7 @@ ExerciseReview = React.createClass
       ]
     <div className='footer-buttons'>
       {extraButtons}
-      {continueButton}
+      {@renderContinueButton() unless review is 'completed'}
     </div>
 
 module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview}
