@@ -82,8 +82,8 @@ LearningGuide = React.createClass
             {if @state.showAll then 'Expand Chapter' else 'Back to overall'}
           </BS.Button>
       mainToggleButton =
-          <BS.Button className="chapter-button" onClick={@toggleChapter}>
-            {if @state.showAll then 'Expand Chapter' else 'Overall Guide'}
+          <BS.Button className="chapter-button" onClick={@displayTopic}>
+            {if @state.showAll then 'Back to Dashboard' else 'Overall Guide'}
           </BS.Button>
       course = LearningGuideStore.get(@props.courseId)
       pathLabel = 'My Flight Path'
@@ -101,7 +101,7 @@ LearningGuide = React.createClass
             <span className='overall-label'>{overallLabel}</span>
           </span>
         </div>
-        <div className='button'>{if not @state.showAll then mainToggleButton}</div>
+        <div className='button'>{mainToggleButton}</div>
       </div>
       <svg ref='svg' />
       <div ref='footer' className='footer' style={
