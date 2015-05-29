@@ -16,28 +16,6 @@ window._STORES =
   TIME: require './src/flux/time'
   TOC: require './src/flux/toc'
 
-MATHJAX_CONFIG =
-  showProcessingMessages: false
-  tex2jax:
-    displayMath: [['\u200c\u200c\u200c', '\u200c\u200c\u200c']] # zero-width non-joiner
-    inlineMath:  [['\u200b\u200b\u200b', '\u200b\u200b\u200b']] # zero-width space
-  styles:
-    "#MathJax_Message":    visibility: "hidden", left: "", right: 0
-    "#MathJax_MSIE_Frame": visibility: "hidden", left: "", right: 0
-
-if window.MathJax?.Hub
-  window.MathJax.Hub.Config(MATHJAX_CONFIG)
-  window.MathJax.Hub.Configured()
-else
-  # If the MathJax.js file has not loaded yet:
-  # Call MathJax.Configured once MathJax loads and
-  # loads this config JSON since the CDN URL
-  # says to `delayStartupUntil=configured`
-  MATHJAX_CONFIG.AuthorInit = ->
-    window.MathJax.Hub.Configured()
-
-  window.MathJax = MATHJAX_CONFIG
-
 api = require './src/api'
 api.start()
 router = require './src/router'
@@ -46,6 +24,6 @@ router = require './src/router'
 # Moves the React Root to be an element inside a div
 # instead of the only element in the body.
 mainDiv = document.createElement('div')
-mainDiv.id = 'react-main'
+mainDiv.id = 'react-root-container'
 document.body.appendChild(mainDiv)
 router.start(mainDiv)
