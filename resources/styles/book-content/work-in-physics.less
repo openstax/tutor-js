@@ -1,7 +1,8 @@
 // This file is part of the book-content mixin and should not be included directly
 .work-in-physics {
   margin-top: 20px;
-  padding: 0 @tutor-card-body-padding-horizontal;
+  .book-content-step-size(0);
+
   // match the specificity of the rule so we can add our icon
   &.ost-assessed-feature.note[data-label] {
     &:before {
