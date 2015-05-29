@@ -5,9 +5,26 @@
     .panel-heading {
       position: relative;
       background: @tutor-neutral-lighter;
+      padding: 0;
 
       > .panel-title {
         line-height: 1.2rem;
+
+        > a {
+          display: inline-block;
+          width: 100%;
+          padding: 10px 20px;
+
+          &:focus {
+            text-decoration: none;
+          }
+
+          &[aria-expanded=true],
+          &:hover {
+            background: darken(@tutor-neutral-lighter, 10%);
+            text-decoration: none;
+          }
+        }
 
         .chapter-checkbox,
         .chapter-number,
@@ -39,9 +56,14 @@
       padding: 1px 20px;
       border-bottom: 1px solid @tutor-neutral-light;
       font-weight: 400;
+      cursor: pointer;
 
       &:last-child {
         border-bottom: 0;
+      }
+
+      &:hover {
+        background: @state-info-bg;
       }
 
       &.selected {
