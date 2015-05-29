@@ -38,7 +38,7 @@ ExerciseCardMixin =
     header = @renderHeader()
     panelStyle = @getPanelStyle()
 
-    <BS.Panel className="card exercise" bsStyle={panelStyle} header={header}>
+    <BS.Panel className="card exercise" bsStyle={panelStyle} header={header} onClick={@toggleExercise}>
       <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
       <div className="answers-table">{renderedAnswers}</div>
@@ -112,8 +112,9 @@ AddExerciseCard = React.createClass
 
   renderHeader: ->
     active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-    toggleText = unless active then <span>+</span> else <span>-</span>
-    <BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button>
+    classes = 'add-or-remove -add-exercise'
+    classes = "#{classes} active" if active
+    <div className={classes}></div>
 
   getPanelStyle: ->
     if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
