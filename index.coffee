@@ -42,4 +42,10 @@ api = require './src/api'
 api.start()
 router = require './src/router'
 
-router.start(document.body)
+# This is added because MathJax puts in extra divs on initial load.
+# Moves the React Root to be an element inside a div
+# instead of the only element in the body.
+mainDiv = document.createElement('div')
+mainDiv.id = 'react-main'
+document.body.appendChild(mainDiv)
+router.start(mainDiv)
