@@ -96,8 +96,7 @@ module.exports =
         spacerCrumb =
           data:
             task_id: task.id
-            # TODO switch with official icon.  using test as stand-in
-            type: 'test'
+            type: 'coach'
           crumb: @shouldStepCrumb(notCore.key)
           type: crumbType
           listeners: @_getStepListeners(crumbType)
