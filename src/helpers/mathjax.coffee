@@ -44,31 +44,34 @@ typesetMath = (root) ->
   cleanMathArtifacts()
 
 
-module.exports = {typesetMath}
+# The following should be called once and configures MathJax.
+# Assumes the script to load MathJax is of the form:
+# `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
+startMathJax = ->
+  MATHJAX_CONFIG =
+    showProcessingMessages: false
+    tex2jax:
+      displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]]
+      inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]]
+    styles:
+      '#MathJax_Message':    visibility: 'hidden', left: '', right: 0
+      '#MathJax_MSIE_Frame': visibility: 'hidden', left: '', right: 0
+
+  configuredCallback = ->
+    window.MathJax.Hub.Configured()
+    cleanMathArtifacts()
+
+  if window.MathJax?.Hub
+    window.MathJax.Hub.Config(MATHJAX_CONFIG)
+    configuredCallback()
+  else
+    # If the MathJax.js file has not loaded yet:
+    # Call MathJax.Configured once MathJax loads and
+    # loads this config JSON since the CDN URL
+    # says to `delayStartupUntil=configured`
+    MATHJAX_CONFIG.AuthorInit = configuredCallback
+
+    window.MathJax = MATHJAX_CONFIG
 
 
-# The following occurs once and configures MathJax
-MATHJAX_CONFIG =
-  showProcessingMessages: false
-  tex2jax:
-    displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]]
-    inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]]
-  styles:
-    '#MathJax_Message':    visibility: 'hidden', left: '', right: 0
-    '#MathJax_MSIE_Frame': visibility: 'hidden', left: '', right: 0
-
-configuredCallback = ->
-  window.MathJax.Hub.Configured()
-  cleanMathArtifacts()
-
-if window.MathJax?.Hub
-  window.MathJax.Hub.Config(MATHJAX_CONFIG)
-  configuredCallback()
-else
-  # If the MathJax.js file has not loaded yet:
-  # Call MathJax.Configured once MathJax loads and
-  # loads this config JSON since the CDN URL
-  # says to `delayStartupUntil=configured`
-  MATHJAX_CONFIG.AuthorInit = configuredCallback
-
-  window.MathJax = MATHJAX_CONFIG
+module.exports = {typesetMath, startMathJax}
