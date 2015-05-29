@@ -38,7 +38,11 @@ ExerciseCardMixin =
     header = @renderHeader()
     panelStyle = @getPanelStyle()
 
-    <BS.Panel className="card exercise" bsStyle={panelStyle} header={header} onClick={@toggleExercise}>
+    <BS.Panel
+      className="card exercise"
+      bsStyle={panelStyle}
+      header={header}
+      onClick={@toggleExercise}>
       <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
       <div className="answers-table">{renderedAnswers}</div>
