@@ -10,11 +10,11 @@ ChapterSection = require '../chapter-section'
 
 ExerciseCardMixin =
   renderAnswers: (answer) ->
-    classes = ["answers-answer"]
-    if answer.correctness is "1.0"
-      classes.push("correct")
+    classes = ['answers-answer']
+    if answer.correctness is '1.0'
+      classes.push('correct')
 
-    <div className={classes.join(" ")}>
+    <div className={classes.join(' ')}>
       <div className="answer-letter" />
       <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
     </div>
@@ -39,14 +39,14 @@ ExerciseCardMixin =
     panelStyle = @getPanelStyle()
 
     <BS.Panel
-      className="card exercise"
+      className='card exercise'
       bsStyle={panelStyle}
       header={header}
       onClick={@toggleExercise}>
-      <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
-      <div className="answers-table">{renderedAnswers}</div>
-      <div className="exercise-tags">{renderedTags}</div>
+      <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
+      <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
+      <div className='answers-table'>{renderedAnswers}</div>
+      <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
 ReviewExerciseCard = React.createClass
