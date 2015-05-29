@@ -20,7 +20,6 @@
   margin-bottom: 1.5rem;
 }
 
-
 .tutor-reading-first-letter() {
   &::first-letter{
     float: left;
@@ -32,6 +31,14 @@
   // ensure that the p is heigh enough for the drop cap
   // to fit beside it, otherwise it will overlay on top of the next element
   min-height: 8rem;
+}
+
+.book-content-subtitle() {
+  color: @tutor-secondary;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 20px 0;
+  font-size: 2rem;
 }
 
 .book-content-step-size(@vertical: @tutor-card-body-padding-vertical) {
