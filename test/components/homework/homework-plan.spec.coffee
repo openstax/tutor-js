@@ -56,9 +56,9 @@ describe 'Homework Builder', ->
 
     TaskPlanActions.loaded(PUBLISHED_MODEL, PUBLISHED_MODEL.id)
     #set homework to not published
-    #check if due date input exists
+    #check if due date input is disabled
     tests = ({div}) ->
-      expect(div.querySelector('#homework-due-date')).to.be.null
+      expect(div.querySelector('#homework-due-date input').disabled).to.not.be.null
       expect(div.querySelector('.-select-problems')).to.be.null
       done()
 
