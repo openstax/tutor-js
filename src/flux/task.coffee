@@ -120,14 +120,11 @@ TaskConfig =
       allSteps = getSteps(@_steps[taskId])
       steps = getCompleteSteps(allSteps)
 
-    # return a feedback message with varying amounts of praise for the number of questions correct.
-    # Used by practice and readings.  The number of questions correct is not shown for homeworks
+    # return a feedback message for the given taskId
+    # Currently simply returns "Great job"
+    # Different logic might be employed based on progress and accuracy
     getFeedbackMessage: (taskId) ->
-      incorrect = _.where(this._steps[taskId], is_correct: false).length
-      switch incorrect
-        when 0 then "Great job, all questions answered correctly!"
-        when 1 then "Good job, only 1 question incorrect!"
-        else "#{incorrect} questions were incorrect, try harder next time"
+      return "Great job"
 
     getIncompleteCoreStepsIndexes: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
