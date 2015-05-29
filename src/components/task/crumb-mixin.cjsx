@@ -124,7 +124,7 @@ module.exports =
       crumb: true
 
   getMaxListeners: ->
-    crumbs = @getCrumableCrumbs()
+    crumbs = @generateCrumbs()
     listeners = _.reduce crumbs, (memo, crumb) ->
       memo + crumb.listeners
     , 0

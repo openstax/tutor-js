@@ -81,14 +81,17 @@ TaskConfig =
     # Returns the reading and it's step index for a given task's ID
     getReadingForTaskId: (taskId, id) ->
       steps = getSteps(@_steps[taskId])
-      taskStepIndex = _.findIndex(steps, (step) -> step.id is id )
+      {related_content} = TaskStepStore.get(id)
+
+      # replace findIndex with findLastIndex if we should be going to the
+      # most recent step of a related reading
+      relatedStepIndex = _.findIndex steps, (step) ->
+        (step.type is 'reading') and (_.isEqual(step.chapter_section, _.first(related_content).chapter_section))
+
       # should never happen if the taskId was valid
-      throw new Error('BUG: Invalid taskId.  Unable to find index') if taskStepIndex is -1
-      # Find the reading that appears before the given task
-      for i in [taskStepIndex..0] by -1
-        if steps[i].type is 'reading'
-          return {reading: steps[i], index:i}
-      return {}
+      throw new Error('BUG: Invalid taskId.  Unable to find index') unless relatedStepIndex > -1
+      # Find the first step of the related reading that appears before the given task
+      {reading: steps[relatedStepIndex], index: relatedStepIndex}
 
     getDefaultStepIndex: (taskId) ->
       steps = getSteps(@_steps[taskId])

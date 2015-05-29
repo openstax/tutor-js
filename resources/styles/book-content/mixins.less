@@ -33,3 +33,10 @@
   // to fit beside it, otherwise it will overlay on top of the next element
   min-height: 8rem;
 }
+
+.book-content-step-size(@vertical: @tutor-card-body-padding-vertical) {
+  padding: @vertical @tutor-card-body-padding-horizontal;
+  @media (max-width: @tutor-card-padding-collapse-breakpoint) {
+    padding: @vertical @tutor-card-body-narrow-padding-horizontal;
+  }
+}
