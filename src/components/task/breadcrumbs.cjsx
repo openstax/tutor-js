@@ -18,6 +18,10 @@ module.exports = React.createClass
     currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
 
+  getInitialState: ->
+    updateOnNext:
+      true
+
   componentWillMount: ->
     listeners = @getMaxListeners()
     # TaskStepStore listeners include:
@@ -32,8 +36,24 @@ module.exports = React.createClass
      # if listeners? and (listeners + 1) > 10
     # TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
 
+    # if a recovery step needs to be loaded, don't update breadcrumbs
+    TaskStore.on('task.beforeRecovery', @stopUpdate)
+    # until the recovery step has been loaded
+    TaskStore.on('task.afterRecovery', @update)
+
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
+    TaskStore.off('task.beforeRecovery', @stopUpdate)
+    TaskStore.off('task.afterRecovery', @update)
+
+  shouldComponentUpdate: (nextProps, nextState) ->
+    nextState.updateOnNext
+
+  update: ->
+    @setState(updateOnNext: true)
+
+  stopUpdate: ->
+    @setState(updateOnNext: false)
 
   render: ->
     crumbs = @getCrumableCrumbs()

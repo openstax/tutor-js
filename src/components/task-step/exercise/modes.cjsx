@@ -119,20 +119,6 @@ ExerciseReview = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
-  componentWillMount:   ->
-    TaskStepStore.on('step.recovered', @goToRecovered)
-
-  componentWillUnmount: ->
-    TaskStepStore.off('step.recovered', @goToRecovered)
-
-  loadRecovered: ->
-    @props.afterRecovery()
-
-  goToRecovered: (recoveredStep) ->
-    {task_id} = recoveredStep
-    TaskStepStore.once('change', @loadRecovered)
-    TaskActions.load(task_id)
-
   renderBody: ->
     {id} = @props
     {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
@@ -163,8 +149,7 @@ ExerciseReview = React.createClass
 
   tryAnother: ->
     {id} = @props
-    # emits step.recovered event that is bounded on
-    TaskStepActions.loadRecovery(id)
+    @props.recoverFor(id)
 
   refreshMemory: ->
     {id} = @props
@@ -173,8 +158,7 @@ ExerciseReview = React.createClass
     throw new Error('BUG: No reading found for task') unless index
 
     # Track what step is refreshed so that it can be skipped after refreshing.
-    @props.trackRefreshStep(index)
-    TaskStepActions.loadRecovery(id)
+    @props.refreshStep(index, id)
 
   canTryAnother: ->
     {id} = @props
