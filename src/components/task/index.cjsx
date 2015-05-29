@@ -50,15 +50,6 @@ module.exports = React.createClass
   componentWillUnmount: ->
     TaskStepStore.off('step.recovered', @prepareToRecover)
 
-  _stepRecoveryQueued: (nextState) ->
-    not @state.recoverForStepId and nextState.recoverForStepId
-
-  _stepRecovered: (nextState) ->
-    not @state.recoveredStepId and nextState.recoveredStepId
-
-  _taskRecoveredStep: (nextState) ->
-    @state.recoveredStepId and not nextState.recoveredStepId
-
   _leavingRefreshingStep: (nextState) ->
     @state.refreshTo and not (nextState.currentStep is @state.refreshTo)
 
@@ -72,32 +63,13 @@ module.exports = React.createClass
   #
   # Setting the recoveredStepId will trigger the task to load itself in shouldComponentUpdate
   prepareToRecover: (recoveredStep) ->
-    {id} = recoveredStep
-    TaskStore.emit('task.beforeRecovery', id)
-    TaskStepStore.on('step.loaded', @recoverStep)
-    @setState(recoveredStepId: id)
+    {id, task_id} = recoveredStep
+    TaskStore.emit('task.beforeRecovery', task_id)
+    TaskStepStore.on('step.loaded', @recoverStep(id))
+    TaskActions.load(task_id)
 
   shouldComponentUpdate: (nextProps, nextState) ->
     {id} = @props
-
-    # if a step needs to be recovered, load a recovery step for it
-    if @_stepRecoveryQueued(nextState)
-      TaskStepActions.loadRecovery(nextState.recoverForStepId)
-      return false
-
-    # if the recoveredStepId is being set, load the task again
-    # so that it will load the recoveredStep as one of it's steps
-    if @_stepRecovered(nextState)
-      TaskActions.load(id)
-      return false
-
-    # if the recoveredStepId is being unset, then the step has been loaded into the task.
-    #   if we are not refreshing our memory, go to this recovered step, which is the next step.
-    #   Emit afterRecovery so that the breadcrumbs update with the new recovered step as the next crumb
-    if @_taskRecoveredStep(nextState)
-      @onNextStep() unless @state.refreshTo
-      TaskStore.emit('task.afterRecovery', id)
-      return false
 
     # if we are trying to leave the refresh step,
     #   redirect to the step after the step we triggered refresh from.
@@ -111,7 +83,8 @@ module.exports = React.createClass
   # on refresh clicked and refresh step loaded, go to the refreshing step
   # also, ask the step to be recovered.  this will trigger loadRecovery to be called within shouldComponentUpdate
   refreshStep: (refreshTo, stepId) ->
-    @setState({refreshFrom: @state.currentStep, refreshTo: refreshTo, recoverForStepId: stepId})
+    @setState({refreshFrom: @state.currentStep, refreshTo: refreshTo})
+    TaskStepActions.loadRecovery(stepId)
     @goToStep(refreshTo)()
 
   # on leaving refresh step, go to the step after the step that triggered the refresh and clear related states.
@@ -122,14 +95,18 @@ module.exports = React.createClass
 
   # set what step needs to be recovered.  this will trigger loadRecovery to be called within shouldComponentUpdate
   recoverFor: (stepId) ->
-    @setState({recoverForStepId: stepId})
+    TaskStepActions.loadRecovery(stepId)
 
   # if the step loaded is the recovered step, unset the recoveredStepId and stop listening for steps loaded
   # when the recoveredStepId is unset, then shouldComponentUpdate will see that the step has been loaded.
-  recoverStep: (loadedStepId) ->
-    if loadedStepId is @state.recoveredStepId
-      @setState({recoveredStepId: false})
-      TaskStepStore.off('step.loaded', @recoverStep)
+  recoverStep: (targetStepId) ->
+    {id} = @props
+
+    (loadedStepId) =>
+      if loadedStepId is targetStepId
+        @onNextStep() unless @state.refreshTo
+        TaskStore.emit('task.afterRecovery', id)
+        TaskStepStore.off('step.loaded', @recoverStep)
 
   # Curried for React
   goToStep: (stepKey) ->
