@@ -109,6 +109,9 @@ ReadingPlan = React.createClass
     
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
 
+    if (TaskPlanStore.isPublished(id))
+      dueAtReadOnly = true
+
     if (@state?.showSectionTopics)
       formClasses.push('hide')
       selectReadings = <ChooseReadings
@@ -134,12 +137,8 @@ ReadingPlan = React.createClass
             <BS.Col xs={12} md={4}>
               <TutorDateInput
                 id='reading-due-date'
-                className="form-control"
                 label='Due Date'
-                format='MMM dd, yyyy'
-                time={false}
-                calendar={true}
-                readOnly={false}
+                readOnly={dueAtReadOnly}
                 onChange={@setDueAt}
                 min={opensAt}
                 value={dueAt}/>

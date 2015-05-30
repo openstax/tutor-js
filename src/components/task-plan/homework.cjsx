@@ -95,19 +95,15 @@ HomeworkPlan = React.createClass
     if @state?.showSectionTopics then formClasses.push('hide')
 
     if (TaskPlanStore.isPublished(id))
-      dueAtElem = <span>Due Date: {new moment(dueAt).format('MMM Do, YYYY')}</span>
-    else
-      dueAtElem = <TutorDateInput
-                    id='homework-due-date'
-                    format='MMM dd, yyyy'
-                    time={false}
-                    label='Due Date'
-                    calendar={true}
-                    readOnly={false}
-                    className="form-control"
-                    onChange={@setDueAt}
-                    min={new Date()}
-                    value={dueAt}/>
+      dueAtReadOnly = true
+
+    dueAtElem = <TutorDateInput
+                  id='homework-due-date'
+                  label='Due Date'
+                  readOnly={dueAtReadOnly}
+                  onChange={@setDueAt}
+                  min={new Date()}
+                  value={dueAt}/>
 
     if @state.showSectionTopics
       chooseExercises = <ChooseExercises
