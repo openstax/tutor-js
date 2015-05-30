@@ -7,6 +7,8 @@ PlanFooter = require './footer'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
+PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -63,10 +65,13 @@ ChooseExercises = React.createClass
         selected={selected}
         hide={hide} />
 
-      {exerciseSummary}
-      {addExercises}
+      <PinnedHeaderFooterCard
+        offset={600}
+        header={exerciseSummary}
+        cardType='homework-builder'>
+        {addExercises}
+      </PinnedHeaderFooterCard>
     </div>
-
 
 
 HomeworkPlan = React.createClass

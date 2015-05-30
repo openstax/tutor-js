@@ -32,29 +32,29 @@ ExerciseSummary = React.createClass
   removeTutorSelection: ->
     TaskPlanActions.updateTutorSelection(@props.planId, -1)
 
-  componentDidMount: ->
-    el = @getDOMNode()
-    @staticPosition = @getPosition(el)
-    @handleScroll() # Update scroll position immediately on mount
-    @optimizedScrollFunc = throttle('scroll', 'optimizedScroll')
-    window.addEventListener('optimizedScroll', @handleScroll)
+  # componentDidMount: ->
+  #   el = @getDOMNode()
+  #   @staticPosition = @getPosition(el)
+  #   @handleScroll() # Update scroll position immediately on mount
+  #   @optimizedScrollFunc = throttle('scroll', 'optimizedScroll')
+  #   window.addEventListener('optimizedScroll', @handleScroll)
 
-  componentWillUnmount: ->
-    window.removeEventListener('scroll', @optimizedScrollFunc)
-    window.removeEventListener('optimizedScroll', @handleScroll)
+  # componentWillUnmount: ->
+  #   window.removeEventListener('scroll', @optimizedScrollFunc)
+  #   window.removeEventListener('optimizedScroll', @handleScroll)
 
-  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
+  # getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
-  handleScroll: (e) ->
-    el = @getDOMNode()
+  # handleScroll: (e) ->
+  #   el = @getDOMNode()
 
-    if document.body.scrollTop + 60 > @staticPosition
-      el.classList.add('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
-      document.body.style.marginTop = '120px'
-    else
-      el.classList.remove('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
-      document.body.style.marginTop = '0'
-      @staticPosition = @getPosition(el)
+  #   if document.body.scrollTop + 60 > @staticPosition
+  #     el.classList.add('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+  #     document.body.style.marginTop = '120px'
+  #   else
+  #     el.classList.remove('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
+  #     document.body.style.marginTop = '0'
+  #     @staticPosition = @getPosition(el)
 
   render: ->
     numSelected = TaskPlanStore.getExercises(@props.planId).length

@@ -31,7 +31,7 @@ ReviewReadingLi = React.createClass
     <li className='-selected-section'>
       <ChapterSection section={topic.chapter_section}/>
       <span className='section-title'>{topic?.title}</span>
-      <BS.Button className="remove-topic" onClick={@removeTopic} bsStyle="default">X</BS.Button>
+      <span className="remove-topic button close" onClick={@removeTopic}>x</span>
     </li>
 
 ReviewReadings = React.createClass
