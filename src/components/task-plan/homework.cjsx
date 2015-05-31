@@ -66,7 +66,6 @@ ChooseExercises = React.createClass
         hide={hide} />
 
       <PinnedHeaderFooterCard
-        offset={600}
         header={exerciseSummary}
         cardType='homework-builder'>
         {addExercises}
@@ -133,6 +132,13 @@ HomeworkPlan = React.createClass
         pageIds={topics}
         planId={id}/>
 
+      reviewExercisesSummary = <PinnedHeaderFooterCard
+        header={exerciseSummary}
+        cardType='homework-builder'>
+        {exerciseTable}
+        {reviewExercises}
+      </PinnedHeaderFooterCard>
+
     header = [headerText, closeBtn]
 
     <div className='homework-plan'>
@@ -167,9 +173,7 @@ HomeworkPlan = React.createClass
         </BS.Grid>
       </BS.Panel>
       {chooseExercises}
-      {exerciseSummary}
-      {exerciseTable}
-      {reviewExercises}
+      {reviewExercisesSummary}
     </div>
 
 

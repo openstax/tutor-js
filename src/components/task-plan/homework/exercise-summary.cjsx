@@ -2,20 +2,6 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
-# Throttle events to only fire when a page is redrawn
-throttle = (type, name, obj) ->
-  obj = obj or window
-  running = false
-  func = ->
-    if running then return
-    running = true
-    requestAnimationFrame  ->
-      obj.dispatchEvent(new CustomEvent(name))
-      running = false
-
-  obj.addEventListener(type, func)
-  return func
-
 ExerciseSummary = React.createClass
   displayName: 'ExerciseSummary'
 
@@ -31,30 +17,6 @@ ExerciseSummary = React.createClass
 
   removeTutorSelection: ->
     TaskPlanActions.updateTutorSelection(@props.planId, -1)
-
-  # componentDidMount: ->
-  #   el = @getDOMNode()
-  #   @staticPosition = @getPosition(el)
-  #   @handleScroll() # Update scroll position immediately on mount
-  #   @optimizedScrollFunc = throttle('scroll', 'optimizedScroll')
-  #   window.addEventListener('optimizedScroll', @handleScroll)
-
-  # componentWillUnmount: ->
-  #   window.removeEventListener('scroll', @optimizedScrollFunc)
-  #   window.removeEventListener('optimizedScroll', @handleScroll)
-
-  # getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
-
-  # handleScroll: (e) ->
-  #   el = @getDOMNode()
-
-  #   if document.body.scrollTop + 60 > @staticPosition
-  #     el.classList.add('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
-  #     document.body.style.marginTop = '120px'
-  #   else
-  #     el.classList.remove('navbar', 'navbar-fixed-top', 'navbar-fixed-top-lower')
-  #     document.body.style.marginTop = '0'
-  #     @staticPosition = @getPosition(el)
 
   render: ->
     numSelected = TaskPlanStore.getExercises(@props.planId).length

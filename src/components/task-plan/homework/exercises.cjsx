@@ -271,7 +271,10 @@ AddExercises = React.createClass
   mixins: [ExercisesRenderMixin]
 
   renderExercise: (exercise) ->
-    <AddExerciseCard planId={@props.planId} exercise={exercise}/>
+    <AddExerciseCard
+      planId={@props.planId}
+      exercise={exercise}
+      key="add-exercise-card-#{@props.planId}"/>
 
   renderInRows: (renderedExercises) ->
     rows = []
