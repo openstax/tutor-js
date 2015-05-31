@@ -1,6 +1,7 @@
 .pinned-footer {
   .tutor-shadow(1);
-  .fixed-bar(fadeout(@tutor-white, 20%));
+  .fixed-bar();
+  background: fadeout(@tutor-white, 20%);
   padding: 10px @tutor-navbar-padding-horizontal;
   bottom: 0;
 
@@ -23,16 +24,12 @@
 }
 
 .pinned-header {
-  .tutor-shadow(1);
   .transition(transform 0.2s ease-out);
-
-  padding: 10px @tutor-navbar-padding-horizontal;
-  margin: 0;
 }
 
 .pinned-on {
   .pinned-header {
     top: @pinned-top-heading-buffer;
-    .fixed-bar(fadeout(@tutor-white, 20%));
+    .fixed-bar();
   }
 }

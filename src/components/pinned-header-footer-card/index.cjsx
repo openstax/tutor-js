@@ -119,9 +119,14 @@ module.exports = React.createClass
 
   render: ->
     {className} = @props
+
+    classes = ['pinned-container']
+    classes.push(className) if className?
+    classes = classes.join(' ')
+
     childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
 
-    <div className="pinned-container #{className}">
+    <div className={classes}>
       <PinnedHeader {...childrenProps} ref='header'>
         {@props.header}
       </PinnedHeader>
