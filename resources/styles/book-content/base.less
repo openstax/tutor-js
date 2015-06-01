@@ -131,16 +131,18 @@ figure {
     margin: 10px 0 0 0;
     padding: 0;
   }
-  // splash images inside are full width
-  &.splash {
-    img { width: 100%; }
-  }
   .tutor-ui-horizontal-img {
     display:block;
     .book-content-full-width();
     img {
       width: 100%;
     }
+  }
+  // splash images inside are always full width
+  &.splash {
+    width: 100%;
+    [data-type=media]{ width: 100%; }
+    img { width: 100%; }
   }
   figcaption {
     display: table-caption;
