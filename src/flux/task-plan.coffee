@@ -2,6 +2,7 @@
 _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TimeStore} = require './time'
+{TocStore} = require './toc'
 
 TUTOR_SELECTIONS =
   default: 3
@@ -11,6 +12,12 @@ TUTOR_SELECTIONS =
 PLAN_TYPES =
   HOMEWORK: 'homework'
   READING: 'reading'
+
+sortTopics = (topics) ->
+  _.sortBy(topics, (topicId) ->
+    topic = TocStore.getSectionInfo(topicId)
+    topic.chapter_section.toString()
+  )
 
 TaskPlanConfig =
 
@@ -74,12 +81,20 @@ TaskPlanConfig =
       due_at = due_at.toISOString()
     @_change(id, {due_at})
 
+  sortTopics: (id) ->
+    plan = @_getPlan(id)
+    {page_ids, description, exercises_count_dynamic} = plan.settings
+    
+    page_ids = sortTopics(page_ids)
+    @_change(id, {settings: {page_ids, description, exercises_count_dynamic}})
+
   addTopic: (id, topicId) ->
     plan = @_getPlan(id)
     {page_ids, exercise_ids, description, exercises_count_dynamic} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
     page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
+    #sortTopics(page_ids)
 
     exercise_ids = []
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
@@ -91,6 +106,7 @@ TaskPlanConfig =
 
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
+    #sortTopics(page_ids)
 
     exercise_ids = []
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
@@ -114,6 +130,24 @@ TaskPlanConfig =
     exercise_ids?.splice(index, 1)
 
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+
+  moveReading: (id, topicId, step) ->
+    plan = @_getPlan(id)
+    {page_ids, description, exercises_count_dynamic} = plan.settings
+    page_ids = page_ids[..]
+
+    curIndex = page_ids?.indexOf(topicId)
+    newIndex = curIndex + step
+
+    if (newIndex < 0)
+      newIndex = 0
+    if not (newIndex < page_ids.length)
+      newIndex = page_ids.length - 1
+
+    page_ids[curIndex] = page_ids[newIndex]
+    page_ids[newIndex] = topicId
+
+    @_change(id, {settings: {page_ids, description, exercises_count_dynamic}})
 
   moveExercise: (id, exercise, step) ->
     plan = @_getPlan(id)
