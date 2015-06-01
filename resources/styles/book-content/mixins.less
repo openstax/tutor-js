@@ -47,3 +47,13 @@
     padding: @vertical @tutor-card-body-narrow-padding-horizontal;
   }
 }
+
+// sets an element to be the width of the content pane
+// used for cases where the parent element is not set to 100% width and cannot be targeted
+// handles breakpoints set by .book-content-step-size
+.book-content-full-width(){
+  width: @tutor-task-width - (@tutor-card-body-padding-horizontal * 2);
+  @media (max-width: @tutor-card-padding-collapse-breakpoint) {
+    width: @tutor-task-width - @tutor-card-body-padding-horizontal;
+  }
+}
