@@ -35,30 +35,31 @@ cnx-pi { display: none; }
   display: -ms-inline-flexbox; // IE10 support
   margin-top: -@tutor-card-body-padding-vertical;
   color: #ffffff;
-  padding: 10px 40px;
+  padding: 10px 20px;
   background: @tutor-secondary;
 
   // hide the "Section learning Objectives" phrase
   > div[data-type=title] { display: none; }
 
   p {
+    width: 25%;
     color: rgba(255,255,255,.75);
-    #fonts > .sans();
+    #fonts > .sans(1.5rem, 1.2em);
     text-transform: uppercase;
     text-align: right;
-    margin: auto 15px;
+    margin: auto 20px auto 0;
   }
 
   ul {
     margin: 0 0;
-    padding: 0 15px 0 30px;
+    padding: 0 20px;
     border-left: 1px solid rgba(255,255,255,.4);
     display: flex;
     flex-direction: column;
     .ost-learning-objective-def {
       font-weight: 300;
-      font-size: 1.5rem;
-      line-height: 3rem;
+      font-size: 1.4rem;
+      line-height: 1.2em;
       list-style-type: none;
       flex: 1;
       display: flex;
@@ -90,14 +91,14 @@ div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizon
 
 .splash {
   width: 100%;
-  margin: -@tutor-card-body-padding-vertical 0 0 0;
+  margin: -@tutor-card-body-padding-vertical 0 40px 0;
 
   img {
     border: 0;
     margin: 0;
   }
 
-  figcaption { margin: 0 40px; }
+  figcaption { margin: 0 20px; }
 
   + p {
     clear: both;
@@ -105,7 +106,7 @@ div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizon
   }
   .tutor-ui-overlay {
     position: relative;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(35, 46, 102, 0.8);
     color: @tutor-white;
     margin-top: -100px;
     font-size: 3rem;
@@ -121,6 +122,7 @@ figure {
   display: table;
   text-align: left;
   margin-right: 30px;
+  margin-bottom: 20px;
   padding: 0;
 
   &.tutor-ui-vertical-img {
@@ -142,6 +144,7 @@ figure {
     caption-side: bottom;
     color: @caption-font-color;
     padding: 10px 0;
+    font-weight: 100;
     font-style: italic;
     line-height: 150%;
     border-bottom: 1px solid;

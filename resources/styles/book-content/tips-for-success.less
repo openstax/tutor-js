@@ -1,6 +1,7 @@
 // This file is part of the book-content mixin and should not be included directly
 .tips-for-success {
 
+
   &:before {
     height: 35px;
     content: attr(data-label);
@@ -15,6 +16,18 @@
     background-size: 25px 25px;
     padding: 0 10px;
     margin: 0;
+  }
+  p {
+    #fonts > .sans(1.7rem, 1.5em);
+    color: @tutor-neutral-dark;
+    padding: 15px 20px;
+    background: @tutor-neutral-lightest;
+    &:first-child {
+      border-top: 1px solid @tutor-neutral-lighter;
+    }
+    &:last-child {
+      border-bottom: 1px solid @tutor-neutral-lighter;
+    }
   }
   > ul:first-child {
     padding-top: 10px;
