@@ -1,9 +1,12 @@
 React = require 'react'
+camelCase = require 'camelcase'
 
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+
 LoadableItem = require '../loadable-item'
 {Reading, Interactive, Video, Exercise, Placeholder, Spacer} = require './all-steps'
+Ends = require './ends'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -39,7 +42,7 @@ TaskStepLoaded = React.createClass
 
     <Type {...@props}/>
 
-module.exports = React.createClass
+TaskStep = React.createClass
   displayName: 'TaskStep'
 
   propTypes:
@@ -60,3 +63,42 @@ module.exports = React.createClass
       actions={TaskStepActions}
       renderItem={=> <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>}
     />
+
+module.exports = React.createClass
+  propTypes:
+    id: React.PropTypes.string
+
+  displayName: 'TaskStepHandler'
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  renderStep: (data) ->
+    <TaskStep
+      id={data.id}
+      taskId={@props.taskId}
+      goToStep={@props.goToStep}
+      onNextStep={@props.onNextStep}
+      refreshStep={@props.refreshStep}
+      recoverFor={@props.recoverFor}
+    />
+
+  renderEnd: (data) ->
+    {courseId} = @context.router.getCurrentParams()
+    type = if data.type then data.type else 'task'
+    End = Ends.get(type)
+
+    panel = <End courseId={courseId} taskId={@props.taskId} reloadPractice={@props.reloadTask}/>
+
+  renderSpacer: (data) ->
+    <Spacer onNextStep={@props.onNextStep} taskId={@props.taskId}/>
+
+  # add render methods for different panel types as needed here
+  render: ->
+    # get the crumb that matches the current state
+    {crumb} = @props
+    # crumb.type is one of ['intro', 'step', 'end']
+    renderPanelMethod = camelCase "render-#{crumb.type}"
+
+    throw new Error("BUG: panel #{crumb.type} does not have a render method") unless @[renderPanelMethod]?
+    panel = @[renderPanelMethod]?(crumb.data)

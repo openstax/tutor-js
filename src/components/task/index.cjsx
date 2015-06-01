@@ -1,24 +1,15 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 _ = require 'underscore'
-camelCase = require 'camelcase'
-
-{ScrollListenerMixin} = require 'react-scroll-components'
+{RouteHandler} = require 'react-router'
 
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
-CrumbMixin = require './crumb-mixin'
-
-TaskStep = require '../task-step'
-{Spacer} = require '../task-step/all-steps'
-Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
-
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+LoadableItem = require '../loadable-item'
 
-Time = require '../time'
-Details = require './details'
+CrumbMixin = require './crumb-mixin'
 
 
 module.exports = React.createClass
@@ -44,10 +35,21 @@ module.exports = React.createClass
       recoveredStepId: false
     }
 
-  componentWillMount:   ->
+  componentWillMount: ->
+    listeners = @getMaxListeners()
+    # TaskStepStore listeners include:
+    #   One per step for the crumb status updates
+    #   Two additional listeners for step loading and completion
+    #     if there are placeholder steps.
+    #   One for step being viewed in the panel itself
+    #     this is the + 1 to the max listeners being returned
+    #
+    # Only update max listeners if it is greater than the default of 10
+    TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
     TaskStepStore.on('step.recovered', @prepareToRecover)
 
   componentWillUnmount: ->
+    TaskStepStore.setMaxListeners(10)
     TaskStepStore.off('step.recovered', @prepareToRecover)
 
   _stepRecoveryQueued: (nextState) ->
@@ -138,34 +140,12 @@ module.exports = React.createClass
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
-      @context.router.replaceWith('viewTaskStep', params)
       @setState({currentStep: stepKey})
+      @context.router.transitionTo('viewTaskStep', params)
 
   goToCrumb: ->
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: @state.currentStep}
-
-  renderStep: (data) ->
-    <TaskStep
-      id={data.id}
-      taskId={@props.id}
-      goToStep={@goToStep}
-      onNextStep={@onNextStep}
-      refreshStep={@refreshStep}
-      recoverFor={@recoverFor}
-    />
-
-  renderEnd: (data) ->
-    {courseId} = @context.router.getCurrentParams()
-    type = if data.type then data.type else 'task'
-    End = Ends.get(type)
-
-    panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
-
-  renderSpacer: (data) ->
-    <Spacer onNextStep={@onNextStep} taskId={@props.id}/>
-
-  # add render methods for different panel types as needed here
 
   render: ->
     {id} = @props
@@ -174,12 +154,6 @@ module.exports = React.createClass
 
     # get the crumb that matches the current state
     crumb = @goToCrumb()
-
-    # crumb.type is one of ['intro', 'step', 'end']
-    renderPanelMethod = camelCase "render-#{crumb.type}"
-
-    throw new Error("BUG: panel #{crumb.type} for #{task.type} does not have a render method") unless @[renderPanelMethod]?
-    panel = @[renderPanelMethod]?(crumb.data)
 
     taskClasses = "task task-#{task.type}"
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
@@ -196,7 +170,14 @@ module.exports = React.createClass
       fixedOffset={0}
       header={breadcrumbs}
       cardType='task'>
-      {panel}
+      <RouteHandler
+        crumb={crumb}
+        taskId={id}
+        goToStep={@goToStep}
+        onNextStep={@onNextStep}
+        reloadTask={@reloadTask}
+        refreshStep={@refreshStep}
+        recoverFor={@recoverFor}/>
     </PinnedHeaderFooterCard>
 
   reloadTask: ->
