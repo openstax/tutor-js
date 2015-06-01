@@ -7,12 +7,11 @@ Router = require 'react-router'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
+TaskStepHandler = require './components/task-step'
 
 {StatsShell} = require './components/task-plan/reading-stats'
 
 Sandbox = require './sandbox'
-
-StepOnly = require './components/task-step/step-only'
 
 routes = (
   <Route path='/' handler={App} name='root'>
@@ -21,8 +20,8 @@ routes = (
     <Route path='courses/:courseId/?'>
       <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
       <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}>
-        <DefaultRoute handler={StepOnly}/>
-        <Route path='steps/:stepIndex/?' name='viewTaskStep' handler={StepOnly}/>
+        <DefaultRoute handler={TaskStepHandler}/>
+        <Route path='steps/:stepIndex/?' name='viewTaskStep' handler={TaskStepHandler}/>
       </Route>
 
       <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
