@@ -40,45 +40,47 @@ module.exports = React.createClass
       data-category={CourseStore.getCategory(courseId)}>
 
       <div className='container'>
-        <BS.Col mdPush={9} xs={12} md={3}>
-          <div className='right-actions-box'>
-            <h3>How am I doing?</h3>
-            <BS.Button
-              bsStyle='primary'
-              onClick={_.partial(@selectTab, 2)}
-              className='-view-my-work'
-            >
-              View All My Work
-            </BS.Button>
-            <BS.Button
-              bsStyle='primary'
-              onClick={@viewFlightPath}
-              className='-view-flightpath'
-            >
-              View My Flight Path
-            </BS.Button>
-          </div>
-        </BS.Col>
+        <BS.Row>
+          <BS.Col mdPush={9} xs={12} md={3}>
+            <div className='right-actions-box'>
+              <h3>How am I doing?</h3>
+              <BS.Button
+                bsStyle='primary'
+                onClick={_.partial(@selectTab, 2)}
+                className='-view-my-work'
+              >
+                View All My Work
+              </BS.Button>
+              <BS.Button
+                bsStyle='primary'
+                onClick={@viewFlightPath}
+                className='-view-flightpath'
+              >
+                View My Flight Path
+              </BS.Button>
+            </div>
+          </BS.Col>
 
-        <BS.Col mdPull={3} xs={12} md={9}>
+          <BS.Col mdPull={3} xs={12} md={9}>
 
-          <BS.TabbedArea
-            activeKey = {@state.selectedTabIndex}
-            onSelect  = {@selectTab}
-            animation = {false}>
+            <BS.TabbedArea
+              activeKey = {@state.selectedTabIndex}
+              onSelect  = {@selectTab}
+              animation = {false}>
 
-            <BS.TabPane eventKey={1} tab='This Week'>
-              <ThisWeekPanel courseId={courseId}/>
-              <UpcomingPanel courseId={courseId}/>
-            </BS.TabPane>
+              <BS.TabPane eventKey={1} tab='This Week'>
+                <ThisWeekPanel courseId={courseId}/>
+                <UpcomingPanel courseId={courseId}/>
+              </BS.TabPane>
 
-            <BS.TabPane eventKey={2} tab='All Past Work'>
-              <AllEventsByWeek courseId={courseId}/>
-            </BS.TabPane>
+              <BS.TabPane eventKey={2} tab='All Past Work'>
+                <AllEventsByWeek courseId={courseId}/>
+              </BS.TabPane>
 
-          </BS.TabbedArea>
+            </BS.TabbedArea>
 
-        </BS.Col>
+          </BS.Col>
+        </BS.Row>
 
       </div>
     </div>
