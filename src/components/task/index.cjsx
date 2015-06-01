@@ -154,8 +154,7 @@ module.exports = React.createClass
 
     # get the crumb that matches the current state
     crumb = @goToCrumb()
-    console.log('crumb')
-    console.log(crumb)
+
     taskClasses = "task task-#{task.type}"
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
