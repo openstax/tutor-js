@@ -1,24 +1,15 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 _ = require 'underscore'
-camelCase = require 'camelcase'
-
-{ScrollListenerMixin} = require 'react-scroll-components'
+{RouteHandler} = require 'react-router'
 
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
-CrumbMixin = require './crumb-mixin'
-
-TaskStep = require '../task-step'
-{Spacer} = require '../task-step/all-steps'
-Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
-
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+LoadableItem = require '../loadable-item'
 
-Time = require '../time'
-Details = require './details'
+CrumbMixin = require './crumb-mixin'
 
 
 module.exports = React.createClass
@@ -145,28 +136,6 @@ module.exports = React.createClass
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: @state.currentStep}
 
-  renderStep: (data) ->
-    <TaskStep
-      id={data.id}
-      taskId={@props.id}
-      goToStep={@goToStep}
-      onNextStep={@onNextStep}
-      refreshStep={@refreshStep}
-      recoverFor={@recoverFor}
-    />
-
-  renderEnd: (data) ->
-    {courseId} = @context.router.getCurrentParams()
-    type = if data.type then data.type else 'task'
-    End = Ends.get(type)
-
-    panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
-
-  renderSpacer: (data) ->
-    <Spacer onNextStep={@onNextStep} taskId={@props.id}/>
-
-  # add render methods for different panel types as needed here
-
   render: ->
     {id} = @props
     task = TaskStore.get(id)
@@ -174,12 +143,6 @@ module.exports = React.createClass
 
     # get the crumb that matches the current state
     crumb = @goToCrumb()
-
-    # crumb.type is one of ['intro', 'step', 'end']
-    renderPanelMethod = camelCase "render-#{crumb.type}"
-
-    throw new Error("BUG: panel #{crumb.type} for #{task.type} does not have a render method") unless @[renderPanelMethod]?
-    panel = @[renderPanelMethod]?(crumb.data)
 
     taskClasses = "task task-#{task.type}"
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
@@ -195,7 +158,7 @@ module.exports = React.createClass
       className={taskClasses}
       header={breadcrumbs}
       cardType='task'>
-      {panel}
+      <RouteHandler crumb={crumb}/>
     </PinnedHeaderFooterCard>
 
   reloadTask: ->
