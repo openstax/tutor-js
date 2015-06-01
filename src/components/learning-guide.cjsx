@@ -82,7 +82,7 @@ LearningGuide = React.createClass
             {if @state.showAll then 'Expand Chapter' else 'Back to overall'}
           </BS.Button>
       mainToggleButton =
-          <BS.Button className="chapter-button" onClick={@displayTopic}>
+          <BS.Button className="main-button" onClick={@displayTopic}>
             {if @state.showAll then 'Back to Dashboard' else 'Overall Guide'}
           </BS.Button>
       course = LearningGuideStore.get(@props.courseId)
