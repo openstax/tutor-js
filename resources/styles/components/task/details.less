@@ -4,11 +4,22 @@
 .task-details {
   float: right;
   position: static;
-  line-height: @tutor-card-footer-line-height;
 
-  button.btn {
+  button.task-details-info {
     background: none;
     border: none;
+    padding-left: 20px;
+    .transition(color .25s);
+
+    &::after {
+      .fa-icon();
+      content: @fa-var-info-circle;
+    }
+
+    &:hover,
+    &:focus {
+      color: @tutor-info;
+    }
   }
 }
 
@@ -17,7 +28,7 @@
   max-width: 500px;
   position: fixed;
   bottom: 60px;
-  margin-left: -60px;
+  margin-left: -40px;
   // THE GREATEST SIN IN CSS!  Sorry, just really want the popover height to not matter =(
   // This overrides inline styles added by bootstrap popover to position the popovers
   top: auto !important;
