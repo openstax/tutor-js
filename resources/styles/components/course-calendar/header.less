@@ -1,8 +1,8 @@
 @calendar-header-padding: 2rem;
 
 .list-courses {
-  // override bootstrap default style
-  &.panel { margin-top: 0px; }
+
+  .panel-body { padding: 0; }
 
   .calendar-header {
     text-align: center;
@@ -13,6 +13,10 @@
       .pull-left;
       margin-top: @calendar-header-padding;
       .caret { margin-left: 0.5rem; }
+
+      :not(.btn-link):not(.btn-flat):not(.btn-fab).btn {
+        margin-right: 0;
+      }
     }
     
     &-label {
@@ -35,7 +39,7 @@
       }
 
       &:hover {
-        color: @tutor-neutral-darker;
+        color: @tutor-neutral;
         text-decoration: none;
       }
       &:active, &:visited {

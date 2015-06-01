@@ -1,13 +1,15 @@
 React = require 'react'
+ChapterSectionMixin = require '../chapter-section-mixin'
 
 module.exports = React.createClass
   displayName: 'ChapterSection'
   propTypes:
     section: React.PropTypes.array.isRequired
+  componentWillMount: ->
+    @setState(skipZeros: false)
+  mixins: [ChapterSectionMixin]
   render: ->
-    chapter = @props.section[0]
-    if @props.section.length is 2
-      section = @props.section[1]
+    {section} = @props
     <span className="chapter-section">
-      {chapter}{section}
+      {@sectionFormat(section, @state.sectionSeparator)}
     </span>

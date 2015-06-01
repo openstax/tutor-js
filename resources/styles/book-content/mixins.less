@@ -20,7 +20,6 @@
   margin-bottom: 1.5rem;
 }
 
-
 .tutor-reading-first-letter() {
   &::first-letter{
     float: left;
@@ -34,9 +33,27 @@
   min-height: 8rem;
 }
 
+.book-content-subtitle() {
+  color: @tutor-secondary;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 20px 0;
+  font-size: 2rem;
+}
+
 .book-content-step-size(@vertical: @tutor-card-body-padding-vertical) {
   padding: @vertical @tutor-card-body-padding-horizontal;
   @media (max-width: @tutor-card-padding-collapse-breakpoint) {
     padding: @vertical @tutor-card-body-narrow-padding-horizontal;
+  }
+}
+
+// sets an element to be the width of the content pane
+// used for cases where the parent element is not set to 100% width and cannot be targeted
+// handles breakpoints set by .book-content-step-size
+.book-content-full-width(){
+  width: @tutor-task-width - (@tutor-card-body-padding-horizontal * 2);
+  @media (max-width: @tutor-card-padding-collapse-breakpoint) {
+    width: @tutor-task-width - @tutor-card-body-padding-horizontal;
   }
 }
