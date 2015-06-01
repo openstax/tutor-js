@@ -7,4 +7,37 @@ textarea {
   }
 }
 
+.form-control-wrapper {
+
+  .form-control {
+    font-size: 1.8rem;
+    color: #424242;
+
+    &:focus,
+    &.focus {
+      background-image: linear-gradient(@info, @info), linear-gradient(@input-underline-color, @input-underline-color);
+      animation: input-highlight 0.125s forwards;
+
+      ~ .floating-label {
+        color: @info;
+      }
+
+    }
+  }
+
+  .rw-datetimepicker.rw-widget {
+    input.rw-input {
+      height: 30px;
+      color: #424242;
+    }
+  }
+}
+
+
+.note {
+	color: @tutor-neutral;
+	font-size: 1.4rem;
+	font-style: italic;
+}
+
 button i.fa { margin-right: 0.5rem; }

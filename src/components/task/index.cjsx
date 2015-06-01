@@ -193,6 +193,7 @@ module.exports = React.createClass
 
     <PinnedHeaderFooterCard
       className={taskClasses}
+      fixedOffset={0}
       header={breadcrumbs}
       cardType='task'>
       {panel}
