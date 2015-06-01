@@ -61,7 +61,7 @@ module.exports = React.createClass
     currentScrollTop > prevScrollTop
 
   isScrollPassBuffer: (prevScrollTop, currentScrollTop) ->
-    currentScrollTop > @props.buffer + @state.offset
+    currentScrollTop >= @props.buffer + @state.offset
 
   shouldBeShy: (prevScrollTop, currentScrollTop) ->
     # should not pin regardless of scroll direction if the scroll top is above buffer
