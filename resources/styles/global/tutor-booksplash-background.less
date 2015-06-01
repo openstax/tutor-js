@@ -7,16 +7,16 @@
   &:before {
     content: attr(data-title);
     position: fixed;
+    top: 48px;
     left: 0px;
     right: 0px;
     overflow: hidden;
     background-color: @tutor-tertiary;
     color: @tutor-secondary;
     text-align: center;
-    font-size: 300px;
-    line-height: 200px;
-    font-family: 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'Helvetica Neue';
-    font-weight: 700;
+    font-size: 35rem;
+    line-height: 24rem;
+    #fonts > .book-cover();
     z-index: -1;
   }
   
@@ -26,7 +26,7 @@
     content: "";
     position: fixed;
     z-index: -2;
-    top: 200px;
+    top: 240px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -36,9 +36,9 @@
   // custom backgrounds images for different types
   &[data-category=physics]:after{ .tutor-background-image("physics.jpg"); }
 }
-.tutor-booksplash-adjust-top-padding(@normal-top-padding: 100px, @short-top-padding: 35px){
-  padding-top: @normal-top-padding;
+.tutor-booksplash-adjust-top-margin(@normal-top-margin: 100px, @short-top-margin: 35px){
+  margin-top: @normal-top-margin;
   // if the screen is short, move up even though it means
   // the booksplash background won't be as visible
-  @media screen and ( max-height: 600px ){ padding-top: @short-top-padding; }
+  @media screen and ( max-height: 600px ){ margin-top: @short-top-margin; }
 }
