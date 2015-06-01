@@ -47,6 +47,7 @@ ChooseExercises = React.createClass
       exerciseSummary = <ExerciseSummary
           canReview={true}
           reviewClicked={hide}
+          onCancel={hide}
           planId={planId}/>
 
       addExercises = <AddExercises
@@ -114,6 +115,7 @@ HomeworkPlan = React.createClass
 
     if shouldShowExercises
       exerciseSummary = <ExerciseSummary
+        onCancel={@cancel}
         canAdd={not TaskPlanStore.isPublished(id)}
         addClicked={@showSectionTopics}
         planId={id}/>
