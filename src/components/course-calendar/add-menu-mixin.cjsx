@@ -17,6 +17,11 @@ CourseAddMenuMixin =
   getDefaultProps: ->
     dateFormat: 'MM-DD-YYYY'
 
+  goToBuilder: (link) ->
+    (clickEvent) =>
+      clickEvent.preventDefault()
+      @context.router.transitionTo(link.to, link.params, link.query)
+
   renderAddActions: ->
     {courseId} = @context.router.getCurrentParams()
     {dateFormat} = @props
@@ -43,7 +48,11 @@ CourseAddMenuMixin =
 
     _.map(links, (link) =>
       href = @context.router.makeHref(link.to, link.params, link.query)
-      <BS.MenuItem href={href} key={link.type} ref="#{link.type}Link">{link.text}</BS.MenuItem>
+      <BS.MenuItem
+        onClick={@goToBuilder(link)}
+        href={href}
+        key={link.type}
+        ref="#{link.type}Link">{link.text}</BS.MenuItem>
     )
 
 module.exports = CourseAddMenuMixin
