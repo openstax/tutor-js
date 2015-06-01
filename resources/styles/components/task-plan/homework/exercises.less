@@ -3,6 +3,8 @@
 
 table.exercise-table {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   border-collapse: collapse;
 
   thead {
@@ -30,12 +32,12 @@ table.exercise-table {
     }
 
     tr:nth-child(odd) {
-      background: @tutor-neutral-bright;
+      background: @tutor-neutral-lightest;
     }
   }
 
   td.exercise-number {
-    color: @tutor-primary;
+    color: @tutor-quaternary;
     font-size: 1.8rem;
     text-align: center;
   }
@@ -58,6 +60,12 @@ label.exercises-section-label {
 
 .exercise.card {
   position: relative;
+  max-width: 1200px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @tutor-info-bg;
+  }
 
   // Selected card
   &.panel-info {
@@ -74,7 +82,7 @@ label.exercises-section-label {
     background-color: fade(@tutor-neutral-lighter, 0%);
     border: none;
 
-    .btn.btn-primary {
+    .add-or-remove {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -82,14 +90,26 @@ label.exercises-section-label {
       width: 100px;
       margin-top: -50px;
       margin-left: -50px;
-      background-color: fade(@tutor-white, 75%);
+      background-color: fade(@tutor-white, 85%);
       border: 1px solid @tutor-neutral-lighter;
       border-radius: 100px;
-      color: @tutor-black;
+      color: @tutor-neutral;
 
-      &:hover {
-        background-color: fade(@tutor-white, 100%);
-        border: 1px solid @tutor-neutral-lighter;
+      &::before {
+        .fa-icon();
+        content: @fa-var-plus;
+        font-weight: 100;
+        text-align: center;
+        font-size: 50px;
+        line-height: 100px;
+        width: 100px;
+        position: relative;
+      }
+
+      &.active {
+        &::before {
+          content: @fa-var-minus;
+        }
       }
     }
   }
@@ -101,22 +121,27 @@ label.exercises-section-label {
   }
 
   .panel-body {
+
     .stem {
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       font-size: 1.6rem;
+      line-height: 1.4em;
     }
 
     .answers-table {
       counter-reset: answer;
-      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      line-height: 1.4em;
+      margin-bottom: 2rem;
       .answers-answer.correct {
         color: @tutor-secondary;
         padding-left: 0;
         &::before {
           .fa;
           float: left;
-          margin-top: 0.5em;
+          margin-top: 0.15em;
+          margin-right: .125em;
           content: @fa-var-check;
         }
       }
@@ -133,12 +158,15 @@ label.exercises-section-label {
         }
         .answer {
           display: table;
+          margin-bottom: 5px;
         }
       }
     }
 
     .exercise-tags {
-      color: @tutor-neutral-light;
+      color: @tutor-neutral;
+      font-size: 1.2rem;
+      line-height: 1.4em;
 
       .exercise-tag + .exercise-tag::before {
         content: ',';
@@ -155,29 +183,43 @@ label.exercises-section-label {
 }
 
 .card-list.exercises {
+  text-align: center;
+  margin: 10px auto;
+
+  .panel { margin: 10px auto; }
+
   .panel-heading {
+    text-align: left;
     background:@tutor-neutral-bright;
     height: 50px;
-    padding: 10px;
+    padding: 10px 20px;
     border-bottom: 1px solid @tutor-neutral-light;
     display: block;
     .exercise-number {
-      color: @tutor-primary;
+      color: @tutor-quaternary;
     }
   }
 
   .card-actions button.btn-default {
     .homework-circle-btn(25px);
     padding: 0;
-    margin:0 15px 0 0;
+    margin:0 0 0 15px;
     color: @tutor-neutral-darker;
     background: white;
   }
 
   > .exercise > .panel-body {
+    text-align: left;
+
     .stem {
-      margin-top: 3rem;
+      margin-top: 50px;
     }
+  }
+}
+
+.card-list.exercises {
+  .exercise.card {
+    .panel-body { padding: 20px 100px; }
   }
 }
 
