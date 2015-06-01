@@ -9,6 +9,23 @@ EXERCISE_TAGS =
   LO: 'lo'
   GENERIC: 'generic'
 
+getImportantTags = (tags) ->
+  obj =
+    lo: ""
+    section: ""
+    tagString: ""
+
+  _.reduce(tags, (memo, tag) ->
+    if (tag.type is EXERCISE_TAGS.GENERIC)
+      tagArr = memo.tagString.split("/")
+      tagArr.push(tag.id)
+      memo.tagString = tagArr.join(" / ")
+    else if (tag.type is EXERCISE_TAGS.LO)
+      memo.lo = tag.name
+      memo.section = tag.chapter_section
+    memo
+  , obj)
+
 ExerciseConfig =
   _exercises: []
 
@@ -64,22 +81,14 @@ ExerciseConfig =
 
     getTagStrings: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
+      getImportantTags(tags)
 
-      obj =
-        lo: ""
-        section: ""
-        tagString: ""
-
-      _.reduce(tags, (memo, tag) ->
-        if (tag.type is EXERCISE_TAGS.GENERIC)
-          tagArr = memo.tagString.split("/")
-          tagArr.push(tag.id)
-          memo.tagString = tagArr.join(" / ")
-        else if (tag.type is EXERCISE_TAGS.LO)
-          memo.lo = tag.name
-          memo.section = tag.chapter_section
-        memo
-      , obj)
+    removeTopicExercises: (exercise_ids, topic_id) ->
+      topic_chapter_section = TocStore.getChapterSection(topic_id)
+      _.reject(exercise_ids, (exercise_id) ->
+        {chapter_section} = getImportantTags(exercise_id)
+        chapter_section.toString() is topic_chapter_section.toString()
+      )
 
 {actions, store} = makeSimpleStore(ExerciseConfig)
 module.exports = {ExerciseActions:actions, ExerciseStore:store}
