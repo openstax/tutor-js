@@ -107,21 +107,30 @@ describe 'Course Calendar', ->
         done()
       , done)
 
-  it 'should show yesterday as past and today as upcoming', (done) ->
+  it 'should show yesterday as past, today as current, and tomorrow as upcoming', (done) ->
     calendarChecks
       .checkIsYesterdayPast(@result)
-      .then(calendarChecks.checkIsYesterdayPast)
       .then(calendarChecks.checkIsYesterdayClickable)
-      .then(calendarChecks.checkIsTodayUpcoming)
+      .then(calendarChecks.checkIsTodayCurrent)
       .then(calendarChecks.checkIsTodayClickable)
+      .then(calendarChecks.checkIsTomorrowUpcoming)
+      .then(calendarChecks.checkIsTomorrowClickable)
       .then( ->
         done()
       , done)
 
-  it 'should show add plan links when today is clicked', (done) ->
+  it 'should show not add plan links when today is clicked', (done) ->
     calendarActions
       .clickToday(@result)
-      .then(calendarChecks.checkTodayAddPlansDropDown)
+      .then(calendarChecks.checkAddPlansWarning)
+      .then( ->
+        done()
+      , done)
+
+  it 'should show add plan links when tomorrow is clicked', (done) ->
+    calendarActions
+      .clickTomorrow(@result)
+      .then(calendarChecks.checkTomorrowAddPlansDropDown)
       .then( ->
         done()
       , done)
@@ -129,7 +138,7 @@ describe 'Course Calendar', ->
   it 'should show cannot add plan warning when yesterday is clicked', (done) ->
     calendarActions
       .clickYesterday(@result)
-      .then(calendarChecks.checkYesterdayAddPlansWarning)
+      .then(calendarChecks.checkAddPlansWarning)
       .then( ->
         done()
       , done)

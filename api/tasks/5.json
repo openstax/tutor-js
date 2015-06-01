@@ -2,7 +2,7 @@
   "HACK_LOCAL_STEP_COMPLETION": true,
   "type": "homework",
   "title": "Chapter 5 Homework Past Due, with feedback",
-  "description_html": "Test Description\n# Heading\nwith **markdown**",
+  "description": "Test Description\n# Heading\nwith **markdown**",
   "due_at": "2015-02-10T00:45:20.967Z",
   "steps": [
     { "id": "step-id-5-1",
