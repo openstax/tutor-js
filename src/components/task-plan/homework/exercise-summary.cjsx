@@ -22,19 +22,37 @@ ExerciseSummary = React.createClass
     numSelected = TaskPlanStore.getExercises(@props.planId).length
     numTutor = TaskPlanStore.getTutorSelections(@props.planId)
     total = numSelected + numTutor
+    buttonColumnSize = 2
+    explanation =
+      <BS.Col sm={6} md={2} className="tutor-added-later"><em>
+        Tutor selections are added later to support spaced practice and personalized learning.
+      </em></BS.Col>
 
     if @props.canReview and numSelected
-      button = <BS.Button 
+      buttons = <span><BS.Button 
         bsStyle="primary" 
         className="-review-exercises"  
         onClick={@props.reviewClicked}>Next
       </BS.Button>
+      <BS.Button
+        bsStyle="default" 
+        className="-cancel-add"  
+        onClick={@props.onCancel}>Cancel
+      </BS.Button></span>
 
     else if @props.canAdd
-      button = <BS.Button
+      explanation = null
+      buttonColumnSize = 4
+      buttons = <span><BS.Button bsStyle="primary" 
         className="-add-exercises" 
-        onClick={@props.addClicked}>+ Add More
-      </BS.Button>
+        onClick={@props.publish}>Publish</BS.Button>
+      <BS.Button bsStyle="default" 
+        className="-add-exercises" 
+        onClick={@props.addClicked}>Add More...</BS.Button>
+      <BS.Button bsStyle="default" 
+        className="-cancel-add"  
+        onClick={@props.onCancel}>Cancel
+      </BS.Button></span>
 
     if TaskPlanStore.canDecreaseTutorExercises(@props.planId)
       removeSelection =
@@ -67,11 +85,9 @@ ExerciseSummary = React.createClass
             </div>
             Tutor Selections
           </BS.Col>
-          <BS.Col sm={6} md={2} className="tutor-added-later"><em>
-            
-          </em></BS.Col>
-          <BS.Col sm={6} md={2}>
-            {button}
+          {explanation}
+          <BS.Col sm={6} md={buttonColumnSize}>
+            {buttons}
           </BS.Col>
           <BS.Col sm={6} md={2}>
 

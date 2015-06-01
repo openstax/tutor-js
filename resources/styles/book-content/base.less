@@ -16,11 +16,7 @@
 }
 
 .note > .title, .commentary [data-type=title] {
-  color: @tutor-secondary;
-  font-weight: 300;
-  text-transform: uppercase;
-  margin: 20px 0;
-  font-size: 2rem;
+  .book-content-subtitle();
 }
 
 
@@ -117,26 +113,35 @@ div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizon
 }
 
 figure {
-  width: 100%;
+  max-width: 100%;
   display: table;
   text-align: left;
   margin-right: 30px;
   padding: 0;
-
+  float: left;
   &.tutor-ui-vertical-img {
     @media (min-width: @screen-sm-min) {
       width: 50%;
       float: left;
     }
   }
-
   img {
-    width: 100%;
+    max-width: 100%;
     border: 1px solid @border-color;
     margin: 10px 0 0 0;
     padding: 0;
   }
-
+  // splash images inside are full width
+  &.splash {
+    img { width: 100%; }
+  }
+  .tutor-ui-horizontal-img {
+    display:block;
+    .book-content-full-width();
+    img {
+      width: 100%;
+    }
+  }
   figcaption {
     display: table-caption;
     caption-side: bottom;
@@ -147,5 +152,10 @@ figure {
     border-bottom: 1px solid;
     border-color: @border-color;
   }
+}
 
+// images inside a figure that occurs right after a title are full-width
+.title + figure {
+  width: 100%;
+  img { width: 100%; }
 }
