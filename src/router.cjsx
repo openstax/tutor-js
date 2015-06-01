@@ -21,7 +21,7 @@ routes = (
     <Route path='courses/:courseId/?'>
       <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
       <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}>
-        <DefaultRoute handler={SingleTask}/>
+        <DefaultRoute handler={StepOnly}/>
         <Route path='steps/:stepIndex/?' name='viewTaskStep' handler={StepOnly}/>
       </Route>
 

@@ -35,10 +35,21 @@ module.exports = React.createClass
       recoveredStepId: false
     }
 
-  componentWillMount:   ->
+  componentWillMount: ->
+    listeners = @getMaxListeners()
+    # TaskStepStore listeners include:
+    #   One per step for the crumb status updates
+    #   Two additional listeners for step loading and completion
+    #     if there are placeholder steps.
+    #   One for step being viewed in the panel itself
+    #     this is the + 1 to the max listeners being returned
+    #
+    # Only update max listeners if it is greater than the default of 10
+    TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
     TaskStepStore.on('step.recovered', @prepareToRecover)
 
   componentWillUnmount: ->
+    TaskStepStore.setMaxListeners(10)
     TaskStepStore.off('step.recovered', @prepareToRecover)
 
   _stepRecoveryQueued: (nextState) ->
@@ -129,8 +140,8 @@ module.exports = React.createClass
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
-      @context.router.replaceWith('viewTaskStep', params)
       @setState({currentStep: stepKey})
+      @context.router.transitionTo('viewTaskStep', params)
 
   goToCrumb: ->
     crumbs = @generateCrumbs()
@@ -143,7 +154,8 @@ module.exports = React.createClass
 
     # get the crumb that matches the current state
     crumb = @goToCrumb()
-
+    console.log('crumb')
+    console.log(crumb)
     taskClasses = "task task-#{task.type}"
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
@@ -158,7 +170,14 @@ module.exports = React.createClass
       className={taskClasses}
       header={breadcrumbs}
       cardType='task'>
-      <RouteHandler crumb={crumb}/>
+      <RouteHandler
+        crumb={crumb}
+        taskId={id}
+        goToStep={@goToStep}
+        onNextStep={@onNextStep}
+        reloadTask={@reloadTask}
+        refreshStep={@refreshStep}
+        recoverFor={@recoverFor}/>
     </PinnedHeaderFooterCard>
 
   reloadTask: ->
