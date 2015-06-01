@@ -1,4 +1,6 @@
 React = require 'react'
+BS = require 'react-bootstrap'
+_ = require 'underscore'
 
 BindStoreMixin = require './bind-store-mixin'
 
@@ -21,17 +23,20 @@ module.exports = React.createClass
     renderError: React.PropTypes.func.isRequired
     renderBug: React.PropTypes.func.isRequired
 
+  getInitialState: ->
+    refreshButton: false
+
   getDefaultProps: ->
 
     # Enables a renderStatus prop function with a component other than a div
-    renderLoading: ->
-      <div className='-loading'>Loading...</div>
+    renderLoading: (refreshButton) ->
+      <div className='loading'>Loading... {refreshButton('refresh-button-delayed')}</div>
 
-    renderError: ->
-      <div className='-error'>Error Loading...</div>
+    renderError: (refreshButton) ->
+      <div className='error'>Error Loading. {refreshButton('refresh-button')}</div>
 
     renderBug: ->
-      <div className='-bug'>Error Loading (Bug: Invalid State)</div>
+      <div className='bug'>Error Loading (Bug: Invalid State)</div>
 
   mixins: [BindStoreMixin]
 
@@ -40,14 +45,32 @@ module.exports = React.createClass
 
   bindUpdate: -> @props.update?() or @setState({})
 
+  refreshButton: (type) ->
+    if React?
+      <div className="#{type}">
+        <BS.Button onClick={@reloadPage}>
+          Please Refresh
+        </BS.Button>
+      </div>
+    else
+      <div className="#{type}">
+        <a href="#" onClick={@reloadPage}>
+          Please Refresh
+        </a>
+      </div>
+
+  reloadPage: ->
+    location.reload()
+
   render: ->
     {isLoading, isLoaded, isFailed, render, renderLoading, renderError, renderBug} = @props
 
     if isLoading()
-      renderLoading()
+      renderLoading(@refreshButton)
     else if isLoaded()
       render()
     else if isFailed()
-      renderError()
+      renderError(@refreshButton)
+      
     else
       render()
