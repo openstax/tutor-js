@@ -24,6 +24,10 @@ actions =
     commonActions.clickDOMNode(addButton)(args[0])
   clickToday: (args...) ->
     {component} = args[0]
+    currents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
+    commonActions.clickComponent(currents[0])(args[0])
+  clickTomorrow: (args...) ->
+    {component} = args[0]
     upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     commonActions.clickComponent(upcomings[0])(args[0])
   clickYesterday: (args...) ->
