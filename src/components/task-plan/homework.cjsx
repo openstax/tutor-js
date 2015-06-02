@@ -94,7 +94,8 @@ HomeworkPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
+    if (not shouldShowExercises)
+      footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
@@ -120,6 +121,7 @@ HomeworkPlan = React.createClass
     if shouldShowExercises
       exerciseSummary = <ExerciseSummary
         onCancel={@cancel}
+        onPublish={@publish}
         canAdd={not TaskPlanStore.isPublished(id)}
         addClicked={@showSectionTopics}
         planId={id}/>
