@@ -17,6 +17,7 @@ module.exports = React.createClass
   displayName: 'Navigation'
 
   mixins: [BindStoreMixin]
+  bindStore: CourseStore
 
   contextTypes:
     router: React.PropTypes.func
@@ -32,7 +33,7 @@ module.exports = React.createClass
       {courseId} = @context.router.getCurrentParams()
 
       unless @state.course?.id is courseId
-        course = CourseListingStore.get(courseId)
+        course = CourseStore.get(courseId)
         @setState({course})
 
   # Also need to listen to when location finally updates.
@@ -51,8 +52,6 @@ module.exports = React.createClass
 
   bindUpdate: ->
     @handleCourseChanges()
-
-  bindStore: CourseStore
 
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)
