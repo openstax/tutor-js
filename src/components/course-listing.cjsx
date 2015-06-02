@@ -2,12 +2,11 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-AK =  require '../router'
-Loadable = require './loadable'
-BindStoreMixin = require './bind-store-mixin'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
 
+# Called once the store is loaded
+# checks the course and roles and will redirect if there is only a single course and role
 DisplayOrRedirect = (transition, callback) ->
   courses = CourseListingStore.allCourses() or []
   if courses.length is 1 and courses[0].roles?.length is 1
@@ -17,7 +16,7 @@ DisplayOrRedirect = (transition, callback) ->
       when 'teacher' then 'taskplans'
       else
         throw new Error("BUG: Unrecognized role type #{roleType}")
-    transition.redirect('viewStudentDashboard', {courseId: 1})
+    transition.redirect(type, {courseId: _.first(courses).id})
   callback()
 
 
@@ -27,16 +26,17 @@ CourseListing = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  mixins: [ Router.Navigation ]
-
   statics:
+    # Called before the Router mounts and renders the component
+    # Uses the callback to delay rendering until the CourseListingStore is loaded
+    # and then calls DisplayOrRedirect above to perhaps redirect to a different component
     willTransitionTo: (transition, params, query, callback) ->
-      unless CourseListingStore.isLoaded() or CourseListingStore.isLoading()
-        CourseListingActions.load()
-        fn = ->
-          CourseListingStore.off('load', fn)
+      unless CourseListingStore.isLoaded()
+        CourseListingActions.load() unless CourseListingStore.isLoading()
+        onLoadFn = ->
+          CourseListingStore.off('load', onLoadFn)
           DisplayOrRedirect(transition, callback)
-        CourseListingStore.on('loaded', fn)
+        CourseListingStore.on('loaded', onLoadFn)
       else
         DisplayOrRedirect(transition, callback)
 
