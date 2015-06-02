@@ -33,23 +33,32 @@ ul.selected-reading-list {
     &:first-child {
       color: @tutor-neutral;
     }
-
-    > button.remove-topic.btn.btn-default {
-      font-size: 1.2rem;
-      width: 20px;
-      height: 20px;
-      padding: 0;
-      margin: 0.5em 0 0 0;
+    .section-buttons {
       float: right;
+      button.btn-default.btn {
+        height: 20px;
+        width: 20px;
+        border-radius: 10px;
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
 
-      &:hover {
-        box-shadow: none;
+        &:hover {
+          box-shadow: none;
+        }
+        i.fa {
+          margin-right: 0;
+        }
       }
     }
 
     > span:first-child {
       margin-right: 5px;
     }
+  }
+
+  li:last-child .section-buttons .move-reading-down {
+    display: none;
   }
 }
 

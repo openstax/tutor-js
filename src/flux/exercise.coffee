@@ -1,7 +1,7 @@
 # coffeelint: disable=no_empty_functions
 flux = require 'flux-react'
 _ = require 'underscore'
-
+{TocStore} = require './toc'
 {makeSimpleStore} = require './helpers'
 
 EXERCISE_TAGS =
@@ -84,10 +84,12 @@ ExerciseConfig =
       getImportantTags(tags)
 
     removeTopicExercises: (exercise_ids, topic_id) ->
+      cache = @_exerciseCache
       topic_chapter_section = TocStore.getChapterSection(topic_id)
       _.reject(exercise_ids, (exercise_id) ->
-        {chapter_section} = getImportantTags(exercise_id)
-        chapter_section.toString() is topic_chapter_section.toString()
+        exercise = cache[exercise_id]
+        {section} = getImportantTags(exercise.tags)
+        section.toString() is topic_chapter_section.toString()
       )
 
 {actions, store} = makeSimpleStore(ExerciseConfig)
