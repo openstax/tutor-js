@@ -74,7 +74,7 @@ ChapterAccordion = React.createClass
     expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expanded
 
     activeKey = chapter.id if expandAccordion
-    chapterClass = ["chapter-title"]
+    chapterClass = ["chapter-heading"]
 
     if (not chapter.children?.length)
       chapterClass.push('empty-chapter')
