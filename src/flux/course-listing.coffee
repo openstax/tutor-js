@@ -3,7 +3,6 @@ _ = require 'underscore'
 flux = require 'flux-react'
 
 {CourseActions, CourseStore} = require './course'
-{CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 LOADING = 'loading'
 LOADED  = 'loaded'
@@ -27,6 +26,10 @@ CourseListingStore = flux.createStore
     @_course_ids = []
     CourseActions.reset()
     @_asyncStatus = null
+    @emitChange()
+
+  FAILED: (status, msg) ->
+    @_asyncStatus = FAILED
     @emitChange()
 
   loaded: (courses) ->
