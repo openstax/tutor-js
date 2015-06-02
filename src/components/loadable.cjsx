@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-_ = require 'underscore'
 
 BindStoreMixin = require './bind-store-mixin'
 
@@ -22,9 +21,6 @@ module.exports = React.createClass
     renderLoading: React.PropTypes.func.isRequired
     renderError: React.PropTypes.func.isRequired
     renderBug: React.PropTypes.func.isRequired
-
-  getInitialState: ->
-    refreshButton: false
 
   getDefaultProps: ->
 
