@@ -1,4 +1,6 @@
 React = require 'react'
+_ = require 'underscore'
+
 {StepPanel} = require '../../helpers/policies'
 
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
@@ -75,6 +77,11 @@ module.exports = React.createClass
       title = "#{step.title} Completion"
       crumbType = crumb.type
 
+    # build list of icon classes from the crumb type and the step labels
+    icons = ['', crumbType]
+    icons = _.union(icons, crumb.data.labels) if crumb.data.labels?
+    iconClasses = icons.join(' icon-')
+
     classes.push(step.group) if step?.group?
     classes.push crumbType
     classes = classes.join ' '
@@ -85,7 +92,7 @@ module.exports = React.createClass
       onClick={goToStep(crumb.key)}
       data-chapter={crumb.sectionLabel}
       key="step-#{crumb.key}">
-      <i className="icon-lg icon-#{crumbType}"></i>
+      <i className="icon-lg #{iconClasses}"></i>
       {status}
     </span>
 
