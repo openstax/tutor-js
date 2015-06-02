@@ -162,7 +162,7 @@ HomeworkPlan = React.createClass
             </BS.Col>
             <BS.Col xs={12} md={4}>
               {dueAtElem}
-              <p className='note'>Feedback will be released after the due date.</p>
+              <p className='form-note'>Feedback will be released after the due date.</p>
             </BS.Col>
             <BS.Col xs={12} md={12}>
               <TutorTextArea

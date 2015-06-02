@@ -13,21 +13,22 @@
 .tutor-reading-main-title() {
   margin-top: 0;
   border-top: 1px solid @tutor-neutral-light;
-  color: @tutor-black;
+  color: @tutor-neutral-darker;
   font-weight: 900;
   font-size: 3rem;
   padding-top: 1.5rem;
   margin-bottom: 1.5rem;
+  text-transform: capitalize;
 }
 
 .tutor-reading-first-letter() {
   &::first-letter{
     float: left;
-    #fonts > .sans(11rem, 9rem);
+    #fonts > .sans(10.8rem, 7.3rem);
     font-weight: 600;
     color: @tutor-secondary;
-    margin: 0 4px 0 -6px;
-  }
+    margin: 10px 8px 0 -6px; //best combination on line-height and margin to look good in chrome and ff
+  } 
   // ensure that the p is heigh enough for the drop cap
   // to fit beside it, otherwise it will overlay on top of the next element
   min-height: 8rem;
@@ -35,7 +36,7 @@
 
 .book-content-subtitle() {
   color: @tutor-secondary;
-  font-weight: 300;
+  font-weight: 400;
   text-transform: uppercase;
   margin: 20px 0;
   font-size: 2rem;
