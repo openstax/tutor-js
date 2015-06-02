@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 BindStoreMixin = require './bind-store-mixin'
+RefreshButton = require './refresh-button'
 
 # This component is useful for viewing something that needs to be loaded.
 #
@@ -20,19 +21,15 @@ module.exports = React.createClass
     isFailed: React.PropTypes.func.isRequired
     renderLoading: React.PropTypes.func.isRequired
     renderError: React.PropTypes.func.isRequired
-    renderBug: React.PropTypes.func.isRequired
 
   getDefaultProps: ->
 
     # Enables a renderStatus prop function with a component other than a div
-    renderLoading: ->
-      <div className='loadable loading'>Loading... <RefreshButton /></div>
+    renderLoading: (refreshButton) ->
+      <div className='loadable is-loading'>Loading... {refreshButton}</div>
 
-    renderError: ->
-      <div className='loadable error'>Error Loading. <RefreshButton /></div>
-
-    renderBug: ->
-      <div className='loadable bug'>Error Loading (Bug: Invalid State)</div>
+    renderError: (refreshButton) ->
+      <div className='loadable is-error'>Error Loading. {refreshButton}</div>
 
   mixins: [BindStoreMixin]
 
@@ -42,23 +39,16 @@ module.exports = React.createClass
   bindUpdate: -> @props.update?() or @setState({})
 
   render: ->
-    {isLoading, isLoaded, isFailed, render, renderLoading, renderError, renderBug} = @props
+    {isLoading, isLoaded, isFailed, render, renderLoading, renderError} = @props
+
+    refreshButton = <RefreshButton />
 
     if isLoading()
-      renderLoading()
+      renderLoading(refreshButton)
     else if isLoaded()
       render()
     else if isFailed()
-      renderError()
-      
+      renderError(refreshButton)
+
     else
       render()
-
-
-RefreshButton = React.createClass
-  displayName: 'RefreshButton'
-
-  render: ->
-    <div className="refresh-button">
-      <a href={window.location.href}>Please Refresh</a>
-    </div>
