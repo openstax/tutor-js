@@ -68,6 +68,21 @@
   .icon-end { .x-icon-bg(completed); }
 }
 .icon-interactive { .x-icon-bg(interactive); }
+.icon-calendar {
+    //.x-icon-bg(calendar);
+
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 2em; // intentionally scale 2x from the inherited value
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+
+    &::before {
+        content: "\f073";
+    }
+}
 .icon-coach { .x-icon-bg(coach); }
 .icon-video { .x-icon-bg(video); }
 .icon-reading  { .x-icon-bg(reading); }
