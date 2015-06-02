@@ -62,15 +62,6 @@ RefreshButton = React.createClass
     location.reload()
 
   render: ->
-    if React?
-      <div className="refresh-button">
-        <BS.Button onClick={@reloadPage}>
-          Please Refresh
-        </BS.Button>
-      </div>
-    else
-      <div className="refresh-button">
-        <a href="#" onClick={@reloadPage}>
-          Please Refresh
-        </a>
-      </div>
+    <div className="refresh-button">
+      <a href={window.location}>Please Refresh</a>
+    </div>
