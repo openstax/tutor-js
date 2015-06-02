@@ -7,11 +7,10 @@
   user-select: none;
 }
 
-.fixed-bar(@bg-color) {
+.fixed-bar() {
   left: 0;
   position: fixed;
   width: 100%;
-  background-color: @bg-color;
   z-index: 2;
 }
 
@@ -48,10 +47,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  h1, h3 {
+  h1 {
     #fonts > .sans(4.5rem);
     font-weight: 700;
-    display: inline-block;
   }
   h3 {
     #fonts > .sans(4rem);

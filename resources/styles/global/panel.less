@@ -1,18 +1,26 @@
 .panel {
-  box-shadow: none !important;
 
   > .panel-heading {
     position: relative;
-    padding: 5px 15px;
+    padding: 10px 20px;
     background-color: @tutor-secondary;
     color: white;
     border-radius: 0;
-    border: 2px solid @tutor-secondary-light;
 
     span {
       vertical-align: top;
       font-size: 2.4rem;
       font-weight: 900;
+    }
+
+    > .panel-title {
+      line-height: 1.2rem;
+
+      > a {
+        &:focus {
+          text-decoration: none;
+        }
+      }
     }
 
     .dialog& {
@@ -40,7 +48,7 @@
   > .panel-footer {
     > span {
       .btn-link {
-        padding: 12px 36px;
+        padding: 10px 20px;
         margin-left: 25px;
         text-transform: none;
         font-size: 1.8rem;

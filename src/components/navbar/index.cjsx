@@ -104,7 +104,7 @@ module.exports = React.createClass
               className="signout"
               eventKey={4}
               key='dropdown-item-logout'>
-                <SignOut className='btn btn-link btn-xs'>Sign Out!</SignOut>
+                <SignOut className='btn btn-link btn-xs'>Sign Out</SignOut>
             </BS.MenuItem>
           </BS.DropdownButton>
         </BS.Nav>

@@ -13,8 +13,20 @@ TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
+Details = require '../task/details'
 
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+
+# A function to render the status message.
+# Shared between the various ending components
+renderStatusMessage = (completeSteps, totalSteps) ->
+  if completeSteps is totalSteps
+    <span>
+      <h1>You are done</h1>
+      <h3>Great job answering all the questions</h3>
+    </span>
+  else
+    <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
 
 PracticeEnd = React.createClass
   displayName: 'PracticeEnd'
@@ -47,15 +59,10 @@ PracticeEnd = React.createClass
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
     totalSteps = TaskStore.getTotalStepsCount(taskId)
-    completionMessage = if completeSteps is totalSteps
-      "You are done."
-    else
-      "You have answered #{completeSteps} of #{totalSteps} questions."
     <div className='task task-completed'>
       <CardBody footer={footer} className='-practice-completed'>
         <div className='completed-message'>
-          <h1>{completionMessage}</h1>
-          <h3>{TaskStore.getFeedbackMessage(@props.taskId)}</h3>
+          {renderStatusMessage(completeSteps, totalSteps)}
         </div>
       </CardBody>
     </div>
@@ -70,17 +77,9 @@ HomeworkEnd = React.createClass
   onNextStep: ->
     @setState({})
 
-  renderStatusMessage: (completeSteps, totalSteps) ->
-    congratsMessage = <h1>You are done! Great job!</h1> if completeSteps is totalSteps
-
-    <div className='task-status-message'>
-      {congratsMessage}
-      <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
-    </div>
-
-
   renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
+    task = TaskStore.get(taskId)
 
     stepsList = _.map steps, (step, index) =>
       <TaskStep
@@ -106,6 +105,8 @@ HomeworkEnd = React.createClass
             to='viewStudentDashboard'
             params={{courseId}}
             className='btn btn-primary'>Back to Dashboard</Router.Link>
+            <Details task={task} key="task-#{taskId}-details"/>
+            <div className='task-title'>{task.title}</div>
         </PinnableFooter>
       </div>
 
@@ -129,7 +130,9 @@ HomeworkEnd = React.createClass
     <div className='task-review -homework-completed'>
       <CardBody>
         <div className='completed-message'>
-          {@renderStatusMessage(completedSteps.length, totalStepsCount)}
+          <div className='task-status-message'>
+            {renderStatusMessage(completedSteps.length, totalStepsCount)}
+          </div>
         </div>
       </CardBody>
       {todoReview}
@@ -149,7 +152,7 @@ HomeworkEnd = React.createClass
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
         <div className='completed-message'>
-          {@renderStatusMessage(completedStepsCount, totalStepsCount)}
+          {renderStatusMessage(completedStepsCount, totalStepsCount)}
           <ul>
             <li>You can still review and update your answers until the due date.</li>
             <li>Your homework will be automatically turned in on the due date.</li>
@@ -184,7 +187,7 @@ TaskEnd = React.createClass
       <CardBody footer={footer} className='-reading-completed'>
         <div className="completed-message">
           <h1>You Are Done.</h1>
-          <h3>{TaskStore.getFeedbackMessage(@props.taskId)}</h3>
+          <h3>Great job completing all the steps</h3>
         </div>
       </CardBody>
     </div>

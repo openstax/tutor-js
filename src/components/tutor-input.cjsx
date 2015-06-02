@@ -34,7 +34,7 @@ TutorDateInput = React.createClass
     {expandCalendar: false}
 
   expandCalendar: ->
-    @setState({expandCalendar: true})
+    @setState({expandCalendar: true, hasFocus: true})
 
   isValid: (value) ->
     valid = true
@@ -59,22 +59,27 @@ TutorDateInput = React.createClass
     if (event.target.tagName is "INPUT" and not @state.expandCalendar)
       @setState({expandCalendar: true})
 
+  onBlur: (event) ->
+    @setState({hasFocus: false})
+
   render: ->
     classes = ['form-control']
-    unless @props.value then classes.push('empty')
+    value = @props.value
     open = false
+
+    if not @props.value and not @state.hasFocus
+      classes.push('empty')
 
     if @state.expandCalendar and not @props.readOnly
       open = 'calendar'
       onToggle = @onToggle
-
-    value = @props.value
 
     <div className="form-control-wrapper">
       <input type='text' disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
       <DateTimePicker onClick={@clickHandler}
         onFocus={@expandCalendar} 
+        onBlur={@onBlur}
         id={@props.id}
         format='MMM dd, yyyy'
         time={false}

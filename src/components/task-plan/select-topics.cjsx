@@ -74,9 +74,13 @@ ChapterAccordion = React.createClass
     expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expanded
 
     activeKey = chapter.id if expandAccordion
+    chapterClass = ["chapter-heading"]
+
+    if (not chapter.children?.length)
+      chapterClass.push('empty-chapter')
 
     header =
-      <h2 className='chapter-title'>
+      <h2 className={chapterClass.join(' ')}>
         <span className='chapter-checkbox'>
           <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>

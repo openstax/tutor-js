@@ -95,17 +95,14 @@ CourseMonth = React.createClass
 
     while durationDays.hasNext()
       dayIter = durationDays.next()
+      modifiers = {}
 
       if dayIter.isBefore(referenceDate, 'day')
-        modifiers =
-          past: true
-
+        modifiers.past = true
+      else if dayIter.isSame(referenceDate, 'day')
+        modifiers.current = true
       else
-        modifiers =
-          upcoming: true
-
-        if dayIter.isSame(referenceDate, 'day')
-          modifiers.current = true
+        modifiers.upcoming = true
 
       otherProps =
         onClick: @handleClick

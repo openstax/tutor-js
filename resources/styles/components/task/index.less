@@ -2,3 +2,19 @@
 @import './crumb-mixin';
 @import './details';
 
+.task-view {
+
+  .pinned-header {
+    .tutor-shadow(1);
+    background: fadeout(@tutor-white, 20%);
+    padding: 10px @tutor-navbar-padding-horizontal;
+    margin: 0;
+  }
+
+  &.pinned-on {
+    .pinned-container {
+      padding-top: 1.5 * @tutor-navbar-height;
+      padding-bottom: 1.5 * @tutor-navbar-height;
+    }
+  }
+}

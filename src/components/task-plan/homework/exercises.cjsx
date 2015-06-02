@@ -10,11 +10,11 @@ ChapterSection = require '../chapter-section'
 
 ExerciseCardMixin =
   renderAnswers: (answer) ->
-    classes = ["answers-answer"]
-    if answer.correctness is "1.0"
-      classes.push("correct")
+    classes = ['answers-answer']
+    if answer.correctness is '1.0'
+      classes.push('correct')
 
-    <div className={classes.join(" ")}>
+    <div className={classes.join(' ')}>
       <div className="answer-letter" />
       <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
     </div>
@@ -38,11 +38,15 @@ ExerciseCardMixin =
     header = @renderHeader()
     panelStyle = @getPanelStyle()
 
-    <BS.Panel className="card exercise" bsStyle={panelStyle} header={header}>
-      <ArbitraryHtmlAndMath className="-stimulus" block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className="stem" block={true} html={question.stem_html} />
-      <div className="answers-table">{renderedAnswers}</div>
-      <div className="exercise-tags">{renderedTags}</div>
+    <BS.Panel
+      className='card exercise'
+      bsStyle={panelStyle}
+      header={header}
+      onClick={@toggleExercise}>
+      <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
+      <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
+      <div className='answers-table'>{renderedAnswers}</div>
+      <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
 ReviewExerciseCard = React.createClass
@@ -112,8 +116,9 @@ AddExerciseCard = React.createClass
 
   renderHeader: ->
     active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-    toggleText = unless active then <span>+</span> else <span>-</span>
-    <BS.Button bsStyle="primary" onClick={@toggleExercise} className="-add-exercise">{toggleText}</BS.Button>
+    classes = 'add-or-remove -add-exercise'
+    classes = "#{classes} active" if active
+    <div className={classes}></div>
 
   getPanelStyle: ->
     if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
@@ -266,7 +271,10 @@ AddExercises = React.createClass
   mixins: [ExercisesRenderMixin]
 
   renderExercise: (exercise) ->
-    <AddExerciseCard planId={@props.planId} exercise={exercise}/>
+    <AddExerciseCard
+      planId={@props.planId}
+      exercise={exercise}
+      key="add-exercise-card-#{@props.planId}"/>
 
   renderInRows: (renderedExercises) ->
     rows = []

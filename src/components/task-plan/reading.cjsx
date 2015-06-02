@@ -21,17 +21,35 @@ ReviewReadingLi = React.createClass
     planId: React.PropTypes.string.isRequired
     topicId: React.PropTypes.string.isRequired
 
+  moveReadingUp: ->
+    TaskPlanActions.moveReading(@props.planId, @props.topicId, -1)
+
+  moveReadingDown: ->
+    TaskPlanActions.moveReading(@props.planId, @props.topicId, 1)
+
   removeTopic: ->
     TaskPlanActions.removeTopic(@props.planId, @props.topicId)
 
   render: ->
-
     topic = TocStore.getSectionInfo(@props.topicId)
 
-    <li className='-selected-section'>
+    if @props.index
+      moveUpButton = <BS.Button onClick={@moveReadingUp} className="btn-xs -move-reading-up">
+        <i className="fa fa-arrow-up"/>
+      </BS.Button>
+
+    <li className='selected-section'>
       <ChapterSection section={topic.chapter_section}/>
       <span className='section-title'>{topic?.title}</span>
-      <BS.Button className="remove-topic" onClick={@removeTopic} bsStyle="default">X</BS.Button>
+      <span className='section-buttons'>
+        {moveUpButton}
+        <BS.Button onClick={@moveReadingDown} className="btn-xs move-reading-down">
+          <i className="fa fa-arrow-down"/>
+        </BS.Button>
+        <BS.Button className="remove-topic" onClick={@removeTopic} bsStyle="default">
+          <i className="fa fa-close"/>
+        </BS.Button>
+      </span>
     </li>
 
 ReviewReadings = React.createClass
@@ -40,8 +58,8 @@ ReviewReadings = React.createClass
     planId: React.PropTypes.string.isRequired
     selected: React.PropTypes.array
 
-  renderSection: (topicId) ->
-    <ReviewReadingLi topicId={topicId} planId={@props.planId}/>
+  renderSection: (topicId, index) ->
+    <ReviewReadingLi topicId={topicId} planId={@props.planId} index={index}/>
 
   renderSelected: ->
     if @props.selected.length
@@ -61,6 +79,9 @@ ReviewReadings = React.createClass
     />
 
 ChooseReadings = React.createClass
+  hide: ->
+    TaskPlanActions.sortTopics(@props.planId)
+    @props.hide()
 
   render: ->
     buttonStyle = if @props.selected?.length then 'primary' else 'disabled'
@@ -70,7 +91,7 @@ ChooseReadings = React.createClass
       <BS.Button
         className='-show-problems'
         bsStyle={buttonStyle}
-        onClick={@props.hide}>Add Readings
+        onClick={@hide}>Add Readings
       </BS.Button>
 
     <SelectTopics
@@ -79,7 +100,7 @@ ChooseReadings = React.createClass
       courseId={@props.courseId}
       planId={@props.planId}
       selected={@props.selected}
-      hide={@props.hide} />
+      hide={@hide} />
 
 ReadingPlan = React.createClass
   displayName: 'ReadingPlan'
@@ -92,12 +113,10 @@ ReadingPlan = React.createClass
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
-    closeBtn = <BS.Button 
-      className='pull-right close-icon' 
+    closeBtn = <span 
+      className='pull-right close button' 
       aria-role='close' 
-      onClick={@cancel}>
-        <i className="fa fa-close"></i>
-    </BS.Button>
+      onClick={@cancel}>x</span>
 
     # Restrict the due date to be after the open date
     # and restrict the open date to be before the due date
@@ -127,11 +146,11 @@ ReadingPlan = React.createClass
         footer={footer}
         header={header}>
 
-        <BS.Grid>
+        <BS.Grid fluid>
           <BS.Row>
             <BS.Col xs={12} md={8}>
               <TutorInput
-                label='Name'
+                label='Assignment Name'
                 id='reading-title'
                 default={plan.title}
                 onChange={@setTitle} />

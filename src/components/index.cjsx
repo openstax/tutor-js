@@ -16,7 +16,6 @@ err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
 
-
 SingleTask = React.createClass
   displayName: 'SingleTask'
   contextTypes:

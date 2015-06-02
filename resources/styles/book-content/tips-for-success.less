@@ -5,7 +5,9 @@
     height: 35px;
     content: attr(data-label);
     background: @tutor-quaternary url("icon-light-bulb.svg");
-    color: @tutor-black;
+    color: @tutor-tertiary;
+    font-weight: 700;
+    line-height: 2.5em;
     background-repeat: no-repeat;
     // table cell is chosen since it needs to be only as wide as the text,
     // yet still break to a new line after the content
@@ -16,25 +18,36 @@
     padding: 0 10px;
     margin: 0;
   }
-  > ul:first-child {
-    padding-top: 10px;
-    border-top: 1px solid @tutor-neutral-light;
+  > p {
+    #fonts > .sans(1.7rem, 1.5em);
+    color: @tutor-neutral-dark;
+    margin: 0;
+    padding: 5px 20px;
+    background: @tutor-neutral-lightest;
+    &:first-child {
+      border-top: 1px solid @tutor-neutral-lighter;
+      padding-top: 15px;
+    }
+    &:last-child {
+      padding-bottom: 15px;
+    }
+  }
+  > ul {
+    #fonts > .sans(1.7rem, 1.5em);
+    color: @tutor-neutral-dark;
+    border-top: 1px solid @tutor-neutral-lighter;
+    padding: 10px;
     list-style: none;
-    
+    background: @tutor-neutral-lightest;
     > li {
+      padding: 10px;
       &:before {
         content: "";
-
-        width: .5em;
-        height: .5em;
-        background-color: @tutor-secondary;
-        float: left;
-        margin: .8em 1em 0;
-        border-radius: 50%;
+        margin: .6em -.8em 0;
       }
       ol {
         margin-left: 1.2em;
       }
     }
-  }      
+  }
 }

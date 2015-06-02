@@ -37,6 +37,16 @@ module.exports =
       showSectionTopics: false
     })
 
+  publish: ->
+    {id} = @props
+    TaskPlanStore.addChangeListener(@saved)
+    TaskPlanActions.save(id)
+
+  saved: ->
+    courseId = @props.courseId
+    TaskPlanStore.removeChangeListener(@saved)
+    @context.router.transitionTo('taskplans', {courseId})
+
   cancel: ->
     {id} = @props
     TaskPlanActions.reset(id)

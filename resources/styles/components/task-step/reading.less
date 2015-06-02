@@ -3,9 +3,24 @@
 .task-step {
 
   .reading-step {
-    p {
+    p, ul, ol {
       #fonts > .serif(1.75rem, 190%);
       margin: 0 0 2.4rem 0;
+    }
+    ul {
+    	list-style-type: none;
+    	> li {
+	    	&:before {
+	        content: "";
+
+	        width: .4em;
+	        height: .4em;
+	        background-color: @tutor-secondary;
+	        float: left;
+	        margin: .75em -.8em 0;
+	        border-radius: 50%;
+	      }
+	    }
     }
   }
 }

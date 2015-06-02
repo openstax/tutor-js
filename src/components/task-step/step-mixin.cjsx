@@ -4,29 +4,40 @@ BS = require 'react-bootstrap'
 {CardBody} = require '../pinned-header-footer-card/sections'
 Details = require '../task/details'
 {TaskStore} = require '../../flux/task'
+{TaskStepStore} = require '../../flux/task-step'
 
 module.exports =
 
-  renderGenericFooter: ->
+  renderContinueButton: ->
     buttonClasses = '-continue'
-    buttonClasses += ' disabled' unless @isContinueEnabled()
+    loading = TaskStepStore.isLoading(@props.id) or TaskStepStore.isLoading(@props.id)
+    if loading or not @isContinueEnabled()
+      buttonClasses += ' disabled'
+    text = if loading then 'Loading …' else (@continueButtonText?() or 'Continue')
     continueButton = <BS.Button
       bsStyle='primary'
       className={buttonClasses}
-      onClick={@onContinue}>Continue</BS.Button>
+      onClick={@onContinue}>
+        {<i className="fa fa-spinner fa-spin"/> if loading}
+        {text}
+      </BS.Button>
 
     {continueButton}
 
   render: ->
-    {taskId} = @props
+    {taskId, review} = @props
 
     task = TaskStore.get(taskId)
-    footer = @renderFooterButtons?() or @renderGenericFooter()
+    footer = @renderFooterButtons?() or @renderContinueButton()
+
+    taskInfo = [
+        <Details task={task} key="task-#{taskId}-details"/>
+        <div className='task-title'>{task.title}</div>
+      ] unless review?.length
 
     footer = <div>
       {footer}
-      <Details task={task} key="task-#{taskId}-details"/>
-      <div className='task-title'>{task.title}</div>
+      {taskInfo}
     </div>
 
     {pinned} = @props
