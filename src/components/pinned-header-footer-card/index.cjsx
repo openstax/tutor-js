@@ -16,11 +16,13 @@ module.exports = React.createClass
   getDefaultProps: ->
     buffer: 60
     scrollSpeedBuffer: 30
+    forceShy: false
 
   getInitialState: ->
     offset: 0
     shy: false
     pinned: false
+    shouldBeShy: false
 
   mixins: [ScrollListenerMixin]
 
@@ -30,6 +32,7 @@ module.exports = React.createClass
 
     document.body.className = "#{cardBodyClass}-view"
     document.body.classList.add(@documentBodyClass)
+    document.body.classList.add('pinned-force-shy') if @props.forceShy
 
   componentWillUnmount: ->
     document.body.classList.remove(@documentBodyClass)
@@ -53,9 +56,6 @@ module.exports = React.createClass
 
   isScrollingSlowed: (prevScrollTop, currentScrollTop) ->
     Math.abs(prevScrollTop - currentScrollTop) <= @props.scrollSpeedBuffer
-
-  isScrollingUp: (prevScrollTop, currentScrollTop) ->
-    currentScrollTop < prevScrollTop
 
   isScrollingDown: (prevScrollTop, currentScrollTop) ->
     currentScrollTop > prevScrollTop
@@ -93,8 +93,11 @@ module.exports = React.createClass
     ]
     # set the pinned state
     @setState(
-      shy: @shouldBeShy(prevScrollTop, @state.scrollTop)
-      pinned : @shouldPinHeader(prevScrollTop, @state.scrollTop)
+      # allow shouldBeShy override if needed
+      shy: @state.shouldBeShy or @shouldBeShy(prevScrollTop, @state.scrollTop)
+      pinned: @shouldPinHeader(prevScrollTop, @state.scrollTop)
+      # reset shouldBeShy
+      shouldBeShy: false
     )
     shouldPinHeader = @state.pinned * 1
     shouldBeShy = @state.shy * 1
@@ -104,6 +107,10 @@ module.exports = React.createClass
 
     shyClassAction = addOrRemove[shouldBeShy]
     document.body.classList[shyClassAction]('pinned-shy')
+
+  forceShy: ->
+    window.scroll(0, @props.buffer + @state.offset)
+    @setState(shouldBeShy: true)
 
   componentDidMount: ->
     @setOffset()
@@ -116,6 +123,9 @@ module.exports = React.createClass
 
     @setOffset() if didOffsetChange
     @updatePinState(prevState.scrollTop) if didShouldPinChange or didShouldBeShyChange
+
+  componentWillReceiveProps: ->
+    @forceShy() if @props.forceShy
 
   render: ->
     {className} = @props

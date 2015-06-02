@@ -19,7 +19,10 @@ routes = (
     <Route path='courses/:courseId/?'>
       <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
       <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
-      <Route path='tasks/:id/steps/:stepIndex/?' name='viewTaskStep' handler={SingleTask}/>
+      <Route path='tasks/:id/steps/:stepIndex/?'
+        name='viewTaskStep'
+        handler={SingleTask}
+        ignoreScrollBehavior/>
 
       <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
       <Route path='guide/?' name='viewGuide' handler={LearningGuideShell} />
