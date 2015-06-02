@@ -13,6 +13,7 @@ TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
+Details = require '../task/details'
 
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
@@ -78,6 +79,7 @@ HomeworkEnd = React.createClass
 
   renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
+    task = TaskStore.get(taskId)
 
     stepsList = _.map steps, (step, index) =>
       <TaskStep
@@ -103,6 +105,8 @@ HomeworkEnd = React.createClass
             to='viewStudentDashboard'
             params={{courseId}}
             className='btn btn-primary'>Back to Dashboard</Router.Link>
+            <Details task={task} key="task-#{taskId}-details"/>
+            <div className='task-title'>{task.title}</div>
         </PinnableFooter>
       </div>
 

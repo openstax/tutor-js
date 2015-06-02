@@ -25,15 +25,19 @@ module.exports =
     {continueButton}
 
   render: ->
-    {taskId} = @props
+    {taskId, review} = @props
 
     task = TaskStore.get(taskId)
     footer = @renderFooterButtons?() or @renderContinueButton()
 
+    taskInfo = [
+        <Details task={task} key="task-#{taskId}-details"/>
+        <div className='task-title'>{task.title}</div>
+      ] unless review?.length
+
     footer = <div>
       {footer}
-      <Details task={task} key="task-#{taskId}-details"/>
-      <div className='task-title'>{task.title}</div>
+      {taskInfo}
     </div>
 
     {pinned} = @props
