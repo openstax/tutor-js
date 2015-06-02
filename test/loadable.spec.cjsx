@@ -56,7 +56,7 @@ describe 'Loadable Mixin', ->
     CrudActions.load.once 'trigger', (myId) ->
       delay ->
         # Verify 'Loading...' is in the DOM
-        expect(DIV.querySelector('.-loading')).to.not.be.null
+        expect(DIV.querySelector('.loading')).to.not.be.null
         CrudActions.loaded({foo:true}, myId)
 
     CrudActions.loaded.once 'trigger', (obj, myId) ->
@@ -74,13 +74,13 @@ describe 'Loadable Mixin', ->
     CrudActions.load.once 'trigger', (myId) ->
       delay ->
         # Verify 'Loading...' is in the DOM
-        expect(DIV.querySelector('.-loading')).to.not.be.null
+        expect(DIV.querySelector('.loading')).to.not.be.null
         CrudActions.FAILED(400, {msg:'Some error message'}, myId)
 
     CrudActions.FAILED.once 'trigger', (obj, myId) ->
       delay ->
         # Verify 'Error' is in the DOM
-        expect(DIV.querySelector('.-error')).to.not.be.null
+        expect(DIV.querySelector('.error')).to.not.be.null
         done()
 
     React.render(<TestClass id={id}/>, DIV)

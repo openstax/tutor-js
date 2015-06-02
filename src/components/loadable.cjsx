@@ -29,14 +29,14 @@ module.exports = React.createClass
   getDefaultProps: ->
 
     # Enables a renderStatus prop function with a component other than a div
-    renderLoading: (refreshButton) ->
-      <div className='-loading'>Loading... {refreshButton('refresh-button-delayed')}</div>
+    renderLoading: ->
+      <div className='loading'>Loading... <RefreshButton /></div>
 
-    renderError: (refreshButton) ->
-      <div className='-error'>Error Loading. {refreshButton('refresh-button')}</div>
+    renderError: ->
+      <div className='error'>Error Loading. <RefreshButton /></div>
 
     renderBug: ->
-      <div className='-bug'>Error Loading (Bug: Invalid State)</div>
+      <div className='bug'>Error Loading (Bug: Invalid State)</div>
 
   mixins: [BindStoreMixin]
 
@@ -45,32 +45,36 @@ module.exports = React.createClass
 
   bindUpdate: -> @props.update?() or @setState({})
 
-  refreshButton: (type) ->
-    if React?
-      <div className="#{type}">
-        <BS.Button onClick={@reloadPage}>
-          Please Refresh
-        </BS.Button>
-      </div>
+  render: ->
+    {isLoading, isLoaded, isFailed, render, renderLoading, renderError, renderBug} = @props
+
+    if isLoading()
+      renderLoading()
+    else if isLoaded()
+      render()
+    else if isFailed()
+      renderError()
+      
     else
-      <div className="#{type}">
-        <a href="#" onClick={@reloadPage}>
-          Please Refresh
-        </a>
-      </div>
+      render()
+
+
+RefreshButton = React.createClass
+  displayName: 'RefreshButton'
 
   reloadPage: ->
     location.reload()
 
   render: ->
-    {isLoading, isLoaded, isFailed, render, renderLoading, renderError, renderBug} = @props
-
-    if isLoading()
-      renderLoading(@refreshButton)
-    else if isLoaded()
-      render()
-    else if isFailed()
-      renderError(@refreshButton)
-      
+    if React?
+      <div className="refresh-button">
+        <BS.Button onClick={@reloadPage}>
+          Please Refresh
+        </BS.Button>
+      </div>
     else
-      render()
+      <div className="refresh-button">
+        <a href="#" onClick={@reloadPage}>
+          Please Refresh
+        </a>
+      </div>
