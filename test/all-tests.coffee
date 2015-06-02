@@ -25,6 +25,7 @@ require './teacher-task-plan-store.spec'
 require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
+require './course-listing-store.spec'
 require './app-config.spec'
 
 # This should be done **last** because it starts up the whole app
