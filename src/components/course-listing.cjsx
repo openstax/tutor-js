@@ -33,10 +33,8 @@ CourseListing = React.createClass
     willTransitionTo: (transition, params, query, callback) ->
       unless CourseListingStore.isLoaded()
         CourseListingActions.load() unless CourseListingStore.isLoading()
-        onLoadFn = ->
-          CourseListingStore.off('load', onLoadFn)
+        CourseListingStore.once 'loaded', ->
           DisplayOrRedirect(transition, callback)
-        CourseListingStore.on('loaded', onLoadFn)
       else
         DisplayOrRedirect(transition, callback)
 
