@@ -5,7 +5,9 @@
     height: 35px;
     content: attr(data-label);
     background: @tutor-quaternary url("icon-light-bulb.svg");
-    color: @tutor-black;
+    color: @tutor-tertiary;
+    font-weight: 700;
+    line-height: 2.5em;
     background-repeat: no-repeat;
     // table cell is chosen since it needs to be only as wide as the text,
     // yet still break to a new line after the content
@@ -16,25 +18,43 @@
     padding: 0 10px;
     margin: 0;
   }
-  > ul:first-child {
-    padding-top: 10px;
-    border-top: 1px solid @tutor-neutral-light;
+  p {
+    #fonts > .sans(1.7rem, 1.5em);
+    color: @tutor-neutral-dark;
+    padding: 15px 20px;
+    border-left: 1px solid @tutor-neutral-lighter;
+    border-right: 1px solid @tutor-neutral-lighter;
+    background: @tutor-neutral-lightest;
+    &:first-child {
+      border-top: 1px solid @tutor-neutral-lighter;
+    }
+    &:last-child {
+      border-bottom: 1px solid @tutor-neutral-lighter;
+    }
+  }
+  > ul {
+    #fonts > .sans(1.7rem, 1.5em);
+    color: @tutor-neutral-dark;
+    padding: 10px;
+    border-left: 1px solid @tutor-neutral-lighter;
+    border-right: 1px solid @tutor-neutral-lighter;
     list-style: none;
-    
+    background: @tutor-neutral-lightest;
+    &:first-child {
+    border-top: 1px solid @tutor-neutral-light;
+    }
+    &:first-child {
+    border-bottom: 1px solid @tutor-neutral-light;
+    }
     > li {
+      padding: 10px;
       &:before {
         content: "";
-
-        width: .5em;
-        height: .5em;
-        background-color: @tutor-secondary;
-        float: left;
-        margin: .8em 1em 0;
-        border-radius: 50%;
+        margin: .6em -.8em 0;
       }
       ol {
         margin-left: 1.2em;
       }
     }
-  }      
+  }
 }
