@@ -5,6 +5,7 @@
 # The tests still run and progress just fine despite the warnings, but for now,
 # I'm leaving this test here.
 # TODO figure out why.
+require './components/course-listing.spec'
 require './components/navbar.spec'
 require './components/homework/homework-plan.spec'
 require './components/homework/exercise-summary.spec'
