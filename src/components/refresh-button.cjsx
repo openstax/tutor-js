@@ -4,4 +4,10 @@ module.exports = React.createClass
   displayName: 'RefreshButton'
 
   render: ->
-    <a className='btn btn-default refresh-button' href={window.location.href}>Refresh Page</a>
+    # Wrap text in quotes so whitespace is preserved
+    # and button is not right next to text.
+    <span className='refresh-button'>
+      {'There was a problem loading. '}
+      <a className='btn btn-primary' href={window.location.href}>Refresh</a>
+      {' to try again.'}
+    </span>
