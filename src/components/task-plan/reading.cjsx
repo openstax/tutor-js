@@ -33,14 +33,17 @@ ReviewReadingLi = React.createClass
   render: ->
     topic = TocStore.getSectionInfo(@props.topicId)
 
-    <li className='-selected-section'>
+    if @props.index
+        moveUpButton = <BS.Button onClick={@moveReadingUp} className="btn-xs -move-reading-up">
+          <i className="fa fa-arrow-up"/>
+        </BS.Button>
+
+    <li className='selected-section'>
       <ChapterSection section={topic.chapter_section}/>
       <span className='section-title'>{topic?.title}</span>
       <span className='section-buttons'>
-        <BS.Button onClick={@moveReadingUp} className="btn-xs -move-reading-up">
-          <i className="fa fa-arrow-up"/>
-        </BS.Button>
-        <BS.Button onClick={@moveReadingDown} className="btn-xs -move-reading-down">
+        {moveUpButton}
+        <BS.Button onClick={@moveReadingDown} className="btn-xs move-reading-down">
           <i className="fa fa-arrow-down"/>
         </BS.Button>
         <BS.Button className="remove-topic" onClick={@removeTopic} bsStyle="default">
@@ -55,8 +58,8 @@ ReviewReadings = React.createClass
     planId: React.PropTypes.string.isRequired
     selected: React.PropTypes.array
 
-  renderSection: (topicId) ->
-    <ReviewReadingLi topicId={topicId} planId={@props.planId}/>
+  renderSection: (topicId, index) ->
+    <ReviewReadingLi topicId={topicId} planId={@props.planId} index={index}/>
 
   renderSelected: ->
     if @props.selected.length
