@@ -62,7 +62,7 @@ describe 'Student Dashboard Component', ->
       feedback = state.div.querySelectorAll('.-upcoming .task .feedback')
       console.log _.pluck(feedback, 'textContent')
       expect(_.pluck(feedback, 'textContent'))
-        .to.have.deep.equal(['6/7 correct', '7/8 correct', '6/6 complete', '7/3 complete'])
+        .to.have.deep.equal(['6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered'])
 
 
   it 'renders only upcoming events to week panel', ->
