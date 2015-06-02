@@ -32,23 +32,30 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  getInitialState: ->
+  setStepKey: ->
     {stepIndex} = @context.router.getCurrentParams()
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
+    @setState({currentStep: crumbKey})
+
+  getInitialState: ->
     {
-      currentStep: crumbKey
+      currentStep: 0
       refreshFrom: false
       refreshTo: false
       recoverForStepId: false
       recoveredStepId: false
     }
 
-  componentWillMount:   ->
+  componentWillMount: ->
+    @setStepKey()
     TaskStepStore.on('step.recovered', @prepareToRecover)
 
   componentWillUnmount: ->
     TaskStepStore.off('step.recovered', @prepareToRecover)
+
+  componentWillReceiveProps: ->
+    @setStepKey()
 
   _stepRecoveryQueued: (nextState) ->
     not @state.recoverForStepId and nextState.recoverForStepId
@@ -138,8 +145,7 @@ module.exports = React.createClass
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
-      @context.router.replaceWith('viewTaskStep', params)
-      @setState({currentStep: stepKey})
+      @context.router.transitionTo('viewTaskStep', params)
 
   goToCrumb: ->
     crumbs = @generateCrumbs()
