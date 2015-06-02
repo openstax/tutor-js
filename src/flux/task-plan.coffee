@@ -3,6 +3,7 @@ _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TimeStore} = require './time'
 {TocStore} = require './toc'
+{ExerciseStore} = require './exercise'
 
 TUTOR_SELECTIONS =
   default: 3
@@ -96,7 +97,6 @@ TaskPlanConfig =
     page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
     #sortTopics(page_ids)
 
-    exercise_ids = []
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
   removeTopic: (id, topicId) ->
@@ -106,9 +106,8 @@ TaskPlanConfig =
 
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
-    #sortTopics(page_ids)
-
-    exercise_ids = []
+    
+    exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
   addExercise: (id, exercise) ->

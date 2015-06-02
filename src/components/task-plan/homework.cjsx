@@ -7,6 +7,8 @@ PlanFooter = require './footer'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
+PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -47,6 +49,7 @@ ChooseExercises = React.createClass
       exerciseSummary = <ExerciseSummary
           canReview={true}
           reviewClicked={hide}
+          onCancel={hide}
           planId={planId}/>
 
       addExercises = <AddExercises
@@ -63,10 +66,12 @@ ChooseExercises = React.createClass
         selected={selected}
         hide={hide} />
 
-      {exerciseSummary}
-      {addExercises}
+      <PinnedHeaderFooterCard
+        header={exerciseSummary}
+        cardType='homework-builder'>
+        {addExercises}
+      </PinnedHeaderFooterCard>
     </div>
-
 
 
 HomeworkPlan = React.createClass
@@ -82,7 +87,7 @@ HomeworkPlan = React.createClass
     plan = TaskPlanStore.get(id)
     description = TaskPlanStore.getDescription(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
-    closeBtn = <BS.Button className='close-icon' aria-role='close' onClick={@cancel}>X</BS.Button>
+    closeBtn = <span className='close button' aria-role='close' onClick={@cancel}>x</span>
     topics = TaskPlanStore.getTopics(id)
     shouldShowExercises = TaskPlanStore.getExercises(id)?.length and not @state?.showSectionTopics
 
@@ -114,6 +119,7 @@ HomeworkPlan = React.createClass
 
     if shouldShowExercises
       exerciseSummary = <ExerciseSummary
+        onCancel={@cancel}
         canAdd={not TaskPlanStore.isPublished(id)}
         addClicked={@showSectionTopics}
         planId={id}/>
@@ -128,6 +134,13 @@ HomeworkPlan = React.createClass
         pageIds={topics}
         planId={id}/>
 
+      reviewExercisesSummary = <PinnedHeaderFooterCard
+        header={exerciseSummary}
+        cardType='homework-builder'>
+        {exerciseTable}
+        {reviewExercises}
+      </PinnedHeaderFooterCard>
+
     header = [headerText, closeBtn]
 
     <div className='homework-plan'>
@@ -136,12 +149,12 @@ HomeworkPlan = React.createClass
         className={formClasses.join(' ')}
         footer={footer}>
 
-        <BS.Grid>
+        <BS.Grid fluid>
           <BS.Row>
             <BS.Col xs={12} md={8}>
               <div className='-homework-title'>
                 <TutorInput
-                  label='Name'
+                  label='Assignment Name'
                   id='homework-title'
                   default={plan.title}
                   onChange={@setTitle} />
@@ -149,7 +162,7 @@ HomeworkPlan = React.createClass
             </BS.Col>
             <BS.Col xs={12} md={4}>
               {dueAtElem}
-              <p>Feedback will be released after the due date.</p>
+              <p className='note'>Feedback will be released after the due date.</p>
             </BS.Col>
             <BS.Col xs={12} md={12}>
               <TutorTextArea
@@ -162,9 +175,7 @@ HomeworkPlan = React.createClass
         </BS.Grid>
       </BS.Panel>
       {chooseExercises}
-      {exerciseSummary}
-      {exerciseTable}
-      {reviewExercises}
+      {reviewExercisesSummary}
     </div>
 
 

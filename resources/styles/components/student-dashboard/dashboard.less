@@ -1,14 +1,14 @@
 .student-dashboard {
   @small-height-breakpoint: 600px;
   .container {
-    .tutor-booksplash-adjust-top-padding();
+    .tutor-booksplash-adjust-top-margin();
   }
 
   .right-actions-box {
     background-color: white;
     padding: 10px;
     text-align: center;
-    margin: 20px 0;
+    margin: 53px 0;
     @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
     button {
       width: 100%;
@@ -25,11 +25,11 @@
       text-align: center;
       background: @tutor-neutral-lighter;
       a {
-        font-weight: 900;
-        color: @tutor-neutral-dark !important;
+        font-weight: 400;
+        color: @tutor-neutral !important;
       }
       &.active {
-        background: @tutor-neutral-lightest;
+        background: @tutor-white;
         a {
           font-weight: 900;
           color: @tutor-neutral-darker !important;

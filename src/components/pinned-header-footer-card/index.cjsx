@@ -11,12 +11,15 @@ module.exports = React.createClass
   displayName: 'PinnedHeaderFooterCard'
   propTypes:
     buffer: React.PropTypes.number
+    fixedOffset: React.PropTypes.number
 
   getDefaultProps: ->
     buffer: 60
-    scrollSpeedBuffer: 20
+    scrollSpeedBuffer: 30
 
   getInitialState: ->
+    offset: 0
+    shy: false
     pinned: false
 
   mixins: [ScrollListenerMixin]
@@ -31,6 +34,23 @@ module.exports = React.createClass
   componentWillUnmount: ->
     document.body.classList.remove(@documentBodyClass)
 
+  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
+
+  getOffset: ->
+    if @props.fixedOffset?
+      offset = @props.fixedOffset
+    else
+      offset = @getPosition(@refs.header.getDOMNode())
+
+    offset
+
+  setOffset: ->
+    offset = @getOffset()
+    @setState(offset: offset)
+
+  shouldPinHeader: (prevScrollTop, currentScrollTop) ->
+    currentScrollTop >= @state.offset
+
   isScrollingSlowed: (prevScrollTop, currentScrollTop) ->
     Math.abs(prevScrollTop - currentScrollTop) <= @props.scrollSpeedBuffer
 
@@ -41,64 +61,73 @@ module.exports = React.createClass
     currentScrollTop > prevScrollTop
 
   isScrollPassBuffer: (prevScrollTop, currentScrollTop) ->
-    currentScrollTop > @props.buffer
+    currentScrollTop >= @props.buffer + @state.offset
 
-  shouldPinHeader: (prevScrollTop, currentScrollTop) ->
+  shouldBeShy: (prevScrollTop, currentScrollTop) ->
     # should not pin regardless of scroll direction if the scroll top is above buffer
     unless @isScrollPassBuffer(prevScrollTop, currentScrollTop)
-      shouldPinHeader = false
+      shouldBeShy = false
 
     # otherwise, when scroll top is below buffer
     # and on down scroll
     else if @isScrollingDown(prevScrollTop, currentScrollTop)
       # header should pin
-      shouldPinHeader = true
+      shouldBeShy = true
 
     # or when up scrolling is slow
     else if @isScrollingSlowed(prevScrollTop, currentScrollTop)
       # leave the pinning as is
-      shouldPinHeader = @state.pinned
+      shouldBeShy = @state.shy
 
     # else, the only case left is if up scrolling is fast
     else
       # unpin on fast up scroll
-      shouldPinHeader = false
+      shouldBeShy = false
 
+    shouldBeShy
 
-    shouldPinHeader
-
-  shouldComponentUpdate: (nextProps, nextState) ->
-    # ignore scrolling state changes when checking should component update
-    stateNoScroll = _.omit(@state, 'isScrolling', 'scrollTop')
-    nextStateNoScroll = _.omit(nextState, 'isScrolling', 'scrollTop')
-
-    # manually check if pinned will change
-    didShouldPinChange = not @state.pinned is @shouldPinHeader(@state.scrollTop, nextState.scrollTop)
-    # check props and non-scroll states
-    didPropsUpdate = not _.isEqual(@props, nextProps)
-    didStateUpdate = not _.isEqual(stateNoScroll, nextStateNoScroll)
-
-    # component should only update if pin state will change and non-scroll props or state will change
-    # this is to bypass the component trying to update at every frame the user is scrolling
-    didShouldPinChange or didPropsUpdate or didStateUpdate
-
-  componentDidUpdate: (prevProps, prevState) ->
+  updatePinState: (prevScrollTop) ->
     addOrRemove = [
       'remove' # remove class if shouldPinHeader is false
       'add' # add class if shouldPinHeader is true
     ]
     # set the pinned state
-    @setState(pinned : @shouldPinHeader(prevState.scrollTop, @state.scrollTop))
+    @setState(
+      shy: @shouldBeShy(prevScrollTop, @state.scrollTop)
+      pinned : @shouldPinHeader(prevScrollTop, @state.scrollTop)
+    )
     shouldPinHeader = @state.pinned * 1
-    classAction = addOrRemove[shouldPinHeader]
-    document.body.classList[classAction]('pinned-on')
+    shouldBeShy = @state.shy * 1
+
+    pinnedClassAction = addOrRemove[shouldPinHeader]
+    document.body.classList[pinnedClassAction]('pinned-on')
+
+    shyClassAction = addOrRemove[shouldBeShy]
+    document.body.classList[shyClassAction]('pinned-shy')
+
+  componentDidMount: ->
+    @setOffset()
+    @updatePinState(0)
+
+  componentDidUpdate: (prevProps, prevState) ->
+    didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
+    didShouldPinChange = not prevState.pinned is @shouldPinHeader(prevState.scrollTop, @state.scrollTop)
+    didShouldBeShyChange = not prevState.shy is @shouldBeShy(prevState.scrollTop, @state.scrollTop)
+
+    @setOffset() if didOffsetChange
+    @updatePinState(prevState.scrollTop) if didShouldPinChange or didShouldBeShyChange
 
   render: ->
     {className} = @props
+
+    classes = ['pinned-container']
+    classes.push(className) if className?
+    classes = classes.join(' ')
+
     childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
 
-    <div className={className}>
-      <PinnedHeader {...childrenProps}>
+    <div className={classes}>
+      <PinnedHeader {...childrenProps} ref='header'>
         {@props.header}
       </PinnedHeader>
       {@props.children}
