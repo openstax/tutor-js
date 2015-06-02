@@ -58,9 +58,6 @@ module.exports = React.createClass
 RefreshButton = React.createClass
   displayName: 'RefreshButton'
 
-  reloadPage: ->
-    location.reload()
-
   render: ->
     <div className="refresh-button">
       <a href={window.location}>Please Refresh</a>
