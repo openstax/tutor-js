@@ -12,6 +12,7 @@ FAILED  = 'failed'
 CourseListingActions = flux.createActions [
   'load'
   'loaded'
+  'reset'
 ]
 
 CourseListingStore = flux.createStore
@@ -22,8 +23,16 @@ CourseListingStore = flux.createStore
     @_asyncStatus = LOADING
     @emit('load')
 
-  loaded: (list) ->
-    @_courses = list
+  reset: ->
+    @_course_ids = []
+    CourseActions.reset()
+    @_asyncStatus = null
+    @emitChange()
+
+  loaded: (courses) ->
+    @_course_ids = _.map courses, (course) ->
+      CourseActions.loaded(course, course.id)
+      course.id # Store only the ids
     @_asyncStatus = LOADED
     @emit('loaded')
 
@@ -42,9 +51,6 @@ CourseListingStore = flux.createStore
         true
 
     allCourses: ->
-      return @_courses
-
-    get: (id) ->
-      _.findWhere(@_courses, {id: id})
+      return _.map @_course_ids, CourseStore.get
 
 module.exports = {CourseListingActions, CourseListingStore}
