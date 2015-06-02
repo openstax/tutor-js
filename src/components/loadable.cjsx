@@ -26,13 +26,13 @@ module.exports = React.createClass
 
     # Enables a renderStatus prop function with a component other than a div
     renderLoading: ->
-      <div className='loading'>Loading... <RefreshButton /></div>
+      <div className='loadable loading'>Loading... <RefreshButton /></div>
 
     renderError: ->
-      <div className='error'>Error Loading. <RefreshButton /></div>
+      <div className='loadable error'>Error Loading. <RefreshButton /></div>
 
     renderBug: ->
-      <div className='bug'>Error Loading (Bug: Invalid State)</div>
+      <div className='loadable bug'>Error Loading (Bug: Invalid State)</div>
 
   mixins: [BindStoreMixin]
 
@@ -60,5 +60,5 @@ RefreshButton = React.createClass
 
   render: ->
     <div className="refresh-button">
-      <a href={window.location}>Please Refresh</a>
+      <a href={window.location.href}>Please Refresh</a>
     </div>
