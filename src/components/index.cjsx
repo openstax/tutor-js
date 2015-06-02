@@ -6,6 +6,7 @@ Router = require 'react-router'
 App = require './app'
 Task = require './task'
 LoadableItem = require './loadable-item'
+RefreshButton = require './refresh-button'
 {TaskActions, TaskStore} = require '../flux/task'
 {CourseActions, CourseStore} = require '../flux/course'
 {CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
@@ -76,7 +77,9 @@ Dashboard = React.createClass
     else
       CurrentUserActions.loadAllCourses()
 
-      <div className='-loading'>Loading?</div>
+      <div className='loadable is-loading -not-really-loadable'>Loading...
+        <RefreshButton />
+      </div>
 
 
 SingleTask = React.createClass
