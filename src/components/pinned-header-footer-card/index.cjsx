@@ -27,15 +27,14 @@ module.exports = React.createClass
   mixins: [ScrollListenerMixin]
 
   componentWillMount: ->
+    @previousBodyClasses = document.body.className
     cardBodyClass = @props.cardType
-    @documentBodyClass = 'pinned-view'
-
     document.body.className = "#{cardBodyClass}-view"
-    document.body.classList.add(@documentBodyClass)
+    document.body.classList.add('pinned-view')
     document.body.classList.add('pinned-force-shy') if @props.forceShy
 
   componentWillUnmount: ->
-    document.body.classList.remove(@documentBodyClass)
+    document.body.className = @previousBodyClasses
 
   getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
