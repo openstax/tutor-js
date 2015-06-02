@@ -28,6 +28,8 @@ ExerciseSummary = React.createClass
         Tutor selections are added later to support spaced practice and personalized learning.
       </em></BS.Col>
 
+    publishable = TaskPlanStore.isValid(@props.planId) and not TaskPlanStore.isPublished(@props.id)
+
     if @props.canReview and numSelected
       buttons = <span><BS.Button 
         bsStyle="primary" 
@@ -43,9 +45,12 @@ ExerciseSummary = React.createClass
     else if @props.canAdd
       explanation = null
       buttonColumnSize = 4
+      publishButtonClass = ['-publish-task']
+      publishButtonClass.push('disabled') unless publishable
+
       buttons = <span><BS.Button bsStyle="primary" 
-        className="-add-exercises" 
-        onClick={@props.publish}>Publish</BS.Button>
+        className={publishButtonClass.join(' ')} 
+        onClick={@props.onPublish}>Publish</BS.Button>
       <BS.Button bsStyle="default" 
         className="-add-exercises" 
         onClick={@props.addClicked}>Add More...</BS.Button>
