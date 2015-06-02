@@ -20,8 +20,12 @@
 }
 
 
-// Hide CNX Processing instructions
-cnx-pi { display: none; }
+// Hide titles, abstracts and CNX Processing instructions
+div[data-type="document-title"],
+div[data-type=abstract],
+cnx-pi
+{ display: none; }
+
 
 .learning-objectives {
   #fonts > .sans(1.8rem, 1.8rem);
@@ -73,7 +77,6 @@ div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
 
-div[data-type="document-title"] { display: none; }
 div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizontal;}
 
 
