@@ -2,6 +2,7 @@ React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
+{CourseListing} = require './components/course-listing'
 {LearningGuideShell} = require './components/learning-guide'
 {PerformanceShell} = require './components/performance'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
@@ -15,7 +16,7 @@ Sandbox = require './sandbox'
 routes = (
   <Route path='/' handler={App} name='root'>
     <Redirect from='/' to='dashboard' />
-    <Route path='dashboard/?' name='dashboard' handler={Dashboard} />
+    <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
     <Route path='courses/:courseId/?'>
       <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
       <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>

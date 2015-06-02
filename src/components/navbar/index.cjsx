@@ -11,6 +11,7 @@ BindStoreMixin = require '../bind-store-mixin'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
+{CourseListingActions, CourseListingStore} = require '../../flux/course-listing'
 
 module.exports = React.createClass
   displayName: 'Navigation'
@@ -21,8 +22,7 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   componentWillMount: ->
-    unless CurrentUserStore.isCoursesLoaded()
-      CurrentUserActions.loadAllCourses()
+    CourseListingStore.ensureLoaded()
 
   getInitialState: ->
     course: undefined
@@ -32,7 +32,7 @@ module.exports = React.createClass
       {courseId} = @context.router.getCurrentParams()
 
       unless @state.course?.id is courseId
-        course = CourseStore.get(courseId)
+        course = CourseListingStore.get(courseId)
         @setState({course})
 
   # Also need to listen to when location finally updates.
@@ -41,11 +41,11 @@ module.exports = React.createClass
   # changes, this component never update it's state with the course in that case.
   addBindListener: ->
     @context.router.getLocation().addChangeListener(@handleCourseChanges)
-    CurrentUserStore.addChangeListener(@updateAll)
+    CourseListingStore.addChangeListener(@updateAll)
 
   removeBindListener: ->
     @context.router.getLocation().removeChangeListener(@handleCourseChanges)
-    CurrentUserStore.removeChangeListener(@updateAll)
+    CourseListingStore.removeChangeListener(@updateAll)
 
   updateAll: -> @setState({})
 
