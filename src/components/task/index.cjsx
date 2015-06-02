@@ -198,6 +198,7 @@ module.exports = React.createClass
         key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard
+      forceShy={true}
       className={taskClasses}
       fixedOffset={0}
       header={breadcrumbs}
