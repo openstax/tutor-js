@@ -101,7 +101,7 @@ TaskPlanConfig =
 
   removeTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    {page_ids, description, exercises_count_dynamic} = plan.settings
+    {page_ids, description, exercise_ids, exercises_count_dynamic} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
     index = page_ids?.indexOf(topicId)
