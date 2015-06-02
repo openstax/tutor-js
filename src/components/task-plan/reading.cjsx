@@ -34,9 +34,9 @@ ReviewReadingLi = React.createClass
     topic = TocStore.getSectionInfo(@props.topicId)
 
     if @props.index
-        moveUpButton = <BS.Button onClick={@moveReadingUp} className="btn-xs -move-reading-up">
-          <i className="fa fa-arrow-up"/>
-        </BS.Button>
+      moveUpButton = <BS.Button onClick={@moveReadingUp} className="btn-xs -move-reading-up">
+        <i className="fa fa-arrow-up"/>
+      </BS.Button>
 
     <li className='selected-section'>
       <ChapterSection section={topic.chapter_section}/>
