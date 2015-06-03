@@ -10,6 +10,7 @@ Router = require 'react-router'
 {TocStore, TocActions} = require '../../flux/toc'
 SelectTopics = require './select-topics'
 PlanFooter = require './footer'
+Close = require '../close'
 ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
@@ -113,10 +114,9 @@ ReadingPlan = React.createClass
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
-    closeBtn = <span 
-      className='pull-right close button' 
-      aria-role='close' 
-      onClick={@cancel}>x</span>
+    closeBtn = <Close 
+      className='pull-right' 
+      onClick={@cancel}/>
 
     # Restrict the due date to be after the open date
     # and restrict the open date to be before the due date

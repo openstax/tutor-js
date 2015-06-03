@@ -4,6 +4,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 PlanFooter = require './footer'
+Close = require '../close'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
@@ -87,7 +88,7 @@ HomeworkPlan = React.createClass
     plan = TaskPlanStore.get(id)
     description = TaskPlanStore.getDescription(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
-    closeBtn = <span className='close button' aria-role='close' onClick={@cancel}>x</span>
+    closeBtn = <Close onClick={@cancel}/>
     topics = TaskPlanStore.getTopics(id)
     shouldShowExercises = TaskPlanStore.getExercises(id)?.length and not @state?.showSectionTopics
 
