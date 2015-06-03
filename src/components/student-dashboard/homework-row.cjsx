@@ -22,7 +22,7 @@ module.exports = React.createClass
     feedback = if event.correct_exercise_count
       "#{event.correct_exercise_count}/#{event.exercise_count} correct"
     else
-      "#{event.complete_exercise_count}/#{event.exercise_count} complete"
+      "#{event.complete_exercise_count}/#{event.exercise_count} answered"
     # In the future, the backend will signal whether the event has recovery
     # and feedback available and whether or not the student has already
     # accessed it.

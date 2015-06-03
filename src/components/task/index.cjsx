@@ -35,8 +35,16 @@ module.exports = React.createClass
   setStepKey: ->
     {stepIndex} = @context.router.getCurrentParams()
     # url is 1 based so it matches the breadcrumb button numbers
-    crumbKey = if stepIndex then parseInt(stepIndex) - 1 else @getDefaultCurrentStep()
-    @setState({currentStep: crumbKey})
+    defaultKey = @getDefaultCurrentStep()
+    crumbKey = if stepIndex then parseInt(stepIndex) - 1 else defaultKey
+    crumb = @getCrumb(crumbKey)
+
+    # go ahead and render this step only if this step is accessible
+    if crumb?.crumb
+      @setState(currentStep: crumbKey)
+    # otherwise, redirect to the latest accessible step
+    else
+      @goToStep(defaultKey)(true)
 
   getInitialState: ->
     {
@@ -140,16 +148,19 @@ module.exports = React.createClass
 
   # Curried for React
   goToStep: (stepKey) ->
-    =>
+    (silent = false) =>
       params = @context.router.getCurrentParams()
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
-      @context.router.transitionTo('viewTaskStep', params)
+      if silent
+        @context.router.replaceWith('viewTaskStep', params)
+      else
+        @context.router.transitionTo('viewTaskStep', params)
 
-  goToCrumb: ->
+  getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()
-    _.findWhere crumbs, {key: @state.currentStep}
+    _.findWhere crumbs, {key: crumbKey}
 
   renderStep: (data) ->
     <TaskStep
@@ -179,7 +190,7 @@ module.exports = React.createClass
     return null unless task?
 
     # get the crumb that matches the current state
-    crumb = @goToCrumb()
+    crumb = @getCrumb(@state.currentStep)
 
     # crumb.type is one of ['intro', 'step', 'end']
     renderPanelMethod = camelCase "render-#{crumb.type}"
