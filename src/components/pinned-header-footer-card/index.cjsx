@@ -115,16 +115,19 @@ module.exports = React.createClass
     @setState(shouldBeShy: true)
 
   getHeaderHeight: ->
-    header = @refs.header.getDOMNode()
-    headerHeight = header.offsetHeight
+    header = @refs.header?.getDOMNode()
+    headerHeight = header?.offsetHeight or 0
 
   setOriginalContainerMargin: ->
-    container = @refs.container.getDOMNode()
+    container = @refs.container?.getDOMNode()
+    return unless container
+
     @setState(containerMarginTop: window.getComputedStyle(container).marginTop) if window.getComputedStyle?
 
   setContainerMargin: ->
     headerHeight = @getHeaderHeight()
-    container = @refs.container.getDOMNode()
+    container = @refs.container?.getDOMNode()
+    return unless container
 
     @setState(headerHeight: headerHeight)
     if @state.pinned
