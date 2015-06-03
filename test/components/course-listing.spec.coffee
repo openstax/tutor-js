@@ -27,15 +27,20 @@ renderListing = ->
 
 describe 'Course Listing Component', ->
 
-  beforeEach ->
-    CourseListingActions.reset()
-
   it 'renders the listing', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
     renderListing().then (state) ->
       renderedTitles = _.pluck(state.div.querySelectorAll('h1'), 'textContent')
       for course, i in MASTER_COURSES_LIST
         expect(renderedTitles[i]).to.contain(MASTER_COURSES_LIST[i].name)
+      # no refresh button when load succeeds
+      expect(state.div.querySelector(".refresh-button")).to.be.null
+
+  it 'displays refresh button when loading fails', ->
+    CourseListingActions.FAILED()
+    expect(CourseListingStore.isFailed()).to.be.true
+    renderListing().then (state) ->
+      expect(state.div.querySelector(".refresh-button")).not.to.be.null
 
   it 'redirects to student dashboard', ->
     CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL])

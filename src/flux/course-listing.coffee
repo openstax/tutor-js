@@ -29,9 +29,9 @@ CourseListingStore = flux.createStore
     @_asyncStatus = null
     @emitChange()
 
-  FAILED: (status, msg) ->
+  FAILED: ->
     @_asyncStatus = FAILED
-    @emitChange()
+    @emit('failed')
 
   loaded: (courses) ->
     @_course_ids = _.map courses, (course) ->

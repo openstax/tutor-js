@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
+RefreshButton = require './refresh-button'
 
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role
@@ -31,8 +32,11 @@ CourseListing = React.createClass
     # Uses the callback to delay rendering until the CourseListingStore is loaded
     # and then calls DisplayOrRedirect above to perhaps redirect to a different component
     willTransitionTo: (transition, params, query, callback) ->
-      unless CourseListingStore.isLoaded()
+      if CourseListingStore.isFailed()
+        callback()
+      else if not CourseListingStore.isLoaded()
         CourseListingActions.load() unless CourseListingStore.isLoading()
+        CourseListingStore.once 'failed', callback
         CourseListingStore.once 'loaded', ->
           DisplayOrRedirect(transition, callback)
       else
@@ -69,8 +73,13 @@ CourseListing = React.createClass
       <div className='-course-list'>{@renderCourses(courses)}</div>
     else
       <div className='-course-list-empty'>No Courses</div>
+
+    unless CourseListingStore.isLoaded()
+      refreshBtn = <RefreshButton/>
+
     <div className='course-listing '>
       {body}
+      {refreshBtn}
     </div>
 
 module.exports = {CourseListing}
