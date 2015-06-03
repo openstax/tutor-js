@@ -15,6 +15,7 @@ _ = require 'underscore'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
+{TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
 {TocActions} = require './flux/toc'
 {ExerciseActions} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
@@ -128,7 +129,7 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"
 
-  apiHelper TaskPlanActions, TaskPlanActions.loadStats , TaskPlanActions.loadedStats, 'GET', (id) ->
+  apiHelper TaskPlanStatsActions, TaskPlanStatsActions.load , TaskPlanStatsActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/stats"
 
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->
