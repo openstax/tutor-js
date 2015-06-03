@@ -163,7 +163,12 @@ ExerciseReview = React.createClass
   canTryAnother: ->
     {id} = @props
     step = TaskStepStore.get(id)
-    return step.has_recovery and step.correct_answer_id isnt step.answer_id
+    step.has_recovery and step.correct_answer_id isnt step.answer_id
+
+  canRefreshMemory: ->
+    {id} = @props
+    step = TaskStepStore.get(id)
+    step?.related_content?.length and step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   continueButtonText: ->
     if @canTryAnother() then 'Move On' else 'Continue'
@@ -171,17 +176,27 @@ ExerciseReview = React.createClass
   renderFooterButtons: ->
     {review} = @props
 
+    extraButtons = []
+
     if @canTryAnother()
-      extraButtons = [
-        <BS.Button bsStyle='primary' className='-try-another' onClick={@tryAnother}>
-          Try Another
-        </BS.Button>
-        <BS.Button bsStyle='primary' className='-refresh-memory' onClick={@refreshMemory}>
-          Refresh My Memory
-        </BS.Button>
-      ]
+      tryAnotherButton = <BS.Button
+        bsStyle='primary'
+        className='-try-another'
+        onClick={@tryAnother}>
+        Try Another
+      </BS.Button>
+
+    if @canRefreshMemory()
+      refreshMemoryButton = <BS.Button
+        bsStyle='primary'
+        className='-refresh-memory'
+        onClick={@refreshMemory}>
+        Refresh My Memory
+      </BS.Button>
+
     <div className='footer-buttons'>
-      {extraButtons}
+      {tryAnotherButton}
+      {refreshMemoryButton}
       {@renderContinueButton() unless review is 'completed'}
     </div>
 
