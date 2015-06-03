@@ -25,7 +25,6 @@ describe 'Course Calendar', ->
     TeacherTaskPlanActions.HACK_DO_NOT_RELOAD(true)
 
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
-    TaskPlanStatsActions.loaded(VALID_PLAN_MODEL, planId)
     plan = TaskPlanStatsStore.get(planId)
 
     calendarTests

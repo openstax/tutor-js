@@ -5,7 +5,11 @@ React = require 'react/addons'
 {Promise} = require 'es6-promise'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
+{TaskPlanStatsStore, TaskPlanStatsActions} = require '../../../../src/flux/task-plan-stats'
 Add = require '../../../../src/components/course-calendar/add'
+
+planId = '1'
+VALID_PLAN_MODEL = require '../../../../api/plans/1/stats.json'
 
 {routerStub, commonActions} = require '../utilities'
 
@@ -17,6 +21,7 @@ actions =
   clickNext: commonActions.clickMatch('.next')
   clickPrevious: commonActions.clickMatch('.previous')
   clickPlan: (planId) ->
+    TaskPlanStatsActions.loaded(VALID_PLAN_MODEL, planId)
     commonActions.clickMatch(".course-plan-#{planId}")
   clickAdd: (args...) ->
     {component} = args[0]
