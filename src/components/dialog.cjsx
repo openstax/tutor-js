@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+Close = require './close'
+
 ###
 <Dialog
   className='my-dialog-class'
@@ -39,7 +41,7 @@ module.exports = React.createClass
     if cancel
       cancelBtn = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button>
 
-    closeBtn = <span className='close button' aria-role='close' onClick={@onCancel}>x</span>
+    closeBtn = <Close onClick={@onCancel}/>
     header = [header, closeBtn]
     footer = [primary, cancelBtn, footer] if footer or primary or cancelBtn
 
