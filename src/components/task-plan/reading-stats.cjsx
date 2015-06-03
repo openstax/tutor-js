@@ -3,8 +3,8 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-Loadable = require '../loadable'
+{TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
+LoadableItem = require '../loadable-item'
 ChapterSectionMixin = require '../chapter-section-mixin'
 
 Stats = React.createClass
@@ -140,7 +140,7 @@ Stats = React.createClass
   render: ->
     {id} = @props
 
-    plan = TaskPlanStore.getStats(id)
+    plan = TaskPlanStatsStore.get(id)
     course = @renderCourseBar(plan.stats.course, plan.type)
     chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
     practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
@@ -173,14 +173,12 @@ StatsShell = React.createClass
 
   render: ->
     id = @getId()
-    TaskPlanActions.loadStats(id) unless TaskPlanStore.isStatsLoaded(id)
 
-    <Loadable
-      store={TaskPlanStore}
-      isLoading={-> TaskPlanStore.isStatsLoading(id)}
-      isLoaded={-> TaskPlanStore.isStatsLoaded(id)}
-      isFailed={-> TaskPlanStore.isStatsFailed(id)}
-      render={-> <Stats id={id} />}
+    <LoadableItem
+      id={id}
+      store={TaskPlanStatsStore}
+      actions={TaskPlanStatsActions}
+      renderItem={-> <Stats id={id} />}
     />
 
 module.exports = {StatsShell, Stats}

@@ -6,21 +6,18 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+{TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 {Stats} = require '../task-plan/reading-stats'
-Loadable = require '../loadable'
+LoadableItem = require '../loadable-item'
 
 StatsModalShell = React.createClass
   render: ->
     {id} = @props
-    TaskPlanActions.loadStats(id) unless TaskPlanStore.isStatsLoaded(id)
-
-    <Loadable
-      store={TaskPlanStore}
-      isLoading={-> TaskPlanStore.isStatsLoading(id)}
-      isLoaded={-> TaskPlanStore.isStatsLoaded(id)}
-      isFailed={-> TaskPlanStore.isStatsFailed(id)}
-      render={=> <Stats {...@props}/>}
+    <LoadableItem
+      id={id}
+      store={TaskPlanStatsStore}
+      actions={TaskPlanStatsActions}
+      renderItem={=> <Stats {...@props}/>}
     />
 
 

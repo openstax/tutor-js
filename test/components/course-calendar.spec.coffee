@@ -7,7 +7,7 @@ moment = require 'moment'
 {TimeActions, TimeStore} = require '../../src/flux/time'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../src/flux/teacher-task-plan'
-{TaskPlanStore, TaskPlanActions} = require '../../src/flux/task-plan'
+{TaskPlanStatsStore, TaskPlanStatsActions} = require '../../src/flux/task-plan-stats'
 
 React = require 'react/addons'
 CourseCalendar = require '../../src/components/course-calendar'
@@ -25,8 +25,8 @@ describe 'Course Calendar', ->
     TeacherTaskPlanActions.HACK_DO_NOT_RELOAD(true)
 
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
-    TaskPlanActions.loadedStats(VALID_PLAN_MODEL, planId)
-    plan = TaskPlanStore.getStats(planId)
+    TaskPlanStatsActions.loaded(VALID_PLAN_MODEL, planId)
+    plan = TaskPlanStatsStore.get(planId)
 
     calendarTests
       .goToCalendar("/courses/#{courseId}/t/calendar", courseId)
