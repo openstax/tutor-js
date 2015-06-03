@@ -12,6 +12,7 @@ module.exports = React.createClass
   propTypes:
     buffer: React.PropTypes.number
     fixedOffset: React.PropTypes.number
+    crumbCount: React.PropTypes.number
 
   getDefaultProps: ->
     buffer: 60
@@ -135,7 +136,7 @@ module.exports = React.createClass
 
     childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
 
-    <div className={classes}>
+    <div className={classes} data-crumb-count={@props.crumbCount}>
       <PinnedHeader {...childrenProps} ref='header'>
         {@props.header}
       </PinnedHeader>
