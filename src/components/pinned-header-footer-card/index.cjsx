@@ -138,6 +138,8 @@ module.exports = React.createClass
     @setOriginalContainerMargin()
     @setContainerMargin()
 
+    window.addEventListener('resize', @setContainerMargin)
+
   componentDidUpdate: (prevProps, prevState) ->
     didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
     didShouldPinChange = not prevState.pinned is @shouldPinHeader(prevState.scrollTop, @state.scrollTop)
