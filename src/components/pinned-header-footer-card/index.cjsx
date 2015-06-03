@@ -133,7 +133,7 @@ module.exports = React.createClass
     didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
     didShouldPinChange = not prevState.pinned is @shouldPinHeader(prevState.scrollTop, @state.scrollTop)
     didShouldBeShyChange = not prevState.shy is @shouldBeShy(prevState.scrollTop, @state.scrollTop)
-    didHeaderHeightChange = not @state.headerHeight is @getHeaderHeight()
+    didHeaderHeightChange = not (prevState.headerHeight is @getHeaderHeight())
 
     @setOffset() if didOffsetChange
     @updatePinState(prevState.scrollTop) if didShouldPinChange or didShouldBeShyChange
