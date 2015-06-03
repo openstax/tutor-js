@@ -17,12 +17,14 @@ module.exports = React.createClass
     buffer: 60
     scrollSpeedBuffer: 30
     forceShy: false
+    containerBuffer: 30
 
   getInitialState: ->
     offset: 0
     shy: false
     pinned: false
     shouldBeShy: false
+    headerHeight: 0
 
   mixins: [ScrollListenerMixin]
 
@@ -111,17 +113,31 @@ module.exports = React.createClass
     window.scroll(0, @props.buffer + @state.offset)
     @setState(shouldBeShy: true)
 
+  getHeaderHeight: ->
+    header = @refs.header.getDOMNode()
+    headerHeight = header.offsetHeight
+
+  setContainerMargin: ->
+    headerHeight = @getHeaderHeight()
+    container = @refs.container.getDOMNode()
+
+    @setState(headerHeight: headerHeight)
+    container.style.marginTop = (headerHeight + @props.containerBuffer) + 'px'
+
   componentDidMount: ->
     @setOffset()
     @updatePinState(0)
+    @setContainerMargin()
 
   componentDidUpdate: (prevProps, prevState) ->
     didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
     didShouldPinChange = not prevState.pinned is @shouldPinHeader(prevState.scrollTop, @state.scrollTop)
     didShouldBeShyChange = not prevState.shy is @shouldBeShy(prevState.scrollTop, @state.scrollTop)
+    didHeaderHeightChange = not @state.headerHeight is @getHeaderHeight()
 
     @setOffset() if didOffsetChange
     @updatePinState(prevState.scrollTop) if didShouldPinChange or didShouldBeShyChange
+    @setContainerMargin() if didHeaderHeightChange
 
   componentWillReceiveProps: ->
     @forceShy() if @props.forceShy
@@ -135,7 +151,7 @@ module.exports = React.createClass
 
     childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
 
-    <div className={classes}>
+    <div className={classes} ref='container'>
       <PinnedHeader {...childrenProps} ref='header'>
         {@props.header}
       </PinnedHeader>
