@@ -25,6 +25,7 @@ module.exports = React.createClass
     pinned: false
     shouldBeShy: false
     headerHeight: 0
+    containerMarginTop: '0px'
 
   mixins: [ScrollListenerMixin]
 
@@ -53,7 +54,7 @@ module.exports = React.createClass
     @setState(offset: offset)
 
   shouldPinHeader: (prevScrollTop, currentScrollTop) ->
-    currentScrollTop >= @state.offset
+    currentScrollTop >= @state.offset - @props.buffer
 
   isScrollingSlowed: (prevScrollTop, currentScrollTop) ->
     Math.abs(prevScrollTop - currentScrollTop) <= @props.scrollSpeedBuffer
@@ -117,16 +118,24 @@ module.exports = React.createClass
     header = @refs.header.getDOMNode()
     headerHeight = header.offsetHeight
 
+  setOriginalContainerMargin: ->
+    container = @refs.container.getDOMNode()
+    @setState(containerMarginTop: window.getComputedStyle(container).marginTop) if window.getComputedStyle?
+
   setContainerMargin: ->
     headerHeight = @getHeaderHeight()
     container = @refs.container.getDOMNode()
 
     @setState(headerHeight: headerHeight)
-    container.style.marginTop = (headerHeight + @props.containerBuffer) + 'px'
+    if @state.pinned
+      container.style.marginTop = (headerHeight + @props.containerBuffer) + 'px'
+    else
+      container.style.marginTop = @state.containerMarginTop
 
   componentDidMount: ->
     @setOffset()
     @updatePinState(0)
+    @setOriginalContainerMargin()
     @setContainerMargin()
 
   componentDidUpdate: (prevProps, prevState) ->
@@ -137,7 +146,7 @@ module.exports = React.createClass
 
     @setOffset() if didOffsetChange
     @updatePinState(prevState.scrollTop) if didShouldPinChange or didShouldBeShyChange
-    @setContainerMargin() if didHeaderHeightChange
+    @setContainerMargin() if didHeaderHeightChange or didShouldPinChange
 
   componentWillReceiveProps: ->
     @forceShy() if @props.forceShy
