@@ -12,6 +12,7 @@ CourseListingActions = flux.createActions [
   'load'
   'loaded'
   'reset'
+  'FAILED'
 ]
 
 CourseListingStore = flux.createStore
