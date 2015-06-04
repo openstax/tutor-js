@@ -10,6 +10,7 @@ _ = require 'underscore'
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
+{CoursePeriodsActions} = require './flux/course-periods'
 {LearningGuideActions} = require './flux/learning-guide'
 {PerformanceActions} = require './flux/performance'
 {TaskActions} = require './flux/task'
@@ -149,6 +150,9 @@ start = ->
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/practice"
     payload: params
+
+  apiHelper CoursePeriodsActions, CoursePeriodsActions.load, CoursePeriodsActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/periods"
 
   apiHelper LearningGuideActions, LearningGuideActions.load, LearningGuideActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/guide"

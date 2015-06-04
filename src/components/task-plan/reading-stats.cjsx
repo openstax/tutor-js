@@ -6,6 +6,7 @@ Router = require 'react-router'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 LoadableItem = require '../loadable-item'
 ChapterSectionMixin = require '../chapter-section-mixin'
+CoursePeriodsNav = require '../course-periods-nav'
 
 Stats = React.createClass
   propTypes:
@@ -137,6 +138,10 @@ Stats = React.createClass
         </div>
     @renderProgressBar(data, 'practice', i, previous)
 
+  loadStatsForPeriod: (period) ->
+    console.log('loadStatsForPeriod')
+    console.log(period)
+
   render: ->
     {id} = @props
 
@@ -158,6 +163,7 @@ Stats = React.createClass
       </section>
 
     <BS.Panel className='reading-stats'>
+      <CoursePeriodsNav handleSelect={@loadStatsForPeriod}/>
       <section>
         {course}
       </section>
