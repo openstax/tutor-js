@@ -12,10 +12,10 @@ CoursePeriodsNavCore = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     handleSelect: React.PropTypes.func
-    intialActive: React.PropTypes.number.isRequired
+    intialActive: React.PropTypes.string.isRequired
 
   getDefaultProps: ->
-    intialActive: 0
+    intialActive: '0'
 
   getInitialState: ->
     active: @props.intialActive
