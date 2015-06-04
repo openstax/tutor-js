@@ -11,6 +11,7 @@ Navbar = require '../../src/components/navbar'
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require '../../src/flux/teacher-task-plan'
 {StudentDashboardActions, StudentDashboardStore} = require '../../src/flux/student-dashboard'
+{CourseListingActions, CourseListingStore} = require '../../src/flux/course-listing'
 
 USER_MODEL = require '../../api/user.json'
 
@@ -75,7 +76,7 @@ testWithRole = (roleType) ->
       coursesList[0].roles[0].type = roleType
 
       CurrentUserActions.loadedName(roleTestParams.user)
-      CurrentUserActions.loadedAllCourses(coursesList)
+      CourseListingActions.loaded(coursesList)
       roleTestParams.actions.loaded(roleTestParams.dashboard, COURSE_ID)
 
       routerStub

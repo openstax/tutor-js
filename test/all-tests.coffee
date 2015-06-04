@@ -5,6 +5,7 @@
 # The tests still run and progress just fine despite the warnings, but for now,
 # I'm leaving this test here.
 # TODO figure out why.
+require './components/course-listing.spec'
 require './components/navbar.spec'
 require './components/homework/homework-plan.spec'
 require './components/homework/exercise-summary.spec'
@@ -25,6 +26,7 @@ require './teacher-task-plan-store.spec'
 require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
+require './course-listing-store.spec'
 require './app-config.spec'
 
 # This should be done **last** because it starts up the whole app
