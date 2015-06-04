@@ -6,10 +6,14 @@ React = require 'react/addons'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../../../src/flux/task-plan-stats'
+{CoursePeriodsActions, CoursePeriodsStore} = require '../../../../src/flux/course-periods'
+
 Add = require '../../../../src/components/course-calendar/add'
 
 planId = '1'
+courseId = '1'
 VALID_PLAN_MODEL = require '../../../../api/plans/1/stats.json'
+VALID_PERIODS_COLLECTION = require '../../../../api/courses/1/periods.json'
 
 {routerStub, commonActions} = require '../utilities'
 
@@ -22,6 +26,7 @@ actions =
   clickPrevious: commonActions.clickMatch('.previous')
   clickPlan: (planId) ->
     TaskPlanStatsActions.loaded(VALID_PLAN_MODEL, planId)
+    CoursePeriodsActions.loaded(VALID_PERIODS_COLLECTION, courseId)
     commonActions.clickMatch(".course-plan-#{planId}")
   clickAdd: (args...) ->
     {component} = args[0]
