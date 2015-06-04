@@ -1,3 +1,35 @@
+// TODO: 2.9rem was determined by trial and error
+// Can't figure out why it doesn't correspond to the
+// 2rem radius (4rem diameter) specified below for .crumb-circle
+@crumb-size: 2.9rem;
+@crumb-vertical-margin: 1rem;
+// Stop generating breakpoints for screens with width greater than 120rem
+.breadcrumb-media-queries(@screen-width; @crumb-count) when (@screen-width < 120rem){
+  .breadcrumb-media-queries(@screen-width + @crumb-size, @crumb-count);
+
+  @desired-width: (@crumb-size * @crumb-count) + (@tutor-navbar-padding-horizontal*2);
+  // only generate a media query if it's needed
+  & when (@desired-width > @screen-width) {
+    @rows: ceil(@desired-width / @screen-width);
+    @media (max-width: @screen-width) {
+      margin-top: (@rows * @crumb-size) + (@rows * @crumb-vertical-margin);
+    }
+  }
+}
+
+// Calculate breakpoints for up to 50 breadcrumbs. Adjust as needed
+.breadcrumb-breakpoints(@crumb-count:10) when (@crumb-count < 50) {
+  .breadcrumb-breakpoints(@crumb-count + 1);
+  &[data-crumb-count="@{crumb-count}"] {
+    // Generate breackpoints for screens more than 20rem wide
+    .breadcrumb-media-queries(20rem, @crumb-count);
+  }
+}
+
+.task {
+  .breadcrumb-breakpoints(10);
+}
+
 .crumb-circle(@radius){
   font-size: @radius;
   border-radius: 2 * @radius;
