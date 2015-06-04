@@ -1,7 +1,5 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 _ = require 'underscore'
-camelCase = require 'camelcase'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 
@@ -40,7 +38,7 @@ module.exports = React.createClass
 
   componentWillUnmount: ->
     document.body.className = @previousBodyClasses
-    window.removeEventListener('resize', @setContainerMargin)
+    window.removeEventListener('resize', @resizeListener)
 
   getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
@@ -138,13 +136,18 @@ module.exports = React.createClass
     else
       container.style.marginTop = @state.containerMarginTop
 
+  resizeListener: _.throttle( ->
+    @setContainerMargin()
+    # any other resize side-effects here
+  , 200)
+
   componentDidMount: ->
     @setOffset()
     @updatePinState(0)
     @setOriginalContainerMargin()
     @setContainerMargin()
 
-    window.addEventListener('resize', @setContainerMargin)
+    window.addEventListener('resize', @resizeListener)
 
   componentDidUpdate: (prevProps, prevState) ->
     didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
