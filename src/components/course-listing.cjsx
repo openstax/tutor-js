@@ -10,7 +10,8 @@ RefreshButton = require './refresh-button'
 # checks the course and roles and will redirect if there is only a single course and role
 DisplayOrRedirect = (transition, callback) ->
   courses = CourseListingStore.allCourses() or []
-  if courses.length is 1 and courses[0].roles?.length is 1
+  [course] = courses
+  if courses.length is 1 and course.roles?.length is 1
     roleType = courses[0].roles[0].type
     type = switch roleType
       when 'student' then 'viewStudentDashboard'
