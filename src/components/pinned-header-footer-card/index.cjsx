@@ -11,7 +11,9 @@ module.exports = React.createClass
   displayName: 'PinnedHeaderFooterCard'
   propTypes:
     buffer: React.PropTypes.number
-    fixedOffset: React.PropTypes.number
+    scrollSpeedBuffer: React.PropTypes.number
+    forceShy: React.PropTypes.bool
+    containerBuffer: React.PropTypes.number
 
   getDefaultProps: ->
     buffer: 60
