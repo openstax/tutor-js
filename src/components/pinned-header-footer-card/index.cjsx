@@ -1,7 +1,5 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 _ = require 'underscore'
-camelCase = require 'camelcase'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 
@@ -11,18 +9,23 @@ module.exports = React.createClass
   displayName: 'PinnedHeaderFooterCard'
   propTypes:
     buffer: React.PropTypes.number
-    fixedOffset: React.PropTypes.number
+    scrollSpeedBuffer: React.PropTypes.number
+    forceShy: React.PropTypes.bool
+    containerBuffer: React.PropTypes.number
 
   getDefaultProps: ->
     buffer: 60
     scrollSpeedBuffer: 30
     forceShy: false
+    containerBuffer: 30
 
   getInitialState: ->
     offset: 0
     shy: false
     pinned: false
     shouldBeShy: false
+    headerHeight: 0
+    containerMarginTop: '0px'
 
   mixins: [ScrollListenerMixin]
 
@@ -35,6 +38,7 @@ module.exports = React.createClass
 
   componentWillUnmount: ->
     document.body.className = @previousBodyClasses
+    window.removeEventListener('resize', @resizeListener)
 
   getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
@@ -51,7 +55,7 @@ module.exports = React.createClass
     @setState(offset: offset)
 
   shouldPinHeader: (prevScrollTop, currentScrollTop) ->
-    currentScrollTop >= @state.offset
+    currentScrollTop >= @state.offset - @props.buffer
 
   isScrollingSlowed: (prevScrollTop, currentScrollTop) ->
     Math.abs(prevScrollTop - currentScrollTop) <= @props.scrollSpeedBuffer
@@ -111,17 +115,49 @@ module.exports = React.createClass
     window.scroll(0, @props.buffer + @state.offset)
     @setState(shouldBeShy: true)
 
+  getHeaderHeight: ->
+    header = @refs.header?.getDOMNode()
+    headerHeight = header?.offsetHeight or 0
+
+  setOriginalContainerMargin: ->
+    container = @refs.container?.getDOMNode()
+    return unless container
+
+    @setState(containerMarginTop: window.getComputedStyle(container).marginTop) if window.getComputedStyle?
+
+  setContainerMargin: ->
+    headerHeight = @getHeaderHeight()
+    container = @refs.container?.getDOMNode()
+    return unless container
+
+    @setState(headerHeight: headerHeight)
+    if @state.pinned
+      container.style.marginTop = (headerHeight + @props.containerBuffer) + 'px'
+    else
+      container.style.marginTop = @state.containerMarginTop
+
+  resizeListener: _.throttle( ->
+    @setContainerMargin()
+    # any other resize side-effects here
+  , 200)
+
   componentDidMount: ->
     @setOffset()
     @updatePinState(0)
+    @setOriginalContainerMargin()
+    @setContainerMargin()
+
+    window.addEventListener('resize', @resizeListener)
 
   componentDidUpdate: (prevProps, prevState) ->
     didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
     didShouldPinChange = not prevState.pinned is @shouldPinHeader(prevState.scrollTop, @state.scrollTop)
     didShouldBeShyChange = not prevState.shy is @shouldBeShy(prevState.scrollTop, @state.scrollTop)
+    didHeaderHeightChange = not (prevState.headerHeight is @getHeaderHeight())
 
     @setOffset() if didOffsetChange
     @updatePinState(prevState.scrollTop) if didShouldPinChange or didShouldBeShyChange
+    @setContainerMargin() if didHeaderHeightChange or didShouldPinChange
 
   componentWillReceiveProps: ->
     @forceShy() if @props.forceShy
@@ -135,7 +171,7 @@ module.exports = React.createClass
 
     childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
 
-    <div className={classes}>
+    <div className={classes} ref='container'>
       <PinnedHeader {...childrenProps} ref='header'>
         {@props.header}
       </PinnedHeader>
