@@ -185,9 +185,7 @@ ExerciseTable = React.createClass
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
-    content = $("<span>#{ExerciseStore.getContent(exerciseId)}</span>")
-    content.find('img').remove()
-    content = content.html()
+    content = ExerciseStore.getContent(exerciseId)
     
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
@@ -201,7 +199,9 @@ ExerciseTable = React.createClass
       <td>
         <ChapterSection section={section}/>
       </td>
-      <td className="ellipses">{content}</td>
+      <td className="ellipses">
+        <ArbitraryHtmlAndMath block={false} html={content} />
+      </td>
       <td className="ellipses">{lo}</td>
       {teks}
       <td className="ellipses">{tagString}</td>
