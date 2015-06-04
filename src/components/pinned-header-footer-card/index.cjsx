@@ -40,6 +40,7 @@ module.exports = React.createClass
 
   componentWillUnmount: ->
     document.body.className = @previousBodyClasses
+    window.removeEventListener('resize', @setContainerMargin)
 
   getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
