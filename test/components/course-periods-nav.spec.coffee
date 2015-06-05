@@ -7,14 +7,15 @@ React = require 'react/addons'
 {componentStub, commonActions}   = require './helpers/utilities'
 
 {CoursePeriodsNav} = require '../../src/components/course-periods-nav'
-{CoursePeriodsActions, CoursePeriodsStore} = require '../../src/flux/course-periods'
-COURSE_PERIODS = require '../../api/courses/1/periods.json'
+{CourseActions, CourseStore} = require '../../src/flux/course'
+COURSE = require '../../api/courses/1.json'
+COURSE_PERIODS = COURSE.periods
 COURSE_ID = '1'
 
 describe 'Course Periods Navigation', ->
   # Don't need to render on each since no actions are being performed between each task
   beforeEach (done) ->
-    CoursePeriodsActions.loaded(COURSE_PERIODS, COURSE_ID)
+    CourseActions.loaded(COURSE, COURSE_ID)
 
     handleSelect = (period) =>
       @selectedPeriod = period
@@ -29,7 +30,7 @@ describe 'Course Periods Navigation', ->
 
   afterEach ->
     componentStub.unmount()
-    CoursePeriodsActions.reset()
+    CourseActions.reset()
 
   it 'should render periods with period names', (done) ->
     {div} = @result

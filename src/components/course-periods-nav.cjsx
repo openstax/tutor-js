@@ -4,7 +4,7 @@ LoadableItem = require './loadable-item'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-{CoursePeriodsActions, CoursePeriodsStore} = require '../flux/course-periods'
+{CourseActions, CourseStore} = require '../flux/course'
 
 CoursePeriodsNav = React.createClass
   displayName: 'CoursePeriodsNav'
@@ -12,17 +12,17 @@ CoursePeriodsNav = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     handleSelect: React.PropTypes.func
-    intialActive: React.PropTypes.string.isRequired
+    intialActive: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
-    intialActive: '0'
+    intialActive: 0
 
   getInitialState: ->
     active: @props.intialActive
 
   onSelect: (key) ->
     {courseId, handleSelect} = @props
-    periods = CoursePeriodsStore.get(courseId)
+    periods = CourseStore.get(courseId).periods
 
     period = periods[key]
     console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.") unless period?
@@ -37,7 +37,7 @@ CoursePeriodsNav = React.createClass
     {courseId} = @props
     {active} = @state
 
-    periods = CoursePeriodsStore.get(courseId)
+    periods = CourseStore.get(courseId).periods
     periodsItems = _.map(periods, @renderPeriod)
 
     <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
@@ -64,8 +64,8 @@ CoursePeriodsNavShell = React.createClass
 
     <LoadableItem
       id={courseId}
-      store={CoursePeriodsStore}
-      actions={CoursePeriodsActions}
+      store={CourseStore}
+      actions={CourseActions}
       renderItem={=> <CoursePeriodsNav courseId={courseId} {...@props}/>}
     />
 
