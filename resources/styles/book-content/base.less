@@ -31,23 +31,32 @@ cnx-pi
   #fonts > .sans(1.8rem, 1.8rem);
   width: 100%;
   min-height: 100px;
-  display: inline-flex;
-  display: -ms-inline-flexbox; // IE10 support
   margin-top: -@tutor-card-body-padding-vertical;
   color: #ffffff;
   padding: 10px 20px;
   background: @tutor-secondary;
 
+  display: inline-flex;
+  display: -ms-inline-flexbox; // IE10 support
+  display: -webkit-inline-flex;
+
   // hide the "Section learning Objectives" phrase
   > div[data-type=title] { display: none; }
 
   p {
-    width: 220px; // added this to keep line length consistent, may be wonky with flexbox, feel free to handle diffreently
-    color: rgba(255,255,255,.75);
     #fonts > .sans(1.5rem, 1.2em);
+    color: rgba(255,255,255,.75);
     text-transform: uppercase;
     text-align: right;
-    margin: auto 20px auto 0;
+    margin: 0 20px 0 0;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    display: -webkit-flex;
+    -webkit-flex: 1;
+    -webkit-justify-content: center;
+    -webkit-flex-direction: column;
   }
 
   ul {
@@ -56,14 +65,22 @@ cnx-pi
     border-left: 1px solid rgba(255,255,255,.4);
     display: flex;
     flex-direction: column;
+    flex: 1;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    -webkit-flex: 1;
     .ost-learning-objective-def {
       #fonts > .sans(1.5rem, 1.2em);
       font-weight: 300;
       list-style-type: none;
-      flex: 1;
       display: flex;
       justify-content: center;
       flex-direction: column;
+      flex: 1;
+      display: -webkit-flex;
+      -webkit-flex: 1;
+      -webkit-justify-content: center;
+      -webkit-flex-direction: column;
       &:before {
         content: none;
       }
