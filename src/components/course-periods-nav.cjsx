@@ -61,13 +61,12 @@ CoursePeriodsNavLoadable = React.createClass
 
   render: ->
     courseId = @getCourseId()
-    @props.courseId ?= courseId
 
     <LoadableItem
       id={courseId}
       store={CoursePeriodsStore}
       actions={CoursePeriodsActions}
-      renderItem={=> <CoursePeriodsNavCore {...@props}/>}
+      renderItem={=> <CoursePeriodsNavCore courseId={courseId} {...@props}/>}
     />
 
 module.exports = CoursePeriodsNavLoadable
