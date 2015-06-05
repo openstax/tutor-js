@@ -22,7 +22,7 @@ CoursePeriodsNav = React.createClass
 
   onSelect: (key) ->
     {courseId, handleSelect} = @props
-    periods = CourseStore.get(courseId).periods
+    periods = CourseStore.getPeriods(courseId)
 
     period = periods[key]
     console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.") unless period?
@@ -37,7 +37,7 @@ CoursePeriodsNav = React.createClass
     {courseId} = @props
     {active} = @state
 
-    periods = CourseStore.get(courseId).periods
+    periods = CourseStore.getPeriods(courseId)
     periodsItems = _.map(periods, @renderPeriod)
 
     <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
