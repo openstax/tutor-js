@@ -33,243 +33,208 @@
             }]
         },
         "periods": [{
-            "period" : {
+            "id": "1",
+            "mean_grade_percent": 80,
+            "total_count": 10,
+            "complete_count": 1,
+            "partially_complete_count": 0,
+            "current_pages": [{
                 "id": "1",
-                "name": "1st"                
-            },
-            "stats" : {
-                "mean_grade_percent": 80,
-                "total_count": 10,
-                "complete_count": 1,
-                "partially_complete_count": 0,
-                "current_pages": [{
-                    "id": "1",
-                    "chapter_section": [1, 2],
-                    "title": "Introduction",
-                    "student_count": 0,
-                    "correct_count": 0,
-                    "incorrect_count": 0
-                }, {
-                    "id": "2",
-                    "chapter_section": [1, 3],
-                    "title": "Force",
-                    "student_count": 10,
-                    "correct_count": 9,
-                    "incorrect_count": 1
-                }],
-                "spaced_pages": [{
-                    "id": "0",
-                    "chapter_section": [2, 2],
-                    "title": "",
-                    "student_count": 10,
-                    "correct_count": 15,
-                    "incorrect_count": 5
-                }]
-            }
-        },{
-            "period": {
+                "chapter_section": [1, 2],
+                "title": "Introduction",
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
                 "id": "2",
-                "name": "2nd"
-            },
-            "stats" : {
-                "mean_grade_percent": 80,
-                "total_count": 10,
-                "complete_count": 2,
-                "partially_complete_count": 0,
-                "current_pages": [{
-                    "id": "1",
-                    "chapter_section": [1, 2],
-                    "title": "Introduction",
-                    "student_count": 0,
-                    "correct_count": 0,
-                    "incorrect_count": 0
-                }, {
-                    "id": "2",
-                    "chapter_section": [1, 3],
-                    "title": "Force",
-                    "student_count": 10,
-                    "correct_count": 9,
-                    "incorrect_count": 1
-                }],
-                "spaced_pages": [{
-                    "id": "0",
-                    "chapter_section": [2, 2],
-                    "title": "",
-                    "student_count": 10,
-                    "correct_count": 15,
-                    "incorrect_count": 5
-                }]
-            }
+                "chapter_section": [1, 3],
+                "title": "Force",
+                "student_count": 10,
+                "correct_count": 9,
+                "incorrect_count": 1
+            }],
+            "spaced_pages": [{
+                "id": "0",
+                "chapter_section": [2, 2],
+                "title": "",
+                "student_count": 10,
+                "correct_count": 15,
+                "incorrect_count": 5
+            }]
         },{
-            "period": {
-                "id": "3",
-                "name": "3rd"
-            },
-            "stats": {
-                "mean_grade_percent": 80,
-                "total_count": 10,
-                "complete_count": 3,
-                "partially_complete_count": 0,
-                "current_pages": [{
-                    "id": "1",
-                    "chapter_section": [1, 2],
-                    "title": "Introduction",
-                    "student_count": 0,
-                    "correct_count": 0,
-                    "incorrect_count": 0
-                }, {
-                    "id": "2",
-                    "chapter_section": [1, 3],
-                    "title": "Force",
-                    "student_count": 10,
-                    "correct_count": 9,
-                    "incorrect_count": 1
-                }],
-                "spaced_pages": [{
-                    "id": "0",
-                    "chapter_section": [2, 2],
-                    "title": "",
-                    "student_count": 10,
-                    "correct_count": 15,
-                    "incorrect_count": 5
-                }]
-            }
+            "id": "2",
+            "mean_grade_percent": 80,
+            "total_count": 10,
+            "complete_count": 2,
+            "partially_complete_count": 0,
+            "current_pages": [{
+                "id": "1",
+                "chapter_section": [1, 2],
+                "title": "Introduction",
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
+                "id": "2",
+                "chapter_section": [1, 3],
+                "title": "Force",
+                "student_count": 10,
+                "correct_count": 9,
+                "incorrect_count": 1
+            }],
+            "spaced_pages": [{
+                "id": "0",
+                "chapter_section": [2, 2],
+                "title": "",
+                "student_count": 10,
+                "correct_count": 15,
+                "incorrect_count": 5
+            }]
         },{
-            "period": {
-                "id": "4",
-                "name": "4th"
-            },
-            "stats": {
-                "mean_grade_percent": 80,
-                "total_count": 10,
-                "complete_count": 4,
-                "partially_complete_count": 0,
-                "current_pages": [{
-                    "id": "1",
-                    "chapter_section": [1, 2],
-                    "title": "Introduction",
-                    "student_count": 0,
-                    "correct_count": 0,
-                    "incorrect_count": 0
-                }, {
-                    "id": "2",
-                    "chapter_section": [1, 3],
-                    "title": "Force",
-                    "student_count": 10,
-                    "correct_count": 9,
-                    "incorrect_count": 1
-                }],
-                "spaced_pages": [{
-                    "id": "0",
-                    "chapter_section": [2, 2],
-                    "title": "",
-                    "student_count": 10,
-                    "correct_count": 15,
-                    "incorrect_count": 5
-                }]
-            }
+            "id": "3",
+            "mean_grade_percent": 80,
+            "total_count": 10,
+            "complete_count": 3,
+            "partially_complete_count": 0,
+            "current_pages": [{
+                "id": "1",
+                "chapter_section": [1, 2],
+                "title": "Introduction",
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
+                "id": "2",
+                "chapter_section": [1, 3],
+                "title": "Force",
+                "student_count": 10,
+                "correct_count": 9,
+                "incorrect_count": 1
+            }],
+            "spaced_pages": [{
+                "id": "0",
+                "chapter_section": [2, 2],
+                "title": "",
+                "student_count": 10,
+                "correct_count": 15,
+                "incorrect_count": 5
+            }]
         },{
-            "period": {
-                "id": "5",
-                "name": "5th"
-            },
-            "stats": {
-                "mean_grade_percent": 80,
-                "total_count": 10,
-                "complete_count": 5,
-                "partially_complete_count": 0,
-                "current_pages": [{
-                    "id": "1",
-                    "chapter_section": [1, 2],
-                    "title": "Introduction",
-                    "student_count": 0,
-                    "correct_count": 0,
-                    "incorrect_count": 0
-                }, {
-                    "id": "2",
-                    "chapter_section": [1, 3],
-                    "title": "Force",
-                    "student_count": 10,
-                    "correct_count": 9,
-                    "incorrect_count": 1
-                }],
-                "spaced_pages": [{
-                    "id": "0",
-                    "chapter_section": [2, 2],
-                    "title": "",
-                    "student_count": 10,
-                    "correct_count": 15,
-                    "incorrect_count": 5
-                }]
-            }
+            "id": "4",
+            "mean_grade_percent": 80,
+            "total_count": 10,
+            "complete_count": 4,
+            "partially_complete_count": 0,
+            "current_pages": [{
+                "id": "1",
+                "chapter_section": [1, 2],
+                "title": "Introduction",
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
+                "id": "2",
+                "chapter_section": [1, 3],
+                "title": "Force",
+                "student_count": 10,
+                "correct_count": 9,
+                "incorrect_count": 1
+            }],
+            "spaced_pages": [{
+                "id": "0",
+                "chapter_section": [2, 2],
+                "title": "",
+                "student_count": 10,
+                "correct_count": 15,
+                "incorrect_count": 5
+            }]
         },{
-            "period": {
-                "id": "6",
-                "name": "6th"
-            },
-            "stats": {
-                "mean_grade_percent": 80,
-                "total_count": 10,
-                "complete_count": 6,
-                "partially_complete_count": 0,
-                "current_pages": [{
-                    "id": "1",
-                    "chapter_section": [1, 2],
-                    "title": "Introduction",
-                    "student_count": 0,
-                    "correct_count": 0,
-                    "incorrect_count": 0
-                }, {
-                    "id": "2",
-                    "chapter_section": [1, 3],
-                    "title": "Force",
-                    "student_count": 10,
-                    "correct_count": 9,
-                    "incorrect_count": 1
-                }],
-                "spaced_pages": [{
-                    "id": "0",
-                    "chapter_section": [2, 2],
-                    "title": "",
-                    "student_count": 10,
-                    "correct_count": 15,
-                    "incorrect_count": 5
-                }]
-            }
+            "id": "5",
+            "mean_grade_percent": 80,
+            "total_count": 10,
+            "complete_count": 5,
+            "partially_complete_count": 0,
+            "current_pages": [{
+                "id": "1",
+                "chapter_section": [1, 2],
+                "title": "Introduction",
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
+                "id": "2",
+                "chapter_section": [1, 3],
+                "title": "Force",
+                "student_count": 10,
+                "correct_count": 9,
+                "incorrect_count": 1
+            }],
+            "spaced_pages": [{
+                "id": "0",
+                "chapter_section": [2, 2],
+                "title": "",
+                "student_count": 10,
+                "correct_count": 15,
+                "incorrect_count": 5
+            }]
         },{
-            "period": {
-                "id": "7",
-                "name": "7th"
-            },
-            "stats": {
-                "mean_grade_percent": 80,
-                "total_count": 10,
-                "complete_count": 7,
-                "partially_complete_count": 0,
-                "current_pages": [{
-                    "id": "1",
-                    "chapter_section": [1, 2],
-                    "title": "Introduction",
-                    "student_count": 0,
-                    "correct_count": 0,
-                    "incorrect_count": 0
-                }, {
-                    "id": "2",
-                    "chapter_section": [1, 3],
-                    "title": "Force",
-                    "student_count": 10,
-                    "correct_count": 9,
-                    "incorrect_count": 1
-                }],
-                "spaced_pages": [{
-                    "id": "0",
-                    "chapter_section": [2, 2],
-                    "title": "",
-                    "student_count": 10,
-                    "correct_count": 15,
-                    "incorrect_count": 5
-                }]
-            }
+            "id": "6",
+            "mean_grade_percent": 80,
+            "total_count": 10,
+            "complete_count": 6,
+            "partially_complete_count": 0,
+            "current_pages": [{
+                "id": "1",
+                "chapter_section": [1, 2],
+                "title": "Introduction",
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
+                "id": "2",
+                "chapter_section": [1, 3],
+                "title": "Force",
+                "student_count": 10,
+                "correct_count": 9,
+                "incorrect_count": 1
+            }],
+            "spaced_pages": [{
+                "id": "0",
+                "chapter_section": [2, 2],
+                "title": "",
+                "student_count": 10,
+                "correct_count": 15,
+                "incorrect_count": 5
+            }]
+        },{
+            "id": "7",
+            "mean_grade_percent": 80,
+            "total_count": 10,
+            "complete_count": 7,
+            "partially_complete_count": 0,
+            "current_pages": [{
+                "id": "1",
+                "chapter_section": [1, 2],
+                "title": "Introduction",
+                "student_count": 0,
+                "correct_count": 0,
+                "incorrect_count": 0
+            }, {
+                "id": "2",
+                "chapter_section": [1, 3],
+                "title": "Force",
+                "student_count": 10,
+                "correct_count": 9,
+                "incorrect_count": 1
+            }],
+            "spaced_pages": [{
+                "id": "0",
+                "chapter_section": [2, 2],
+                "title": "",
+                "student_count": 10,
+                "correct_count": 15,
+                "incorrect_count": 5
+            }]
         }]
     }
 }

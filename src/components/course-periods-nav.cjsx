@@ -61,6 +61,7 @@ CoursePeriodsNavShell = React.createClass
 
   render: ->
     courseId = @getCourseId()
+    @props.courseId ?= courseId
 
     <LoadableItem
       id={courseId}

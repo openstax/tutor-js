@@ -201,7 +201,7 @@ checks.checkDoesViewShowPlan = (planId) ->
 checks._checkDoesViewShowPlanStats = (planId, {div, component, state, router, history, courseId}) ->
   plan = TaskPlanStatsStore.get(planId)
 
-  expect(document.querySelector(".text-complete").innerText).to.equal(plan.stats.periods[0].stats.complete_count.toString())
+  expect(document.querySelector(".text-complete").innerText).to.equal(plan.stats.periods[0].complete_count.toString())
 
 checks.checkDoesViewShowPlanStats = (planId) ->
   (args...) ->

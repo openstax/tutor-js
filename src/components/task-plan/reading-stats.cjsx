@@ -148,16 +148,14 @@ Stats = React.createClass
     {id} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    periodStats = plan.stats.periods[periodIndex].stats
+    periodStats = plan.stats.periods[periodIndex]
 
   loadStatsForPeriod: (period) ->
     {id} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    periodStats = _.find plan.stats.periods, (planPeriod) ->
-      planPeriod.period.id is period.id
-
-    @setState(stats: periodStats.stats)
+    periodStats = _.findWhere(plan.stats.periods, {id: period.id})
+    @setState(stats: periodStats)
 
   render: ->
     {id} = @props
