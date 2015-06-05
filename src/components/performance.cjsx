@@ -52,27 +52,30 @@ Performance = React.createClass
     averages = _.map(performance.data_headings, @renderAverageCell)
     student_rows = _.map(performance.students, @renderStudentRow)
 
+    comingSoon =
+      <BS.Table className='-course-performance-table'>
+        <thead>
+          <tr>
+            <th>Student</th>
+            {headings}
+          </tr>
+          <tr>
+            <th>Class Average</th>
+            {averages}
+          </tr>
+        </thead>
+        <tbody>
+          {student_rows}
+        </tbody>
+      </BS.Table>
+
     <div className='performance-book'>
       <BS.Panel className='-course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
-            <h2>Performance Book</h2>
+            <h2>Performance Report</h2>
           </div>
-          <BS.Table className='-course-performance-table'>
-            <thead>
-              <tr>
-                <th>Student</th>
-                {headings}
-              </tr>
-              <tr>
-                <th>Class Average</th>
-                {averages}
-              </tr>
-            </thead>
-            <tbody>
-              {student_rows}
-            </tbody>
-          </BS.Table>
+          Coming Soon
         </div>
       </BS.Panel>
     </div>
