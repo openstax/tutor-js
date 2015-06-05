@@ -31,7 +31,10 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 delay = (ms, fn) -> setTimeout(fn, ms)
 
 setNow = (jqXhr) ->
-  TimeActions.setFromString(jqXhr.getResponseHeader('X-App-Date'))
+  date = jqXhr.getResponseHeader('X-App-Date')
+  # Fallback to nginx date
+  date ?= jqXhr.getResponseHeader('Date')
+  TimeActions.setFromString(date)
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
