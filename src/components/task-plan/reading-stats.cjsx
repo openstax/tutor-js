@@ -6,7 +6,7 @@ Router = require 'react-router'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 LoadableItem = require '../loadable-item'
 ChapterSectionMixin = require '../chapter-section-mixin'
-CoursePeriodsNav = require '../course-periods-nav'
+{CoursePeriodsNavShell} = require '../course-periods-nav'
 
 Stats = React.createClass
   propTypes:
@@ -181,7 +181,7 @@ Stats = React.createClass
       </section>
 
     <BS.Panel className='reading-stats'>
-      <CoursePeriodsNav handleSelect={@loadStatsForPeriod} intialActive={@state.period}/>
+      <CoursePeriodsNavShell handleSelect={@loadStatsForPeriod} intialActive={@state.period}/>
       <section>
         {course}
       </section>

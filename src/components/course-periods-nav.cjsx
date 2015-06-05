@@ -6,8 +6,8 @@ camelCase = require 'camelcase'
 
 {CoursePeriodsActions, CoursePeriodsStore} = require '../flux/course-periods'
 
-CoursePeriodsNavCore = React.createClass
-  displayName: 'CoursePeriodsNavCore'
+CoursePeriodsNav = React.createClass
+  displayName: 'CoursePeriodsNav'
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -45,8 +45,8 @@ CoursePeriodsNavCore = React.createClass
     </BS.Nav>
 
 
-CoursePeriodsNavLoadable = React.createClass
-  displayName: 'CoursePeriodsNav'
+CoursePeriodsNavShell = React.createClass
+
   contextTypes:
     router: React.PropTypes.func
 
@@ -66,7 +66,7 @@ CoursePeriodsNavLoadable = React.createClass
       id={courseId}
       store={CoursePeriodsStore}
       actions={CoursePeriodsActions}
-      renderItem={=> <CoursePeriodsNavCore courseId={courseId} {...@props}/>}
+      renderItem={=> <CoursePeriodsNav courseId={courseId} {...@props}/>}
     />
 
-module.exports = CoursePeriodsNavLoadable
+module.exports = {CoursePeriodsNav, CoursePeriodsNavShell}

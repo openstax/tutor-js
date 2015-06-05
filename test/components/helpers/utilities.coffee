@@ -67,6 +67,10 @@ componentStub =
   render: (component, result) ->
     @_render(@container, component, result)
 
+  unmount: ->
+    React.unmountComponentAtNode(@container)
+    @container = document.createElement('div')
+
 commonActions =
   clickButton: (div, selector) ->
     selector ?= 'button.btn-primary'
@@ -76,6 +80,9 @@ commonActions =
 
   click: (clickElementNode) ->
     React.addons.TestUtils.Simulate.click(clickElementNode)
+
+  select: (selectElementNode) ->
+    React.addons.TestUtils.Simulate.select(selectElementNode)
 
   _clickMatch: (selector, args...) ->
     {div} = args[0]
