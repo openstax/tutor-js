@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
+$ = require 'jquery'
 
 ArbitraryHtmlAndMath = require '../../html'
 ChapterSection = require '../chapter-section'
@@ -26,7 +27,7 @@ ExerciseCardMixin =
     if isLO
       classes = ['lo-tag']
       loLabel = 'LO: '
-
+    
     <span className={classes.join(' ')}>{loLabel} {content}</span>
 
   renderExercise: ->
@@ -185,7 +186,7 @@ ExerciseTable = React.createClass
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
     content = ExerciseStore.getContent(exerciseId)
-
+    
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
       unless teksString
@@ -198,7 +199,9 @@ ExerciseTable = React.createClass
       <td>
         <ChapterSection section={section}/>
       </td>
-      <td className="ellipses">{content}</td>
+      <td className="ellipses">
+        <ArbitraryHtmlAndMath block={false} html={content} />
+      </td>
       <td className="ellipses">{lo}</td>
       {teks}
       <td className="ellipses">{tagString}</td>

@@ -68,6 +68,7 @@ ChooseExercises = React.createClass
         hide={hide} />
 
       <PinnedHeaderFooterCard
+        containerBuffer={50}
         header={exerciseSummary}
         cardType='homework-builder'>
         {addExercises}
@@ -138,6 +139,7 @@ HomeworkPlan = React.createClass
         planId={id}/>
 
       reviewExercisesSummary = <PinnedHeaderFooterCard
+        containerBuffer={50}
         header={exerciseSummary}
         cardType='homework-builder'>
         {exerciseTable}
