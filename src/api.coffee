@@ -15,10 +15,12 @@ _ = require 'underscore'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
+{TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
 {TocActions} = require './flux/toc'
 {ExerciseActions} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 {StudentDashboardActions} = require './flux/student-dashboard'
+{CourseListingActions, CourseListingStore} = require './flux/course-listing'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -128,7 +130,7 @@ start = ->
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}"
 
-  apiHelper TaskPlanActions, TaskPlanActions.loadStats , TaskPlanActions.loadedStats, 'GET', (id) ->
+  apiHelper TaskPlanStatsActions, TaskPlanStatsActions.load , TaskPlanStatsActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/stats"
 
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->
@@ -187,7 +189,7 @@ start = ->
   apiHelper CurrentUserActions, CurrentUserActions.loadName, CurrentUserActions.loadedName, 'GET', ->
     url: '/api/user'
 
-  apiHelper CurrentUserActions, CurrentUserActions.loadAllCourses, CurrentUserActions.loadedAllCourses, 'GET', ->
+  apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/courses'
 
   apiHelper StudentDashboardActions, StudentDashboardActions.load, StudentDashboardActions.loaded, 'GET', (courseId) ->

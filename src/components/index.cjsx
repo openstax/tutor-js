@@ -6,7 +6,6 @@ Router = require 'react-router'
 App = require './app'
 Task = require './task'
 LoadableItem = require './loadable-item'
-RefreshButton = require './refresh-button'
 {TaskActions, TaskStore} = require '../flux/task'
 {CourseActions, CourseStore} = require '../flux/course'
 {CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
@@ -16,71 +15,6 @@ RefreshButton = require './refresh-button'
 err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
-
-Dashboard = React.createClass
-  displayName: 'Dashboard'
-  componentWillMount: -> CurrentUserStore.addChangeListener(@update)
-  componentWillUnmount: -> CurrentUserStore.removeChangeListener(@update)
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  update: -> @setState({})
-
-  redirectToSingleCourse: (courseId, roleType) ->
-    destination = switch roleType
-      when 'student' then 'viewStudentDashboard'
-      when 'teacher' then 'taskplans'
-      else
-        throw new Error("BUG: Unrecognized role type #{roleType}")
-    _.defer => @context.router.replaceWith(destination, {courseId: courseId})
-
-  render: ->
-    if CurrentUserStore.isCoursesLoaded()
-      courses = CurrentUserStore.getCourses()
-      if courses.length is 1 and courses[0].roles?.length is 1
-        @redirectToSingleCourse(courses[0].id, courses[0].roles[0].type)
-        return null # explicitly return null so React won't render
-
-      if courses.length
-        courses = _.map courses, (course) ->
-          {id:courseId, name, roles} = course
-          isStudent = _.find roles, (role) -> role.type is 'student'
-          isTeacher = _.find roles, (role) -> role.type is 'teacher'
-          footer = []
-          if isStudent or not isTeacher # HACK since a student does not currently have a role
-            footer.push(
-              <Router.Link
-                className='btn btn-link -student'
-                to='viewStudentDashboard'
-                params={{courseId}}>Task List (Student)</Router.Link>)
-
-          if isTeacher
-            footer.push(
-              <Router.Link
-                className='btn btn-link -teacher'
-                to='taskplans'
-                params={{courseId}}>
-                Plan List (Teacher)
-              </Router.Link>)
-
-          footer = <span className='-footer-buttons'>{footer}</span>
-
-          <BS.Panel header={name} footer={footer} bsStyle='primary'>
-            <h1>Course: "{name}" Dashboard!</h1>
-          </BS.Panel>
-
-        return <div className='-course-list'>{courses}</div>
-      else
-        return <div className='-course-list-empty'>No Courses</div>
-
-    else
-      CurrentUserActions.loadAllCourses()
-
-      <div className='loadable is-loading -not-really-loadable'>Loading...
-        <RefreshButton />
-      </div>
-
 
 SingleTask = React.createClass
   displayName: 'SingleTask'
@@ -187,4 +121,4 @@ Invalid = React.createClass
       <Router.Link to='dashboard'>Home</Router.Link>
     </div>
 
-module.exports = {App, Dashboard, SingleTask, SinglePractice, Invalid}
+module.exports = {App, SingleTask, SinglePractice, Invalid}
