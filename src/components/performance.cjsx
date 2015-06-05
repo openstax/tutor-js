@@ -18,7 +18,10 @@ Performance = React.createClass
     <th>{heading.title}</th>
 
   renderAverageCell: (heading) ->
-    classAverage = Math.round(heading.class_average)
+    if heading.class_average
+      classAverage = Math.round(heading.class_average)
+    else
+      classAverage = heading.class_average
     <th>{classAverage}</th>
 
   renderStudentRow: (student_data) ->
@@ -56,7 +59,7 @@ Performance = React.createClass
       <BS.Panel className='-course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
-            <h2>Performance Book</h2>
+            <h2>Performance Report</h2>
           </div>
           <BS.Table className='-course-performance-table'>
             <thead>
