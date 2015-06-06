@@ -10,7 +10,6 @@ cjsxify         = require 'cjsxify'
 browserifyShim  = require 'browserify-shim'
 minifyCSS       = require 'gulp-minify-css'
 uglify          = require 'gulp-uglify'
-rev             = require 'gulp-rev'
 del             = require 'del'
 rename          = require 'gulp-rename'
 flatten         = require 'gulp-flatten'
@@ -19,6 +18,7 @@ tar             = require 'gulp-tar'
 gzip            = require 'gulp-gzip'
 livereload      = require 'gulp-livereload'
 coffeelint      = require 'gulp-coffeelint'
+shaSuffix       = require 'gulp-gitshasuffix'
 
 
 handleErrors = (title) => (args...) =>
@@ -167,15 +167,13 @@ gulp.task '_minCSS', ['_build'], ->
 
 gulp.task '_min', ['_minJS', '_minCSS']
 
-gulp.task '_rev', ['_min'], ->
+gulp.task '_shaSuffix', ['_min'], ->
   destDir = './dist/'
   gulp.src('./dist/*.min.*')
-    .pipe(rev())
-    .pipe(gulp.dest(destDir))
-    .pipe(rev.manifest())
+    .pipe(shaSuffix())
     .pipe(gulp.dest(destDir))
 
-gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
+gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_shaSuffix'], ->
   gulp.src([
     './dist/tutor.min-*.js',
     './dist/tutor.min-*.css',
