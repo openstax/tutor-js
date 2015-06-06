@@ -42,6 +42,11 @@ CoursePlanDetails = React.createClass
         @context.router.transitionTo('editReading', {courseId, id})
       else throw new Error("BUG: Unknown plan type '#{type}'")
 
+  onClickReview: ->
+    {plan, courseId} = @props
+    {title, type, id} = plan
+    @context.router.transitionTo('reviewTask', {courseId, id})
+
   render: ->
     {plan, courseId} = @props
     {title, type, id} = plan
@@ -49,6 +54,10 @@ CoursePlanDetails = React.createClass
     <BS.Modal {...@props} title={title} className="#{type}-modal plan-modal">
       <div className='modal-body'>
         <StatsModalShell id={id}/>
+      </div>
+      <div className='modal-footer'>
+        <BS.Button onClick={@onClickReview}>Review Metrics</BS.Button>
+        <BS.Button onClick={@onClickEdit}>Edit Assignment</BS.Button>
       </div>
     </BS.Modal>
 

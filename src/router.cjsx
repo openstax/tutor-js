@@ -1,6 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
-{Route, Redirect, NotFoundRoute} = Router
+{Route, Redirect, NotFoundRoute, DefaultRoute} = Router
 {App, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
 {LearningGuideShell} = require './components/learning-guide'
@@ -28,13 +28,17 @@ routes = (
       <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
       <Route path='guide/?' name='viewGuide' handler={LearningGuideShell} />
 
-      <Route path='t/performance/?' name='viewPerformance' handler={PerformanceShell} />
-      <Route path='t/calendar/?' name='taskplans' handler={TeacherTaskPlans} />
-      <Route path='t/homeworks/new/?' name='createHomework' handler={HomeworkShell} />
-      <Route path='t/homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
-      <Route path='t/readings/new/?' name='createReading' handler={ReadingShell} />
-      <Route path='t/readings/:id/?' name='editReading' handler={ReadingShell} />
-      <Route path='t/:type/:id/stats/?' name='viewStats' handler={StatsShell} />
+      <Route path='t/'>
+        <DefaultRoute handler={TeacherTaskPlans} />
+        <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
+        <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
+        <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
+        <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
+        <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
+        <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
+        <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
+        <Route path='tasks/:id/?' name='reviewTask' handler={SingleTask} />
+      </Route>
     </Route>
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
