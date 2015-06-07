@@ -53,6 +53,7 @@ Performance = React.createClass
     student_rows = _.map(performance.students, @renderStudentRow)
 
     <div className='performance-book'>
+      <h1>This feature will be available soon.</h1>
       <BS.Panel className='-course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
