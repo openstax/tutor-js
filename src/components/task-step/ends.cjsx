@@ -14,7 +14,7 @@ TaskStep = require './index'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
 Details = require '../task/details'
-
+Review = require './review'
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 # A function to render the status message.
@@ -81,25 +81,16 @@ HomeworkEnd = React.createClass
     {courseId} = @props
     task = TaskStore.get(taskId)
 
-    stepsList = _.map steps, (step, index) =>
-      <TaskStep
-        id={step.id}
-        goToStep={@goToStep}
-        onNextStep={@onNextStep}
-        key="task-review-#{step.id}"
-        # focus on first problem
-        focus={index is 0}
-        review={type}
-        pinned={false}
-        taskId={taskId}
-      />
-
     stepsReview =
       <div className="task task-review-#{type}">
         {label}
-        <ReactCSSTransitionGroup transitionName="homework-review-problem">
-          {stepsList}
-        </ReactCSSTransitionGroup>
+        <Review
+          steps={steps}
+          taskId={taskId}
+          goToStep={@goToStep}
+          onNextStep={@onNextStep}
+          review={type}
+          focus={type is 'todo'}/>
         <PinnableFooter>
           <Router.Link
             to='viewStudentDashboard'

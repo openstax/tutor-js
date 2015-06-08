@@ -50,6 +50,7 @@ module.exports = React.createClass
     <ExerciseFreeResponse
       id={id}
       focus={@props.focus}
+      review={@props.review}
       pinned={@props.pinned}
       taskId={@props.taskId}
     />
