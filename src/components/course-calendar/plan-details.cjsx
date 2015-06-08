@@ -6,20 +6,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
-{Stats} = require '../task-plan/reading-stats'
+{StatsModalShell} = require '../task-plan/reading-stats'
 LoadableItem = require '../loadable-item'
-
-StatsModalShell = React.createClass
-  render: ->
-    {id} = @props
-    <LoadableItem
-      id={id}
-      store={TaskPlanStatsStore}
-      actions={TaskPlanStatsActions}
-      renderItem={=> <Stats {...@props}/>}
-    />
-
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass

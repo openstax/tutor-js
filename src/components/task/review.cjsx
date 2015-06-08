@@ -1,7 +1,7 @@
 React = require 'react/addons'
 _ = require 'underscore'
 
-TaskStep = require './index'
+TaskStep = require '../task-step'
 
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
@@ -20,17 +20,14 @@ Review = React.createClass
     stepProps = _.omit(@props, 'steps', 'focus')
 
     stepsList = _.map steps, (step, index) ->
-      step = <TaskStep
+      <TaskStep
+        {...stepProps}
         id={step.id}
         key="task-review-#{step.id}"
         # focus on first problem
         focus={focus and index is 0}
         pinned={false}
       />
-
-      # transfer props from Review to each step
-      _.extend(step.props, stepProps)
-      step
 
     <ReactCSSTransitionGroup transitionName="homework-review-problem">
       {stepsList}

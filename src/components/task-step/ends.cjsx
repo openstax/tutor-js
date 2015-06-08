@@ -14,7 +14,7 @@ TaskStep = require './index'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
 Details = require '../task/details'
-Review = require './review'
+Review = require '../task/review'
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 # A function to render the status message.

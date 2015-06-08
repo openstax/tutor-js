@@ -8,7 +8,7 @@ Router = require 'react-router'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
-
+{TaskTeacherReviewShell} = require './components/task/teacher-review'
 {StatsShell} = require './components/task-plan/reading-stats'
 
 Sandbox = require './sandbox'
@@ -37,7 +37,9 @@ routes = (
         <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
         <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
         <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
-        <Route path='tasks/:id/?' name='reviewTask' handler={SingleTask} />
+        <Route path='tasks/:id/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+          <Route path='steps/:stepIndex/?' name='reviewTaskStep' />
+        </Route>
       </Route>
     </Route>
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />

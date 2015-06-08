@@ -200,4 +200,40 @@ ExerciseReview = React.createClass
       {@renderContinueButton() unless review is 'completed'}
     </div>
 
-module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview}
+
+ExerciseTeacherReview = React.createClass
+  displayName: 'ExerciseTeacherReview'
+  mixins: [StepMixin, ExerciseMixin]
+  propTypes:
+    id: React.PropTypes.string.isRequired
+    onStepCompleted: React.PropTypes.func.isRequired
+    goToStep: React.PropTypes.func.isRequired
+
+  renderBody: ->
+    {id} = @props
+    {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
+
+    # TODO: Assumes 1 question.
+    question = content.questions[0]
+
+    <Question
+      model={question}
+      answer_id={answer_id}
+      correct_answer_id={correct_answer_id}
+      onChangeAttempt={@onChangeAnswerAttempt} />
+
+  onChangeAnswerAttempt: (answer) ->
+    # TODO show cannot change answer message here
+    console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
+
+  isContinueEnabled: ->
+    false
+
+  renderFooterButtons: ->
+    false
+
+  onContinue: ->
+    @props.onNextStep()
+
+
+module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReview}

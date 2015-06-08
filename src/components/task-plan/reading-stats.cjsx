@@ -181,4 +181,14 @@ StatsShell = React.createClass
       renderItem={-> <Stats id={id} />}
     />
 
-module.exports = {StatsShell, Stats}
+StatsModalShell = React.createClass
+  render: ->
+    {id} = @props
+    <LoadableItem
+      id={id}
+      store={TaskPlanStatsStore}
+      actions={TaskPlanStatsActions}
+      renderItem={=> <Stats {...@props}/>}
+    />
+
+module.exports = {StatsShell, StatsModalShell, Stats}
