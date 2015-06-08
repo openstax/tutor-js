@@ -20,8 +20,6 @@ Performance = React.createClass
   renderAverageCell: (heading) ->
     if heading.class_average
       classAverage = Math.round(heading.class_average)
-    else
-      classAverage = heading.class_average
     <th>{classAverage}</th>
 
   renderStudentRow: (student_data) ->
