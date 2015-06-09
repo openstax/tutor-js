@@ -203,7 +203,7 @@ ExerciseReview = React.createClass
 
 ExerciseTeacherReview = React.createClass
   displayName: 'ExerciseTeacherReview'
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -211,7 +211,8 @@ ExerciseTeacherReview = React.createClass
 
   renderBody: ->
     {id} = @props
-    {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
+    # {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
+    {content, free_response, answer_id, correct_answer_id, feedback_html} = @props
 
     # TODO: Assumes 1 question.
     question = content.questions[0]

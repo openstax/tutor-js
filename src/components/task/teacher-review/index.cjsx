@@ -4,19 +4,18 @@ Router = require 'react-router'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-{TaskActions, TaskStore} = require '../../flux/task'
-{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../../flux/task-teacher-review'
 
 CrumbMixin = require './crumb-mixin'
 
 Breadcrumbs = require './breadcrumbs'
 Review = require './review'
-Details = require './details'
-{StatsModalShell} = require '../task-plan/reading-stats'
+Details = require '../details'
+{StatsModalShell} = require '../../task-plan/reading-stats'
 
-PinnedHeaderFooterCard = require '../pinned-header-footer-card'
-{PinnableFooter} = require '../pinned-header-footer-card/sections'
-LoadableItem = require '../loadable-item'
+PinnedHeaderFooterCard = require '../../pinned-header-footer-card'
+{PinnableFooter} = require '../../pinned-header-footer-card/sections'
+LoadableItem = require '../../loadable-item'
 
 TaskTeacherReview = React.createClass
   propTypes:
@@ -44,13 +43,7 @@ TaskTeacherReview = React.createClass
       @goToStep(defaultKey)(true)
 
   getInitialState: ->
-    {
-      currentStep: 0
-      refreshFrom: false
-      refreshTo: false
-      recoverForStepId: false
-      recoveredStepId: false
-    }
+    currentStep: 0
 
   componentWillMount: ->
     @setStepKey()
@@ -76,10 +69,10 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
-    task = TaskStore.get(id)
+    task = TaskTeacherReviewStore.get(id)
     return null unless task?
 
-    steps = TaskStore.getSteps(id)
+    steps = @getContents()
 
     panel = <Review
           steps={steps}
@@ -90,14 +83,12 @@ TaskTeacherReview = React.createClass
           panel='teacher-review' />
 
     taskClasses = "task-teacher-review task-#{task.type}"
-    taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
-    unless TaskStore.isSingleStepped(id)
-      breadcrumbs = <Breadcrumbs
-        id={id}
-        goToStep={@goToStep}
-        currentStep={@state.currentStep}
-        key="task-#{id}-breadcrumbs"/>
+    breadcrumbs = <Breadcrumbs
+      id={id}
+      goToStep={@goToStep}
+      currentStep={@state.currentStep}
+      key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard
       className={taskClasses}
@@ -136,8 +127,8 @@ TaskTeacherReviewShell = React.createClass
     {id, courseId} = @context.router.getCurrentParams()
     <LoadableItem
       id={id}
-      store={TaskStore}
-      actions={TaskActions}
+      store={TaskTeacherReviewStore}
+      actions={TaskTeacherReviewActions}
       renderItem={-> <TaskTeacherReview key={id} id={id} courseId={courseId}/>}
     />
 
