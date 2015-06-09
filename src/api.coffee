@@ -33,7 +33,7 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 delay = (ms, fn) -> setTimeout(fn, ms)
 
 setNow = (jqXhr) ->
-  TimeActions.setFromString(jqXhr.getResponseHeader('Date'))
+  TimeActions.setFromString(jqXhr.getResponseHeader('X-App-Date'))
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
