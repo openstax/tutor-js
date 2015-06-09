@@ -76,7 +76,7 @@ ExerciseSummary = React.createClass
         <BS.Row>
           <BS.Col sm={6} md={2} className="total">
             <h2>{total}</h2>
-            Problems Selected
+            Total Problems
           </BS.Col>
           <BS.Col sm={6} md={2} className="num-selected">
             <h2>{numSelected}</h2>
