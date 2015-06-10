@@ -177,7 +177,6 @@ HomeworkPlan = React.createClass
                 label='Description'
                 id='homework-description'
                 default={description}
-                required={true}
                 onChange={@setDescription} />
             </BS.Col>
           </BS.Row>
