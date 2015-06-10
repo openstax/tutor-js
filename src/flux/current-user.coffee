@@ -45,8 +45,6 @@ ROUTES =
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
-  'loadAllCourses'
-  'loadedAllCourses'
   'loadName'
   'loadedName'
   'logout'    # () ->    # API Hooks onto this action and transitions
@@ -56,16 +54,12 @@ CurrentUserActions = flux.createActions [
 CurrentUserStore = flux.createStore
   actions: [
     CurrentUserActions.setToken
-    CurrentUserActions.loadAllCourses
-    CurrentUserActions.loadedAllCourses
     CurrentUserActions.loadName
     CurrentUserActions.loadedName
     CurrentUserActions.reset
   ]
 
   _token: null
-  # DEPRECATE?  courseIds being stored on _courses?
-  _courseIds: null # Just store the id's. They will be looked up in the course store
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
@@ -93,35 +87,18 @@ CurrentUserStore = flux.createStore
     @_isAdmin = results.is_admin
     @emitChange()
 
-  loadAllCourses: -> # Used by API
-  loadedAllCourses: (results) ->
-    # {items} = results # TODO: This JSON format is inconsistent with the paged results
-    items = results
-    @_courses = _.map items, (course) ->
-      {id} = course
-      CourseActions.loaded(course, id)
-      id # Just store the ids in @_courses
-
-    @emitChange()
-
   reset: ->
     @_token = null
     @_name = 'Guest'
-    @_courses = null
 
   exports:
     getToken: -> @_token
     getCSRFToken: -> CSRF_Token
-    isCoursesLoaded: -> !!@_courses
     getName: -> @_name
     isAdmin: -> @_isAdmin
 
     getCourseRole: (courseId) ->
       @_getCourseRole(courseId)
-
-    getCourses: ->
-      _.map @_courses, (id) ->
-        CourseStore.get(id)
 
     getDashboardRoute: (courseId) ->
       menuRole = @_getCourseRole(courseId)
