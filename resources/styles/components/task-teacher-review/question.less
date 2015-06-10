@@ -1,0 +1,38 @@
+.question {
+
+  .answers-answer {
+    &::before {
+      .answer-label();
+      .answer-icon-label();
+      text-align: center;
+      width: 80px;
+      font-size: 1.5em;
+    }
+
+    .selected-count {
+      display: inline;
+    }
+
+    &.answer-correct::before {
+      content: @fa-var-check;
+      color: @correct-answer-color;
+    }
+
+    &:not(.answer-correct)::before {
+      content: @fa-var-close;
+      color: @wrong-answer-color;
+    }
+  }
+
+  .answers-table {
+    label.answer-label {
+      padding: 4px 20px;
+      background-color: transparent;
+      cursor: default;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}

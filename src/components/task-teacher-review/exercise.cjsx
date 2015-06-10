@@ -18,7 +18,6 @@ TaskTeacherReviewExercise = React.createClass
     console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
 
   render: ->
-    {id} = @props
     {content} = @props
 
     # TODO: Assumes 1 question.
@@ -27,6 +26,7 @@ TaskTeacherReviewExercise = React.createClass
     <CardBody className='task-step' pinned={false}>
       <Question
         model={question}
+        type='teacher-review'
         onChangeAttempt={@onChangeAnswerAttempt} />
     </CardBody>
 

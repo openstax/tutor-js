@@ -49,15 +49,18 @@ CardBody = React.createClass
     pinned: true
 
   render: ->
-    {className, pinned, footerClassName} = @props
+    {className, pinned, footerClassName, footer, children} = @props
     classes = 'card-body'
     classes += " #{className}" if className?
 
+    if footer
+      pinnableFooter = <PinnableFooter pinned={pinned} className={footerClassName}>
+          {footer}
+        </PinnableFooter>
+
     <div className={classes}>
-      {@props.children}
-      <PinnableFooter pinned={pinned} className={footerClassName}>
-        {@props.footer}
-      </PinnableFooter>
+      {children}
+      {pinnableFooter}
     </div>
 
 module.exports = {PinnedHeader, CardBody, PinnableFooter}
