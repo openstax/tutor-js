@@ -39,8 +39,13 @@ module.exports =
 
   publish: ->
     {id} = @props
-    TaskPlanStore.addChangeListener(@saved)
-    TaskPlanActions.save(id)
+    publishable = TaskPlanStore.isValid(id)
+
+    if (publishable)
+      TaskPlanStore.addChangeListener(@saved)
+      TaskPlanActions.save(id)
+    else
+      @setState({invalid: true})
 
   saved: ->
     courseId = @props.courseId

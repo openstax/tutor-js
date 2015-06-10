@@ -125,7 +125,7 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer = <PlanFooter id={id} courseId={courseId} />
+    footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish}/>
     header = [headerText, closeBtn]
     
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
@@ -140,6 +140,9 @@ ReadingPlan = React.createClass
                         courseId={courseId}
                         planId={id}
                         selected={topics}/>
+
+    if @state?.invalid then formClasses.push('invalid-form')
+
     <div className='reading-plan'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
@@ -153,6 +156,7 @@ ReadingPlan = React.createClass
                 label='Assignment Name'
                 id='reading-title'
                 default={plan.title}
+                required={true}
                 onChange={@setTitle} />
             </BS.Col>
             <BS.Col xs={12} md={4}>
@@ -160,6 +164,7 @@ ReadingPlan = React.createClass
                 id='reading-due-date'
                 label='Due Date'
                 readOnly={dueAtReadOnly}
+                required={true}
                 onChange={@setDueAt}
                 min={opensAt}
                 value={dueAt}/>

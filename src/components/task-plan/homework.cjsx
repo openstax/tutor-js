@@ -101,6 +101,7 @@ HomeworkPlan = React.createClass
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
+    if @state?.invalid then formClasses.push('invalid-form')
 
     if (TaskPlanStore.isPublished(id))
       dueAtReadOnly = true
@@ -109,6 +110,7 @@ HomeworkPlan = React.createClass
                   id='homework-due-date'
                   label='Due Date'
                   readOnly={dueAtReadOnly}
+                  required={true}
                   onChange={@setDueAt}
                   min={new Date()}
                   value={dueAt}/>
@@ -162,6 +164,7 @@ HomeworkPlan = React.createClass
                   label='Assignment Name'
                   id='homework-title'
                   default={plan.title}
+                  required={true}
                   onChange={@setTitle} />
               </div>
             </BS.Col>
@@ -174,6 +177,7 @@ HomeworkPlan = React.createClass
                 label='Description'
                 id='homework-description'
                 default={description}
+                required={true}
                 onChange={@setDescription} />
             </BS.Col>
           </BS.Row>

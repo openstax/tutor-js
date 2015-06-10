@@ -17,11 +17,6 @@ PlanFooter = React.createClass
     TaskPlanStore.removeChangeListener(@saved)
     @context.router.transitionTo('taskplans', {courseId})
 
-  onPublish: ->
-    {id} = @props
-    TaskPlanStore.addChangeListener(@saved)
-    TaskPlanActions.save(id)
-
   onDelete: ->
     {id} = @props
     if confirm('Are you sure you want to delete this?')
@@ -43,14 +38,16 @@ PlanFooter = React.createClass
 
     plan = TaskPlanStore.get(id)
 
-    publishable = TaskPlanStore.isValid(id) and not TaskPlanStore.isPublished(id)
+    publishable = not TaskPlanStore.isPublished(id)
     deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isPublished(id)
 
     classes = ['-publish']
     classes.push('disabled') unless publishable
     classes = classes.join(' ')
 
-    publishButton = <BS.Button bsStyle='primary' className={classes} onClick={@onPublish}>Publish</BS.Button>
+    publishButton = <BS.Button bsStyle='primary' 
+      className={classes} 
+      onClick={@props.onPublish}>Publish</BS.Button>
 
     if deleteable
       deleteLink = <BS.Button bsStyle='link' className='-delete' onClick={@onDelete}>Delete</BS.Button>
