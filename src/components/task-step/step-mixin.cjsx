@@ -25,8 +25,9 @@ module.exports =
     {continueButton}
 
   render: ->
-    {taskId, review, pinned, showFooter} = @props
-    showFooter ?= true
+    {taskId, review, pinned} = @props
+    showFooter = true
+    showFooter = @showFooter() if @showFooter?
 
     if showFooter
       task = TaskStore.get(taskId)

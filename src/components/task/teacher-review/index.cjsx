@@ -105,14 +105,6 @@ TaskTeacherReview = React.createClass
             </BS.Col>
           </BS.Row>
         </BS.Grid>
-        <PinnableFooter>
-          <Router.Link
-            to='taskplans'
-            params={{courseId}}
-            className='btn btn-primary'>Back to Dashboard</Router.Link>
-            <Details task={task} key="task-#{task.id}-details"/>
-            <div className='task-title'>{task.title}</div>
-        </PinnableFooter>
     </PinnedHeaderFooterCard>
 
   onNextStep: ->

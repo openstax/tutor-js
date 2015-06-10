@@ -1,11 +1,9 @@
 React = require 'react'
-{TaskTeacherReviewStore} = require '../../../flux/task-teacher-review'
-
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
 ChapterSectionMixin = require '../../chapter-section-mixin'
-Breadcrumb = require './breadcrumb'
+{BreadcrumbStatic} = require '../../breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
@@ -22,7 +20,7 @@ module.exports = React.createClass
     {currentStep, goToStep} = @props
 
     stepButtons = _.map crumbs, (crumb) ->
-      <Breadcrumb
+      <BreadcrumbStatic
         crumb={crumb}
         currentStep={currentStep}
         goToStep={goToStep}

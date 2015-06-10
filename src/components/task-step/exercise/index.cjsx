@@ -33,7 +33,6 @@ module.exports = React.createClass
       review={@props.review}
       pinned={@props.pinned}
       taskId={@props.taskId}
-      showFooter={false}
     />
 
   renderReview: (id) ->

@@ -1,21 +1,20 @@
 React = require 'react'
 _ = require 'underscore'
 
-module.exports = React.createClass
-  displayName: 'Breadcrumb'
+module.exports =
   propTypes:
     crumb: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
 
+  getInitialState: ->
+    canReview: true
+    step: {}
+
   render: ->
     {crumb, currentStep, goToStep} = @props
-    step = crumb.data
-    if crumb.type is 'step'
-      # get the freshest version of the step
-      step = crumb.data
+    {canReview, step} = @state
 
-    canReview = true
     crumbType = step?.type
 
     bsStyle = null

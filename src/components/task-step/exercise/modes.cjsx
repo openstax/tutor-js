@@ -230,7 +230,7 @@ ExerciseTeacherReview = React.createClass
   isContinueEnabled: ->
     false
 
-  renderFooterButtons: ->
+  showFooter: ->
     false
 
   onContinue: ->
