@@ -64,6 +64,6 @@ BreadcrumbTaskDynamic = React.createClass
     {crumb} = @props
 
     if (crumb.data.id is id)
-      @setState({})
+      @setStep(@props)
 
 module.exports = {BreadcrumbTaskDynamic, BreadcrumbStatic}
