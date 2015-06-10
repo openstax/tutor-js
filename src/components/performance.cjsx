@@ -20,6 +20,7 @@ Performance = React.createClass
     isNameSort: true
 
   sortClick: (event) ->
+    # this is a special case for the name header data which is one level above nested data
     if not _.contains(event.target.classList, 'student-name')
       @setState({isNameSort: false})
     else
