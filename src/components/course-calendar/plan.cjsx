@@ -85,7 +85,8 @@ CoursePlan = React.createClass
       left: offset * 100 / 7 + '%'
       top: (weekTopOffset + 4 - order * 3) + 'rem'
 
-    planClasses = "plan #{plan.type} course-plan-#{plan.id}"
+    planLabelClass = 'plan-label-long' if plan.title.length > 18
+    planClasses = "plan #{plan.type} course-plan-#{plan.id} #{planLabelClass}"
 
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
