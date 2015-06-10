@@ -55,7 +55,7 @@
         {
           "type": "reading",
           "id": "257",
-          "status": "complete"
+          "status": "in_progress"
         },
         {
           "type": "homework",
@@ -76,6 +76,70 @@
           "status": "in_progress",
           "exercise_count": 8,
           "correct_exercise_count": 7,
+          "recovered_exercise_count": 0
+        }
+      ]
+    },
+    {
+      "name": "Steve Johnson",
+      "role": 9126,
+      "data": [
+        {
+          "type": "reading",
+          "id": "257",
+          "status": "complete"
+        },
+        {
+          "type": "homework",
+          "id": "313",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 6,
+          "recovered_exercise_count": 1
+        },
+        {
+          "type": "reading",
+          "id": "99",
+          "status": "in_progress"
+        },
+        {
+          "type": "homework",
+          "id": "888",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 2,
+          "recovered_exercise_count": 0
+        }
+      ]
+    },
+    {
+      "name": "Aaron Sanders",
+      "role": 9126,
+      "data": [
+        {
+          "type": "reading",
+          "id": "257",
+          "status": "in_progress"
+        },
+        {
+          "type": "homework",
+          "id": "313",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 6,
+          "recovered_exercise_count": 1
+        },
+        {
+          "type": "reading",
+          "id": "99",
+          "status": "in_progress"
+        },
+        {
+          "type": "homework",
+          "id": "888",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 2,
           "recovered_exercise_count": 0
         }
       ]

@@ -1,0 +1,18 @@
+.performance-report {
+  table {
+    th {
+      .no-select();
+      &.sortable {
+        cursor: pointer;
+      }
+      &.asc:after {
+        content: '\00a0\f0de';
+        font-family: FontAwesome;
+      }
+      &.desc:after {
+        content: '\00a0\f0dd';
+        font-family: FontAwesome;
+      }
+    }
+  }
+}

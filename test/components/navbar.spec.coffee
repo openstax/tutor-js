@@ -43,7 +43,7 @@ TEACHER_MENU = [
   }
   {
     name: 'viewPerformance'
-    label: 'Performance Book'
+    label: 'Performance Report'
   }
 ]
 
