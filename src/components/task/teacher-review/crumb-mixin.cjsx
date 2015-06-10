@@ -7,8 +7,12 @@ camelCase = require 'camelcase'
 module.exports =
   _pages: ['current_pages', 'spaced_pages']
 
-  _setChapterSectionOnQuestions: (exercises, chapter_section) ->
-    _.each exercises, (exercise) ->
+  _setChapterSectionOnQuestions: (page) ->
+    chapter_section = page.chapter_section
+
+    _.each page.exercises, (exercise) ->
+      exercise.chapter_section = chapter_section
+
       _.each exercise.content.questions, (question) ->
         question.chapter_section = chapter_section
 
@@ -21,29 +25,29 @@ module.exports =
       # exercises = _.clone(_.pluck(stats[page], 'exercises'))
       exercises = _.chain(stats[page])
         .clone()
+        .each(@_setChapterSectionOnQuestions)
         .pluck('exercises')
         .flatten(true)
         .compact()
         .value()
 
-      chapter_section = stats[page].chapter_section
-
-      @_setChapterSectionOnQuestions(exercises, chapter_section)
       exercises.for = page
-      exercises.chapter_section
-
       exercises
 
     _.flatten(pagedExercises, true)
 
-  _makeCrumb: (data, index) ->
+  _makeCrumb: (data) ->
     crumb =
-      key: index
       data: data
-      crumb: @_shouldStepCrumb(index)
-      sectionLabel: @_buildSectionLabel(data.chapter_section)
       type: 'step'
       listeners: @_getStepListeners('exercise')
+
+    crumb.sectionLabel = @_buildSectionLabel(data[0].chapter_section) if data[0]?
+    crumb
+
+  _indexCrumb: (crumb, index) ->
+    crumb.key = index
+    crumb.crumb = @_shouldStepCrumb(index)
 
   _getCrumbsForHomework: (stats) ->
     exercises = @_getExercisesFromStats(stats)
@@ -51,15 +55,16 @@ module.exports =
       .pluck('content')
       .flatten(true)
       .map(@_makeCrumb)
+      .each(@_indexCrumb)
       .value()
-
-    console.log('homeoworkcrumbs')
-    console.log(crumbs)
-    crumbs
 
   _getCrumbsForReading: (stats) ->
     exercises = @_getExercisesFromStats(stats)
-    crumbs = _.map exercises, @_makeCrumb
+    crumbs = _.chain(exercises)
+      .groupBy('chapter_section')
+      .map(@_makeCrumb)
+      .each(@_indexCrumb)
+      .value()
 
     crumbs
 
@@ -69,7 +74,9 @@ module.exports =
   _getContentsForReading: (crumbs) ->
     contents = _.chain(crumbs)
       .pluck('data')
-      .pluck('content')
+      .map((data) ->
+        _.pluck(data, 'content')
+      )
       .flatten(true)
       .value()
 
