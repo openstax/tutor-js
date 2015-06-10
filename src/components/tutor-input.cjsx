@@ -29,6 +29,9 @@ TutorInput = React.createClass
         defaultValue={@props.default}
         onChange={@onChange} />
       <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
     </div>
 
 TutorDateInput = React.createClass
@@ -83,6 +86,9 @@ TutorDateInput = React.createClass
     <div className={wrapperClasses.join(' ')}>
       <input type='text' disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
       <DateTimePicker onClick={@clickHandler}
         onFocus={@expandCalendar} 
         onBlur={@onBlur}
@@ -135,6 +141,9 @@ TutorTextArea = React.createClass
         defaultValue={@props.default}
         onChange={@onChange} />
       <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
     </div>
 
 module.exports = {TutorInput, TutorDateInput, TutorTextArea}
