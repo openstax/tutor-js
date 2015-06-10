@@ -2,8 +2,8 @@ React = require 'react'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
-ChapterSectionMixin = require '../../chapter-section-mixin'
-{BreadcrumbStatic} = require '../../breadcrumb'
+ChapterSectionMixin = require '../chapter-section-mixin'
+{BreadcrumbStatic} = require '../breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'

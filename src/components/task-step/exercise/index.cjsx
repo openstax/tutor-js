@@ -5,7 +5,7 @@ camelCase = require 'camelcase'
 {TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 
-{ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReview} = require './modes'
+{ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview} = require './modes'
 
 module.exports = React.createClass
   displayName: 'Exercise'
@@ -23,17 +23,6 @@ module.exports = React.createClass
     focus: true
     review: ''
     pinned: true
-
-  renderTeacherReview: (id) ->
-    <ExerciseTeacherReview
-      id={id}
-      onNextStep={@props.onNextStep}
-      goToStep={@props.goToStep}
-      onStepCompleted={@props.onStepCompleted}
-      review={@props.review}
-      pinned={@props.pinned}
-      taskId={@props.taskId}
-    />
 
   renderReview: (id) ->
     <ExerciseReview

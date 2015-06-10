@@ -1,7 +1,7 @@
 React = require 'react/addons'
 _ = require 'underscore'
 
-{ExerciseTeacherReview} = require '../../task-step/exercise/modes'
+TaskTeacherReviewExercise = require './exercise'
 
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
@@ -23,13 +23,12 @@ Review = React.createClass
 
       stepProps = _.extend({}, stepsProps, {content: step})
 
-      <ExerciseTeacherReview
+      <TaskTeacherReviewExercise
         {...stepProps}
         id={step.questions[0].id}
         key="task-review-#{step.questions[0].id}"
         # focus on first problem
         focus={focus and index is 0}
-        pinned={false}
       />
 
     <ReactCSSTransitionGroup transitionName="homework-review-problem">

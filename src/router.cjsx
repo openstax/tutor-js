@@ -8,7 +8,7 @@ Router = require 'react-router'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
-{TaskTeacherReviewShell} = require './components/task/teacher-review'
+{TaskTeacherReviewShell} = require './components/task-teacher-review'
 {StatsShell} = require './components/task-plan/reading-stats'
 
 Sandbox = require './sandbox'

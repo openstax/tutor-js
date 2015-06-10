@@ -4,18 +4,16 @@ Router = require 'react-router'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-{TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../../flux/task-teacher-review'
+{TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 CrumbMixin = require './crumb-mixin'
 
 Breadcrumbs = require './breadcrumbs'
 Review = require './review'
-Details = require '../details'
-{StatsModalShell} = require '../../task-plan/reading-stats'
+{StatsModalShell} = require '../task-plan/reading-stats'
 
-PinnedHeaderFooterCard = require '../../pinned-header-footer-card'
-{PinnableFooter} = require '../../pinned-header-footer-card/sections'
-LoadableItem = require '../../loadable-item'
+PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+LoadableItem = require '../loadable-item'
 
 TaskTeacherReview = React.createClass
   propTypes:

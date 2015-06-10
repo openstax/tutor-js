@@ -2,7 +2,7 @@
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-{TaskTeacherReviewStore} = require '../../../flux/task-teacher-review'
+{TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 module.exports =
   _pages: ['current_pages', 'spaced_pages']
