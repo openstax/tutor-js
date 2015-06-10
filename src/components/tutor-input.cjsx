@@ -1,5 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+moment = require 'moment'
+
+{TimeStore} = require '../flux/time'
 {DateTimePicker} = require 'react-widgets'
 
 TutorInput = React.createClass
@@ -33,6 +36,19 @@ TutorInput = React.createClass
         Required Field <i className="fa fa-exclamation-circle"></i>
       </div>
     </div>
+
+DayComponent = React.createClass
+  propTypes:
+    date:  React.PropTypes.string.isRequired
+    label: React.PropTypes.string.isRequired
+
+
+  render: ->
+    className = if moment(@props.date).startOf('day') < TimeStore.getNow()
+      'invalid'
+    else
+      'valid'
+    <span className={className}>{@props.label}</span>
 
 TutorDateInput = React.createClass
 
@@ -70,7 +86,7 @@ TutorDateInput = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper"]
+    wrapperClasses = ["form-control-wrapper tutor-input"]
     value = @props.value
     open = false
 
@@ -90,7 +106,7 @@ TutorDateInput = React.createClass
         Required Field <i className="fa fa-exclamation-circle"></i>
       </div>
       <DateTimePicker onClick={@clickHandler}
-        onFocus={@expandCalendar} 
+        onFocus={@expandCalendar}
         onBlur={@onBlur}
         id={@props.id}
         format='MMM dd, yyyy'
@@ -101,7 +117,7 @@ TutorDateInput = React.createClass
         className={classes.join(' ')}
         onChange={@dateSelected}
         readOnly={@props.readOnly}
-        min={@props.min}
+        dayComponent={DayComponent}
         value={value}
       />
     </div>
