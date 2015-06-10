@@ -15,7 +15,7 @@ Performance = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    sortOrder: 'asc'
+    sortOrder: 'is-ascending'
     sortIndex: 0
     isNameSort: true
 
@@ -26,7 +26,7 @@ Performance = React.createClass
       @setState({isNameSort: true})
     headers = event.target.parentNode.querySelectorAll('th')
     for header in headers
-      header.classList.remove('asc', 'desc')
+      header.classList.remove('is-ascending', 'is-descending')
     event.target.classList.add(@state.sortOrder)
     @sortData(event.target.cellIndex)
 
@@ -82,11 +82,11 @@ Performance = React.createClass
           when 'reading' then d.data[@state.sortIndex].status
         )
 
-    if @state.sortOrder is 'desc'
+    if @state.sortOrder is 'is-descending'
       sortData.reverse()
-      @state.sortOrder = 'asc'
+      @state.sortOrder = 'is-ascending'
     else
-      @state.sortOrder = 'desc'
+      @state.sortOrder = 'is-descending'
 
     student_rows = _.map(sortData, @renderStudentRow)
 
@@ -100,7 +100,7 @@ Performance = React.createClass
           <BS.Table className='-course-performance-table'>
             <thead>
               <tr>
-                <th className='sortable student-name asc' onClick={@sortClick}>Student</th>
+                <th className='sortable student-name is-ascending' onClick={@sortClick}>Student</th>
                 {headings}
               </tr>
               <tr>

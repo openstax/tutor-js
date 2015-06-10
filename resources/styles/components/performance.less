@@ -5,13 +5,13 @@
       &.sortable {
         cursor: pointer;
       }
-      &.asc:after {
+      &.is-ascending:after {
         content: '\00a0\f0de';
-        font-family: FontAwesome;
+        .fa-icon();
       }
-      &.desc:after {
+      &.is-descending:after {
         content: '\00a0\f0dd';
-        font-family: FontAwesome;
+        .fa-icon();
       }
     }
   }
