@@ -17,8 +17,8 @@ TutorInput = React.createClass
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper"]
 
-    unless @props.default then classes.push('empty')
-    if @props.required then wrapperClasses.push('required')
+    unless @props.default then classes.push('is-empty')
+    if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.class)
 
     <div className={wrapperClasses.join(' ')}>
@@ -75,13 +75,13 @@ TutorDateInput = React.createClass
     open = false
 
     if not @props.value and not @state.hasFocus
-      classes.push('empty')
+      classes.push('is-empty')
 
     if @state.expandCalendar and not @props.readOnly
       open = 'calendar'
       onToggle = @onToggle
 
-    if @props.required then wrapperClasses.push('required')
+    if @props.required then wrapperClasses.push('is-required')
 
     <div className={wrapperClasses.join(' ')}>
       <input type='text' disabled className={classes.join(' ')} />
@@ -126,8 +126,8 @@ TutorTextArea = React.createClass
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper"]
 
-    unless @props.default then classes.push('empty')
-    if @props.required then wrapperClasses.push('required')
+    unless @props.default then classes.push('is-empty')
+    if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.inputClass)
 
     <div className={wrapperClasses.join(' ')}>

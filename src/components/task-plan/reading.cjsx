@@ -141,7 +141,7 @@ ReadingPlan = React.createClass
                         planId={id}
                         selected={topics}/>
 
-    if @state?.invalid then formClasses.push('invalid-form')
+    if @state?.invalid then formClasses.push('is-invalid-form')
 
     <div className='reading-plan'>
       <BS.Panel bsStyle='primary'

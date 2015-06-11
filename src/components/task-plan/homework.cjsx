@@ -101,7 +101,7 @@ HomeworkPlan = React.createClass
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
-    if @state?.invalid then formClasses.push('invalid-form')
+    if @state?.invalid then formClasses.push('is-invalid-form')
 
     if (TaskPlanStore.isPublished(id))
       dueAtReadOnly = true
