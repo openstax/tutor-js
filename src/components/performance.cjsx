@@ -40,7 +40,7 @@ Performance = React.createClass
     @setState({sortIndex: index - 1})
 
   renderHeadingCell: (heading) ->
-    <th className='sortable' onClick={@sortClick}>{heading.title}</th>
+    <th className='sortable' title={heading.title} onClick={@sortClick}>{heading.title}</th>
 
   renderAverageCell: (heading) ->
     if heading.class_average
@@ -98,10 +98,11 @@ Performance = React.createClass
 
 
     <div className='performance-report'>
-      <BS.Panel className='-course-performance-container'>
+      <h2>Performance Report</h2>
+      <BS.Panel className='course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
-            <h2>Performance Report</h2>
+            
           </div>
           <BS.Table className='-course-performance-table'>
             <thead>

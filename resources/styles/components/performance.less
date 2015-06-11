@@ -1,17 +1,27 @@
 .performance-report {
+  .course-performance-container {
+    overflow-x: auto;
+  }
   table {
     th {
       .no-select();
+      position: relative;
+      white-space: nowrap;
+      max-width: 150px;
+      text-overflow: ellipsis;
+      overflow: hidden;
       &.sortable {
         cursor: pointer;
       }
       &.is-ascending:after {
-        padding-left:3px;
+        position: absolute;
+        right: 0;
         content: @fa-var-sort-asc;
         .fa-icon();
       }
       &.is-descending:after {
-        padding-left:3px;
+        position: absolute;
+        right: 0;
         content: @fa-var-sort-desc;
         .fa-icon();
       }
