@@ -2,19 +2,18 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 module.exports = React.createClass
-  displayText: 'AsyncButton'
+  displayName: 'AsyncButton'
 
   propTypes:
     store: React.PropTypes.object.isRequired
     isWaiting: React.PropTypes.bool.isRequired
     isDone: React.PropTypes.bool
-    isFailed: React.PropTypes.bool.isRequired
-    waitingText: React.PropTypes.any.isRequired # TODO: This should be a Component or array
-    errorText: React.PropTypes.any.isRequired
+    isFailed: React.PropTypes.bool
+    waitingText: React.PropTypes.any # TODO: This should be a Component or array
+    errorText: React.PropTypes.any
     doneText: React.PropTypes.any
 
   getDefaultProps: ->
-    isWaiting: false
     isDone: false
     isFailed: false
     waitingText: 'Loading…'
