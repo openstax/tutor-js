@@ -26,10 +26,10 @@ module.exports = React.createClass
     isWaiting: React.PropTypes.bool.isRequired
     isDone: React.PropTypes.bool
     isFailed: React.PropTypes.bool
-    waitingText: React.PropTypes.any # TODO: This should be a Component or array
+    waitingText: React.PropTypes.node # TODO: This should be a Component or array
     failedState: React.PropTypes.func
     failedProps: React.PropTypes.object
-    doneText: React.PropTypes.any
+    doneText: React.PropTypes.node
     timeout: React.PropTypes.number
 
   getDefaultProps: ->
