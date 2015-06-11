@@ -1,34 +1,35 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+RefreshButton = require './refresh-button'
 
 module.exports = React.createClass
   displayName: 'AsyncButton'
 
   propTypes:
-    store: React.PropTypes.object.isRequired
     isWaiting: React.PropTypes.bool.isRequired
     isDone: React.PropTypes.bool
     isFailed: React.PropTypes.bool
     waitingText: React.PropTypes.any # TODO: This should be a Component or array
-    failedText: React.PropTypes.any
+    failedState: React.PropTypes.func
     doneText: React.PropTypes.any
 
   getDefaultProps: ->
     isDone: false
     isFailed: false
     waitingText: 'Loading…'
-    failedText: 'Error. Please refresh'
+    failedState: RefreshButton
+    failedProps:
+      beforeText: 'There was a problem.  '
     doneText: ''
 
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
-    {children, waitingText, failedText, doneText} = @props
+    {children, waitingText, failedState, failedProps, doneText} = @props
 
     if isFailed
-      # TODO: Turn this into a link that reloads the page
       stateClass = 'is-error'
-      text = failedText
+      return <failedState {...failedProps}/>
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText
