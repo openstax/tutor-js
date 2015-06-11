@@ -103,7 +103,7 @@ checks =
     expect(div.querySelector('.footer-buttons').children.length).to.equal(3)
     classes = _.pluck(div.querySelector('.footer-buttons').children, 'className')
     expect(classes).to.deep.equal([
-      '-try-another btn btn-primary', '-refresh-memory btn btn-primary', '-continue btn btn-primary'
+      '-try-another btn btn-primary', '-refresh-memory btn btn-primary', 'async-button -continue btn btn-primary'
     ])
     {div, component, stepId, taskId, state, router, history}
 
