@@ -6,11 +6,13 @@
         cursor: pointer;
       }
       &.is-ascending:after {
-        content: '\00a0\f0de';
+        padding-left:3px;
+        content: @fa-var-sort-asc;
         .fa-icon();
       }
       &.is-descending:after {
-        content: '\00a0\f0dd';
+        padding-left:3px;
+        content: @fa-var-sort-desc;
         .fa-icon();
       }
     }
