@@ -14,8 +14,9 @@ module.exports = React.createClass
     doneText: React.PropTypes.any
 
   render: ->
+    {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
-    {children, waitingText, errorText, doneText, className} = @props
+    {children, waitingText, errorText, doneText} = @props
 
     if isFailed
       # TODO: Turn this into a link that reloads the page
