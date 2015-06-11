@@ -11,6 +11,7 @@ module.exports = React.createClass
     isFailed: React.PropTypes.bool
     waitingText: React.PropTypes.any # TODO: This should be a Component or array
     failedState: React.PropTypes.func
+    failedProps: React.PropTypes.object
     doneText: React.PropTypes.any
 
   getDefaultProps: ->
