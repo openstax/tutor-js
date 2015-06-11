@@ -50,7 +50,7 @@ Performance = React.createClass
   renderStudentRow: (student_data) ->
     cells = _.map(student_data.data, @renderStudentCell)
     <tr>
-      <td>{student_data.name}</td>
+      <td className='student-name'>{student_data.name}</td>
       {cells}
     </tr>
 
