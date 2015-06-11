@@ -29,7 +29,7 @@ module.exports = React.createClass
     {children, waitingText, failedState, failedProps, doneText} = @props
 
     if isFailed
-      stateClass = 'is-error'
+      stateClass = 'is-failed'
       return <failedState {...failedProps}/>
     else if isWaiting
       stateClass = 'is-waiting'
