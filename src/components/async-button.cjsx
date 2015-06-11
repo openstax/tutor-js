@@ -10,25 +10,25 @@ module.exports = React.createClass
     isDone: React.PropTypes.bool
     isFailed: React.PropTypes.bool
     waitingText: React.PropTypes.any # TODO: This should be a Component or array
-    errorText: React.PropTypes.any
+    failedText: React.PropTypes.any
     doneText: React.PropTypes.any
 
   getDefaultProps: ->
     isDone: false
     isFailed: false
     waitingText: 'Loading…'
-    errorText: 'Error. Please refresh'
+    failedText: 'Error. Please refresh'
     doneText: ''
 
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
-    {children, waitingText, errorText, doneText} = @props
+    {children, waitingText, failedText, doneText} = @props
 
     if isFailed
       # TODO: Turn this into a link that reloads the page
       stateClass = 'is-error'
-      text = errorText
+      text = failedText
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText
