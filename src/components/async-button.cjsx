@@ -13,6 +13,14 @@ module.exports = React.createClass
     errorText: React.PropTypes.any.isRequired
     doneText: React.PropTypes.any
 
+  getDefaultProps: ->
+    isWaiting: false
+    isDone: false
+    isFailed: false
+    waitingText: 'Loading…'
+    errorText: 'Error. Please refresh'
+    doneText: ''
+
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props

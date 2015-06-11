@@ -17,8 +17,6 @@ module.exports =
       className='-continue'
       onClick={@onContinue}
       disabled={not @isContinueEnabled()}
-      waitingText='Loading…'
-      errorText='Error. Please refresh'
       isWaiting={isWaiting}
       isFailed={isFailed}
       >
