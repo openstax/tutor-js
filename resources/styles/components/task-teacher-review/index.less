@@ -6,6 +6,18 @@
     margin: 0;
   }
 
+  &.task-homework {
+    counter-reset: question;
+    .question-stem {
+      &::before {
+        counter-increment: question;
+        content: counter(question) '.';
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+  }
+
   @import './question';
 }
 
