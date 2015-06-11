@@ -1,9 +1,26 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 RefreshButton = require './refresh-button'
 
 module.exports = React.createClass
   displayName: 'AsyncButton'
+
+  getInitialState: ->
+    isTimedout: false
+
+  componentDidUpdate: ->
+    {isWaiting, timeout} = @props
+    {isTimedout} = @state
+
+    if isWaiting and not isTimedout
+      _.delay =>
+        @checkForTimeout()
+      , timeout
+
+  checkForTimeout: ->
+    {isWaiting} = @props
+    @setState(isTimedout: true) if isWaiting
 
   propTypes:
     isWaiting: React.PropTypes.bool.isRequired
@@ -13,6 +30,7 @@ module.exports = React.createClass
     failedState: React.PropTypes.func
     failedProps: React.PropTypes.object
     doneText: React.PropTypes.any
+    timeout: React.PropTypes.number
 
   getDefaultProps: ->
     isDone: false
@@ -22,13 +40,17 @@ module.exports = React.createClass
     failedProps:
       beforeText: 'There was a problem.  '
     doneText: ''
+    timeout: 30000
 
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
     {children, waitingText, failedState, failedProps, doneText} = @props
+    {isTimedout} = @state
 
-    if isFailed
+    buttonTypeClass = 'async-button'
+
+    if isFailed or isTimedout
       stateClass = 'is-failed'
       return <failedState {...failedProps}/>
     else if isWaiting
@@ -44,7 +66,7 @@ module.exports = React.createClass
       text = children
 
     <BS.Button {...@props}
-      className={[stateClass, className]}
+      className={[buttonTypeClass, stateClass, className]}
       disabled={disabled}
       >
         {spinner}
