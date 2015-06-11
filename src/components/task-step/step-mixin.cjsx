@@ -3,26 +3,28 @@ BS = require 'react-bootstrap'
 
 {CardBody} = require '../pinned-header-footer-card/sections'
 Details = require '../task/details'
+AsyncButton = require '../async-button'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 
 module.exports =
 
   renderContinueButton: ->
-    buttonClasses = '-continue'
-    loading = TaskStepStore.isLoading(@props.id) or TaskStepStore.isLoading(@props.id)
-    if loading or not @isContinueEnabled()
-      buttonClasses += ' disabled'
-    text = if loading then 'Loading …' else (@continueButtonText?() or 'Continue')
-    continueButton = <BS.Button
-      bsStyle='primary'
-      className={buttonClasses}
-      onClick={@onContinue}>
-        {<i className="fa fa-spinner fa-spin"/> if loading}
-        {text}
-      </BS.Button>
+    isWaiting = TaskStepStore.isLoading(@props.id)
+    isFailed = TaskStepStore.isFailed(@props.id)
 
-    {continueButton}
+    <AsyncButton
+      bsStyle='primary'
+      className='-continue'
+      onClick={@onContinue}
+      disabled={@isContinueEnabled()}
+      waitingText='Loading…'
+      errorText='Error. Please refresh'
+      isWaiting={isWaiting}
+      isFailed={isFailed}
+      >
+      {@continueButtonText?() or 'Continue'}
+    </AsyncButton>
 
   render: ->
     {taskId, review} = @props
