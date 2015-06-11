@@ -20,6 +20,9 @@ Performance = React.createClass
     isNameSort: true
 
   sortClick: (event) ->
+    isActiveSort =
+      _.contains(event.target.classList, 'is-ascending') or
+      _.contains(event.target.classList, 'is-descending')
     # this is a special case for the name header data which is one level above nested data
     if not _.contains(event.target.classList, 'student-name')
       @setState({isNameSort: false})
@@ -28,6 +31,8 @@ Performance = React.createClass
     headers = event.target.parentNode.querySelectorAll('th')
     for header in headers
       header.classList.remove('is-ascending', 'is-descending')
+    if not isActiveSort
+      @state.sortOrder = 'is-ascending'
     event.target.classList.add(@state.sortOrder)
     @sortData(event.target.cellIndex)
 
