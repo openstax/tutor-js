@@ -13,17 +13,18 @@ module.exports =
     isWaiting = TaskStepStore.isLoading(@props.id)
     isSaving = TaskStepStore.isSaving(@props.id)
     isFailed = TaskStepStore.isFailed(@props.id)
-
     waitingText = 'Saving…' if isSaving
+    isFailed = TaskStepStore.isFailed(@props.id)
 
     <AsyncButton
       bsStyle='primary'
       className='-continue'
       onClick={@onContinue}
-      disabled={not @isContinueEnabled()}
-      isWaiting={isWaiting or isSaving}
+      disabled={@isContinueEnabled()}
+      waitingText='Loading…'
+      errorText='Error. Please refresh'
+      isWaiting={isWaiting}
       isFailed={isFailed}
-      waitingText={waitingText}
       >
       {@continueButtonText?() or 'Continue'}
     </AsyncButton>
