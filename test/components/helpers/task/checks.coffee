@@ -14,7 +14,7 @@ checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
     continueButton = div.querySelector('.-continue')
     expect(continueButton).to.not.be.null
-    expect(continueButton.className).to.not.contain('disabled')
+    expect(continueButton.disabled).to.be.falsy
 
     {div, component, state, router, history}
 
@@ -43,7 +43,7 @@ checks =
     continueButton = div.querySelector('.-continue')
 
     expect(div.querySelector('.answers-table')).to.be.null
-    expect(continueButton.className).to.contain('disabled')
+    expect(continueButton.disabled).to.be.true
 
     # TODO
     # Will eventually test based on task type.  Assuming exercise with free
@@ -63,7 +63,7 @@ checks =
     continueButton = div.querySelector('.-continue')
 
     # Prevent continue until answer chosen, answers should be showing.
-    expect(continueButton.className).to.contain('disabled')
+    expect(continueButton.disabled).to.be.true
     expect(div.querySelector('.answers-table')).to.not.be.null
     expect(div.querySelector('.answer-checked')).to.be.null
     {div, component, stepId, taskId, state, router, history}
@@ -73,7 +73,7 @@ checks =
     continueButton = div.querySelector('.-continue')
 
     # Continue should be allowed
-    expect(continueButton.className).to.not.contain('disabled')
+    expect(continueButton.disabled).to.be.falsy
     expect(step.answer_id).to.not.be.null
     expect(step.answer_id).to.equal(answer.id)
     {div, component, stepId, taskId, state, router, history, answer}
