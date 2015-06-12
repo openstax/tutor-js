@@ -18,7 +18,7 @@ TutorInput = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper"]
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
 
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
@@ -44,7 +44,7 @@ DayComponent = React.createClass
 
 
   render: ->
-    className = 'is-invalid' if moment(@props.date).startOf('day') < TimeStore.getNow()
+    className = 'is-invalid-date' if moment(@props.date).startOf('day') < TimeStore.getNow()
     <span className={className}>{@props.label}</span>
 
 TutorDateInput = React.createClass
@@ -83,7 +83,7 @@ TutorDateInput = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper tutor-input"]
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
     value = @props.value
     open = false
 
@@ -137,7 +137,7 @@ TutorTextArea = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper"]
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
 
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')

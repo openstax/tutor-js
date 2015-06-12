@@ -1,11 +1,12 @@
-// override line-height styles for paper form controls
 .tutor-input {
-  .is-invalid {
+  // dates on the date picker that are in the past and cannot be choosen
+  .is-invalid-date {
     text-decoration: line-through;
     color: @tutor-neutral;
   }
 
-  .form-control-wrapper {
+  &.form-control-wrapper {
+    // override line-height styles for paper form controls
     line-height: 1em;
 
     textarea {
@@ -63,7 +64,7 @@
     .form-control-wrapper.is-required {
       margin-bottom: 1em;
       .form-control.empty {
-        background-image: linear-gradient(@form-error-color, @form-error-color), 
+        background-image: linear-gradient(@form-error-color, @form-error-color),
         linear-gradient(@form-error-color, @form-error-color);
       }
       .form-control.empty ~ .floating-label {
@@ -77,24 +78,4 @@
     }
   }
 
-  .required-hint.hint {
-    display: none;
-  }
-  
-  .form-note {
-    color: @tutor-neutral;
-    font-size: 1.4rem;
-    font-style: italic;
-  }
-
-  textarea {
-    border: 1px solid @tutor-neutral;
-
-    &:focus {
-      border: 1px solid @tutor-tertiary-light;
-      box-shadow: 0 0 10px fade(@tutor-tertiary-light, 25%);
-    }
-  }
-
-  button i.fa { margin-right: 0.5rem; }
 }
