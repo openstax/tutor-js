@@ -69,7 +69,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         statusCode = jqXhr.status
         if statusCode is 200
           # HACK For PUT returning nothing (actually, it returns HTML for some reason)
-          successAction(args...)
+          successAction('', args...)
 
         else if statusCode is 400
           CurrentUserActions.logout()

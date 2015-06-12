@@ -55,7 +55,9 @@ actions =
 
   saveFreeResponse: ({div, component, stepId, taskId, state, router, history, textarea}) ->
     commonActions.clickButton(div, '.-continue')
-    TaskStepActions.saved(stepId, {free_response : textarea.value})
+    result = TaskStepStore.get(stepId)
+    result.free_response = textarea.value
+    TaskStepActions.saved(result, stepId)
 
     actions.forceUpdate({div, component, stepId, taskId, state, router, history})
 
@@ -65,7 +67,8 @@ actions =
     answerElement = div.querySelector('.answer-input-box')
 
     React.addons.TestUtils.Simulate.change(answerElement, answer)
-    TaskStepActions.saved(stepId, {answer_id : answer.id})
+    step.answer_id = answer.id
+    TaskStepActions.saved(step, stepId)
 
     actions.forceUpdate({div, component, stepId, taskId, state, router, history, answer})
 
