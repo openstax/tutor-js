@@ -104,11 +104,6 @@ start = ->
   # apiHelper TaskActions, TaskActions.save, TaskActions.saved, 'PATCH', (id, obj) ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
-  apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
-    url: "/api/plans/#{id}/publish"
-
-  afterPlanSave = (result, id) ->
-    TaskPlanActions.publish(result.id)
 
   saveHelper = (id) ->
     obj = TaskPlanStore.getChanged(id)
@@ -126,7 +121,7 @@ start = ->
       httpMethod: 'PATCH'
       payload: obj
 
-  apiHelper TaskPlanActions, TaskPlanActions.save, afterPlanSave, null, saveHelper
+  apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, null, saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 
