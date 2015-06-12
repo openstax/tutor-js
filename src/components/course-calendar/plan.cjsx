@@ -13,30 +13,44 @@ CoursePlan = React.createClass
 
   propTypes:
     item: React.PropTypes.object.isRequired
+    activeHeight: React.PropTypes.number.isRequired
+
+  getDefaultProps: ->
+    # CALENDAR_EVENT_LABEL_ACTIVE_STATIC_HEIGHT
+    activeHeight: 35
 
   componentDidMount: ->
-    hide = @refs.trigger.hide
-    trigger = React.findDOMNode(@refs.trigger)
-    closeModal = @closeModal
+    @closePlanOnModalHide()
+    @adjustForLongLabels()
 
-    # alias modal hide to also make plan look un-selected
-    @refs.trigger.hide  = ->
-      hide()
-      closeModal(trigger)
-      
+  adjustForLongLabels: ->
+    labelDOMNode = @refs.label.getDOMNode()
+    planDOMNode = @refs.plan.getDOMNode()
+
+    planDOMNode.classList.add('plan-label-long') if labelDOMNode.clientHeight > @props.activeHeight
 
   findPlanNodes: (planNode) ->
     container = @getDOMNode().parentElement.parentElement
     classes = '.' + Array.prototype.join.call(planNode.classList, '.')
     samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
 
-  toggleModal: (mouseEvent, key) ->
+  closePlanOnModalHide: ->
+    hide = @refs.trigger.hide
+    trigger = React.findDOMNode(@refs.trigger)
+    syncClosePlan = @syncClosePlan
+
+    # alias modal hide to also make plan look un-selected
+    @refs.trigger.hide  = ->
+      hide()
+      syncClosePlan(trigger)
+
+  syncOpenPlan: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
     samePlans.forEach((element) ->
       element.classList.add('open')
     )
 
-  closeModal: (trigger) ->
+  syncClosePlan: (trigger) ->
     samePlans = @findPlanNodes(trigger)
     samePlans.forEach((element) ->
       element.classList.remove('open')
@@ -66,7 +80,7 @@ CoursePlan = React.createClass
       if offset < 0
         planLabelStyle.float = 'right'
 
-      label = <label style={planLabelStyle}>{plan.title}</label>
+      label = <label style={planLabelStyle} ref='label'>{plan.title}</label>
 
 
   render: ->
@@ -96,7 +110,8 @@ CoursePlan = React.createClass
         className={planClasses}
         onMouseEnter={@syncHover}
         onMouseLeave={@removeHover}
-        onClick={@toggleModal}>
+        onClick={@syncOpenPlan}
+        ref='plan'>
         {label}
       </div>
     </BS.ModalTrigger>

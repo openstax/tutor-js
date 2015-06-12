@@ -1,4 +1,5 @@
 @calendar-plan-top-margin: 0.5rem;
+// CALENDAR_EVENT_LABEL_ACTIVE_STATIC_HEIGHT
 @calendar-plan-active-height: 3.5rem;
 @calendar-plan-height: 2rem;
 @calendar-plan-top-offset: (@calendar-plan-active-height - @calendar-plan-height)/2;
@@ -61,16 +62,34 @@
       transition: background .1s ease-in, margin-top .1s ease-in;
     }
 
+    &.plan-label-long {
+      label {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+
     &:hover,
     &.active,
     &.open {
-      max-height: @calendar-plan-active-height;
-      margin-top: -@calendar-plan-active-top-offset;
       z-index: 2;
-      line-height: @calendar-plan-active-height/2;
+    }
 
-      label {
-        margin-top: 0;
+    &.plan-label-long {
+      &:hover,
+      &.active,
+      &.open {
+        max-height: @calendar-plan-active-height;
+        margin-top: -@calendar-plan-active-top-offset;
+        line-height: @calendar-plan-active-height/2;
+
+        label {
+          overflow: visible;
+          white-space: normal;
+          margin-top: 0;
+        }
       }
     }
   }
