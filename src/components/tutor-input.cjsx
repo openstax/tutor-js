@@ -17,7 +17,7 @@ TutorInput = React.createClass
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper"]
 
-    unless @props.default then classes.push('is-empty')
+    unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.class)
 
@@ -75,7 +75,7 @@ TutorDateInput = React.createClass
     open = false
 
     if not @props.value and not @state.hasFocus
-      classes.push('is-empty')
+      classes.push('empty')
 
     if @state.expandCalendar and not @props.readOnly
       open = 'calendar'
@@ -126,7 +126,7 @@ TutorTextArea = React.createClass
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper"]
 
-    unless @props.default then classes.push('is-empty')
+    unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.inputClass)
 
