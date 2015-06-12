@@ -39,10 +39,15 @@ module.exports =
 
   publish: ->
     {id} = @props
-    publishable = TaskPlanStore.isValid(id)
+    TaskPlanActions.publish(id)
+    @save()
+
+  save: ->
+    {id} = @props
+    saveable = TaskPlanStore.isValid(id)
     # The logic here is this way because we need to be able to add an invalid
     # state to the form.  Blame @fredasaurus
-    if (publishable)
+    if (saveable)
       TaskPlanStore.addChangeListener(@saved)
       TaskPlanActions.save(id)
     else

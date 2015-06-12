@@ -34,38 +34,57 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id, type: 'homework'})
 
   render: ->
-    {id, courseId, clickedSelectProblem} = @props
+    {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
 
     plan = TaskPlanStore.get(id)
 
-    publishable = not TaskPlanStore.isPublished(id)
-    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isPublished(id)
+    saveable = not TaskPlanStore.isPublished(id)
+    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isOpened(id)
 
-    classes = ['-publish']
-    classes.push('disabled') unless publishable
-    classes = classes.join(' ')
-
-    publishButton = <BS.Button bsStyle='primary' 
-      className={classes} 
-      onClick={@props.onPublish}>Publish</BS.Button>
+    publishButton =
+      <BS.Col sm={6} md={2}>
+        <BS.Button bsStyle='primary' onClick={onPublish}>Publish</BS.Button>
+        <p>
+          Publish will make the assignment available to
+          students on the open date.  If open date is today,
+          it will be available immediately.
+        </p>
+      </BS.Col>
 
     if deleteable
-      deleteLink = <BS.Button bsStyle='link' className='-delete' onClick={@onDelete}>Delete</BS.Button>
+      deleteLink = <a className='delete-link' onClick={@onDelete}>
+        <i className="fa fa-trash"></i> Delete Assignment</a>
+
+    if saveable
+      saveLink =
+        <BS.Col sm={6} md={2}>
+          <BS.Button className='-save' onClick={onSave}>Save as Draft</BS.Button>
+          <p>
+            An assignment in draft will not be available to students, even if the open date has passed.
+          </p>
+        </BS.Col>
 
     hasExercises = TaskPlanStore.getExercises(id)?.length
-    if TaskPlanStore.isHomework(id) and not TaskPlanStore.isPublished(id) and not hasExercises
+    if TaskPlanStore.isHomework(id) and not TaskPlanStore.isVisibleToStudents(id) and not hasExercises
       publishButton = null
-      selectProblems = <BS.Button 
+      saveLink = null
+      selectProblems = <BS.Col sm={6} md={2}><BS.Button 
         bsStyle='primary' 
         className='-select-problems'
         onClick={clickedSelectProblem}>Select Problems
-      </BS.Button>
+      </BS.Button></BS.Col>
 
-    <span className='-footer-buttons'>
+    <BS.Row className='footer-buttons'>
       {selectProblems}
       {publishButton}
-      {deleteLink}
-      <BS.Button aria-role='close' onClick={@onCancel}>Cancel</BS.Button>
-    </span>
+      <BS.Col sm={6} md={2}>
+        <BS.Button aria-role='close' onClick={@onCancel}>Cancel</BS.Button>
+        <p>Discard all changes and return to the calendar.</p>
+      </BS.Col>
+      {saveLink}
+      <BS.Col sm={6} md={2}>
+        {deleteLink}
+      </BS.Col>
+    </BS.Row>
 
 module.exports = PlanFooter

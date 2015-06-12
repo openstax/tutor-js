@@ -130,9 +130,6 @@ ReadingPlan = React.createClass
     
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
 
-    if (TaskPlanStore.isPublished(id))
-      dueAtReadOnly = true
-
     if (@state?.showSectionTopics)
       formClasses.push('hide')
       selectReadings = <ChooseReadings
@@ -142,6 +139,12 @@ ReadingPlan = React.createClass
                         selected={topics}/>
 
     if @state?.invalid then formClasses.push('is-invalid-form')
+
+    if not TaskPlanStore.isVisibleToStudents()
+      addReadingsButton = <BS.Button id='reading-select'
+        onClick={@showSectionTopics}
+        bsStyle='default'>+ {addReadingText}
+      </BS.Button>
 
     <div className='reading-plan'>
       <BS.Panel bsStyle='primary'
@@ -163,7 +166,6 @@ ReadingPlan = React.createClass
               <TutorDateInput
                 id='reading-due-date'
                 label='Due Date'
-                readOnly={dueAtReadOnly}
                 required={true}
                 onChange={@setDueAt}
                 min={opensAt}
@@ -171,10 +173,7 @@ ReadingPlan = React.createClass
             </BS.Col>
             <BS.Col xs={12} md={12}>
               <ReviewReadings courseId={courseId} planId={id} selected={topics}/>
-              <BS.Button id='reading-select'
-                onClick={@showSectionTopics}
-                bsStyle='default'>+ {addReadingText}
-              </BS.Button>
+              {addReadingsButton}
             </BS.Col>
           </BS.Row>
         </BS.Grid>
