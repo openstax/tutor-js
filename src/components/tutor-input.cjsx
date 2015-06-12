@@ -42,10 +42,16 @@ DayComponent = React.createClass
     date:  React.PropTypes.string.isRequired
     label: React.PropTypes.string.isRequired
 
+  isInvalid: ->
+    moment(@props.date).startOf('day') < TimeStore.getNow()
+
+  onClick: (ev) ->
+    ev.stopPropagation() if @isInvalid()
 
   render: ->
-    className = 'is-invalid-date' if moment(@props.date).startOf('day') < TimeStore.getNow()
-    <span className={className}>{@props.label}</span>
+    <span onClick={@onClick} className={'is-invalid-date' if @isInvalid()}>
+      {@props.label}
+    </span>
 
 TutorDateInput = React.createClass
 
