@@ -1,10 +1,34 @@
 .tutor-input {
-  // dates on the date picker that are in the past and cannot be choosen
-  .is-invalid-date {
-    text-decoration: line-through;
-    color: @tutor-neutral;
+  .rw-calendar-grid {
+    td {
+      // these override the default styles for the date picker so we can apply our own
+      // based on the <span> element that we render inside the rw-btn
+      .rw-btn {
+        border-radius: 0;
+        padding: 0;
+        &:hover { cursor: default; background-color: inherit; }
+        &.rw-off-range { color: inherit; }
+      }
+      &:hover{ cursor: default; }
+      .rw-state-selected { border-radius: @input-border-radius; }
+    }
+    // dates on the date picker that are in the past and cannot be choosen
+    .date {
+      border-radius: @input-border-radius;
+      padding: 0 .4em 0 .1em;
+      &:hover {
+        background-color: @tutor-neutral-light;
+      }
+      &.is-invalid {
+        text-decoration: line-through;
+        color: @tutor-neutral;
+        &:hover {
+          background-color: inherit;
+          cursor: default;
+        }
+      }
+    }
   }
-
   &.form-control-wrapper {
     // override line-height styles for paper form controls
     line-height: 1em;

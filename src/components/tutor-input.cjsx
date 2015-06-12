@@ -49,9 +49,11 @@ DayComponent = React.createClass
     ev.stopPropagation() if @isInvalid()
 
   render: ->
-    <span onClick={@onClick} className={'is-invalid-date' if @isInvalid()}>
+    classNames = ['date']
+    classNames.push('is-invalid') if @isInvalid()
+    <div onClick={@onClick} className={classNames.join(' ')}>
       {@props.label}
-    </span>
+    </div>
 
 TutorDateInput = React.createClass
 
