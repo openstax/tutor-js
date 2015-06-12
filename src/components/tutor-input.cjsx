@@ -44,10 +44,7 @@ DayComponent = React.createClass
 
 
   render: ->
-    className = if moment(@props.date).startOf('day') < TimeStore.getNow()
-      'invalid'
-    else
-      'valid'
+    className = 'is-invalid' if moment(@props.date).startOf('day') < TimeStore.getNow()
     <span className={className}>{@props.label}</span>
 
 TutorDateInput = React.createClass
