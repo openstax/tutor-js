@@ -110,6 +110,9 @@ CrudConfig = ->
       _.extend(@_changed[id], obj)
       @emitChange()
 
+    _save: (id) ->
+      @_asyncStatus[id] = SAVING
+
     delete: (id) ->
       @_asyncStatus[id] = DELETING
 
@@ -132,6 +135,7 @@ CrudConfig = ->
       isUnknown: (id) -> not @_asyncStatus[id]
       isLoading: (id) -> @_asyncStatus[id] is LOADING
       isLoaded: (id) -> @_asyncStatus[id] is LOADED
+      isSaving: (id) -> @_asyncStatus[id] is SAVING
       isFailed: (id) -> @_asyncStatus[id] is FAILED
       getAsyncStatus: (id) -> @_asyncStatus[id]
       get: (id) -> @_get(id)

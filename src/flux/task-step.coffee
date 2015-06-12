@@ -21,7 +21,7 @@ TaskStepConfig =
 
   complete: (id) ->
     @_change(id, {is_completed: true})
-    @emitChange()
+    @_save(id)
 
   completed: (obj, id) ->
     @loaded(obj, id)
@@ -29,11 +29,11 @@ TaskStepConfig =
 
   setAnswerId: (id, answer_id) ->
     @_change(id, {answer_id})
-    @emitChange()
+    @_save(id)
 
   setFreeResponseAnswer: (id, free_response) ->
     @_change(id, {free_response})
-    @emitChange()
+    @_save(id)
 
   loadRecovery: (id) ->
     @emitChange()

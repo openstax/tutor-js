@@ -11,15 +11,19 @@ module.exports =
 
   renderContinueButton: ->
     isWaiting = TaskStepStore.isLoading(@props.id)
+    isSaving = TaskStepStore.isSaving(@props.id)
     isFailed = TaskStepStore.isFailed(@props.id)
+
+    waitingText = 'Saving…' if isSaving
 
     <AsyncButton
       bsStyle='primary'
       className='-continue'
       onClick={@onContinue}
       disabled={not @isContinueEnabled()}
-      isWaiting={isWaiting}
+      isWaiting={isWaiting or isSaving}
       isFailed={isFailed}
+      waitingText={waitingText}
       >
       {@continueButtonText?() or 'Continue'}
     </AsyncButton>
