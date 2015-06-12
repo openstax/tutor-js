@@ -28,7 +28,7 @@ ExerciseSummary = React.createClass
         Tutor selections are added later to support spaced practice and personalized learning.
       </em></BS.Col>
 
-    publishable = TaskPlanStore.isValid(@props.planId) and not TaskPlanStore.isPublished(@props.id)
+    publishable = not TaskPlanStore.isPublished(@props.id)
 
     if @props.canReview and numSelected
       buttons = <span><BS.Button 
