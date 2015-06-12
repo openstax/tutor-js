@@ -21,15 +21,24 @@ Review = React.createClass
 
     stepsList = _.map steps, (step, index) ->
 
-      stepProps = _.extend({}, stepsProps, {content: step})
+      if step.questions
+        stepProps = _.extend({}, stepsProps, {content: step})
 
-      <TaskTeacherReviewExercise
-        {...stepProps}
-        id={step.questions[0].id}
-        key="task-review-#{step.questions[0].id}"
-        # focus on first problem
-        focus={focus and index is 0}
-      />
+        item = <TaskTeacherReviewExercise
+          {...stepProps}
+          id={step.questions[0].id}
+          key="task-review-#{step.questions[0].id}"
+          # focus on first problem
+          focus={focus and index is 0}
+        />
+      else
+        item = <h2>
+          <span className='text-success'>
+            {step.sectionLabel}
+          </span> {step.title}
+        </h2>
+
+      item
 
     <ReactCSSTransitionGroup transitionName="homework-review-problem">
       {stepsList}

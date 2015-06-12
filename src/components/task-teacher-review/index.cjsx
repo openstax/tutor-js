@@ -7,6 +7,7 @@ camelCase = require 'camelcase'
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 CrumbMixin = require './crumb-mixin'
+ChapterSectionMixin = require '../chapter-section-mixin'
 
 Breadcrumbs = require './breadcrumbs'
 Review = require './review'
@@ -21,7 +22,7 @@ TaskTeacherReview = React.createClass
 
   displayName: 'TaskTeacherReview'
 
-  mixins: [CrumbMixin]
+  mixins: [ChapterSectionMixin, CrumbMixin]
 
   contextTypes:
     router: React.PropTypes.func

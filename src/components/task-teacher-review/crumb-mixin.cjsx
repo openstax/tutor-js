@@ -9,9 +9,11 @@ module.exports =
 
   _setChapterSectionOnQuestions: (page) ->
     chapter_section = page.chapter_section
+    title = page.title
 
     _.each page.exercises, (exercise) ->
       exercise.chapter_section = chapter_section
+      exercise.title = title
 
       _.each exercise.content.questions, (question) ->
         question.chapter_section = chapter_section
@@ -72,13 +74,20 @@ module.exports =
     contents = _.pluck(crumbs, 'data')
 
   _getContentsForReading: (crumbs) ->
-    contents = _.chain(crumbs)
+    _.chain(crumbs)
       .pluck('data')
-      .map((data) ->
-        _.pluck(data, 'content')
+      .map((data) =>
+
+        content = _.pluck(data, 'content')
+        sectionLabel = @_buildSectionLabel(data[0].chapter_section)
+        {title} = data[0]
+
+        content.unshift({sectionLabel, title})
+        content
       )
       .flatten(true)
       .value()
+
 
   _shouldStepCrumb: ->
     true
