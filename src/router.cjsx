@@ -8,6 +8,7 @@ Router = require 'react-router'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
+{ReferenceBookShell, ReferenceBookPage} = require './components/reference-book'
 
 {StatsShell} = require './components/task-plan/reading-stats'
 
@@ -21,13 +22,9 @@ routes = (
       <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
       <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
       <Route path='tasks/:id/steps/:stepIndex/?'
-        name='viewTaskStep'
-        handler={SingleTask}
-        ignoreScrollBehavior/>
-
+        name='viewTaskStep' handler={SingleTask} ignoreScrollBehavior/>
       <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
-      <Route path='guide/?' name='viewGuide' handler={LearningGuideShell} />
-
+      <Route path='guide/?' name='viewGuide' handler={LearningGuideShell}/>
       <Route path='t/performance/?' name='viewPerformance' handler={PerformanceShell} />
       <Route path='t/calendar/?' name='taskplans' handler={TeacherTaskPlans} />
       <Route path='t/homeworks/new/?' name='createHomework' handler={HomeworkShell} />
@@ -35,11 +32,14 @@ routes = (
       <Route path='t/readings/new/?' name='createReading' handler={ReadingShell} />
       <Route path='t/readings/:id/?' name='editReading' handler={ReadingShell} />
       <Route path='t/:type/:id/stats/?' name='viewStats' handler={StatsShell} />
+      <Route path='book' name='viewReferenceBookTOC' handler={ReferenceBookShell}/>
+      <Route path='book/:pageId/?' name='viewReferenceBookPage' handler={ReferenceBookPage}/>
     </Route>
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )
+
 
 # Remember the router for unit testing
 router = Router.create

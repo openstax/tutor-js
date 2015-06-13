@@ -58,6 +58,15 @@ module.exports = React.createClass
               >
                 View My Flight Path
               </BS.Button>
+              <BS.Button
+                bsStyle='primary'
+                target="_blank"
+                href={@context.router.makeHref('viewReferenceBookTOC', {courseId: courseId})}
+                className='-view-reference-guide'
+              >
+                Browse the Book
+              </BS.Button>
+
             </div>
           </BS.Col>
 
