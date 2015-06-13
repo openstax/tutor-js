@@ -5,7 +5,7 @@ ReferenceBookConfig = {
 
   exports:
     getToc: (courseId) ->
-      _.first @_get(courseId)
+      @_get(courseId)['0']
 
 }
 

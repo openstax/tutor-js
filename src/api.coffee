@@ -22,6 +22,7 @@ _ = require 'underscore'
 {StudentDashboardActions} = require './flux/student-dashboard'
 {CourseListingActions, CourseListingStore} = require './flux/course-listing'
 {ReferenceBookActions, ReferenceBookStore} = require './flux/reference-book'
+{ReferenceBookPageActions, ReferenceBookPageStore} = require './flux/reference-book-page'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -195,6 +196,10 @@ start = ->
 
   apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/readings"
+
+
+  apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->
+    url: "/api/pages/#{cnxId}"
 
   apiHelper StudentDashboardActions, StudentDashboardActions.load, StudentDashboardActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/dashboard"

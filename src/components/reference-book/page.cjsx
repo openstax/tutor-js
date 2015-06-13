@@ -2,23 +2,17 @@ React = require 'react'
 Router = require 'react-router'
 
 BS = require 'react-bootstrap'
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
+HTML = require '../html'
+{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'
 
-  mixins: [ Router.State ],
+  mixins: [ Router.State ]
 
   render: ->
-    {courseId, pageId} = @getParams()
-    toc = ReferenceBookStore.getToc(courseId)
-    <div className="reference-book">
-      <Router.Link
-        to="viewReferenceBookTOC"
-        className="btn btn-primary"
-        params={courseId: courseId}>View Table of Contents</Router.Link>
-
-      <div className="page">
-        <h1>PageID: {pageId}</h1>
-      </div>
+    {cnxId} = @getParams()
+    page = ReferenceBookPageStore.get(cnxId)
+    <div className="content">
+        <HTML html={page.content_html}/>
     </div>

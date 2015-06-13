@@ -8,7 +8,7 @@ Router = require 'react-router'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
-{ReferenceBookShell, ReferenceBookPage} = require './components/reference-book'
+{ReferenceBookShell, ReferenceBookPageShell} = require './components/reference-book'
 
 {StatsShell} = require './components/task-plan/reading-stats'
 
@@ -32,8 +32,9 @@ routes = (
       <Route path='t/readings/new/?' name='createReading' handler={ReadingShell} />
       <Route path='t/readings/:id/?' name='editReading' handler={ReadingShell} />
       <Route path='t/:type/:id/stats/?' name='viewStats' handler={StatsShell} />
-      <Route path='book' name='viewReferenceBookTOC' handler={ReferenceBookShell}/>
-      <Route path='book/:pageId/?' name='viewReferenceBookPage' handler={ReferenceBookPage}/>
+      <Route path='book/?' name='viewReferenceBookTOC' handler={ReferenceBookShell}>
+        <Route path=':cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
+      </Route>
     </Route>
     <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />

@@ -1,21 +1,37 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
+{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
 
 LoadableItem = require '../loadable-item'
 moment = require 'moment'
 ReferenceBook = require './reference-book'
 ReferenceBookPage = require './page'
 
-ReferenceBookShell = React.createClass
-  displayName: 'ReferenceBookShell'
-
-  contextTypes:
-    router: React.PropTypes.func
+ReferenceBookPageShell = React.createClass
+  displayName: 'ReferenceBookPageShell'
+  mixins: [ Router.State ]
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {cnxId} = @getParams()
+    <div className='page'>
+      <LoadableItem
+        id={cnxId}
+        store={ReferenceBookPageStore}
+        actions={ReferenceBookPageActions}
+        renderItem={ -> <ReferenceBookPage cnxId={cnxId}/> }
+      />
+    </div>
+
+
+ReferenceBookShell = React.createClass
+  displayName: 'ReferenceBookShell'
+  mixins: [ Router.State ]
+
+  render: ->
+    {courseId} = @getParams()
     <div className='reference-book'>
       <LoadableItem
         id={courseId}
@@ -25,4 +41,4 @@ ReferenceBookShell = React.createClass
       />
     </div>
 
-module.exports = {ReferenceBookShell, ReferenceBookPage}
+module.exports = {ReferenceBookShell, ReferenceBookPageShell}
