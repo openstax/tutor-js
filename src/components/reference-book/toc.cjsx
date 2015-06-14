@@ -20,12 +20,12 @@ Section = React.createClass
       link = _.first( @props.section.cnx_id.split('@') )
       <Router.Link to="viewReferenceBookPage"
           params={courseId: courseId, cnxId: link}>
-          <span className="number">{chapter}.{section}</span>
+          <span className="section-number">{chapter}.{section}</span>
           {@props.section.title}
       </Router.Link>
     else
       <h3>
-        <span className="number">{chapter}</span>
+        <span className="section-number">{chapter}</span>
         {@props.section.title}
       </h3>
 

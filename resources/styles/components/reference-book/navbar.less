@@ -1,12 +1,7 @@
 .reference-book {
-  color: @tutor-secondary;
+
   .navbar {
     height: 60px;
-
-    .number {
-      color: @tutor-secondary;
-      margin-right: 0.4rem;
-    }
 
     .section-title {
       line-height: 60px;
@@ -18,29 +13,18 @@
 
       ul{ padding-left: 0rem; }
       h3 {
-        padding: 5px 5px 5px 10px;
-        margin: 0;
         #fonts > .sans();
-        color: @tutor-black;
-        border-bottom: 1px dotted @tutor-neutral;
+        border-top: 1px dotted @tutor-neutral;
       }
       li {
         #fonts > .sans(1.4rem);
-        border-bottom: 1px dotted @tutor-neutral;
-        a {
-          color: @tutor-black;
-          padding: 5px 5px 5px 15px;
-          display: block;
-          &:hover {
-            background-color: @tutor-neutral-bright;
-            text-decoration: initial;
-          }
-          &.active {
-            background-color: @tutor-neutral-light;
-            text-decoration: initial;
-          }
-        }
+        border-top: 1px dotted @tutor-neutral;
+      }
+      // no top border on the first element
+      ul:first-of-type {
+        h3, a { border-top: 0; }
       }
     }
+
   }
 }

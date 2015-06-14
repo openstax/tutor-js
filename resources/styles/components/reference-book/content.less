@@ -1,13 +1,30 @@
 .reference-book {
-
-  .page {
+  .content {
     margin-top: 75px;
-    .content {
+    .page {
       width: 1000px;
       margin: 0 auto;
       border: 1px solid @tutor-neutral-bright;
       background-color: @tutor-white;
       .tutor-book-content();
+      // shown if parent is-teacher present below
+      .os-teacher {
+        display: none;
+      }
+
+      section.section-opener +
+      section {
+        .book-content-step-size();
+      }
+    }
+  }
+
+
+  &.is-teacher {
+    .page .content {
+      .os-teacher {
+        display: block;
+      }
     }
   }
 }

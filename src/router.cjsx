@@ -37,8 +37,8 @@ routes = (
       </Route>
       <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     </Route> # end of App route
-    <Route path='/book/:courseId/?' name='viewReferenceBookTOC' handler={ReferenceBookShell}>
-      <Router.DefaultRoute handler={ReferenceBookTOC}/>
+    <Route path='/book/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
+      <Router.DefaultRoute name="viewReferenceBookTOC" handler={ReferenceBookTOC}/>
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
     </Route>
     <NotFoundRoute handler={Invalid} />

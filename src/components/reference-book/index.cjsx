@@ -9,7 +9,7 @@ LoadableItem = require '../loadable-item'
 moment = require 'moment'
 ReferenceBook = require './reference-book'
 ReferenceBookPage = require './page'
-ReferenceBookTOC  = require './page'
+ReferenceBookTOC  = require './toc'
 
 ReferenceBookPageShell = React.createClass
   displayName: 'ReferenceBookPageShell'

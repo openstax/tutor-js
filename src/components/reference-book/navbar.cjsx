@@ -14,14 +14,15 @@ module.exports = React.createClass
 
   renderSectionTitle: (cnxId) ->
     page = ReferenceBookPageStore.get(cnxId)
-    return null unless page
+    return unless page
     <span className="section-title">
-      <span className="number">Chapter {page.chapter_section.join('.')}</span>
+      <span className="section-number">Chapter {page.chapter_section.join('.')}</span>
       {page.title}
     </span>
 
   render: ->
     {cnxId} = @getParams()
+
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
       <BS.Nav navbar>
         <BS.DropdownButton buttonClassName="fa fa-bars" noCaret>
