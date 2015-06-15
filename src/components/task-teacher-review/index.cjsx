@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+{ScrollListenerMixin} = require 'react-scroll-components'
+
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
@@ -22,7 +24,7 @@ TaskTeacherReview = React.createClass
 
   displayName: 'TaskTeacherReview'
 
-  mixins: [ChapterSectionMixin, CrumbMixin]
+  mixins: [ChapterSectionMixin, CrumbMixin, ScrollListenerMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -43,12 +45,51 @@ TaskTeacherReview = React.createClass
 
   getInitialState: ->
     currentStep: 0
+    scrollPoints: []
+    scrollState: {}
+    scrollTopBuffer: 0
 
   componentWillMount: ->
     @setStepKey()
 
   componentWillReceiveProps: ->
     @setStepKey()
+
+  setScrollTopBuffer: (scrollTopBuffer) ->
+    @setState({scrollTopBuffer})
+
+  setScrollPoint: (scrollPoint, scrollState) ->
+    @state.scrollPoints.push({scrollPoint, scrollState})
+
+  getScrollStateByScroll: (scrollTop) ->
+    sortedDescScrollPoints = _.sortBy @state.scrollPoints, (scrollData) ->
+      -1 * scrollData.scrollPoint
+
+    scrollState = _.find sortedDescScrollPoints, (scrollData) =>
+      scrollTop > (scrollData.scrollPoint - @state.scrollTopBuffer)
+
+    scrollState or _.last(sortedDescScrollPoints)
+
+  getScrollStateByKey: (stepKey) ->
+    scrollState = _.find @state.scrollPoints, (scrollData) ->
+      scrollData.scrollState.key is stepKey
+
+  setScrollState: ->
+    scrollState = @getScrollStateByScroll(@state.scrollTop)
+    @setState({scrollState})
+    @goToStep(@state.scrollState.scrollState.key)() if @state.scrollState.scrollState?.key?
+
+  componentDidUpdate: (prevProps, prevState) ->
+    didScrollStateChange = not (prevState.scrollState.scrollPoint is @getScrollStateByScroll(@state.scrollTop).scrollPoint)
+    didCrumbkeyChange = not (@state.currentStep is @state.scrollState?.scrollState?.key)
+
+    @setScrollState() if didScrollStateChange
+    @scrollToKey(@state.currentStep) if didCrumbkeyChange and not didScrollStateChange
+
+  scrollToKey: (stepKey) ->
+    scrollState = @getScrollStateByKey(stepKey)
+
+    window.scrollTo(0, (scrollState.scrollPoint - @state.scrollTopBuffer + 1))
 
   # Curried for React
   goToStep: (stepKey) ->
@@ -58,7 +99,8 @@ TaskTeacherReview = React.createClass
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
 
-      @context.router.transitionTo('reviewTaskStep', params)
+      # @context.router.transitionTo('reviewTaskStep', params)
+      @context.router.replaceWith('reviewTaskStep', params)
 
   getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()
@@ -76,6 +118,8 @@ TaskTeacherReview = React.createClass
     panel = <Review
           steps={steps}
           taskId={task.id}
+          setScrollPoint={@setScrollPoint}
+          setScrollTopBuffer={@setScrollTopBuffer}
           goToStep={@goToStep}
           onNextStep={@onNextStep}
           review='teacher'

@@ -38,7 +38,7 @@ routes = (
         <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
         <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
         <Route path='tasks/:id/?' name='reviewTask' handler={TaskTeacherReviewShell} >
-          <Route path='steps/:stepIndex/?' name='reviewTaskStep' />
+          <Route path='steps/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
         </Route>
       </Route>
     </Route>

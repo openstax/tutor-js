@@ -3,11 +3,13 @@ React = require 'react'
 ScrollTracker =
   propTypes:
     setScrollPoint: React.PropTypes.func.isRequired
-    onScrollPoint: React.PropTypes.func.isRequired
+    scrollState: React.PropTypes.object.isRequired
 
   setScrollPoint: ->
-    offset = @getPosition(@getDOMNode())
-    @props.setScrollPoint(offset, @onScrollPoint)
+    {setScrollPoint, scrollState} = @props
+
+    scrollPoint = @getPosition(@getDOMNode())
+    setScrollPoint(scrollPoint, scrollState)
 
   componentDidMount: ->
     @setScrollPoint()

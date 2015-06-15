@@ -1,6 +1,4 @@
 React = require 'react/addons'
-
-{ScrollListenerMixin} = require 'react-scroll-components'
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 _ = require 'underscore'
@@ -12,13 +10,26 @@ ScrollTracker = require '../scroll-tracker'
 ReviewTracker = React.createClass
   displayName: 'ReviewTracker'
   mixins: [ScrollTracker]
-  onScrollPoint: ->
-    {topic, route} = @props
+  renderQuestion: ->
+    <TaskTeacherReviewExercise {...@props}/>
 
-    @props.onScrollPoint()
+  renderHeading: ->
+    {sectionLabel, title} = @props
+
+    <h2>
+      <span className='text-success'>
+        {sectionLabel}
+      </span> {title}
+    </h2>
 
   render: ->
-    {type} = @props
+    {content} = @props
+
+    renderFn = 'renderQuestion'
+    renderFn = 'renderHeading' unless content?
+
+    @[renderFn]()
+
 
 
 Review = React.createClass
@@ -26,35 +37,41 @@ Review = React.createClass
   propTypes:
     taskId: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
+    setScrollPoint: React.PropTypes.func.isRequired
 
   getDefaultProps: ->
     focus: false
 
+  setScrollTopBuffer: ->
+    scrollTopBuffer = @getPosition(@getDOMNode())
+    @props.setScrollTopBuffer(scrollTopBuffer)
+
+  componentDidMount: ->
+    @setScrollTopBuffer()
+
+  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
+
   render: ->
     {taskId, steps, focus} = @props
 
-    stepsProps = _.omit(@props, 'steps', 'focus')
+    stepsProps = _.omit(@props, 'steps', 'focus', 'setScrollTopBuffer')
 
-    stepsList = _.map steps, (step, index) ->
+    stepsList = _.map steps, (step, index) =>
+
+      scrollState = _.pick(step, 'key', 'sectionLabel')
 
       if step.questions
         stepProps = _.extend({}, stepsProps, {content: step})
-
-        item = <TaskTeacherReviewExercise
-          {...stepProps}
-          id={step.questions[0].id}
-          key="task-review-#{step.questions[0].id}"
-          # focus on first problem
-          focus={focus and index is 0}
-        />
+        stepProps.key = "task-review-question-#{step.questions[0].id}"
+        stepProps.focus = focus and index is 0
       else
-        item = <h2>
-          <span className='text-success'>
-            {step.sectionLabel}
-          </span> {step.title}
-        </h2>
+        stepProps = step
+        stepProps.key = "task-review-heading-#{step.sectionLabel}"
 
-      item
+      item = <ReviewTracker
+        {...stepProps}
+        scrollState={scrollState}
+        setScrollPoint={@props.setScrollPoint} />
 
     <ReactCSSTransitionGroup transitionName="homework-review-problem">
       {stepsList}
