@@ -11,25 +11,37 @@ module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
   mixins: [Router.State, BindStoreMixin]
   bindStore: ReferenceBookPageStore
+  propTypes:
+    teacherLinkText: React.PropTypes.string
+    showTeacherEdition: React.PropTypes.func
 
-  renderSectionTitle: (cnxId) ->
-    page = ReferenceBookPageStore.get(cnxId)
-    return unless page
-    <span className="section-title">
+  renderSectionTitle: ->
+    page = ReferenceBookStore.getPageInfo(@getParams())
+    <BS.Nav navbar className="section-title">
       <span className="section-number">Chapter {page.chapter_section.join('.')}</span>
       {page.title}
-    </span>
+    </BS.Nav>
+
+  onMenuClick: ->
+    # close the dropdown menu when a link is clicked
+    @refs.tocmenu.setDropdownState(false)
+
+  renderTeacher: ->
+    <BS.Nav navbar right>
+      <a className="teacher-edition" onClick={@props.showTeacherEdition}>
+        {@props.teacherLinkText}
+      </a>
+    </BS.Nav>
+
 
   render: ->
     {cnxId} = @getParams()
-
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
       <BS.Nav navbar>
-        <BS.DropdownButton buttonClassName="fa fa-bars" noCaret>
-          <ReferenceBookTOC courseId={@props.courseId} />
+        <BS.DropdownButton ref="tocmenu" buttonClassName="fa fa-bars" noCaret>
+          <ReferenceBookTOC courseId={@props.courseId} onClick={@onMenuClick} />
         </BS.DropdownButton>
       </BS.Nav>
-      <BS.Nav navbar>
-        {@renderSectionTitle(cnxId) if cnxId}
-      </BS.Nav>
+      {@renderSectionTitle() if cnxId}
+      {@renderTeacher() if @props.showTeacherEdition}
     </BS.Navbar>
