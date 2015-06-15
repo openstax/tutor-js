@@ -1,5 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+moment = require 'moment'
+
+{TimeStore} = require '../flux/time'
 {DateTimePicker} = require 'react-widgets'
 
 TutorInput = React.createClass
@@ -15,7 +18,7 @@ TutorInput = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper"]
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
 
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
@@ -32,6 +35,24 @@ TutorInput = React.createClass
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
       </div>
+    </div>
+
+DayComponent = React.createClass
+  propTypes:
+    date:  React.PropTypes.string.isRequired
+    label: React.PropTypes.string.isRequired
+
+  isInvalid: ->
+    moment(@props.date).startOf('day') < TimeStore.getNow()
+
+  onClick: (ev) ->
+    ev.stopPropagation() if @isInvalid()
+
+  render: ->
+    classNames = ['date']
+    classNames.push('is-invalid') if @isInvalid()
+    <div onClick={@onClick} className={classNames.join(' ')}>
+      {@props.label}
     </div>
 
 TutorDateInput = React.createClass
@@ -70,7 +91,7 @@ TutorDateInput = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper"]
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
     value = @props.value
     open = false
 
@@ -90,7 +111,7 @@ TutorDateInput = React.createClass
         Required Field <i className="fa fa-exclamation-circle"></i>
       </div>
       <DateTimePicker onClick={@clickHandler}
-        onFocus={@expandCalendar} 
+        onFocus={@expandCalendar}
         onBlur={@onBlur}
         id={@props.id}
         format='MMM dd, yyyy'
@@ -101,7 +122,7 @@ TutorDateInput = React.createClass
         className={classes.join(' ')}
         onChange={@dateSelected}
         readOnly={@props.readOnly}
-        min={@props.min}
+        dayComponent={DayComponent}
         value={value}
       />
     </div>
@@ -124,7 +145,7 @@ TutorTextArea = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper"]
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
 
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
