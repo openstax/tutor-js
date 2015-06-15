@@ -97,8 +97,8 @@ Performance = React.createClass
     student_rows = _.map(sortData, @renderStudentRow)
 
 
-    <div className='performance-report'>
-      <h2>Performance Report</h2>
+    <div className='course-performance-wrap'>
+      <span className='course-performance-header'>Performance Report</span>
       <BS.Panel className='course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
@@ -129,7 +129,7 @@ PerformanceShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <BS.Panel className='course-performance-container'>
+    <BS.Panel className='performance-report'>
       <LoadableItem
         id={courseId}
         store={PerformanceStore}
