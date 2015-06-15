@@ -1,6 +1,7 @@
 .reference-book {
   .content {
     margin-top: 75px;
+
     .page {
       width: 1000px;
       margin: 0 auto;
@@ -19,12 +20,29 @@
     }
   }
 
-
   &.is-teacher {
-    .page .content {
+    .content .page {
       .os-teacher {
         display: block;
       }
     }
   }
+
+  .wrapper > .nav {
+    font-size:10rem;
+    color: @tutor-neutral-light;
+    position: absolute;
+    top: 200px;
+    cursor: pointer;
+    &:hover {
+      color: @tutor-neutral;
+    }
+    &.next {
+      right: 20px
+    }
+    &.prev {
+      left: 20px;
+    }
+  }
+
 }

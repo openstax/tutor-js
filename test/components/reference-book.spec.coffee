@@ -39,7 +39,7 @@ describe 'Reference Book Component', ->
 
   it 'renders the section title on the navbar',  ->
     expect(@state.div.querySelector('.section-title').textContent)
-      .to.match(/3\.1/)
+      .to.match(/1\.1/)
 
   it 'renders page html', ->
     expect(@state.div.querySelector('.page').textContent)

@@ -16,12 +16,12 @@ ReferenceBookPageShell = React.createClass
   mixins: [ Router.State ]
 
   render: ->
-    {cnxId} = @getParams()
+    {courseId, cnxId} = @getParams()
     <LoadableItem
       id={cnxId}
       store={ReferenceBookPageStore}
       actions={ReferenceBookPageActions}
-      renderItem={ -> <ReferenceBookPage cnxId={cnxId}/> }
+      renderItem={ -> <ReferenceBookPage courseId=courseId cnxId={cnxId}/> }
     />
 
 
