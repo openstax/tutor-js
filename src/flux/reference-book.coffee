@@ -17,10 +17,15 @@ ReferenceBookConfig = {
     getToc: (courseId) ->
       @_get(courseId)['0']
 
+    getPages: (courseId) ->
+      toc = @_get(courseId)?['0']
+      return [] unless toc
+      findAllPages(toc)
+
     # We might consider caching this
     getPageInfo: ({courseId, cnxId}) ->
       toc = @_get(courseId)?['0']
-      return unless toc
+      return {} unless toc
       pages = findAllPages(toc)
       lastPage = null
       for page, index in pages

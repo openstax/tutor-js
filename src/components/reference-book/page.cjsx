@@ -38,9 +38,11 @@ module.exports = React.createClass
     </Router.Link>
 
   render: ->
-    {cnxId} = @getParams()
+    {courseId} = @getParams()
+    # read the id from props, or failing that the url
+    cnxId = @props.cnxId or @getParams().cnxId
     page = ReferenceBookPageStore.get(cnxId)
-    info = ReferenceBookStore.getPageInfo(@getParams())
+    info = ReferenceBookStore.getPageInfo(courseId:courseId, cnxId:cnxId)
 
     html = page.content_html
     # FIXME the BE sends HTML with head and body

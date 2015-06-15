@@ -15,6 +15,11 @@ module.exports = React.createClass
     teacherLinkText: React.PropTypes.string
     showTeacherEdition: React.PropTypes.func
 
+  componentDidMount: ->
+    {cnxId} = @getParams()
+    # Pop open the menu unless the page was explicitly navigated to
+    @refs.tocmenu.setDropdownState(true) unless cnxId
+
   renderSectionTitle: ->
     page = ReferenceBookStore.getPageInfo(@getParams())
     <BS.Nav navbar className="section-title">
