@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 
 {CardBody} = require '../pinned-header-footer-card/sections'
 Details = require '../task/details'
-AsyncButton = require '../async-button'
+AsyncButton = require '../buttons/async-button'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 
