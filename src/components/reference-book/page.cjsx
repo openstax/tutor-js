@@ -24,17 +24,17 @@ module.exports = React.createClass
   prevLink: (info) ->
     # BE Fix
     cnxId = _.first( info.prev.cnx_id.split('@') )
-    <Router.Link className="nav prev" to="viewReferenceBookPage"
+    <Router.Link className='nav prev' to='viewReferenceBookPage'
       params={courseId: @props.courseId, cnxId: cnxId}>
-      <i className="prev fa fa-chevron-left"/>
+      <i className='prev fa fa-chevron-left'/>
     </Router.Link>
 
   nextLink: (info) ->
     # BE Fix
     cnxId = _.first( info.next.cnx_id.split('@') )
-    <Router.Link className="nav next" to="viewReferenceBookPage"
+    <Router.Link className='nav next' to='viewReferenceBookPage'
       params={courseId: @props.courseId, cnxId: cnxId}>
-      <i className="fa fa-chevron-right"/>
+      <i className='fa fa-chevron-right'/>
     </Router.Link>
 
   render: ->
@@ -42,7 +42,7 @@ module.exports = React.createClass
     # read the id from props, or failing that the url
     cnxId = @props.cnxId or @getParams().cnxId
     page = ReferenceBookPageStore.get(cnxId)
-    info = ReferenceBookStore.getPageInfo(courseId:courseId, cnxId:cnxId)
+    info = ReferenceBookStore.getPageInfo({courseId, cnxId})
 
     html = page.content_html
     # FIXME the BE sends HTML with head and body
@@ -50,11 +50,8 @@ module.exports = React.createClass
     html = html
       .replace(/^[\s\S]*<body[\s\S]*?>/, '')
       .replace(/<\/body>[\s\S]*$/, '')
-    <div className="wrapper">
+    <div className='page-wrapper'>
       {@prevLink(info) if info.prev}
-      <div className="page">
-        <ArbitraryHtmlAndMath block html={html} />
-      </div>
+      <ArbitraryHtmlAndMath className='page' block html={html} />
       {@nextLink(info) if info.next}
-
     </div>

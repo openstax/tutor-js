@@ -23,7 +23,7 @@ ReferenceBookFirstPage  = React.createClass
       id={cnxId}
       store={ReferenceBookPageStore}
       actions={ReferenceBookPageActions}
-      renderItem={ -> <ReferenceBookPage courseId=courseId cnxId={cnxId}/> }
+      renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={cnxId}/> }
     />
 
 
