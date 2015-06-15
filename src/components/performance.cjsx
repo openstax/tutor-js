@@ -38,7 +38,7 @@ Performance = React.createClass
     @setState({sortIndex: index - 1})
 
   renderHeadingCell: (heading) ->
-    <th className='sortable' onClick={@sortClick}>{heading.title}</th>
+    <th className='sortable' title={heading.title} onClick={@sortClick}>{heading.title}</th>
 
   renderAverageCell: (heading) ->
     if heading.class_average
@@ -95,11 +95,12 @@ Performance = React.createClass
     student_rows = _.map(sortData, @renderStudentRow)
 
 
-    <div className='performance-report'>
-      <BS.Panel className='-course-performance-container'>
+    <div className='course-performance-wrap'>
+      <span className='course-performance-header'>Performance Report</span>
+      <BS.Panel className='course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
-            <h2>Performance Report</h2>
+            
           </div>
           <BS.Table className='-course-performance-table'>
             <thead>
@@ -126,7 +127,7 @@ PerformanceShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <BS.Panel className='course-performance-container'>
+    <BS.Panel className='performance-report'>
       <LoadableItem
         id={courseId}
         store={PerformanceStore}

@@ -1,17 +1,34 @@
 .performance-report {
+  &.panel {
+    max-width: 100%;
+  }
+  .course-performance-header {
+    font-size: 3rem;
+  }
+  .course-performance-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
   table {
     th {
       .no-select();
+      position: relative;
+      white-space: nowrap;
+      max-width: 150px;
+      text-overflow: ellipsis;
+      overflow: hidden;
       &.sortable {
         cursor: pointer;
       }
       &.is-ascending:after {
-        padding-left:3px;
+        position: absolute;
+        right: 0;
         content: @fa-var-sort-asc;
         .fa-icon();
       }
       &.is-descending:after {
-        padding-left:3px;
+        position: absolute;
+        right: 0;
         content: @fa-var-sort-desc;
         .fa-icon();
       }
@@ -20,6 +37,9 @@
       &.student-name {
         white-space: nowrap;
       }
+    }
+    tbody tr:nth-child(odd) {
+      background: @tutor-neutral-lightest;
     }
   }
 }
