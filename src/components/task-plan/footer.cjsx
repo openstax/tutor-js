@@ -43,7 +43,7 @@ PlanFooter = React.createClass
 
     publishButton =
       <BS.Col sm={6} md={2}>
-        <BS.Button bsStyle='primary' className="-publish" onClick={onPublish}>Publish</BS.Button>
+        <BS.Button bsStyle='primary' onClick={onPublish}>Publish</BS.Button>
         <p>
           Publish will make the assignment available to
           students on the open date.  If open date is today,
