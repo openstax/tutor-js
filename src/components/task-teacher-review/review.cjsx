@@ -1,9 +1,25 @@
 React = require 'react/addons'
+
+{ScrollListenerMixin} = require 'react-scroll-components'
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+
 _ = require 'underscore'
 
 TaskTeacherReviewExercise = require './exercise'
+ScrollTracker = require '../scroll-tracker'
 
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+
+ReviewTracker = React.createClass
+  displayName: 'ReviewTracker'
+  mixins: [ScrollTracker]
+  onScrollPoint: ->
+    {topic, route} = @props
+
+    @props.onScrollPoint()
+
+  render: ->
+    {type} = @props
+
 
 Review = React.createClass
   displayName: 'Review'

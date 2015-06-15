@@ -44,12 +44,22 @@ module.exports =
       type: 'step'
       listeners: @_getStepListeners('exercise')
 
-    crumb.sectionLabel = @_buildSectionLabel(data[0].chapter_section) if data[0]?
+    if data[0]?
+      crumb.sectionLabel = @_buildSectionLabel(data[0].chapter_section)
+    else if data.questions[0].chapter_section?
+      crumb.sectionLabel = @_buildSectionLabel(data.questions[0].chapter_section)
+
+    _.each crumb.data, (data) ->
+      data.content.sectionLabel = crumb.sectionLabel
+
     crumb
 
   _indexCrumb: (crumb, index) ->
     crumb.key = index
     crumb.crumb = @_shouldStepCrumb(index)
+
+    _.each crumb.data, (data) ->
+      data.content.key = crumb.key
 
   _getCrumbsForHomework: (stats) ->
     exercises = @_getExercisesFromStats(stats)
@@ -79,15 +89,16 @@ module.exports =
       .map((data) =>
 
         content = _.pluck(data, 'content')
-        sectionLabel = @_buildSectionLabel(data[0].chapter_section)
+        {sectionLabel} = data[0].content
         {title} = data[0]
+        {key} = data[0].content
 
-        content.unshift({sectionLabel, title})
+        content.unshift({sectionLabel, title, key})
+
         content
       )
       .flatten(true)
       .value()
-
 
   _shouldStepCrumb: ->
     true

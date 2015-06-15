@@ -1,6 +1,4 @@
 React = require 'react'
-BS = require 'react-bootstrap'
-_ = require 'underscore'
 
 PinnedHeader = React.createClass
   displayName: 'PinnedHeader'
