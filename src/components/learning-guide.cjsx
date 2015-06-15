@@ -7,7 +7,7 @@ _ = require 'underscore'
 {LearningGuideStore, LearningGuideActions} = require '../flux/learning-guide'
 LoadableItem = require './loadable-item'
 LearningGuideChart = require './learning-guide-chart'
-PracticeButton = require './practice-button'
+PracticeButton = require './buttons/practice-button'
 ChapterSection = require './task-plan/chapter-section'
 ChapterSectionMixin = require './chapter-section-mixin'
 

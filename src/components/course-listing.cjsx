@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
-RefreshButton = require './refresh-button'
+RefreshButton = require './buttons/refresh-button'
 
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role

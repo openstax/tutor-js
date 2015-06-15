@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 BindStoreMixin = require './bind-store-mixin'
-RefreshButton = require './refresh-button'
+RefreshButton = require './buttons/refresh-button'
 
 # This component is useful for viewing something that needs to be loaded.
 #

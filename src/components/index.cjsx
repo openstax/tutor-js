@@ -3,6 +3,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
+Root = require './root'
 App = require './app'
 Task = require './task'
 LoadableItem = require './loadable-item'
