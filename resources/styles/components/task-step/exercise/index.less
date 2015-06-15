@@ -1,6 +1,13 @@
 .exercise-free-response {
   .size-exercise-card();
 
+  // images in exercises are not wrapped and don't have a class.
+  // This will work fine until there's some images that shouldn't be targeted
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
   textarea {
     margin: 1em 0;
     padding: 5px;
