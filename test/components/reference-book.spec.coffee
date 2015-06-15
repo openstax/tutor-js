@@ -19,7 +19,7 @@ PAGE = require '../../api/pages/0e58aa87-2e09-40a7-8bf3-269b2fa16509.json'
 
 renderBook = (page) ->
   new Promise (resolve, reject) ->
-    url = "/book/#{COURSE_ID}"
+    url = "/books/#{COURSE_ID}"
     url += "/page/#{page}" if page
     routerStub.goTo(url).then( (result) ->
       resolve(_.extend({
