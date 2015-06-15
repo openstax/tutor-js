@@ -1,0 +1,33 @@
+.reference-book {
+  .toc {
+    h3 {
+      padding: 5px 5px 5px 10px;
+      margin: 0;
+      #fonts > .sans();
+      color: @tutor-black;
+    }
+    li {
+      list-style-type: none;
+      #fonts > .sans(1.4rem);
+      a {
+        color: @tutor-black;
+        padding: 5px 5px 5px 15px;
+        display: block;
+        &:hover {
+          background-color: @tutor-neutral-bright;
+          text-decoration: initial;
+        }
+        &.active {
+          background-color: @tutor-neutral-light;
+          text-decoration: initial;
+        }
+      }
+    }
+
+  }
+  .content {
+    .toc {
+      li { list-style-type: none; }
+    }
+  }
+}

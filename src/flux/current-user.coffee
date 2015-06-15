@@ -38,7 +38,7 @@ ROUTES =
     roles:
       student: 'viewGuide'
   performance:
-    label: 'Performance Book'
+    label: 'Performance Report'
     roles:
       teacher: 'viewPerformance'
 

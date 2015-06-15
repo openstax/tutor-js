@@ -5,7 +5,7 @@ Router = require 'react-router'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 LoadableItem = require '../loadable-item'
-PracticeButton = require '../practice-button'
+PracticeButton = require '../buttons/practice-button'
 
 Guide = React.createClass
   displayName: 'Guide'
