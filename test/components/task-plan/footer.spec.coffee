@@ -50,7 +50,7 @@ helper = (model) ->
   div
 
 
-describe 'Reading Plan', ->
+describe 'Task Plan Footer', ->
   beforeEach ->
     TaskPlanActions.reset()
 
