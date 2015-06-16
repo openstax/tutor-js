@@ -1,5 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+moment = require 'moment'
+
+{TimeStore} = require '../flux/time'
 {DateTimePicker} = require 'react-widgets'
 
 TutorInput = React.createClass
@@ -15,10 +18,13 @@ TutorInput = React.createClass
 
   render: ->
     classes = ['form-control']
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
+
     unless @props.default then classes.push('empty')
+    if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.class)
 
-    <div className="form-control-wrapper">
+    <div className={wrapperClasses.join(' ')}>
       <input
         id={@props.id}
         type='text'
@@ -26,6 +32,27 @@ TutorInput = React.createClass
         defaultValue={@props.default}
         onChange={@onChange} />
       <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
+    </div>
+
+DayComponent = React.createClass
+  propTypes:
+    date:  React.PropTypes.string.isRequired
+    label: React.PropTypes.string.isRequired
+
+  isInvalid: ->
+    moment(@props.date).startOf('day') < TimeStore.getNow()
+
+  onClick: (ev) ->
+    ev.stopPropagation() if @isInvalid()
+
+  render: ->
+    classNames = ['date']
+    classNames.push('is-invalid') if @isInvalid()
+    <div onClick={@onClick} className={classNames.join(' ')}>
+      {@props.label}
     </div>
 
 TutorDateInput = React.createClass
@@ -64,6 +91,7 @@ TutorDateInput = React.createClass
 
   render: ->
     classes = ['form-control']
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
     value = @props.value
     open = false
 
@@ -74,11 +102,16 @@ TutorDateInput = React.createClass
       open = 'calendar'
       onToggle = @onToggle
 
-    <div className="form-control-wrapper">
+    if @props.required then wrapperClasses.push('is-required')
+
+    <div className={wrapperClasses.join(' ')}>
       <input type='text' disabled className={classes.join(' ')} />
       <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
       <DateTimePicker onClick={@clickHandler}
-        onFocus={@expandCalendar} 
+        onFocus={@expandCalendar}
         onBlur={@onBlur}
         id={@props.id}
         format='MMM dd, yyyy'
@@ -86,10 +119,10 @@ TutorDateInput = React.createClass
         calendar={true}
         open={open}
         onToggle={onToggle}
-        className="form-control"
+        className={classes.join(' ')}
         onChange={@dateSelected}
         readOnly={@props.readOnly}
-        min={@props.min}
+        dayComponent={DayComponent}
         value={value}
       />
     </div>
@@ -112,10 +145,13 @@ TutorTextArea = React.createClass
 
   render: ->
     classes = ['form-control']
+    wrapperClasses = ["form-control-wrapper", "tutor-input"]
+
     unless @props.default then classes.push('empty')
+    if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.inputClass)
 
-    <div className="form-control-wrapper">
+    <div className={wrapperClasses.join(' ')}>
       <textarea
         id={@props.inputId}
         ref='textarea'
@@ -126,6 +162,9 @@ TutorTextArea = React.createClass
         defaultValue={@props.default}
         onChange={@onChange} />
       <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
     </div>
 
 module.exports = {TutorInput, TutorDateInput, TutorTextArea}

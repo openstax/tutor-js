@@ -18,7 +18,7 @@ require './components/practice.spec'
 require './components/learning-guide.spec'
 require './components/course-calendar.spec'
 require './components/student-dashboard.spec'
-
+require './components/reference-book.spec'
 require './crud-store.spec'
 require './task-store.spec'
 require './loadable.spec'
@@ -29,5 +29,5 @@ require './current-user-store.spec'
 require './course-listing-store.spec'
 require './app-config.spec'
 
-# This should be done **last** because it starts up the whole app
+# # This should be done **last** because it starts up the whole app
 require './router.spec'

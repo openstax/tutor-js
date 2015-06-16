@@ -1,7 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
-{Route, Redirect, NotFoundRoute, DefaultRoute} = Router
-{App, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
+{Route, Redirect, NotFoundRoute} = Router
+{App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
 {LearningGuideShell} = require './components/learning-guide'
 {PerformanceShell} = require './components/performance'
@@ -9,43 +9,53 @@ Router = require 'react-router'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {TaskTeacherReviewShell} = require './components/task-teacher-review'
+{ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage} =
+  require './components/reference-book'
+
 {StatsShell} = require './components/task-plan/reading-stats'
 
 Sandbox = require './sandbox'
 
 routes = (
-  <Route path='/' handler={App} name='root'>
-    <Redirect from='/' to='dashboard' />
-    <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
-    <Route path='courses/:courseId/?'>
-      <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
-      <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
-      <Route path='tasks/:id/steps/:stepIndex/?'
-        name='viewTaskStep'
-        handler={SingleTask}
-        ignoreScrollBehavior/>
+  <Route handler={Root} name='root'>
+    <Route path='/' handler={App} name='app'>
+      <Redirect from='/' to='dashboard' />
+      <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
+      <Route path='courses/:courseId/?'>
+        <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
+        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
+        <Route path='tasks/:id/steps/:stepIndex/?'
+          name='viewTaskStep'
+          handler={SingleTask}
+          ignoreScrollBehavior/>
 
-      <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
-      <Route path='guide/?' name='viewGuide' handler={LearningGuideShell} />
+        <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
+        <Route path='guide/?' name='viewGuide' handler={LearningGuideShell}/>
 
-      <Route path='t/'>
-        <DefaultRoute handler={TeacherTaskPlans} />
-        <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
-        <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
-        <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
-        <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
-        <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
-        <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
-        <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
-        <Route path='tasks/:id/?' name='reviewTask' handler={TaskTeacherReviewShell} >
-          <Route path='steps/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
+        <Route path='t/'>
+          <Router.DefaultRoute handler={TeacherTaskPlans} />
+          <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
+          <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
+          <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
+          <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
+          <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
+          <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
+          <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
+          <Route path='tasks/:id/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+            <Route path='steps/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
+          </Route>
         </Route>
       </Route>
+      <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
+    </Route> # end of App route
+    <Route path='/books/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
+      <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookFirstPage}/>
+      <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
     </Route>
-    <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     <NotFoundRoute handler={Invalid} />
   </Route>
 )
+
 
 # Remember the router for unit testing
 router = Router.create

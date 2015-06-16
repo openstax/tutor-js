@@ -53,15 +53,6 @@ describe 'Reading Plan', ->
     TocActions.reset()
     TocActions.loaded(TEST_TOC)
 
-  it 'should not allow save/publish when empty', ->
-    model =
-      type: 'reading'
-      id: '0'
-
-    node = helper(model, false)
-    expect(node.querySelector('.-publish.disabled')).to.not.be.null
-    expect(node.querySelector('.-delete')).to.not.be.null
-
   it 'should have the right buttons when valid but not changed', ->
     node = helper(VALID_MODEL, false)
     expect(node.querySelector('.-publish.disabled')).to.be.null

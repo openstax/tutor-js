@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
 
-PracticeButton = require '../practice-button'
+PracticeButton = require '../buttons/practice-button'
 BindStoreMixin = require '../bind-store-mixin'
 
 TaskStep = require './index'

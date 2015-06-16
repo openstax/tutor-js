@@ -15,7 +15,7 @@ describe 'router', ->
     expect(window.location.pathname).to.equal('/dashboard')
 
   it 'should go to the tasks page when clicking the link', ->
-    transitionTo('/dashboard')
+    transitionTo('/courses/1/list')
     expect($('a')).to.have.length.at.least(1)
     $('a').click()
     transitionTo('/tasks')
