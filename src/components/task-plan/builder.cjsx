@@ -26,6 +26,7 @@ module.exports = React.createClass
       <input
         id='toggle-periods-checkbox'
         type='checkbox'
+        disabled
         onChange={@togglePeriodsDisplay}
         checked={not @state.showingPeriods}/>
       <label className="all-periods" htmlFor='toggle-periods-checkbox'>All Periods</label>

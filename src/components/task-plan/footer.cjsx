@@ -58,7 +58,7 @@ PlanFooter = React.createClass
     if saveable
       saveLink =
         <BS.Col sm={6} md={2}>
-          <BS.Button className='-save' onClick={onSave}>Save as Draft</BS.Button>
+          <BS.Button className='-save' disabled onClick={onSave}>Save as Draft</BS.Button>
           <p>
             An assignment in draft will not be available to students, even if the open date has passed.
           </p>
@@ -68,8 +68,8 @@ PlanFooter = React.createClass
     if TaskPlanStore.isHomework(id) and not TaskPlanStore.isVisibleToStudents(id) and not hasExercises
       publishButton = null
       saveLink = null
-      selectProblems = <BS.Col sm={6} md={2}><BS.Button 
-        bsStyle='primary' 
+      selectProblems = <BS.Col sm={6} md={2}><BS.Button
+        bsStyle='primary'
         className='-select-problems'
         onClick={clickedSelectProblem}>Select Problems
       </BS.Button></BS.Col>
