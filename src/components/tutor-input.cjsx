@@ -10,6 +10,7 @@ TutorInput = React.createClass
     label: React.PropTypes.string.isRequired
     id: React.PropTypes.string
     className: React.PropTypes.string
+    type: React.PropTypes.string
     onChange: React.PropTypes.func
     value: React.PropTypes.any
 
@@ -19,6 +20,7 @@ TutorInput = React.createClass
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
+    wrapperClasses.push(@props.className) if @props.className
 
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
@@ -29,8 +31,10 @@ TutorInput = React.createClass
         id={@props.id}
         type='text'
         className={classes.join(' ')}
+        value={@props.value}
         defaultValue={@props.default}
-        onChange={@onChange} />
+        onChange={@onChange}
+      />
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
@@ -146,7 +150,7 @@ TutorTextArea = React.createClass
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
-
+    wrapperClasses.push(@props.className) if @props.className
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.inputClass)

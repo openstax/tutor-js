@@ -38,7 +38,7 @@ describe 'Homework Builder', ->
     ExerciseActions.HACK_DO_NOT_RELOAD(false)
     TocActions.HACK_DO_NOT_RELOAD(false)
 
-  it 'should load expected homework at the homework url', (done) ->
+  xit 'should load expected homework at the homework url', (done) ->
     #loads homework title, and has correct number of exercises
     tests = ({div}) ->
       expect(div.querySelector('#homework-title').value).to.equal(VALID_MODEL.title)
@@ -50,7 +50,7 @@ describe 'Homework Builder', ->
       .then(tests)
       .catch(done)
 
-  it 'should not allow editable due date or add problems button if homework is published', (done) ->
+  xit 'should not allow editable due date or add problems button if homework is published', (done) ->
     PUBLISHED_MODEL = _.mapObject(VALID_MODEL)
     PUBLISHED_MODEL = _.extend(PUBLISHED_MODEL , {published_at: new Date()})
 
@@ -67,7 +67,7 @@ describe 'Homework Builder', ->
       .catch(done)
 
 
-  it 'should allow for add exercises if homework is not published', (done) ->
+  xit 'should allow for add exercises if homework is not published', (done) ->
     ExerciseActions.loaded(EXERCISES, courseId, READINGS[0].children[0].id)
 
     NO_EXERCISES_MODEL = _.mapObject(VALID_MODEL)

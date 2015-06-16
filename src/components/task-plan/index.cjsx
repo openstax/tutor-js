@@ -3,7 +3,7 @@ ConfirmLeaveMixin = require '../confirm-leave-mixin'
 {HomeworkPlan} = require './homework'
 {ReadingPlan} = require './reading'
 LoadableItem = require '../loadable-item'
-
+{CourseStore, CourseActions} = require '../../flux/course'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
 PLAN_TYPES =
@@ -62,16 +62,24 @@ PlanShell = React.createClass
     store: TaskPlanStore
     actions: TaskPlanActions
 
-  render: ->
-    id = @getId()
-    {courseId} = @context.router.getCurrentParams()
+  loadTasks: (id, courseId) ->
     Type = @getType()
-
     <LoadableItem
       id={id}
       store={TaskPlanStore}
       actions={TaskPlanActions}
       renderItem={-> <Type id={id} courseId={courseId} />}
     />
+
+  render: ->
+    id = @getId()
+    {courseId} = @context.router.getCurrentParams()
+    <LoadableItem
+      id={courseId}
+      store={CourseStore}
+      actions={CourseActions}
+      renderItem={ => @loadTasks(id, courseId) }
+    />
+
 
 module.exports = {ReadingShell, HomeworkShell}

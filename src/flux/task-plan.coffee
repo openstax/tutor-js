@@ -1,5 +1,6 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
+moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TimeStore} = require './time'
 {TocStore} = require './toc'
@@ -38,8 +39,8 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
-    #set opens_at for plans
-    obj.opens_at = TimeStore.getNow()
+    # default opens_at to 1 day from now
+    obj.opens_at = moment(TimeStore.getNow()).add(1, 'day').toDate()
 
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
@@ -47,6 +48,22 @@ TaskPlanConfig =
       delete obj.settings.exercises_count_dynamic
 
     obj
+
+  _findTasking: (tasking_plans, periodId) ->
+    taskings = _.filter tasking_plans, (tasking) ->
+      tasking.target_type is 'period' and tasking.target_id is periodId
+    taskings[0]
+
+  _getPeriodDates: (id, period) ->
+    throw new Error('BUG: Period is required arg') unless period
+
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    if tasking_plans
+      @_findTasking(tasking_plans, period)
+    else
+      null
+
 
   FAILED: -> # used by API
 
@@ -70,22 +87,56 @@ TaskPlanConfig =
     exercise_ids = exercise_ids[..]
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
-  updateOpensAt: (id, opens_at) ->
+  updateOpensAt: (id, periodId, opens_at) ->
     # Allow null opens_at
     if opens_at
       opens_at = opens_at.toISOString()
-    @_change(id, {opens_at})
 
-  updateDueAt: (id, due_at) ->
+    throw new Error('id is required') unless id
+    throw new Error('periodId is required') unless periodId
+    throw new Error('opens_at is required') unless opens_at
+
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans ?= []
+    tasking_plans = tasking_plans[..] # Clone it
+
+    tasking = @_findTasking(tasking_plans, periodId)
+    if tasking
+      tasking.opens_at = opens_at
+    else
+      tasking = {target_type: 'period', target_id: periodId, opens_at}
+      tasking_plans.push(tasking)
+
+    @_change(id, {tasking_plans})
+
+  updateDueAt: (id, periodId, due_at) ->
     # Allow null due_at
     if due_at
       due_at = due_at.toISOString()
-    @_change(id, {due_at})
+
+    throw new Error('id is required') unless id
+    throw new Error('periodId is required') unless periodId
+    throw new Error('due_at is required') unless due_at
+
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans ?= []
+    tasking_plans = tasking_plans[..] # Clone it
+
+    tasking = @_findTasking(tasking_plans, periodId)
+    if tasking
+      tasking.due_at = due_at
+    else
+      tasking = {target_type: 'period', target_id: periodId, due_at}
+      tasking_plans.push(tasking)
+
+    @_change(id, {tasking_plans})
 
   sortTopics: (id) ->
     plan = @_getPlan(id)
     {page_ids, description, exercises_count_dynamic} = plan.settings
-    
+
     page_ids = sortTopics(page_ids)
     @_change(id, {settings: {page_ids, description, exercises_count_dynamic}})
 
@@ -106,7 +157,7 @@ TaskPlanConfig =
 
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
-    
+
     exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
@@ -180,8 +231,8 @@ TaskPlanConfig =
     @_asyncStatusStats[id] = 'loaded'
     @emitChange()
 
-  publish: (id) -> # used by API
-    @emitChange()
+  publish: (id) ->
+    @_change(id, {is_published: true})
 
   exports:
     hasTopic: (id, topicId) ->
@@ -210,14 +261,31 @@ TaskPlanConfig =
 
     isValid: (id) ->
       plan = @_getPlan(id)
+
+      isValidDates = ->
+        flag = true
+        # TODO: check that all periods are filled in
+        _.each plan.tasking_plans, (tasking) ->
+          unless tasking.due_at and tasking.opens_at
+            flag = false
+        flag
+
       if (plan.type is 'reading')
-        return plan.title and plan.due_at and plan.settings?.page_ids?.length > 0
+        return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
-        return plan.title and plan.due_at and plan.settings?.exercise_ids?.length > 0
+        return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
 
     isPublished: (id) ->
       plan = @_getPlan(id)
       !!plan?.published_at
+
+    isOpened: (id) ->
+      plan = @_getPlan(id)
+      new Date(plan?.opens_at) <= TimeStore.getNow()
+
+    isVisibleToStudents: (id) ->
+      plan = @_getPlan(id)
+      !!plan?.published_at and new Date(plan?.opens_at) <= TimeStore.getNow()
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
@@ -234,9 +302,14 @@ TaskPlanConfig =
     getStats: (id) ->
       @_getStats(id)
 
-    getOpensAt: (id) ->
-      plan = @_getPlan(id)
-      plan.opens_at
+
+    getOpensAt: (id, period) ->
+      tasking = @_getPeriodDates(id, period)
+      tasking?.opens_at
+
+    getDueAt: (id, period) ->
+      tasking = @_getPeriodDates(id, period)
+      tasking?.due_at
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

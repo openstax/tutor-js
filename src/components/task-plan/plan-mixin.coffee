@@ -11,20 +11,24 @@ module.exports =
     dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, '/')
     dueAt = new Date(dateStr)
 
-    if TaskPlanStore.isNew(@props.id) and dateStr and dueAt > TimeStore.getNow()
-      @setDueAt(dueAt)
+    # FIXME: Add back the default dueAt
+    # if TaskPlanStore.isNew(@props.id) and dateStr and dueAt > TimeStore.getNow()
+    #   @setDueAt(dueAt)
     {}
 
-  setOpensAt: (value) ->
+  setOpensAt: (period, value) ->
     {id} = @props
-    TaskPlanActions.updateOpensAt(id, value)
+    id ?= @props.planId # FIXME: Ugly nasty hack because Readings and homework use different props
+    TaskPlanActions.updateOpensAt(id, period.id, value)
 
-  setDueAt: (value) ->
+  setDueAt: (period, value) ->
     {id} = @props
-    TaskPlanActions.updateDueAt(id, value)
+    id ?= @props.planId # FIXME: Ugly nasty hack because Readings and homework use different props
+    TaskPlanActions.updateDueAt(id, period.id, value)
 
   setTitle: (title) ->
     {id} = @props
+    id ?= @props.planId # FIXME: Ugly nasty hack because Readings and homework use different props
     TaskPlanActions.updateTitle(id, title)
 
   showSectionTopics: ->
@@ -39,10 +43,16 @@ module.exports =
 
   publish: ->
     {id} = @props
-    publishable = TaskPlanStore.isValid(id)
+    # Hack: Publish is save-and-publish for now
+    # TaskPlanActions.publish(id)
+    @save()
+
+  save: ->
+    {id} = @props
+    saveable = TaskPlanStore.isValid(id)
     # The logic here is this way because we need to be able to add an invalid
     # state to the form.  Blame @fredasaurus
-    if (publishable)
+    if (saveable)
       TaskPlanStore.addChangeListener(@saved)
       TaskPlanActions.save(id)
     else
@@ -57,4 +67,3 @@ module.exports =
     {id} = @props
     TaskPlanActions.reset(id)
     @context.router.transitionTo('dashboard')
-

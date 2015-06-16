@@ -9,6 +9,7 @@ SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+TaskPlanBuilder = require './builder'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
@@ -80,14 +81,9 @@ HomeworkPlan = React.createClass
   displayName: 'HomeworkPlan'
   mixins: [PlanMixin]
 
-  setDescription:(desc, descNode) ->
-    {id} = @props
-    TaskPlanActions.updateDescription(id, desc)
-
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
-    description = TaskPlanStore.getDescription(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
     closeBtn = <Close onClick={@cancel}/>
     topics = TaskPlanStore.getTopics(id)
@@ -96,20 +92,19 @@ HomeworkPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    if (not shouldShowExercises)
-      footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
+    footer = <PlanFooter id={id}
+      courseId={courseId}
+      onPublish={@publish}
+      onSave={@save}
+      clickedSelectProblem={@showSectionTopics}/>
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
     if @state?.invalid then formClasses.push('is-invalid-form')
 
-    if (TaskPlanStore.isPublished(id))
-      dueAtReadOnly = true
-
     dueAtElem = <TutorDateInput
                   id='homework-due-date'
                   label='Due Date'
-                  readOnly={dueAtReadOnly}
                   required={true}
                   onChange={@setDueAt}
                   min={new Date()}
@@ -126,7 +121,7 @@ HomeworkPlan = React.createClass
       exerciseSummary = <ExerciseSummary
         onCancel={@cancel}
         onPublish={@publish}
-        canAdd={not TaskPlanStore.isPublished(id)}
+        canAdd={not TaskPlanStore.isVisibleToStudents(id)}
         addClicked={@showSectionTopics}
         planId={id}/>
 
@@ -157,29 +152,7 @@ HomeworkPlan = React.createClass
         footer={footer}>
 
         <BS.Grid fluid>
-          <BS.Row>
-            <BS.Col xs={12} md={8}>
-              <div className='-homework-title'>
-                <TutorInput
-                  label='Assignment Name'
-                  id='homework-title'
-                  default={plan.title}
-                  required={true}
-                  onChange={@setTitle} />
-              </div>
-            </BS.Col>
-            <BS.Col xs={12} md={4}>
-              {dueAtElem}
-              <p className='form-note'>Feedback will be released after the due date.</p>
-            </BS.Col>
-            <BS.Col xs={12} md={12}>
-              <TutorTextArea
-                label='Description'
-                id='homework-description'
-                default={description}
-                onChange={@setDescription} />
-            </BS.Col>
-          </BS.Row>
+          <TaskPlanBuilder courseId={courseId} planId={id} />
         </BS.Grid>
       </BS.Panel>
       {chooseExercises}
