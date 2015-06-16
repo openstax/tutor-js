@@ -123,10 +123,12 @@ start = ->
       httpMethod: 'PATCH'
       payload: obj
 
-  apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, null, saveHelper
+  apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.publish, null, saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
-    obj = TaskPlanStore.getChanged(id)
+    # obj = TaskPlanStore.getChanged(id)
+    obj = id # HACK: linking save and publish together
+    id = obj.id
 
     url: "/api/plans/#{id}/publish"
     payload: obj

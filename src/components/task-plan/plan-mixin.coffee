@@ -43,7 +43,8 @@ module.exports =
 
   publish: ->
     {id} = @props
-    TaskPlanActions.publish(id)
+    # Hack: Publish is save-and-publish for now
+    # TaskPlanActions.publish(id)
     @save()
 
   save: ->

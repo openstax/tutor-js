@@ -24,10 +24,12 @@ CoursePlan = React.createClass
     @adjustForLongLabels()
 
   adjustForLongLabels: ->
-    labelDOMNode = @refs.label.getDOMNode()
+    labelDOMNode = @refs.label?.getDOMNode()
     planDOMNode = @refs.plan.getDOMNode()
 
-    planDOMNode.classList.add('plan-label-long') if labelDOMNode.clientHeight > @props.activeHeight
+    # HACK: sometimes a label is not rendered. Not sure why
+    if labelDOMNode
+      planDOMNode.classList.add('plan-label-long') if labelDOMNode.clientHeight > @props.activeHeight
 
   findPlanNodes: (planNode) ->
     container = @getDOMNode().parentElement.parentElement
