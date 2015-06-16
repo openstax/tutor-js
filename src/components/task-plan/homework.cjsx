@@ -96,7 +96,11 @@ HomeworkPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
+    footer = <PlanFooter id={id} 
+      courseId={courseId} 
+      onPublish={@publish} 
+      onSave={@save}
+      clickedSelectProblem={@showSectionTopics}/>
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')

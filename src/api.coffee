@@ -123,6 +123,12 @@ start = ->
 
   apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, null, saveHelper
 
+  apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
+    obj = TaskPlanStore.getChanged(id)
+
+    url: "/api/plans/#{id}/publish"
+    payload: obj
+
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 
   apiHelper TaskPlanActions, TaskPlanActions.load , TaskPlanActions.loaded, 'GET', (id) ->
