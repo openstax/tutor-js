@@ -108,6 +108,9 @@ TaskTeacherReview = React.createClass
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: crumbKey}
 
+  setPeriod: (period) ->
+    @setState({period})
+
   # add render methods for different panel types as needed here
 
   render: ->
@@ -146,7 +149,10 @@ TaskTeacherReview = React.createClass
               {panel}
             </BS.Col>
             <BS.Col sm={4}>
-              <StatsModalShell id={id} activeSection={@state.scrollState.sectionLabel}/>
+              <StatsModalShell
+                id={id}
+                activeSection={@state.scrollState.sectionLabel}
+                handlePeriodSelect={@setPeriod}/>
             </BS.Col>
           </BS.Row>
         </BS.Grid>

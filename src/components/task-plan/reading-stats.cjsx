@@ -161,12 +161,14 @@ Stats = React.createClass
 
     periodStats = plan.stats.periods[periodIndex]
 
-  loadStatsForPeriod: (period) ->
-    {id} = @props
+  handlePeriodSelect: (period) ->
+    {id, handlePeriodSelect} = @props
     plan = TaskPlanStatsStore.get(id)
 
     periodStats = _.findWhere(plan.stats.periods, {id: period.id})
     @setState(stats: periodStats)
+
+    handlePeriodSelect?(period)
 
   render: ->
     {id} = @props
@@ -190,7 +192,7 @@ Stats = React.createClass
       </section>
 
     <BS.Panel className='reading-stats'>
-      <CoursePeriodsNavShell handleSelect={@loadStatsForPeriod} intialActive={@state.period}/>
+      <CoursePeriodsNavShell handleSelect={@handlePeriodSelect} intialActive={@state.period}/>
       <section>
         {course}
       </section>
