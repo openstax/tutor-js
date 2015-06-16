@@ -211,10 +211,19 @@ TaskPlanConfig =
 
     isValid: (id) ->
       plan = @_getPlan(id)
+
+      isValidDates = ->
+        flag = true
+        # TODO: check that all periods are filled in
+        _.each plan.tasking_plans, (tasking) ->
+          unless tasking.due_at and tasking.opens_at
+            flag = false
+        flag
+
       if (plan.type is 'reading')
-        return plan.title and plan.due_at and plan.settings?.page_ids?.length > 0
+        return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
-        return plan.title and plan.due_at and plan.settings?.exercise_ids?.length > 0
+        return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
 
     isPublished: (id) ->
       plan = @_getPlan(id)
