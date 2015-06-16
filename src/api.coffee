@@ -154,6 +154,9 @@ start = ->
     url: "/api/courses/#{courseId}/practice"
     payload: params
 
+  apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}"
+
   apiHelper LearningGuideActions, LearningGuideActions.load, LearningGuideActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/guide"
 

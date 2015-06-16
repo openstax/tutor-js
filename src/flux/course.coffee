@@ -90,6 +90,9 @@ CourseConfig =
       title = @_get(courseId)?.name or ""
       _.first(title.split(' '))
 
+    getPeriods: (courseId) ->
+      @_get(courseId).periods or []
+
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)
 module.exports = {CourseActions:actions, CourseStore:store}
