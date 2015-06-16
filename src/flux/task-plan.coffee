@@ -49,6 +49,22 @@ TaskPlanConfig =
 
     obj
 
+  _findTasking: (tasking_plans, periodId) ->
+    taskings = _.filter tasking_plans, (tasking) ->
+      tasking.target_type is 'period' and tasking.target_id is periodId
+    taskings[0]
+
+  _getPeriodDates: (id, period) ->
+    throw new Error('BUG: Period is required arg') unless period
+
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    if tasking_plans
+      @_findTasking(tasking_plans, period)
+    else
+      null
+
+
   FAILED: -> # used by API
 
   updateTutorSelection: (id, direction) ->
@@ -71,17 +87,43 @@ TaskPlanConfig =
     exercise_ids = exercise_ids[..]
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
-  updateOpensAt: (id, opens_at) ->
+  updateOpensAt: (id, periodId, opens_at) ->
     # Allow null opens_at
     if opens_at
       opens_at = opens_at.toISOString()
-    @_change(id, {opens_at})
 
-  updateDueAt: (id, due_at) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans ?= []
+    tasking_plans = tasking_plans[..] # Clone it
+
+    tasking = @_findTasking(tasking_plans, periodId)
+    if tasking
+      tasking.opens_at = opens_at
+    else
+      tasking = {target_type: 'period', target_id: periodId, opens_at}
+      tasking_plans.push(tasking)
+
+    @_change(id, {tasking_plans})
+
+  updateDueAt: (id, periodId, due_at) ->
     # Allow null due_at
     if due_at
       due_at = due_at.toISOString()
-    @_change(id, {due_at})
+
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans ?= []
+    tasking_plans = tasking_plans[..] # Clone it
+
+    tasking = @_findTasking(tasking_plans, periodId)
+    if tasking
+      tasking.due_at = due_at
+    else
+      tasking = {target_type: 'period', target_id: periodId, due_at}
+      tasking_plans.push(tasking)
+
+    @_change(id, {tasking_plans})
 
   sortTopics: (id) ->
     plan = @_getPlan(id)
@@ -252,9 +294,14 @@ TaskPlanConfig =
     getStats: (id) ->
       @_getStats(id)
 
-    getOpensAt: (id) ->
-      plan = @_getPlan(id)
-      plan.opens_at
+
+    getOpensAt: (id, period) ->
+      tasking = @_getPeriodDates(id, period)
+      tasking?.opens_at
+
+    getDueAt: (id, period) ->
+      tasking = @_getPeriodDates(id, period)
+      tasking?.due_at
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

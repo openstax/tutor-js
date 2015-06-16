@@ -15,6 +15,9 @@ module.exports = React.createClass
     planId: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    {showingPeriods: true}
+
   togglePeriodsDisplay: (ev) ->
     @setState(showingPeriods: not ev.target.checked)
 
@@ -41,7 +44,7 @@ module.exports = React.createClass
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
           onChange={_.partial @setOpensAt, period}
-          min={TaskPlanStore.getOpensAt(@props.planId)}
+          max={TaskPlanStore.getDueAt(@props.planId, period.id)}
           value={period.open_at}/>
       </td><td>
         <TutorDateInput
@@ -49,7 +52,7 @@ module.exports = React.createClass
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
           onChange={_.partial @setDueAt, period}
-          min={TaskPlanStore.getOpensAt(@props.planId)}
+          min={TaskPlanStore.getOpensAt(@props.planId, period.id)}
           value={period.due_at}/>
       </td>
     </tr>
