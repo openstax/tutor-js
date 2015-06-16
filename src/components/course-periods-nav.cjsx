@@ -33,7 +33,7 @@ CoursePeriodsNav = React.createClass
     {courseId, handleSelect} = @props
     periods = CourseStore.getPeriods(courseId)
 
-    period = periods[key]
+    period = periods?[key]
     console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.") unless period?
 
     handleSelect?(period)
