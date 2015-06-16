@@ -1,5 +1,6 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
+moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TimeStore} = require './time'
 {TocStore} = require './toc'
@@ -38,7 +39,8 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
-    obj.opens_at = TimeStore.getNow() unless obj.opens_at
+    # default opens_at to 1 day from now
+    obj.opens_at = moment(TimeStore.getNow()).add(1, 'day').toDate()
 
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
@@ -84,7 +86,7 @@ TaskPlanConfig =
   sortTopics: (id) ->
     plan = @_getPlan(id)
     {page_ids, description, exercises_count_dynamic} = plan.settings
-    
+
     page_ids = sortTopics(page_ids)
     @_change(id, {settings: {page_ids, description, exercises_count_dynamic}})
 
@@ -105,7 +107,7 @@ TaskPlanConfig =
 
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
-    
+
     exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
@@ -244,6 +246,14 @@ TaskPlanConfig =
     getOpensAt: (id) ->
       plan = @_getPlan(id)
       plan.opens_at
+
+    getPeriods: (id) ->
+      [
+        { name: "1st", id: 1 }
+        { name: "2nd", id: 2 }
+        { name: "3rd", id: 3 }
+        { name: "4th", id: 4 }
+      ]
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

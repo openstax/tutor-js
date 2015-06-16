@@ -15,6 +15,7 @@ ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
+TaskPlanBuilder = require './builder'
 
 ReviewReadingLi = React.createClass
   displayName: 'ReviewReadingLi'
@@ -114,21 +115,15 @@ ReadingPlan = React.createClass
     headerText = if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
-    closeBtn = <Close 
-      className='pull-right' 
+    closeBtn = <Close
+      className='pull-right'
       onClick={@cancel}/>
-
-    # Restrict the due date to be after the open date
-    # and restrict the open date to be before the due date
-    opensAt = TaskPlanStore.getOpensAt(id)
-
-    if plan?.due_at
-      dueAt = new Date(plan.due_at)
 
     footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish} onSave={@save}/>
     header = [headerText, closeBtn]
-    
+
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
+
 
     if (@state?.showSectionTopics)
       formClasses.push('hide')
@@ -153,24 +148,9 @@ ReadingPlan = React.createClass
         header={header}>
 
         <BS.Grid fluid>
+          <TaskPlanBuilder planId={id} />
+
           <BS.Row>
-            <BS.Col xs={12} md={8}>
-              <TutorInput
-                label='Assignment Name'
-                id='reading-title'
-                default={plan.title}
-                required={true}
-                onChange={@setTitle} />
-            </BS.Col>
-            <BS.Col xs={12} md={4}>
-              <TutorDateInput
-                id='reading-due-date'
-                label='Due Date'
-                required={true}
-                onChange={@setDueAt}
-                min={opensAt}
-                value={dueAt}/>
-            </BS.Col>
             <BS.Col xs={12} md={12}>
               <ReviewReadings courseId={courseId} planId={id} selected={topics}/>
               {addReadingsButton}

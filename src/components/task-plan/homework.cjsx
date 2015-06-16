@@ -9,6 +9,7 @@ SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+TaskPlanBuilder = require './builder'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
@@ -80,14 +81,9 @@ HomeworkPlan = React.createClass
   displayName: 'HomeworkPlan'
   mixins: [PlanMixin]
 
-  setDescription:(desc, descNode) ->
-    {id} = @props
-    TaskPlanActions.updateDescription(id, desc)
-
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
-    description = TaskPlanStore.getDescription(id)
     headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
     closeBtn = <Close onClick={@cancel}/>
     topics = TaskPlanStore.getTopics(id)
@@ -156,29 +152,7 @@ HomeworkPlan = React.createClass
         footer={footer}>
 
         <BS.Grid fluid>
-          <BS.Row>
-            <BS.Col xs={12} md={8}>
-              <div className='-homework-title'>
-                <TutorInput
-                  label='Assignment Name'
-                  id='homework-title'
-                  default={plan.title}
-                  required={true}
-                  onChange={@setTitle} />
-              </div>
-            </BS.Col>
-            <BS.Col xs={12} md={4}>
-              {dueAtElem}
-              <p className='form-note'>Feedback will be released after the due date.</p>
-            </BS.Col>
-            <BS.Col xs={12} md={12}>
-              <TutorTextArea
-                label='Description'
-                id='homework-description'
-                default={description}
-                onChange={@setDescription} />
-            </BS.Col>
-          </BS.Row>
+          <TaskPlanBuilder planId={id} />
         </BS.Grid>
       </BS.Panel>
       {chooseExercises}

@@ -15,11 +15,11 @@ module.exports =
       @setDueAt(dueAt)
     {}
 
-  setOpensAt: (value) ->
+  setOpensAt: (period, value) ->
     {id} = @props
     TaskPlanActions.updateOpensAt(id, value)
 
-  setDueAt: (value) ->
+  setDueAt: (period, value) ->
     {id} = @props
     TaskPlanActions.updateDueAt(id, value)
 
@@ -62,4 +62,3 @@ module.exports =
     {id} = @props
     TaskPlanActions.reset(id)
     @context.router.transitionTo('dashboard')
-

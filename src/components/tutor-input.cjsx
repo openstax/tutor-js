@@ -10,6 +10,7 @@ TutorInput = React.createClass
     label: React.PropTypes.string.isRequired
     id: React.PropTypes.string
     className: React.PropTypes.string
+    type: React.PropTypes.string
     onChange: React.PropTypes.func
     value: React.PropTypes.any
 
@@ -29,8 +30,10 @@ TutorInput = React.createClass
         id={@props.id}
         type='text'
         className={classes.join(' ')}
+        value={@props.value}
         defaultValue={@props.default}
-        onChange={@onChange} />
+        onChange={@onChange}
+      />
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
