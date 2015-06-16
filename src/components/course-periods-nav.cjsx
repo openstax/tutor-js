@@ -20,6 +20,15 @@ CoursePeriodsNav = React.createClass
   getInitialState: ->
     active: @props.intialActive
 
+  componentWillMount: ->
+    CourseStore.on('change', @selectPeriod)
+
+  componentWillUnmount: ->
+    CourseStore.off('change', @selectPeriod)
+
+  selectPeriod: ->
+    @onSelect(@state.active)
+
   onSelect: (key) ->
     {courseId, handleSelect} = @props
     periods = CourseStore.getPeriods(courseId)
