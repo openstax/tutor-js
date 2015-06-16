@@ -125,7 +125,7 @@ ReadingPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish}/>
+    footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish} onSave={@save}/>
     header = [headerText, closeBtn]
     
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
