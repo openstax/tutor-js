@@ -20,6 +20,7 @@ TutorInput = React.createClass
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
+    wrapperClasses.push(@props.className) if @props.className
 
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
@@ -149,7 +150,7 @@ TutorTextArea = React.createClass
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
-
+    wrapperClasses.push(@props.className) if @props.className
     unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.inputClass)

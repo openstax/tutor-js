@@ -1,6 +1,7 @@
 .assignment {
 
   label.all-periods {
+    // extend styling from bootstrap material design to match other labels
     .form-control-wrapper .floating-label;
     opacity: 1;
     top: 0px;
@@ -15,6 +16,9 @@
 
   .instructions {
     color: @tutor-neutral;
-    #fonts .sans(1.1rem, 1.1rem);
+    #fonts >.sans(1.1rem, 1.1rem);
+  }
+  .assignment-description {
+    margin-top: 1rem;
   }
 }
