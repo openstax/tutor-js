@@ -1,5 +1,5 @@
-[
-  {
+{
+  "0":  {
     "id":"1",
     "title":"Updated Tutor HS Physics Content - legacy",
     "type":"part",
@@ -12,7 +12,8 @@
           "type": "page",
           "title": "Kinematics in 1 dim",
           "chapter_section": [1, 1],
-          "id": "234"
+          "id": "234",
+          "cnx_id": "0e58aa87-2e09-40a7-8bf3-269b2fa16509"
         },
         {
           "type": "page",
@@ -79,4 +80,4 @@
       ]
     }]
   }
-]
+}

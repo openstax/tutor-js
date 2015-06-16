@@ -7,6 +7,8 @@ api = require '../../api'
 ArbitraryHtmlAndMath = require '../html'
 Exercise = require './exercise'
 StepMixin = require './step-mixin'
+BookContentMixin = require '../book-content-mixin'
+
 # React swallows thrown errors so log them first
 err = (msgs...) ->
   console.error(msgs...)
@@ -25,45 +27,17 @@ Reading = React.createClass
     {content_html} = TaskStepStore.get(id)
     <ArbitraryHtmlAndMath className='reading-step' html={content_html} />
 
-  componentDidMount:  ->
-    @insertOverlays()
-    @detectImgAspectRatio()
-
-  componentDidUpdate: ->
-    @insertOverlays()
-    @detectImgAspectRatio()
-
-  insertOverlays: ->
-    root = @getDOMNode()
-    {title} = TaskStepStore.get(@props.id)
-    for img in root.querySelectorAll('.splash img')
-      continue if img.parentElement.querySelector('.ui-overlay')
-      overlay = document.createElement('div')
-      # don't apply overlay twice or if cnx content already includes it
-      continue if img.parentElement.querySelector('.tutor-ui-overlay')
-      # Prefix the class to distinguish it from a class in the original HTML content
-      overlay.className = 'tutor-ui-overlay'
-      overlay.innerHTML = title
-      img.parentElement.appendChild(overlay)
-
-  detectImgAspectRatio: ->
-    root = @getDOMNode()
-    for img in root.querySelectorAll('img')
-      # Wait until an image loads before trying to detect its dimensions
-      img.onload = ->
-        if @width > @height
-          @parentNode.classList.add('tutor-ui-horizontal-img')
-        else
-          @parentNode.classList.add('tutor-ui-vertical-img')
-
 
 Interactive = React.createClass
   displayName: "Interactive"
-  mixins: [StepMixin]
+  mixins: [StepMixin, BookContentMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
+
+  getSplashTitle: ->
+    TaskStepStore.get(@props.id)?.title or ''
 
   renderBody: ->
     {id} = @props
