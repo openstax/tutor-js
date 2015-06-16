@@ -6,12 +6,19 @@ Router = require 'react-router'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 LoadableItem = require '../loadable-item'
 ChapterSectionMixin = require '../chapter-section-mixin'
+{CoursePeriodsNavShell} = require '../course-periods-nav'
 
 Stats = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
 
   mixins: [ChapterSectionMixin]
+
+  getInitialState: ->
+    periodIndex = 0
+    stats = @getStatsForPeriodByIndex(periodIndex)
+
+    stats: stats
 
   _percent: (num, total) ->
     Math.round((num / total) * 100)
@@ -137,13 +144,27 @@ Stats = React.createClass
         </div>
     @renderProgressBar(data, 'practice', i, previous)
 
+  getStatsForPeriodByIndex: (periodIndex) ->
+    {id} = @props
+    plan = TaskPlanStatsStore.get(id)
+
+    periodStats = plan.stats.periods[periodIndex]
+
+  loadStatsForPeriod: (period) ->
+    {id} = @props
+    plan = TaskPlanStatsStore.get(id)
+
+    periodStats = _.findWhere(plan.stats.periods, {id: period.id})
+    @setState(stats: periodStats)
+
   render: ->
     {id} = @props
+    {stats} = @state
 
     plan = TaskPlanStatsStore.get(id)
-    course = @renderCourseBar(plan.stats.course, plan.type)
-    chapters = _.map(plan.stats.course.current_pages, @renderChapterBars)
-    practice = _.map(plan.stats.course.spaced_pages, @renderPracticeBars)
+    course = @renderCourseBar(stats, plan.type)
+    chapters = _.map(stats.current_pages, @renderChapterBars)
+    practice = _.map(stats.spaced_pages, @renderPracticeBars)
 
     unless _.isEmpty(chapters)
       chapters = <section>
@@ -158,6 +179,7 @@ Stats = React.createClass
       </section>
 
     <BS.Panel className='reading-stats'>
+      <CoursePeriodsNavShell handleSelect={@loadStatsForPeriod} intialActive={@state.period}/>
       <section>
         {course}
       </section>

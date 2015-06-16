@@ -57,6 +57,34 @@
   }
 }
 
+.tutor-nav-tabs() {
+  background: none;
+  li {
+    text-align: center;
+    background: @tutor-neutral-lighter;
+
+    .transition(background 0.2s);
+
+    a {
+      font-weight: 400;
+      color: @tutor-neutral !important;
+    }
+
+    &:hover {
+      background: @tutor-neutral-lightest;
+    }
+
+    &.active {
+      background: @tutor-white;
+      a {
+        font-weight: 900;
+        color: @tutor-neutral-darker !important;
+      }
+    }
+  }
+}
+
+
 .tutor-icon-active(@scale: 1.4) {
   .scale(@scale);
   .box-shadow(0 1px 6px rgba(0, 0, 0, 0.12));
