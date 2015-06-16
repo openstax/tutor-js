@@ -35,7 +35,10 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 delay = (ms, fn) -> setTimeout(fn, ms)
 
 setNow = (jqXhr) ->
-  TimeActions.setFromString(jqXhr.getResponseHeader('Date'))
+  date = jqXhr.getResponseHeader('X-App-Date')
+  # Fallback to nginx date
+  date ?= jqXhr.getResponseHeader('Date')
+  TimeActions.setFromString(date)
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
   listenAction.addListener 'trigger', (args...) ->
@@ -103,11 +106,6 @@ start = ->
   # apiHelper TaskActions, TaskActions.save, TaskActions.saved, 'PATCH', (id, obj) ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
-  apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
-    url: "/api/plans/#{id}/publish"
-
-  afterPlanSave = (result, id) ->
-    TaskPlanActions.publish(result.id)
 
   saveHelper = (id) ->
     obj = TaskPlanStore.getChanged(id)
@@ -125,7 +123,13 @@ start = ->
       httpMethod: 'PATCH'
       payload: obj
 
-  apiHelper TaskPlanActions, TaskPlanActions.save, afterPlanSave, null, saveHelper
+  apiHelper TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, null, saveHelper
+
+  apiHelper TaskPlanActions, TaskPlanActions.publish, TaskPlanActions.saved, 'POST', (id) ->
+    obj = TaskPlanStore.getChanged(id)
+
+    url: "/api/plans/#{id}/publish"
+    payload: obj
 
   apiHelper TaskPlanActions, TaskPlanActions.delete, TaskPlanActions.deleted, 'DELETE', saveHelper
 

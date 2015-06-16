@@ -38,8 +38,7 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
-    #set opens_at for plans
-    obj.opens_at = TimeStore.getNow()
+    obj.opens_at = TimeStore.getNow() unless obj.opens_at
 
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
@@ -180,8 +179,8 @@ TaskPlanConfig =
     @_asyncStatusStats[id] = 'loaded'
     @emitChange()
 
-  publish: (id) -> # used by API
-    @emitChange()
+  publish: (id) ->
+    @_change(id, {is_published: true})
 
   exports:
     hasTopic: (id, topicId) ->
@@ -218,6 +217,14 @@ TaskPlanConfig =
     isPublished: (id) ->
       plan = @_getPlan(id)
       !!plan?.published_at
+
+    isOpened: (id) ->
+      plan = @_getPlan(id)
+      new Date(plan?.opens_at) <= TimeStore.getNow()
+
+    isVisibleToStudents: (id) ->
+      plan = @_getPlan(id)
+      !!plan?.published_at and new Date(plan?.opens_at) <= TimeStore.getNow()
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)

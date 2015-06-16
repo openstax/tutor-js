@@ -2,10 +2,10 @@
 React = require 'react'
 _ = require 'underscore'
 
-{TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
-ExerciseSummary = require '../../../src/components/task-plan/homework/exercise-summary'
+{TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
+ExerciseSummary = require '../../../../src/components/task-plan/homework/exercise-summary'
 
-VALID_MODEL = require '../../../api/plans/2.json'
+VALID_MODEL = require '../../../../api/plans/2.json'
 
 helper = (props) ->
   html = React.renderToString(<ExerciseSummary {...props} />)

@@ -96,20 +96,19 @@ HomeworkPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    if (not shouldShowExercises)
-      footer = <PlanFooter id={id} courseId={courseId} clickedSelectProblem={@showSectionTopics}/>
+    footer = <PlanFooter id={id} 
+      courseId={courseId} 
+      onPublish={@publish} 
+      onSave={@save}
+      clickedSelectProblem={@showSectionTopics}/>
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
     if @state?.invalid then formClasses.push('is-invalid-form')
 
-    if (TaskPlanStore.isPublished(id))
-      dueAtReadOnly = true
-
     dueAtElem = <TutorDateInput
                   id='homework-due-date'
                   label='Due Date'
-                  readOnly={dueAtReadOnly}
                   required={true}
                   onChange={@setDueAt}
                   min={new Date()}
@@ -126,7 +125,7 @@ HomeworkPlan = React.createClass
       exerciseSummary = <ExerciseSummary
         onCancel={@cancel}
         onPublish={@publish}
-        canAdd={not TaskPlanStore.isPublished(id)}
+        canAdd={not TaskPlanStore.isVisibleToStudents(id)}
         addClicked={@showSectionTopics}
         planId={id}/>
 
