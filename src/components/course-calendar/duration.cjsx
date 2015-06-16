@@ -66,22 +66,29 @@ CourseDuration = React.createClass
       )
     )
 
+  _getDay: (oneMoment) ->
+    moment(oneMoment).startOf('day').twix(moment(oneMoment).endOf('day'), {allDay: true})
+
+  _getDurationFromMoments: (listOfMoments) ->
+    _.reduce listOfMoments, (current, next) =>
+      nextDay = @_getDay(next)
+
+      current.union(nextDay)
+    , @_getDay(listOfMoments[0])
+
+
   # For displaying ranges for units in the future
   setDurationRange: (plan) ->
-    if plan.opens_at and plan.due_at
-      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
-    else if plan.opens_at
-      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
-    else if plan.due_at
-      plan.duration = moment(plan.due_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
+    dueDates = _.pluck(plan.tasking_plans, 'due_at')
+    openDates = _.pluck(plan.tasking_plans, 'opens_at')
+
+    rangeDates = _.union(dueDates, openDates)
+
+    plan.duration = @_getDurationFromMoments(rangeDates)
 
   setDurationDay: (plan) ->
-    if plan.due_at
-      plan.duration = moment(plan.due_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
-    else if plan.opens_at # HACK. some plans don't have a due_at
-      plan.duration = moment(plan.opens_at).startOf('day').twix(moment(plan.opens_at).endOf('day'), {allDay: true})
-    else
-      throw new Error('BUG! All Plans should have a due_at')
+    dueDates = _.pluck(plan.tasking_plans, 'due_at')
+    plan.duration = @_getDurationFromMoments(dueDates)
 
   # TODO see how to pull out plan specific logic to show that this
   # can be reused for units, for example
