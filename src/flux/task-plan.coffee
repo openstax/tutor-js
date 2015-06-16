@@ -92,6 +92,10 @@ TaskPlanConfig =
     if opens_at
       opens_at = opens_at.toISOString()
 
+    throw new Error('id is required') unless id
+    throw new Error('periodId is required') unless periodId
+    throw new Error('opens_at is required') unless opens_at
+
     plan = @_getPlan(id)
     {tasking_plans} = plan
     tasking_plans ?= []
@@ -110,6 +114,10 @@ TaskPlanConfig =
     # Allow null due_at
     if due_at
       due_at = due_at.toISOString()
+
+    throw new Error('id is required') unless id
+    throw new Error('periodId is required') unless periodId
+    throw new Error('due_at is required') unless due_at
 
     plan = @_getPlan(id)
     {tasking_plans} = plan

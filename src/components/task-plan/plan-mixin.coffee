@@ -11,8 +11,9 @@ module.exports =
     dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, '/')
     dueAt = new Date(dateStr)
 
-    if TaskPlanStore.isNew(@props.id) and dateStr and dueAt > TimeStore.getNow()
-      @setDueAt(dueAt)
+    # FIXME: Add back the default dueAt
+    # if TaskPlanStore.isNew(@props.id) and dateStr and dueAt > TimeStore.getNow()
+    #   @setDueAt(dueAt)
     {}
 
   setOpensAt: (period, value) ->
