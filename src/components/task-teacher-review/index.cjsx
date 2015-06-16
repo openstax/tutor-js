@@ -59,7 +59,8 @@ TaskTeacherReview = React.createClass
     @setState({scrollTopBuffer})
 
   setScrollPoint: (scrollPoint, scrollState) ->
-    @state.scrollPoints.push({scrollPoint, scrollState})
+    scrollPointData = _.extend({scrollPoint: scrollPoint}, scrollState)
+    @state.scrollPoints.push(scrollPointData)
 
   getScrollStateByScroll: (scrollTop) ->
     sortedDescScrollPoints = _.sortBy @state.scrollPoints, (scrollData) ->
@@ -72,19 +73,19 @@ TaskTeacherReview = React.createClass
 
   getScrollStateByKey: (stepKey) ->
     scrollState = _.find @state.scrollPoints, (scrollData) ->
-      scrollData.scrollState.key is stepKey
+      scrollData.key is stepKey
 
   setScrollState: ->
     scrollState = @getScrollStateByScroll(@state.scrollTop)
     @setState({scrollState})
-    @goToStep(@state.scrollState.scrollState.key)() if @state.scrollState.scrollState?.key?
+    @goToStep(@state.scrollState.key)() if @state.scrollState?.key?
 
   componentDidUpdate: (prevProps, prevState) ->
     didScrollStateChange = not (prevState.scrollState.scrollPoint is @getScrollStateByScroll(@state.scrollTop).scrollPoint)
-    didCrumbkeyChange = not (@state.currentStep is @state.scrollState?.scrollState?.key)
+    didCurrentStepChange = not (@state.currentStep is prevState.scrollState?.key)
 
     @setScrollState() if didScrollStateChange
-    @scrollToKey(@state.currentStep) if didCrumbkeyChange and not didScrollStateChange
+    @scrollToKey(@state.currentStep) if didCurrentStepChange and not didScrollStateChange
 
   scrollToKey: (stepKey) ->
     scrollState = @getScrollStateByKey(stepKey)
@@ -144,7 +145,7 @@ TaskTeacherReview = React.createClass
               {panel}
             </BS.Col>
             <BS.Col sm={4}>
-              <StatsModalShell id={id}/>
+              <StatsModalShell id={id} activeSection={@state.scrollState.sectionLabel}/>
             </BS.Col>
           </BS.Row>
         </BS.Grid>
