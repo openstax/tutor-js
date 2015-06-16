@@ -6,12 +6,14 @@ PlanMixin = require './plan-mixin'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
+{CourseStore}   = require '../../flux/course'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
   mixins: [PlanMixin]
   propTypes:
     planId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   togglePeriodsDisplay: (ev) ->
     @setState(showingPeriods: not ev.target.checked)
@@ -70,7 +72,7 @@ module.exports = React.createClass
 
 
   renderShownPeriods: (plan) ->
-    periods = TaskPlanStore.getPeriods(@props.planId)
+    {periods} = CourseStore.get(@props.courseId)
     <BS.Row className="assignment">
       <BS.Col md={12} lg={6}>
         <BS.Col xs={12}>
@@ -99,7 +101,6 @@ module.exports = React.createClass
     </BS.Row>
 
   renderHiddenPeriods: (plan) ->
-    periods = TaskPlanStore.getPeriods(@props.planId)
     <BS.Row className="assignment">
       <BS.Row>
         <BS.Col md={12} lg={6}>

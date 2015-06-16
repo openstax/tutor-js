@@ -148,7 +148,7 @@ ReadingPlan = React.createClass
         header={header}>
 
         <BS.Grid fluid>
-          <TaskPlanBuilder planId={id} />
+          <TaskPlanBuilder courseId={courseId} planId={id} />
 
           <BS.Row>
             <BS.Col xs={12} md={12}>

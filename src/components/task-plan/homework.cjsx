@@ -92,9 +92,9 @@ HomeworkPlan = React.createClass
     if plan?.due_at
       dueAt = new Date(plan.due_at)
 
-    footer = <PlanFooter id={id} 
-      courseId={courseId} 
-      onPublish={@publish} 
+    footer = <PlanFooter id={id}
+      courseId={courseId}
+      onPublish={@publish}
       onSave={@save}
       clickedSelectProblem={@showSectionTopics}/>
 
@@ -152,7 +152,7 @@ HomeworkPlan = React.createClass
         footer={footer}>
 
         <BS.Grid fluid>
-          <TaskPlanBuilder planId={id} />
+          <TaskPlanBuilder courseId={courseId} planId={id} />
         </BS.Grid>
       </BS.Panel>
       {chooseExercises}
