@@ -15,7 +15,7 @@ Performance = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   renderHeadingCell: (heading) ->
-    <th>{heading.title}</th>
+    <th className='sortable' title={heading.title} onClick={@sortClick}>{heading.title}</th>
 
   renderAverageCell: (heading) ->
     if heading.class_average
@@ -51,30 +51,32 @@ Performance = React.createClass
 
     headings = _.map(performance.data_headings, @renderHeadingCell)
     averages = _.map(performance.data_headings, @renderAverageCell)
-    student_rows = _.map(performance.students, @renderStudentRow)
 
-    comingSoon =
-      <BS.Table className='-course-performance-table'>
-        <thead>
-          <tr>
-            <th>Student</th>
-            {headings}
-          </tr>
-          <tr>
-            <th>Class Average</th>
-            {averages}
-          </tr>
-        </thead>
-        <tbody>
-          {student_rows}
-        </tbody>
-      </BS.Table>
 
-    <div className='performance-book'>
-      <BS.Panel className='-course-performance-container'>
+    if @state.isNameSort
+      sortData = _.sortBy(performance.students, 'name')
+    else
+      sortData = _.sortBy(performance.students, (d) =>
+        switch d.data[@state.sortIndex].type
+          when 'homework' then d.data[@state.sortIndex].correct_exercise_count
+          when 'reading' then d.data[@state.sortIndex].status
+        )
+
+    if @state.sortOrder is 'is-descending'
+      sortData.reverse()
+      @state.sortOrder = 'is-ascending'
+    else
+      @state.sortOrder = 'is-descending'
+
+    student_rows = _.map(sortData, @renderStudentRow)
+
+
+    <div className='course-performance-wrap'>
+      <span className='course-performance-header'>Performance Report</span>
+      <BS.Panel className='course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
-            <h2>Performance Report</h2>
+            
           </div>
           Coming Soon
         </div>
@@ -87,7 +89,7 @@ PerformanceShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <BS.Panel className='course-performance-container'>
+    <BS.Panel className='performance-report'>
       <LoadableItem
         id={courseId}
         store={PerformanceStore}

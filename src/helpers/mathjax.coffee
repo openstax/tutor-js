@@ -25,7 +25,7 @@ typesetMath = (root) ->
 
   # Return immediatly if no [data-math] or <math> elements are present
   # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
-  return unless window.MathJax.Hub?.Queue? and (_.any(nodes) or hasMath)
+  return unless window.MathJax?.Hub?.Queue? and (_.any(nodes) or hasMath)
 
   for node in nodes
     formula = node.getAttribute('data-math')
