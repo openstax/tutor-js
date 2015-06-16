@@ -20,7 +20,9 @@ module.exports =
 
   _getStatsForPeriod: (review, period) ->
     # return overview stats for now
-    review.stats.course
+    return _.first(review.stats.periods) unless period?.id?
+
+    _.findWhere(review.stats.periods, {id: period.id})
 
   _getExercisesFromStats: (stats) ->
     pagedExercises = _.map @_pages, (page) =>
@@ -133,11 +135,13 @@ module.exports =
     crumbs = @_generateCrumbsFromStats(stats, review.type)
 
   generateCrumbs: ->
-    {id, period} = @props
+    {id} = @props
+    {period} = @state
     @_generateCrumbs id, period
 
   getContents: ->
-    {id, period} = @props
+    {id} = @props
+    {period} = @state
     review = TaskTeacherReviewStore.get(id)
 
     allCrumbs = @generateCrumbs()

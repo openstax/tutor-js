@@ -48,6 +48,7 @@ TaskTeacherReview = React.createClass
     scrollPoints: []
     scrollState: {}
     scrollTopBuffer: 0
+    period: {}
 
   componentWillMount: ->
     @setStepKey()
