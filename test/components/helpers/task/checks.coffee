@@ -7,7 +7,7 @@ React = require 'react/addons'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
 {StepPanel} = require '../../../../src/helpers/policies'
 
-Breadcrumb = require '../../../../src/components/task/breadcrumb'
+{BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
 Group = require '../../../../src/components/task-step/exercise/group'
 
 checks =
@@ -175,7 +175,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasAllBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
     steps = TaskStore.getStepsIds(taskId)
 
     expect(breadcrumbs.length).to.equal(steps.length + 1)
@@ -183,7 +183,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasReviewableBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
     completedSteps = TaskStore.getCompletedSteps(taskId)
     {type} = TaskStore.get(taskId)
 
@@ -237,7 +237,7 @@ checks.checkIsMatchStep = (matchStepIndex) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
 checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
   placeholderBreadcrumb = breadcrumbs[stepIndex]
 
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
@@ -254,8 +254,8 @@ checks.checkIsPendingStep = (matchStepIndex) ->
 
 checks._checkIsNotPendingStep = (stepIndex, args...) ->
   {component} = args[0]
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumb)
+  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
   placeholderBreadcrumb = breadcrumbs[stepIndex]
 
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()

@@ -6,7 +6,7 @@ _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
-Breadcrumb = require './breadcrumb'
+{BreadcrumbTaskDynamic} = require '../breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
@@ -58,7 +58,7 @@ module.exports = React.createClass
     {currentStep, goToStep} = @props
 
     stepButtons = _.map crumbs, (crumb) ->
-      <Breadcrumb
+      <BreadcrumbTaskDynamic
         crumb={crumb}
         currentStep={currentStep}
         goToStep={goToStep}

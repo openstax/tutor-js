@@ -8,6 +8,7 @@ module.exports = React.createClass
   displayName: 'Question'
   propTypes:
     model: React.PropTypes.object.isRequired
+    type: React.PropTypes.string.isRequired
     answer_id: React.PropTypes.string
     correct_answer_id: React.PropTypes.string
     feedback_html: React.PropTypes.string
@@ -16,6 +17,9 @@ module.exports = React.createClass
 
   getInitialState: ->
     answer: null
+
+  getDefaultProps: ->
+    type: 'student'
 
   # Curried function to remember the answer
   onChangeAnswer: (answer) ->
@@ -28,6 +32,8 @@ module.exports = React.createClass
         @props.onChangeAttempt?(answer)
 
   render: ->
+    {type} = @props
+
     html = @props.model.stem_html
     qid = @props.model.id or "auto-#{idCounter++}"
     hasCorrectAnswer = !! @props.correct_answer_id
@@ -44,12 +50,14 @@ module.exports = React.createClass
       isChecked = answer.id in [@props.answer_id, @state.answer_id]
       isCorrect = answer.id is @props.correct_answer_id
 
+      isCorrect = (answer.correctness is '1.0') if answer.correctness?
+
       classes = ['answers-answer']
       classes.push('answer-checked fa') if isChecked
       classes.push('answer-correct fa') if isCorrect
       classes = classes.join(' ')
 
-      unless hasCorrectAnswer
+      unless (hasCorrectAnswer or type is 'teacher-review')
         radioBox = <input
           type='radio'
           className='answer-input-box'
@@ -59,9 +67,16 @@ module.exports = React.createClass
           onChange={@onChangeAnswer(answer)}
         />
 
+      if type is 'teacher-review'
+        selected_count = <div className='selected-count'>{answer.selected_count}</div>
+
+
       <div className={classes} key="#{qid}-option-#{i}">
+        {selected_count}
         {radioBox}
-        <label htmlFor="#{qid}-option-#{i}" className='answer-label'>
+        <label
+          htmlFor="#{qid}-option-#{i}"
+          className='answer-label'>
           <div className='answer-letter' />
           <ArbitraryHtml className='answer-content' html={answer.content_html} />
         </label>

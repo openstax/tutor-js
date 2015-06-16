@@ -17,6 +17,7 @@ module.exports = React.createClass
     onNextStep: React.PropTypes.func.isRequired
     focus: React.PropTypes.bool.isRequired
     review: React.PropTypes.string.isRequired
+    panel: React.PropTypes.string
 
   getDefaultProps: ->
     focus: true
@@ -50,6 +51,7 @@ module.exports = React.createClass
     <ExerciseFreeResponse
       id={id}
       focus={@props.focus}
+      review={@props.review}
       pinned={@props.pinned}
       taskId={@props.taskId}
     />
@@ -57,10 +59,10 @@ module.exports = React.createClass
   # add render methods for different panel types as needed here
 
   render: ->
-    {id} = @props
+    {id, panel} = @props
 
     # get panel to render based on step progress
-    panel = StepPanel.getPanel(id)
+    panel ?= StepPanel.getPanel(id)
 
     # panel is one of ['review', 'multiple-choice', 'free-response']
     renderPanelMethod = camelCase "render-#{panel}"

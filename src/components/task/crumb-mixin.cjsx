@@ -2,8 +2,8 @@
 # Specifically, it returns psuedo steps `intro` and `end` in sequence with real task steps.
 _ = require 'underscore'
 
-{TaskActions, TaskStore} = require '../../flux/task'
-{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskStore} = require '../../flux/task'
+{TaskStepStore} = require '../../flux/task-step'
 
 module.exports =
   # Nice little alias that will return unique values for intro and end as step indexes.
@@ -21,7 +21,7 @@ module.exports =
 
     defaultIndex
 
-  shouldStepCrumb: (index) ->
+  _shouldStepCrumb: (index) ->
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
 
@@ -58,7 +58,7 @@ module.exports =
       crumbs.push
         key: index
         data: step
-        crumb: @shouldStepCrumb(index)
+        crumb: @_shouldStepCrumb(index)
         sectionLabel: @_buildSectionLabel(step.chapter_section, crumbs)
         type: 'step'
         listeners: @_getStepListeners(step.type)
@@ -68,7 +68,7 @@ module.exports =
     crumbs.push
       key: steps.length
       data: task
-      crumb: @shouldStepCrumb(steps.length)
+      crumb: @_shouldStepCrumb(steps.length)
       type: crumbType
       listeners: @_getStepListeners(crumbType)
 
@@ -78,12 +78,12 @@ module.exports =
     task = TaskStore.get(id)
     steps = TaskStore.getSteps(id)
     crumbs = @_generateCrumbsFromSteps(task, steps)
-    @modifyCrumbs(task, crumbs)
+    @_modifyCrumbs(task, crumbs)
     crumbs
 
 
   # can possibly abstract this more and pull this out somewhere else if needed in the future
-  modifyCrumbs: (task, crumbs) ->
+  _modifyCrumbs: (task, crumbs) ->
     {currentStep} = @props
 
     # insert spacer panel/crumb for reading task that have spaced practices or personalized problems
@@ -97,14 +97,14 @@ module.exports =
           data:
             task_id: task.id
             type: 'coach'
-          crumb: @shouldStepCrumb(notCore.key)
+          crumb: @_shouldStepCrumb(notCore.key)
           type: crumbType
           listeners: @_getStepListeners(crumbType)
 
         crumbs.splice(notCore.key, 0, spacerCrumb)
 
         # # Comment in to hide next breadcrumb if needed.
-        # shouldCrumbnotCore = @shouldStepCrumb(notCore.key + 1) or (notCore.key + 1) is currentStep
+        # shouldCrumbnotCore = @_shouldStepCrumb(notCore.key + 1) or (notCore.key + 1) is currentStep
         # crumbs[notCore.key + 1].crumb = shouldCrumbnotCore
 
         # re-key crumbs

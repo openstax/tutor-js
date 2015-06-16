@@ -3,8 +3,6 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-{ScrollListenerMixin} = require 'react-scroll-components'
-
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
@@ -16,10 +14,6 @@ Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
-
-Time = require '../time'
-Details = require './details'
-
 
 module.exports = React.createClass
   propTypes:

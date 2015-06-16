@@ -8,7 +8,7 @@ React = require 'react/addons'
 {StepPanel} = require '../../../../src/helpers/policies'
 
 TaskStep = require '../../../../src/components/task-step'
-Breadcrumbs = require '../../../../src/components/task/breadcrumbs'
+{BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
 {ExerciseReview} = require '../../../../src/components/task-step/exercise/modes'
 
 {routerStub, commonActions} = require '../utilities'
@@ -17,7 +17,7 @@ actions =
   forceUpdate: (args...) ->
     {component, div} = args[0]
     taskStep = React.addons.TestUtils.scryRenderedComponentsWithType(component, TaskStep)
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, Breadcrumbs)
+    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
 
     if breadcrumbs.length is 1
       routerStub.forceUpdate(breadcrumbs[0], args...)

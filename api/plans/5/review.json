@@ -1,0 +1,94 @@
+{
+  "id": "5",
+  "type": "homework",
+  "title": "Complete exercise 12A on pg 12",
+  "stats": {
+    "course": {
+      "total_count": 10,
+      "complete_count": 0,
+      "partially_complete_count": 0,
+      "current_pages": [],
+      "spaced_pages": [{
+        "id": "0",
+        "chapter_section": [5, 2],
+        "title": "",
+        "student_count": 10,
+        "correct_count": 0,
+        "incorrect_count": 0,
+        "exercises": [{
+          "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
+          "content": {
+            "stimulus_html": "Addition is fun",
+            "questions":[{
+              "id": "987",
+              "formats": ["free-response","multiple-choice"],
+              "stem_html":"What is <span data-math='2+2'>2+2</span>?",
+              "answers":[{
+                "id":"id1",
+                "content_html":"Tri-tip bresaola ground round andouille. Sausage turducken pork belly doner alcatra tail kielbasa landjaeger.",
+                "correctness": "0.0",
+                "selected_count": 4
+              },{
+                "id":"id2",
+                "content_html":"Bacon ipsum dolor amet bacon salami leberkas, sausage boudin chuck ground round picanha hamburger doner pork chop pig.",
+                "correctness": "1.0",
+                "selected_count": 4
+              },{
+                "id":"id3",
+                "content_html":"Swine leberkas pig meatloaf.",
+                "correctness":"0.0",
+                "selected_count": 5
+              },{
+                "id":"id4",
+                "content_html":"Ham capicola corned beef, pastrami swine tenderloin shoulder boudin",
+                "correctness":"0.0",
+                "selected_count": 1
+              }]
+            }]
+          }
+        },{
+          "content": {
+            "stimulus_html": "Stimulus for Second Exercise",
+            "questions":[{
+              "id": "876",
+              "formats": ["free-response","multiple-choice"],
+              "stem_html":"Is the glass half full or half empty?",
+              "answers":[{
+                "id":"id3",
+                "content_html":"Half Full",
+                "correctness": "1.0",
+                "selected_count": 4
+              },{
+                "id":"id4",
+                "content_html":"Half Empty",
+                "correctness": "0.0",
+                "selected_count": 4
+              }]
+            }]
+          }
+        },{
+          "content": {
+            "stimulus_html": "Stimulus for Second Exercise",
+            "questions":[{
+              "id": "877",
+              "formats": ["multiple-choice"],
+              "stem_html":"Is the glass half full or half empty?",
+              "answers":[{
+                "id":"id5",
+                "content_html":"True",
+                "correctness": "0.0",
+                "selected_count": 4
+              },{
+                "id":"id6",
+                "content_html":"False",
+                "correctness": "1.0",
+                "selected_count": 4
+              }]
+            }]
+          }
+        }]
+      }]
+    },
+    "periods": []
+  }
+}

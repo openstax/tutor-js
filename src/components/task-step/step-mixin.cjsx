@@ -28,20 +28,23 @@ module.exports =
     </AsyncButton>
 
   render: ->
-    {taskId, review} = @props
+    {taskId, review, pinned} = @props
+    showFooter = true
+    showFooter = @showFooter() if @showFooter?
 
-    task = TaskStore.get(taskId)
-    footer = @renderFooterButtons?() or @renderContinueButton()
+    if showFooter
+      task = TaskStore.get(taskId)
+      footer = @renderFooterButtons?() or @renderContinueButton()
 
-    taskInfo = [
-        <Details task={task} key="task-#{taskId}-details"/>
-        <div className='task-title'>{task.title}</div>
-      ] unless review?.length
+      taskInfo = [
+          <Details task={task} key="task-#{taskId}-details"/>
+          <div className='task-title'>{task.title}</div>
+        ] unless review?.length
 
-    footer = <div>
-      {footer}
-      {taskInfo}
-    </div>
+      footer = <div>
+        {footer}
+        {taskInfo}
+      </div>
 
     {pinned} = @props
     <CardBody className='task-step' footer={footer} pinned={pinned}>

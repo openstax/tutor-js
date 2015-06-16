@@ -1,0 +1,29 @@
+.task-teacher-review {
+  .col-sm-4 {
+    margin: 0;
+  }
+  .reading-stats.panel {
+    margin: 0;
+  }
+
+  &.task-homework {
+    counter-reset: question;
+    .question-stem {
+      &::before {
+        counter-increment: question;
+        content: counter(question) '.';
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  @import './question';
+}
+
+.pinned-on {
+  .reading-stats {
+    position: fixed;
+    width: inherit;
+  }
+}

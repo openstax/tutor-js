@@ -8,6 +8,7 @@ Router = require 'react-router'
 {ReadingShell, HomeworkShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
+{TaskTeacherReviewShell} = require './components/task-teacher-review'
 {ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage} =
   require './components/reference-book'
 
@@ -24,16 +25,26 @@ routes = (
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
         <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
         <Route path='tasks/:id/steps/:stepIndex/?'
-          name='viewTaskStep' handler={SingleTask} ignoreScrollBehavior/>
+          name='viewTaskStep'
+          handler={SingleTask}
+          ignoreScrollBehavior/>
+
         <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
         <Route path='guide/?' name='viewGuide' handler={LearningGuideShell}/>
-        <Route path='t/performance/?' name='viewPerformance' handler={PerformanceShell} />
-        <Route path='t/calendar/?' name='taskplans' handler={TeacherTaskPlans} />
-        <Route path='t/homeworks/new/?' name='createHomework' handler={HomeworkShell} />
-        <Route path='t/homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
-        <Route path='t/readings/new/?' name='createReading' handler={ReadingShell} />
-        <Route path='t/readings/:id/?' name='editReading' handler={ReadingShell} />
-        <Route path='t/:type/:id/stats/?' name='viewStats' handler={StatsShell} />
+
+        <Route path='t/'>
+          <Router.DefaultRoute handler={TeacherTaskPlans} />
+          <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
+          <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
+          <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
+          <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
+          <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
+          <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
+          <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
+          <Route path='tasks/:id/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+            <Route path='steps/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
+          </Route>
+        </Route>
       </Route>
       <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     </Route> # end of App route

@@ -1,54 +1,20 @@
 React = require 'react'
 _ = require 'underscore'
 
-{StepPanel} = require '../../helpers/policies'
-
-{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-{TaskStore} = require '../../flux/task'
-
-module.exports = React.createClass
-  displayName: 'Breadcrumb'
+module.exports =
   propTypes:
     crumb: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
 
-  componentWillMount: ->
-    {crumb} = @props
-
-    TaskStepStore.on('step.completed', @update)
-
-    if crumb.type is 'step' and TaskStepStore.isPlaceholder(crumb.data.id)
-      TaskStepStore.on('step.completed', @checkPlaceholder)
-      TaskStepStore.on('step.loaded', @update)
-
-  removeListeners: ->
-    TaskStepStore.off('step.completed', @update)
-    TaskStepStore.off('step.completed', @checkPlaceholder)
-    TaskStepStore.off('step.loaded', @update)
-
-  componentWillUnmount: ->
-    @removeListeners()
-
-  checkPlaceholder: ->
-    {task_id, id} = @props.crumb.data
-    unless TaskStore.hasIncompleteCoreStepsIndexes(task_id)
-      TaskStepActions.load(id)
-
-  update: (id) ->
-    {crumb} = @props
-
-    if (crumb.data.id is id)
-      @setState({})
+  getInitialState: ->
+    canReview: true
+    step: {}
 
   render: ->
     {crumb, currentStep, goToStep} = @props
-    step = crumb.data
-    if crumb.type is 'step'
-      # get the freshest version of the step
-      step = TaskStepStore.get(crumb.data.id)
+    {canReview, step} = @state
 
-    canReview = StepPanel.canReview(step.id) if crumb.type is 'step' and step?
     crumbType = step?.type
 
     bsStyle = null

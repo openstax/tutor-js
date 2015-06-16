@@ -1,0 +1,112 @@
+{
+  "id": "4",
+  "type": "reading",
+  "title": "Read Pages 9-11",
+  "stats": {
+    "course": {
+      "mean_grade_percent": 80,
+      "total_count": 10,
+      "complete_count": 10,
+      "partially_complete_count": 0,
+      "current_pages": [{
+        "id": "1",
+        "chapter_section": [1, 2],
+        "title": "Introduction",
+        "student_count": 0,
+        "correct_count": 0,
+        "incorrect_count": 0,
+        "exercises": [{
+          "content": {
+            "stimulus_html": "Addition is fun",
+            "questions":[{
+              "id": "987",
+              "formats": ["multiple-choice","free-response"],
+              "stem_html":"What is <span data-math='2+2'>2+2</span>?",
+              "answers":[{
+                "id":"id1",
+                "content_html":"Tri-tip bresaola ground round andouille. Sausage turducken pork belly doner alcatra tail kielbasa landjaeger.",
+                "correctness": "0.0",
+                "selected_count": 4
+              },{
+                "id":"id2",
+                "content_html":"Bacon ipsum dolor amet bacon salami leberkas, sausage boudin chuck ground round picanha hamburger doner pork chop pig.",
+                "correctness": "1.0",
+                "selected_count": 4
+              },{
+                "id":"id3",
+                "content_html":"Swine leberkas pig meatloaf.",
+                "correctness":"0.0",
+                "selected_count": 5
+              },{
+                "id":"id4",
+                "content_html":"Ham capicola corned beef, pastrami swine tenderloin shoulder boudin",
+                "correctness":"0.0",
+                "selected_count": 1
+              }]
+            }]
+          },
+          "answered_count": 5
+        },{
+          "content": {
+          "stimulus_html": "Stimulus for Second Exercise",
+          "questions":[
+            {
+              "id": "876",
+              "formats": ["multiple-choice","free-response"],
+              "stem_html":"Is the glass half full or half empty?",
+              "answers":[{
+                "id":"id3",
+                "content_html":"Half Full",
+                "correctness":"1.0",
+                "selected_count": 3
+              },{
+                "id":"id4",
+                "content_html":"Half Empty",
+                "correctness":"0.0",
+                "selected_count": 2
+              }]
+            }
+          ]}
+        }]
+      }, {
+        "id": "2",
+        "chapter_section": [1, 3],
+        "title": "Force",
+        "student_count": 10,
+        "correct_count": 9,
+        "incorrect_count": 1
+      }],
+      "spaced_pages": [{
+        "id": "0",
+        "chapter_section": [2, 2],
+        "title": "",
+        "student_count": 10,
+        "correct_count": 15,
+        "incorrect_count": 5,
+        "exercises": [{
+          "content": {
+            "questions":[
+              {
+                "id": "234",
+                "formats": ["multiple-choice","free-response"],
+                "stem_html":"<p>The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s</p><p>What is the force if it slams into a wall?</p>",
+                "answers":[{
+                  "id":"id1",
+                  "content_html":"10 N",
+                  "correctness":"0.0",
+                  "selected_count": 10
+                },{
+                  "id":"id2",
+                  "content_html":"1 N",
+                  "correctness":"1.0",
+                  "selected_count": 5
+                }]
+              }
+            ]
+          }
+        }]
+      }]
+    },
+    "periods": []
+  }
+}

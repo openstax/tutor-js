@@ -11,6 +11,7 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 Stats = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
+    activeSection: React.PropTypes.string
 
   mixins: [ChapterSectionMixin]
 
@@ -71,15 +72,25 @@ Stats = React.createClass
       @renderPercentBar(data, type, percent, correctOrIncorrect)
 
   renderProgressBar: (data, type, index, previous) ->
+    {activeSection} = @props
+
     studentCount = <span className='reading-progress-student-count'>
         ({data.student_count} students)
       </span>
 
-    <div key="#{type}-bar-#{index}" className='reading-progress'>
+    sectionLabel = @sectionFormat(data.chapter_section, @state.sectionSeparator)
+
+    active = activeSection is sectionLabel
+
+    progressClass = 'reading-progress'
+    progressClass = "#{progressClass} active" if active
+    progressClass = "#{progressClass} inactive" if activeSection and not active
+
+    <div key="#{type}-bar-#{index}" className={progressClass}>
       <div className='reading-progress-heading'>
         <strong>
           <span className='text-success'>
-            {@sectionFormat(data.chapter_section, @state.sectionSeparator)}
+            {sectionLabel}
           </span> {data.title}
         </strong> {studentCount}
       </div>
@@ -150,12 +161,14 @@ Stats = React.createClass
 
     periodStats = plan.stats.periods[periodIndex]
 
-  loadStatsForPeriod: (period) ->
-    {id} = @props
+  handlePeriodSelect: (period) ->
+    {id, handlePeriodSelect} = @props
     plan = TaskPlanStatsStore.get(id)
 
     periodStats = _.findWhere(plan.stats.periods, {id: period.id})
     @setState(stats: periodStats)
+
+    handlePeriodSelect?(period)
 
   render: ->
     {id} = @props
@@ -179,7 +192,7 @@ Stats = React.createClass
       </section>
 
     <BS.Panel className='reading-stats'>
-      <CoursePeriodsNavShell handleSelect={@loadStatsForPeriod} intialActive={@state.period}/>
+      <CoursePeriodsNavShell handleSelect={@handlePeriodSelect} intialActive={@state.period}/>
       <section>
         {course}
       </section>
@@ -203,4 +216,14 @@ StatsShell = React.createClass
       renderItem={-> <Stats id={id} />}
     />
 
-module.exports = {StatsShell, Stats}
+StatsModalShell = React.createClass
+  render: ->
+    {id} = @props
+    <LoadableItem
+      id={id}
+      store={TaskPlanStatsStore}
+      actions={TaskPlanStatsActions}
+      renderItem={=> <Stats {...@props}/>}
+    />
+
+module.exports = {StatsShell, StatsModalShell, Stats}
