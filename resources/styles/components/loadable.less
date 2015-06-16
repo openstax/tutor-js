@@ -1,19 +1,13 @@
-// Fade the "Reload" message in after @loading-timeout time.
-@-webkit-keyframes loadableFadeIn { from { opacity: 0; } to { opacity: 1; visibility: visible; } }
-@-moz-keyframes loadableFadeIn { from { opacity: 0; } to { opacity: 1; visibility: visible;} }
-@keyframes loadableFadeIn { from { opacity: 0; } to { opacity: 1; visibility: visible; } }
-
-@loading-timeout: 30s;
-
+// Fade the "Reload" message in after @tutor-async-loading-timeout time.
 .loadable {
 
-  // Fade the "Reload" message in after @loading-timeout time.
+  // Fade the "Reload" message in after @tutor-async-loading-timeout time.
   &.is-loading .refresh-button {
     opacity: 0;
     visibility: hidden;
-    -webkit-animation: loadableFadeIn ease-in 1;
-    -moz-animation: loadableFadeIn ease-in 1;
-    animation: loadableFadeIn ease-in 1;
+    -webkit-animation: tutorAsyncFadeIn ease-in 1;
+    -moz-animation: tutorAsyncFadeIn ease-in 1;
+    animation: tutorAsyncFadeIn ease-in 1;
 
     -webkit-animation-fill-mode: forwards;
     -moz-animation-fill-mode: forwards;
@@ -23,9 +17,9 @@
     -moz-animation-duration: .3s;
     animation-duration: .3s;
 
-    -webkit-animation-delay: @loading-timeout;
-    -moz-animation-delay: @loading-timeout;
-    animation-delay: @loading-timeout;
+    -webkit-animation-delay: @tutor-async-loading-timeout;
+    -moz-animation-delay: @tutor-async-loading-timeout;
+    animation-delay: @tutor-async-loading-timeout;
   }
 
   // &.is-error .refresh-button { }
