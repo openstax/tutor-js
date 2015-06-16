@@ -100,7 +100,7 @@ Performance = React.createClass
       <BS.Panel className='course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
-            
+
           </div>
           <BS.Table className='-course-performance-table'>
             <thead>
@@ -117,6 +117,7 @@ Performance = React.createClass
               {student_rows}
             </tbody>
           </BS.Table>
+
         </div>
       </BS.Panel>
     </div>
