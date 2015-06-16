@@ -60,6 +60,7 @@ module.exports = React.createClass
   renderName: (plan) ->
     <TutorInput
       label='Assignment Name'
+      className='assignment-name'
       value={plan.title}
       id='reading-title'
       default={plan.title}
@@ -69,7 +70,8 @@ module.exports = React.createClass
   renderDescription: ->
     <TutorTextArea
       label='Description'
-      id='homework-description'
+      className='assignment-description'
+      id='assignment-description'
       default={TaskPlanStore.getDescription(@props.planId)}
       onChange={@setDescription} />
 
