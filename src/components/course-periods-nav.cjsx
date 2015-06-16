@@ -20,11 +20,20 @@ CoursePeriodsNav = React.createClass
   getInitialState: ->
     active: @props.intialActive
 
+  componentWillMount: ->
+    CourseStore.on('change', @selectPeriod)
+
+  componentWillUnmount: ->
+    CourseStore.off('change', @selectPeriod)
+
+  selectPeriod: ->
+    @onSelect(@state.active)
+
   onSelect: (key) ->
     {courseId, handleSelect} = @props
     periods = CourseStore.getPeriods(courseId)
 
-    period = periods[key]
+    period = periods?[key]
     console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.") unless period?
 
     handleSelect?(period)
