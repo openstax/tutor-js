@@ -3,6 +3,8 @@ twix = require 'twix'
 _ = require 'underscore'
 
 React = require 'react'
+Router = require 'react-router'
+camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
 CoursePlanDetails = require './plan-details'
@@ -84,6 +86,40 @@ CoursePlan = React.createClass
 
       label = <label style={planLabelStyle} ref='label'>{plan.title}</label>
 
+  renderOpenPlan: (planStyle, planClasses, label) ->
+    {item, courseId} = @props
+    {plan} = item
+
+    planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
+
+    <BS.ModalTrigger modal={planModal} ref='trigger'>
+      <div style={planStyle}
+        className={planClasses}
+        onMouseEnter={@syncHover}
+        onMouseLeave={@removeHover}
+        onClick={@syncOpenPlan}
+        ref='plan'>
+        {label}
+      </div>
+    </BS.ModalTrigger>
+
+  renderEditPlan: (planStyle, planClasses, label) ->
+    {item, courseId} = @props
+    {plan} = item
+
+    linkTo = camelCase("edit-#{plan.type}")
+    params = {id: plan.id, courseId}
+
+    <Router.Link
+      to={linkTo}
+      params={params}
+      style={planStyle}
+      className={planClasses}
+      onMouseEnter={@syncHover}
+      onMouseLeave={@removeHover}
+      ref='plan'>
+      {label}
+    </Router.Link>
 
   render: ->
     {item, courseId} = @props
@@ -114,17 +150,9 @@ CoursePlan = React.createClass
 
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
-    planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
+    renderFn = 'renderEditPlan'
+    renderFn = 'renderOpenPlan' if plan.isOpen
 
-    <BS.ModalTrigger modal={planModal} ref='trigger'>
-      <div style={planStyle}
-        className={planClasses}
-        onMouseEnter={@syncHover}
-        onMouseLeave={@removeHover}
-        onClick={@syncOpenPlan}
-        ref='plan'>
-        {label}
-      </div>
-    </BS.ModalTrigger>
+    @[renderFn](planStyle, planClasses, label)
 
 module.exports = CoursePlan
