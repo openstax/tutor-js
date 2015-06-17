@@ -35,8 +35,8 @@
     border: 1px solid @gray-light;
     font-size: 1.25rem;
     max-height: @calendar-plan-height;
-    height: @calendar-plan-active-height;
-    line-height: @calendar-plan-active-height;
+    height: auto;
+    line-height: @calendar-plan-height;
     margin-top: @calendar-plan-top-margin;
     margin-left: @calendar-plan-left-offset;
     cursor: pointer;
@@ -78,7 +78,6 @@
       padding-left: 2 * @calendar-plan-left-label-offset;
       text-align: left;
       display: block;
-      margin-top: -@calendar-plan-top-offset;
       margin-bottom: 0;
       cursor: pointer;
       transition: background .1s ease-in, margin-top .1s ease-in;
@@ -103,9 +102,7 @@
       &:hover,
       &.active,
       &.open {
-        max-height: @calendar-plan-active-height;
-        margin-top: -@calendar-plan-active-top-offset;
-        line-height: @calendar-plan-active-height/2;
+        max-height: none;
 
         label {
           overflow: visible;
