@@ -48,9 +48,17 @@
     // Based on event duration and event offset from start of week
     // see CoursePlan component
 
-    &.reading      { .x-plan(@reading-color); }
-    &.homework     { .x-plan(@homework-color); }
+    &.reading:not(.inactive)      { .x-plan(@reading-color); }
+    &.homework:not(.inactive)     { .x-plan(@homework-color); }
     &.inactive     { .x-plan(@calendar-inactive-background); }
+    &.draft     {
+      label::before {
+        font-weight: 400;
+        font-style: italic;
+        content: 'draft';
+        margin-right: @calendar-plan-left-label-offset;
+      }
+    }
 
 
     // CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH

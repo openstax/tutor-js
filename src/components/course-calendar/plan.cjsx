@@ -151,7 +151,7 @@ CoursePlan = React.createClass
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
     renderFn = 'renderEditPlan'
-    renderFn = 'renderOpenPlan' if plan.isOpen
+    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished
 
     @[renderFn](planStyle, planClasses, label)
 
