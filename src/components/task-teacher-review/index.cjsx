@@ -140,8 +140,6 @@ TaskTeacherReview = React.createClass
           taskId={task.id}
           setScrollPoint={@setScrollPoint}
           setScrollTopBuffer={@setScrollTopBuffer}
-          goToStep={@goToStep}
-          onNextStep={@onNextStep}
           review='teacher'
           panel='teacher-review' />
 
@@ -172,9 +170,6 @@ TaskTeacherReview = React.createClass
           </BS.Row>
         </BS.Grid>
     </PinnedHeaderFooterCard>
-
-  onNextStep: ->
-    @goToStep(@state.currentStep + 1)()
 
 
 TaskTeacherReviewShell = React.createClass
