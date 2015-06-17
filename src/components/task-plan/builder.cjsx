@@ -3,20 +3,33 @@ _ = require 'underscore'
 moment = require 'moment'
 BS = require 'react-bootstrap'
 PlanMixin = require './plan-mixin'
-
+BindStoreMixin = require '../bind-store-mixin'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
-  mixins: [PlanMixin]
+  mixins: [PlanMixin, BindStoreMixin]
+  bindStore: CourseStore
   propTypes:
     planId: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    {showingPeriods: true}
+    {showingPeriods: false}
+
+  bindUpdate: ->
+    course = CourseStore.get(@props.courseId)
+    TaskPlanActions.setPeriods(@props.planId, course.periods) if course?.periods
+
+  setOpensAt: (value, period) ->
+    {planId} = @props
+    TaskPlanActions.updateOpensAt(planId, value, period?.target_id)
+
+  setDueAt: (value, period) ->
+    {planId} = @props
+    TaskPlanActions.updateDueAt(planId, value, period?.target_id)
 
   togglePeriodsDisplay: (ev) ->
     @setState(showingPeriods: not ev.target.checked)
@@ -26,7 +39,6 @@ module.exports = React.createClass
       <input
         id='toggle-periods-checkbox'
         type='checkbox'
-        disabled
         onChange={@togglePeriodsDisplay}
         checked={not @state.showingPeriods}/>
       <label className="all-periods" htmlFor='toggle-periods-checkbox'>All Periods</label>
@@ -36,25 +48,23 @@ module.exports = React.createClass
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)
 
-  renderPeriodRow: (period) ->
-    <tr key={period.id}>
-      <td>{period.name}</td>
+  renderTaskPlanRow: (plan) ->
+    <tr key={plan.target_id}>
+      <td>{plan.name}</td>
       <td>
         <TutorDateInput
           id='reading-open-date'
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
-          onChange={_.partial @setOpensAt, period}
-          max={TaskPlanStore.getDueAt(@props.planId, period.id)}
-          value={period.open_at}/>
+          onChange={_.partial(@setOpensAt, _, plan)}
+          value={plan.opens_at}/>
       </td><td>
         <TutorDateInput
           id='reading-due-date'
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
-          onChange={_.partial @setDueAt, period}
-          min={TaskPlanStore.getOpensAt(@props.planId, period.id)}
-          value={period.due_at}/>
+          onChange={_.partial(@setDueAt, _, plan)}
+          value={plan.due_at} />
       </td>
     </tr>
 
@@ -76,9 +86,7 @@ module.exports = React.createClass
       default={TaskPlanStore.getDescription(@props.planId)}
       onChange={@setDescription} />
 
-
   renderShownPeriods: (plan) ->
-    {periods} = CourseStore.get(@props.courseId)
     <BS.Row className="assignment">
       <BS.Col md={12} lg={6}>
         <BS.Col xs={12}>
@@ -88,7 +96,6 @@ module.exports = React.createClass
           {@renderDescription()}
         </BS.Col>
       </BS.Col>
-
       <BS.Col md=12 lg=6>
         {@renderPeriodsToggle(12)}
         <table className="periods-listing">
@@ -100,7 +107,7 @@ module.exports = React.createClass
             </tr>
           </thead>
           <tbody>
-            { _.map periods, @renderPeriodRow }
+            { _.map plan.tasking_plans, @renderTaskPlanRow }
           </tbody>
         </table>
       </BS.Col>
@@ -125,7 +132,6 @@ module.exports = React.createClass
             <div className="instructions">Open time is 12:01am</div>
             <div className="instructions">Set date to today to open immediately.</div>
           </BS.Col>
-
           <BS.Col xs=6 sm=4>
             <TutorDateInput
               id='reading-due-date'
@@ -133,8 +139,7 @@ module.exports = React.createClass
               readOnly={TaskPlanStore.isPublished(@props.planId)}
               required={true}
               onChange={@setDueAt}
-              min={TaskPlanStore.getOpensAt(@props.planId)}
-              value={plan?.due_at}/>
+              value={TaskPlanStore.getDueAt(@props.planId)}/>
             <div className="instructions">Due time is 7:00am</div>
           </BS.Col>
         </BS.Col>
@@ -148,4 +153,5 @@ module.exports = React.createClass
 
   render: ->
     plan = TaskPlanStore.get(@props.planId)
+
     if @state.showingPeriods then @renderShownPeriods(plan) else @renderHiddenPeriods(plan)
