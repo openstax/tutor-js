@@ -63,14 +63,17 @@ TaskTeacherReview = React.createClass
     scrollPointData = _.extend({scrollPoint: scrollPoint}, scrollState)
     @state.scrollPoints.push(scrollPointData)
 
-  getScrollStateByScroll: (scrollTop) ->
+  sortScrollPoints: ->
     sortedDescScrollPoints = _.sortBy @state.scrollPoints, (scrollData) ->
       -1 * scrollData.scrollPoint
 
-    scrollState = _.find sortedDescScrollPoints, (scrollData) =>
+    @setState({scrollPoints: sortedDescScrollPoints})
+
+  getScrollStateByScroll: (scrollTop) ->
+    scrollState = _.find @state.scrollPoints, (scrollData) =>
       scrollTop > (scrollData.scrollPoint - @state.scrollTopBuffer)
 
-    scrollState or _.last(sortedDescScrollPoints)
+    scrollState or _.last(@state.scrollPoints)
 
   getScrollStateByKey: (stepKey) ->
     scrollState = _.find @state.scrollPoints, (scrollData) ->
@@ -79,16 +82,27 @@ TaskTeacherReview = React.createClass
   setScrollState: ->
     scrollState = @getScrollStateByScroll(@state.scrollTop)
     @setState({scrollState})
-    @goToStep(@state.scrollState.key)() if @state.scrollState?.key?
+
+  componentDidMount: ->
+    @sortScrollPoints()
+    @scrollToKey(@state.currentStep)
+    @setScrollState()
+
+  componentWillUpdate: (nextProps, nextState) ->
+    willScrollStateKeyChange = not (nextState.scrollState.key is @state.scrollState.key)
+    @goToStep(nextState.scrollState.key)() if willScrollStateKeyChange
 
   componentDidUpdate: (prevProps, prevState) ->
-    didScrollStateChange = not (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop).key)
+    doesScrollStateMatch = (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop).key)
     didCurrentStepChange = not (@state.currentStep is prevState.scrollState?.key)
+    didScrollPointsChange = not (prevState.scrollPoints.length is @state.scrollPoints.length)
 
-    if didCurrentStepChange and not didScrollStateChange
-      @scrollToKey(@state.currentStep)
-    else if didScrollStateChange
+    @sortScrollPoints() if didScrollPointsChange
+
+    unless doesScrollStateMatch
       @setScrollState()
+    else if didCurrentStepChange
+      @scrollToKey(@state.currentStep)
 
   scrollToKey: (stepKey) ->
     scrollState = @getScrollStateByKey(stepKey)
@@ -103,7 +117,6 @@ TaskTeacherReview = React.createClass
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
 
-      # @context.router.transitionTo('reviewTaskStep', params)
       @context.router.replaceWith('reviewTaskStep', params)
 
   getCrumb: (crumbKey) ->
