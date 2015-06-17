@@ -14,6 +14,29 @@ Performance = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    sortOrder: 'is-ascending'
+    sortIndex: 0
+    isNameSort: true
+
+  sortClick: (event) ->
+    isActiveSort = event.target.classList.contains('is-ascending', 'is-descending')
+    # this is a special case for the name header data which is one level above nested data
+    if not _.contains(event.target.classList, 'student-name')
+      @setState({isNameSort: false})
+    else
+      @setState({isNameSort: true})
+    headers = event.target.parentNode.querySelectorAll('th')
+    for header in headers
+      header.classList.remove('is-ascending', 'is-descending')
+    if not isActiveSort
+      @state.sortOrder = 'is-ascending'
+    event.target.classList.add(@state.sortOrder)
+    @sortData(event.target.cellIndex)
+
+  sortData: (index) ->
+    @setState({sortIndex: index - 1})
+
   renderHeadingCell: (heading) ->
     <th className='sortable' title={heading.title} onClick={@sortClick}>{heading.title}</th>
 
@@ -25,7 +48,7 @@ Performance = React.createClass
   renderStudentRow: (student_data) ->
     cells = _.map(student_data.data, @renderStudentCell)
     <tr>
-      <td>{student_data.name}</td>
+      <td className='student-name'>{student_data.name}</td>
       {cells}
     </tr>
 
@@ -44,13 +67,16 @@ Performance = React.createClass
     <td>{status}</td>
 
   renderHomeworkCell: (cell) ->
-    <td>{cell.correct_exercise_count}/{cell.exercise_count}</td>
+    <td>
+      {cell.correct_exercise_count}/{cell.exercise_count}
+    </td>
 
   render: ->
     performance = PerformanceStore.get(@props.courseId)
 
     headings = _.map(performance.data_headings, @renderHeadingCell)
     averages = _.map(performance.data_headings, @renderAverageCell)
+
     if @state.isNameSort
       sortData = _.sortBy(performance.students, 'name')
     else
@@ -91,6 +117,7 @@ Performance = React.createClass
               {student_rows}
             </tbody>
           </BS.Table>
+
         </div>
       </BS.Panel>
     </div>
