@@ -41,8 +41,8 @@ routes = (
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
           <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
-          <Route path='tasks/:id/?' name='reviewTask' handler={TaskTeacherReviewShell} >
-            <Route path='steps/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
+          <Route path=':type/:id/summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+            <Route path='section/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
           </Route>
         </Route>
       </Route>
