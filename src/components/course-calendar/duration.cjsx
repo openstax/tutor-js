@@ -13,6 +13,9 @@ CourseDuration = React.createClass
     durations: React.PropTypes.array.isRequired
     viewingDuration: React.PropTypes.instanceOf(twix).isRequired
     groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired
+    referenceDate: (props, propName, componentName) ->
+      unless moment.isMoment(props[propName])
+        new Error("#{propName} should be a moment for #{componentName}")
     children: React.PropTypes.element
 
   getInitialState: ->
@@ -77,18 +80,26 @@ CourseDuration = React.createClass
     , @_getDay(listOfMoments[0])
 
 
+  _getDurationRange: (plan) ->
+    openDates = _.pluck(plan.tasking_plans, 'opens_at')
+    dueDates = _.pluck(plan.tasking_plans, 'due_at')
+
+    rangeDates = _.union(openDates, dueDates)
+
+    @_getDurationFromMoments(rangeDates)
+
   # For displaying ranges for units in the future
   setDurationRange: (plan) ->
-    dueDates = _.pluck(plan.tasking_plans, 'due_at')
-    openDates = _.pluck(plan.tasking_plans, 'opens_at')
-
-    rangeDates = _.union(dueDates, openDates)
-
-    plan.duration = @_getDurationFromMoments(rangeDates)
+    plan.duration = @_getDurationRange(plan)
 
   setDurationDay: (plan) ->
+    {referenceDate} = @props
     dueDates = _.pluck(plan.tasking_plans, 'due_at')
+
     plan.duration = @_getDurationFromMoments(dueDates)
+    plan.openRange = @_getDurationRange(plan)
+    plan.isOpen = plan.openRange.start.isBefore(referenceDate)
+    plan.isPublished = plan.published_at?
 
   # TODO see how to pull out plan specific logic to show that this
   # can be reused for units, for example

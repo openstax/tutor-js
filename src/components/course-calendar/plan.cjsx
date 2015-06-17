@@ -101,7 +101,16 @@ CoursePlan = React.createClass
       left: offset * 100 / 7 + '%'
       top: (weekTopOffset + 4 - order * 3) + 'rem'
 
-    planClasses = "plan #{plan.type} course-plan-#{plan.id}"
+    planClasses = [
+      'plan'
+      "#{plan.type}"
+      "course-plan-#{plan.id}"
+    ]
+
+    planClasses.push('draft') unless plan.isPublished
+    planClasses.push('inactive') unless plan.isOpen
+
+    planClasses = planClasses.join(' ')
 
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
