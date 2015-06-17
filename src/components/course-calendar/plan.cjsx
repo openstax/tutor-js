@@ -145,6 +145,7 @@ CoursePlan = React.createClass
 
     planClasses.push('draft') unless plan.isPublished
     planClasses.push('inactive') unless plan.isOpen
+    planClasses.push('trouble') if plan.trouble
 
     planClasses = planClasses.join(' ')
 

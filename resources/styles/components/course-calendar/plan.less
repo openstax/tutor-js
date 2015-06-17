@@ -59,6 +59,16 @@
       }
     }
 
+    &.trouble {
+      label::before {
+        content: @fa-var-bookmark;
+        .fa-icon();
+        .rotate(90deg);
+        margin-right: @calendar-plan-left-label-offset;
+        color: @tutor-danger;
+      }
+    }
+
 
     // CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
     // Takes width based on visible width of plan to center label.
