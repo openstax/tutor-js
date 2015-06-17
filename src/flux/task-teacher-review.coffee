@@ -6,12 +6,13 @@ _ = require 'underscore'
 
 TaskTeacherReviewConfig = {
   _loaded: (obj, id) ->
-    planStats = _.clone(obj)
-    _.each planStats.stats.periods, (period) ->
-      delete period.current_pages.exercises if period.current_pages.exercises?
-      delete period.spaced_pages.exercises if period.spaced_pages.exercises?
+    if obj?.stats?
+      planStats = _.clone(obj)
+      _.each planStats.stats.periods, (period) ->
+        delete period.current_pages.exercises if period.current_pages.exercises?
+        delete period.spaced_pages.exercises if period.spaced_pages.exercises?
 
-    TaskPlanStatsActions.loaded(planStats, id)
+      TaskPlanStatsActions.loaded(planStats, id)
 
 }
 

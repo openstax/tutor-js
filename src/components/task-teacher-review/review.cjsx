@@ -73,8 +73,8 @@ Review = React.createClass
         scrollState={scrollState}
         setScrollPoint={@props.setScrollPoint} />
 
-    <ReactCSSTransitionGroup transitionName="homework-review-problem">
+    <div>
       {stepsList}
-    </ReactCSSTransitionGroup>
+    </div>
 
 module.exports = Review

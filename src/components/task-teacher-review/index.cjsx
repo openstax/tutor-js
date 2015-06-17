@@ -7,6 +7,7 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
+{TaskPlanStatsStore} = require '../../flux/task-plan-stats'
 
 CrumbMixin = require './crumb-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
@@ -63,6 +64,10 @@ TaskTeacherReview = React.createClass
     scrollPointData = _.extend({scrollPoint: scrollPoint}, scrollState)
     @state.scrollPoints.push(scrollPointData)
 
+  unsetScrollPoint: (unsetScrollPoint) ->
+    @state.scrollPoints = _.reject @state.scrollPoints, (scrollPoint) ->
+      scrollPoint.scrollPoint is unsetScrollPoint
+
   sortScrollPoints: ->
     sortedDescScrollPoints = _.sortBy @state.scrollPoints, (scrollData) ->
       -1 * scrollData.scrollPoint
@@ -95,9 +100,10 @@ TaskTeacherReview = React.createClass
   componentDidUpdate: (prevProps, prevState) ->
     doesScrollStateMatch = (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop).key)
     didCurrentStepChange = not (@state.currentStep is prevState.scrollState?.key)
-    didScrollPointsChange = not (prevState.scrollPoints.length is @state.scrollPoints.length)
+    didScrollPointsChange = not (prevState.scrollPoints.length is @state.scrollPoints.length) and @state.scrollPoints.length
 
-    @sortScrollPoints() if didScrollPointsChange
+    if didScrollPointsChange
+      @sortScrollPoints()
 
     unless doesScrollStateMatch
       @setScrollState()
@@ -139,6 +145,7 @@ TaskTeacherReview = React.createClass
           steps={steps}
           taskId={task.id}
           setScrollPoint={@setScrollPoint}
+          unsetScrollPoint={@unsetScrollPoint}
           setScrollTopBuffer={@setScrollTopBuffer}
           review='teacher'
           panel='teacher-review' />
@@ -164,6 +171,7 @@ TaskTeacherReview = React.createClass
             <BS.Col sm={4}>
               <StatsModalShell
                 id={id}
+                courseId={courseId}
                 activeSection={@state.scrollState.sectionLabel}
                 handlePeriodSelect={@setPeriod}/>
             </BS.Col>
@@ -176,6 +184,32 @@ TaskTeacherReviewShell = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  renderLoading: (refreshButton) ->
+    {id, courseId} = @context.router.getCurrentParams()
+
+    unless TaskPlanStatsStore.get(id)?
+      return <div className='loadable is-loading'>Loading... {refreshButton}</div>
+
+    taskClasses = "task-teacher-review"
+
+    <PinnedHeaderFooterCard
+      className={taskClasses}
+      fixedOffset={0}
+      cardType='task'>
+        <BS.Grid fluid>
+          <BS.Row>
+            <BS.Col sm={8}>
+              <div className='loadable is-loading'>Loading Problems... {refreshButton}</div>
+            </BS.Col>
+            <BS.Col sm={4}>
+              <StatsModalShell
+                id={id}
+                courseId={courseId} />
+            </BS.Col>
+          </BS.Row>
+        </BS.Grid>
+    </PinnedHeaderFooterCard>
+
   render: ->
     {id, courseId} = @context.router.getCurrentParams()
     <LoadableItem
@@ -183,6 +217,7 @@ TaskTeacherReviewShell = React.createClass
       store={TaskTeacherReviewStore}
       actions={TaskTeacherReviewActions}
       renderItem={-> <TaskTeacherReview key={id} id={id} courseId={courseId}/>}
+      renderLoading={@renderLoading}
     />
 
 module.exports = {TaskTeacherReview, TaskTeacherReviewShell}
