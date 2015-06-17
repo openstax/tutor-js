@@ -40,10 +40,20 @@ PlanFooter = React.createClass
 
     saveable = not TaskPlanStore.isPublished(id)
     deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isOpened(id)
+    isWaiting = TaskPlanStore.isSaving(id)
+    isFailed = TaskPlanStore.isFailed(id)
 
     publishButton =
       <BS.Col sm={6} md={2}>
-        <BS.Button bsStyle='primary' className="-publish" onClick={onPublish}>Publish</BS.Button>
+        <AsyncButton
+          bsStyle='primary'
+          className='-publish'
+          onClick={onPublish}
+          isWaiting={isWaiting}
+          isFailed={isFailed}
+          >
+          {'Publish'}
+        </AsyncButton>
         <p>
           Publish will make the assignment available to
           students on the open date.  If open date is today,
@@ -58,6 +68,15 @@ PlanFooter = React.createClass
     if saveable
       saveLink =
         <BS.Col sm={6} md={2}>
+          <AsyncButton
+            bsStyle='primary'
+            className='-save'
+            onClick={onSave}
+            isWaiting={isWaiting}
+            isFailed={isFailed}
+            >
+            {'Save as Draft'}
+          </AsyncButton>
           <BS.Button className='-save' disabled onClick={onSave}>Save as Draft</BS.Button>
           <p>
             An assignment in draft will not be available to students, even if the open date has passed.
