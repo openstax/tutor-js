@@ -82,16 +82,18 @@ TaskTeacherReview = React.createClass
     @goToStep(@state.scrollState.key)() if @state.scrollState?.key?
 
   componentDidUpdate: (prevProps, prevState) ->
-    didScrollStateChange = not (prevState.scrollState.scrollPoint is @getScrollStateByScroll(@state.scrollTop).scrollPoint)
+    didScrollStateChange = not (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop).key)
     didCurrentStepChange = not (@state.currentStep is prevState.scrollState?.key)
 
-    @setScrollState() if didScrollStateChange
-    @scrollToKey(@state.currentStep) if didCurrentStepChange and not didScrollStateChange
+    if didCurrentStepChange and not didScrollStateChange
+      @scrollToKey(@state.currentStep)
+    else if didScrollStateChange
+      @setScrollState()
 
   scrollToKey: (stepKey) ->
     scrollState = @getScrollStateByKey(stepKey)
 
-    window.scrollTo(0, (scrollState.scrollPoint - @state.scrollTopBuffer + 1))
+    window.scrollTo(0, (scrollState.scrollPoint - @state.scrollTopBuffer + 2))
 
   # Curried for React
   goToStep: (stepKey) ->
