@@ -51,11 +51,10 @@
     &.reading:not(.inactive)      { .x-plan(@reading-color); }
     &.homework:not(.inactive)     { .x-plan(@homework-color); }
     &.inactive     { .x-plan(@calendar-inactive-background); }
-    &.draft     {
+    &.draft {
       label::before {
-        font-weight: 400;
-        font-style: italic;
-        content: 'draft';
+        content: @fa-var-pencil;
+        .fa-icon();
         margin-right: @calendar-plan-left-label-offset;
       }
     }
