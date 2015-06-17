@@ -83,23 +83,22 @@
       }
     }
   }
+}
 
-  .is-invalid-form {
-    .form-control-wrapper.is-required {
+.is-invalid-form {
+  .form-control-wrapper.is-required {
+    margin-bottom: 1em;
+    .form-control.empty {
+      background-image: linear-gradient(@form-error-color, @form-error-color),
+      linear-gradient(@form-error-color, @form-error-color);
+    }
+    .form-control.empty ~ .floating-label {
+      color: @form-error-color;
+    }
+    .form-control.empty ~ .required-hint {
+      display: block;
       margin-bottom: 1em;
-      .form-control.empty {
-        background-image: linear-gradient(@form-error-color, @form-error-color),
-        linear-gradient(@form-error-color, @form-error-color);
-      }
-      .form-control.empty ~ .floating-label {
-        color: @form-error-color;
-      }
-      .form-control.empty ~ .required-hint {
-        display: block;
-        margin-bottom: 1em;
-        color: @form-error-color;
-      }
+      color: @form-error-color;
     }
   }
-
 }
