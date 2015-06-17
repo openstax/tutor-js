@@ -34,13 +34,15 @@ CoursePeriodsNav = React.createClass
     periods = CourseStore.getPeriods(courseId)
 
     period = periods?[key]
-    console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.") unless period?
+    unless period?
+      console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
+      return
 
     handleSelect?(period)
     @setState(active: key)
 
   renderPeriod: (period, key) ->
-    <BS.NavItem eventKey={key}>{period.name}</BS.NavItem>
+    <BS.NavItem eventKey={key} key="period-nav-#{period.id}">{period.name}</BS.NavItem>
 
   render: ->
     {courseId} = @props
@@ -70,13 +72,12 @@ CoursePeriodsNavShell = React.createClass
 
   render: ->
     courseId = @getCourseId()
-    @props.courseId ?= courseId
 
     <LoadableItem
       id={courseId}
       store={CourseStore}
       actions={CourseActions}
-      renderItem={=> <CoursePeriodsNav courseId={courseId} {...@props}/>}
+      renderItem={=> <CoursePeriodsNav {...@props} courseId={courseId} />}
     />
 
 module.exports = {CoursePeriodsNav, CoursePeriodsNavShell}
