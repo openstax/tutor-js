@@ -42,7 +42,7 @@ routes = (
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
           <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
           <Route path=':type/:id/summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
-            <Route path='section/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
+            <Route path='section/:sectionIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
           </Route>
         </Route>
       </Route>

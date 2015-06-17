@@ -30,10 +30,10 @@ TaskTeacherReview = React.createClass
     router: React.PropTypes.func
 
   setStepKey: ->
-    {stepIndex} = @context.router.getCurrentParams()
+    {sectionIndex} = @context.router.getCurrentParams()
     # url is 1 based so it matches the breadcrumb button numbers
     defaultKey = @getDefaultCurrentStep()
-    crumbKey = if stepIndex then parseInt(stepIndex) - 1 else defaultKey
+    crumbKey = if sectionIndex then parseInt(sectionIndex) - 1 else defaultKey
     crumb = @getCrumb(crumbKey)
 
     # go ahead and render this step only if this step is accessible
@@ -98,7 +98,7 @@ TaskTeacherReview = React.createClass
     =>
       params = @context.router.getCurrentParams()
       # url is 1 based so it matches the breadcrumb button numbers
-      params.stepIndex = stepKey + 1
+      params.sectionIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
 
       # @context.router.transitionTo('reviewTaskStep', params)
