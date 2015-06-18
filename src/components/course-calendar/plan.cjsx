@@ -95,7 +95,9 @@ CoursePlan = React.createClass
     {item, courseId} = @props
     {plan} = item
 
-    planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
+    planModalClasses = 'is-trouble' if plan.trouble
+
+    planModal = <CoursePlanDetails plan={plan} courseId={courseId} className={planModalClasses}/>
 
     <BS.ModalTrigger modal={planModal} ref='trigger'>
       <div style={planStyle}
@@ -150,9 +152,9 @@ CoursePlan = React.createClass
       "course-plan-#{plan.id}"
     ]
 
-    planClasses.push('draft') unless plan.isPublished
-    planClasses.push('inactive') unless plan.isOpen
-    planClasses.push('trouble') if plan.trouble
+    planClasses.push('is-published') if plan.isPublished
+    planClasses.push('is-open') if plan.isOpen
+    planClasses.push('is-trouble') if plan.trouble
 
     planClasses = planClasses.join(' ')
 

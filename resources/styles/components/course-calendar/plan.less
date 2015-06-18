@@ -58,14 +58,18 @@
     font-weight: bold;
     transition: max-height .1s ease-in, margin-top .1s ease-in;
     overflow: hidden;
+    .x-plan(@calendar-inactive-background);
+
     // takes on CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
     // Based on event duration and event offset from start of week
     // see CoursePlan component
 
-    &.reading:not(.inactive)      { .x-plan(@reading-color); }
-    &.homework:not(.inactive)     { .x-plan(@homework-color); }
-    &.inactive     { .x-plan(@calendar-inactive-background); }
-    &.draft {
+    &.is-open {
+      &.reading     { .x-plan(@reading-color); }
+      &.homework    { .x-plan(@homework-color); }
+    }
+
+    &:not(.is-published) {
       label:not(.continued)::before {
         content: @fa-var-pencil;
         .fa-icon();
@@ -73,13 +77,10 @@
       }
     }
 
-    &.trouble {
+    &.is-trouble {
       label:not(.continued)::before {
-        content: @fa-var-bookmark;
-        .fa-icon();
-        .rotate(90deg);
+        .is-trouble();
         margin-right: @calendar-plan-left-label-offset;
-        color: @tutor-danger;
       }
     }
 
