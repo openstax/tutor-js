@@ -1,4 +1,9 @@
 .reference-book {
+  .dropdown-toggle {
+    font-size: 3rem;
+    line-height: 30px;
+  }
+
   .content {
     margin-top: 75px;
 
@@ -17,6 +22,10 @@
       section {
         .book-content-step-size();
       }
+
+      > section > div {
+        clear: both;
+      }
     }
   }
 
@@ -34,14 +43,41 @@
     position: absolute;
     top: 200px;
     cursor: pointer;
+    opacity: 0;
+    background-color: @tutor-neutral-lighter;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      opacity: 0.8;
+    }
+
     &:hover {
       color: @tutor-neutral;
     }
+
+    &.prev,
     &.next {
-      right: 20px
+      display: -webkit-flex;
+      display: -ms-flex;
+      display: flex;
+      position: fixed;
+      top: 60px;
+      height: 100vh;
+      justify-content: -webkit-center;
+      justify-content: -ms-center;
+      justify-content: center;
+      flex-direction: -webkit-column;
+      flex-direction: -ms-column;
+      flex-direction: column;
     }
+
     &.prev {
-      left: 20px;
+      left: 0;
+    }
+
+    &.next {
+      right: 0;
     }
   }
 
