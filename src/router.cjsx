@@ -5,7 +5,7 @@ Router = require 'react-router'
 {CourseListing} = require './components/course-listing'
 {LearningGuideShell} = require './components/learning-guide'
 {PerformanceShell} = require './components/performance'
-{ReadingShell, HomeworkShell} = require './components/task-plan'
+TaskPlanShells = {ReadingShell, HomeworkShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {TaskTeacherReviewShell} = require './components/task-teacher-review'
@@ -13,8 +13,39 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
   require './components/reference-book'
 
 {StatsShell} = require './components/task-plan/reading-stats'
+capitalize = require 'underscore.string/capitalize'
 
 Sandbox = require './sandbox'
+
+
+# makes the following routes under the path of the pluralized plan type:
+# createReading, createHomework
+# editReading, editHomework
+# viewReadingStats, viewHomeworkStats
+# reviewReading, reviewHomework
+# reviewReadingSection, reviewHomeworkSection
+makePlanRoutes = (type) ->
+
+  path = "#{type}s/"
+  capType = capitalize(type)
+
+  createAndEditHandler = "#{capType}Shell"
+  TaskPlanShell = TaskPlanShells[createAndEditHandler]
+
+  <Route path={path}>
+    <Route path='new/?' name="create#{capType}" handler={TaskPlanShell} />
+    <Route path=':id/?' name="edit#{capType}" >
+      <Router.DefaultRoute handler={TaskPlanShell} />
+      <Route path='stats/?' name="view#{capType}Stats" handler={StatsShell} />
+      <Route path='summary/?' name="review#{capType}" handler={TaskTeacherReviewShell} >
+        <Route
+          path='section/:sectionIndex/'
+          name="review#{capType}Section"
+          ignoreScrollBehavior
+        />
+      </Route>
+    </Route>
+  </Route>
 
 routes = (
   <Route handler={Root} name='root'>
@@ -36,14 +67,8 @@ routes = (
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
           <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
-          <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
-          <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
-          <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
-          <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
-          <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
-          <Route path=':type/:id/summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
-            <Route path='section/:sectionIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
-          </Route>
+          {makePlanRoutes('homework')}
+          {makePlanRoutes('reading')}
         </Route>
       </Route>
       <Route path='sandbox/?' name='sandbox' handler={Sandbox} />

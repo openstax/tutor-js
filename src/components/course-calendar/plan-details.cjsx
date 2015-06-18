@@ -1,6 +1,7 @@
 moment = require 'moment'
 twix = require 'twix'
 _ = require 'underscore'
+camelCase = require 'camelcase'
 
 React = require 'react'
 BS = require 'react-bootstrap'
@@ -33,7 +34,10 @@ CoursePlanDetails = React.createClass
   onClickReview: ->
     {plan, courseId} = @props
     {title, type, id} = plan
-    @context.router.transitionTo('reviewTask', {courseId, id, type})
+
+    # can either be reviewReading or reviewHomework
+    reviewPlanPath = camelCase("review-#{plan.type}")
+    @context.router.transitionTo(reviewPlanPath, {courseId, id})
 
   render: ->
     {plan, courseId} = @props

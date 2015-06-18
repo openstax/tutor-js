@@ -1,6 +1,8 @@
 
 React = require 'react'
 BS = require 'react-bootstrap'
+camelCase = require 'camelcase'
+
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
 PlanFooter = React.createClass
@@ -31,7 +33,11 @@ PlanFooter = React.createClass
 
   onViewStats: ->
     {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id, type: 'homework'})
+    plan = TaskPlanStore.get(id)
+
+    # can either be viewReadingStats or viewHomeworkStats
+    viewStatsPath = camelCase("view-#{plan.type}-stats")
+    @context.router.transitionTo(viewStatsPath, {courseId, id})
 
   render: ->
     {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
