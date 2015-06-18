@@ -48,19 +48,11 @@ TaskPlanConfig =
 
   FAILED: -> # used by API
 
-  setPeriods: (id, periods, opensAtDate) ->
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    tasking_plans ?= []
-    tasking_plans = tasking_plans[..] # Clone it
-    for period in periods
-      tasking = @_findTasking(tasking_plans, period.id)
-      if tasking
-        tasking.opens_at = opensAtDate
-      else
-        tasking_plans.push
-          name: period.name, opens_at: opensAtDate
-          target_id: period.id, tasking_type: 'period'
+  setPeriods: (id, periods, opens_at) ->
+    tasking_plans = _.map periods, (period) ->
+      _.extend( _.pick(period, 'opens_at', 'due_at'),
+        target_id: period.id, tasking_type:'period'
+      )
     @_change(id, {tasking_plans})
 
   _findTasking: (tasking_plans, periodId) ->
@@ -80,8 +72,10 @@ TaskPlanConfig =
   _getTaskingsCommonDate: (id, attr) ->
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
-    dates = _.compact _.uniq  _.pluck(tasking_plans, attr)
-    if dates.length is 1 then _.first(dates) else null
+    dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
+      plan[attr]?.getTime()
+    )
+    if dates.length is 1 then new Date(_.first(dates)) else null
 
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
@@ -308,8 +302,7 @@ TaskPlanConfig =
         tasking?.opens_at
       else
         # default opens_at to 1 day from now
-        @_getTaskingsCommonDate(id, 'opens_at') or
-          moment(TimeStore.getNow()).add(1, 'day').toDate()
+        @_getTaskingsCommonDate(id, 'opens_at')
 
     getDueAt: (id, period) ->
       if period

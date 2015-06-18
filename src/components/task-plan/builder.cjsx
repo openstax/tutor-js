@@ -28,12 +28,15 @@ module.exports = React.createClass
   setPeriodDefaults: ->
     {date} = @getQuery() # attempt to read the start date from query params
     opensAt = if date
-      moment(date, "MM-DD-YYYY")
+      moment(date, "MM-DD-YYYY").toDate()
     else
-      moment(TimeStore.getNow()).add(1, 'day')
+      moment(TimeStore.getNow()).add(1, 'day').toDate()
     course = CourseStore.get(@props.courseId)
-    if course?.periods
-      TaskPlanActions.setPeriods(@props.planId, course.periods, opensAt.toDate())
+    periods = _.map course?.periods, (period) ->
+      id: period.id, name: period.name, opens_at: opensAt
+    @setState(periods: periods)
+    # Inform the store of the available periods
+    TaskPlanActions.setPeriods(@props.planId, periods)
 
   # this will be called whenever the course store loads, but won't if
   # the store has already finished loading by the time the component mounts
@@ -127,7 +130,7 @@ module.exports = React.createClass
             </tr>
           </thead>
           <tbody>
-            { _.map plan.tasking_plans, @renderTaskPlanRow }
+            { _.map @state.periods, @renderTaskPlanRow }
           </tbody>
         </table>
       </BS.Col>
