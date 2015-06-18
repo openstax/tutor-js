@@ -16,7 +16,7 @@ Performance = React.createClass
 
   getInitialState: ->
     sortOrder: 'is-ascending'
-    sortIndex: 0
+    sortIndex: -1
     isNameSort: true
 
   sortClick: (event) ->
@@ -26,29 +26,27 @@ Performance = React.createClass
       @setState({isNameSort: false})
     else
       @setState({isNameSort: true})
-    headers = event.target.parentNode.querySelectorAll('th')
-    for header in headers
-      header.classList.remove('is-ascending', 'is-descending')
     if not isActiveSort
       @state.sortOrder = 'is-ascending'
-    event.target.classList.add(@state.sortOrder)
     @sortData(event.target.cellIndex)
 
   sortData: (index) ->
     @setState({sortIndex: index - 1})
 
-  renderHeadingCell: (heading) ->
-    <th className='sortable' title={heading.title} onClick={@sortClick}>{heading.title}</th>
+  renderHeadingCell: (heading, i) ->
+    if i is @state.sortIndex
+      classes = @state.sortOrder
+    <th className={classes} title={heading.title} onClick={@sortClick}>{heading.title}</th>
 
   renderAverageCell: (heading) ->
     if heading.class_average
       classAverage = Math.round(heading.class_average)
     <th>{classAverage}</th>
 
-  renderStudentRow: (student_data) ->
+  renderStudentRow: (student_data, i) ->
     cells = _.map(student_data.data, @renderStudentCell)
     <tr>
-      <td className='student-name'>{student_data.name}</td>
+      <td>{student_data.name}</td>
       {cells}
     </tr>
 
@@ -86,6 +84,9 @@ Performance = React.createClass
           when 'reading' then d.data[@state.sortIndex].status
         )
 
+    if @state.isNameSort
+      nameClass = @state.sortOrder
+
     if @state.sortOrder is 'is-descending'
       sortData.reverse()
       @state.sortOrder = 'is-ascending'
@@ -105,7 +106,7 @@ Performance = React.createClass
           <BS.Table className='-course-performance-table'>
             <thead>
               <tr>
-                <th className='sortable student-name is-ascending' onClick={@sortClick}>Student</th>
+                <th className="#{nameClass} student-name" onClick={@sortClick}>Student</th>
                 {headings}
               </tr>
               <tr>
