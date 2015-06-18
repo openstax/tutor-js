@@ -2,6 +2,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+AsyncButton = require '../async-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -51,6 +52,7 @@ PlanFooter = React.createClass
           onClick={onPublish}
           isWaiting={isWaiting}
           isFailed={isFailed}
+          waitingText='Publishing…'
           >
           {'Publish'}
         </AsyncButton>
@@ -69,15 +71,14 @@ PlanFooter = React.createClass
       saveLink =
         <BS.Col sm={6} md={2}>
           <AsyncButton
-            bsStyle='primary'
             className='-save'
             onClick={onSave}
             isWaiting={isWaiting}
             isFailed={isFailed}
+            waitingText='Saving…'
             >
             {'Save as Draft'}
           </AsyncButton>
-          <BS.Button className='-save' disabled onClick={onSave}>Save as Draft</BS.Button>
           <p>
             An assignment in draft will not be available to students, even if the open date has passed.
           </p>
