@@ -12,14 +12,12 @@
   table {
     th {
       .no-select();
+      cursor: pointer;
       position: relative;
       white-space: nowrap;
       max-width: 150px;
       text-overflow: ellipsis;
       overflow: hidden;
-      &.sortable {
-        cursor: pointer;
-      }
       &.is-ascending:after {
         position: absolute;
         right: 0;

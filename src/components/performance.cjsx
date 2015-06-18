@@ -14,15 +14,36 @@ Performance = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  renderHeadingCell: (heading) ->
-    <th className='sortable' title={heading.title} onClick={@sortClick}>{heading.title}</th>
+  getInitialState: ->
+    sortOrder: 'is-ascending'
+    sortIndex: -1
+    isNameSort: true
+
+  sortClick: (event) ->
+    isActiveSort = event.target.classList.contains('is-ascending', 'is-descending')
+    # this is a special case for the name header data which is one level above nested data
+    if not _.contains(event.target.classList, 'student-name')
+      @setState({isNameSort: false})
+    else
+      @setState({isNameSort: true})
+    if not isActiveSort
+      @state.sortOrder = 'is-ascending'
+    @sortData(event.target.cellIndex)
+
+  sortData: (index) ->
+    @setState({sortIndex: index - 1})
+
+  renderHeadingCell: (heading, i) ->
+    if i is @state.sortIndex
+      classes = @state.sortOrder
+    <th className={classes} title={heading.title} onClick={@sortClick}>{heading.title}</th>
 
   renderAverageCell: (heading) ->
     if heading.class_average
       classAverage = Math.round(heading.class_average)
     <th>{classAverage}</th>
 
-  renderStudentRow: (student_data) ->
+  renderStudentRow: (student_data, i) ->
     cells = _.map(student_data.data, @renderStudentCell)
     <tr>
       <td>{student_data.name}</td>
@@ -44,13 +65,16 @@ Performance = React.createClass
     <td>{status}</td>
 
   renderHomeworkCell: (cell) ->
-    <td>{cell.correct_exercise_count}/{cell.exercise_count}</td>
+    <td>
+      {cell.correct_exercise_count}/{cell.exercise_count}
+    </td>
 
   render: ->
     performance = PerformanceStore.get(@props.courseId)
 
     headings = _.map(performance.data_headings, @renderHeadingCell)
     averages = _.map(performance.data_headings, @renderAverageCell)
+
     if @state.isNameSort
       sortData = _.sortBy(performance.students, 'name')
     else
@@ -59,6 +83,9 @@ Performance = React.createClass
           when 'homework' then d.data[@state.sortIndex].correct_exercise_count
           when 'reading' then d.data[@state.sortIndex].status
         )
+
+    if @state.isNameSort
+      nameClass = @state.sortOrder
 
     if @state.sortOrder is 'is-descending'
       sortData.reverse()
@@ -79,7 +106,7 @@ Performance = React.createClass
           <BS.Table className='-course-performance-table'>
             <thead>
               <tr>
-                <th className='sortable student-name is-ascending' onClick={@sortClick}>Student</th>
+                <th className="#{nameClass} student-name" onClick={@sortClick}>Student</th>
                 {headings}
               </tr>
               <tr>
@@ -91,6 +118,7 @@ Performance = React.createClass
               {student_rows}
             </tbody>
           </BS.Table>
+
         </div>
       </BS.Panel>
     </div>
