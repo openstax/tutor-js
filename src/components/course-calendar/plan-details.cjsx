@@ -32,8 +32,8 @@ CoursePlanDetails = React.createClass
 
   onClickReview: ->
     {plan, courseId} = @props
-    {title, type, id} = plan
-    @context.router.transitionTo('reviewTask', {courseId, id, type})
+    {title, id} = plan
+    @context.router.transitionTo('reviewTask', {courseId, id})
 
   render: ->
     {plan, courseId} = @props

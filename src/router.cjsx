@@ -40,9 +40,15 @@ routes = (
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
-          <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
-          <Route path=':type/:id/summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
-            <Route path='section/:sectionIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
+          <Route path='plans/:id/?'>
+            <Router.DefaultRoute handler={StatsShell}/>
+            <Route path='stats/?' name='viewStats' handler={StatsShell} />
+            <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+              <Route
+                path='section/:sectionIndex/?'
+                name='reviewTaskStep'
+                ignoreScrollBehavior />
+            </Route>
           </Route>
         </Route>
       </Route>
