@@ -2,7 +2,6 @@ React = require 'react'
 moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-camelCase = require 'camelcase'
 
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
@@ -24,11 +23,8 @@ TeacherTaskPlans = React.createClass
 
   onViewStats: ->
     {courseId, plan} = @props
-    {id} = plan
-
-    # can either be viewReadingStats or viewHomeworkStats
-    viewStatsPath = camelCase("view-#{plan.type}-stats")
-    @context.router.transitionTo(viewStatsPath, {courseId, id})
+    {id} = @props.plan
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
     {plan} = @props

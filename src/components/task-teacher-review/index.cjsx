@@ -96,19 +96,13 @@ TaskTeacherReview = React.createClass
   # Curried for React
   goToStep: (stepKey) ->
     =>
-      {id} = @props
-      task = TaskTeacherReviewStore.get(id)
-
       params = @context.router.getCurrentParams()
       # url is 1 based so it matches the breadcrumb button numbers
       params.sectionIndex = stepKey + 1
-      params.id = id # if we were rendered directly, the router might not have the id
+      params.id = @props.id # if we were rendered directly, the router might not have the id
 
       # @context.router.transitionTo('reviewTaskStep', params)
-
-      # can either be reviewReadingSection or reviewHomeworkSection
-      reviewPlanSectionPath = camelCase("review-#{task.type}-section")
-      @context.router.replaceWith(reviewPlanSectionPath, params)
+      @context.router.replaceWith('reviewTaskStep', params)
 
   getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()

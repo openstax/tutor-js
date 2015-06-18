@@ -1,6 +1,5 @@
 moment = require 'moment'
 React = require 'react'
-camelCase = require 'camelcase'
 
 TaskPlan = React.createClass
   displayName: 'TeacherTaskPlan'
@@ -25,10 +24,7 @@ TaskPlan = React.createClass
   onViewStats: ->
     {courseId} = @props
     {id, type} = @props.plan
-
-    # can either be viewReadingStats or viewHomeworkStats
-    viewStatsPath = camelCase("view-#{type}-stats")
-    @context.router.transitionTo(viewStatsPath, {courseId, id})
+    @context.router.transitionTo('viewStats', {courseId, type, id})
 
   render: ->
     {plan} = @props
