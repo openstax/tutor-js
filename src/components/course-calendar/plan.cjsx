@@ -154,7 +154,7 @@ CoursePlan = React.createClass
 
     planClasses.push('is-published') if plan.isPublished
     planClasses.push('is-open') if plan.isOpen
-    planClasses.push('is-trouble') if plan.trouble
+    planClasses.push('is-trouble') if plan.isTrouble
 
     planClasses = planClasses.join(' ')
 
