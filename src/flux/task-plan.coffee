@@ -51,12 +51,12 @@ TaskPlanConfig =
   setPeriods: (id, periods, opens_at) ->
     tasking_plans = _.map periods, (period) ->
       _.extend( _.pick(period, 'opens_at', 'due_at'),
-        target_id: period.id, tasking_type:'period'
+        target_id: period.id, target_type:'period'
       )
     @_change(id, {tasking_plans})
 
   _findTasking: (tasking_plans, periodId) ->
-    _.findWhere(tasking_plans, {target_id:periodId, tasking_type:'period'})
+    _.findWhere(tasking_plans, {target_id:periodId, target_type:'period'})
 
   _getPeriodDates: (id, period) ->
     throw new Error('BUG: Period is required arg') unless period
@@ -113,7 +113,7 @@ TaskPlanConfig =
       if tasking
         tasking[attr] = date
       else
-        tasking = _.extend({tasking_type: 'period', target_id: periodId}, {"#{attr}":val})
+        tasking = _.extend({target_type: 'period', target_id: periodId}, {"#{attr}":val})
         tasking_plans.push(tasking)
     else
       for tasking in tasking_plans
