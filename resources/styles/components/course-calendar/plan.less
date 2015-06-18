@@ -37,6 +37,11 @@
   }
 }
 
+.psuedo-text-label() {
+  font-weight: 400;
+  font-style: italic;
+}
+
 .list-courses {
   .plan {
     display: block;
@@ -95,15 +100,13 @@
         &::before {
           content: '...';
           margin-right: @calendar-plan-left-label-offset;
-          font-weight: 400;
-          font-style: italic;
+          .psuedo-text-label();
         }
 
         &::after {
           content: 'continued';
           margin-left: @calendar-plan-left-label-offset;
-          font-weight: 400;
-          font-style: italic;
+          .psuedo-text-label();
         }
       }
     }
