@@ -25,6 +25,9 @@ CoursePlan = React.createClass
     @closePlanOnModalHide()
     @adjustForLongLabels()
 
+  componentDidUpdate: ->
+    @adjustForLongLabels()
+
   adjustForLongLabels: ->
     labelDOMNode = @refs.label?.getDOMNode()
     planDOMNode = @refs.plan.getDOMNode()
