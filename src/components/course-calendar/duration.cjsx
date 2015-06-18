@@ -63,7 +63,7 @@ CourseDuration = React.createClass
 
       _.each(range.plansByOverlaps, (plans) ->
         _.each(plans, (plan, order) ->
-          plan.order = plans.length - order
+          plan.order = order + 1
           plan.weekTopOffset = weekTopOffset
         )
       )
