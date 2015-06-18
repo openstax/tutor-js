@@ -44,10 +44,12 @@ ScrollTrackerParentMixin =
   setScrollPoint: (scrollPoint, scrollState) ->
     scrollPointData = _.extend({scrollPoint: scrollPoint}, scrollState)
     @state.scrollPoints.push(scrollPointData)
+    @sortScrollPoints()
 
   unsetScrollPoint: (unsetScrollPoint) ->
     @state.scrollPoints = _.reject @state.scrollPoints, (scrollPoint) ->
       scrollPoint.scrollPoint is unsetScrollPoint
+    @sortScrollPoints()
 
   sortScrollPoints: ->
     sortedDescScrollPoints = _.sortBy @state.scrollPoints, (scrollData) ->
@@ -57,13 +59,15 @@ ScrollTrackerParentMixin =
 
   getScrollStateByScroll: (scrollTop) ->
     scrollState = _.find @state.scrollPoints, (scrollData) =>
-      scrollTop > (scrollData.scrollPoint - @state.scrollTopBuffer)
+      scrollTop > (scrollData.scrollPoint - @state.scrollTopBuffer - 2)
 
     scrollState or _.last(@state.scrollPoints)
 
   getScrollStateByKey: (stepKey) ->
-    scrollState = _.find @state.scrollPoints, (scrollData) ->
+    scrollStateIndex = _.findLastIndex @state.scrollPoints, (scrollData) ->
       scrollData.key is stepKey
+
+    @state.scrollPoints[scrollStateIndex]
 
   setScrollState: ->
     scrollState = @getScrollStateByScroll(@state.scrollTop)
@@ -73,9 +77,7 @@ ScrollTrackerParentMixin =
 
   componentDidMount: ->
     @setScrollTopBuffer()
-    @sortScrollPoints()
     @scrollToKey(@props.currentStep)
-    @setScrollState()
 
   componentWillUpdate: (nextProps, nextState) ->
     willScrollStateKeyChange = not (nextState.scrollState.key is @state.scrollState.key)
@@ -84,10 +86,6 @@ ScrollTrackerParentMixin =
   componentDidUpdate: (prevProps, prevState) ->
     doesScrollStateMatch = (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop).key)
     didCurrentStepChange = not (@props.currentStep is prevState.scrollState?.key)
-    didScrollPointsChange = not (prevState.scrollPoints.length is @state.scrollPoints.length) and @state.scrollPoints.length
-
-    if didScrollPointsChange
-      @sortScrollPoints()
 
     unless doesScrollStateMatch
       @setScrollState()
