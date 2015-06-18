@@ -95,7 +95,7 @@ CoursePlan = React.createClass
     {item, courseId} = @props
     {plan} = item
 
-    planModalClasses = 'is-trouble' if plan.trouble
+    planModalClasses = 'is-trouble' if plan.isTrouble
 
     planModal = <CoursePlanDetails plan={plan} courseId={courseId} className={planModalClasses}/>
 
