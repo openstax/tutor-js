@@ -61,7 +61,7 @@
     &.homework:not(.inactive)     { .x-plan(@homework-color); }
     &.inactive     { .x-plan(@calendar-inactive-background); }
     &.draft {
-      label::before {
+      label:not(.continued)::before {
         content: @fa-var-pencil;
         .fa-icon();
         margin-right: @calendar-plan-left-label-offset;
@@ -69,7 +69,7 @@
     }
 
     &.trouble {
-      label::before {
+      label:not(.continued)::before {
         content: @fa-var-bookmark;
         .fa-icon();
         .rotate(90deg);
@@ -90,6 +90,22 @@
       margin-bottom: 0;
       cursor: pointer;
       transition: background .1s ease-in, margin-top .1s ease-in;
+
+      &.continued {
+        &::before {
+          content: '...';
+          margin-right: @calendar-plan-left-label-offset;
+          font-weight: 400;
+          font-style: italic;
+        }
+
+        &::after {
+          content: 'continued';
+          margin-left: @calendar-plan-left-label-offset;
+          font-weight: 400;
+          font-style: italic;
+        }
+      }
     }
 
     &.plan-label-long {
