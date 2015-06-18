@@ -1,16 +1,20 @@
 React = require 'react'
+Router = require 'react-router'
 _ = require 'underscore'
 moment = require 'moment'
 BS = require 'react-bootstrap'
+
 PlanMixin = require './plan-mixin'
 BindStoreMixin = require '../bind-store-mixin'
+
+{TimeStore} = require '../../flux/time'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
-  mixins: [PlanMixin, BindStoreMixin]
+  mixins: [PlanMixin, BindStoreMixin, Router.State]
   bindStore: CourseStore
   propTypes:
     planId: React.PropTypes.string.isRequired
@@ -19,9 +23,25 @@ module.exports = React.createClass
   getInitialState: ->
     {showingPeriods: false}
 
-  bindUpdate: ->
+  # Copies the available periods from the course store and sets
+  # them to open at the default start date
+  setPeriodDefaults: ->
+    {date} = @getQuery() # attempt to read the start date from query params
+    opensAt = if date
+      moment(date, "MM-DD-YYYY")
+    else
+      moment(TimeStore.getNow()).add(1, 'day')
     course = CourseStore.get(@props.courseId)
-    TaskPlanActions.setPeriods(@props.planId, course.periods) if course?.periods
+    if course?.periods
+      TaskPlanActions.setPeriods(@props.planId, course.periods, opensAt.toDate())
+
+  # this will be called whenever the course store loads, but won't if
+  # the store has already finished loading by the time the component mounts
+  bindUpdate: ->
+    @setPeriodDefaults()
+
+  componentWillMount: ->
+    @setPeriodDefaults()
 
   setOpensAt: (value, period) ->
     {planId} = @props

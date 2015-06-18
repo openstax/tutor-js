@@ -2,8 +2,8 @@
 _ = require 'underscore'
 moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{TimeStore} = require './time'
 {TocStore} = require './toc'
+{TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
 
 TUTOR_SELECTIONS =
@@ -48,14 +48,19 @@ TaskPlanConfig =
 
   FAILED: -> # used by API
 
-  setPeriods: (id, periods) ->
+  setPeriods: (id, periods, opensAtDate) ->
     plan = @_getPlan(id)
     {tasking_plans} = plan
     tasking_plans ?= []
     tasking_plans = tasking_plans[..] # Clone it
     for period in periods
-      unless @_findTasking(tasking_plans, period.id)
-        tasking_plans.push(name: period.name, target_id: period.id, tasking_type: 'period')
+      tasking = @_findTasking(tasking_plans, period.id)
+      if tasking
+        tasking.opens_at = opensAtDate
+      else
+        tasking_plans.push
+          name: period.name, opens_at: opensAtDate
+          target_id: period.id, tasking_type: 'period'
     @_change(id, {tasking_plans})
 
   _findTasking: (tasking_plans, periodId) ->
