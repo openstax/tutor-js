@@ -39,14 +39,15 @@ CoursePlan = React.createClass
     samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
 
   closePlanOnModalHide: ->
-    hide = @refs.trigger.hide
-    trigger = React.findDOMNode(@refs.trigger)
-    syncClosePlan = @syncClosePlan
+    if @refs.trigger?
+      hide = @refs.trigger.hide
+      trigger = React.findDOMNode(@refs.trigger)
+      syncClosePlan = @syncClosePlan
 
-    # alias modal hide to also make plan look un-selected
-    @refs.trigger.hide  = ->
-      hide()
-      syncClosePlan(trigger)
+      # alias modal hide to also make plan look un-selected
+      @refs.trigger.hide  = ->
+        hide()
+        syncClosePlan(trigger)
 
   syncOpenPlan: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
@@ -110,16 +111,18 @@ CoursePlan = React.createClass
     linkTo = camelCase("edit-#{plan.type}")
     params = {id: plan.id, courseId}
 
-    <Router.Link
-      to={linkTo}
-      params={params}
+    <div
       style={planStyle}
       className={planClasses}
       onMouseEnter={@syncHover}
       onMouseLeave={@removeHover}
       ref='plan'>
-      {label}
-    </Router.Link>
+      <Router.Link
+        to={linkTo}
+        params={params}>
+          {label}
+      </Router.Link>
+    </div>
 
   render: ->
     {item, courseId} = @props
