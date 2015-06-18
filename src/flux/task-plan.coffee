@@ -296,17 +296,17 @@ TaskPlanConfig =
     getStats: (id) ->
       @_getStats(id)
 
-    getOpensAt: (id, period) ->
-      if period
-        tasking = @_getPeriodDates(id, period)
+    getOpensAt: (id, periodId) ->
+      if periodId?
+        tasking = @_getPeriodDates(id, periodId)
         tasking?.opens_at
       else
         # default opens_at to 1 day from now
         @_getTaskingsCommonDate(id, 'opens_at')
 
-    getDueAt: (id, period) ->
-      if period
-        tasking = @_getPeriodDates(id, period)
+    getDueAt: (id, periodId) ->
+      if periodId?
+        tasking = @_getPeriodDates(id, periodId)
         tasking?.due_at
       else
         @_getTaskingsCommonDate(id, 'due_at')

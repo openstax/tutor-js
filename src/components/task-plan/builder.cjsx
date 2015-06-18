@@ -33,8 +33,8 @@ module.exports = React.createClass
       moment(TimeStore.getNow()).add(1, 'day').toDate()
     course = CourseStore.get(@props.courseId)
     periods = _.map course?.periods, (period) ->
-      id: period.id, name: period.name, opens_at: opensAt
-    @setState(periods: periods)
+      id: period.id, opens_at: opensAt
+
     # Inform the store of the available periods
     TaskPlanActions.setPeriods(@props.planId, periods)
 
@@ -80,14 +80,14 @@ module.exports = React.createClass
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
           onChange={_.partial(@setOpensAt, _, plan)}
-          value={plan.opens_at}/>
+          value={TaskPlanStore.getOpensAt(@props.planId, plan.id)}/>
       </td><td>
         <TutorDateInput
           id='reading-due-date'
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
           onChange={_.partial(@setDueAt, _, plan)}
-          value={plan.due_at} />
+          value={TaskPlanStore.getDueAt(@props.planId, plan.id)}/>
       </td>
     </tr>
 
@@ -130,7 +130,7 @@ module.exports = React.createClass
             </tr>
           </thead>
           <tbody>
-            { _.map @state.periods, @renderTaskPlanRow }
+            { _.map CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow }
           </tbody>
         </table>
       </BS.Col>
