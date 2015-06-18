@@ -35,7 +35,7 @@ CoursePeriodsNav = React.createClass
 
     period = periods?[key]
     unless period?
-      console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
+      throw new Error("BUG: #{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
       return
 
     handleSelect?(period)
