@@ -135,13 +135,11 @@ module.exports =
     crumbs = @_generateCrumbsFromStats(stats, review.type)
 
   generateCrumbs: ->
-    {id} = @props
-    {period} = @state
+    {id, period} = @props
     @_generateCrumbs id, period
 
   getContents: ->
-    {id} = @props
-    {period} = @state
+    {id, period} = @props
     review = TaskTeacherReviewStore.get(id)
 
     allCrumbs = @generateCrumbs()

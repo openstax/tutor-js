@@ -6,6 +6,7 @@ _ = require 'underscore'
 
 TaskTeacherReviewConfig = {
   _loaded: (obj, id) ->
+    @emit('review.loaded', id)
     if obj?.stats?
       planStats = _.clone(obj)
       _.each planStats.stats.periods, (period) ->

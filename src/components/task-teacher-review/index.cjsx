@@ -13,7 +13,7 @@ CrumbMixin = require './crumb-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
 
 Breadcrumbs = require './breadcrumbs'
-Review = require './review'
+{ReviewShell} = require './review'
 {StatsModalShell} = require '../task-plan/reading-stats'
 
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
@@ -25,95 +25,31 @@ TaskTeacherReview = React.createClass
 
   displayName: 'TaskTeacherReview'
 
-  mixins: [ChapterSectionMixin, CrumbMixin, ScrollListenerMixin]
-
   contextTypes:
     router: React.PropTypes.func
 
   setStepKey: ->
     {stepIndex} = @context.router.getCurrentParams()
+    defaultKey = 0
     # url is 1 based so it matches the breadcrumb button numbers
-    defaultKey = @getDefaultCurrentStep()
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else defaultKey
-    crumb = @getCrumb(crumbKey)
+    @setState(currentStep: crumbKey)
 
-    # go ahead and render this step only if this step is accessible
-    if crumb?.crumb
-      @setState(currentStep: crumbKey)
-    # otherwise, redirect to the latest accessible step
-    else
-      @goToStep(defaultKey)(true)
+  setScrollState: (scrollState) ->
+    @setState({scrollState})
 
   getInitialState: ->
     currentStep: 0
-    scrollPoints: []
     scrollState: {}
-    scrollTopBuffer: 0
     period: {}
+    isReviewLoaded: false
 
   componentWillMount: ->
     @setStepKey()
+    TaskTeacherReviewStore.on('review.loaded', @setIsReviewLoaded)
 
   componentWillReceiveProps: ->
     @setStepKey()
-
-  setScrollTopBuffer: (scrollTopBuffer) ->
-    @setState({scrollTopBuffer})
-
-  setScrollPoint: (scrollPoint, scrollState) ->
-    scrollPointData = _.extend({scrollPoint: scrollPoint}, scrollState)
-    @state.scrollPoints.push(scrollPointData)
-
-  unsetScrollPoint: (unsetScrollPoint) ->
-    @state.scrollPoints = _.reject @state.scrollPoints, (scrollPoint) ->
-      scrollPoint.scrollPoint is unsetScrollPoint
-
-  sortScrollPoints: ->
-    sortedDescScrollPoints = _.sortBy @state.scrollPoints, (scrollData) ->
-      -1 * scrollData.scrollPoint
-
-    @setState({scrollPoints: sortedDescScrollPoints})
-
-  getScrollStateByScroll: (scrollTop) ->
-    scrollState = _.find @state.scrollPoints, (scrollData) =>
-      scrollTop > (scrollData.scrollPoint - @state.scrollTopBuffer)
-
-    scrollState or _.last(@state.scrollPoints)
-
-  getScrollStateByKey: (stepKey) ->
-    scrollState = _.find @state.scrollPoints, (scrollData) ->
-      scrollData.key is stepKey
-
-  setScrollState: ->
-    scrollState = @getScrollStateByScroll(@state.scrollTop)
-    @setState({scrollState})
-
-  componentDidMount: ->
-    @sortScrollPoints()
-    @scrollToKey(@state.currentStep)
-    @setScrollState()
-
-  componentWillUpdate: (nextProps, nextState) ->
-    willScrollStateKeyChange = not (nextState.scrollState.key is @state.scrollState.key)
-    @goToStep(nextState.scrollState.key)() if willScrollStateKeyChange
-
-  componentDidUpdate: (prevProps, prevState) ->
-    doesScrollStateMatch = (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop).key)
-    didCurrentStepChange = not (@state.currentStep is prevState.scrollState?.key)
-    didScrollPointsChange = not (prevState.scrollPoints.length is @state.scrollPoints.length) and @state.scrollPoints.length
-
-    if didScrollPointsChange
-      @sortScrollPoints()
-
-    unless doesScrollStateMatch
-      @setScrollState()
-    else if didCurrentStepChange
-      @scrollToKey(@state.currentStep)
-
-  scrollToKey: (stepKey) ->
-    scrollState = @getScrollStateByKey(stepKey)
-
-    window.scrollTo(0, (scrollState.scrollPoint - @state.scrollTopBuffer + 2))
 
   # Curried for React
   goToStep: (stepKey) ->
@@ -125,38 +61,38 @@ TaskTeacherReview = React.createClass
 
       @context.router.replaceWith('reviewTaskStep', params)
 
-  getCrumb: (crumbKey) ->
-    crumbs = @generateCrumbs()
-    _.findWhere crumbs, {key: crumbKey}
-
   setPeriod: (period) ->
     @setState({period})
 
-  # add render methods for different panel types as needed here
+  setIsReviewLoaded: (id) ->
+    return null unless id is @props.id
+
+    TaskTeacherReviewStore.off('change', @setIsReviewLoaded)
+    @setState({isReviewLoaded: true})
 
   render: ->
     {id, courseId} = @props
-    task = TaskTeacherReviewStore.get(id)
-    return null unless task?
 
-    steps = @getContents()
-
-    panel = <Review
-          steps={steps}
-          taskId={task.id}
-          setScrollPoint={@setScrollPoint}
-          unsetScrollPoint={@unsetScrollPoint}
-          setScrollTopBuffer={@setScrollTopBuffer}
+    panel = <ReviewShell
+          id={id}
           review='teacher'
-          panel='teacher-review' />
+          panel='teacher-review'
+          goToStep={@goToStep}
+          setScrollState={@setScrollState}
+          currentStep={@state.currentStep}
+          period={@state.period} />
 
-    taskClasses = "task-teacher-review task-#{task.type}"
+    taskClasses = 'task-teacher-review'
 
-    breadcrumbs = <Breadcrumbs
-      id={id}
-      goToStep={@goToStep}
-      currentStep={@state.currentStep}
-      key="task-#{id}-breadcrumbs"/>
+    if @state.isReviewLoaded
+      task = TaskTeacherReviewStore.get(id)
+      taskClasses = "task-teacher-review task-#{task.type}"
+
+      breadcrumbs = <Breadcrumbs
+        id={id}
+        goToStep={@goToStep}
+        currentStep={@state.currentStep}
+        key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard
       className={taskClasses}
@@ -172,7 +108,7 @@ TaskTeacherReview = React.createClass
               <StatsModalShell
                 id={id}
                 courseId={courseId}
-                activeSection={@state.scrollState.sectionLabel}
+                activeSection={@state.scrollState?.sectionLabel}
                 handlePeriodSelect={@setPeriod}/>
             </BS.Col>
           </BS.Row>
@@ -183,41 +119,8 @@ TaskTeacherReview = React.createClass
 TaskTeacherReviewShell = React.createClass
   contextTypes:
     router: React.PropTypes.func
-
-  renderLoading: (refreshButton) ->
-    {id, courseId} = @context.router.getCurrentParams()
-
-    unless TaskPlanStatsStore.get(id)?
-      return <div className='loadable is-loading'>Loading... {refreshButton}</div>
-
-    taskClasses = "task-teacher-review"
-
-    <PinnedHeaderFooterCard
-      className={taskClasses}
-      fixedOffset={0}
-      cardType='task'>
-        <BS.Grid fluid>
-          <BS.Row>
-            <BS.Col sm={8}>
-              <div className='loadable is-loading'>Loading Problems... {refreshButton}</div>
-            </BS.Col>
-            <BS.Col sm={4}>
-              <StatsModalShell
-                id={id}
-                courseId={courseId} />
-            </BS.Col>
-          </BS.Row>
-        </BS.Grid>
-    </PinnedHeaderFooterCard>
-
   render: ->
     {id, courseId} = @context.router.getCurrentParams()
-    <LoadableItem
-      id={id}
-      store={TaskTeacherReviewStore}
-      actions={TaskTeacherReviewActions}
-      renderItem={-> <TaskTeacherReview key={id} id={id} courseId={courseId}/>}
-      renderLoading={@renderLoading}
-    />
+    <TaskTeacherReview key={id} id={id} courseId={courseId}/>
 
 module.exports = {TaskTeacherReview, TaskTeacherReviewShell}
