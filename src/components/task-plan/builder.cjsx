@@ -48,11 +48,11 @@ module.exports = React.createClass
 
   setOpensAt: (value, period) ->
     {planId} = @props
-    TaskPlanActions.updateOpensAt(planId, value, period?.target_id)
+    TaskPlanActions.updateOpensAt(planId, value, period?.id)
 
   setDueAt: (value, period) ->
     {planId} = @props
-    TaskPlanActions.updateDueAt(planId, value, period?.target_id)
+    TaskPlanActions.updateDueAt(planId, value, period?.id)
 
   togglePeriodsDisplay: (ev) ->
     @setState(showingPeriods: not ev.target.checked)
@@ -72,7 +72,7 @@ module.exports = React.createClass
     TaskPlanActions.updateDescription(id, desc)
 
   renderTaskPlanRow: (plan) ->
-    <tr key={plan.target_id}>
+    <tr key={plan.id}>
       <td>{plan.name}</td>
       <td>
         <TutorDateInput
@@ -176,5 +176,4 @@ module.exports = React.createClass
 
   render: ->
     plan = TaskPlanStore.get(@props.planId)
-
     if @state.showingPeriods then @renderShownPeriods(plan) else @renderHiddenPeriods(plan)
