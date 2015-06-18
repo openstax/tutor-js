@@ -13,7 +13,7 @@ Add = require '../../../../src/components/course-calendar/add'
 planId = '1'
 courseId = '1'
 VALID_PLAN_MODEL = require '../../../../api/plans/1/stats.json'
-VALID_COURSE_MODEL = require '../../../../api/courses/1.json'
+VALID_COURSE_MODEL = require '../../../../api/user/courses/1.json'
 
 {routerStub, commonActions} = require '../utilities'
 

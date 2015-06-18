@@ -4,7 +4,7 @@ _ = require 'underscore'
 {CourseListingActions, CourseListingStore} = require '../src/flux/course-listing'
 {CourseStore} = require '../src/flux/course'
 
-COURSES = require '../api/courses.json'
+COURSES = require '../api/user/courses.json'
 
 describe 'CourseListing Store', ->
   beforeEach ->
