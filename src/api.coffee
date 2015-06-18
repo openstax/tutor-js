@@ -205,7 +205,7 @@ start = ->
     url: '/api/user'
 
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
-    url: '/api/courses'
+    url: '/api/user/courses'
 
   apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/readings"
