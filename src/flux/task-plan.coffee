@@ -84,7 +84,9 @@ TaskPlanConfig =
     plan = @_getPlan(id)
     {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
     page_ids = page_ids[..]
-    exercise_ids = exercise_ids[..]
+
+    if (exercise_ids)
+      exercise_ids = exercise_ids[..]
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
   updateOpensAt: (id, periodId, opens_at) ->

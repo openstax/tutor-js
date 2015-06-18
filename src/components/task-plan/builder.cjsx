@@ -33,8 +33,8 @@ module.exports = React.createClass
     </BS.Col>
 
   setDescription:(desc, descNode) ->
-    {id} = @props
-    TaskPlanActions.updateDescription(id, desc)
+    {planId} = @props
+    TaskPlanActions.updateDescription(planId, desc)
 
   renderPeriodRow: (period) ->
     <tr key={period.id}>
