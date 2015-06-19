@@ -59,9 +59,11 @@ module.exports =
       @setState({invalid: true})
 
   saved: ->
-    courseId = @props.courseId
-    TaskPlanStore.removeChangeListener(@saved)
-    @context.router.transitionTo('taskplans', {courseId})
+    if TaskPlanStore.isLoaded(@props.id)
+      courseId = @props.courseId
+      TaskPlanStore.removeChangeListener(@saved)
+      TaskPlanStore.isLoading(@props.id)
+      @context.router.transitionTo('taskplans', {courseId})
 
   cancel: ->
     {id} = @props
