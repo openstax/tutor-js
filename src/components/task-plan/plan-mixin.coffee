@@ -18,17 +18,14 @@ module.exports =
 
   setOpensAt: (period, value) ->
     {id} = @props
-    id ?= @props.planId # FIXME: Ugly nasty hack because Readings and homework use different props
     TaskPlanActions.updateOpensAt(id, period.id, value)
 
   setDueAt: (period, value) ->
     {id} = @props
-    id ?= @props.planId # FIXME: Ugly nasty hack because Readings and homework use different props
     TaskPlanActions.updateDueAt(id, period.id, value)
 
   setTitle: (title) ->
     {id} = @props
-    id ?= @props.planId # FIXME: Ugly nasty hack because Readings and homework use different props
     TaskPlanActions.updateTitle(id, title)
 
   showSectionTopics: ->

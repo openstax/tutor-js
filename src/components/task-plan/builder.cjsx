@@ -12,7 +12,7 @@ module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
   mixins: [PlanMixin]
   propTypes:
-    planId: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
@@ -33,8 +33,8 @@ module.exports = React.createClass
     </BS.Col>
 
   setDescription:(desc, descNode) ->
-    {planId} = @props
-    TaskPlanActions.updateDescription(planId, desc)
+    {id} = @props
+    TaskPlanActions.updateDescription(id, desc)
 
   renderPeriodRow: (period) ->
     <tr key={period.id}>
@@ -42,18 +42,18 @@ module.exports = React.createClass
       <td>
         <TutorDateInput
           id='reading-open-date'
-          readOnly={TaskPlanStore.isPublished(@props.planId)}
+          readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
           onChange={_.partial @setOpensAt, period}
-          max={TaskPlanStore.getDueAt(@props.planId, period.id)}
+          max={TaskPlanStore.getDueAt(@props.id, period.id)}
           value={period.open_at}/>
       </td><td>
         <TutorDateInput
           id='reading-due-date'
-          readOnly={TaskPlanStore.isPublished(@props.planId)}
+          readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
           onChange={_.partial @setDueAt, period}
-          min={TaskPlanStore.getOpensAt(@props.planId, period.id)}
+          min={TaskPlanStore.getOpensAt(@props.id, period.id)}
           value={period.due_at}/>
       </td>
     </tr>
@@ -73,7 +73,7 @@ module.exports = React.createClass
       label='Description'
       className='assignment-description'
       id='assignment-description'
-      default={TaskPlanStore.getDescription(@props.planId)}
+      default={TaskPlanStore.getDescription(@props.id)}
       onChange={@setDescription} />
 
 
@@ -118,10 +118,10 @@ module.exports = React.createClass
             <TutorDateInput
               id='reading-open-date'
               label='Open Date'
-              readOnly={TaskPlanStore.isPublished(@props.planId)}
+              readOnly={TaskPlanStore.isPublished(@props.id)}
               required={true}
               onChange={@setOpensAt}
-              value={TaskPlanStore.getOpensAt(@props.planId)}/>
+              value={TaskPlanStore.getOpensAt(@props.id)}/>
             <div className="instructions">Open time is 12:01am</div>
             <div className="instructions">Set date to today to open immediately.</div>
           </BS.Col>
@@ -130,10 +130,10 @@ module.exports = React.createClass
             <TutorDateInput
               id='reading-due-date'
               label='Due Date'
-              readOnly={TaskPlanStore.isPublished(@props.planId)}
+              readOnly={TaskPlanStore.isPublished(@props.id)}
               required={true}
               onChange={@setDueAt}
-              min={TaskPlanStore.getOpensAt(@props.planId)}
+              min={TaskPlanStore.getOpensAt(@props.id)}
               value={plan?.due_at}/>
             <div className="instructions">Due time is 7:00am</div>
           </BS.Col>
@@ -147,5 +147,5 @@ module.exports = React.createClass
     </BS.Row>
 
   render: ->
-    plan = TaskPlanStore.get(@props.planId)
+    plan = TaskPlanStore.get(@props.id)
     if @state.showingPeriods then @renderShownPeriods(plan) else @renderHiddenPeriods(plan)
