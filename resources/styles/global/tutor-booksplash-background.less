@@ -7,19 +7,20 @@
   &:before {
     content: attr(data-title);
     position: fixed;
-    top: 48px;
+    top: 60px;
     left: 0px;
     right: 0px;
+    height: 24rem;
     overflow: hidden;
     background-color: @tutor-tertiary;
     color: @tutor-secondary;
     text-align: center;
     font-size: 35rem;
-    line-height: 24rem;
+    padding-top: 10rem;
     #fonts > .book-cover();
     z-index: -1;
   }
-  
+
   // The background is applied as a :after block so the opacity can
   // be applied to only the background image, not the content itself
   &:after {
@@ -32,7 +33,7 @@
     right: 0;
     opacity: 0.05;
   }
-  
+
   // custom backgrounds images for different types
   &[data-category=physics]:after{ .tutor-background-image("physics.jpg"); }
 }
