@@ -31,7 +31,7 @@ PlanFooter = React.createClass
 
   onViewStats: ->
     {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id, type: 'homework'})
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
     {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
