@@ -2,7 +2,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-AsyncButton = require '../async-button'
+AsyncButton = require '../buttons/async-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
