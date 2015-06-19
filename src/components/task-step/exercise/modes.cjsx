@@ -194,7 +194,7 @@ ExerciseReview = React.createClass
         Refresh My Memory
       </BS.Button>
 
-    <div className='footer-buttons'>
+    <div className='task-footer-buttons'>
       {tryAnotherButton}
       {refreshMemoryButton}
       {@renderContinueButton() unless review is 'completed'}
