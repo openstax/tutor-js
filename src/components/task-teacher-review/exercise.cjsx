@@ -9,9 +9,7 @@ FreeResponse = require '../task-step/exercise/free-response'
 TaskTeacherReviewExercise = React.createClass
   displayName: 'TaskTeacherReviewExercise'
   propTypes:
-    id: React.PropTypes.string.isRequired
-    onStepCompleted: React.PropTypes.func.isRequired
-    goToStep: React.PropTypes.func.isRequired
+    content: React.PropTypes.object.isRequired
 
   onChangeAnswerAttempt: (answer) ->
     # TODO show cannot change answer message here

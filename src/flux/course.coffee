@@ -47,6 +47,9 @@ CourseConfig =
     TaskActions.loaded(obj, obj.id)
     @emit('practice.loaded', obj.id)
 
+  _loaded: (obj, id) ->
+    @emit('course.loaded', obj.id)
+
   _reset: ->
     CrudConfig.reset.call(@)
     @_guides = {}
