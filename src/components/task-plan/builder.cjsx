@@ -57,123 +57,108 @@ module.exports = React.createClass
   togglePeriodsDisplay: (ev) ->
     @setState(showingPeriods: not ev.target.checked)
 
-  renderPeriodsToggle: (columns) ->
-    <BS.Col xs=12 sm={columns}>
-      <input
-        id='toggle-periods-checkbox'
-        type='checkbox'
-        onChange={@togglePeriodsDisplay}
-        checked={not @state.showingPeriods}/>
-      <label className="all-periods" htmlFor='toggle-periods-checkbox'>All Periods</label>
-    </BS.Col>
-
   setDescription:(desc, descNode) ->
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)
 
+
+  render: ->
+    plan = TaskPlanStore.get(@props.planId)
+    <div className="assignment">
+      <BS.Row>
+        <BS.Col sm=8 xs=12>
+          <TutorInput
+            label='Assignment Name'
+            className='assignment-name'
+            value={plan.title}
+            id='reading-title'
+            default={plan.title}
+            required={true}
+            onChange={@setTitle} />
+        </BS.Col>
+      </BS.Row><BS.Row>
+        <BS.Col xs=12>
+          <TutorTextArea
+            label='Description'
+            className='assignment-description'
+            id='assignment-description'
+            default={TaskPlanStore.getDescription(@props.planId)}
+            onChange={@setDescription} />
+        </BS.Col>
+      </BS.Row><BS.Row>
+        <BS.Col sm=4 md=3>Assign to</BS.Col>
+        <BS.Col sm=4 md=3>Open date</BS.Col>
+        <BS.Col sm=4 md=3>Due date</BS.Col>
+      </BS.Row><BS.Row>
+
+        <BS.Col sm=4 md=3>
+          <input
+            id='toggle-periods-checkbox'
+            type='checkbox'
+            onChange={@togglePeriodsDisplay}
+            checked={not @state.showingPeriods}/>
+          <label className="period" htmlFor='toggle-periods-checkbox'>All Periods</label>
+        </BS.Col>
+
+        <BS.Col sm=4 md=3>
+          <TutorDateInput
+            id='reading-open-date'
+            readOnly={TaskPlanStore.isPublished(@props.planId)}
+            required={true}
+            onChange={@setOpensAt}
+            value={TaskPlanStore.getOpensAt(@props.planId)}/>
+        </BS.Col>
+
+        <BS.Col sm=4 md=3>
+          <TutorDateInput
+            id='reading-due-date'
+            readOnly={TaskPlanStore.isPublished(@props.planId)}
+            required={true}
+            onChange={@setDueAt}
+            value={TaskPlanStore.getDueAt(@props.planId)}/>
+        </BS.Col>
+
+        <BS.Col sm=12 md=3>
+          <div className="instructions">Feedback will be released after the due date.</div>
+        </BS.Col>
+
+      </BS.Row>
+
+      { _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods }
+
+      <BS.Row>
+        <BS.Col sm=4 md=3></BS.Col>
+        <BS.Col sm=4 md=3>
+          <div className="instructions">Open time is 12:01am.</div>
+          <div className="instructions">Set date to today to open immediately.</div>
+        </BS.Col>
+        <BS.Col sm=4 md=3>
+          <div className="instructions">Due time is 7:00am</div>
+        </BS.Col>
+      </BS.Row>
+    </div>
+
   renderTaskPlanRow: (plan) ->
-    <tr key={plan.id}>
-      <td>{plan.name}</td>
-      <td>
+
+    <BS.Row key={plan.id} className="task-plan">
+      <BS.Col sm=4 md=3>
+        <input
+          id={"period-toggle-#{plan.id}"}
+          type='checkbox'
+          onChange={@togglePeriodsDisplay}
+          checked={not @state.showingPeriods}/>
+        <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
+      </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          id='reading-open-date'
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
           onChange={_.partial(@setOpensAt, _, plan)}
           value={TaskPlanStore.getOpensAt(@props.planId, plan.id)}/>
-      </td><td>
+      </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          id='reading-due-date'
           readOnly={TaskPlanStore.isPublished(@props.planId)}
           required={true}
           onChange={_.partial(@setDueAt, _, plan)}
           value={TaskPlanStore.getDueAt(@props.planId, plan.id)}/>
-      </td>
-    </tr>
-
-  renderName: (plan) ->
-    <TutorInput
-      label='Assignment Name'
-      className='assignment-name'
-      value={plan.title}
-      id='reading-title'
-      default={plan.title}
-      required={true}
-      onChange={@setTitle} />
-
-  renderDescription: ->
-    <TutorTextArea
-      label='Description'
-      className='assignment-description'
-      id='assignment-description'
-      default={TaskPlanStore.getDescription(@props.planId)}
-      onChange={@setDescription} />
-
-  renderShownPeriods: (plan) ->
-    <BS.Row className="assignment">
-      <BS.Col md={12} lg={6}>
-        <BS.Col xs={12}>
-          {@renderName(plan)}
         </BS.Col>
-        <BS.Col xs={12}>
-          {@renderDescription()}
-        </BS.Col>
-      </BS.Col>
-      <BS.Col md=12 lg=6>
-        {@renderPeriodsToggle(12)}
-        <table className="periods-listing">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Opens</th>
-              <th>Closes</th>
-            </tr>
-          </thead>
-          <tbody>
-            { _.map CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow }
-          </tbody>
-        </table>
-      </BS.Col>
     </BS.Row>
-
-  renderHiddenPeriods: (plan) ->
-    <BS.Row className="assignment">
-      <BS.Row>
-        <BS.Col md={12} lg={6}>
-          {@renderName(plan)}
-        </BS.Col>
-        <BS.Col md=12 lg=6>
-          {@renderPeriodsToggle(4)}
-          <BS.Col xs=12 sm=4>
-            <TutorDateInput
-              id='reading-open-date'
-              label='Open Date'
-              readOnly={TaskPlanStore.isPublished(@props.planId)}
-              required={true}
-              onChange={@setOpensAt}
-              value={TaskPlanStore.getOpensAt(@props.planId)}/>
-            <div className="instructions">Open time is 12:01am</div>
-            <div className="instructions">Set date to today to open immediately.</div>
-          </BS.Col>
-          <BS.Col xs=6 sm=4>
-            <TutorDateInput
-              id='reading-due-date'
-              label='Due Date'
-              readOnly={TaskPlanStore.isPublished(@props.planId)}
-              required={true}
-              onChange={@setDueAt}
-              value={TaskPlanStore.getDueAt(@props.planId)}/>
-            <div className="instructions">Due time is 7:00am</div>
-          </BS.Col>
-        </BS.Col>
-      </BS.Row>
-      <BS.Row>
-        <BS.Col md=12>
-          {@renderDescription()}
-        </BS.Col>
-      </BS.Row>
-    </BS.Row>
-
-  render: ->
-    plan = TaskPlanStore.get(@props.planId)
-    if @state.showingPeriods then @renderShownPeriods(plan) else @renderHiddenPeriods(plan)
