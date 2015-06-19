@@ -12,7 +12,9 @@ module.exports =
     $window: {}
 
   componentWillMount: ->
-    @makeDebouncedResizer()
+    # need to define @resizeListener so that we can throttle resize effect
+    # and have access to @state.resizeThrottle or @props.resizeThrottle
+    @resizeListener = _.throttle(@resizeEffect, @state.resizeThrottle or @props.resizeThrottle)
 
   componentDidMount: ->
     @_setSizeState()
@@ -20,9 +22,6 @@ module.exports =
 
   componentWillUnmount: ->
     window.removeEventListener('resize', @resizeListener)
-
-  makeDebouncedResizer: ->
-    @resizeListener = _.throttle(@resizeEffect, @props.resizeThrottle)
 
   resizeEffect: (resizeEvent) ->
     @_setSizeState(resizeEvent)
