@@ -48,6 +48,25 @@ TaskPlanConfig =
 
   FAILED: -> # used by API
 
+
+  enableTasking: (id, target_id, opens_at, due_at) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    unless @_findTasking(tasking_plans, target_id)
+      tasking_plans = _.clone(tasking_plans)
+      tasking_plans.push(
+        {target_type: 'period', target_id, opens_at, due_at}
+      )
+      @_change(id, {tasking_plans})
+
+  disableTasking: (id, target_id) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans = _.reject tasking_plans, (plan) ->
+      plan.target_id is target_id
+    @_change(id, {tasking_plans})
+
+
   setPeriods: (id, periods, opens_at) ->
     tasking_plans = _.map periods, (period) ->
       _.extend( _.pick(period, 'opens_at', 'due_at'),
@@ -110,11 +129,7 @@ TaskPlanConfig =
 
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      if tasking
-        tasking[attr] = date
-      else
-        tasking = _.extend({target_type: 'period', target_id: periodId}, {"#{attr}":val})
-        tasking_plans.push(tasking)
+      tasking[attr] = date
     else
       for tasking in tasking_plans
         tasking[attr] = date
@@ -310,6 +325,11 @@ TaskPlanConfig =
         tasking?.due_at
       else
         @_getTaskingsCommonDate(id, 'due_at')
+
+    hasTasking: (id, periodId) ->
+      plan = @_getPlan(id)
+      {tasking_plans} = plan
+      !!@_findTasking(tasking_plans, periodId)
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

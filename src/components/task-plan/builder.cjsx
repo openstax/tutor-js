@@ -57,6 +57,15 @@ module.exports = React.createClass
   togglePeriodsDisplay: (ev) ->
     @setState(showingPeriods: not ev.target.checked)
 
+  togglePeriodEnabled: (period, ev) ->
+    if ev.target.checked
+      TaskPlanActions.enableTasking(@props.planId, period.id,
+        @refs.openDate.getValue(), @refs.dueDate.getValue()
+      )
+    else
+      TaskPlanActions.disableTasking(@props.planId, period.id)
+
+
   setDescription:(desc, descNode) ->
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)
@@ -103,6 +112,7 @@ module.exports = React.createClass
         <BS.Col sm=4 md=3>
           <TutorDateInput
             id='reading-open-date'
+            ref="openDate"
             readOnly={TaskPlanStore.isPublished(@props.planId)}
             required={true}
             onChange={@setOpensAt}
@@ -112,6 +122,7 @@ module.exports = React.createClass
         <BS.Col sm=4 md=3>
           <TutorDateInput
             id='reading-due-date'
+            ref="dueDate"
             readOnly={TaskPlanStore.isPublished(@props.planId)}
             required={true}
             onChange={@setDueAt}
@@ -139,14 +150,31 @@ module.exports = React.createClass
     </div>
 
   renderTaskPlanRow: (plan) ->
+    if TaskPlanStore.hasTasking(@props.planId, plan.id)
+      @renderEnabledTasking(plan)
+    else
+      @renderDisabledTasking(plan)
 
+  renderDisabledTasking: (plan) ->
+    <BS.Row key={plan.id} className="task-plan disabled">
+      <BS.Col sm=12>
+        <input
+          id={"period-toggle-#{plan.id}"}
+          type='checkbox'
+          onChange={_.partial(@togglePeriodEnabled, plan)}
+          checked={false}/>
+        <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
+      </BS.Col>
+    </BS.Row>
+
+  renderEnabledTasking: (plan) ->
     <BS.Row key={plan.id} className="task-plan">
       <BS.Col sm=4 md=3>
         <input
           id={"period-toggle-#{plan.id}"}
           type='checkbox'
-          onChange={@togglePeriodsDisplay}
-          checked={not @state.showingPeriods}/>
+          onChange={_.partial(@togglePeriodEnabled, plan)}
+          checked={true}/>
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput

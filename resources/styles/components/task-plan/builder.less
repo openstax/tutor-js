@@ -7,12 +7,6 @@
     top: 3px;
     left: 35px;
   }
-  .periods-listing {
-    .table;
-    .table-striped;
-    .table-bordered;
-    .form-control { background-image: inherit; }
-  }
 
   .instructions {
     color: @tutor-neutral;
@@ -23,11 +17,11 @@
   }
 
   .task-plan {
-    input[type=checkbox] {
-      margin-left: 1rem;
-    }
-    label.period {
-      left: 45px;
+    input[type=checkbox] { margin-left: 1rem; }
+    label.period { left: 45px; }
+    &.disabled {
+      label { text-decoration: line-through; }
     }
   }
+
 }
