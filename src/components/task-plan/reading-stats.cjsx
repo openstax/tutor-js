@@ -171,7 +171,7 @@ Stats = React.createClass
     handlePeriodSelect?(period)
 
   render: ->
-    {id} = @props
+    {id, courseId} = @props
     {stats} = @state
 
     plan = TaskPlanStatsStore.get(id)
@@ -192,7 +192,10 @@ Stats = React.createClass
       </section>
 
     <BS.Panel className='reading-stats'>
-      <CoursePeriodsNavShell handleSelect={@handlePeriodSelect} intialActive={@state.period}/>
+      <CoursePeriodsNavShell
+        handleSelect={@handlePeriodSelect}
+        intialActive={@state.period}
+        courseId={courseId} />
       <section>
         {course}
       </section>

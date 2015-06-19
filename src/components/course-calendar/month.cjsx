@@ -144,6 +144,7 @@ CourseMonth = React.createClass
           </Month>
 
           <CourseDuration
+            referenceDate={moment(TimeStore.getNow())}
             durations={plansList}
             viewingDuration={calendarDuration}
             groupingDurations={calendarWeeks}

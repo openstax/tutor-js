@@ -21,26 +21,29 @@ CoursePeriodsNav = React.createClass
     active: @props.intialActive
 
   componentWillMount: ->
-    CourseStore.on('change', @selectPeriod)
+    CourseStore.on('course.loaded', @selectPeriod)
 
   componentWillUnmount: ->
-    CourseStore.off('change', @selectPeriod)
+    CourseStore.off('course.loaded', @selectPeriod)
 
-  selectPeriod: ->
-    @onSelect(@state.active)
+  selectPeriod: (courseId) ->
+    if courseId is @props.courseId
+      @onSelect(@state.active)
 
   onSelect: (key) ->
     {courseId, handleSelect} = @props
     periods = CourseStore.getPeriods(courseId)
 
     period = periods?[key]
-    console.warn("#{key} period does not exist for course #{courseId}. There are only #{periods.length}.") unless period?
+    unless period?
+      throw new Error("BUG: #{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
+      return
 
     handleSelect?(period)
     @setState(active: key)
 
   renderPeriod: (period, key) ->
-    <BS.NavItem eventKey={key}>{period.name}</BS.NavItem>
+    <BS.NavItem eventKey={key} key="period-nav-#{period.id}">{period.name}</BS.NavItem>
 
   render: ->
     {courseId} = @props
@@ -70,13 +73,12 @@ CoursePeriodsNavShell = React.createClass
 
   render: ->
     courseId = @getCourseId()
-    @props.courseId ?= courseId
 
     <LoadableItem
       id={courseId}
       store={CourseStore}
       actions={CourseActions}
-      renderItem={=> <CoursePeriodsNav courseId={courseId} {...@props}/>}
+      renderItem={=> <CoursePeriodsNav {...@props} courseId={courseId} />}
     />
 
 module.exports = {CoursePeriodsNav, CoursePeriodsNavShell}

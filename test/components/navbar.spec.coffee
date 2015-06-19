@@ -15,7 +15,7 @@ Navbar = require '../../src/components/navbar'
 
 USER_MODEL = require '../../api/user.json'
 
-COURSES_LIST = require '../../api/courses.json'
+COURSES_LIST = require '../../api/user/courses.json'
 
 COURSE_NAME = COURSES_LIST[0].name
 COURSE_ID = COURSES_LIST[0].id

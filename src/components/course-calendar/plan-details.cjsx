@@ -36,10 +36,13 @@ CoursePlanDetails = React.createClass
     @context.router.transitionTo('reviewTask', {courseId, id})
 
   render: ->
-    {plan, courseId} = @props
+    {plan, courseId, className} = @props
     {title, type, id} = plan
 
-    <BS.Modal {...@props} title={title} className="#{type}-modal plan-modal">
+    <BS.Modal
+      {...@props}
+      title={title}
+      className="#{type}-modal plan-modal #{className}">
       <div className='modal-body'>
         <StatsModalShell id={id}/>
       </div>
