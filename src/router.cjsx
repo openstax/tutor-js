@@ -45,7 +45,7 @@ routes = (
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
             <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
               <Route
-                path='section/:sectionIndex/?'
+                path='sections/:sectionIndex/?'
                 name='reviewTaskStep'
                 ignoreScrollBehavior />
             </Route>
