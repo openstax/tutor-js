@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
+ResizeListenerMixin = require '../resize-listener-mixin'
 
 {PinnedHeader, CardBody, PinnableFooter} = require './sections'
 
@@ -27,7 +28,7 @@ module.exports = React.createClass
     headerHeight: 0
     containerMarginTop: '0px'
 
-  mixins: [ScrollListenerMixin]
+  mixins: [ScrollListenerMixin, ResizeListenerMixin]
 
   componentWillMount: ->
     @previousBodyClasses = document.body.className
@@ -38,7 +39,6 @@ module.exports = React.createClass
 
   componentWillUnmount: ->
     document.body.className = @previousBodyClasses
-    window.removeEventListener('resize', @resizeListener)
 
   getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
@@ -136,18 +136,14 @@ module.exports = React.createClass
     else
       container.style.marginTop = @state.containerMarginTop
 
-  resizeListener: _.throttle( ->
+  _resizeListener: ->
     @setContainerMargin()
-    # any other resize side-effects here
-  , 200)
 
   componentDidMount: ->
     @setOffset()
     @updatePinState(0)
     @setOriginalContainerMargin()
     @setContainerMargin()
-
-    window.addEventListener('resize', @resizeListener)
 
   componentDidUpdate: (prevProps, prevState) ->
     didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
