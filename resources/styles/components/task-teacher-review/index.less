@@ -4,6 +4,7 @@
   }
   .reading-stats.panel {
     margin: 0;
+    .make-shy-animate()
   }
 
   &.task-homework {
@@ -25,5 +26,11 @@
   .reading-stats {
     position: fixed;
     width: inherit;
+  }
+}
+
+.pinned-shy {
+   .task-teacher-review .reading-stats.panel {
+    .make-shy()
   }
 }

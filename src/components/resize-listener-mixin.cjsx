@@ -10,6 +10,11 @@ module.exports =
 
   getInitialState: ->
     $window: {}
+    $component: {}
+    _initial: {}
+    resizing:
+      height: false
+      width: false
 
   componentWillMount: ->
     # need to define @resizeListener so that we can throttle resize effect
@@ -17,19 +22,46 @@ module.exports =
     @resizeListener = _.throttle(@resizeEffect, @state.resizeThrottle or @props.resizeThrottle)
 
   componentDidMount: ->
-    @_setSizeState()
+    @setInitialSize()
     window.addEventListener('resize', @resizeListener)
 
   componentWillUnmount: ->
     window.removeEventListener('resize', @resizeListener)
 
+  componentWillUpdate: (nextProps, nextState) ->
+    if _.isEqual(@state.$window, nextState.$window)
+      if @state.resizing.height or @state.resizing.width
+        nextState.resizing.height = false
+        nextState.resizing.width = false
+    else
+      nextState.resizing.height = not (@state.$window.height is nextState.$window.height)
+      nextState.resizing.width = not (@state.$window.width is nextState.$window.width)
+
   resizeEffect: (resizeEvent) ->
-    @_setSizeState(resizeEvent)
+    @setSizeState(resizeEvent)
     @_resizeListener?(resizeEvent)
 
-  _setSizeState: (resizeEvent) ->
+  _getWindowSize: ->
     width = window.innerWidth
     height = window.innerHeight
     $window = {width, height}
 
-    @setState({$window})
+  _getComponentSize: ->
+    componentNode = @getDOMNode()
+    $component =
+      width: componentNode.offsetWidth
+      height: componentNode.offsetHeight
+
+  setInitialSize: ->
+    $window = @_getWindowSize()
+    $component = @_getComponentSize()
+
+    _initial = {$window, $component}
+
+    @setState({_initial, $window, $component})
+
+  setSizeState: (resizeEvent) ->
+    $window = @_getWindowSize()
+    $component = @_getComponentSize()
+
+    @setState({$window, $component})

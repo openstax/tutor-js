@@ -104,6 +104,7 @@ TaskTeacherReview = React.createClass
               <StatsModalShell
                 id={id}
                 courseId={courseId}
+                shouldOverflowData={true}
                 activeSection={@state.scrollState?.sectionLabel}
                 handlePeriodSelect={@setPeriod}/>
             </BS.Col>
