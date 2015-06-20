@@ -60,7 +60,7 @@ module.exports =
 
   saved: ->
     courseId = @props.courseId
-    TaskPlanStore.removeChangeListener(@saved)
+    TaskPlanStore.saved.removeListener(@saved)
     TaskPlanStore.isLoading(@props.id)
     @context.router.transitionTo('taskplans', {courseId})
 
