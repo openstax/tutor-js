@@ -165,13 +165,13 @@ Stats = React.createClass
     {id} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    periodStats = plan.stats.periods[periodIndex]
+    periodStats = plan.stats[periodIndex]
 
   handlePeriodSelect: (period) ->
     {id, handlePeriodSelect} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    periodStats = _.findWhere(plan.stats.periods, {id: period.id})
+    periodStats = _.findWhere(plan.stats, {period_id: period.id})
     @setState(stats: periodStats)
 
     handlePeriodSelect?(period)
