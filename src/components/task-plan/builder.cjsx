@@ -36,7 +36,7 @@ module.exports = React.createClass
       id: period.id, opens_at: opensAt
 
     # Inform the store of the available periods
-    TaskPlanActions.setPeriods(@props.planId, periods)
+    TaskPlanActions.setPeriods(@props.id, periods)
 
   # this will be called whenever the course store loads, but won't if
   # the store has already finished loading by the time the component mounts
@@ -47,23 +47,23 @@ module.exports = React.createClass
     @setPeriodDefaults()
 
   setOpensAt: (value, period) ->
-    {planId} = @props
-    TaskPlanActions.updateOpensAt(planId, value, period?.id)
+    {id} = @props
+    TaskPlanActions.updateOpensAt(id, value, period?.id)
 
   setDueAt: (value, period) ->
-    {planId} = @props
-    TaskPlanActions.updateDueAt(planId, value, period?.id)
+    {id} = @props
+    TaskPlanActions.updateDueAt(id, value, period?.id)
 
   togglePeriodsDisplay: (ev) ->
     @setState(showingPeriods: not ev.target.checked)
 
   togglePeriodEnabled: (period, ev) ->
     if ev.target.checked
-      TaskPlanActions.enableTasking(@props.planId, period.id,
+      TaskPlanActions.enableTasking(@props.id, period.id,
         @refs.openDate.getValue(), @refs.dueDate.getValue()
       )
     else
-      TaskPlanActions.disableTasking(@props.planId, period.id)
+      TaskPlanActions.disableTasking(@props.id, period.id)
 
 
   setDescription:(desc, descNode) ->
@@ -72,7 +72,7 @@ module.exports = React.createClass
 
 
   render: ->
-    plan = TaskPlanStore.get(@props.planId)
+    plan = TaskPlanStore.get(@props.id)
     <div className="assignment">
       <BS.Row>
         <BS.Col sm=8 xs=12>
@@ -91,7 +91,7 @@ module.exports = React.createClass
             label='Description'
             className='assignment-description'
             id='assignment-description'
-            default={TaskPlanStore.getDescription(@props.planId)}
+            default={TaskPlanStore.getDescription(@props.id)}
             onChange={@setDescription} />
         </BS.Col>
       </BS.Row><BS.Row>
@@ -113,20 +113,20 @@ module.exports = React.createClass
           <TutorDateInput
             id='reading-open-date'
             ref="openDate"
-            readOnly={TaskPlanStore.isPublished(@props.planId)}
+            readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setOpensAt}
-            value={TaskPlanStore.getOpensAt(@props.planId)}/>
+            value={TaskPlanStore.getOpensAt(@props.id)}/>
         </BS.Col>
 
         <BS.Col sm=4 md=3>
           <TutorDateInput
             id='reading-due-date'
             ref="dueDate"
-            readOnly={TaskPlanStore.isPublished(@props.planId)}
+            readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setDueAt}
-            value={TaskPlanStore.getDueAt(@props.planId)}/>
+            value={TaskPlanStore.getDueAt(@props.id)}/>
         </BS.Col>
         <BS.Col sm=12 md=3>
           <div className="instructions">Feedback will be released after the due date.</div>
@@ -149,7 +149,7 @@ module.exports = React.createClass
     </div>
 
   renderTaskPlanRow: (plan) ->
-    if TaskPlanStore.hasTasking(@props.planId, plan.id)
+    if TaskPlanStore.hasTasking(@props.id, plan.id)
       @renderEnabledTasking(plan)
     else
       @renderDisabledTasking(plan)
@@ -177,15 +177,15 @@ module.exports = React.createClass
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          readOnly={TaskPlanStore.isPublished(@props.planId)}
+          readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
           onChange={_.partial(@setOpensAt, _, plan)}
-          value={TaskPlanStore.getOpensAt(@props.planId, plan.id)}/>
+          value={TaskPlanStore.getOpensAt(@props.id, plan.id)}/>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          readOnly={TaskPlanStore.isPublished(@props.planId)}
+          readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
           onChange={_.partial(@setDueAt, _, plan)}
-          value={TaskPlanStore.getDueAt(@props.planId, plan.id)}/>
+          value={TaskPlanStore.getDueAt(@props.id, plan.id)}/>
         </BS.Col>
     </BS.Row>
