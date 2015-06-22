@@ -33,6 +33,10 @@ TEACHER_MENU = [
     name: 'viewPerformance'
     label: 'Performance Report'
   }
+  {
+    name: 'courseAdministration'
+    label: 'Course Administration'
+  }
 ]
 
 describe 'Current User Store', ->

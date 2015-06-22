@@ -1,5 +1,5 @@
 {
-  "title": "Local Test Course",
+  "name": "Local Test Course",
   "periods": [{
       "id": "1",
       "name" : "1st"

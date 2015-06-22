@@ -41,6 +41,10 @@ ROUTES =
     label: 'Performance Report'
     roles:
       teacher: 'viewPerformance'
+  course:
+    label: 'Course Administration'
+    roles:
+      teacher: 'courseAdministration'
 
 
 CurrentUserActions = flux.createActions [
