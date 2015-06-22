@@ -9,9 +9,9 @@ module.exports =
     resizeThrottle: 200
 
   getInitialState: ->
-    $window: {}
-    $component: {}
-    _initial: {}
+    windowEl: {}
+    componentEl: {}
+    sizesInitial: {}
     resizing:
       height: false
       width: false
@@ -29,13 +29,13 @@ module.exports =
     window.removeEventListener('resize', @resizeListener)
 
   componentWillUpdate: (nextProps, nextState) ->
-    if _.isEqual(@state.$window, nextState.$window)
+    if _.isEqual(@state.windowEl, nextState.windowEl)
       if @state.resizing.height or @state.resizing.width
         nextState.resizing.height = false
         nextState.resizing.width = false
     else
-      nextState.resizing.height = not (@state.$window.height is nextState.$window.height)
-      nextState.resizing.width = not (@state.$window.width is nextState.$window.width)
+      nextState.resizing.height = not (@state.windowEl.height is nextState.windowEl.height)
+      nextState.resizing.width = not (@state.windowEl.width is nextState.windowEl.width)
 
   resizeEffect: (resizeEvent) ->
     @setSizeState(resizeEvent)
@@ -54,15 +54,15 @@ module.exports =
     height: componentNode.offsetHeight
 
   setInitialSize: ->
-    $window = @_getWindowSize()
-    $component = @_getComponentSize()
+    windowEl = @_getWindowSize()
+    componentEl = @_getComponentSize()
 
-    _initial = {$window, $component}
+    sizesInitial = {windowEl, componentEl}
 
-    @setState({_initial, $window, $component})
+    @setState({sizesInitial, windowEl, componentEl})
 
   setSizeState: (resizeEvent) ->
-    $window = @_getWindowSize()
-    $component = @_getComponentSize()
+    windowEl = @_getWindowSize()
+    componentEl = @_getComponentSize()
 
-    @setState({$window, $component})
+    @setState({windowEl, componentEl})

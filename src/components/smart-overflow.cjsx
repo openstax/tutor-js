@@ -28,7 +28,7 @@ SmartOverflow = React.createClass
     # so that we can use the initial component height as reference
     _.delay =>
       topOffset = @getOffset()
-      triggerHeight = topOffset + @state._initial.$component.height
+      triggerHeight = topOffset + @state.sizesInitial.componentEl.height
 
       @setState({triggerHeight})
     , 0
@@ -37,9 +37,9 @@ SmartOverflow = React.createClass
     @setTriggerHeight()
 
   componentWillUpdate: (nextProps, nextState) ->
-    if nextState.$window.height < nextState.triggerHeight
-      maxHeight = nextState.$window.height - @getOffset() - nextProps.heightBuffer
-      marginBottom = @props.marginBottom
+    if nextState.windowEl.height < nextState.triggerHeight
+      maxHeight = nextState.windowEl.height - @getOffset() - nextProps.heightBuffer
+      {marginBottom} = @props
       nextState.style = {maxHeight, marginBottom}
     else
       nextState.style = undefined
