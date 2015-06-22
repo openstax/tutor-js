@@ -2,119 +2,103 @@
     "id": "6",
     "type": "homework",
     "title": "Complete exercise 12A on pg 12",
-    "stats": {
-        "course": {
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },
-        "periods": [{
-            "id": "1",
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },{
-            "id": "2",
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },{
-            "id": "3",
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },{
-            "id": "4",
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },{
-            "id": "5",
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },{
-            "id": "6",
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
-        },{
-            "id": "7",
-            "total_count": 10,
-            "complete_count": 0,
-            "partially_complete_count": 0,
-            "current_pages": [],
-            "spaced_pages": [{
-                "id": "0",
-                "chapter_section": [6, 2],
-                "title": "",
-                "student_count": 10,
-                "correct_count": 0,
-                "incorrect_count": 0
-            }]
+    "stats": [{
+        "period_id": "1",
+        "total_count": 10,
+        "complete_count": 0,
+        "partially_complete_count": 0,
+        "current_pages": [],
+        "spaced_pages": [{
+            "id": "0",
+            "chapter_section": [6, 2],
+            "title": "",
+            "student_count": 10,
+            "correct_count": 0,
+            "incorrect_count": 0
         }]
-    }
+    },{
+        "period_id": "2",
+        "total_count": 10,
+        "complete_count": 0,
+        "partially_complete_count": 0,
+        "current_pages": [],
+        "spaced_pages": [{
+            "id": "0",
+            "chapter_section": [6, 2],
+            "title": "",
+            "student_count": 10,
+            "correct_count": 0,
+            "incorrect_count": 0
+        }]
+    },{
+        "period_id": "3",
+        "total_count": 10,
+        "complete_count": 0,
+        "partially_complete_count": 0,
+        "current_pages": [],
+        "spaced_pages": [{
+            "id": "0",
+            "chapter_section": [6, 2],
+            "title": "",
+            "student_count": 10,
+            "correct_count": 0,
+            "incorrect_count": 0
+        }]
+    },{
+        "period_id": "4",
+        "total_count": 10,
+        "complete_count": 0,
+        "partially_complete_count": 0,
+        "current_pages": [],
+        "spaced_pages": [{
+            "id": "0",
+            "chapter_section": [6, 2],
+            "title": "",
+            "student_count": 10,
+            "correct_count": 0,
+            "incorrect_count": 0
+        }]
+    },{
+        "period_id": "5",
+        "total_count": 10,
+        "complete_count": 0,
+        "partially_complete_count": 0,
+        "current_pages": [],
+        "spaced_pages": [{
+            "id": "0",
+            "chapter_section": [6, 2],
+            "title": "",
+            "student_count": 10,
+            "correct_count": 0,
+            "incorrect_count": 0
+        }]
+    },{
+        "period_id": "6",
+        "total_count": 10,
+        "complete_count": 0,
+        "partially_complete_count": 0,
+        "current_pages": [],
+        "spaced_pages": [{
+            "id": "0",
+            "chapter_section": [6, 2],
+            "title": "",
+            "student_count": 10,
+            "correct_count": 0,
+            "incorrect_count": 0
+        }]
+    },{
+        "period_id": "7",
+        "total_count": 10,
+        "complete_count": 0,
+        "partially_complete_count": 0,
+        "current_pages": [],
+        "spaced_pages": [{
+            "id": "0",
+            "chapter_section": [6, 2],
+            "title": "",
+            "student_count": 10,
+            "correct_count": 0,
+            "incorrect_count": 0
+        }]
+    }]
 }
