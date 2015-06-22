@@ -1,6 +1,7 @@
 moment = require 'moment'
 twix = require 'twix'
 _ = require 'underscore'
+camelCase = require 'camelcase'
 
 React = require 'react'
 BS = require 'react-bootstrap'
@@ -19,25 +20,11 @@ CoursePlanDetails = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  onClickEdit: ->
-    {plan, courseId} = @props
-    {title, type, id} = plan
-    # TODO: Remove this copy/pasta
-    switch type
-      when 'homework'
-        @context.router.transitionTo('editHomework', {courseId, id})
-      when 'reading'
-        @context.router.transitionTo('editReading', {courseId, id})
-      else throw new Error("BUG: Unknown plan type '#{type}'")
-
-  onClickReview: ->
-    {plan, courseId} = @props
-    {title, id} = plan
-    @context.router.transitionTo('reviewTask', {courseId, id})
-
   render: ->
     {plan, courseId, className} = @props
     {title, type, id} = plan
+    linkParams = {courseId, id}
+    editLinkName = camelCase("edit-#{type}")
 
     <BS.Modal
       {...@props}
@@ -47,8 +34,12 @@ CoursePlanDetails = React.createClass
         <StatsModalShell id={id}/>
       </div>
       <div className='modal-footer'>
-        <BS.Button onClick={@onClickReview}>Review Metrics</BS.Button>
-        <BS.Button onClick={@onClickEdit}>Edit Assignment</BS.Button>
+        <Router.Link to='reviewTask' params={linkParams}>
+          <BS.Button>Review Metrics</BS.Button>
+        </Router.Link>
+        <Router.Link to={editLinkName} params={linkParams}>
+          <BS.Button>Edit Assignment</BS.Button>
+        </Router.Link>
       </div>
     </BS.Modal>
 

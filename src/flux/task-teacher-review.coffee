@@ -9,7 +9,7 @@ TaskTeacherReviewConfig = {
     @emit('review.loaded', id)
     if obj?.stats?
       planStats = _.clone(obj)
-      _.each planStats.stats.periods, (period) ->
+      _.each planStats.stats, (period) ->
         delete period.current_pages.exercises if period.current_pages.exercises?
         delete period.spaced_pages.exercises if period.spaced_pages.exercises?
 
