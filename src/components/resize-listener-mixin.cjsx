@@ -44,13 +44,14 @@ module.exports =
   _getWindowSize: ->
     width = window.innerWidth
     height = window.innerHeight
-    $window = {width, height}
+
+    {width, height}
 
   _getComponentSize: ->
     componentNode = @getDOMNode()
-    $component =
-      width: componentNode.offsetWidth
-      height: componentNode.offsetHeight
+
+    width: componentNode.offsetWidth
+    height: componentNode.offsetHeight
 
   setInitialSize: ->
     $window = @_getWindowSize()
