@@ -4,7 +4,7 @@ _ = require 'underscore'
 module.exports =
   propTypes:
     crumb: React.PropTypes.object.isRequired
-    currentStep: React.PropTypes.number.isRequired
+    currentStep: React.PropTypes.number
     goToStep: React.PropTypes.func.isRequired
 
   getInitialState: ->
