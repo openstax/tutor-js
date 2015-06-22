@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 {PerformanceStore, PerformanceActions} = require '../flux/performance'
 LoadableItem = require './loadable-item'
+{CoursePeriodsNavShell} = require './course-periods-nav'
 
 Performance = React.createClass
   displayName: 'Performance'
@@ -15,6 +16,8 @@ Performance = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
+    periodIndex = 0
+    performance = @getPerfByPeriod(periodIndex)
     sortOrder: 'is-ascending'
     sortIndex: -1
     isNameSort: true
@@ -69,7 +72,20 @@ Performance = React.createClass
       {cell.correct_exercise_count}/{cell.exercise_count}
     </td>
 
+  getPerfByPeriod: (periodIndex) ->
+    console.log(periodIndex)
+    #perf = PerformanceStore.get(@props.courseId)
+    #periodPerf = perf[periodIndex]
+
+  handlePeriodSelect: (period) ->
+    console.log(period)
+    ##{handlePeriodSelect} = @props
+    #perf = PerformanceStore.get(@props.courseId)
+    #periodPerf = _.findWhere(perf, {period_id: period.id})
+    #handlePeriodSelect?(period)
+
   render: ->
+    ##{performance} = @state
     performance = PerformanceStore.get(@props.courseId)
 
     headings = _.map(performance.data_headings, @renderHeadingCell)
@@ -98,6 +114,10 @@ Performance = React.createClass
 
     <div className='course-performance-wrap'>
       <span className='course-performance-header'>Performance Report</span>
+      <CoursePeriodsNavShell
+        handleSelect={@handlePeriodSelect}
+        intialActive={@state.period}
+        courseId={@props.courseId} />
       <BS.Panel className='course-performance-container'>
         <div className='-course-performance-group'>
           <div className='-course-performance-heading'>
