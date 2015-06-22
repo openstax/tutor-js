@@ -22,6 +22,8 @@ routes = (
       <Redirect from='/' to='dashboard' />
       <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
       <Route path='courses/:courseId/?'>
+        <Router.DefaultRoute handler={TeacherTaskPlans}/>
+
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
         <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
         <Route path='tasks/:id/steps/:stepIndex/?'

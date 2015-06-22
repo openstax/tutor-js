@@ -20,9 +20,9 @@ module.exports =
 
   _getStatsForPeriod: (review, period) ->
     # return overview stats for now
-    return _.first(review.stats.periods) unless period?.id?
+    return _.first(review.stats) unless period?.id?
 
-    _.findWhere(review.stats.periods, {id: period.id})
+    _.findWhere(review.stats, {period_id: period.id})
 
   _getExercisesFromStats: (stats) ->
     pagedExercises = _.map @_pages, (page) =>
