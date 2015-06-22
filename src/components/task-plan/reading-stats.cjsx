@@ -13,6 +13,8 @@ Stats = React.createClass
     id: React.PropTypes.string.isRequired
     activeSection: React.PropTypes.string
     initialActivePeriod: React.PropTypes.number.isRequired
+    handlePeriodKeyUpdate: React.PropTypes.func
+    handlePeriodSelect: React.PropTypes.func
 
   getDefaultProps: ->
     initialActivePeriod: 0
