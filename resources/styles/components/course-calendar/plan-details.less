@@ -26,6 +26,14 @@ body.modal-open {
   &.reading-modal      { .x-plan-modal(@reading-color); }
   &.homework-modal     { .x-plan-modal(@homework-color); }
 
+  &.is-trouble {
+    .modal-title::before {
+      .is-trouble();
+      margin-right: @modal-padding/2;
+      margin-left: -@modal-padding/2;
+    }
+  }
+
   .modal-content {
     .modal-header {
       padding-top: 0;
@@ -35,6 +43,7 @@ body.modal-open {
         font-weight: 900;
         line-height: 6rem;
       }
+
     }
     .close {
       .opacity(0.5);

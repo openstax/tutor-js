@@ -2,6 +2,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+AsyncButton = require '../buttons/async-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -31,7 +32,7 @@ PlanFooter = React.createClass
 
   onViewStats: ->
     {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id, type: 'homework'})
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
     {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
@@ -40,10 +41,21 @@ PlanFooter = React.createClass
 
     saveable = not TaskPlanStore.isPublished(id)
     deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isOpened(id)
+    isWaiting = TaskPlanStore.isSaving(id)
+    isFailed = TaskPlanStore.isFailed(id)
 
     publishButton =
       <BS.Col sm={6} md={2}>
-        <BS.Button bsStyle='primary' className="-publish" onClick={onPublish}>Publish</BS.Button>
+        <AsyncButton
+          bsStyle='primary'
+          className='-publish'
+          onClick={onPublish}
+          isWaiting={isWaiting}
+          isFailed={isFailed}
+          waitingText='Publishing…'
+          >
+          {'Publish'}
+        </AsyncButton>
         <p>
           Publish will make the assignment available to
           students on the open date.  If open date is today,
@@ -58,7 +70,15 @@ PlanFooter = React.createClass
     if saveable
       saveLink =
         <BS.Col sm={6} md={2}>
-          <BS.Button className='-save' disabled onClick={onSave}>Save as Draft</BS.Button>
+          <AsyncButton
+            className='-save'
+            onClick={onSave}
+            isWaiting={isWaiting}
+            isFailed={isFailed}
+            waitingText='Saving…'
+            >
+            {'Save as Draft'}
+          </AsyncButton>
           <p>
             An assignment in draft will not be available to students, even if the open date has passed.
           </p>

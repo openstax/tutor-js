@@ -22,6 +22,8 @@ routes = (
       <Redirect from='/' to='dashboard' />
       <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
       <Route path='courses/:courseId/?'>
+        <Router.DefaultRoute handler={TeacherTaskPlans}/>
+
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
         <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
         <Route path='tasks/:id/steps/:stepIndex/?'
@@ -40,9 +42,15 @@ routes = (
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
-          <Route path=':type/:id/stats/?' name='viewStats' handler={StatsShell} />
-          <Route path='tasks/:id/?' name='reviewTask' handler={TaskTeacherReviewShell} >
-            <Route path='steps/:stepIndex/?' name='reviewTaskStep' ignoreScrollBehavior/>
+          <Route path='plans/:id/?'>
+            <Router.DefaultRoute handler={StatsShell}/>
+            <Route path='stats/?' name='viewStats' handler={StatsShell} />
+            <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+              <Route
+                path='sections/:sectionIndex/?'
+                name='reviewTaskStep'
+                ignoreScrollBehavior />
+            </Route>
           </Route>
         </Route>
       </Route>

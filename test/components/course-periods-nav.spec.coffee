@@ -8,7 +8,7 @@ React = require 'react/addons'
 
 {CoursePeriodsNav} = require '../../src/components/course-periods-nav'
 {CourseActions, CourseStore} = require '../../src/flux/course'
-COURSE = require '../../api/courses/1.json'
+COURSE = require '../../api/user/courses/1.json'
 COURSE_PERIODS = COURSE.periods
 COURSE_ID = '1'
 

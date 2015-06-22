@@ -23,8 +23,8 @@ TaskPlan = React.createClass
 
   onViewStats: ->
     {courseId} = @props
-    {id, type} = @props.plan
-    @context.router.transitionTo('viewStats', {courseId, type, id})
+    {id} = @props.plan
+    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
     {plan} = @props

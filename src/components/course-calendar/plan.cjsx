@@ -3,6 +3,8 @@ twix = require 'twix'
 _ = require 'underscore'
 
 React = require 'react'
+Router = require 'react-router'
+camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
 CoursePlanDetails = require './plan-details'
@@ -23,6 +25,9 @@ CoursePlan = React.createClass
     @closePlanOnModalHide()
     @adjustForLongLabels()
 
+  componentDidUpdate: ->
+    @adjustForLongLabels()
+
   adjustForLongLabels: ->
     labelDOMNode = @refs.label?.getDOMNode()
     planDOMNode = @refs.plan.getDOMNode()
@@ -37,14 +42,15 @@ CoursePlan = React.createClass
     samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
 
   closePlanOnModalHide: ->
-    hide = @refs.trigger.hide
-    trigger = React.findDOMNode(@refs.trigger)
-    syncClosePlan = @syncClosePlan
+    if @refs.trigger?
+      hide = @refs.trigger.hide
+      trigger = React.findDOMNode(@refs.trigger)
+      syncClosePlan = @syncClosePlan
 
-    # alias modal hide to also make plan look un-selected
-    @refs.trigger.hide  = ->
-      hide()
-      syncClosePlan(trigger)
+      # alias modal hide to also make plan look un-selected
+      @refs.trigger.hide  = ->
+        hide()
+        syncClosePlan(trigger)
 
   syncOpenPlan: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
@@ -73,17 +79,56 @@ CoursePlan = React.createClass
   renderLabel: (rangeDuration, durationLength, plan, index, offset) ->
     # Adjust width based on plan duration, helps with label centering on view...for the most part.
     # CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
-    if index is 0
-      rangeLength = rangeDuration.length('days')
-      planLabelStyle =
-        width: rangeLength / durationLength * 100 + '%'
+    rangeLength = rangeDuration.length('days')
+    planLabelStyle =
+      width: rangeLength / durationLength * 100 + '%'
 
-      # label should float right if the plan is cut off at the beginning of the week
-      if offset < 0
-        planLabelStyle.float = 'right'
+    # label should float right if the plan is cut off at the beginning of the week
+    if offset < 0
+      planLabelStyle.float = 'right'
 
-      label = <label style={planLabelStyle} ref='label'>{plan.title}</label>
+    labelClass = 'continued' unless index is 0
 
+    label = <label style={planLabelStyle} ref='label' className={labelClass}>{plan.title}</label>
+
+  renderOpenPlan: (planStyle, planClasses, label) ->
+    {item, courseId} = @props
+    {plan} = item
+
+    planModalClasses = 'is-trouble' if plan.isTrouble
+
+    planModal = <CoursePlanDetails plan={plan} courseId={courseId} className={planModalClasses}/>
+
+    <BS.ModalTrigger modal={planModal} ref='trigger'>
+      <div style={planStyle}
+        className={planClasses}
+        onMouseEnter={@syncHover}
+        onMouseLeave={@removeHover}
+        onClick={@syncOpenPlan}
+        ref='plan'>
+        {label}
+      </div>
+    </BS.ModalTrigger>
+
+  renderEditPlan: (planStyle, planClasses, label) ->
+    {item, courseId} = @props
+    {plan} = item
+
+    linkTo = camelCase("edit-#{plan.type}")
+    params = {id: plan.id, courseId}
+
+    <div
+      style={planStyle}
+      className={planClasses}
+      onMouseEnter={@syncHover}
+      onMouseLeave={@removeHover}
+      ref='plan'>
+      <Router.Link
+        to={linkTo}
+        params={params}>
+          {label}
+      </Router.Link>
+    </div>
 
   render: ->
     {item, courseId} = @props
@@ -101,21 +146,23 @@ CoursePlan = React.createClass
       left: offset * 100 / 7 + '%'
       top: (weekTopOffset + 4 - order * 3) + 'rem'
 
-    planClasses = "plan #{plan.type} course-plan-#{plan.id}"
+    planClasses = [
+      'plan'
+      "#{plan.type}"
+      "course-plan-#{plan.id}"
+    ]
+
+    planClasses.push('is-published') if plan.isPublished
+    planClasses.push('is-open') if plan.isOpen
+    planClasses.push('is-trouble') if plan.isTrouble
+
+    planClasses = planClasses.join(' ')
 
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
-    planModal = <CoursePlanDetails plan={plan} courseId={courseId}/>
+    renderFn = 'renderEditPlan'
+    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished
 
-    <BS.ModalTrigger modal={planModal} ref='trigger'>
-      <div style={planStyle}
-        className={planClasses}
-        onMouseEnter={@syncHover}
-        onMouseLeave={@removeHover}
-        onClick={@syncOpenPlan}
-        ref='plan'>
-        {label}
-      </div>
-    </BS.ModalTrigger>
+    @[renderFn](planStyle, planClasses, label)
 
 module.exports = CoursePlan

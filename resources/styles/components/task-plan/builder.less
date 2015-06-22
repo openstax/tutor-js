@@ -1,24 +1,27 @@
 .assignment {
 
-  label.all-periods {
+  label.period {
     // extend styling from bootstrap material design to match other labels
     .form-control-wrapper .floating-label;
     opacity: 1;
-    top: 0px;
+    top: 3px;
     left: 35px;
-  }
-  .periods-listing {
-    .table;
-    .table-striped;
-    .table-bordered;
-    .form-control { background-image: inherit; }
   }
 
   .instructions {
     color: @tutor-neutral;
-    #fonts >.sans(1.1rem, 1.1rem);
+    #fonts >.sans(1.1rem, 1.2rem);
   }
   .assignment-description {
     margin-top: 1rem;
   }
+
+  .task-plan {
+    input[type=checkbox] { margin-left: 1rem; }
+    label.period { left: 45px; }
+    &.disabled {
+      label { text-decoration: line-through; }
+    }
+  }
+
 }

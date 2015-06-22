@@ -62,24 +62,15 @@ PlanShell = React.createClass
     store: TaskPlanStore
     actions: TaskPlanActions
 
-  loadTasks: (id, courseId) ->
+  render: ->
     Type = @getType()
+    {courseId} = @context.router.getCurrentParams()
+    id = @getId()
     <LoadableItem
       id={id}
       store={TaskPlanStore}
       actions={TaskPlanActions}
       renderItem={-> <Type id={id} courseId={courseId} />}
     />
-
-  render: ->
-    id = @getId()
-    {courseId} = @context.router.getCurrentParams()
-    <LoadableItem
-      id={courseId}
-      store={CourseStore}
-      actions={CourseActions}
-      renderItem={ => @loadTasks(id, courseId) }
-    />
-
 
 module.exports = {ReadingShell, HomeworkShell}

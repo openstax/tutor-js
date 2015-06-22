@@ -8,9 +8,20 @@
 @calendar-plan-left-offset: 2px;
 @calendar-plan-left-label-offset: 2 * @calendar-plan-left-offset + 2;
 
+@calendar-inactive-background: @tutor-neutral;
+
 .x-plan(@plan-color) {
   color: @tutor-neutral-darker;
   border-left: 3px solid @plan-color;
+
+  a {
+    color: @tutor-neutral-darker;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 
   label{
     background: fade(@plan-color, 20%);
@@ -19,10 +30,16 @@
   &:hover,
   &.active,
   &.open {
+    text-decoration: none;
     label{
       background: fade(@plan-color, 50%);
     }
   }
+}
+
+.psuedo-text-label() {
+  font-weight: 400;
+  font-style: italic;
 }
 
 .list-courses {
@@ -32,8 +49,8 @@
     border: 1px solid @gray-light;
     font-size: 1.25rem;
     max-height: @calendar-plan-height;
-    height: @calendar-plan-active-height;
-    line-height: @calendar-plan-active-height;
+    height: auto;
+    line-height: @calendar-plan-height;
     margin-top: @calendar-plan-top-margin;
     margin-left: @calendar-plan-left-offset;
     cursor: pointer;
@@ -41,12 +58,32 @@
     font-weight: bold;
     transition: max-height .1s ease-in, margin-top .1s ease-in;
     overflow: hidden;
+    .x-plan(@calendar-inactive-background);
+
     // takes on CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
     // Based on event duration and event offset from start of week
     // see CoursePlan component
 
-    &.reading      { .x-plan(@reading-color); }
-    &.homework     { .x-plan(@homework-color); }
+    &.is-open {
+      &.reading     { .x-plan(@reading-color); }
+      &.homework    { .x-plan(@homework-color); }
+    }
+
+    &:not(.is-published) {
+      label:not(.continued)::before {
+        content: @fa-var-pencil;
+        .fa-icon();
+        margin-right: @calendar-plan-left-label-offset;
+      }
+    }
+
+    &.is-trouble {
+      label:not(.continued)::before {
+        .is-trouble();
+        margin-right: @calendar-plan-left-label-offset;
+      }
+    }
+
 
     // CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
     // Takes width based on visible width of plan to center label.
@@ -56,10 +93,23 @@
       padding-left: 2 * @calendar-plan-left-label-offset;
       text-align: left;
       display: block;
-      margin-top: -@calendar-plan-top-offset;
       margin-bottom: 0;
       cursor: pointer;
       transition: background .1s ease-in, margin-top .1s ease-in;
+
+      &.continued {
+        &::before {
+          content: '...';
+          margin-right: @calendar-plan-left-label-offset;
+          .psuedo-text-label();
+        }
+
+        &::after {
+          content: 'continued';
+          margin-left: @calendar-plan-left-label-offset;
+          .psuedo-text-label();
+        }
+      }
     }
 
     &.plan-label-long {
@@ -81,9 +131,7 @@
       &:hover,
       &.active,
       &.open {
-        max-height: @calendar-plan-active-height;
-        margin-top: -@calendar-plan-active-top-offset;
-        line-height: @calendar-plan-active-height/2;
+        max-height: none;
 
         label {
           overflow: visible;

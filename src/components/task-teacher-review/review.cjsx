@@ -1,10 +1,15 @@
-React = require 'react/addons'
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
-
+React = require 'react'
 _ = require 'underscore'
 
 TaskTeacherReviewExercise = require './exercise'
-ScrollTracker = require '../scroll-tracker'
+{ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
+LoadableItem = require '../loadable-item'
+
+CrumbMixin = require './crumb-mixin'
+ChapterSectionMixin = require '../chapter-section-mixin'
+{ScrollListenerMixin} = require 'react-scroll-components'
+
+{TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 
 ReviewTracker = React.createClass
@@ -34,27 +39,21 @@ ReviewTracker = React.createClass
 
 Review = React.createClass
   displayName: 'Review'
+  mixins: [ChapterSectionMixin, CrumbMixin, ScrollListenerMixin, ScrollTrackerParentMixin]
   propTypes:
-    taskId: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
-    setScrollPoint: React.PropTypes.func.isRequired
+    period: React.PropTypes.object.isRequired
+    currentStep: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
     focus: false
 
-  setScrollTopBuffer: ->
-    scrollTopBuffer = @getPosition(@getDOMNode())
-    @props.setScrollTopBuffer(scrollTopBuffer)
-
-  componentDidMount: ->
-    @setScrollTopBuffer()
-
-  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
-
   render: ->
-    {taskId, steps, focus} = @props
+    {id, focus} = @props
+    steps = @getContents()
 
-    stepsProps = _.omit(@props, 'steps', 'focus', 'setScrollTopBuffer')
+    stepsProps = _.omit(@props, 'focus')
 
     stepsList = _.map steps, (step, index) =>
 
@@ -71,10 +70,23 @@ Review = React.createClass
       item = <ReviewTracker
         {...stepProps}
         scrollState={scrollState}
-        setScrollPoint={@props.setScrollPoint} />
+        setScrollPoint={@setScrollPoint}
+        unsetScrollPoint={@unsetScrollPoint}
+      />
 
-    <ReactCSSTransitionGroup transitionName="homework-review-problem">
+    <div>
       {stepsList}
-    </ReactCSSTransitionGroup>
+    </div>
 
-module.exports = Review
+
+ReviewShell = React.createClass
+  render: ->
+    {id} = @props
+    <LoadableItem
+      id={id}
+      store={TaskTeacherReviewStore}
+      actions={TaskTeacherReviewActions}
+      renderItem={=> <Review {...@props} review='teacher' panel='teacher-review' />}
+    />
+
+module.exports = {Review, ReviewShell}

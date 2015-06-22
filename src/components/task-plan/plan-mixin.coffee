@@ -16,14 +16,6 @@ module.exports =
     #   @setDueAt(dueAt)
     {}
 
-  setOpensAt: (period, value) ->
-    {id} = @props
-    TaskPlanActions.updateOpensAt(id, period.id, value)
-
-  setDueAt: (period, value) ->
-    {id} = @props
-    TaskPlanActions.updateDueAt(id, period.id, value)
-
   setTitle: (title) ->
     {id} = @props
     TaskPlanActions.updateTitle(id, title)
@@ -50,14 +42,15 @@ module.exports =
     # The logic here is this way because we need to be able to add an invalid
     # state to the form.  Blame @fredasaurus
     if (saveable)
-      TaskPlanStore.addChangeListener(@saved)
+      TaskPlanActions.saved.addListener(@saved)
       TaskPlanActions.save(id)
     else
       @setState({invalid: true})
 
   saved: ->
     courseId = @props.courseId
-    TaskPlanStore.removeChangeListener(@saved)
+    TaskPlanStore.saved.removeListener(@saved)
+    TaskPlanStore.isLoading(@props.id)
     @context.router.transitionTo('taskplans', {courseId})
 
   cancel: ->
