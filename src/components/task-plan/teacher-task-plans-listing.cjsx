@@ -6,6 +6,8 @@ Router = require 'react-router'
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 {CourseStore} = require '../../flux/course'
+{TimeStore} = require '../../flux/time'
+
 CourseCalendar = require '../course-calendar'
 
 TeacherTaskPlans = React.createClass
@@ -61,6 +63,16 @@ TeacherTaskPlanListing = React.createClass
   componentWillUnmount: -> TeacherTaskPlanStore.removeChangeListener(@update)
 
   update: -> @setState({})
+
+  statics:
+    willTransitionTo: (transition, params, query, callback) ->
+      unless params.date?
+        date = moment(TimeStore.getNow())
+        params.date = date.format('MM-DD-YYYY')
+        transition.redirect('calendarByDate', params)
+        callback()
+      else
+        callback()
 
   render: ->
     {courseId} = @context.router.getCurrentParams()

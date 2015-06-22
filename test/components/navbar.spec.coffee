@@ -105,7 +105,7 @@ testWithRole = (roleType) ->
       currentPath = router.getCurrentPath()
       expectedPath = router.makeHref(roleTestParams.dashroute, {courseId: COURSE_ID})
 
-      expect(currentPath).to.equal(expectedPath)
+      expect(currentPath).to.include(expectedPath)
       done()
 
     it 'should have a navbar', (done) ->

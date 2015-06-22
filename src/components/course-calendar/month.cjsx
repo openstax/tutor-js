@@ -21,23 +21,32 @@ CourseMonth = React.createClass
   mixins: [CourseAddMenuMixin]
 
   propTypes:
-    plansList: React.PropTypes.array.isRequired
-    startDate: (props, propName, componentName) ->
-      unless moment.isMoment(props[propName])
-        new Error("#{propName} should be a moment for #{componentName}")
+    plansList: React.PropTypes.array
 
   contextTypes:
     router: React.PropTypes.func
 
   getInitialState: ->
-    date: @props.startDate or moment(TimeStore.getNow())
+    date: moment(TimeStore.getNow())
     activeAddDate: null
+
+  componentWillMount: ->
+    {date} = @context.router.getCurrentParams()
+    if date?
+      date = moment(date, 'MM-DD-YYYY')
+      @setDate(date)
+    else
+      date = moment(TimeStore.getNow())
+
+  setDateParams: (date) ->
+    params = @context.router.getCurrentParams()
+    params.date = date.format('MM-DD-YYYY')
+    @context.router.transitionTo('calendarByDate', params)
 
   setDate: (date) ->
     unless moment(date).isSame(@state.date, 'month')
-      @setState(
-        date: date
-      )
+      @setDateParams(date)
+      @setState({date})
 
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges)
