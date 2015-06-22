@@ -24,16 +24,24 @@ TaskTeacherReview = React.createClass
 
   setStepKey: ->
     {sectionIndex} = @context.router.getCurrentParams()
-    defaultKey = 0
+    defaultKey = null
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if sectionIndex then parseInt(sectionIndex) - 1 else defaultKey
     @setState(currentStep: crumbKey)
+
+  getPeriodIndex: ->
+    params = @context.router.getCurrentParams()
+    {periodIndex} = params
+
+    periodIndex ?= 1
+
+    parseInt(periodIndex) - 1
 
   setScrollState: (scrollState) ->
     @setState({scrollState})
 
   getInitialState: ->
-    currentStep: 0
+    currentStep: null
     scrollState: {}
     period: {}
     isReviewLoaded: false
@@ -53,10 +61,22 @@ TaskTeacherReview = React.createClass
       params.sectionIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
 
+      params.periodIndex ?= 1
+
       @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
     @setState({period})
+
+  setPeriodIndex: (key) ->
+    periodKey = key + 1
+    params = @context.router.getCurrentParams()
+    params.periodIndex = periodKey
+
+    if params.sectionIndex
+      @context.router.replaceWith('reviewTaskStep', params)
+    else
+      @context.router.replaceWith('reviewTaskPeriod', params)
 
   setIsReviewLoaded: (id) ->
     return null unless id is @props.id
@@ -66,6 +86,8 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
+    params = @context.router.getCurrentParams()
+    periodIndex = @getPeriodIndex()
 
     panel = <ReviewShell
           id={id}
@@ -102,8 +124,10 @@ TaskTeacherReview = React.createClass
               <StatsModalShell
                 id={id}
                 courseId={courseId}
+                initialActivePeriod={periodIndex}
                 activeSection={@state.scrollState?.sectionLabel}
-                handlePeriodSelect={@setPeriod}/>
+                handlePeriodSelect={@setPeriod}
+                handlePeriodKeyUpdate={@setPeriodIndex}/>
             </BS.Col>
           </BS.Row>
         </BS.Grid>

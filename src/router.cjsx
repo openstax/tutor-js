@@ -43,11 +43,16 @@ routes = (
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
-            <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+            <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell}>
               <Route
-                path='sections/:sectionIndex/?'
-                name='reviewTaskStep'
-                ignoreScrollBehavior />
+                path='periods/:periodIndex/?'
+                name='reviewTaskPeriod'
+                ignoreScrollBehavior >
+                <Route
+                  path='sections/:sectionIndex/?'
+                  name='reviewTaskStep'
+                  ignoreScrollBehavior />
+              </Route>
             </Route>
           </Route>
         </Route>

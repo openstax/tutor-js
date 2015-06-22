@@ -12,7 +12,7 @@ module.exports = React.createClass
 
   propTypes:
     id: React.PropTypes.string.isRequired
-    currentStep: React.PropTypes.number.isRequired
+    currentStep: React.PropTypes.number
     goToStep: React.PropTypes.func.isRequired
 
   render: ->
