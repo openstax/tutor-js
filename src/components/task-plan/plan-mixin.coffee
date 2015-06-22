@@ -43,14 +43,15 @@ module.exports =
     # The logic here is this way because we need to be able to add an invalid
     # state to the form.  Blame @fredasaurus
     if (saveable)
-      TaskPlanStore.addChangeListener(@saved)
+      TaskPlanActions.saved.addListener(@saved)
       TaskPlanActions.save(id)
     else
       @setState({invalid: true})
 
   saved: ->
     courseId = @props.courseId
-    TaskPlanStore.removeChangeListener(@saved)
+    TaskPlanStore.saved.removeListener(@saved)
+    TaskPlanStore.isLoading(@props.id)
     @context.router.transitionTo('taskplans', {courseId})
 
   cancel: ->
