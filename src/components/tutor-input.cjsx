@@ -81,7 +81,7 @@ TutorDateInput = React.createClass
 
     date = new Date(value)
     @props.onChange(date)
-    @setState({expandCalendar: false, valid: valid})
+    @setState({expandCalendar: false, valid: valid, value: date})
 
   onToggle: (open) ->
     @setState({expandCalendar: open})
@@ -92,6 +92,9 @@ TutorDateInput = React.createClass
 
   onBlur: (event) ->
     @setState({hasFocus: false})
+
+  getValue: ->
+    @props.value or @state.value
 
   render: ->
     classes = ['form-control']
@@ -118,6 +121,7 @@ TutorDateInput = React.createClass
         onFocus={@expandCalendar}
         onBlur={@onBlur}
         id={@props.id}
+        ref="picker"
         format='MMM dd, yyyy'
         time={false}
         calendar={true}

@@ -2,8 +2,8 @@
 _ = require 'underscore'
 moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{TimeStore} = require './time'
 {TocStore} = require './toc'
+{TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
 
 TUTOR_SELECTIONS =
@@ -39,9 +39,6 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
-    # default opens_at to 1 day from now
-    obj.opens_at = moment(TimeStore.getNow()).add(1, 'day').toDate()
-
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
       delete obj.settings.exercise_ids
@@ -49,14 +46,39 @@ TaskPlanConfig =
 
     obj
 
+  FAILED: -> # used by API
+
+
+  enableTasking: (id, target_id, opens_at, due_at) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    unless @_findTasking(tasking_plans, target_id)
+      tasking_plans = _.clone(tasking_plans)
+      tasking_plans.push(
+        {target_type: 'period', target_id, opens_at, due_at}
+      )
+      @_change(id, {tasking_plans})
+
+  disableTasking: (id, target_id) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans = _.reject tasking_plans, (plan) ->
+      plan.target_id is target_id
+    @_change(id, {tasking_plans})
+
+
+  setPeriods: (id, periods, opens_at) ->
+    tasking_plans = _.map periods, (period) ->
+      _.extend( _.pick(period, 'opens_at', 'due_at'),
+        target_id: period.id, target_type:'period'
+      )
+    @_change(id, {tasking_plans})
+
   _findTasking: (tasking_plans, periodId) ->
-    taskings = _.filter tasking_plans, (tasking) ->
-      tasking.target_type is 'period' and tasking.target_id is periodId
-    taskings[0]
+    _.findWhere(tasking_plans, {target_id:periodId, target_type:'period'})
 
   _getPeriodDates: (id, period) ->
     throw new Error('BUG: Period is required arg') unless period
-
     plan = @_getPlan(id)
     {tasking_plans} = plan
     if tasking_plans
@@ -64,8 +86,15 @@ TaskPlanConfig =
     else
       null
 
-
-  FAILED: -> # used by API
+  # detects if all taskings are set to the same due_at/opens_at date
+  # if so the date is returned, else null
+  _getTaskingsCommonDate: (id, attr) ->
+    {tasking_plans} = @_getPlan(id)
+    # do all the tasking_plans have the same date?
+    dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
+      plan[attr]?.getTime()
+    )
+    if dates.length is 1 then new Date(_.first(dates)) else null
 
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
@@ -87,51 +116,31 @@ TaskPlanConfig =
     exercise_ids = exercise_ids[..]
     @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
 
-  updateOpensAt: (id, periodId, opens_at) ->
-    # Allow null opens_at
-    if opens_at
-      opens_at = opens_at.toISOString()
-
-    throw new Error('id is required') unless id
-    throw new Error('periodId is required') unless periodId
-    throw new Error('opens_at is required') unless opens_at
-
+  # updates due_at/opens_at dates for taskings
+  # If a periodId is given, only that tasking is updated.
+  # If not, all taskings are set to that date
+  updateDateAttribute: (id, attr, date, periodId) ->
     plan = @_getPlan(id)
     {tasking_plans} = plan
     tasking_plans ?= []
     tasking_plans = tasking_plans[..] # Clone it
-
-    tasking = @_findTasking(tasking_plans, periodId)
-    if tasking
-      tasking.opens_at = opens_at
-    else
-      tasking = {target_type: 'period', target_id: periodId, opens_at}
-      tasking_plans.push(tasking)
-
-    @_change(id, {tasking_plans})
-
-  updateDueAt: (id, periodId, due_at) ->
-    # Allow null due_at
-    if due_at
-      due_at = due_at.toISOString()
-
     throw new Error('id is required') unless id
-    throw new Error('periodId is required') unless periodId
-    throw new Error('due_at is required') unless due_at
+    throw new Error("#{attr} is required") unless date
 
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    tasking_plans ?= []
-    tasking_plans = tasking_plans[..] # Clone it
-
-    tasking = @_findTasking(tasking_plans, periodId)
-    if tasking
-      tasking.due_at = due_at
+    if periodId
+      tasking = @_findTasking(tasking_plans, periodId)
+      tasking[attr] = date
     else
-      tasking = {target_type: 'period', target_id: periodId, due_at}
-      tasking_plans.push(tasking)
+      for tasking in tasking_plans
+        tasking[attr] = date
 
     @_change(id, {tasking_plans})
+
+  updateOpensAt: (id, opens_at, periodId) ->
+    @updateDateAttribute(id, 'opens_at', opens_at, periodId)
+
+  updateDueAt: (id, due_at, periodId) ->
+    @updateDateAttribute(id, 'due_at', due_at, periodId)
 
   sortTopics: (id) ->
     plan = @_getPlan(id)
@@ -302,14 +311,25 @@ TaskPlanConfig =
     getStats: (id) ->
       @_getStats(id)
 
+    getOpensAt: (id, periodId) ->
+      if periodId?
+        tasking = @_getPeriodDates(id, periodId)
+        tasking?.opens_at
+      else
+        # default opens_at to 1 day from now
+        @_getTaskingsCommonDate(id, 'opens_at')
 
-    getOpensAt: (id, period) ->
-      tasking = @_getPeriodDates(id, period)
-      tasking?.opens_at
+    getDueAt: (id, periodId) ->
+      if periodId?
+        tasking = @_getPeriodDates(id, periodId)
+        tasking?.due_at
+      else
+        @_getTaskingsCommonDate(id, 'due_at')
 
-    getDueAt: (id, period) ->
-      tasking = @_getPeriodDates(id, period)
-      tasking?.due_at
+    hasTasking: (id, periodId) ->
+      plan = @_getPlan(id)
+      {tasking_plans} = plan
+      !!@_findTasking(tasking_plans, periodId)
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 
