@@ -15,11 +15,8 @@ Section = React.createClass
   render: ->
     {courseId} = @getParams()
     title = if @props.section.cnx_id
-      # FIXME - talk to BE about either breaking apart the uid and version,
-      # or the endpoint should accept the compete string when retrieving a page
-      link = _.first( @props.section.cnx_id.split('@') )
       <Router.Link onClick={@props.onClick} to="viewReferenceBookPage"
-          params={courseId: courseId, cnxId: link}>
+          params={courseId: courseId, cnxId: @props.section.cnx_id}>
           <span className="section-number">
             {@props.section.chapter_section.join('.')}
           </span>

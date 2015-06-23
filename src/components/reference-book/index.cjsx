@@ -17,13 +17,11 @@ ReferenceBookFirstPage  = React.createClass
   render: ->
     {courseId} = @getParams()
     page = _.first ReferenceBookStore.getPages(courseId)
-    # FIXME - BE route issue
-    cnxId = _.first page.cnx_id.split('@')
     <LoadableItem
       id={cnxId}
       store={ReferenceBookPageStore}
       actions={ReferenceBookPageActions}
-      renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={cnxId}/> }
+      renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={page.cnx_id}/> }
     />
 
 
