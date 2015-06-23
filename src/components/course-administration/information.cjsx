@@ -7,7 +7,7 @@ module.exports = React.createClass
     course: React.PropTypes.object.isRequired
 
   render: ->
-    <div class="information">
+    <div className="information">
       <h2>Course Information</h2>
       <BS.Row>
         <BS.Input type='text' label='Course Name'
