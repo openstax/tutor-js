@@ -26,9 +26,10 @@ CoursePlan = React.createClass
 
   getInitialState: ->
     triggerPlanStats: false
+    isViewingStats: false
 
   showPlanStats: ->
-    if @state.triggerPlanStats and @refs.trigger?
+    if @state.triggerPlanStats and not @state.isViewingStats and @refs.trigger?
       triggerEl = @refs.trigger.getDOMNode()
       triggerEl.click()
 
@@ -41,6 +42,17 @@ CoursePlan = React.createClass
   componentWillMount: ->
     @updateViewPlanStatesByParams()
 
+  componentWillUpdate: (nextProps, nextState) ->
+    {planId} = @context.router.getCurrentParams()
+
+    if (planId is @props.item.plan.id) and not nextState.isViewingStats
+      nextState.triggerPlanStats = true
+    else if not planId? and @state.isViewingStats
+      # close modal if there is not a planId in the route and modal is open
+      nextState.triggerPlanStats = false
+      nextState.isViewingStats = false
+      @refs.trigger.hide(true)
+
   componentDidMount: ->
     @closePlanOnModalHide()
     @adjustForLongLabels()
@@ -49,6 +61,8 @@ CoursePlan = React.createClass
 
   componentDidUpdate: ->
     @adjustForLongLabels()
+
+    @showPlanStats()
 
   adjustForLongLabels: ->
     labelDOMNode = @refs.label?.getDOMNode()
@@ -68,11 +82,13 @@ CoursePlan = React.createClass
       hide = @refs.trigger.hide
       trigger = React.findDOMNode(@refs.trigger)
       syncClosePlan = @syncClosePlan
+      updateClosePlan = @updateClosePlan
 
       # alias modal hide to also make plan look un-selected
-      @refs.trigger.hide  = ->
+      @refs.trigger.hide  = (silent = false) ->
         hide()
         syncClosePlan(trigger)
+        updateClosePlan() unless silent
 
   syncOpenPlan: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
@@ -81,7 +97,7 @@ CoursePlan = React.createClass
     )
     params = @context.router.getCurrentParams()
     params.planId = @props.item.plan.id
-    @setState(triggerPlanStats: false)
+    @setState(triggerPlanStats: false, isViewingStats: true)
     # store plan id in route as part of history if opened
     # if a link from the modal is clicked, then back will transition back
     # with this plan stat open
@@ -92,10 +108,11 @@ CoursePlan = React.createClass
     samePlans.forEach((element) ->
       element.classList.remove('open')
     )
+
+  updateClosePlan: ->
     params = @context.router.getCurrentParams()
-    # when modal is close, replace with original date route so that history
-    # back and forth will just return to date
-    @context.router.replaceWith('calendarByDate', params)
+    @setState(isViewingStats: false)
+    @context.router.transitionTo('calendarByDate', params)
 
   syncHover: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
