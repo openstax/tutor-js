@@ -31,7 +31,7 @@ CoursePlanDetails = React.createClass
       title={title}
       className="#{type}-modal plan-modal #{className}">
       <div className='modal-body'>
-        <StatsModalShell id={id}/>
+        <StatsModalShell id={id} courseId={courseId} />
       </div>
       <div className='modal-footer'>
         <Router.Link to='reviewTask' params={linkParams}>

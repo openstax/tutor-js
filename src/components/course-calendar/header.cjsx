@@ -37,6 +37,9 @@ CourseCalendarHeader = React.createClass
     {setDate} = @props
     setDate?(@state.date)
 
+  componentWillReceiveProps: (nextProps) ->
+    unless moment(nextProps.date).isSame(@state.date, 'month')
+      @setState(date: nextProps.date)
 
   handleNavigate: (subtractOrAdd, clickEvent) ->
     {duration, setDate} = @props

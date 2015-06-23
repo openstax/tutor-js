@@ -29,18 +29,30 @@ CourseMonth = React.createClass
   getInitialState: ->
     date: moment(TimeStore.getNow())
     activeAddDate: null
+    dateFormat: 'MM-DD-YYYY'
 
-  componentWillMount: ->
+  getDateFromParams: ->
     {date} = @context.router.getCurrentParams()
     if date?
-      date = moment(date, 'MM-DD-YYYY')
+      date = moment(date, @state.dateFormat)
+    date
+
+  componentWillMount: ->
+    date = @getDateFromParams()
+    if date?
       @setDate(date)
     else
       date = moment(TimeStore.getNow())
 
+  componentWillUpdate: (nextProps, nextState) ->
+    date = @getDateFromParams()
+
+    if date? and not date.isSame(nextState.date, 'month')
+      nextState.date = date
+
   setDateParams: (date) ->
     params = @context.router.getCurrentParams()
-    params.date = date.format('MM-DD-YYYY')
+    params.date = date.format(@state.dateFormat)
     @context.router.transitionTo('calendarByDate', params)
 
   setDate: (date) ->

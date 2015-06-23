@@ -13,6 +13,9 @@ CoursePlanDetails = require './plan-details'
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
 
+  contextTypes:
+    router: React.PropTypes.func
+
   propTypes:
     item: React.PropTypes.object.isRequired
     activeHeight: React.PropTypes.number.isRequired
@@ -21,9 +24,28 @@ CoursePlan = React.createClass
     # CALENDAR_EVENT_LABEL_ACTIVE_STATIC_HEIGHT
     activeHeight: 35
 
+  getInitialState: ->
+    triggerPlanStats: false
+
+  showPlanStats: ->
+    if @state.triggerPlanStats and @refs.trigger?
+      triggerEl = @refs.trigger.getDOMNode()
+      triggerEl.click()
+
+  updateViewPlanStatesByParams: ->
+    {planId} = @context.router.getCurrentParams()
+
+    if planId is @props.item.plan.id
+      @setState(triggerPlanStats: true)
+
+  componentWillMount: ->
+    @updateViewPlanStatesByParams()
+
   componentDidMount: ->
     @closePlanOnModalHide()
     @adjustForLongLabels()
+
+    @showPlanStats()
 
   componentDidUpdate: ->
     @adjustForLongLabels()
@@ -57,12 +79,23 @@ CoursePlan = React.createClass
     samePlans.forEach((element) ->
       element.classList.add('open')
     )
+    params = @context.router.getCurrentParams()
+    params.planId = @props.item.plan.id
+    @setState(triggerPlanStats: false)
+    # store plan id in route as part of history if opened
+    # if a link from the modal is clicked, then back will transition back
+    # with this plan stat open
+    @context.router.transitionTo('calendarViewPlanStats', params)
 
   syncClosePlan: (trigger) ->
     samePlans = @findPlanNodes(trigger)
     samePlans.forEach((element) ->
       element.classList.remove('open')
     )
+    params = @context.router.getCurrentParams()
+    # when modal is close, replace with original date route so that history
+    # back and forth will just return to date
+    @context.router.replaceWith('calendarByDate', params)
 
   syncHover: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
