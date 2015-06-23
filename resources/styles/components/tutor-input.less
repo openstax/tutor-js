@@ -1,60 +1,10 @@
 .tutor-input {
-  .rw-calendar-grid {
-    td {
-      // these override the default styles for the date picker so we can apply our own
-      // based on the <span> element that we render inside the rw-btn
-      .rw-btn {
-        border-radius: 0;
-        padding: 0;
-        &:hover { cursor: default; background-color: inherit; }
-        &.rw-off-range { color: inherit; }
-      }
-      &:hover{ cursor: default; }
-      .rw-state-selected { border-radius: @input-border-radius; }
-    }
-    // dates on the date picker that are in the past and cannot be choosen
-    .date {
-      border-radius: @input-border-radius;
-      padding: 0 .4em 0 .1em;
-      &:hover {
-        background-color: @tutor-neutral-light;
-      }
-      &.is-invalid {
-        text-decoration: line-through;
-        color: @tutor-neutral;
-        &:hover {
-          background-color: inherit;
-          cursor: default;
-        }
-      }
-    }
-  }
   &.form-control-wrapper {
     // override line-height styles for paper form controls
     line-height: 1em;
 
     textarea {
       overflow: hidden;
-    }
-
-    .rw-datetimepicker.rw-widget {
-      position: absolute;
-      top: 0;
-
-      &:hover {
-        background-color: transparent;
-      }
-
-      input.rw-input {
-        background: transparent;
-        padding: 0;
-        border: 0;
-        box-shadow: none;
-      }
-
-      .rw-select {
-        border: 0;
-      }
     }
 
     .form-control {
@@ -75,11 +25,22 @@
         }
       }
     }
+    .date-wrapper {
+      position: absolute;
+      top: 0;
+      width: 100%;
 
-    .rw-datetimepicker.rw-widget {
-      input.rw-input {
-        height: 30px;
-        color: #424242;
+      input.datepicker__input {
+        box-shadow: none;
+        border: 0;
+        padding: 6px 10px 5px 0;
+        background: transparent;
+        width: 100%;
+      }
+      i.fa.fa-calendar {
+        position: absolute;
+        bottom: 5px;
+        right: 0;
       }
     }
   }

@@ -116,6 +116,7 @@ module.exports = React.createClass
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setOpensAt}
+            max={TaskPlanStore.getDueAt(@props.id)}
             value={TaskPlanStore.getOpensAt(@props.id)}/>
         </BS.Col>
 
@@ -126,6 +127,7 @@ module.exports = React.createClass
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setDueAt}
+            min={TaskPlanStore.getOpensAt(@props.id)}
             value={TaskPlanStore.getDueAt(@props.id)}/>
         </BS.Col>
         <BS.Col sm=12 md=3>
