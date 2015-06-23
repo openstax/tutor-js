@@ -5,6 +5,8 @@ React = require 'react'
 LoadableItem = require '../loadable-item'
 {Reading, Interactive, Video, Exercise, Placeholder, Spacer} = require './all-steps'
 
+{StepPanel} = require '../../helpers/policies'
+
 # React swallows thrown errors so log them first
 err = (msgs...) ->
   console.error(msgs...)
@@ -49,7 +51,10 @@ module.exports = React.createClass
 
   onStepCompleted: ->
     {id} = @props
-    TaskStepActions.complete(id)
+    canWrite = StepPanel.canWrite(id)
+
+    if canWrite
+      TaskStepActions.complete(id)
 
   render: ->
     {id} = @props

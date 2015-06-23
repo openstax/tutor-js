@@ -2,6 +2,7 @@ _ = require 'underscore'
 
 policies = require './policies'
 {TaskStore} = require '../../flux/task'
+{CurrentUserStore} = require '../../flux/current-user'
 
 DEFAULT = 'default'
 
@@ -12,11 +13,22 @@ utils =
 
     state
 
+  _role: ->
+    # TODO get course id in here somehow, pinning it to 1 for now
+    courseId = 1
+    CurrentUserStore.getCourseRole(courseId)
+
   _checkQuestionFormat: (task, step, panel) ->
     # assuming 1 question right now
     question = step.content.questions[0]
 
     question.formats.indexOf(panel.name) > -1
+
+  _getCheckedPolicy: (task, step, possiblePolicies) ->
+    checkFn = "_#{possiblePolicies.check}"
+    state = utils[checkFn](task, step)
+
+    possiblePolicies.states[state]
 
   _getPolicy: (task, step, policyFor) ->
 
@@ -33,9 +45,12 @@ utils =
     policy = possiblePolicies.default if possiblePolicies.default?
 
     if possiblePolicies.check
-      checkFn = "_#{possiblePolicies.check}"
-      state = utils[checkFn](task, step)
-      policy = possiblePolicies.states[state]
+      checkedPolicy = utils._getCheckedPolicy(task, step, possiblePolicies)
+      policy = checkedPolicy if checkedPolicy?
+
+    if policy.check
+      nestedCheckedPolicy = utils._getCheckedPolicy(task, step, policy)
+      policy = nestedCheckedPolicy if nestedCheckedPolicy?
 
     policy
 
@@ -71,8 +86,11 @@ utils =
     panel ?= _.last panelsWithStatus
 
   _canReview: (panels) ->
-    reviewPanel = _.findWhere panels, {name: 'review'}
+    reviewPanel = _.findWhere panels, {canReview: true}
     reviewPanel?
 
+  _canWrite: (panels) ->
+    cannotWrite = _.findWhere panels, {canWrite: false}
+    not (cannotWrite?)
 
 module.exports = utils

@@ -5,7 +5,7 @@ camelCase = require 'camelcase'
 {TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 
-{ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview} = require './modes'
+{ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReadOnly} = require './modes'
 
 module.exports = React.createClass
   displayName: 'Exercise'
@@ -56,6 +56,18 @@ module.exports = React.createClass
       taskId={@props.taskId}
     />
 
+  renderTeacherReadOnly: (id) ->
+    <ExerciseTeacherReadOnly
+      id={id}
+      onNextStep={@props.onNextStep}
+      goToStep={@props.goToStep}
+      refreshStep={@props.refreshStep}
+      recoverFor={@props.recoverFor}
+      review={@props.review}
+      pinned={@props.pinned}
+      taskId={@props.taskId}
+    />
+
   # add render methods for different panel types as needed here
 
   render: ->
@@ -64,7 +76,7 @@ module.exports = React.createClass
     # get panel to render based on step progress
     panel ?= StepPanel.getPanel(id)
 
-    # panel is one of ['review', 'multiple-choice', 'free-response']
+    # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
     renderPanelMethod = camelCase "render-#{panel}"
 
     throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?

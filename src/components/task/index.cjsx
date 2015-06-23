@@ -13,6 +13,8 @@ TaskStep = require '../task-step'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
+{StepPanel} = require '../../helpers/policies'
+
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
 
 module.exports = React.createClass
@@ -185,6 +187,7 @@ module.exports = React.createClass
 
     # get the crumb that matches the current state
     crumb = @getCrumb(@state.currentStep)
+    panelType = StepPanel.getPanel(crumb.data?.id)
 
     # crumb.type is one of ['intro', 'step', 'end']
     renderPanelMethod = camelCase "render-#{crumb.type}"
@@ -193,6 +196,7 @@ module.exports = React.createClass
     panel = @[renderPanelMethod]?(crumb.data)
 
     taskClasses = "task task-#{task.type}"
+    taskClasses += " task-#{panelType}" if panelType?
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
     unless TaskStore.isSingleStepped(id)
