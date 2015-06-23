@@ -2,6 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+Router = require 'react-router'
+
 {PerformanceStore, PerformanceActions} = require '../flux/performance'
 LoadableItem = require './loadable-item'
 
@@ -62,11 +64,19 @@ Performance = React.createClass
       when 'in_progress' then 'In progress'
       when 'not_started' then 'Not started'
 
-    <td>{status}</td>
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id}
+
+    <td><Router.Link to='viewTask' params={linkParams}>{status}</Router.Link></td>
 
   renderHomeworkCell: (cell) ->
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id}
+
     <td>
-      {cell.correct_exercise_count}/{cell.exercise_count}
+      <Router.Link to='viewTask' params={linkParams}>
+        {cell.correct_exercise_count}/{cell.exercise_count}
+      </Router.Link>
     </td>
 
   render: ->
