@@ -30,9 +30,7 @@ TaskTeacherReview = React.createClass
     @setState(currentStep: crumbKey)
 
   getPeriodIndex: ->
-    params = @context.router.getCurrentParams()
-    {periodIndex} = params
-
+    {periodIndex} = @context.router.getCurrentParams()
     periodIndex ?= 1
 
     parseInt(periodIndex) - 1
@@ -88,7 +86,6 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
-    params = @context.router.getCurrentParams()
     periodIndex = @getPeriodIndex()
 
     panel = <ReviewShell
