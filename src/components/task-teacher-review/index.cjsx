@@ -58,7 +58,7 @@ TaskTeacherReview = React.createClass
   # Curried for React
   goToStep: (stepKey) ->
     =>
-      params = @context.router.getCurrentParams()
+      params = _.clone(@context.router.getCurrentParams())
       # url is 1 based so it matches the breadcrumb button numbers
       params.sectionIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
@@ -72,7 +72,7 @@ TaskTeacherReview = React.createClass
 
   setPeriodIndex: (key) ->
     periodKey = key + 1
-    params = @context.router.getCurrentParams()
+    params = _.clone(@context.router.getCurrentParams())
     params.periodIndex = periodKey
 
     if params.sectionIndex
