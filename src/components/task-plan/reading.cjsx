@@ -3,7 +3,6 @@ _ = require 'underscore'
 moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-{DateTimePicker} = require 'react-widgets'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'

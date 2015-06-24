@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 moment = require 'moment'
 
 {TimeStore} = require '../flux/time'
-{DateTimePicker} = require 'react-widgets'
+DatePicker = require 'react-datepicker'
 
 TutorInput = React.createClass
   propTypes:
@@ -41,24 +41,6 @@ TutorInput = React.createClass
       </div>
     </div>
 
-DayComponent = React.createClass
-  propTypes:
-    date:  React.PropTypes.string.isRequired
-    label: React.PropTypes.string.isRequired
-
-  isInvalid: ->
-    moment(@props.date).startOf('day') < TimeStore.getNow()
-
-  onClick: (ev) ->
-    ev.stopPropagation() if @isInvalid()
-
-  render: ->
-    classNames = ['date']
-    classNames.push('is-invalid') if @isInvalid()
-    <div onClick={@onClick} className={classNames.join(' ')}>
-      {@props.label}
-    </div>
-
 TutorDateInput = React.createClass
 
   getInitialState: ->
@@ -93,20 +75,19 @@ TutorDateInput = React.createClass
   onBlur: (event) ->
     @setState({hasFocus: false})
 
-  getValue: ->
-    @props.value or @state.value
-
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
-    value = @props.value
-    open = false
+
+    now = TimeStore.getNow()
+    value = if @props.value then new moment(@props.value) else null
+    min = if @props.min then new moment(@props.min) else new moment(now).subtract(10, 'years')
+    max = if @props.max then new moment(@props.max) else new moment(now).add(10, 'years')
 
     if not @props.value and not @state.hasFocus
       classes.push('empty')
 
     if @state.expandCalendar and not @props.readOnly
-      open = 'calendar'
       onToggle = @onToggle
 
     if @props.required then wrapperClasses.push('is-required')
@@ -117,22 +98,23 @@ TutorDateInput = React.createClass
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
       </div>
-      <DateTimePicker onClick={@clickHandler}
-        onFocus={@expandCalendar}
-        onBlur={@onBlur}
-        id={@props.id}
-        ref="picker"
-        format='MMM dd, yyyy'
-        time={false}
-        calendar={true}
-        open={open}
-        onToggle={onToggle}
-        className={classes.join(' ')}
-        onChange={@dateSelected}
-        readOnly={@props.readOnly}
-        dayComponent={DayComponent}
-        value={value}
-      />
+
+      <div className="date-wrapper">
+        <DatePicker 
+          minDate={min}
+          maxDate={max}
+          onFocus={@expandCalendar}
+          dateFormat="YYYY/MM/DD"
+          onBlur={@onBlur}
+          key={@props.id}
+          ref="picker"
+          className={classes.join(' ')}
+          onChange={@dateSelected}
+          readOnly={@props.readOnly}
+          selected={value}
+        />
+        <i className="fa fa-calendar"></i>
+      </div>
     </div>
 
 
