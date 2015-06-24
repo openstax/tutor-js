@@ -20,45 +20,29 @@ CourseMonth = React.createClass
 
   mixins: [CourseAddMenuMixin]
 
-  propTypes:
-    plansList: React.PropTypes.array
-
   contextTypes:
     router: React.PropTypes.func
 
+  propTypes:
+    plansList: React.PropTypes.array
+    date: (props, propName, componentName) ->
+      unless moment.isMoment(props[propName])
+        new Error("#{propName} should be a moment for #{componentName}")
+
   getInitialState: ->
-    date: moment(TimeStore.getNow())
     activeAddDate: null
-    dateFormat: 'MM-DD-YYYY'
 
-  getDateFromParams: ->
-    {date} = @context.router.getCurrentParams()
-    if date?
-      date = moment(date, @state.dateFormat)
-    date
-
-  componentWillMount: ->
-    date = @getDateFromParams()
-    if date?
-      @setDate(date)
-    else
-      date = moment(TimeStore.getNow())
-
-  componentWillUpdate: (nextProps, nextState) ->
-    date = @getDateFromParams()
-
-    if date? and not date.isSame(nextState.date, 'month')
-      nextState.date = date
+  getDefaultProps: ->
+    date: moment(TimeStore.getNow())
 
   setDateParams: (date) ->
     params = @context.router.getCurrentParams()
-    params.date = date.format(@state.dateFormat)
+    params.date = date.format(@props.dateFormat)
     @context.router.transitionTo('calendarByDate', params)
 
   setDate: (date) ->
-    unless moment(date).isSame(@state.date, 'month')
+    unless moment(date).isSame(@props.date, 'month')
       @setDateParams(date)
-      @setState({date})
 
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges)
@@ -144,8 +128,7 @@ CourseMonth = React.createClass
     days
 
   render: ->
-    {plansList, courseId, className} = @props
-    {date} = @state
+    {plansList, courseId, className, date} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     days = @renderDays(calendarDuration)

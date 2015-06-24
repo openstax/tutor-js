@@ -28,7 +28,7 @@ module.exports = React.createClass
   setPeriodDefaults: ->
     {date} = @getQuery() # attempt to read the start date from query params
     opensAt = if date
-      moment(date, "MM-DD-YYYY").toDate()
+      moment(date, "YYYY-MM-DD").toDate()
     else
       moment(TimeStore.getNow()).add(1, 'day').toDate()
     course = CourseStore.get(@props.courseId)
