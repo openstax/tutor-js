@@ -152,7 +152,7 @@ HomeworkPlan = React.createClass
         footer={footer}>
 
         <BS.Grid fluid>
-          <TaskPlanBuilder courseId={courseId} planId={id} />
+          <TaskPlanBuilder courseId={courseId} id={id} />
         </BS.Grid>
       </BS.Panel>
       {chooseExercises}

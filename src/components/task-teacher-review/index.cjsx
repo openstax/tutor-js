@@ -41,10 +41,12 @@ TaskTeacherReview = React.createClass
     @setState({scrollState})
 
   getInitialState: ->
+    {id} = @props
+
     currentStep: null
     scrollState: {}
     period: {}
-    isReviewLoaded: false
+    isReviewLoaded: TaskTeacherReviewStore.get(id)?
 
   componentWillMount: ->
     @setStepKey()
@@ -125,6 +127,7 @@ TaskTeacherReview = React.createClass
                 id={id}
                 courseId={courseId}
                 initialActivePeriod={periodIndex}
+                shouldOverflowData={true}
                 activeSection={@state.scrollState?.sectionLabel}
                 handlePeriodSelect={@setPeriod}
                 handlePeriodKeyUpdate={@setPeriodIndex}/>

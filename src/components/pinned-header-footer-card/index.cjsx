@@ -2,6 +2,8 @@ React = require 'react'
 _ = require 'underscore'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
+ResizeListenerMixin = require '../resize-listener-mixin'
+GetPositionMixin = require '../get-position-mixin'
 
 {PinnedHeader, CardBody, PinnableFooter} = require './sections'
 
@@ -27,7 +29,7 @@ module.exports = React.createClass
     headerHeight: 0
     containerMarginTop: '0px'
 
-  mixins: [ScrollListenerMixin]
+  mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin]
 
   componentWillMount: ->
     @previousBodyClasses = document.body.className
@@ -38,15 +40,12 @@ module.exports = React.createClass
 
   componentWillUnmount: ->
     document.body.className = @previousBodyClasses
-    window.removeEventListener('resize', @resizeListener)
-
-  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
   getOffset: ->
     if @props.fixedOffset?
       offset = @props.fixedOffset
     else
-      offset = @getPosition(@refs.header.getDOMNode())
+      offset = @getTopPosition(@refs.header.getDOMNode())
 
     offset
 
@@ -131,23 +130,15 @@ module.exports = React.createClass
     return unless container
 
     @setState(headerHeight: headerHeight)
-    if @state.pinned
-      container.style.marginTop = (headerHeight + @props.containerBuffer) + 'px'
-    else
-      container.style.marginTop = @state.containerMarginTop
 
-  resizeListener: _.throttle( ->
+  _resizeListener: ->
     @setContainerMargin()
-    # any other resize side-effects here
-  , 200)
 
   componentDidMount: ->
     @setOffset()
     @updatePinState(0)
     @setOriginalContainerMargin()
     @setContainerMargin()
-
-    window.addEventListener('resize', @resizeListener)
 
   componentDidUpdate: (prevProps, prevState) ->
     didOffsetChange = (not @state.pinned) and not (@state.offset is @getOffset())
@@ -171,7 +162,14 @@ module.exports = React.createClass
 
     childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
 
-    <div className={classes} ref='container'>
+    if @state.pinned
+      containerStyle =
+        marginTop: (@state.headerHeight + @props.containerBuffer) + 'px'
+    else
+      containerStyle =
+        marginTop: @state.containerMarginTop
+
+    <div className={classes} style={containerStyle} ref='container'>
       <PinnedHeader {...childrenProps} ref='header'>
         {@props.header}
       </PinnedHeader>

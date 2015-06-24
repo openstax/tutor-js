@@ -5,6 +5,7 @@ _ = require 'underscore'
 {ScrollListenerMixin} = require 'react-scroll-components'
 
 UserName = require './username'
+AdminLink = require './admin-link'
 CourseName = require './course-name'
 SignOut = require './signout'
 BindStoreMixin = require '../bind-store-mixin'
@@ -85,16 +86,13 @@ module.exports = React.createClass
               <i className='ui-brand-logo'></i>
             </Router.Link>
 
-    if CurrentUserStore.isAdmin()
-      adminLink = <BS.Button href='/admin' bsStyle='danger' bsSize='small'>Admin</BS.Button>
-
     <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>
         </BS.Nav>
         <BS.Nav right navbar>
-          {adminLink}
+          <AdminLink />
           <BS.DropdownButton
             eventKey={1}
             title={<UserName/>}
