@@ -176,8 +176,6 @@ ExerciseReview = React.createClass
   renderFooterButtons: ->
     {review} = @props
 
-    extraButtons = []
-
     if @canTryAnother()
       tryAnotherButton = <BS.Button
         bsStyle='primary'
@@ -229,9 +227,18 @@ ExerciseTeacherReadOnly = React.createClass
     console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
 
   isContinueEnabled: ->
-    true
+    {id} = @props
+    {answer_id} = TaskStepStore.get(id)
+    !!answer_id
 
   onContinue: ->
     @props.onNextStep()
+
+  renderFooterButtons: ->
+    {review} = @props
+
+    <div className='task-footer-buttons'>
+      {@renderContinueButton() unless review?.length}
+    </div>
 
 module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReadOnly}

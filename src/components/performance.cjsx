@@ -60,7 +60,7 @@ Performance = React.createClass
 
   renderReadingCell: (cell) ->
     status = switch cell.status
-      when 'complete' then 'Complete'
+      when 'completed' then 'Complete'
       when 'in_progress' then 'In progress'
       when 'not_started' then 'Not started'
 
