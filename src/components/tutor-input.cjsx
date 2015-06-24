@@ -75,19 +75,14 @@ TutorDateInput = React.createClass
   onBlur: (event) ->
     @setState({hasFocus: false})
 
-  momentWrapper: (date) ->
-    if (date)
-      new moment(date)
-    else
-      new moment()
-
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
 
+    now = TimeStore.getNow()
     value = if @props.value then new moment(@props.value) else null
-    min = if @props.min then new moment(@props.min) else new moment().subtract(10, 'years')
-    max = if @props.max then new moment(@props.max) else new moment().add(10, 'years')
+    min = if @props.min then new moment(@props.min) else new moment(now).subtract(10, 'years')
+    max = if @props.max then new moment(@props.max) else new moment(now).add(10, 'years')
 
     if not @props.value and not @state.hasFocus
       classes.push('empty')
