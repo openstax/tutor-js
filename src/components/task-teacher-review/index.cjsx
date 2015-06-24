@@ -33,10 +33,12 @@ TaskTeacherReview = React.createClass
     @setState({scrollState})
 
   getInitialState: ->
+    {id} = @props
+
     currentStep: 0
     scrollState: {}
     period: {}
-    isReviewLoaded: false
+    isReviewLoaded: TaskTeacherReviewStore.get(id)?
 
   componentWillMount: ->
     @setStepKey()
@@ -102,6 +104,7 @@ TaskTeacherReview = React.createClass
               <StatsModalShell
                 id={id}
                 courseId={courseId}
+                shouldOverflowData={true}
                 activeSection={@state.scrollState?.sectionLabel}
                 handlePeriodSelect={@setPeriod}/>
             </BS.Col>

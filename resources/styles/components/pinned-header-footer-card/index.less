@@ -1,9 +1,18 @@
 @pinned-top-heading-buffer: @tutor-navbar-height;
 
+.make-shy() {
+  .transform-origin(0 0);
+  .translate(0, -@pinned-top-heading-buffer);
+}
+
+.make-shy-animate() {
+  .transition(transform 0.2s ease-out);
+}
+
+
 body.pinned-shy {
   .pinned-header, .navbar-fixed-top {
-    .transform-origin(0 0);
-    .translate(0, -@pinned-top-heading-buffer);
+    .make-shy();
   }
 }
 
