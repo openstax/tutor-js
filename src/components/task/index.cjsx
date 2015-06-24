@@ -193,7 +193,9 @@ module.exports = React.createClass
     renderPanelMethod = camelCase "render-#{crumb.type}"
 
     throw new Error("BUG: panel #{crumb.type} for #{task.type} does not have a render method") unless @[renderPanelMethod]?
-    panel = @[renderPanelMethod]?(crumb.data)
+
+    panelData = _.extend({}, crumb.data, {panelType})
+    panel = @[renderPanelMethod]?(panelData)
 
     taskClasses = "task task-#{task.type}"
     taskClasses += " task-#{panelType}" if panelType?

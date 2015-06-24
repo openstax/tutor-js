@@ -60,11 +60,12 @@ CurrentUserStore = flux.createStore
   ]
 
   _token: null
+  _viewingCourseId: null
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
 
-  _getCourseRole: (courseId) ->
+  _getCourseRole: (courseId, silent = true) ->
     course = CourseStore.get(courseId)
     courseRoles = course?.roles or [{type: 'guest'}]
 
@@ -77,7 +78,15 @@ CurrentUserStore = flux.createStore
       .first()
       .value()
 
+    @_setViewingCourse(courseId) unless silent
+
     role
+
+  _setViewingCourse: (courseId) ->
+    @_viewingCourseId = courseId
+
+  _unsetViewingCourse: ->
+    @_viewingCourseId = null
 
   setToken: (@_token) -> # Save the token
 
@@ -90,6 +99,7 @@ CurrentUserStore = flux.createStore
   reset: ->
     @_token = null
     @_name = 'Guest'
+    @_viewingCourseId = null
 
   exports:
     getToken: -> @_token
@@ -97,15 +107,20 @@ CurrentUserStore = flux.createStore
     getName: -> @_name
     isAdmin: -> @_isAdmin
 
-    getCourseRole: (courseId) ->
-      @_getCourseRole(courseId)
+    getCourseRole: (courseId, silent = true) ->
+      @_getCourseRole(courseId, silent)
 
-    getDashboardRoute: (courseId) ->
-      menuRole = @_getCourseRole(courseId)
+    getViewingCourseRole: ->
+      @_getCourseRole(@_viewingCourseId) if @_viewingCourseId?
+
+    getDashboardRoute: (courseId, silent = true) ->
+      menuRole = @_getCourseRole(courseId, silent)
       @_getRouteByRole('dashboard', menuRole)
 
-    getMenuRoutes: (courseId) ->
-      menuRole = @_getCourseRole(courseId)
+    # if menu routes are being retrieved, then getCourseRole should store
+    # what courseId is being viewed.
+    getMenuRoutes: (courseId, silent = false) ->
+      menuRole = @_getCourseRole(courseId, silent)
       routes = _.keys(ROUTES)
 
       _.chain(routes)

@@ -14,9 +14,7 @@ utils =
     state
 
   _role: ->
-    # TODO get course id in here somehow, pinning it to 1 for now
-    courseId = 1
-    CurrentUserStore.getCourseRole(courseId)
+    CurrentUserStore.getViewingCourseRole()
 
   _checkQuestionFormat: (task, step, panel) ->
     # assuming 1 question right now
