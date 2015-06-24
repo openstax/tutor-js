@@ -32,8 +32,7 @@ module.exports =
 
   publish: ->
     {id} = @props
-    # Hack: Publish is save-and-publish for now
-    # TaskPlanActions.publish(id)
+    TaskPlanActions.publish(id)
     @save()
 
   save: ->
@@ -49,7 +48,7 @@ module.exports =
 
   saved: ->
     courseId = @props.courseId
-    TaskPlanStore.saved.removeListener(@saved)
+    TaskPlanActions.saved.removeListener('change', @saved)
     TaskPlanStore.isLoading(@props.id)
     @context.router.transitionTo('taskplans', {courseId})
 
