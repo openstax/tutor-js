@@ -95,6 +95,8 @@ TeacherTaskPlanListing = React.createClass
 
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
 
+    loadedCalendarProps = {plansList, courseId, date}
+
     <div className="tutor-booksplash-background"
       data-title={CourseStore.getShortName(courseId)}
       data-category={CourseStore.getCategory(courseId)}>
@@ -107,7 +109,7 @@ TeacherTaskPlanListing = React.createClass
           store={TeacherTaskPlanStore}
           actions={TeacherTaskPlanActions}
           id={courseId}
-          renderItem={-> <CourseCalendar plansList={plansList} courseId={courseId} date={date}/>}
+          renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
           renderLoading={-> <CourseCalendar className='calendar-loading'/>}
           update={@update}
         />
