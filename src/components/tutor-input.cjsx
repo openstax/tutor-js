@@ -65,6 +65,9 @@ TutorDateInput = React.createClass
     @props.onChange(date)
     @setState({expandCalendar: false, valid: valid, value: date})
 
+  getValue: ->
+    @props.value or @state.value
+
   onToggle: (open) ->
     @setState({expandCalendar: open})
 
@@ -100,7 +103,7 @@ TutorDateInput = React.createClass
       </div>
 
       <div className="date-wrapper">
-        <DatePicker 
+        <DatePicker
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
