@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
@@ -168,12 +169,41 @@ module.exports = React.createClass
       recoverFor={@recoverFor}
     />
 
+  renderEndBackButton: (data) ->
+    {id, panelType} = data
+    {courseId} = @context.router.getCurrentParams()
+
+    backButton = <Router.Link
+      to='viewStudentDashboard'
+      params={{courseId}}
+      className='btn btn-primary'>Back to Dashboard</Router.Link>
+
+    if TaskStore.isPractice(id)
+      backButton = <Router.Link
+        to='viewGuide'
+        params={{courseId}}
+        className='btn btn-default'>Return to Flight Path</Router.Link>
+
+    if panelType is 'teacher-read-only'
+      backButton = <Router.Link
+        to='viewPerformance'
+        params={{courseId}}
+        className='btn btn-primary'>Return to Performance Report</Router.Link>
+
+    backButton
+
   renderEnd: (data) ->
     {courseId} = @context.router.getCurrentParams()
     type = if data.type then data.type else 'task'
     End = Ends.get(type)
 
-    panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
+    backButton = @renderEndBackButton(data)
+
+    panel = <End
+      courseId={courseId}
+      taskId={data.id}
+      reloadPractice={@reloadTask}
+      backButton={backButton} />
 
   renderSpacer: (data) ->
     <Spacer onNextStep={@onNextStep} taskId={@props.id}/>

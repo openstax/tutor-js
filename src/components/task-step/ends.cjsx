@@ -37,7 +37,7 @@ PracticeEnd = React.createClass
     reloadPractice: React.PropTypes.func.isRequired
 
   render: ->
-    {courseId, taskId, reloadPractice} = @props
+    {courseId, taskId, reloadPractice, backButton} = @props
 
     pageIds = CourseStore.getPracticePageIds(courseId)
 
@@ -51,10 +51,7 @@ PracticeEnd = React.createClass
           forceCreate={true}>
           Do more practice
         </PracticeButton>
-        <Router.Link
-          to='viewGuide'
-          params={{courseId}}
-          className='btn btn-default'>Return to Flight Path</Router.Link>
+        {backButton}
       </div>
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
@@ -78,7 +75,7 @@ HomeworkEnd = React.createClass
     @setState({})
 
   renderReviewSteps: (taskId, steps, label, type) ->
-    {courseId} = @props
+    {courseId, backButton} = @props
     task = TaskStore.get(taskId)
 
     stepsReview =
@@ -92,12 +89,9 @@ HomeworkEnd = React.createClass
           review={type}
           focus={type is 'todo'}/>
         <PinnableFooter>
-          <Router.Link
-            to='viewStudentDashboard'
-            params={{courseId}}
-            className='btn btn-primary'>Back to Dashboard</Router.Link>
-            <Details task={task} key="task-#{taskId}-details"/>
-            <div className='task-title'>{task.title}</div>
+          {backButton}
+          <Details task={task} key="task-#{taskId}-details"/>
+          <div className='task-title'>{task.title}</div>
         </PinnableFooter>
       </div>
 
@@ -131,14 +125,11 @@ HomeworkEnd = React.createClass
     </div>
 
   renderBeforeDue: (taskId) ->
-    {courseId} = @props
+    {courseId, backButton} = @props
     completedStepsCount = TaskStore.getCompletedStepsCount(taskId)
     totalStepsCount = TaskStore.getTotalStepsCount(taskId)
 
-    footer = <Router.Link
-      to='viewStudentDashboard'
-      params={{courseId}}
-      className='btn btn-primary'>Back to Dashboard</Router.Link>
+    footer = backButton
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
@@ -168,11 +159,8 @@ TaskEnd = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   render: ->
-    {courseId} = @props
-    footer = <Router.Link
-      to='viewStudentDashboard'
-      params={{courseId}}
-      className='btn btn-primary'>Back to Dashboard</Router.Link>
+    {courseId, backButton} = @props
+    footer = backButton
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>
