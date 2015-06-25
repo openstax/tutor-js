@@ -173,8 +173,7 @@ TaskConfig =
       _.chain(getSteps(@_steps[taskId]))
         .pluck('chapter_section')
         .compact()
-        .map( (cs) -> cs.join('.') )
-        .uniq()
+        .uniq( (cs) -> cs.join('.') )
         .value()
 
 
