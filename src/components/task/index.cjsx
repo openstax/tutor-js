@@ -8,13 +8,12 @@ camelCase = require 'camelcase'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
 CrumbMixin = require './crumb-mixin'
+StepFooterMixin = require '../task-step/step-footer-mixin'
 
 TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
-Details = require './details'
-{ViewingAsStudentNameShell} = require './viewing-as-student-name'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -26,7 +25,7 @@ module.exports = React.createClass
 
   displayName: 'ReadingTask'
 
-  mixins: [CrumbMixin]
+  mixins: [StepFooterMixin, CrumbMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -174,46 +173,23 @@ module.exports = React.createClass
       recoverFor={@recoverFor}
     />
 
-  renderEndBackButton: (data) ->
-    {id, panelType} = data
+  renderDefaultEndFooter: (data) ->
+    {id} = @props
     {courseId} = @context.router.getCurrentParams()
 
-    backButton = <Router.Link
-      to='viewStudentDashboard'
-      params={{courseId}}
-      className='btn btn-primary'>Back to Dashboard</Router.Link>
+    taskFooterParams =
+      stepId: data.id
+      taskId: id
+      courseId: courseId
 
-    if TaskStore.isPractice(id)
-      backButton = <Router.Link
-        to='viewGuide'
-        params={{courseId}}
-        className='btn btn-default'>Return to Flight Path</Router.Link>
-
-    if panelType is 'teacher-read-only'
-      backButton = <Router.Link
-        to='viewPerformance'
-        params={{courseId}}
-        className='btn btn-primary'>Return to Performance Report</Router.Link>
-
-    backButton
-
-  renderDefaultFooter: (data) ->
-    backButton = @renderEndBackButton(data)
-    {courseId} = @context.router.getCurrentParams()
-
-    footer = <div>
-      {backButton}
-      <Details task={data} key="task-#{data.id}-details"/>
-      <div className='task-title'>{data.title}</div>
-      <ViewingAsStudentNameShell courseId={courseId} taskId={data.id} />
-    </div>
+    @renderEndFooter(taskFooterParams)
 
   renderEnd: (data) ->
     {courseId} = @context.router.getCurrentParams()
     type = if data.type then data.type else 'task'
     End = Ends.get(type)
 
-    footer = @renderDefaultFooter(data)
+    footer = @renderDefaultEndFooter(data)
 
     panel = <End
       courseId={courseId}

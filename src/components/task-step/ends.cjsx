@@ -7,6 +7,7 @@ _ = require 'underscore'
 
 PracticeButton = require '../buttons/practice-button'
 BindStoreMixin = require '../bind-store-mixin'
+StepFooterMixin = require './step-footer-mixin'
 
 TaskStep = require './index'
 {CourseStore} = require '../../flux/course'
@@ -14,7 +15,6 @@ TaskStep = require './index'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
 Review = require '../task/review'
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 # A function to render the status message.
 # Shared between the various ending components
@@ -36,9 +36,15 @@ PracticeEnd = React.createClass
     reloadPractice: React.PropTypes.func.isRequired
 
   render: ->
-    {courseId, taskId, reloadPractice, backButton} = @props
+    {courseId, taskId, reloadPractice} = @props
 
     pageIds = CourseStore.getPracticePageIds(courseId)
+    backButton = <Router.Link
+      to='viewGuide'
+      params={{courseId}}
+      className='btn btn-default'>
+        Return to Flight Path
+    </Router.Link>
 
     # custom footer for practices
     footer =
@@ -84,6 +90,7 @@ HomeworkEnd = React.createClass
         <Review
           steps={steps}
           taskId={taskId}
+          courseId={courseId}
           goToStep={@goToStep}
           onNextStep={@onNextStep}
           review={type}

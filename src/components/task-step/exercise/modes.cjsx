@@ -1,9 +1,12 @@
 React = require 'react'
+Router = require 'react-router'
 moment = require 'moment'
 
 BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 StepMixin = require '../step-mixin'
+StepFooterMixin = require '../step-footer-mixin'
+
 Question = require '../../question'
 FreeResponse = require './free-response'
 ExerciseGroup = require './group'
@@ -26,7 +29,7 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
 
   getInitialState: ->
     {id} = @props
@@ -73,7 +76,7 @@ ExerciseFreeResponse = React.createClass
 
 ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -113,7 +116,7 @@ ExerciseMultiChoice = React.createClass
 
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -200,7 +203,7 @@ ExerciseReview = React.createClass
 
 ExerciseTeacherReadOnly = React.createClass
   displayName: 'ExerciseTeacherReadOnly'
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -233,12 +236,5 @@ ExerciseTeacherReadOnly = React.createClass
 
   onContinue: ->
     @props.onNextStep()
-
-  renderFooterButtons: ->
-    {review} = @props
-
-    <div className='task-footer-buttons'>
-      {@renderContinueButton() unless review?.length}
-    </div>
 
 module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReadOnly}
