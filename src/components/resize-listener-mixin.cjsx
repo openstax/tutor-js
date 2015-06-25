@@ -12,9 +12,6 @@ module.exports =
     windowEl: {}
     componentEl: {}
     sizesInitial: {}
-    resizing:
-      height: false
-      width: false
 
   componentWillMount: ->
     # need to define @resizeListener so that we can throttle resize effect
@@ -28,18 +25,13 @@ module.exports =
   componentWillUnmount: ->
     window.removeEventListener('resize', @resizeListener)
 
-  componentWillUpdate: (nextProps, nextState) ->
-    if _.isEqual(@state.windowEl, nextState.windowEl)
-      if @state.resizing.height or @state.resizing.width
-        nextState.resizing.height = false
-        nextState.resizing.width = false
-    else
-      nextState.resizing.height = not (@state.windowEl.height is nextState.windowEl.height)
-      nextState.resizing.width = not (@state.windowEl.width is nextState.windowEl.width)
-
   resizeEffect: (resizeEvent) ->
-    @setSizeState(resizeEvent)
-    @_resizeListener?(resizeEvent)
+    windowEl = @_getWindowSize()
+    componentEl = @_getComponentSize()
+    sizes = {windowEl, componentEl}
+
+    @setState(sizes)
+    @_resizeListener?(sizes, resizeEvent)
 
   _getWindowSize: ->
     width = window.innerWidth
@@ -60,9 +52,3 @@ module.exports =
     sizesInitial = {windowEl, componentEl}
 
     @setState({sizesInitial, windowEl, componentEl})
-
-  setSizeState: (resizeEvent) ->
-    windowEl = @_getWindowSize()
-    componentEl = @_getComponentSize()
-
-    @setState({windowEl, componentEl})
