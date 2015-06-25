@@ -25,44 +25,73 @@ CoursePlan = React.createClass
     activeHeight: 35
 
   getInitialState: ->
-    triggerPlanStats: false
     isViewingStats: false
 
-  showPlanStats: ->
-    if @state.triggerPlanStats and not @state.isViewingStats and @refs.trigger?
+  # utility functions for functions called in lifecycle methods
+  _doesPlanMatchesRoute: ->
+    {planId} = @context.router.getCurrentParams()
+    planId is @props.item.plan.id
+
+  _isPlanNotMatchingRouteOpen: ->
+    {planId} = @context.router.getCurrentParams()
+    not @_doesPlanMatchesRoute() and @state.isViewingStats
+
+  _isPlanMatchRouteNotOpen: ->
+    {planId} = @context.router.getCurrentParams()
+    @_doesPlanMatchesRoute() and not @state.isViewingStats
+
+  _getExpectedRoute: (isViewingStats) ->
+    closedRouteName = 'calendarByDate'
+    openedRouteName = 'calendarViewPlanStats'
+
+    if isViewingStats then openedRouteName else closedRouteName
+
+  _getExpectedParams: (isViewingStats) ->
+    planId = @props.item.plan.id
+
+    params = @context.router.getCurrentParams()
+    closedParams = _.omit(params, 'planId')
+    openedParams = _.extend({}, params, {planId})
+
+    if isViewingStats then openedParams else closedParams
+
+  _getMostSpecificActiveRouteName: ->
+    allMatchingRoutes = @context.router.getCurrentRoutes()
+    mostSpecificRoute = _.last(allMatchingRoutes).name
+
+  _updateRoute: (isViewingStats) ->
+    expectedRoute = @_getExpectedRoute(isViewingStats)
+    expectedParams = @_getExpectedParams(isViewingStats)
+    currentRouteName = @_getMostSpecificActiveRouteName()
+
+    @context.router.transitionTo(expectedRoute, expectedParams) unless currentRouteName is expectedRoute
+
+  # handles when route changes and modal show/hide needs to sync
+  # i.e. when using back or forward on browser
+  syncStatsWithState: ->
+    return unless @refs.trigger?
+
+    if @_isPlanMatchRouteNotOpen()
       triggerEl = @refs.trigger.getDOMNode()
       triggerEl.click()
+    else if @_isPlanNotMatchingRouteOpen()
+      @refs.trigger.hide()
 
-  updateViewPlanStatesByParams: ->
-    {planId} = @context.router.getCurrentParams()
-
-    if planId is @props.item.plan.id
-      @setState(triggerPlanStats: true)
-
-  componentWillMount: ->
-    @updateViewPlanStatesByParams()
-
-  componentWillUpdate: (nextProps, nextState) ->
-    {planId} = @context.router.getCurrentParams()
-
-    if (planId is @props.item.plan.id) and not nextState.isViewingStats
-      nextState.triggerPlanStats = true
-    else if not planId? and @state.isViewingStats
-      # close modal if there is not a planId in the route and modal is open
-      nextState.triggerPlanStats = false
-      nextState.isViewingStats = false
-      @refs.trigger.hide(true)
+  # handles when plan is clicked directly and viewing state and route both need to update
+  setIsViewingStats: (isViewingStats) ->
+    @_updateRoute(isViewingStats)
+    @setState({isViewingStats})
 
   componentDidMount: ->
     @closePlanOnModalHide()
     @adjustForLongLabels()
 
-    @showPlanStats()
+    @syncStatsWithState()
 
   componentDidUpdate: ->
     @adjustForLongLabels()
 
-    @showPlanStats()
+    @syncStatsWithState()
 
   adjustForLongLabels: ->
     labelDOMNode = @refs.label?.getDOMNode()
@@ -82,37 +111,25 @@ CoursePlan = React.createClass
       hide = @refs.trigger.hide
       trigger = React.findDOMNode(@refs.trigger)
       syncClosePlan = @syncClosePlan
-      updateClosePlan = @updateClosePlan
 
       # alias modal hide to also make plan look un-selected
-      @refs.trigger.hide  = (silent = false) ->
+      @refs.trigger.hide = ->
         hide()
         syncClosePlan(trigger)
-        updateClosePlan() unless silent
 
   syncOpenPlan: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
     samePlans.forEach((element) ->
       element.classList.add('open')
     )
-    params = @context.router.getCurrentParams()
-    params.planId = @props.item.plan.id
-    @setState(triggerPlanStats: false, isViewingStats: true)
-    # store plan id in route as part of history if opened
-    # if a link from the modal is clicked, then back will transition back
-    # with this plan stat open
-    @context.router.transitionTo('calendarViewPlanStats', params)
+    @setIsViewingStats(true)
 
   syncClosePlan: (trigger) ->
     samePlans = @findPlanNodes(trigger)
     samePlans.forEach((element) ->
       element.classList.remove('open')
     )
-
-  updateClosePlan: ->
-    params = @context.router.getCurrentParams()
-    @setState(isViewingStats: false)
-    @context.router.transitionTo('calendarByDate', params)
+    @setIsViewingStats(false)
 
   syncHover: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)
