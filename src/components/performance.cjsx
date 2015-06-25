@@ -2,9 +2,17 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+FixedDataTable = require 'fixed-data-table'
+Table = FixedDataTable.Table
+Column = FixedDataTable.Column
+ColumnGroup = FixedDataTable.ColumnGroup
+
 {PerformanceStore, PerformanceActions} = require '../flux/performance'
 LoadableItem = require './loadable-item'
 {CoursePeriodsNavShell} = require './course-periods-nav'
+
+
+
 
 Performance = React.createClass
   displayName: 'Performance'
@@ -14,6 +22,9 @@ Performance = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+
+
+
 
   getInitialState: ->
     periodIndex = 0
@@ -39,7 +50,19 @@ Performance = React.createClass
   renderHeadingCell: (heading, i) ->
     if i is @state.sortIndex
       classes = @state.sortOrder
-    <th className={classes} title={heading.title} onClick={@sortClick}>{heading.title}</th>
+    else
+      classes = ''
+    if heading.title is 'Student'
+      fixed = true
+    else
+      fixed = false
+    #<th className={classes} title={heading.title} onClick={@sortClick}>{heading.title}</th>
+    customHeader = <div onClick={@testClick} className={classes}>{heading.title}</div>
+    <Column label={heading.title}
+    headerRenderer={-> customHeader}
+    width={300}
+    fixed={fixed}
+    dataKey={i} />
 
   renderAverageCell: (heading) ->
     if heading.class_average
@@ -48,10 +71,8 @@ Performance = React.createClass
 
   renderStudentRow: (student_data, i) ->
     cells = _.map(student_data.data, @renderStudentCell)
-    <tr>
-      <td>{student_data.name}</td>
-      {cells}
-    </tr>
+    cells.unshift(student_data.name)
+    cells
 
   renderStudentCell: (cell) ->
     switch cell.type
@@ -65,12 +86,11 @@ Performance = React.createClass
       when 'in_progress' then 'In progress'
       when 'not_started' then 'Not started'
 
-    <td>{status}</td>
+    status
 
   renderHomeworkCell: (cell) ->
-    <td>
-      {cell.correct_exercise_count}/{cell.exercise_count}
-    </td>
+    cell.correct_exercise_count + ' / ' + cell.exercise_count
+    
 
   getPerfByPeriod: (periodIndex) ->
     console.log(periodIndex)
@@ -84,11 +104,50 @@ Performance = React.createClass
     #periodPerf = _.findWhere(perf, {period_id: period.id})
     #handlePeriodSelect?(period)
 
+
+
+  rowSort: (rowIndex) ->
+    performance = PerformanceStore.get(@props.courseId)
+
+    if @state.isNameSort
+      sortData = _.sortBy(performance.students, 'name')
+    else
+      sortData = _.sortBy(performance.students, (d) =>
+        switch d.data[@state.sortIndex].type
+          when 'homework' then d.data[@state.sortIndex].correct_exercise_count
+          when 'reading' then d.data[@state.sortIndex].status
+        )
+
+    if @state.isNameSort
+      nameClass = @state.sortOrder
+
+    if @state.sortOrder is 'is-descending'
+      sortData.reverse()
+      @state.sortOrder = 'is-ascending'
+    else
+      @state.sortOrder = 'is-descending'
+
+
+    #removed sortData temporarily from below
+    student_rows = _.map(performance.students, @renderStudentRow)
+    student_rows[rowIndex]
+
+
+
+
+  testClick: ->
+    console.log('custom header test click')
+
   render: ->
+
     ##{performance} = @state
     performance = PerformanceStore.get(@props.courseId)
 
-    headings = _.map(performance.data_headings, @renderHeadingCell)
+
+    headers = performance.data_headings
+    headers.unshift({"title":"Student"})
+
+    headings = _.map(headers, @renderHeadingCell)
     averages = _.map(performance.data_headings, @renderAverageCell)
 
     if @state.isNameSort
@@ -110,36 +169,29 @@ Performance = React.createClass
       @state.sortOrder = 'is-descending'
 
     student_rows = _.map(sortData, @renderStudentRow)
+    console.log(performance)
+
+      
 
 
     <div className='course-performance-wrap'>
-      <span className='course-performance-header'>Performance Report</span>
+      <span className='course-performance-title'>Performance Report</span>
       <CoursePeriodsNavShell
         handleSelect={@handlePeriodSelect}
         intialActive={@state.period}
         courseId={@props.courseId} />
       <BS.Panel className='course-performance-container'>
-        <div className='-course-performance-group'>
-          <div className='-course-performance-heading'>
+        <Table
+          rowHeight={50}
+          rowGetter={@rowSort}
+          rowsCount={sortData.length}
+          width={window.innerWidth - 500}
+          height={window.innerHeight - 500}
+          headerHeight={50}>
 
-          </div>
-          <BS.Table className='-course-performance-table'>
-            <thead>
-              <tr>
-                <th className="#{nameClass} student-name" onClick={@sortClick}>Student</th>
-                {headings}
-              </tr>
-              <tr>
-                <th>Class Average</th>
-                {averages}
-              </tr>
-            </thead>
-            <tbody>
-              {student_rows}
-            </tbody>
-          </BS.Table>
+          {headings}
+        </Table>
 
-        </div>
       </BS.Panel>
     </div>
 
