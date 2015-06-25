@@ -159,8 +159,14 @@ TaskEnd = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   render: ->
-    {courseId, backButton} = @props
-    footer = backButton
+    {courseId, taskId, backButton} = @props
+    task = TaskStore.get(taskId)
+
+    footer = <PinnableFooter>
+        {backButton}
+        <Details task={task} key="task-#{taskId}-details"/>
+        <div className='task-title'>{task.title}</div>
+      </PinnableFooter>
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>
