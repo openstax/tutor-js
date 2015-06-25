@@ -13,6 +13,8 @@ TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
+Details = require './details'
+{ViewingAsStudentNameShell} = require './viewing-as-student-name'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -160,9 +162,12 @@ module.exports = React.createClass
     _.findWhere crumbs, {key: crumbKey}
 
   renderStep: (data) ->
+    {courseId} = @context.router.getCurrentParams()
+
     <TaskStep
       id={data.id}
       taskId={@props.id}
+      courseId={courseId}
       goToStep={@goToStep}
       onNextStep={@onNextStep}
       refreshStep={@refreshStep}
@@ -192,21 +197,33 @@ module.exports = React.createClass
 
     backButton
 
+  renderDefaultFooter: (data) ->
+    backButton = @renderEndBackButton(data)
+    {courseId} = @context.router.getCurrentParams()
+
+    footer = <div>
+      {backButton}
+      <Details task={data} key="task-#{data.id}-details"/>
+      <div className='task-title'>{data.title}</div>
+      <ViewingAsStudentNameShell courseId={courseId} taskId={data.id} />
+    </div>
+
   renderEnd: (data) ->
     {courseId} = @context.router.getCurrentParams()
     type = if data.type then data.type else 'task'
     End = Ends.get(type)
 
-    backButton = @renderEndBackButton(data)
+    footer = @renderDefaultFooter(data)
 
     panel = <End
       courseId={courseId}
       taskId={data.id}
       reloadPractice={@reloadTask}
-      backButton={backButton} />
+      footer={footer} />
 
   renderSpacer: (data) ->
-    <Spacer onNextStep={@onNextStep} taskId={@props.id}/>
+    {courseId} = @context.router.getCurrentParams()
+    <Spacer onNextStep={@onNextStep} taskId={@props.id} courseId={courseId}/>
 
   # add render methods for different panel types as needed here
 

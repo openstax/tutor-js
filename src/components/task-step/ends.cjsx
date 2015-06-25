@@ -13,7 +13,6 @@ TaskStep = require './index'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
-Details = require '../task/details'
 Review = require '../task/review'
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
@@ -41,6 +40,7 @@ PracticeEnd = React.createClass
 
     pageIds = CourseStore.getPracticePageIds(courseId)
 
+    # custom footer for practices
     footer =
       <div className='-practice-end'>
         <PracticeButton
@@ -75,7 +75,7 @@ HomeworkEnd = React.createClass
     @setState({})
 
   renderReviewSteps: (taskId, steps, label, type) ->
-    {courseId, backButton} = @props
+    {courseId} = @props
     task = TaskStore.get(taskId)
 
     stepsReview =
@@ -88,14 +88,11 @@ HomeworkEnd = React.createClass
           onNextStep={@onNextStep}
           review={type}
           focus={type is 'todo'}/>
-        <PinnableFooter>
-          {backButton}
-          <Details task={task} key="task-#{taskId}-details"/>
-          <div className='task-title'>{task.title}</div>
-        </PinnableFooter>
       </div>
 
   renderAfterDue: (taskId) ->
+    {footer} = @props
+
     completedSteps = TaskStore.getCompletedSteps taskId
     incompleteSteps = TaskStore.getIncompleteSteps taskId
     totalStepsCount = TaskStore.getTotalStepsCount taskId
@@ -122,14 +119,15 @@ HomeworkEnd = React.createClass
       </CardBody>
       {todoReview}
       {completedReview}
+      <PinnableFooter>
+        {footer}
+      </PinnableFooter>
     </div>
 
   renderBeforeDue: (taskId) ->
-    {courseId, backButton} = @props
+    {footer} = @props
     completedStepsCount = TaskStore.getCompletedStepsCount(taskId)
     totalStepsCount = TaskStore.getTotalStepsCount(taskId)
-
-    footer = backButton
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
@@ -154,19 +152,8 @@ HomeworkEnd = React.createClass
 
 TaskEnd = React.createClass
   displayName: 'TaskEnd'
-
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-
   render: ->
-    {courseId, taskId, backButton} = @props
-    task = TaskStore.get(taskId)
-
-    footer = <PinnableFooter>
-        {backButton}
-        <Details task={task} key="task-#{taskId}-details"/>
-        <div className='task-title'>{task.title}</div>
-      </PinnableFooter>
+    {footer} = @props
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>

@@ -1,5 +1,6 @@
 React = require 'react'
 camelCase = require 'camelcase'
+_ = require 'underscore'
 
 {TaskStepStore} = require '../../../flux/task-step'
 {TaskStore} = require '../../../flux/task'
@@ -11,6 +12,7 @@ module.exports = React.createClass
   displayName: 'Exercise'
   propTypes:
     id: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
@@ -25,47 +27,35 @@ module.exports = React.createClass
     pinned: true
 
   renderReview: (id) ->
+    reviewProps = @props
+
     <ExerciseReview
+      {...reviewProps}
       id={id}
-      onNextStep={@props.onNextStep}
-      goToStep={@props.goToStep}
-      onStepCompleted={@props.onStepCompleted}
-      refreshStep={@props.refreshStep}
-      recoverFor={@props.recoverFor}
-      review={@props.review}
-      pinned={@props.pinned}
-      taskId={@props.taskId}
     />
 
   renderMultipleChoice: (id) ->
+    multipleChoiceProps = _.omit(@props, 'goToStep', 'refreshStep', 'recoverFor')
+
     <ExerciseMultiChoice
+      {...multipleChoiceProps}
       id={id}
-      onStepCompleted={@props.onStepCompleted}
-      onNextStep={@props.onNextStep}
-      review={@props.review}
-      pinned={@props.pinned}
-      taskId={@props.taskId}
     />
 
   renderFreeResponse: (id) ->
+    freeResponseProps = _.omit(@props, 'onStepCompleted', 'goToStep', 'onNextStep', 'refreshStep', 'recoverFor')
+
     <ExerciseFreeResponse
+      {...freeResponseProps}
       id={id}
-      focus={@props.focus}
-      review={@props.review}
-      pinned={@props.pinned}
-      taskId={@props.taskId}
     />
 
   renderTeacherReadOnly: (id) ->
+    teacherReadOnlyProps = _.omit(@props, 'onStepCompleted')
+
     <ExerciseTeacherReadOnly
+      {...teacherReadOnlyProps}
       id={id}
-      onNextStep={@props.onNextStep}
-      goToStep={@props.goToStep}
-      refreshStep={@props.refreshStep}
-      recoverFor={@props.recoverFor}
-      review={@props.review}
-      pinned={@props.pinned}
-      taskId={@props.taskId}
     />
 
   # add render methods for different panel types as needed here
