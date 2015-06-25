@@ -2,7 +2,6 @@ React = require 'react'
 
 module.exports = React.createClass
   render: ->
-    @props.className ?= ''
-    @props.className = "#{@props.className} close-x close"
-
-    <button {...@props} aria-role='close'></button>
+    classNames = ["close-x close"]
+    classNames.push(@props.className) if @props.className
+    <button {...@props} className={classNames.join(' ')} aria-role='close'></button>
