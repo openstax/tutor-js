@@ -11,12 +11,12 @@ findAllPages = (section) ->
         pages.push(page)
   pages
 
-findSectionId = (section, id) ->
-  if section.id is id and "part" is section.type
+findChapterSection = (section, chapterNumber) ->
+  if _.first(section.chapter_section) is chapterNumber and "part" is section.type
     return section
   if section.children
     for child in section.children
-      return found if found = findSectionId(child, id)
+      return found if found = findChapterSection(child, chapterNumber)
   null
 
 ReferenceBookConfig = {
@@ -27,7 +27,7 @@ ReferenceBookConfig = {
 
     getChapterFirstPage: (courseId, chapterId) ->
       toc = @_get(courseId)?['0']
-      section = findSectionId(toc, chapterId)
+      section = findChapterSection(toc, parseInt(chapterId, 10))
       _.first(section?.children)
 
     getPages: (courseId) ->

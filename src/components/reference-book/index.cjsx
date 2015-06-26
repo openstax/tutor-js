@@ -31,9 +31,9 @@ ReferenceBookPageShell = React.createClass
   mixins: [ Router.State ]
 
   render: ->
-    {courseId, cnxId, chapterId} = @getParams()
-    if chapterId and not cnxId
-      page = ReferenceBookStore.getChapterFirstPage(courseId, chapterId)
+    {courseId, cnxId, chapterNumber} = @getParams()
+    if chapterNumber and not cnxId
+      page = ReferenceBookStore.getChapterFirstPage(courseId, chapterNumber)
       cnxId = page?.cnx_id
     <LoadableItem
       id={cnxId}
