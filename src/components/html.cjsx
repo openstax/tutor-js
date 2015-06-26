@@ -45,5 +45,4 @@ module.exports = React.createClass
     links = root.querySelectorAll('a')
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
-
     typesetMath(root)
