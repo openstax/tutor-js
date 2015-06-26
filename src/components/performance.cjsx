@@ -12,8 +12,6 @@ LoadableItem = require './loadable-item'
 {CoursePeriodsNavShell} = require './course-periods-nav'
 
 
-
-
 Performance = React.createClass
   displayName: 'Performance'
 
@@ -24,28 +22,20 @@ Performance = React.createClass
     courseId: React.PropTypes.string.isRequired
 
 
-
-
   getInitialState: ->
     periodIndex = 0
     performance = @getPerfByPeriod(periodIndex)
     sortOrder: 'is-ascending'
-    sortIndex: -1
-    isNameSort: true
+    sortIndex: 0
 
-  sortClick: (event) ->
-    isActiveSort = event.target.classList.contains('is-ascending', 'is-descending')
-    # this is a special case for the name header data which is one level above nested data
-    if not _.contains(event.target.classList, 'student-name')
-      @setState({isNameSort: false})
-    else
-      @setState({isNameSort: true})
-    if not isActiveSort
+  sortClick: (columnIndex, classes) ->
+    if not classes
       @state.sortOrder = 'is-ascending'
-    @sortData(event.target.cellIndex)
+    @sortData(columnIndex)
 
   sortData: (index) ->
-    @setState({sortIndex: index - 1})
+    @setState({sortIndex: index})
+    console.log(@state)
 
   renderHeadingCell: (heading, i) ->
     if i is @state.sortIndex
@@ -56,36 +46,42 @@ Performance = React.createClass
       fixed = true
     else
       fixed = false
-    #<th className={classes} title={heading.title} onClick={@sortClick}>{heading.title}</th>
-    customHeader = <div onClick={@testClick} className={classes}>{heading.title}</div>
-    <Column label={heading.title}
+    customHeader =
+      <div 
+        dataKey={i} 
+        onClick={@sortClick.bind(@, i, classes)} 
+        className={'header-cell ' + classes}>
+          {heading.title}
+      </div>
+    <Column 
+    label={heading.title}
     headerRenderer={-> customHeader}
     width={300}
     fixed={fixed}
+    isResizable=true
     dataKey={i} />
 
   renderAverageCell: (heading) ->
     if heading.class_average
       classAverage = Math.round(heading.class_average)
-    <th>{classAverage}</th>
+    classAverage
 
-  renderStudentRow: (student_data, i) ->
+  renderStudentRow: (student_data) ->
     cells = _.map(student_data.data, @renderStudentCell)
-    cells.unshift(student_data.name)
     cells
 
   renderStudentCell: (cell) ->
     switch cell.type
       when 'reading' then @renderReadingCell(cell)
       when 'homework' then @renderHomeworkCell(cell)
+      when 'name' then cell.title
       else throw new Error('Unknown cell type')
 
   renderReadingCell: (cell) ->
     status = switch cell.status
-      when 'complete' then 'Complete'
+      when 'completed' then 'Complete'
       when 'in_progress' then 'In progress'
       when 'not_started' then 'Not started'
-
     status
 
   renderHomeworkCell: (cell) ->
@@ -105,62 +101,27 @@ Performance = React.createClass
     #handlePeriodSelect?(period)
 
 
-
-  rowSort: (rowIndex) ->
-    performance = PerformanceStore.get(@props.courseId)
-
-    if @state.isNameSort
-      sortData = _.sortBy(performance.students, 'name')
-    else
-      sortData = _.sortBy(performance.students, (d) =>
-        switch d.data[@state.sortIndex].type
-          when 'homework' then d.data[@state.sortIndex].correct_exercise_count
-          when 'reading' then d.data[@state.sortIndex].status
-        )
-
-    if @state.isNameSort
-      nameClass = @state.sortOrder
-
-    if @state.sortOrder is 'is-descending'
-      sortData.reverse()
-      @state.sortOrder = 'is-ascending'
-    else
-      @state.sortOrder = 'is-descending'
-
-
-    #removed sortData temporarily from below
-    student_rows = _.map(performance.students, @renderStudentRow)
-    student_rows[rowIndex]
-
-
-
-
-  testClick: ->
-    console.log('custom header test click')
-
   render: ->
 
     ##{performance} = @state
     performance = PerformanceStore.get(@props.courseId)
 
-
     headers = performance.data_headings
     headers.unshift({"title":"Student"})
 
     headings = _.map(headers, @renderHeadingCell)
-    averages = _.map(performance.data_headings, @renderAverageCell)
+    #averages = _.map(performance.data_headings, @renderAverageCell)
 
-    if @state.isNameSort
-      sortData = _.sortBy(performance.students, 'name')
-    else
-      sortData = _.sortBy(performance.students, (d) =>
-        switch d.data[@state.sortIndex].type
-          when 'homework' then d.data[@state.sortIndex].correct_exercise_count
-          when 'reading' then d.data[@state.sortIndex].status
-        )
+    students = performance.students
+    for student in students
+      student.data.unshift({"title":student.name, "type":"name"})
 
-    if @state.isNameSort
-      nameClass = @state.sortOrder
+    sortData = _.sortBy(performance.students, (d) =>
+      switch d.data[@state.sortIndex].type
+        when 'homework' then d.data[@state.sortIndex].correct_exercise_count
+        when 'reading' then d.data[@state.sortIndex].status
+        when 'name' then d.data[@state.sortIndex].title
+      )
 
     if @state.sortOrder is 'is-descending'
       sortData.reverse()
@@ -169,9 +130,6 @@ Performance = React.createClass
       @state.sortOrder = 'is-descending'
 
     student_rows = _.map(sortData, @renderStudentRow)
-    console.log(performance)
-
-      
 
 
     <div className='course-performance-wrap'>
@@ -182,11 +140,12 @@ Performance = React.createClass
         courseId={@props.courseId} />
       <BS.Panel className='course-performance-container'>
         <Table
+          onColumnResizeEndCallback={-> console.log('onColumnResizeEndCallback')}
           rowHeight={50}
-          rowGetter={@rowSort}
+          rowGetter={(rowIndex) -> student_rows[rowIndex]}
           rowsCount={sortData.length}
-          width={window.innerWidth - 500}
-          height={window.innerHeight - 500}
+          width={1600}
+          height={500}
           headerHeight={50}>
 
           {headings}

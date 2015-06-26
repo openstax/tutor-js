@@ -20,37 +20,24 @@
     overflow-x: auto;
     max-width: 100%;
   }
-  table {
-    th {
-      .no-select();
-      cursor: pointer;
-      position: relative;
-      white-space: nowrap;
-      max-width: 150px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      &.is-ascending:after {
-        position: absolute;
-        right: 0;
-        content: @fa-var-sort-asc;
-        .fa-icon();
-      }
-      &.is-descending:after {
-        position: absolute;
-        right: 0;
-        content: @fa-var-sort-desc;
-        .fa-icon();
-      }
+
+
+  .header-cell {
+    .no-select();
+    cursor: pointer;
+    &.is-ascending:after {
+      padding-left:8px;
+      content: @fa-var-sort-asc;
+      .fa-icon();
     }
-    td {
-      &.student-name {
-        white-space: nowrap;
-      }
-    }
-    tbody tr:nth-child(odd) {
-      background: @tutor-neutral-lightest;
+    &.is-descending:after {
+      padding-left:8px;
+      content: @fa-var-sort-desc;
+      .fa-icon();
     }
   }
+
+
 }
 
 /**

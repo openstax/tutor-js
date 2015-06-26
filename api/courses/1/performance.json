@@ -23,7 +23,7 @@
         {
           "type": "reading",
           "id": "456",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "type": "homework",
@@ -36,7 +36,7 @@
         {
           "type": "reading",
           "id": "123",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "type": "homework",
@@ -55,7 +55,7 @@
         {
           "type": "reading",
           "id": "257",
-          "status": "complete"
+          "status": "completed"
         },
         {
           "type": "homework",
