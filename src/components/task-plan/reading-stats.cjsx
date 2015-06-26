@@ -13,15 +13,19 @@ Stats = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     activeSection: React.PropTypes.string
+    initialActivePeriod: React.PropTypes.number.isRequired
+    handlePeriodKeyUpdate: React.PropTypes.func
+    handlePeriodSelect: React.PropTypes.func
     shouldOverflowData: React.PropTypes.bool
+
+  getDefaultProps: ->
+    initialActivePeriod: 0
+    shouldOverflowData: false
 
   mixins: [ChapterSectionMixin]
 
-  getDefaultProps: ->
-    shouldOverflowData: false
-
   getInitialState: ->
-    periodIndex = 0
+    periodIndex = @props.initialActivePeriod
     stats = @getStatsForPeriodByIndex(periodIndex)
 
     stats: stats
@@ -216,7 +220,8 @@ Stats = React.createClass
     <BS.Panel className='reading-stats'>
       <CoursePeriodsNavShell
         handleSelect={@handlePeriodSelect}
-        intialActive={@state.period}
+        handleKeyUpdate={@props.handlePeriodKeyUpdate}
+        initialActive={@props.initialActivePeriod}
         courseId={courseId} />
       {dataComponent}
     </BS.Panel>

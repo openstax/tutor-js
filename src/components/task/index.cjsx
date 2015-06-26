@@ -143,7 +143,7 @@ module.exports = React.createClass
   # Curried for React
   goToStep: (stepKey) ->
     (silent = false) =>
-      params = @context.router.getCurrentParams()
+      params = _.clone(@context.router.getCurrentParams())
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id

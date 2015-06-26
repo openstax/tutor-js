@@ -44,7 +44,7 @@ Review = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
     period: React.PropTypes.object.isRequired
-    currentStep: React.PropTypes.number.isRequired
+    currentStep: React.PropTypes.number
 
   getDefaultProps: ->
     focus: false
