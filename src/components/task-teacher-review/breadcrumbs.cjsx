@@ -17,7 +17,7 @@ module.exports = React.createClass
 
   render: ->
     crumbs = @getCrumableCrumbs()
-    {currentStep, goToStep} = @props
+    {currentStep, goToStep, title} = @props
 
     stepButtons = _.map crumbs, (crumb) ->
       <BreadcrumbStatic
@@ -28,4 +28,7 @@ module.exports = React.createClass
 
     <div className='task-breadcrumbs'>
       {stepButtons}
+      <div className='task-title'>
+        {title}
+      </div>
     </div>
