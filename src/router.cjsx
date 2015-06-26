@@ -37,7 +37,12 @@ routes = (
         <Route path='t/'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
-          <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
+          <Route path='calendar/?' name='taskplans'>
+            <Router.DefaultRoute handler={TeacherTaskPlans} />
+            <Route path='months/:date/?' name='calendarByDate' handler={TeacherTaskPlans} >
+              <Route path='plans/:planId/?' name='calendarViewPlanStats'/>
+            </Route>
+          </Route>
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />

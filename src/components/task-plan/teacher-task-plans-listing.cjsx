@@ -6,6 +6,10 @@ Router = require 'react-router'
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 {CourseStore} = require '../../flux/course'
+{TimeStore} = require '../../flux/time'
+
+DATE_FORMAT = 'YYYY-MM-DD'
+
 CourseCalendar = require '../course-calendar'
 
 TeacherTaskPlans = React.createClass
@@ -45,10 +49,16 @@ TeacherTaskPlans = React.createClass
 
 TeacherTaskPlanListing = React.createClass
 
+  displayName: 'TeacherTaskPlanListing'
+
   contextTypes:
     router: React.PropTypes.func
 
-  displayName: 'TeacherTaskPlanListing'
+  propTypes:
+    dateFormat: React.PropTypes.string
+
+  getDefaultProps: ->
+    dateFormat: DATE_FORMAT
 
   componentDidMount: ->
     {courseId} = @context.router.getCurrentParams()
@@ -62,9 +72,30 @@ TeacherTaskPlanListing = React.createClass
 
   update: -> @setState({})
 
+  statics:
+    willTransitionTo: (transition, params, query, callback) ->
+      {date} = params
+      if date? and moment(date, DATE_FORMAT).isValid()
+        callback()
+      else
+        date = moment(TimeStore.getNow())
+        params.date = date.format(DATE_FORMAT)
+        transition.redirect('calendarByDate', params)
+        callback()
+
+  getDateFromParams: ->
+    {date} = @context.router.getCurrentParams()
+    if date?
+      date = moment(date, @props.dateFormat)
+    date
+
   render: ->
     {courseId} = @context.router.getCurrentParams()
+    date = @getDateFromParams()
+
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+
+    loadedCalendarProps = {plansList, courseId, date}
 
     <div className="tutor-booksplash-background"
       data-title={CourseStore.getShortName(courseId)}
@@ -78,7 +109,7 @@ TeacherTaskPlanListing = React.createClass
           store={TeacherTaskPlanStore}
           actions={TeacherTaskPlanActions}
           id={courseId}
-          renderItem={-> <CourseCalendar plansList={plansList} courseId={courseId}/>}
+          renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
           renderLoading={-> <CourseCalendar className='calendar-loading'/>}
           update={@update}
         />

@@ -15,7 +15,7 @@ CourseAddMenuMixin =
     addDate: null
 
   getDefaultProps: ->
-    dateFormat: 'MM-DD-YYYY'
+    dateFormat: 'YYYY-MM-DD'
 
   goToBuilder: (link) ->
     (clickEvent) =>
