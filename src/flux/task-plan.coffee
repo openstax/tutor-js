@@ -243,7 +243,7 @@ TaskPlanConfig =
     @emitChange()
 
   publish: (id) ->
-    @_change(id, {is_published: true})
+    @_change(id, {is_publish_requested: true})
 
   exports:
     hasTopic: (id, topicId) ->
