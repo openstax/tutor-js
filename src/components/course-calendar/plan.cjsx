@@ -55,16 +55,12 @@ CoursePlan = React.createClass
 
     if isViewingStats then openedParams else closedParams
 
-  _getMostSpecificActiveRouteName: ->
-    allMatchingRoutes = @context.router.getCurrentRoutes()
-    mostSpecificRoute = _.last(allMatchingRoutes).name
-
   _updateRoute: (isViewingStats) ->
     expectedRoute = @_getExpectedRoute(isViewingStats)
     expectedParams = @_getExpectedParams(isViewingStats)
-    currentRouteName = @_getMostSpecificActiveRouteName()
+    currentParams = @context.router.getCurrentParams()
 
-    @context.router.transitionTo(expectedRoute, expectedParams) unless currentRouteName is expectedRoute
+    @context.router.transitionTo(expectedRoute, expectedParams) unless _.isEqual(currentParams, expectedParams)
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
