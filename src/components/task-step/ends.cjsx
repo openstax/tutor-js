@@ -43,7 +43,7 @@ PracticeEnd = React.createClass
       to='viewGuide'
       params={{courseId}}
       className='btn btn-default'>
-        Return to Flight Path
+        Back to Flight Path
     </Router.Link>
 
     # custom footer for practices

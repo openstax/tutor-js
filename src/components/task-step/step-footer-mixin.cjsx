@@ -54,7 +54,7 @@ module.exports =
         to='viewPerformance'
         params={{courseId}}
         className={custombuttonClasses or defaultButtonClasses}>
-          Return to Performance Report
+          Back to Performance Report
       </Router.Link>
 
     backButton
