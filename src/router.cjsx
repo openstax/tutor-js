@@ -69,6 +69,8 @@ routes = (
     <Route path='/books/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
       <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookFirstPage}/>
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
+      <Route path='chapter/:chapterNumber' name='viewReferenceBookChapter'
+        handler={ReferenceBookPageShell}/>
     </Route>
     <NotFoundRoute handler={Invalid} />
   </Route>
