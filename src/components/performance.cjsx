@@ -27,10 +27,37 @@ Performance = React.createClass
     performance = @getPerfByPeriod(periodIndex)
     sortOrder: 'is-ascending'
     sortIndex: 0
+    tableWidth: 0
+    tableHeight: 0
+    debounce: _.debounce(@sizeTable, 100)
+    resizeWidth: 300
+    resizeKey: 0
+
+
+  componentDidMount: ->
+    window.addEventListener("resize", @state.debounce)
+    @sizeTable()
+
+  componentWillUnmount: ->
+    window.removeEventListener("resize", @state.debounce)
+
+  sizeTable: ->
+    @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
+
+  tableWidth: ->
+    table = React.findDOMNode(@refs.tableContainer)
+    # 40 is an offset container padding
+    table.clientWidth - 40
+
+  tableHeight: ->
+    table = React.findDOMNode(@refs.tableContainer)
+    window.innerHeight - table.offsetTop - 120
 
   sortClick: (columnIndex, classes) ->
-    if not classes
+    if not classes or @state.sortOrder is 'is-descending'
       @state.sortOrder = 'is-ascending'
+    else
+      @state.sortOrder = 'is-descending'
     @sortData(columnIndex)
 
   sortData: (index) ->
@@ -56,7 +83,7 @@ Performance = React.createClass
     <Column 
     label={heading.title}
     headerRenderer={-> customHeader}
-    width={300}
+    width={@state.resizeWidth}
     fixed={fixed}
     isResizable=true
     dataKey={i} />
@@ -125,9 +152,6 @@ Performance = React.createClass
 
     if @state.sortOrder is 'is-descending'
       sortData.reverse()
-      @state.sortOrder = 'is-ascending'
-    else
-      @state.sortOrder = 'is-descending'
 
     student_rows = _.map(sortData, @renderStudentRow)
 
@@ -138,14 +162,14 @@ Performance = React.createClass
         handleSelect={@handlePeriodSelect}
         intialActive={@state.period}
         courseId={@props.courseId} />
-      <BS.Panel className='course-performance-container'>
+      <BS.Panel className='course-performance-container' ref='tableContainer'>
         <Table
-          onColumnResizeEndCallback={-> console.log('onColumnResizeEndCallback')}
+          onColumnResizeEndCallback={(colWidth, columnKey) => @setState({resizeWidth: colWidth, resizeKey: columnKey})}
           rowHeight={50}
           rowGetter={(rowIndex) -> student_rows[rowIndex]}
           rowsCount={sortData.length}
-          width={1600}
-          height={500}
+          width={@state.tableWidth}
+          height={@state.tableHeight}
           headerHeight={50}>
 
           {headings}
