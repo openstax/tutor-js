@@ -111,10 +111,13 @@ ReadingPlan = React.createClass
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
-    headerText = if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'
+    headerText = <span key='header-text'>
+      {if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'}
+    </span>
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
     closeBtn = <Close
+      key='close-button'
       className='pull-right'
       onClick={@cancel}/>
 

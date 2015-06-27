@@ -116,6 +116,7 @@ module.exports = React.createClass
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setOpensAt}
+            min={TimeStore.getNow()}
             max={TaskPlanStore.getDueAt(@props.id)}
             value={TaskPlanStore.getOpensAt(@props.id)}/>
         </BS.Col>
@@ -181,12 +182,14 @@ module.exports = React.createClass
         <TutorDateInput
           readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
+          min={TimeStore.getNow()}
           onChange={_.partial(@setOpensAt, _, plan)}
           value={TaskPlanStore.getOpensAt(@props.id, plan.id)}/>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
+          min={TaskPlanStore.getOpensAt(@props.id, plan.id)}
           onChange={_.partial(@setDueAt, _, plan)}
           value={TaskPlanStore.getDueAt(@props.id, plan.id)}/>
         </BS.Col>
