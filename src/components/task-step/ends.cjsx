@@ -7,15 +7,14 @@ _ = require 'underscore'
 
 PracticeButton = require '../buttons/practice-button'
 BindStoreMixin = require '../bind-store-mixin'
+StepFooterMixin = require './step-footer-mixin'
 
 TaskStep = require './index'
 {CourseStore} = require '../../flux/course'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
-Details = require '../task/details'
 Review = require '../task/review'
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 # A function to render the status message.
 # Shared between the various ending components
@@ -40,7 +39,14 @@ PracticeEnd = React.createClass
     {courseId, taskId, reloadPractice} = @props
 
     pageIds = CourseStore.getPracticePageIds(courseId)
+    backButton = <Router.Link
+      to='viewGuide'
+      params={{courseId}}
+      className='btn btn-default'>
+        Back to Flight Path
+    </Router.Link>
 
+    # custom footer for practices
     footer =
       <div className='-practice-end'>
         <PracticeButton
@@ -51,10 +57,7 @@ PracticeEnd = React.createClass
           forceCreate={true}>
           Do more practice
         </PracticeButton>
-        <Router.Link
-          to='viewGuide'
-          params={{courseId}}
-          className='btn btn-default'>Return to Flight Path</Router.Link>
+        {backButton}
       </div>
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
@@ -87,21 +90,16 @@ HomeworkEnd = React.createClass
         <Review
           steps={steps}
           taskId={taskId}
+          courseId={courseId}
           goToStep={@goToStep}
           onNextStep={@onNextStep}
           review={type}
           focus={type is 'todo'}/>
-        <PinnableFooter>
-          <Router.Link
-            to='viewStudentDashboard'
-            params={{courseId}}
-            className='btn btn-primary'>Back to Dashboard</Router.Link>
-            <Details task={task} key="task-#{taskId}-details"/>
-            <div className='task-title'>{task.title}</div>
-        </PinnableFooter>
       </div>
 
   renderAfterDue: (taskId) ->
+    {footer} = @props
+
     completedSteps = TaskStore.getCompletedSteps taskId
     incompleteSteps = TaskStore.getIncompleteSteps taskId
     totalStepsCount = TaskStore.getTotalStepsCount taskId
@@ -128,17 +126,15 @@ HomeworkEnd = React.createClass
       </CardBody>
       {todoReview}
       {completedReview}
+      <PinnableFooter>
+        {footer}
+      </PinnableFooter>
     </div>
 
   renderBeforeDue: (taskId) ->
-    {courseId} = @props
+    {footer} = @props
     completedStepsCount = TaskStore.getCompletedStepsCount(taskId)
     totalStepsCount = TaskStore.getTotalStepsCount(taskId)
-
-    footer = <Router.Link
-      to='viewStudentDashboard'
-      params={{courseId}}
-      className='btn btn-primary'>Back to Dashboard</Router.Link>
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
@@ -163,16 +159,8 @@ HomeworkEnd = React.createClass
 
 TaskEnd = React.createClass
   displayName: 'TaskEnd'
-
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-
   render: ->
-    {courseId} = @props
-    footer = <Router.Link
-      to='viewStudentDashboard'
-      params={{courseId}}
-      className='btn btn-primary'>Back to Dashboard</Router.Link>
+    {footer} = @props
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>
