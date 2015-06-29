@@ -21,7 +21,7 @@ module.exports = React.createClass
   render: ->
     course = CourseStore.get(@props.courseId)
     <div className='course-administration form-horizontal'>
-      <CourseInformation course={course}/>
+      <h2>Course: {course.name}</h2>
       <h2>Roster</h2>
       <BS.TabbedArea defaultActiveKey=0>
           {@renderPeriodTabs(course)}
