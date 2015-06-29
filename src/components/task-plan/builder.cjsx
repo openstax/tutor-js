@@ -28,7 +28,7 @@ module.exports = React.createClass
   setPeriodDefaults: ->
     {date} = @getQuery() # attempt to read the start date from query params
     opensAt = if date
-      moment(date, "MM-DD-YYYY").toDate()
+      moment(date, "YYYY-MM-DD").toDate()
     else
       moment(TimeStore.getNow()).add(1, 'day').toDate()
     course = CourseStore.get(@props.courseId)
@@ -116,6 +116,8 @@ module.exports = React.createClass
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setOpensAt}
+            min={TimeStore.getNow()}
+            max={TaskPlanStore.getDueAt(@props.id)}
             value={TaskPlanStore.getOpensAt(@props.id)}/>
         </BS.Col>
 
@@ -126,6 +128,7 @@ module.exports = React.createClass
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setDueAt}
+            min={TaskPlanStore.getOpensAt(@props.id)}
             value={TaskPlanStore.getDueAt(@props.id)}/>
         </BS.Col>
         <BS.Col sm=12 md=3>
@@ -179,12 +182,14 @@ module.exports = React.createClass
         <TutorDateInput
           readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
+          min={TimeStore.getNow()}
           onChange={_.partial(@setOpensAt, _, plan)}
           value={TaskPlanStore.getOpensAt(@props.id, plan.id)}/>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           readOnly={TaskPlanStore.isPublished(@props.id)}
           required={true}
+          min={TaskPlanStore.getOpensAt(@props.id, plan.id)}
           onChange={_.partial(@setDueAt, _, plan)}
           value={TaskPlanStore.getDueAt(@props.id, plan.id)}/>
         </BS.Col>

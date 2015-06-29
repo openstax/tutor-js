@@ -3,7 +3,6 @@ _ = require 'underscore'
 moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-{DateTimePicker} = require 'react-widgets'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -112,10 +111,13 @@ ReadingPlan = React.createClass
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
-    headerText = if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'
+    headerText = <span key='header-text'>
+      {if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'}
+    </span>
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
     closeBtn = <Close
+      key='close-button'
       className='pull-right'
       onClick={@cancel}/>
 

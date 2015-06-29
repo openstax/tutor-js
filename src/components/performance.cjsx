@@ -2,10 +2,14 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+
 FixedDataTable = require 'fixed-data-table'
 Table = FixedDataTable.Table
 Column = FixedDataTable.Column
 ColumnGroup = FixedDataTable.ColumnGroup
+
+Router = require 'react-router'
+
 
 {PerformanceStore, PerformanceActions} = require '../flux/performance'
 LoadableItem = require './loadable-item'
@@ -89,6 +93,7 @@ Performance = React.createClass
     <Column 
     label={heading.title}
     headerRenderer={-> customHeader}
+    cellRenderer={-> @cellData}
     width={@state.colSetWidth}
     fixed={fixed}
     isResizable=false
@@ -115,11 +120,20 @@ Performance = React.createClass
       when 'completed' then 'Complete'
       when 'in_progress' then 'In progress'
       when 'not_started' then 'Not started'
-    status
+
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id}
+
+    <Router.Link to='viewTask' params={linkParams}>{status}</Router.Link>
 
   renderHomeworkCell: (cell) ->
-    cell.correct_exercise_count + ' / ' + cell.exercise_count
-    
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id}
+
+    <Router.Link to='viewTask' params={linkParams}>
+      {cell.correct_exercise_count}/{cell.exercise_count}
+    </Router.Link>
+  
 
   getPerfByPeriod: (periodIndex) ->
     console.log(periodIndex)
@@ -132,6 +146,7 @@ Performance = React.createClass
     #perf = PerformanceStore.get(@props.courseId)
     #periodPerf = _.findWhere(perf, {period_id: period.id})
     #handlePeriodSelect?(period)
+
 
 
   render: ->

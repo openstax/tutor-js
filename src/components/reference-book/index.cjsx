@@ -17,13 +17,11 @@ ReferenceBookFirstPage  = React.createClass
   render: ->
     {courseId} = @getParams()
     page = _.first ReferenceBookStore.getPages(courseId)
-    # FIXME - BE route issue
-    cnxId = _.first page.cnx_id.split('@')
     <LoadableItem
       id={cnxId}
       store={ReferenceBookPageStore}
       actions={ReferenceBookPageActions}
-      renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={cnxId}/> }
+      renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={page.cnx_id}/> }
     />
 
 
@@ -33,7 +31,10 @@ ReferenceBookPageShell = React.createClass
   mixins: [ Router.State ]
 
   render: ->
-    {courseId, cnxId} = @getParams()
+    {courseId, cnxId, chapterNumber} = @getParams()
+    if chapterNumber and not cnxId
+      page = ReferenceBookStore.getChapterFirstPage(courseId, chapterNumber)
+      cnxId = page?.cnx_id
     <LoadableItem
       id={cnxId}
       store={ReferenceBookPageStore}

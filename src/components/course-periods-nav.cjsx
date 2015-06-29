@@ -12,13 +12,14 @@ CoursePeriodsNav = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     handleSelect: React.PropTypes.func
-    intialActive: React.PropTypes.number.isRequired
+    handleKeyUpdate: React.PropTypes.func
+    initialActive: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
-    intialActive: 0
+    initialActive: 0
 
   getInitialState: ->
-    active: @props.intialActive
+    active: @props.initialActive
 
   componentWillMount: ->
     CourseStore.on('course.loaded', @selectPeriod)
@@ -31,7 +32,7 @@ CoursePeriodsNav = React.createClass
       @onSelect(@state.active)
 
   onSelect: (key) ->
-    {courseId, handleSelect} = @props
+    {courseId, handleSelect, handleKeyUpdate} = @props
     periods = CourseStore.getPeriods(courseId)
 
     period = periods?[key]
@@ -40,6 +41,7 @@ CoursePeriodsNav = React.createClass
       return
 
     handleSelect?(period)
+    handleKeyUpdate?(key)
     @setState(active: key)
 
   renderPeriod: (period, key) ->

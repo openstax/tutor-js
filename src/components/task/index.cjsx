@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
@@ -7,11 +8,14 @@ camelCase = require 'camelcase'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 
 CrumbMixin = require './crumb-mixin'
+StepFooterMixin = require '../task-step/step-footer-mixin'
 
 TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
+
+{StepPanel} = require '../../helpers/policies'
 
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
 
@@ -21,7 +25,7 @@ module.exports = React.createClass
 
   displayName: 'ReadingTask'
 
-  mixins: [CrumbMixin]
+  mixins: [StepFooterMixin, CrumbMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -143,7 +147,7 @@ module.exports = React.createClass
   # Curried for React
   goToStep: (stepKey) ->
     (silent = false) =>
-      params = @context.router.getCurrentParams()
+      params = _.clone(@context.router.getCurrentParams())
       # url is 1 based so it matches the breadcrumb button numbers
       params.stepIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
@@ -157,24 +161,45 @@ module.exports = React.createClass
     _.findWhere crumbs, {key: crumbKey}
 
   renderStep: (data) ->
+    {courseId} = @context.router.getCurrentParams()
+
     <TaskStep
       id={data.id}
       taskId={@props.id}
+      courseId={courseId}
       goToStep={@goToStep}
       onNextStep={@onNextStep}
       refreshStep={@refreshStep}
       recoverFor={@recoverFor}
     />
 
+  renderDefaultEndFooter: (data) ->
+    {id} = @props
+    {courseId} = @context.router.getCurrentParams()
+
+    taskFooterParams =
+      stepId: data.id
+      taskId: id
+      courseId: courseId
+
+    @renderEndFooter(taskFooterParams)
+
   renderEnd: (data) ->
     {courseId} = @context.router.getCurrentParams()
     type = if data.type then data.type else 'task'
     End = Ends.get(type)
 
-    panel = <End courseId={courseId} taskId={data.id} reloadPractice={@reloadTask}/>
+    footer = @renderDefaultEndFooter(data)
+
+    panel = <End
+      courseId={courseId}
+      taskId={data.id}
+      reloadPractice={@reloadTask}
+      footer={footer} />
 
   renderSpacer: (data) ->
-    <Spacer onNextStep={@onNextStep} taskId={@props.id}/>
+    {courseId} = @context.router.getCurrentParams()
+    <Spacer onNextStep={@onNextStep} taskId={@props.id} courseId={courseId}/>
 
   # add render methods for different panel types as needed here
 
@@ -185,14 +210,18 @@ module.exports = React.createClass
 
     # get the crumb that matches the current state
     crumb = @getCrumb(@state.currentStep)
+    panelType = StepPanel.getPanel(crumb.data?.id)
 
     # crumb.type is one of ['intro', 'step', 'end']
     renderPanelMethod = camelCase "render-#{crumb.type}"
 
     throw new Error("BUG: panel #{crumb.type} for #{task.type} does not have a render method") unless @[renderPanelMethod]?
-    panel = @[renderPanelMethod]?(crumb.data)
+
+    panelData = _.extend({}, crumb.data, {panelType})
+    panel = @[renderPanelMethod]?(panelData)
 
     taskClasses = "task task-#{task.type}"
+    taskClasses += " task-#{panelType}" if panelType?
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
     unless TaskStore.isSingleStepped(id)

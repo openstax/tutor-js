@@ -13,7 +13,7 @@ module.exports = React.createClass
     classes = classes.join(' ')
 
     <form
-      accept-charset='UTF-8'
+      acceptCharset='UTF-8'
       action={LOGOUT_URL}
       className='-logout-form'
       method='post'>

@@ -184,6 +184,15 @@ TaskConfig =
       task = @_local[taskId]
       moment(TimeStore.getNow()).isAfter(task.due_at, 'day')
 
+    isPractice: (taskId) ->
+      practices = [
+        'practice'
+        'chapter_practice'
+      ]
+
+      if practices.indexOf(@_get(taskId).type) > -1 then true else false
+
+
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
 module.exports = {TaskActions:actions, TaskStore:store}

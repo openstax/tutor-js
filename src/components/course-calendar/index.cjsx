@@ -2,7 +2,6 @@ moment = require 'moment'
 React = require 'react'
 
 CourseMonth = require './month'
-{TimeStore} = require '../../flux/time'
 
 displayAs =
   month: CourseMonth
@@ -15,6 +14,6 @@ CourseCalendar = React.createClass
 
   render: ->
     Handler = displayAs[@state.displayAs]
-    <Handler startDate={moment(TimeStore.getNow())} {...@props} ref='calendarHandler'/>
+    <Handler {...@props} ref='calendarHandler'/>
 
 module.exports = CourseCalendar

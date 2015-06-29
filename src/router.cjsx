@@ -37,7 +37,12 @@ routes = (
         <Route path='t/'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
-          <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
+          <Route path='calendar/?' name='taskplans'>
+            <Router.DefaultRoute handler={TeacherTaskPlans} />
+            <Route path='months/:date/?' name='calendarByDate' handler={TeacherTaskPlans} >
+              <Route path='plans/:planId/?' name='calendarViewPlanStats'/>
+            </Route>
+          </Route>
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
@@ -45,11 +50,16 @@ routes = (
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
-            <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell} >
+            <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell}>
               <Route
-                path='sections/:sectionIndex/?'
-                name='reviewTaskStep'
-                ignoreScrollBehavior />
+                path='periods/:periodIndex/?'
+                name='reviewTaskPeriod'
+                ignoreScrollBehavior >
+                <Route
+                  path='sections/:sectionIndex/?'
+                  name='reviewTaskStep'
+                  ignoreScrollBehavior />
+              </Route>
             </Route>
           </Route>
         </Route>
@@ -59,6 +69,8 @@ routes = (
     <Route path='/books/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
       <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookFirstPage}/>
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
+      <Route path='chapter/:chapterNumber' name='viewReferenceBookChapter'
+        handler={ReferenceBookPageShell}/>
     </Route>
     <NotFoundRoute handler={Invalid} />
   </Route>

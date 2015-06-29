@@ -22,9 +22,18 @@ flux = require 'flux-react'
 
 utils = require './utils'
 
+defaultTask =
+  type: 'default'
+
+defaultStep =
+  type: 'placeholder'
+
 getTaskStepPanels = (stepId) ->
   step = TaskStepStore.get stepId
+  step ?= defaultStep
+
   task = TaskStore.get step.task_id
+  task ?= defaultTask
 
   panels = utils._getPanels task, step
   {panels, step, task}
@@ -52,6 +61,10 @@ StepPanel =
   canReview: (stepId) ->
     {panels} = getTaskStepPanels stepId
     utils._canReview panels
+
+  canWrite: (stepId) ->
+    {panels} = getTaskStepPanels stepId
+    utils._canWrite panels
 
 
 module.exports = {StepPanel}

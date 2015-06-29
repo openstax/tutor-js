@@ -5,6 +5,7 @@ Router = require 'react-router'
 
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 LoadableItem = require '../loadable-item'
+SmartOverflow = require '../smart-overflow'
 ChapterSectionMixin = require '../chapter-section-mixin'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 
@@ -12,11 +13,19 @@ Stats = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     activeSection: React.PropTypes.string
+    initialActivePeriod: React.PropTypes.number.isRequired
+    handlePeriodKeyUpdate: React.PropTypes.func
+    handlePeriodSelect: React.PropTypes.func
+    shouldOverflowData: React.PropTypes.bool
+
+  getDefaultProps: ->
+    initialActivePeriod: 0
+    shouldOverflowData: false
 
   mixins: [ChapterSectionMixin]
 
   getInitialState: ->
-    periodIndex = 0
+    periodIndex = @props.initialActivePeriod
     stats = @getStatsForPeriodByIndex(periodIndex)
 
     stats: stats
@@ -171,7 +180,7 @@ Stats = React.createClass
     handlePeriodSelect?(period)
 
   render: ->
-    {id, courseId} = @props
+    {id, courseId, shouldOverflowData} = @props
     {stats} = @state
 
     plan = TaskPlanStatsStore.get(id)
@@ -191,16 +200,30 @@ Stats = React.createClass
         {practice}
       </section>
 
+    if shouldOverflowData
+      dataComponent = <SmartOverflow className='reading-stats-data' heightBuffer={24}>
+        <section>
+          {course}
+        </section>
+        {chapters}
+        {practice}
+      </SmartOverflow>
+    else
+      dataComponent = <div className='reading-stats-data'>
+        <section>
+          {course}
+        </section>
+        {chapters}
+        {practice}
+      </div>
+
     <BS.Panel className='reading-stats'>
       <CoursePeriodsNavShell
         handleSelect={@handlePeriodSelect}
-        intialActive={@state.period}
+        handleKeyUpdate={@props.handlePeriodKeyUpdate}
+        initialActive={@props.initialActivePeriod}
         courseId={courseId} />
-      <section>
-        {course}
-      </section>
-      {chapters}
-      {practice}
+      {dataComponent}
     </BS.Panel>
 
 StatsShell = React.createClass

@@ -3,7 +3,7 @@ _ = require 'underscore'
 
 findAllPages = (section) ->
   pages = []
-  if section.cnx_id
+  if section.cnx_id and "page" is section.type
     pages.push(section)
   if section.children
     for child in section.children
@@ -11,11 +11,24 @@ findAllPages = (section) ->
         pages.push(page)
   pages
 
+findChapterSection = (section, chapterNumber) ->
+  if _.first(section.chapter_section) is chapterNumber and "part" is section.type
+    return section
+  if section.children
+    for child in section.children
+      return found if found = findChapterSection(child, chapterNumber)
+  null
+
 ReferenceBookConfig = {
 
   exports:
     getToc: (courseId) ->
       @_get(courseId)['0']
+
+    getChapterFirstPage: (courseId, chapterId) ->
+      toc = @_get(courseId)?['0']
+      section = findChapterSection(toc, parseInt(chapterId, 10))
+      _.first(section?.children)
 
     getPages: (courseId) ->
       toc = @_get(courseId)?['0']

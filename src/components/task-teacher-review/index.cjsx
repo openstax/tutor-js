@@ -24,19 +24,27 @@ TaskTeacherReview = React.createClass
 
   setStepKey: ->
     {sectionIndex} = @context.router.getCurrentParams()
-    defaultKey = 0
+    defaultKey = null
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if sectionIndex then parseInt(sectionIndex) - 1 else defaultKey
     @setState(currentStep: crumbKey)
+
+  getPeriodIndex: ->
+    {periodIndex} = @context.router.getCurrentParams()
+    periodIndex ?= 1
+
+    parseInt(periodIndex) - 1
 
   setScrollState: (scrollState) ->
     @setState({scrollState})
 
   getInitialState: ->
-    currentStep: 0
+    {id} = @props
+
+    currentStep: null
     scrollState: {}
     period: {}
-    isReviewLoaded: false
+    isReviewLoaded: TaskTeacherReviewStore.get(id)?
 
   componentWillMount: ->
     @setStepKey()
@@ -48,15 +56,27 @@ TaskTeacherReview = React.createClass
   # Curried for React
   goToStep: (stepKey) ->
     =>
-      params = @context.router.getCurrentParams()
+      params = _.clone(@context.router.getCurrentParams())
       # url is 1 based so it matches the breadcrumb button numbers
       params.sectionIndex = stepKey + 1
       params.id = @props.id # if we were rendered directly, the router might not have the id
+
+      params.periodIndex ?= 1
 
       @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
     @setState({period})
+
+  setPeriodIndex: (key) ->
+    periodKey = key + 1
+    params = _.clone(@context.router.getCurrentParams())
+    params.periodIndex = periodKey
+
+    if params.sectionIndex
+      @context.router.replaceWith('reviewTaskStep', params)
+    else
+      @context.router.replaceWith('reviewTaskPeriod', params)
 
   setIsReviewLoaded: (id) ->
     return null unless id is @props.id
@@ -66,6 +86,7 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
+    periodIndex = @getPeriodIndex()
 
     panel = <ReviewShell
           id={id}
@@ -102,8 +123,11 @@ TaskTeacherReview = React.createClass
               <StatsModalShell
                 id={id}
                 courseId={courseId}
+                initialActivePeriod={periodIndex}
+                shouldOverflowData={true}
                 activeSection={@state.scrollState?.sectionLabel}
-                handlePeriodSelect={@setPeriod}/>
+                handlePeriodSelect={@setPeriod}
+                handlePeriodKeyUpdate={@setPeriodIndex}/>
             </BS.Col>
           </BS.Row>
         </BS.Grid>

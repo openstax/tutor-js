@@ -1,7 +1,10 @@
 React = require 'react'
 _ = require 'underscore'
 
+GetPositionMixin = require './get-position-mixin'
+
 ScrollTracker =
+  mixins: [GetPositionMixin]
   propTypes:
     setScrollPoint: React.PropTypes.func.isRequired
     unsetScrollPoint: React.PropTypes.func
@@ -13,7 +16,7 @@ ScrollTracker =
   setScrollPoint: ->
     {setScrollPoint, scrollState} = @props
 
-    scrollPoint = @getPosition(@getDOMNode())
+    scrollPoint = @getTopPosition(@getDOMNode())
     @setState({scrollPoint})
 
     setScrollPoint(scrollPoint, scrollState)
@@ -28,8 +31,6 @@ ScrollTracker =
   componentWillUnmount: ->
     @unsetScrollPoint()
 
-  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
-
 ScrollTrackerParentMixin =
 
   getInitialState: ->
@@ -38,7 +39,7 @@ ScrollTrackerParentMixin =
     scrollTopBuffer: 0
 
   setScrollTopBuffer: ->
-    scrollTopBuffer = @getPosition(@getDOMNode())
+    scrollTopBuffer = GetPositionMixin.getTopPosition(@getDOMNode())
     @setState({scrollTopBuffer})
 
   setScrollPoint: (scrollPoint, scrollState) ->
@@ -77,7 +78,7 @@ ScrollTrackerParentMixin =
 
   componentDidMount: ->
     @setScrollTopBuffer()
-    @scrollToKey(@props.currentStep)
+    @scrollToKey(@props.currentStep) if @props.currentStep?
 
   componentWillUpdate: (nextProps, nextState) ->
     willScrollStateKeyChange = not (nextState.scrollState.key is @state.scrollState.key)
@@ -91,8 +92,6 @@ ScrollTrackerParentMixin =
       @setScrollState()
     else if didCurrentStepChange
       @scrollToKey(@props.currentStep)
-
-  getPosition: (el) -> el.getBoundingClientRect().top - document.body.getBoundingClientRect().top
 
   scrollToKey: (stepKey) ->
     scrollState = @getScrollStateByKey(stepKey)

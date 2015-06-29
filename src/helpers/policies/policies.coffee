@@ -18,12 +18,22 @@ multipleChoice =
 
 review =
   name: 'review'
+  canReview: true
+  actions: [
+    'clickContinue'
+  ]
+
+teacherReadOnly =
+  name: 'teacher-read-only'
+  canReview: true
+  canWrite: false
   actions: [
     'clickContinue'
   ]
 
 view =
   name: 'view'
+  canReview: true
   actions: [
     'clickContinue'
   ]
@@ -43,6 +53,10 @@ stepViewOnly = [
   view
 ]
 
+stepTeacherReadOnly = [
+  teacherReadOnly
+]
+
 # Policy Shape
 #
 #   #{taskType}:
@@ -57,41 +71,69 @@ defaultPolicies =
   exercise:
     panels:
       default: stepFeedbackImmediate
+      check: 'role'
+      states:
+        teacher: stepTeacherReadOnly
   reading:
     panels:
       default: stepViewOnly
+      check: 'role'
+      states:
+        teacher: stepTeacherReadOnly
   video:
     panels:
       default: stepViewOnly
+      check: 'role'
+      states:
+        teacher: stepTeacherReadOnly
   interactive:
     panels:
       default: stepViewOnly
+      check: 'role'
+      states:
+        teacher: stepTeacherReadOnly
   placeholder:
     panels:
       default: stepViewOnly
+      check: 'role'
+      states:
+        teacher: stepTeacherReadOnly
 
 policies =
 
   homework:
     exercise:
       panels:
-        check: 'dueState'
+        default:
+          check: 'dueState'
+          states:
+            before: stepNoFeedback
+            after: stepFeedbackImmediate
+        check: 'role'
         states:
-          before: stepNoFeedback
-          after: stepFeedbackImmediate
+          teacher: stepTeacherReadOnly
     placeholder:
       panels:
         default: stepViewOnly
+        check: 'role'
+        states:
+          teacher: stepTeacherReadOnly
 
   practice:
     exercise:
       panels:
         default: stepFeedbackImmediate
+        check: 'role'
+        states:
+          teacher: stepTeacherReadOnly
 
   chapter_practice:
     exercise:
       panels:
         default: stepFeedbackImmediate
+        check: 'role'
+        states:
+          teacher: stepTeacherReadOnly
 
   reading: defaultPolicies
 

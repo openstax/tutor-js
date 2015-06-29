@@ -1,0 +1,33 @@
+.step-footer-mixin() {
+  .task-detail-texts() {
+    display: inline-block;
+    line-height: @tutor-card-footer-line-height;
+    padding: 0 20px;
+    float: right;
+    font-weight: 600;
+  }
+
+  .task-title {
+    .task-detail-texts();
+  }
+  .task-student {
+    .task-detail-texts();
+
+    &::before {
+      content: 'Viewing as: ';
+      font-style: italic;
+      font-weight: 100;
+      padding-right: 5px;
+    }
+  }
+  .task-footer-buttons {
+    display: inline-block;
+  }
+
+  .pinned-footer {
+    .loadable {
+      display: inline-block;
+      float: right;
+    }
+  }
+}
