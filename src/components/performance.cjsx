@@ -30,8 +30,10 @@ Performance = React.createClass
     tableWidth: 0
     tableHeight: 0
     debounce: _.debounce(@sizeTable, 100)
-    resizeWidth: 300
-    resizeKey: 0
+    colDefaultWidth: 300
+    colSetWidth: 300
+    colResizeWidth: 300
+    colResizeKey: 0
 
 
   componentDidMount: ->
@@ -73,6 +75,10 @@ Performance = React.createClass
       fixed = true
     else
       fixed = false
+    if i is @state.colResizeKey
+      @state.colSetWidth = @state.colResizeWidth
+    else
+      @state.colSetWidth = @state.colDefaultWidth
     customHeader =
       <div 
         dataKey={i} 
@@ -83,9 +89,9 @@ Performance = React.createClass
     <Column 
     label={heading.title}
     headerRenderer={-> customHeader}
-    width={@state.resizeWidth}
+    width={@state.colSetWidth}
     fixed={fixed}
-    isResizable=true
+    isResizable=false
     dataKey={i} />
 
   renderAverageCell: (heading) ->
@@ -164,7 +170,7 @@ Performance = React.createClass
         courseId={@props.courseId} />
       <BS.Panel className='course-performance-container' ref='tableContainer'>
         <Table
-          onColumnResizeEndCallback={(colWidth, columnKey) => @setState({resizeWidth: colWidth, resizeKey: columnKey})}
+          onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
           rowHeight={50}
           rowGetter={(rowIndex) -> student_rows[rowIndex]}
           rowsCount={sortData.length}
