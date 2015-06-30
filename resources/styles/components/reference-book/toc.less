@@ -1,4 +1,11 @@
 .reference-book {
+  .toc-indented-levels(@depth) when (@depth > 0) {
+    .toc-indented-levels((@depth - 1));
+    ul[data-depth='@{depth}'] a{
+      #fonts > .sans( unit((1.6 - (@depth / 10)),rem) );
+      padding-left: unit(@depth, rem);
+    }
+  }
   .toc {
     max-height: 100%;
     overflow-y: scroll;
@@ -25,23 +32,7 @@
       }
     }
     ul { padding-left: 0rem; }
-    
-    ul[data-depth='1'] a{
-      #fonts > .sans(1.5rem);
-      padding-left: 1rem;
-    }
-    ul[data-depth='2'] a{
-      #fonts > .sans(1.4rem);
-      padding-left: 2rem;
-    }
-    ul[data-depth='3'] a{
-      #fonts > .sans(1.3rem);
-      padding-left: 3rem;
-    }
-    ul[data-depth='4'] a{
-      #fonts > .sans(1.2rem);
-      padding-left: 4rem;
-    }
+    .toc-indented-levels(4);
   }
   .content {
     .toc {
