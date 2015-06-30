@@ -17,10 +17,10 @@ module.exports = React.createClass
   render: ->
     courseId = @props.courseId or @context.router.getCurrentParams().courseId
     # the router is smart enough to figure out which props are present and return the best route
-    link = @context.router.makeHref('viewReferenceBook',
-      {courseId: courseId, sectionId:@props.sectionId, chapterId: @props.chapterId, cnxId:@props.page})
+    linkType = if @props.page then 'viewReferenceBookPage' else
+      if @props.section then 'viewReferenceBookSection' else 'viewReferenceBook'
+    link = @context.router.makeHref( linkType, courseId: courseId, cnxId: @props.page, section:@props.section )
     linkProps = {target:'_blank', className:'view-reference-guide', href: link}
-    console.log linkProps
     text = @props.children or 'Browse the Book'
     if @props.unstyled
       <a {...linkProps}>{text}</a>

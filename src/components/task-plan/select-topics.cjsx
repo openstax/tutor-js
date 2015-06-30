@@ -72,8 +72,8 @@ ChapterAccordion = React.createClass
 
   browseBook: (chapter, ev) ->
     ev.stopPropagation() # stop click from toggling the accordian
-    url = @context.router.makeHref('viewReferenceBookChapter',
-        {courseId: @props.courseId, chapterNumber: _.first(chapter.chapter_section)})
+    url = @context.router.makeHref('viewReferenceBookSection',
+        {courseId: @props.courseId, section: chapter.chapter_section.join('.')})
     win = window.open(url, '_blank')
     win.focus()
 
