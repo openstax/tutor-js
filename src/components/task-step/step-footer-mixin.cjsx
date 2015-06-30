@@ -1,8 +1,10 @@
+_ = require 'underscore'
 React = require 'react'
 camelCase = require 'camelcase'
 Router = require 'react-router'
 
 Details = require '../task/details'
+BrowseTheBook = require '../buttons/browse-the-book'
 {TaskStore} = require '../../flux/task'
 {ViewingAsStudentNameShell} = require '../task/viewing-as-student-name'
 
@@ -20,16 +22,30 @@ module.exports =
 
     taskDetails
 
+  renderCoversSections: (sections) ->
+    sections = _.map sections, (parts) ->
+      combined = parts.join('.')
+      <BrowseTheBook unstyled key=combined section={combined}>
+        {combined}
+      </BrowseTheBook>
+
+    <div key='task-covers' className='task-covers'>
+      Reading covers: {sections}
+    </div>
+
   renderDefaultDetails: ({taskId, courseId, review}) ->
+    return null if review?.length
+
     task = TaskStore.get(taskId)
+    sections = TaskStore.getRelatedSections(taskId)
+    className = "details"
+    className += ' has-sections' if sections.length
+    <div key="details" className={className}>
+      {@renderCoversSections(sections) if sections.length}
+      <Details task={task} />
+      <div className='task-title'>{task.title}</div>
+    </div>
 
-    unless review?.length
-      taskDetails = [
-          <Details task={task} key="task-#{taskId}-details"/>
-          <div className='task-title'>{task.title}</div>
-        ]
-
-    taskDetails
 
   renderTaskDetails: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
@@ -85,7 +101,6 @@ module.exports =
   renderFooter: ({stepId, taskId, courseId, review}) ->
     buttons = @renderButtons({stepId, taskId, courseId, review})
     taskDetails = @renderTaskDetails({stepId, taskId, courseId, review})
-
     [
       buttons
       taskDetails
