@@ -21,7 +21,10 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    {showingPeriods: false}
+    dueAt = TaskPlanStore.getDueAt(@props.planId)
+    opensAt = TaskPlanStore.getOpensAt(@props.planId)
+
+    {showingPeriods: not (dueAt and opensAt)}
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -73,6 +76,10 @@ module.exports = React.createClass
 
   render: ->
     plan = TaskPlanStore.get(@props.id)
+    if (not @state.showingPeriods)
+      commonDueAt = TaskPlanStore.getDueAt(@props.id)
+      commonOpensAt = TaskPlanStore.getOpensAt(@props.id)
+
     <div className="assignment">
       <BS.Row>
         <BS.Col sm=8 xs=12>
@@ -118,7 +125,7 @@ module.exports = React.createClass
             onChange={@setOpensAt}
             min={TimeStore.getNow()}
             max={TaskPlanStore.getDueAt(@props.id)}
-            value={TaskPlanStore.getOpensAt(@props.id)}/>
+            value={commonOpensAt}/>
         </BS.Col>
 
         <BS.Col sm=4 md=3>
@@ -129,7 +136,7 @@ module.exports = React.createClass
             required={true}
             onChange={@setDueAt}
             min={TaskPlanStore.getOpensAt(@props.id)}
-            value={TaskPlanStore.getDueAt(@props.id)}/>
+            value={commonDueAt}/>
         </BS.Col>
         <BS.Col sm=12 md=3>
           <div className="instructions">Feedback will be released after the due date.</div>
