@@ -25,4 +25,4 @@ module.exports = React.createClass
     if @props.unstyled
       <a {...linkProps}>{text}</a>
     else
-      <BS.Button bsStyle='primary', {...linkProps}>{text}</BS.Button>
+      <BS.Button bsStyle='primary' {...linkProps}>{text}</BS.Button>

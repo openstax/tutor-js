@@ -12,7 +12,6 @@ module.exports =
     section.pop() if @state.skipZeros and _.last(section) is 0
 
     if section instanceof Array
-      subsection = if section[1]? then separator + section[1] else ''
-      section[0] + subsection
+      section.join(separator or @state.sectionSeparator)
     else
       section

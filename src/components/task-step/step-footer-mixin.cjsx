@@ -5,12 +5,17 @@ Router = require 'react-router'
 
 Details = require '../task/details'
 BrowseTheBook = require '../buttons/browse-the-book'
+ChapterSectionMixin = require '../chapter-section-mixin'
+
 {TaskStore} = require '../../flux/task'
 {ViewingAsStudentNameShell} = require '../task/viewing-as-student-name'
 
 {StepPanel} = require '../../helpers/policies'
 
 module.exports =
+
+  mixins: [ ChapterSectionMixin ]
+
   renderTeacherReadOnlyDetails: ({taskId, courseId, review}) ->
     task = TaskStore.get(taskId)
     unless review?.length
@@ -23,8 +28,8 @@ module.exports =
     taskDetails
 
   renderCoversSections: (sections) ->
-    sections = _.map sections, (parts) ->
-      combined = parts.join('.')
+    sections = _.map sections, (section) =>
+      combined = @sectionFormat(section)
       <BrowseTheBook unstyled key=combined section={combined}>
         {combined}
       </BrowseTheBook>

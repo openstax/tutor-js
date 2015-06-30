@@ -2,6 +2,7 @@ React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
 
+ChapterSection = require '../task-plan/chapter-section'
 ReferenceBookTOC = require './toc'
 BindStoreMixin = require '../bind-store-mixin'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
@@ -24,11 +25,11 @@ module.exports = React.createClass
     {cnxId, section} = @getParams()
     if cnxId
       page = ReferenceBookStore.getPageInfo(@getParams())
-      section = page?.chapter_section.join('.')
+      section = page?.chapter_section
     else if section
       page = ReferenceBookStore.getChapterSectionPage(@getParams())
     <BS.Nav navbar className="section-title">
-      <span className="section-number">Chapter {section}</span>
+      <ChapterSection section={section} />
       {page?.title}
     </BS.Nav>
 
