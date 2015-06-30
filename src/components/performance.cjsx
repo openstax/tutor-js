@@ -27,8 +27,7 @@ Performance = React.createClass
 
 
   getInitialState: ->
-    periodIndex = 0
-    performance = @getPerfByPeriod(periodIndex)
+    period: "1"
     sortOrder: 'is-ascending'
     sortIndex: 0
     tableWidth: 0
@@ -68,7 +67,6 @@ Performance = React.createClass
 
   sortData: (index) ->
     @setState({sortIndex: index})
-    console.log(@state)
 
   renderHeadingCell: (heading, i) ->
     if i is @state.sortIndex
@@ -135,24 +133,14 @@ Performance = React.createClass
     </Router.Link>
   
 
-  getPerfByPeriod: (periodIndex) ->
-    console.log(periodIndex)
-    #perf = PerformanceStore.get(@props.courseId)
-    #periodPerf = perf[periodIndex]
-
-  handlePeriodSelect: (period) ->
-    console.log(period)
-    ##{handlePeriodSelect} = @props
-    #perf = PerformanceStore.get(@props.courseId)
-    #periodPerf = _.findWhere(perf, {period_id: period.id})
-    #handlePeriodSelect?(period)
-
+  selectPeriod: (period) ->
+    @setState({period: period.id})
 
 
   render: ->
 
-    ##{performance} = @state
     performance = PerformanceStore.get(@props.courseId)
+    performance = _.findWhere(performance, {period_id: @state.period})
 
     headers = performance.data_headings
     headers.unshift({"title":"Student"})
@@ -180,7 +168,7 @@ Performance = React.createClass
     <div className='course-performance-wrap'>
       <span className='course-performance-title'>Performance Report</span>
       <CoursePeriodsNavShell
-        handleSelect={@handlePeriodSelect}
+        handleSelect={@selectPeriod}
         intialActive={@state.period}
         courseId={@props.courseId} />
       <BS.Panel className='course-performance-container' ref='tableContainer'>
