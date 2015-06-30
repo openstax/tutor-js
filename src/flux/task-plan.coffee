@@ -98,25 +98,20 @@ TaskPlanConfig =
 
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic, description} = plan.settings
+    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
     exercises_count_dynamic += direction
 
     exercises_count_dynamic = Math.min(TUTOR_SELECTIONS.max, exercises_count_dynamic)
     exercises_count_dynamic = Math.max(TUTOR_SELECTIONS.min, exercises_count_dynamic)
 
-    @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
   updateTitle: (id, title) ->
     @_change(id, {title})
 
   updateDescription:(id, description) ->
     plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    page_ids = page_ids[..]
-
-    if (exercise_ids)
-      exercise_ids = exercise_ids[..]
-    @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+    @_change(id, {description: description})
 
   # updates due_at/opens_at dates for taskings
   # If a periodId is given, only that tasking is updated.
@@ -146,55 +141,55 @@ TaskPlanConfig =
 
   sortTopics: (id) ->
     plan = @_getPlan(id)
-    {page_ids, description, exercises_count_dynamic} = plan.settings
+    {page_ids, exercises_count_dynamic} = plan.settings
 
     page_ids = sortTopics(page_ids)
-    @_change(id, {settings: {page_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercises_count_dynamic}})
 
   addTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    {page_ids, exercise_ids, description, exercises_count_dynamic} = plan.settings
+    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
     page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
     #sortTopics(page_ids)
 
-    @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
   removeTopic: (id, topicId) ->
     plan = @_getPlan(id)
-    {page_ids, description, exercise_ids, exercises_count_dynamic} = plan.settings
+    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
     page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
 
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
 
     exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
-    @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
   addExercise: (id, exercise) ->
     plan = @_getPlan(id)
-    {page_ids, exercise_ids, description, exercises_count_dynamic} = plan.settings
+    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
     exercise_ids = exercise_ids[..]
 
     unless plan.settings.exercise_ids.indexOf(exercise.id) >= 0
       exercise_ids.push(exercise.id)
 
-    @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
   removeExercise: (id, exercise) ->
     plan = @_getPlan(id)
-    {page_ids, exercise_ids, description, exercises_count_dynamic} = plan.settings
+    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
     exercise_ids = exercise_ids[..]
 
     index = exercise_ids?.indexOf(exercise.id)
     exercise_ids?.splice(index, 1)
 
-    @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
   moveReading: (id, topicId, step) ->
     plan = @_getPlan(id)
-    {page_ids, description, exercises_count_dynamic} = plan.settings
+    {page_ids, exercises_count_dynamic} = plan.settings
     page_ids = page_ids[..]
 
     curIndex = page_ids?.indexOf(topicId)
@@ -208,11 +203,11 @@ TaskPlanConfig =
     page_ids[curIndex] = page_ids[newIndex]
     page_ids[newIndex] = topicId
 
-    @_change(id, {settings: {page_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercises_count_dynamic}})
 
   moveExercise: (id, exercise, step) ->
     plan = @_getPlan(id)
-    {page_ids, exercise_ids, description, exercises_count_dynamic} = plan.settings
+    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
     exercise_ids = exercise_ids[..]
 
     curIndex = exercise_ids?.indexOf(exercise.id)
@@ -226,7 +221,7 @@ TaskPlanConfig =
     exercise_ids[curIndex] = exercise_ids[newIndex]
     exercise_ids[newIndex] = exercise.id
 
-    @_change(id, {settings: {page_ids, exercise_ids, description, exercises_count_dynamic}})
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
 
   _getStats: (id) ->
@@ -264,7 +259,7 @@ TaskPlanConfig =
 
     getDescription: (id) ->
       plan = @_getPlan(id)
-      plan?.settings.description
+      plan?.description
 
     isHomework: (id) ->
       plan = @_getPlan(id)
