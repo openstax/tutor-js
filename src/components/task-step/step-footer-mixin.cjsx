@@ -30,7 +30,7 @@ module.exports =
   renderCoversSections: (sections) ->
     sections = _.map sections, (section) =>
       combined = @sectionFormat(section)
-      <BrowseTheBook unstyled key=combined section={combined}>
+      <BrowseTheBook unstyled key={combined} section={combined}>
         {combined}
       </BrowseTheBook>
 
