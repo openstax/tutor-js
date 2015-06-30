@@ -68,7 +68,6 @@ Performance = React.createClass
 
   sortData: (index) ->
     @setState({sortIndex: index})
-    console.log(@state)
 
   renderHeadingCell: (heading, i) ->
     if i is @state.sortIndex
@@ -84,13 +83,13 @@ Performance = React.createClass
     else
       @state.colSetWidth = @state.colDefaultWidth
     customHeader =
-      <div 
-        dataKey={i} 
-        onClick={@sortClick.bind(@, i, classes)} 
+      <div
+        dataKey={i}
+        onClick={@sortClick.bind(@, i, classes)}
         className={'header-cell ' + classes}>
           {heading.title}
       </div>
-    <Column 
+    <Column
     label={heading.title}
     headerRenderer={-> customHeader}
     cellRenderer={-> @cellData}
@@ -133,7 +132,7 @@ Performance = React.createClass
     <Router.Link to='viewTask' params={linkParams}>
       {cell.correct_exercise_count}/{cell.exercise_count}
     </Router.Link>
-  
+
 
   getPerfByPeriod: (periodIndex) ->
     console.log(periodIndex)
