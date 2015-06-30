@@ -7,18 +7,18 @@ HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
 BookContentMixin = require '../book-content-mixin'
 
-{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
+{ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{ReferenceBookStore} = require '../../flux/reference-book'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  mixins: [Router.State]
+  mixins: [Router.State, BookContentMixin]
   getSplashTitle: ->
     {cnxId} = @getParams()
-    page = ReferenceBookPageStore.get(cnxId)
+    page = ReferenceBookStore.getPageInfo(@getParams())
     page?.title
 
   prevLink: (info) ->
