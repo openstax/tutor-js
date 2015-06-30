@@ -49,6 +49,6 @@ module.exports = React.createClass
     # Replace internal link text with overriding text
     links = root.querySelectorAll('a[data-text]')
     _.each links, (link) ->
-      link.text = getAttribute('data-text')
+      link.text = link.getAttribute('data-text')
 
     typesetMath(root)
