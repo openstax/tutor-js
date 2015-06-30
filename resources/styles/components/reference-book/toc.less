@@ -1,17 +1,10 @@
 .reference-book {
   .toc {
-    h3 {
-      padding: 5px 5px 5px 10px;
-      margin: 0;
+    max-height: 100%;
+    overflow-y: scroll;
+    a {
       #fonts > .sans();
       color: @tutor-black;
-    }
-    li {
-      list-style-type: none;
-      #fonts > .sans(1.4rem);
-      a {
-        color: @tutor-black;
-        padding: 5px 5px 5px 15px;
         display: block;
         &:hover {
           background-color: @tutor-neutral-bright;
@@ -21,9 +14,33 @@
           background-color: @tutor-neutral-light;
           text-decoration: initial;
         }
+    }
+    li {
+      list-style-type: none;
+      #fonts > .sans(1.3rem);
+      border-top: 1px dotted @tutor-neutral;
+      a {
+        color: @tutor-black;
+        padding: 5px;
       }
     }
-
+    ul { padding-left: 0rem; }
+    ul[data-depth='1'] a{
+      #fonts > .sans(1.5rem);
+      padding-left: 1rem;
+    }
+    ul[data-depth='2'] a{
+      #fonts > .sans(1.4rem);
+      padding-left: 2rem;
+    }
+    ul[data-depth='3'] a{
+      #fonts > .sans(1.3rem);
+      padding-left: 3rem;
+    }
+    ul[data-depth='4'] a{
+      #fonts > .sans(1.2rem);
+      padding-left: 4rem;
+    }
   }
   .content {
     .toc {
