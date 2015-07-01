@@ -27,7 +27,7 @@ Performance = React.createClass
 
 
   getInitialState: ->
-    period: "1"
+    period_id: "1"
     sortOrder: 'is-ascending'
     sortIndex: 0
     tableWidth: 0
@@ -134,13 +134,15 @@ Performance = React.createClass
   
 
   selectPeriod: (period) ->
-    @setState({period: period.id})
+    @setState({period_id: period.id})
 
 
   render: ->
 
     performance = PerformanceStore.get(@props.courseId)
-    performance = _.findWhere(performance, {period_id: @state.period})
+
+    {period_id} = @state
+    performance = _.findWhere(performance, {period_id})
 
     headers = performance.data_headings
     headers.unshift({"title":"Student"})
@@ -169,7 +171,7 @@ Performance = React.createClass
       <span className='course-performance-title'>Performance Report</span>
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
-        intialActive={@state.period}
+        intialActive={@state.period_id}
         courseId={@props.courseId} />
       <BS.Panel className='course-performance-container' ref='tableContainer'>
         <Table
