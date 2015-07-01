@@ -12,6 +12,7 @@ _ = require 'underscore'
 {CourseActions} = require './flux/course'
 {LearningGuideActions} = require './flux/learning-guide'
 {PerformanceActions} = require './flux/performance'
+{RosterActions} = require './flux/roster'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
@@ -160,6 +161,9 @@ start = ->
 
   apiHelper PerformanceActions, PerformanceActions.load, PerformanceActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"
+
+  apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
+    url: "/api/courses/#{id}/students"
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'
