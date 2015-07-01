@@ -1,8 +1,10 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 
 {CardBody} = require '../pinned-header-footer-card/sections'
 AsyncButton = require '../buttons/async-button'
+{TaskStore} = require '../../flux/task'
 
 {TaskStepStore} = require '../../flux/task-step'
 
@@ -15,7 +17,7 @@ module.exports =
 
     <AsyncButton
       bsStyle='primary'
-      className='-continue'
+      className='continue'
       onClick={@onContinue}
       disabled={not @isContinueEnabled()}
       isWaiting={isWaiting}
@@ -29,7 +31,6 @@ module.exports =
 
     # from StepFooterMixin
     footer = @renderFooter({stepId: id, taskId, courseId, review})
-
     <CardBody className='task-step' footer={footer} pinned={pinned}>
       {@renderBody()}
       {@renderGroup?()}
