@@ -4,8 +4,8 @@ BS = require 'react-bootstrap'
 
 ReferenceBookTOC = require './toc'
 BindStoreMixin = require '../bind-store-mixin'
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{ReferenceBookStore} = require '../../flux/reference-book'
+{ReferenceBookPageStore} = require '../../flux/reference-book-page'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
