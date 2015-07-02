@@ -17,11 +17,14 @@ err = (msgs...) ->
 
 Reading = React.createClass
   displayName: "Reading"
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin, StepFooterMixin, BookContentMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
+
+  getSplashTitle: ->
+    TaskStepStore.get(@props.id)?.title or ''
 
   renderBody: ->
     {id} = @props
@@ -31,14 +34,11 @@ Reading = React.createClass
 
 Interactive = React.createClass
   displayName: "Interactive"
-  mixins: [StepMixin, StepFooterMixin, BookContentMixin]
+  mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
-
-  getSplashTitle: ->
-    TaskStepStore.get(@props.id)?.title or ''
 
   renderBody: ->
     {id} = @props
