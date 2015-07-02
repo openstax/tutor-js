@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 {CourseStore, CourseActions} = require '../../flux/course'
-Settings = require './settings'
+Administration = require './administration'
 LoadableItem = require '../loadable-item'
 
 module.exports = React.createClass
@@ -16,5 +16,5 @@ module.exports = React.createClass
       id={courseId}
       store={CourseStore}
       actions={CourseActions}
-      renderItem={-> <Settings courseId={courseId} />}
+      renderItem={-> <Administration courseId={courseId} />}
     />

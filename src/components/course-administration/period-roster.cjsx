@@ -1,30 +1,40 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_  = require 'underscore'
 
 {RosterStore, RosterActions} = require '../../flux/roster'
-
+ChangePeriodLink  = require './change-period'
+DeleteStudentLink = require './delete-student'
+ResetPasswordLink = require './reset-password'
+AddStudentButton  = require './add-student'
 module.exports = React.createClass
   displayName: 'PeriodRoster'
   propTypes:
-    period: React.PropTypes.object.isRequired
     courseId: React.PropTypes.string.isRequired
+    period: React.PropTypes.object.isRequired
 
   renderStudentRow: (student) ->
     <tr key={student.id}>
       <td>{student.full_name}</td>
       <td>{student.id}</td>
       <td>???</td>
-      <td>???</td>
+      <td className="actions">
+        <ResetPasswordLink student={student} />
+
+        <ChangePeriodLink courseId={@props.courseId} student={student} />
+
+        <DeleteStudentLink student={student} />
+      </td>
     </tr>
 
   render: ->
+    console.log "Rendering for course #{@props.courseId} / #{@props.period.id}"
+    console.log RosterStore.getStudentsForPeriod(@props.courseId, @props.period.id)
     <div className="period">
       <h3>Period: {@props.period.name}</h3>
       <BS.Row>
         <BS.Col sm=2>
-          <BS.Button block>
-            <i className='fa fa-plus'></i>
-            Add Student</BS.Button>
+          <AddStudentButton {...@props} />
         </BS.Col>
         <BS.Col smOffset=8 sm=2>
           <BS.Button block bsStyle='danger' className='btn-flat'>
@@ -33,13 +43,13 @@ module.exports = React.createClass
             </BS.Button>
         </BS.Col>
       </BS.Row>
-      <BS.Table striped bordered condensed hover>
+      <BS.Table striped bordered condensed hover className="roster">
         <thead>
           <tr>
             <th>Name</th>
             <th>Tutor ID</th>
             <th>Email</th>
-            <th>Password</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

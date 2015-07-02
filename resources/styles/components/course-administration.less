@@ -8,4 +8,35 @@
   }
 
   .nav-tabs { .tutor-nav-tabs(); }
+
+  .roster {
+
+    .td {
+      flex: 1;
+    }
+    .actions {
+      display: flex;
+      flex-direction: row;
+      align-content: space-between;
+      a{
+        cursor: pointer;
+        list-style: none;
+        flex-grow: 1;
+        text-align: center;
+        flex: 1;
+        &:hover {
+          background-color: @tutor-neutral-light;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+}
+
+// The form renders inside a pop-over, which is directly under <body>, outside of .course-administration
+.teacher-add-student-form {
+  .tutor-input {
+    margin-bottom: 10px;
+  }
 }
