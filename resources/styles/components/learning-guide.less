@@ -1,339 +1,102 @@
-@guide-width: 100%;
-@guide-height: 100%;
-@guide-min-width: 1000px;
-@guide-max-width: 1600px;
-// colors
-@guide-green: rgb(121, 177, 66);
-@guide-xaxis-circle-fill-green: rgb(132, 195, 74);
-@guide-bg-gradient: rgb(193, 216, 229);
-
 .learning-guide {
-  width: 100%;
-  height: 100%;
-  background-repeat: repeat;
-  position: relative;
-
-  .x-axis-bg-repeat {
-    // global body padding-left/right prevents line from reaching ends at the moment...body classes with component name?
-    position: absolute;
-    bottom: 0;
+  min-width: 380px;
+  .guide-container {
+    min-width: 340px;
+  }
+  .icon-guide { 
+    .x-icon-size(2.6rem);
+    float: left;
+    margin: 9px 9px 9px 9px;
+  }
+  .guide-group-title {
+    font-size: 2rem;
+    display: inline-block;
+  }
+  .guide-key {
     width: 100%;
-    height: 41px;
-    background: @guide-green;
-    z-index: -1;
-  }
-
-  .learning-guide-chart {
-    width: @guide-width;
-    height: @guide-height;
-    min-width: @guide-min-width;
-    max-width: @guide-max-width;
-    margin: 0 auto;
-
-    svg {
-      font-size: @html-font-size;
-      width: @guide-width;
-      height: @guide-height;
-      min-width: @guide-min-width;
-      max-width: @guide-max-width;
-
-
-      .main-title {
-        font-size: .2rem;
-        #fonts > .guide-header();
-        font-weight: bold;
-        fill: @tutor-neutral-darker;
-
-        .show-course {
-          .no-select();
-          cursor: pointer;
-          fill: @tutor-tertiary-light;
-          font-size: .15rem;
+    height: 40px;
+    .item {
+      float: left;
+      margin: 0px 35px 0px 0px;
+      .box {
+        float: left;
+        width: 10px;
+        height: 10px;
+        margin: 10px 5px 0px 0px;
+        &.high {
+          background: @tutor-secondary;
+        }
+        &.medium {
+          background: @tutor-quaternary;
+        }
+        &.low {
+          background: @tutor-primary;
         }
       }
-
-
-
-      .circles {
-        .ace {
-          fill: @tutor-tertiary;
-        }
-        .cruising {
-          fill: @guide-green;
-        }
-        .too-low {
-          fill: @tutor-quaternary;
-        }
-        .grounded {
-          fill: @tutor-neutral-darker;
-        }
-        text {
-          // the unscaled resolution of the svg is only 100px wide, // so 2px is 2% of the width of the chart, i.e. fairly large
-          font-size: .15rem;
-          fill: @tutor-white;
-        }
-        circle {
-          stroke: white;
-          stroke-width: .25;
-        }
-        g {
-          cursor: pointer;
-
-          &:hover {
-            opacity: 0.8;
-          }
-        }
-      }
-      .grid-lines {
-        line {
-          stroke: @tutor-neutral-light;
-          stroke-width: 0.1;
-          // stroke-dasharray: 1 2;
-        }
-      }
-      .plot-lines {
-        line {
-          stroke: @tutor-white;
-          stroke-width: 0.4;
-          stroke-dasharray: 1.2 0.5;
-        }
-      }
-      .background-gradient {
-        // despite the attribute being named "stop-color" this sets the starting color
-        .start {
-          stop-color: @guide-bg-gradient;
-        }
-        .end {
-          stop-color: @tutor-white;
-        }
-      }
-      .x-axis {
-        text {
-          fill: @tutor-white;
-          #fonts > .sans(.2rem);
-        }
-        .arrow {
-          fill: transparent;
-          stroke: transparent;
-        }
-        .point {
-          cursor: pointer;
-
-          &:hover  .arrow {
-            fill: @tutor-neutral-light;
-          }
-          &.active .arrow {
-            fill: @tutor-white;
-          }
-        }
-        .point.active .x-axis-label {
-          font-weight: bold;
-        }
-      }
-      .x-rect {
-        fill: @guide-green;
-      }
-      .x-axis-circle {
-        stroke: @tutor-neutral-light;
-        fill: @guide-xaxis-circle-fill-green;
-        stroke-width: .1;
-      }
-      .y-label {
-        font-size: .15rem;
-        #fonts > .guide-label();
-        fill: @tutor-white;
-      }
-      .y-desc {
-        font-size: .18rem;
-        #fonts > .guide-label();
-        font-style: italic;
-        fill: @tutor-neutral;
-      }
-      .x-desc {
-        font-size: .2rem;
-        #fonts > .guide-label();
-        font-style: italic;
-        fill: @tutor-white;
-        font-weight: 300;
-      }
-      .cloud-opacity-10 {
-        opacity: .1
-      }
-      .cloud-opacity-20 {
-        opacity: .2
-      }
-      .cloud-opacity-30 {
-        opacity: .3
-      }
-      .cloud-opacity-40 {
-        opacity: .4
-      }
-      .cloud-opacity-50 {
-        opacity: .5
-      }
-      .cloud-opacity-60 {
-        opacity: .6
-      }
-      .cloud-opacity-70 {
-        opacity: .7
-      }
-      .cloud-opacity-80 {
-        opacity: .8
-      }
-      .cloud-opacity-90 {
-        opacity: .9
-      }
-      .cloud-opacity-100 {
-        opacity: 1
-      }
-    }
-
-    .title-bar {
-      font-size: 2rem;
-      #fonts > .guide-header();
-      font-weight: bold;
-      fill: @tutor-neutral-darker;
-      height: 60px;
-      
       .title {
-        width: 800px;
-        height: inherit;
-        text-align: center;
-        margin: 0 auto;
-        display:table;
-        .span-wrap {
-          display:table-cell;
-          vertical-align: middle;
-          color: @guide-green;
-          .path-label {
-            color: @tutor-neutral-darker;
-            &:after {
-              content: "\00a0\00a0";
-            }
-          }
-          .overall-label {
-            color: @guide-green;
-          }
-        }
-      }
-      .button {
-        float: right;
-        margin-right: 3px;
-        margin-top: -60px;
-      }
-    }
 
-    .footer {
-      position: relative;
-      height: 120px;
-      top: -9px; // FIXME: Can't figure out what element or style is pushing the footer down
-      margin-left: 0px;
-      border-width: 1px 0px 1px 1px;
-      border-style: solid;
-      border-color: @tutor-neutral-light;
-      background: @tutor-white;
-      padding: 5px 10px;
-    .header {
-      font-size: 1.8rem;
-      border-bottom: 1px dashed @tutor-neutral-light;
-      padding-bottom: 5px;
+      }
     }
-    .chapter {
-      display: inline;
-      font-weight: bold;
-      color: @guide-green;
-    }
-    .chapter:after {
-      content: "\00a0";
-    }
-    .title {
-      display: inline;
-      font-weight: bold;
-      margin-left: 5px;
-    }
-      .body {
-        margin-top: 5px;
-        .problems-worked {
-          width: 245px;
+  }
+  .guide-group {
+    .chapter-panel {
+      float: left;
+      margin: 0px 20px 0px 0px;
+      padding: 10px 20px 11px 9px;
+      border: 1px solid @tutor-neutral-light;
+      width: 300px;
+      border-radius: 5px;
+      .chapter-heading {
+        margin-bottom: 5px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid @tutor-neutral-light;
+      }
+      .chapter-number {
+        margin-right: 10px;
+        display: inline-block;
+        float: left;
+        color: @tutor-secondary;
+        font-size: 2rem;
+      }
+      .chapter-title {
+        max-width: 202px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+      }
+      .section {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        .section-heading {
+          height: 27px; 
+        }
+        .section-number {
+          margin-right: 10px;
+          display: inline-block;
           float: left;
-          .count {
-            font-size: 5rem;
-            text-align: center;
-            color: @tutor-quaternary;
-            display: inline;
-            float: left;
-            line-height: 60px;
-          }
-          .count-desc {
-            line-height: 20px;
-            width: 175px;
-            font-weight: 300;
-            float: left;
-            margin-left: 10px;
-            b {
-              display: block;
-            }
-          }
+          height: inherit;
         }
-        button {
-          height: 40px;
-          margin-top: 10px;
+        .section-title {
+          max-width: 195px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          display: inline-block;
         }
-        .chapter-button {
-          margin-left: 10px;
+      }
+      .progress {
+        height: 8px;
+        &.high .progress-bar {
+          background: @tutor-secondary;
+        }
+        &.medium .progress-bar {
+          background: @tutor-quaternary;
+        }
+        &.low .progress-bar {
+          background: @tutor-primary;
         }
       }
     }
   }
-  .footer.active {
-    opacity:1;
-  }
 }
-
-
-// IE10/11 resize hack
-// these breakpoints correspond approx. with what height:auto calculates in other browsers.
-// only targets IE10 and above.
-
-.ie-resize-fix(@height, @width) {
-  @media screen and (min-width: @width) {
-    _:-ms-lang(x), .learning-guide-chart { 
-      height: @height !important;
-    }
-  }
-}
-
-.ie-resize-fix(306px, 0px);
-.ie-resize-fix(306px, 1079px);
-.ie-resize-fix(306px, 1080px);
-.ie-resize-fix(312px, 1100px);
-.ie-resize-fix(318px, 1120px);
-.ie-resize-fix(324px, 1140px);
-.ie-resize-fix(330px, 1160px);
-.ie-resize-fix(336px, 1180px);
-.ie-resize-fix(342px, 1200px);
-.ie-resize-fix(348px, 1220px);
-.ie-resize-fix(354px, 1240px);
-.ie-resize-fix(360px, 1260px);
-.ie-resize-fix(366px, 1280px);
-.ie-resize-fix(372px, 1300px);
-.ie-resize-fix(378px, 1320px);
-.ie-resize-fix(384px, 1340px);
-.ie-resize-fix(390px, 1360px);
-.ie-resize-fix(396px, 1380px);
-.ie-resize-fix(402px, 1400px);
-.ie-resize-fix(408px, 1420px);
-.ie-resize-fix(414px, 1440px);
-.ie-resize-fix(420px, 1460px);
-.ie-resize-fix(426px, 1480px);
-.ie-resize-fix(432px, 1500px);
-.ie-resize-fix(438px, 1520px);
-.ie-resize-fix(444px, 1540px);
-.ie-resize-fix(450px, 1560px);
-.ie-resize-fix(456px, 1580px);
-.ie-resize-fix(462px, 1600px);
-
-// constrains title bar width to svg max-width in IE
-_:-ms-lang(x), .learning-guide .learning-guide-chart .title-bar{ max-width: 1556px; }
-
-

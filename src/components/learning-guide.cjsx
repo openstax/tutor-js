@@ -6,7 +6,6 @@ _ = require 'underscore'
 {CourseActions, CourseStore} = require '../flux/course'
 {LearningGuideStore, LearningGuideActions} = require '../flux/learning-guide'
 LoadableItem = require './loadable-item'
-LearningGuideChart = require './learning-guide-chart'
 PracticeButton = require './buttons/practice-button'
 ChapterSection = require './task-plan/chapter-section'
 ChapterSectionMixin = require './chapter-section-mixin'
@@ -21,107 +20,72 @@ LearningGuide = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  getInitialState: ->
-    showAll: true
-    footerOffset: 0
-    chapter: 0
-    title: ''
 
-  navigateToPractice: (unit) ->
-    {page_ids} = unit
-    {courseId} = @props
-    @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
+  _percent: (num, total) ->
+    Math.round((num / total) * 100)
 
-  displayUnit: (unit, chapter) ->
-    @setState({unit, chapter: chapter})
+  renderSectionBars: (section) ->
+    chapterSection =
+      @sectionFormat(section.chapter_section, @state.sectionSeparator)
+    sectionPercent = @_percent(section.current_level, 1)
+    colorClass = @colorizeBar(sectionPercent)
+    <div className='section'>
+      <i className='icon-guide icon-homework'></i>
+      <div className='section-heading'>
+        <span className='section-number'>{chapterSection}</span>
+        <span className='section-title' title={section.title}>{section.title}</span>
+      </div>
+      <BS.ProgressBar className={colorClass} now={sectionPercent} />
+    </div>
 
-  displayTitle: (title) ->
-    @setState({title: title})
 
-  toggleChapter: ->
-    @setState({showAll: not @state.showAll}, -> @loadChart())
+  renderChapterPanels: (chapter, i) ->
+    sections = _.map(chapter.children, @renderSectionBars)
+    chapterPercent = @_percent(chapter.current_level, 1)
+    colorClass = @colorizeBar(chapterPercent)
+    <div className='chapter-panel'>
+      <div className='chapter-heading'>
+        <i className='icon-guide icon-homework'></i>
+        <span className='chapter-number'>{chapter.chapter_section[0]}</span>
+        <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
+        <BS.ProgressBar className={colorClass} now={chapterPercent} />
+      </div>
+      <div>{sections}</div>
+    </div>
 
-  displayTopic: ->
-    {courseId} = @props
-    if @state.showAll is false
-      @setState({showAll:true}, -> @loadChart())
-    else
-      @context.router.transitionTo('dashboard', {courseId})
-
-  setFooterOffset: (offsetPercent) ->
-    @setState(footerOffsetPercent: offsetPercent)
-
-  loadChart: ->
-    @chart = new LearningGuideChart(@refs.svg.getDOMNode()
-      LearningGuideStore.get(@props.courseId), @state.showAll, @state.chapter, @state.sectionSeparator
-      {@navigateToPractice, @displayUnit, @displayTopic, @setFooterOffset, @sectionFormat, @displayTitle}
-    )
-
-  componentDidMount: ->
-    @loadChart()
+  colorizeBar: (percent) ->
+    if percent > 75
+      'high'
+    else if percent <= 75 and percent >= 50
+      'medium'
+    else if percent <= 49
+      'low'
 
   render: ->
-    {unit} = @state
-    if unit
-      chapter = <div className='chapter'>
-        {@sectionFormat(unit.chapter_section, @state.sectionSeparator)}
-      </div>
-      title = <div className='title'>{unit.title}</div>
-      problemsWorked =
-        <div className='problems-worked'>
-          <div className='count'>{unit.questions_answered_count}</div>
-          <div className='count-desc'>
-            <b>problems worked</b>
-            in readings, homeworks, and practice
-          </div>
-        </div>
-      practiceButton =
-          <PracticeButton showAll={@state.showAll} courseId={@props.courseId} pageIds={unit.page_ids}/>
-      chapterToggleButton =
-          <BS.Button className="chapter-button" onClick={@toggleChapter}>
-            {if @state.showAll then 'Expand Chapter' else 'Back to overall'}
-          </BS.Button>
-      mainToggleButton =
-          <BS.Button className="main-button" onClick={@displayTopic}>
-            {if @state.showAll then 'Back to Dashboard' else 'Overall Guide'}
-          </BS.Button>
-      course = LearningGuideStore.get(@props.courseId)
-      pathLabel = 'My Flight Path'
-      chapterTitle = @state.title
-      if @state.showAll
-        overallLabel = ' - Overall'
+    guide = LearningGuideStore.get(@props.courseId)
+    chapters = _.map(guide.children, @renderChapterPanels)
 
-    footerWidth = 600
-    <div className='learning-guide-chart'>
-      <div className='title-bar'>
-        <div className='title'>
-          <span className='span-wrap'>
-            <span className='path-label'>{pathLabel}</span>
-              {chapterTitle}
-            <span className='overall-label'>{overallLabel}</span>
-          </span>
+    <div className='guide-container'>
+      <span className='guide-group-title'>Learning Guide</span>
+      <div className='guide-key'>
+        <div className='item'>
+          <div className='box high'></div>
+          <span className='title'>Good</span>
         </div>
-        <div className='button'>{mainToggleButton}</div>
+        <div className='item'>
+          <div className='box medium'></div>
+          <span className='title'>OK</span>
+        </div>
+        <div className='item'>
+          <div className='box low'></div>
+          <span className='title'>Needs work</span>
+        </div>
       </div>
-      <svg ref='svg' />
-      <div ref='footer' className='footer' style={
-        left: @state.footerOffsetPercent + '%'
-        width: footerWidth
-        marginLeft: -1 * footerWidth * (@state.footerOffsetPercent / 100)
-        }>
+      
+      <BS.Panel className='guide-group'></BS.Panel>
 
-        <div className='header'>
-          {chapter}{title}
-        </div>
-        <div className='body'>
-          {problemsWorked}
-          <div className='problems-worked-explained'>
-          </div>
-          {practiceButton}
-          {chapterToggleButton}
-        </div>
-
-      </div>
+      <span className='guide-group-title'>Individual Chapters</span>
+      <BS.Panel className='guide-group'>{chapters}</BS.Panel>
     </div>
 
 
@@ -132,13 +96,13 @@ LearningGuideShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <div className='learning-guide'>
+    <BS.Panel className='learning-guide'>
       <LoadableItem
         id={courseId}
         store={LearningGuideStore}
         actions={LearningGuideActions}
         renderItem={-> <LearningGuide courseId={courseId} />}
       />
-    </div>
+    </BS.Panel>
 
 module.exports = {LearningGuideShell, LearningGuide}
