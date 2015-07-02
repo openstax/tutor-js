@@ -1,7 +1,24 @@
+# coffeelint: disable=no_empty_functions
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
 
 RosterConfig = {
+
+  # update
+  saved: (newProps, studentId) ->
+    # update the student from all the courses rosters
+    for courseId, roster of @_local
+      student = _.findWhere(roster, id: studentId)
+      _.extend(student, newProps) if student
+    @emitChange()
+
+  deleted: (unused, studentId) ->
+    # remove the student from all the courses rosters
+    for courseId, roster of @_local
+      index = _.findIndex(roster, id: studentId)
+      roster.splice(index, 1) unless -1 is index
+    @emitChange()
+
   exports:
 
     getStudentsForPeriod: (courseId, periodId) ->

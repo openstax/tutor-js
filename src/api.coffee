@@ -162,6 +162,12 @@ start = ->
   apiHelper PerformanceActions, PerformanceActions.load, PerformanceActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"
 
+  apiHelper RosterActions, RosterActions.delete, RosterActions.deleted, 'DELETE', (id) ->
+    url: "/api/students/#{id}"
+  apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
+    url: "/api/students/#{id}", payload: params
+  apiHelper RosterActions, RosterActions.create, RosterActions.created, createMethod, (id, params) ->
+    url: "/api/students", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/students"
 
