@@ -17,6 +17,9 @@ TutorInput = React.createClass
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
 
+  focus: ->
+    React.findDOMNode(@refs.input)?.focus()
+
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
@@ -29,6 +32,7 @@ TutorInput = React.createClass
     <div className={wrapperClasses.join(' ')}>
       <input
         id={@props.id}
+        ref="input"
         type='text'
         className={classes.join(' ')}
         value={@props.value}
