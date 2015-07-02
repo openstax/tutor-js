@@ -7,7 +7,6 @@ router = require './src/router'
 
 
 window._STORES =
-  APP_CONFIG: require './src/flux/app-config'
   COURSE: require './src/flux/course'
   CURRENT_USER: require './src/flux/current-user'
   EXERCISE: require './src/flux/exercise'
