@@ -143,6 +143,12 @@ ReadingPlan = React.createClass
         bsStyle='default'>+ {addReadingText}
       </BS.Button>
 
+    if (@state?.invalid and not topics?.length)
+      readingsRequired = <span className="readings-required">
+        Please add sections to this assignment
+        <i className="fa fa-exclamation-circle"></i>
+      </span>
+
     <div className='reading-plan'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
@@ -156,6 +162,7 @@ ReadingPlan = React.createClass
             <BS.Col xs={12} md={12}>
               <ReviewReadings courseId={courseId} planId={id} selected={topics}/>
               {addReadingsButton}
+              {readingsRequired}
             </BS.Col>
           </BS.Row>
         </BS.Grid>
