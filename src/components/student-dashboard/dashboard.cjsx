@@ -9,6 +9,7 @@ AllEventsByWeek = require './all-events-by-week'
 ThisWeekPanel   = require './this-week-panel'
 
 PracticeButton = require '../buttons/practice-button'
+{GuideDashboardProgressShell} = require '../guide-dashboard-progress'
 BrowseBookButton = require '../buttons/browse-the-book'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 {CourseStore} = require '../../flux/course'
@@ -41,25 +42,29 @@ module.exports = React.createClass
       data-category={CourseStore.getCategory(courseId)}>
 
       <div className='container'>
+
         <BS.Row>
           <BS.Col mdPush={9} xs={12} md={3}>
-            <div className='right-actions-box'>
-              <h3>How am I doing?</h3>
-              <BS.Button
-                bsStyle='primary'
-                onClick={_.partial(@selectTab, 2)}
-                className='-view-my-work'
-              >
-                View All My Work
-              </BS.Button>
-              <BS.Button
-                bsStyle='primary'
-                onClick={@viewFlightPath}
-                className='-view-flightpath'
-              >
-                View My Flight Path
-              </BS.Button>
-            </div>
+
+            <BS.Row>
+              <div className='right-actions-box'>
+                <BrowseBookButton courseId={courseId} />
+              </div>
+            </BS.Row>
+
+            <BS.Row>
+              <div className='right-actions-box bottom'>
+                <GuideDashboardProgressShell courseId={courseId} />
+                <BS.Button
+                  bsStyle='primary'
+                  onClick={@viewFlightPath}
+                  className='-view-flightpath'
+                >
+                  View My Learning Guide
+                </BS.Button>
+              </div>
+            </BS.Row>
+
             <div className='right-actions-box'>
               <BrowseBookButton unstyled courseId={courseId}>
                 <div>Browse the Book</div>
@@ -88,6 +93,5 @@ module.exports = React.createClass
 
           </BS.Col>
         </BS.Row>
-
       </div>
     </div>

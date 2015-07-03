@@ -201,7 +201,7 @@ LearningGuideShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <BS.Panel className='learning-guide'>
+    <BS.Panel className='learning-guide main'>
       <LoadableItem
         id={courseId}
         store={LearningGuideStore}

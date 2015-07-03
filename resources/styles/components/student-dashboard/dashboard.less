@@ -8,13 +8,16 @@
     background-color: white;
     padding: 10px;
     text-align: center;
-    margin: 53px 0;
+    margin: 53px 0px 10px 0px;
     @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
     border: 1px solid @tutor-neutral-light;
     button, a {
       width: 100%;
       // override bootstrap styling
       &.btn-primary { padding: 12px 0 !important; }
+    }
+    &.bottom {
+      margin: 0px 0px 53px 0px;
     }
   }
 

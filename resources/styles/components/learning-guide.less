@@ -5,7 +5,7 @@
   .guide-container {
     min-width: 340px;
   }
-  .icon-guide { 
+  .icon-guide {
     .x-icon-size(2.6rem);
     float: left;
     margin: 9px 9px 9px 9px;
@@ -53,7 +53,7 @@
   }
   .guide-group {
     .chapter-panel:nth-child(4n) {
-      margin-right: 0px;  
+      margin-right: 0px;
     }
     .chapter-panel {
       background: @tutor-white;
@@ -107,7 +107,7 @@
         font-size: 1.4rem;
         margin-bottom: 30px;
         .section-heading {
-          height: 27px; 
+          height: 27px;
         }
         .section-number {
           margin-right: 10px;
@@ -151,6 +151,34 @@
           background: @tutor-primary;
         }
       }
+    }
+  }
+  // guide-dashboard-progress component inherits from above
+  // dashboard specific styles only inside .dashboard-container below
+  .dashboard-container {
+    .chapter-panel {
+      border: 0;
+      .section-heading {
+        text-align: left;
+      }
+      .section .section-title {
+        max-width: 240px;
+      }
+    }
+    .heading {
+      display: block;
+      &.lg {
+        font-size: 2.5rem;
+      }
+      &.md {
+        font-size: 1.6rem;
+      }
+      &.sm {
+        font-size: 1.3rem;
+      }
+    }
+    .guide-key {
+      margin-left: 15px;
     }
   }
 }
