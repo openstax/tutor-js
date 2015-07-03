@@ -94,16 +94,8 @@ TutorDateInput = React.createClass
       onToggle = @onToggle
 
     if @props.required then wrapperClasses.push('is-required')
-
-    <div className={wrapperClasses.join(' ')}>
-      <input type='text' disabled className={classes.join(' ')} />
-      <div className="floating-label">{@props.label}</div>
-      <div className="hint required-hint">
-        Required Field <i className="fa fa-exclamation-circle"></i>
-      </div>
-
-      <div className="date-wrapper">
-        <DatePicker
+    if not @props.disabled
+      dateElem = <DatePicker
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
@@ -113,9 +105,22 @@ TutorDateInput = React.createClass
           ref="picker"
           className={classes.join(' ')}
           onChange={@dateSelected}
-          readOnly={@props.readOnly}
+          disabled={@props.disabled}
           selected={value}
         />
+    else if @props.disabled and value
+      displayValue = value.toString("YYYY/MM/DD")
+
+    <div className={wrapperClasses.join(' ')}>
+      <input type='text' disabled className={classes.join(' ')} value={displayValue}/>
+      <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
+
+
+      <div className="date-wrapper">
+        {dateElem}
         <i className="fa fa-calendar"></i>
       </div>
     </div>

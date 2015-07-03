@@ -21,10 +21,11 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    dueAt = TaskPlanStore.getDueAt(@props.planId)
-    opensAt = TaskPlanStore.getOpensAt(@props.planId)
+    dueAt = TaskPlanStore.getDueAt(@props.id)
+    opensAt = TaskPlanStore.getOpensAt(@props.id)
+    isNewPlan = TaskPlanStore.isNew(@props.id)
 
-    {showingPeriods: not (dueAt and opensAt)}
+    {showingPeriods: not (dueAt and opensAt or isNewPlan)}
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -58,7 +59,7 @@ module.exports = React.createClass
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
   togglePeriodsDisplay: (ev) ->
-    @setState(showingPeriods: not ev.target.checked)
+    @setState(showingPeriods: not @state.showingPeriods)
 
   togglePeriodEnabled: (period, ev) ->
     if ev.target.checked
@@ -109,11 +110,12 @@ module.exports = React.createClass
 
         <BS.Col sm=4 md=3>
           <input
-            id='toggle-periods-checkbox'
-            type='checkbox'
+            id='hide-periods-radio'
+            name='toggle-periods-radio'
+            type='radio'
             onChange={@togglePeriodsDisplay}
             checked={not @state.showingPeriods}/>
-          <label className="period" htmlFor='toggle-periods-checkbox'>All Periods</label>
+          <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
         </BS.Col>
 
         <BS.Col sm=4 md=3>
@@ -123,6 +125,7 @@ module.exports = React.createClass
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setOpensAt}
+            disabled={@state.showingPeriods}
             min={TimeStore.getNow()}
             max={TaskPlanStore.getDueAt(@props.id)}
             value={commonOpensAt}/>
@@ -135,6 +138,7 @@ module.exports = React.createClass
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={true}
             onChange={@setDueAt}
+            disabled={@state.showingPeriods}
             min={TaskPlanStore.getOpensAt(@props.id)}
             value={commonDueAt}/>
         </BS.Col>
@@ -143,9 +147,6 @@ module.exports = React.createClass
         </BS.Col>
 
       </BS.Row>
-
-      { _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods }
-
       <BS.Row>
         <BS.Col sm=4 md=3></BS.Col>
         <BS.Col sm=4 md=3>
@@ -156,6 +157,23 @@ module.exports = React.createClass
           <div className="instructions">Due time is 7:00am</div>
         </BS.Col>
       </BS.Row>
+      <BS.Row>
+
+        <BS.Col sm=4 md=3>
+          <input
+            id='show-periods-radio'
+            name='toggle-periods-radio'
+            type='radio'
+            onChange={@togglePeriodsDisplay}
+            checked={@state.showingPeriods}/>
+          <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
+        </BS.Col>
+
+      </BS.Row>
+
+      { _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods }
+
+
     </div>
 
   renderTaskPlanRow: (plan) ->

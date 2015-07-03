@@ -39,6 +39,11 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
+    _.each(obj.tasking_plans, (plan) ->
+      plan.due_at = new Date(plan.due_at)
+      plan.opens_at = new Date(plan.opens_at)
+    )
+
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
       delete obj.settings.exercise_ids
