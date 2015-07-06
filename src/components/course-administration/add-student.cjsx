@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
 
@@ -35,7 +36,10 @@ module.exports = React.createClass
     first_name: '', last_name: '', email: '', password: ''
 
   performUpdate: ->
-    RosterActions.create(RosterStore.freshLocalId(), @state)
+    student = _.extend( _.clone(@state),
+      period_id: @props.period.id
+    )
+    RosterActions.create(@props.courseId, student)
 
   renderForm: ->
     <BS.Popover className="teacher-add-student-form"

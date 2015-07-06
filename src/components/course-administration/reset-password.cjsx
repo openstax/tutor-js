@@ -20,10 +20,11 @@ PasswordResetField = React.createClass
 module.exports = React.createClass
   displayName: 'ResetPasswordLink'
   propTypes:
-    student: React.PropTypes.object.isRequired
+    student:  React.PropTypes.object.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   performUpdate: ->
-    RosterActions.save(@props.student.id, password: @refs.password.getValue())
+    RosterActions.save(@props.courseId, @props.student.id, password: @refs.password.getValue())
 
   resetPassword: ->
     <BS.Popover title={'Update password:'} {...@props}>

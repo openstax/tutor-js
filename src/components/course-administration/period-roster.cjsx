@@ -19,10 +19,8 @@ module.exports = React.createClass
       <td>{student.id}</td>
       <td>???</td>
       <td className="actions">
-        <ResetPasswordLink student={student} />
-
+        <ResetPasswordLink courseId={@props.courseId} student={student} />
         <ChangePeriodLink courseId={@props.courseId} student={student} />
-
         <DeleteStudentLink student={student} />
       </td>
     </tr>

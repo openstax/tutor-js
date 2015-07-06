@@ -4,8 +4,12 @@ _ = require 'underscore'
 
 RosterConfig = {
 
-  # update
+  create: (courseId, params) ->
+
+  save: (courseId, studentId, params) ->
+
   saved: (newProps, studentId) ->
+    debugger
     # update the student from all the courses rosters
     for courseId, roster of @_local
       student = _.findWhere(roster, id: studentId)
