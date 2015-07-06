@@ -25,7 +25,7 @@ TutorInput = React.createClass
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
     wrapperClasses.push(@props.className) if @props.className
 
-    unless @props.default then classes.push('empty')
+    unless @props.default or @props.value then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.class)
 
