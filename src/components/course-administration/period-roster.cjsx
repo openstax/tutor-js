@@ -26,8 +26,6 @@ module.exports = React.createClass
     </tr>
 
   render: ->
-    console.log "Rendering for course #{@props.courseId} / #{@props.period.id}"
-    console.log RosterStore.getStudentsForPeriod(@props.courseId, @props.period.id)
     <div className="period">
       <h3>Period: {@props.period.name}</h3>
       <BS.Row>
