@@ -4,7 +4,11 @@ _ = require 'underscore'
 PerformanceConfig = {
   exports:
     getStudentOfTask: (courseId, taskId) ->
-      {students} = @_get(courseId)
+      performances = @_get(courseId)
+      students = _.chain(performances)
+        .pluck('students')
+        .flatten(true)
+        .value()
 
       # TODO remove when BE fixed for ids to be strings instead of numbers
       taskId = parseInt(taskId)

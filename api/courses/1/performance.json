@@ -1,4 +1,5 @@
-{
+[{
+  "period_id": "1",
   "data_headings": [
     {
       "title": "Reading 1"
@@ -81,4 +82,88 @@
       ]
     }
   ]
-}
+},{
+  "period_id": "2",
+  "data_headings": [
+    {
+      "title": "Reading 1"
+    },
+    {
+      "title": "HW 1",
+      "class_average": 81.2
+    },
+    {
+      "title": "Reading 2"
+    },
+    {
+      "title": "HW 2",
+      "class_average": 76.5
+    }
+  ],
+  "students": [
+    {
+      "name": "Johnny Applebottom",
+      "role": 3482,
+      "data": [
+        {
+          "type": "reading",
+          "id": "456",
+          "status": "completed"
+        },
+        {
+          "type": "homework",
+          "id": "890",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 4,
+          "recovered_exercise_count": 6
+        },
+        {
+          "type": "reading",
+          "id": "123",
+          "status": "completed"
+        },
+        {
+          "type": "homework",
+          "id": "712",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 3,
+          "recovered_exercise_count": 7
+        }
+      ]
+    },
+    {
+      "name": "Elizabeth Black",
+      "role": 9026,
+      "data": [
+        {
+          "type": "reading",
+          "id": "257",
+          "status": "completed"
+        },
+        {
+          "type": "homework",
+          "id": "313",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 7,
+          "recovered_exercise_count": 1
+        },
+        {
+          "type": "reading",
+          "id": "99",
+          "status": "in_progress"
+        },
+        {
+          "type": "homework",
+          "id": "888",
+          "status": "in_progress",
+          "exercise_count": 8,
+          "correct_exercise_count": 7,
+          "recovered_exercise_count": 0
+        }
+      ]
+    }
+  ]
+}]
