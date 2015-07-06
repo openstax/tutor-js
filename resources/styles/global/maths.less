@@ -14,17 +14,3 @@
 // Hide the HTML and use MathJax for rendering
 // TODO: Decide whether to remove KaTeX (involves additional code for MathJax)
 .has-html .katex > .katex-html { display: none; }
-
-// HACK: Override some odd properties being directly added on to 2 MathJax-related elements
-.MathJax .math {
-  > span {
-    display: inline !important;
-    position: static !important;
-    width: auto !important;
-    height: auto !important;
-
-    > span {
-      position: static !important;
-    }
-  }
-}
