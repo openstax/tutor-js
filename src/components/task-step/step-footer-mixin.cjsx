@@ -17,13 +17,14 @@ module.exports =
   mixins: [ ChapterSectionMixin ]
 
   renderTeacherReadOnlyDetails: ({taskId, courseId, review}) ->
-    task = TaskStore.get(taskId)
+
     unless review?.length
+      taskDetails = @renderDefaultDetails({taskId, courseId, review})
+
       taskDetails = [
-          <Details task={task} key="task-#{taskId}-details"/>
-          <div className='task-title'>{task.title}</div>
-          <ViewingAsStudentNameShell courseId={courseId} taskId={taskId} />
-        ]
+        taskDetails
+        <ViewingAsStudentNameShell courseId={courseId} taskId={taskId} />
+      ]
 
     taskDetails
 
