@@ -9,7 +9,7 @@ cleanMathArtifacts = ->
   # MathJax calls queued events in order, so this will be called after processing completes
   window.MathJax.Hub.Queue([ ->
     # copy-pasta in `/index.coffee`
-    for nodeId in ['MathJax_Message', 'MathJax_Hidden', 'MathJax_Font_Test']
+    for nodeId in ['MathJax_Message', 'MathJax_Font_Test']
       el = document.getElementById(nodeId)
       break unless el # the elements won't exist if MathJax didn't do anything
       # Some of the elements are wrapped by divs without selectors under body
@@ -59,7 +59,6 @@ startMathJax = ->
 
   configuredCallback = ->
     window.MathJax.Hub.Configured()
-    cleanMathArtifacts()
 
   if window.MathJax?.Hub
     window.MathJax.Hub.Config(MATHJAX_CONFIG)

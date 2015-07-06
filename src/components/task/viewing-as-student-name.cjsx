@@ -11,12 +11,15 @@ ViewingAsStudentName = React.createClass
 
   render: ->
     {courseId, taskId} = @props
+    studentName = null
 
     student = PerformanceStore.getStudentOfTask(courseId, taskId)
 
     studentName = <div className='task-student'>
       {student.name}
     </div> if student?
+
+    studentName
 
 ViewingAsStudentNameShell = React.createClass
   displayName: 'ViewingAsStudentNameShell'
