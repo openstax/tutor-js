@@ -90,6 +90,12 @@
     &::before {
       content: "My Answer:";
     }
+
+    &[data-student-names] {
+      &::before {
+        content: attr(data-student-names);
+      }
+    }
   }
 
   .question-feedback {

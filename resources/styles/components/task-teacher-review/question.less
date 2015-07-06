@@ -35,4 +35,15 @@
       }
     }
   }
+
+  .teacher-review-answers {
+    max-height: 0;
+    overflow-y: hidden;
+    .transition(max-height 0.3s);
+
+    &.active {
+      overflow: inherit;
+      max-height: none;
+    }
+  }
 }
