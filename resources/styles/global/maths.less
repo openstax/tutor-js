@@ -2,11 +2,10 @@
 // Hides all data-math elements, but still reserves their space in the DOM.
 // when .MathJax renders them, it'll be inside a .MathJax element which is displayed
 [data-math]{
-    visibility: hidden;
-
-    .MathJax {
-      visibility: visible;
-    }
+  visibility: hidden;
+  .MathJax {
+    visibility: visible;
+  }
 }
 
 // KaTeX 1.0.2 generates both HTML and MathML
