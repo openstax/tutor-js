@@ -59,7 +59,6 @@ startMathJax = ->
 
   configuredCallback = ->
     window.MathJax.Hub.Configured()
-    cleanMathArtifacts()
 
   if window.MathJax?.Hub
     window.MathJax.Hub.Config(MATHJAX_CONFIG)
