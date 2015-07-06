@@ -64,6 +64,7 @@ module.exports =
 
     backButton = <Router.Link
       to='viewStudentDashboard'
+      key='back-button'
       params={{courseId}}
       className={custombuttonClasses or defaultButtonClasses}>
         Back to Dashboard
@@ -74,6 +75,7 @@ module.exports =
 
       backButton = <Router.Link
         to='viewPerformance'
+        key='back-button'
         params={{courseId}}
         className={custombuttonClasses or defaultButtonClasses}>
           Back to Performance Report
@@ -104,21 +106,21 @@ module.exports =
 
     @renderFooterButtons?() or @[renderButtonsForPanelMethod]?({taskId, courseId, review, panel}) or @renderDefaultButtons()
 
-  renderFooter: ({stepId, taskId, courseId, review}) ->
-    buttons = @renderButtons({stepId, taskId, courseId, review})
-    taskDetails = @renderTaskDetails({stepId, taskId, courseId, review})
-    [
-      buttons
-      taskDetails
-    ]
+
+
+
+  renderFooter: ({stepId, taskId, courseId, review, buttons, taskDetails}) ->
+    buttons ?= @renderButtons({stepId, taskId, courseId, review})
+    taskDetails ?= @renderTaskDetails({stepId, taskId, courseId, review})
+    <div className="footer">
+      <div className="navigation">
+        {buttons}
+      </div>
+      {taskDetails}
+    </div>
+
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
-
-    backButton = @renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')
-    taskDetails = @renderTaskDetails({stepId, taskId, courseId, review})
-
-    [
-      backButton
-      taskDetails
-    ]
+    buttons = [@renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')]
+    @renderFooter({stepId, taskId, courseId, review, buttons})
