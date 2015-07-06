@@ -7,6 +7,7 @@ api = require '../../api'
 ArbitraryHtmlAndMath = require '../html'
 Exercise = require './exercise'
 StepMixin = require './step-mixin'
+StepFooterMixin = require './step-footer-mixin'
 BookContentMixin = require '../book-content-mixin'
 
 # React swallows thrown errors so log them first
@@ -16,21 +17,7 @@ err = (msgs...) ->
 
 Reading = React.createClass
   displayName: "Reading"
-  mixins: [StepMixin]
-  isContinueEnabled: -> true
-  onContinue: ->
-    @props.onStepCompleted()
-    @props.onNextStep()
-
-  renderBody: ->
-    {id} = @props
-    {content_html} = TaskStepStore.get(id)
-    <ArbitraryHtmlAndMath className='reading-step' html={content_html} />
-
-
-Interactive = React.createClass
-  displayName: "Interactive"
-  mixins: [StepMixin, BookContentMixin]
+  mixins: [StepMixin, StepFooterMixin, BookContentMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -42,13 +29,27 @@ Interactive = React.createClass
   renderBody: ->
     {id} = @props
     {content_html} = TaskStepStore.get(id)
+    <ArbitraryHtmlAndMath className='reading-step' html={content_html} />
+
+
+Interactive = React.createClass
+  displayName: "Interactive"
+  mixins: [StepMixin, StepFooterMixin]
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onStepCompleted()
+    @props.onNextStep()
+
+  renderBody: ->
+    {id} = @props
+    {content_html} = TaskStepStore.get(id)
     <div className="interactive-step">
       <ArbitraryHtmlAndMath className='interactive-content' html={content_html} />
     </div>
 
 Video = React.createClass
   displayName: "Video"
-  mixins: [StepMixin]
+  mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -63,7 +64,7 @@ Video = React.createClass
 
 Placeholder = React.createClass
   displayName: "Placeholder"
-  mixins: [StepMixin]
+  mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: ->
     {review} = @props
     not review?.length
@@ -76,7 +77,7 @@ Placeholder = React.createClass
     </div>
 
 Spacer = React.createClass
-  mixins: [StepMixin]
+  mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onNextStep()

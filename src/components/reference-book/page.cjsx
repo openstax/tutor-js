@@ -7,33 +7,29 @@ HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
 BookContentMixin = require '../book-content-mixin'
 
-{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
+{ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{ReferenceBookStore} = require '../../flux/reference-book'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  mixins: [Router.State]
+  mixins: [Router.State, BookContentMixin]
   getSplashTitle: ->
     {cnxId} = @getParams()
-    page = ReferenceBookPageStore.get(cnxId)
+    page = ReferenceBookStore.getPageInfo(@getParams())
     page?.title
 
   prevLink: (info) ->
-    # BE Fix
-    cnxId = _.first( info.prev.cnx_id.split('@') )
     <Router.Link className='nav prev' to='viewReferenceBookPage'
-      params={courseId: @props.courseId, cnxId: cnxId}>
+      params={courseId: @props.courseId, cnxId: info.prev.cnx_id}>
       <i className='prev fa fa-chevron-left'/>
     </Router.Link>
 
   nextLink: (info) ->
-    # BE Fix
-    cnxId = _.first( info.next.cnx_id.split('@') )
     <Router.Link className='nav next' to='viewReferenceBookPage'
-      params={courseId: @props.courseId, cnxId: cnxId}>
+      params={courseId: @props.courseId, cnxId: info.next.cnx_id}>
       <i className='fa fa-chevron-right'/>
     </Router.Link>
 

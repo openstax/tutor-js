@@ -64,8 +64,18 @@ ChapterAccordion = React.createClass
     _.each @props.chapter.children, (section) ->
       action(planId, section.id)
 
+  contextTypes:
+    router: React.PropTypes.func
+
   areAnySectionsSelected: (anySelected, section) ->
     @props.selected.indexOf(section.id) >= 0 or anySelected
+
+  browseBook: (chapter, ev) ->
+    ev.stopPropagation() # stop click from toggling the accordian
+    url = @context.router.makeHref('viewReferenceBookSection',
+        {courseId: @props.courseId, section: chapter.chapter_section.join('.')})
+    win = window.open(url, '_blank')
+    win.focus()
 
   render: ->
     {chapter, expanded} = @props
@@ -89,6 +99,7 @@ ChapterAccordion = React.createClass
           Chapter <ChapterSection section={chapter.chapter_section}/> -
         </span>
         <span className='chapter-title'> {chapter.title}</span>
+        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse the book</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>
@@ -130,7 +141,7 @@ SelectTopics = React.createClass
     </Dialog>
 
   render: ->
-    
+
     <LoadableItem
       id={@props.courseId}
       store={TocStore}

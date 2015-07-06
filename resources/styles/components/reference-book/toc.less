@@ -1,17 +1,17 @@
 .reference-book {
+  .toc-indented-levels(@depth) when (@depth > 0) {
+    .toc-indented-levels((@depth - 1));
+    ul[data-depth='@{depth}'] a{
+      #fonts > .sans( unit((1.6 - (@depth / 10)),rem) );
+      padding-left: unit(@depth, rem);
+    }
+  }
   .toc {
-    h3 {
-      padding: 5px 5px 5px 10px;
-      margin: 0;
+    max-height: 100%;
+    overflow-y: scroll;
+    a {
       #fonts > .sans();
       color: @tutor-black;
-    }
-    li {
-      list-style-type: none;
-      #fonts > .sans(1.4rem);
-      a {
-        color: @tutor-black;
-        padding: 5px 5px 5px 15px;
         display: block;
         &:hover {
           background-color: @tutor-neutral-bright;
@@ -21,9 +21,18 @@
           background-color: @tutor-neutral-light;
           text-decoration: initial;
         }
+    }
+    li {
+      list-style-type: none;
+      #fonts > .sans(1.3rem);
+      border-top: 1px dotted @tutor-neutral;
+      a {
+        color: @tutor-black;
+        padding: 5px;
       }
     }
-
+    ul { padding-left: 0rem; }
+    .toc-indented-levels(4);
   }
   .content {
     .toc {

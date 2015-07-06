@@ -11,5 +11,5 @@ module.exports = React.createClass
   render: ->
     {section} = @props
     <span className="chapter-section">
-      {@sectionFormat(section, @state.sectionSeparator)}
+      {@sectionFormat(section)}
     </span>

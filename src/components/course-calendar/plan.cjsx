@@ -13,6 +13,9 @@ CoursePlanDetails = require './plan-details'
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
 
+  contextTypes:
+    router: React.PropTypes.func
+
   propTypes:
     item: React.PropTypes.object.isRequired
     activeHeight: React.PropTypes.number.isRequired
@@ -21,12 +24,70 @@ CoursePlan = React.createClass
     # CALENDAR_EVENT_LABEL_ACTIVE_STATIC_HEIGHT
     activeHeight: 35
 
+  getInitialState: ->
+    isViewingStats: false
+
+  # utility functions for functions called in lifecycle methods
+  _doesPlanMatchesRoute: ->
+    {planId} = @context.router.getCurrentParams()
+    planId is @props.item.plan.id
+
+  _isPlanNotMatchingRouteOpen: ->
+    {planId} = @context.router.getCurrentParams()
+    not @_doesPlanMatchesRoute() and @state.isViewingStats
+
+  _isPlanMatchRouteNotOpen: ->
+    {planId} = @context.router.getCurrentParams()
+    @_doesPlanMatchesRoute() and not @state.isViewingStats
+
+  _getExpectedRoute: (isViewingStats) ->
+    closedRouteName = 'calendarByDate'
+    openedRouteName = 'calendarViewPlanStats'
+
+    if isViewingStats then openedRouteName else closedRouteName
+
+  _getExpectedParams: (isViewingStats) ->
+    planId = @props.item.plan.id
+
+    params = @context.router.getCurrentParams()
+    closedParams = _.omit(params, 'planId')
+    openedParams = _.extend({}, params, {planId})
+
+    if isViewingStats then openedParams else closedParams
+
+  _updateRoute: (isViewingStats) ->
+    expectedRoute = @_getExpectedRoute(isViewingStats)
+    expectedParams = @_getExpectedParams(isViewingStats)
+    currentParams = @context.router.getCurrentParams()
+
+    @context.router.transitionTo(expectedRoute, expectedParams) unless _.isEqual(currentParams, expectedParams)
+
+  # handles when route changes and modal show/hide needs to sync
+  # i.e. when using back or forward on browser
+  syncStatsWithState: ->
+    return unless @refs.trigger?
+
+    if @_isPlanMatchRouteNotOpen()
+      triggerEl = @refs.trigger.getDOMNode()
+      triggerEl.click()
+    else if @_isPlanNotMatchingRouteOpen()
+      @refs.trigger.hide()
+
+  # handles when plan is clicked directly and viewing state and route both need to update
+  setIsViewingStats: (isViewingStats) ->
+    @_updateRoute(isViewingStats)
+    @setState({isViewingStats})
+
   componentDidMount: ->
     @closePlanOnModalHide()
     @adjustForLongLabels()
 
+    @syncStatsWithState()
+
   componentDidUpdate: ->
     @adjustForLongLabels()
+
+    @syncStatsWithState()
 
   adjustForLongLabels: ->
     labelDOMNode = @refs.label?.getDOMNode()
@@ -48,7 +109,7 @@ CoursePlan = React.createClass
       syncClosePlan = @syncClosePlan
 
       # alias modal hide to also make plan look un-selected
-      @refs.trigger.hide  = ->
+      @refs.trigger.hide = ->
         hide()
         syncClosePlan(trigger)
 
@@ -57,12 +118,14 @@ CoursePlan = React.createClass
     samePlans.forEach((element) ->
       element.classList.add('open')
     )
+    @setIsViewingStats(true)
 
   syncClosePlan: (trigger) ->
     samePlans = @findPlanNodes(trigger)
     samePlans.forEach((element) ->
       element.classList.remove('open')
     )
+    @setIsViewingStats(false)
 
   syncHover: (mouseEvent, key) ->
     samePlans = @findPlanNodes(mouseEvent.currentTarget)

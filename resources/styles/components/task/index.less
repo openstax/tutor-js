@@ -5,14 +5,17 @@
 .task {
   max-width: @tutor-task-width;
   margin: 0 auto;
+
+  .step-footer-mixin();
 }
 
 .task-view {
 
   .pinned-header {
     .tutor-shadow(1);
+    height: 60px;
     background: fadeout(@tutor-white, 20%);
-    padding: 10px @tutor-navbar-padding-horizontal;
+    padding: 8px @tutor-navbar-padding-horizontal;
     margin: 0;
   }
 

@@ -37,7 +37,12 @@ routes = (
         <Route path='t/'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
-          <Route path='calendar/?' name='taskplans' handler={TeacherTaskPlans} />
+          <Route path='calendar/?' name='taskplans'>
+            <Router.DefaultRoute handler={TeacherTaskPlans} />
+            <Route path='months/:date/?' name='calendarByDate' handler={TeacherTaskPlans} >
+              <Route path='plans/:planId/?' name='calendarViewPlanStats'/>
+            </Route>
+          </Route>
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
@@ -63,7 +68,12 @@ routes = (
     </Route> # end of App route
     <Route path='/books/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
       <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookFirstPage}/>
+
+      <Route path='section/:section'
+        name='viewReferenceBookSection' handler={ReferenceBookPageShell} />
+
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
+
     </Route>
     <NotFoundRoute handler={Invalid} />
   </Route>

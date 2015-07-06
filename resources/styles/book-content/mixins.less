@@ -24,10 +24,10 @@
 .tutor-reading-first-letter() {
   &::first-letter{
     float: left;
-    #fonts > .sans(10.8rem, 7.3rem);
+    #fonts > .sans(10.8rem, .7em); //setting line-height in em to scale on browser zoom
     font-weight: 600;
     color: @tutor-secondary;
-    margin: 10px 8px 0 -6px; //best combination on line-height and margin to look good in chrome and ff
+    margin: .1em .08em 0 -.06em; //best combination on line-height and margin to look good in chrome and ff
   } 
   // ensure that the p is heigh enough for the drop cap
   // to fit beside it, otherwise it will overlay on top of the next element

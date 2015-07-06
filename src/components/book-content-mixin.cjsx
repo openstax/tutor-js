@@ -24,9 +24,16 @@ module.exports =
   detectImgAspectRatio: ->
     root = @getDOMNode()
     for img in root.querySelectorAll('img')
-      # Wait until an image loads before trying to detect its dimensions
-      img.onload = ->
-        if @width > @height
-          @parentNode.classList.add('tutor-ui-horizontal-img')
-        else
-          @parentNode.classList.add('tutor-ui-vertical-img')
+      if img.complete
+        sizeImage.call(img)
+      else
+        img.onload = sizeImage
+
+# called with the context set to the image
+sizeImage = ->
+  if @naturalWidth > @naturalHeight
+    @parentNode.classList.add('tutor-ui-horizontal-img')
+    if @naturalWidth > 450
+      @parentNode.classList.add('full-width')
+  else
+    @parentNode.classList.add('tutor-ui-vertical-img')

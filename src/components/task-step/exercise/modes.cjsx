@@ -1,9 +1,12 @@
 React = require 'react'
+Router = require 'react-router'
 moment = require 'moment'
 
 BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 StepMixin = require '../step-mixin'
+StepFooterMixin = require '../step-footer-mixin'
+
 Question = require '../../question'
 FreeResponse = require './free-response'
 ExerciseGroup = require './group'
@@ -26,7 +29,7 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
 
   getInitialState: ->
     {id} = @props
@@ -73,7 +76,7 @@ ExerciseFreeResponse = React.createClass
 
 ExerciseMultiChoice = React.createClass
   displayName: 'ExerciseMultiChoice'
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -113,7 +116,7 @@ ExerciseMultiChoice = React.createClass
 
 ExerciseReview = React.createClass
   displayName: 'ExerciseReview'
-  mixins: [StepMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
@@ -176,8 +179,6 @@ ExerciseReview = React.createClass
   renderFooterButtons: ->
     {review} = @props
 
-    extraButtons = []
-
     if @canTryAnother()
       tryAnotherButton = <BS.Button
         bsStyle='primary'
@@ -200,4 +201,40 @@ ExerciseReview = React.createClass
       {@renderContinueButton() unless review is 'completed'}
     </div>
 
-module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview}
+ExerciseTeacherReadOnly = React.createClass
+  displayName: 'ExerciseTeacherReadOnly'
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
+  propTypes:
+    id: React.PropTypes.string.isRequired
+    onStepCompleted: React.PropTypes.func.isRequired
+    goToStep: React.PropTypes.func.isRequired
+
+  renderBody: ->
+    {id} = @props
+    {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
+
+    # TODO: Assumes 1 question.
+    question = content.questions[0]
+
+    <Question
+      model={question}
+      answer_id={answer_id}
+      correct_answer_id={correct_answer_id}
+      feedback_html={feedback_html}
+      onChangeAttempt={@onChangeAnswerAttempt}>
+      <FreeResponse id={id} free_response={free_response}/>
+    </Question>
+
+  onChangeAnswerAttempt: (answer) ->
+    # TODO show cannot change answer message here
+    console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
+
+  isContinueEnabled: ->
+    {id} = @props
+    {answer_id} = TaskStepStore.get(id)
+    !!answer_id
+
+  onContinue: ->
+    @props.onNextStep()
+
+module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReadOnly}

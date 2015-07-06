@@ -10,7 +10,7 @@ SmartOverflow = React.createClass
 
   getInitialState: ->
     isOverflowing: false
-    triggerHeight: 0
+    triggerHeight: null
     style: undefined
 
   getDefaultProps: ->
@@ -23,26 +23,31 @@ SmartOverflow = React.createClass
     componentNode = @getDOMNode()
     topOffset = componentNode.getBoundingClientRect().top
 
-  setTriggerHeight: ->
-    # set this on the event queue after ResizeListenerMixin's componentDidMount
-    # so that we can use the initial component height as reference
-    _.delay =>
-      topOffset = @getOffset()
-      triggerHeight = topOffset + @state.sizesInitial.componentEl.height
+  getTriggerHeight: ->
+    topOffset = @getOffset()
+    topOffset + @state.sizesInitial.componentEl.height
 
-      @setState({triggerHeight})
-    , 0
+  componentDidUpdate: ->
+    # on the cycle after sizesInitial initially gets set from ResizeListenerMixin,
+    # determine trigger height
+    unless _.isEmpty(@state.sizesInitial) or @state.triggerHeight?
+      triggerHeight = @getTriggerHeight()
+      triggerHeightState = {triggerHeight}
+      @setState(triggerHeightState)
 
-  componentDidMount: ->
-    @setTriggerHeight()
+      # pass in trigger height as well for initial styles
+      sizes = _.defaults({}, @state.sizesInitial, triggerHeightState)
+      @_resizeListener(sizes)
 
-  componentWillUpdate: (nextProps, nextState) ->
-    if nextState.windowEl.height < nextState.triggerHeight
-      maxHeight = nextState.windowEl.height - @getOffset() - nextProps.heightBuffer
+  _resizeListener: (sizes) ->
+    if sizes.windowEl.height < (sizes.triggerHeight or @state.triggerHeight)
+      maxHeight = sizes.windowEl.height - @getOffset() - @props.heightBuffer
       {marginBottom} = @props
-      nextState.style = {maxHeight, marginBottom}
+      style = {maxHeight, marginBottom}
     else
-      nextState.style = undefined
+      style = undefined
+
+    @setState({style})
 
   render: ->
     {className} = @props

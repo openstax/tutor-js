@@ -1,10 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 
 {CardBody} = require '../pinned-header-footer-card/sections'
-Details = require '../task/details'
 AsyncButton = require '../buttons/async-button'
 {TaskStore} = require '../../flux/task'
+
 {TaskStepStore} = require '../../flux/task-step'
 
 module.exports =
@@ -16,7 +17,7 @@ module.exports =
 
     <AsyncButton
       bsStyle='primary'
-      className='-continue'
+      className='continue'
       onClick={@onContinue}
       disabled={not @isContinueEnabled()}
       isWaiting={isWaiting}
@@ -26,25 +27,10 @@ module.exports =
     </AsyncButton>
 
   render: ->
-    {taskId, review, pinned} = @props
-    showFooter = true
-    showFooter = @showFooter() if @showFooter?
+    {pinned, courseId, id, taskId, review} = @props
 
-    if showFooter
-      task = TaskStore.get(taskId)
-      footer = @renderFooterButtons?() or @renderContinueButton()
-
-      taskInfo = [
-          <Details task={task} key="task-#{taskId}-details"/>
-          <div className='task-title'>{task.title}</div>
-        ] unless review?.length
-
-      footer = <div>
-        {footer}
-        {taskInfo}
-      </div>
-
-    {pinned} = @props
+    # from StepFooterMixin
+    footer = @renderFooter({stepId: id, taskId, courseId, review})
     <CardBody className='task-step' footer={footer} pinned={pinned}>
       {@renderBody()}
       {@renderGroup?()}

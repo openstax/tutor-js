@@ -169,6 +169,14 @@ TaskConfig =
 
       if allowed.indexOf(@_get(taskId).type) > -1 then true else false
 
+    getRelatedSections: (taskId) ->
+      _.chain(getSteps(@_steps[taskId]))
+        .pluck('chapter_section')
+        .compact()
+        .uniq( (cs) -> cs.join('.') )
+        .value()
+
+
     getCompletedStepsCount: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       steps = getCompleteSteps(allSteps)
@@ -183,6 +191,15 @@ TaskConfig =
     isTaskPastDue: (taskId) ->
       task = @_local[taskId]
       moment(TimeStore.getNow()).isAfter(task.due_at, 'day')
+
+    isPractice: (taskId) ->
+      practices = [
+        'practice'
+        'chapter_practice'
+      ]
+
+      if practices.indexOf(@_get(taskId).type) > -1 then true else false
+
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)

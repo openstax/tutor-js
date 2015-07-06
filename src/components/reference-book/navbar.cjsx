@@ -2,10 +2,11 @@ React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
 
+ChapterSection = require '../task-plan/chapter-section'
 ReferenceBookTOC = require './toc'
 BindStoreMixin = require '../bind-store-mixin'
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{ReferenceBookStore} = require '../../flux/reference-book'
+{ReferenceBookPageStore} = require '../../flux/reference-book-page'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
@@ -21,10 +22,15 @@ module.exports = React.createClass
     @refs.tocmenu.setDropdownState(true) unless cnxId
 
   renderSectionTitle: ->
-    page = ReferenceBookStore.getPageInfo(@getParams())
+    {cnxId, section} = @getParams()
+    if cnxId
+      page = ReferenceBookStore.getPageInfo(@getParams())
+      section = page?.chapter_section
+    else if section
+      page = ReferenceBookStore.getChapterSectionPage(@getParams())
     <BS.Nav navbar className="section-title">
-      <span className="section-number">Chapter {page.chapter_section.join('.')}</span>
-      {page.title}
+      <ChapterSection section={section} />
+      {page?.title}
     </BS.Nav>
 
   onMenuClick: ->
@@ -47,6 +53,6 @@ module.exports = React.createClass
           <ReferenceBookTOC courseId={@props.courseId} onClick={@onMenuClick} />
         </BS.DropdownButton>
       </BS.Nav>
-      {@renderSectionTitle() if cnxId}
+      {@renderSectionTitle()}
       {@renderTeacher() if @props.showTeacherEdition}
     </BS.Navbar>
