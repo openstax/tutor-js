@@ -11,6 +11,8 @@ TaskTeacherReviewExercise = React.createClass
   displayName: 'TaskTeacherReviewExercise'
   propTypes:
     content: React.PropTypes.object.isRequired
+    answers: React.PropTypes.array.isRequired
+    answered_count: React.PropTypes.number.isRequired
 
   getInitialState: ->
     showAnswers: false
@@ -24,10 +26,10 @@ TaskTeacherReviewExercise = React.createClass
     @setState({showAnswers: not showAnswers})
 
   render: ->
-    {content, answers} = @props
+    {content, answers, answered_count} = @props
     {showAnswers} = @state
-    toggleAnswersText = 'View all student text responses'
-    toggleAnswersText = 'Hide all student text responses' if showAnswers
+    toggleAnswersText = 'View student text responses'
+    toggleAnswersText = 'Hide student text responses' if showAnswers
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
@@ -37,17 +39,20 @@ TaskTeacherReviewExercise = React.createClass
     freeResponses = _.map answers, (answer) ->
       <FreeResponse {...answer}/>
 
-    freeResponses = <div className={freeResponsesClasses}>
-      {freeResponses}
-    </div>
-
     <CardBody className='task-step' pinned={false}>
       <Question
         model={question}
+        answered_count={answered_count}
         type='teacher-review'
         onChangeAttempt={@onChangeAnswerAttempt}>
-        <div onClick={@toggleAnswers}>{toggleAnswersText}</div>
-        {freeResponses}
+        <BS.Accordion bsStyle='default' onSelect={@toggleAnswers}>
+          <BS.Panel
+            header={toggleAnswersText}
+            eventKey={question.id}
+            className={freeResponsesClasses}>
+            {freeResponses}
+          </BS.Panel>
+        </BS.Accordion>
       </Question>
     </CardBody>
 

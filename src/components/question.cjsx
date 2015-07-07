@@ -12,6 +12,7 @@ module.exports = React.createClass
     answer_id: React.PropTypes.string
     correct_answer_id: React.PropTypes.string
     feedback_html: React.PropTypes.string
+    answered_count: React.PropTypes.number
     onChange: React.PropTypes.func
     onChangeAttempt: React.PropTypes.func
 
@@ -32,7 +33,7 @@ module.exports = React.createClass
         @props.onChangeAttempt?(answer)
 
   render: ->
-    {type} = @props
+    {type, answered_count} = @props
 
     html = @props.model.stem_html
     qid = @props.model.id or "auto-#{idCounter++}"
@@ -68,11 +69,16 @@ module.exports = React.createClass
         />
 
       if type is 'teacher-review'
-        selected_count = <div className='selected-count'>{answer.selected_count}</div>
+        percent = Math.round(answer.selected_count / answered_count * 100)
+        selectedCount = <div
+          className='selected-count'
+          data-count="#{answer.selected_count}"
+          data-percent="#{percent}">
+        </div>
 
 
       <div className={classes} key="#{qid}-option-#{i}">
-        {selected_count}
+        {selectedCount}
         {radioBox}
         <label
           htmlFor="#{qid}-option-#{i}"
