@@ -9,6 +9,9 @@ EXERCISE_TAGS =
   LO: ['lo', 'aplo']
   GENERIC: 'generic'
 
+getTagName = (tag) ->
+  [tag.name, tag.description].join(' ')
+
 getImportantTags = (tags) ->
   obj =
     lo: ""
@@ -21,7 +24,7 @@ getImportantTags = (tags) ->
       tagArr.push(tag.id)
       memo.tagString = tagArr.join(" / ")
     else if (_.include(EXERCISE_TAGS.LO, tag.type))
-      memo.lo = tag.name
+      memo.lo = getTagName(tag)
       memo.section = tag.chapter_section
     memo
   , obj)
@@ -73,13 +76,13 @@ ExerciseConfig =
     getTeksString: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
       teksTags = _.where(tags, {type: EXERCISE_TAGS.TEKS})
-      _.pluck(teksTags, 'name').join(" / ")
+      _.map(teksTags, getTagName).join(" / ")
 
     getContent: (exercise_id) ->
       @_exerciseCache[exercise_id].content.questions[0].stem_html
 
     getTagContent: (tag) ->
-      content = if tag.name then tag.name else tag.id
+      content = getTagName(tag) or tag.id
       isLO = _.include(EXERCISE_TAGS.LO, tag.type)
       {content, isLO}
 
