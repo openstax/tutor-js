@@ -42,4 +42,4 @@ describe 'Course Settings', ->
     names = _.pluck(@state.div.querySelectorAll('tbody tr td:first-child'), 'textContent')
     console.log names
     expect(names)
-      .to.deep.equal(['Harry Potter', 'Clyde Griffiths', 'Florentino Ariza'])
+      .to.deep.equal(['Harry', 'Clyde', 'Florentino'])

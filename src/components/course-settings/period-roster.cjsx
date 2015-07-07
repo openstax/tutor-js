@@ -15,7 +15,8 @@ module.exports = React.createClass
 
   renderStudentRow: (student) ->
     <tr key={student.id}>
-      <td>{student.full_name}</td>
+      <td>{student.first_name}</td>
+      <td>{student.last_name}</td>
       <td>{student.id}</td>
       <td className="actions">
         <ResetPasswordLink courseId={@props.courseId} student={student} />
@@ -35,7 +36,8 @@ module.exports = React.createClass
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Tutor ID</th>
             <th>Actions</th>
           </tr>
