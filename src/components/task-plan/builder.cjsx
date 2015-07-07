@@ -209,6 +209,7 @@ module.exports = React.createClass
           label="Open Date"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
+          max={TaskPlanStore.getDueAt(@props.id, plan.id)}
           onChange={_.partial(@setOpensAt, _, plan)}
           value={TaskPlanStore.getOpensAt(@props.id, plan.id)}/>
       </BS.Col><BS.Col sm=4 md=3>

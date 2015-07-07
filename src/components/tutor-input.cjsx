@@ -83,7 +83,11 @@ TutorDateInput = React.createClass
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
 
     now = TimeStore.getNow()
-    value = if @props.value then new moment(@props.value) else null
+    value = @props.value
+    value = if value and value.getTime and not isNaN(value.getTime())
+      new moment(value)
+    else
+      null
     min = if @props.min then new moment(@props.min) else new moment(now).subtract(10, 'years')
     max = if @props.max then new moment(@props.max) else new moment(now).add(10, 'years')
 
