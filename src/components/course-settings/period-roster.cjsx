@@ -31,12 +31,6 @@ module.exports = React.createClass
         <BS.Col sm=2>
           <AddStudentButton {...@props} />
         </BS.Col>
-        <BS.Col smOffset=8 sm=2>
-          <BS.Button block bsStyle='danger' className='btn-flat'>
-            <i className='fa fa-trash' />
-            Delete Period
-            </BS.Button>
-        </BS.Col>
       </BS.Row>
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
