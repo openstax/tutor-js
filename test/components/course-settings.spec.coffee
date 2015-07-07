@@ -9,7 +9,7 @@ ReactTestUtils = React.addons.TestUtils
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {RosterStore, RosterActions} = require '../../src/flux/roster'
-AdminComponent = require '../../src/components/course-administration/administration'
+SettingsComponent = require '../../src/components/course-settings/settings'
 COURSE_ID = '1'
 COURSE = require '../../api/user/courses/1.json'
 ROSTER = require '../../api/courses/1/students.json'
@@ -18,13 +18,13 @@ render = (courseId = COURSE_ID) ->
   new Promise (resolve, reject) ->
     routerStub.goTo("/courses/#{courseId}/t/admin").then( (result) ->
       resolve(_.extend({
-        view:  ReactTestUtils.findRenderedComponentWithType(result.component, AdminComponent)
+        view:  ReactTestUtils.findRenderedComponentWithType(result.component, SettingsComponent)
       }, result))
     , (err) ->
       console.err err
     )
 
-describe 'Course Administration', ->
+describe 'Course Settings', ->
 
   beforeEach ->
     CourseActions.loaded(COURSE, COURSE_ID)

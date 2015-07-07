@@ -13,7 +13,7 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
   require './components/reference-book'
 
 {StatsShell} = require './components/task-plan/reading-stats'
-CourseAdministration = require './components/course-administration'
+CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
 
 routes = (
@@ -47,7 +47,7 @@ routes = (
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
-          <Route path='admin' name='courseAdministration' handler={CourseAdministration} />
+          <Route path='settings' name='courseSettings' handler={CourseSettings} />
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>
             <Route path='stats/?' name='viewStats' handler={StatsShell} />

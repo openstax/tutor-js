@@ -8,14 +8,14 @@ Roster = require './roster'
 LoadableItem = require '../loadable-item'
 
 module.exports = React.createClass
-  displayName: 'CourseAdministration'
+  displayName: 'CourseSettings'
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
   render: ->
     course = CourseStore.get(@props.courseId)
 
-    <div className='course-administration form-horizontal'>
+    <div className='course-settings form-horizontal'>
       <h2>Course: {course.name}</h2>
       <h2>Roster</h2>
       <div className="periods">
