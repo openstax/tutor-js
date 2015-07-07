@@ -102,7 +102,9 @@ PlanFooter = React.createClass
       <BS.Button aria-role='close' onClick={@onCancel}>Cancel</BS.Button>
       {saveLink}
       <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
-        <i className="footer-instructions fa fa-info-circle" onClick={@toggleTips}></i>
+        <BS.Button className="footer-instructions" bsStyle="link">
+          <i className="fa fa-info-circle"></i>
+        </BS.Button>
       </BS.OverlayTrigger>
       {deleteLink}
     </div>
