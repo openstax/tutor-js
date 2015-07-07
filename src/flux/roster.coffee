@@ -6,10 +6,13 @@ RosterConfig = {
 
   create: (courseId, params) ->
 
+  created: (student, courseId) ->
+    @_local[courseId].push(student)
+    @emitChange()
+
   save: (courseId, studentId, params) ->
 
   saved: (newProps, studentId) ->
-    debugger
     # update the student from all the courses rosters
     for courseId, roster of @_local
       student = _.findWhere(roster, id: studentId)

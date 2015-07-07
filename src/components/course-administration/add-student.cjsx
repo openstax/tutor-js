@@ -3,6 +3,9 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
+BindStoreMixin = require '../bind-store-mixin'
+
+BLANK_STUDENT = first_name: '', last_name: '', email: '', password: ''
 
 Field = React.createClass
   propTypes:
@@ -27,34 +30,40 @@ Field = React.createClass
       onChange={@onChange} />
 
 module.exports = React.createClass
-  displayName: 'ResetPasswordLink'
+  displayName: 'AddStudentLink'
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
 
+  mixins: [BindStoreMixin]
+  bindStore: RosterStore
+  bindEvent: 'created'
+
   getInitialState: ->
-    first_name: '', last_name: '', email: '', password: ''
+    BLANK_STUDENT
 
   performUpdate: ->
+    this.refs.overlay.hide()
     student = _.extend( _.clone(@state),
       period_id: @props.period.id
     )
     RosterActions.create(@props.courseId, student)
+    @setState(BLANK_STUDENT)
 
   renderForm: ->
-    <BS.Popover className="teacher-add-student-form"
+    <BS.Popover className='teacher-add-student-form'
       title={'Student Information:'} {...@props}>
 
-      <Field label="First Name" name="first_name" value={@state.first_name}
+      <Field label='First Name' name='first_name' value={@state.first_name}
         onChange={(val) => @setState(first_name: val)} autofocus />
 
-      <Field label="Last Name" name="last_name" value={@state.last_name}
+      <Field label='Last Name' name='last_name' value={@state.last_name}
         onChange={(val) => @setState(last_name: val)} />
 
-      <Field label="Email" name="email" value={@state.email}
+      <Field label='Email' name='email' value={@state.email}
         onChange={(val) => @setState(email: val)} />
 
-      <Field label="Password" name="password" value={@state.password}
+      <Field label='Password' name='password' value={@state.password}
         onChange={(val) => @setState(password: val)} />
 
       <BS.Button block onClick={@performUpdate}>
@@ -63,7 +72,7 @@ module.exports = React.createClass
     </BS.Popover>
 
   render: ->
-    <BS.OverlayTrigger rootClose={true} trigger='click' placement='right'
+    <BS.OverlayTrigger ref='overlay' rootClose={true}  trigger='click' placement='right'
       overlay={@renderForm()}>
         <BS.Button block>
           <i className='fa fa-plus' /> Add Student
