@@ -41,7 +41,7 @@ module.exports = React.createClass
   bindEvent: 'created'
 
   getInitialState: ->
-    BLANK_STUDENT
+    _.clone(BLANK_STUDENT)
 
   performUpdate: ->
     this.refs.overlay.hide()
@@ -49,7 +49,7 @@ module.exports = React.createClass
       period_id: @props.period.id
     )
     RosterActions.create(@props.courseId, student)
-    @setState(BLANK_STUDENT)
+    @setState(_.clone(BLANK_STUDENT))
 
   renderForm: ->
     <BS.Popover className='teacher-add-student-form'
