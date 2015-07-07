@@ -183,7 +183,7 @@ module.exports = React.createClass
       @renderDisabledTasking(plan)
 
   renderDisabledTasking: (plan) ->
-    <BS.Row key={plan.id} className="task-plan disabled">
+    <BS.Row key={plan.id} className="tasking-plan disabled">
       <BS.Col sm=12>
         <input
           id={"period-toggle-#{plan.id}"}
