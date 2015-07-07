@@ -120,15 +120,15 @@ Performance = React.createClass
       when 'not_started' then 'Not started'
 
     {courseId} = @props
-    linkParams = {courseId, id: cell.id}
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
 
-    <Router.Link to='viewTask' params={linkParams}>{status}</Router.Link>
+    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
 
   renderHomeworkCell: (cell) ->
     {courseId} = @props
-    linkParams = {courseId, id: cell.id}
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
 
-    <Router.Link to='viewTask' params={linkParams}>
+    <Router.Link to='viewTaskStep' params={linkParams}>
       {cell.correct_exercise_count}/{cell.exercise_count}
     </Router.Link>
 
