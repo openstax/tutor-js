@@ -8,6 +8,7 @@ BindStoreMixin = require '../bind-store-mixin'
 BLANK_STUDENT = first_name: '', last_name: '', email: '', password: ''
 
 Field = React.createClass
+  displayName: 'AddStudentField'
   propTypes:
     label: React.PropTypes.string.isRequired
     name:  React.PropTypes.string.isRequired
