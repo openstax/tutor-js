@@ -17,7 +17,6 @@ module.exports = React.createClass
     <tr key={student.id}>
       <td>{student.full_name}</td>
       <td>{student.id}</td>
-      <td>{student.email}</td>
       <td className="actions">
         <ResetPasswordLink courseId={@props.courseId} student={student} />
         <ChangePeriodLink courseId={@props.courseId} student={student} />
@@ -44,7 +43,6 @@ module.exports = React.createClass
           <tr>
             <th>Name</th>
             <th>Tutor ID</th>
-            <th>Email</th>
             <th>Actions</th>
           </tr>
         </thead>
