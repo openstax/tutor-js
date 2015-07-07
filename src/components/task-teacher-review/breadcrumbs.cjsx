@@ -15,6 +15,8 @@ module.exports = React.createClass
     id: React.PropTypes.string.isRequired
     currentStep: React.PropTypes.number
     goToStep: React.PropTypes.func.isRequired
+    title: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   render: ->
     crumbs = @getCrumableCrumbs()

@@ -36,8 +36,9 @@ TaskTeacherReviewExercise = React.createClass
 
     freeResponsesClasses = 'teacher-review-answers'
     freeResponsesClasses += ' active' if showAnswers
-    freeResponses = _.map answers, (answer) ->
-      <FreeResponse {...answer}/>
+    freeResponses = _.map answers, (answer, index) ->
+      freeResponseKey = "free-response-#{question.id}-#{index}"
+      <FreeResponse {...answer} key={freeResponseKey}/>
 
     <CardBody className='task-step' pinned={false}>
       <Question
