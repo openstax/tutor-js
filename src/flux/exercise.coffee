@@ -6,7 +6,7 @@ _ = require 'underscore'
 
 EXERCISE_TAGS =
   TEKS: 'teks'
-  LO: 'lo'
+  LO: ['lo', 'aplo']
   GENERIC: 'generic'
 
 getImportantTags = (tags) ->
@@ -20,7 +20,7 @@ getImportantTags = (tags) ->
       tagArr = memo.tagString.split("/")
       tagArr.push(tag.id)
       memo.tagString = tagArr.join(" / ")
-    else if (tag.type is EXERCISE_TAGS.LO)
+    else if (_.include(EXERCISE_TAGS.LO, tag.type))
       memo.lo = tag.name
       memo.section = tag.chapter_section
     memo
@@ -40,7 +40,7 @@ ExerciseConfig =
   loaded: (obj, courseId, pageIds) ->
     key = pageIds.toString()
     return if @_exercises[key] and @_HACK_DO_NOT_RELOAD
-    
+
     @_exercises[key] = obj.items
     _exerciseCache = []
     _.each obj.items, (exercise) ->
@@ -60,8 +60,10 @@ ExerciseConfig =
 
     getGroupedExercises: (pageIds) ->
       byChapterSection = (exercise) ->
-        _.findWhere(exercise.tags, {type: EXERCISE_TAGS.LO}).chapter_section
-
+        tag = _.find(exercise.tags, (t) ->
+          _.include(EXERCISE_TAGS.LO, t.type)
+        )
+        tag?.chapter_section
       exercises = _.sortBy(@_exercises[pageIds.toString()], byChapterSection)
       _.groupBy(exercises, byChapterSection)
 
@@ -78,7 +80,7 @@ ExerciseConfig =
 
     getTagContent: (tag) ->
       content = if tag.name then tag.name else tag.id
-      isLO = tag.type is EXERCISE_TAGS.LO
+      isLO = _.include(EXERCISE_TAGS.LO, tag.type)
       {content, isLO}
 
     getTagStrings: (exercise_id) ->
