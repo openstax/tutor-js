@@ -1,5 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
+BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
@@ -8,6 +8,9 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
+
+  contextTypes:
+    router: React.PropTypes.func
 
   mixins: [ChapterSectionMixin, CrumbMixin]
 
@@ -31,12 +34,9 @@ module.exports = React.createClass
 
     <div className='task-breadcrumbs'>
       {stepButtons}
-      <Router.Link
-        to='taskplans'
-        params={{courseId}}
-        className='btn btn-default'>
-          Back to Calendar
-      </Router.Link>
+      <BS.Button onClick={@context.router.goBack}>
+          Back
+      </BS.Button>
       <div className='task-title'>
         {title}
       </div>
