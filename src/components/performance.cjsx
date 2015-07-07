@@ -88,32 +88,40 @@ Performance = React.createClass
         id: heading.plan_id
         periodIndex: @state.periodIndex
         courseId: @props.courseId
+      linkText = 'Review'
+      linkText = heading.average.toFixed(2) if heading.average?
 
       linkToPlanSummary =
         <Router.Link
           to='reviewTaskPeriod'
           params={linkParams}
           className='review-plan'>
-            <i className='fa fa-eye'></i>
+            {linkText}
         </Router.Link>
 
-    customHeader =
+    customHeader = linkToPlanSummary
+    customHeader ?= 'Class Average'
+
+    customGroupHeader =
       <div
         dataKey={i}
         onClick={@sortClick.bind(@, i, classes)}
         className={'header-cell ' + classes}>
           {heading.title}
-          {linkToPlanSummary}
       </div>
 
-    <Column
-    label={heading.title}
-    headerRenderer={-> customHeader}
-    cellRenderer={-> @cellData}
-    width={@state.colSetWidth}
-    fixed={fixed}
-    isResizable=false
-    dataKey={i} />
+    <ColumnGroup
+      groupHeaderRenderer={-> customGroupHeader}
+      fixed={fixed}>
+      <Column
+      label={heading.title}
+      headerRenderer={-> customHeader}
+      cellRenderer={-> @cellData}
+      width={@state.colSetWidth}
+      fixed={fixed}
+      isResizable=false
+      dataKey={i} />
+    </ColumnGroup>
 
   renderAverageCell: (heading) ->
     if heading.class_average
@@ -202,7 +210,8 @@ Performance = React.createClass
           rowsCount={sortData.length}
           width={@state.tableWidth}
           height={@state.tableHeight}
-          headerHeight={50}>
+          headerHeight={50}
+          groupHeaderHeight={50}>
 
           {headings}
         </Table>
