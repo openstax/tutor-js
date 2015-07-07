@@ -28,6 +28,7 @@ Performance = React.createClass
 
   getInitialState: ->
     period_id: "1"
+    periodIndex: 1
     sortOrder: 'is-ascending'
     sortIndex: 0
     tableWidth: 0
@@ -81,21 +82,46 @@ Performance = React.createClass
       @state.colSetWidth = @state.colResizeWidth
     else
       @state.colSetWidth = @state.colDefaultWidth
-    customHeader =
+
+    if heading.plan_id?
+      linkParams =
+        id: heading.plan_id
+        periodIndex: @state.periodIndex
+        courseId: @props.courseId
+      linkText = 'Review'
+      linkText = heading.average.toFixed(2) if heading.average?
+
+      linkToPlanSummary =
+        <Router.Link
+          to='reviewTaskPeriod'
+          params={linkParams}
+          className='review-plan'>
+            {linkText}
+        </Router.Link>
+
+    customHeader = linkToPlanSummary
+    customHeader ?= 'Class Average'
+
+    customGroupHeader =
       <div
         dataKey={i}
         onClick={@sortClick.bind(@, i, classes)}
         className={'header-cell ' + classes}>
           {heading.title}
       </div>
-    <Column
-    label={heading.title}
-    headerRenderer={-> customHeader}
-    cellRenderer={-> @cellData}
-    width={@state.colSetWidth}
-    fixed={fixed}
-    isResizable=false
-    dataKey={i} />
+
+    <ColumnGroup
+      groupHeaderRenderer={-> customGroupHeader}
+      fixed={fixed}>
+      <Column
+      label={heading.title}
+      headerRenderer={-> customHeader}
+      cellRenderer={-> @cellData}
+      width={@state.colSetWidth}
+      fixed={fixed}
+      isResizable=false
+      dataKey={i} />
+    </ColumnGroup>
 
   renderAverageCell: (heading) ->
     if heading.class_average
@@ -136,6 +162,8 @@ Performance = React.createClass
   selectPeriod: (period) ->
     @setState({period_id: period.id})
 
+  setPeriodIndex: (key) ->
+    @setState({periodIndex: key + 1})
 
   render: ->
 
@@ -171,6 +199,7 @@ Performance = React.createClass
       <span className='course-performance-title'>Performance Report</span>
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
+        handleKeyUpdate={@setPeriodIndex}
         intialActive={@state.period_id}
         courseId={@props.courseId} />
       <BS.Panel className='course-performance-container' ref='tableContainer'>
@@ -181,7 +210,8 @@ Performance = React.createClass
           rowsCount={sortData.length}
           width={@state.tableWidth}
           height={@state.tableHeight}
-          headerHeight={50}>
+          headerHeight={50}
+          groupHeaderHeight={50}>
 
           {headings}
         </Table>
