@@ -16,7 +16,7 @@ ROSTER = require '../../api/courses/1/students.json'
 
 render = (courseId = COURSE_ID) ->
   new Promise (resolve, reject) ->
-    routerStub.goTo("/courses/#{courseId}/t/admin").then( (result) ->
+    routerStub.goTo("/courses/#{courseId}/t/settings").then( (result) ->
       resolve(_.extend({
         view:  ReactTestUtils.findRenderedComponentWithType(result.component, SettingsComponent)
       }, result))
@@ -40,5 +40,6 @@ describe 'Course Settings', ->
 
   it 'renders students in the panels', ->
     names = _.pluck(@state.div.querySelectorAll('tbody tr td:first-child'), 'textContent')
+    console.log names
     expect(names)
       .to.deep.equal(['Harry Potter', 'Clyde Griffiths', 'Florentino Ariza'])

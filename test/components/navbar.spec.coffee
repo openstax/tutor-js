@@ -47,8 +47,8 @@ TEACHER_MENU = [
     label: 'Performance Report'
   }
   {
-    name: 'courseAdministration'
-    label: 'Course Administration'
+    name: 'courseSettings'
+    label: 'Course Settings'
   }
 
 ]
