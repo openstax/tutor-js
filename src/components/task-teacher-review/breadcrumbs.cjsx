@@ -1,4 +1,5 @@
 React = require 'react'
+Router = require 'react-router'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
@@ -14,10 +15,12 @@ module.exports = React.createClass
     id: React.PropTypes.string.isRequired
     currentStep: React.PropTypes.number
     goToStep: React.PropTypes.func.isRequired
+    title: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   render: ->
     crumbs = @getCrumableCrumbs()
-    {currentStep, goToStep} = @props
+    {currentStep, goToStep, title, courseId} = @props
 
     stepButtons = _.map crumbs, (crumb) ->
       <BreadcrumbStatic
@@ -28,4 +31,13 @@ module.exports = React.createClass
 
     <div className='task-breadcrumbs'>
       {stepButtons}
+      <Router.Link
+        to='taskplans'
+        params={{courseId}}
+        className='btn btn-default'>
+          Back to Calendar
+      </Router.Link>
+      <div className='task-title'>
+        {title}
+      </div>
     </div>

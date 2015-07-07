@@ -1,23 +1,23 @@
 React = require 'react'
-{TaskStepStore} = require '../../../flux/task-step'
 
 FreeResponse = React.createClass
   displayName: 'FreeResponse'
   propTypes:
-    id: React.PropTypes.string.isRequired
     free_response: React.PropTypes.string.isRequired
 
   getDefaultProps: ->
     free_response: ''
 
   render: ->
-    {id, free_response} = @props
+    {free_response, student_names} = @props
     FreeResponse = null
 
-    if TaskStepStore.hasFreeResponse(id) and free_response.length
-      FreeResponse = <div className='free-response'>
+    studentNames = student_names.join(', ') if student_names?
+
+    if free_response? and free_response.length
+      FreeResponse = <div className='free-response' data-student-names="#{studentNames}">
         <div className='free-response-content'>{free_response}</div>
-        </div>
+      </div>
 
     FreeResponse
 
