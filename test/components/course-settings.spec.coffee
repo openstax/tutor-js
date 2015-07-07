@@ -29,7 +29,6 @@ describe 'Course Settings', ->
   beforeEach ->
     CourseActions.loaded(COURSE, COURSE_ID)
     RosterActions.loaded(ROSTER, COURSE_ID)
-
     render(COURSE_ID).then (state) =>
       @state = state
 
@@ -40,6 +39,5 @@ describe 'Course Settings', ->
 
   it 'renders students in the panels', ->
     names = _.pluck(@state.div.querySelectorAll('tbody tr td:first-child'), 'textContent')
-    console.log names
     expect(names)
       .to.deep.equal(['Harry', 'Clyde', 'Florentino'])
