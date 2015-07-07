@@ -28,6 +28,7 @@ Performance = React.createClass
 
   getInitialState: ->
     period_id: "1"
+    periodIndex: 1
     sortOrder: 'is-ascending'
     sortIndex: 0
     tableWidth: 0
@@ -81,13 +82,30 @@ Performance = React.createClass
       @state.colSetWidth = @state.colResizeWidth
     else
       @state.colSetWidth = @state.colDefaultWidth
+
+    if heading.plan_id?
+      linkParams =
+        id: heading.plan_id
+        periodIndex: @state.periodIndex
+        courseId: @props.courseId
+
+      linkToPlanSummary =
+        <Router.Link
+          to='reviewTaskPeriod'
+          params={linkParams}
+          className='review-plan'>
+            <i className='fa fa-eye'></i>
+        </Router.Link>
+
     customHeader =
       <div
         dataKey={i}
         onClick={@sortClick.bind(@, i, classes)}
         className={'header-cell ' + classes}>
           {heading.title}
+          {linkToPlanSummary}
       </div>
+
     <Column
     label={heading.title}
     headerRenderer={-> customHeader}
@@ -136,6 +154,8 @@ Performance = React.createClass
   selectPeriod: (period) ->
     @setState({period_id: period.id})
 
+  setPeriodIndex: (key) ->
+    @setState({periodIndex: key + 1})
 
   render: ->
 
@@ -171,6 +191,7 @@ Performance = React.createClass
       <span className='course-performance-title'>Performance Report</span>
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
+        handleKeyUpdate={@setPeriodIndex}
         intialActive={@state.period_id}
         courseId={@props.courseId} />
       <BS.Panel className='course-performance-container' ref='tableContainer'>
