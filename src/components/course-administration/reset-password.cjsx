@@ -24,7 +24,8 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   performUpdate: ->
-    RosterActions.save(@props.courseId, @props.student.id, password: @refs.password.getValue())
+    RosterActions.save(@props.student.id, password: @refs.password.getValue())
+    @refs.overlay.hide()
 
   resetPassword: ->
     <BS.Popover title={'Update password:'} {...@props}>
@@ -36,7 +37,7 @@ module.exports = React.createClass
     </BS.Popover>
 
   render: ->
-    <BS.OverlayTrigger rootClose={true} trigger='click' placement='left'
+    <BS.OverlayTrigger ref='overlay' rootClose={true} trigger='click' placement='left'
       overlay={@resetPassword()}>
         <a><i className='fa fa-key' /> Reset Password</a>
     </BS.OverlayTrigger>

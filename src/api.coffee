@@ -164,8 +164,8 @@ start = ->
 
   apiHelper RosterActions, RosterActions.delete, RosterActions.deleted, 'DELETE', (id) ->
     url: "/api/students/#{id}"
-  apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (courseId, id, params) ->
-    url: "/api/courses/#{courseId}/students/#{id}", payload: params
+  apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
+    url: "/api/students/#{id}", payload: params
   apiHelper RosterActions, RosterActions.create, RosterActions.created, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/students", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
