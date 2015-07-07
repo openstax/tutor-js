@@ -28,7 +28,7 @@ TaskTeacherReviewExercise = React.createClass
   render: ->
     {content, answers, answered_count} = @props
     {showAnswers} = @state
-    toggleAnswersText = 'View student text responses'
+    toggleAnswersText = "View student text responses (#{answered_count})"
     toggleAnswersText = 'Hide student text responses' if showAnswers
 
     # TODO: Assumes 1 question.
