@@ -5,7 +5,6 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 
 {CourseActions, CourseStore} = require '../flux/course'
-{CourseListingActions, CourseListingStore} = require '../flux/course-listing'
 
 CoursePeriodsNav = React.createClass
   displayName: 'CoursePeriodsNav'
@@ -77,13 +76,10 @@ CoursePeriodsNavShell = React.createClass
   render: ->
     courseId = @getCourseId()
 
-    # CourseListingActions.load instead to use courses and roles loaded from /api/user/courses
-
     <LoadableItem
       id={courseId}
       store={CourseStore}
       actions={CourseActions}
-      load={CourseListingActions.load}
       renderItem={=> <CoursePeriodsNav {...@props} courseId={courseId} />}
     />
 
