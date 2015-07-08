@@ -7,8 +7,6 @@
 @popover-background: @tutor-white;
 
 .popover-title {
-  color: @popover-title-bg;
-  border-radius: 0;
   #fonts > .sans(1.75rem, 1.75rem);
 }
 
@@ -18,20 +16,7 @@
   text-align: justify;
   background: @popover-background;
   color: @tutor-neutral-darker;
-
-  &.left .arrow:after, &.left .tooltip-arrow{
-    border-left-color: @popover-arrow-color;
-  }
-
-  &.right .arrow:after, &.right .tooltip-arrow{
-    border-right-color: @popover-arrow-color;
-  }
-
-  &.top .arrow:after, &.top .tooltip-arrow{
-    border-top-color: @popover-arrow-color;
-  }
-
-  &.bottom .arrow:after, &.bottom .tooltip-arrow{
-    border-bottom-color: @popover-arrow-color;
-  }
+  // override border and arrow styles imposed by material design
+  border: 1px solid @popover-border-color;
+  .arrow { display: block; }
 }

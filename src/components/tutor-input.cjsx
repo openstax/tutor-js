@@ -17,18 +17,22 @@ TutorInput = React.createClass
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
 
+  focus: ->
+    React.findDOMNode(@refs.input)?.focus()
+
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
     wrapperClasses.push(@props.className) if @props.className
 
-    unless @props.default then classes.push('empty')
+    unless @props.default or @props.value then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.class)
 
     <div className={wrapperClasses.join(' ')}>
       <input
         id={@props.id}
+        ref="input"
         type='text'
         className={classes.join(' ')}
         value={@props.value}
