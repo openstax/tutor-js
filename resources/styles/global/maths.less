@@ -13,3 +13,6 @@
 // Hide the HTML and use MathJax for rendering
 // TODO: Decide whether to remove KaTeX (involves additional code for MathJax)
 .has-html .katex > .katex-html { display: none; }
+
+// Override the inline style on mathjax text elements to match the tutor default of lato
+.MathJax .mtext { font-family: lato !important; }
