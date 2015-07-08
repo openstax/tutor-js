@@ -39,35 +39,58 @@
     }
   }
   .guide-group {
+    .chapter-panel:nth-child(4n) {
+      margin-right: 0px;  
+    }
     .chapter-panel {
       float: left;
-      margin: 0px 20px 0px 0px;
-      padding: 10px 20px 11px 9px;
+      margin: 0px 8px 20px 13px;
+      padding: 10px 11px 11px 9px;
       border: 1px solid @tutor-neutral-light;
-      width: 300px;
-      border-radius: 5px;
+      width: 265px;
+      height: 114px;
+      overflow: hidden;
+      &.expanded {
+        height: auto;
+        overflow: visible;
+      }
+      .view-toggle {
+        width: 100%;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        span {
+          font-size: 1.2rem;
+          font-weight: normal;
+          margin-top: -15px;
+          margin-left: 195px;
+          cursor: pointer;
+          .no-select();
+        }
+      }
       .chapter-heading {
         margin-bottom: 5px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid @tutor-neutral-light;
+        padding-bottom: 35px;
+        border-bottom: 1px dashed @tutor-neutral-light;
       }
       .chapter-number {
-        margin-right: 10px;
+        margin-right: 5px;
         display: inline-block;
         float: left;
         color: @tutor-secondary;
-        font-size: 2rem;
       }
       .chapter-title {
-        max-width: 202px;
+        max-width: 229px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
         display: inline-block;
       }
+      .progress-bar-button {
+        margin-top: -15px;
+      }
       .section {
         font-size: 1.4rem;
-        margin-bottom: 10px;
+        margin-bottom: 30px;
         .section-heading {
           height: 27px; 
         }
@@ -78,11 +101,27 @@
           height: inherit;
         }
         .section-title {
-          max-width: 195px;
+          max-width: 210px;
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
           display: inline-block;
+        }
+        .progress-bar-button {
+          margin-top: 0px;
+        }
+      }
+      .progress-bar-button {
+        width: 100%;
+      }
+      .amount-worked {
+        width: 100%;
+        margin-top: -15px;
+        .count {
+          float: right;
+          color: @tutor-neutral;
+          font-size: 1rem;
+          letter-spacing: 0.05rem;
         }
       }
       .progress {

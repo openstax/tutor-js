@@ -20,38 +20,72 @@ LearningGuide = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    toggle: -1
 
   _percent: (num, total) ->
     Math.round((num / total) * 100)
 
   renderSectionBars: (section) ->
+    {courseId} = @props
+    linkParams = {courseId, id: section.id}
     chapterSection =
       @sectionFormat(section.chapter_section, @state.sectionSeparator)
     sectionPercent = @_percent(section.current_level, 1)
     colorClass = @colorizeBar(sectionPercent)
     <div className='section'>
-      <i className='icon-guide icon-homework'></i>
       <div className='section-heading'>
         <span className='section-number'>{chapterSection}</span>
         <span className='section-title' title={section.title}>{section.title}</span>
       </div>
-      <BS.ProgressBar className={colorClass} now={sectionPercent} />
+      <Router.Link
+      to='viewTask'
+      params={linkParams}
+      className='btn btn-default progress-bar-button'>
+        <BS.ProgressBar className={colorClass} now={sectionPercent} />
+      </Router.Link>
+      <div className='amount-worked'>
+        <span className='count'>{section.questions_answered_count} worked</span>
+      </div>
     </div>
 
 
   renderChapterPanels: (chapter, i) ->
+    {courseId} = @props
+    linkParams = {courseId, id: chapter.id}
     sections = _.map(chapter.children, @renderSectionBars)
     chapterPercent = @_percent(chapter.current_level, 1)
     colorClass = @colorizeBar(chapterPercent)
-    <div className='chapter-panel'>
-      <div className='chapter-heading'>
-        <i className='icon-guide icon-homework'></i>
-        <span className='chapter-number'>{chapter.chapter_section[0]}</span>
-        <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
-        <BS.ProgressBar className={colorClass} now={chapterPercent} />
+    
+    <BS.Col xl={3}>
+      <div id="toggle-#{i}" className="chapter-panel">
+        <div className='view-toggle' onClick={@onToggle.bind(@, i)}>
+          <span>View All</span>
+        </div>
+        <div className='chapter-heading'>
+          <span className='chapter-number'>{chapter.chapter_section[0]}</span>
+          <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
+        <Router.Link
+        to='viewTask'
+        params={linkParams}
+        className='btn btn-default progress-bar-button'>
+          <BS.ProgressBar className={colorClass} now={chapterPercent} />
+        </Router.Link>
+        <div className='amount-worked'>
+          <span className='count'>{chapter.questions_answered_count} worked</span>
+        </div>
+        </div>
+        <div>{sections}</div>
       </div>
-      <div>{sections}</div>
-    </div>
+    </BS.Col>
+
+  onToggle: (index) ->
+    el = event.target.parentNode.parentNode
+    if el.classList.contains('expanded')
+      el.classList.remove('expanded')
+    else
+      el.classList.add('expanded')
+
 
   colorizeBar: (percent) ->
     if percent > 75
@@ -65,27 +99,43 @@ LearningGuide = React.createClass
     guide = LearningGuideStore.get(@props.courseId)
     chapters = _.map(guide.children, @renderChapterPanels)
 
+    columnsPerRow = 4
+    rows = _.groupBy(chapters, (d, i) ->
+      Math.floor(i / columnsPerRow)
+      )
+    rows = _.toArray(rows)
+
+
     <div className='guide-container'>
-      <span className='guide-group-title'>Learning Guide</span>
+
+      <span className='guide-group-title'>Current Level of Understanding</span>
+      <BS.Panel className='guide-group'></BS.Panel>
+
+      <span className='guide-group-title'>Practice By Chapter</span>
+      <BS.Panel className='guide-group'>
+          {
+            for row in rows
+              <BS.Row>{row}</BS.Row>
+          }
+      </BS.Panel>
+
+      <div className='guide-key'>
+        Click on the bar to practice the topic
+      </div>
       <div className='guide-key'>
         <div className='item'>
           <div className='box high'></div>
-          <span className='title'>Good</span>
+          <span className='title'>looking good</span>
         </div>
         <div className='item'>
           <div className='box medium'></div>
-          <span className='title'>OK</span>
+          <span className='title'>almost there</span>
         </div>
         <div className='item'>
           <div className='box low'></div>
-          <span className='title'>Needs work</span>
+          <span className='title'>keep trying</span>
         </div>
       </div>
-      
-      <BS.Panel className='guide-group'></BS.Panel>
-
-      <span className='guide-group-title'>Individual Chapters</span>
-      <BS.Panel className='guide-group'>{chapters}</BS.Panel>
     </div>
 
 
