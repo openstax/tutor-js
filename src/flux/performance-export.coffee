@@ -14,6 +14,15 @@ PerformanceExportConfig = {
   _loaded: (obj, id) ->
     @emit('performanceExport.loaded', id)
 
+  _updateExportStatusFor: (id) ->
+    (jobData) =>
+      exportData = _.clone(jobData)
+      exportData.exportFor = id
+
+      @_asyncStatus[id] = exportData.state
+      @emit("performanceExport.#{exportData.state}", exportData)
+      @emitChange()
+
   getJobIdFromJobUrl: (jobUrl) ->
     jobUrlSegments = jobUrl.split('/api/jobs/')
     jobId = jobUrlSegments[1] if jobUrlSegments[1]?
@@ -32,20 +41,20 @@ PerformanceExportConfig = {
     {job} = obj
     jobId = @getJobIdFromJobUrl(job)
 
+    # export job has been queued
     @emit('performanceExport.queued', {jobId, id})
     @_asyncStatus[id] = EXPORT_QUEUED
     @saveJob(jobId, id)
 
-    JobActions.checkUntil(jobId)
-    JobActions.load(jobId)
-    JobStore.on("job.#{jobId}.*", (jobData) =>
-      exportData = _.clone(jobData)
-      exportData.exportFor = id
+    # checks job until final status is reached
+    checkJob = ->
+      JobActions.load(jobId)
+    JobActions.checkUntil(jobId, checkJob)
 
-      @_asyncStatus[id] = exportData.state
-      @emit("performanceExport.#{exportData.state}", exportData)
-      @emitChange()
-    )
+    # whenever this job status is updated, emit the status for performance export
+    updateExportStatus = @_updateExportStatusFor(id)
+    JobStore.on("job.#{jobId}.*", updateExportStatus)
+    JobStore.off("job.#{jobId}.final", updateExportStatus)
 
   _getJobs: (id) ->
     _.clone(@_job[id])
