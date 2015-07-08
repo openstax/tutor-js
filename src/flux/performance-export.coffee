@@ -5,7 +5,7 @@ moment = require 'moment'
 
 EXPORTING = 'exporting'
 EXPORT_QUEUED = 'export_queued'
-EXPORTED = 'exported'
+EXPORTED = 'completed'
 
 PerformanceExportConfig = {
 
@@ -58,7 +58,7 @@ PerformanceExportConfig = {
       jobId ?= _.last(@_getJobs(id))
       job = JobStore.get(jobId)
       {state} = job if job?
-      state is 'completed'
+      state is EXPORTED
 
     getLatestExport: (id) ->
       perfExports = @_get(id)
