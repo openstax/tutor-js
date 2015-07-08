@@ -1,0 +1,26 @@
+{
+  "0": {
+    "id": "7",
+    "period_id": "2",
+    "role_id": "9",
+    "first_name": "Clyde",
+    "last_name": "Griffiths",
+    "full_name": "Clyde Griffiths"
+  },
+  "1": {
+    "id": "11",
+    "period_id": "1",
+    "role_id": "13",
+    "first_name": "Harry",
+    "last_name": "Potter",
+    "full_name": "Harry Potter"
+  },
+  "2": {
+    "id": "9",
+    "period_id": "2",
+    "role_id": "11",
+    "first_name": "Florentino",
+    "last_name": "Ariza",
+    "full_name": "Florentino Ariza"
+  }
+}
