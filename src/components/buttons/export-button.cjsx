@@ -8,6 +8,9 @@ AsyncButton = require './async-button'
 
 module.exports = React.createClass
   displayName: 'ExportPerformance'
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+    className: React.PropTypes.string
 
   mixins: [BindStoreMixin]
   bindStore: PerformanceExportStore
