@@ -2,12 +2,12 @@ BS = require 'react-bootstrap'
 React = require 'react'
 BindStoreMixin = require '../bind-store-mixin'
 Time = require '../time'
-AsyncButton = require './async-button'
+AsyncButton = require '../buttons/async-button'
 
 {PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
 
-module.exports = React.createClass
-  displayName: 'ExportPerformance'
+PerformanceExport = React.createClass
+  displayName: 'PerformanceExport'
   propTypes:
     courseId: React.PropTypes.string.isRequired
     className: React.PropTypes.string
@@ -87,3 +87,5 @@ module.exports = React.createClass
       </div>
       {lastExportedLabel}
     </span>
+
+module.exports = PerformanceExport
