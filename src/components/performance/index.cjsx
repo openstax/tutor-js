@@ -54,8 +54,7 @@ Performance = React.createClass
 
   tableWidth: ->
     table = React.findDOMNode(@refs.tableContainer)
-    # 40 is an offset container padding
-    table.clientWidth - 40
+    table.clientWidth
 
   tableHeight: ->
     table = React.findDOMNode(@refs.tableContainer)
@@ -103,6 +102,10 @@ Performance = React.createClass
 
     customHeader = linkToPlanSummary
     customHeader ?= 'Class Average'
+
+    customHeader = <div className='average-header-cell'>
+      {customHeader}
+    </div>
 
     customGroupHeader =
       <div
@@ -211,21 +214,21 @@ Performance = React.createClass
         handleKeyUpdate={@setPeriodIndex}
         intialActive={period_id}
         courseId={courseId} />
-      <BS.Panel className='course-performance-container' ref='tableContainer'>
+      <div className='course-performance-container' ref='tableContainer'>
         <Table
           onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
-          rowHeight={50}
+          rowHeight={46}
           rowGetter={(rowIndex) -> student_rows[rowIndex]}
           rowsCount={sortData.length}
           width={tableWidth}
           height={tableHeight}
-          headerHeight={50}
+          headerHeight={46}
           groupHeaderHeight={50}>
 
           {headings}
         </Table>
 
-      </BS.Panel>
+      </div>
     </div>
 
 PerformanceShell = React.createClass
