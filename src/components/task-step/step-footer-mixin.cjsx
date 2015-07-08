@@ -22,7 +22,11 @@ module.exports =
       taskDetails = @renderDefaultDetails({taskId, courseId, review})
 
       taskDetails = [
-        <ViewingAsStudentNameShell courseId={courseId} taskId={taskId} />
+        <ViewingAsStudentNameShell
+          key='viewing-as'
+          courseId={courseId}
+          taskId={taskId}
+          className='task-footer-detail' />
         taskDetails
       ]
 
@@ -44,18 +48,16 @@ module.exports =
 
     task = TaskStore.get(taskId)
     sections = TaskStore.getRelatedSections(taskId)
-    className = "details"
+    className = "task-footer-detail"
     className += ' has-sections' if sections.length
 
-    taskAbout = 
-      <div key="about" className={className}>
+    taskAbout =
+      <div key='about' className={className}>
         <div className='task-title'>{task.title}</div>
         {@renderCoversSections(sections) if sections.length}
       </div>
 
-    taskDetails = <div key="details" className='details'>
-      <Details task={task} />
-    </div>
+    taskDetails = <Details key='details' task={task} className='task-footer-detail'/>
 
     [
       taskAbout

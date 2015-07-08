@@ -8,14 +8,16 @@ ViewingAsStudentName = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
+    className: React.PropTypes.string
 
   render: ->
-    {courseId, taskId} = @props
+    {courseId, taskId, className} = @props
     studentName = null
 
+    className += ' task-student'
     student = PerformanceStore.getStudentOfTask(courseId, taskId)
 
-    studentName = <div className='task-student details'>
+    studentName = <div className={className}>
       {student.name}
     </div> if student?
 

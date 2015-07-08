@@ -12,6 +12,7 @@ module.exports = React.createClass
     dateLabel: React.PropTypes.string
     trigger: React.PropTypes.string
     placement: React.PropTypes.string
+    className: React.PropTypes.string
 
   getDefaultProps: ->
     title: 'Instructions'
@@ -21,7 +22,9 @@ module.exports = React.createClass
     placement: 'top'
 
   render: ->
-    {task, title, dateFormat, dateLabel, trigger, placement} = @props
+    {task, title, dateFormat, dateLabel, trigger, placement, className} = @props
+
+    className += ' task-details'
 
     if not task.due_at?
       return null
@@ -32,7 +35,7 @@ module.exports = React.createClass
           <Markdown text={task.description} />
         </BS.Popover>
       details =
-        <span className='task-details'>
+        <span className={className}>
           {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
           <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
             <button className='task-details-info'/>
@@ -40,7 +43,7 @@ module.exports = React.createClass
         </span>
     else
       details =
-        <span className='task-details'>
+        <span className={className}>
           {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
         </span>
 
