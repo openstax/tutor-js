@@ -84,7 +84,8 @@ module.exports = React.createClass
     if (@state.showingPeriods and not plan.tasking_plans.length)
       invalidPeriodsAlert = <BS.Row>
         <BS.Col className="periods-invalid" sm=12>
-        Please select at least one period
+          Please select at least one period
+          <i className="fa fa-exclamation-circle"></i>
         </BS.Col>
       </BS.Row>
 
