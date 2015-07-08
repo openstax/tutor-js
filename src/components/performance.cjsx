@@ -27,7 +27,7 @@ Performance = React.createClass
 
 
   getInitialState: ->
-    period_id: "1"
+    period_id: null
     periodIndex: 1
     sortOrder: 'is-ascending'
     sortIndex: 0
@@ -170,7 +170,11 @@ Performance = React.createClass
     performance = PerformanceStore.get(@props.courseId)
 
     {period_id} = @state
-    performance = _.findWhere(performance, {period_id})
+    # The period may not have been selected. If not, just use the 1st period
+    if period_id
+      performance = _.findWhere(performance, {period_id})
+    else
+      performance = performance[0] or throw new Error('BUG: No periods')
 
     headers = performance.data_headings
     headers.unshift({"title":"Student"})
