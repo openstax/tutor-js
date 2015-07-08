@@ -48,14 +48,11 @@ module.exports =
 
     task = TaskStore.get(taskId)
     sections = TaskStore.getRelatedSections(taskId)
-    className = "task-footer-detail"
-    className += ' has-sections' if sections.length
 
-    taskAbout =
-      <div key='about' className={className}>
-        <div className='task-title'>{task.title}</div>
-        {@renderCoversSections(sections) if sections.length}
-      </div>
+    taskAbout = <div key='about' className='task-footer-detail'>
+      <div className='task-title'>{task.title}</div>
+      {@renderCoversSections(sections) if sections.length}
+    </div>
 
     taskDetails = <Details key='details' task={task} className='task-footer-detail'/>
 
@@ -117,7 +114,11 @@ module.exports =
 
   renderFooter: ({stepId, taskId, courseId, review}) ->
     buttons = @renderButtons({stepId, taskId, courseId, review})
-    taskDetails = <div className='task-footer-details'>
+    sections = TaskStore.getRelatedSections(taskId)
+    className = 'task-footer-details'
+    className += ' has-sections' if sections.length
+
+    taskDetails = <div className={className}>
       {@renderTaskDetails({stepId, taskId, courseId, review})}
     </div>
 
@@ -128,9 +129,12 @@ module.exports =
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
+    sections = TaskStore.getRelatedSections(taskId)
+    className = 'task-footer-details'
+    className += ' has-sections' if sections.length
 
     backButton = @renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')
-    taskDetails = <div className='task-footer-details'>
+    taskDetails = <div className={className}>
       {@renderTaskDetails({stepId, taskId, courseId, review})}
     </div>
 

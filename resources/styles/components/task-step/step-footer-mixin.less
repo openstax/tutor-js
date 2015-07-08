@@ -25,7 +25,8 @@
     float: right;
     display: flex;
     align-items: center;
-    height: 4rem;
+    height: 3.6rem;
+    margin-top: 2px;
 
     .task-footer-detail {
       display: inline-block;
@@ -35,14 +36,17 @@
       &:last-child {
         padding-right: 0;
       }
+    }
 
-      // Has a "Covers sections ..." message
-      &.has-sections {
-        .continue.btn {
-          margin-top: 5px;
-        }
-        .view-reference-guide { margin-left: 0.5rem; }
+    // Has a "Covers sections ..." message
+    &.has-sections {
+      // align details to top
+      align-items: flex-start;
+
+      .continue.btn {
+        margin-top: 5px;
       }
+      .view-reference-guide { margin-left: 0.5rem; }
     }
   }
 
