@@ -81,6 +81,13 @@ module.exports = React.createClass
       commonDueAt = TaskPlanStore.getDueAt(@props.id)
       commonOpensAt = TaskPlanStore.getOpensAt(@props.id)
 
+    if (@state.showingPeriods and not plan.tasking_plans.length)
+      invalidPeriodsAlert = <BS.Row>
+        <BS.Col className="periods-invalid" sm=12>
+        Please select at least one period
+        </BS.Col>
+      </BS.Row>
+
     <div className="assignment">
       <BS.Row>
         <BS.Col sm=8 xs=12>
@@ -172,7 +179,7 @@ module.exports = React.createClass
       </BS.Row>
 
       { _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods }
-
+      { invalidPeriodsAlert }
 
     </div>
 
