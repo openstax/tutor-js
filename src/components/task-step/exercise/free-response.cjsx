@@ -12,10 +12,12 @@ FreeResponse = React.createClass
     {free_response, student_names} = @props
     FreeResponse = null
 
-    studentNames = student_names.join(', ') if student_names?
+    freeResponseProps =
+      className: 'free-response'
+    freeResponseProps['data-student-names'] = student_names.join(', ') if student_names?
 
     if free_response? and free_response.length
-      FreeResponse = <div className='free-response' data-student-names="#{studentNames}">
+      FreeResponse = <div {...freeResponseProps}>
         <div className='free-response-content'>{free_response}</div>
       </div>
 
