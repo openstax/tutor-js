@@ -29,6 +29,8 @@
   .header-cell {
     .no-select();
     cursor: pointer;
+    background: @tutor-white;
+
     &.is-ascending:after {
       padding-left:8px;
       content: @fa-var-sort-asc;
@@ -39,10 +41,10 @@
       content: @fa-var-sort-desc;
       .fa-icon();
     }
-    .review-plan {
-      padding-left: 6px;
-    }
   }
 
+  .average-header-cell {
+    background: @tutor-neutral-light;
+  }
 
 }
