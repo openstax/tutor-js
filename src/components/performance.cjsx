@@ -12,7 +12,9 @@ Router = require 'react-router'
 
 
 {PerformanceStore, PerformanceActions} = require '../flux/performance'
+{PerformanceExportStore, PerformanceExportActions} = require '../flux/performance-export'
 LoadableItem = require './loadable-item'
+ExportButton = require './buttons/export-button'
 {CoursePeriodsNavShell} = require './course-periods-nav'
 
 
@@ -167,9 +169,11 @@ Performance = React.createClass
 
   render: ->
 
-    performance = PerformanceStore.get(@props.courseId)
+    {courseId} = @props
+    {sortIndex, period_id, tableWidth, tableHeight, sortOrder} = @state
 
-    {period_id} = @state
+    performance = PerformanceStore.get(courseId)
+
     performance = _.findWhere(performance, {period_id})
 
     headers = performance.data_headings
@@ -182,34 +186,37 @@ Performance = React.createClass
     for student in students
       student.data.unshift({"title":student.name, "type":"name"})
 
-    sortData = _.sortBy(performance.students, (d) =>
-      switch d.data[@state.sortIndex].type
-        when 'homework' then d.data[@state.sortIndex].correct_exercise_count
-        when 'reading' then d.data[@state.sortIndex].status
-        when 'name' then d.data[@state.sortIndex].title
+    sortData = _.sortBy(performance.students, (d) ->
+      switch d.data[sortIndex].type
+        when 'homework' then d.data[sortIndex].correct_exercise_count
+        when 'reading' then d.data[sortIndex].status
+        when 'name' then d.data[sortIndex].title
       )
 
-    if @state.sortOrder is 'is-descending'
+    if sortOrder is 'is-descending'
       sortData.reverse()
 
     student_rows = _.map(sortData, @renderStudentRow)
 
+    exportButton =
+      <ExportButton courseId={courseId} className='pull-right'/>
 
     <div className='course-performance-wrap'>
       <span className='course-performance-title'>Performance Report</span>
+      {exportButton}
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
         handleKeyUpdate={@setPeriodIndex}
-        intialActive={@state.period_id}
-        courseId={@props.courseId} />
+        intialActive={period_id}
+        courseId={courseId} />
       <BS.Panel className='course-performance-container' ref='tableContainer'>
         <Table
           onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
           rowHeight={50}
           rowGetter={(rowIndex) -> student_rows[rowIndex]}
           rowsCount={sortData.length}
-          width={@state.tableWidth}
-          height={@state.tableHeight}
+          width={tableWidth}
+          height={tableHeight}
           headerHeight={50}
           groupHeaderHeight={50}>
 
