@@ -11,6 +11,9 @@ PerformanceExportConfig = {
 
   _job: {}
 
+  _loaded: (obj, id) ->
+    @emit('performanceExport.loaded', id)
+
   getJobIdFromJobUrl: (jobUrl) ->
     jobUrlSegments = jobUrl.split('/api/jobs/')
     jobId = jobUrlSegments[1] if jobUrlSegments[1]?

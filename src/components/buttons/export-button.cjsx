@@ -1,6 +1,7 @@
 BS = require 'react-bootstrap'
 React = require 'react'
 BindStoreMixin = require '../bind-store-mixin'
+Time = require '../time'
 AsyncButton = require './async-button'
 
 {PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
@@ -13,21 +14,45 @@ module.exports = React.createClass
 
   getInitialState: ->
     downloadUrl: null
+    lastExported: null
 
-  updateDownloadUrl: (exportData) ->
-    if exportData.exportFor is @props.courseId
-      @setState({downloadUrl: exportData.url})
+  isUpdateValid: (id) ->
+    {courseId} = @props
+    id is courseId
+
+  componentWillMount: ->
+    {courseId} = @props
+    PerformanceExportActions.load(courseId)
+
+  triggerLoadExport: (exportData) ->
+    {courseId} = @props
+    if @isUpdateValid(exportData.exportFor)
+      PerformanceExportActions.load(courseId)
+
+  updateDownload: (id) ->
+    if @isUpdateValid(id)
+      lastExport = PerformanceExportStore.getLatestExport(id)
+      return unless lastExport?
+
+      exportState =
+        downloadUrl: lastExport.url
+        lastExported: lastExport.created_at
+
+      @setState(exportState)
 
   addBindListener: ->
-    PerformanceExportStore.on('performanceExport.completed', @updateDownloadUrl)
+    PerformanceExportStore.on('performanceExport.completed', @triggerLoadExport)
+    PerformanceExportStore.on('performanceExport.loaded', @updateDownload)
 
   removeBindListener: ->
-    PerformanceExportStore.off('performanceExport.completed', @updateDownloadUrl)
+    PerformanceExportStore.off('performanceExport.completed', @triggerLoadExport)
+    PerformanceExportStore.off('performanceExport.loaded', @updateDownload)
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl} = @state
+    {downloadUrl, lastExported} = @state
 
+    className += ' export-button'
     exportClass = 'primary'
 
     if downloadUrl?
@@ -46,7 +71,16 @@ module.exports = React.createClass
         Export
       </AsyncButton>
 
+    if lastExported?
+      lastExportedLabel = <small className='export-button-time'>
+        Export last updated on:
+        <i><Time date={lastExported} format='long'/></i>
+      </small>
+
     <span className={className}>
-      {exportButton}
-      {downloadLink}
+      <div className='export-button-buttons'>
+        {exportButton}
+        {downloadLink}
+      </div>
+      {lastExportedLabel}
     </span>
