@@ -13,11 +13,8 @@ _ = require 'underscore'
 {LearningGuideActions} = require './flux/learning-guide'
 {JobActions} = require './flux/job'
 {PerformanceActions} = require './flux/performance'
-<<<<<<< HEAD
 {PerformanceExportActions} = require './flux/performance-export'
-=======
 {RosterActions} = require './flux/roster'
->>>>>>> master
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
