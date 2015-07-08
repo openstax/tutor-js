@@ -22,8 +22,12 @@ module.exports =
       taskDetails = @renderDefaultDetails({taskId, courseId, review})
 
       taskDetails = [
+        <ViewingAsStudentNameShell
+          key='viewing-as'
+          courseId={courseId}
+          taskId={taskId}
+          className='task-footer-detail' />
         taskDetails
-        <ViewingAsStudentNameShell courseId={courseId} taskId={taskId} />
       ]
 
     taskDetails
@@ -44,14 +48,18 @@ module.exports =
 
     task = TaskStore.get(taskId)
     sections = TaskStore.getRelatedSections(taskId)
-    className = "details"
-    className += ' has-sections' if sections.length
-    <div key="details" className={className}>
-      {@renderCoversSections(sections) if sections.length}
-      <Details task={task} />
+
+    taskAbout = <div key='about' className='task-footer-detail'>
       <div className='task-title'>{task.title}</div>
+      {@renderCoversSections(sections) if sections.length}
     </div>
 
+    taskDetails = <Details key='details' task={task} className='task-footer-detail'/>
+
+    [
+      taskAbout
+      taskDetails
+    ]
 
   renderTaskDetails: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
@@ -106,7 +114,14 @@ module.exports =
 
   renderFooter: ({stepId, taskId, courseId, review}) ->
     buttons = @renderButtons({stepId, taskId, courseId, review})
-    taskDetails = @renderTaskDetails({stepId, taskId, courseId, review})
+    sections = TaskStore.getRelatedSections(taskId)
+    className = 'task-footer-details'
+    className += ' has-sections' if sections.length
+
+    taskDetails = <div className={className}>
+      {@renderTaskDetails({stepId, taskId, courseId, review})}
+    </div>
+
     [
       buttons
       taskDetails
@@ -114,9 +129,14 @@ module.exports =
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
+    sections = TaskStore.getRelatedSections(taskId)
+    className = 'task-footer-details'
+    className += ' has-sections' if sections.length
 
     backButton = @renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')
-    taskDetails = @renderTaskDetails({stepId, taskId, courseId, review})
+    taskDetails = <div className={className}>
+      {@renderTaskDetails({stepId, taskId, courseId, review})}
+    </div>
 
     [
       backButton

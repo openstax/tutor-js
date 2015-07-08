@@ -1,17 +1,9 @@
 .step-footer-mixin() {
-  .task-detail-texts() {
-    display: inline-block;
-    line-height: 2rem;
-    padding-right: 20px;
-    float: right;
+  .task-title {
     font-weight: 600;
   }
-
-  .task-title {
-    .task-detail-texts();
-  }
   .task-student {
-    .task-detail-texts();
+    font-weight: 600;
 
     &::before {
       content: 'Viewing as: ';
@@ -24,31 +16,38 @@
     display: inline-block;
   }
 
-  .pinned-footer {
-    .loadable {
+  .task-covers {
+    color: @tutor-neutral;
+    font-style: italic;
+  }
+
+  .task-footer-details {
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 3.6rem;
+    margin-top: 2px;
+
+    .task-footer-detail {
       display: inline-block;
-      float: right;
-    }
-    .details {
-      // Has a "Covers sections ..." message
-      &.has-sections {
-        position: relative;
-        float: right;
-        height: 40px;
-        .task-covers {
-          position: absolute;
-          left: 0;
-          bottom: -5px;
-          color: @tutor-neutral;
-          font-style: italic;
-        }
-        .continue.btn {
-          height: 40px;
-          margin-top: 5px;
-        }
-        .view-reference-guide { margin-left: 0.5rem; }
+      line-height: 1.25em;
+      padding-right: 20px;
+
+      &:last-child {
+        padding-right: 0;
       }
     }
 
+    // Has a "Covers sections ..." message
+    &.has-sections {
+      // align details to top
+      align-items: flex-start;
+
+      .continue.btn {
+        margin-top: 5px;
+      }
+      .view-reference-guide { margin-left: 0.5rem; }
+    }
   }
+
 }
