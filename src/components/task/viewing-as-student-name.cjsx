@@ -15,7 +15,7 @@ ViewingAsStudentName = React.createClass
 
     student = PerformanceStore.getStudentOfTask(courseId, taskId)
 
-    studentName = <div className='task-student'>
+    studentName = <div className='task-student details'>
       {student.name}
     </div> if student?
 
