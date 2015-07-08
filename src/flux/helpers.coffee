@@ -128,8 +128,13 @@ CrudConfig = ->
 
     # Keep this here so other exports method have access to it
     _get: (id) ->
-      return null unless @_local[id] or @_asyncStatus[id] is SAVING
-      _.extend({}, @_local[id], @_changed[id])
+      val = @_local[id]
+      return null unless val or @_asyncStatus[id] is SAVING
+      # Performance Report stores an Array unlike most other stores
+      if _.isArray(val)
+        val
+      else
+        _.extend({}, val, @_changed[id])
 
     exports:
       isUnknown: (id) -> not @_asyncStatus[id]
