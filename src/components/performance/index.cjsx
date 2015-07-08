@@ -11,11 +11,11 @@ ColumnGroup = FixedDataTable.ColumnGroup
 Router = require 'react-router'
 
 
-{PerformanceStore, PerformanceActions} = require '../flux/performance'
-{PerformanceExportStore, PerformanceExportActions} = require '../flux/performance-export'
-LoadableItem = require './loadable-item'
-ExportButton = require './buttons/export-button'
-{CoursePeriodsNavShell} = require './course-periods-nav'
+{PerformanceStore, PerformanceActions} = require '../../flux/performance'
+{PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
+LoadableItem = require '../loadable-item'
+PerformanceExport = require './export'
+{CoursePeriodsNavShell} = require '../course-periods-nav'
 
 
 Performance = React.createClass
@@ -203,12 +203,9 @@ Performance = React.createClass
 
     student_rows = _.map(sortData, @renderStudentRow)
 
-    exportButton =
-      <ExportButton courseId={courseId} className='pull-right'/>
-
     <div className='course-performance-wrap'>
       <span className='course-performance-title'>Performance Report</span>
-      {exportButton}
+      <PerformanceExport courseId={courseId} className='pull-right'/>
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
         handleKeyUpdate={@setPeriodIndex}
