@@ -1,0 +1,29 @@
+:target {
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent;
+  -webkit-animation: highlight 1s ease-out;
+  animation: highlight 1s ease-out;
+}
+
+@-webkit-keyframes highlight {
+  0% {
+    border-color: @reading-color;
+    background-color: @reading-color;
+  }
+  100% {
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
+
+@keyframes highlight {
+  0% {
+    border-color: @reading-color;
+    background-color: @reading-color;
+  }
+  100% {
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
