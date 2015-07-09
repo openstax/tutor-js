@@ -32,8 +32,7 @@ CoursePeriodsNav = React.createClass
       @onSelect(@state.active)
 
   onSelect: (key) ->
-    {courseId, handleSelect, handleKeyUpdate} = @props
-    periods = CourseStore.getPeriods(courseId)
+    {courseId, periods, handleSelect, handleKeyUpdate} = @props
 
     period = periods?[key]
     unless period?
@@ -48,10 +47,9 @@ CoursePeriodsNav = React.createClass
     <BS.NavItem eventKey={key} key="period-nav-#{period.id}">{period.name}</BS.NavItem>
 
   render: ->
-    {courseId} = @props
+    {periods} = @props
     {active} = @state
-
-    periods = CourseStore.getPeriods(courseId)
+    periods = _.sortBy(periods, 'name')
     periodsItems = _.map(periods, @renderPeriod)
 
     <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
@@ -73,6 +71,12 @@ CoursePeriodsNavShell = React.createClass
 
     courseId
 
+  renderCoursePeriodNav: ->
+    courseId = @getCourseId()
+    periods = CourseStore.getPeriods(courseId)
+
+    <CoursePeriodsNav {...@props} courseId={courseId} periods={periods}/>
+
   render: ->
     courseId = @getCourseId()
 
@@ -80,7 +84,7 @@ CoursePeriodsNavShell = React.createClass
       id={courseId}
       store={CourseStore}
       actions={CourseActions}
-      renderItem={=> <CoursePeriodsNav {...@props} courseId={courseId} />}
+      renderItem={@renderCoursePeriodNav}
     />
 
 module.exports = {CoursePeriodsNav, CoursePeriodsNavShell}
