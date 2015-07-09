@@ -28,7 +28,8 @@ LearningGuide = React.createClass
 
   renderSectionBars: (section) ->
     {courseId} = @props
-    linkParams = {courseId, id: section.page_ids}
+    linkParams = {courseId}
+    queryParams = {page_ids: section.page_ids}
     chapterSection =
       @sectionFormat(section.chapter_section, @state.sectionSeparator)
     sectionPercent = @_percent(section.current_level, 1)
@@ -41,6 +42,7 @@ LearningGuide = React.createClass
       <Router.Link
       to='viewPractice'
       params={linkParams}
+      query={queryParams}
       className='btn btn-default progress-bar-button'>
         <BS.ProgressBar className={colorClass} now={sectionPercent} />
       </Router.Link>
@@ -52,7 +54,8 @@ LearningGuide = React.createClass
 
   renderChapterPanels: (chapter, i) ->
     {courseId} = @props
-    linkParams = {courseId, id: chapter.page_ids}
+    linkParams = {courseId}
+    queryParams = {page_ids: chapter.page_ids}
     sections = _.map(chapter.children, @renderSectionBars)
     chapterPercent = @_percent(chapter.current_level, 1)
     colorClass = @colorizeBar(chapterPercent)
@@ -68,6 +71,7 @@ LearningGuide = React.createClass
         <Router.Link
         to='viewPractice'
         params={linkParams}
+        query={queryParams}
         className='btn btn-default progress-bar-button'>
           <BS.ProgressBar className={colorClass} now={chapterPercent} />
         </Router.Link>
