@@ -1,15 +1,31 @@
-:target {
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent;
+@highlight-color: lighten(@reading-color, 25%);
+
+.highlight-animation() {
   -webkit-animation: highlight 1s ease-out;
   animation: highlight 1s ease-out;
 }
 
+figure:target {
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent;
+  .highlight-animation();
+
+  > * {
+    .highlight-animation();
+  }
+}
+
+section, div, span {
+  &:target {
+    .highlight-animation();
+  }
+}
+
 @-webkit-keyframes highlight {
   0% {
-    border-color: @reading-color;
-    background-color: @reading-color;
+    border-color: @highlight-color;
+    background-color: @highlight-color;
   }
   100% {
     border-color: transparent;
@@ -19,8 +35,8 @@
 
 @keyframes highlight {
   0% {
-    border-color: @reading-color;
-    background-color: @reading-color;
+    border-color: @highlight-color;
+    background-color: @highlight-color;
   }
   100% {
     border-color: transparent;
