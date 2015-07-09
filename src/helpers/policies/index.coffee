@@ -66,5 +66,15 @@ StepPanel =
     {panels} = getTaskStepPanels stepId
     utils._canWrite panels
 
+  canContinue: (stepId) ->
+    step = TaskStepStore.get stepId
+
+    mostCurrentStep = TaskStore.getCurrentStep step.task_id
+    isMostCurrentStep = step.id is mostCurrentStep.id
+
+    # Steps can be continued if it's writable.
+    # If it's not writable and the most current step,
+    # then you cannot continue.
+    @canWrite(stepId) or not isMostCurrentStep
 
 module.exports = {StepPanel}
