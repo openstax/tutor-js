@@ -6,9 +6,6 @@
 }
 
 figure:target {
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent;
   .highlight-animation();
 
   > * {
@@ -21,6 +18,14 @@ section, div, span {
     .highlight-animation();
   }
 }
+
+img:target {
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent;
+  .highlight-animation();
+}
+
 
 @-webkit-keyframes highlight {
   0% {
