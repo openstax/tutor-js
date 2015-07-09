@@ -39,7 +39,7 @@ LearningGuide = React.createClass
         <span className='section-title' title={section.title}>{section.title}</span>
       </div>
       <Router.Link
-      to='viewTask'
+      to='viewPractice'
       params={linkParams}
       className='btn btn-default progress-bar-button'>
         <BS.ProgressBar className={colorClass} now={sectionPercent} />
@@ -56,7 +56,7 @@ LearningGuide = React.createClass
     sections = _.map(chapter.children, @renderSectionBars)
     chapterPercent = @_percent(chapter.current_level, 1)
     colorClass = @colorizeBar(chapterPercent)
-    
+
     <BS.Col xl={3}>
       <div id="toggle-#{i}" className="chapter-panel">
         <div className='view-toggle' onClick={@onToggle.bind(@, i)}>
@@ -66,7 +66,7 @@ LearningGuide = React.createClass
           <span className='chapter-number'>{chapter.chapter_section[0]}</span>
           <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
         <Router.Link
-        to='viewTask'
+        to='viewPractice'
         params={linkParams}
         className='btn btn-default progress-bar-button'>
           <BS.ProgressBar className={colorClass} now={chapterPercent} />
