@@ -68,9 +68,12 @@ StepPanel =
 
   canContinue: (stepId) ->
     step = TaskStepStore.get stepId
+    # if step is falsy, this step is a placeholder step and
+    # can be continued from
+    return true unless step?
 
     mostCurrentStep = TaskStore.getCurrentStep step.task_id
-    isMostCurrentStep = step.id is mostCurrentStep.id
+    isMostCurrentStep = mostCurrentStep? and (step.id is mostCurrentStep.id)
 
     # Steps can be continued if it's writable.
     # If it's not writable and the most current step,
