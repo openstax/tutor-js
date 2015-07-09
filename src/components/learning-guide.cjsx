@@ -28,7 +28,7 @@ LearningGuide = React.createClass
 
   renderSectionBars: (section) ->
     {courseId} = @props
-    linkParams = {courseId, id: section.id}
+    linkParams = {courseId, id: section.page_ids}
     chapterSection =
       @sectionFormat(section.chapter_section, @state.sectionSeparator)
     sectionPercent = @_percent(section.current_level, 1)
@@ -52,7 +52,7 @@ LearningGuide = React.createClass
 
   renderChapterPanels: (chapter, i) ->
     {courseId} = @props
-    linkParams = {courseId, id: chapter.id}
+    linkParams = {courseId, id: chapter.page_ids}
     sections = _.map(chapter.children, @renderSectionBars)
     chapterPercent = @_percent(chapter.current_level, 1)
     colorClass = @colorizeBar(chapterPercent)
@@ -79,12 +79,14 @@ LearningGuide = React.createClass
       </div>
     </BS.Col>
 
-  onToggle: (index) ->
+  onToggle: (index, event) ->
     el = event.target.parentNode.parentNode
     if el.classList.contains('expanded')
       el.classList.remove('expanded')
+      event.target.innerHTML = 'View All'
     else
       el.classList.add('expanded')
+      event.target.innerHTML = 'View Less'
 
 
   colorizeBar: (percent) ->
