@@ -184,9 +184,13 @@ Stats = React.createClass
     {stats} = @state
 
     plan = TaskPlanStatsStore.get(id)
-    course = @renderCourseBar(stats, plan.type)
-    chapters = _.map(stats.current_pages, @renderChapterBars)
-    practice = _.map(stats.spaced_pages, @renderPracticeBars)
+    # A Draft does not contain any stats
+    if stats
+      course = @renderCourseBar(stats, plan.type)
+      chapters = _.map(stats.current_pages, @renderChapterBars)
+      practice = _.map(stats.spaced_pages, @renderPracticeBars)
+    else
+      course = <span className='-no-data'>No Data (draft)</span>
 
     unless _.isEmpty(chapters)
       chapters = <section>
