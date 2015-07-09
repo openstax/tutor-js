@@ -60,7 +60,7 @@ LearningGuide = React.createClass
     <BS.Col xl={3}>
       <div id="toggle-#{i}" className="chapter-panel">
         <div className='view-toggle' onClick={@onToggle.bind(@, i)}>
-          <span>View All</span>
+          View All
         </div>
         <div className='chapter-heading'>
           <span className='chapter-number'>{chapter.chapter_section[0]}</span>
@@ -80,7 +80,7 @@ LearningGuide = React.createClass
     </BS.Col>
 
   onToggle: (index, event) ->
-    el = event.target.parentNode.parentNode
+    el = event.target.parentNode
     if el.classList.contains('expanded')
       el.classList.remove('expanded')
       event.target.innerHTML = 'View All'
