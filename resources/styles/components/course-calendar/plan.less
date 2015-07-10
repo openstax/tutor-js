@@ -71,13 +71,14 @@
 
     &:not(.is-published) {
       label:not(.continued)::before {
-        content: @fa-var-pencil;
-        .fa-icon();
+        font-weight: 400;
+        font-style: italic;
+        content: 'draft';
         margin-right: @calendar-plan-left-label-offset;
       }
     }
 
-    &.is-trouble {
+    &.is-trouble.is-published {
       label:not(.continued)::before {
         .is-trouble();
         margin-right: @calendar-plan-left-label-offset;
