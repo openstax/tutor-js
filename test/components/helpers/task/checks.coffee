@@ -103,7 +103,10 @@ checks =
     expect(div.querySelector('.task-footer-buttons').children.length).to.equal(3)
     classes = _.pluck(div.querySelector('.task-footer-buttons').children, 'className')
     expect(classes).to.deep.equal([
-      '-try-another btn btn-primary', '-refresh-memory btn btn-primary', 'async-button continue btn btn-primary'
+      '-try-another btn btn-primary'
+      # "Refresh my Memory" button is disabled until BE gets it working properly.
+      # '-refresh-memory btn btn-primary'
+      'async-button continue btn btn-primary'
     ])
     {div, component, stepId, taskId, state, router, history}
 

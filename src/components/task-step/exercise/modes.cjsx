@@ -187,17 +187,18 @@ ExerciseReview = React.createClass
         Try Another
       </BS.Button>
 
-    if @canRefreshMemory()
-      refreshMemoryButton = <BS.Button
-        bsStyle='primary'
-        className='-refresh-memory'
-        onClick={@refreshMemory}>
-        Refresh My Memory
-      </BS.Button>
+    # "Refresh my Memory" button is disabled until BE gets it working properly.
+    # See corresponding comment in tests.
+    # if @canRefreshMemory()
+    #   refreshMemoryButton = <BS.Button
+    #     bsStyle='primary'
+    #     className='-refresh-memory'
+    #     onClick={@refreshMemory}>
+    #     Refresh My Memory
+    #   </BS.Button>
 
     <div className='task-footer-buttons'>
       {tryAnotherButton}
-      {refreshMemoryButton}
       {@renderContinueButton() unless review is 'completed'}
     </div>
 

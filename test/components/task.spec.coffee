@@ -81,7 +81,7 @@ describe 'Task Widget', ->
         done()
       , done)
 
-  it 'should allow recovery when available and answer is incorrect', (done) ->
+  xit 'should allow recovery when available and answer is incorrect', (done) ->
     taskTests
       .submitMultipleChoice(@result)
       .then(taskChecks.checkRecoveryRefreshChoice)
