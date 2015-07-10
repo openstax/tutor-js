@@ -11,11 +11,18 @@ figure:target {
   > * {
     .highlight-animation();
   }
+  img {
+    mix-blend-mode: multiply;
+  }
 }
 
 section, div, span {
   &:target {
     .highlight-animation();
+
+    img {
+      mix-blend-mode: multiply;
+    }
   }
 }
 
@@ -23,6 +30,7 @@ img:target {
   border-width: 10px;
   border-style: solid;
   border-color: transparent;
+  mix-blend-mode: multiply;
   .highlight-animation();
 }
 
