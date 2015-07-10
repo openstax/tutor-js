@@ -7,7 +7,7 @@ Router = require 'react-router'
 LoadableItem = require '../loadable-item'
 SmartOverflow = require '../smart-overflow'
 ChapterSectionMixin = require '../chapter-section-mixin'
-{CoursePeriodsNavShell} = require '../course-periods-nav'
+{CoursePeriodsNav} = require '../course-periods-nav'
 
 Stats = React.createClass
   propTypes:
@@ -184,6 +184,8 @@ Stats = React.createClass
     {stats} = @state
 
     plan = TaskPlanStatsStore.get(id)
+    periods = TaskPlanStatsStore.getPeriods(id)
+
     # A Draft does not contain any stats
     if stats
       course = @renderCourseBar(stats, plan.type)
@@ -222,10 +224,11 @@ Stats = React.createClass
       </div>
 
     <BS.Panel className='reading-stats'>
-      <CoursePeriodsNavShell
+      <CoursePeriodsNav
         handleSelect={@handlePeriodSelect}
         handleKeyUpdate={@props.handlePeriodKeyUpdate}
         initialActive={@props.initialActivePeriod}
+        periods={periods}
         courseId={courseId} />
       {dataComponent}
     </BS.Panel>
