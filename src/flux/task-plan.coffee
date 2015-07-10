@@ -156,6 +156,9 @@ TaskPlanConfig =
   updateDueAt: (id, due_at, periodId) ->
     @updateDateAttribute(id, 'due_at', due_at, periodId)
 
+  updateUrl: (id, url) ->
+    @_change(id, {url})
+
   sortTopics: (id) ->
     plan = @_getPlan(id)
     {page_ids, exercises_count_dynamic} = plan.settings
@@ -297,6 +300,9 @@ TaskPlanConfig =
         return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
+      else if (plan.type is 'external')
+        # TODO add check for properly formed URL
+        return plan.title and isValidDates() and plan.url?.length > 0
 
     isPublished: (id) ->
       plan = @_getPlan(id)

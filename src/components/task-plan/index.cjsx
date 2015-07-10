@@ -2,6 +2,7 @@ React = require 'react'
 ConfirmLeaveMixin = require '../confirm-leave-mixin'
 {HomeworkPlan} = require './homework'
 {ReadingPlan} = require './reading'
+{ExternalPlan} = require './external'
 LoadableItem = require '../loadable-item'
 {CourseStore, CourseActions} = require '../../flux/course'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -9,6 +10,7 @@ LoadableItem = require '../loadable-item'
 PLAN_TYPES =
   reading: ReadingPlan
   homework: HomeworkPlan
+  external: ExternalPlan
 
 getPlanType = (typeName) ->
   type = PLAN_TYPES[typeName]
@@ -30,6 +32,15 @@ ReadingShell = React.createClass
   render: ->
     {courseId, id} = @context.router.getCurrentParams()
     <PlanShell courseId={courseId} id={id} type='reading'/>
+
+ExternalShell = React.createClass
+  displayName: 'ExternalShell'
+  contextTypes:
+    router: React.PropTypes.func
+
+  render: ->
+    {courseId, id} = @context.router.getCurrentParams()
+    <PlanShell courseId={courseId} id={id} type='external'/>
 
 PlanShell = React.createClass
   displayName: 'PlanShell'
@@ -73,4 +84,4 @@ PlanShell = React.createClass
       renderItem={-> <Type id={id} courseId={courseId} />}
     />
 
-module.exports = {ReadingShell, HomeworkShell}
+module.exports = {ReadingShell, HomeworkShell, ExternalShell}
