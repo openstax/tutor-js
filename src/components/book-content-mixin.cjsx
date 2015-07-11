@@ -1,11 +1,15 @@
+_ = require 'underscore'
+
 module.exports =
   componentDidMount:  ->
     @insertOverlays()
     @detectImgAspectRatio()
+    @processLinks()
 
   componentDidUpdate: ->
     @insertOverlays()
     @detectImgAspectRatio()
+    @processLinks()
 
   insertOverlays: ->
     title = @getSplashTitle()
@@ -28,6 +32,36 @@ module.exports =
         sizeImage.call(img)
       else
         img.onload = sizeImage
+
+  getMediaTag: (media) ->
+    # form media tag text based on tag name or data-type
+    tag = media.tagName
+    tag = media.dataset.type if media.dataset.type?
+
+    # capitalize
+    # TODO find one place for all such string formating helpers to go
+    tag = tag.charAt(0).toUpperCase() + tag.substring(1).toLowerCase()
+
+  isMediaLink: (link) ->
+    link.innerText is '[link]' and link.hash.length > 0 and link.hash.search('/') is -1
+
+  processLink: (mediaLink) ->
+    return unless @isMediaLink(mediaLink)
+    root = @getDOMNode()
+    # Hash may not be a proper selector string, so try catch.
+    try
+      media = root.querySelector(mediaLink.hash)
+      if media?
+        tag = @getMediaTag(media)
+        mediaLink.innerText = tag if tag?
+
+  processLinks: ->
+    root = @getDOMNode()
+    linkSelector = 'a:not(.nav):not([data-type=footnote-number]):not([data-type=footnote-ref])'
+    mediaLinks = root.querySelectorAll(linkSelector)
+
+    _.each(mediaLinks, @processLink)
+
 
 # called with the context set to the image
 sizeImage = ->
