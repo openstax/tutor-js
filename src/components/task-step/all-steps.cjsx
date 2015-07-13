@@ -18,6 +18,8 @@ err = (msgs...) ->
 Reading = React.createClass
   displayName: "Reading"
   mixins: [StepMixin, StepFooterMixin, BookContentMixin]
+  contextTypes:
+    router: React.PropTypes.func
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -25,6 +27,11 @@ Reading = React.createClass
 
   getSplashTitle: ->
     TaskStepStore.get(@props.id)?.title or ''
+
+  getCNXId: ->
+    {id} = @props
+    {content_url} = TaskStepStore.get(id)
+    @getCNXIdOfURL(content_url)
 
   renderBody: ->
     {id} = @props

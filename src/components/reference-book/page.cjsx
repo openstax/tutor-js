@@ -16,6 +16,10 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   mixins: [Router.State, BookContentMixin]
+
+  getCNXId: ->
+    @props.cnxId or @getParams().cnxId
+
   getSplashTitle: ->
     {cnxId} = @getParams()
     page = ReferenceBookStore.getPageInfo(@getParams())
@@ -36,7 +40,7 @@ module.exports = React.createClass
   render: ->
     {courseId} = @getParams()
     # read the id from props, or failing that the url
-    cnxId = @props.cnxId or @getParams().cnxId
+    cnxId = @getCNXId()
     page = ReferenceBookPageStore.get(cnxId)
     info = ReferenceBookStore.getPageInfo({courseId, cnxId})
 

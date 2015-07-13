@@ -8,6 +8,14 @@
   padding-top: @tutor-navbar-height;
 }
 
+a[target=_blank] {
+  &::after {
+    .fa-icon();
+    content: @fa-var-external-link;
+    margin: 0 4px 0 6px;
+  }
+}
+
 figure:target {
   .offset-header();
   .highlight-animation();
