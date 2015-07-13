@@ -59,6 +59,15 @@ module.exports =
     trueHref = link.getAttribute('href')
     link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
 
+  shouldOpenNewTab: ->
+    # Make link external only if this is not already a ref book page.
+    @constructor.displayName isnt 'ReferenceBookPage'
+
+  linkMediaElsewhere: (mediaCNXId, mediaLink) ->
+    pageUrl = @buildReferenceBookLink(mediaCNXId)
+    mediaLink.href = pageUrl + mediaLink.hash
+    mediaLink.target = '_blank' if @shouldOpenNewTab()
+
   processLink: (mediaLink) ->
     return unless @isMediaLink(mediaLink)
     root = @getDOMNode()
@@ -85,12 +94,8 @@ module.exports =
           # Assume that the cnxId is this same page.
           mediaCNXId = @getCNXId()
 
-    # A new pageUrl is made for media links where the media is not found within the DOM.
-    if mediaCNXId?
-      pageUrl = @buildReferenceBookLink(mediaCNXId)
-      mediaLink.href = pageUrl + mediaLink.hash
-      # Make link external only if this is not already a ref book page.
-      mediaLink.target = '_blank' unless @constructor.displayName is 'ReferenceBookPage'
+    # Link media that are not found within DOM.
+    @linkMediaElsewhere(mediaCNXId) if mediaCNXId?
 
   processLinks: ->
     root = @getDOMNode()
