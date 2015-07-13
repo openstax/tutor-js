@@ -33,8 +33,8 @@ module.exports =
       else
         img.onload = sizeImage
 
-  getCNXIdOfURL: (url) ->
-    _.last(url.split('contents/'))
+  getCNXIdOfHref: (href) ->
+    _.first(url.split('#'))
 
   getMediaTag: (media) ->
     # form media tag text based on tag name or data-type
@@ -45,9 +45,9 @@ module.exports =
     # TODO find one place for all such string formating helpers to go
     tag = tag.charAt(0).toUpperCase() + tag.substring(1).toLowerCase()
 
-  buildReferenceBookLink: ->
+  buildReferenceBookLink: (cnxId) ->
     referenceBookParams = _.clone(@context.router.getCurrentParams())
-    referenceBookParams.cnxId = @getCNXId()
+    referenceBookParams.cnxId = cnxId or @getCNXId()
     pageUrl = @context.router.makeHref('viewReferenceBookPage', referenceBookParams)
 
     pageUrl
@@ -55,26 +55,42 @@ module.exports =
   isMediaLink: (link) ->
     link.innerText is '[link]' and link.hash.length > 0 and link.hash.search('/') is -1
 
+  hasCNXId: (link) ->
+    trueHref = link.getAttribute('href')
+    link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
+
   processLink: (mediaLink) ->
     return unless @isMediaLink(mediaLink)
     root = @getDOMNode()
-    # Hash may not be a proper selector string, so try catch.
-    try
-      media = root.querySelector(mediaLink.hash)
-      if media?
-        tag = @getMediaTag(media)
-        mediaLink.innerText = tag if tag?
-      else
-        # The link is external to this page
-        mediaLink.target = '_blank'
 
-        # If not already a reference book page,
-        # make link to a reference book page.
-        # Assumes same/full page of current reading for now.
-        # TODO - when module attr is added, link to exact page if different
-        unless @constructor.displayName is 'ReferenceBookPage'
-          pageUrl = @buildReferenceBookLink()
-          mediaLink.href = pageUrl + mediaLink.hash
+    # Media link has cnxId preceding the target element.
+    # This is a link to a target on another page entirely.
+    # Get the cnxId from the href attribute.
+    if @hasCNXId(mediaLink)
+      mediaCNXId = @getCNXIdOfHref(mediaLink.getAttribute('href'))
+    else
+      # Media link does not have an explicit cnxId in the href.
+      # Hash may not be a proper selector string, so try catch
+      # to see whether the media is on this step or page.
+      try
+        media = root.querySelector(mediaLink.hash)
+        if media?
+          # Media is found on step/page, set link text.
+          tag = @getMediaTag(media)
+          mediaLink.innerText = tag if tag?
+        else
+          # Media is not found on step or page, and there is not a cnxId on the href.
+          # This probably a link on an iReading to a target on the same page,
+          # that is left out of the iReading.
+          # Assume that the cnxId is this same page.
+          mediaCNXId = @getCNXId()
+
+    # A new pageUrl is made for media links where the media is not found within the DOM.
+    if mediaCNXId?
+      pageUrl = @buildReferenceBookLink(mediaCNXId)
+      mediaLink.href = pageUrl + mediaLink.hash
+      # Make link external only if this is not already a ref book page.
+      mediaLink.target = '_blank' unless @constructor.displayName is 'ReferenceBookPage'
 
   processLinks: ->
     root = @getDOMNode()

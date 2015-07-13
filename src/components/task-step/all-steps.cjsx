@@ -31,7 +31,7 @@ Reading = React.createClass
   getCNXId: ->
     {id} = @props
     {content_url} = TaskStepStore.get(id)
-    @getCNXIdOfURL(content_url)
+    _.last(content_url.split('contents/'))
 
   renderBody: ->
     {id} = @props
