@@ -156,8 +156,8 @@ TaskPlanConfig =
   updateDueAt: (id, due_at, periodId) ->
     @updateDateAttribute(id, 'due_at', due_at, periodId)
 
-  updateUrl: (id, url) ->
-    @_change(id, {url})
+  updateUrl: (id, external_url) ->
+    @_change(id, {settings: {external_url}})
 
   sortTopics: (id) ->
     plan = @_getPlan(id)
@@ -302,7 +302,7 @@ TaskPlanConfig =
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
       else if (plan.type is 'external')
         # TODO add check for properly formed URL
-        return plan.title and isValidDates() and plan.url?.length > 0
+        return plan.title and isValidDates() and plan.settings?.external_url?.length > 0
 
     isPublished: (id) ->
       plan = @_getPlan(id)

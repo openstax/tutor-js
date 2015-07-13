@@ -50,9 +50,9 @@ ExternalPlan = React.createClass
               <TutorInput
                 label='Assignment URL'
                 className='external-url'
-                value={plan.url}
+                value={plan.settings.external_url}
                 id='external-url'
-                default={plan.url}
+                default={plan.settings.external_url}
                 required={true}
                 onChange={@setUrl} />
             </BS.Col>
