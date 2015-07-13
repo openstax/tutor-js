@@ -1,8 +1,6 @@
-@highlight-color: #ffff66;
-
 .highlight-animation() {
-  -webkit-animation: highlight 1s ease-out;
-  animation: highlight 1s ease-out;
+  -webkit-animation: highlight 1.5s ease-out;
+  animation: highlight 1.5s ease-out;
 }
 
 figure:target {
@@ -37,8 +35,8 @@ img:target {
 
 @-webkit-keyframes highlight {
   0% {
-    border-color: @highlight-color;
-    background-color: @highlight-color;
+    border-color: @tutor-highlight;
+    background-color: @tutor-highlight;
   }
   100% {
     border-color: transparent;
@@ -48,8 +46,8 @@ img:target {
 
 @keyframes highlight {
   0% {
-    border-color: @highlight-color;
-    background-color: @highlight-color;
+    border-color: @tutor-highlight;
+    background-color: @tutor-highlight;
   }
   100% {
     border-color: transparent;

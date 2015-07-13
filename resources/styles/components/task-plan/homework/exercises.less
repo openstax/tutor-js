@@ -1,4 +1,4 @@
-@selected-exercise-background: #fdf6d1;
+@selected-exercise-background: @tutor-highlight;
 @hovered-exercise-background: rgba(241, 241, 241, 0.4);
 
 table.exercise-table {
@@ -79,7 +79,7 @@ label.exercises-section-label {
 
   // Selected card
   &.panel-info {
-    background-color: rgb(253, 246, 209);
+    background-color: @selected-exercise-background;
   }
 
   .panel-heading {
