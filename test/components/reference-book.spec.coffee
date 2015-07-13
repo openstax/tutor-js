@@ -72,12 +72,16 @@ describe 'Reference Book Component', ->
     expect(nextControl.href).to.contain(SECOND_PAGE_ID)
     page = ReactTestUtils.findRenderedComponentWithType(@state.book, Page)
 
-    commonActions.click(nextControl)
 
-    # expect(page.context.router.getCurrentParams().cnxId)
-    #   .to.equal(SECOND_PAGE_ID)
+    ReferenceBookPageActions.loaded(PAGE, SECOND_PAGE_ID)
+    # button:0 is a mystery argument needed by ReactRouter, taken from their specs
+    commonActions.click(nextControl, {button: 0})
 
-    # expect(@state.div.querySelector('.page-wrapper > .next').href)
-    #   .to.contain(THIRD_PAGE_ID)
-    # expect(@state.div.querySelector('.page-wrapper > .prev').href)
-    #   .to.contain(FIRST_PAGE_ID)
+    expect(page.context.router.getCurrentParams().cnxId)
+      .to.equal(SECOND_PAGE_ID)
+
+    expect(@state.div.querySelector('.page-wrapper > .next').href)
+      .to.contain(THIRD_PAGE_ID)
+
+    expect(@state.div.querySelector('.page-wrapper > .prev').href)
+      .to.contain(FIRST_PAGE_ID)
