@@ -2,10 +2,12 @@ React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
+$ = require 'jquery'
 
 HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
 BookContentMixin = require '../book-content-mixin'
+GetPositionMixin = require '../get-position-mixin'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
@@ -16,7 +18,7 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
   contextTypes:
     router: React.PropTypes.func
-  mixins: [BookContentMixin]
+  mixins: [BookContentMixin, GetPositionMixin]
 
   getCNXId: ->
     @props.cnxId or @context.router.getCurrentParams().cnxId
@@ -37,6 +39,40 @@ module.exports = React.createClass
       params={courseId: @props.courseId, cnxId: info.next.cnx_id}>
       <i className='fa fa-chevron-right'/>
     </Router.Link>
+
+  hasTargetHash: ->
+    window.location.hash.length
+
+  getTargetEl: ->
+    targetSelector = window.location.hash
+    pageEl = @getDOMNode()
+    pageEl.querySelector(targetSelector)
+
+  scrollToTarget: (targetEl) ->
+    targetPosition = @getTopPosition(targetEl)
+    window.scrollTo(0, targetPosition)
+
+  triggerTargetHighlight: (targetEl) ->
+    targetEl.classList.add('target')
+    _.delay(->
+      targetEl.classList.remove('target')
+    , 1500)
+
+  componentDidMount: ->
+    return unless @hasTargetHash()
+
+    targetEl = @getTargetEl()
+    if targetEl?
+      @scrollToTarget(targetEl)
+      $imagesToLoad = $('img')
+      imagesLoaded = 0
+      $imagesToLoad.load(=>
+        imagesLoaded = imagesLoaded + 1
+        # scroll is jumpy. TODO fix.
+        @scrollToTarget(targetEl)
+        if imagesLoaded >= $imagesToLoad.length
+          @triggerTargetHighlight(targetEl)
+      )
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
