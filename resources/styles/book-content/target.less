@@ -3,7 +3,13 @@
   animation: highlight 1.5s ease-out;
 }
 
+.offset-header() {
+  margin-top: -@tutor-navbar-height;
+  padding-top: @tutor-navbar-height;
+}
+
 figure:target {
+  .offset-header();
   .highlight-animation();
 
   > * {
@@ -16,6 +22,7 @@ figure:target {
 
 section, div, span {
   &:target {
+    .offset-header();
     .highlight-animation();
 
     img {
@@ -25,10 +32,8 @@ section, div, span {
 }
 
 img:target {
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent;
   mix-blend-mode: multiply;
+  .offset-header();
   .highlight-animation();
 }
 
