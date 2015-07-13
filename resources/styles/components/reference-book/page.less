@@ -36,6 +36,7 @@
           }
         }
       }
+
     }
   }
 
@@ -88,6 +89,19 @@
 
     &.next {
       right: 0;
+    }
+  }
+
+  .page-wrapper {
+    transition: margin-left 0.2s linear;
+  }
+  // when menu is open and the screen is wide enough, slide everything to the right so it's still visible
+  &.menu-open {
+    @media screen and (min-width: (@reference-book-page-width + @reference-book-menu-width + 50px) ) {
+      .page-wrapper{
+        margin-left: @reference-book-menu-width;
+        > .nav.prev { left: @reference-book-menu-width; }
+      }
     }
   }
 

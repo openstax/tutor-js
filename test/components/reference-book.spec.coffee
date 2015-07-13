@@ -5,15 +5,19 @@ React          = require 'react'
 {TimeActions}  = require '../../src/flux/time'
 ReactAddons    = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
-{routerStub}   = require './helpers/utilities'
+{routerStub, commonActions} = require './helpers/utilities'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../src/flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require '../../src/flux/reference-book-page'
 ReferenceBook = require '../../src/components/reference-book/reference-book'
+Page = require '../../src/components/reference-book/page'
 
 COURSE_ID = '1'
 TOC  = require '../../api/courses/1/readings.json'
-PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16509'
+FIRST_PAGE_ID  = '0e58aa87-2e09-40a7-8bf3-269b2fa16509'
+SECOND_PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16510'
+THIRD_PAGE_ID  = '0e58aa87-2e09-40a7-8bf3-269b2fa16511'
+
 PAGE = require '../../api/pages/0e58aa87-2e09-40a7-8bf3-269b2fa16509.json'
 
 
@@ -33,8 +37,8 @@ describe 'Reference Book Component', ->
 
   beforeEach ->
     ReferenceBookActions.loaded(TOC, COURSE_ID)
-    ReferenceBookPageActions.loaded(PAGE, PAGE_ID)
-    renderBook(PAGE_ID).then (state) =>
+    ReferenceBookPageActions.loaded(PAGE, FIRST_PAGE_ID)
+    renderBook(FIRST_PAGE_ID).then (state) =>
       @state = state
 
   it 'renders the section title on the navbar',  ->
@@ -44,3 +48,17 @@ describe 'Reference Book Component', ->
   it 'renders page html', ->
     expect(@state.div.querySelector('.page').textContent)
       .to.equal('A bunch of html')
+
+  it 'toggles menu when navbar control is clicked', ->
+    toggle = @state.div.querySelector('.menu-toggle')
+
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.not.contain('menu-open')
+
+    commonActions.click(toggle)
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.contain('menu-open')
+
+    commonActions.click(toggle)
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.not.contain('menu-open')
