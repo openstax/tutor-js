@@ -44,7 +44,7 @@ LearningGuide = React.createClass
       params={linkParams}
       query={queryParams}
       className='btn btn-default progress-bar-button'>
-        <BS.ProgressBar className={colorClass} now={sectionPercent} />
+        <BS.ProgressBar title="Click to Practice" className={colorClass} now={sectionPercent} />
       </Router.Link>
       <div className='amount-worked'>
         <span className='count'>{section.questions_answered_count} worked</span>
@@ -73,7 +73,7 @@ LearningGuide = React.createClass
         params={linkParams}
         query={queryParams}
         className='btn btn-default progress-bar-button'>
-          <BS.ProgressBar className={colorClass} now={chapterPercent} />
+          <BS.ProgressBar title="Click to Practice" className={colorClass} now={chapterPercent} />
         </Router.Link>
         <div className='amount-worked'>
           <span className='count'>{chapter.questions_answered_count} worked</span>
