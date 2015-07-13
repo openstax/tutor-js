@@ -16,20 +16,23 @@ a[target=_blank] {
   }
 }
 
-figure:target {
-  .offset-header();
-  .highlight-animation();
-
-  > * {
+figure{
+  &:target, .target {
+    .offset-header();
     .highlight-animation();
-  }
-  img {
-    mix-blend-mode: multiply;
+
+    > * {
+      .highlight-animation();
+    }
+
+    img {
+      mix-blend-mode: multiply;
+    }
   }
 }
 
-section, div, span {
-  &:target {
+section, div, span, table {
+  &:target, .target {
     .offset-header();
     .highlight-animation();
 
@@ -39,31 +42,20 @@ section, div, span {
   }
 }
 
-img:target {
-  mix-blend-mode: multiply;
-  .offset-header();
-  .highlight-animation();
-}
-
-
 @-webkit-keyframes highlight {
   0% {
-    border-color: @tutor-highlight;
     background-color: @tutor-highlight;
   }
   100% {
-    border-color: transparent;
     background-color: transparent;
   }
 }
 
 @keyframes highlight {
   0% {
-    border-color: @tutor-highlight;
     background-color: @tutor-highlight;
   }
   100% {
-    border-color: transparent;
     background-color: transparent;
   }
 }
