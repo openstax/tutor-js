@@ -62,3 +62,22 @@ describe 'Reference Book Component', ->
     commonActions.click(toggle)
     expect(_.toArray(@state.div.querySelector('.reference-book').classList))
       .to.not.contain('menu-open')
+
+  it 'navigates forward and back between pages', ->
+    prevControl = @state.div.querySelector('.page-wrapper > .prev')
+    expect(prevControl).to.not.exist # on first page
+
+    nextControl = @state.div.querySelector('.page-wrapper > .next')
+    expect(nextControl).to.exist
+    expect(nextControl.href).to.contain(SECOND_PAGE_ID)
+    page = ReactTestUtils.findRenderedComponentWithType(@state.book, Page)
+
+    commonActions.click(nextControl)
+
+    # expect(page.context.router.getCurrentParams().cnxId)
+    #   .to.equal(SECOND_PAGE_ID)
+
+    # expect(@state.div.querySelector('.page-wrapper > .next').href)
+    #   .to.contain(THIRD_PAGE_ID)
+    # expect(@state.div.querySelector('.page-wrapper > .prev').href)
+    #   .to.contain(FIRST_PAGE_ID)
