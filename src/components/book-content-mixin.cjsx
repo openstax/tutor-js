@@ -70,7 +70,8 @@ module.exports =
 
         # If not already a reference book page,
         # make link to a reference book page.
-        # assumes same/full page of current reading
+        # Assumes same/full page of current reading for now.
+        # TODO - when module attr is added, link to exact page if different
         unless @constructor.displayName is 'ReferenceBookPage'
           pageUrl = @buildReferenceBookLink()
           mediaLink.href = pageUrl + mediaLink.hash

@@ -14,15 +14,16 @@ module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
-
-  mixins: [Router.State, BookContentMixin]
+  contextTypes:
+    router: React.PropTypes.func
+  mixins: [BookContentMixin]
 
   getCNXId: ->
-    @props.cnxId or @getParams().cnxId
+    @props.cnxId or @context.router.getCurrentParams().cnxId
 
   getSplashTitle: ->
-    {cnxId} = @getParams()
-    page = ReferenceBookStore.getPageInfo(@getParams())
+    {cnxId} = @context.router.getCurrentParams()
+    page = ReferenceBookStore.getPageInfo(@context.router.getCurrentParams())
     page?.title
 
   prevLink: (info) ->
@@ -38,7 +39,7 @@ module.exports = React.createClass
     </Router.Link>
 
   render: ->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     # read the id from props, or failing that the url
     cnxId = @getCNXId()
     page = ReferenceBookPageStore.get(cnxId)

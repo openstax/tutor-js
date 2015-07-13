@@ -11,8 +11,9 @@ NavBar = require './navbar'
 
 module.exports = React.createClass
   displayName: 'ReferenceBook'
-
-  mixins: [Router.State, BindStoreMixin]
+  contextTypes:
+    router: React.PropTypes.func
+  mixins: [BindStoreMixin]
   bindStore: CourseListingStore
   bindEvent: 'loaded'
 
@@ -23,7 +24,7 @@ module.exports = React.createClass
     @setState(showTeacherEdition: not @state.showTeacherEdition)
 
   render: ->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)
     classnames = ["reference-book"]
     if course and _.findWhere(course.roles, type: 'teacher')
