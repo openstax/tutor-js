@@ -59,8 +59,10 @@ module.exports = React.createClass
               >
                 View My Flight Path
               </BS.Button>
+            </div>
+            <div className='right-actions-box'>
               <BrowseBookButton unstyled courseId={courseId}>
-                <div>Browse The Book</div>
+                <div>Browse the Book</div>
               </BrowseBookButton>
 
             </div>
