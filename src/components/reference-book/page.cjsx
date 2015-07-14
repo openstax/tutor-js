@@ -2,7 +2,6 @@ React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
-$ = require 'jquery'
 
 HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
@@ -67,15 +66,17 @@ module.exports = React.createClass
     targetEl = @getTargetEl()
     if targetEl?
       @scrollToTarget(targetEl)
-      $imagesToLoad = $('img')
-      imagesLoaded = 0
-      $imagesToLoad.load(=>
-        imagesLoaded = imagesLoaded + 1
+      images = @getDOMNode().querySelectorAll('img')
+      imagesToLoad = images.length
+      onImageLoad = =>
+        imagesToLoad -= 1
         # scroll is jumpy. TODO fix.
         @scrollToTarget(targetEl)
-        if imagesLoaded >= $imagesToLoad.length
+        if imagesToLoad is 0
           @triggerTargetHighlight(targetEl)
-      )
+
+      for image in images
+        image.addEventListener('load', onImageLoad)
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
