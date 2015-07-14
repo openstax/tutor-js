@@ -85,6 +85,19 @@ Placeholder = React.createClass
         to you after you answer more homework problems in this assignment.</p>
     </div>
 
+ExternalUrl = React.createClass
+  displayName: 'ExternalUrl'
+  mixins: [StepMixin, StepFooterMixin]
+  isContinueEnabled: ->
+    {review} = @props
+    not review?.length
+  onContinue: ->
+    @props.onNextStep()
+  renderBody: ->
+    <div className='placeholder-step'>
+      ExternalUrl task!
+    </div>
+
 Spacer = React.createClass
   mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
@@ -96,4 +109,4 @@ Spacer = React.createClass
       <p>Reinforce what you have learned in this reading and prior readings.</p>
     </div>
 
-module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer}
+module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl}

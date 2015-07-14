@@ -137,6 +137,14 @@ policies =
 
   reading: defaultPolicies
 
+  external:
+    external_url:
+      panels:
+        default: stepViewOnly
+        check: 'role'
+        states:
+          teacher: stepTeacherReadOnly
+
   default: defaultPolicies
 
 module.exports = policies
