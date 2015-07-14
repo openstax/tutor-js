@@ -22,6 +22,7 @@ ExternalPlan = React.createClass
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
+    externalUrl = plan?.settings?.external_url
 
     headerText = <span key='header-text'>
       {if TaskPlanStore.isNew(id) then 'Add External Assignment' else 'Edit External Assignment'}
@@ -50,9 +51,9 @@ ExternalPlan = React.createClass
               <TutorInput
                 label='Assignment URL'
                 className='external-url'
-                value={plan.settings.external_url}
+                value={externalUrl}
                 id='external-url'
-                default={plan.settings.external_url}
+                default={externalUrl}
                 required={true}
                 onChange={@setUrl} />
             </BS.Col>
