@@ -1,6 +1,8 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 moment = require 'moment'
+validator = require 'validator'
+
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
@@ -301,8 +303,7 @@ TaskPlanConfig =
       else if (plan.type is 'homework')
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
       else if (plan.type is 'external')
-        # TODO add check for properly formed URL
-        return plan.title and isValidDates() and plan.settings?.external_url?.length > 0
+        return plan.title and isValidDates() and validator.isURL(plan.settings?.external_url)
 
     isPublished: (id) ->
       plan = @_getPlan(id)

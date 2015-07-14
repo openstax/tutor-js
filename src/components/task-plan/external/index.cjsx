@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+validator = require 'validator'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
@@ -18,6 +19,10 @@ ExternalPlan = React.createClass
   setUrl: (url) ->
     {id} = @props
     TaskPlanActions.updateUrl(id, url)
+
+  validate: (inputValue) ->
+    return ['required'] unless (inputValue? and inputValue.length > 0)
+    return ['url'] unless validator.isURL(inputValue)
 
   render: ->
     {id, courseId} = @props
@@ -36,6 +41,7 @@ ExternalPlan = React.createClass
 
     footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish} onSave={@save}/>
     header = [headerText, closeBtn]
+    if @state?.invalid then formClasses.push('is-invalid-form')
 
     <div className='external-plan'>
       <BS.Panel bsStyle='primary'
@@ -55,6 +61,7 @@ ExternalPlan = React.createClass
                 id='external-url'
                 default={externalUrl}
                 required={true}
+                validate={@validate}
                 onChange={@setUrl} />
             </BS.Col>
           </BS.Row>
