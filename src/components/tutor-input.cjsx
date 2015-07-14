@@ -17,18 +17,22 @@ TutorInput = React.createClass
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
 
+  focus: ->
+    React.findDOMNode(@refs.input)?.focus()
+
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
     wrapperClasses.push(@props.className) if @props.className
 
-    unless @props.default then classes.push('empty')
+    unless @props.default or @props.value then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     classes.push(@props.class)
 
     <div className={wrapperClasses.join(' ')}>
       <input
         id={@props.id}
+        ref="input"
         type='text'
         className={classes.join(' ')}
         value={@props.value}
@@ -83,7 +87,11 @@ TutorDateInput = React.createClass
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
 
     now = TimeStore.getNow()
-    value = if @props.value then new moment(@props.value) else null
+    value = @props.value
+    value = if value and value.getTime and not isNaN(value.getTime())
+      new moment(value)
+    else
+      null
     min = if @props.min then new moment(@props.min) else new moment(now).subtract(10, 'years')
     max = if @props.max then new moment(@props.max) else new moment(now).add(10, 'years')
 
@@ -94,16 +102,8 @@ TutorDateInput = React.createClass
       onToggle = @onToggle
 
     if @props.required then wrapperClasses.push('is-required')
-
-    <div className={wrapperClasses.join(' ')}>
-      <input type='text' disabled className={classes.join(' ')} />
-      <div className="floating-label">{@props.label}</div>
-      <div className="hint required-hint">
-        Required Field <i className="fa fa-exclamation-circle"></i>
-      </div>
-
-      <div className="date-wrapper">
-        <DatePicker
+    if not @props.disabled
+      dateElem = <DatePicker
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
@@ -113,9 +113,22 @@ TutorDateInput = React.createClass
           ref="picker"
           className={classes.join(' ')}
           onChange={@dateSelected}
-          readOnly={@props.readOnly}
+          disabled={@props.disabled}
           selected={value}
         />
+    else if @props.disabled and value
+      displayValue = value.toString("YYYY/MM/DD")
+
+    <div className={wrapperClasses.join(' ')}>
+      <input type='text' disabled className={classes.join(' ')} value={displayValue}/>
+      <div className="floating-label">{@props.label}</div>
+      <div className="hint required-hint">
+        Required Field <i className="fa fa-exclamation-circle"></i>
+      </div>
+
+
+      <div className="date-wrapper">
+        {dateElem}
         <i className="fa fa-calendar"></i>
       </div>
     </div>

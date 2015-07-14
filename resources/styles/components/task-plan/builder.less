@@ -1,11 +1,9 @@
 .assignment {
 
   label.period {
-    // extend styling from bootstrap material design to match other labels
-    .form-control-wrapper .floating-label;
-    opacity: 1;
-    top: 3px;
-    left: 35px;
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: normal;
   }
 
   .instructions {
@@ -15,8 +13,15 @@
   .assignment-description {
     margin-top: 1rem;
   }
-
-  .task-plan {
+  .periods-invalid {
+    color: @form-error-color;
+    font-size: 1.2rem;
+    i {
+      margin-left: 5px;
+    }
+  }
+  .tasking-plan {
+    margin-top: 10px;
     input[type=checkbox] { margin-left: 1rem; }
     label.period { left: 45px; }
     &.disabled {

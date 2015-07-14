@@ -2,13 +2,13 @@
 @tutor-navbar-padding-horizontal: 4rem;
 
 .navbar-fixed-top {
-  
+
   // override bootstrap material design media query for (max-width: 1199px)
   .navbar-brand {
     height: 60px;
     padding: 15px;
   }
-  
+
   .transition(transform 0.2s ease-out);
 
   // override the bootstrap defaults with tutor defaults
@@ -26,7 +26,7 @@
     .tutor-background-image('logo-brand.svg');
   }
 
-  .navbar-brand { 
+  .navbar-brand {
     font-size: 1.6rem;
     line-height: 2.7rem;
   }
@@ -37,7 +37,10 @@
       margin: 0;
       padding-left: 0;
       text-transform: none;
-      
+      // Make the whole row clickable like the other links
+      width: 100%;
+      text-align: left;
+
       &:hover { text-decoration: initial; }
     }
   }

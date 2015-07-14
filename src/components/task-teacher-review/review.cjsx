@@ -58,10 +58,9 @@ Review = React.createClass
     stepsList = _.map steps, (step, index) =>
 
       scrollState = _.pick(step, 'key', 'sectionLabel')
-
-      if step.questions
-        stepProps = _.extend({}, stepsProps, {content: step})
-        stepProps.key = "task-review-question-#{step.questions[0].id}"
+      if step.content?
+        stepProps = _.extend({}, stepsProps, step)
+        stepProps.key = "task-review-question-#{step.content.questions[0].id}"
         stepProps.focus = focus and index is 0
       else
         stepProps = step

@@ -11,9 +11,11 @@ ColumnGroup = FixedDataTable.ColumnGroup
 Router = require 'react-router'
 
 
-{PerformanceStore, PerformanceActions} = require '../flux/performance'
-LoadableItem = require './loadable-item'
-{CoursePeriodsNavShell} = require './course-periods-nav'
+{PerformanceStore, PerformanceActions} = require '../../flux/performance'
+{PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
+LoadableItem = require '../loadable-item'
+PerformanceExport = require './export'
+{CoursePeriodsNavShell} = require '../course-periods-nav'
 
 
 Performance = React.createClass
@@ -27,8 +29,8 @@ Performance = React.createClass
 
 
   getInitialState: ->
-    periodIndex = 0
-    performance = @getPerfByPeriod(periodIndex)
+    period_id: null
+    periodIndex: 1
     sortOrder: 'is-ascending'
     sortIndex: 0
     tableWidth: 0
@@ -52,8 +54,7 @@ Performance = React.createClass
 
   tableWidth: ->
     table = React.findDOMNode(@refs.tableContainer)
-    # 40 is an offset container padding
-    table.clientWidth - 40
+    table.clientWidth
 
   tableHeight: ->
     table = React.findDOMNode(@refs.tableContainer)
@@ -82,21 +83,50 @@ Performance = React.createClass
       @state.colSetWidth = @state.colResizeWidth
     else
       @state.colSetWidth = @state.colDefaultWidth
-    customHeader =
+
+    if heading.plan_id?
+      linkParams =
+        id: heading.plan_id
+        periodIndex: @state.periodIndex
+        courseId: @props.courseId
+      linkText = 'Review'
+      linkText = heading.average.toFixed(2) if heading.average?
+
+      linkToPlanSummary =
+        <Router.Link
+          to='reviewTaskPeriod'
+          params={linkParams}
+          className='review-plan'>
+            {linkText}
+        </Router.Link>
+
+    customHeader = linkToPlanSummary
+    customHeader ?= 'Class Average'
+
+    customHeader = <div className='average-header-cell'>
+      {customHeader}
+    </div>
+
+    customGroupHeader =
       <div
         dataKey={i}
         onClick={@sortClick.bind(@, i, classes)}
         className={'header-cell ' + classes}>
           {heading.title}
       </div>
-    <Column
-    label={heading.title}
-    headerRenderer={-> customHeader}
-    cellRenderer={-> @cellData}
-    width={@state.colSetWidth}
-    fixed={fixed}
-    isResizable=false
-    dataKey={i} />
+
+    <ColumnGroup
+      groupHeaderRenderer={-> customGroupHeader}
+      fixed={fixed}>
+      <Column
+      label={heading.title}
+      headerRenderer={-> customHeader}
+      cellRenderer={-> @cellData}
+      width={@state.colSetWidth}
+      fixed={fixed}
+      isResizable=false
+      dataKey={i} />
+    </ColumnGroup>
 
   renderAverageCell: (heading) ->
     if heading.class_average
@@ -121,37 +151,38 @@ Performance = React.createClass
       when 'not_started' then 'Not started'
 
     {courseId} = @props
-    linkParams = {courseId, id: cell.id}
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
 
-    <Router.Link to='viewTask' params={linkParams}>{status}</Router.Link>
+    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
 
   renderHomeworkCell: (cell) ->
     {courseId} = @props
-    linkParams = {courseId, id: cell.id}
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
 
-    <Router.Link to='viewTask' params={linkParams}>
+    <Router.Link to='viewTaskStep' params={linkParams}>
       {cell.correct_exercise_count}/{cell.exercise_count}
     </Router.Link>
 
 
-  getPerfByPeriod: (periodIndex) ->
-    console.log(periodIndex)
-    #perf = PerformanceStore.get(@props.courseId)
-    #periodPerf = perf[periodIndex]
+  selectPeriod: (period) ->
+    @setState({period_id: period.id})
 
-  handlePeriodSelect: (period) ->
-    console.log(period)
-    ##{handlePeriodSelect} = @props
-    #perf = PerformanceStore.get(@props.courseId)
-    #periodPerf = _.findWhere(perf, {period_id: period.id})
-    #handlePeriodSelect?(period)
-
-
+  setPeriodIndex: (key) ->
+    @setState({periodIndex: key + 1})
 
   render: ->
 
-    ##{performance} = @state
-    performance = PerformanceStore.get(@props.courseId)
+    {courseId} = @props
+    {sortIndex, period_id, tableWidth, tableHeight, sortOrder} = @state
+
+    performance = PerformanceStore.get(courseId)
+
+    {period_id} = @state
+    # The period may not have been selected. If not, just use the 1st period
+    if period_id
+      performance = _.findWhere(performance, {period_id})
+    else
+      performance = performance[0] or throw new Error('BUG: No periods')
 
     headers = performance.data_headings
     headers.unshift({"title":"Student"})
@@ -163,39 +194,41 @@ Performance = React.createClass
     for student in students
       student.data.unshift({"title":student.name, "type":"name"})
 
-    sortData = _.sortBy(performance.students, (d) =>
-      switch d.data[@state.sortIndex].type
-        when 'homework' then d.data[@state.sortIndex].correct_exercise_count
-        when 'reading' then d.data[@state.sortIndex].status
-        when 'name' then d.data[@state.sortIndex].title
+    sortData = _.sortBy(performance.students, (d) ->
+      switch d.data[sortIndex].type
+        when 'homework' then d.data[sortIndex].correct_exercise_count
+        when 'reading' then d.data[sortIndex].status
+        when 'name' then d.data[sortIndex].title
       )
 
-    if @state.sortOrder is 'is-descending'
+    if sortOrder is 'is-descending'
       sortData.reverse()
 
     student_rows = _.map(sortData, @renderStudentRow)
 
-
     <div className='course-performance-wrap'>
       <span className='course-performance-title'>Performance Report</span>
+      <PerformanceExport courseId={courseId} className='pull-right'/>
       <CoursePeriodsNavShell
-        handleSelect={@handlePeriodSelect}
-        intialActive={@state.period}
-        courseId={@props.courseId} />
-      <BS.Panel className='course-performance-container' ref='tableContainer'>
+        handleSelect={@selectPeriod}
+        handleKeyUpdate={@setPeriodIndex}
+        intialActive={period_id}
+        courseId={courseId} />
+      <div className='course-performance-container' ref='tableContainer'>
         <Table
           onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
-          rowHeight={50}
+          rowHeight={46}
           rowGetter={(rowIndex) -> student_rows[rowIndex]}
           rowsCount={sortData.length}
-          width={@state.tableWidth}
-          height={@state.tableHeight}
-          headerHeight={50}>
+          width={tableWidth}
+          height={tableHeight}
+          headerHeight={46}
+          groupHeaderHeight={50}>
 
           {headings}
         </Table>
 
-      </BS.Panel>
+      </div>
     </div>
 
 PerformanceShell = React.createClass

@@ -5,6 +5,7 @@ _  = require 'underscore'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{Invalid} = require '../index'
 
 LoadableItem = require '../loadable-item'
 moment = require 'moment'
@@ -18,7 +19,7 @@ ReferenceBookFirstPage  = React.createClass
     {courseId} = @getParams()
     page = _.first ReferenceBookStore.getPages(courseId)
     <LoadableItem
-      id={cnxId}
+      id={page.cnx_id}
       store={ReferenceBookPageStore}
       actions={ReferenceBookPageActions}
       renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={page.cnx_id}/> }
@@ -31,17 +32,19 @@ ReferenceBookPageShell = React.createClass
   mixins: [ Router.State ]
 
   render: ->
-    {courseId, cnxId, chapterNumber} = @getParams()
-    if chapterNumber and not cnxId
-      page = ReferenceBookStore.getChapterFirstPage(courseId, chapterNumber)
+    {courseId, cnxId, section} = @getParams()
+    if section and not cnxId
+      page = ReferenceBookStore.getChapterSectionPage({courseId, section})
       cnxId = page?.cnx_id
-    <LoadableItem
-      id={cnxId}
-      store={ReferenceBookPageStore}
-      actions={ReferenceBookPageActions}
-      renderItem={ -> <ReferenceBookPage courseId=courseId cnxId={cnxId}/> }
-    />
-
+    if cnxId
+      <LoadableItem
+        id={cnxId}
+        store={ReferenceBookPageStore}
+        actions={ReferenceBookPageActions}
+        renderItem={ -> <ReferenceBookPage courseId=courseId cnxId={cnxId}/> }
+      />
+    else
+      <Invalid />
 
 
 ReferenceBookShell = React.createClass

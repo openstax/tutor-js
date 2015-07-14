@@ -39,6 +39,11 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
+    _.each(obj.tasking_plans, (plan) ->
+      plan.due_at = new Date(plan.due_at)
+      plan.opens_at = new Date(plan.opens_at)
+    )
+
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
       delete obj.settings.exercise_ids
@@ -68,10 +73,22 @@ TaskPlanConfig =
 
 
   setPeriods: (id, periods, opens_at) ->
+    plan = @_getPlan(id)
+    curTaskings = plan?.tasking_plans
+    findTasking = @_findTasking
+
     tasking_plans = _.map periods, (period) ->
+      tasking = findTasking(curTaskings, period.id)
+      if not tasking
+        tasking = target_id: period.id, target_type:'period'
+      else
+        tasking.due_at = new Date(tasking.due_at)
+        tasking.opens_at = new Date(tasking.opens_at)
+
       _.extend( _.pick(period, 'opens_at', 'due_at'),
-        target_id: period.id, target_type:'period'
+        tasking
       )
+
     @_change(id, {tasking_plans})
 
   _findTasking: (tasking_plans, periodId) ->
@@ -274,7 +291,7 @@ TaskPlanConfig =
         _.each plan.tasking_plans, (tasking) ->
           unless tasking.due_at and tasking.opens_at
             flag = false
-        flag
+        flag and plan.tasking_plans?.length
 
       if (plan.type is 'reading')
         return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
@@ -327,6 +344,10 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       {tasking_plans} = plan
       !!@_findTasking(tasking_plans, periodId)
+
+    hasAnyTasking: (id) ->
+      plan = @_getPlan(id)
+      !!plan?.tasking_plans
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

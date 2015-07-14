@@ -11,7 +11,10 @@ _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {LearningGuideActions} = require './flux/learning-guide'
+{JobActions} = require './flux/job'
 {PerformanceActions} = require './flux/performance'
+{PerformanceExportActions} = require './flux/performance-export'
+{RosterActions} = require './flux/roster'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
@@ -160,6 +163,24 @@ start = ->
 
   apiHelper PerformanceActions, PerformanceActions.load, PerformanceActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"
+
+  apiHelper PerformanceExportActions, PerformanceExportActions.load, PerformanceExportActions.loaded, 'GET', (id) ->
+    url: "/api/courses/#{id}/performance/exports"
+
+  apiHelper PerformanceExportActions, PerformanceExportActions.export, PerformanceExportActions.exported, 'POST', (id) ->
+    url: "/api/courses/#{id}/performance/export"
+
+  apiHelper JobActions, JobActions.load, JobActions.loaded, 'GET', (id) ->
+    url: "/api/jobs/#{id}"
+
+  apiHelper RosterActions, RosterActions.delete, RosterActions.deleted, 'DELETE', (id) ->
+    url: "/api/students/#{id}"
+  apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
+    url: "/api/students/#{id}", payload: params
+  apiHelper RosterActions, RosterActions.create, RosterActions.created, createMethod, (courseId, params) ->
+    url: "/api/courses/#{courseId}/students", payload: params
+  apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
+    url: "/api/courses/#{id}/students"
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'

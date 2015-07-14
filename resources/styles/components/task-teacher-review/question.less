@@ -11,6 +11,23 @@
 
     .selected-count {
       display: inline;
+
+      &::before {
+        content: attr(data-count);
+      }
+      &::after {
+        content: attr(data-percent) '%';
+        display: none;
+      }
+
+      &:hover {
+        &::before {
+          display: none;
+        }
+        &::after {
+          display: inline;
+        }
+      }
     }
 
     &.answer-correct::before {
@@ -32,6 +49,37 @@
 
       &:hover {
         background-color: transparent;
+      }
+    }
+  }
+
+  .teacher-review-answers {
+    &.panel {
+      .box-shadow(none);
+
+      > .panel-heading {
+        color: @free-response-color;
+        background: @free-response-background;
+        padding: 0;
+      }
+    }
+
+    .panel-title > a {
+      text-decoration: none;
+      padding: 10px 20px;
+      display: block;
+
+      &:hover {
+        background: @tutor-neutral-lightest;
+      }
+    }
+
+    &.has-no-answers {
+      .panel-body {
+        display: none;
+      }
+      .panel-title {
+        padding: 10px 20px;
       }
     }
   }

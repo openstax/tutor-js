@@ -27,7 +27,7 @@ actions =
     else
       routerStub.forceUpdate(component, args...)
 
-  clickContinue: commonActions.clickMatch('.-continue')
+  clickContinue: commonActions.clickMatch('.continue')
   clickTryAnother: commonActions.clickMatch('.-try-another')
 
   # Tricky, popovers use focus trigger for dismissable option
@@ -54,7 +54,7 @@ actions =
   fillFreeResponse: commonActions.fillTextarea('textarea', 'Test Response')
 
   saveFreeResponse: ({div, component, stepId, taskId, state, router, history, textarea}) ->
-    commonActions.clickButton(div, '.-continue')
+    commonActions.clickButton(div, '.continue')
     result = TaskStepStore.get(stepId)
     result.free_response = textarea.value
     TaskStepActions.saved(result, stepId)
@@ -75,7 +75,7 @@ actions =
   saveMultipleChoice: ({div, component, stepId, taskId, state, router, history}) ->
     step = TaskStepStore.get(stepId)
     correct_answer = step.content.questions[0].answers[1]
-    commonActions.clickButton(div, '.-continue')
+    commonActions.clickButton(div, '.continue')
     canReview = StepPanel.canReview(stepId)
     feedback_html = ''
 

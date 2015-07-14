@@ -12,7 +12,7 @@ Group = require '../../../../src/components/task-step/exercise/group'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
-    continueButton = div.querySelector('.-continue')
+    continueButton = div.querySelector('.continue')
     expect(continueButton).to.not.be.null
     expect(continueButton.disabled).to.be.falsy
 
@@ -40,7 +40,7 @@ checks =
     {div, component, state, router, history}
 
   _checkRenderFreeResponse: ({div, component, stepId, taskId, state, router, history}) ->
-    continueButton = div.querySelector('.-continue')
+    continueButton = div.querySelector('.continue')
 
     expect(div.querySelector('.answers-table')).to.be.null
     expect(continueButton.disabled).to.be.true
@@ -60,7 +60,7 @@ checks =
     {div, component, stepId, taskId, state, router, history, textarea}
 
   _checkSubmitFreeResponse: ({div, component, stepId, taskId, state, router, history}) ->
-    continueButton = div.querySelector('.-continue')
+    continueButton = div.querySelector('.continue')
 
     # Prevent continue until answer chosen, answers should be showing.
     expect(continueButton.disabled).to.be.true
@@ -70,7 +70,7 @@ checks =
 
   _checkAnswerMultipleChoice: ({div, component, stepId, taskId, state, router, history, answer}) ->
     step = TaskStepStore.get(stepId)
-    continueButton = div.querySelector('.-continue')
+    continueButton = div.querySelector('.continue')
 
     # Continue should be allowed
     expect(continueButton.disabled).to.be.falsy
@@ -103,14 +103,17 @@ checks =
     expect(div.querySelector('.task-footer-buttons').children.length).to.equal(3)
     classes = _.pluck(div.querySelector('.task-footer-buttons').children, 'className')
     expect(classes).to.deep.equal([
-      '-try-another btn btn-primary', '-refresh-memory btn btn-primary', 'async-button -continue btn btn-primary'
+      '-try-another btn btn-primary'
+      # "Refresh my Memory" button is disabled until BE gets it working properly.
+      # '-refresh-memory btn btn-primary'
+      'async-button continue btn btn-primary'
     ])
     {div, component, stepId, taskId, state, router, history}
 
   _checkRecoveryContent: ({div, component, stepId, taskId, state, router, history}) ->
     expect(div.innerText).to.contain('recovery')
     expect(div.querySelector('.task-footer-buttons')).to.be.null
-    expect(div.querySelector('.-continue')).to.not.be.null
+    expect(div.querySelector('.continue')).to.not.be.null
 
     {div, component, stepId, taskId, state, router, history}
 

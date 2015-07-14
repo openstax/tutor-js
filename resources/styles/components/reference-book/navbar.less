@@ -11,37 +11,15 @@
     .section-title {
       line-height: 60px;
       margin-left: 40px;
+      .chapter-section { margin-right: 0.5rem; }
     }
 
-    .dropdown-menu {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      bottom: 0;
-      width: 300px;
 
-      ul {
-        padding-left: 0rem;
-      }
+    .menu-toggle:before{ content: @fa-var-list; }
 
-      h3 {
-        #fonts > .sans();
-        border-top: 1px dotted @tutor-neutral;
-      }
+  }
 
-      li {
-        #fonts > .sans(1.4rem);
-        border-top: 1px dotted @tutor-neutral;
-      }
-
-      // no top border on the first element
-      ul:first-of-type {
-        h3,
-        a {
-          border-top: 0;
-        }
-      }
-    }
-
+  &.menu-open {
+    .menu-toggle:before{ content: @fa-var-outdent; }
   }
 }

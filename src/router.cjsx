@@ -13,7 +13,7 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
   require './components/reference-book'
 
 {StatsShell} = require './components/task-plan/reading-stats'
-
+CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
 
 routes = (
@@ -47,6 +47,7 @@ routes = (
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
+          <Route path='settings' name='courseSettings' handler={CourseSettings} />
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
@@ -68,9 +69,12 @@ routes = (
     </Route> # end of App route
     <Route path='/books/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
       <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookFirstPage}/>
+
+      <Route path='section/:section'
+        name='viewReferenceBookSection' handler={ReferenceBookPageShell} />
+
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
-      <Route path='chapter/:chapterNumber' name='viewReferenceBookChapter'
-        handler={ReferenceBookPageShell}/>
+
     </Route>
     <NotFoundRoute handler={Invalid} />
   </Route>

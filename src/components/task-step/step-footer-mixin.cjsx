@@ -1,35 +1,65 @@
+_ = require 'underscore'
 React = require 'react'
 camelCase = require 'camelcase'
 Router = require 'react-router'
 
 Details = require '../task/details'
+BrowseTheBook = require '../buttons/browse-the-book'
+ChapterSectionMixin = require '../chapter-section-mixin'
+
 {TaskStore} = require '../../flux/task'
 {ViewingAsStudentNameShell} = require '../task/viewing-as-student-name'
 
 {StepPanel} = require '../../helpers/policies'
 
 module.exports =
+
+  mixins: [ ChapterSectionMixin ]
+
   renderTeacherReadOnlyDetails: ({taskId, courseId, review}) ->
-    task = TaskStore.get(taskId)
+
     unless review?.length
+      taskDetails = @renderDefaultDetails({taskId, courseId, review})
+
       taskDetails = [
-          <Details task={task} key="task-#{taskId}-details"/>
-          <div className='task-title'>{task.title}</div>
-          <ViewingAsStudentNameShell courseId={courseId} taskId={taskId} />
-        ]
+        <ViewingAsStudentNameShell
+          key='viewing-as'
+          courseId={courseId}
+          taskId={taskId}
+          className='task-footer-detail' />
+        taskDetails
+      ]
 
     taskDetails
+
+  renderCoversSections: (sections) ->
+    sections = _.map sections, (section) =>
+      combined = @sectionFormat(section)
+      <BrowseTheBook unstyled key={combined} section={combined}>
+        {combined}
+      </BrowseTheBook>
+
+    <div key='task-covers' className='task-covers'>
+      Reading covers: {sections}
+    </div>
 
   renderDefaultDetails: ({taskId, courseId, review}) ->
+    return null if review?.length
+
     task = TaskStore.get(taskId)
+    sections = TaskStore.getRelatedSections(taskId)
 
-    unless review?.length
-      taskDetails = [
-          <Details task={task} key="task-#{taskId}-details"/>
-          <div className='task-title'>{task.title}</div>
-        ]
+    taskAbout = <div key='about' className='task-footer-detail'>
+      <div className='task-title'>{task.title}</div>
+      {@renderCoversSections(sections) if sections.length}
+    </div>
 
-    taskDetails
+    taskDetails = <Details key='details' task={task} className='task-footer-detail'/>
+
+    [
+      taskAbout
+      taskDetails
+    ]
 
   renderTaskDetails: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
@@ -84,7 +114,13 @@ module.exports =
 
   renderFooter: ({stepId, taskId, courseId, review}) ->
     buttons = @renderButtons({stepId, taskId, courseId, review})
-    taskDetails = @renderTaskDetails({stepId, taskId, courseId, review})
+    sections = TaskStore.getRelatedSections(taskId)
+    className = 'task-footer-details'
+    className += ' has-sections' if sections.length
+
+    taskDetails = <div className={className}>
+      {@renderTaskDetails({stepId, taskId, courseId, review})}
+    </div>
 
     [
       buttons
@@ -93,9 +129,14 @@ module.exports =
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
+    sections = TaskStore.getRelatedSections(taskId)
+    className = 'task-footer-details'
+    className += ' has-sections' if sections.length
 
     backButton = @renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')
-    taskDetails = @renderTaskDetails({stepId, taskId, courseId, review})
+    taskDetails = <div className={className}>
+      {@renderTaskDetails({stepId, taskId, courseId, review})}
+    </div>
 
     [
       backButton

@@ -107,6 +107,8 @@ TaskTeacherReview = React.createClass
         id={id}
         goToStep={@goToStep}
         currentStep={@state.currentStep}
+        title={task.title}
+        courseId={courseId}
         key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard

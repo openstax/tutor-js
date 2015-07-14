@@ -29,6 +29,8 @@
   .header-cell {
     .no-select();
     cursor: pointer;
+    background: @tutor-white;
+
     &.is-ascending:after {
       padding-left:8px;
       content: @fa-var-sort-asc;
@@ -41,5 +43,8 @@
     }
   }
 
+  .average-header-cell {
+    background: @tutor-neutral-light;
+  }
 
 }

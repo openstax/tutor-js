@@ -50,10 +50,10 @@ module.exports =
       crumb.sectionLabel = @_buildSectionLabel(data[0].chapter_section)
 
       _.each crumb.data, (data) ->
-        data.content.sectionLabel = crumb.sectionLabel
+        data.sectionLabel = crumb.sectionLabel
 
     else
-      crumb.sectionLabel = @_buildSectionLabel(data.questions[0].chapter_section)
+      crumb.sectionLabel = @_buildSectionLabel(data.chapter_section)
       crumb.data.sectionLabel = crumb.sectionLabel
 
     crumb
@@ -64,7 +64,7 @@ module.exports =
 
     if crumb.data.length
       _.each crumb.data, (data) ->
-        data.content.key = crumb.key
+        data.key = crumb.key
     else
       crumb.data.key = crumb.key
 
@@ -72,8 +72,6 @@ module.exports =
   _getCrumbsForHomework: (stats) ->
     exercises = @_getExercisesFromStats(stats)
     crumbs = _.chain(exercises)
-      .pluck('content')
-      .flatten(true)
       .map(@_makeCrumb)
       .each(@_indexCrumb)
       .value()
@@ -96,10 +94,9 @@ module.exports =
       .pluck('data')
       .map((data) ->
 
-        content = _.pluck(data, 'content')
-        {sectionLabel} = data[0].content
-        {title} = data[0]
-        {key} = data[0].content
+        content = _.clone(data)
+        # grab the title, key, and section label for headings
+        {title, key, sectionLabel} = data[0]
 
         content.unshift({sectionLabel, title, key})
 

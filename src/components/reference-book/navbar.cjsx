@@ -1,8 +1,9 @@
 React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
+_  = require 'underscore'
 
-ReferenceBookTOC = require './toc'
+ChapterSection = require '../task-plan/chapter-section'
 BindStoreMixin = require '../bind-store-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
@@ -13,23 +14,22 @@ module.exports = React.createClass
   bindStore: ReferenceBookPageStore
   propTypes:
     teacherLinkText: React.PropTypes.string
+    toggleTocMenu: React.PropTypes.func.isRequired
     showTeacherEdition: React.PropTypes.func
 
-  componentDidMount: ->
-    {cnxId} = @getParams()
-    # Pop open the menu unless the page was explicitly navigated to
-    @refs.tocmenu.setDropdownState(true) unless cnxId
-
   renderSectionTitle: ->
-    page = ReferenceBookStore.getPageInfo(@getParams())
+    {cnxId, section} = @getParams()
+    if cnxId
+      page = ReferenceBookStore.getPageInfo(@getParams())
+      section = page?.chapter_section
+    else if section
+      page = ReferenceBookStore.getChapterSectionPage(@getParams())
+    section = section.split('.') if section and _.isString(section)
     <BS.Nav navbar className="section-title">
-      <span className="section-number">Chapter {page.chapter_section.join('.')}</span>
-      {page.title}
+      <ChapterSection section={section} />
+      {page?.title}
     </BS.Nav>
 
-  onMenuClick: ->
-    # close the dropdown menu when a link is clicked
-    @refs.tocmenu.setDropdownState(false)
 
   renderTeacher: ->
     <BS.Nav navbar right>
@@ -43,10 +43,10 @@ module.exports = React.createClass
     {cnxId} = @getParams()
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
       <BS.Nav navbar>
-        <BS.DropdownButton ref="tocmenu" buttonClassName="fa fa-bars" noCaret>
-          <ReferenceBookTOC courseId={@props.courseId} onClick={@onMenuClick} />
-        </BS.DropdownButton>
+        <BS.NavItem onClick={@props.toggleTocMenu}>
+          <i className="menu-toggle fa fa-2x" />
+        </BS.NavItem>
       </BS.Nav>
-      {@renderSectionTitle() if cnxId}
+      {@renderSectionTitle()}
       {@renderTeacher() if @props.showTeacherEdition}
     </BS.Navbar>
