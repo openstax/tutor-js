@@ -43,6 +43,9 @@ module.exports = React.createClass
   hasTargetHash: ->
     window.location.hash.length
 
+  # used by BookContentMixin
+  shouldOpenNewTab: -> false
+
   getTargetEl: ->
     targetSelector = window.location.hash
     pageEl = @getDOMNode()

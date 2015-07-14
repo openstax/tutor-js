@@ -34,7 +34,8 @@ module.exports =
         img.onload = sizeImage
 
   getCNXIdOfHref: (href) ->
-    _.first(url.split('#'))
+    beforeHash = _.first(href.split('#'))
+    _.last(beforeHash.split('/'))
 
   getMediaTag: (media) ->
     # form media tag text based on tag name or data-type
@@ -59,14 +60,10 @@ module.exports =
     trueHref = link.getAttribute('href')
     link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
 
-  shouldOpenNewTab: ->
-    # Make link external only if this is not already a ref book page.
-    @constructor.displayName isnt 'ReferenceBookPage'
-
   linkMediaElsewhere: (mediaCNXId, mediaLink) ->
     pageUrl = @buildReferenceBookLink(mediaCNXId)
     mediaLink.href = pageUrl + mediaLink.hash
-    mediaLink.target = '_blank' if @shouldOpenNewTab()
+    mediaLink.target = '_blank' if @shouldOpenNewTab?()
 
   processLink: (mediaLink) ->
     return unless @isMediaLink(mediaLink)
@@ -95,7 +92,7 @@ module.exports =
           mediaCNXId = @getCNXId()
 
     # Link media that are not found within DOM.
-    @linkMediaElsewhere(mediaCNXId) if mediaCNXId?
+    @linkMediaElsewhere(mediaCNXId, mediaLink) if mediaCNXId?
 
   processLinks: ->
     root = @getDOMNode()
