@@ -45,4 +45,10 @@ module.exports = React.createClass
     links = root.querySelectorAll('a')
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
+
+    # Replace internal link text with overriding text
+    links = root.querySelectorAll('a[data-text]')
+    _.each links, (link) ->
+      link.text = link.getAttribute('data-text')
+
     typesetMath(root)
