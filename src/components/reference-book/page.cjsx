@@ -23,8 +23,9 @@ module.exports = React.createClass
     @props.cnxId or @context.router.getCurrentParams().cnxId
 
   getSplashTitle: ->
-    {cnxId} = @context.router.getCurrentParams()
+    {cnxId} = @props.cnxId or @context.router.getCurrentParams().cnxId
     page = ReferenceBookStore.getPageInfo(@context.router.getCurrentParams())
+    page = ReferenceBookStore.getPageInfo({courseId: @props.courseId, cnxId})
     page?.title
 
   prevLink: (info) ->
