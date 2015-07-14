@@ -21,11 +21,13 @@ Section = React.createClass
     else
       ['viewReferenceBookSection', {courseId: courseId, section: sections}]
     <ul className="section" data-depth={@props.section.chapter_section.length}>
-      <Router.Link onClick={@props.onMenuSelection} to={linkTarget}
-          params={params}>
-          <span className="section-number">{sections}</span>
-          {@props.section.title}
-      </Router.Link>
+      <li>
+        <Router.Link onClick={@props.onMenuSelection} to={linkTarget}
+            params={params}>
+            <span className="section-number">{sections}</span>
+            {@props.section.title}
+        </Router.Link>
+      </li>
       { _.map @props.section.children, (child) =>
         <li key={child.id}>
           <Section onMenuSelection={@props.onMenuSelection} section={child} />
