@@ -40,8 +40,8 @@ TaskPlanConfig =
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
     _.each(obj.tasking_plans, (plan) ->
-      plan.due_at = new Date(plan.due_at)
-      plan.opens_at = new Date(plan.opens_at)
+      plan.due_at = if plan.due_at then new Date(plan.due_at)
+      plan.opens_at = if plan.opens_at then new Date(plan.opens_at)
     )
 
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
@@ -71,8 +71,15 @@ TaskPlanConfig =
       plan.target_id is target_id
     @_change(id, {tasking_plans})
 
+  disableEmptyTaskings: (id) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans = _.reject tasking_plans, (tasking) ->
+      tasking.empty
 
-  setPeriods: (id, periods, opens_at) ->
+    @_change(id, {tasking_plans})
+   
+  setPeriods: (id, periods) ->
     plan = @_getPlan(id)
     curTaskings = plan?.tasking_plans
     findTasking = @_findTasking
@@ -80,12 +87,12 @@ TaskPlanConfig =
     tasking_plans = _.map periods, (period) ->
       tasking = findTasking(curTaskings, period.id)
       if not tasking
-        tasking = target_id: period.id, target_type:'period'
+        tasking = target_id: period.id, target_type:'period', empty: true
       else
         tasking.due_at = new Date(tasking.due_at)
         tasking.opens_at = new Date(tasking.opens_at)
 
-      _.extend( _.pick(period, 'opens_at', 'due_at'),
+      _.extend( _.pick(period, 'opens_at', 'due_at', 'empty'),
         tasking
       )
 
