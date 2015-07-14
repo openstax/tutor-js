@@ -10,6 +10,7 @@
     text-align: center;
     margin: 53px 0;
     @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
+    border: 1px solid @tutor-neutral-light;
     button, a {
       width: 100%;
       // override bootstrap styling
@@ -26,4 +27,24 @@
     }
   }
 
+  a.view-reference-guide {
+    height: 80px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-repeat: none;
+    div {
+      margin: 10px 0 0 100px;
+      text-align: left; // override center specified for right-actions-box
+      #fonts > .sans(2.5rem, 3rem);
+      color: @tutor-black;  // override link color
+    }
+    &:hover { text-decoration: initial; }
+  }
+
+  [data-category=physics] .view-reference-guide {
+    .tutor-background-image("physics-book-thumbnail.png");
+  }
+  [data-category=biology] .view-reference-guide {
+    .tutor-background-image("biology-book-thumbnail.png");
+  }
 }
