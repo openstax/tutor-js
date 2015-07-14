@@ -10,21 +10,29 @@ BindStoreMixin = require '../bind-store-mixin'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
-  mixins: [Router.State, BindStoreMixin]
+  mixins: [BindStoreMixin]
+  contextTypes:
+    router: React.PropTypes.func
   bindStore: ReferenceBookPageStore
   propTypes:
     teacherLinkText: React.PropTypes.string
     toggleTocMenu: React.PropTypes.func.isRequired
     showTeacherEdition: React.PropTypes.func
 
+  componentDidMount: ->
+    {cnxId} = @context.router.getCurrentParams()
+    # Pop open the menu unless the page was explicitly navigated to
+    @refs.tocmenu.setDropdownState(true) unless cnxId
+
   renderSectionTitle: ->
-    {cnxId, section} = @getParams()
+    {cnxId, section} = @context.router.getCurrentParams()
     if cnxId
-      page = ReferenceBookStore.getPageInfo(@getParams())
+      page = ReferenceBookStore.getPageInfo(@context.router.getCurrentParams())
       section = page?.chapter_section
     else if section
-      page = ReferenceBookStore.getChapterSectionPage(@getParams())
+      page = ReferenceBookStore.getChapterSectionPage(@context.router.getCurrentParams())
     section = section.split('.') if section and _.isString(section)
+
     <BS.Nav navbar className="section-title">
       <ChapterSection section={section} />
       {page?.title}
@@ -40,7 +48,7 @@ module.exports = React.createClass
 
 
   render: ->
-    {cnxId} = @getParams()
+    {cnxId} = @context.router.getCurrentParams()
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
       <BS.Nav navbar>
         <BS.NavItem onClick={@props.toggleTocMenu}>

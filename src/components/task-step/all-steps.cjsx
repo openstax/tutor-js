@@ -16,15 +16,24 @@ err = (msgs...) ->
   throw new Error(JSON.stringify(msgs...))
 
 Reading = React.createClass
-  displayName: "Reading"
+  displayName: 'Reading'
   mixins: [StepMixin, StepFooterMixin, BookContentMixin]
+  contextTypes:
+    router: React.PropTypes.func
   isContinueEnabled: -> true
+  # used by BookContentMixin
+  shouldOpenNewTab: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
 
   getSplashTitle: ->
     TaskStepStore.get(@props.id)?.title or ''
+
+  getCNXId: ->
+    {id} = @props
+    {content_url} = TaskStepStore.get(id)
+    _.last(content_url.split('contents/'))
 
   renderBody: ->
     {id} = @props
@@ -33,7 +42,7 @@ Reading = React.createClass
 
 
 Interactive = React.createClass
-  displayName: "Interactive"
+  displayName: 'Interactive'
   mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
   onContinue: ->
@@ -43,12 +52,12 @@ Interactive = React.createClass
   renderBody: ->
     {id} = @props
     {content_html} = TaskStepStore.get(id)
-    <div className="interactive-step">
+    <div className='interactive-step'>
       <ArbitraryHtmlAndMath className='interactive-content' html={content_html} />
     </div>
 
 Video = React.createClass
-  displayName: "Video"
+  displayName: 'Video'
   mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
   onContinue: ->
@@ -63,7 +72,7 @@ Video = React.createClass
     </div>
 
 Placeholder = React.createClass
-  displayName: "Placeholder"
+  displayName: 'Placeholder'
   mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: ->
     {review} = @props

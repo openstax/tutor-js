@@ -7,13 +7,14 @@ BS = require 'react-bootstrap'
 
 Section = React.createClass
   displayName: 'ReferenceBookTocSection'
-  mixins: [ Router.State ]
+  contextTypes:
+    router: React.PropTypes.func
   propTypes:
     section: React.PropTypes.object.isRequired
     onMenuSelection: React.PropTypes.func.isRequired
 
   render: ->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     sections = @props.section.chapter_section.join('.')
     linkTarget = if @props.section.cnx_id then 'viewReferenceBookPage' else 'viewReferenceBookSection'
     <ul className="section" data-depth={@props.section.chapter_section.length}>
@@ -31,12 +32,13 @@ Section = React.createClass
 
 module.exports = React.createClass
   displayName: 'ReferenceBookTOC'
-  mixins: [ Router.State ]
+  contextTypes:
+    router: React.PropTypes.func
   propTypes:
     onMenuSelection: React.PropTypes.func
 
   render: ->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     toc = ReferenceBookStore.getToc(courseId)
     <div className="toc">
       { _.map toc.children, (child) =>

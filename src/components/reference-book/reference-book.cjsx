@@ -18,7 +18,6 @@ module.exports = React.createClass
   displayName: 'ReferenceBook'
   contextTypes:
     router: React.PropTypes.func
-
   mixins: [BindStoreMixin]
   bindStore: CourseListingStore
   bindEvent: 'loaded'
