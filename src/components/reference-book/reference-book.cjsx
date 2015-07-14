@@ -10,6 +10,10 @@ Menu = require './slide-out-menu'
 {CourseListingStore} = require '../../flux/course-listing'
 {CourseStore} = require '../../flux/course'
 
+# menu width (300) + page width (1000) + 50 px padding
+# corresponds to @reference-book-page-width and @reference-book-menu-width in variables.less
+MENU_VISIBLE_BREAKPOINT = 1350
+
 module.exports = React.createClass
   displayName: 'ReferenceBook'
   contextTypes:
@@ -31,7 +35,7 @@ module.exports = React.createClass
     @setState(showTeacherEdition: not @state.showTeacherEdition)
 
   onMenuClick: ->
-    @toggleMenuState() unless window.innerWidth > 1350
+    @toggleMenuState() unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
 
   toggleMenuState: ->
     @setState(isMenuVisible: not @state.isMenuVisible)
