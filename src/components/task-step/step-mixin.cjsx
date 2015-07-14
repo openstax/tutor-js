@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+{StepPanel} = require '../../helpers/policies'
 
 {CardBody} = require '../pinned-header-footer-card/sections'
 AsyncButton = require '../buttons/async-button'
@@ -14,12 +15,15 @@ module.exports =
     isWaiting = TaskStepStore.isLoading(@props.id)
     isSaving = TaskStepStore.isSaving(@props.id)
     isFailed = TaskStepStore.isFailed(@props.id)
+    # if this is the last step completed and the view is read-only,
+    # then you cannot continue, and this will override @isContinueEnabled
+    cannotContinue = not StepPanel.canContinue(@props.id)
 
     <AsyncButton
       bsStyle='primary'
       className='continue'
       onClick={@onContinue}
-      disabled={not @isContinueEnabled()}
+      disabled={not @isContinueEnabled() or cannotContinue}
       isWaiting={isWaiting}
       isFailed={isFailed}
       >

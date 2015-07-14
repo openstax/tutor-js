@@ -19,6 +19,7 @@
     padding-top: 10rem;
     #fonts > .book-cover();
     z-index: -1;
+    letter-spacing: 20px;  // space wider so text extends past margins
   }
 
   // The background is applied as a :after block so the opacity can
@@ -31,11 +32,23 @@
     bottom: 0;
     left: 0;
     right: 0;
-    opacity: 0.05;
   }
 
-  // custom backgrounds images for different types
-  &[data-category=physics]:after{ .tutor-background-image("physics.jpg"); }
+  // custom backgrounds images for different courses
+  &[data-category=physics]:after{ .tutor-background-image("physics-background.jpg"); }
+  &[data-category=biology]:after{ .tutor-background-image("biology-background.jpg"); }
+
+  // custom colors for specific courses
+  &[data-category=physics]:before{
+    color: #7BB049;
+    background-color: #243064;
+  }
+
+  &[data-category=biology]:before{
+    color: #5E5F61;
+    background-color: #7BB04A;
+  }
+
 }
 .tutor-booksplash-adjust-top-margin(@normal-top-margin: 100px, @short-top-margin: 35px){
   margin-top: @normal-top-margin;

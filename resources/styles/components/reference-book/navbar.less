@@ -14,13 +14,12 @@
       .chapter-section { margin-right: 0.5rem; }
     }
 
-    .dropdown-menu {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      bottom: 0;
-      width: 300px;
-    }
 
+    .menu-toggle:before{ content: @fa-var-list; }
+
+  }
+
+  &.menu-open {
+    .menu-toggle:before{ content: @fa-var-outdent; }
   }
 }

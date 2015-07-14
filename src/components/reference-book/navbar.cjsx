@@ -1,9 +1,9 @@
 React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
+_  = require 'underscore'
 
 ChapterSection = require '../task-plan/chapter-section'
-ReferenceBookTOC = require './toc'
 BindStoreMixin = require '../bind-store-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
@@ -16,6 +16,7 @@ module.exports = React.createClass
   bindStore: ReferenceBookPageStore
   propTypes:
     teacherLinkText: React.PropTypes.string
+    toggleTocMenu: React.PropTypes.func.isRequired
     showTeacherEdition: React.PropTypes.func
 
   componentDidMount: ->
@@ -30,14 +31,13 @@ module.exports = React.createClass
       section = page?.chapter_section
     else if section
       page = ReferenceBookStore.getChapterSectionPage(@context.router.getCurrentParams())
+    section = section.split('.') if section and _.isString(section)
+
     <BS.Nav navbar className="section-title">
       <ChapterSection section={section} />
       {page?.title}
     </BS.Nav>
 
-  onMenuClick: ->
-    # close the dropdown menu when a link is clicked
-    @refs.tocmenu.setDropdownState(false)
 
   renderTeacher: ->
     <BS.Nav navbar right>
@@ -51,9 +51,9 @@ module.exports = React.createClass
     {cnxId} = @context.router.getCurrentParams()
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
       <BS.Nav navbar>
-        <BS.DropdownButton ref="tocmenu" buttonClassName="fa fa-bars" noCaret>
-          <ReferenceBookTOC courseId={@props.courseId} onClick={@onMenuClick} />
-        </BS.DropdownButton>
+        <BS.NavItem onClick={@props.toggleTocMenu}>
+          <i className="menu-toggle fa fa-2x" />
+        </BS.NavItem>
       </BS.Nav>
       {@renderSectionTitle()}
       {@renderTeacher() if @props.showTeacherEdition}

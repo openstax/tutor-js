@@ -21,7 +21,10 @@ describe 'Course Periods Navigation', ->
       @selectedPeriod = period
 
     componentStub
-      .render(<CoursePeriodsNav courseId={COURSE_ID} handleSelect={handleSelect}/>)
+      .render(<CoursePeriodsNav
+        courseId={COURSE_ID}
+        handleSelect={handleSelect}
+        periods={COURSE_PERIODS}/>)
       .then((result) =>
         @result = result
 

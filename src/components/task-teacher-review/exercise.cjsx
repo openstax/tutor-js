@@ -25,14 +25,26 @@ TaskTeacherReviewExercise = React.createClass
     {showAnswers} = @state
     @setState({showAnswers: not showAnswers})
 
-  render: ->
-    {content, answers, answered_count} = @props
+  getQuestion: ->
+    {content} = @props
+    # TODO: Assumes 1 question.
+    content.questions[0]
+
+  renderNoFreeResponse: ->
+    freeResponsesClasses = 'teacher-review-answers has-no-answers'
+    header = <h4>No student text responses</h4>
+
+    <BS.Panel
+      header={header}
+      className={freeResponsesClasses}/>
+
+  renderFreeResponse: ->
+    {answers, answered_count} = @props
     {showAnswers} = @state
+    question = @getQuestion()
+
     toggleAnswersText = "View student text responses (#{answered_count})"
     toggleAnswersText = 'Hide student text responses' if showAnswers
-
-    # TODO: Assumes 1 question.
-    question = content.questions[0]
 
     freeResponsesClasses = 'teacher-review-answers'
     freeResponsesClasses += ' active' if showAnswers
@@ -40,20 +52,28 @@ TaskTeacherReviewExercise = React.createClass
       freeResponseKey = "free-response-#{question.id}-#{index}"
       <FreeResponse {...answer} key={freeResponseKey}/>
 
+    <BS.Accordion onSelect={@toggleAnswers}>
+      <BS.Panel
+        header={toggleAnswersText}
+        eventKey={question.id}
+        className={freeResponsesClasses}>
+        {freeResponses}
+      </BS.Panel>
+    </BS.Accordion>
+
+  render: ->
+    {answered_count} = @props
+    question = @getQuestion()
+
+    studentResponses = if answered_count then @renderFreeResponse() else @renderNoFreeResponse()
+
     <CardBody className='task-step' pinned={false}>
       <Question
         model={question}
         answered_count={answered_count}
         type='teacher-review'
         onChangeAttempt={@onChangeAnswerAttempt}>
-        <BS.Accordion bsStyle='default' onSelect={@toggleAnswers}>
-          <BS.Panel
-            header={toggleAnswersText}
-            eventKey={question.id}
-            className={freeResponsesClasses}>
-            {freeResponses}
-          </BS.Panel>
-        </BS.Accordion>
+        {studentResponses}
       </Question>
     </CardBody>
 
