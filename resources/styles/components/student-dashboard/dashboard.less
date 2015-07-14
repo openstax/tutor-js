@@ -26,4 +26,25 @@
     }
   }
 
+  a.view-reference-guide {
+    height: 80px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-repeat: none;
+    div {
+      margin-left: 85px;
+      text-align: left;
+      font-size: 24px;
+      margin-top: 10px;
+      color: @tutor-black;
+    }
+    &:hover {
+      text-decoration: initial;
+      .shadow-z-1-hover();
+    }
+  }
+
+  [data-category=biology] .view-reference-guide {
+    .tutor-background-image("biology-book-thumbnail.png");
+  }
 }
