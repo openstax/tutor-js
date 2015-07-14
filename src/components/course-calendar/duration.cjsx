@@ -45,7 +45,9 @@ CourseDuration = React.createClass
       # TODO these parts actually seem like they should be in flux
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
-      .sortBy('due_at')
+      .sortBy((plan) ->
+        -1 * plan.duration.start.valueOf()
+      )
       .value()
 
     groupedDurations = _.chain(groupingDurations)
@@ -184,7 +186,6 @@ CourseDuration = React.createClass
     renderedDurations = _.map(@state.durationsByStartDate, @renderChildren)
 
   render: ->
-    {durations, viewingDuration, groupingDurations} = @props
     renderedDurations = @renderDurations()
 
     <div>
