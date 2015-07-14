@@ -78,8 +78,8 @@ commonActions =
     commonActions.click(button)
     button = div.querySelector(selector)
 
-  click: (clickElementNode) ->
-    React.addons.TestUtils.Simulate.click(clickElementNode)
+  click: (clickElementNode, eventData = {}) ->
+    React.addons.TestUtils.Simulate.click(clickElementNode, eventData)
 
   select: (selectElementNode) ->
     React.addons.TestUtils.Simulate.select(selectElementNode)
