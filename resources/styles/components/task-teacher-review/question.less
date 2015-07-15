@@ -1,20 +1,22 @@
 .question {
 
-  font-size: 1.8rem;
-  line-height: 2.4rem;
+  #fonts > .sans(1.8rem, 2.4rem);
 
   .answers-answer {
+    #fonts > .sans(1.8rem, 2.4rem);
+
     &::before {
       .answer-label();
       .answer-icon-label();
       text-align: center;
       width: 80px;
-      font-size: 1.5em;
+      font-size: 2rem;
+      margin-top: 14px;
     }
 
     .selected-count {
-      display: inline;
-      #fonts > .sans(1.8rem, 1.8rem);
+      display: inline-block;
+      #fonts > .sans(1.8rem, 2.4rem);
 
       &::before {
         content: attr(data-count);
@@ -47,13 +49,18 @@
 
   .answers-table {
     label.answer-label {
-      padding: 4px 20px;
+      padding: 4px 0;
       background-color: transparent;
       cursor: default;
 
       &:hover {
         background-color: transparent;
       }
+    }
+
+    .answers-answer {
+      align-items: flex-start;
+      -webkit-box-align: start;
     }
   }
 
