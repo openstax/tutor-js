@@ -64,24 +64,34 @@
     }
   }
 
+  .panel-group .teacher-review-answers .panel-heading + .panel-collapse > .panel-body {
+    border: none;
+  }
+
   .teacher-review-answers {
     &.panel {
       .box-shadow(none);
 
       > .panel-heading {
         color: @free-response-color;
-        background: @free-response-background;
+        background: transparent;
         padding: 0;
       }
     }
 
-    .panel-title > a {
-      text-decoration: none;
-      padding: 10px 20px;
+    .panel-title {
       display: block;
-
-      &:hover {
-        background: @tutor-neutral-lightest;
+      > a {
+        .btn();
+        .btn-round();
+        .btn-tutor-default();
+        float: none;
+        text-decoration: none;
+        margin: 0;
+  
+        &:hover {
+          background: @tutor-neutral-lightest;
+        }
       }
     }
 
@@ -90,6 +100,7 @@
         display: none;
       }
       .panel-title {
+        background: @free-response-background;
         padding: 10px 20px;
       }
     }
