@@ -43,6 +43,14 @@ CourseAddMenuMixin =
         type: 'homework'
         query:
           date: @state.addDate?.format(dateFormat)
+      }, {
+        text: 'Add External Assignment'
+        to: 'createExternal'
+        params:
+          courseId: courseId
+        type: 'external'
+        query:
+          date: @state.addDate?.format(dateFormat)
       }
     ]
 
