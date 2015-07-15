@@ -20,38 +20,101 @@ LearningGuide = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-
   _percent: (num, total) ->
     Math.round((num / total) * 100)
 
   renderSectionBars: (section) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: section.page_ids}
     chapterSection =
       @sectionFormat(section.chapter_section, @state.sectionSeparator)
     sectionPercent = @_percent(section.current_level, 1)
     colorClass = @colorizeBar(sectionPercent)
     <div className='section'>
-      <i className='icon-guide icon-homework'></i>
       <div className='section-heading'>
         <span className='section-number'>{chapterSection}</span>
         <span className='section-title' title={section.title}>{section.title}</span>
       </div>
-      <BS.ProgressBar className={colorClass} now={sectionPercent} />
+      <Router.Link
+      to='viewPractice'
+      params={linkParams}
+      query={queryParams}
+      title="Click to Practice"
+      className='btn btn-default progress-bar-button'>
+        <BS.ProgressBar className={colorClass} now={sectionPercent} />
+      </Router.Link>
+      <div className='amount-worked'>
+        <span className='count'>{section.questions_answered_count} worked</span>
+      </div>
     </div>
 
 
   renderChapterPanels: (chapter, i) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: chapter.page_ids}
     sections = _.map(chapter.children, @renderSectionBars)
     chapterPercent = @_percent(chapter.current_level, 1)
     colorClass = @colorizeBar(chapterPercent)
-    <div className='chapter-panel'>
-      <div className='chapter-heading'>
-        <i className='icon-guide icon-homework'></i>
-        <span className='chapter-number'>{chapter.chapter_section[0]}</span>
-        <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
-        <BS.ProgressBar className={colorClass} now={chapterPercent} />
+
+    <BS.Col lg={4} md={4} sm={6} xs={12}>
+      <div className="chapter-panel">
+        <div className='view-toggle' onClick={@onToggle.bind(@, i)}>
+          View All
+        </div>
+        <div className='chapter-heading'>
+          <span className='chapter-number'>{chapter.chapter_section[0]}</span>
+          <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
+        <Router.Link
+        to='viewPractice'
+        params={linkParams}
+        query={queryParams}
+        title="Click to Practice"
+        className='btn btn-default progress-bar-button'>
+          <BS.ProgressBar className={colorClass} now={chapterPercent} />
+        </Router.Link>
+        <div className='amount-worked'>
+          <span className='count'>{chapter.questions_answered_count} worked</span>
+        </div>
+        </div>
+        <div>{sections}</div>
       </div>
-      <div>{sections}</div>
-    </div>
+    </BS.Col>
+
+
+  renderWeaker: (chapter, i) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: chapter.page_ids}
+    chapterPercent = @_percent(chapter.current_level, 1)
+    colorClass = @colorizeBar(chapterPercent)
+
+    sections = _.map(chapter.children, @renderSectionBars)
+
+    sections
+
+
+  renderStronger: (chapter, i) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: chapter.page_ids}
+    chapterPercent = @_percent(chapter.current_level, 1)
+    colorClass = @colorizeBar(chapterPercent)
+
+    sections = _.map(chapter.children, @renderSectionBars)
+
+    sections
+
+  onToggle: (index, event) ->
+    el = event.target.parentNode
+    if el.classList.contains('expanded')
+      el.classList.remove('expanded')
+      event.target.innerHTML = 'View All'
+    else
+      el.classList.add('expanded')
+      event.target.innerHTML = 'View Less'
+
 
   colorizeBar: (percent) ->
     if percent > 75
@@ -62,30 +125,68 @@ LearningGuide = React.createClass
       'low'
 
   render: ->
+    {courseId} = @props
+    linkParams = {courseId}
     guide = LearningGuideStore.get(@props.courseId)
     chapters = _.map(guide.children, @renderChapterPanels)
 
+
+    weaker = _.map(guide.children, @renderWeaker)
+    stronger = _.map(guide.children, @renderStronger)
+
     <div className='guide-container'>
-      <span className='guide-group-title'>Learning Guide</span>
-      <div className='guide-key'>
-        <div className='item'>
-          <div className='box high'></div>
-          <span className='title'>Good</span>
+
+      <div className='guide-heading'>
+        <span className='guide-group-title'>Current Level of Understanding</span>
+        <Router.Link
+        to='dashboard'
+        params={linkParams}
+        className='btn btn-default header-button'>
+          Return to Dashboard
+        </Router.Link>
+      </div>
+
+      <div className='guide-group'>
+        <BS.Col mdPull={0} xs={12} md={9}>
+          {chapters}
+        </BS.Col>
+        <BS.Col mdPush={0} xs={12} md={3}>
+          <div className="chapter-panel expanded">
+            <div className='chapter-heading metric'>
+              Weaker
+            </div>
+            <div>{weaker}</div>
+          </div>
+          <div className="chapter-panel expanded">
+            <div className='chapter-heading metric'>
+              Stronger
+            </div>
+            <div>{stronger}</div>
+          </div>
+        </BS.Col>
+      </div>
+
+
+      <div className='guide-footer'>
+        <div className='guide-key'>
+          Click on the bar to practice the topic
         </div>
-        <div className='item'>
-          <div className='box medium'></div>
-          <span className='title'>OK</span>
-        </div>
-        <div className='item'>
-          <div className='box low'></div>
-          <span className='title'>Needs work</span>
+        <div className='guide-key'>
+          <div className='item'>
+            <div className='box high'></div>
+            <span className='title'>looking good</span>
+          </div>
+          <div className='item'>
+            <div className='box medium'></div>
+            <span className='title'>almost there</span>
+          </div>
+          <div className='item'>
+            <div className='box low'></div>
+            <span className='title'>keep trying</span>
+          </div>
         </div>
       </div>
-      
-      <BS.Panel className='guide-group'></BS.Panel>
 
-      <span className='guide-group-title'>Individual Chapters</span>
-      <BS.Panel className='guide-group'>{chapters}</BS.Panel>
     </div>
 
 
