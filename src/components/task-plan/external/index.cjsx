@@ -57,7 +57,6 @@ ExternalPlan = React.createClass
               <TutorInput
                 label='Assignment URL'
                 className='external-url'
-                value={externalUrl}
                 id='external-url'
                 default={externalUrl}
                 required={true}
