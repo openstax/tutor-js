@@ -11,28 +11,23 @@ BindStoreMixin = require '../bind-store-mixin'
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
   mixins: [BindStoreMixin]
-  contextTypes:
-    router: React.PropTypes.func
   bindStore: ReferenceBookPageStore
   propTypes:
     teacherLinkText: React.PropTypes.string
     toggleTocMenu: React.PropTypes.func.isRequired
     showTeacherEdition: React.PropTypes.func
-
-  componentDidMount: ->
-    {cnxId} = @context.router.getCurrentParams()
-    # Pop open the menu unless the page was explicitly navigated to
-    @refs.tocmenu.setDropdownState(true) unless cnxId
+  contextTypes:
+    router: React.PropTypes.func
 
   renderSectionTitle: ->
-    {cnxId, section} = @context.router.getCurrentParams()
+    params = @context.router.getCurrentParams()
+    {cnxId, section} = params
     if cnxId
-      page = ReferenceBookStore.getPageInfo(@context.router.getCurrentParams())
+      page = ReferenceBookStore.getPageInfo(params)
       section = page?.chapter_section
     else if section
-      page = ReferenceBookStore.getChapterSectionPage(@context.router.getCurrentParams())
+      page = ReferenceBookStore.getChapterSectionPage(params)
     section = section.split('.') if section and _.isString(section)
-
     <BS.Nav navbar className="section-title">
       <ChapterSection section={section} />
       {page?.title}

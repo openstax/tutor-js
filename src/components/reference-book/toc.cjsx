@@ -16,13 +16,18 @@ Section = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     sections = @props.section.chapter_section.join('.')
-    linkTarget = if @props.section.cnx_id then 'viewReferenceBookPage' else 'viewReferenceBookSection'
+    [linkTarget, params] = if @props.section.cnx_id
+      ['viewReferenceBookPage',  {courseId: courseId, cnxId: @props.section.cnx_id}]
+    else
+      ['viewReferenceBookSection', {courseId: courseId, section: sections}]
     <ul className="section" data-depth={@props.section.chapter_section.length}>
-      <Router.Link onClick={@props.onMenuSelection} to={linkTarget}
-          params={courseId: courseId, cnxId: @props.section.cnx_id, section: sections}>
-          <span className="section-number">{sections}</span>
-          {@props.section.title}
-      </Router.Link>
+      <li>
+        <Router.Link onClick={@props.onMenuSelection} to={linkTarget}
+            params={params}>
+            <span className="section-number">{sections}</span>
+            {@props.section.title}
+        </Router.Link>
+      </li>
       { _.map @props.section.children, (child) =>
         <li key={child.id}>
           <Section onMenuSelection={@props.onMenuSelection} section={child} />

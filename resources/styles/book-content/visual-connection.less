@@ -1,0 +1,14 @@
+.visual-connection {
+  float: left;
+  +* {
+    clear: both;
+  }
+  &+.visual-connection{
+    clear: right;
+    float: right;
+    .title {
+      visibility: hidden;
+    }
+  }
+
+}

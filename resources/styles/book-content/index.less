@@ -1,12 +1,13 @@
 // A mixin to style book content from CNX
 .tutor-book-content() {
   @reading-ui-banner-height: 40px;
-
+  padding: 0 @tutor-card-body-padding-horizontal @tutor-card-body-padding-vertical @tutor-card-body-padding-horizontal;
   @import './mixins';
 
   @import './base';
   // type specific styling comes last so it can override the above styles
   @import './links-to-physics';
+  @import './link-to-learning';
   @import './worked-examples';
   @import './work-in-physics';
   @import './watch-physics';
@@ -14,7 +15,6 @@
   @import './virtual-physics.less';
   @import './fun-in-physics';
   @import './grasp-check';
-  @import './glossary';
   @import './target';
-
+  @import './visual-connection';
 }
