@@ -30,13 +30,13 @@ module.exports = React.createClass
   prevLink: (info) ->
     <Router.Link className='nav prev' to='viewReferenceBookPage'
       params={courseId: @props.courseId, cnxId: info.prev.cnx_id}>
-      <i className='prev fa fa-chevron-left'/>
+      <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
     <Router.Link className='nav next' to='viewReferenceBookPage'
       params={courseId: @props.courseId, cnxId: info.next.cnx_id}>
-      <i className='fa fa-chevron-right'/>
+      <div className='triangle' />
     </Router.Link>
 
   hasTargetHash: ->
