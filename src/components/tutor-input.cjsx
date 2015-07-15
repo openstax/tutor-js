@@ -1,9 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 moment = require 'moment'
+_ = require 'underscore'
 
 {TimeStore} = require '../flux/time'
 DatePicker = require 'react-datepicker'
+TutorErrors = require './tutor-errors'
 
 TutorInput = React.createClass
   propTypes:
@@ -13,9 +15,24 @@ TutorInput = React.createClass
     type: React.PropTypes.string
     onChange: React.PropTypes.func
     value: React.PropTypes.any
+    validate: React.PropTypes.func
+
+  getDefaultProps: ->
+    validate: (inputValue) ->
+      return ['required'] unless (inputValue? and inputValue.length > 0)
+
+  getInitialState: ->
+    errors = @props.validate(@props.value)
+    errors: errors or []
 
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
+    @validate(event.target?.value)
+
+  validate: (inputValue) ->
+    errors = @props.validate(inputValue)
+    errors ?= []
+    @setState({errors})
 
   focus: ->
     React.findDOMNode(@refs.input)?.focus()
@@ -27,7 +44,15 @@ TutorInput = React.createClass
 
     unless @props.default or @props.value then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
+    wrapperClasses.push('has-error') if @state.errors.length
+
     classes.push(@props.class)
+
+    errors = _.map(@state.errors, (error) ->
+      return unless TutorErrors[error]?
+      errorWarning = TutorErrors[error]
+      <errorWarning key={error}/>
+    )
 
     <div className={wrapperClasses.join(' ')}>
       <input
@@ -40,9 +65,7 @@ TutorInput = React.createClass
         onChange={@onChange}
       />
       <div className="floating-label">{@props.label}</div>
-      <div className="hint required-hint">
-        Required Field <i className="fa fa-exclamation-circle"></i>
-      </div>
+      {errors}
     </div>
 
 TutorDateInput = React.createClass

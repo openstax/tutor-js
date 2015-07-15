@@ -1,6 +1,8 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 moment = require 'moment'
+validator = require 'validator'
+
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
@@ -156,6 +158,9 @@ TaskPlanConfig =
   updateDueAt: (id, due_at, periodId) ->
     @updateDateAttribute(id, 'due_at', due_at, periodId)
 
+  updateUrl: (id, external_url) ->
+    @_change(id, {settings: {external_url}})
+
   sortTopics: (id) ->
     plan = @_getPlan(id)
     {page_ids, exercises_count_dynamic} = plan.settings
@@ -297,6 +302,8 @@ TaskPlanConfig =
         return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
+      else if (plan.type is 'external')
+        return plan.title and isValidDates() and validator.isURL(plan.settings?.external_url)
 
     isPublished: (id) ->
       plan = @_getPlan(id)
