@@ -86,6 +86,9 @@ module.exports =
 
     crumbs
 
+  _getCrumbsForExternal: ->
+    []
+
   _getContentsForHomework: (crumbs) ->
     contents = _.pluck(crumbs, 'data')
 
@@ -104,6 +107,10 @@ module.exports =
       )
       .flatten(true)
       .value()
+
+
+  _getContentsForExternal: ->
+    []
 
   _shouldStepCrumb: ->
     true
