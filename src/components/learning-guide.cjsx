@@ -83,29 +83,6 @@ LearningGuide = React.createClass
     </BS.Col>
 
 
-  renderWeaker: (chapter, i) ->
-    {courseId} = @props
-    linkParams = {courseId}
-    queryParams = {page_ids: chapter.page_ids}
-    chapterPercent = @_percent(chapter.current_level, 1)
-    colorClass = @colorizeBar(chapterPercent)
-
-    sections = _.map(chapter.children, @renderSectionBars)
-
-    sections
-
-
-  renderStronger: (chapter, i) ->
-    {courseId} = @props
-    linkParams = {courseId}
-    queryParams = {page_ids: chapter.page_ids}
-    chapterPercent = @_percent(chapter.current_level, 1)
-    colorClass = @colorizeBar(chapterPercent)
-
-    sections = _.map(chapter.children, @renderSectionBars)
-
-    sections
-
   onToggle: (index, event) ->
     el = event.target.parentNode
     if el.classList.contains('expanded')
@@ -130,9 +107,22 @@ LearningGuide = React.createClass
     guide = LearningGuideStore.get(@props.courseId)
     chapters = _.map(guide.children, @renderChapterPanels)
 
+    allSections = []
+    sections = guide.children
+    for section in sections
+      allSections.push(section.children)
+    allSections = _.flatten(allSections)
 
-    weaker = _.map(guide.children, @renderWeaker)
-    stronger = _.map(guide.children, @renderStronger)
+    sortBest = _.sortBy(allSections, 'current_level')
+    sortBest = sortBest.reverse().slice(0, 5)
+    sortWorst = _.sortBy(allSections, 'current_level')
+    sortWorst = sortWorst.slice(0, 5)
+
+    bestPages = _.flatten(_.pluck(sortBest, 'page_ids'))
+    worstPages = _.flatten(_.pluck(sortWorst, 'page_ids'))
+
+    weaker = _.map(sortWorst, @renderSectionBars)
+    stronger = _.map(sortBest, @renderSectionBars)
 
     <div className='guide-container'>
 
@@ -156,12 +146,26 @@ LearningGuide = React.createClass
               Weaker
             </div>
             <div>{weaker}</div>
+            <Router.Link
+            to='viewPractice'
+            params={linkParams}
+            query={page_ids: worstPages}
+            className='btn btn-default metric-button'>
+              Practice Weaker
+            </Router.Link>
           </div>
           <div className="chapter-panel expanded">
             <div className='chapter-heading metric'>
               Stronger
             </div>
             <div>{stronger}</div>
+            <Router.Link
+            to='viewPractice'
+            params={linkParams}
+            query={page_ids: bestPages}
+            className='btn btn-default metric-button'>
+              Practice Stronger
+            </Router.Link>
           </div>
         </BS.Col>
       </div>
