@@ -110,11 +110,13 @@ ExternalUrl = React.createClass
     {description, title} = TaskStore.get(taskId)
     external_url = @getUrl()
 
+    descriptionHTML = <Markdown text={description}/> if description? and description.length > 0
+
     <div className='external-step'>
       <h1>
         <a href={external_url} target='_blank' onClick={@onContinue}>{title}</a>
       </h1>
-      <Markdown text={description}/>
+      {descriptionHTML}
     </div>
 
 Spacer = React.createClass
