@@ -1,0 +1,22 @@
+{
+  "id": "8",
+  "HACK_LOCAL_STEP_COMPLETION": true,
+  "type": "external",
+  "title": "asdf",
+  "description": "Jump off balcony, onto stranger's head mark territory, scratch leg; meow for can opener to feed me yet love to play with owner's hair tie. If it fits, i sits. Chew on cable meowwww chase imaginary bugs, but poop on grasses claw drapes, for spread kitty litter all over house yet scratch the furniture. Meowwww sleep on dog bed, force dog to sleep on floor and jump off balcony, onto stranger's head, claws in your leg yet chase imaginary bugs, but chase imaginary bugs. Find something else more interesting hopped up on catnip, for fall over dead (not really but gets sypathy) sleep on dog bed, force dog to sleep on floor. I like big cats and i can not lie claws in your leg but pooping rainbow while flying in a toasted bread costume in space so all of a sudden cat goes crazy need to chase tail. \n",
+  "opens_at": "2015-07-14T05:01:00.000Z",
+  "due_at": "2015-07-20T12:00:00.000Z",
+  "is_shared": false,
+  "steps": [
+    {
+      "id": "step-id-8-1",
+      "task_id": "8",
+      "type": "external_url",
+      "group": "default",
+      "is_completed": false,
+      "related_content": [],
+      "labels": [],
+      "external_url": "http://github.com"
+    }
+  ]
+}

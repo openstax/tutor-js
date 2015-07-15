@@ -1,0 +1,10 @@
+{
+  "id": "step-id-8-1",
+  "task_id": "8",
+  "type": "external_url",
+  "group": "default",
+  "is_completed": false,
+  "related_content": [],
+  "labels": [],
+  "external_url": "http://github.com"
+}
