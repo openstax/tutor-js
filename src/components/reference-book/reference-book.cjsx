@@ -36,8 +36,9 @@ module.exports = React.createClass
   onMenuClick: ->
     @toggleMenuState() unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
 
-  toggleMenuState: ->
+  toggleMenuState: (ev) ->
     @setState(isMenuVisible: not @state.isMenuVisible)
+    ev?.preventDefault() # needed to prevent scrolling to top
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
