@@ -92,10 +92,21 @@ ExternalUrl = React.createClass
     {review} = @props
     not review?.length
   onContinue: ->
-    @props.onNextStep()
+    @props.onStepCompleted()
+  renderFooterButtons: ->
+    {taskId, courseId} = @props
+    @renderBackButton({taskId, courseId})
   renderBody: ->
-    <div className='placeholder-step'>
-      ExternalUrl task!
+    {id, taskId} = @props
+    {external_url} = TaskStepStore.get(id)
+    {description, title} = TaskStore.get(taskId)
+    <div className='external-step'>
+      <h1>
+        <a href={external_url} target='_blank' onClick={@onContinue}>{title}</a>
+      </h1>
+      <p>
+        {description}
+      </p>
     </div>
 
 Spacer = React.createClass
