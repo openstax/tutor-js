@@ -85,7 +85,7 @@ ScrollTrackerParentMixin =
     @props.goToStep(nextState.scrollState.key)() if willScrollStateKeyChange
 
   componentDidUpdate: (prevProps, prevState) ->
-    doesScrollStateMatch = (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop).key)
+    doesScrollStateMatch = (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop)?.key)
     didCurrentStepChange = not (@props.currentStep is prevState.scrollState?.key)
 
     unless doesScrollStateMatch
@@ -95,7 +95,7 @@ ScrollTrackerParentMixin =
 
   scrollToKey: (stepKey) ->
     scrollState = @getScrollStateByKey(stepKey)
-    window.scrollTo(0, (scrollState.scrollPoint - @state.scrollTopBuffer))
+    window.scrollTo(0, (scrollState?.scrollPoint - @state.scrollTopBuffer))
 
 
 module.exports = {ScrollTracker, ScrollTrackerParentMixin}
