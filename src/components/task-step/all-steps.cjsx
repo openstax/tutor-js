@@ -6,6 +6,7 @@ api = require '../../api'
 {TaskStore} = require '../../flux/task'
 ArbitraryHtmlAndMath = require '../html'
 Exercise = require './exercise'
+Markdown = require '../markdown'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
 BookContentMixin = require '../book-content-mixin'
@@ -96,17 +97,24 @@ ExternalUrl = React.createClass
   renderFooterButtons: ->
     {taskId, courseId} = @props
     @renderBackButton({taskId, courseId})
-  renderBody: ->
-    {id, taskId} = @props
+  getUrl: ->
+    {id} = @props
     {external_url} = TaskStepStore.get(id)
+    unless /^https?:\/\//.test(external_url)
+      external_url = "http://#{external_url}"
+
+    external_url
+
+  renderBody: ->
+    {taskId} = @props
     {description, title} = TaskStore.get(taskId)
+    external_url = @getUrl()
+
     <div className='external-step'>
       <h1>
         <a href={external_url} target='_blank' onClick={@onContinue}>{title}</a>
       </h1>
-      <p>
-        {description}
-      </p>
+      <Markdown text={description}/>
     </div>
 
 Spacer = React.createClass
