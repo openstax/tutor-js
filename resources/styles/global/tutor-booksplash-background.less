@@ -5,7 +5,10 @@
 .tutor-booksplash-background {
 
   &:before {
-    content: attr(data-title);
+    content: " ";
+    background-position: center -20px;
+    background-size: 1300px auto;
+    background-repeat: no-repeat;
     position: fixed;
     top: 60px;
     left: 0px;
@@ -42,11 +45,13 @@
   &[data-category=physics]:before{
     color: #7BB049;
     background-color: #243064;
+    .tutor-background-image("physics-title-background.svg");
   }
 
   &[data-category=biology]:before{
     color: #5E5F61;
     background-color: #7BB04A;
+    .tutor-background-image("biology-title-background.svg");
   }
 
 }

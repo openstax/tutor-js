@@ -28,7 +28,7 @@
     font-weight: 600;
     color: @tutor-secondary;
     margin: .1em .08em 0 -.06em; //best combination on line-height and margin to look good in chrome and ff
-  } 
+  }
   // ensure that the p is heigh enough for the drop cap
   // to fit beside it, otherwise it will overlay on top of the next element
   min-height: 8rem;
@@ -42,19 +42,10 @@
   font-size: 2rem;
 }
 
-.book-content-step-size(@vertical: @tutor-card-body-padding-vertical) {
-  padding: @vertical @tutor-card-body-padding-horizontal;
-  @media (max-width: @tutor-card-padding-collapse-breakpoint) {
-    padding: @vertical @tutor-card-body-narrow-padding-horizontal;
-  }
-}
 
 // sets an element to be the width of the content pane
 // used for cases where the parent element is not set to 100% width and cannot be targeted
-// handles breakpoints set by .book-content-step-size
 .book-content-full-width(){
-  width: @tutor-task-width - (@tutor-card-body-padding-horizontal * 2);
-  @media (max-width: @tutor-card-padding-collapse-breakpoint) {
-    width: @tutor-task-width - @tutor-card-body-padding-horizontal;
-  }
+  margin-left: -@tutor-card-body-padding-horizontal;
+  width: calc(~"100% + "@tutor-card-body-padding-horizontal*2);
 }

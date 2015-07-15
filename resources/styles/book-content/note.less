@@ -1,6 +1,9 @@
 // This file is part of the book-content mixin and should not be included directly
-.tips-for-success, .os-teacher {
-
+.tips-for-success,
+.os-teacher,
+.ost-background-info,
+.ost-misconception {
+  margin-top: @tutor-card-body-padding-vertical;
   &:before {
     height: 35px;
     content: attr(data-label);
@@ -11,7 +14,7 @@
     background-repeat: no-repeat;
     // table cell is chosen since it needs to be only as wide as the text,
     // yet still break to a new line after the content
-    display: table-cell; 
+    display: table-cell;
     text-indent: 30px;
     background-position: 10px 5px;
     background-size: 25px 25px;

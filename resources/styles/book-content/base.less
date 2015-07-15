@@ -32,7 +32,8 @@ cnx-pi
   #fonts > .sans(1.8rem, 1.8rem);
   width: 100%;
   min-height: 100px;
-  margin-top: -@tutor-card-body-padding-vertical;
+  .book-content-full-width();
+
   color: #ffffff;
   padding: 10px 20px;
   background: @tutor-secondary;
@@ -99,13 +100,6 @@ div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
 
-div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizontal;}
-
-
-> section:not(.section-opener),
-.worked-examples {
-  .book-content-step-size(0);
-}
 
 .splash {
   width: 100%;
@@ -135,6 +129,7 @@ div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizon
   }
 }
 
+
 figure {
   max-width: 100%;
   display: table;
@@ -143,6 +138,7 @@ figure {
   margin-bottom: 20px;
   padding: 0;
   float: left;
+  &.full-width { width: 100%; }
   &.tutor-ui-vertical-img {
     @media (min-width: @screen-sm-min) {
       width: 50%;
@@ -157,7 +153,7 @@ figure {
   }
   .tutor-ui-horizontal-img {
     display:block;
-    .book-content-full-width();
+
     &.full-width {
       img { width: 100%; }
     }
@@ -165,12 +161,12 @@ figure {
 
   // splash images are always full width without margin or surrounding padding
   &.splash {
-    width: 100%;
+
     // .splash is wider than other elements on the page since it has 0 surrounding padding
     // This means child elements that normally have a fixed pixel width will not expand to fit
     // unless their widths are set to be 100%
-    [data-type=media]{ width: 100%; }
-    .tutor-ui-horizontal-img { width: 100%; }
+
+    .tutor-ui-horizontal-img { .book-content-full-width(); }
     img { width: 100%; }
   }
   figcaption {
