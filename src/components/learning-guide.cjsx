@@ -20,9 +20,6 @@ LearningGuide = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  getInitialState: ->
-    toggle: -1
-
   _percent: (num, total) ->
     Math.round((num / total) * 100)
 
@@ -43,8 +40,9 @@ LearningGuide = React.createClass
       to='viewPractice'
       params={linkParams}
       query={queryParams}
+      title="Click to Practice"
       className='btn btn-default progress-bar-button'>
-        <BS.ProgressBar title="Click to Practice" className={colorClass} now={sectionPercent} />
+        <BS.ProgressBar className={colorClass} now={sectionPercent} />
       </Router.Link>
       <div className='amount-worked'>
         <span className='count'>{section.questions_answered_count} worked</span>
@@ -60,8 +58,8 @@ LearningGuide = React.createClass
     chapterPercent = @_percent(chapter.current_level, 1)
     colorClass = @colorizeBar(chapterPercent)
 
-    <BS.Col xl={3}>
-      <div id="toggle-#{i}" className="chapter-panel">
+    <BS.Col lg={4} md={4} sm={6} xs={12}>
+      <div className="chapter-panel">
         <div className='view-toggle' onClick={@onToggle.bind(@, i)}>
           View All
         </div>
@@ -72,8 +70,9 @@ LearningGuide = React.createClass
         to='viewPractice'
         params={linkParams}
         query={queryParams}
+        title="Click to Practice"
         className='btn btn-default progress-bar-button'>
-          <BS.ProgressBar title="Click to Practice" className={colorClass} now={chapterPercent} />
+          <BS.ProgressBar className={colorClass} now={chapterPercent} />
         </Router.Link>
         <div className='amount-worked'>
           <span className='count'>{chapter.questions_answered_count} worked</span>
@@ -82,6 +81,30 @@ LearningGuide = React.createClass
         <div>{sections}</div>
       </div>
     </BS.Col>
+
+
+  renderWeaker: (chapter, i) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: chapter.page_ids}
+    chapterPercent = @_percent(chapter.current_level, 1)
+    colorClass = @colorizeBar(chapterPercent)
+
+    sections = _.map(chapter.children, @renderSectionBars)
+
+    sections
+
+
+  renderStronger: (chapter, i) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: chapter.page_ids}
+    chapterPercent = @_percent(chapter.current_level, 1)
+    colorClass = @colorizeBar(chapterPercent)
+
+    sections = _.map(chapter.children, @renderSectionBars)
+
+    sections
 
   onToggle: (index, event) ->
     el = event.target.parentNode
@@ -102,46 +125,68 @@ LearningGuide = React.createClass
       'low'
 
   render: ->
+    {courseId} = @props
+    linkParams = {courseId}
     guide = LearningGuideStore.get(@props.courseId)
     chapters = _.map(guide.children, @renderChapterPanels)
 
-    columnsPerRow = 4
-    rows = _.groupBy(chapters, (d, i) ->
-      Math.floor(i / columnsPerRow)
-      )
-    rows = _.toArray(rows)
 
+    weaker = _.map(guide.children, @renderWeaker)
+    stronger = _.map(guide.children, @renderStronger)
 
     <div className='guide-container'>
 
-      <span className='guide-group-title'>Current Level of Understanding</span>
-      <BS.Panel className='guide-group'></BS.Panel>
-
-      <span className='guide-group-title'>Practice By Chapter</span>
-      <BS.Panel className='guide-group'>
-          {
-            for row in rows
-              <BS.Row>{row}</BS.Row>
-          }
-      </BS.Panel>
-
-      <div className='guide-key'>
-        Click on the bar to practice the topic
+      <div className='guide-heading'>
+        <span className='guide-group-title'>Current Level of Understanding</span>
+        <Router.Link
+        to='dashboard'
+        params={linkParams}
+        className='btn btn-default header-button'>
+          Return to Dashboard
+        </Router.Link>
       </div>
-      <div className='guide-key'>
-        <div className='item'>
-          <div className='box high'></div>
-          <span className='title'>looking good</span>
+
+      <div className='guide-group'>
+        <BS.Col mdPull={0} xs={12} md={9}>
+          {chapters}
+        </BS.Col>
+        <BS.Col mdPush={0} xs={12} md={3}>
+          <div className="chapter-panel expanded">
+            <div className='chapter-heading metric'>
+              Weaker
+            </div>
+            <div>{weaker}</div>
+          </div>
+          <div className="chapter-panel expanded">
+            <div className='chapter-heading metric'>
+              Stronger
+            </div>
+            <div>{stronger}</div>
+          </div>
+        </BS.Col>
+      </div>
+
+
+      <div className='guide-footer'>
+        <div className='guide-key'>
+          Click on the bar to practice the topic
         </div>
-        <div className='item'>
-          <div className='box medium'></div>
-          <span className='title'>almost there</span>
-        </div>
-        <div className='item'>
-          <div className='box low'></div>
-          <span className='title'>keep trying</span>
+        <div className='guide-key'>
+          <div className='item'>
+            <div className='box high'></div>
+            <span className='title'>looking good</span>
+          </div>
+          <div className='item'>
+            <div className='box medium'></div>
+            <span className='title'>almost there</span>
+          </div>
+          <div className='item'>
+            <div className='box low'></div>
+            <span className='title'>keep trying</span>
+          </div>
         </div>
       </div>
+
     </div>
 
 
