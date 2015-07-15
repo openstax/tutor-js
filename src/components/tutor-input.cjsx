@@ -14,15 +14,15 @@ TutorInput = React.createClass
     className: React.PropTypes.string
     type: React.PropTypes.string
     onChange: React.PropTypes.func
-    value: React.PropTypes.any
     validate: React.PropTypes.func
 
   getDefaultProps: ->
     validate: (inputValue) ->
       return ['required'] unless (inputValue? and inputValue.length > 0)
+    type: 'text'
 
   getInitialState: ->
-    errors = @props.validate(@props.value)
+    errors = @props.validate(@props.default)
     errors: errors or []
 
   onChange: (event) ->
@@ -42,7 +42,7 @@ TutorInput = React.createClass
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
     wrapperClasses.push(@props.className) if @props.className
 
-    unless @props.default or @props.value then classes.push('empty')
+    unless @props.default then classes.push('empty')
     if @props.required then wrapperClasses.push('is-required')
     wrapperClasses.push('has-error') if @state.errors.length
 
@@ -57,14 +57,13 @@ TutorInput = React.createClass
     <div className={wrapperClasses.join(' ')}>
       <input
         id={@props.id}
-        ref="input"
-        type='text'
+        ref='input'
+        type={@props.type}
         className={classes.join(' ')}
-        value={@props.value}
         defaultValue={@props.default}
         onChange={@onChange}
       />
-      <div className="floating-label">{@props.label}</div>
+      <div className='floating-label'>{@props.label}</div>
       {errors}
     </div>
 
