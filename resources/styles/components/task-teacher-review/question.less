@@ -1,5 +1,8 @@
 .question {
 
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+
   .answers-answer {
     &::before {
       .answer-label();
@@ -11,6 +14,7 @@
 
     .selected-count {
       display: inline;
+      #fonts > .sans(1.8rem, 1.8rem);
 
       &::before {
         content: attr(data-count);
