@@ -10,6 +10,7 @@ Markdown = require '../markdown'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
 BookContentMixin = require '../book-content-mixin'
+{StepPanel} = require '../../helpers/policies'
 
 # React swallows thrown errors so log them first
 err = (msgs...) ->
@@ -89,14 +90,10 @@ Placeholder = React.createClass
 ExternalUrl = React.createClass
   displayName: 'ExternalUrl'
   mixins: [StepMixin, StepFooterMixin]
-  isContinueEnabled: ->
-    {review} = @props
-    not review?.length
+  hideContinueButton: -> true
   onContinue: ->
-    @props.onStepCompleted()
-  renderFooterButtons: ->
-    {taskId, courseId} = @props
-    @renderBackButton({taskId, courseId})
+    {id, onStepCompleted} = @props
+    onStepCompleted() if StepPanel.canContinue(id)
   getUrl: ->
     {id} = @props
     {external_url} = TaskStepStore.get(id)

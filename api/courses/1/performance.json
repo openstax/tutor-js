@@ -2,6 +2,9 @@
   "period_id": "1",
   "data_headings": [
     {
+      "title": "External task 1"
+    },
+    {
       "title": "Reading 1"
     },
     {
@@ -21,6 +24,11 @@
       "name": "Johnny Tran",
       "role": 3482,
       "data": [
+        {
+          "type": "external",
+          "id": "8",
+          "status": "completed"
+        },
         {
           "type": "reading",
           "id": "456",
@@ -53,6 +61,11 @@
       "name": "Elizabeth Gray",
       "role": 9026,
       "data": [
+        {
+          "type": "external",
+          "id": "9",
+          "status": "completed"
+        },
         {
           "type": "reading",
           "id": "257",

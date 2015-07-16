@@ -141,6 +141,7 @@ Performance = React.createClass
     switch cell.type
       when 'reading' then @renderReadingCell(cell)
       when 'homework' then @renderHomeworkCell(cell)
+      when 'external' then @renderExternalCell(cell)
       when 'name' then cell.title
       else throw new Error('Unknown cell type')
 
@@ -148,6 +149,17 @@ Performance = React.createClass
     status = switch cell.status
       when 'completed' then 'Complete'
       when 'in_progress' then 'In progress'
+      when 'not_started' then 'Not started'
+
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
+
+    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
+
+  renderExternalCell: (cell) ->
+    status = switch cell.status
+      when 'completed' then 'Clicked'
+      when 'in_progress' then 'Viewed'
       when 'not_started' then 'Not started'
 
     {courseId} = @props
