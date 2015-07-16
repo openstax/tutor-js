@@ -104,10 +104,9 @@ module.exports =
 
 # called with the context set to the image
 sizeImage = ->
+  return unless @parentNode
   if @naturalWidth > @naturalHeight
     @parentNode.classList.add('tutor-ui-horizontal-img')
-    if @parentNode.parentNode.tagName is 'FIGURE'
-      @parentNode.parentNode.classList.add('full-width')
     if @naturalWidth > 450
       @parentNode.classList.add('full-width')
   else

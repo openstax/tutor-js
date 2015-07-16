@@ -4,7 +4,7 @@
     margin-top: 75px;
 
     .page {
-      width: 1000px;
+      width: @reference-book-page-width;
       margin: 0 auto;
       border: 1px solid @tutor-neutral-bright;
       background-color: @tutor-white;
@@ -15,7 +15,7 @@
       }
 
       > section {
-        > * {
+        > section {
           clear: both;
         }
 
@@ -38,49 +38,6 @@
     }
   }
 
-  .page-wrapper > .nav {
-    font-size:10rem;
-    color: @tutor-neutral-light;
-    position: absolute;
-    top: 200px;
-    cursor: pointer;
-    opacity: 0;
-    background-color: @tutor-neutral-lighter;
-
-    &:hover,
-    &:focus {
-      text-decoration: none;
-      opacity: 0.8;
-    }
-
-    &:hover {
-      color: @tutor-neutral;
-    }
-
-    &.prev,
-    &.next {
-      display: -webkit-flex;
-      display: -ms-flex;
-      display: flex;
-      position: fixed;
-      top: 60px;
-      height: 100vh;
-      justify-content: -webkit-center;
-      justify-content: -ms-center;
-      justify-content: center;
-      flex-direction: -webkit-column;
-      flex-direction: -ms-column;
-      flex-direction: column;
-    }
-
-    &.prev {
-      left: 0;
-    }
-
-    &.next {
-      right: 0;
-    }
-  }
 
   .page-wrapper {
     transition: margin-left 0.2s linear;
@@ -88,10 +45,7 @@
   // when menu is open and the screen is wide enough, slide everything to the right so it's still visible
   &.menu-open {
     @media screen and (min-width: (@reference-book-page-width + @reference-book-menu-width + 50px) ) {
-      .page-wrapper{
-        margin-left: @reference-book-menu-width;
-        > .nav.prev { left: @reference-book-menu-width; }
-      }
+      .page-wrapper{ margin-left: @reference-book-menu-width; }
     }
   }
 

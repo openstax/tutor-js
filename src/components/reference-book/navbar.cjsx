@@ -29,27 +29,38 @@ module.exports = React.createClass
       page = ReferenceBookStore.getChapterSectionPage(params)
     section = section.split('.') if section and _.isString(section)
     <BS.Nav navbar className="section-title">
-      <ChapterSection section={section} />
-      {page?.title}
+        <ChapterSection section={section} />
+        {page?.title}
     </BS.Nav>
 
 
   renderTeacher: ->
     <BS.Nav navbar right>
-      <a className="teacher-edition" onClick={@props.showTeacherEdition}>
+      <BS.NavItem className="teacher-edition" onClick={@props.showTeacherEdition}>
         {@props.teacherLinkText}
-      </a>
+      </BS.NavItem>
     </BS.Nav>
-
 
   render: ->
     {cnxId} = @context.router.getCurrentParams()
-    <BS.Navbar toggleNavKey={0} fixedTop fluid>
+
+    <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
         <BS.NavItem onClick={@props.toggleTocMenu}>
           <i className="menu-toggle fa fa-2x" />
         </BS.NavItem>
+        <li>
+          <Router.Link to='dashboard' className='ox-logo'>
+            <i className='ui-brand-logo' />
+          </Router.Link>
+        </li>
       </BS.Nav>
       {@renderSectionTitle()}
+      <BS.Nav navbar right>
+        <li>
+          <i className='ui-rice-logo' />
+        </li>
+      </BS.Nav>
       {@renderTeacher() if @props.showTeacherEdition}
+
     </BS.Navbar>
