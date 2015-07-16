@@ -114,9 +114,9 @@ LearningGuide = React.createClass
     allSections = _.flatten(allSections)
 
     sortBest = _.sortBy(allSections, 'current_level')
-    sortBest = sortBest.reverse().slice(0, 5)
+    sortBest = sortBest.reverse()[0...4]
     sortWorst = _.sortBy(allSections, 'current_level')
-    sortWorst = sortWorst.slice(0, 5)
+    sortWorst = sortWorst[0...4]
 
     bestPages = _.flatten(_.pluck(sortBest, 'page_ids'))
     worstPages = _.flatten(_.pluck(sortWorst, 'page_ids'))
