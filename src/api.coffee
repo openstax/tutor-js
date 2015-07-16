@@ -11,7 +11,7 @@ _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {LearningGuideActions} = require './flux/learning-guide'
-{JobActions} = require './flux/job'
+{LearningGuideTeacherActions} = require './flux/learning-guide-teacher'
 {PerformanceActions} = require './flux/performance'
 {PerformanceExportActions} = require './flux/performance-export'
 {RosterActions} = require './flux/roster'
@@ -160,6 +160,9 @@ start = ->
 
   apiHelper LearningGuideActions, LearningGuideActions.load, LearningGuideActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/guide"
+
+  apiHelper LearningGuideTeacherActions, LearningGuideTeacherActions.load, LearningGuideTeacherActions.loaded, 'GET', (id) ->
+    url: "/api/courses/#{id}/teacher_guide"
 
   apiHelper PerformanceActions, PerformanceActions.load, PerformanceActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"

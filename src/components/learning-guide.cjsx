@@ -5,7 +5,9 @@ _ = require 'underscore'
 
 {CourseActions, CourseStore} = require '../flux/course'
 {LearningGuideStore, LearningGuideActions} = require '../flux/learning-guide'
+{LearningGuideTeacherStore, LearningGuideTeacherActions} = require '../flux/learning-guide-teacher'
 LoadableItem = require './loadable-item'
+{CoursePeriodsNavShell} = require './course-periods-nav'
 PracticeButton = require './buttons/practice-button'
 ChapterSection = require './task-plan/chapter-section'
 
@@ -22,10 +24,174 @@ LearningGuide = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    period_id: "1"
+    periodIndex: 1
+
+  _percent: (num, total) ->
+    Math.round((num / total) * 100)
+
+  renderSectionBars: (section) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: section.page_ids}
+    chapterSection =
+      @sectionFormat(section.chapter_section, @state.sectionSeparator)
+    sectionPercent = @_percent(section.current_level, 1)
+    colorClass = @colorizeBar(sectionPercent)
+
+    if @state.student
+      progressBar =
+        <Router.Link
+        to='viewPractice'
+        params={linkParams}
+        query={queryParams}
+        title="Click to Practice"
+        className='btn btn-default progress-bar-button'>
+          <BS.ProgressBar className={colorClass} now={sectionPercent} />
+        </Router.Link>
+    else
+      teacherClass = 'teacher'
+      progressBar =
+        <BS.ProgressBar className={colorClass} now={sectionPercent} />
+
+    <div className='section'>
+      <div className='section-heading'>
+        <span className='section-number'>{chapterSection}</span>
+        <span className='section-title' title={section.title}>{section.title}</span>
+      </div>
+      {progressBar}
+      <div className="amount-worked #{teacherClass}">
+        <span className='count'>{section.questions_answered_count} worked</span>
+      </div>
+    </div>
+
+
+  renderChapterPanels: (chapter, i) ->
+    {courseId} = @props
+    linkParams = {courseId}
+    queryParams = {page_ids: chapter.page_ids}
+    sections = _.map(chapter.children, @renderSectionBars)
+    chapterPercent = @_percent(chapter.current_level, 1)
+    colorClass = @colorizeBar(chapterPercent)
+
+    if @state.student
+      progressBar =
+        <Router.Link
+        to='viewPractice'
+        params={linkParams}
+        query={queryParams}
+        title="Click to Practice"
+        className='btn btn-default progress-bar-button'>
+          <BS.ProgressBar className={colorClass} now={chapterPercent} />
+        </Router.Link>
+    else
+      teacherClass = 'teacher'
+      progressBar =
+        <BS.ProgressBar className={colorClass} now={chapterPercent} />
+
+    <BS.Col lg={4} md={4} sm={6} xs={12}>
+      <div className="chapter-panel">
+        <div className='view-toggle' onClick={@onToggle.bind(@, i)}>
+          View All
+        </div>
+        <div className='chapter-heading'>
+          <span className='chapter-number'>{chapter.chapter_section[0]}</span>
+          <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
+        {progressBar}
+        <div className="amount-worked #{teacherClass}">
+          <span className='count'>{chapter.questions_answered_count} worked</span>
+        </div>
+        </div>
+        <div>{sections}</div>
+      </div>
+    </BS.Col>
+
+
+  onToggle: (index, event) ->
+    el = event.target.parentNode
+    if el.classList.contains('expanded')
+      el.classList.remove('expanded')
+      event.target.innerHTML = 'View All'
+    else
+      el.classList.add('expanded')
+      event.target.innerHTML = 'View Less'
+
+
+  colorizeBar: (percent) ->
+    if percent > 75
+      'high'
+    else if percent <= 75 and percent >= 50
+      'medium'
+    else if percent <= 49
+      'low'
+
+  selectPeriod: (period) ->
+    @setState({period_id: period.id})
+
+  setPeriodIndex: (key) ->
+    @setState({periodIndex: key + 1})
+
   render: ->
-    allSections = LearningGuideStore.getSortedSections(@props.courseId)
-    # if there are less than 4 sections, use 1/2 of the available ones
-    weakStrongCount = Math.min(allSections.length / 2, 4)
+    {courseId} = @props
+    linkParams = {courseId}
+    {period_id} = @state
+
+    studentGuide = LearningGuideStore.get(@props.courseId)
+    teacherGuide = LearningGuideTeacherStore.get(@props.courseId)
+
+    if studentGuide then @state.student = true
+
+    if @state.student
+      guide = studentGuide
+    else
+      guide = _.findWhere(teacherGuide, {period_id})
+
+    if not @state.student
+      periodTabs =
+        <CoursePeriodsNavShell
+        handleSelect={@selectPeriod}
+        handleKeyUpdate={@setPeriodIndex}
+        intialActive={@state.period_id}
+        courseId={@props.courseId} />
+
+    chapters = _.map(guide.children, @renderChapterPanels)
+
+    allSections = []
+    sections = guide.children
+    for section in sections
+      allSections.push(section.children)
+    allSections = _.flatten(allSections)
+
+    sortBest = _.sortBy(allSections, 'current_level')
+    sortBest = sortBest.reverse()[0...4]
+    sortWorst = _.sortBy(allSections, 'current_level')
+    sortWorst = sortWorst[0...4]
+
+    bestPages = _.flatten(_.pluck(sortBest, 'page_ids'))
+    worstPages = _.flatten(_.pluck(sortWorst, 'page_ids'))
+
+    weakerPracticeButton =
+      <Router.Link
+      to='viewPractice'
+      params={linkParams}
+      query={page_ids: worstPages}
+      className='btn btn-default metric-button'>
+        Practice Weaker
+      </Router.Link>
+
+    strongerPracticeButton =
+      <Router.Link
+      to='viewPractice'
+      params={linkParams}
+      query={page_ids: bestPages}
+      className='btn btn-default metric-button'>
+        Practice Stronger
+      </Router.Link>
+
+
+    weaker = _.map(sortWorst, @renderSectionBars)
+    stronger = _.map(sortBest, @renderSectionBars)
 
     <div className='guide-container'>
 
@@ -37,6 +203,10 @@ LearningGuide = React.createClass
         className='btn btn-default header-button'>
           Return to Dashboard
         </Router.Link>
+      </div>
+
+      <div className='guide-heading'>
+        {periodTabs}
       </div>
 
       <div className='guide-group'>
@@ -57,17 +227,17 @@ LearningGuide = React.createClass
                   <Section key={i} section={section} courseId={@props.courseId} />}
               </div>
             </div>
-            <div className="chapter-panel expanded">
-              <div className='chapter-heading metric'>
-                Stronger
-              </div>
-              <div>
-                {for section, i in _.last(allSections, weakStrongCount)
-                  <Section key={i} section={section} courseId={@props.courseId} />}
-              </div>
+            <div>{weaker}</div>
+            {if @state.student then weakerPracticeButton}
+          </div>
+          <div className="chapter-panel expanded">
+            <div className='chapter-heading metric'>
+              Stronger
             </div>
-          </BS.Col>
-        </BS.Row>
+            <div>{stronger}</div>
+            {if @state.student then strongerPracticeButton}
+          </div>
+        </BS.Col>
       </div>
 
 
@@ -98,4 +268,20 @@ LearningGuideShell = React.createClass
       />
     </BS.Panel>
 
-module.exports = {LearningGuideShell, LearningGuide}
+LearningGuideTeacherShell = React.createClass
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  render: ->
+    {courseId} = @context.router.getCurrentParams()
+    <BS.Panel className='learning-guide'>
+      <LoadableItem
+        id={courseId}
+        store={LearningGuideTeacherStore}
+        actions={LearningGuideTeacherActions}
+        renderItem={-> <LearningGuide courseId={courseId} />}
+      />
+    </BS.Panel>
+
+module.exports = {LearningGuideShell, LearningGuideTeacherShell, LearningGuide}

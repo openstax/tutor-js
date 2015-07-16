@@ -4,6 +4,7 @@ Router = require 'react-router'
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
 {LearningGuideShell} = require './components/learning-guide'
+{LearningGuideTeacherShell} = require './components/learning-guide'
 {PerformanceShell} = require './components/performance'
 {ReadingShell, HomeworkShell, ExternalShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
@@ -37,6 +38,7 @@ routes = (
         <Route path='t/'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
+          <Route path='guide/?' name='viewTeacherGuide' handler={LearningGuideTeacherShell}/>
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />
             <Route path='months/:date/?' name='calendarByDate' handler={TeacherTaskPlans} >
