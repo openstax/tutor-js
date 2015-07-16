@@ -1,0 +1,74 @@
+// guide-dashboard-progress component inherits from above
+// dashboard specific styles only inside .dashboard-container below
+.student-dashboard {
+  .progress-guide {
+
+    h1,h2,h3 { margin: 0; text-align: left; }
+    .panel-title {
+      #fonts > .sans(2.5rem, 5rem);
+      border-bottom: thin dotted @tutor-neutral-light;
+    }
+    .current { #fonts > .sans(1.6rem, 5rem); }
+
+
+    .btn-group {
+      .btn:not(.btn-link):not(.btn-flat):not(.btn-fab) { margin-right: 0; } // override material design
+      .stronger i{
+        float: left;
+        &:after {
+          padding-right:8px;
+          content: @fa-var-arrow-up;
+          color: @tutor-success;
+          .fa-icon();
+        }
+      }
+      .weaker i:after {
+        padding-left:8px;
+        content: @fa-var-arrow-down;
+        color: @tutor-danger;
+        .fa-icon();
+      }
+
+    }
+
+
+    .guide-key {
+      display: flex;
+      .item {
+        float: left;
+        margin: auto;
+      }
+      .box {
+        float: left;
+        width: 10px;
+        height: 10px;
+        margin: 10px 5px 0px 0px;
+      }
+      .title { #fonts > .sans(1.2rem, 1.2rem); }
+      .high {   background: @tutor-secondary;  }
+      .medium { background: @tutor-quaternary; }
+      .low {    background: @tutor-primary;    }
+    }
+    .progress {
+      height: 8px;
+      .progress-bar{
+        &.high {   background: @tutor-secondary;  }
+        &.medium { background: @tutor-quaternary; }
+        &.low {    background: @tutor-primary;    }
+      }
+    }
+    .section {
+      margin-bottom: 10px;
+    }
+    .section-heading {
+      text-align: left;
+      .section-number {
+        margin-right: 0.5rem;
+        color: @tutor-secondary;
+      }
+    }
+
+  }
+  .view-learning-guide { width: 100%; }
+
+}
