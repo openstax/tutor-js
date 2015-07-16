@@ -1,6 +1,8 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 moment = require 'moment'
+validator = require 'validator'
+
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
@@ -40,8 +42,8 @@ TaskPlanConfig =
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
     _.each(obj.tasking_plans, (plan) ->
-      plan.due_at = new Date(plan.due_at)
-      plan.opens_at = new Date(plan.opens_at)
+      plan.due_at = if plan.due_at then new Date(plan.due_at)
+      plan.opens_at = if plan.opens_at then new Date(plan.opens_at)
     )
 
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
@@ -71,8 +73,15 @@ TaskPlanConfig =
       plan.target_id is target_id
     @_change(id, {tasking_plans})
 
+  disableEmptyTaskings: (id) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans = _.reject tasking_plans, (tasking) ->
+      not (tasking.due_at and tasking.opens_at)
 
-  setPeriods: (id, periods, opens_at) ->
+    @_change(id, {tasking_plans})
+   
+  setPeriods: (id, periods) ->
     plan = @_getPlan(id)
     curTaskings = plan?.tasking_plans
     findTasking = @_findTasking
@@ -112,6 +121,12 @@ TaskPlanConfig =
       plan[attr]?.getTime()
     )
     if dates.length is 1 then new Date(_.first(dates)) else null
+
+  _getFirstTaskingByOpenDate: (id) ->
+    {tasking_plans} = @_getPlan(id)
+    sortedTaskings = _.sortBy(tasking_plans, 'opens_at')
+    if sortedTaskings?.length
+      sortedTaskings[0]
 
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
@@ -155,6 +170,9 @@ TaskPlanConfig =
 
   updateDueAt: (id, due_at, periodId) ->
     @updateDateAttribute(id, 'due_at', due_at, periodId)
+
+  updateUrl: (id, external_url) ->
+    @_change(id, {settings: {external_url}})
 
   sortTopics: (id) ->
     plan = @_getPlan(id)
@@ -297,18 +315,21 @@ TaskPlanConfig =
         return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
+      else if (plan.type is 'external')
+        return plan.title and isValidDates() and validator.isURL(plan.settings?.external_url)
 
     isPublished: (id) ->
       plan = @_getPlan(id)
       !!plan?.published_at
 
     isOpened: (id) ->
-      plan = @_getPlan(id)
-      new Date(plan?.opens_at) <= TimeStore.getNow()
+      firstTasking = @_getFirstTaskingByOpenDate(id)
+      new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
     isVisibleToStudents: (id) ->
       plan = @_getPlan(id)
-      !!plan?.published_at and new Date(plan?.opens_at) <= TimeStore.getNow()
+      firstTasking = @_getFirstTaskingByOpenDate(id)
+      !!plan?.published_at and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)

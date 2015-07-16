@@ -63,4 +63,17 @@
       color: @form-error-color;
     }
   }
+  .form-control-wrapper.has-error {
+    .form-control {
+      background-image: linear-gradient(@form-error-color, @form-error-color),
+      linear-gradient(@form-error-color, @form-error-color);
+    }
+    .form-control ~ .floating-label {
+      color: @form-error-color;
+    }
+    .form-control ~ .hint {
+      display: block;
+      color: @form-error-color;
+    }
+  }
 }

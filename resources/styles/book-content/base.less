@@ -27,11 +27,17 @@ div[data-type=abstract],
 cnx-pi
 { display: none; }
 
+// Default font for text content
+p, ul, ol {
+  #fonts > .serif(1.75rem, 190%);
+  margin: 0 0 2.4rem 0;
+}
 
 .learning-objectives {
   #fonts > .sans(1.8rem, 1.8rem);
   width: 100%;
   min-height: 100px;
+  .book-content-full-width();
   margin-top: -@tutor-card-body-padding-vertical;
   color: #ffffff;
   padding: 10px 20px;
@@ -99,41 +105,8 @@ div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
 
-div[data-type="document-title"] ~ p {padding: 0 @tutor-card-body-padding-horizontal;}
 
 
-> section:not(.section-opener),
-.worked-examples {
-  .book-content-step-size(0);
-}
-
-.splash {
-  width: 100%;
-  margin: -@tutor-card-body-padding-vertical 0 40px 0;
-
-  img {
-    border: 0;
-    margin: 0;
-  }
-
-  figcaption { margin: 0 20px; }
-
-  + p {
-    clear: both;
-    padding-top: 40px;
-  }
-  .tutor-ui-overlay {
-    position: relative;
-    background-color: rgba(35, 46, 102, 0.8);
-    color: @tutor-white;
-    margin-top: -100px;
-    font-size: 3rem;
-    line-height: 100px;
-    height: 100px;
-    padding: 0 20px;
-    text-overflow: ellipsis;
-  }
-}
 
 figure {
   max-width: 100%;
@@ -143,6 +116,7 @@ figure {
   margin-bottom: 20px;
   padding: 0;
   float: left;
+  &.full-width { width: 100%; }
   &.tutor-ui-vertical-img {
     @media (min-width: @screen-sm-min) {
       width: 50%;
@@ -157,7 +131,7 @@ figure {
   }
   .tutor-ui-horizontal-img {
     display:block;
-    .book-content-full-width();
+
     &.full-width {
       img { width: 100%; }
     }
@@ -165,12 +139,12 @@ figure {
 
   // splash images are always full width without margin or surrounding padding
   &.splash {
-    width: 100%;
+
     // .splash is wider than other elements on the page since it has 0 surrounding padding
     // This means child elements that normally have a fixed pixel width will not expand to fit
     // unless their widths are set to be 100%
-    [data-type=media]{ width: 100%; }
-    .tutor-ui-horizontal-img { width: 100%; }
+
+    .tutor-ui-horizontal-img { .book-content-full-width(); }
     img { width: 100%; }
   }
   figcaption {

@@ -21,16 +21,18 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    dueAt = TaskPlanStore.getDueAt(@props.id)
-    opensAt = TaskPlanStore.getOpensAt(@props.id)
     isNewPlan = TaskPlanStore.isNew(@props.id)
-
-    {showingPeriods: not (dueAt and opensAt or isNewPlan)}
+    {showingPeriods: not isNewPlan}
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
   setPeriodDefaults: ->
     {date} = @getQuery() # attempt to read the start date from query params
+    planId = @props.id
+    isNewPlan = TaskPlanStore.isNew(@props.id)
+    dueAt = TaskPlanStore.getDueAt(@props.id)
+    opensAt = TaskPlanStore.getOpensAt(@props.id)
+
     opensAt = if date
       moment(date, "YYYY-MM-DD").toDate()
     else
@@ -39,8 +41,16 @@ module.exports = React.createClass
     periods = _.map course?.periods, (period) ->
       id: period.id, due_at: opensAt
 
+    hasAllTaskings = _.reduce(periods, (memo, period) ->
+      memo and TaskPlanStore.hasTasking(planId, period.id)
+    , true)
+
     # Inform the store of the available periods
-    TaskPlanActions.setPeriods(@props.id, periods)
+    TaskPlanActions.setPeriods(planId, periods)
+
+    if not isNewPlan
+      @setState({showingPeriods: not (dueAt and opensAt and hasAllTaskings)})
+      TaskPlanActions.disableEmptyTaskings(planId)
 
   # this will be called whenever the course store loads, but won't if
   # the store has already finished loading by the time the component mounts
@@ -79,7 +89,7 @@ module.exports = React.createClass
     plan = TaskPlanStore.get(@props.id)
     if (not @state.showingPeriods)
       commonDueAt = TaskPlanStore.getDueAt(@props.id)
-      commonOpensAt = TaskPlanStore.getOpensAt(@props.id)
+      commonOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
 
     if (@state.showingPeriods and not plan.tasking_plans.length)
       invalidPeriodsAlert = <BS.Row>
@@ -185,6 +195,8 @@ module.exports = React.createClass
     </div>
 
   renderTaskPlanRow: (plan) ->
+    # newAndUnchanged = TaskPlanStore.isNew(@props.id) and not store.isChanged(@props.id)
+    # if TaskPlanStore.hasTasking(@props.id, plan.id) or newAndUnchanged
     if TaskPlanStore.hasTasking(@props.id, plan.id)
       @renderEnabledTasking(plan)
     else
@@ -203,6 +215,9 @@ module.exports = React.createClass
     </BS.Row>
 
   renderEnabledTasking: (plan) ->
+    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, plan.id)
+    if not taskingOpensAt or isNaN(taskingOpensAt.getTime())
+      taskingOpensAt = TimeStore.getNow()
     <BS.Row key={plan.id} className="tasking-plan">
       <BS.Col sm=4 md=3>
         <input
@@ -219,13 +234,13 @@ module.exports = React.createClass
           min={TimeStore.getNow()}
           max={TaskPlanStore.getDueAt(@props.id, plan.id)}
           onChange={_.partial(@setOpensAt, _, plan)}
-          value={TaskPlanStore.getOpensAt(@props.id, plan.id)}/>
+          value={ taskingOpensAt }/>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           readOnly={TaskPlanStore.isPublished(@props.id)}
           label="Due Date"
           required={@state.showingPeriods}
-          min={TaskPlanStore.getOpensAt(@props.id, plan.id)}
+          min={taskingOpensAt}
           onChange={_.partial(@setDueAt, _, plan)}
           value={TaskPlanStore.getDueAt(@props.id, plan.id)}/>
         </BS.Col>

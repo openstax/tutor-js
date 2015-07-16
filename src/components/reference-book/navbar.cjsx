@@ -10,43 +10,57 @@ BindStoreMixin = require '../bind-store-mixin'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
-  mixins: [Router.State, BindStoreMixin]
+  mixins: [BindStoreMixin]
   bindStore: ReferenceBookPageStore
   propTypes:
     teacherLinkText: React.PropTypes.string
     toggleTocMenu: React.PropTypes.func.isRequired
     showTeacherEdition: React.PropTypes.func
+  contextTypes:
+    router: React.PropTypes.func
 
   renderSectionTitle: ->
-    {cnxId, section} = @getParams()
+    params = @context.router.getCurrentParams()
+    {cnxId, section} = params
     if cnxId
-      page = ReferenceBookStore.getPageInfo(@getParams())
+      page = ReferenceBookStore.getPageInfo(params)
       section = page?.chapter_section
     else if section
-      page = ReferenceBookStore.getChapterSectionPage(@getParams())
+      page = ReferenceBookStore.getChapterSectionPage(params)
     section = section.split('.') if section and _.isString(section)
     <BS.Nav navbar className="section-title">
-      <ChapterSection section={section} />
-      {page?.title}
+        <ChapterSection section={section} />
+        {page?.title}
     </BS.Nav>
 
 
   renderTeacher: ->
     <BS.Nav navbar right>
-      <a className="teacher-edition" onClick={@props.showTeacherEdition}>
+      <BS.NavItem className="teacher-edition" onClick={@props.showTeacherEdition}>
         {@props.teacherLinkText}
-      </a>
+      </BS.NavItem>
     </BS.Nav>
 
-
   render: ->
-    {cnxId} = @getParams()
-    <BS.Navbar toggleNavKey={0} fixedTop fluid>
+    {cnxId} = @context.router.getCurrentParams()
+
+    <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
         <BS.NavItem onClick={@props.toggleTocMenu}>
           <i className="menu-toggle fa fa-2x" />
         </BS.NavItem>
+        <li>
+          <Router.Link to='dashboard' className='ox-logo'>
+            <i className='ui-brand-logo' />
+          </Router.Link>
+        </li>
       </BS.Nav>
       {@renderSectionTitle()}
+      <BS.Nav navbar right>
+        <li>
+          <i className='ui-rice-logo' />
+        </li>
+      </BS.Nav>
       {@renderTeacher() if @props.showTeacherEdition}
+
     </BS.Navbar>

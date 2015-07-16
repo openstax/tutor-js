@@ -18,7 +18,6 @@ module.exports = React.createClass
   displayName: 'ReferenceBook'
   contextTypes:
     router: React.PropTypes.func
-
   mixins: [BindStoreMixin]
   bindStore: CourseListingStore
   bindEvent: 'loaded'
@@ -37,8 +36,9 @@ module.exports = React.createClass
   onMenuClick: ->
     @toggleMenuState() unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
 
-  toggleMenuState: ->
+  toggleMenuState: (ev) ->
     @setState(isMenuVisible: not @state.isMenuVisible)
+    ev?.preventDefault() # needed to prevent scrolling to top
 
   render: ->
     {courseId} = @context.router.getCurrentParams()

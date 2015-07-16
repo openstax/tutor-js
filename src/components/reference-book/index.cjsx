@@ -14,9 +14,10 @@ ReferenceBookPage = require './page'
 
 ReferenceBookFirstPage  = React.createClass
   displayName: 'ReferenceBookPageFirstPage'
-  mixins: [ Router.State ]
+  contextTypes:
+    router: React.PropTypes.func
   render: ->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     page = _.first ReferenceBookStore.getPages(courseId)
     <LoadableItem
       id={page.cnx_id}
@@ -29,10 +30,11 @@ ReferenceBookFirstPage  = React.createClass
 
 ReferenceBookPageShell = React.createClass
   displayName: 'ReferenceBookPageShell'
-  mixins: [ Router.State ]
+  contextTypes:
+    router: React.PropTypes.func
 
   render: ->
-    {courseId, cnxId, section} = @getParams()
+    {courseId, cnxId, section} = @context.router.getCurrentParams()
     if section and not cnxId
       page = ReferenceBookStore.getChapterSectionPage({courseId, section})
       cnxId = page?.cnx_id
@@ -49,10 +51,11 @@ ReferenceBookPageShell = React.createClass
 
 ReferenceBookShell = React.createClass
   displayName: 'ReferenceBookShell'
-  mixins: [ Router.State ]
+  contextTypes:
+    router: React.PropTypes.func
 
   render: ->
-    {courseId} = @getParams()
+    {courseId} = @context.router.getCurrentParams()
     <LoadableItem
       id={courseId}
       store={ReferenceBookStore}
