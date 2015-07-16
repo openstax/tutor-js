@@ -30,20 +30,26 @@ TaskTeacherReviewExercise = React.createClass
     # TODO: Assumes 1 question.
     content.questions[0]
 
+  expectsFreeResponse: ->
+    question = @getQuestion()
+    {formats} = question
+    formats.indexOf('free-response') > -1
+
   renderNoFreeResponse: ->
+    return null unless @expectsFreeResponse()
     freeResponsesClasses = 'teacher-review-answers has-no-answers'
-    header = <h4>No student text responses</h4>
+    header = <i>No student text responses</i>
 
     <BS.Panel
       header={header}
       className={freeResponsesClasses}/>
 
   renderFreeResponse: ->
-    {answers, answered_count} = @props
+    {answers} = @props
     {showAnswers} = @state
     question = @getQuestion()
 
-    toggleAnswersText = "View student text responses (#{answered_count})"
+    toggleAnswersText = "View student text responses (#{answers.length})"
     toggleAnswersText = 'Hide student text responses' if showAnswers
 
     freeResponsesClasses = 'teacher-review-answers'
@@ -62,10 +68,10 @@ TaskTeacherReviewExercise = React.createClass
     </BS.Accordion>
 
   render: ->
-    {answered_count} = @props
+    {answers, answered_count} = @props
     question = @getQuestion()
 
-    studentResponses = if answered_count then @renderFreeResponse() else @renderNoFreeResponse()
+    studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
 
     <CardBody className='task-step' pinned={false}>
       <Question

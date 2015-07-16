@@ -54,8 +54,8 @@ module.exports = React.createClass
       isCorrect = (answer.correctness is '1.0') if answer.correctness?
 
       classes = ['answers-answer']
-      classes.push('answer-checked fa') if isChecked
-      classes.push('answer-correct fa') if isCorrect
+      classes.push('answer-checked') if isChecked
+      classes.push('answer-correct') if isCorrect
       classes = classes.join(' ')
 
       unless (hasCorrectAnswer or type is 'teacher-review')

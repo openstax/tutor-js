@@ -1,16 +1,21 @@
 .question {
 
+  #fonts > .sans(1.8rem, 2.4rem);
+
   .answers-answer {
+
     &::before {
       .answer-label();
       .answer-icon-label();
       text-align: center;
       width: 80px;
-      font-size: 1.5em;
+      font-size: 2rem;
+      margin-top: 14px;
     }
 
     .selected-count {
-      display: inline;
+      display: inline-block;
+      #fonts > .sans(1.8rem, 2.4rem);
 
       &::before {
         content: attr(data-count);
@@ -43,7 +48,7 @@
 
   .answers-table {
     label.answer-label {
-      padding: 4px 20px;
+      padding: 4px 0;
       background-color: transparent;
       cursor: default;
 
@@ -51,6 +56,15 @@
         background-color: transparent;
       }
     }
+
+    .answers-answer {
+      align-items: flex-start;
+      -webkit-box-align: start;
+    }
+  }
+
+  .panel-group .teacher-review-answers .panel-heading + .panel-collapse > .panel-body {
+    border: none;
   }
 
   .teacher-review-answers {
@@ -59,18 +73,24 @@
 
       > .panel-heading {
         color: @free-response-color;
-        background: @free-response-background;
+        background: transparent;
         padding: 0;
       }
     }
 
-    .panel-title > a {
-      text-decoration: none;
-      padding: 10px 20px;
+    .panel-title {
       display: block;
-
-      &:hover {
-        background: @tutor-neutral-lightest;
+      > a {
+        .btn();
+        .btn-round();
+        .btn-tutor-default();
+        float: none;
+        text-decoration: none;
+        margin: 0;
+  
+        &:hover {
+          background: @tutor-neutral-lightest;
+        }
       }
     }
 
@@ -79,7 +99,7 @@
         display: none;
       }
       .panel-title {
-        padding: 10px 20px;
+        font-weight: 100;
       }
     }
   }
