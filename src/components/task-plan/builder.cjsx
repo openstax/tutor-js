@@ -215,6 +215,9 @@ module.exports = React.createClass
     </BS.Row>
 
   renderEnabledTasking: (plan) ->
+    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, plan.id)
+    if not taskingOpensAt or isNaN(taskingOpensAt.getTime())
+      taskingOpensAt = TimeStore.getNow()
     <BS.Row key={plan.id} className="tasking-plan">
       <BS.Col sm=4 md=3>
         <input
@@ -231,13 +234,13 @@ module.exports = React.createClass
           min={TimeStore.getNow()}
           max={TaskPlanStore.getDueAt(@props.id, plan.id)}
           onChange={_.partial(@setOpensAt, _, plan)}
-          value={TaskPlanStore.getOpensAt(@props.id, plan.id) or TimeStore.getNow()}/>
+          value={ taskingOpensAt }/>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           readOnly={TaskPlanStore.isPublished(@props.id)}
           label="Due Date"
           required={@state.showingPeriods}
-          min={TaskPlanStore.getOpensAt(@props.id, plan.id)}
+          min={taskingOpensAt}
           onChange={_.partial(@setDueAt, _, plan)}
           value={TaskPlanStore.getDueAt(@props.id, plan.id)}/>
         </BS.Col>

@@ -75,7 +75,7 @@ TaskPlanConfig =
     plan = @_getPlan(id)
     {tasking_plans} = plan
     tasking_plans = _.reject tasking_plans, (tasking) ->
-      tasking.empty
+      not (tasking.due_at and tasking.opens_at)
 
     @_change(id, {tasking_plans})
    
@@ -87,12 +87,12 @@ TaskPlanConfig =
     tasking_plans = _.map periods, (period) ->
       tasking = findTasking(curTaskings, period.id)
       if not tasking
-        tasking = target_id: period.id, target_type:'period', empty: true
+        tasking = target_id: period.id, target_type:'period'
       else
         tasking.due_at = new Date(tasking.due_at)
         tasking.opens_at = new Date(tasking.opens_at)
 
-      _.extend( _.pick(period, 'opens_at', 'due_at', 'empty'),
+      _.extend( _.pick(period, 'opens_at', 'due_at'),
         tasking
       )
 
@@ -119,6 +119,12 @@ TaskPlanConfig =
       plan[attr]?.getTime()
     )
     if dates.length is 1 then new Date(_.first(dates)) else null
+
+  _getFirstTaskingByOpenDate: (id) ->
+    {tasking_plans} = @_getPlan(id)
+    sortedTaskings = _.sortBy(tasking_plans, 'opens_at')
+    if sortedTaskings?.length
+      sortedTaskings[0]
 
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
@@ -310,12 +316,13 @@ TaskPlanConfig =
       !!plan?.published_at
 
     isOpened: (id) ->
-      plan = @_getPlan(id)
-      new Date(plan?.opens_at) <= TimeStore.getNow()
+      firstTasking = @_getFirstTaskingByOpenDate(id)
+      new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
     isVisibleToStudents: (id) ->
       plan = @_getPlan(id)
-      !!plan?.published_at and new Date(plan?.opens_at) <= TimeStore.getNow()
+      firstTasking = @_getFirstTaskingByOpenDate(id)
+      !!plan?.published_at and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
