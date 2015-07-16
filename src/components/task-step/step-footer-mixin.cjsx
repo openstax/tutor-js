@@ -103,14 +103,16 @@ module.exports =
       backButton
     ]
 
-  renderDefaultButtons: ->
-    @renderContinueButton?()
+  renderDefaultButtons: ({taskId, courseId, review, panel}) ->
+    @renderContinueButton?() or @renderBackButton({taskId, courseId})
 
   renderButtons: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
     renderButtonsForPanelMethod = camelCase "render-#{panel}-buttons"
 
-    @renderFooterButtons?() or @[renderButtonsForPanelMethod]?({taskId, courseId, review, panel}) or @renderDefaultButtons()
+    @renderFooterButtons?() or
+      @[renderButtonsForPanelMethod]?({taskId, courseId, review, panel}) or
+      @renderDefaultButtons({taskId, courseId, review, panel})
 
   renderFooter: ({stepId, taskId, courseId, review}) ->
     buttons = @renderButtons({stepId, taskId, courseId, review})

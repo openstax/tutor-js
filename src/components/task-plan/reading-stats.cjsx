@@ -122,17 +122,25 @@ Stats = React.createClass
 
   renderCourseBar: (data, type) ->
     cols = 4
+    completeLabel = 'Complete'
+    inProgressLabel = 'In Progress'
+    notStartedLabel = 'Not Started'
+
+    if type is 'external'
+      completeLabel = 'Clicked'
+      inProgressLabel = 'Viewed'
+
     stats = [{
         type: 'complete'
-        label: 'Complete'
+        label: completeLabel
         value: data.complete_count
       }, {
         type: 'in-progress'
-        label: 'In Progress'
+        label: inProgressLabel
         value: data.partially_complete_count
       }, {
         type: 'not-started'
-        label: 'Not Started'
+        label: notStartedLabel
         value: data.total_count - (data.complete_count + data.partially_complete_count)
     }]
 
