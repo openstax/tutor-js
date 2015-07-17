@@ -91,8 +91,8 @@ TaskPlanConfig =
       if not tasking
         tasking = target_id: period.id, target_type:'period'
       else
-        tasking.due_at = new Date(tasking.due_at)
-        tasking.opens_at = new Date(tasking.opens_at)
+        tasking.due_at = if tasking.due_at then new Date(tasking.due_at)
+        tasking.opens_at = if tasking.opens_at then new Date(tasking.opens_at)
 
       _.extend( _.pick(period, 'opens_at', 'due_at'),
         tasking

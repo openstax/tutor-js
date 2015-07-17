@@ -30,17 +30,23 @@ module.exports = React.createClass
     {date} = @getQuery() # attempt to read the start date from query params
     planId = @props.id
     isNewPlan = TaskPlanStore.isNew(@props.id)
+
+    # check for common open/due dates, remember it now before we set defaults
     dueAt = TaskPlanStore.getDueAt(@props.id)
     opensAt = TaskPlanStore.getOpensAt(@props.id)
+    sameDates = dueAt and opensAt
 
-    opensAt = if date
-      moment(date, "YYYY-MM-DD").toDate()
-    else
-      moment(TimeStore.getNow()).add(1, 'day').toDate()
+    #set default dates
+    dueAt = if date then moment(date, "YYYY-MM-DD").toDate()
+    dueAt = if not dueAt then moment(TimeStore.getNow()).add(1, 'day').toDate()
+    opensAt = if not opensAt then moment(TimeStore.getNow()).toDate()
+
+    #map tasking plans
     course = CourseStore.get(@props.courseId)
     periods = _.map course?.periods, (period) ->
-      id: period.id, due_at: opensAt
+      id: period.id, due_at: dueAt, opens_at: opensAt
 
+    #check to see if all tasking plans are there
     hasAllTaskings = _.reduce(periods, (memo, period) ->
       memo and TaskPlanStore.hasTasking(planId, period.id)
     , true)
@@ -49,7 +55,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(planId, periods)
 
     if not isNewPlan
-      @setState({showingPeriods: not (dueAt and opensAt and hasAllTaskings)})
+      @setState({showingPeriods: not (sameDates and hasAllTaskings)})
       TaskPlanActions.disableEmptyTaskings(planId)
 
   # this will be called whenever the course store loads, but won't if
