@@ -4,15 +4,16 @@
     .tutor-booksplash-adjust-top-margin();
   }
 
-  .right-actions-box {
-    background-color: white;
+  .actions-box {
+    .panel();
     padding: 10px;
     text-align: center;
-    margin: 53px 0;
-    @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
-    border: 1px solid @tutor-neutral-light;
+    margin-bottom: 15px;
+    &:first-child {
+      margin-top: 55px;
+      @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
+    }
     button, a {
-      width: 100%;
       // override bootstrap styling
       &.btn-primary { padding: 12px 0 !important; }
     }
@@ -34,7 +35,7 @@
     background-repeat: none;
     div {
       margin: 10px 0 0 100px;
-      text-align: left; // override center specified for right-actions-box
+      text-align: left; // override center specified for actions-box
       #fonts > .sans(2.5rem, 3rem);
       color: @tutor-black;  // override link color
     }
@@ -47,4 +48,5 @@
   [data-category=biology] .view-reference-guide {
     .tutor-background-image("biology-book-thumbnail.png");
   }
+
 }

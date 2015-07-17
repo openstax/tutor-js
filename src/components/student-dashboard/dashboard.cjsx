@@ -9,6 +9,7 @@ AllEventsByWeek = require './all-events-by-week'
 ThisWeekPanel   = require './this-week-panel'
 
 PracticeButton = require '../buttons/practice-button'
+ProgressGuideShell = require './progress-guide'
 BrowseBookButton = require '../buttons/browse-the-book'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 {CourseStore} = require '../../flux/course'
@@ -25,9 +26,6 @@ module.exports = React.createClass
   getInitialState: ->
     selectedTabIndex: 1
 
-  viewFlightPath: ->
-    @context.router.transitionTo('viewGuide', {courseId: @props.courseId})
-
   selectTab: (index) ->
     @setState(selectedTabIndex:index)
 
@@ -41,26 +39,13 @@ module.exports = React.createClass
       data-category={CourseStore.getCategory(courseId)}>
 
       <div className='container'>
+
         <BS.Row>
           <BS.Col mdPush={9} xs={12} md={3}>
-            <div className='right-actions-box'>
-              <h3>How am I doing?</h3>
-              <BS.Button
-                bsStyle='primary'
-                onClick={_.partial(@selectTab, 2)}
-                className='-view-my-work'
-              >
-                View All My Work
-              </BS.Button>
-              <BS.Button
-                bsStyle='primary'
-                onClick={@viewFlightPath}
-                className='-view-flightpath'
-              >
-                View My Flight Path
-              </BS.Button>
-            </div>
-            <div className='right-actions-box'>
+
+            <ProgressGuideShell courseId={courseId} />
+
+            <div className='actions-box'>
               <BrowseBookButton unstyled courseId={courseId}>
                 <div>Browse the Book</div>
               </BrowseBookButton>
@@ -88,6 +73,5 @@ module.exports = React.createClass
 
           </BS.Col>
         </BS.Row>
-
       </div>
     </div>
