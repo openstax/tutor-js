@@ -15,10 +15,14 @@ module.exports = React.createClass
   propTypes:
     courseId:  React.PropTypes.string.isRequired
 
+  onPractice: (section) ->
+    @context.router.transitionTo('viewPractice', {courseId: @props.courseId}, {page_ids: section.page_ids})
+
   render: ->
     {courseId} = @props
     <BS.Panel className='learning-guide main student'>
       <Guide
+        onPractice={@onPractice}
         courseId={courseId}
         allSections={LearningGuideStudentStore.getSortedSections(courseId)}
         chapters={LearningGuideStudentStore.get(courseId).children}

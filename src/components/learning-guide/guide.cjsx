@@ -19,6 +19,7 @@ module.exports = React.createClass
     allSections:  React.PropTypes.array.isRequired
     chapters: React.PropTypes.arrayOf(ChapterSectionType)
     heading:  React.PropTypes.element
+    onPractice: React.PropTypes.func
 
   render: ->
     {courseId} = @props
@@ -42,7 +43,7 @@ module.exports = React.createClass
           <BS.Col mdPull={0} xs={12} md={9}>
               {for chapter, i in @props.chapters
                 <BS.Col key={i} lg={4} md={4} sm={6} xs={12}>
-                  <Chapter chapter={chapter} courseId={courseId} />
+                  <Chapter chapter={chapter} {...@props} />
                 </BS.Col>}
           </BS.Col>
           <BS.Col mdPush={0} xs={12} md={3}>
@@ -52,7 +53,7 @@ module.exports = React.createClass
               </div>
               <div>
                 {for section, i in _.first(@props.allSections, weakStrongCount)
-                  <Section key={i} section={section} courseId={courseId} />}
+                  <Section key={i} section={section} {...@props} />}
               </div>
             </div>
             <div className="chapter-panel expanded">
@@ -61,7 +62,7 @@ module.exports = React.createClass
               </div>
               <div>
                 {for section, i in _.last(@props.allSections, weakStrongCount)
-                  <Section key={i} section={section} courseId={courseId} />}
+                  <Section key={i} section={section} {...@props} />}
               </div>
             </div>
           </BS.Col>

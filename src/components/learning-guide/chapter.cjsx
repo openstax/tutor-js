@@ -15,6 +15,7 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     chapter:  ChapterSectionType.isRequired
+    onPractice: React.PropTypes.func
 
   getInitialState: ->
     expanded: false
@@ -33,20 +34,15 @@ module.exports = React.createClass
       <div className='chapter-heading'>
         <span className='chapter-number'>{chapter.chapter_section[0]}</span>
         <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
-        <Router.Link
-          title="Click to Practice"
-          to='viewPractice' params={{courseId}} query={page_ids: chapter.page_ids}
-          className='btn btn-default progress-bar-button'>
 
-          <ProgressBar level={chapter.current_level} />
+        <ProgressBar {...@props} />
 
-        </Router.Link>
         <div className='amount-worked'>
           <span className='count'>{chapter.questions_answered_count} worked</span>
         </div>
       </div>
       <div>
         { for section, i in chapter.children
-          <Section section={section} courseId={courseId} key={i} /> }
+          <Section  key={i} section={section} {...@props} /> }
       </div>
     </div>
