@@ -88,6 +88,8 @@ TutorDateInput = React.createClass
     if (not valid)
       value = @props.min or null
 
+    offset = (new Date()).getTimezoneOffset() / -60
+    value = value.add(offset, 'hours')
     date = new Date(value)
     @props.onChange(date)
     @setState({expandCalendar: false, valid: valid, value: date})
