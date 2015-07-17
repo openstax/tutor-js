@@ -137,7 +137,7 @@ ReadingPlan = React.createClass
 
     if @state?.invalid then formClasses.push('is-invalid-form')
 
-    if not TaskPlanStore.isVisibleToStudents()
+    if not TaskPlanStore.isVisibleToStudents(id)
       addReadingsButton = <BS.Button id='reading-select'
         onClick={@showSectionTopics}
         bsStyle='default'>+ {addReadingText}
