@@ -6,7 +6,7 @@ ReactAddons    = require('react/addons')
 ReactTestUtils = React.addons.TestUtils
 
 
-{LearningGuideStore, LearningGuideActions} = require '../../src/flux/learning-guide'
+{LearningGuideStudentStore, LearningGuideStudentActions} = require '../../src/flux/learning-guide-student'
 {LearningGuide} = require '../../src/components/learning-guide'
 
 GUIDE_DATA = require '../../api/courses/1/guide.json'
@@ -35,8 +35,3 @@ describe 'Learning Guide', ->
       count += item.children.length
     expect(sections.length).to.equal(count)
 ###
-
-
-
-
-

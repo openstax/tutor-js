@@ -4,7 +4,7 @@ LoadableItem = require '../loadable-item'
 _ = require 'underscore'
 S = require '../../helpers/string'
 
-{LearningGuideStore, LearningGuideActions} = require '../../flux/learning-guide'
+{LearningGuideStudentStore, LearningGuideStudentActions} = require '../../flux/learning-guide-student'
 ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
@@ -51,7 +51,7 @@ ProgressGuide = React.createClass
       'low'
 
   render: ->
-    guide = LearningGuideStore.get(@props.courseId)
+    guide = LearningGuideStudentStore.get(@props.courseId)
     recentTopics = _.map(guide.children[0..4], @getRecentChapters)
     <div className='progress-guide'>
       <h1 className='panel-title'>Recent Topics</h1>
@@ -74,7 +74,7 @@ PracticeButton = React.createClass
 
   onClick: ->
     {courseId} = @props
-    all = LearningGuideStore.getSortedSections(@props.courseId)
+    all = LearningGuideStudentStore.getSortedSections(@props.courseId)
     sections = if @props.practiceType is 'weaker' then _.first(all, 4) else _.last(all, 4)
     page_ids = _.chain(sections).pluck('page_ids').flatten().uniq().value()
     @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
@@ -132,8 +132,8 @@ module.exports = React.createClass
   render: ->
     <LoadableItem
       id={@props.courseId}
-      store={LearningGuideStore}
+      store={LearningGuideStudentStore}
       renderLoading={@renderLoading}
-      actions={LearningGuideActions}
+      actions={LearningGuideStudentActions}
       renderItem={=> <ProgressGuidePanels {...@props} />}
     />
