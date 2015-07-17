@@ -95,8 +95,7 @@ HomeworkPlan = React.createClass
     footer = <PlanFooter id={id}
       courseId={courseId}
       onPublish={@publish}
-      onSave={@save}
-      clickedSelectProblem={@showSectionTopics}/>
+      onSave={@save}/>
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
@@ -154,6 +153,13 @@ HomeworkPlan = React.createClass
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
         </BS.Grid>
+        <BS.Row>
+          <BS.Button
+            bsStyle='primary'
+            className='-select-problems'
+            onClick={@showSectionTopics}>Select Problems
+          </BS.Button>
+        </BS.Row>
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}
