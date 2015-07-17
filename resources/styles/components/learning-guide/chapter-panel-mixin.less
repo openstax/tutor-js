@@ -1,0 +1,85 @@
+.learning-guide-chapter-panel() {
+  &.expanded {
+    height: auto;
+    overflow: visible;
+  }
+  .view-toggle {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: -12px 0px -7px 195px;
+    cursor: pointer;
+    .no-select();
+  }
+  .chapter-heading {
+    margin-bottom: 5px;
+    padding-bottom: 35px;
+    border-bottom: 1px dashed @tutor-neutral-light;
+    &.metric {
+      padding-bottom: 5px;
+    }
+  }
+  .chapter-number {
+    margin-right: 5px;
+    display: inline-block;
+    float: left;
+    color: @tutor-secondary;
+  }
+  .chapter-title {
+    max-width: 229px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .progress-bar-button {
+    margin-top: -15px;
+  }
+
+  .section {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    .section-heading {
+      height: 27px;
+    }
+    .section-number {
+      margin-right: 10px;
+      display: inline-block;
+      float: left;
+      height: inherit;
+    }
+    .section-title {
+      max-width: 210px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .progress-bar-button {
+      margin-top: 0px;
+    }
+  }
+
+  .progress-bar-button {
+    width: 100%;
+  }
+
+  .amount-worked {
+    width: 100%;
+    margin-top: -15px;
+    .count {
+      float: right;
+      color: @tutor-neutral;
+      font-size: 1rem;
+      letter-spacing: 0.05rem;
+    }
+  }
+
+  .progress {
+    height: 8px;
+    .progress-bar {
+      .learning-guide-colors();
+    }
+  }
+
+}

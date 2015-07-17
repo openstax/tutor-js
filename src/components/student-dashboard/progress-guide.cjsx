@@ -7,6 +7,8 @@ S = require '../../helpers/string'
 {LearningGuideStore, LearningGuideActions} = require '../../flux/learning-guide'
 ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
+LearningGuideSection = require '../learning-guide/section'
+LearningGuideColorKey = require '../learning-guide/color-key'
 
 ProgressGuide = React.createClass
   displayName: 'ProgressGuide'
@@ -17,8 +19,11 @@ ProgressGuide = React.createClass
   mixins: [ChapterSectionMixin]
 
   getRecentChapters: (chapter, i) ->
-    sections = _.map(chapter.children, @renderSectionBars)
-    <div key={i}>{sections}</div>
+#    sections = _.map(chapter.children, @renderSectionBars)
+    <div key={i}>{for section, si in chapter.children
+      <LearningGuideSection key={"#{i}.#{si}"} section={section} courseId={@props.courseId} />}
+    </div>
+
 
   _percent: (num, total) ->
     Math.round((num / total) * 100)
@@ -56,20 +61,7 @@ ProgressGuide = React.createClass
         {recentTopics}
         </div>
       </div>
-      <div className='guide-key'>
-        <div className='item'>
-          <div className='box high'></div>
-          <span className='title'>looking good</span>
-        </div>
-        <div className='item'>
-          <div className='box medium'></div>
-          <span className='title'>almost there</span>
-        </div>
-        <div className='item'>
-          <div className='box low'></div>
-          <span className='title'>keep trying</span>
-        </div>
-      </div>
+      <LearningGuideColorKey />
     </div>
 
 PracticeButton = React.createClass
