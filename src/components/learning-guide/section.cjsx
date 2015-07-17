@@ -12,13 +12,12 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     section:  ChapterSectionType.isRequired
+    onPractice: React.PropTypes.func
 
   mixins: [ChapterSectionMixin]
 
   render: ->
     {courseId, section} = @props
-
-    queryParams = {page_ids: section.page_ids}
 
     <div className='section'>
       <div className='section-heading'>
@@ -27,14 +26,9 @@ module.exports = React.createClass
         </span>
         <span className='section-title' title={section.title}>{section.title}</span>
       </div>
-      <Router.Link
-      to='viewPractice'
-      params={{courseId}}
-      query={queryParams}
-      title="Click to Practice"
-      className='btn btn-default progress-bar-button'>
-        <ProgressBar level={section.current_level} />
-      </Router.Link>
+
+      <ProgressBar {...@props} />
+
       <div className='amount-worked'>
         <span className='count'>{section.questions_answered_count} worked</span>
       </div>
