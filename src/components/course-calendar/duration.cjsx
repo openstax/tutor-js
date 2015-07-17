@@ -101,9 +101,7 @@ CourseDuration = React.createClass
     plan.duration = @_getDurationFromMoments(dueDates)
     plan.openRange = @_getDurationRange(plan)
     plan.isOpen = plan.openRange.start.isBefore(referenceDate)
-    # TODO replace logic when BE published_at is at dashboard route
-    # plan.isPublished = (plan.published_at? and plan.published_at)
-    plan.isPublished = (plan.published_at? and plan.published_at) or plan.isOpen
+    plan.isPublished = (plan.published_at? and plan.published_at)
     plan.isTrouble = plan.is_trouble
 
   # TODO see how to pull out plan specific logic to show that this

@@ -88,6 +88,7 @@
             "id": "1",
             "type": "reading",
             "title": "Read Pages 9-11",
+            "published_at": "2015-03-04T16:40:23.796Z",
             "tasking_plans": [{
                 "target_id": "1",
                 "target_type": "period",

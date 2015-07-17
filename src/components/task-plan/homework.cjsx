@@ -87,7 +87,8 @@ HomeworkPlan = React.createClass
     headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
     closeBtn = <Close onClick={@cancel}/>
     topics = TaskPlanStore.getTopics(id)
-    shouldShowExercises = TaskPlanStore.getExercises(id)?.length and not @state?.showSectionTopics
+    hasExercises = TaskPlanStore.getExercises(id)?.length
+    shouldShowExercises = hasExercises and not @state?.showSectionTopics
 
     if plan?.due_at
       dueAt = new Date(plan.due_at)
@@ -95,8 +96,7 @@ HomeworkPlan = React.createClass
     footer = <PlanFooter id={id}
       courseId={courseId}
       onPublish={@publish}
-      onSave={@save}
-      clickedSelectProblem={@showSectionTopics}/>
+      onSave={@save}/>
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
@@ -145,6 +145,18 @@ HomeworkPlan = React.createClass
 
     header = [headerText, closeBtn]
 
+    if not TaskPlanStore.isVisibleToStudents(id)
+      addProblemsButton = <BS.Button id='problems-select'
+        onClick={@showSectionTopics}
+        bsStyle='default'>+ Select Problems
+      </BS.Button>
+
+    if (@state?.invalid and not hasExercises)
+      problemsRequired = <span className="problems-required">
+        Please add exercises to this assignment
+        <i className="fa fa-exclamation-circle"></i>
+      </span>
+
     <div className='homework-plan'>
       <BS.Panel bsStyle='default'
         header={header}
@@ -154,6 +166,10 @@ HomeworkPlan = React.createClass
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
         </BS.Grid>
+        <BS.Row>
+          {addProblemsButton}
+          {problemsRequired}
+        </BS.Row>
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}

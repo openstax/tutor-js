@@ -138,6 +138,7 @@ TutorDateInput = React.createClass
           onChange={@dateSelected}
           disabled={@props.disabled}
           selected={value}
+          weekStart={0}
         />
     else if @props.disabled and value
       displayValue = value.toString("YYYY/MM/DD")

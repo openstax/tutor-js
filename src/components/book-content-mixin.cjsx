@@ -1,4 +1,5 @@
 _ = require 'underscore'
+S = require '../helpers/string'
 
 module.exports =
   componentDidMount:  ->
@@ -41,10 +42,7 @@ module.exports =
     # form media tag text based on tag name or data-type
     tag = media.tagName
     tag = media.dataset.type if media.dataset.type?
-
-    # capitalize
-    # TODO find one place for all such string formating helpers to go
-    tag = tag.charAt(0).toUpperCase() + tag.substring(1).toLowerCase()
+    S.capitalize(tag)
 
   buildReferenceBookLink: (cnxId) ->
     referenceBookParams = _.clone(@context.router.getCurrentParams())

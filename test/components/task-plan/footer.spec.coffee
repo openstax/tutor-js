@@ -26,6 +26,7 @@ NEW_READING = extendBasePlan({type: 'reading', id: "_CREATING_1"})
 UNPUBLISHED_READING = extendBasePlan({type: 'reading'})
 PUBLISHED_READING = extendBasePlan({type: 'reading', published_at: yesterday})
 VISIBLE_READING = extendBasePlan({type: 'reading', published_at: yesterday, opens_at: yesterday})
+VISIBLE_HW = extendBasePlan({type: 'homework', published_at: yesterday, opens_at: yesterday})
 
 NEW_HW = extendBasePlan({type: 'homework', id: "_CREATING_1"})
 HW_WITH_EXERCISES = ({
@@ -60,21 +61,18 @@ describe 'Task Plan Footer', ->
     expect(node.querySelector('.delete-link')).to.be.null
     expect(node.querySelector('.-save')).to.not.be.null
     expect(node.querySelector('.-publish')).to.not.be.null
-    expect(node.querySelector('.-select-problems')).to.be.null
 
   it 'should have correct buttons when reading is unpublished', ->
     node = helper(UNPUBLISHED_READING)
     expect(node.querySelector('.delete-link')).to.not.be.null
     expect(node.querySelector('.-save')).to.not.be.null
     expect(node.querySelector('.-publish')).to.not.be.null
-    expect(node.querySelector('.-select-problems')).to.be.null
 
   it 'should have correct buttons when reading is published', ->
     node = helper(PUBLISHED_READING)
     expect(node.querySelector('.delete-link')).to.not.be.null
     expect(node.querySelector('.-save')).to.be.null
     expect(node.querySelector('.-publish')).to.not.be.null
-    expect(node.querySelector('.-select-problems')).to.be.null
 
   xit 'should have correct buttons when reading is visible', ->
     node = helper(VISIBLE_READING)
@@ -82,20 +80,3 @@ describe 'Task Plan Footer', ->
     expect(node.querySelector('.delete-link')).to.be.null
     expect(node.querySelector('.-save')).to.be.null
     expect(node.querySelector('.-publish')).to.not.be.null
-    expect(node.querySelector('.-select-problems')).to.be.null
-
-  it 'should only show select problems when homework is new', ->
-    node = helper(NEW_HW)
-
-    expect(node.querySelector('.delete-link')).to.be.null
-    expect(node.querySelector('.-save')).to.be.null
-    expect(node.querySelector('.-publish')).to.be.null
-    expect(node.querySelector('.-select-problems')).to.not.be.null
-
-  it 'should not show select problems when homework has exercises', ->
-    node = helper(HW_WITH_EXERCISES)
-    expect(node.querySelector('.-select-problems')).to.be.null
-
-  xit 'should not show select problems when homework is visible', ->
-    node = helper(VISIBLE_HW)
-    expect(node.querySelector('.-select-problems')).to.be.null
