@@ -27,23 +27,15 @@ LearningGuide = React.createClass
       <Chapter chapter={chapter} courseId={@props.courseId} />
     </BS.Col>
 
-  renderWeaker: (chapter, i) ->
-    {courseId} = @props
-    for section, si in chapter.children
-      <Section key={"#{i}.#{si}"} section={section} courseId={courseId} />
-
-  renderStronger: (chapter, i) ->
-    {courseId} = @props
-    for section, si in chapter.children
-      <Section key={"#{i}.#{si}"} section={section} courseId={courseId} />
-
   render: ->
     {courseId} = @props
     linkParams = {courseId}
     guide = LearningGuideStore.get(@props.courseId)
     chapters = _.map(guide.children, @renderChapterPanels)
-    weaker   = _.map(guide.children, @renderWeaker)
-    stronger = _.map(guide.children, @renderStronger)
+
+    allSections = LearningGuideStore.getSortedSections(@props.courseId)
+    # if there are less than 4 sections, use 1/2 of the available ones
+    weakStrongCount = Math.min(allSections.length / 2, 4)
 
     <div className='guide-container'>
 
@@ -66,27 +58,19 @@ LearningGuide = React.createClass
             <div className='chapter-heading metric'>
               Weaker
             </div>
-            <div>{weaker}</div>
-            <Router.Link
-            to='viewPractice'
-            params={linkParams}
-            query={page_ids: worstPages}
-            className='btn btn-default metric-button'>
-              Practice Weaker
-            </Router.Link>
+            <div>
+              {for section, i in _.first(allSections, weakStrongCount)
+                <Section key={i} section={section} courseId={courseId} />}
+            </div>
           </div>
           <div className="chapter-panel expanded">
             <div className='chapter-heading metric'>
               Stronger
             </div>
-            <div>{stronger}</div>
-            <Router.Link
-            to='viewPractice'
-            params={linkParams}
-            query={page_ids: bestPages}
-            className='btn btn-default metric-button'>
-              Practice Stronger
-            </Router.Link>
+            <div>
+              {for section, i in _.last(allSections, weakStrongCount)
+                <Section key={i} section={section} courseId={courseId} />}
+            </div>
           </div>
         </BS.Col>
       </div>
