@@ -126,10 +126,6 @@ Stats = React.createClass
     inProgressLabel = 'In Progress'
     notStartedLabel = 'Not Started'
 
-    if type is 'external'
-      completeLabel = 'Clicked'
-      inProgressLabel = 'Viewed'
-
     stats = [{
         type: 'complete'
         label: completeLabel
@@ -143,6 +139,20 @@ Stats = React.createClass
         label: notStartedLabel
         value: data.total_count - (data.complete_count + data.partially_complete_count)
     }]
+
+    if type is 'external'
+      completeLabel = 'Clicked'
+      inProgressLabel = 'Viewed'
+
+      stats = [{
+          type: 'complete'
+          label: completeLabel
+          value: data.complete_count
+        }, {
+          type: 'not-started'
+          label: notStartedLabel
+          value: data.total_count - (data.complete_count + data.partially_complete_count)
+      }]
 
     if type is 'homework' and data.mean_grade_percent
       stats.unshift(
@@ -176,7 +186,8 @@ Stats = React.createClass
     {id} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    periodStats = plan.stats[periodIndex]
+    orderedStats = _.sortBy(plan.stats, 'name')
+    periodStats = orderedStats[periodIndex]
 
   handlePeriodSelect: (period) ->
     {id, handlePeriodSelect} = @props

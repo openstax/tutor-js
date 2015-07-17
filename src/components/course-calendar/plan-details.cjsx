@@ -20,11 +20,28 @@ CoursePlanDetails = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  renderReviewButton: ->
+    {plan, courseId} = @props
+    {type, id} = plan
+    linkParams = {courseId, id}
+
+    reviewButton = <Router.Link to='reviewTask' params={linkParams}>
+      <BS.Button>Review Metrics</BS.Button>
+    </Router.Link>
+
+    if type is 'external'
+      reviewButton = <Router.Link to='viewPerformance' params={linkParams}>
+        <BS.Button>View Performance Report</BS.Button>
+      </Router.Link>
+
+
   render: ->
     {plan, courseId, className} = @props
     {title, type, id} = plan
     linkParams = {courseId, id}
     editLinkName = camelCase("edit-#{type}")
+
+    reviewButton = @renderReviewButton()
 
     <BS.Modal
       {...@props}
@@ -34,9 +51,7 @@ CoursePlanDetails = React.createClass
         <StatsModalShell id={id} courseId={courseId} />
       </div>
       <div className='modal-footer'>
-        <Router.Link to='reviewTask' params={linkParams}>
-          <BS.Button>Review Metrics</BS.Button>
-        </Router.Link>
+        {reviewButton}
         <Router.Link to={editLinkName} params={linkParams}>
           <BS.Button>Edit Assignment</BS.Button>
         </Router.Link>
