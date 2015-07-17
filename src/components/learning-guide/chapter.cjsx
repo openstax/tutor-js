@@ -16,21 +16,19 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     chapter:  ChapterSectionType.isRequired
 
+  getInitialState: ->
+    expanded: false
+
   onToggle: (event) ->
-    el = event.target.parentNode
-    if el.classList.contains('expanded')
-      el.classList.remove('expanded')
-      event.target.innerHTML = 'View All'
-    else
-      el.classList.add('expanded')
-      event.target.innerHTML = 'View Less'
+    @setState(expanded: not @state.expanded)
 
   render: ->
     {chapter, courseId} = @props
-
-    <div className="chapter-panel">
+    classes = ['chapter-panel']
+    classes.push 'expanded' if @state.expanded
+    <div className={classes.join(' ')}>
       <div className='view-toggle' onClick={@onToggle}>
-        View All
+        {if @state.expanded then 'View Less' else 'View More'}
       </div>
       <div className='chapter-heading'>
         <span className='chapter-number'>{chapter.chapter_section[0]}</span>
