@@ -57,8 +57,17 @@ module.exports = React.createClass
   bindUpdate: ->
     @setPeriodDefaults()
 
+  setDefaultOpensAt: ->
+    {id} = @props
+    unless TaskPlanStore.getOpensAt(id)
+      TaskPlanActions.updateOpensAt(id, TimeStore.getNow())
+
   componentWillMount: ->
     @setPeriodDefaults()
+    @setDefaultOpensAt()
+
+  componentDidUpdate: ->
+    @setDefaultOpensAt()
 
   setOpensAt: (value, period) ->
     {id} = @props
@@ -89,7 +98,7 @@ module.exports = React.createClass
     plan = TaskPlanStore.get(@props.id)
     if (not @state.showingPeriods)
       commonDueAt = TaskPlanStore.getDueAt(@props.id)
-      commonOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
+      commonOpensAt = TaskPlanStore.getOpensAt(@props.id)
 
     if (@state.showingPeriods and not plan.tasking_plans.length)
       invalidPeriodsAlert = <BS.Row>
