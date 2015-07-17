@@ -24,6 +24,7 @@ ProgressGuide = React.createClass
     Math.round((num / total) * 100)
 
   renderSectionBars: (section) ->
+
     chapterSection =
       @sectionFormat(section.chapter_section, @state.sectionSeparator)
     sectionPercent = @_percent(section.current_level, 1)

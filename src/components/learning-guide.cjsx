@@ -8,121 +8,42 @@ _ = require 'underscore'
 LoadableItem = require './loadable-item'
 PracticeButton = require './buttons/practice-button'
 ChapterSection = require './task-plan/chapter-section'
-ChapterSectionMixin = require './chapter-section-mixin'
+
+Chapter = require './learning-guide/chapter'
+Section = require './learning-guide/section'
+ColorKey = require './learning-guide/color-key'
+ProgressBar = require './learning-guide/progress-bar'
 
 LearningGuide = React.createClass
   displayName: 'LearningGuide'
   contextTypes:
     router: React.PropTypes.func
 
-  mixins: [ChapterSectionMixin]
-
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  _percent: (num, total) ->
-    Math.round((num / total) * 100)
-
-  renderSectionBars: (section) ->
-    {courseId} = @props
-    linkParams = {courseId}
-    queryParams = {page_ids: section.page_ids}
-    chapterSection =
-      @sectionFormat(section.chapter_section, @state.sectionSeparator)
-    sectionPercent = @_percent(section.current_level, 1)
-    colorClass = @colorizeBar(sectionPercent)
-    <div className='section'>
-      <div className='section-heading'>
-        <span className='section-number'>{chapterSection}</span>
-        <span className='section-title' title={section.title}>{section.title}</span>
-      </div>
-      <Router.Link
-      to='viewPractice'
-      params={linkParams}
-      query={queryParams}
-      title="Click to Practice"
-      className='btn btn-default progress-bar-button'>
-        <BS.ProgressBar className={colorClass} now={sectionPercent} />
-      </Router.Link>
-      <div className='amount-worked'>
-        <span className='count'>{section.questions_answered_count} worked</span>
-      </div>
-    </div>
-
-
   renderChapterPanels: (chapter, i) ->
-    {courseId} = @props
-    linkParams = {courseId}
-    queryParams = {page_ids: chapter.page_ids}
-    sections = _.map(chapter.children, @renderSectionBars)
-    chapterPercent = @_percent(chapter.current_level, 1)
-    colorClass = @colorizeBar(chapterPercent)
-
-    <BS.Col lg={4} md={4} sm={6} xs={12}>
-      <div className="chapter-panel">
-        <div className='view-toggle' onClick={@onToggle.bind(@, i)}>
-          View All
-        </div>
-        <div className='chapter-heading'>
-          <span className='chapter-number'>{chapter.chapter_section[0]}</span>
-          <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
-        <Router.Link
-        to='viewPractice'
-        params={linkParams}
-        query={queryParams}
-        title="Click to Practice"
-        className='btn btn-default progress-bar-button'>
-          <BS.ProgressBar className={colorClass} now={chapterPercent} />
-        </Router.Link>
-        <div className='amount-worked'>
-          <span className='count'>{chapter.questions_answered_count} worked</span>
-        </div>
-        </div>
-        <div>{sections}</div>
-      </div>
+    <BS.Col key={i} lg={4} md={4} sm={6} xs={12}>
+      <Chapter chapter={chapter} courseId={@props.courseId} />
     </BS.Col>
 
+  renderWeaker: (chapter, i) ->
+    {courseId} = @props
+    for section, si in chapter.children
+      <Section key={"#{i}.#{si}"} section={section} courseId={courseId} />
 
-  onToggle: (index, event) ->
-    el = event.target.parentNode
-    if el.classList.contains('expanded')
-      el.classList.remove('expanded')
-      event.target.innerHTML = 'View All'
-    else
-      el.classList.add('expanded')
-      event.target.innerHTML = 'View Less'
-
-
-  colorizeBar: (percent) ->
-    if percent > 75
-      'high'
-    else if percent <= 75 and percent >= 50
-      'medium'
-    else if percent <= 49
-      'low'
+  renderStronger: (chapter, i) ->
+    {courseId} = @props
+    for section, si in chapter.children
+      <Section key={"#{i}.#{si}"} section={section} courseId={courseId} />
 
   render: ->
     {courseId} = @props
     linkParams = {courseId}
     guide = LearningGuideStore.get(@props.courseId)
     chapters = _.map(guide.children, @renderChapterPanels)
-
-    allSections = []
-    sections = guide.children
-    for section in sections
-      allSections.push(section.children)
-    allSections = _.flatten(allSections)
-
-    sortBest = _.sortBy(allSections, 'current_level')
-    sortBest = sortBest.reverse()[0...4]
-    sortWorst = _.sortBy(allSections, 'current_level')
-    sortWorst = sortWorst[0...4]
-
-    bestPages = _.flatten(_.pluck(sortBest, 'page_ids'))
-    worstPages = _.flatten(_.pluck(sortWorst, 'page_ids'))
-
-    weaker = _.map(sortWorst, @renderSectionBars)
-    stronger = _.map(sortBest, @renderSectionBars)
+    weaker   = _.map(guide.children, @renderWeaker)
+    stronger = _.map(guide.children, @renderStronger)
 
     <div className='guide-container'>
 
@@ -175,20 +96,8 @@ LearningGuide = React.createClass
         <div className='guide-key'>
           Click on the bar to practice the topic
         </div>
-        <div className='guide-key'>
-          <div className='item'>
-            <div className='box high'></div>
-            <span className='title'>looking good</span>
-          </div>
-          <div className='item'>
-            <div className='box medium'></div>
-            <span className='title'>almost there</span>
-          </div>
-          <div className='item'>
-            <div className='box low'></div>
-            <span className='title'>keep trying</span>
-          </div>
-        </div>
+        <ColorKey />
+
       </div>
 
     </div>
