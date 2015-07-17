@@ -22,17 +22,7 @@ LearningGuide = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  renderChapterPanels: (chapter, i) ->
-    <BS.Col key={i} lg={4} md={4} sm={6} xs={12}>
-      <Chapter chapter={chapter} courseId={@props.courseId} />
-    </BS.Col>
-
   render: ->
-    {courseId} = @props
-    linkParams = {courseId}
-    guide = LearningGuideStore.get(@props.courseId)
-    chapters = _.map(guide.children, @renderChapterPanels)
-
     allSections = LearningGuideStore.getSortedSections(@props.courseId)
     # if there are less than 4 sections, use 1/2 of the available ones
     weakStrongCount = Math.min(allSections.length / 2, 4)
@@ -43,36 +33,41 @@ LearningGuide = React.createClass
         <span className='guide-group-title'>Current Level of Understanding</span>
         <Router.Link
         to='dashboard'
-        params={linkParams}
+        params={courseId: @props.courseId}
         className='btn btn-default header-button'>
           Return to Dashboard
         </Router.Link>
       </div>
 
       <div className='guide-group'>
-        <BS.Col mdPull={0} xs={12} md={9}>
-          {chapters}
-        </BS.Col>
-        <BS.Col mdPush={0} xs={12} md={3}>
-          <div className="chapter-panel expanded">
-            <div className='chapter-heading metric'>
-              Weaker
+        <BS.Row>
+          <BS.Col mdPull={0} xs={12} md={9}>
+              {for chapter, i in LearningGuideStore.get(@props.courseId).children
+                <BS.Col key={i} lg={4} md={4} sm={6} xs={12}>
+                  <Chapter chapter={chapter} courseId={@props.courseId} />
+                </BS.Col>}
+          </BS.Col>
+          <BS.Col mdPush={0} xs={12} md={3}>
+            <div className="chapter-panel expanded">
+              <div className='chapter-heading metric'>
+                Weaker
+              </div>
+              <div>
+                {for section, i in _.first(allSections, weakStrongCount)
+                  <Section key={i} section={section} courseId={@props.courseId} />}
+              </div>
             </div>
-            <div>
-              {for section, i in _.first(allSections, weakStrongCount)
-                <Section key={i} section={section} courseId={courseId} />}
+            <div className="chapter-panel expanded">
+              <div className='chapter-heading metric'>
+                Stronger
+              </div>
+              <div>
+                {for section, i in _.last(allSections, weakStrongCount)
+                  <Section key={i} section={section} courseId={@props.courseId} />}
+              </div>
             </div>
-          </div>
-          <div className="chapter-panel expanded">
-            <div className='chapter-heading metric'>
-              Stronger
-            </div>
-            <div>
-              {for section, i in _.last(allSections, weakStrongCount)
-                <Section key={i} section={section} courseId={courseId} />}
-            </div>
-          </div>
-        </BS.Col>
+          </BS.Col>
+        </BS.Row>
       </div>
 
 
