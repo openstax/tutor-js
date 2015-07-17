@@ -31,15 +31,15 @@ module.exports = React.createClass
     planId = @props.id
     isNewPlan = TaskPlanStore.isNew(@props.id)
     dueAt = TaskPlanStore.getDueAt(@props.id)
-    opensAt = TaskPlanStore.getOpensAt(@props.id)
+    opensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
 
-    opensAt = if date
+    dueAt = if date
       moment(date, "YYYY-MM-DD").toDate()
     else
       moment(TimeStore.getNow()).add(1, 'day').toDate()
     course = CourseStore.get(@props.courseId)
     periods = _.map course?.periods, (period) ->
-      id: period.id, due_at: opensAt
+      id: period.id, due_at: dueAt, opens_at: opensAt
 
     hasAllTaskings = _.reduce(periods, (memo, period) ->
       memo and TaskPlanStore.hasTasking(planId, period.id)
@@ -57,17 +57,8 @@ module.exports = React.createClass
   bindUpdate: ->
     @setPeriodDefaults()
 
-  setDefaultOpensAt: ->
-    {id} = @props
-    unless TaskPlanStore.getOpensAt(id)
-      TaskPlanActions.updateOpensAt(id, TimeStore.getNow())
-
   componentWillMount: ->
     @setPeriodDefaults()
-    @setDefaultOpensAt()
-
-  componentDidUpdate: ->
-    @setDefaultOpensAt()
 
   setOpensAt: (value, period) ->
     {id} = @props
