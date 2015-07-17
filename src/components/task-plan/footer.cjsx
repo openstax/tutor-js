@@ -18,16 +18,16 @@ PlanFooter = React.createClass
     @context.router.transitionTo('taskplans', {courseId})
 
   onDelete: ->
-    {id} = @props
+    {id, courseId} = @props
     if confirm('Are you sure you want to delete this?')
       TaskPlanActions.delete(id)
-      @context.router.transitionTo('dashboard')
+      @context.router.transitionTo('taskplans', {courseId})
 
   onCancel: ->
-    {id} = @props
+    {id, courseId} = @props
     if confirm('Are you sure you want to cancel?')
       TaskPlanActions.reset(id)
-      @context.router.transitionTo('dashboard')
+      @context.router.transitionTo('taskplans', {courseId})
 
   onViewStats: ->
     {id, courseId} = @props
