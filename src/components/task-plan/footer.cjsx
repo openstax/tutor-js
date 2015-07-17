@@ -11,7 +11,6 @@ PlanFooter = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
-    clickedSelectProblem: React.PropTypes.func
 
   saved: ->
     courseId = @props.courseId
@@ -72,16 +71,6 @@ PlanFooter = React.createClass
             {'Save as Draft'}
           </AsyncButton>
 
-    hasExercises = TaskPlanStore.getExercises(id)?.length
-    if TaskPlanStore.isHomework(id) and not TaskPlanStore.isVisibleToStudents(id) and not hasExercises
-      publishButton = null
-      saveLink = null
-      selectProblems = <BS.Button
-        bsStyle='primary'
-        className='-select-problems'
-        onClick={clickedSelectProblem}>Select Problems
-      </BS.Button>
-
     tips = <BS.Popover>
       <p>
         <strong>Publish</strong> will make the assignment visible to students on the open date.
@@ -97,7 +86,6 @@ PlanFooter = React.createClass
     </BS.Popover>
 
     <div className='footer-buttons'>
-      {selectProblems}
       {publishButton}
       <BS.Button aria-role='close' onClick={@onCancel}>Cancel</BS.Button>
       {saveLink}
