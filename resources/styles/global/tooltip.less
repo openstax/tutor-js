@@ -1,0 +1,12 @@
+// this overrides the bad styles that are supplied by bootstrap material design (grey text on gray bg?)
+@tooltip-border-color: @tutor-info;
+@tooltip-color: @tutor-neutral-darker;
+@tooltip-arrow-color: @tutor-white;
+@tooltip-arrow-outer-fallback-color: @tutor-info;
+@tooltip-arrow-outer-color: @tutor-info;
+.tooltip {
+  .tooltip-inner {
+    color: @tutor-neutral-darker;
+  }
+  .tooltip-arrow { display: block; }
+}
