@@ -25,8 +25,10 @@ module.exports = React.createClass
   render: ->
     {courseId} = @props
 
+    # sort sections by current level of understanding
+    sortedSections = _.sortBy(@props.allSections, 'current_level')
     # if there are less than 4 sections, use 1/2 of the available ones
-    weakStrongCount = Math.min(@props.allSections.length / 2, 4)
+    weakStrongCount = Math.min(sortedSections.length / 2, 4)
 
     <div className='guide-container'>
 
@@ -53,7 +55,7 @@ module.exports = React.createClass
                 Weaker
               </div>
               <div>
-                {for section, i in _.first(@props.allSections, weakStrongCount)
+                {for section, i in _.first(sortedSections, weakStrongCount)
                   <Section key={i} section={section} {...@props} />}
               </div>
             </div>
@@ -62,7 +64,7 @@ module.exports = React.createClass
                 Stronger
               </div>
               <div>
-                {for section, i in _.last(@props.allSections, weakStrongCount)
+                {for section, i in _.last(sortedSections, weakStrongCount)
                   <Section key={i} section={section} {...@props} />}
               </div>
             </div>
