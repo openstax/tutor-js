@@ -1,6 +1,7 @@
 React = require 'react'
 BS    = require 'react-bootstrap'
 Time  = require '../time'
+moment = require 'moment'
 ReadingRow      = require './reading-row'
 HomeworkRow     = require './homework-row'
 EventRow        = require './event-row'
@@ -24,7 +25,9 @@ module.exports = React.createClass
       <span className="title">{@props.title}</span>
     else
       <span className="date-range">
-        <Time date={@props.startAt}/> &ndash; <Time date={@props.endAt}/>
+        <Time date={moment(@props.startAt).toDate()}/>
+           &ndash;
+        <Time date={moment(@props.endAt).toDate()}/>
       </span>
 
   renderEvent: (event) ->
