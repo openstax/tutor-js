@@ -1,5 +1,6 @@
 _ = require 'underscore'
 S = require '../helpers/string'
+{ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../flux/reference-book-exercise'
 
 module.exports =
   componentDidMount:  ->
@@ -64,6 +65,7 @@ module.exports =
     mediaLink.target = '_blank' if @shouldOpenNewTab?()
 
   processLink: (mediaLink) ->
+    @renderExercise?(mediaLink)
     return unless @isMediaLink(mediaLink)
     root = @getDOMNode()
 
@@ -97,6 +99,9 @@ module.exports =
     linkSelector = 'a:not(.nav):not([data-type=footnote-number]):not([data-type=footnote-ref])'
     mediaLinks = root.querySelectorAll(linkSelector)
 
+    # For now
+    # TODO pull this logic into page component
+    ReferenceBookExerciseStore.setMaxListeners(mediaLinks.length) if @renderExercise?
     _.each(mediaLinks, @processLink)
 
 

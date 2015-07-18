@@ -27,6 +27,7 @@ _ = require 'underscore'
 {CourseListingActions, CourseListingStore} = require './flux/course-listing'
 {ReferenceBookActions, ReferenceBookStore} = require './flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require './flux/reference-book-page'
+{ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require './flux/reference-book-exercise'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -226,6 +227,10 @@ start = ->
 
   apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->
     url: "/api/pages/#{cnxId}"
+
+  # TODO update with exercise link from BE when available
+  apiHelper ReferenceBookExerciseActions, ReferenceBookExerciseActions.load, ReferenceBookExerciseActions.loaded, 'GET', (itemCode) ->
+    url: "https://exercises-dev.openstax.org/api/exercises?q=tag:#{itemCode}"
 
   apiHelper StudentDashboardActions, StudentDashboardActions.load, StudentDashboardActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/dashboard"

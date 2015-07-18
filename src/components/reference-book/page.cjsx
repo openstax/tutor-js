@@ -7,9 +7,12 @@ HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
 BookContentMixin = require '../book-content-mixin'
 GetPositionMixin = require '../get-position-mixin'
+{ReferenceBookExerciseShell} = require './exercise'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
+
+EXERCISE_MATCHER = new RegExp('#ost\/api\/ex\/(.*)')
 
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'
@@ -77,6 +80,18 @@ module.exports = React.createClass
 
       for image in images
         image.addEventListener('load', onImageLoad)
+
+  isExerciseLink: (link) ->
+    link.hash.search(EXERCISE_MATCHER) is 0
+
+  getExerciseId: (link) ->
+    link.hash.match(EXERCISE_MATCHER)[1]
+
+  renderExercise: (mediaLink) ->
+    if @isExerciseLink(mediaLink)
+      exerciseId = @getExerciseId(mediaLink)
+      if mediaLink.parentNode.parentNode?
+        React.render(<ReferenceBookExerciseShell exerciseId={exerciseId}/>, mediaLink.parentNode.parentNode)
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
