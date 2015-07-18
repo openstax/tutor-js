@@ -34,7 +34,7 @@ routes = (
         <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
         <Route path='guide/?' name='viewGuide' handler={LearningGuideStudentShell}/>
 
-        <Route path='t/'>
+        <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
           <Route path='guide/?' name='viewTeacherGuide' handler={LearningGuideTeacherShell}/>

@@ -20,6 +20,7 @@ module.exports = React.createClass
     chapters: React.PropTypes.arrayOf(ChapterSectionType)
     heading:  React.PropTypes.element
     onPractice: React.PropTypes.func
+    onReturn:   React.PropTypes.func.isRequired
 
   render: ->
     {courseId} = @props
@@ -31,9 +32,9 @@ module.exports = React.createClass
 
       <div className='guide-heading'>
         <span className='guide-group-title'>Current Level of Understanding</span>
-        <Router.Link to='dashboard' params={{courseId}} className='btn btn-default header-button'>
-          Return to Dashboard
-        </Router.Link>
+        <BS.Button onClick={@props.onReturn} className='view-dashboard-button'>
+          Return to DashBoard
+        </BS.Button>
       </div>
 
       {@props.heading}
