@@ -4,61 +4,43 @@ LoadableItem = require '../loadable-item'
 _ = require 'underscore'
 S = require '../../helpers/string'
 
-{LearningGuideStore, LearningGuideActions} = require '../../flux/learning-guide'
+{LearningGuideStudentStore, LearningGuideStudentActions} = require '../../flux/learning-guide-student'
 ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
 
+# Number of sections to display
+NUM_SECTIONS = 4
+
 ProgressGuide = React.createClass
   displayName: 'ProgressGuide'
+
+  contextTypes:
+    router: React.PropTypes.func
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  mixins: [ChapterSectionMixin]
-
-  getRecentChapters: (chapter, i) ->
-#    sections = _.map(chapter.children, @renderSectionBars)
-    <div key={i}>{for section, si in chapter.children
-      <LearningGuideSection key={"#{i}.#{si}"} section={section} courseId={@props.courseId} />}
-    </div>
-
-
-  _percent: (num, total) ->
-    Math.round((num / total) * 100)
-
-  renderSectionBars: (section) ->
-
-    chapterSection =
-      @sectionFormat(section.chapter_section, @state.sectionSeparator)
-    sectionPercent = @_percent(section.current_level, 1)
-    colorClass = @colorizeBar(sectionPercent)
-    <div key={chapterSection} className='section'>
-      <div className='section-heading'>
-        <span className='section-number'>{chapterSection}</span>
-        <span className='section-title' title={section.title}>{section.title}</span>
-      </div>
-      <BS.ProgressBar className={colorClass} now={sectionPercent} />
-    </div>
-
-  colorizeBar: (percent) ->
-    if percent > 75
-      'high'
-    else if percent <= 75 and percent >= 50
-      'medium'
-    else if percent <= 49
-      'low'
+  onPractice: (section) ->
+    @context.router.transitionTo('viewPractice', {courseId: @props.courseId}, {page_ids: section.page_ids})
 
   render: ->
-    guide = LearningGuideStore.get(@props.courseId)
-    recentTopics = _.map(guide.children[0..4], @getRecentChapters)
+    courseId = @props.courseId
+    guide = LearningGuideStudentStore.get(courseId)
+
+    sections = for section, i in _.first(LearningGuideStudentStore.getAllSections(courseId), NUM_SECTIONS)
+      <LearningGuideSection key={i}
+        section={section}
+        onPractice={@onPractice}
+        courseId={courseId} />
+
     <div className='progress-guide'>
       <h1 className='panel-title'>Recent Topics</h1>
       <h2 className='current'>Current Level of Understanding</h2>
       <div className='guide-group'>
         <div className='chapter-panel'>
-        {recentTopics}
+        {_.first(sections, 4)}
         </div>
       </div>
       <LearningGuideColorKey />
@@ -74,7 +56,7 @@ PracticeButton = React.createClass
 
   onClick: ->
     {courseId} = @props
-    all = LearningGuideStore.getSortedSections(@props.courseId)
+    all = LearningGuideStudentStore.getSortedSections(@props.courseId)
     sections = if @props.practiceType is 'weaker' then _.first(all, 4) else _.last(all, 4)
     page_ids = _.chain(sections).pluck('page_ids').flatten().uniq().value()
     @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
@@ -132,8 +114,8 @@ module.exports = React.createClass
   render: ->
     <LoadableItem
       id={@props.courseId}
-      store={LearningGuideStore}
+      store={LearningGuideStudentStore}
       renderLoading={@renderLoading}
-      actions={LearningGuideActions}
+      actions={LearningGuideStudentActions}
       renderItem={=> <ProgressGuidePanels {...@props} />}
     />

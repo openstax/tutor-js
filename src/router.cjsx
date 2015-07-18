@@ -3,7 +3,7 @@ Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
-{LearningGuideShell} = require './components/learning-guide'
+{LearningGuideStudentShell, LearningGuideTeacherShell} = require './components/learning-guide'
 {PerformanceShell} = require './components/performance'
 {ReadingShell, HomeworkShell, ExternalShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
@@ -32,11 +32,12 @@ routes = (
           ignoreScrollBehavior/>
 
         <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
-        <Route path='guide/?' name='viewGuide' handler={LearningGuideShell}/>
+        <Route path='guide/?' name='viewGuide' handler={LearningGuideStudentShell}/>
 
-        <Route path='t/'>
+        <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
+          <Route path='guide/?' name='viewTeacherGuide' handler={LearningGuideTeacherShell}/>
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />
             <Route path='months/:date/?' name='calendarByDate' handler={TeacherTaskPlans} >

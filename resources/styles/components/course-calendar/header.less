@@ -2,6 +2,12 @@
 
 .list-courses {
 
+  .calendar-actions {
+    border-bottom: 1px solid @tutor-neutral-light;
+    display: flex;
+    justify-content: space-around;
+  }
+
   .panel-body { padding: 0; }
 
   .calendar-header {
@@ -21,10 +27,6 @@
     &-label {
       font-weight: stronger;
       padding: @calendar-header-padding 0;
-    }
-    .view-reference-guide {
-      margin-top: @calendar-header-padding;
-      .pull-right;
     }
 
     &-control {

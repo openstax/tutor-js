@@ -1,8 +1,4 @@
 .learning-guide-chapter-panel() {
-  &.expanded {
-    height: auto;
-    overflow: visible;
-  }
   .view-toggle {
     width: 100%;
     margin-right: 1rem;
@@ -32,10 +28,9 @@
     white-space: nowrap;
     display: inline-block;
   }
-  .progress-bar-button {
-    margin-top: -15px;
+  button {
+    margin: 0px;
   }
-
   .section {
     font-size: 1.4rem;
     margin-bottom: 30px;
@@ -66,7 +61,6 @@
 
   .amount-worked {
     width: 100%;
-    margin-top: -15px;
     .count {
       float: right;
       color: @tutor-neutral;
