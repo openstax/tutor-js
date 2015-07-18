@@ -34,12 +34,16 @@ module.exports = React.createClass
         courseId={@props.courseId} />
     </div>
 
+  returnToDashboard: ->
+    @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
+
   render: ->
     {courseId} = @props
     <BS.Panel className='learning-guide main teacher'>
       <Guide
         courseId={courseId}
         heading={@renderTabs()}
+        onReturn={@returnToDashboard}
         allSections={LearningGuideTeacherStore.getSectionsForPeriod(courseId, @state.periodId)}
         chapters={LearningGuideTeacherStore.getChaptersForPeriod(courseId, @state.periodId)}
       />
