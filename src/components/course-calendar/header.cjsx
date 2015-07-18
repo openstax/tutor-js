@@ -4,6 +4,8 @@ _ = require 'underscore'
 
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
+
 CourseAddMenuMixin = require './add-menu-mixin'
 PracticeButton = require '../buttons/practice-button'
 BrowseBookButton = require '../buttons/browse-the-book'
@@ -58,7 +60,17 @@ CourseCalendarHeader = React.createClass
     {date} = @state
     {format, duration} = @props
     {courseId} = @context.router.getCurrentParams()
-    <BS.Row className='calendar-header'>
+    <div className='calendar-header'>
+      <BS.Row className='calendar-actions'>
+        <BrowseBookButton bsStyle='default' courseId={courseId} />
+        <Router.Link className='btn btn-default' to='viewTeacherGuide' params={{courseId}}>
+          Learning Guide
+        </Router.Link>
+        <Router.Link className='btn btn-default' to='viewPerformance' params={{courseId}}>
+          Performance Report
+        </Router.Link>
+      </BS.Row>
+      <BS.Row>
         <BS.Col xs={4}>
           <BS.DropdownButton
             className='add-assignment'
@@ -76,10 +88,8 @@ CourseCalendarHeader = React.createClass
             <i className='fa fa-caret-right'></i>
           </a>
         </BS.Col>
-        <BS.Col xs={4}>
-          <BrowseBookButton courseId={courseId} />
-        </BS.Col>
-    </BS.Row>
+      </BS.Row>
+    </div>
 
 
 module.exports = CourseCalendarHeader
