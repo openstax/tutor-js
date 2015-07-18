@@ -64,8 +64,12 @@
       padding: 10px 11px 11px 9px;
       border: 1px solid @tutor-neutral-light;
       width: 265px;
-      height: 112px;
       overflow: hidden;
+      .sections{
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.15s ease-out;
+      }
     }
   }
 }
