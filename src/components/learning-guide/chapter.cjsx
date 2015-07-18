@@ -8,9 +8,6 @@ ChapterSectionType = require './chapter-section-type'
 ProgressBar = require './progress-bar'
 Section = require './section'
 
-# This many pixels are allocated per section when the chapter is expanded
-PER_SECTION_HEIGHT = 100
-
 module.exports = React.createClass
 
   displayName: 'LearningGuideChapter'
@@ -20,17 +17,22 @@ module.exports = React.createClass
     chapter:  ChapterSectionType.isRequired
     onPractice: React.PropTypes.func
 
-  getInitialState: ->
-    expanded: false
+  getDefaultProps: ->
+    defaultExpanded: false
 
   onToggle: (event) ->
     @setState(expanded: not @state.expanded)
 
+  # The CollapsibleMixin is used to hide/show the sections
+  mixins: [BS.CollapsibleMixin]
+  getCollapsibleDOMNode: -> React.findDOMNode(@refs.sections)
+  getCollapsibleDimensionValue: -> React.findDOMNode(@refs.sections).scrollHeight
+
   render: ->
     {chapter, courseId} = @props
     classes = ['chapter-panel']
-    classes.push 'expanded' if @state.expanded
-    sectionHeight = chapter.children.length * PER_SECTION_HEIGHT * ( if @state.expanded then 1 else 0 )
+    classes.push if @isExpanded() then 'expanded' else 'collapsed'
+
     <div className={classes.join(' ')}>
       <div className='view-toggle' onClick={@onToggle}>
         {if @state.expanded then 'View Less' else 'View More'}
@@ -45,7 +47,7 @@ module.exports = React.createClass
           <span className='count'>{chapter.questions_answered_count} worked</span>
         </div>
       </div>
-      <div className="sections" style={maxHeight: sectionHeight}>
+      <div ref='sections' className='sections'>
         { for section, i in chapter.children
           <Section  key={i} section={section} {...@props} /> }
       </div>
