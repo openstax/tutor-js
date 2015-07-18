@@ -6,6 +6,8 @@ LearningGuideCommon = require './learning-guide-common'
 LearningGuideStudentConfig = {
 
   exports:
+    getAllSections: (courseId) ->
+      LearningGuideCommon.findAllSections(@_get(courseId))
 
     getSortedSections: (courseId, property = 'current_level') ->
       sections = LearningGuideCommon.findAllSections(@_get(courseId))
