@@ -7,12 +7,16 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  getDefaultProps: ->
+    bsStyle: 'primary'
+
   propTypes:
     courseId:  React.PropTypes.string
     chapterId: React.PropTypes.number
     sectionId: React.PropTypes.number
     page:      React.PropTypes.string
     unstyled:  React.PropTypes.bool
+    bsStyle:   React.PropTypes.string
 
   render: ->
     courseId = @props.courseId or @context.router.getCurrentParams().courseId
@@ -25,4 +29,4 @@ module.exports = React.createClass
     if @props.unstyled
       <a {...linkProps}>{text}</a>
     else
-      <BS.Button bsStyle='primary' {...linkProps}>{text}</BS.Button>
+      <BS.Button bsStyle={@props.bsStyle} {...linkProps}>{text}</BS.Button>
