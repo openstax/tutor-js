@@ -17,8 +17,8 @@ StudentDashboardConfig = {
   exports:
 
     eventsByWeek: (courseId) ->
-      data = @_get(courseId)
-      tasks = data.tasks or []
+      now = TimeStore.getNow()
+      tasks = _.filter( @_get(courseId).tasks, (event) -> new Date(event.opens_at) < now )
       weeks = _.groupBy tasks, (event) ->
         moment(event.due_at).startOf('isoweek').format('YYYYww')
       sorted = {}
@@ -42,14 +42,18 @@ StudentDashboardConfig = {
     # Returns events who's due date has not passed
     upcomingEvents: (courseId, now = TimeStore.getNow()) ->
       _.chain(@_get(courseId)?.tasks or [])
-        .filter( (event) -> new Date(event.due_at) > now )
+        .filter( (event) ->
+          new Date(event.due_at) > now and new Date(event.opens_at) < now
+        )
         .sortBy('due_at')
         .value()
 
     # Returns events who's due date is in the past
     pastDueEvents: (courseId, now = TimeStore.getNow()) ->
       _.chain(@_get(courseId)?.tasks or [])
-        .filter( (event) -> new Date(event.due_at) < now )
+        .filter( (event) ->
+          new Date(event.due_at) < now and new Date(event.opens_at) < now
+        )
         .sortBy('due_at')
         .value()
 }

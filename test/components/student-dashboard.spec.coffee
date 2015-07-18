@@ -38,36 +38,35 @@ describe 'Student Dashboard Component', ->
     #  * one event that started at 8am, before the timestamp, but part of the week
     #  * one event a few days later
     #  * one event on the next sunday, the 19th.  As spece'd that should also be included
+    #  * one event ('iReading 4: Newton's Third Law of Motion') is not opened yet
     renderDashBoard().then (state) ->
       tasks = state.div.querySelectorAll('.-this-week .task .title')
-      expect(tasks.length).equal(3)
+      expect(tasks.length).equal(2)
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal([
           'iReading 2: Newton\'s First Law of Motion: Inertia'
           'iReading 3: Newton\'s Second Law of Motion:'
-          'iReading 4: Newton\'s Third Law of Motion'
         ])
 
 
   it 'shows accurate feedback', ->
-    TimeActions.setNow(NOW)
+    # move 10 mins into future, just past the unopened event's opens_at
+    TimeActions.setNow( new Date( NOW.getTime() + 100000) )
     renderDashBoard().then (state) ->
       feedback = state.div.querySelectorAll('.-this-week .task .feedback')
-      console.log _.pluck(feedback, 'textContent')
       expect(_.pluck(feedback, 'textContent'))
         .to.have.deep.equal([
           'Complete', 'In progress', 'Not started'
         ])
-
       feedback = state.div.querySelectorAll('.-upcoming .task .feedback')
-      console.log _.pluck(feedback, 'textContent')
       expect(_.pluck(feedback, 'textContent'))
-        .to.have.deep.equal(['6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered'])
+        .to.have.deep.equal(['6/7 correct', '7/8 correct'])
 
 
   it 'renders only upcoming events to week panel', ->
     TimeActions.setNow(new Date('2015-04-24T11:15:58.856Z'))
     renderDashBoard().then (state) ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title')
+      console.log _.pluck(tasks, 'textContent')
       expect(_.pluck(tasks, 'textContent'))
-        .to.have.deep.equal(['Homework #3', 'Homework #4 (final)'])
+        .to.have.deep.equal(['Homework #3'])
