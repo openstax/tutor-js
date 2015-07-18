@@ -66,10 +66,10 @@
       width: 265px;
       overflow: hidden;
       .sections{
-        max-height: 0px;
         overflow: hidden;
-        transition: max-height 0.15s ease-out;
+        transition: height 0.25s ease-out;
       }
+      &.collapsed .sections { height: 0px; }
     }
   }
 }
