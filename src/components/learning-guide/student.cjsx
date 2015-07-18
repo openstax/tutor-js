@@ -28,7 +28,7 @@ module.exports = React.createClass
         onPractice={@onPractice}
         courseId={courseId}
         onReturn={@returnToDashboard}
-        allSections={LearningGuideStudentStore.getSortedSections(courseId)}
+        allSections={LearningGuideStudentStore.getAllSections(courseId)}
         chapters={LearningGuideStudentStore.get(courseId).children}
       />
     </BS.Panel>
