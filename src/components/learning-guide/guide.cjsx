@@ -47,7 +47,7 @@ module.exports = React.createClass
                 </BS.Col>}
           </BS.Col>
           <BS.Col mdPush={0} xs={12} md={3}>
-            <div className="chapter-panel expanded">
+            <div className="chapter-panel weaker">
               <div className='chapter-heading metric'>
                 Weaker
               </div>
@@ -56,7 +56,7 @@ module.exports = React.createClass
                   <Section key={i} section={section} {...@props} />}
               </div>
             </div>
-            <div className="chapter-panel expanded">
+            <div className="chapter-panel stronger">
               <div className='chapter-heading metric'>
                 Stronger
               </div>

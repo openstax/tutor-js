@@ -1,446 +1,91 @@
 {
+  "period_id": "",
   "title": "Physics",
   "page_ids": [
-    2,
-    3,
-    5,
-    6
+    "2",
+    "3",
+    "5",
+    "6"
   ],
   "children": [
     {
-      "id": 4,
       "title": "Acceleration",
       "chapter_section": [
         3
       ],
       "questions_answered_count": 23,
-      "current_level": 0.09410128090170267,
+      "current_level": 0.9025196157281774,
       "practice_count": 0,
       "page_ids": [
-        2,
-        3
+        "2",
+        "3"
       ],
       "children": [
         {
-          "id": 2,
           "title": "Acceleration",
           "chapter_section": [
             3,
             1
           ],
+          "questions_answered_count": 11,
+          "current_level": 0.7216930483524373,
+          "practice_count": 0,
+          "page_ids": [
+            "2"
+          ]
+        },
+        {
+          "title": "Representing Acceleration with Equations and Graphs",
+          "chapter_section": [
+            3,
+            2
+          ],
           "questions_answered_count": 12,
-          "current_level": 0.614787991673052,
+          "current_level": 0.9335832674397897,
           "practice_count": 0,
           "page_ids": [
-            2
-          ]
-        },
-        {
-          "id": 3,
-          "title": "Representing Acceleration with Equations and Graphs",
-          "chapter_section": [
-            3,
-            2
-          ],
-          "questions_answered_count": 11,
-          "current_level": 0.605731978919913,
-          "practice_count": 0,
-          "page_ids": [
-            3
-          ]
-        },
-                {
-          "id": 3,
-          "title": "Representing Acceleration with Equations and Graphs",
-          "chapter_section": [
-            3,
-            2
-          ],
-          "questions_answered_count": 11,
-          "current_level": 0.605731978919913,
-          "practice_count": 0,
-          "page_ids": [
-            3
-          ]
-        },
-                {
-          "id": 3,
-          "title": "Representing Acceleration with Equations and Graphs",
-          "chapter_section": [
-            3,
-            2
-          ],
-          "questions_answered_count": 11,
-          "current_level": 0.605731978919913,
-          "practice_count": 0,
-          "page_ids": [
-            3
-          ]
-        },
-                {
-          "id": 3,
-          "title": "Representing Acceleration with Equations and Graphs",
-          "chapter_section": [
-            3,
-            2
-          ],
-          "questions_answered_count": 11,
-          "current_level": 0.605731978919913,
-          "practice_count": 0,
-          "page_ids": [
-            3
+            "3"
           ]
         }
       ]
     },
     {
-      "id": 5,
       "title": "Force and Newton's Laws of Motion",
       "chapter_section": [
         4
       ],
       "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
+      "current_level": 0.13278347571119187,
       "practice_count": 0,
       "page_ids": [
-        5,
-        6
+        "5",
+        "6"
       ],
       "children": [
         {
-          "id": 5,
           "title": "Force",
           "chapter_section": [
             4,
             1
           ],
           "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
+          "current_level": 0.5483725909317109,
           "practice_count": 0,
           "page_ids": [
-            5
+            "5"
           ]
         },
         {
-          "id": 6,
           "title": "Newton's First Law of Motion: Inertia",
           "chapter_section": [
             4,
             2
           ],
           "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
+          "current_level": 0.35736864708971516,
           "practice_count": 0,
           "page_ids": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
-      "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
-      "practice_count": 0,
-      "page_ids": [
-        5,
-        6
-      ],
-      "children": [
-        {
-          "id": 5,
-          "title": "Force",
-          "chapter_section": [
-            4,
-            1
-          ],
-          "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
-          "practice_count": 0,
-          "page_ids": [
-            5
-          ]
-        },
-        {
-          "id": 6,
-          "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
-          "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
-          "practice_count": 0,
-          "page_ids": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
-      "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
-      "practice_count": 0,
-      "page_ids": [
-        5,
-        6
-      ],
-      "children": [
-        {
-          "id": 5,
-          "title": "Force",
-          "chapter_section": [
-            4,
-            1
-          ],
-          "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
-          "practice_count": 0,
-          "page_ids": [
-            5
-          ]
-        },
-        {
-          "id": 6,
-          "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
-          "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
-          "practice_count": 0,
-          "page_ids": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
-      "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
-      "practice_count": 0,
-      "page_ids": [
-        5,
-        6
-      ],
-      "children": [
-        {
-          "id": 5,
-          "title": "Force",
-          "chapter_section": [
-            4,
-            1
-          ],
-          "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
-          "practice_count": 0,
-          "page_ids": [
-            5
-          ]
-        },
-        {
-          "id": 6,
-          "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
-          "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
-          "practice_count": 0,
-          "page_ids": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
-      "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
-      "practice_count": 0,
-      "page_ids": [
-        5,
-        6
-      ],
-      "children": [
-        {
-          "id": 5,
-          "title": "Force",
-          "chapter_section": [
-            4,
-            1
-          ],
-          "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
-          "practice_count": 0,
-          "page_ids": [
-            5
-          ]
-        },
-        {
-          "id": 6,
-          "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
-          "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
-          "practice_count": 0,
-          "page_ids": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
-      "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
-      "practice_count": 0,
-      "page_ids": [
-        5,
-        6
-      ],
-      "children": [
-        {
-          "id": 5,
-          "title": "Force",
-          "chapter_section": [
-            4,
-            1
-          ],
-          "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
-          "practice_count": 0,
-          "page_ids": [
-            5
-          ]
-        },
-        {
-          "id": 6,
-          "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
-          "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
-          "practice_count": 0,
-          "page_ids": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
-      "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
-      "practice_count": 0,
-      "page_ids": [
-        5,
-        6
-      ],
-      "children": [
-        {
-          "id": 5,
-          "title": "Force",
-          "chapter_section": [
-            4,
-            1
-          ],
-          "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
-          "practice_count": 0,
-          "page_ids": [
-            5
-          ]
-        },
-        {
-          "id": 6,
-          "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
-          "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
-          "practice_count": 0,
-          "page_ids": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
-      "questions_answered_count": 3,
-      "current_level": 0.21338761522458516,
-      "practice_count": 0,
-      "page_ids": [
-        5,
-        6
-      ],
-      "children": [
-        {
-          "id": 5,
-          "title": "Force",
-          "chapter_section": [
-            4,
-            1
-          ],
-          "questions_answered_count": 1,
-          "current_level": 0.5526938650445113,
-          "practice_count": 0,
-          "page_ids": [
-            5
-          ]
-        },
-        {
-          "id": 6,
-          "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
-          "questions_answered_count": 2,
-          "current_level": 0.23162067608459902,
-          "practice_count": 0,
-          "page_ids": [
-            6
+            "6"
           ]
         }
       ]
