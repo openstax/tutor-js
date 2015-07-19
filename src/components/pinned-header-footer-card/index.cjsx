@@ -169,9 +169,12 @@ module.exports = React.createClass
       containerStyle =
         marginTop: @state.containerMarginTop
 
-    <div className={classes} style={containerStyle} ref='container'>
-      <PinnedHeader {...childrenProps} ref='header'>
+    if @props.header?
+      pinnedHeader = <PinnedHeader {...childrenProps} ref='header'>
         {@props.header}
       </PinnedHeader>
+
+    <div className={classes} style={containerStyle} ref='container'>
+      {pinnedHeader}
       {@props.children}
     </div>

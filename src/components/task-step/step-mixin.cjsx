@@ -12,6 +12,7 @@ AsyncButton = require '../buttons/async-button'
 module.exports =
 
   renderContinueButton: ->
+    return null if @hideContinueButton?()
     isWaiting = TaskStepStore.isLoading(@props.id)
     isSaving = TaskStepStore.isSaving(@props.id)
     isFailed = TaskStepStore.isFailed(@props.id)
@@ -23,7 +24,7 @@ module.exports =
       bsStyle='primary'
       className='continue'
       onClick={@onContinue}
-      disabled={not @isContinueEnabled() or cannotContinue}
+      disabled={not @isContinueEnabled?() or cannotContinue}
       isWaiting={isWaiting}
       isFailed={isFailed}
       >

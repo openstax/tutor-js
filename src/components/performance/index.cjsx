@@ -15,6 +15,7 @@ Router = require 'react-router'
 {PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
 LoadableItem = require '../loadable-item'
 PerformanceExport = require './export'
+{QuickStatsShell} = require './quick-external-stats'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 
 
@@ -84,7 +85,11 @@ Performance = React.createClass
     else
       @state.colSetWidth = @state.colDefaultWidth
 
-    if heading.plan_id?
+    if heading.type is 'external'
+      customHeader = <small>
+        <QuickStatsShell id={"#{heading.plan_id}"} periodId={@state.period_id}/>
+      </small>
+    else if heading.plan_id?
       linkParams =
         id: heading.plan_id
         periodIndex: @state.periodIndex
@@ -100,8 +105,9 @@ Performance = React.createClass
             {linkText}
         </Router.Link>
 
-    customHeader = linkToPlanSummary
-    customHeader ?= 'Class Average'
+      customHeader = linkToPlanSummary
+    else
+      customHeader = 'Class Average'
 
     customHeader = <div className='average-header-cell'>
       {customHeader}
@@ -141,6 +147,7 @@ Performance = React.createClass
     switch cell.type
       when 'reading' then @renderReadingCell(cell)
       when 'homework' then @renderHomeworkCell(cell)
+      when 'external' then @renderExternalCell(cell)
       when 'name' then cell.title
       else throw new Error('Unknown cell type')
 
@@ -148,6 +155,17 @@ Performance = React.createClass
     status = switch cell.status
       when 'completed' then 'Complete'
       when 'in_progress' then 'In progress'
+      when 'not_started' then 'Not started'
+
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
+
+    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
+
+  renderExternalCell: (cell) ->
+    status = switch cell.status
+      when 'completed' then 'Clicked'
+      when 'in_progress' then 'Viewed'
       when 'not_started' then 'Not started'
 
     {courseId} = @props
