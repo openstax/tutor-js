@@ -3,6 +3,7 @@ BS     = require 'react-bootstrap'
 moment = require 'moment'
 Time   = require '../time'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
+EventInfoIcon = require './event-info-icon'
 
 module.exports = React.createClass
   displayName: 'EventRow'
@@ -31,7 +32,9 @@ module.exports = React.createClass
         <i className={"icon icon-lg icon-#{@props.className}"}/>
       </BS.Col>
       <BS.Col xs={10} sm={7} className='title'>{@props.children}</BS.Col>
-      <BS.Col xs={5}  sm={2} className='feedback'>{@props.feedback}</BS.Col>
+      <BS.Col xs={5}  sm={2} className='feedback'>
+        <span>{@props.feedback}</span><EventInfoIcon event={@props.event} />
+      </BS.Col>
       <BS.Col xs={5}  sm={2} className='due-at'>
         <Time date={@props.event.due_at}/>
       </BS.Col>

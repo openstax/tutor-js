@@ -1,11 +1,10 @@
 React    = require 'react'
 BS       = require 'react-bootstrap'
 moment   = require 'moment'
-EventRow = require './event-row'
-{TimeStore} = require '../../flux/time'
 _ = require 'underscore'
 
-isStepComplete = (step) -> step.is_completed
+{TimeStore} = require '../../flux/time'
+EventRow = require './event-row'
 
 module.exports = React.createClass
   displayName: 'HomeworkRow'
@@ -19,7 +18,7 @@ module.exports = React.createClass
 
   render: ->
     event = @props.event
-    feedback = if event.correct_exercise_count
+    feedback = if event.correct_exercise_count?
       "#{event.correct_exercise_count}/#{event.exercise_count} correct"
     else
       "#{event.complete_exercise_count}/#{event.exercise_count} answered"
@@ -29,5 +28,5 @@ module.exports = React.createClass
     # For now we assume if the event's compete and it's not on the current week it can be recovered
     recoverable = event.complete and moment(event.due_at).startOf('isoweek').add(1, 'week').isBefore(TimeStore.getNow())
     <EventRow {...@props} feedback={feedback} className='homework'>
-        {event.title}
+      {event.title}
     </EventRow>

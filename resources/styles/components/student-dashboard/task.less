@@ -20,7 +20,19 @@
       line-height: @student-dashboard-row-height;
       white-space: nowrap;
     }
-
+    i.info {
+      .fa-icon();
+      margin-left: 0.5rem;
+      &.incomplete::before {
+        content: @fa-var-exclamation-circle;
+        color: @tutor-warning;
+      }
+      &.late::before {
+        content: @fa-var-clock-o;
+        color: @tutor-danger;
+      }
+    }
+    // The first panel inside a tab should be positioned at the top with no margin
     @media screen and ( max-width: @screen-sm-min ){
       .column-icon { height: @student-dashboard-row-height*2; }
       .icon {
