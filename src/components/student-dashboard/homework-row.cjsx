@@ -5,7 +5,6 @@ _ = require 'underscore'
 
 {TimeStore} = require '../../flux/time'
 EventRow = require './event-row'
-EventInfoIcon = require './event-info-icon'
 
 module.exports = React.createClass
   displayName: 'HomeworkRow'
@@ -29,5 +28,5 @@ module.exports = React.createClass
     # For now we assume if the event's compete and it's not on the current week it can be recovered
     recoverable = event.complete and moment(event.due_at).startOf('isoweek').add(1, 'week').isBefore(TimeStore.getNow())
     <EventRow {...@props} feedback={feedback} className='homework'>
-      {event.title}<EventInfoIcon event={event} />
+      {event.title}
     </EventRow>
