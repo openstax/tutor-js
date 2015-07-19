@@ -52,12 +52,12 @@ describe 'Student Dashboard Component', ->
   it 'shows accurate feedback', ->
     TimeActions.setNow(NOW)
     renderDashBoard().then (state) ->
-      feedback = state.div.querySelectorAll('.-this-week .task .feedback')
+      feedback = state.div.querySelectorAll('.-this-week .task .feedback span')
       expect(_.pluck(feedback, 'textContent'))
         .to.have.deep.equal([
           'Complete', 'In progress', 'Not started'
         ])
-      feedback = state.div.querySelectorAll('.-upcoming .task .feedback')
+      feedback = state.div.querySelectorAll('.-upcoming .task .feedback span')
       expect(_.pluck(feedback, 'textContent'))
         .to.have.deep.equal(['6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered'])
 
