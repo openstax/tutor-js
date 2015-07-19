@@ -53,14 +53,12 @@ describe 'Student Dashboard Component', ->
     TimeActions.setNow(NOW)
     renderDashBoard().then (state) ->
       feedback = state.div.querySelectorAll('.-this-week .task .feedback')
-      console.log _.pluck(feedback, 'textContent')
       expect(_.pluck(feedback, 'textContent'))
         .to.have.deep.equal([
           'Complete', 'In progress', 'Not started'
         ])
 
       feedback = state.div.querySelectorAll('.-upcoming .task .feedback')
-      console.log _.pluck(feedback, 'textContent')
       expect(_.pluck(feedback, 'textContent'))
         .to.have.deep.equal(['6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered'])
 
@@ -71,3 +69,12 @@ describe 'Student Dashboard Component', ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title')
       expect(_.pluck(tasks, 'textContent'))
         .to.have.deep.equal(['Homework #3', 'Homework #4 (final)'])
+
+  it 'does not work unopened tasks', ->
+    TimeActions.setNow(NOW)
+    renderDashBoard().then (state) ->
+      classes = _.map(state.div.querySelectorAll('.-upcoming .task'), (el) ->
+        _.without(el.classList, 'task', 'row', 'homework')
+      )
+      expect(classes)
+        .to.have.deep.equal([['workable'], ['workable'], [], []])

@@ -36,8 +36,8 @@ StudentDashboardConfig = {
       events[moment(day).startOf('isoweek').format('YYYYww')] or []
 
     canWorkTask: (event) ->
-      # currently all tasks are workable
-      return true
+      return new Date(event.opens_at) < TimeStore.getNow()
+
 
     # Returns events who's due date has not passed
     upcomingEvents: (courseId, now = TimeStore.getNow()) ->
