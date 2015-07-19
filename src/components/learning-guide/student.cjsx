@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
 
-{LearningGuideStudentStore} = require '../../flux/learning-guide-student'
+LearningGuide = require '../../flux/learning-guide'
 
 Guide = require './guide'
 
@@ -28,7 +28,7 @@ module.exports = React.createClass
         onPractice={@onPractice}
         courseId={courseId}
         onReturn={@returnToDashboard}
-        allSections={LearningGuideStudentStore.getAllSections(courseId)}
-        chapters={LearningGuideStudentStore.get(courseId).children}
+        allSections={LearningGuide.Student.store.getAllSections(courseId)}
+        chapters={LearningGuide.Student.store.get(courseId).children}
       />
     </BS.Panel>

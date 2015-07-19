@@ -5,7 +5,7 @@ _ = require 'underscore'
 
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 
-{LearningGuideTeacherStore} = require '../../flux/learning-guide-teacher'
+LearningGuide = require '../../flux/learning-guide'
 
 Guide = require './guide'
 
@@ -18,14 +18,14 @@ module.exports = React.createClass
     courseId:  React.PropTypes.string.isRequired
 
   getInitialState: ->
-    periods = LearningGuideTeacherStore.get(@props.courseId)
+    periods = LearningGuide.Teacher.store.get(@props.courseId)
     periodId: _.first(periods)?.period_id
 
   selectPeriod: (period) ->
     @setState(periodId: period.id)
 
   renderTabs: ->
-    periods = LearningGuideTeacherStore.get(@props.courseId)
+    periods = LearningGuide.Teacher.store.get(@props.courseId)
     <div className='guide-heading'>
       <CoursePeriodsNavShell
         periods={periods}
@@ -44,7 +44,7 @@ module.exports = React.createClass
         courseId={courseId}
         heading={@renderTabs()}
         onReturn={@returnToDashboard}
-        allSections={LearningGuideTeacherStore.getSectionsForPeriod(courseId, @state.periodId)}
-        chapters={LearningGuideTeacherStore.getChaptersForPeriod(courseId, @state.periodId)}
+        allSections={LearningGuide.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}
+        chapters={LearningGuide.Teacher.store.getChaptersForPeriod(courseId, @state.periodId)}
       />
     </BS.Panel>

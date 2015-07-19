@@ -8,7 +8,7 @@ ReactTestUtils = React.addons.TestUtils
 {routerStub, commonActions} = require './helpers/utilities'
 
 
-{LearningGuideStudentStore, LearningGuideStudentActions} = require '../../src/flux/learning-guide-student'
+LearningGuide = require '../../src/flux/learning-guide'
 Guide = require '../../src/components/learning-guide/guide'
 
 GUIDE_DATA = require '../../api/courses/1/guide.json'
@@ -27,7 +27,7 @@ renderGuide = (url) ->
 describe 'Learning Guide', ->
 
   beforeEach ->
-    LearningGuideStudentActions.loaded(GUIDE_DATA, COURSE_ID)
+    LearningGuide.Student.actions.loaded(GUIDE_DATA, COURSE_ID)
     renderGuide('/courses/1/guide').then (state) =>
       @state = state
 
