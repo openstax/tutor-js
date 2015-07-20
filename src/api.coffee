@@ -166,7 +166,8 @@ start = ->
     LearningGuide.Teacher.actions.loaded, 'GET', (id) -> url: "/api/courses/#{id}/teacher_guide"
 
   apiHelper LearningGuide.TeacherStudent.actions, LearningGuide.TeacherStudent.actions.load,
-    LearningGuide.Teacher.actions.loaded, 'GET', (id, roleId) -> url: "/api/courses/#{id}/guide/role/#{roleId}"
+    LearningGuide.TeacherStudent.actions.loaded, 'GET', (id, {roleId}) ->
+      url: "/api/courses/#{id}/guide/role/#{roleId}"
 
   apiHelper PerformanceActions, PerformanceActions.load, PerformanceActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"
