@@ -88,9 +88,7 @@ TutorDateInput = React.createClass
     if (not valid)
       value = @props.min or null
 
-    offset = (new Date()).getTimezoneOffset() / -60
-    value = value.add(offset, 'hours')
-    date = new Date(value)
+    date = value.format("MM/DD/YYYY")
     @props.onChange(date)
     @setState({expandCalendar: false, valid: valid, value: date})
 
@@ -132,7 +130,7 @@ TutorDateInput = React.createClass
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
-          dateFormat="YYYY/MM/DD"
+          dateFormat="MM/DD/YYYY"
           onBlur={@onBlur}
           key={@props.id}
           ref="picker"
@@ -143,7 +141,7 @@ TutorDateInput = React.createClass
           weekStart={0}
         />
     else if @props.disabled and value
-      displayValue = value.toString("YYYY/MM/DD")
+      displayValue = value.toString("MM/DD/YYYY")
 
     <div className={wrapperClasses.join(' ')}>
       <input type='text' disabled className={classes.join(' ')} value={displayValue}/>
