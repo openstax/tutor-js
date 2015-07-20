@@ -24,7 +24,7 @@ module.exports = React.createClass
   renderHeading: ->
     <div className='guide-heading'>
       <h3 className='guide-group-title'>Current Level of Understanding</h3>
-      <Router.Link to='viewStudentDashBoard' className='btn btn-default pull-right'
+      <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
         params={courseId: @props.courseId}>
         Return to DashBoard
       </Router.Link>
