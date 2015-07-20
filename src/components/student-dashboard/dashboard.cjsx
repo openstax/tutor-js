@@ -11,6 +11,9 @@ ThisWeekPanel   = require './this-week-panel'
 PracticeButton = require '../buttons/practice-button'
 ProgressGuideShell = require './progress-guide'
 BrowseBookButton = require '../buttons/browse-the-book'
+
+CourseDataMixin = require '../course-data-mixin'
+
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 {CourseStore} = require '../../flux/course'
 
@@ -19,6 +22,8 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+
+  mixins: [CourseDataMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -31,12 +36,12 @@ module.exports = React.createClass
 
   render: ->
     courseId = @props.courseId
+    courseDataProps = @getCourseDataProps(courseId)
+
     info = StudentDashboardStore.get(courseId)
     # The large background image is currently set via CSS based on
     # the short title of the course, which will be something like 'Physics'
-    <div className="tutor-booksplash-background"
-      data-title={CourseStore.getShortName(courseId)}
-      data-category={CourseStore.getCategory(courseId)}>
+    <div {...courseDataProps} className="tutor-booksplash-background">
 
       <div className='container'>
 

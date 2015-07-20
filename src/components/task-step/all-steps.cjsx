@@ -10,6 +10,8 @@ Markdown = require '../markdown'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
 BookContentMixin = require '../book-content-mixin'
+CourseDataMixin = require '../course-data-mixin'
+
 {StepPanel} = require '../../helpers/policies'
 
 # React swallows thrown errors so log them first
@@ -19,7 +21,7 @@ err = (msgs...) ->
 
 Reading = React.createClass
   displayName: 'Reading'
-  mixins: [StepMixin, StepFooterMixin, BookContentMixin]
+  mixins: [StepMixin, StepFooterMixin, BookContentMixin, CourseDataMixin]
   contextTypes:
     router: React.PropTypes.func
   isContinueEnabled: -> true
@@ -40,7 +42,12 @@ Reading = React.createClass
   renderBody: ->
     {id} = @props
     {content_html} = TaskStepStore.get(id)
-    <ArbitraryHtmlAndMath className='reading-step' html={content_html} />
+    courseDataProps = @getCourseDataProps()
+
+    <ArbitraryHtmlAndMath
+      {...courseDataProps}
+      className='reading-step'
+      html={content_html} />
 
 
 Interactive = React.createClass

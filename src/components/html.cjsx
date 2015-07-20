@@ -17,10 +17,18 @@ module.exports = React.createClass
     classes.push(@props.className) if @props.className
     classes = classes.join(' ')
 
+    otherProps = _.omit(@props, 'className', 'block', 'html')
+
     if @props.block
-      <div className={classes} dangerouslySetInnerHTML={@getHTMLFromProp()} />
+      <div
+        {...otherProps}
+        className={classes}
+        dangerouslySetInnerHTML={@getHTMLFromProp()} />
     else
-      <span className={classes} dangerouslySetInnerHTML={@getHTMLFromProp()} />
+      <span
+        {...otherProps}
+        className={classes}
+        dangerouslySetInnerHTML={@getHTMLFromProp()} />
 
   getHTMLFromProp: ->
     {html} = @props
