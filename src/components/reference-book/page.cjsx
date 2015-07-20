@@ -11,10 +11,12 @@ GetPositionMixin = require '../get-position-mixin'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
+{ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
 EXERCISE_MATCHER = new RegExp('#ost\/api\/ex\/(.*)')
 
 module.exports = React.createClass
+  _exerciseNodes: []
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -87,11 +89,23 @@ module.exports = React.createClass
   getExerciseId: (link) ->
     link.hash.match(EXERCISE_MATCHER)[1]
 
-  renderExercise: (mediaLink) ->
-    if @isExerciseLink(mediaLink)
-      exerciseId = @getExerciseId(mediaLink)
-      if mediaLink.parentNode.parentNode?
-        React.render(<ReferenceBookExerciseShell exerciseId={exerciseId}/>, mediaLink.parentNode.parentNode)
+  renderOtherLinks: (otherLinks) ->
+    ReferenceBookExerciseStore.setMaxListeners(otherLinks.length)
+    _.each(otherLinks, @renderExercise)
+
+  renderExercise: (link) ->
+    if @isExerciseLink(link)
+      exerciseId = @getExerciseId(link)
+      if link.parentNode.parentNode?
+        @_exerciseNodes.push(link.parentNode.parentNode)
+        React.render(<ReferenceBookExerciseShell exerciseId={exerciseId}/>, link.parentNode.parentNode)
+
+  unmountExerciseComponent: (node, nodeIndex) ->
+    React.unmountComponentAtNode(node) if node?
+    @_exerciseNodes.splice(nodeIndex, 1)
+
+  componentWillUnmount: ->
+    _.each(@_exerciseNodes, @unmountExerciseComponent)
 
   render: ->
     {courseId} = @context.router.getCurrentParams()

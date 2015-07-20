@@ -1,6 +1,5 @@
 _ = require 'underscore'
 S = require '../helpers/string'
-{ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../flux/reference-book-exercise'
 
 module.exports =
   componentDidMount:  ->
@@ -64,45 +63,46 @@ module.exports =
     mediaLink.href = pageUrl + mediaLink.hash
     mediaLink.target = '_blank' if @shouldOpenNewTab?()
 
-  processLink: (mediaLink) ->
-    @renderExercise?(mediaLink)
-    return unless @isMediaLink(mediaLink)
+  isMediaOnPage: (link) ->
     root = @getDOMNode()
+    try
+      media = root.querySelector(link.hash)
 
-    # Media link has cnxId preceding the target element.
-    # This is a link to a target on another page entirely.
-    # Get the cnxId from the href attribute.
-    if @hasCNXId(mediaLink)
-      mediaCNXId = @getCNXIdOfHref(mediaLink.getAttribute('href'))
+    media?
+
+  processLink: (link) ->
+    if @isMediaLink(link)
+      if not @hasCNXId(link) and @isMediaOnPage(link)
+        @linkToThisPage(link)
+        return null
+      else
+        @linkToAnotherPage(link)
+        return null
     else
-      # Media link does not have an explicit cnxId in the href.
-      # Hash may not be a proper selector string, so try catch
-      # to see whether the media is on this step or page.
-      try
-        media = root.querySelector(mediaLink.hash)
-        if media?
-          # Media is found on step/page, set link text.
-          tag = @getMediaTag(media)
-          mediaLink.innerText = tag if tag?
-        else
-          # Media is not found on step or page, and there is not a cnxId on the href.
-          # This probably a link on an iReading to a target on the same page,
-          # that is left out of the iReading.
-          # Assume that the cnxId is this same page.
-          mediaCNXId = @getCNXId()
+      return link
 
-    # Link media that are not found within DOM.
-    @linkMediaElsewhere(mediaCNXId, mediaLink) if mediaCNXId?
+  linkToAnotherPage: (link) ->
+    mediaCNXId = @getCNXIdOfHref(link.getAttribute('href')) or @getCNXId()
+    @linkMediaElsewhere(mediaCNXId, link) if mediaCNXId?
+
+  linkToThisPage: (link) ->
+    root = @getDOMNode()
+    media = root.querySelector(link.hash)
+    tag = @getMediaTag(media)
+    link.innerText = tag if tag?
 
   processLinks: ->
     root = @getDOMNode()
     linkSelector = 'a:not(.nav):not([data-type=footnote-number]):not([data-type=footnote-ref])'
     mediaLinks = root.querySelectorAll(linkSelector)
 
-    # For now
-    # TODO pull this logic into page component
-    ReferenceBookExerciseStore.setMaxListeners(mediaLinks.length) if @renderExercise?
-    _.each(mediaLinks, @processLink)
+    otherLinks = _.chain(mediaLinks)
+      .map(@processLink)
+      .compact()
+      .uniq()
+      .value()
+
+    @renderOtherLinks?(otherLinks)
 
 
 # called with the context set to the image
