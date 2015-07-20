@@ -11,8 +11,8 @@ _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {JobActions} = require './flux/job'
-{LearningGuideStudentActions} = require './flux/learning-guide-student'
-{LearningGuideTeacherActions} = require './flux/learning-guide-teacher'
+LearningGuide = require './flux/learning-guide'
+
 {PerformanceActions} = require './flux/performance'
 {PerformanceExportActions} = require './flux/performance-export'
 {RosterActions} = require './flux/roster'
@@ -159,11 +159,15 @@ start = ->
   apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}"
 
-  apiHelper LearningGuideStudentActions, LearningGuideStudentActions.load, LearningGuideStudentActions.loaded, 'GET', (id) ->
-    url: "/api/courses/#{id}/guide"
+  apiHelper LearningGuide.Student.actions, LearningGuide.Student.actions.load,
+    LearningGuide.Student.actions.loaded, 'GET', (id) -> url: "/api/courses/#{id}/guide"
 
-  apiHelper LearningGuideTeacherActions, LearningGuideTeacherActions.load, LearningGuideTeacherActions.loaded, 'GET', (id) ->
-    url: "/api/courses/#{id}/teacher_guide"
+  apiHelper LearningGuide.Teacher.actions, LearningGuide.Teacher.actions.load,
+    LearningGuide.Teacher.actions.loaded, 'GET', (id) -> url: "/api/courses/#{id}/teacher_guide"
+
+  apiHelper LearningGuide.TeacherStudent.actions, LearningGuide.TeacherStudent.actions.load,
+    LearningGuide.TeacherStudent.actions.loaded, 'GET', (id, {roleId}) ->
+      url: "/api/courses/#{id}/guide/role/#{roleId}"
 
   apiHelper PerformanceActions, PerformanceActions.load, PerformanceActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"
