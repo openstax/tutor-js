@@ -17,7 +17,6 @@ findAllSections = (section) ->
   sections
 
 
-
 # learning guide data for a teacher.
 # It's loaded by the teacher and contains consolidated data for all the students in the course
 Teacher = makeSimpleStore extendConfig {
@@ -32,22 +31,68 @@ Teacher = makeSimpleStore extendConfig {
 
 }, new CrudConfig
 
-# Common store methods for students
-CommonStudentConfig = {
-  exports:
-    getAllSections: (courseId) ->
-      findAllSections(@_get(courseId))
 
+# learning guide data for a student.
+Student = makeSimpleStore extendConfig {
+  exports:
     getSortedSections: (courseId, property = 'current_level') ->
       sections = findAllSections(@_get(courseId))
       _.sortBy(sections, property)
-}
 
-# learning guide data for a student.  It's loaded by the student and contains only their data
-Student = makeSimpleStore(extendConfig(_.clone(CommonStudentConfig), new CrudConfig))
+    getAllSections: (courseId) ->
+      findAllSections(@_get(courseId))
+
+}, new CrudConfig
+
 
 # learning guide data for a teacher's student.
 # It's loaded by the teacher and contains data for an individual student in a course they're teaching
-TeacherStudent = makeSimpleStore(extendConfig(_.clone(CommonStudentConfig), new CrudConfig))
+# Unlike other stores, it needs two ids; courseId & roleId.
+# roleId is passed as an object so it can be set as the options property in the LoadableItem component
+TeacherStudent = makeSimpleStore extendConfig {
+
+  # modify the value that will be stored to be a object with role id's for keys
+  loaded: (obj, id, {roleId}) ->
+    @_asyncStatus[id] ||= {}
+    @_asyncStatus[id][roleId] = 'LOADED'
+    this._local[id]   ||= {}
+    this._local[id][roleId] = obj
+    @emitChange()
+
+  load: (id, {roleId}) ->
+    @_asyncStatus[id] ||= {}
+
+    @_reload[id] ||= {}
+    @_reload[id][roleId] = false
+
+    @_asyncStatus[id][roleId] = 'LOADING'
+    @emitChange()
+
+  isLoading: (id, {roleId}) ->
+    @_asyncStatus[id]?[roleId] is 'LOADING'
+
+  isLoaded: (id) ->
+    @_asyncStatus[id]?[roleId] is 'LOADED'
+
+  exports:
+    getSortedSections: (courseId, roleId, property = 'current_level') ->
+      sections = findAllSections(@_get(courseId))
+      _.sortBy(sections, property)
+
+    get: (courseId, {roleId}) ->
+      @_local[courseId]?[roleId]
+
+    getChapters: (courseId, {roleId}) ->
+      guide = @_local[courseId]?[roleId]
+      guide?.children or []
+
+    getAllSections: (courseId, {roleId}) ->
+      findAllSections(@_local[courseId]?[roleId] or {})
+
+    reload: (id, {roleId}) ->
+      @_reload[id]?[roleId]
+
+}, new CrudConfig
+
 
 module.exports = {Student, Teacher, TeacherStudent}
