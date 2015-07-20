@@ -140,16 +140,23 @@ Performance = React.createClass
     classAverage
 
   renderStudentRow: (student_data) ->
-    cells = _.map(student_data.data, @renderStudentCell)
-    cells
+    for column in student_data.data
+      @renderStudentCell(column, student_data)
 
-  renderStudentCell: (cell) ->
+  renderStudentCell: (cell, student_data) ->
     switch cell.type
       when 'reading' then @renderReadingCell(cell)
       when 'homework' then @renderHomeworkCell(cell)
       when 'external' then @renderExternalCell(cell)
-      when 'name' then cell.title
+      when 'name' then @renderStudentName(cell, student_data)
       else throw new Error('Unknown cell type')
+
+  renderStudentName: (cell, student_data) ->
+    <Router.Link to='viewStudentTeacherGuide'
+      params={roleId: student_data.role, courseId: @props.courseId}>
+      {cell.title}
+    </Router.Link>
+
 
   renderReadingCell: (cell) ->
     status = switch cell.status
