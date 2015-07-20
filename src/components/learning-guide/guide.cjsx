@@ -32,13 +32,6 @@ module.exports = React.createClass
 
     <div className='guide-container'>
 
-      <div className='guide-heading'>
-        <span className='guide-group-title'>Current Level of Understanding</span>
-        <BS.Button onClick={@props.onReturn} className='view-dashboard-button'>
-          Return to DashBoard
-        </BS.Button>
-      </div>
-
       {@props.heading}
 
       <div className='guide-group'>
@@ -75,7 +68,7 @@ module.exports = React.createClass
 
       <div className='guide-footer'>
         <div className='guide-key'>
-          Click on the bar to practice the topic
+          {'Click on the bar to practice the topic' if @props.onPractice}
         </div>
         <ColorKey />
 
