@@ -21,12 +21,22 @@ module.exports = React.createClass
   returnToDashboard: ->
     @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
 
+  renderHeading: ->
+    <div className='guide-heading'>
+      <h3 className='guide-group-title'>Current Level of Understanding</h3>
+      <Router.Link to='viewStudentDashBoard' className='btn btn-default pull-right'
+        params={courseId: @props.courseId}>
+        Return to DashBoard
+      </Router.Link>
+    </div>
+
   render: ->
     {courseId} = @props
-    <BS.Panel className='learning-guide main student'>
+    <BS.Panel className='learning-guide student'>
       <Guide
         onPractice={@onPractice}
         courseId={courseId}
+        heading={@renderHeading()}
         onReturn={@returnToDashboard}
         allSections={LearningGuide.Student.store.getAllSections(courseId)}
         chapters={LearningGuide.Student.store.get(courseId).children}
