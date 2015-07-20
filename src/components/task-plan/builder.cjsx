@@ -37,9 +37,10 @@ module.exports = React.createClass
     sameDates = dueAt and opensAt
 
     #set default dates
-    dueAt = if date then moment(date, "YYYY-MM-DD").toDate()
-    dueAt = if not dueAt then moment(TimeStore.getNow()).add(1, 'day').toDate()
-    opensAt = if not opensAt then moment(TimeStore.getNow()).toDate()
+    dueAt = if date and isNewPlan then moment(date).format('MM/DD/YYYY')
+    if not dueAt and isNewPlan
+      dueAt = moment(TimeStore.getNow()).add(1, 'day').format('MM/DD/YYYY')
+    opensAt = if not opensAt then moment(TimeStore.getNow()).format('MM/DD/YYYY')
 
     #map tasking plans
     course = CourseStore.get(@props.courseId)
