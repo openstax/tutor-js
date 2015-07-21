@@ -21,6 +21,6 @@ module.exports = React.createClass
 
     bar = <BS.ProgressBar className={color} now={percent} />
     if onPractice
-      <BS.Button onClick={-> onPractice(section)} block>{bar}</BS.Button>
+      <BS.Button title="Click to Practice" onClick={-> onPractice(section)} block>{bar}</BS.Button>
     else
       bar
