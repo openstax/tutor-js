@@ -6,16 +6,28 @@
   @import './mixins';
   @import './base';
   @import './splash-image';
+  @import './typography';
   // type specific styling comes last so it can override the above styles
-  @import './links-to-physics';
+  @import: '/typography';
+  @import './hs-physics/links-to-physics';
   @import './link-to-learning';
-  @import './worked-examples';
-  @import './work-in-physics';
-  @import './watch-physics';
+  @import './hs-physics/worked-examples';
+  @import './hs-physics/work-in-physics';
+  @import './hs-physics/watch-physics';
   @import './note';
-  @import './virtual-physics.less';
-  @import './fun-in-physics';
-  @import './grasp-check';
+  @import './hs-physics/virtual-physics.less';
+  @import './hs-physics/fun-in-physics';
+  @import './hs-physics/grasp-check';
   @import './target';
-  @import './visual-connection';
+  @import './hs-physics/visual-connection';
+
+  //bio specific
+    @import './ap-bio/ap-connection';
+    @import './ap-bio/ap-everyday';
+    @import './ap-bio/ap-sciences-practices';
+    @import './ap-bio/art-connection';
+    @import './ap-bio/carreer';
+    @import './ap-bio/everyday';
+    @import './ap-bio/evolution';
+    @import './ap-bio/scientific';
 }
