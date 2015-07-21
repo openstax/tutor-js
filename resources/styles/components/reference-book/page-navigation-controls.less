@@ -8,7 +8,7 @@
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
-    position: fixed;
+
     justify-content: -webkit-center;
     justify-content: -ms-center;
     justify-content: center;
@@ -16,7 +16,8 @@
     flex-direction: -ms-column;
     flex-direction: column;
 
-    transition: background-color 150ms linear;
+    .transition(background-color 150ms linear);
+    .transition(width 150ms linear);
 
     &:hover {
       background-color: @tutor-neutral-light;
@@ -59,7 +60,6 @@
     }
 
     &.prev {
-      left: 0;
       .triangle {
         width: 45%;
       }
@@ -77,7 +77,6 @@
     @media screen and (min-width: (@reference-book-page-width + @reference-book-menu-width + 50px) ) {
       .page-wrapper > .nav {
         width: calc(~"50% - " (@reference-book-page-width+@reference-book-menu-width) / 2 );
-        &.prev { left: @reference-book-menu-width; }
       }
     }
   }
