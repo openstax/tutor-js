@@ -65,12 +65,12 @@ ProgressGuidePanels = React.createClass
         <h1 className='panel-title'>Practice</h1>
         <BS.ButtonGroup>
           <PracticeByTypeButton 
-          practiceType='stronger'
-          practiceTitle='stronger'
+          practiceType='stronger' 
+          practiceTitle='stronger' 
           courseId={@props.courseId} />
           <PracticeByTypeButton 
-          practiceType='weaker'
-          practiceTitle='weaker'
+          practiceType='weaker' 
+          practiceTitle='weaker' 
           courseId={@props.courseId} />
         </BS.ButtonGroup>
       </div>

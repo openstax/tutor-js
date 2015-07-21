@@ -53,7 +53,7 @@ module.exports = React.createClass
           <BS.Col mdPush={0} xs={12} md={3}>
             <div className="chapter-panel weaker">
               <div className='chapter-heading metric'>
-                Weaker
+                <span className='arrow weaker'></span>Weaker
               </div>
               <div>
                 {for section, i in _.first(sortedSections, weakStrongCount)
@@ -63,7 +63,7 @@ module.exports = React.createClass
             </div>
             <div className="chapter-panel stronger">
               <div className='chapter-heading metric'>
-                Stronger
+                <span className='arrow stronger'></span>Stronger
               </div>
               <div>
                 {for section, i in _.last(sortedSections, weakStrongCount)
