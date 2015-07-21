@@ -21,10 +21,6 @@
     font-style: italic;
   }
 
-  .task-footer-last-completed-at {
-    display: none;
-  }
-
   .task-footer-details {
     float: right;
     display: flex;
@@ -43,7 +39,7 @@
     }
 
     // Has a "Covers sections ..." message
-    &.has-sections {
+    &.has-sections, &.late {
       // align details to top
       align-items: flex-start;
 

@@ -126,11 +126,19 @@ module.exports =
       @[renderButtonsForPanelMethod]?({taskId, courseId, review, panel}) or
       @renderDefaultButtons({taskId, courseId, review, panel})
 
-  renderFooter: ({stepId, taskId, courseId, review}) ->
-    buttons = @renderButtons({stepId, taskId, courseId, review})
+  getFooterClasses: ({stepId, taskId, courseId, review}) ->
     sections = TaskStore.getRelatedSections(taskId)
+    stepLateness = TaskStore.getStepLateness(taskId, stepId)
+
     className = 'task-footer-details'
     className += ' has-sections' if sections.length
+    className += ' late' if stepLateness.late
+
+    className
+
+  renderFooter: ({stepId, taskId, courseId, review}) ->
+    buttons = @renderButtons({stepId, taskId, courseId, review})
+    className = @getFooterClasses({stepId, taskId, courseId, review})
 
     taskDetails = <div className={className}>
       {@renderTaskDetails({stepId, taskId, courseId, review})}
@@ -143,9 +151,7 @@ module.exports =
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
-    sections = TaskStore.getRelatedSections(taskId)
-    className = 'task-footer-details'
-    className += ' has-sections' if sections.length
+    className = @getFooterClasses({stepId, taskId, courseId, review})
 
     backButton = @renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')
     taskDetails = <div className={className}>

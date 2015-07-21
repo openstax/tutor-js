@@ -206,9 +206,10 @@ TaskConfig =
         how_late: null
 
       step = @_getStep(taskId, stepId)
-      return result unless step?
+      {due_at, type} = @_get(taskId)
 
-      {due_at} = @_get(taskId)
+      return result unless step? and type is 'homework'
+
       {last_completed_at} = step
 
       result.late = moment(due_at).isBefore(last_completed_at)
