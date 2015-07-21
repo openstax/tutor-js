@@ -16,10 +16,10 @@ module.exports =
 
   mixins: [ ChapterSectionMixin ]
 
-  renderTeacherReadOnlyDetails: ({taskId, courseId, review}) ->
+  renderTeacherReadOnlyDetails: ({stepId, taskId, courseId, review}) ->
 
     unless review?.length
-      taskDetails = @renderDefaultDetails({taskId, courseId, review})
+      taskDetails = @renderDefaultDetails({stepId, taskId, courseId, review})
 
       taskDetails = [
         <ViewingAsStudentNameShell
@@ -43,7 +43,7 @@ module.exports =
       Reading covers: {sections}
     </div>
 
-  renderDefaultDetails: ({taskId, courseId, review}) ->
+  renderDefaultDetails: ({stepId, taskId, courseId, review}) ->
     return null if review?.length
 
     task = TaskStore.get(taskId)
@@ -54,7 +54,19 @@ module.exports =
       {@renderCoversSections(sections) if sections.length}
     </div>
 
-    taskDetails = <Details key='details' task={task} className='task-footer-detail'/>
+    stepLateness = TaskStore.getStepLateness(taskId, stepId)
+    stepLastCompletedAt = <div
+      key='last-completed-at'
+      className='task-footer-last-completed-at pull-right'>
+      <i>{stepLateness.how_late} late</i>
+    </div> if stepLateness.late
+
+    taskDetails = <Details
+      key='details'
+      task={task}
+      className='task-footer-detail'>
+      {stepLastCompletedAt}
+    </Details>
 
     [
       taskAbout
@@ -65,7 +77,7 @@ module.exports =
     panel = StepPanel.getPanel(stepId)
     renderDetailsForPanelMethod = camelCase "render-#{panel}-details"
 
-    @[renderDetailsForPanelMethod]?({taskId, courseId, review}) or @renderDefaultDetails({taskId, courseId, review})
+    @[renderDetailsForPanelMethod]?({stepId, taskId, courseId, review}) or @renderDefaultDetails({stepId, taskId, courseId, review})
 
   renderBackButton: ({taskId, courseId, review, panel}, custombuttonClasses) ->
     defaultButtonClasses = 'btn btn-primary'

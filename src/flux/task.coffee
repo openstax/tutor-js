@@ -36,8 +36,7 @@ TaskConfig =
   _steps: {}
 
   _getStep: (taskId, stepId) ->
-    task = @_local[taskId]
-    step = _.find(task.steps, (s) -> s.id is stepId)
+    step = _.find(@_steps[taskId], (s) -> s.id is stepId)
     step
 
   _loaded: (obj, id) ->
@@ -200,6 +199,23 @@ TaskConfig =
 
       if practices.indexOf(@_get(taskId).type) > -1 then true else false
 
+    getStepLateness: (taskId, stepId) ->
+      result =
+        late: false
+        last_completed_at: null
+        how_late: null
+
+      step = @_getStep(taskId, stepId)
+      return result unless step?
+
+      {due_at} = @_get(taskId)
+      {last_completed_at} = step
+
+      result.late = moment(due_at).isBefore(last_completed_at)
+      result.last_completed_at = last_completed_at
+      result.how_late = moment(due_at).from(last_completed_at, true)
+
+      result
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
