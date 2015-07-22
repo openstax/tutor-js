@@ -30,7 +30,9 @@
     .no-select();
     cursor: pointer;
     background: @tutor-white;
-
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     &.is-ascending:after {
       padding-left:8px;
       content: @fa-var-sort-asc;
@@ -42,7 +44,13 @@
       .fa-icon();
     }
   }
-
+  i.late:after {
+    .fa-icon();
+    padding-left:8px;
+    content: @fa-var-clock-o;
+    color: @tutor-warning;
+  }
+  .task-result { padding-left: 8px; }
   .average-header-cell {
     background: @tutor-neutral-light;
   }

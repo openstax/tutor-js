@@ -2,6 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+ReadingCell = require './reading-cell'
+HomeworkCell = require './homework-cell'
 
 FixedDataTable = require 'fixed-data-table'
 Table = FixedDataTable.Table
@@ -125,13 +127,14 @@ Performance = React.createClass
       groupHeaderRenderer={-> customGroupHeader}
       fixed={fixed}>
       <Column
-      label={heading.title}
-      headerRenderer={-> customHeader}
-      cellRenderer={-> @cellData}
-      width={@state.colSetWidth}
-      fixed={fixed}
-      isResizable=false
-      dataKey={i} />
+        label={heading.title}
+        headerRenderer={-> customHeader}
+        cellRenderer={-> @cellData}
+        width={200}
+        flexGrow={1}
+        fixed={fixed}
+        isResizable=false
+        dataKey={i} />
     </ColumnGroup>
 
   renderAverageCell: (heading) ->
@@ -144,9 +147,10 @@ Performance = React.createClass
       @renderStudentCell(column, student_data)
 
   renderStudentCell: (cell, student_data) ->
+    props = {task:cell, student:student_data, courseId: @props.courseId}
     switch cell.type
-      when 'reading' then @renderReadingCell(cell)
-      when 'homework' then @renderHomeworkCell(cell)
+      when 'reading' then  <ReadingCell  {...props} />
+      when 'homework' then <HomeworkCell {...props} />
       when 'external' then @renderExternalCell(cell)
       when 'name' then @renderStudentName(cell, student_data)
       else throw new Error('Unknown cell type')
@@ -156,18 +160,6 @@ Performance = React.createClass
       params={roleId: student_data.role, courseId: @props.courseId}>
       {cell.title}
     </Router.Link>
-
-
-  renderReadingCell: (cell) ->
-    status = switch cell.status
-      when 'completed' then 'Complete'
-      when 'in_progress' then 'In progress'
-      when 'not_started' then 'Not started'
-
-    {courseId} = @props
-    linkParams = {courseId, id: cell.id, stepIndex: 1}
-
-    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
 
   renderExternalCell: (cell) ->
     status = switch cell.status
@@ -179,15 +171,6 @@ Performance = React.createClass
     linkParams = {courseId, id: cell.id, stepIndex: 1}
 
     <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
-
-  renderHomeworkCell: (cell) ->
-    {courseId} = @props
-    linkParams = {courseId, id: cell.id, stepIndex: 1}
-
-    <Router.Link to='viewTaskStep' params={linkParams}>
-      {cell.correct_exercise_count}/{cell.exercise_count}
-    </Router.Link>
-
 
   selectPeriod: (period) ->
     @setState({period_id: period.id})
