@@ -8,7 +8,7 @@ STATUS =
 
 module.exports = React.createClass
   displayName: 'ReadingCell'
-  mixins: [CellStatusMixin] # handles rendering
+  mixins: [CellStatusMixin]
 
-  statusMessage: ->
-    STATUS[@props.task.status]
+  render: ->
+    @renderLink( message: STATUS[@props.task.status] )
