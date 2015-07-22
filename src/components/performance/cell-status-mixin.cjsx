@@ -20,6 +20,9 @@ module.exports = {
     ).isRequired
 
   isLate: ->
+    # if the task was never worked then it's not late, it's incomplete
+    return false unless @props.task.last_worked_at
+
     new Date(@props.task.last_worked_at) > new Date(@props.task.due_at)
 
   renderLink: ({message}) ->
