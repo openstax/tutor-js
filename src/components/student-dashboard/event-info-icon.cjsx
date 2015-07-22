@@ -5,7 +5,8 @@ S = require '../../helpers/string'
 moment   = require 'moment'
 
 module.exports = React.createClass
-  displayName: 'HomeworkRow'
+  displayName: 'EventInfoIcon'
+
   propTypes:
     event: React.PropTypes.object.isRequired
 
