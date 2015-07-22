@@ -1,6 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
 LateIcon = require './late-icon'
+TaskHelper = require '../../helpers/task'
 
 module.exports = {
 
@@ -19,17 +20,11 @@ module.exports = {
       role: React.PropTypes.number
     ).isRequired
 
-  isLate: ->
-    # if the task was never worked then it's not late, it's incomplete
-    return false unless @props.task.last_worked_at
-
-    new Date(@props.task.last_worked_at) > new Date(@props.task.due_at)
-
   renderLink: ({message}) ->
     <Router.Link className={"task-result #{@props.task.type}"} to='viewTaskStep'
       params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
       <span>{message}</span>
-      {<LateIcon {...@props}/> if @isLate()}
+      <LateIcon {...@props}/>
     </Router.Link>
 
 }
