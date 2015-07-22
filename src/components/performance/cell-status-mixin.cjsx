@@ -22,10 +22,10 @@ module.exports = {
   isLate: ->
     new Date(@props.task.last_worked_at) > new Date(@props.task.due_at)
 
-  render: ->
+  renderLink: ({message}) ->
     <Router.Link className={"task-result #{@props.task.type}"} to='viewTaskStep'
       params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
-      <span>{@statusMessage()}</span>
+      <span>{message}</span>
       {<LateIcon {...@props}/> if @isLate()}
     </Router.Link>
 
