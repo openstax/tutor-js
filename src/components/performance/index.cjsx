@@ -79,10 +79,6 @@ Performance = React.createClass
       classes = @state.sortOrder
     else
       classes = ''
-    if heading.title is 'Student'
-      fixed = true
-    else
-      fixed = false
     if i is @state.colResizeKey
       @state.colSetWidth = @state.colResizeWidth
     else
@@ -123,18 +119,18 @@ Performance = React.createClass
         className={'header-cell ' + classes}>
           {heading.title}
       </div>
-
+    isFixed = i < 2
     <ColumnGroup
       key={i}
       groupHeaderRenderer={-> customGroupHeader}
-      fixed={fixed}>
+      fixed={isFixed}>
       <Column
         label={heading.title}
         headerRenderer={-> customHeader}
         cellRenderer={-> @cellData}
         width={@state.colSetWidth}
         flexGrow={1}
-        fixed={fixed}
+        fixed={isFixed}
         isResizable=false
         dataKey={i} />
     </ColumnGroup>
