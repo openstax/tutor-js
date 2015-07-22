@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 ReadingCell = require './reading-cell'
 HomeworkCell = require './homework-cell'
+NameCell = require './name-cell'
 
 FixedDataTable = require 'fixed-data-table'
 Table = FixedDataTable.Table
@@ -124,6 +125,7 @@ Performance = React.createClass
       </div>
 
     <ColumnGroup
+      key={i}
       groupHeaderRenderer={-> customGroupHeader}
       fixed={fixed}>
       <Column
@@ -143,23 +145,18 @@ Performance = React.createClass
     classAverage
 
   renderStudentRow: (student_data) ->
+    props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
+    columns = [
+      <NameCell key='fn' display={student_data.first_name} {...props} />
+      <NameCell key='ln' display={student_data.last_name}  {...props} />
+    ]
     for column in student_data.data
-      @renderStudentCell(column, student_data)
+      columns.push switch column.type
+        when 'reading' then  <ReadingCell  key='reading'  task={column} {...props} />
+        when 'homework' then <HomeworkCell key='homework' task={column} {...props} />
+        when 'external' then @renderExternalCell(cell)
+    columns
 
-  renderStudentCell: (cell, student_data) ->
-    props = {task:cell, student:student_data, courseId: @props.courseId}
-    switch cell.type
-      when 'reading' then  <ReadingCell  {...props} />
-      when 'homework' then <HomeworkCell {...props} />
-      when 'external' then @renderExternalCell(cell)
-      when 'name' then @renderStudentName(cell, student_data)
-      else throw new Error('Unknown cell type')
-
-  renderStudentName: (cell, student_data) ->
-    <Router.Link to='viewStudentTeacherGuide'
-      params={roleId: student_data.role, courseId: @props.courseId}>
-      {cell.title}
-    </Router.Link>
 
   renderExternalCell: (cell) ->
     status = switch cell.status
@@ -170,7 +167,7 @@ Performance = React.createClass
     {courseId} = @props
     linkParams = {courseId, id: cell.id, stepIndex: 1}
 
-    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
+    <Router.Link key='extern' to='viewTaskStep' params={linkParams}>{status}</Router.Link>
 
   selectPeriod: (period) ->
     @setState({period_id: period.id})
@@ -179,7 +176,6 @@ Performance = React.createClass
     @setState({periodIndex: key + 1})
 
   render: ->
-
     {courseId} = @props
     {sortIndex, period_id, tableWidth, tableHeight, sortOrder} = @state
 
@@ -193,20 +189,21 @@ Performance = React.createClass
       performance = performance[0] or throw new Error('BUG: No periods')
 
     headers = performance.data_headings
-    headers.unshift({"title":"Student"})
+    headers.unshift({"title":"First Name"})
+    headers.unshift({"title":"Last Name"})
 
     headings = _.map(headers, @renderHeadingCell)
-    #averages = _.map(performance.data_headings, @renderAverageCell)
-
-    students = performance.students
-    for student in students
-      student.data.unshift({"title":student.name, "type":"name"})
 
     sortData = _.sortBy(performance.students, (d) ->
-      switch d.data[sortIndex].type
-        when 'homework' then d.data[sortIndex].correct_exercise_count
-        when 'reading' then d.data[sortIndex].status
-        when 'name' then d.data[sortIndex].title
+      if sortIndex is 0
+        d.first_name
+      else if sortIndex is 1
+        d.first_name
+      else
+        switch d.data[sortIndex].type
+          when 'homework' then d.data[sortIndex].correct_exercise_count
+          when 'reading' then d.data[sortIndex].status
+          when 'name' then d.data[sortIndex].title
       )
 
     if sortOrder is 'is-descending'
