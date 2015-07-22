@@ -39,9 +39,9 @@ Performance = React.createClass
     tableWidth: 0
     tableHeight: 0
     debounce: _.debounce(@sizeTable, 100)
-    colDefaultWidth: 300
-    colSetWidth: 300
-    colResizeWidth: 300
+    colDefaultWidth: 225
+    colSetWidth: 225
+    colResizeWidth: 225
     colResizeKey: 0
 
 
@@ -130,7 +130,7 @@ Performance = React.createClass
         label={heading.title}
         headerRenderer={-> customHeader}
         cellRenderer={-> @cellData}
-        width={200}
+        width={@state.colSetWidth}
         flexGrow={1}
         fixed={fixed}
         isResizable=false
