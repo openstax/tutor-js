@@ -9,8 +9,6 @@ module.exports = React.createClass
     message = if @isLate()
       'Incomplete'
     else
-    message =  "#{@props.task.correct_exercise_count}/#{@props.task.exercise_count}"
-    unless @props.task.status is 'completed'
-      message += if @isLate() then ' (Late)' else ' (Incomplete)'
+      "#{@props.task.correct_exercise_count}/#{@props.task.exercise_count}"
 
     @renderLink({message})
