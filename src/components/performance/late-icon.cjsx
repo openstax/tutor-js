@@ -1,7 +1,7 @@
 React    = require 'react'
 BS       = require 'react-bootstrap'
 S = require '../../helpers/string'
-moment = require 'moment'
+TaskHelper = require '../../helpers/task'
 
 module.exports = React.createClass
   displayName: 'LateIcon'
@@ -13,8 +13,10 @@ module.exports = React.createClass
     ).isRequired
 
   render: ->
-    due = moment(@props.task.due_at)
-    msg = S.capitalize(@props.task.type) + ' was worked ' + due.from(@props.task.last_worked_at, true) + ' late'
+    status = TaskHelper.getLateness(@props.task)
+    return null unless status.is_late
+
+    msg = S.capitalize(@props.task.type) + ' was worked ' + status.how_late + ' late'
 
     tooltip = <BS.Tooltip>{msg}</BS.Tooltip>
     <BS.OverlayTrigger placement='top' overlay={tooltip}>
