@@ -2,9 +2,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-ReadingCell = require './reading-cell'
+ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
-NameCell = require './name-cell'
+NameCell     = require './name-cell'
+ExternalCell = require './external-cell'
 
 FixedDataTable = require 'fixed-data-table'
 Table = FixedDataTable.Table
@@ -83,7 +84,6 @@ Performance = React.createClass
       @state.colSetWidth = @state.colResizeWidth
     else
       @state.colSetWidth = @state.colDefaultWidth
-
     if heading.type is 'external'
       customHeader = <small>
         <QuickStatsShell id={"#{heading.plan_id}"} periodId={@state.period_id}/>
@@ -146,24 +146,13 @@ Performance = React.createClass
       <NameCell key='fn' display={student_data.first_name} {...props} />
       <NameCell key='ln' display={student_data.last_name}  {...props} />
     ]
-    for column in student_data.data
-      columns.push switch column.type
-        when 'reading' then  <ReadingCell  key='reading'  task={column} {...props} />
-        when 'homework' then <HomeworkCell key='homework' task={column} {...props} />
-        when 'external' then @renderExternalCell(cell)
+    for task in student_data.data
+      props.task = task
+      columns.push switch task.type
+        when 'reading' then  <ReadingCell  key='reading'  {...props} />
+        when 'homework' then <HomeworkCell key='homework' {...props} />
+        when 'external' then <ExternalCell key='extern'   {...props} />
     columns
-
-
-  renderExternalCell: (cell) ->
-    status = switch cell.status
-      when 'completed' then 'Clicked'
-      when 'in_progress' then 'Viewed'
-      when 'not_started' then 'Not started'
-
-    {courseId} = @props
-    linkParams = {courseId, id: cell.id, stepIndex: 1}
-
-    <Router.Link key='extern' to='viewTaskStep' params={linkParams}>{status}</Router.Link>
 
   selectPeriod: (period) ->
     @setState({period_id: period.id})
