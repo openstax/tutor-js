@@ -10,8 +10,8 @@
     width: 100%;
     margin-bottom: 32px;
     #fonts > .sans(1.75rem, 3.6rem);
-    border-top: solid  8px  @tutor-neutral;
-    border-bottom: solid  8px  @tutor-neutral;
+    border-top: solid  8px  @tutor-neutral-light;
+    border-bottom: solid  8px  @tutor-neutral-light;
     padding: 20px 0;
     caption {
     #fonts > .sans(2rem, 3rem);
@@ -137,11 +137,10 @@ figure {
 
   // splash images are always full width without margin or surrounding padding
   &.splash {
-
+    margin-bottom: 40px;
     // .splash is wider than other elements on the page since it has 0 surrounding padding
     // This means child elements that normally have a fixed pixel width will not expand to fit
     // unless their widths are set to be 100%
-
     .tutor-ui-horizontal-img {
       .book-content-full-width();
     }
@@ -159,7 +158,6 @@ figure {
     border-color: @border-color;
   }
 }
-
 // images inside a figure that occurs right after a title are full-width
 .title + figure {
   width: 100%;
