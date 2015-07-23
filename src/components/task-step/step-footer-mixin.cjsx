@@ -5,6 +5,8 @@ Router = require 'react-router'
 
 Details = require '../task/details'
 BrowseTheBook = require '../buttons/browse-the-book'
+LateIcon = require '../late-icon'
+
 ChapterSectionMixin = require '../chapter-section-mixin'
 
 {TaskStore} = require '../../flux/task'
@@ -54,23 +56,18 @@ module.exports =
       {@renderCoversSections(sections) if sections.length}
     </div>
 
-    stepLateness = TaskStore.getStepLateness(taskId, stepId)
-    stepLastCompletedAt = <div
-      key='last-completed-at'
-      className='task-footer-last-completed-at pull-right'>
-      <i>{stepLateness.how_late} late</i>
-    </div> if stepLateness.late
-
     taskDetails = <Details
       key='details'
       task={task}
-      className='task-footer-detail'>
-      {stepLastCompletedAt}
-    </Details>
+      className='task-footer-detail' />
+
+    buildLateMessage = (task, status) ->
+      "#{status.how_late} late"
 
     [
       taskAbout
       taskDetails
+      <LateIcon className='task-footer-detail' task={task} buildLateMessage={buildLateMessage}/>
     ]
 
   renderTaskDetails: ({stepId, taskId, courseId, review}) ->
@@ -128,11 +125,9 @@ module.exports =
 
   getFooterClasses: ({stepId, taskId, courseId, review}) ->
     sections = TaskStore.getRelatedSections(taskId)
-    stepLateness = TaskStore.getStepLateness(taskId, stepId)
 
     className = 'task-footer-details'
     className += ' has-sections' if sections.length
-    className += ' late' if stepLateness.late
 
     className
 

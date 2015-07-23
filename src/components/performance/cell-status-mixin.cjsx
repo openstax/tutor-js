@@ -1,6 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
-LateIcon = require './late-icon'
+LateIcon = require '../late-icon'
 TaskHelper = require '../../helpers/task'
 
 module.exports = {
