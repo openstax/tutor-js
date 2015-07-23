@@ -1,0 +1,22 @@
+// sometimes it's plural, sometimes not?
+.worked-example.note:first-child,
+.worked-examples.note:first-child {
+
+  &:before {
+    .tutor-reading-step-banner-icon("icon-calculator.svg");
+  }
+
+  > .exercise > [data-type=title] {
+    .tutor-reading-main-title();
+  }
+
+  .exercise {
+    .solution {
+      &:before {
+        content: "Solution";
+        display: block;
+       .book-content-subtitle();
+      }
+    }
+  }
+}
