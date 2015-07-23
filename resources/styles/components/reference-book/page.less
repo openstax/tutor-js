@@ -29,6 +29,22 @@
     }
   }
 
+  &[data-category=physics]{
+    .content {
+      .page {
+        .tutor-book-content-theme-physics();
+      }
+    }
+  }
+
+  &[data-category=biology]{
+    .content {
+      .page {
+        .tutor-book-content-theme-biology();
+      }
+    }
+  }
+
   &.is-teacher {
     .content .page {
       .os-teacher {
@@ -47,25 +63,5 @@
       .page-wrapper{ margin-left: @reference-book-menu-width; }
     }
   }
-
-  //   &[data-category=biology] {
-
-  //   //  .call-the-right-thing-mixi(biology);
-
-  //   .tutor-book-category-biology();
-  // }
-  // &[data-category=physics] {
-  //    // .call-the-right-thing-mixi(physics);
-  //     .tutor-book-category-physics();
-  // }
-
-//  .call-the-right-thing-mixi(@waka);
-
-//     .call-the-right-thing-mixi(@thething) when(@thething=biology) {
-//       .tutor-book-category-biology();
-//     }
-//     .call-the-right-thing-mixi(@thething) when(@thething=physics){
-//        .tutor-book-category-physics();
-//      }
 
 }

@@ -1,0 +1,42 @@
+.tutor-book-theme-learning-objectives(@theme-primary: @tutor-book-primary; @text-color: @tutor-book-text-on-dark-labels) {
+  .learning-objectives {
+    background: @theme-primary;
+    color: @text-color;
+
+    p {
+      color: fade(@text-color, 75%);
+    }
+
+    ul {
+      border-left-color: fade(@text-color, 40%);
+    }
+  }
+}
+
+.tutor-book-theme-note(@label-text: @tutor-book-primary; @label-background: @tutor-book-secondary) {
+  >.note, .virtual-physics, .worked-example {
+    &:before {
+      color: @label-text;
+      background: @label-background;
+    }
+  }
+}
+
+.tutor-book-theme-typography(@heading-border: @tutor-book-secondary) {
+  h1 {
+    border-top-color: @heading-border;
+  }
+}
+
+
+.tutor-book-content-theme(@book-theme-name) {
+  @book-theme-primary: "tutor-book-@{book-theme-name}-primary";
+  @book-theme-secondary: "tutor-book-@{book-theme-name}-secondary";
+  @book-theme-tertiary: "tutor-book-@{book-theme-name}-tertiary";
+  @book-theme-quaternary: "tutor-book-@{book-theme-name}-quaternary";
+  @book-theme-highlight: "tutor-book-@{book-theme-name}-highlight";
+
+  .tutor-book-theme-typography(@@book-theme-secondary);
+  .tutor-book-theme-learning-objectives(@@book-theme-primary);
+  .tutor-book-theme-note(@@book-theme-primary; @@book-theme-secondary);
+}
