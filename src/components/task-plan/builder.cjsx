@@ -85,6 +85,11 @@ module.exports = React.createClass
     TaskPlanActions.updateDescription(id, desc)
 
 
+  renderFeedbackNote: ->
+    <BS.Col sm=12 md=3>
+      <div className="instructions">Feedback will be released after the due date.</div>
+    </BS.Col>
+
   render: ->
     plan = TaskPlanStore.get(@props.id)
     if (not @state.showingPeriods)
@@ -160,9 +165,7 @@ module.exports = React.createClass
             min={TaskPlanStore.getOpensAt(@props.id)}
             value={commonDueAt}/>
         </BS.Col>
-        <BS.Col sm=12 md=3>
-          <div className="instructions">Feedback will be released after the due date.</div>
-        </BS.Col>
+        {@renderFeedbackNote() unless plan.type is 'external'}
 
       </BS.Row>
       <BS.Row>
