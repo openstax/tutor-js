@@ -9,7 +9,7 @@ BindStoreMixin = require '../bind-store-mixin'
 
 {TimeStore} = require '../../flux/time'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
+{TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
 
 module.exports = React.createClass
@@ -37,9 +37,9 @@ module.exports = React.createClass
     commonDates = dueAt and opensAt
 
     #set default dates
-    opensAt = if date and isNewPlan then moment(date).format('MM/DD/YYYY')
+    opensAt = if date and isNewPlan then moment(date).format(TutorDateFormat)
     if not opensAt
-      opensAt = moment(TimeStore.getNow()).format('MM/DD/YYYY')
+      opensAt = moment(TimeStore.getNow()).format(TutorDateFormat)
 
     #map tasking plans
     course = CourseStore.get(@props.courseId)
