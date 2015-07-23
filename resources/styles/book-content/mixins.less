@@ -21,12 +21,12 @@
   text-transform: capitalize;
 }
 
-.tutor-reading-first-letter() {
+.tutor-reading-first-letter(@letter-color: @tutor-book-secondary) {
   &::first-letter{
     float: left;
     #fonts > .sans(10.8rem, .7em); //setting line-height in em to scale on browser zoom
     font-weight: 600;
-    color: @tutor-secondary;
+    color: @letter-color;
     margin: .1em .08em 0 -.06em; //best combination on line-height and margin to look good in chrome and ff
   }
   // ensure that the p is heigh enough for the drop cap
@@ -34,8 +34,8 @@
   min-height: 8rem;
 }
 
-.book-content-subtitle() {
-  color: @tutor-secondary;
+.book-content-subtitle(@subtitle-color: @tutor-book-secondary) {
+  color: @subtitle-color;
   font-weight: 400;
   text-transform: uppercase;
   margin: 20px 0;
