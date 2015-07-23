@@ -34,13 +34,12 @@ module.exports = React.createClass
     # check for common open/due dates, remember it now before we set defaults
     dueAt = TaskPlanStore.getDueAt(@props.id)
     opensAt = TaskPlanStore.getOpensAt(@props.id)
-    sameDates = dueAt and opensAt
+    commonDates = dueAt and opensAt
 
     #set default dates
-    dueAt = if date and isNewPlan then moment(date).format('MM/DD/YYYY')
-    if not dueAt and isNewPlan
-      dueAt = moment(TimeStore.getNow()).add(1, 'day').format('MM/DD/YYYY')
-    opensAt = if not opensAt then moment(TimeStore.getNow()).format('MM/DD/YYYY')
+    opensAt = if date and isNewPlan then moment(date).format('MM/DD/YYYY')
+    if not opensAt
+      opensAt = moment(TimeStore.getNow()).format('MM/DD/YYYY')
 
     #map tasking plans
     course = CourseStore.get(@props.courseId)
@@ -56,7 +55,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(planId, periods)
 
     if not isNewPlan
-      @setState({showingPeriods: not (sameDates and hasAllTaskings)})
+      @setState({showingPeriods: not (commonDates and hasAllTaskings)})
       TaskPlanActions.disableEmptyTaskings(planId)
 
   # this will be called whenever the course store loads, but won't if

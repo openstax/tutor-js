@@ -111,7 +111,7 @@ TaskPlanConfig =
     # do all the tasking_plans have the same date?
     dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
       date = new Date(plan[attr])
-      date?.getTime()
+      if isNaN(date.getTime()) then 0 else date.getTime()
     )
     if dates.length is 1 then new Date(_.first(dates)) else null
 
