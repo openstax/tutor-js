@@ -1,21 +1,25 @@
 // This file is part of the book-content mixin and should not be included directly
+// Hide titles, abstracts and CNX Processing instructions
 
-// The first child element is a .note[data-has-label], that should be used as title
-> .note:first-child {
 
-  &:before {
-    content: attr(data-label);
-    #fonts > .sans(@reading-ui-banner-height - 18px, @reading-ui-banner-height);
+.section-opener, .summary {
+  .os-teacher {
+    margin-top: 20px;
+  }
+  table {
+    width: 100%;
+    margin-bottom: 32px;
+    #fonts > .sans(1.75rem, 3.6rem);
+    border-top: solid  8px  @tutor-neutral;
+    border-bottom: solid  8px  @tutor-neutral;
+    padding: 20px 0;
+    caption {
+    #fonts > .sans(3rem, 5rem);
     font-weight: 900;
-    color: @tutor-secondary;
-    background: @tutor-tertiary;
-    padding: 0 10px;
-    height: @reading-ui-banner-height;
-    display: inline-block;
+    color: @tutor-neutral-darker;
+    }
   }
 }
-
-// Hide titles, abstracts and CNX Processing instructions
 div[data-type="document-title"],
 div[data-type=abstract]
 cnx-pi{
@@ -29,6 +33,7 @@ p, ul, ol {
 }
 
 .learning-objectives {
+  &.note:before {display: none;}
   #fonts > .sans(1.8rem, 1.8rem);
   width: 100%;
   min-height: 100px;
@@ -36,8 +41,8 @@ p, ul, ol {
   margin-top: -@tutor-card-body-padding-vertical;
   color: #ffffff;
   padding: 10px 20px;
-  background: @tutor-secondary;
-
+  background: @tutor-primary;
+  border: none;
   display: inline-flex;
   display: -ms-inline-flexbox; // IE10 support
   display: -webkit-inline-flex;
@@ -160,5 +165,4 @@ figure {
   width: 100%;
   img { width: 100%; }
 }
-
 

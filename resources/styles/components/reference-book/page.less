@@ -1,5 +1,4 @@
 .reference-book {
-
   .content {
     margin-top: 75px;
 
@@ -11,7 +10,7 @@
       .tutor-book-content();
       // shown if parent is-teacher present below
       .os-teacher {
-        display: none;
+        //display: none;
       }
 
       > section {
@@ -48,5 +47,25 @@
       .page-wrapper{ margin-left: @reference-book-menu-width; }
     }
   }
+
+  //   &[data-category=biology] {
+
+  //   //  .call-the-right-thing-mixi(biology);
+
+  //   .tutor-book-category-biology();
+  // }
+  // &[data-category=physics] {
+  //    // .call-the-right-thing-mixi(physics);
+  //     .tutor-book-category-physics();
+  // }
+
+//  .call-the-right-thing-mixi(@waka);
+
+//     .call-the-right-thing-mixi(@thething) when(@thething=biology) {
+//       .tutor-book-category-biology();
+//     }
+//     .call-the-right-thing-mixi(@thething) when(@thething=physics){
+//        .tutor-book-category-physics();
+//      }
 
 }

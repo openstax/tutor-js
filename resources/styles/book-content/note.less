@@ -1,76 +1,115 @@
-// This file is part of the book-content mixin and should not be included directly
-.tips-for-success,
-.os-teacher,
-.ost-background-info,
-.ost-misconception {
-  margin-top: @tutor-card-body-padding-vertical;
+// // This file is part of the book-content mixin and should not be included directly
+// .tips-for-success,
+// .os-teacher,
+// .ost-background-info,
+// .ost-misconception {
+//   margin-top: @tutor-card-body-padding-vertical;
+//   clear: both;
+//   &:before {
+//     height: 35px;
+//     content: attr(data-label);
+//     background: @tutor-quaternary;
+//     color: @tutor-tertiary;
+//     font-weight: 700;
+//     line-height: 2.5em;
+//     background-repeat: no-repeat;
+//     // table cell is chosen since it needs to be only as wide as the text,
+//     // yet still break to a new line after the content
+//     display: table-cell;
+//     text-indent: 30px;
+//     background-position: 10px 5px;
+//     background-size: 25px 25px;
+//     padding: 0 10px;
+//     margin: 0;
+//   }
+//   > p {
+//     #fonts > .sans(1.7rem, 1.5em);
+//     color: @tutor-neutral-dark;
+//     margin: 0;
+//     padding: 5px 20px;
+//     background: @tutor-neutral-lightest;
+//     &:first-child {
+//       border-top: 1px solid @tutor-neutral-lighter;
+//       padding-top: 15px;
+//     }
+//     &:last-child {
+//       padding-bottom: 15px;
+//     }
+//   }
+//   > ul {
+//     #fonts > .sans(1.7rem, 1.5em);
+//     color: @tutor-neutral-dark;
+//     border-top: 1px solid @tutor-neutral-lighter;
+//     padding: 10px;
+//     list-style: none;
+//     background: @tutor-neutral-lightest;
+//     > li {
+//       padding: 10px;
+//       &:before {
+//         content: "";
+//         margin: .6em -.8em 0;
+//       }
+//       ol {
+//         margin-left: 1.2em;
+//       }
+//     }
+//   }
+// }
+
+>.note {
+  background: @tutor-neutral-lightest;
+  margin: 68px 0 32px 0;
   clear: both;
+  border-top: solid 8px @tutor-neutral-lighter;
+  border-bottom: solid 8px @tutor-neutral-lighter;
+  padding: 20px 40px;
+
   &:before {
-    height: 35px;
+    position: absolute;
     content: attr(data-label);
-    background: @tutor-quaternary url("icon-light-bulb.svg");
-    color: @tutor-tertiary;
-    font-weight: 700;
-    line-height: 2.5em;
-    background-repeat: no-repeat;
-    // table cell is chosen since it needs to be only as wide as the text,
-    // yet still break to a new line after the content
-    display: table-cell;
-    text-indent: 30px;
-    background-position: 10px 5px;
-    background-size: 25px 25px;
-    padding: 0 10px;
-    margin: 0;
+    #fonts > .sans(@reading-ui-banner-height - 18px, @reading-ui-banner-height);
+    font-weight: 900;
+    color: @tutor-primary;
+    background: @tutor-secondary;
+    padding: 0 40px;
+    height: @reading-ui-banner-height;
+    display: inline-block;
+    margin: -68px 0 0 -40px;
   }
-  > p {
-    #fonts > .sans(1.7rem, 1.5em);
-    color: @tutor-neutral-dark;
-    margin: 0;
-    padding: 5px 20px;
-    background: @tutor-neutral-lightest;
-    &:first-child {
-      border-top: 1px solid @tutor-neutral-lighter;
-      padding-top: 15px;
-    }
-    &:last-child {
-      padding-bottom: 15px;
-    }
+
+  & :last-child {
+    padding-bottom: 0;
   }
-  > ul {
-    #fonts > .sans(1.7rem, 1.5em);
+
+  .title {
+    #fonts > .sans(3rem, 4.6rem);
+    font-weight: 900;
+  }
+
+  p, ul, li {
+    #fonts > .sans(1.8rem, 1.75em);
+    margin: 0 0  1.5rem 0;
     color: @tutor-neutral-dark;
-    border-top: 1px solid @tutor-neutral-lighter;
-    padding: 10px;
-    list-style: none;
-    background: @tutor-neutral-lightest;
-    > li {
-      padding: 10px;
-      &:before {
-        content: "";
-        margin: .6em -.8em 0;
-      }
-      ol {
-        margin-left: 1.2em;
-      }
-    }
+  }
+  li {
+    padding: 5px 0;
   }
 }
 
-.note {
-  //border:  solid 1px  @tutor-secondary;
-  padding: 0 20px;
-  margin-bottom: 20px;
-  > .title {
-  font-weight: 900;
-  text-transform: uppercase;
-  margin: 20px 0;
-  font-size: 2rem;
-  color: @tutor-secondary;
-
+.interactive {
+  background: @tutor-neutral-lightest;
+  margin: 68px 0 32px 0;
+  clear: both;
+  border-top: solid 8px @tutor-neutral-lighter;
+  border-bottom: solid 8px @tutor-neutral-lighter;
+  padding: 20px 40px;
+  .title {
+    #fonts > .sans(3rem, 4.6rem);
+    font-weight: 900;
   }
-  h2 {
-    .book-content-subtitle();
-    margin: 0;
-    text-transform: none;
+  p, ul, li {
+    #fonts > .sans(1.8rem, 1.75em);
+    margin: 0 0  1.5rem 0;
+    color: @tutor-neutral-dark;
   }
 }
