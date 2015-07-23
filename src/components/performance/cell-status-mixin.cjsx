@@ -21,7 +21,7 @@ module.exports = {
     ).isRequired
 
   renderLink: ({message}) ->
-    <Router.Link className={"task-result #{@props.task.type}"} to='viewTaskStep'
+    <Router.Link className={"task-result #{@props.task.type} #{@props.className}"} to='viewTaskStep'
       params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
       <span>{message}</span>
       <LateIcon {...@props}/>
