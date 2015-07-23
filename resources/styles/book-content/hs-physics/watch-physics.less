@@ -1,18 +1,46 @@
-> .note[data-label='Watch Physics'] {
+.watch-physics {
+  background: @tutor-neutral-lightest;
+  margin: 68px 0 32px 0;
+  clear: both;
+  display: inline-block;
+  border-top: solid 8px @tutor-neutral-lighter;
+  border-bottom: solid 8px @tutor-neutral-lighter;
+  padding: 20px 40px;
 
   &:before {
-    display: none;
+    position: absolute;
+    content: attr(data-label);
+    #fonts > .sans(@reading-ui-banner-height - 18px, @reading-ui-banner-height);
+    font-weight: 900;
+    color: @tutor-primary;
+    background: @tutor-secondary;
+    padding: 0 40px;
+    height: @reading-ui-banner-height;
+    display: inline-block;
+    margin: -68px 0 0 -40px;
   }
 
+  & :last-child {
+    padding-bottom: 0;
+  }
 
   .title {
-    .tutor-reading-main-title();
-    border-top: 0;
+    #fonts > .sans(3rem, 4.6rem);
+    font-weight: 900;
   }
 
-
-  [data-type=media] {
-    .tutor-framed-video();
+  p, ul, li {
+    #fonts > .sans(1.8rem, 1.75em);
+    margin: 0 0  1.5rem 0;
+    color: @tutor-neutral-dark;
   }
-
+  li {
+    padding: 5px 0;
+  }
+  .solution, .commentary {
+    [data-type=title]{
+      #fonts > .sans(1.8rem, 1.75em);
+      font-weight: bold;
+    }
+  }
 }
