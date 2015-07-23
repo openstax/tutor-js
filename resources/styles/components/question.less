@@ -54,6 +54,18 @@
   #fonts > .sans (1.8rem, 2.4rem);
 }
 
+.answer-label-disable() {
+  label.answer-label {
+    padding: 4px 0;
+    background-color: transparent;
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
 .question {
   .size-exercise-card();
   .clearfix();
