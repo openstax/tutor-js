@@ -1,0 +1,60 @@
+.tutor-book-theme-learning-objectives(@theme-primary: @tutor-book-primary; @text-color: @tutor-book-text-on-dark-labels) {
+  .learning-objectives {
+    background: @theme-primary;
+    color: @text-color;
+
+    p {
+      color: fade(@text-color, 75%);
+    }
+
+    ul {
+      border-left-color: fade(@text-color, 40%);
+    }
+  }
+}
+
+.tutor-book-theme-note(@label-background: @tutor-book-primary; @label-text: @tutor-book-text-on-dark-labels) {
+  >.note {
+    &:before {
+      color: @label-text;
+      background: @label-background;
+    }
+  }
+}
+
+.tutor-book-theme-typography(@heading-border: @tutor-book-secondary) {
+  h1 {
+    border-top-color: @heading-border;
+  }
+}
+
+.tutor-book-theme-first-letter(@letter-color: @tutor-book-secondary) {
+  .section-opener ~ section h1 + p:first-of-type,
+  div[data-type="document-title"] ~ p:first-of-type {
+    &::first-letter {
+      color: @letter-color;
+    }
+  }
+}
+
+.tutor-book-theme-splash-image(@overlay: @tutor-book-splash-overlay; @text-color: @tutor-book-splash-text) {
+  .splash {
+    .tutor-ui-overlay {
+      background-color: fade(@overlay, 80%);
+      color: @text-color;
+    }
+  }
+}
+
+.tutor-book-content-theme(@book-theme-name) {
+  @book-theme-primary: "tutor-book-@{book-theme-name}-primary";
+  @book-theme-secondary: "tutor-book-@{book-theme-name}-secondary";
+  @book-theme-tertiary: "tutor-book-@{book-theme-name}-tertiary";
+  @book-theme-quaternary: "tutor-book-@{book-theme-name}-quaternary";
+  @book-theme-highlight: "tutor-book-@{book-theme-name}-highlight";
+
+  .tutor-book-theme-first-letter(@@book-theme-secondary);
+  .tutor-book-theme-typography(@@book-theme-secondary);
+  .tutor-book-theme-learning-objectives(@@book-theme-primary);
+  .tutor-book-theme-note(@@book-theme-primary; @@book-theme-secondary);
+}
