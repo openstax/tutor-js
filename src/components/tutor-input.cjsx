@@ -70,7 +70,28 @@ TutorInput = React.createClass
 TutorDateInput = React.createClass
 
   getInitialState: ->
-    {expandCalendar: false}
+    expandCalendar: false
+    currentLocale: @getCurrentLocales()
+
+  componentWillUnmount: ->
+    @restoreLocales()
+
+  # For some reason, react-datepicker chooses to GLOBALLY override moment's locale.
+  # This tends to do nasty things to the dashboard calendar.
+  # Therefore, grab the current locale settings, and restore them when unmounting.
+  # TODO: debug react-datepicker and submit a PR so that it will no longer thrash moment's global.
+  getCurrentLocales: ->
+    currentGlobalLocale = moment.localeData()
+
+    abbr: currentGlobalLocale._abbr
+    week: currentGlobalLocale._week
+    weekdaysMin: currentGlobalLocale._weekdaysMin
+
+  restoreLocales: ->
+    {abbr} = @state.currentLocale
+
+    localeOptions = _.omit(@state.currentLocale, 'abbr')
+    moment.locale(abbr, localeOptions)
 
   expandCalendar: ->
     @setState({expandCalendar: true, hasFocus: true})
@@ -137,7 +158,7 @@ TutorDateInput = React.createClass
           onChange={@dateSelected}
           disabled={@props.disabled}
           selected={value}
-          weekStart={0}
+          weekStart={@state.currentLocale.week.dow}
         />
     else if @props.disabled and value
       displayValue = value.toString("YYYY/MM/DD")
