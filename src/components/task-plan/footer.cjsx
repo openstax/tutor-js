@@ -12,10 +12,6 @@ PlanFooter = React.createClass
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
 
-  getInitialState: ->
-    saving: false
-    publishing: false
-
   saved: ->
     courseId = @props.courseId
     TaskPlanStore.removeChangeListener(@saved)
@@ -37,16 +33,8 @@ PlanFooter = React.createClass
     {id, courseId} = @props
     @context.router.transitionTo('viewStats', {courseId, id})
 
-  onPublish: ->
-    @setState(publishing: true)
-    @props.onPublish()
-
-  onSave: ->
-    @setState(saving: true)
-    @props.onSave()
-
   render: ->
-    {id, courseId, clickedSelectProblem} = @props
+    {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
 
     plan = TaskPlanStore.get(id)
 
@@ -59,9 +47,8 @@ PlanFooter = React.createClass
         <AsyncButton
           bsStyle='primary'
           className='-publish'
-          disabled={isWaiting}
-          onClick={@onPublish}
-          isWaiting={isWaiting and @state.publishing}
+          onClick={onPublish}
+          isWaiting={isWaiting}
           isFailed={isFailed}
           waitingText='Publishing…'
           >
@@ -76,9 +63,8 @@ PlanFooter = React.createClass
       saveLink =
           <AsyncButton
             className='-save'
-            disabled={isWaiting}
-            onClick={@onSave}
-            isWaiting={isWaiting and @state.saving}
+            onClick={onSave}
+            isWaiting={isWaiting}
             isFailed={isFailed}
             waitingText='Saving…'
             >
