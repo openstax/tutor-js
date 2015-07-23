@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 _  = require 'underscore'
 
 BindStoreMixin = require '../bind-store-mixin'
+CourseDataMixin = require '../course-data-mixin'
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
 
@@ -18,7 +19,7 @@ module.exports = React.createClass
   displayName: 'ReferenceBook'
   contextTypes:
     router: React.PropTypes.func
-  mixins: [BindStoreMixin]
+  mixins: [BindStoreMixin, CourseDataMixin]
   bindStore: CourseListingStore
   bindEvent: 'loaded'
 
@@ -42,6 +43,8 @@ module.exports = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
+    courseDataProps = @getCourseDataProps(courseId)
+
     course = CourseStore.get(courseId)
     classnames = ["reference-book"]
     classnames.push('menu-open') if @state.isMenuVisible
@@ -53,7 +56,7 @@ module.exports = React.createClass
       else
         "Show Teacher Edition"
 
-    <div className={classnames.join(' ')}>
+    <div {...courseDataProps} className={classnames.join(' ')}>
       <NavBar
         toggleTocMenu={@toggleMenuState}
         teacherLinkText={teacherLinkText}

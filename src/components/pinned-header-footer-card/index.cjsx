@@ -44,7 +44,7 @@ module.exports = React.createClass
   getOffset: ->
     if @props.fixedOffset?
       offset = @props.fixedOffset
-    else
+    else if @refs.header?
       offset = @getTopPosition(@refs.header.getDOMNode())
 
     offset

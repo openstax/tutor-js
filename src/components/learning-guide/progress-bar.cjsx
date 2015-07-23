@@ -21,6 +21,9 @@ module.exports = React.createClass
 
     bar = <BS.ProgressBar className={color} now={percent} />
     if onPractice
-      <BS.Button title="Click to Practice" onClick={-> onPractice(section)} block>{bar}</BS.Button>
+      tooltip = <BS.Tooltip>Click to practice</BS.Tooltip>
+      <BS.OverlayTrigger placement='bottom' overlay={tooltip}>
+        <BS.Button onClick={-> onPractice(section)} block>{bar}</BS.Button>
+      </BS.OverlayTrigger>
     else
       bar

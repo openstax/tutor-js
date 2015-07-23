@@ -11,6 +11,7 @@ LoadableItem = require '../loadable-item'
 DATE_FORMAT = 'YYYY-MM-DD'
 
 CourseCalendar = require '../course-calendar'
+CourseDataMixin = require '../course-data-mixin'
 
 TeacherTaskPlans = React.createClass
 
@@ -60,6 +61,8 @@ TeacherTaskPlanListing = React.createClass
   getDefaultProps: ->
     dateFormat: DATE_FORMAT
 
+  mixins: [CourseDataMixin]
+
   componentDidMount: ->
     {courseId} = @context.router.getCurrentParams()
 
@@ -91,15 +94,15 @@ TeacherTaskPlanListing = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
+    courseDataProps = @getCourseDataProps(courseId)
+
     date = @getDateFromParams()
 
     plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
 
     loadedCalendarProps = {plansList, courseId, date}
 
-    <div className="tutor-booksplash-background"
-      data-title={CourseStore.getShortName(courseId)}
-      data-category={CourseStore.getCategory(courseId)}>
+    <div {...courseDataProps} className="tutor-booksplash-background">
 
       <BS.Panel
           className='list-courses'
