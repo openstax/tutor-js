@@ -30,7 +30,9 @@
     .no-select();
     cursor: pointer;
     background: @tutor-white;
-
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     &.is-ascending:after {
       padding-left:8px;
       content: @fa-var-sort-asc;
@@ -42,7 +44,14 @@
       .fa-icon();
     }
   }
-
+  i.late:after {
+    .fa-icon();
+    padding-left:8px;
+    content: @fa-var-clock-o;
+    color: @tutor-warning;
+  }
+  // Add padding to links contained inside the table. 8px matches what the table uses for it's headers
+  .public_fixedDataTableCell_wrap3 > a { padding-left: 8px; }
   .average-header-cell {
     background: @tutor-neutral-light;
   }
