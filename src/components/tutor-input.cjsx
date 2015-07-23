@@ -6,6 +6,7 @@ _ = require 'underscore'
 {TimeStore} = require '../flux/time'
 DatePicker = require 'react-datepicker'
 TutorErrors = require './tutor-errors'
+TutorDateFormat = "MM/DD/YYYY"
 
 TutorInput = React.createClass
   propTypes:
@@ -60,9 +61,8 @@ TutorInput = React.createClass
         ref="input"
         type='text'
         className={classes.join(' ')}
-        value={@props.value}
         defaultValue={@props.default}
-        onChange={@onChange}
+        onBlur={@onChange}
       />
       <div className="floating-label">{@props.label}</div>
       {errors}
@@ -88,7 +88,7 @@ TutorDateInput = React.createClass
     if (not valid)
       value = @props.min or null
 
-    date = value.format("MM/DD/YYYY")
+    date = value.format(TutorDateFormat)
     @props.onChange(date)
     @setState({expandCalendar: false, valid: valid, value: date})
 
@@ -130,7 +130,7 @@ TutorDateInput = React.createClass
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
-          dateFormat="MM/DD/YYYY"
+          dateFormat={TutorDateFormat}
           onBlur={@onBlur}
           key={@props.id}
           ref="picker"
@@ -141,7 +141,7 @@ TutorDateInput = React.createClass
           weekStart={0}
         />
     else if @props.disabled and value
-      displayValue = value.toString("MM/DD/YYYY")
+      displayValue = value.toString(TutorDateFormat)
 
     <div className={wrapperClasses.join(' ')}>
       <input type='text' disabled className={classes.join(' ')} value={displayValue}/>
@@ -197,4 +197,4 @@ TutorTextArea = React.createClass
       </div>
     </div>
 
-module.exports = {TutorInput, TutorDateInput, TutorTextArea}
+module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea}
