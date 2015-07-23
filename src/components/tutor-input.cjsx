@@ -62,7 +62,8 @@ TutorInput = React.createClass
         type='text'
         className={classes.join(' ')}
         defaultValue={@props.default}
-        onBlur={@onChange}
+        value={@props.value}
+        onChange={@onChange}
       />
       <div className="floating-label">{@props.label}</div>
       {errors}
