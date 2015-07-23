@@ -2,6 +2,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+ReadingCell  = require './reading-cell'
+HomeworkCell = require './homework-cell'
+NameCell     = require './name-cell'
+ExternalCell = require './external-cell'
 
 FixedDataTable = require 'fixed-data-table'
 Table = FixedDataTable.Table
@@ -37,9 +41,9 @@ Performance = React.createClass
     tableWidth: 0
     tableHeight: 0
     debounce: _.debounce(@sizeTable, 100)
-    colDefaultWidth: 300
-    colSetWidth: 300
-    colResizeWidth: 300
+    colDefaultWidth: 225
+    colSetWidth: 225
+    colResizeWidth: 225
     colResizeKey: 0
 
 
@@ -76,15 +80,10 @@ Performance = React.createClass
       classes = @state.sortOrder
     else
       classes = ''
-    if heading.title is 'Student'
-      fixed = true
-    else
-      fixed = false
     if i is @state.colResizeKey
       @state.colSetWidth = @state.colResizeWidth
     else
       @state.colSetWidth = @state.colDefaultWidth
-
     if heading.type is 'external'
       customHeader = <small>
         <QuickStatsShell id={"#{heading.plan_id}"} periodId={@state.period_id}/>
@@ -120,18 +119,20 @@ Performance = React.createClass
         className={'header-cell ' + classes}>
           {heading.title}
       </div>
-
+    isFixed = i < 2
     <ColumnGroup
+      key={i}
       groupHeaderRenderer={-> customGroupHeader}
-      fixed={fixed}>
+      fixed={isFixed}>
       <Column
-      label={heading.title}
-      headerRenderer={-> customHeader}
-      cellRenderer={-> @cellData}
-      width={@state.colSetWidth}
-      fixed={fixed}
-      isResizable=false
-      dataKey={i} />
+        label={heading.title}
+        headerRenderer={-> customHeader}
+        cellRenderer={-> @cellData}
+        width={@state.colSetWidth}
+        flexGrow={1}
+        fixed={isFixed}
+        isResizable=false
+        dataKey={i} />
     </ColumnGroup>
 
   renderAverageCell: (heading) ->
@@ -140,54 +141,18 @@ Performance = React.createClass
     classAverage
 
   renderStudentRow: (student_data) ->
-    for column in student_data.data
-      @renderStudentCell(column, student_data)
-
-  renderStudentCell: (cell, student_data) ->
-    switch cell.type
-      when 'reading' then @renderReadingCell(cell)
-      when 'homework' then @renderHomeworkCell(cell)
-      when 'external' then @renderExternalCell(cell)
-      when 'name' then @renderStudentName(cell, student_data)
-      else throw new Error('Unknown cell type')
-
-  renderStudentName: (cell, student_data) ->
-    <Router.Link to='viewStudentTeacherGuide'
-      params={roleId: student_data.role, courseId: @props.courseId}>
-      {cell.title}
-    </Router.Link>
-
-
-  renderReadingCell: (cell) ->
-    status = switch cell.status
-      when 'completed' then 'Complete'
-      when 'in_progress' then 'In progress'
-      when 'not_started' then 'Not started'
-
-    {courseId} = @props
-    linkParams = {courseId, id: cell.id, stepIndex: 1}
-
-    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
-
-  renderExternalCell: (cell) ->
-    status = switch cell.status
-      when 'completed' then 'Clicked'
-      when 'in_progress' then 'Viewed'
-      when 'not_started' then 'Not started'
-
-    {courseId} = @props
-    linkParams = {courseId, id: cell.id, stepIndex: 1}
-
-    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
-
-  renderHomeworkCell: (cell) ->
-    {courseId} = @props
-    linkParams = {courseId, id: cell.id, stepIndex: 1}
-
-    <Router.Link to='viewTaskStep' params={linkParams}>
-      {cell.correct_exercise_count}/{cell.exercise_count}
-    </Router.Link>
-
+    props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
+    columns = [
+      <NameCell key='fn' display={student_data.first_name} {...props} />
+      <NameCell key='ln' display={student_data.last_name}  {...props} />
+    ]
+    for task in student_data.data
+      props.task = task
+      columns.push switch task.type
+        when 'reading' then  <ReadingCell  key='reading'  {...props} />
+        when 'homework' then <HomeworkCell key='homework' {...props} />
+        when 'external' then <ExternalCell key='extern'   {...props} />
+    columns
 
   selectPeriod: (period) ->
     @setState({period_id: period.id})
@@ -196,7 +161,6 @@ Performance = React.createClass
     @setState({periodIndex: key + 1})
 
   render: ->
-
     {courseId} = @props
     {sortIndex, period_id, tableWidth, tableHeight, sortOrder} = @state
 
@@ -210,20 +174,21 @@ Performance = React.createClass
       performance = performance[0] or throw new Error('BUG: No periods')
 
     headers = performance.data_headings
-    headers.unshift({"title":"Student"})
+    headers.unshift({"title":"First Name"})
+    headers.unshift({"title":"Last Name"})
 
     headings = _.map(headers, @renderHeadingCell)
-    #averages = _.map(performance.data_headings, @renderAverageCell)
-
-    students = performance.students
-    for student in students
-      student.data.unshift({"title":student.name, "type":"name"})
 
     sortData = _.sortBy(performance.students, (d) ->
-      switch d.data[sortIndex].type
-        when 'homework' then d.data[sortIndex].correct_exercise_count
-        when 'reading' then d.data[sortIndex].status
-        when 'name' then d.data[sortIndex].title
+      if sortIndex is 0
+        d.first_name
+      else if sortIndex is 1
+        d.first_name
+      else
+        switch d.data[sortIndex].type
+          when 'homework' then d.data[sortIndex].correct_exercise_count
+          when 'reading' then d.data[sortIndex].status
+          when 'name' then d.data[sortIndex].title
       )
 
     if sortOrder is 'is-descending'
