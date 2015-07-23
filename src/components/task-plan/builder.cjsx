@@ -31,15 +31,15 @@ module.exports = React.createClass
     planId = @props.id
     isNewPlan = TaskPlanStore.isNew(@props.id)
     dueAt = TaskPlanStore.getDueAt(@props.id)
-    opensAt = TaskPlanStore.getOpensAt(@props.id)
+    opensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
 
-    opensAt = if date
+    dueAt = if date
       moment(date, "YYYY-MM-DD").toDate()
     else
       moment(TimeStore.getNow()).add(1, 'day').toDate()
     course = CourseStore.get(@props.courseId)
     periods = _.map course?.periods, (period) ->
-      id: period.id, due_at: opensAt
+      id: period.id, due_at: dueAt, opens_at: opensAt
 
     hasAllTaskings = _.reduce(periods, (memo, period) ->
       memo and TaskPlanStore.hasTasking(planId, period.id)
@@ -89,7 +89,7 @@ module.exports = React.createClass
     plan = TaskPlanStore.get(@props.id)
     if (not @state.showingPeriods)
       commonDueAt = TaskPlanStore.getDueAt(@props.id)
-      commonOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
+      commonOpensAt = TaskPlanStore.getOpensAt(@props.id)
 
     if (@state.showingPeriods and not plan.tasking_plans.length)
       invalidPeriodsAlert = <BS.Row>
