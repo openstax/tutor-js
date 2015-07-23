@@ -1,3 +1,12 @@
+.tutor-book-theme-splash-image(@overlay: @tutor-book-splash-overlay; @text-color: @tutor-book-splash-text) {
+  .splash {
+    .tutor-ui-overlay {
+      background-color: @overlay;
+      color: @text-color;
+    }
+  }
+}
+
 .splash {
   width: 100%;
   margin: -@tutor-card-body-padding-vertical 0 40px 0;
@@ -18,8 +27,6 @@
   }
   .tutor-ui-overlay {
     position: relative;
-    background-color: rgba(35, 46, 102, 0.8);
-    color: @tutor-white;
     margin-top: -100px;
     font-size: 3rem;
     line-height: 100px;

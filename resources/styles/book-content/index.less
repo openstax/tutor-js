@@ -1,63 +1,38 @@
 // A mixin to style book content from CNX
+@import './variables';
+@import './mixins';
+@import './theming-mixins';
+
 .tutor-book-content() {
-  @reading-ui-banner-height: 40px;
-  padding: 0 @tutor-card-body-padding-horizontal @tutor-card-body-padding-vertical @tutor-card-body-padding-horizontal;
+
+  padding: 0 @tutor-book-padding-horizontal @tutor-book-padding-vertical @tutor-book-padding-horizontal;
   display: block;
-  @import './mixins';
+
   @import './base';
-  @import './splash-image';
   @import './typography';
-  // type specific styling comes last so it can override the above styles
-  @import: '/typography';
+  @import './learning-objectives';
+  @import './splash-image';
   @import './link-to-learning';
   @import './note';
   @import './target';
+
+  // type specific styling comes last so it can override the above styles
+  // default theming, also shows all available themes/customization mixins
+  .tutor-book-theme-typography();
+  .tutor-book-theme-learning-objectives();
+  .tutor-book-theme-splash-image();
+  .tutor-book-theme-note();
 }
 
-
-.tutor-book-category-biology() {
-  @tutor-primary: orange;
-  @reading-ui-banner-height: 40px;
-  padding: 0 @tutor-card-body-padding-horizontal @tutor-card-body-padding-vertical @tutor-card-body-padding-horizontal;
-  display: block;
-  @import './mixins';
-  @import './base';
-  @import './splash-image';
-  @import './typography';
-  // type specific styling comes last so it can override the above styles
-  @import: '/typography';
-  @import './link-to-learning';
-  @import './note';
-  @import './target';
-  @import './ap-bio/ap-connection';
-  // @import './ap-bio/ap-everyday';    // @import './ap-bio/ap-sciences-practices';
-  // @import './ap-bio/art-connection';
-  // @import './ap-bio/carreer';
-  // @import './ap-bio/everyday';
-  // @import './ap-bio/evolution';
-  // @import './ap-bio/scientific';
+.tutor-book-content-theme-physics() {
+  @book-theme-name: 'hs-physics';
+  @import './@{book-theme-name}/index.less';
+  .tutor-book-theme-hs-physics-specific();
+  .tutor-book-content-theme(@book-theme-name);
 }
-
-.tutor-book-category-physics() {
-  @tutor-primary: red;
-  @reading-ui-banner-height: 40px;
-  padding: 0 @tutor-card-body-padding-horizontal @tutor-card-body-padding-vertical @tutor-card-body-padding-horizontal;
-  display: block;
-  @import './mixins';
-  @import './base';
-  @import './splash-image';
-  @import './typography';
-  // type specific styling comes last so it can override the above styles
-  @import: '/typography';
-  @import './link-to-learning';
-  @import './note';
-  @import './target';
-  // @import './hs-physics/links-to-physics';
-  // @import './hs-physics/worked-examples';
-  // @import './hs-physics/work-in-physics';
-  // @import './hs-physics/watch-physics';
-  // @import './hs-physics/virtual-physics.less';
-  // @import './hs-physics/fun-in-physics';
-  // @import './hs-physics/grasp-check';
-  // @import './hs-physics/visual-connection';
+.tutor-book-content-theme-biology() {
+  @book-theme-name: 'ap-bio';
+  @import './@{book-theme-name}/index.less';
+  .tutor-book-theme-ap-bio-specific();
+  .tutor-book-content-theme(@book-theme-name);
 }
