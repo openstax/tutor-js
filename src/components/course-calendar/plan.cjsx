@@ -156,22 +156,31 @@ CoursePlan = React.createClass
 
   renderOpenPlan: (planStyle, planClasses, label) ->
     {item, courseId} = @props
-    {plan} = item
+    {plan, index} = item
 
     planModalClasses = 'is-trouble' if plan.isTrouble
 
     planModal = <CoursePlanDetails plan={plan} courseId={courseId} className={planModalClasses}/>
 
-    <BS.ModalTrigger modal={planModal} ref='trigger'>
-      <div style={planStyle}
-        className={planClasses}
-        onMouseEnter={@syncHover}
-        onMouseLeave={@removeHover}
-        onClick={@syncOpenPlan}
-        ref='plan'>
-        {label}
-      </div>
-    </BS.ModalTrigger>
+    planOnly = <div style={planStyle}
+      className={planClasses}
+      onMouseEnter={@syncHover}
+      onMouseLeave={@removeHover}
+      onClick={@syncOpenPlan}
+      ref='plan'>
+      {label}
+    </div>
+
+    if index is 0
+      # only trigger modal if this is the first component representing the plan
+      planInterface = <BS.ModalTrigger modal={planModal} ref='trigger'>
+        {planOnly}
+      </BS.ModalTrigger>
+    else
+      # otherwise, if this plan continues into the next week, don't add an additional modal
+      planInterface = planOnly
+
+    planInterface
 
   renderEditPlan: (planStyle, planClasses, label) ->
     {item, courseId} = @props
