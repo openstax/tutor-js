@@ -9,7 +9,7 @@ BindStoreMixin = require '../bind-store-mixin'
 
 {TimeStore} = require '../../flux/time'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
+{TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
 
 module.exports = React.createClass
@@ -30,17 +30,23 @@ module.exports = React.createClass
     {date} = @getQuery() # attempt to read the start date from query params
     planId = @props.id
     isNewPlan = TaskPlanStore.isNew(@props.id)
+
+    # check for common open/due dates, remember it now before we set defaults
     dueAt = TaskPlanStore.getDueAt(@props.id)
     opensAt = TaskPlanStore.getOpensAt(@props.id)
+    commonDates = dueAt and opensAt
 
-    opensAt = if date
-      moment(date, "YYYY-MM-DD").toDate()
-    else
-      moment(TimeStore.getNow()).add(1, 'day').toDate()
+    #set default dates
+    opensAt = if date and isNewPlan then moment(date).format(TutorDateFormat)
+    if not opensAt
+      opensAt = moment(TimeStore.getNow()).format(TutorDateFormat)
+
+    #map tasking plans
     course = CourseStore.get(@props.courseId)
     periods = _.map course?.periods, (period) ->
-      id: period.id, due_at: opensAt
+      id: period.id, due_at: dueAt, opens_at: opensAt
 
+    #check to see if all tasking plans are there
     hasAllTaskings = _.reduce(periods, (memo, period) ->
       memo and TaskPlanStore.hasTasking(planId, period.id)
     , true)
@@ -49,7 +55,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(planId, periods)
 
     if not isNewPlan
-      @setState({showingPeriods: not (dueAt and opensAt and hasAllTaskings)})
+      @setState({showingPeriods: not (commonDates and hasAllTaskings)})
       TaskPlanActions.disableEmptyTaskings(planId)
 
   # this will be called whenever the course store loads, but won't if
@@ -84,6 +90,11 @@ module.exports = React.createClass
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)
 
+
+  renderFeedbackNote: ->
+    <BS.Col sm=12 md=3>
+      <div className="instructions">Feedback will be released after the due date.</div>
+    </BS.Col>
 
   render: ->
     plan = TaskPlanStore.get(@props.id)
@@ -160,9 +171,7 @@ module.exports = React.createClass
             min={TaskPlanStore.getOpensAt(@props.id)}
             value={commonDueAt}/>
         </BS.Col>
-        <BS.Col sm=12 md=3>
-          <div className="instructions">Feedback will be released after the due date.</div>
-        </BS.Col>
+        {@renderFeedbackNote() unless plan.type is 'external'}
 
       </BS.Row>
       <BS.Row>

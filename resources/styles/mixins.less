@@ -91,6 +91,15 @@
   border-radius: 50%;
 }
 
+.tutor-late-icon() {
+  &::after {
+    .fa-icon();
+    content: @fa-var-clock-o;
+    color: @tutor-warning;
+  }
+}
+
+
 // If you want to use these please uncomment.
 // .tutor-shadow(2) {
 //   box-shadow:

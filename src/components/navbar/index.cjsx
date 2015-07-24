@@ -98,6 +98,7 @@ module.exports = React.createClass
             title={<UserName/>}
             ref='navDropDown'>
             {menuItems}
+            <BS.MenuItem target='_blank' href={CurrentUserStore.getHelpLink(courseId)}>Get Help</BS.MenuItem>
             <BS.MenuItem
               className="signout"
               eventKey={4}

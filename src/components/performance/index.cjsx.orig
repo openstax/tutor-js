@@ -84,6 +84,10 @@ Performance = React.createClass
       @state.colSetWidth = @state.colResizeWidth
     else
       @state.colSetWidth = @state.colDefaultWidth
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
     if heading.type is 'external'
       customHeader = <small>
         <QuickStatsShell id={"#{heading.plan_id}"} periodId={@state.period_id}/>
@@ -141,6 +145,56 @@ Performance = React.createClass
     classAverage
 
   renderStudentRow: (student_data) ->
+<<<<<<< HEAD
+    for column in student_data.data
+      @renderStudentCell(column, student_data)
+
+  renderStudentCell: (cell, student_data) ->
+    switch cell.type
+      when 'reading' then @renderReadingCell(cell)
+      when 'homework' then @renderHomeworkCell(cell)
+      when 'external' then @renderExternalCell(cell)
+      when 'name' then @renderStudentName(cell, student_data)
+      else throw new Error('Unknown cell type')
+
+  renderStudentName: (cell, student_data) ->
+    <Router.Link to='viewStudentTeacherGuide'
+      params={roleId: student_data.role, courseId: @props.courseId}>
+      {cell.title}
+    </Router.Link>
+
+
+  renderReadingCell: (cell) ->
+    status = switch cell.status
+      when 'completed' then 'Complete'
+      when 'in_progress' then 'In progress'
+      when 'not_started' then 'Not started'
+
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
+
+    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
+
+  renderExternalCell: (cell) ->
+    status = switch cell.status
+      when 'completed' then 'Clicked'
+      when 'in_progress' then 'Viewed'
+      when 'not_started' then 'Not started'
+
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
+
+    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
+
+  renderHomeworkCell: (cell) ->
+    {courseId} = @props
+    linkParams = {courseId, id: cell.id, stepIndex: 1}
+
+    <Router.Link to='viewTaskStep' params={linkParams}>
+      {cell.correct_exercise_count}/{cell.exercise_count}
+    </Router.Link>
+
+=======
     props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
     columns = [
       <NameCell key='fn' display={student_data.first_name} {...props} />
@@ -153,6 +207,7 @@ Performance = React.createClass
         when 'homework' then <HomeworkCell key='homework' {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
     columns
+>>>>>>> master
 
   selectPeriod: (period) ->
     @setState({period_id: period.id})
