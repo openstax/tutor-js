@@ -1,14 +1,14 @@
 React    = require 'react'
-Router = require 'react-router'
+CellStatusMixin = require './cell-status-mixin'
+
+STATUS =
+  'completed':   'Clicked'
+  'in_progress': 'Viewed'
+  'not_started': 'Not started'
 
 module.exports = React.createClass
-  displayName: 'NameCell'
+  displayName: 'ExternalCell'
+  mixins: [CellStatusMixin]
 
   render: ->
-    {courseId} = @props
-    linkParams = {courseId, id: @props.task.id, stepIndex: 1}
-    status = switch @props.task.status
-      when 'completed'   then 'Clicked'
-      when 'in_progress' then 'Viewed'
-      when 'not_started' then 'Not started'
-    <Router.Link to='viewTaskStep' params={linkParams}>{status}</Router.Link>
+    @renderLink( message: STATUS[@props.task.status] )
