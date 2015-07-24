@@ -7,7 +7,7 @@ _ = require 'underscore'
 UserName = require './username'
 AdminLink = require './admin-link'
 CourseName = require './course-name'
-SignOut = require './signout'
+LogOut = require './logout'
 BindStoreMixin = require '../bind-store-mixin'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
@@ -100,10 +100,10 @@ module.exports = React.createClass
             {menuItems}
             <BS.MenuItem target='_blank' href={CurrentUserStore.getHelpLink(courseId)}>Get Help</BS.MenuItem>
             <BS.MenuItem
-              className="signout"
+              className="logout"
               eventKey={4}
               key='dropdown-item-logout'>
-                <SignOut className='btn btn-link btn-xs'>Log Out</SignOut>
+                <LogOut className='btn btn-link btn-xs'>Log Out</LogOut>
             </BS.MenuItem>
           </BS.DropdownButton>
         </BS.Nav>
