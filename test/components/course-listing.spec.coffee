@@ -30,9 +30,9 @@ describe 'Course Listing Component', ->
   it 'renders the listing', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
     renderListing().then (state) ->
-      renderedTitles = _.pluck(state.div.querySelectorAll('h1'), 'textContent')
+      renderDataset = _.pluck(state.div.querySelectorAll('.tutor-booksplash-course-item'), 'dataset')
       for course, i in MASTER_COURSES_LIST
-        expect(renderedTitles[i]).to.contain(MASTER_COURSES_LIST[i].name)
+        expect(MASTER_COURSES_LIST[i].name).to.contain(renderDataset[i].title)
       # no refresh button when load succeeds
       expect(state.div.querySelector(".refresh-button")).to.be.null
 
