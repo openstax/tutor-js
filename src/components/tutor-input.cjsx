@@ -100,15 +100,15 @@ TutorDateInput = React.createClass
 
   isValid: (value) ->
     valid = true
-    valid = false if (@props.min and value < @props.min)
-    valid = false if (@props.max and value > @props.max)
+    valid = false if (@props.min and value.isBefore(@props.min, 'day'))
+    valid = false if (@props.max and value.isAfter(@props.max, 'day'))
     valid
 
   dateSelected: (value) ->
     valid = @isValid(value)
 
     if (not valid)
-      value = @props.min or null
+      value = moment(@props.min) or null
 
     date = value.format(TutorDateFormat)
     @props.onChange(date)
