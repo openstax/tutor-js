@@ -34,6 +34,7 @@ CoursePlanDetails = React.createClass
         <BS.Button>View Performance Report</BS.Button>
       </Router.Link>
 
+    reviewButton
 
   render: ->
     {plan, courseId, className} = @props

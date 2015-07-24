@@ -7,6 +7,7 @@ Chapter     = require './chapter'
 Section     = require './section'
 ColorKey    = require './color-key'
 ProgressBar = require './progress-bar'
+PracticeByTypeButton = require '../learning-guide/practice-by-type-button'
 ChapterSectionType = require './chapter-section-type'
 
 module.exports = React.createClass
@@ -21,6 +22,13 @@ module.exports = React.createClass
     heading:  React.PropTypes.element
     onPractice: React.PropTypes.func
     onReturn:   React.PropTypes.func.isRequired
+
+
+  showPracticeButton: (type, title) ->
+    <PracticeByTypeButton 
+    practiceType={type}
+    practiceTitle={title}
+    courseId={@props.courseId} />
 
   render: ->
     {courseId} = @props
@@ -45,21 +53,23 @@ module.exports = React.createClass
           <BS.Col mdPush={0} xs={12} md={3}>
             <div className="chapter-panel weaker">
               <div className='chapter-heading metric'>
-                Weaker
+                <span className='arrow weaker'></span>Weaker
               </div>
               <div>
                 {for section, i in _.first(sortedSections, weakStrongCount)
                   <Section key={i} section={section} {...@props} />}
               </div>
+                {@showPracticeButton('weaker', 'Practice Weaker') if @props.onPractice}
             </div>
             <div className="chapter-panel stronger">
               <div className='chapter-heading metric'>
-                Stronger
+                <span className='arrow stronger'></span>Stronger
               </div>
               <div>
                 {for section, i in _.last(sortedSections, weakStrongCount)
                   <Section key={i} section={section} {...@props} />}
               </div>
+                {@showPracticeButton('stronger', 'Practice Stronger') if @props.onPractice}
             </div>
           </BS.Col>
         </BS.Row>

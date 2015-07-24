@@ -122,7 +122,8 @@ CourseMonth = React.createClass
           otherProps.classes =
             active: true
 
-      day = <Day date={dayIter} modifiers={modifiers} {...otherProps}/>
+      key = "day-#{dayIter.format(@props.dateFormat)}"
+      day = <Day date={dayIter} modifiers={modifiers} key={key} {...otherProps}/>
       days.push(day)
 
     days

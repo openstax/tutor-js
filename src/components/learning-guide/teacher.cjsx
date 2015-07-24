@@ -31,7 +31,7 @@ module.exports = React.createClass
       <Router.Link activeClassName='' to='viewTeacherDashBoard'
         className='btn btn-default pull-right'
         params={courseId: @props.courseId}>
-        Return to DashBoard
+        Return to Dashboard
       </Router.Link>
       <CoursePeriodsNavShell
         periods={periods}
