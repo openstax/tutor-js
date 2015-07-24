@@ -36,6 +36,6 @@ module.exports = React.createClass
         <span>{@props.feedback}</span><EventInfoIcon event={@props.event} />
       </BS.Col>
       <BS.Col xs={5}  sm={2} className='due-at'>
-        <Time date={@props.event.due_at}/>
+        <Time date={@props.event.due_at} format='h:mma MMM DD, YYYY'/>
       </BS.Col>
     </div>
