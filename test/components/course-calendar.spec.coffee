@@ -120,10 +120,10 @@ describe 'Course Calendar', ->
         done()
       , done)
 
-  it 'should show not add plan links when today is clicked', (done) ->
+  it 'should show add plan links when today is clicked', (done) ->
     calendarActions
       .clickToday(@result)
-      .then(calendarChecks.checkAddPlansWarning)
+      .then(calendarChecks.checkTodayAddPlansDropDown)
       .then( ->
         done()
       , done)
