@@ -23,6 +23,14 @@ PlanFooter = React.createClass
       TaskPlanActions.delete(id)
       @context.router.transitionTo('taskplans', {courseId})
 
+  onSave: ->
+    @setState({saving: true, publishing: false})
+    @props.onSave()
+
+  onPublish: ->
+    @setState({publishing: true, saving: false})
+    @props.onPublish()
+
   onCancel: ->
     {id, courseId} = @props
     if confirm('Are you sure you want to cancel?')
@@ -47,8 +55,8 @@ PlanFooter = React.createClass
         <AsyncButton
           bsStyle='primary'
           className='-publish'
-          onClick={onPublish}
-          isWaiting={isWaiting}
+          onClick={@onPublish}
+          isWaiting={isWaiting and @state.publishing}
           isFailed={isFailed}
           waitingText='Publishing…'
           >
@@ -63,8 +71,8 @@ PlanFooter = React.createClass
       saveLink =
           <AsyncButton
             className='-save'
-            onClick={onSave}
-            isWaiting={isWaiting}
+            onClick={@onSave}
+            isWaiting={isWaiting and @state.saving}
             isFailed={isFailed}
             waitingText='Saving…'
             >
