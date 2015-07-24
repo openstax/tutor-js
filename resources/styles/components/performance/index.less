@@ -49,8 +49,18 @@
     .tutor-late-icon();
     padding-left:8px;
   }
-  .average-header-cell {
+  .assignment-header-cell {
     background: @tutor-neutral-light;
+    time {
+      &:before {
+        content: "Due:";
+        margin-right: 0.5rem;
+      }
+    }
+    .review-plan {
+      float: right;
+      margin-right: 1rem;
+    }
   }
 
 }

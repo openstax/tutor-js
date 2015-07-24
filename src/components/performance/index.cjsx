@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+Time   = require '../time'
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
 NameCell     = require './name-cell'
@@ -78,24 +79,18 @@ Performance = React.createClass
         id: heading.plan_id
         periodIndex: @state.periodIndex
         courseId: @props.courseId
-      linkText = 'Review'
-      linkText = heading.average.toFixed(2) if heading.average?
 
-      linkToPlanSummary = <Router.Link
-          to='reviewTaskPeriod'
-          params={linkParams}
-          className='review-plan'>
-            {linkText}
-        </Router.Link>
-
-      customHeader = linkToPlanSummary
+    linkToPlanSummary =
+      <Router.Link to='reviewTaskPeriod' params={linkParams} className='review-plan'>
+        {if heading.average then heading.average.toFixed(2) else 'Review'}
+      </Router.Link>
 
     sortingHeader = <SortingHeader sortKey={i}
       sortState={@state.sort} onSort={@changeSortingOrder}
     >{heading.title}</SortingHeader>
 
-    customHeader = <div className='average-header-cell'>
-      {customHeader}
+    customHeader = <div className='assignment-header-cell'>
+      <Time date={heading.due_at}/>{linkToPlanSummary}
     </div>
 
     <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
@@ -178,6 +173,7 @@ Performance = React.createClass
           onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
           rowHeight={46}
           rowGetter={rowGetter}
+
           rowsCount={data.rows.length}
           width={tableWidth}
           height={tableHeight}
