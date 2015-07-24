@@ -7,7 +7,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{StatsModalShell} = require '../task-plan/reading-stats'
+{StatsModalShell} = require '../plan-stats'
 LoadableItem = require '../loadable-item'
 
 # TODO drag and drop, and resize behavior

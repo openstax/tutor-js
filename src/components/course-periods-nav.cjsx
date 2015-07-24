@@ -18,24 +18,34 @@ CoursePeriodsNav = React.createClass
 
   getDefaultProps: ->
     initialActive: 0
+    sortedPeriods: []
 
   getInitialState: ->
     active: @props.initialActive
 
   componentWillMount: ->
+    @setSortedPeriods(@props.periods)
     CourseStore.on('course.loaded', @selectPeriod)
 
   componentWillUnmount: ->
     CourseStore.off('course.loaded', @selectPeriod)
+
+  componentWillReceiveProps: (nextProps) ->
+    @setSortedPeriods(nextProps.periods)
+
+  setSortedPeriods: (periods) ->
+    sortedPeriods = _.sortBy(periods, 'name')
+    @setState(sortedPeriods: sortedPeriods)
 
   selectPeriod: (courseId) ->
     if courseId is @props.courseId
       @onSelect(@state.active)
 
   onSelect: (key) ->
-    {courseId, periods, handleSelect, handleKeyUpdate} = @props
+    {courseId, handleSelect, handleKeyUpdate} = @props
+    {sortedPeriods} = @state
 
-    period = periods?[key]
+    period = sortedPeriods?[key]
     unless period?
       throw new Error("BUG: #{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
       return
@@ -48,10 +58,8 @@ CoursePeriodsNav = React.createClass
     <BS.NavItem eventKey={key} key="period-nav-#{period.id}">{period.name}</BS.NavItem>
 
   render: ->
-    {periods} = @props
-    {active} = @state
-    periods = _.sortBy(periods, 'name')
-    periodsItems = _.map(periods, @renderPeriod)
+    {active, sortedPeriods} = @state
+    periodsItems = _.map(sortedPeriods, @renderPeriod)
 
     <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
       {periodsItems}
