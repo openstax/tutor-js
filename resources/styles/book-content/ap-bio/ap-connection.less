@@ -1,5 +1,5 @@
-.ap-connection{
-   h1 + p:first-of-type{
+.ap-connection {
+  h1 + p:first-of-type{
   &::first-letter{
     float: left;
     #fonts > .sans(1.75rem, 3.15rem); //setting line-height in em to scale on browser zoom
@@ -24,7 +24,6 @@
   &:before {
     display: none;
     position: absolute;
-    //content: attr(data-type);
     #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
     font-weight: 900;
     color: @tutor-book-ap-bio-primary;
@@ -48,24 +47,5 @@
      tr:nth-child(even) {
      background: @tutor-white;
    }
-
   }
 }
-// .ap-connection {
-//   border:  solid 1px  @tutor-neutral-dark;
-//   padding: 0 20px;
-//    margin: 20px;
-//   margin-bottom: 20px;
-//   >[data-type=title]{
-//     .book-content-subtitle();
-//     background: @tutor-neutral-dark;
-//     color: @tutor-white;
-//     padding: 10px 20px;
-//     margin: 0 -20px 20px -20px;
-//   }
-//   // [data-type=title] {
-//   //   .book-content-subtitle();
-//   //   margin: 0;
-//   //   text-transform: none;
-//   // }
-// }

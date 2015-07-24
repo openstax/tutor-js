@@ -10,7 +10,7 @@
     margin: -68px 0 0 -40px;
   }
 
-  & :last-child {
+  :last-child {
     padding-bottom: 0;
   }
 
@@ -19,7 +19,9 @@
     font-weight: 900;
   }
 
-  p, ul, li {
+  p,
+  ul,
+  li {
     #fonts > .sans(1.8rem, 1.75em);
     margin: 0 0  1.5rem 0;
     color: @tutor-neutral-dark;
@@ -27,7 +29,8 @@
   li {
     padding: 5px 0;
   }
-  .solution, .commentary {
+  .solution,
+  .commentary {
     [data-type=title]{
       #fonts > .sans(1.8rem, 1.75em);
       font-weight: bold;
@@ -35,7 +38,7 @@
   }
 }
 
->.note {
+> .note {
   background: @tutor-neutral-lightest;
   margin: 68px 0 32px 0;
   clear: both;

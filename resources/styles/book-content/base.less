@@ -1,26 +1,8 @@
 // This file is part of the book-content mixin and should not be included directly
 // Hide titles, abstracts and CNX Processing instructions
-.section-opener, .summary, [data-type=abstract] {
-
-  // table {
-  //   width: 100%;
-  //   margin-bottom: 32px;
-  //   #fonts > .sans(1.75rem, 3.6rem);
-  //   border-top: solid  8px  @tutor-neutral-lighter;
-  //   border-bottom: solid  8px  @tutor-neutral-lighter;
-  //   padding: 20px 0;
-  //   caption {
-  //   #fonts > .sans(2rem, 3rem);
-  //   font-weight: 900;
-  //   color: @tutor-neutral-darker;
-  //   }
-  //   // tbody tr:first-child td {
-  //   //   padding-top: 10px;
-  //   // }
-  //   // tbody tr:last-child td {
-  //   //   padding-bottom: 10px;
-  //   // }
-  // }
+.section-opener,
+.summary,
+[data-type=abstract] {
 }
 table {
   width: 100%;
@@ -55,7 +37,9 @@ cnx-pi{
 }
 
 // Default font for text content
-p, ul, ol {
+p,
+ul,
+ol {
   #fonts > .serif(1.75rem, 190%);
   margin: 0 0 2.4rem 0;
 }
