@@ -55,6 +55,14 @@ TutorInput = React.createClass
       <errorWarning key={error}/>
     )
 
+    # Please do not set value={@props.value} on input.
+    #
+    # Because we are updating the store in some cases on change, and
+    # the store is providing the @props.value being passed in here,
+    # the cursor for typing in this input could be forced to move to the
+    # right when the input re-renders since the props have changed.
+    #
+    # Instead, use @props.default to set an intial defaul value.
     <div className={wrapperClasses.join(' ')}>
       <input
         id={@props.id}
@@ -62,7 +70,6 @@ TutorInput = React.createClass
         type={@props.type}
         className={classes.join(' ')}
         defaultValue={@props.default}
-        value={@props.value}
         onChange={@onChange}
       />
       <div className='floating-label'>{@props.label}</div>
@@ -186,7 +193,6 @@ TutorTextArea = React.createClass
     id: React.PropTypes.string
     className: React.PropTypes.string
     onChange: React.PropTypes.func
-    value: React.PropTypes.any
 
   resize: (event) ->
     event.target.style.height = ''

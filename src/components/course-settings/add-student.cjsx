@@ -12,7 +12,7 @@ Field = React.createClass
   propTypes:
     label: React.PropTypes.string.isRequired
     name:  React.PropTypes.string.isRequired
-    value: React.PropTypes.string.isRequired
+    default: React.PropTypes.string.isRequired
     onChange:  React.PropTypes.func.isRequired
     autofocus: React.PropTypes.bool
 
@@ -26,7 +26,7 @@ Field = React.createClass
     <TutorInput
       ref="input"
       label={@props.label}
-      value={@props.value}
+      default={@props.default}
       required={true}
       onChange={@onChange} />
 
@@ -55,16 +55,16 @@ module.exports = React.createClass
     <BS.Popover className='teacher-add-student-form'
       title={'Student Information:'} {...@props}>
 
-      <Field label='First Name' name='first_name' value={@state.first_name}
+      <Field label='First Name' name='first_name' default={@state.first_name}
         onChange={(val) => @setState(first_name: val)} autofocus />
 
-      <Field label='Last Name' name='last_name' value={@state.last_name}
+      <Field label='Last Name' name='last_name' default={@state.last_name}
         onChange={(val) => @setState(last_name: val)} />
 
-      <Field label='Email' name='email' value={@state.email}
+      <Field label='Email' name='email' default={@state.email}
         onChange={(val) => @setState(email: val)} />
 
-      <Field label='Password' name='password' value={@state.password}
+      <Field label='Password' name='password' default={@state.password}
         onChange={(val) => @setState(password: val)} />
 
       <BS.Button block onClick={@performUpdate}>
