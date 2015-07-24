@@ -146,6 +146,30 @@ checks =
 
     {div, component, state, router, history, courseId}
 
+  _checkTodayAddPlansDropDown: ({div, component, state, router, history, courseId}) ->
+    currents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
+    shouldBeToday = _.first(currents)
+    expect(shouldBeToday.getDOMNode().classList.contains('active')).to.be.true
+
+    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+    expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
+
+    isToday = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()), 'day')
+    # add date for drop down should be Today
+    expect(isToday).to.be.true
+
+    routeQuery = {date: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
+    targetReadingLink = router.makeHref('createReading', {courseId}, routeQuery)
+    targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
+
+    expect(addOnDayDropdown.refs.readingLink.props.href).to.equal(targetReadingLink)
+    expect(addOnDayDropdown.refs.homeworkLink.props.href).to.equal(targetHomeworkLink)
+
+    expect(addOnDayDropdown.refs.readingLink.getDOMNode().childNodes[0].href).to.contain(targetReadingLink)
+    expect(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0].href).to.contain(targetHomeworkLink)
+
+    {div, component, state, router, history, courseId}
+
   _checkTomorrowAddPlansDropDown: ({div, component, state, router, history, courseId}) ->
     upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     shouldBeTomorrow = _.first(upcomings)
