@@ -6,6 +6,7 @@ _ = require 'underscore'
 {TimeStore} = require '../flux/time'
 DatePicker = require 'react-datepicker'
 TutorErrors = require './tutor-errors'
+TutorDateFormat = "MM/DD/YYYY"
 
 TutorInput = React.createClass
   propTypes:
@@ -61,6 +62,7 @@ TutorInput = React.createClass
         type={@props.type}
         className={classes.join(' ')}
         defaultValue={@props.default}
+        value={@props.value}
         onChange={@onChange}
       />
       <div className='floating-label'>{@props.label}</div>
@@ -70,7 +72,28 @@ TutorInput = React.createClass
 TutorDateInput = React.createClass
 
   getInitialState: ->
-    {expandCalendar: false}
+    expandCalendar: false
+    currentLocale: @getCurrentLocales()
+
+  componentWillUnmount: ->
+    @restoreLocales()
+
+  # For some reason, react-datepicker chooses to GLOBALLY override moment's locale.
+  # This tends to do nasty things to the dashboard calendar.
+  # Therefore, grab the current locale settings, and restore them when unmounting.
+  # TODO: debug react-datepicker and submit a PR so that it will no longer thrash moment's global.
+  getCurrentLocales: ->
+    currentGlobalLocale = moment.localeData()
+
+    abbr: currentGlobalLocale._abbr
+    week: currentGlobalLocale._week
+    weekdaysMin: currentGlobalLocale._weekdaysMin
+
+  restoreLocales: ->
+    {abbr} = @state.currentLocale
+
+    localeOptions = _.omit(@state.currentLocale, 'abbr')
+    moment.locale(abbr, localeOptions)
 
   expandCalendar: ->
     @setState({expandCalendar: true, hasFocus: true})
@@ -87,7 +110,7 @@ TutorDateInput = React.createClass
     if (not valid)
       value = @props.min or null
 
-    date = new Date(value)
+    date = value.format(TutorDateFormat)
     @props.onChange(date)
     @setState({expandCalendar: false, valid: valid, value: date})
 
@@ -129,7 +152,7 @@ TutorDateInput = React.createClass
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
-          dateFormat="YYYY/MM/DD"
+          dateFormat={TutorDateFormat}
           onBlur={@onBlur}
           key={@props.id}
           ref="picker"
@@ -137,10 +160,10 @@ TutorDateInput = React.createClass
           onChange={@dateSelected}
           disabled={@props.disabled}
           selected={value}
-          weekStart={0}
+          weekStart={@state.currentLocale.week.dow}
         />
     else if @props.disabled and value
-      displayValue = value.toString("YYYY/MM/DD")
+      displayValue = value.toString(TutorDateFormat)
 
     <div className={wrapperClasses.join(' ')}>
       <input type='text' disabled className={classes.join(' ')} value={displayValue}/>
@@ -196,4 +219,4 @@ TutorTextArea = React.createClass
       </div>
     </div>
 
-module.exports = {TutorInput, TutorDateInput, TutorTextArea}
+module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea}

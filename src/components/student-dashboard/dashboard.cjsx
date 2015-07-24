@@ -46,7 +46,7 @@ module.exports = React.createClass
       <div className='container'>
 
         <BS.Row>
-          <BS.Col mdPush={9} xs={12} md={3}>
+          <BS.Col xs=12 md=4 lg=3 mdPush=8 lgPush=9>
 
             <ProgressGuideShell courseId={courseId} />
 
@@ -58,7 +58,7 @@ module.exports = React.createClass
             </div>
           </BS.Col>
 
-          <BS.Col mdPull={3} xs={12} md={9}>
+          <BS.Col xs=12 md=8 lg=9 mdPull=4 lgPull=3>
 
             <BS.TabbedArea
               activeKey = {@state.selectedTabIndex}

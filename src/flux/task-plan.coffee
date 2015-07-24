@@ -41,11 +41,6 @@ TaskPlanConfig =
     _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
-    _.each(obj.tasking_plans, (plan) ->
-      plan.due_at = if plan.due_at then new Date(plan.due_at)
-      plan.opens_at = if plan.opens_at then new Date(plan.opens_at)
-    )
-
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
     if obj.type is PLAN_TYPES.READING
       delete obj.settings.exercise_ids
@@ -90,9 +85,6 @@ TaskPlanConfig =
       tasking = findTasking(curTaskings, period.id)
       if not tasking
         tasking = target_id: period.id, target_type:'period'
-      else
-        tasking.due_at = new Date(tasking.due_at)
-        tasking.opens_at = new Date(tasking.opens_at)
 
       _.extend( _.pick(period, 'opens_at', 'due_at'),
         tasking
@@ -118,7 +110,8 @@ TaskPlanConfig =
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
     dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
-      plan[attr]?.getTime()
+      date = new Date(plan[attr])
+      if isNaN(date.getTime()) then 0 else date.getTime()
     )
     if dates.length is 1 then new Date(_.first(dates)) else null
 
@@ -349,7 +342,7 @@ TaskPlanConfig =
     getOpensAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        tasking?.opens_at
+        new Date(tasking?.opens_at)
       else
         # default opens_at to 1 day from now
         @_getTaskingsCommonDate(id, 'opens_at')
@@ -357,7 +350,7 @@ TaskPlanConfig =
     getDueAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        tasking?.due_at
+        new Date(tasking?.due_at)
       else
         @_getTaskingsCommonDate(id, 'due_at')
 

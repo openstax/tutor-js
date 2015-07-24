@@ -1,70 +1,4 @@
-// // This file is part of the book-content mixin and should not be included directly
-// .tips-for-success,
-// .os-teacher,
-// .ost-background-info,
-// .ost-misconception {
-//   margin-top: @tutor-card-body-padding-vertical;
-//   clear: both;
-//   &:before {
-//     height: 35px;
-//     content: attr(data-label);
-//     background: @tutor-quaternary;
-//     color: @tutor-tertiary;
-//     font-weight: 700;
-//     line-height: 2.5em;
-//     background-repeat: no-repeat;
-//     // table cell is chosen since it needs to be only as wide as the text,
-//     // yet still break to a new line after the content
-//     display: table-cell;
-//     text-indent: 30px;
-//     background-position: 10px 5px;
-//     background-size: 25px 25px;
-//     padding: 0 10px;
-//     margin: 0;
-//   }
-//   > p {
-//     #fonts > .sans(1.7rem, 1.5em);
-//     color: @tutor-neutral-dark;
-//     margin: 0;
-//     padding: 5px 20px;
-//     background: @tutor-neutral-lightest;
-//     &:first-child {
-//       border-top: 1px solid @tutor-neutral-lighter;
-//       padding-top: 15px;
-//     }
-//     &:last-child {
-//       padding-bottom: 15px;
-//     }
-//   }
-//   > ul {
-//     #fonts > .sans(1.7rem, 1.5em);
-//     color: @tutor-neutral-dark;
-//     border-top: 1px solid @tutor-neutral-lighter;
-//     padding: 10px;
-//     list-style: none;
-//     background: @tutor-neutral-lightest;
-//     > li {
-//       padding: 10px;
-//       &:before {
-//         content: "";
-//         margin: .6em -.8em 0;
-//       }
-//       ol {
-//         margin-left: 1.2em;
-//       }
-//     }
-//   }
-// }
-
->.note {
-  background: @tutor-neutral-lightest;
-  margin: 68px 0 32px 0;
-  clear: both;
-  display: inline-block;
-  border-top: solid 8px @tutor-neutral-lighter;
-  border-bottom: solid 8px @tutor-neutral-lighter;
-  padding: 20px 40px;
-
+.tutor-book-note-style() {
   &:before {
     position: absolute;
     content: attr(data-label);
@@ -99,4 +33,25 @@
       font-weight: bold;
     }
   }
+}
+
+>.note {
+  background: @tutor-neutral-lightest;
+  margin: 68px 0 32px 0;
+  clear: both;
+  display: inline-block;
+  border-top: solid 8px @tutor-neutral-lighter;
+  border-bottom: solid 8px @tutor-neutral-lighter;
+  padding: 20px 40px;
+  .tutor-book-note-style();
+}
+
+// This file is part of the book-content mixin and should not be included directly
+.tips-for-success,
+.os-teacher,
+.ost-background-info,
+.ost-misconception {
+  margin-top: 88px;
+  clear: both;
+  .tutor-book-note-style();
 }

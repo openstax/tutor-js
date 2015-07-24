@@ -9,6 +9,7 @@ ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
+PracticeByTypeButton = require '../learning-guide/practice-by-type-button'
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -46,27 +47,6 @@ ProgressGuide = React.createClass
       <LearningGuideColorKey />
     </div>
 
-PracticeButton = React.createClass
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-    practiceType: React.PropTypes.string.isRequired
-
-  contextTypes:
-    router: React.PropTypes.func
-
-  onClick: ->
-    {courseId} = @props
-    all = LearningGuide.Student.store.getSortedSections(@props.courseId)
-    sections = if @props.practiceType is 'weaker' then _.first(all, 4) else _.last(all, 4)
-    page_ids = _.chain(sections).pluck('page_ids').flatten().uniq().value()
-    @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
-
-  render: ->
-    <BS.Button className={@props.practiceType} onClick={@onClick}>
-      {S.capitalize(@props.practiceType)}
-      <i />
-    </BS.Button>
-
 
 ProgressGuidePanels = React.createClass
   contextTypes:
@@ -84,8 +64,14 @@ ProgressGuidePanels = React.createClass
       <div className='actions-box'>
         <h1 className='panel-title'>Practice</h1>
         <BS.ButtonGroup>
-          <PracticeButton practiceType='stronger' courseId={@props.courseId} />
-          <PracticeButton practiceType='weaker'   courseId={@props.courseId} />
+          <PracticeByTypeButton 
+          practiceType='stronger' 
+          practiceTitle='stronger' 
+          courseId={@props.courseId} />
+          <PracticeByTypeButton 
+          practiceType='weaker' 
+          practiceTitle='weaker' 
+          courseId={@props.courseId} />
         </BS.ButtonGroup>
       </div>
 
