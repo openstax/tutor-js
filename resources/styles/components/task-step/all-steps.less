@@ -12,6 +12,14 @@
   .interactive-step > .interactive-content,
   .reading-step {
     .tutor-book-content();
+
+    &[data-category=physics]{
+      .tutor-book-content-theme-physics();
+    }
+
+    &[data-category=biology]{
+      .tutor-book-content-theme-biology();
+    }
   }
 }
 

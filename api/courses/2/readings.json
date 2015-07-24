@@ -1,0 +1,84 @@
+{
+  "0":  {
+    "id":"1",
+    "title":"AP Bio Content - legacy",
+    "type":"part",
+    "children": [{
+      "title": "Bio",
+      "chapter_section":[1],
+      "id": "123",
+      "children": [
+        {
+          "type": "page",
+          "title": "bio title",
+          "chapter_section": [1, 1],
+          "id": "234",
+          "cnx_id": "c20c3501-a63c-4b40-aa6c-0bdafa8a2d33"
+        },
+        {
+          "type": "page",
+          "title": "Kinematics in 2 dim",
+          "chapter_section": [1, 2],
+          "id": "235",
+          "cnx_id": "newpagebio"
+        },
+        {
+          "type": "page",
+          "title": "Kinematics in 3 dim",
+          "chapter_section": [1, 3],
+          "id": "236"
+        }
+      ]
+    },
+    {
+      "title": "Mechanics",
+      "chapter_section":[2],
+      "id": "124",
+      "children": [
+        {
+          "type": "page",
+          "title": "Mechanics in 1 dim",
+          "chapter_section": [2, 1],
+          "id": "237"
+        },
+        {
+          "type": "page",
+          "title": "Mechanics in 2 dim",
+          "chapter_section": [2, 2],
+          "id": "238"
+        },
+        {
+          "type": "page",
+          "title": "Mechanics in 3 dim",
+          "chapter_section": [2, 3],
+          "id": "239"
+        }
+      ]
+    },
+    {
+      "title": "Thermodynamics",
+      "chapter_section":[3],
+      "id": "125",
+      "children": [
+        {
+          "type": "page",
+          "title": "Thermodynamics in 1 dim",
+          "chapter_section": [3, 1],
+          "id": "240"
+        },
+        {
+          "type": "page",
+          "title": "Thermodynamics in 2 dim",
+          "chapter_section": [3, 2],
+          "id": "241"
+        },
+        {
+          "type": "page",
+          "title": "Thermodynamics in 3 dim",
+          "chapter_section": [3, 2],
+          "id": "242"
+        }
+      ]
+    }]
+  }
+}

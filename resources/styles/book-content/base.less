@@ -1,112 +1,53 @@
 // This file is part of the book-content mixin and should not be included directly
-
-// The first child element is a .note[data-has-label], that should be used as title
-> .note:first-child {
-
-  &:before {
-    content: attr(data-label);
-    #fonts > .sans(@reading-ui-banner-height - 18px, @reading-ui-banner-height);
-    font-weight: 900;
-    color: @tutor-secondary;
-    background: @tutor-tertiary;
-    padding: 0 10px;
-    height: @reading-ui-banner-height;
-    display: inline-block;
+// Hide titles, abstracts and CNX Processing instructions
+.section-opener,
+.summary,
+[data-type=abstract] {
+}
+table {
+  width: 100%;
+  margin-bottom: 32px;
+  #fonts > .sans(1.75rem, 3.6rem);
+  border-top: solid  4px  @tutor-neutral-light;
+  border-bottom: solid  4px  @tutor-neutral-light;
+  padding: 20px 0;
+  line-height: 2.5rem;
+  th {
+    padding: 8px 10px;
+    background: @tutor-neutral-light;
+    border-bottom: solid 2px @tutor-neutral-light;
+  }
+  tr:nth-child(odd) {
+     background: @tutor-neutral-lightest;
+   }
+  td {
+    padding: 8px 10px;
+  }
+  caption {
+  #fonts > .sans(2rem, 3rem);
+  font-weight: 900;
+   color: @tutor-neutral-darker;
   }
 }
 
-.note > .title, .commentary [data-type=title] {
-  .book-content-subtitle();
-}
-
-
-// Hide titles, abstracts and CNX Processing instructions
 div[data-type="document-title"],
 div[data-type=abstract],
-.ost-reading-discard,
-cnx-pi
-{ display: none; }
+cnx-pi{
+  display: none;
+}
 
 // Default font for text content
-p, ul, ol {
+p,
+ul,
+ol {
   #fonts > .serif(1.75rem, 190%);
   margin: 0 0 2.4rem 0;
 }
 
-.learning-objectives {
-  #fonts > .sans(1.8rem, 1.8rem);
-  width: 100%;
-  min-height: 100px;
-  .book-content-full-width();
-  margin-top: -@tutor-card-body-padding-vertical;
-  color: #ffffff;
-  padding: 10px 20px;
-  background: @tutor-secondary;
-
-  display: inline-flex;
-  display: -ms-inline-flexbox; // IE10 support
-  display: -webkit-inline-flex;
-
-  // hide the "Section learning Objectives" phrase
-  > div[data-type=title] { display: none; }
-
-  p {
-    #fonts > .sans(1.5rem, 1.8em);
-    width: 220px; // keep line length consistent
-    color: rgba(255,255,255,.75);
-    text-transform: uppercase;
-    text-align: right;
-    margin: 0 20px 0 0;
-    display: flex;
-    flex-direction: column;
-    display: -webkit-flex;
-    justify-content: center;
-    -webkit-justify-content: center;
-    -webkit-flex-direction: column;
-  }
-
-  ul {
-    margin: 0 0;
-    padding: 0 20px;
-    border-left: 1px solid rgba(255,255,255,.4);
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: center;
-    display: -webkit-flex;
-    -webkit-justify-content: center;
-    -webkit-flex-direction: column;
-    -webkit-flex: 1;
-    .ost-learning-objective-def {
-      #fonts > .sans(1.5rem, 1.8em);
-      font-weight: 300;
-      list-style-type: none;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      // flex: 1;
-      display: -webkit-flex;
-      // -webkit-flex: 1;
-      -webkit-justify-content: center;
-      -webkit-flex-direction: column;
-      &:before {
-        content: none;
-      }
-      .MathJax {
-        margin-left: 2rem;
-      }
-    }
-  }
-
-}
-
-.section-opener ~ section h1 + p:first-of-type,
+section h1 + p:first-of-type,
 div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
-
-
-
 
 figure {
   max-width: 100%;
@@ -139,12 +80,13 @@ figure {
 
   // splash images are always full width without margin or surrounding padding
   &.splash {
-
+    margin-bottom: 40px;
     // .splash is wider than other elements on the page since it has 0 surrounding padding
     // This means child elements that normally have a fixed pixel width will not expand to fit
     // unless their widths are set to be 100%
-
-    .tutor-ui-horizontal-img { .book-content-full-width(); }
+    .tutor-ui-horizontal-img {
+      .book-content-full-width();
+    }
     img { width: 100%; }
   }
   figcaption {
@@ -159,9 +101,9 @@ figure {
     border-color: @border-color;
   }
 }
-
 // images inside a figure that occurs right after a title are full-width
 .title + figure {
   width: 100%;
   img { width: 100%; }
 }
+

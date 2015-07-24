@@ -1,5 +1,4 @@
 .reference-book {
-
   .content {
     margin-top: 75px;
     margin-left: -40px;
@@ -17,7 +16,7 @@
       }
 
       > section {
-        > section {
+        > h1 {
           clear: both;
         }
 
@@ -29,6 +28,22 @@
         }
       }
 
+    }
+  }
+
+  &[data-category=physics]{
+    .content {
+      .page {
+        .tutor-book-content-theme-physics();
+      }
+    }
+  }
+
+  &[data-category=biology]{
+    .content {
+      .page {
+        .tutor-book-content-theme-biology();
+      }
     }
   }
 
