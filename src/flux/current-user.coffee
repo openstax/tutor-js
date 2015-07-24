@@ -122,7 +122,7 @@ CurrentUserStore = flux.createStore
       @_getRouteByRole('dashboard', menuRole)
 
     getHelpLink: (courseId) ->
-      'https://openstaxtutor.zendesk.com/agent/dashboard'
+      'https://openstaxtutor.zendesk.com/'
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.
