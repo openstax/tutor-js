@@ -116,7 +116,6 @@ module.exports = React.createClass
           <TutorInput
             label='Assignment Name'
             className='assignment-name'
-            value={plan.title}
             id='reading-title'
             default={plan.title}
             required={true}
