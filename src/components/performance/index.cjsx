@@ -26,6 +26,7 @@ PerformanceExport = require './export'
 
 # Index of first column that contains data
 FIRST_DATA_COLUMN = 2
+INITIAL_SORT = { key: 'last_name', asc: false }
 
 Performance = React.createClass
   displayName: 'Performance'
@@ -49,7 +50,7 @@ Performance = React.createClass
     colSetWidth: 225
     colResizeWidth: 225
     colResizeKey: 0
-    sort: { key: 'last_name', asc: false }
+    sort: INITIAL_SORT
 
   componentDidMount: ->
     window.addEventListener("resize", @state.debounce)
@@ -125,8 +126,24 @@ Performance = React.createClass
         when 'external' then <ExternalCell key='extern'   {...props} />
     columns
 
+  renderNameColumn: ({width, dataKey, sortKey, label}) ->
+    headerProps = {sortKey, sortState: @state.sort, onSort: @changeSortingOrder}
+    columnProps = {width, dataKey, label, fixed: true}
+    header = <SortingHeader {...headerProps}>{label}</SortingHeader>
+    <Column
+      key={dataKey} {...columnProps} cellRenderer={-> @cellData} headerRenderer={ -> header} />
+
+  changeSortingOrder: (key) ->
+    asc = if @state.sort.key is key then not @state.sort.asc else false
+    @setState(sort: { key, asc})
+
+  isSortingByData: ->
+    _.isNumber(@state.sort.key)
+
   selectPeriod: (period) ->
-    @setState({period_id: period.id})
+    newState = {period_id: period.id}
+    newState.sort = INITIAL_SORT if @isSortingByData()
+    @setState(newState)
 
   setPeriodIndex: (key) ->
     @setState({periodIndex: key + 1})
@@ -189,17 +206,6 @@ Performance = React.createClass
 
       </div>
     </div>
-
-  renderNameColumn: ({width, dataKey, sortKey, label}) ->
-    headerProps = {sortKey, sortState: @state.sort, onSort: @changeSortingOrder}
-    columnProps = {width, dataKey, label, fixed: true}
-    header = <SortingHeader {...headerProps}>{label}</SortingHeader>
-    <Column
-      key={dataKey} {...columnProps} cellRenderer={-> @cellData} headerRenderer={ -> header} />
-
-  changeSortingOrder: (key) ->
-    asc = if @state.sort.key is key then not @state.sort.asc else false
-    @setState(sort: { key, asc})
 
 PerformanceShell = React.createClass
   contextTypes:
