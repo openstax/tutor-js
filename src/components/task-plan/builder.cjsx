@@ -110,6 +110,9 @@ module.exports = React.createClass
         </BS.Col>
       </BS.Row>
 
+    if plan.type is 'homework'
+      feedbackNote = @renderFeedbackNote()
+
     <div className="assignment">
       <BS.Row>
         <BS.Col sm=8 xs=12>
@@ -171,7 +174,7 @@ module.exports = React.createClass
             min={TaskPlanStore.getOpensAt(@props.id)}
             value={commonDueAt}/>
         </BS.Col>
-        {@renderFeedbackNote() unless plan.type is 'external'}
+        {feedbackNote}
 
       </BS.Row>
       <BS.Row>
