@@ -8,6 +8,8 @@ PlanMixin = require './plan-mixin'
 BindStoreMixin = require '../bind-store-mixin'
 
 {TimeStore} = require '../../flux/time'
+TimeHelper = require '../../helpers/time'
+
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
@@ -22,7 +24,9 @@ module.exports = React.createClass
 
   getInitialState: ->
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    {showingPeriods: not isNewPlan}
+
+    showingPeriods: not isNewPlan
+    currentLocale: TimeHelper.getCurrentLocales()
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -158,7 +162,8 @@ module.exports = React.createClass
             disabled={@state.showingPeriods}
             min={TimeStore.getNow()}
             max={TaskPlanStore.getDueAt(@props.id)}
-            value={commonOpensAt}/>
+            value={commonOpensAt}
+            currentLocale={@state.currentLocale} />
         </BS.Col>
 
         <BS.Col sm=4 md=3>
@@ -171,7 +176,8 @@ module.exports = React.createClass
             onChange={@setDueAt}
             disabled={@state.showingPeriods}
             min={TaskPlanStore.getOpensAt(@props.id)}
-            value={commonDueAt}/>
+            value={commonDueAt}
+            currentLocale={@state.currentLocale} />
         </BS.Col>
         {feedbackNote}
 
@@ -245,7 +251,8 @@ module.exports = React.createClass
           min={TimeStore.getNow()}
           max={TaskPlanStore.getDueAt(@props.id, plan.id)}
           onChange={_.partial(@setOpensAt, _, plan)}
-          value={ taskingOpensAt }/>
+          value={ taskingOpensAt }
+          currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           readOnly={TaskPlanStore.isPublished(@props.id)}
@@ -253,6 +260,7 @@ module.exports = React.createClass
           required={@state.showingPeriods}
           min={taskingOpensAt}
           onChange={_.partial(@setDueAt, _, plan)}
-          value={TaskPlanStore.getDueAt(@props.id, plan.id)}/>
+          value={TaskPlanStore.getDueAt(@props.id, plan.id)}
+          currentLocale={@state.currentLocale} />
         </BS.Col>
     </BS.Row>

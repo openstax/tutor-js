@@ -4,6 +4,8 @@ moment = require 'moment'
 _ = require 'underscore'
 
 {TimeStore} = require '../flux/time'
+TimeHelper = require '../helpers/time'
+
 DatePicker = require 'react-datepicker'
 TutorErrors = require './tutor-errors'
 TutorDateFormat = "MM/DD/YYYY"
@@ -77,29 +79,32 @@ TutorInput = React.createClass
     </div>
 
 TutorDateInput = React.createClass
+  displayName: 'TutorDateInput'
+  propTypes:
+    currentLocale: React.PropTypes.shape(
+      abbr: React.PropTypes.string
+      week: React.PropTypes.object
+      weekdaysMin: React.PropTypes.array
+    )
+
+  getDefaultProps: ->
+    currentLocale = TimeHelper.getCurrentLocales()
+    {currentLocale}
 
   getInitialState: ->
     expandCalendar: false
-    currentLocale: @getCurrentLocales()
-
-  componentWillUnmount: ->
-    @restoreLocales()
 
   # For some reason, react-datepicker chooses to GLOBALLY override moment's locale.
   # This tends to do nasty things to the dashboard calendar.
   # Therefore, grab the current locale settings, and restore them when unmounting.
   # TODO: debug react-datepicker and submit a PR so that it will no longer thrash moment's global.
-  getCurrentLocales: ->
-    currentGlobalLocale = moment.localeData()
-
-    abbr: currentGlobalLocale._abbr
-    week: currentGlobalLocale._week
-    weekdaysMin: currentGlobalLocale._weekdaysMin
+  componentWillUnmount: ->
+    @restoreLocales()
 
   restoreLocales: ->
-    {abbr} = @state.currentLocale
+    {abbr} = @props.currentLocale
 
-    localeOptions = _.omit(@state.currentLocale, 'abbr')
+    localeOptions = _.omit(@props.currentLocale, 'abbr')
     moment.locale(abbr, localeOptions)
 
   expandCalendar: ->
@@ -167,7 +172,7 @@ TutorDateInput = React.createClass
           onChange={@dateSelected}
           disabled={@props.disabled}
           selected={value}
-          weekStart={@state.currentLocale.week.dow}
+          weekStart={@props.currentLocale.week.dow}
         />
     else if @props.disabled and value
       displayValue = value.toString(TutorDateFormat)
