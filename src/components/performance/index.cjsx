@@ -73,7 +73,10 @@ Performance = React.createClass
   renderHeadingCell: (heading, i) ->
     i += FIRST_DATA_COLUMN # for the first/last name colums
     if heading.type is 'external'
-      customHeader = <QuickStatsShell id={"#{heading.plan_id}"} periodId={@state.period_id}/>
+      reviewSummary = <QuickStatsShell
+        className='review-plan'
+        id={"#{heading.plan_id}"}
+        periodId={@state.period_id}/>
 
     else if heading.plan_id?
       linkParams =
@@ -81,17 +84,17 @@ Performance = React.createClass
         periodIndex: @state.periodIndex
         courseId: @props.courseId
 
-    linkToPlanSummary =
-      <Router.Link to='reviewTaskPeriod' params={linkParams} className='review-plan'>
-        {if heading.average then heading.average.toFixed(2) else 'Review'}
-      </Router.Link>
+      reviewSummary =
+        <Router.Link to='reviewTaskPeriod' params={linkParams} className='review-plan'>
+          {if heading.average then heading.average.toFixed(2) else 'Review'}
+        </Router.Link>
 
     sortingHeader = <SortingHeader sortKey={i}
       sortState={@state.sort} onSort={@changeSortingOrder}
     >{heading.title}</SortingHeader>
 
     customHeader = <div className='assignment-header-cell'>
-      <Time date={heading.due_at}/>{linkToPlanSummary}
+      <Time date={heading.due_at}/>{reviewSummary}
     </div>
 
     <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >

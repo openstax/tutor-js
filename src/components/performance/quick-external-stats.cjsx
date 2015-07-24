@@ -25,17 +25,19 @@ QuickStats = React.createClass
     stats: stats
 
   renderStats: (data) ->
-    "#{data.complete_count} clicked of #{data.total_count}"
+    "#{data.complete_count}/#{data.total_count} clicked"
 
   render: ->
     {id, className} = @props
     {stats} = @state
 
-    className = "#{className} quick-external-stats"
+    classes = 'quick-external-stats'
+    classes += " #{className}" if className?
+
     # A Draft does not contain any stats
     course = @renderStats(stats) if stats?
 
-    <span className={className}>
+    <span className={classes}>
       {course}
     </span>
 
