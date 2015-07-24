@@ -56,18 +56,21 @@ module.exports =
       {@renderCoversSections(sections) if sections.length}
     </div>
 
+    buildLateMessage = (task, status) ->
+      "#{status.how_late} late"
+
     taskDetails = <Details
       key='details'
       task={task}
-      className='task-footer-detail' />
-
-    buildLateMessage = (task, status) ->
-      "#{status.how_late} late"
+      className='task-footer-detail'>
+        <LateIcon
+          task={task}
+          buildLateMessage={buildLateMessage}/>
+    </Details>
 
     [
       taskAbout
       taskDetails
-      <LateIcon className='task-footer-detail' task={task} buildLateMessage={buildLateMessage}/>
     ]
 
   renderTaskDetails: ({stepId, taskId, courseId, review}) ->

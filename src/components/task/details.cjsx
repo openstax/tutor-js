@@ -47,7 +47,7 @@ module.exports = React.createClass
     else
       details =
         <div className={className}>
-          <div>
+          <div className='task-details-due-date'>
             {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
           </div>
           {@props.children}

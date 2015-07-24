@@ -7,6 +7,15 @@
   margin: 0 auto;
 
   .step-footer-mixin();
+
+  // no such thing as a late reading
+  &.task-reading {
+    .task-footer-details {
+      i.late {
+        display: none;
+      }
+    }
+  }
 }
 
 .task-view {
