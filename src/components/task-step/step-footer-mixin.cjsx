@@ -5,6 +5,8 @@ Router = require 'react-router'
 
 Details = require '../task/details'
 BrowseTheBook = require '../buttons/browse-the-book'
+LateIcon = require '../late-icon'
+
 ChapterSectionMixin = require '../chapter-section-mixin'
 
 {TaskStore} = require '../../flux/task'
@@ -16,10 +18,10 @@ module.exports =
 
   mixins: [ ChapterSectionMixin ]
 
-  renderTeacherReadOnlyDetails: ({taskId, courseId, review}) ->
+  renderTeacherReadOnlyDetails: ({stepId, taskId, courseId, review}) ->
 
     unless review?.length
-      taskDetails = @renderDefaultDetails({taskId, courseId, review})
+      taskDetails = @renderDefaultDetails({stepId, taskId, courseId, review})
 
       taskDetails = [
         <ViewingAsStudentNameShell
@@ -43,7 +45,7 @@ module.exports =
       Reading covers: {sections}
     </div>
 
-  renderDefaultDetails: ({taskId, courseId, review}) ->
+  renderDefaultDetails: ({stepId, taskId, courseId, review}) ->
     return null if review?.length
 
     task = TaskStore.get(taskId)
@@ -54,18 +56,25 @@ module.exports =
       {@renderCoversSections(sections) if sections.length}
     </div>
 
-    taskDetails = <Details key='details' task={task} className='task-footer-detail'/>
+    taskDetails = <Details
+      key='details'
+      task={task}
+      className='task-footer-detail' />
+
+    buildLateMessage = (task, status) ->
+      "#{status.how_late} late"
 
     [
       taskAbout
       taskDetails
+      <LateIcon className='task-footer-detail' task={task} buildLateMessage={buildLateMessage}/>
     ]
 
   renderTaskDetails: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
     renderDetailsForPanelMethod = camelCase "render-#{panel}-details"
 
-    @[renderDetailsForPanelMethod]?({taskId, courseId, review}) or @renderDefaultDetails({taskId, courseId, review})
+    @[renderDetailsForPanelMethod]?({stepId, taskId, courseId, review}) or @renderDefaultDetails({stepId, taskId, courseId, review})
 
   renderBackButton: ({taskId, courseId, review, panel}, custombuttonClasses) ->
     defaultButtonClasses = 'btn btn-primary'
@@ -114,11 +123,17 @@ module.exports =
       @[renderButtonsForPanelMethod]?({taskId, courseId, review, panel}) or
       @renderDefaultButtons({taskId, courseId, review, panel})
 
-  renderFooter: ({stepId, taskId, courseId, review}) ->
-    buttons = @renderButtons({stepId, taskId, courseId, review})
+  getFooterClasses: ({stepId, taskId, courseId, review}) ->
     sections = TaskStore.getRelatedSections(taskId)
+
     className = 'task-footer-details'
     className += ' has-sections' if sections.length
+
+    className
+
+  renderFooter: ({stepId, taskId, courseId, review}) ->
+    buttons = @renderButtons({stepId, taskId, courseId, review})
+    className = @getFooterClasses({stepId, taskId, courseId, review})
 
     taskDetails = <div className={className}>
       {@renderTaskDetails({stepId, taskId, courseId, review})}
@@ -131,9 +146,7 @@ module.exports =
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
-    sections = TaskStore.getRelatedSections(taskId)
-    className = 'task-footer-details'
-    className += ' has-sections' if sections.length
+    className = @getFooterClasses({stepId, taskId, courseId, review})
 
     backButton = @renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')
     taskDetails = <div className={className}>
