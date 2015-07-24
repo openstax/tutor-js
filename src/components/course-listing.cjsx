@@ -6,6 +6,8 @@ Router = require 'react-router'
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
 RefreshButton = require './buttons/refresh-button'
 
+CourseDataMixin = require './course-data-mixin'
+
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role
 DisplayOrRedirect = (transition, callback) ->
@@ -28,6 +30,8 @@ CourseListing = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  mixins: [CourseDataMixin]
+
   statics:
     # Called before the Router mounts and renders the component
     # Uses the callback to delay rendering until the CourseListingStore is loaded
@@ -44,29 +48,36 @@ CourseListing = React.createClass
         DisplayOrRedirect(transition, callback)
 
   renderCourses: (courses) ->
-    _.map courses, (course) ->
+    _.map courses, (course) =>
       {id:courseId, name, roles} = course
       isStudent = _.find roles, (role) -> role.type is 'student'
       isTeacher = _.find roles, (role) -> role.type is 'teacher'
-      footer = []
+
       if isStudent or not isTeacher # HACK since a student does not currently have a role
-        footer.push(
-          <Router.Link
-            className='btn btn-link -student'
-            to='viewStudentDashboard'
-            params={{courseId}}>Task List (Student)</Router.Link>)
+        courseLink = <Router.Link
+          className='tutor-course-item'
+          to='viewStudentDashboard'
+          params={{courseId}}></Router.Link>
+
       if isTeacher
-        footer.push(
-          <Router.Link
-            className='btn btn-link -teacher'
+        if courseLink?
+          altLink = <Router.Link
+            className='tutor-course-alt-link'
             to='taskplans'
-            params={{courseId}}>
-            Plan List (Teacher)
-          </Router.Link>)
-      footer = <span className='-footer-buttons'>{footer}</span>
-      <BS.Panel header={name} footer={footer} bsStyle='primary'>
-        <h1>Course: "{name}" Dashboard!</h1>
-      </BS.Panel>
+            params={{courseId}}>View as Teacher</Router.Link>
+        else
+          courseLink = <Router.Link
+            className='tutor-course-item'
+            to='taskplans'
+            params={{courseId}}></Router.Link>
+
+      courseDataProps = @getCourseDataProps(courseId)
+      <BS.Row>
+        <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
+          {courseLink}
+          {altLink}
+        </BS.Col>
+      </BS.Row>
 
   render: ->
     courses = CourseListingStore.allCourses() or []
