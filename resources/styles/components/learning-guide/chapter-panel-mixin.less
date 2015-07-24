@@ -14,6 +14,18 @@
     &.metric {
       padding-bottom: 5px;
     }
+    .arrow {
+      padding-right: 10px;
+      .fa-icon();
+      &.stronger:after {
+        content: @fa-var-arrow-up;
+        color: @tutor-success;  
+      }
+      &.weaker:after {
+        content: @fa-var-arrow-down;
+        color: @tutor-danger;
+      }
+    }
   }
   .chapter-number {
     margin-right: 5px;

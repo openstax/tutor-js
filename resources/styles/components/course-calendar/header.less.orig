@@ -4,7 +4,12 @@
 
   .calendar-actions {
     border-bottom: 1px solid @tutor-neutral-light;
+<<<<<<< HEAD
+    display: flex;
+    justify-content: space-around;
+=======
     text-align: right;
+>>>>>>> master
   }
 
   .panel-body { padding: 0; }

@@ -34,7 +34,10 @@ CoursePlanDetails = React.createClass
         <BS.Button>View Performance Report</BS.Button>
       </Router.Link>
 
+<<<<<<< HEAD
+=======
     reviewButton
+>>>>>>> master
 
   render: ->
     {plan, courseId, className} = @props
