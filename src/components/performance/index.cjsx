@@ -2,10 +2,12 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+Time   = require '../time'
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
 NameCell     = require './name-cell'
 ExternalCell = require './external-cell'
+SortingHeader = require './sorting-header'
 
 FixedDataTable = require 'fixed-data-table'
 Table = FixedDataTable.Table
@@ -22,6 +24,9 @@ PerformanceExport = require './export'
 {QuickStatsShell} = require './quick-external-stats'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 
+# Index of first column that contains data
+FIRST_DATA_COLUMN = 2
+INITIAL_SORT = { key: 'last_name', asc: false }
 
 Performance = React.createClass
   displayName: 'Performance'
@@ -45,7 +50,7 @@ Performance = React.createClass
     colSetWidth: 225
     colResizeWidth: 225
     colResizeKey: 0
-
+    sort: INITIAL_SORT
 
   componentDidMount: ->
     window.addEventListener("resize", @state.debounce)
@@ -65,72 +70,39 @@ Performance = React.createClass
     table = React.findDOMNode(@refs.tableContainer)
     window.innerHeight - table.offsetTop - 120
 
-  sortClick: (columnIndex, classes) ->
-    if not classes or @state.sortOrder is 'is-descending'
-      @state.sortOrder = 'is-ascending'
-    else
-      @state.sortOrder = 'is-descending'
-    @sortData(columnIndex)
-
-  sortData: (index) ->
-    @setState({sortIndex: index})
-
   renderHeadingCell: (heading, i) ->
-    if i is @state.sortIndex
-      classes = @state.sortOrder
-    else
-      classes = ''
-    if i is @state.colResizeKey
-      @state.colSetWidth = @state.colResizeWidth
-    else
-      @state.colSetWidth = @state.colDefaultWidth
+    i += FIRST_DATA_COLUMN # for the first/last name colums
     if heading.type is 'external'
-      customHeader = <small>
-        <QuickStatsShell id={"#{heading.plan_id}"} periodId={@state.period_id}/>
-      </small>
+      customHeader = <QuickStatsShell id={"#{heading.plan_id}"} periodId={@state.period_id}/>
+
     else if heading.plan_id?
       linkParams =
         id: heading.plan_id
         periodIndex: @state.periodIndex
         courseId: @props.courseId
-      linkText = 'Review'
-      linkText = heading.average.toFixed(2) if heading.average?
 
-      linkToPlanSummary =
-        <Router.Link
-          to='reviewTaskPeriod'
-          params={linkParams}
-          className='review-plan'>
-            {linkText}
-        </Router.Link>
+    linkToPlanSummary =
+      <Router.Link to='reviewTaskPeriod' params={linkParams} className='review-plan'>
+        {if heading.average then heading.average.toFixed(2) else 'Review'}
+      </Router.Link>
 
-      customHeader = linkToPlanSummary
-    else
-      customHeader = 'Class Average'
+    sortingHeader = <SortingHeader sortKey={i}
+      sortState={@state.sort} onSort={@changeSortingOrder}
+    >{heading.title}</SortingHeader>
 
-    customHeader = <div className='average-header-cell'>
-      {customHeader}
+    customHeader = <div className='assignment-header-cell'>
+      <Time date={heading.due_at}/>{linkToPlanSummary}
     </div>
 
-    customGroupHeader =
-      <div
-        dataKey={i}
-        onClick={@sortClick.bind(@, i, classes)}
-        className={'header-cell ' + classes}>
-          {heading.title}
-      </div>
-    isFixed = i < 2
-    <ColumnGroup
-      key={i}
-      groupHeaderRenderer={-> customGroupHeader}
-      fixed={isFixed}>
+    <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
+
       <Column
         label={heading.title}
         headerRenderer={-> customHeader}
         cellRenderer={-> @cellData}
         width={@state.colSetWidth}
         flexGrow={1}
-        fixed={isFixed}
+
         isResizable=false
         dataKey={i} />
     </ColumnGroup>
@@ -154,47 +126,56 @@ Performance = React.createClass
         when 'external' then <ExternalCell key='extern'   {...props} />
     columns
 
+  renderNameColumn: ({width, dataKey, sortKey, label}) ->
+    headerProps = {sortKey, sortState: @state.sort, onSort: @changeSortingOrder}
+    columnProps = {width, dataKey, label, fixed: true}
+    header = <SortingHeader {...headerProps}>{label}</SortingHeader>
+    <Column
+      key={dataKey} {...columnProps} cellRenderer={-> @cellData} headerRenderer={ -> header} />
+
+  changeSortingOrder: (key) ->
+    asc = if @state.sort.key is key then not @state.sort.asc else false
+    @setState(sort: { key, asc})
+
+  isSortingByData: ->
+    _.isNumber(@state.sort.key)
+
   selectPeriod: (period) ->
-    @setState({period_id: period.id})
+    newState = {period_id: period.id}
+    newState.sort = INITIAL_SORT if @isSortingByData()
+    @setState(newState)
 
   setPeriodIndex: (key) ->
     @setState({periodIndex: key + 1})
 
-  render: ->
-    {courseId} = @props
-    {sortIndex, period_id, tableWidth, tableHeight, sortOrder} = @state
-
-    performance = PerformanceStore.get(courseId)
-
-    {period_id} = @state
+  getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
-    if period_id
-      performance = _.findWhere(performance, {period_id})
+    {sort, period_id} = @state
+    data = PerformanceStore.get(@props.courseId)
+    performance = if period_id
+      _.findWhere(data, {period_id})
     else
-      performance = performance[0] or throw new Error('BUG: No periods')
-
-    headers = performance.data_headings
-    headers.unshift({"title":"First Name"})
-    headers.unshift({"title":"Last Name"})
-
-    headings = _.map(headers, @renderHeadingCell)
+      data[0] or throw new Error('BUG: No periods')
 
     sortData = _.sortBy(performance.students, (d) ->
-      if sortIndex is 0
-        d.first_name
-      else if sortIndex is 1
-        d.first_name
+      if _.isNumber(sort.key)
+        index = sort.key - FIRST_DATA_COLUMN
+        switch d.data[index].type
+          when 'homework' then d.data[index].correct_exercise_count
+          when 'reading' then d.data[index].status
       else
-        switch d.data[sortIndex].type
-          when 'homework' then d.data[sortIndex].correct_exercise_count
-          when 'reading' then d.data[sortIndex].status
-          when 'name' then d.data[sortIndex].title
-      )
+        d[ sort.key ]
+    )
+    { headings: performance.data_headings, rows: if sort.asc then sortData.reverse() else sortData }
 
-    if sortOrder is 'is-descending'
-      sortData.reverse()
+  render: ->
+    {courseId} = @props
+    {period_id, tableWidth, tableHeight} = @state
 
-    student_rows = _.map(sortData, @renderStudentRow)
+    data = @getStudentRowData()
+
+    rowGetter = (rowIndex) =>
+      @renderStudentRow(data.rows[rowIndex])
 
     <div className='course-performance-wrap'>
       <span className='course-performance-title'>Performance Report</span>
@@ -208,14 +189,19 @@ Performance = React.createClass
         <Table
           onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
           rowHeight={46}
-          rowGetter={(rowIndex) -> student_rows[rowIndex]}
-          rowsCount={sortData.length}
+          rowGetter={rowGetter}
+
+          rowsCount={data.rows.length}
           width={tableWidth}
           height={tableHeight}
           headerHeight={46}
           groupHeaderHeight={50}>
 
-          {headings}
+          <ColumnGroup fixed={true} label="Students">
+            {@renderNameColumn(dataKey: 0, sortKey: 'first_name', label: 'First Name', width: 150)}
+            {@renderNameColumn(dataKey: 1, sortKey: 'last_name',  label: 'Last Name', width: 150)}
+          </ColumnGroup>
+          {_.map(data.headings, @renderHeadingCell)}
         </Table>
 
       </div>
