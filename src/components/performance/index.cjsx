@@ -25,8 +25,8 @@ PerformanceExport = require './export'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 
 # Index of first column that contains data
-FIRST_DATA_COLUMN = 2
-INITIAL_SORT = { key: 'last_name', asc: false }
+FIRST_DATA_COLUMN = 1
+INITIAL_SORT = { key: 'name', asc: false }
 
 Performance = React.createClass
   displayName: 'Performance'
@@ -118,8 +118,7 @@ Performance = React.createClass
   renderStudentRow: (student_data) ->
     props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
     columns = [
-      <NameCell key='fn' display={student_data.first_name} {...props} />
-      <NameCell key='ln' display={student_data.last_name}  {...props} />
+      <NameCell key='name' {...props} />
     ]
     for task in student_data.data
       props.task = task
@@ -129,12 +128,16 @@ Performance = React.createClass
         when 'external' then <ExternalCell key='extern'   {...props} />
     columns
 
-  renderNameColumn: ({width, dataKey, sortKey, label}) ->
-    headerProps = {sortKey, sortState: @state.sort, onSort: @changeSortingOrder}
-    columnProps = {width, dataKey, label, fixed: true}
-    header = <SortingHeader {...headerProps}>{label}</SortingHeader>
-    <Column
-      key={dataKey} {...columnProps} cellRenderer={-> @cellData} headerRenderer={ -> header} />
+  renderNameHeader: ->
+    emptyCell = <div className='blank' />
+    header =
+      <SortingHeader sortKey='name' sortState={@state.sort} onSort={@changeSortingOrder}>
+        Name
+      </SortingHeader>
+    <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
+      <Column width={300} dataKey='0' fixed={true}
+        cellRenderer={-> @cellData} headerRenderer={-> header} />
+    </ColumnGroup>
 
   changeSortingOrder: (key) ->
     asc = if @state.sort.key is key then not @state.sort.asc else false
@@ -167,7 +170,7 @@ Performance = React.createClass
           when 'homework' then d.data[index].correct_exercise_count
           when 'reading' then d.data[index].status
       else
-        d[ sort.key ]
+        d.last_name
     )
     { headings: performance.data_headings, rows: if sort.asc then sortData.reverse() else sortData }
 
@@ -200,15 +203,14 @@ Performance = React.createClass
           headerHeight={46}
           groupHeaderHeight={50}>
 
-          <ColumnGroup fixed={true} label="Students">
-            {@renderNameColumn(dataKey: 0, sortKey: 'first_name', label: 'First Name', width: 150)}
-            {@renderNameColumn(dataKey: 1, sortKey: 'last_name',  label: 'Last Name', width: 150)}
-          </ColumnGroup>
+          {@renderNameHeader()}
           {_.map(data.headings, @renderHeadingCell)}
+
         </Table>
 
       </div>
     </div>
+
 
 PerformanceShell = React.createClass
   contextTypes:
