@@ -10,20 +10,10 @@
   .nav-tabs { .tutor-nav-tabs(); }
 
   .roster {
-
-    .td {
-      flex: 1;
-    }
+    table-layout: fixed;
     .actions {
-      display: flex;
-      flex-direction: row;
-      align-content: space-between;
       a{
         cursor: pointer;
-        list-style: none;
-        flex-grow: 1;
-        text-align: center;
-        flex: 1;
         &:hover {
           background-color: @tutor-neutral-light;
           text-decoration: none;

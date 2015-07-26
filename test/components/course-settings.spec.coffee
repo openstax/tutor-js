@@ -37,7 +37,12 @@ describe 'Course Settings', ->
     expect(titles)
       .to.deep.equal(['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'])
 
+
   it 'renders students in the panels', ->
-    names = _.pluck(@state.div.querySelectorAll('tbody tr td:first-child'), 'textContent')
-    expect(names)
-      .to.deep.equal(['Harry', 'Clyde', 'Florentino'])
+    # Pluck the last names from second column.  Should appear in alphabetical order
+    for names, tab in [['Potter'], ['Ariza', 'Griffiths']]
+      rendered_names = _.pluck(@state.div.querySelectorAll(
+        ".tab-content .tab-pane:nth-child(#{tab+1}) tr td:nth-child(2)"
+      ), 'textContent')
+      expect(rendered_names)
+        .to.deep.equal(names)
