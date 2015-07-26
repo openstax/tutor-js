@@ -25,6 +25,17 @@
     max-height: 100%;
   }
 
+  // removes the display as table, table-row, & table-cell
+  // from the wrappers so the header-cell below can set
+  // it's width to 100% with text-overflow: ellipsis;
+  .public_fixedDataTable_header {
+    .public_fixedDataTableCell_wrap1,
+    .public_fixedDataTableCell_wrap2,
+    .public_fixedDataTableCell_wrap3 {
+      display: block;
+      width: 100%;
+    }
+  }
 
   .header-cell {
     .no-select();
@@ -33,16 +44,20 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    &.is-ascending:after {
-      padding-left:8px;
-      content: @fa-var-sort-asc;
-      .fa-icon();
+    width: 100%;
+    position: relative;
+    &.is-ascending,
+    &.is-descending {
+      padding-right: 20px;
+      &:after {
+        position: absolute;
+        right: 8px;
+        top: 15px;
+        .fa-icon();
+      }
     }
-    &.is-descending:after {
-      padding-left:8px;
-      content: @fa-var-sort-desc;
-      .fa-icon();
-    }
+    &.is-ascending:after  { content: @fa-var-sort-asc;  }
+    &.is-descending:after { content: @fa-var-sort-desc; }
   }
 
   i.late {
