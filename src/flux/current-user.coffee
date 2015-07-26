@@ -45,7 +45,10 @@ ROUTES =
     label: 'Course Settings'
     roles:
       teacher: 'courseSettings'
-
+  book:
+    label: 'Browse the Book'
+    roles:
+      default: 'viewReferenceBook'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->

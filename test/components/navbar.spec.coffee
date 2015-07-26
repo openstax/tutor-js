@@ -35,6 +35,10 @@ STUDENT_MENU = [
     name: 'viewGuide'
     label: 'Learning Guide'
   }
+  {
+    name: 'viewReferenceBook'
+    label: 'Browse the Book'
+  }
 ]
 
 TEACHER_MENU = [
@@ -50,7 +54,10 @@ TEACHER_MENU = [
     name: 'courseSettings'
     label: 'Course Settings'
   }
-
+  {
+    name: 'viewReferenceBook'
+    label: 'Browse the Book'
+  }
 ]
 
 testParams =
