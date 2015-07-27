@@ -1,10 +1,7 @@
 _ = require 'underscore'
 chai  = require 'chai'
 sinon = require 'sinon'
-sinonChai = require("sinon-chai")
 expect = chai.expect
-chai.use(sinonChai)
-
 React = require 'react'
 ReactAddons    = require('react/addons')
 ReactTestUtils = React.addons.TestUtils
@@ -56,4 +53,4 @@ Object.defineProperty(Testing, 'router', {
   get: -> ROUTER
 })
 
-module.exports = {Testing, expect, sinon, React, _}
+module.exports = {Testing, expect, sinon, React, _, ReactTestUtils}
