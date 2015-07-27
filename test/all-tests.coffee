@@ -25,6 +25,8 @@ require './components/student-dashboard.spec'
 require './components/student-dashboard/practice-buttons.spec'
 require './components/reference-book.spec'
 require './components/course-settings.spec'
+require './components/tutor-input.spec'
+
 require './crud-store.spec'
 require './task-store.spec'
 require './loadable.spec'
