@@ -39,9 +39,8 @@ module.exports =
     _.last(beforeHash.split('/'))
 
   getMediaTag: (media) ->
-    # form media tag text based on tag name or data-type
-    tag = media.tagName
-    tag = media.dataset.type if media.dataset.type?
+    # form media tag text based on data-type or tag name
+    tag = media.getAttribute('data-type') or media.tagName
     S.capitalize(tag)
 
   buildReferenceBookLink: (cnxId) ->
