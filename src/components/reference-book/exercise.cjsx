@@ -34,6 +34,8 @@ ReferenceBookExerciseShell = React.createClass
       store={ReferenceBookExerciseStore}
       actions={ReferenceBookExerciseActions}
       renderItem={=> <ReferenceBookExercise {...@props} />}
+      renderLoading={-> <span className='loading-exercise'>Loading exercise...</span>}
+      renderError={-> <span className='error-loading-exercise'>Problem loading exercise</span>}
     />
 
 module.exports = {ReferenceBookExercise, ReferenceBookExerciseShell}
