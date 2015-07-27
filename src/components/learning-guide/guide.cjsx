@@ -25,7 +25,7 @@ module.exports = React.createClass
 
 
   showPracticeButton: (type, title) ->
-    <PracticeByTypeButton 
+    <PracticeByTypeButton
     practiceType={type}
     practiceTitle={title}
     courseId={@props.courseId} />
@@ -45,7 +45,7 @@ module.exports = React.createClass
       <div className='guide-group'>
         <BS.Row>
           <BS.Col mdPull={0} xs={12} md={9}>
-              {for chapter, i in @props.chapters
+              {for chapter, i in (@props.chapters or [])
                 <BS.Col key={i} lg={4} md={4} sm={6} xs={12}>
                   <Chapter chapter={chapter} {...@props} />
                 </BS.Col>}
