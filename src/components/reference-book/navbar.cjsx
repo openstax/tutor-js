@@ -50,9 +50,7 @@ module.exports = React.createClass
           <i className="menu-toggle fa fa-2x" />
         </BS.NavItem>
         <li>
-          <Router.Link to='dashboard' className='ox-logo'>
-            <i className='ui-brand-logo' />
-          </Router.Link>
+          <i className='ui-brand-logo' />
         </li>
       </BS.Nav>
       {@renderSectionTitle()}
