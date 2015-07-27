@@ -4,7 +4,7 @@ Router = require 'react-router'
 
 Breadcrumbs = require './breadcrumbs'
 {ReviewShell} = require './review'
-{StatsModalShell} = require '../task-plan/reading-stats'
+{StatsModalShell} = require '../plan-stats'
 PinnedHeaderFooterCard = require '../pinned-header-footer-card'
 
 _ = require 'underscore'

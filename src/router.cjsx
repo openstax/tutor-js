@@ -12,7 +12,7 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage} =
   require './components/reference-book'
 
-{StatsShell} = require './components/task-plan/reading-stats'
+{StatsShell} = require './components/plan-stats'
 CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
 
