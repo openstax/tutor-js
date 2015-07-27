@@ -5,6 +5,8 @@ _ = require 'underscore'
 LearningGuide = require '../../flux/learning-guide'
 
 module.exports = React.createClass
+  displayName: 'PracticeByTypeButton'
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
     practiceType: React.PropTypes.string.isRequired

@@ -9,7 +9,7 @@ ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
-PracticeByTypeButton = require '../learning-guide/practice-by-type-button'
+PracticeButtonsPanel = require './practice-buttons'
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -61,19 +61,7 @@ ProgressGuidePanels = React.createClass
   render: ->
     <div className='progress-guide'>
 
-      <div className='actions-box'>
-        <h1 className='panel-title'>Practice</h1>
-        <BS.ButtonGroup>
-          <PracticeByTypeButton 
-          practiceType='stronger' 
-          practiceTitle='stronger' 
-          courseId={@props.courseId} />
-          <PracticeByTypeButton 
-          practiceType='weaker' 
-          practiceTitle='weaker' 
-          courseId={@props.courseId} />
-        </BS.ButtonGroup>
-      </div>
+      <PracticeButtonsPanel courseId={@props.courseId} />
 
       <div className='actions-box'>
         <ProgressGuide courseId={@props.courseId} />
