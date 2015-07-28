@@ -1,9 +1,8 @@
 BS = require 'react-bootstrap'
 React = require 'react'
+moment = require 'moment'
 BindStoreMixin = require '../bind-store-mixin'
-Time = require '../time'
 AsyncButton = require '../buttons/async-button'
-$ = require 'jquery'
 
 {PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
 
@@ -43,7 +42,7 @@ PerformanceExport = React.createClass
 
       exportState =
         downloadUrl: lastExport.url
-        lastExported: lastExport.created_at
+        lastExported: moment(lastExport.created_at).fromNow()
 
       @triggerDownload(lastExport.url) if @state.triggerDownload
       @setState(exportState)
@@ -79,15 +78,13 @@ PerformanceExport = React.createClass
       </AsyncButton>
 
     if lastExported?
-      lastExportedTime = <i>
-        <Time date={lastExported} format='long'/>
-      </i>
+      lastExportedTime = <i>{lastExported}</i>
       lastExportedTime = <a href={downloadUrl}>
         {lastExportedTime}
       </a> if downloadUrl?
 
       lastExportedLabel = <small className='export-button-time'>
-        Last exported on {lastExportedTime}
+        Last exported {lastExportedTime}
       </small>
 
     <span className={className}>
