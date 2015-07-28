@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 {History, Link} = require 'react-router'
+{TransitionActions, TransitionStore} = require '../../flux/transition'
 
 BackButton = React.createClass
   displayName: 'BackButton'
@@ -18,18 +19,22 @@ BackButton = React.createClass
     router: React.PropTypes.func
 
   getInitialState: ->
+    historyInfo = {}
     hasHistory = (History.length > 1)
+    historyInfo = TransitionStore.getPrevious() if hasHistory
 
-    {hasHistory}
+    {hasHistory, historyInfo}
 
   render: ->
-    {hasHistory} = @state
+    {hasHistory, historyInfo} = @state
     {fallbackLink, className} = @props
     {text} = fallbackLink
 
     if hasHistory
+      backText = 'Back'
+      backText = "Back to #{historyInfo.name}" if historyInfo.name
       backButton = <BS.Button className={className} onClick={@context.router.goBack}>
-        Back
+        {backText}
       </BS.Button>
     else
       fallbackLink = _.omit(fallbackLink, 'text')
