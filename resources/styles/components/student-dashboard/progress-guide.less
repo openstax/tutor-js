@@ -8,26 +8,42 @@
     h1,h2,h3 { margin: 0; text-align: left; }
     .panel-title {
       #fonts > .sans(2.5rem, 5rem);
+      font-weight: 900;
       border-bottom: thin dotted @tutor-neutral-light;
     }
-    .current { #fonts > .sans(1.6rem, 5rem); }
+    .current {
+      #fonts > .sans(1.6rem, 5rem);
+      font-weight: 600;
+    }
     .btn-group {
+      width: 100%;
       // override material design
       .btn:not(.btn-link):not(.btn-flat):not(.btn-fab) { margin-right: 0; }
-      .stronger i {
-        float: left;
-        &:after {
-          .fa-icon();
-          padding-right:8px;
-          content: @fa-var-arrow-up;
-          color: @tutor-success;
+      .stronger {
+        width: 50%;
+        span { float: right; }
+
+          i {
+          float: left;
+          &:after {
+            .fa-icon();
+            padding-right:8px;
+            content: @fa-var-arrow-up;
+            color: @tutor-success;
+          }
         }
       }
-      .weaker i:after {
-        .fa-icon();
-        padding-left:8px;
-        content: @fa-var-arrow-down;
-        color: @tutor-danger;
+      .weaker {
+        width: 50%;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+
+        & i:after {
+          .fa-icon();
+          padding-left:8px;
+          content: @fa-var-arrow-down;
+          color: @tutor-danger;
+        }
       }
     }
     .guide-key {
@@ -35,6 +51,7 @@
       .item {
         float: left;
         margin: auto;
+        vertical-align: top;
       }
       .box {
         float: left;
@@ -43,7 +60,11 @@
         margin: 10px 5px 0px 0px;
         .learning-guide-colors()
       }
-      .title { #fonts > .sans(1.2rem, 1.2rem); }
+      .title {
+        #fonts > .sans(1.1rem, 1.1rem);
+        font-weight: 200;
+        font-style: italic;
+      }
     }
     .section-heading {
       text-align: left;
