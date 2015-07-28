@@ -18,11 +18,10 @@ module.exports = React.createClass
   storeInitial: ->
     if History.length is 1
       path = HistoryLocation.getCurrentPath()
-      TransitionActions.load(path)
+      TransitionActions.load({path})
 
   storeHistory: (locationChangeEvent) ->
-    {path, type} = locationChangeEvent
-    TransitionActions.load(path) if type is 'push'
+    TransitionActions.load(locationChangeEvent)
 
   render: ->
     <div>

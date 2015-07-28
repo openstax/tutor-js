@@ -21,7 +21,9 @@ BackButton = React.createClass
   getInitialState: ->
     historyInfo = {}
     hasHistory = (History.length > 1)
-    historyInfo = TransitionStore.getPrevious() if hasHistory
+    # Only gets previous route transitioned to. Routes from router.replaceWith are ignored.
+    # See TransitionStore for more detail.
+    historyInfo = TransitionStore.getPrevious(@context.router.match) if hasHistory
 
     {hasHistory, historyInfo}
 
