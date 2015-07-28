@@ -59,6 +59,7 @@ PlanFooter = React.createClass
           isWaiting={isWaiting and @state.publishing}
           isFailed={isFailed}
           waitingText='Publishing…'
+          disabled={isWaiting}
           >
           {'Publish'}
         </AsyncButton>
@@ -75,6 +76,7 @@ PlanFooter = React.createClass
             isWaiting={isWaiting and @state.saving}
             isFailed={isFailed}
             waitingText='Saving…'
+            disabled={isWaiting}
             >
             {'Save as Draft'}
           </AsyncButton>
@@ -95,7 +97,7 @@ PlanFooter = React.createClass
 
     <div className='footer-buttons'>
       {publishButton}
-      <BS.Button aria-role='close' onClick={@onCancel}>Cancel</BS.Button>
+      <BS.Button aria-role='close' disabled={isWaiting} onClick={@onCancel}>Cancel</BS.Button>
       {saveLink}
       <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
         <BS.Button className="footer-instructions" bsStyle="link">
