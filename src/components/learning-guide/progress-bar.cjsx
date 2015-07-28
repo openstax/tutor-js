@@ -7,19 +7,22 @@ module.exports = React.createClass
   displayName: 'LearningGuideProgressBar'
 
   propTypes:
-    section:  ChapterSectionType.isRequired
+    section:  React.PropTypes.object.isRequired
     onPractice: React.PropTypes.func
 
   render: ->
-    {section, chapter, onPractice} = @props
-    level = section.current_level
-    percent = Math.round((level / 1) * 100)
-    color = switch
-      when percent >  75 then 'high'
-      when percent >= 50 then 'medium'
-      else 'low'
+    {section,  onPractice} = @props
 
-    bar = <BS.ProgressBar className={color} now={percent} />
+    bar = if section.current_level
+      percent = Math.round((section.current_level / 1) * 100)
+      color = switch
+        when percent >  75 then 'high'
+        when percent >= 50 then 'medium'
+        else 'low'
+      <BS.ProgressBar className={color} now={percent} />
+    else
+      <span className="no-data">Practice section</span>
+
     if onPractice
       tooltip = <BS.Tooltip>Click to practice</BS.Tooltip>
       <BS.OverlayTrigger placement='bottom' overlay={tooltip}>
