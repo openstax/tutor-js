@@ -1,14 +1,14 @@
 {
   "title": "Local Test Course",
   "periods": [{
-      "id": "1",
-      "name" : "1st"
-    },{
       "id": "2",
       "name" : "2nd"
     },{
       "id": "3",
       "name" : "3rd"
+    },{
+      "id": "1",
+      "name" : "1st"
     },{
       "id": "4",
       "name" : "4th"
@@ -16,11 +16,11 @@
       "id": "5",
       "name" : "5th"
     },{
-      "id": "6",
-      "name" : "6th"
-    },{
       "id": "7",
       "name" : "7th"
+    },{
+      "id": "6",
+      "name" : "6th"
   }],
   "timezone": "",
   "default_due_time": "",

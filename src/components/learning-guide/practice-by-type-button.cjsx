@@ -1,11 +1,12 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-S = require '../../helpers/string'
 _ = require 'underscore'
 
 LearningGuide = require '../../flux/learning-guide'
 
 module.exports = React.createClass
+  displayName: 'PracticeByTypeButton'
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
     practiceType: React.PropTypes.string.isRequired
@@ -16,13 +17,25 @@ module.exports = React.createClass
 
   onClick: ->
     {courseId} = @props
-    all = LearningGuide.Student.store.getSortedSections(@props.courseId)
-    sections = if @props.practiceType is 'weaker' then _.first(all, 4) else _.last(all, 4)
-    page_ids = _.chain(sections).pluck('page_ids').flatten().uniq().value()
-    @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
+    page_ids = LearningGuide.Student.store.getPracticePages(@props.courseId, @props.practiceType)
+    unless _.isEmpty(page_ids)
+      @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
 
   render: ->
-    <BS.Button className={@props.practiceType} onClick={@onClick}>
-      {S.capitalize(@props.practiceTitle)}
+    page_ids = LearningGuide.Student.store.getPracticePages(@props.courseId, @props.practiceType)
+    classNames = ['practice', @props.practiceType]
+    isDisabled = _.isEmpty(page_ids)
+    classNames.push 'disabled' if isDisabled
+
+    button = <BS.Button className={classNames.join(' ')} onClick={@onClick}>
+      {@props.practiceTitle}
       <i />
     </BS.Button>
+
+    if isDisabled
+      tooltip = <BS.Tooltip>No problems are available for practicing</BS.Tooltip>
+      <BS.OverlayTrigger placement='top' overlay={tooltip}>
+        {button}
+      </BS.OverlayTrigger>
+    else
+      button

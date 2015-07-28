@@ -1,4 +1,6 @@
-{expect} = require 'chai'
+chai = require 'chai'
+sinonChai = require("sinon-chai")
+chai.use(sinonChai)
 
 # For some reason, this navbar component test will have warnings about setting
 # state when component is unmounted if it's after some of the other specs.
@@ -16,11 +18,15 @@ require './components/task-homework.spec'
 require './components/task-homework-past-due.spec'
 require './components/practice.spec'
 require './components/learning-guide.spec'
+require './components/learning-guide/practice-by-type-button.spec'
 require './components/course-periods-nav.spec'
 require './components/course-calendar.spec'
 require './components/student-dashboard.spec'
+require './components/student-dashboard/practice-buttons.spec'
 require './components/reference-book.spec'
 require './components/course-settings.spec'
+require './components/tutor-input.spec'
+
 require './crud-store.spec'
 require './task-store.spec'
 require './loadable.spec'
@@ -31,5 +37,5 @@ require './current-user-store.spec'
 require './course-listing-store.spec'
 require './task-helpers.spec'
 
-# # # This should be done **last** because it starts up the whole app
+# This should be done **last** because it starts up the whole app
 require './router.spec'

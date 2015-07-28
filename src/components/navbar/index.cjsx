@@ -17,9 +17,6 @@ BindStoreMixin = require '../bind-store-mixin'
 module.exports = React.createClass
   displayName: 'Navigation'
 
-  mixins: [BindStoreMixin]
-  bindStore: CourseStore
-
   contextTypes:
     router: React.PropTypes.func
 
@@ -27,32 +24,27 @@ module.exports = React.createClass
     CourseListingStore.ensureLoaded()
 
   getInitialState: ->
-    course: undefined
+    course = @getCourseFromParams()
+    {course}
+
+  getCourseFromParams: ->
+    {courseId} = @context.router.getCurrentParams()
+    CourseStore.get(courseId) if courseId?
 
   handleCourseChanges: ->
     if @isMounted()
-      {courseId} = @context.router.getCurrentParams()
-
-      unless @state.course?.id is courseId
-        course = CourseStore.get(courseId)
+      course = @getCourseFromParams()
+      unless _.isEqual(course, @state.course)
         @setState({course})
 
-  # Also need to listen to when location finally updates.
-  # This is especially crucial for redirect from dashboard because component mounts
-  # before location gets fully updated.  If it doesn't listen for when location
-  # changes, this component never update it's state with the course in that case.
-  addBindListener: ->
-    @context.router.getLocation().addChangeListener(@handleCourseChanges)
-    CourseListingStore.addChangeListener(@updateAll)
-
-  removeBindListener: ->
-    @context.router.getLocation().removeChangeListener(@handleCourseChanges)
-    CourseListingStore.removeChangeListener(@updateAll)
-
-  updateAll: -> @setState({})
-
-  bindUpdate: ->
+  componentDidUpdate: ->
     @handleCourseChanges()
+
+  componentDidMount: ->
+    CourseStore.on('course.loaded', @handleCourseChanges)
+
+  componentWillUnmount: ->
+    CourseStore.off('course.loaded', @handleCourseChanges)
 
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)

@@ -42,6 +42,13 @@ Student = makeSimpleStore extendConfig {
     getAllSections: (courseId) ->
       findAllSections(@_get(courseId))
 
+    getPracticePages: (courseId, practiceType) ->
+      all = @exports.getSortedSections.call(this, courseId)
+      count = Math.min(all.length / 2, 4)
+      sections = if practiceType is 'weaker' then _.first(all, count) else _.last(all, count)
+      _.chain(sections).pluck('page_ids').flatten().uniq().value()
+
+
 }, new CrudConfig
 
 

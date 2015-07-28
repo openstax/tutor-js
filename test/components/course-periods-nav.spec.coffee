@@ -35,14 +35,14 @@ describe 'Course Periods Navigation', ->
     componentStub.unmount()
     CourseActions.reset()
 
-  it 'should render periods with period names', (done) ->
+  it 'should render periods with period names, in order sorted by name', (done) ->
     {div} = @result
 
     periodItems = div.querySelectorAll('li')
     expect(periodItems.length).to.equal(COURSE_PERIODS.length)
 
     periodRenderedNames = _.pluck(periodItems, 'textContent')
-    periodNames = _.pluck(COURSE_PERIODS, 'name')
+    periodNames = _.pluck(COURSE_PERIODS, 'name').sort()
 
     expect(periodRenderedNames).to.deep.equal(periodNames)
 
@@ -52,8 +52,10 @@ describe 'Course Periods Navigation', ->
     {div} = @result
 
     firstPeriodItemLink = div.querySelector('li > a')
+    sortedPeriods = _.sortBy(COURSE_PERIODS, 'name')
+
     commonActions.click(firstPeriodItemLink)
 
-    expect(@selectedPeriod).to.deep.equal(COURSE_PERIODS[0])
+    expect(@selectedPeriod).to.deep.equal(sortedPeriods[0])
 
     done()

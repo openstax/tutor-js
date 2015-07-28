@@ -65,6 +65,8 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "merge-stream": "~0.1.7",
     "mocha": "~2.2.1",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0",
     "vinyl-source-stream": "~1.1.0",
     "watchify": "~2.4.0",
     "when": "~3.7.2"
