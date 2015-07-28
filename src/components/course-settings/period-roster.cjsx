@@ -25,6 +25,7 @@ module.exports = React.createClass
 
   render: ->
     students = _.sortBy(RosterStore.getStudentsForPeriod(@props.courseId, @props.period.id), 'last_name')
+    students = _.filter(students, (student) -> student.active)
     <div className="period">
       <h3>Period: {@props.period.name}</h3>
       <BS.Table striped bordered condensed hover className="roster">
