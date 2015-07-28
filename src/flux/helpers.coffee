@@ -140,6 +140,7 @@ CrudConfig = ->
       isUnknown: (id) -> not @_asyncStatus[id]
       isLoading: (id) -> @_asyncStatus[id] is LOADING
       isLoaded: (id) -> @_asyncStatus[id] is LOADED
+      isDeleting: (id) -> @_asyncStatus[id] is DELETING
       isSaving: (id) -> @_asyncStatus[id] is SAVING
       isFailed: (id) -> @_asyncStatus[id] is FAILED
       getAsyncStatus: (id) -> @_asyncStatus[id]

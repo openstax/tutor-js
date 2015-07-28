@@ -10,8 +10,11 @@ TeacherTaskPlanConfig =
     @_local[id] = plans
 
   exports:
-    getCoursePlans: (id) ->
-      @_local[id] or []
+    getActiveCoursePlans: (id) ->
+      plans = @_local[id] or []
+      # don't return plans that are in the process of being deleted
+      _.filter plans, (plan) =>
+        not @exports.isDeleting.call(@, plan.id)
 
 
 extendConfig(TeacherTaskPlanConfig, new CrudConfig())
