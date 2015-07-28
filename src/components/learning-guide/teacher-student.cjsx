@@ -27,7 +27,6 @@ module.exports = React.createClass
     selected = PerformanceStore.getStudent(@props.courseId, @props.roleId)
     return null unless selected
     emptyMessage = <h5>{selected.name} has not worked any questions yet.</h5>
-    console.log(selected)
     <div className='guide-heading'>
       <div className='student-selection'>Current level of understanding for:
         <BS.DropdownButton bzSize='large' className='student-selection' title={selected.name}
