@@ -3,6 +3,7 @@ React = require 'react'
 BindStoreMixin = require '../bind-store-mixin'
 Time = require '../time'
 AsyncButton = require '../buttons/async-button'
+$ = require 'jquery'
 
 {PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
 
@@ -18,6 +19,8 @@ PerformanceExport = React.createClass
   getInitialState: ->
     downloadUrl: null
     lastExported: null
+    triggerDownload: false
+    exportedSinceLoad: false
 
   isUpdateValid: (id) ->
     {courseId} = @props
@@ -31,6 +34,7 @@ PerformanceExport = React.createClass
     {courseId} = @props
     if @isUpdateValid(exportData.exportFor)
       PerformanceExportActions.load(courseId)
+      @setState(triggerDownload: true)
 
   updateDownload: (id) ->
     if @isUpdateValid(id)
@@ -41,7 +45,12 @@ PerformanceExport = React.createClass
         downloadUrl: lastExport.url
         lastExported: lastExport.created_at
 
+      @triggerDownload(lastExport.url) if @state.triggerDownload
       @setState(exportState)
+
+  triggerDownload: (downloadUrl) ->
+    window.location = downloadUrl
+    @setState(triggerDownload: false, exportedSinceLoad: true)
 
   addBindListener: ->
     PerformanceExportStore.on('performanceExport.completed', @triggerLoadExport)
@@ -53,37 +62,37 @@ PerformanceExport = React.createClass
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported} = @state
+    {downloadUrl, lastExported, exportedSinceLoad} = @state
 
     className += ' export-button'
     exportClass = 'primary'
-
-    if downloadUrl?
-      downloadLink =
-        <BS.Button bsStyle='primary' href={downloadUrl}>Download</BS.Button>
-
-      exportClass = 'default'
+    exportClass = 'default' if exportedSinceLoad
 
     exportButton =
       <AsyncButton
         bsStyle={exportClass}
         onClick={-> PerformanceExportActions.export(courseId)}
-        isWaiting={PerformanceExportStore.isExporting(courseId)}
+        isWaiting={true}
         isFailed={PerformanceExportStore.isFailed(courseId)}
         waitingText='Exporting…'>
         Export
       </AsyncButton>
 
     if lastExported?
+      lastExportedTime = <i>
+        <Time date={lastExported} format='long'/>
+      </i>
+      lastExportedTime = <a href={downloadUrl}>
+        {lastExportedTime}
+      </a> if downloadUrl?
+
       lastExportedLabel = <small className='export-button-time'>
-        Export last updated on:
-        <i><Time date={lastExported} format='long'/></i>
+        Last exported on {lastExportedTime}
       </small>
 
     <span className={className}>
       <div className='export-button-buttons'>
         {exportButton}
-        {downloadLink}
       </div>
       {lastExportedLabel}
     </span>
