@@ -72,7 +72,7 @@ PerformanceExport = React.createClass
       <AsyncButton
         bsStyle={exportClass}
         onClick={-> PerformanceExportActions.export(courseId)}
-        isWaiting={true}
+        isWaiting={PerformanceExportStore.isExporting(courseId)}
         isFailed={PerformanceExportStore.isFailed(courseId)}
         waitingText='Exporting…'>
         Export
