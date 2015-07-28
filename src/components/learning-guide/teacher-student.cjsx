@@ -26,6 +26,8 @@ module.exports = React.createClass
     students = PerformanceStore.getAllStudents(@props.courseId)
     selected = PerformanceStore.getStudent(@props.courseId, @props.roleId)
     return null unless selected
+    emptyMessage = <h5>{selected.name} has not worked any questions yet.</h5>
+    console.log(selected)
     <div className='guide-heading'>
       <div className='student-selection'>Current level of understanding for:
         <BS.DropdownButton bzSize='large' className='student-selection' title={selected.name}
@@ -33,6 +35,7 @@ module.exports = React.createClass
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
               <BS.MenuItem key={student.role} eventKey={student.role}>{student.name}</BS.MenuItem> }
         </BS.DropdownButton>
+        {emptyMessage if selected.data.length is 0}
       </div>
       <Router.Link activeClassName='' to='viewPerformance'
         className='btn btn-default pull-right'
@@ -40,6 +43,7 @@ module.exports = React.createClass
         Return to Performance Report
       </Router.Link>
     </div>
+
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
 
