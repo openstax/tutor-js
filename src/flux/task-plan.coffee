@@ -7,6 +7,7 @@ validator = require 'validator'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
+{PlanPublishActions} = require './plan-publish'
 
 TUTOR_SELECTIONS =
   default: 3
@@ -267,6 +268,10 @@ TaskPlanConfig =
 
   publish: (id) ->
     @_change(id, {is_publish_requested: true})
+
+  _saved: (obj, id) ->
+    PlanPublishActions.published(obj, id) if obj.is_publish_requested
+    obj
 
   exports:
     hasTopic: (id, topicId) ->
