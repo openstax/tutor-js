@@ -1,8 +1,11 @@
 BS = require 'react-bootstrap'
 React = require 'react'
 moment = require 'moment'
+mime = require 'mime-types'
+
 BindStoreMixin = require '../bind-store-mixin'
 AsyncButton = require '../buttons/async-button'
+TimeDifference = require '../time-difference'
 
 {PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
 
@@ -18,8 +21,9 @@ PerformanceExport = React.createClass
   getInitialState: ->
     downloadUrl: null
     lastExported: null
-    triggerDownload: false
+    tryToDownload: false
     exportedSinceLoad: false
+    downloadHasError: false
 
   isUpdateValid: (id) ->
     {courseId} = @props
@@ -29,39 +33,84 @@ PerformanceExport = React.createClass
     {courseId} = @props
     PerformanceExportActions.load(courseId)
 
-  triggerLoadExport: (exportData) ->
+  componentWillUpdate: (nextProps, nextState) ->
+    window.location = nextState.downloadUrl if @shouldTriggerDownload(@state, nextState)
+
+  shouldTriggerDownload: (currentState, nextState) ->
+    currentState.tryToDownload and not nextState.tryToDownload and not nextState.downloadHasError and nextState.downloadUrl?
+
+  handleCompletedExport: (exportData) ->
     {courseId} = @props
     if @isUpdateValid(exportData.exportFor)
       PerformanceExportActions.load(courseId)
-      @setState(triggerDownload: true)
+      @setState(tryToDownload: true)
 
-  updateDownload: (id) ->
+  handleLoadedExport: (id) ->
     if @isUpdateValid(id)
       lastExport = PerformanceExportStore.getLatestExport(id)
       return unless lastExport?
 
       exportState =
         downloadUrl: lastExport.url
-        lastExported: moment(lastExport.created_at).fromNow()
+        lastExported: lastExport.created_at
 
-      @triggerDownload(lastExport.url) if @state.triggerDownload
-      @setState(exportState)
+      if @state.tryToDownload
+        @validateDownloadURL(exportState)
+      else
+        @setState(exportState)
 
-  triggerDownload: (downloadUrl) ->
-    window.location = downloadUrl
-    @setState(triggerDownload: false, exportedSinceLoad: true)
+  isRequestOK: (request) ->
+    request.status is 200 and request.statusText is 'OK'
+
+  validateDownloadURL: ({downloadUrl, lastExported}) ->
+    downloadUrlChecker = new XMLHttpRequest()
+    downloadUrlChecker.open('GET', downloadUrl, true)
+
+    downloadUrlChecker.onreadystatechange = =>
+      # when response received...
+      if downloadUrlChecker.readyState is 4
+        contentType = downloadUrlChecker.getResponseHeader('Content-Type') if @isRequestOK(downloadUrlChecker)
+        # Check for whether the return contentType from the header
+        # matches the expected type.
+        if contentType is mime.contentType('.xlsx')
+          @triggerDownload({downloadUrl, lastExported})
+        else
+          @cancelDownload()
+
+    downloadUrlChecker.send()
+
+  cancelDownload: ->
+    @setState(
+      tryToDownload: false
+      exportedSinceLoad: true
+      downloadHasError: true
+    )
+
+  triggerDownload: ({downloadUrl, lastExported}) ->
+    downloadedState =
+      tryToDownload: false
+      exportedSinceLoad: true
+      downloadUrl: downloadUrl
+      lastExported: lastExported
+
+    @setState(downloadedState)
+
+  downloadCurrentExport: (linkClickEvent) ->
+    linkClickEvent.preventDefault()
+    @setState(tryToDownload: true)
+    @validateDownloadURL(@state)
 
   addBindListener: ->
-    PerformanceExportStore.on('performanceExport.completed', @triggerLoadExport)
-    PerformanceExportStore.on('performanceExport.loaded', @updateDownload)
+    PerformanceExportStore.on('performanceExport.completed', @handleCompletedExport)
+    PerformanceExportStore.on('performanceExport.loaded', @handleLoadedExport)
 
   removeBindListener: ->
-    PerformanceExportStore.off('performanceExport.completed', @triggerLoadExport)
-    PerformanceExportStore.off('performanceExport.loaded', @updateDownload)
+    PerformanceExportStore.off('performanceExport.completed', @handleCompletedExport)
+    PerformanceExportStore.off('performanceExport.loaded', @handleLoadedExport)
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported, exportedSinceLoad} = @state
+    {downloadUrl, lastExported, exportedSinceLoad, downloadHasError} = @state
 
     className += ' export-button'
     exportClass = 'primary'
@@ -72,14 +121,16 @@ PerformanceExport = React.createClass
         bsStyle={exportClass}
         onClick={-> PerformanceExportActions.export(courseId)}
         isWaiting={PerformanceExportStore.isExporting(courseId)}
-        isFailed={PerformanceExportStore.isFailed(courseId)}
+        isFailed={PerformanceExportStore.isFailed(courseId) or downloadHasError}
         waitingText='Exporting…'>
         Export
       </AsyncButton>
 
     if lastExported?
-      lastExportedTime = <i>{lastExported}</i>
-      lastExportedTime = <a href={downloadUrl}>
+      lastExportedTime = <i>
+        <TimeDifference date={lastExported}/>
+      </i>
+      lastExportedTime = <a onClick={@downloadCurrentExport} href='#'>
         {lastExportedTime}
       </a> if downloadUrl?
 
