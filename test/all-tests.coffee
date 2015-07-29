@@ -13,6 +13,7 @@ require './components/task-plan/homework-plan.spec'
 require './components/task-plan/homework/exercise-summary.spec'
 require './components/task-plan/footer.spec'
 
+require './components/question.spec'
 require './components/task.spec'
 require './components/task-homework.spec'
 require './components/task-homework-past-due.spec'
