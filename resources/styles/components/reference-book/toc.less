@@ -4,32 +4,41 @@
     max-height: 100%;
     overflow-y: scroll;
 
-    ul {
-      margin-bottom: 0;
-      padding-left: 0rem;
+    .toc-indented-levels(@depth) when (@depth > 0) {
+      .toc-indented-levels((@depth - 1));
 
+      ul[data-depth='@{depth}'] {
+        margin-bottom: 0;
+        padding-left: 0rem;
 
-      li { 
-        list-style-type: none; 
-        border-top: 1px dotted @tutor-neutral-light;
-        background-color: @tutor-neutral-lightest;
+        &:first-child li:first-child { border-top: 0; }
 
-        &:first-child { border-top: 0; }
+        li { 
+          list-style-type: none; 
+          border-top: 1px dotted @tutor-neutral-light;
+          background-color: @tutor-neutral-lightest;
 
-        a {
-          color: @tutor-neutral-darker;
-          display: block;
-          text-indent:  0;
-          padding: 10px 0;
+          a {
+            color: @tutor-neutral-darker;
+            display: block;
+            text-indent:  0;
+            padding: 10px 0;
 
-          &:hover {
-            background-color: @tutor-white;
-            text-decoration: initial;
-          }
+            &:hover {
+              background-color: @tutor-white;
+              text-decoration: initial;
+            }
 
-          &.active {
-            background-color: @tutor-white;
-            text-decoration: initial;
+            &.active {
+              background-color: @tutor-white;
+              text-decoration: initial;
+              font-weight: 900;
+            }
+
+            #fonts > .sans( unit((2.0 - (@depth / 3)),rem) );
+            padding-left: (unit((2.5 * (@depth )), rem));
+            text-indent: -(unit((0.3 + (@depth )), rem));
+            line-height: 2.25rem;
           }
 
         }
@@ -37,16 +46,5 @@
       }
 
     }
-
-    .toc-indented-levels(@depth) when (@depth > 0) {
-      .toc-indented-levels((@depth - 1));
-      ul[data-depth='@{depth}'] a {
-        #fonts > .sans( unit((2.0 - (@depth / 3)),rem) );
-        padding-left: (unit((2.5 * (@depth )), rem));
-        text-indent: -(unit((0.3 + (@depth )), rem));
-        line-height: 2.25rem;
-      }
-    }
-
   }
 }
