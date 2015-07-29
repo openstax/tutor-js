@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
+Icon = require '../icon'
 
 {RosterStore, RosterActions} = require '../../flux/roster'
 ChangePeriodLink  = require './change-period'
@@ -26,7 +27,6 @@ module.exports = React.createClass
   render: ->
     students = _.sortBy(RosterStore.getStudentsForPeriod(@props.courseId, @props.period.id), 'last_name')
     students = _.where(students, is_active: true)
-    random_id_tooltip = <BS.Tooltip>Useful for talking securely about students over email.</BS.Tooltip>
     <div className="period">
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
@@ -34,10 +34,8 @@ module.exports = React.createClass
             <th>First Name</th>
             <th>Last Name</th>
             <th>
-              Random ID
-              <BS.OverlayTrigger placement='bottom' overlay={random_id_tooltip}>
-                <i className="fa fa-question-circle" />
-              </BS.OverlayTrigger>
+              Random ID <Icon type='question-circle'
+                tooltip='Useful for talking securely about students over email.' />
             </th>
             <th>Actions</th>
           </tr>
