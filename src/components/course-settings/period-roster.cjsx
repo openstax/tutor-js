@@ -25,8 +25,7 @@ module.exports = React.createClass
     </tr>
 
   render: ->
-    students = _.sortBy(RosterStore.getStudentsForPeriod(@props.courseId, @props.period.id), 'last_name')
-    students = _.where(students, is_active: true)
+    students = RosterStore.getActiveStudentsForPeriod(@props.courseId, @props.period.id)
     <div className="period">
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
@@ -41,7 +40,7 @@ module.exports = React.createClass
           </tr>
         </thead>
         <tbody>
-          {for student in students
+          {for student in _.sortBy(students, 'last_name')
             @renderStudentRow(student)}
         </tbody>
       </BS.Table>
