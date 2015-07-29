@@ -213,7 +213,7 @@ _.each(checks, (check, checkName) ->
 )
 
 checks._checkDoesViewShowPlan = (planId, {div, component, state, router, history, courseId}) ->
-  plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+  plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
   plan = _.findWhere(plansList, {id: planId})
 
   expect(document.querySelector(".modal-title").innerText).to.equal(plan.title)

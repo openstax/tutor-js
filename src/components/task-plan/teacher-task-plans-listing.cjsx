@@ -98,7 +98,7 @@ TeacherTaskPlanListing = React.createClass
 
     date = @getDateFromParams()
 
-    plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+    plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
 
     loadedCalendarProps = {plansList, courseId, date}
 

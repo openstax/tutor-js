@@ -6,6 +6,7 @@ Router = require 'react-router'
 _ = require 'underscore'
 
 PracticeButton = require '../buttons/practice-button'
+BackButton = require '../buttons/back-button'
 BindStoreMixin = require '../bind-store-mixin'
 StepFooterMixin = require './step-footer-mixin'
 
@@ -21,7 +22,7 @@ Review = require '../task/review'
 renderStatusMessage = (completeSteps, totalSteps) ->
   if completeSteps is totalSteps
     <span>
-      <h1>You are done</h1>
+      <h1>You are done.</h1>
       <h3>Great job answering all the questions</h3>
     </span>
   else
@@ -39,12 +40,13 @@ PracticeEnd = React.createClass
     {courseId, taskId, reloadPractice} = @props
 
     pageIds = CourseStore.getPracticePageIds(courseId)
-    backButton = <Router.Link
-      to='viewGuide'
-      params={{courseId}}
-      className='btn btn-default'>
-        Back to Flight Path
-    </Router.Link>
+
+    fallbackLink =
+      to: 'viewGuide'
+      params: {courseId}
+      text: 'Back to Learning Guide'
+
+    backButton = <BackButton fallbackLink={fallbackLink} />
 
     # custom footer for practices
     footer =
@@ -165,7 +167,7 @@ TaskEnd = React.createClass
     <div className='task task-completed'>
       <CardBody footer={footer} className='-reading-completed'>
         <div className="completed-message">
-          <h1>You Are Done.</h1>
+          <h1>You are done.</h1>
           <h3>Great job completing all the steps</h3>
         </div>
       </CardBody>

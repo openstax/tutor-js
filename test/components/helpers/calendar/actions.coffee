@@ -51,7 +51,7 @@ actions =
     args[0]
 
   _getMomentWithPlans: (courseId) ->
-    plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+    plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
 
     firstPlan = _.chain(plansList)
       .clone()
