@@ -40,6 +40,9 @@ module.exports = React.createClass
         courseId={@props.courseId} />
     </div>
 
+  renderEmptyMessage: ->
+    <div>No questions worked.</div>
+
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
 
@@ -49,6 +52,7 @@ module.exports = React.createClass
       <Guide
         courseId={courseId}
         heading={@renderHeading()}
+        emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}
         allSections={LearningGuide.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}
         chapters={LearningGuide.Teacher.store.getChaptersForPeriod(courseId, @state.periodId)}
