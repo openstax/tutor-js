@@ -13,7 +13,7 @@ GetPositionMixin = require '../get-position-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
-EXERCISE_MATCHER = new RegExp('#ost\/api\/ex\/(.*)')
+EXERCISE_MATCHER = new RegExp('\/exercises\/(.*)')
 
 module.exports = React.createClass
   _exerciseNodes: []
@@ -84,10 +84,7 @@ module.exports = React.createClass
         image.addEventListener('load', onImageLoad)
 
   isExerciseLink: (link) ->
-    link.hash.search(EXERCISE_MATCHER) is 0
-
-  getExerciseId: (link) ->
-    link.hash.match(EXERCISE_MATCHER)[1]
+    link.pathname.search(EXERCISE_MATCHER) is 0
 
   renderOtherLinks: (otherLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(otherLinks.length)
@@ -95,10 +92,11 @@ module.exports = React.createClass
 
   renderExercise: (link) ->
     if @isExerciseLink(link)
-      exerciseId = @getExerciseId(link)
+      exerciseAPIUrl = link.href
+
       if link.parentNode.parentNode?
         @_exerciseNodes.push(link.parentNode.parentNode)
-        React.render(<ReferenceBookExerciseShell exerciseId={exerciseId}/>, link.parentNode.parentNode)
+        React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, link.parentNode.parentNode)
 
   unmountExerciseComponent: (node, nodeIndex) ->
     React.unmountComponentAtNode(node) if node?
