@@ -86,17 +86,13 @@ module.exports = React.createClass
   isExerciseLink: (link) ->
     link.pathname.search(EXERCISE_MATCHER) is 0
 
-  # absolute url returned does not include the path to the api
-  getExerciseAPIUrl: (link) ->
-    "#{link.protocol}//#{link.host}/api#{link.pathname}"
-
   renderOtherLinks: (otherLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(otherLinks.length)
     _.each(otherLinks, @renderExercise)
 
   renderExercise: (link) ->
     if @isExerciseLink(link)
-      exerciseAPIUrl = @getExerciseAPIUrl(link)
+      exerciseAPIUrl = link.href
 
       if link.parentNode.parentNode?
         @_exerciseNodes.push(link.parentNode.parentNode)
