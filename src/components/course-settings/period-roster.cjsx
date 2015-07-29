@@ -17,7 +17,7 @@ module.exports = React.createClass
     <tr key={student.id}>
       <td>{student.first_name}</td>
       <td>{student.last_name}</td>
-      <td>{student.id}</td>
+      <td>{student.deidentifier}</td>
       <td className="actions">
         <ChangePeriodLink courseId={@props.courseId} student={student} />
       </td>
@@ -26,14 +26,19 @@ module.exports = React.createClass
   render: ->
     students = _.sortBy(RosterStore.getStudentsForPeriod(@props.courseId, @props.period.id), 'last_name')
     students = _.where(students, is_active: true)
+    random_id_tooltip = <BS.Tooltip>Useful for talking securely about students over email.</BS.Tooltip>
     <div className="period">
-      <h3>Period: {@props.period.name}</h3>
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Student ID</th>
+            <th>
+              Random ID
+              <BS.OverlayTrigger placement='bottom' overlay={random_id_tooltip}>
+                <i className="fa fa-question-circle" />
+              </BS.OverlayTrigger>
+            </th>
             <th>Actions</th>
           </tr>
         </thead>
