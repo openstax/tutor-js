@@ -31,8 +31,8 @@ PlanPublishConfig = {
     @_asyncStatus[id] = PUBLISHING
     @emitChange()
 
-  published: (obj, id) ->
-    {publish_job_uuid} = obj
+  published: (obj) ->
+    {publish_job_uuid, id} = obj
     jobId = publish_job_uuid
 
     # publish job has been queued
@@ -43,7 +43,7 @@ PlanPublishConfig = {
     # checks job until final status is reached
     checkJob = ->
       JobActions.load(jobId)
-    JobActions.checkUntil(jobId, checkJob)
+    JobActions.checkUntil(jobId, checkJob, PUBLISHED, 5000, 100)
 
     # whenever this job status is updated, emit the status for plan publish
     updatePublishStatus = @_updatePublishStatusFor(id)

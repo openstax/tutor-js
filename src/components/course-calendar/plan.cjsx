@@ -28,8 +28,8 @@ CoursePlan = React.createClass
 
   getInitialState: ->
     isViewingStats: false
-    isPublishing: PlanPublishStore.isPublishing(@props.item.plan.id)
     justPublished: false
+    isPublishing: false
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
@@ -82,15 +82,16 @@ CoursePlan = React.createClass
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
 
-  setAsPublished: (published) ->
+  checkPublishingStatus: (published) ->
     if published.publishFor is @props.item.plan.id
-      @setState(justPublished: true, isPublishing: false)
+      @setState(justPublished: true, isPublishing: false) if published.state is 'completed'
+      @setState(isPublishing: true) if published.state is 'queued'
 
   componentWillMount: ->
-    PlanPublishStore.on('planPublish.completed', @setAsPublished) if @state.isPublishing
+    PlanPublishStore.on('planPublish.*', @checkPublishingStatus) unless @props.item.plan.isPublished
 
   componentWillUnmount: ->
-    PlanPublishStore.off('planPublish.completed', @setAsPublished)
+    PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
 
   componentDidMount: ->
     @closePlanOnModalHide()
