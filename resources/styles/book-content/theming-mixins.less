@@ -15,10 +15,8 @@
 
 .tutor-book-theme-note(@label-background: @tutor-book-primary; @label-text: @tutor-book-text-on-dark-labels) {
   > .note,
-  .tips-for-success,
-  .os-teacher,
-  .ost-background-info,
-  .ost-misconception {
+  > section > .note,
+   > section > section > .note {
     &:before {
       color: @label-text;
       background: @label-background;
