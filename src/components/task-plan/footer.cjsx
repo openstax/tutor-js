@@ -1,4 +1,3 @@
-
 React = require 'react'
 BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -64,8 +63,16 @@ PlanFooter = React.createClass
         </AsyncButton>
 
     if deleteable
-      deleteLink = <a className='delete-link pull-right' onClick={@onDelete}>
-        <i className="fa fa-trash"></i> Delete Assignment</a>
+      deleteLink =
+        <AsyncButton
+          className='delete-link pull-right'
+          onClick={@onDelete}
+          isWaiting={TaskPlanStore.isDeleting(id)}
+          isFailed={isFailed}
+          waitingText='Deleting…'
+        >
+          <i className="fa fa-trash"></i> Delete Assignment
+        </AsyncButton>
 
     if saveable
       saveLink =
