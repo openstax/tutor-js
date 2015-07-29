@@ -41,11 +41,15 @@
     padding-top: 0;
   }
   table {
+    border: none;
+    tr {
+      border: solid 1px @tutor-neutral-light;
+    }
       tr:nth-child(odd) {
-     background: @tutor-neutral-light;
+      background: @tutor-neutral-lighter;
    }
      tr:nth-child(even) {
-     background: @tutor-white;
+      background: @tutor-white;
    }
   }
 }
