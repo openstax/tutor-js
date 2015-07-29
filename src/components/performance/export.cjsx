@@ -75,25 +75,28 @@ PerformanceExport = React.createClass
         if contentType is mime.contentType('.xlsx')
           @triggerDownload({downloadUrl, lastExported})
         else
-          @cancelDownload()
+          @cancelDownload({downloadUrl, lastExported})
 
     downloadUrlChecker.send()
 
-  cancelDownload: ->
-    @setState(
+  cancelDownload: ({downloadUrl}) ->
+    invalidDownloadState =
       tryToDownload: false
       exportedSinceLoad: true
       downloadHasError: true
-    )
+
+    invalidDownloadState.downloadUrl = null if @state.downloadUrl is downloadUrl
+
+    @setState(invalidDownloadState)
 
   triggerDownload: ({downloadUrl, lastExported}) ->
-    downloadedState =
+    downloadState =
       tryToDownload: false
       exportedSinceLoad: true
       downloadUrl: downloadUrl
       lastExported: lastExported
 
-    @setState(downloadedState)
+    @setState(downloadState)
 
   downloadCurrentExport: (linkClickEvent) ->
     linkClickEvent.preventDefault()
