@@ -91,6 +91,7 @@ ExerciseMultiChoice = React.createClass
 
     <Question
       model={question}
+      exercise_uid={content.uid}
       answer_id={answer_id}
       correct_answer_id={correct_answer_id}
       onChange={@onAnswerChanged}>

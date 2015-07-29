@@ -11,6 +11,7 @@ module.exports = React.createClass
     type: React.PropTypes.string.isRequired
     answer_id: React.PropTypes.string
     correct_answer_id: React.PropTypes.string
+    content_uid: React.PropTypes.string
     feedback_html: React.PropTypes.string
     answered_count: React.PropTypes.number
     onChange: React.PropTypes.func
@@ -99,4 +100,5 @@ module.exports = React.createClass
         {answers}
       </div>
       {feedback}
+      <div className="exercise-uid">{@props.exercise_uid}</div>
     </div>
