@@ -27,15 +27,17 @@ ExerciseCardMixin =
     if isLO
       classes = ['lo-tag']
       loLabel = 'LO: '
-    
+
     <span className={classes.join(' ')}>{loLabel} {content}</span>
 
   renderExercise: ->
     content = @props.exercise.content
     question = content.questions[0]
     renderedAnswers = _.map(question.answers, @renderAnswers)
-    renderedTags = _.map(@props.exercise.tags, @renderTags)
-
+    tags = _.clone @props.exercise.tags
+    # Display the exercise uid as a tag
+    tags.push(name: "ID: #{@props.exercise.content.uid}")
+    renderedTags = _.map(_.sortBy(tags, 'name'), @renderTags)
     header = @renderHeader()
     panelStyle = @getPanelStyle()
 
@@ -47,6 +49,7 @@ ExerciseCardMixin =
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <div className='answers-table'>{renderedAnswers}</div>
+
       <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
@@ -163,7 +166,7 @@ ReviewExercises = React.createClass
     load = @renderLoading()
     if (load)
       return load
-    
+
     {courseId, pageIds, planId} = @props
 
     unless TaskPlanStore.getTopics(planId).length
@@ -186,7 +189,7 @@ ExerciseTable = React.createClass
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
     content = ExerciseStore.getContent(exerciseId)
-    
+
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
       unless teksString
