@@ -23,9 +23,9 @@ TransitionStore = flux.createStore
   actions: _.values(TransitionActions)
   _local: []
 
-  load: (obj) ->
-    obj.type ?= 'push'
-    @_local.push(obj.path) if obj.type is 'push'
+  load: ({path, type}) ->
+    type ?= 'push'
+    @_local.push(path) if type is 'push'
 
   reset: ->
     @_local = []
@@ -36,10 +36,11 @@ TransitionStore = flux.createStore
   exports:
     getPrevious: (matchRoutes) ->
       history = @_get()
-      backPath = history[history.length - 2] if history.length > 1
-      matchedRoute = matchRoutes(backPath)
+      backPath = history[history.length - 2]
+      matchedRoute = matchRoutes(backPath) if backPath?
       deepestRouteName = _.last(matchedRoute.routes).name if matchedRoute?.routes?.length
 
+      # Both path and name will be undefined if history does not have a previous entry.
       path: backPath
       name: DestinationHelper.getDestination(deepestRouteName)
 
