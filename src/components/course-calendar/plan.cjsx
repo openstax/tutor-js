@@ -9,6 +9,8 @@ BS = require 'react-bootstrap'
 
 CoursePlanDetails = require './plan-details'
 
+{PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
+
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
@@ -26,6 +28,8 @@ CoursePlan = React.createClass
 
   getInitialState: ->
     isViewingStats: false
+    isPublishing: PlanPublishStore.isPublishing(@props.item.plan.id)
+    justPublished: false
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
@@ -77,6 +81,16 @@ CoursePlan = React.createClass
   setIsViewingStats: (isViewingStats) ->
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
+
+  setAsPublished: (published) ->
+    if published.publishFor is @props.item.plan.id
+      @setState(justPublished: true, isPublishing: false)
+
+  componentWillMount: ->
+    PlanPublishStore.on('planPublish.completed', @setAsPublished) if @state.isPublishing
+
+  componentWillUnmount: ->
+    PlanPublishStore.off('planPublish.completed', @setAsPublished)
 
   componentDidMount: ->
     @closePlanOnModalHide()
@@ -204,6 +218,7 @@ CoursePlan = React.createClass
 
   render: ->
     {item, courseId} = @props
+    {justPublished, isPublishing} = @state
     {plan, duration, rangeDuration, offset, index, weekTopOffset, order} = item
 
     durationLength = duration.length('days')
@@ -224,7 +239,8 @@ CoursePlan = React.createClass
       "course-plan-#{plan.id}"
     ]
 
-    planClasses.push('is-published') if plan.isPublished
+    planClasses.push('is-published') if plan.isPublished or justPublished
+    planClasses.push('is-publishing') if isPublishing
     planClasses.push('is-open') if plan.isOpen
     planClasses.push('is-trouble') if plan.isTrouble
 

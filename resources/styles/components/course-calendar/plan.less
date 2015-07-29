@@ -77,6 +77,12 @@
         content: 'draft';
         margin-right: @calendar-plan-left-label-offset;
       }
+
+      &.is-publishing{
+        label:not(.continued)::before {
+          content: 'publishing';
+        }
+      }
     }
 
     &.is-published:not(.is-open) {

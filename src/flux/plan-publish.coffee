@@ -23,12 +23,6 @@ PlanPublishConfig = {
       @emit("planPublish.#{publishData.state}", publishData)
       @emitChange()
 
-  getJobIdFromJobUrl: (jobUrl) ->
-    jobUrlSegments = jobUrl.split('/api/jobs/')
-    jobId = jobUrlSegments[1] if jobUrlSegments[1]?
-
-    jobId
-
   saveJob: (jobId, id) ->
     @_job[id] ?= []
     @_job[id].push(jobId)
@@ -38,8 +32,8 @@ PlanPublishConfig = {
     @emitChange()
 
   published: (obj, id) ->
-    {job} = obj
-    jobId = @getJobIdFromJobUrl(job)
+    {publish_job_uuid} = obj
+    jobId = publish_job_uuid
 
     # publish job has been queued
     @emit('planPublish.queued', {jobId, id})
@@ -68,15 +62,6 @@ PlanPublishConfig = {
       job = JobStore.get(jobId)
       {state} = job if job?
       state is PUBLISHED
-
-    getLatestPublish: (id) ->
-      plansPublish = @_get(id)
-
-      _.chain(plansPublish)
-        .sortBy((planPublish) ->
-          planPublish.created_at
-        ).last().value()
-
 
 }
 
