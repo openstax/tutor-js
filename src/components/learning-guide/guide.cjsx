@@ -38,9 +38,13 @@ module.exports = React.createClass
     # if there are less than 4 sections, use 1/2 of the available ones
     weakStrongCount = Math.min(sortedSections.length / 2, 4)
 
+    noData = @props.allSections.length is 0
+
     <div className='guide-container'>
 
       {@props.heading}
+
+      {@props.emptyMessage if noData}
 
       <div className='guide-group'>
         <BS.Row>
