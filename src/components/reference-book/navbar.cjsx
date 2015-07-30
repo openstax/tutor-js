@@ -49,12 +49,14 @@ module.exports = React.createClass
         <BS.NavItem onClick={@props.toggleTocMenu}>
           <i className="menu-toggle fa fa-2x" />
         </BS.NavItem>
+      </BS.Nav>
+      <BS.Nav className="full-width-only" navbar>
         <li>
           <i className='ui-brand-logo' />
         </li>
       </BS.Nav>
       {@renderSectionTitle()}
-      <BS.Nav navbar right>
+      <BS.Nav className="full-width-only" navbar right>
         <li>
           <i className='ui-rice-logo' />
         </li>

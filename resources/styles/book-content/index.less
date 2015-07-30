@@ -6,6 +6,10 @@
 .tutor-book-content() {
 
   padding: 0 @tutor-book-padding-horizontal @tutor-book-padding-vertical @tutor-book-padding-horizontal;
+  @media screen and ( max-width: @book-content-collapse-breakpoint ){
+    padding-left:  @book-content-narrow-horizontal-padding;
+    padding-right: @book-content-narrow-horizontal-padding;
+  }
   display: block;
 
   @import './base';

@@ -48,4 +48,8 @@
 .book-content-full-width(){
   margin-left: -@tutor-card-body-padding-horizontal;
   width: calc(~"100% + "@tutor-card-body-padding-horizontal*2);
+  @media screen and ( max-width: @book-content-collapse-breakpoint ){
+    margin-left: -@book-content-narrow-horizontal-padding;
+    width: calc(~"100% + "@book-content-narrow-horizontal-padding*2);
+  }
 }

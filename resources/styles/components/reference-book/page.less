@@ -10,6 +10,9 @@
       border: 1px solid @tutor-neutral-bright;
       background-color: @tutor-white;
       .tutor-book-content();
+      @media screen and ( max-width: @book-content-collapse-breakpoint ){
+        width: @reference-book-collapse-width;
+      }
       // shown if parent is-teacher present below
       .os-teacher {
         display: none;

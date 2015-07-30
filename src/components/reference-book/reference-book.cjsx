@@ -31,8 +31,9 @@ module.exports = React.createClass
     # Pop open the menu unless the page was explicitly navigated to
     {isMenuVisible: not cnxId}
 
-  showTeacherEdition: ->
+  toggleTeacherEdition: (ev) ->
     @setState(showTeacherEdition: not @state.showTeacherEdition)
+    ev?.preventDefault() # stops react-router from scrolling to top
 
   onMenuClick: ->
     @toggleMenuState() unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
@@ -49,7 +50,7 @@ module.exports = React.createClass
     classnames = ["reference-book"]
     classnames.push('menu-open') if @state.isMenuVisible
     if course and _.findWhere(course.roles, type: 'teacher')
-      showTeacher = @showTeacherEdition
+      toggleTeacher = @toggleTeacherEdition
       teacherLinkText = if @state.showTeacherEdition
         classnames.push('is-teacher')
         "Hide Teacher Edition"
@@ -60,7 +61,7 @@ module.exports = React.createClass
       <NavBar
         toggleTocMenu={@toggleMenuState}
         teacherLinkText={teacherLinkText}
-        showTeacherEdition={showTeacher}
+        showTeacherEdition={toggleTeacher}
         courseId={courseId}/>
       <div className="content">
         <Menu onMenuSelection={@onMenuClick} />
