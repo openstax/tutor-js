@@ -7,6 +7,7 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
+{AppActions} = require './flux/app'
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
@@ -78,11 +79,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       rejected = (jqXhr, statusMessage, err) ->
         setNow(jqXhr)
         statusCode = jqXhr.status
-        if statusCode is 200
-          # HACK For PUT returning nothing (actually, it returns HTML for some reason)
-          successAction('', args...)
-
-        else if statusCode is 400
+        AppActions.setServerError(statusCode, jqXhr.responseText)
+        if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
           if httpMethod is 'PUT' or httpMethod is 'PATCH'
