@@ -58,7 +58,7 @@ module.exports = React.createClass
                   <Section key={i} section={section} {...@props} />}
               </div>
                 {if @props.onPractice
-                  <PracticeButton courseId={@props.courseId} /> }
+                  <PracticeButton title='Practice Weaker' courseId={@props.courseId} /> }
             </div>
           </BS.Col>
         </BS.Row>

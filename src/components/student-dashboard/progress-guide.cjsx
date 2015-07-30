@@ -74,7 +74,7 @@ ProgressGuidePanels = React.createClass
         <ProgressGuide courseId={@props.courseId} />
 
         <PracticeButton
-          practiceTitle='Practice my weakest topics'
+          title='Practice my weakest topics'
           courseId={@props.courseId} />
 
         <BS.Button

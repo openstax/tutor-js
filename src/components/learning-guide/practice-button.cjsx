@@ -9,7 +9,7 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    practiceTitle: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired
 
   contextTypes:
     router: React.PropTypes.func
@@ -27,7 +27,7 @@ module.exports = React.createClass
     classNames.push 'disabled' if isDisabled
 
     button = <BS.Button className={classNames.join(' ')} onClick={@onClick}>
-      {@props.practiceTitle or 'Practice Weaker'}
+      {@props.title}
       <i />
     </BS.Button>
 

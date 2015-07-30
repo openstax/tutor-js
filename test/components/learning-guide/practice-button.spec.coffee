@@ -13,14 +13,14 @@ describe 'Learning Guide Practice Button', ->
 
   it 'can be rendered and sets the name', ->
     Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, practiceTitle: 'Practice moar' }
+      props: { courseId: COURSE_ID, title: 'Practice moar' }
     ).then ({dom}) ->
       expect(dom.textContent).to.equal('Practice moar')
 
 
   it 'practices pages', ->
     Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, practiceTitle: 'Practice moar' }
+      props: { courseId: COURSE_ID, title: 'Practice moar' }
     ).then ({dom}) ->
       Testing.actions.click(dom)
       expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
@@ -31,6 +31,6 @@ describe 'Learning Guide Practice Button', ->
     newdata = {"title": "Physics"}
     LearningGuide.Student.actions.loaded(newdata, COURSE_ID)
     Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, practiceTitle: 'title' }
+      props: { courseId: COURSE_ID, title: 'title' }
     ).then ({dom, element}) ->
       expect(_.toArray dom.classList).to.include('disabled')
