@@ -44,7 +44,7 @@ PracticeEnd = React.createClass
     fallbackLink =
       to: 'viewGuide'
       params: {courseId}
-      text: 'Back to Learning Guide'
+      text: 'Back to Learning Forecast'
 
     backButton = <BackButton fallbackLink={fallbackLink} />
 

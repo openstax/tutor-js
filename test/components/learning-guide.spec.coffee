@@ -37,13 +37,7 @@ describe 'Learning Guide', ->
       'Acceleration', 'Force and Newton\'s Laws of Motion'
     ])
 
-  it 'renders stronger', ->
-    titles = _.pluck( @state.div.querySelectorAll('.stronger .section-title'), 'textContent')
-    expect(titles).to.have.deep.equal([
-      'Acceleration', 'Representing Acceleration with Equations and Graphs'
-    ])
-
-  it 'renders weaker', ->
+  it 'renders practice panel', ->
     titles = _.pluck( @state.div.querySelectorAll('.weaker .section-title'), 'textContent')
     expect(titles).to.have.deep.equal([
       'Newton\'s First Law of Motion: Inertia', 'Force'

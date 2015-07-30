@@ -18,7 +18,7 @@ module.exports = React.createClass
     onPractice: React.PropTypes.func
 
   getDefaultProps: ->
-    defaultExpanded: false
+    defaultExpanded: true # read by the BS.CollapsibleMixin
 
   onToggle: (event) ->
     @setState(expanded: not @state.expanded)
@@ -44,7 +44,7 @@ module.exports = React.createClass
         <ProgressBar {...@props} section={chapter} />
 
         <div className='amount-worked'>
-          <span className='count'>{chapter.questions_answered_count} worked</span>
+          <span className='count'>{chapter.questions_answered_count} problems worked</span>
         </div>
       </div>
       <div ref='sections' className='sections'>
