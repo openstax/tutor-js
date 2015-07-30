@@ -128,17 +128,21 @@ PerformanceExport = React.createClass
     exportClass = 'primary'
     exportClass = 'default' if exportedSinceLoad
 
+    failedProps =
+      beforeText: 'There was a problem exporting. '
+
     exportButton =
       <AsyncButton
         bsStyle={exportClass}
         onClick={-> PerformanceExportActions.export(courseId)}
         isWaiting={PerformanceExportStore.isExporting(courseId) or tryToDownload}
         isFailed={PerformanceExportStore.isFailed(courseId) or downloadHasError}
+        failedProps={failedProps}
         waitingText='Exporting…'>
         Export
       </AsyncButton>
 
-    if lastExported?
+    if lastExported? and not downloadHasError
       lastExportedTime = <i>
         <TimeDifference date={lastExported}/>
       </i>
