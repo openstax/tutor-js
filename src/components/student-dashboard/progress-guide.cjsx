@@ -61,7 +61,10 @@ ProgressGuidePanels = React.createClass
 
   renderEmpty: ->
     <div className='progress-guide empty'>
-      More assignments must be worked before forecast is available.
+      <div className='actions-box'>
+        <h1 className='panel-title'>Learning Forecast</h1>
+        Complete some assignments to view your forecast.
+      </div>
     </div>
 
   render: ->
