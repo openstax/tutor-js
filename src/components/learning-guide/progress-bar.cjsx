@@ -15,11 +15,9 @@ module.exports = React.createClass
 
     bar = if section.current_level
       percent = Math.round((section.current_level / 1) * 100)
-      color = switch
-        when percent >  75 then 'high'
-        when percent >= 50 then 'medium'
-        else 'low'
-      <BS.ProgressBar className={color} now={percent} />
+      console.log section
+      # always show at least 5% of bar, otherwise it just looks empty
+      <BS.ProgressBar className={section.interpretation} now={percent} />
     else
       <span className="no-data">Practice section</span>
 
