@@ -1,7 +1,6 @@
 moment = require 'moment'
 {TimeStore} = require '../flux/time'
 React = require 'react'
-moment = require 'moment'
 
 module.exports = React.createClass
   displayName: 'Time'
