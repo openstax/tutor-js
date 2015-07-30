@@ -18,7 +18,7 @@ module.exports = React.createClass
     onPractice: React.PropTypes.func
 
   getDefaultProps: ->
-    defaultExpanded: false
+    defaultExpanded: true # read by the BS.CollapsibleMixin
 
   onToggle: (event) ->
     @setState(expanded: not @state.expanded)
