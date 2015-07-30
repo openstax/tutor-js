@@ -25,7 +25,7 @@ tests =
     componentStub._render(div, <CourseCalendar plansList={plansList}/>, {plansList, courseId})
 
   renderCalendar: (courseId) ->
-    plansList = TeacherTaskPlanStore.getCoursePlans(courseId)
+    plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
     @_renderCalendar(courseId, plansList)
 
   goToCalendar: (route, courseId) ->

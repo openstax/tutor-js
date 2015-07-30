@@ -6,11 +6,10 @@ CrumbMixin = require './crumb-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
 {BreadcrumbStatic} = require '../breadcrumb'
 
+BackButton = require '../buttons/back-button'
+
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
-
-  contextTypes:
-    router: React.PropTypes.func
 
   mixins: [ChapterSectionMixin, CrumbMixin]
 
@@ -32,11 +31,17 @@ module.exports = React.createClass
         goToStep={goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
+
+    fallbackLink =
+      to: 'taskplans'
+      params: {courseId}
+      text: 'Back to Calendar'
+
+    backButton = <BackButton fallbackLink={fallbackLink} />
+
     <div className='task-breadcrumbs'>
       {stepButtons}
-      <BS.Button onClick={@context.router.goBack}>
-          Back
-      </BS.Button>
+      {backButton}
       <div className='task-title'>
         {title}
       </div>

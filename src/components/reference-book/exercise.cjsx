@@ -1,7 +1,6 @@
 React = require 'react'
 
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
-{ExerciseAPIStore} = require '../../flux/exercise-api'
 
 Question = require '../question'
 LoadableItem = require '../loadable-item'
@@ -9,17 +8,16 @@ LoadableItem = require '../loadable-item'
 ReferenceBookExercise = React.createClass
   displayName: 'ReferenceBookExercise'
   render: ->
-    {exerciseId} = @props
-    {items} = ReferenceBookExerciseStore.get(exerciseId)
+    {exerciseAPIUrl} = @props
+    item = ReferenceBookExerciseStore.get(exerciseAPIUrl)
 
-    unless items?.length
+    unless item?
       # warning about missing exercise --
       # is there a need to show the reader anything?
-      exerciseAPIUrl = ExerciseAPIStore.get(exerciseId)
-      console.warn("WARNING: #{exerciseId} appears to be missing.  Please check #{exerciseAPIUrl}.")
+      console.warn("WARNING: #{exerciseAPIUrl} appears to be missing.")
       return <small>Missing exercise</small>
 
-    {questions} = items[0]
+    {questions} = item
     question = questions[0]
 
     <Question model={question}/>
@@ -27,10 +25,10 @@ ReferenceBookExercise = React.createClass
 ReferenceBookExerciseShell = React.createClass
   displayName: 'ReferenceBookExerciseShell'
   render: ->
-    {exerciseId} = @props
+    {exerciseAPIUrl} = @props
 
     <LoadableItem
-      id={exerciseId}
+      id={exerciseAPIUrl}
       store={ReferenceBookExerciseStore}
       actions={ReferenceBookExerciseActions}
       renderItem={=> <ReferenceBookExercise {...@props} />}

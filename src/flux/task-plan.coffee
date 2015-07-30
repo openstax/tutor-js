@@ -7,7 +7,7 @@ validator = require 'validator'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
-
+TaskHelpers = require '../helpers/task'
 TUTOR_SELECTIONS =
   default: 3
   max: 4
@@ -20,7 +20,7 @@ PLAN_TYPES =
 sortTopics = (topics) ->
   _.sortBy(topics, (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
-    topic.chapter_section.toString()
+    TaskHelpers.chapterSectionToNumber(topic.chapter_section)
   )
 
 TaskPlanConfig =
@@ -75,7 +75,7 @@ TaskPlanConfig =
       not (tasking.due_at and tasking.opens_at)
 
     @_change(id, {tasking_plans})
-   
+
   setPeriods: (id, periods) ->
     plan = @_getPlan(id)
     curTaskings = plan?.tasking_plans

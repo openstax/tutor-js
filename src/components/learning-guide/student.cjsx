@@ -30,6 +30,9 @@ module.exports = React.createClass
       </Router.Link>
     </div>
 
+  renderEmptyMessage: ->
+    <div>You have not worked any questions yet.</div>
+
   render: ->
     {courseId} = @props
     <BS.Panel className='learning-guide student'>
@@ -37,6 +40,7 @@ module.exports = React.createClass
         onPractice={@onPractice}
         courseId={courseId}
         heading={@renderHeading()}
+        emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}
         allSections={LearningGuide.Student.store.getAllSections(courseId)}
         chapters={LearningGuide.Student.store.get(courseId).children}

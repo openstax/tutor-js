@@ -5,7 +5,8 @@
     "role_id": "9",
     "first_name": "Clyde",
     "last_name": "Griffiths",
-    "full_name": "Clyde Griffiths"
+    "full_name": "Clyde Griffiths",
+    "is_active": true
   },
   "1": {
     "id": "11",
@@ -13,7 +14,8 @@
     "role_id": "13",
     "first_name": "Harry",
     "last_name": "Potter",
-    "full_name": "Harry Potter"
+    "full_name": "Harry Potter",
+    "is_active": true
   },
   "2": {
     "id": "9",
@@ -21,6 +23,16 @@
     "role_id": "11",
     "first_name": "Florentino",
     "last_name": "Ariza",
-    "full_name": "Florentino Ariza"
+    "full_name": "Florentino Ariza",
+    "is_active": true
+  },
+  "3": {
+    "id": "10",
+    "period_id": "2",
+    "role_id": "15",
+    "first_name": "Jimmy",
+    "last_name": "Bud",
+    "full_name": "Jimmy Bud",
+    "is_active": false
   }
 }
