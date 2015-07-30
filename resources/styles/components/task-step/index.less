@@ -5,6 +5,9 @@
   font-size: 2.1rem;
   font-weight: 400;
   padding: @tutor-card-body-padding;
+  @media (max-width: @tutor-card-padding-collapse-breakpoint) {
+    padding: @tutor-card-body-padding-vertical @tutor-card-body-narrow-padding-horizontal;
+  }
 }
 
 .size-task-step-card() {
