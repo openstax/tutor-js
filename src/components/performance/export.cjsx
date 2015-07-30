@@ -20,6 +20,7 @@ PerformanceExport = React.createClass
 
   getInitialState: ->
     downloadUrl: null
+    forceDownloadUrl: null
     lastExported: null
     tryToDownload: false
     exportedSinceLoad: false
@@ -33,11 +34,11 @@ PerformanceExport = React.createClass
     {courseId} = @props
     PerformanceExportActions.load(courseId)
 
-  componentWillUpdate: (nextProps, nextState) ->
-    window.location = nextState.downloadUrl if @shouldTriggerDownload(@state, nextState)
+  componentDidUpdate: (prevProps, prevState) ->
+    @setState(forceDownloadUrl: @state.downloadUrl) if @shouldTriggerDownload(prevState, @state)
 
-  shouldTriggerDownload: (currentState, nextState) ->
-    currentState.tryToDownload and not nextState.tryToDownload and not nextState.downloadHasError and nextState.downloadUrl?
+  shouldTriggerDownload: (prevState, currentState) ->
+    prevState.tryToDownload and not currentState.tryToDownload and not currentState.downloadHasError and currentState.downloadUrl?
 
   handleCompletedExport: (exportData) ->
     {courseId} = @props
@@ -84,6 +85,7 @@ PerformanceExport = React.createClass
       tryToDownload: false
       exportedSinceLoad: true
       downloadHasError: true
+      forceDownloadUrl: null
 
     invalidDownloadState.downloadUrl = null if @state.downloadUrl is downloadUrl
 
@@ -95,6 +97,7 @@ PerformanceExport = React.createClass
       exportedSinceLoad: true
       downloadUrl: downloadUrl
       lastExported: lastExported
+      forceDownloadUrl: null
 
     @setState(downloadState)
 
@@ -113,7 +116,7 @@ PerformanceExport = React.createClass
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported, exportedSinceLoad, downloadHasError, tryToDownload} = @state
+    {downloadUrl, lastExported, exportedSinceLoad, downloadHasError, tryToDownload, forceDownloadUrl} = @state
 
     className += ' export-button'
     exportClass = 'primary'
@@ -133,18 +136,27 @@ PerformanceExport = React.createClass
       lastExportedTime = <i>
         <TimeDifference date={lastExported}/>
       </i>
-      lastExportedTime = <a onClick={@downloadCurrentExport} href='#'>
-        {lastExportedTime}
-      </a> if downloadUrl?
+      
+      if downloadUrl?
+        lastExportedTime = <a onClick={@downloadCurrentExport} href='#'>
+          Download export from {lastExportedTime}
+        </a>
+      else
+        lastExportedTime = "Last exported #{lastExportedTime}"
 
       lastExportedLabel = <small className='export-button-time'>
-        Last exported {lastExportedTime}
+        {lastExportedTime}
       </small>
 
     <span className={className}>
       <div className='export-button-buttons'>
         {exportButton}
       </div>
+      <iframe
+        ref='downloader'
+        className='tutor-downloader'
+        frameBorder={0}
+        src={forceDownloadUrl}/>
       {lastExportedLabel}
     </span>
 

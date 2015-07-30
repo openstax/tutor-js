@@ -21,7 +21,7 @@ module.exports = React.createClass
     compareWith: TimeStore.getNow()
     compare: 'from'
     customSuffix: undefined
-    toleranceMS: 15000
+    toleranceMS: 60000
     defaultText: 'just now'
 
   shouldRenderDifference: ->
