@@ -9,7 +9,8 @@ ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
-PracticeButtonsPanel = require './practice-buttons'
+PracticeButton = require '../learning-guide/practice-button'
+
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -37,8 +38,8 @@ ProgressGuide = React.createClass
         courseId={courseId} />
 
     <div className='progress-guide'>
-      <h1 className='panel-title'>Recent Topics</h1>
-      <h2 className='current'>Current Level of Understanding</h2>
+      <h1 className='panel-title'>Learning Forecast</h1>
+      <h2 className='recent'>Recent topics</h2>
       <div className='guide-group'>
         <div className='chapter-panel'>
         {_.first(sections, 4)}
@@ -58,19 +59,31 @@ ProgressGuidePanels = React.createClass
   viewGuide: ->
     @context.router.transitionTo('viewGuide', {courseId: @props.courseId})
 
+  renderEmpty: ->
+    <div className='progress-guide empty'>
+      More assignments must be worked before forecast is available.
+    </div>
+
   render: ->
+    sections = LearningGuide.Student.store.getAllSections(@props.courseId)
+    return @renderEmpty() if _.isEmpty(sections)
+
     <div className='progress-guide'>
-
-      <PracticeButtonsPanel courseId={@props.courseId} />
-
       <div className='actions-box'>
+
         <ProgressGuide courseId={@props.courseId} />
+
+        <PracticeButton
+          practiceTitle='Practice my weakest topics'
+          courseId={@props.courseId} />
+
         <BS.Button
           onClick={@viewGuide}
           className='view-learning-guide'
         >
           View All Topics
         </BS.Button>
+
       </div>
   </div>
 
