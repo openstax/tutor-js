@@ -5,6 +5,7 @@ camelCase = require 'camelcase'
 
 React = require 'react/addons'
 CoursePlan = require './plan'
+{TimeStore} = require '../../flux/time'
 
 CourseDuration = React.createClass
   displayName: 'CourseDuration'
@@ -17,10 +18,15 @@ CourseDuration = React.createClass
       unless moment.isMoment(props[propName])
         new Error("#{propName} should be a moment for #{componentName}")
     children: React.PropTypes.element
+    recentTolerance: React.PropTypes.number
 
   getInitialState: ->
     ranges: []
     durationsByStartDate: []
+
+  getDefaultProps: ->
+    # check publishings from within the last hour by default
+    recentTolerance: 3600000
 
   updateGroupedDurations: (props) ->
     {durations, viewingDuration, groupingDurations} = props
@@ -100,8 +106,7 @@ CourseDuration = React.createClass
       # is the last requested publishing after the last completed publish?
       isPublishing = moment(plan.publish_last_requested_at).diff(plan.published_at) > 0
     else if plan.publish_last_requested_at?
-      recent = moment(new Date()).diff(plan.publish_last_requested_at) < 60000
-      console.log(moment(new Date()).diff(plan.publish_last_requested_at))
+      recent = moment(TimeStore.getNow()).diff(plan.publish_last_requested_at) < @props.recentTolerance
       isPublishing = isPublishing and recent
 
     isPublishing

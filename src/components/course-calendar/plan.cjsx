@@ -8,6 +8,7 @@ camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
 CoursePlanDetails = require './plan-details'
+CoursePlanPublishingDetails = require './plan-publishing-details'
 
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 
@@ -183,7 +184,16 @@ CoursePlan = React.createClass
     {item, courseId} = @props
     {plan, index} = item
 
-    planModal = <CoursePlanDetails plan={plan} courseId={courseId} className={planClasses}/>
+    if plan.isPublishing
+      planModal = <CoursePlanPublishingDetails
+        plan={plan}
+        courseId={courseId}
+        className={planClasses}/>
+    else
+      planModal = <CoursePlanDetails
+        plan={plan}
+        courseId={courseId}
+        className={planClasses}/>
 
     planOnly = <div style={planStyle}
       className={planClasses}
