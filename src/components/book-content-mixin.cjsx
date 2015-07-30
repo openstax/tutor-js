@@ -102,6 +102,7 @@ module.exports =
       .value()
 
     @renderOtherLinks?(otherLinks)
+    @renderExercises?()
 
 
 # called with the context set to the image
