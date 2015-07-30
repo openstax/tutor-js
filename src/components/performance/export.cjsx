@@ -23,7 +23,7 @@ PerformanceExport = React.createClass
     forceDownloadUrl: null
     lastExported: null
     tryToDownload: false
-    exportedSinceLoad: false
+    downloadedSinceLoad: false
     downloadHasError: false
 
   isUpdateValid: (id) ->
@@ -83,7 +83,6 @@ PerformanceExport = React.createClass
   cancelDownload: ({downloadUrl}) ->
     invalidDownloadState =
       tryToDownload: false
-      exportedSinceLoad: true
       downloadHasError: true
       forceDownloadUrl: null
 
@@ -94,17 +93,14 @@ PerformanceExport = React.createClass
   triggerDownload: ({downloadUrl, lastExported}) ->
     downloadState =
       tryToDownload: false
-      exportedSinceLoad: true
       downloadUrl: downloadUrl
       lastExported: lastExported
       forceDownloadUrl: null
 
     @setState(downloadState)
 
-  downloadCurrentExport: (linkClickEvent) ->
-    linkClickEvent.preventDefault()
-    @setState(tryToDownload: true)
-    @validateDownloadURL(@state)
+  downloadCurrentExport: ->
+    @setState(tryToDownload: true, downloadedSinceLoad: true)
 
   addBindListener: ->
     PerformanceExportStore.on('performanceExport.completed', @handleCompletedExport)
@@ -116,47 +112,41 @@ PerformanceExport = React.createClass
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported, exportedSinceLoad, downloadHasError, tryToDownload, forceDownloadUrl} = @state
+    {downloadUrl, lastExported, downloadedSinceLoad, downloadHasError, tryToDownload, forceDownloadUrl} = @state
 
     className += ' export-button'
-    exportClass = 'primary'
-    exportClass = 'default' if exportedSinceLoad
+    actionButtonClass = 'primary'
+    actionButtonClass = 'default' if downloadedSinceLoad
 
-    exportButton =
+    actionButton =
       <AsyncButton
-        bsStyle={exportClass}
+        bsStyle={actionButtonClass}
         onClick={-> PerformanceExportActions.export(courseId)}
         isWaiting={PerformanceExportStore.isExporting(courseId) or tryToDownload}
         isFailed={PerformanceExportStore.isFailed(courseId) or downloadHasError}
-        waitingText='Exporting…'>
-        Export
+        waitingText='Generating Export…'>
+        Generate Export
       </AsyncButton>
+
+    if forceDownloadUrl?
+      actionButton =
+        <BS.Button
+          bsStyle={actionButtonClass}
+          href={forceDownloadUrl}
+          onClick={@downloadCurrentExport}>Download Export</BS.Button>
 
     if lastExported?
       lastExportedTime = <i>
         <TimeDifference date={lastExported}/>
       </i>
-      
-      if downloadUrl?
-        lastExportedTime = <a onClick={@downloadCurrentExport} href='#'>
-          Download export from {lastExportedTime}
-        </a>
-      else
-        lastExportedTime = "Last exported #{lastExportedTime}"
-
-      lastExportedLabel = <small className='export-button-time'>
-        {lastExportedTime}
+      lastExportedLabel = <small className='export-button-time pull-right'>
+        Last exported {lastExportedTime}
       </small>
 
     <span className={className}>
       <div className='export-button-buttons'>
-        {exportButton}
+        {actionButton}
       </div>
-      <iframe
-        ref='downloader'
-        className='tutor-downloader'
-        frameBorder={0}
-        src={forceDownloadUrl}/>
       {lastExportedLabel}
     </span>
 
