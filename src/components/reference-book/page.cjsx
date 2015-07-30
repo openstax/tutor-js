@@ -84,7 +84,7 @@ module.exports = React.createClass
         image.addEventListener('load', onImageLoad)
 
   isExerciseLink: (link) ->
-    link.pathname.search(EXERCISE_MATCHER) is 0
+    link.pathname.search(EXERCISE_MATCHER) > -1
 
   renderOtherLinks: (otherLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(otherLinks.length)
