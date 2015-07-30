@@ -27,7 +27,7 @@ module.exports = React.createClass
   renderHeading: ->
     periods = LearningGuide.Teacher.store.get(@props.courseId)
     <div className='guide-heading'>
-      <h3 className='guide-group-title'>Current Level of Understanding</h3>
+      <h3 className='guide-group-title'>Learning Forecast</h3>
       <Router.Link activeClassName='' to='viewTeacherDashBoard'
         className='btn btn-default pull-right'
         params={courseId: @props.courseId}>

@@ -64,7 +64,7 @@ CourseCalendarHeader = React.createClass
       <BS.Row className='calendar-actions'>
         <BrowseBookButton bsStyle='default' courseId={courseId} />
         <Router.Link className='btn btn-default' to='viewTeacherGuide' params={{courseId}}>
-          Learning Guide
+          Learning Forecast
         </Router.Link>
         <Router.Link className='btn btn-default' to='viewPerformance' params={{courseId}}>
           Performance Report
