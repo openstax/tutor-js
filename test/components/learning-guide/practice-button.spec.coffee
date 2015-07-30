@@ -1,7 +1,7 @@
 {Testing, expect, _} = require '../helpers/component-testing'
 
 LearningGuide = require '../../../src/flux/learning-guide'
-Button = require '../../../src/components/learning-guide/practice-by-type-button'
+Button = require '../../../src/components/learning-guide/practice-button'
 
 COURSE_ID  = '1'
 GUIDE_DATA = require '../../../api/courses/1/guide.json'
@@ -13,33 +13,24 @@ describe 'Learning Guide Practice Button', ->
 
   it 'can be rendered and sets the name', ->
     Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, practiceType: 'weaker', practiceTitle: 'Practice moar' }
+      props: { courseId: COURSE_ID, practiceTitle: 'Practice moar' }
     ).then ({dom}) ->
       expect(dom.textContent).to.equal('Practice moar')
 
 
-  it 'practices weakest pages', ->
+  it 'practices pages', ->
     Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, practiceType: 'stronger', practiceTitle: 'Practice moar' }
+      props: { courseId: COURSE_ID, practiceTitle: 'Practice moar' }
     ).then ({dom}) ->
       Testing.actions.click(dom)
       expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
-        { courseId: COURSE_ID }, { page_ids: ['2', '3'] }
-      )
-
-  it 'practices stronger pages', ->
-    Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, practiceType: 'weaker', practiceTitle: 'Practice moar' }
-    ).then ({dom}) ->
-      Testing.actions.click(dom)
-      expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
-        { courseId: COURSE_ID }, { page_ids: ['6', '5'] }
+        { courseId: COURSE_ID }, { page_ids: ['6', '5', '2', '3'] }
       )
 
   it 'is disabled if no page ids exist', ->
     newdata = {"title": "Physics"}
     LearningGuide.Student.actions.loaded(newdata, COURSE_ID)
     Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, practiceType: 'weaker', practiceTitle: 'title' }
+      props: { courseId: COURSE_ID, practiceTitle: 'title' }
     ).then ({dom, element}) ->
       expect(_.toArray dom.classList).to.include('disabled')
