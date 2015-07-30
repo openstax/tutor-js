@@ -5,7 +5,7 @@
     .container-fluid {
       padding: 0 4rem 0 0;
     }
-    li a { 
+    li a {
       margin: 0 20px 0 0;
       padding: 0;
     }
@@ -13,7 +13,7 @@
       font-size: 2.8rem;
       padding: 18px 16px 14px 16px;
     }
-    .section-title {
+    .section-title, .teacher-edition {
       font-size: 1.8rem;
       margin: 0 0 0 40px;
       padding-top: 14px;
@@ -24,15 +24,26 @@
       }
     }
     .menu-toggle:before{ content: @fa-var-list; }
+    // don't collapse navbar when screen is narrow
+    @media (max-width: 979px) {
+      .nav {
+        float: left;
+        margin: 0;
+        &.navbar-right { float: right; }
+      }
+    }
+  }
+  // hide non-important items when the screen gets narrow
+  @media screen and ( max-width: @reference-book-page-width ){
+    .full-width-only { display: none; }
   }
 
   &.menu-open {
     .menu-toggle {
       border-right: 1px solid @tutor-neutral-light;
       background: @tutor-neutral-lightest;
-
       &:before{ content: @fa-var-outdent; }
-
     }
   }
+
 }
