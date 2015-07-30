@@ -39,6 +39,7 @@ module.exports = React.createClass
       <Guide
         onPractice={@onPractice}
         courseId={courseId}
+        weakerTitle="My weakest topics"
         heading={@renderHeading()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}

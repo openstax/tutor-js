@@ -53,6 +53,7 @@ module.exports = React.createClass
       <Guide
         courseId={courseId}
         heading={@renderHeading()}
+        weakerTitle="Their weakest topics"
         onReturn={@returnToDashboard}
         allSections={LearningGuide.TeacherStudent.store.getAllSections(courseId, {roleId})}
         chapters={LearningGuide.TeacherStudent.store.getChapters(courseId, {roleId}) }

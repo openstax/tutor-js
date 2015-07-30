@@ -22,8 +22,7 @@ module.exports = React.createClass
     heading:  React.PropTypes.element
     onPractice: React.PropTypes.func
     onReturn:   React.PropTypes.func.isRequired
-
-
+    weakerTitle: React.PropTypes.string.isRequired
 
   render: ->
     {courseId} = @props
@@ -52,7 +51,7 @@ module.exports = React.createClass
           <BS.Col mdPush={0} xs={12} md={3}>
             <div className="chapter-panel weaker">
               <div className='chapter-heading metric'>
-                <span className='arrow weaker'></span>Weaker
+                {@props.weakerTitle}
               </div>
               <div>
                 {for section, i in _.first(sortedSections, weakStrongCount)
