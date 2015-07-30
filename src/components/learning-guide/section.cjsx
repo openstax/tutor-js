@@ -30,6 +30,6 @@ module.exports = React.createClass
       <ProgressBar {...@props} />
 
       <div className='amount-worked'>
-        <span className='count'>{section.questions_answered_count} worked</span>
+        <span className='count'>{section.questions_answered_count} problems worked</span>
       </div>
     </div>
