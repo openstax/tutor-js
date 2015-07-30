@@ -28,8 +28,8 @@ RosterConfig = {
 
   exports:
 
-    getStudentsForPeriod: (courseId, periodId) ->
-      _.where(@_get(courseId), period_id: periodId)
+    getActiveStudentsForPeriod: (courseId, periodId) ->
+      _.where(@_get(courseId), period_id: periodId, is_active: true)
 
 }
 

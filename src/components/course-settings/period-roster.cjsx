@@ -1,11 +1,12 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
+Icon = require '../icon'
 
 {RosterStore, RosterActions} = require '../../flux/roster'
 ChangePeriodLink  = require './change-period'
-
-
+DeleteStudentLink = require './delete-student'
+AddStudentButton  = require './add-student'
 
 module.exports = React.createClass
   displayName: 'PeriodRoster'
@@ -20,30 +21,32 @@ module.exports = React.createClass
       <td>{student.deidentifier}</td>
       <td className="actions">
         <ChangePeriodLink courseId={@props.courseId} student={student} />
+        <DeleteStudentLink student={student} />
       </td>
     </tr>
 
   render: ->
-    students = _.sortBy(RosterStore.getStudentsForPeriod(@props.courseId, @props.period.id), 'last_name')
-    students = _.where(students, is_active: true)
-    random_id_tooltip = <BS.Tooltip>Useful for talking securely about students over email.</BS.Tooltip>
+    students = RosterStore.getActiveStudentsForPeriod(@props.courseId, @props.period.id)
     <div className="period">
+      <BS.Row>
+        <BS.Col sm=2>
+          <AddStudentButton {...@props} />
+        </BS.Col>
+       </BS.Row>
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
             <th>
-              Random ID
-              <BS.OverlayTrigger placement='bottom' overlay={random_id_tooltip}>
-                <i className="fa fa-question-circle" />
-              </BS.OverlayTrigger>
+              Random ID <Icon type='question-circle'
+                tooltip='Useful for talking securely about students over email.' />
             </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {for student in students
+          {for student in _.sortBy(students, 'last_name')
             @renderStudentRow(student)}
         </tbody>
       </BS.Table>
