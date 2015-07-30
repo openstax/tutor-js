@@ -13,7 +13,7 @@ GetPositionMixin = require '../get-position-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
-EXERCISE_MATCHER = new RegExp('\/exercises\/(.*)')
+EXERCISE_MATCHER = new RegExp('\/exercises(.*)')
 
 module.exports = React.createClass
   _exerciseNodes: []
