@@ -1,6 +1,5 @@
 BS = require 'react-bootstrap'
 React = require 'react'
-moment = require 'moment'
 mime = require 'mime-types'
 
 BindStoreMixin = require '../bind-store-mixin'
@@ -67,16 +66,23 @@ PerformanceExport = React.createClass
     downloadUrlChecker = new XMLHttpRequest()
     downloadUrlChecker.open('GET', downloadUrl, true)
 
+    cancelDownload = @cancelDownload.bind(@, {downloadUrl, lastExported})
+    triggerDownload = @triggerDownload.bind(@, {downloadUrl, lastExported})
+
     downloadUrlChecker.onreadystatechange = =>
       # when response received...
-      if downloadUrlChecker.readyState is 4
+      if downloadUrlChecker.readyState is 2
         contentType = downloadUrlChecker.getResponseHeader('Content-Type') if @isRequestOK(downloadUrlChecker)
         # Check for whether the return contentType from the header
         # matches the expected type.
         if contentType is mime.contentType('.xlsx')
-          @triggerDownload({downloadUrl, lastExported})
+          triggerDownload()
         else
-          @cancelDownload({downloadUrl, lastExported})
+          cancelDownload()
+
+    downloadUrlChecker.onabort = cancelDownload
+    downloadUrlChecker.onerror = cancelDownload
+    downloadUrlChecker.timeout = cancelDownload
 
     downloadUrlChecker.send()
 
@@ -144,7 +150,7 @@ PerformanceExport = React.createClass
       else
         lastExportedTime = "Last exported #{lastExportedTime}"
 
-      lastExportedLabel = <small className='export-button-time'>
+      lastExportedLabel = <small className='export-button-time pull-right'>
         {lastExportedTime}
       </small>
 
