@@ -25,7 +25,8 @@
     }
     .menu-toggle:before{ content: @fa-var-list; }
     // don't collapse navbar when screen is narrow
-    @media (max-width: 979px) {
+    // overrides the bootstrap default of collapsing navbar at @screen-sm-min
+    @media (max-width: @screen-sm-min) {
       .nav {
         float: left;
         margin: 0;
