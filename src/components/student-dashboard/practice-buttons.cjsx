@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 LearningGuide = require '../../flux/learning-guide'
-PracticeByTypeButton = require '../learning-guide/practice-by-type-button'
+PracticeButton = require '../learning-guide/practice-button'
 
 module.exports = React.createClass
   displayName: 'PracticeButtonsPanel'
@@ -18,13 +18,8 @@ module.exports = React.createClass
     <div className='actions-box'>
       <h1 className='panel-title'>Practice</h1>
       <BS.ButtonGroup>
-        <PracticeByTypeButton
-          practiceType='stronger'
+        <PracticeButton
           practiceTitle='stronger'
-          courseId={@props.courseId} />
-        <PracticeByTypeButton
-          practiceType='weaker'
-          practiceTitle='weaker'
           courseId={@props.courseId} />
       </BS.ButtonGroup>
     </div>
