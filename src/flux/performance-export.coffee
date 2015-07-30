@@ -6,6 +6,7 @@ moment = require 'moment'
 EXPORTING = 'exporting'
 EXPORT_QUEUED = 'export_queued'
 EXPORTED = 'completed'
+EXPORT_FAILED = 'failed'
 
 PerformanceExportConfig = {
 

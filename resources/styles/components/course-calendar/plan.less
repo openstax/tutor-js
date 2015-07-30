@@ -59,6 +59,7 @@
     transition: max-height .1s ease-in, margin-top .1s ease-in;
     overflow: hidden;
     .x-plan(@calendar-inactive-background);
+    .transition(background-color 0.1s linear);
 
     // takes on CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
     // Based on event duration and event offset from start of week
@@ -72,30 +73,35 @@
 
     &:not(.is-published) {
       label:not(.continued)::before {
-        font-weight: 400;
-        font-style: italic;
-        content: 'draft';
+        .is-draft();
         margin-right: @calendar-plan-left-label-offset;
       }
 
       &.is-publishing{
         label:not(.continued)::before {
-          content: 'publishing';
+          .is-publishing();
+          margin-right: @calendar-plan-left-label-offset;
         }
       }
-    }
 
-    &.is-published:not(.is-open) {
-      label:not(.continued)::before {
-        .is-draft();
-        margin-right: @calendar-plan-left-label-offset;
+      &.is-failed, &.is-killed{
+        .x-plan(@tutor-danger);
       }
     }
 
-    &.is-published.is-open.is-trouble {
-      label:not(.continued)::before {
-        .is-trouble();
-        margin-right: @calendar-plan-left-label-offset;
+    &.is-published{
+      &:not(.is-open) {
+        label:not(.continued)::before {
+          .is-not-open();
+          margin-right: @calendar-plan-left-label-offset;
+        }
+      }
+
+      &.is-open.is-trouble {
+        label:not(.continued)::before {
+          .is-trouble();
+          margin-right: @calendar-plan-left-label-offset;
+        }
       }
     }
 

@@ -1,38 +1,19 @@
-camelCase = require 'camelcase'
+
+_ = require 'underscore'
 
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
-
-{StatsModalShell} = require '../plan-stats'
-LoadableItem = require '../loadable-item'
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass
-  displayName: 'CoursePlanDetails'
+  displayName: 'CoursePlanPublishingDetails'
 
   propTypes:
     plan: React.PropTypes.object.isRequired
 
-  renderReviewButton: ->
-    {plan, courseId} = @props
-    {type, id} = plan
-    linkParams = {courseId, id}
-
-    reviewButton = <Router.Link to='reviewTask' params={linkParams}>
-      <BS.Button>Review Metrics</BS.Button>
-    </Router.Link>
-
-    if type is 'external'
-      reviewButton = <Router.Link to='viewPerformance' params={linkParams}>
-        <BS.Button>View Performance Report</BS.Button>
-      </Router.Link>
-
-    reviewButton
-
   render: ->
     {plan, courseId, className} = @props
-    {title, type, id} = plan
+    {title, type, id, isPublishing, publish_last_requested_at} = plan
     linkParams = {courseId, id}
     editLinkName = camelCase("edit-#{type}")
 

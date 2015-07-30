@@ -23,15 +23,31 @@ body.modal-open {
 
 .plan-modal {
 
-  &.reading-modal      { .x-plan-modal(@reading-color); }
-  &.homework-modal     { .x-plan-modal(@homework-color); }
-  &.external-modal     { .x-plan-modal(@external-color); }
+  .x-plan-modal(@calendar-inactive-background);
 
-  &.is-trouble {
-    .modal-title::before {
-      .is-trouble();
-      margin-right: @modal-padding/2;
-      margin-left: -@modal-padding/2;
+  &.is-published {
+    &.reading-modal      { .x-plan-modal(@reading-color); }
+    &.homework-modal     { .x-plan-modal(@homework-color); }
+    &.external-modal     { .x-plan-modal(@external-color); }
+  }
+
+  &:not(.is-published) {
+    &.is-publishing {
+      .modal-title::before {
+        .is-publishing();
+        margin-right: @modal-padding/2;
+        margin-left: -@modal-padding/2;
+      }
+    }
+  }
+
+  &.is-published{
+    &.is-open.is-trouble {
+      .modal-title::before {
+        .is-trouble();
+        margin-right: @modal-padding/2;
+        margin-left: -@modal-padding/2;
+      }
     }
   }
 

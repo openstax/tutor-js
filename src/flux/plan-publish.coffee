@@ -6,6 +6,8 @@ moment = require 'moment'
 PUBLISHING = 'publishing'
 PUBLISH_QUEUED = 'publish_queued'
 PUBLISHED = 'completed'
+PUBLISH_FAILED = 'failed'
+PUBLISH_KILLED = 'killed'
 
 PlanPublishConfig = {
 
@@ -43,7 +45,7 @@ PlanPublishConfig = {
     # checks job until final status is reached
     checkJob = ->
       JobActions.load(jobId)
-    JobActions.checkUntil(jobId, checkJob, PUBLISHED, 5000, 100)
+    JobActions.checkUntil(jobId, checkJob, 2000, 100)
 
     # whenever this job status is updated, emit the status for plan publish
     updatePublishStatus = @_updatePublishStatusFor(id)
