@@ -113,7 +113,7 @@ PerformanceExport = React.createClass
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported, exportedSinceLoad, downloadHasError} = @state
+    {downloadUrl, lastExported, exportedSinceLoad, downloadHasError, tryToDownload} = @state
 
     className += ' export-button'
     exportClass = 'primary'
@@ -123,7 +123,7 @@ PerformanceExport = React.createClass
       <AsyncButton
         bsStyle={exportClass}
         onClick={-> PerformanceExportActions.export(courseId)}
-        isWaiting={PerformanceExportStore.isExporting(courseId)}
+        isWaiting={PerformanceExportStore.isExporting(courseId) or tryToDownload}
         isFailed={PerformanceExportStore.isFailed(courseId) or downloadHasError}
         waitingText='Exporting…'>
         Export

@@ -3,10 +3,13 @@
 _ = require 'underscore'
 moment = require 'moment'
 
-EXPORTING = 'exporting'
-EXPORT_QUEUED = 'export_queued'
+EXPORT_REQUESTING = 'export_requesting'
+EXPORT_REQUESTED = 'export_queued'
+EXPORTING = 'working'
+EXPORT_QUEUED = 'queued'
 EXPORTED = 'completed'
 EXPORT_FAILED = 'failed'
+EXPORT_KILLED = 'killed'
 
 PerformanceExportConfig = {
 
@@ -35,7 +38,7 @@ PerformanceExportConfig = {
     @_job[id].push(jobId)
 
   export: (id) ->
-    @_asyncStatus[id] = EXPORTING
+    @_asyncStatus[id] = EXPORT_REQUESTING
     @emitChange()
 
   exported: (obj, id) ->
@@ -44,7 +47,7 @@ PerformanceExportConfig = {
 
     # export job has been queued
     @emit('performanceExport.queued', {jobId, id})
-    @_asyncStatus[id] = EXPORT_QUEUED
+    @_asyncStatus[id] = EXPORT_REQUESTED
     @saveJob(jobId, id)
 
     # checks job until final status is reached
@@ -62,7 +65,22 @@ PerformanceExportConfig = {
 
   exports:
     isExporting: (id) ->
-      @_asyncStatus[id] is EXPORTING or @_asyncStatus[id] is EXPORT_QUEUED
+      exportingStates = [
+        EXPORT_REQUESTING
+        EXPORT_REQUESTED
+        EXPORT_QUEUED
+        EXPORTING
+      ]
+
+      exportingStates.indexOf(@_asyncStatus[id]) > -1
+
+    isFailed: (id) ->
+      failedStates = [
+        EXPORT_FAILED
+        EXPORT_KILLED
+      ]
+
+      failedStates.indexOf(@_asyncStatus[id]) > -1
 
     isExported: (id, jobId) ->
       jobId ?= _.last(@_getJobs(id))
