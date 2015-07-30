@@ -13,8 +13,6 @@ GetPositionMixin = require '../get-position-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
-EXERCISE_MATCHER = new RegExp('\/exercises\/(.*)')
-
 module.exports = React.createClass
   _exerciseNodes: []
   displayName: 'ReferenceBookPage'
@@ -83,20 +81,16 @@ module.exports = React.createClass
       for image in images
         image.addEventListener('load', onImageLoad)
 
-  isExerciseLink: (link) ->
-    link.pathname.search(EXERCISE_MATCHER) is 0
-
-  renderOtherLinks: (otherLinks) ->
-    ReferenceBookExerciseStore.setMaxListeners(otherLinks.length)
-    _.each(otherLinks, @renderExercise)
+  renderExercises: (exerciseLinks) ->
+    ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
+    _.each(exerciseLinks, @renderExercise)
 
   renderExercise: (link) ->
-    if @isExerciseLink(link)
-      exerciseAPIUrl = link.href
+    exerciseAPIUrl = link.href
 
-      if link.parentNode.parentNode?
-        @_exerciseNodes.push(link.parentNode.parentNode)
-        React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, link.parentNode.parentNode)
+    if link.parentNode.parentNode?
+      @_exerciseNodes.push(link.parentNode.parentNode)
+      React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, link.parentNode.parentNode)
 
   unmountExerciseComponent: (node, nodeIndex) ->
     React.unmountComponentAtNode(node) if node?

@@ -1,6 +1,11 @@
 _ = require 'underscore'
 S = require '../helpers/string'
 
+# According to the tagging legend exercises with a link should have `a.os-embed`
+# but in the content they are just a vanilla link.
+EXERCISE_LINK_SELECTOR = '.os-exercise > [data-type="problem"] > p > a[href]'
+MEDIA_LINK_SELECTOR = 'a:not(.nav):not([data-type=footnote-number]):not([data-type=footnote-ref])'
+
 module.exports =
   componentDidMount:  ->
     @insertOverlays()
@@ -92,8 +97,8 @@ module.exports =
 
   processLinks: ->
     root = @getDOMNode()
-    linkSelector = 'a:not(.nav):not([data-type=footnote-number]):not([data-type=footnote-ref])'
-    mediaLinks = root.querySelectorAll(linkSelector)
+    mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)
+    exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
 
     otherLinks = _.chain(mediaLinks)
       .map(@processLink)
@@ -102,6 +107,7 @@ module.exports =
       .value()
 
     @renderOtherLinks?(otherLinks)
+    @renderExercises?(exerciseLinks)
 
 
 # called with the context set to the image

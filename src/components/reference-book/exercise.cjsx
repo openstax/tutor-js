@@ -5,19 +5,24 @@ React = require 'react'
 Question = require '../question'
 LoadableItem = require '../loadable-item'
 
+ReferenceBookMissingExercise = React.createClass
+  displayName: 'ReferenceBookMissingExercise'
+  render: ->
+    <small className='reference-book-missing-exercise'><i>Missing exercise</i></small>
+
 ReferenceBookExercise = React.createClass
   displayName: 'ReferenceBookExercise'
   render: ->
     {exerciseAPIUrl} = @props
-    item = ReferenceBookExerciseStore.get(exerciseAPIUrl)
+    {items} = ReferenceBookExerciseStore.get(exerciseAPIUrl)
 
-    unless item?
+    unless items?.length
       # warning about missing exercise --
       # is there a need to show the reader anything?
       console.warn("WARNING: #{exerciseAPIUrl} appears to be missing.")
-      return <small>Missing exercise</small>
+      return <ReferenceBookMissingExercise/>
 
-    {questions} = item
+    {questions} = items[0]
     question = questions[0]
 
     <Question model={question}/>
@@ -32,6 +37,8 @@ ReferenceBookExerciseShell = React.createClass
       store={ReferenceBookExerciseStore}
       actions={ReferenceBookExerciseActions}
       renderItem={=> <ReferenceBookExercise {...@props} />}
+      renderLoading={-> <span className='loading-exercise'>Loading exercise...</span>}
+      renderError={-> <ReferenceBookMissingExercise/>}
     />
 
 module.exports = {ReferenceBookExercise, ReferenceBookExerciseShell}
