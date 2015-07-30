@@ -62,8 +62,14 @@ ProgressGuidePanels = React.createClass
   renderEmpty: ->
     <div className='progress-guide empty'>
       <div className='actions-box'>
-        <h1 className='panel-title'>Learning Forecast</h1>
-        Complete some assignments to view your forecast.
+        <h1 className='panel-title'>Performance Forecast</h1>
+          <p>
+            The performance forecast is an estimate of your current understanding of a topic.
+            It is a personalized display based on your answers to reading questions,
+            homework problems, and previous practices.
+          </p><p>
+            This area will fill in with topics as you complete your assignments
+          </p>
       </div>
     </div>
 
