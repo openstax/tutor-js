@@ -6,6 +6,7 @@ _ = require 'underscore'
 LearningGuide = require '../../flux/learning-guide'
 
 Guide = require './guide'
+ColorKey    = require './color-key'
 
 module.exports = React.createClass
   displayName: 'LearningGuideStudentDisplay'
@@ -22,13 +23,30 @@ module.exports = React.createClass
     @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
 
   renderHeading: ->
-    <div className='guide-heading'>
-      <h3 className='guide-group-title'>Learning Forecast</h3>
-      <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
+    <BS.Panel className='guide-heading'>
+      <div className='guide-group-title'>Performance Forecast</div>
+
+      <div className='pull-right'>
+
+
+        <div className='guide-group-key'>
+
+          <div className='guide-key'>
+            Click on the bar to practice the topic
+          </div>
+          <ColorKey />
+
+        </div>
+
+
+        <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
         params={courseId: @props.courseId}>
         Return to Dashboard
-      </Router.Link>
-    </div>
+        </Router.Link>
+
+
+      </div>
+    </BS.Panel>
 
   renderEmptyMessage: ->
     <div>You have not worked any questions yet.</div>

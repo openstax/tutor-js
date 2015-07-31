@@ -8,6 +8,7 @@ _ = require 'underscore'
 LearningGuide = require '../../flux/learning-guide'
 
 Guide = require './guide'
+ColorKey    = require './color-key'
 
 module.exports = React.createClass
   displayName: 'LearningGuideTeacherDisplay'
@@ -26,19 +27,28 @@ module.exports = React.createClass
 
   renderHeading: ->
     periods = LearningGuide.Teacher.store.get(@props.courseId)
-    <div className='guide-heading'>
-      <h3 className='guide-group-title'>Learning Forecast</h3>
-      <Router.Link activeClassName='' to='viewTeacherDashBoard'
-        className='btn btn-default pull-right'
-        params={courseId: @props.courseId}>
-        Return to Dashboard
-      </Router.Link>
+    <div>
+      <BS.Panel className='guide-heading'>
+        <div className='guide-group-title'>Performance Forecast</div>
+        <div className='pull-right'>
+          <div className='guide-group-key teacher'>
+            <ColorKey />
+          </div>
+          <Router.Link activeClassName='' to='viewTeacherDashBoard'
+            className='btn btn-default pull-right'
+            params={courseId: @props.courseId}>
+            Return to Dashboard
+          </Router.Link>
+        </div>
+      </BS.Panel>
       <CoursePeriodsNavShell
-        periods={periods}
-        handleSelect={@selectPeriod}
-        intialActive={@state.periodId}
-        courseId={@props.courseId} />
+      periods={periods}
+      handleSelect={@selectPeriod}
+      intialActive={@state.periodId}
+      courseId={@props.courseId} />
     </div>
+
+
 
   renderEmptyMessage: ->
     <div>No questions worked.</div>

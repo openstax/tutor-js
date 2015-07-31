@@ -15,7 +15,6 @@ module.exports = React.createClass
 
     bar = if section.current_level
       percent = Math.round((section.current_level / 1) * 100)
-      console.log section
       # always show at least 5% of bar, otherwise it just looks empty
       <BS.ProgressBar className={section.interpretation} now={Math.max(percent, 5)} />
     else

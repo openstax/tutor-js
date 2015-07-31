@@ -66,10 +66,7 @@ module.exports = React.createClass
 
 
       <div className='guide-footer'>
-        <div className='guide-key'>
-          {'Click on the bar to practice the topic' if @props.onPractice}
-        </div>
-        <ColorKey />
+        
 
       </div>
 
