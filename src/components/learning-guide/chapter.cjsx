@@ -33,10 +33,13 @@ module.exports = React.createClass
     classes = ['chapter-panel']
     classes.push if @isExpanded() then 'expanded' else 'collapsed'
 
-    <div className={classes.join(' ')}>
+    toggleOldSaved =
       <div className='view-toggle' onClick={@onToggle}>
         {if @state.expanded then 'View Less' else 'View More'}
       </div>
+
+    <div className={classes.join(' ')}>
+
       <div className='chapter-heading'>
         <span className='chapter-number'>{chapter.chapter_section[0]}</span>
         <div className='chapter-title' title={chapter.title}>{chapter.title}</div>

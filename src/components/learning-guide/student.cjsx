@@ -25,25 +25,18 @@ module.exports = React.createClass
   renderHeading: ->
     <BS.Panel className='guide-heading'>
       <div className='guide-group-title'>Performance Forecast</div>
-
       <div className='pull-right'>
-
-
         <div className='guide-group-key'>
-
           <div className='guide-key'>
             Click on the bar to practice the topic
           </div>
           <ColorKey />
-
         </div>
-
 
         <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
         params={courseId: @props.courseId}>
         Return to Dashboard
         </Router.Link>
-
 
       </div>
     </BS.Panel>
@@ -57,7 +50,7 @@ module.exports = React.createClass
       <Guide
         onPractice={@onPractice}
         courseId={courseId}
-        weakerTitle="My weakest topics"
+        weakerTitle="My Weaker Areas"
         heading={@renderHeading()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}

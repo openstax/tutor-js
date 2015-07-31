@@ -8,11 +8,20 @@
     .no-select();
   }
   .chapter-heading {
-    margin-bottom: 5px;
-    padding-bottom: 35px;
-    border-bottom: 1px dashed @tutor-neutral-light;
+    padding-right: 30px;
+    border-right: 1px solid @tutor-neutral-light;
+    width: 25%;
+    height: 217px;
+    margin-right: 10px;
+    float: left;
     &.metric {
       padding-bottom: 5px;
+      padding-left: 20px;
+      .title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        display: inline-block;
+      }
     }
     .arrow {
       padding-right: 10px;
@@ -26,6 +35,10 @@
         color: @tutor-danger;
       }
     }
+  }
+  .chapter-sections {
+    float: right;
+    width: 73%;
   }
   .chapter-number {
     margin-right: 5px;
@@ -46,6 +59,9 @@
   .section {
     font-size: 1.4rem;
     margin-bottom: 30px;
+    width: 257px;
+    float: left;
+    margin-right: 30px;
     .section-heading {
       height: 27px;
     }

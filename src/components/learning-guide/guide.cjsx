@@ -41,27 +41,32 @@ module.exports = React.createClass
       {@props.emptyMessage if noData}
 
       <div className='guide-group'>
+
         <BS.Row>
-          <BS.Col mdPull={0} xs={12} md={9}>
-              {for chapter, i in (@props.chapters or [])
-                <BS.Col key={i} lg={4} md={4} sm={6} xs={12}>
-                  <Chapter chapter={chapter} {...@props} />
-                </BS.Col>}
-          </BS.Col>
-          <BS.Col mdPush={0} xs={12} md={3}>
+          <BS.Col mdPush={0} xs={12} md={12}>
             <div className="chapter-panel weaker">
               <div className='chapter-heading metric'>
-                {@props.weakerTitle}
+                <span className='arrow weaker'></span>
+                <span className='title'>{@props.weakerTitle}</span>
+                {if @props.onPractice
+                  <PracticeButton title='Practice All' courseId={@props.courseId} /> }
               </div>
-              <div>
+              <div className='chapter-sections'>
                 {for section, i in _.first(sortedSections, weakStrongCount)
                   <Section key={i} section={section} {...@props} />}
               </div>
-                {if @props.onPractice
-                  <PracticeButton title='Practice Weaker' courseId={@props.courseId} /> }
+                
             </div>
           </BS.Col>
         </BS.Row>
+
+        <BS.Row>
+          {for chapter, i in (@props.chapters or [])
+            <BS.Col key={i} lg={12} md={12} sm={12} xs={12}>
+              <Chapter chapter={chapter} {...@props} />
+            </BS.Col>}
+        </BS.Row>
+
       </div>
 
 

@@ -61,7 +61,7 @@ module.exports = React.createClass
     <BS.Panel className='learning-guide teacher'>
       <Guide
         courseId={courseId}
-        weakerTitle="The weakest topics"
+        weakerTitle="Weaker Areas"
         heading={@renderHeading()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}
