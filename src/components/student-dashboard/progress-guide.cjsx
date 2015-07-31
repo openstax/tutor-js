@@ -38,7 +38,7 @@ ProgressGuide = React.createClass
         courseId={courseId} />
 
     <div className='progress-guide'>
-      <h1 className='panel-title'>Learning Forecast</h1>
+      <h1 className='panel-title'>Performance Forecast</h1>
       <h2 className='recent'>Recent topics</h2>
       <div className='guide-group'>
         <div className='chapter-panel'>

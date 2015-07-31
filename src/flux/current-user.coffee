@@ -34,7 +34,7 @@ ROUTES =
       student: 'viewStudentDashboard'
       default: 'root'
   guide:
-    label: 'Learning Guide'
+    label: 'Performance Forecast'
     roles:
       student: 'viewGuide'
   performance:
