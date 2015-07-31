@@ -1,6 +1,11 @@
 {expect} = require 'chai'
+moment = require 'moment'
+_ = require 'underscore'
 
 {TaskActions, TaskStore} = require '../src/flux/task'
+{TimeActions, TimeStore} = require '../src/flux/time'
+
+VALID_MODEL = require '../api/tasks/5.json'
 
 describe 'Task Store', ->
   afterEach ->
@@ -68,3 +73,18 @@ describe 'Task Store', ->
     expect(TaskStore.isLoaded(id)).to.be.false
     expect(TaskStore.isLoading(id)).to.be.false
     expect(TaskStore.isFailed(id)).to.be.true
+
+
+  it 'should be able to tell us if something is past due', ->
+    timeNow = TimeStore.getNow()
+    pastDue = _.clone(VALID_MODEL)
+    beforeDue = _.clone(VALID_MODEL)
+    pastDue.due_at = moment(timeNow).subtract(1, 'minute').format()
+    beforeDue.due_at = moment(timeNow).add(1, 'hour').format()
+
+    TaskActions.loaded(pastDue, 'past')
+    TaskActions.loaded(beforeDue, 'before')
+
+    expect(TaskStore.isTaskPastDue('past')).to.be.true
+    expect(TaskStore.isTaskPastDue('before')).to.be.false
+
