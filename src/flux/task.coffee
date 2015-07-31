@@ -188,8 +188,8 @@ TaskConfig =
       allSteps.length
 
     isTaskPastDue: (taskId) ->
-      task = @_local[taskId]
-      moment(TimeStore.getNow()).isAfter(task.due_at, 'day')
+      task = @_get(taskId)
+      moment(TimeStore.getNow()).isAfter(task.due_at)
 
     isPractice: (taskId) ->
       practices = [
