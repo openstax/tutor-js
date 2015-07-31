@@ -48,6 +48,8 @@ module.exports = React.createClass
     if not opensAt
       opensAt = moment(TimeStore.getNow()).format(TutorDateFormat)
 
+    opensAt
+
   # Copies the available periods from the course store and sets
   # them to open at the default start date
   setPeriodDefaults: ->
