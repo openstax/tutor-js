@@ -31,17 +31,13 @@ ReviewReadingLi = React.createClass
   removeTopic: ->
     TaskPlanActions.removeTopic(@props.planId, @props.topicId)
 
-  render: ->
-    topic = TocStore.getSectionInfo(@props.topicId)
-
+  getActionButtons: ->
     if @props.index
       moveUpButton = <BS.Button onClick={@moveReadingUp} className="btn-xs -move-reading-up">
         <i className="fa fa-arrow-up"/>
       </BS.Button>
 
-    <li className='selected-section'>
-      <ChapterSection section={topic.chapter_section}/>
-      <span className='section-title'>{topic?.title}</span>
+    if not TaskPlanStore.isVisibleToStudents(@props.planId)
       <span className='section-buttons'>
         {moveUpButton}
         <BS.Button onClick={@moveReadingDown} className="btn-xs move-reading-down">
@@ -51,6 +47,18 @@ ReviewReadingLi = React.createClass
           <i className="fa fa-close"/>
         </BS.Button>
       </span>
+
+  render: ->
+    topic = TocStore.getSectionInfo(@props.topicId)
+
+
+
+    actionButtons = @getActionButtons()
+
+    <li className='selected-section'>
+      <ChapterSection section={topic.chapter_section}/>
+      <span className='section-title'>{topic?.title}</span>
+      {actionButtons}
     </li>
 
 ReviewReadings = React.createClass
