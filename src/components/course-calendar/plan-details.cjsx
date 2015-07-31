@@ -1,6 +1,3 @@
-moment = require 'moment'
-twix = require 'twix'
-_ = require 'underscore'
 camelCase = require 'camelcase'
 
 React = require 'react'
@@ -16,9 +13,6 @@ CoursePlanDetails = React.createClass
 
   propTypes:
     plan: React.PropTypes.object.isRequired
-
-  contextTypes:
-    router: React.PropTypes.func
 
   renderReviewButton: ->
     {plan, courseId} = @props
