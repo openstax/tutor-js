@@ -47,7 +47,9 @@ module.exports = React.createClass
         <ProgressBar {...@props} section={chapter} />
 
         <div className='amount-worked'>
-          <span className='count'>{chapter.questions_answered_count} problems worked</span>
+          <span className='count chapter'>
+            {chapter.questions_answered_count} problems worked in this chapter
+          </span>
         </div>
       </div>
       <div ref='sections' className='sections'>

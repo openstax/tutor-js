@@ -12,11 +12,12 @@
     border-right: 1px solid @tutor-neutral-light;
     width: 25%;
     height: 217px;
-    margin-right: 10px;
+    margin-right: 20px;
     float: left;
+    padding-left: 20px;
     &.metric {
       padding-bottom: 5px;
-      padding-left: 20px;
+      
       .title {
         font-size: 1.2em;
         margin-bottom: 10px;
@@ -42,16 +43,16 @@
   }
   .chapter-number {
     margin-right: 5px;
+    font-size: 1.2em;
     display: inline-block;
     float: left;
     color: @tutor-secondary;
   }
   .chapter-title {
     max-width: 229px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 15px;
   }
   button {
     margin: 0px;
@@ -94,6 +95,11 @@
       color: @tutor-neutral;
       font-size: 1rem;
       letter-spacing: 0.05rem;
+      &.chapter {
+        float: left;
+        font-size: 1.3rem;
+        margin-top: 10px;
+      }
     }
   }
 
