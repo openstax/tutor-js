@@ -131,7 +131,7 @@ module.exports = React.createClass
       </BS.Row><BS.Row>
         <BS.Col xs=12>
           <TutorTextArea
-            label='Description'
+            label='Instructions for students'
             className='assignment-description'
             id='assignment-description'
             default={TaskPlanStore.getDescription(@props.id)}
