@@ -46,6 +46,8 @@ CourseDuration = React.createClass
     @updateGroupedDurations(nextProps)
 
   groupDurations: (durations, viewingDuration, groupingDurations) ->
+    console.info('durations')
+    console.info(durations)
     durationsInView = _.chain(durations)
       .clone()
       # TODO these parts actually seem like they should be in flux
@@ -68,6 +70,7 @@ CourseDuration = React.createClass
       weekTopOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
         memo + current
       ).value()
+      console.info(range.plansByOverlaps)
 
       _.each(range.plansByOverlaps, (plans) ->
         _.each(plans, (plan, order) ->
