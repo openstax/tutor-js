@@ -47,8 +47,8 @@ PlanFooter = React.createClass
     plan = TaskPlanStore.get(id)
 
     saveable = not TaskPlanStore.isPublished(id)
-    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isOpened(id)
     isWaiting = TaskPlanStore.isSaving(id)
+    deleteable = not TaskPlanStore.isNew(id) and not TaskPlanStore.isOpened(id) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
 
     publishButton =
