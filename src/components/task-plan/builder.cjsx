@@ -121,7 +121,7 @@ module.exports = React.createClass
       <BS.Row>
         <BS.Col sm=8 xs=12>
           <TutorInput
-            label='Assignment Name'
+            label='Assignment name (this is what students will see on their dashboard)'
             className='assignment-name'
             id='reading-title'
             default={plan.title}
@@ -131,7 +131,7 @@ module.exports = React.createClass
       </BS.Row><BS.Row>
         <BS.Col xs=12>
           <TutorTextArea
-            label='Description'
+            label='Description or special instructions (students will see this)'
             className='assignment-description'
             id='assignment-description'
             default={TaskPlanStore.getDescription(@props.id)}
