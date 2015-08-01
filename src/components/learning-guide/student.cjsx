@@ -7,6 +7,7 @@ LearningGuide = require '../../flux/learning-guide'
 
 Guide = require './guide'
 ColorKey    = require './color-key'
+InfoLink    = require './info-link'
 
 module.exports = React.createClass
   displayName: 'LearningGuideStudentDisplay'
@@ -25,6 +26,7 @@ module.exports = React.createClass
   renderHeading: ->
     <BS.Panel className='guide-heading'>
       <div className='guide-group-title'>Performance Forecast</div>
+      <InfoLink />
       <div className='pull-right'>
         <div className='guide-group-key'>
           <div className='guide-key'>

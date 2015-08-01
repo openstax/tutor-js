@@ -1,6 +1,13 @@
 @import "learning-guide/chapter-panel-mixin";
 @import "learning-guide/colors-mixin";
 
+.info-link-tooltip .tooltip-inner {
+  // tooltip appends itself before closing body tag
+  max-width: 350px;
+  width: 350px;
+  text-align: left;
+}
+
 .learning-guide {
   .nav-tabs {
     .tutor-nav-tabs();
@@ -48,6 +55,12 @@
       display: inline-block;
       float: left;
     }
+    .info-link:after {
+      padding-left: 10px;
+      .fa-icon();
+        content: @fa-var-info-circle;
+        color: @tutor-neutral-dark;  
+      }
 
     .guide-group-key {
       &.teacher {
