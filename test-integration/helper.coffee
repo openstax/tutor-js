@@ -28,8 +28,6 @@ module.exports =
   describe: (name, cb) ->
     test.describe name, ->
 
-      @timeout 10 * 60 * 1000
-
       {it, before, after, afterEach, beforeEach} = test
       @__it = it
       @__before = before
@@ -47,7 +45,10 @@ module.exports =
         @selenium = selenium
         @waitAnd = (locator) =>
           @driver.wait selenium.until.elementLocated(locator)
-          @driver.findElement(locator)
+          # Because of animations an element might be in the DOM but not visible
+          el = @driver.findElement(locator)
+          @driver.wait selenium.until.elementIsVisible(el)
+          el
 
         @waitClick = (locator) =>
           el = @waitAnd(locator)

@@ -90,7 +90,7 @@ ChapterAccordion = React.createClass
       chapterClass.push('empty-chapter')
 
     header =
-      <h2 className={chapterClass.join(' ')}>
+      <h2 className={chapterClass.join(' ')} data-chapter-section={chapter.chapter_section[0]}>
         <span className='chapter-checkbox'>
           <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
