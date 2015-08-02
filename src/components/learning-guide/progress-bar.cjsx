@@ -18,7 +18,7 @@ module.exports = React.createClass
       # always show at least 5% of bar, otherwise it just looks empty
       <BS.ProgressBar className={section.interpretation} now={Math.max(percent, 5)} />
     else
-      <span className="no-data">Practice section</span>
+      <span className="no-data">Practice more to get forecast</span>
 
     if onPractice
       tooltip = <BS.Tooltip>Click to practice</BS.Tooltip>
