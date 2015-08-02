@@ -14,17 +14,19 @@ Page = require '../../src/components/reference-book/page'
 
 COURSE_ID = '1'
 TOC  = require '../../api/courses/1/readings.json'
-FIRST_PAGE_ID  = '0e58aa87-2e09-40a7-8bf3-269b2fa16509'
+FIRST_PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16509'
+FIRST_PAGE  = '1.1'
+SECOND_PAGE = '1.2'
 SECOND_PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16510'
-THIRD_PAGE_ID  = '0e58aa87-2e09-40a7-8bf3-269b2fa16511'
+THIRD_PAGE  = '1.3'
 
 PAGE = require '../../api/pages/0e58aa87-2e09-40a7-8bf3-269b2fa16509.json'
 
 
-renderBook = (page) ->
+renderBook = (section) ->
   new Promise (resolve, reject) ->
     url = "/books/#{COURSE_ID}"
-    url += "/page/#{page}" if page
+    url += "/section/#{section}" if section
     routerStub.goTo(url).then( (result) ->
       resolve(_.extend({
         book: ReactTestUtils.findRenderedComponentWithType(result.component, ReferenceBook)
@@ -38,7 +40,7 @@ describe 'Reference Book Component', ->
   beforeEach ->
     ReferenceBookActions.loaded(TOC, COURSE_ID)
     ReferenceBookPageActions.loaded(PAGE, FIRST_PAGE_ID)
-    renderBook(FIRST_PAGE_ID).then (state) =>
+    renderBook(FIRST_PAGE).then (state) =>
       @state = state
 
   it 'renders the section title on the navbar',  ->
@@ -49,13 +51,15 @@ describe 'Reference Book Component', ->
     expect(@state.div.querySelector('.page').textContent)
       .to.equal('A bunch of html')
 
+  it 'sets current page to active on menu', ->
+    page = ReferenceBookActions.loaded(TOC, COURSE_ID)
+    console.log page
+    expect(@state.div.querySelector('.page').textContent)
+      .to.equal('A bunch of html')
+
   it 'toggles menu when navbar control is clicked', ->
     toggle = @state.div.querySelector('.menu-toggle')
 
-    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
-      .to.not.contain('menu-open')
-
-    commonActions.click(toggle)
     expect(_.toArray(@state.div.querySelector('.reference-book').classList))
       .to.contain('menu-open')
 
@@ -63,25 +67,34 @@ describe 'Reference Book Component', ->
     expect(_.toArray(@state.div.querySelector('.reference-book').classList))
       .to.not.contain('menu-open')
 
+    commonActions.click(toggle)
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.contain('menu-open')
+
   it 'navigates forward and back between pages', ->
     prevControl = @state.div.querySelector('.page-wrapper > .prev')
     expect(prevControl).to.not.exist # on first page
 
     nextControl = @state.div.querySelector('.page-wrapper > .next')
     expect(nextControl).to.exist
-    expect(nextControl.href).to.contain(SECOND_PAGE_ID)
+    expect(nextControl.href).to.contain(SECOND_PAGE)
     page = ReactTestUtils.findRenderedComponentWithType(@state.book, Page)
-
 
     ReferenceBookPageActions.loaded(PAGE, SECOND_PAGE_ID)
     # button:0 is a mystery argument needed by ReactRouter, taken from their specs
     commonActions.click(nextControl, {button: 0})
 
-    expect(page.context.router.getCurrentParams().cnxId)
-      .to.equal(SECOND_PAGE_ID)
+    expect(page.context.router.getCurrentParams().section)
+      .to.equal(SECOND_PAGE)
 
     expect(@state.div.querySelector('.page-wrapper > .next').href)
-      .to.contain(THIRD_PAGE_ID)
+      .to.contain(THIRD_PAGE)
 
     expect(@state.div.querySelector('.page-wrapper > .prev').href)
-      .to.contain(FIRST_PAGE_ID)
+      .to.contain(FIRST_PAGE)
+
+
+  it 'sets the menu item to be active based on the current page', ->
+    selection = @state.div.querySelector(".toc [data-section='#{FIRST_PAGE}'] a")
+    expect(selection).not.to.be.null
+    expect(_.toArray(selection.classList)).to.include('active')
