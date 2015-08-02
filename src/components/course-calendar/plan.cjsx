@@ -180,7 +180,7 @@ CoursePlan = React.createClass
 
     label = <label style={planLabelStyle} ref='label' className={labelClass}>{plan.title}</label>
 
-  renderOpenPlan: (planStyle, planClasses, label) ->
+  renderOpenPlan: (planStyle, planClasses, label, dataAttribs) ->
     {item, courseId} = @props
     {plan, index} = item
 
@@ -195,12 +195,17 @@ CoursePlan = React.createClass
         courseId={courseId}
         className={planClasses}/>
 
+    dataAttribsObj = {}
+    _.each _.keys(dataAttribs), (key) ->
+      dataAttribsObj["data-#{key}".toLowerCase()] = dataAttribs[key]
+
     planOnly = <div style={planStyle}
       className={planClasses}
       onMouseEnter={@syncHover}
       onMouseLeave={@removeHover}
       onClick={@syncOpenPlan}
-      ref='plan'>
+      ref='plan'
+      {...dataAttribsObj}>
       {label}
     </div>
 
@@ -215,19 +220,24 @@ CoursePlan = React.createClass
 
     planInterface
 
-  renderEditPlan: (planStyle, planClasses, label) ->
+  renderEditPlan: (planStyle, planClasses, label, dataAttribs) ->
     {item, courseId} = @props
     {plan} = item
 
     linkTo = camelCase("edit-#{plan.type}")
     params = {id: plan.id, courseId}
 
+    dataAttribsObj = {}
+    _.each _.keys(dataAttribs), (key) ->
+      dataAttribsObj["data-#{key}".toLowerCase()] = dataAttribs[key]
+
     <div
       style={planStyle}
       className={planClasses}
       onMouseEnter={@syncHover}
       onMouseLeave={@removeHover}
-      ref='plan'>
+      ref='plan'
+      {...dataAttribsObj}>
       <Router.Link
         to={linkTo}
         params={params}>
@@ -268,6 +278,8 @@ CoursePlan = React.createClass
     planClasses.push('is-open') if plan.isOpen
     planClasses.push('is-trouble') if plan.isTrouble
 
+    dataAttribs = plan
+
     planClasses = planClasses.join(' ')
 
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
@@ -275,6 +287,6 @@ CoursePlan = React.createClass
     renderFn = 'renderEditPlan'
     renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (plan.isPublishing or isPublishing)
 
-    @[renderFn](planStyle, planClasses, label)
+    @[renderFn](planStyle, planClasses, label, dataAttribs)
 
 module.exports = CoursePlan

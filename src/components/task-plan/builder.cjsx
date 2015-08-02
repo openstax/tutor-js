@@ -168,6 +168,7 @@ module.exports = React.createClass
           <TutorDateInput
             id='reading-open-date'
             ref="openDate"
+            className='-assignment-open-date'
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={not @state.showingPeriods}
             label="Open Date"
@@ -183,6 +184,7 @@ module.exports = React.createClass
           <TutorDateInput
             id='reading-due-date'
             ref="dueDate"
+            className='-assignment-due-date'
             readOnly={TaskPlanStore.isPublished(@props.id)}
             required={not @state.showingPeriods}
             label="Due Date"
