@@ -27,7 +27,7 @@ Section = React.createClass
         </Router.Link>
       </li>
       { _.map @props.section.children, (child) =>
-        <li key={child.id}>
+        <li key={child.id} data-section={child.chapter_section.join('.')}>
           <Section onMenuSelection={@props.onMenuSelection} section={child} />
         </li> }
     </ul>
@@ -39,6 +39,22 @@ module.exports = React.createClass
     router: React.PropTypes.func
   propTypes:
     onMenuSelection: React.PropTypes.func
+
+  componentDidMount:  -> @scrollSelectionIntoView()
+  componentDidUpdate: -> @scrollSelectionIntoView()
+  scrollSelectionIntoView: ->
+    {section} = @context.router.getCurrentParams()
+    return unless section
+
+    root = React.findDOMNode(@)
+    li = root.querySelector("[data-section='#{section}']")
+    return unless li
+
+    beforeTop = li.offsetTop - root.offsetTop < root.scrollTop
+    pastBottom = (li.offsetTop - root.offsetTop + li.clientHeight) >
+      (root.scrollTop + root.clientHeight)
+    li.scrollIntoView() if beforeTop or pastBottom
+
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
