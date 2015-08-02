@@ -44,9 +44,8 @@ module.exports = React.createClass
 
         <BS.Row>
           <BS.Col mdPush={0} xs={12} md={12}>
-            <div className="chapter-panel weaker">
+            <div className="chapter-panel">
               <div className='chapter-heading metric'>
-                <span className='arrow weaker'></span>
                 <span className='title'>{@props.weakerTitle}</span>
                 {if @props.onPractice
                   <PracticeButton title='Practice All' courseId={@props.courseId} /> }
@@ -55,7 +54,7 @@ module.exports = React.createClass
                 {for section, i in _.first(sortedSections, weakStrongCount)
                   <Section key={i} section={section} {...@props} />}
               </div>
-                
+
             </div>
           </BS.Col>
         </BS.Row>
@@ -71,7 +70,7 @@ module.exports = React.createClass
 
 
       <div className='guide-footer'>
-        
+
 
       </div>
 
