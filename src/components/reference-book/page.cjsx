@@ -31,14 +31,14 @@ module.exports = React.createClass
     page?.title
 
   prevLink: (info) ->
-    <Router.Link className='nav prev' to='viewReferenceBookPage'
-      params={courseId: @props.courseId, cnxId: info.prev.cnx_id}>
+    <Router.Link className='nav prev' to='viewReferenceBookSection'
+      params={courseId: @props.courseId, section: info.prev.chapter_section.join('.')}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
-    <Router.Link className='nav next' to='viewReferenceBookPage'
-      params={courseId: @props.courseId, cnxId: info.next.cnx_id}>
+    <Router.Link className='nav next' to='viewReferenceBookSection'
+      params={courseId: @props.courseId, section: info.next.chapter_section.join('.')}>
       <div className='triangle' />
     </Router.Link>
 
@@ -112,6 +112,7 @@ module.exports = React.createClass
     html = html
       .replace(/^[\s\S]*<body[\s\S]*?>/, '')
       .replace(/<\/body>[\s\S]*$/, '')
+
     <div className='page-wrapper'>
       {@prevLink(info) if info.prev}
       <ArbitraryHtmlAndMath className='page' block html={html} />
