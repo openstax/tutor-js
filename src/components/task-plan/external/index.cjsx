@@ -41,7 +41,11 @@ ExternalPlan = React.createClass
 
     footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish} onSave={@save}/>
     header = [headerText, closeBtn]
+    label = 'Assignment URL'
     if @state?.invalid then formClasses.push('is-invalid-form')
+
+    isURLLocked = TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)
+    label = "#{label} (Cannot be changed once plan is opened and published)" if isURLLocked
 
     <div className='external-plan'>
       <BS.Panel bsStyle='primary'
@@ -55,7 +59,8 @@ ExternalPlan = React.createClass
           <BS.Row>
             <BS.Col xs={12} md={12}>
               <TutorInput
-                label='Assignment URL'
+                disabled={isURLLocked}
+                label={label}
                 className='external-url'
                 id='external-url'
                 default={externalUrl}

@@ -57,6 +57,8 @@ TutorInput = React.createClass
       <errorWarning key={error}/>
     )
 
+    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value')
+
     # Please do not set value={@props.value} on input.
     #
     # Because we are updating the store in some cases on change, and
@@ -67,9 +69,8 @@ TutorInput = React.createClass
     # Instead, use @props.default to set an intial defaul value.
     <div className={wrapperClasses.join(' ')}>
       <input
-        id={@props.id}
+        {...inputProps}
         ref='input'
-        type={@props.type}
         className={classes.join(' ')}
         defaultValue={@props.default}
         onChange={@onChange}
