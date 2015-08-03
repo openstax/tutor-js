@@ -15,7 +15,8 @@ module.exports = React.createClass
     icon = <i className={classes.join(' ')} />
 
     if @props.tooltip
+      console.log @props
       tooltip = <BS.Tooltip>Useful for talking securely about students over email.</BS.Tooltip>
       <BS.OverlayTrigger placement='bottom' overlay={tooltip}>{icon}</BS.OverlayTrigger>
     else
-      tooltip
+      icon
