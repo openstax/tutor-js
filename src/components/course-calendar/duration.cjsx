@@ -34,7 +34,7 @@ CourseDuration = React.createClass
     groupedDurations = @groupDurations(durations, viewingDuration, groupingDurations)
 
     durationsByStartDate = _.chain(groupedDurations)
-      .pluck('plansByOverlaps')
+      .pluck('plansInRange')
       .flatten()
       .value()
 
@@ -64,21 +64,46 @@ CourseDuration = React.createClass
   calcTopOffset: (ranges) ->
     dayHeights = _.pluck(ranges, 'dayHeight')
 
-    _.each(ranges, (range, index) ->
+    _.each(ranges, (range, index) =>
       weekTopOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
         memo + current
       ).value()
 
-      _.each(range.plansByDays, (plans) ->
+      {maxPlansOnDay, plansByDays} = range
+      _.each(plansByDays, (plans) =>
+        current =
+          adder: 0
+
+        # grab all existing orders in the day
+        existingOrdered = _.chain(plans)
+          .pluck('order')
+          .compact()
+          .value()
+
         _.chain(plans)
-        .sortBy((plan) ->
-          -1 * plan.rangeDuration.start.valueOf()
-        ).each((plan, order) ->
-          plan.order ?= order + 1
-          plan.weekTopOffset ?= weekTopOffset
-        ).value()
+          .sortBy((plan) ->
+            -1 * plan.rangeDuration.start.valueOf()
+          )
+          .each(@setPlanOrder({current, existingOrdered, weekTopOffset, maxPlansOnDay}))
+          .value()
       )
     )
+
+  # set plan order, makes sure that order is not already taken on this day
+  setPlanOrder: ({current, existingOrdered, weekTopOffset, maxPlansOnDay}) ->
+    (plan, order) =>
+      unless plan.order?
+        current.order = order
+        @_calcOrder({existingOrdered, current, maxPlansOnDay})
+        plan.order = current.order
+        plan.weekTopOffset = weekTopOffset
+
+  _calcOrder: ({existingOrdered, current, maxPlansOnDay}) ->
+    # find an order that is not already occupied by any overlapping plans
+    while existingOrdered.indexOf(maxPlansOnDay - (current.order + current.adder)) > -1
+      current.adder = current.adder + 1
+
+    current.order = maxPlansOnDay - (current.order + current.adder)
 
   _getDay: (oneMoment) ->
     moment(oneMoment).startOf('day').twix(moment(oneMoment).endOf('day'), {allDay: true})
@@ -150,17 +175,6 @@ CourseDuration = React.createClass
     if calcedHeight > rangeData.dayHeight
       rangeData.dayHeight = calcedHeight
 
-  _checkAndSetOverlaps: (currentDur, durToCompareTo, plansByOverlaps) ->
-    if durToCompareTo?
-      # if the current duration does not overlap with the comparing duration,
-      # make a new array of overlaps
-      unless currentDur.rangeDuration.overlaps(durToCompareTo)
-        plansByOverlaps.push([])
-
-    currentOverlap = _.last(plansByOverlaps)
-    currentOverlap.push(currentDur)
-    currentOverlap
-
   groupByRanges: (durationsInView) ->
     counter = {}
     (range, nthRange) =>
@@ -168,10 +182,10 @@ CourseDuration = React.createClass
         nthRange: nthRange
         dayHeight: 10
         maxPlansOnDay: 0
-        plansByOverlaps: [[]]
         plansByDays: []
+        plansInRange: []
 
-      _.each(durationsInView, (plan) =>
+      _.each(durationsInView, (plan) ->
         if plan.duration.overlaps(range)
           counter[plan.id] ?= 0
 
@@ -182,33 +196,29 @@ CourseDuration = React.createClass
             plan: _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
             index: counter[plan.id]
 
-          # Check this duration for overlap with the previously sorted duration
-          # Adds this duration the the previous group of durations if there is overlap.
-          # Otherwise, add this duration to a new group.
-          currentOverlap = @_checkAndSetOverlaps(planForRange, range, rangeData.plansByOverlaps)
-
-
-          # # set day height to fit the number of overlapping durations
-          # @_setDayHeightToMaxOverlaps(currentOverlap, rangeData)
-
+          # Add plan to plans in range
+          rangeData.plansInRange.push(planForRange)
           counter[plan.id] = counter[plan.id] + 1
       )
 
+      # group plans in range by day
       dayIter = range.iterateInner('days')
-
       while dayIter.hasNext()
         dayOfWeek = dayIter.next()
+        dayPlans =
+          dayOfWeek: dayOfWeek.day()
+          planSlots: {}
         dayDuration = dayOfWeek.twix(dayOfWeek.endOf('day'))
-        plansOnDay = _.filter(rangeData.plansByOverlaps[0], (plan) ->
+        plansOnDay = _.filter(rangeData.plansInRange, (plan) ->
           plan.rangeDuration.engulfs(dayDuration)
         )
         rangeData.plansByDays.push(plansOnDay)
 
-      rangeData.plansByDays = _.sortBy(rangeData.plansByDays, (plansOnDay) ->
-        -1 * plansOnDay.length
-      )
+      rangeData.maxPlansOnDay = _.max(rangeData.plansByDays, (plansOnDay) ->
+        plansOnDay.length
+      ).length
 
-      rangeData.maxPlansOnDay = _.first(rangeData.plansByDays).length
+      # set day height to fit the number of overlapping durations
       dayHeight = @_calcDayHeight(rangeData.maxPlansOnDay)
       rangeData.dayHeight = dayHeight if dayHeight > rangeData.dayHeight
       rangeData
