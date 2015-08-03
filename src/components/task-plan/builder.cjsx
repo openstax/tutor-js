@@ -188,7 +188,7 @@ module.exports = React.createClass
             label="Due Date"
             onChange={@setDueAt}
             disabled={@state.showingPeriods}
-            min={TaskPlanStore.getOpensAt(@props.id)}
+            min={TaskPlanStore.getMinDueAt(@props.id)}
             value={commonDueAt}
             currentLocale={@state.currentLocale} />
         </BS.Col>
@@ -248,6 +248,10 @@ module.exports = React.createClass
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, plan.id)
     if not taskingOpensAt or isNaN(taskingOpensAt.getTime())
       taskingOpensAt = TimeStore.getNow()
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id, plan.id)
+    if not taskingDueAt or isNaN(taskingDueAt.getTime())
+      taskingDueAt = moment(TimeStore.getNow()).startOf('day').add(1, 'day')
+
     <BS.Row key={plan.id} className="tasking-plan">
       <BS.Col sm=4 md=3>
         <input
@@ -271,9 +275,9 @@ module.exports = React.createClass
           readOnly={TaskPlanStore.isPublished(@props.id)}
           label="Due Date"
           required={@state.showingPeriods}
-          min={taskingOpensAt}
+          min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}
           onChange={_.partial(@setDueAt, _, plan)}
-          value={TaskPlanStore.getDueAt(@props.id, plan.id)}
+          value={taskingDueAt}
           currentLocale={@state.currentLocale} />
         </BS.Col>
     </BS.Row>
