@@ -13,6 +13,10 @@
       clear: left;
       .guide-group-key { margin-top: 1rem; }
     }
+    .weaker .explanation p {
+      display: inline;
+      & + p { margin-left: 1rem; }
+    }
   }
 
   .chapter-panel {
@@ -31,6 +35,9 @@
 
       @media (max-width: @screen-md-min) {
         border-right: 0px;
+        border-bottom: 1px solid @tutor-neutral-light;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
       }
     }
     .sections {
