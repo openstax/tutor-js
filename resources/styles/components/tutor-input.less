@@ -25,6 +25,7 @@
         }
       }
     }
+
     .date-wrapper {
       position: absolute;
       top: 0;
@@ -44,6 +45,11 @@
         right: 0;
       }
     }
+  }
+
+  &.disabled-datepicker input:disabled {
+    cursor: not-allowed;
+    font-size: 1.3rem;
   }
 }
 

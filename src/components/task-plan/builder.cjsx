@@ -168,11 +168,10 @@ module.exports = React.createClass
           <TutorDateInput
             id='reading-open-date'
             ref="openDate"
-            readOnly={TaskPlanStore.isPublished(@props.id)}
             required={not @state.showingPeriods}
             label="Open Date"
             onChange={@setOpensAt}
-            disabled={@state.showingPeriods}
+            disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
             min={TimeStore.getNow()}
             max={TaskPlanStore.getDueAt(@props.id)}
             value={commonOpensAt}
@@ -183,7 +182,6 @@ module.exports = React.createClass
           <TutorDateInput
             id='reading-due-date'
             ref="dueDate"
-            readOnly={TaskPlanStore.isPublished(@props.id)}
             required={not @state.showingPeriods}
             label="Due Date"
             onChange={@setDueAt}
@@ -262,7 +260,7 @@ module.exports = React.createClass
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          readOnly={TaskPlanStore.isPublished(@props.id)}
+          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
           label="Open Date"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
@@ -272,7 +270,6 @@ module.exports = React.createClass
           currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          readOnly={TaskPlanStore.isPublished(@props.id)}
           label="Due Date"
           required={@state.showingPeriods}
           min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}
