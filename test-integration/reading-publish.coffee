@@ -1,50 +1,19 @@
-# Runs some selenium tests that create an iReading (saves screenshot on failure). Mostly just playing around with Selenium to get feedback. The actual test code is in `simple.coffee`
-#
-# # Instructions
-#
-# 1. `npm install -g mocha`
-# 2. `npm install` (to get the new packages)
-# 3. `mocha ./test-integration/simple.coffee --compilers coffee-script/register`
-#
-# TODO:
-#
-# - [ ] Abstract reading creation so it can be used for "Save Draft", "Publish" and partial completion
-
 {describe} = require './helper'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
-SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 TEACHER_USERNAME = 'teacher01'
 
 
+describe 'Assignment Creation Tests', ->
 
-
-describe 'Smoke Tests', ->
-
-
-  @__it 'Logs in and publishes a Bio Reading', ->
+  @__it 'Creates a draft Bio Reading', ->
     @timeout 10 * 60 * 1000 # ~4 min to publish (plus mathjax CDN)
 
-    @driver.get SERVER_URL
-    # @screenshot(@driver, 'debugging-snapshot.png')
+    # @screenshot('debugging-snapshot.png')
 
-    unique = "#{new Date()}"
     # TODO: escape arbitrary title quotes with &quote; or `\'`
-    title = "Test Reading Title: #{unique}"
-
-    loginDev = (username) =>
-      @driver.findElement(linkText: 'Login').click()
-      @driver.wait selenium.until.elementLocated(css: '#search_query')
-
-      # Log in as teacher
-      @driver.findElement(css: '#search_query').sendKeys(username)
-      @driver.findElement(css: '#search_query').submit()
-
-      @waitClick(linkText: username)
-
-      # Verify React loaded
-      @driver.wait selenium.until.elementLocated(css: '#react-root-container')
+    title = "Test Reading Title: #{new Date()}"
 
     # Helper for setting a date in the date picker
     setDate = (css, isToday) =>
@@ -60,7 +29,7 @@ describe 'Smoke Tests', ->
 
 
 
-    loginDev(TEACHER_USERNAME)
+    @loginDev(TEACHER_USERNAME)
 
     # Go to the bio dashboard
     @waitClick(css: '[data-category="biology"]')
@@ -72,6 +41,7 @@ describe 'Smoke Tests', ->
 
     # Set the open date to today (It should already be selected)
     # setDate('.-assignment-open-date', true)
+    setDate('.-assignment-open-date', false)
 
     # Set the due Date to after today
     # BUG: Don't click on today
@@ -100,6 +70,10 @@ describe 'Smoke Tests', ->
     @driver.wait selenium.until.elementLocated(css: '.calendar-container')
 
     @waitClick(css: "[data-title='#{title}']")
+
+    @waitClick(css: '.async-button.delete-link')
+    @driver.wait(selenium.until.alertIsPresent()).then (alert) =>
+      alert.accept()
 
     # Idea for taking the code above and turning it all into a helper.
     #
