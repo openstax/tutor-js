@@ -13,10 +13,11 @@ TimeHelper = require '../../helpers/time'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
+{UnsavedStateMixin} = require '../unsaved-state'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
-  mixins: [PlanMixin, BindStoreMixin, Router.State]
+  mixins: [PlanMixin, BindStoreMixin, Router.State, UnsavedStateMixin]
   bindStore: CourseStore
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -27,6 +28,11 @@ module.exports = React.createClass
 
     showingPeriods: not isNewPlan
     currentLocale: TimeHelper.getCurrentLocales()
+
+  # Called by the UnsavedStateMixin to detect if anything needs to be persisted
+  hasUnsavedState: ->
+    true
+
 
   mapPeriods: (opensAt, dueAt) ->
     planId = @props.id
