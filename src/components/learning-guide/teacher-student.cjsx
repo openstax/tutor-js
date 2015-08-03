@@ -45,6 +45,12 @@ module.exports = React.createClass
       </Router.Link>
     </div>
 
+  renderWeakerExplanation: ->
+    <div className='explanation'>
+      <p>Tutor shows the weakest topics for a student.</p>
+      <p>Your help may be needed in these areas.</p>
+    </div>
+
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
 
@@ -55,6 +61,7 @@ module.exports = React.createClass
       <Guide
         courseId={courseId}
         heading={@renderHeading()}
+        weakerExplanation={@renderWeakerExplanation()}
         weakerTitle="Their weakest topics"
         onReturn={@returnToDashboard}
         allSections={LearningGuide.TeacherStudent.store.getAllSections(courseId, {roleId})}

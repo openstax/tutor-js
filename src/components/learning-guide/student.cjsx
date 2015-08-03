@@ -48,6 +48,12 @@ module.exports = React.createClass
   renderEmptyMessage: ->
     <div>You have not worked any questions yet.</div>
 
+  renderWeakerExplanation: ->
+    <div className='explanation'>
+      <p>Tutor shows your weakest topics so you can practice to improve.</p>
+      <p>Try to get all of your topics to green!</p>
+    </div>
+
   render: ->
     {courseId} = @props
     <BS.Panel className='learning-guide student'>
@@ -55,6 +61,7 @@ module.exports = React.createClass
         onPractice={@onPractice}
         courseId={courseId}
         weakerTitle="My Weaker Areas"
+        weakerExplanation={@renderWeakerExplanation()}
         heading={@renderHeading()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}

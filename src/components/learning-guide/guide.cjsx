@@ -23,6 +23,7 @@ module.exports = React.createClass
     onPractice: React.PropTypes.func
     onReturn:   React.PropTypes.func.isRequired
     weakerTitle: React.PropTypes.string.isRequired
+    weakerExplanation: React.PropTypes.element
 
   render: ->
     {courseId} = @props
@@ -47,6 +48,7 @@ module.exports = React.createClass
             <div className="chapter-panel weaker">
               <div className='chapter-heading metric'>
                 <span className='title'>{@props.weakerTitle}</span>
+                {@props.weakerExplanation}
                 {if @props.onPractice
                   <PracticeButton title='Practice All' courseId={@props.courseId} /> }
               </div>

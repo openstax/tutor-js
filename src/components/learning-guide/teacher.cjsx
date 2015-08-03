@@ -60,6 +60,13 @@ module.exports = React.createClass
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
 
+
+  renderWeakerExplanation: ->
+    <div className='explanation'>
+      <p>Tutor shows the weakest topics for each period.</p>
+      <p>Students may need your help in those areas.</p>
+    </div>
+
   render: ->
     {courseId} = @props
     <BS.Panel className='learning-guide teacher'>
@@ -67,6 +74,7 @@ module.exports = React.createClass
         courseId={courseId}
         weakerTitle="Weaker Areas"
         heading={@renderHeading()}
+        weakerExplanation={@renderWeakerExplanation()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}
         allSections={LearningGuide.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}
