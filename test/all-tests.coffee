@@ -30,6 +30,7 @@ require './components/student-dashboard/progress-guide.spec'
 require './components/reference-book.spec'
 require './components/course-settings.spec'
 require './components/tutor-input.spec'
+require './components/icon.spec'
 
 require './crud-store.spec'
 require './task-store.spec'
