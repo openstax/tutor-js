@@ -28,29 +28,30 @@ module.exports = React.createClass
 
   renderHeading: ->
     periods = LearningGuide.Teacher.store.get(@props.courseId)
-    <div>
-      <BS.Panel className='guide-heading'>
-        <div className='guide-group-title'>
-          Performance Forecast <InfoLink type='teacher'/>
-        </div>
-        <div className='info'>
-
-          <div className='guide-group-key teacher'>
-            <ColorKey />
+    <BS.Row>
+      <BS.Col xs=12>
+        <BS.Panel className='guide-heading'>
+          <div className='guide-group-title'>
+            Performance Forecast <InfoLink type='teacher'/>
           </div>
-          <Router.Link activeClassName='' to='viewTeacherDashBoard'
-            className='btn btn-default pull-right'
-            params={courseId: @props.courseId}>
-            Return to Dashboard
-          </Router.Link>
-        </div>
-      </BS.Panel>
+          <div className='info'>
+            <div className='guide-group-key teacher'>
+              <ColorKey />
+            </div>
+            <Router.Link activeClassName='' to='viewTeacherDashBoard'
+              className='btn btn-default pull-right'
+              params={courseId: @props.courseId}>
+              Return to Dashboard
+            </Router.Link>
+          </div>
+        </BS.Panel>
+      </BS.Col>
       <CoursePeriodsNavShell
-      periods={periods}
-      handleSelect={@selectPeriod}
-      intialActive={@state.periodId}
-      courseId={@props.courseId} />
-    </div>
+        periods={periods}
+        handleSelect={@selectPeriod}
+        intialActive={@state.periodId}
+        courseId={@props.courseId} />
+    </BS.Row>
 
 
 
