@@ -65,6 +65,10 @@ module.exports = React.createClass
         </BS.Row>
 
         <BS.Row>
+          <h3>Individual Chapters</h3>
+        </BS.Row>
+
+        <BS.Row>
           {for chapter, i in (@props.chapters or [])
             <BS.Col key={i} lg={12} md={12} sm={12} xs={12}>
               <Chapter chapter={chapter} {...@props} />
