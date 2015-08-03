@@ -8,6 +8,7 @@ LearningGuide = require '../../flux/learning-guide'
 {PerformanceStore} = require '../../flux/performance'
 
 Guide = require './guide'
+InfoLink = require './info-link'
 
 module.exports = React.createClass
   displayName: 'LearningGuideTeacherStudentDisplay'
@@ -34,6 +35,7 @@ module.exports = React.createClass
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
               <BS.MenuItem key={student.role} eventKey={student.role}>{student.name}</BS.MenuItem> }
         </BS.DropdownButton>
+        <InfoLink type='teacher_student'/>
         {emptyMessage if selected.data.length is 0}
       </div>
       <Router.Link activeClassName='' to='viewPerformance'
