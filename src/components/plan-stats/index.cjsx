@@ -198,6 +198,13 @@ Stats = React.createClass
 
     handlePeriodSelect?(period)
 
+  componentDidMount: ->
+    {id, handlePeriodSelect} = @props
+    periods = TaskPlanStatsStore.getPeriods(id)
+
+    initialPeriod = periods[@props.initialActivePeriod]
+    handlePeriodSelect?(initialPeriod)
+
   render: ->
     {id, courseId, shouldOverflowData} = @props
     {stats} = @state
