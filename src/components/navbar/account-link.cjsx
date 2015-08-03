@@ -10,7 +10,7 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   redirectToAccount: ->
-    TransitionAssistant.checkTransitionState().then( ->
+    TransitionAssistant.checkTransitionStateTo("Accounts Profile Page").then( ->
       console.log "Going places"
     , ->
       console.log "Stoppped from going places"

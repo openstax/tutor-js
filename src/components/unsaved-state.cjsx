@@ -8,8 +8,11 @@ WarningDialog = React.createClass
   displayName: 'UnsavedStateWarning'
 
   propTypes:
-    messages: React.PropTypes.arrayOf( React.PropTypes.string ).isRequired
-
+    messages:    React.PropTypes.arrayOf( React.PropTypes.string ).isRequired
+    show:        React.PropTypes.bool
+    onProceed:   React.PropTypes.func.isRequired
+    onCancel:    React.PropTypes.func.isRequired
+    destination: React.PropTypes.string
   getInitialState: ->
     show: true
 
@@ -26,7 +29,8 @@ WarningDialog = React.createClass
 
   render: ->
     return null unless @state.show
-    <BS.Modal className='unsaved-info' onRequestHide={@onCancel} title="Are you sure?">
+    <BS.Modal className='unsaved-info' onRequestHide={@onCancel}
+      title="Proceed to #{@props.destination} ?">
       <div className='modal-body'>
         {for message, i in @props.messages
           <p key={i}>{message}</p>}
@@ -54,17 +58,18 @@ UnsavedStateMixin = {
 TransitionAssistant = {
   canTransition: -> not _.any(ACTIVE, '_cannotTransition')
 
-  checkTransitionState: (callback) ->
-    new Promise (resolve, reject) =>
+  checkTransitionStateTo: (destination) ->
+    new Promise (onProceed, onCancel) =>
       if @canTransition()
-        resolve()
+        onProceed()
       else
         messages = _.invoke(ACTIVE, '_unsavedMessage')
-        unless @dialog
+        props = {messages, destination, onCancel, onProceed, show: true}
+        if @dialog
+          @dialog.setProps(props)
+        else
           div = document.body.appendChild( document.createElement('div') )
-          @dialog = React.render(React.createElement(WarningDialog, messages: messages), div)
-
-        @dialog.setProps(show: true, messages: messages, onCancel: reject, onProceed: resolve)
+          @dialog = React.render(React.createElement(WarningDialog, props), div)
 
 }
 
