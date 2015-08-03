@@ -20,6 +20,7 @@ module.exports = React.createClass
     saved: React.PropTypes.func
     load: React.PropTypes.func
     renderLoading: React.PropTypes.func
+    renderError: React.PropTypes.func
     update: React.PropTypes.func
 
   componentDidMount: -> @reload({})

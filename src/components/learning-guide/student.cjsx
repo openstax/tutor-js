@@ -23,7 +23,7 @@ module.exports = React.createClass
 
   renderHeading: ->
     <div className='guide-heading'>
-      <h3 className='guide-group-title'>Current Level of Understanding</h3>
+      <h3 className='guide-group-title'>Learning Forecast</h3>
       <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
         params={courseId: @props.courseId}>
         Return to Dashboard
@@ -39,6 +39,7 @@ module.exports = React.createClass
       <Guide
         onPractice={@onPractice}
         courseId={courseId}
+        weakerTitle="My weakest topics"
         heading={@renderHeading()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}

@@ -1,51 +1,56 @@
-.reference-book {
-  .toc-indented-levels(@depth) when (@depth > 0) {
-    .toc-indented-levels((@depth - 1));
-    ul[data-depth='@{depth}'] a{
-      #fonts > .sans( unit((1.6 - (@depth / 10)),rem) );
-      padding-left: (unit((3 + (@depth )), rem));
-      text-indent: -(unit((0.3 + (@depth )), rem));
-      line-height: 2.25rem;
-    }
-  }
+.reference-book .content .menu{
   .toc {
+    .toc-indented-levels(4);
     max-height: 100%;
     overflow-y: scroll;
-    a {
-         #fonts > .sans(1.5rem, 1.8rem);
-        color: @tutor-neutral-darker;
-        display: block;
-        &:hover {
-          background-color: @tutor-white;
-          text-decoration: initial;
-        }
-        &.active {
-          background-color: @tutor-white;
-          text-decoration: initial;
-        }
-    }
-    li {
-      background-color: @tutor-neutral-lightest;
-      list-style-type: none;
-      #fonts > .sans(1.3rem);
-      border-top: 1px dotted @tutor-neutral-light;
-      a {
-        color: @tutor-neutral-darker;
-        text-indent:  0;
-        padding: 10px 0;
-      }
-      > ul > li:first-child { border-top: 0; }
+    .toc-indented-levels(@depth) when (@depth > 0) {
+      .toc-indented-levels((@depth - 1));
 
-    }
-    ul {
-      margin-bottom: 0;
-      padding-left: 0rem;
-    }
-    .toc-indented-levels(4);
-  }
-  .content {
-    .toc {
-      li { list-style-type: none; }
+      ul[data-depth='@{depth}'] {
+        margin-bottom: 0;
+        padding-left: 0rem;
+
+        &:first-child li:first-child { border-top: 0; }
+
+        li {
+          list-style-type: none;
+          border-top: 1px dotted @tutor-neutral-light;
+          background-color: @tutor-neutral-lightest;
+
+          a {
+            color: @tutor-neutral-darker;
+            display: block;
+            text-indent:  0;
+            padding: 10px 0;
+            position: relative;
+            &:hover {
+              background-color: @tutor-white;
+              text-decoration: initial;
+            }
+
+            &.active {
+              background-color: @tutor-white;
+              text-decoration: initial;
+              font-weight: 900;
+            }
+
+            #fonts > .sans( unit((2.0 - (@depth / 3)),rem) );
+            padding-left: (unit((1 * (@depth )), rem));
+            padding-right: 1rem;
+            line-height: 2.25rem;
+            .section-number {
+              // by setting the height just a bit heigher than the line-height above
+              // the second line of text will stay indented around the section
+              height: 3rem;
+              float: left;
+              display: block;
+            }
+          }
+
+        }
+
+      }
+
     }
   }
 }

@@ -28,7 +28,7 @@ module.exports = React.createClass
     return null unless selected
     emptyMessage = <h5>{selected.name} has not worked any questions yet.</h5>
     <div className='guide-heading'>
-      <div className='student-selection'>Current level of understanding for:
+      <div className='student-selection'>Learning Forecast for:
         <BS.DropdownButton bzSize='large' className='student-selection' title={selected.name}
           bsStyle='link' onSelect={@onSelectStudent}>
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
@@ -53,6 +53,7 @@ module.exports = React.createClass
       <Guide
         courseId={courseId}
         heading={@renderHeading()}
+        weakerTitle="Their weakest topics"
         onReturn={@returnToDashboard}
         allSections={LearningGuide.TeacherStudent.store.getAllSections(courseId, {roleId})}
         chapters={LearningGuide.TeacherStudent.store.getChapters(courseId, {roleId}) }

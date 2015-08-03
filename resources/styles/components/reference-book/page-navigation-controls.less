@@ -3,6 +3,10 @@
     position: fixed;
     height: 100%;
     width: calc(~"50% - " @reference-book-page-width / 2 );
+    @media screen and ( max-width: @book-content-collapse-breakpoint ){
+      width: (100% - @reference-book-collapse-width) / 2;
+    }
+
     top: 50px;
 
     display: -webkit-flex;

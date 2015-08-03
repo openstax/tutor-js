@@ -7,14 +7,13 @@ COURSE_ID  = '1'
 GUIDE_DATA = require '../../../api/courses/1/guide.json'
 
 describe 'Learning Guide Practice Buttons', ->
-  it 'renders stronger/weaker buttons', ->
+  it 'renders practice button', ->
     LearningGuide.Student.actions.loaded(GUIDE_DATA, COURSE_ID)
     Testing.renderComponent( Buttons,
       props: { courseId: COURSE_ID }
     ).then ({dom, element}) ->
       expect(dom).not.to.be.null
-      expect(dom.querySelector('.weaker')).not.to.be.null
-      expect(dom.querySelector('.stronger')).not.to.be.null
+      expect(dom.querySelector('button.practice')).not.to.be.null
 
 
   it 'are disabled if performance report sections are empty', ->

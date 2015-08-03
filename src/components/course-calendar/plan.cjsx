@@ -8,6 +8,9 @@ camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
 CoursePlanDetails = require './plan-details'
+CoursePlanPublishingDetails = require './plan-publishing-details'
+
+{PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
@@ -26,6 +29,8 @@ CoursePlan = React.createClass
 
   getInitialState: ->
     isViewingStats: false
+    publishState: ''
+    isPublishing: false
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
@@ -77,6 +82,27 @@ CoursePlan = React.createClass
   setIsViewingStats: (isViewingStats) ->
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
+
+  checkPublishingStatus: (published) ->
+    if published.publishFor is @props.item.plan.id
+      planState =
+        publishState: published.state
+        isPublishing: (['working', 'queued'].indexOf(published.state) > -1)
+
+      @setState(planState)
+
+  componentWillMount: ->
+    {item} = @props
+    {plan} = item
+    {id, isPublishing, publish_job_uuid} = plan
+
+    if isPublishing and not PlanPublishStore.isPublishing(id)
+      PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
+
+    PlanPublishStore.on('planPublish.*', @checkPublishingStatus) if isPublishing
+
+  componentWillUnmount: ->
+    PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
 
   componentDidMount: ->
     @closePlanOnModalHide()
@@ -158,9 +184,16 @@ CoursePlan = React.createClass
     {item, courseId} = @props
     {plan, index} = item
 
-    planModalClasses = 'is-trouble' if plan.isTrouble
-
-    planModal = <CoursePlanDetails plan={plan} courseId={courseId} className={planModalClasses}/>
+    if plan.isPublishing
+      planModal = <CoursePlanPublishingDetails
+        plan={plan}
+        courseId={courseId}
+        className={planClasses}/>
+    else
+      planModal = <CoursePlanDetails
+        plan={plan}
+        courseId={courseId}
+        className={planClasses}/>
 
     planOnly = <div style={planStyle}
       className={planClasses}
@@ -204,7 +237,11 @@ CoursePlan = React.createClass
 
   render: ->
     {item, courseId} = @props
+    {publishState, isPublishing} = @state
     {plan, duration, rangeDuration, offset, index, weekTopOffset, order} = item
+
+    plan.isFailed = publishState is 'failed'
+    plan.isKilled = publishState is 'killed'
 
     durationLength = duration.length('days')
     # Adjust width based on plan duration and left position based on offset of plan from start of week
@@ -224,7 +261,10 @@ CoursePlan = React.createClass
       "course-plan-#{plan.id}"
     ]
 
-    planClasses.push('is-published') if plan.isPublished
+    planClasses.push('is-published') if plan.isPublished or (publishState is 'completed')
+    planClasses.push('is-failed') if plan.isFailed
+    planClasses.push('is-killed') if plan.isKilled
+    planClasses.push('is-publishing') if plan.isPublishing or isPublishing
     planClasses.push('is-open') if plan.isOpen
     planClasses.push('is-trouble') if plan.isTrouble
 
@@ -233,7 +273,7 @@ CoursePlan = React.createClass
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
     renderFn = 'renderEditPlan'
-    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished
+    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (plan.isPublishing or isPublishing)
 
     @[renderFn](planStyle, planClasses, label)
 

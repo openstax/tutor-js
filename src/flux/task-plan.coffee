@@ -7,7 +7,9 @@ validator = require 'validator'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
+{PlanPublishActions} = require './plan-publish'
 TaskHelpers = require '../helpers/task'
+
 TUTOR_SELECTIONS =
   default: 3
   max: 4
@@ -268,6 +270,10 @@ TaskPlanConfig =
   publish: (id) ->
     @_change(id, {is_publish_requested: true})
 
+  _saved: (obj, id) ->
+    PlanPublishActions.published(obj, id) if obj.is_publish_requested
+    obj
+
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
@@ -343,15 +349,20 @@ TaskPlanConfig =
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
         opensAt = new Date(tasking?.opens_at) if tasking?.opens_at?
+      else
+        # default opens_at to 1 day from now
+        opensAt = @_getTaskingsCommonDate(id, 'opens_at')
 
-      opensAt ?= @_getTaskingsCommonDate(id, 'opens_at')
+      opensAt
 
     getDueAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
         dueAt = new Date(tasking?.due_at) if tasking?.due_at?
+      else
+        dueAt = @_getTaskingsCommonDate(id, 'due_at')
 
-      dueAt ?= @_getTaskingsCommonDate(id, 'due_at')
+      dueAt
 
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)

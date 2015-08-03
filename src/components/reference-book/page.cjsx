@@ -13,8 +13,6 @@ GetPositionMixin = require '../get-position-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
-EXERCISE_MATCHER = new RegExp('\/exercises\/(.*)')
-
 module.exports = React.createClass
   _exerciseNodes: []
   displayName: 'ReferenceBookPage'
@@ -33,14 +31,14 @@ module.exports = React.createClass
     page?.title
 
   prevLink: (info) ->
-    <Router.Link className='nav prev' to='viewReferenceBookPage'
-      params={courseId: @props.courseId, cnxId: info.prev.cnx_id}>
+    <Router.Link className='nav prev' to='viewReferenceBookSection'
+      params={courseId: @props.courseId, section: info.prev.chapter_section.join('.')}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
-    <Router.Link className='nav next' to='viewReferenceBookPage'
-      params={courseId: @props.courseId, cnxId: info.next.cnx_id}>
+    <Router.Link className='nav next' to='viewReferenceBookSection'
+      params={courseId: @props.courseId, section: info.next.chapter_section.join('.')}>
       <div className='triangle' />
     </Router.Link>
 
@@ -83,20 +81,16 @@ module.exports = React.createClass
       for image in images
         image.addEventListener('load', onImageLoad)
 
-  isExerciseLink: (link) ->
-    link.pathname.search(EXERCISE_MATCHER) is 0
-
-  renderOtherLinks: (otherLinks) ->
-    ReferenceBookExerciseStore.setMaxListeners(otherLinks.length)
-    _.each(otherLinks, @renderExercise)
+  renderExercises: (exerciseLinks) ->
+    ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
+    _.each(exerciseLinks, @renderExercise)
 
   renderExercise: (link) ->
-    if @isExerciseLink(link)
-      exerciseAPIUrl = link.href
+    exerciseAPIUrl = link.href
 
-      if link.parentNode.parentNode?
-        @_exerciseNodes.push(link.parentNode.parentNode)
-        React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, link.parentNode.parentNode)
+    if link.parentNode.parentNode?
+      @_exerciseNodes.push(link.parentNode.parentNode)
+      React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, link.parentNode.parentNode)
 
   unmountExerciseComponent: (node, nodeIndex) ->
     React.unmountComponentAtNode(node) if node?
@@ -118,6 +112,7 @@ module.exports = React.createClass
     html = html
       .replace(/^[\s\S]*<body[\s\S]*?>/, '')
       .replace(/<\/body>[\s\S]*$/, '')
+
     <div className='page-wrapper'>
       {@prevLink(info) if info.prev}
       <ArbitraryHtmlAndMath className='page' block html={html} />
