@@ -12,8 +12,9 @@ describe 'Assignment Creation Tests', ->
 
     # @screenshot('debugging-snapshot.png')
 
-    # TODO: escape arbitrary title quotes with &quote; or `\'`
-    title = "Test Reading Title: #{new Date()}"
+    # -----------------------------
+    # Test helper functions
+    # -----------------------------
 
     # Helper for setting a date in the date picker
     setDate = (css, isToday) =>
@@ -27,57 +28,6 @@ describe 'Assignment Creation Tests', ->
       @driver.wait =>
         @driver.isElementPresent(css: '.datepicker__container').then (isPresent) -> not isPresent
 
-
-
-    @loginDev(TEACHER_USERNAME)
-
-    # Go to the bio dashboard
-    @waitClick(css: '[data-category="biology"]')
-
-    @waitClick(css: '.add-assignment .dropdown-toggle')
-    @waitClick(linkText: 'Add Reading')
-
-    @waitAnd(css: '#reading-title').sendKeys(title)
-
-    # Set the open date to today (It should already be selected)
-    # setDate('.-assignment-open-date', true)
-    setDate('.-assignment-open-date', false)
-
-    # Set the due Date to after today
-    # BUG: Don't click on today
-    setDate('.-assignment-due-date', false)
-
-    # Select Readings
-    # Open the chapter list
-    @driver.findElement(css: '#reading-select').click()
-
-    # Select the 1st chapter
-    @waitClick(css: '.select-reading-chapters .chapter-checkbox input')
-
-    # Expand the chapter and then select the section
-    @waitClick(css: "[data-chapter-section='2']")
-    @waitClick(css: "[data-chapter-section='2.1']")
-
-    # Click "Add Readings"
-    @waitClick(css: '.-show-problems') # BUG: wrong class name
-
-    # Save as Draft
-    # @waitClick(css: '.async-button.-publish')
-    @waitClick(css: '.async-button.-save')
-
-    # Open it in the Calendar (verify it was added)
-    # BUG: .course-list shouldn't be in the DOM
-    @driver.wait selenium.until.elementLocated(css: '.calendar-container')
-
-    @waitClick(css: "[data-title='#{title}']")
-
-    @waitClick(css: '.async-button.delete-link')
-    @driver.wait(selenium.until.alertIsPresent()).then (alert) =>
-      alert.accept()
-
-    # Idea for taking the code above and turning it all into a helper.
-    #
-    # publishNewReading = () =>
     #   name
     #   description
     #   opensAt: 'TODAY', 'NOT_TODAY'
@@ -87,4 +37,75 @@ describe 'Assignment Creation Tests', ->
     #     {opensAt: 'TODAY', dueAt: 'TODAY'}
     #   ]
     #   sections: ['1.1', '2.4']
-    #   action: 'PUBLISH', 'SAVE_DRAFT', 'DELETE', 'CANCEL', 'X_BUTTON'
+    #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
+    editReading = ({name, description, opensAt, dueAt, sections, action}) =>
+      if name
+        @waitAnd(css: '#reading-title').sendKeys(title)
+      if opensAt
+        setDate('.-assignment-open-date', opensAt is 'TODAY')
+      if dueAt
+        setDate('.-assignment-due-date', dueAt is 'TODAY')
+      if sections
+        # Open the chapter list
+        @driver.findElement(css: '#reading-select').click()
+
+        # Expand the chapter and then select the section
+        for section in sections
+          do (section) =>
+            section = "#{section}" # Ensure the section is a string so we can split it
+
+            # Selecting an entire chapter requires clicking the input box
+            # So handle chapters differently
+            if /\./.test(section)
+              @driver.findElement(css: "[data-chapter-section='#{section}']").isDisplayed().then (isVisible) =>
+                # Expand the chapter accordion if necessary
+                unless isVisible
+                  @waitClick(css: "[data-chapter-section='#{section.split('.')[0]}']")
+
+                @waitClick(css: "[data-chapter-section='#{section}']")
+            else
+              @waitClick(css: "[data-chapter-section='#{section}'] .chapter-checkbox input")
+
+        # Click "Add Readings"
+        @waitClick(css: '.-show-problems') # BUG: wrong class name
+
+      switch action
+        when 'PUBLISH' then @waitClick(css: '.async-button.-publish')
+        when 'SAVE' then @waitClick(css: '.async-button.-save')
+        when 'DELETE'
+          @waitClick(css: '.async-button.delete-link')
+          # Accept the browser confirm dialog
+          @driver.wait(selenium.until.alertIsPresent()).then (alert) ->
+            alert.accept()
+
+
+    # -----------------------------
+    # Start the test
+    # -----------------------------
+
+    # TODO: escape arbitrary title quotes with &quote; or `\'`
+    title = "Test Reading Title: #{new Date()}"
+
+    @loginDev(TEACHER_USERNAME)
+
+    # Go to the bio dashboard
+    @waitClick(css: '[data-category="biology"]')
+
+    @waitClick(css: '.add-assignment .dropdown-toggle')
+    @waitClick(linkText: 'Add Reading')
+
+    editReading
+      name: title
+      opensAt: 'NOT_TODAY' # null
+      dueAt: 'NOT_TODAY'
+      sections: [1.1, 1.2, 2.1, 3]
+      action: 'SAVE'
+
+
+    # Wait until the Calendar loads back up
+    # And then verify it was added by clicking on it again
+    # BUG: .course-list shouldn't be in the DOM
+    @waitAnd(css: '.calendar-container')
+    @waitClick(css: "[data-title='#{title}']")
+
+    editReading(action: 'DELETE')
