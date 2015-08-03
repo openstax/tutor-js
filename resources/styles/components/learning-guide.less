@@ -100,28 +100,29 @@
     clear: both;
   }
 
-  .guide-group {
-    .chapter-panel{
-      padding-top: @section-spacing;
-      padding-bottom: @section-spacing;
+  // panel style that should only apply to the learing guide
+  // and not be applied by the shared mixin
+  .chapter-panel{
+    padding-top: @section-spacing;
+    padding-bottom: @section-spacing;
 
-      .learning-guide-chapter-panel();
-      background: @tutor-white;
-      margin-bottom: @section-spacing;
-      border: 1px solid @tutor-neutral-light;
+    .learning-guide-chapter-panel();
+    background: @tutor-white;
+    margin-bottom: @section-spacing;
+    border: 1px solid @tutor-neutral-light;
 
-      button {
-        width: 100%;
-      }
+    button {
+      width: 100%;
+    }
 
-      &.weaker {
-        .explanation {
-          color: @tutor-neutral;
-          #fonts > .sans(1.3rem, 1.3rem);
-        }
+    &.weaker {
+      .explanation {
+        color: @tutor-neutral;
+        #fonts > .sans(1.3rem, 1.3rem);
       }
     }
   }
+
 }
 
 @import "learning-guide/responsive";
