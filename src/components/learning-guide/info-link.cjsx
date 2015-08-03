@@ -19,7 +19,7 @@ MESSAGES = {
 module.exports = React.createClass
 
   displayName: 'LearningGuideInfoLink'
-  type: React.PropTypes.string.isRequired
+  type: React.PropTypes.oneOf(['student', 'teacher', 'teacher_student']).isRequired
 
   render: ->
     tooltip =
