@@ -46,7 +46,7 @@ module.exports = React.createClass
     </BS.Panel>
 
   renderEmptyMessage: ->
-    <div>You have not worked any questions yet.</div>
+    <div className="no-data-message">You have not worked any questions yet.</div>
 
   renderWeakerExplanation: ->
     <div className='explanation'>

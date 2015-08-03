@@ -27,7 +27,7 @@ module.exports = React.createClass
     students = PerformanceStore.getAllStudents(@props.courseId)
     selected = PerformanceStore.getStudent(@props.courseId, @props.roleId)
     return null unless selected
-    emptyMessage = <h5>{selected.name} has not worked any questions yet.</h5>
+
     <div className='guide-heading'>
       <div className='student-selection'>Performance Forecast for:
         <BS.DropdownButton bzSize='large' className='student-selection' title={selected.name}
@@ -36,7 +36,6 @@ module.exports = React.createClass
               <BS.MenuItem key={student.role} eventKey={student.role}>{student.name}</BS.MenuItem> }
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
-        {emptyMessage if selected.data.length is 0}
       </div>
       <Router.Link activeClassName='' to='viewPerformance'
         className='btn btn-default pull-right'
@@ -54,6 +53,11 @@ module.exports = React.createClass
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
 
+  renderEmptyMessage: ->
+    <div className="no-data-message">
+      No questions have been answered yet.
+    </div>
+
   render: ->
     {courseId, roleId} = @props
 
@@ -62,6 +66,7 @@ module.exports = React.createClass
         courseId={courseId}
         heading={@renderHeading()}
         weakerExplanation={@renderWeakerExplanation()}
+        emptyMessage={@renderEmptyMessage()}
         weakerTitle="Their weakest topics"
         onReturn={@returnToDashboard}
         allSections={LearningGuide.TeacherStudent.store.getAllSections(courseId, {roleId})}

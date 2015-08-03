@@ -25,13 +25,28 @@ module.exports = React.createClass
     weakerTitle: React.PropTypes.string.isRequired
     weakerExplanation: React.PropTypes.element
 
-  render: ->
-    {courseId} = @props
-
+  renderWeaker: ->
     # sort sections by current level of understanding
     sortedSections = _.sortBy(@props.allSections, 'current_level')
     # if there are less than 4 sections, use 1/2 of the available ones
     weakStrongCount = Math.min(sortedSections.length / 2, 4)
+
+    <div className="chapter-panel weaker">
+      <div className='chapter-heading metric'>
+        <span className='title'>{@props.weakerTitle}</span>
+        {@props.weakerExplanation}
+        {if @props.onPractice
+          <PracticeButton title='Practice All' courseId={@props.courseId} /> }
+      </div>
+      <div className='sections'>
+        {for section, i in _.first(sortedSections, weakStrongCount)
+          <Section key={i} section={section} {...@props} />}
+      </div>
+
+    </div>
+
+  render: ->
+    {courseId} = @props
 
     noData = @props.allSections.length is 0
 
@@ -45,19 +60,7 @@ module.exports = React.createClass
 
         <BS.Row>
           <BS.Col xs={12}>
-            <div className="chapter-panel weaker">
-              <div className='chapter-heading metric'>
-                <span className='title'>{@props.weakerTitle}</span>
-                {@props.weakerExplanation}
-                {if @props.onPractice
-                  <PracticeButton title='Practice All' courseId={@props.courseId} /> }
-              </div>
-              <div className='sections'>
-                {for section, i in _.first(sortedSections, weakStrongCount)
-                  <Section key={i} section={section} {...@props} />}
-              </div>
-
-            </div>
+            {@renderWeaker() unless noData}
           </BS.Col>
         </BS.Row>
 

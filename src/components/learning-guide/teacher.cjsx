@@ -56,11 +56,10 @@ module.exports = React.createClass
 
 
   renderEmptyMessage: ->
-    <div>No questions worked.</div>
+    <div className="no-data-message">There have been no questions worked for this period.</div>
 
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
-
 
   renderWeakerExplanation: ->
     <div className='explanation'>
