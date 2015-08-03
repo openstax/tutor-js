@@ -65,7 +65,7 @@ module.exports = React.createClass
         </BS.Row>
 
         <BS.Row>
-          <h4>Individual Chapters</h4>
+          <h3>Individual Chapters</h3>
         </BS.Row>
 
         <BS.Row>
