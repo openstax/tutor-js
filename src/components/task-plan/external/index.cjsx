@@ -45,7 +45,7 @@ ExternalPlan = React.createClass
     if @state?.invalid then formClasses.push('is-invalid-form')
 
     isURLLocked = TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)
-    label = "#{label} (Cannot be changed once plan is opened and published)" if isURLLocked
+    label = "#{label} (Cannot be changed once assignment is opened and published)" if isURLLocked
 
     <div className='external-plan'>
       <BS.Panel bsStyle='primary'
