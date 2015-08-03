@@ -30,9 +30,9 @@ module.exports = React.createClass
     periods = LearningGuide.Teacher.store.get(@props.courseId)
     <div>
       <BS.Panel className='guide-heading'>
-        <div className='guide-group-title'>Performance Forecast</div>
-        <InfoLink />
-        <div className='pull-right'>
+        <div className='guide-group-title'>Performance Forecast <InfoLink /></div>
+        <div className='info'>
+
           <div className='guide-group-key teacher'>
             <ColorKey />
           </div>

@@ -9,6 +9,8 @@
 }
 
 .learning-guide {
+  @section-spacing: 20px;
+
   .nav-tabs {
     .tutor-nav-tabs();
     margin-bottom: 20px;
@@ -51,7 +53,6 @@
   .guide-heading {
     .guide-group-title {
       font-size: 3.5rem;
-      margin-top: 14px;
       display: inline-block;
       float: left;
     }
@@ -98,24 +99,23 @@
 
   .guide-footer {
     clear: both;
-
   }
+
   .guide-group {
-    .chapter-panel:nth-child(4n) {
-      margin-right: 0px;
-    }
     .chapter-panel{
+      padding-top: @section-spacing;
+      padding-bottom: @section-spacing;
+
       .learning-guide-chapter-panel();
       background: @tutor-white;
-      float: left;
-      margin: 0px 0px 20px 0px;
-      padding: 10px 11px 11px 9px;
+      margin-bottom: @section-spacing;
       border: 1px solid @tutor-neutral-light;
-      width: 100%;
-      min-height: 237px;
+
       button {
         width: 100%;
       }
     }
   }
 }
+
+@import "learning-guide/responsive";

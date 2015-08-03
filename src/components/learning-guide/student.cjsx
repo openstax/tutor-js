@@ -25,9 +25,9 @@ module.exports = React.createClass
 
   renderHeading: ->
     <BS.Panel className='guide-heading'>
-      <div className='guide-group-title'>Performance Forecast</div>
-      <InfoLink />
-      <div className='pull-right'>
+      <div className='guide-group-title'>Performance Forecast <InfoLink /></div>
+
+      <div className='info'>
         <div className='guide-group-key'>
           <div className='guide-key'>
             Click on the bar to practice the topic
