@@ -46,15 +46,13 @@ CourseDuration = React.createClass
     @updateGroupedDurations(nextProps)
 
   groupDurations: (durations, viewingDuration, groupingDurations) ->
-    console.info('durations')
-    console.info(durations)
     durationsInView = _.chain(durations)
       .clone()
       # TODO these parts actually seem like they should be in flux
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
       .sortBy((plan) ->
-        -1 * plan.duration.start.valueOf()
+        -1 * plan.duration.length('days')
       )
       .value()
 
@@ -70,13 +68,15 @@ CourseDuration = React.createClass
       weekTopOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
         memo + current
       ).value()
-      console.info(range.plansByOverlaps)
 
       _.each(range.plansByOverlaps, (plans) ->
-        _.each(plans, (plan, order) ->
-          plan.order = order + 1
-          plan.weekTopOffset = weekTopOffset
-        )
+        _.chain(plans)
+          .sortBy((plan) ->
+            -1 * plan.rangeDuration.start.valueOf()
+          ).each((plan, order) ->
+            plan.order = order + 1
+            plan.weekTopOffset = weekTopOffset
+          ).value()
       )
     )
 
@@ -154,7 +154,7 @@ CourseDuration = React.createClass
     if durToCompareTo?
       # if the current duration does not overlap with the comparing duration,
       # make a new array of overlaps
-      unless currentDur.rangeDuration.overlaps(durToCompareTo.rangeDuration)
+      unless currentDur.rangeDuration.overlaps(durToCompareTo)
         plansByOverlaps.push([])
 
     currentOverlap = _.last(plansByOverlaps)
@@ -180,12 +180,22 @@ CourseDuration = React.createClass
             plan: _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
             index: counter[plan.id]
 
-          previousDur = _.last(_.last(rangeData.plansByOverlaps))
+          compareDur = _.chain(rangeData.plansByOverlaps)
+            .last()
+            .reduce((memo, plan) ->
+              if memo?
+                allDur = memo.union(plan.rangeDuration)
+              else
+                allDur = plan.rangeDuration
+
+              allDur
+            , null)
+            .value()
 
           # Check this duration for overlap with the previously sorted duration
           # Adds this duration the the previous group of durations if there is overlap.
           # Otherwise, add this duration to a new group.
-          currentOverlap = @_checkAndSetOverlaps(planForRange, previousDur, rangeData.plansByOverlaps)
+          currentOverlap = @_checkAndSetOverlaps(planForRange, compareDur, rangeData.plansByOverlaps)
 
           # set day height to fit the number of overlapping durations
           @_setDayHeightToMaxOverlaps(currentOverlap, rangeData)
