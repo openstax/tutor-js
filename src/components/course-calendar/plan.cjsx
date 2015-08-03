@@ -70,11 +70,13 @@ CoursePlan = React.createClass
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
   syncStatsWithState: ->
-    return unless @refs.trigger?
 
     if @_isPlanMatchRouteNotOpen()
-      triggerEl = @refs.trigger.getDOMNode()
-      triggerEl.click()
+      if @refs.trigger?
+        triggerEl = @refs.trigger.getDOMNode()
+        triggerEl.click()
+      else
+        @setIsViewingStats(false)
     else if @_isPlanNotMatchingRouteOpen()
       @refs.trigger.hide()
 
@@ -90,16 +92,23 @@ CoursePlan = React.createClass
         isPublishing: (['working', 'queued'].indexOf(published.state) > -1)
 
       @setState(planState)
+      PlanPublishStore.off('planPublish.*', @checkPublishingStatus) if published.state is 'completed'
 
-  componentWillMount: ->
-    {item} = @props
+  subscribeToPublishing: (item) ->
     {plan} = item
     {id, isPublishing, publish_job_uuid} = plan
 
     if isPublishing and not PlanPublishStore.isPublishing(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
-    PlanPublishStore.on('planPublish.*', @checkPublishingStatus) if isPublishing
+    PlanPublishStore.on('planPublish.*', @checkPublishingStatus) if isPublishing or PlanPublishStore.isPublishing(id)
+
+  componentWillMount: ->
+    @subscribeToPublishing(@props.item)
+
+  componentWillReceiveProps: (nextProps) ->
+    @subscribeToPublishing(nextProps.item)
+    @closePlanOnModalHide()
 
   componentWillUnmount: ->
     PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
@@ -182,9 +191,10 @@ CoursePlan = React.createClass
 
   renderOpenPlan: (planStyle, planClasses, label) ->
     {item, courseId} = @props
+    {isPublishing} = @state
     {plan, index} = item
 
-    if plan.isPublishing
+    if isPublishing
       planModal = <CoursePlanPublishingDetails
         plan={plan}
         courseId={courseId}
@@ -264,7 +274,7 @@ CoursePlan = React.createClass
     planClasses.push('is-published') if plan.isPublished or (publishState is 'completed')
     planClasses.push('is-failed') if plan.isFailed
     planClasses.push('is-killed') if plan.isKilled
-    planClasses.push('is-publishing') if plan.isPublishing or isPublishing
+    planClasses.push('is-publishing') if isPublishing
     planClasses.push('is-open') if plan.isOpen
     planClasses.push('is-trouble') if plan.isTrouble
 
@@ -273,7 +283,7 @@ CoursePlan = React.createClass
     label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
     renderFn = 'renderEditPlan'
-    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (plan.isPublishing or isPublishing)
+    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (isPublishing) or (publishState is 'completed')
 
     @[renderFn](planStyle, planClasses, label)
 
