@@ -5,7 +5,7 @@ Icon = require '../icon'
 
 {RosterStore, RosterActions} = require '../../flux/roster'
 ChangePeriodLink  = require './change-period'
-DeleteStudentLink = require './delete-student'
+DropStudentLink = require './drop-student'
 
 module.exports = React.createClass
   displayName: 'PeriodRoster'
@@ -20,7 +20,7 @@ module.exports = React.createClass
       <td>{student.deidentifier}</td>
       <td className="actions">
         <ChangePeriodLink courseId={@props.courseId} student={student} />
-        <DeleteStudentLink student={student} />
+        <DropStudentLink student={student} />
       </td>
     </tr>
 
