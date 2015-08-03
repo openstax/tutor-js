@@ -47,6 +47,13 @@
     }
   }
 }
+.tutor-bullet-lists(@bullet-color: @tutor-book-secondary){
+  ul > li {
+    &::before {
+      background: @bullet-color;
+    }
+  }
+}
 
 .tutor-book-content-theme(@book-theme-name) {
   @book-theme-primary: "tutor-book-@{book-theme-name}-primary";

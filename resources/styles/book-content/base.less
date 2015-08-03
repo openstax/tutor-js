@@ -53,6 +53,21 @@ ol {
   margin: 0 0 2.4rem 0;
 }
 
+ul {
+  list-style-type: none;
+  > li {
+    &::before {
+      list-style-type: none;
+      content: "";
+      width: .4em;
+      height: .4em;
+      float: left;
+      margin: 0.75em -0.8em 0;
+      border-radius: 50%;
+    }
+  }
+}
+
 section h1 + p:first-of-type,
 div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
@@ -116,3 +131,8 @@ figure {
   img { width: 100%; }
 }
 
+[data-type="footnote-refs"] {
+  ul {
+    list-style: none;
+  }
+}
