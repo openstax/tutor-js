@@ -23,8 +23,8 @@
 
   .task-footer-details {
     float: right;
-    display: flex;
-    align-items: center;
+    .flex-display();
+    .align-items(center);
     height: 3.6rem;
     margin-top: 2px;
 
@@ -46,7 +46,7 @@
     // Has a "Covers sections ..." message
     &.has-sections {
       // align details to top
-      align-items: flex-start;
+      .align-items(flex-start);
 
       .continue.btn {
         margin-top: 5px;
