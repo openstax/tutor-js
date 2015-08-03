@@ -8,6 +8,7 @@ LearningGuide = require '../../flux/learning-guide'
 {PerformanceStore} = require '../../flux/performance'
 
 Guide = require './guide'
+InfoLink = require './info-link'
 
 module.exports = React.createClass
   displayName: 'LearningGuideTeacherStudentDisplay'
@@ -26,15 +27,15 @@ module.exports = React.createClass
     students = PerformanceStore.getAllStudents(@props.courseId)
     selected = PerformanceStore.getStudent(@props.courseId, @props.roleId)
     return null unless selected
-    emptyMessage = <h5>{selected.name} has not worked any questions yet.</h5>
+
     <div className='guide-heading'>
-      <div className='student-selection'>Learning Forecast for:
+      <div className='student-selection'>Performance Forecast for:
         <BS.DropdownButton bzSize='large' className='student-selection' title={selected.name}
           bsStyle='link' onSelect={@onSelectStudent}>
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
               <BS.MenuItem key={student.role} eventKey={student.role}>{student.name}</BS.MenuItem> }
         </BS.DropdownButton>
-        {emptyMessage if selected.data.length is 0}
+        <InfoLink type='teacher_student'/>
       </div>
       <Router.Link activeClassName='' to='viewPerformance'
         className='btn btn-default pull-right'
@@ -43,8 +44,19 @@ module.exports = React.createClass
       </Router.Link>
     </div>
 
+  renderWeakerExplanation: ->
+    <div className='explanation'>
+      <p>Tutor shows the weakest topics for a student.</p>
+      <p>Your help may be needed in these areas.</p>
+    </div>
+
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
+
+  renderEmptyMessage: ->
+    <div className="no-data-message">
+      No questions have been answered yet.
+    </div>
 
   render: ->
     {courseId, roleId} = @props
@@ -53,6 +65,8 @@ module.exports = React.createClass
       <Guide
         courseId={courseId}
         heading={@renderHeading()}
+        weakerExplanation={@renderWeakerExplanation()}
+        emptyMessage={@renderEmptyMessage()}
         weakerTitle="Their weakest topics"
         onReturn={@returnToDashboard}
         allSections={LearningGuide.TeacherStudent.store.getAllSections(courseId, {roleId})}

@@ -8,6 +8,8 @@ _ = require 'underscore'
 LearningGuide = require '../../flux/learning-guide'
 
 Guide = require './guide'
+ColorKey    = require './color-key'
+InfoLink    = require './info-link'
 
 module.exports = React.createClass
   displayName: 'LearningGuideTeacherDisplay'
@@ -26,33 +28,53 @@ module.exports = React.createClass
 
   renderHeading: ->
     periods = LearningGuide.Teacher.store.get(@props.courseId)
-    <div className='guide-heading'>
-      <h3 className='guide-group-title'>Learning Forecast</h3>
-      <Router.Link activeClassName='' to='viewTeacherDashBoard'
-        className='btn btn-default pull-right'
-        params={courseId: @props.courseId}>
-        Return to Dashboard
-      </Router.Link>
+    <BS.Row>
+      <BS.Col xs=12>
+        <BS.Panel className='guide-heading'>
+          <div className='guide-group-title'>
+            Performance Forecast <InfoLink type='teacher'/>
+          </div>
+          <div className='info'>
+            <div className='guide-group-key teacher'>
+              <ColorKey />
+            </div>
+            <Router.Link activeClassName='' to='viewTeacherDashBoard'
+              className='btn btn-default pull-right'
+              params={courseId: @props.courseId}>
+              Return to Dashboard
+            </Router.Link>
+          </div>
+        </BS.Panel>
+      </BS.Col>
       <CoursePeriodsNavShell
         periods={periods}
         handleSelect={@selectPeriod}
         intialActive={@state.periodId}
         courseId={@props.courseId} />
-    </div>
+    </BS.Row>
+
+
 
   renderEmptyMessage: ->
-    <div>No questions worked.</div>
+    <div className="no-data-message">There have been no questions worked for this period.</div>
 
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
+
+  renderWeakerExplanation: ->
+    <div className='explanation'>
+      <p>Tutor shows the weakest topics for each period.</p>
+      <p>Students may need your help in those areas.</p>
+    </div>
 
   render: ->
     {courseId} = @props
     <BS.Panel className='learning-guide teacher'>
       <Guide
         courseId={courseId}
-        weakerTitle="The weakest topics"
+        weakerTitle="Weaker Areas"
         heading={@renderHeading()}
+        weakerExplanation={@renderWeakerExplanation()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}
         allSections={LearningGuide.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}

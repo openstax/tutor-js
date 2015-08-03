@@ -20,7 +20,7 @@ STUDENT_MENU = [
   }
   {
     name: 'viewGuide'
-    label: 'Learning Guide'
+    label: 'Performance Forecast'
   }
   {
     name: 'viewReferenceBook'

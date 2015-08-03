@@ -6,6 +6,8 @@ _ = require 'underscore'
 LearningGuide = require '../../flux/learning-guide'
 
 Guide = require './guide'
+ColorKey    = require './color-key'
+InfoLink    = require './info-link'
 
 module.exports = React.createClass
   displayName: 'LearningGuideStudentDisplay'
@@ -22,16 +24,35 @@ module.exports = React.createClass
     @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
 
   renderHeading: ->
-    <div className='guide-heading'>
-      <h3 className='guide-group-title'>Learning Forecast</h3>
-      <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
+    <BS.Panel className='guide-heading'>
+      <div className='guide-group-title'>
+        Performance Forecast <InfoLink type='student'/>
+      </div>
+
+      <div className='info'>
+        <div className='guide-group-key'>
+          <div className='guide-key'>
+            Click on the bar to practice the topic
+          </div>
+          <ColorKey />
+        </div>
+
+        <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
         params={courseId: @props.courseId}>
         Return to Dashboard
-      </Router.Link>
-    </div>
+        </Router.Link>
+
+      </div>
+    </BS.Panel>
 
   renderEmptyMessage: ->
-    <div>You have not worked any questions yet.</div>
+    <div className="no-data-message">You have not worked any questions yet.</div>
+
+  renderWeakerExplanation: ->
+    <div className='explanation'>
+      <p>Tutor shows your weakest topics so you can practice to improve.</p>
+      <p>Try to get all of your topics to green!</p>
+    </div>
 
   render: ->
     {courseId} = @props
@@ -39,7 +60,8 @@ module.exports = React.createClass
       <Guide
         onPractice={@onPractice}
         courseId={courseId}
-        weakerTitle="My weakest topics"
+        weakerTitle="My Weaker Areas"
+        weakerExplanation={@renderWeakerExplanation()}
         heading={@renderHeading()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}

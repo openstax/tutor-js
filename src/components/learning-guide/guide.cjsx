@@ -23,14 +23,30 @@ module.exports = React.createClass
     onPractice: React.PropTypes.func
     onReturn:   React.PropTypes.func.isRequired
     weakerTitle: React.PropTypes.string.isRequired
+    weakerExplanation: React.PropTypes.element
 
-  render: ->
-    {courseId} = @props
-
+  renderWeaker: ->
     # sort sections by current level of understanding
     sortedSections = _.sortBy(@props.allSections, 'current_level')
     # if there are less than 4 sections, use 1/2 of the available ones
     weakStrongCount = Math.min(sortedSections.length / 2, 4)
+
+    <div className="chapter-panel weaker">
+      <div className='chapter-heading metric'>
+        <span className='title'>{@props.weakerTitle}</span>
+        {@props.weakerExplanation}
+        {if @props.onPractice
+          <PracticeButton title='Practice All' courseId={@props.courseId} /> }
+      </div>
+      <div className='sections'>
+        {for section, i in _.first(sortedSections, weakStrongCount)
+          <Section key={i} section={section} {...@props} />}
+      </div>
+
+    </div>
+
+  render: ->
+    {courseId} = @props
 
     noData = @props.allSections.length is 0
 
@@ -41,35 +57,25 @@ module.exports = React.createClass
       {@props.emptyMessage if noData}
 
       <div className='guide-group'>
+
         <BS.Row>
-          <BS.Col mdPull={0} xs={12} md={9}>
-              {for chapter, i in (@props.chapters or [])
-                <BS.Col key={i} lg={4} md={4} sm={6} xs={12}>
-                  <Chapter chapter={chapter} {...@props} />
-                </BS.Col>}
-          </BS.Col>
-          <BS.Col mdPush={0} xs={12} md={3}>
-            <div className="chapter-panel weaker">
-              <div className='chapter-heading metric'>
-                {@props.weakerTitle}
-              </div>
-              <div>
-                {for section, i in _.first(sortedSections, weakStrongCount)
-                  <Section key={i} section={section} {...@props} />}
-              </div>
-                {if @props.onPractice
-                  <PracticeButton title='Practice Weaker' courseId={@props.courseId} /> }
-            </div>
+          <BS.Col xs={12}>
+            {@renderWeaker() unless noData}
           </BS.Col>
         </BS.Row>
+
+        <BS.Row>
+          {for chapter, i in (@props.chapters or [])
+            <BS.Col key={i} lg={12} md={12} sm={12} xs={12}>
+              <Chapter chapter={chapter} {...@props} />
+            </BS.Col>}
+        </BS.Row>
+
       </div>
 
 
       <div className='guide-footer'>
-        <div className='guide-key'>
-          {'Click on the bar to practice the topic' if @props.onPractice}
-        </div>
-        <ColorKey />
+
 
       </div>
 
