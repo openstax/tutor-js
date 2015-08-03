@@ -143,7 +143,7 @@ testWithRole = (roleType) ->
       navDropDown = navbarComponent.refs.navDropDown.getDOMNode()
       dropdownItems = navDropDown.querySelectorAll('li')
 
-      roleItems = Array.prototype.slice.call(dropdownItems, 0, -3)
+      roleItems = Array.prototype.slice.call(dropdownItems, 0, -4)
 
       roleLabels = _.map roleItems, (item) ->
         item.innerText
