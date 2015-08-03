@@ -52,7 +52,7 @@ TEACHER_MENU = [
   }
   {
     name: 'courseSettings'
-    label: 'Course Settings'
+    label: 'Course Roster'
   }
   {
     name: 'viewReferenceBook'
