@@ -6,10 +6,14 @@ TaskPlanStatsConfig = {
   exports:
     getPeriods: (id) ->
       plan = @_get(id)
-      periods = _.map(plan.stats, (stat) ->
-        id: stat.period_id
-        name: stat.name
-      )
+      periods = _.chain(plan.stats)
+        .map((stat) ->
+          id: stat.period_id
+          name: stat.name
+        )
+        .sortBy((period) ->
+          period.name
+        ).value()
 
 }
 
