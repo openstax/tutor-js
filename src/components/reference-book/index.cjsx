@@ -12,38 +12,33 @@ moment = require 'moment'
 ReferenceBook = require './reference-book'
 ReferenceBookPage = require './page'
 
-ReferenceBookFirstPage  = React.createClass
-  displayName: 'ReferenceBookPageFirstPage'
-  contextTypes:
-    router: React.PropTypes.func
-  render: ->
-    {courseId} = @context.router.getCurrentParams()
-    page = _.first ReferenceBookStore.getPages(courseId)
-    <LoadableItem
-      id={page.cnx_id}
-      store={ReferenceBookPageStore}
-      actions={ReferenceBookPageActions}
-      renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={page.cnx_id}/> }
-    />
-
-
-
 ReferenceBookPageShell = React.createClass
   displayName: 'ReferenceBookPageShell'
   contextTypes:
     router: React.PropTypes.func
 
-  render: ->
-    {courseId, cnxId, section} = @context.router.getCurrentParams()
-    if section and not cnxId
+  getProps: ->
+    params = {courseId, cnxId, section} = @context.router.getCurrentParams()
+    return params if courseId? and cnxId? and section?
+
+    if section?
       page = ReferenceBookStore.getChapterSectionPage({courseId, section})
-      cnxId = page?.cnx_id
-    if cnxId
+    else
+      section = ReferenceBookStore.getFirstSection(courseId)
+      page = _.first ReferenceBookStore.getPages(courseId)
+
+    cnxId ?= page.cnx_id
+
+    {cnxId, section, courseId}
+
+  render: ->
+    pageProps = @getProps()
+    if pageProps.cnxId?
       <LoadableItem
-        id={cnxId}
+        id={pageProps.cnxId}
         store={ReferenceBookPageStore}
         actions={ReferenceBookPageActions}
-        renderItem={ -> <ReferenceBookPage courseId=courseId cnxId={cnxId}/> }
+        renderItem={ -> <ReferenceBookPage {...pageProps}/> }
       />
     else
       <Invalid />
@@ -64,4 +59,4 @@ ReferenceBookShell = React.createClass
     />
 
 
-module.exports = {ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage}
+module.exports = {ReferenceBookShell, ReferenceBookPageShell}

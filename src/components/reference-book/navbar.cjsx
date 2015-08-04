@@ -20,11 +20,13 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   renderSectionTitle: ->
-    params = @context.router.getCurrentParams()
-    title = ReferenceBookStore.getPageTitle(params)
+    {section, courseId} = @context.router.getCurrentParams()
+    section ?= ReferenceBookStore.getFirstSection(courseId)
+    title = ReferenceBookStore.getPageTitle({section, courseId})
+
     <BS.Nav navbar className="section-title">
-        <ChapterSection section={params.section.split('.')} />
-        {title}
+      <ChapterSection section={section} />
+      {title}
     </BS.Nav>
 
 
