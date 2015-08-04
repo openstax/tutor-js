@@ -5,46 +5,54 @@ selenium = require 'selenium-webdriver'
 TEACHER_USERNAME = 'teacher01'
 
 
+
+# -----------------------------
+# Start the test
+# -----------------------------
+
+
 describe 'Assignment Creation Tests', ->
 
-  @__it 'Creates a draft Bio Reading', ->
-    @timeout 10 * 60 * 1000 # ~4 min to publish (plus mathjax CDN)
-
-    # @screenshot('debugging-snapshot.png')
-
+  @__before ->
     # -----------------------------
     # Test helper functions
     # -----------------------------
 
     # Helper for setting a date in the date picker
-    setDate = (css, isToday) =>
+    @setDate = (css, date) =>
       @driver.findElement(css: "#{css} .datepicker__input").click()
-      if isToday
-        @waitClick(css: '.datepicker__container .datepicker__month .datepicker__day.datepicker__day--today')
-      else
-        @waitClick(css: '.datepicker__container .datepicker__month .datepicker__day:not(.datepicker__day--disabled):not(.datepicker__day--today)')
-        # TODO: May need to click on next month
+      switch date
+        when 'TODAY'
+          @waitClick(css: '.datepicker__container .datepicker__month .datepicker__day.datepicker__day--today')
+        when 'NOT_TODAY'
+          @waitClick(css: '.datepicker__container .datepicker__month .datepicker__day:not(.datepicker__day--disabled):not(.datepicker__day--today)')
+          # TODO: May need to click on next month
+        when 'EARLIEST'
+          @waitClick(css: '.datepicker__container .datepicker__month .datepicker__day:not(.datepicker__day--disabled)')
+          # TODO: May need to click on next month
+        else throw new Error("BUG: Invalid date: '#{date}'")
+
       # Wait until the modal closes after clicking the date
       @driver.wait =>
         @driver.isElementPresent(css: '.datepicker__container').then (isPresent) -> not isPresent
 
     #   name
     #   description
-    #   opensAt: 'TODAY', 'NOT_TODAY'
-    #   dueAt: 'TODAY', 'NOT_TODAY'
+    #   opensAt: 'TODAY', 'NOT_TODAY', 'EARLIEST'
+    #   dueAt: 'TODAY', 'NOT_TODAY', 'EARLIEST'
     #   periodDates: [
     #     null
     #     {opensAt: 'TODAY', dueAt: 'TODAY'}
     #   ]
     #   sections: ['1.1', '2.4']
     #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
-    editReading = ({name, description, opensAt, dueAt, sections, action}) =>
+    @editReading = ({name, description, opensAt, dueAt, sections, action}) =>
       if name
-        @waitAnd(css: '#reading-title').sendKeys(title)
+        @waitAnd(css: '#reading-title').sendKeys(name)
       if opensAt
-        setDate('.-assignment-open-date', opensAt is 'TODAY')
+        @setDate('.-assignment-open-date', opensAt)
       if dueAt
-        setDate('.-assignment-due-date', dueAt is 'TODAY')
+        @setDate('.-assignment-due-date', dueAt)
       if sections
         # Open the chapter list
         @driver.findElement(css: '#reading-select').click()
@@ -73,15 +81,18 @@ describe 'Assignment Creation Tests', ->
         when 'PUBLISH' then @waitClick(css: '.async-button.-publish')
         when 'SAVE' then @waitClick(css: '.async-button.-save')
         when 'DELETE'
-          @waitClick(css: '.async-button.delete-link')
+          console.log 'deleting...'
+          @waitClick(css: '.async-button.delete-link').then -> console.log 'delete clicked'
           # Accept the browser confirm dialog
           @driver.wait(selenium.until.alertIsPresent()).then (alert) ->
+            console.log 'accepted'
             alert.accept()
 
 
-    # -----------------------------
-    # Start the test
-    # -----------------------------
+  @__it 'Creates a Bio draft Reading with opensAt to today and deletes', ->
+    @timeout 30 * 1000 # ~30 sec to create and delete a draft (plus mathjax CDN)
+
+    # @screenshot('debugging-snapshot.png')
 
     # TODO: escape arbitrary title quotes with &quote; or `\'`
     title = "Test Reading Title: #{new Date()}"
@@ -94,13 +105,12 @@ describe 'Assignment Creation Tests', ->
     @waitClick(css: '.add-assignment .dropdown-toggle')
     @waitClick(linkText: 'Add Reading')
 
-    editReading
+    @editReading
       name: title
-      opensAt: 'NOT_TODAY' # null
-      dueAt: 'NOT_TODAY'
+      # opensAt: 'NOT_TODAY'
+      dueAt: 'EARLIEST'
       sections: [1.1, 1.2, 2.1, 3]
       action: 'SAVE'
-
 
     # Wait until the Calendar loads back up
     # And then verify it was added by clicking on it again
@@ -108,4 +118,37 @@ describe 'Assignment Creation Tests', ->
     @waitAnd(css: '.calendar-container')
     @waitClick(css: "[data-title='#{title}']")
 
-    editReading(action: 'DELETE')
+    @editReading(action: 'DELETE')
+    @waitAnd(css: '.calendar-container')
+
+
+  @__it 'Publishes a Reading with opensAt to tomorrow and deletes', ->
+    @timeout 10 * 60 * 1000 # ~4min to publish a draft (plus mathjax CDN)
+
+    # TODO: escape arbitrary title quotes with &quote; or `\'`
+    title = "Test Reading Title: #{new Date()}"
+
+    @loginDev(TEACHER_USERNAME)
+
+    # Go to the bio dashboard
+    @waitClick(css: '[data-category="biology"]')
+
+    @waitClick(css: '.add-assignment .dropdown-toggle')
+    @waitClick(linkText: 'Add Reading')
+
+    @editReading
+      name: title
+      opensAt: 'NOT_TODAY'
+      dueAt: 'EARLIEST'
+      sections: [1.2]
+      action: 'PUBLISH'
+
+    # Wait until the Calendar loads back up
+    # And then verify it was added by clicking on it again
+    # BUG: .course-list shouldn't be in the DOM
+    @waitAnd(css: '.calendar-container')
+    @waitClick(css: "[data-title='#{title}']")
+    @waitClick(css: '.-edit-assignment')
+
+    @editReading(action: 'DELETE')
+    @waitAnd(css: '.calendar-container')

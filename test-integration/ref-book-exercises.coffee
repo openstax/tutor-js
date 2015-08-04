@@ -5,6 +5,7 @@ selenium = require 'selenium-webdriver'
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 TEACHER_USERNAME = 'teacher01'
 
+SECTIONS_TO_TEST = 10
 
 describe 'Reference Book Exercises', ->
 
@@ -23,7 +24,7 @@ describe 'Reference Book Exercises', ->
         # Wait until the modal closes after clicking the date
         @driver.isElementPresent(css: '.loadable.is-loading, .loading-exercise').then (isPresent) -> not isPresent
 
-      for i in [1..80]
+      for i in [1..SECTIONS_TO_TEST]
         # Selenium sometimes keeps pressing the same next button (doneLoading doesn't seem to work 100%)
         @driver.findElement(css: 'a.nav.next').getAttribute('href').then (oldHref) =>
           console.log '----------------'

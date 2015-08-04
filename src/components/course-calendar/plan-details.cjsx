@@ -25,7 +25,7 @@ CoursePlanDetails = React.createClass
 
     if type is 'external'
       reviewButton = <Router.Link to='viewPerformance' params={linkParams}>
-        <BS.Button>View Performance Report</BS.Button>
+        <BS.Button className='-view-performance'>View Performance Report</BS.Button>
       </Router.Link>
 
     reviewButton
@@ -48,7 +48,7 @@ CoursePlanDetails = React.createClass
       <div className='modal-footer'>
         {reviewButton}
         <Router.Link to={editLinkName} params={linkParams}>
-          <BS.Button>Edit Assignment</BS.Button>
+          <BS.Button className='-edit-assignment'>Edit Assignment</BS.Button>
         </Router.Link>
       </div>
     </BS.Modal>
