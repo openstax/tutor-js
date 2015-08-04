@@ -7,6 +7,8 @@ HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
 BookContentMixin = require '../book-content-mixin'
 GetPositionMixin = require '../get-position-mixin'
+ChapterSectionMixin = require '../chapter-section-mixin'
+
 {ReferenceBookExerciseShell} = require './exercise'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
@@ -19,22 +21,21 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     cnxId: React.PropTypes.string.isRequired
-  contextTypes:
-    router: React.PropTypes.func
-  mixins: [BookContentMixin, GetPositionMixin]
-
+  mixins: [BookContentMixin, GetPositionMixin, ChapterSectionMixin]
+  componentWillMount: ->
+    @setState(skipZeros: false)
   getSplashTitle: ->
     ReferenceBookStore.getPageTitle(@props)
 
   prevLink: (info) ->
     <Router.Link className='nav prev' to='viewReferenceBookSection'
-      params={courseId: @props.courseId, section: info.prev.chapter_section.join('.')}>
+      params={courseId: @props.courseId, section: @sectionFormat(info.prev.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
     <Router.Link className='nav next' to='viewReferenceBookSection'
-      params={courseId: @props.courseId, section: info.next.chapter_section.join('.')}>
+      params={courseId: @props.courseId, section: @sectionFormat(info.next.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
