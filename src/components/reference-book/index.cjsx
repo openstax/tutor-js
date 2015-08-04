@@ -17,12 +17,32 @@ ReferenceBookPageShell = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     cnxId: React.PropTypes.string.isRequired
+
+  getDefaultState: ->
+    previousPageProps: null
+
+  componentWillReceiveProps: ->
+    @setState(previousPageProps: @props)
+
+  renderLoading: (previousPageProps, currentProps) ->
+    (refreshButton) ->
+      if previousPageProps? and not _.isEqual(previousPageProps, currentProps)
+        loading = <div className='page-loading loadable is-loading'>
+          {refreshButton}
+          <ReferenceBookPage {...previousPageProps}/>
+        </div>
+      else
+        loading = <div className='loadable is-loading'>Loading... {refreshButton}</div>
+
+      loading
+
   render: ->
     if @props.cnxId?
       <LoadableItem
         id={@props.cnxId}
         store={ReferenceBookPageStore}
         actions={ReferenceBookPageActions}
+        renderLoading={@renderLoading(@state?.previousPageProps, @props)}
         renderItem={ => <ReferenceBookPage {...@props}/> }
       />
     else

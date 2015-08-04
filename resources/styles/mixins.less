@@ -126,6 +126,24 @@
 }
 
 
+.tutor-subtle-loading(@loading-text: 'Loading...') {
+  &::after{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: @loading-text;
+    // TODO update colors
+    background: rgba(255, 255, 255, 0.75);
+    top: 0;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 10em;
+    opacity: 1;
+
+    .transition(opacity .25s ease-in-out);
+  }
+}
+
 // If you want to use these please uncomment.
 //
 // .tutor-shadow(3) {
