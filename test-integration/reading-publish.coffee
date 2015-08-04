@@ -122,7 +122,34 @@ describe 'Assignment Creation Tests', ->
     @waitAnd(css: '.calendar-container')
 
 
-  @__it 'Publishes a Reading with opensAt to tomorrow and deletes', ->
+  @__it 'Shows Validation Error when saving a blank Reading', ->
+    @timeout 2 * 60 * 1000
+
+    title = "Test: #{@freshId()}"
+
+    @loginDev(TEACHER_USERNAME)
+
+    # Go to the bio dashboard
+    @waitClick(css: '[data-category="biology"]')
+
+    @waitClick(css: '.add-assignment .dropdown-toggle')
+    @waitClick(linkText: 'Add Reading')
+
+    @editReading
+      action: 'SAVE'
+
+    @waitAnd(css: '.assignment-name.has-error .required-hint')
+    .isDisplayed().then (isDisplayed) ->
+      expect(isDisplayed).to.be.true
+
+    @waitAnd(css: '.-assignment-due-date .form-control.empty ~ .required-hint')
+    .isDisplayed().then (isDisplayed) ->
+      expect(isDisplayed).to.be.true
+
+    @waitAnd(css: '.readings-required').isDisplayed().then (isDisplayed) ->
+      expect(isDisplayed).to.be.true
+
+
     @timeout 10 * 60 * 1000 # ~4min to publish a draft (plus mathjax CDN)
 
     title = "Test: #{@freshId()}"
