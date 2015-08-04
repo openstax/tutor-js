@@ -30,9 +30,11 @@ module.exports = React.createClass
     currentLocale: TimeHelper.getCurrentLocales()
 
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
+  # This logic could be improved, all it checks is if a title is set on a new task plan
   hasUnsavedState: ->
-    true
+    TaskPlanStore.isNew(@props.id) and TaskPlanStore.get(@props.id).title
 
+  unsavedStateMessages: -> 'The assignment has unsaved changes'
 
   mapPeriods: (opensAt, dueAt) ->
     planId = @props.id
