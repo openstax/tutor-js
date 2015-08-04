@@ -1,5 +1,5 @@
 selenium = require 'selenium-webdriver'
-test = require('selenium-webdriver/testing')
+seleniumMocha = require('selenium-webdriver/testing')
 {Promise} = require('es6-promise')
 
 chai = require 'chai'
@@ -29,17 +29,18 @@ screenshot = (driver, filename) ->
 
 module.exports =
   describe: (name, cb) ->
-    test.describe name, ->
+    seleniumMocha.describe name, ->
 
-      {it, xit, before, after, afterEach, beforeEach} = test
-      @__it = it
-      @__xit = xit
-      @__before = before
-      @__after = after
+      {it, xit, before, after, afterEach, beforeEach} = seleniumMocha
+      @it = it
+      @xit = xit
+      @before = before
+      @after = after
+      # Selenium uses a special `@beforeEach` and `@afterEach`
       @__beforeEach = beforeEach
       @__afterEach = afterEach
 
-      @__before ->
+      @before ->
         @timeout 30 * 1000 # Wait 30sec before timing out
 
         @driver = new selenium.Builder()
@@ -141,7 +142,7 @@ module.exports =
         @logout()
 
 
-      @__after ->
+      @after ->
         @driver.quit()
 
       cb.call(@)

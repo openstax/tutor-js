@@ -13,7 +13,7 @@ TEACHER_USERNAME = 'teacher01'
 
 describe 'Assignment Creation Tests', ->
 
-  @__before ->
+  @before ->
     # -----------------------------
     # Test helper functions
     # -----------------------------
@@ -90,7 +90,7 @@ describe 'Assignment Creation Tests', ->
             alert.accept()
 
 
-  @__it 'Creates a Bio draft Reading with opensAt to today and deletes', ->
+  @it 'Creates a Bio draft Reading with opensAt to today and deletes', ->
     @timeout 30 * 1000 # ~30 sec to create and delete a draft (plus mathjax CDN)
 
     # @screenshot('debugging-snapshot.png')
@@ -122,7 +122,7 @@ describe 'Assignment Creation Tests', ->
     @waitAnd(css: '.calendar-container')
 
 
-  @__it 'Shows Validation Error when saving a blank Reading', ->
+  @it 'Shows Validation Error when saving a blank Reading', ->
     @timeout 2 * 60 * 1000
 
     title = "Test: #{@freshId()}"
@@ -150,6 +150,7 @@ describe 'Assignment Creation Tests', ->
       expect(isDisplayed).to.be.true
 
 
+  @xit 'Publishes a Reading with opensAt to tomorrow and deletes', ->
     @timeout 10 * 60 * 1000 # ~4min to publish a draft (plus mathjax CDN)
 
     title = "Test: #{@freshId()}"
