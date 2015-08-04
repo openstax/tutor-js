@@ -31,6 +31,8 @@ require './components/reference-book.spec'
 require './components/course-settings.spec'
 require './components/tutor-input.spec'
 require './components/icon.spec'
+require './components/tutor-dialog.spec'
+require './components/unsaved-state.spec'
 
 require './crud-store.spec'
 require './task-store.spec'
