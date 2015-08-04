@@ -11,6 +11,8 @@ sandbox = null
 ROUTER = null
 RENDERED = []
 
+{TransitionAssistant} = require '../../../src/components/unsaved-state-mixin'
+
 # Mock a router for the context
 beforeEach ->
   RENDERED = []
@@ -19,9 +21,6 @@ beforeEach ->
   ROUTER.transitionTo = sandbox.spy()
 
 afterEach ->
-  for comp in RENDERED
-    dom = React.findDOMNode(comp)
-    React.unmountComponentAtNode(dom) if dom
   sandbox.restore()
 
 # A wrapper component to setup the router context
@@ -39,16 +38,20 @@ Testing = {
 
   renderComponent: (component, options) ->
     options.props ||= {}
-    new Promise (resolve, reject) ->
+    div = document.createElement('div')
+    promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
       props._wrapped_component = component
-      wrapper = ReactTestUtils.renderIntoDocument React.createElement(Wrapper, props)
-      RENDERED.push(wrapper)
+      wrapper = React.render( React.createElement(Wrapper, props), div )
       resolve(
         wrapper,
         element: wrapper.refs.element,
         dom: React.findDOMNode(wrapper.refs.element)
       )
+    )
+    # defer adding the then callback so it'll be called after whatever is attached after the return
+    _.defer -> promise.then -> React.unmountComponentAtNode(div)
+    promise
 
   actions: commonActions
 
