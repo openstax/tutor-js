@@ -49,6 +49,9 @@ module.exports =
 
         @screenshot = (args...) => screenshot(@driver, args...)
 
+        # Generate a set of 5 random characters
+        @freshId = -> Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+
         @waitAnd = (locator) =>
           @driver.wait selenium.until.elementLocated(locator)
           # Because of animations an element might be in the DOM but not visible
@@ -110,8 +113,16 @@ module.exports =
 
 
       @__afterEach ->
-        @timeout 15 * 1000 # For tests with alerts I needed to add this.
+        @timeout 2 * 60 * 1000 # Server might still be deleting/publishing
         {state, title} = @currentTest
+
+        if state is 'failed'
+          console.log 'Selenium Schedule:'
+          console.log @driver.controlFlow().getSchedule()
+          console.log '------------------'
+          screenshot(@driver, "test-failed-#{title}.png")
+        # else
+        #   screenshot(@driver, "test-#{title}.png")
 
         # in case any alerts switched focus
         # @driver.switchTo().defaultContent().then -> console.log 'sdkjfhsdkfh'
@@ -122,10 +133,10 @@ module.exports =
             console.log 'JS Error! ' + msg
             screenshot(@driver, "test-failed-#{title}.png")
 
-        if state is 'failed'
-          screenshot(@driver, "test-failed-#{title}.png")
-        # else
-        #   screenshot(@driver, "test-#{title}.png")
+
+        # Print out all the console messages
+        # logs = @driver.manage().logs().get('browser').then (lines) ->
+        #   console.log line.level.name, line.message for line in lines
 
         @logout()
 

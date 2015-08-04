@@ -47,6 +47,8 @@ describe 'Assignment Creation Tests', ->
     #   sections: ['1.1', '2.4']
     #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
     @editReading = ({name, description, opensAt, dueAt, sections, action}) =>
+      @waitAnd(css: '.reading-plan') # Just confirm the plan is actually open
+
       if name
         @waitAnd(css: '#reading-title').sendKeys(name)
       if opensAt
@@ -54,8 +56,9 @@ describe 'Assignment Creation Tests', ->
       if dueAt
         @setDate('.-assignment-due-date', dueAt)
       if sections
-        # Open the chapter list
+        # Open the chapter list by clicking the button and waiting for the list to load
         @driver.findElement(css: '#reading-select').click()
+        @waitAnd(css: '.select-reading-dialog')
 
         # Expand the chapter and then select the section
         for section in sections
@@ -81,11 +84,9 @@ describe 'Assignment Creation Tests', ->
         when 'PUBLISH' then @waitClick(css: '.async-button.-publish')
         when 'SAVE' then @waitClick(css: '.async-button.-save')
         when 'DELETE'
-          console.log 'deleting...'
-          @waitClick(css: '.async-button.delete-link').then -> console.log 'delete clicked'
+          @waitClick(css: '.async-button.delete-link')
           # Accept the browser confirm dialog
           @driver.wait(selenium.until.alertIsPresent()).then (alert) ->
-            console.log 'accepted'
             alert.accept()
 
 
@@ -94,8 +95,7 @@ describe 'Assignment Creation Tests', ->
 
     # @screenshot('debugging-snapshot.png')
 
-    # TODO: escape arbitrary title quotes with &quote; or `\'`
-    title = "Test Reading Title: #{new Date()}"
+    title = "Test: #{@freshId()}"
 
     @loginDev(TEACHER_USERNAME)
 
@@ -125,8 +125,7 @@ describe 'Assignment Creation Tests', ->
   @__it 'Publishes a Reading with opensAt to tomorrow and deletes', ->
     @timeout 10 * 60 * 1000 # ~4min to publish a draft (plus mathjax CDN)
 
-    # TODO: escape arbitrary title quotes with &quote; or `\'`
-    title = "Test Reading Title: #{new Date()}"
+    title = "Test: #{@freshId()}"
 
     @loginDev(TEACHER_USERNAME)
 
@@ -148,7 +147,13 @@ describe 'Assignment Creation Tests', ->
     # BUG: .course-list shouldn't be in the DOM
     @waitAnd(css: '.calendar-container')
     @waitClick(css: "[data-title='#{title}']")
-    @waitClick(css: '.-edit-assignment')
+
+    # Since the Assignment has not been opened yet there is no "Edit Assignment"
+    @waitAnd(css: '.-edit-assignment, .reading-plan')
+    # If there is a popup then click the "Edit" button
+    @driver.isElementPresent(css: '.-edit-assignment').then (isPresent) =>
+      if isPresent
+        @waitClick(css: '.-edit-assignment')
 
     @editReading(action: 'DELETE')
     @waitAnd(css: '.calendar-container')
