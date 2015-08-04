@@ -73,7 +73,7 @@ ReviewExerciseCard = React.createClass
     if confirm('Are you sure you want to remove this exercise?')
       TaskPlanActions.removeExercise(@props.planId, @props.exercise)
 
-  renderHeader: ->
+  getActionButtons: ->
     unless @props.index is 0
       moveUp =
         <BS.Button onClick={@moveExerciseUp} className="btn-xs -move-exercise-up">
@@ -86,8 +86,7 @@ ReviewExerciseCard = React.createClass
         <i className="fa fa-arrow-down"/>
       </BS.Button>
 
-    <span className="-exercise-header">
-      <span className="exercise-number">{@props.index + 1}</span>
+    if not TaskPlanStore.isVisibleToStudents(@props.planId)
       <span className="pull-right card-actions">
         {moveUp}
         {moveDown}
@@ -95,6 +94,13 @@ ReviewExerciseCard = React.createClass
           <i className="fa fa-close"/>
         </BS.Button>
       </span>
+
+  renderHeader: ->
+    actionButtons = @getActionButtons()
+
+    <span className="-exercise-header">
+      <span className="exercise-number">{@props.index + 1}</span>
+      {actionButtons}
     </span>
 
   getPanelStyle: ->

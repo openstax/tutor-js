@@ -14,18 +14,9 @@ describe 'Learning Guide Chapter Panel', ->
       onPractice: sinon.spy()
     }
 
-  it 'renders expanded and can be toggled', ->
-    Testing.renderComponent( Chapter, props: @props ).then ({dom}) ->
-      expect(_.toArray(dom.classList)).to.include('expanded')
-      expect(dom.querySelector('.view-toggle').textContent).to.equal('View Less')
-      Testing.actions.clickButton(dom, '.view-toggle')
-      expect(_.toArray(dom.classList)).to.include('collapsed')
-      expect(_.toArray(dom.classList)).to.not.include('expanded')
-      expect(dom.querySelector('.view-toggle').textContent).to.equal('View More')
-
   it 'reports how many problems were worked', ->
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked').textContent).to.equal('10 problems worked')
+      expect(dom.querySelector('.amount-worked').textContent).to.equal('10 problems worked in this chapter')
 
   it 'displays the title', ->
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) =>

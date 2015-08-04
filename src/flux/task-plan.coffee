@@ -364,6 +364,12 @@ TaskPlanConfig =
 
       dueAt
 
+    getMinDueAt: (id, periodId) ->
+      opensAt = moment(@exports.getOpensAt.call(@, id, periodId))
+      if opensAt.isBefore(TimeStore.getNow())
+        opensAt = moment(TimeStore.getNow())
+      opensAt.startOf('day').add(1, 'day')
+
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)
       {tasking_plans} = plan

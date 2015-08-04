@@ -23,8 +23,8 @@ PerformanceExportConfig = {
       exportData = _.clone(jobData)
       exportData.exportFor = id
 
-      @_asyncStatus[id] = exportData.state
-      @emit("performanceExport.#{exportData.state}", exportData)
+      @_asyncStatus[id] = exportData.status
+      @emit("performanceExport.#{exportData.status}", exportData)
       @emitChange()
 
   getJobIdFromJobUrl: (jobUrl) ->
@@ -85,8 +85,8 @@ PerformanceExportConfig = {
     isExported: (id, jobId) ->
       jobId ?= _.last(@_getJobs(id))
       job = JobStore.get(jobId)
-      {state} = job if job?
-      state is EXPORTED
+      {status} = job if job?
+      status is EXPORTED
 
     getLatestExport: (id) ->
       perfExports = @_get(id)

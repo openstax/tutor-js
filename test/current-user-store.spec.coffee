@@ -20,7 +20,7 @@ STUDENT_MENU = [
   }
   {
     name: 'viewGuide'
-    label: 'Learning Guide'
+    label: 'Performance Forecast'
   }
   {
     name: 'viewReferenceBook'
@@ -39,7 +39,7 @@ TEACHER_MENU = [
   }
   {
     name: 'courseSettings'
-    label: 'Course Settings'
+    label: 'Course Roster'
   }
   {
     name: 'viewReferenceBook'

@@ -169,11 +169,10 @@ module.exports = React.createClass
             id='reading-open-date'
             ref="openDate"
             className='-assignment-open-date'
-            readOnly={TaskPlanStore.isPublished(@props.id)}
             required={not @state.showingPeriods}
             label="Open Date"
             onChange={@setOpensAt}
-            disabled={@state.showingPeriods}
+            disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
             min={TimeStore.getNow()}
             max={TaskPlanStore.getDueAt(@props.id)}
             value={commonOpensAt}
@@ -185,12 +184,11 @@ module.exports = React.createClass
             id='reading-due-date'
             ref="dueDate"
             className='-assignment-due-date'
-            readOnly={TaskPlanStore.isPublished(@props.id)}
             required={not @state.showingPeriods}
             label="Due Date"
             onChange={@setDueAt}
             disabled={@state.showingPeriods}
-            min={TaskPlanStore.getOpensAt(@props.id)}
+            min={TaskPlanStore.getMinDueAt(@props.id)}
             value={commonDueAt}
             currentLocale={@state.currentLocale} />
         </BS.Col>
@@ -250,6 +248,10 @@ module.exports = React.createClass
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, plan.id)
     if not taskingOpensAt or isNaN(taskingOpensAt.getTime())
       taskingOpensAt = TimeStore.getNow()
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id, plan.id)
+    if not taskingDueAt or isNaN(taskingDueAt.getTime())
+      taskingDueAt = moment(TimeStore.getNow()).startOf('day').add(1, 'day')
+
     <BS.Row key={plan.id} className="tasking-plan">
       <BS.Col sm=4 md=3>
         <input
@@ -260,7 +262,7 @@ module.exports = React.createClass
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          readOnly={TaskPlanStore.isPublished(@props.id)}
+          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
           label="Open Date"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
@@ -270,12 +272,11 @@ module.exports = React.createClass
           currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          readOnly={TaskPlanStore.isPublished(@props.id)}
           label="Due Date"
           required={@state.showingPeriods}
-          min={taskingOpensAt}
+          min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}
           onChange={_.partial(@setDueAt, _, plan)}
-          value={TaskPlanStore.getDueAt(@props.id, plan.id)}
+          value={taskingDueAt}
           currentLocale={@state.currentLocale} />
         </BS.Col>
     </BS.Row>

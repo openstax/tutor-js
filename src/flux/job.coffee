@@ -15,14 +15,14 @@ JobConfig = {
       # unless the final status has been reached or
       # the max times this job should be checked has be exceeded,
       # check this job
-      unless (finalStatus.indexOf(jobData.state) > -1) or @_checkUntil[id].count > maxRepeats
-        # if job state has checked, emit an update
+      unless (finalStatus.indexOf(jobData.status) > -1) or @_checkUntil[id].count > maxRepeats
+        # if job status has checked, emit an update
         previousJobData = @_get(id)
-        @emit("job.#{id}.updated", jobData) unless previousJobData?.state is obj.state
+        @emit("job.#{id}.updated", jobData) unless previousJobData?.status is obj.status
 
         setTimeout(checkJob, interval)
       else
-        # otherwise, stop the checking, and emit the current state as the final state
+        # otherwise, stop the checking, and emit the current status as the final status
         @emit("job.#{id}.final", jobData)
         delete @_checkUntil[id]
 
@@ -35,8 +35,8 @@ JobConfig = {
   exports:
 
     getStatus: (id) ->
-      {state} = @_get(id)
-      state
+      {status} = @_get(id)
+      status
 
 }
 

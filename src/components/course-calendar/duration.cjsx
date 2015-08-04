@@ -105,6 +105,8 @@ CourseDuration = React.createClass
     if plan.published_at? and plan.publish_last_requested_at?
       # is the last requested publishing after the last completed publish?
       isPublishing = moment(plan.publish_last_requested_at).diff(plan.published_at) > 0
+    else if plan.published_at? and not plan.publish_last_requested_at?
+      isPublishing = false
     else if plan.publish_last_requested_at?
       recent = moment(TimeStore.getNow()).diff(plan.publish_last_requested_at) < @props.recentTolerance
       isPublishing = isPublishing and recent

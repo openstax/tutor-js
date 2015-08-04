@@ -39,7 +39,8 @@ ExerciseFreeResponse = React.createClass
   isContinueEnabled: ->
     {id} = @props
     {free_response} = TaskStepStore.get(id)
-    !! (free_response or @state.freeResponse)
+    response = free_response or @state.freeResponse
+    response?.trim().length > 0
 
   renderBody: ->
     {id} = @props

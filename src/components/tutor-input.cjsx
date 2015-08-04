@@ -57,6 +57,8 @@ TutorInput = React.createClass
       <errorWarning key={error}/>
     )
 
+    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value')
+
     # Please do not set value={@props.value} on input.
     #
     # Because we are updating the store in some cases on change, and
@@ -67,9 +69,8 @@ TutorInput = React.createClass
     # Instead, use @props.default to set an intial defaul value.
     <div className={wrapperClasses.join(' ')}>
       <input
-        id={@props.id}
+        {...inputProps}
         ref='input'
-        type={@props.type}
         className={classes.join(' ')}
         defaultValue={@props.default}
         onChange={@onChange}
@@ -156,9 +157,6 @@ TutorDateInput = React.createClass
     if not @props.value and not @state.hasFocus
       classes.push('empty')
 
-    if @state.expandCalendar and not @props.readOnly
-      onToggle = @onToggle
-
     if @props.required then wrapperClasses.push('is-required')
     if not @props.disabled
       dateElem = <DatePicker
@@ -176,7 +174,8 @@ TutorDateInput = React.createClass
           weekStart={@props.currentLocale.week.dow}
         />
     else if @props.disabled and value
-      displayValue = value.toString(TutorDateFormat)
+      displayValue = value.format(TutorDateFormat)
+      wrapperClasses.push('disabled-datepicker')
 
     <div className={wrapperClasses.join(' ')}>
       <input type='text' disabled className={classes.join(' ')} value={displayValue}/>

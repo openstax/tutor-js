@@ -1,7 +1,16 @@
 @import "learning-guide/chapter-panel-mixin";
 @import "learning-guide/colors-mixin";
 
+.info-link-tooltip .tooltip-inner {
+  // tooltip appends itself before closing body tag
+  max-width: 350px;
+  width: 350px;
+  text-align: left;
+}
+
 .learning-guide {
+  @section-spacing: 20px;
+
   .nav-tabs {
     .tutor-nav-tabs();
     margin-bottom: 20px;
@@ -42,52 +51,88 @@
   }
 
   .guide-heading {
-    margin-bottom: 1.5rem;
-  }
+    .guide-group-title {
+      font-size: 3.5rem;
+      display: inline-block;
+      float: left;
+      margin-top: 14px;
+    }
+    .info-link:after {
+      padding-left: 10px;
+      .fa-icon();
+        content: @fa-var-info-circle;
+        color: @tutor-neutral-dark;
+      }
 
-  .guide-group-title {
-    font-size: 3rem;
-    display: inline-block;
-  }
-  .guide-footer {
-    clear: both;
-    .guide-key {
-      width: 100%;
-      height: 40px;
-      .item {
+    .guide-group-key {
+      &.teacher {
+        .guide-key {
+          margin-top: 15px;
+        }
+      }
+      width: 390px;
+      height: 64px;
+      float: left;
+      margin-right: 33px;
+      .guide-key {
+        height: 31px;
         float: left;
-        margin: 0px 35px 0px 0px;
-        .box {
+        width: 400px;
+        .item {
           float: left;
-          width: 10px;
-          height: 10px;
-          margin: 10px 5px 0px 0px;
-          .learning-guide-colors();
+          margin: 0px 35px 0px 0px;
+          .title {
+            font-style: italic;
+          }
+          .box {
+            float: left;
+            width: 10px;
+            height: 10px;
+            margin: 10px 5px 0px 0px;
+            .learning-guide-colors();
+          }
         }
       }
     }
   }
-  .guide-group {
-    .chapter-panel:nth-child(4n) {
-      margin-right: 0px;
+
+
+  .guide-footer {
+    clear: both;
+  }
+  .no-data-message {
+    #fonts > .sans(2.5rem);
+    font-weight: 700;
+    text-align: center;
+  }
+  // panel style that should only apply to the learing guide
+  // and not be applied by the shared mixin
+  .chapter-panel{
+    padding-top: @section-spacing;
+    padding-bottom: @section-spacing;
+
+    .learning-guide-chapter-panel();
+    background: @tutor-white;
+    margin-bottom: @section-spacing;
+    border: 1px solid @tutor-neutral-light;
+
+    button {
+      width: 100%;
     }
-    .chapter-panel{
-      .learning-guide-chapter-panel();
-      background: @tutor-white;
-      float: left;
-      margin: 0px 0px 20px 0px;
-      padding: 10px 11px 11px 9px;
-      border: 1px solid @tutor-neutral-light;
-      width: 265px;
-      overflow: hidden;
-      .sections{
-        overflow: hidden;
-        transition: height 0.25s ease-out;
+
+    &.weaker {
+      .explanation {
+        color: @tutor-neutral;
+        #fonts > .sans(1.3rem, 1.3rem);
       }
-      &.collapsed .sections { height: 0px; }
-      button {
-        width: 100%;
+    }
+    .chapter-heading {
+      .progress{
+        height: 1rem;
       }
     }
   }
+
 }
+
+@import "learning-guide/responsive";

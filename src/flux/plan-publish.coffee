@@ -21,8 +21,8 @@ PlanPublishConfig = {
       publishData = _.clone(jobData)
       publishData.publishFor = id
 
-      @_asyncStatus[id] = publishData.state
-      @emit("planPublish.#{publishData.state}", publishData)
+      @_asyncStatus[id] = publishData.status
+      @emit("planPublish.#{publishData.status}", publishData)
       @emitChange()
 
   saveJob: (jobId, id) ->
@@ -62,8 +62,8 @@ PlanPublishConfig = {
     isPublished: (id, jobId) ->
       jobId ?= _.last(@_getJobs(id))
       job = JobStore.get(jobId)
-      {state} = job if job?
-      state is PUBLISHED
+      {status} = job if job?
+      status is PUBLISHED
 
 }
 
