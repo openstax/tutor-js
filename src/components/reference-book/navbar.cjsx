@@ -18,8 +18,6 @@ module.exports = React.createClass
     showTeacherEdition: React.PropTypes.func
     courseId: React.PropTypes.string.isRequired
     section: React.PropTypes.string.isRequired
-  contextTypes:
-    router: React.PropTypes.func
 
   renderSectionTitle: ->
     {section, courseId} = @props
@@ -39,8 +37,6 @@ module.exports = React.createClass
     </BS.Nav>
 
   render: ->
-    {cnxId} = @context.router.getCurrentParams()
-
     <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
         <BS.NavItem onClick={@props.toggleTocMenu}>

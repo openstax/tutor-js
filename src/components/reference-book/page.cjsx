@@ -22,6 +22,8 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     cnxId: React.PropTypes.string.isRequired
   mixins: [BookContentMixin, GetPositionMixin, ChapterSectionMixin]
+  contextTypes:
+    router: React.PropTypes.func
   componentWillMount: ->
     @setState(skipZeros: false)
   getSplashTitle: ->

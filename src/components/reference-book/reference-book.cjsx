@@ -65,9 +65,9 @@ module.exports = React.createClass
     ev?.preventDefault() # needed to prevent scrolling to top
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
-    courseDataProps = @getCourseDataProps(courseId)
     pageProps = @getPageProps()
+    {courseId} = pageProps
+    courseDataProps = @getCourseDataProps(courseId)
 
     course = CourseStore.get(courseId)
     classnames = ["reference-book"]
