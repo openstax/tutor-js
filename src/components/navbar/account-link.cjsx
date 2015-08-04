@@ -1,7 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-{TransitionAssistant} = require '../unsaved-state'
+{CurrentUserStore} = require '../../flux/current-user'
+{TransitionAssistant} = require '../unsaved-state-mixin'
 
 module.exports = React.createClass
   displayName: 'Navigation'
@@ -10,11 +11,8 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   redirectToAccount: ->
-    TransitionAssistant.checkTransitionStateTo("Accounts Profile Page").then( ->
-      console.log "Going places"
-    , ->
-      console.log "Stoppped from going places"
-    )
+    TransitionAssistant.checkTransitionStateTo("Account Profile Page").then ->
+      window.location.href = CurrentUserStore.getProfileUrl()
 
   render: ->
     <BS.MenuItem onSelect={@redirectToAccount} >
