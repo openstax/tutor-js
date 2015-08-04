@@ -1,4 +1,4 @@
-{describe} = require './helper'
+{describe} = require './helpers'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
