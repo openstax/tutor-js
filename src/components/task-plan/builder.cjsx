@@ -13,7 +13,7 @@ TimeHelper = require '../../helpers/time'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
-{UnsavedStateMixin} = require '../unsaved-state'
+{UnsavedStateMixin} = require '../unsaved-state-mixin'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
