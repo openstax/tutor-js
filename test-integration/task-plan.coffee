@@ -77,7 +77,7 @@ describe 'Assignment Creation Tests', ->
 
 
   @it 'Creates a draft Reading with opensAt to today and deletes', ->
-    @timeout 60 * 1000 # ~30 sec to create and delete a draft (plus mathjax CDN)
+    @timeout 2 * 60 * 1000
 
     # @screenshot('debugging-snapshot.png')
 

@@ -113,7 +113,7 @@ module.exports = (name, cb) ->
 
 
     @__afterEach ->
-      @timeout 2 * 60 * 1000 # Server might still be deleting/publishing
+      @timeout 5 * 60 * 1000 # Server might still be deleting/publishing
       {state, title} = @currentTest
 
       if state is 'failed'
