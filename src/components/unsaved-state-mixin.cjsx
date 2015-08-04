@@ -13,14 +13,14 @@ UnsavedStateMixin = {
 
   _cannotTransition: -> @hasUnsavedState?()
 
-  _unsavedMessage: ->
-    @unsavedStateMessage?() or
-      "#{@constructor.displayName} has unsaved data"
+  _unsavedMessages: ->
+    @unsavedStateMessages?() or
+      ["#{@constructor.displayName} has unsaved data"]
 }
 
 TransitionAssistant = {
   canTransition: -> not _.any(ACTIVE, (c) -> c._cannotTransition())
-  unsavedMessages: -> _.invoke(ACTIVE, '_unsavedMessage')
+  unsavedMessages: -> _.flatten _.invoke(ACTIVE, '_unsavedMessages')
   checkTransitionStateTo: (destination) ->
 
     new Promise (onProceed, onCancel) =>
