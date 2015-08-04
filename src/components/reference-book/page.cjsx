@@ -26,9 +26,7 @@ module.exports = React.createClass
     @props.cnxId or @context.router.getCurrentParams().cnxId
 
   getSplashTitle: ->
-    cnxId = @getCnxId()
-    page = ReferenceBookStore.getPageInfo({courseId: @props.courseId, cnxId})
-    page?.title
+    ReferenceBookStore.getPageTitle(@context.router.getCurrentParams())
 
   prevLink: (info) ->
     <Router.Link className='nav prev' to='viewReferenceBookSection'

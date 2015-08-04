@@ -39,6 +39,11 @@ ReferenceBookConfig = {
       else
         null
 
+    getPageTitle: ({courseId, section}) ->
+      toc = @_get(courseId)?['0']
+      section = _.map(section.split('.'), (n) -> parseInt(n))
+      findChapterSection(toc, section)?.title
+
     getPages: (courseId) ->
       toc = @_get(courseId)?['0']
       return [] unless toc

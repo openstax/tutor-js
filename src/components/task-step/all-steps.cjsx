@@ -34,7 +34,7 @@ Reading = React.createClass
   getSplashTitle: ->
     TaskStepStore.get(@props.id)?.title or ''
 
-  getCNXId: ->
+  getCnxId: ->
     {id} = @props
     {content_url} = TaskStepStore.get(id)
     _.last(content_url.split('contents/'))

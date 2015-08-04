@@ -21,16 +21,10 @@ module.exports = React.createClass
 
   renderSectionTitle: ->
     params = @context.router.getCurrentParams()
-    {cnxId, section} = params
-    if cnxId
-      page = ReferenceBookStore.getPageInfo(params)
-      section = page?.chapter_section
-    else if section
-      page = ReferenceBookStore.getChapterSectionPage(params)
-    section = section.split('.') if section and _.isString(section)
+    title = ReferenceBookStore.getPageTitle(params)
     <BS.Nav navbar className="section-title">
-        <ChapterSection section={section} />
-        {page?.title}
+        <ChapterSection section={params.section.split('.')} />
+        {title}
     </BS.Nav>
 
 
