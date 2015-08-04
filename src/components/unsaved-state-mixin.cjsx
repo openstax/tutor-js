@@ -20,7 +20,7 @@ UnsavedStateMixin = {
 
 TransitionAssistant = {
   canTransition: -> not _.any(ACTIVE, (c) -> c._cannotTransition())
-  unsavedMessages: -> _.flatten _.invoke(ACTIVE, '_unsavedMessages')
+  unsavedMessages: -> _.flatten( _.invoke(ACTIVE, '_unsavedMessages'), 1)
   checkTransitionStateTo: (destination) ->
 
     new Promise (onProceed, onCancel) =>
@@ -29,7 +29,7 @@ TransitionAssistant = {
       else
         body =
           <div>
-            {for message, i in @unsavedMessages
+            {for message, i in @unsavedMessages()
               <p key={i}>{message}</p>}
           </div>
 
