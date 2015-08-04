@@ -9,14 +9,19 @@ ReactTestUtils = React.addons.TestUtils
 {commonActions} = require './utilities'
 sandbox = null
 ROUTER = null
+RENDERED = []
 
 # Mock a router for the context
 beforeEach ->
+  RENDERED = []
   sandbox = sinon.sandbox.create()
   ROUTER  = sandbox.spy()
   ROUTER.transitionTo = sandbox.spy()
 
 afterEach ->
+  for comp in RENDERED
+    dom = React.findDOMNode(comp)
+    React.unmountComponentAtNode(dom) if dom
   sandbox.restore()
 
 # A wrapper component to setup the router context
@@ -38,11 +43,12 @@ Testing = {
       props = _.clone(options.props)
       props._wrapped_component = component
       wrapper = ReactTestUtils.renderIntoDocument React.createElement(Wrapper, props)
-      resolve({
+      RENDERED.push(wrapper)
+      resolve(
         wrapper,
         element: wrapper.refs.element,
         dom: React.findDOMNode(wrapper.refs.element)
-      })
+      )
 
   actions: commonActions
 
