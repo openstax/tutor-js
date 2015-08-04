@@ -14,31 +14,16 @@ ReferenceBookPage = require './page'
 
 ReferenceBookPageShell = React.createClass
   displayName: 'ReferenceBookPageShell'
-  contextTypes:
-    router: React.PropTypes.func
-
-  getProps: ->
-    params = {courseId, cnxId, section} = @context.router.getCurrentParams()
-    return params if courseId? and cnxId? and section?
-
-    if section?
-      page = ReferenceBookStore.getChapterSectionPage({courseId, section})
-    else
-      section = ReferenceBookStore.getFirstSection(courseId)
-      page = _.first ReferenceBookStore.getPages(courseId)
-
-    cnxId ?= page.cnx_id
-
-    {cnxId, section, courseId}
-
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+    cnxId: React.PropTypes.string.isRequired
   render: ->
-    pageProps = @getProps()
-    if pageProps.cnxId?
+    if @props.cnxId?
       <LoadableItem
-        id={pageProps.cnxId}
+        id={@props.cnxId}
         store={ReferenceBookPageStore}
         actions={ReferenceBookPageActions}
-        renderItem={ -> <ReferenceBookPage {...pageProps}/> }
+        renderItem={ => <ReferenceBookPage {...@props}/> }
       />
     else
       <Invalid />

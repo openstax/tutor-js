@@ -18,6 +18,8 @@ module.exports =
     # ignore 0 in chapter sections
     sectionArray.pop() if skipZeros and _.last(sectionArray) is 0
 
+    console.info('sectionArray')
+    console.info(sectionArray)
     if sectionArray instanceof Array
       sectionArray.join(separator or sectionSeparator)
     else

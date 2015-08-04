@@ -16,12 +16,13 @@ module.exports = React.createClass
     teacherLinkText: React.PropTypes.string
     toggleTocMenu: React.PropTypes.func.isRequired
     showTeacherEdition: React.PropTypes.func
+    courseId: React.PropTypes.string.isRequired
+    section: React.PropTypes.string.isRequired
   contextTypes:
     router: React.PropTypes.func
 
   renderSectionTitle: ->
-    {section, courseId} = @context.router.getCurrentParams()
-    section ?= ReferenceBookStore.getFirstSection(courseId)
+    {section, courseId} = @props
     title = ReferenceBookStore.getPageTitle({section, courseId})
 
     <BS.Nav navbar className="section-title">

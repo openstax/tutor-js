@@ -18,12 +18,10 @@ module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    cnxId: React.PropTypes.string.isRequired
   contextTypes:
     router: React.PropTypes.func
   mixins: [BookContentMixin, GetPositionMixin]
-
-  getCnxId: ->
-    @props.cnxId or @context.router.getCurrentParams().cnxId
 
   getSplashTitle: ->
     ReferenceBookStore.getPageTitle(@props)
@@ -98,9 +96,8 @@ module.exports = React.createClass
     _.each(@_exerciseNodes, @unmountExerciseComponent)
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, cnxId} = @props
     # read the id from props, or failing that the url
-    cnxId = @getCnxId()
     page = ReferenceBookPageStore.get(cnxId)
     info = ReferenceBookStore.getPageInfo({courseId, cnxId})
 
