@@ -87,7 +87,7 @@ testWithRole = (roleType) ->
       coursesList = _.clone(COURSES_LIST)
       coursesList[0].roles[0].type = roleType
 
-      CurrentUserActions.loadedName(roleTestParams.user)
+      CurrentUserActions.loaded(roleTestParams.user)
       CourseListingActions.loaded(coursesList)
       roleTestParams.actions.loaded(roleTestParams.dashboard, COURSE_ID)
 

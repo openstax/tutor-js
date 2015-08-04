@@ -19,7 +19,7 @@ UserName = React.createClass
   componentWillMount: ->
     unless @state.name
       @_addListener()
-      CurrentUserActions.loadName()
+      CurrentUserActions.load()
 
   render: ->
     <span {...@props}>{@state.name}</span>
