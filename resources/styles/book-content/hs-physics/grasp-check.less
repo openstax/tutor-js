@@ -1,19 +1,18 @@
 // This file is part of the book-content mixin and should not be included directly
 .grasp-check {
-  background: @tutor-white;
-  display:  inline-block;
+  margin: 68px 0 32px 0;
+  padding: 20px 0;
   clear: both;
-  width:  100%;
-  margin-top: 50px;
-  padding: 15px;
-  border: solid 3px @tutor-secondary;
+  display: inline-block;
+  border-top: solid 8px @tutor-secondary;
   &:before {
-    display: inline-block;
-    content: "Grasp Check";
-    text-transform:  uppercase;
-    color:  @tutor-secondary;
     position: absolute;
-    margin: -45px 0 0 -17px;
+    content: attr(data-label);
     #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
+    font-weight: 900;
+    padding: 0 40px;
+    height: @tutor-book-ui-top-height;
+    display: inline-block;
+    margin: -68px 0 0 0px;
   }
 }
