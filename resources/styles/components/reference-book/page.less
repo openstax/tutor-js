@@ -61,23 +61,27 @@
 
   .page-wrapper {
     transition: margin-left 0.2s linear;
-  }
-
-  .page-loading {
-    text-align: center;
     .page {
       position: relative;
-      .tutor-subtle-loading('Loading page...');
-  
+      .tutor-subtle-load(will-load; 'Loading page...'; 0.1s);
+
       &::after {
         left: 0;
         top: -8px;
-        background: rgba(255, 255, 255, 0.9);
+      }
+    }
+
+    &.page-loading {
+      .refresh-button {
+        position: absolute;
+        left: 50%;
+        z-index: 2;
+      }
+      .page {
+        .tutor-subtle-load(loading);
       }
     }
   }
-
-
   // when menu is open and the screen is wide enough, slide everything to the right so it's still visible
   &.menu-open {
     @media screen and (min-width: (@reference-book-page-width + @reference-book-menu-width + 50px) ) {

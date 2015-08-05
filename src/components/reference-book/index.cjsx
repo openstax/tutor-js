@@ -27,14 +27,18 @@ ReferenceBookPageShell = React.createClass
   renderLoading: (previousPageProps, currentProps) ->
     (refreshButton) ->
       if previousPageProps? and not _.isEqual(previousPageProps, currentProps)
-        loading = <div className='page-loading loadable is-loading'>
+        loading = <ReferenceBookPage
+          {...previousPageProps}
+          className='page-loading loadable is-loading'>
           {refreshButton}
-          <ReferenceBookPage {...previousPageProps}/>
-        </div>
+        </ReferenceBookPage>
       else
         loading = <div className='loadable is-loading'>Loading... {refreshButton}</div>
 
       loading
+
+  renderLoaded: ->
+    <ReferenceBookPage {...@props}/>
 
   render: ->
     if @props.cnxId?
@@ -43,7 +47,7 @@ ReferenceBookPageShell = React.createClass
         store={ReferenceBookPageStore}
         actions={ReferenceBookPageActions}
         renderLoading={@renderLoading(@state?.previousPageProps, @props)}
-        renderItem={ => <ReferenceBookPage {...@props}/> }
+        renderItem={@renderLoaded}
       />
     else
       <Invalid />

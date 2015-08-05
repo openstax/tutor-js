@@ -44,7 +44,7 @@
 
   .calendar-loading {
     .rc-Month {
-      .tutor-subtle-loading('Loading Calendar...');
+      .tutor-subtle-load(loading);
     }
   }
 
@@ -62,6 +62,7 @@
       display: inline-block;
       vertical-align: top;
       position: relative;
+      .tutor-subtle-load(will-load; 'Loading Calendar...');
 
       &-weekdays {
         width: 100%;

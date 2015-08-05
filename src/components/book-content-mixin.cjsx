@@ -86,7 +86,7 @@ module.exports =
       return link
 
   linkToAnotherPage: (link) ->
-    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @getCnxId()
+    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     @linkMediaElsewhere(mediaCNXId, link) if mediaCNXId?
 
   linkToThisPage: (link) ->

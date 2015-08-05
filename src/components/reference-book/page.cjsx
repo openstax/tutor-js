@@ -99,7 +99,7 @@ module.exports = React.createClass
     _.each(@_exerciseNodes, @unmountExerciseComponent)
 
   render: ->
-    {courseId, cnxId} = @props
+    {courseId, cnxId, className} = @props
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
     info = ReferenceBookStore.getPageInfo({courseId, cnxId})
@@ -111,7 +111,13 @@ module.exports = React.createClass
       .replace(/^[\s\S]*<body[\s\S]*?>/, '')
       .replace(/<\/body>[\s\S]*$/, '')
 
-    <div className='page-wrapper'>
+    if className?
+      className += ' page-wrapper'
+    else
+      className = 'page-wrapper'
+
+    <div className={className}>
+      {@props.children}
       {@prevLink(info) if info.prev}
       <ArbitraryHtmlAndMath className='page' block html={html} />
       {@nextLink(info) if info.next}
