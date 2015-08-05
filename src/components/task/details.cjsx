@@ -16,7 +16,7 @@ Instructions = React.createClass
 
   getDefaultProps: ->
     title: 'Instructions'
-    trigger: 'click'
+    trigger: 'focus'
     placement: 'top'
     popverClassName: 'task-details-popover'
 
