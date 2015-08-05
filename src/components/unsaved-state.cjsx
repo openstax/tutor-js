@@ -35,8 +35,20 @@ TransitionAssistant = {
 
         TutorDialog.show({
           title: "Proceed to #{destination} ?", body
-        }).then( onProceed, onCancel )
+        }).then( =>
+          @lastCancel = moment()
+          onProceed()
+        , onCancel )
 
+  # transistions should be allowed for the next second if a transistion was just approved
+  wasJustApproved: ->
+    @lastCancel and @lastCancel.isBefore( moment().add(1, 'second') )
+
+  startMonitoring: ->
+    delete @startMonitoring # remove the function so it can't be called twice
+    window.onbeforeunload = =>
+      unless @canTransition() or @wasJustApproved()
+        return @unsavedMessages().join("\n")
 
 }
 
