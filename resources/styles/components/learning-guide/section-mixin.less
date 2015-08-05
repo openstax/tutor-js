@@ -2,6 +2,11 @@
 
   #fonts > .sans(1.4rem, 1.4rem);
 
+  // if the .progress is a direct desendant then it's not inside a button
+  > .progress {
+    margin: 0.5rem 0;
+  }
+
   .heading {
     .flex-display();
     .number {
@@ -19,7 +24,6 @@
     margin-top: 0px;
     width: 100%;
   }
-
   .amount-worked {
     .flex-display();
     .justify-content(flex-end);
