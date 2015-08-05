@@ -16,15 +16,10 @@
 @answer-checked-font-weight: 600;
 
 .answer() {
-  display: flex;
-  display: -webkit-flex;
-  align-items: center;
+  .flex-display();
+  .align-items(center);
   width: 100%;
   margin: @answer-vertical-spacing 0;
-
-  // safari
-  display: -webkit-box;
-  -webkit-box-align: center;
 }
 
 .answer-label() {

@@ -4,13 +4,10 @@
   width: 100%;
   min-height: 100px;
   .book-content-full-width();
+  .flex-display(inline-flex);
   margin-top: -@tutor-card-body-padding-vertical;
   padding: 10px 20px;
   border: none;
-  display: inline-flex;
-  display: -ms-inline-flexbox; // IE10 support
-  display: -webkit-inline-flex;
-
   // hide the "Section learning Objectives" phrase
   > div[data-type=title] {
     display: none;
@@ -21,36 +18,26 @@
     text-transform: uppercase;
     text-align: right;
     margin: 0 20px 0 0;
-    display: flex;
-    flex-direction: column;
-    display: -webkit-flex;
-    justify-content: center;
-    -webkit-justify-content: center;
-    -webkit-flex-direction: column;
+    .flex-display();
+    .flex-direction(column);
+    .justify-content(center);
   }
-
   ul {
     list-style: disc;
     margin: 0 0;
     padding: 0 20px;
     border-left-style: solid;
     border-left-width: 1px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: center;
-    display: -webkit-flex;
-    -webkit-justify-content: center;
-    -webkit-flex-direction: column;
-    -webkit-flex: 1;
+    .flex-display();
+    .flex-direction(column);
+    .flex(1);
+    .justify-content(center);
     .ost-learning-objective-def {
       #fonts > .sans(1.5rem, 1.4em);
+      .justify-content(center);
       margin-left: 20px;
       padding-bottom: 5px;
       font-weight: 300;
-      justify-content: center;
-      -webkit-justify-content: center;
-      -webkit-flex-direction: column;
       &:before {
         content: none;
       }
