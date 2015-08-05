@@ -19,8 +19,6 @@
 }
 
 .task-details-popover{
-  font-size: 0.8em;
-  max-width: 500px;
   position: fixed;
   bottom: 60px;
   margin-left: -40px;
@@ -28,17 +26,7 @@
   // This overrides inline styles added by bootstrap popover to position the popovers
   top: auto !important;
 
-  .popover-title {
-    color: @tutor-primary;
-  }
-
-  .has-html{
-    h1, h2, h3, h4, h5, h6 {
-      &:first-child {
-        margin-top: 1rem;
-      }
-    }
-  }
+  .tutor-popover();
 
   > .arrow {
     border-width: @details-popover-arrow-width;
@@ -55,24 +43,14 @@
 
     &:after{
       bottom: -@details-popover-arrow-width;
-      border-left-color: @popover-title-bg;
     }
-  }
-
-  &.right .arrow:after{
-    border-right-color: @popover-title-bg;
   }
 
   &.top .arrow {
     bottom: -@details-popover-arrow-width;
     margin-left: 24px;
     &::after {
-      border-top-color: @popover-title-bg;
       margin-left: -@details-popover-arrow-width;
     }
-  }
-
-  &.bottom .arrow:after{
-    border-bottom-color: @popover-title-bg;
   }
 }

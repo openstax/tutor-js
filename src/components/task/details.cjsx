@@ -12,19 +12,21 @@ Instructions = React.createClass
     title: React.PropTypes.string
     trigger: React.PropTypes.string
     placement: React.PropTypes.string
+    popverClassName: React.PropTypes.string
 
   getDefaultProps: ->
     title: 'Instructions'
-    trigger: 'focus'
+    trigger: 'click'
     placement: 'top'
+    popverClassName: 'task-details-popover'
 
   render: ->
-    {task, title, trigger, placement, children} = @props
+    {task, title, trigger, placement, popverClassName, children} = @props
 
     return null unless task.description?
 
     instructionsPopover =
-      <BS.Popover className='task-details-popover'>
+      <BS.Popover className={popverClassName} title={title}>
         <Markdown text={task.description} />
       </BS.Popover>
 
