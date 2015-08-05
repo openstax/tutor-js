@@ -41,14 +41,16 @@ Testing = {
       props = _.clone(options.props)
       props._wrapped_component = component
       wrapper = React.render( React.createElement(Wrapper, props), div )
-      resolve(
+      resolve({
         wrapper,
         element: wrapper.refs.element,
         dom: React.findDOMNode(wrapper.refs.element)
-      )
+      })
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return
-    _.defer -> promise.then -> React.unmountComponentAtNode(div)
+    _.defer -> promise.then ->
+      React.unmountComponentAtNode(div)
+      return arguments
     promise
 
   actions: commonActions
