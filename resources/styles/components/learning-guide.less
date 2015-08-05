@@ -53,6 +53,7 @@
     background: @tutor-white;
     margin-bottom: @section-spacing;
     border: 1px solid @tutor-neutral-light;
+    .make-row();
 
     // specific styles to apply to the chapter progress
     .chapter {
@@ -71,7 +72,6 @@
     .section { .learning-guide-section(); }
 
     &.weaker {
-      padding: @section-spacing;
       .metric {
         .title {
           #fonts > .sans(1.9rem, 1.8rem);
@@ -82,7 +82,7 @@
           #fonts > .sans(1.3rem, 1.8rem);
         }
       }
-      button { width: 100%; }
+      button.practice { width: 200px; }
     }
 
   }

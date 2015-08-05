@@ -58,11 +58,7 @@ module.exports = React.createClass
 
       <div className='guide-group'>
 
-        <BS.Row>
-          <BS.Col xs={12}>
-            {@renderWeaker() unless noData}
-          </BS.Col>
-        </BS.Row>
+        {@renderWeaker() unless noData}
 
         <BS.Row>
           <h3>Individual Chapters</h3>
