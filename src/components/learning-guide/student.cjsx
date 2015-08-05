@@ -31,13 +31,13 @@ module.exports = React.createClass
 
       <div className='info'>
         <div className='guide-group-key'>
-          <div className='guide-key'>
+          <div className='guide-practice-message'>
             Click on the bar to practice the topic
           </div>
           <ColorKey />
         </div>
 
-        <Router.Link to='viewStudentDashboard' className='btn btn-default pull-right'
+        <Router.Link to='viewStudentDashboard' className='btn btn-default back'
         params={courseId: @props.courseId}>
         Return to Dashboard
         </Router.Link>

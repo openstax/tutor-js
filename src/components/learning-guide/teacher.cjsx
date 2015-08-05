@@ -39,7 +39,7 @@ module.exports = React.createClass
               <ColorKey />
             </div>
             <Router.Link activeClassName='' to='viewTeacherDashBoard'
-              className='btn btn-default pull-right'
+              className='btn btn-default back'
               params={courseId: @props.courseId}>
               Return to Dashboard
             </Router.Link>

@@ -32,7 +32,7 @@ module.exports = React.createClass
     weakStrongCount = Math.min(sortedSections.length / 2, 4)
 
     <div className="chapter-panel weaker">
-      <div className='chapter-heading metric'>
+      <div className='chapter metric'>
         <span className='title'>{@props.weakerTitle}</span>
         {@props.weakerExplanation}
         {if @props.onPractice

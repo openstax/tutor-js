@@ -38,7 +38,7 @@ module.exports = React.createClass
         <InfoLink type='teacher_student'/>
       </div>
       <Router.Link activeClassName='' to='viewPerformance'
-        className='btn btn-default pull-right'
+        className='btn btn-default back'
         params={courseId: @props.courseId}>
         Return to Performance Report
       </Router.Link>

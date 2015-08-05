@@ -21,12 +21,14 @@ module.exports = React.createClass
     {chapter, courseId} = @props
 
     <div className='chapter-panel'>
-      <div className='chapter-heading'>
-        <span className='chapter-number'>{chapter.chapter_section[0]}</span>
-        <div className='chapter-title' title={chapter.title}>{chapter.title}</div>
+      <div className='chapter'>
+        <div className='heading'>
+          <span className='number'>{chapter.chapter_section[0]}</span>
+          <div className='title' title={chapter.title}>{chapter.title}</div>
+        </div>
         <ProgressBar {...@props} section={chapter} />
         <div className='amount-worked'>
-          <span className='count chapter'>
+          <span className='count'>
             {chapter.questions_answered_count} problems worked in this chapter
           </span>
         </div>

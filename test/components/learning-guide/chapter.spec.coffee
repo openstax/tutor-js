@@ -20,4 +20,4 @@ describe 'Learning Guide Chapter Panel', ->
 
   it 'displays the title', ->
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) =>
-      expect(dom.querySelector('.chapter-title').textContent).to.equal(@props.chapter.title)
+      expect(dom.querySelector('.title').textContent).to.equal(@props.chapter.title)

@@ -16,7 +16,7 @@ describe 'Learning Guide Section Panel', ->
 
   it 'displays the title', ->
     Testing.renderComponent( Section, props: @props ).then ({dom}) =>
-      expect(dom.querySelector('.section-title').textContent).to.equal(@props.section.title)
+      expect(dom.querySelector('.title').textContent).to.equal(@props.section.title)
 
   it 'reports how many problems were worked', ->
     Testing.renderComponent( Section, props: @props ).then ({dom}) ->
