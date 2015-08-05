@@ -11,7 +11,6 @@
 }
 
 .learning-guide {
-  @section-spacing: 20px;
 
   .nav-tabs {
     .tutor-nav-tabs();
@@ -46,13 +45,7 @@
   }
 
   .chapter-panel {
-    padding-top: @section-spacing;
-    padding-bottom: @section-spacing;
-
-    background: @tutor-white;
-    margin-bottom: @section-spacing;
-    border: 1px solid @tutor-neutral-light;
-    .make-row();
+    .learning-guide-panel();
 
     // specific styles to apply to the chapter progress
     .chapter {
