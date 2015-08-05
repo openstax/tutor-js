@@ -1,6 +1,6 @@
 {Testing, sinon, expect, _, React} = require './helpers/component-testing'
 
-{UnsavedStateMixin, TransitionAssistant} = require '../../src/components/unsaved-state-mixin'
+{UnsavedStateMixin, TransitionAssistant} = require '../../src/components/unsaved-state'
 
 
 DirtyComponent = null

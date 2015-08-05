@@ -11,8 +11,6 @@ sandbox = null
 ROUTER = null
 RENDERED = []
 
-{TransitionAssistant} = require '../../../src/components/unsaved-state-mixin'
-
 # Mock a router for the context
 beforeEach ->
   RENDERED = []

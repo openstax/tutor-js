@@ -1,7 +1,7 @@
 ACTIVE = []
 _ = require 'underscore'
 {Promise} = require 'es6-promise'
-
+moment = require 'moment'
 React = require 'react'
 TutorDialog = require './tutor-dialog'
 
@@ -36,6 +36,7 @@ TransitionAssistant = {
         TutorDialog.show({
           title: "Proceed to #{destination} ?", body
         }).then( onProceed, onCancel )
+
 
 }
 
