@@ -81,7 +81,7 @@ routes = (
       <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     </Route> # end of App route
     <Route path='/books/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
-      <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookFirstPage}/>
+      <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookPageShell}/>
 
       <Route path='section/:section'
         name='viewReferenceBookSection' handler={ReferenceBookPageShell} />

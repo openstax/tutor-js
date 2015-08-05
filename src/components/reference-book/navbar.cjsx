@@ -16,21 +16,16 @@ module.exports = React.createClass
     teacherLinkText: React.PropTypes.string
     toggleTocMenu: React.PropTypes.func.isRequired
     showTeacherEdition: React.PropTypes.func
-  contextTypes:
-    router: React.PropTypes.func
+    courseId: React.PropTypes.string.isRequired
+    section: React.PropTypes.string.isRequired
 
   renderSectionTitle: ->
-    params = @context.router.getCurrentParams()
-    {cnxId, section} = params
-    if cnxId
-      page = ReferenceBookStore.getPageInfo(params)
-      section = page?.chapter_section
-    else if section
-      page = ReferenceBookStore.getChapterSectionPage(params)
-    section = section.split('.') if section and _.isString(section)
+    {section, courseId} = @props
+    title = ReferenceBookStore.getPageTitle({section, courseId})
+
     <BS.Nav navbar className="section-title">
-        <ChapterSection section={section} />
-        {page?.title}
+      <ChapterSection section={section} />
+      {title}
     </BS.Nav>
 
 
@@ -42,8 +37,6 @@ module.exports = React.createClass
     </BS.Nav>
 
   render: ->
-    {cnxId} = @context.router.getCurrentParams()
-
     <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
         <BS.NavItem onClick={@props.toggleTocMenu}>

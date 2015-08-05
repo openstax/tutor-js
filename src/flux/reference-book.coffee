@@ -25,6 +25,18 @@ ReferenceBookConfig = {
     getToc: (courseId) ->
       @_get(courseId)['0']
 
+    getFirstSection: (courseId) ->
+      toc = @_get(courseId)?['0']
+      return null unless toc?.children?
+
+      {children} = toc
+      _.chain(children)
+        .sortBy((child) ->
+          child.chapter_section
+        )
+        .first()
+        .value()?.chapter_section
+
     # Takes a courseId and a chapter_section specifier
     # which is a string joined with dots i.e. "1.2.3"
     getChapterSectionPage: ({courseId, section}) ->
@@ -38,6 +50,13 @@ ReferenceBookConfig = {
           section
       else
         null
+
+    getPageTitle: ({courseId, section}) ->
+      return null unless section?
+      section = section.split('.') unless _.isArray(section)
+      toc = @_get(courseId)?['0']
+      section = _.map(section, (n) -> parseInt(n))
+      findChapterSection(toc, section)?.title
 
     getPages: (courseId) ->
       toc = @_get(courseId)?['0']

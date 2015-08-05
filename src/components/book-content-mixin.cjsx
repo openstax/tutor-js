@@ -39,7 +39,7 @@ module.exports =
       else
         img.onload = sizeImage
 
-  getCNXIdOfHref: (href) ->
+  getCnxIdOfHref: (href) ->
     beforeHash = _.first(href.split('#'))
     _.last(beforeHash.split('/'))
 
@@ -50,7 +50,7 @@ module.exports =
 
   buildReferenceBookLink: (cnxId) ->
     referenceBookParams = _.clone(@context.router.getCurrentParams())
-    referenceBookParams.cnxId = cnxId or @getCNXId()
+    referenceBookParams.cnxId = cnxId or @getCnxId()
     pageUrl = @context.router.makeHref('viewReferenceBookPage', referenceBookParams)
 
     pageUrl
@@ -86,7 +86,7 @@ module.exports =
       return link
 
   linkToAnotherPage: (link) ->
-    mediaCNXId = @getCNXIdOfHref(link.getAttribute('href')) or @getCNXId()
+    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     @linkMediaElsewhere(mediaCNXId, link) if mediaCNXId?
 
   linkToThisPage: (link) ->

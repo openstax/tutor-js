@@ -126,6 +126,29 @@
 }
 
 
+.tutor-subtle-load(will-load; @loading-text: 'Loading...'; @trans-time: 0.25s; @bg-fade: 90%; @bg-base: @tutor-white;) {
+  &::after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: @loading-text;
+    background: fade(@bg-base, @bg-fade);
+    top: 0;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 10em;
+    opacity: 0;
+
+    .transition(opacity @trans-time ease-in-out);
+  }
+}
+
+.tutor-subtle-load(loading) {
+  &::after {
+    opacity: 1;
+  }
+}
+
 // If you want to use these please uncomment.
 //
 // .tutor-shadow(3) {

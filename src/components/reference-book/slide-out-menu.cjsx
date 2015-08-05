@@ -10,7 +10,5 @@ module.exports = React.createClass
 
   render: ->
     <div className='menu'>
-      <ReferenceBookTOC visible={@props.visible}
-        courseId={@props.courseId}
-        onMenuSelection={@props.onMenuSelection} />
+      <ReferenceBookTOC {...@props} visible={@props.visible} />
     </div>
