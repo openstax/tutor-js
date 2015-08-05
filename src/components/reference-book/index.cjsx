@@ -26,7 +26,7 @@ ReferenceBookPageShell = React.createClass
 
   renderLoading: (previousPageProps, currentProps) ->
     (refreshButton) ->
-      if previousPageProps? and not _.isEqual(previousPageProps, currentProps)
+      if previousPageProps? and previousPageProps.cnxId? and not _.isEqual(previousPageProps, currentProps)
         loading = <ReferenceBookPage
           {...previousPageProps}
           className='page-loading loadable is-loading'>
