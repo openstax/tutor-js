@@ -8,13 +8,14 @@
     h1,h2,h3 { margin: 0; text-align: left; }
     .panel-title {
       #fonts > .sans(2.5rem, 5rem);
+      font-weight: 900;
       border-bottom: thin dotted @tutor-neutral-light;
     }
     .recent {
-      color: @tutor-neutral;
-      font-size: 2.3rem;
-      font-weight: 300;
-      font-style: italic;
+      color: @tutor-neutral-darker;
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-transform: uppercase;
     }
     .current { #fonts > .sans(1.6rem, 5rem); }
     .btn-group {
@@ -39,21 +40,36 @@
     .guide-key {
       // I modified this temporarily b/c flex was pushing it right
       display: block;
+      height: 30px;
+      clear: both;
+      margin: 0 0 10px 0;
       .item {
         float: left;
-        margin: 0px 6px 0px 0px;
+        margin: 0px 14px 0px 0px;
       }
       .box {
         float: left;
         width: 10px;
         height: 10px;
-        margin: 10px 5px 0px 0px;
+        margin: 10px 2px 0px 0px;
         .learning-guide-colors()
       }
-      .title { #fonts > .sans(1.2rem, 1.2rem); }
+      .title { 
+        #fonts > .sans(1.2rem, 1.2rem);
+        font-weight: 300;
+        font-style: italic;
+      }
+      :last-child { margin: 0; }
     }
+    button { width: 100%; }
     .section-heading { text-align: left; }
-    &.empty .actions-box{ text-align: left; }
+    &.empty .actions-box{ 
+      p {
+        text-align: left; 
+        line-height: 1.5em;
+        margin-top: 10px;
+      }
+    }
   }
   .view-learning-guide { width: 100%; }
 }
