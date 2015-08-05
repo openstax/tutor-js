@@ -138,6 +138,7 @@
     font-size: 3rem;
     line-height: 10em;
     opacity: 0;
+    display: none;
 
     .transition(opacity @trans-time ease-in-out);
   }
@@ -146,6 +147,7 @@
 .tutor-subtle-load(loading) {
   &::after {
     opacity: 1;
+    display: block;
   }
 }
 
