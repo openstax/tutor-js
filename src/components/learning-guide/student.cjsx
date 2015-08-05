@@ -24,7 +24,7 @@ module.exports = React.createClass
     @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
 
   renderHeading: ->
-    <BS.Panel className='guide-heading'>
+    <div className='guide-heading'>
       <div className='guide-group-title'>
         Performance Forecast <InfoLink type='student'/>
       </div>
@@ -43,7 +43,7 @@ module.exports = React.createClass
         </Router.Link>
 
       </div>
-    </BS.Panel>
+    </div>
 
   renderEmptyMessage: ->
     <div className="no-data-message">You have not worked any questions yet.</div>
