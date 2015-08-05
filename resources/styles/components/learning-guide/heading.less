@@ -1,0 +1,43 @@
+@import "guide-key-mixin";
+
+.learning-guide {
+  .guide-heading {
+    .learning-guide-panel();
+
+    // set padding to match chapter sections.  Their padding derives from being in bootstrap columns
+    padding: @grid-gutter-width/2;
+
+    .flex-display();
+    .justify-content(flex-start);
+    .align-items(center);
+    .guide-group-title {
+      .flex(1);
+    }
+    .info {
+      .flex-display();
+      .flex-flow(space-between);
+      .btn { margin: 0; }
+    }
+  }
+  .guide-group-title {
+    font-size: 3.5rem;
+    display: inline-block;
+  }
+  .info-link:after {
+    padding-left: 10px;
+    .fa-icon();
+    content: @fa-var-info-circle;
+    color: @tutor-neutral-dark;
+  }
+  .guide-group-key {
+    &.teacher .guide-key { margin-top: 15px; }
+    min-width: 300px;
+    .flex(1);
+
+    .guide-key {
+      .learning-guide-key();
+      .justify-content(flex-start);
+    }
+
+  }
+}

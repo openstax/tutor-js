@@ -1,10 +1,17 @@
 // guide-dashboard-progress component inherits from above
 // dashboard specific styles only inside .dashboard-container below
-@import "../learning-guide/chapter-panel-mixin";
+@import "../learning-guide/section-mixin";
+@import "../learning-guide/guide-key-mixin";
 
 .student-dashboard {
   .progress-guide {
-    .chapter-panel { .learning-guide-chapter-panel(); }
+    .section {
+      .learning-guide-section();
+      text-align: left;
+      margin-bottom: 20px;
+      &:last-of-type{ margin-bottom: 0; }
+    }
+
     h1,h2,h3 { margin: 0; text-align: left; }
     .panel-title {
       #fonts > .sans(2.5rem, 5rem);
@@ -17,43 +24,18 @@
       font-style: italic;
     }
     .current { #fonts > .sans(1.6rem, 5rem); }
-    .btn-group {
-      // override material design
-      .btn:not(.btn-link):not(.btn-flat):not(.btn-fab) { margin-right: 0; }
-      .stronger i {
-        float: left;
-        &:after {
-          .fa-icon();
-          padding-right:8px;
-          content: @fa-var-arrow-up;
-          color: @tutor-success;
-        }
-      }
-      .weaker i:after {
-        .fa-icon();
-        padding-left:8px;
-        content: @fa-var-arrow-down;
-        color: @tutor-danger;
-      }
-    }
+
     .guide-key {
-      // I modified this temporarily b/c flex was pushing it right
-      display: block;
-      .item {
-        float: left;
-        margin: 0px 6px 0px 0px;
-      }
-      .box {
-        float: left;
-        width: 10px;
-        height: 10px;
-        margin: 10px 5px 0px 0px;
-        .learning-guide-colors()
-      }
-      .title { #fonts > .sans(1.2rem, 1.2rem); }
+      margin: 10px 0;
+      .learning-guide-key();
     }
-    .section-heading { text-align: left; }
+
+    // full width buttons
+    .practice,
+    .view-learning-guide {
+      width: 100%;
+    }
+
     &.empty .actions-box{ text-align: left; }
   }
-  .view-learning-guide { width: 100%; }
 }

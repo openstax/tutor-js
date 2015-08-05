@@ -29,7 +29,8 @@ module.exports = React.createClass
     return null unless selected
 
     <div className='guide-heading'>
-      <div className='student-selection'>Performance Forecast for:
+      <div className='guide-group-title'>
+        Performance Forecast for:
         <BS.DropdownButton bzSize='large' className='student-selection' title={selected.name}
           bsStyle='link' onSelect={@onSelectStudent}>
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
@@ -38,7 +39,7 @@ module.exports = React.createClass
         <InfoLink type='teacher_student'/>
       </div>
       <Router.Link activeClassName='' to='viewPerformance'
-        className='btn btn-default pull-right'
+        className='btn btn-default back'
         params={courseId: @props.courseId}>
         Return to Performance Report
       </Router.Link>

@@ -32,7 +32,7 @@ module.exports = React.createClass
     weakStrongCount = Math.min(sortedSections.length / 2, 4)
 
     <div className="chapter-panel weaker">
-      <div className='chapter-heading metric'>
+      <div className='chapter metric'>
         <span className='title'>{@props.weakerTitle}</span>
         {@props.weakerExplanation}
         {if @props.onPractice
@@ -58,22 +58,14 @@ module.exports = React.createClass
 
       <div className='guide-group'>
 
-        <BS.Row>
-          <BS.Col xs={12}>
-            {@renderWeaker() unless noData}
-          </BS.Col>
-        </BS.Row>
+        {@renderWeaker() unless noData}
 
         <BS.Row>
           <h3>Individual Chapters</h3>
         </BS.Row>
 
-        <BS.Row>
-          {for chapter, i in (@props.chapters or [])
-            <BS.Col key={i} lg={12} md={12} sm={12} xs={12}>
-              <Chapter chapter={chapter} {...@props} />
-            </BS.Col>}
-        </BS.Row>
+        {for chapter, i in (@props.chapters or [])
+          <Chapter chapter={chapter} {...@props} />}
 
       </div>
 
