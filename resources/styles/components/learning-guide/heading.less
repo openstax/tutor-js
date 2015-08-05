@@ -2,14 +2,12 @@
 
 .learning-guide {
   .guide-heading {
-    .make-row();
-
     .panel-body {
+      // set padding to match chapter sections.  Their padding derives from being in bootstrap columns
+      padding: @grid-gutter-width;
       .flex-display();
       .justify-content(flex-start);
-
       .align-items(center);
-
       .guide-group-title {
         .flex(1);
       }
@@ -29,7 +27,6 @@
         content: @fa-var-info-circle;
         color: @tutor-neutral-dark;
       }
-
     .guide-group-key {
       &.teacher .guide-key { margin-top: 15px; }
       min-width: 300px;
