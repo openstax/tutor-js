@@ -43,8 +43,15 @@ routes = (
 
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />
-            <Route path='months/:date/?' name='calendarByDate' handler={TeacherTaskPlans} >
-              <Route path='plans/:planId/?' name='calendarViewPlanStats'/>
+            <Route
+              path='months/:date/?'
+              name='calendarByDate'
+              handler={TeacherTaskPlans}
+              ignoreScrollBehavior>
+              <Route
+                path='plans/:planId/?'
+                name='calendarViewPlanStats'
+                ignoreScrollBehavior/>
             </Route>
           </Route>
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
