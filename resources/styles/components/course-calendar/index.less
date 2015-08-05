@@ -14,9 +14,10 @@
 }
 
 .is-not-open() {
-  content: @fa-var-eye-slash;
-  .fa-icon();
-  color: @tutor-neutral;
+  font-weight: 400;
+  font-style: italic;
+  content: 'opens ' attr(data-opens-at);
+  color: @tutor-neutral-darker;
 }
 
 .is-draft() {
