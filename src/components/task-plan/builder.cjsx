@@ -160,6 +160,7 @@ module.exports = React.createClass
             name='toggle-periods-radio'
             type='radio'
             onChange={@togglePeriodsDisplay}
+            disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
             checked={not @state.showingPeriods}/>
           <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
         </BS.Col>
@@ -211,6 +212,7 @@ module.exports = React.createClass
             name='toggle-periods-radio'
             type='radio'
             onChange={@togglePeriodsDisplay}
+            disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
             checked={@state.showingPeriods}/>
           <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
         </BS.Col>
@@ -236,6 +238,7 @@ module.exports = React.createClass
         <input
           id={"period-toggle-#{plan.id}"}
           type='checkbox'
+          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
           onChange={_.partial(@togglePeriodEnabled, plan)}
           checked={false}/>
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
@@ -254,6 +257,7 @@ module.exports = React.createClass
       <BS.Col sm=4 md=3>
         <input
           id={"period-toggle-#{plan.id}"}
+          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
           type='checkbox'
           onChange={_.partial(@togglePeriodEnabled, plan)}
           checked={true}/>
