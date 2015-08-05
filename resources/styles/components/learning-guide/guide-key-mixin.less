@@ -1,0 +1,20 @@
+.learning-guide-key() {
+  .flex-display();
+  .justify-content(space-around);
+  .item {
+    .flex-display();
+    .align-items(center);
+    .box {
+      width: 10px;
+      height: 10px;
+      margin-right: 5px;
+      .learning-guide-colors()
+    }
+    .title { #fonts > .sans(1.2rem, 1.2rem); }
+    &+.item {
+      .box {
+        margin-left: 5px;
+      }
+    }
+  }
+}

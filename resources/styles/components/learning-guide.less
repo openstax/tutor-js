@@ -1,5 +1,7 @@
-@import "learning-guide/chapter-panel-mixin";
+@import "learning-guide/section-mixin";
 @import "learning-guide/colors-mixin";
+@import "learning-guide/heading";
+@import "learning-guide/teacher-student";
 
 .info-link-tooltip .tooltip-inner {
   // tooltip appends itself before closing body tag
@@ -20,9 +22,11 @@
       border-bottom: none;
     }
   }
-  min-width: 380px;
+
+  // min-width: 380px;
   background: none;
   box-shadow: none;
+
   .guide-container {
     min-width: 340px;
   }
@@ -32,105 +36,55 @@
     margin: 9px 9px 9px 9px;
   }
 
-  &.teacher-student {
-    .student-selection {
-      #fonts > .sans(3rem);
-      display: inline-block;
-      box-shadow: none;
-      .dropdown-toggle  {
-        padding: 0 0 0.5rem 1rem;
-        text-transform: none;
-        #fonts > .sans(3rem);
-      }
-      .dropdown-menu {
-        max-height: 35rem;
-        overflow-y: scroll;
-        width: 100%;
-      }
-    }
-  }
-
-  .guide-heading {
-    .guide-group-title {
-      font-size: 3.5rem;
-      display: inline-block;
-      float: left;
-      margin-top: 14px;
-    }
-    .info-link:after {
-      padding-left: 10px;
-      .fa-icon();
-        content: @fa-var-info-circle;
-        color: @tutor-neutral-dark;
-      }
-
-    .guide-group-key {
-      &.teacher {
-        .guide-key {
-          margin-top: 15px;
-        }
-      }
-      width: 390px;
-      height: 64px;
-      float: left;
-      margin-right: 33px;
-      .guide-key {
-        height: 31px;
-        float: left;
-        width: 400px;
-        .item {
-          float: left;
-          margin: 0px 35px 0px 0px;
-          .title {
-            font-style: italic;
-          }
-          .box {
-            float: left;
-            width: 10px;
-            height: 10px;
-            margin: 10px 5px 0px 0px;
-            .learning-guide-colors();
-          }
-        }
-      }
-    }
-  }
-
-
   .guide-footer {
     clear: both;
   }
+
   .no-data-message {
     #fonts > .sans(2.5rem);
     font-weight: 700;
     text-align: center;
   }
-  // panel style that should only apply to the learing guide
-  // and not be applied by the shared mixin
-  .chapter-panel{
+
+  .chapter-panel {
     padding-top: @section-spacing;
     padding-bottom: @section-spacing;
 
-    .learning-guide-chapter-panel();
     background: @tutor-white;
     margin-bottom: @section-spacing;
     border: 1px solid @tutor-neutral-light;
 
-    button {
-      width: 100%;
+    // specific styles to apply to the chapter progress
+    .chapter {
+      .learning-guide-section();
+      .heading  { #fonts > .sans(1.8rem, 1.8rem); }
+      .progress { height: 1rem; }
+      .amount-worked {
+        .justify-content(flex-start);
+        font-size: 1.3rem;
+      }
+      .number {
+        color: @tutor-secondary;
+      }
     }
 
+    .section { .learning-guide-section(); }
+
     &.weaker {
-      .explanation {
-        color: @tutor-neutral;
-        #fonts > .sans(1.3rem, 1.3rem);
+      padding: @section-spacing;
+      .metric {
+        .title {
+          #fonts > .sans(1.9rem, 1.8rem);
+          margin-bottom: 10px;
+        }
+        p {
+          color: @tutor-neutral;
+          #fonts > .sans(1.3rem, 1.8rem);
+        }
       }
+      button { width: 100%; }
     }
-    .chapter-heading {
-      .progress{
-        height: 1rem;
-      }
-    }
+
   }
 
 }

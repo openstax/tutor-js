@@ -2,16 +2,13 @@
 
   .guide-heading {
     .row();
-  }
 
-  @media (min-width: @screen-lg-min) {
-    .info { .pull-right(); }
-  }
-
-  @media (max-width: @screen-lg-min) {
-    .info {
-      clear: left;
-      .guide-group-key { margin-top: 1rem; }
+    @media (max-width: @screen-md-min) {
+      .panel-body {
+        .flex-direction(column);
+        .align-items(stretch);
+        .btn.back { position: relative; top: -40px; }
+      }
     }
   }
 
@@ -34,11 +31,13 @@
       .flex-display();
     }
 
-    .chapter-heading {
+    .chapter {
       .make-xs-column(12);
       .make-md-column(4);
       .make-lg-column(3);
-
+      @media (min-width: @screen-md-min) {
+        border-right: 1px solid @tutor-neutral-light;
+      }
       @media (max-width: @screen-md-min) {
         border-right: 0px;
         border-bottom: 1px solid @tutor-neutral-light;
