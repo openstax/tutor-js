@@ -2,8 +2,44 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Time = require '../time'
 Markdown = require '../markdown'
+_ = require 'underscore'
 
-module.exports = React.createClass
+Instructions = React.createClass
+  displayName: 'Instructions'
+  propTypes:
+    task: React.PropTypes.object.isRequired
+
+    title: React.PropTypes.string
+    trigger: React.PropTypes.string
+    placement: React.PropTypes.string
+
+  getDefaultProps: ->
+    title: 'Instructions'
+    trigger: 'focus'
+    placement: 'top'
+
+  render: ->
+    {task, title, trigger, placement, children} = @props
+
+    return null unless task.description?
+
+    instructionsPopover =
+      <BS.Popover className='task-details-popover'>
+        <Markdown text={task.description} />
+      </BS.Popover>
+
+    defaultTriggerButton =
+      <BS.Button ref='instructions' className='task-details-instructions'>
+        Instructions
+      </BS.Button>
+
+    <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={instructionsPopover}>
+      {children or defaultTriggerButton}
+    </BS.OverlayTrigger>
+
+
+Details = React.createClass
+  displayName: 'Details'
   propTypes:
     task: React.PropTypes.object.isRequired
 
@@ -13,44 +49,39 @@ module.exports = React.createClass
     trigger: React.PropTypes.string
     placement: React.PropTypes.string
     className: React.PropTypes.string
+    lateStatus: React.PropTypes.element
 
   getDefaultProps: ->
-    title: 'Instructions'
     dateFormat: 'ddd MMM Do'
     dateLabel: 'Due'
-    trigger: 'focus'
-    placement: 'top'
 
   render: ->
-    {task, title, dateFormat, dateLabel, trigger, placement, className} = @props
+    {task, dateFormat, dateLabel, lateStatus, className} = @props
 
+    className ?= ''
     className += ' task-details'
 
-    if not task.due_at?
-      return null
+    return null unless task.due_at?
 
     if task.description
-      detailPopover =
-        <BS.Popover className='task-details-popover'>
-          <Markdown text={task.description} />
-        </BS.Popover>
+      instructionsProps = _.pick(@props, 'task', 'title', 'trigger', 'placement')
       details =
         <div className={className}>
           <div>
             {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
-            <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={detailPopover}>
-              <button className='task-details-info'/>
-            </BS.OverlayTrigger>
+            {lateStatus}
+            <Instructions {...instructionsProps}/>
           </div>
-          {@props.children}
         </div>
     else
       details =
         <div className={className}>
           <div className='task-details-due-date'>
             {dateLabel} <Time date={task.due_at} format={dateFormat}></Time>
+            {lateStatus}
           </div>
-          {@props.children}
         </div>
 
     details
+
+module.exports = {Details, Instructions}

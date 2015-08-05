@@ -3,7 +3,7 @@ React = require 'react'
 camelCase = require 'camelcase'
 Router = require 'react-router'
 
-Details = require '../task/details'
+{Details} = require '../task/details'
 BrowseTheBook = require '../buttons/browse-the-book'
 LateIcon = require '../late-icon'
 
@@ -59,14 +59,15 @@ module.exports =
     buildLateMessage = (task, status) ->
       "#{status.how_late} late"
 
+    lateIcon = <LateIcon
+      task={task}
+      buildLateMessage={buildLateMessage}/>
+
     taskDetails = <Details
+      lateStatus={lateIcon}
       key='details'
       task={task}
-      className='task-footer-detail'>
-        <LateIcon
-          task={task}
-          buildLateMessage={buildLateMessage}/>
-    </Details>
+      className='task-footer-detail'/>
 
     [
       taskAbout

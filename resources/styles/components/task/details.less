@@ -5,20 +5,11 @@
   position: static;
   line-height: 2rem;
 
-  button.task-details-info {
-    background: none;
-    border: none;
-    padding-left: 20px;
-    .transition(color .25s);
+  button.task-details-instructions {
+    margin-left: 20px;
 
-    &::after {
-      .fa-icon();
-      content: @fa-var-info-circle;
-    }
-
-    &:hover,
     &:focus {
-      color: @tutor-info;
+      .btn-hover();
     }
   }
 
@@ -72,8 +63,13 @@
     border-right-color: @popover-title-bg;
   }
 
-  &.top .arrow:after{
-    border-top-color: @popover-title-bg;
+  &.top .arrow {
+    bottom: -@details-popover-arrow-width;
+    margin-left: 24px;
+    &::after {
+      border-top-color: @popover-title-bg;
+      margin-left: -@details-popover-arrow-width;
+    }
   }
 
   &.bottom .arrow:after{
