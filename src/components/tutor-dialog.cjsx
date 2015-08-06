@@ -6,7 +6,7 @@ _ = require 'underscore'
 
 DialogProperties =
   title:     React.PropTypes.string.isRequired
-  onProceed: React.PropTypes.func.isRequired
+  onOk:      React.PropTypes.func.isRequired
   onCancel:  React.PropTypes.func.isRequired
   body:      React.PropTypes.element.isRequired
   show:      React.PropTypes.bool
@@ -39,7 +39,7 @@ DetachedTutorDialog = React.createClass
         <BS.Button key='cancel' className='cancel'
           onClick={_.compose(@props.onCancel,  @_hide)}>Cancel</BS.Button>
         <BS.Button key='ok'     className='ok'
-          onClick={_.compose(@props.onProceed, @_hide)} bsStyle='primary'>OK</BS.Button>
+          onClick={_.compose(@props.onOk, @_hide)} bsStyle='primary'>OK</BS.Button>
     ]
     classes = ['tutor-dialog']
     classes.push @props.className if @props.className
@@ -60,7 +60,7 @@ module.exports = TutorDialog = React.createClass
 
   componentDidMount: ->
     TutorDialog.show(_.extend({}, @props, body: @props.children)).then(
-      => @props.onProceed?()
+      => @props.onOk?()
       ,
       =>
         @props.onCancel?()
@@ -78,9 +78,9 @@ module.exports = TutorDialog = React.createClass
 
   statics:
     show: (props) ->
-      new Promise (onProceed, onCancel) =>
+      new Promise (onOk, onCancel) =>
         props = _.extend(_.clone(props), {
-          onProceed, onCancel, show: true
+          onOk, onCancel, show: true
         })
         if @dialog
           @dialog.replaceProps(props)

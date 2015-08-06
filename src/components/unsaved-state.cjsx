@@ -23,9 +23,9 @@ TransitionAssistant = {
   unsavedMessages: -> _.flatten( _.invoke(ACTIVE, '_unsavedMessages'), 1)
   checkTransitionStateTo: (destination) ->
 
-    new Promise (onProceed, onCancel) =>
+    new Promise (onOk, onCancel) =>
       if @canTransition()
-        onProceed()
+        onOk()
       else
         body =
           <div>
@@ -37,7 +37,7 @@ TransitionAssistant = {
           title: "Proceed to #{destination} ?", body
         }).then( =>
           @lastCancel = moment()
-          onProceed()
+          onOk()
         , onCancel )
 
   # transistions should be allowed for the next second if a transistion was just approved

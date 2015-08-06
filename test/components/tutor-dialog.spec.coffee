@@ -51,7 +51,7 @@ describe 'Tutor Dialog', ->
 
   it 'can be rendered normally', (done) ->
     @props.children = @props.body
-    @props.onProceed = sinon.spy()
+    @props.onOk = sinon.spy()
     cancel = @props.onCancel  = sinon.spy()
     Testing.renderComponent( Dialog, {props: @props} ).then ({root, element, wrapper}) =>
       # dialog doesn't render as part of the same dom tree that the parent uses
