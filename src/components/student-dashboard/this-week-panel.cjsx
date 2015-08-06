@@ -20,7 +20,7 @@ module.exports = React.createClass
         courseId={@props.courseId}
         events=events
         startAt={startAt}
-        endAt={startAt.clone().add(1, 'week')}
+        endAt={startAt.clone().add(1, 'week').subtract(1, 'second')}
       />
     else
       <EmptyPanel/>
