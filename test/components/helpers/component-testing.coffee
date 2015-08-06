@@ -32,17 +32,25 @@ Wrapper = React.createClass
 
 Testing = {
 
-  renderComponent: (component, options) ->
+  renderComponent: (component, options = {}) ->
     options.props ||= {}
-    new Promise (resolve, reject) ->
+    root = document.createElement('div')
+    promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
       props._wrapped_component = component
-      wrapper = ReactTestUtils.renderIntoDocument React.createElement(Wrapper, props)
+      wrapper = React.render( React.createElement(Wrapper, props), root )
       resolve({
+        root,
         wrapper,
         element: wrapper.refs.element,
         dom: React.findDOMNode(wrapper.refs.element)
       })
+    )
+    # defer adding the then callback so it'll be called after whatever is attached after the return
+    _.defer -> promise.then ->
+      React.unmountComponentAtNode(root)
+      return arguments
+    promise
 
   actions: commonActions
 

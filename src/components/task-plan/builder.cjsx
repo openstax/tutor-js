@@ -13,10 +13,11 @@ TimeHelper = require '../../helpers/time'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
+{UnsavedStateMixin} = require '../unsaved-state'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
-  mixins: [PlanMixin, BindStoreMixin, Router.State]
+  mixins: [PlanMixin, BindStoreMixin, Router.State, UnsavedStateMixin]
   bindStore: CourseStore
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -27,6 +28,13 @@ module.exports = React.createClass
 
     showingPeriods: not isNewPlan
     currentLocale: TimeHelper.getCurrentLocales()
+
+  # Called by the UnsavedStateMixin to detect if anything needs to be persisted
+  # This logic could be improved, all it checks is if a title is set on a new task plan
+  hasUnsavedState: ->
+    TaskPlanStore.isNew(@props.id) and TaskPlanStore.get(@props.id).title
+
+  unsavedStateMessages: -> 'The assignment has unsaved changes'
 
   mapPeriods: (opensAt, dueAt) ->
     planId = @props.id

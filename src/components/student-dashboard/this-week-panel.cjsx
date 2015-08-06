@@ -12,7 +12,7 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   render: ->
-    startAt = moment(TimeStore.getNow())
+    startAt = moment(TimeStore.getNow()).startOf('isoweek')
     events  = StudentDashboardStore.weeklyEventsForDay(@props.courseId, startAt)
     if events.length
       <Events
@@ -20,7 +20,7 @@ module.exports = React.createClass
         courseId={@props.courseId}
         events=events
         startAt={startAt}
-        endAt={startAt.clone().add(1, 'week')}
+        endAt={startAt.clone().add(1, 'week').subtract(1, 'second')}
       />
     else
       <EmptyPanel/>

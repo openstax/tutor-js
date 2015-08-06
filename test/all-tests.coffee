@@ -9,10 +9,10 @@ chai.use(sinonChai)
 # TODO figure out why.
 require './components/course-listing.spec'
 require './components/navbar.spec'
+require './components/navbar/account-link.spec'
 require './components/task-plan/homework-plan.spec'
 require './components/task-plan/homework/exercise-summary.spec'
 require './components/task-plan/footer.spec'
-
 require './components/question.spec'
 require './components/task.spec'
 require './components/task-homework.spec'
@@ -29,8 +29,10 @@ require './components/student-dashboard.spec'
 require './components/student-dashboard/progress-guide.spec'
 require './components/reference-book.spec'
 require './components/course-settings.spec'
-require './components/tutor-input.spec'
 require './components/icon.spec'
+require './components/tutor-input.spec'
+require './components/tutor-dialog.spec'
+require './components/unsaved-state.spec'
 
 require './crud-store.spec'
 require './task-store.spec'

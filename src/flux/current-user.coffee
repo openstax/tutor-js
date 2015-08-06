@@ -52,8 +52,8 @@ ROUTES =
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
-  'loadName'
-  'loadedName'
+  'load'
+  'loaded'
   'logout'    # () ->    # API Hooks onto this action and transitions
   'reset'
 ]
@@ -61,10 +61,12 @@ CurrentUserActions = flux.createActions [
 CurrentUserStore = flux.createStore
   actions: [
     CurrentUserActions.setToken
-    CurrentUserActions.loadName
-    CurrentUserActions.loadedName
+    CurrentUserActions.load
+    CurrentUserActions.loaded
     CurrentUserActions.reset
   ]
+
+  _user: {}
 
   _token: null
   _viewingCourseId: null
@@ -97,22 +99,24 @@ CurrentUserStore = flux.createStore
 
   setToken: (@_token) -> # Save the token
 
-  loadName: -> # Used by API
-  loadedName: (results) ->
-    @_name = results.name
-    @_isAdmin = results.is_admin
+  load: -> # Used by API
+  loaded: (results) ->
+    @_user = results
     @emitChange()
 
   reset: ->
     @_token = null
-    @_name = 'Guest'
+    @_user.name = 'Guest'
+    @_user.profile_url = null
     @_viewingCourseId = null
+    @emitChange()
 
   exports:
     getToken: -> @_token
     getCSRFToken: -> CSRF_Token
-    getName: -> @_name
-    isAdmin: -> @_isAdmin
+    getName: -> @_user.name
+    isAdmin: -> @_user.is_admin
+    getProfileUrl: -> @_user.profile_url
 
     getCourseRole: (courseId, silent = true) ->
       @_getCourseRole(courseId, silent)
@@ -126,6 +130,7 @@ CurrentUserStore = flux.createStore
 
     getHelpLink: (courseId) ->
       'https://openstaxtutor.zendesk.com'
+
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.
