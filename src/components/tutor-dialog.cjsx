@@ -59,11 +59,10 @@ module.exports = TutorDialog = React.createClass
   propTypes: _.omit(DialogProperties, 'body')
 
   componentDidMount: ->
+    # While unlikely, the onOk and onCancel properties could have been updated while the dialog was visible
+    # If they were we need to call their current functions
     TutorDialog.show(_.extend({}, @props, body: @props.children)).then(
-      => @props.onOk?()
-      ,
-      =>
-        @props.onCancel?()
+      ( => @props.onOk?(arguments...) ) , ( @props.onCancel?(arguments...) )
     )
 
   componentWillUnmount: ->
@@ -86,6 +85,7 @@ module.exports = TutorDialog = React.createClass
           @dialog.replaceProps(props)
         else
           div = document.body.appendChild( document.createElement('div') )
+          div.id
           @dialog = React.render(React.createElement(DetachedTutorDialog, props), div)
 
         @dialog
