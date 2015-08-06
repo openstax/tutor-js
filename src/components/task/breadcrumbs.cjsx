@@ -6,12 +6,13 @@ _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
+ResizeListenerMixin = require '../resize-listener-mixin'
 {BreadcrumbTaskDynamic} = require '../breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [ChapterSectionMixin, CrumbMixin]
+  mixins: [ChapterSectionMixin, CrumbMixin, ResizeListenerMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -19,8 +20,10 @@ module.exports = React.createClass
     goToStep: React.PropTypes.func.isRequired
 
   getInitialState: ->
-    updateOnNext:
-      true
+    updateOnNext: true
+    hoverCrumb: @props.currentStep
+    shouldCoverflow: false
+    coverflowWidth: null
 
   componentWillMount: ->
     listeners = @getMaxListeners()
@@ -39,10 +42,21 @@ module.exports = React.createClass
     # until the recovery step has been loaded
     TaskStore.on('task.afterRecovery', @update)
 
+    crumbs = @getCrumableCrumbs()
+    @setState(coverflowWidth: (crumbs.length * 47))
+
+
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
     TaskStore.off('task.beforeRecovery', @stopUpdate)
     TaskStore.off('task.afterRecovery', @update)
+
+  _resizeListener: (sizes) ->
+    shouldCoverflow = @shouldCoverflow(sizes)
+    @setState({shouldCoverflow})
+
+  shouldCoverflow: (sizes) ->
+    sizes.windowEl.width < @state.coverflowWidth
 
   shouldComponentUpdate: (nextProps, nextState) ->
     nextState.updateOnNext
@@ -53,17 +67,29 @@ module.exports = React.createClass
   stopUpdate: ->
     @setState(updateOnNext: false)
 
+  updateHoverCrumb: (hover) ->
+    @setState(hoverCrumb: hover)
+
   render: ->
     crumbs = @getCrumableCrumbs()
     {currentStep, goToStep} = @props
 
-    stepButtons = _.map crumbs, (crumb) ->
+    stepButtons = _.map crumbs, (crumb, crumbIndex) =>
+      crumbStyle =
+        zIndex: crumbs.length - Math.abs(@state.hoverCrumb - crumbIndex)
+
       <BreadcrumbTaskDynamic
+        onMouseEnter={@updateHoverCrumb.bind(@, crumbIndex)}
+        onMouseLeave={@updateHoverCrumb.bind(@, @props.currentStep)}
+        style={crumbStyle}
         crumb={crumb}
         currentStep={currentStep}
         goToStep={goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
-    <div className='task-breadcrumbs'>
+    classes = 'task-breadcrumbs'
+    classes += ' coverflow' if @state.shouldCoverflow
+
+    <div className={classes}>
       {stepButtons}
     </div>

@@ -56,6 +56,25 @@
 .task-breadcrumbs {
   margin-left: -2px;
   margin-right: -2px;
+
+  &.coverflow {
+    .task-breadcrumbs-step {
+      .box-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
+
+      &:hover {
+        margin-right: 20px;
+      }
+
+      &:not(:hover) {
+        .rotateY(45deg);
+        margin-left: -16px;
+      }
+
+      &:hover ~ .task-breadcrumbs-step {
+        .rotateY(-45deg);
+      }
+    }
+  }
 }
 
 .task-breadcrumbs-step {
@@ -71,7 +90,7 @@
 
   &:hover,
   &.active {
-    .tutor-icon-active();
+    .tutor-icon-active(1.4, 0.5);
   }
 
   &.active {
