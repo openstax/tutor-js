@@ -7,7 +7,7 @@ module.exports = {
 
   closest: (el, selector) ->
     return null unless el
-    if @matches(el, selector) then el else (el.querySelector(selector) or @closest(el.parentNode, selector))
+    if @matches(el, selector) then el else @closest(el.parentNode, selector)
 
 
 }
