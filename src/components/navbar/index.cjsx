@@ -18,10 +18,14 @@ BindStoreMixin = require '../bind-store-mixin'
 module.exports = React.createClass
   displayName: 'Navigation'
 
+  mixins: [BindStoreMixin]
+  bindStore: CurrentUserStore
+
   contextTypes:
     router: React.PropTypes.func
 
   componentWillMount: ->
+    CurrentUserActions.load()
     CourseListingStore.ensureLoaded()
 
   getInitialState: ->
