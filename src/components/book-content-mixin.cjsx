@@ -1,5 +1,6 @@
 _ = require 'underscore'
 S = require '../helpers/string'
+dom = require '../helpers/dom'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
@@ -109,13 +110,13 @@ module.exports =
     @renderOtherLinks?(otherLinks)
     @renderExercises?(exerciseLinks)
 
-
 # called with the context set to the image
 sizeImage = ->
-  return unless @parentNode
+  figure = dom.closest(@, 'figure')
+  return unless figure
   if @naturalWidth > @naturalHeight
-    @parentNode.classList.add('tutor-ui-horizontal-img')
+    figure.classList.add('tutor-ui-horizontal-img')
     if @naturalWidth > 450
-      @parentNode.classList.add('full-width')
+      figure.classList.add('full-width')
   else
-    @parentNode.classList.add('tutor-ui-vertical-img')
+    figure.classList.add('tutor-ui-vertical-img')
