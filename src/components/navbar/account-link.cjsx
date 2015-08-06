@@ -15,6 +15,7 @@ module.exports = React.createClass
       window.location.href = CurrentUserStore.getProfileUrl()
 
   render: ->
+    return null unless CurrentUserStore.getProfileUrl()
     <BS.MenuItem onSelect={@redirectToAccount} >
       My Account
     </BS.MenuItem>
