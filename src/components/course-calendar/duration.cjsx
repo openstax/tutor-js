@@ -124,6 +124,12 @@ CourseDuration = React.createClass
 
     @_getDurationFromMoments(rangeDates)
 
+  _getEarliestOpensAt: (plan) ->
+    openDates = _.pluck(plan.tasking_plans, 'opens_at')
+    rangeDates = _.union(openDates)
+    openRange = @_getDurationFromMoments(rangeDates)
+    openRange.start
+
   # For displaying ranges for units in the future
   setDurationRange: (plan) ->
     plan.duration = @_getDurationRange(plan)
@@ -187,15 +193,19 @@ CourseDuration = React.createClass
         plansByDays: []
         plansInRange: []
 
-      _.each(durationsInView, (plan) ->
+      _.each(durationsInView, (plan) =>
         if plan.duration.overlaps(range)
           counter[plan.id] ?= 0
+
+          simplePlan = _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
+          earliestOpensAt = @_getEarliestOpensAt(plan)
+          simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
 
           planForRange =
             rangeDuration: plan.duration.intersection(range)
             offset: moment(range.start).twix(plan.duration.start).length('days')
             duration: plan.duration
-            plan: _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
+            plan: simplePlan
             index: counter[plan.id]
 
           # Add plan to plans in range

@@ -46,37 +46,31 @@ module.exports = React.createClass
       <div className='container'>
 
         <BS.Row>
-          <BS.Col xs=12 md=4 lg=3 mdPush=8 lgPush=9>
 
-            <ProgressGuideShell courseId={courseId} />
-
-            <div className='actions-box'>
-              <BrowseBookButton unstyled courseId={courseId}>
-                <div>Browse the Book</div>
-              </BrowseBookButton>
-
-            </div>
-          </BS.Col>
-
-          <BS.Col xs=12 md=8 lg=9 mdPull=4 lgPull=3>
-
+          <BS.Col xs=12 md=8 lg=9>
             <BS.TabbedArea
               activeKey = {@state.selectedTabIndex}
               onSelect  = {@selectTab}
               animation = {false}>
-
               <BS.TabPane eventKey={1} tab='This Week'>
                 <ThisWeekPanel courseId={courseId}/>
                 <UpcomingPanel courseId={courseId}/>
               </BS.TabPane>
-
               <BS.TabPane eventKey={2} tab='All Past Work'>
                 <AllEventsByWeek courseId={courseId}/>
               </BS.TabPane>
-
             </BS.TabbedArea>
-
           </BS.Col>
+
+          <BS.Col xs=12 md=4 lg=3>
+            <ProgressGuideShell courseId={courseId} />
+            <div className='actions-box'>
+              <BrowseBookButton unstyled courseId={courseId}>
+                <div>Browse the Book</div>
+              </BrowseBookButton>
+            </div>
+          </BS.Col>
+
         </BS.Row>
       </div>
     </div>

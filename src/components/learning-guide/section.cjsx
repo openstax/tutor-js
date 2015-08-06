@@ -20,11 +20,11 @@ module.exports = React.createClass
     {courseId, section} = @props
 
     <div className='section'>
-      <div className='section-heading'>
-        <span className='section-number'>
+      <div className='heading'>
+        <span className='number'>
           {@sectionFormat(section.chapter_section)}
         </span>
-        <span className='section-title' title={section.title}>{section.title}</span>
+        <span className='title' title={section.title}>{section.title}</span>
       </div>
 
       <ProgressBar {...@props} />
