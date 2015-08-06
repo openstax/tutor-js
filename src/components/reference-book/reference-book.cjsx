@@ -29,8 +29,7 @@ module.exports = React.createClass
 
     unless cnxId? or section?
       section = ReferenceBookStore.getFirstSection(courseId)
-      @context.router.transitionTo('viewReferenceBookSection', {courseId, section})
-      return
+      @context.router.replaceWith('viewReferenceBookSection', {courseId, section})
 
     CourseListingStore.ensureLoaded()
 
