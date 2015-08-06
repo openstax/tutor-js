@@ -36,7 +36,6 @@ module.exports = React.createClass
         {@props.children}
         <Instructions
           task={@props.event}
-          trigger='hover'
           popverClassName='student-dashboard-instructions-popover'/>
       </BS.Col>
       <BS.Col xs={5}  sm={2} className='feedback'>
