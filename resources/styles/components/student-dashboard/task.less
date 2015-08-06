@@ -35,22 +35,6 @@
       }
     }
 
-    button.instructions {
-      background: none;
-      border: none;
-      padding-left: 20px;
-      .transition(color .25s);
-
-      &::after {
-        .fa-icon();
-        content: @fa-var-info-circle;
-      }
-
-      &:hover,
-      &:focus {
-        color: @tutor-info;
-      }
-    }
     // The first panel inside a tab should be positioned at the top with no margin
     @media screen and ( max-width: @screen-sm-min ){
       .column-icon { height: @student-dashboard-row-height*2; }

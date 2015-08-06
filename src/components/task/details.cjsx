@@ -30,10 +30,7 @@ Instructions = React.createClass
         <Markdown text={task.description} />
       </BS.Popover>
 
-    defaultTriggerButton =
-      <BS.Button ref='instructions' className='task-details-instructions'>
-        Instructions
-      </BS.Button>
+    defaultTriggerButton = <button className='task-details-instructions'/>
 
     <BS.OverlayTrigger trigger={trigger} placement={placement} overlay={instructionsPopover}>
       {children or defaultTriggerButton}
