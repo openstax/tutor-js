@@ -85,7 +85,7 @@ module.exports = TutorDialog = React.createClass
           @dialog.replaceProps(props)
         else
           div = document.body.appendChild( document.createElement('div') )
-          div.id
+          div.className = '-tutor-dialog-parent'
           @dialog = React.render(React.createElement(DetachedTutorDialog, props), div)
 
         @dialog
