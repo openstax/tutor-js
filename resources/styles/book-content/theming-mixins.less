@@ -14,9 +14,9 @@
 }
 
 .tutor-book-theme-note(@label-background: @tutor-book-primary; @label-text: @tutor-book-text-on-dark-labels) {
-  > .note,
-  > section > .note,
-  section > section > .note,
+  > .note:not(.os-teacher),
+  > section > .note:not(.os-teacher),
+  section > section > .note:not(.os-teacher),
   .grasp-check {
     &:before {
       color: @label-text;
