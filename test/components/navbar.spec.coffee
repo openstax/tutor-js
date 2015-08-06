@@ -87,7 +87,7 @@ testWithRole = (roleType) ->
       coursesList = _.clone(COURSES_LIST)
       coursesList[0].roles[0].type = roleType
 
-      CurrentUserActions.loadedName(roleTestParams.user)
+      CurrentUserActions.loaded(roleTestParams.user)
       CourseListingActions.loaded(coursesList)
       roleTestParams.actions.loaded(roleTestParams.dashboard, COURSE_ID)
 
@@ -143,7 +143,7 @@ testWithRole = (roleType) ->
       navDropDown = navbarComponent.refs.navDropDown.getDOMNode()
       dropdownItems = navDropDown.querySelectorAll('li')
 
-      roleItems = Array.prototype.slice.call(dropdownItems, 0, -3)
+      roleItems = Array.prototype.slice.call(dropdownItems, 0, -4)
 
       roleLabels = _.map roleItems, (item) ->
         item.innerText

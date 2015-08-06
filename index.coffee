@@ -4,6 +4,7 @@ require 'bootstrap' # Attach bootstrap to jQuery
 api = require './src/api'
 router = require './src/router'
 {startMathJax} = require './src/helpers/mathjax'
+{TransitionAssistant} = require './src/components/unsaved-state'
 
 
 window._STORES =
@@ -22,6 +23,7 @@ window._STORES =
 
 api.start()
 startMathJax()
+TransitionAssistant.startMonitoring()
 
 # This is added because MathJax puts in extra divs on initial load.
 # Moves the React Root to be an element inside a div
