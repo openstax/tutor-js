@@ -66,6 +66,7 @@ describe 'Current User Store', ->
   it 'should clear the store on reset', ->
     CurrentUserActions.reset()
     expect(CurrentUserStore.getName()).to.equal('Guest')
+    expect(CurrentUserStore.getProfileUrl()).to.be.null
     expect(CurrentUserStore.getToken()).to.be.null
 
   it 'should return expected roles for courses', ->

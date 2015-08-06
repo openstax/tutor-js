@@ -107,7 +107,9 @@ CurrentUserStore = flux.createStore
   reset: ->
     @_token = null
     @_user.name = 'Guest'
+    @_user.profile_url = null
     @_viewingCourseId = null
+    @emitChange()
 
   exports:
     getToken: -> @_token
