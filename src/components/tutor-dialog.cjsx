@@ -3,18 +3,22 @@ React = require 'react'
 _ = require 'underscore'
 {Promise} = require 'es6-promise'
 
-TutorDialog = React.createClass
 
-  displayName: 'TutorDialog'
+DialogProperties =
+  title:     React.PropTypes.string.isRequired
+  onProceed: React.PropTypes.func.isRequired
+  onCancel:  React.PropTypes.func.isRequired
+  body:      React.PropTypes.element.isRequired
+  show:      React.PropTypes.bool
+  buttons:   React.PropTypes.arrayOf( React.PropTypes.element )
+  className: React.PropTypes.string
 
-  propTypes:
-    title:     React.PropTypes.string.isRequired
-    onProceed: React.PropTypes.func.isRequired
-    onCancel:  React.PropTypes.func.isRequired
-    body:      React.PropTypes.element.isRequired
-    show:      React.PropTypes.bool
-    buttons:   React.PropTypes.arrayOf( React.PropTypes.element )
-    className: React.PropTypes.string
+# This is the "real" dialog component. It's rendered to a div under document.body
+DetachedTutorDialog = React.createClass
+
+  displayName: 'DetachedTutorDialog'
+
+  propTypes: DialogProperties
 
   getInitialState: ->
     show: true
@@ -22,14 +26,20 @@ TutorDialog = React.createClass
   componentWillReceiveProps: (nextProps) ->
     @setState(show: nextProps.show) if nextProps.show?
 
-  hide: ->
+  _hide: ->
     @setState(show: false)
+
+  hide: ->
+    @_hide()
+    @props.onCancel()
 
   render: ->
     return null unless @state.show
     buttons = @props.buttons or [
-        <BS.Button key='cancel' onClick={_.compose(@props.onCancel,  @hide)}>Cancel</BS.Button>
-        <BS.Button key='ok'     onClick={_.compose(@props.onProceed, @hide)} bsStyle='primary'>OK</BS.Button>
+        <BS.Button key='cancel' className='cancel'
+          onClick={_.compose(@props.onCancel,  @_hide)}>Cancel</BS.Button>
+        <BS.Button key='ok'     className='ok'
+          onClick={_.compose(@props.onProceed, @_hide)} bsStyle='primary'>OK</BS.Button>
     ]
     classes = ['tutor-dialog']
     classes.push @props.className if @props.className
@@ -43,21 +53,45 @@ TutorDialog = React.createClass
       </div>
     </BS.Modal>
 
-module.exports = {
+module.exports = TutorDialog = React.createClass
+  displayName: 'TutorDialog'
 
-  show: (props) ->
-    new Promise (onProceed, onCancel) =>
+  propTypes: _.omit(DialogProperties, 'body')
 
-      props = _.extend(_.clone(props), {
-        onProceed, onCancel, show: true
-      })
+  componentDidMount: ->
+    TutorDialog.show(_.extend({}, @props, body: @props.children)).then(
+      => @props.onProceed?()
+      ,
+      =>
+        @props.onCancel?()
+    )
 
-      if @dialog
-        @dialog.replaceProps(props)
-      else
-        div = document.body.appendChild( document.createElement('div') )
-        @dialog = React.render(React.createElement(TutorDialog, props), div)
+  componentWillUnmount: ->
+    TutorDialog.hide(@props)
 
-      @dialog
+  componentWillReceiveProps: (newProps) ->
+    TutorDialog.update(newProps)
 
-}
+  # The render method doesn't add anything to the DOM
+  # instead it shows/hides DetachedTutorDialog
+  render: -> return null
+
+  statics:
+    show: (props) ->
+      new Promise (onProceed, onCancel) =>
+        props = _.extend(_.clone(props), {
+          onProceed, onCancel, show: true
+        })
+        if @dialog
+          @dialog.replaceProps(props)
+        else
+          div = document.body.appendChild( document.createElement('div') )
+          @dialog = React.render(React.createElement(DetachedTutorDialog, props), div)
+
+        @dialog
+
+    hide: ->
+      @dialog?.hide()
+
+    update: (props) ->
+      @dialog?.setProps(props)
