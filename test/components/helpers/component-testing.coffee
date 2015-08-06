@@ -9,11 +9,9 @@ ReactTestUtils = React.addons.TestUtils
 {commonActions} = require './utilities'
 sandbox = null
 ROUTER = null
-RENDERED = []
 
 # Mock a router for the context
 beforeEach ->
-  RENDERED = []
   sandbox = sinon.sandbox.create()
   ROUTER  = sandbox.spy()
   ROUTER.transitionTo = sandbox.spy()
