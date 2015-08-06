@@ -46,7 +46,7 @@ CourseAdd = React.createClass
     style['display'] = if open then 'block' else 'none'
 
     # only allow add if addDate is on or after reference date
-    unless addDate?.isBefore(referenceDate, 'day')
+    if addDate?.isAfter(referenceDate, 'day')
       dropdownContent = @renderAddActions()
     else
       className = "#{className} no-add"

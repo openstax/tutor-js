@@ -158,7 +158,7 @@ checks =
     # add date for drop down should be Today
     expect(isToday).to.be.true
 
-    routeQuery = {date: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
+    routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
     targetReadingLink = router.makeHref('createReading', {courseId}, routeQuery)
     targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
 
@@ -182,7 +182,7 @@ checks =
     # add date for drop down should be Tomorrow
     expect(isTomorrow).to.be.true
 
-    routeQuery = {date: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
+    routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
     targetReadingLink = router.makeHref('createReading', {courseId}, routeQuery)
     targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
 
@@ -197,7 +197,7 @@ checks =
   _checkIsAtHomeworkLinkAfterAddClick: ({div, component, state, router, history, courseId}) ->
     addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
 
-    routeQuery = {date: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
+    routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
     targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
     expect(state.path).to.equal(targetHomeworkLink)
     {div, component, state, router, history, courseId}
