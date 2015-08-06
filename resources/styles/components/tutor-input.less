@@ -2,14 +2,27 @@
   &.form-control-wrapper {
     // override line-height styles for paper form controls
     line-height: 1em;
+    margin: 0 0 28px 0;
+
+    #reading-title {
+      font-size: 2rem;
+      color: @tutor-neutral-darker;
+    }
 
     textarea {
       overflow: hidden;
+      font-size: 2rem;
+      color: @tutor-neutral-darker;
+      height: 28px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .floating-label {
+      font-size: 2rem;
     }
 
     .form-control {
-      font-size: 1.8rem;
-      color: #424242;
 
       &:focus,
       &.focus {
@@ -18,12 +31,22 @@
 
         ~ .floating-label {
           color: @info;
+          top: -15px;
+          font-size: 1.1rem;
+          font-weight: 300;
         }
 
         ~.required-hint {
           display: none;
         }
       }
+
+      &:not(.empty) ~ .floating-label {
+        top: -15px;
+        font-size: 1.1rem;
+        font-weight: 300;
+      }
+
     }
 
     .date-wrapper {
@@ -35,9 +58,10 @@
       input.datepicker__input {
         box-shadow: none;
         border: 0;
-        padding: 6px 10px 5px 0;
+        padding: 3px 11px 0 0;
         background: transparent;
         width: 100%;
+        font-size: 1.6rem;
       }
       i.fa.fa-calendar {
         position: absolute;
@@ -83,3 +107,5 @@
     }
   }
 }
+
+.tutor-date-input .form-control-wrapper .floating-label { font-size: 1.6rem; }

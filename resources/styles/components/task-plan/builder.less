@@ -6,12 +6,20 @@
     font-weight: normal;
   }
 
+  .assign-to-label { 
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+  }
+  
   .instructions {
+    margin-top: -25px;
     color: @tutor-neutral;
-    #fonts >.sans(1.1rem, 1.2rem);
+    #fonts >.sans(1rem, 1.4rem);
+    font-weight: 300;
+    font-style: italic;
   }
   .assignment-description {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   .periods-invalid {
     color: @form-error-color;
@@ -25,7 +33,7 @@
     input[type=checkbox] { margin-left: 1rem; }
     label.period { left: 45px; }
     &.disabled {
-      label { text-decoration: line-through; }
+      label { color: @tutor-neutral-light; }
     }
   }
 

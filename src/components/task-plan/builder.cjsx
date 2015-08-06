@@ -132,9 +132,9 @@ module.exports = React.createClass
 
     <div className="assignment">
       <BS.Row>
-        <BS.Col sm=8 xs=12>
+        <BS.Col xs=12>
           <TutorInput
-            label='Assignment name (this is what students will see on their dashboard)'
+            label='Assignment name'
             className='assignment-name'
             id='reading-title'
             default={plan.title}
@@ -143,16 +143,20 @@ module.exports = React.createClass
         </BS.Col>
       </BS.Row><BS.Row>
         <BS.Col xs=12>
+          <div className="instructions">students will see this on their dashboard</div>
+        </BS.Col>
+      </BS.Row><BS.Row>
+        <BS.Col xs=12>
           <TutorTextArea
-            label='Description or special instructions (students will see this)'
+            label='Description or special instructions'
             className='assignment-description'
             id='assignment-description'
             default={TaskPlanStore.getDescription(@props.id)}
             onChange={@setDescription} />
         </BS.Col>
       </BS.Row><BS.Row>
-        <BS.Col sm=4 md=3>Assign to</BS.Col>
-      </BS.Row><BS.Row>
+        <BS.Col sm=4 md=3 className='assign-to-label'>Assign to</BS.Col>
+      </BS.Row><BS.Row className="tutor-date-input">
 
         <BS.Col sm=4 md=3>
           <input
@@ -197,8 +201,8 @@ module.exports = React.createClass
       <BS.Row>
         <BS.Col sm=4 md=3></BS.Col>
         <BS.Col sm=4 md=3>
-          <div className="instructions">Open time is 12:01am.</div>
-          <div className="instructions">Set date to today to open immediately.</div>
+          <div className="instructions">Open time is 12:01am.
+          <br/> Set date to today to open immediately.</div>
         </BS.Col>
         <BS.Col sm=4 md=3>
           <div className="instructions">Due time is 7:00am</div>
