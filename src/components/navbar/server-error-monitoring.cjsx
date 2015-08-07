@@ -17,15 +17,15 @@ module.exports = React.createClass
     return unless serverErr
     errorMessage =
       <div className='server-error'>
-        <h1>An error has occured</h1>
+        <h3>An error with code {serverErr.statusCode} has occured</h3>
         <p>Please visit <a target='_blank'
           href='https://openstaxtutor.zendesk.com/hc/en-us/requests/new'>our support page</a> to file a bug report.
         </p>
         <p>Additional error messages returned from the server is:</p>
-        <div className='response'>{serverErr.message}</div>
+        <div className='response'>{serverErr.message or 'No response was received'}</div>
       </div>
     Dialog.show(
-      title: "An error has occured.  Code: #{serverErr.statusCode}", body: errorMessage
+      title: 'Server Error', body: errorMessage
       buttons: [
         <BS.Button key='ok'
           onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
