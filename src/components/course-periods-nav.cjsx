@@ -15,10 +15,15 @@ CoursePeriodsNav = React.createClass
     handleKeyUpdate: React.PropTypes.func
     initialActive: React.PropTypes.number.isRequired
     periods: React.PropTypes.array.isRequired
+    format: React.PropTypes.oneOf([
+      'short'
+      'long'
+    ]).isRequired
 
   getDefaultProps: ->
     initialActive: 0
     sortedPeriods: []
+    format: 'short'
 
   getInitialState: ->
     active: @props.initialActive
@@ -56,7 +61,10 @@ CoursePeriodsNav = React.createClass
     @setState(active: key)
 
   renderPeriod: (period, key) ->
-    <BS.NavItem eventKey={key} key="period-nav-#{period.id}">{period.name}</BS.NavItem>
+    {name, id} = period
+    name = name.replace(' Period', '') if @props.format is 'short' and name?
+
+    <BS.NavItem eventKey={key} key="period-nav-#{id}">{name}</BS.NavItem>
 
   render: ->
     {active, sortedPeriods} = @state
