@@ -18,7 +18,7 @@ module.exports = React.createClass
       <div className='server-error'>
         <h1>An error has occured</h1>
         <p>Please visit <a target='_blank'
-          href='https://openstaxtutor.zendesk.com/hc/en-us'>our support page</a> to file a bug report.
+          href='https://openstaxtutor.zendesk.com/hc/en-us/requests/new'>our support page</a> to file a bug report.
         </p>
         <p>Additional error messages returned from the server is:</p>
         <div className='response'>{serverErr.message}</div>
