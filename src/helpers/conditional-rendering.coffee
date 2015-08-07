@@ -10,12 +10,10 @@ module.exports = (component, options = {}) ->
   RouteHandler.contextTypes = { router: React.PropTypes.func }
   RouteHandler::render = ->
     {courseId} = @context.router.getCurrentParams()
-    if options.requireRole and courseId
-      role = CurrentUserStore.getCourseRole(courseId)
-      if role is not options.requireRole
-        return React.createElement(Invalid)
-
-    React.createElement(component)
-
-
+    React.createElement(
+      if options.requireRole and courseId and options.requireRole isnt CurrentUserStore.getCourseRole(courseId)
+        Invalid
+      else
+        component
+    )
   return RouteHandler
