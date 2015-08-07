@@ -25,7 +25,7 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   componentWillMount: ->
-    CurrentUserActions.load()
+    CurrentUserStore.ensureLoaded()
     CourseListingStore.ensureLoaded()
 
   getInitialState: ->
