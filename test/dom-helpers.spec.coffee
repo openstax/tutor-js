@@ -12,6 +12,9 @@ HTML = """
   <div class="wfig">
     <figure>a figure</figure>
   </div>
+  <div id="tutor-boostrap-data">
+    {"user":{"name":"Atticus Finch"}}
+  </div>
 </div>
 """
 
@@ -36,3 +39,6 @@ describe 'DOM Helpers', ->
 
   it 'does not find siblings', ->
     expect( DOM.closest( @p, '.wfig' ) ).to.be.null
+
+  it 'can read bootstrap data', ->
+    expect(DOM.readBootstrapData(@root)).to.deep.equal({"user":{"name":"Atticus Finch"}})

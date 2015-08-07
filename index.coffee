@@ -3,6 +3,7 @@ require 'bootstrap' # Attach bootstrap to jQuery
 
 api = require './src/api'
 router = require './src/router'
+dom = require './src/helpers/dom'
 {startMathJax} = require './src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
 
@@ -21,9 +22,9 @@ window._STORES =
   TIME: require './src/flux/time'
   TOC: require './src/flux/toc'
 
-api.start(
-  JSON.parse(document.getElementById('tutor-boostrap-data')?.textContent or '{}')
-)
+
+api.start(dom.readBootstrapData())
+
 startMathJax()
 TransitionAssistant.startMonitoring()
 
