@@ -22,7 +22,7 @@ module.exports = React.createClass
   getInitialState: ->
     updateOnNext: true
     hoverCrumb: @props.currentStep
-    shouldCoverflow: false
+    shouldCoverflow: null
     coverflowWidth: null
 
   componentWillMount: ->
@@ -45,11 +45,13 @@ module.exports = React.createClass
     crumbs = @getCrumableCrumbs()
     @setState(coverflowWidth: (crumbs.length * 47))
 
-
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
     TaskStore.off('task.beforeRecovery', @stopUpdate)
     TaskStore.off('task.afterRecovery', @update)
+
+  componentDidUpdate: ->
+    @_resizeListener(@state) if @state.windowEl.width? and not @state.shouldCoverflow?
 
   _resizeListener: (sizes) ->
     shouldCoverflow = @shouldCoverflow(sizes)

@@ -57,25 +57,6 @@
   margin-left: -2px;
   margin-right: -2px;
 
-  &.coverflow {
-    .task-breadcrumbs-step {
-      .box-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
-
-      &:hover {
-        margin-right: 20px;
-      }
-
-      &:not(:hover) {
-        .rotateY(45deg);
-        margin-left: -16px;
-      }
-
-      &:hover ~ .task-breadcrumbs-step {
-        .rotateY(-45deg);
-      }
-    }
-  }
-
   &.shrink {
     .task-breadcrumbs-step {
       &:not(:hover):not(.active) {
