@@ -89,7 +89,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
 
   it 'should format the details page using markdown (for now)', (done) ->
     taskActions
-      .clickDetails(@result)
+      .triggerDetails(@result)
       .then(taskChecks.checkIsPopoverOpen)
       .then( ->
         done()

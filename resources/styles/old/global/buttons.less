@@ -6,6 +6,9 @@
 @primary-background-hover: #fa804d;
 
 // Override the defaults from bootstrap-material-design
+.btn-hover() {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
+}
 
 .btn-round() {
   margin-right: 5px;
@@ -15,7 +18,7 @@
   transition: box-shadow 0.2s, background 0.2s;
 
   &:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
+    .btn-hover();
   }
 }
 

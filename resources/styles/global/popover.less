@@ -1,9 +1,9 @@
 // This is largely taken from bootstrap since they do not provide a mixin for popovers
 @popover-title-bg: @tutor-white;
-@popover-border-color: @tutor-info;
+@popover-border-color: transparent;
 @popover-arrow-color: @tutor-white;
-@popover-arrow-outer-fallback-color: @tutor-info;
-@popover-arrow-outer-color: @tutor-info;
+@popover-arrow-outer-fallback-color: @tutor-neutral-light;
+@popover-arrow-outer-color: @tutor-neutral-light;
 @popover-background: @tutor-white;
 
 .popover-title {
@@ -19,4 +19,5 @@
   // override border and arrow styles imposed by material design
   border: 1px solid @popover-border-color;
   .arrow { display: block; }
+  .tutor-shadow(2);
 }
