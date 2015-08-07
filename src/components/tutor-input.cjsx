@@ -197,10 +197,18 @@ TutorTextArea = React.createClass
     id: React.PropTypes.string
     className: React.PropTypes.string
     onChange: React.PropTypes.func
+    heightBuffer: React.PropTypes.number
+
+  getDefaultProps: ->
+    heightBuffer: 28
 
   resize: (event) ->
-    event.target.style.height = ''
-    event.target.style.height = "#{event.target.scrollHeight}px"
+    textarea = @refs.textarea.getDOMNode()
+    textarea.style.height = ''
+    textarea.style.height = "#{textarea.scrollHeight + @props.heightBuffer}px"
+
+  componentDidMount: ->
+    @resize() if @props.default.length > 0
 
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
