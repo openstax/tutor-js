@@ -104,8 +104,16 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       $.ajax(url, opts)
       .then(resolved, rejected)
 
+BOOTSTRAPED_STORES = {
+  user:   CurrentUserActions.loaded
+  courses: CourseListingActions.loaded
+}
 
-start = ->
+start = (bootstrapData) ->
+  for storeId, action of BOOTSTRAPED_STORES
+    data = bootstrapData[storeId]
+    action(data) if data
+
   apiHelper TaskActions, TaskActions.load, TaskActions.loaded, 'GET', (id) ->
     url: "/api/tasks/#{id}"
 

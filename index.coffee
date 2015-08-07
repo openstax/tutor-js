@@ -21,9 +21,12 @@ window._STORES =
   TIME: require './src/flux/time'
   TOC: require './src/flux/toc'
 
-api.start()
+api.start(
+  JSON.parse(document.getElementById('tutor-boostrap-data')?.textContent or '{}')
+)
 startMathJax()
 TransitionAssistant.startMonitoring()
+
 
 # This is added because MathJax puts in extra divs on initial load.
 # Moves the React Root to be an element inside a div
