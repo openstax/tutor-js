@@ -50,13 +50,28 @@ module.exports = React.createClass
       tasking
 
   getOpensAtDefault: ->
-    {date} = @getQuery() # attempt to read the start date from query params
+    moment(TimeStore.getNow()).add(1, 'day').format(TutorDateFormat)
+
+  getQueriedOpensAt: ->
+    {opens_at} = @getQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    opensAt = if date and isNewPlan then moment(date).format(TutorDateFormat)
+    opensAt = if opens_at and isNewPlan then moment(opens_at).format(TutorDateFormat)
     if not opensAt
+      # default open date is tomorrow
+      opensAt = @getOpensAtDefault()
+
+    # if there is a queried due date, make sure it's not the same as the open date
+    dueAt = @getQueriedDueAt()
+    if dueAt? and moment(dueAt).isSame(opensAt, 'day')
+      # make open date today if default due date is tomorrow
       opensAt = moment(TimeStore.getNow()).format(TutorDateFormat)
 
     opensAt
+
+  getQueriedDueAt: ->
+    {due_at} = @getQuery() # attempt to read the due date from query params
+    isNewPlan = TaskPlanStore.isNew(@props.id)
+    dueAt = if due_at and isNewPlan then moment(due_at).format(TutorDateFormat)
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -69,7 +84,7 @@ module.exports = React.createClass
     commonDates = dueAt and TaskPlanStore.getOpensAt(@props.id)
 
     #map tasking plans
-    periods = @mapPeriods(@getOpensAtDefault(), dueAt)
+    periods = @mapPeriods(@getQueriedOpensAt(), dueAt or @getQueriedDueAt())
 
     #check to see if all tasking plans are there
     hasAllTaskings = _.reduce(periods, (memo, period) ->
