@@ -10,11 +10,11 @@ AccountLink = require './account-link'
 CourseName = require './course-name'
 LogOut = require './logout'
 BindStoreMixin = require '../bind-store-mixin'
+ServerErrorMonitoring = require './server-error-monitoring'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
 {CourseListingActions, CourseListingStore} = require '../../flux/course-listing'
-{AppStore} = require '../../flux/app'
 
 module.exports = React.createClass
   displayName: 'Navigation'
@@ -43,19 +43,14 @@ module.exports = React.createClass
       unless _.isEqual(course, @state.course)
         @setState({course})
 
-  handleErrorMessage: ->
-    @setState({})
-
   componentDidUpdate: ->
     @handleCourseChanges()
 
   componentDidMount: ->
     CourseStore.on('course.loaded', @handleCourseChanges)
-    AppStore.on('server-error', @handleErrorMessage)
 
   componentWillUnmount: ->
     CourseStore.off('course.loaded', @handleCourseChanges)
-    AppStore.off('server-error', @handleErrorMessage)
 
   transitionToMenuItem: (routeName, params) ->
     @context.router.transitionTo(routeName, params)
@@ -91,15 +86,10 @@ module.exports = React.createClass
               <i className='ui-brand-logo'></i>
             </Router.Link>
 
-    serverErr = AppStore.getError()
-    if serverErr
-      errorMessage = <span className='server-error'>{serverErr.statusCode}: {serverErr.message}</span>
-
     <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>
-          {errorMessage}
         </BS.Nav>
         <BS.Nav right navbar>
           <AdminLink />
@@ -118,4 +108,5 @@ module.exports = React.createClass
           </BS.DropdownButton>
         </BS.Nav>
       </BS.CollapsibleNav>
+      <ServerErrorMonitoring />
     </BS.Navbar>
