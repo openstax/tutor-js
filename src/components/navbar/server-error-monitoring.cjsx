@@ -1,5 +1,6 @@
 React = require 'react'
 BindStoreMixin = require '../bind-store-mixin'
+BS = require 'react-bootstrap'
 
 {AppStore} = require '../../flux/app'
 Dialog = require '../tutor-dialog'
@@ -23,7 +24,13 @@ module.exports = React.createClass
         <p>Additional error messages returned from the server is:</p>
         <div className='response'>{serverErr.message}</div>
       </div>
-    Dialog.show(title: "An error has occured.  Code: #{serverErr.statusCode}", body: errorMessage)
+    Dialog.show(
+      title: "An error has occured.  Code: #{serverErr.statusCode}", body: errorMessage
+      buttons: [
+        <BS.Button key='ok'
+          onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
+      ]
+    )
 
 
   # We don't actually render anything
