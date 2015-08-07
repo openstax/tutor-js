@@ -208,7 +208,7 @@ TutorTextArea = React.createClass
     textarea.style.height = "#{textarea.scrollHeight + @props.heightBuffer}px"
 
   componentDidMount: ->
-    @resize() if @props.default.length > 0
+    @resize() if @props.default?.length > 0
 
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
