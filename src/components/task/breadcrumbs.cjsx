@@ -88,7 +88,7 @@ module.exports = React.createClass
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
     classes = 'task-breadcrumbs'
-    classes += ' coverflow' if @state.shouldCoverflow
+    classes += ' shrink' if @state.shouldCoverflow
 
     <div className={classes}>
       {stepButtons}

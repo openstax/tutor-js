@@ -75,6 +75,20 @@
       }
     }
   }
+
+  &.shrink {
+    .task-breadcrumbs-step {
+      &:not(:hover):not(.active) {
+        .scale(.75, .75);
+        margin-left: -16px;
+      }
+      &:hover, &.active {
+        margin-right: 10px;
+        margin-left: -6px;
+        .tutor-icon-active(1.2, 0.12);
+      }
+    }
+  }
 }
 
 .task-breadcrumbs-step {
