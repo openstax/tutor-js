@@ -12,7 +12,7 @@ TutorDateFormat = "MM/DD/YYYY"
 
 TutorInput = React.createClass
   propTypes:
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.node.isRequired
     id: React.PropTypes.string
     className: React.PropTypes.string
     type: React.PropTypes.string

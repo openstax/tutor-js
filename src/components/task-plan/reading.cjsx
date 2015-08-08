@@ -167,12 +167,19 @@ ReadingPlan = React.createClass
           <TaskPlanBuilder courseId={courseId} id={id} />
 
           <BS.Row>
-            <BS.Col xs={12} md={12}>
+            <BS.Col sm={5} md={3}>
               <ReviewReadings courseId={courseId} planId={id} selected={topics}/>
               {addReadingsButton}
               {readingsRequired}
             </BS.Col>
+            <BS.Col sm=7 md=9>
+              <div className="instructions">
+                &nbsp;&nbsp;* Open time is 12:01am. Set date to today to open immediately.<br/>
+                ** Due time is 7:00am
+              </div>
+            </BS.Col>
           </BS.Row>
+
         </BS.Grid>
       </BS.Panel>
       {selectReadings}

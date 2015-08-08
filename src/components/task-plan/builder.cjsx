@@ -138,20 +138,21 @@ module.exports = React.createClass
     if plan.type is 'homework'
       feedbackNote = @renderFeedbackNote()
 
+    assignmentNameLabel = [
+      'Assignment name'
+      <span className='instructions'> (students will see this on their dashboard)</span>
+    ]
+
     <div className="assignment">
       <BS.Row>
         <BS.Col xs=12>
           <TutorInput
-            label='Assignment name'
+            label={assignmentNameLabel}
             className='assignment-name'
             id='reading-title'
             default={plan.title}
             required={true}
             onChange={@setTitle} />
-        </BS.Col>
-      </BS.Row><BS.Row>
-        <BS.Col xs=12>
-          <div className="instructions">students will see this on their dashboard</div>
         </BS.Col>
       </BS.Row><BS.Row>
         <BS.Col xs=12>
@@ -163,7 +164,7 @@ module.exports = React.createClass
             onChange={@setDescription} />
         </BS.Col>
       </BS.Row><BS.Row>
-        <BS.Col sm=4 md=3 className='assign-to-label'>Assign to</BS.Col>
+        <BS.Col md=12 className='assign-to-label'>Assign to</BS.Col>
       </BS.Row><BS.Row className="tutor-date-input">
 
         <BS.Col sm=4 md=3>
@@ -182,7 +183,7 @@ module.exports = React.createClass
             id='reading-open-date'
             ref="openDate"
             required={not @state.showingPeriods}
-            label="Open Date"
+            label="Open Date*"
             onChange={@setOpensAt}
             disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
             min={TimeStore.getNow()}
@@ -196,7 +197,7 @@ module.exports = React.createClass
             id='reading-due-date'
             ref="dueDate"
             required={not @state.showingPeriods}
-            label="Due Date"
+            label="Due Date**"
             onChange={@setDueAt}
             disabled={@state.showingPeriods}
             min={TaskPlanStore.getMinDueAt(@props.id)}
@@ -206,19 +207,10 @@ module.exports = React.createClass
         {feedbackNote}
 
       </BS.Row>
-      <BS.Row>
-        <BS.Col sm=4 md=3></BS.Col>
-        <BS.Col sm=4 md=3>
-          <div className="instructions">Open time is 12:01am.
-          <br/> Set date to today to open immediately.</div>
-        </BS.Col>
-        <BS.Col sm=4 md=3>
-          <div className="instructions">Due time is 7:00am</div>
-        </BS.Col>
-      </BS.Row>
+      
       <BS.Row>
 
-        <BS.Col sm=4 md=3>
+        <BS.Col md=12>
           <input
             id='show-periods-radio'
             name='toggle-periods-radio'
