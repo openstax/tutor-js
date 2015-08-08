@@ -4,21 +4,26 @@ _  = require 'underscore'
 BS = require 'react-bootstrap'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
+ChapterSectionMixin = require '../chapter-section-mixin'
 
 Section = React.createClass
   displayName: 'ReferenceBookTocSection'
-  contextTypes:
-    router: React.PropTypes.func
+  mixins: [ChapterSectionMixin]
   propTypes:
     section: React.PropTypes.object.isRequired
     onMenuSelection: React.PropTypes.func.isRequired
-
+  componentWillMount: ->
+    @setState(skipZeros: false)
   render: ->
-    {courseId} = @context.router.getCurrentParams()
-    sections = @props.section.chapter_section.join('.')
+    {courseId, activeSection} = @props
+    sections = @sectionFormat(@props.section.chapter_section)
+    activeSection = @sectionFormat(activeSection)
+    className = 'active' if sections is activeSection
+
     <ul className="section" data-depth={@props.section.chapter_section.length}>
       <li data-section={sections}>
         <Router.Link
+          className={className}
           onClick={@props.onMenuSelection} to='viewReferenceBookSection'
           params={{courseId: courseId, section: sections}}
         >
@@ -27,24 +32,29 @@ Section = React.createClass
         </Router.Link>
       </li>
       { _.map @props.section.children, (child) =>
-        <li key={child.id} data-section={child.chapter_section.join('.')}>
-          <Section onMenuSelection={@props.onMenuSelection} section={child} />
+        <li key={child.id} data-section={@sectionFormat(child.chapter_section)}>
+          <Section
+            courseId={courseId}
+            activeSection={activeSection}
+            onMenuSelection={@props.onMenuSelection}
+            section={child} />
         </li> }
     </ul>
 
 
 module.exports = React.createClass
   displayName: 'ReferenceBookTOC'
-  contextTypes:
-    router: React.PropTypes.func
+  mixins: [ChapterSectionMixin]
   propTypes:
     onMenuSelection: React.PropTypes.func
-
+  componentWillMount: ->
+    @setState(skipZeros: false)
   componentDidMount:  -> @scrollSelectionIntoView()
   componentDidUpdate: -> @scrollSelectionIntoView()
   scrollSelectionIntoView: ->
-    {section} = @context.router.getCurrentParams()
+    {section} = @props
     return unless section
+    section = @sectionFormat(section)
 
     root = React.findDOMNode(@)
     li = root.querySelector("[data-section='#{section}']")
@@ -57,9 +67,14 @@ module.exports = React.createClass
 
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, section} = @props
     toc = ReferenceBookStore.getToc(courseId)
     <div className="toc">
       { _.map toc.children, (child) =>
-        <Section onMenuSelection={@props.onMenuSelection} key={child.id} section={child} /> }
+        <Section
+          courseId={courseId}
+          activeSection={section}
+          onMenuSelection={@props.onMenuSelection}
+          key={child.id}
+          section={child} /> }
     </div>

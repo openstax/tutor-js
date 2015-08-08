@@ -1,5 +1,3 @@
-moment = require 'moment'
-twix = require 'twix'
 _ = require 'underscore'
 
 React = require 'react'
@@ -187,7 +185,11 @@ CoursePlan = React.createClass
 
     labelClass = 'continued' unless index is 0
 
-    label = <label style={planLabelStyle} ref='label' className={labelClass}>{plan.title}</label>
+    label = <label
+      data-opens-at={plan.opensAt}
+      style={planLabelStyle}
+      ref='label'
+      className={labelClass}>{plan.title}</label>
 
   renderOpenPlan: (planStyle, planClasses, label, dataAttribs) ->
     {item, courseId} = @props

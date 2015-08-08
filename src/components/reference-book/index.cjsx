@@ -12,38 +12,42 @@ moment = require 'moment'
 ReferenceBook = require './reference-book'
 ReferenceBookPage = require './page'
 
-ReferenceBookFirstPage  = React.createClass
-  displayName: 'ReferenceBookPageFirstPage'
-  contextTypes:
-    router: React.PropTypes.func
-  render: ->
-    {courseId} = @context.router.getCurrentParams()
-    page = _.first ReferenceBookStore.getPages(courseId)
-    <LoadableItem
-      id={page.cnx_id}
-      store={ReferenceBookPageStore}
-      actions={ReferenceBookPageActions}
-      renderItem={ -> <ReferenceBookPage courseId={courseId} cnxId={page.cnx_id}/> }
-    />
-
-
-
 ReferenceBookPageShell = React.createClass
   displayName: 'ReferenceBookPageShell'
-  contextTypes:
-    router: React.PropTypes.func
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+    cnxId: React.PropTypes.string.isRequired
+
+  getDefaultState: ->
+    previousPageProps: null
+
+  componentWillReceiveProps: ->
+    @setState(previousPageProps: @props)
+
+  renderLoading: (previousPageProps, currentProps) ->
+    (refreshButton) ->
+      if previousPageProps? and previousPageProps.cnxId? and not _.isEqual(previousPageProps, currentProps)
+        loading = <ReferenceBookPage
+          {...previousPageProps}
+          className='page-loading loadable is-loading'>
+          {refreshButton}
+        </ReferenceBookPage>
+      else
+        loading = <div className='loadable is-loading'>Loading... {refreshButton}</div>
+
+      loading
+
+  renderLoaded: ->
+    <ReferenceBookPage {...@props}/>
 
   render: ->
-    {courseId, cnxId, section} = @context.router.getCurrentParams()
-    if section and not cnxId
-      page = ReferenceBookStore.getChapterSectionPage({courseId, section})
-      cnxId = page?.cnx_id
-    if cnxId
+    if @props.cnxId?
       <LoadableItem
-        id={cnxId}
+        id={@props.cnxId}
         store={ReferenceBookPageStore}
         actions={ReferenceBookPageActions}
-        renderItem={ -> <ReferenceBookPage courseId=courseId cnxId={cnxId}/> }
+        renderLoading={@renderLoading(@state?.previousPageProps, @props)}
+        renderItem={@renderLoaded}
       />
     else
       <Invalid />
@@ -64,4 +68,4 @@ ReferenceBookShell = React.createClass
     />
 
 
-module.exports = {ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage}
+module.exports = {ReferenceBookShell, ReferenceBookPageShell}

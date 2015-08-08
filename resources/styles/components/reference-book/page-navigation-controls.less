@@ -8,17 +8,9 @@
     }
 
     top: 50px;
-
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-
-    justify-content: -webkit-center;
-    justify-content: -ms-center;
-    justify-content: center;
-    flex-direction: -webkit-column;
-    flex-direction: -ms-column;
-    flex-direction: column;
+    .flex-display();
+    .justify-content(center);
+    .flex-direction(column);
 
     .transition(background-color 150ms linear);
     .transition(width 150ms linear);

@@ -7,7 +7,7 @@
     padding: 0 40px;
     height: @tutor-book-ui-top-height;
     display: inline-block;
-    margin: -68px 0 0 -40px;
+    margin: @book-content-note-with-background-margin;
   }
 
   :last-child {
@@ -49,10 +49,12 @@ section > section > .note {
   background: @tutor-neutral-lightest;
   margin: 68px 0 32px 0;
   clear: both;
-  display: inline-block;
   border-top: solid 8px @tutor-neutral-lighter;
   border-bottom: solid 8px @tutor-neutral-lighter;
   padding: 20px 40px;
   .tutor-book-note-style();
-}
 
+  &:not(.os-teacher) {
+    display: inline-block;
+  }
+}

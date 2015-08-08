@@ -19,7 +19,7 @@ ReferenceBookExercise = React.createClass
   displayName: 'ReferenceBookExercise'
   render: ->
     {exerciseAPIUrl} = @props
-    {items} = ReferenceBookExerciseStore.get(exerciseAPIUrl)?
+    {items} = ReferenceBookExerciseStore.get(exerciseAPIUrl)
 
     unless items?.length
       # warning about missing exercise --

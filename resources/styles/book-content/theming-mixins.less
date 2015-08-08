@@ -14,13 +14,20 @@
 }
 
 .tutor-book-theme-note(@label-background: @tutor-book-primary; @label-text: @tutor-book-text-on-dark-labels) {
-  > .note,
-  > section > .note,
-  section > section > .note {
+  > .note:not(.os-teacher),
+  > section > .note:not(.os-teacher),
+  section > section > .note:not(.os-teacher),
+  .grasp-check {
     &:before {
       color: @label-text;
       background: @label-background;
     }
+  }
+}
+.tutor-book-theme-note-borders(@border-color: @tutor-book-secondary) {
+  .grasp-check {
+    border-top: solid 8px @border-color;
+    border-bottom: solid 8px @border-color;
   }
 }
 
@@ -44,6 +51,13 @@
     .tutor-ui-overlay {
       background-color: fade(@overlay, 80%);
       color: @text-color;
+    }
+  }
+}
+.tutor-bullet-lists(@bullet-color: @tutor-book-secondary){
+  ul > li {
+    &::before {
+      background: @bullet-color;
     }
   }
 }

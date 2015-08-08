@@ -31,14 +31,15 @@ describe 'Learning Guide', ->
     renderGuide('/courses/1/guide').then (state) =>
       @state = state
 
+
   it 'renders panel for each chapter', ->
-    titles = _.pluck( @state.div.querySelectorAll('.chapter-title'), 'textContent')
+    titles = _.pluck( @state.div.querySelectorAll('.chapter .title'), 'textContent')
     expect(titles).to.have.deep.equal([
-      'Acceleration', 'Force and Newton\'s Laws of Motion'
+      'My Weaker Areas', 'Acceleration', 'Force and Newton\'s Laws of Motion'
     ])
 
   it 'renders practice panel', ->
-    titles = _.pluck( @state.div.querySelectorAll('.weaker .section-title'), 'textContent')
+    titles = _.pluck( @state.div.querySelectorAll('.weaker .title'), 'textContent')
     expect(titles).to.have.deep.equal([
-      'Newton\'s First Law of Motion: Inertia', 'Force'
+      'My Weaker Areas', 'Newton\'s First Law of Motion: Inertia', 'Force'
     ])

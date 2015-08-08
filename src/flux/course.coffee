@@ -94,7 +94,10 @@ CourseConfig =
       _.first(title.split(' '))
 
     getPeriods: (courseId) ->
-      @_get(courseId).periods or []
+      periods = @_get(courseId).periods or []
+      sortedPeriods = _.sortBy(periods, (period) ->
+        period.name
+      )
 
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)

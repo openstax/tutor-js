@@ -94,7 +94,7 @@ CourseMonth = React.createClass
   renderDays: (calendarDuration, referenceDate) ->
     referenceDate ?= moment(TimeStore.getNow())
 
-    durationDays = calendarDuration.iterate('days')
+    durationDays = calendarDuration.iterateInner('days')
     days = []
     hasActiveAddDate =  @state.activeAddDate?
 

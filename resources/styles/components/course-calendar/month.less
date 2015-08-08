@@ -38,25 +38,15 @@
 
   .calendar-body {
     [class^="col-"] {
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: visible;
+      padding-bottom: 20px;
     }
   }
 
   .calendar-loading {
-    .rc-Month:after {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      content: 'Loading Calendar...';
-      // TODO update colors
-      background: rgba(255, 255, 255, 0.75);
-      top: 0;
-      text-align: center;
-      font-size: 3rem;
-      line-height: 10em;
-      opacity: 1;
-
-      .transition(opacity .25s ease-in-out);
+    .rc-Month {
+      .tutor-subtle-load(loading);
     }
   }
 
@@ -74,6 +64,7 @@
       display: inline-block;
       vertical-align: top;
       position: relative;
+      .tutor-subtle-load(will-load; 'Loading Calendar...');
 
       &-weekdays {
         width: 100%;

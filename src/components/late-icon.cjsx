@@ -19,13 +19,14 @@ module.exports = React.createClass
       S.capitalize(task.type) + ' was worked ' + status.how_late + ' late'
 
   render: ->
-    status = TaskHelper.getLateness(@props.task)
+    {task, className, buildLateMessage} = @props
+    status = TaskHelper.getLateness(task)
     return null unless status.is_late
 
-    msg = @props.buildLateMessage(@props.task, status)
+    msg = buildLateMessage(task, status)
 
-    {className} = @props
-    classes = "#{className} late"
+    classes = 'late'
+    classes += " #{className}" if className?
 
     tooltip = <BS.Tooltip>{msg}</BS.Tooltip>
     <BS.OverlayTrigger placement='top' overlay={tooltip}>

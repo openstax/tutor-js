@@ -13,10 +13,11 @@ TimeHelper = require '../../helpers/time'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
+{UnsavedStateMixin} = require '../unsaved-state'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
-  mixins: [PlanMixin, BindStoreMixin, Router.State]
+  mixins: [PlanMixin, BindStoreMixin, Router.State, UnsavedStateMixin]
   bindStore: CourseStore
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -27,6 +28,13 @@ module.exports = React.createClass
 
     showingPeriods: not isNewPlan
     currentLocale: TimeHelper.getCurrentLocales()
+
+  # Called by the UnsavedStateMixin to detect if anything needs to be persisted
+  # This logic could be improved, all it checks is if a title is set on a new task plan
+  hasUnsavedState: ->
+    TaskPlanStore.isNew(@props.id) and TaskPlanStore.get(@props.id).title
+
+  unsavedStateMessages: -> 'The assignment has unsaved changes'
 
   mapPeriods: (opensAt, dueAt) ->
     planId = @props.id
@@ -42,13 +50,28 @@ module.exports = React.createClass
       tasking
 
   getOpensAtDefault: ->
-    {date} = @getQuery() # attempt to read the start date from query params
+    moment(TimeStore.getNow()).add(1, 'day').format(TutorDateFormat)
+
+  getQueriedOpensAt: ->
+    {opens_at} = @getQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    opensAt = if date and isNewPlan then moment(date).format(TutorDateFormat)
+    opensAt = if opens_at and isNewPlan then moment(opens_at).format(TutorDateFormat)
     if not opensAt
+      # default open date is tomorrow
+      opensAt = @getOpensAtDefault()
+
+    # if there is a queried due date, make sure it's not the same as the open date
+    dueAt = @getQueriedDueAt()
+    if dueAt? and moment(dueAt).isSame(opensAt, 'day')
+      # make open date today if default due date is tomorrow
       opensAt = moment(TimeStore.getNow()).format(TutorDateFormat)
 
     opensAt
+
+  getQueriedDueAt: ->
+    {due_at} = @getQuery() # attempt to read the due date from query params
+    isNewPlan = TaskPlanStore.isNew(@props.id)
+    dueAt = if due_at and isNewPlan then moment(due_at).format(TutorDateFormat)
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -61,7 +84,7 @@ module.exports = React.createClass
     commonDates = dueAt and TaskPlanStore.getOpensAt(@props.id)
 
     #map tasking plans
-    periods = @mapPeriods(@getOpensAtDefault(), dueAt)
+    periods = @mapPeriods(@getQueriedOpensAt(), dueAt or @getQueriedDueAt())
 
     #check to see if all tasking plans are there
     hasAllTaskings = _.reduce(periods, (memo, period) ->
@@ -160,6 +183,7 @@ module.exports = React.createClass
             name='toggle-periods-radio'
             type='radio'
             onChange={@togglePeriodsDisplay}
+            disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
             checked={not @state.showingPeriods}/>
           <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
         </BS.Col>
@@ -213,6 +237,7 @@ module.exports = React.createClass
             name='toggle-periods-radio'
             type='radio'
             onChange={@togglePeriodsDisplay}
+            disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
             checked={@state.showingPeriods}/>
           <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
         </BS.Col>
@@ -238,6 +263,7 @@ module.exports = React.createClass
         <input
           id={"period-toggle-#{plan.id}"}
           type='checkbox'
+          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
           onChange={_.partial(@togglePeriodEnabled, plan)}
           checked={false}/>
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
@@ -256,6 +282,7 @@ module.exports = React.createClass
       <BS.Col sm=4 md=3>
         <input
           id={"period-toggle-#{plan.id}"}
+          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
           type='checkbox'
           onChange={_.partial(@togglePeriodEnabled, plan)}
           checked={true}/>

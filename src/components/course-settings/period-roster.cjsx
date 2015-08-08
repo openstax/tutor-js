@@ -17,7 +17,6 @@ module.exports = React.createClass
     <tr key={student.id}>
       <td>{student.first_name}</td>
       <td>{student.last_name}</td>
-      <td>{student.deidentifier}</td>
       <td className="actions">
         <ChangePeriodLink courseId={@props.courseId} student={student} />
         <DropStudentLink student={student} />
@@ -32,10 +31,6 @@ module.exports = React.createClass
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>
-              Random ID <Icon type='question-circle'
-                tooltip='Useful for talking securely about students over email.' />
-            </th>
             <th>Actions</th>
           </tr>
         </thead>

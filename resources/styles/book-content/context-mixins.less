@@ -1,0 +1,17 @@
+.tutor-book-note(reading) {
+  > .note,
+  > section > .note:not(.learning-objectives):not(.tips-for-success),
+  section > section > .note {
+    background: none;
+    padding: 20px 0;
+    &:before {
+      margin: @book-content-note-without-background-margin;
+    }
+  }
+}
+
+.tutor-book-titles(reading){
+  section > h1 {
+    clear: both;
+  }
+}

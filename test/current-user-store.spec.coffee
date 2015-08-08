@@ -50,7 +50,7 @@ TEACHER_MENU = [
 describe 'Current User Store', ->
   beforeEach ->
     # TODO investigate why .load isn't working yet.
-    CurrentUserActions.loadedName(USER_MODEL)
+    CurrentUserActions.loaded(USER_MODEL)
     CourseListingActions.loaded(MASTER_COURSES_LIST)
 
   afterEach ->
@@ -60,9 +60,13 @@ describe 'Current User Store', ->
   it 'should load name', ->
     expect(CurrentUserStore.getName()).to.equal(USER_MODEL.name)
 
+  it 'should load profile url', ->
+    expect(CurrentUserStore.getProfileUrl()).to.equal(USER_MODEL.profile_url)
+
   it 'should clear the store on reset', ->
     CurrentUserActions.reset()
     expect(CurrentUserStore.getName()).to.equal('Guest')
+    expect(CurrentUserStore.getProfileUrl()).to.be.null
     expect(CurrentUserStore.getToken()).to.be.null
 
   it 'should return expected roles for courses', ->

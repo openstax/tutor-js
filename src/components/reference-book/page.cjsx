@@ -7,6 +7,8 @@ HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
 BookContentMixin = require '../book-content-mixin'
 GetPositionMixin = require '../get-position-mixin'
+ChapterSectionMixin = require '../chapter-section-mixin'
+
 {ReferenceBookExerciseShell} = require './exercise'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
@@ -18,27 +20,24 @@ module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    cnxId: React.PropTypes.string.isRequired
+  mixins: [BookContentMixin, GetPositionMixin, ChapterSectionMixin]
   contextTypes:
     router: React.PropTypes.func
-  mixins: [BookContentMixin, GetPositionMixin]
-
-  getCnxId: ->
-    @props.cnxId or @context.router.getCurrentParams().cnxId
-
+  componentWillMount: ->
+    @setState(skipZeros: false)
   getSplashTitle: ->
-    cnxId = @getCnxId()
-    page = ReferenceBookStore.getPageInfo({courseId: @props.courseId, cnxId})
-    page?.title
+    ReferenceBookStore.getPageTitle(@props)
 
   prevLink: (info) ->
     <Router.Link className='nav prev' to='viewReferenceBookSection'
-      params={courseId: @props.courseId, section: info.prev.chapter_section.join('.')}>
+      params={courseId: @props.courseId, section: @sectionFormat(info.prev.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
     <Router.Link className='nav next' to='viewReferenceBookSection'
-      params={courseId: @props.courseId, section: info.next.chapter_section.join('.')}>
+      params={courseId: @props.courseId, section: @sectionFormat(info.next.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
@@ -100,9 +99,8 @@ module.exports = React.createClass
     _.each(@_exerciseNodes, @unmountExerciseComponent)
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, cnxId, className} = @props
     # read the id from props, or failing that the url
-    cnxId = @getCnxId()
     page = ReferenceBookPageStore.get(cnxId)
     info = ReferenceBookStore.getPageInfo({courseId, cnxId})
 
@@ -113,7 +111,13 @@ module.exports = React.createClass
       .replace(/^[\s\S]*<body[\s\S]*?>/, '')
       .replace(/<\/body>[\s\S]*$/, '')
 
-    <div className='page-wrapper'>
+    if className?
+      className += ' page-wrapper'
+    else
+      className = 'page-wrapper'
+
+    <div className={className}>
+      {@props.children}
       {@prevLink(info) if info.prev}
       <ArbitraryHtmlAndMath className='page' block html={html} />
       {@nextLink(info) if info.next}

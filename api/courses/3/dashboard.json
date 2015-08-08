@@ -1,0 +1,344 @@
+{
+"plans": [
+{
+"id": "1",
+"title": "Read 3.1 Acceleration Pt1",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-27T18:03:46.498Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-24T00:01:00.000Z",
+"due_at": "2015-07-28T07:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-24T00:01:00.000Z",
+"due_at": "2015-07-27T07:00:00.000Z"
+}
+]
+},
+{
+"id": "2",
+"title": "Read 3.2 Acceleration Pt2",
+"is_trouble": false,
+"type": "reading",
+"published_at": "2015-07-27T18:04:09.385Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-24T00:01:00.000Z",
+"due_at": "2015-07-28T07:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-24T00:01:00.000Z",
+"due_at": "2015-07-27T07:00:00.000Z"
+}
+]
+},
+{
+"id": "3",
+"title": "HW Chapter 3 Acceleration",
+"is_trouble": false,
+"type": "homework",
+"published_at": "2015-07-27T18:04:23.231Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-28T00:01:00.000Z",
+"due_at": "2015-07-30T07:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-27T00:01:00.000Z",
+"due_at": "2015-07-28T07:00:00.000Z"
+}
+]
+},
+{
+"id": "4",
+"title": "Read 4.1-4.2 Force & Motion Pt1",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-27T18:04:34.889Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-27T00:01:00.000Z",
+"due_at": "2015-07-29T07:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-27T00:01:00.000Z",
+"due_at": "2015-07-29T07:00:00.000Z"
+}
+]
+},
+{
+"id": "8",
+"title": "PHILS Master iReading with ALL THE CHAPTERS",
+"is_trouble": false,
+"type": "reading",
+"published_at": "2015-07-27T18:33:48.774Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-27T05:01:00.000Z",
+"due_at": "2015-08-01T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-27T05:01:00.000Z",
+"due_at": "2015-08-01T12:00:00.000Z"
+}
+]
+},
+{
+"id": "12",
+"title": "ireading (kim)",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-28T19:36:36.377Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-28T05:01:00.000Z",
+"due_at": "2015-07-29T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-28T05:01:00.000Z",
+"due_at": "2015-07-29T12:00:00.000Z"
+}
+]
+},
+{
+"id": "13",
+"title": "Testing publish",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-29T16:12:51.825Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+}
+]
+},
+{
+"id": "14",
+"title": "KIPP Assignment (6.1, 6.2, 7.1, 7.2)",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-29T16:30:56.128Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+}
+]
+},
+{
+"id": "15",
+"title": "KIPP 1 (6.0, 6.1, 6.2)",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-29T17:19:21.314Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-30T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-30T12:00:00.000Z"
+}
+]
+},
+{
+"id": "16",
+"title": "KIPP 2",
+"is_trouble": true,
+"type": "homework",
+"published_at": "2015-07-29T17:23:48.121Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-30T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-30T12:00:00.000Z"
+}
+]
+},
+{
+"id": "17",
+"title": "KIPP 3",
+"is_trouble": false,
+"type": "reading",
+"published_at": "2015-07-29T17:25:44.079Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+}
+]
+},
+{
+"id": "18",
+"title": "KIPP 4",
+"is_trouble": false,
+"type": "homework",
+"published_at": "2015-07-29T17:26:46.352Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+}
+]
+},
+{
+"id": "19",
+"title": "KIPP 5",
+"is_trouble": true,
+"type": "external",
+"published_at": "2015-07-29T17:27:14.839Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-08-01T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-08-01T12:00:00.000Z"
+}
+]
+},
+{
+"id": "25",
+"title": "test",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-29T19:37:10.971Z",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-30T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-29T05:01:00.000Z",
+"due_at": "2015-07-30T12:00:00.000Z"
+}
+]
+},
+{
+"id": "38",
+"title": "JH Edge test",
+"is_trouble": true,
+"type": "reading",
+"published_at": "2015-07-30T15:08:16.892Z",
+"tasking_plans": [
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-30T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+}
+]
+},
+{
+"id": "39",
+"title": "JH external edge test",
+"is_trouble": false,
+"type": "external",
+"tasking_plans": [
+{
+"target_id": "1",
+"target_type": "period",
+"opens_at": "2015-07-30T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+},
+{
+"target_id": "2",
+"target_type": "period",
+"opens_at": "2015-07-30T05:01:00.000Z",
+"due_at": "2015-07-31T12:00:00.000Z"
+}
+]
+}
+],
+"tasks": [],
+"role": {
+"id": "21",
+"type": "teacher"
+},
+"course": {
+"name": "Physics I",
+"teacher_names": [
+"Charles Morris"
+]
+}
+}

@@ -34,6 +34,7 @@ CoursePeriodsNav = React.createClass
     @setSortedPeriods(nextProps.periods)
 
   setSortedPeriods: (periods) ->
+    # make sure that periods are sorted by name
     sortedPeriods = _.sortBy(periods, 'name')
     @setState(sortedPeriods: sortedPeriods)
 

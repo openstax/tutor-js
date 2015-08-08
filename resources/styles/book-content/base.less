@@ -28,7 +28,7 @@ table {
   }
   tbody {
     border-top: solid  4px  @tutor-neutral-light;
-   border-bottom: solid  4px  @tutor-neutral-light;
+    border-bottom: solid  4px  @tutor-neutral-light;
   }
   caption,
   thead tr:first-of-type:not(:last-child) th{
@@ -53,50 +53,52 @@ ol {
   margin: 0 0 2.4rem 0;
 }
 
+ul {
+  list-style-type: none;
+  > li {
+    &::before {
+      list-style-type: none;
+      content: "";
+      width: .4em;
+      height: .4em;
+      float: left;
+      margin: 0.75em -0.8em 0;
+      border-radius: 50%;
+    }
+  }
+}
+
 section h1 + p:first-of-type,
 div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
 
 figure {
-  max-width: 100%;
   display: table;
   text-align: left;
   margin-right: 30px;
   margin-bottom: 20px;
   padding: 0;
   float: left;
-  &.full-width { width: 100%; }
-  &.tutor-ui-vertical-img {
-    @media (min-width: @screen-sm-min) {
-      width: 50%;
-      float: left;
-    }
-  }
   img {
     max-width: 100%;
     border: 1px solid @border-color;
     margin: 10px 0 0 0;
     padding: 0;
   }
-  .tutor-ui-horizontal-img {
-    display:block;
-
+  &.full-width:not(.splash) {
+    width: 100%;
+  }
+  &.tutor-ui-vertical-img {
+    @media (min-width: @screen-sm-min) {
+      width: 50%;
+      float: left;
+    }
+  }
+  &.tutor-ui-horizontal-img {
     &.full-width {
       img { width: 100%; }
     }
-  }
-
-  // splash images are always full width without margin or surrounding padding
-  &.splash {
-    margin-bottom: 40px;
-    // .splash is wider than other elements on the page since it has 0 surrounding padding
-    // This means child elements that normally have a fixed pixel width will not expand to fit
-    // unless their widths are set to be 100%
-    .tutor-ui-horizontal-img {
-      .book-content-full-width();
-    }
-    img { width: 100%; }
   }
   figcaption {
     display: table-caption;
@@ -116,3 +118,18 @@ figure {
   img { width: 100%; }
 }
 
+[data-type="footnote-refs"] {
+  ol {
+    padding-left: 0;
+    list-style: none;
+    li {
+      list-style: none;
+      a {
+        padding-right: 10px;
+      }
+      p {
+        display:inline;
+      }
+    }
+  }
+}

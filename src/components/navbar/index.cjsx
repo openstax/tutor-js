@@ -6,6 +6,7 @@ _ = require 'underscore'
 
 UserName = require './username'
 AdminLink = require './admin-link'
+AccountLink = require './account-link'
 CourseName = require './course-name'
 LogOut = require './logout'
 BindStoreMixin = require '../bind-store-mixin'
@@ -17,10 +18,14 @@ BindStoreMixin = require '../bind-store-mixin'
 module.exports = React.createClass
   displayName: 'Navigation'
 
+  mixins: [BindStoreMixin]
+  bindStore: CurrentUserStore
+
   contextTypes:
     router: React.PropTypes.func
 
   componentWillMount: ->
+    CurrentUserActions.load()
     CourseListingStore.ensureLoaded()
 
   getInitialState: ->
@@ -66,6 +71,8 @@ module.exports = React.createClass
 
     if menuItems.length
       menuItems.push(<BS.MenuItem divider key='dropdown-item-divider'/>)
+
+    menuItems.push <AccountLink key='accounts-link' />
 
     menuItems
 

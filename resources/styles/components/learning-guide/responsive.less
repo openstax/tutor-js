@@ -1,17 +1,10 @@
 .learning-guide {
 
   .guide-heading {
-    .row();
-  }
-
-  @media (min-width: @screen-lg-min) {
-    .info { .pull-right(); }
-  }
-
-  @media (max-width: @screen-lg-min) {
-    .info {
-      clear: left;
-      .guide-group-key { margin-top: 1rem; }
+    @media (max-width: @screen-md-min) {
+      .flex-direction(column);
+      .align-items(stretch);
+      .btn.back { position: relative; top: -40px; }
     }
   }
 
@@ -26,7 +19,6 @@
   }
 
   .chapter-panel {
-    .row();
     // use flex display unless the columns should collapse
     // this allows the height of the colums to match so the
     // border will extend the complete height
@@ -34,11 +26,23 @@
       .flex-display();
     }
 
-    .chapter-heading {
+    .chapter {
+
       .make-xs-column(12);
       .make-md-column(4);
       .make-lg-column(3);
+      // when the screen is the "sm" size the chapter panel needs to be 100% width so it expands above the sections.
+      // But the bar shouldn't be any longer than the sections bars.
+      @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min){
+        > button,
+        > .progress {
+          width: calc(~"50% - " @grid-gutter-width / 2);
+        }
+      }
 
+      @media (min-width: @screen-md-min) {
+        border-right: 1px solid @tutor-neutral-light;
+      }
       @media (max-width: @screen-md-min) {
         border-right: 0px;
         border-bottom: 1px solid @tutor-neutral-light;
@@ -47,10 +51,10 @@
       }
     }
     .sections {
-      .make-xs-column(12);
       .make-md-column(8);
       .make-lg-column(9);
-
+      // no gutter when the .section is collapsed, otherwise the padding is also applied on the .sections
+      .make-xs-column(12, @gutter: 0px);
       .section {
         .make-xs-column(12);
         .make-sm-column(6);

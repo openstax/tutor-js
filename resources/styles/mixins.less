@@ -51,10 +51,10 @@
 .tutor-completed-message() {
   text-align: center;
   min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  .flex-display();
+  .flex-direction(column);
+  .align-items(center);
+  .justify-content(center);
   h1 {
     #fonts > .sans(4.5rem);
     font-weight: 700;
@@ -125,6 +125,64 @@
   .tutor-background-image("biology-title-background.svg");
 }
 
+.tutor-popover() {
+  font-size: 0.8em;
+  max-width: 500px;
+
+  .popover-title {
+    color: @tutor-primary;
+  }
+
+  .has-html {
+    h1, h2, h3, h4, h5, h6 {
+      &:first-child {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  &.left .arrow:after{
+    border-left-color: @popover-title-bg;
+  }
+
+  &.right .arrow:after{
+    border-right-color: @popover-title-bg;
+  }
+
+  &.top .arrow:after{
+    border-top-color: @popover-title-bg;
+  }
+
+  &.bottom .arrow:after{
+    border-bottom-color: @popover-title-bg;
+  }
+}
+
+
+.tutor-subtle-load(will-load; @loading-text: 'Loading...'; @trans-time: 0.25s; @bg-fade: 90%; @bg-base: @tutor-white;) {
+  &::after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: @loading-text;
+    background: fade(@bg-base, @bg-fade);
+    top: 0;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 10em;
+    opacity: 0;
+    display: none;
+
+    .transition(opacity @trans-time ease-in-out);
+  }
+}
+
+.tutor-subtle-load(loading) {
+  &::after {
+    opacity: 1;
+    display: block;
+  }
+}
 
 // If you want to use these please uncomment.
 //
