@@ -44,7 +44,9 @@ edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
   if sections
     # Open the chapter list by clicking the button and waiting for the list to load
     test.driver.findElement(css: '#reading-select').click()
-    test.waitAnd(css: '.select-reading-dialog')
+    test.waitAnd(css: '.select-reading-dialog:not(.hide)')
+    # Make sure nav bar does not cover buttons
+    test.scrollTop()
 
     # Expand the chapter and then select the section
     for section in sections
@@ -53,15 +55,17 @@ edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
 
         # Selecting an entire chapter requires clicking the input box
         # So handle chapters differently
-        if /\./.test(section)
-          test.driver.findElement(css: "[data-chapter-section='#{section}']").isDisplayed().then (isVisible) =>
-            # Expand the chapter accordion if necessary
-            unless isVisible
-              test.waitClick(css: "[data-chapter-section='#{section.split('.')[0]}']")
-
-            test.waitClick(css: "[data-chapter-section='#{section}']")
+        isChapter = not /\./.test(section)
+        if isChapter
+          test.waitClick(css: ".dialog:not(.hide) [data-chapter-section='#{section}'] .chapter-checkbox input")
         else
-          test.waitClick(css: "[data-chapter-section='#{section}'] .chapter-checkbox input")
+          # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
+          test.driver.findElement(css: ".dialog:not(.hide) [data-chapter-section='#{section}']").isDisplayed().then (isDisplayed) =>
+            # Expand the chapter accordion if necessary
+            unless isDisplayed
+              test.waitClick(css: ".dialog:not(.hide) [data-chapter-section='#{section.split('.')[0]}']")
+
+            test.waitClick(css: ".dialog:not(.hide) [data-chapter-section='#{section}']")
 
     # Click "Add Readings"
     test.waitClick(css: '.-show-problems') # BUG: wrong class name
@@ -69,6 +73,12 @@ edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
   switch action
     when 'PUBLISH' then test.waitClick(css: '.async-button.-publish')
     when 'SAVE' then test.waitClick(css: '.async-button.-save')
+    when 'CANCEL'
+      # BUG: "X" close button behaves differently than the footer close button
+      test.waitClick(css: '.footer-buttons [aria-role="close"]')
+      # Accept the browser confirm dialog
+      test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
+        alert.accept()
     when 'DELETE'
       test.waitClick(css: '.async-button.delete-link')
       # Accept the browser confirm dialog

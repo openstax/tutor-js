@@ -1,6 +1,5 @@
 selenium = require 'selenium-webdriver'
 seleniumMocha = require('selenium-webdriver/testing')
-{Promise} = require('es6-promise')
 
 chai = require 'chai'
 chai.use require 'chai-as-promised'
@@ -15,8 +14,8 @@ screenshot = (driver, filename) ->
     base64Data = data.replace(/^data:image\/png;base64,/, "")
 
     # Make sure the screenshot returns a promise
-    new Promise (resolve, reject) ->
-      fs.writeFile filename, base64Data, 'base64', (err) ->
+    new selenium.promise.Promise (resolve, reject) ->
+      fs.writeFile "#{filename}.png", base64Data, 'base64', (err) ->
         if err
           reject(err)
         else
@@ -53,10 +52,10 @@ module.exports = (name, cb) ->
       @freshId = -> Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
 
       @waitAnd = (locator) =>
-        @driver.wait selenium.until.elementLocated(locator)
+        @driver.wait(selenium.until.elementLocated(locator))
         # Because of animations an element might be in the DOM but not visible
         el = @driver.findElement(locator)
-        @driver.wait selenium.until.elementIsVisible(el)
+        @driver.wait(selenium.until.elementIsVisible(el))
         el
 
       @waitClick = (locator) =>
@@ -64,6 +63,11 @@ module.exports = (name, cb) ->
         el.click()
         # return el to support chaining the promises
         el
+
+      @scrollTop = =>
+        # @driver.executeScript("arguments[0].scrollIntoView(true);", el)
+        @driver.executeScript("window.scrollTo(0,0);")
+        @driver.sleep(100)
 
 
       @logout = =>
@@ -120,9 +124,9 @@ module.exports = (name, cb) ->
         console.log 'Selenium Schedule:'
         console.log @driver.controlFlow().getSchedule()
         console.log '------------------'
-        screenshot(@driver, "test-failed-#{title}.png")
+        screenshot(@driver, "test-failed-#{title}")
       # else
-      #   screenshot(@driver, "test-#{title}.png")
+      #   screenshot(@driver, "test-#{title}")
 
       # in case any alerts switched focus
       # @driver.switchTo().defaultContent().then -> console.log 'sdkjfhsdkfh'
@@ -131,7 +135,7 @@ module.exports = (name, cb) ->
       @driver.findElement(css: 'body').getAttribute('data-js-error').then (msg) ->
         if msg
           console.log 'JS Error! ' + msg
-          screenshot(@driver, "test-failed-#{title}.png")
+          screenshot(@driver, "test-failed-#{title}")
 
 
       # Print out all the console messages
