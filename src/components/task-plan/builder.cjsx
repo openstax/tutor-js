@@ -115,10 +115,10 @@ module.exports = React.createClass
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)
 
-
+  # can't figure out how to remove this
   renderFeedbackNote: ->
     <BS.Col sm=12 md=3>
-      <div className="instructions">Feedback will be released after the due date.</div>
+      <div className="instructions"></div>
     </BS.Col>
 
   render: ->
