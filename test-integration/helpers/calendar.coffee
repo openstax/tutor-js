@@ -4,11 +4,11 @@ selenium = require 'selenium-webdriver'
 # Make sure the current screen is the calendar
 verify = (test) ->
   # wait until the calendar is open
-  test.waitAnd(css: '.calendar-container')
+  test.waitAnd(css: '.calendar-container:not(.calendar-loading)')
 
 
 # type: 'READING', 'HOMEWORK', 'EXTERNAL'
-createNew = (test, type) =>
+createNew = (test, type) ->
   verify(test)
 
   # Click "Add Assignment"
@@ -21,9 +21,30 @@ createNew = (test, type) =>
     when 'EXTERNAL' then test.waitClick(linkText: 'Add External Assignment')
     else expect(false, 'Invalid assignment type').to.be.true
 
-open = (test, title) ->
+goOpen = (test, title) ->
   # wait until the calendar is open
   verify(test)
   test.waitClick(css: "[data-title='#{title}']")
 
-module.exports = {verify, createNew, open}
+goLearningGuide = (test) ->
+  test.waitClick(linkText: 'Performance Forecast')
+
+Popup =
+  verify: (test) ->
+    # wait until the calendar is open
+    test.waitAnd(css: '.plan-modal .panel.panel-default')
+  close: (test) ->
+    test.waitClick(css: '.plan-modal .close')
+    test.driver.sleep(500) # Wait for the modal to animate and disappear
+
+  goEdit: (test) ->
+    test.waitClick(css: '-edit-assignment')
+
+  goReview: (test) ->
+    # BUG: Should rely on button classes
+    test.waitClick(linkText: 'Review Metrics')
+    # Verify the review page loaded
+    test.waitAnd(css: '.task-teacher-review .task-breadcrumbs')
+
+
+module.exports = {verify, createNew, goOpen, goLearningGuide, Popup}

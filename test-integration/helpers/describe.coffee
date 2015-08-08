@@ -49,7 +49,7 @@ module.exports = (name, cb) ->
       @screenshot = (args...) => screenshot(@driver, args...)
 
       # Generate a set of 5 random characters
-      @freshId = -> Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+      @freshId = -> '_selenium ' + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
 
       @waitAnd = (locator) =>
         @driver.wait(selenium.until.elementLocated(locator))
@@ -60,6 +60,7 @@ module.exports = (name, cb) ->
 
       @waitClick = (locator) =>
         el = @waitAnd(locator)
+        @scrollTop()
         el.click()
         # return el to support chaining the promises
         el
@@ -67,6 +68,10 @@ module.exports = (name, cb) ->
       @scrollTop = =>
         # @driver.executeScript("arguments[0].scrollIntoView(true);", el)
         @driver.executeScript("window.scrollTo(0,0);")
+        @driver.sleep(200)
+
+      @scrollTo = (el) =>
+        @driver.executeScript("arguments[0].scrollIntoView(true);", el)
         @driver.sleep(100)
 
 
