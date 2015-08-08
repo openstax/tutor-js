@@ -10,7 +10,7 @@ describe 'Calendar and Stats', ->
   @xit 'Shows stats for all published plans (readonly)', ->
     @timeout 2 * 60 * 1000
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
@@ -30,10 +30,10 @@ describe 'Calendar and Stats', ->
       @waitClick(css: '.navbar-brand')
 
 
-  @xit 'Opens the review page for every visible plan (readonly)', ->
+  @it 'Opens the review page for every visible plan (readonly)', ->
     @timeout 10 * 60 * 1000
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
@@ -67,7 +67,7 @@ describe 'Calendar and Stats', ->
   @it 'Opens the learning guide for each course (readonly)', ->
     @timeout 60 * 1000
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
@@ -87,7 +87,7 @@ describe 'Calendar and Stats', ->
   @it 'Clicks through the performance report (readonly)', ->
     @timeout 4 * 60 * 1000
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)

@@ -11,7 +11,7 @@ describe 'Assignment Creation Tests', ->
 
     title = @freshId()
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
     CourseSelect.goTo(@, 'ANY')

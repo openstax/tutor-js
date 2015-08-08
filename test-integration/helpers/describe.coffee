@@ -94,16 +94,25 @@ module.exports = (name, cb) ->
               originalOnError?(msg, args...)
 
 
-      @loginDev = (username) =>
+      @login = (username, password='password') =>
 
-        @waitAnd(linkText: 'Login').click()
-        @driver.wait selenium.until.elementLocated(css: '#search_query')
+        @waitClick(linkText: 'Login')
 
-        # Log in as teacher
-        @driver.findElement(css: '#search_query').sendKeys(username)
-        @driver.findElement(css: '#search_query').submit()
+        # Decide if this is local or deployed
+        @waitAnd(css: '#auth_key, #search_query')
+        @driver.isElementPresent(css: '#search_query').then (isPresent) =>
+          if isPresent
+            # Login as local
+            @driver.findElement(css: '#search_query').sendKeys(username)
+            @driver.findElement(css: '#search_query').submit()
 
-        @waitClick(linkText: username)
+            @waitClick(linkText: username)
+
+          else
+            # Login as dev (using accounts)
+            @driver.findElement(css: '#auth_key').sendKeys(username)
+            @driver.findElement(css: '#password').sendKeys(password)
+            @driver.findElement(css: '.password-actions button.standard').click()
 
         # Verify React loaded
         @driver.wait selenium.until.elementLocated(css: '#react-root-container [data-reactid]')

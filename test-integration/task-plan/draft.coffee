@@ -17,7 +17,7 @@ describe 'Draft Tests', ->
 
     title = @freshId()
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
     CourseSelect.goTo(@, 'ANY')
@@ -50,7 +50,7 @@ describe 'Draft Tests', ->
   @it 'Deletes all drafts (not really a test but nice cleanup)', ->
     @timeout 10 * 60 * 1000
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
     CourseSelect.goTo(@, 'ANY')
     Calendar.verify(@)
 
@@ -71,7 +71,7 @@ describe 'Draft Tests', ->
 
     title = @freshId()
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
     CourseSelect.goTo(@, 'ANY')
@@ -103,7 +103,7 @@ describe 'Draft Tests', ->
 
     title = @freshId()
 
-    @loginDev(TEACHER_USERNAME)
+    @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
     CourseSelect.goTo(@, 'ANY')
