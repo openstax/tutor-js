@@ -5,9 +5,15 @@
   &:before {
     counter-increment: question;
     content: counter(question) ". ";
-    display: inline;
+    display: block;
+    float: left;
+    width: 4%;
   }
   .question-stem {
-    display: inline;
+    float: left;
+    width: 96%;
   }
+}
+.answers-answer {
+  clear: both;
 }
