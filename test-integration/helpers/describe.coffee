@@ -1,5 +1,6 @@
 selenium = require 'selenium-webdriver'
 seleniumMocha = require('selenium-webdriver/testing')
+_ = require 'underscore'
 
 chai = require 'chai'
 chai.use require 'chai-as-promised'
@@ -104,8 +105,20 @@ module.exports = (name, cb) ->
               document.querySelector('body').setAttribute('data-js-error', msg)
               originalOnError?(msg, args...)
 
+      @forEach = (css, fn) =>
+        # Need to query multiple times because we might have moved screens so els are stale
+        @driver.findElements(css: css).then (els1) =>
+          index = 0
+          _.each els1, (el) =>
+            @driver.findElements(css: css).then (els) =>
+              el = els[index]
+              if els.length isnt els1.length
+                throw new Error("Length changed during foreach! before: #{els1.length} after: #{els.length}")
+              index += 1
+              fn.call(@, el, index, els1.length)
 
-      @login = (username, password='password') =>
+
+      @login = (username, password = 'password') =>
 
         @waitClick(linkText: 'Login')
 

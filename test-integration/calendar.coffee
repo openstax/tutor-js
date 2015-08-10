@@ -38,26 +38,18 @@ describe 'Calendar and Stats', ->
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
 
-      doneCheckingCount = 0
-      @driver.findElements(css: '.plan[data-isopen="true"]').then (plans) =>
+      @forEach '.plan[data-isopen="true"]', (plan, index, total) =>
+        console.log 'Looking at', courseCategory, index, 'of', total
+        plan.click()
+        Calendar.Popup.verify(@)
+        Calendar.Popup.goReview(@)
 
-        _.each plans, (plan) =>
-          # Since the DOM node will be stale re-query all the plans.
-          # Could have squirreled away all the titles & used those but I'm lazy
-          @driver.findElements(css: '.plan[data-isopen="true"]').then (plans2) =>
-            plan = plans2[doneCheckingCount]
-
-            plan.click().then -> console.log 'Looking at', courseCategory, doneCheckingCount
-            Calendar.Popup.verify(@)
-            Calendar.Popup.goReview(@)
-
-            @driver.sleep(1000)
-            @waitClick(css: '.task-breadcrumbs button')
-            @driver.sleep(1000)
-            Calendar.Popup.verify(@)
-            Calendar.Popup.close(@)
-            Calendar.verify(@).then ->
-              doneCheckingCount += 1
+        @driver.sleep(1000)
+        @waitClick(css: '.task-breadcrumbs button')
+        @driver.sleep(1000)
+        Calendar.Popup.verify(@)
+        Calendar.Popup.close(@)
+        Calendar.verify(@)
 
       # Go back to the course selection
       @waitClick(css: '.navbar-brand').then ->
@@ -83,8 +75,8 @@ describe 'Calendar and Stats', ->
       @waitClick(css: '.navbar-brand')
 
 
-  @it 'Clicks through the performance report (readonly)', ->
-    @timeout 4 * 60 * 1000
+  @xit 'Clicks through the performance report (readonly)', ->
+    @timeout 10 * 60 * 1000
 
     @login(TEACHER_USERNAME)
 
@@ -93,22 +85,23 @@ describe 'Calendar and Stats', ->
 
       @waitClick(linkText: 'Performance Report')
       @waitAnd(css: '.performance-report .course-performance-title')
+      # BUG: Click on "Period 1"
+      @waitClick(css: '.course-performance-wrap li:first-child')
+      @waitAnd(css: '.course-performance-wrap li:first-child [aria-selected="true"]')
+      @driver.sleep(100)
 
-      @driver.findElements(css: '.task-result').then (tasks) =>
-        expect(tasks.length).to.not.equal(0)
-        console.log 'Assignments', courseCategory, tasks.length
+      @forEach '.task-result', (task, index, total) =>
+        console.log 'opening', index, 'of', total
+        @scrollTo(task)
+        task.click()
+        @waitAnd(css: '.async-button.continue')
+        # @waitClick(linkText: 'Back to Performance Report')
+        @waitClick(css: '.pinned-footer a.btn-default')
 
-        for i in [0...tasks.length]
-          do (i) =>
-            @driver.findElements(css: '.task-result').then (tasks2) =>
-              task = tasks2[i]
-
-              @scrollTo(task)
-              task.click().then -> console.log 'opening', i
-              @waitAnd(css: '.async-button.continue')
-              # @waitClick(linkText: 'Back to Performance Report')
-              @waitClick(css: '.pinned-footer a.btn-default')
-
+        # BUG: Click on "Period 1"
+        @waitClick(css: '.course-performance-wrap li:first-child')
+        @waitAnd(css: '.course-performance-wrap li:first-child [aria-selected="true"]')
+        @driver.sleep(1000)
 
       # Go back to the course selection
       @waitClick(css: '.navbar-brand')
