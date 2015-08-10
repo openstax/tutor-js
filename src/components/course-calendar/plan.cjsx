@@ -130,8 +130,8 @@ CoursePlan = React.createClass
 
       # alias modal hide to also make plan look un-selected
       @refs.trigger.hide = ->
-        syncClosePlan()
         hide()
+        syncClosePlan()
 
   syncOpenPlan: ->
     @setIsViewingStats(true) unless @state.isViewingStats
@@ -169,7 +169,7 @@ CoursePlan = React.createClass
     {isPublishing} = @state
     {plan} = item
 
-    if isPublishing
+    if isPublishing and not plan.isPublished
       planModal = <CoursePlanPublishingDetails
         plan={plan}
         courseId={courseId}
@@ -267,7 +267,7 @@ CoursePlan = React.createClass
       label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
 
       renderFn = 'renderEditPlan'
-      renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (isPublishing) or (publishStatus is 'completed')
+      renderFn = 'renderOpenPlan' if plan.isPublished or (isPublishing) or (publishStatus is 'completed')
 
       @[renderFn](planStyle, planClasses, label, index)
     )
