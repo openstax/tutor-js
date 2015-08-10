@@ -15,6 +15,7 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {StatsShell} = require './components/plan-stats'
 CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
+Handler = require './helpers/conditional-rendering'
 
 routes = (
   <Route handler={Root} name='root'>
@@ -36,10 +37,12 @@ routes = (
 
         <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
-          <Route path='performance/?' name='viewPerformance' handler={PerformanceShell} />
-          <Route path='guide' name='viewTeacherGuide' handler={LearningGuideShell.Teacher} />
+          <Route path='performance/?' name='viewPerformance'
+            handler={Handler(PerformanceShell, requireRole: 'teacher')} />
+          <Route path='guide' name='viewTeacherGuide'
+            handler={Handler(LearningGuideShell.Teacher, requireRole: 'teacher')} />
           <Route path='guide/student/:roleId?' name='viewStudentTeacherGuide'
-              handler={LearningGuideShell.TeacherStudent}/>
+            handler={Handler(LearningGuideShell.TeacherStudent, requireRole: 'teacher')}/>
 
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />
