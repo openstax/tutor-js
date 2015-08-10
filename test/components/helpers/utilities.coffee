@@ -129,6 +129,16 @@ commonActions =
     (args...) ->
       Promise.resolve(commonActions._focusMatch(selector, args...))
 
+  _hoverMatch: (selector, args...) ->
+    {div} = args[0]
+    elementNode = div.querySelector(selector)
+    React.addons.TestUtils.Simulate.mouseOver(elementNode)
+    args[0]
+
+  hoverMatch: (selector) ->
+    (args...) ->
+      Promise.resolve(commonActions._hoverMatch(selector, args...))
+
   _fillTextarea: (selector, response, args...) ->
     {div} = args[0]
     selector ?= 'textarea'

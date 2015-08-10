@@ -125,6 +125,39 @@
   .tutor-background-image("biology-title-background.svg");
 }
 
+.tutor-popover() {
+  font-size: 0.8em;
+  max-width: 500px;
+
+  .popover-title {
+    color: @tutor-primary;
+  }
+
+  .has-html {
+    h1, h2, h3, h4, h5, h6 {
+      &:first-child {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  &.left .arrow:after{
+    border-left-color: @popover-title-bg;
+  }
+
+  &.right .arrow:after{
+    border-right-color: @popover-title-bg;
+  }
+
+  &.top .arrow:after{
+    border-top-color: @popover-title-bg;
+  }
+
+  &.bottom .arrow:after{
+    border-bottom-color: @popover-title-bg;
+  }
+}
+
 
 .tutor-subtle-load(will-load; @loading-text: 'Loading...'; @trans-time: 0.25s; @bg-fade: 90%; @bg-base: @tutor-white;) {
   &::after {

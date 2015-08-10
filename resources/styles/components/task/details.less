@@ -1,26 +1,26 @@
 @details-popover-arrow-width: 17px;
 @details-popover-arrow-outer-width: 18px;
 
+button.task-details-instructions {
+  background: none;
+  border: none;
+  padding-left: 20px;
+  .transition(color .25s);
+
+  &::after {
+    .fa-icon();
+    content: @fa-var-info-circle;
+  }
+
+  &:hover,
+  &:focus {
+    color: @tutor-info;
+  }
+}
+
 .task-details {
   position: static;
   line-height: 2rem;
-
-  button.task-details-info {
-    background: none;
-    border: none;
-    padding-left: 20px;
-    .transition(color .25s);
-
-    &::after {
-      .fa-icon();
-      content: @fa-var-info-circle;
-    }
-
-    &:hover,
-    &:focus {
-      color: @tutor-info;
-    }
-  }
 
   .task-details-due-date {
     display: inline-block;
@@ -28,8 +28,6 @@
 }
 
 .task-details-popover{
-  font-size: 0.8em;
-  max-width: 500px;
   position: fixed;
   bottom: 60px;
   margin-left: -40px;
@@ -37,17 +35,7 @@
   // This overrides inline styles added by bootstrap popover to position the popovers
   top: auto !important;
 
-  .popover-title {
-    color: @tutor-primary;
-  }
-
-  .has-html{
-    h1, h2, h3, h4, h5, h6 {
-      &:first-child {
-        margin-top: 1rem;
-      }
-    }
-  }
+  .tutor-popover();
 
   > .arrow {
     border-width: @details-popover-arrow-width;
@@ -64,19 +52,14 @@
 
     &:after{
       bottom: -@details-popover-arrow-width;
-      border-left-color: @popover-title-bg;
     }
   }
 
-  &.right .arrow:after{
-    border-right-color: @popover-title-bg;
-  }
-
-  &.top .arrow:after{
-    border-top-color: @popover-title-bg;
-  }
-
-  &.bottom .arrow:after{
-    border-bottom-color: @popover-title-bg;
+  &.top .arrow {
+    bottom: -@details-popover-arrow-width;
+    margin-left: 24px;
+    &::after {
+      margin-left: -@details-popover-arrow-width;
+    }
   }
 }

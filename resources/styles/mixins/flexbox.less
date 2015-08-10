@@ -100,6 +100,7 @@
 .justify-content(@justify: flex-start) {
   -webkit-justify-content: @justify;
      -moz-justify-content: @justify;
+            -ms-flex-pack: @justify; // IE 10
       -ms-justify-content: @justify;
           justify-content: @justify;
 }
@@ -120,6 +121,7 @@
 .align-items(@align: stretch) {
   -webkit-align-items: @align;
      -moz-align-items: @align;
+       -ms-flex-align: @align; // IE 10
       -ms-align-items: @align;
           align-items: @align;
 }

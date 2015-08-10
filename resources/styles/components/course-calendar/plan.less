@@ -77,20 +77,18 @@
         margin-right: @calendar-plan-left-label-offset;
       }
 
-      &.is-publishing{
-        label:not(.continued)::before {
-          .is-publishing();
-          margin-right: @calendar-plan-left-label-offset;
-        }
-      }
-
       &.is-failed, &.is-killed{
         .x-plan(@tutor-danger);
       }
     }
-
+    &.is-publishing{
+      label:not(.continued)::before {
+        .is-publishing();
+        margin-right: @calendar-plan-left-label-offset;
+      }
+    }
     &.is-published{
-      &:not(.is-open) {
+      &:not(.is-open):not(.is-publishing) {
         label:not(.continued)::before {
           .is-not-open();
           margin-right: @calendar-plan-left-label-offset;

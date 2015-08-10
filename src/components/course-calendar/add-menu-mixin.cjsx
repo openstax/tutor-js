@@ -34,7 +34,7 @@ CourseAddMenuMixin =
           courseId: courseId
         type: 'reading'
         query:
-          date: @state.addDate?.format(dateFormat)
+          due_at: @state.addDate?.format(dateFormat)
       }, {
         text: 'Add Homework'
         to: 'createHomework'
@@ -42,7 +42,7 @@ CourseAddMenuMixin =
           courseId: courseId
         type: 'homework'
         query:
-          date: @state.addDate?.format(dateFormat)
+          due_at: @state.addDate?.format(dateFormat)
       }, {
         text: 'Add External Assignment'
         to: 'createExternal'
@@ -50,7 +50,7 @@ CourseAddMenuMixin =
           courseId: courseId
         type: 'external'
         query:
-          date: @state.addDate?.format(dateFormat)
+          due_at: @state.addDate?.format(dateFormat)
       }
     ]
 
