@@ -12,7 +12,7 @@ CoursePlanPublishingDetails = require './plan-publishing-details'
 
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
-  displaysName: 'CoursePlan'
+  displayName: 'CoursePlan'
 
   contextTypes:
     router: React.PropTypes.func
