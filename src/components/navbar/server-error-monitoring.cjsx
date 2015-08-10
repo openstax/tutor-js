@@ -6,7 +6,7 @@ BS = require 'react-bootstrap'
 Dialog = require '../tutor-dialog'
 
 module.exports = React.createClass
-  displayName: 'AdminLink'
+  displayName: 'ServerErrorMonitoring'
 
   mixins: [BindStoreMixin]
   bindStore: AppStore
