@@ -12,7 +12,7 @@ CoursePlanPublishingDetails = require './plan-publishing-details'
 
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
-  displayName: 'CoursePlan'
+  displaysName: 'CoursePlan'
 
   contextTypes:
     router: React.PropTypes.func
@@ -29,6 +29,7 @@ CoursePlan = React.createClass
     isViewingStats: false
     publishStatus: ''
     isPublishing: false
+    isHovered: false
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
@@ -68,7 +69,8 @@ CoursePlan = React.createClass
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
   syncStatsWithState: ->
-
+    return false
+    console.info('syncStatsWithState')
     if @_isPlanMatchRouteNotOpen()
       if @refs.trigger?
         triggerEl = @refs.trigger.getDOMNode()
@@ -76,7 +78,7 @@ CoursePlan = React.createClass
       else
         @setIsViewingStats(false)
     else if @_isPlanNotMatchingRouteOpen()
-      @refs.trigger.hide()
+      @refs.trigger?.hide()
 
   # handles when plan is clicked directly and viewing state and route both need to update
   setIsViewingStats: (isViewingStats) ->
@@ -106,29 +108,17 @@ CoursePlan = React.createClass
 
   componentWillReceiveProps: (nextProps) ->
     @subscribeToPublishing(nextProps.item)
-    @closePlanOnModalHide()
+    # @closePlanOnModalHide()
 
   componentWillUnmount: ->
     PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
 
   componentDidMount: ->
-    @closePlanOnModalHide()
-    @adjustForLongLabels()
-
     @syncStatsWithState()
 
   componentDidUpdate: ->
-    @adjustForLongLabels()
-
+    console.info('hullo')
     @syncStatsWithState()
-
-  adjustForLongLabels: ->
-    labelDOMNode = @refs.label?.getDOMNode()
-    planDOMNode = @refs.plan.getDOMNode()
-
-    # HACK: sometimes a label is not rendered. Not sure why
-    if labelDOMNode
-      planDOMNode.classList.add('plan-label-long') if labelDOMNode.clientHeight > @props.activeHeight
 
   findPlanNodes: (planNode) ->
     container = @getDOMNode().parentElement.parentElement
@@ -138,7 +128,6 @@ CoursePlan = React.createClass
   closePlanOnModalHide: ->
     if @refs.trigger?
       hide = @refs.trigger.hide
-      trigger = React.findDOMNode(@refs.trigger)
       syncClosePlan = @syncClosePlan
 
       # alias modal hide to also make plan look un-selected
@@ -147,30 +136,16 @@ CoursePlan = React.createClass
         syncClosePlan(trigger)
 
   syncOpenPlan: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.currentTarget)
-    samePlans.forEach((element) ->
-      element.classList.add('open')
-    )
     @setIsViewingStats(true)
 
   syncClosePlan: (trigger) ->
-    samePlans = @findPlanNodes(trigger)
-    samePlans.forEach((element) ->
-      element.classList.remove('open')
-    )
     @setIsViewingStats(false)
 
   syncHover: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.currentTarget)
-    samePlans.forEach((element) ->
-      element.classList.add('active')
-    )
+    @setState(isHovered: true)
 
   removeHover: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.currentTarget)
-    samePlans.forEach((element) ->
-      element.classList.remove('active')
-    )
+    @setState(isHovered: false)
 
   renderLabel: (rangeDuration, durationLength, plan, index, offset) ->
     # Adjust width based on plan duration, helps with label centering on view...for the most part.
@@ -194,7 +169,7 @@ CoursePlan = React.createClass
   renderOpenPlan: (planStyle, planClasses, label) ->
     {item, courseId} = @props
     {isPublishing} = @state
-    {plan, index} = item
+    {plan} = item
 
     if isPublishing
       planModal = <CoursePlanPublishingDetails
@@ -216,16 +191,9 @@ CoursePlan = React.createClass
       {label}
     </div>
 
-    if index is 0
-      # only trigger modal if this is the first component representing the plan
-      planInterface = <BS.ModalTrigger modal={planModal} ref='trigger'>
-        {planOnly}
-      </BS.ModalTrigger>
-    else
-      # otherwise, if this plan continues into the next week, don't add an additional modal
-      planInterface = planOnly
-
-    planInterface
+    <BS.ModalTrigger modal={planModal} ref='trigger'>
+      {planOnly}
+    </BS.ModalTrigger>
 
   renderEditPlan: (planStyle, planClasses, label) ->
     {item, courseId} = @props
@@ -249,23 +217,11 @@ CoursePlan = React.createClass
 
   render: ->
     {item, courseId} = @props
-    {publishStatus, isPublishing} = @state
-    {plan, duration, rangeDuration, offset, index, weekTopOffset, order} = item
+    {publishStatus, isPublishing, isHovered, isViewingStats} = @state
+    {plan, displays} = item
 
     plan.isFailed = publishStatus is 'failed'
     plan.isKilled = publishStatus is 'killed'
-
-    durationLength = duration.length('days')
-    # Adjust width based on plan duration and left position based on offset of plan from start of week
-    # CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
-    # top is calculated by using:
-    #   weekTopOffset -- the distance from the top of the calendar for plans in the same week
-    #   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
-    #       stack on top of other plans that overlap in duration.
-    planStyle =
-      width: durationLength * 100 / 7 + '%'
-      left: offset * 100 / 7 + '%'
-      top: (weekTopOffset + 4 - order * 3) + 'rem'
 
     planClasses = [
       'plan'
@@ -280,13 +236,38 @@ CoursePlan = React.createClass
     planClasses.push('is-open') if plan.isOpen
     planClasses.push('is-trouble') if plan.isTrouble
 
+    planClasses.push('active') if isHovered
+    planClasses.push('open') if isViewingStats
+    planClasses.push('plan-label-long')
+
     planClasses = planClasses.join(' ')
 
-    label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
+    planDisplays = _.map(displays, (display) =>
+      {duration, rangeDuration, offset, index, weekTopOffset, order} = display
 
-    renderFn = 'renderEditPlan'
-    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (isPublishing) or (publishStatus is 'completed')
+      durationLength = duration.length('days')
+      # Adjust width based on plan duration and left position based on offset of plan from start of week
+      # CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
+      # top is calculated by using:
+      #   weekTopOffset -- the distance from the top of the calendar for plans in the same week
+      #   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
+      #       stack on top of other plans that overlap in duration.
+      planStyle =
+        width: durationLength * 100 / 7 + '%'
+        left: offset * 100 / 7 + '%'
+        top: (weekTopOffset + 4 - order * 3) + 'rem'
 
-    @[renderFn](planStyle, planClasses, label)
+      label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
+
+      renderFn = 'renderEditPlan'
+      renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (isPublishing) or (publishStatus is 'completed')
+
+      @[renderFn](planStyle, planClasses, label)
+    )
+
+    <div>
+      {planDisplays}
+    </div>
+
 
 module.exports = CoursePlan

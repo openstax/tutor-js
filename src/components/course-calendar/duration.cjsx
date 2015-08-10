@@ -36,6 +36,18 @@ CourseDuration = React.createClass
     durationsByStartDate = _.chain(groupedDurations)
       .pluck('plansInRange')
       .flatten()
+      .groupBy((rangedPlan) ->
+        rangedPlan.plan.id
+      )
+      .map((groupedPlans) ->
+        {plan} = _.first(groupedPlans)
+
+        displays = _.map(groupedPlans, (groupedPlan) ->
+          _.omit(groupedPlan, 'plan')
+        )
+
+        {plan, displays}
+      )
       .value()
 
     @setState({ranges: groupedDurations, durationsByStartDate})
