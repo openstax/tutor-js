@@ -38,11 +38,11 @@ CoursePlan = React.createClass
 
   _isPlanNotMatchingRouteOpen: ->
     {planId} = @context.router.getCurrentParams()
-    not @_doesPlanMatchesRoute() and @state.isViewingStats
+    not @_doesPlanMatchesRoute() and @refs.details?
 
   _isPlanMatchRouteNotOpen: ->
     {planId} = @context.router.getCurrentParams()
-    @_doesPlanMatchesRoute() and not @state.isViewingStats
+    @_doesPlanMatchesRoute() and not @refs.details?
 
   _getExpectedRoute: (isViewingStats) ->
     closedRouteName = 'calendarByDate'
@@ -69,8 +69,6 @@ CoursePlan = React.createClass
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
   syncStatsWithState: ->
-    return false
-    console.info('syncStatsWithState')
     if @_isPlanMatchRouteNotOpen()
       if @refs.trigger?
         triggerEl = @refs.trigger.getDOMNode()
@@ -108,16 +106,16 @@ CoursePlan = React.createClass
 
   componentWillReceiveProps: (nextProps) ->
     @subscribeToPublishing(nextProps.item)
-    # @closePlanOnModalHide()
+    @closePlanOnModalHide()
 
   componentWillUnmount: ->
     PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
 
   componentDidMount: ->
+    @closePlanOnModalHide()
     @syncStatsWithState()
 
   componentDidUpdate: ->
-    console.info('hullo')
     @syncStatsWithState()
 
   findPlanNodes: (planNode) ->
@@ -132,20 +130,20 @@ CoursePlan = React.createClass
 
       # alias modal hide to also make plan look un-selected
       @refs.trigger.hide = ->
+        syncClosePlan()
         hide()
-        syncClosePlan(trigger)
 
-  syncOpenPlan: (mouseEvent, key) ->
-    @setIsViewingStats(true)
+  syncOpenPlan: ->
+    @setIsViewingStats(true) unless @state.isViewingStats
 
-  syncClosePlan: (trigger) ->
-    @setIsViewingStats(false)
+  syncClosePlan: ->
+    @setIsViewingStats(false) if @state.isViewingStats
 
-  syncHover: (mouseEvent, key) ->
-    @setState(isHovered: true)
+  syncHover: ->
+    @setState(isHovered: true) unless @state.isHovered
 
-  removeHover: (mouseEvent, key) ->
-    @setState(isHovered: false)
+  removeHover: ->
+    @setState(isHovered: false) if @state.isHovered
 
   renderLabel: (rangeDuration, durationLength, plan, index, offset) ->
     # Adjust width based on plan duration, helps with label centering on view...for the most part.
@@ -166,7 +164,7 @@ CoursePlan = React.createClass
       ref='label'
       className={labelClass}>{plan.title}</label>
 
-  renderOpenPlan: (planStyle, planClasses, label) ->
+  renderOpenPlan: (planStyle, planClasses, label, index) ->
     {item, courseId} = @props
     {isPublishing} = @state
     {plan} = item
@@ -175,12 +173,14 @@ CoursePlan = React.createClass
       planModal = <CoursePlanPublishingDetails
         plan={plan}
         courseId={courseId}
-        className={planClasses}/>
+        className={planClasses}
+        ref='details'/>
     else
       planModal = <CoursePlanDetails
         plan={plan}
         courseId={courseId}
-        className={planClasses}/>
+        className={planClasses}
+        ref='details'/>
 
     planOnly = <div style={planStyle}
       className={planClasses}
@@ -191,11 +191,18 @@ CoursePlan = React.createClass
       {label}
     </div>
 
-    <BS.ModalTrigger modal={planModal} ref='trigger'>
-      {planOnly}
-    </BS.ModalTrigger>
+    if index is 0
+      # only trigger modal if this is the first component representing the plan
+      planInterface = <BS.ModalTrigger modal={planModal} ref='trigger'>
+        {planOnly}
+      </BS.ModalTrigger>
+    else
+      # otherwise, if this plan continues into the next week, don't add an additional modal
+      planInterface = planOnly
 
-  renderEditPlan: (planStyle, planClasses, label) ->
+    planInterface
+
+  renderEditPlan: (planStyle, planClasses, label, index) ->
     {item, courseId} = @props
     {plan} = item
 
@@ -236,8 +243,8 @@ CoursePlan = React.createClass
     planClasses.push('is-open') if plan.isOpen
     planClasses.push('is-trouble') if plan.isTrouble
 
-    planClasses.push('active') if isHovered
-    planClasses.push('open') if isViewingStats
+    planClasses.push('active') if isHovered or isViewingStats
+
     planClasses.push('plan-label-long')
 
     planClasses = planClasses.join(' ')
@@ -262,7 +269,7 @@ CoursePlan = React.createClass
       renderFn = 'renderEditPlan'
       renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (isPublishing) or (publishStatus is 'completed')
 
-      @[renderFn](planStyle, planClasses, label)
+      @[renderFn](planStyle, planClasses, label, index)
     )
 
     <div>
