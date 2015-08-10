@@ -71,7 +71,9 @@ edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
     test.waitClick(css: '.-show-problems') # BUG: wrong class name
 
   switch action
-    when 'PUBLISH' then test.waitClick(css: '.async-button.-publish')
+    when 'PUBLISH'
+      test.waitClick(css: '.async-button.-publish').then ->
+        test.addTimeout(6 * 60) # Wait up to 6min for publish to complete
     when 'SAVE' then test.waitClick(css: '.async-button.-save')
     when 'CANCEL'
       # BUG: "X" close button behaves differently than the footer close button

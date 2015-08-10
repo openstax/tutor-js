@@ -7,8 +7,6 @@ TEACHER_USERNAME = 'teacher01'
 describe 'Assignment Creation Tests', ->
 
   @it 'Publishes a Reading with opensAt to tomorrow and deletes (idempotent)', ->
-    @timeout 10 * 60 * 1000 # ~4min to publish a draft (plus mathjax CDN)
-
     title = @freshId()
 
     @login(TEACHER_USERNAME)

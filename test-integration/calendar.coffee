@@ -7,38 +7,38 @@ TEACHER_USERNAME = 'teacher01'
 
 describe 'Calendar and Stats', ->
 
-  @xit 'Shows stats for all published plans (readonly)', ->
-    @timeout 2 * 60 * 1000
+  @it 'Just logs in (readonly)', ->
+    @login(TEACHER_USERNAME)
 
+  @xit 'Shows stats for all published plans (readonly)', ->
     @login(TEACHER_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
+      @addTimeout(60)
       CourseSelect.goTo(@, courseCategory)
 
-      @driver.findElements(css: '.plan[data-isopen="true"]').then (plans) =>
-        _.each plans, (plan) =>
-          plan.click()
-          Calendar.Popup.verify(@)
-          # Click on each of the periods
-          @driver.findElements(css: '.panel .nav.nav-tabs li').then (periods) =>
-            for period in periods
-              period.click()
-          Calendar.Popup.close(@)
-          Calendar.verify(@)
+      @forEach '.plan[data-isopen="true"]', (plan) =>
+        plan.click()
+        Calendar.Popup.verify(@)
+        # Click on each of the periods
+        @driver.findElements(css: '.panel .nav.nav-tabs li').then (periods) =>
+          for period in periods
+            period.click()
+        Calendar.Popup.close(@)
+        Calendar.verify(@)
 
       # Go back to the course selection
       @waitClick(css: '.navbar-brand')
 
 
   @xit 'Opens the review page for every visible plan (readonly)', ->
-    @timeout 10 * 60 * 1000
-
     @login(TEACHER_USERNAME)
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
 
       @forEach '.plan[data-isopen="true"]', (plan, index, total) =>
+        @addTimeout(10)
         console.log 'Looking at', courseCategory, index, 'of', total
         plan.click()
         Calendar.Popup.verify(@)
@@ -56,11 +56,10 @@ describe 'Calendar and Stats', ->
         doneCheckingCount = 0
 
   @it 'Opens the learning guide for each course (readonly)', ->
-    @timeout 60 * 1000
-
     @login(TEACHER_USERNAME)
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
+      @addTimeout(10)
       CourseSelect.goTo(@, courseCategory)
 
       Calendar.goLearningGuide(@)
@@ -76,14 +75,12 @@ describe 'Calendar and Stats', ->
 
 
   @xit 'Clicks through the performance report (readonly)', ->
-    @timeout 10 * 60 * 1000
-
     @login(TEACHER_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
 
-      @waitClick(linkText: 'Performance Report')
+      @waitClick(linkText: 'Performance Report').then => @addTimeout(60)
       @waitAnd(css: '.performance-report .course-performance-title')
       # BUG: Click on "Period 1"
       @waitClick(css: '.course-performance-wrap li:first-child')

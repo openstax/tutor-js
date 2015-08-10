@@ -13,7 +13,7 @@ describe 'Draft Tests', ->
 
 
   @it 'Shows Validation Error when saving a blank Reading, Homework, and External (idempotent)', ->
-    @timeout 60 * 1000
+    @addTimeout(30)
 
     title = @freshId()
 
@@ -48,14 +48,14 @@ describe 'Draft Tests', ->
 
 
   @it 'Deletes all drafts (not really a test but nice cleanup)', ->
-    @timeout 10 * 60 * 1000
-
     @login(TEACHER_USERNAME)
+    @addTimeout(2)
     CourseSelect.goTo(@, 'ANY')
     Calendar.verify(@)
 
     finishedCount = 0
     @driver.findElements(css: '.plan:not([data-isopen="true"])').then (plans) =>
+      @addTimeout(2)
       console.log 'plans count', plans.length if plans.length
 
       for i in [0...plans.length]
@@ -67,7 +67,7 @@ describe 'Draft Tests', ->
 
 
   @it 'Creates a draft Reading with opensAt to today and deletes (idempotent)', ->
-    @timeout 2 * 60 * 1000
+    @addTimeout(60)
 
     title = @freshId()
 
@@ -99,7 +99,7 @@ describe 'Draft Tests', ->
 
 
   @it 'Creates a draft Reading checks and then unchecks some sections (idempotent)', ->
-    @timeout 2 * 60 * 1000
+    @addTimeout(60)
 
     title = @freshId()
 

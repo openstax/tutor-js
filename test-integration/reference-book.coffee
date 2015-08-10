@@ -10,7 +10,7 @@ SECTIONS_TO_TEST = 10
 describe 'Reference Book Exercises', ->
 
   @it 'Loads Biology reference book (readonly)', ->
-    @timeout 60 * 60 * 1000 # ~2 min to start up a reading
+    @addTimeout(60 * 60) # ~2 min to start up a reading
 
     @login(TEACHER_USERNAME)
 

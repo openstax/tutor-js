@@ -51,7 +51,6 @@ module.exports = (name, cb) ->
     @__afterEach = afterEach
 
     @before ->
-      @timeout 30 * 1000 # Wait 30sec before timing out
 
       @driver = new selenium.Builder()
         # .withCapabilities(selenium.Capabilities.phantomjs())
@@ -119,7 +118,7 @@ module.exports = (name, cb) ->
 
 
       @login = (username, password = 'password') =>
-
+        @addTimeout(10)
         @waitClick(linkText: 'Login')
 
         # Decide if this is local or deployed
@@ -145,7 +144,22 @@ module.exports = (name, cb) ->
 
 
     @__beforeEach ->
-      @timeout 20 * 1000
+      timeout = @timeout
+      currentTimeout = 0
+      @addTimeout = (sec) =>
+        # console.log 'adding to timeout (sec)', sec
+        currentTimeout += sec * 1000
+        timeout.call(@, currentTimeout, true)
+
+      @timeout = (ms, isInternal) =>
+        unless isInternal
+          throw new Error('use addTimeout (preferably in the helper you are using) instead of timeout')
+        if ms
+          timeout.call(@, ms, isInternal)
+        else
+          timeout.call(@)
+
+      @addTimeout(10)
       @driver.get(SERVER_URL)
       # Wait until the page has loaded.
       # Going to the root URL while logged in will redirect to dashboard
@@ -158,7 +172,7 @@ module.exports = (name, cb) ->
 
 
     @__afterEach ->
-      @timeout 5 * 60 * 1000 # Server might still be deleting/publishing
+      @addTimeout(2 * 60) # Server might still be deleting/publishing
       {state, title} = @currentTest
 
       if state is 'failed'
