@@ -30,7 +30,7 @@ describe 'Calendar and Stats', ->
       @waitClick(css: '.navbar-brand')
 
 
-  @it 'Opens the review page for every visible plan (readonly)', ->
+  @xit 'Opens the review page for every visible plan (readonly)', ->
     @timeout 10 * 60 * 1000
 
     @login(TEACHER_USERNAME)

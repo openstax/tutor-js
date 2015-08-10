@@ -8,6 +8,16 @@ fs = require 'fs'
 
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 
+# Keep the history of commands run to help find where the error occurred
+logger = selenium.logging.getLogger('webdriver.http.Executor')
+logger.setLevel(selenium.logging.Level.ALL)
+COMMAND_HISTORY = []
+logger.addHandler (record) ->
+  # Only print the last 100 items
+  if COMMAND_HISTORY.length >= 100
+    COMMAND_HISTORY.shift()
+  COMMAND_HISTORY.push(record.getMessage())
+
 # Helper for saving screenshots
 screenshot = (driver, filename) ->
   fn = (data) ->
@@ -29,8 +39,9 @@ screenshot = (driver, filename) ->
 module.exports = (name, cb) ->
   seleniumMocha.describe name, ->
 
-    {it, xit, before, after, afterEach, beforeEach} = seleniumMocha
+    {it, iit, xit, before, after, afterEach, beforeEach} = seleniumMocha
     @it = it
+    @iit = iit
     @xit = xit
     @before = before
     @after = after
@@ -127,7 +138,10 @@ module.exports = (name, cb) ->
       # Going to the root URL while logged in will redirect to dashboard
       # which may redirect to the course page.
       @driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu, body#home'))
-      @logout()
+      @logout().then ->
+        # Clear the history
+        COMMAND_HISTORY.splice(0, COMMAND_HISTORY.length)
+
 
 
     @__afterEach ->
@@ -135,8 +149,9 @@ module.exports = (name, cb) ->
       {state, title} = @currentTest
 
       if state is 'failed'
-        console.log 'Selenium Schedule:'
-        console.log @driver.controlFlow().getSchedule()
+        console.log 'Action history (showing last 100):'
+        for msg in COMMAND_HISTORY
+          console.log msg
         console.log '------------------'
         screenshot(@driver, "test-failed-#{title}")
       # else
