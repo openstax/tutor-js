@@ -74,7 +74,7 @@ describe 'Calendar and Stats', ->
       @waitClick(css: '.navbar-brand')
 
 
-  @xit 'Clicks through the performance report (readonly)', ->
+  @it 'Clicks through the performance report (readonly)', ->
     @login(TEACHER_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
@@ -85,10 +85,11 @@ describe 'Calendar and Stats', ->
       # BUG: Click on "Period 1"
       @waitClick(css: '.course-performance-wrap li:first-child')
       @waitAnd(css: '.course-performance-wrap li:first-child [aria-selected="true"]')
-      @driver.sleep(100)
+      @driver.sleep(500)
 
       @forEach '.task-result', (task, index, total) =>
         console.log 'opening', index, 'of', total
+        @addTimeout(5)
         @scrollTo(task)
         task.click()
         @waitAnd(css: '.async-button.continue')
@@ -98,7 +99,7 @@ describe 'Calendar and Stats', ->
         # BUG: Click on "Period 1"
         @waitClick(css: '.course-performance-wrap li:first-child')
         @waitAnd(css: '.course-performance-wrap li:first-child [aria-selected="true"]')
-        @driver.sleep(1000)
+        @driver.sleep(2000)
 
       # Go back to the course selection
       @waitClick(css: '.navbar-brand')
