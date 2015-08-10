@@ -52,13 +52,12 @@ describe 'Calendar and Stats', ->
             Calendar.Popup.goReview(@)
 
             @driver.sleep(1000)
-            @waitClick(css: '.task-breadcrumbs button').then -> console.log 'Clicked back to dashboard'
+            @waitClick(css: '.task-breadcrumbs button')
             @driver.sleep(1000)
-            Calendar.Popup.verify(@).then -> console.log 'verified'
-            Calendar.Popup.close(@).then -> console.log 'cloased'
+            Calendar.Popup.verify(@)
+            Calendar.Popup.close(@)
             Calendar.verify(@).then ->
               doneCheckingCount += 1
-              console.log 'calendar'
 
       # Go back to the course selection
       @waitClick(css: '.navbar-brand').then ->
