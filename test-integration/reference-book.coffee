@@ -10,13 +10,12 @@ SECTIONS_TO_TEST = 10
 describe 'Reference Book Exercises', ->
 
   @it 'Loads Biology reference book (readonly)', ->
-    @addTimeout(60 * 60) # ~2 min to start up a reading
-
     @login(TEACHER_USERNAME)
 
 
     checkForMissingExercises = =>
       # Wait until the book has loaded.
+      @addTimeout(60)
       @waitAnd(css: '.page-wrapper .page.has-html')
       @waitClick(css: '.menu-toggle')
 
@@ -27,6 +26,7 @@ describe 'Reference Book Exercises', ->
       for i in [1..SECTIONS_TO_TEST]
         # Selenium sometimes keeps pressing the same next button (doneLoading doesn't seem to work 100%)
         @driver.findElement(css: 'a.nav.next').getAttribute('href').then (oldHref) =>
+          @addTimeout(3)
           console.log '----------------'
           # console.log 'old ashkd', oldHref
           @driver.findElement(css: 'a.nav.next').click()
@@ -40,6 +40,7 @@ describe 'Reference Book Exercises', ->
               newHref isnt oldHref
 
           ifPageDidntChange = =>
+            @addTimeout(3)
             console.log 'Page did not change. reclicking.'
             @driver.findElement(css: 'a.nav.next').click()
             @driver.wait(doneLoading)
@@ -48,7 +49,7 @@ describe 'Reference Book Exercises', ->
 
 
         @driver.getCurrentUrl().then (pageUrl) =>
-
+          @addTimeout(3)
           @driver.findElements(css: '[data-type="exercise"] .question').then (elements) =>
             if elements.length
               console.log "Found #{elements.length} exercises"
