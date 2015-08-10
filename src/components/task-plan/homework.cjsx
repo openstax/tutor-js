@@ -165,23 +165,24 @@ HomeworkPlan = React.createClass
 
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
-        </BS.Grid>
-        <BS.Row>
+          <BS.Row>
           <BS.Col xs=12 md=12>
             {addProblemsButton}
             {problemsRequired}
           </BS.Col>
-        </BS.Row>
-        <BS.Row>
-          <BS.Col xs=12 md=12>
-            <div className="instructions">
-              * Open time is 12:01am.
-               Set date to today to open immediately.
-              ** Due time is 7:00am.
-              Feedback will be released after the due date.
-            </div>
-          </BS.Col>
-        </BS.Row>
+          </BS.Row>
+          <BS.Row>
+            <BS.Col xs=12 md=12>
+              <div className="instructions">
+                * Open time is 12:01am.
+                 Set date to today to open immediately.
+                ** Due time is 7:00am.
+                Feedback will be released after the due date.
+              </div>
+            </BS.Col>
+          </BS.Row>
+        </BS.Grid>
+        
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}
