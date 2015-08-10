@@ -9,6 +9,7 @@ dom = require './src/helpers/dom'
 
 
 window._STORES =
+  APP: require './src/flux/app'
   COURSE: require './src/flux/course'
   CURRENT_USER: require './src/flux/current-user'
   EXERCISE: require './src/flux/exercise'

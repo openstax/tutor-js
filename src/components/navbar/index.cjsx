@@ -10,6 +10,7 @@ AccountLink = require './account-link'
 CourseName = require './course-name'
 LogOut = require './logout'
 BindStoreMixin = require '../bind-store-mixin'
+ServerErrorMonitoring = require './server-error-monitoring'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
@@ -107,4 +108,5 @@ module.exports = React.createClass
           </BS.DropdownButton>
         </BS.Nav>
       </BS.CollapsibleNav>
+      <ServerErrorMonitoring />
     </BS.Navbar>
