@@ -1,0 +1,13 @@
+.ost-chapter-review {
+  counter-reset: question;
+}
+.question {
+  &:before {
+    counter-increment: question;
+    content: counter(question) ". ";
+    display: inline;
+  }
+  .question-stem {
+    display: inline;
+  }
+}
