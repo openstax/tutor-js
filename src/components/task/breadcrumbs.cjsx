@@ -22,8 +22,8 @@ module.exports = React.createClass
   getInitialState: ->
     updateOnNext: true
     hoverCrumb: @props.currentStep
-    shouldCoverflow: null
-    coverflowWidth: null
+    shouldShrink: null
+    crumbsWidth: null
 
   componentWillMount: ->
     listeners = @getMaxListeners()
@@ -43,22 +43,41 @@ module.exports = React.createClass
     TaskStore.on('task.afterRecovery', @update)
 
     crumbs = @getCrumableCrumbs()
-    @setState(coverflowWidth: (crumbs.length * 47))
+
+  componentDidMount: ->
+    @calculateCrumbsWidth()
+
+  calculateCrumbsWidth: (crumbDOM) ->
+    if @isMounted()
+      currentCrumbWidth = 0
+      crumbsWidth = _.reduce(@refs, (memo, ref) ->
+        refDOM = ref.getDOMNode()
+        computedStyle = window.getComputedStyle(refDOM)
+        refDOMBox = refDOM.getBoundingClientRect()
+        currentCrumbWidth = refDOMBox.width + parseInt(computedStyle.marginRight) + parseInt(computedStyle.marginLeft)
+        currentCrumbWidth + memo
+      , 0)
+
+      crumbsWidth += currentCrumbWidth
+      @setState({crumbsWidth}) if crumbsWidth > @state.crumbsWidth
 
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
     TaskStore.off('task.beforeRecovery', @stopUpdate)
     TaskStore.off('task.afterRecovery', @update)
 
-  componentDidUpdate: ->
-    @_resizeListener(@state) if @state.windowEl.width? and not @state.shouldCoverflow?
+  componentDidUpdate: (prevProps, prevState) ->
+    @_resizeListener(@state) if @state.crumbsWidth isnt prevState.crumbsWidth
+
+  crumbMounted: ->
+    @calculateCrumbsWidth() if @state.crumbsWidth?
 
   _resizeListener: (sizes) ->
-    shouldCoverflow = @shouldCoverflow(sizes)
-    @setState({shouldCoverflow})
+    shouldShrink = @shouldShrink(sizes)
+    @setState({shouldShrink})
 
-  shouldCoverflow: (sizes) ->
-    sizes.windowEl.width < @state.coverflowWidth
+  shouldShrink: (sizes) ->
+    sizes.componentEl.width < @state.crumbsWidth
 
   shouldComponentUpdate: (nextProps, nextState) ->
     nextState.updateOnNext
@@ -83,14 +102,16 @@ module.exports = React.createClass
       <BreadcrumbTaskDynamic
         onMouseEnter={@updateHoverCrumb.bind(@, crumbIndex)}
         onMouseLeave={@updateHoverCrumb.bind(@, @props.currentStep)}
+        onMount={@crumbMounted}
         style={crumbStyle}
         crumb={crumb}
         currentStep={currentStep}
         goToStep={goToStep}
-        key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
+        key="breadcrumb-#{crumb.type}-#{crumb.key}"
+        ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
     classes = 'task-breadcrumbs'
-    classes += ' shrink' if @state.shouldCoverflow
+    classes += ' shrink' if @state.shouldShrink
 
     <div className={classes}>
       {stepButtons}
