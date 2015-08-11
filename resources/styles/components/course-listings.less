@@ -1,6 +1,5 @@
 @course-listing-buffer: 40px;
-@course-listing-item-height: 340px;
-@course-listing-item-height-sm: 200px;
+@course-listing-item-height: 200px;
 @course-listing-item-offset: 140px;
 
 .course-listing {
@@ -17,7 +16,6 @@
       background-repeat: no-repeat;
       background-size: contain;
       text-decoration: none;
-      background-position: 14px;
       .transition(background-position .1s ease-in);
 
       &::before {
@@ -29,7 +27,7 @@
       }
 
       &:hover {
-        background-position: 14px 30px;
+        background-position-y: 30px;
 
         &::before {
           margin-top: 0;
@@ -71,21 +69,10 @@
   }
 }
 
-@media (min-width: @screen-lg-min) {
-  .course-listing {
-    .tutor-booksplash-course-item {
-      .tutor-course-item {
-        background-size: auto;
-      }
-    }
-  }
-}
-
 @media (min-width: @screen-xs-min) {
   .course-listing {
     .tutor-booksplash-course-item {
       .tutor-course-item {
-        height: @course-listing-item-height-sm;
         &::before {
           font-size: 4rem;
           content: 'Go to ';
