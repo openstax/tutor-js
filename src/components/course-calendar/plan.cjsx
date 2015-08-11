@@ -39,12 +39,13 @@ CoursePlan = React.createClass
     planId is @props.item.plan.id
 
   _isPlanNotMatchingRouteOpen: ->
-    {planId} = @context.router.getCurrentParams()
-    not @_doesPlanMatchesRoute() and @refs.display0.details?
+    not (@_doesPlanMatchesRoute() or @state.isViewingStats) and @refs.display0.details?
 
   _isPlanMatchRouteNotOpen: ->
+    console.info('_doesPlanMatchesRoute')
+    console.info((@_doesPlanMatchesRoute() or @state.isViewingStats))
     {planId} = @context.router.getCurrentParams()
-    @_doesPlanMatchesRoute() and not @refs.display0.details?
+    (@_doesPlanMatchesRoute() or @state.isViewingStats) and not @refs.display0.details?
 
   _getExpectedRoute: (isViewingStats) ->
     closedRouteName = 'calendarByDate'
@@ -73,8 +74,9 @@ CoursePlan = React.createClass
   syncStatsWithState: ->
     if @_isPlanMatchRouteNotOpen()
       if @refs.display0.refs.trigger?
-        triggerEl = @refs.display0.refs.trigger.getDOMNode()
-        triggerEl.click()
+        console.info('hello')
+        # triggerEl = @refs.display0.refs.trigger.getDOMNode()
+        # triggerEl.click()
       else
         @setIsViewingStats(false)
     else if @_isPlanNotMatchingRouteOpen()
@@ -84,6 +86,7 @@ CoursePlan = React.createClass
   setIsViewingStats: (isViewingStats) ->
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
+    # @syncStatsWithState()
 
   checkPublishingStatus: (published) ->
     if published.publishFor is @props.item.plan.id
@@ -115,8 +118,8 @@ CoursePlan = React.createClass
   componentDidMount: ->
     @syncStatsWithState()
 
-  componentWillUpdate: ->
-    @syncStatsWithState()
+  componentDidUpdate: (prevProps, prevState) ->
+    @syncStatsWithState() if prevState.isViewingStats isnt @state.isViewingStats
 
   syncOpenPlan: ->
     @setIsViewingStats(true) unless @state.isViewingStats
