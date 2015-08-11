@@ -135,6 +135,14 @@ policies =
         states:
           teacher: stepTeacherReadOnly
 
+  page_practice:
+    exercise:
+      panels:
+        default: stepFeedbackImmediate
+        check: 'role'
+        states:
+          teacher: stepTeacherReadOnly
+
   reading: defaultPolicies
 
   external:
