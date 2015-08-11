@@ -69,6 +69,9 @@ module.exports = React.createClass
   componentDidUpdate: (prevProps, prevState) ->
     @_resizeListener(@state) if @state.crumbsWidth isnt prevState.crumbsWidth
 
+  componentWillReceiveProps: (nextProps) ->
+    @setState(hoverCrumb: nextProps.currentStep)
+
   crumbMounted: ->
     @calculateCrumbsWidth() if @state.crumbsWidth?
 
