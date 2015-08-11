@@ -174,16 +174,6 @@ ReadingPlan = React.createClass
             </BS.Col>
           </BS.Row>
 
-          <BS.Row>
-            <BS.Col xs=12 md=12>
-              <div className="instructions">
-                * Open time is 12:01am.
-                 Set date to today to open immediately.
-                ** Due time is 7:00am
-              </div>
-            </BS.Col>
-          </BS.Row>
-
         </BS.Grid>
       </BS.Panel>
       {selectReadings}

@@ -130,12 +130,6 @@ module.exports = React.createClass
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)
 
-  # can't figure out how to remove this
-  renderFeedbackNote: ->
-    <BS.Col sm=12 md=3>
-      <div className="instructions"></div>
-    </BS.Col>
-
   render: ->
     plan = TaskPlanStore.get(@props.id)
     if (not @state.showingPeriods)
@@ -150,8 +144,7 @@ module.exports = React.createClass
         </BS.Col>
       </BS.Row>
 
-    if plan.type is 'homework'
-      feedbackNote = @renderFeedbackNote()
+    feedbackNote = '  Feedback will be released after the due date.' if plan.type is 'homework'
 
     assignmentNameLabel = [
       'Assignment name'
@@ -219,8 +212,6 @@ module.exports = React.createClass
             value={commonDueAt}
             currentLocale={@state.currentLocale} />
         </BS.Col>
-        {feedbackNote}
-
       </BS.Row>
       
       <BS.Row>
@@ -240,7 +231,16 @@ module.exports = React.createClass
 
       { _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods }
       { invalidPeriodsAlert }
-
+      <BS.Row>
+        <BS.Col xs=12 md=12>
+          <div className="instructions">
+            * Open time is 12:01am.
+             Set date to today to open immediately.
+            ** Due time is 7:00am.
+            {feedbackNote}
+          </div>
+        </BS.Col>
+      </BS.Row>
     </div>
 
   renderTaskPlanRow: (plan) ->
@@ -284,7 +284,7 @@ module.exports = React.createClass
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
-          label="Open Date"
+          label="Open Date*"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
           max={TaskPlanStore.getDueAt(@props.id, plan.id)}
@@ -293,7 +293,7 @@ module.exports = React.createClass
           currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          label="Due Date"
+          label="Due Date**"
           required={@state.showingPeriods}
           min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}
           onChange={_.partial(@setDueAt, _, plan)}
