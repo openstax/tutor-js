@@ -42,6 +42,13 @@
   &:hover {
     background: @primary-background-hover;
   }
+
+  &:disabled {
+    background: transparent;
+    color: @tutor-primary;
+    border: 1px solid @tutor-primary;
+    margin: -1px;
+  }
 }
 
 :not(.btn-link):not(.btn-flat):not(.btn-fab) {
