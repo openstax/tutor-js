@@ -186,32 +186,7 @@ module.exports = React.createClass
           <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
         </BS.Col>
 
-        <BS.Col sm=4 md=3>
-          <TutorDateInput
-            id='reading-open-date'
-            ref="openDate"
-            required={not @state.showingPeriods}
-            label="Open Date*"
-            onChange={@setOpensAt}
-            disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
-            min={TimeStore.getNow()}
-            max={TaskPlanStore.getDueAt(@props.id)}
-            value={commonOpensAt}
-            currentLocale={@state.currentLocale} />
-        </BS.Col>
-
-        <BS.Col sm=4 md=3>
-          <TutorDateInput
-            id='reading-due-date'
-            ref="dueDate"
-            required={not @state.showingPeriods}
-            label="Due Date**"
-            onChange={@setDueAt}
-            disabled={@state.showingPeriods}
-            min={TaskPlanStore.getMinDueAt(@props.id)}
-            value={commonDueAt}
-            currentLocale={@state.currentLocale} />
-        </BS.Col>
+        {@renderCommonDateInputs() unless @state.showingPeriods}
       </BS.Row>
       
       <BS.Row>
@@ -242,6 +217,42 @@ module.exports = React.createClass
         </BS.Col>
       </BS.Row>
     </div>
+
+  renderCommonDateInputs: ->
+    commonDueAt = TaskPlanStore.getDueAt(@props.id)
+    commonOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
+
+    opensAt = <BS.Col sm=4 md=3>
+      <TutorDateInput
+        id='reading-open-date'
+        ref="openDate"
+        required={not @state.showingPeriods}
+        label="Open Date*"
+        onChange={@setOpensAt}
+        disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
+        min={TimeStore.getNow()}
+        max={TaskPlanStore.getDueAt(@props.id)}
+        value={commonOpensAt}
+        currentLocale={@state.currentLocale} />
+    </BS.Col>
+
+    dueAt = <BS.Col sm=4 md=3>
+      <TutorDateInput
+        id='reading-due-date'
+        ref="dueDate"
+        required={not @state.showingPeriods}
+        label="Due Date**"
+        onChange={@setDueAt}
+        disabled={@state.showingPeriods}
+        min={TaskPlanStore.getMinDueAt(@props.id)}
+        value={commonDueAt}
+        currentLocale={@state.currentLocale} />
+    </BS.Col>
+
+    [
+      opensAt,
+      dueAt
+    ]
 
   renderTaskPlanRow: (plan) ->
     # newAndUnchanged = TaskPlanStore.isNew(@props.id) and not store.isChanged(@props.id)
