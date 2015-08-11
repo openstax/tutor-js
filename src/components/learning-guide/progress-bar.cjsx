@@ -11,16 +11,17 @@ module.exports = React.createClass
     onPractice: React.PropTypes.func
 
   render: ->
-    {section,  onPractice} = @props
+    {section, onPractice} = @props
+    {clue} = section
 
-    bar = if section.current_level
-      percent = Math.round((section.current_level / 1) * 100)
-      # always show at least 5% of bar, otherwise it just looks empty
-      <BS.ProgressBar className={section.interpretation} now={Math.max(percent, 5)} />
-    else
+    bar = if clue.sample_size_interpretation is 'below'
       <span className="no-data">
         {if onPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
       </span>
+    else
+      percent = Math.round((clue.value / 1) * 100)
+      # always show at least 5% of bar, otherwise it just looks empty
+      <BS.ProgressBar className={clue.value_interpretation} now={Math.max(percent, 5)} />
 
     if onPractice
       tooltip = <BS.Tooltip>Click to practice</BS.Tooltip>

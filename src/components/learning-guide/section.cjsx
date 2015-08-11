@@ -2,8 +2,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 ChapterSectionMixin = require '../chapter-section-mixin'
+ChapterSectionType  = require './chapter-section-type'
 ProgressBar = require './progress-bar'
-ChapterSectionType = require './chapter-section-type'
+Statistics  = require './statistics'
+
 
 module.exports = React.createClass
 
@@ -28,8 +30,6 @@ module.exports = React.createClass
       </div>
 
       <ProgressBar {...@props} />
+      <Statistics section={section} displaying="section" />
 
-      <div className='amount-worked'>
-        <span className='count'>{section.questions_answered_count} problems worked</span>
-      </div>
     </div>
