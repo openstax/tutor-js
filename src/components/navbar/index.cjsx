@@ -73,8 +73,6 @@ module.exports = React.createClass
     if menuItems.length
       menuItems.push(<BS.MenuItem divider key='dropdown-item-divider'/>)
 
-    menuItems.push <AccountLink key='accounts-link' />
-
     menuItems
 
   render: ->
@@ -98,6 +96,7 @@ module.exports = React.createClass
             title={<UserName/>}
             ref='navDropDown'>
             {menuItems}
+            <AccountLink key='accounts-link' />
             <BS.MenuItem target='_blank' href={CurrentUserStore.getHelpLink(courseId)}>Get Help</BS.MenuItem>
             <BS.MenuItem
               className="logout"
