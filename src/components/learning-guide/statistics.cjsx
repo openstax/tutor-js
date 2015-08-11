@@ -16,7 +16,7 @@ Statistics = React.createClass
       <ul className='clue visible-when-debugging'>
         { for key, value of @props.section.clue
           value = value.join(' ') if _.isArray(value)
-          <li key={key}>{key}: {value}</li>}
+          <li key={key}><strong>{key}</strong>: {value}</li>}
       </ul>
       <div className='amount-worked'>
         <span className='count'>
