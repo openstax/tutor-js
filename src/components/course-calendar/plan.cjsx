@@ -7,6 +7,8 @@ BS = require 'react-bootstrap'
 
 CoursePlanDetails = require './plan-details'
 CoursePlanPublishingDetails = require './plan-publishing-details'
+CoursePlanLabel = require './plan-label'
+{CoursePlanDisplayEdit, CoursePlanDisplayQuickLook, CoursePlanDisplayPublishing} = require './plan-display'
 
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 
@@ -38,11 +40,11 @@ CoursePlan = React.createClass
 
   _isPlanNotMatchingRouteOpen: ->
     {planId} = @context.router.getCurrentParams()
-    not @_doesPlanMatchesRoute() and @refs.details?
+    not @_doesPlanMatchesRoute() and @refs.display0.details?
 
   _isPlanMatchRouteNotOpen: ->
     {planId} = @context.router.getCurrentParams()
-    @_doesPlanMatchesRoute() and not @refs.details?
+    @_doesPlanMatchesRoute() and not @refs.display0.details?
 
   _getExpectedRoute: (isViewingStats) ->
     closedRouteName = 'calendarByDate'
@@ -70,13 +72,13 @@ CoursePlan = React.createClass
   # i.e. when using back or forward on browser
   syncStatsWithState: ->
     if @_isPlanMatchRouteNotOpen()
-      if @refs.trigger?
-        triggerEl = @refs.trigger.getDOMNode()
+      if @refs.display0.refs.trigger?
+        triggerEl = @refs.display0.refs.trigger.getDOMNode()
         triggerEl.click()
       else
         @setIsViewingStats(false)
     else if @_isPlanNotMatchingRouteOpen()
-      @refs.trigger?.hide()
+      @refs.display0.refs.trigger?.hide()
 
   # handles when plan is clicked directly and viewing state and route both need to update
   setIsViewingStats: (isViewingStats) ->
@@ -106,32 +108,15 @@ CoursePlan = React.createClass
 
   componentWillReceiveProps: (nextProps) ->
     @subscribeToPublishing(nextProps.item)
-    @closePlanOnModalHide()
 
   componentWillUnmount: ->
     PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
 
   componentDidMount: ->
-    @closePlanOnModalHide()
     @syncStatsWithState()
 
-  componentDidUpdate: ->
+  componentWillUpdate: ->
     @syncStatsWithState()
-
-  findPlanNodes: (planNode) ->
-    container = @getDOMNode().parentElement.parentElement
-    classes = '.' + Array.prototype.join.call(planNode.classList, '.')
-    samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
-
-  closePlanOnModalHide: ->
-    if @refs.trigger?
-      hide = @refs.trigger.hide
-      syncClosePlan = @syncClosePlan
-
-      # alias modal hide to also make plan look un-selected
-      @refs.trigger.hide = ->
-        hide()
-        syncClosePlan()
 
   syncOpenPlan: ->
     @setIsViewingStats(true) unless @state.isViewingStats
@@ -145,114 +130,15 @@ CoursePlan = React.createClass
   removeHover: ->
     @setState(isHovered: false) if @state.isHovered
 
-  renderLabel: (rangeDuration, durationLength, plan, index, offset) ->
-    # Adjust width based on plan duration, helps with label centering on view...for the most part.
-    # CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
-    rangeLength = rangeDuration.length('days')
-    planLabelStyle =
-      width: rangeLength / durationLength * 100 + '%'
-
-    # label should float right if the plan is cut off at the beginning of the week
-    if offset < 0
-      planLabelStyle.float = 'right'
-
-    labelClass = 'continued' unless index is 0
-
-    label = <label
-      data-opens-at={plan.opensAt}
-      style={planLabelStyle}
-      ref='label'
-      className={labelClass}>{plan.title}</label>
-
-  renderOpenPlan: (planStyle, planClasses, label, index) ->
-    {item, courseId} = @props
-    {isPublishing} = @state
-    {plan} = item
-
-    if isPublishing and not plan.isPublished
-      planModal = <CoursePlanPublishingDetails
-        plan={plan}
-        courseId={courseId}
-        className={planClasses}
-        ref='details'/>
-    else
-      planModal = <CoursePlanDetails
-        plan={plan}
-        courseId={courseId}
-        className={planClasses}
-        ref='details'/>
-
-    planOnly = <div style={planStyle}
-      className={planClasses}
-      onMouseEnter={@syncHover}
-      onMouseLeave={@removeHover}
-      onClick={@syncOpenPlan}
-      ref='plan'>
-      {label}
-    </div>
-
-    if index is 0
-      # only trigger modal if this is the first component representing the plan
-      planInterface = <BS.ModalTrigger modal={planModal} ref='trigger'>
-        {planOnly}
-      </BS.ModalTrigger>
-    else
-      # otherwise, if this plan continues into the next week, don't add an additional modal
-      planInterface = planOnly
-
-    planInterface
-
-  renderEditPlan: (planStyle, planClasses, label, index) ->
-    {item, courseId} = @props
-    {plan} = item
-
-    linkTo = camelCase("edit-#{plan.type}")
-    params = {id: plan.id, courseId}
-
-    <div
-      style={planStyle}
-      className={planClasses}
-      onMouseEnter={@syncHover}
-      onMouseLeave={@removeHover}
-      ref='plan'>
-      <Router.Link
-        to={linkTo}
-        params={params}>
-          {label}
-      </Router.Link>
-    </div>
-
   render: ->
     {item, courseId} = @props
     {publishStatus, isPublishing, isHovered, isViewingStats} = @state
     {plan, displays} = item
-
-    plan.isFailed = publishStatus is 'failed'
-    plan.isKilled = publishStatus is 'killed'
-
-    planClasses = [
-      'plan'
-      "#{plan.type}"
-      "course-plan-#{plan.id}"
-    ]
-
-    planClasses.push('is-published') if plan.isPublished or (publishStatus is 'completed')
-    planClasses.push('is-failed') if plan.isFailed
-    planClasses.push('is-killed') if plan.isKilled
-    planClasses.push('is-publishing') if isPublishing
-    planClasses.push('is-open') if plan.isOpen
-    planClasses.push('is-trouble') if plan.isTrouble
-
-    planClasses.push('active') if isHovered or isViewingStats
-
-    planClasses.push('plan-label-long')
-
-    planClasses = planClasses.join(' ')
+    {durationLength} = plan
 
     planDisplays = _.map(displays, (display) =>
-      {duration, rangeDuration, offset, index, weekTopOffset, order} = display
+      {rangeDuration, offset, index, weekTopOffset, order} = display
 
-      durationLength = duration.length('days')
       # Adjust width based on plan duration and left position based on offset of plan from start of week
       # CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
       # top is calculated by using:
@@ -264,12 +150,28 @@ CoursePlan = React.createClass
         left: offset * 100 / 7 + '%'
         top: (weekTopOffset + 4 - order * 3) + 'rem'
 
-      label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
+      labelProps = {rangeDuration, plan, index, offset}
+      label = <CoursePlanLabel {...labelProps} ref='label'/>
 
-      renderFn = 'renderEditPlan'
-      renderFn = 'renderOpenPlan' if plan.isPublished or (isPublishing) or (publishStatus is 'completed')
+      displayComponent = CoursePlanDisplayEdit
+      displayComponent = CoursePlanDisplayQuickLook if plan.isPublished or (publishStatus is 'completed')
+      displayComponent = CoursePlanDisplayPublishing if isPublishing
 
-      @[renderFn](planStyle, planClasses, label, index)
+      displayComponentProps = {
+        plan,
+        display,
+        label,
+        courseId,
+        publishStatus,
+        isPublishing,
+        isActive: isHovered or isViewingStats,
+        syncHover: @syncHover,
+        removeHover: @removeHover,
+        syncOpenPlan: @syncOpenPlan
+        syncClosePlan: @syncClosePlan
+      }
+
+      <displayComponent {...displayComponentProps} ref="display#{index}"/>
     )
 
     <div>

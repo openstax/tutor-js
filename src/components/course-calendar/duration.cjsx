@@ -195,6 +195,14 @@ CourseDuration = React.createClass
     if calcedHeight > rangeData.dayHeight
       rangeData.dayHeight = calcedHeight
 
+  _getSimplePlan: (plan) ->
+    simplePlan = _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
+    earliestOpensAt = @_getEarliestOpensAt(plan)
+    simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
+    simplePlan.durationLength = plan.duration.length('days')
+
+    simplePlan
+
   groupByRanges: (durationsInView) ->
     counter = {}
     (range, nthRange) =>
@@ -205,19 +213,17 @@ CourseDuration = React.createClass
         plansByDays: []
         plansInRange: []
 
+      simplePlans = {}
+
       _.each(durationsInView, (plan) =>
         if plan.duration.overlaps(range)
           counter[plan.id] ?= 0
-
-          simplePlan = _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
-          earliestOpensAt = @_getEarliestOpensAt(plan)
-          simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
+          simplePlans[plan.id] ?= @_getSimplePlan(plan)
 
           planForRange =
             rangeDuration: plan.duration.intersection(range)
             offset: moment(range.start).twix(plan.duration.start).length('days')
-            duration: plan.duration
-            plan: simplePlan
+            plan: simplePlans[plan.id]
             index: counter[plan.id]
 
           # Add plan to plans in range
