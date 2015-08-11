@@ -24,7 +24,7 @@ describe 'Learning Guide Practice Button', ->
     ).then ({dom}) ->
       Testing.actions.click(dom)
       expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
-        { courseId: COURSE_ID }, { page_ids: ['6', '5', '2', '3'] }
+        { courseId: COURSE_ID }, { page_ids: ['2', '3', '5', '6'] }
       )
 
   it 'is disabled if no page ids exist', ->

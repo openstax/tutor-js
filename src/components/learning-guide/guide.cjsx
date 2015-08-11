@@ -27,7 +27,7 @@ module.exports = React.createClass
 
   renderWeaker: ->
     # sort sections by current level of understanding
-    sortedSections = _.sortBy(@props.allSections, 'current_level')
+    sortedSections = _.sortBy(@props.allSections, (s) -> s.clue.value )
     # if there are less than 4 sections, use 1/2 of the available ones
     weakStrongCount = Math.min(sortedSections.length / 2, 4)
 

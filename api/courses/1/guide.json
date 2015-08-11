@@ -14,7 +14,14 @@
         3
       ],
       "questions_answered_count": 23,
-      "current_level": 0.9025196157281774,
+      "clue": {
+        "value": 0.9025196157281774,
+        "confidence_interval": [0.48026796534380245, 0.6802679653438024],
+        "confidence_interval_interpretation": "bad",
+        "sample_size": 2,
+        "sample_size_interpretation": "below",
+        "value_interpretation": "medium"
+      },
       "practice_count": 0,
       "page_ids": [
         "2",
@@ -28,7 +35,14 @@
             1
           ],
           "questions_answered_count": 11,
-          "current_level": 0.7216930483524373,
+          "clue": {
+            "value": 0.7216930483524373,
+            "confidence_interval": [0.48026796534380245, 0.6802679653438024],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 2,
+            "sample_size_interpretation": "below",
+            "value_interpretation": "medium"
+          },
           "practice_count": 0,
           "page_ids": [
             "2"
@@ -41,7 +55,14 @@
             2
           ],
           "questions_answered_count": 12,
-          "current_level": 0.9335832674397897,
+          "clue": {
+            "value": 0.9335832674397897,
+            "confidence_interval": [0.07601666252154723, 0.2760166625215472],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 4,
+            "sample_size_interpretation": "above",
+            "value_interpretation": "low"
+          },
           "practice_count": 0,
           "page_ids": [
             "3"
@@ -55,7 +76,14 @@
         4
       ],
       "questions_answered_count": 3,
-      "current_level": 0.13278347571119187,
+      "clue":{
+        "value": 0.13278347571119187,
+        "confidence_interval": [0.5331585527121938, 0.7331585527121938],
+        "confidence_interval_interpretation": "bad",
+        "sample_size": 6,
+        "sample_size_interpretation": "above",
+        "value_interpretation": "medium"
+      },
       "practice_count": 0,
       "page_ids": [
         "5",
@@ -69,7 +97,14 @@
             1
           ],
           "questions_answered_count": 1,
-          "current_level": 0.5483725909317109,
+          "clue":{
+            "value": 0.5483725909317109,
+            "confidence_interval": [0.5331585527121938, 0.7331585527121938],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 6,
+            "sample_size_interpretation": "above",
+            "value_interpretation": "medium"
+          },
           "practice_count": 0,
           "page_ids": [
             "5"
@@ -82,7 +117,14 @@
             2
           ],
           "questions_answered_count": 2,
-          "current_level": 0.35736864708971516,
+          "clue":{
+            "value": 0.35736864708971516,
+            "confidence_interval": [0.5331585527121938, 0.7331585527121938],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 6,
+            "sample_size_interpretation": "above",
+            "value_interpretation": "medium"
+          },
           "practice_count": 0,
           "page_ids": [
             "6"
