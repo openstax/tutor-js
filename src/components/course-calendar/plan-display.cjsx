@@ -3,10 +3,6 @@ Router = require 'react-router'
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
-CoursePlanDetails = require './plan-details'
-CoursePlanPublishingDetails = require './plan-publishing-details'
-
-
 CoursePlanDisplayMixin =
 
   componentWillReceiveProps: ->
@@ -24,26 +20,6 @@ CoursePlanDisplayMixin =
       @refs.trigger.hide = ->
         hide()
         syncClosePlan()
-
-  buildPlanClasses: ->
-    {plan, publishStatus, isPublishing, isActive} = @props
-
-    planClasses = [
-      'plan'
-      'plan-label-long'
-      "#{plan.type}"
-      "course-plan-#{plan.id}"
-    ]
-
-    planClasses.push('is-published') if plan.isPublished or (publishStatus is 'completed')
-    planClasses.push('is-failed') if publishStatus is 'failed'
-    planClasses.push('is-killed') if publishStatus is 'killed'
-    planClasses.push('is-publishing') if isPublishing
-    planClasses.push('is-open') if plan.isOpen
-    planClasses.push('is-trouble') if plan.isTrouble
-    planClasses.push('active') if isActive
-
-    planClasses.join(' ')
 
   buildPlanStyles: ->
     {display, plan} = @props
@@ -65,43 +41,33 @@ CoursePlanDisplayMixin =
     {display, label, syncHover, removeHover, syncOpenPlan} = @props
     {index} = display
 
-    hasModal = index is 0
-
     planStyle = @buildPlanStyles()
 
     planOnly = <div style={planStyle}
       className={planClasses}
       onMouseEnter={syncHover}
       onMouseLeave={removeHover}
-      onClick={syncOpenPlan(hasModal)}
+      onClick={syncOpenPlan}
       ref='plan'>
       {label}
     </div>
 
-    if hasModal
-      # only trigger modal if this is the first component representing the plan
-      planDisplay = <BS.ModalTrigger modal={planModal} ref='trigger'>
-        {planOnly}
-      </BS.ModalTrigger>
-    else
-      # otherwise, if this plan continues into the next week, don't add an additional modal
-      planDisplay = planOnly
-
-    planDisplay
+    <BS.ModalTrigger modal={planModal} ref='trigger'>
+      {planOnly}
+    </BS.ModalTrigger>
 
 
 CoursePlanDisplayEdit = React.createClass
   displayName: 'CoursePlanDisplayEdit'
   mixins: [CoursePlanDisplayMixin]
   render: ->
-    {plan, display, label, courseId, syncHover, removeHover} = @props
+    {plan, planClasses, display, label, courseId, syncHover, removeHover} = @props
     {index} = display
 
     linkTo = camelCase("edit-#{plan.type}")
     params = {id: plan.id, courseId}
 
     planStyle = @buildPlanStyles()
-    planClasses = @buildPlanClasses()
 
     <div
       style={planStyle}
@@ -121,32 +87,10 @@ CoursePlanDisplayQuickLook = React.createClass
   displayName: 'CoursePlanDisplayQuickLook'
   mixins: [CoursePlanDisplayMixin]
   render: ->
-    {plan, courseId} = @props
-    planClasses = @buildPlanClasses()
-
-    planModal = <CoursePlanDetails
-      plan={plan}
-      courseId={courseId}
-      className={planClasses}
-      ref='details'/>
+    {plan, courseId, planClasses, planModal} = @props
 
     @renderPlanDisplay(planModal, planClasses)
 
 
-CoursePlanDisplayPublishing = React.createClass
-  displayName: 'CoursePlanDisplayPublishing'
-  mixins: [CoursePlanDisplayMixin]
-  render: ->
-    {plan, courseId} = @props
-    planClasses = @buildPlanClasses()
 
-    planModal = <CoursePlanPublishingDetails
-      plan={plan}
-      courseId={courseId}
-      className={planClasses}
-      ref='details'/>
-
-    @renderPlanDisplay(planModal, planClasses)
-
-
-module.exports = {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook, CoursePlanDisplayPublishing}
+module.exports = {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook}
