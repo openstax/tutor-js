@@ -62,6 +62,7 @@ module.exports = React.createClass
         courseId={courseId}
         weakerTitle="My Weaker Areas"
         weakerExplanation={@renderWeakerExplanation()}
+        weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
         heading={@renderHeading()}
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}
