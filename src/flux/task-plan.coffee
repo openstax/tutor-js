@@ -321,6 +321,13 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.published_at
 
+    isDeleting: (id) ->
+      deleteStates = [
+        'deleting'
+        'deleted'
+      ]
+      deleteStates.indexOf(@_asyncStatus[id]) > -1
+
     isOpened: (id) ->
       firstTasking = @_getFirstTaskingByOpenDate(id)
       new Date(firstTasking?.opens_at) <= TimeStore.getNow()
