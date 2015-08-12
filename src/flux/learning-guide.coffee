@@ -35,17 +35,17 @@ Teacher = makeSimpleStore extendConfig {
 # learning guide data for a student.
 Student = makeSimpleStore extendConfig {
   exports:
-    getSortedSections: (courseId, property = 'current_level') ->
+    getSortedSections: (courseId) ->
       sections = findAllSections(@_get(courseId))
-      _.sortBy(sections, property)
+      _.sortBy(sections, (s) -> s.clue.value)
 
     getAllSections: (courseId) ->
       findAllSections(@_get(courseId))
 
-    getPracticePages: (courseId) ->
-      all = @exports.getSortedSections.call(this, courseId)
-      count = Math.min(all.length, 4)
-      _.chain(all).first(count).pluck('page_ids').flatten().uniq().value()
+    # getPracticePages: (courseId) ->
+    #   all = @exports.getSortedSections.call(this, courseId)
+    #   count = Math.min(all.length, 4)
+    #   _.chain(all).first(count).pluck('page_ids').flatten().uniq().value()
 
 
 }, new CrudConfig
@@ -100,5 +100,30 @@ TeacherStudent = makeSimpleStore extendConfig {
 
 }, new CrudConfig
 
+Helpers = {
 
-module.exports = {Student, Teacher, TeacherStudent}
+  filterForecastedSections: (sections) ->
+    _.filter(sections, (s) -> s.clue.sample_size_interpretation isnt 'below')
+
+  weakestSections: (sections, displayCount = 4) ->
+    validSections = @filterForecastedSections(sections)
+    displayCount = Math.min(Math.floor(validSections.length / 2), displayCount)
+
+    # Sort by value and pick 'displayCount' of the weakest
+    _.chain(validSections)
+      .sortBy((s) -> s.clue.value )
+      .first(displayCount)
+      .value()
+
+  canPractice: ({sections, displayCount, minimumSectionCount}) ->
+    displayCount ||= 4
+    minimumSectionCount ||= 2
+    @weakestSections(sections, displayCount).length >= minimumSectionCount
+
+  pagesForSections: (sections) ->
+    _.chain(sections).pluck('page_ids').flatten().uniq().value()
+
+}
+
+
+module.exports = {Student, Teacher, TeacherStudent, Helpers}
