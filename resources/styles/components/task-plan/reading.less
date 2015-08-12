@@ -29,13 +29,35 @@
 ul.selected-reading-list {
   list-style: none;
   padding-left: 0;
-  margin-top: 2em;
+  margin-top: 1em;
 
   li {
     border-bottom: 1px solid @tutor-neutral-lighter;
+    animation: fadein 2.5s;
+    -moz-animation: fadein 2.5s;
+    -webkit-animation: fadein 2.5s;
+    -o-animation: fadein 2.5s;
+
+    @keyframes fadein {
+    from { opacity:0; }
+    to { opacity:1; }
+    }
+    @-moz-keyframes fadein {
+        from { opacity:0; }
+        to { opacity:1; }
+    }
+    @-webkit-keyframes fadein {
+        from { opacity:0; }
+        to { opacity:1; }
+    }
+    @-o-keyframes fadein {
+        from { opacity:0; }
+        to { opacity: 1; }
+    }
 
     &:first-child {
-      color: @tutor-neutral;
+      font-size: 2rem;
+      padding: 0 0 10px 0;
     }
     .section-buttons {
       float: right;

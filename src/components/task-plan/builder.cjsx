@@ -172,9 +172,23 @@ module.exports = React.createClass
             onChange={@setDescription} />
         </BS.Col>
       </BS.Row><BS.Row>
-        <BS.Col md=12 className='assign-to-label'>Assign to</BS.Col>
-      </BS.Row><BS.Row className="tutor-date-input">
+        <BS.Col sm=12 className='assign-to-label'>
+          Assign to
+        </BS.Col>
+      </BS.Row>
 
+      <BS.Row>
+        <BS.Col sm=12>
+          <div className="instructions">
+            Open time is 12:01am.
+            Set date to today to open immediately.
+            Due time is 7:00am.
+            {feedbackNote}
+          </div>
+        </BS.Col>
+      </BS.Row>
+
+      <BS.Row className="tutor-date-input">
         <BS.Col sm=4 md=3>
           <input
             id='hide-periods-radio'
@@ -185,37 +199,10 @@ module.exports = React.createClass
             checked={not @state.showingPeriods}/>
           <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
         </BS.Col>
-
-        <BS.Col sm=4 md=3>
-          <TutorDateInput
-            id='reading-open-date'
-            ref="openDate"
-            required={not @state.showingPeriods}
-            label="Open Date*"
-            onChange={@setOpensAt}
-            disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
-            min={TimeStore.getNow()}
-            max={TaskPlanStore.getDueAt(@props.id)}
-            value={commonOpensAt}
-            currentLocale={@state.currentLocale} />
-        </BS.Col>
-
-        <BS.Col sm=4 md=3>
-          <TutorDateInput
-            id='reading-due-date'
-            ref="dueDate"
-            required={not @state.showingPeriods}
-            label="Due Date**"
-            onChange={@setDueAt}
-            disabled={@state.showingPeriods}
-            min={TaskPlanStore.getMinDueAt(@props.id)}
-            value={commonDueAt}
-            currentLocale={@state.currentLocale} />
-        </BS.Col>
+        {@renderCommonDateInputs() unless @state.showingPeriods}
       </BS.Row>
       
       <BS.Row>
-
         <BS.Col md=12>
           <input
             id='show-periods-radio'
@@ -226,22 +213,46 @@ module.exports = React.createClass
             checked={@state.showingPeriods}/>
           <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
         </BS.Col>
-
       </BS.Row>
-
       { _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods }
       { invalidPeriodsAlert }
-      <BS.Row>
-        <BS.Col xs=12 md=12>
-          <div className="instructions">
-            * Open time is 12:01am.
-             Set date to today to open immediately.
-            ** Due time is 7:00am.
-            {feedbackNote}
-          </div>
-        </BS.Col>
-      </BS.Row>
     </div>
+
+  renderCommonDateInputs: ->
+    commonDueAt = TaskPlanStore.getDueAt(@props.id)
+    commonOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
+
+    opensAt = <BS.Col sm=4 md=3>
+      <TutorDateInput
+        id='reading-open-date'
+        ref="openDate"
+        required={not @state.showingPeriods}
+        label="Open Date"
+        onChange={@setOpensAt}
+        disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
+        min={TimeStore.getNow()}
+        max={TaskPlanStore.getDueAt(@props.id)}
+        value={commonOpensAt}
+        currentLocale={@state.currentLocale} />
+    </BS.Col>
+
+    dueAt = <BS.Col sm=4 md=3>
+      <TutorDateInput
+        id='reading-due-date'
+        ref="dueDate"
+        required={not @state.showingPeriods}
+        label="Due Date"
+        onChange={@setDueAt}
+        disabled={@state.showingPeriods}
+        min={TaskPlanStore.getMinDueAt(@props.id)}
+        value={commonDueAt}
+        currentLocale={@state.currentLocale} />
+    </BS.Col>
+
+    [
+      opensAt,
+      dueAt
+    ]
 
   renderTaskPlanRow: (plan) ->
     # newAndUnchanged = TaskPlanStore.isNew(@props.id) and not store.isChanged(@props.id)
@@ -284,7 +295,7 @@ module.exports = React.createClass
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
-          label="Open Date*"
+          label="Open Date"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
           max={TaskPlanStore.getDueAt(@props.id, plan.id)}
@@ -293,7 +304,7 @@ module.exports = React.createClass
           currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          label="Due Date**"
+          label="Due Date"
           required={@state.showingPeriods}
           min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}
           onChange={_.partial(@setDueAt, _, plan)}
