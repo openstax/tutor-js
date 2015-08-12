@@ -147,18 +147,7 @@ CoursePlan = React.createClass
     {durationLength} = plan
 
     planDisplays = _.map(displays, (display) =>
-      {rangeDuration, offset, index, weekTopOffset, order} = display
-
-      # Adjust width based on plan duration and left position based on offset of plan from start of week
-      # CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
-      # top is calculated by using:
-      #   weekTopOffset -- the distance from the top of the calendar for plans in the same week
-      #   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
-      #       stack on top of other plans that overlap in duration.
-      planStyle =
-        width: durationLength * 100 / 7 + '%'
-        left: offset * 100 / 7 + '%'
-        top: (weekTopOffset + 4 - order * 3) + 'rem'
+      {rangeDuration, offset, index} = display
 
       labelProps = {rangeDuration, plan, index, offset}
       label = <CoursePlanLabel {...labelProps} ref='label'/>
