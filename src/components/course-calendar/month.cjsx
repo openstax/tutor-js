@@ -155,7 +155,7 @@ CourseMonth = React.createClass
             groupingDurations={calendarWeeks}
             courseId={courseId}
             ref='courseDurations'>
-            <CoursePlan/>
+            <CoursePlan courseId={courseId}/>
           </CourseDuration>
 
         </BS.Col>

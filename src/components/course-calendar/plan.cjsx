@@ -21,6 +21,7 @@ CoursePlan = React.createClass
 
   propTypes:
     item: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.string.isRequired
     activeHeight: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
@@ -193,7 +194,7 @@ CoursePlan = React.createClass
         syncClosePlan: @syncClosePlan
       }
 
-      <displayComponent {...displayComponentProps} ref="display#{index}"/>
+      <displayComponent {...displayComponentProps} ref="display#{index}" key="display#{index}"/>
     )
 
     <div>

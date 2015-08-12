@@ -3,23 +3,21 @@ Router = require 'react-router'
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
+DisplayProperties =
+  plan: React.PropTypes.object.isRequired
+  display: React.PropTypes.object.isRequired
+  label: React.PropTypes.node.isRequired
+  courseId: React.PropTypes.string.isRequired
+  planModal: React.PropTypes.node.isRequired
+  planClasses: React.PropTypes.string.isRequired
+  syncHover: React.PropTypes.func.isRequired
+  removeHover: React.PropTypes.func.isRequired
+  syncOpenPlan: React.PropTypes.func
+  syncClosePlan: React.PropTypes.func
+
 CoursePlanDisplayMixin =
 
-  componentWillReceiveProps: ->
-    @closePlanOnModalHide()
-
-  componentDidMount: ->
-    @closePlanOnModalHide()
-
-  closePlanOnModalHide: ->
-    if @refs.trigger?
-      hide = @refs.trigger.hide
-      syncClosePlan = @props.syncClosePlan
-
-      # alias modal hide to also make plan look un-selected
-      @refs.trigger.hide = ->
-        hide()
-        syncClosePlan()
+  propTypes: DisplayProperties
 
   buildPlanStyles: ->
     {display, plan} = @props
@@ -37,32 +35,12 @@ CoursePlanDisplayMixin =
       left: offset * 100 / 7 + '%'
       top: (weekTopOffset + 4 - order * 3) + 'rem'
 
-  renderPlanDisplay: (planModal, planClasses) ->
-    {display, label, syncHover, removeHover, syncOpenPlan} = @props
-    {index} = display
-
-    planStyle = @buildPlanStyles()
-
-    planOnly = <div style={planStyle}
-      className={planClasses}
-      onMouseEnter={syncHover}
-      onMouseLeave={removeHover}
-      onClick={syncOpenPlan}
-      ref='plan'>
-      {label}
-    </div>
-
-    <BS.ModalTrigger modal={planModal} ref='trigger'>
-      {planOnly}
-    </BS.ModalTrigger>
-
 
 CoursePlanDisplayEdit = React.createClass
   displayName: 'CoursePlanDisplayEdit'
   mixins: [CoursePlanDisplayMixin]
   render: ->
-    {plan, planClasses, display, label, courseId, syncHover, removeHover} = @props
-    {index} = display
+    {plan, planClasses, label, courseId, syncHover, removeHover} = @props
 
     linkTo = camelCase("edit-#{plan.type}")
     params = {id: plan.id, courseId}
@@ -86,11 +64,39 @@ CoursePlanDisplayEdit = React.createClass
 CoursePlanDisplayQuickLook = React.createClass
   displayName: 'CoursePlanDisplayQuickLook'
   mixins: [CoursePlanDisplayMixin]
+
+  componentWillReceiveProps: ->
+    @closePlanOnModalHide()
+
+  componentDidMount: ->
+    @closePlanOnModalHide()
+
+  closePlanOnModalHide: ->
+    hide = @refs.trigger.hide
+    syncClosePlan = @props.syncClosePlan
+
+    # alias modal hide to also make plan look un-selected
+    @refs.trigger.hide = ->
+      hide()
+      syncClosePlan()
+
   render: ->
-    {plan, courseId, planClasses, planModal} = @props
+    {planClasses, planModal, label, syncHover, removeHover, syncOpenPlan} = @props
 
-    @renderPlanDisplay(planModal, planClasses)
+    planStyle = @buildPlanStyles()
 
+    planOnly = <div style={planStyle}
+      className={planClasses}
+      onMouseEnter={syncHover}
+      onMouseLeave={removeHover}
+      onClick={syncOpenPlan}
+      ref='plan'>
+      {label}
+    </div>
+
+    <BS.ModalTrigger modal={planModal} ref='trigger'>
+      {planOnly}
+    </BS.ModalTrigger>
 
 
 module.exports = {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook}

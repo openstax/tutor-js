@@ -12,6 +12,7 @@ CourseDuration = React.createClass
 
   propTypes:
     durations: React.PropTypes.array.isRequired
+    courseId: React.PropTypes.string.isRequired
     viewingDuration: React.PropTypes.instanceOf(twix).isRequired
     groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired
     referenceDate: (props, propName, componentName) ->
