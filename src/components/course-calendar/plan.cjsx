@@ -32,6 +32,7 @@ CoursePlan = React.createClass
     publishStatus: ''
     isPublishing: false
     isHovered: false
+    shouldTrigger: false
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
@@ -42,8 +43,6 @@ CoursePlan = React.createClass
     not (@_doesPlanMatchesRoute() or @state.isViewingStats) and @refs.display0.details?
 
   _isPlanMatchRouteNotOpen: ->
-    console.info('_doesPlanMatchesRoute')
-    console.info((@_doesPlanMatchesRoute() or @state.isViewingStats))
     {planId} = @context.router.getCurrentParams()
     (@_doesPlanMatchesRoute() or @state.isViewingStats) and not @refs.display0.details?
 
@@ -71,22 +70,27 @@ CoursePlan = React.createClass
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
-  syncStatsWithState: ->
+  checkRoute: ->
     if @_isPlanMatchRouteNotOpen()
       if @refs.display0.refs.trigger?
-        console.info('hello')
-        # triggerEl = @refs.display0.refs.trigger.getDOMNode()
-        # triggerEl.click()
+        @setState(shouldTrigger: true, isViewingStats: true)
       else
         @setIsViewingStats(false)
     else if @_isPlanNotMatchingRouteOpen()
       @refs.display0.refs.trigger?.hide()
 
+  # handles when route changes and modal show/hide needs to sync
+  # i.e. when using back or forward on browser
+  syncStatsWithState: ->
+    if @state.shouldTrigger
+      triggerEl = @refs.display0.refs.trigger.getDOMNode()
+      triggerEl.click()
+      @setState(shouldTrigger: false)
+
   # handles when plan is clicked directly and viewing state and route both need to update
   setIsViewingStats: (isViewingStats) ->
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
-    # @syncStatsWithState()
 
   checkPublishingStatus: (published) ->
     if published.publishFor is @props.item.plan.id
@@ -116,13 +120,16 @@ CoursePlan = React.createClass
     PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
 
   componentDidMount: ->
-    @syncStatsWithState()
+    @checkRoute()
 
   componentDidUpdate: (prevProps, prevState) ->
     @syncStatsWithState() if prevState.isViewingStats isnt @state.isViewingStats
 
-  syncOpenPlan: ->
-    @setIsViewingStats(true) unless @state.isViewingStats
+  syncOpenPlan: (hasModal) ->
+    =>
+      unless @state.isViewingStats
+        @setState(shouldTrigger: not hasModal)
+        @setIsViewingStats(true)
 
   syncClosePlan: ->
     @setIsViewingStats(false) if @state.isViewingStats

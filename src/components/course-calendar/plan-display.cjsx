@@ -65,18 +65,20 @@ CoursePlanDisplayMixin =
     {display, label, syncHover, removeHover, syncOpenPlan} = @props
     {index} = display
 
+    hasModal = index is 0
+
     planStyle = @buildPlanStyles()
 
     planOnly = <div style={planStyle}
       className={planClasses}
       onMouseEnter={syncHover}
       onMouseLeave={removeHover}
-      onClick={syncOpenPlan}
+      onClick={syncOpenPlan(hasModal)}
       ref='plan'>
       {label}
     </div>
 
-    if index is 0
+    if hasModal
       # only trigger modal if this is the first component representing the plan
       planDisplay = <BS.ModalTrigger modal={planModal} ref='trigger'>
         {planOnly}
