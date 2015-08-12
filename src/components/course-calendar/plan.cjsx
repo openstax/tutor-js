@@ -164,8 +164,7 @@ CoursePlan = React.createClass
         courseId={courseId}
         className={planClasses}
         ref='details'/>
-
-    if isPublishing
+    else if isPublishing
       planModal = <CoursePlanPublishingDetails
         plan={plan}
         courseId={courseId}
@@ -194,7 +193,10 @@ CoursePlan = React.createClass
         syncClosePlan: @syncClosePlan
       }
 
-      <displayComponent {...displayComponentProps} ref="display#{index}" key="display#{index}"/>
+      <displayComponent
+        {...displayComponentProps}
+        ref="display#{index}"
+        key="display#{index}"/>
     )
 
     <div>
