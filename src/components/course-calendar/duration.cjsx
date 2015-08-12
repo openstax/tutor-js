@@ -227,6 +227,8 @@ CourseDuration = React.createClass
             plan: simplePlans[plan.id]
             index: counter[plan.id]
 
+          planForRange.offsetFromPlanStart = planForRange.rangeDuration.start.diff(plan.duration.start, 'days')
+
           # Add plan to plans in range
           rangeData.plansInRange.push(planForRange)
           counter[plan.id] = counter[plan.id] + 1

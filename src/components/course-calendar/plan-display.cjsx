@@ -10,17 +10,43 @@ DisplayProperties =
   courseId: React.PropTypes.string.isRequired
   planModal: React.PropTypes.node.isRequired
   planClasses: React.PropTypes.string.isRequired
+  isFirst: React.PropTypes.bool
+  isLast: React.PropTypes.bool
   syncHover: React.PropTypes.func.isRequired
   removeHover: React.PropTypes.func.isRequired
   syncOpenPlan: React.PropTypes.func
   syncClosePlan: React.PropTypes.func
+  spacingMargin: React.PropTypes.number
 
 CoursePlanDisplayMixin =
 
   propTypes: DisplayProperties
+  getDefaultProps: ->
+    isFirst: false
+    isLast: false
+    spacingMargin: 2
+    rangeLength: 7
+    defaultPlansCount: 3
+
+  calcPercentOfRangeLength: (partLength) ->
+    partLength / @props.rangeLength * 100 + '%'
+
+  adjustPlanSpacing: (planStyle) ->
+    {isFirst, isLast, spacingMargin} = @props
+
+    if isFirst or isLast
+      planStyle.width = "calc(#{planStyle.width} - #{spacingMargin * 3}px)"
+
+    if isFirst
+      planStyle.marginLeft = spacingMargin + 'px'
+
+    unless isFirst or isLast
+      planStyle.marginLeft = -1 * spacingMargin + 'px'
+
+    planStyle
 
   buildPlanStyles: ->
-    {display, plan} = @props
+    {display, plan, spacingMargin, defaultPlansCount} = @props
     {offset, weekTopOffset, order} = display
     {durationLength} = plan
 
@@ -31,9 +57,11 @@ CoursePlanDisplayMixin =
     #   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
     #       stack on top of other plans that overlap in duration.
     planStyle =
-      width: durationLength * 100 / 7 + '%'
-      left: offset * 100 / 7 + '%'
-      top: (weekTopOffset + 4 - order * 3) + 'rem'
+      width: @calcPercentOfRangeLength(durationLength)
+      left: @calcPercentOfRangeLength(offset)
+      top: (weekTopOffset + (spacingMargin * 2) - order * defaultPlansCount) + 'rem'
+
+    @adjustPlanSpacing(planStyle)
 
 
 CoursePlanDisplayEdit = React.createClass

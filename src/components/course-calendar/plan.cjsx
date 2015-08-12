@@ -172,9 +172,9 @@ CoursePlan = React.createClass
         ref='details'/>
 
     planDisplays = _.map(displays, (display) =>
-      {rangeDuration, offset, index} = display
+      {rangeDuration, offset, offsetFromPlanStart, index} = display
 
-      labelProps = {rangeDuration, plan, index, offset}
+      labelProps = {rangeDuration, plan, index, offset, offsetFromPlanStart}
       label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
 
       displayComponent = CoursePlanDisplayEdit
@@ -187,6 +187,8 @@ CoursePlan = React.createClass
         courseId,
         planModal,
         planClasses,
+        isFirst: (index is 0),
+        isLast: (index is displays.length - 1),
         syncHover: @syncHover,
         removeHover: @removeHover,
         syncOpenPlan: @syncOpenPlan
