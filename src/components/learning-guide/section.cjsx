@@ -15,6 +15,7 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     section:  ChapterSectionType.isRequired
     onPractice: React.PropTypes.func
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   mixins: [ChapterSectionMixin]
 
