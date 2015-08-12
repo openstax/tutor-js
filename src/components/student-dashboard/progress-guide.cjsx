@@ -39,7 +39,6 @@ ProgressGuide = React.createClass
         <WeakerSections {...@props}
           sections={LearningGuide.Student.store.getAllSections(courseId)}
           weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
-          onPractice={@onPractice}
         />
         </div>
       </div>
@@ -72,12 +71,13 @@ ProgressGuidePanels = React.createClass
     </div>
 
   render: ->
+    return @renderEmpty() unless LearningGuide.Helpers.canPractice(
+      sections:LearningGuide.Student.store.getAllSections(@props.courseId)
+    )
+
     sections = LearningGuide.Helpers.weakestSections(
       LearningGuide.Student.store.getAllSections(@props.courseId)
     )
-    canPractice = LearningGuide.Helpers.canPractice({sections})
-
-    return @renderEmpty() unless canPractice
 
     <div className='progress-guide'>
       <div className='actions-box'>
