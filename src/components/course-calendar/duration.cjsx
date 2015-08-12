@@ -41,8 +41,11 @@ CourseDuration = React.createClass
         rangedPlan.plan.id
       )
       .map((groupedPlans) ->
+        # Grab the first plan as representative plan for displays grouped by plan
         {plan} = _.first(groupedPlans)
 
+        # omit the plan on the individual displays since they share one common plan
+        # TODO: clean up so that plan doesn't get duplicated in the first place.
         displays = _.map(groupedPlans, (groupedPlan) ->
           _.omit(groupedPlan, 'plan')
         )
@@ -197,7 +200,10 @@ CourseDuration = React.createClass
       rangeData.dayHeight = calcedHeight
 
   _getSimplePlan: (plan) ->
-    simplePlan = _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
+    # Make a simple plan that omits duration/time related information
+    # and adds back in only the relevant time information needed by the
+    # CoursePlan component.
+    simplePlan = _.omit(plan, 'duration', 'tasking_plans', 'openRange')
     earliestOpensAt = @_getEarliestOpensAt(plan)
     simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
     simplePlan.durationLength = plan.duration.length('days')
