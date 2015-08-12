@@ -9,7 +9,7 @@ Statistics = React.createClass
 
   propTypes:
     section:  ChapterSectionType.isRequired
-    diplaying: React.PropTypes.string.isRequired
+    displaying: React.PropTypes.string.isRequired
 
   render: ->
     <div className='statistics'>
