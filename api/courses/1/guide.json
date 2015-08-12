@@ -19,7 +19,7 @@
         "confidence_interval": [0.48026796534380245, 0.6802679653438024],
         "confidence_interval_interpretation": "bad",
         "sample_size": 2,
-        "sample_size_interpretation": "below",
+        "sample_size_interpretation": "above",
         "value_interpretation": "medium"
       },
       "practice_count": 0,
@@ -30,17 +30,14 @@
       "children": [
         {
           "title": "Acceleration",
-          "chapter_section": [
-            3,
-            1
-          ],
+          "chapter_section": [ 3, 1 ],
           "questions_answered_count": 11,
           "clue": {
             "value": 0.7216930483524373,
             "confidence_interval": [0.48026796534380245, 0.6802679653438024],
             "confidence_interval_interpretation": "bad",
             "sample_size": 2,
-            "sample_size_interpretation": "below",
+            "sample_size_interpretation": "above",
             "value_interpretation": "medium"
           },
           "practice_count": 0,
@@ -50,10 +47,7 @@
         },
         {
           "title": "Representing Acceleration with Equations and Graphs",
-          "chapter_section": [
-            3,
-            2
-          ],
+          "chapter_section": [ 3, 2 ],
           "questions_answered_count": 12,
           "clue": {
             "value": 0.9335832674397897,
@@ -72,9 +66,7 @@
     },
     {
       "title": "Force and Newton's Laws of Motion",
-      "chapter_section": [
-        4
-      ],
+      "chapter_section": [ 4 ],
       "questions_answered_count": 3,
       "clue":{
         "value": 0.13278347571119187,
@@ -85,10 +77,7 @@
         "value_interpretation": "medium"
       },
       "practice_count": 0,
-      "page_ids": [
-        "5",
-        "6"
-      ],
+      "page_ids": [ "5", "6" ],
       "children": [
         {
           "title": "Force",
@@ -106,16 +95,11 @@
             "value_interpretation": "medium"
           },
           "practice_count": 0,
-          "page_ids": [
-            "5"
-          ]
+          "page_ids": [ "5" ]
         },
         {
           "title": "Newton's First Law of Motion: Inertia",
-          "chapter_section": [
-            4,
-            2
-          ],
+          "chapter_section": [ 4, 2 ],
           "questions_answered_count": 2,
           "clue":{
             "value": 0.35736864708971516,
@@ -126,9 +110,7 @@
             "value_interpretation": "medium"
           },
           "practice_count": 0,
-          "page_ids": [
-            "6"
-          ]
+          "page_ids": [ "6" ]
         }
       ]
     }

@@ -22,10 +22,7 @@
             "value_interpretation": "medium"
           },
           "questions_answered_count": 8,
-          "chapter_section": [
-            1,
-            1
-          ],
+          "chapter_section": [1,1],
           "title": "The Science of Biology"
         },
         {
@@ -42,10 +39,7 @@
             "value_interpretation": "medium"
           },
           "questions_answered_count": 2,
-          "chapter_section": [
-            1,
-            2
-          ],
+          "chapter_section": [1,2],
           "title": "Themes and Concepts of Biology"
         }
       ],
