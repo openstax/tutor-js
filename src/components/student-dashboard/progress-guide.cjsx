@@ -10,7 +10,7 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
 PracticeButton = require '../learning-guide/practice-button'
-
+WeakerSections = require '../learning-guide/weaker-sections'
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -31,18 +31,16 @@ ProgressGuide = React.createClass
     courseId = @props.courseId
     guide = LearningGuide.Student.store.get(courseId)
 
-    sections = for section, i in _.first(LearningGuide.Student.store.getAllSections(courseId), NUM_SECTIONS)
-      <LearningGuideSection key={i}
-        section={section}
-        onPractice={@onPractice}
-        courseId={courseId} />
-
     <div className='progress-guide'>
       <h1 className='panel-title'>Performance Forecast</h1>
       <h2 className='recent'>Recent topics</h2>
       <div className='guide-group'>
         <div className='chapter-panel'>
-        {_.first(sections, 4)}
+        <WeakerSections {...@props}
+          sections={LearningGuide.Student.store.getAllSections(courseId)}
+          weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
+          onPractice={@onPractice}
+        />
         </div>
       </div>
       <LearningGuideColorKey />
@@ -74,17 +72,20 @@ ProgressGuidePanels = React.createClass
     </div>
 
   render: ->
-    sections = LearningGuide.Student.store.getAllSections(@props.courseId)
-    return @renderEmpty() if _.isEmpty(sections)
+    sections = LearningGuide.Helpers.weakestSections(
+      LearningGuide.Student.store.getAllSections(@props.courseId)
+    )
+    canPractice = LearningGuide.Helpers.canPractice({sections})
+
+    return @renderEmpty() unless canPractice
 
     <div className='progress-guide'>
       <div className='actions-box'>
 
         <ProgressGuide courseId={@props.courseId} />
 
-        <PracticeButton
-          title='Practice my weakest topics'
-          courseId={@props.courseId} />
+        <PracticeButton title='Practice my weakest topics'
+            courseId={@props.courseId} sections={sections} />
 
         <BS.Button
           onClick={@viewGuide}
