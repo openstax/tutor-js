@@ -42,11 +42,6 @@ Student = makeSimpleStore extendConfig {
     getAllSections: (courseId) ->
       findAllSections(@_get(courseId))
 
-    # getPracticePages: (courseId) ->
-    #   all = @exports.getSortedSections.call(this, courseId)
-    #   count = Math.min(all.length, 4)
-    #   _.chain(all).first(count).pluck('page_ids').flatten().uniq().value()
-
 
 }, new CrudConfig
 
