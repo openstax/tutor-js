@@ -12,13 +12,9 @@ WeakerSections = React.createClass
   propTypes:
     courseId:     React.PropTypes.string.isRequired
     sections:     React.PropTypes.array.isRequired
-    onPractice:   React.PropTypes.func
     sectionCount: React.PropTypes.number
     weakerEmptyMessage:  React.PropTypes.string.isRequired
     minimumSectionCount: React.PropTypes.number
-
-  getDefaultProps: ->
-    sectionCount: 4, minimumSectionCount: 2
 
   renderLackingData: ->
     <div className='lacking-data'>{@props.weakerEmptyMessage}</div>
