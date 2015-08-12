@@ -24,6 +24,7 @@ module.exports = React.createClass
     onReturn:    React.PropTypes.func.isRequired
     weakerTitle: React.PropTypes.string.isRequired
     weakerExplanation: React.PropTypes.element
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   render: ->
     {courseId} = @props

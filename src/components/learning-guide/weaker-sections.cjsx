@@ -15,6 +15,7 @@ WeakerSections = React.createClass
     sectionCount: React.PropTypes.number
     weakerEmptyMessage:  React.PropTypes.string.isRequired
     minimumSectionCount: React.PropTypes.number
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   renderLackingData: ->
     <div className='lacking-data'>{@props.weakerEmptyMessage}</div>

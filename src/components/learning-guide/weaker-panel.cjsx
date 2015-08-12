@@ -17,6 +17,7 @@ WeakerPanel = React.createClass
     onPractice:          React.PropTypes.func
     sectionCount:        React.PropTypes.number
     minimumSectionCount: React.PropTypes.number
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   renderLackingData: ->
     <div className='lacking-data'>{@props.weakerEmptyMessage}</div>

@@ -76,6 +76,7 @@ module.exports = React.createClass
         weakerEmptyMessage="Your students haven't worked enough problems for Tutor to predict their weakest topics."
         emptyMessage={@renderEmptyMessage()}
         onReturn={@returnToDashboard}
+        sampleSizeThreshold={20}
         allSections={LearningGuide.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}
         chapters={LearningGuide.Teacher.store.getChaptersForPeriod(courseId, @state.periodId)}
       />

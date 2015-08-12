@@ -37,6 +37,8 @@ ProgressGuide = React.createClass
       <div className='guide-group'>
         <div className='chapter-panel'>
         <WeakerSections {...@props}
+          sampleSizeThreshold={3}
+          onPractice={@onPractice}
           sections={LearningGuide.Student.store.getAllSections(courseId)}
           weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
         />
