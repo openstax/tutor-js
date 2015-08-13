@@ -20,11 +20,12 @@ module.exports = React.createClass
     bsStyle:   React.PropTypes.string
 
   render: ->
-    courseId = @props.courseId or @context.router.getCurrentParams().courseId
+    course = CourseStore.get(
+      @props.courseId or @context.router.getCurrentParams().courseId
+    )
     # the router is smart enough to figure out which props are present and return the best route
     linkType = if @props.page then 'viewReferenceBookPage' else
       if @props.section then 'viewReferenceBookSection' else 'viewReferenceBook'
-    course = CourseStore.get(@props.courseId)
     link = @context.router.makeHref( linkType, bookId: course.book_id, cnxId: @props.page, section:@props.section )
     linkProps = {target:'_blank', className:'view-reference-guide', href: link}
     text = @props.children or 'Browse the Book'
