@@ -25,10 +25,13 @@ sortTopics = (topics) ->
     TaskHelpers.chapterSectionToNumber(topic.chapter_section)
   )
 
+BaseCrudConfig = new CrudConfig
+
 TaskPlanConfig =
 
   _stats: {}
   _asyncStatusStats: {}
+  _pendingDeletion: {}
 
   _getPlan: (planId) ->
     @_local[planId] ?= {}
@@ -52,6 +55,14 @@ TaskPlanConfig =
 
   FAILED: -> # used by API
 
+
+  delete: (id) ->
+    @_pendingDeletion[id] = true
+    BaseCrudConfig.delete.call(@, id)
+
+  deleted: (result, id) ->
+    delete @_pendingDeletion[id]
+    BaseCrudConfig.deleted.call(@, id)
 
   enableTasking: (id, target_id, opens_at, due_at) ->
     plan = @_getPlan(id)
@@ -275,6 +286,8 @@ TaskPlanConfig =
     obj
 
   exports:
+    isDeleting: (id) -> !!@_pendingDeletion[id]
+
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids?.indexOf(topicId) >= 0
@@ -385,6 +398,6 @@ TaskPlanConfig =
 
     isStatsFailed: (id) -> !! @_stats[id]
 
-extendConfig(TaskPlanConfig, new CrudConfig())
+extendConfig(TaskPlanConfig, BaseCrudConfig)
 {actions, store} = makeSimpleStore(TaskPlanConfig)
 module.exports = {TaskPlanActions:actions, TaskPlanStore:store}
