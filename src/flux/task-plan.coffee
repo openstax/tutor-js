@@ -321,7 +321,7 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.published_at
 
-    isDeleting: (id) ->
+    isDeleteRequested: (id) ->
       deleteStates = [
         'deleting'
         'deleted'
