@@ -8,14 +8,12 @@ DisplayProperties =
   display: React.PropTypes.object.isRequired
   label: React.PropTypes.node.isRequired
   courseId: React.PropTypes.string.isRequired
-  planModal: React.PropTypes.node.isRequired
   planClasses: React.PropTypes.string.isRequired
+  setHover: React.PropTypes.func.isRequired
+  planModal: React.PropTypes.node
   isFirst: React.PropTypes.bool
   isLast: React.PropTypes.bool
-  syncHover: React.PropTypes.func.isRequired
-  removeHover: React.PropTypes.func.isRequired
-  syncOpenPlan: React.PropTypes.func
-  syncClosePlan: React.PropTypes.func
+  setIsViewing: React.PropTypes.func
   spacingMargin: React.PropTypes.number
 
 CoursePlanDisplayMixin =
@@ -68,7 +66,7 @@ CoursePlanDisplayEdit = React.createClass
   displayName: 'CoursePlanDisplayEdit'
   mixins: [CoursePlanDisplayMixin]
   render: ->
-    {plan, planClasses, label, courseId, syncHover, removeHover} = @props
+    {plan, planClasses, label, courseId, setHover} = @props
 
     linkTo = camelCase("edit-#{plan.type}")
     params = {id: plan.id, courseId}
@@ -78,8 +76,8 @@ CoursePlanDisplayEdit = React.createClass
     <div
       style={planStyle}
       className={planClasses}
-      onMouseEnter={syncHover}
-      onMouseLeave={removeHover}
+      onMouseEnter={setHover.bind(null, true)}
+      onMouseLeave={setHover.bind(null, false)}
       ref='plan'>
       <Router.Link
         to={linkTo}
@@ -101,7 +99,7 @@ CoursePlanDisplayQuickLook = React.createClass
 
   closePlanOnModalHide: ->
     hide = @refs.trigger.hide
-    syncClosePlan = @props.syncClosePlan
+    syncClosePlan = @props.setIsViewing.bind(null, false)
 
     # alias modal hide to also make plan look un-selected
     @refs.trigger.hide = ->
@@ -109,15 +107,15 @@ CoursePlanDisplayQuickLook = React.createClass
       syncClosePlan()
 
   render: ->
-    {planClasses, planModal, label, syncHover, removeHover, syncOpenPlan} = @props
+    {planClasses, planModal, label, setHover, setIsViewing} = @props
 
     planStyle = @buildPlanStyles()
 
     planOnly = <div style={planStyle}
       className={planClasses}
-      onMouseEnter={syncHover}
-      onMouseLeave={removeHover}
-      onClick={syncOpenPlan}
+      onMouseEnter={setHover.bind(null, true)}
+      onMouseLeave={setHover.bind(null, false)}
+      onClick={setIsViewing.bind(null, true)}
       ref='plan'>
       {label}
     </div>

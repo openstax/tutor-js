@@ -39,10 +39,10 @@ CoursePlan = React.createClass
     {planId} = @context.router.getCurrentParams()
     planId is @props.item.plan.id
 
-  _isPlanNotMatchingRouteOpen: ->
+  isWrongRouteOpen: ->
     not (@_doesPlanMatchesRoute()) and @refs.details?
 
-  _isPlanMatchRouteNotOpen: ->
+  isMatchingRouteOpen: ->
     (@_doesPlanMatchesRoute()) and not @refs.details?
 
   _getExpectedRoute: (isViewingStats) ->
@@ -69,12 +69,12 @@ CoursePlan = React.createClass
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
   checkRoute: ->
-    if @_isPlanMatchRouteNotOpen()
+    if @isMatchingRouteOpen()
       if @refs.display0.refs.trigger?
         @_triggerStats()
       else
         @_updateRoute(false)
-    else if @_isPlanNotMatchingRouteOpen()
+    else if @isWrongRouteOpen()
       @refs.display0.refs.trigger?.hide()
 
   _triggerStats: ->
@@ -82,7 +82,7 @@ CoursePlan = React.createClass
     triggerEl.click()
 
   # handles when plan is clicked directly and viewing state and route both need to update
-  setIsViewingStats: (isViewingStats) ->
+  syncIsViewingStats: (isViewingStats) ->
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
 
@@ -120,17 +120,11 @@ CoursePlan = React.createClass
   componentDidMount: ->
     @checkRoute()
 
-  syncOpenPlan: ->
-    @setIsViewingStats(true) unless @state.isViewingStats
+  setIsViewing: (isViewingStats) ->
+    @syncIsViewingStats(isViewingStats) if @state.isViewingStats isnt isViewingStats
 
-  syncClosePlan: ->
-    @setIsViewingStats(false) if @state.isViewingStats
-
-  syncHover: ->
-    @setState(isHovered: true) unless @state.isHovered
-
-  removeHover: ->
-    @setState(isHovered: false) if @state.isHovered
+  setHover: (isHovered) ->
+    @setState({isHovered}) if @state.isHovered isnt isHovered
 
   buildPlanClasses: (plan, publishStatus, isPublishing, isActive) ->
     planClasses = [
@@ -149,6 +143,36 @@ CoursePlan = React.createClass
     planClasses.push('active') if isActive
 
     planClasses.join(' ')
+
+
+  renderDisplay: (planModal, planClasses, display) ->
+    {rangeDuration, offset, offsetFromPlanStart, index} = display
+    {item, courseId} = @props
+    {plan, displays} = item
+
+    labelProps = {rangeDuration, plan, index, offset, offsetFromPlanStart}
+    label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
+
+    displayComponent = CoursePlanDisplayEdit
+    displayComponent = CoursePlanDisplayQuickLook if planModal?
+
+    displayComponentProps = {
+      plan,
+      display,
+      label,
+      courseId,
+      planModal,
+      planClasses,
+      isFirst: (index is 0),
+      isLast: (index is displays.length - 1),
+      setHover: @setHover,
+      setIsViewing: @setIsViewing
+    }
+
+    <displayComponent
+      {...displayComponentProps}
+      ref="display#{index}"
+      key="display#{index}"/>
 
   render: ->
     {item, courseId} = @props
@@ -171,35 +195,8 @@ CoursePlan = React.createClass
         className={planClasses}
         ref='details'/>
 
-    planDisplays = _.map(displays, (display) =>
-      {rangeDuration, offset, offsetFromPlanStart, index} = display
-
-      labelProps = {rangeDuration, plan, index, offset, offsetFromPlanStart}
-      label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
-
-      displayComponent = CoursePlanDisplayEdit
-      displayComponent = CoursePlanDisplayQuickLook if planModal?
-
-      displayComponentProps = {
-        plan,
-        display,
-        label,
-        courseId,
-        planModal,
-        planClasses,
-        isFirst: (index is 0),
-        isLast: (index is displays.length - 1),
-        syncHover: @syncHover,
-        removeHover: @removeHover,
-        syncOpenPlan: @syncOpenPlan
-        syncClosePlan: @syncClosePlan
-      }
-
-      <displayComponent
-        {...displayComponentProps}
-        ref="display#{index}"
-        key="display#{index}"/>
-    )
+    renderDisplay = _.partial(@renderDisplay, planModal, planClasses)
+    planDisplays = _.map(displays, renderDisplay)
 
     <div>
       {planDisplays}
