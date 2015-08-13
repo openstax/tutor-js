@@ -7,7 +7,7 @@ describe 'Learning Guide Progress Bar', ->
   beforeEach ->
     @props = {
       onPractice: sinon.spy()
-      sampleSizeThreshold: 1
+      sampleSizeThreshold: 10
       section: { clue: { value: 0.82, sample_size: 2, sample_size_interpretation: 'high', magic: true } }
     }
 
@@ -20,18 +20,29 @@ describe 'Learning Guide Progress Bar', ->
     Testing.renderComponent( Bar, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.progress-bar').style.width).to.equal('82%')
 
+  describe 'when sample_size_interpretation is below', ->
 
-  it 'does not render the bar when sample_size_interpretation is below', ->
-    @props.section.clue.sample_size_interpretation = 'below'
-    Testing.renderComponent( Bar, props: @props).then ({dom}) =>
-      expect(dom.querySelector('.progress-bar')).to.be.null
-      Testing.actions.click(dom)
-      expect(@props.onPractice).to.have.been.calledWith(@props.section)
+    it 'does not render the bar', ->
+      @props.section.clue.sample_size_interpretation = 'below'
+      Testing.renderComponent( Bar, props: @props).then ({dom}) ->
+        expect(dom.querySelector('.progress-bar')).to.be.null
 
-  it 'renders if sample size threshold is reached even when sample_size_interpretation is below', ->
-    @props.section.clue.sample_size_interpretation = 'below'
-    @props.sampleSizeThreshold = 2 # same as clue value - should use <= to evaluate
-    Testing.renderComponent( Bar, props: @props).then ({dom}) =>
-      expect(dom.querySelector('.progress-bar')).to.be.null
-      Testing.actions.click(dom)
-      expect(@props.onPractice).to.have.been.calledWith(@props.section)
+    describe 'when threshold is met', ->
+
+      it 'renders if threshold is exceeded', ->
+        @props.section.clue.sample_size_interpretation = 'below'
+        @props.section.clue.sample_size = 2
+        @props.sampleSizeThreshold = 1 # less than the clue sample_size of 2
+        Testing.renderComponent( Bar, props: @props).then ({dom}) =>
+          expect(dom.querySelector('.progress-bar')).not.to.be.null
+          Testing.actions.click(dom)
+          expect(@props.onPractice).to.have.been.calledWith(@props.section)
+
+      it 'renders if sample threshold is equal', ->
+        @props.section.clue.sample_size_interpretation = 'below'
+        # both are equal
+        @props.sampleSizeThreshold = @props.section.clue.sample_size = 10
+        Testing.renderComponent( Bar, props: @props).then ({dom}) =>
+          expect(dom.querySelector('.progress-bar')).not.to.be.null
+          Testing.actions.click(dom)
+          expect(@props.onPractice).to.have.been.calledWith(@props.section)
