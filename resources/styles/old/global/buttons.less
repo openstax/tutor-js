@@ -42,6 +42,17 @@
   &:hover {
     background: @primary-background-hover;
   }
+
+  &:active,
+  &:focus {
+
+    &.dropdown-toggle { 
+      color: @tutor-neutral-dark;
+      background: white;
+    }
+
+  }
+
 }
 
 :not(.btn-link):not(.btn-flat):not(.btn-fab) {

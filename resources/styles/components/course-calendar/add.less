@@ -1,4 +1,4 @@
-.course-add-dropdown {
+.course-add-dropdown, .add-assignment {
   &.no-add {
     background: @tutor-neutral-light;
   }
@@ -7,4 +7,31 @@
     display: block;
     padding: 3px 20px;
   }
+
+  .x-add-plan(@plan-color) {
+    color: @tutor-neutral-darker;
+    border-left: 5px solid @white;
+    background: none;
+    transition: background .1s ease-in, border .1s ease-in;
+
+    &:hover,
+    &.active,
+    &.open {
+    border-left: 5px solid @plan-color;
+      background: fade(@plan-color, 20%);
+      transition: background .1s ease-in, border .1s ease-in;
+    }
+  }
+
+  li {
+    a[href*="readings"] { .x-add-plan(@reading-color); }
+    a[href*="homeworks"] { .x-add-plan(@homework-color); }
+    a[href*="externals"] { .x-add-plan(@external-color); }
+  }
+
+  .dropdown-menu > li > a,
+  &.dropdown-menu > li > a {
+  	padding: 3px 20px 3px 8px;
+  }
+
 }
