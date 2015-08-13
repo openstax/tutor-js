@@ -73,7 +73,7 @@ ReviewReadings = React.createClass
   renderSelected: ->
     if @props.selected.length
       <ul className='selected-reading-list'>
-        <li>Currently selected sections in this reading</li>
+        <li>Currently selected</li>
         {_.map(@props.selected, @renderSection)}
       </ul>
     else

@@ -29,9 +29,10 @@ ul.selected-reading-list {
 
   li {
     border-bottom: 1px solid @tutor-neutral-lighter;
+    .tutor-fade-in(2s);
 
     &:first-child {
-      color: @tutor-neutral;
+      font-size: 2rem;
     }
     .section-buttons {
       float: right;
@@ -40,7 +41,7 @@ ul.selected-reading-list {
         width: 20px;
         border-radius: 10px;
         font-size: 1rem;
-        margin: 0;
+        margin: -2px 0 0;
         padding: 0;
 
         &:hover {
