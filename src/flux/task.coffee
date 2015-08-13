@@ -163,7 +163,8 @@ TaskConfig =
       allowed = [
         'homework'
         'practice'
-        'chapter_practice'
+        'chapter_practice',
+        'page_practice'
       ]
 
       if allowed.indexOf(@_get(taskId).type) > -1 then true else false
@@ -194,7 +195,8 @@ TaskConfig =
     isPractice: (taskId) ->
       practices = [
         'practice'
-        'chapter_practice'
+        'chapter_practice',
+        'page_practice'
       ]
 
       if practices.indexOf(@_get(taskId).type) > -1 then true else false

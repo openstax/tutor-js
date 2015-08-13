@@ -20,4 +20,4 @@ describe 'Learning Guide Section Panel', ->
 
   it 'reports how many problems were worked', ->
     Testing.renderComponent( Section, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked').textContent).to.equal('8 problems worked')
+      expect(dom.querySelector('.amount-worked .count span:first-child').textContent).to.equal('8')

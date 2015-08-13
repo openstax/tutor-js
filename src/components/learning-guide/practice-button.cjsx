@@ -3,25 +3,27 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 LearningGuide = require '../../flux/learning-guide'
+ChapterSectionType = require './chapter-section-type'
 
 module.exports = React.createClass
   displayName: 'PracticeButton'
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    title: React.PropTypes.string.isRequired
-
+    title:    React.PropTypes.string.isRequired
+    sections: React.PropTypes.arrayOf(ChapterSectionType)
   contextTypes:
     router: React.PropTypes.func
 
   onClick: ->
-    {courseId} = @props
-    page_ids = LearningGuide.Student.store.getPracticePages(@props.courseId, @props.practiceType)
+    {courseId, sections} = @props
+    page_ids = LearningGuide.Helpers.pagesForSections(sections)
     unless _.isEmpty(page_ids)
       @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
 
   render: ->
-    page_ids = LearningGuide.Student.store.getPracticePages(@props.courseId)
+    {sections} = @props
+    page_ids = LearningGuide.Helpers.pagesForSections(sections)
     classNames = ['practice', @props.practiceType]
     isDisabled = _.isEmpty(page_ids)
     classNames.push 'disabled' if isDisabled

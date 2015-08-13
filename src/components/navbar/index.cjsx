@@ -10,6 +10,7 @@ AccountLink = require './account-link'
 CourseName = require './course-name'
 LogOut = require './logout'
 BindStoreMixin = require '../bind-store-mixin'
+ServerErrorMonitoring = require './server-error-monitoring'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
@@ -25,7 +26,7 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   componentWillMount: ->
-    CurrentUserActions.load()
+    CurrentUserStore.ensureLoaded()
     CourseListingStore.ensureLoaded()
 
   getInitialState: ->
@@ -72,8 +73,6 @@ module.exports = React.createClass
     if menuItems.length
       menuItems.push(<BS.MenuItem divider key='dropdown-item-divider'/>)
 
-    menuItems.push <AccountLink key='accounts-link' />
-
     menuItems
 
   render: ->
@@ -97,6 +96,7 @@ module.exports = React.createClass
             title={<UserName/>}
             ref='navDropDown'>
             {menuItems}
+            <AccountLink key='accounts-link' />
             <BS.MenuItem target='_blank' href={CurrentUserStore.getHelpLink(courseId)}>Get Help</BS.MenuItem>
             <BS.MenuItem
               className="logout"
@@ -107,4 +107,5 @@ module.exports = React.createClass
           </BS.DropdownButton>
         </BS.Nav>
       </BS.CollapsibleNav>
+      <ServerErrorMonitoring />
     </BS.Navbar>

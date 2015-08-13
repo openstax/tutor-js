@@ -12,7 +12,7 @@ module.exports = React.createClass
 
   redirectToAccount: ->
     TransitionAssistant.checkTransitionStateTo("Account Profile Page").then ->
-      window.location.href = CurrentUserStore.getProfileUrl()
+      window.open(CurrentUserStore.getProfileUrl())
 
   render: ->
     return null unless CurrentUserStore.getProfileUrl()

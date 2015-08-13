@@ -3,11 +3,13 @@ require 'bootstrap' # Attach bootstrap to jQuery
 
 api = require './src/api'
 router = require './src/router'
+dom = require './src/helpers/dom'
 {startMathJax} = require './src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
 
 
 window._STORES =
+  APP: require './src/flux/app'
   COURSE: require './src/flux/course'
   CURRENT_USER: require './src/flux/current-user'
   EXERCISE: require './src/flux/exercise'
@@ -21,9 +23,12 @@ window._STORES =
   TIME: require './src/flux/time'
   TOC: require './src/flux/toc'
 
-api.start()
+
+api.start(dom.readBootstrapData())
+
 startMathJax()
 TransitionAssistant.startMonitoring()
+
 
 # This is added because MathJax puts in extra divs on initial load.
 # Moves the React Root to be an element inside a div

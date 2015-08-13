@@ -13,13 +13,16 @@
             "2"
           ],
           "practice_count": 0,
-          "interpretation": "medium",
-          "current_level": 0.41647979570878235,
+          "clue": {
+            "value": 0.41647979570878235,
+            "confidence_interval": [0.48026796534380245, 0.6802679653438024],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 2,
+            "sample_size_interpretation": "below",
+            "value_interpretation": "medium"
+          },
           "questions_answered_count": 8,
-          "chapter_section": [
-            1,
-            1
-          ],
+          "chapter_section": [1,1],
           "title": "The Science of Biology"
         },
         {
@@ -27,13 +30,16 @@
             "3"
           ],
           "practice_count": 0,
-          "interpretation": "medium",
-          "current_level": 0.38865469011386733,
+          "clue": {
+            "value": 0.38865469011386733,
+            "confidence_interval": [0.48026796534380245, 0.6802679653438024],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 2,
+            "sample_size_interpretation": "below",
+            "value_interpretation": "medium"
+          },
           "questions_answered_count": 2,
-          "chapter_section": [
-            1,
-            2
-          ],
+          "chapter_section": [1,2],
           "title": "Themes and Concepts of Biology"
         }
       ],
@@ -42,8 +48,14 @@
         "3"
       ],
       "practice_count": 0,
-      "interpretation": "high",
-      "current_level": 0.8897174467418332,
+      "clue": {
+        "value": 0.8897174467418332,
+        "confidence_interval": [0.48026796534380245, 0.6802679653438024],
+        "confidence_interval_interpretation": "bad",
+        "sample_size": 2,
+        "sample_size_interpretation": "below",
+        "value_interpretation": "high"
+      },
       "questions_answered_count": 10,
       "chapter_section": [
         1

@@ -1,6 +1,7 @@
 @import "learning-guide/section-mixin";
 @import "learning-guide/colors-mixin";
 @import "learning-guide/heading";
+@import "learning-guide/statistics";
 @import "learning-guide/teacher";
 @import "learning-guide/teacher-student";
 
@@ -76,6 +77,11 @@
         }
       }
       button.practice { width: 200px; }
+      .lacking-data {
+        .metric.title(); // reuse styles from above
+        text-align: center;
+        padding-top: 2rem;
+      }
     }
 
   }

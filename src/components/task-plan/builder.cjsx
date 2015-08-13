@@ -114,8 +114,44 @@ module.exports = React.createClass
     {id} = @props
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
+  setAllPeriods: ->
+    #save current taskings
+    if @state.showingPeriods
+      saveTaskings = TaskPlanStore.getEnabledTaskings(@props.id)
+      @setState(showingPeriods: false, savedTaskings: saveTaskings)
+
+    #get opens at and due at
+    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
+
+    #enable all periods
+    course = CourseStore.get(@props.courseId)
+    periods = _.map course?.periods, (period) -> id: period.id
+    TaskPlanActions.setPeriods(@props.id, periods)
+
+    #set dates for all periods
+    @setOpensAt(taskingOpensAt)
+    @setDueAt(taskingDueAt)
+
+  setIndividualPeriods: ->
+    # if taskings exist in state, then load them
+    if (@state.savedTaskings) then TaskPlanActions.replaceTaskings(@props.id, @state.savedTaskings)
+
+    #clear saved taskings
+    @setState(
+      showingPeriods: true
+      savedTaskings: null
+    )
+
   togglePeriodsDisplay: (ev) ->
-    @setState(showingPeriods: not @state.showingPeriods)
+    if (@state.showingPeriods is not @refs.allPeriodsRadio.props.checked)
+      return
+
+    if (@state.showingPeriods)
+      @setAllPeriods()
+    else
+      @setIndividualPeriods()
+
 
   togglePeriodEnabled: (period, ev) ->
     if ev.target.checked
@@ -193,8 +229,9 @@ module.exports = React.createClass
           <input
             id='hide-periods-radio'
             name='toggle-periods-radio'
+            ref='allPeriodsRadio'
             type='radio'
-            onChange={@togglePeriodsDisplay}
+            onChange={@setAllPeriods}
             disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
             checked={not @state.showingPeriods}/>
           <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
@@ -208,7 +245,7 @@ module.exports = React.createClass
             id='show-periods-radio'
             name='toggle-periods-radio'
             type='radio'
-            onChange={@togglePeriodsDisplay}
+            onChange={@setIndividualPeriods}
             disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
             checked={@state.showingPeriods}/>
           <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>

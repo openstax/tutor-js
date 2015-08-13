@@ -94,6 +94,9 @@ TaskPlanConfig =
 
     @_change(id, {tasking_plans})
 
+  replaceTaskings: (id, taskings) ->
+    @_change(id, {tasking_plans: taskings})
+
   _findTasking: (tasking_plans, periodId) ->
     _.findWhere(tasking_plans, {target_id:periodId, target_type:'period'})
 
@@ -321,6 +324,13 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.published_at
 
+    isDeleteRequested: (id) ->
+      deleteStates = [
+        'deleting'
+        'deleted'
+      ]
+      deleteStates.indexOf(@_asyncStatus[id]) > -1
+
     isOpened: (id) ->
       firstTasking = @_getFirstTaskingByOpenDate(id)
       new Date(firstTasking?.opens_at) <= TimeStore.getNow()
@@ -378,6 +388,10 @@ TaskPlanConfig =
     hasAnyTasking: (id) ->
       plan = @_getPlan(id)
       !!plan?.tasking_plans
+
+    getEnabledTaskings: (id) ->
+      plan = @_getPlan(id)
+      plan?.tasking_plans
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

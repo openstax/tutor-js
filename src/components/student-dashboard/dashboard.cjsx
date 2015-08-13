@@ -63,7 +63,7 @@ module.exports = React.createClass
           </BS.Col>
 
           <BS.Col xs=12 md=4 lg=3>
-            <ProgressGuideShell courseId={courseId} />
+            <ProgressGuideShell courseId={courseId} sampleSizeThreshold=3 />
             <div className='actions-box'>
               <BrowseBookButton unstyled courseId={courseId}>
                 <div>Browse the Book</div>

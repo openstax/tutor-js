@@ -48,10 +48,10 @@ CourseListingStore = flux.createStore
     # Loads the store if it's not already loaded or loading
     # Returns false if the store is already loaded, true otherwise
     ensureLoaded: ->
-      if @_asyncStatus is LOADED
+      if CourseListingStore.isLoaded()
         false
       else
-        CourseListingActions.load() unless @_asyncStatus is LOADING
+        CourseListingActions.load() unless CourseListingStore.isLoading()
         true
 
     allCourses: ->

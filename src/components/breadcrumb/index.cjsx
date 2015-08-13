@@ -43,6 +43,9 @@ BreadcrumbTaskDynamic = React.createClass
   componentWillUnmount: ->
     @removeListeners()
 
+  componentDidMount: ->
+    @props.onMount?()
+
   setStep: (props) ->
     {crumb} = props
 
