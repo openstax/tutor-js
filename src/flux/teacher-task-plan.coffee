@@ -1,5 +1,6 @@
 _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{TaskPlanStore} = require './task-plan'
 
 TeacherTaskPlanConfig =
 
@@ -13,8 +14,7 @@ TeacherTaskPlanConfig =
     getActiveCoursePlans: (id) ->
       plans = @_local[id] or []
       # don't return plans that are in the process of being deleted
-      _.filter plans, (plan) =>
-        not @exports.isDeleting.call(@, plan.id)
+      _.filter plans, (plan) -> not TaskPlanStore.isDeleting(plan.id)
 
 
 extendConfig(TeacherTaskPlanConfig, new CrudConfig())
