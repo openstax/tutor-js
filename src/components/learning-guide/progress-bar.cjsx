@@ -6,10 +6,6 @@ ChapterSectionType = require './chapter-section-type'
 module.exports = React.createClass
   displayName: 'LearningGuideProgressBar'
 
-  getDefaultProps: ->
-    # specify a threshold just in case a parent component fails to pass it on
-    sampleSizeThreshold: 3
-
   propTypes:
     section:  React.PropTypes.object.isRequired
     onPractice: React.PropTypes.func
@@ -20,7 +16,7 @@ module.exports = React.createClass
     {section, onPractice} = @props
     {clue} = section
 
-    bar = if @props.sampleSizeThreshold <= clue.sample_size and clue.sample_size_interpretation is 'below'
+    bar = if clue.sample_size < @props.sampleSizeThreshold and clue.sample_size_interpretation is 'below'
       <span className="no-data">
         {if onPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
       </span>
