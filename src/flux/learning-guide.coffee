@@ -97,11 +97,14 @@ TeacherStudent = makeSimpleStore extendConfig {
 
 Helpers = {
 
-  filterForecastedSections: (sections) ->
-    _.filter(sections, (s) -> s.clue.sample_size_interpretation isnt 'below')
+  canDisplayForecast: (clue, sampleSizeThreshold) ->
+    clue.sample_size >= sampleSizeThreshold or clue.sample_size_interpretation isnt 'below'
 
-  weakestSections: (sections, displayCount = 4) ->
-    validSections = @filterForecastedSections(sections)
+  filterForecastedSections: (sections, sampleSizeThreshold) ->
+    _.filter(sections, (s) -> Helpers.canDisplayForecast(s.clue, sampleSizeThreshold) )
+
+  weakestSections: (sections, sampleSizeThreshold, displayCount = 4) ->
+    validSections = @filterForecastedSections(sections, sampleSizeThreshold)
     displayCount = Math.min(Math.floor(validSections.length / 2), displayCount)
 
     # Sort by value and pick 'displayCount' of the weakest
@@ -110,10 +113,10 @@ Helpers = {
       .first(displayCount)
       .value()
 
-  canPractice: ({sections, displayCount, minimumSectionCount}) ->
+  canPractice: ({sections, sampleSizeThreshold, displayCount, minimumSectionCount}) ->
     displayCount ||= 4
     minimumSectionCount ||= 2
-    @weakestSections(sections, displayCount).length >= minimumSectionCount
+    @weakestSections(sections, sampleSizeThreshold, displayCount).length >= minimumSectionCount
 
   pagesForSections: (sections) ->
     _.chain(sections).pluck('page_ids').flatten().uniq().value()

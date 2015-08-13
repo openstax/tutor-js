@@ -23,6 +23,7 @@ ProgressGuide = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   onPractice: (section) ->
     @context.router.transitionTo('viewPractice', {courseId: @props.courseId}, {page_ids: section.page_ids})
@@ -37,7 +38,6 @@ ProgressGuide = React.createClass
       <div className='guide-group'>
         <div className='chapter-panel'>
         <WeakerSections {...@props}
-          sampleSizeThreshold={3}
           onPractice={@onPractice}
           sections={LearningGuide.Student.store.getAllSections(courseId)}
           weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
@@ -54,6 +54,7 @@ ProgressGuidePanels = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   viewGuide: ->
     @context.router.transitionTo('viewGuide', {courseId: @props.courseId})
@@ -73,21 +74,21 @@ ProgressGuidePanels = React.createClass
     </div>
 
   render: ->
-    return @renderEmpty() unless LearningGuide.Helpers.canPractice(
-      sections:LearningGuide.Student.store.getAllSections(@props.courseId)
-    )
+    return @renderEmpty() unless LearningGuide.Helpers.canPractice({
+      @props, sections:LearningGuide.Student.store.getAllSections(@props.courseId)
+    })
 
     sections = LearningGuide.Helpers.weakestSections(
-      LearningGuide.Student.store.getAllSections(@props.courseId)
+      LearningGuide.Student.store.getAllSections(@props.courseId), @props.sampleSizeThreshold
     )
 
     <div className='progress-guide'>
       <div className='actions-box'>
 
-        <ProgressGuide courseId={@props.courseId} />
+        <ProgressGuide {...@props} />
 
         <PracticeButton title='Practice my weakest topics'
-            courseId={@props.courseId} sections={sections} />
+          {...@props} sections={sections} />
 
         <BS.Button
           onClick={@viewGuide}
@@ -104,6 +105,7 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   renderLoading: (refreshButton) ->
     <div className='actions-box loadable is-loading'>

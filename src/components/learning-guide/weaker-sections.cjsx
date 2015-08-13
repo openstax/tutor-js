@@ -21,7 +21,7 @@ WeakerSections = React.createClass
     <div className='lacking-data'>{@props.weakerEmptyMessage}</div>
 
   renderSections: ->
-    for section, i in LearningGuide.Helpers.weakestSections(@props.sections)
+    for section, i in LearningGuide.Helpers.weakestSections(@props.sections, @props.sampleSizeThreshold)
       <Section key={i} section={section} {...@props} />
 
   render: ->
