@@ -34,6 +34,7 @@ require './components/icon.spec'
 require './components/tutor-input.spec'
 require './components/tutor-dialog.spec'
 require './components/unsaved-state.spec'
+require './components/buttons/browse-the-book.spec'
 
 require './crud-store.spec'
 require './task-store.spec'
