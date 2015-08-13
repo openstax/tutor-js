@@ -67,7 +67,7 @@ module.exports = React.createClass
     TaskStore.off('task.afterRecovery', @update)
 
   componentDidUpdate: (prevProps, prevState) ->
-    if @didWidthsChange(prevState, @state)
+    if @didWidthChange(prevState, @state)
       @setShouldShrink(@state)
 
   componentWillReceiveProps: (nextProps) ->
@@ -76,7 +76,7 @@ module.exports = React.createClass
   crumbMounted: ->
     @calculateCrumbsWidth() if @state.crumbsWidth?
 
-  didWidthsChange: (prevState, currentState) ->
+  didWidthChange: (prevState, currentState) ->
     currentState.crumbsWidth isnt prevState.crumbsWidth or currentState.componentEl.width isnt prevState.componentEl.width
 
   setShouldShrink: (sizes) ->
