@@ -14,7 +14,7 @@ ROUTER = null
 beforeEach ->
   sandbox = sinon.sandbox.create()
   ROUTER  = sandbox.spy()
-  ROUTER.makeHref = sandbox.spy
+  ROUTER.makeHref = sandbox.spy()
   ROUTER.transitionTo = sandbox.spy()
 
 afterEach ->
