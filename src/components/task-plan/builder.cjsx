@@ -116,14 +116,22 @@ module.exports = React.createClass
 
     {taskingOpensAt, taskingDueAt}
 
+  updateIsVisibleToStudents: ->
+    isVisibleToStudents = TaskPlanStore.isVisibleToStudents(@props.id)
+    @setState({isVisibleToStudents: isVisibleToStudents})
 
   # this will be called whenever the course store loads, but won't if
   # the store has already finished loading by the time the component mounts
   bindUpdate: ->
     @setPeriodDefaults()
+    @updateIsVisibleToStudents()
 
   componentWillMount: ->
     @setPeriodDefaults()
+    TaskPlanStore.on('publishing', @updateIsVisibleToStudents)
+
+  componentWillUnmount: ->
+    TaskPlanStore.off('publishing', @updateIsVisibleToStudents)
 
   setOpensAt: (value, period) ->
     {id} = @props

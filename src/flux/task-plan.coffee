@@ -271,6 +271,7 @@ TaskPlanConfig =
     @emitChange()
 
   publish: (id) ->
+    @emit('publishing', id)
     @_change(id, {is_publish_requested: true})
 
   _saved: (obj, id) ->
@@ -338,7 +339,7 @@ TaskPlanConfig =
     isVisibleToStudents: (id) ->
       plan = @_getPlan(id)
       firstTasking = @_getFirstTaskingByOpenDate(id)
-      !!plan?.published_at and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+      (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
