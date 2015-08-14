@@ -16,11 +16,7 @@ WeakerPanel = React.createClass
     weakerEmptyMessage:  React.PropTypes.string.isRequired
     onPractice:          React.PropTypes.func
     sectionCount:        React.PropTypes.number
-    minimumSectionCount: React.PropTypes.number
     sampleSizeThreshold: React.PropTypes.number.isRequired
-
-  renderLackingData: ->
-    <div className='lacking-data'>{@props.weakerEmptyMessage}</div>
 
   render: ->
     # Do not render if we have no sections
@@ -30,7 +26,7 @@ WeakerPanel = React.createClass
       <div className='chapter metric'>
         <span className='title'>{@props.weakerTitle}</span>
         {@props.weakerExplanation}
-        {if @props.onPractice and LearningGuide.Helpers.canPractice(@props)
+        {if LearningGuide.Helpers.canDisplayWeakest(@props) # hide practice button when the panel is empty
           <PracticeButton title='Practice All'
             sections=LearningGuide.Helpers.weakestSections(@props.sections)
             courseId={@props.courseId} /> }
