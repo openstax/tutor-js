@@ -23,6 +23,8 @@ module.exports = React.createClass
     course = CourseStore.get(
       @props.courseId or @context.router.getCurrentParams().courseId
     )
+    return null unless course # if we don't have a course we can't browse it's book
+
     # the router is smart enough to figure out which props are present and return the best route
     linkType = if @props.page then 'viewReferenceBookPage' else
       if @props.section then 'viewReferenceBookSection' else 'viewReferenceBook'
