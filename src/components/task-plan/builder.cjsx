@@ -57,12 +57,12 @@ module.exports = React.createClass
       tasking
 
   getOpensAtDefault: ->
-    moment(TimeStore.getNow()).add(1, 'day').format(TutorDateFormat)
+    moment(TimeStore.getNow()).add(1, 'day').toDate()
 
   getQueriedOpensAt: ->
     {opens_at} = @getQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    opensAt = if opens_at and isNewPlan then moment(opens_at).format(TutorDateFormat)
+    opensAt = if opens_at and isNewPlan then moment(opens_at).toDate()
     if not opensAt
       # default open date is tomorrow
       opensAt = @getOpensAtDefault()
@@ -71,14 +71,14 @@ module.exports = React.createClass
     dueAt = @getQueriedDueAt()
     if dueAt? and moment(dueAt).isSame(opensAt, 'day')
       # make open date today if default due date is tomorrow
-      opensAt = moment(TimeStore.getNow()).format(TutorDateFormat)
+      opensAt = moment(TimeStore.getNow()).toDate()
 
     opensAt
 
   getQueriedDueAt: ->
     {due_at} = @getQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    dueAt = if due_at and isNewPlan then moment(due_at).format(TutorDateFormat)
+    dueAt = if due_at and isNewPlan then moment(due_at).toDate()
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
