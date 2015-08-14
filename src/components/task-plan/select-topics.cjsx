@@ -121,7 +121,7 @@ SelectTopics = React.createClass
     <ChapterAccordion {...@props} expanded={expanded} chapter={chapter}/>
 
   renderDialog: ->
-    {courseId, planId, selected, hide, header, primary} = @props
+    {courseId, planId, selected, hide, header, primary, cancel} = @props
 
     selected = TaskPlanStore.getTopics(planId)
     chapters = _.map(TocStore.get(), @renderChapterPanels)
@@ -133,7 +133,7 @@ SelectTopics = React.createClass
       confirmMsg='Are you sure you want to close?'
       cancel='Cancel'
       isChanged={-> true}
-      onCancel={hide}>
+      onCancel={cancel}>
 
       <div className='select-reading-chapters'>
         {chapters}

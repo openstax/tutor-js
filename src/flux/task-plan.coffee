@@ -200,6 +200,11 @@ TaskPlanConfig =
     exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
     @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
+  updateTopics: (id, page_ids) ->
+    plan = @_getPlan(id)
+    {exercise_ids, exercises_count_dynamic} = plan.settings
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+
   addExercise: (id, exercise) ->
     plan = @_getPlan(id)
     {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
@@ -220,6 +225,11 @@ TaskPlanConfig =
 
     @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
+  updateExercises: (id, exercise_ids) ->
+    plan = @_getPlan(id)
+    {page_ids, exercises_count_dynamic} = plan.settings
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    
   moveReading: (id, topicId, step) ->
     plan = @_getPlan(id)
     {page_ids, exercises_count_dynamic} = plan.settings
