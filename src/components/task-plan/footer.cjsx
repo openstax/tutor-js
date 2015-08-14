@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 AsyncButton = require '../buttons/async-button'
+TutorDialog = require '../tutor-dialog'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -33,11 +34,15 @@ PlanFooter = React.createClass
   onCancel: ->
     {id, courseId} = @props
 
-    if TaskPlanStore.isChanged(id) and confirm('Are you sure you want to cancel?')
+    if not TaskPlanStore.isChanged(id)
       @reset()
-    else if not TaskPlanStore.isChanged(id)
-      @reset()
-
+    else
+      TutorDialog.show(
+        title: 'Unsaved Changes'
+        body: 'Are you sure you want to cancel?'
+      ).then( =>
+        @reset()
+      )
 
   reset: ->
     {id, courseId} = @props
