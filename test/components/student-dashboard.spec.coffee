@@ -9,6 +9,8 @@ ReactTestUtils = React.addons.TestUtils
 
 {StudentDashboardShell} = require '../../src/components/student-dashboard'
 {StudentDashboardStore, StudentDashboardActions} = require '../../src/flux/student-dashboard'
+COURSE = require '../../api/user/courses/1.json'
+{CourseActions} = require '../../src/flux/course'
 
 COURSE_ID = '1'
 DATA = require '../../api/courses/1/dashboard.json'
@@ -24,6 +26,7 @@ describe 'Student Dashboard Component', ->
   beforeEach ->
     TimeActions.setNow(NOW)
     StudentDashboardActions.reset()
+    CourseActions.loaded(COURSE, COURSE_ID)
     StudentDashboardActions.HACK_DO_NOT_RELOAD(true)
     StudentDashboardActions.loaded(DATA, COURSE_ID)
 
