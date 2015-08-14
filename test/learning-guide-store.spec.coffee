@@ -21,7 +21,7 @@ makeSections = (valid, invalid) ->
 testWeakCount = ( returnedLength, sampleSizes ) ->
   for count in sampleSizes
     sections = makeSections(count, 10)
-    weakest = LGH.weakestSections( sections )
+    weakest = LGH.weakestSections( sections, 3 )
     expect( weakest ).to.have.length(returnedLength)
     ourWeakest = _.sortBy( LGH.filterForecastedSections(sections), (s) -> s.clue.value)
     expect(ourWeakest[0..(returnedLength - 1)]).to.deep.equal(weakest)
@@ -35,7 +35,7 @@ describe 'Learning Guide Store', ->
 
   it 'finds sections with a valid forecast', ->
     sections = makeSections(8, 33)
-    valid = LGH.filterForecastedSections(sections)
+    valid = LGH.filterForecastedSections(sections, 3)
     expect( valid.length ).to.equal(8)
     expect( _.findWhere(valid, sample_size_interpretation: "below") ).to.be.undefined
 
@@ -44,13 +44,13 @@ describe 'Learning Guide Store', ->
     weakest = LGH.weakestSections(sections)
     expect(weakest.length).to.equal(4)
 
-  it 'does not return weakest when there is less than two valid candidates', ->
+  it 'does not return any weakest when there is none or only one valid candidate', ->
     expect(
-      LGH.weakestSections( makeSections(0, 33) )
+      LGH.weakestSections( makeSections(0, 33), 3 )
     ).to.be.empty
 
     expect(
-      LGH.weakestSections( makeSections(1, 33) )
+      LGH.weakestSections( makeSections(1, 33), 3 )
     ).to.be.empty
 
   it 'returns only the weakest section when there are two or three candidates', ->

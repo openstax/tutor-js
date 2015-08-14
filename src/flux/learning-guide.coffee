@@ -109,7 +109,8 @@ Helpers = {
 
   weakestSections: (sections, sampleSizeThreshold, displayCount = 4) ->
     validSections = @filterForecastedSections(sections, sampleSizeThreshold)
-
+    # weakestSections are only selected if there's at least two sections with forecasts
+    return [] unless validSections.length >= 2
     # Select at least one, but no more than displayCount(4)
     displayCount = Math.min(
       Math.max(1, Math.floor(validSections.length / 2))
