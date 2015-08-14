@@ -345,7 +345,7 @@ module.exports = React.createClass
     # if TaskPlanStore.hasTasking(@props.id, plan.id) or newAndUnchanged
     if TaskPlanStore.hasTasking(@props.id, plan.id)
       @renderEnabledTasking(plan)
-    else unless @state.isVisibleToStudents
+    else
       @renderDisabledTasking(plan)
 
   renderDisabledTasking: (plan) ->
