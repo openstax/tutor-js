@@ -195,6 +195,8 @@ module.exports = React.createClass
       </BS.Row>
 
     feedbackNote = '  Feedback will be released after the due date.' if plan.type is 'homework'
+    cannotEditNote = '  Open times cannot be editted after assignment is visible to students.' if @state.isVisibleToStudents
+
 
     assignmentNameLabel = [
       'Assignment name'
@@ -233,41 +235,35 @@ module.exports = React.createClass
             Open time is 12:01am.
             Set date to today to open immediately.
             Due time is 7:00am.
+            {cannotEditNote}
             {feedbackNote}
           </div>
         </BS.Col>
       </BS.Row>
 
-      <BS.Row className="tutor-date-input">
-        <BS.Col sm=4 md=3>
-          <input
-            id='hide-periods-radio'
-            name='toggle-periods-radio'
-            ref='allPeriodsRadio'
-            type='radio'
-            onChange={@setAllPeriods}
-            disabled={@state.isVisibleToStudents}
-            checked={not @state.showingPeriods}/>
-          <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
-        </BS.Col>
-        {@renderCommonDateInputs() unless @state.showingPeriods}
-      </BS.Row>
-      
-      <BS.Row>
-        <BS.Col md=12>
-          <input
-            id='show-periods-radio'
-            name='toggle-periods-radio'
-            type='radio'
-            onChange={@setIndividualPeriods}
-            disabled={@state.isVisibleToStudents}
-            checked={@state.showingPeriods}/>
-          <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
-        </BS.Col>
-      </BS.Row>
-      { _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods }
+      {@renderCommonChoice() unless @state.isVisibleToStudents and @state.showingPeriods}
+      {@renderPeriodsChoice() unless @state.isVisibleToStudents and not @state.showingPeriods}
       { invalidPeriodsAlert }
     </div>
+
+
+  renderCommonChoice: ->
+    radio = <input
+      id='hide-periods-radio'
+      name='toggle-periods-radio'
+      ref='allPeriodsRadio'
+      type='radio'
+      onChange={@setAllPeriods}
+      disabled={@state.isVisibleToStudents}
+      checked={not @state.showingPeriods}/> unless @state.isVisibleToStudents
+
+    <BS.Row className="tutor-date-input">
+      <BS.Col sm=4 md=3>
+        {radio}
+        <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
+      </BS.Col>
+      {@renderCommonDateInputs() unless @state.showingPeriods}
+    </BS.Row>
 
   renderCommonDateInputs: ->
     commonDueAt = TaskPlanStore.getDueAt(@props.id)
@@ -305,12 +301,34 @@ module.exports = React.createClass
       dueAt
     ]
 
+  renderPeriodsChoice: ->
+    radio = <input
+      id='show-periods-radio'
+      name='toggle-periods-radio'
+      type='radio'
+      onChange={@setIndividualPeriods}
+      disabled={@state.isVisibleToStudents}
+      checked={@state.showingPeriods}/> unless @state.isVisibleToStudents
+
+    choiceLabel = <BS.Row>
+      <BS.Col md=12>
+        {radio}
+        <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
+      </BS.Col>
+    </BS.Row>
+
+    periodsChoice = _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods
+    periodsChoice ?= []
+    periodsChoice.unshift(choiceLabel)
+    periodsChoice
+
+
   renderTaskPlanRow: (plan) ->
     # newAndUnchanged = TaskPlanStore.isNew(@props.id) and not store.isChanged(@props.id)
     # if TaskPlanStore.hasTasking(@props.id, plan.id) or newAndUnchanged
     if TaskPlanStore.hasTasking(@props.id, plan.id)
       @renderEnabledTasking(plan)
-    else
+    else unless @state.isVisibleToStudents
       @renderDisabledTasking(plan)
 
   renderDisabledTasking: (plan) ->
