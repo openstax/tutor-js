@@ -105,6 +105,18 @@ module.exports = React.createClass
       @setState({showingPeriods: not (commonDates and hasAllTaskings), savedTaskings: periods})
       TaskPlanActions.disableEmptyTaskings(planId)
 
+  getDefaultPlanDates: (periodId) ->
+    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, periodId)
+    if not taskingOpensAt or isNaN(taskingOpensAt.getTime())
+      taskingOpensAt = @getQueriedOpensAt()
+
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id, periodId)
+    if not taskingDueAt or isNaN(taskingDueAt.getTime())
+      taskingDueAt = @getQueriedDueAt()
+
+    {taskingOpensAt, taskingDueAt}
+
+
   # this will be called whenever the course store loads, but won't if
   # the store has already finished loading by the time the component mounts
   bindUpdate: ->
@@ -167,11 +179,18 @@ module.exports = React.createClass
     {id} = @props
 
     periodTasking = @getSavedTaskingFor(period.id)
+    {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period.id)
 
     if ev.target.checked
-      TaskPlanActions.enableTasking(@props.id, period.id,
-        periodTasking.opens_at, periodTasking.due_at
-      )
+      if periodTasking?
+        TaskPlanActions.enableTasking(@props.id, period.id,
+          periodTasking.opens_at, periodTasking.due_at
+        )
+      else
+        {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period.id)
+        TaskPlanActions.enableTasking(@props.id, period.id,
+          taskingOpensAt, taskingDueAt
+        )
     else
       TaskPlanActions.disableTasking(@props.id, period.id)
 
@@ -182,9 +201,6 @@ module.exports = React.createClass
 
   render: ->
     plan = TaskPlanStore.get(@props.id)
-    if (not @state.showingPeriods)
-      commonDueAt = TaskPlanStore.getDueAt(@props.id)
-      commonOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
 
     if (@state.showingPeriods and not plan.tasking_plans.length)
       invalidPeriodsAlert = <BS.Row>
@@ -266,8 +282,9 @@ module.exports = React.createClass
     </BS.Row>
 
   renderCommonDateInputs: ->
-    commonDueAt = TaskPlanStore.getDueAt(@props.id)
-    commonOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
+    {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates()
+    commonOpensAt = taskingOpensAt
+    commonDueAt = taskingDueAt
 
     opensAt = <BS.Col sm=4 md=3>
       <TutorDateInput
@@ -345,14 +362,9 @@ module.exports = React.createClass
     </BS.Row>
 
   renderEnabledTasking: (plan) ->
-    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, plan.id)
-    if not taskingOpensAt or isNaN(taskingOpensAt.getTime())
-      taskingOpensAt = TimeStore.getNow()
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id, plan.id)
-    if not taskingDueAt or isNaN(taskingDueAt.getTime())
-      taskingDueAt = moment(TimeStore.getNow()).startOf('day').add(1, 'day')
+    {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(plan.id)
 
-    <BS.Row key={plan.id} className="tasking-plan">
+    <BS.Row key={plan.id} className="tasking-plan tutor-date-input">
       <BS.Col sm=4 md=3>
         <input
           id={"period-toggle-#{plan.id}"}
