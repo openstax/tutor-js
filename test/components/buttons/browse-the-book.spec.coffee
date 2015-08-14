@@ -40,3 +40,18 @@ describe 'Browse the book button', ->
       expect(Testing.router.makeHref).to.have.been.calledWith(
         'viewReferenceBookPage', { bookId: COURSE.book_id, cnxId: @props.page, section: [1.2] }
       )
+
+  it 'reads the courseId from router', ->
+    @props.courseId = null
+    Testing.renderComponent( BTB, props: @props, routerParams: {courseId: COURSE_ID}).then ({dom}) ->
+      expect(dom).not.to.be.null
+
+  it 'does not render when the course is not found in the store', ->
+    CourseActions.reset()
+    Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
+      expect(dom).to.be.null
+
+  it 'does not render when the courseid is completly missing', ->
+    @props.courseId = null
+    Testing.renderComponent( BTB, props: @props, routerParams: {courseId: undefined}).then ({dom}) ->
+      expect(dom).to.be.null
