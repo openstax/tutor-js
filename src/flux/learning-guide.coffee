@@ -96,6 +96,10 @@ TeacherStudent = makeSimpleStore extendConfig {
 }, new CrudConfig
 
 Helpers = {
+  # Since the learning guide doesn't currently include worked dates
+  # the best we can do is return from the end of the list
+  recentSections: (sections, limit = 4) ->
+    _.last(sections, limit)
 
   canDisplayForecast: (clue, sampleSizeThreshold) ->
     clue.sample_size >= sampleSizeThreshold or clue.sample_size_interpretation isnt 'below'
