@@ -9,14 +9,14 @@ ReactTestUtils = React.addons.TestUtils
 {commonActions} = require './utilities'
 sandbox = null
 ROUTER = null
-
+CURRENT_ROUTER_PARAMS = null
 # Mock a router for the context
 beforeEach ->
   sandbox = sinon.sandbox.create()
   ROUTER  = sandbox.spy()
   ROUTER.makeHref = sandbox.spy()
   ROUTER.transitionTo = sandbox.spy()
-
+  ROUTER.getCurrentParams = sandbox.spy( -> CURRENT_ROUTER_PARAMS )
 afterEach ->
   sandbox.restore()
 
@@ -35,6 +35,7 @@ Testing = {
 
   renderComponent: (component, options = {}) ->
     options.props ||= {}
+    CURRENT_ROUTER_PARAMS = options.routerParams or {}
     root = document.createElement('div')
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
@@ -50,6 +51,7 @@ Testing = {
     # defer adding the then callback so it'll be called after whatever is attached after the return
     _.defer -> promise.then ->
       React.unmountComponentAtNode(root)
+      CURRENT_ROUTER_PARAMS = {}
       return arguments
     promise
 
