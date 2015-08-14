@@ -70,13 +70,13 @@ TaskPlanConfig =
       plan.target_id is target_id
     @_change(id, {tasking_plans})
 
-  disableEmptyTaskings: (id) ->
+  _removeEmptyTaskings: (id) ->
     plan = @_getPlan(id)
     {tasking_plans} = plan
     tasking_plans = _.reject tasking_plans, (tasking) ->
       not (tasking.due_at and tasking.opens_at)
 
-    @_change(id, {tasking_plans})
+    @_local[id].tasking_plans = tasking_plans
 
   setPeriods: (id, periods) ->
     plan = @_getPlan(id)
@@ -92,7 +92,10 @@ TaskPlanConfig =
         tasking
       )
 
-    @_change(id, {tasking_plans})
+    @_local[id].tasking_plans = tasking_plans
+    
+    if not @exports.isNew(id)
+      @_removeEmptyTaskings(id)
 
   replaceTaskings: (id, taskings) ->
     @_change(id, {tasking_plans: taskings})

@@ -32,9 +32,17 @@ PlanFooter = React.createClass
 
   onCancel: ->
     {id, courseId} = @props
-    if confirm('Are you sure you want to cancel?')
-      TaskPlanActions.reset(id)
-      @context.router.transitionTo('taskplans', {courseId})
+
+    if TaskPlanStore.isChanged(id) and confirm('Are you sure you want to cancel?')
+      @reset()
+    else if not TaskPlanStore.isChanged(id)
+      @reset()
+
+
+  reset: ->
+    {id, courseId} = @props
+    TaskPlanActions.reset(id)
+    @context.router.transitionTo('taskplans', {courseId})
 
   onViewStats: ->
     {id, courseId} = @props
