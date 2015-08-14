@@ -173,6 +173,7 @@ CourseDuration = React.createClass
     plan.isPublished = (plan.published_at? and plan.published_at)
     plan.isPublishing = @isPlanPublishing(plan)
     plan.isTrouble = plan.is_trouble
+    plan.isEditable = not plan.duration.start.isBefore(referenceDate, 'day')
 
   # TODO see how to pull out plan specific logic to show that this
   # can be reused for units, for example

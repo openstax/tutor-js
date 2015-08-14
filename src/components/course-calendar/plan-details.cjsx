@@ -37,6 +37,9 @@ CoursePlanDetails = React.createClass
     editLinkName = camelCase("edit-#{type}")
 
     reviewButton = @renderReviewButton()
+    editButton = <Router.Link to={editLinkName} params={linkParams}>
+      <BS.Button>Edit Assignment</BS.Button>
+    </Router.Link> if plan.isEditable
 
     <BS.Modal
       {...@props}
@@ -47,9 +50,7 @@ CoursePlanDetails = React.createClass
       </div>
       <div className='modal-footer'>
         {reviewButton}
-        <Router.Link to={editLinkName} params={linkParams}>
-          <BS.Button>Edit Assignment</BS.Button>
-        </Router.Link>
+        {editButton}
       </div>
     </BS.Modal>
 
