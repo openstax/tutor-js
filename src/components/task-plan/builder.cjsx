@@ -281,7 +281,7 @@ module.exports = React.createClass
       disabled={@state.isVisibleToStudents}
       checked={not @state.showingPeriods}/> unless @state.isVisibleToStudents
 
-    <BS.Row className="tutor-date-input">
+    <BS.Row className="common tutor-date-input">
       <BS.Col sm=4 md=3>
         {radio}
         <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
