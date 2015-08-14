@@ -48,7 +48,7 @@ ROUTES =
   book:
     label: 'Browse the Book'
     params: (courseId) ->
-      bookId: CourseStore.get(courseId).book_id
+      bookId: CourseStore.get(courseId)?.book_id
     roles:
       default: 'viewReferenceBook'
 
