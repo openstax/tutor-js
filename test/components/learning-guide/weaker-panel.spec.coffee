@@ -14,7 +14,7 @@ describe 'Weaker Section Panel', ->
       weakerTitle: 'Weaker'
       weakerExplanation: 'Stuff you suck at'
       weakerEmptyMessage: 'Not enough data'
-      sectionCount: 2
+      sampleSizeThreshold: 3
     }
 
   it 'displays the title', ->

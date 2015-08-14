@@ -11,11 +11,8 @@ describe 'Weaker Sections listing', ->
     @props = {
       courseId: '1'
       sections: LearningGuide.Student.store.getAllSections('1')
-      weakerTitle: 'Weaker'
-      weakerExplanation: 'Stuff you suck at'
       weakerEmptyMessage: 'Not enough data'
-      sectionCount: 2
-      onPractice: sinon.spy()
+      sampleSizeThreshold: 3
     }
 
   it 'renders forecast bars', ->
@@ -26,12 +23,22 @@ describe 'Weaker Sections listing', ->
       expect(dom.querySelector('.section:last-child .title').textContent).to
         .equal("Force")
 
-  it 'renders empty message when no sections are weak', ->
-    section = _.first(@props.sections)
-    @props.sections = [section]
-    section.sample_size = 1
-    section.sample_size_interpretation = 'below'
+  it 'renders empty message when less than 2 sections are valid', ->
+    # set everything to be invalid
+    for s in @props.sections
+      s.clue.sample_size = 1
+      s.clue.sample_size_interpretation = 'below'
 
     Testing.renderComponent( Sections, props: @props ).then ({dom}) =>
       expect(dom.querySelector('.lacking-data')).not.to.be.null
       expect(dom.querySelector('.lacking-data').textContent).to.equal(@props.weakerEmptyMessage)
+
+    # flip one back to valid and the no-data message should still render
+    @props.sections[0].clue.sample_size_interpretation = 'above'
+    Testing.renderComponent( Sections, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.lacking-data')).not.to.be.null
+
+    # It should not render when another is marked as valid
+    @props.sections[1].clue.sample_size_interpretation = 'above'
+    Testing.renderComponent( Sections, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.lacking-data')).to.be.null

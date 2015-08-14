@@ -81,15 +81,6 @@ ProgressGuidePanels = React.createClass
     </div>
 
   render: ->
-<<<<<<< HEAD
-    return @renderEmpty() unless LearningGuide.Helpers.canPractice({
-      @props, sections:LearningGuide.Student.store.getAllSections(@props.courseId)
-    })
-
-    sections = LearningGuide.Helpers.weakestSections(
-      LearningGuide.Student.store.getAllSections(@props.courseId), @props.sampleSizeThreshold
-    )
-=======
     sections = LearningGuide.Student.store.getAllSections(@props.courseId)
     recent = LearningGuide.Helpers.recentSections(sections)
     return @renderEmpty(sections) if _.isEmpty(recent)
@@ -97,21 +88,13 @@ ProgressGuidePanels = React.createClass
     if LearningGuide.Helpers.canPractice({sections})
       practiceButton = <PracticeButton title='Practice my weakest topics'
             courseId={@props.courseId} sections={sections} />
->>>>>>> Show recent sections, regardless of strength
 
     <div className='progress-guide'>
       <div className='actions-box'>
 
-<<<<<<< HEAD
-        <ProgressGuide {...@props} />
-
-        <PracticeButton title='Practice my weakest topics'
-          {...@props} sections={sections} />
-=======
         <ProgressGuide sections={recent} courseId={@props.courseId} />
 
         {practiceButton}
->>>>>>> Show recent sections, regardless of strength
 
         <BS.Button
           onClick={@viewGuide}

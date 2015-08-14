@@ -115,8 +115,6 @@ Helpers = {
       Math.max(1, Math.floor(validSections.length / 2))
       , displayCount)
 
-
-    # Sort by value and pick 'displayCount' of the weakest
     _.chain(validSections)
       .sortBy((s) -> s.clue.value )
       .first(displayCount)
@@ -127,6 +125,8 @@ Helpers = {
     minimumSectionCount ||= 1
     @weakestSections(sections, displayCount).length >= minimumSectionCount
 
+  canDisplayWeakest: ({sections, sampleSizeThreshold}) ->
+    @filterForecastedSections(sections).length > 1
 
   pagesForSections: (sections) ->
     _.chain(sections).pluck('page_ids').flatten().uniq().value()

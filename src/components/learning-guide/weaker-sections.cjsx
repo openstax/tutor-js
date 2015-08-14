@@ -12,7 +12,6 @@ WeakerSections = React.createClass
   propTypes:
     courseId:     React.PropTypes.string.isRequired
     sections:     React.PropTypes.array.isRequired
-    sectionCount: React.PropTypes.number
     weakerEmptyMessage:  React.PropTypes.string.isRequired
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
