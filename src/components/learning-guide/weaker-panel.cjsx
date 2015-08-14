@@ -22,16 +22,6 @@ WeakerPanel = React.createClass
   renderLackingData: ->
     <div className='lacking-data'>{@props.weakerEmptyMessage}</div>
 
-  renderSections: (validSections, displayCount) ->
-    # Sort by value and pick 'displayCount' of the weakest
-    weakestSections = _.chain(validSections)
-      .sortBy((s) -> s.clue.value )
-      .first(displayCount)
-      .value()
-
-    for section, i in weakestSections
-      <Section key={i} section={section} {...@props} />
-
   render: ->
     # Do not render if we have no sections
     return null if @props.sections.length is 0
