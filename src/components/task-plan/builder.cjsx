@@ -26,8 +26,15 @@ module.exports = React.createClass
   getInitialState: ->
     isNewPlan = TaskPlanStore.isNew(@props.id)
 
+    # Whether date/periods inputs are disabled should only depend on the whether
+    # the **saved** version of the plan is visible to students.  During edit, the ability to
+    # update a plan should not suddenly be disabled if the teacher picks today to be
+    # an open date.
+    isSavedPlanVisibleToStudent = TaskPlanStore.isVisibleToStudents(@props.id)
+
     showingPeriods: not isNewPlan
     currentLocale: TimeHelper.getCurrentLocales()
+    isVisibleToStudents: isSavedPlanVisibleToStudent
 
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
@@ -95,7 +102,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(planId, periods)
 
     if not isNewPlan
-      @setState({showingPeriods: not (commonDates and hasAllTaskings)})
+      @setState({showingPeriods: not (commonDates and hasAllTaskings), savedTaskings: periods})
       TaskPlanActions.disableEmptyTaskings(planId)
 
   # this will be called whenever the course store loads, but won't if
@@ -143,6 +150,9 @@ module.exports = React.createClass
       savedTaskings: null
     )
 
+  getSavedTaskingFor: (periodId) ->
+    _.findWhere(@state.savedTaskings, {id: periodId.toString()})
+
   togglePeriodsDisplay: (ev) ->
     if (@state.showingPeriods is not @refs.allPeriodsRadio.props.checked)
       return
@@ -154,9 +164,13 @@ module.exports = React.createClass
 
 
   togglePeriodEnabled: (period, ev) ->
+    {id} = @props
+
+    periodTasking = @getSavedTaskingFor(period.id)
+
     if ev.target.checked
       TaskPlanActions.enableTasking(@props.id, period.id,
-        @refs.openDate.getValue(), @refs.dueDate.getValue()
+        periodTasking.opens_at, periodTasking.due_at
       )
     else
       TaskPlanActions.disableTasking(@props.id, period.id)
@@ -232,7 +246,7 @@ module.exports = React.createClass
             ref='allPeriodsRadio'
             type='radio'
             onChange={@setAllPeriods}
-            disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
+            disabled={@state.isVisibleToStudents}
             checked={not @state.showingPeriods}/>
           <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
         </BS.Col>
@@ -246,7 +260,7 @@ module.exports = React.createClass
             name='toggle-periods-radio'
             type='radio'
             onChange={@setIndividualPeriods}
-            disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
+            disabled={@state.isVisibleToStudents}
             checked={@state.showingPeriods}/>
           <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
         </BS.Col>
@@ -266,7 +280,7 @@ module.exports = React.createClass
         required={not @state.showingPeriods}
         label="Open Date"
         onChange={@setOpensAt}
-        disabled={@state.showingPeriods or TaskPlanStore.isVisibleToStudents(@props.id)}
+        disabled={@state.showingPeriods or @state.isVisibleToStudents}
         min={TimeStore.getNow()}
         max={TaskPlanStore.getDueAt(@props.id)}
         value={commonOpensAt}
@@ -305,7 +319,7 @@ module.exports = React.createClass
         <input
           id={"period-toggle-#{plan.id}"}
           type='checkbox'
-          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
+          disabled={@state.isVisibleToStudents}
           onChange={_.partial(@togglePeriodEnabled, plan)}
           checked={false}/>
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
@@ -324,14 +338,14 @@ module.exports = React.createClass
       <BS.Col sm=4 md=3>
         <input
           id={"period-toggle-#{plan.id}"}
-          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
+          disabled={@state.isVisibleToStudents}
           type='checkbox'
           onChange={_.partial(@togglePeriodEnabled, plan)}
           checked={true}/>
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          disabled={TaskPlanStore.isVisibleToStudents(@props.id)}
+          disabled={@state.isVisibleToStudents}
           label="Open Date"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
