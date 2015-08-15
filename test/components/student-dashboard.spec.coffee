@@ -10,7 +10,7 @@ ReactTestUtils = React.addons.TestUtils
 {StudentDashboardShell} = require '../../src/components/student-dashboard'
 {StudentDashboardStore, StudentDashboardActions} = require '../../src/flux/student-dashboard'
 COURSE = require '../../api/user/courses/1.json'
-{CourseActions} = require '../../src/flux/course'
+{CourseActions, CourseStore} = require '../../src/flux/course'
 
 COURSE_ID = '1'
 DATA = require '../../api/courses/1/dashboard.json'
@@ -66,6 +66,9 @@ describe 'Student Dashboard Component', ->
 
   it 'renders events to week panel', ->
     TimeActions.setNow(new Date('2015-04-24T11:15:58.856Z'))
+    # this seems to be null sometimes, which causes the spec to blow up. Catch error early
+    expect( CourseStore.get(COURSE_ID).book_id ).to.exist
+
     renderDashBoard().then (state) ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title')
       expect(_.pluck(tasks, 'textContent'))
