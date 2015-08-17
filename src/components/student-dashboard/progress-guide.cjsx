@@ -85,16 +85,17 @@ ProgressGuidePanels = React.createClass
     recent = LearningGuide.Helpers.recentSections(sections)
     return @renderEmpty(sections) if _.isEmpty(recent)
 
-    if LearningGuide.Helpers.canPractice({sections})
-      practiceButton = <PracticeButton title='Practice my weakest topics'
-            courseId={@props.courseId} sections={sections} />
+    practiceSections = LearningGuide.Helpers.weakestSections(sections)
+    if _.isEmpty(practiceSections)
+      practiceSections = recent
 
     <div className='progress-guide'>
       <div className='actions-box'>
 
         <ProgressGuide sections={recent} courseId={@props.courseId} />
 
-        {practiceButton}
+        <PracticeButton ref='practiceBtn' title='Practice my weakest topics'
+            courseId={@props.courseId} sections={practiceSections} />
 
         <BS.Button
           onClick={@viewGuide}

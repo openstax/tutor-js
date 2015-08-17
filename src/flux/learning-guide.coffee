@@ -121,7 +121,7 @@ Helpers = {
       .first(displayCount)
       .value()
 
-  canPractice: ({sections, sampleSizeThreshold, displayCount, minimumSectionCount}) ->
+  canPracticeWeakest: ({sections, sampleSizeThreshold, displayCount, minimumSectionCount}) ->
     displayCount ||= 4
     minimumSectionCount ||= 1
     @weakestSections(sections, displayCount).length >= minimumSectionCount
