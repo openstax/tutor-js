@@ -26,7 +26,7 @@ WeakerPanel = React.createClass
       <div className='chapter metric'>
         <span className='title'>{@props.weakerTitle}</span>
         {@props.weakerExplanation}
-        {if LearningGuide.Helpers.canDisplayWeakest(@props) # hide practice button when the panel is empty
+        {if @props.onPractice and LearningGuide.Helpers.canDisplayWeakest(@props)
           <PracticeButton title='Practice All'
             sections=LearningGuide.Helpers.weakestSections(@props.sections)
             courseId={@props.courseId} /> }
