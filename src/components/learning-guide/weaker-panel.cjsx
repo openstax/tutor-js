@@ -16,34 +16,22 @@ WeakerPanel = React.createClass
     weakerEmptyMessage:  React.PropTypes.string.isRequired
     onPractice:          React.PropTypes.func
     sectionCount:        React.PropTypes.number
-    minimumSectionCount: React.PropTypes.number
     sampleSizeThreshold: React.PropTypes.number.isRequired
-
-  renderLackingData: ->
-    <div className='lacking-data'>{@props.weakerEmptyMessage}</div>
-
-  renderSections: (validSections, displayCount) ->
-    # Sort by value and pick 'displayCount' of the weakest
-    weakestSections = _.chain(validSections)
-      .sortBy((s) -> s.clue.value )
-      .first(displayCount)
-      .value()
-
-    for section, i in weakestSections
-      <Section key={i} section={section} {...@props} />
 
   render: ->
     # Do not render if we have no sections
     return null if @props.sections.length is 0
+    # Only show the practice button if practice is allowed and weakest sections exit
+    if @props.onPractice and LearningGuide.Helpers.canDisplayWeakest(@props) then practiceBtn =
+      <PracticeButton title='Practice All'
+        sections=LearningGuide.Helpers.weakestSections(@props.sections)
+        courseId={@props.courseId} />
 
     <div className="chapter-panel weaker">
       <div className='chapter metric'>
         <span className='title'>{@props.weakerTitle}</span>
         {@props.weakerExplanation}
-        {if @props.onPractice and LearningGuide.Helpers.canPractice(@props)
-          <PracticeButton title='Practice All'
-            sections=LearningGuide.Helpers.weakestSections(@props.sections)
-            courseId={@props.courseId} /> }
+        {practiceBtn}
       </div>
       <WeakerSections {...@props} />
 

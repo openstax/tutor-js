@@ -10,7 +10,7 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
 PracticeButton = require '../learning-guide/practice-button'
-WeakerSections = require '../learning-guide/weaker-sections'
+Section = require '../learning-guide/section'
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -31,17 +31,18 @@ ProgressGuide = React.createClass
   render: ->
     courseId = @props.courseId
     guide = LearningGuide.Student.store.get(courseId)
+    sections = LearningGuide.Helpers.recentSections(
+      LearningGuide.Student.store.getAllSections(courseId)
+    )
 
     <div className='progress-guide'>
       <h1 className='panel-title'>Performance Forecast</h1>
       <h2 className='recent'>Recent topics</h2>
       <div className='guide-group'>
         <div className='chapter-panel'>
-        <WeakerSections {...@props}
-          onPractice={@onPractice}
-          sections={LearningGuide.Student.store.getAllSections(courseId)}
-          weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
-        />
+          {for section, i in sections
+            <Section key={i} section={section} onPractice={@onPractice}
+              {...@props} sampleSizeThreshold={3} />}
         </div>
       </div>
       <LearningGuideColorKey />
@@ -56,10 +57,11 @@ ProgressGuidePanels = React.createClass
     courseId: React.PropTypes.string.isRequired
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
+  mixins: [ChapterSectionMixin]
   viewGuide: ->
     @context.router.transitionTo('viewGuide', {courseId: @props.courseId})
 
-  renderEmpty: ->
+  renderEmpty: (sections) ->
     <div className='progress-guide empty'>
       <div className='actions-box'>
         <h1 className='panel-title'>Performance Forecast</h1>
@@ -70,25 +72,30 @@ ProgressGuidePanels = React.createClass
           </p><p>
             This area will fill in with topics as you complete your assignments
           </p>
+          <ul className='visible-when-debugging'>
+            <li>{sections.length} sections were returned by the performance forecast</li>
+          { for section in sections
+            <li>{@sectionFormat(section.chapter_section)} section.title</li> }
+          </ul>
       </div>
     </div>
 
   render: ->
-    return @renderEmpty() unless LearningGuide.Helpers.canPractice({
-      @props, sections:LearningGuide.Student.store.getAllSections(@props.courseId)
-    })
+    sections = LearningGuide.Student.store.getAllSections(@props.courseId)
+    recent = LearningGuide.Helpers.recentSections(sections)
+    return @renderEmpty(sections) if _.isEmpty(recent)
 
-    sections = LearningGuide.Helpers.weakestSections(
-      LearningGuide.Student.store.getAllSections(@props.courseId), @props.sampleSizeThreshold
-    )
+    practiceSections = LearningGuide.Helpers.weakestSections(sections)
+    if _.isEmpty(practiceSections)
+      practiceSections = recent
 
     <div className='progress-guide'>
       <div className='actions-box'>
 
-        <ProgressGuide {...@props} />
+        <ProgressGuide sections={recent} courseId={@props.courseId} />
 
-        <PracticeButton title='Practice my weakest topics'
-          {...@props} sections={sections} />
+        <PracticeButton ref='practiceBtn' title='Practice my weakest topics'
+            courseId={@props.courseId} sections={practiceSections} />
 
         <BS.Button
           onClick={@viewGuide}

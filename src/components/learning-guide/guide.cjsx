@@ -26,35 +26,18 @@ module.exports = React.createClass
     weakerExplanation: React.PropTypes.element
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
+  renderBody: ->
+    <div className='guide-group'>
+      <WeakerPanel sections={@props.allSections} {...@props} />
+      <BS.Row>
+        <h3>Individual Chapters</h3>
+      </BS.Row>
+      {for chapter, i in (@props.chapters or [])
+        <Chapter key={i} chapter={chapter} {...@props} />}
+    </div>
+
   render: ->
-    {courseId} = @props
-
-    noData = @props.allSections.length is 0
-
     <div className='guide-container'>
-
       {@props.heading}
-
-      {@props.emptyMessage if noData}
-
-      <div className='guide-group'>
-
-
-        <WeakerPanel sections={@props.allSections} {...@props} />
-
-        <BS.Row>
-          <h3>Individual Chapters</h3>
-        </BS.Row>
-
-        {for chapter, i in (@props.chapters or [])
-          <Chapter key={i} chapter={chapter} {...@props} />}
-
-      </div>
-
-
-      <div className='guide-footer'>
-
-
-      </div>
-
+      {if _.isEmpty(@props.allSections) then @props.emptyMessage else @renderBody()}
     </div>
