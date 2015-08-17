@@ -21,7 +21,14 @@ describe 'Weaker Section Panel', ->
     Testing.renderComponent( Weaker, props: @props ).then ({dom}) =>
       expect(dom.querySelector('.title').textContent).to.equal(@props.weakerTitle)
 
-  it 'can practice sections', ->
+
+  it 'hides practice button if onPractice property is not given', ->
+    Testing.renderComponent( Weaker, props: @props ).then ({dom}) ->
+      practice = dom.querySelector('.practice.btn')
+      expect(practice).to.be.null
+
+  it 'can practice sections if onPractice property is given', ->
+    @props.onPractice = sinon.spy()
     Testing.renderComponent( Weaker, props: @props ).then ({dom}) ->
       practice = dom.querySelector('.practice.btn')
       expect(practice).to.not.be.null
