@@ -32,7 +32,7 @@ module.exports =
       bsStyle = 'primary'
       title ?= "Step Completed (#{crumbType}). Click to review"
 
-      if canReview
+      if canReview and step.correct_answer_id?
         if step.is_correct
           status = <i className='icon-lg icon-correct'></i>
           classes.push('status-correct')
