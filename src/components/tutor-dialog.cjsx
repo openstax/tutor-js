@@ -36,10 +36,10 @@ DetachedTutorDialog = React.createClass
   render: ->
     return null unless @state.show
     buttons = @props.buttons or [
-        <BS.Button key='cancel' className='cancel'
-          onClick={_.compose(@props.onCancel,  @_hide)}>Cancel</BS.Button>
         <BS.Button key='ok'     className='ok'
           onClick={_.compose(@props.onOk, @_hide)} bsStyle='primary'>OK</BS.Button>
+        <BS.Button key='cancel' className='cancel'
+          onClick={_.compose(@props.onCancel,  @_hide)}>Cancel</BS.Button>
     ]
     classes = ['tutor-dialog']
     classes.push @props.className if @props.className
@@ -48,7 +48,7 @@ DetachedTutorDialog = React.createClass
       <div className='modal-body'>
         {@props.body}
       </div>
-      <div className='modal-footer'>
+      <div className='modal-footer pull-left'>
         {buttons}
       </div>
     </BS.Modal>
