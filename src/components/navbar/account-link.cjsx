@@ -11,10 +11,7 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   redirectToAccount: ->
-    # workaround for 'No way to come back to dashboard after click on Account'
-    window.open(CurrentUserStore.getProfileUrl())
-    #TransitionAssistant.checkTransitionStateTo("Account Profile Page").then ->
-      #window.location.href = CurrentUserStore.getProfileUrl()
+    window.open(CurrentUserStore.getProfileUrl(), 'account-profile')
 
   render: ->
     return null unless CurrentUserStore.getProfileUrl()
