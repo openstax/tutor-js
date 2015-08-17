@@ -21,15 +21,17 @@ WeakerPanel = React.createClass
   render: ->
     # Do not render if we have no sections
     return null if @props.sections.length is 0
+    # Only show the practice button if practice is allowed and weakest sections exit
+    if @props.onPractice and LearningGuide.Helpers.canDisplayWeakest(@props) then practiceBtn =
+      <PracticeButton title='Practice All'
+        sections=LearningGuide.Helpers.weakestSections(@props.sections)
+        courseId={@props.courseId} />
 
     <div className="chapter-panel weaker">
       <div className='chapter metric'>
         <span className='title'>{@props.weakerTitle}</span>
         {@props.weakerExplanation}
-        {if @props.onPractice and LearningGuide.Helpers.canDisplayWeakest(@props)
-          <PracticeButton title='Practice All'
-            sections=LearningGuide.Helpers.weakestSections(@props.sections)
-            courseId={@props.courseId} /> }
+        {practiceBtn}
       </div>
       <WeakerSections {...@props} />
 
