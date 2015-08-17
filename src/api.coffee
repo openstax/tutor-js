@@ -235,8 +235,8 @@ start = (bootstrapData) ->
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/user/courses'
 
-  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/readings"
+  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (bookId) ->
+    url: "/api/courses/#{bookId}/readings"
 
 
   apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->

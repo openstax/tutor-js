@@ -66,7 +66,7 @@ module.exports = React.createClass
       # Requires classname as a dependency.  I'm guessing that's not in alpha.
       <BS.MenuItem
         key="dropdown-item-#{index}"
-        onSelect={@transitionToMenuItem.bind(@, route.name, {courseId})}
+        onSelect={@transitionToMenuItem.bind(@, route.name, route.params)}
         className={className}
         eventKey={index + 2}>{route.label}</BS.MenuItem>
 

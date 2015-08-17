@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+{CourseStore} = require '../../flux/course'
 
 module.exports = React.createClass
   displayName: 'BrowseTheBook'
@@ -19,11 +20,15 @@ module.exports = React.createClass
     bsStyle:   React.PropTypes.string
 
   render: ->
-    courseId = @props.courseId or @context.router.getCurrentParams().courseId
+    course = CourseStore.get(
+      @props.courseId or @context.router.getCurrentParams().courseId
+    )
+    return null unless course # if we don't have a course we can't browse it's book
+
     # the router is smart enough to figure out which props are present and return the best route
     linkType = if @props.page then 'viewReferenceBookPage' else
       if @props.section then 'viewReferenceBookSection' else 'viewReferenceBook'
-    link = @context.router.makeHref( linkType, courseId: courseId, cnxId: @props.page, section:@props.section )
+    link = @context.router.makeHref( linkType, bookId: course.book_id, cnxId: @props.page, section:@props.section )
     linkProps = {target:'_blank', className:'view-reference-guide', href: link}
     text = @props.children or 'Browse the Book'
     if @props.unstyled

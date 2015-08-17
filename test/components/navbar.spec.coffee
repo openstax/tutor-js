@@ -29,14 +29,17 @@ TEACHER_DASHROUTE = 'taskplans'
 STUDENT_MENU = [
   {
     name: STUDENT_DASHROUTE
+    params: {courseId: '1'}
     label: 'Dashboard'
   }
   {
     name: 'viewGuide'
+    params: {courseId: '1'}
     label: 'Performance Forecast'
   }
   {
     name: 'viewReferenceBook'
+    params: {bookId: '123'}
     label: 'Browse the Book'
   }
 ]
@@ -153,5 +156,6 @@ testWithRole = (roleType) ->
       done()
 
 describe 'Student Navbar Component', testWithRole('student')
+
 
 describe 'Teacher Navbar Component', testWithRole('teacher')
