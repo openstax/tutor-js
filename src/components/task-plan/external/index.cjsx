@@ -69,6 +69,7 @@ ExternalPlan = React.createClass
                 onChange={@setUrl} />
             </BS.Col>
           </BS.Row>
+          
         </BS.Grid>
       </BS.Panel>
     </div>

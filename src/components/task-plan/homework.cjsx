@@ -165,11 +165,14 @@ HomeworkPlan = React.createClass
 
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
+          <BS.Row>
+          <BS.Col xs=12 md=12>
+            {addProblemsButton}
+            {problemsRequired}
+          </BS.Col>
+          </BS.Row>
         </BS.Grid>
-        <BS.Row>
-          {addProblemsButton}
-          {problemsRequired}
-        </BS.Row>
+        
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}

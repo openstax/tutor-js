@@ -12,7 +12,7 @@ TutorDateFormat = "MM/DD/YYYY"
 
 TutorInput = React.createClass
   propTypes:
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.node.isRequired
     id: React.PropTypes.string
     className: React.PropTypes.string
     type: React.PropTypes.string
@@ -197,15 +197,11 @@ TutorTextArea = React.createClass
     id: React.PropTypes.string
     className: React.PropTypes.string
     onChange: React.PropTypes.func
-    heightBuffer: React.PropTypes.number
-
-  getDefaultProps: ->
-    heightBuffer: 28
 
   resize: (event) ->
     textarea = @refs.textarea.getDOMNode()
     textarea.style.height = ''
-    textarea.style.height = "#{textarea.scrollHeight + @props.heightBuffer}px"
+    textarea.style.height = "#{textarea.scrollHeight}px"
 
   componentDidMount: ->
     @resize() if @props.default?.length > 0

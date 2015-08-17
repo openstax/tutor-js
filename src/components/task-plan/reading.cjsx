@@ -73,7 +73,7 @@ ReviewReadings = React.createClass
   renderSelected: ->
     if @props.selected.length
       <ul className='selected-reading-list'>
-        <li>Currently selected sections in this reading</li>
+        <li>Currently Selected</li>
         {_.map(@props.selected, @renderSection)}
       </ul>
     else
@@ -173,6 +173,7 @@ ReadingPlan = React.createClass
               {readingsRequired}
             </BS.Col>
           </BS.Row>
+
         </BS.Grid>
       </BS.Panel>
       {selectReadings}
