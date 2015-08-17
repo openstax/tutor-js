@@ -48,7 +48,7 @@ DetachedTutorDialog = React.createClass
       <div className='modal-body'>
         {@props.body}
       </div>
-      <div className='modal-footer pull-left'>
+      <div className='modal-footer'>
         {buttons}
       </div>
     </BS.Modal>
