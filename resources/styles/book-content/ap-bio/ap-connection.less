@@ -20,10 +20,14 @@
   border-top: solid 8px @tutor-neutral-lighter;
   border-bottom: solid 8px @tutor-neutral-lighter;
   padding: 20px 40px;
+
   p {
     #fonts > .sans(1.8rem, 1.75em);
     color: @tutor-neutral-dark;
-    span {
+   [data-type="term" ]{
+      font-weight: bold;
+    }
+    span:not(data-type="term") {
         display: block;
       }
     }
