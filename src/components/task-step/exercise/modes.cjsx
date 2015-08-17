@@ -169,7 +169,8 @@ ExerciseReview = React.createClass
   canTryAnother: ->
     {id} = @props
     step = TaskStepStore.get(id)
-    step.has_recovery and step.correct_answer_id isnt step.answer_id
+    isPastDue = TaskStore.isTaskPastDue(step.task_id)
+    not isPastDue and (step.has_recovery and step.correct_answer_id isnt step.answer_id)
 
   canRefreshMemory: ->
     {id} = @props
