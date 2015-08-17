@@ -40,6 +40,12 @@ TutorInput = React.createClass
   focus: ->
     React.findDOMNode(@refs.input)?.focus()
 
+  # The label has style "pointer-events: none" set.  Unfortunantly IE 10
+  # doesn't support that and refuses to pass the click through the label into the input
+  # We help it out here by manually focusing when then label is clicked
+  # (which should only happen on IE 10)
+  forwardLabelClick: -> @focus()
+
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
@@ -75,7 +81,7 @@ TutorInput = React.createClass
         defaultValue={@props.default}
         onChange={@onChange}
       />
-      <div className='floating-label'>{@props.label}</div>
+      <div className='floating-label' onClick={@forwardLabelClick}>{@props.label}</div>
       {errors}
     </div>
 
@@ -213,6 +219,12 @@ TutorTextArea = React.createClass
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
 
+  focus: ->
+    React.findDOMNode(@refs.textarea)?.focus()
+
+  # Forward clicks on for IE10.  see comments on TutorInput
+  forwardLabelClick: -> @focus()
+
   render: ->
     classes = ['form-control']
     wrapperClasses = ["form-control-wrapper", "tutor-input"]
@@ -231,7 +243,7 @@ TutorTextArea = React.createClass
         className={classes.join(' ')}
         defaultValue={@props.default}
         onChange={@onChange} />
-      <div className="floating-label">{@props.label}</div>
+      <div className="floating-label" onClick={@forwardLabelClick}>{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
       </div>
