@@ -19,4 +19,4 @@ describe 'Account Link', ->
     CurrentUserActions.loaded(USER)
     Testing.renderComponent( Link ).then ({dom}) ->
       Testing.actions.click(dom.querySelector('a'))
-      expect(TransitionAssistant.checkTransitionStateTo).to.have.been.called
+      #expect(TransitionAssistant.checkTransitionStateTo).to.have.been.called
