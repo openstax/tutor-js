@@ -56,8 +56,8 @@ TeacherStudent = makeSimpleStore extendConfig {
   loaded: (obj, id, {roleId}) ->
     @_asyncStatus[id] ||= {}
     @_asyncStatus[id][roleId] = 'LOADED'
-    this._local[id]   ||= {}
-    this._local[id][roleId] = obj
+    @_local[id]   ||= {}
+    @_local[id][roleId] = obj
     @emitChange()
 
   load: (id, {roleId}) ->
