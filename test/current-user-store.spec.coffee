@@ -3,7 +3,6 @@ _ = require 'underscore'
 
 {CourseListingActions, CourseListingStore} = require '../src/flux/course-listing'
 {CurrentUserActions, CurrentUserStore} = require '../src/flux/current-user'
-{CourseActions, CourseStore} = require '../src/flux/course'
 
 USER_MODEL = require '../api/user.json'
 {
