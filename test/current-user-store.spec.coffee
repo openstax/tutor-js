@@ -24,11 +24,6 @@ STUDENT_MENU = [
     params: {courseId: '1'}
     label: 'Performance Forecast'
   }
-  {
-    name: 'viewReferenceBook'
-    params: {bookId: '123'}
-    label: 'Browse the Book'
-  }
 ]
 
 TEACHER_MENU = [
@@ -46,11 +41,6 @@ TEACHER_MENU = [
     name: 'courseSettings'
     label: 'Course Roster'
     params: {courseId: '2'}
-  }
-  {
-    name: 'viewReferenceBook'
-    label: 'Browse the Book'
-    params: {bookId: '123'}
   }
 ]
 
