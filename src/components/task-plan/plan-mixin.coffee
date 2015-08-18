@@ -28,7 +28,6 @@ module.exports =
     })
 
   cancelSelection: ->
-    console.log(@state.savedTopics)
     TaskPlanActions.updateTopics(@props.id, @state.savedTopics)
     TaskPlanActions.updateExercises(@props.id, @state.savedExercises)
     @hideSectionTopics()
