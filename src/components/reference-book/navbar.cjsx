@@ -31,7 +31,7 @@ module.exports = React.createClass
 
   renderTeacher: ->
     <BS.Nav navbar right>
-      <BS.Button className="teacher-edition" onClick={@props.showTeacherEdition}>
+      <BS.Button className="btn-sm teacher-edition" onClick={@props.showTeacherEdition}>
         {@props.teacherLinkText}
       </BS.Button>
     </BS.Nav>
