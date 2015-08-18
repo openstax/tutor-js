@@ -1,6 +1,7 @@
 _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
+{CourseStore} = require '../flux/course'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
@@ -50,14 +51,17 @@ module.exports =
     S.capitalize(tag)
 
   buildReferenceBookLink: (cnxId) ->
-    referenceBookParams = _.clone(@context.router.getCurrentParams())
-    referenceBookParams.cnxId = cnxId or @getCnxId()
+    {courseId} = @context.router.getCurrentParams()
+    course = CourseStore.get(courseId)
+    referenceBookParams =
+      bookId: course.book_id
+      cnxId: cnxId or @getCnxId()
     pageUrl = @context.router.makeHref('viewReferenceBookPage', referenceBookParams)
 
     pageUrl
 
   isMediaLink: (link) ->
-    link.innerText is '[link]' and link.hash.length > 0 and link.hash.search('/') is -1
+    link.hash.length > 0 and link.hash.search('/') is -1
 
   hasCNXId: (link) ->
     trueHref = link.getAttribute('href')
@@ -94,7 +98,8 @@ module.exports =
     root = @getDOMNode()
     media = root.querySelector(link.hash)
     tag = @getMediaTag(media)
-    link.innerText = tag if tag?
+    link.innerText = tag if link.innerText is '[link]' and tag?
+    link.target = '_self'
 
   processLinks: ->
     root = @getDOMNode()
