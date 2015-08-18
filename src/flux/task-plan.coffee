@@ -358,8 +358,9 @@ TaskPlanConfig =
       (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
     isEditable: (id) ->
+      plan = @_getPlan(id)
       firstDueTasking = @_getFirstTaskingByDueDate(id)
-      new Date(firstDueTasking?.due_at) > TimeStore.getNow()
+      not ((!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstDueTasking?.due_at) < TimeStore.getNow())
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
