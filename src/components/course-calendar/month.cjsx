@@ -45,7 +45,7 @@ CourseMonth = React.createClass
       @setDateParams(date)
 
   componentDidUpdate: ->
-    @setDayHeight(@refs.courseDurations.state.ranges)
+    @setDayHeight(@refs.courseDurations?.state.ranges)
 
   setDayHeight: (ranges) ->
     calendar = React.findDOMNode(@refs.calendar)

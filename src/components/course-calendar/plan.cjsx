@@ -68,7 +68,7 @@ CoursePlan = React.createClass
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
-  checkRoute: ->
+  _checkRoute: ->
     if @isMatchingRouteOpen()
       if @refs.display0.refs.trigger?
         @_triggerStats()
@@ -76,6 +76,11 @@ CoursePlan = React.createClass
         @_updateRoute(false)
     else if @isWrongRouteOpen()
       @refs.display0.refs.trigger?.hide()
+
+  checkRoute: ->
+    # helps with the call stack. Non-ideal
+    # TODO use Modal, forget about ModalTrigger.  It causes too much jank.
+    _.defer(@_checkRoute)
 
   _triggerStats: ->
     triggerEl = @refs.display0.refs.trigger.getDOMNode()
@@ -87,13 +92,14 @@ CoursePlan = React.createClass
     @setState({isViewingStats})
 
   checkPublishingStatus: (published) ->
-    if published.publishFor is @props.item.plan.id
+    planId = @props.item.plan.id
+    if published.publishFor is planId
       planStatus =
         publishStatus: published.status
-        isPublishing: (['working', 'queued'].indexOf(published.status) > -1)
+        isPublishing: PlanPublishStore.isPublishing(planId)
 
       @setState(planStatus)
-      PlanPublishStore.off('planPublish.*', @checkPublishingStatus) if published.status is 'completed'
+      PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
 
   subscribeToPublishing: (item) ->
     {plan} = item
@@ -102,7 +108,7 @@ CoursePlan = React.createClass
     if isPublishing and not PlanPublishStore.isPublishing(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
-    PlanPublishStore.on('planPublish.*', @checkPublishingStatus) if isPublishing or PlanPublishStore.isPublishing(id)
+    PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus) if isPublishing or PlanPublishStore.isPublishing(id)
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item)
@@ -113,7 +119,8 @@ CoursePlan = React.createClass
     @subscribeToPublishing(nextProps.item)
 
   componentWillUnmount: ->
-    PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
+    planId = @props.item.plan.id
+    PlanPublishStore.removeAllListeners("planPublish.#{planId}.*")
     location = @context.router.getLocation()
     location.removeChangeListener(@checkRoute)
 
