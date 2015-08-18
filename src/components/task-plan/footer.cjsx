@@ -68,8 +68,16 @@ PlanFooter = React.createClass
           >
           {'Publish'}
         </AsyncButton>
+
       cancelButton =
         <BS.Button aria-role='close' disabled={isWaiting} onClick={@onCancel}>Cancel</BS.Button>
+
+      helpInfo =
+        <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
+          <BS.Button className="footer-instructions" bsStyle="link">
+            <i className="fa fa-info-circle"></i>
+          </BS.Button>
+        </BS.OverlayTrigger>
     else
       fallbackLink =
         to: 'taskplans'
@@ -123,11 +131,7 @@ PlanFooter = React.createClass
       {cancelButton}
       {backButton}
       {saveLink}
-      <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
-        <BS.Button className="footer-instructions" bsStyle="link">
-          <i className="fa fa-info-circle"></i>
-        </BS.Button>
-      </BS.OverlayTrigger>
+      {helpInfo}
       {deleteLink}
     </div>
 
