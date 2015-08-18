@@ -45,12 +45,6 @@ ROUTES =
     label: 'Course Roster'
     roles:
       teacher: 'courseSettings'
-  book:
-    label: 'Browse the Book'
-    params: (courseId) ->
-      bookId: CourseStore.get(courseId)?.book_id
-    roles:
-      default: 'viewReferenceBook'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->

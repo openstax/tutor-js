@@ -11,6 +11,7 @@ CourseName = require './course-name'
 LogOut = require './logout'
 BindStoreMixin = require '../bind-store-mixin'
 ServerErrorMonitoring = require './server-error-monitoring'
+BrowseTheBook = require '../buttons/browse-the-book'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
@@ -70,9 +71,8 @@ module.exports = React.createClass
         className={className}
         eventKey={index + 2}>{route.label}</BS.MenuItem>
 
-    if menuItems.length
-      menuItems.push(<BS.MenuItem divider key='dropdown-item-divider'/>)
-
+    menuItems.push <li><BrowseTheBook unstyled={true} courseId={courseId} /></li>
+    menuItems.push <BS.MenuItem divider key='dropdown-item-divider'/>
     menuItems
 
   render: ->

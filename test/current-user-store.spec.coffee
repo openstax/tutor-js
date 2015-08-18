@@ -3,7 +3,6 @@ _ = require 'underscore'
 
 {CourseListingActions, CourseListingStore} = require '../src/flux/course-listing'
 {CurrentUserActions, CurrentUserStore} = require '../src/flux/current-user'
-{CourseActions, CourseStore} = require '../src/flux/course'
 
 USER_MODEL = require '../api/user.json'
 {
@@ -24,11 +23,6 @@ STUDENT_MENU = [
     params: {courseId: '1'}
     label: 'Performance Forecast'
   }
-  {
-    name: 'viewReferenceBook'
-    params: {bookId: '123'}
-    label: 'Browse the Book'
-  }
 ]
 
 TEACHER_MENU = [
@@ -46,11 +40,6 @@ TEACHER_MENU = [
     name: 'courseSettings'
     label: 'Course Roster'
     params: {courseId: '2'}
-  }
-  {
-    name: 'viewReferenceBook'
-    label: 'Browse the Book'
-    params: {bookId: '123'}
   }
 ]
 
