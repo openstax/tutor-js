@@ -1,6 +1,10 @@
 .reading-plan {
   .edit-reading {
-    .panel-body { padding: 50px 120px; }
+    .panel-body { padding: 50px 140px; }
+
+    @media (max-width: @screen-sm) {
+      .panel-body { padding: 50px 30px; }
+    }
 
     label {
       display: block;
@@ -25,10 +29,11 @@
 ul.selected-reading-list {
   list-style: none;
   padding-left: 0;
-  margin-top: 2em;
+  margin-top: 1em;
 
   li {
     border-bottom: 1px solid @tutor-neutral-lighter;
+
     .tutor-fade-in(2s);
 
     &:first-child {

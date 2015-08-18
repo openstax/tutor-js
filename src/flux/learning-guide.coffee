@@ -35,17 +35,12 @@ Teacher = makeSimpleStore extendConfig {
 # learning guide data for a student.
 Student = makeSimpleStore extendConfig {
   exports:
-    getSortedSections: (courseId, property = 'current_level') ->
+    getSortedSections: (courseId) ->
       sections = findAllSections(@_get(courseId))
-      _.sortBy(sections, property)
+      _.sortBy(sections, (s) -> s.clue.value)
 
     getAllSections: (courseId) ->
       findAllSections(@_get(courseId))
-
-    getPracticePages: (courseId) ->
-      all = @exports.getSortedSections.call(this, courseId)
-      count = Math.min(all.length, 4)
-      _.chain(all).first(count).pluck('page_ids').flatten().uniq().value()
 
 
 }, new CrudConfig
@@ -61,8 +56,8 @@ TeacherStudent = makeSimpleStore extendConfig {
   loaded: (obj, id, {roleId}) ->
     @_asyncStatus[id] ||= {}
     @_asyncStatus[id][roleId] = 'LOADED'
-    this._local[id]   ||= {}
-    this._local[id][roleId] = obj
+    @_local[id]   ||= {}
+    @_local[id][roleId] = obj
     @emitChange()
 
   load: (id, {roleId}) ->
@@ -100,5 +95,44 @@ TeacherStudent = makeSimpleStore extendConfig {
 
 }, new CrudConfig
 
+Helpers = {
+  # Since the learning guide doesn't currently include worked dates
+  # the best we can do is return from the end of the list
+  recentSections: (sections, limit = 4) ->
+    _.last(sections, limit)
 
-module.exports = {Student, Teacher, TeacherStudent}
+  canDisplayForecast: (clue, sampleSizeThreshold) ->
+    clue.sample_size >= sampleSizeThreshold or clue.sample_size_interpretation isnt 'below'
+
+  filterForecastedSections: (sections, sampleSizeThreshold) ->
+    _.filter(sections, (s) -> Helpers.canDisplayForecast(s.clue, sampleSizeThreshold) )
+
+  weakestSections: (sections, sampleSizeThreshold, displayCount = 4) ->
+    validSections = @filterForecastedSections(sections, sampleSizeThreshold)
+    # weakestSections are only selected if there's at least two sections with forecasts
+    return [] unless validSections.length >= 2
+    # Select at least one, but no more than displayCount(4)
+    displayCount = Math.min(
+      Math.max(1, Math.floor(validSections.length / 2))
+      , displayCount)
+
+    _.chain(validSections)
+      .sortBy((s) -> s.clue.value )
+      .first(displayCount)
+      .value()
+
+  canPracticeWeakest: ({sections, sampleSizeThreshold, displayCount, minimumSectionCount}) ->
+    displayCount ||= 4
+    minimumSectionCount ||= 1
+    @weakestSections(sections, displayCount).length >= minimumSectionCount
+
+  canDisplayWeakest: ({sections, sampleSizeThreshold}) ->
+    @filterForecastedSections(sections).length > 1
+
+  pagesForSections: (sections) ->
+    _.chain(sections).pluck('page_ids').flatten().uniq().value()
+
+}
+
+
+module.exports = {Student, Teacher, TeacherStudent, Helpers}

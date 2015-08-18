@@ -45,10 +45,6 @@ ROUTES =
     label: 'Course Roster'
     roles:
       teacher: 'courseSettings'
-  book:
-    label: 'Browse the Book'
-    roles:
-      default: 'viewReferenceBook'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -73,6 +69,11 @@ CurrentUserStore = flux.createStore
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
+  _getParamsForRoute: (courseId, routeType, menuRole) ->
+    if _.isFunction(ROUTES[routeType].params)
+      ROUTES[routeType].params(courseId, menuRole)
+    else
+      {courseId}
 
   _getCourseRole: (courseId, silent = true) ->
     course = CourseStore.get(courseId)
@@ -150,9 +151,9 @@ CurrentUserStore = flux.createStore
       _.chain(routes)
         .map((routeType) =>
           routeName = @_getRouteByRole(routeType, menuRole)
-
           if routeName?
             name: routeName
+            params: @_getParamsForRoute(courseId, routeType, menuRole)
             label: ROUTES[routeType].label
         )
         .compact()

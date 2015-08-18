@@ -94,6 +94,9 @@ TaskPlanConfig =
 
     @_change(id, {tasking_plans})
 
+  replaceTaskings: (id, taskings) ->
+    @_change(id, {tasking_plans: taskings})
+
   _findTasking: (tasking_plans, periodId) ->
     _.findWhere(tasking_plans, {target_id:periodId, target_type:'period'})
 
@@ -197,6 +200,11 @@ TaskPlanConfig =
     exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
     @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
+  updateTopics: (id, page_ids) ->
+    plan = @_getPlan(id)
+    {exercise_ids, exercises_count_dynamic} = plan.settings
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+
   addExercise: (id, exercise) ->
     plan = @_getPlan(id)
     {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
@@ -217,6 +225,11 @@ TaskPlanConfig =
 
     @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
 
+  updateExercises: (id, exercise_ids) ->
+    plan = @_getPlan(id)
+    {page_ids, exercises_count_dynamic} = plan.settings
+    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    
   moveReading: (id, topicId, step) ->
     plan = @_getPlan(id)
     {page_ids, exercises_count_dynamic} = plan.settings
@@ -268,6 +281,7 @@ TaskPlanConfig =
     @emitChange()
 
   publish: (id) ->
+    @emit('publishing', id)
     @_change(id, {is_publish_requested: true})
 
   _saved: (obj, id) ->
@@ -321,6 +335,13 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.published_at
 
+    isDeleteRequested: (id) ->
+      deleteStates = [
+        'deleting'
+        'deleted'
+      ]
+      deleteStates.indexOf(@_asyncStatus[id]) > -1
+
     isOpened: (id) ->
       firstTasking = @_getFirstTaskingByOpenDate(id)
       new Date(firstTasking?.opens_at) <= TimeStore.getNow()
@@ -328,7 +349,7 @@ TaskPlanConfig =
     isVisibleToStudents: (id) ->
       plan = @_getPlan(id)
       firstTasking = @_getFirstTaskingByOpenDate(id)
-      !!plan?.published_at and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+      (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
@@ -378,6 +399,10 @@ TaskPlanConfig =
     hasAnyTasking: (id) ->
       plan = @_getPlan(id)
       !!plan?.tasking_plans
+
+    getEnabledTaskings: (id) ->
+      plan = @_getPlan(id)
+      plan?.tasking_plans
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

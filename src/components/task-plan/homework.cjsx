@@ -31,7 +31,7 @@ ChooseExercises = React.createClass
     })
 
   render: ->
-    {courseId, planId, selected, hide} = @props
+    {courseId, planId, selected, hide, cancel} = @props
 
     header = <span>Add Problems</span>
     selected = TaskPlanStore.getTopics(planId)
@@ -51,7 +51,7 @@ ChooseExercises = React.createClass
       exerciseSummary = <ExerciseSummary
           canReview={true}
           reviewClicked={hide}
-          onCancel={hide}
+          onCancel={cancel}
           planId={planId}/>
 
       addExercises = <AddExercises
@@ -66,6 +66,7 @@ ChooseExercises = React.createClass
         courseId={courseId}
         planId={planId}
         selected={selected}
+        cancel={cancel}
         hide={hide} />
 
       <PinnedHeaderFooterCard
@@ -114,6 +115,7 @@ HomeworkPlan = React.createClass
       chooseExercises = <ChooseExercises
         courseId={courseId}
         planId={id}
+        cancel={@cancelSelection}
         hide={@hideSectionTopics}
         selected={topics}/>
 
@@ -165,11 +167,14 @@ HomeworkPlan = React.createClass
 
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
+          <BS.Row>
+          <BS.Col xs=12 md=12>
+            {addProblemsButton}
+            {problemsRequired}
+          </BS.Col>
+          </BS.Row>
         </BS.Grid>
-        <BS.Row>
-          {addProblemsButton}
-          {problemsRequired}
-        </BS.Row>
+        
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}

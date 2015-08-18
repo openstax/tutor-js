@@ -70,7 +70,7 @@ module.exports = React.createClass
         />
 
       if type is 'teacher-review'
-        percent = Math.round(answer.selected_count / answered_count * 100)
+        percent = Math.round(answer.selected_count / answered_count * 100) or 0
         selectedCount = <div
           className='selected-count'
           data-count="#{answer.selected_count}"

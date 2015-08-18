@@ -6,7 +6,9 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 
 ChapterSectionType = require './chapter-section-type'
 ProgressBar = require './progress-bar'
-Section = require './section'
+Section     = require './section'
+Statistics  = require './statistics'
+
 
 module.exports = React.createClass
 
@@ -16,6 +18,7 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     chapter:  ChapterSectionType.isRequired
     onPractice: React.PropTypes.func
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   render: ->
     {chapter, courseId} = @props
@@ -27,11 +30,7 @@ module.exports = React.createClass
           <div className='title' title={chapter.title}>{chapter.title}</div>
         </div>
         <ProgressBar {...@props} section={chapter} />
-        <div className='amount-worked'>
-          <span className='count'>
-            {chapter.questions_answered_count} problems worked in this chapter
-          </span>
-        </div>
+        <Statistics  section={chapter} displaying="chapter"/>
       </div>
       <div ref='sections' className='sections'>
         { for section, i in chapter.children

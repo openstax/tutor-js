@@ -173,7 +173,14 @@ TaskEnd = React.createClass
       </CardBody>
     </div>
 
-ends = {task: TaskEnd, homework: HomeworkEnd, practice: PracticeEnd, chapter_practice: PracticeEnd, reading: TaskEnd}
+ends = {
+  task: TaskEnd,
+  homework: HomeworkEnd,
+  practice: PracticeEnd,
+  chapter_practice: PracticeEnd,
+  page_practice: PracticeEnd,
+  reading: TaskEnd
+}
 
 module.exports =
   get: (type) ->

@@ -19,7 +19,7 @@ module.exports =
     @resizeListener = _.throttle(@resizeEffect, @state.resizeThrottle or @props.resizeThrottle)
 
   componentDidMount: ->
-    @setInitialSize()
+    _.defer(@setInitialSize)
     window.addEventListener('resize', @resizeListener)
 
   componentWillUnmount: ->
