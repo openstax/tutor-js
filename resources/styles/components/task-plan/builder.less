@@ -1,19 +1,25 @@
 .assignment {
 
   label.period {
-    display: inline-block;
+    display: inline;
     margin-left: 5px;
     font-weight: normal;
+  }
+  input:not([disabled]) + label.period {
     cursor: pointer;
   }
-
-  .instructions {
-    color: @tutor-neutral;
-    #fonts >.sans(1.1rem, 1.2rem);
+  .assign-to-label { 
+    font-size: 1.8rem;
+    font-style: italic;
   }
   .assignment-description {
     margin-top: 1rem;
   }
+  .tasking-plan, .common {
+    min-height: 56px;
+  }
+  #hide-periods-radio,
+  #show-periods-radio { margin-bottom: 28px; }
   .periods-invalid {
     color: @form-error-color;
     font-size: 1.2rem;
@@ -23,10 +29,10 @@
   }
   .tasking-plan {
     margin-top: 10px;
-    input[type=checkbox] { margin-left: 1rem; }
+    input[type=checkbox] { margin-bottom: 20px; }
     label.period { left: 45px; }
     &.disabled {
-      label { text-decoration: line-through; }
+      label { color: @tutor-neutral-light; }
     }
   }
 
@@ -40,4 +46,13 @@
   i {
     margin-left: 5px;
   }
+
+}
+
+.instructions {
+  color: @tutor-neutral;
+  #fonts >.sans(1.1rem, 1.6rem);
+  font-weight: 300;
+  font-style: italic;
+  margin: 10px 0 28px 0;
 }

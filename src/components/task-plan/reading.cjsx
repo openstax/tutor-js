@@ -73,7 +73,7 @@ ReviewReadings = React.createClass
   renderSelected: ->
     if @props.selected.length
       <ul className='selected-reading-list'>
-        <li>Currently selected sections in this reading</li>
+        <li>Currently Selected</li>
         {_.map(@props.selected, @renderSection)}
       </ul>
     else
@@ -109,6 +109,7 @@ ChooseReadings = React.createClass
       courseId={@props.courseId}
       planId={@props.planId}
       selected={@props.selected}
+      cancel={@props.cancel}
       hide={@hide} />
 
 ReadingPlan = React.createClass
@@ -139,6 +140,7 @@ ReadingPlan = React.createClass
       formClasses.push('hide')
       selectReadings = <ChooseReadings
                         hide={@hideSectionTopics}
+                        cancel={@cancelSelection}
                         courseId={courseId}
                         planId={id}
                         selected={topics}/>
@@ -173,6 +175,7 @@ ReadingPlan = React.createClass
               {readingsRequired}
             </BS.Col>
           </BS.Row>
+
         </BS.Grid>
       </BS.Panel>
       {selectReadings}

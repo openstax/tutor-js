@@ -1,6 +1,7 @@
 [
   {
     "id": "1",
+    "book_id": "123",
     "name":"Local Test Course",
     "roles": [
       {

@@ -15,7 +15,7 @@ ReferenceBookPage = require './page'
 ReferenceBookPageShell = React.createClass
   displayName: 'ReferenceBookPageShell'
   propTypes:
-    courseId: React.PropTypes.string.isRequired
+    bookId: React.PropTypes.string.isRequired
     cnxId: React.PropTypes.string.isRequired
 
   getDefaultState: ->
@@ -59,12 +59,12 @@ ReferenceBookShell = React.createClass
     router: React.PropTypes.func
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {bookId} = @context.router.getCurrentParams()
     <LoadableItem
-      id={courseId}
+      id={bookId}
       store={ReferenceBookStore}
       actions={ReferenceBookActions}
-      renderItem={ -> <ReferenceBook courseId={courseId}/> }
+      renderItem={ -> <ReferenceBook bookId={bookId}/> }
     />
 
 

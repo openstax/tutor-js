@@ -6,6 +6,7 @@ LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 ChapterSection = require './chapter-section'
+{CourseStore} = require '../../flux/course'
 
 SectionTopic = React.createClass
   displayName: 'SectionTopic'
@@ -72,8 +73,9 @@ ChapterAccordion = React.createClass
 
   browseBook: (chapter, ev) ->
     ev.stopPropagation() # stop click from toggling the accordian
+    course = CourseStore.get(@props.courseId)
     url = @context.router.makeHref('viewReferenceBookSection',
-        {courseId: @props.courseId, section: chapter.chapter_section.join('.')})
+        {bookId: course.book_id, section: chapter.chapter_section.join('.')})
     win = window.open(url, '_blank')
     win.focus()
 
@@ -121,7 +123,7 @@ SelectTopics = React.createClass
     <ChapterAccordion {...@props} expanded={expanded} chapter={chapter}/>
 
   renderDialog: ->
-    {courseId, planId, selected, hide, header, primary} = @props
+    {courseId, planId, selected, hide, header, primary, cancel} = @props
 
     selected = TaskPlanStore.getTopics(planId)
     chapters = _.map(TocStore.get(), @renderChapterPanels)
@@ -133,7 +135,7 @@ SelectTopics = React.createClass
       confirmMsg='Are you sure you want to close?'
       cancel='Cancel'
       isChanged={-> true}
-      onCancel={hide}>
+      onCancel={cancel}>
 
       <div className='select-reading-chapters'>
         {chapters}

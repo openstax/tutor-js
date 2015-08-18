@@ -1,5 +1,6 @@
 {
   "title": "Local Test Course",
+  "book_id": 123,
   "periods": [{
       "id": "2",
       "name" : "2nd"

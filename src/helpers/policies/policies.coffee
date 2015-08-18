@@ -25,6 +25,13 @@ review =
 
 teacherReadOnly =
   name: 'teacher-read-only'
+  canWrite: false
+  actions: [
+    'clickContinue'
+  ]
+
+teacherReview =
+  name: 'teacher-read-only'
   canReview: true
   canWrite: false
   actions: [
@@ -53,6 +60,10 @@ stepViewOnly = [
   view
 ]
 
+stepTeacherReview = [
+  teacherReview
+]
+
 stepTeacherReadOnly = [
   teacherReadOnly
 ]
@@ -73,31 +84,31 @@ defaultPolicies =
       default: stepFeedbackImmediate
       check: 'role'
       states:
-        teacher: stepTeacherReadOnly
+        teacher: stepTeacherReview
   reading:
     panels:
       default: stepViewOnly
       check: 'role'
       states:
-        teacher: stepTeacherReadOnly
+        teacher: stepTeacherReview
   video:
     panels:
       default: stepViewOnly
       check: 'role'
       states:
-        teacher: stepTeacherReadOnly
+        teacher: stepTeacherReview
   interactive:
     panels:
       default: stepViewOnly
       check: 'role'
       states:
-        teacher: stepTeacherReadOnly
+        teacher: stepTeacherReview
   placeholder:
     panels:
       default: stepViewOnly
       check: 'role'
       states:
-        teacher: stepTeacherReadOnly
+        teacher: stepTeacherReview
 
 policies =
 
@@ -111,13 +122,17 @@ policies =
             after: stepFeedbackImmediate
         check: 'role'
         states:
-          teacher: stepTeacherReadOnly
+          teacher:
+            check: 'dueState'
+            states:
+              before: stepTeacherReadOnly
+              after: stepTeacherReview
     placeholder:
       panels:
         default: stepViewOnly
         check: 'role'
         states:
-          teacher: stepTeacherReadOnly
+          teacher: stepTeacherReview
 
   practice:
     exercise:
@@ -125,7 +140,7 @@ policies =
         default: stepFeedbackImmediate
         check: 'role'
         states:
-          teacher: stepTeacherReadOnly
+          teacher: stepTeacherReview
 
   chapter_practice:
     exercise:
@@ -133,7 +148,7 @@ policies =
         default: stepFeedbackImmediate
         check: 'role'
         states:
-          teacher: stepTeacherReadOnly
+          teacher: stepTeacherReview
 
   page_practice:
     exercise:
@@ -141,7 +156,7 @@ policies =
         default: stepFeedbackImmediate
         check: 'role'
         states:
-          teacher: stepTeacherReadOnly
+          teacher: stepTeacherReview
 
   reading: defaultPolicies
 
@@ -151,7 +166,7 @@ policies =
         default: stepViewOnly
         check: 'role'
         states:
-          teacher: stepTeacherReadOnly
+          teacher: stepTeacherReview
 
   default: defaultPolicies
 

@@ -12,11 +12,11 @@ describe 'Account Link', ->
     Testing.renderComponent( Link ).then ({root}) ->
       expect(root.querySelector('a')).to.be.null
 
-  it 'uses TransitionAssistant when redirecting', ->
+  it 'does not use TransitionAssistant when redirecting', ->
     sinon.stub TransitionAssistant, 'checkTransitionStateTo', ->
       # We do not want to resolve the promise because that causes the test runner to redirect and mucks up the specs
       return Promise.reject()
     CurrentUserActions.loaded(USER)
     Testing.renderComponent( Link ).then ({dom}) ->
       Testing.actions.click(dom.querySelector('a'))
-      expect(TransitionAssistant.checkTransitionStateTo).to.have.been.called
+      expect(TransitionAssistant.checkTransitionStateTo).not.to.have.been.called

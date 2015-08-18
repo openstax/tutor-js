@@ -11,6 +11,8 @@ moment = require 'moment'
 
 React = require 'react/addons'
 CourseCalendar = require '../../src/components/course-calendar'
+COURSE = require '../../api/user/courses/1.json'
+{CourseActions} = require '../../src/flux/course'
 
 planId = '1'
 courseId = '1'
@@ -25,7 +27,7 @@ VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
 describe 'Course Calendar', ->
   beforeEach (done) ->
     TeacherTaskPlanActions.HACK_DO_NOT_RELOAD(true)
-
+    CourseActions.loaded(COURSE, courseId)
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
     plan = TaskPlanStatsStore.get(planId)
 
