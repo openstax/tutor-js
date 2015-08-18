@@ -22,8 +22,15 @@ module.exports =
 
   showSectionTopics: ->
     @setState({
-      showSectionTopics: true
+      showSectionTopics: true,
+      savedTopics: TaskPlanStore.getTopics(@props.id),
+      savedExercises: TaskPlanStore.getExercises(@props.id)
     })
+
+  cancelSelection: ->
+    TaskPlanActions.updateTopics(@props.id, @state.savedTopics)
+    TaskPlanActions.updateExercises(@props.id, @state.savedExercises)
+    @hideSectionTopics()
 
   hideSectionTopics: ->
     @setState({
