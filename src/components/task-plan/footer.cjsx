@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 AsyncButton = require '../buttons/async-button'
+BackButton = require '../buttons/back-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -10,6 +11,9 @@ PlanFooter = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
+
+  getInitialState: ->
+    isEditable: TaskPlanStore.isEditable(@props.id)
 
   saved: ->
     courseId = @props.courseId
@@ -27,7 +31,7 @@ PlanFooter = React.createClass
     @props.onSave()
 
   onPublish: ->
-    @setState({publishing: true, saving: false})
+    @setState({publishing: true, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
     @props.onPublish()
 
   onCancel: ->
@@ -42,6 +46,7 @@ PlanFooter = React.createClass
 
   render: ->
     {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
+    {isEditable} = @state
 
     plan = TaskPlanStore.get(id)
 
@@ -50,7 +55,8 @@ PlanFooter = React.createClass
     deleteable = not TaskPlanStore.isNew(id) and not (TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
 
-    publishButton =
+    if isEditable
+      publishButton =
         <AsyncButton
           bsStyle='primary'
           className='-publish'
@@ -62,6 +68,16 @@ PlanFooter = React.createClass
           >
           {'Publish'}
         </AsyncButton>
+      cancelButton =
+        <BS.Button aria-role='close' disabled={isWaiting} onClick={@onCancel}>Cancel</BS.Button>
+    else
+      fallbackLink =
+        to: 'taskplans'
+        params: {courseId}
+        text: 'Back to Calendar'
+
+      backButton = <BackButton fallbackLink={fallbackLink} />
+
 
     if deleteable
       deleteLink =
@@ -104,7 +120,8 @@ PlanFooter = React.createClass
 
     <div className='footer-buttons'>
       {publishButton}
-      <BS.Button aria-role='close' disabled={isWaiting} onClick={@onCancel}>Cancel</BS.Button>
+      {cancelButton}
+      {backButton}
       {saveLink}
       <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
         <BS.Button className="footer-instructions" bsStyle="link">

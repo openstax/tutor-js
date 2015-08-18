@@ -35,6 +35,7 @@ module.exports = React.createClass
     showingPeriods: not isNewPlan
     currentLocale: TimeHelper.getCurrentLocales()
     isVisibleToStudents: isSavedPlanVisibleToStudent
+    isEditable: TaskPlanStore.isEditable(@props.id)
 
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
@@ -116,22 +117,23 @@ module.exports = React.createClass
 
     {taskingOpensAt, taskingDueAt}
 
-  updateIsVisibleToStudents: ->
+  updateIsVisibleAndIsEditable: ->
     isVisibleToStudents = TaskPlanStore.isVisibleToStudents(@props.id)
-    @setState({isVisibleToStudents: isVisibleToStudents})
+    isEditable = TaskPlanStore.isEditable(@props.id)
+    @setState({isVisibleToStudents, isEditable})
 
   # this will be called whenever the course store loads, but won't if
   # the store has already finished loading by the time the component mounts
   bindUpdate: ->
     @setPeriodDefaults()
-    @updateIsVisibleToStudents()
+    @updateIsVisibleAndIsEditable()
 
   componentWillMount: ->
     @setPeriodDefaults()
-    TaskPlanStore.on('publishing', @updateIsVisibleToStudents)
+    TaskPlanStore.on('publishing', @updateIsVisibleAndIsEditable)
 
   componentWillUnmount: ->
-    TaskPlanStore.off('publishing', @updateIsVisibleToStudents)
+    TaskPlanStore.off('publishing', @updateIsVisibleAndIsEditable)
 
   setOpensAt: (value, period) ->
     {id} = @props
@@ -301,7 +303,7 @@ module.exports = React.createClass
         required={not @state.showingPeriods}
         label="Open Date"
         onChange={@setOpensAt}
-        disabled={@state.showingPeriods or @state.isVisibleToStudents}
+        disabled={@state.showingPeriods or @state.isVisibleToStudents or not @state.isEditable}
         min={TimeStore.getNow()}
         max={TaskPlanStore.getDueAt(@props.id)}
         value={commonOpensAt}
@@ -315,7 +317,7 @@ module.exports = React.createClass
         required={not @state.showingPeriods}
         label="Due Date"
         onChange={@setDueAt}
-        disabled={@state.showingPeriods}
+        disabled={@state.showingPeriods or not @state.isEditable}
         min={TaskPlanStore.getMinDueAt(@props.id)}
         value={commonDueAt}
         currentLocale={@state.currentLocale} />
@@ -383,7 +385,7 @@ module.exports = React.createClass
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
-          disabled={@state.isVisibleToStudents}
+          disabled={@state.isVisibleToStudents or not @state.isEditable}
           label="Open Date"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
@@ -393,6 +395,7 @@ module.exports = React.createClass
           currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
+          disabled={not @state.isEditable}
           label="Due Date"
           required={@state.showingPeriods}
           min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}

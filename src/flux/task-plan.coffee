@@ -126,6 +126,12 @@ TaskPlanConfig =
     if sortedTaskings?.length
       sortedTaskings[0]
 
+  _getFirstTaskingByDueDate: (id) ->
+    {tasking_plans} = @_getPlan(id)
+    sortedTaskings = _.sortBy(tasking_plans, 'due_at')
+    if sortedTaskings?.length
+      sortedTaskings[0]
+
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
     {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
@@ -350,6 +356,10 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       firstTasking = @_getFirstTaskingByOpenDate(id)
       (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+
+    isEditable: (id) ->
+      firstDueTasking = @_getFirstTaskingByDueDate(id)
+      new Date(firstDueTasking?.due_at) > TimeStore.getNow()
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
