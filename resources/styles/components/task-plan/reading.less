@@ -33,31 +33,11 @@ ul.selected-reading-list {
 
   li {
     border-bottom: 1px solid @tutor-neutral-lighter;
-    animation: fadein 2.5s;
-    -moz-animation: fadein 2.5s;
-    -webkit-animation: fadein 2.5s;
-    -o-animation: fadein 2.5s;
 
-    @keyframes fadein {
-    from { opacity:0; }
-    to { opacity:1; }
-    }
-    @-moz-keyframes fadein {
-        from { opacity:0; }
-        to { opacity:1; }
-    }
-    @-webkit-keyframes fadein {
-        from { opacity:0; }
-        to { opacity:1; }
-    }
-    @-o-keyframes fadein {
-        from { opacity:0; }
-        to { opacity: 1; }
-    }
+    .tutor-fade-in(2s);
 
     &:first-child {
       font-size: 2rem;
-      padding: 0 0 10px 0;
     }
     .section-buttons {
       float: right;
@@ -66,7 +46,7 @@ ul.selected-reading-list {
         width: 20px;
         border-radius: 10px;
         font-size: 1rem;
-        margin: 0;
+        margin: -2px 0 0;
         padding: 0;
 
         &:hover {

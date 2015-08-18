@@ -101,7 +101,7 @@ ChapterAccordion = React.createClass
           Chapter <ChapterSection section={chapter.chapter_section}/> -
         </span>
         <span className='chapter-title'> {chapter.title}</span>
-        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse the book</span>
+        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse this Chapter</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>
