@@ -15,6 +15,7 @@ beforeEach ->
   sandbox = sinon.sandbox.create()
   ROUTER  = sandbox.spy()
   ROUTER.makeHref = sandbox.spy()
+  ROUTER.isActive = sandbox.spy()
   ROUTER.transitionTo = sandbox.spy()
   ROUTER.getCurrentParams = sandbox.spy( -> CURRENT_ROUTER_PARAMS )
 afterEach ->
