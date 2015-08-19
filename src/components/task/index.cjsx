@@ -93,6 +93,8 @@ module.exports = React.createClass
   shouldComponentUpdate: (nextProps, nextState) ->
     {id} = @props
 
+    console.info(TaskStore.getAsyncStatus(id))
+
     # if a step needs to be recovered, load a recovery step for it
     if @_stepRecoveryQueued(nextState)
       TaskStepActions.loadRecovery(nextState.recoverForStepId)
@@ -116,6 +118,9 @@ module.exports = React.createClass
     #   redirect to the step after the step we triggered refresh from.
     if @_leavingRefreshingStep(nextState)
       @continueAfterRefreshStep()
+      return false
+
+    if TaskStore.isSaving(id)
       return false
 
     # if we reach this point, assume that we should go ahead and do a normal component update
