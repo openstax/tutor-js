@@ -37,11 +37,8 @@ typesetMath = (root) ->
     # mark node as processed
     node.classList.add('math-rendered')
 
-  # convert NodeList to Array
-  node_array = Array.prototype.slice.call(nodes)
-
   # submit all nodes at once for optimal rendering performance
-  window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, node_array])
+  window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, _.toArray(nodes)])
 
   # render MathML with MathJax
   window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
