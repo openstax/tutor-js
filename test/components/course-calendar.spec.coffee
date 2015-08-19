@@ -15,11 +15,16 @@ COURSE = require '../../api/user/courses/1.json'
 {CourseActions} = require '../../src/flux/course'
 
 planId = '1'
+draftPlanId = '3'
 courseId = '1'
 
 VALID_MODEL = require '../../api/courses/1/dashboard.json'
 # pin plan 1 to one month ago for testing
 _.each VALID_MODEL.plans[0].tasking_plans, (tasking) ->
+  tasking.due_at = moment(TimeStore.getNow()).subtract(1, 'month').toDate()
+
+# pin draft plan to one month ago for testing
+_.each VALID_MODEL.plans[1].tasking_plans, (tasking) ->
   tasking.due_at = moment(TimeStore.getNow()).subtract(1, 'month').toDate()
 
 VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
@@ -30,6 +35,7 @@ describe 'Course Calendar', ->
     CourseActions.loaded(COURSE, courseId)
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
     plan = TaskPlanStatsStore.get(planId)
+    draftPlan = TaskPlanStatsStore.get(draftPlanId)
 
     calendarTests
       .goToCalendar("/courses/#{courseId}/t/calendar", courseId)
@@ -88,6 +94,22 @@ describe 'Course Calendar', ->
       .clickPrevious(@result)
       .then(calendarChecks.checkIsLabelPreviousMonth)
       .then(calendarChecks.checkDoesViewHavePlans)
+      .then( ->
+        done()
+      , done)
+
+  it 'should show plan edit link when plan is a draft', (done) ->
+    calendarActions
+      .clickPrevious(@result)
+      .then(calendarChecks.checkIsEditPlanLink(draftPlanId))
+      .then( ->
+        done()
+      , done)
+
+  it 'should have plan details onClick when plan is published', (done) ->
+    calendarActions
+      .clickPrevious(@result)
+      .then(calendarChecks.checkIsViewPlanElement(planId))
       .then( ->
         done()
       , done)

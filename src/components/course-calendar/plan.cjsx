@@ -141,7 +141,7 @@ CoursePlan = React.createClass
     label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
 
     displayComponent = CoursePlanDisplayEdit
-    displayComponent = CoursePlanDisplayQuickLook if hasQuickLook?
+    displayComponent = CoursePlanDisplayQuickLook if hasQuickLook
 
     displayComponentProps = {
       plan,
