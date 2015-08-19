@@ -11,6 +11,11 @@ PlanFooter = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
+    goBackToCalendar: React.PropTypes.func
+
+  getDefaultProps: ->
+    goBackToCalendar: =>
+      @context.router.transitionTo('taskplans', {courseId})
 
   getInitialState: ->
     isEditable: TaskPlanStore.isEditable(@props.id)
@@ -18,13 +23,13 @@ PlanFooter = React.createClass
   saved: ->
     courseId = @props.courseId
     TaskPlanStore.removeChangeListener(@saved)
-    @context.router.transitionTo('taskplans', {courseId})
+    @props.goBackToCalendar()
 
   onDelete: ->
     {id, courseId} = @props
     if confirm('Are you sure you want to delete this?')
       TaskPlanActions.delete(id)
-      @context.router.transitionTo('taskplans', {courseId})
+      @props.goBackToCalendar()
 
   onSave: ->
     @setState({saving: true, publishing: false})
@@ -35,10 +40,7 @@ PlanFooter = React.createClass
     @props.onPublish()
 
   onCancel: ->
-    {id, courseId} = @props
-    if confirm('Are you sure you want to cancel?')
-      TaskPlanActions.reset(id)
-      @context.router.transitionTo('taskplans', {courseId})
+    @props.onCancel()
 
   onViewStats: ->
     {id, courseId} = @props

@@ -40,6 +40,8 @@ TocConfig =
         throw new Error('BUG: Invalid section')
 
     getSectionInfo: (sectionId) ->
+      console.info('sectionId')
+      console.info(sectionId)
       if (@_toc and @_sections)
         @_sections[sectionId] or throw new Error('BUG: Invalid section')
     getSectionLabel: (key) ->

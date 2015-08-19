@@ -29,6 +29,16 @@ TaskPlanConfig =
 
   _stats: {}
   _asyncStatusStats: {}
+  _server_copy: {}
+
+  _loaded: (obj, planId) ->
+    @_server_copy[planId] = obj
+    obj
+
+  # Somewhere, the local copy gets taken apart and rebuilt.
+  # Keep a copy of what was served.
+  _getOriginal: (planId) ->
+    @_server_copy[planId]
 
   _getPlan: (planId) ->
     @_local[planId] ?= {}
@@ -127,10 +137,9 @@ TaskPlanConfig =
       sortedTaskings[0]
 
   _getFirstTaskingByDueDate: (id) ->
-    {tasking_plans} = @_getPlan(id)
+    tasking_plans = @_getPlan(id)?.tasking_plans or @_changed[id]?.tasking_plans or @_getOriginal(id)?.tasking_plans
     sortedTaskings = _.sortBy(tasking_plans, 'due_at')
-    if sortedTaskings?.length
-      sortedTaskings[0]
+    sortedTaskings[0] if sortedTaskings?.length
 
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
@@ -294,6 +303,10 @@ TaskPlanConfig =
     PlanPublishActions.published(obj, id) if obj.is_publish_requested
     obj
 
+  resetPlan: (id) ->
+    @_local[id] = _.clone(@_server_copy[id])
+    @clearChanged(id)
+
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
@@ -357,10 +370,17 @@ TaskPlanConfig =
       firstTasking = @_getFirstTaskingByOpenDate(id)
       (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
 
+    getFirstDueDate: (id) ->
+      due_at = @_getFirstTaskingByDueDate(id)?.due_at
+
     isEditable: (id) ->
       plan = @_getPlan(id)
       firstDueTasking = @_getFirstTaskingByDueDate(id)
       not ((!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstDueTasking?.due_at) < TimeStore.getNow())
+
+    isPublishing: (id) ->
+      plan = @_getPlan(id)
+      plan?.is_publish_requested
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
