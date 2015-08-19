@@ -45,7 +45,7 @@ CourseMonth = React.createClass
       @setDateParams(date)
 
   componentDidUpdate: ->
-    @setDayHeight(@refs.courseDurations?.state.ranges)
+    @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
   setDayHeight: (ranges) ->
     calendar = React.findDOMNode(@refs.calendar)
@@ -137,6 +137,17 @@ CourseMonth = React.createClass
     calendarClassName = 'calendar-container'
     calendarClassName = calendarClassName + " #{className}" if className
 
+    if plansList?
+      plans = <CourseDuration
+        referenceDate={moment(TimeStore.getNow())}
+        durations={plansList}
+        viewingDuration={calendarDuration}
+        groupingDurations={calendarWeeks}
+        courseId={courseId}
+        ref='courseDurations'>
+        <CoursePlan courseId={courseId}/>
+      </CourseDuration>
+
     <BS.Grid className={calendarClassName} fluid>
       <CourseAdd ref='addOnDay'/>
       <CourseCalendarHeader duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
@@ -148,15 +159,7 @@ CourseMonth = React.createClass
             {days}
           </Month>
 
-          <CourseDuration
-            referenceDate={moment(TimeStore.getNow())}
-            durations={plansList}
-            viewingDuration={calendarDuration}
-            groupingDurations={calendarWeeks}
-            courseId={courseId}
-            ref='courseDurations'>
-            <CoursePlan courseId={courseId}/>
-          </CourseDuration>
+          {plans}
 
         </BS.Col>
       </BS.Row>

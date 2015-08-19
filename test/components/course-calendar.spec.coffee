@@ -92,7 +92,7 @@ describe 'Course Calendar', ->
         done()
       , done)
 
-  it 'should show plan details when plan is clicked', (done) ->
+  xit 'should show plan details when plan is clicked', (done) ->
     calendarActions
       .clickPrevious(@result)
       .then(calendarActions.clickPlan(planId))
@@ -101,7 +101,7 @@ describe 'Course Calendar', ->
         done()
       , done)
 
-  it 'should show plan stats when plan is clicked', (done) ->
+  xit 'should show plan stats when plan is clicked', (done) ->
     calendarActions
       .clickPrevious(@result)
       .then(calendarActions.clickPlan(planId))

@@ -10,7 +10,6 @@ DisplayProperties =
   courseId: React.PropTypes.string.isRequired
   planClasses: React.PropTypes.string.isRequired
   setHover: React.PropTypes.func.isRequired
-  planModal: React.PropTypes.node
   isFirst: React.PropTypes.bool
   isLast: React.PropTypes.bool
   setIsViewing: React.PropTypes.func
@@ -91,27 +90,13 @@ CoursePlanDisplayQuickLook = React.createClass
   displayName: 'CoursePlanDisplayQuickLook'
   mixins: [CoursePlanDisplayMixin]
 
-  componentWillReceiveProps: ->
-    @closePlanOnModalHide()
-
-  componentDidMount: ->
-    @closePlanOnModalHide()
-
-  closePlanOnModalHide: ->
-    hide = @refs.trigger.hide
-    syncClosePlan = @props.setIsViewing.bind(null, false)
-
-    # alias modal hide to also make plan look un-selected
-    @refs.trigger.hide = ->
-      hide()
-      syncClosePlan()
-
   render: ->
     {planClasses, planModal, label, setHover, setIsViewing} = @props
 
     planStyle = @buildPlanStyles()
 
-    planOnly = <div style={planStyle}
+    <div
+      style={planStyle}
       className={planClasses}
       onMouseEnter={setHover.bind(null, true)}
       onMouseLeave={setHover.bind(null, false)}
@@ -119,10 +104,6 @@ CoursePlanDisplayQuickLook = React.createClass
       ref='plan'>
       {label}
     </div>
-
-    <BS.ModalTrigger modal={planModal} ref='trigger'>
-      {planOnly}
-    </BS.ModalTrigger>
 
 
 module.exports = {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook}
