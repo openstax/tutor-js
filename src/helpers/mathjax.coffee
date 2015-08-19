@@ -68,7 +68,7 @@ startMathJax = ->
   if window.MathJax?.Hub
     window.MathJax.Hub.Config(MATHJAX_CONFIG)
     # Does not seem to work when passed to Config
-    MathJax.Hub.processSectionDelay = 0
+    window.MathJax.Hub.processSectionDelay = 0
     configuredCallback()
   else
     # If the MathJax.js file has not loaded yet:
