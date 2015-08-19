@@ -34,9 +34,14 @@ typesetMath = (root) ->
       node.textContent = "#{MATH_MARKER_BLOCK}#{formula}#{MATH_MARKER_BLOCK}"
     else
       node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
-    window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, node])
     # mark node as processed
     node.classList.add('math-rendered')
+
+  # convert NodeList to Array
+  node_array = Array.prototype.slice.call(nodes)
+
+  # submit all nodes at once for optimal rendering performance
+  window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, node_array])
 
   # render MathML with MathJax
   window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
@@ -62,6 +67,8 @@ startMathJax = ->
 
   if window.MathJax?.Hub
     window.MathJax.Hub.Config(MATHJAX_CONFIG)
+    # Does not seem to work when passed to Config
+    MathJax.Hub.processSectionDelay = 0
     configuredCallback()
   else
     # If the MathJax.js file has not loaded yet:
