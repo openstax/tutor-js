@@ -5,10 +5,10 @@ _ = require 'underscore'
 module.exports = React.createClass
   displayName: 'ChapterSection'
   propTypes:
-    section: React.PropTypes.oneOfType(
+    section: React.PropTypes.oneOfType([
       React.PropTypes.array
       React.PropTypes.string
-    ).isRequired
+    ]).isRequired
 
   componentWillMount: ->
     @setState(skipZeros: false)

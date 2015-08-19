@@ -1,3 +1,4 @@
+React = require 'react'
 _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
@@ -18,6 +19,9 @@ module.exports =
     @insertOverlays()
     @detectImgAspectRatio()
     @processLinks()
+
+  contextTypes:
+    router: React.PropTypes.func
 
   insertOverlays: ->
     title = @getSplashTitle()
@@ -51,14 +55,12 @@ module.exports =
     S.capitalize(tag)
 
   buildReferenceBookLink: (cnxId) ->
-    {courseId} = @context.router.getCurrentParams()
-    course = CourseStore.get(courseId)
-    referenceBookParams =
-      bookId: course.book_id
-      cnxId: cnxId or @getCnxId()
-    pageUrl = @context.router.makeHref('viewReferenceBookPage', referenceBookParams)
-
-    pageUrl
+    {courseId, bookId} = @context.router.getCurrentParams()
+    if courseId and not bookId
+      bookId = CourseStore.get(courseId)?.book_id
+    @context.router.makeHref( 'viewReferenceBookPage',
+      { bookId, cnxId: cnxId or @getCnxId() }
+    )
 
   isMediaLink: (link) ->
     link.hash.length > 0 and link.hash.search('/') is -1
