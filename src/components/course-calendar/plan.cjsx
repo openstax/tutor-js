@@ -86,7 +86,7 @@ CoursePlan = React.createClass
     {id, isPublishing, publish_job_uuid} = plan
     publishStatus = PlanPublishStore.getAsyncStatus(id)
 
-    if isPublishing and not PlanPublishStore.isPublishing(id)
+    if isPublishing and not PlanPublishStore.isPublishing(id) and not PlanPublishStore.isPublished(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
     if isPublishing or PlanPublishStore.isPublishing(id)
