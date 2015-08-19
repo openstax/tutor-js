@@ -29,8 +29,8 @@ CoursePlan = React.createClass
     activeHeight: 35
 
   getInitialState: ->
-    isViewingStats: false
-    publishStatus: ''
+    isViewingStats: @_doesPlanMatchesRoute()
+    publishStatus: PlanPublishStore.getAsyncStatus(@props.item.plan.id)
     isPublishing: false
     isHovered: false
 
@@ -38,12 +38,6 @@ CoursePlan = React.createClass
   _doesPlanMatchesRoute: ->
     {planId} = @context.router.getCurrentParams()
     planId is @props.item.plan.id
-
-  isWrongRouteOpen: ->
-    not (@_doesPlanMatchesRoute()) and @refs.details?
-
-  isMatchingRouteOpen: ->
-    (@_doesPlanMatchesRoute()) and not @refs.details?
 
   _getExpectedRoute: (isViewingStats) ->
     closedRouteName = 'calendarByDate'
@@ -69,17 +63,8 @@ CoursePlan = React.createClass
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
   checkRoute: ->
-    if @isMatchingRouteOpen()
-      if @refs.display0.refs.trigger?
-        @_triggerStats()
-      else
-        @_updateRoute(false)
-    else if @isWrongRouteOpen()
-      @refs.display0.refs.trigger?.hide()
-
-  _triggerStats: ->
-    triggerEl = @refs.display0.refs.trigger.getDOMNode()
-    triggerEl.click()
+    isViewingStats = @_doesPlanMatchesRoute()
+    @setState({isViewingStats})
 
   # handles when plan is clicked directly and viewing state and route both need to update
   syncIsViewingStats: (isViewingStats) ->
@@ -87,22 +72,27 @@ CoursePlan = React.createClass
     @setState({isViewingStats})
 
   checkPublishingStatus: (published) ->
-    if published.publishFor is @props.item.plan.id
+    planId = @props.item.plan.id
+    if published.publishFor is planId
       planStatus =
         publishStatus: published.status
-        isPublishing: (['working', 'queued'].indexOf(published.status) > -1)
+        isPublishing: PlanPublishStore.isPublishing(planId)
 
       @setState(planStatus)
-      PlanPublishStore.off('planPublish.*', @checkPublishingStatus) if published.status is 'completed'
+      PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
 
   subscribeToPublishing: (item) ->
     {plan} = item
     {id, isPublishing, publish_job_uuid} = plan
+    publishStatus = PlanPublishStore.getAsyncStatus(id)
 
-    if isPublishing and not PlanPublishStore.isPublishing(id)
+    if isPublishing and not PlanPublishStore.isPublishing(id) and not PlanPublishStore.isPublished(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
-    PlanPublishStore.on('planPublish.*', @checkPublishingStatus) if isPublishing or PlanPublishStore.isPublishing(id)
+    if isPublishing or PlanPublishStore.isPublishing(id)
+      PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus)
+
+    @setState({publishStatus})
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item)
@@ -113,12 +103,10 @@ CoursePlan = React.createClass
     @subscribeToPublishing(nextProps.item)
 
   componentWillUnmount: ->
-    PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
+    planId = @props.item.plan.id
+    PlanPublishStore.removeAllListeners("planPublish.#{planId}.*")
     location = @context.router.getLocation()
     location.removeChangeListener(@checkRoute)
-
-  componentDidMount: ->
-    @checkRoute()
 
   setIsViewing: (isViewingStats) ->
     @syncIsViewingStats(isViewingStats) if @state.isViewingStats isnt isViewingStats
@@ -128,7 +116,6 @@ CoursePlan = React.createClass
 
   buildPlanClasses: (plan, publishStatus, isPublishing, isActive) ->
     planClasses = [
-      'plan'
       'plan-label-long'
       "#{plan.type}"
       "course-plan-#{plan.id}"
@@ -145,7 +132,7 @@ CoursePlan = React.createClass
     planClasses.join(' ')
 
 
-  renderDisplay: (planModal, planClasses, display) ->
+  renderDisplay: (hasQuickLook, planClasses, display) ->
     {rangeDuration, offset, offsetFromPlanStart, index} = display
     {item, courseId} = @props
     {plan, displays} = item
@@ -154,14 +141,13 @@ CoursePlan = React.createClass
     label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
 
     displayComponent = CoursePlanDisplayEdit
-    displayComponent = CoursePlanDisplayQuickLook if planModal?
+    displayComponent = CoursePlanDisplayQuickLook if hasQuickLook?
 
     displayComponentProps = {
       plan,
       display,
       label,
       courseId,
-      planModal,
       planClasses,
       isFirst: (index is 0),
       isLast: (index is displays.length - 1),
@@ -182,24 +168,29 @@ CoursePlan = React.createClass
 
     planClasses = @buildPlanClasses(plan, publishStatus, isPublishing, isHovered or isViewingStats)
 
-    if plan.isPublished or (publishStatus is 'completed')
-      planModal = <CoursePlanDetails
-        plan={plan}
-        courseId={courseId}
-        className={planClasses}
-        ref='details'/>
-    else if isPublishing
-      planModal = <CoursePlanPublishingDetails
-        plan={plan}
-        courseId={courseId}
-        className={planClasses}
-        ref='details'/>
+    if isViewingStats
+      if plan.isPublished or (publishStatus is 'completed')
+        planModal = <CoursePlanDetails
+          plan={plan}
+          courseId={courseId}
+          className={planClasses}
+          onRequestHide={@syncIsViewingStats.bind(null, false)}
+          ref='details'/>
+      else if isPublishing
+        planModal = <CoursePlanPublishingDetails
+          plan={plan}
+          courseId={courseId}
+          className={planClasses}
+          onRequestHide={@syncIsViewingStats.bind(null, false)}
+          ref='details'/>
 
-    renderDisplay = _.partial(@renderDisplay, planModal, planClasses)
+    planClasses = "plan #{planClasses}"
+    renderDisplay = _.partial(@renderDisplay, (plan.isPublished or (publishStatus is 'completed') or isPublishing), planClasses)
     planDisplays = _.map(displays, renderDisplay)
 
     <div>
       {planDisplays}
+      {planModal}
     </div>
 
 
