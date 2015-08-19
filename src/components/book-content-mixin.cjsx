@@ -20,6 +20,9 @@ module.exports =
     @processLinks()
 
   insertOverlays: ->
+  contextTypes:
+    router: React.PropTypes.func
+
     title = @getSplashTitle()
     return unless title
     root = @getDOMNode()
