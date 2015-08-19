@@ -57,9 +57,9 @@ module.exports =
     courseId = @props.courseId
     TaskPlanActions.saved.removeListener('change', @saved)
     TaskPlanStore.isLoading(@props.id)
-    @context.router.transitionTo('taskplans', {courseId})
+    @context.router.goBack()
 
   cancel: ->
     {id} = @props
     TaskPlanActions.reset(id)
-    @context.router.transitionTo('dashboard')
+    @context.router.goBack()

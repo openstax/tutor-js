@@ -30,7 +30,7 @@ CoursePlan = React.createClass
 
   getInitialState: ->
     isViewingStats: @_doesPlanMatchesRoute()
-    publishStatus: ''
+    publishStatus: PlanPublishStore.getAsyncStatus(@props.item.plan.id)
     isPublishing: false
     isHovered: false
 
@@ -84,11 +84,15 @@ CoursePlan = React.createClass
   subscribeToPublishing: (item) ->
     {plan} = item
     {id, isPublishing, publish_job_uuid} = plan
+    publishStatus = PlanPublishStore.getAsyncStatus(id)
 
     if isPublishing and not PlanPublishStore.isPublishing(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
-    PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus) if isPublishing or PlanPublishStore.isPublishing(id)
+    if isPublishing or PlanPublishStore.isPublishing(id)
+      PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus)
+
+    @setState({publishStatus})
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item)
