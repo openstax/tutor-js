@@ -1,6 +1,9 @@
 React = require 'react'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TimeStore} = require '../../flux/time'
+moment = require 'moment'
+# we should gather things somewhere nice.
+CALENDAR_DATE_FORMAT = 'YYYY-MM-DD'
 
 module.exports =
   contextTypes:
@@ -57,9 +60,26 @@ module.exports =
     courseId = @props.courseId
     TaskPlanActions.saved.removeListener('change', @saved)
     TaskPlanStore.isLoading(@props.id)
-    @context.router.goBack()
+    @goBackToCalendar()
 
   cancel: ->
     {id} = @props
-    TaskPlanActions.reset(id)
-    @context.router.goBack()
+    if confirm('Are you sure you want to cancel?')
+      TaskPlanActions.resetPlan(id)
+      @goBackToCalendar()
+
+  goBackToCalendar: ->
+    {id, courseId} = @props
+    calendarRoute = 'calendarByDate'
+    dueAt = TaskPlanStore.getFirstDueDate(id) or @context.router.getCurrentQuery().due_at
+    if dueAt?
+      date = moment(dueAt).format(CALENDAR_DATE_FORMAT)
+    else
+      date = moment(TimeStore.getNow()).format(CALENDAR_DATE_FORMAT)
+
+    unless TaskPlanStore.isNew(id) or not TaskPlanStore.isPublishing(id)
+      calendarRoute = 'calendarViewPlanStats'
+      planId = id
+
+    @context.router.transitionTo(calendarRoute, {courseId, date, planId})
+

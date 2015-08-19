@@ -39,7 +39,14 @@ ExternalPlan = React.createClass
       className='pull-right'
       onClick={@cancel}/>
 
-    footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish} onSave={@save}/>
+    footer = <PlanFooter
+      id={id}
+      courseId={courseId}
+      onPublish={@publish}
+      onSave={@save}
+      onCancel={@cancel}
+      goBackToCalendar={@goBackToCalendar}/>
+
     header = [headerText, closeBtn]
     label = 'Assignment URL'
     if @state?.invalid then formClasses.push('is-invalid-form')

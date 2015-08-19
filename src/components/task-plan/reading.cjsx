@@ -130,7 +130,13 @@ ReadingPlan = React.createClass
       className='pull-right'
       onClick={@cancel}/>
 
-    footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish} onSave={@save}/>
+    footer = <PlanFooter
+      id={id}
+      courseId={courseId}
+      onPublish={@publish}
+      onSave={@save}
+      onCancel={@cancel}
+      goBackToCalendar={@goBackToCalendar}/>
     header = [headerText, closeBtn]
 
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
