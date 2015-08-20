@@ -6,6 +6,22 @@ idCounter = 0
 
 Answer = React.createClass
   displayName: 'Answer'
+  propTypes:
+    answer: React.PropTypes.shape(
+      id: React.PropTypes.string.isRequired
+      content_html: React.PropTypes.string.isRequired
+      correctness: React.PropTypes.string
+      selected_count: React.PropTypes.number
+      answered_count: React.PropTypes.number
+    ).isRequired
+
+    iter: React.PropTypes.number.isRequired
+    qid: React.PropTypes.string.isRequired
+    type: React.PropTypes.string.isRequired
+    hasCorrectAnswer: React.PropTypes.bool.isRequired
+    onChangeAnswer: React.PropTypes.func.isRequired
+    chosen_answer: React.PropTypes.array
+    correct_answer_id: React.PropTypes.string
 
   render: ->
     {answer, iter, qid, type, correct_answer_id, hasCorrectAnswer, chosen_answer, onChangeAnswer} = @props
