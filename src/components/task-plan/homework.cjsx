@@ -97,7 +97,9 @@ HomeworkPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
-      goBackToCalendar={@goBackToCalendar}/>
+      getBackToCalendarParams={@getBackToCalendarParams}
+      goBackToCalendar={@goBackToCalendar}
+      />
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')

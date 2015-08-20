@@ -128,6 +128,7 @@ ReadingPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
+      getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
     header = @builderHeader('reading')
 

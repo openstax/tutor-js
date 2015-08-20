@@ -71,7 +71,7 @@ module.exports =
       TaskPlanActions.resetPlan(id)
       @goBackToCalendar()
 
-  goBackToCalendar: ->
+  getBackToCalendarParams: ->
     {id, courseId} = @props
     calendarRoute = 'calendarByDate'
     dueAt = TaskPlanStore.getFirstDueDate(id) or @context.router.getCurrentQuery().due_at
@@ -84,7 +84,12 @@ module.exports =
       calendarRoute = 'calendarViewPlanStats'
       planId = id
 
-    @context.router.transitionTo(calendarRoute, {courseId, date, planId})
+    to: calendarRoute
+    params: {courseId, date, planId}
+
+  goBackToCalendar: ->
+    {to, params} = @getBackToCalendarParams()
+    @context.router.transitionTo(to, params)
 
   builderHeader: (type) ->
     {id} = @props

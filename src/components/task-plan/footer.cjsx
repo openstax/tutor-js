@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 AsyncButton = require '../buttons/async-button'
 BackButton = require '../buttons/back-button'
@@ -47,8 +48,9 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
+    {id, courseId, clickedSelectProblem, onPublish, onSave, getBackToCalendarParams} = @props
     {isEditable} = @state
+    backToCalendarParams = getBackToCalendarParams()
 
     plan = TaskPlanStore.get(id)
 
@@ -81,12 +83,11 @@ PlanFooter = React.createClass
           </BS.Button>
         </BS.OverlayTrigger>
     else
-      fallbackLink =
-        to: 'taskplans'
-        params: {courseId}
-        text: 'Back to Calendar'
-
-      backButton = <BackButton fallbackLink={fallbackLink} />
+      backButton = <Router.Link
+        {...backToCalendarParams}
+        className='btn btn-default'>
+          Back to Calendar
+      </Router.Link>
 
 
     if deleteable
