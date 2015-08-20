@@ -2,9 +2,11 @@ React = require 'react'
 moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+_ = require 'underscore'
 
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
+{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {CourseStore} = require '../../flux/course'
 {TimeStore} = require '../../flux/time'
 
@@ -77,14 +79,18 @@ TeacherTaskPlanListing = React.createClass
 
   statics:
     willTransitionTo: (transition, params, query, callback) ->
-      {date} = params
-      if date? and moment(date, DATE_FORMAT).isValid()
-        callback()
-      else
+      {date, planId} = params
+      unless date? and moment(date, DATE_FORMAT).isValid()
         date = moment(TimeStore.getNow())
         params.date = date.format(DATE_FORMAT)
         transition.redirect('calendarByDate', params)
-        callback()
+        return callback()
+
+      if planId? and TaskPlanStore.isDeleteRequested(planId)
+        transition.redirect('calendarByDate', _.omit(params, 'planId'))
+        return callback()
+
+      callback()
 
   getDateFromParams: ->
     {date} = @context.router.getCurrentParams()

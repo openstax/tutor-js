@@ -8,7 +8,6 @@ validator = require 'validator'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TocStore, TocActions} = require '../../../flux/toc'
 PlanFooter = require '../footer'
-Close = require '../../close'
 PlanMixin = require '../plan-mixin'
 TaskPlanBuilder = require '../builder'
 
@@ -29,15 +28,7 @@ ExternalPlan = React.createClass
     plan = TaskPlanStore.get(id)
     externalUrl = plan?.settings?.external_url
 
-    headerText = <span key='header-text'>
-      {if TaskPlanStore.isNew(id) then 'Add External Assignment' else 'Edit External Assignment'}
-    </span>
-
     formClasses = ['edit-external', 'dialog']
-    closeBtn = <Close
-      key='close-button'
-      className='pull-right'
-      onClick={@cancel}/>
 
     footer = <PlanFooter
       id={id}
@@ -45,9 +36,10 @@ ExternalPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
+      getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
 
-    header = [headerText, closeBtn]
+    header = @builderHeader('external')
     label = 'Assignment URL'
     if @state?.invalid then formClasses.push('is-invalid-form')
 

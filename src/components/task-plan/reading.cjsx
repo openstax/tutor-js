@@ -9,7 +9,6 @@ Router = require 'react-router'
 {TocStore, TocActions} = require '../../flux/toc'
 SelectTopics = require './select-topics'
 PlanFooter = require './footer'
-Close = require '../close'
 ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
@@ -120,15 +119,8 @@ ReadingPlan = React.createClass
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
-    headerText = <span key='header-text'>
-      {if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'}
-    </span>
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
-    closeBtn = <Close
-      key='close-button'
-      className='pull-right'
-      onClick={@cancel}/>
 
     footer = <PlanFooter
       id={id}
@@ -136,8 +128,9 @@ ReadingPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
+      getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
-    header = [headerText, closeBtn]
+    header = @builderHeader('reading')
 
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
 

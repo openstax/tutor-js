@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 AsyncButton = require '../buttons/async-button'
 BackButton = require '../buttons/back-button'
@@ -47,7 +48,7 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId, clickedSelectProblem, onPublish, onSave} = @props
+    {id, courseId, clickedSelectProblem, onPublish, onSave, getBackToCalendarParams} = @props
     {isEditable} = @state
 
     plan = TaskPlanStore.get(id)
@@ -56,6 +57,20 @@ PlanFooter = React.createClass
     isWaiting = TaskPlanStore.isSaving(id)
     deleteable = not TaskPlanStore.isNew(id) and not (TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
+
+    tips = <BS.Popover>
+      <p>
+        <strong>Publish</strong> will make the assignment visible to students on the open date.
+        If open date is today, it will be available immediately.
+      </p>
+      <p>
+        <strong>Cancel</strong> will discard all changes and return to the calendar.
+      </p>
+      <p>
+        <strong>Save as draft</strong> will add the assignment to the teacher calendar only.
+        It will not be visible to students, even if the open date has passed.
+      </p>
+    </BS.Popover>
 
     if isEditable
       publishButton =
@@ -81,12 +96,12 @@ PlanFooter = React.createClass
           </BS.Button>
         </BS.OverlayTrigger>
     else
-      fallbackLink =
-        to: 'taskplans'
-        params: {courseId}
-        text: 'Back to Calendar'
-
-      backButton = <BackButton fallbackLink={fallbackLink} />
+      backToCalendarParams = getBackToCalendarParams()
+      backButton = <Router.Link
+        {...backToCalendarParams}
+        className='btn btn-default'>
+          Back to Calendar
+      </Router.Link>
 
 
     if deleteable
@@ -113,20 +128,6 @@ PlanFooter = React.createClass
             >
             {'Save as Draft'}
           </AsyncButton>
-
-    tips = <BS.Popover>
-      <p>
-        <strong>Publish</strong> will make the assignment visible to students on the open date.
-        If open date is today, it will be available immediately.
-      </p>
-      <p>
-        <strong>Cancel</strong> will discard all changes and return to the calendar.
-      </p>
-      <p>
-        <strong>Save as draft</strong> will add the assignment to the teacher calendar only.
-        It will not be visible to students, even if the open date has passed.
-      </p>
-    </BS.Popover>
 
     <div className='footer-buttons'>
       {publishButton}
