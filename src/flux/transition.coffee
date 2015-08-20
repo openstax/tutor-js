@@ -10,7 +10,9 @@ TransitionActions = flux.createActions [
 
 
 # Transition Store only loads into memory paths that are 'pushed'
-# onto the react-router history.
+# onto the react-router history and are reported as rememberable by
+# DestinationHelper
+#
 # This means that the back button will only track the routes that are
 # 'transitioned' to and not those that 'replace' location,
 # as is the case with router.replaceWith
@@ -23,9 +25,9 @@ TransitionStore = flux.createStore
   actions: _.values(TransitionActions)
   _local: []
 
-  load: ({path, type}) ->
-    type ?= 'push'
-    @_local.push(path) if type is 'push'
+  load: (change, router) ->
+    change.type ?= 'push'
+    @_local.push(change.path) if change.type is 'push' and DestinationHelper.shouldRememberRoute(change, router)
 
   reset: ->
     @_local = []

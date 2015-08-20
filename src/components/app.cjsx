@@ -22,8 +22,7 @@ module.exports = React.createClass
     @storeHistory(path: HistoryLocation.getCurrentPath())
 
   storeHistory: (locationChangeEvent) ->
-    if DestinationHelper.shouldRememberRoute(locationChangeEvent, @context.router)
-      TransitionActions.load(locationChangeEvent)
+    TransitionActions.load(locationChangeEvent, @context.router)
 
   getInitialState: ->
     displayDebug: false
