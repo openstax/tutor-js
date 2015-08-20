@@ -18,12 +18,6 @@ BackButton = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  navigate: ->
-    historyInfo = TransitionStore.getPrevious(@context.router)
-    if historyInfo.path
-      @context.router.transitionTo(historyInfo.path)
-    else
-      @context.router.transitionTo(@props.fallbackLink.to, @props.fallbackLink.params)
 
   render: ->
     # Gets route to last path that was not the same as the current one
@@ -32,10 +26,13 @@ BackButton = React.createClass
     {fallbackLink, className} = @props
     {text} = fallbackLink
 
-    backText = if historyInfo.name then "Back to #{historyInfo.name}"  else fallbackLink.text
+    backText = if historyInfo.name then "Back to #{historyInfo.name}" else fallbackLink.text
 
-    <BS.Button className={className} {...@props}
-      onClick={@navigate}>
+    href =  historyInfo.path or @context.router.makeHref(
+      @props.fallbackLink.to, @props.fallbackLink.params
+    )
+
+    <BS.Button href={href} className={className} {...@props}>
       {backText}
     </BS.Button>
 
