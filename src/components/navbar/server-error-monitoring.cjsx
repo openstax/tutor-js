@@ -2,8 +2,47 @@ React = require 'react'
 BindStoreMixin = require '../bind-store-mixin'
 BS = require 'react-bootstrap'
 
-{AppStore} = require '../../flux/app'
+{AppStore, AppActions} = require '../../flux/app'
 Dialog = require '../tutor-dialog'
+
+
+ServerErrorMessage = React.createClass
+  displayName: 'ServerErrorMessage'
+
+  propTypes:
+    statusCode: React.PropTypes.number.isRequired
+    message: React.PropTypes.string.isRequired
+    request: React.PropTypes.object.isRequired
+    supportLink: React.PropTypes.string
+    debug: React.PropTypes.bool
+
+  getDefaultProps: ->
+    supportLink: 'https://openstaxtutor.zendesk.com/hc/en-us/requests/new'
+    debug: true
+
+  render: ->
+    {statusCode, message, request, supportLink, debug} = @props
+    dataMessage =  <span>
+      with <pre>{request.opts.data}</pre>
+    </span> if request.opts.data?
+
+    debugInfo = [
+      <p>Additional error messages returned from the server is:</p>
+      <pre className='response'>{message or 'No response was received'}</pre>
+      <div className='request'>
+        <kbd>{request.opts.method}</kbd> on {request.url} {dataMessage}
+      </div>
+    ] if debug
+
+    errorMessage =
+      <div className='server-error'>
+        <h3>An error with code {statusCode} has occured</h3>
+        <p>Please visit <a target='_blank'
+          href={supportLink}>our support page</a> to file a bug report.
+        </p>
+        {debugInfo}
+      </div>
+
 
 module.exports = React.createClass
   displayName: 'ServerErrorMonitoring'
@@ -15,22 +54,17 @@ module.exports = React.createClass
   bindUpdate: ->
     serverErr = AppStore.getError()
     return unless serverErr
-    errorMessage =
-      <div className='server-error'>
-        <h3>An error with code {serverErr.statusCode} has occured</h3>
-        <p>Please visit <a target='_blank'
-          href='https://openstaxtutor.zendesk.com/hc/en-us/requests/new'>our support page</a> to file a bug report.
-        </p>
-        <p>Additional error messages returned from the server is:</p>
-        <div className='response'>{serverErr.message or 'No response was received'}</div>
-      </div>
+
+    dismissError = ->
+      window.location.reload() if AppStore.shouldReload()
+
     Dialog.show(
-      title: 'Server Error', body: errorMessage
+      title: 'Server Error', body: <ServerErrorMessage {...serverErr}/>
       buttons: [
         <BS.Button key='ok'
           onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
       ]
-    )
+    ).then(dismissError, dismissError)
 
 
   # We don't actually render anything
