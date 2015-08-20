@@ -8,7 +8,10 @@ _ = require 'underscore'
 
 
 shouldReload = (error) ->
-  (400 <= error.statusCode < 600) and not (error.statusCode is 404)
+  {statusCode, request} = error
+  isGET404 = statusCode is 404 and request.method is 'GET'
+  isInRange = 400 <= statusCode < 600
+  isInRange and not isGET404
 
 
 AppConfig =
