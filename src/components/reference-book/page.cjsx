@@ -19,7 +19,7 @@ module.exports = React.createClass
   _exerciseNodes: []
   displayName: 'ReferenceBookPage'
   propTypes:
-    bookId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     cnxId: React.PropTypes.string.isRequired
   mixins: [BookContentMixin, GetPositionMixin, ChapterSectionMixin]
   contextTypes:
@@ -31,13 +31,13 @@ module.exports = React.createClass
 
   prevLink: (info) ->
     <Router.Link className='nav prev' to='viewReferenceBookSection'
-      params={bookId: @props.bookId, section: @sectionFormat(info.prev.chapter_section)}>
+      params={courseId: @props.courseId, section: @sectionFormat(info.prev.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
     <Router.Link className='nav next' to='viewReferenceBookSection'
-      params={bookId: @props.bookId, section: @sectionFormat(info.next.chapter_section)}>
+      params={courseId: @props.courseId, section: @sectionFormat(info.next.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
@@ -99,10 +99,10 @@ module.exports = React.createClass
     _.each(@_exerciseNodes, @unmountExerciseComponent)
 
   render: ->
-    {bookId, cnxId, className} = @props
+    {courseId, cnxId, className} = @props
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
-    info = ReferenceBookStore.getPageInfo({bookId, cnxId})
+    info = ReferenceBookStore.getPageInfo({courseId, cnxId})
 
     html = page.content_html
     # FIXME the BE sends HTML with head and body

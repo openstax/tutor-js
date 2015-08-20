@@ -22,11 +22,11 @@ findChapterSection = (section, chapter_section) ->
 ReferenceBookConfig = {
 
   exports:
-    getToc: (bookId) ->
-      @_get(bookId)['0']
+    getToc: (courseId) ->
+      @_get(courseId)['0']
 
-    getFirstSection: (bookId) ->
-      toc = @_get(bookId)?['0']
+    getFirstSection: (courseId) ->
+      toc = @_get(courseId)?['0']
       return null unless toc?.children?
 
       {children} = toc
@@ -37,11 +37,11 @@ ReferenceBookConfig = {
         .first()
         .value()?.chapter_section
 
-    # Takes a bookId and a chapter_section specifier
+    # Takes a courseId and a chapter_section specifier
     # which is a string joined with dots i.e. "1.2.3"
-    getChapterSectionPage: ({bookId, section}) ->
+    getChapterSectionPage: ({courseId, section}) ->
       parts = _.map(section.split('.'), (part) -> parseInt(part, 10) )
-      toc = @_get(bookId)?['0']
+      toc = @_get(courseId)?['0']
       section = findChapterSection(toc, parts)
       if section
         if section.type is "part"
@@ -51,21 +51,21 @@ ReferenceBookConfig = {
       else
         null
 
-    getPageTitle: ({bookId, section}) ->
+    getPageTitle: ({courseId, section}) ->
       return null unless section?
       section = section.split('.') unless _.isArray(section)
-      toc = @_get(bookId)?['0']
+      toc = @_get(courseId)?['0']
       section = _.map(section, (n) -> parseInt(n))
       findChapterSection(toc, section)?.title
 
-    getPages: (bookId) ->
-      toc = @_get(bookId)?['0']
+    getPages: (courseId) ->
+      toc = @_get(courseId)?['0']
       return [] unless toc
       findAllPages(toc)
 
     # We might consider caching this
-    getPageInfo: ({bookId, cnxId}) ->
-      toc = @_get(bookId)?['0']
+    getPageInfo: ({courseId, cnxId}) ->
+      toc = @_get(courseId)?['0']
       return {} unless toc
       pages = findAllPages(toc)
       lastPage = null

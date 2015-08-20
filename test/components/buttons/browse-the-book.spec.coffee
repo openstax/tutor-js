@@ -18,7 +18,7 @@ describe 'Browse the book button', ->
   it 'sets the target url', ->
     Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
       expect(Testing.router.makeHref).to.have.been.calledWith(
-        'viewReferenceBookSection', { bookId: COURSE.book_id, cnxId: undefined, section: [1.2] }
+        'viewReferenceBookSection', { courseId: COURSE_ID, cnxId: undefined, section: [1.2] }
       )
 
   it 'can render with or without styles', ->
@@ -38,7 +38,7 @@ describe 'Browse the book button', ->
     @props.page = '123@2'
     Testing.renderComponent( BTB, props: @props ).then ({dom}) =>
       expect(Testing.router.makeHref).to.have.been.calledWith(
-        'viewReferenceBookPage', { bookId: COURSE.book_id, cnxId: @props.page, section: [1.2] }
+        'viewReferenceBookPage', { courseId: COURSE_ID, cnxId: @props.page, section: [1.2] }
       )
 
   it 'reads the courseId from router', ->
@@ -46,12 +46,7 @@ describe 'Browse the book button', ->
     Testing.renderComponent( BTB, props: @props, routerParams: {courseId: COURSE_ID}).then ({dom}) ->
       expect(dom).not.to.be.null
 
-  it 'does not render when the course is not found in the store', ->
-    CourseActions.reset()
-    Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
-      expect(dom).to.be.null
-
-  it 'does not render when the courseid is completly missing', ->
+  it 'does not render when the courseId is missing', ->
     @props.courseId = null
     Testing.renderComponent( BTB, props: @props, routerParams: {courseId: undefined}).then ({dom}) ->
       expect(dom).to.be.null

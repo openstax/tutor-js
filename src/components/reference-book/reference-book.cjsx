@@ -25,27 +25,27 @@ module.exports = React.createClass
   bindEvent: 'loaded'
 
   componentWillMount: ->
-    {bookId, cnxId, section} = @context.router.getCurrentParams()
+    {courseId, cnxId, section} = @context.router.getCurrentParams()
 
     unless cnxId? or section?
-      section = ReferenceBookStore.getFirstSection(bookId)
-      @context.router.replaceWith('viewReferenceBookSection', {bookId, section})
+      section = ReferenceBookStore.getFirstSection(courseId)
+      @context.router.replaceWith('viewReferenceBookSection', {courseId, section})
 
     CourseListingStore.ensureLoaded()
 
   getPageProps: ->
-    params = {bookId, cnxId, section} = @context.router.getCurrentParams()
-    return params if bookId? and cnxId? and section?
+    params = {courseId, cnxId, section} = @context.router.getCurrentParams()
+    return params if courseId? and cnxId? and section?
 
     if section?
-      page = ReferenceBookStore.getChapterSectionPage({bookId, section})
+      page = ReferenceBookStore.getChapterSectionPage({courseId, section})
     else if cnxId?
-      page = ReferenceBookStore.getPageInfo({bookId, cnxId})
+      page = ReferenceBookStore.getPageInfo({courseId, cnxId})
       section = page.chapter_section
 
     cnxId ?= page?.cnx_id
 
-    {cnxId, section, bookId}
+    {cnxId, section, courseId}
 
   getInitialState: ->
     {cnxId} = @context.router.getCurrentParams()
@@ -65,10 +65,10 @@ module.exports = React.createClass
 
   render: ->
     pageProps = @getPageProps()
-    {bookId} = pageProps
-    courseDataProps = @getCourseDataProps(bookId)
+    {courseId} = pageProps
+    courseDataProps = @getCourseDataProps(courseId)
 
-    course = CourseStore.get(bookId)
+    course = CourseStore.get(courseId)
     classnames = ["reference-book"]
     classnames.push('menu-open') if @state.isMenuVisible
     if course and _.findWhere(course.roles, type: 'teacher')
