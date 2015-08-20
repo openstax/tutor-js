@@ -10,7 +10,9 @@ TransitionActions = flux.createActions [
 
 
 # Transition Store only loads into memory paths that are 'pushed'
-# onto the react-router history.
+# onto the react-router history and are reported as rememberable by
+# DestinationHelper
+#
 # This means that the back button will only track the routes that are
 # 'transitioned' to and not those that 'replace' location,
 # as is the case with router.replaceWith
@@ -23,9 +25,10 @@ TransitionStore = flux.createStore
   actions: _.values(TransitionActions)
   _local: []
 
-  load: ({path, type}) ->
+  load: (change, router) ->
+    {type, path} = change
     type ?= 'push'
-    @_local.push(path) if type is 'push'
+    @_local.push(path) if type is 'push' and DestinationHelper.shouldRememberRoute(change, router)
 
   reset: ->
     @_local = []
@@ -34,14 +37,16 @@ TransitionStore = flux.createStore
     @_local
 
   exports:
-    getPrevious: (matchRoutes) ->
+    getPrevious: (router) ->
+      matchRoutes = router.match
+      currentPath = DestinationHelper.destinationFromPath(router.getCurrentPath(), matchRoutes)
       history = @_get()
-      backPath = history[history.length - 2]
-      matchedRoute = matchRoutes(backPath) if backPath?
-      deepestRouteName = _.last(matchedRoute.routes).name if matchedRoute?.routes?.length
+      pathIndex = _.findLastIndex(history, (path) ->
+        currentPath isnt DestinationHelper.destinationFromPath(path, matchRoutes)
+      )
+      return {} if -1 is pathIndex
 
       # Both path and name will be undefined if history does not have a previous entry.
-      path: backPath
-      name: DestinationHelper.getDestination(deepestRouteName)
+      {path: history[pathIndex], name: DestinationHelper.destinationFromPath(history[pathIndex], matchRoutes)}
 
 module.exports = {TransitionActions, TransitionStore}

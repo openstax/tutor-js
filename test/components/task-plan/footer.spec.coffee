@@ -57,7 +57,6 @@ VISIBLE_HW = extendBasePlan({
 
 helper = (model) ->
   {id} = model
-  console.info(model)
   # Load the plan into the store
   TaskPlanActions.loaded(model, id)
   Testing.renderComponent( PlanFooter, props: {id, courseId: "1"} )
