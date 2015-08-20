@@ -97,7 +97,7 @@ module.exports = React.createClass
       <ArbitraryHtml className='question-stem' block={true} html={html} />
       {@props.children}
       <div className='answers-table'>
-        {answers}
+        {answers.reverse()}
       </div>
       {feedback}
       <div className="exercise-uid">{@props.exercise_uid}</div>
