@@ -7,7 +7,16 @@ dom = require '../helpers/dom'
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
 EXERCISE_LINK_SELECTOR = '.os-exercise > [data-type="problem"] > p > a[href]'
-MEDIA_LINK_SELECTOR = 'a:not(.nav):not([data-type=footnote-number]):not([data-type=footnote-ref])'
+MEDIA_LINK_EXCLUDES = [
+  '.nav'
+  '.view-reference-guide'
+  '[data-type=footnote-number]'
+  '[data-type=footnote-ref]'
+]
+
+MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
+  "#{current}:not(#{exclude})"
+, 'a')
 
 module.exports =
   componentDidMount:  ->
