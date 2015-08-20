@@ -3,6 +3,7 @@ _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
 {CourseStore} = require '../flux/course'
+{TaskStepStore} = require '../flux/task-step'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
@@ -12,13 +13,108 @@ MEDIA_LINK_EXCLUDES = [
   '.view-reference-guide'
   '[data-type=footnote-number]'
   '[data-type=footnote-ref]'
+  '[data-targeted=media]'
 ]
 
 MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
   "#{current}:not(#{exclude})"
 , 'a')
 
-module.exports =
+LinkContentMixin =
+  componentDidMount:  ->
+    @processLinks()
+
+  componentDidUpdate: ->
+    @processLinks()
+
+  contextTypes:
+    router: React.PropTypes.func
+
+  getCnxIdOfHref: (href) ->
+    beforeHash = _.first(href.split('#'))
+    _.last(beforeHash.split('/'))
+
+  getMediaTag: (media) ->
+    # form media tag text based on data-type or tag name
+    tag = media.getAttribute('data-type') or media.tagName
+    S.capitalize(tag)
+
+  buildReferenceBookLink: (cnxId) ->
+    {courseId, bookId} = @context.router.getCurrentParams()
+    if courseId and not bookId
+      bookId = CourseStore.get(courseId)?.book_id
+
+    if cnxId?
+      referenceBookLink = @context.router.makeHref( 'viewReferenceBookPage',
+        { bookId, cnxId: cnxId or @getCnxId() }
+      )
+    else
+      {related_content} = TaskStepStore.get(@props.id)
+      section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
+      referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {bookId, section}) if section?
+
+    referenceBookLink
+
+  isMediaLink: (link) ->
+    (link.hash.length > 0 and link.hash.search('/') is -1) or link.href isnt link.getAttribute('href')
+
+  hasCNXId: (link) ->
+    trueHref = link.getAttribute('href')
+    link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
+
+  linkMediaElsewhere: (mediaCNXId, mediaLink) ->
+    pageUrl = @buildReferenceBookLink(mediaCNXId)
+    mediaLink.href = pageUrl + mediaLink.hash
+    mediaLink.target = '_blank' if @shouldOpenNewTab?()
+    # do this to ignore this link once adjusted
+    mediaLink.dataset.targeted = 'media'
+
+  isMediaOnPage: (link) ->
+    root = @getDOMNode()
+    try
+      media = root.querySelector(link.hash)
+
+    media?
+
+  processLink: (link) ->
+    if @isMediaLink(link)
+      if not @hasCNXId(link) and @isMediaOnPage(link)
+        @linkToThisPage(link)
+        return null
+      else
+        @linkToAnotherPage(link)
+        return null
+    else
+      return link
+
+  linkToAnotherPage: (link) ->
+    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
+    @linkMediaElsewhere(mediaCNXId, link)
+
+  linkToThisPage: (link) ->
+    root = @getDOMNode()
+    media = root.querySelector(link.hash)
+    tag = @getMediaTag(media)
+    link.innerText = tag if link.innerText is '[link]' and tag?
+    link.target = '_self'
+    # do this to ignore this link once adjusted
+    link.dataset.targeted = 'media'
+
+  processLinks: ->
+    root = @getDOMNode()
+    mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)
+    exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
+
+    otherLinks = _.chain(mediaLinks)
+      .map(@processLink)
+      .compact()
+      .uniq()
+      .value()
+
+    @renderOtherLinks?(otherLinks)
+    @renderExercises?(exerciseLinks)
+
+ReadingContentMixin =
   componentDidMount:  ->
     @insertOverlays()
     @detectImgAspectRatio()
@@ -54,77 +150,6 @@ module.exports =
       else
         img.onload = sizeImage
 
-  getCnxIdOfHref: (href) ->
-    beforeHash = _.first(href.split('#'))
-    _.last(beforeHash.split('/'))
-
-  getMediaTag: (media) ->
-    # form media tag text based on data-type or tag name
-    tag = media.getAttribute('data-type') or media.tagName
-    S.capitalize(tag)
-
-  buildReferenceBookLink: (cnxId) ->
-    {courseId, bookId} = @context.router.getCurrentParams()
-    if courseId and not bookId
-      bookId = CourseStore.get(courseId)?.book_id
-    @context.router.makeHref( 'viewReferenceBookPage',
-      { bookId, cnxId: cnxId or @getCnxId() }
-    )
-
-  isMediaLink: (link) ->
-    (link.hash.length > 0 and link.hash.search('/') is -1) or link.href isnt link.getAttribute('href')
-
-  hasCNXId: (link) ->
-    trueHref = link.getAttribute('href')
-    link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
-
-  linkMediaElsewhere: (mediaCNXId, mediaLink) ->
-    pageUrl = @buildReferenceBookLink(mediaCNXId)
-    mediaLink.href = pageUrl + mediaLink.hash
-    mediaLink.target = '_blank' if @shouldOpenNewTab?()
-
-  isMediaOnPage: (link) ->
-    root = @getDOMNode()
-    try
-      media = root.querySelector(link.hash)
-
-    media?
-
-  processLink: (link) ->
-    if @isMediaLink(link)
-      if not @hasCNXId(link) and @isMediaOnPage(link)
-        @linkToThisPage(link)
-        return null
-      else
-        @linkToAnotherPage(link)
-        return null
-    else
-      return link
-
-  linkToAnotherPage: (link) ->
-    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
-    @linkMediaElsewhere(mediaCNXId, link) if mediaCNXId?
-
-  linkToThisPage: (link) ->
-    root = @getDOMNode()
-    media = root.querySelector(link.hash)
-    tag = @getMediaTag(media)
-    link.innerText = tag if link.innerText is '[link]' and tag?
-    link.target = '_self'
-
-  processLinks: ->
-    root = @getDOMNode()
-    mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)
-    exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
-
-    otherLinks = _.chain(mediaLinks)
-      .map(@processLink)
-      .compact()
-      .uniq()
-      .value()
-
-    @renderOtherLinks?(otherLinks)
-    @renderExercises?(exerciseLinks)
 
 # called with the context set to the image
 sizeImage = ->
@@ -136,3 +161,8 @@ sizeImage = ->
       figure.classList.add('full-width')
   else
     figure.classList.add('tutor-ui-vertical-img')
+
+
+BookContentMixin = _.extend({}, LinkContentMixin, ReadingContentMixin)
+
+module.exports = {BookContentMixin, LinkContentMixin, ReadingContentMixin}

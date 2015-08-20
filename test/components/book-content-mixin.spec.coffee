@@ -5,9 +5,10 @@ COURSE_ID = '1'
 COURSE    = require '../../api/user/courses/1.json'
 
 {CourseActions} = require '../../src/flux/course'
+{BookContentMixin} = require('../../src/components/book-content-mixin')
 
 TestComponent = React.createClass
-  mixins: [ require('../../src/components/book-content-mixin') ]
+  mixins: [ BookContentMixin ]
   getCnxId: sinon.spy -> CNX_ID
   getSplashTitle: sinon.spy -> 'Test Title'
   render: ->

@@ -5,7 +5,7 @@ _  = require 'underscore'
 
 HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
-BookContentMixin = require '../book-content-mixin'
+{BookContentMixin} = require '../book-content-mixin'
 GetPositionMixin = require '../get-position-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
 
