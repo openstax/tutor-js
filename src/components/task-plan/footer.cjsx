@@ -57,6 +57,20 @@ PlanFooter = React.createClass
     deleteable = not TaskPlanStore.isNew(id) and not (TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
 
+    tips = <BS.Popover>
+      <p>
+        <strong>Publish</strong> will make the assignment visible to students on the open date.
+        If open date is today, it will be available immediately.
+      </p>
+      <p>
+        <strong>Cancel</strong> will discard all changes and return to the calendar.
+      </p>
+      <p>
+        <strong>Save as draft</strong> will add the assignment to the teacher calendar only.
+        It will not be visible to students, even if the open date has passed.
+      </p>
+    </BS.Popover>
+
     if isEditable
       publishButton =
         <AsyncButton
@@ -113,20 +127,6 @@ PlanFooter = React.createClass
             >
             {'Save as Draft'}
           </AsyncButton>
-
-    tips = <BS.Popover>
-      <p>
-        <strong>Publish</strong> will make the assignment visible to students on the open date.
-        If open date is today, it will be available immediately.
-      </p>
-      <p>
-        <strong>Cancel</strong> will discard all changes and return to the calendar.
-      </p>
-      <p>
-        <strong>Save as draft</strong> will add the assignment to the teacher calendar only.
-        It will not be visible to students, even if the open date has passed.
-      </p>
-    </BS.Popover>
 
     <div className='footer-buttons'>
       {publishButton}
