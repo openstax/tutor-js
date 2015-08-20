@@ -34,14 +34,16 @@ TransitionStore = flux.createStore
     @_local
 
   exports:
-    getPrevious: (matchRoutes) ->
+    getPrevious: (router) ->
+      matchRoutes = router.match
+      currentPath = DestinationHelper.destinationFromPath(router.getCurrentPath(), matchRoutes)
       history = @_get()
-      backPath = history[history.length - 2]
-      matchedRoute = matchRoutes(backPath) if backPath?
-      deepestRouteName = _.last(matchedRoute.routes).name if matchedRoute?.routes?.length
+      pathIndex = _.findLastIndex(history, (path) ->
+        currentPath isnt DestinationHelper.destinationFromPath(path, matchRoutes)
+      )
+      return {} if -1 is pathIndex
 
       # Both path and name will be undefined if history does not have a previous entry.
-      path: backPath
-      name: DestinationHelper.getDestination(deepestRouteName)
+      {path: history[pathIndex], name: DestinationHelper.destinationFromPath(history[pathIndex], matchRoutes)}
 
 module.exports = {TransitionActions, TransitionStore}
