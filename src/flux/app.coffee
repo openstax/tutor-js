@@ -2,27 +2,50 @@
 # Defaults to browser time if a server request has not been made yet.
 
 flux = require 'flux-react'
+_ = require 'underscore'
 
 {makeSimpleStore} = require './helpers'
 
 AppConfig =
-  _counts: {}
+  _retriggered: {}
+  _triggers: {}
 
-  setServerError: (statusCode, message, requestDetails) ->
-    @_currentServerError = {statusCode, message, requestDetails}
-    @_counts[requestDetails.url] ?= 0
-    @_counts[requestDetails.url] = @_counts[requestDetails.url] + 1
-    @emit('server-error', statusCode, message, requestDetails)
+  setServerError: (statusCode, message, requestDetails, triggerAction) ->
+    {url, opts} = requestDetails
+
+    sparseOpts = _.pick(opts, 'method', 'data')
+    request = {url, opts: sparseOpts}
+
+    @_currentServerError = {statusCode, message, request}
+
+    @_triggers[url] = triggerAction unless @_retriggered[url]
+
+    @emit('server-error', statusCode, message)
+
+  retriggered: (url) ->
+    @_retriggered[url] = true
+    delete @_triggers[url]
+
+  retriggerOnce: (url) ->
+    unless @_retriggered[url]
+      # retrigger
+      @_triggers[url]?()
+      # and mark as retriggered
+      @retriggered(url)
+
+  resetError: (url) ->
+    @_triggers[url] = null
+    @_retriggered[url] = null
+    @_currentServerError = null
 
   clearError: ->
-    @_counts[@_currentServerError.requestDetails.url] = null
     @_currentServerError = null
 
   exports:
     getError: -> @_currentServerError
 
-    isOnce: (url) ->
-      @_counts[@_currentServerError.requestDetails.url] < 2
+    canRetrigger: (url) ->
+      not @_retriggered[url]
 
 {actions, store} = makeSimpleStore(AppConfig)
 module.exports = {AppActions:actions, AppStore:store}
