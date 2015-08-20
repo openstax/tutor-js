@@ -9,15 +9,18 @@ BackButton = React.createClass
   displayName: 'BackButton'
 
   propTypes:
+    bsStyle: React.PropTypes.string
     fallbackLink: React.PropTypes.shape(
       to: React.PropTypes.string
       params: React.PropTypes.object
       text: React.PropTypes.string
     ).isRequired
 
+  getDefaultProps: ->
+    bsStyle: 'default'
+
   contextTypes:
     router: React.PropTypes.func
-
 
   render: ->
     # Gets route to last path that was not the same as the current one
@@ -32,8 +35,8 @@ BackButton = React.createClass
       @props.fallbackLink.to, @props.fallbackLink.params
     )
 
-    <BS.Button href={href} className={className} {...@props}>
+    <Link className={"btn btn-#{@props.bsStyle}"} to={href}>
       {backText}
-    </BS.Button>
+    </Link>
 
 module.exports = BackButton
