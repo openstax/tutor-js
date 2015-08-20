@@ -8,23 +8,29 @@ Answer = React.createClass
   displayName: 'Answer'
   propTypes:
     answer: React.PropTypes.shape(
-      id: React.PropTypes.string.isRequired
+      id: React.PropTypes.oneOfType(
+        React.PropTypes.string
+        React.PropTypes.number
+      ).isRequired
       content_html: React.PropTypes.string.isRequired
       correctness: React.PropTypes.string
       selected_count: React.PropTypes.number
-      answered_count: React.PropTypes.number
     ).isRequired
 
     iter: React.PropTypes.number.isRequired
-    qid: React.PropTypes.string.isRequired
+    qid: React.PropTypes.oneOfType(
+      React.PropTypes.string
+      React.PropTypes.number
+    ).isRequired
     type: React.PropTypes.string.isRequired
     hasCorrectAnswer: React.PropTypes.bool.isRequired
     onChangeAnswer: React.PropTypes.func.isRequired
     chosen_answer: React.PropTypes.array
     correct_answer_id: React.PropTypes.string
+    answered_count: React.PropTypes.number
 
   render: ->
-    {answer, iter, qid, type, correct_answer_id, hasCorrectAnswer, chosen_answer, onChangeAnswer} = @props
+    {answer, iter, qid, type, correct_answer_id, answered_count, hasCorrectAnswer, chosen_answer, onChangeAnswer} = @props
     qid ?= "auto-#{idCounter++}"
 
     isChecked = answer.id in chosen_answer
@@ -120,6 +126,7 @@ module.exports = React.createClass
       chosen_answer: [@props.answer_id, @state.answer_id]
       onChangeAnswer: @onChangeAnswer
       type: type
+      answered_count: answered_count
 
     answers = _.chain(@props.model.answers)
       .sortBy (answer) ->
