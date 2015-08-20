@@ -71,6 +71,7 @@ module.exports =
       TaskPlanActions.resetPlan(id)
       @goBackToCalendar()
 
+  # TODO move to helper type thing.
   getBackToCalendarParams: ->
     {id, courseId} = @props
     calendarRoute = 'calendarByDate'

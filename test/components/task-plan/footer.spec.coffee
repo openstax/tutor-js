@@ -2,8 +2,11 @@
 
 React = require 'react'
 _ = require 'underscore'
+moment = require 'moment'
 
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
+{TimeActions, TimeStore} = require '../../../src/flux/time'
+
 PlanFooter = require '../../../src/components/task-plan/footer'
 {Testing, sinon, expect, _, React} = require '../helpers/component-testing'
 
@@ -54,12 +57,17 @@ VISIBLE_HW = extendBasePlan({
   opens_at: yesterday
 })
 
+# Stub the function, TODO - bring in helper
+getBackToCalendarParams = ->
+  to: 'calendarByDate'
+  params:
+    date: moment(TimeStore.getNow()).format('YYYY-MM-DD')
 
 helper = (model) ->
   {id} = model
   # Load the plan into the store
   TaskPlanActions.loaded(model, id)
-  Testing.renderComponent( PlanFooter, props: {id, courseId: "1"} )
+  Testing.renderComponent( PlanFooter, props: {id, courseId: "1", getBackToCalendarParams} )
 
 
 describe 'Task Plan Footer', ->

@@ -50,7 +50,6 @@ PlanFooter = React.createClass
   render: ->
     {id, courseId, clickedSelectProblem, onPublish, onSave, getBackToCalendarParams} = @props
     {isEditable} = @state
-    backToCalendarParams = getBackToCalendarParams()
 
     plan = TaskPlanStore.get(id)
 
@@ -97,6 +96,7 @@ PlanFooter = React.createClass
           </BS.Button>
         </BS.OverlayTrigger>
     else
+      backToCalendarParams = getBackToCalendarParams()
       backButton = <Router.Link
         {...backToCalendarParams}
         className='btn btn-default'>
