@@ -221,7 +221,7 @@ module.exports = React.createClass
       </BS.Row>
 
     feedbackNote = '  Feedback will be released after the due date.' if plan.type is 'homework'
-    cannotEditNote = '  Open times cannot be editted after assignment is visible to students.' if @state.isVisibleToStudents
+    cannotEditNote = '  Open times cannot be edited after assignment is visible to students.' if @state.isVisibleToStudents
 
 
     assignmentNameLabel = [
