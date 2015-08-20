@@ -1,6 +1,5 @@
 React = require 'react'
 {HistoryLocation, History, RouteHandler} = require 'react-router'
-DestinationHelper = require '../helpers/routes-and-destinations'
 
 Navbar = require './navbar'
 
