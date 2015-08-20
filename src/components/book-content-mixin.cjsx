@@ -63,7 +63,7 @@ module.exports =
     )
 
   isMediaLink: (link) ->
-    link.hash.length > 0 and link.hash.search('/') is -1
+    (link.hash.length > 0 and link.hash.search('/') is -1) or link.href isnt link.getAttribute('href')
 
   hasCNXId: (link) ->
     trueHref = link.getAttribute('href')
