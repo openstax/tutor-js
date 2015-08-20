@@ -307,6 +307,14 @@ TaskPlanConfig =
     @_local[id] = _.clone(@_server_copy[id])
     @clearChanged(id)
 
+
+  _isDeleteRequested: (id) ->
+    deleteStates = [
+      'deleting'
+      'deleted'
+    ]
+    deleteStates.indexOf(@_asyncStatus[id]) > -1
+
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
@@ -354,12 +362,7 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.published_at
 
-    isDeleteRequested: (id) ->
-      deleteStates = [
-        'deleting'
-        'deleted'
-      ]
-      deleteStates.indexOf(@_asyncStatus[id]) > -1
+    isDeleteRequested: (id) -> @_isDeleteRequested(id)
 
     isOpened: (id) ->
       firstTasking = @_getFirstTaskingByOpenDate(id)
@@ -376,7 +379,11 @@ TaskPlanConfig =
     isEditable: (id) ->
       plan = @_getPlan(id)
       firstDueTasking = @_getFirstTaskingByDueDate(id)
-      not ((!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstDueTasking?.due_at) < TimeStore.getNow())
+      isPublishedOrPublishing = !!plan?.published_at or !!plan?.is_publish_requested
+      isPastDue = new Date(firstDueTasking?.due_at) < TimeStore.getNow()
+      # cannot be a publishing/published past due assignment, and
+      # cannot be/being deleted
+      not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
 
     isPublishing: (id) ->
       plan = @_getPlan(id)

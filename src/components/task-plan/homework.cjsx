@@ -4,7 +4,6 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 PlanFooter = require './footer'
-Close = require '../close'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
@@ -85,8 +84,7 @@ HomeworkPlan = React.createClass
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
-    headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
-    closeBtn = <Close onClick={@cancel}/>
+
     topics = TaskPlanStore.getTopics(id)
     hasExercises = TaskPlanStore.getExercises(id)?.length
     shouldShowExercises = hasExercises and not @state?.showSectionTopics
@@ -147,7 +145,7 @@ HomeworkPlan = React.createClass
         {reviewExercises}
       </PinnedHeaderFooterCard>
 
-    header = [headerText, closeBtn]
+    header = @builderHeader('homework')
 
     if not TaskPlanStore.isVisibleToStudents(id)
       addProblemsButton = <BS.Button id='problems-select'
