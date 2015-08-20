@@ -55,21 +55,16 @@ module.exports = React.createClass
     serverErr = AppStore.getError()
     return unless serverErr
 
-    errorId = AppStore.getCurrentErrorId()
+    dismissError = ->
+      window.location.reload() if AppStore.shouldReload()
 
-    if AppStore.isRetriggable(errorId)
-      AppActions.retriggerOnce(errorId)
-    else
-      dismissError = ->
-        AppActions.resetError(errorId)
-
-      Dialog.show(
-        title: 'Server Error', body: <ServerErrorMessage {...serverErr}/>
-        buttons: [
-          <BS.Button key='ok'
-            onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
-        ]
-      ).then(dismissError, dismissError)
+    Dialog.show(
+      title: 'Server Error', body: <ServerErrorMessage {...serverErr}/>
+      buttons: [
+        <BS.Button key='ok'
+          onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
+      ]
+    ).then(dismissError, dismissError)
 
 
   # We don't actually render anything

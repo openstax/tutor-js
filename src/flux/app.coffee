@@ -6,58 +6,27 @@ _ = require 'underscore'
 
 {makeSimpleStore} = require './helpers'
 
-getErrorId = (error) ->
-  "#{error?.request?.opts?.method}#{error?.request?.url}"
 
-shouldRetrigger = (error) ->
-  400 <= error.statusCode < 500
+shouldReload = (error) ->
+  (400 <= error.statusCode < 600) and not (error.statusCode is 404)
 
-RETRIGGER_ERROR_DELAY = 0
 
 AppConfig =
-  _retriggered: {}
-  _triggers: {}
 
-  setServerError: (statusCode, message, requestDetails, triggerAction) ->
+  setServerError: (statusCode, message, requestDetails) ->
     {url, opts} = requestDetails
     sparseOpts = _.pick(opts, 'method', 'data')
     request = {url, opts: sparseOpts}
     @_currentServerError = {statusCode, message, request}
 
-    id = getErrorId(@_currentServerError)
-
-    @_triggers[id] = triggerAction if @_isRetriggable(id)
-
     @emit('server-error', statusCode, message)
 
-  retriggered: (id) ->
-    @_retriggered[id] = true
-    # make extra sure to remove trigger.
-    delete @_triggers[id]
-
-  retriggerOnce: (id) ->
-    if @_isRetriggable(id)
-      # retrigger, with delay if needed.
-      _.delay(@_triggers[id], RETRIGGER_ERROR_DELAY)
-      # and mark as retriggered
-      @retriggered(id)
-
-  resetError: (id) ->
-    @_triggers[id] = null
-    @_retriggered[id] = null
-    @_currentServerError = null
-
-  _isRetriggable: (id) ->
-    shouldRetrigger(@_currentServerError) and not (@_retriggered[id]? and @_retriggered[id])
 
   exports:
     getError: -> @_currentServerError
+    shouldReload: ->
+      shouldReload(@_currentServerError)
 
-    getCurrentErrorId: ->
-      getErrorId(@_currentServerError)
-
-    isRetriggable: (id) ->
-      @_isRetriggable(id)
 
 {actions, store} = makeSimpleStore(AppConfig)
 module.exports = {AppActions:actions, AppStore:store}

@@ -79,7 +79,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       rejected = (jqXhr, statusMessage, err) ->
         setNow(jqXhr)
         statusCode = jqXhr.status
-        AppActions.setServerError(statusCode, jqXhr.responseText, {url, opts}, listenAction.bind(Actions, args...))
+        AppActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
         if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
