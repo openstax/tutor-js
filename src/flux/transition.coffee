@@ -26,8 +26,9 @@ TransitionStore = flux.createStore
   _local: []
 
   load: (change, router) ->
-    change.type ?= 'push'
-    @_local.push(change.path) if change.type is 'push' and DestinationHelper.shouldRememberRoute(change, router)
+    {type, path} = change
+    type ?= 'push'
+    @_local.push(path) if type is 'push' and DestinationHelper.shouldRememberRoute(change, router)
 
   reset: ->
     @_local = []
