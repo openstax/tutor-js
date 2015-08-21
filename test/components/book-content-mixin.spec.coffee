@@ -9,10 +9,10 @@ COURSE    = require '../../api/user/courses/1.json'
 
 TestComponent = React.createClass
   mixins: [ BookContentMixin ]
-  getCnxId: sinon.spy -> CNX_ID
-  getSplashTitle: sinon.spy -> 'Test Title'
+  getCnxId:  -> CNX_ID
+  getSplashTitle:  -> 'Test Title'
   render: ->
-    React.createElement('div', {}, @buildReferenceBookLink())
+    React.createElement('div', {}, @buildReferenceBookLink(CNX_ID))
 
 describe 'Book content mixin', ->
 
