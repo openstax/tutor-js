@@ -64,11 +64,9 @@ module.exports =
     S.capitalize(tag)
 
   buildReferenceBookLink: (cnxId) ->
-    {courseId, bookId} = @context.router.getCurrentParams()
-    if courseId and not bookId
-      bookId = CourseStore.get(courseId)?.book_id
+    {courseId, courseId} = @context.router.getCurrentParams()
     @context.router.makeHref( 'viewReferenceBookPage',
-      { bookId, cnxId: cnxId or @getCnxId() }
+      { courseId, cnxId: cnxId or @getCnxId() }
     )
 
   isMediaLink: (link) ->
