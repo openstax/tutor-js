@@ -20,12 +20,9 @@ err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
 
-# TODO make this logic more failsafe
 getCnxId = (id) ->
-  {content_url} = TaskStepStore.get(id)
-  if content_url.search('contents/') > -1
-    cnxId = _.last(content_url.split('contents/'))
-  cnxId
+  parts = TaskStepStore.get(id)?.content_url?.split('contents/')
+  if parts.length > 1 then _.last(parts) else undefined
 
 Reading = React.createClass
   displayName: 'Reading'
