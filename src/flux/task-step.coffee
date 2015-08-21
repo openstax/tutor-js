@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 camelCase = require 'camelcase'
 flux = require 'flux-react'
@@ -35,12 +36,10 @@ TaskStepConfig =
     @_change(id, {free_response})
     @_save(id)
 
-  loadRecovery: (id) ->
-    @emitChange()
+  loadRecovery: ->
 
   loadedRecovery: (obj, id) ->
     @clearChanged()
-    @emitChange()
     @emit('step.recovered', obj)
 
   exports:
