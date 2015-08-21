@@ -49,9 +49,10 @@ LinkContentMixin =
         { bookId, cnxId: cnxId or @getCnxId() }
       )
     else
-      {related_content} = TaskStepStore.get(@props.id)
-      section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
-      referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {bookId, section}) if section?
+      related_content = TaskStepStore.get(@props.id)?.related_content
+      if related_content?
+        section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
+        referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {bookId, section}) if section?
 
     referenceBookLink
 
