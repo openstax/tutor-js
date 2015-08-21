@@ -54,14 +54,15 @@ module.exports = React.createClass
 
   bindUpdate: ->
     serverErr = AppStore.getError()
-    return unless serverErr
+    return unless serverErr and -1 is window.location.search.indexOf('reloaded')
 
     dismissError = ->
       navigation = AppStore.errorNavigation()
       return if _.isEmpty navigation
       if navigation.shouldReload
-        window.location.reload()
-      else
+        join = if window.location.search then '&' else '?'
+        window.location.href = window.location.href + join + 'reloaded'
+      else if navigation.href
         window.location.href = navigation.href
 
     Dialog.show(
