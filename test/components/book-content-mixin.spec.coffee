@@ -19,18 +19,8 @@ describe 'Book content mixin', ->
   beforeEach ->
     CourseActions.loaded(COURSE, COURSE_ID)
 
-  describe 'building reference book links', ->
-
-    it 'looks up book id from course store', ->
-      Testing.renderComponent( TestComponent, routerParams: {courseId: '1'} ).then ({element, dom}) ->
-        expect(Testing.router.makeHref).to.have.been.calledWith('viewReferenceBookPage', {
-          bookId: COURSE.book_id, cnxId: CNX_ID
-        })
-        console.log dom
-
-    it 'uses book id if provided', ->
-      Testing.renderComponent( TestComponent, routerParams: {bookId: '459'} )
-        .then ({element}) ->
-          expect(Testing.router.makeHref).to.have.been.calledWith('viewReferenceBookPage', {
-            bookId: '459', cnxId: CNX_ID
-          })
+  it 'renders using course id and cnx id', ->
+    Testing.renderComponent( TestComponent, routerParams: {courseId: COURSE_ID} ).then ({element, dom}) ->
+      expect(Testing.router.makeHref).to.have.been.calledWith('viewReferenceBookPage', {
+        courseId: COURSE_ID, cnxId: CNX_ID
+      })
