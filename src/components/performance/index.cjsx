@@ -68,7 +68,8 @@ Performance = React.createClass
 
   tableHeight: ->
     table = React.findDOMNode(@refs.tableContainer)
-    window.innerHeight - table.offsetTop - 120
+    bottomMargin = 40
+    window.innerHeight - table.offsetTop - bottomMargin
 
   renderHeadingCell: (heading, i) ->
     i += FIRST_DATA_COLUMN # for the first/last name colums
