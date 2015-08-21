@@ -169,12 +169,15 @@ TaskPlanConfig =
     throw new Error('id is required') unless id
     throw new Error("#{attr} is required") unless date
 
+    # use of moment(date).toDate() will make sure to convert
+    # any type of date (string, js date, moment, etc) to date for
+    # the BE to accept.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = date
+      tasking[attr] = moment(date).toDate()
     else
       for tasking in tasking_plans
-        tasking[attr] = date
+        tasking[attr] = moment(date).toDate()
 
     @_change(id, {tasking_plans})
 
@@ -427,7 +430,7 @@ TaskPlanConfig =
       opensAt = moment(@exports.getOpensAt.call(@, id, periodId))
       if opensAt.isBefore(TimeStore.getNow())
         opensAt = moment(TimeStore.getNow())
-      opensAt.startOf('day').add(1, 'day')
+      opensAt.startOf('day').add(1, 'day').toDate()
 
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)
