@@ -1,6 +1,7 @@
 React = require 'react'
 BindStoreMixin = require '../bind-store-mixin'
 BS = require 'react-bootstrap'
+_  = require 'underscore'
 
 {AppStore, AppActions} = require '../../flux/app'
 Dialog = require '../tutor-dialog'
@@ -56,7 +57,12 @@ module.exports = React.createClass
     return unless serverErr
 
     dismissError = ->
-      window.location.reload() if AppStore.shouldReload()
+      navigation = AppStore.errorNavigation()
+      return if _.isEmpty navigation
+      if navigation.shouldReload
+        window.location.reload()
+      else
+        window.location.href = navigation.href
 
     Dialog.show(
       title: 'Server Error', body: <ServerErrorMessage {...serverErr}/>
