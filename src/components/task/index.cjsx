@@ -132,7 +132,7 @@ module.exports = React.createClass
     @goToStep(@state.refreshFrom + 1)()
     @setState({refreshFrom: false, refreshTo: false, recoverForStepId: false})
 
-  # set what step needs to be recovered.  this will trigger loadRecovery to be called within shouldComponentUpdate
+  # set what step needs to be recovered.  this will trigger loadRecovery.
   recoverFor: (stepId) ->
     @setState({recoverForStepId: stepId})
     TaskStepActions.loadRecovery(stepId)
