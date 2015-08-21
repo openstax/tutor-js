@@ -103,7 +103,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(planId, periods)
 
     if not isNewPlan
-      @setState({showingPeriods: not (commonDates and hasAllTaskings), savedTaskings: periods})
+      @setState({showingPeriods: not (commonDates and hasAllTaskings)})
       TaskPlanActions.disableEmptyTaskings(planId)
 
   getDefaultPlanDates: (periodId) ->
