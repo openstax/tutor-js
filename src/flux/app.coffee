@@ -6,14 +6,6 @@ _ = require 'underscore'
 
 {makeSimpleStore} = require './helpers'
 
-
-shouldReload = (error) ->
-  {statusCode, request} = error
-  isGET404 = statusCode is 404 and request.method is 'GET'
-  isInRange = 400 <= statusCode < 600
-  isInRange and not isGET404
-
-
 AppConfig =
 
   setServerError: (statusCode, message, requestDetails) ->
@@ -27,9 +19,16 @@ AppConfig =
 
   exports:
     getError: -> @_currentServerError
-    shouldReload: ->
-      shouldReload(@_currentServerError)
 
+    errorNavigation: ->
+      return {} unless @_currentServerError
+      {statusCode, request} = @_currentServerError
+      if statusCode is 403
+        {href: '/'}
+      else
+        isGET404 = statusCode is 404 and request.method is 'GET'
+        isInRange = 400 <= statusCode < 600
+        {shouldRedirect: isInRange and not isGET404}
 
 {actions, store} = makeSimpleStore(AppConfig)
 module.exports = {AppActions:actions, AppStore:store}
