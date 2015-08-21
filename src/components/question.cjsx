@@ -8,20 +8,20 @@ Answer = React.createClass
   displayName: 'Answer'
   propTypes:
     answer: React.PropTypes.shape(
-      id: React.PropTypes.oneOfType(
+      id: React.PropTypes.oneOfType([
         React.PropTypes.string
         React.PropTypes.number
-      ).isRequired
+      ]).isRequired
       content_html: React.PropTypes.string.isRequired
       correctness: React.PropTypes.string
       selected_count: React.PropTypes.number
     ).isRequired
 
     iter: React.PropTypes.number.isRequired
-    qid: React.PropTypes.oneOfType(
+    qid: React.PropTypes.oneOfType([
       React.PropTypes.string
       React.PropTypes.number
-    ).isRequired
+    ]).isRequired
     type: React.PropTypes.string.isRequired
     hasCorrectAnswer: React.PropTypes.bool.isRequired
     onChangeAnswer: React.PropTypes.func.isRequired
