@@ -7,7 +7,7 @@ validator = require 'validator'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
-{PlanPublishActions} = require './plan-publish'
+{PlanPublishActions, PlanPublishStore} = require './plan-publish'
 TaskHelpers = require '../helpers/task'
 
 TUTOR_SELECTIONS =
@@ -303,7 +303,9 @@ TaskPlanConfig =
     @_change(id, {is_publish_requested: true})
 
   _saved: (obj, id) ->
-    PlanPublishActions.published(obj, id) if obj.is_publish_requested
+    if obj.is_publish_requested
+      PlanPublishActions.published(obj, id)
+      @emit('publish-queued', id)
     obj
 
   resetPlan: (id) ->
@@ -389,8 +391,7 @@ TaskPlanConfig =
       not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
 
     isPublishing: (id) ->
-      plan = @_getPlan(id)
-      plan?.is_publish_requested
+      PlanPublishStore.isPublishing(id)
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
