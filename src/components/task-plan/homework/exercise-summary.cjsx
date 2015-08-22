@@ -8,6 +8,7 @@ ExerciseSummary = React.createClass
   propTypes:
     planId: React.PropTypes.string.isRequired
     canAdd: React.PropTypes.bool
+    canEdit: React.PropTypes.bool
     canReview: React.PropTypes.bool
     addClicked: React.PropTypes.func
     reviewClicked: React.PropTypes.func
@@ -48,17 +49,18 @@ ExerciseSummary = React.createClass
         className="-add-exercises" 
         onClick={@props.addClicked}>Add More...</BS.Button>
 
-    if TaskPlanStore.canDecreaseTutorExercises(@props.planId)
-      removeSelection =
-        <BS.Button onClick={@removeTutorSelection} className="btn-xs -move-exercise-down">
-          <i className="fa fa-arrow-down"/>
-        </BS.Button>
+    if @props.canEdit or @props.canAdd
+      if TaskPlanStore.canDecreaseTutorExercises(@props.planId)
+        removeSelection =
+          <BS.Button onClick={@removeTutorSelection} className="btn-xs -move-exercise-down">
+            <i className="fa fa-arrow-down"/>
+          </BS.Button>
 
-    if TaskPlanStore.canIncreaseTutorExercises(@props.planId)
-      addSelection =
-        <BS.Button onClick={@addTutorSelection} className="btn-xs -move-exercise-up">
-          <i className="fa fa-arrow-up"/>
-        </BS.Button>
+      if TaskPlanStore.canIncreaseTutorExercises(@props.planId)
+        addSelection =
+          <BS.Button onClick={@addTutorSelection} className="btn-xs -move-exercise-up">
+            <i className="fa fa-arrow-up"/>
+          </BS.Button>
 
     <BS.Panel className="exercise-summary" bsStyle="default">
       <BS.Grid>
