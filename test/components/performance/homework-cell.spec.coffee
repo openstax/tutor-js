@@ -20,6 +20,9 @@ describe 'Performance Report Homework Cell', ->
 
   describe 'before due date', ->
     beforeEach ->
+      now = new Date()
+      iso_string = 'Fri Jun 11 2015 00:00:00 GMT+0000 (UTC)'
+      TimeActions.setFromString(iso_string, now)
       _.extend @props.task,
         due_at:          '2015-10-14T12:00:00.000Z'
         last_worked_at:  '2015-10-13T12:00:00.000Z'
