@@ -57,8 +57,9 @@ describe 'Performance Report Homework Cell', ->
         due_at:          '2015-10-14T12:00:00.000Z'
         last_worked_at:  '2015-10-13T12:00:00.000Z'
 
-    it 'renders as not started', ->
+    it 'renders as not started, without icon', ->
       @props.task.status = 'not_started'
+      @props.task.last_worked_at = '2015-10-15T12:00:00.000Z'
       Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
         expect(dom.innerText).to.equal('Not started')
         expect(dom.querySelector('i.late')).to.be.null
