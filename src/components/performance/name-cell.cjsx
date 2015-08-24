@@ -1,5 +1,6 @@
 React    = require 'react'
 Router = require 'react-router'
+Name = require '../name'
 
 module.exports = React.createClass
   displayName: 'NameCell'
@@ -14,5 +15,5 @@ module.exports = React.createClass
   render: ->
     <Router.Link className={"student-name #{@props.className}"} to='viewStudentTeacherGuide'
       params={roleId: @props.roleId, courseId: @props.courseId}>
-      {@props.student.first_name} {@props.student.last_name}
+      <Name {...@props.student} />
     </Router.Link>
