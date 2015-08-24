@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
 
+Name = require '../name'
 BindStoreMixin = require '../bind-store-mixin'
 LearningGuide = require '../../flux/learning-guide'
 {PerformanceStore} = require '../../flux/performance'
@@ -27,14 +28,16 @@ module.exports = React.createClass
     students = PerformanceStore.getAllStudents(@props.courseId)
     selected = PerformanceStore.getStudent(@props.courseId, @props.roleId)
     return null unless selected
-
+    name = <Name {...selected} />
     <div className='guide-heading'>
       <div className='guide-group-title'>
         Performance Forecast for:
-        <BS.DropdownButton bzSize='large' className='student-selection' title={selected.name}
+        <BS.DropdownButton bzSize='large' className='student-selection' title={name}
           bsStyle='link' onSelect={@onSelectStudent}>
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
-              <BS.MenuItem key={student.role} eventKey={student.role}>{student.name}</BS.MenuItem> }
+              <BS.MenuItem key={student.role} eventKey={student.role}>
+                <Name {...student} />
+              </BS.MenuItem> }
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
       </div>
