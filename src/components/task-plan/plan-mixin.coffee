@@ -5,8 +5,6 @@ Close = require '../close'
 S = require '../../helpers/string'
 
 moment = require 'moment'
-# we should gather things somewhere nice.
-CALENDAR_DATE_FORMAT = 'YYYY-MM-DD'
 
 PlanMixin =
   contextTypes:
@@ -97,11 +95,11 @@ PlanMixin =
     calendarRoute = 'calendarByDate'
     dueAt = TaskPlanStore.getFirstDueDate(id) or @context.router.getCurrentQuery().due_at
     if dueAt?
-      date = moment(dueAt).format(CALENDAR_DATE_FORMAT)
+      date = moment(dueAt).format(TaskPlanStore.getDateFormat())
     else
-      date = moment(TimeStore.getNow()).format(CALENDAR_DATE_FORMAT)
+      date = moment(TimeStore.getNow()).format(TaskPlanStore.getDateFormat())
 
-    unless TaskPlanStore.isNew(id) or not TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
+    unless TaskPlanStore.isNew(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
       calendarRoute = 'calendarViewPlanStats'
       planId = id
 
