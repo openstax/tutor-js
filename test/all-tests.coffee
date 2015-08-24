@@ -39,6 +39,7 @@ require './components/buttons/browse-the-book.spec'
 require './components/book-content-mixin.spec'
 require './components/performance/reading-cell.spec'
 require './components/performance/homework-cell.spec'
+require './components/name.spec'
 
 require './crud-store.spec'
 require './task-store.spec'
