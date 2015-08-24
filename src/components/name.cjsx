@@ -14,6 +14,6 @@ Name = React.createClass
     else
       @props.name
 
-    <span className="name">{name}</span>
+    <span className="-name">{name}</span>
 
 module.exports = Name
