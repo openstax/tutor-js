@@ -3,6 +3,7 @@ _ = require 'underscore'
 
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+PeriodHelper = require '../helpers/period'
 
 CourseConfig =
 
@@ -95,9 +96,7 @@ CourseConfig =
 
     getPeriods: (courseId) ->
       periods = @_get(courseId).periods or []
-      sortedPeriods = _.sortBy(periods, (period) ->
-        period.name
-      )
+      sortedPeriods = _.sortBy(periods, PeriodHelper.getOrder)
 
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)

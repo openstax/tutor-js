@@ -9,6 +9,8 @@ SmartOverflow = require '../smart-overflow'
 ChapterSectionMixin = require '../chapter-section-mixin'
 {CoursePeriodsNav} = require '../course-periods-nav'
 
+PeriodHelper = require '../../helpers/period'
+
 Stats = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -186,7 +188,7 @@ Stats = React.createClass
     {id} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    orderedStats = _.sortBy(plan.stats, 'name')
+    orderedStats = _.sortBy(plan.stats, PeriodHelper.getOrder)
     periodStats = orderedStats[periodIndex]
 
   handlePeriodSelect: (period) ->
