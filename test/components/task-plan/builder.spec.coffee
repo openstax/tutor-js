@@ -83,7 +83,11 @@ pickDateValue = (tutorDateInputComponent, date) ->
 
 describe 'Task Plan Builder, new reading', ->
   beforeEach ->
+    TaskPlanActions.HACK_DO_NOT_RELOAD(true)
+    CourseActions.HACK_DO_NOT_RELOAD(true)
+
     TaskPlanActions.reset()
+    CourseActions.loaded(COURSE_TEST_DATA, COURSE_TEST_ID)
 
   it 'should be hiding all periods on default', ->
     helper(NEW_READING).then ({dom, element}) ->
@@ -334,7 +338,11 @@ describe 'Task Plan Builder, new reading', ->
 
 describe 'Task Plan Builder, existing reading', ->
   beforeEach ->
+    TaskPlanActions.HACK_DO_NOT_RELOAD(true)
+    CourseActions.HACK_DO_NOT_RELOAD(true)
+
     TaskPlanActions.reset()
+    CourseActions.loaded(COURSE_TEST_DATA, COURSE_TEST_ID)
 
   it 'should not use query params as default dates', ->
     routerQuery =
