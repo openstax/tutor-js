@@ -90,8 +90,8 @@ TaskStepConfig =
       step? and
         (step.has_recovery and step.correct_answer_id isnt step.answer_id) and
         not Task.TaskStore.isTaskPastDue(step.task_id) and
-        not @exports.isLoading.call(this, id) and
-        not @exports.isSaving.call(this, id)
+        not @exports.isLoading.call(@, id) and
+        not @exports.isSaving.call(@, id)
 
 extendConfig(TaskStepConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskStepConfig)
