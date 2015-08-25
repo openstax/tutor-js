@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 {RosterActions} = require '../../flux/roster'
 Icon = require '../icon'
+Name = require '../name'
 
 module.exports = React.createClass
   displayName: 'DropStudentLink'
@@ -13,7 +14,8 @@ module.exports = React.createClass
     RosterActions.delete(@props.student.id)
 
   confirmPopOver: ->
-    <BS.Popover title={"Drop #{@props.student.full_name}?"} {...@props}>
+    title = <span>Drop <Name {...@props.student} />?</span>
+    <BS.Popover title={title} {...@props}>
       <BS.Button onClick={@performDeletion} bsStyle="danger">
         <Icon type='ban' /> Drop
       </BS.Button>
