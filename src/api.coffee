@@ -79,7 +79,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       rejected = (jqXhr, statusMessage, err) ->
         setNow(jqXhr)
         statusCode = jqXhr.status
-        AppActions.setServerError(statusCode, jqXhr.responseText)
+        AppActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
         if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
@@ -235,8 +235,8 @@ start = (bootstrapData) ->
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/user/courses'
 
-  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (bookId) ->
-    url: "/api/courses/#{bookId}/readings"
+  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/readings"
 
 
   apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->

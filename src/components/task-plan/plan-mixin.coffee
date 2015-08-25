@@ -8,11 +8,26 @@ moment = require 'moment'
 # we should gather things somewhere nice.
 CALENDAR_DATE_FORMAT = 'YYYY-MM-DD'
 
-module.exports =
+PlanMixin =
   contextTypes:
     router: React.PropTypes.func
 
   getInitialState: -> {}
+    isSavedPlanVisibleToStudent = TaskPlanStore.isVisibleToStudents(@props.id or @props.planId)
+
+    isVisibleToStudents: isSavedPlanVisibleToStudent
+    isEditable: TaskPlanStore.isEditable(@props.id or @props.planId)
+
+  updateIsVisibleAndIsEditable: ->
+    isVisibleToStudents = TaskPlanStore.isVisibleToStudents(@props.id or @props.planId)
+    isEditable = TaskPlanStore.isEditable(@props.id or @props.planId)
+    @setState({isVisibleToStudents, isEditable})
+
+  componentWillMount: ->
+    TaskPlanStore.on('publish-queued', @updateIsVisibleAndIsEditable)
+
+  componentWillUnmount: ->
+    TaskPlanStore.off('publish-queued', @updateIsVisibleAndIsEditable)
 
   setTitle: (title) ->
     {id} = @props
@@ -37,7 +52,8 @@ module.exports =
 
   publish: ->
     {id} = @props
-    TaskPlanActions.publish(id)
+    saveable = TaskPlanStore.isValid(id)
+    TaskPlanActions.publish(id) if saveable
     @save()
 
   save: ->
@@ -104,3 +120,4 @@ module.exports =
 
     [headerSpan, closeBtn]
 
+module.exports = PlanMixin

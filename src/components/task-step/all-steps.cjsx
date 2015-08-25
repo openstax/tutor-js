@@ -9,8 +9,9 @@ Exercise = require './exercise'
 Markdown = require '../markdown'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
-BookContentMixin = require '../book-content-mixin'
+{BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 CourseDataMixin = require '../course-data-mixin'
+ChapterSectionMixin = require '../chapter-section-mixin'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -18,6 +19,10 @@ CourseDataMixin = require '../course-data-mixin'
 err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
+
+getCnxId = (id) ->
+  parts = TaskStepStore.get(id)?.content_url?.split('contents/')
+  if parts.length > 1 then _.last(parts) else undefined
 
 Reading = React.createClass
   displayName: 'Reading'
@@ -35,9 +40,7 @@ Reading = React.createClass
     TaskStepStore.get(@props.id)?.title or ''
 
   getCnxId: ->
-    {id} = @props
-    {content_url} = TaskStepStore.get(id)
-    _.last(content_url.split('contents/'))
+    getCnxId(@props.id)
 
   renderBody: ->
     {id} = @props
@@ -52,7 +55,11 @@ Reading = React.createClass
 
 Interactive = React.createClass
   displayName: 'Interactive'
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin, StepFooterMixin, LinkContentMixin]
+  getCnxId: ->
+    getCnxId(@props.id)
+  # used by LinkContentMixin
+  shouldOpenNewTab: -> true
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -67,7 +74,11 @@ Interactive = React.createClass
 
 Video = React.createClass
   displayName: 'Video'
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin, StepFooterMixin, LinkContentMixin]
+  getCnxId: ->
+    getCnxId(@props.id)
+  # used by LinkContentMixin
+  shouldOpenNewTab: -> true
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
