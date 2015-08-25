@@ -50,13 +50,14 @@ TaskStepConfig =
 
   loadedRecovery: (obj, id) ->
     @_recoveryTarget[id] = obj.id
-    @clearChanged()
-    @emit('change', id)
     @emit('step.recovered', obj)
 
   _updateRecoveredFor: (loadedId, recoverTarget, recoveredFor) ->
-    delete @_asyncStatus[recoveredFor] if recoverTarget is loadedId
-    delete @_recoveryTarget[recoveredFor]
+    if recoverTarget is loadedId
+      @emit('change', recoveredFor)
+      @clearChanged(recoveredFor)
+      delete @_asyncStatus[recoveredFor]
+      delete @_recoveryTarget[recoveredFor]
 
   exports:
     isRecovering: (id) -> @_asyncStatus[id] is RECOVERY
@@ -108,7 +109,6 @@ TaskStepConfig =
       step? and
         (step.has_recovery and step.correct_answer_id isnt step.answer_id) and
         not Durations.isPastDue(task) and
-        not @exports.isRecovering.call(@, id) and
         not @exports.isLoading.call(@, id) and
         not @exports.isSaving.call(@, id)
 

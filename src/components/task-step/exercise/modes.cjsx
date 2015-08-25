@@ -11,6 +11,7 @@ BindStoreMixin = require '../../bind-store-mixin'
 Question = require '../../question'
 FreeResponse = require './free-response'
 ExerciseGroup = require './group'
+AsyncButton = require '../../buttons/async-button'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
 {TaskActions, TaskStore} = require '../../../flux/task'
@@ -150,7 +151,7 @@ ExerciseReview = React.createClass
   isContinueEnabled: ->
     {id} = @props
     {answer_id} = TaskStepStore.get(id)
-    !!answer_id
+    !!answer_id and not TaskStepStore.isRecovering(id)
 
   onContinue: ->
     @props.onNextStep()
@@ -181,13 +182,16 @@ ExerciseReview = React.createClass
   renderFooterButtons: ->
     {id, review} = @props
     task = TaskStore.get(TaskStepStore.getTaskId(id))
-    if TaskStepStore.canTryAnother(id, task) then tryAnotherButton =
-      <BS.Button
+
+    if TaskStepStore.canTryAnother(id, task)
+      tryAnotherButton = <AsyncButton
         bsStyle='primary'
         className='-try-another'
-        onClick={@tryAnother}>
+        onClick={@tryAnother}
+        isWaiting={TaskStepStore.isRecovering(id)}
+        waitingText='Loading…'>
         Try Another
-      </BS.Button>
+      </AsyncButton>
 
     # "Refresh my Memory" button is disabled until BE gets it working properly.
     # See corresponding comment in tests.
