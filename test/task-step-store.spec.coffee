@@ -55,10 +55,13 @@ describe 'Task Step Store', ->
       @task.due_at = moment(TimeStore.getNow()).subtract(1, 'minute').toDate()
       expect(TaskStepStore.canTryAnother(step.id, @task)).to.be.false
 
-    it 'doesnt work when recovering a task', ->
+    it 'isRecovering updates when recovering a task', ->
       step = LoadStepData()
+      expect(TaskStepStore.isRecovering(step.id)).to.be.false
       TaskStepActions.loadRecovery(step.id)
       expect(TaskStepStore.isRecovering(step.id)).to.be.true
-      expect(TaskStepStore.canTryAnother(step.id, @task)).to.be.false
-      TaskStepActions.loadedRecovery({}, step.id)
       expect(TaskStepStore.canTryAnother(step.id, @task)).to.be.true
+      TaskStepActions.loadedRecovery({id: 'RECOVERED_STEP'}, step.id)
+      expect(TaskStepStore.isRecovering(step.id)).to.be.true
+      TaskStepActions.loaded({id: 'RECOVERED_STEP'}, 'RECOVERED_STEP')
+      expect(TaskStepStore.isRecovering(step.id)).to.be.false
