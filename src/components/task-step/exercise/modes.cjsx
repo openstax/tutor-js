@@ -6,6 +6,7 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 StepMixin = require '../step-mixin'
 StepFooterMixin = require '../step-footer-mixin'
+BindStoreMixin = require '../../bind-store-mixin'
 
 Question = require '../../question'
 FreeResponse = require './free-response'
@@ -29,7 +30,8 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin, BindStoreMixin]
+  bindStore: TaskStepStore
 
   getInitialState: ->
     {id} = @props

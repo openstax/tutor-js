@@ -43,10 +43,12 @@ TaskStepConfig =
 
   loadRecovery: (id) ->
     @_asyncStatus[id] = RECOVERY
+    @emit('change', id)
 
   loadedRecovery: (obj, id) ->
     delete @_asyncStatus[id]
     @clearChanged()
+    @emit('change', id)
     @emit('step.recovered', obj)
 
   exports:
