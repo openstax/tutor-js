@@ -2,7 +2,7 @@
 _ = require 'underscore'
 camelCase = require 'camelcase'
 flux = require 'flux-react'
-
+Task = require './task'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 TaskStepConfig =
@@ -84,6 +84,14 @@ TaskStepConfig =
       return false unless step.type is 'exercise'
 
       step.content.questions?[0].formats?.indexOf('free-response') > -1
+
+    canTryAnother: (id) ->
+      step = @_get(id)
+      step? and
+        (step.has_recovery and step.correct_answer_id isnt step.answer_id) and
+        not Task.TaskStore.isTaskPastDue(step.task_id) and
+        not @exports.isLoading.call(this, id) and
+        not @exports.isSaving.call(this, id)
 
 extendConfig(TaskStepConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskStepConfig)
