@@ -17,7 +17,7 @@ TimeHelper = require '../../helpers/time'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
-  mixins: [PlanMixin, BindStoreMixin, Router.State, UnsavedStateMixin]
+  mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]
   bindStore: CourseStore
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -61,7 +61,7 @@ module.exports = React.createClass
     moment(TimeStore.getNow()).add(1, 'day').toDate()
 
   getQueriedOpensAt: ->
-    {opens_at} = @getQuery() # attempt to read the open date from query params
+    {opens_at} = @context?.router?.getCurrentQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
     opensAt = if opens_at and isNewPlan then moment(opens_at).toDate()
     if not opensAt
@@ -77,7 +77,7 @@ module.exports = React.createClass
     opensAt
 
   getQueriedDueAt: ->
-    {due_at} = @getQuery() # attempt to read the due date from query params
+    {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
     dueAt = if due_at and isNewPlan then moment(due_at).toDate()
 
