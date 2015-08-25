@@ -172,12 +172,14 @@ ExerciseReview = React.createClass
     step?.related_content?.length and step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   continueButtonText: ->
-    if TaskStepStore.canTryAnother(@props.id) then 'Move On' else 'Continue'
+    {id} = @props
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
+    if TaskStepStore.canTryAnother(id, task) then 'Move On' else 'Continue'
 
   renderFooterButtons: ->
-    {review} = @props
-
-    if TaskStepStore.canTryAnother(@props.id) then tryAnotherButton =
+    {id, review} = @props
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
+    if TaskStepStore.canTryAnother(id, task) then tryAnotherButton =
       <BS.Button
         bsStyle='primary'
         className='-try-another'

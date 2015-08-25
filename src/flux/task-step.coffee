@@ -3,6 +3,8 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 flux = require 'flux-react'
 Task = require './task'
+Durations = require '../helpers/durations'
+
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 TaskStepConfig =
@@ -85,11 +87,11 @@ TaskStepConfig =
 
       step.content.questions?[0].formats?.indexOf('free-response') > -1
 
-    canTryAnother: (id) ->
+    canTryAnother: (id, task) ->
       step = @_get(id)
       step? and
         (step.has_recovery and step.correct_answer_id isnt step.answer_id) and
-        not Task.TaskStore.isTaskPastDue(step.task_id) and
+        not Durations.isPastDue(task) and
         not @exports.isLoading.call(@, id) and
         not @exports.isSaving.call(@, id)
 
