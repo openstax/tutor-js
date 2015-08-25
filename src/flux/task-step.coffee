@@ -11,11 +11,14 @@ RECOVERY = 'recovery'
 
 TaskStepConfig =
   _asyncStatus: {}
+  _recoveryTarget: {}
 
   _loaded: (obj, id) ->
     if not obj.task_id
       obj.task_id = @_local[id]?.task_id
     @emit("step.loaded", id)
+    _.each(@_recoveryTarget, _.partial(@_updateRecoveredFor, id), @)
+
     obj
 
   _saved: (obj, id) ->
@@ -46,10 +49,14 @@ TaskStepConfig =
     @emit('change', id)
 
   loadedRecovery: (obj, id) ->
-    delete @_asyncStatus[id]
+    @_recoveryTarget[id] = obj.id
     @clearChanged()
     @emit('change', id)
     @emit('step.recovered', obj)
+
+  _updateRecoveredFor: (loadedId, recoverTarget, recoveredFor) ->
+    delete @_asyncStatus[recoveredFor] if recoverTarget is loadedId
+    delete @_recoveryTarget[recoveredFor]
 
   exports:
     isRecovering: (id) -> @_asyncStatus[id] is RECOVERY
