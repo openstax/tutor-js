@@ -133,7 +133,7 @@ module.exports = React.createClass
 
     #get opens at and due at
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
+    @setOpensAt(taskingOpensAt)
 
     #enable all periods
     course = CourseStore.get(@props.courseId)
@@ -141,7 +141,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    @setOpensAt(taskingOpensAt)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
     @setDueAt(taskingDueAt)
 
   setIndividualPeriods: ->
