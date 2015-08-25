@@ -89,9 +89,6 @@ HomeworkPlan = React.createClass
     hasExercises = TaskPlanStore.getExercises(id)?.length
     shouldShowExercises = hasExercises and not @state?.showSectionTopics
 
-    if plan?.due_at
-      dueAt = new Date(plan.due_at)
-
     footer = <PlanFooter id={id}
       courseId={courseId}
       onPublish={@publish}
@@ -104,14 +101,6 @@ HomeworkPlan = React.createClass
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
     if @state?.invalid then formClasses.push('is-invalid-form')
-
-    dueAtElem = <TutorDateInput
-                  id='homework-due-date'
-                  label='Due Date'
-                  required={true}
-                  onChange={@setDueAt}
-                  min={new Date()}
-                  value={dueAt}/>
 
     if @state.showSectionTopics
       chooseExercises = <ChooseExercises

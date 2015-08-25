@@ -49,9 +49,6 @@ ReviewReadingLi = React.createClass
 
   render: ->
     topic = TocStore.getSectionInfo(@props.topicId)
-
-
-
     actionButtons = @getActionButtons()
 
     <li className='selected-section'>
@@ -102,14 +99,16 @@ ChooseReadings = React.createClass
         onClick={@hide}>Add Readings
       </BS.Button>
 
-    <SelectTopics
-      primary={primary}
-      header={header}
-      courseId={@props.courseId}
-      planId={@props.planId}
-      selected={@props.selected}
-      cancel={@props.cancel}
-      hide={@hide} />
+    <div className="reading-plan-select-topics">
+      <SelectTopics
+        primary={primary}
+        header={header}
+        courseId={@props.courseId}
+        planId={@props.planId}
+        selected={@props.selected}
+        cancel={@props.cancel}
+        hide={@hide} />
+    </div>
 
 ReadingPlan = React.createClass
   displayName: 'ReadingPlan'
