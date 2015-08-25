@@ -5,9 +5,12 @@ flux = require 'flux-react'
 Task = require './task'
 Durations = require '../helpers/durations'
 
+RECOVERY = 'recovery'
+
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 TaskStepConfig =
+  _asyncStatus: {}
 
   _loaded: (obj, id) ->
     if not obj.task_id
@@ -38,13 +41,17 @@ TaskStepConfig =
     @_change(id, {free_response})
     @_save(id)
 
-  loadRecovery: ->
+  loadRecovery: (id) ->
+    @_asyncStatus[id] = RECOVERY
 
   loadedRecovery: (obj, id) ->
+    delete @_asyncStatus[id]
     @clearChanged()
     @emit('step.recovered', obj)
 
   exports:
+    isRecovering: (id) -> @_asyncStatus[id] is RECOVERY
+
     isAnswered: (id) ->
       step = @_get(id)
       isAnswered = true
@@ -92,6 +99,7 @@ TaskStepConfig =
       step? and
         (step.has_recovery and step.correct_answer_id isnt step.answer_id) and
         not Durations.isPastDue(task) and
+        not @exports.isRecovering.call(@, id) and
         not @exports.isLoading.call(@, id) and
         not @exports.isSaving.call(@, id)
 
