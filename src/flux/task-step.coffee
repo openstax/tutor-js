@@ -2,10 +2,15 @@
 _ = require 'underscore'
 camelCase = require 'camelcase'
 flux = require 'flux-react'
+Task = require './task'
+Durations = require '../helpers/durations'
+
+RECOVERY = 'recovery'
 
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
 TaskStepConfig =
+  _asyncStatus: {}
 
   _loaded: (obj, id) ->
     if not obj.task_id
@@ -36,13 +41,19 @@ TaskStepConfig =
     @_change(id, {free_response})
     @_save(id)
 
-  loadRecovery: ->
+  loadRecovery: (id) ->
+    @_asyncStatus[id] = RECOVERY
+    @emit('change', id)
 
   loadedRecovery: (obj, id) ->
+    delete @_asyncStatus[id]
     @clearChanged()
+    @emit('change', id)
     @emit('step.recovered', obj)
 
   exports:
+    isRecovering: (id) -> @_asyncStatus[id] is RECOVERY
+
     isAnswered: (id) ->
       step = @_get(id)
       isAnswered = true
@@ -84,6 +95,15 @@ TaskStepConfig =
       return false unless step.type is 'exercise'
 
       step.content.questions?[0].formats?.indexOf('free-response') > -1
+
+    canTryAnother: (id, task) ->
+      step = @_get(id)
+      step? and
+        (step.has_recovery and step.correct_answer_id isnt step.answer_id) and
+        not Durations.isPastDue(task) and
+        not @exports.isRecovering.call(@, id) and
+        not @exports.isLoading.call(@, id) and
+        not @exports.isSaving.call(@, id)
 
 extendConfig(TaskStepConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskStepConfig)

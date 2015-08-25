@@ -6,6 +6,7 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 StepMixin = require '../step-mixin'
 StepFooterMixin = require '../step-footer-mixin'
+BindStoreMixin = require '../../bind-store-mixin'
 
 Question = require '../../question'
 FreeResponse = require './free-response'
@@ -29,7 +30,8 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin, BindStoreMixin]
+  bindStore: TaskStepStore
 
   getInitialState: ->
     {id} = @props
@@ -166,25 +168,21 @@ ExerciseReview = React.createClass
     # Track what step is refreshed so that it can be skipped after refreshing.
     @props.refreshStep(index, id)
 
-  canTryAnother: ->
-    {id} = @props
-    step = TaskStepStore.get(id)
-    isPastDue = TaskStore.isTaskPastDue(step.task_id)
-    not isPastDue and (step.has_recovery and step.correct_answer_id isnt step.answer_id)
-
   canRefreshMemory: ->
     {id} = @props
     step = TaskStepStore.get(id)
     step?.related_content?.length and step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   continueButtonText: ->
-    if @canTryAnother() then 'Move On' else 'Continue'
+    {id} = @props
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
+    if TaskStepStore.canTryAnother(id, task) then 'Move On' else 'Continue'
 
   renderFooterButtons: ->
-    {review} = @props
-
-    if @canTryAnother()
-      tryAnotherButton = <BS.Button
+    {id, review} = @props
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
+    if TaskStepStore.canTryAnother(id, task) then tryAnotherButton =
+      <BS.Button
         bsStyle='primary'
         className='-try-another'
         onClick={@tryAnother}>

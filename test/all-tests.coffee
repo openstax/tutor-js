@@ -43,6 +43,7 @@ require './components/name.spec'
 
 require './crud-store.spec'
 require './task-store.spec'
+require './task-step-store.spec'
 require './loadable.spec'
 require './teacher-task-plan-store.spec'
 require './learning-guide-store.spec'
