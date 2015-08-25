@@ -70,6 +70,7 @@ buildTests = (isWatching) ->
 
 
 buildAndTest = (shouldWatch, done) ->
+  shouldWatch = true
   build(shouldWatch).on 'end', ->
     buildTests(shouldWatch).on 'end', ->
       config =
