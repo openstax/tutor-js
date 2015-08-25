@@ -120,7 +120,7 @@ start = (bootstrapData) ->
   #   payload: obj
 
   saveHelper = (id) ->
-    obj = TaskPlanStore.getChangedFormatted(id)
+    obj = TaskPlanStore.getChanged(id)
     if TaskPlanStore.isNew(id)
       # HACK: to make the JSON valid
       obj.type ?= 'reading'

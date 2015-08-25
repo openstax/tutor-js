@@ -10,8 +10,6 @@ validator = require 'validator'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
 TaskHelpers = require '../helpers/task'
 
-CALENDAR_DATE_FORMAT = 'YYYY-MM-DD'
-
 TUTOR_SELECTIONS =
   default: 3
   max: 4
@@ -29,7 +27,6 @@ sortTopics = (topics) ->
 
 TaskPlanConfig =
 
-  _DATE_FORMAT: CALENDAR_DATE_FORMAT
   _stats: {}
   _asyncStatusStats: {}
   _server_copy: {}
@@ -449,33 +446,11 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       plan?.tasking_plans
 
-    getChangedFormatted: (id) ->
-      # This is trying really really hard to make sure we don't mutate
-      # the store's copy of the data.
-      #
-      # This absolutely needs to be a clean copy for the server. We are stripping
-      # off timestamps for the BE to bypass time zone problems.  If we mutate the frontend
-      # copy, we will get major problems with the FE -- as it stands, FE expects to work
-      # with the dates purely as dates.
-      plan = _.extend({}, @exports.getChanged.call(@, id))
-      dateFormat = @exports.getDateFormat.call(@)
-      if plan.tasking_plans
-        plan.tasking_plans = _.map(plan.tasking_plans, (tasking_plan) ->
-          opens_at = moment(tasking_plan.opens_at).format(dateFormat)
-          due_at = moment(tasking_plan.due_at).format(dateFormat)
-          tasking_plan = _.extend({}, tasking_plan, {opens_at, due_at})
-        )
-
-      plan
-
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 
     isStatsLoaded: (id) -> !! @_stats[id]
 
     isStatsFailed: (id) -> !! @_stats[id]
-
-    getDateFormat: ->
-      @_DATE_FORMAT
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)
