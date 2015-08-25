@@ -295,7 +295,7 @@ module.exports = React.createClass
 
     dueAt = <BS.Col sm=4 md=3>
       <TutorDateInput
-        id='reading-due-date'
+        inputId='reading-due-date'
         ref="dueDate"
         required={not @state.showingPeriods}
         label="Due Date"
@@ -368,6 +368,7 @@ module.exports = React.createClass
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
+          ref="openDate#{plan.id}"
           disabled={@state.isVisibleToStudents or not @state.isEditable}
           label="Open Date"
           required={@state.showingPeriods}
@@ -378,6 +379,7 @@ module.exports = React.createClass
           currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
+          ref="dueDate#{plan.id}"
           disabled={not @state.isEditable}
           label="Due Date"
           required={@state.showingPeriods}
