@@ -12,15 +12,7 @@ module.exports =
   contextTypes:
     router: React.PropTypes.func
 
-  getInitialState: ->
-    #firefox doesn't like dates with dashes in them
-    dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, '/')
-    dueAt = new Date(dateStr)
-
-    # FIXME: Add back the default dueAt
-    # if TaskPlanStore.isNew(@props.id) and dateStr and dueAt > TimeStore.getNow()
-    #   @setDueAt(dueAt)
-    {}
+  getInitialState: -> {}
 
   setTitle: (title) ->
     {id} = @props
