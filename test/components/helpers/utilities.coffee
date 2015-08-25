@@ -84,6 +84,9 @@ commonActions =
   select: (selectElementNode) ->
     React.addons.TestUtils.Simulate.select(selectElementNode)
 
+  change: (changeElementNode) ->
+    React.addons.TestUtils.Simulate.change(changeElementNode)
+
   _clickMatch: (selector, args...) ->
     {div} = args[0]
     commonActions.clickButton(div, selector)

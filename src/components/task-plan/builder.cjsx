@@ -17,12 +17,13 @@ TimeHelper = require '../../helpers/time'
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
-  mixins: [PlanMixin, BindStoreMixin, Router.State, UnsavedStateMixin]
+  mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]
   bindStore: CourseStore
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
-
+  contextTypes:
+    router: React.PropTypes.func
   getInitialState: ->
     isNewPlan = TaskPlanStore.isNew(@props.id)
 
@@ -53,7 +54,7 @@ module.exports = React.createClass
     moment(TimeStore.getNow()).add(1, 'day').toDate()
 
   getQueriedOpensAt: ->
-    {opens_at} = @getQuery() # attempt to read the open date from query params
+    {opens_at} = @context.router.getCurrentQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
     opensAt = if opens_at and isNewPlan then moment(opens_at).toDate()
     if not opensAt
@@ -69,7 +70,7 @@ module.exports = React.createClass
     opensAt
 
   getQueriedDueAt: ->
-    {due_at} = @getQuery() # attempt to read the due date from query params
+    {due_at} = @context.router.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
     dueAt = if due_at and isNewPlan then moment(due_at).toDate()
 
@@ -133,7 +134,7 @@ module.exports = React.createClass
 
     #get opens at and due at
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
+    @setOpensAt(taskingOpensAt)
 
     #enable all periods
     course = CourseStore.get(@props.courseId)
@@ -141,7 +142,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    @setOpensAt(taskingOpensAt)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
     @setDueAt(taskingDueAt)
 
   setIndividualPeriods: ->
@@ -294,7 +295,7 @@ module.exports = React.createClass
 
     dueAt = <BS.Col sm=4 md=3>
       <TutorDateInput
-        id='reading-due-date'
+        inputId='reading-due-date'
         ref="dueDate"
         required={not @state.showingPeriods}
         label="Due Date"
@@ -367,6 +368,7 @@ module.exports = React.createClass
         <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
+          ref="openDate#{plan.id}"
           disabled={@state.isVisibleToStudents or not @state.isEditable}
           label="Open Date"
           required={@state.showingPeriods}
@@ -377,6 +379,7 @@ module.exports = React.createClass
           currentLocale={@state.currentLocale} />
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
+          ref="dueDate#{plan.id}"
           disabled={not @state.isEditable}
           label="Due Date"
           required={@state.showingPeriods}
