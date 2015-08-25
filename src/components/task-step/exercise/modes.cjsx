@@ -189,7 +189,7 @@ ExerciseReview = React.createClass
         className='-try-another'
         onClick={@tryAnother}
         isWaiting={TaskStepStore.isRecovering(id)}
-        waitingText='Loading…'>
+        waitingText='Loading Another…'>
         Try Another
       </AsyncButton>
 
