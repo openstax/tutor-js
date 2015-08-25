@@ -3,12 +3,8 @@ _ = require 'underscore'
 moment = require 'moment'
 flux = require 'flux-react'
 
-{TimeStore} = require './time'
+Durations = require '../helpers/durations'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-# export the module immediatly before requiring task-step
-# Unfortunantly task-step also needs access to the TaskStore so we export the definition before we require it.
-# The exported object is extended below after the definition
-module.exports = {}
 {TaskStepStore} = require './task-step'
 
 getSteps = (steps) ->
@@ -195,8 +191,7 @@ TaskConfig =
       allSteps.length
 
     isTaskPastDue: (taskId) ->
-      task = @_get(taskId)
-      moment(TimeStore.getNow()).isAfter(task.due_at)
+      Durations.isPastDue( @_get(taskId) )
 
     isPractice: (taskId) ->
       practices = [
@@ -228,5 +223,4 @@ TaskConfig =
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
-# Extend the exports with the actual implementation.  The actual export took place at the top of the file
-_.extend(module.exports, {TaskActions:actions, TaskStore:store})
+module.exports = {TaskActions:actions, TaskStore:store}
