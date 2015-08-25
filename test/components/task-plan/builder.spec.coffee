@@ -11,7 +11,8 @@ moment = require 'moment'
 Builder = require '../../../src/components/task-plan/builder'
 {Testing, sinon, expect, _, React} = require '../helpers/component-testing'
 
-DATE_STRING_FORMAT = TaskPlanStore.getDateFormat()
+# we should gather things somewhere nice.
+DATE_STRING_FORMAT = 'YYYY-MM-DD'
 
 two_days_ago = (new Date(Date.now() - 1000 * 3600 * 24 * 2)).toString()
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
@@ -166,14 +167,8 @@ describe 'Task Plan Builder, new reading', ->
       Testing.actions.change(uncheckedPeriodsToggle)
 
       {tasking_plans} = TaskPlanStore.get(PLAN_NEW_TEST_ID)
-      formatted = TaskPlanStore.getChangedFormatted(PLAN_NEW_TEST_ID)
 
       _.each(tasking_plans, (tasking) ->
-        expect(moment(tasking.due_at).isSame(commonDueDate, 'day')).to.be.true
-        expect(moment(tasking.opens_at).isSame(commonOpenDate, 'day')).to.be.true
-      )
-
-      _.each(formatted.tasking_plans, (tasking) ->
         expect(moment(tasking.due_at).isSame(commonDueDate, 'day')).to.be.true
         expect(moment(tasking.opens_at).isSame(commonOpenDate, 'day')).to.be.true
       )
@@ -205,17 +200,10 @@ describe 'Task Plan Builder, new reading', ->
       )
 
       {tasking_plans} = TaskPlanStore.get(PLAN_NEW_TEST_ID)
-      formatted = TaskPlanStore.getChangedFormatted(PLAN_NEW_TEST_ID)
 
       _.each(tasking_plans, (tasking, iter) ->
         expect(moment(tasking.due_at).isSame(updates[iter].due_at, 'day')).to.be.true
         # TO DO this line should pass
-        # expect(moment(tasking.opens_at).isSame(updates[iter].opens_at, 'day')).to.be.true
-      )
-
-      _.each(formatted.tasking_plans, (tasking, iter) ->
-        expect(moment(tasking.due_at).isSame(updates[iter].due_at, 'day')).to.be.true
-        # TO DO this line should pass as well
         # expect(moment(tasking.opens_at).isSame(updates[iter].opens_at, 'day')).to.be.true
       )
 
@@ -232,7 +220,6 @@ describe 'Task Plan Builder, new reading', ->
       Testing.actions.change(uncheckedPeriodsToggle)
 
       {periods} = CourseStore.get(COURSE_TEST_ID)
-      formatted = TaskPlanStore.getChangedFormatted(PLAN_NEW_TEST_ID)
 
       # change each tasking plan's dates
       _.each(periods, (period, iter) ->
@@ -254,11 +241,6 @@ describe 'Task Plan Builder, new reading', ->
         expect(tasking.opens_at).to.not.be.null
       )
 
-      _.each(formatted.tasking_plans, (tasking, iter) ->
-        expect(tasking.due_at).to.not.be.null
-        expect(tasking.opens_at).to.not.be.null
-      )
-
 
   it 'should have valid dates when switching from changed due_at to all', ->
     helper(NEW_READING).then ({dom, element}) ->
@@ -272,7 +254,6 @@ describe 'Task Plan Builder, new reading', ->
       Testing.actions.change(uncheckedPeriodsToggle)
 
       {periods} = CourseStore.get(COURSE_TEST_ID)
-      formatted = TaskPlanStore.getChangedFormatted(PLAN_NEW_TEST_ID)
 
       # change each tasking plan's dates
       _.each(periods, (period, iter) ->
@@ -292,11 +273,6 @@ describe 'Task Plan Builder, new reading', ->
         expect(tasking.opens_at).to.not.be.null
       )
 
-      _.each(formatted.tasking_plans, (tasking, iter) ->
-        expect(tasking.due_at).to.not.be.null
-        expect(tasking.opens_at).to.not.be.null
-      )
-
 
   it 'should have valid dates when switching from changed opens_at to all', ->
     helper(NEW_READING).then ({dom, element}) ->
@@ -310,7 +286,6 @@ describe 'Task Plan Builder, new reading', ->
       Testing.actions.change(uncheckedPeriodsToggle)
 
       {periods} = CourseStore.get(COURSE_TEST_ID)
-      formatted = TaskPlanStore.getChangedFormatted(PLAN_NEW_TEST_ID)
 
       # change each tasking plan's dates
       _.each(periods, (period, iter) ->
@@ -326,11 +301,6 @@ describe 'Task Plan Builder, new reading', ->
       {tasking_plans} = TaskPlanStore.get(PLAN_NEW_TEST_ID)
 
       _.each(tasking_plans, (tasking, iter) ->
-        expect(tasking.due_at).to.not.be.null
-        expect(tasking.opens_at).to.not.be.null
-      )
-
-      _.each(formatted.tasking_plans, (tasking, iter) ->
         expect(tasking.due_at).to.not.be.null
         expect(tasking.opens_at).to.not.be.null
       )
