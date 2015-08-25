@@ -12,7 +12,7 @@ PlanMixin =
   contextTypes:
     router: React.PropTypes.func
 
-  getInitialState: -> {}
+  getInitialState: ->
     isSavedPlanVisibleToStudent = TaskPlanStore.isVisibleToStudents(@props.id or @props.planId)
 
     isVisibleToStudents: isSavedPlanVisibleToStudent
