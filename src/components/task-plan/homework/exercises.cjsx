@@ -33,10 +33,10 @@ ExerciseCardMixin =
   renderExercise: ->
     content = @props.exercise.content
     question = content.questions[0]
-    question.answers = _(question.answers).chain()
+    renderedAnswers = _(question.answers).chain()
       .sortBy('id')
+      .map(@renderAnswers)
       .value()
-    renderedAnswers = _.map(question.answers, @renderAnswers)
     tags = _.clone @props.exercise.tags
     # Display the exercise uid as a tag
     tags.push(name: "ID: #{@props.exercise.content.uid}")
