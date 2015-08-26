@@ -11,9 +11,9 @@ JOBBED = 'completed'
 JOB_FAILED = 'failed'
 JOB_KILLED = 'killed'
 
-JobListenerConfig = ->
+JobListenerConfig = (checkIntervals, checkRepeats) ->
   {
-
+    _asyncStatus: {}
     _job: {}
 
     _updateJobStatusFor: (id) ->
@@ -54,7 +54,7 @@ JobListenerConfig = ->
       # checks job until final status is reached
       checkJob = ->
         JobActions.load(jobId)
-      JobActions.checkUntil(jobId, checkJob, 2000, 100)
+      JobActions.checkUntil(jobId, checkJob, checkIntervals, checkRepeats)
 
       # whenever this job status is updated, emit the status for this wrapper
       updateJobStatus = @_updateJobStatusFor(id)
@@ -72,6 +72,8 @@ JobListenerConfig = ->
       _.last(@_getJobs(id))
 
     exports:
+      getAsyncStatus: (id) -> @_asyncStatus[id]
+
       isProgressing: (id) ->
         jobbingStates = [
           JOB_REQUESTING

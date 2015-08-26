@@ -136,6 +136,7 @@ PerformanceExport = React.createClass
         isWaiting={PerformanceExportStore.isExporting(courseId) or tryToDownload}
         isFailed={PerformanceExportStore.isFailed(courseId) or downloadHasError}
         failedProps={failedProps}
+        timeout={3600000}
         waitingText='Generating Export…'>
         Generate Export
       </AsyncButton>

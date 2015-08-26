@@ -10,8 +10,7 @@ PlanPublishConfig =
     jobId = publish_job_uuid
     {id, jobId}
 
-JobCrudConfig = extendConfig(new JobListenerConfig(), new CrudConfig())
-extendConfig(PlanPublishConfig, JobCrudConfig)
+extendConfig(PlanPublishConfig, new JobListenerConfig(2000, 100))
 
 PlanPublishConfig.exports.isPublishing = PlanPublishConfig.exports.isProgressing
 PlanPublishConfig.exports.isPublished = PlanPublishConfig.exports.isCompleted
