@@ -31,7 +31,7 @@ CoursePlan = React.createClass
   getInitialState: ->
     isViewingStats: @_doesPlanMatchesRoute()
     publishStatus: PlanPublishStore.getAsyncStatus(@props.item.plan.id)
-    isPublishing: false
+    isPublishing: PlanPublishStore.isPublishing(@props.item.plan.id)
     isHovered: false
 
   # utility functions for functions called in lifecycle methods
@@ -85,10 +85,10 @@ CoursePlan = React.createClass
     {id, isPublishing, publish_job_uuid} = plan
     publishStatus = PlanPublishStore.getAsyncStatus(id)
 
-    if isPublishing and not PlanPublishStore.isPublishing(id) and not PlanPublishStore.isPublished(id)
+    if isPublishing and not @state.isPublishing and not PlanPublishStore.isPublished(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
-    isPublishing = isPublishing or PlanPublishStore.isPublishing(id)
+    isPublishing = isPublishing or @state.isPublishing
 
     if isPublishing
       PlanPublishActions.startChecking(id, publish_job_uuid)
