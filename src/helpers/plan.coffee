@@ -26,13 +26,13 @@ PlanHelper =
     isPublishingInStore = PlanPublishStore.isPublishing(id)
 
     if isPublishing and not isPublishingInStore and not PlanPublishStore.isPublished(id)
-      PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
+      PlanPublishActions.queued({id, publish_job_uuid}) if publish_job_uuid?
 
     isPublishing = isPublishing or isPublishingInStore
 
     if isPublishing
       PlanPublishActions.startChecking(id, publish_job_uuid)
-      PlanPublishStore.on("planPublish.#{id}.*", callback) if callback? and _.isFunction(callback)
+      PlanPublishStore.on("progress.#{id}.*", callback) if callback? and _.isFunction(callback)
 
     {isPublishing, publishStatus}
 

@@ -27,14 +27,14 @@ PlanFooter = React.createClass
 
   checkPublishingStatus: (published) ->
     planId = @props.id
-    if published.publishFor is planId
+    if published.for is planId
       planStatus =
         publishing: PlanPublishStore.isPublishing(planId)
 
       @setState(planStatus)
       if PlanPublishStore.isDone(planId)
-        PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus)
-        TaskPlanStore.load(planId)
+        PlanPublishStore.removeAllListeners("progress.#{planId}.*", @checkPublishingStatus)
+        TaskPlanActions.load(planId)
 
   componentWillMount: ->
     plan = TaskPlanStore.get(@props.id)

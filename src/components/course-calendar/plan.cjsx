@@ -22,9 +22,12 @@ CoursePlan = React.createClass
     router: React.PropTypes.func
 
   propTypes:
-    item: React.PropTypes.object.isRequired
     courseId: React.PropTypes.string.isRequired
-    activeHeight: React.PropTypes.number.isRequired
+    item: React.PropTypes.shape(
+        plan: React.PropTypes.object
+        displays: React.PropTypes.array
+      )
+    activeHeight: React.PropTypes.number
 
   getDefaultProps: ->
     # CALENDAR_EVENT_LABEL_ACTIVE_STATIC_HEIGHT
@@ -75,13 +78,13 @@ CoursePlan = React.createClass
 
   checkPublishingStatus: (published) ->
     planId = @props.item.plan.id
-    if published.publishFor is planId
+    if published.for is planId
       planStatus =
         publishStatus: published.status
         isPublishing: PlanPublishStore.isPublishing(planId)
 
       @setState(planStatus)
-      PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
+      PlanPublishStore.removeAllListeners("progress.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
 
   subscribeToPublishing: (plan) ->
     publishState = PlanHelper.subscribeToPublishing(plan, @checkPublishingStatus)
@@ -106,7 +109,7 @@ CoursePlan = React.createClass
 
   stopCheckingPlan: (plan) ->
     PlanPublishActions.stopChecking(plan.id) if @state.isPublishing
-    PlanPublishStore.removeAllListeners("planPublish.#{plan.id}.*")
+    PlanPublishStore.removeAllListeners("progress.#{plan.id}.*")
 
   setIsViewing: (isViewingStats) ->
     @syncIsViewingStats(isViewingStats) if @state.isViewingStats isnt isViewingStats
