@@ -92,9 +92,9 @@ TeacherTaskPlanListing = React.createClass
 
     date = @getDateFromParams()
 
-    plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
+    loadPlansList = TeacherTaskPlanStore.getActiveCoursePlans.bind(TeacherTaskPlanStore, courseId)
 
-    loadedCalendarProps = {plansList, courseId, date}
+    loadedCalendarProps = {loadPlansList, courseId, date}
 
     <div {...courseDataProps} className="tutor-booksplash-background">
 
