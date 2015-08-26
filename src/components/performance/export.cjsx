@@ -41,7 +41,7 @@ PerformanceExport = React.createClass
 
   handleCompletedExport: (exportData) ->
     {courseId} = @props
-    if @isUpdateValid(exportData.exportFor)
+    if @isUpdateValid(exportData.for)
       PerformanceExportActions.load(courseId)
       @setState(tryToDownload: true)
 
@@ -109,12 +109,14 @@ PerformanceExport = React.createClass
     @setState(tryToDownload: true, downloadedSinceLoad: true)
 
   addBindListener: ->
-    PerformanceExportStore.on('performanceExport.completed', @handleCompletedExport)
-    PerformanceExportStore.on('performanceExport.loaded', @handleLoadedExport)
+    {courseId} = @props
+    PerformanceExportStore.on("progress.#{courseId}.completed", @handleCompletedExport)
+    PerformanceExportStore.on('loaded', @handleLoadedExport)
 
   removeBindListener: ->
-    PerformanceExportStore.off('performanceExport.completed', @handleCompletedExport)
-    PerformanceExportStore.off('performanceExport.loaded', @handleLoadedExport)
+    {courseId} = @props
+    PerformanceExportStore.off("progress.#{courseId}.completed", @handleCompletedExport)
+    PerformanceExportStore.off('loaded', @handleLoadedExport)
 
   render: ->
     {courseId, className} = @props

@@ -30,6 +30,7 @@ JobListenerConfig = ->
 
     que: (id) ->
       @_asyncStatus[id] = JOB_REQUESTING
+      @emit("progress.#{id}.#{JOB_REQUESTING}")
 
     queued: (obj, id) ->
       if @_getIds?

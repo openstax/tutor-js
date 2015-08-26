@@ -24,9 +24,9 @@ CoursePlan = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     item: React.PropTypes.shape(
-        plan: React.PropTypes.object
-        displays: React.PropTypes.array
-      )
+      plan: React.PropTypes.object
+      displays: React.PropTypes.array
+    )
     activeHeight: React.PropTypes.number
 
   getDefaultProps: ->
