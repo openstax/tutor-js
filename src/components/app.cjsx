@@ -7,6 +7,8 @@ Navbar = require './navbar'
 
 module.exports = React.createClass
   displayName: 'App'
+  contextTypes:
+    router: React.PropTypes.func
 
   componentDidMount: ->
     @storeInitial()
@@ -16,15 +18,23 @@ module.exports = React.createClass
     HistoryLocation.removeChangeListener(@storeHistory)
 
   storeInitial: ->
-    if History.length is 1
-      path = HistoryLocation.getCurrentPath()
-      TransitionActions.load({path})
+    @storeHistory(path: HistoryLocation.getCurrentPath())
 
   storeHistory: (locationChangeEvent) ->
-    TransitionActions.load(locationChangeEvent)
+    TransitionActions.load(locationChangeEvent, @context.router)
+
+  getInitialState: ->
+    displayDebug: false
+
+  toggleDebug: (ev) ->
+    @setState(displayDebug: not @state.displayDebug)
+    ev.preventDefault()
 
   render: ->
-    <div>
-      <Navbar/>
+    classes = ['tutor-app']
+    classes.push 'display-debug-content' if @state.displayDebug
+    <div className={classes.join(' ')}>
+      <a href='#' onClick={@toggleDebug} className='debug-toggle-link'>&pi;</a>
+      <Navbar />
       <RouteHandler/>
     </div>

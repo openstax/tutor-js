@@ -37,6 +37,7 @@ ROUTES =
     label: 'Performance Forecast'
     roles:
       student: 'viewGuide'
+      teacher: 'viewTeacherGuide'
   performance:
     label: 'Performance Report'
     roles:
@@ -45,10 +46,6 @@ ROUTES =
     label: 'Course Roster'
     roles:
       teacher: 'courseSettings'
-  book:
-    label: 'Browse the Book'
-    roles:
-      default: 'viewReferenceBook'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -73,6 +70,11 @@ CurrentUserStore = flux.createStore
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
+  _getParamsForRoute: (courseId, routeType, menuRole) ->
+    if _.isFunction(ROUTES[routeType].params)
+      ROUTES[routeType].params(courseId, menuRole)
+    else
+      {courseId}
 
   _getCourseRole: (courseId, silent = true) ->
     course = CourseStore.get(courseId)
@@ -99,9 +101,12 @@ CurrentUserStore = flux.createStore
 
   setToken: (@_token) -> # Save the token
 
-  load: -> # Used by API
+  load: -> @_loading = true
+
   loaded: (results) ->
     @_user = results
+    @_loaded = true
+    @_loading = false
     @emitChange()
 
   reset: ->
@@ -117,6 +122,12 @@ CurrentUserStore = flux.createStore
     getName: -> @_user.name
     isAdmin: -> @_user.is_admin
     getProfileUrl: -> @_user.profile_url
+
+    # Loads the store if it's not already loaded or loading
+    # Returns false if the store is already loaded, true otherwise
+    ensureLoaded: ->
+      CurrentUserActions.load() unless @_loaded or @_loading
+
 
     getCourseRole: (courseId, silent = true) ->
       @_getCourseRole(courseId, silent)
@@ -141,9 +152,9 @@ CurrentUserStore = flux.createStore
       _.chain(routes)
         .map((routeType) =>
           routeName = @_getRouteByRole(routeType, menuRole)
-
           if routeName?
             name: routeName
+            params: @_getParamsForRoute(courseId, routeType, menuRole)
             label: ROUTES[routeType].label
         )
         .compact()

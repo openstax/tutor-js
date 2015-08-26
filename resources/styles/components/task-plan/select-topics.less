@@ -1,94 +1,102 @@
 .select-reading-chapters {
-  .panel {
-    box-shadow: none;
 
-    .panel-heading {
-      position: relative;
-      background: @tutor-neutral-lighter;
+  .panel-group {
+    margin-bottom: 0;
+
+    .panel {
+      margin-top: 0;
+      box-shadow: none;
+
+      .panel-heading {
+        position: relative;
+        border-bottom: 1px solid @tutor-neutral-light;
+        background: none;
+        padding: 0;
+
+        > .panel-title {
+          line-height: 1.2rem;
+
+          > a {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+
+            &[aria-expanded=true],
+            &:hover {
+              text-decoration: none;
+            }
+          }
+
+          .chapter-checkbox,
+          .chapter-number,
+          .chapter-title {
+            vertical-align: middle;
+
+            span {
+              font-size: 1.7rem;
+              font-weight: 700;
+              color: @tutor-tertiary;
+              line-height: normal;
+              vertical-align: baseline;
+            }
+
+            input {
+              margin: 0 20px 0 0;
+              vertical-align: baseline;
+            }
+          }
+        }
+        .browse-book {
+          .pull-right();
+          color: @tutor-info;
+          font-size: 1.4rem;
+          font-weight: 400;
+          line-height: 2rem;
+          &:hover { text-decoration: underline; }
+        }
+      }
+    }
+
+    .panel-heading .chapter-heading.empty-chapter {
+      span.chapter-number span,
+      span.chapter-title span {
+        color: @tutor-neutral;
+      }
+      input {
+        display: none;
+      }
+    }
+
+    .panel-collapse > .panel-body {
       padding: 0;
+      border: none !important;
 
-      > .panel-title {
-        line-height: 1.2rem;
-
-        > a {
-          display: inline-block;
-          width: 100%;
-          padding: 10px 20px;
-
-          &[aria-expanded=true],
-          &:hover {
-            background: darken(@tutor-neutral-lighter, 10%);
-            text-decoration: none;
-          }
-        }
-
-        .chapter-checkbox,
-        .chapter-number,
-        .chapter-title {
-          vertical-align: middle;
-
-          span {
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: @tutor-tertiary;
-            line-height: normal;
-            vertical-align: baseline;
-          }
-
-          input {
-            margin: 0 20px 0 0;
-            vertical-align: baseline;
-          }
-        }
-      }
-      .browse-book {
-        .pull-right();
-        color: @tutor-black;
-        font-size: 1.3rem;
+      > .section {
+        padding: 1px 10px;
+        border-bottom: 1px solid @tutor-neutral-light;
         font-weight: 400;
-        line-height: 2rem;
-        &:hover { text-decoration: underline; }
+        cursor: pointer;
+        background: white;
+        transition: background .05s ease-in;
+
+        &:hover {
+          background: @state-info-bg;
+          transition: background .05s ease-in;
+        }
+
+        &.selected {
+          background: @tutor-highlight;
+          transition: background .05s ease-in;
+        }
+        //TODO this could be a mixin of some sort, to keep consistent with HW builder and other similar actions
+        > .section-checkbox {
+          margin-right: 20px;
+          font-size: 1.7rem;
+        }
       }
+
     }
+
   }
 
-  .panel-heading .chapter-heading.empty-chapter {
-    span.chapter-number span,
-    span.chapter-title span {
-      color: @tutor-neutral;
-    }
-    input {
-      display: none;
-    }
-  }
-
-  .panel-collapse > .panel-body {
-    padding: 0;
-    border: none !important;
-
-    > .section {
-      padding: 1px 20px;
-      border-bottom: 1px solid @tutor-neutral-light;
-      font-weight: 400;
-      cursor: pointer;
-
-      &:last-child {
-        border-bottom: 0;
-      }
-
-      &:hover {
-        background: @state-info-bg;
-      }
-
-      &.selected {
-        background: @state-info-bg;
-        color: @state-info-text;
-      }
-
-      > .section-checkbox {
-        margin-right: 20px;
-        font-size: 1.7rem;
-      }
-    }
-  }
 }

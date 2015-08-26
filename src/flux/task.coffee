@@ -2,9 +2,10 @@
 _ = require 'underscore'
 moment = require 'moment'
 flux = require 'flux-react'
-{TaskStepActions, TaskStepStore} = require './task-step'
-{TimeStore} = require './time'
+
+Durations = require '../helpers/durations'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{TaskStepStore} = require './task-step'
 
 getSteps = (steps) ->
   _.map steps, ({id}) ->
@@ -47,6 +48,7 @@ TaskConfig =
     steps = obj.steps
     delete obj.steps
     @_steps[id] = steps
+    {TaskStepActions, TaskStepStore} = require './task-step'
     for step in steps
       #HACK: set the task_id so we have a link back to the task from the step
       step.task_id = id
@@ -163,7 +165,8 @@ TaskConfig =
       allowed = [
         'homework'
         'practice'
-        'chapter_practice'
+        'chapter_practice',
+        'page_practice'
       ]
 
       if allowed.indexOf(@_get(taskId).type) > -1 then true else false
@@ -188,13 +191,13 @@ TaskConfig =
       allSteps.length
 
     isTaskPastDue: (taskId) ->
-      task = @_get(taskId)
-      moment(TimeStore.getNow()).isAfter(task.due_at)
+      Durations.isPastDue( @_get(taskId) )
 
     isPractice: (taskId) ->
       practices = [
         'practice'
-        'chapter_practice'
+        'chapter_practice',
+        'page_practice'
       ]
 
       if practices.indexOf(@_get(taskId).type) > -1 then true else false

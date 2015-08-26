@@ -124,7 +124,6 @@
   }
 
   .answers-table {
-    font-size: 0.8em;
     width: 100%;
 
     .answers-answer {
@@ -249,6 +248,12 @@
       &::before {
         content: "Student Answer:";
       }
+    }
+    .answers-table label.answer-label {
+      cursor: default;
+    }
+    .answer-checked::before {
+      content: "Student Choice:";
     }
   }
 }

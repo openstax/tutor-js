@@ -6,13 +6,14 @@ module.exports =
     crumb: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number
     goToStep: React.PropTypes.func.isRequired
+    onMouseEnter: React.PropTypes.func
 
   getInitialState: ->
     canReview: true
     step: {}
 
   render: ->
-    {crumb, currentStep, goToStep} = @props
+    {crumb, currentStep, goToStep, onMouseEnter, style, onMouseLeave} = @props
     {canReview, step} = @state
 
     crumbType = step?.type
@@ -31,7 +32,7 @@ module.exports =
       bsStyle = 'primary'
       title ?= "Step Completed (#{crumbType}). Click to review"
 
-      if canReview
+      if canReview and step.correct_answer_id?
         if step.is_correct
           status = <i className='icon-lg icon-correct'></i>
           classes.push('status-correct')
@@ -54,6 +55,9 @@ module.exports =
 
     <span
       className={classes}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={style}
       title={title}
       onClick={goToStep(crumb.key)}
       data-chapter={crumb.sectionLabel}

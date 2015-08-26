@@ -11,8 +11,7 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   redirectToAccount: ->
-    TransitionAssistant.checkTransitionStateTo("Account Profile Page").then ->
-      window.location.href = CurrentUserStore.getProfileUrl()
+    window.open(CurrentUserStore.getProfileUrl(), 'account-profile')
 
   render: ->
     return null unless CurrentUserStore.getProfileUrl()

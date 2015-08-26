@@ -5,6 +5,7 @@
     margin-right: -40px;
 
     .page {
+      counter-reset: question;
       width: @reference-book-page-width;
       margin: 0 auto;
       border: 1px solid @tutor-neutral-bright;
@@ -19,7 +20,7 @@
       }
 
       > section {
-        > h1, > h2 {
+        > h1, h2 {
           clear: both;
         }
 

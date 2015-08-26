@@ -1,9 +1,10 @@
 moment = require 'moment'
 _ = require 'underscore'
+{TimeStore} = require '../flux/time'
 
 module.exports = {
 
-  getLateness: ({due_at, last_worked_at}) ->
+  getLateness: ({due_at, last_worked_at, status}) ->
 
     result =
       is_late: false
@@ -11,10 +12,12 @@ module.exports = {
       how_late: null
 
     result.last_worked_at = moment(last_worked_at)
-    result.is_late = moment(due_at).isBefore(result.last_worked_at)
+    result.is_late  = moment(due_at).isBefore(result.last_worked_at)
     result.how_late = moment(due_at).from(result.last_worked_at, true) if result.is_late
     result
 
+  isDue: ({due_at}) ->
+    moment(due_at).isBefore(TimeStore.getNow())
 
   # Convert each number to base 10 with it's position based on index.
   # If section is not present, 0 is set for it

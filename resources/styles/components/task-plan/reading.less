@@ -1,6 +1,10 @@
 .reading-plan {
   .edit-reading {
-    .panel-body { padding: 50px 120px; }
+    .panel-body { padding: 50px 140px; }
+
+    @media (max-width: @screen-sm) {
+      .panel-body { padding: 50px 30px; }
+    }
 
     label {
       display: block;
@@ -25,13 +29,15 @@
 ul.selected-reading-list {
   list-style: none;
   padding-left: 0;
-  margin-top: 2em;
+  margin-top: 1em;
 
   li {
     border-bottom: 1px solid @tutor-neutral-lighter;
 
+    .tutor-fade-in(2s);
+
     &:first-child {
-      color: @tutor-neutral;
+      font-size: 2rem;
     }
     .section-buttons {
       float: right;
@@ -40,7 +46,7 @@ ul.selected-reading-list {
         width: 20px;
         border-radius: 10px;
         font-size: 1rem;
-        margin: 0;
+        margin: -2px 0 0;
         padding: 0;
 
         &:hover {

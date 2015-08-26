@@ -97,9 +97,9 @@
   #fonts > .sans(1.2rem, 1.2rem);
 }
 
-.tutor-icon-active(@scale: 1.4) {
+.tutor-icon-active(@scale: 1.4; @shadow: 0.12) {
   .scale(@scale);
-  .box-shadow(0 1px 6px rgba(0, 0, 0, 0.12));
+  .box-shadow(0 1px 6px rgba(0, 0, 0, @shadow));
   border-radius: 50%;
 }
 
@@ -181,6 +181,14 @@
   &::after {
     opacity: 1;
     display: block;
+  }
+}
+
+.tutor-fade-in (@fade-time) {
+  animation: fadein @fade-time;
+  @keyframes fadein {
+    from { opacity:0; }
+    to { opacity:1; }
   }
 }
 

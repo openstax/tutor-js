@@ -10,4 +10,12 @@ module.exports = {
     if @matches(el, selector) then el else @closest(el.parentNode, selector)
 
 
+  readBootstrapData: (root = document) ->
+    el = root.querySelector('#tutor-boostrap-data')
+    if el
+      el.parentNode.removeChild(el)
+      JSON.parse(el.textContent)
+    else
+      {}
+
 }

@@ -7,6 +7,8 @@ BS = require 'react-bootstrap'
 
 CoursePlanDetails = require './plan-details'
 CoursePlanPublishingDetails = require './plan-publishing-details'
+CoursePlanLabel = require './plan-label'
+{CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require './plan-display'
 
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 
@@ -19,6 +21,7 @@ CoursePlan = React.createClass
 
   propTypes:
     item: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.string.isRequired
     activeHeight: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
@@ -26,22 +29,15 @@ CoursePlan = React.createClass
     activeHeight: 35
 
   getInitialState: ->
-    isViewingStats: false
-    publishStatus: ''
+    isViewingStats: @_doesPlanMatchesRoute()
+    publishStatus: PlanPublishStore.getAsyncStatus(@props.item.plan.id)
     isPublishing: false
+    isHovered: false
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
     {planId} = @context.router.getCurrentParams()
     planId is @props.item.plan.id
-
-  _isPlanNotMatchingRouteOpen: ->
-    {planId} = @context.router.getCurrentParams()
-    not @_doesPlanMatchesRoute() and @state.isViewingStats
-
-  _isPlanMatchRouteNotOpen: ->
-    {planId} = @context.router.getCurrentParams()
-    @_doesPlanMatchesRoute() and not @state.isViewingStats
 
   _getExpectedRoute: (isViewingStats) ->
     closedRouteName = 'calendarByDate'
@@ -62,243 +58,140 @@ CoursePlan = React.createClass
     expectedRoute = @_getExpectedRoute(isViewingStats)
     expectedParams = @_getExpectedParams(isViewingStats)
     currentParams = @context.router.getCurrentParams()
-
     @context.router.transitionTo(expectedRoute, expectedParams) unless _.isEqual(currentParams, expectedParams)
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
-  syncStatsWithState: ->
-
-    if @_isPlanMatchRouteNotOpen()
-      if @refs.trigger?
-        triggerEl = @refs.trigger.getDOMNode()
-        triggerEl.click()
-      else
-        @setIsViewingStats(false)
-    else if @_isPlanNotMatchingRouteOpen()
-      @refs.trigger.hide()
+  checkRoute: ->
+    isViewingStats = @_doesPlanMatchesRoute()
+    @setState({isViewingStats})
 
   # handles when plan is clicked directly and viewing state and route both need to update
-  setIsViewingStats: (isViewingStats) ->
+  syncIsViewingStats: (isViewingStats) ->
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
 
   checkPublishingStatus: (published) ->
-    if published.publishFor is @props.item.plan.id
+    planId = @props.item.plan.id
+    if published.publishFor is planId
       planStatus =
         publishStatus: published.status
-        isPublishing: (['working', 'queued'].indexOf(published.status) > -1)
+        isPublishing: PlanPublishStore.isPublishing(planId)
 
       @setState(planStatus)
-      PlanPublishStore.off('planPublish.*', @checkPublishingStatus) if published.status is 'completed'
+      PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
 
   subscribeToPublishing: (item) ->
     {plan} = item
     {id, isPublishing, publish_job_uuid} = plan
+    publishStatus = PlanPublishStore.getAsyncStatus(id)
 
-    if isPublishing and not PlanPublishStore.isPublishing(id)
+    if isPublishing and not PlanPublishStore.isPublishing(id) and not PlanPublishStore.isPublished(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
-    PlanPublishStore.on('planPublish.*', @checkPublishingStatus) if isPublishing or PlanPublishStore.isPublishing(id)
+    if isPublishing or PlanPublishStore.isPublishing(id)
+      PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus)
+
+    @setState({publishStatus})
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item)
+    location = @context.router.getLocation()
+    location.addChangeListener(@checkRoute)
 
   componentWillReceiveProps: (nextProps) ->
     @subscribeToPublishing(nextProps.item)
-    @closePlanOnModalHide()
 
   componentWillUnmount: ->
-    PlanPublishStore.off('planPublish.*', @checkPublishingStatus)
+    planId = @props.item.plan.id
+    PlanPublishStore.removeAllListeners("planPublish.#{planId}.*")
+    location = @context.router.getLocation()
+    location.removeChangeListener(@checkRoute)
 
-  componentDidMount: ->
-    @closePlanOnModalHide()
-    @adjustForLongLabels()
+  setIsViewing: (isViewingStats) ->
+    @syncIsViewingStats(isViewingStats) if @state.isViewingStats isnt isViewingStats
 
-    @syncStatsWithState()
+  setHover: (isHovered) ->
+    @setState({isHovered}) if @state.isHovered isnt isHovered
 
-  componentDidUpdate: ->
-    @adjustForLongLabels()
-
-    @syncStatsWithState()
-
-  adjustForLongLabels: ->
-    labelDOMNode = @refs.label?.getDOMNode()
-    planDOMNode = @refs.plan.getDOMNode()
-
-    # HACK: sometimes a label is not rendered. Not sure why
-    if labelDOMNode
-      planDOMNode.classList.add('plan-label-long') if labelDOMNode.clientHeight > @props.activeHeight
-
-  findPlanNodes: (planNode) ->
-    container = @getDOMNode().parentElement.parentElement
-    classes = '.' + Array.prototype.join.call(planNode.classList, '.')
-    samePlans = Array.prototype.slice.call(container.querySelectorAll(classes))
-
-  closePlanOnModalHide: ->
-    if @refs.trigger?
-      hide = @refs.trigger.hide
-      trigger = React.findDOMNode(@refs.trigger)
-      syncClosePlan = @syncClosePlan
-
-      # alias modal hide to also make plan look un-selected
-      @refs.trigger.hide = ->
-        hide()
-        syncClosePlan(trigger)
-
-  syncOpenPlan: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.currentTarget)
-    samePlans.forEach((element) ->
-      element.classList.add('open')
-    )
-    @setIsViewingStats(true)
-
-  syncClosePlan: (trigger) ->
-    samePlans = @findPlanNodes(trigger)
-    samePlans.forEach((element) ->
-      element.classList.remove('open')
-    )
-    @setIsViewingStats(false)
-
-  syncHover: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.currentTarget)
-    samePlans.forEach((element) ->
-      element.classList.add('active')
-    )
-
-  removeHover: (mouseEvent, key) ->
-    samePlans = @findPlanNodes(mouseEvent.currentTarget)
-    samePlans.forEach((element) ->
-      element.classList.remove('active')
-    )
-
-  renderLabel: (rangeDuration, durationLength, plan, index, offset) ->
-    # Adjust width based on plan duration, helps with label centering on view...for the most part.
-    # CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
-    rangeLength = rangeDuration.length('days')
-    planLabelStyle =
-      width: rangeLength / durationLength * 100 + '%'
-
-    # label should float right if the plan is cut off at the beginning of the week
-    if offset < 0
-      planLabelStyle.float = 'right'
-
-    labelClass = 'continued' unless index is 0
-
-    label = <label
-      data-opens-at={plan.opensAt}
-      style={planLabelStyle}
-      ref='label'
-      className={labelClass}>{plan.title}</label>
-
-  renderOpenPlan: (planStyle, planClasses, label, dataAttribs) ->
-    {item, courseId} = @props
-    {isPublishing} = @state
-    {plan, index} = item
-
-    if isPublishing
-      planModal = <CoursePlanPublishingDetails
-        plan={plan}
-        courseId={courseId}
-        className={planClasses}/>
-    else
-      planModal = <CoursePlanDetails
-        plan={plan}
-        courseId={courseId}
-        className={planClasses}/>
-
-    dataAttribsObj = {}
-    _.each _.keys(dataAttribs), (key) ->
-      dataAttribsObj["data-#{key}".toLowerCase()] = dataAttribs[key]
-
-    planOnly = <div style={planStyle}
-      className={planClasses}
-      onMouseEnter={@syncHover}
-      onMouseLeave={@removeHover}
-      onClick={@syncOpenPlan}
-      ref='plan'
-      {...dataAttribsObj}>
-      {label}
-    </div>
-
-    if index is 0
-      # only trigger modal if this is the first component representing the plan
-      planInterface = <BS.ModalTrigger modal={planModal} ref='trigger'>
-        {planOnly}
-      </BS.ModalTrigger>
-    else
-      # otherwise, if this plan continues into the next week, don't add an additional modal
-      planInterface = planOnly
-
-    planInterface
-
-  renderEditPlan: (planStyle, planClasses, label, dataAttribs) ->
-    {item, courseId} = @props
-    {plan} = item
-
-    linkTo = camelCase("edit-#{plan.type}")
-    params = {id: plan.id, courseId}
-
-    dataAttribsObj = {}
-    _.each _.keys(dataAttribs), (key) ->
-      dataAttribsObj["data-#{key}".toLowerCase()] = dataAttribs[key]
-
-    <div
-      style={planStyle}
-      className={planClasses}
-      onMouseEnter={@syncHover}
-      onMouseLeave={@removeHover}
-      ref='plan'
-      {...dataAttribsObj}>
-      <Router.Link
-        to={linkTo}
-        params={params}>
-          {label}
-      </Router.Link>
-    </div>
-
-  render: ->
-    {item, courseId} = @props
-    {publishStatus, isPublishing} = @state
-    {plan, duration, rangeDuration, offset, index, weekTopOffset, order} = item
-
-    plan.isFailed = publishStatus is 'failed'
-    plan.isKilled = publishStatus is 'killed'
-
-    durationLength = duration.length('days')
-    # Adjust width based on plan duration and left position based on offset of plan from start of week
-    # CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
-    # top is calculated by using:
-    #   weekTopOffset -- the distance from the top of the calendar for plans in the same week
-    #   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
-    #       stack on top of other plans that overlap in duration.
-    planStyle =
-      width: durationLength * 100 / 7 + '%'
-      left: offset * 100 / 7 + '%'
-      top: (weekTopOffset + 4 - order * 3) + 'rem'
-
+  buildPlanClasses: (plan, publishStatus, isPublishing, isActive) ->
     planClasses = [
-      'plan'
+      'plan-label-long'
       "#{plan.type}"
       "course-plan-#{plan.id}"
     ]
 
     planClasses.push('is-published') if plan.isPublished or (publishStatus is 'completed')
-    planClasses.push('is-failed') if plan.isFailed
-    planClasses.push('is-killed') if plan.isKilled
+    planClasses.push('is-failed') if publishStatus is 'failed'
+    planClasses.push('is-killed') if publishStatus is 'killed'
     planClasses.push('is-publishing') if isPublishing
     planClasses.push('is-open') if plan.isOpen
     planClasses.push('is-trouble') if plan.isTrouble
+    planClasses.push('active') if isActive
 
-    dataAttribs = plan
+    planClasses.join(' ')
 
-    planClasses = planClasses.join(' ')
 
-    label = @renderLabel(rangeDuration, durationLength, plan, index, offset)
+  renderDisplay: (hasQuickLook, planClasses, display) ->
+    {rangeDuration, offset, offsetFromPlanStart, index} = display
+    {item, courseId} = @props
+    {plan, displays} = item
 
-    renderFn = 'renderEditPlan'
-    renderFn = 'renderOpenPlan' if plan.isOpen and plan.isPublished or (isPublishing) or (publishStatus is 'completed')
+    labelProps = {rangeDuration, plan, index, offset, offsetFromPlanStart}
+    label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
 
-    @[renderFn](planStyle, planClasses, label, dataAttribs)
+    displayComponent = CoursePlanDisplayEdit
+    displayComponent = CoursePlanDisplayQuickLook if hasQuickLook
+
+    displayComponentProps = {
+      plan,
+      display,
+      label,
+      courseId,
+      planClasses,
+      isFirst: (index is 0),
+      isLast: (index is displays.length - 1),
+      setHover: @setHover,
+      setIsViewing: @setIsViewing
+    }
+
+    <displayComponent
+      {...displayComponentProps}
+      ref="display#{index}"
+      key="display#{index}"/>
+
+  render: ->
+    {item, courseId} = @props
+    {publishStatus, isPublishing, isHovered, isViewingStats} = @state
+    {plan, displays} = item
+    {durationLength} = plan
+
+    planClasses = @buildPlanClasses(plan, publishStatus, isPublishing, isHovered or isViewingStats)
+
+    if isViewingStats
+      if plan.isPublished or (publishStatus is 'completed')
+        planModal = <CoursePlanDetails
+          plan={plan}
+          courseId={courseId}
+          className={planClasses}
+          onRequestHide={@syncIsViewingStats.bind(null, false)}
+          ref='details'/>
+      else if isPublishing
+        planModal = <CoursePlanPublishingDetails
+          plan={plan}
+          courseId={courseId}
+          className={planClasses}
+          onRequestHide={@syncIsViewingStats.bind(null, false)}
+          ref='details'/>
+
+    planClasses = "plan #{planClasses}"
+    renderDisplay = _.partial(@renderDisplay, (plan.isPublished or (publishStatus is 'completed') or isPublishing), planClasses)
+    planDisplays = _.map(displays, renderDisplay)
+
+    <div>
+      {planDisplays}
+      {planModal}
+    </div>
+
 
 module.exports = CoursePlan

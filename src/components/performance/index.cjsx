@@ -6,9 +6,9 @@ Time   = require '../time'
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
 NameCell     = require './name-cell'
+AbsentCell   = require './absent-cell'
 ExternalCell = require './external-cell'
 SortingHeader = require './sorting-header'
-
 FixedDataTable = require 'fixed-data-table'
 Table = FixedDataTable.Table
 Column = FixedDataTable.Column
@@ -122,8 +122,9 @@ Performance = React.createClass
     ]
     for task in student_data.data
       props.task = task
-      columns.push switch task.type
-        when 'reading' then  <ReadingCell  key='reading'  {...props} />
+      columns.push switch task?.type or 'null'
+        when 'null'     then <AbsentCell   key='absent'   {...props} />
+        when 'reading'  then <ReadingCell  key='reading'  {...props} />
         when 'homework' then <HomeworkCell key='homework' {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
     columns

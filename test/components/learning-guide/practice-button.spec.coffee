@@ -19,12 +19,13 @@ describe 'Learning Guide Practice Button', ->
 
 
   it 'practices pages', ->
-    Testing.renderComponent( Button,
-      props: { courseId: COURSE_ID, title: 'Practice moar' }
-    ).then ({dom}) ->
+    Testing.renderComponent( Button, props: {
+      courseId: COURSE_ID, title: 'Practice moar'
+      sections: GUIDE_DATA.children[0].children
+    }).then ({dom}) ->
       Testing.actions.click(dom)
       expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
-        { courseId: COURSE_ID }, { page_ids: ['6', '5', '2', '3'] }
+        { courseId: COURSE_ID }, { page_ids: ['2', '3'] }
       )
 
   it 'is disabled if no page ids exist', ->

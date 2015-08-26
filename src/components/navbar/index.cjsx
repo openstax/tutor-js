@@ -10,6 +10,8 @@ AccountLink = require './account-link'
 CourseName = require './course-name'
 LogOut = require './logout'
 BindStoreMixin = require '../bind-store-mixin'
+ServerErrorMonitoring = require './server-error-monitoring'
+BrowseTheBook = require '../buttons/browse-the-book'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
@@ -25,7 +27,7 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   componentWillMount: ->
-    CurrentUserActions.load()
+    CurrentUserStore.ensureLoaded()
     CourseListingStore.ensureLoaded()
 
   getInitialState: ->
@@ -65,15 +67,12 @@ module.exports = React.createClass
       # Requires classname as a dependency.  I'm guessing that's not in alpha.
       <BS.MenuItem
         key="dropdown-item-#{index}"
-        onSelect={@transitionToMenuItem.bind(@, route.name, {courseId})}
+        onSelect={@transitionToMenuItem.bind(@, route.name, route.params)}
         className={className}
         eventKey={index + 2}>{route.label}</BS.MenuItem>
 
-    if menuItems.length
-      menuItems.push(<BS.MenuItem divider key='dropdown-item-divider'/>)
-
-    menuItems.push <AccountLink key='accounts-link' />
-
+    menuItems.push <li><BrowseTheBook unstyled={true} courseId={courseId} /></li>
+    menuItems.push <BS.MenuItem divider key='dropdown-item-divider'/>
     menuItems
 
   render: ->
@@ -98,6 +97,7 @@ module.exports = React.createClass
             title={<UserName/>}
             ref='navDropDown'>
             {menuItems}
+            <AccountLink key='accounts-link' />
             <BS.MenuItem target='_blank' href={CurrentUserStore.getHelpLink(courseId)}>Get Help</BS.MenuItem>
             <BS.MenuItem
               className="logout"
@@ -108,4 +108,5 @@ module.exports = React.createClass
           </BS.DropdownButton>
         </BS.Nav>
       </BS.CollapsibleNav>
+      <ServerErrorMonitoring />
     </BS.Navbar>

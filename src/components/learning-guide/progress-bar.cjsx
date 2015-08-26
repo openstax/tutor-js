@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 ChapterSectionType = require './chapter-section-type'
+LearningGuide = require '../../flux/learning-guide'
 
 module.exports = React.createClass
   displayName: 'LearningGuideProgressBar'
@@ -9,14 +10,16 @@ module.exports = React.createClass
   propTypes:
     section:  React.PropTypes.object.isRequired
     onPractice: React.PropTypes.func
+    courseId:    React.PropTypes.string.isRequired
+    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   render: ->
-    {section,  onPractice} = @props
+    {section, onPractice} = @props
 
-    bar = if section.current_level
-      percent = Math.round((section.current_level / 1) * 100)
+    bar = if LearningGuide.Helpers.canDisplayForecast(section.clue, @props.sampleSizeThreshold)
+      percent = Math.round((section.clue.value / 1) * 100)
       # always show at least 5% of bar, otherwise it just looks empty
-      <BS.ProgressBar className={section.interpretation} now={Math.max(percent, 5)} />
+      <BS.ProgressBar className={section.clue.value_interpretation} now={Math.max(percent, 5)} />
     else
       <span className="no-data">
         {if onPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
