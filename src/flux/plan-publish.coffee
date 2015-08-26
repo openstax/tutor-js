@@ -62,8 +62,6 @@ PlanPublishConfig = {
 
   stopChecking: (id) ->
     jobId = @_getLatestJob(id)
-    console.info('stopChecking')
-    console.info(jobId)
     JobActions.stopChecking(jobId) if jobId?
 
   _getJobs: (id) ->

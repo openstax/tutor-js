@@ -101,7 +101,7 @@ PlanMixin =
     else
       date = moment(TimeStore.getNow()).format(CALENDAR_DATE_FORMAT)
 
-    unless TaskPlanStore.isNew(id) or not TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
+    unless TaskPlanStore.isNew(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
       calendarRoute = 'calendarViewPlanStats'
       planId = id
 

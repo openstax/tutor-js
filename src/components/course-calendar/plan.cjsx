@@ -11,6 +11,8 @@ CoursePlanLabel = require './plan-label'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require './plan-display'
 
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
+PlanHelper = require '../../helpers/plan'
+
 
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
@@ -82,19 +84,8 @@ CoursePlan = React.createClass
       PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
 
   subscribeToPublishing: (plan) ->
-    {id, isPublishing, publish_job_uuid} = plan
-    publishStatus = PlanPublishStore.getAsyncStatus(id)
-
-    if isPublishing and not @state.isPublishing and not PlanPublishStore.isPublished(id)
-      PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
-
-    isPublishing = isPublishing or @state.isPublishing
-
-    if isPublishing
-      PlanPublishActions.startChecking(id, publish_job_uuid)
-      PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus)
-
-    @setState({publishStatus, isPublishing})
+    publishState = PlanHelper.subscribeToPublishing(plan, @checkPublishingStatus)
+    @setState(publishState)
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item.plan)
