@@ -44,6 +44,12 @@ PlanPublishConfig = {
     @_asyncStatus[id] = PUBLISH_REQUESTED
     @saveJob(jobId, id)
 
+  startChecking: (id, jobId) ->
+    lastestJob = @_getLatestJob(id)
+    @saveJob(jobId, id) if jobId? and jobId isnt lastestJob
+    jobId ?= lastestJob
+    return unless jobId?
+
     # checks job until final status is reached
     checkJob = ->
       JobActions.load(jobId)
@@ -54,8 +60,17 @@ PlanPublishConfig = {
     JobStore.on("job.#{jobId}.*", updatePublishStatus)
     JobStore.off("job.#{jobId}.final", updatePublishStatus)
 
+  stopChecking: (id) ->
+    jobId = @_getLatestJob(id)
+    console.info('stopChecking')
+    console.info(jobId)
+    JobActions.stopChecking(jobId) if jobId?
+
   _getJobs: (id) ->
     _.clone(@_job[id])
+
+  _getLatestJob: (id) ->
+    _.last(@_getJobs(id))
 
   exports:
     isPublishing: (id) ->

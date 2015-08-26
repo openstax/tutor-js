@@ -81,32 +81,41 @@ CoursePlan = React.createClass
       @setState(planStatus)
       PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
 
-  subscribeToPublishing: (item) ->
-    {plan} = item
+  subscribeToPublishing: (plan) ->
     {id, isPublishing, publish_job_uuid} = plan
     publishStatus = PlanPublishStore.getAsyncStatus(id)
 
     if isPublishing and not PlanPublishStore.isPublishing(id) and not PlanPublishStore.isPublished(id)
       PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
 
-    if isPublishing or PlanPublishStore.isPublishing(id)
+    isPublishing = isPublishing or PlanPublishStore.isPublishing(id)
+
+    if isPublishing
+      PlanPublishActions.startChecking(id, publish_job_uuid)
       PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus)
 
-    @setState({publishStatus})
+    @setState({publishStatus, isPublishing})
 
   componentWillMount: ->
-    @subscribeToPublishing(@props.item)
+    @subscribeToPublishing(@props.item.plan)
     location = @context.router.getLocation()
     location.addChangeListener(@checkRoute)
 
   componentWillReceiveProps: (nextProps) ->
-    @subscribeToPublishing(nextProps.item)
+    if @props.item.plan.id isnt nextProps.item.plan.id
+      @subscribeToPublishing(nextProps.item.plan)
+      @stopCheckingPlan(@props.item.plan)
+    else if nextProps.item.plan.isPublishing and not @props.item.plan.isPublishing
+      @subscribeToPublishing(nextProps.item.plan)
 
   componentWillUnmount: ->
-    planId = @props.item.plan.id
-    PlanPublishStore.removeAllListeners("planPublish.#{planId}.*")
+    @stopCheckingPlan(@props.item.plan)
     location = @context.router.getLocation()
     location.removeChangeListener(@checkRoute)
+
+  stopCheckingPlan: (plan) ->
+    PlanPublishActions.stopChecking(plan.id) if @state.isPublishing
+    PlanPublishStore.removeAllListeners("planPublish.#{plan.id}.*")
 
   setIsViewing: (isViewingStats) ->
     @syncIsViewingStats(isViewingStats) if @state.isViewingStats isnt isViewingStats
