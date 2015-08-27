@@ -16,17 +16,29 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  mixins: [BindStoreMixin]
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
     roleId:   React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    roleId: @props.roleId
+
+  componentWillMount: ->
+    LearningGuide.TeacherStudent.actions.load(@props.courseId, {roleId: @props.roleId})
+
+  bindStore: LearningGuide.TeacherStudent.store
+
   onSelectStudent: (roleId) ->
     {courseId} = @props
+    LearningGuide.TeacherStudent.actions.load(courseId, {roleId})
+    @setState({roleId})
     @context.router.transitionTo('viewStudentTeacherGuide', {courseId, roleId})
 
   renderHeading: ->
     students = PerformanceStore.getAllStudents(@props.courseId)
-    selected = PerformanceStore.getStudent(@props.courseId, @props.roleId)
+    selected = PerformanceStore.getStudent(@props.courseId, @state.roleId)
     return null unless selected
     name = <Name {...selected} />
     <div className='guide-heading'>
@@ -63,11 +75,17 @@ module.exports = React.createClass
     </div>
 
   render: ->
-    {courseId, roleId} = @props
+    {courseId} = @props
+    {roleId} = @state
+    isLoaded = LearningGuide.TeacherStudent.store.isLoaded.bind(LearningGuide.TeacherStudent.store, courseId, {roleId})
+    isLoading = LearningGuide.TeacherStudent.store.isLoading.bind(LearningGuide.TeacherStudent.store, courseId, {roleId})
 
     <BS.Panel className='learning-guide teacher-student'>
       <Guide
         courseId={courseId}
+        isLoaded={isLoaded}
+        isLoading={isLoading}
+        loadingMessage="Loading..."
         heading={@renderHeading()}
         weakerExplanation={@renderWeakerExplanation()}
         emptyMessage={@renderEmptyMessage()}
