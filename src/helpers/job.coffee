@@ -16,6 +16,11 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
     _asyncStatus: {}
     _job: {}
 
+    reset: ->
+      @_asyncStatus = {}
+      @_job = {}
+      @emitChange()
+
     _updateJobStatusFor: (id) ->
       (jobData) =>
         progress = _.clone(jobData)
@@ -41,6 +46,7 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
 
       if jobId?
         # job has been queued
+        # TODO fix this inconsistency between status and emit.
         @emit("progress.#{id}.queued", {jobId, id})
         @_asyncStatus[id] = JOB_REQUESTED
         @saveJob(jobId, id)
