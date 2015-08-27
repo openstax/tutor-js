@@ -1,3 +1,17 @@
+.tutorize-toc-nav(){
+  .x-icon-size(28px);
+  background-position: 0 -1px;
+}
+
+.tutorize-toc-nav(close){
+  .x-icon-bg('list-close');
+  .tutorize-toc-nav();
+}
+
+.tutorize-toc-nav(open){
+  .x-icon-bg('list-open');
+}
+
 .reference-book {
   .navbar {
     height: 60px;
@@ -27,7 +41,15 @@
     .teacher-edition  {
       margin: 12px 0;
     }
-    .menu-toggle:before{ content: @fa-var-list; }
+    .menu-toggle {
+      &::before {
+        content: @fa-var-list;
+        .tutorize-toc-nav(close);
+      }
+      &:hover {
+        .clearfix();
+      }
+    }
     // don't collapse navbar when screen is narrow
     // overrides the bootstrap default of collapsing navbar at @screen-sm-min
     @media (max-width: @screen-sm-min) {
@@ -47,7 +69,17 @@
     .menu-toggle {
       border-right: 1px solid @tutor-neutral-light;
       background: @tutor-neutral-lightest;
-      &:before{ content: @fa-var-outdent; }
+      &::before {
+        content: @fa-var-outdent;
+        .tutorize-toc-nav(open);
+      }
+
+      &:hover {
+        &::before {
+          content: " ";
+        }
+      }
+
     }
   }
 
