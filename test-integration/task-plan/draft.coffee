@@ -47,25 +47,6 @@ describe 'Draft Tests', ->
     ReadingBuilder.edit(@, action: 'CANCEL')
 
 
-  @it 'Deletes all drafts (not really a test but nice cleanup)', ->
-    @login(TEACHER_USERNAME)
-    @addTimeout(2)
-    CourseSelect.goTo(@, 'ANY')
-    Calendar.verify(@)
-
-    finishedCount = 0
-    @driver.findElements(css: '.plan:not([data-isopen="true"])').then (plans) =>
-      @addTimeout(2)
-      console.log 'plans count', plans.length if plans.length
-
-      for i in [0...plans.length]
-        @waitClick(css: '.plan:not([data-isopen="true"])')
-        ReadingBuilder.edit(@, action: 'DELETE').then ->
-          finishedCount += 1
-          console.log 'Deleted', finishedCount
-        Calendar.verify(@)
-
-
   @it 'Creates a draft Reading with opensAt to today and deletes (idempotent)', ->
     @addTimeout(60)
 
@@ -99,7 +80,7 @@ describe 'Draft Tests', ->
 
 
   @it 'Creates a draft Reading checks and then unchecks some sections (idempotent)', ->
-    @addTimeout(60)
+    @addTimeout(2 * 60)
 
     title = @freshId()
 

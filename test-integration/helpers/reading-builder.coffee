@@ -73,7 +73,7 @@ edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
   switch action
     when 'PUBLISH'
       test.waitClick(css: '.async-button.-publish').then ->
-        test.addTimeout(6 * 60) # Wait up to 6min for publish to complete
+        test.addTimeout(3 * 60) # Wait up to 3min for publish to complete
     when 'SAVE' then test.waitClick(css: '.async-button.-save')
     when 'CANCEL'
       # BUG: "X" close button behaves differently than the footer close button
@@ -86,6 +86,7 @@ edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
       # Accept the browser confirm dialog
       test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
         alert.accept()
+        test.addTimeout(60) # Wait up to 60sec for delete to complete
 
 
 module.exports = {setDate, edit}

@@ -4,7 +4,7 @@
 TEACHER_USERNAME = 'teacher01'
 
 
-describe 'Assignment Creation Tests', ->
+describe 'Assignment Publishing Tests', ->
 
   @it 'Publishes a Reading with opensAt to tomorrow and deletes (idempotent)', ->
     title = @freshId()
@@ -24,16 +24,10 @@ describe 'Assignment Creation Tests', ->
       action: 'PUBLISH'
 
     # Wait until the Calendar loads back up
-    # And then verify it was added by clicking on it again
+    # Then, open the popup, click edit, and delete the assignment
     # BUG: .course-list shouldn't be in the DOM
     Calendar.goOpen(@, title)
-
-    # Since the Assignment has not been opened yet there is no "Edit Assignment"
-    @waitAnd(css: '.-edit-assignment, .reading-plan')
-    # If there is a popup then click the "Edit" button
-    @driver.isElementPresent(css: '.-edit-assignment').then (isPresent) =>
-      if isPresent
-        @waitClick(css: '.-edit-assignment')
+    Calendar.Popup.goEdit(@)
 
     ReadingBuilder.edit(@, action: 'DELETE')
 

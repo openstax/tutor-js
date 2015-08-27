@@ -13,9 +13,10 @@ SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 logger = selenium.logging.getLogger('webdriver.http.Executor')
 logger.setLevel(selenium.logging.Level.ALL)
 COMMAND_HISTORY = []
+COMMAND_HISTORY_MAX = 20
 logger.addHandler (record) ->
-  # Only print the last 100 items
-  if COMMAND_HISTORY.length >= 100
+  # Only print the last COMMAND_HISTORY_MAX items
+  if COMMAND_HISTORY.length >= COMMAND_HISTORY_MAX
     COMMAND_HISTORY.shift()
   COMMAND_HISTORY.push(record.getMessage())
 
@@ -37,7 +38,8 @@ screenshot = (driver, filename) ->
   p
 
 
-module.exports = (name, cb) ->
+
+describe = (name, cb) ->
   seleniumMocha.describe name, ->
 
     {it, iit, xit, before, after, afterEach, beforeEach} = seleniumMocha
@@ -59,10 +61,19 @@ module.exports = (name, cb) ->
 
       @screenshot = (args...) => screenshot(@driver, args...)
 
-      # Generate a set of 5 random characters
-      @freshId = -> '_selenium ' + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+      # Generate a set of 2 random characters
+      # Shorter is good for views that add '...' when not enough room (like calendar)
+      @freshId = -> '_SE ' + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 2)
+
+      @toLocator = (locator) =>
+        if typeof locator is 'string'
+          console.warn("Please use {css: '#{locator}'} instead of just a string as the argument")
+          {css: locator}
+        else
+          locator
 
       @waitAnd = (locator) =>
+        locator = @toLocator(locator)
         @driver.wait(selenium.until.elementLocated(locator))
         # Because of animations an element might be in the DOM but not visible
         el = @driver.findElement(locator)
@@ -71,6 +82,7 @@ module.exports = (name, cb) ->
 
       @waitClick = (locator) =>
         el = @waitAnd(locator)
+        # Scroll to the top so the navbar does not obstruct what we are clicking
         @scrollTop()
         el.click()
         # return el to support chaining the promises
@@ -83,15 +95,21 @@ module.exports = (name, cb) ->
 
       @scrollTo = (el) =>
         @driver.executeScript("arguments[0].scrollIntoView(true);", el)
-        @driver.sleep(100)
+        @driver.sleep(200)
 
 
       @logout = =>
-        # Push the Log out button (ref book does not have one)
-        @driver.isElementPresent(css: '.-hamburger-menu').then (isPresent) =>
+        # Close the modal if one is open
+        @driver.isElementPresent(css: '.modal-dialog .modal-header .close').then (isPresent) =>
           if isPresent
-            @waitClick(css: '.-hamburger-menu') # Expand the menu
-            @waitAnd(css: '.-hamburger-menu .-logout-form').submit()
+            # Close the modal
+            @waitClick(css: '.modal-dialog .modal-header .close')
+
+          # Push the Log out button (ref book does not have one)
+          @driver.isElementPresent(css: '.-hamburger-menu').then (isPresent) =>
+            if isPresent
+              @waitClick(css: '.-hamburger-menu') # Expand the menu
+              @waitAnd(css: '.-hamburger-menu .-logout-form').submit()
 
       # Check for JS errors by injecting a little script before the test and then checking it afterEach
       @injectErrorLogging = =>
@@ -104,17 +122,40 @@ module.exports = (name, cb) ->
               document.querySelector('body').setAttribute('data-js-error', msg)
               originalOnError?(msg, args...)
 
-      @forEach = (css, fn) =>
+      # Useful for exhaustive testing like "Click all the links in the Performance report"
+      # Takes 2 args plus one optional one
+      # - `options`: Either a string indicating the CSS selector or an object with the following:
+      #   - `css` : a string CSS locator
+      #   - `linkText`: a string linkText locator
+      #   - `ignoreLengthChange`: a boolean indicating that it is OK for the list of elements to change
+      #     - This is useful for the performance report whose table lazily adds student rows when scrolled
+      @forEach = (options, fn, fn2) =>
+        if typeof options is 'string'
+          locator = {css: options}
+        else
+          {css, linkText, ignoreLengthChange} = options
+          if linkText
+            locator = {linkText}
+          else if css
+            locator = {css}
+          else
+            throw new Error("Unknown locator format. So far only linkText and css are recognized. #{options}")
+
         # Need to query multiple times because we might have moved screens so els are stale
-        @driver.findElements(css: css).then (els1) =>
+        @driver.findElements(locator).then (els1) =>
           index = 0
+          fn2?(els1) # Allow for things like printing "Clicking on 20 drafts"
           _.each els1, (el) =>
-            @driver.findElements(css: css).then (els) =>
+            @driver.findElements(locator).then (els) =>
               el = els[index]
-              if els.length isnt els1.length
+              if els.length isnt els1.length and not ignoreLengthChange
                 throw new Error("Length changed during foreach! before: #{els1.length} after: #{els.length}")
               index += 1
-              fn.call(@, el, index, els1.length)
+              # scroll if the element is not visible
+              el.isDisplayed().then (isDisplayed) =>
+                unless isDisplayed
+                  @scrollTo(el)
+                fn.call(@, el, index, els1.length)
 
 
       @login = (username, password = 'password') =>
@@ -176,7 +217,7 @@ module.exports = (name, cb) ->
       {state, title} = @currentTest
 
       if state is 'failed'
-        console.log 'Action history (showing last 100):'
+        console.log "Action history (showing last #{COMMAND_HISTORY_MAX}):"
         for msg in COMMAND_HISTORY
           console.log msg
         console.log '------------------'
@@ -205,3 +246,7 @@ module.exports = (name, cb) ->
       @driver.quit()
 
     cb.call(@)
+
+module.exports =
+  describe: describe
+  xdescribe: seleniumMocha.xdescribe

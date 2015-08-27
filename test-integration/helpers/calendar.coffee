@@ -24,13 +24,19 @@ createNew = (test, type) ->
 goOpen = (test, title) ->
   # wait until the calendar is open
   verify(test)
-  test.waitClick(css: "[data-title='#{title}']")
+  # TODO: Make this a `data-title` attribute
+  # HACK: Might need to scroll the item to click on into view
+  el = test.waitAnd(css: "[data-title='#{title}']")
+  test.scrollTo(el)
+  el.click()
+  test.scrollTop()
 
 goLearningGuide = (test) ->
   test.waitClick(linkText: 'Performance Forecast')
 
 Popup =
   verify: (test) ->
+    test.addTimeout(5)
     # wait until the calendar is open
     test.waitAnd(css: '.plan-modal .panel.panel-default')
   close: (test) ->
@@ -38,7 +44,7 @@ Popup =
     test.driver.sleep(500) # Wait for the modal to animate and disappear
 
   goEdit: (test) ->
-    test.waitClick(css: '-edit-assignment')
+    test.waitClick(linkText: 'Edit Assignment')
 
   goReview: (test) ->
     # BUG: Should rely on button classes
