@@ -26,16 +26,8 @@ module.exports = React.createClass
   getInitialState: ->
     isNewPlan = TaskPlanStore.isNew(@props.id)
 
-    # Whether date/periods inputs are disabled should only depend on the whether
-    # the **saved** version of the plan is visible to students.  During edit, the ability to
-    # update a plan should not suddenly be disabled if the teacher picks today to be
-    # an open date.
-    isSavedPlanVisibleToStudent = TaskPlanStore.isVisibleToStudents(@props.id)
-
     showingPeriods: not isNewPlan
     currentLocale: TimeHelper.getCurrentLocales()
-    isVisibleToStudents: isSavedPlanVisibleToStudent
-    isEditable: TaskPlanStore.isEditable(@props.id)
 
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
@@ -103,7 +95,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(planId, periods)
 
     if not isNewPlan
-      @setState({showingPeriods: not (commonDates and hasAllTaskings), savedTaskings: periods})
+      @setState({showingPeriods: not (commonDates and hasAllTaskings)})
       TaskPlanActions.disableEmptyTaskings(planId)
 
   getDefaultPlanDates: (periodId) ->
@@ -117,23 +109,13 @@ module.exports = React.createClass
 
     {taskingOpensAt, taskingDueAt}
 
-  updateIsVisibleAndIsEditable: ->
-    isVisibleToStudents = TaskPlanStore.isVisibleToStudents(@props.id)
-    isEditable = TaskPlanStore.isEditable(@props.id)
-    @setState({isVisibleToStudents, isEditable})
-
   # this will be called whenever the course store loads, but won't if
   # the store has already finished loading by the time the component mounts
   bindUpdate: ->
     @setPeriodDefaults()
-    @updateIsVisibleAndIsEditable()
 
   componentWillMount: ->
     @setPeriodDefaults()
-    TaskPlanStore.on('publishing', @updateIsVisibleAndIsEditable)
-
-  componentWillUnmount: ->
-    TaskPlanStore.off('publishing', @updateIsVisibleAndIsEditable)
 
   setOpensAt: (value, period) ->
     {id} = @props
@@ -151,7 +133,7 @@ module.exports = React.createClass
 
     #get opens at and due at
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
+    @setOpensAt(taskingOpensAt)
 
     #enable all periods
     course = CourseStore.get(@props.courseId)
@@ -159,7 +141,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    @setOpensAt(taskingOpensAt)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
     @setDueAt(taskingDueAt)
 
   setIndividualPeriods: ->

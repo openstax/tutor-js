@@ -6,10 +6,12 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 StepMixin = require '../step-mixin'
 StepFooterMixin = require '../step-footer-mixin'
+BindStoreMixin = require '../../bind-store-mixin'
 
 Question = require '../../question'
 FreeResponse = require './free-response'
 ExerciseGroup = require './group'
+AsyncButton = require '../../buttons/async-button'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
 {TaskActions, TaskStore} = require '../../../flux/task'
@@ -29,7 +31,8 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin, BindStoreMixin]
+  bindStore: TaskStepStore
 
   getInitialState: ->
     {id} = @props
@@ -148,7 +151,7 @@ ExerciseReview = React.createClass
   isContinueEnabled: ->
     {id} = @props
     {answer_id} = TaskStepStore.get(id)
-    !!answer_id
+    !!answer_id and not TaskStepStore.isRecovering(id)
 
   onContinue: ->
     @props.onNextStep()
@@ -166,30 +169,29 @@ ExerciseReview = React.createClass
     # Track what step is refreshed so that it can be skipped after refreshing.
     @props.refreshStep(index, id)
 
-  canTryAnother: ->
-    {id} = @props
-    step = TaskStepStore.get(id)
-    isPastDue = TaskStore.isTaskPastDue(step.task_id)
-    not isPastDue and (step.has_recovery and step.correct_answer_id isnt step.answer_id)
-
   canRefreshMemory: ->
     {id} = @props
     step = TaskStepStore.get(id)
     step?.related_content?.length and step.has_recovery and step.correct_answer_id isnt step.answer_id
 
   continueButtonText: ->
-    if @canTryAnother() then 'Move On' else 'Continue'
+    {id} = @props
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
+    if TaskStepStore.canTryAnother(id, task) then 'Move On' else 'Continue'
 
   renderFooterButtons: ->
-    {review} = @props
+    {id, review} = @props
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
 
-    if @canTryAnother()
-      tryAnotherButton = <BS.Button
+    if TaskStepStore.canTryAnother(id, task)
+      tryAnotherButton = <AsyncButton
         bsStyle='primary'
         className='-try-another'
-        onClick={@tryAnother}>
+        onClick={@tryAnother}
+        isWaiting={TaskStepStore.isRecovering(id)}
+        waitingText='Loading Another…'>
         Try Another
-      </BS.Button>
+      </AsyncButton>
 
     # "Refresh my Memory" button is disabled until BE gets it working properly.
     # See corresponding comment in tests.
