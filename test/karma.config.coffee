@@ -8,17 +8,18 @@ module.exports = (config) ->
     reporters: ['mocha', 'coverage']
 
     files: [
-      'test/phantomjs-shims.js'
       'test/all-tests.coffee'
-
     ]
 
     preprocessors:
-      'src/*': ['webpack', 'coverage']
-      'test/*':  ['webpack']
+      'src/**/*.cjsx': ['webpack', 'coverage']
+      'test/*':  ['webpack', 'coverage']
 
     coverageReporter:
       type: 'text'
+      # type: 'html' # will create html report in ./coverage directory
+
+
 
     webpack:
       resolve:
