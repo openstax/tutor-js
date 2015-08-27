@@ -1,7 +1,3 @@
-chai = require 'chai'
-sinonChai = require("sinon-chai")
-chai.use(sinonChai)
-
 # For some reason, this navbar component test will have warnings about setting
 # state when component is unmounted if it's after some of the other specs.
 # The tests still run and progress just fine despite the warnings, but for now,
@@ -65,8 +61,3 @@ require './helpers/string.spec'
 require './helpers/period.spec'
 require './helpers/job.spec'
 require './helpers/time.spec'
-
-# The whole Boom Boom.
-# This should be done **last** because it starts up the whole app
-require './router.spec'
-###
