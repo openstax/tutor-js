@@ -188,7 +188,7 @@ Stats = React.createClass
     {id} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    orderedStats = _.sortBy(plan.stats, PeriodHelper.getOrder)
+    orderedStats = PeriodHelper.sort(plan.stats)
     periodStats = orderedStats[periodIndex]
 
   handlePeriodSelect: (period) ->

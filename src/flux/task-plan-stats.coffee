@@ -12,7 +12,7 @@ TaskPlanStatsConfig = {
           id: stat.period_id
           name: stat.name
         )
-        .sortBy(PeriodHelper.getOrder)
+        .tap(PeriodHelper.sort)
         .value()
 
 }

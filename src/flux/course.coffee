@@ -96,7 +96,7 @@ CourseConfig =
 
     getPeriods: (courseId) ->
       periods = @_get(courseId).periods or []
-      sortedPeriods = _.sortBy(periods, PeriodHelper.getOrder)
+      sortedPeriods = PeriodHelper.sort(periods)
 
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)
