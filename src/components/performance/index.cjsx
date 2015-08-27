@@ -23,6 +23,7 @@ LoadableItem = require '../loadable-item'
 PerformanceExport = require './export'
 {QuickStatsShell} = require './quick-external-stats'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
+ResizeListenerMixin = require '../resize-listener-mixin'
 
 # Index of first column that contains data
 FIRST_DATA_COLUMN = 1
@@ -37,6 +38,7 @@ Performance = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  mixins: [ResizeListenerMixin]
 
   getInitialState: ->
     period_id: null
@@ -45,7 +47,6 @@ Performance = React.createClass
     sortIndex: 0
     tableWidth: 0
     tableHeight: 0
-    debounce: _.debounce(@sizeTable, 100)
     colDefaultWidth: 225
     colSetWidth: 225
     colResizeWidth: 225
@@ -53,11 +54,10 @@ Performance = React.createClass
     sort: INITIAL_SORT
 
   componentDidMount: ->
-    window.addEventListener("resize", @state.debounce)
     @sizeTable()
 
-  componentWillUnmount: ->
-    window.removeEventListener("resize", @state.debounce)
+  _resizeListener: ->
+    @sizeTable()
 
   sizeTable: ->
     @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
@@ -67,8 +67,10 @@ Performance = React.createClass
     table.clientWidth
 
   tableHeight: ->
+    windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
-    window.innerHeight - table.offsetTop - 120
+    bottomMargin = 40
+    windowEl.height - table.offsetTop - bottomMargin
 
   renderHeadingCell: (heading, i) ->
     i += FIRST_DATA_COLUMN # for the first/last name colums
