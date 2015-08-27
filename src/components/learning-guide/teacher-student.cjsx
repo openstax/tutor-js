@@ -34,10 +34,11 @@ module.exports = React.createClass
     {courseId} = @props
     LearningGuide.TeacherStudent.actions.load(courseId, {roleId})
     @setState({roleId})
+    @context.router.transitionTo('viewStudentTeacherGuide', {courseId, roleId})
 
   renderHeading: ->
     students = PerformanceStore.getAllStudents(@props.courseId)
-    selected = PerformanceStore.getStudent(@props.courseId, @props.roleId)
+    selected = PerformanceStore.getStudent(@props.courseId, @state.roleId)
     return null unless selected
     name = <Name {...selected} />
     <div className='guide-heading'>
