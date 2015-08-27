@@ -108,3 +108,4 @@ describe 'Job Helper', ->
     expect(jobListenerConfig.exports.isProgressing(JOB_FOR_ID)).to.be.true
     expect(jobListenerConfig.emit).to.have.been.calledWith("progress.#{JOB_FOR_ID}.#{JOB_STATUSES[3]}", jobWorking)
 
+  # TODO add tests for start and stop checking
