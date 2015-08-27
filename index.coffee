@@ -1,5 +1,4 @@
 require 'jquery'
-require 'bootstrap' # Attach bootstrap to jQuery
 
 api = require './src/api'
 router = require './src/router'
