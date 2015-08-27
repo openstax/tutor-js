@@ -42,7 +42,12 @@ describe 'Course Periods Navigation', ->
     expect(periodItems.length).to.equal(COURSE_PERIODS.length)
 
     periodRenderedNames = _.pluck(periodItems, 'textContent')
-    periodNames = _.pluck(COURSE_PERIODS, 'name').sort()
+    periodNames = _.chain(COURSE_PERIODS)
+      .pluck('name')
+      .sortBy((name) ->
+        parseInt(name)
+      )
+      .value()
 
     expect(periodRenderedNames).to.deep.equal(periodNames)
 
@@ -52,7 +57,9 @@ describe 'Course Periods Navigation', ->
     {div} = @result
 
     firstPeriodItemLink = div.querySelector('li > a')
-    sortedPeriods = _.sortBy(COURSE_PERIODS, 'name')
+    sortedPeriods = _.sortBy(COURSE_PERIODS, (period) ->
+      parseInt(period.name)
+    )
 
     commonActions.click(firstPeriodItemLink)
 
