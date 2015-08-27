@@ -1,15 +1,14 @@
-.tutorize-nav(){
+.tutorize-toc-nav(){
   .x-icon-size(28px);
-  height: 24px;
   background-position: 0 -1px;
 }
 
-.tutorize-nav(close){
+.tutorize-toc-nav(close){
   .x-icon-bg('list-close');
-  .tutorize-nav();
+  .tutorize-toc-nav();
 }
 
-.tutorize-nav(open){
+.tutorize-toc-nav(open){
   .x-icon-bg('list-open');
 }
 
@@ -45,12 +44,10 @@
     .menu-toggle {
       &::before {
         content: @fa-var-list;
-        .tutorize-nav(close);
+        .tutorize-toc-nav(close);
       }
       &:hover {
-        &::before {
-          content: " ";
-        }
+        .clearfix();
       }
     }
     // don't collapse navbar when screen is narrow
@@ -74,7 +71,7 @@
       background: @tutor-neutral-lightest;
       &::before {
         content: @fa-var-outdent;
-        .tutorize-nav(open);
+        .tutorize-toc-nav(open);
       }
 
       &:hover {
