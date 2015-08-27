@@ -54,5 +54,11 @@ require './course-listing-store.spec'
 require './task-helpers.spec'
 require './dom-helpers.spec'
 
+
+
+
+require './helpers/job.spec'
+require './flux/plan-publish.spec'
+
 # This should be done **last** because it starts up the whole app
 require './router.spec'
