@@ -351,5 +351,11 @@ describe 'Plan on Course Calendar', ->
 
 
 # TODO
+#   it 'should start checking publishing when publishing', ->
+#   it 'should stop checkout publishing when asked to', ->
+#   it 'should check for publishing subscribe if plan id props update', ->
+#   it 'should check for publishing subscribe if plan isPublishing props update', ->
+
 #   it 'should have more than one display for plans spanning multiple weeks', ->
+#   it 'should render modal when clicking on any display for multiple weeks', ->
 
