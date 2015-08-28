@@ -350,12 +350,89 @@ describe 'Plan on Course Calendar', ->
         checkHasEditLinkBeenRendered(item.plan)
 
 
-# TODO
-#   it 'should start checking publishing when publishing', ->
-#   it 'should stop checkout publishing when asked to', ->
-#   it 'should check for publishing subscribe if plan id props update', ->
-#   it 'should check for publishing subscribe if plan isPublishing props update', ->
+  it 'should stop checking publishing when unmounting', ->
+    item = _.clone(ITEM_DRAFT_ONE_DAY)
+    item.plan = fakePublishing(item.plan)
 
+    Testing
+      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
+      .then ({dom, element}) ->
+        element.stopCheckingPlan = sinon.spy()
+        element.componentWillUnmount()
+
+        expect(element.stopCheckingPlan).to.have.been.calledWith(item.plan)
+
+
+  it 'should check for publishing subscribe if plan id props update', ->
+    item = _.clone(ITEM_DRAFT_ONE_DAY)
+    item.plan = fakePublishing(item.plan)
+
+    completeProgress =
+      for: item.plan.id
+      id: JOB_UUID
+      status: 'completed'
+
+    Testing
+      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
+      .then ({dom, element}) ->
+
+        checks =
+          display: (components, {display}) ->
+            displayNode = components.displayComponent.getDOMNode()
+            expect(displayNode.classList.contains('is-publishing')).to.be.false
+
+        checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS, checks)
+
+        element.stopCheckingPlan = sinon.spy()
+        element.componentWillReceiveProps({courseId: PLAN_COURSE_ID, item})
+
+        expect(element.stopCheckingPlan).to.have.been.calledWith(ITEM_PUBLISHED_THREE_DAYS.plan)
+
+        checksForIsPublishing =
+          display: (components, {display}) ->
+            displayNode = components.displayComponent.getDOMNode()
+            expect(displayNode.classList.contains('is-publishing')).to.be.true
+
+        checkChildrenComponents(element, item, checksForIsPublishing)
+
+        PlanPublishStore.emit("progress.#{item.plan.id}.#{completeProgress.status}", completeProgress)
+
+        checksIsPublished =
+          display: (components, {display}) ->
+            displayNode = components.displayComponent.getDOMNode()
+            expect(displayNode.classList.contains('is-published')).to.be.true
+
+        checkChildrenComponents(element, item, checksIsPublished)
+
+
+  it 'should check for publishing subscribe if plan isPublishing props update', ->
+    item = _.clone(ITEM_DRAFT_ONE_DAY)
+    item.plan = fakePublishing(item.plan)
+    item.plan.isPublishing = true
+
+    completeProgress =
+      for: item.plan.id
+      id: JOB_UUID
+      status: 'completed'
+
+    Testing
+      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
+      .then ({dom, element}) ->
+
+        checks =
+          display: (components, {display}) ->
+            displayNode = components.displayComponent.getDOMNode()
+            expect(displayNode.classList.contains('is-publishing')).to.be.false
+
+        checkChildrenComponents(element, ITEM_DRAFT_ONE_DAY, checks)
+
+        element.subscribeToPublishing = sinon.spy()
+        element.componentWillReceiveProps({courseId: PLAN_COURSE_ID, item})
+
+        expect(element.subscribeToPublishing).to.have.been.calledWith(item.plan)
+
+
+
+# TODO
 #   it 'should have more than one display for plans spanning multiple weeks', ->
 #   it 'should render modal when clicking on any display for multiple weeks', ->
-
