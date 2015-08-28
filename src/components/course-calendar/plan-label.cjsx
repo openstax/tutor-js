@@ -5,9 +5,14 @@ CoursePlanLabel = React.createClass
   displayName: 'CoursePlanLabel'
   propTypes:
     rangeDuration: React.PropTypes.instanceOf(twix).isRequired
-    plan: React.PropTypes.object.isRequired
-    index: React.PropTypes.number
-    offset: React.PropTypes.number
+    plan: React.PropTypes.shape(
+      title: React.PropTypes.string.isRequired
+      durationLength: React.PropTypes.number.isRequired
+      opensAt: React.PropTypes.string
+    ).isRequired
+    offsetFromPlanStart: React.PropTypes.number.isRequired
+    index: React.PropTypes.number.isRequired
+    offset: React.PropTypes.number.isRequired
 
   calcPercentOfPlanLength: (partLength) ->
     partLength / @props.plan.durationLength * 100 + '%'

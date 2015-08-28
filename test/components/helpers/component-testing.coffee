@@ -19,6 +19,10 @@ beforeEach ->
   ROUTER.isActive = sandbox.spy()
   ROUTER.transitionTo = sandbox.spy()
   ROUTER.getCurrentPath = sandbox.spy( -> CURRENT_ROUTER_PATH )
+  ROUTER.getLocation = sandbox.spy( ->
+    addChangeListener: sandbox.spy()
+    removeChangeListener: sandbox.spy()
+  )
   ROUTER.match = sandbox.spy()
   ROUTER.getCurrentParams = sandbox.spy( -> CURRENT_ROUTER_PARAMS )
 afterEach ->

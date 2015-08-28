@@ -1,4 +1,5 @@
 _ = require 'underscore'
+twix = require 'twix'
 
 React = require 'react'
 Router = require 'react-router'
@@ -24,8 +25,28 @@ CoursePlan = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     item: React.PropTypes.shape(
-      plan: React.PropTypes.object
-      displays: React.PropTypes.array
+      plan: React.PropTypes.shape(
+        id: React.PropTypes.string.isRequired
+        title: React.PropTypes.string.isRequired
+        type: React.PropTypes.string.isRequired
+        durationLength: React.PropTypes.number.isRequired
+        opensAt: React.PropTypes.string.isRequired
+        isOpen: React.PropTypes.bool
+        isPublished: React.PropTypes.bool
+        isPublishing: React.PropTypes.bool
+        isTrouble: React.PropTypes.bool
+        isEditable: React.PropTypes.bool
+      ).isRequired
+      displays: React.PropTypes.arrayOf(
+        React.PropTypes.shape(
+          rangeDuration: React.PropTypes.instanceOf(twix).isRequired
+          offset: React.PropTypes.number.isRequired
+          index: React.PropTypes.number.isRequired
+          offsetFromPlanStart: React.PropTypes.number.isRequired
+          order: React.PropTypes.number.isRequired
+          weekTopOffset: React.PropTypes.number.isRequired
+        ).isRequired
+      ).isRequired
     )
     activeHeight: React.PropTypes.number
 
