@@ -9,7 +9,7 @@ module.exports = (config) ->
 
     files: [
       'test/all-tests.coffee'
-      'src/all.coffee'
+      'test/all-source-files.coffee'
     ]
 
     preprocessors:
