@@ -3,23 +3,22 @@ webpack = require('webpack')
 module.exports = (config) ->
   config.set
     basePath: '../'
-    frameworks: ['mocha', 'chai', 'chai-sinon']
+    frameworks: ['mocha', 'chai', 'chai-sinon', 'phantomjs-shim']
     browsers: ['PhantomJS']
     reporters: ['mocha', 'coverage']
 
     files: [
       'test/all-tests.coffee'
+      'src/all.coffee'
     ]
 
     preprocessors:
-      'src/**/*.cjsx': ['webpack', 'coverage']
+      'src/**/*.{coffee,cjsx}': ['webpack', 'coverage']
       'test/*':  ['webpack', 'coverage']
 
     coverageReporter:
       type: 'text'
       # type: 'html' # will create html report in ./coverage directory
-
-
 
     webpack:
       resolve:
@@ -41,11 +40,12 @@ module.exports = (config) ->
 
     webpackMiddleware:
       stats:
-        colors: true
+        colors: false
 
-    logLevel: config.LOG_DEBUG
+    #logLevel: config.LOG_DEBUG
 
     plugins:[
+      require("karma-phantomjs-shim")
       require("karma-coverage")
       require("karma-mocha")
       require("karma-webpack")
