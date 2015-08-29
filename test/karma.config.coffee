@@ -13,14 +13,15 @@ module.exports = (config) ->
     ]
 
     preprocessors:
-      'src/**/*.{coffee,cjsx}': ['webpack', 'coverage']
-      'test/*':  ['webpack', 'coverage']
+      'src/**/*.{coffee,cjsx}': ['webpack', 'sourcemap', 'coverage']
+      'test/*':  ['webpack', 'sourcemap', 'coverage']
 
     coverageReporter:
       type: 'text'
       # type: 'html' # will create html report in ./coverage directory
 
     webpack:
+      devtool: 'eval-source-map'
       resolve:
         extensions: ['', '.js', '.json', '.coffee', '.cjsx']
       module:
@@ -39,14 +40,14 @@ module.exports = (config) ->
       ]
 
     # usefull for debugging Karma config
-    #logLevel: config.LOG_DEBUG
+    # logLevel: config.LOG_DEBUG
 
     webpackMiddleware:
-      # Truee will suppress error shown in console, so it has to be set to false.
-      quiet: false,
+      # True will suppress error shown in console, so it has to be set to false.
+      quiet: false
       # Suppress everything except error, so it has to be set to false as well
       # to see success build.
-      noInfo: false,
+      noInfo: false
       stats:
         # Config for minimal console.log mess.
         assets: false,
@@ -67,4 +68,5 @@ module.exports = (config) ->
       require("karma-phantomjs-launcher")
       require("karma-chai")
       require("karma-chai-sinon")
+      require("karma-sourcemap-loader")
     ]

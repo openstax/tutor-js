@@ -80,6 +80,7 @@
     "karma-mocha-reporter": "~1.0.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-phantomjs-shim": "^1.1.1",
+    "karma-sourcemap-loader": "^0.3.5",
     "karma-webpack": "^1.7.0",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
