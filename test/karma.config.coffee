@@ -31,17 +31,15 @@ module.exports = (config) ->
           { test: /\.cjsx$/,   loader: "coffee-jsx-loader" }
         ]
         preLoaders: [{
-            test: /\.(cjsx|coffee)$/
-            exclude: /(node_modules|resources|bower_components)/
-            loader: "coffeelint-loader"
+          test: /\.(cjsx|coffee)$/
+          loader: "coffeelint-loader"
+          exclude: /(node_modules|resources|bower_components)/
         }]
-        postLoaders: [
-          {
-            test: /\.(cjsx|coffee)$/
-            loader: 'istanbul-instrumenter'
-            exclude: /(test|node_modules|resources|bower_components)/
-          }
-        ]
+        postLoaders: [{
+          test: /\.(cjsx|coffee)$/
+          loader: 'istanbul-instrumenter'
+          exclude: /(test|node_modules|resources|bower_components)/
+        }]
 
     # usefull for debugging Karma config
     # logLevel: config.LOG_DEBUG
