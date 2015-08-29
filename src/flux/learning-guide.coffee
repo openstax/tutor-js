@@ -69,12 +69,6 @@ TeacherStudent = makeSimpleStore extendConfig {
     @_asyncStatus[id][roleId] = 'LOADING'
     @emitChange()
 
-  isLoading: (id, {roleId}) ->
-    @_asyncStatus[id]?[roleId] is 'LOADING'
-
-  isLoaded: (id) ->
-    @_asyncStatus[id]?[roleId] is 'LOADED'
-
   exports:
     getSortedSections: (courseId, roleId, property = 'current_level') ->
       sections = findAllSections(@_get(courseId))
@@ -92,6 +86,12 @@ TeacherStudent = makeSimpleStore extendConfig {
 
     reload: (id, {roleId}) ->
       @_reload[id]?[roleId]
+
+    isLoading: (id, {roleId}) ->
+      @_asyncStatus[id]?[roleId] is 'LOADING'
+
+    isLoaded: (id, {roleId}) ->
+      @_asyncStatus[id]?[roleId] is 'LOADED'
 
 }, new CrudConfig
 

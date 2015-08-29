@@ -37,6 +37,7 @@ ROUTES =
     label: 'Performance Forecast'
     roles:
       student: 'viewGuide'
+      teacher: 'viewTeacherGuide'
   performance:
     label: 'Performance Report'
     roles:

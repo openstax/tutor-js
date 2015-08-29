@@ -35,7 +35,7 @@ describe 'Course Settings', ->
   it 'renders period panels', ->
     titles = _.pluck(@state.div.querySelectorAll('.nav-tabs li a'), 'textContent')
     expect(titles)
-      .to.deep.equal(['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'])
+      .to.deep.equal(['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '10th'])
 
 
   it 'renders students in the panels', ->

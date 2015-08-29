@@ -24,16 +24,16 @@ window._STORES =
   TOC: require './src/flux/toc'
 
 
-api.start(dom.readBootstrapData())
 
-startMathJax()
-TransitionAssistant.startMonitoring()
-
-
-# This is added because MathJax puts in extra divs on initial load.
-# Moves the React Root to be an element inside a div
-# instead of the only element in the body.
-mainDiv = document.createElement('div')
-mainDiv.id = 'react-root-container'
-document.body.appendChild(mainDiv)
-router.start(mainDiv)
+document.addEventListener("DOMContentLoaded", ->
+  api.start(dom.readBootstrapData())
+  startMathJax()
+  TransitionAssistant.startMonitoring()
+  # This is added because MathJax puts in extra divs on initial load.
+  # Moves the React Root to be an element inside a div
+  # instead of the only element in the body.
+  mainDiv = document.createElement('div')
+  mainDiv.id = 'react-root-container'
+  document.body.appendChild(mainDiv)
+  router.start(mainDiv)
+)

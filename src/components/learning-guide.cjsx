@@ -31,24 +31,13 @@ TeacherStudent = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  loadPerformanceReport: ->
+  render: ->
     {courseId, roleId} = @context.router.getCurrentParams()
     <LoadableItem
       id={courseId}
       store={PerformanceStore}
       actions={PerformanceActions}
       renderItem={-> <TeacherStudentComponent courseId={courseId} roleId={roleId}/>}
-    />
-
-  render: ->
-    {courseId, roleId} = @context.router.getCurrentParams()
-    <LoadableItem
-      id={courseId}
-      options={{roleId}}
-      roleId={roleId} # HACK: force loadableItem to re-render
-      store={LearningGuide.TeacherStudent.store}
-      actions={LearningGuide.TeacherStudent.actions}
-      renderItem={@loadPerformanceReport}
     />
 
 
