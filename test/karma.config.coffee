@@ -39,7 +39,7 @@ module.exports = (config) ->
           {
             test: /\.(cjsx|coffee)$/
             loader: 'istanbul-instrumenter'
-            exclude: /(node_modules|resources|bower_components)/
+            exclude: /(test|node_modules|resources|bower_components)/
           }
         ]
 
