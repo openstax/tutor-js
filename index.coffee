@@ -24,8 +24,10 @@ window._STORES =
   TOC: require './src/flux/toc'
 
 
+loadApp = ->
+  unless document.readyState is 'interactive'
+    return false
 
-document.addEventListener("DOMContentLoaded", ->
   api.start(dom.readBootstrapData())
   startMathJax()
   TransitionAssistant.startMonitoring()
@@ -35,5 +37,7 @@ document.addEventListener("DOMContentLoaded", ->
   mainDiv = document.createElement('div')
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
-  router.start(mainDiv)
-)
+  hello = router.start(mainDiv)
+  true
+
+loadApp() or document.addEventListener('readystatechange', loadApp)
