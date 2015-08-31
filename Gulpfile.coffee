@@ -29,6 +29,9 @@ KARMA_CONFIG =
   configFile: __dirname + '/test/karma.config.coffee'
   singleRun: false
 
+KARMA_COVERAGE_CONFIG =
+  configFile: __dirname + '/test/karma-coverage.config.coffee'
+  singleRun: false
 
 handleErrors = (title) => (args...) =>
   # TODO: Send error to notification center with gulp-notify
@@ -116,7 +119,6 @@ gulp.task '_karma', ->
   server = new karma.Server(KARMA_CONFIG)
   server.start()
 
-
 gulp.task '_webserver', ->
   config = _.extend( {}, webpackConfig, {
     devtool: 'source-map'
@@ -153,6 +155,11 @@ gulp.task 'serve', ['_webserver']
 
 gulp.task 'test', ['lint'], (done) ->
   config = _.extend({}, KARMA_CONFIG, singleRun: true)
+  server = new karma.Server(config)
+  server.start()
+
+gulp.task 'coverage', ->
+  config = _.extend({}, KARMA_COVERAGE_CONFIG, singleRun: true)
   server = new karma.Server(config)
   server.start()
 
