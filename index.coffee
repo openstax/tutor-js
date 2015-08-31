@@ -37,7 +37,7 @@ loadApp = ->
   mainDiv = document.createElement('div')
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
-  hello = router.start(mainDiv)
+  router.start(mainDiv)
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)
