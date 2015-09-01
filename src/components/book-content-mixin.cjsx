@@ -95,6 +95,7 @@ LinkContentMixin =
     link.target = '_self'
     # do this to ignore this link once adjusted
     link.dataset.targeted = 'media'
+    link.parentNode.insertBefore(media.cloneNode(true), link.nextSibling)
 
   processLinks: ->
     root = @getDOMNode()

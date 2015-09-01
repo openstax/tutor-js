@@ -7,6 +7,8 @@ Durations = require '../helpers/durations'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TaskStepStore} = require './task-step'
 
+{MediaActions, MediaStore} = require './media'
+
 getSteps = (steps) ->
   _.map steps, ({id}) ->
     TaskStepStore.get(id)
@@ -41,6 +43,7 @@ TaskConfig =
     step
 
   _loaded: (obj, id) ->
+    MediaActions.parse(_.pluck(obj.steps, 'content_html').join(''))
     # Populate all the TaskSteps when a Task is loaded
     @_steps ?= {}
     # Remove the steps so Components are forced to use `.getSteps()` to get
