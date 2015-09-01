@@ -62,6 +62,7 @@
 }
 
 .question {
+  .tutor-tables();
   .size-exercise-card();
   .clearfix();
 
@@ -124,11 +125,13 @@
   }
 
   .answers-table {
+    font-size: 0.8em;
     width: 100%;
 
     .answers-answer {
       counter-increment: answer 1;
       .answer();
+      width: initial;
       margin: 0;
 
       .answer-letter {
@@ -248,12 +251,6 @@
       &::before {
         content: "Student Answer:";
       }
-    }
-    .answers-table label.answer-label {
-      cursor: default;
-    }
-    .answer-checked::before {
-      content: "Student Choice:";
     }
   }
 }

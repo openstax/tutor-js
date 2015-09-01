@@ -8,41 +8,7 @@
   font-weight: bold;
   font-style: italic;
 }
-table {
-  width: 100%;
-  margin-bottom: 32px;
-  #fonts > .sans(1.75rem, 3.6rem);
-  padding: 20px 0;
-  line-height: 2.5rem;
-  thead {
-    th {
-      padding: 8px 10px;
-      background: @tutor-neutral-light;
-      border-bottom: solid 2px @tutor-neutral-light;
-    }
-    tr:first-of-type:not(:last-child) th {
-      padding-left: 0;
-    }
-  }
-  tr:nth-child(odd) {
-     background: @tutor-neutral-lightest;
-   }
-  td {
-    padding: 8px 10px;
-  }
-  tbody {
-    border-top: solid  4px  @tutor-neutral-light;
-    border-bottom: solid  4px  @tutor-neutral-light;
-  }
-  caption,
-  thead tr:first-of-type:not(:last-child) th{
-    background: @tutor-white;
-   #fonts > .sans(2rem, 3rem);
-   font-weight: 900;
-   color: @tutor-neutral-darker;
-  }
-}
-
+.tutor-tables();
 div[data-type="document-title"],
 div[data-type=abstract],
 cnx-pi{
