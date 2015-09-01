@@ -7,5 +7,6 @@ md = new Markdown()
 module.exports = React.createClass
   render: ->
     {text} = @props
+    return null unless text
     html = md.render(text)
     <ArbitraryHtml html={html}/>
