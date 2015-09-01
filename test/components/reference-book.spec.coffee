@@ -7,13 +7,16 @@ ReactAddons    = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
 {routerStub, commonActions} = require './helpers/utilities'
 
+{CourseActions} = require '../../src/flux/course'
 {ReferenceBookActions, ReferenceBookStore} = require '../../src/flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require '../../src/flux/reference-book-page'
 ReferenceBook = require '../../src/components/reference-book/reference-book'
 Page = require '../../src/components/reference-book/page'
 
 COURSE_ID = '1'
-TOC  = require '../../api/courses/1/readings.json'
+ECOSYSTEM_ID = '1'
+COURSE = require '../../api/user/courses/1.json'
+TOC  = require '../../api/ecosystems/1/readings.json'
 FIRST_PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16509'
 FIRST_PAGE  = '1.1'
 SECOND_PAGE = '1.2'
@@ -38,7 +41,8 @@ renderBook = (section) ->
 describe 'Reference Book Component', ->
 
   beforeEach ->
-    ReferenceBookActions.loaded(TOC, COURSE_ID)
+    CourseActions.loaded(COURSE, COURSE_ID)
+    ReferenceBookActions.loaded(TOC, ECOSYSTEM_ID)
     ReferenceBookPageActions.loaded(PAGE, FIRST_PAGE_ID)
     renderBook(FIRST_PAGE).then (state) =>
       @state = state
@@ -52,7 +56,7 @@ describe 'Reference Book Component', ->
       .to.equal('A bunch of html')
 
   it 'sets current page to active on menu', ->
-    page = ReferenceBookActions.loaded(TOC, COURSE_ID)
+    page = ReferenceBookActions.loaded(TOC, ECOSYSTEM_ID)
     console.log page
     expect(@state.div.querySelector('.page').textContent)
       .to.equal('A bunch of html')

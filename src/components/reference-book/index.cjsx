@@ -58,6 +58,12 @@ ReferenceBookShell = React.createClass
   displayName: 'ReferenceBookShell'
   contextTypes:
     router: React.PropTypes.func
+  componentWillMount: ->
+    {courseId} = @context.router.getCurrentParams()
+
+    unless CourseStore.isLoaded(courseId)
+      CourseActions.load(courseId)
+      CourseStore.once('course.loaded', @setState.bind(@, {}))
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
