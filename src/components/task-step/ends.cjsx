@@ -46,20 +46,10 @@ PracticeEnd = React.createClass
       params: {courseId}
       text: 'Back to Performance Forecast'
 
-    backButton = <BackButton fallbackLink={fallbackLink} />
-
     # custom footer for practices
     footer =
       <div className='-practice-end'>
-        <PracticeButton
-          courseId={courseId}
-          loadedTaskId={taskId}
-          reloadPractice={reloadPractice}
-          pageIds={pageIds}
-          forceCreate={true}>
-          Do more practice
-        </PracticeButton>
-        {backButton}
+        <BackButton bsStyle="primary" fallbackLink={fallbackLink} />
       </div>
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
@@ -173,7 +163,14 @@ TaskEnd = React.createClass
       </CardBody>
     </div>
 
-ends = {task: TaskEnd, homework: HomeworkEnd, practice: PracticeEnd, chapter_practice: PracticeEnd, reading: TaskEnd}
+ends = {
+  task: TaskEnd,
+  homework: HomeworkEnd,
+  practice: PracticeEnd,
+  chapter_practice: PracticeEnd,
+  page_practice: PracticeEnd,
+  reading: TaskEnd
+}
 
 module.exports =
   get: (type) ->

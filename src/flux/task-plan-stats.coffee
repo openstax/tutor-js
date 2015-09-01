@@ -1,5 +1,6 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
+PeriodHelper = require '../helpers/period'
 
 TaskPlanStatsConfig = {
 
@@ -11,9 +12,8 @@ TaskPlanStatsConfig = {
           id: stat.period_id
           name: stat.name
         )
-        .sortBy((period) ->
-          period.name
-        ).value()
+        .tap(PeriodHelper.sort)
+        .value()
 
 }
 

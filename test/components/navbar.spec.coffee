@@ -29,15 +29,13 @@ TEACHER_DASHROUTE = 'taskplans'
 STUDENT_MENU = [
   {
     name: STUDENT_DASHROUTE
+    params: {courseId: '1'}
     label: 'Dashboard'
   }
   {
     name: 'viewGuide'
+    params: {courseId: '1'}
     label: 'Performance Forecast'
-  }
-  {
-    name: 'viewReferenceBook'
-    label: 'Browse the Book'
   }
 ]
 
@@ -47,16 +45,17 @@ TEACHER_MENU = [
     label: 'Dashboard'
   }
   {
+    name: 'viewTeacherGuide'
+    params: {courseId: '1'}
+    label: 'Performance Forecast'
+  }
+  {
     name: 'viewPerformance'
     label: 'Performance Report'
   }
   {
     name: 'courseSettings'
     label: 'Course Roster'
-  }
-  {
-    name: 'viewReferenceBook'
-    label: 'Browse the Book'
   }
 ]
 
@@ -144,14 +143,20 @@ testWithRole = (roleType) ->
       dropdownItems = navDropDown.querySelectorAll('li')
 
       roleItems = Array.prototype.slice.call(dropdownItems, 0, -4)
-
-      roleLabels = _.map roleItems, (item) ->
-        item.innerText
-
-      expect(roleLabels).to.deep.equal(_.pluck(roleTestParams.menu, 'label'))
-
+      labels = _.pluck(roleTestParams.menu, 'label')
+      labels.push 'Browse the Book'
+      expect(_.pluck(roleItems, 'innerText')).to.deep.equal(labels)
       done()
 
+    it 'should have link to browse the book', (done) ->
+      {navbarDOMNode} = @result
+      bookLink = navbarDOMNode.querySelector('.view-reference-guide')
+      expect(bookLink).not.to.be.null
+      expect(bookLink.getAttribute('target')).to.equal('_blank')
+      done()
+
+
 describe 'Student Navbar Component', testWithRole('student')
+
 
 describe 'Teacher Navbar Component', testWithRole('teacher')

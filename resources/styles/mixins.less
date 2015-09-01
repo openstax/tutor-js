@@ -184,6 +184,14 @@
   }
 }
 
+.tutor-fade-in (@fade-time) {
+  animation: fadein @fade-time;
+  @keyframes fadein {
+    from { opacity:0; }
+    to { opacity:1; }
+  }
+}
+
 // If you want to use these please uncomment.
 //
 // .tutor-shadow(3) {

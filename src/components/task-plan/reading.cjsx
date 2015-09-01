@@ -9,7 +9,6 @@ Router = require 'react-router'
 {TocStore, TocActions} = require '../../flux/toc'
 SelectTopics = require './select-topics'
 PlanFooter = require './footer'
-Close = require '../close'
 ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
@@ -21,6 +20,7 @@ ReviewReadingLi = React.createClass
   propTypes:
     planId: React.PropTypes.string.isRequired
     topicId: React.PropTypes.string.isRequired
+    canEdit: React.PropTypes.bool
 
   moveReadingUp: ->
     TaskPlanActions.moveReading(@props.planId, @props.topicId, -1)
@@ -37,7 +37,7 @@ ReviewReadingLi = React.createClass
         <i className="fa fa-arrow-up"/>
       </BS.Button>
 
-    if not TaskPlanStore.isVisibleToStudents(@props.planId)
+    if @props.canEdit
       <span className='section-buttons'>
         {moveUpButton}
         <BS.Button onClick={@moveReadingDown} className="btn-xs move-reading-down">
@@ -50,9 +50,6 @@ ReviewReadingLi = React.createClass
 
   render: ->
     topic = TocStore.getSectionInfo(@props.topicId)
-
-
-
     actionButtons = @getActionButtons()
 
     <li className='selected-section'>
@@ -66,14 +63,19 @@ ReviewReadings = React.createClass
   propTypes:
     planId: React.PropTypes.string.isRequired
     selected: React.PropTypes.array
+    canEdit: React.PropTypes.bool
 
   renderSection: (topicId, index) ->
-    <ReviewReadingLi topicId={topicId} planId={@props.planId} index={index}/>
+    <ReviewReadingLi
+      topicId={topicId}
+      planId={@props.planId}
+      canEdit={@props.canEdit}
+      index={index}/>
 
   renderSelected: ->
     if @props.selected.length
       <ul className='selected-reading-list'>
-        <li>Currently selected sections in this reading</li>
+        <li>Currently selected</li>
         {_.map(@props.selected, @renderSection)}
       </ul>
     else
@@ -103,13 +105,16 @@ ChooseReadings = React.createClass
         onClick={@hide}>Add Readings
       </BS.Button>
 
-    <SelectTopics
-      primary={primary}
-      header={header}
-      courseId={@props.courseId}
-      planId={@props.planId}
-      selected={@props.selected}
-      hide={@hide} />
+    <div className="reading-plan-select-topics">
+      <SelectTopics
+        primary={primary}
+        header={header}
+        courseId={@props.courseId}
+        planId={@props.planId}
+        selected={@props.selected}
+        cancel={@props.cancel}
+        hide={@hide} />
+    </div>
 
 ReadingPlan = React.createClass
   displayName: 'ReadingPlan'
@@ -119,18 +124,18 @@ ReadingPlan = React.createClass
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
 
-    headerText = <span key='header-text'>
-      {if TaskPlanStore.isNew(id) then 'Add Reading Assignment' else 'Edit Reading Assignment'}
-    </span>
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
-    closeBtn = <Close
-      key='close-button'
-      className='pull-right'
-      onClick={@cancel}/>
 
-    footer = <PlanFooter id={id} courseId={courseId} onPublish={@publish} onSave={@save}/>
-    header = [headerText, closeBtn]
+    footer = <PlanFooter
+      id={id}
+      courseId={courseId}
+      onPublish={@publish}
+      onSave={@save}
+      onCancel={@cancel}
+      getBackToCalendarParams={@getBackToCalendarParams}
+      goBackToCalendar={@goBackToCalendar}/>
+    header = @builderHeader('reading')
 
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
 
@@ -139,13 +144,14 @@ ReadingPlan = React.createClass
       formClasses.push('hide')
       selectReadings = <ChooseReadings
                         hide={@hideSectionTopics}
+                        cancel={@cancelSelection}
                         courseId={courseId}
                         planId={id}
                         selected={topics}/>
 
     if @state?.invalid then formClasses.push('is-invalid-form')
 
-    if not TaskPlanStore.isVisibleToStudents(id)
+    if not @state.isVisibleToStudents
       addReadingsButton = <BS.Button id='reading-select'
         onClick={@showSectionTopics}
         bsStyle='default'>+ {addReadingText}
@@ -168,11 +174,16 @@ ReadingPlan = React.createClass
 
           <BS.Row>
             <BS.Col xs={12} md={12}>
-              <ReviewReadings courseId={courseId} planId={id} selected={topics}/>
+              <ReviewReadings
+                canEdit={not @state.isVisibleToStudents}
+                courseId={courseId}
+                planId={id}
+                selected={topics}/>
               {addReadingsButton}
               {readingsRequired}
             </BS.Col>
           </BS.Row>
+
         </BS.Grid>
       </BS.Panel>
       {selectReadings}

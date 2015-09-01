@@ -1,5 +1,6 @@
 {
   "name": "Local Test Course",
+  "book_id": "123",
   "periods": [{
       "id": "1",
       "name" : "1st"
@@ -21,6 +22,9 @@
     },{
       "id": "7",
       "name" : "7th"
+    },{
+      "id": "8",
+      "name" : "10th"
   }],
   "timezone": "",
   "default_due_time": "",

@@ -6,6 +6,7 @@ LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 ChapterSection = require './chapter-section'
+{CourseStore} = require '../../flux/course'
 
 SectionTopic = React.createClass
   displayName: 'SectionTopic'
@@ -99,7 +100,7 @@ ChapterAccordion = React.createClass
           Chapter <ChapterSection section={chapter.chapter_section}/> -
         </span>
         <span className='chapter-title'> {chapter.title}</span>
-        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse the book</span>
+        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse this Chapter</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>
@@ -121,7 +122,7 @@ SelectTopics = React.createClass
     <ChapterAccordion {...@props} expanded={expanded} chapter={chapter}/>
 
   renderDialog: ->
-    {courseId, planId, selected, hide, header, primary} = @props
+    {courseId, planId, selected, hide, header, primary, cancel} = @props
 
     selected = TaskPlanStore.getTopics(planId)
     chapters = _.map(TocStore.get(), @renderChapterPanels)
@@ -133,7 +134,7 @@ SelectTopics = React.createClass
       confirmMsg='Are you sure you want to close?'
       cancel='Cancel'
       isChanged={-> true}
-      onCancel={hide}>
+      onCancel={cancel}>
 
       <div className='select-reading-chapters'>
         {chapters}

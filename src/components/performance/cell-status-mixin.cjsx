@@ -15,11 +15,6 @@ module.exports = {
       type:            React.PropTypes.string
     ).isRequired
 
-    student: React.PropTypes.shape(
-      name: React.PropTypes.string
-      role: React.PropTypes.number
-    ).isRequired
-
   renderLink: ({message}) ->
     <Router.Link className={"task-result #{@props.task.type} #{@props.className}"} to='viewTaskStep'
       params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>

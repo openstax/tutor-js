@@ -6,7 +6,7 @@
 @calendar-plan-active-top-offset: @calendar-plan-top-offset - @calendar-plan-top-margin;
 
 @calendar-plan-left-offset: 2px;
-@calendar-plan-left-label-offset: 2 * @calendar-plan-left-offset + 2;
+@calendar-plan-left-label-offset: 2 * @calendar-plan-left-offset;
 
 @calendar-inactive-background: @tutor-neutral;
 
@@ -108,8 +108,7 @@
     // Takes width based on visible width of plan to center label.
     // see CoursePlan component
     label {
-      margin-left: -@calendar-plan-left-label-offset;
-      padding-left: 2 * @calendar-plan-left-label-offset;
+      padding-left: @calendar-plan-left-label-offset;
       text-align: left;
       display: block;
       margin-bottom: 0;
@@ -120,6 +119,7 @@
         &::before {
           content: '...';
           margin-right: @calendar-plan-left-label-offset;
+          margin-left: @calendar-plan-left-label-offset / 2;
           .psuedo-text-label();
         }
 

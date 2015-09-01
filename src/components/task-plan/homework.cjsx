@@ -4,7 +4,6 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 PlanFooter = require './footer'
-Close = require '../close'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
@@ -24,6 +23,7 @@ ChooseExercises = React.createClass
     courseId: React.PropTypes.string.isRequired
     selected: React.PropTypes.array.isRequired
     hide: React.PropTypes.func.isRequired
+    canEdit: React.PropTypes.bool
 
   selectProblems: ->
     @setState({
@@ -31,7 +31,7 @@ ChooseExercises = React.createClass
     })
 
   render: ->
-    {courseId, planId, selected, hide} = @props
+    {courseId, planId, selected, hide, cancel} = @props
 
     header = <span>Add Problems</span>
     selected = TaskPlanStore.getTopics(planId)
@@ -50,8 +50,9 @@ ChooseExercises = React.createClass
     if shouldShowExercises
       exerciseSummary = <ExerciseSummary
           canReview={true}
+          canEdit={@props.canEdit}
           reviewClicked={hide}
-          onCancel={hide}
+          onCancel={cancel}
           planId={planId}/>
 
       addExercises = <AddExercises
@@ -66,6 +67,7 @@ ChooseExercises = React.createClass
         courseId={courseId}
         planId={planId}
         selected={selected}
+        cancel={cancel}
         hide={hide} />
 
       <PinnedHeaderFooterCard
@@ -84,44 +86,38 @@ HomeworkPlan = React.createClass
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
-    headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
-    closeBtn = <Close onClick={@cancel}/>
+
     topics = TaskPlanStore.getTopics(id)
     hasExercises = TaskPlanStore.getExercises(id)?.length
     shouldShowExercises = hasExercises and not @state?.showSectionTopics
 
-    if plan?.due_at
-      dueAt = new Date(plan.due_at)
-
     footer = <PlanFooter id={id}
       courseId={courseId}
       onPublish={@publish}
-      onSave={@save}/>
+      onSave={@save}
+      onCancel={@cancel}
+      getBackToCalendarParams={@getBackToCalendarParams}
+      goBackToCalendar={@goBackToCalendar}
+      />
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
     if @state?.invalid then formClasses.push('is-invalid-form')
 
-    dueAtElem = <TutorDateInput
-                  id='homework-due-date'
-                  label='Due Date'
-                  required={true}
-                  onChange={@setDueAt}
-                  min={new Date()}
-                  value={dueAt}/>
-
     if @state.showSectionTopics
       chooseExercises = <ChooseExercises
         courseId={courseId}
         planId={id}
+        cancel={@cancelSelection}
         hide={@hideSectionTopics}
+        canEdit={not @state.isVisibleToStudents}
         selected={topics}/>
 
     if shouldShowExercises
       exerciseSummary = <ExerciseSummary
         onCancel={@cancel}
         onPublish={@publish}
-        canAdd={not TaskPlanStore.isVisibleToStudents(id)}
+        canAdd={not @state.isVisibleToStudents}
         addClicked={@showSectionTopics}
         planId={id}/>
 
@@ -133,6 +129,7 @@ HomeworkPlan = React.createClass
       reviewExercises = <ReviewExercises
         courseId={courseId}
         pageIds={topics}
+        canEdit={not @state.isVisibleToStudents}
         planId={id}/>
 
       reviewExercisesSummary = <PinnedHeaderFooterCard
@@ -143,9 +140,9 @@ HomeworkPlan = React.createClass
         {reviewExercises}
       </PinnedHeaderFooterCard>
 
-    header = [headerText, closeBtn]
+    header = @builderHeader('homework')
 
-    if not TaskPlanStore.isVisibleToStudents(id)
+    if not @state.isVisibleToStudents
       addProblemsButton = <BS.Button id='problems-select'
         onClick={@showSectionTopics}
         bsStyle='default'>+ Select Problems
@@ -165,11 +162,14 @@ HomeworkPlan = React.createClass
 
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
+          <BS.Row>
+          <BS.Col xs=12 md=12>
+            {addProblemsButton}
+            {problemsRequired}
+          </BS.Col>
+          </BS.Row>
         </BS.Grid>
-        <BS.Row>
-          {addProblemsButton}
-          {problemsRequired}
-        </BS.Row>
+        
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}

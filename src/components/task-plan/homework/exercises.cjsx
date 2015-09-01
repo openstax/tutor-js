@@ -33,7 +33,10 @@ ExerciseCardMixin =
   renderExercise: ->
     content = @props.exercise.content
     question = content.questions[0]
-    renderedAnswers = _.map(question.answers, @renderAnswers)
+    renderedAnswers = _(question.answers).chain()
+      .sortBy('id')
+      .map(@renderAnswers)
+      .value()
     tags = _.clone @props.exercise.tags
     # Display the exercise uid as a tag
     tags.push(name: "ID: #{@props.exercise.content.uid}")
@@ -59,6 +62,7 @@ ReviewExerciseCard = React.createClass
   propTypes:
     planId: React.PropTypes.string.isRequired
     exercise: React.PropTypes.object.isRequired
+    canEdit: React.PropTypes.bool
     index: React.PropTypes.number
 
   mixins: [ExerciseCardMixin]
@@ -86,7 +90,7 @@ ReviewExerciseCard = React.createClass
         <i className="fa fa-arrow-down"/>
       </BS.Button>
 
-    if not TaskPlanStore.isVisibleToStudents(@props.planId)
+    if @props.canEdit
       <span className="pull-right card-actions">
         {moveUp}
         {moveDown}
@@ -161,12 +165,17 @@ ReviewExercises = React.createClass
   propTypes:
     planId: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
+    canEdit: React.PropTypes.bool
     pageIds: React.PropTypes.array
 
   mixins: [ExercisesRenderMixin]
 
   renderExercise: (exercise, i) ->
-    <ReviewExerciseCard index={i} planId={@props.planId} exercise={exercise}/>
+    <ReviewExerciseCard
+      index={i}
+      planId={@props.planId}
+      canEdit={@props.canEdit}
+      exercise={exercise}/>
 
   render: ->
     load = @renderLoading()

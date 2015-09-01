@@ -1,6 +1,6 @@
 React = require 'react'
 LoadableItem = require '../loadable-item'
-
+Name = require '../name'
 {PerformanceStore, PerformanceActions} = require '../../flux/performance'
 
 ViewingAsStudentName = React.createClass
@@ -18,7 +18,7 @@ ViewingAsStudentName = React.createClass
     student = PerformanceStore.getStudentOfTask(courseId, taskId)
 
     studentName = <div className={className}>
-      {student.first_name} {student.last_name}
+      <Name {...student} />
     </div> if student?
 
     studentName

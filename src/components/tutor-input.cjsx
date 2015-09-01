@@ -12,7 +12,7 @@ TutorDateFormat = "MM/DD/YYYY"
 
 TutorInput = React.createClass
   propTypes:
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.node.isRequired
     id: React.PropTypes.string
     className: React.PropTypes.string
     type: React.PropTypes.string
@@ -39,6 +39,12 @@ TutorInput = React.createClass
 
   focus: ->
     React.findDOMNode(@refs.input)?.focus()
+
+  # The label has style "pointer-events: none" set.  Unfortunantly IE 10
+  # doesn't support that and refuses to pass the click through the label into the input
+  # We help it out here by manually focusing when then label is clicked
+  # (which should only happen on IE 10)
+  forwardLabelClick: -> @focus()
 
   render: ->
     classes = ['form-control']
@@ -75,7 +81,7 @@ TutorInput = React.createClass
         defaultValue={@props.default}
         onChange={@onChange}
       />
-      <div className='floating-label'>{@props.label}</div>
+      <div className='floating-label' onClick={@forwardLabelClick}>{@props.label}</div>
       {errors}
     </div>
 
@@ -197,21 +203,23 @@ TutorTextArea = React.createClass
     id: React.PropTypes.string
     className: React.PropTypes.string
     onChange: React.PropTypes.func
-    heightBuffer: React.PropTypes.number
-
-  getDefaultProps: ->
-    heightBuffer: 28
 
   resize: (event) ->
     textarea = @refs.textarea.getDOMNode()
     textarea.style.height = ''
-    textarea.style.height = "#{textarea.scrollHeight + @props.heightBuffer}px"
+    textarea.style.height = "#{textarea.scrollHeight}px"
 
   componentDidMount: ->
     @resize() if @props.default?.length > 0
 
   onChange: (event) ->
     @props.onChange(event.target?.value, event.target)
+
+  focus: ->
+    React.findDOMNode(@refs.textarea)?.focus()
+
+  # Forward clicks on for IE10.  see comments on TutorInput
+  forwardLabelClick: -> @focus()
 
   render: ->
     classes = ['form-control']
@@ -231,7 +239,7 @@ TutorTextArea = React.createClass
         className={classes.join(' ')}
         defaultValue={@props.default}
         onChange={@onChange} />
-      <div className="floating-label">{@props.label}</div>
+      <div className="floating-label" onClick={@forwardLabelClick}>{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
       </div>

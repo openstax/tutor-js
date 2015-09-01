@@ -50,8 +50,9 @@ CourseAdd = React.createClass
       dropdownContent = @renderAddActions()
     else
       className = "#{className} no-add"
+      dayType = if addDate?.isSame(referenceDate, 'day') then 'today' else 'past day'
       dropdownContent = <li>
-        <span className='no-add-text'>Cannot add to past day</span>
+        <span className='no-add-text'>Cannot assign to {dayType}</span>
       </li>
 
     <BS.DropdownMenu ref='addOnDayMenu' style={style} className={className}>

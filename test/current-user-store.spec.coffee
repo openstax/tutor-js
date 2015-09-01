@@ -3,7 +3,6 @@ _ = require 'underscore'
 
 {CourseListingActions, CourseListingStore} = require '../src/flux/course-listing'
 {CurrentUserActions, CurrentUserStore} = require '../src/flux/current-user'
-{CourseActions, CourseStore} = require '../src/flux/course'
 
 USER_MODEL = require '../api/user.json'
 {
@@ -16,15 +15,13 @@ USER_MODEL = require '../api/user.json'
 STUDENT_MENU = [
   {
     name: 'viewStudentDashboard'
+    params: {courseId: '1'}
     label: 'Dashboard'
   }
   {
     name: 'viewGuide'
+    params: {courseId: '1'}
     label: 'Performance Forecast'
-  }
-  {
-    name: 'viewReferenceBook'
-    label: 'Browse the Book'
   }
 ]
 
@@ -32,18 +29,22 @@ TEACHER_MENU = [
   {
     name: 'taskplans'
     label: 'Dashboard'
+    params: {courseId: '2'}
+  }
+  {
+    name: 'viewTeacherGuide'
+    params: {courseId: '2'}
+    label: 'Performance Forecast'
   }
   {
     name: 'viewPerformance'
     label: 'Performance Report'
+    params: {courseId: '2'}
   }
   {
     name: 'courseSettings'
     label: 'Course Roster'
-  }
-  {
-    name: 'viewReferenceBook'
-    label: 'Browse the Book'
+    params: {courseId: '2'}
   }
 ]
 
@@ -80,9 +81,8 @@ describe 'Current User Store', ->
     expect(CurrentUserStore.getDashboardRoute(3)).to.equal('taskplans')
 
   it 'should return expected menu routes for courses', ->
-    expect(CurrentUserStore.getMenuRoutes(1)).to.deep.equal(STUDENT_MENU)
-    expect(CurrentUserStore.getMenuRoutes(2)).to.deep.equal(TEACHER_MENU)
-    expect(CurrentUserStore.getMenuRoutes(3)).to.deep.equal(TEACHER_MENU)
+    expect(CurrentUserStore.getMenuRoutes('1')).to.deep.equal(STUDENT_MENU)
+    expect(CurrentUserStore.getMenuRoutes('2')).to.deep.equal(TEACHER_MENU)
 
   it 'should return expected guest for non-attending course', ->
     expect(CurrentUserStore.getCourseRole(4)).to.equal('guest')

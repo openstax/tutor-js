@@ -12,6 +12,7 @@ CourseDuration = React.createClass
 
   propTypes:
     durations: React.PropTypes.array.isRequired
+    courseId: React.PropTypes.string.isRequired
     viewingDuration: React.PropTypes.instanceOf(twix).isRequired
     groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired
     referenceDate: (props, propName, componentName) ->
@@ -36,6 +37,21 @@ CourseDuration = React.createClass
     durationsByStartDate = _.chain(groupedDurations)
       .pluck('plansInRange')
       .flatten()
+      .groupBy((rangedPlan) ->
+        rangedPlan.plan.id
+      )
+      .map((groupedPlans) ->
+        # Grab the first plan as representative plan for displays grouped by plan
+        {plan} = _.first(groupedPlans)
+
+        # omit the plan on the individual displays since they share one common plan
+        # TODO: clean up so that plan doesn't get duplicated in the first place.
+        displays = _.map(groupedPlans, (groupedPlan) ->
+          _.omit(groupedPlan, 'plan')
+        )
+
+        {plan, displays}
+      )
       .value()
 
     @setState({ranges: groupedDurations, durationsByStartDate})
@@ -157,6 +173,7 @@ CourseDuration = React.createClass
     plan.isPublished = (plan.published_at? and plan.published_at)
     plan.isPublishing = @isPlanPublishing(plan)
     plan.isTrouble = plan.is_trouble
+    plan.isEditable = plan.duration.start.isAfter(referenceDate)
 
   # TODO see how to pull out plan specific logic to show that this
   # can be reused for units, for example
@@ -183,6 +200,17 @@ CourseDuration = React.createClass
     if calcedHeight > rangeData.dayHeight
       rangeData.dayHeight = calcedHeight
 
+  _getSimplePlan: (plan) ->
+    # Make a simple plan that omits duration/time related information
+    # and adds back in only the relevant time information needed by the
+    # CoursePlan component.
+    simplePlan = _.omit(plan, 'duration', 'tasking_plans', 'openRange')
+    earliestOpensAt = @_getEarliestOpensAt(plan)
+    simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
+    simplePlan.durationLength = plan.duration.length('days')
+
+    simplePlan
+
   groupByRanges: (durationsInView) ->
     counter = {}
     (range, nthRange) =>
@@ -193,20 +221,20 @@ CourseDuration = React.createClass
         plansByDays: []
         plansInRange: []
 
+      simplePlans = {}
+
       _.each(durationsInView, (plan) =>
         if plan.duration.overlaps(range)
           counter[plan.id] ?= 0
-
-          simplePlan = _.omit(plan, 'due_at', 'opens_at', 'duration', 'durationAsWeeks')
-          earliestOpensAt = @_getEarliestOpensAt(plan)
-          simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
+          simplePlans[plan.id] ?= @_getSimplePlan(plan)
 
           planForRange =
             rangeDuration: plan.duration.intersection(range)
             offset: moment(range.start).twix(plan.duration.start).length('days')
-            duration: plan.duration
-            plan: simplePlan
+            plan: simplePlans[plan.id]
             index: counter[plan.id]
+
+          planForRange.offsetFromPlanStart = planForRange.rangeDuration.start.diff(plan.duration.start, 'days')
 
           # Add plan to plans in range
           rangeData.plansInRange.push(planForRange)
