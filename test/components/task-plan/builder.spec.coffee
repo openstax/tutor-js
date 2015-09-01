@@ -45,3 +45,11 @@ describe 'Task Plan Builder', ->
   it 'hides periods by default', ->
     helper(NEW_READING).then ({dom, element}) ->
       expect(dom.querySelector('.tasking-plan.tutor-date-input')).to.be.null
+
+  it 'does not load a default due at for all periods', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setIndividualPeriods()
+      expect(dom.querySelector('#hide-periods-radio').checked).to.be.false
+      element.setAllPeriods()
+      expect(dom.querySelector('#hide-periods-radio').checked).to.be.true
+      
