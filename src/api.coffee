@@ -10,7 +10,7 @@ _ = require 'underscore'
 {AppActions} = require './flux/app'
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
-{CourseActions, CourseStore} = require './flux/course'
+{CourseActions} = require './flux/course'
 {JobActions} = require './flux/job'
 LearningGuide = require './flux/learning-guide'
 
@@ -235,8 +235,7 @@ start = (bootstrapData) ->
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/user/courses'
 
-  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (courseId) ->
-    ecosystemId = CourseStore.get(courseId)?.ecosystem_id
+  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
 
 

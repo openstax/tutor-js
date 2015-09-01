@@ -41,13 +41,17 @@ LinkContentMixin =
 
   buildReferenceBookLink: (cnxId) ->
     {courseId} = @context.router.getCurrentParams()
+    if @props.ecosystemIdExplicit
+      query =
+        ecosystemId: @props.ecosystemId
+
     if cnxId?
       referenceBookLink = @context.router.makeHref( 'viewReferenceBookPage', { courseId, cnxId })
     else
       related_content = TaskStepStore.get(@props.id)?.related_content
       if related_content?
         section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
-        referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {courseId, section}) if section?
+        referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {courseId, section}, query) if section?
 
     referenceBookLink
 

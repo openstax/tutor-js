@@ -30,13 +30,23 @@ module.exports = React.createClass
     ReferenceBookStore.getPageTitle(@props)
 
   prevLink: (info) ->
+    if @props.ecosystemIdExplicit
+      query =
+        ecosystemId: @props.ecosystemId
+
     <Router.Link className='nav prev' to='viewReferenceBookSection'
+      query={query}
       params={courseId: @props.courseId, section: @sectionFormat(info.prev.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
+    if @props.ecosystemIdExplicit
+      query =
+        ecosystemId: @props.ecosystemId
+
     <Router.Link className='nav next' to='viewReferenceBookSection'
+      query={query}
       params={courseId: @props.courseId, section: @sectionFormat(info.next.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
@@ -99,10 +109,10 @@ module.exports = React.createClass
     _.each(@_exerciseNodes, @unmountExerciseComponent)
 
   render: ->
-    {courseId, cnxId, className} = @props
+    {courseId, cnxId, className, ecosystemId} = @props
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
-    info = ReferenceBookStore.getPageInfo({courseId, cnxId})
+    info = ReferenceBookStore.getPageInfo({ecosystemId, cnxId})
 
     html = page.content_html
     # FIXME the BE sends HTML with head and body

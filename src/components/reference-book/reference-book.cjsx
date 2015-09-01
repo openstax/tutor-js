@@ -26,10 +26,12 @@ module.exports = React.createClass
 
   componentWillMount: ->
     {courseId, cnxId, section} = @context.router.getCurrentParams()
+    query = {ecosystemId} = @context.router.getCurrentQuery()
+    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
 
     unless cnxId? or section?
-      section = ReferenceBookStore.getFirstSection(courseId)
-      @context.router.replaceWith('viewReferenceBookSection', {courseId, section})
+      section = ReferenceBookStore.getFirstSection({ecosystemId})
+      @context.router.replaceWith('viewReferenceBookSection', {courseId, section}, query)
 
     CourseListingStore.ensureLoaded()
 
@@ -37,15 +39,19 @@ module.exports = React.createClass
     params = {courseId, cnxId, section} = @context.router.getCurrentParams()
     return params if courseId? and cnxId? and section?
 
+    query = {ecosystemId} = @context.router.getCurrentQuery()
+    ecosystemIdExplicit = ecosystemId?
+    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
+
     if section?
-      page = ReferenceBookStore.getChapterSectionPage({courseId, section})
+      page = ReferenceBookStore.getChapterSectionPage({ecosystemId, section})
     else if cnxId?
-      page = ReferenceBookStore.getPageInfo({courseId, cnxId})
+      page = ReferenceBookStore.getPageInfo({ecosystemId, cnxId})
       section = page.chapter_section
 
     cnxId ?= page?.cnx_id
 
-    {cnxId, section, courseId}
+    {cnxId, section, courseId, ecosystemId, ecosystemIdExplicit}
 
   getInitialState: ->
     {cnxId} = @context.router.getCurrentParams()

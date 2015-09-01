@@ -67,8 +67,8 @@ module.exports = React.createClass
 
 
   render: ->
-    {courseId, section} = @props
-    toc = ReferenceBookStore.getToc(courseId)
+    {courseId, section, ecosystemId} = @props
+    toc = ReferenceBookStore.getToc(ecosystemId)
     <div className="toc">
       { _.map toc.children, (child) =>
         <Section
