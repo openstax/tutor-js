@@ -6,6 +6,7 @@ Builder = require '../../../src/components/task-plan/builder'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
+tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
 PUBLISHED_MODEL = ExtendBasePlan({
@@ -49,7 +50,6 @@ describe 'Task Plan Builder', ->
   it 'does not load a default due at for all periods', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setIndividualPeriods()
-      expect(dom.querySelector('#hide-periods-radio').checked).to.be.false
       element.setAllPeriods()
-      expect(dom.querySelector('#hide-periods-radio').checked).to.be.true
-      
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(dueAt).to.be.falsy
