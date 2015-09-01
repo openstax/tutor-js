@@ -164,8 +164,8 @@ CoursePlan = React.createClass
     labelProps = {rangeDuration, plan, index, offset, offsetFromPlanStart}
     label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
 
-    displayComponent = CoursePlanDisplayEdit
-    displayComponent = CoursePlanDisplayQuickLook if hasQuickLook
+    DisplayComponent = CoursePlanDisplayEdit
+    DisplayComponent = CoursePlanDisplayQuickLook if hasQuickLook
 
     displayComponentProps = {
       plan,
@@ -179,7 +179,7 @@ CoursePlan = React.createClass
       setIsViewing: @setIsViewing
     }
 
-    <displayComponent
+    <DisplayComponent
       {...displayComponentProps}
       ref="display#{index}"
       key="display#{index}"/>
