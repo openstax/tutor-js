@@ -144,7 +144,7 @@ SelectTopics = React.createClass
   render: ->
 
     <LoadableItem
-      id={@props.courseId}
+      id={@props.ecosystemId}
       store={TocStore}
       actions={TocActions}
       renderItem={@renderDialog}
