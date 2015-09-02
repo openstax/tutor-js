@@ -8,7 +8,11 @@
   font-weight: bold;
   font-style: italic;
 }
-.tutor-tables();
+
+.tutor-tables(@tutor-neutral-light, @tutor-neutral-light);
+.question {
+  .tutor-tables(@tutor-white, @tutor-white);
+}
 div[data-type="document-title"],
 div[data-type=abstract],
 cnx-pi{

@@ -192,7 +192,7 @@
   }
 }
 
-.tutor-tables() {
+.tutor-tables(@table-header, @table-tottom-color) {
   table {
     width: 100%;
     margin-bottom: 32px;
@@ -202,7 +202,7 @@
     thead {
       th {
         padding: 8px 10px;
-        background: @tutor-neutral-light;
+        background: @table-header;
         border-bottom: solid 2px @tutor-neutral-light;
       }
       tr:first-of-type:not(:last-child) th {
@@ -212,12 +212,15 @@
     tr:nth-child(odd) {
        background: @tutor-neutral-lightest;
      }
+    tr:nth-child(even) {
+       background: @tutor-white;
+     }
     td {
       padding: 8px 10px;
     }
     tbody {
-      border-top: solid  4px  @tutor-neutral-light;
-      border-bottom: solid  4px  @tutor-neutral-light;
+      border-top: solid 4px @tutor-neutral-light;
+      border-bottom: solid 4px @table-tottom-color;
     }
     caption,
     thead tr:first-of-type:not(:last-child) th{
