@@ -40,7 +40,6 @@ module.exports = React.createClass
     return params if courseId? and cnxId? and section?
 
     query = {ecosystemId} = @context.router.getCurrentQuery()
-    ecosystemIdExplicit = ecosystemId?
     ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
 
     if section?
@@ -51,7 +50,7 @@ module.exports = React.createClass
 
     cnxId ?= page?.cnx_id
 
-    {cnxId, section, courseId, ecosystemId, ecosystemIdExplicit}
+    {cnxId, section, courseId, ecosystemId, query}
 
   getInitialState: ->
     {cnxId} = @context.router.getCurrentParams()

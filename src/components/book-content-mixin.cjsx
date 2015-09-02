@@ -41,9 +41,7 @@ LinkContentMixin =
 
   buildReferenceBookLink: (cnxId) ->
     {courseId} = @context.router.getCurrentParams()
-    if @props.ecosystemIdExplicit
-      query =
-        ecosystemId: @props.ecosystemId
+    {query} = @props
 
     if cnxId?
       referenceBookLink = @context.router.makeHref( 'viewReferenceBookPage', { courseId, cnxId })

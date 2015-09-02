@@ -30,9 +30,7 @@ module.exports = React.createClass
     ReferenceBookStore.getPageTitle(@props)
 
   prevLink: (info) ->
-    if @props.ecosystemIdExplicit
-      query =
-        ecosystemId: @props.ecosystemId
+    {query} = @props
 
     <Router.Link className='nav prev' to='viewReferenceBookSection'
       query={query}
@@ -41,9 +39,7 @@ module.exports = React.createClass
     </Router.Link>
 
   nextLink: (info) ->
-    if @props.ecosystemIdExplicit
-      query =
-        ecosystemId: @props.ecosystemId
+    {query} = @props
 
     <Router.Link className='nav next' to='viewReferenceBookSection'
       query={query}
