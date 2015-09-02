@@ -13,6 +13,7 @@ describe 'Browse the book button', ->
     @props = {
       courseId: COURSE_ID
       section: [1.2]
+      onClick: sinon.spy()
     }
 
   it 'sets the target url', ->
@@ -50,3 +51,10 @@ describe 'Browse the book button', ->
     @props.courseId = null
     Testing.renderComponent( BTB, props: @props, routerParams: {courseId: undefined}).then ({dom}) ->
       expect(dom).to.be.null
+
+  it 'will pass down props like onClick', ->
+    console.info(@props)
+    Testing.renderComponent( BTB, props: @props ).then ({dom, element}) ->
+      Testing.actions.click(element.getDOMNode())
+
+      expect(@props.onClick).to.have.been.called()
