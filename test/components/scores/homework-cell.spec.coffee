@@ -2,9 +2,9 @@
 
 {TimeActions, TimeStore} = require '../../../src/flux/time'
 
-Cell = require '../../../src/components/performance/homework-cell'
+Cell = require '../../../src/components/scores/homework-cell'
 
-describe 'Performance Report Homework Cell', ->
+describe 'Scores Report Homework Cell', ->
 
   beforeEach ->
     @props =

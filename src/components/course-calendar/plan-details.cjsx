@@ -24,8 +24,8 @@ CoursePlanDetails = React.createClass
     </Router.Link>
 
     if type is 'external'
-      reviewButton = <Router.Link to='viewPerformance' params={linkParams}>
-        <BS.Button className='-view-performance'>View Performance Report</BS.Button>
+      reviewButton = <Router.Link to='viewScores' params={linkParams}>
+        <BS.Button className='-view-scores'>View Scores</BS.Button>
       </Router.Link>
 
     reviewButton

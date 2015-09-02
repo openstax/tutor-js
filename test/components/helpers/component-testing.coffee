@@ -11,6 +11,7 @@ sandbox = null
 ROUTER = null
 CURRENT_ROUTER_PARAMS = null
 CURRENT_ROUTER_PATH   = null
+CURRENT_ROUTER_QUERY = null
 # Mock a router for the context
 beforeEach ->
   sandbox = sinon.sandbox.create()
@@ -19,6 +20,7 @@ beforeEach ->
   ROUTER.isActive = sandbox.spy()
   ROUTER.transitionTo = sandbox.spy()
   ROUTER.getCurrentPath = sandbox.spy( -> CURRENT_ROUTER_PATH )
+  ROUTER.getCurrentQuery = sandbox.spy( -> CURRENT_ROUTER_QUERY )
   ROUTER.match = sandbox.spy()
   ROUTER.getCurrentParams = sandbox.spy( -> CURRENT_ROUTER_PARAMS )
 afterEach ->
@@ -40,6 +42,7 @@ Testing = {
   renderComponent: (component, options = {}) ->
     options.props ||= {}
     CURRENT_ROUTER_PARAMS = options.routerParams or {}
+    CURRENT_ROUTER_QUERY = options.routerQuery or {}
     CURRENT_ROUTER_PATH   = options.routerPath   or '/'
     root = document.createElement('div')
     promise = new Promise( (resolve, reject) ->

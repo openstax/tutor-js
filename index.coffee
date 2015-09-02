@@ -14,7 +14,7 @@ window._STORES =
   CURRENT_USER: require './src/flux/current-user'
   EXERCISE: require './src/flux/exercise'
   LEARNING_GUIDE: require './src/flux/learning-guide'
-  PERFORMANCE: require './src/flux/performance'
+  SCORES: require './src/flux/scores'
   STUDENT_DASHBOARD: require './src/flux/student-dashboard'
   TASK_PLAN: require './src/flux/task-plan'
   TASK_STEP: require './src/flux/task-step'
@@ -24,16 +24,20 @@ window._STORES =
   TOC: require './src/flux/toc'
 
 
-api.start(dom.readBootstrapData())
+loadApp = ->
+  unless document.readyState is 'interactive'
+    return false
 
-startMathJax()
-TransitionAssistant.startMonitoring()
+  api.start(dom.readBootstrapData())
+  startMathJax()
+  TransitionAssistant.startMonitoring()
+  # This is added because MathJax puts in extra divs on initial load.
+  # Moves the React Root to be an element inside a div
+  # instead of the only element in the body.
+  mainDiv = document.createElement('div')
+  mainDiv.id = 'react-root-container'
+  document.body.appendChild(mainDiv)
+  router.start(mainDiv)
+  true
 
-
-# This is added because MathJax puts in extra divs on initial load.
-# Moves the React Root to be an element inside a div
-# instead of the only element in the body.
-mainDiv = document.createElement('div')
-mainDiv.id = 'react-root-container'
-document.body.appendChild(mainDiv)
-router.start(mainDiv)
+loadApp() or document.addEventListener('readystatechange', loadApp)

@@ -13,18 +13,6 @@ PlanMixin =
     router: React.PropTypes.func
 
   getInitialState: ->
-    #firefox doesn't like dates with dashes in them
-    dateStr = @context?.router?.getCurrentQuery()?.date?.replace(/-/g, '/')
-    dueAt = new Date(dateStr)
-
-    # FIXME: Add back the default dueAt
-    # if TaskPlanStore.isNew(@props.id) and dateStr and dueAt > TimeStore.getNow()
-    #   @setDueAt(dueAt)
-    # {}
-    # Whether date/periods inputs are disabled should only depend on the whether
-    # the **saved** version of the plan is visible to students.  During edit, the ability to
-    # update a plan should not suddenly be disabled if the teacher picks today to be
-    # an open date.
     isSavedPlanVisibleToStudent = TaskPlanStore.isVisibleToStudents(@props.id or @props.planId)
 
     isVisibleToStudents: isSavedPlanVisibleToStudent

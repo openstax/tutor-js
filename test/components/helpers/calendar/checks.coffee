@@ -129,7 +129,7 @@ checks =
   _checkAddPlansWarning: ({div, component, state, router, history, courseId}) ->
     addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
-    expect(addOnDayDropdown.getDOMNode().innerText).to.contain('Cannot add')
+    expect(addOnDayDropdown.getDOMNode().innerText).to.contain('Cannot assign')
 
     {div, component, state, router, history, courseId}
 

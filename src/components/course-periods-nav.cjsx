@@ -5,6 +5,7 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 
 {CourseActions, CourseStore} = require '../flux/course'
+PeriodHelper = require '../helpers/period'
 
 CoursePeriodsNav = React.createClass
   displayName: 'CoursePeriodsNav'
@@ -35,7 +36,7 @@ CoursePeriodsNav = React.createClass
 
   setSortedPeriods: (periods) ->
     # make sure that periods are sorted by name
-    sortedPeriods = _.sortBy(periods, 'name')
+    sortedPeriods = PeriodHelper.sort(periods)
     @setState(sortedPeriods: sortedPeriods)
 
   selectPeriod: (courseId) ->

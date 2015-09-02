@@ -17,19 +17,20 @@ ColumnGroup = FixedDataTable.ColumnGroup
 Router = require 'react-router'
 
 
-{PerformanceStore, PerformanceActions} = require '../../flux/performance'
-{PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
+{ScoresStore, ScoresActions} = require '../../flux/scores'
+{ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'
 LoadableItem = require '../loadable-item'
-PerformanceExport = require './export'
+ScoresExport = require './export'
 {QuickStatsShell} = require './quick-external-stats'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
+ResizeListenerMixin = require '../resize-listener-mixin'
 
 # Index of first column that contains data
 FIRST_DATA_COLUMN = 1
 INITIAL_SORT = { key: 'name', asc: false }
 
-Performance = React.createClass
-  displayName: 'Performance'
+Scores = React.createClass
+  displayName: 'Scores'
 
   contextTypes:
     router: React.PropTypes.func
@@ -37,6 +38,7 @@ Performance = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  mixins: [ResizeListenerMixin]
 
   getInitialState: ->
     period_id: null
@@ -45,7 +47,6 @@ Performance = React.createClass
     sortIndex: 0
     tableWidth: 0
     tableHeight: 0
-    debounce: _.debounce(@sizeTable, 100)
     colDefaultWidth: 225
     colSetWidth: 225
     colResizeWidth: 225
@@ -53,11 +54,10 @@ Performance = React.createClass
     sort: INITIAL_SORT
 
   componentDidMount: ->
-    window.addEventListener("resize", @state.debounce)
     @sizeTable()
 
-  componentWillUnmount: ->
-    window.removeEventListener("resize", @state.debounce)
+  _resizeListener: ->
+    @sizeTable()
 
   sizeTable: ->
     @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
@@ -67,8 +67,10 @@ Performance = React.createClass
     table.clientWidth
 
   tableHeight: ->
+    windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
-    window.innerHeight - table.offsetTop - 120
+    bottomMargin = 40
+    windowEl.height - table.offsetTop - bottomMargin
 
   renderHeadingCell: (heading, i) ->
     i += FIRST_DATA_COLUMN # for the first/last name colums
@@ -158,13 +160,13 @@ Performance = React.createClass
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
     {sort, period_id} = @state
-    data = PerformanceStore.get(@props.courseId)
-    performance = if period_id
+    data = ScoresStore.get(@props.courseId)
+    scores = if period_id
       _.findWhere(data, {period_id})
     else
       data[0] or throw new Error('BUG: No periods')
 
-    sortData = _.sortBy(performance.students, (d) ->
+    sortData = _.sortBy(scores.students, (d) ->
       if _.isNumber(sort.key)
         index = sort.key - FIRST_DATA_COLUMN
         switch d.data[index].type
@@ -173,7 +175,7 @@ Performance = React.createClass
       else
         d.last_name
     )
-    { headings: performance.data_headings, rows: if sort.asc then sortData.reverse() else sortData }
+    { headings: scores.data_headings, rows: if sort.asc then sortData.reverse() else sortData }
 
   render: ->
     {courseId} = @props
@@ -184,15 +186,15 @@ Performance = React.createClass
     rowGetter = (rowIndex) =>
       @renderStudentRow(data.rows[rowIndex])
 
-    <div className='course-performance-wrap'>
-      <span className='course-performance-title'>Performance Report</span>
-      <PerformanceExport courseId={courseId} className='pull-right'/>
+    <div className='course-scores-wrap'>
+      <span className='course-scores-title'>Scores Report</span>
+      <ScoresExport courseId={courseId} className='pull-right'/>
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
         handleKeyUpdate={@setPeriodIndex}
         intialActive={period_id}
         courseId={courseId} />
-      <div className='course-performance-container' ref='tableContainer'>
+      <div className='course-scores-container' ref='tableContainer'>
         <Table
           onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
           rowHeight={46}
@@ -213,19 +215,19 @@ Performance = React.createClass
     </div>
 
 
-PerformanceShell = React.createClass
+ScoresShell = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <BS.Panel className='performance-report'>
+    <BS.Panel className='scores-report'>
       <LoadableItem
         id={courseId}
-        store={PerformanceStore}
-        actions={PerformanceActions}
-        renderItem={-> <Performance courseId={courseId} />}
+        store={ScoresStore}
+        actions={ScoresActions}
+        renderItem={-> <Scores courseId={courseId} />}
       />
     </BS.Panel>
 
-module.exports = {PerformanceShell, Performance}
+module.exports = {ScoresShell, Scores}
