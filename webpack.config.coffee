@@ -16,9 +16,7 @@ module.exports =
       { test: /\.json$/,   loader: "json-loader"       }
       { test: /\.coffee$/, loader: "coffee-loader"     }
       { test: /\.cjsx$/,   loader: "coffee-jsx-loader" }
-
       { test: /\.less$/,  loader: ExtractTextPlugin.extract('css!less') }
-
       { test: /\.(png|jpg|svg)/, loader: 'file-loader?name=[name].[ext]'}
       { test: /\.(woff|woff2|eot|ttf)/, loader: "url-loader?limit=30000&name=[name]-[hash].[ext]" }
    ]
