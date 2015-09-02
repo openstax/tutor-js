@@ -17,7 +17,7 @@ By reducing the amount of tests to run coders are more likely to run the tests t
 ## [./helpers](./helpers) dir
 
 The names of these helpers provide the frequent actions on a screen.
-Some examples of screens are: 'Performance Report', 'Calendar', 'Homework Builder'.
+Some examples of screens are: 'Student Scores', 'Calendar', 'Homework Builder'.
 They loosely correspond to directories in [../src/components](../src/components) but should (with refactoring) match them better.
 
 Frequently, integration tests require setting up some data which requires going through

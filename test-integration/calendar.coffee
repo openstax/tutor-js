@@ -82,14 +82,14 @@ describe 'Calendar and Stats', ->
       @waitClick(css: '.navbar-brand')
 
 
-  @it 'Clicks through the performance report (readonly)', ->
+  @it 'Clicks through the Student Scores (readonly)', ->
     @login(TEACHER_USERNAME)
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
 
-      @waitClick(linkText: 'Performance Report').then => @addTimeout(60)
-      @waitAnd(css: '.performance-report .course-performance-title')
+      @waitClick(linkText: 'Student Scores').then => @addTimeout(60)
+      @waitAnd(css: '.scores-report .course-scores-title')
       @driver.sleep(500)
 
       # Click the "Review" links (each task-plan)
@@ -98,17 +98,16 @@ describe 'Calendar and Stats', ->
         @addTimeout(15)
         item.click()
         @waitClick(css: '.task-breadcrumbs > a')
-        @waitAnd(css: '.course-performance-wrap')
+        @waitAnd(css: '.course-scores-wrap')
 
       # Click each Student Forecast
       @forEach css: '.student-name', ignoreLengthChange: true, (item, index, total) =>
         console.log 'opening Student Forecast', courseCategory, index, 'of', total
         @addTimeout(5)
         item.click()
-        # BUG: HACK: wait for learning guide to finish loading
-        @waitAnd(css: '.chapter-panel.weaker')
+        @waitAnd(css: '.chapter-panel.weaker, .no-data-message')
         @waitClick(css: '.learning-guide a.back')
-        @waitAnd(css: '.course-performance-wrap')
+        @waitAnd(css: '.course-scores-wrap')
 
       # only test the 1st row of each Student Response
       @forEach '.fixedDataTableRowLayout_rowWrapper:nth-of-type(1) .task-result', (item, index, total) =>
@@ -116,12 +115,12 @@ describe 'Calendar and Stats', ->
         @addTimeout(5)
         item.click()
         @waitAnd(css: '.async-button.continue')
-        # @waitClick(linkText: 'Back to Performance Report')
+        # @waitClick(linkText: 'Back to Student Scores')
         @waitClick(css: '.pinned-footer a.btn-default')
 
         # # BUG: Click on "Period 1"
-        # @waitClick(css: '.course-performance-wrap li:first-child')
-        # @waitAnd(css: '.course-performance-wrap li:first-child [aria-selected="true"]')
+        # @waitClick(css: '.course-scores-wrap li:first-child')
+        # @waitAnd(css: '.course-scores-wrap li:first-child [aria-selected="true"]')
         @driver.sleep(2000)
 
       # Go back to the course selection

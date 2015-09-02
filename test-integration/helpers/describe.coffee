@@ -122,13 +122,13 @@ describe = (name, cb) ->
               document.querySelector('body').setAttribute('data-js-error', msg)
               originalOnError?(msg, args...)
 
-      # Useful for exhaustive testing like "Click all the links in the Performance report"
+      # Useful for exhaustive testing like "Click all the links in the Student Scores"
       # Takes 2 args plus one optional one
       # - `options`: Either a string indicating the CSS selector or an object with the following:
       #   - `css` : a string CSS locator
       #   - `linkText`: a string linkText locator
       #   - `ignoreLengthChange`: a boolean indicating that it is OK for the list of elements to change
-      #     - This is useful for the performance report whose table lazily adds student rows when scrolled
+      #     - This is useful for the Student Scores whose table lazily adds student rows when scrolled
       @forEach = (options, fn, fn2) =>
         if typeof options is 'string'
           locator = {css: options}
