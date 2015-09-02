@@ -7,7 +7,7 @@ ReactAddons    = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
 {routerStub, commonActions} = require './helpers/utilities'
 
-{CourseActions} = require '../../src/flux/course'
+{CourseActions, CourseStore} = require '../../src/flux/course'
 {ReferenceBookActions, ReferenceBookStore} = require '../../src/flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require '../../src/flux/reference-book-page'
 ReferenceBook = require '../../src/components/reference-book/reference-book'
@@ -17,6 +17,19 @@ COURSE_ID = '1'
 ECOSYSTEM_ID = '1'
 COURSE = require '../../api/user/courses/1.json'
 TOC  = require '../../api/ecosystems/1/readings.json'
+PHYSICS_TOC  = require '../../api/ecosystems/3/readings.json'
+
+TOCS =
+  '1': TOC,
+  '3': PHYSICS_TOC
+
+PAGES = {}
+PAGES['334f8b61-30eb-4475-8e05-5260a4866b4b@4.68'] = require '../../api/pages/334f8b61-30eb-4475-8e05-5260a4866b4b@4.68.json'
+PAGES['d419f72d-3349-4449-ab34-c705409df4aa@5'] = require '../../api/pages/d419f72d-3349-4449-ab34-c705409df4aa@5.json'
+PAGES['17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12'] = require '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json'
+
+console.info(PAGES)
+
 FIRST_PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16509'
 FIRST_PAGE  = '1.1'
 SECOND_PAGE = '1.2'
@@ -26,10 +39,14 @@ THIRD_PAGE  = '1.3'
 PAGE = require '../../api/pages/0e58aa87-2e09-40a7-8bf3-269b2fa16509.json'
 
 
-renderBook = (section) ->
+renderBook = (section, ecosystemId) ->
+  ecosystemId ?= CourseStore.get(COURSE_ID)?.ecosystem_id
+
   new Promise (resolve, reject) ->
     url = "/books/#{COURSE_ID}"
     url += "/section/#{section}" if section
+    url += "?ecosystemId=#{ecosystemId}" if ecosystemId isnt CourseStore.get(COURSE_ID)?.ecosystem_id
+
     routerStub.goTo(url).then( (result) ->
       resolve(_.extend({
         book: ReactTestUtils.findRenderedComponentWithType(result.component, ReferenceBook)
