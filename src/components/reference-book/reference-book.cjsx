@@ -30,7 +30,7 @@ module.exports = React.createClass
     ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
 
     unless cnxId? or section?
-      section = ReferenceBookStore.getFirstSection({ecosystemId})
+      section = ReferenceBookStore.getFirstSection(ecosystemId)
       @context.router.replaceWith('viewReferenceBookSection', {courseId, section}, query)
 
     CourseListingStore.ensureLoaded()
