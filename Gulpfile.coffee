@@ -1,3 +1,4 @@
+_ = require 'underscore'
 gulp            = require 'gulp'
 gutil           = require 'gulp-util'
 karma           = require 'karma'
@@ -23,7 +24,7 @@ coffeelint      = require 'gulp-coffeelint'
 webpack         = require 'webpack'
 webpackConfig   = require './webpack.config'
 webpackServer   = require 'webpack-dev-server'
-_ = require 'underscore'
+ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 KARMA_CONFIG =
   configFile: __dirname + '/test/karma.config.coffee'
@@ -43,10 +44,17 @@ handleErrors = (title) => (args...) =>
 # -----------------------------------------------------------------------
 #  Build Javascript and Styles using webpack
 # -----------------------------------------------------------------------
+gulp.task '_cleanDist', (done) ->
+  del(['./dist/*'], done)
 
-
-gulp.task '_build', (done) ->
-  webpack(webpackConfig, (err, stats) ->
+gulp.task '_build', ['_cleanDist'], (done) ->
+  config = _.extend({}, webpackConfig, {
+    plugins: [
+      new ExtractTextPlugin("tutor.min.css")
+    ]
+  })
+  config.output.filename = 'tutor.min.js'
+  webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
     gutil.log("[webpack]", stats.toString({
       # output options
@@ -55,66 +63,27 @@ gulp.task '_build', (done) ->
   )
 
 
-
 # -----------------------------------------------------------------------
 #  Production
 # -----------------------------------------------------------------------
-#
-# JS/CSS Minification, build an archive file
-#
 
-gulp.task '_minJS', ['_build'], ->
-  destDir = './dist/'
-  gulp.src('./dist/tutor.js')
-    .pipe(uglify())
-    .pipe(rename({extname: '.min.js'}))
-    .pipe(gulp.dest(destDir))
-
-gulp.task '_minCSS', ['_build'], ->
-  destDir = './dist/'
-  gulp.src('./dist/tutor.css')
-    # TODO: Remove the `procesImport:false` and host the fonts locally
-    .pipe(minifyCSS({keepBreaks:true, processImport:false}))
-    .pipe(rename({extname: '.min.css'}))
-    .pipe(gulp.dest(destDir))
-
-gulp.task '_min', ['_minJS', '_minCSS']
-
-gulp.task '_rev', ['_min'], ->
-  destDir = './dist/'
-  gulp.src('./dist/*.min.*')
+gulp.task '_archive', ['_build'], ->
+  destDir = './dist'
+  gulp.src("#{destDir}/*.min.*")
     .pipe(rev())
     .pipe(gulp.dest(destDir))
     .pipe(rev.manifest())
     .pipe(gulp.dest(destDir))
 
-gulp.task '_archive', ['_cleanArchive', '_build', '_min', '_rev'], ->
-  gulp.src([
-    './dist/tutor.min-*.js',
-    './dist/tutor.min-*.css',
-    './dist/fonts/*',
-    './dist/**/*.{svg,png,jpg}'], base: './dist')
+  gulp.src(["#{destDir}/*"], base: destDir)
     .pipe(tar('archive.tar'))
     .pipe(gzip())
-    .pipe(gulp.dest('./dist/'))
-
-gulp.task '_cleanArchive', (done) ->
-  del(['./dist/*.tar', './dist/*.gz'], done)
-
+    .pipe(gulp.dest(destDir))
 
 # -----------------------------------------------------------------------
 #  Development
 # -----------------------------------------------------------------------
 #
-# Start a webserver, watch files, lint files
-#
-
-gulp.task '_watchLint', ['lint'], ->
-  gulp.watch 'src/**/*.{cjsx,coffee}', ['lint']
-  gulp.watch 'test/**/*.coffee', ['lint']
-  gulp.watch '*.coffee', ['lint']
-
-
 gulp.task '_karma', ->
   server = new karma.Server(KARMA_CONFIG)
   server.start()
@@ -133,7 +102,6 @@ gulp.task '_webserver', ->
     throw new gutil.PluginError("webpack-dev-server", err) if err
   )
 
-
 # -----------------------------------------------------------------------
 #  Public Tasks
 # -----------------------------------------------------------------------
@@ -147,7 +115,6 @@ gulp.task 'lint', ->
   # Run through both reporters so lint failures are visible and Travis will error
   .pipe(coffeelint.reporter())
   .pipe(coffeelint.reporter('fail'))
-
 
 gulp.task 'prod', ['_archive']
 
@@ -163,7 +130,7 @@ gulp.task 'coverage', ->
   server = new karma.Server(config)
   server.start()
 
-# same as TDD ?
+# same as TDD, not sure if anyone uses 'dev' ?
 gulp.task 'dev', ['tdd']
 
-gulp.task 'tdd', ['_webserver', '_karma']
+gulp.task 'tdd', ['_cleanDist', '_webserver', '_karma']
