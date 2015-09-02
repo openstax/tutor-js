@@ -5,8 +5,7 @@
 _ = require 'underscore'
 moment = require 'moment'
 
-PerformanceExportConfig = {
-
+ScoresExportConfig = {
   _loaded: (obj, id) ->
     @emit('loaded', id)
 
@@ -19,7 +18,6 @@ PerformanceExportConfig = {
   _getId: (obj, id) ->
     {job} = obj
     jobId = @getJobIdFromJobUrl(job)
-
     {jobId, id}
 
   exports:
@@ -34,19 +32,19 @@ PerformanceExportConfig = {
 }
 
 JobCrudConfig = extendConfig(new JobListenerConfig(), new CrudConfig())
-extendConfig(PerformanceExportConfig, JobCrudConfig)
+extendConfig(ScoresExportConfig, JobCrudConfig)
 
-PerformanceExportConfig.exports.isExported = PerformanceExportConfig.exports.isCompleted
-PerformanceExportConfig.exports.isExporting = PerformanceExportConfig.exports.isProgressing
+ScoresExportConfig.exports.isExported = ScoresExportConfig.exports.isCompleted
+ScoresExportConfig.exports.isExporting = ScoresExportConfig.exports.isProgressing
 
-PerformanceExportConfig.export = (args...) ->
+ScoresExportConfig.export = (args...) ->
   @que.call(@, args...)
   @emitChange()
 
-PerformanceExportConfig.exported = (args...) ->
+ScoresExportConfig.exported = (args...) ->
   @queued.call(@, args...)
   {id, jobId} = @_getId(args...)
   @startChecking.call(@, id, jobId)
 
-{actions, store} = makeSimpleStore(PerformanceExportConfig)
-module.exports = {PerformanceExportActions:actions, PerformanceExportStore:store}
+{actions, store} = makeSimpleStore(ScoresExportConfig)
+module.exports = {ScoresExportActions:actions, ScoresExportStore:store}

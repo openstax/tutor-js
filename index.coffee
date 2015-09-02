@@ -14,7 +14,7 @@ window._STORES =
   CURRENT_USER: require './src/flux/current-user'
   EXERCISE: require './src/flux/exercise'
   LEARNING_GUIDE: require './src/flux/learning-guide'
-  PERFORMANCE: require './src/flux/performance'
+  SCORES: require './src/flux/scores'
   STUDENT_DASHBOARD: require './src/flux/student-dashboard'
   TASK_PLAN: require './src/flux/task-plan'
   TASK_STEP: require './src/flux/task-step'
@@ -24,8 +24,10 @@ window._STORES =
   TOC: require './src/flux/toc'
 
 
+loadApp = ->
+  unless document.readyState is 'interactive'
+    return false
 
-document.addEventListener("DOMContentLoaded", ->
   api.start(dom.readBootstrapData())
   startMathJax()
   TransitionAssistant.startMonitoring()
@@ -36,4 +38,6 @@ document.addEventListener("DOMContentLoaded", ->
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
   router.start(mainDiv)
-)
+  true
+
+loadApp() or document.addEventListener('readystatechange', loadApp)

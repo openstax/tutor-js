@@ -40,8 +40,8 @@ require './components/tutor-dialog.spec'
 require './components/unsaved-state.spec'
 require './components/buttons/browse-the-book.spec'
 require './components/book-content-mixin.spec'
-require './components/performance/reading-cell.spec'
-require './components/performance/homework-cell.spec'
+require './components/scores/reading-cell.spec'
+require './components/scores/homework-cell.spec'
 require './components/name.spec'
 
 # Flux your muscle

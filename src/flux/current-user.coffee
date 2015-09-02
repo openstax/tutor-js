@@ -38,10 +38,10 @@ ROUTES =
     roles:
       student: 'viewGuide'
       teacher: 'viewTeacherGuide'
-  performance:
-    label: 'Performance Report'
+  scores:
+    label: 'Student Scores'
     roles:
-      teacher: 'viewPerformance'
+      teacher: 'viewScores'
   course:
     label: 'Course Roster'
     roles:
