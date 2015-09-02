@@ -2,29 +2,16 @@ _ = require 'underscore'
 gulp            = require 'gulp'
 gutil           = require 'gulp-util'
 karma           = require 'karma'
-connect         = require 'gulp-connect'
-cors            = require 'cors'
-less            = require 'gulp-less-sourcemap'
 source          = require 'vinyl-source-stream'
-browserify      = require 'browserify'
-watchify        = require 'watchify'
-cjsxify         = require 'cjsxify'
-browserifyShim  = require 'browserify-shim'
-minifyCSS       = require 'gulp-minify-css'
-uglify          = require 'gulp-uglify'
 rev             = require 'gulp-rev'
 del             = require 'del'
-rename          = require 'gulp-rename'
-flatten         = require 'gulp-flatten'
-merge           = require 'merge-stream'
 tar             = require 'gulp-tar'
 gzip            = require 'gulp-gzip'
-livereload      = require 'gulp-livereload'
 coffeelint      = require 'gulp-coffeelint'
 webpack         = require 'webpack'
-webpackConfig   = require './webpack.config'
 webpackServer   = require 'webpack-dev-server'
-ExtractTextPlugin = require 'extract-text-webpack-plugin'
+WPExtractText   = require 'extract-text-webpack-plugin'
+webpackConfig   = require './webpack.config'
 
 KARMA_CONFIG =
   configFile: __dirname + '/test/karma.config.coffee'
@@ -52,7 +39,7 @@ gulp.task '_cleanDist', (done) ->
 gulp.task '_build', ['_cleanDist'], (done) ->
   config = _.extend({}, webpackConfig, {
     plugins: [
-      new ExtractTextPlugin("tutor.min.css")
+      new WPExtractText("tutor.min.css")
       new webpack.optimize.UglifyJsPlugin({minimize: true})
     ]
   })
