@@ -109,12 +109,15 @@ ExternalUrl = React.createClass
   displayName: 'ExternalUrl'
   mixins: [StepMixin, StepFooterMixin]
   hideContinueButton: -> true
+  getDefaultProps: ->
+    redirectToUrl: (url) -> window.open( url, '_blank')
+
   onContinue: ->
     {id, onStepCompleted} = @props
     onStepCompleted() if StepPanel.canContinue(id)
 
   onClick: (ev) ->
-    window.open( TaskStore.getExternalStep(@props.taskId).external_url, '_blank')
+    @props.redirectToUrl(TaskStore.getExternalStep(@props.taskId).external_url)
     @onContinue() # will mark as complete
     # Since the browser has called the onClick handler, it was a "normal" left-button click
     # In that case we don't want to open up the external assignment page.
