@@ -34,6 +34,8 @@ KARMA_COVERAGE_CONFIG =
   configFile: __dirname + '/test/karma-coverage.config.coffee'
   singleRun: false
 
+DIST_DIR = './dist'
+
 handleErrors = (title) => (args...) =>
   # TODO: Send error to notification center with gulp-notify
   console.error(title, args...)
@@ -51,6 +53,7 @@ gulp.task '_build', ['_cleanDist'], (done) ->
   config = _.extend({}, webpackConfig, {
     plugins: [
       new ExtractTextPlugin("tutor.min.css")
+      new webpack.optimize.UglifyJsPlugin({minimize: true})
     ]
   })
   config.output.filename = 'tutor.min.js'
@@ -62,23 +65,22 @@ gulp.task '_build', ['_cleanDist'], (done) ->
     done()
   )
 
+gulp.task '_tagRev', ['_build'], ->
+  gulp.src("#{DIST_DIR}/*.min.*")
+    .pipe(rev())
+    .pipe(gulp.dest(DIST_DIR))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(DIST_DIR))
 
 # -----------------------------------------------------------------------
 #  Production
 # -----------------------------------------------------------------------
 
-gulp.task '_archive', ['_build'], ->
-  destDir = './dist'
-  gulp.src("#{destDir}/*.min.*")
-    .pipe(rev())
-    .pipe(gulp.dest(destDir))
-    .pipe(rev.manifest())
-    .pipe(gulp.dest(destDir))
-
-  gulp.src(["#{destDir}/*"], base: destDir)
+gulp.task '_archive', ['_tagRev'], ->
+  gulp.src(["#{DIST_DIR}/*"], base: DIST_DIR)
     .pipe(tar('archive.tar'))
     .pipe(gzip())
-    .pipe(gulp.dest(destDir))
+    .pipe(gulp.dest(DIST_DIR))
 
 # -----------------------------------------------------------------------
 #  Development
