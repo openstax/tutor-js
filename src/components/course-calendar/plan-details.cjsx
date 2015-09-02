@@ -25,7 +25,7 @@ CoursePlanDetails = React.createClass
 
     if type is 'external'
       reviewButton = <Router.Link to='viewScores' params={linkParams}>
-        <BS.Button>View Scores</BS.Button>
+        <BS.Button className='-view-scores'>View Scores</BS.Button>
       </Router.Link>
 
     reviewButton
@@ -39,7 +39,7 @@ CoursePlanDetails = React.createClass
     reviewButton = @renderReviewButton()
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
     editButton = <Router.Link to={editLinkName} params={linkParams}>
-      <BS.Button>{viewOrEdit} Assignment</BS.Button>
+      <BS.Button className='-edit-assignment'>{viewOrEdit} Assignment</BS.Button>
     </Router.Link>
 
     <BS.Modal

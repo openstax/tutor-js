@@ -280,7 +280,7 @@ module.exports = React.createClass
 
     opensAt = <BS.Col sm=4 md=3>
       <TutorDateInput
-        id='reading-open-date'
+        className='-assignment-open-date'
         ref="openDate"
         required={not @state.showingPeriods}
         label="Open Date"
@@ -294,7 +294,7 @@ module.exports = React.createClass
 
     dueAt = <BS.Col sm=4 md=3>
       <TutorDateInput
-        id='reading-due-date'
+        className='-assignment-due-date'
         ref="dueDate"
         required={not @state.showingPeriods}
         label="Due Date"

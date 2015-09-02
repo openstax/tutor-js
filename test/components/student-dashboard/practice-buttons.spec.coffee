@@ -16,7 +16,7 @@ describe 'Learning Guide Practice Buttons', ->
       expect(dom.querySelector('button.practice')).not.to.be.null
 
 
-  it 'are disabled if performance report sections are empty', ->
+  it 'are disabled if Student Scores sections are empty', ->
     LearningGuide.Student.actions.loaded({"title": "Physics"}, COURSE_ID)
     Testing.renderComponent( Buttons,
       props: { courseId: COURSE_ID }

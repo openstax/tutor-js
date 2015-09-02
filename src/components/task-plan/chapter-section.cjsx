@@ -15,6 +15,6 @@ module.exports = React.createClass
   mixins: [ChapterSectionMixin]
   render: ->
     {section} = @props
-    <span className="chapter-section">
+    <span className="chapter-section" data-chapter-section={@sectionFormat(section)}>
       {@sectionFormat(section)}
     </span>
