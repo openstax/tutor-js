@@ -11,12 +11,12 @@ EXPORTED = 'completed'
 EXPORT_FAILED = 'failed'
 EXPORT_KILLED = 'killed'
 
-PerformanceExportConfig = {
+ScoresExportConfig = {
 
   _job: {}
 
   _loaded: (obj, id) ->
-    @emit('performanceExport.loaded', id)
+    @emit('scoresExport.loaded', id)
 
   _updateExportStatusFor: (id) ->
     (jobData) =>
@@ -24,7 +24,7 @@ PerformanceExportConfig = {
       exportData.exportFor = id
 
       @_asyncStatus[id] = exportData.status
-      @emit("performanceExport.#{exportData.status}", exportData)
+      @emit("scoresExport.#{exportData.status}", exportData)
       @emitChange()
 
   getJobIdFromJobUrl: (jobUrl) ->
@@ -46,7 +46,7 @@ PerformanceExportConfig = {
     jobId = @getJobIdFromJobUrl(job)
 
     # export job has been queued
-    @emit('performanceExport.queued', {jobId, id})
+    @emit('scoresExport.queued', {jobId, id})
     @_asyncStatus[id] = EXPORT_REQUESTED
     @saveJob(jobId, id)
 
@@ -55,7 +55,7 @@ PerformanceExportConfig = {
       JobActions.load(jobId)
     JobActions.checkUntil(jobId, checkJob)
 
-    # whenever this job status is updated, emit the status for performance export
+    # whenever this job status is updated, emit the status for scores export
     updateExportStatus = @_updateExportStatusFor(id)
     JobStore.on("job.#{jobId}.*", updateExportStatus)
     JobStore.off("job.#{jobId}.final", updateExportStatus)
@@ -99,6 +99,6 @@ PerformanceExportConfig = {
 
 }
 
-extendConfig(PerformanceExportConfig, new CrudConfig())
-{actions, store} = makeSimpleStore(PerformanceExportConfig)
-module.exports = {PerformanceExportActions:actions, PerformanceExportStore:store}
+extendConfig(ScoresExportConfig, new CrudConfig())
+{actions, store} = makeSimpleStore(ScoresExportConfig)
+module.exports = {ScoresExportActions:actions, ScoresExportStore:store}

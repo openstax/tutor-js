@@ -66,8 +66,8 @@ CourseCalendarHeader = React.createClass
         <Router.Link className='btn btn-default' to='viewTeacherGuide' params={{courseId}}>
           Performance Forecast
         </Router.Link>
-        <Router.Link className='btn btn-default' to='viewPerformance' params={{courseId}}>
-          Performance Report
+        <Router.Link className='btn btn-default' to='viewScores' params={{courseId}}>
+          Student Scores
         </Router.Link>
       </BS.Row>
       <BS.Row>

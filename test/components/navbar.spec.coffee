@@ -50,8 +50,8 @@ TEACHER_MENU = [
     label: 'Performance Forecast'
   }
   {
-    name: 'viewPerformance'
-    label: 'Performance Report'
+    name: 'viewScores'
+    label: 'Student Scores'
   }
   {
     name: 'courseSettings'
