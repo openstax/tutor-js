@@ -14,9 +14,10 @@ tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 COURSES = require '../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
 PUBLISHED_MODEL = ExtendBasePlan({
+  id: '1'
   title: 'hello',
   description: 'description',
-  published_at: yesterday}, {opens_at: yesterday})
+  published_at: yesterday}, {opens_at: yesterday, due_at: yesterday, target_id: COURSES[0].periods[0].id})
 
 helper = (model) -> PlanRenderHelper(model, Builder)
 
@@ -45,7 +46,6 @@ describe 'Task Plan Builder', ->
 
   it 'should not allow editable open date if plan is visible', ->
     helper(PUBLISHED_MODEL).then ({dom, element}) ->
-      expect(dom.querySelectorAll('.tasking-plan.disabled').length).to.equal(COURSES[0].periods.length)
       element.setAllPeriods()
       expect(element.refs.openDate.props.disabled).to.be.true
 
