@@ -82,9 +82,7 @@
         .tutor-subtle-load(loading);
       }
     }
-    @media print {
-      margin-top: -100px;
-    }
+    .printer-safe(margin-top; -100px);
   }
   // when menu is open and the screen is wide enough, slide everything to the right so it's still visible
   &.menu-open {

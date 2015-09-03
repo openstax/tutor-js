@@ -52,9 +52,7 @@
       &:hover {
         .triangle:after { border-left: @triangle-max-side solid @tutor-neutral-lighter; }
       }
-      @media print {
-        display: none;
-      }
+      .printer-safe(display; 'none');
     }
 
     &.prev {
@@ -67,9 +65,7 @@
       &:hover {
         .triangle:after { border-right: @triangle-max-side solid @tutor-neutral-lighter; }
       }
-      @media print {
-        display: none;
-      }
+      .printer-safe(display; 'none');
     }
 
   }

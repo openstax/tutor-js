@@ -192,6 +192,12 @@
   }
 }
 
+.printer-safe(@prop, @value) {
+  @media print {
+    Ignore: ~"a;@{prop}:@{value}";
+  }
+}
+
 // If you want to use these please uncomment.
 //
 // .tutor-shadow(3) {
