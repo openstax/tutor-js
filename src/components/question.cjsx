@@ -36,7 +36,7 @@ Answer = React.createClass
     # Only add keyboard listeners if the exercise has not been graded yet
     unless correct_answer_id
       key = ALL_KEYS[iter]
-      keymaster key, 'multiple-choice', (event) =>
+      keymaster key, 'multiple-choice', (event) ->
         onChangeAnswer(answer)(event)
 
       keymaster.setScope('multiple-choice')
