@@ -192,9 +192,13 @@
   }
 }
 
-.printer-safe(@prop, @value) {
+.printer-safe(@display: default; @margin: default; @position: default; @top: default; @left: default;) {
   @media print {
-    Ignore: ~"a;@{prop}:@{value}";
+    display: @display;
+    margin: @margin;
+    position: @position;
+    top: @top;
+    left: @left;
   }
 }
 
