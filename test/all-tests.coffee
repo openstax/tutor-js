@@ -12,6 +12,7 @@ chai.use(sinonChai)
 require './components/course-listing.spec'
 require './components/navbar.spec'
 require './components/navbar/account-link.spec'
+require './components/task-plan/reading-plan.spec'
 require './components/task-plan/homework-plan.spec'
 require './components/task-plan/homework/exercise-summary.spec'
 require './components/task-plan/footer.spec'
