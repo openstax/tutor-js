@@ -45,6 +45,8 @@ describe 'Task Plan Builder', ->
 
   it 'should not allow editable open date if plan is visible', ->
     helper(PUBLISHED_MODEL).then ({dom, element}) ->
+      expect(dom.querySelectorAll('.tasking-plan.disabled').length).to.equal(COURSES[0].periods.length)
+      element.setAllPeriods()
       expect(element.refs.openDate.props.disabled).to.be.true
 
 
@@ -53,10 +55,9 @@ describe 'Task Plan Builder', ->
       expect(dom.querySelector('.tasking-plan.tutor-date-input')).to.be.null
 
   it 'can show individual periods', ->
-    helper(NEW_READING).then ({dom}) ->
+    helper(NEW_READING).then ({dom, element}) ->
       element.setIndividualPeriods()
-      expect(dom.querySelectorAll('.tasking-plan.tutor-date-input').length).to.equal(COURSES.periods.length)
-
+      expect(dom.querySelectorAll('.tasking-plan.tutor-date-input').length).to.equal(COURSES[0].periods.length)
 
   it 'does not load a default due at for all periods', ->
     helper(NEW_READING).then ({dom, element}) ->
