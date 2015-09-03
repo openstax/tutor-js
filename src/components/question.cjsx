@@ -1,7 +1,9 @@
 _ = require 'underscore'
 React = require 'react'
+keymaster = require 'keymaster'
 ArbitraryHtml = require './html'
 
+ALL_KEYS = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 idCounter = 0
 
 Answer = React.createClass
@@ -28,6 +30,22 @@ Answer = React.createClass
     chosen_answer: React.PropTypes.array
     correct_answer_id: React.PropTypes.string
     answered_count: React.PropTypes.number
+
+  componentDidMount: ->
+    {iter, answer, onChangeAnswer, correct_answer_id} = @props
+    # Only add keyboard listeners if the exercise has not been graded yet
+    unless correct_answer_id
+      key = ALL_KEYS[iter]
+      keymaster key, 'multiple-choice', (event) =>
+        onChangeAnswer(answer)(event)
+
+      keymaster.setScope('multiple-choice')
+
+  componentWillUnmount: ->
+    {iter, correct_answer_id} = @props
+    unless correct_answer_id
+      key = ALL_KEYS[iter]
+      keymaster.unbind(key, 'multiple-choice')
 
   render: ->
     {answer, iter, qid, type, correct_answer_id, answered_count, hasCorrectAnswer, chosen_answer, onChangeAnswer} = @props
