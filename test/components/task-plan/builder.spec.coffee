@@ -5,9 +5,13 @@ Builder = require '../../../src/components/task-plan/builder'
 {Testing, sinon, expect, _, React} = require '../helpers/component-testing'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
+{CourseListingActions, CourseListingStore} = require '../../../src/flux/course-listing'
+{CourseStore} = require '../../../src/flux/course'
+
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 
+COURSES = require '../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
 PUBLISHED_MODEL = ExtendBasePlan({
   title: 'hello',
@@ -20,13 +24,13 @@ helper = (model) -> PlanRenderHelper(model, Builder)
 describe 'Task Plan Builder', ->
   beforeEach ->
     TaskPlanActions.reset()
+    CourseListingActions.loaded(COURSES)
 
   it 'should load expected plan', ->
     helper(PUBLISHED_MODEL).then ({dom}) ->
       expect(dom.querySelector('#reading-title').value).to.equal(PUBLISHED_MODEL.title)
       descriptionValue = dom.querySelector('.assignment-description textarea').value
       expect(descriptionValue).to.equal(PUBLISHED_MODEL.description)
-
 
   it 'should allow editable periods radio if plan is not visible', ->
     helper(NEW_READING).then ({dom}) ->
@@ -42,10 +46,17 @@ describe 'Task Plan Builder', ->
   it 'should not allow editable open date if plan is visible', ->
     helper(PUBLISHED_MODEL).then ({dom, element}) ->
       expect(element.refs.openDate.props.disabled).to.be.true
-      
+
+
   it 'hides periods by default', ->
     helper(NEW_READING).then ({dom, element}) ->
       expect(dom.querySelector('.tasking-plan.tutor-date-input')).to.be.null
+
+  it 'can show individual periods', ->
+    helper(NEW_READING).then ({dom}) ->
+      element.setIndividualPeriods()
+      expect(dom.querySelectorAll('.tasking-plan.tutor-date-input').length).to.equal(COURSES.periods.length)
+
 
   it 'does not load a default due at for all periods', ->
     helper(NEW_READING).then ({dom, element}) ->
