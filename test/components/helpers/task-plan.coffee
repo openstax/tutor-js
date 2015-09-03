@@ -15,6 +15,7 @@ ExtendBasePlan = (props, taskingProps = {}) ->
   baseTaskingPlan =
     opens_at: tomorrow
     due_at: dayAfter
+    target_type: 'period'
 
   baseModel = _.extend({}, baseModel, props)
 
