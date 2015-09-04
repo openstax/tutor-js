@@ -6,7 +6,6 @@ camelCase = require 'camelcase'
 React = require 'react/addons'
 CoursePlan = require './plan'
 {TimeStore} = require '../../flux/time'
-TimeHelper = require '../../helpers/time'
 
 CourseDuration = React.createClass
   displayName: 'CourseDuration'
@@ -58,14 +57,10 @@ CourseDuration = React.createClass
     @setState({ranges: groupedDurations, durationsByStartDate})
 
   componentWillMount: ->
-    TimeHelper.syncCourseTimezone()
     @updateGroupedDurations(@props)
 
   componentWillReceiveProps: (nextProps) ->
     @updateGroupedDurations(nextProps)
-
-  componentWillUnmount: ->
-    TimeHelper.unsyncCourseTimezone()
 
   groupDurations: (durations, viewingDuration, groupingDurations) ->
     durationsInView = _.chain(durations)

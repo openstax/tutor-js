@@ -28,8 +28,20 @@ describe 'Time Helpers', ->
     expect(moment.defaultZone).to.deep.equal(moment.tz.zone(TEST_TIMEZONE))
     expect(moment().startOf('day').format()).to.not.equal(TODAY_IN_CURRENT_ZONE)
 
+
   it 'will reset the default timezone to user time', ->
 
     TimeHelper.unsyncCourseTimezone()
     expect(moment.defaultZone).to.not.exist
     expect(moment().startOf('day').format()).to.equal(TODAY_IN_CURRENT_ZONE)
+
+
+  it 'can check the default timezone', ->
+
+    isCourseTimezone = TimeHelper.isCourseTimezone(TEST_TIMEZONE)
+    expect(isCourseTimezone).to.be.false
+
+    TimeHelper.syncCourseTimezone(TEST_TIMEZONE)
+    isCourseTimezone = TimeHelper.isCourseTimezone(TEST_TIMEZONE)
+    expect(isCourseTimezone).to.be.true
+    TimeHelper.unsyncCourseTimezone()
