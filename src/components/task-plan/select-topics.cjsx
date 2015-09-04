@@ -129,7 +129,7 @@ SelectTopics = React.createClass
     {courseId, planId, selected, hide, header, primary, cancel} = @props
 
     selected = TaskPlanStore.getTopics(planId)
-    chapters = _.map(TocStore.get(), @renderChapterPanels)
+    chapters = _.map(TocStore.get(@props.ecosystemId), @renderChapterPanels)
 
     <Dialog
       className='select-reading-dialog'

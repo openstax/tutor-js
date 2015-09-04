@@ -14,8 +14,7 @@ TocConfig =
     @_toc = null
     @_sections = {}
 
-  load: (courseId) -> # used by API
-  loaded: (obj) ->
+  _loaded: (obj) ->
     @_toc = obj
     chapters = obj[0].children
     # Load all the section id's for easy lookup later.
@@ -23,14 +22,11 @@ TocConfig =
     for chap in chapters
       for section in chap.children
         @_sections[section.id] = section
-
-    @emitChange()
+    obj
 
   exports:
-    isLoaded: ->
-      !!@_toc
-    get: ->
-      if @_toc?.length
+    get: (id) ->
+      if @_get(id)?.length
         @_toc[0].children
 
     getChapterSection: (sectionId) ->
