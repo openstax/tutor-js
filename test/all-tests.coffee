@@ -60,6 +60,7 @@ require './task-helpers.spec'
 require './dom-helpers.spec'
 require './helpers/string.spec'
 require './helpers/period.spec'
+require './helpers/time.spec'
 
 # The whole Boom Boom.
 # This should be done **last** because it starts up the whole app
