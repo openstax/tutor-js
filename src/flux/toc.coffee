@@ -5,39 +5,29 @@ _ = require 'underscore'
 {CrudConfig, extendConfig, makeSimpleStore} = require './helpers'
 
 TocConfig =
-  _toc: null
   _sections: {}
 
   FAILED: -> console.error('BUG: could not load readings')
 
-  reset: ->
-    @_toc = null
+  _reset: ->
     @_sections = {}
 
-  _loaded: (obj) ->
-    @_toc = obj
+  _loaded: (obj, id) ->
     chapters = obj[0].children
     # Load all the section id's for easy lookup later.
-    # They are globally unique so we do not have to worry about the course.
+    # They are globally unique so we do not have to worry about the ecosystemId.
     for chap in chapters
       for section in chap.children
         @_sections[section.id] = section
-    obj
+    chapters
 
   exports:
-    get: (id) ->
-      if @_get(id)?.length
-        @_toc[0].children
-
     getChapterSection: (sectionId) ->
-      if (@_toc and @_sections and @_sections[sectionId])
-        @_sections[sectionId].chapter_section
-      else
-        throw new Error('BUG: Invalid section')
+      @_sections[sectionId]?.chapter_section or throw new Error('BUG: Invalid section')
 
     getSectionInfo: (sectionId) ->
-      if (@_toc and @_sections)
-        @_sections[sectionId] or throw new Error('BUG: Invalid section')
+      @_sections[sectionId] or throw new Error('BUG: Invalid section')
+
     getSectionLabel: (key) ->
       _.find(@_sections, (section) ->
         section.chapter_section.toString() is key
