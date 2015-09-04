@@ -1,4 +1,4 @@
-moment = require 'moment'
+moment = require 'moment-timezone'
 
 TimeHelper =
   getCurrentLocales: ->
@@ -7,5 +7,11 @@ TimeHelper =
     abbr: currentLocale._abbr
     week: currentLocale._week
     weekdaysMin: currentLocale._weekdaysMin
+
+  syncCourseTimezone: (courseTimezone = 'US/Central') ->
+    moment.tz.setDefault(courseTimezone)
+
+  unsyncCourseTimezone: ->
+    moment.defaultZone = null
 
 module.exports = TimeHelper
