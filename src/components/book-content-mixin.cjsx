@@ -16,6 +16,10 @@ MEDIA_LINK_EXCLUDES = [
   '[data-targeted=media]'
 ]
 
+# elements that are currently targeted by the URL's hash are
+# scrolled down this much in order to appear below the top navbar
+FOCUSED_TARGET_TOP_POSITION = 100
+
 MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
   "#{current}:not(#{exclude})"
 , 'a')
@@ -117,6 +121,17 @@ ReadingContentMixin =
     @insertOverlays()
     @detectImgAspectRatio()
     @processLinks()
+    # Check the window location on mount and scroll down if it's focusing on a target.
+    # Note that the pageYOffset doesn't really mean that it's focused,
+    # but why else would it not be at top?
+    @scrollWindowDown() if not _.isEmpty(window.location.hash) and window.pageYOffset
+    window.addEventListener('hashchange', @scrollWindowDown, false)
+
+  componentWillUnmount: ->
+    window.removeEventListener('hashchange', @scrollWindowDown, false)
+
+  scrollWindowDown: ->
+    _.defer -> window.scrollBy(0, FOCUS_TARGET_TOP_POSITION * -1)
 
   componentDidUpdate: ->
     @insertOverlays()
