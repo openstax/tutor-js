@@ -103,7 +103,7 @@ PlanFooter = React.createClass
           isFailed={isFailed}
           waitingText='Publishing…'
           disabled={isWaiting}
-          timeout={3600000}
+          isJob={true}
           >
           {'Publish'}
         </AsyncButton>

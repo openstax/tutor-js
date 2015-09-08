@@ -10,8 +10,10 @@ module.exports = React.createClass
     isTimedout: false
 
   componentDidUpdate: ->
-    {isWaiting, timeout} = @props
+    {isWaiting, isJob} = @props
     {isTimedout} = @state
+
+    timeout = if isJob then 300000 else 30000
 
     if isWaiting and not isTimedout
       _.delay =>
@@ -30,7 +32,7 @@ module.exports = React.createClass
     failedState: React.PropTypes.func
     failedProps: React.PropTypes.object
     doneText: React.PropTypes.node
-    timeout: React.PropTypes.number
+    isJob: React.PropTypes.bool
 
   getDefaultProps: ->
     isDone: false
@@ -40,7 +42,7 @@ module.exports = React.createClass
     failedProps:
       beforeText: 'There was a problem.  '
     doneText: ''
-    timeout: 30000
+    isJob: false
 
   render: ->
     {className, disabled} = @props
