@@ -12,6 +12,7 @@ chai.use(sinonChai)
 require './components/course-listing.spec'
 require './components/navbar.spec'
 require './components/navbar/account-link.spec'
+require './components/task-plan/builder.spec'
 require './components/task-plan/homework-plan.spec'
 require './components/task-plan/homework/exercise-summary.spec'
 require './components/task-plan/footer.spec'
@@ -42,7 +43,6 @@ require './components/book-content-mixin.spec'
 require './components/scores/reading-cell.spec'
 require './components/scores/homework-cell.spec'
 require './components/name.spec'
-
 # Flux your muscle
 require './crud-store.spec'
 require './task-store.spec'
@@ -64,3 +64,4 @@ require './helpers/period.spec'
 # The whole Boom Boom.
 # This should be done **last** because it starts up the whole app
 require './router.spec'
+###

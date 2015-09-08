@@ -141,8 +141,8 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
-    @setDueAt(taskingDueAt)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id)
+    @setDueAt(taskingDueAt) if taskingDueAt
 
   setIndividualPeriods: ->
     # if taskings exist in state, then load them
