@@ -13,7 +13,7 @@ module.exports = React.createClass
     {isWaiting, isJob} = @props
     {isTimedout} = @state
 
-    timeout = if isJob then 300000 else 30000
+    timeout = if isJob then 600000 else 30000
 
     if isWaiting and not isTimedout
       _.delay =>
