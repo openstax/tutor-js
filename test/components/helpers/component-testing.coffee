@@ -1,6 +1,4 @@
 _ = require 'underscore'
-chai  = require 'chai'
-sinon = require 'sinon'
 expect = chai.expect
 React = require 'react'
 ReactAddons    = require('react/addons')

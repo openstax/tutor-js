@@ -1,5 +1,9 @@
+# Require styles.
+# This is the entry point for webpack to recognize and load the styles
+# They're split out from the build into a separate css file
+require './resources/styles/tutor.less'
+
 require 'jquery'
-require 'bootstrap' # Attach bootstrap to jQuery
 
 api = require './src/api'
 router = require './src/router'

@@ -1,5 +1,4 @@
-{expect} = require 'chai'
-sinon = require 'sinon'
+expect = chai.expect
 _ = require 'underscore'
 
 JobHelper = require '../../src/helpers/job'
