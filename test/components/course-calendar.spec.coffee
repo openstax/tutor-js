@@ -63,8 +63,7 @@ describe 'Course Calendar', ->
 
   it 'should render on current month', (done) ->
     calendarChecks
-      .checkIsDateToday(@result)
-      .then(calendarChecks.checkIsLabelThisMonth)
+      .checkIsLabelThisMonth(@result)
       .then( ->
         done()
       , done)

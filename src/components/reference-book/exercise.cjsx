@@ -8,7 +8,12 @@ LoadableItem = require '../loadable-item'
 ReferenceBookMissingExercise = React.createClass
   displayName: 'ReferenceBookMissingExercise'
   render: ->
-    <small className='reference-book-missing-exercise'><i>Missing exercise</i></small>
+    {exerciseAPIUrl} = @props
+
+    <small className='reference-book-missing-exercise'
+      data-exercise-url={exerciseAPIUrl}>
+      <i>Missing exercise</i>
+    </small>
 
 ReferenceBookExercise = React.createClass
   displayName: 'ReferenceBookExercise'
@@ -20,7 +25,7 @@ ReferenceBookExercise = React.createClass
       # warning about missing exercise --
       # is there a need to show the reader anything?
       console.warn("WARNING: #{exerciseAPIUrl} appears to be missing.")
-      return <ReferenceBookMissingExercise/>
+      return <ReferenceBookMissingExercise exerciseAPIUrl={exerciseAPIUrl}/>
 
     {questions} = items[0]
     question = questions[0]

@@ -1,4 +1,6 @@
 /node_modules
+*.orig
 /bower_components
 /.tmp
 /dist
+/test-failed-*.png

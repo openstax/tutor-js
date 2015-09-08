@@ -1,6 +1,7 @@
 {
   "title": "Local Test Course",
   "book_id": 123,
+  "ecosystem_id": "1",
   "periods": [{
       "id": "2",
       "name" : "2nd"

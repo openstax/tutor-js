@@ -6,16 +6,16 @@ BindStoreMixin = require '../bind-store-mixin'
 AsyncButton = require '../buttons/async-button'
 TimeDifference = require '../time-difference'
 
-{PerformanceExportStore, PerformanceExportActions} = require '../../flux/performance-export'
+{ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'
 
-PerformanceExport = React.createClass
-  displayName: 'PerformanceExport'
+ScoresExport = React.createClass
+  displayName: 'ScoresExport'
   propTypes:
     courseId: React.PropTypes.string.isRequired
     className: React.PropTypes.string
 
   mixins: [BindStoreMixin]
-  bindStore: PerformanceExportStore
+  bindStore: ScoresExportStore
 
   getInitialState: ->
     downloadUrl: null
@@ -31,7 +31,7 @@ PerformanceExport = React.createClass
 
   componentWillMount: ->
     {courseId} = @props
-    PerformanceExportActions.load(courseId)
+    ScoresExportActions.load(courseId)
 
   componentDidUpdate: (prevProps, prevState) ->
     @setState(forceDownloadUrl: @state.downloadUrl) if @shouldTriggerDownload(prevState, @state)
@@ -41,13 +41,13 @@ PerformanceExport = React.createClass
 
   handleCompletedExport: (exportData) ->
     {courseId} = @props
-    if @isUpdateValid(exportData.exportFor)
-      PerformanceExportActions.load(courseId)
+    if @isUpdateValid(exportData.for)
+      ScoresExportActions.load(courseId)
       @setState(tryToDownload: true)
 
   handleLoadedExport: (id) ->
     if @isUpdateValid(id)
-      lastExport = PerformanceExportStore.getLatestExport(id)
+      lastExport = ScoresExportStore.getLatestExport(id)
       return unless lastExport?
 
       exportState =
@@ -109,12 +109,14 @@ PerformanceExport = React.createClass
     @setState(tryToDownload: true, downloadedSinceLoad: true)
 
   addBindListener: ->
-    PerformanceExportStore.on('performanceExport.completed', @handleCompletedExport)
-    PerformanceExportStore.on('performanceExport.loaded', @handleLoadedExport)
+    {courseId} = @props
+    ScoresExportStore.on("progress.#{courseId}.completed", @handleCompletedExport)
+    ScoresExportStore.on('loaded', @handleLoadedExport)
 
   removeBindListener: ->
-    PerformanceExportStore.off('performanceExport.completed', @handleCompletedExport)
-    PerformanceExportStore.off('performanceExport.loaded', @handleLoadedExport)
+    {courseId} = @props
+    ScoresExportStore.off("progress.#{courseId}.completed", @handleCompletedExport)
+    ScoresExportStore.off('loaded', @handleLoadedExport)
 
   render: ->
     {courseId, className} = @props
@@ -130,10 +132,11 @@ PerformanceExport = React.createClass
     actionButton =
       <AsyncButton
         bsStyle={actionButtonClass}
-        onClick={-> PerformanceExportActions.export(courseId)}
-        isWaiting={PerformanceExportStore.isExporting(courseId) or tryToDownload}
-        isFailed={PerformanceExportStore.isFailed(courseId) or downloadHasError}
+        onClick={-> ScoresExportActions.export(courseId)}
+        isWaiting={ScoresExportStore.isExporting(courseId) or tryToDownload}
+        isFailed={ScoresExportStore.isFailed(courseId) or downloadHasError}
         failedProps={failedProps}
+        isJob={true}
         waitingText='Generating Export…'>
         Generate Export
       </AsyncButton>
@@ -160,4 +163,4 @@ PerformanceExport = React.createClass
       {lastExportedLabel}
     </span>
 
-module.exports = PerformanceExport
+module.exports = ScoresExport

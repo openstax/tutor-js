@@ -151,10 +151,11 @@ ExercisesRenderMixin =
     @setState({})
 
   renderLoading: ->
-    {courseId, pageIds} = @props
+    {courseId, planId, pageIds} = @props
+    ecosystemId = TaskPlanStore.getEcosystemId(planId, courseId)
 
     unless ExerciseStore.isLoaded(pageIds)
-      ExerciseActions.load(courseId, pageIds)
+      ExerciseActions.load(ecosystemId, pageIds)
       return <span className="-loading">Loading...</span>
 
     false
