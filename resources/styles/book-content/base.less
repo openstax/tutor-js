@@ -78,6 +78,30 @@ div[data-type="document-title"] ~ p:first-of-type {
 }
 
 .tutor-figure();
+figure {
+  margin-right: 30px;
+  margin-bottom: 20px;
+
+  &.full-width:not(.splash) {
+    width: 100%;
+  }
+  &.tutor-ui-vertical-img {
+    @media (min-width: @screen-sm-min) {
+      width: 50%;
+      float: left;
+    }
+  }
+  &.tutor-ui-horizontal-img {
+    &.full-width {
+      img { width: 100%; }
+    }
+  }
+
+  figcaption {
+    border-bottom: 1px solid;
+    border-color: @border-color;
+  }
+}
 
 // images inside a figure that occurs right after a title are full-width
 .title + figure {

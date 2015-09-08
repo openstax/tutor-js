@@ -78,7 +78,10 @@ LinkContentMixin =
 
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
-    React.render(<MediaPreview mediaId={mediaId}>{link.innerText}</MediaPreview>, link)
+    previewNode = document.createElement('span')
+    previewNode.classList.add('media-preview-wrapper')
+    link.parentNode.replaceChild(previewNode, link)
+    React.render(<MediaPreview mediaId={mediaId}>{link.innerText}</MediaPreview>, previewNode)
 
   processLink: (link) ->
     if @isMediaLink(link)

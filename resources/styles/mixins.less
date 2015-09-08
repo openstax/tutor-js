@@ -196,8 +196,6 @@
   figure {
     display: table;
     text-align: left;
-    margin-right: 30px;
-    margin-bottom: 20px;
     padding: 0;
     float: left;
     img {
@@ -206,20 +204,7 @@
       margin: 10px 0 0 0;
       padding: 0;
     }
-    &.full-width:not(.splash) {
-      width: 100%;
-    }
-    &.tutor-ui-vertical-img {
-      @media (min-width: @screen-sm-min) {
-        width: 50%;
-        float: left;
-      }
-    }
-    &.tutor-ui-horizontal-img {
-      &.full-width {
-        img { width: 100%; }
-      }
-    }
+
     figcaption {
       display: table-caption;
       caption-side: bottom;
@@ -228,8 +213,6 @@
       font-weight: 300;
       font-style: italic;
       line-height: 150%;
-      border-bottom: 1px solid;
-      border-color: @border-color;
     }
   }
 }

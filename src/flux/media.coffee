@@ -1,6 +1,5 @@
 _ = require 'underscore'
 htmlparser = require 'htmlparser2'
-html = require 'htmlparser-to-html'
 {makeSimpleStore} = require './helpers'
 
 MediaConfig =
@@ -14,7 +13,7 @@ MediaConfig =
         id = link.attribs.href.replace('#', '')
         idDOM = htmlparser.DomUtils.getElementById(id, dom)
         if idDOM
-          idHTML = html(idDOM)
+          idHTML = htmlparser.DomUtils.getOuterHTML(idDOM)
 
           local[id] =
             name: idDOM.name

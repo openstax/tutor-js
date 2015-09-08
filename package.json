@@ -23,7 +23,6 @@
     "es6-promise": "^2.3",
     "flux-react": "~2.6.4",
     "font-awesome": "~4.3.0",
-    "htmlparser-to-html": "0.0.5",
     "htmlparser2": "^3.8.3",
     "markdown-it": "^4.1.1",
     "mime-types": "^2.1.3",
