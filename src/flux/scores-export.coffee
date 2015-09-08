@@ -1,31 +1,13 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {JobActions, JobStore} = require './job'
+{JobListenerConfig} = require '../helpers/job'
+
 _ = require 'underscore'
 moment = require 'moment'
 
-EXPORT_REQUESTING = 'export_requesting'
-EXPORT_REQUESTED = 'export_queued'
-EXPORTING = 'working'
-EXPORT_QUEUED = 'queued'
-EXPORTED = 'completed'
-EXPORT_FAILED = 'failed'
-EXPORT_KILLED = 'killed'
-
 ScoresExportConfig = {
-
-  _job: {}
-
   _loaded: (obj, id) ->
-    @emit('scoresExport.loaded', id)
-
-  _updateExportStatusFor: (id) ->
-    (jobData) =>
-      exportData = _.clone(jobData)
-      exportData.exportFor = id
-
-      @_asyncStatus[id] = exportData.status
-      @emit("scoresExport.#{exportData.status}", exportData)
-      @emitChange()
+    @emit('loaded', id)
 
   getJobIdFromJobUrl: (jobUrl) ->
     jobUrlSegments = jobUrl.split('/api/jobs/')
@@ -33,61 +15,12 @@ ScoresExportConfig = {
 
     jobId
 
-  saveJob: (jobId, id) ->
-    @_job[id] ?= []
-    @_job[id].push(jobId)
-
-  export: (id) ->
-    @_asyncStatus[id] = EXPORT_REQUESTING
-    @emitChange()
-
-  exported: (obj, id) ->
+  _getId: (obj, id) ->
     {job} = obj
     jobId = @getJobIdFromJobUrl(job)
-
-    # export job has been queued
-    @emit('scoresExport.queued', {jobId, id})
-    @_asyncStatus[id] = EXPORT_REQUESTED
-    @saveJob(jobId, id)
-
-    # checks job until final status is reached
-    checkJob = ->
-      JobActions.load(jobId)
-    JobActions.checkUntil(jobId, checkJob)
-
-    # whenever this job status is updated, emit the status for scores export
-    updateExportStatus = @_updateExportStatusFor(id)
-    JobStore.on("job.#{jobId}.*", updateExportStatus)
-    JobStore.off("job.#{jobId}.final", updateExportStatus)
-
-  _getJobs: (id) ->
-    _.clone(@_job[id])
+    {jobId, id}
 
   exports:
-    isExporting: (id) ->
-      exportingStates = [
-        EXPORT_REQUESTING
-        EXPORT_REQUESTED
-        EXPORT_QUEUED
-        EXPORTING
-      ]
-
-      exportingStates.indexOf(@_asyncStatus[id]) > -1
-
-    isFailed: (id) ->
-      failedStates = [
-        EXPORT_FAILED
-        EXPORT_KILLED
-      ]
-
-      failedStates.indexOf(@_asyncStatus[id]) > -1
-
-    isExported: (id, jobId) ->
-      jobId ?= _.last(@_getJobs(id))
-      job = JobStore.get(jobId)
-      {status} = job if job?
-      status is EXPORTED
-
     getLatestExport: (id) ->
       perfExports = @_get(id)
 
@@ -96,9 +29,22 @@ ScoresExportConfig = {
           perfExport.created_at
         ).last().value()
 
-
 }
 
-extendConfig(ScoresExportConfig, new CrudConfig())
+JobCrudConfig = extendConfig(new JobListenerConfig(), new CrudConfig())
+extendConfig(ScoresExportConfig, JobCrudConfig)
+
+ScoresExportConfig.exports.isExported = ScoresExportConfig.exports.isCompleted
+ScoresExportConfig.exports.isExporting = ScoresExportConfig.exports.isProgressing
+
+ScoresExportConfig.export = (args...) ->
+  @que.call(@, args...)
+  @emitChange()
+
+ScoresExportConfig.exported = (args...) ->
+  @queued.call(@, args...)
+  {id, jobId} = @_getId(args...)
+  @startChecking.call(@, id, jobId)
+
 {actions, store} = makeSimpleStore(ScoresExportConfig)
 module.exports = {ScoresExportActions:actions, ScoresExportStore:store}

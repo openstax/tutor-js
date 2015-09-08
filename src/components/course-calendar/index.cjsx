@@ -9,11 +9,17 @@ displayAs =
 CourseCalendar = React.createClass
   displayName: 'CourseCalendar'
 
+  propTypes:
+    loadPlansList: React.PropTypes.func
+
   getInitialState: ->
     displayAs: 'month'
 
   render: ->
     Handler = displayAs[@state.displayAs]
-    <Handler {...@props} ref='calendarHandler'/>
+    {loadPlansList} = @props
+    plansList = loadPlansList?()
+
+    <Handler {...@props} plansList={plansList} ref='calendarHandler'/>
 
 module.exports = CourseCalendar

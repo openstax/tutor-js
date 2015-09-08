@@ -22,6 +22,7 @@ require './components/task.spec'
 require './components/task-homework.spec'
 require './components/task-homework-past-due.spec'
 require './components/practice.spec'
+require './components/course-calendar/plan.spec'
 require './components/course-calendar.spec'
 require './components/learning-guide.spec'
 require './components/learning-guide/chapter.spec'
@@ -55,12 +56,14 @@ require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
 require './course-listing-store.spec'
+require './flux/plan-publish.spec'
 
 # Helpers
 require './task-helpers.spec'
 require './dom-helpers.spec'
 require './helpers/string.spec'
 require './helpers/period.spec'
+require './helpers/job.spec'
 require './helpers/time.spec'
 
 # The whole Boom Boom.

@@ -7,6 +7,7 @@ BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TimeStore} = require '../../flux/time'
+{TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 TimeHelper = require '../../helpers/time'
 
 CourseCalendarHeader = require './header'
@@ -46,6 +47,8 @@ CourseMonth = React.createClass
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')
       @setDateParams(date)
+      # sync local copy with server again when we change date in view.
+      TeacherTaskPlanActions.load(@props.courseId)
 
   componentWillMount: ->
     TimeHelper.syncCourseTimezone()

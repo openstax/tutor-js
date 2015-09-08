@@ -29,8 +29,12 @@ JobConfig = {
     jobData
 
   checkUntil: (id, checkJob, interval = 1000, maxRepeats = 50, finalStatus = ['completed', 'failed', 'killed']) ->
-    @_checkUntil[id] = {checkJob, finalStatus, interval, maxRepeats, count: 0}
-    checkJob()
+    unless @_checkUntil[id]?
+      @_checkUntil[id] = {checkJob, finalStatus, interval, maxRepeats, count: 0}
+      checkJob()
+
+  stopChecking: (id) ->
+    delete @_checkUntil[id]
 
   exports:
 

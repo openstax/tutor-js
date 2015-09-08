@@ -306,7 +306,7 @@ TaskPlanConfig =
 
   _saved: (obj, id) ->
     if obj.is_publish_requested
-      PlanPublishActions.published(obj, id)
+      PlanPublishActions.queued(obj, id)
       @emit('publish-queued', id)
     obj
 
@@ -397,7 +397,7 @@ TaskPlanConfig =
       not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
 
     isPublishing: (id) ->
-      PlanPublishStore.isPublishing(id)
+      @_changed[id]?.is_publish_requested or PlanPublishStore.isPublishing(id)
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)

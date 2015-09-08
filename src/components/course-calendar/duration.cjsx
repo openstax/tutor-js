@@ -5,6 +5,7 @@ camelCase = require 'camelcase'
 
 React = require 'react/addons'
 CoursePlan = require './plan'
+PlanHelper = require '../../helpers/plan'
 {TimeStore} = require '../../flux/time'
 
 CourseDuration = React.createClass
@@ -152,17 +153,7 @@ CourseDuration = React.createClass
     plan.duration = @_getDurationRange(plan)
 
   isPlanPublishing: (plan) ->
-    isPublishing = (plan.is_publish_requested? and plan.is_publish_requested) or plan.publish_last_requested_at?
-    if plan.published_at? and plan.publish_last_requested_at?
-      # is the last requested publishing after the last completed publish?
-      isPublishing = moment(plan.publish_last_requested_at).diff(plan.published_at) > 0
-    else if plan.published_at? and not plan.publish_last_requested_at?
-      isPublishing = false
-    else if plan.publish_last_requested_at?
-      recent = moment(TimeStore.getNow()).diff(plan.publish_last_requested_at) < @props.recentTolerance
-      isPublishing = isPublishing and recent
-
-    isPublishing
+    PlanHelper.isPublishing(plan, @props.recentTolerance)
 
   setDurationDay: (plan) ->
     {referenceDate} = @props
