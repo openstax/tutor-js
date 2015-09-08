@@ -1,3 +1,13 @@
 .media-preview {
+  max-width: 40%;
+
   .tutor-figure();
+  .tutor-tables(@tutor-neutral-light, @tutor-neutral-light);
+
+  table {
+    #fonts > .sans(1.2rem, 2rem);
+    thead tr:first-of-type:not(:last-child) th{
+      #fonts > .sans(1.5rem, 2.5rem);
+    }
+  }
 }
