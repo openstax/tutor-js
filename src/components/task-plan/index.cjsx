@@ -77,6 +77,10 @@ PlanShell = React.createClass
     Type = @getType()
     {courseId} = @context.router.getCurrentParams()
     id = @getId()
+
+    if TaskPlanStore.isDeleteRequested(id)
+      return <Type id={id} courseId={courseId} />
+
     <LoadableItem
       id={id}
       store={TaskPlanStore}

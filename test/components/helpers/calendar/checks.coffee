@@ -12,6 +12,7 @@ React = require 'react/addons'
 {TimeActions, TimeStore} = require '../../../../src/flux/time'
 
 Add = require '../../../../src/components/course-calendar/add'
+{CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require '../../../../src/components/course-calendar/plan-display'
 
 checks =
 
@@ -128,7 +129,7 @@ checks =
   _checkAddPlansWarning: ({div, component, state, router, history, courseId}) ->
     addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
-    expect(addOnDayDropdown.getDOMNode().innerText).to.contain('Cannot add')
+    expect(addOnDayDropdown.getDOMNode().innerText).to.contain('Cannot assign')
 
     {div, component, state, router, history, courseId}
 
@@ -221,6 +222,42 @@ checks._checkDoesViewShowPlan = (planId, {div, component, state, router, history
 checks.checkDoesViewShowPlan = (planId) ->
   (args...) ->
     Promise.resolve(checks._checkDoesViewShowPlan(planId, args...))
+
+checks._checkIsEditPlanLink = (planId, {div, component, state, router, history, courseId}) ->
+  plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
+  plan = _.findWhere(plansList, {id: planId})
+
+  planEditRoute = "edit-#{plan.type}"
+
+  targetEditLink = router.makeHref(camelCase(planEditRoute), {courseId, id: planId})
+  planEdits = React.addons.TestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayEdit)
+  thisPlanEdit = _.find(planEdits, (planEdit) ->
+    planEdit.props.plan.id is planId
+  )
+
+  # checks that there's a link, and that the href matches
+  expect(div.querySelector(".course-plan-#{planId} a").href).to.contain(targetEditLink)
+  # checks that a CoursePlanDisplayEdit component was rendered for this plan
+  expect(thisPlanEdit).to.not.be.null
+
+checks.checkIsEditPlanLink = (planId) ->
+  (args...) ->
+    Promise.resolve(checks._checkIsEditPlanLink(planId, args...))
+
+checks._checkIsViewPlanElement = (planId, {div, component, state, router, history, courseId}) ->
+  planQuickLooks = React.addons.TestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayQuickLook)
+  thisPlanQuickLook = _.find(planQuickLooks, (planQuickLook) ->
+    planQuickLook.props.plan.id is planId
+  )
+
+  # checks that there's not a link.
+  expect(div.querySelector(".course-plan-#{planId} a")).to.be.null
+  # checks that a CoursePlanDisplayQuickLook component was rendered for this plan
+  expect(thisPlanQuickLook).to.not.be.null
+
+checks.checkIsViewPlanElement = (planId) ->
+  (args...) ->
+    Promise.resolve(checks._checkIsViewPlanElement(planId, args...))
 
 checks._checkDoesViewShowPlanStats = (planId, {div, component, state, router, history, courseId}) ->
   plan = TaskPlanStatsStore.get(planId)

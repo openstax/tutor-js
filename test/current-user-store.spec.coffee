@@ -32,8 +32,13 @@ TEACHER_MENU = [
     params: {courseId: '2'}
   }
   {
-    name: 'viewPerformance'
-    label: 'Performance Report'
+    name: 'viewTeacherGuide'
+    params: {courseId: '2'}
+    label: 'Performance Forecast'
+  }
+  {
+    name: 'viewScores'
+    label: 'Student Scores'
     params: {courseId: '2'}
   }
   {

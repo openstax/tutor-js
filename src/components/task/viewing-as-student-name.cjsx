@@ -1,7 +1,7 @@
 React = require 'react'
 LoadableItem = require '../loadable-item'
-
-{PerformanceStore, PerformanceActions} = require '../../flux/performance'
+Name = require '../name'
+{ScoresStore, ScoresActions} = require '../../flux/scores'
 
 ViewingAsStudentName = React.createClass
   displayName: 'ViewingAsStudentName'
@@ -15,10 +15,10 @@ ViewingAsStudentName = React.createClass
     studentName = null
 
     className += ' task-student'
-    student = PerformanceStore.getStudentOfTask(courseId, taskId)
+    student = ScoresStore.getStudentOfTask(courseId, taskId)
 
     studentName = <div className={className}>
-      {student.first_name} {student.last_name}
+      <Name {...student} />
     </div> if student?
 
     studentName
@@ -34,8 +34,8 @@ ViewingAsStudentNameShell = React.createClass
 
     <LoadableItem
       id={courseId}
-      store={PerformanceStore}
-      actions={PerformanceActions}
+      store={ScoresStore}
+      actions={ScoresActions}
       renderItem={=> <ViewingAsStudentName {...@props}/>}
     />
 

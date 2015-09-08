@@ -1,13 +1,13 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
 
-allStudents = (performances) ->
-  _.chain(performances)
+allStudents = (scores) ->
+  _.chain(scores)
     .pluck('students')
     .flatten(true)
     .value()
 
-PerformanceConfig = {
+ScoresConfig = {
   exports:
 
     getStudent: (courseId, roleId) ->
@@ -29,6 +29,6 @@ PerformanceConfig = {
         _.indexOf(taskIds, taskId) > -1
 }
 
-extendConfig(PerformanceConfig, new CrudConfig())
-{actions, store} = makeSimpleStore(PerformanceConfig)
-module.exports = {PerformanceActions:actions, PerformanceStore:store}
+extendConfig(ScoresConfig, new CrudConfig())
+{actions, store} = makeSimpleStore(ScoresConfig)
+module.exports = {ScoresActions:actions, ScoresStore:store}

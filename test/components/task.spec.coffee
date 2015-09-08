@@ -9,8 +9,9 @@ _ = require 'underscore'
 
 {SinglePractice, Tasks} = require '../../src/components'
 
-courseId = '1'
-taskId = '4'
+COURSE_ID = '1'
+COURSE    = require '../../api/user/courses/1.json'
+TASK_ID = '4'
 
 VALID_MODEL = require '../../api/tasks/4.json'
 VALID_RECOVERY_MODEL = require '../../api/tasks/4-recovered.json'
@@ -21,10 +22,10 @@ describe 'Task Widget', ->
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
 
-    TaskActions.loaded(VALID_MODEL, taskId)
+    TaskActions.loaded(VALID_MODEL, TASK_ID)
 
     taskTests
-      .renderStep(taskId)
+      .renderStep(TASK_ID)
       .then((result) =>
         @result = result
         done()
@@ -92,11 +93,13 @@ describe 'Task Widget', ->
 
 describe 'Task Widget, through routes', ->
   beforeEach (done) ->
+    CourseActions.loaded(COURSE, COURSE_ID)
+
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
-    TaskActions.loaded(VALID_MODEL, taskId)
+    TaskActions.loaded(VALID_MODEL, TASK_ID)
     taskTests
-      .goToTask("/courses/#{courseId}/tasks/#{taskId}", taskId)
+      .goToTask("/courses/#{COURSE_ID}/tasks/#{TASK_ID}", TASK_ID)
       .then((result) =>
         @result = result
         done()

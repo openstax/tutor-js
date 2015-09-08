@@ -73,9 +73,8 @@ ChapterAccordion = React.createClass
 
   browseBook: (chapter, ev) ->
     ev.stopPropagation() # stop click from toggling the accordian
-    course = CourseStore.get(@props.courseId)
     url = @context.router.makeHref('viewReferenceBookSection',
-        {bookId: course.book_id, section: chapter.chapter_section.join('.')})
+        {courseId: @props.courseId, section: chapter.chapter_section.join('.')})
     win = window.open(url, '_blank')
     win.focus()
 
@@ -92,7 +91,7 @@ ChapterAccordion = React.createClass
       chapterClass.push('empty-chapter')
 
     header =
-      <h2 className={chapterClass.join(' ')}>
+      <h2 className={chapterClass.join(' ')} data-chapter-section={chapter.chapter_section[0]}>
         <span className='chapter-checkbox'>
           <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
@@ -101,7 +100,7 @@ ChapterAccordion = React.createClass
           Chapter <ChapterSection section={chapter.chapter_section}/> -
         </span>
         <span className='chapter-title'> {chapter.title}</span>
-        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse the book</span>
+        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse this Chapter</span>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>

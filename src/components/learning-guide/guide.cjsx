@@ -37,7 +37,16 @@ module.exports = React.createClass
     </div>
 
   render: ->
+    className = 'guide-container'
+
+    if @props.isLoading?()
+      body = @props.loadingMessage
+    else if _.isEmpty(@props.allSections)
+      body = @props.emptyMessage
+    else
+      body = @renderBody()
+
     <div className='guide-container'>
       {@props.heading}
-      {if _.isEmpty(@props.allSections) then @props.emptyMessage else @renderBody()}
+      {body}
     </div>

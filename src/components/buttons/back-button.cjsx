@@ -9,44 +9,34 @@ BackButton = React.createClass
   displayName: 'BackButton'
 
   propTypes:
+    bsStyle: React.PropTypes.string
     fallbackLink: React.PropTypes.shape(
       to: React.PropTypes.string
       params: React.PropTypes.object
       text: React.PropTypes.string
     ).isRequired
 
+  getDefaultProps: ->
+    bsStyle: 'default'
+
   contextTypes:
     router: React.PropTypes.func
 
-  getInitialState: ->
-    historyInfo = {}
-    hasHistory = (History.length > 1)
-    # Only gets previous route transitioned to. Routes from router.replaceWith are ignored.
-    # See TransitionStore for more detail.
-    historyInfo = TransitionStore.getPrevious(@context.router.match) if hasHistory
-
-    {hasHistory, historyInfo}
-
   render: ->
-    {hasHistory, historyInfo} = @state
+    # Gets route to last path that was not the same as the current one
+    # See TransitionStore for more detail.
+    historyInfo = TransitionStore.getPrevious(@context.router)
     {fallbackLink, className} = @props
     {text} = fallbackLink
 
-    if hasHistory
-      backText = 'Back'
-      backText = "Back to #{historyInfo.name}" if historyInfo.name
-      backButton = <BS.Button className={className} onClick={@context.router.goBack}>
-        {backText}
-      </BS.Button>
-    else
-      fallbackLink = _.omit(fallbackLink, 'text')
-      classes = 'btn btn-default'
-      classes += " #{className}" if className?
+    backText = if historyInfo.name then "Back to #{historyInfo.name}" else fallbackLink.text
 
-      backButton = <Link {...fallbackLink} className={classes}>
-        {text}
-      </Link>
+    href =  historyInfo.path or @context.router.makeHref(
+      @props.fallbackLink.to, @props.fallbackLink.params
+    )
 
-    backButton
+    <Link className={"btn btn-#{@props.bsStyle}"} to={href}>
+      {backText}
+    </Link>
 
 module.exports = BackButton

@@ -7,6 +7,8 @@ chai.use(sinonChai)
 # The tests still run and progress just fine despite the warnings, but for now,
 # I'm leaving this test here.
 # TODO figure out why.
+
+# Components
 require './components/course-listing.spec'
 require './components/navbar.spec'
 require './components/navbar/account-link.spec'
@@ -36,9 +38,15 @@ require './components/tutor-input.spec'
 require './components/tutor-dialog.spec'
 require './components/unsaved-state.spec'
 require './components/buttons/browse-the-book.spec'
+require './components/book-content-mixin.spec'
+require './components/scores/reading-cell.spec'
+require './components/scores/homework-cell.spec'
+require './components/name.spec'
 
+# Flux your muscle
 require './crud-store.spec'
 require './task-store.spec'
+require './task-step-store.spec'
 require './loadable.spec'
 require './teacher-task-plan-store.spec'
 require './learning-guide-store.spec'
@@ -46,8 +54,13 @@ require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
 require './course-listing-store.spec'
+
+# Helpers
 require './task-helpers.spec'
 require './dom-helpers.spec'
+require './helpers/string.spec'
+require './helpers/period.spec'
 
+# The whole Boom Boom.
 # This should be done **last** because it starts up the whole app
 require './router.spec'

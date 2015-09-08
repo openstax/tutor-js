@@ -140,7 +140,10 @@ module.exports =
 
   generateCrumbs: ->
     {id, period} = @props
-    @_generateCrumbs id, period
+    periodCrumbs = @_generateCrumbs id, period
+    _.sortBy(periodCrumbs, (crumb) ->
+      crumb.data.average_step_number
+    )
 
   getContents: ->
     {id, period} = @props

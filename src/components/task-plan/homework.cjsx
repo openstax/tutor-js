@@ -4,7 +4,6 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 PlanFooter = require './footer'
-Close = require '../close'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
@@ -24,6 +23,7 @@ ChooseExercises = React.createClass
     courseId: React.PropTypes.string.isRequired
     selected: React.PropTypes.array.isRequired
     hide: React.PropTypes.func.isRequired
+    canEdit: React.PropTypes.bool
 
   selectProblems: ->
     @setState({
@@ -50,6 +50,7 @@ ChooseExercises = React.createClass
     if shouldShowExercises
       exerciseSummary = <ExerciseSummary
           canReview={true}
+          canEdit={@props.canEdit}
           reviewClicked={hide}
           onCancel={cancel}
           planId={planId}/>
@@ -85,8 +86,7 @@ HomeworkPlan = React.createClass
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
-    headerText = if TaskPlanStore.isNew(id) then 'Add Homework Assignment' else 'Edit Homework Assignment'
-    closeBtn = <Close onClick={@cancel}/>
+
     topics = TaskPlanStore.getTopics(id)
     hasExercises = TaskPlanStore.getExercises(id)?.length
     shouldShowExercises = hasExercises and not @state?.showSectionTopics
@@ -94,7 +94,11 @@ HomeworkPlan = React.createClass
     footer = <PlanFooter id={id}
       courseId={courseId}
       onPublish={@publish}
-      onSave={@save}/>
+      onSave={@save}
+      onCancel={@cancel}
+      getBackToCalendarParams={@getBackToCalendarParams}
+      goBackToCalendar={@goBackToCalendar}
+      />
 
     formClasses = ['edit-homework dialog']
     if @state?.showSectionTopics then formClasses.push('hide')
@@ -106,13 +110,14 @@ HomeworkPlan = React.createClass
         planId={id}
         cancel={@cancelSelection}
         hide={@hideSectionTopics}
+        canEdit={not @state.isVisibleToStudents}
         selected={topics}/>
 
     if shouldShowExercises
       exerciseSummary = <ExerciseSummary
         onCancel={@cancel}
         onPublish={@publish}
-        canAdd={not TaskPlanStore.isVisibleToStudents(id)}
+        canAdd={not @state.isVisibleToStudents}
         addClicked={@showSectionTopics}
         planId={id}/>
 
@@ -124,6 +129,7 @@ HomeworkPlan = React.createClass
       reviewExercises = <ReviewExercises
         courseId={courseId}
         pageIds={topics}
+        canEdit={not @state.isVisibleToStudents}
         planId={id}/>
 
       reviewExercisesSummary = <PinnedHeaderFooterCard
@@ -134,9 +140,9 @@ HomeworkPlan = React.createClass
         {reviewExercises}
       </PinnedHeaderFooterCard>
 
-    header = [headerText, closeBtn]
+    header = @builderHeader('homework')
 
-    if not TaskPlanStore.isVisibleToStudents(id)
+    if not @state.isVisibleToStudents
       addProblemsButton = <BS.Button id='problems-select'
         onClick={@showSectionTopics}
         bsStyle='default'>+ Select Problems

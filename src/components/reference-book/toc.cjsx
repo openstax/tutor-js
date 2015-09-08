@@ -15,7 +15,7 @@ Section = React.createClass
   componentWillMount: ->
     @setState(skipZeros: false)
   render: ->
-    {bookId, activeSection} = @props
+    {courseId, activeSection} = @props
     sections = @sectionFormat(@props.section.chapter_section)
     activeSection = @sectionFormat(activeSection)
     className = 'active' if sections is activeSection
@@ -25,7 +25,7 @@ Section = React.createClass
         <Router.Link
           className={className}
           onClick={@props.onMenuSelection} to='viewReferenceBookSection'
-          params={{bookId: bookId, section: sections}}
+          params={{courseId: courseId, section: sections}}
         >
           <span className="section-number">{sections}</span>
           {@props.section.title}
@@ -34,7 +34,7 @@ Section = React.createClass
       { _.map @props.section.children, (child) =>
         <li key={child.id} data-section={@sectionFormat(child.chapter_section)}>
           <Section
-            bookId={bookId}
+            courseId={courseId}
             activeSection={activeSection}
             onMenuSelection={@props.onMenuSelection}
             section={child} />
@@ -67,12 +67,12 @@ module.exports = React.createClass
 
 
   render: ->
-    {bookId, section} = @props
-    toc = ReferenceBookStore.getToc(bookId)
+    {courseId, section} = @props
+    toc = ReferenceBookStore.getToc(courseId)
     <div className="toc">
       { _.map toc.children, (child) =>
         <Section
-          bookId={bookId}
+          courseId={courseId}
           activeSection={section}
           onMenuSelection={@props.onMenuSelection}
           key={child.id}

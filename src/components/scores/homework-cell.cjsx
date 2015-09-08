@@ -7,11 +7,13 @@ module.exports = React.createClass
   mixins: [CellStatusMixin] # handles rendering
 
   render: ->
-    status = TaskHelper.getLateness(@props.task)
-
-    message = if status.is_late
-      'Incomplete'
-    else
+    message = if @props.task.status is 'not_started'
+      'Not started'
+    else if TaskHelper.isDue(@props.task)
       "#{@props.task.correct_exercise_count}/#{@props.task.exercise_count}"
+    else if @props.task.status is 'completed'
+      'Complete'
+    else
+      'In progress'
 
     @renderLink({message})

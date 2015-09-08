@@ -7,7 +7,7 @@ validator = require 'validator'
 {TocStore} = require './toc'
 {TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
-{PlanPublishActions} = require './plan-publish'
+{PlanPublishActions, PlanPublishStore} = require './plan-publish'
 TaskHelpers = require '../helpers/task'
 
 TUTOR_SELECTIONS =
@@ -29,6 +29,16 @@ TaskPlanConfig =
 
   _stats: {}
   _asyncStatusStats: {}
+  _server_copy: {}
+
+  _loaded: (obj, planId) ->
+    @_server_copy[planId] = obj
+    obj
+
+  # Somewhere, the local copy gets taken apart and rebuilt.
+  # Keep a copy of what was served.
+  _getOriginal: (planId) ->
+    @_server_copy[planId]
 
   _getPlan: (planId) ->
     @_local[planId] ?= {}
@@ -129,6 +139,11 @@ TaskPlanConfig =
     if sortedTaskings?.length
       sortedTaskings[0]
 
+  _getFirstTaskingByDueDate: (id) ->
+    tasking_plans = @_getPlan(id)?.tasking_plans or @_changed[id]?.tasking_plans or @_getOriginal(id)?.tasking_plans
+    sortedTaskings = _.sortBy(tasking_plans, 'due_at')
+    sortedTaskings[0] if sortedTaskings?.length
+
   updateTutorSelection: (id, direction) ->
     plan = @_getPlan(id)
     {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
@@ -157,12 +172,15 @@ TaskPlanConfig =
     throw new Error('id is required') unless id
     throw new Error("#{attr} is required") unless date
 
+    # use of moment(date).toDate() will make sure to convert
+    # any type of date (string, js date, moment, etc) to date for
+    # the BE to accept.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = date
+      tasking[attr] = moment(date).toDate()
     else
       for tasking in tasking_plans
-        tasking[attr] = date
+        tasking[attr] = moment(date).toDate()
 
     @_change(id, {tasking_plans})
 
@@ -288,8 +306,22 @@ TaskPlanConfig =
     @_change(id, {is_publish_requested: true})
 
   _saved: (obj, id) ->
-    PlanPublishActions.published(obj, id) if obj.is_publish_requested
+    if obj.is_publish_requested
+      PlanPublishActions.published(obj, id)
+      @emit('publish-queued', id)
     obj
+
+  resetPlan: (id) ->
+    @_local[id] = _.clone(@_server_copy[id])
+    @clearChanged(id)
+
+
+  _isDeleteRequested: (id) ->
+    deleteStates = [
+      'deleting'
+      'deleted'
+    ]
+    deleteStates.indexOf(@_asyncStatus[id]) > -1
 
   exports:
     hasTopic: (id, topicId) ->
@@ -338,12 +370,7 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.published_at
 
-    isDeleteRequested: (id) ->
-      deleteStates = [
-        'deleting'
-        'deleted'
-      ]
-      deleteStates.indexOf(@_asyncStatus[id]) > -1
+    isDeleteRequested: (id) -> @_isDeleteRequested(id)
 
     isOpened: (id) ->
       firstTasking = @_getFirstTaskingByOpenDate(id)
@@ -353,6 +380,21 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       firstTasking = @_getFirstTaskingByOpenDate(id)
       (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+
+    getFirstDueDate: (id) ->
+      due_at = @_getFirstTaskingByDueDate(id)?.due_at
+
+    isEditable: (id) ->
+      plan = @_getPlan(id)
+      firstDueTasking = @_getFirstTaskingByDueDate(id)
+      isPublishedOrPublishing = !!plan?.published_at or !!plan?.is_publish_requested
+      isPastDue = new Date(firstDueTasking?.due_at) < TimeStore.getNow()
+      # cannot be a publishing/published past due assignment, and
+      # cannot be/being deleted
+      not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
+
+    isPublishing: (id) ->
+      PlanPublishStore.isPublishing(id)
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
@@ -392,7 +434,7 @@ TaskPlanConfig =
       opensAt = moment(@exports.getOpensAt.call(@, id, periodId))
       if opensAt.isBefore(TimeStore.getNow())
         opensAt = moment(TimeStore.getNow())
-      opensAt.startOf('day').add(1, 'day')
+      opensAt.startOf('day').add(1, 'day').toDate()
 
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)

@@ -95,7 +95,6 @@ module.exports = React.createClass
 
     # if a step needs to be recovered, load a recovery step for it
     if @_stepRecoveryQueued(nextState)
-      TaskStepActions.loadRecovery(nextState.recoverForStepId)
       return false
 
     # if the recoveredStepId is being set, load the task again
@@ -133,9 +132,10 @@ module.exports = React.createClass
     @goToStep(@state.refreshFrom + 1)()
     @setState({refreshFrom: false, refreshTo: false, recoverForStepId: false})
 
-  # set what step needs to be recovered.  this will trigger loadRecovery to be called within shouldComponentUpdate
+  # set what step needs to be recovered.  this will trigger loadRecovery.
   recoverFor: (stepId) ->
     @setState({recoverForStepId: stepId})
+    TaskStepActions.loadRecovery(stepId)
 
   # if the step loaded is the recovered step, unset the recoveredStepId and stop listening for steps loaded
   # when the recoveredStepId is unset, then shouldComponentUpdate will see that the step has been loaded.

@@ -27,6 +27,7 @@ CoursePlanLabel = React.createClass
 
     label = <label
       data-opens-at={opensAt}
+      data-title={title}
       style={planLabelStyle}
       className={labelClass}>{title}</label>
 

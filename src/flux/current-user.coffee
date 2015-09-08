@@ -37,10 +37,11 @@ ROUTES =
     label: 'Performance Forecast'
     roles:
       student: 'viewGuide'
-  performance:
-    label: 'Performance Report'
+      teacher: 'viewTeacherGuide'
+  scores:
+    label: 'Student Scores'
     roles:
-      teacher: 'viewPerformance'
+      teacher: 'viewScores'
   course:
     label: 'Course Roster'
     roles:

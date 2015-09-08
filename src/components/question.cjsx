@@ -4,6 +4,77 @@ ArbitraryHtml = require './html'
 
 idCounter = 0
 
+Answer = React.createClass
+  displayName: 'Answer'
+  propTypes:
+    answer: React.PropTypes.shape(
+      id: React.PropTypes.oneOfType([
+        React.PropTypes.string
+        React.PropTypes.number
+      ]).isRequired
+      content_html: React.PropTypes.string.isRequired
+      correctness: React.PropTypes.string
+      selected_count: React.PropTypes.number
+    ).isRequired
+
+    iter: React.PropTypes.number.isRequired
+    qid: React.PropTypes.oneOfType([
+      React.PropTypes.string
+      React.PropTypes.number
+    ]).isRequired
+    type: React.PropTypes.string.isRequired
+    hasCorrectAnswer: React.PropTypes.bool.isRequired
+    onChangeAnswer: React.PropTypes.func.isRequired
+    chosen_answer: React.PropTypes.array
+    correct_answer_id: React.PropTypes.string
+    answered_count: React.PropTypes.number
+
+  render: ->
+    {answer, iter, qid, type, correct_answer_id, answered_count, hasCorrectAnswer, chosen_answer, onChangeAnswer} = @props
+    qid ?= "auto-#{idCounter++}"
+
+    isChecked = answer.id in chosen_answer
+    isCorrect = answer.id is correct_answer_id
+
+    isCorrect = (answer.correctness is '1.0') if answer.correctness?
+
+    classes = ['answers-answer']
+    classes.push('answer-checked') if isChecked
+    classes.push('answer-correct') if isCorrect
+    classes = classes.join(' ')
+
+    unless (hasCorrectAnswer or type is 'teacher-review')
+      radioBox = <input
+        type='radio'
+        className='answer-input-box'
+        checked={isChecked}
+        id="#{qid}-option-#{iter}"
+        name="#{qid}-options"
+        onChange={onChangeAnswer(answer)}
+      />
+
+    if type is 'teacher-review'
+      percent = Math.round(answer.selected_count / answered_count * 100) or 0
+      selectedCount = <div
+        className='selected-count'
+        data-count="#{answer.selected_count}"
+        data-percent="#{percent}">
+      </div>
+
+
+    <div className={classes} key="#{qid}-option-#{iter}">
+      {selectedCount}
+      {radioBox}
+      <label
+        htmlFor="#{qid}-option-#{iter}"
+        className='answer-label'>
+        <div className='answer-letter' />
+        <ArbitraryHtml className='answer-content' html={answer.content_html} />
+      </label>
+    </div>
+
+
+
 module.exports = React.createClass
   displayName: 'Question'
   propTypes:
@@ -48,46 +119,22 @@ module.exports = React.createClass
             block={true}/>
         </div>
 
-    answers = _.map @props.model.answers, (answer, i) =>
-      isChecked = answer.id in [@props.answer_id, @state.answer_id]
-      isCorrect = answer.id is @props.correct_answer_id
+    questionAnswerProps =
+      qid: @props.model.id,
+      correct_answer_id: @props.correct_answer_id
+      hasCorrectAnswer: hasCorrectAnswer
+      chosen_answer: [@props.answer_id, @state.answer_id]
+      onChangeAnswer: @onChangeAnswer
+      type: type
+      answered_count: answered_count
 
-      isCorrect = (answer.correctness is '1.0') if answer.correctness?
-
-      classes = ['answers-answer']
-      classes.push('answer-checked') if isChecked
-      classes.push('answer-correct') if isCorrect
-      classes = classes.join(' ')
-
-      unless (hasCorrectAnswer or type is 'teacher-review')
-        radioBox = <input
-          type='radio'
-          className='answer-input-box'
-          checked={isChecked}
-          id="#{qid}-option-#{i}"
-          name="#{qid}-options"
-          onChange={@onChangeAnswer(answer)}
-        />
-
-      if type is 'teacher-review'
-        percent = Math.round(answer.selected_count / answered_count * 100) or 0
-        selectedCount = <div
-          className='selected-count'
-          data-count="#{answer.selected_count}"
-          data-percent="#{percent}">
-        </div>
-
-
-      <div className={classes} key="#{qid}-option-#{i}">
-        {selectedCount}
-        {radioBox}
-        <label
-          htmlFor="#{qid}-option-#{i}"
-          className='answer-label'>
-          <div className='answer-letter' />
-          <ArbitraryHtml className='answer-content' html={answer.content_html} />
-        </label>
-      </div>
+    answers = _.chain(@props.model.answers)
+      .sortBy (answer) ->
+        parseInt(answer.id)
+      .map (answer, i) ->
+        answerProps = _.extend({}, {answer, iter: i}, questionAnswerProps)
+        <Answer {...answerProps}/>
+      .value()
 
     classes = ['question']
     classes.push('has-correct-answer') if hasCorrectAnswer

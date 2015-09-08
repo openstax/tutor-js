@@ -14,8 +14,8 @@ _ = require 'underscore'
 {JobActions} = require './flux/job'
 LearningGuide = require './flux/learning-guide'
 
-{PerformanceActions} = require './flux/performance'
-{PerformanceExportActions} = require './flux/performance-export'
+{ScoresActions} = require './flux/scores'
+{ScoresExportActions} = require './flux/scores-export'
 {RosterActions} = require './flux/roster'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
@@ -79,7 +79,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       rejected = (jqXhr, statusMessage, err) ->
         setNow(jqXhr)
         statusCode = jqXhr.status
-        AppActions.setServerError(statusCode, jqXhr.responseText)
+        AppActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
         if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
@@ -176,13 +176,13 @@ start = (bootstrapData) ->
     LearningGuide.TeacherStudent.actions.loaded, 'GET', (id, {roleId}) ->
       url: "/api/courses/#{id}/guide/role/#{roleId}"
 
-  apiHelper PerformanceActions, PerformanceActions.load, PerformanceActions.loaded, 'GET', (id) ->
+  apiHelper ScoresActions, ScoresActions.load, ScoresActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"
 
-  apiHelper PerformanceExportActions, PerformanceExportActions.load, PerformanceExportActions.loaded, 'GET', (id) ->
+  apiHelper ScoresExportActions, ScoresExportActions.load, ScoresExportActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance/exports"
 
-  apiHelper PerformanceExportActions, PerformanceExportActions.export, PerformanceExportActions.exported, 'POST', (id) ->
+  apiHelper ScoresExportActions, ScoresExportActions.export, ScoresExportActions.exported, 'POST', (id) ->
     url: "/api/courses/#{id}/performance/export"
 
   apiHelper JobActions, JobActions.load, JobActions.loaded, 'GET', (id) ->
@@ -235,8 +235,8 @@ start = (bootstrapData) ->
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/user/courses'
 
-  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (bookId) ->
-    url: "/api/courses/#{bookId}/readings"
+  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/readings"
 
 
   apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->
