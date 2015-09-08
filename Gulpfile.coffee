@@ -80,14 +80,13 @@ gulp.task '_karma', ->
 gulp.task '_webserver', ->
   config = _.extend( {}, webpackConfig, {
     devtool: 'source-map'
-    debug: true
     output:
       path: '/'
       filename: 'tutor.js'
       pubicPath: '/dist/'
   })
-  new webpackServer(webpack(config), config.devServer)
-  .listen(webpackConfig.devServer.port, 'localhost', (err) ->
+  server = new webpackServer(webpack(config), config.devServer)
+  server.listen(webpackConfig.devServer.port, 'localhost', (err) ->
     throw new gutil.PluginError("webpack-dev-server", err) if err
   )
 
