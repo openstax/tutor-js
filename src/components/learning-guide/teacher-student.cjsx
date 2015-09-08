@@ -43,7 +43,7 @@ module.exports = React.createClass
     name = <Name {...selected} />
     <div className='guide-heading'>
       <div className='guide-group-title'>
-        Performance Forecast for:
+        <span className='preamble'>Performance Forecast for:</span>
         <BS.DropdownButton bzSize='large' className='student-selection' title={name}
           bsStyle='link' onSelect={@onSelectStudent}>
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
