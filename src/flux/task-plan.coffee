@@ -8,6 +8,7 @@ validator = require 'validator'
 {TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
+{CourseActions, CourseStore} = require './course'
 TaskHelpers = require '../helpers/task'
 
 TUTOR_SELECTIONS =
@@ -329,6 +330,10 @@ TaskPlanConfig =
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
+
+    getEcosystemId: (id, courseId) ->
+      plan = @_getPlan(id)
+      plan.ecosystem_id or CourseStore.get(courseId)?.ecosystem_id
 
     hasExercise: (id, exerciseId) ->
       plan = @_getPlan(id)

@@ -83,7 +83,7 @@ ReviewReadings = React.createClass
 
   render: ->
     <LoadableItem
-      id={@props.courseId}
+      id={@props.ecosystemId}
       store={TocStore}
       actions={TocActions}
       renderItem={@renderSelected}
@@ -110,6 +110,7 @@ ChooseReadings = React.createClass
         primary={primary}
         header={header}
         courseId={@props.courseId}
+        ecosystemId={@props.ecosystemId}
         planId={@props.planId}
         selected={@props.selected}
         cancel={@props.cancel}
@@ -123,6 +124,7 @@ ReadingPlan = React.createClass
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
+    ecosystemId = TaskPlanStore.getEcosystemId(id, courseId)
 
     topics = TaskPlanStore.getTopics(id)
     formClasses = ['edit-reading', 'dialog']
@@ -147,6 +149,7 @@ ReadingPlan = React.createClass
                         cancel={@cancelSelection}
                         courseId={courseId}
                         planId={id}
+                        ecosystemId={ecosystemId}
                         selected={topics}/>
 
     if @state?.invalid then formClasses.push('is-invalid-form')
@@ -178,6 +181,7 @@ ReadingPlan = React.createClass
                 canEdit={not @state.isVisibleToStudents}
                 courseId={courseId}
                 planId={id}
+                ecosystemId={ecosystemId}
                 selected={topics}/>
               {addReadingsButton}
               {readingsRequired}

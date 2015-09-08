@@ -1,11 +1,12 @@
 {
     "id": "1",
     "type": "reading",
+    "ecosystem_id": "3",
     "title": "Read Pages 9-11",
     "opens_at": "2015-03-04T16:40:23.796Z",
     "published_at": "2015-03-04T16:40:23.796Z",
     "due_at": "2015-03-13T04:00:00.000Z",
     "settings": {
-        "page_ids": ["234", "235"]
+        "page_ids": ["145", "146", "149", "155", "167"]
     }
 }

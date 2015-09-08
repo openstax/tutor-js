@@ -1,6 +1,7 @@
 {
     "id": "2",
     "type": "homework",
+    "ecosystem_id": "3",
     "title": "Homework",
     "due_at": "2015-04-23T16:00:00.000Z",
     "description": "asdf",

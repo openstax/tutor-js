@@ -11,9 +11,6 @@ arrayToSentence = (arry) ->
 
 StudentDashboardConfig = {
 
-  _reset: ->
-    CrudConfig.reset.call(this)
-
   exports:
 
     eventsByWeek: (courseId) ->
