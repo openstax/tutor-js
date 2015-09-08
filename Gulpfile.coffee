@@ -119,7 +119,8 @@ gulp.task 'coverage', ->
   server = new karma.Server(config)
   server.start()
 
-# same as TDD, not sure if anyone uses 'dev' ?
-gulp.task 'dev', ['tdd']
+# clean out the dist directory before running since otherwise stale files might be served from there.
+# The _webserver task builds and serves from memory with a fallback to files in dist
+gulp.task 'dev', ['_cleanDist', '_webserver']
 
 gulp.task 'tdd', ['_cleanDist', '_webserver', '_karma']
