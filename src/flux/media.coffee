@@ -5,19 +5,20 @@ htmlparser = require 'htmlparser'
 
 mediaLinkRegex = /<a\s+(?:[^>]*?\s+)?href="(#[^"]*)"/g
 mediaDOMRegex = (idString) ->
-  new RegExp('<[figure|table][^>]*id="+' + idString + '+".*?>(.*?)+[<\/figure|table]>', 'g')
+  new RegExp('<[figure|table][^>]*id="+' + idString + '+".*?>+[\s\S]+[<\/figure|table]>', 'g')
 
 
-# builder = new htmlparser.HtmlBuilder()
-window.htmlparser = htmlparser
+# # builder = new htmlparser.HtmlBuilder()
+# window.htmlparser = htmlparser
 
-parseHandler = new htmlparser.DefaultHandler (error, dom) ->
-  id = htmlparser.DomUtils.getElementById("fs-id1167066794530", dom)
-  # idDOM = builder.write(id)
-  console.info(id)
-  # console.info(idDOM)
+# parseHandler = new htmlparser.DefaultHandler (error, dom) ->
+# #  id = htmlparser.DomUtils.getElementById("fs-id1167066794530", dom)
+#   id = htmlparser.DomUtils.getElementById("Figure_03_01_Car", dom)
+#   # idDOM = builder.write(id)
+#   console.info(id)
+#   # console.info(idDOM)
 
-parser = new htmlparser.Parser(parseHandler)
+# parser = new htmlparser.Parser(parseHandler)
 
 MediaConfig =
 
@@ -25,14 +26,17 @@ MediaConfig =
 
 
   parse: (htmlString) ->
-    parser.parseComplete(htmlString)
+    # parser.parseComplete(htmlString)
+    console.info(htmlString)
     mediaLinks = htmlString.match(mediaLinkRegex)
     _.each(mediaLinks, (mediaLink) ->
+      console.info(mediaLink)
       link = _.last(mediaLink.split(' href="#'))
+      link = link.replace('"', '')
       console.info(link)
       console.info(mediaDOMRegex(link))
-      mediaDOM = htmlString.match(mediaDOMRegex(link))
-      console.info(mediaDOM)
+      # mediaDOM = htmlString.match(mediaDOMRegex(link))
+      # console.info(mediaDOM)
     )
 
   _get: (id) ->
