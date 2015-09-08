@@ -116,6 +116,10 @@ module.exports = React.createClass
 
   componentWillMount: ->
     @setPeriodDefaults()
+    TimeHelper.syncCourseTimezone()
+
+  componentWillUnmount: ->
+    TimeHelper.unsyncCourseTimezone()
 
   setOpensAt: (value, period) ->
     {id} = @props
