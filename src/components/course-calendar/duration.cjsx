@@ -59,6 +59,7 @@ CourseDuration = React.createClass
 
   componentWillMount: ->
     @updateGroupedDurations(@props)
+
   componentWillReceiveProps: (nextProps) ->
     @updateGroupedDurations(nextProps)
 

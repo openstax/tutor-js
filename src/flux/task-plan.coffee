@@ -25,6 +25,8 @@ sortTopics = (topics) ->
     TaskHelpers.chapterSectionToNumber(topic.chapter_section)
   )
 
+TutorDateFormat = 'MM/DD/YYYY'
+
 TaskPlanConfig =
 
   _stats: {}
@@ -174,11 +176,10 @@ TaskPlanConfig =
     # the BE to accept.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = moment(date).toDate()
+      tasking[attr] = moment(date, [TutorDateFormat]).toDate()
     else
       for tasking in tasking_plans
-        tasking[attr] = moment(date).toDate()
-
+        tasking[attr] = moment(date, [TutorDateFormat]).toDate()
     @_change(id, {tasking_plans})
 
   updateOpensAt: (id, opens_at, periodId) ->
