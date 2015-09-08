@@ -2,3 +2,4 @@
 /bower_components
 /.tmp
 /dist
+/test-failed-*.png

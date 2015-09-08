@@ -17,7 +17,7 @@ describe 'Student Dashboard Progress Panel', ->
       expect(dom).not.to.be.null
       expect(dom.querySelector('button.practice')).not.to.be.null
 
-  it 'is disabled if performance report sections are empty', ->
+  it 'is disabled if Student Scores sections are empty', ->
     LearningGuide.Student.actions.loaded({"title": "Physics"}, COURSE_ID)
     Testing.renderComponent( Guide,
       props: { courseId: COURSE_ID, sampleSizeThreshold: 3 }

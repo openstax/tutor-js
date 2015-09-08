@@ -37,8 +37,8 @@ TEACHER_MENU = [
     label: 'Performance Forecast'
   }
   {
-    name: 'viewPerformance'
-    label: 'Performance Report'
+    name: 'viewScores'
+    label: 'Student Scores'
     params: {courseId: '2'}
   }
   {

@@ -133,7 +133,7 @@ CrudConfig = ->
     _get: (id) ->
       val = @_local[id]
       return null unless val or @_asyncStatus[id] is SAVING
-      # Performance Report stores an Array unlike most other stores
+      # Scores stores an Array unlike most other stores
       if _.isArray(val)
         val
       else

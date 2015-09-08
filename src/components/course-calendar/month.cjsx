@@ -7,6 +7,7 @@ BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TimeStore} = require '../../flux/time'
+TimeHelper = require '../../helpers/time'
 
 CourseCalendarHeader = require './header'
 CourseDuration = require './duration'
@@ -30,6 +31,8 @@ CourseMonth = React.createClass
         new Error("#{propName} should be a moment for #{componentName}")
 
   getInitialState: ->
+    # check isCourseTimezone should we need to show a notice
+    isCourseTimezone: TimeHelper.isCourseTimezone()
     activeAddDate: null
 
   getDefaultProps: ->
@@ -43,6 +46,12 @@ CourseMonth = React.createClass
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')
       @setDateParams(date)
+
+  componentWillMount: ->
+    TimeHelper.syncCourseTimezone()
+
+  componentWillUnmount: ->
+    TimeHelper.unsyncCourseTimezone()
 
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?

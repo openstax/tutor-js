@@ -148,7 +148,8 @@ TutorDateInput = React.createClass
 
   render: ->
     classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper", "tutor-input"]
+    wrapperClasses = ["form-control-wrapper", "tutor-input", '-tutor-date-input']
+    wrapperClasses.push(@props.className) if @props.className
 
     now = TimeStore.getNow()
     value = @props.value

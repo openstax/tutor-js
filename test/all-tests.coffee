@@ -13,6 +13,7 @@ require './components/course-listing.spec'
 require './components/navbar.spec'
 require './components/navbar/account-link.spec'
 require './components/task-plan/reading-plan.spec'
+require './components/task-plan/builder.spec'
 require './components/task-plan/homework-plan.spec'
 require './components/task-plan/homework/exercise-summary.spec'
 require './components/task-plan/footer.spec'
@@ -40,10 +41,9 @@ require './components/tutor-dialog.spec'
 require './components/unsaved-state.spec'
 require './components/buttons/browse-the-book.spec'
 require './components/book-content-mixin.spec'
-require './components/performance/reading-cell.spec'
-require './components/performance/homework-cell.spec'
+require './components/scores/reading-cell.spec'
+require './components/scores/homework-cell.spec'
 require './components/name.spec'
-
 # Flux your muscle
 require './crud-store.spec'
 require './task-store.spec'
@@ -61,7 +61,9 @@ require './task-helpers.spec'
 require './dom-helpers.spec'
 require './helpers/string.spec'
 require './helpers/period.spec'
+require './helpers/time.spec'
 
 # The whole Boom Boom.
 # This should be done **last** because it starts up the whole app
 require './router.spec'
+###
