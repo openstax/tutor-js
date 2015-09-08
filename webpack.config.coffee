@@ -12,6 +12,9 @@ module.exports =
   ]
 
   module:
+    noParse: [
+      /\/sinon\.js/
+    ]
     loaders: [
       { test: /\.json$/,   loader: "json-loader"       }
       { test: /\.coffee$/, loader: "coffee-loader"     }

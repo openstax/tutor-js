@@ -20,6 +20,9 @@ module.exports =
     resolve:
       extensions: ['', '.js', '.json', '.coffee', '.cjsx']
     module:
+      noParse: [
+        /\/sinon\.js/
+      ]
       loaders: [
         { test: /\.coffee$/, loader: "coffee-loader"     }
         { test: /\.json$/,   loader: "json-loader"       }
