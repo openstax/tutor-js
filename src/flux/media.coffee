@@ -1,43 +1,30 @@
 _ = require 'underscore'
-htmlparser = require 'htmlparser'
-
+htmlparser = require 'htmlparser2'
+html = require 'htmlparser-to-html'
 {makeSimpleStore} = require './helpers'
-
-mediaLinkRegex = /<a\s+(?:[^>]*?\s+)?href="(#[^"]*)"/g
-mediaDOMRegex = (idString) ->
-  new RegExp('<[figure|table][^>]*id="+' + idString + '+".*?>+[\s\S]+[<\/figure|table]>', 'g')
-
-
-# # builder = new htmlparser.HtmlBuilder()
-# window.htmlparser = htmlparser
-
-# parseHandler = new htmlparser.DefaultHandler (error, dom) ->
-# #  id = htmlparser.DomUtils.getElementById("fs-id1167066794530", dom)
-#   id = htmlparser.DomUtils.getElementById("Figure_03_01_Car", dom)
-#   # idDOM = builder.write(id)
-#   console.info(id)
-#   # console.info(idDOM)
-
-# parser = new htmlparser.Parser(parseHandler)
 
 MediaConfig =
 
   _local: {}
 
+  _parseHandler: (local, error, dom) ->
+    links = htmlparser.DomUtils.getElementsByTagName('a', dom)
+    _.each(links, (link) ->
+      if link.attribs.href.search('#') is 0
+        id = link.attribs.href.replace('#', '')
+        idDOM = htmlparser.DomUtils.getElementById(id, dom)
+        if idDOM
+          idHTML = html(idDOM)
+
+          local[id] =
+            name: idDOM.name
+            html: idHTML
+    )
 
   parse: (htmlString) ->
-    # parser.parseComplete(htmlString)
-    console.info(htmlString)
-    mediaLinks = htmlString.match(mediaLinkRegex)
-    _.each(mediaLinks, (mediaLink) ->
-      console.info(mediaLink)
-      link = _.last(mediaLink.split(' href="#'))
-      link = link.replace('"', '')
-      console.info(link)
-      console.info(mediaDOMRegex(link))
-      # mediaDOM = htmlString.match(mediaDOMRegex(link))
-      # console.info(mediaDOM)
-    )
+    @parseHandler ?= new htmlparser.DomHandler _.partial(@_parseHandler, @_local)
+    @parser ?= new htmlparser.Parser(@parseHandler)
+    @parser.parseComplete(htmlString)
 
   _get: (id) ->
     @_local[id]

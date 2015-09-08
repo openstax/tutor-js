@@ -2,8 +2,11 @@ React = require 'react'
 _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
+
+LinkPreview = require './link-preview'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
+{MediaStore} = require '../flux/media'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
@@ -65,17 +68,20 @@ LinkContentMixin =
     # do this to ignore this link once adjusted
     mediaLink.dataset.targeted = 'media'
 
-  isMediaOnPage: (link) ->
-    root = @getDOMNode()
-    try
-      media = root.querySelector(link.hash)
+  isMediaLoaded: (link) ->
+    mediaId = link.hash.replace('#', '')
+    media = MediaStore.get(mediaId)
 
     media?
 
+  linkPreview: (link) ->
+    mediaId = link.hash.replace('#', '')
+    React.render(<LinkPreview mediaId={mediaId}>{link.innerText}</LinkPreview>, link)
+
   processLink: (link) ->
     if @isMediaLink(link)
-      if not @hasCNXId(link) and @isMediaOnPage(link)
-        @linkToThisPage(link)
+      if not @hasCNXId(link) and @isMediaLoaded(link)
+        @linkPreview(link)
         return null
       else
         @linkToAnotherPage(link)
