@@ -12,7 +12,13 @@ CoursePlanDetails = React.createClass
   displayName: 'CoursePlanDetails'
 
   propTypes:
-    plan: React.PropTypes.object.isRequired
+    plan: React.PropTypes.shape(
+      id: React.PropTypes.string.isRequired
+      title: React.PropTypes.string.isRequired
+      type: React.PropTypes.string.isRequired
+    ).isRequired
+    courseId: React.PropTypes.string.isRequired
+    onRequestHide: React.PropTypes.func.isRequired
 
   renderReviewButton: ->
     {plan, courseId} = @props
@@ -24,8 +30,8 @@ CoursePlanDetails = React.createClass
     </Router.Link>
 
     if type is 'external'
-      reviewButton = <Router.Link to='viewPerformance' params={linkParams}>
-        <BS.Button>View Performance Report</BS.Button>
+      reviewButton = <Router.Link to='viewScores' params={linkParams}>
+        <BS.Button className='-view-scores'>View Scores</BS.Button>
       </Router.Link>
 
     reviewButton
@@ -39,7 +45,7 @@ CoursePlanDetails = React.createClass
     reviewButton = @renderReviewButton()
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
     editButton = <Router.Link to={editLinkName} params={linkParams}>
-      <BS.Button>{viewOrEdit} Assignment</BS.Button>
+      <BS.Button className='-edit-assignment'>{viewOrEdit} Assignment</BS.Button>
     </Router.Link>
 
     <BS.Modal

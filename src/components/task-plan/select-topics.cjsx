@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Dialog = require '../dialog'
+BrowseTheBook = require '../buttons/browse-the-book'
 LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -71,15 +72,11 @@ ChapterAccordion = React.createClass
   areAnySectionsSelected: (anySelected, section) ->
     @props.selected.indexOf(section.id) >= 0 or anySelected
 
-  browseBook: (chapter, ev) ->
+  browseBook: (ev) ->
     ev.stopPropagation() # stop click from toggling the accordian
-    url = @context.router.makeHref('viewReferenceBookSection',
-        {courseId: @props.courseId, section: chapter.chapter_section.join('.')})
-    win = window.open(url, '_blank')
-    win.focus()
 
   render: ->
-    {chapter, expanded} = @props
+    {chapter, expanded, ecosystemId} = @props
     sections = _.map(chapter.children, @renderSections)
     allChecked = _.reduce(chapter.children, @areAllSectionsSelected, true) and chapter.children?.length
     expandAccordion = _.reduce(chapter.children, @areAnySectionsSelected, false) or expanded
@@ -91,7 +88,7 @@ ChapterAccordion = React.createClass
       chapterClass.push('empty-chapter')
 
     header =
-      <h2 className={chapterClass.join(' ')}>
+      <h2 className={chapterClass.join(' ')} data-chapter-section={chapter.chapter_section[0]}>
         <span className='chapter-checkbox'>
           <input type='checkbox' id="chapter-checkbox-#{chapter.id}"
             onChange={@toggleAllSections} checked={allChecked}/>
@@ -100,7 +97,14 @@ ChapterAccordion = React.createClass
           Chapter <ChapterSection section={chapter.chapter_section}/> -
         </span>
         <span className='chapter-title'> {chapter.title}</span>
-        <span onClick={_.partial(@browseBook, chapter)} className='browse-book'>Browse this Chapter</span>
+        <BrowseTheBook
+          onClick={@browseBook}
+          className='browse-book'
+          section={chapter.chapter_section.join('.')}
+          ecosystemId={ecosystemId}
+          unstyled={true}>
+            Browse this Chapter
+        </BrowseTheBook>
       </h2>
 
     <BS.Accordion activeKey={activeKey}>
@@ -125,7 +129,7 @@ SelectTopics = React.createClass
     {courseId, planId, selected, hide, header, primary, cancel} = @props
 
     selected = TaskPlanStore.getTopics(planId)
-    chapters = _.map(TocStore.get(), @renderChapterPanels)
+    chapters = _.map(TocStore.get(@props.ecosystemId), @renderChapterPanels)
 
     <Dialog
       className='select-reading-dialog'
@@ -144,7 +148,7 @@ SelectTopics = React.createClass
   render: ->
 
     <LoadableItem
-      id={@props.courseId}
+      id={@props.ecosystemId}
       store={TocStore}
       actions={TocActions}
       renderItem={@renderDialog}

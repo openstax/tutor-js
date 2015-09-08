@@ -93,6 +93,7 @@ module.exports = React.createClass
           <AdminLink />
           <BS.DropdownButton
             eventKey={1}
+            className='-hamburger-menu'
             title={<UserName/>}
             ref='navDropDown'>
             {menuItems}

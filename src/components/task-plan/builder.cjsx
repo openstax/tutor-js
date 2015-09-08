@@ -116,6 +116,10 @@ module.exports = React.createClass
 
   componentWillMount: ->
     @setPeriodDefaults()
+    TimeHelper.syncCourseTimezone()
+
+  componentWillUnmount: ->
+    TimeHelper.unsyncCourseTimezone()
 
   setOpensAt: (value, period) ->
     {id} = @props
@@ -141,8 +145,8 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
-    @setDueAt(taskingDueAt)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id)
+    @setDueAt(taskingDueAt) if taskingDueAt
 
   setIndividualPeriods: ->
     # if taskings exist in state, then load them
@@ -280,7 +284,7 @@ module.exports = React.createClass
 
     opensAt = <BS.Col sm=4 md=3>
       <TutorDateInput
-        id='reading-open-date'
+        className='-assignment-open-date'
         ref="openDate"
         required={not @state.showingPeriods}
         label="Open Date"
@@ -294,7 +298,7 @@ module.exports = React.createClass
 
     dueAt = <BS.Col sm=4 md=3>
       <TutorDateInput
-        id='reading-due-date'
+        className='-assignment-due-date'
         ref="dueDate"
         required={not @state.showingPeriods}
         label="Due Date"

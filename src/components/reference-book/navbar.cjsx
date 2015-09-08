@@ -20,8 +20,8 @@ module.exports = React.createClass
     section: React.PropTypes.string.isRequired
 
   renderSectionTitle: ->
-    {section, courseId} = @props
-    title = ReferenceBookStore.getPageTitle({section, courseId})
+    {section, courseId, ecosystemId} = @props
+    title = ReferenceBookStore.getPageTitle({section, ecosystemId})
 
     <BS.Nav navbar className="section-title">
       <ChapterSection section={section} />

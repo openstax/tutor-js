@@ -94,10 +94,10 @@ module.exports =
       defaultButtonClasses = 'btn btn-default'
 
       backButton = <Router.Link
-        to='viewPerformance'
+        to='viewScores'
         params={{courseId}}
         className={custombuttonClasses or defaultButtonClasses}>
-          Back to Performance Report
+          Back to Scores
       </Router.Link>
 
     backButton

@@ -2,6 +2,7 @@
   {
     "id": "1",
     "book_id": "123",
+    "ecosystem_id": "1",
     "name":"Local Test Course",
     "roles": [
       {
