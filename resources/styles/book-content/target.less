@@ -3,10 +3,6 @@
   animation: book-content-target-highlight 1.5s ease-out;
 }
 
-.offset-header() {
-  margin-top: -@tutor-navbar-height;
-  padding-top: @tutor-navbar-height;
-}
 
 a[target=_blank] {
   &::after {
@@ -18,7 +14,6 @@ a[target=_blank] {
 
 figure {
   &:target, .target {
-    .offset-header();
     .highlight-animation();
 
     > * {
@@ -33,7 +28,6 @@ figure {
 
 section, div, span, table {
   &:target, .target {
-    .offset-header();
     .highlight-animation();
 
     img {
