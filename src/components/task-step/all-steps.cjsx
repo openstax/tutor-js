@@ -117,8 +117,8 @@ ExternalUrl = React.createClass
     onStepCompleted() if StepPanel.canContinue(id)
 
   onClick: (ev) ->
-    @props.redirectToUrl(TaskStore.getExternalStep(@props.taskId).external_url)
     @onContinue() # will mark as complete
+    @props.redirectToUrl(TaskStore.getExternalStep(@props.taskId).external_url)
     # Since the browser has called the onClick handler, it was a "normal" left-button click
     # In that case we don't want to open up the external assignment page.
     # A right click "open-in-new-tab" click would open the page and redirect that way
