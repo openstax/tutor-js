@@ -6,8 +6,8 @@ S = require '../helpers/string'
 {MediaStore} = require '../flux/media'
 
 
-LinkPreview = React.createClass
-  displayName: 'LinkPreview'
+MediaPreview = React.createClass
+  displayName: 'MediaPreview'
   propTypes:
     mediaId: React.PropTypes.string.isRequired
   render: ->
@@ -21,9 +21,9 @@ LinkPreview = React.createClass
     linkText = @props.children unless @props.children is '[link]'
     linkText ?= S.capitalize(media.name)
 
-    <BS.OverlayTrigger trigger='hover' overlay={mediaPop} placement='bottom'>
+    <BS.OverlayTrigger trigger='hover' overlay={mediaPop}>
       <a data-targeted='media' href={hash}>{linkText}</a>
     </BS.OverlayTrigger>
 
-module.exports = LinkPreview
+module.exports = MediaPreview
   

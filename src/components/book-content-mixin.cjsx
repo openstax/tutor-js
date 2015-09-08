@@ -3,7 +3,7 @@ _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
 
-LinkPreview = require './link-preview'
+MediaPreview = require './media-preview'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
 {MediaStore} = require '../flux/media'
@@ -78,7 +78,7 @@ LinkContentMixin =
 
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
-    React.render(<LinkPreview mediaId={mediaId}>{link.innerText}</LinkPreview>, link)
+    React.render(<MediaPreview mediaId={mediaId}>{link.innerText}</MediaPreview>, link)
 
   processLink: (link) ->
     if @isMediaLink(link)
