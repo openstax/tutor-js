@@ -37,11 +37,6 @@ LinkContentMixin =
     beforeHash = _.first(href.split('#'))
     _.last(beforeHash.split('/'))
 
-  getMediaTag: (media) ->
-    # form media tag text based on data-type or tag name
-    tag = media.getAttribute('data-type') or media.tagName
-    S.capitalize(tag)
-
   buildReferenceBookLink: (cnxId) ->
     {courseId} = @context.router.getCurrentParams()
     {query} = @props
