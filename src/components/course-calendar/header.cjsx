@@ -8,7 +8,7 @@ Router = require 'react-router'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 PracticeButton = require '../buttons/practice-button'
-BrowseBookButton = require '../buttons/browse-the-book'
+BrowseTheBook = require '../buttons/browse-the-book'
 
 {TimeStore} = require '../../flux/time'
 
@@ -62,7 +62,7 @@ CourseCalendarHeader = React.createClass
     {courseId} = @context.router.getCurrentParams()
     <div className='calendar-header'>
       <BS.Row className='calendar-actions'>
-        <BrowseBookButton bsStyle='default' courseId={courseId} />
+        <BrowseTheBook bsStyle='default' courseId={courseId} />
         <Router.Link className='btn btn-default' to='viewTeacherGuide' params={{courseId}}>
           Performance Forecast
         </Router.Link>
