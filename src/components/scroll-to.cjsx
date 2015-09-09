@@ -46,11 +46,11 @@ ScrollTo =
       ev.preventDefault()
 
   scrollToElement: (el) ->
-    startPos  = @props.windowImpl.pageYOffset
+    win       = @props.windowImpl
+    startPos  = win.pageYOffset
     endPos    = Position.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
     startTime = Date.now()
     duration  = _.result(@, 'getScrollDuration', DEFAULT_DURATION)
-    win = @props.windowImpl
     requestAnimationFrame = win.requestAnimationFrame or _.defer
 
     step = ->
