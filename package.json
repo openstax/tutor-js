@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp test && gulp prod",
-    "start": "webpack-dev-server"
+    "coverage": "gulp coverage",
+    "deployment": "gulp prod",
+    "start": "gulp dev"
   },
   "repository": {
     "type": "git",

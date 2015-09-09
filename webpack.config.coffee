@@ -31,7 +31,7 @@ module.exports =
     publicPath: '/dist/'
     hot: false
     inline: false
-    port: 8000
+    port: process.env['PORT'] or 8000
     # It suppress error shown in console, so it has to be set to false.
     quiet: false,
     # It suppress everything except error, so it has to be set to false as well
