@@ -30,16 +30,6 @@ describe 'ScrollTo Mixin', ->
     Testing.renderComponent( TestComponent, props: @props ).then =>
       expect(@props.windowImpl.scroll).to.have.been.called
 
-  it 'scrolls when a link is clicked', (done) ->
-    Testing.renderComponent( TestComponent, props: @props ).then ({dom}) =>
-      expect(@props.windowImpl.scroll).not.to.have.been.called
-      # Testing.actions.click() isn't used because the mixin uses plain DOM events
-      dom.querySelector('a').click()
-      _.delay( =>
-        expect(@props.windowImpl.scroll).to.have.been.called
-        done()
-      , 4)
-
   it 'scrolls to an element', ->
     Testing.renderComponent( TestComponent, props: @props ).then ({dom, element}) =>
       element.scrollToElement(dom.querySelector('#foo'))
