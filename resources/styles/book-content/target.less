@@ -17,8 +17,11 @@ a[target=_blank] {
 }
 
 figure {
-  &:target, .target {
+  &:target {
     .offset-header();
+  }
+
+  &:target, &.target {
     .highlight-animation();
 
     > * {
@@ -32,8 +35,11 @@ figure {
 }
 
 section, div, span, table {
-  &:target, .target {
+  &:target {
     .offset-header();
+  }
+
+  &:target, &.target {
     .highlight-animation();
 
     img {
