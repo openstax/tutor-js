@@ -115,16 +115,6 @@ LinkContentMixin =
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     @linkMediaElsewhere(mediaCNXId, link)
 
-  linkToThisPage: (link) ->
-    root = @getDOMNode()
-    media = root.querySelector(link.hash)
-    tag = @getMediaTag(media)
-    link.innerText = tag if link.innerText is '[link]' and tag?
-    link.target = '_self'
-    # do this to ignore this link once adjusted
-    link.dataset.targeted = 'media'
-    link.parentNode.insertBefore(media.cloneNode(true), link.nextSibling)
-
   processLinks: ->
     root = @getDOMNode()
     mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)

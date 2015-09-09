@@ -13,11 +13,26 @@ MediaPreview = React.createClass
   getInitialState: ->
     popMedia: false
     modalMedia: false
+    firstView: true
   propTypes:
     mediaId: React.PropTypes.string.isRequired
     onClick: React.PropTypes.func
 
+  componentDidUpdate: ->
+
+    # Make sure the popover re-positions after the image loads
+    if @refs.viewer? and @state.firstView
+      viewer = @refs.viewer.getDOMNode()
+      images = viewer.querySelectorAll('img')
+      for image in images
+        image.onload = @imageLoaded unless image.onload?
+
+  imageLoaded: ->
+    @refs.popper.updateOverlayPosition()
+    @setState({firstView: false})
+
   getDefaultProps: ->
+    buffer: 160
     onClick: (clickEvent) ->
       # if desired, on click could trigger a modal for example.
       # need to talk to UI
@@ -28,11 +43,10 @@ MediaPreview = React.createClass
     not @isMediaInViewport()
 
   isMediaInViewport: ->
-    {media} = @props
+    {media, buffer} = @props
     mediaRect = media.getBoundingClientRect()
-    mediaMidpoint = 0.5 * (mediaRect.top + mediaRect.bottom)
 
-    0 <= mediaMidpoint <= window.innerHeight
+    0 <= (mediaRect.top + buffer) <= window.innerHeight
 
   highlightMedia: ->
     {media} = @props
@@ -89,7 +103,7 @@ MediaPreview = React.createClass
 
     media = MediaStore.get(mediaId)
     mediaPop = <BS.Popover>
-      <ArbitraryHtml html={media.html} className='media-preview'/>
+      <ArbitraryHtml html={media.html} className='media-preview' ref='viewer'/>
     </BS.Popover>
 
     linkText = children unless children is '[link]'
