@@ -4,6 +4,7 @@ S = require '../helpers/string'
 dom = require '../helpers/dom'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
+ScrollTo = require './scroll-to'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
@@ -121,21 +122,14 @@ LinkContentMixin =
     @renderExercises?(exerciseLinks) if exerciseLinks?.length
 
 ReadingContentMixin =
+
+  mixins: [ ScrollTo ]
+
   componentDidMount:  ->
     @insertOverlays()
     @detectImgAspectRatio()
     @processLinks()
-    # Check the window location on mount and scroll down if it's focusing on a target.
-    # Note that the pageYOffset doesn't really mean that it's focused,
-    # but why else would it not be at top?
-    @scrollWindowDown() if not _.isEmpty(window.location.hash) and window.pageYOffset
-    window.addEventListener('hashchange', @scrollWindowDown, false)
 
-  componentWillUnmount: ->
-    window.removeEventListener('hashchange', @scrollWindowDown, false)
-
-  scrollWindowDown: ->
-    _.defer -> window.scrollBy(0, FOCUS_TARGET_TOP_POSITION * -1)
 
   componentDidUpdate: ->
     @insertOverlays()
