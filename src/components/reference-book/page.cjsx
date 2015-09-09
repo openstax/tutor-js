@@ -13,7 +13,7 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
-{ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
+{ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
 module.exports = React.createClass
   _exerciseNodes: []
@@ -88,6 +88,10 @@ module.exports = React.createClass
 
   renderExercises: (exerciseLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
+    allExercises = _.pluck(exerciseLinks, 'href')
+    multipleUrl = ReferenceBookExerciseStore.getMultipleUrl(allExercises)
+    ReferenceBookExerciseActions.load(multipleUrl) unless ReferenceBookExerciseStore.isLoaded(multipleUrl)
+
     _.each(exerciseLinks, @renderExercise)
 
   renderExercise: (link) ->

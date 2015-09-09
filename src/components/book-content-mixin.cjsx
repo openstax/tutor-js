@@ -109,8 +109,8 @@ LinkContentMixin =
       .uniq()
       .value()
 
-    @renderOtherLinks?(otherLinks)
-    @renderExercises?(exerciseLinks)
+    @renderOtherLinks?(otherLinks) if otherLinks?.length
+    @renderExercises?(exerciseLinks) if exerciseLinks?.length
 
 ReadingContentMixin =
   componentDidMount:  ->

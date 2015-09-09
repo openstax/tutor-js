@@ -34,11 +34,20 @@ ReferenceBookExercise = React.createClass
 
 ReferenceBookExerciseShell = React.createClass
   displayName: 'ReferenceBookExerciseShell'
+  isLoading: ->
+    {exerciseAPIUrl} = @props
+    ReferenceBookExerciseStore.isLoading(exerciseAPIUrl) or ReferenceBookExerciseStore.isQueued(exerciseAPIUrl)
+  load: ->
+    {exerciseAPIUrl} = @props
+    ReferenceBookExerciseActions.load(exerciseAPIUrl) unless @isLoading()
   render: ->
     {exerciseAPIUrl} = @props
 
     <LoadableItem
       id={exerciseAPIUrl}
+      bindEvent={"loaded.#{exerciseAPIUrl}"}
+      isLoading={@isLoading}
+      load={@load}
       store={ReferenceBookExerciseStore}
       actions={ReferenceBookExerciseActions}
       renderItem={=> <ReferenceBookExercise {...@props} />}
