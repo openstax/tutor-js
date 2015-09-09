@@ -105,7 +105,7 @@ module.exports = React.createClass
     React.unmountComponentAtNode(node) if node?
     @_exerciseNodes.splice(nodeIndex, 1)
 
-  componentWillUnmount: ->
+  componentWillReceiveProps: ->
     _.each(@_exerciseNodes, @unmountExerciseComponent)
 
   render: ->

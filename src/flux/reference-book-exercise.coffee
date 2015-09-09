@@ -48,7 +48,7 @@ ReferenceBookExerciseConfig = {
       )
 
       delete @_toSeparate[id]
-      return
+      @emit('loaded.multiple')
     else
       @emit("loaded.#{id}")
 
