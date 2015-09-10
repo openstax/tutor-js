@@ -187,7 +187,7 @@ Scores = React.createClass
       @renderStudentRow(data.rows[rowIndex])
 
     <div className='course-scores-wrap'>
-      <span className='course-scores-title'>Scores Report</span>
+      <span className='course-scores-title'>Student Scores</span>
       <ScoresExport courseId={courseId} className='pull-right'/>
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
