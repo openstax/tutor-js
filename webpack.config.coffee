@@ -1,4 +1,6 @@
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
+isProduction = process.env.NODE_ENV is 'production'
+LOADERS = if isProduction then [] else ["react-hot", "webpack-module-hot-accept"]
 
 module.exports =
   cache: true
@@ -12,7 +14,7 @@ module.exports =
     publicPath: '/dist/'
 
   plugins: [
-    new ExtractTextPlugin("tutor.css")
+    #new ExtractTextPlugin("tutor.css")
   ]
 
   module:
@@ -21,9 +23,12 @@ module.exports =
     ]
     loaders: [
       { test: /\.json$/,   loader: "json-loader" }
-      { test: /\.coffee$/, loaders: ["coffee-loader" ] }
-      { test: /\.cjsx$/,   loaders: ["coffee-jsx-loader"] }
-      { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less')}
+      { test: /\.coffee$/, loaders: LOADERS.concat("coffee-loader") }
+      { test: /\.cjsx$/,   loaders: LOADERS.concat("coffee-jsx-loader") }
+      { test: /\.less$/,   loaders:
+        if isProduction then [ExtractTextPlugin.extract('css!less')]
+        else LOADERS.concat('style-loader', 'css-loader', 'less-loader')
+      }
       { test: /\.(png|jpg|svg)/, loader: 'file-loader?name=[name].[ext]'}
       { test: /\.(woff|woff2|eot|ttf)/, loader: "url-loader?limit=30000&name=[name]-[hash].[ext]" }
    ]
@@ -31,9 +36,10 @@ module.exports =
     extensions: ['', '.js', '.json', '.coffee', '.cjsx']
 
   devServer:
-    contentBase: './dist'
+    contentBase: './'
     publicPath: 'http://localhost:8000/dist/'
-    hot: true
+    hotComponents: true
+    historyApiFallback: true
     inline: true
     port: 8000
     # It suppress error shown in console, so it has to be set to false.
