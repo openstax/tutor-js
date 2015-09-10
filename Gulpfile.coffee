@@ -86,7 +86,7 @@ gulp.task '_webserver', ->
       pubicPath: '/dist/'
   })
   server = new webpackServer(webpack(config), config.devServer)
-  server.listen(webpackConfig.devServer.port, 'localhost', (err) ->
+  server.listen(webpackConfig.devServer.port, '0.0.0.0', (err) ->
     throw new gutil.PluginError("webpack-dev-server", err) if err
   )
 
