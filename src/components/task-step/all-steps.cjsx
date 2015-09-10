@@ -1,6 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
-
+Router = require 'react-router'
 api = require '../../api'
 {TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
@@ -109,29 +109,29 @@ ExternalUrl = React.createClass
   displayName: 'ExternalUrl'
   mixins: [StepMixin, StepFooterMixin]
   hideContinueButton: -> true
+  getDefaultProps: ->
+    redirectToUrl: (url) -> window.open( url, '_blank')
+
   onContinue: ->
     {id, onStepCompleted} = @props
     onStepCompleted() if StepPanel.canContinue(id)
-  getUrl: ->
-    {id} = @props
-    {external_url} = TaskStepStore.get(id)
-    unless /^https?:\/\//.test(external_url)
-      external_url = "http://#{external_url}"
 
-    external_url
+  onClick: (ev) ->
+    @onContinue() # will mark as complete
+    @props.redirectToUrl(TaskStore.getExternalStep(@props.taskId).external_url)
+    # Since the browser has called the onClick handler, it was a "normal" left-button click
+    # In that case we don't want to open up the external assignment page.
+    # A right click "open-in-new-tab" click would open the page and redirect that way
+    ev.preventDefault()
 
   renderBody: ->
     {taskId} = @props
     {description, title} = TaskStore.get(taskId)
-    external_url = @getUrl()
-
-    descriptionHTML = <Markdown text={description}/> if description? and description.length > 0
-
     <div className='external-step'>
       <h1>
-        <a href={external_url} target='_blank' onClick={@onContinue}>{title}</a>
+        <Router.Link onClick={@onClick} to='viewExternalTask' params={{taskId}}>{title}</Router.Link>
       </h1>
-      {descriptionHTML}
+      <Markdown text={description}/>
     </div>
 
 Spacer = React.createClass

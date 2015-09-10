@@ -221,6 +221,13 @@ TaskConfig =
 
       result
 
+    getExternalStep: (id) ->
+      step = _.findWhere(@_steps[id], type: 'external_url')
+      unless step?.external_url.match(/^https?:\/\//)
+        step.external_url = "http://#{step.external_url}"
+      step
+
+
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
 module.exports = {TaskActions:actions, TaskStore:store}

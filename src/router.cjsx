@@ -2,6 +2,7 @@ React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
+{ExternalTaskShell} = require './components/task/external'
 {CourseListing} = require './components/course-listing'
 LearningGuideShell = require './components/learning-guide'
 {ScoresShell} = require './components/scores'
@@ -22,6 +23,7 @@ routes = (
     <Route path='/' handler={App} name='app'>
       <Redirect from='/' to='dashboard' />
       <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
+      <Route path='external-task/:taskId' name='viewExternalTask' handler={ExternalTaskShell} />
       <Route path='courses/:courseId/?'>
         <Router.DefaultRoute handler={TeacherTaskPlans}/>
 
