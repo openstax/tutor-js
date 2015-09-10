@@ -22,10 +22,10 @@ MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
 
 LinkContentMixin =
   componentDidMount:  ->
-    @processLinks()
+    _.defer(@processLinks)
 
   componentDidUpdate: ->
-    @processLinks()
+    _.defer(@processLinks)
 
   contextTypes:
     router: React.PropTypes.func
@@ -116,12 +116,12 @@ ReadingContentMixin =
   componentDidMount:  ->
     @insertOverlays()
     @detectImgAspectRatio()
-    @processLinks()
+    _.defer(@processLinks)
 
   componentDidUpdate: ->
     @insertOverlays()
     @detectImgAspectRatio()
-    @processLinks()
+    _.defer(@processLinks)
 
   contextTypes:
     router: React.PropTypes.func

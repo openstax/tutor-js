@@ -16,7 +16,6 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
 module.exports = React.createClass
-  _exerciseNodes: []
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -96,17 +95,8 @@ module.exports = React.createClass
 
   renderExercise: (link) ->
     exerciseAPIUrl = link.href
-
-    if link.parentNode.parentNode?
-      @_exerciseNodes.push(link.parentNode.parentNode)
-      React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, link.parentNode.parentNode)
-
-  unmountExerciseComponent: (node, nodeIndex) ->
-    React.unmountComponentAtNode(node) if node?
-    @_exerciseNodes.splice(nodeIndex, 1)
-
-  componentWillReceiveProps: ->
-    _.each(@_exerciseNodes, @unmountExerciseComponent)
+    exerciseNode = link.parentNode.parentNode
+    React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
   render: ->
     {courseId, cnxId, className, ecosystemId} = @props

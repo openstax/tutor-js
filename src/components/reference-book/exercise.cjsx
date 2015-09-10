@@ -4,6 +4,7 @@ React = require 'react'
 
 Question = require '../question'
 LoadableItem = require '../loadable-item'
+ArbitraryHtml = require '../html'
 
 ReferenceBookMissingExercise = React.createClass
   displayName: 'ReferenceBookMissingExercise'
@@ -40,6 +41,9 @@ ReferenceBookExerciseShell = React.createClass
   load: ->
     {exerciseAPIUrl} = @props
     ReferenceBookExerciseActions.load(exerciseAPIUrl) unless @isLoading()
+  renderExercise: ->
+    exerciseHtml = React.renderToStaticMarkup(<ReferenceBookExercise {...@props} />)
+    <ArbitraryHtml html={exerciseHtml}/>
   render: ->
     {exerciseAPIUrl} = @props
 
@@ -50,7 +54,7 @@ ReferenceBookExerciseShell = React.createClass
       load={@load}
       store={ReferenceBookExerciseStore}
       actions={ReferenceBookExerciseActions}
-      renderItem={=> <ReferenceBookExercise {...@props} />}
+      renderItem={@renderExercise}
       renderLoading={-> <span className='loading-exercise'>Loading exercise...</span>}
       renderError={-> <ReferenceBookMissingExercise/>}
     />
