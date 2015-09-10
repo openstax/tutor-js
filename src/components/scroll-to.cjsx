@@ -55,7 +55,6 @@ ScrollTo =
 
     step = ->
       elapsed = Date.now() - startTime
-      console.log "SCROP"
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) )
       requestAnimationFrame(step) if elapsed < duration
     step()
