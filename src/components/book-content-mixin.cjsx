@@ -17,10 +17,6 @@ MEDIA_LINK_EXCLUDES = [
   '[data-targeted=media]'
 ]
 
-# elements that are currently targeted by the URL's hash are
-# scrolled down this much in order to appear below the top navbar
-FOCUSED_TARGET_TOP_POSITION = 100
-
 MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
   "#{current}:not(#{exclude})"
 , 'a')
