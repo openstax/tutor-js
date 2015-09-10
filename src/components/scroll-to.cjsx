@@ -7,6 +7,8 @@ _ = require 'underscore'
 Position = require './get-position-mixin'
 
 DEFAULT_DURATION   = 750 # milliseconds
+# This is calculated to be enough for the targeted element to fit under the top navbar
+# The navbar's height is controlled by the less variable @tutor-navbar-height from global/navbar.less
 DEFAULT_TOP_OFFSET = 80  # pixels
 
 # http://blog.greweb.fr/2012/02/bezier-curve-based-easing-functions-from-concept-to-implementation/
