@@ -22,10 +22,10 @@ MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
 
 LinkContentMixin =
   componentDidMount:  ->
-    _.defer(@processLinks)
+    @processLinks()
 
   componentDidUpdate: ->
-    _.defer(@processLinks)
+    @processLinks()
 
   contextTypes:
     router: React.PropTypes.func
@@ -99,6 +99,10 @@ LinkContentMixin =
     link.dataset.targeted = 'media'
 
   processLinks: ->
+    _.defer(@_processLinks)
+
+  _processLinks: ->
+    return unless @isMounted()
     root = @getDOMNode()
     mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)
     exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
@@ -116,12 +120,12 @@ ReadingContentMixin =
   componentDidMount:  ->
     @insertOverlays()
     @detectImgAspectRatio()
-    _.defer(@processLinks)
+    @processLinks()
 
   componentDidUpdate: ->
     @insertOverlays()
     @detectImgAspectRatio()
-    _.defer(@processLinks)
+    @processLinks()
 
   contextTypes:
     router: React.PropTypes.func
