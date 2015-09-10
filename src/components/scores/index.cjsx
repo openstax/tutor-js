@@ -175,7 +175,7 @@ Scores = React.createClass
       else
         d.last_name.toLowerCase()
     )
-    { headings: scores.data_headings, rows: if sort.asc then sortData.reverse() else sortData }
+    { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
 
   render: ->
     {courseId} = @props
