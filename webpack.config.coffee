@@ -1,7 +1,10 @@
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 module.exports =
-  entry: "./index.coffee"
+  entry: [
+    './resources/index.coffee'
+    './index.coffee'
+  ]
   output:
     path: 'dist'
     filename: 'tutor.js'
