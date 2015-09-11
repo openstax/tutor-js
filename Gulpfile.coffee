@@ -7,22 +7,21 @@ gutil           = require 'gulp-util'
 gzip            = require 'gulp-gzip'
 karma           = require 'karma'
 rev             = require 'gulp-rev'
-source          = require 'vinyl-source-stream'
 tar             = require 'gulp-tar'
 watch           = require 'gulp-watch'
 webpack         = require 'webpack'
 webpackServer   = require 'webpack-dev-server'
 WPExtractText   = require 'extract-text-webpack-plugin'
 
-TestRunner      = require './test/runner'
+TestRunner      = require './test/config/test-runner'
 webpackConfig   = require './webpack.config'
 
 KARMA_CONFIG =
-  configFile: __dirname + '/test/karma.config.coffee'
+  configFile: __dirname + '/test/config/karma.config.coffee'
   singleRun: true
 
 KARMA_COVERAGE_CONFIG =
-  configFile: __dirname + '/test/karma-coverage.config.coffee'
+  configFile: __dirname + '/test/config/karma-coverage.config.coffee'
   singleRun: true
 
 DIST_DIR = './dist'
@@ -128,6 +127,5 @@ gulp.task 'dev', ['_cleanDist', '_webserver']
 gulp.task 'tdd', ['_cleanDist', '_webserver'], ->
   runner = new TestRunner()
   watch('{src,test}/**/*', (change) ->
-    gutil.log("[change]", change.relative)
     runner.onFileChange(change) unless change.unlink
   )

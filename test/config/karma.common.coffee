@@ -1,7 +1,7 @@
 _ = require 'underscore'
 
 module.exports =
-  basePath: '../'
+  basePath: '../../'
   frameworks: ['mocha', 'chai', 'chai-sinon', 'phantomjs-shim']
   browsers: ['PhantomJS']
   reporters: ['mocha']
