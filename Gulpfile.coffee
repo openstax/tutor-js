@@ -26,13 +26,6 @@ KARMA_COVERAGE_CONFIG =
 
 DIST_DIR = './dist'
 
-handleErrors = (title) => (args...) =>
-  # TODO: Send error to notification center with gulp-notify
-  console.error(title, args...)
-  # Keep gulp from hanging on this task
-  @emit('end')
-
-
 # -----------------------------------------------------------------------
 #  Build Javascript and Styles using webpack
 # -----------------------------------------------------------------------
@@ -75,11 +68,6 @@ gulp.task '_archive', ['_tagRev'], ->
 # -----------------------------------------------------------------------
 #  Development
 # -----------------------------------------------------------------------
-#
-gulp.task '_karma', ->
-  server = new karma.Server(KARMA_CONFIG)
-  server.start()
-
 gulp.task '_webserver', ->
   config = _.extend( {}, webpackConfig)
   config.entry.tutor.unshift(
