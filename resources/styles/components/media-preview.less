@@ -1,13 +1,21 @@
 .media-preview {
-  max-width: 40%;
+  max-width: 75%;
+  max-height: 75%;
+
+  .popover-content {
+    overflow: auto;
+    width: 100%;
+    height: inherit;
+  }
 
   .tutor-figure();
   .tutor-tables(@tutor-neutral-light, @tutor-neutral-light);
 
   table {
-    #fonts > .sans(1.2rem, 2rem);
-    thead tr:first-of-type:not(:last-child) th{
-      #fonts > .sans(1.5rem, 2.5rem);
+    text-align: left;
+
+    td {
+      padding: 4px;
     }
   }
 }

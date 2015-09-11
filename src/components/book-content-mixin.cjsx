@@ -97,10 +97,10 @@ LinkContentMixin =
 
   processLink: (link) ->
     if @isMediaLink(link)
-      if not @hasCNXId(link) and @isMediaLoaded(link)
+      if @isMediaLoaded(link)
         @linkPreview(link)
         return null
-      else
+      else if @hasCNXId(link)
         @linkToAnotherPage(link)
         return null
     else

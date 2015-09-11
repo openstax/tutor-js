@@ -18,8 +18,12 @@ MediaPreview = React.createClass
     mediaId: React.PropTypes.string.isRequired
     onClick: React.PropTypes.func
 
-  componentDidUpdate: ->
+  componentDidMount: ->
+    # tables should be scroll-able
+    media = MediaStore.get(@props.mediaId)
+    @updateOverlayPositioning() if media.name is 'table'
 
+  componentDidUpdate: ->
     # Make sure the popover re-positions after the image loads
     if @refs.viewer? and @state.firstView
       viewer = @refs.viewer.getDOMNode()
@@ -30,6 +34,20 @@ MediaPreview = React.createClass
   imageLoaded: ->
     @refs.popper.updateOverlayPosition()
     @setState({firstView: false})
+
+  updateOverlayPositioning: ->
+    # updates popper positioning function to
+    # explicitly set height so that content
+    # can inherit the height for scrolling content
+    updateOverlayPosition = @refs.popper.updateOverlayPosition
+    @refs.popper.updateOverlayPosition = ->
+      updateOverlayPosition()
+      viewer = @getOverlayDOMNode()
+      # set to auto first to get most natural height
+      viewer.style.height = 'auto'
+      {height} = viewer.getBoundingClientRect()
+      # re-bound height so that content will inherit height
+      viewer.style.height = "#{height}px"
 
   getDefaultProps: ->
     buffer: 160
@@ -102,8 +120,8 @@ MediaPreview = React.createClass
     linkProps = @getLinkProps(overlayProps)
 
     media = MediaStore.get(mediaId)
-    mediaPop = <BS.Popover>
-      <ArbitraryHtml html={media.html} className='media-preview' ref='viewer'/>
+    mediaPop = <BS.Popover className='media-preview' ref='popover'>
+      <ArbitraryHtml html={media.html} className='media-preview-content' ref='viewer'/>
     </BS.Popover>
 
     linkText = children unless children is '[link]'
