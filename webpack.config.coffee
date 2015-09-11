@@ -1,12 +1,19 @@
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 isProduction = process.env.NODE_ENV is 'production'
 LOADERS = if isProduction then [] else ["react-hot", "webpack-module-hot-accept"]
+lessLoader = if isProduction
+  { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
+else
+  { test: /\.less$/,   loaders: LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
 
 module.exports =
   cache: true
 
   entry:
-    tutor: ["./index.coffee"]
+    tutor: [
+      './index.coffee'
+      './resources/styles/tutor.less'
+    ]
 
   output:
     path: 'dist'
@@ -14,7 +21,7 @@ module.exports =
     publicPath: '/dist/'
 
   plugins: [
-    #new ExtractTextPlugin("tutor.css")
+    new ExtractTextPlugin("tutor.css")
   ]
 
   module:
@@ -22,13 +29,10 @@ module.exports =
       /\/sinon\.js/
     ]
     loaders: [
+      lessLoader
       { test: /\.json$/,   loader: "json-loader" }
       { test: /\.coffee$/, loaders: LOADERS.concat("coffee-loader") }
       { test: /\.cjsx$/,   loaders: LOADERS.concat("coffee-jsx-loader") }
-      { test: /\.less$/,   loaders:
-        if isProduction then [ExtractTextPlugin.extract('css!less')]
-        else LOADERS.concat('style-loader', 'css-loader', 'less-loader')
-      }
       { test: /\.(png|jpg|svg)/, loader: 'file-loader?name=[name].[ext]'}
       { test: /\.(woff|woff2|eot|ttf)/, loader: "url-loader?limit=30000&name=[name]-[hash].[ext]" }
    ]

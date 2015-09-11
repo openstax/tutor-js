@@ -1,25 +1,28 @@
 _ = require 'underscore'
+coffeelint      = require 'gulp-coffeelint'
+del             = require 'del'
+fileExists      = require 'file-exists'
 gulp            = require 'gulp'
 gutil           = require 'gulp-util'
-karma           = require 'karma'
-source          = require 'vinyl-source-stream'
-rev             = require 'gulp-rev'
-del             = require 'del'
-tar             = require 'gulp-tar'
 gzip            = require 'gulp-gzip'
-coffeelint      = require 'gulp-coffeelint'
+gulpKarma       = require 'gulp-karma'
+karma           = require 'karma'
+rev             = require 'gulp-rev'
+source          = require 'vinyl-source-stream'
+tar             = require 'gulp-tar'
+watch           = require 'gulp-watch'
 webpack         = require 'webpack'
+webpackConfig   = require './webpack.config'
 webpackServer   = require 'webpack-dev-server'
 WPExtractText   = require 'extract-text-webpack-plugin'
-webpackConfig   = require './webpack.config'
 
 KARMA_CONFIG =
   configFile: __dirname + '/test/karma.config.coffee'
-  singleRun: false
+  singleRun: true
 
 KARMA_COVERAGE_CONFIG =
   configFile: __dirname + '/test/karma-coverage.config.coffee'
-  singleRun: false
+  singleRun: true
 
 DIST_DIR = './dist'
 
@@ -115,17 +118,59 @@ gulp.task 'prod', ['_archive']
 gulp.task 'serve', ['_webserver']
 
 gulp.task 'test', ['lint'], (done) ->
-  config = _.extend({}, KARMA_CONFIG, singleRun: true)
-  server = new karma.Server(config)
+  server = new karma.Server(KARMA_CONFIG)
   server.start()
 
 gulp.task 'coverage', ->
-  config = _.extend({}, KARMA_COVERAGE_CONFIG, singleRun: true)
-  server = new karma.Server(config)
+  server = new karma.Server(KARMA_COVERAGE_CONFIG)
   server.start()
 
 # clean out the dist directory before running since otherwise stale files might be served from there.
 # The _webserver task builds and serves from memory with a fallback to files in dist
 gulp.task 'dev', ['_cleanDist', '_webserver']
 
-gulp.task 'tdd', ['_cleanDist', '_webserver', '_karma']
+gulp.task 'tdd', ['_cleanDist', '_webserver'], ->
+  watch('{src,test}/**/*', (change) ->
+    gutil.log("[change]", change.relative)
+    TestChangedFile(change) unless change.unlink
+  )
+
+
+isKarmaRunning = false
+PendingSpecs = []
+
+RunKarma = ->
+  return if isKarmaRunning or PendingSpecs.length is 0
+  isKarmaRunning = true
+  gutil.log("[specs]", gutil.colors.green("testing #{PendingSpecs.join(' ')}"))
+  specs = _.clone PendingSpecs
+  PendingSpecs = []
+  console.log specs
+  gulp.src( specs )
+    .pipe( gulpKarma({ configFile: KARMA_CONFIG.configFile, action: 'run' }) )
+    .on('error', (err) ->
+      isKarmaRunning = false
+      gutil.log("[karma]", gutil.colors.red(err))
+    )
+    .on('end',  (code) ->
+      isKarmaRunning = false
+      gutil.log("[karma]", gutil.colors.green("done"))
+      RunKarma()
+    )
+
+TestChangedFile = (change) ->
+  if change.relative.match(/^src/)
+    testPath = change.relative.replace('src', 'test')
+    testPath.replace(/\.(\w+)$/, ".spec.coffee")
+    spec = testPath.replace(/\.(\w+)$/, ".spec.coffee")
+    existingSpecs = _.select([
+      testPath.replace(/\.(\w+)$/, ".spec.cjsx"), testPath.replace(/\.(\w+)$/, ".spec.coffee")
+    ], fileExists)
+    if _.isEmpty(existingSpecs)
+      gutil.log("[change]", gutil.colors.red("no spec was found"))
+    else
+      gutil.log("[change]", gutil.colors.green("testing #{existingSpecs.join(' ')}"))
+      PendingSpecs.push(existingSpecs...)
+  else
+    PendingSpecs.push(change.relative)
+  RunKarma()

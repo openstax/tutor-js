@@ -18,6 +18,7 @@ HTML = """
 </div>
 """
 
+
 describe 'DOM Helpers', ->
 
   beforeEach ->
