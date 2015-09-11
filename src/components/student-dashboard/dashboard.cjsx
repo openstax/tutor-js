@@ -10,7 +10,7 @@ ThisWeekPanel   = require './this-week-panel'
 
 PracticeButton = require '../buttons/practice-button'
 ProgressGuideShell = require './progress-guide'
-BrowseBookButton = require '../buttons/browse-the-book'
+BrowseTheBook = require '../buttons/browse-the-book'
 
 CourseDataMixin = require '../course-data-mixin'
 
@@ -65,9 +65,9 @@ module.exports = React.createClass
           <BS.Col xs=12 md=4 lg=3>
             <ProgressGuideShell courseId={courseId} sampleSizeThreshold=3 />
             <div className='actions-box'>
-              <BrowseBookButton unstyled courseId={courseId}>
+              <BrowseTheBook unstyled courseId={courseId}>
                 <div>Browse the Book</div>
-              </BrowseBookButton>
+              </BrowseTheBook>
             </div>
           </BS.Col>
 

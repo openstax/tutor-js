@@ -18,13 +18,18 @@
       font-weight: 900;
       color: @tutor-neutral-darker;
     }
-    
+
     .date-range {
       #fonts .sans(1.4rem, @student-dashboard-row-height);
       color: @tutor-neutral-darker;
       text-transform: uppercase;
     }
-
+    // Adjust height for when the columns collapse and progress appears below task title
+    @media screen and ( max-width: @screen-sm-min ){
+      // don't take up as much vertical space when collapsed
+      .panel-title { height: @student-dashboard-row-height / 2; }
+      .progress-label { padding-left: 0; }
+    }
   }
 
   .panel > .panel-body {

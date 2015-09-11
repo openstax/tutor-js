@@ -95,13 +95,14 @@ ChooseReadings = React.createClass
     @props.hide()
 
   render: ->
-    buttonStyle = if @props.selected?.length then 'primary' else 'disabled'
+    buttonStyle = if @props.selected?.length then 'primary' else 'default'
     header = <span>Select Readings</span>
 
     primary =
       <BS.Button
         className='-show-problems'
         bsStyle={buttonStyle}
+        disabled={@props.selected?.length is 0}
         onClick={@hide}>Add Readings
       </BS.Button>
 

@@ -257,6 +257,16 @@
   }
 }
 
+.printer-safe(@display: inherit; @position: inherit; @top: inherit; @margin-top: inherit;) {
+  @media print {
+    display: @display;
+    position: @position;
+    top: @top;
+    margin-top: @margin-top;
+    transition: none;
+  }
+}
+
 // If you want to use these please uncomment.
 //
 // .tutor-shadow(3) {
