@@ -3,11 +3,6 @@
   animation: book-content-target-highlight 1.5s ease-out;
 }
 
-.offset-header() {
-  margin-top: -@tutor-navbar-height;
-  padding-top: @tutor-navbar-height;
-}
-
 a[target=_blank] {
   &::after {
     .fa-icon();
@@ -17,10 +12,6 @@ a[target=_blank] {
 }
 
 figure {
-  &:target {
-    .offset-header();
-  }
-
   &:target, &.target {
     .highlight-animation();
 
@@ -35,12 +26,13 @@ figure {
 }
 
 section, div, span, table {
-  &:target {
-    .offset-header();
-  }
-
-  &.target {
+  &:target, &.target {
     position: relative;
+
+    img {
+      mix-blend-mode: multiply;
+    }
+
     &::after {
       content: ' ';
       width: 100%;
@@ -50,13 +42,6 @@ section, div, span, table {
       mix-blend-mode: multiply;
 
       .highlight-animation();
-    }
-  }
-  &:target {
-    .highlight-animation();
-
-    img {
-      mix-blend-mode: multiply;
     }
   }
 }
