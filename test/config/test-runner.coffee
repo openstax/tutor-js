@@ -1,11 +1,11 @@
 _ = require 'underscore'
-gulpKarma = require 'gulp-karma'
-Karma     = require 'karma'
-gulp      = require 'gulp'
-gutil     = require 'gulp-util'
-moment    = require 'moment'
-
-KarmaConfig = __dirname + '/karma.config.coffee'
+#gulpKarma = require 'gulp-karma'
+Karma  = require 'karma'
+gulp   = require 'gulp'
+gutil  = require 'gulp-util'
+moment = require 'moment'
+path   = require 'path'
+spawn  = require('child_process').spawn
 
 class TestRunner
 
@@ -20,19 +20,19 @@ class TestRunner
     gutil.log("[specs]", gutil.colors.green("testing #{specs.join(' ')}"))
     @pendingSpecs = []
     startAt = moment()
-    gulp.src( specs )
-      .pipe( gulpKarma({ configFile: __dirname + '/karma.config.coffee', action: 'run' }) )
-      .on('error', (err) ->
-        isKarmaRunning = false
-        gutil.log("[karma]", gutil.colors.red(err))
-      )
-      .on('end',  (code) =>
-        isKarmaRunning = false
-        duration = moment.duration(moment().diff(startAt))
-        elapsed = duration.minutes() + ':' + duration.seconds()
-        gutil.log("[karma]", gutil.colors.green("done. #{specs.length} specs in #{elapsed}"))
-        @runKarma()
-      )
+
+    child = spawn( 'node', [
+      path.join(__dirname, 'karma-in-background.js'),
+      JSON.stringify(specs)
+    ], {stdio: 'inherit'} )
+
+    child.on('exit', (exitCode) =>
+      isKarmaRunning = false
+      duration = moment.duration(moment().diff(startAt))
+      elapsed = duration.minutes() + ':' + duration.seconds()
+      gutil.log("[test]", gutil.colors.green("done. #{specs.length} specs in #{elapsed}"))
+      @runKarma()
+    )
 
   onFileChange: (change) ->
     if change.relative.match(/^src/)
@@ -45,10 +45,10 @@ class TestRunner
       if _.isEmpty(existingSpecs)
         gutil.log("[change]", gutil.colors.red("no spec was found"))
       else
-        gutil.log("[change]", gutil.colors.green("testing #{existingSpecs.join(' ')}"))
         @pendingSpecs.push(existingSpecs...)
     else
       @pendingSpecs.push(change.relative)
+    gutil.log("[test]", gutil.colors.green("pending: #{@pendingSpecs.join(' ')}")) if @pendingSpecs.length
     @runKarma()
 
 module.exports = TestRunner
