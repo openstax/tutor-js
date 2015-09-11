@@ -232,13 +232,12 @@
   }
 }
 
-.printer-safe(@display: inherit; @margin: inherit; @position: inherit; @top: inherit; @left: inherit;) {
+.printer-safe(@display: inherit; @position: inherit; @top: inherit; @margin-top: inherit;) {
   @media print {
     display: @display;
-    margin: @margin;
     position: @position;
     top: @top;
-    left: @left;
+    margin-top: @margin-top;
     transition: none;
   }
 }
