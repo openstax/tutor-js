@@ -15,16 +15,11 @@ MediaPreview = React.createClass
 
   propTypes:
     mediaId: React.PropTypes.string.isRequired
-    buffer: React.PropTypes.number
-    onClick: React.PropTypes.func
     media: React.PropTypes.object
+    buffer: React.PropTypes.number
 
   getDefaultProps: ->
     buffer: 160
-    onClick: (clickEvent) ->
-      # if desired, on click could trigger a modal for example.
-      # need to talk to UI
-      clickEvent.preventDefault()
 
   checkShouldPop: ->
     return true unless @props.media
