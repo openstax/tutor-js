@@ -13,7 +13,7 @@ module.exports =
 
   preprocessors:
     'src/**/*.{coffee,cjsx}': ['webpack', 'sourcemap']
-    'test/*':  ['webpack', 'sourcemap']
+    'test/**/*':  ['webpack', 'sourcemap']
 
   webpack:
     devtool: 'eval-source-map'
