@@ -1,8 +1,5 @@
 {Testing, sinon, expect, _, React} = require './helpers/component-testing'
 
-React = require 'react'
-_ = require 'underscore'
-
 S = require '../../src/helpers/string'
 
 {MediaActions, MediaStore} = require '../../src/flux/media'
@@ -15,11 +12,8 @@ checkDoesOverlayHTMLMatch = (element, media) ->
   popcontentDOM = element.refs.overlay.refs.popcontent.getDOMNode()
   overlayDOM = element.refs.overlay.refs.popper.getOverlayDOMNode()
 
-  expect(popcontentDOM.innerHTML)
-    .to.equal(media.html)
-
-  expect(overlayDOM.innerHTML)
-    .to.contain(media.html)
+  expect(popcontentDOM.innerHTML).to.equal(media.html)
+  expect(overlayDOM.innerHTML).to.contain(media.html)
 
 fakeMediaInViewport = (mediaDOM, window) ->
   mediaDOM.getBoundingClientRect = ->
@@ -58,10 +52,8 @@ describe 'Media Preview', ->
     Testing
       .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: '[link]'} )
       .then ({dom, element}) ->
-        expect(dom)
-          .to.have.property('tagName').and.equal('A')
-        expect(dom)
-          .to.have.property('classList')
+        expect(dom).to.have.property('tagName').and.equal('A')
+        expect(dom).to.have.property('classList')
         expect(dom.classList.contains('media-preview-link')).to.be.true
 
   it 'should render inner text as media\'s name when [link] is passed in', ->
@@ -73,8 +65,7 @@ describe 'Media Preview', ->
     Testing
       .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: '[link]'} )
       .then ({dom, element}) ->
-        expect(dom)
-          .to.have.property('innerText').and.equal(S.capitalize(media.name))
+        expect(dom).to.have.property('innerText').and.equal(S.capitalize(media.name))
 
   it 'should render inner text as passed in string when not [link]', ->
 
@@ -85,8 +76,7 @@ describe 'Media Preview', ->
     Testing
       .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure'} )
       .then ({dom, element}) ->
-        expect(dom)
-          .to.have.property('innerText').and.equal('this figure')
+        expect(dom).to.have.property('innerText').and.equal('this figure')
 
   it 'should render matching overlay HTML on mouse enter without media prop', ->
 
@@ -117,8 +107,7 @@ describe 'Media Preview', ->
         Testing.actions.mouseLeave(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent)
-          .to.be.falsy
+        expect(element.refs.overlay.refs.popcontent).to.be.falsy
 
   it 'should render matching overlay HTML on click without media prop', ->
 
@@ -155,8 +144,7 @@ describe 'Media Preview', ->
         Testing.actions.blur(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent)
-          .to.be.falsy
+        expect(element.refs.overlay.refs.popcontent).to.be.falsy
 
   it 'should not render matching overlay HTML on click with media prop', ->
 
@@ -172,8 +160,7 @@ describe 'Media Preview', ->
       .then ({dom, element}) ->
 
         Testing.actions.click(dom)
-        expect(element.refs.overlay.refs.popcontent)
-          .to.be.falsy
+        expect(element.refs.overlay.refs.popcontent).to.be.falsy
 
   it 'should be able to determine if media in viewport', ->
     TaskActions.loaded(taskData)
@@ -208,12 +195,10 @@ describe 'Media Preview', ->
       .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', media: mediaDOM} )
       .then ({dom, element}) ->
 
-        expect(mediaDOM.classList.contains('target'))
-          .to.be.false
+        expect(mediaDOM.classList.contains('target')).to.be.false
 
         Testing.actions.mouseEnter(dom)
-        expect(mediaDOM.classList.contains('target'))
-          .to.be.true
+        expect(mediaDOM.classList.contains('target')).to.be.true
 
   it 'should unhighlight media if in viewport on mouse leave', ->
 
@@ -232,8 +217,7 @@ describe 'Media Preview', ->
 
         Testing.actions.mouseEnter(dom)
         Testing.actions.mouseLeave(dom)
-        expect(mediaDOM.classList.contains('target'))
-          .to.be.false
+        expect(mediaDOM.classList.contains('target')).to.be.false
 
   it 'should render matching overlay HTML on mouse enter if media not in viewport', ->
 
@@ -276,6 +260,4 @@ describe 'Media Preview', ->
         Testing.actions.mouseLeave(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent)
-          .to.be.falsy
-
+        expect(element.refs.overlay.refs.popcontent).to.be.falsy

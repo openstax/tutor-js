@@ -42,6 +42,7 @@ require './components/scores/reading-cell.spec'
 require './components/scores/homework-cell.spec'
 require './components/name.spec'
 require './components/media-preview.spec'
+require './components/tutor-popover.spec'
 
 # Flux your muscle
 require './crud-store.spec'

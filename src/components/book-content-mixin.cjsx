@@ -67,9 +67,7 @@ LinkContentMixin =
 
   isMediaLoaded: (link) ->
     mediaId = link.hash.replace('#', '')
-    media = MediaStore.get(mediaId)
-
-    media?
+    MediaStore.get(mediaId)?
 
   getMedia: (mediaId) ->
     root = @getDOMNode()
