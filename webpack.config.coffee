@@ -1,4 +1,5 @@
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
+
 isProduction = process.env.NODE_ENV is 'production'
 LOADERS = if isProduction then [] else ["react-hot", "webpack-module-hot-accept"]
 lessLoader = if isProduction
@@ -9,16 +10,18 @@ else
 module.exports =
   cache: true
 
+  devtool: if isProduction then undefined else 'source-map'
+
   entry:
     tutor: [
-      './index.coffee'
+      './index.coffee',
       './resources/styles/tutor.less'
     ]
 
   output:
-    path: 'dist'
+    path: if isProduction then 'dist' else '/'
     filename: '[name].js'
-    publicPath: '/dist/'
+    publicPath: if isProduction then '/dist/' else 'http://localhost:8000/dist/'
 
   plugins: [
     new ExtractTextPlugin("tutor.css")
@@ -42,7 +45,6 @@ module.exports =
   devServer:
     contentBase: './'
     publicPath: 'http://localhost:8000/dist/'
-    hotComponents: true
     historyApiFallback: true
     inline: true
     port: 8000
@@ -51,6 +53,10 @@ module.exports =
     # It suppress everything except error, so it has to be set to false as well
     # to see success build.
     noInfo: false
+    host: 'localhost',
+    outputPath: '/',
+    filename: '[name].js',
+    hot: true
     stats:
       # Config for minimal console.log mess.
       assets: false,

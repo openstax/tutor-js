@@ -82,11 +82,7 @@ gulp.task '_karma', ->
   server.start()
 
 gulp.task '_webserver', ->
-  config = _.extend( {}, webpackConfig, {
-    devtool: 'source-map'
-  })
-  config.output.path = '/'
-  config.output.publicPath = 'http://localhost:8000/dist/'
+  config = _.extend( {}, webpackConfig)
   config.entry.tutor.unshift(
     './node_modules/webpack-dev-server/client/index.js?http://localhost:8000'
     'webpack/hot/dev-server'
@@ -94,7 +90,6 @@ gulp.task '_webserver', ->
   config.plugins.push( new webpack.HotModuleReplacementPlugin() )
   for loader in config.module.loaders when _.isArray(loader.loaders)
     loader.loaders.unshift("react-hot", "webpack-module-hot-accept")
-
   server = new webpackServer(webpack(config), config.devServer)
   server.listen(webpackConfig.devServer.port, '0.0.0.0', (err) ->
     throw new gutil.PluginError("webpack-dev-server", err) if err
