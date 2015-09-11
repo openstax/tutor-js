@@ -28,8 +28,15 @@ MediaConfig =
   _get: (id) ->
     @_local[id]
 
+  reset: ->
+    @_local = {}
+    delete @parseHandler
+    delete @parser
+
   exports:
     get: (id) -> @_get(id)
+    getMediaIds: ->
+      _.keys(@_local)
 
 {actions, store} = makeSimpleStore(MediaConfig)
 module.exports = {MediaActions:actions, MediaStore:store}

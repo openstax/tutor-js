@@ -61,9 +61,10 @@ MediaPreview = React.createClass
       @highlightMedia()
 
   hideMedia: ->
-    if @state.popped and not @state.stick
-      @setState(popped: false)
-      @refs.overlay.hide()
+    if @state.popped
+      if not @state.stick
+        @setState(popped: false)
+        @refs.overlay.hide()
     else
       @unhighlightMedia()
 

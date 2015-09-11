@@ -42,8 +42,27 @@ TaskConfig =
     step = _.find(@_steps[taskId], (s) -> s.id is stepId)
     step
 
+  _grabHtmlFromReading: (step) ->
+    step.content_html
+
+  _grabHtmlFromExercise: (step) ->
+    return '' unless step.content?
+
+    html = step.content.stimulus_html
+    questionHtml = _.pluck(step.content.questions, 'stem_html').join('')
+    html += questionHtml
+
+  _grabHtml: (obj) ->
+    htmlToParse = _.map(obj.steps, (step) =>
+      if step.type is 'reading'
+        html = @_grabHtmlFromReading(step)
+      else if step.type is 'exercise'
+        html = @_grabHtmlFromExercise(step)
+      html
+    ).join('')
+
   _loaded: (obj, id) ->
-    MediaActions.parse(_.pluck(obj.steps, 'content_html').join(''))
+    MediaActions.parse(@_grabHtml(obj))
     # Populate all the TaskSteps when a Task is loaded
     @_steps ?= {}
     # Remove the steps so Components are forced to use `.getSteps()` to get
