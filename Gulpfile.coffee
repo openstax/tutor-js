@@ -5,16 +5,17 @@ fileExists      = require 'file-exists'
 gulp            = require 'gulp'
 gutil           = require 'gulp-util'
 gzip            = require 'gulp-gzip'
-gulpKarma       = require 'gulp-karma'
 karma           = require 'karma'
 rev             = require 'gulp-rev'
 source          = require 'vinyl-source-stream'
 tar             = require 'gulp-tar'
 watch           = require 'gulp-watch'
 webpack         = require 'webpack'
-webpackConfig   = require './webpack.config'
 webpackServer   = require 'webpack-dev-server'
 WPExtractText   = require 'extract-text-webpack-plugin'
+
+TestRunner      = require './test/runner'
+webpackConfig   = require './webpack.config'
 
 KARMA_CONFIG =
   configFile: __dirname + '/test/karma.config.coffee'
@@ -130,47 +131,8 @@ gulp.task 'coverage', ->
 gulp.task 'dev', ['_cleanDist', '_webserver']
 
 gulp.task 'tdd', ['_cleanDist', '_webserver'], ->
+  runner = new TestRunner()
   watch('{src,test}/**/*', (change) ->
     gutil.log("[change]", change.relative)
-    TestChangedFile(change) unless change.unlink
+    runner.onFileChange(change) unless change.unlink
   )
-
-
-isKarmaRunning = false
-PendingSpecs = []
-
-RunKarma = ->
-  return if isKarmaRunning or PendingSpecs.length is 0
-  isKarmaRunning = true
-  gutil.log("[specs]", gutil.colors.green("testing #{PendingSpecs.join(' ')}"))
-  specs = _.clone PendingSpecs
-  PendingSpecs = []
-  console.log specs
-  gulp.src( specs )
-    .pipe( gulpKarma({ configFile: KARMA_CONFIG.configFile, action: 'run' }) )
-    .on('error', (err) ->
-      isKarmaRunning = false
-      gutil.log("[karma]", gutil.colors.red(err))
-    )
-    .on('end',  (code) ->
-      isKarmaRunning = false
-      gutil.log("[karma]", gutil.colors.green("done"))
-      RunKarma()
-    )
-
-TestChangedFile = (change) ->
-  if change.relative.match(/^src/)
-    testPath = change.relative.replace('src', 'test')
-    testPath.replace(/\.(\w+)$/, ".spec.coffee")
-    spec = testPath.replace(/\.(\w+)$/, ".spec.coffee")
-    existingSpecs = _.select([
-      testPath.replace(/\.(\w+)$/, ".spec.cjsx"), testPath.replace(/\.(\w+)$/, ".spec.coffee")
-    ], fileExists)
-    if _.isEmpty(existingSpecs)
-      gutil.log("[change]", gutil.colors.red("no spec was found"))
-    else
-      gutil.log("[change]", gutil.colors.green("testing #{existingSpecs.join(' ')}"))
-      PendingSpecs.push(existingSpecs...)
-  else
-    PendingSpecs.push(change.relative)
-  RunKarma()
