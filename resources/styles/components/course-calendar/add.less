@@ -9,9 +9,9 @@
   }
 
   li {
-    a[href*="readings"] { .tutor-plan(add, 'reading'); }
-    a[href*="homeworks"] { .tutor-plan(add, 'homework'); }
-    a[href*="externals"] { .tutor-plan(add, 'external'); }
+    &[data-assignment-type=reading] a { .tutor-plan(add, 'reading'); }
+    &[data-assignment-type=homework] a { .tutor-plan(add, 'homework'); }
+    &[data-assignment-type=external] a { .tutor-plan(add, 'external'); }
   }
 
   .dropdown-menu > li > a,

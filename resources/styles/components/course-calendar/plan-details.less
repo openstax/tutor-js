@@ -10,11 +10,11 @@ body.modal-open {
   .tutor-plan-modal(@calendar-inactive-background);
 
   &.is-published {
-    &.reading-modal      { .tutor-plan(modal, 'reading'); }
-    &.homework-modal     { .tutor-plan(modal, 'homework'); }
-    &.external-modal     { .tutor-plan(modal, 'external'); }
-    &.event-modal        { .tutor-plan(modal, 'event'); }
-    &.extras-modal       { .tutor-plan(modal, 'extras'); }
+    &[data-assignment-type=reading]      { .tutor-plan(modal, 'reading'); }
+    &[data-assignment-type=homework]     { .tutor-plan(modal, 'homework'); }
+    &[data-assignment-type=external]     { .tutor-plan(modal, 'external'); }
+    &[data-assignment-type=event]        { .tutor-plan(modal, 'event'); }
+    &[data-assignment-type=extras]       { .tutor-plan(modal, 'extras'); }
   }
 
   &.is-publishing {

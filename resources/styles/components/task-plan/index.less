@@ -8,3 +8,9 @@
 @import './select-topics';
 @import './chapter-section';
 @import './footer';
+
+.task-plan {
+  &[data-assignment-type=reading] .dialog > .panel-heading { .tutor-plan(header, 'reading'); }    
+  &[data-assignment-type=homework] .dialog > .panel-heading { .tutor-plan(header, 'homework'); }
+  &[data-assignment-type=external] .dialog > .panel-heading { .tutor-plan(header, 'external'); }
+}

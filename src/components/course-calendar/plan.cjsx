@@ -141,7 +141,6 @@ CoursePlan = React.createClass
   buildPlanClasses: (plan, publishStatus, isPublishing, isActive) ->
     planClasses = [
       'plan-label-long'
-      "#{plan.type}"
       "course-plan-#{plan.id}"
     ]
 
