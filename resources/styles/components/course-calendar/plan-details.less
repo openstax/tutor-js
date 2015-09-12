@@ -1,12 +1,29 @@
 @progress-bar-width: 100%;
 @modal-padding: 20px;
 
+.x-plan-header(@plan-color, @border-width: 12px) {
+  color: @tutor-neutral-darker;
+  background-color: fade(@plan-color, 20%);
+  border-left-color: @plan-color;
+  border-left-width: @border-width;
+  border-left-style: solid;
+
+  button.close {
+    .opacity(0.5);
+    color: @close-color;
+    text-shadow: @close-text-shadow;
+
+    &:hover,
+    &:focus {
+      .opacity(0.75);
+    }
+  }
+}
+
 .x-plan-modal(@plan-color) {
   .modal-content {
     .modal-header {
-      background: (@plan-color);
-      border: none;
-      color: @tutor-white;
+      .x-plan-header(@plan-color);
     }
   }
 
