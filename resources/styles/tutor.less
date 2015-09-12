@@ -21,6 +21,7 @@
 @import './global/tooltip';
 @import './global/debug-toggle';
 @import './global/menus';
+@import './global/icons';
 
 // Component Styling
 @import './components/loadable';
@@ -49,8 +50,8 @@
 @import './components/pinned-header-footer-card/sections';
 @import './components/student-dashboard';
 
-@import './components/performance/index';
-@import './components/performance/export';
+@import './components/scores/index';
+@import './components/scores/export';
 
 @import './components/tutor-input';
 @import './components/reference-book/index';
@@ -58,7 +59,13 @@
 
 // OLD Global
 @import './old/global/buttons';
-@import './old/global/icons';
 
 // OLD Components
 @import './old/task-plan/homework';
+
+
+body[data-js-error]::before {
+  content: attr(data-js-error);
+  font-size: 100px;
+  color: red;
+}

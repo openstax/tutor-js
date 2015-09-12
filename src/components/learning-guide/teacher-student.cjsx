@@ -6,7 +6,7 @@ _ = require 'underscore'
 Name = require '../name'
 BindStoreMixin = require '../bind-store-mixin'
 LearningGuide = require '../../flux/learning-guide'
-{PerformanceStore} = require '../../flux/performance'
+{ScoresStore} = require '../../flux/scores'
 
 Guide = require './guide'
 InfoLink = require './info-link'
@@ -37,13 +37,13 @@ module.exports = React.createClass
     @context.router.transitionTo('viewStudentTeacherGuide', {courseId, roleId})
 
   renderHeading: ->
-    students = PerformanceStore.getAllStudents(@props.courseId)
-    selected = PerformanceStore.getStudent(@props.courseId, @state.roleId)
+    students = ScoresStore.getAllStudents(@props.courseId)
+    selected = ScoresStore.getStudent(@props.courseId, @state.roleId)
     return null unless selected
     name = <Name {...selected} />
     <div className='guide-heading'>
       <div className='guide-group-title'>
-        Performance Forecast for:
+        <span className='preamble'>Performance Forecast for:</span>
         <BS.DropdownButton bzSize='large' className='student-selection' title={name}
           bsStyle='link' onSelect={@onSelectStudent}>
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
@@ -53,10 +53,10 @@ module.exports = React.createClass
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
       </div>
-      <Router.Link activeClassName='' to='viewPerformance'
+      <Router.Link activeClassName='' to='viewScores'
         className='btn btn-default back'
         params={courseId: @props.courseId}>
-        Return to Performance Report
+        Return to Scores
       </Router.Link>
     </div>
 

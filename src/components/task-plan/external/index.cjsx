@@ -6,7 +6,7 @@ validator = require 'validator'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
-{TocStore, TocActions} = require '../../../flux/toc'
+
 PlanFooter = require '../footer'
 PlanMixin = require '../plan-mixin'
 TaskPlanBuilder = require '../builder'

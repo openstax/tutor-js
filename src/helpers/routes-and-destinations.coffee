@@ -5,7 +5,7 @@ DASHBOARD = 'Dashboard'
 EXTERNAL_BUILDER = 'External Assignment'
 HOMEWORK_BUILDER = 'Homework Builder'
 LEARNING_GUIDE = 'Performance Forecast'
-PERFORMANCE_REPORT = 'Performance Report'
+SCORES = 'Scores'
 PLAN_REVIEW = 'Plan Review'
 PLAN_STATS = 'Plan Stats'
 PRACTICE = 'Practice'
@@ -18,7 +18,7 @@ REMEMBERED_ROUTES =
   viewStudentDashboard: DASHBOARD
   viewGuide: LEARNING_GUIDE
   viewTeacherDashboard: DASHBOARD
-  viewPerformance: PERFORMANCE_REPORT
+  viewScores: SCORES
   viewTeacherGuide: LEARNING_GUIDE
   viewStudentTeacherGuide: LEARNING_GUIDE
   taskplans: DASHBOARD

@@ -24,6 +24,7 @@ CrudConfig = ->
     # If the specific type needs to do something else to the object:
     # _loaded : (obj, id) ->
     # _saved : (obj, id) ->
+    # _reset : ->
 
     reset: ->
       @_asyncStatus = {}
@@ -31,6 +32,8 @@ CrudConfig = ->
       @_changed = {}
       @_errors = {}
       @_reload = {}
+
+      @_reset?()
       @emitChange()
 
     FAILED: (status, msg, id) ->
@@ -130,7 +133,7 @@ CrudConfig = ->
     _get: (id) ->
       val = @_local[id]
       return null unless val or @_asyncStatus[id] is SAVING
-      # Performance Report stores an Array unlike most other stores
+      # Scores stores an Array unlike most other stores
       if _.isArray(val)
         val
       else

@@ -5,6 +5,7 @@ _  = require 'underscore'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{CourseActions, CourseStore} = require '../../flux/course'
 {Invalid} = require '../index'
 
 LoadableItem = require '../loadable-item'
@@ -57,14 +58,23 @@ ReferenceBookShell = React.createClass
   displayName: 'ReferenceBookShell'
   contextTypes:
     router: React.PropTypes.func
+  componentWillMount: ->
+    {courseId} = @context.router.getCurrentParams()
+
+    unless CourseStore.isLoaded(courseId)
+      CourseActions.load(courseId)
+      CourseStore.once('course.loaded', @setState.bind(@, {}))
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
+    {ecosystemId} = @context.router.getCurrentQuery()
+    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
+
     <LoadableItem
-      id={courseId}
+      id={ecosystemId}
       store={ReferenceBookStore}
       actions={ReferenceBookActions}
-      renderItem={ -> <ReferenceBook courseId={courseId}/> }
+      renderItem={ -> <ReferenceBook courseId={courseId} ecosystemId={ecosystemId}/> }
     />
 
 

@@ -16,7 +16,7 @@
   z-index: 2;
 }
 
-.tutor-background-image(@img) { background-image:url("@{img}"); }
+.tutor-background-image(@img) { background-image:url("../images/@{img}"); }
 
 .tutor-shadow(1) {
   box-shadow:
@@ -115,14 +115,14 @@
   color: #7BB049;
   // TODO can we switch this out with @tutor-tertiary
   background-color: #243064;
-  .tutor-background-image("physics-title-background.svg");
+  .tutor-background-image("courses/physics-title-background.svg");
 }
 
 .tutor-biology-cover-background() {
   color: #5E5F61;
   // TODO can we switch this out with @tutor-secondary
   background-color: #7BB04A;
-  .tutor-background-image("biology-title-background.svg");
+  .tutor-background-image("courses/biology-title-background.svg");
 }
 
 .tutor-popover() {
@@ -189,6 +189,56 @@
   @keyframes fadein {
     from { opacity:0; }
     to { opacity:1; }
+  }
+}
+
+.tutor-tables(@table-header, @table-bottom-color) {
+  table {
+    width: 100%;
+    margin-bottom: 32px;
+    #fonts > .sans(1.75rem, 3.6rem);
+    padding: 20px 0;
+    line-height: 2.5rem;
+    thead {
+      th {
+        padding: 8px 10px;
+        background: @table-header;
+        border-bottom: solid 2px @tutor-neutral-light;
+      }
+      tr:first-of-type:not(:last-child) th {
+        padding-left: 0;
+      }
+    }
+    tr:nth-child(odd) {
+       background: @tutor-neutral-lightest;
+     }
+    tr:nth-child(even) {
+       background: @tutor-white;
+     }
+    td {
+      padding: 8px 10px;
+    }
+    tbody {
+      border-top: solid 4px @tutor-neutral-light;
+      border-bottom: solid 4px @table-bottom-color;
+    }
+    caption,
+    thead tr:first-of-type:not(:last-child) th{
+      background: @tutor-white;
+     #fonts > .sans(2rem, 3rem);
+     font-weight: 900;
+     color: @tutor-neutral-darker;
+    }
+  }
+}
+
+.printer-safe(@display: inherit; @position: inherit; @top: inherit; @margin-top: inherit;) {
+  @media print {
+    display: @display;
+    position: @position;
+    top: @top;
+    margin-top: @margin-top;
+    transition: none;
   }
 }
 

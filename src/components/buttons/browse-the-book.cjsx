@@ -1,5 +1,6 @@
 React = require 'react'
-BS = require 'react-bootstrap'
+_ = require 'underscore'
+NewTabLink = require '../new-tab-link'
 {CourseStore} = require '../../flux/course'
 
 module.exports = React.createClass
@@ -13,24 +14,53 @@ module.exports = React.createClass
 
   propTypes:
     courseId:  React.PropTypes.string
+    ecosystemId:  React.PropTypes.string
     chapterId: React.PropTypes.number
     sectionId: React.PropTypes.number
     page:      React.PropTypes.string
     unstyled:  React.PropTypes.bool
     bsStyle:   React.PropTypes.string
 
-  render: ->
-    courseId = @props.courseId or @context.router.getCurrentParams().courseId
+  getLinkProps: ->
+    linkProps =
+      className: 'view-reference-guide'
 
-    return null unless courseId # if we don't have a course id we can't browse it's book
+    linkProps.className += " #{@props.className}" if @props.className
+    linkProps.className += " btn btn-#{@props.bsStyle}" unless @props.unstyled
+
+    omitProps = _.chain(@propTypes)
+      .keys()
+      .union(['children', 'className', 'unstyled'])
+      .value()
+    # most props should transfer, such as onClick
+    transferProps = _.omit(@props, omitProps)
+
+    _.extend({}, transferProps, linkProps)
+
+  buildRouteProps: (courseId) ->
+    unless @props.page
+      {ecosystemId} = @props
+      courseEcosystemId = CourseStore.get(courseId)?.ecosystem_id
+
+      # only link with ecosystem id if needed.
+      if ecosystemId isnt courseEcosystemId
+        queryParams = {ecosystemId}
 
     # the router is smart enough to figure out which props are present and return the best route
     linkType = if @props.page then 'viewReferenceBookPage' else
       if @props.section then 'viewReferenceBookSection' else 'viewReferenceBook'
-    link = @context.router.makeHref( linkType, {courseId, cnxId: @props.page, section:@props.section} )
-    linkProps = {target:'_blank', className:'view-reference-guide', href: link}
+
+    routeProps =
+      to: linkType
+      params: {courseId, cnxId: @props.page, section:@props.section}
+      query: queryParams
+
+  render: ->
+    courseId = @props.courseId or @context.router.getCurrentParams().courseId
+    return null unless courseId # if we don't have a course id we can't browse it's book
+
+    routeProps = @buildRouteProps(courseId)
+    linkProps = _.extend({}, routeProps, @getLinkProps())
     text = @props.children or 'Browse the Book'
-    if @props.unstyled
-      <a {...linkProps}>{text}</a>
-    else
-      <BS.Button bsStyle={@props.bsStyle} {...linkProps}>{text}</BS.Button>
+
+    <NewTabLink {...linkProps}>{text}</NewTabLink>

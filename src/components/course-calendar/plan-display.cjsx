@@ -4,8 +4,15 @@ camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
 DisplayProperties =
-  plan: React.PropTypes.object.isRequired
-  display: React.PropTypes.object.isRequired
+  plan: React.PropTypes.shape(
+    id: React.PropTypes.string.isRequired
+    durationLength: React.PropTypes.number.isRequired
+  ).isRequired
+  display: React.PropTypes.shape(
+    offset: React.PropTypes.number.isRequired
+    order: React.PropTypes.number.isRequired
+    weekTopOffset: React.PropTypes.number.isRequired
+  ).isRequired
   label: React.PropTypes.node.isRequired
   courseId: React.PropTypes.string.isRequired
   planClasses: React.PropTypes.string.isRequired

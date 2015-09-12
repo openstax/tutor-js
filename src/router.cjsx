@@ -4,7 +4,7 @@ Router = require 'react-router'
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
 LearningGuideShell = require './components/learning-guide'
-{PerformanceShell} = require './components/performance'
+{ScoresShell} = require './components/scores'
 {ReadingShell, HomeworkShell, ExternalShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
@@ -37,8 +37,8 @@ routes = (
 
         <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
-          <Route path='performance/?' name='viewPerformance'
-            handler={Handler(PerformanceShell, requireRole: 'teacher')} />
+          <Route path='scores/?' name='viewScores'
+            handler={Handler(ScoresShell, requireRole: 'teacher')} />
           <Route path='guide' name='viewTeacherGuide'
             handler={Handler(LearningGuideShell.Teacher, requireRole: 'teacher')} />
           <Route path='guide/student/:roleId?' name='viewStudentTeacherGuide'
@@ -83,7 +83,7 @@ routes = (
       </Route>
       <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
     </Route> # end of App route
-    <Route path='/books/:courseId' name='viewReferenceBook' handler={ReferenceBookShell}>
+    <Route path='/books/:courseId/?' name='viewReferenceBook' handler={ReferenceBookShell}>
       <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookPageShell}/>
 
       <Route path='section/:section'
