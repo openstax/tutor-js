@@ -58,6 +58,7 @@
     "fixed-data-table": "0.4.1",
     "gulp": "~3.9",
     "gulp-coffeelint": "^0.4.0",
+    "gulp-env": "^0.2.0",
     "gulp-gzip": "~1.0.0",
     "gulp-rev": "~3.0.1",
     "gulp-tar": "~1.4.0",
