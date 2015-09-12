@@ -8,24 +8,10 @@
     padding: 3px 20px;
   }
 
-  .x-add-plan(@plan-color) {
-    color: @tutor-neutral-darker;
-    border-left: 5px solid transparent;
-    background-color: transparent;
-    .transition(~"background-color .1s ease-in, border-color .1s ease-in");
-
-    &:hover,
-    &.active,
-    &.open {
-    	border-color: @plan-color;
-      background-color: fade(@plan-color, 20%);
-    }
-  }
-
   li {
-    a[href*="readings"] { .x-add-plan(@reading-color); }
-    a[href*="homeworks"] { .x-add-plan(@homework-color); }
-    a[href*="externals"] { .x-add-plan(@external-color); }
+    a[href*="readings"] { .tutor-plan(add, 'reading'); }
+    a[href*="homeworks"] { .tutor-plan(add, 'homework'); }
+    a[href*="externals"] { .tutor-plan(add, 'external'); }
   }
 
   .dropdown-menu > li > a,
