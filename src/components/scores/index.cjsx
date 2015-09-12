@@ -91,7 +91,7 @@ Scores = React.createClass
           {if heading.average then heading.average.toFixed(2) else 'Review'}
         </Router.Link>
 
-    sortingHeader = <SortingHeader sortKey={i}
+    sortingHeader = <SortingHeader type={heading.type} sortKey={i}
       sortState={@state.sort} onSort={@changeSortingOrder}
     >{heading.title}</SortingHeader>
 

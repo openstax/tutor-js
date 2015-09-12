@@ -1,7 +1,12 @@
-.tutor-plan(header, @plan-type) {
+.tutor-plan(header, @plan-type, @plan-border-size: 'normal') {
+  @plan-border-name: "plan-border-@{plan-border-size}";
+  @plan-border-normal: 12px;
+  @plan-border-small: 5px;
+  @plan-border: @@plan-border-name;
+
   @plan-color-name: "@{plan-type}-color";
   @plan-color: @@plan-color-name;
-  .tutor-plan-header(@plan-color);
+  .tutor-plan-header(@plan-color, @plan-border);
 }
 
 .tutor-plan(modal, @plan-type) {
@@ -22,11 +27,11 @@
   .tutor-plan-display(@plan-color);
 }
 
-.tutor-plan-header(@plan-color) {
+.tutor-plan-header(@plan-color, @plan-border-width: 12px) {
   color: @tutor-neutral-darker;
   background-color: fade(@plan-color, 20%);
   border-left-color: @plan-color;
-  border-left-width: 12px;
+  border-left-width: @plan-border-width;
   border-left-style: solid;
 
   button.close {

@@ -40,6 +40,7 @@
     .public_fixedDataTableCell_wrap3 {
       display: block;
       width: 100%;
+      height: inherit;
     }
   }
 
@@ -64,6 +65,19 @@
     }
     &.is-ascending:after  { content: @fa-var-sort-asc;  }
     &.is-descending:after { content: @fa-var-sort-desc; }
+
+    &[data-assignment-type=reading] {
+      height: 100%;
+      .tutor-plan(header, 'reading', 'small');
+    }
+    &[data-assignment-type=homework] {
+      height: 100%;
+      .tutor-plan(header, 'homework', 'small');
+    }
+    &[data-assignment-type=external] {
+      height: 100%;
+      .tutor-plan(header, 'external', 'small');
+    }
   }
 
   i.late {
