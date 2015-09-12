@@ -1,6 +1,7 @@
 _ = require 'underscore'
 coffeelint      = require 'gulp-coffeelint'
 del             = require 'del'
+env             = require 'gulp-env'
 fileExists      = require 'file-exists'
 gulp            = require 'gulp'
 gutil           = require 'gulp-util'
@@ -14,7 +15,6 @@ webpackServer   = require 'webpack-dev-server'
 WPExtractText   = require 'extract-text-webpack-plugin'
 
 TestRunner      = require './test/config/test-runner'
-webpackConfig   = require './webpack.config'
 
 KARMA_CONFIG =
   configFile: __dirname + '/test/config/karma.config.coffee'
@@ -33,6 +33,8 @@ gulp.task '_cleanDist', (done) ->
   del(['./dist/*'], done)
 
 gulp.task '_build', ['_cleanDist'], (done) ->
+  env(vars:{ NODE_ENV: 'production' })
+  webpackConfig = require './webpack.config'
   config = _.extend({}, webpackConfig, {
     plugins: [
       new WPExtractText("tutor.min.css")
@@ -69,6 +71,8 @@ gulp.task '_archive', ['_tagRev'], ->
 #  Development
 # -----------------------------------------------------------------------
 gulp.task '_webserver', ->
+  env(vars:{ NODE_ENV: 'development' })
+  webpackConfig = require './webpack.config'
   config = _.extend( {}, webpackConfig)
   config.entry.tutor.unshift(
     './node_modules/webpack-dev-server/client/index.js?http://localhost:8000'
