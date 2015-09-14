@@ -6,6 +6,7 @@ gutil  = require 'gulp-util'
 moment = require 'moment'
 path   = require 'path'
 spawn  = require('child_process').spawn
+fileExists = require 'file-exists'
 
 class TestRunner
 
