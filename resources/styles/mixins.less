@@ -97,6 +97,13 @@
   #fonts > .sans(1.2rem, 1.2rem);
 }
 
+.tutor-task-step-question-uid() {
+  position: absolute;
+  right: @tutor-card-body-padding-horizontal;
+  bottom: 10px;
+  .tutor-exercise-question-uid();
+}
+
 .tutor-icon-active(@scale: 1.4; @shadow: 0.12) {
   .scale(@scale);
   .box-shadow(0 1px 6px rgba(0, 0, 0, @shadow));
