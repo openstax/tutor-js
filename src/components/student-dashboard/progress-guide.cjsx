@@ -9,7 +9,6 @@ ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
 LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
-PracticeButton = require '../learning-guide/practice-button'
 Section = require '../learning-guide/section'
 
 # Number of sections to display
@@ -84,10 +83,6 @@ ProgressGuidePanels = React.createClass
     sections = LearningGuide.Student.store.getAllSections(@props.courseId)
     recent = LearningGuide.Helpers.recentSections(sections)
     return @renderEmpty(sections) if _.isEmpty(recent)
-
-    practiceSections = LearningGuide.Helpers.weakestSections(sections)
-    if _.isEmpty(practiceSections)
-      practiceSections = recent
 
     <div className='progress-guide'>
       <div className='actions-box'>
