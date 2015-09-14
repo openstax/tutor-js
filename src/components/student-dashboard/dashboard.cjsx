@@ -52,7 +52,7 @@ module.exports = React.createClass
               activeKey = {@state.selectedTabIndex}
               onSelect  = {@selectTab}
               animation = {false}>
-              <BS.TabPane eventKey={1} tab='This  Week'>
+              <BS.TabPane eventKey={1} tab='This Week'>
                 <ThisWeekPanel courseId={courseId}/>
                 <UpcomingPanel courseId={courseId}/>
               </BS.TabPane>
