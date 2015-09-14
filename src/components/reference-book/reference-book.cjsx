@@ -24,6 +24,21 @@ module.exports = React.createClass
   bindStore: CourseListingStore
   bindEvent: 'loaded'
 
+  getPageState: ->
+    {cnxId} = @context.router.getCurrentParams()
+    # Pop open the menu unless the page was explicitly navigated to
+    isMenuVisible: not cnxId
+    pageProps: @getPageProps()
+
+  setPageState: ->
+    @setState(@getPageState())
+
+  getInitialState: ->
+    @getPageState()
+
+  componentWillReceiveProps: (nextProps) ->
+    @setPageState()
+
   componentWillMount: ->
     {courseId, cnxId, section} = @context.router.getCurrentParams()
     query = {ecosystemId} = @context.router.getCurrentQuery()
@@ -52,11 +67,6 @@ module.exports = React.createClass
 
     {cnxId, section, courseId, ecosystemId, query}
 
-  getInitialState: ->
-    {cnxId} = @context.router.getCurrentParams()
-    # Pop open the menu unless the page was explicitly navigated to
-    {isMenuVisible: not cnxId}
-
   toggleTeacherEdition: (ev) ->
     @setState(showTeacherEdition: not @state.showTeacherEdition)
     ev?.preventDefault() # stops react-router from scrolling to top
@@ -69,7 +79,7 @@ module.exports = React.createClass
     ev?.preventDefault() # needed to prevent scrolling to top
 
   render: ->
-    pageProps = @getPageProps()
+    {pageProps} = @state
     {courseId} = pageProps
     courseDataProps = @getCourseDataProps(courseId)
 
