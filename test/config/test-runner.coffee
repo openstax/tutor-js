@@ -44,7 +44,7 @@ class TestRunner
         testPath.replace(/\.(\w+)$/, ".spec.cjsx"), testPath.replace(/\.(\w+)$/, ".spec.coffee")
       ], fileExists)
       if _.isEmpty(existingSpecs)
-        gutil.log("[change]", gutil.colors.red("no spec was found"))
+        gutil.log("[change]", gutil.colors.red("no spec was found for #{change.relative}"))
       else
         @pendingSpecs.push(existingSpecs...)
     else
