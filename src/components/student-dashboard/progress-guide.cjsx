@@ -94,9 +94,6 @@ ProgressGuidePanels = React.createClass
 
         <ProgressGuide sections={recent} courseId={@props.courseId} />
 
-        <PracticeButton ref='practiceBtn' title='Practice my weakest topics'
-            courseId={@props.courseId} sections={practiceSections} />
-
         <BS.Button
           onClick={@viewGuide}
           className='view-learning-guide'
