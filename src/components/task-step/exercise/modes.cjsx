@@ -41,7 +41,7 @@ ExerciseFreeResponse = React.createClass
 
   isContinueEnabled: ->
     {id} = @props
-    {free_response} = TaskStepStore.get(id)
+    {free_response, content} = TaskStepStore.get(id)
     response = free_response or @state.freeResponse
     response?.trim().length > 0
 
@@ -60,6 +60,7 @@ ExerciseFreeResponse = React.createClass
         value={@state.freeResponse or ''}
         onChange={@onFreeResponseChange}
         />
+      <div className="exercise-uid">{content.uid}</div>
     </div>
 
   componentDidMount: ->
