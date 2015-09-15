@@ -109,6 +109,10 @@ LinkContentMixin =
     @linkMediaElsewhere(mediaCNXId, link)
 
   processLinks: ->
+    _.defer(@_processLinks)
+
+  _processLinks: ->
+    return unless @isMounted()
     root = @getDOMNode()
     mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)
     exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
@@ -119,8 +123,8 @@ LinkContentMixin =
       .uniq()
       .value()
 
-    @renderOtherLinks?(otherLinks)
-    @renderExercises?(exerciseLinks)
+    @renderOtherLinks?(otherLinks) if otherLinks?.length
+    @renderExercises?(exerciseLinks) if exerciseLinks?.length
 
 ReadingContentMixin =
   componentDidMount:  ->
