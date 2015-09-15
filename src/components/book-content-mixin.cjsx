@@ -3,7 +3,7 @@ _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
 
-MediaPreview = require './media-preview'
+{MediaPreview} = require './media-preview'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
 {MediaStore} = require '../flux/media'
@@ -76,18 +76,19 @@ LinkContentMixin =
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
     media = @getMedia(mediaId)
+    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
 
     previewNode = document.createElement('span')
     previewNode.classList.add('media-preview-wrapper')
     link.parentNode.replaceChild(previewNode, link)
 
-    linkProps =
+    mediaProps =
       mediaId: mediaId
+      cnxId: mediaCNXId
+      bookHref: @buildReferenceBookLink(mediaCNXId)
+      media: media
 
-    if media?
-      linkProps.media = media
-
-    mediaPreview = <MediaPreview {...linkProps}>
+    mediaPreview = <MediaPreview {...mediaProps}>
         {link.innerText}
       </MediaPreview>
 

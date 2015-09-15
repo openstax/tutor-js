@@ -6,7 +6,7 @@ S = require '../../src/helpers/string'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 
 taskData = require '../../api/tasks/4.json'
-MediaPreview = require '../../src/components/media-preview'
+{MediaPreview} = require '../../src/components/media-preview'
 
 checkDoesOverlayHTMLMatch = (element, media) ->
   popcontentDOM = element.refs.overlay.refs.popcontent.getDOMNode()
@@ -109,42 +109,19 @@ describe 'Media Preview', ->
         expect(element.state.stick).to.be.false
         expect(element.refs.overlay.refs.popcontent).to.be.falsy
 
-  it 'should render matching overlay HTML on click without media prop', ->
+  it 'should render external link book link when without media prop', ->
 
     TaskActions.loaded(taskData)
     mediaIds = MediaStore.getMediaIds()
-    media = MediaStore.get(mediaIds[0])
+    mediaId = mediaIds[0]
+    media = MediaStore.get(mediaId)
+    bookHref = 'link-to-book'
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure'} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaId, bookHref: bookHref, children: 'this figure'} )
       .then ({dom, element}) ->
-        Testing.actions.click(dom)
-        expect(element.state.popped).to.be.true
-        expect(element.state.stick).to.be.true
-        checkDoesOverlayHTMLMatch(element, media)
-
-  it 'should close overlay on blur only for a stuck media link', ->
-
-    TaskActions.loaded(taskData)
-    mediaIds = MediaStore.getMediaIds()
-    media = MediaStore.get(mediaIds[0])
-
-    Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure'} )
-      .then ({dom, element}) ->
-        Testing.actions.click(dom)
-        expect(element.state.popped).to.be.true
-        expect(element.state.stick).to.be.true
-
-        Testing.actions.mouseLeave(dom)
-        expect(element.state.popped).to.be.true
-        expect(element.state.stick).to.be.true
-        checkDoesOverlayHTMLMatch(element, media)
-
-        Testing.actions.blur(dom)
-        expect(element.state.popped).to.be.false
-        expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent).to.be.falsy
+        expect(dom.href).to.contain(bookHref).and.to.contain(mediaId)
+        expect(dom.target).to.equal('_blank')
 
   it 'should not render matching overlay HTML on click with media prop', ->
 

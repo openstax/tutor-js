@@ -63,19 +63,6 @@ MediaPreview = React.createClass
     else
       @unhighlightMedia()
 
-  onBlur: (mouseEvent) ->
-    if @state.stick
-      @setState(stick: false, popped: false)
-      @refs.overlay.hide()
-
-  onClick: (mouseEvent) ->
-    # Go to target as usual if media is on page
-    # Take out if we just want the media to stick on click
-    return if @props.media
-
-    mouseEvent.preventDefault()
-    @stickMedia()
-
   onMouseEnter: (mouseEvent) ->
     mouseEvent.preventDefault()
     @showMedia()
@@ -88,7 +75,7 @@ MediaPreview = React.createClass
     _.pick(@props, 'containerPadding')
 
   getLinkProps: (otherProps) ->
-    {mediaId} = @props
+    {mediaId, media, bookHref} = @props
 
     otherPropTypes = _.chain(otherProps)
       .keys()
@@ -97,11 +84,14 @@ MediaPreview = React.createClass
 
     # most props should pass on
     linkProps = _.omit(@props, otherPropTypes)
-    linkProps.href = "##{mediaId}"
     linkProps['data-targeted'] = 'media'
 
-    linkProps.onClick = @onClick
-    linkProps.onBlur = @onBlur
+    if media?
+      linkProps.href = "##{mediaId}"
+    else
+      linkProps.href = bookHref + "##{mediaId}"
+      linkProps.target = '_blank'
+
     linkProps.onMouseEnter = @onMouseEnter
     linkProps.onMouseLeave = @onMouseLeave
 
@@ -134,5 +124,5 @@ MediaPreview = React.createClass
 
     <TutorPopover {...allProps} ref='overlay'>{linkText}</TutorPopover>
 
-module.exports = MediaPreview
+module.exports = {MediaPreview}
   
