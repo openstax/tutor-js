@@ -17,6 +17,10 @@ module.exports =
       './index.coffee',
       './resources/styles/tutor.less'
     ]
+    qa: [
+      './qa.coffee',
+      './resources/styles/qa.less'
+    ]
 
   output:
     path: if isProduction then 'dist' else '/'
