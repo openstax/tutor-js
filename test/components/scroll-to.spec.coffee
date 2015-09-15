@@ -18,25 +18,45 @@ TestComponent = React.createClass
 describe 'ScrollTo Mixin', ->
 
   beforeEach ->
+    # TODO clean up location and window stubs to include in `helpers/component-testing`
+    windowListeners = {}
+
+    _location =
+      hash: ''
+    locationStub = {}
+    locationGetSet =
+      get: ->
+        _location.hash
+      set: (value) ->
+        _location.hash = value
+        windowListeners.hashchange?()
+    Object.defineProperty locationStub, 'hash', locationGetSet
+
     @props =
       windowImpl:
         scroll: sinon.spy()
-        location: { hash: '' }
+        location: locationStub
         pageYOffset: 0
-        addEventListener: sinon.spy()
-        removeEventListener: sinon.spy()
         requestAnimationFrame: sinon.spy()
-
-  it 'attaches event listeners when mounted', ->
-    Testing.renderComponent( TestComponent, props: @props ).then ({element}) =>
-      expect(@props.windowImpl.addEventListener).to.have.been.calledWith(
-        'hashchange', element._onHashChange, false
-      )
+        addEventListener: (name, callback) ->
+          windowListeners[name] = callback
+        removeEventListener: (name, callback) ->
+          delete windowListeners[name] if windowListeners[name] is callback
 
   it 'scrolls to target on page load if it exists', ->
     @props.windowImpl.location.hash = '#bar'
     Testing.renderComponent( TestComponent, props: @props ).then =>
       expect(@props.windowImpl.scroll).to.have.been.called
+
+  it 'scrolls to target on hash change', ->
+    @props.windowImpl.location.hash = '#bar'
+    Testing.renderComponent( TestComponent, props: @props ).then ({element, dom}) =>
+      element.scrollToElement = sinon.spy()
+      testHash = '#foo'
+      fooDOM = dom.querySelector(testHash)
+
+      @props.windowImpl.location.hash = testHash
+      expect(element.scrollToElement).to.have.been.calledWith(fooDOM)
 
   it 'scrolls to an element', ->
     Testing.renderComponent( TestComponent, props: @props ).then ({dom, element}) =>
