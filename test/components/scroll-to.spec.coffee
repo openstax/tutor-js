@@ -23,7 +23,15 @@ describe 'ScrollTo Mixin', ->
         scroll: sinon.spy()
         location: { hash: '' }
         pageYOffset: 0
+        addEventListener: sinon.spy()
+        removeEventListener: sinon.spy()
         requestAnimationFrame: sinon.spy()
+
+  it 'attaches event listeners when mounted', ->
+    Testing.renderComponent( TestComponent, props: @props ).then ({element}) =>
+      expect(@props.windowImpl.addEventListener).to.have.been.calledWith(
+        'hashchange', element._onHashChange, false
+      )
 
   it 'scrolls to target on page load if it exists', ->
     @props.windowImpl.location.hash = '#bar'
