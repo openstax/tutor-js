@@ -5,10 +5,10 @@ _ = require 'underscore'
 
 {TimeStore} = require '../flux/time'
 TimeHelper = require '../helpers/time'
+TutorDateFormat = TimeStore.getFormat()
 
 DatePicker = require 'react-datepicker'
 TutorErrors = require './tutor-errors'
-TutorDateFormat = "MM/DD/YYYY"
 
 TutorInput = React.createClass
   propTypes:
