@@ -37,7 +37,7 @@ ScrollTo =
     hash = @props.windowImpl.location.hash
     if hash
       @props.windowImpl.location.hash = ""
-      @scrollToSelector(hash)
+      @waitToScrollToSelector?(hash) or @scrollToSelector(hash)
 
     # listen for forward / back navigation between element selections
     @props.windowImpl.addEventListener('hashchange', @_onHashChange, false)
@@ -45,7 +45,6 @@ ScrollTo =
   componentWillUnmount: ->
     React.findDOMNode(@).removeEventListener('click', @_onScrollClick, false)
     @props.windowImpl.removeEventListener('hashchange', @_onHashChange, false)
-
 
   scrollToSelector: (selector) ->
     root = React.findDOMNode(@)
@@ -64,7 +63,12 @@ ScrollTo =
   _desiredTopPosition: (el) ->
     Position.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
 
+  _onBeforeScroll: (el) ->
+    el.classList.add('target')
+    @onBeforeScroll?(el)
+
   _onScrollComplete: (el, attemptNumber) ->
+    _.delay(el.classList.remove('target'), 150)
     # The element's postion may have changed if scrolling was initiated while
     # the page was still being manipulated.
     # If that's the case, we begin another scroll to it's current position
@@ -87,6 +91,8 @@ ScrollTo =
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) )
       if elapsed < duration then requestAnimationFrame(step)
       else @_onScrollComplete(el, attemptNumber)
+
+    @_onBeforeScroll?(el)
     step()
 
 
