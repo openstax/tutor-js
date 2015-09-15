@@ -12,7 +12,7 @@
     "url": "https://github.com/openstax/tutor-js.git"
   },
   "author": "Philip Schatz <http://philschatz.com>",
-  "license": "AGPL3",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/openstax/tutor-js/issues"
   },
