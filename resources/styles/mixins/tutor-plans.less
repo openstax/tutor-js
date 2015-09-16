@@ -1,3 +1,20 @@
+.tutor-plan(cell, @plan-type) {
+  @plan-color-name: "@{plan-type}-color";
+  @plan-color: @@plan-color-name;
+  .tutor-plan-cell(@plan-color);
+}
+
+.tutor-plan(heading, @plan-type, @plan-border-size: 'normal') {
+  @plan-border-name: "plan-border-@{plan-border-size}";
+  @plan-border-normal: 12px;
+  @plan-border-small: 5px;
+  @plan-border: @@plan-border-name;
+
+  @plan-color-name: "@{plan-type}-color";
+  @plan-color: @@plan-color-name;
+  .tutor-plan-heading(@plan-color, @plan-border);
+}
+
 .tutor-plan(header, @plan-type, @plan-border-size: 'normal') {
   @plan-border-name: "plan-border-@{plan-border-size}";
   @plan-border-normal: 12px;
@@ -25,6 +42,26 @@
   @plan-color-name: "@{plan-type}-color";
   @plan-color: @@plan-color-name;
   .tutor-plan-display(@plan-color);
+}
+
+.tutor-plan-cell(@plan-color) {
+  color: @tutor-neutral-darker;
+  background-color: fade(@plan-color, 2.5%);
+  mix-blend-mode: multiply;
+  .transition(background-color 0.1s ease-in);
+
+  &:not(div):hover {
+    text-decoration: none;
+    background-color: fade(@plan-color, 25%);
+  }
+}
+
+.tutor-plan-heading(@plan-color, @plan-border-width: 5px) {
+  color: @tutor-neutral-darker;
+  background-color: fade(@plan-color, 20%);
+  border-top-color: @plan-color;
+  border-top-width: @plan-border-width;
+  border-top-style: solid;
 }
 
 .tutor-plan-header(@plan-color, @plan-border-width: 12px) {

@@ -30,6 +30,7 @@
     max-width: 100%;
     height: 100%;
     max-height: 100%;
+    margin-top: -20px;
   }
 
   // removes the display as table, table-row & table-cell
@@ -42,6 +43,10 @@
       width: 100%;
       height: inherit;
     }
+  }
+
+  .fixedDataTableLayout_main {
+    border: none;
   }
 
   .header-cell {
@@ -68,15 +73,33 @@
 
     &[data-assignment-type=reading] {
       height: 100%;
-      .tutor-plan(header, 'reading', 'small');
+      .tutor-plan(heading, 'reading', 'small');
     }
     &[data-assignment-type=homework] {
       height: 100%;
-      .tutor-plan(header, 'homework', 'small');
+      .tutor-plan(heading, 'homework', 'small');
     }
     &[data-assignment-type=external] {
       height: 100%;
-      .tutor-plan(header, 'external', 'small');
+      .tutor-plan(heading, 'external', 'small');
+    }
+  }
+
+  .scores-cell, .assignment-header-cell, .student-name {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .scores-cell, .assignment-header-cell {
+    &[data-assignment-type=reading] {
+      .tutor-plan(cell, 'reading');
+    }
+    &[data-assignment-type=homework] {
+      .tutor-plan(cell, 'homework');
+    }
+    &[data-assignment-type=external] {
+      .tutor-plan(cell, 'external');
     }
   }
 
@@ -84,17 +107,41 @@
     .tutor-late-icon();
     padding-left:8px;
   }
+  .public_fixedDataTable_header, .public_fixedDataTable_header .public_fixedDataTableCell_main {
+    background: @tutor-white;
+  }
   .assignment-header-cell {
-    background: @tutor-neutral-light;
-    time {
-      &:before {
-        content: "Due:";
-        margin-right: 0.5rem;
+    padding: 0;
+
+    > div {
+      display: block;
+      width: 100%;
+      height: 50%;
+      padding: 8px;
+    }
+
+    > div:nth-child(even) {
+      background-color: #f6f7f8;
+    }
+
+    &[data-assignment-type] {
+      font-weight: 400;
+
+      > div:nth-child(even) {
+        mix-blend-mode: overlay;
       }
     }
+
     .review-plan {
-      float: right;
-      margin-right: 1rem;
+      &:not(.btn-link):not(.btn-flat):not(.btn-fab).btn {
+        margin: 3px 0;
+        float: right;
+        padding: 0 10px;
+      }
+    }
+
+    .summary {
+      font-weight: 600;
     }
 
     span.review-plan {

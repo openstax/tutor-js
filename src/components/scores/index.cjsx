@@ -75,10 +75,14 @@ Scores = React.createClass
   renderHeadingCell: (heading, i) ->
     i += FIRST_DATA_COLUMN # for the first/last name colums
     if heading.type is 'external'
-      reviewSummary = <QuickStatsShell
-        className='review-plan'
+      summary = <QuickStatsShell
+        className='summary'
         id={"#{heading.plan_id}"}
         periodId={@state.period_id}/>
+    else if heading.average
+      summary = <span className='summary'>
+        {heading.average.toFixed(1)}
+      </span>
 
     else if heading.plan_id?
       linkParams =
@@ -86,17 +90,28 @@ Scores = React.createClass
         periodIndex: @state.periodIndex
         courseId: @props.courseId
 
-      reviewSummary =
-        <Router.Link to='reviewTaskPeriod' params={linkParams} className='review-plan'>
-          {if heading.average then heading.average.toFixed(2) else 'Review'}
+      review =
+        <Router.Link
+          to='reviewTaskPeriod'
+          params={linkParams}
+          className='review-plan btn btn-default'>
+          Review
         </Router.Link>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
       sortState={@state.sort} onSort={@changeSortingOrder}
     >{heading.title}</SortingHeader>
 
-    customHeader = <div className='assignment-header-cell'>
-      <Time date={heading.due_at}/>{reviewSummary}
+    customHeader = <div
+      data-assignment-type="#{heading.type}"
+      className='assignment-header-cell'>
+      <div>
+        <Time date={heading.due_at} format='shortest'/>
+      </div>
+      <div>
+        {summary}
+        {review}
+      </div>
     </div>
 
     <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
@@ -107,7 +122,6 @@ Scores = React.createClass
         cellRenderer={-> @cellData}
         width={@state.colSetWidth}
         flexGrow={1}
-
         isResizable=false
         dataKey={i} />
     </ColumnGroup>
@@ -135,11 +149,21 @@ Scores = React.createClass
     emptyCell = <div className='blank' />
     header =
       <SortingHeader sortKey='name' sortState={@state.sort} onSort={@changeSortingOrder}>
-        Name
+        Class
       </SortingHeader>
+    dueDateHeading = <div>Due Date</div>
+    customHeader = <div className='assignment-header-cell'>
+      {dueDateHeading}
+      {header}
+    </div>
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
-      <Column width={300} dataKey='0' fixed={true}
-        cellRenderer={-> @cellData} headerRenderer={-> header} />
+      <Column
+        width={@state.colSetWidth}
+        flexGrow={1}
+        dataKey='0'
+        fixed={true}
+        cellRenderer={-> @cellData}
+        headerRenderer={-> customHeader} />
     </ColumnGroup>
 
   changeSortingOrder: (key) ->
@@ -203,7 +227,7 @@ Scores = React.createClass
           rowsCount={data.rows.length}
           width={tableWidth}
           height={tableHeight}
-          headerHeight={46}
+          headerHeight={92}
           groupHeaderHeight={50}>
 
           {@renderNameHeader()}
