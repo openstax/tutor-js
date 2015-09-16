@@ -23,6 +23,23 @@ fakePopoverShouldLeft = (popperElement, window) ->
     overlayLeft: 600
   window.innerWidth = 800
 
+fakePopoverShouldScroll = (popperElement, window) ->
+  calledOnce = false
+  window.innerHeight = 600
+
+  getOverlayDOMNode = popperElement.getOverlayDOMNode
+  popperElement.getOverlayDOMNode = ->
+    overlayDOM = getOverlayDOMNode()
+    overlayDOM.getBoundingClientRect = ->
+      rect =
+        height: if calledOnce then 500 else 800
+      calledOnce = true
+      rect
+    overlayDOM
+
+  popperElement.updateOverlayPosition()
+
+
 PopoverWrapper = React.createClass
   displayName: 'PopoverWrapper'
   makeProps: ->
@@ -131,10 +148,20 @@ describe 'Tutor Popover', ->
         overlayDOM = element.refs.overlay.refs.popper.getOverlayDOMNode()
         expect(overlayDOM.style.cssText).to.not.contain('height')
 
-  it 'should set overlay height if set to scrollable', ->
+  it 'should set overlay height and be scrollable if overlay height is greater than window height', ->
+    window = {}
+
     Testing
-      .renderComponent( PopoverWrapper, props: {scrollable: true} )
+      .renderComponent( PopoverWrapper )
       .then ({dom, element}) ->
+        {overlay} = element.refs
+        {popper} = overlay.refs
+
         Testing.actions.click(dom)
-        overlayDOM = element.refs.overlay.refs.popper.getOverlayDOMNode()
+        fakePopoverShouldScroll(popper, window)
+        overlayDOM = popper.getOverlayDOMNode()
+
         expect(overlayDOM.style.cssText).to.contain('height')
+        expect(parseInt(overlayDOM.style.height) < window.innerHeight).to.be.true
+        expect(overlay.state.scrollable).to.be.true
+        expect(overlayDOM.classList.contains('scrollable')).to.be.true

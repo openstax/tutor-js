@@ -115,9 +115,8 @@ MediaPreview = React.createClass
       'data-content-type': media.name
       className: 'media-preview'
       ref: 'popover'
-    scrollable = media.name is 'table'
 
-    allProps = {contentHtml, overlayProps, contentProps, popoverProps, linkProps, scrollable}
+    allProps = {contentHtml, overlayProps, contentProps, popoverProps, linkProps}
 
     linkText = children unless children is '[link]'
     linkText ?= S.capitalize(media.name)

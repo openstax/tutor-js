@@ -9,6 +9,7 @@ TutorPopover = React.createClass
     firstShow: true
     placement: 'right'
     show: false
+    scrollable: false
 
   propTypes: ->
     contentHtml: React.PropTypes.string.isRequired
@@ -16,13 +17,13 @@ TutorPopover = React.createClass
     contentProps: React.PropTypes.object
     overlayProps: React.PropTypes.object
     linkProps: React.PropTypes.object
-    scrollable: React.PropTypes.bool
+    maxHeightMultiplier: React.PropTypes.number
 
   getDefaultProps: ->
-    scrollable: false
+    maxHeightMultiplier: 0.75
 
   componentDidMount: ->
-    @updateOverlayPositioning() if @props.scrollable
+    @updateOverlayPositioning()
 
   componentDidUpdate: ->
     # Make sure the popover re-positions after the image loads
@@ -41,14 +42,19 @@ TutorPopover = React.createClass
     # explicitly set height so that content
     # can inherit the height for scrolling content
     updateOverlayPosition = @refs.popper.updateOverlayPosition
-    @refs.popper.updateOverlayPosition = ->
+    @refs.popper.updateOverlayPosition = =>
       updateOverlayPosition()
-      viewer = @getOverlayDOMNode()
-      # set to auto first to get most natural height
-      viewer.style.height = 'auto'
+      viewer = @refs.popper.getOverlayDOMNode()
       {height} = viewer.getBoundingClientRect()
-      # re-bound height so that content will inherit height
-      viewer.style.height = "#{height}px"
+
+      if height > window.innerHeight
+        @setState(scrollable: true)
+        viewer.style.height = @props.maxHeightMultiplier * window.innerHeight + 'px'
+        updateOverlayPosition()
+      else if @state.scrollable
+        @setState(scrollable: false)
+        viewer.style.height = 'auto'
+        updateOverlayPosition()
 
   setPlacement: ->
     placement = @guessPlacement()
@@ -70,6 +76,11 @@ TutorPopover = React.createClass
 
   render: ->
     {children, contentHtml, popoverProps, contentProps, overlayProps, linkProps} = @props
+
+    if @state.scrollable
+      popoverProps ?= {}
+      popoverProps.className ?= ''
+      popoverProps.className += ' scrollable'
 
     popover = <BS.Popover
       {...popoverProps}
