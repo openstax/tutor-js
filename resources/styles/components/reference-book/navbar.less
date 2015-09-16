@@ -1,16 +1,22 @@
 .reference-book {
+  @navbar-height: 60px;
+  @navbar-spacing: 15px;
   .navbar {
-    height: 60px;
+    height: @navbar-height;
     .ui-brand-logo { margin-top: 15px; }
     .container-fluid {
       padding: 0 4rem 0 0;
     }
     li a {
-      margin: 0 20px 0 0;
+      margin: 0 @navbar-spacing 0 0;
       padding: 0;
     }
     .menu-toggle {
-      padding: 18px 16px 5px 16px;
+      padding: @navbar-spacing;
+      height: @navbar-height;
+      cursor: pointer;
+      margin-right: @navbar-spacing;
+      a { margin-right: 0px; }
     }
 
     .section-title {

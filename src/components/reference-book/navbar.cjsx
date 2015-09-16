@@ -41,9 +41,9 @@ module.exports = React.createClass
   render: ->
     <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
-        <li className="menu-toggle" onClick={@props.toggleTocMenu}>
+        <BS.NavItem className="menu-toggle" onClick={@props.toggleTocMenu}>
           <SlideOutMenuToggle isVisible={@props.isMenuVisible} />
-        </li>
+        </BS.NavItem>
       </BS.Nav>
       <BS.Nav className="full-width-only" navbar>
         <li>
