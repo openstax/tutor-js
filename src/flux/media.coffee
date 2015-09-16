@@ -35,6 +35,7 @@ MediaConfig =
 
   exports:
     get: (id) -> @_get(id)
+    isLoaded: (id) -> @_get(id)?
     getMediaIds: ->
       _.keys(@_local)
 

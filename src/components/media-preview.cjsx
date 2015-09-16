@@ -1,10 +1,12 @@
 React = require 'react'
+LoadableItem = require './loadable-item'
 TutorPopover = require './tutor-popover'
 
 _ = require 'underscore'
 S = require '../helpers/string'
 
 {MediaStore} = require '../flux/media'
+{ReferenceBookPageStore, ReferenceBookPageActions} = require '../flux/reference-book-page'
 
 
 MediaPreview = React.createClass
@@ -123,5 +125,20 @@ MediaPreview = React.createClass
 
     <TutorPopover {...allProps} ref='overlay'>{linkText}</TutorPopover>
 
-module.exports = {MediaPreview}
+MediaPreviewShell = React.createClass
+  renderMediaPreview: ->
+    <MediaPreview {...@props}/>
+
+  render: ->
+    {cnxId, mediaId} = @props
+
+    <LoadableItem
+      id={cnxId}
+      isLoaded={_.partial(MediaStore.isLoaded, mediaId)}
+      store={ReferenceBookPageStore}
+      actions={ReferenceBookPageActions}
+      renderItem={@renderMediaPreview}
+    />
+
+module.exports = {MediaPreview, MediaPreviewShell}
   
