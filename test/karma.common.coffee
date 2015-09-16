@@ -56,6 +56,7 @@ module.exports =
     require('karma-mocha')
     require('karma-webpack')
     require('karma-mocha-reporter')
+    require('karma-nyan-reporter')
     require('karma-phantomjs-launcher')
     require('karma-chrome-launcher')
     require('karma-chai')
