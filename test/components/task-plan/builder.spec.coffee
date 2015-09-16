@@ -43,7 +43,7 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom}) ->
       expect(dom.querySelector('#show-periods-radio')).to.not.be.null
       expect(dom.querySelector('#hide-periods-radio')).to.not.be.null
- 
+
   it 'should not allow editable periods radio if plan is visible', ->
     helper(PUBLISHED_MODEL).then ({dom, element}) ->
       expect(dom.querySelector('#show-periods-radio')).to.be.null
@@ -117,5 +117,4 @@ describe 'Task Plan Builder', ->
   it 'sets the correct moment timezone on mount', ->
     expect((new moment()).tz()).to.be.falsy
     helper(NEW_READING).then ({dom, element}) ->
-      console.log((new moment()).tz())
       expect((new moment()).tz()).to.be.truthy
