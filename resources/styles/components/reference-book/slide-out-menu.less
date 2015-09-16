@@ -22,4 +22,31 @@
     }
   }
 
+  // The SVG menu-toggle component also sets all these properties directly due to
+  // IE not supporting animation on elements.  That way IE will still work it just won't be animated
+  .menu-toggle {
+    path {
+      fill: @tutor-neutral;
+      transition: fill .4s ease;
+      transition: transform .75s ease;
+    }
+    &:hover {
+      path#triangle { fill: #818181; }
+      path#line1    { fill: #77AF41; }
+      path#line2    { fill: #F47641; }
+      path#line3    { fill: #F4D019; }
+      path#line4    { fill: #233066; }
+    }
+    path#triangle { transform: translate(-30px, 0); }
+    path#line2 {    transform: scale(2.0, 1.0) translate(-50px, 0px); }
+    path#line3 {    transform: scale(2.0, 1.0) translate(-50px, 0px); }
+  }
+
+  &.menu-open {
+    .menu-toggle {
+      path#triangle { transform: translate(0, 0); }
+      path#line2    { transform: scale(1, 1) translate(0, 0); }
+      path#line3    { transform: scale(1, 1) translate(0, 0);}
+    }
+  }
 }
