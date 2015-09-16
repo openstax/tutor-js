@@ -70,6 +70,7 @@ module.exports = React.createClass
     opensAt
 
   getQueriedDueAt: ->
+    window.moment = moment
     {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
     dueAt = if due_at and isNewPlan then moment(due_at).toDate()
@@ -116,8 +117,9 @@ module.exports = React.createClass
     @setPeriodDefaults()
 
   componentWillMount: ->
-    @setPeriodDefaults()
     TimeHelper.syncCourseTimezone()
+    #set the periods defaults only after the timezone has been synced
+    @setPeriodDefaults()
 
   componentWillUnmount: ->
     TimeHelper.unsyncCourseTimezone()
