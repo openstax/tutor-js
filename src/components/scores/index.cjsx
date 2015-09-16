@@ -47,9 +47,9 @@ Scores = React.createClass
     sortIndex: 0
     tableWidth: 0
     tableHeight: 0
-    colDefaultWidth: 225
-    colSetWidth: 225
-    colResizeWidth: 225
+    colDefaultWidth: 180
+    colSetWidth: 180
+    colResizeWidth: 180
     colResizeKey: 0
     sort: INITIAL_SORT
 
@@ -79,10 +79,6 @@ Scores = React.createClass
         className='summary'
         id={"#{heading.plan_id}"}
         periodId={@state.period_id}/>
-    else if heading.average
-      summary = <span className='summary'>
-        {heading.average.toFixed(1)}
-      </span>
 
     else if heading.plan_id?
       linkParams =
@@ -97,6 +93,11 @@ Scores = React.createClass
           className='review-plan btn btn-default'>
           Review
         </Router.Link>
+
+    if heading.average
+      summary = <span className='summary'>
+        {heading.average.toFixed(1)}
+      </span>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
       sortState={@state.sort} onSort={@changeSortingOrder}
