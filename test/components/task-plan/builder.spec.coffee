@@ -114,3 +114,8 @@ describe 'Task Plan Builder', ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id, periodId)
       expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
 
+  it 'sets the correct moment timezone on mount', ->
+    expect((new moment()).tz()).to.be.falsy
+    helper(NEW_READING).then ({dom, element}) ->
+      console.log((new moment()).tz())
+      expect((new moment()).tz()).to.be.truthy
