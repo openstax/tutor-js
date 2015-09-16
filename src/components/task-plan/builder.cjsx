@@ -124,14 +124,14 @@ module.exports = React.createClass
 
   setOpensAt: (value, period) ->
     {id} = @props
-    if not value._isAMomentObject
+    if Object.prototype.toString.call(value) is '[object Date]'
       value = moment(value).format(TutorDateFormat)
 
     TaskPlanActions.updateOpensAt(id, value, period?.id)
 
   setDueAt: (value, period) ->
     {id} = @props
-    if not value._isAMomentObject
+    if Object.prototype.toString.call(value) is '[object Date]'
       value = moment(value).format(TutorDateFormat)
 
     TaskPlanActions.updateDueAt(id, value, period?.id)

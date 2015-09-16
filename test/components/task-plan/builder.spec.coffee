@@ -72,22 +72,34 @@ describe 'Task Plan Builder', ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(dueAt).to.be.falsy
 
-  it 'can update open date', ->
+  it 'can update open date with date obj', ->
     helper(NEW_READING).then ({dom, element}) ->
-      element.setOpensAt(dayAfter)
+      element.setOpensAt(new Date(dayAfter))
       opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
       expect(getDateString(opensAt)).to.be.equal(getDateString(dayAfter))
 
-  it 'can update due date', ->
+  it 'can update open date with string', ->
     helper(NEW_READING).then ({dom, element}) ->
-      element.setDueAt(dayAfter)
-      opensAt = TaskPlanStore.getDueAt(NEW_READING.id)
-      expect(getDateString(opensAt)).to.be.equal(getDateString(dayAfter))
+      element.setDueAt(getDateString(tomorrow))
+      opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
+      expect(getDateString(opensAt)).to.be.equal(getDateString(tomorrow))
+
+  it 'can update due date with date obj', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setDueAt(new Date(dayAfter))
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
+
+  it 'can update due date with string', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setDueAt(getDateString(tomorrow))
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
 
   it 'can update open date for individual period', ->
     periodId = COURSES[0].periods[0].id
     helper(NEW_READING).then ({dom, element}) ->
-      element.setOpensAt(dayAfter)
+      element.setOpensAt(new Date(dayAfter))
       opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
       expect(getDateString(opensAt)).to.be.falsy
       opensAt = TaskPlanStore.getOpensAt(NEW_READING.id, periodId)
@@ -96,7 +108,7 @@ describe 'Task Plan Builder', ->
   it 'can update due date for individual period', ->
     periodId = COURSES[0].periods[0].id
     helper(NEW_READING).then ({dom, element}) ->
-      element.setDueAt(tomorrow)
+      element.setDueAt(new Date(tomorrow))
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(getDateString(dueAt)).to.be.falsy
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id, periodId)
