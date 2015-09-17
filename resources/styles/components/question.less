@@ -69,7 +69,6 @@
 
   .size-exercise-card();
   .clearfix();
-  .tutor-tables(@tutor-white, @tutor-white);
 
   counter-reset: answer 0;
   #fonts > .sans (2rem, 3rem);
@@ -192,10 +191,11 @@
       }
 
       // For questions showing feedback,
-      // if the answers are not correct and are not chosen, hide the distracting answer.
-      // answers-answer still needs to render so that answer-letter increments as expected.
+      // if the answers are not correct and are not chosen, tone down the distracting answer.
       .answers-answer:not(.answer-correct):not(.answer-checked) .answer-label{
-        display: none;
+        &:hover {
+          background: @answer-background;
+        }
       }
 
       .answer-correct:not(.answer-checked)::before {
@@ -240,12 +240,7 @@
     }
   }
 
-  .exercise-uid {
-    position: absolute;
-    right: @tutor-card-body-padding-horizontal;
-    bottom: 10px;
-    .tutor-exercise-question-uid();
-  }
+  .exercise-uid { .tutor-task-step-question-uid(); }
 
 } // end of .question
 

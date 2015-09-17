@@ -1,4 +1,23 @@
+#Setup
+------
+
+To run some selenium tests that create an iReading and saves a screenshot on failure.
+
+Instructions
+
+1. Clone the `tutor-js` repo and change into the `tutor-js/` directory
+2. `npm install -g mocha`
+3. `npm install` (to get the current packages and versions)
+4. `mocha ./test-integration/index.js --compilers coffee-script/register`
+
+Visit GoogleAPI's [Chrome Driver](https://code.google.com/p/selenium/wiki/ChromeDriver) webpage for assistance setting up the listener. To test a specific server, set the `SERVER_URL` environment variable prior to running `mocha`:
+
+    env SERVER_URL='tutor-XXX.openstax.org'
+
+if `SERVER_URL` is not set, the tests will target the local Tutor instance (http://localhost:3001/)
+
 # Directory Structure Design
+----------------------------
 
 By keeping the integration tests in the same repo:
 

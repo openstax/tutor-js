@@ -78,6 +78,7 @@ TaskTeacherReviewExercise = React.createClass
         model={question}
         answered_count={answered_count}
         type='teacher-review'
+        exercise_uid={@props.content.uid}
         onChangeAttempt={@onChangeAnswerAttempt}>
         {studentResponses}
       </Question>

@@ -12,17 +12,19 @@
     "url": "https://github.com/openstax/tutor-js.git"
   },
   "author": "Philip Schatz <http://philschatz.com>",
-  "license": "AGPL3",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/openstax/tutor-js/issues"
   },
   "homepage": "https://github.com/openstax/tutor-js",
   "dependencies": {
     "bootstrap": "~3.3.2",
+    "bootstrap-material-design": "fezvrasta/bootstrap-material-design#0.3.0",
     "camelcase": "^1.0.2",
     "es6-promise": "^2.3",
     "flux-react": "~2.6.4",
     "font-awesome": "~4.3.0",
+    "jquery": "^2.1.4",
     "markdown-it": "^4.1.1",
     "mime-types": "^2.1.3",
     "moment": "^2.9.0",
@@ -86,10 +88,6 @@
     "webpack": "^1.12.0",
     "webpack-dev-server": "^1.10.1",
     "when": "~3.7.2"
-  },
-  "browser": {
-    "jquery": "./bower_components/jquery/dist/jquery.js",
-    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
   },
   "config": {
     "blanket": {
