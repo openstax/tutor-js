@@ -22,21 +22,23 @@ ReferenceBookPageShell = React.createClass
   getDefaultState: ->
     previousPageProps: null
 
-  componentWillReceiveProps: ->
+  componentWillReceiveProps: (nextProps) ->
     @setState(previousPageProps: @props)
 
-  renderLoading: (previousPageProps, currentProps) ->
-    (refreshButton) ->
-      if previousPageProps? and previousPageProps.cnxId? and not _.isEqual(previousPageProps, currentProps)
-        loading = <ReferenceBookPage
-          {...previousPageProps}
-          className='page-loading loadable is-loading'>
-          {refreshButton}
-        </ReferenceBookPage>
-      else
-        loading = <div className='loadable is-loading'>Loading... {refreshButton}</div>
+  isAnotherPage: (previousPageProps, currentProps) ->
+    previousPageProps? and previousPageProps.cnxId? and not _.isEqual(previousPageProps, currentProps)
 
-      loading
+  renderLoading: (previousPageProps, currentProps, refreshButton) ->
+    if @isAnotherPage(previousPageProps, currentProps)
+      loading = <ReferenceBookPage
+        {...previousPageProps}
+        className='page-loading loadable is-loading'>
+        {refreshButton}
+      </ReferenceBookPage>
+    else
+      loading = <div className='loadable is-loading'>Loading... {refreshButton}</div>
+
+    loading
 
   renderLoaded: ->
     <ReferenceBookPage {...@props}/>
@@ -47,7 +49,7 @@ ReferenceBookPageShell = React.createClass
         id={@props.cnxId}
         store={ReferenceBookPageStore}
         actions={ReferenceBookPageActions}
-        renderLoading={@renderLoading(@state?.previousPageProps, @props)}
+        renderLoading={_.partial(@renderLoading, @state?.previousPageProps, @props)}
         renderItem={@renderLoaded}
       />
     else
@@ -58,17 +60,31 @@ ReferenceBookShell = React.createClass
   displayName: 'ReferenceBookShell'
   contextTypes:
     router: React.PropTypes.func
+  getInitialState: ->
+    @getIds()
+
   componentWillMount: ->
     {courseId} = @context.router.getCurrentParams()
+    @setIds()
 
     unless CourseStore.isLoaded(courseId)
       CourseActions.load(courseId)
-      CourseStore.once('course.loaded', @setState.bind(@, {}))
+      CourseStore.once('course.loaded', @setIds.bind(@))
 
-  render: ->
+  componentWillReceiveProps: ->
+    @setIds()
+
+  getIds: ->
     {courseId} = @context.router.getCurrentParams()
     {ecosystemId} = @context.router.getCurrentQuery()
     ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
+    {courseId, ecosystemId}
+
+  setIds: ->
+    @setState(@getIds())
+
+  render: ->
+    {courseId, ecosystemId} = @state
 
     <LoadableItem
       id={ecosystemId}

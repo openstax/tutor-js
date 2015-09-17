@@ -22,6 +22,10 @@ module.exports = React.createClass
     renderLoading: React.PropTypes.func
     renderError: React.PropTypes.func
     update: React.PropTypes.func
+    bindEvent: React.PropTypes.string
+
+  getDefaultProps: ->
+    bindEvent: 'change'
 
   componentDidMount: -> @reload({})
   componentDidUpdate: (oldProps) -> @reload(oldProps)
@@ -40,7 +44,7 @@ module.exports = React.createClass
 
   render: ->
     { id, store, actions, load, isLoaded, isLoading, renderItem,
-      saved, renderLoading, renderError, renderBug, update, options} = @props
+      saved, renderLoading, renderError, renderBug, update, options, bindEvent} = @props
 
     load ?= actions.load
     isLoaded ?= store.isLoaded
@@ -74,5 +78,6 @@ module.exports = React.createClass
       render={renderItem}
       renderLoading={renderLoading}
       update={update}
+      bindEvent={bindEvent}
       {renderModes}
     />

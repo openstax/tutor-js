@@ -27,7 +27,7 @@ ResizeListenerMixin = require '../resize-listener-mixin'
 
 # Index of first column that contains data
 FIRST_DATA_COLUMN = 1
-INITIAL_SORT = { key: 'name', asc: false }
+INITIAL_SORT = { key: 'name', asc: true }
 
 Scores = React.createClass
   displayName: 'Scores'
