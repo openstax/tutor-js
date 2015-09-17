@@ -199,7 +199,7 @@
   }
 }
 
-.tutor-tables(@table-header, @table-bottom-color) {
+.tutor-tables() {
   table {
     width: 100%;
     margin-bottom: 32px;
@@ -209,7 +209,6 @@
     thead {
       th {
         padding: 8px 10px;
-        background: @table-header;
         border-bottom: solid 2px @tutor-neutral-light;
       }
       tr:first-of-type:not(:last-child) th {
@@ -227,7 +226,6 @@
     }
     tbody {
       border-top: solid 4px @tutor-neutral-light;
-      border-bottom: solid 4px @table-bottom-color;
     }
     caption,
     thead tr:first-of-type:not(:last-child) th{
@@ -235,6 +233,19 @@
      #fonts > .sans(2rem, 3rem);
      font-weight: 900;
      color: @tutor-neutral-darker;
+    }
+  }
+}
+
+.tutor-tables(@table-header, @table-bottom-color) {
+  table {
+    thead {
+      th {
+        background: @table-header;
+      }
+    }
+    tbody {
+      border-bottom: solid 4px @table-bottom-color;
     }
   }
 }
