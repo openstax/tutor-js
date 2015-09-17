@@ -10,7 +10,5 @@
 @import './footer';
 
 .task-plan {
-  &[data-assignment-type=reading] .dialog > .panel-heading { .tutor-plan(header, 'reading'); }    
-  &[data-assignment-type=homework] .dialog > .panel-heading { .tutor-plan(header, 'homework'); }
-  &[data-assignment-type=external] .dialog > .panel-heading { .tutor-plan(header, 'external'); }
+  .tutor-plan-set(header, '.dialog > .panel-heading');
 }

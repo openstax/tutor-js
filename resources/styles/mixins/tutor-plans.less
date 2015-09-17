@@ -1,3 +1,37 @@
+.tutor-plan-set(@type, @selector-string: ''){
+  @selector: ~'@{selector-string}';
+
+  &[data-assignment-type=reading] {
+    @{selector} {
+      .tutor-plan(@type, 'reading');
+    }
+  }
+
+  &[data-assignment-type=homework] {
+    @{selector} {
+      .tutor-plan(@type, 'homework');
+    }
+  }
+
+  &[data-assignment-type=external] {
+    @{selector} {
+      .tutor-plan(@type, 'external');
+    }
+  }
+
+  &[data-assignment-type=event] {
+    @{selector} {
+      .tutor-plan(@type, 'event');
+    }
+  }
+
+  &[data-assignment-type=extras] {
+    @{selector} {
+      .tutor-plan(@type, 'extras');
+    }
+  }
+}
+
 .tutor-plan(header, @plan-type) {
   @plan-color-name: "@{plan-type}-color";
   @plan-color: @@plan-color-name;

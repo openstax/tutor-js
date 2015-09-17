@@ -39,9 +39,7 @@
     // see CoursePlan component
 
     &.is-published {
-      &[data-assignment-type=reading] { .tutor-plan(display, 'reading'); }
-      &[data-assignment-type=homework] { .tutor-plan(display, 'homework'); }
-      &[data-assignment-type=external] { .tutor-plan(display, 'external'); }
+      .tutor-plan-set(display);
     }
 
     &:not(.is-published) {

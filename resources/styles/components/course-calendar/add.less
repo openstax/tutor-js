@@ -9,9 +9,7 @@
   }
 
   li {
-    &[data-assignment-type=reading] a { .tutor-plan(add, 'reading'); }
-    &[data-assignment-type=homework] a { .tutor-plan(add, 'homework'); }
-    &[data-assignment-type=external] a { .tutor-plan(add, 'external'); }
+    .tutor-plan-set(add, 'a');
   }
 
   .dropdown-menu > li > a,
