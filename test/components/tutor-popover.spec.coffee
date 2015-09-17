@@ -37,6 +37,8 @@ fakePopoverShouldScroll = (popperElement) ->
       rect
     overlayDOM
 
+  popperElement.updateOverlayPosition()
+
 PopoverWrapper = React.createClass
   displayName: 'PopoverWrapper'
   makeProps: ->
@@ -153,8 +155,8 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShouldScroll(popper)
         Testing.actions.click(dom)
+        fakePopoverShouldScroll(popper)
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('height')
