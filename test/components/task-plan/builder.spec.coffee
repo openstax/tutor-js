@@ -1,4 +1,5 @@
 _ = require 'underscore'
+moment = require 'moment'
 
 Builder = require '../../../src/components/task-plan/builder'
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
@@ -7,9 +8,14 @@ Builder = require '../../../src/components/task-plan/builder'
 
 {CourseListingActions, CourseListingStore} = require '../../../src/flux/course-listing'
 {CourseStore} = require '../../../src/flux/course'
+{TimeStore} = require '../../../src/flux/time'
+TutorDateFormat = TimeStore.getFormat()
 
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
+dayAfter = (new Date(Date.now() + 1000 * 3600 * 48)).toString()
+
+getDateString = (value) -> moment(value).format(TutorDateFormat)
 
 COURSES = require '../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
@@ -37,7 +43,7 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom}) ->
       expect(dom.querySelector('#show-periods-radio')).to.not.be.null
       expect(dom.querySelector('#hide-periods-radio')).to.not.be.null
- 
+
   it 'should not allow editable periods radio if plan is visible', ->
     helper(PUBLISHED_MODEL).then ({dom, element}) ->
       expect(dom.querySelector('#show-periods-radio')).to.be.null
@@ -65,3 +71,50 @@ describe 'Task Plan Builder', ->
       element.setAllPeriods()
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(dueAt).to.be.falsy
+
+  it 'can update open date with date obj', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setOpensAt(new Date(dayAfter))
+      opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
+      expect(getDateString(opensAt)).to.be.equal(getDateString(dayAfter))
+
+  it 'can update open date with string', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setDueAt(getDateString(tomorrow))
+      opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
+      expect(getDateString(opensAt)).to.be.equal(getDateString(tomorrow))
+
+  it 'can update due date with date obj', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setDueAt(new Date(dayAfter))
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
+
+  it 'can update due date with string', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setDueAt(getDateString(tomorrow))
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
+
+  it 'can update open date for individual period', ->
+    periodId = COURSES[0].periods[0].id
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setOpensAt(new Date(dayAfter))
+      opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
+      expect(getDateString(opensAt)).to.be.falsy
+      opensAt = TaskPlanStore.getOpensAt(NEW_READING.id, periodId)
+      expect(getDateString(opensAt)).to.be.equal(getDateString(dayAfter))
+
+  it 'can update due date for individual period', ->
+    periodId = COURSES[0].periods[0].id
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setDueAt(new Date(tomorrow))
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.falsy
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id, periodId)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
+
+  it 'sets the correct moment timezone on mount', ->
+    expect((new moment()).tz()).to.be.falsy
+    helper(NEW_READING).then ({dom, element}) ->
+      expect((new moment()).tz()).to.be.truthy
