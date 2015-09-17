@@ -71,18 +71,11 @@
     &.is-ascending:after  { content: @fa-var-sort-asc;  }
     &.is-descending:after { content: @fa-var-sort-desc; }
 
-    &[data-assignment-type=reading] {
+    &[data-assignment-type] {
       height: 100%;
-      .tutor-plan(heading, 'reading', 'small');
     }
-    &[data-assignment-type=homework] {
-      height: 100%;
-      .tutor-plan(heading, 'homework', 'small');
-    }
-    &[data-assignment-type=external] {
-      height: 100%;
-      .tutor-plan(heading, 'external', 'small');
-    }
+
+    .tutor-plan-set(heading);
   }
 
   .scores-cell, .assignment-header-cell, .student-name {
@@ -92,15 +85,7 @@
   }
 
   .scores-cell, .assignment-header-cell {
-    &[data-assignment-type=reading] {
-      .tutor-plan(cell, 'reading');
-    }
-    &[data-assignment-type=homework] {
-      .tutor-plan(cell, 'homework');
-    }
-    &[data-assignment-type=external] {
-      .tutor-plan(cell, 'external');
-    }
+    .tutor-plan-set(cell);
   }
 
   i.late {
