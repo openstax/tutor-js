@@ -48,12 +48,12 @@ TutorInput = React.createClass
   forwardLabelClick: -> @focus()
 
   render: ->
-    classes = classnames('form-control', @props.class,
-      {empty: not @props.default}
-    )
-    wrapperClasses = classnames('form-control-wrapper', 'tutor-input', @props.className, {
-      'is-required': @props.required, 'has-error': @state.errors?.length
-    })
+    classes = classnames 'form-control', @props.class,
+      empty: not @props.default
+
+    wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', @props.className,
+      'is-required': @props.required
+      'has-error': @state.errors?.length
 
     errors = _.map(@state.errors, (error) ->
       return unless TutorErrors[error]?
@@ -145,14 +145,12 @@ TutorDateInput = React.createClass
     @setState({hasFocus: false})
 
   render: ->
-    classes = classnames('form-control', {
-      empty: not @props.value and not @state.hasFocus
-    })
+    classes = classnames 'form-control',
+      empty: (not @props.value and not @state.hasFocus)
 
-    wrapperClasses = classnames(
-      'form-control-wrapper', 'tutor-input', '-tutor-date-input', @props.className, {
-        'is-required': @props.required, 'has-error': @state.errors?.length
-    })
+    wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', '-tutor-date-input', @props.className,
+      'is-required': @props.required
+      'has-error': @state.errors?.length
 
     now = TimeStore.getNow()
     value = @props.value
@@ -222,12 +220,11 @@ TutorTextArea = React.createClass
   forwardLabelClick: -> @focus()
 
   render: ->
-    classes = classnames('form-control', @props.inputClass, {
+    classes = classnames 'form-control', @props.inputClass,
       empty: not @props.default
-    })
-    wrapperClasses = classnames("form-control-wrapper", "tutor-input", @props.className, {
+
+    wrapperClasses = classnames "form-control-wrapper", "tutor-input", @props.className,
       'is-required': @props.required
-    })
 
     <div className={wrapperClasses}>
       <textarea
