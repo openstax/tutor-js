@@ -2,24 +2,34 @@
 .loadable {
 
   // Fade the "Reload" message in after @tutor-async-loading-timeout time.
-  &.is-loading .refresh-button {
-    opacity: 0;
-    visibility: hidden;
-    -webkit-animation: tutorAsyncFadeIn ease-in 1;
-    -moz-animation: tutorAsyncFadeIn ease-in 1;
-    animation: tutorAsyncFadeIn ease-in 1;
+  &.is-loading {
+    .refresh-button {
+      opacity: 0;
+      visibility: hidden;
+      -webkit-animation: tutorAsyncFadeIn ease-in 1;
+      -moz-animation: tutorAsyncFadeIn ease-in 1;
+      animation: tutorAsyncFadeIn ease-in 1;
 
-    -webkit-animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+      -webkit-animation-fill-mode: forwards;
+      -moz-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
 
-    -webkit-animation-duration: .3s;
-    -moz-animation-duration: .3s;
-    animation-duration: .3s;
+      -webkit-animation-duration: .3s;
+      -moz-animation-duration: .3s;
+      animation-duration: .3s;
 
-    -webkit-animation-delay: @tutor-async-loading-timeout;
-    -moz-animation-delay: @tutor-async-loading-timeout;
-    animation-delay: @tutor-async-loading-timeout;
+      -webkit-animation-delay: @tutor-async-loading-timeout;
+      -moz-animation-delay: @tutor-async-loading-timeout;
+      animation-delay: @tutor-async-loading-timeout;
+    }
+
+    &.loadable-long {
+      .refresh-button {
+        -webkit-animation-delay: @tutor-async-loading-long-timeout;
+        -moz-animation-delay: @tutor-async-loading-long-timeout;
+        animation-delay: @tutor-async-loading-long-timeout;
+      }
+    }
   }
 
   // &.is-error .refresh-button { }
