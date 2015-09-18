@@ -148,9 +148,12 @@ TutorDateInput = React.createClass
     classes = classnames 'form-control',
       empty: (not @props.value and not @state.hasFocus)
 
+    isDatePickerDisabled = @props.disabled and value
+
     wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', '-tutor-date-input', @props.className,
       'is-required': @props.required
       'has-error': @state.errors?.length
+      'disabled-datepicker':  isDatePickerDisabled
 
     now = TimeStore.getNow()
     value = @props.value
@@ -176,9 +179,8 @@ TutorDateInput = React.createClass
           selected={value}
           weekStart={@props.currentLocale.week.dow}
         />
-    else if @props.disabled and value
+    else if isDatePickerDisabled
       displayValue = value.format(TutorDateFormat)
-      wrapperClasses += ' disabled-datepicker'
 
     <div className={wrapperClasses}>
       <input type='text' disabled className={classes} value={displayValue}/>
