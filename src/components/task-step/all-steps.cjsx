@@ -120,6 +120,12 @@ ExternalUrl = React.createClass
 
     external_url
 
+  # Disable right-click context menu on link.
+  # If someone selects "open in new tab" from the menu,
+  # we are unable to mark the step as completed
+  onContextMenu: (ev) ->
+    ev.preventDefault()
+
   renderBody: ->
     {taskId} = @props
     {description, title} = TaskStore.get(taskId)
@@ -129,7 +135,10 @@ ExternalUrl = React.createClass
 
     <div className='external-step'>
       <h1>
-        <a href={external_url} target='_blank' onClick={@onContinue}>{title}</a>
+        <a href={external_url}
+          target='_blank'
+          onContextMenu={@onContextMenu}
+          onClick={@onContinue}>{title}</a>
       </h1>
       {descriptionHTML}
     </div>

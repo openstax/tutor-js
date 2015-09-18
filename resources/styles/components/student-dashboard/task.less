@@ -35,13 +35,17 @@
       }
     }
 
-    // The first panel inside a tab should be positioned at the top with no margin
+    // Adjust height for when the columns collapse and progress appears below task title
     @media screen and ( max-width: @screen-sm-min ){
-      .column-icon { height: @student-dashboard-row-height*2; }
-      .icon {
-        margin-top: (@student-dashboard-row-height * 2 - @icon-size-lg * 10)/2;
-        margin-bottom: (@student-dashboard-row-height * 2 - @icon-size-lg * 10)/2;
+      .column-icon {
+        text-align: center;
+        height: @student-dashboard-row-height;
       }
+      .title, .feedback, .due-at {
+        line-height: @student-dashboard-row-height / 2;
+      }
+      // match the 0 left padding of the description
+      .feedback { padding-left: 0; }
     }
 
     // A task that is workable can be clicked
@@ -60,4 +64,3 @@
 .student-dashboard-instructions-popover {
   .tutor-popover();
 }
-
