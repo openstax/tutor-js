@@ -28,13 +28,13 @@ module.exports = React.createClass
     # Enables a renderStatus prop function with a component other than a div
     renderLoading: (refreshButton, isLong = false) ->
       loadableClasses = 'loadable is-loading'
-      loadableClasses += ' loadable-long' if isLong
+      loadableClasses += ' is-long' if isLong
 
       <div className={loadableClasses}>Loading... {refreshButton}</div>
 
     renderError: (refreshButton, isLong = false) ->
       loadableClasses = 'loadable is-error'
-      loadableClasses += ' loadable-long' if isLong
+      loadableClasses += ' is-long' if isLong
 
       <div className={loadableClasses}>Error Loading. {refreshButton}</div>
 
