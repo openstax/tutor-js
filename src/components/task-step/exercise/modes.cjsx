@@ -87,6 +87,17 @@ ExerciseMultiChoice = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func
 
+  queueAnswer: (answer) ->
+    @setState(queuedAnswer: answer)
+
+  unqueueAnswer: ->
+    @queueAnswer(null)
+
+  componentDidUpdate: (prevProps, prevState) ->
+    {id} = @props
+    isReady = not TaskStepStore.isLoading(id) and not TaskStepStore.isSaving(id)
+    @onAnswerChanged(@state.queuedAnswer) if @state.queuedAnswer? and isReady
+
   renderBody: ->
     {id} = @props
     {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
@@ -106,7 +117,13 @@ ExerciseMultiChoice = React.createClass
 
   onAnswerChanged: (answer) ->
     {id} = @props
-    TaskStepActions.setAnswerId(id, answer.id)
+    isReady = not TaskStepStore.isLoading(id) and not TaskStepStore.isSaving(id)
+
+    if isReady
+      TaskStepActions.setAnswerId(id, answer.id)
+      @unqueueAnswer() if @state.queuedAnswer?.id is answer.id
+    else
+      @queueAnswer(answer)
 
   isContinueEnabled: ->
     {id} = @props
