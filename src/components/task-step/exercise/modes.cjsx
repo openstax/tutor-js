@@ -90,6 +90,7 @@ ExerciseMultiChoice = React.createClass
   renderBody: ->
     {id} = @props
     {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
+    isReady = not TaskStepStore.isLoading(id) and not TaskStepStore.isSaving(id)
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
@@ -99,6 +100,7 @@ ExerciseMultiChoice = React.createClass
       exercise_uid={content.uid}
       answer_id={answer_id}
       correct_answer_id={correct_answer_id}
+      choicesEnabled={isReady}
       onChange={@onAnswerChanged}>
       <FreeResponse id={id} free_response={free_response}/>
       <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
