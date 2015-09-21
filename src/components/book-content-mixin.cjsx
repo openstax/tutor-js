@@ -65,17 +65,13 @@ LinkContentMixin =
     # do this to ignore this link once adjusted
     mediaLink.dataset.targeted = 'media'
 
-  isMediaLoaded: (link) ->
-    mediaId = link.hash.replace('#', '')
-    MediaStore.get(mediaId)?
-
   getMedia: (mediaId) ->
     root = @getDOMNode()
     root.querySelector("##{mediaId}")
 
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
-    media = @getMedia(mediaId)
+    media = @getMedia(mediaId) if mediaId
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
 
     previewNode = document.createElement('span')
@@ -96,12 +92,12 @@ LinkContentMixin =
 
   processLink: (link) ->
     if @isMediaLink(link)
-      if @isMediaLoaded(link)
-        @linkPreview(link)
-        return null
-      else if @hasCNXId(link)
-        @linkToAnotherPage(link)
-        return null
+      @linkPreview(link)
+      return null
+      # if @isMediaLoaded(link)
+      # else if @hasCNXId(link)
+      #   @linkToAnotherPage(link)
+      #   return null
     else
       return link
 

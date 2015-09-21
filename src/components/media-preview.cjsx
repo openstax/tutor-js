@@ -14,6 +14,7 @@ MediaPreview = React.createClass
   getInitialState: ->
     popped: false
     stick: false
+    media: null
 
   propTypes:
     mediaId: React.PropTypes.string.isRequired
@@ -22,6 +23,18 @@ MediaPreview = React.createClass
 
   getDefaultProps: ->
     buffer: 160
+
+  componentWillMount: ->
+    {mediaId, cnxId} = @props
+    media = MediaStore.get(mediaId)
+    @updateMedia(media) if media?
+
+    unless media? or ReferenceBookPageStore.isLoading(cnxId) or ReferenceBookPageStore.isLoaded(cnxId)
+      ReferenceBookPageActions.load(cnxId)
+      MediaStore.once("loaded.#{mediaId}", @updateMedia)
+
+  updateMedia: (media) ->
+    @setState({media})
 
   checkShouldPop: ->
     return true unless @props.media
@@ -81,7 +94,7 @@ MediaPreview = React.createClass
 
     otherPropTypes = _.chain(otherProps)
       .keys()
-      .union(['mediaId', 'children', 'media'])
+      .union(['mediaId', 'children', 'media', 'buffer'])
       .value()
 
     # most props should pass on
@@ -91,7 +104,8 @@ MediaPreview = React.createClass
     if media?
       linkProps.href = "##{mediaId}"
     else
-      linkProps.href = bookHref + "##{mediaId}"
+      linkProps.href = bookHref
+      linkProps.href += "##{mediaId}" if mediaId
       linkProps.target = '_blank'
 
     linkProps.onMouseEnter = @onMouseEnter
@@ -104,41 +118,30 @@ MediaPreview = React.createClass
     linkProps
 
   render: ->
-    {mediaId, children} = @props
-    media = MediaStore.get(mediaId)
+    {mediaId, children, bookHref} = @props
+    {media} = @state
 
-    contentHtml = media.html
     overlayProps = @getOverlayProps()
     linkProps = @getLinkProps(overlayProps)
-    contentProps =
-      className: 'media-preview-content'
-      ref: 'viewer'
-    popoverProps =
-      'data-content-type': media.name
-      className: 'media-preview'
-      ref: 'popover'
+    if media?
+      contentHtml = media.html
+      contentProps =
+        className: 'media-preview-content'
+        ref: 'viewer'
+      popoverProps =
+        'data-content-type': media.name
+        className: 'media-preview'
+        ref: 'popover'
 
-    allProps = {contentHtml, overlayProps, contentProps, popoverProps, linkProps}
+      allProps = {contentHtml, overlayProps, contentProps, popoverProps, linkProps}
 
-    linkText = children unless children is '[link]'
-    linkText ?= S.capitalize(media.name)
+      linkText = children unless children is '[link]'
+      linkText ?= S.capitalize(media.name)
 
-    <TutorPopover {...allProps} ref='overlay'>{linkText}</TutorPopover>
+      <TutorPopover {...allProps} ref='overlay'>{linkText}</TutorPopover>
+    else
+      linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave')
+      <a {...linkProps}>{children}</a>
 
-MediaPreviewShell = React.createClass
-  renderMediaPreview: ->
-    <MediaPreview {...@props}/>
-
-  render: ->
-    {cnxId, mediaId} = @props
-
-    <LoadableItem
-      id={cnxId}
-      isLoaded={_.partial(MediaStore.isLoaded, mediaId)}
-      store={ReferenceBookPageStore}
-      actions={ReferenceBookPageActions}
-      renderItem={@renderMediaPreview}
-    />
-
-module.exports = {MediaPreview, MediaPreviewShell}
+module.exports = {MediaPreview}
   
