@@ -96,7 +96,7 @@ HomeworkEnd = React.createClass
           goToStep={@goToStep}
           onNextStep={@onNextStep}
           review={type}
-          ref={"task-review-#{type}"}
+          key={"task-review-#{type}"}
           focus={type is 'todo'}/>
       </div>
 
