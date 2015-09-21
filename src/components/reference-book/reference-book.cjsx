@@ -75,7 +75,9 @@ module.exports = React.createClass
     ev?.preventDefault() # stops react-router from scrolling to top
 
   onMenuClick: ->
-    @toggleMenuState() unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
+    # menu state toggling needs to happen after new state
+    # is received and rendered from router for new section
+    _.defer(@toggleMenuState) unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
 
   toggleMenuState: (ev) ->
     @setState(isMenuVisible: not @state.isMenuVisible)
