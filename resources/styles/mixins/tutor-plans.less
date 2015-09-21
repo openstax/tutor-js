@@ -1,34 +1,24 @@
 .tutor-plan-set(@type, @selector-string: ''){
   @selector: ~'@{selector-string}';
 
-  &[data-assignment-type=reading] {
-    @{selector} {
-      .tutor-plan(@type, 'reading');
-    }
+  &[data-assignment-type=reading]@{selector} {
+    .tutor-plan(@type, 'reading');
   }
 
-  &[data-assignment-type=homework] {
-    @{selector} {
-      .tutor-plan(@type, 'homework');
-    }
+  &[data-assignment-type=homework]@{selector} {
+    .tutor-plan(@type, 'homework');
   }
 
-  &[data-assignment-type=external] {
-    @{selector} {
-      .tutor-plan(@type, 'external');
-    }
+  &[data-assignment-type=external]@{selector} {
+    .tutor-plan(@type, 'external');
   }
 
-  &[data-assignment-type=event] {
-    @{selector} {
-      .tutor-plan(@type, 'event');
-    }
+  &[data-assignment-type=event]@{selector} {
+    .tutor-plan(@type, 'event');
   }
 
-  &[data-assignment-type=extras] {
-    @{selector} {
-      .tutor-plan(@type, 'extras');
-    }
+  &[data-assignment-type=extras]@{selector} {
+    .tutor-plan(@type, 'extras');
   }
 }
 
@@ -36,6 +26,12 @@
   @plan-color-name: "@{plan-type}-color";
   @plan-color: @@plan-color-name;
   .tutor-plan-cell(@plan-color);
+}
+
+.tutor-plan(cell-active, @plan-type) {
+  @plan-color-name: "@{plan-type}-color";
+  @plan-color: @@plan-color-name;
+  .tutor-plan-cell-active(@plan-color);
 }
 
 .tutor-plan(heading, @plan-type, @plan-border-size: 'small') {
@@ -83,11 +79,11 @@
   background-color: fade(@plan-color, 2.5%);
   mix-blend-mode: multiply;
   .transition(background-color 0.1s ease-in);
+}
 
-  &:not(div):hover {
-    text-decoration: none;
-    background-color: fade(@plan-color, 25%);
-  }
+.tutor-plan-cell-active(@plan-color) {
+  text-decoration: none;
+  background-color: fade(@plan-color, 25%);
 }
 
 .tutor-plan-heading(@plan-color, @plan-border-width: 5px) {

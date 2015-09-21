@@ -10,7 +10,6 @@
 
   .nav-tabs {
     .tutor-nav-tabs();
-    margin-bottom: 20px;
 
     li.active {
       border: 1px solid @nav-tabs-border-color;
@@ -30,7 +29,6 @@
     max-width: 100%;
     height: 100%;
     max-height: 100%;
-    margin-top: -20px;
   }
 
   // removes the display as table, table-row & table-cell
@@ -68,8 +66,8 @@
         .fa-icon();
       }
     }
-    &.is-ascending:after  { content: @fa-var-sort-asc;  }
-    &.is-descending:after { content: @fa-var-sort-desc; }
+    &.is-ascending::after  { content: @fa-var-sort-asc;  }
+    &.is-descending::after { content: @fa-var-sort-desc; }
 
     &[data-assignment-type] {
       height: 100%;
@@ -78,21 +76,29 @@
     .tutor-plan-set(heading);
   }
 
-  .scores-cell, .assignment-header-cell, .student-name {
+  .scores-cell,
+  .assignment-header-cell,
+  .student-name {
     width: 100%;
     height: 100%;
     display: block;
   }
 
-  .scores-cell, .assignment-header-cell {
+  .scores-cell,
+  .assignment-header-cell {
     .tutor-plan-set(cell);
+  }
+
+  a.scores-cell:hover {
+    .tutor-plan-set(cell-active);
   }
 
   i.late {
     .tutor-late-icon();
     padding-left:8px;
   }
-  .public_fixedDataTable_header, .public_fixedDataTable_header .public_fixedDataTableCell_main {
+  .public_fixedDataTable_header,
+  .public_fixedDataTable_header .public_fixedDataTableCell_main {
     background: @tutor-white;
   }
   .assignment-header-cell {
@@ -106,7 +112,7 @@
     }
 
     > div:nth-child(even) {
-      background-color: #f6f7f8;
+      background-color: @tutor-neutral-lighter;
     }
 
     &[data-assignment-type] {
