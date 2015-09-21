@@ -3,16 +3,10 @@
   animation: book-content-target-highlight 1.5s ease-out;
 }
 
-.offset-header() {
-  margin-top: -@tutor-navbar-height;
-  padding-top: @tutor-navbar-height;
-}
-
 a[target=_blank] { .tutor-external-link-indicator(); }
 
 figure {
-  &:target, .target {
-    .offset-header();
+  &:target, &.target {
     .highlight-animation();
 
     > * {
@@ -26,12 +20,22 @@ figure {
 }
 
 section, div, span, table {
-  &:target, .target {
-    .offset-header();
-    .highlight-animation();
+  &:target, &.target {
+    position: relative;
 
     img {
       mix-blend-mode: multiply;
+    }
+
+    &::after {
+      content: ' ';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      mix-blend-mode: multiply;
+
+      .highlight-animation();
     }
   }
 }

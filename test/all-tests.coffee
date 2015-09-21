@@ -41,6 +41,9 @@ require './components/book-content-mixin.spec'
 require './components/scores/reading-cell.spec'
 require './components/scores/homework-cell.spec'
 require './components/name.spec'
+require './components/media-preview.spec'
+require './components/tutor-popover.spec'
+
 # Flux your muscle
 require './crud-store.spec'
 require './task-store.spec'
@@ -53,6 +56,7 @@ require './time.spec'
 require './current-user-store.spec'
 require './course-listing-store.spec'
 require './flux/plan-publish.spec'
+require './flux/media.spec'
 
 # Helpers
 require './task-helpers.spec'

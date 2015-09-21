@@ -2,8 +2,11 @@ React = require 'react'
 _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
+
+{MediaPreview} = require './media-preview'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
+{MediaStore} = require '../flux/media'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
@@ -34,11 +37,6 @@ LinkContentMixin =
     beforeHash = _.first(href.split('#'))
     _.last(beforeHash.split('/'))
 
-  getMediaTag: (media) ->
-    # form media tag text based on data-type or tag name
-    tag = media.getAttribute('data-type') or media.tagName
-    S.capitalize(tag)
-
   buildReferenceBookLink: (cnxId) ->
     {courseId} = @context.router.getCurrentParams()
     {query} = @props
@@ -67,36 +65,45 @@ LinkContentMixin =
     # do this to ignore this link once adjusted
     mediaLink.dataset.targeted = 'media'
 
-  isMediaOnPage: (link) ->
+  getMedia: (mediaId) ->
     root = @getDOMNode()
-    try
-      media = root.querySelector(link.hash)
+    root.querySelector("##{mediaId}")
 
-    media?
+  linkPreview: (link) ->
+    mediaId = link.hash.replace('#', '')
+    media = @getMedia(mediaId) if mediaId
+    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
+
+    previewNode = document.createElement('span')
+    previewNode.classList.add('media-preview-wrapper')
+    link.parentNode.replaceChild(previewNode, link)
+
+    mediaProps =
+      mediaId: mediaId
+      cnxId: mediaCNXId
+      bookHref: @buildReferenceBookLink(mediaCNXId)
+      media: media
+
+    mediaPreview = <MediaPreview {...mediaProps}>
+        {link.innerText}
+      </MediaPreview>
+
+    React.render(mediaPreview, previewNode)
 
   processLink: (link) ->
     if @isMediaLink(link)
-      if not @hasCNXId(link) and @isMediaOnPage(link)
-        @linkToThisPage(link)
-        return null
-      else
-        @linkToAnotherPage(link)
-        return null
+      @linkPreview(link)
+      return null
+      # if @isMediaLoaded(link)
+      # else if @hasCNXId(link)
+      #   @linkToAnotherPage(link)
+      #   return null
     else
       return link
 
   linkToAnotherPage: (link) ->
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     @linkMediaElsewhere(mediaCNXId, link)
-
-  linkToThisPage: (link) ->
-    root = @getDOMNode()
-    media = root.querySelector(link.hash)
-    tag = @getMediaTag(media)
-    link.innerText = tag if link.innerText is '[link]' and tag?
-    link.target = '_self'
-    # do this to ignore this link once adjusted
-    link.dataset.targeted = 'media'
 
   processLinks: ->
     _.defer(@_processLinks)
