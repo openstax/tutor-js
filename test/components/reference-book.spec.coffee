@@ -154,12 +154,10 @@ describe 'Reference Book Component', ->
     ReferenceBookPageActions.loaded(PAGE, SECOND_PAGE_ID)
 
     commonActions.click(nextSelection)
-    # menu toggle is deferred, test for it needs to be deferred as well.
-    _.defer( =>
-      expect(_.toArray(@state.div.querySelector('.reference-book').classList))
-        .to.not.contain('menu-open')
-      done()
-    )
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.not.contain('menu-open')
+    done()
+
 
 describe 'Reference Book Component for a non-default ecosystem', ->
 
@@ -214,4 +212,3 @@ describe 'Reference Book Component for a non-default ecosystem', ->
     _.each(linkAddresses, (linkAddress) ->
       expect(linkAddress).to.contain("?ecosystemId=#{ECO_ID}")
     )
-
