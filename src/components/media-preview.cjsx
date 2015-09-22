@@ -39,6 +39,10 @@ MediaPreview = React.createClass
       ReferenceBookPageActions.load(cnxId)
       MediaStore.once("loaded.#{mediaId}", @updateMedia)
 
+  componentWillUnmount: ->
+    {mediaId} = @props
+    MediaStore.off("loaded.#{mediaId}", @updateMedia)
+
   updateMedia: (media) ->
     @setState({media})
 

@@ -30,6 +30,9 @@ LinkContentMixin =
   componentDidUpdate: ->
     @processLinks()
 
+  componentWillUnmount: ->
+    @cleanUpLinks()
+
   contextTypes:
     router: React.PropTypes.func
 
@@ -61,6 +64,14 @@ LinkContentMixin =
   getMedia: (mediaId) ->
     root = @getDOMNode()
     root.querySelector("##{mediaId}")
+
+  cleanUpLinks: ->
+    root = @getDOMNode()
+    previewNodes = root.getElementsByClassName('media-preview-wrapper')
+
+    _.each(previewNodes, (previewNode) ->
+      React.unmountComponentAtNode(previewNode)
+    )
 
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
