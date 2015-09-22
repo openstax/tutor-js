@@ -28,22 +28,20 @@ module.exports = React.createClass
     ReferenceBookStore.getPageTitle(@props)
 
   prevLink: (info) ->
-    {query} = @props
     params = _.extend({}, @context.router.getCurrentParams(),
       section: @sectionFormat(info.prev.chapter_section))
     <Router.Link className='nav prev' to='viewReferenceBookSection'
-      query={query}
+      query={@context.router.getCurrentQuery()}
       params={params}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
-    {query} = @props
     params = _.extend({}, @context.router.getCurrentParams(),
       section: @sectionFormat(info.next.chapter_section))
 
     <Router.Link className='nav next' to='viewReferenceBookSection'
-      query={query}
+      query={@context.router.getCurrentQuery()}
       params={params}>
       <div className='triangle' />
     </Router.Link>

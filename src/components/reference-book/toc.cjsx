@@ -25,7 +25,7 @@ Section = React.createClass
     @setState(skipZeros: false)
 
   render: ->
-    {activeSection, query} = @props
+    {activeSection} = @props
     section = @sectionFormat(@props.section.chapter_section)
 
     className = if section is activeSection then 'active' else ''
@@ -38,7 +38,7 @@ Section = React.createClass
           className={className}
           onClick={@props.onMenuSelection}
           to={@props.routeLinkTarget}
-          query={query}
+          query={@context.router.getCurrentQuery()}
         >
           <span className="section-number">{section}</span>
           {@props.section.title}
@@ -48,7 +48,6 @@ Section = React.createClass
         <li key={child.id} data-section={@sectionFormat(child.chapter_section)}>
           <Section
             activeSection={activeSection}
-            query={query}
             onMenuSelection={@props.onMenuSelection}
             section={child} />
         </li> }
