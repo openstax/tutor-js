@@ -21,12 +21,14 @@ MediaPreview = React.createClass
     bookHref: React.PropTypes.string.isRequired
     cnxId: React.PropTypes.string.isRequired
     mediaDOMOnParent: React.PropTypes.object
+    windowImpl: React.PropTypes.object
     buffer: React.PropTypes.number
     shouldLinkOut: React.PropTypes.bool
 
   getDefaultProps: ->
     buffer: 160
     shouldLinkOut: false
+    windowImpl: window
 
   componentWillMount: ->
     {mediaId, cnxId} = @props
@@ -45,10 +47,10 @@ MediaPreview = React.createClass
     not @isMediaInViewport()
 
   isMediaInViewport: ->
-    {mediaDOMOnParent, buffer} = @props
+    {mediaDOMOnParent, buffer, windowImpl} = @props
     mediaRect = mediaDOMOnParent.getBoundingClientRect()
 
-    0 <= (mediaRect.top + buffer) <= window.innerHeight
+    0 <= (mediaRect.top + buffer) <= windowImpl.innerHeight
 
   highlightMedia: ->
     {mediaDOMOnParent} = @props
@@ -123,7 +125,7 @@ MediaPreview = React.createClass
     linkProps
 
   render: ->
-    {mediaId, children, bookHref} = @props
+    {mediaId, children, bookHref, windowImpl} = @props
     {media} = @state
 
     overlayProps = @getOverlayProps()
@@ -138,7 +140,7 @@ MediaPreview = React.createClass
         className: 'media-preview'
         ref: 'popover'
 
-      allProps = {contentHtml, overlayProps, contentProps, popoverProps, linkProps}
+      allProps = {contentHtml, overlayProps, contentProps, popoverProps, linkProps, windowImpl}
 
       linkText = children unless children is '[link]'
       linkText ?= S.capitalize(media.name)

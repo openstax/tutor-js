@@ -117,8 +117,10 @@ describe 'Media Preview', ->
     media = MediaStore.get(mediaId)
     bookHref = 'link-to-book'
 
+    props = {mediaId: mediaId, bookHref: bookHref, children: 'this figure', shouldLinkOut: true}
+
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaId, bookHref: bookHref, children: 'this figure', shouldLinkOut: true} )
+      .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
         expect(dom.href).to.contain(bookHref).and.to.contain(mediaId)
         expect(dom.target).to.equal('_blank')
@@ -146,15 +148,16 @@ describe 'Media Preview', ->
 
     mediaDOM = document.createElement('div')
     mediaDOM.innerHTML = media.html
-    window = {}
+    windowImpl = {}
+    props = {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM, windowImpl: windowImpl}
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
+      .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
-        fakeMediaInViewport(mediaDOM, window)
+        fakeMediaInViewport(mediaDOM, windowImpl)
         expect(element.isMediaInViewport()).to.be.true
 
-        fakeMediaNotInViewport(mediaDOM, window)
+        fakeMediaNotInViewport(mediaDOM, windowImpl)
         expect(element.isMediaInViewport()).to.be.false
 
 
@@ -165,11 +168,12 @@ describe 'Media Preview', ->
 
     mediaDOM = document.createElement('div')
     mediaDOM.innerHTML = media.html
-    window = {}
-    fakeMediaInViewport(mediaDOM, window)
+    windowImpl = {}
+    fakeMediaInViewport(mediaDOM, windowImpl)
+    props = {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM, windowImpl: windowImpl}
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
+      .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
 
         expect(mediaDOM.classList.contains('target')).to.be.false
@@ -185,11 +189,12 @@ describe 'Media Preview', ->
 
     mediaDOM = document.createElement('div')
     mediaDOM.innerHTML = media.html
-    window = {}
-    fakeMediaInViewport(mediaDOM, window)
+    windowImpl = {}
+    fakeMediaInViewport(mediaDOM, windowImpl)
+    props = {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM, windowImpl: windowImpl}
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
+      .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
 
         Testing.actions.mouseEnter(dom)
@@ -204,11 +209,12 @@ describe 'Media Preview', ->
 
     mediaDOM = document.createElement('div')
     mediaDOM.innerHTML = media.html
-    window = {}
-    fakeMediaNotInViewport(mediaDOM, window)
+    windowImpl = {}
+    fakeMediaNotInViewport(mediaDOM, windowImpl)
+    props = {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM, windowImpl: windowImpl}
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
+      .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
 
         Testing.actions.mouseEnter(dom)
@@ -224,11 +230,12 @@ describe 'Media Preview', ->
 
     mediaDOM = document.createElement('div')
     mediaDOM.innerHTML = media.html
-    window = {}
-    fakeMediaNotInViewport(mediaDOM, window)
+    windowImpl = {}
+    fakeMediaNotInViewport(mediaDOM, windowImpl)
+    props = {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM, windowImpl: windowImpl}
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
+      .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
         Testing.actions.mouseEnter(dom)
         expect(element.state.popped).to.be.true

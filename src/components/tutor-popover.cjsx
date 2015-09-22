@@ -17,10 +17,12 @@ TutorPopover = React.createClass
     contentProps: React.PropTypes.object
     overlayProps: React.PropTypes.object
     linkProps: React.PropTypes.object
+    windowImpl: React.PropTypes.object
     maxHeightMultiplier: React.PropTypes.number
 
   getDefaultProps: ->
     maxHeightMultiplier: 0.75
+    windowImpl: window
 
   componentDidMount: ->
     @updateOverlayPositioning()
@@ -38,6 +40,7 @@ TutorPopover = React.createClass
     @setState({firstShow: false})
 
   updateOverlayPositioning: ->
+    {windowImpl} = @props
     # updates popper positioning function to
     # explicitly set height so that content
     # can inherit the height for scrolling content
@@ -47,9 +50,9 @@ TutorPopover = React.createClass
       viewer = @refs.popper.getOverlayDOMNode()
       {height} = viewer.getBoundingClientRect()
 
-      if height > window.innerHeight
+      if height > windowImpl.innerHeight
         @setState(scrollable: true)
-        viewer.style.height = @props.maxHeightMultiplier * window.innerHeight + 'px'
+        viewer.style.height = @props.maxHeightMultiplier * windowImpl.innerHeight + 'px'
         updateOverlayPosition()
       else if @state.scrollable
         @setState(scrollable: false)
@@ -61,8 +64,9 @@ TutorPopover = React.createClass
     @setState({placement}) unless @state.placement is placement
 
   guessPlacement: ->
+    {windowImpl} = @props
     {overlayLeft} = @refs.popper.calcOverlayPosition()
-    midWindow = window.innerWidth / 2
+    midWindow = windowImpl.innerWidth / 2
     if overlayLeft > midWindow then 'left' else 'right'
 
   show: ->

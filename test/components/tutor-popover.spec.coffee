@@ -37,8 +37,6 @@ fakePopoverShouldScroll = (popperElement) ->
       rect
     overlayDOM
 
-  popperElement.updateOverlayPosition()
-
 PopoverWrapper = React.createClass
   displayName: 'PopoverWrapper'
   makeProps: ->
@@ -92,10 +90,10 @@ describe 'Tutor Popover', ->
         expect(overlay.state.show).to.be.false
 
   it 'should open to the right when element renders left of the window middle', ->
-    window = _.clone(FAKE_WINDOW)
+    windowImpl = _.clone(FAKE_WINDOW)
 
     Testing
-      .renderComponent( PopoverWrapper )
+      .renderComponent( PopoverWrapper , props: {windowImpl})
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
@@ -107,10 +105,10 @@ describe 'Tutor Popover', ->
         expect(overlayDOM.classList.contains('right')).to.be.true
 
   it 'should open to the left when element renders right of the window middle', ->
-    window = _.clone(FAKE_WINDOW)
+    windowImpl = _.clone(FAKE_WINDOW)
 
     Testing
-      .renderComponent( PopoverWrapper )
+      .renderComponent( PopoverWrapper , props: {windowImpl})
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
@@ -148,18 +146,19 @@ describe 'Tutor Popover', ->
         expect(overlayDOM.style.cssText).to.not.contain('height')
 
   it 'should set overlay height and be scrollable if overlay height is greater than window height', ->
-    window = _.clone(FAKE_WINDOW)
+    windowImpl = _.clone(FAKE_WINDOW)
 
     Testing
-      .renderComponent( PopoverWrapper )
+      .renderComponent( PopoverWrapper , props: {windowImpl})
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
         Testing.actions.click(dom)
         fakePopoverShouldScroll(popper)
+        popper.updateOverlayPosition()
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('height')
-        expect(parseInt(overlayDOM.style.height) < window.innerHeight).to.be.true
+        expect(parseInt(overlayDOM.style.height) < windowImpl.innerHeight).to.be.true
         expect(overlay.state.scrollable).to.be.true
         expect(overlayDOM.classList.contains('scrollable')).to.be.true
