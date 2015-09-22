@@ -87,7 +87,7 @@ routes = (
       <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookPageShell}/>
 
       <Route path='section/:section'
-        name='viewReferenceBookSection' handler={ReferenceBookPageShell} />
+        name='viewReferenceBookSection' handler={ReferenceBookShell} />
 
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
 
