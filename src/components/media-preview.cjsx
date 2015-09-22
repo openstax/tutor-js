@@ -22,11 +22,11 @@ MediaPreview = React.createClass
     cnxId: React.PropTypes.string.isRequired
     mediaDOMOnParent: React.PropTypes.object
     buffer: React.PropTypes.number
-    shouldLinkElsewhere: React.PropTypes.bool
+    shouldLinkOut: React.PropTypes.bool
 
   getDefaultProps: ->
     buffer: 160
-    shouldLinkElsewhere: false
+    shouldLinkOut: false
 
   componentWillMount: ->
     {mediaId, cnxId} = @props
@@ -94,7 +94,8 @@ MediaPreview = React.createClass
     _.pick(@props, 'containerPadding')
 
   getLinkProps: (otherProps) ->
-    {mediaId, mediaDOMOnParent, bookHref, shouldLinkElsewhere} = @props
+    {mediaId, mediaDOMOnParent, bookHref, shouldLinkOut} = @props
+    {media} = @state
 
     otherPropTypes = _.chain(otherProps)
       .keys()
@@ -107,7 +108,7 @@ MediaPreview = React.createClass
 
     if mediaDOMOnParent?
       linkProps.href = "##{mediaId}"
-    else if shouldLinkElsewhere
+    else if (media and shouldLinkOut) or not media
       linkProps.href = bookHref
       linkProps.href += "##{mediaId}" if mediaId
       linkProps.target = '_blank'

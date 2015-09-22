@@ -118,7 +118,7 @@ describe 'Media Preview', ->
     bookHref = 'link-to-book'
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaId, bookHref: bookHref, children: 'this figure'} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaId, bookHref: bookHref, children: 'this figure', shouldLinkOut: true} )
       .then ({dom, element}) ->
         expect(dom.href).to.contain(bookHref).and.to.contain(mediaId)
         expect(dom.target).to.equal('_blank')

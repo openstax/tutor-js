@@ -76,7 +76,7 @@ LinkContentMixin =
       cnxId: mediaCNXId
       bookHref: @buildReferenceBookLink(mediaCNXId)
       mediaDOMOnParent: mediaDOM
-      shouldLinkElsewhere: @shouldOpenNewTab?()
+      shouldLinkOut: @shouldOpenNewTab?()
 
     mediaPreview = <MediaPreview {...mediaProps}>
         {link.innerText}
