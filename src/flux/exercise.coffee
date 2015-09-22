@@ -7,7 +7,7 @@ _ = require 'underscore'
 EXERCISE_TAGS =
   TEKS: 'teks'
   LO: ['lo', 'aplo']
-  GENERIC: 'generic'
+  GENERIC: ['blooms', 'dok', 'length']
 
 getTagName = (tag) ->
   [tag.name, tag.description].join(' ')
@@ -19,9 +19,9 @@ getImportantTags = (tags) ->
     tagString: ""
 
   _.reduce(tags, (memo, tag) ->
-    if (tag.type is EXERCISE_TAGS.GENERIC)
+    if (_.include(EXERCISE_TAGS.GENERIC, tag.type))
       tagArr = memo.tagString.split("/")
-      tagArr.push(tag.id)
+      tagArr.push(tag.name)
       memo.tagString = tagArr.join(" / ")
     else if (_.include(EXERCISE_TAGS.LO, tag.type))
       memo.lo = getTagName(tag)
@@ -76,7 +76,7 @@ ExerciseConfig =
     getTeksString: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
       teksTags = _.where(tags, {type: EXERCISE_TAGS.TEKS})
-      _.map(teksTags, getTagName).join(" / ")
+      _.map(teksTags, 'name').join(" / ")
 
     getContent: (exercise_id) ->
       @_exerciseCache[exercise_id].content.questions[0].stem_html
