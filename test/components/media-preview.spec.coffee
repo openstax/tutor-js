@@ -133,7 +133,7 @@ describe 'Media Preview', ->
     mediaDOM.innerHTML = media.html
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', media: mediaDOM} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
       .then ({dom, element}) ->
 
         Testing.actions.click(dom)
@@ -149,7 +149,7 @@ describe 'Media Preview', ->
     window = {}
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', media: mediaDOM} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
       .then ({dom, element}) ->
         fakeMediaInViewport(mediaDOM, window)
         expect(element.isMediaInViewport()).to.be.true
@@ -169,7 +169,7 @@ describe 'Media Preview', ->
     fakeMediaInViewport(mediaDOM, window)
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', media: mediaDOM} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
       .then ({dom, element}) ->
 
         expect(mediaDOM.classList.contains('target')).to.be.false
@@ -189,7 +189,7 @@ describe 'Media Preview', ->
     fakeMediaInViewport(mediaDOM, window)
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', media: mediaDOM} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
       .then ({dom, element}) ->
 
         Testing.actions.mouseEnter(dom)
@@ -208,7 +208,7 @@ describe 'Media Preview', ->
     fakeMediaNotInViewport(mediaDOM, window)
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', media: mediaDOM} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
       .then ({dom, element}) ->
 
         Testing.actions.mouseEnter(dom)
@@ -228,7 +228,7 @@ describe 'Media Preview', ->
     fakeMediaNotInViewport(mediaDOM, window)
 
     Testing
-      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', media: mediaDOM} )
+      .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: 'this figure', mediaDOMOnParent: mediaDOM} )
       .then ({dom, element}) ->
         Testing.actions.mouseEnter(dom)
         expect(element.state.popped).to.be.true

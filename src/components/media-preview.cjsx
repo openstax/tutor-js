@@ -18,11 +18,15 @@ MediaPreview = React.createClass
 
   propTypes:
     mediaId: React.PropTypes.string.isRequired
-    media: React.PropTypes.object
+    bookHref: React.PropTypes.string.isRequired
+    cnxId: React.PropTypes.string.isRequired
+    mediaDOMOnParent: React.PropTypes.object
     buffer: React.PropTypes.number
+    shouldLinkElsewhere: React.PropTypes.bool
 
   getDefaultProps: ->
     buffer: 160
+    shouldLinkElsewhere: false
 
   componentWillMount: ->
     {mediaId, cnxId} = @props
@@ -37,22 +41,22 @@ MediaPreview = React.createClass
     @setState({media})
 
   checkShouldPop: ->
-    return true unless @props.media
+    return true unless @props.mediaDOMOnParent
     not @isMediaInViewport()
 
   isMediaInViewport: ->
-    {media, buffer} = @props
-    mediaRect = media.getBoundingClientRect()
+    {mediaDOMOnParent, buffer} = @props
+    mediaRect = mediaDOMOnParent.getBoundingClientRect()
 
     0 <= (mediaRect.top + buffer) <= window.innerHeight
 
   highlightMedia: ->
-    {media} = @props
-    media.classList.add('target')
+    {mediaDOMOnParent} = @props
+    mediaDOMOnParent.classList.add('target')
 
   unhighlightMedia: ->
-    {media} = @props
-    media.classList.remove('target')
+    {mediaDOMOnParent} = @props
+    mediaDOMOnParent.classList.remove('target')
 
   stickMedia: ->
     @setState(stick: true)
@@ -90,20 +94,20 @@ MediaPreview = React.createClass
     _.pick(@props, 'containerPadding')
 
   getLinkProps: (otherProps) ->
-    {mediaId, media, bookHref} = @props
+    {mediaId, mediaDOMOnParent, bookHref, shouldLinkElsewhere} = @props
 
     otherPropTypes = _.chain(otherProps)
       .keys()
-      .union(['mediaId', 'children', 'media', 'buffer'])
+      .union(['mediaId', 'children', 'mediaDOMOnParent', 'buffer'])
       .value()
 
     # most props should pass on
     linkProps = _.omit(@props, otherPropTypes)
     linkProps['data-targeted'] = 'media'
 
-    if media?
+    if mediaDOMOnParent?
       linkProps.href = "##{mediaId}"
-    else
+    else if shouldLinkElsewhere
       linkProps.href = bookHref
       linkProps.href += "##{mediaId}" if mediaId
       linkProps.target = '_blank'

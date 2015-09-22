@@ -58,20 +58,13 @@ LinkContentMixin =
     trueHref = link.getAttribute('href')
     link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
 
-  linkMediaElsewhere: (mediaCNXId, mediaLink) ->
-    pageUrl = @buildReferenceBookLink(mediaCNXId)
-    mediaLink.href = pageUrl + mediaLink.hash
-    mediaLink.target = '_blank' if @shouldOpenNewTab?()
-    # do this to ignore this link once adjusted
-    mediaLink.dataset.targeted = 'media'
-
   getMedia: (mediaId) ->
     root = @getDOMNode()
     root.querySelector("##{mediaId}")
 
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
-    media = @getMedia(mediaId) if mediaId
+    mediaDOM = @getMedia(mediaId) if mediaId
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
 
     previewNode = document.createElement('span')
@@ -82,7 +75,8 @@ LinkContentMixin =
       mediaId: mediaId
       cnxId: mediaCNXId
       bookHref: @buildReferenceBookLink(mediaCNXId)
-      media: media
+      mediaDOMOnParent: mediaDOM
+      shouldLinkElsewhere: @shouldOpenNewTab?()
 
     mediaPreview = <MediaPreview {...mediaProps}>
         {link.innerText}
@@ -94,16 +88,8 @@ LinkContentMixin =
     if @isMediaLink(link)
       @linkPreview(link)
       return null
-      # if @isMediaLoaded(link)
-      # else if @hasCNXId(link)
-      #   @linkToAnotherPage(link)
-      #   return null
     else
       return link
-
-  linkToAnotherPage: (link) ->
-    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
-    @linkMediaElsewhere(mediaCNXId, link)
 
   processLinks: ->
     _.defer(@_processLinks)

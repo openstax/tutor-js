@@ -1,10 +1,10 @@
 React = require 'react'
 _ = require 'underscore'
 
-api = require '../../api'
 {TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
 ArbitraryHtmlAndMath = require '../html'
+{StepContent, ReadingStepContent} = require './step-with-reading-content'
 Exercise = require './exercise'
 Markdown = require '../markdown'
 StepMixin = require './step-mixin'
@@ -20,76 +20,43 @@ err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
 
-getCnxId = (id) ->
-  parts = TaskStepStore.get(id)?.content_url?.split('contents/')
-  if parts.length > 1 then _.last(parts) else undefined
 
 Reading = React.createClass
   displayName: 'Reading'
-  mixins: [StepMixin, StepFooterMixin, BookContentMixin, CourseDataMixin]
+  mixins: [StepMixin, StepFooterMixin, CourseDataMixin]
   contextTypes:
     router: React.PropTypes.func
   isContinueEnabled: -> true
-  # used by BookContentMixin
-  shouldOpenNewTab: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
-
-  getSplashTitle: ->
-    TaskStepStore.get(@props.id)?.title or ''
-
-  getCnxId: ->
-    getCnxId(@props.id)
-
   renderBody: ->
     {id} = @props
-    {content_html} = TaskStepStore.get(id)
     courseDataProps = @getCourseDataProps()
-
-    <ArbitraryHtmlAndMath
-      {...courseDataProps}
-      className='reading-step'
-      html={content_html} />
+    <ReadingStepContent id={id} stepType='reading' courseDataProps={courseDataProps}/>
 
 
 Interactive = React.createClass
   displayName: 'Interactive'
-  mixins: [StepMixin, StepFooterMixin, LinkContentMixin]
-  getCnxId: ->
-    getCnxId(@props.id)
-  # used by LinkContentMixin
-  shouldOpenNewTab: -> true
+  mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
-
   renderBody: ->
     {id} = @props
-    {content_html} = TaskStepStore.get(id)
-    <div className='interactive-step'>
-      <ArbitraryHtmlAndMath className='interactive-content' html={content_html} />
-    </div>
+    <StepContent id={id} stepType='interactive'/>
 
 Video = React.createClass
   displayName: 'Video'
-  mixins: [StepMixin, StepFooterMixin, LinkContentMixin]
-  getCnxId: ->
-    getCnxId(@props.id)
-  # used by LinkContentMixin
-  shouldOpenNewTab: -> true
+  mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
-
   renderBody: ->
     {id} = @props
-    {content_html} = TaskStepStore.get(id)
-    <div className='video-step'>
-      <ArbitraryHtmlAndMath className='video-content' html={content_html} />
-    </div>
+    <StepContent id={id} stepType='video'/>
 
 Placeholder = React.createClass
   displayName: 'Placeholder'

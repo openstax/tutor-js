@@ -50,7 +50,7 @@ module.exports = React.createClass
     window.location.hash.length
 
   # used by BookContentMixin
-  shouldOpenNewTab: -> false
+  shouldOpenNewTab: -> true
 
   getTargetEl: ->
     targetSelector = window.location.hash
