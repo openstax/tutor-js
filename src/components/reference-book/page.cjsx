@@ -18,7 +18,6 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
-    courseId: React.PropTypes.string.isRequired
     cnxId: React.PropTypes.string.isRequired
   mixins: [BookContentMixin, GetPositionMixin, ChapterSectionMixin]
   contextTypes:
@@ -30,19 +29,22 @@ module.exports = React.createClass
 
   prevLink: (info) ->
     {query} = @props
-
+    params = _.extend({}, @context.router.getCurrentParams(),
+      section: @sectionFormat(info.prev.chapter_section))
     <Router.Link className='nav prev' to='viewReferenceBookSection'
       query={query}
-      params={courseId: @props.courseId, section: @sectionFormat(info.prev.chapter_section)}>
+      params={params}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
     {query} = @props
+    params = _.extend({}, @context.router.getCurrentParams(),
+      section: @sectionFormat(info.next.chapter_section))
 
     <Router.Link className='nav next' to='viewReferenceBookSection'
       query={query}
-      params={courseId: @props.courseId, section: @sectionFormat(info.next.chapter_section)}>
+      params={params}>
       <div className='triangle' />
     </Router.Link>
 

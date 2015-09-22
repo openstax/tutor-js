@@ -4,60 +4,19 @@ BS = require 'react-bootstrap'
 _  = require 'underscore'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {CourseActions, CourseStore} = require '../../flux/course'
-{Invalid} = require '../index'
-
+ReferenceBookPageShell = require './page-shell'
 LoadableItem = require '../loadable-item'
 moment = require 'moment'
 ReferenceBook = require './reference-book'
-ReferenceBookPage = require './page'
-
-ReferenceBookPageShell = React.createClass
-  displayName: 'ReferenceBookPageShell'
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-    cnxId: React.PropTypes.string.isRequired
-
-  getDefaultState: ->
-    previousPageProps: null
-
-  componentWillReceiveProps: (nextProps) ->
-    @setState(previousPageProps: @props)
-
-  isAnotherPage: (previousPageProps, currentProps) ->
-    previousPageProps? and previousPageProps.cnxId? and not _.isEqual(previousPageProps, currentProps)
-
-  renderLoading: (previousPageProps, currentProps, refreshButton) ->
-    if @isAnotherPage(previousPageProps, currentProps)
-      loading = <ReferenceBookPage
-        {...previousPageProps}
-        className='page-loading loadable is-loading'>
-        {refreshButton}
-      </ReferenceBookPage>
-    else
-      loading = <div className='loadable is-loading'>Loading... {refreshButton}</div>
-
-    loading
-
-  renderLoaded: ->
-    <ReferenceBookPage {...@props}/>
-
-  render: ->
-    if @props.cnxId?
-      <LoadableItem
-        id={@props.cnxId}
-        store={ReferenceBookPageStore}
-        actions={ReferenceBookPageActions}
-        renderLoading={_.partial(@renderLoading, @state?.previousPageProps, @props)}
-        renderItem={@renderLoaded}
-      />
-    else
-      <Invalid />
-
+CourseDataMixin = require '../course-data-mixin'
+TeacherContentToggle = require './teacher-content-toggle'
 
 ReferenceBookShell = React.createClass
   displayName: 'ReferenceBookShell'
+
+  mixins: [CourseDataMixin]
+
   contextTypes:
     router: React.PropTypes.func
   getInitialState: ->
@@ -69,29 +28,47 @@ ReferenceBookShell = React.createClass
 
     unless CourseStore.isLoaded(courseId)
       CourseActions.load(courseId)
-      CourseStore.once('course.loaded', @setIds.bind(@))
+      CourseStore.once('course.loaded', @setIds)
 
   componentWillReceiveProps: ->
     @setIds()
 
   getIds: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, section} = @context.router.getCurrentParams()
     {ecosystemId} = @context.router.getCurrentQuery()
     ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
-    {courseId, ecosystemId}
+    {courseId, section, ecosystemId}
 
   setIds: ->
     @setState(@getIds())
 
-  render: ->
+  setTeacherContent: (isShowing) ->
+    @setState(isShowingTeacherContent: isShowing)
+
+  renderNavbarControls: ->
+    return null unless CourseStore.isTeacher(@state.courseId)
+    <TeacherContentToggle onChange={@setTeacherContent} />
+
+  renderBook: ->
+    classnames = []
+    classnames.push('is-teacher') if @state.isShowingTeacherContent
     {courseId, ecosystemId} = @state
 
+    <ReferenceBook
+        navbarControls={@renderNavbarControls()}
+        section={@state.section}
+        className={classnames.join(' ')}
+        dataProps={@getCourseDataProps(courseId) if courseId}
+        ecosystemId={ecosystemId}
+    />
+
+  render: ->
+    {courseId, ecosystemId} = @state
     <LoadableItem
-      id={ecosystemId}
+      id={ecosystemId or CourseStore.get(courseId).ecosystem_id}
       store={ReferenceBookStore}
       actions={ReferenceBookActions}
-      renderItem={ -> <ReferenceBook courseId={courseId} ecosystemId={ecosystemId}/> }
-    />
+      renderItem={@renderBook} />
 
 
 module.exports = {ReferenceBookShell, ReferenceBookPageShell}

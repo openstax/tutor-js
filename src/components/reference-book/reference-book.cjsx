@@ -1,16 +1,15 @@
 React = require 'react'
-Router = require 'react-router'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
 
-BindStoreMixin = require '../bind-store-mixin'
-CourseDataMixin = require '../course-data-mixin'
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
+ChapterSectionMixin = require '../chapter-section-mixin'
+PageShell = require './page-shell'
 
-{CourseListingStore} = require '../../flux/course-listing'
-{CourseStore} = require '../../flux/course'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
+
+WindowResizeListenerMixin = require '../resize-listener-mixin'
 
 # menu width (300) + page width (1000) + 50 px padding
 # corresponds to @reference-book-page-width and @reference-book-menu-width in variables.less
@@ -18,91 +17,75 @@ MENU_VISIBLE_BREAKPOINT = 1350
 
 module.exports = React.createClass
   displayName: 'ReferenceBook'
-  contextTypes:
-    router: React.PropTypes.func
-  mixins: [BindStoreMixin, CourseDataMixin]
-  bindStore: CourseListingStore
-  bindEvent: 'loaded'
 
-  getPageState: ->
-    {cnxId} = @context.router.getCurrentParams()
-    # Pop open the menu unless the page was explicitly navigated to
-    isMenuVisible: not cnxId
-    pageProps: @getPageProps()
+  mixins: [WindowResizeListenerMixin, ChapterSectionMixin]
 
-  setPageState: ->
-    @setState(@getPageState())
+  propTypes:
+    navbarControls: React.PropTypes.element
+    ecosystemId: React.PropTypes.string.isRequired
+    dataProps:   React.PropTypes.object
+    section:     React.PropTypes.string
+    cnxId:       React.PropTypes.string
+    className:   React.PropTypes.string
+    contentComponent: React.PropTypes.func
 
-  getInitialState: ->
-    @getPageState()
+  getDefaultProps: ->
+    contentComponent: PageShell
+
+  defaultStateFromProps: (props) ->
+    section = props.section or @sectionFormat(ReferenceBookStore.getFirstSection(@props.ecosystemId))
+    @setState
+      section: section
+      cnxId:   props.cnxId or
+        ReferenceBookStore.getChapterSectionPage({ecosystemId:@props.ecosystemId, section:section}).cnx_id
 
   componentWillReceiveProps: (nextProps) ->
-    @setPageState()
+    @defaultStateFromProps(nextProps)
 
   componentWillMount: ->
-    {courseId, cnxId, section} = @context.router.getCurrentParams()
-    query = {ecosystemId} = @context.router.getCurrentQuery()
-    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
+    @defaultStateFromProps(@props)
+    # if the screen is wide enought, start with menu open
+    @setState(isMenuVisible: not @isMenuOnTop())
 
-    unless cnxId? or section?
-      section = ReferenceBookStore.getFirstSection(ecosystemId)
-      @context.router.replaceWith('viewReferenceBookSection', {courseId, section}, query)
+  isMenuOnTop: ->
+    @state.windowEl.width < MENU_VISIBLE_BREAKPOINT
 
-    CourseListingStore.ensureLoaded()
-
-  getPageProps: ->
-    params = {courseId, cnxId, section} = @context.router.getCurrentParams()
-    return params if courseId? and cnxId? and section?
-
-    query = {ecosystemId} = @context.router.getCurrentQuery()
-    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
-
-    if section?
-      page = ReferenceBookStore.getChapterSectionPage({ecosystemId, section})
-    else if cnxId?
-      page = ReferenceBookStore.getPageInfo({ecosystemId, cnxId})
-      section = page.chapter_section
-
-    cnxId ?= page?.cnx_id
-
-    {cnxId, section, courseId, ecosystemId, query}
-
-  toggleTeacherEdition: (ev) ->
-    @setState(showTeacherEdition: not @state.showTeacherEdition)
-    ev?.preventDefault() # stops react-router from scrolling to top
-
-  onMenuClick: ->
-    @toggleMenuState() unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
+  onMenuClick: (ev) ->
+    @toggleMenuState() if @isMenuOnTop()
 
   toggleMenuState: (ev) ->
     @setState(isMenuVisible: not @state.isMenuVisible)
     ev?.preventDefault() # needed to prevent scrolling to top
 
   render: ->
-    {pageProps} = @state
-    {courseId} = pageProps
-    courseDataProps = @getCourseDataProps(courseId)
-
-    course = CourseStore.get(courseId)
     classnames = ["reference-book"]
+    classnames.push(@props.className) if @props.className
     classnames.push('menu-open') if @state.isMenuVisible
-    if course and _.findWhere(course.roles, type: 'teacher')
-      toggleTeacher = @toggleTeacherEdition
-      teacherLinkText = if @state.showTeacherEdition
-        classnames.push('is-teacher')
-        "Hide Teacher Edition"
-      else
-        "Show Teacher Edition"
 
-    <div {...courseDataProps} className={classnames.join(' ')}>
+    <div {...@props.dataProps} className={classnames.join(' ')}>
+
       <NavBar
-        {...pageProps}
+        ecosystemId={@props.ecosystemId}
+        section={@state.section}
         toggleTocMenu={@toggleMenuState}
-        teacherLinkText={teacherLinkText}
         isMenuVisible={@state.isMenuVisible}
-        showTeacherEdition={toggleTeacher} />
+        extraControls={@props.navbarControls}
+      />
+
       <div className="content">
-        <Menu {...pageProps} onMenuSelection={@onMenuClick} />
-        <Router.RouteHandler {...pageProps} />
+
+        <Menu
+          ecosystemId={@props.ecosystemId}
+          activeSection={@state.section}
+          opened={@state.isMenuVisible}
+          onMenuSelection={@onMenuClick}
+        />
+
+        <@props.contentComponent
+          cnxId={@state.cnxId}
+          section={@state.section}
+          ecosystemId={@props.ecosystemId}
+        />
+
       </div>
     </div>
