@@ -145,12 +145,12 @@ start = (bootstrapData) ->
   apiHelper TaskPlanStatsActions, TaskPlanStatsActions.load , TaskPlanStatsActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/stats"
 
-  apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (courseId, pageIds) ->
+  apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (ecosystemId, pageIds) ->
     page_id_str = pageIds.join('&page_ids[]=')
-    url: "/api/courses/#{courseId}/exercises?page_ids[]=#{page_id_str}"
+    url: "/api/ecosystems/#{ecosystemId}/exercises?page_ids[]=#{page_id_str}"
 
-  apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/readings"
+  apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
+    url: "/api/ecosystems/#{ecosystemId}/readings"
 
   apiHelper CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/practice"
@@ -235,8 +235,8 @@ start = (bootstrapData) ->
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/user/courses'
 
-  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/readings"
+  apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (ecosystemId) ->
+    url: "/api/ecosystems/#{ecosystemId}/readings"
 
 
   apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->

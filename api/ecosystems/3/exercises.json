@@ -1,0 +1,436 @@
+{
+    "total_count": 6,
+    "items": [{
+        "id": "31",
+        "url": "http://exercises.openstax.org/exercises/31@1",
+        "content": {
+            "uid": "31@1",
+            "number": 31,
+            "version": 1,
+            "published_at": "2015-04-22T19:30:19.452Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1
+            }],
+            "copyright_holders": [{
+                "user_id": 2
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["k12phys-ch04-s02-lo01", "k12phys-ch04-ex031", "practice-concepts", "inbook-yes", "dok1", "time-short", "display-free-response"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": "494",
+                "stimulus_html": "",
+                "stem_html": "What does Newton’s First Law state?",
+                "answers": [{
+                    "id": "1789",
+                    "content_html": "The rate of change of momentum of a body is inversely proportional to the external force applied on the body",
+                    "correctness": "0.0",
+                    "feedback_html": "Are you sure that rate of change of momentum of a body is inversely proportional to the external force applied on the body?"
+                }, {
+                    "id": "1788",
+                    "content_html": "The rate of change of momentum of a body is directly proportional to the external force applied on the body",
+                    "correctness": "0.0",
+                    "feedback_html": "Isn’t it the second law of motion? Can you recall all the three laws of motion given by Newton?"
+                }, {
+                    "id": "1787",
+                    "content_html": "A body at rest tends to remain at rest, and a body in motion tends to remain in motion at a constant velocity unless acted upon by a net external force",
+                    "correctness": "1.0",
+                    "feedback_html": "Correct! Newton’s first law states that a body at rest tends to remain at rest, and a body in motion tends to remain in motion at a constant velocity unless acted upon by a net external force."
+                }, {
+                    "id": "1786",
+                    "content_html": "A body at rest tends to remain at rest, and a body in motion tends to remain in motion at a constant acceleration unless acted upon by a net external force",
+                    "correctness": "0.0",
+                    "feedback_html": "Do you think accelerated motion is different from the motion where a net external force is acting on the object?"
+                }],
+                "hints": [],
+                "formats": ["multiple-choice", "free-response"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch04-s02-lo01",
+            "type": "lo",
+            "chapter_section": [1, 2]
+        }, {
+            "id": "practice-concepts",
+            "type": "generic"
+        }, {
+            "id": "inbook-yes",
+            "type": "generic"
+        }, {
+            "id": "dok1",
+            "type": "generic"
+        }, {
+            "id": "time-short",
+            "type": "generic"
+        }, {
+            "id": "display-free-response",
+            "type": "generic"
+        }, {
+            "id": "k12phys-ch04-ex031",
+            "type": "generic"
+        }]
+    }, {
+        "id": "32",
+        "url": "http://exercises.openstax.org/exercises/32@1",
+        "content": {
+            "uid": "32@1",
+            "number": 32,
+            "version": 1,
+            "published_at": "2015-04-22T19:30:19.459Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1
+            }],
+            "copyright_holders": [{
+                "user_id": 2
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["k12phys-ch04-s02-lo01", "k12phys-ch04-ex032", "practice-concepts", "inbook-yes", "dok2", "time-short", "display-free-response"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": "495",
+                "stimulus_html": "",
+                "stem_html": "According to Newton’s First Law, a body in motion tends to remain in motion at constant velocity. However, when you slide an object across a surface, the object eventually slows down and stops. Why?",
+                "answers": [{
+                    "id": "1793",
+                    "content_html": "The object experiences a pseudo force of the body in motion, which opposes its motion",
+                    "correctness": "0.0",
+                    "feedback_html": "Is it correct to say that a pseudo force can bring change in motion of the body?"
+                }, {
+                    "id": "1792",
+                    "content_html": "The object experiences an internal force exerted by the body itself, which opposes its motion",
+                    "correctness": "0.0",
+                    "feedback_html": "Are you sure that internal forces can oppose the motion of the body? Can you recall Newton’s second law of motion?"
+                }, {
+                    "id": "1791",
+                    "content_html": "The object experiences the gravitational force exerted by the Earth, which opposes its motion",
+                    "correctness": "0.0",
+                    "feedback_html": "Do you think the gravitational force which acts perpendicular to the motion of the body will oppose its motion?"
+                }, {
+                    "id": "1790",
+                    "content_html": "The object experiences a frictional force exerted by the surface, which opposes its motion",
+                    "correctness": "1.0",
+                    "feedback_html": "Correct! The object experiences a frictional force exerted by the surface, which opposes its motion."
+                }],
+                "hints": [],
+                "formats": ["multiple-choice", "free-response"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch04-s02-lo01",
+            "type": "lo",
+            "chapter_section": [1, 2]
+        }, {
+            "id": "practice-concepts",
+            "type": "generic"
+        }, {
+            "id": "inbook-yes",
+            "type": "generic"
+        }, {
+            "id": "time-short",
+            "type": "generic"
+        }, {
+            "id": "display-free-response",
+            "type": "generic"
+        }, {
+            "id": "dok2",
+            "type": "generic"
+        }, {
+            "id": "k12phys-ch04-ex032",
+            "type": "generic"
+        }]
+    }, {
+        "id": "33",
+        "url": "http://exercises.openstax.org/exercises/33@1",
+        "content": {
+            "uid": "33@1",
+            "number": 33,
+            "version": 1,
+            "published_at": "2015-04-22T19:30:19.467Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1
+            }],
+            "copyright_holders": [{
+                "user_id": 2
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["k12phys-ch04-s02-lo01", "k12phys-ch04-ex033", "practice-concepts", "tutor-only", "dok1", "time-short", "display-free-response"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": "496",
+                "stimulus_html": "",
+                "stem_html": "How do you express mathematically that no external force is acting on a body?",
+                "answers": [{
+                    "id": "1797",
+                    "content_html": "<span data-math=\"F_\\text{net} = \\infty\">F_\\text{net} = \\infty</span>",
+                    "correctness": "0.0",
+                    "feedback_html": "Are you sure that <span data-math=\"F_\\text{net} = \\infty\">F_\\text{net} = \\infty</span> expresses mathematically that no external force is acting on a body?"
+                }, {
+                    "id": "1796",
+                    "content_html": "<span data-math=\"F_\\text{net} = 1\">F_\\text{net} = 1</span>",
+                    "correctness": "0.0",
+                    "feedback_html": "Is it correct to say that <span data-math=\"\\text{F}_\\text{net} = 1\">\\text{F}_\\text{net} = 1</span> represents no external force is acting on a body? Doesn’t it tell that a unit force is acting in the positive direction?"
+                }, {
+                    "id": "1795",
+                    "content_html": "<span data-math=\"F_\\text{net} = 0\">F_\\text{net} = 0</span>",
+                    "correctness": "1.0",
+                    "feedback_html": "Correct! <span data-math=\"F_\\text{net} = 0\">F_\\text{net} = 0</span> mathematically means that no external force is acting on a body."
+                }, {
+                    "id": "1794",
+                    "content_html": "<span data-math=\"F_\\text{net} = {-1}\">F_\\text{net} = {-1}</span>",
+                    "correctness": "0.0",
+                    "feedback_html": "Do you think <span data-math=\"F_\\text{net} = {-1}\">F_\\text{net} = {-1}</span> means that no external force is acting on a body? Doesn’t it tell that a unit force is acting in the negative direction?"
+                }],
+                "hints": [],
+                "formats": ["multiple-choice", "free-response"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch04-s02-lo01",
+            "type": "lo",
+            "chapter_section": [1, 2]
+        }, {
+            "id": "practice-concepts",
+            "type": "generic"
+        }, {
+            "id": "dok1",
+            "type": "generic"
+        }, {
+            "id": "time-short",
+            "type": "generic"
+        }, {
+            "id": "display-free-response",
+            "type": "generic"
+        }, {
+            "id": "tutor-only",
+            "type": "generic"
+        }, {
+            "id": "k12phys-ch04-ex033",
+            "type": "generic"
+        }]
+    }, {
+        "id": "34",
+        "url": "http://exercises.openstax.org/exercises/34@1",
+        "content": {
+            "uid": "34@1",
+            "number": 34,
+            "version": 1,
+            "published_at": "2015-04-22T19:30:19.475Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1
+            }],
+            "copyright_holders": [{
+                "user_id": 2
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["k12phys-ch04-s02-lo01", "k12phys-ch04-ex034", "practice-concepts", "tutor-only", "dok1", "time-short", "display-free-response"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": "497",
+                "stimulus_html": "",
+                "stem_html": "What is friction?",
+                "answers": [{
+                    "id": "1801",
+                    "content_html": "Friction is an external force that accelerates motion of the body",
+                    "correctness": "0.0",
+                    "feedback_html": "Yes, friction is an external force but do you think it accelerates motion of the body? Can you think how a body comes to rest?"
+                }, {
+                    "id": "1800",
+                    "content_html": "Friction is an external force that decelerates motion of the body",
+                    "correctness": "1.0",
+                    "feedback_html": "Correct! Friction is an external force that opposes the motion of the body."
+                }, {
+                    "id": "1799",
+                    "content_html": "Friction is an internal force that accelerates motion of the body",
+                    "correctness": "0.0",
+                    "feedback_html": "Are you sure that friction is an internal force that accelerates motion of the body? Have you got the definition correctly?"
+                }, {
+                    "id": "1798",
+                    "content_html": "Friction is an internal force that decelerates motion of the body",
+                    "correctness": "0.0",
+                    "feedback_html": "It is correct that friction decelerates motion of the body but do you think it is an internal force? Can you differentiate between internal and external forces?"
+                }],
+                "hints": [],
+                "formats": ["multiple-choice", "free-response"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch04-s02-lo01",
+            "type": "lo",
+            "chapter_section": [1, 2]
+        }, {
+            "id": "practice-concepts",
+            "type": "generic"
+        }, {
+            "id": "dok1",
+            "type": "generic"
+        }, {
+            "id": "time-short",
+            "type": "generic"
+        }, {
+            "id": "display-free-response",
+            "type": "generic"
+        }, {
+            "id": "tutor-only",
+            "type": "generic"
+        }, {
+            "id": "k12phys-ch04-ex034",
+            "type": "generic"
+        }]
+    }, {
+        "id": "35",
+        "url": "http://exercises.openstax.org/exercises/35@1",
+        "content": {
+            "uid": "35@1",
+            "number": 35,
+            "version": 1,
+            "published_at": "2015-04-22T19:30:19.483Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1
+            }],
+            "copyright_holders": [{
+                "user_id": 2
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["k12phys-ch04-s02-lo01", "k12phys-ch04-ex035", "practice-concepts", "tutor-only", "dok2", "time-short", "display-free-response"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": "498",
+                "stimulus_html": "",
+                "stem_html": "Name one thing that the friction between two surfaces may depend on.",
+                "answers": [{
+                    "id": "1805",
+                    "content_html": "Roughness of the surfaces",
+                    "correctness": "1.0",
+                    "feedback_html": "Correct! Friction between two surfaces depends on the quality of the surface, that is, on its smoothness or roughness."
+                }, {
+                    "id": "1804",
+                    "content_html": "Breadth of the surfaces",
+                    "correctness": "0.0",
+                    "feedback_html": "Is it correct to say that friction depends on the breadth of the surface? Can you recall definition of friction and the factors on which it is dependent?"
+                }, {
+                    "id": "1803",
+                    "content_html": "Length of the surfaces",
+                    "correctness": "0.0",
+                    "feedback_html": "Are you sure that friction depends on the dimension of the surfaces? Do you think friction depends on the length of the surface?"
+                }, {
+                    "id": "1802",
+                    "content_html": "Composition of the surfaces",
+                    "correctness": "0.0",
+                    "feedback_html": "Do you think friction is a physical quantity which depends on the composition of the surfaces? Can you recall definition of friction?"
+                }],
+                "hints": [],
+                "formats": ["multiple-choice", "free-response"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch04-s02-lo01",
+            "type": "lo",
+            "chapter_section": [1, 2]
+        }, {
+            "id": "practice-concepts",
+            "type": "generic"
+        }, {
+            "id": "time-short",
+            "type": "generic"
+        }, {
+            "id": "display-free-response",
+            "type": "generic"
+        }, {
+            "id": "dok2",
+            "type": "generic"
+        }, {
+            "id": "tutor-only",
+            "type": "generic"
+        }, {
+            "id": "k12phys-ch04-ex035",
+            "type": "generic"
+        }]
+    }, {
+        "id": "36",
+        "url": "http://exercises.openstax.org/exercises/36@1",
+        "content": {
+            "uid": "36@1",
+            "number": 36,
+            "version": 1,
+            "published_at": "2015-04-22T19:30:19.493Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1
+            }],
+            "copyright_holders": [{
+                "user_id": 2
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["k12phys-ch04-s02-lo01", "k12phys-ch04-ex036", "practice-concepts", "tutor-only", "dok2", "time-short", "display-free-response"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": "499",
+                "stimulus_html": "",
+                "stem_html": "Why does a puck slide more smoothly on an air-hockey table when the air is turned on?",
+                "answers": [{
+                    "id": "1809",
+                    "content_html": "It increases the gravitational force between the puck and the table",
+                    "correctness": "0.0",
+                    "feedback_html": "Is it correct to say that air will have any effect on the gravitational force? Also, do you think it will be the right factor to be considered when motion between two surfaces is described?"
+                }, {
+                    "id": "1808",
+                    "content_html": "It reduces the gravitational force between the puck and the table",
+                    "correctness": "0.0",
+                    "feedback_html": "Are you sure that air will have any effect on the gravitational force? Also, is it the correct factor to consider when motion between two surfaces is considered?"
+                }, {
+                    "id": "1807",
+                    "content_html": "It increases the friction between the puck and the table",
+                    "correctness": "0.0",
+                    "feedback_html": "Do you think if the friction between the puck and the table is increased, the puck will slide more smoothly? Can you recall the definition of friction?"
+                }, {
+                    "id": "1806",
+                    "content_html": "It reduces the friction between the puck and the table",
+                    "correctness": "1.0",
+                    "feedback_html": "Correct! The air reduces the friction between the puck and the table"
+                }],
+                "hints": [],
+                "formats": ["multiple-choice", "free-response"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch04-s02-lo01",
+            "type": "lo",
+            "chapter_section": [1, 2]
+        }, {
+            "id": "practice-concepts",
+            "type": "generic"
+        }, {
+            "id": "time-short",
+            "type": "generic"
+        }, {
+            "id": "display-free-response",
+            "type": "generic"
+        }, {
+            "id": "dok2",
+            "type": "generic"
+        }, {
+            "id": "tutor-only",
+            "type": "generic"
+        }, {
+            "id": "k12phys-ch04-ex036",
+            "type": "generic"
+        }]
+    }]
+}

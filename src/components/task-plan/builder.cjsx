@@ -8,6 +8,7 @@ PlanMixin = require './plan-mixin'
 BindStoreMixin = require '../bind-store-mixin'
 
 {TimeStore} = require '../../flux/time'
+TutorDateFormat = TimeStore.getFormat()
 TimeHelper = require '../../helpers/time'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -114,14 +115,25 @@ module.exports = React.createClass
     @setPeriodDefaults()
 
   componentWillMount: ->
+    TimeHelper.syncCourseTimezone()
+    #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
+
+  componentWillUnmount: ->
+    TimeHelper.unsyncCourseTimezone()
 
   setOpensAt: (value, period) ->
     {id} = @props
+    if Object.prototype.toString.call(value) is '[object Date]'
+      value = moment(value).format(TutorDateFormat)
+
     TaskPlanActions.updateOpensAt(id, value, period?.id)
 
   setDueAt: (value, period) ->
     {id} = @props
+    if Object.prototype.toString.call(value) is '[object Date]'
+      value = moment(value).format(TutorDateFormat)
+
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
   setAllPeriods: ->
@@ -140,8 +152,8 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or TaskPlanStore.getMinDueAt(this.props.id)
-    @setDueAt(taskingDueAt)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id)
+    @setDueAt(taskingDueAt) if taskingDueAt
 
   setIndividualPeriods: ->
     # if taskings exist in state, then load them

@@ -8,6 +8,7 @@ validator = require 'validator'
 {TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
+{CourseActions, CourseStore} = require './course'
 TaskHelpers = require '../helpers/task'
 
 TUTOR_SELECTIONS =
@@ -177,11 +178,10 @@ TaskPlanConfig =
     # the BE to accept.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = moment(date).toDate()
+      tasking[attr] = moment(date, [TimeStore.getFormat()]).toDate()
     else
       for tasking in tasking_plans
-        tasking[attr] = moment(date).toDate()
-
+        tasking[attr] = moment(date, [TimeStore.getFormat()]).toDate()
     @_change(id, {tasking_plans})
 
   updateOpensAt: (id, opens_at, periodId) ->
@@ -307,7 +307,7 @@ TaskPlanConfig =
 
   _saved: (obj, id) ->
     if obj.is_publish_requested
-      PlanPublishActions.published(obj, id)
+      PlanPublishActions.queued(obj, id)
       @emit('publish-queued', id)
     obj
 
@@ -331,6 +331,10 @@ TaskPlanConfig =
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
+
+    getEcosystemId: (id, courseId) ->
+      plan = @_getPlan(id)
+      plan.ecosystem_id or CourseStore.get(courseId)?.ecosystem_id
 
     hasExercise: (id, exerciseId) ->
       plan = @_getPlan(id)
@@ -394,7 +398,7 @@ TaskPlanConfig =
       not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
 
     isPublishing: (id) ->
-      PlanPublishStore.isPublishing(id)
+      @_changed[id]?.is_publish_requested or PlanPublishStore.isPublishing(id)
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)

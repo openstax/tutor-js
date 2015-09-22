@@ -13,7 +13,6 @@ TaskPlanBuilder = require './builder'
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 
 ChooseExercises = React.createClass
   displayName: 'ChooseExercises'
@@ -31,7 +30,7 @@ ChooseExercises = React.createClass
     })
 
   render: ->
-    {courseId, planId, selected, hide, cancel} = @props
+    {courseId, planId, ecosystemId, selected, hide, cancel} = @props
 
     header = <span>Add Problems</span>
     selected = TaskPlanStore.getTopics(planId)
@@ -65,6 +64,7 @@ ChooseExercises = React.createClass
         primary={primary}
         header={header}
         courseId={courseId}
+        ecosystemId={ecosystemId}
         planId={planId}
         selected={selected}
         cancel={cancel}
@@ -86,6 +86,7 @@ HomeworkPlan = React.createClass
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
+    ecosystemId = TaskPlanStore.getEcosystemId(id, courseId)
 
     topics = TaskPlanStore.getTopics(id)
     hasExercises = TaskPlanStore.getExercises(id)?.length
@@ -108,6 +109,7 @@ HomeworkPlan = React.createClass
       chooseExercises = <ChooseExercises
         courseId={courseId}
         planId={id}
+        ecosystemId={ecosystemId}
         cancel={@cancelSelection}
         hide={@hideSectionTopics}
         canEdit={not @state.isVisibleToStudents}

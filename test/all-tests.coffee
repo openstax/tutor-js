@@ -1,7 +1,3 @@
-chai = require 'chai'
-sinonChai = require("sinon-chai")
-chai.use(sinonChai)
-
 # For some reason, this navbar component test will have warnings about setting
 # state when component is unmounted if it's after some of the other specs.
 # The tests still run and progress just fine despite the warnings, but for now,
@@ -12,6 +8,8 @@ chai.use(sinonChai)
 require './components/course-listing.spec'
 require './components/navbar.spec'
 require './components/navbar/account-link.spec'
+require './components/task-plan/reading-plan.spec'
+require './components/task-plan/builder.spec'
 require './components/task-plan/homework-plan.spec'
 require './components/task-plan/homework/exercise-summary.spec'
 require './components/task-plan/footer.spec'
@@ -20,6 +18,7 @@ require './components/task.spec'
 require './components/task-homework.spec'
 require './components/task-homework-past-due.spec'
 require './components/practice.spec'
+require './components/course-calendar/plan.spec'
 require './components/course-calendar.spec'
 require './components/learning-guide.spec'
 require './components/learning-guide/chapter.spec'
@@ -42,7 +41,6 @@ require './components/book-content-mixin.spec'
 require './components/scores/reading-cell.spec'
 require './components/scores/homework-cell.spec'
 require './components/name.spec'
-
 # Flux your muscle
 require './crud-store.spec'
 require './task-store.spec'
@@ -54,13 +52,12 @@ require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
 require './course-listing-store.spec'
+require './flux/plan-publish.spec'
 
 # Helpers
 require './task-helpers.spec'
 require './dom-helpers.spec'
 require './helpers/string.spec'
 require './helpers/period.spec'
-
-# The whole Boom Boom.
-# This should be done **last** because it starts up the whole app
-require './router.spec'
+require './helpers/job.spec'
+require './helpers/time.spec'

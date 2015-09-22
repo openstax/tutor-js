@@ -31,13 +31,11 @@ body.modal-open {
     &.external-modal     { .x-plan-modal(@external-color); }
   }
 
-  &:not(.is-published) {
-    &.is-publishing {
-      .modal-title::before {
-        .is-publishing();
-        margin-right: @modal-padding/2;
-        margin-left: -@modal-padding/2;
-      }
+  &.is-publishing {
+    .modal-title::before {
+      .is-publishing();
+      margin-right: @modal-padding/2;
+      margin-left: -@modal-padding/2;
     }
   }
 

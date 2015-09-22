@@ -13,10 +13,9 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
-{ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
+{ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
 module.exports = React.createClass
-  _exerciseNodes: []
   displayName: 'ReferenceBookPage'
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -30,13 +29,19 @@ module.exports = React.createClass
     ReferenceBookStore.getPageTitle(@props)
 
   prevLink: (info) ->
+    {query} = @props
+
     <Router.Link className='nav prev' to='viewReferenceBookSection'
+      query={query}
       params={courseId: @props.courseId, section: @sectionFormat(info.prev.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
 
   nextLink: (info) ->
+    {query} = @props
+
     <Router.Link className='nav next' to='viewReferenceBookSection'
+      query={query}
       params={courseId: @props.courseId, section: @sectionFormat(info.next.chapter_section)}>
       <div className='triangle' />
     </Router.Link>
@@ -82,27 +87,22 @@ module.exports = React.createClass
 
   renderExercises: (exerciseLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
+    allExercises = _.pluck(exerciseLinks, 'href')
+    multipleUrl = ReferenceBookExerciseStore.getMultipleUrl(allExercises)
+    ReferenceBookExerciseActions.load(multipleUrl) unless ReferenceBookExerciseStore.isLoaded(multipleUrl)
+
     _.each(exerciseLinks, @renderExercise)
 
   renderExercise: (link) ->
     exerciseAPIUrl = link.href
-
-    if link.parentNode.parentNode?
-      @_exerciseNodes.push(link.parentNode.parentNode)
-      React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, link.parentNode.parentNode)
-
-  unmountExerciseComponent: (node, nodeIndex) ->
-    React.unmountComponentAtNode(node) if node?
-    @_exerciseNodes.splice(nodeIndex, 1)
-
-  componentWillUnmount: ->
-    _.each(@_exerciseNodes, @unmountExerciseComponent)
+    exerciseNode = link.parentNode.parentNode
+    React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
   render: ->
-    {courseId, cnxId, className} = @props
+    {courseId, cnxId, className, ecosystemId} = @props
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
-    info = ReferenceBookStore.getPageInfo({courseId, cnxId})
+    info = ReferenceBookStore.getPageInfo({ecosystemId, cnxId})
 
     html = page.content_html
     # FIXME the BE sends HTML with head and body

@@ -41,13 +41,15 @@ LinkContentMixin =
 
   buildReferenceBookLink: (cnxId) ->
     {courseId} = @context.router.getCurrentParams()
+    {query} = @props
+
     if cnxId?
       referenceBookLink = @context.router.makeHref( 'viewReferenceBookPage', { courseId, cnxId })
     else
       related_content = TaskStepStore.get(@props.id)?.related_content
       if related_content?
         section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
-        referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {courseId, section}) if section?
+        referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {courseId, section}, query) if section?
 
     referenceBookLink
 
@@ -97,6 +99,10 @@ LinkContentMixin =
     link.dataset.targeted = 'media'
 
   processLinks: ->
+    _.defer(@_processLinks)
+
+  _processLinks: ->
+    return unless @isMounted()
     root = @getDOMNode()
     mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)
     exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
@@ -107,8 +113,8 @@ LinkContentMixin =
       .uniq()
       .value()
 
-    @renderOtherLinks?(otherLinks)
-    @renderExercises?(exerciseLinks)
+    @renderOtherLinks?(otherLinks) if otherLinks?.length
+    @renderExercises?(exerciseLinks) if exerciseLinks?.length
 
 ReadingContentMixin =
   componentDidMount:  ->

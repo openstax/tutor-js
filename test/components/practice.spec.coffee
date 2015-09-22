@@ -8,7 +8,7 @@ _ = require 'underscore'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
-{SinglePractice, Tasks} = require '../../src/components'
+{SinglePractice} = require '../../src/components'
 
 VALID_MODEL = require '../../api/courses/1/practice.json'
 

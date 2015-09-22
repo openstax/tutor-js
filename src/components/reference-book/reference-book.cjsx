@@ -24,12 +24,29 @@ module.exports = React.createClass
   bindStore: CourseListingStore
   bindEvent: 'loaded'
 
+  getPageState: ->
+    {cnxId} = @context.router.getCurrentParams()
+    # Pop open the menu unless the page was explicitly navigated to
+    isMenuVisible: not cnxId
+    pageProps: @getPageProps()
+
+  setPageState: ->
+    @setState(@getPageState())
+
+  getInitialState: ->
+    @getPageState()
+
+  componentWillReceiveProps: (nextProps) ->
+    @setPageState()
+
   componentWillMount: ->
     {courseId, cnxId, section} = @context.router.getCurrentParams()
+    query = {ecosystemId} = @context.router.getCurrentQuery()
+    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
 
     unless cnxId? or section?
-      section = ReferenceBookStore.getFirstSection(courseId)
-      @context.router.replaceWith('viewReferenceBookSection', {courseId, section})
+      section = ReferenceBookStore.getFirstSection(ecosystemId)
+      @context.router.replaceWith('viewReferenceBookSection', {courseId, section}, query)
 
     CourseListingStore.ensureLoaded()
 
@@ -37,20 +54,18 @@ module.exports = React.createClass
     params = {courseId, cnxId, section} = @context.router.getCurrentParams()
     return params if courseId? and cnxId? and section?
 
+    query = {ecosystemId} = @context.router.getCurrentQuery()
+    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
+
     if section?
-      page = ReferenceBookStore.getChapterSectionPage({courseId, section})
+      page = ReferenceBookStore.getChapterSectionPage({ecosystemId, section})
     else if cnxId?
-      page = ReferenceBookStore.getPageInfo({courseId, cnxId})
+      page = ReferenceBookStore.getPageInfo({ecosystemId, cnxId})
       section = page.chapter_section
 
     cnxId ?= page?.cnx_id
 
-    {cnxId, section, courseId}
-
-  getInitialState: ->
-    {cnxId} = @context.router.getCurrentParams()
-    # Pop open the menu unless the page was explicitly navigated to
-    {isMenuVisible: not cnxId}
+    {cnxId, section, courseId, ecosystemId, query}
 
   toggleTeacherEdition: (ev) ->
     @setState(showTeacherEdition: not @state.showTeacherEdition)
@@ -64,7 +79,7 @@ module.exports = React.createClass
     ev?.preventDefault() # needed to prevent scrolling to top
 
   render: ->
-    pageProps = @getPageProps()
+    {pageProps} = @state
     {courseId} = pageProps
     courseDataProps = @getCourseDataProps(courseId)
 

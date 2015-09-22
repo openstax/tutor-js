@@ -2,7 +2,7 @@ module.exports =
 
   # can modify which event you want to bind on as needed.
   _bindEvent: ->
-    @bindEvent or 'change'
+    @bindEvent or @props.bindEvent or 'change'
 
   # @bindStore may need to be a function in some cases, i.e. when the store is being passed in as a prop.
   _bindStore: ->
