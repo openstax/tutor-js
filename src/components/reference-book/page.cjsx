@@ -1,6 +1,5 @@
 React = require 'react'
 Router = require 'react-router'
-BS = require 'react-bootstrap'
 _  = require 'underscore'
 
 HTML = require '../html'

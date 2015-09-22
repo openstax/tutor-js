@@ -1,7 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
 _  = require 'underscore'
-BS = require 'react-bootstrap'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 ChapterSectionMixin = require '../chapter-section-mixin'

@@ -1,5 +1,4 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 ReferenceBookTOC = require './toc'
 
 module.exports = React.createClass

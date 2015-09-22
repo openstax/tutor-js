@@ -1,14 +1,12 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 _  = require 'underscore'
+
+{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
 ChapterSectionMixin = require '../chapter-section-mixin'
 PageShell = require './page-shell'
-
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-
 WindowResizeListenerMixin = require '../resize-listener-mixin'
 
 # menu width (300) + page width (1000) + 50 px padding

@@ -1,5 +1,4 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 _  = require 'underscore'
 
 LoadableItem = require '../loadable-item'
