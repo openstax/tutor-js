@@ -1,8 +1,9 @@
 .reference-book {
-  @navbar-height: 60px;
+
   @navbar-spacing: 15px;
   .navbar {
-    height: @navbar-height;
+    height: @tutor-navbar-height; // set in global/navbar.less
+
     .ui-brand-logo { margin-top: 15px; }
     .container-fluid {
       padding: 0 4rem 0 0;
@@ -13,7 +14,7 @@
     }
     .menu-toggle {
       padding: @navbar-spacing;
-      height: @navbar-height;
+      height: @tutor-navbar-height;
       cursor: pointer;
       margin-right: @navbar-spacing;
       a { margin-right: 0px; }

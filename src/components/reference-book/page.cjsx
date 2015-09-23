@@ -46,44 +46,21 @@ module.exports = React.createClass
       <div className='triangle' />
     </Router.Link>
 
-  hasTargetHash: ->
-    window.location.hash.length
-
   # used by BookContentMixin
   shouldOpenNewTab: -> false
 
-  getTargetEl: ->
-    targetSelector = window.location.hash
-    pageEl = @getDOMNode()
-    pageEl.querySelector(targetSelector)
+  waitToScrollToSelector: (hash) ->
+    images = @getDOMNode().querySelectorAll('img')
+    imagesToLoad = images.length
+    onImageLoad = =>
+      imagesToLoad -= 1
+      if imagesToLoad is 0
+        # final scroll to
+        @scrollToSelector(hash)
+    for image in images
+      image.addEventListener('load', onImageLoad)
 
-  scrollToTarget: (targetEl) ->
-    targetPosition = @getTopPosition(targetEl)
-    window.scrollTo(0, targetPosition)
-
-  triggerTargetHighlight: (targetEl) ->
-    targetEl.classList.add('target')
-    _.delay(->
-      targetEl.classList.remove('target')
-    , 1500)
-
-  componentDidMount: ->
-    return unless @hasTargetHash()
-
-    targetEl = @getTargetEl()
-    if targetEl?
-      @scrollToTarget(targetEl)
-      images = @getDOMNode().querySelectorAll('img')
-      imagesToLoad = images.length
-      onImageLoad = =>
-        imagesToLoad -= 1
-        # scroll is jumpy. TODO fix.
-        @scrollToTarget(targetEl)
-        if imagesToLoad is 0
-          @triggerTargetHighlight(targetEl)
-
-      for image in images
-        image.addEventListener('load', onImageLoad)
+    images.length > 0
 
   renderExercises: (exerciseLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
