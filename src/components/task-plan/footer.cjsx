@@ -62,30 +62,12 @@ PlanFooter = React.createClass
     @setState({publishing: true, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
     @props.onPublish()
 
-  onCancel: ->
-    {id, courseId} = @props
-
-    if not TaskPlanStore.isChanged(id)
-      @reset()
-    else
-      TutorDialog.show(
-        title: 'Unsaved Changes'
-        body: 'Are you sure you want to cancel?'
-      ).then( =>
-        @reset()
-      )
-
-  reset: ->
-    {id, courseId} = @props
-    TaskPlanActions.reset(id)
-    @context.router.transitionTo('taskplans', {courseId})
-
   onViewStats: ->
     {id, courseId} = @props
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId, clickedSelectProblem, onPublish, onSave, getBackToCalendarParams} = @props
+    {id, courseId, clickedSelectProblem, onPublish, onSave, onCancel, getBackToCalendarParams} = @props
     {isEditable} = @state
 
     plan = TaskPlanStore.get(id)
@@ -125,7 +107,7 @@ PlanFooter = React.createClass
         </AsyncButton>
 
       cancelButton =
-        <BS.Button aria-role='close' disabled={isWaiting} onClick={@onCancel}>Cancel</BS.Button>
+        <BS.Button aria-role='close' disabled={isWaiting} onClick={onCancel}>Cancel</BS.Button>
 
       helpInfo =
         <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
