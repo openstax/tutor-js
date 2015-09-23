@@ -51,7 +51,8 @@ CoursePlanDetails = React.createClass
     <BS.Modal
       {...@props}
       title={title}
-      className="#{type}-modal plan-modal #{className}">
+      data-assignment-type={type}
+      className="plan-modal #{className}">
       <div className='modal-body'>
         <StatsModalShell id={id} courseId={courseId} />
       </div>

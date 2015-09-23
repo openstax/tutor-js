@@ -5,6 +5,8 @@ flux = require 'flux-react'
 
 {makeSimpleStore} = require './helpers'
 
+TutorDateFormat = "MM/DD/YYYY"
+
 TimeConfig =
 
   setNow: (now, localNow = new Date()) ->
@@ -23,6 +25,8 @@ TimeConfig =
     getNow: (localNow = new Date()) ->
       shift = @_shiftMs or 0
       new Date(localNow.getTime() + shift)
+
+    getFormat: -> TutorDateFormat
 
 {actions, store} = makeSimpleStore(TimeConfig)
 module.exports = {TimeActions:actions, TimeStore:store}

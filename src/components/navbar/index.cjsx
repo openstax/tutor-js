@@ -71,7 +71,9 @@ module.exports = React.createClass
         className={className}
         eventKey={index + 2}>{route.label}</BS.MenuItem>
 
-    menuItems.push <li><BrowseTheBook unstyled={true} courseId={courseId} /></li>
+    menuItems.push <li key='nav-browse-the-book'>
+      <BrowseTheBook unstyled={true} courseId={courseId} />
+    </li>
     menuItems.push <BS.MenuItem divider key='dropdown-item-divider'/>
     menuItems
 
@@ -98,7 +100,12 @@ module.exports = React.createClass
             ref='navDropDown'>
             {menuItems}
             <AccountLink key='accounts-link' />
-            <BS.MenuItem target='_blank' href={CurrentUserStore.getHelpLink(courseId)}>Get Help</BS.MenuItem>
+            <BS.MenuItem
+              key='nav-help-link'
+              target='_blank'
+              href={CurrentUserStore.getHelpLink(courseId)}>
+                Get Help
+            </BS.MenuItem>
             <BS.MenuItem
               className="logout"
               eventKey={4}

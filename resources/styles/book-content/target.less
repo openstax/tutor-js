@@ -12,13 +12,7 @@
   .transition(background-color .1s ease-out);
 }
 
-a[target=_blank] {
-  &::after {
-    .fa-icon();
-    content: @fa-var-external-link;
-    margin: 0 4px 0 6px;
-  }
-}
+a[target=_blank] { .tutor-external-link-indicator(); }
 
 figure {
   &:target, .target {

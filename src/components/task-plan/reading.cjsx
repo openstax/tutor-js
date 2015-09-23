@@ -167,7 +167,7 @@ ReadingPlan = React.createClass
         <i className="fa fa-exclamation-circle"></i>
       </span>
 
-    <div className='reading-plan'>
+    <div className='reading-plan task-plan' data-assignment-type='reading'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
         footer={footer}

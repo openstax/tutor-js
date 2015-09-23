@@ -7,6 +7,7 @@ ChapterSection = require '../task-plan/chapter-section'
 BindStoreMixin = require '../bind-store-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
+SlideOutMenuToggle = require './slide-out-menu-toggle'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
@@ -18,6 +19,7 @@ module.exports = React.createClass
     showTeacherEdition: React.PropTypes.func
     courseId: React.PropTypes.string.isRequired
     section: React.PropTypes.string.isRequired
+    isMenuVisible: React.PropTypes.bool.isRequired
 
   renderSectionTitle: ->
     {section, courseId, ecosystemId} = @props
@@ -39,8 +41,8 @@ module.exports = React.createClass
   render: ->
     <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
-        <BS.NavItem onClick={@props.toggleTocMenu}>
-          <i className="menu-toggle fa fa-2x" />
+        <BS.NavItem className="menu-toggle" onClick={@props.toggleTocMenu}>
+          <SlideOutMenuToggle isVisible={@props.isMenuVisible} />
         </BS.NavItem>
       </BS.Nav>
       <BS.Nav className="full-width-only" navbar>

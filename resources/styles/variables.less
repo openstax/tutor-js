@@ -1,5 +1,4 @@
 @import './variables/colors';
-@import './variables/paths';
 
 // TODO: Decide where best to organize this once more have accumulated
 @tutor-task-width: 1000px;
@@ -26,7 +25,9 @@
 
 @reading-color: @tutor-quaternary;
 @homework-color: @tutor-tertiary-light;
-@external-color: @tutor-secondary;
+@external-color: @tutor-tertiary;
+@event-color: @tutor-secondary;
+@extras-color: @tutor-primary;
 
 // if these are updated, also change MENU_VISIBLE_BREAKPOINT
 // in src/components/reference-book/reference-book.cjsx
@@ -39,6 +40,7 @@
 
 // Async
 @tutor-async-loading-timeout: 30s;
+@tutor-async-loading-long-timeout: 120s;
 @-webkit-keyframes tutorAsyncFadeIn { from { opacity: 0; } to { opacity: 1; visibility: visible; } }
 @-moz-keyframes tutorAsyncFadeIn { from { opacity: 0; } to { opacity: 1; visibility: visible;} }
 @keyframes tutorAsyncFadeIn { from { opacity: 0; } to { opacity: 1; visibility: visible; } }

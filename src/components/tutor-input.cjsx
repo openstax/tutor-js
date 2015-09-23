@@ -2,13 +2,14 @@ React = require 'react'
 BS = require 'react-bootstrap'
 moment = require 'moment'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 {TimeStore} = require '../flux/time'
 TimeHelper = require '../helpers/time'
+TutorDateFormat = TimeStore.getFormat()
 
 DatePicker = require 'react-datepicker'
 TutorErrors = require './tutor-errors'
-TutorDateFormat = "MM/DD/YYYY"
 
 TutorInput = React.createClass
   propTypes:
@@ -47,15 +48,12 @@ TutorInput = React.createClass
   forwardLabelClick: -> @focus()
 
   render: ->
-    classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper", "tutor-input"]
-    wrapperClasses.push(@props.className) if @props.className
+    classes = classnames 'form-control', @props.class,
+      empty: not @props.default
 
-    unless @props.default then classes.push('empty')
-    if @props.required then wrapperClasses.push('is-required')
-    wrapperClasses.push('has-error') if @state.errors.length
-
-    classes.push(@props.class)
+    wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', @props.className,
+      'is-required': @props.required
+      'has-error': @state.errors?.length
 
     errors = _.map(@state.errors, (error) ->
       return unless TutorErrors[error]?
@@ -73,11 +71,11 @@ TutorInput = React.createClass
     # right when the input re-renders since the props have changed.
     #
     # Instead, use @props.default to set an intial defaul value.
-    <div className={wrapperClasses.join(' ')}>
+    <div className={wrapperClasses}>
       <input
         {...inputProps}
         ref='input'
-        className={classes.join(' ')}
+        className={classes}
         defaultValue={@props.default}
         onChange={@onChange}
       />
@@ -147,9 +145,15 @@ TutorDateInput = React.createClass
     @setState({hasFocus: false})
 
   render: ->
-    classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper", "tutor-input", '-tutor-date-input']
-    wrapperClasses.push(@props.className) if @props.className
+    classes = classnames 'form-control',
+      empty: (not @props.value and not @state.hasFocus)
+
+    isDatePickerDisabled = @props.disabled and value
+
+    wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', '-tutor-date-input', @props.className,
+      'is-required': @props.required
+      'has-error': @state.errors?.length
+      'disabled-datepicker':  isDatePickerDisabled
 
     now = TimeStore.getNow()
     value = @props.value
@@ -160,10 +164,6 @@ TutorDateInput = React.createClass
     min = if @props.min then new moment(@props.min) else new moment(now).subtract(10, 'years')
     max = if @props.max then new moment(@props.max) else new moment(now).add(10, 'years')
 
-    if not @props.value and not @state.hasFocus
-      classes.push('empty')
-
-    if @props.required then wrapperClasses.push('is-required')
     if not @props.disabled
       dateElem = <DatePicker
           minDate={min}
@@ -173,18 +173,17 @@ TutorDateInput = React.createClass
           onBlur={@onBlur}
           key={@props.id}
           ref="picker"
-          className={classes.join(' ')}
+          className={classes}
           onChange={@dateSelected}
           disabled={@props.disabled}
           selected={value}
           weekStart={@props.currentLocale.week.dow}
         />
-    else if @props.disabled and value
+    else if isDatePickerDisabled
       displayValue = value.format(TutorDateFormat)
-      wrapperClasses.push('disabled-datepicker')
 
-    <div className={wrapperClasses.join(' ')}>
-      <input type='text' disabled className={classes.join(' ')} value={displayValue}/>
+    <div className={wrapperClasses}>
+      <input type='text' disabled className={classes} value={displayValue}/>
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
@@ -223,21 +222,20 @@ TutorTextArea = React.createClass
   forwardLabelClick: -> @focus()
 
   render: ->
-    classes = ['form-control']
-    wrapperClasses = ["form-control-wrapper", "tutor-input"]
-    wrapperClasses.push(@props.className) if @props.className
-    unless @props.default then classes.push('empty')
-    if @props.required then wrapperClasses.push('is-required')
-    classes.push(@props.inputClass)
+    classes = classnames 'form-control', @props.inputClass,
+      empty: not @props.default
 
-    <div className={wrapperClasses.join(' ')}>
+    wrapperClasses = classnames "form-control-wrapper", "tutor-input", @props.className,
+      'is-required': @props.required
+
+    <div className={wrapperClasses}>
       <textarea
         id={@props.inputId}
         ref='textarea'
         type='text'
         onKeyUp={@resize}
         onPaste={@resize}
-        className={classes.join(' ')}
+        className={classes}
         defaultValue={@props.default}
         onChange={@onChange} />
       <div className="floating-label" onClick={@forwardLabelClick}>{@props.label}</div>

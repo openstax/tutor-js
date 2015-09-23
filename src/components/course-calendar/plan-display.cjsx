@@ -82,6 +82,7 @@ CoursePlanDisplayEdit = React.createClass
     <div
       style={planStyle}
       className={planClasses}
+      data-assignment-type={plan.type}
       onMouseEnter={setHover.bind(null, true)}
       onMouseLeave={setHover.bind(null, false)}
       ref='plan'>
@@ -98,13 +99,14 @@ CoursePlanDisplayQuickLook = React.createClass
   mixins: [CoursePlanDisplayMixin]
 
   render: ->
-    {planClasses, planModal, label, setHover, setIsViewing} = @props
+    {planClasses, planModal, label, setHover, setIsViewing, plan} = @props
 
     planStyle = @buildPlanStyles()
 
     <div
       style={planStyle}
       className={planClasses}
+      data-assignment-type={plan.type}
       onMouseEnter={setHover.bind(null, true)}
       onMouseLeave={setHover.bind(null, false)}
       onClick={setIsViewing.bind(null, true)}
