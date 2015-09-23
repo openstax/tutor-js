@@ -31,6 +31,9 @@ LinkContentMixin =
   componentDidUpdate: ->
     @processLinks()
 
+  componentWillUnmount: ->
+    @cleanUpLinks()
+
   contextTypes:
     router: React.PropTypes.func
 
@@ -59,24 +62,21 @@ LinkContentMixin =
     trueHref = link.getAttribute('href')
     link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
 
-  linkMediaElsewhere: (mediaCNXId, mediaLink) ->
-    pageUrl = @buildReferenceBookLink(mediaCNXId)
-    mediaLink.href = pageUrl + mediaLink.hash
-    mediaLink.target = '_blank' if @shouldOpenNewTab?()
-    # do this to ignore this link once adjusted
-    mediaLink.dataset.targeted = 'media'
-
-  isMediaLoaded: (link) ->
-    mediaId = link.hash.replace('#', '')
-    MediaStore.get(mediaId)?
-
   getMedia: (mediaId) ->
     root = @getDOMNode()
     root.querySelector("##{mediaId}")
 
+  cleanUpLinks: ->
+    root = @getDOMNode()
+    previewNodes = root.getElementsByClassName('media-preview-wrapper')
+
+    _.each(previewNodes, (previewNode) ->
+      React.unmountComponentAtNode(previewNode)
+    )
+
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
-    media = @getMedia(mediaId)
+    mediaDOM = @getMedia(mediaId) if mediaId
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
 
     previewNode = document.createElement('span')
@@ -87,7 +87,8 @@ LinkContentMixin =
       mediaId: mediaId
       cnxId: mediaCNXId
       bookHref: @buildReferenceBookLink(mediaCNXId)
-      media: media
+      mediaDOMOnParent: mediaDOM
+      shouldLinkOut: @shouldOpenNewTab?()
 
     mediaPreview = <MediaPreview {...mediaProps}>
         {link.innerText}
@@ -97,18 +98,10 @@ LinkContentMixin =
 
   processLink: (link) ->
     if @isMediaLink(link)
-      if @isMediaLoaded(link)
-        @linkPreview(link)
-        return null
-      else if @hasCNXId(link)
-        @linkToAnotherPage(link)
-        return null
+      @linkPreview(link)
+      return null
     else
       return link
-
-  linkToAnotherPage: (link) ->
-    mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
-    @linkMediaElsewhere(mediaCNXId, link)
 
   processLinks: ->
     _.defer(@_processLinks)

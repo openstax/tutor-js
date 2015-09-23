@@ -47,7 +47,7 @@ module.exports = React.createClass
     </Router.Link>
 
   # used by BookContentMixin
-  shouldOpenNewTab: -> false
+  shouldOpenNewTab: -> true
 
   waitToScrollToSelector: (hash) ->
     images = @getDOMNode().querySelectorAll('img')

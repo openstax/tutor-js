@@ -16,28 +16,30 @@ checkDoesOverlayHTMLMatch = (overlayElement, html) ->
   expect(popcontentDOM.innerHTML).to.equal(html)
   expect(overlayDOM.innerHTML).to.contain(html)
 
-fakePopoverShouldRight = (popperElement) ->
-  popperElement.calcOverlayPosition = ->
-    overlayLeft: 100
+fakePopover =
+  right: (popperElement) ->
+    popperElement.calcOverlayPosition = ->
+      overlayLeft: 100
+  left: (popperElement) ->
+    popperElement.calcOverlayPosition = ->
+      overlayLeft: 600
+  scroll: (popperElement) ->
+    calledOnce = false
 
-fakePopoverShouldLeft = (popperElement) ->
-  popperElement.calcOverlayPosition = ->
-    overlayLeft: 600
+    getOverlayDOMNode = popperElement.getOverlayDOMNode
+    popperElement.getOverlayDOMNode = ->
+      overlayDOM = getOverlayDOMNode()
+      overlayDOM.getBoundingClientRect = ->
+        rect =
+          height: if calledOnce then 500 else 800
+        calledOnce = true
+        rect
+      overlayDOM
 
-fakePopoverShouldScroll = (popperElement) ->
-  calledOnce = false
-
-  getOverlayDOMNode = popperElement.getOverlayDOMNode
-  popperElement.getOverlayDOMNode = ->
-    overlayDOM = getOverlayDOMNode()
-    overlayDOM.getBoundingClientRect = ->
-      rect =
-        height: if calledOnce then 500 else 800
-      calledOnce = true
-      rect
-    overlayDOM
-
-  popperElement.updateOverlayPosition()
+fakePopoverShould = (fakeAs, popperElement, dom) ->
+  Testing.actions.click(dom)
+  fakePopover[fakeAs]?(popperElement)
+  Testing.actions.blur(dom)
 
 PopoverWrapper = React.createClass
   displayName: 'PopoverWrapper'
@@ -92,14 +94,14 @@ describe 'Tutor Popover', ->
         expect(overlay.state.show).to.be.false
 
   it 'should open to the right when element renders left of the window middle', ->
-    window = _.clone(FAKE_WINDOW)
+    windowImpl = _.clone(FAKE_WINDOW)
 
     Testing
-      .renderComponent( PopoverWrapper )
+      .renderComponent( PopoverWrapper , props: {windowImpl})
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShouldRight(popper)
+        fakePopoverShould('right', popper, dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -107,21 +109,21 @@ describe 'Tutor Popover', ->
         expect(overlayDOM.classList.contains('right')).to.be.true
 
   it 'should open to the left when element renders right of the window middle', ->
-    window = _.clone(FAKE_WINDOW)
+    windowImpl = _.clone(FAKE_WINDOW)
 
     Testing
-      .renderComponent( PopoverWrapper )
+      .renderComponent( PopoverWrapper , props: {windowImpl})
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShouldLeft(popper)
+        fakePopoverShould('left', popper, dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlay.state.placement).to.equal('left')
         expect(overlayDOM.classList.contains('left')).to.be.true
 
-  it 'should retrigger positioning on image first load', ->
+  it 'should retrigger positioning on image first load and have image-loading class when image loading', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({dom, element}) ->
@@ -130,13 +132,20 @@ describe 'Tutor Popover', ->
         popper.updateOverlayPosition = sinon.spy()
 
         Testing.actions.click(dom)
+        overlayDOM = popper.getOverlayDOMNode()
+
+        expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledOnce
 
-        overlayDOM = popper.getOverlayDOMNode()
         image = overlayDOM.getElementsByTagName('img')[0]
-        image.onload()
+        if image.onload?
+          image.onload()
+        else
+          overlay.imageLoaded()
 
         expect(overlay.state.firstShow).to.be.false
+        expect(overlay.state.imageLoading).to.be.false
+        expect(overlayDOM.querySelector('.image-loading')).to.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledTwice
 
   it 'should not set overlay height by default', ->
@@ -147,20 +156,19 @@ describe 'Tutor Popover', ->
         overlayDOM = element.refs.overlay.refs.popper.getOverlayDOMNode()
         expect(overlayDOM.style.cssText).to.not.contain('height')
 
-  # skip for now
-  xit 'should set overlay height and be scrollable if overlay height is greater than window height', ->
-    window = _.clone(FAKE_WINDOW)
+  it 'should set overlay height and be scrollable if overlay height is greater than window height', ->
+    windowImpl = _.clone(FAKE_WINDOW)
 
     Testing
-      .renderComponent( PopoverWrapper )
+      .renderComponent( PopoverWrapper , props: {windowImpl})
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
+        fakePopoverShould('scroll', popper, dom)
         Testing.actions.click(dom)
-        fakePopoverShouldScroll(popper)
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('height')
-        expect(parseInt(overlayDOM.style.height) < window.innerHeight).to.be.true
+        expect(parseInt(overlayDOM.style.height) < windowImpl.innerHeight).to.be.true
         expect(overlay.state.scrollable).to.be.true
         expect(overlayDOM.classList.contains('scrollable')).to.be.true

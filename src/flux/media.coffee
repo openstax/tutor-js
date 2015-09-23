@@ -6,7 +6,24 @@ MediaConfig =
 
   _local: {}
 
-  _parseHandler: (local, error, dom) ->
+  loaded: (id, mediaDOM) ->
+    @_local[id] = mediaDOM
+    @emit("loaded.#{id}", mediaDOM)
+
+  _parseAndLoad: (link) ->
+    if link.attribs.href.search('#') is 0
+      id = link.attribs.href.replace('#', '')
+      idDOM = htmlparser.DomUtils.getElementById(id, dom)
+      if idDOM
+        idHTML = htmlparser.DomUtils.getOuterHTML(idDOM)
+
+        mediaDOM =
+          name: idDOM.name
+          html: idHTML
+
+        @loaded(id, mediaDOM)
+
+  _parseHandler: (actions, error, dom) ->
     links = htmlparser.DomUtils.getElementsByTagName('a', dom)
     _.each(links, (link) ->
       if link.attribs.href.search('#') is 0
@@ -15,13 +32,15 @@ MediaConfig =
         if idDOM
           idHTML = htmlparser.DomUtils.getOuterHTML(idDOM)
 
-          local[id] =
+          mediaDOM =
             name: idDOM.name
             html: idHTML
+
+          actions.loaded(id, mediaDOM)
     )
 
   parse: (htmlString) ->
-    @parseHandler ?= new htmlparser.DomHandler _.partial(@_parseHandler, @_local)
+    @parseHandler ?= new htmlparser.DomHandler _.partial(@_parseHandler, @)
     @parser ?= new htmlparser.Parser(@parseHandler)
     @parser.parseComplete(htmlString)
 
@@ -35,6 +54,7 @@ MediaConfig =
 
   exports:
     get: (id) -> @_get(id)
+    isLoaded: (id) -> @_get(id)?
     getMediaIds: ->
       _.keys(@_local)
 
