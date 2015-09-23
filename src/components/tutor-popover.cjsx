@@ -33,8 +33,11 @@ TutorPopover = React.createClass
       for image in images
         image.onload = @imageLoaded unless image.onload?
 
+  componentWillUnmount: ->
+    @imageLoaded = -> null
+
   imageLoaded: ->
-    @refs.popper.updateOverlayPosition()
+    @refs.popper?.updateOverlayPosition()
     @setState({firstShow: false})
 
   updateOverlayPositioning: ->
