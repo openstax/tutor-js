@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
+pluralize = require 'pluralize'
 
 ChapterSectionType = require './chapter-section-type'
 
@@ -20,7 +21,8 @@ Statistics = React.createClass
       </ul>
       <div className='amount-worked'>
         <span className='count'>
-          {@props.section.questions_answered_count} problems worked in this {@props.displaying}
+          {@props.section.questions_answered_count}
+          {pluralize(' problems', @props.section.questions_answered_count)} worked in this {@props.displaying}
         </span>
       </div>
     </div>
