@@ -17,11 +17,13 @@ TaskStepConfig =
     if not obj.task_id
       obj.task_id = @_local[id]?.task_id
     @emit("step.loaded", id)
+    @emit("ready.#{id}", obj)
     _.each(@_recoveryTarget, _.partial(@_updateRecoveredFor, id), @)
 
     obj
 
   _saved: (obj, id) ->
+    @emit("ready.#{id}", obj)
     obj.task_id = @_local[id]?.task_id
     obj
 
