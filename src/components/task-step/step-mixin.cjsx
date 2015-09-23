@@ -26,6 +26,7 @@ module.exports =
     <AsyncButton
       bsStyle='primary'
       className='continue'
+      key='step-continue'
       onClick={@onContinue}
       disabled={cannotContinue}
       isWaiting={!!waitingText}
