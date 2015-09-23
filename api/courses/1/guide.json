@@ -1,117 +1,125 @@
-[
-  {
-    "period_id": "1",
-    "title": "Physics",
-    "students_count":10,
-    "page_ids": [
-      "2",
-      "9"
-    ],
-    "children": [
-      {
-        "title": "What Is Physics?",
-        "chapter_section": [
-          1
-        ],
-        "questions_answered_count": 5,
-        "students_answered_count": 6,
-        "clue": {
-          "value": 0.219973553183755,
-          "value_interpretation": "low",
-          "confidence_interval": [
-            0.119973553183755,
-            0.319973553183755
-          ],
-          "confidence_interval_interpretation": "good",
-          "sample_size": 6,
-          "sample_size_interpretation": "above"
-        },
-        "practice_count": 0,
-        "page_ids": [
-          "2"
-        ],
-        "children": [
-          {
-            "title": "Physics: Definitions and Applications",
-            "chapter_section": [
-              1,
-              1
-            ],
-            "questions_answered_count": 5,
-            "students_answered_count": 6,
-            "clue": {
-              "value": 0.6250200718523891,
-              "value_interpretation": "medium",
-              "confidence_interval": [
-                0.5250200718523891,
-                0.725020071852389
-              ],
-              "confidence_interval_interpretation": "bad",
-              "sample_size": 6,
-              "sample_size_interpretation": "above"
-            },
-            "practice_count": 0,
-            "page_ids": [
-              "2"
-            ]
-          }
-        ]
+{
+  "period_id": "",
+  "title": "Physics",
+  "students_count": 10,
+  "page_ids": [
+    "2",
+    "3",
+    "5",
+    "6"
+  ],
+  "children": [
+    {
+      "title": "Acceleration",
+      "chapter_section": [
+        3
+      ],
+      "questions_answered_count": 23,
+      "students_answered_count": 6,
+      "clue": {
+        "value": 0.9025196157281774,
+        "confidence_interval": [0.48026796534380245, 0.6802679653438024],
+        "confidence_interval_interpretation": "bad",
+        "sample_size": 2,
+        "sample_size_interpretation": "above",
+        "value_interpretation": "medium"
       },
-      {
-        "title": "Motion in One Dimension",
-        "chapter_section": [
-          2
-        ],
-        "questions_answered_count": 1,
-        "students_answered_count": 6,
-        "clue": {
-          "value": 0.06393199405883898,
-          "value_interpretation": "low",
-          "confidence_interval": [
-            0.0,
-            0.163931994058839
-          ],
-          "confidence_interval_interpretation": "bad",
-          "sample_size": 6,
-          "sample_size_interpretation": "above"
+      "practice_count": 0,
+      "page_ids": [
+        "2",
+        "3"
+      ],
+      "children": [
+        {
+          "title": "Acceleration",
+          "chapter_section": [ 3, 1 ],
+          "questions_answered_count": 11,
+          "students_answered_count": 6,
+          "clue": {
+            "value": 0.7216930483524373,
+            "confidence_interval": [0.48026796534380245, 0.6802679653438024],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 2,
+            "sample_size_interpretation": "above",
+            "value_interpretation": "medium"
+          },
+          "practice_count": 0,
+          "page_ids": [
+            "2"
+          ]
         },
-        "practice_count": 0,
-        "page_ids": [
-          "9"
-        ],
-        "children": [
-          {
-            "title": "Velocity vs. Time Graphs",
-            "chapter_section": [
-              2,
-              4
-            ],
-            "questions_answered_count": 1,
-            "students_answered_count": 6,
-            "clue": {
-              "value": 0.27613579411571165,
-              "value_interpretation": "low",
-              "confidence_interval": [
-                0.17613579411571165,
-                0.37613579411571163
-              ],
-              "confidence_interval_interpretation": "good",
-              "sample_size": 6,
-              "sample_size_interpretation": "above"
-            },
-            "practice_count": 0,
-            "page_ids": [
-              "9"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "period_id": "2",
-    "title": "Physics",
-    "page_ids": [],
-    "children": []
-  }
-]
+        {
+          "title": "Representing Acceleration with Equations and Graphs",
+          "chapter_section": [ 3, 2 ],
+          "questions_answered_count": 12,
+          "students_answered_count": 6,
+          "clue": {
+            "value": 0.9335832674397897,
+            "confidence_interval": [0.07601666252154723, 0.2760166625215472],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 4,
+            "sample_size_interpretation": "above",
+            "value_interpretation": "low"
+          },
+          "practice_count": 0,
+          "page_ids": [
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Force and Newton's Laws of Motion",
+      "chapter_section": [ 4 ],
+      "questions_answered_count": 3,
+      "students_answered_count": 6,
+      "clue":{
+        "value": 0.13278347571119187,
+        "confidence_interval": [0.5331585527121938, 0.7331585527121938],
+        "confidence_interval_interpretation": "bad",
+        "sample_size": 6,
+        "sample_size_interpretation": "above",
+        "value_interpretation": "medium"
+      },
+      "practice_count": 0,
+      "page_ids": [ "5", "6" ],
+      "children": [
+        {
+          "title": "Force",
+          "chapter_section": [
+            4,
+            1
+          ],
+          "questions_answered_count": 1,
+          "students_answered_count": 6,
+          "clue":{
+            "value": 0.5483725909317109,
+            "confidence_interval": [0.5331585527121938, 0.7331585527121938],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 6,
+            "sample_size_interpretation": "above",
+            "value_interpretation": "medium"
+          },
+          "practice_count": 0,
+          "page_ids": [ "5" ]
+        },
+        {
+          "title": "Newton's First Law of Motion: Inertia",
+          "chapter_section": [ 4, 2 ],
+          "questions_answered_count": 2,
+          "students_answered_count": 6,
+          "clue":{
+            "value": 0.35736864708971516,
+            "confidence_interval": [0.5331585527121938, 0.7331585527121938],
+            "confidence_interval_interpretation": "bad",
+            "sample_size": 6,
+            "sample_size_interpretation": "above",
+            "value_interpretation": "medium"
+          },
+          "practice_count": 0,
+          "page_ids": [ "6" ]
+        }
+      ]
+    }
+  ]
+}
