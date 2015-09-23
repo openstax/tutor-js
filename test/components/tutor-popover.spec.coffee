@@ -97,7 +97,9 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
+        Testing.actions.click(dom)
         fakePopoverShouldRight(popper)
+        Testing.actions.blur(dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -112,7 +114,9 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
+        Testing.actions.click(dom)
         fakePopoverShouldLeft(popper)
+        Testing.actions.blur(dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -162,7 +166,8 @@ describe 'Tutor Popover', ->
         {popper} = overlay.refs
         Testing.actions.click(dom)
         fakePopoverShouldScroll(popper)
-        popper.updateOverlayPosition()
+        Testing.actions.blur(dom)
+        Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('height')
