@@ -36,11 +36,17 @@ TaskStepLoaded = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
 
   render: ->
-    {id} = @props
+    {id, taskId} = @props
     {type} = TaskStepStore.get(id)
-    Type = getStepType(type)
+    {ecosystem_info} = TaskStore.get(taskId)
 
-    <Type {...@props}/>
+    Type = getStepType(type)
+    <div>
+      <Type {...@props}/>
+      <div className="task-ecosystem-info visible-when-debugging">
+        TaskId: {taskId}, StepId: {id}, Ecosystem: {ecosystem_info}
+      </div>
+    </div>
 
 module.exports = React.createClass
   displayName: 'TaskStep'
