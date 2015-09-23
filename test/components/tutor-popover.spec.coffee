@@ -134,7 +134,10 @@ describe 'Tutor Popover', ->
         expect(popper.updateOverlayPosition).to.have.been.calledOnce
 
         image = overlayDOM.getElementsByTagName('img')[0]
-        image.onload()
+        if image.onload?
+          image.onload()
+        else
+          overlay.imageLoaded()
 
         expect(overlay.state.firstShow).to.be.false
         expect(overlay.state.imageLoading).to.be.false
