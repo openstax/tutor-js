@@ -3,24 +3,51 @@
   animation: book-content-target-highlight 1.5s ease-out;
 }
 
+.highlight-target() {
+  background-color: @tutor-highlight;
+}
+
+.highlight-target(will-transition) {
+  .transition(background-color .5s ease-out);
+}
+
 a[target=_blank] { .tutor-external-link-indicator(); }
 
 figure {
+  .highlight-target(will-transition);
+
+  &:target, &.target, &.target-scroll {
+    img {
+      mix-blend-mode: multiply;
+    }
+  }
+
+
   &:target, &.target {
     .highlight-animation();
 
     > * {
       .highlight-animation();
     }
+  }
 
-    img {
-      mix-blend-mode: multiply;
+  &.target-scroll {
+    .highlight-target();
+
+    > * {
+      .highlight-target();
     }
   }
+
 }
 
 section, div, span, table {
-  &:target, &.target {
+
+  &::after {
+    .highlight-target(will-transition);
+  }
+
+  &:target, &.target, &.target-scroll {
     position: relative;
 
     img {
@@ -34,15 +61,23 @@ section, div, span, table {
       position: absolute;
       top: 0;
       mix-blend-mode: multiply;
+    }
+  }
 
+  &:target, &.target {
+    &::after {
       .highlight-animation();
     }
+  }
+
+  &.target-scroll::after {
+    .highlight-target();
   }
 }
 
 @-webkit-keyframes book-content-target-highlight {
   0% {
-    background-color: @tutor-highlight;
+    .highlight-target();
   }
   100% {
     background-color: transparent;
@@ -51,7 +86,7 @@ section, div, span, table {
 
 @keyframes book-content-target-highlight {
   0% {
-    background-color: @tutor-highlight;
+    .highlight-target();
   }
   100% {
     background-color: transparent;

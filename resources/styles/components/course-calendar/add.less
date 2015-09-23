@@ -1,4 +1,4 @@
-.course-add-dropdown {
+.course-add-dropdown, .add-assignment {
   &.no-add {
     background: @tutor-neutral-light;
   }
@@ -7,4 +7,16 @@
     display: block;
     padding: 3px 20px;
   }
+
+  li {
+    .tutor-plan-set(add, 'a');
+  }
+
+  .dropdown-menu > li > a,
+  &.dropdown-menu > li > a {
+    width: 198px;
+    padding: 3px 12px;
+    text-align: left;
+  }
+
 }

@@ -10,6 +10,8 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
 }
 
+.btn-group { border-radius: @btn-border-radius; }
+
 .btn-round() {
   margin-right: 5px;
   padding: 9px 18px;
@@ -37,10 +39,26 @@
   color: @white;
   font-weight: 600;
   text-transform: capitalize;
+  border: 1px solid @tutor-primary;
   background: @primary-background;
 
   &:hover {
     background: @primary-background-hover;
+  }
+
+  &:active,
+  &:focus {
+
+    &.dropdown-toggle { 
+      color: @tutor-neutral-dark;
+      text-align: left;
+      border: 1px solid @tutor-neutral-light;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      background: white;
+      box-shadow: none;
+    }
+
   }
 
   &:disabled {
