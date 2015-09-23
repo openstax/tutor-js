@@ -19,6 +19,24 @@
       padding: 4px;
     }
   }
+
+  figure span {
+    min-height: 1.75rem;
+    min-width: 100%;
+    position: relative;
+
+    .tutor-subtle-load(will-load; 'Loading Figure...');
+    &::after {
+      font-size: 1.75rem;
+      line-height: 1em;
+    }
+  }
+
+  .image-loading {
+    figure span {
+      .tutor-subtle-load(loading);
+    }
+  }
 }
 
 .media-preview-link {

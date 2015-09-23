@@ -119,7 +119,7 @@ describe 'Tutor Popover', ->
         expect(overlay.state.placement).to.equal('left')
         expect(overlayDOM.classList.contains('left')).to.be.true
 
-  it 'should retrigger positioning on image first load', ->
+  it 'should retrigger positioning on image first load and have image-loading class when image loading', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({dom, element}) ->
@@ -128,13 +128,17 @@ describe 'Tutor Popover', ->
         popper.updateOverlayPosition = sinon.spy()
 
         Testing.actions.click(dom)
+        overlayDOM = popper.getOverlayDOMNode()
+
+        expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledOnce
 
-        overlayDOM = popper.getOverlayDOMNode()
         image = overlayDOM.getElementsByTagName('img')[0]
         image.onload()
 
         expect(overlay.state.firstShow).to.be.false
+        expect(overlay.state.imageLoading).to.be.false
+        expect(overlayDOM.querySelector('.image-loading')).to.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledTwice
 
   it 'should not set overlay height by default', ->

@@ -10,6 +10,7 @@ TutorPopover = React.createClass
     placement: 'right'
     show: false
     scrollable: false
+    imageLoading: false
 
   propTypes: ->
     contentHtml: React.PropTypes.string.isRequired
@@ -33,11 +34,13 @@ TutorPopover = React.createClass
       content = @refs.popcontent.getDOMNode()
       images = content.querySelectorAll('img')
       for image in images
-        image.onload = @imageLoaded unless image.onload?
+        unless image.onload? or image.complete
+          @setState(imageLoading: true)
+          image.onload = @imageLoaded
 
   imageLoaded: ->
     @refs.popper.updateOverlayPosition()
-    @setState({firstShow: false})
+    @setState(firstShow: false, imageLoading: false)
 
   updateOverlayPositioning: ->
     {windowImpl} = @props
@@ -80,11 +83,17 @@ TutorPopover = React.createClass
 
   render: ->
     {children, contentHtml, popoverProps, contentProps, overlayProps, linkProps} = @props
+    {imageLoading, scrollable, placement} = @state
 
-    if @state.scrollable
-      popoverProps ?= {}
+    if scrollable
+      popoverProps = _.clone(popoverProps or {})
       popoverProps.className ?= ''
       popoverProps.className += ' scrollable'
+
+    if imageLoading
+      contentProps = _.clone(contentProps or {})
+      contentProps.className ?= ''
+      contentProps.className += ' image-loading'
 
     popover = <BS.Popover
       {...popoverProps}
@@ -94,7 +103,7 @@ TutorPopover = React.createClass
 
     <BS.OverlayTrigger
       {...overlayProps}
-      placement={@state.placement}
+      placement={placement}
       overlay={popover}
       trigger='manual'
       ref='popper'>
