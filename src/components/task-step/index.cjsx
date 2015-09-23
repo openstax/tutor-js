@@ -38,13 +38,13 @@ TaskStepLoaded = React.createClass
   render: ->
     {id, taskId} = @props
     {type} = TaskStepStore.get(id)
-    {ecosystem_info} = TaskStore.get(taskId)
+    {ecosystem_title} = TaskStore.get(taskId)
 
     Type = getStepType(type)
     <div>
       <Type {...@props}/>
       <div className="task-ecosystem-info visible-when-debugging">
-        TaskId: {taskId}, StepId: {id}, Ecosystem: {ecosystem_info}
+        TaskId: {taskId}, StepId: {id}, Ecosystem: {ecosystem_title}
       </div>
     </div>
 
