@@ -16,26 +16,30 @@ checkDoesOverlayHTMLMatch = (overlayElement, html) ->
   expect(popcontentDOM.innerHTML).to.equal(html)
   expect(overlayDOM.innerHTML).to.contain(html)
 
-fakePopoverShouldRight = (popperElement) ->
-  popperElement.calcOverlayPosition = ->
-    overlayLeft: 100
+fakePopover =
+  right: (popperElement) ->
+    popperElement.calcOverlayPosition = ->
+      overlayLeft: 100
+  left: (popperElement) ->
+    popperElement.calcOverlayPosition = ->
+      overlayLeft: 600
+  scroll: (popperElement) ->
+    calledOnce = false
 
-fakePopoverShouldLeft = (popperElement) ->
-  popperElement.calcOverlayPosition = ->
-    overlayLeft: 600
+    getOverlayDOMNode = popperElement.getOverlayDOMNode
+    popperElement.getOverlayDOMNode = ->
+      overlayDOM = getOverlayDOMNode()
+      overlayDOM.getBoundingClientRect = ->
+        rect =
+          height: if calledOnce then 500 else 800
+        calledOnce = true
+        rect
+      overlayDOM
 
-fakePopoverShouldScroll = (popperElement) ->
-  calledOnce = false
-
-  getOverlayDOMNode = popperElement.getOverlayDOMNode
-  popperElement.getOverlayDOMNode = ->
-    overlayDOM = getOverlayDOMNode()
-    overlayDOM.getBoundingClientRect = ->
-      rect =
-        height: if calledOnce then 500 else 800
-      calledOnce = true
-      rect
-    overlayDOM
+fakePopoverShould = (fakeAs, popperElement, dom) ->
+  Testing.actions.click(dom)
+  fakePopover[fakeAs]?(popperElement)
+  Testing.actions.blur(dom)
 
 PopoverWrapper = React.createClass
   displayName: 'PopoverWrapper'
@@ -97,9 +101,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        Testing.actions.click(dom)
-        fakePopoverShouldRight(popper)
-        Testing.actions.blur(dom)
+        fakePopoverShould('right', popper, dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -114,9 +116,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        Testing.actions.click(dom)
-        fakePopoverShouldLeft(popper)
-        Testing.actions.blur(dom)
+        fakePopoverShould('left', popper, dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -164,9 +164,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        Testing.actions.click(dom)
-        fakePopoverShouldScroll(popper)
-        Testing.actions.blur(dom)
+        fakePopoverShould('scroll', popper, dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
