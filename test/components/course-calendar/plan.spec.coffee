@@ -197,8 +197,7 @@ describe 'Plan on Course Calendar', ->
         checks =
           display: (components, {display}) ->
             displayNode = components.displayComponent.getDOMNode()
-
-            expect(displayNode.classList.contains(plan.type)).to.be.true
+            expect(displayNode.dataset.assignmentType).to.equal(plan.type)
             expect(displayNode.classList.contains('is-published')).to.be.true
 
         checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS, checks)
@@ -267,7 +266,7 @@ describe 'Plan on Course Calendar', ->
           display: (components, {display}) ->
             displayNode = components.displayComponent.getDOMNode()
 
-            expect(displayNode.classList.contains(plan.type)).to.be.true
+            expect(displayNode.dataset.assignmentType).to.equal(plan.type)
             expect(displayNode.classList.contains('is-publishing')).to.be.true
 
         checkChildrenComponents(element, item, checks)
@@ -329,7 +328,7 @@ describe 'Plan on Course Calendar', ->
           display: (components, {display}) ->
             displayNode = components.displayComponent.getDOMNode()
 
-            expect(displayNode.classList.contains(plan.type)).to.be.true
+            expect(displayNode.dataset.assignmentType).to.equal(plan.type)
             expect(displayNode.classList.contains('is-publishing')).to.be.true
 
         checkChildrenComponents(element, item, checks)
