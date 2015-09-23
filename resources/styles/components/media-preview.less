@@ -24,8 +24,8 @@
     min-height: 1.75rem;
     min-width: 100%;
     position: relative;
+    .tutor-subtle-load(will-load; 'Loading...');
 
-    .tutor-subtle-load(will-load; 'Loading Figure...');
     &::after {
       font-size: 1.75rem;
       line-height: 1em;
@@ -33,8 +33,11 @@
   }
 
   .image-loading {
-    figure span {
-      .tutor-subtle-load(loading);
+    figure {
+      min-width: 300px;
+      span {
+        .tutor-subtle-load(loading);
+      }
     }
   }
 }
