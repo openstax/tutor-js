@@ -11,6 +11,32 @@
     .tutor-completed-message();
     .size-exercise-card();
   }
+
+  .task-review .card-body {
+    .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
+    max-height: 999px;
+    overflow: hidden;
+
+    &.homework-review-problem-leave-active {
+      max-height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    &.homework-review-problem-enter {
+      max-height: 0;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    &.homework-review-problem-enter-active {
+      .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
+      max-height: 999px;
+      padding: @tutor-card-body-padding;
+      margin-bottom: 4rem;
+    }
+  }
 }
 
 .task-step {
@@ -20,14 +46,4 @@
   .external-step {
     .size-exercise-card();
   }
-}
-
-.homework-review-problem-leave {
-  max-height: 800px;
-  overflow: hidden;
-  .transition(max-height 0.3s);
-}
-
-.homework-review-problem-leave-active {
-  max-height: 0;
 }

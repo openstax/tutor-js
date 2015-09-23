@@ -99,6 +99,7 @@ module.exports = React.createClass
         {...pageProps}
         toggleTocMenu={@toggleMenuState}
         teacherLinkText={teacherLinkText}
+        isMenuVisible={@state.isMenuVisible}
         showTeacherEdition={toggleTeacher} />
       <div className="content">
         <Menu {...pageProps} onMenuSelection={@onMenuClick} />

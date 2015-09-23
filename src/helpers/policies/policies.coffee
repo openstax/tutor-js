@@ -19,6 +19,7 @@ multipleChoice =
 review =
   name: 'review'
   canReview: true
+  canWrite: true
   actions: [
     'clickContinue'
   ]
