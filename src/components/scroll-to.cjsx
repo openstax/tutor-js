@@ -64,19 +64,23 @@ ScrollTo =
     Position.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
 
   _onBeforeScroll: (el) ->
-    el.classList.add('target')
+    el.classList.add('target-scroll')
     @onBeforeScroll?(el)
 
-  _onScrollComplete: (el, attemptNumber) ->
-    _.delay(el.classList.remove('target'), 150)
+  _onAfterScroll: (el) ->
+    if el?.classList?.contains('target-scroll')
+      _.delay(el.classList.remove.bind(el.classList, 'target-scroll'), 150)
+    @props.windowImpl.history.pushState(null, null, "##{el.id}")
+    @onAfterScroll?(el)
+
+  _onScrollStep: (el, attemptNumber) ->
     # The element's postion may have changed if scrolling was initiated while
     # the page was still being manipulated.
     # If that's the case, we begin another scroll to it's current position
     if attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el)
       @scrollToElement(el, attemptNumber + 1)
     else
-      @props.windowImpl.history.pushState(null, null, "##{el.id}")
-      @onScrollComplete?(el)
+      @_onAfterScroll(el)
 
   scrollToElement: (el, attemptNumber = 0) ->
     win       = @props.windowImpl
@@ -90,9 +94,9 @@ ScrollTo =
       elapsed = Date.now() - startTime
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) )
       if elapsed < duration then requestAnimationFrame(step)
-      else @_onScrollComplete(el, attemptNumber)
+      else @_onScrollStep(el, attemptNumber)
 
-    @_onBeforeScroll?(el)
+    @_onBeforeScroll(el)
     step()
 
 
