@@ -64,6 +64,5 @@ module.exports = React.createClass
       id={id}
       store={TaskStepStore}
       actions={TaskStepActions}
-      bindEvent={"ready.#{id}"}
       renderItem={=> <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>}
     />
