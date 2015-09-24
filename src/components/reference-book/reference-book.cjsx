@@ -26,8 +26,11 @@ module.exports = React.createClass
 
   getPageState: ->
     {cnxId} = @context.router.getCurrentParams()
+    {isMenuVisible} = @state if @state?
+    isMenuVisible ?= not cnxId
+
     # Pop open the menu unless the page was explicitly navigated to
-    isMenuVisible: not cnxId
+    isMenuVisible: isMenuVisible
     pageProps: @getPageProps()
 
   setPageState: ->
@@ -36,7 +39,7 @@ module.exports = React.createClass
   getInitialState: ->
     @getPageState()
 
-  componentWillReceiveProps: (nextProps) ->
+  componentWillReceiveProps: ->
     @setPageState()
 
   componentWillMount: ->
@@ -72,7 +75,9 @@ module.exports = React.createClass
     ev?.preventDefault() # stops react-router from scrolling to top
 
   onMenuClick: ->
-    @toggleMenuState() unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
+    # menu state toggling needs to happen after new state
+    # is received and rendered from router for new section
+    _.defer(@toggleMenuState) unless window.innerWidth > MENU_VISIBLE_BREAKPOINT
 
   toggleMenuState: (ev) ->
     @setState(isMenuVisible: not @state.isMenuVisible)
@@ -84,15 +89,15 @@ module.exports = React.createClass
     courseDataProps = @getCourseDataProps(courseId)
 
     course = CourseStore.get(courseId)
-    classnames = ["reference-book"]
+    classnames = ['reference-book']
     classnames.push('menu-open') if @state.isMenuVisible
     if course and _.findWhere(course.roles, type: 'teacher')
       toggleTeacher = @toggleTeacherEdition
       teacherLinkText = if @state.showTeacherEdition
         classnames.push('is-teacher')
-        "Hide Teacher Edition"
+        'Hide Teacher Edition'
       else
-        "Show Teacher Edition"
+        'Show Teacher Edition'
 
     <div {...courseDataProps} className={classnames.join(' ')}>
       <NavBar

@@ -22,6 +22,7 @@ FIRST_PAGE  = '1.1'
 SECOND_PAGE = '1.2'
 SECOND_PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16510'
 THIRD_PAGE  = '1.3'
+THIRD_PAGE_ID = '0e58aa87-2e09-40a7-8bf3-269b2fa16511'
 
 PAGE = require '../../api/pages/0e58aa87-2e09-40a7-8bf3-269b2fa16509.json'
 
@@ -111,12 +112,54 @@ describe 'Reference Book Component', ->
     expect(@state.div.querySelector('.page-wrapper > .prev').href)
       .to.contain(FIRST_PAGE)
 
+  it 'preserves menu toggle when navigating forward and back between pages', ->
+    toggle = @state.div.querySelector('.menu-toggle')
+    nextControl = @state.div.querySelector('.page-wrapper > .next')
+
+    page = ReactTestUtils.findRenderedComponentWithType(@state.book, Page)
+    ReferenceBookPageActions.loaded(PAGE, SECOND_PAGE_ID)
+
+    commonActions.click(toggle)
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.not.contain('menu-open')
+    # button:0 is a mystery argument needed by ReactRouter, taken from their specs
+    commonActions.click(nextControl, {button: 0})
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.not.contain('menu-open')
+
+    ReferenceBookPageActions.loaded(PAGE, THIRD_PAGE_ID)
+    commonActions.click(nextControl, {button: 0})
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.not.contain('menu-open')
+
+    commonActions.click(toggle)
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.contain('menu-open')
+
+    prevControl = @state.div.querySelector('.page-wrapper > .prev')
+    commonActions.click(prevControl, {button: 0})
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.contain('menu-open')
 
   it 'sets the menu item to be active based on the current page', ->
     selection = @state.div.querySelector(".toc [data-section='#{FIRST_PAGE}'] a")
     expect(selection).not.to.be.null
     expect(_.toArray(selection.classList)).to.include('active')
 
+  it 'closes TOC when using TOC to nav and window is small', (done) ->
+    expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+      .to.contain('menu-open')
+
+    nextSelection = @state.div.querySelector(".toc [data-section='#{SECOND_PAGE}'] a")
+    ReferenceBookPageActions.loaded(PAGE, SECOND_PAGE_ID)
+
+    commonActions.click(nextSelection)
+    # menu toggle is deferred, test for it needs to be deferred as well.
+    _.defer( =>
+      expect(_.toArray(@state.div.querySelector('.reference-book').classList))
+        .to.not.contain('menu-open')
+      done()
+    )
 
 describe 'Reference Book Component for a non-default ecosystem', ->
 
