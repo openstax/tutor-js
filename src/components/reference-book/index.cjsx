@@ -2,6 +2,7 @@ React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
+classnames = require 'classnames'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {CourseActions, CourseStore} = require '../../flux/course'
@@ -50,14 +51,12 @@ ReferenceBookShell = React.createClass
     <TeacherContentToggle onChange={@setTeacherContent} />
 
   renderBook: ->
-    classnames = []
-    classnames.push('is-teacher') if @state.isShowingTeacherContent
     {courseId, ecosystemId} = @state
 
     <ReferenceBook
         navbarControls={@renderNavbarControls()}
         section={@state.section}
-        className={classnames.join(' ')}
+        className={classnames('is-teacher': @state.isShowingTeacherContent)}
         dataProps={@getCourseDataProps(courseId) if courseId}
         ecosystemId={ecosystemId}
     />

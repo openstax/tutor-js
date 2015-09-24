@@ -1,5 +1,6 @@
 React = require 'react'
 _  = require 'underscore'
+classnames = require 'classnames'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
@@ -56,11 +57,10 @@ module.exports = React.createClass
     ev?.preventDefault() # needed to prevent scrolling to top
 
   render: ->
-    classnames = ["reference-book"]
-    classnames.push(@props.className) if @props.className
-    classnames.push('menu-open') if @state.isMenuVisible
+    className = classnames 'reference-book', @props.className,
+      'menu-open': @state.isMenuVisible
 
-    <div {...@props.dataProps} className={classnames.join(' ')}>
+    <div {...@props.dataProps} className={className}>
 
       <NavBar
         ecosystemId={@props.ecosystemId}
