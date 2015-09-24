@@ -2,6 +2,7 @@ React = require 'react'
 {HistoryLocation, History, RouteHandler} = require 'react-router'
 
 Navbar = require './navbar'
+Analytics = require '../helpers/analytics'
 
 {TransitionActions, TransitionStore} = require '../flux/transition'
 
@@ -21,6 +22,7 @@ module.exports = React.createClass
     @storeHistory(path: HistoryLocation.getCurrentPath())
 
   storeHistory: (locationChangeEvent) ->
+    Analytics.onNavigation(@context.router)
     TransitionActions.load(locationChangeEvent, @context.router)
 
   getInitialState: ->
