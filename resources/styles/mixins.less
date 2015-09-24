@@ -90,6 +90,21 @@
         color: @tutor-neutral-darker !important;
       }
     }
+    
+    &.is-trouble {
+      a {
+      display: inline-block;
+      padding: 10px;
+        &:before {
+          content: @fa-var-bookmark;
+          .fa-icon();
+          .rotate(90deg);
+          color: @tutor-danger;
+          margin-right: 5px;
+        }
+      }
+    }
+    
   }
 }
 

@@ -57,7 +57,8 @@ CoursePeriodsNav = React.createClass
     @setState(active: key)
 
   renderPeriod: (period, key) ->
-    <BS.NavItem eventKey={key} key="period-nav-#{period.id}">{period.name}</BS.NavItem>
+    isTrouble = 'is-trouble' if period.is_trouble
+    <BS.NavItem className={isTrouble} eventKey={key} key="period-nav-#{period.id}">{period.name}</BS.NavItem>
 
   render: ->
     {active, sortedPeriods} = @state
