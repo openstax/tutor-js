@@ -45,6 +45,7 @@ TaskTeacherReviewExercise = React.createClass
       className={freeResponsesClasses}/>
 
   renderFreeResponse: ->
+    return null unless @expectsFreeResponse()
     {answers} = @props
     {showAnswers} = @state
     question = @getQuestion()
