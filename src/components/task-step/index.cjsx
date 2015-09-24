@@ -4,6 +4,7 @@ React = require 'react'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableItem = require '../loadable-item'
 {Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl} = require './all-steps'
+SpyModeContent = require '../spy-mode/content'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -43,9 +44,9 @@ TaskStepLoaded = React.createClass
     Type = getStepType(type)
     <div>
       <Type {...@props}/>
-      <div className="task-ecosystem-info visible-when-debugging">
+      <SpyModeContent className='task-ecosystem-info'>
         TaskId: {taskId}, StepId: {id}, Ecosystem: {ecosystem_title}
-      </div>
+      </SpyModeContent>
     </div>
 
 module.exports = React.createClass
