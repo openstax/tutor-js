@@ -38,10 +38,10 @@ TimeHelper =
     weekdaysMin: currentLocale._weekdaysMin
 
   syncCourseTimezone: (courseTimezone = 'US/Central') ->
-    moment.tz.setDefault(courseTimezone)
+    moment.fn.tz(courseTimezone)
 
   unsyncCourseTimezone: ->
-    moment.defaultZone = null
+    moment.fn.tz()
 
   getLocalTimezone: ->
     tzdetect.matches()
