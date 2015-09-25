@@ -13,16 +13,17 @@ module.exports = React.createClass
 
   componentDidMount: ->
     @storeInitial()
+    Analytics.setTracker(window.ga)
     HistoryLocation.addChangeListener(@storeHistory)
 
   componentWillUnmount: ->
     HistoryLocation.removeChangeListener(@storeHistory)
 
   storeInitial: ->
-    @storeHistory(path: HistoryLocation.getCurrentPath())
+    @storeHistory(path: @context.router.getCurrentPath())
 
   storeHistory: (locationChangeEvent) ->
-    Analytics.onNavigation(@context.router)
+    Analytics.onNavigation(locationChangeEvent, @context.router)
     TransitionActions.load(locationChangeEvent, @context.router)
 
   getInitialState: ->
