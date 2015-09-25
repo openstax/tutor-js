@@ -1,31 +1,64 @@
 _ = require 'underscore'
 Router = require 'react-router'
 {HistoryLocation} = require 'react-router'
+DestinationHelper = require '../helpers/routes-and-destinations'
+
+# generate custom event data for routes
+Events =
+  viewTaskStep: ({courseId}) ->
+    # track all work done on a course
+    Analytics.sendEvent 'Course', 'Work', label: courseId
+
+  viewStudentDashboard: ({courseId}) ->
+    # compare activity between courses
+    Analytics.sendEvent 'Student', 'Dashboard', label: courseId
+
+
+# Translators convert a url like '/foo/bar/123/baz/1' into a simplified one like just '/foo/bar'
+Translators =
+
+  dashboard:            ({courseId}) -> "/student/choose-course/#{courseId}"
+  viewTaskStep:         ({courseId}) -> "/student/task-step/#{courseId}"
+  viewGuide:            ({courseId}) -> "/student/performance-forecast/#{courseId}"
+  viewStudentDashboard: ({courseId}) -> "/student/dashboard/#{courseId}"
+  viewPractice:         ({courseId}) -> "/student/practice/#{courseId}"
+
+  calendarByDate:        ({courseId}) -> "/teacher/calendar/#{courseId}"
+  viewTeacherGuide:      ({courseId}) -> "/teacher/performance-forecast/#{courseId}"
+  viewScores:            ({courseId}) -> "/teacher/student-scores/#{courseId}"
+  courseSettings:        ({courseId}) -> "/teacher/roster/#{courseId}"
+  editReading:           ({courseId}) -> "/teacher/assignment/edit/#{courseId}"
+  editHomework:          ({courseId}) -> "/teacher/assignment/edit/#{courseId}"
+  editExternal:          ({courseId}) -> "/teacher/assignment/edit/#{courseId}"
+  createReading:         ({courseId}) -> "/teacher/assignment/create/#{courseId}"
+  createHomework:        ({courseId}) -> "/teacher/assignment/create/#{courseId}"
+  createExternal:        ({courseId}) -> "/teacher/assignment/create/#{courseId}"
+  calendarViewPlanStats: ({courseId}) -> "/teacher/metrics/quick/#{courseId}"
+  reviewTask:            ({courseId}) -> "/teacher/metrics/review/#{courseId}"
+
+GA = undefined
 
 Analytics =
 
-  onNavigation: (router) ->
-    # Tell GA that all events after this should be credited to this path
-    ga('set', 'page', router.getCurrentPath())
+  setTracker: (tracker) -> GA = tracker
 
-    route = _.last router.getCurrentRoutes()
-    @handlers[route.name]?( router.getCurrentParams() )
+  onNavigation: (change, router) ->
+    route  = DestinationHelper.routeFromPath(change.path, router.match)
+    return unless GA and route
 
-    ga('send', 'pageview')
+    params = router.getCurrentParams()
+    path   = Translators[route.name]?( params ) or change.path
 
+    # if we're also going to send custom events then we set the page
+    if Events[route.name]
+      GA('set', 'page', path)
+      Events[route.name]( params )
+      GA('send', 'pageview') # path's not needed since it was set before events
+    else
+      GA('send', 'pageview', path)
 
-  sendEvent: (attrs) ->
-    ga('send', 'event', attrs.category, attrs.action, attrs.label, attrs.value)
-
-  handlers:
-    viewTaskStep: ({courseId, id}) ->
-      Analytics.sendEvent( category: 'Task', action: 'Step' )
-
-    viewGuide: ->
-      Analytics.sendEvent( category: 'LearningGuide' )
-
-    viewStudentDashboard: ->
-      Analytics.sendEvent( category: 'Dashboard' )
-
+  sendEvent: (category, action, attrs) ->
+    return unless GA
+    GA('send', 'event', category, action, attrs.label, attrs.value)
 
 module.exports = Analytics
