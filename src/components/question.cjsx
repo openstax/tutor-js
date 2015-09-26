@@ -3,7 +3,7 @@ React = require 'react'
 keymaster = require 'keymaster'
 ArbitraryHtml = require './html'
 
-ALL_KEYS = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+ALL_KEYS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 idCounter = 0
 
 Answer = React.createClass
