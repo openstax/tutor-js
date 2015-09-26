@@ -32,13 +32,13 @@ module.exports = React.createClass
       <BS.Col xs={2}  sm={1} className={"column-icon"}>
         <i className={"icon icon-lg icon-#{@props.className}"}/>
       </BS.Col>
-      <BS.Col xs={10} sm={7} className='title'>
+      <BS.Col xs={10} sm={6} className='title'>
         {@props.children}
         <Instructions
           task={@props.event}
           popverClassName='student-dashboard-instructions-popover'/>
       </BS.Col>
-      <BS.Col xs={5}  sm={2} className='feedback'>
+      <BS.Col xs={5}  sm={3} className='feedback'>
         <span>{@props.feedback}</span><EventInfoIcon event={@props.event} />
       </BS.Col>
       <BS.Col xs={5}  sm={2} className='due-at'>

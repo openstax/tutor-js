@@ -5,16 +5,23 @@ CoursePlanPublishingDetails = React.createClass
   displayName: 'CoursePlanPublishingDetails'
 
   propTypes:
-    plan: React.PropTypes.object.isRequired
+    plan: React.PropTypes.shape(
+      id: React.PropTypes.string.isRequired
+      title: React.PropTypes.string.isRequired
+      type: React.PropTypes.string.isRequired
+    ).isRequired
+    courseId: React.PropTypes.string.isRequired
+    onRequestHide: React.PropTypes.func.isRequired
 
   render: ->
     {plan, courseId, className} = @props
-    {title, type, id, isPublishing, publish_last_requested_at} = plan
+    {title, type, id} = plan
     linkParams = {courseId, id}
 
     <BS.Modal
       {...@props}
       title={title}
+      data-assignment-type={type}
       className="#{type}-modal plan-modal #{className}">
       <div className='modal-body'>
         This plan is publishing.

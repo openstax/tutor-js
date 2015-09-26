@@ -20,6 +20,7 @@ Student = React.createClass
       store={LearningGuide.Student.store}
       actions={LearningGuide.Student.actions}
       renderItem={-> <StudentComponent courseId={courseId} />}
+      isLong={true}
     />
 
 
@@ -38,6 +39,7 @@ TeacherStudent = React.createClass
       store={ScoresStore}
       actions={ScoresActions}
       renderItem={-> <TeacherStudentComponent courseId={courseId} roleId={roleId}/>}
+      isLong={true}
     />
 
 
@@ -53,6 +55,7 @@ Teacher = React.createClass
       store={LearningGuide.Teacher.store}
       actions={LearningGuide.Teacher.actions}
       renderItem={-> <TeacherComponent courseId={courseId} />}
+      isLong={true}
     />
 
 module.exports = {Teacher, TeacherStudent, Student}

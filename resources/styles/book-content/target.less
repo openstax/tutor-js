@@ -3,48 +3,56 @@
   animation: book-content-target-highlight 1.5s ease-out;
 }
 
-.offset-header() {
-  margin-top: -@tutor-navbar-height;
-  padding-top: @tutor-navbar-height;
+.highlight-target() {
+  background-color: @tutor-highlight;
 }
 
-a[target=_blank] {
-  &::after {
-    .fa-icon();
-    content: @fa-var-external-link;
-    margin: 0 4px 0 6px;
-  }
+.highlight-target(transition) {
+  .highlight-target();
+  .transition(background-color .1s ease-out);
 }
+
+a[target=_blank] { .tutor-external-link-indicator(); }
 
 figure {
   &:target, .target {
-    .offset-header();
+    img {
+      mix-blend-mode: multiply;
+    }
+  }
+  &:target, .target {
     .highlight-animation();
 
     > * {
       .highlight-animation();
     }
+  }
+  .target {
+    .highlight-target(transition);
 
-    img {
-      mix-blend-mode: multiply;
+    > * {
+      .highlight-target(transition);
     }
   }
 }
 
 section, div, span, table {
   &:target, .target {
-    .offset-header();
-    .highlight-animation();
-
     img {
       mix-blend-mode: multiply;
     }
+  }
+  &:target {
+    .highlight-animation();
+  }
+  .target {
+    .highlight-target(transition);
   }
 }
 
 @-webkit-keyframes book-content-target-highlight {
   0% {
-    background-color: @tutor-highlight;
+    .highlight-target();
   }
   100% {
     background-color: transparent;
@@ -53,7 +61,7 @@ section, div, span, table {
 
 @keyframes book-content-target-highlight {
   0% {
-    background-color: @tutor-highlight;
+    .highlight-target();
   }
   100% {
     background-color: transparent;

@@ -2,8 +2,8 @@
   @font-face {
     font-family: @family;
     src: local(@name),
-    url('fonts/@{filename}.woff2') format('woff2'),
-    url('fonts/@{filename}.woff') format('woff');
+    url('../../fonts/@{filename}.woff2') format('woff2'),
+    url('../../fonts/@{filename}.woff') format('woff');
     font-weight: @weight;
     font-style: @style;
   }
@@ -41,6 +41,9 @@
     font-style: normal;
     font-size: @size;
     line-height: @line-height;
+    font-smooth: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   .script (@size: 1.5rem, @line-height: 3rem, @style: normal) {
     font-family: 'Architects Daughter', cursive;

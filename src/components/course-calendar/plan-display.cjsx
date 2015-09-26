@@ -4,8 +4,15 @@ camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 
 DisplayProperties =
-  plan: React.PropTypes.object.isRequired
-  display: React.PropTypes.object.isRequired
+  plan: React.PropTypes.shape(
+    id: React.PropTypes.string.isRequired
+    durationLength: React.PropTypes.number.isRequired
+  ).isRequired
+  display: React.PropTypes.shape(
+    offset: React.PropTypes.number.isRequired
+    order: React.PropTypes.number.isRequired
+    weekTopOffset: React.PropTypes.number.isRequired
+  ).isRequired
   label: React.PropTypes.node.isRequired
   courseId: React.PropTypes.string.isRequired
   planClasses: React.PropTypes.string.isRequired
@@ -75,6 +82,7 @@ CoursePlanDisplayEdit = React.createClass
     <div
       style={planStyle}
       className={planClasses}
+      data-assignment-type={plan.type}
       onMouseEnter={setHover.bind(null, true)}
       onMouseLeave={setHover.bind(null, false)}
       ref='plan'>
@@ -91,13 +99,14 @@ CoursePlanDisplayQuickLook = React.createClass
   mixins: [CoursePlanDisplayMixin]
 
   render: ->
-    {planClasses, planModal, label, setHover, setIsViewing} = @props
+    {planClasses, planModal, label, setHover, setIsViewing, plan} = @props
 
     planStyle = @buildPlanStyles()
 
     <div
       style={planStyle}
       className={planClasses}
+      data-assignment-type={plan.type}
       onMouseEnter={setHover.bind(null, true)}
       onMouseLeave={setHover.bind(null, false)}
       onClick={setIsViewing.bind(null, true)}

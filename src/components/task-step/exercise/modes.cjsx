@@ -22,7 +22,10 @@ ExerciseMixin =
     {id} = @props
     {group, related_content} = TaskStepStore.get(id)
 
-    <ExerciseGroup group={group} related_content={related_content}/>
+    <ExerciseGroup
+      key='step-exercise-group'
+      group={group}
+      related_content={related_content}/>
 
 
 ExerciseFreeResponse = React.createClass
@@ -41,7 +44,7 @@ ExerciseFreeResponse = React.createClass
 
   isContinueEnabled: ->
     {id} = @props
-    {free_response} = TaskStepStore.get(id)
+    {free_response, content} = TaskStepStore.get(id)
     response = free_response or @state.freeResponse
     response?.trim().length > 0
 
@@ -60,6 +63,7 @@ ExerciseFreeResponse = React.createClass
         value={@state.freeResponse or ''}
         onChange={@onFreeResponseChange}
         />
+      <div className="exercise-uid">{content.uid}</div>
     </div>
 
   componentDidMount: ->
@@ -135,6 +139,7 @@ ExerciseReview = React.createClass
     question = content.questions[0]
 
     <Question
+      key='step-question'
       model={question}
       answer_id={answer_id}
       exercise_uid={content.uid}
@@ -187,6 +192,7 @@ ExerciseReview = React.createClass
       tryAnotherButton = <AsyncButton
         bsStyle='primary'
         className='-try-another'
+        key='step-try-another'
         onClick={@tryAnother}
         isWaiting={TaskStepStore.isRecovering(id)}
         waitingText='Loading Another…'>
@@ -203,7 +209,7 @@ ExerciseReview = React.createClass
     #     Refresh My Memory
     #   </BS.Button>
 
-    <div className='task-footer-buttons'>
+    <div className='task-footer-buttons' key='step-buttons'>
       {tryAnotherButton}
       {@renderContinueButton() unless review is 'completed'}
     </div>
@@ -226,6 +232,7 @@ ExerciseTeacherReadOnly = React.createClass
     <Question
       model={question}
       answer_id={answer_id}
+      exercise_uid={content.uid}
       correct_answer_id={correct_answer_id}
       feedback_html={feedback_html}
       onChangeAttempt={@onChangeAnswerAttempt}>

@@ -12,7 +12,13 @@ CoursePlanDetails = React.createClass
   displayName: 'CoursePlanDetails'
 
   propTypes:
-    plan: React.PropTypes.object.isRequired
+    plan: React.PropTypes.shape(
+      id: React.PropTypes.string.isRequired
+      title: React.PropTypes.string.isRequired
+      type: React.PropTypes.string.isRequired
+    ).isRequired
+    courseId: React.PropTypes.string.isRequired
+    onRequestHide: React.PropTypes.func.isRequired
 
   renderReviewButton: ->
     {plan, courseId} = @props
@@ -45,7 +51,8 @@ CoursePlanDetails = React.createClass
     <BS.Modal
       {...@props}
       title={title}
-      className="#{type}-modal plan-modal #{className}">
+      data-assignment-type={type}
+      className="plan-modal #{className}">
       <div className='modal-body'>
         <StatsModalShell id={id} courseId={courseId} />
       </div>

@@ -2,6 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+{PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
+PlanHelper = require '../../helpers/plan'
 AsyncButton = require '../buttons/async-button'
 BackButton = require '../buttons/back-button'
 
@@ -20,6 +22,25 @@ PlanFooter = React.createClass
 
   getInitialState: ->
     isEditable: TaskPlanStore.isEditable(@props.id)
+    publishing: TaskPlanStore.isPublishing(@props.id)
+    saving: TaskPlanStore.isSaving(@props.id)
+
+  checkPublishingStatus: (published) ->
+    planId = @props.id
+    if published.for is planId
+      planStatus =
+        publishing: PlanPublishStore.isPublishing(planId)
+
+      @setState(planStatus)
+      if PlanPublishStore.isDone(planId)
+        PlanPublishStore.removeAllListeners("progress.#{planId}.*", @checkPublishingStatus)
+        TaskPlanActions.load(planId)
+
+  componentWillMount: ->
+    plan = TaskPlanStore.get(@props.id)
+    publishState = PlanHelper.subscribeToPublishing(plan, @checkPublishingStatus)
+
+    @setState(publishing: publishState.isPublishing)
 
   saved: ->
     courseId = @props.courseId
@@ -53,8 +74,8 @@ PlanFooter = React.createClass
 
     plan = TaskPlanStore.get(id)
 
-    saveable = not TaskPlanStore.isPublished(id)
-    isWaiting = TaskPlanStore.isSaving(id)
+    saveable = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
+    isWaiting = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
     deleteable = not TaskPlanStore.isNew(id) and not (TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
 
@@ -82,6 +103,7 @@ PlanFooter = React.createClass
           isFailed={isFailed}
           waitingText='Publishing…'
           disabled={isWaiting}
+          isJob={true}
           >
           {'Publish'}
         </AsyncButton>

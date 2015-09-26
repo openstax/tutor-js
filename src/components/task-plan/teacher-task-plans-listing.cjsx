@@ -65,18 +65,6 @@ TeacherTaskPlanListing = React.createClass
 
   mixins: [CourseDataMixin]
 
-  componentDidMount: ->
-    {courseId} = @context.router.getCurrentParams()
-
-    # Bypass loading if plan is already loaded, as is the case in testing.
-    if not TeacherTaskPlanStore.isLoaded(courseId)
-      TeacherTaskPlanActions.load( courseId )
-
-  componentWillMount: -> TeacherTaskPlanStore.addChangeListener(@update)
-  componentWillUnmount: -> TeacherTaskPlanStore.removeChangeListener(@update)
-
-  update: -> @setState({})
-
   statics:
     willTransitionTo: (transition, params, query, callback) ->
       {date, planId} = params
@@ -104,9 +92,9 @@ TeacherTaskPlanListing = React.createClass
 
     date = @getDateFromParams()
 
-    plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
+    loadPlansList = TeacherTaskPlanStore.getActiveCoursePlans.bind(TeacherTaskPlanStore, courseId)
 
-    loadedCalendarProps = {plansList, courseId, date}
+    loadedCalendarProps = {loadPlansList, courseId, date}
 
     <div {...courseDataProps} className="tutor-booksplash-background">
 

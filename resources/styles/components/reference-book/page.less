@@ -4,6 +4,7 @@
     margin-left: -40px;
     margin-right: -40px;
 
+
     .page {
       counter-reset: question;
       width: @reference-book-page-width;
@@ -82,6 +83,7 @@
         .tutor-subtle-load(loading);
       }
     }
+    .printer-safe(block, absolute, 0, 0)
   }
   // when menu is open and the screen is wide enough, slide everything to the right so it's still visible
   &.menu-open {

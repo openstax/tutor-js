@@ -27,7 +27,7 @@ ResizeListenerMixin = require '../resize-listener-mixin'
 
 # Index of first column that contains data
 FIRST_DATA_COLUMN = 1
-INITIAL_SORT = { key: 'name', asc: false }
+INITIAL_SORT = { key: 'name', asc: true }
 
 Scores = React.createClass
   displayName: 'Scores'
@@ -173,9 +173,9 @@ Scores = React.createClass
           when 'homework' then d.data[index].correct_exercise_count
           when 'reading' then d.data[index].status
       else
-        d.last_name
+        d.last_name.toLowerCase()
     )
-    { headings: scores.data_headings, rows: if sort.asc then sortData.reverse() else sortData }
+    { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
 
   render: ->
     {courseId} = @props
@@ -187,7 +187,7 @@ Scores = React.createClass
       @renderStudentRow(data.rows[rowIndex])
 
     <div className='course-scores-wrap'>
-      <span className='course-scores-title'>Scores Report</span>
+      <span className='course-scores-title'>Student Scores</span>
       <ScoresExport courseId={courseId} className='pull-right'/>
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}

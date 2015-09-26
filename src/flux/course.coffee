@@ -52,7 +52,6 @@ CourseConfig =
     @emit('course.loaded', obj.id)
 
   _reset: ->
-    CrudConfig.reset.call(@)
     @_guides = {}
     @_asyncStatusGuides = {}
     @_practices = {}
@@ -97,6 +96,9 @@ CourseConfig =
     getPeriods: (courseId) ->
       periods = @_get(courseId).periods or []
       sortedPeriods = PeriodHelper.sort(periods)
+
+    isTeacher: (courseId) ->
+      !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')
 
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)

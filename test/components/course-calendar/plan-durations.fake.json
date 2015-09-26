@@ -1,0 +1,84 @@
+[{
+  "plan": {
+    "id": "1",
+    "title": "Read Chapter 1. The Study of Life",
+    "is_trouble": false,
+    "type": "reading",
+    "is_publish_requested": false,
+    "mode": "day",
+    "isOpen": false,
+    "isPublished": false,
+    "isPublishing": false,
+    "isTrouble": false,
+    "isEditable": true,
+    "opensAt": "8/21",
+    "durationLength": 1
+  },
+  "displays": [{
+    "rangeDuration": {
+      "start": "2015-08-29T05:00:00.000Z",
+      "end": "2015-08-30T05:00:00.000Z"
+    },
+    "offset": 3,
+    "index": 0,
+    "offsetFromPlanStart": 0,
+    "order": 1,
+    "weekTopOffset": 51.8
+  }]
+}, {
+  "plan": {
+    "id": "2",
+    "title": "Read Chapter 6. Metabolism",
+    "is_trouble": false,
+    "type": "reading",
+    "is_publish_requested": true,
+    "published_at": "2015-08-26T15:36:31.927Z",
+    "mode": "day",
+    "isOpen": true,
+    "isPublished": true,
+    "isPublishing": false,
+    "isTrouble": false,
+    "isEditable": false,
+    "opensAt": "8/21",
+    "durationLength": 3
+  },
+  "displays": [{
+    "rangeDuration": {
+      "start": "2015-08-24T05:00:00.000Z",
+      "end": "2015-08-27T05:00:00.000Z"
+    },
+    "offset": 1,
+    "index": 0,
+    "offsetFromPlanStart": 0,
+    "order": 3,
+    "weekTopOffset": 51.8
+  }]
+}, {
+  "plan": {
+    "id": "3",
+    "title": "HW Chapter 1 The Study of Life",
+    "is_trouble": false,
+    "type": "homework",
+    "is_publish_requested": true,
+    "published_at": "2015-08-26T15:36:39.108Z",
+    "mode": "day",
+    "isOpen": true,
+    "isPublished": true,
+    "isPublishing": false,
+    "isTrouble": false,
+    "isEditable": false,
+    "opensAt": "8/21",
+    "durationLength": 2
+  },
+  "displays": [{
+    "rangeDuration": {
+      "start": "2015-08-25T05:00:00.000Z",
+      "end": "2015-08-27T05:00:00.000Z"
+    },
+    "offset": 2,
+    "index": 0,
+    "offsetFromPlanStart": 0,
+    "order": 2,
+    "weekTopOffset": 51.8
+  }]
+}]

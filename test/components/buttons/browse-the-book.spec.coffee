@@ -13,6 +13,7 @@ describe 'Browse the book button', ->
     @props = {
       courseId: COURSE_ID
       section: [1.2]
+      onClick: sinon.spy()
     }
 
   it 'sets the target url', ->
@@ -50,3 +51,22 @@ describe 'Browse the book button', ->
     @props.courseId = null
     Testing.renderComponent( BTB, props: @props, routerParams: {courseId: undefined}).then ({dom}) ->
       expect(dom).to.be.null
+
+  it 'passes down props like onClick', ->
+    Testing.renderComponent( BTB, props: @props ).then ({element}) ->
+      Testing.actions.click(element.getDOMNode())
+      expect(element.props.onClick).to.have.been.called
+
+  it 'should append ecosystemId query string if props specify non-default ecosystemId', ->
+    @props.ecosystemId = '3'
+    Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
+      expect(Testing.router.makeHref).to.have.been.calledWith(
+        'viewReferenceBookSection', { courseId: COURSE_ID, cnxId: undefined, section: [1.2] }, {ecosystemId: '3'}
+      )
+
+  it 'should ignore ecosystemId query string if props specify default ecosystemId', ->
+    @props.ecosystemId = '1'
+    Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
+      expect(Testing.router.makeHref).to.have.been.calledWith(
+        'viewReferenceBookSection', { courseId: COURSE_ID, cnxId: undefined, section: [1.2] }
+      )

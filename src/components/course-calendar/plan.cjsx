@@ -1,4 +1,5 @@
 _ = require 'underscore'
+twix = require 'twix'
 
 React = require 'react'
 Router = require 'react-router'
@@ -11,6 +12,8 @@ CoursePlanLabel = require './plan-label'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require './plan-display'
 
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
+PlanHelper = require '../../helpers/plan'
+
 
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
@@ -20,9 +23,32 @@ CoursePlan = React.createClass
     router: React.PropTypes.func
 
   propTypes:
-    item: React.PropTypes.object.isRequired
     courseId: React.PropTypes.string.isRequired
-    activeHeight: React.PropTypes.number.isRequired
+    item: React.PropTypes.shape(
+      plan: React.PropTypes.shape(
+        id: React.PropTypes.string.isRequired
+        title: React.PropTypes.string.isRequired
+        type: React.PropTypes.string.isRequired
+        durationLength: React.PropTypes.number.isRequired
+        opensAt: React.PropTypes.string.isRequired
+        isOpen: React.PropTypes.bool
+        isPublished: React.PropTypes.bool
+        isPublishing: React.PropTypes.bool
+        isTrouble: React.PropTypes.bool
+        isEditable: React.PropTypes.bool
+      ).isRequired
+      displays: React.PropTypes.arrayOf(
+        React.PropTypes.shape(
+          rangeDuration: React.PropTypes.instanceOf(twix).isRequired
+          offset: React.PropTypes.number.isRequired
+          index: React.PropTypes.number.isRequired
+          offsetFromPlanStart: React.PropTypes.number.isRequired
+          order: React.PropTypes.number.isRequired
+          weekTopOffset: React.PropTypes.number.isRequired
+        ).isRequired
+      ).isRequired
+    )
+    activeHeight: React.PropTypes.number
 
   getDefaultProps: ->
     # CALENDAR_EVENT_LABEL_ACTIVE_STATIC_HEIGHT
@@ -31,7 +57,7 @@ CoursePlan = React.createClass
   getInitialState: ->
     isViewingStats: @_doesPlanMatchesRoute()
     publishStatus: PlanPublishStore.getAsyncStatus(@props.item.plan.id)
-    isPublishing: false
+    isPublishing: PlanPublishStore.isPublishing(@props.item.plan.id)
     isHovered: false
 
   # utility functions for functions called in lifecycle methods
@@ -73,40 +99,38 @@ CoursePlan = React.createClass
 
   checkPublishingStatus: (published) ->
     planId = @props.item.plan.id
-    if published.publishFor is planId
+    if published.for is planId
       planStatus =
         publishStatus: published.status
         isPublishing: PlanPublishStore.isPublishing(planId)
 
       @setState(planStatus)
-      PlanPublishStore.removeAllListeners("planPublish.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
+      PlanPublishStore.removeAllListeners("progress.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
 
-  subscribeToPublishing: (item) ->
-    {plan} = item
-    {id, isPublishing, publish_job_uuid} = plan
-    publishStatus = PlanPublishStore.getAsyncStatus(id)
-
-    if isPublishing and not PlanPublishStore.isPublishing(id) and not PlanPublishStore.isPublished(id)
-      PlanPublishActions.published({id, publish_job_uuid}) if publish_job_uuid?
-
-    if isPublishing or PlanPublishStore.isPublishing(id)
-      PlanPublishStore.on("planPublish.#{id}.*", @checkPublishingStatus)
-
-    @setState({publishStatus})
+  subscribeToPublishing: (plan) ->
+    publishState = PlanHelper.subscribeToPublishing(plan, @checkPublishingStatus)
+    @setState(publishState)
 
   componentWillMount: ->
-    @subscribeToPublishing(@props.item)
+    @subscribeToPublishing(@props.item.plan)
     location = @context.router.getLocation()
     location.addChangeListener(@checkRoute)
 
   componentWillReceiveProps: (nextProps) ->
-    @subscribeToPublishing(nextProps.item)
+    if @props.item.plan.id isnt nextProps.item.plan.id
+      @subscribeToPublishing(nextProps.item.plan)
+      @stopCheckingPlan(@props.item.plan)
+    else if nextProps.item.plan.isPublishing and not @props.item.plan.isPublishing
+      @subscribeToPublishing(nextProps.item.plan)
 
   componentWillUnmount: ->
-    planId = @props.item.plan.id
-    PlanPublishStore.removeAllListeners("planPublish.#{planId}.*")
+    @stopCheckingPlan(@props.item.plan)
     location = @context.router.getLocation()
     location.removeChangeListener(@checkRoute)
+
+  stopCheckingPlan: (plan) ->
+    PlanPublishActions.stopChecking(plan.id) if @state.isPublishing
+    PlanPublishStore.removeAllListeners("progress.#{plan.id}.*")
 
   setIsViewing: (isViewingStats) ->
     @syncIsViewingStats(isViewingStats) if @state.isViewingStats isnt isViewingStats
@@ -117,7 +141,6 @@ CoursePlan = React.createClass
   buildPlanClasses: (plan, publishStatus, isPublishing, isActive) ->
     planClasses = [
       'plan-label-long'
-      "#{plan.type}"
       "course-plan-#{plan.id}"
     ]
 
@@ -140,8 +163,8 @@ CoursePlan = React.createClass
     labelProps = {rangeDuration, plan, index, offset, offsetFromPlanStart}
     label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
 
-    displayComponent = CoursePlanDisplayEdit
-    displayComponent = CoursePlanDisplayQuickLook if hasQuickLook
+    DisplayComponent = CoursePlanDisplayEdit
+    DisplayComponent = CoursePlanDisplayQuickLook if hasQuickLook
 
     displayComponentProps = {
       plan,
@@ -155,7 +178,7 @@ CoursePlan = React.createClass
       setIsViewing: @setIsViewing
     }
 
-    <displayComponent
+    <DisplayComponent
       {...displayComponentProps}
       ref="display#{index}"
       key="display#{index}"/>

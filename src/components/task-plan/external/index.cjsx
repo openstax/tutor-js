@@ -6,7 +6,7 @@ validator = require 'validator'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
-{TocStore, TocActions} = require '../../../flux/toc'
+
 PlanFooter = require '../footer'
 PlanMixin = require '../plan-mixin'
 TaskPlanBuilder = require '../builder'
@@ -46,7 +46,7 @@ ExternalPlan = React.createClass
     isURLLocked = TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)
     label = "#{label} (Cannot be changed once assignment is opened and published)" if isURLLocked
 
-    <div className='external-plan'>
+    <div className='external-plan task-plan' data-assignment-type='external'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
         footer={footer}

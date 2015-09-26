@@ -80,7 +80,7 @@ Answer = React.createClass
       </div>
 
 
-    <div className={classes} key="#{qid}-option-#{iter}">
+    <div className={classes}>
       {selectedCount}
       {radioBox}
       <label
@@ -150,7 +150,8 @@ module.exports = React.createClass
       .sortBy (answer) ->
         parseInt(answer.id)
       .map (answer, i) ->
-        answerProps = _.extend({}, {answer, iter: i}, questionAnswerProps)
+        additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}"}
+        answerProps = _.extend({}, additionalProps, questionAnswerProps)
         <Answer {...answerProps}/>
       .value()
 

@@ -10,7 +10,10 @@
       width: @reference-book-menu-width;
       z-index: 3;  // on top of book elements (booksplash, forward/prev controls)
       .transition(margin-left 0.2s linear);
+      .printer-safe(none);
     }
+
+
 
   &.menu-open {
     .menu {
@@ -19,4 +22,31 @@
     }
   }
 
+  // The SVG menu-toggle component also sets all these properties directly due to
+  // IE not supporting animation on elements.  That way IE will still work it just won't be animated
+  .menu-toggle {
+    path {
+      fill: @tutor-neutral;
+      transition: fill .4s ease;
+      transition: transform .75s ease;
+    }
+    &:hover {
+      path#triangle { fill: @tutor-neutral;    }
+      path#line1    { fill: @tutor-secondary;  }
+      path#line2    { fill: @tutor-primary;    }
+      path#line3    { fill: @tutor-quaternary; }
+      path#line4    { fill: @tutor-tertiary;   }
+    }
+    path#triangle { transform: translate(-30px, 0); }
+    path#line2 {    transform: scale(2.0, 1.0) translate(-50px, 0px); }
+    path#line3 {    transform: scale(2.0, 1.0) translate(-50px, 0px); }
+  }
+
+  &.menu-open {
+    .menu-toggle {
+      path#triangle { transform: translate(0, 0); }
+      path#line2    { transform: scale(1, 1) translate(0, 0); }
+      path#line3    { transform: scale(1, 1) translate(0, 0);}
+    }
+  }
 }

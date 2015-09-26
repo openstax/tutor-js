@@ -41,7 +41,7 @@ ScoresExport = React.createClass
 
   handleCompletedExport: (exportData) ->
     {courseId} = @props
-    if @isUpdateValid(exportData.exportFor)
+    if @isUpdateValid(exportData.for)
       ScoresExportActions.load(courseId)
       @setState(tryToDownload: true)
 
@@ -109,12 +109,14 @@ ScoresExport = React.createClass
     @setState(tryToDownload: true, downloadedSinceLoad: true)
 
   addBindListener: ->
-    ScoresExportStore.on('scoresExport.completed', @handleCompletedExport)
-    ScoresExportStore.on('scoresExport.loaded', @handleLoadedExport)
+    {courseId} = @props
+    ScoresExportStore.on("progress.#{courseId}.completed", @handleCompletedExport)
+    ScoresExportStore.on('loaded', @handleLoadedExport)
 
   removeBindListener: ->
-    ScoresExportStore.off('scoresExport.completed', @handleCompletedExport)
-    ScoresExportStore.off('scoresExport.loaded', @handleLoadedExport)
+    {courseId} = @props
+    ScoresExportStore.off("progress.#{courseId}.completed", @handleCompletedExport)
+    ScoresExportStore.off('loaded', @handleLoadedExport)
 
   render: ->
     {courseId, className} = @props
@@ -134,6 +136,7 @@ ScoresExport = React.createClass
         isWaiting={ScoresExportStore.isExporting(courseId) or tryToDownload}
         isFailed={ScoresExportStore.isFailed(courseId) or downloadHasError}
         failedProps={failedProps}
+        isJob={true}
         waitingText='Generating Export…'>
         Generate Export
       </AsyncButton>
