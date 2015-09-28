@@ -198,10 +198,10 @@ describe 'Media Preview', ->
       .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
 
-        expect(mediaDOM.classList.contains('target')).to.be.false
+        expect(mediaDOM.classList.contains('link-target')).to.be.false
 
         Testing.actions.mouseEnter(dom)
-        expect(mediaDOM.classList.contains('target')).to.be.true
+        expect(mediaDOM.classList.contains('link-target')).to.be.true
 
   it 'should unhighlight media if in viewport on mouse leave', ->
 
@@ -221,7 +221,7 @@ describe 'Media Preview', ->
 
         Testing.actions.mouseEnter(dom)
         Testing.actions.mouseLeave(dom)
-        expect(mediaDOM.classList.contains('target')).to.be.false
+        expect(mediaDOM.classList.contains('link-target')).to.be.false
 
   it 'should render matching overlay HTML on mouse enter if media not in viewport', ->
 

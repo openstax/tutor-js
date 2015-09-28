@@ -17,25 +17,48 @@ checkDoesOverlayHTMLMatch = (overlayElement, html) ->
   expect(popcontentDOM.innerHTML).to.equal(html)
   expect(overlayDOM.innerHTML).to.contain(html)
 
+
+fakeOverflow = (popperElement, getOverlayDimensions) ->
+  calledOnce = false
+
+  getOverlayDOMNode = popperElement.getOverlayDOMNode
+  popperElement.getOverlayDOMNode = ->
+    overlayDOM = getOverlayDOMNode()
+    overlayDOM.getBoundingClientRect = ->
+      rect = getOverlayDimensions(calledOnce)
+      calledOnce = true
+      rect
+    overlayDOM
+
 fakePopover =
   right: (popperElement) ->
     popperElement.calcOverlayPosition = ->
       overlayLeft: 100
+
   left: (popperElement) ->
     popperElement.calcOverlayPosition = ->
       overlayLeft: 600
-  scroll: (popperElement) ->
-    calledOnce = false
 
-    getOverlayDOMNode = popperElement.getOverlayDOMNode
-    popperElement.getOverlayDOMNode = ->
-      overlayDOM = getOverlayDOMNode()
-      overlayDOM.getBoundingClientRect = ->
-        rect =
-          height: if calledOnce then 500 else 800
-        calledOnce = true
-        rect
-      overlayDOM
+  scrollHeight: (popperElement) ->
+    getOverlayDimensions = (calledOnce) ->
+      height: if calledOnce then 500 else 800
+      width: 500
+
+    fakeOverflow(popperElement, getOverlayDimensions)
+
+  scrollWidth: (popperElement) ->
+    getOverlayDimensions = (calledOnce) ->
+      width: if calledOnce then 500 else 900
+      height: 500
+
+    fakeOverflow(popperElement, getOverlayDimensions)
+
+  scrollBoth: (popperElement) ->
+    getOverlayDimensions = (calledOnce) ->
+      width: if calledOnce then 500 else 900
+      height: if calledOnce then 500 else 800
+
+    fakeOverflow(popperElement, getOverlayDimensions)
 
 fakePopoverShould = (fakeAs, popperElement, dom) ->
   Testing.actions.click(dom)
@@ -162,13 +185,14 @@ describe 'Tutor Popover', ->
         expect(overlayDOM.querySelector('.image-loading')).to.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledThrice
 
-  it 'should not set overlay height by default', ->
+  it 'should not set overlay width or height by default', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({dom, element}) ->
         Testing.actions.click(dom)
         overlayDOM = element.refs.overlay.refs.popper.getOverlayDOMNode()
         expect(overlayDOM.style.cssText).to.not.contain('height')
+        expect(overlayDOM.style.cssText).to.not.contain('width')
 
   it 'should set overlay height and be scrollable if overlay height is greater than window height', ->
     windowImpl = _.clone(FAKE_WINDOW)
@@ -178,11 +202,47 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('scroll', popper, dom)
+        fakePopoverShould('scrollHeight', popper, dom)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('height')
+        expect(parseInt(overlayDOM.style.height) < windowImpl.innerHeight).to.be.true
+        expect(overlay.state.scrollable).to.be.true
+        expect(overlayDOM.classList.contains('scrollable')).to.be.true
+
+  it 'should set overlay width and be scrollable if overlay width is greater than window width', ->
+    windowImpl = _.clone(FAKE_WINDOW)
+
+    Testing
+      .renderComponent( PopoverWrapper , props: {windowImpl})
+      .then ({dom, element}) ->
+        {overlay} = element.refs
+        {popper} = overlay.refs
+        fakePopoverShould('scrollWidth', popper, dom)
+        Testing.actions.click(dom)
+        overlayDOM = popper.getOverlayDOMNode()
+
+        expect(overlayDOM.style.cssText).to.contain('width')
+        expect(parseInt(overlayDOM.style.width) < windowImpl.innerWidth).to.be.true
+        expect(overlay.state.scrollable).to.be.true
+        expect(overlayDOM.classList.contains('scrollable')).to.be.true
+
+  it 'should set overlay width and height and be scrollable if overlay size is greater than window in both', ->
+    windowImpl = _.clone(FAKE_WINDOW)
+
+    Testing
+      .renderComponent( PopoverWrapper , props: {windowImpl})
+      .then ({dom, element}) ->
+        {overlay} = element.refs
+        {popper} = overlay.refs
+        fakePopoverShould('scrollBoth', popper, dom)
+        Testing.actions.click(dom)
+        overlayDOM = popper.getOverlayDOMNode()
+
+        expect(overlayDOM.style.cssText).to.contain('width')
+        expect(overlayDOM.style.cssText).to.contain('height')
+        expect(parseInt(overlayDOM.style.width) < windowImpl.innerWidth).to.be.true
         expect(parseInt(overlayDOM.style.height) < windowImpl.innerHeight).to.be.true
         expect(overlay.state.scrollable).to.be.true
         expect(overlayDOM.classList.contains('scrollable')).to.be.true

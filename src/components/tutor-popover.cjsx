@@ -21,9 +21,11 @@ TutorPopover = React.createClass
     linkProps: React.PropTypes.object
     windowImpl: React.PropTypes.object
     maxHeightMultiplier: React.PropTypes.number
+    maxWidthMultiplier: React.PropTypes.number
 
   getDefaultProps: ->
     maxHeightMultiplier: 0.75
+    maxWidthMultiplier: 0.75
     windowImpl: window
 
   componentDidMount: ->
@@ -67,16 +69,27 @@ TutorPopover = React.createClass
     @refs.popper.updateOverlayPosition = =>
       updateOverlayPosition()
       viewer = @refs.popper.getOverlayDOMNode()
-      {height} = viewer.getBoundingClientRect()
+      {height, width} = viewer.getBoundingClientRect()
+
+      scrollable = false
 
       if height > windowImpl.innerHeight
-        @setState(scrollable: true)
+        scrollable = true
         viewer.style.height = @props.maxHeightMultiplier * windowImpl.innerHeight + 'px'
         updateOverlayPosition()
-      else if @state.scrollable
-        @setState(scrollable: false)
-        viewer.style.height = 'auto'
+
+      if width > windowImpl.innerWidth
+        scrollable = true
+        viewer.style.width = @props.maxWidthMultiplier * windowImpl.innerWidth + 'px'
         updateOverlayPosition()
+
+      if @state.scrollable and not scrollable
+        viewer.style.height = 'auto'
+        viewer.style.width = 'auto'
+
+      @setState({scrollable})
+      updateOverlayPosition()
+
 
   setPlacement: ->
     placement = @guessPlacement()
