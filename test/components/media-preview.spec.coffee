@@ -17,7 +17,7 @@ checkDoesOverlayHTMLMatch = (overlay, media) ->
   popcontentDOM = overlay.refs.popcontent.getDOMNode()
   overlayDOM = overlay.refs.popper.getOverlayDOMNode()
 
-  expect(popcontentDOM.innerHTML).to.equal(media.html)
+  expect(popcontentDOM.innerHTML).to.contain(media.html)
   expect(overlayDOM.innerHTML).to.contain(media.html)
 
 fakeMediaInViewport = (mediaDOM, window) ->

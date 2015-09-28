@@ -1,6 +1,7 @@
 React = require 'react'
 LoadableItem = require './loadable-item'
 TutorPopover = require './tutor-popover'
+ArbitraryHtml = require './html'
 
 _ = require 'underscore'
 S = require '../helpers/string'
@@ -144,7 +145,8 @@ MediaPreview = React.createClass
         className: 'media-preview'
         ref: 'popover'
 
-      allProps = {contentHtml, overlayProps, contentProps, popoverProps, windowImpl}
+      content = <ArbitraryHtml {...contentProps} html={contentHtml}/>
+      allProps = {content, overlayProps, popoverProps, windowImpl}
 
       linkText = children unless children is '[link]'
       linkText ?= S.capitalize(media.name)

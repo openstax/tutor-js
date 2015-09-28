@@ -1,6 +1,7 @@
 {Testing, sinon, expect, _, React} = require './helpers/component-testing'
 
 TutorPopover = require '../../src/components/tutor-popover'
+ArbitraryHtml = require '../../src/components/html'
 
 TEST_LINK_TEXT = 'This is the link text.'
 TEST_HTML = '<p>This is the test HTML</p>
@@ -14,7 +15,7 @@ checkDoesOverlayHTMLMatch = (overlayElement, html) ->
   popcontentDOM = overlayElement.refs.popcontent.getDOMNode()
   overlayDOM = overlayElement.refs.popper.getOverlayDOMNode()
 
-  expect(popcontentDOM.innerHTML).to.equal(html)
+  expect(popcontentDOM.innerHTML).to.contain(html)
   expect(overlayDOM.innerHTML).to.contain(html)
 
 
@@ -68,15 +69,14 @@ fakePopoverShould = (fakeAs, popperElement, dom) ->
 PopoverWrapper = React.createClass
   displayName: 'PopoverWrapper'
   makeProps: ->
-    contentHtml = TEST_HTML
+    content = <ArbitraryHtml html={TEST_HTML}/>
     linkProps =
       onClick: =>
         @refs.overlay.show()
       onBlur: =>
         @refs.overlay.hide()
     ref = 'overlay'
-
-    {contentHtml, linkProps, ref}
+    {content, linkProps, ref}
   render: ->
     tutorPopoverProps = @makeProps()
     allProps = _.extend({}, tutorPopoverProps, @props)

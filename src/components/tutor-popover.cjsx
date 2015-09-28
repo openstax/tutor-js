@@ -1,7 +1,6 @@
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
-ArbitraryHtml = require './html'
 
 TutorPopover = React.createClass
   displayName: 'TutorPopover'
@@ -14,11 +13,10 @@ TutorPopover = React.createClass
     imagesLoading: []
 
   propTypes: ->
-    contentHtml: React.PropTypes.string.isRequired
+    content: React.PropTypes.node.isRequired
     popoverProps: React.PropTypes.object
     contentProps: React.PropTypes.object
     overlayProps: React.PropTypes.object
-    linkProps: React.PropTypes.object
     windowImpl: React.PropTypes.object
     maxHeightMultiplier: React.PropTypes.number
     maxWidthMultiplier: React.PropTypes.number
@@ -111,7 +109,7 @@ TutorPopover = React.createClass
     @refs.popper.hide()
 
   render: ->
-    {children, contentHtml, popoverProps, contentProps, overlayProps} = @props
+    {children, content, popoverProps, overlayProps} = @props
     {scrollable, placement} = @state
 
     if scrollable
@@ -120,14 +118,16 @@ TutorPopover = React.createClass
       popoverProps.className += ' scrollable'
 
     if @areImagesLoading()
-      contentProps = _.clone(contentProps or {})
-      contentProps.className ?= ''
-      contentProps.className += ' image-loading'
+      contentClassName = 'image-loading'
+
+    content = React.addons.cloneWithProps(content, className: contentClassName)
 
     popover = <BS.Popover
       {...popoverProps}
       ref='popover'>
-      <ArbitraryHtml {...contentProps} html={contentHtml} ref='popcontent'/>
+      <div ref='popcontent'>
+        {content}
+      </div>
     </BS.Popover>
 
     <BS.OverlayTrigger
