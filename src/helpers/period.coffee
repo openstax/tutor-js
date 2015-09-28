@@ -6,15 +6,24 @@ PeriodHelper =
     S.getNumberAndStringOrder(period.name)
 
   sort: (periods) ->
+    # expects either numbers, names with numbers or just names
     firstSortPeriod = _.chain(periods)
-      # puts numbers first
+      # sort names, caps should come before non-caps
       .sortBy((period) ->
-        1 - _.isNumber(period.name)
+        if not _.isNumber(period.name)
+          name = period.name.match(/[^0-9]+/ig)
+          if name
+            name
       )
-      # caps should come before non-caps
-      .sortBy('name')
-      # parse int if possible and sort that as well
-      .sortBy(PeriodHelper.getOrder)
+      # find and sort numbers
+      .sortBy((period) ->
+        if not _.isNumber(period.name)
+          number = period.name.match(/[0-9.-]+/g)
+          if number
+            parseFloat(number)
+        else
+          period.name
+      )
       .value()
 
 module.exports = PeriodHelper
