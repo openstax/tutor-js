@@ -33,7 +33,7 @@ module.exports = React.createClass
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
   hasUnsavedState: ->
-    TaskPlanStore.isNew(@props.id) and TaskPlanStore.get(@props.id).title
+    TaskPlanStore.isChanged(@props.id)
 
   unsavedStateMessages: -> 'The assignment has unsaved changes'
 
@@ -97,7 +97,6 @@ module.exports = React.createClass
 
     if not isNewPlan
       @setState({showingPeriods: not (commonDates and hasAllTaskings)})
-      TaskPlanActions.disableEmptyTaskings(planId)
 
   getDefaultPlanDates: (periodId) ->
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, periodId)
