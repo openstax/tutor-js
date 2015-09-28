@@ -154,7 +154,12 @@ module.exports = React.createClass
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id)
-    @setDueAt(taskingDueAt) if taskingDueAt
+
+    if taskingDueAt
+      @setDueAt(taskingDueAt)
+    else
+      TaskPlanActions.clearDueAt(@props.id)
+
 
   setIndividualPeriods: ->
     # if taskings exist in state, then load them
@@ -168,16 +173,6 @@ module.exports = React.createClass
 
   getSavedTaskingFor: (periodId) ->
     _.findWhere(@state.savedTaskings, {id: periodId.toString()})
-
-  togglePeriodsDisplay: (ev) ->
-    if (@state.showingPeriods is not @refs.allPeriodsRadio.props.checked)
-      return
-
-    if (@state.showingPeriods)
-      @setAllPeriods()
-    else
-      @setIndividualPeriods()
-
 
   togglePeriodEnabled: (period, ev) ->
     {id} = @props
