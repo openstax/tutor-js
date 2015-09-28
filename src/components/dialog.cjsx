@@ -34,7 +34,7 @@ module.exports = React.createClass
       TutorDialog.show(
         title: 'Unsaved Changes'
         body: confirmMsg
-      ).then( =>
+      ).then( ->
         onCancel()
       )
     else
