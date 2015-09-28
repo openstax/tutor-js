@@ -43,7 +43,7 @@ Analytics =
   setTracker: (tracker) -> GA = tracker
 
   sendPageView: (url) ->
-    GA?('set', 'page', url)
+    GA?('send', 'pageview', url)
 
   onNavigation: (change, router) ->
     return unless GA
@@ -55,6 +55,7 @@ Analytics =
 
     # if we're also going to send custom events then we set the page
     if Events[route.name]
+      GA('set', 'page', path)
       Events[route.name]( params )
       @sendPageView() # url's not needed since it was set before events
     else
