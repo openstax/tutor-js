@@ -38,15 +38,23 @@ TimeHelper =
     weekdaysMin: currentLocale._weekdaysMin
 
   syncCourseTimezone: (courseTimezone = 'US/Central') ->
-    moment.fn.tz(courseTimezone)
+    # moment.fn.tz(courseTimezone)
+    moment.tz.setDefault(courseTimezone)
 
   unsyncCourseTimezone: ->
-    moment.fn.tz()
+    moment.defaultZone = null
+    # moment.fn.tz()
 
   getLocalTimezone: ->
     tzdetect.matches()
 
   isCourseTimezone: (courseTimezone = 'US/Central') ->
     TimeHelper.getLocalTimezone().indexOf(courseTimezone) > -1
+
+  zoneTwix: (twix, zoneName) ->
+    twix.start.tz(zoneName)
+    twix.end.tz(zoneName)
+
+    twix
 
 module.exports = TimeHelper
