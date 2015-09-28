@@ -18,6 +18,9 @@ module.exports = React.createClass
     if @props.sortState.key is @props.sortKey
       classNames.push if @props.sortState.asc then 'is-ascending' else 'is-descending'
 
-    <div onClick={@onClick} className={classNames.join(' ')}>
+    <div
+      data-assignment-type={@props.type}
+      onClick={@onClick}
+      className={classNames.join(' ')}>
         {@props.children}
     </div>

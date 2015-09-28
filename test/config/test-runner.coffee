@@ -15,8 +15,8 @@ class TestRunner
   pendingSpecs: []
 
   runKarma: ->
-    return if isKarmaRunning or _.isEmpty(@pendingSpecs)
-    isKarmaRunning = true
+    return if @isKarmaRunning or _.isEmpty(@pendingSpecs)
+    @isKarmaRunning = true
     specs = _.unique @pendingSpecs
     gutil.log("[specs]", gutil.colors.green("testing #{specs.join(' ')}"))
     @pendingSpecs = []
@@ -28,7 +28,7 @@ class TestRunner
     ], {stdio: 'inherit'} )
 
     child.on('exit', (exitCode) =>
-      isKarmaRunning = false
+      @isKarmaRunning = false
       duration = moment.duration(moment().diff(startAt))
       elapsed = duration.minutes() + ':' + duration.seconds()
       gutil.log("[test]", gutil.colors.green("done. #{specs.length} specs in #{elapsed}"))

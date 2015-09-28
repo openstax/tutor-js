@@ -18,6 +18,7 @@ module.exports = React.createClass
   render: ->
     {format, date} = @props
     format = switch @props.format
+      when 'shortest' then 'M/D'  # 9/14
       when 'short' then 'MMM DD, YYYY'  # Feb 14, 2010
       when 'long'  then 'dddd, MMMM Do YYYY, h:mm:ss a' # Sunday, February 14th 2010, 3:25:50 pm
       else @props.format

@@ -36,7 +36,6 @@ TaskTeacherReviewExercise = React.createClass
     formats.indexOf('free-response') > -1
 
   renderNoFreeResponse: ->
-    return null unless @expectsFreeResponse()
     freeResponsesClasses = 'teacher-review-answers has-no-answers'
     header = <i>No student text responses</i>
 
@@ -71,7 +70,8 @@ TaskTeacherReviewExercise = React.createClass
     {answers, answered_count} = @props
     question = @getQuestion()
 
-    studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
+    if @expectsFreeResponse()
+      studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
 
     <CardBody className='task-step' pinned={false}>
       <Question
