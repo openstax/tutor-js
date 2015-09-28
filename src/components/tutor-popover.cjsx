@@ -38,8 +38,7 @@ TutorPopover = React.createClass
       imagesLoading = _.map images, (image, iter) =>
         unless image.onload? or image.complete
           image.onload = _.partial(@imageLoaded, iter)
-          return true
-        return false
+        return not image.complete
 
       @setState(imagesLoading: imagesLoading, firstShow: false)
 

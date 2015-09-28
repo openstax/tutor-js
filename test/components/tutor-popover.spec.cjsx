@@ -170,6 +170,7 @@ describe 'Tutor Popover', ->
         expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledOnce
         expect(overlay.state.firstShow).to.be.false
+        expect(overlay.state.imagesLoading).to.deep.equal([true, true])
 
         images = overlayDOM.getElementsByTagName('img')
         fakeImageLoad(images, overlay, 0)
