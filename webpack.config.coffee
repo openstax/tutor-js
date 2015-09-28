@@ -1,3 +1,4 @@
+webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 isProduction = process.env.NODE_ENV is 'production'
