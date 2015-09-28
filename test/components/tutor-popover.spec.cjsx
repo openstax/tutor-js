@@ -156,7 +156,7 @@ describe 'Tutor Popover', ->
         expect(overlay.state.placement).to.equal('left')
         expect(overlayDOM.classList.contains('left')).to.be.true
 
-  it 'should retrigger positioning on image first load and have image-loading class when image(s) loading', ->
+  it 'should retrigger positioning and have image-loading class when image(s) loading', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({dom, element}) ->
@@ -178,7 +178,20 @@ describe 'Tutor Popover', ->
         expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledTwice
 
+  it 'should retrigger positioning and not have image-loading when all images loaded', ->
+    Testing
+      .renderComponent( PopoverWrapper )
+      .then ({dom, element}) ->
+        {overlay} = element.refs
+        {popper} = overlay.refs
+        popper.updateOverlayPosition = sinon.spy()
+
+        Testing.actions.click(dom)
+        overlayDOM = popper.getOverlayDOMNode()
+        images = overlayDOM.getElementsByTagName('img')
+        fakeImageLoad(images, overlay, 0)
         fakeImageLoad(images, overlay, 1)
+
         # Since all images are loaded, no images are loading anymore.
         # The DOM should reflect that.
         expect(overlay.state.imagesLoading).to.deep.equal([false, false])
