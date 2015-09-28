@@ -4,7 +4,8 @@ TutorPopover = require '../../src/components/tutor-popover'
 
 TEST_LINK_TEXT = 'This is the link text.'
 TEST_HTML = '<p>This is the test HTML</p>
-  <img src="https://cloud.githubusercontent.com/assets/2483873/9750887/734d9108-5663-11e5-9a1b-b4d10ffecb6d.png">'
+  <img src="https://cloud.githubusercontent.com/assets/2483873/9750887/734d9108-5663-11e5-9a1b-b4d10ffecb6d.png">
+  <img src="https://cloud.githubusercontent.com/assets/2483873/10053158/0337dc14-61f0-11e5-95ba-d9fee2d88b9a.gif">'
 FAKE_WINDOW =
   innerHeight: 600
   innerWidth: 800
@@ -56,8 +57,17 @@ PopoverWrapper = React.createClass
   render: ->
     tutorPopoverProps = @makeProps()
     allProps = _.extend({}, tutorPopoverProps, @props)
+    {linkProps} = allProps
 
-    <TutorPopover {...allProps}>{TEST_LINK_TEXT}</TutorPopover>
+    <TutorPopover {...allProps}>
+      <a {...linkProps}>{TEST_LINK_TEXT}</a>
+    </TutorPopover>
+
+fakeImageLoad = (images, overlay, iter) ->
+  if images[iter].onload?
+    images[iter].onload()
+  else
+    overlay.imageLoaded(iter)
 
 describe 'Tutor Popover', ->
 
@@ -123,7 +133,7 @@ describe 'Tutor Popover', ->
         expect(overlay.state.placement).to.equal('left')
         expect(overlayDOM.classList.contains('left')).to.be.true
 
-  it 'should retrigger positioning on image first load and have image-loading class when image loading', ->
+  it 'should retrigger positioning on image first load and have image-loading class when image(s) loading', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({dom, element}) ->
@@ -136,17 +146,21 @@ describe 'Tutor Popover', ->
 
         expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledOnce
-
-        image = overlayDOM.getElementsByTagName('img')[0]
-        if image.onload?
-          image.onload()
-        else
-          overlay.imageLoaded()
-
         expect(overlay.state.firstShow).to.be.false
-        expect(overlay.state.imageLoading).to.be.false
-        expect(overlayDOM.querySelector('.image-loading')).to.be.falsy
+
+        images = overlayDOM.getElementsByTagName('img')
+        fakeImageLoad(images, overlay, 0)
+        # Image loading should still be set when only one of two images are loaded
+        expect(overlay.state.imagesLoading).to.deep.equal([false, true])
+        expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
         expect(popper.updateOverlayPosition).to.have.been.calledTwice
+
+        fakeImageLoad(images, overlay, 1)
+        # Since all images are loaded, no images are loading anymore.
+        # The DOM should reflect that.
+        expect(overlay.state.imagesLoading).to.deep.equal([false, false])
+        expect(overlayDOM.querySelector('.image-loading')).to.be.falsy
+        expect(popper.updateOverlayPosition).to.have.been.calledThrice
 
   it 'should not set overlay height by default', ->
     Testing

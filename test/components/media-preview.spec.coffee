@@ -13,9 +13,9 @@ TASK_DATA = require '../../api/tasks/4.json'
 PAGE_DATA = require '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json'
 {MediaPreview} = require '../../src/components/media-preview'
 
-checkDoesOverlayHTMLMatch = (element, media) ->
-  popcontentDOM = element.refs.overlay.refs.popcontent.getDOMNode()
-  overlayDOM = element.refs.overlay.refs.popper.getOverlayDOMNode()
+checkDoesOverlayHTMLMatch = (overlay, media) ->
+  popcontentDOM = overlay.refs.popcontent.getDOMNode()
+  overlayDOM = overlay.refs.popper.getOverlayDOMNode()
 
   expect(popcontentDOM.innerHTML).to.equal(media.html)
   expect(overlayDOM.innerHTML).to.contain(media.html)
@@ -96,7 +96,7 @@ describe 'Media Preview', ->
         Testing.actions.mouseEnter(dom)
         expect(element.state.popped).to.be.true
         expect(element.state.stick).to.be.false
-        checkDoesOverlayHTMLMatch(element, media)
+        checkDoesOverlayHTMLMatch(element.refs.overlay, media)
 
   it 'should close overlay on mouse out for a non-stuck media link', ->
 
@@ -242,7 +242,7 @@ describe 'Media Preview', ->
         Testing.actions.mouseEnter(dom)
         expect(element.state.popped).to.be.true
         expect(element.state.stick).to.be.false
-        checkDoesOverlayHTMLMatch(element, media)
+        checkDoesOverlayHTMLMatch(element.refs.overlay, media)
 
   it 'should close overlay on mouse out when media not in viewport', ->
 

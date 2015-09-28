@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 ArbitraryHtml = require './html'
 
 TutorPopover = React.createClass
@@ -10,7 +11,7 @@ TutorPopover = React.createClass
     placement: 'right'
     show: false
     scrollable: false
-    imageLoading: false
+    imagesLoading: []
 
   propTypes: ->
     contentHtml: React.PropTypes.string.isRequired
@@ -33,17 +34,29 @@ TutorPopover = React.createClass
     if @refs.popcontent? and @state.firstShow
       content = @refs.popcontent.getDOMNode()
       images = content.querySelectorAll('img')
-      for image in images
+
+      imagesLoading = _.map images, (image, iter) =>
         unless image.onload? or image.complete
-          @setState(imageLoading: true)
-          image.onload = @imageLoaded
+          image.onload = _.partial(@imageLoaded, iter)
+          return true
+        return false
+
+      @setState(imagesLoading: imagesLoading, firstShow: false)
 
   componentWillUnmount: ->
     @imageLoaded = -> null
 
-  imageLoaded: ->
+  imageLoaded: (iter) ->
     @refs.popper?.updateOverlayPosition()
-    @setState(firstShow: false, imageLoading: false)
+    {imagesLoading} = @state
+
+    currentImageStatus = _.clone(imagesLoading)
+    currentImageStatus[iter] = false
+
+    @setState(imagesLoading: currentImageStatus)
+
+  areImagesLoading: ->
+    _.compact(@state.imagesLoading).length isnt 0
 
   updateOverlayPositioning: ->
     {windowImpl} = @props
@@ -85,15 +98,15 @@ TutorPopover = React.createClass
     @refs.popper.hide()
 
   render: ->
-    {children, contentHtml, popoverProps, contentProps, overlayProps, linkProps} = @props
-    {imageLoading, scrollable, placement} = @state
+    {children, contentHtml, popoverProps, contentProps, overlayProps} = @props
+    {scrollable, placement} = @state
 
     if scrollable
       popoverProps = _.clone(popoverProps or {})
       popoverProps.className ?= ''
       popoverProps.className += ' scrollable'
 
-    if imageLoading
+    if @areImagesLoading()
       contentProps = _.clone(contentProps or {})
       contentProps.className ?= ''
       contentProps.className += ' image-loading'
@@ -110,7 +123,7 @@ TutorPopover = React.createClass
       overlay={popover}
       trigger='manual'
       ref='popper'>
-      <a {...linkProps}>{children}</a>
+      {children}
     </BS.OverlayTrigger>
 
 module.exports = TutorPopover

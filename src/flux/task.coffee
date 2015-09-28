@@ -7,7 +7,7 @@ Durations = require '../helpers/durations'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TaskStepStore} = require './task-step'
 
-{MediaActions, MediaStore} = require './media'
+{MediaActions} = require './media'
 
 getSteps = (steps) ->
   _.map steps, ({id}) ->

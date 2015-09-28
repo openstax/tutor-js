@@ -16,14 +16,14 @@ a[target=_blank] { .tutor-external-link-indicator(); }
 figure {
   .highlight-target(will-transition);
 
-  &:target, &.target, &.target-scroll {
+  &:target, &.link-target, &.target-scroll {
     img {
       mix-blend-mode: multiply;
     }
   }
 
 
-  &:target, &.target {
+  &:target, &.link-target {
     .highlight-animation();
 
     > * {
@@ -47,7 +47,7 @@ section, div, span, table {
     .highlight-target(will-transition);
   }
 
-  &:target, &.target, &.target-scroll {
+  &:target, &.link-target, &.target-scroll {
     position: relative;
 
     img {
@@ -64,7 +64,7 @@ section, div, span, table {
     }
   }
 
-  &:target, &.target {
+  &:target, &.link-target {
     &::after {
       .highlight-animation();
     }

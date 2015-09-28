@@ -58,11 +58,11 @@ MediaPreview = React.createClass
 
   highlightMedia: ->
     {mediaDOMOnParent} = @props
-    mediaDOMOnParent.classList.add('target')
+    mediaDOMOnParent.classList.add('link-target')
 
   unhighlightMedia: ->
     {mediaDOMOnParent} = @props
-    mediaDOMOnParent.classList.remove('target')
+    mediaDOMOnParent.classList.remove('link-target')
 
   stickMedia: ->
     @setState(stick: true)
@@ -144,12 +144,14 @@ MediaPreview = React.createClass
         className: 'media-preview'
         ref: 'popover'
 
-      allProps = {contentHtml, overlayProps, contentProps, popoverProps, linkProps, windowImpl}
+      allProps = {contentHtml, overlayProps, contentProps, popoverProps, windowImpl}
 
       linkText = children unless children is '[link]'
       linkText ?= S.capitalize(media.name)
 
-      <TutorPopover {...allProps} ref='overlay'>{linkText}</TutorPopover>
+      <TutorPopover {...allProps} ref='overlay'>
+        <a {...linkProps}>{linkText}</a>
+      </TutorPopover>
     else
       linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave')
       <a {...linkProps}>{children}</a>
