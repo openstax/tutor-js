@@ -139,7 +139,6 @@ MediaPreview = React.createClass
       contentHtml = media.html
       contentProps =
         className: 'media-preview-content'
-        ref: 'viewer'
       popoverProps =
         'data-content-type': media.name
         className: 'media-preview'
