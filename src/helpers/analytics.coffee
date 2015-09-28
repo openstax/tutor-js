@@ -42,20 +42,23 @@ Analytics =
 
   setTracker: (tracker) -> GA = tracker
 
+  sendPageView: (url) ->
+    GA?('set', 'page', url)
+
   onNavigation: (change, router) ->
+    return unless GA
     route  = DestinationHelper.routeFromPath(change.path, router.match)
-    return unless GA and route
+    return @sendPageView("/not-found/#{change.path}") unless route
 
     params = router.getCurrentParams()
     path   = Translators[route.name]?( params ) or change.path
 
     # if we're also going to send custom events then we set the page
     if Events[route.name]
-      GA('set', 'page', path)
       Events[route.name]( params )
-      GA('send', 'pageview') # path's not needed since it was set before events
+      @sendPageView() # url's not needed since it was set before events
     else
-      GA('send', 'pageview', path)
+      @sendPageView(path)
 
   sendEvent: (category, action, attrs) ->
     return unless GA
