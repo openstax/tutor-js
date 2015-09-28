@@ -7,6 +7,14 @@ lessLoader = if isProduction
 else
   { test: /\.less$/,   loaders: LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
 
+# Use the production version of React (no warnings/runtime checks)
+plugins = if isProduction
+  [ new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }) ]
+else
+  []
+plugins.push(new ExtractTextPlugin('tutor.css'))
+
+
 module.exports =
   cache: true
 
@@ -23,9 +31,7 @@ module.exports =
     filename: '[name].js'
     publicPath: if isProduction then '/dist/' else 'http://localhost:8000/dist/'
 
-  plugins: [
-    new ExtractTextPlugin("tutor.css")
-  ]
+  plugins: plugins
 
   module:
     noParse: [
