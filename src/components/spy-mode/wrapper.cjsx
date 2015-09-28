@@ -9,13 +9,14 @@ SpyModeWrapper = React.createClass
   getInitialState: ->
     isEnabled: false
 
-  toggleDebug: ->
+  toggleDebug: (ev) ->
     @setState(isEnabled: not @state.isEnabled)
+    ev.preventDefault()
 
   render: ->
     <div className={classnames('debug-content', {'is-enabled': @state.isEnabled})}>
       {@props.children}
-      <a href='#' onClick={@toggleDebug} className='debug-toggle-link'>&pi;</a>
+      <a href='#spy' onClick={@toggleDebug} className='debug-toggle-link'>&pi;</a>
     </div>
 
 
