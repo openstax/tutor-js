@@ -25,7 +25,7 @@ PUBLISHED_MODEL = ExtendBasePlan({
   description: 'description',
   published_at: yesterday}, {opens_at: yesterday, due_at: yesterday, target_id: COURSES[0].periods[0].id})
 
-helper = (model) -> PlanRenderHelper(model, Builder)
+helper = (model, routerParams) -> PlanRenderHelper(model, Builder, {}, routerParams)
 
 
 describe 'Task Plan Builder', ->
@@ -118,3 +118,11 @@ describe 'Task Plan Builder', ->
     expect((new moment()).tz()).to.be.falsy
     helper(NEW_READING).then ({dom, element}) ->
       expect((new moment()).tz()).to.be.truthy
+
+  xit 'sets the default due date when based on query string', ->
+    helper(NEW_READING, {due_at: getDateString(tomorrow)} ).then ({dom, element}) ->
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
+
+      expect(dom.querySelector('.-assignment-due-date input.datepicker__input').value)
+        .to.be.equal(getDateString(tomorrow))

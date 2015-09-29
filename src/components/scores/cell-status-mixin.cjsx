@@ -16,7 +16,8 @@ module.exports = {
     ).isRequired
 
   renderLink: ({message}) ->
-    <Router.Link className={"task-result #{@props.task.type} #{@props.className}"} to='viewTaskStep'
+    <Router.Link className={"task-result scores-cell #{@props.className}"} to='viewTaskStep'
+      data-assignment-type="#{@props.task.type}"
       params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
       <span>{message}</span>
       <LateIcon {...@props}/>

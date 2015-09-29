@@ -40,7 +40,8 @@ ReferenceBookConfig = {
     # Takes a ecosystemId and a chapter_section specifier
     # which is a string joined with dots i.e. "1.2.3"
     getChapterSectionPage: ({ecosystemId, section}) ->
-      parts = _.map(section.split('.'), (part) -> parseInt(part, 10) )
+      parts = if _.isArray(section) then section else
+        _.map(section.split('.'), (part) -> parseInt(part, 10) )
       toc = @_get(ecosystemId)?['0']
       section = findChapterSection(toc, parts)
       if section
