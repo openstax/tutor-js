@@ -25,7 +25,7 @@ describe 'Draft Tests', ->
     Calendar.createNew(@, 'READING')
     ReadingBuilder.edit(@, action: 'SAVE')
     # Verify all the required fields display their message
-    @verifyDisplayed('.assignment-name.has-error .required-hint')
+    @verifyDisplayed('.assignment-name.has-error')
     @verifyDisplayed('.-assignment-due-date .form-control.empty ~ .required-hint')
     @verifyDisplayed('.readings-required')
     ReadingBuilder.edit(@, action: 'CANCEL')
@@ -33,7 +33,7 @@ describe 'Draft Tests', ->
     Calendar.createNew(@, 'HOMEWORK')
     ReadingBuilder.edit(@, action: 'SAVE')
     # Verify all the required fields display their message
-    @verifyDisplayed('.assignment-name.has-error .required-hint')
+    @verifyDisplayed('.assignment-name.has-error')
     @verifyDisplayed('.-assignment-due-date .form-control.empty ~ .required-hint')
     @verifyDisplayed('.problems-required')
     ReadingBuilder.edit(@, action: 'CANCEL')
@@ -41,9 +41,9 @@ describe 'Draft Tests', ->
     Calendar.createNew(@, 'EXTERNAL')
     ReadingBuilder.edit(@, action: 'SAVE')
     # Verify all the required fields display their message
-    @verifyDisplayed('.assignment-name.has-error .required-hint')
+    @verifyDisplayed('.assignment-name.has-error')
     @verifyDisplayed('.-assignment-due-date .form-control.empty ~ .required-hint')
-    @verifyDisplayed('.external-url.has-error .required-hint')
+    @verifyDisplayed('.external-url.has-error')
     ReadingBuilder.edit(@, action: 'CANCEL')
 
 
@@ -92,7 +92,7 @@ describe 'Draft Tests', ->
     # Click to add a reading
     Calendar.createNew(@, 'READING')
 
-    # Check all the boxes and then uncheck them & verify error message shows up
+    # Check all the boxes, uncheck them & verify "Add Readings" is disabled
     ReadingBuilder.edit @,
       name: title
       dueAt: 'EARLIEST'
@@ -104,9 +104,7 @@ describe 'Draft Tests', ->
 
     ReadingBuilder.edit @,
       sections: [1.1, 1.2, 2.1, 3]
-      action: 'SAVE'
-
-    @verifyDisplayed('.readings-required')
+      verifyAddReadingsDisabled: true
 
     ReadingBuilder.edit(@, action: 'DELETE')
 

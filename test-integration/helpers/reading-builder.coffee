@@ -1,4 +1,5 @@
 selenium = require 'selenium-webdriver'
+Calendar = require './calendar'
 
 # Helper methods for dealing with the Reading Assignment Builder
 
@@ -31,7 +32,7 @@ setDate = (test, css, date) ->
 #   ]
 #   sections: ['1.1', '2.4']
 #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
-edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
+edit = (test, {name, description, opensAt, dueAt, sections, action, verifyAddReadingsDisabled}) =>
   # Just confirm the plan is actually open
   test.waitAnd(css: '.reading-plan, .homework-plan, .external-plan')
 
@@ -67,26 +68,41 @@ edit = (test, {name, description, opensAt, dueAt, sections, action}) =>
 
             test.waitClick(css: ".dialog:not(.hide) [data-chapter-section='#{section}']")
 
-    # Click "Add Readings"
-    test.waitClick(css: '.-show-problems') # BUG: wrong class name
+    if verifyAddReadingsDisabled
+      # Verify "Add Readings" is disabled and click Cancel
+      test.waitAnd(css: '.dialog:not(.hide) .-show-problems[disabled]')
+      test.waitClick(css: '.dialog:not(.hide) .panel-footer [aria-role="close"]')
+      # Confirm the "Unsaved Changes" dialog
+      test.waitClick(css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn')
+      test.sleep(1000) # Wait for dialog to close
+    else
+      # Click "Add Readings"
+      test.waitClick(css: '.-show-problems') # BUG: wrong class name
 
   switch action
     when 'PUBLISH'
-      test.waitClick(css: '.async-button.-publish').then ->
-        test.addTimeout(3 * 60) # Wait up to 3min for publish to complete
+      # Wait up to 3min for publish to complete
+      test.waitClick(css: '.async-button.-publish')
+      Calendar.verify(test, 3 * 60 * 1000)
+
     when 'SAVE' then test.waitClick(css: '.async-button.-save')
     when 'CANCEL'
       # BUG: "X" close button behaves differently than the footer close button
       test.waitClick(css: '.footer-buttons [aria-role="close"]')
-      # Accept the browser confirm dialog
-      test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
-        alert.accept()
+      # BUG: Should not prompt when canceling
+      # Confirm the "Unsaved Changes" dialog
+      test.waitClick(css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn')
+      test.sleep(1000) # Wait for dialog to close
+      Calendar.verify(test)
+
     when 'DELETE'
+      # Wait up to 60sec for delete to complete
       test.waitClick(css: '.async-button.delete-link')
       # Accept the browser confirm dialog
       test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
         alert.accept()
-        test.addTimeout(60) # Wait up to 60sec for delete to complete
+
+      Calendar.verify(test, 60 * 1000)
 
 
 module.exports = {setDate, edit}

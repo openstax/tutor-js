@@ -54,6 +54,9 @@ describe = (name, cb) ->
 
     @before ->
 
+      # Wait 20sec for the browser to start up
+      @timeout(20 * 1000, true)
+
       @driver = new selenium.Builder()
         # .withCapabilities(selenium.Capabilities.phantomjs())
         .withCapabilities(selenium.Capabilities.chrome())
@@ -72,16 +75,31 @@ describe = (name, cb) ->
         else
           locator
 
-      @waitAnd = (locator) =>
+
+      # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
+      @waitAnd = (locator, ms=60 * 1000) =>
         locator = @toLocator(locator)
+        start = null
+        @driver.call => # Enqueue the timeout to increase only once this starts
+          start = Date.now()
+          @addTimeoutMs(ms)
         @driver.wait(selenium.until.elementLocated(locator))
+        .then (val) =>
+          end = Date.now()
+          spent = end - start
+          diff = ms - spent
+          # console.log "Took #{spent / 1000}sec of #{ms / 1000}"
+          if spent > ms
+            throw new Error("BUG: Took longer than expected (#{spent / 1000}). Expected #{ms / 1000} sec")
+          @addTimeoutMs(-diff)
+          val
         # Because of animations an element might be in the DOM but not visible
         el = @driver.findElement(locator)
         @driver.wait(selenium.until.elementIsVisible(el))
         el
 
-      @waitClick = (locator) =>
-        el = @waitAnd(locator)
+      @waitClick = (locator, ms) =>
+        el = @waitAnd(locator, ms)
         # Scroll to the top so the navbar does not obstruct what we are clicking
         @scrollTop()
         el.click()
@@ -91,11 +109,11 @@ describe = (name, cb) ->
       @scrollTop = =>
         # @driver.executeScript("arguments[0].scrollIntoView(true);", el)
         @driver.executeScript("window.scrollTo(0,0);")
-        @driver.sleep(200)
+        @sleep(200)
 
       @scrollTo = (el) =>
         @driver.executeScript("arguments[0].scrollIntoView(true);", el)
-        @driver.sleep(200)
+        @sleep(200)
 
 
       @logout = =>
@@ -103,6 +121,7 @@ describe = (name, cb) ->
         @driver.isElementPresent(css: '.modal-dialog .modal-header .close').then (isPresent) =>
           if isPresent
             # Close the modal
+            console.log 'There is an open dialog. Closing it as part of logout'
             @waitClick(css: '.modal-dialog .modal-header .close')
 
           # Push the Log out button (ref book does not have one)
@@ -151,6 +170,8 @@ describe = (name, cb) ->
               if els.length isnt els1.length and not ignoreLengthChange
                 throw new Error("Length changed during foreach! before: #{els1.length} after: #{els.length}")
               index += 1
+              unless el
+                throw new Error("Bug. Looks like an element disappeared! index=#{index} before:#{els1.length} after: #{els.length}")
               # scroll if the element is not visible
               el.isDisplayed().then (isDisplayed) =>
                 unless isDisplayed
@@ -159,7 +180,6 @@ describe = (name, cb) ->
 
 
       @login = (username, password = 'password') =>
-        @addTimeout(10)
         @waitClick(linkText: 'Login')
 
         # Decide if this is local or deployed
@@ -187,10 +207,24 @@ describe = (name, cb) ->
     @__beforeEach ->
       timeout = @timeout
       currentTimeout = 0
+      testStartTime = Date.now()
+
       @addTimeout = (sec) =>
-        # console.log 'adding to timeout (sec)', sec
-        currentTimeout += sec * 1000
-        timeout.call(@, currentTimeout, true)
+        @addTimeoutMs(sec * 1000)
+
+      @addTimeoutMs = (ms) =>
+        currentTimeout += ms
+        now = Date.now()
+        msFromNow = testStartTime + currentTimeout - now
+        msFromNow = Math.max(msFromNow, 60 * 1000) # Always make the timeout at least 60sec
+        if ms > 60 * 1000 # If we are extending more than the default 60sec the log it
+          console.log "[Timeout extended by #{ms / 1000}sec]"
+        timeout.call(@, msFromNow, true) # The extra arg is isInternal for use in the overridden @timeout
+
+      @sleep = (ms) =>
+        @driver.call =>
+          @addTimeoutMs(ms * 2) # Add some extra ms just in case
+          @driver.sleep(ms)
 
       @timeout = (ms, isInternal) =>
         unless isInternal
