@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+TutorDialog = require './tutor-dialog'
 
 Close = require './close'
 
@@ -30,8 +31,12 @@ module.exports = React.createClass
   onCancel: ->
     {isChanged, confirmMsg, onCancel} = @props
     if isChanged?() and confirmMsg
-      if confirm(confirmMsg)
+      TutorDialog.show(
+        title: 'Unsaved Changes'
+        body: confirmMsg
+      ).then( ->
         onCancel()
+      )
     else
       onCancel()
 
