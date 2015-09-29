@@ -21,7 +21,7 @@ module.exports =
   output:
     path: if isProduction then 'dist' else '/'
     filename: '[name].js'
-    publicPath: if isProduction then '/dist/' else 'http://localhost:8000/dist/'
+    publicPath: if isProduction then '' else 'http://localhost:8000/dist/'
 
   plugins: [
     new ExtractTextPlugin("tutor.css")
