@@ -11,9 +11,9 @@ FAKE_WINDOW =
   innerHeight: 600
   innerWidth: 800
 
-checkDoesOverlayHTMLMatch = (overlayElement, html) ->
-  popcontentDOM = overlayElement.refs.popcontent.getDOMNode()
-  overlayDOM = overlayElement.refs.popper.getOverlayDOMNode()
+checkDoesOverlayHTMLMatch = (overlay, html) ->
+  popcontentDOM = overlay.refs.popcontent.getDOMNode()
+  overlayDOM = overlay.refs.popper.getOverlayDOMNode()
 
   expect(popcontentDOM.innerHTML).to.contain(html)
   expect(overlayDOM.innerHTML).to.contain(html)
@@ -32,38 +32,47 @@ fakeOverflow = (popperElement, getOverlayDimensions) ->
     overlayDOM
 
 fakePopover =
-  right: (popperElement) ->
-    popperElement.calcOverlayPosition = ->
+  right: (popper) ->
+    popper.calcOverlayPosition = ->
       overlayLeft: 100
 
-  left: (popperElement) ->
-    popperElement.calcOverlayPosition = ->
+  left: (popper) ->
+    popper.calcOverlayPosition = ->
       overlayLeft: 600
 
-  scrollHeight: (popperElement) ->
+  loadImages: (popper, overlay) ->
+    overlayDOM = popper.getOverlayDOMNode()
+    images = overlayDOM.getElementsByTagName('img')
+
+    _.each(images, (image) ->
+      image.complete = false
+      image.onload = null
+    )
+
+  scrollHeight: (popper) ->
     getOverlayDimensions = (calledOnce) ->
       height: if calledOnce then 500 else 800
       width: 500
 
-    fakeOverflow(popperElement, getOverlayDimensions)
+    fakeOverflow(popper, getOverlayDimensions)
 
-  scrollWidth: (popperElement) ->
+  scrollWidth: (popper) ->
     getOverlayDimensions = (calledOnce) ->
       width: if calledOnce then 500 else 900
       height: 500
 
-    fakeOverflow(popperElement, getOverlayDimensions)
+    fakeOverflow(popper, getOverlayDimensions)
 
-  scrollBoth: (popperElement) ->
+  scrollBoth: (popper) ->
     getOverlayDimensions = (calledOnce) ->
       width: if calledOnce then 500 else 900
       height: if calledOnce then 500 else 800
 
-    fakeOverflow(popperElement, getOverlayDimensions)
+    fakeOverflow(popper, getOverlayDimensions)
 
-fakePopoverShould = (fakeAs, popperElement, dom) ->
+fakePopoverShould = (fakeAs, dom, popper, overlay) ->
   Testing.actions.click(dom)
-  fakePopover[fakeAs]?(popperElement)
+  fakePopover[fakeAs]?(popper, overlay)
   Testing.actions.blur(dom)
 
 PopoverWrapper = React.createClass
@@ -134,7 +143,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('right', popper, dom)
+        fakePopoverShould('right', dom, popper)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -149,7 +158,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('left', popper, dom)
+        fakePopoverShould('left', dom, popper)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -163,12 +172,13 @@ describe 'Tutor Popover', ->
         {overlay} = element.refs
         {popper} = overlay.refs
         popper.updateOverlayPosition = sinon.spy()
-
+        # make sure images are tracked loading first
+        fakePopoverShould('loadImages', dom, popper, overlay)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
-        expect(popper.updateOverlayPosition).to.have.been.calledOnce
+        expect(popper.updateOverlayPosition).to.have.been.calledTwice
         expect(overlay.state.firstShow).to.be.false
         expect(overlay.state.imagesLoading).to.deep.equal([true, true])
 
@@ -177,7 +187,7 @@ describe 'Tutor Popover', ->
         # Image loading should still be set when only one of two images are loaded
         expect(overlay.state.imagesLoading).to.deep.equal([false, true])
         expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
-        expect(popper.updateOverlayPosition).to.have.been.calledTwice
+        expect(popper.updateOverlayPosition).to.have.been.calledThrice
 
   it 'should retrigger positioning and not have image-loading when all images loaded', ->
     Testing
@@ -216,7 +226,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('scrollHeight', popper, dom)
+        fakePopoverShould('scrollHeight', dom, popper)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -233,7 +243,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('scrollWidth', popper, dom)
+        fakePopoverShould('scrollWidth', dom, popper)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
@@ -250,7 +260,7 @@ describe 'Tutor Popover', ->
       .then ({dom, element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('scrollBoth', popper, dom)
+        fakePopoverShould('scrollBoth', dom, popper)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
