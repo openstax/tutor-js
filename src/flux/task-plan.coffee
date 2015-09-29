@@ -369,6 +369,8 @@ TaskPlanConfig =
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
       else if (plan.type is 'external')
         return plan.title and isValidDates() and validator.isURL(plan.settings?.external_url)
+      else if (plan.type is 'event')
+        return plan.title and isValidDates()
 
     isPublished: (id) ->
       plan = @_getPlan(id)
