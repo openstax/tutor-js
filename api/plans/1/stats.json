@@ -7,6 +7,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 1,
+        "is_trouble": true,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",

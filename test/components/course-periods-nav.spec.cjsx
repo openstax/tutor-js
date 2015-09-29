@@ -9,6 +9,7 @@ React = require 'react/addons'
 {CoursePeriodsNav} = require '../../src/components/course-periods-nav'
 {CourseActions, CourseStore} = require '../../src/flux/course'
 COURSE = require '../../api/user/courses/1.json'
+PLAN_STATS = require '../../api/plans/1/stats.json'
 COURSE_PERIODS = COURSE.periods
 COURSE_ID = '1'
 
@@ -24,7 +25,8 @@ describe 'Course Periods Navigation', ->
       .render(<CoursePeriodsNav
         courseId={COURSE_ID}
         handleSelect={handleSelect}
-        periods={COURSE_PERIODS}/>)
+        periods={COURSE_PERIODS}
+        plan={PLAN_STATS}/>)
       .then((result) =>
         @result = result
 
