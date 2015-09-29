@@ -29,7 +29,7 @@ EventPlan = React.createClass
       getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
 
-    header = @builderHeader('event')
+    header = @builderHeader('event', '')
     if @state?.invalid then formClasses.push('is-invalid-form')
 
     <div className='event-plan task-plan' data-assignment-type='event'>
@@ -39,7 +39,7 @@ EventPlan = React.createClass
         header={header}>
 
         <BS.Grid fluid>
-          <TaskPlanBuilder courseId={courseId} id={id} />
+          <TaskPlanBuilder courseId={courseId} id={id} label='Event'/>
         </BS.Grid>
       </BS.Panel>
     </div>
