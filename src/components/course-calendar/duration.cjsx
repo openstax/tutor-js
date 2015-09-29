@@ -7,7 +7,6 @@ React = require 'react/addons'
 CoursePlan = require './plan'
 PlanHelper = require '../../helpers/plan'
 {TimeStore} = require '../../flux/time'
-{CourseActions, CourseStore} = require '../../flux/course'
 
 CourseDuration = React.createClass
   displayName: 'CourseDuration'
