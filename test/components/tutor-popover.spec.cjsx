@@ -40,15 +40,6 @@ fakePopover =
     popper.calcOverlayPosition = ->
       overlayLeft: 600
 
-  loadImages: (popper, overlay) ->
-    overlayDOM = popper.getOverlayDOMNode()
-    images = overlayDOM.getElementsByTagName('img')
-
-    _.each(images, (image) ->
-      image.complete = false
-      image.onload = null
-    )
-
   scrollHeight: (popper) ->
     getOverlayDimensions = (calledOnce) ->
       height: if calledOnce then 500 else 800
@@ -172,22 +163,19 @@ describe 'Tutor Popover', ->
         {overlay} = element.refs
         {popper} = overlay.refs
         popper.updateOverlayPosition = sinon.spy()
-        # make sure images are tracked loading first
-        fakePopoverShould('loadImages', dom, popper, overlay)
         Testing.actions.click(dom)
         overlayDOM = popper.getOverlayDOMNode()
 
         expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
-        expect(popper.updateOverlayPosition).to.have.been.calledTwice
+        expect(popper.updateOverlayPosition).to.have.been.calledOnce
         expect(overlay.state.firstShow).to.be.false
-        expect(overlay.state.imagesLoading).to.deep.equal([true, true])
 
         images = overlayDOM.getElementsByTagName('img')
         fakeImageLoad(images, overlay, 0)
+
         # Image loading should still be set when only one of two images are loaded
-        expect(overlay.state.imagesLoading).to.deep.equal([false, true])
         expect(overlayDOM.querySelector('.image-loading')).to.not.be.falsy
-        expect(popper.updateOverlayPosition).to.have.been.calledThrice
+        expect(popper.updateOverlayPosition).to.have.been.calledTwice
 
   it 'should retrigger positioning and not have image-loading when all images loaded', ->
     Testing
