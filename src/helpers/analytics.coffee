@@ -1,7 +1,9 @@
 _ = require 'underscore'
 Router = require 'react-router'
-{HistoryLocation} = require 'react-router'
-DestinationHelper = require '../helpers/routes-and-destinations'
+
+{CurrentUserStore} = require '../flux/current-user'
+{HistoryLocation}  = require 'react-router'
+DestinationHelper  = require '../helpers/routes-and-destinations'
 
 # generate custom event data for routes
 Events =
@@ -18,10 +20,9 @@ Events =
 Translators =
 
   dashboard:            ({courseId}) -> "/student/choose-course/#{courseId}"
-  viewTaskStep:         ({courseId}) -> "/student/task-step/#{courseId}"
+  viewPractice:         ({courseId}) -> "/student/practice/#{courseId}"
   viewGuide:            ({courseId}) -> "/student/performance-forecast/#{courseId}"
   viewStudentDashboard: ({courseId}) -> "/student/dashboard/#{courseId}"
-  viewPractice:         ({courseId}) -> "/student/practice/#{courseId}"
 
   calendarByDate:        ({courseId}) -> "/teacher/calendar/#{courseId}"
   viewTeacherGuide:      ({courseId}) -> "/teacher/performance-forecast/#{courseId}"
@@ -39,6 +40,12 @@ Translators =
   viewReferenceBook:        ({courseId}) -> "/reference-view/#{courseId}"
   viewReferenceBookSection: ({courseId}) -> "/reference-view/#{courseId}"
   viewReferenceBookPage:    ({courseId}) -> "/reference-view/#{courseId}"
+
+  # Task steps are viewed by both teacher and student with no difference in params
+  viewTaskStep:         ({courseId}) ->
+    role = CurrentUserStore.getCourseRole(courseId, true)
+    "/#{role}/task-step/#{courseId}"
+
 
 GA = undefined
 
