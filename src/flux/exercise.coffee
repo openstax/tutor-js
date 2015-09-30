@@ -75,7 +75,7 @@ ExerciseConfig =
       tags = @_exerciseCache[exercise_id].tags
       teksTags = _.where(tags, {type: EXERCISE_TAGS.TEKS})
       _.map(teksTags, (tag) ->
-        tag.name.replace(/[()]/g, '')
+        tag.name?.replace(/[()]/g, '')
       ).join(" / ")
 
     getContent: (exercise_id) ->
