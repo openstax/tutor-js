@@ -34,7 +34,7 @@ describe 'Exercise Store and Actions', ->
     teksTag = findTagByType(exercise, 'teks')
     teks = ExerciseStore.getTeksString(exercise.id)
 
-    expect(teks.indexOf(teksTag.name)).to.not.equal(-1)
+    expect(teksTag.name.indexOf(teks)).to.not.equal(-1)
 
 
 

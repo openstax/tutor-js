@@ -211,7 +211,7 @@ ExerciseTable = React.createClass
       unless teksString
         teksString = "-"
 
-      teks = <td>{teksString.replace(/[()]/g, '')}</td>
+      teks = <td>{teksString}</td>
 
     <tr>
       <td className="exercise-number">{index + 1}</td>

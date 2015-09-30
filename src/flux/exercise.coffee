@@ -74,7 +74,9 @@ ExerciseConfig =
     getTeksString: (exercise_id) ->
       tags = @_exerciseCache[exercise_id].tags
       teksTags = _.where(tags, {type: EXERCISE_TAGS.TEKS})
-      _.map(teksTags, 'name').join(" / ")
+      _.map(teksTags, (tag) ->
+        tag.name.replace(/[()]/g, '')
+      ).join(" / ")
 
     getContent: (exercise_id) ->
       @_exerciseCache[exercise_id].content.questions[0].stem_html
