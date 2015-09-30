@@ -77,7 +77,7 @@ PlanMixin =
   cancel: ->
     {id, courseId} = @props
 
-    if not TaskPlanStore.isChanged(id)
+    if not TaskPlanStore.hasChanged(id)
       @reset()
     else
       TutorDialog.show(
