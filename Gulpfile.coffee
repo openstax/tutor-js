@@ -32,6 +32,7 @@ gulp.task '_cleanDist', (done) ->
   del(['./dist/*'], done)
 
 gulp.task '_build', ['_cleanDist'], (done) ->
+  env(vars:{ NODE_ENV: 'production' })
   webpackConfig = require './webpack.config'
   config = _.extend({}, webpackConfig, {
     plugins: [
