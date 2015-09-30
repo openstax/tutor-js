@@ -145,9 +145,10 @@ start = (bootstrapData) ->
   apiHelper TaskPlanStatsActions, TaskPlanStatsActions.load , TaskPlanStatsActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/stats"
 
-  apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (ecosystemId, pageIds) ->
-    page_id_str = pageIds.join('&page_ids[]=')
-    url: "/api/ecosystems/#{ecosystemId}/exercises?page_ids[]=#{page_id_str}"
+  apiHelper ExerciseActions, ExerciseActions.load,
+    ExerciseActions.loaded, 'GET', (ecosystemId, pageIds, requestType = 'homework_core') ->
+      page_id_str = pageIds.join('&page_ids[]=')
+      url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?page_ids[]=#{page_id_str}"
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
