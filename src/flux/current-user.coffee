@@ -121,6 +121,7 @@ CurrentUserStore = flux.createStore
     getCSRFToken: -> CSRF_Token
     getName: -> @_user.name
     isAdmin: -> @_user.is_admin
+    isContentAnalyst: -> @_user.is_content_analyst
     getProfileUrl: -> @_user.profile_url
 
     # Loads the store if it's not already loaded or loading
