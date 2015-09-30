@@ -47,19 +47,11 @@ div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
 
+.tutor-figure();
 figure {
-  display: table;
-  text-align: left;
   margin-right: 30px;
   margin-bottom: 20px;
-  padding: 0;
-  float: left;
-  img {
-    max-width: 100%;
-    border: 1px solid @border-color;
-    margin: 10px 0 0 0;
-    padding: 0;
-  }
+
   &.full-width:not(.splash) {
     width: 100%;
   }
@@ -74,18 +66,13 @@ figure {
       img { width: 100%; }
     }
   }
+
   figcaption {
-    display: table-caption;
-    caption-side: bottom;
-    color: @caption-font-color;
-    padding: 10px 0;
-    font-weight: 300;
-    font-style: italic;
-    line-height: 150%;
     border-bottom: 1px solid;
     border-color: @border-color;
   }
 }
+
 // images inside a figure that occurs right after a title are full-width
 .title + figure {
   width: 100%;

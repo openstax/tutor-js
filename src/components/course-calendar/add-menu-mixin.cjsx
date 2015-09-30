@@ -60,6 +60,7 @@ CourseAddMenuMixin =
         onClick={@goToBuilder(link)}
         href={href}
         key={link.type}
+        data-assignment-type={link.type}
         ref="#{link.type}Link">{link.text}</BS.MenuItem>
     )
 

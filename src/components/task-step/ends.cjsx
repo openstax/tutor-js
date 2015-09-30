@@ -67,10 +67,20 @@ HomeworkEnd = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
+    windowImpl: React.PropTypes.object
+
+  getInitialState: ->
+    scrollPos: 0
+  getDefaultProps: ->
+    windowImpl: window
 
   goToStep: ->
   onNextStep: ->
-    @setState({})
+    scrollPos = @props.windowImpl.scrollY
+    @setState({scrollPos})
+
+  componentDidUpdate: ->
+    @props.windowImpl.scroll(0, @state.scrollPos)
 
   renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
@@ -86,6 +96,7 @@ HomeworkEnd = React.createClass
           goToStep={@goToStep}
           onNextStep={@onNextStep}
           review={type}
+          key={"task-review-#{type}"}
           focus={type is 'todo'}/>
       </div>
 

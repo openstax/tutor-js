@@ -1,4 +1,5 @@
-@import "./mixins/flexbox";
+@import './mixins/flexbox';
+@import './mixins/tutor-plans';
 
 .no-select() {
   -webkit-touch-callout: none;
@@ -196,6 +197,31 @@
   @keyframes fadein {
     from { opacity:0; }
     to { opacity:1; }
+  }
+}
+
+.tutor-figure(){
+  figure {
+    display: table;
+    text-align: left;
+    padding: 0;
+    float: left;
+    img {
+      max-width: 100%;
+      border: 1px solid @border-color;
+      margin: 10px 0 0 0;
+      padding: 0;
+    }
+
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      color: @caption-font-color;
+      padding: 10px 0;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 150%;
+    }
   }
 }
 

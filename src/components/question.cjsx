@@ -25,12 +25,17 @@ Answer = React.createClass
     type: React.PropTypes.string.isRequired
     hasCorrectAnswer: React.PropTypes.bool.isRequired
     onChangeAnswer: React.PropTypes.func.isRequired
+
+    disabled: React.PropTypes.bool
     chosen_answer: React.PropTypes.array
     correct_answer_id: React.PropTypes.string
     answered_count: React.PropTypes.number
 
+  getDefaultProps: ->
+    disabled: false
+
   render: ->
-    {answer, iter, qid, type, correct_answer_id, answered_count, hasCorrectAnswer, chosen_answer, onChangeAnswer} = @props
+    {answer, iter, qid, type, correct_answer_id, answered_count, hasCorrectAnswer, chosen_answer, onChangeAnswer, disabled} = @props
     qid ?= "auto-#{idCounter++}"
 
     isChecked = answer.id in chosen_answer
@@ -51,6 +56,7 @@ Answer = React.createClass
         id="#{qid}-option-#{iter}"
         name="#{qid}-options"
         onChange={onChangeAnswer(answer)}
+        disabled={disabled}
       />
 
     if type is 'teacher-review'
@@ -62,7 +68,7 @@ Answer = React.createClass
       </div>
 
 
-    <div className={classes} key="#{qid}-option-#{iter}">
+    <div className={classes}>
       {selectedCount}
       {radioBox}
       <label
@@ -105,7 +111,7 @@ module.exports = React.createClass
         @props.onChangeAttempt?(answer)
 
   render: ->
-    {type, answered_count} = @props
+    {type, answered_count, choicesEnabled} = @props
 
     html = @props.model.stem_html
     qid = @props.model.id or "auto-#{idCounter++}"
@@ -127,12 +133,14 @@ module.exports = React.createClass
       onChangeAnswer: @onChangeAnswer
       type: type
       answered_count: answered_count
+      disabled: not choicesEnabled
 
     answers = _.chain(@props.model.answers)
       .sortBy (answer) ->
         parseInt(answer.id)
       .map (answer, i) ->
-        answerProps = _.extend({}, {answer, iter: i}, questionAnswerProps)
+        additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}"}
+        answerProps = _.extend({}, additionalProps, questionAnswerProps)
         <Answer {...answerProps}/>
       .value()
 

@@ -3,42 +3,81 @@
   animation: book-content-target-highlight 1.5s ease-out;
 }
 
-.offset-header() {
-  margin-top: -@tutor-navbar-height;
-  padding-top: @tutor-navbar-height;
+.highlight-target() {
+  background-color: @tutor-highlight;
+}
+
+.highlight-target(will-transition) {
+  .transition(background-color .5s ease-out);
 }
 
 a[target=_blank] { .tutor-external-link-indicator(); }
 
 figure {
-  &:target, .target {
-    .offset-header();
+  .highlight-target(will-transition);
+
+  &:target, &.link-target, &.target-scroll {
+    img {
+      mix-blend-mode: multiply;
+    }
+  }
+
+
+  &:target, &.link-target {
     .highlight-animation();
 
     > * {
       .highlight-animation();
     }
+  }
 
-    img {
-      mix-blend-mode: multiply;
+  &.target-scroll {
+    .highlight-target();
+
+    > * {
+      .highlight-target();
     }
   }
+
 }
 
 section, div, span, table {
-  &:target, .target {
-    .offset-header();
-    .highlight-animation();
+
+  &::after {
+    .highlight-target(will-transition);
+  }
+
+  &:target, &.link-target, &.target-scroll {
+    position: relative;
 
     img {
       mix-blend-mode: multiply;
     }
+
+    &::after {
+      content: ' ';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      mix-blend-mode: multiply;
+    }
+  }
+
+  &:target, &.link-target {
+    &::after {
+      .highlight-animation();
+    }
+  }
+
+  &.target-scroll::after {
+    .highlight-target();
   }
 }
 
 @-webkit-keyframes book-content-target-highlight {
   0% {
-    background-color: @tutor-highlight;
+    .highlight-target();
   }
   100% {
     background-color: transparent;
@@ -47,7 +86,7 @@ section, div, span, table {
 
 @keyframes book-content-target-highlight {
   0% {
-    background-color: @tutor-highlight;
+    .highlight-target();
   }
   100% {
     background-color: transparent;

@@ -33,7 +33,7 @@ module.exports = React.createClass
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
   hasUnsavedState: ->
-    TaskPlanStore.isNew(@props.id) and TaskPlanStore.get(@props.id).title
+    TaskPlanStore.isChanged(@props.id)
 
   unsavedStateMessages: -> 'The assignment has unsaved changes'
 
@@ -97,7 +97,6 @@ module.exports = React.createClass
 
     if not isNewPlan
       @setState({showingPeriods: not (commonDates and hasAllTaskings)})
-      TaskPlanActions.disableEmptyTaskings(planId)
 
   getDefaultPlanDates: (periodId) ->
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, periodId)
@@ -154,7 +153,12 @@ module.exports = React.createClass
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id)
-    @setDueAt(taskingDueAt) if taskingDueAt
+
+    if taskingDueAt
+      @setDueAt(taskingDueAt)
+    else
+      TaskPlanActions.clearDueAt(@props.id)
+
 
   setIndividualPeriods: ->
     # if taskings exist in state, then load them
@@ -168,16 +172,6 @@ module.exports = React.createClass
 
   getSavedTaskingFor: (periodId) ->
     _.findWhere(@state.savedTaskings, {id: periodId.toString()})
-
-  togglePeriodsDisplay: (ev) ->
-    if (@state.showingPeriods is not @refs.allPeriodsRadio.props.checked)
-      return
-
-    if (@state.showingPeriods)
-      @setAllPeriods()
-    else
-      @setIndividualPeriods()
-
 
   togglePeriodEnabled: (period, ev) ->
     {id} = @props

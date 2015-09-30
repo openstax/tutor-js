@@ -156,7 +156,10 @@ ExercisesRenderMixin =
 
     unless ExerciseStore.isLoaded(pageIds)
       ExerciseActions.load(ecosystemId, pageIds)
-      return <span className="-loading">Loading...</span>
+      return <span className="hw-loading-spinner">
+        <i className="fa fa-spinner fa-spin"></i>
+        Loading...
+      </span>
 
     false
 

@@ -2,9 +2,9 @@ selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
 # Make sure the current screen is the calendar
-verify = (test) ->
+verify = (test, ms) ->
   # wait until the calendar is open
-  test.waitAnd(css: '.calendar-container:not(.calendar-loading)')
+  test.waitAnd(css: '.calendar-container:not(.calendar-loading)', ms)
 
 
 # type: 'READING', 'HOMEWORK', 'EXTERNAL'
@@ -36,12 +36,11 @@ goLearningGuide = (test) ->
 
 Popup =
   verify: (test) ->
-    test.addTimeout(5)
     # wait until the calendar is open
     test.waitAnd(css: '.plan-modal .panel.panel-default')
   close: (test) ->
     test.waitClick(css: '.plan-modal .close')
-    test.driver.sleep(500) # Wait for the modal to animate and disappear
+    test.sleep(2000) # Wait for the modal to animate and disappear
 
   goEdit: (test) ->
     test.waitClick(linkText: 'Edit Assignment')

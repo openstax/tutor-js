@@ -22,7 +22,10 @@ ExerciseMixin =
     {id} = @props
     {group, related_content} = TaskStepStore.get(id)
 
-    <ExerciseGroup group={group} related_content={related_content}/>
+    <ExerciseGroup
+      key='step-exercise-group'
+      group={group}
+      related_content={related_content}/>
 
 
 ExerciseFreeResponse = React.createClass
@@ -31,7 +34,7 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  mixins: [StepMixin, StepFooterMixin, ExerciseMixin, BindStoreMixin]
+  mixins: [StepMixin, StepFooterMixin, ExerciseMixin]
   bindStore: TaskStepStore
 
   getInitialState: ->
@@ -55,6 +58,7 @@ ExerciseFreeResponse = React.createClass
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <textarea
+        disabled={TaskStepStore.isSaving(id)}
         ref='freeResponse'
         placeholder='Enter your response'
         value={@state.freeResponse or ''}
@@ -90,6 +94,7 @@ ExerciseMultiChoice = React.createClass
   renderBody: ->
     {id} = @props
     {content, free_response, answer_id, correct_answer_id, feedback_html} = TaskStepStore.get(id)
+    isReady = not TaskStepStore.isLoading(id) and not TaskStepStore.isSaving(id)
 
     # TODO: Assumes 1 question.
     question = content.questions[0]
@@ -99,6 +104,7 @@ ExerciseMultiChoice = React.createClass
       exercise_uid={content.uid}
       answer_id={answer_id}
       correct_answer_id={correct_answer_id}
+      choicesEnabled={isReady}
       onChange={@onAnswerChanged}>
       <FreeResponse id={id} free_response={free_response}/>
       <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
@@ -136,6 +142,7 @@ ExerciseReview = React.createClass
     question = content.questions[0]
 
     <Question
+      key='step-question'
       model={question}
       answer_id={answer_id}
       exercise_uid={content.uid}
@@ -188,6 +195,7 @@ ExerciseReview = React.createClass
       tryAnotherButton = <AsyncButton
         bsStyle='primary'
         className='-try-another'
+        key='step-try-another'
         onClick={@tryAnother}
         isWaiting={TaskStepStore.isRecovering(id)}
         waitingText='Loading Another…'>
@@ -204,7 +212,7 @@ ExerciseReview = React.createClass
     #     Refresh My Memory
     #   </BS.Button>
 
-    <div className='task-footer-buttons'>
+    <div className='task-footer-buttons' key='step-buttons'>
       {tryAnotherButton}
       {@renderContinueButton() unless review is 'completed'}
     </div>

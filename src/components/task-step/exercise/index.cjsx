@@ -21,6 +21,23 @@ module.exports = React.createClass
     review: React.PropTypes.string.isRequired
     panel: React.PropTypes.string
 
+  getInitialState: ->
+    currentPanel: @props.panel
+
+  componentWillMount: ->
+    {id} = @props
+    @updateCurrentPanel(@props) unless @state.currentPanel
+
+  componentWillReceiveProps: (nextProps) ->
+    @updateCurrentPanel(nextProps)
+
+  updateCurrentPanel: (props) ->
+    {id} = props or @props
+
+    unless TaskStepStore.isSaving(id)
+      currentPanel = StepPanel.getPanel(id)
+      @setState({currentPanel})
+
   getDefaultProps: ->
     focus: true
     review: ''
@@ -61,13 +78,11 @@ module.exports = React.createClass
   # add render methods for different panel types as needed here
 
   render: ->
-    {id, panel} = @props
-
-    # get panel to render based on step progress
-    panel ?= StepPanel.getPanel(id)
+    {id} = @props
+    {currentPanel} = @state
 
     # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
-    renderPanelMethod = camelCase "render-#{panel}"
+    renderPanelMethod = camelCase "render-#{currentPanel}"
 
-    throw new Error("BUG: panel #{panel} for an exercise does not have a render method") unless @[renderPanelMethod]?
+    throw new Error("BUG: panel #{currentPanel} for an exercise does not have a render method") unless @[renderPanelMethod]?
     @[renderPanelMethod]?(id)

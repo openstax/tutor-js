@@ -46,7 +46,7 @@ ExternalPlan = React.createClass
     isURLLocked = TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)
     label = "#{label} (Cannot be changed once assignment is opened and published)" if isURLLocked
 
-    <div className='external-plan'>
+    <div className='external-plan task-plan' data-assignment-type='external'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
         footer={footer}
