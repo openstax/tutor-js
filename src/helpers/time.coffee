@@ -41,11 +41,13 @@ TimeHelper =
     weekdaysMin: currentLocale._weekdaysMin
 
   syncCourseTimezone: (courseTimezone = 'US/Central') ->
+    return if @isCourseTimezone(courseTimezone)
     @_local ?= _.first(@getLocalTimezone())
     zonedMoment = moment.fn.tz(courseTimezone)
     zonedMoment
 
   unsyncCourseTimezone: ->
+    return unless @_local?
     unzonedMoment = moment.fn.tz(@_local)
     @unsetLocal()
     unzonedMoment
@@ -54,10 +56,7 @@ TimeHelper =
     tzdetect.matches()
 
   getMomentPreserveDate: (value, args...) ->
-    if @getLocal()
-      moment(value, args...).tz(@getLocal())
-    else
-      moment(value, args...)
+    moment.utc(value, args...).hour(12)
 
   getLocal: ->
     @_local
