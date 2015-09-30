@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-moment = require 'moment'
+moment = require 'moment-timezone'
 _ = require 'underscore'
 classnames = require 'classnames'
 
@@ -158,14 +158,15 @@ TutorDateInput = React.createClass
     now = TimeStore.getNow()
     value = @props.value
     value = if value and value.getTime and not isNaN(value.getTime())
-      new moment(value)
+      TimeHelper.getMomentPreserveDate(value)
     else
       null
-    min = if @props.min then new moment(@props.min) else new moment(now).subtract(10, 'years')
-    max = if @props.max then new moment(@props.max) else new moment(now).add(10, 'years')
+    min = if @props.min then moment(@props.min) else moment(now).subtract(10, 'years')
+    max = if @props.max then moment(@props.max) else moment(now).add(10, 'years')
 
     if not @props.disabled
       dateElem = <DatePicker
+          moment={moment}
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}

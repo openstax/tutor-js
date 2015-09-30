@@ -1,4 +1,7 @@
 moment = require 'moment-timezone'
+_ = require 'underscore'
+
+{TimeStore} = require '../flux/time'
 
 # Using tzdetect until https://github.com/moment/moment-timezone/issues/138
 # gets straightened out.
@@ -38,15 +41,29 @@ TimeHelper =
     weekdaysMin: currentLocale._weekdaysMin
 
   syncCourseTimezone: (courseTimezone = 'US/Central') ->
-    # moment.fn.tz(courseTimezone)
-    moment.tz.setDefault(courseTimezone)
+    @_local ?= _.first(@getLocalTimezone())
+    zonedMoment = moment.fn.tz(courseTimezone)
+    zonedMoment
 
   unsyncCourseTimezone: ->
-    moment.defaultZone = null
-    # moment.fn.tz()
+    unzonedMoment = moment.fn.tz(@_local)
+    @unsetLocal()
+    unzonedMoment
 
   getLocalTimezone: ->
     tzdetect.matches()
+
+  getMomentPreserveDate: (value, args...) ->
+    if @getLocal()
+      moment(value, args...).tz(@getLocal())
+    else
+      moment(value, args...)
+
+  getLocal: ->
+    @_local
+
+  unsetLocal: ->
+    @_local = null
 
   isCourseTimezone: (courseTimezone = 'US/Central') ->
     TimeHelper.getLocalTimezone().indexOf(courseTimezone) > -1

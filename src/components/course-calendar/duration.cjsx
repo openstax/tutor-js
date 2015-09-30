@@ -6,7 +6,6 @@ camelCase = require 'camelcase'
 React = require 'react/addons'
 CoursePlan = require './plan'
 PlanHelper = require '../../helpers/plan'
-TimeHelper = require '../../helpers/time'
 {TimeStore} = require '../../flux/time'
 
 CourseDuration = React.createClass
@@ -263,7 +262,6 @@ CourseDuration = React.createClass
     )
 
   renderDurations: ->
-    window.durationsByStartDate = @state.durationsByStartDate
     renderedDurations = _.map(@state.durationsByStartDate, @renderChildren)
 
   render: ->

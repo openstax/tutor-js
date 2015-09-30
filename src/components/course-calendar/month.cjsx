@@ -16,9 +16,6 @@ CoursePlan = require './plan'
 CourseAdd = require './add'
 CourseAddMenuMixin = require './add-menu-mixin'
 
-window.moment = moment
-window.twix = twix
-
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
 
@@ -32,7 +29,6 @@ CourseMonth = React.createClass
     date: (props, propName, componentName) ->
       unless moment.isMoment(props[propName])
         new Error("#{propName} should be a moment for #{componentName}")
-    timezone: React.PropTypes.string
 
   getInitialState: ->
     # check isCourseTimezone should we need to show a notice
@@ -41,7 +37,6 @@ CourseMonth = React.createClass
 
   getDefaultProps: ->
     date: moment(TimeStore.getNow())
-    timezone: 'US/Central'
 
   setDateParams: (date) ->
     params = @context.router.getCurrentParams()
@@ -54,11 +49,11 @@ CourseMonth = React.createClass
       # sync local copy with server again when we change date in view.
       TeacherTaskPlanActions.load(@props.courseId)
 
-  # componentWillMount: ->
-  #   TimeHelper.syncCourseTimezone()
+  componentWillMount: ->
+    TimeHelper.syncCourseTimezone()
 
-  # componentWillUnmount: ->
-  #   TimeHelper.unsyncCourseTimezone()
+  componentWillUnmount: ->
+    TimeHelper.unsyncCourseTimezone()
 
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
@@ -81,8 +76,6 @@ CourseMonth = React.createClass
 
     calendarDuration = moment(startMonthBlock).twix(endMonthBlock)
     calendarWeeks = calendarDuration.split(moment.duration(1, 'week'))
-    TimeHelper.zoneTwix(calendarDuration, @props.timezone)
-    _.each(calendarWeeks, _.partial(TimeHelper.zoneTwix, _, @props.timezone))
 
     {calendarDuration, calendarWeeks}
 
@@ -149,8 +142,6 @@ CourseMonth = React.createClass
   render: ->
     {plansList, courseId, className, date} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
-    window.calendarDuration = calendarDuration
-    window.calendarWeeks = calendarWeeks
 
     days = @renderDays(calendarDuration)
 
