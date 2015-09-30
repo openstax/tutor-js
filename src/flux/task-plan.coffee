@@ -103,8 +103,9 @@ TaskPlanConfig =
         tasking
       )
 
-    @_local[id].tasking_plans = tasking_plans
-    
+    @_change(id, {tasking_plans})
+    @_setInitialPlan(id)
+
     if not @exports.isNew(id)
       @_removeEmptyTaskings(id)
 
@@ -334,6 +335,9 @@ TaskPlanConfig =
     ]
     deleteStates.indexOf(@_asyncStatus[id]) > -1
 
+  _setInitialPlan: (id) ->
+    @_local[id].defaultPlan = _.extend({}, @exports.getChanged.call(@, id))
+
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
@@ -469,6 +473,8 @@ TaskPlanConfig =
     isStatsLoaded: (id) -> !! @_stats[id]
 
     isStatsFailed: (id) -> !! @_stats[id]
+
+    hasChanged: (id) -> not _.isEqual(@exports.getChanged.call(@, id), @_local[id].defaultPlan)
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)
