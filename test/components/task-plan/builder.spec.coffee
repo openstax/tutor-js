@@ -138,7 +138,7 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       expect((new moment()).tz()).to.be.truthy
 
-  it 'sets the default due date when based on query string', ->
+  xit 'sets the default due date when based on query string', ->
     helper(NEW_READING, {due_at: getDateString(dayAfter)} ).then ({dom, element}) ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
