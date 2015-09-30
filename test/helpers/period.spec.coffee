@@ -20,15 +20,17 @@ sortPeriods = [
     {
       name: 1
     }
-
+    {
+      name: 'Period 2'
+    }
     {
       name: 2
     }
     {
-      name: '8th'
+      name: '9th'
     }
     {
-      name: '9th'
+      name: 'Period 10'
     }
     {
       name: '10th'
@@ -51,9 +53,7 @@ sortPeriods = [
     {
       name: 90
     }
-    {
-      name: '100th'
-    }
+
     {
       name: 'Block B'
     }
