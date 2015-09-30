@@ -18,7 +18,7 @@ dayAfter = (new Date(Date.now() + 1000 * 3600 * 48)).toString()
 getDateString = (value) -> moment(value).format(TutorDateFormat)
 
 COURSES = require '../../../api/user/courses.json'
-NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
+NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)
 PUBLISHED_MODEL = ExtendBasePlan({
   id: '1'
   title: 'hello',
@@ -72,6 +72,25 @@ describe 'Task Plan Builder', ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(dueAt).to.be.falsy
 
+  it 'can clear due at when there is no common due at', ->
+    firstPeriod = COURSES[0].periods[0].id
+    secondPeriod = COURSES[0].periods[1].id
+
+    helper(NEW_READING).then ({dom, element}) ->
+      #set individual periods
+      element.setIndividualPeriods()
+
+      #set due dates to be different
+      element.setDueAt(getDateString(tomorrow), firstPeriod)
+      element.setDueAt(getDateString(dayAfter), secondPeriod)
+
+      #set all periods
+      element.setAllPeriods()
+
+      #due at should be cleared
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(dueAt).to.be.falsy
+
   it 'can update open date with date obj', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setOpensAt(new Date(dayAfter))
@@ -120,9 +139,10 @@ describe 'Task Plan Builder', ->
       expect((new moment()).tz()).to.be.truthy
 
   xit 'sets the default due date when based on query string', ->
-    helper(NEW_READING, {due_at: getDateString(tomorrow)} ).then ({dom, element}) ->
+    helper(NEW_READING, {due_at: getDateString(dayAfter)} ).then ({dom, element}) ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
-      expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
+      expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
 
       expect(dom.querySelector('.-assignment-due-date input.datepicker__input').value)
-        .to.be.equal(getDateString(tomorrow))
+        .to.be.equal(getDateString(dayAfter))
+

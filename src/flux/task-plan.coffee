@@ -184,6 +184,17 @@ TaskPlanConfig =
         tasking[attr] = moment(date, [TimeStore.getFormat()]).toDate()
     @_change(id, {tasking_plans})
 
+  clearDueAt: (id) ->
+    plan = @_getPlan(id)
+    {tasking_plans} = plan
+    tasking_plans ?= []
+    tasking_plans = tasking_plans[..] # Clone it
+
+    for tasking in tasking_plans
+      tasking['due_at'] = null
+
+    @_change(id, {tasking_plans})
+
   updateOpensAt: (id, opens_at, periodId) ->
     @updateDateAttribute(id, 'opens_at', opens_at, periodId)
 
