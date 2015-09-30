@@ -32,8 +32,8 @@ EcosystemsStore = flux.createStore
     isLoading: -> @_asyncStatus is LOADING
     isFailed:  -> @_asyncStatus is FAILED
 
-    all: ->
-      @_ecosystems
+    allBooks: ->
+      _.flatten _.pluck(@_ecosystems, 'books')
 
     getBook: (attrs) ->
       _.findWhere(@_ecosystems, attrs)
