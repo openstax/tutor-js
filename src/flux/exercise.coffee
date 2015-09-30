@@ -16,13 +16,11 @@ getImportantTags = (tags) ->
   obj =
     lo: ""
     section: ""
-    tagString: ""
+    tagString: []
 
-  _.reduce(tags, (memo, tag) ->
+  _.reduce(_.sortBy(tags, 'name'), (memo, tag) ->
     if (_.include(EXERCISE_TAGS.GENERIC, tag.type))
-      tagArr = memo.tagString.split("/")
-      tagArr.push(tag.name)
-      memo.tagString = tagArr.join(" / ")
+      memo.tagString.push(tag.name)
     else if (_.include(EXERCISE_TAGS.LO, tag.type))
       memo.lo = getTagName(tag)
       memo.section = tag.chapter_section

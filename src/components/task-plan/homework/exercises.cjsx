@@ -211,7 +211,7 @@ ExerciseTable = React.createClass
       unless teksString
         teksString = "-"
 
-      teks = <td>{teksString}</td>
+      teks = <td>{teksString.replace(/[()]/g, '')}</td>
 
     <tr>
       <td className="exercise-number">{index + 1}</td>
@@ -223,7 +223,7 @@ ExerciseTable = React.createClass
       </td>
       <td className="ellipses">{lo}</td>
       {teks}
-      <td className="ellipses">{tagString}</td>
+      <td className="ellipses">{tagString.join(' / ')}</td>
     </tr>
 
   renderTutorRow: (index, hasTeks) ->

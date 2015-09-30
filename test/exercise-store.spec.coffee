@@ -24,9 +24,9 @@ describe 'Exercise Store and Actions', ->
     
     {tagString} = ExerciseStore.getTagStrings(exercise.id)
 
-    expect(tagString.indexOf(bloomsTag.name)).to.not.equal(-1)
-    expect(tagString.indexOf(lengthTag.name)).to.not.equal(-1)
-    expect(tagString.indexOf(dokTag.name)).to.not.equal(-1)
+    expect(_.indexOf(tagString, bloomsTag.name)).to.not.equal(-1)
+    expect(_.indexOf(tagString, lengthTag.name)).to.not.equal(-1)
+    expect(_.indexOf(tagString, dokTag.name)).to.not.equal(-1)
 
   it 'can get teks tag name', ->
     exercise = exercises.items[0]
