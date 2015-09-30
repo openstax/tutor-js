@@ -13,10 +13,13 @@ EventPlan = React.createClass
   displayName: 'EventPlan'
   mixins: [PlanMixin]
 
+  componentWillMount: ->
+    {id} = @props
+    TaskPlanActions.setEvent(id)
+
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
-    externalUrl = plan?.settings?.external_url
 
     formClasses = ['edit-event', 'dialog']
 

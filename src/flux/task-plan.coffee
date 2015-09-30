@@ -19,6 +19,8 @@ TUTOR_SELECTIONS =
 PLAN_TYPES =
   HOMEWORK: 'homework'
   READING: 'reading'
+  EXTERNAL: 'external'
+  EVENT: 'event'
 
 sortTopics = (topics) ->
   _.sortBy(topics, (topicId) ->
@@ -192,6 +194,9 @@ TaskPlanConfig =
 
   updateUrl: (id, external_url) ->
     @_change(id, {settings: {external_url}})
+
+  setEvent: (id) ->
+    @_change(id, {settings: {}})
 
   sortTopics: (id) ->
     plan = @_getPlan(id)

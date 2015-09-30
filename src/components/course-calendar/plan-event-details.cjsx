@@ -1,8 +1,13 @@
+camelCase = require 'camelcase'
+
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 
-CoursePlanPublishingDetails = React.createClass
-  displayName: 'CoursePlanPublishingDetails'
+{EventModalShell} = require '../plan-stats/event'
+
+CourseEventDetails = React.createClass
+  displayName: 'CourseEventDetails'
 
   propTypes:
     plan: React.PropTypes.shape(
@@ -17,6 +22,12 @@ CoursePlanPublishingDetails = React.createClass
     {plan, courseId, className} = @props
     {title, type, id} = plan
     linkParams = {courseId, id}
+    editLinkName = camelCase("edit-#{type}")
+
+    viewOrEdit = if plan.isEditable then 'Edit' else 'View'
+    editButton = <Router.Link to={editLinkName} params={linkParams}>
+      <BS.Button className='-edit-assignment'>{viewOrEdit} Event</BS.Button>
+    </Router.Link>
 
     <BS.Modal
       {...@props}
@@ -24,9 +35,12 @@ CoursePlanPublishingDetails = React.createClass
       data-assignment-type={type}
       className="plan-modal #{className}">
       <div className='modal-body'>
-        This plan is publishing.
+        <EventModalShell id={id} courseId={courseId} />
+      </div>
+      <div className='modal-footer'>
+        {editButton}
       </div>
     </BS.Modal>
 
 
-module.exports = CoursePlanPublishingDetails
+module.exports = CourseEventDetails
