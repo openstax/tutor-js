@@ -1,7 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
 _  = require 'underscore'
-BS = require 'react-bootstrap'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 ChapterSectionMixin = require '../chapter-section-mixin'
@@ -11,34 +10,43 @@ Section = React.createClass
   mixins: [ChapterSectionMixin]
   propTypes:
     section: React.PropTypes.object.isRequired
+    activeSection: React.PropTypes.string.isRequired
     onMenuSelection: React.PropTypes.func.isRequired
+    routeLinkTarget: React.PropTypes.string
+
+  getDefaultProps: ->
+    routeLinkTarget: 'viewReferenceBookSection'
+
+  contextTypes:
+    router: React.PropTypes.func
+
   componentWillMount: ->
     @setState(skipZeros: false)
+
   render: ->
-    {courseId, activeSection, query} = @props
-    sections = @sectionFormat(@props.section.chapter_section)
-    activeSection = @sectionFormat(activeSection)
-    className = 'active' if sections is activeSection
+    {activeSection} = @props
+    section = @sectionFormat(@props.section.chapter_section)
+
+    className = if section is activeSection then 'active' else ''
+    params = _.extend({}, @context.router.getCurrentParams(), {section: section})
 
     <ul className="section" data-depth={@props.section.chapter_section.length}>
-      <li data-section={sections}>
+      <li data-section={section}>
         <Router.Link
+          params={params}
           className={className}
           onClick={@props.onMenuSelection}
-          to='viewReferenceBookSection'
-          params={{courseId: courseId, section: sections}}
-          query={query}
+          to={@props.routeLinkTarget}
+          query={@context.router.getCurrentQuery()}
         >
-          <span className="section-number">{sections}</span>
+          <span className="section-number">{section}</span>
           {@props.section.title}
         </Router.Link>
       </li>
       { _.map @props.section.children, (child) =>
         <li key={child.id} data-section={@sectionFormat(child.chapter_section)}>
           <Section
-            courseId={courseId}
             activeSection={activeSection}
-            query={query}
             onMenuSelection={@props.onMenuSelection}
             section={child} />
         </li> }
@@ -49,7 +57,9 @@ module.exports = React.createClass
   displayName: 'ReferenceBookTOC'
   mixins: [ChapterSectionMixin]
   propTypes:
-    onMenuSelection: React.PropTypes.func
+    onMenuSelection: React.PropTypes.func.isRequired
+    activeSection:   React.PropTypes.string.isRequired
+
   componentWillMount: ->
     @setState(skipZeros: false)
   componentDidMount:  -> @scrollSelectionIntoView()
@@ -70,14 +80,13 @@ module.exports = React.createClass
 
 
   render: ->
-    {courseId, section, ecosystemId, query} = @props
+    {activeSection, ecosystemId, query} = @props
     toc = ReferenceBookStore.getToc(ecosystemId)
     <div className="toc">
       { _.map toc.children, (child) =>
         <Section
-          courseId={courseId}
           query={query}
-          activeSection={section}
+          activeSection={activeSection}
           onMenuSelection={@props.onMenuSelection}
           key={child.id}
           section={child} /> }

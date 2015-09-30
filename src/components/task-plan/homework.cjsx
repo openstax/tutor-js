@@ -156,7 +156,7 @@ HomeworkPlan = React.createClass
         <i className="fa fa-exclamation-circle"></i>
       </span>
 
-    <div className='homework-plan'>
+    <div className='homework-plan task-plan' data-assignment-type='homework'>
       <BS.Panel bsStyle='default'
         header={header}
         className={formClasses.join(' ')}

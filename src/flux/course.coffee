@@ -97,6 +97,9 @@ CourseConfig =
       periods = @_get(courseId).periods or []
       sortedPeriods = PeriodHelper.sort(periods)
 
+    isTeacher: (courseId) ->
+      !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')
+
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)
 module.exports = {CourseActions:actions, CourseStore:store}

@@ -146,4 +146,3 @@ describe 'Task Plan Builder', ->
       expect(dom.querySelector('.-assignment-due-date input.datepicker__input').value)
         .to.be.equal(getDateString(dayAfter))
 
-

@@ -4,6 +4,7 @@ S = require '../helpers/string'
 dom = require '../helpers/dom'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
+ScrollTo = require './scroll-to'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
@@ -117,10 +118,14 @@ LinkContentMixin =
     @renderExercises?(exerciseLinks) if exerciseLinks?.length
 
 ReadingContentMixin =
+
+  mixins: [ ScrollTo ]
+
   componentDidMount:  ->
     @insertOverlays()
     @detectImgAspectRatio()
     @processLinks()
+
 
   componentDidUpdate: ->
     @insertOverlays()

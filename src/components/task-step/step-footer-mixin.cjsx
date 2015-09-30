@@ -60,6 +60,7 @@ module.exports =
       "#{status.how_late} late"
 
     lateIcon = <LateIcon
+      key='step-late'
       task={task}
       buildLateMessage={buildLateMessage}/>
 
@@ -85,6 +86,7 @@ module.exports =
 
     backButton = <Router.Link
       to='viewStudentDashboard'
+      key='step-back'
       params={{courseId}}
       className={custombuttonClasses or defaultButtonClasses}>
         Back to Dashboard
@@ -95,6 +97,7 @@ module.exports =
 
       backButton = <Router.Link
         to='viewScores'
+        key='step-back'
         params={{courseId}}
         className={custombuttonClasses or defaultButtonClasses}>
           Back to Scores
@@ -139,7 +142,7 @@ module.exports =
     buttons = @renderButtons({stepId, taskId, courseId, review})
     className = @getFooterClasses({stepId, taskId, courseId, review})
 
-    taskDetails = <div className={className}>
+    taskDetails = <div className={className} key='step-footer'>
       {@renderTaskDetails({stepId, taskId, courseId, review})}
     </div>
 
@@ -153,7 +156,7 @@ module.exports =
     className = @getFooterClasses({stepId, taskId, courseId, review})
 
     backButton = @renderBackButton({taskId, courseId, review, panel}, 'btn btn-primary')
-    taskDetails = <div className={className}>
+    taskDetails = <div className={className} key='step-end-footer'>
       {@renderTaskDetails({stepId, taskId, courseId, review})}
     </div>
 
