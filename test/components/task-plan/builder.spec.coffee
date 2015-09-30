@@ -18,14 +18,14 @@ dayAfter = (new Date(Date.now() + 1000 * 3600 * 48)).toString()
 getDateString = (value) -> moment(value).format(TutorDateFormat)
 
 COURSES = require '../../../api/user/courses.json'
-NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
+NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)
 PUBLISHED_MODEL = ExtendBasePlan({
   id: '1'
   title: 'hello',
   description: 'description',
   published_at: yesterday}, {opens_at: yesterday, due_at: yesterday, target_id: COURSES[0].periods[0].id})
 
-helper = (model) -> PlanRenderHelper(model, Builder)
+helper = (model, routerParams) -> PlanRenderHelper(model, Builder, {}, routerParams)
 
 
 describe 'Task Plan Builder', ->
@@ -69,6 +69,25 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setIndividualPeriods()
       element.setAllPeriods()
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(dueAt).to.be.falsy
+
+  it 'can clear due at when there is no common due at', ->
+    firstPeriod = COURSES[0].periods[0].id
+    secondPeriod = COURSES[0].periods[1].id
+
+    helper(NEW_READING).then ({dom, element}) ->
+      #set individual periods
+      element.setIndividualPeriods()
+
+      #set due dates to be different
+      element.setDueAt(getDateString(tomorrow), firstPeriod)
+      element.setDueAt(getDateString(dayAfter), secondPeriod)
+
+      #set all periods
+      element.setAllPeriods()
+
+      #due at should be cleared
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(dueAt).to.be.falsy
 
@@ -118,3 +137,13 @@ describe 'Task Plan Builder', ->
     expect((new moment()).tz()).to.be.falsy
     helper(NEW_READING).then ({dom, element}) ->
       expect((new moment()).tz()).to.be.truthy
+
+  it 'sets the default due date when based on query string', ->
+    helper(NEW_READING, {due_at: getDateString(dayAfter)} ).then ({dom, element}) ->
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
+
+      expect(dom.querySelector('.-assignment-due-date input.datepicker__input').value)
+        .to.be.equal(getDateString(dayAfter))
+
+
