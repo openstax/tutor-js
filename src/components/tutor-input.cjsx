@@ -148,7 +148,6 @@ TutorDateInput = React.createClass
     classes = classnames 'form-control',
       empty: (not @props.value and not @state.hasFocus)
 
-    isDatePickerDisabled = @props.disabled and value
 
     wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', '-tutor-date-input', @props.className,
       'is-required': @props.required
@@ -161,6 +160,8 @@ TutorDateInput = React.createClass
       new moment(value)
     else
       null
+
+    isDatePickerDisabled = @props.disabled and value
     min = if @props.min then new moment(@props.min) else new moment(now).subtract(10, 'years')
     max = if @props.max then new moment(@props.max) else new moment(now).add(10, 'years')
 
