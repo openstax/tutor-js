@@ -32,9 +32,7 @@ module.exports = React.createClass
 
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
-  hasUnsavedState: ->
-    TaskPlanStore.isChanged(@props.id)
-
+  hasUnsavedState: -> TaskPlanStore.hasChanged(@props.id)
   unsavedStateMessages: -> 'The assignment has unsaved changes'
 
   mapPeriods: (opensAt, dueAt) ->
