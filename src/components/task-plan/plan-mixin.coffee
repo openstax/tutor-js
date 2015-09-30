@@ -2,6 +2,7 @@ React = require 'react'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TimeStore} = require '../../flux/time'
 Close = require '../close'
+TutorDialog = require '../tutor-dialog'
 S = require '../../helpers/string'
 
 moment = require 'moment'
@@ -74,10 +75,22 @@ PlanMixin =
     @goBackToCalendar()
 
   cancel: ->
-    {id} = @props
-    if confirm('Are you sure you want to cancel?')
-      TaskPlanActions.resetPlan(id)
-      @goBackToCalendar()
+    {id, courseId} = @props
+
+    if not TaskPlanStore.isChanged(id)
+      @reset()
+    else
+      TutorDialog.show(
+        title: 'Unsaved Changes'
+        body: 'You will lose unsaved changes if you continue.'
+      ).then( =>
+        @reset()
+      )
+
+  reset: ->
+    {id, courseId} = @props
+    TaskPlanActions.reset(id)
+    @goBackToCalendar()
 
   # TODO move to helper type thing.
   getBackToCalendarParams: ->

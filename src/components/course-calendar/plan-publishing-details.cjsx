@@ -21,6 +21,7 @@ CoursePlanPublishingDetails = React.createClass
     <BS.Modal
       {...@props}
       title={title}
+      data-assignment-type={type}
       className="#{type}-modal plan-modal #{className}">
       <div className='modal-body'>
         This plan is publishing.

@@ -1,7 +1,7 @@
 _ = require 'underscore'
 
 module.exports =
-  basePath: '../'
+  basePath: '../../'
   frameworks: ['mocha', 'chai', 'chai-sinon', 'phantomjs-shim']
   browsers: ['PhantomJS']
   reporters: ['mocha']
@@ -13,7 +13,7 @@ module.exports =
 
   preprocessors:
     'src/**/*.{coffee,cjsx}': ['webpack', 'sourcemap']
-    'test/*':  ['webpack', 'sourcemap']
+    'test/**/*':  ['webpack', 'sourcemap']
 
   webpack:
     devtool: 'eval-source-map'
