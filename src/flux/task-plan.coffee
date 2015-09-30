@@ -103,7 +103,7 @@ TaskPlanConfig =
         tasking
       )
 
-    @_local[id].tasking_plans = tasking_plans
+    @_change(id, {tasking_plans})
     
     if not @exports.isNew(id)
       @_removeEmptyTaskings(id)
