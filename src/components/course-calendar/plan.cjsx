@@ -220,13 +220,13 @@ CoursePlan = React.createClass
         onRequestHide: @syncIsViewingStats.bind(null, false)
         ref: 'details'
 
-      if isPublishing
-        planModal = <CoursePlanPublishingDetails {...modalProps}/>
-      else if isPublished
+      if isPublished
         if plan.type is 'event'
           planModal = <CourseEventDetails {...modalProps}/>
         else
           planModal = <CoursePlanDetails {...modalProps}/>
+      else if isPublishing
+        planModal = <CoursePlanPublishingDetails {...modalProps}/>
 
     planClasses = "plan #{planClasses}"
     renderDisplay = _.partial(@renderDisplay, @canQuickLook(), planClasses)
