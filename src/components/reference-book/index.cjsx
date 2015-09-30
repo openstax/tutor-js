@@ -48,8 +48,10 @@ ReferenceBookShell = React.createClass
 
   renderNavbarControls: ->
     return null unless CourseStore.isTeacher(@state.courseId)
+    <BS.Nav navbar right>
+      <TeacherContentToggle isShowing={@state.isShowingTeacherContent} onChange={@setTeacherContent} />
+    </BS.Nav>
 
-    <TeacherContentToggle isShowing={@state.isShowingTeacherContent} onChange={@setTeacherContent} />
 
   renderBook: ->
     {courseId, ecosystemId} = @state
