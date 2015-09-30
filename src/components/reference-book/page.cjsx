@@ -95,6 +95,6 @@ module.exports = React.createClass
       <ArbitraryHtmlAndMath className='page' block html={html} />
       {@nextLink(info) if info.next}
       <SpyModeContent className="ecosystem-info">
-        PageId: {@props.cnxId}, Ecosystem: {page.ecosystem_title}
+        PageId: {@props.cnxId}, Ecosystem: {page.spy}
       </SpyModeContent>
     </div>
