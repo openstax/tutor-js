@@ -23,9 +23,7 @@ module.exports =
     filename: '[name].js'
     publicPath: if isProduction then '' else 'http://localhost:8000/dist/'
 
-  plugins: [
-    new ExtractTextPlugin("tutor.css")
-  ]
+  plugins: [ new ExtractTextPlugin('tutor.css') ]
 
   module:
     noParse: [
