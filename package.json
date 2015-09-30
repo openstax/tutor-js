@@ -7,6 +7,7 @@
     "test": "gulp test && gulp prod",
     "coverage": "gulp coverage",
     "deployment": "gulp prod",
+    "test-integration": "mocha -R spec ./test-integration/",
     "start": "gulp dev"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "es6-promise": "^2.3",
     "flux-react": "~2.6.4",
     "font-awesome": "~4.3.0",
+    "htmlparser2": "^3.8.3",
     "keymaster": "^1.6.2",
     "jquery": "^2.1.4",
     "markdown-it": "^4.1.1",

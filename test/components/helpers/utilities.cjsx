@@ -81,6 +81,16 @@ commonActions =
   click: (clickElementNode, eventData = {}) ->
     React.addons.TestUtils.Simulate.click(clickElementNode, eventData)
 
+  # http://stackoverflow.com/questions/24140773/could-not-simulate-mouseenter-event-using-react-test-utils
+  mouseEnter: (clickElementNode, eventData = {}) ->
+    React.addons.TestUtils.SimulateNative.mouseOver(clickElementNode, eventData)
+
+  mouseLeave: (clickElementNode, eventData = {}) ->
+    React.addons.TestUtils.SimulateNative.mouseOut(clickElementNode, eventData)
+
+  blur: (clickElementNode, eventData = {}) ->
+    React.addons.TestUtils.Simulate.blur(clickElementNode, eventData)
+
   select: (selectElementNode) ->
     React.addons.TestUtils.Simulate.select(selectElementNode)
 
