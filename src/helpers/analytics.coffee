@@ -36,6 +36,10 @@ Translators =
   calendarViewPlanStats: ({courseId}) -> "/teacher/metrics/quick/#{courseId}"
   reviewTask:            ({courseId}) -> "/teacher/metrics/review/#{courseId}"
 
+  viewReferenceBook:        ({courseId}) -> "/reference-view/#{courseId}"
+  viewReferenceBookSection: ({courseId}) -> "/reference-view/#{courseId}"
+  viewReferenceBookPage:    ({courseId}) -> "/reference-view/#{courseId}"
+
 GA = undefined
 
 Analytics =
