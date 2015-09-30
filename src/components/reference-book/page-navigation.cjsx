@@ -10,6 +10,7 @@ PageNavigation = React.createClass
   mixins: [ ChapterSectionMixin ]
 
   propTypes:
+    ecosystemId: React.PropTypes.string.isRequired
     onPageNavigationClick: React.PropTypes.func
     direction: React.PropTypes.string.isRequired
     pageNavRouterLinkTarget: React.PropTypes.string.isRequired
@@ -25,7 +26,7 @@ PageNavigation = React.createClass
   render: ->
     return null unless @props.enabled and @props.section
 
-    params = _.extend({}, @context.router.getCurrentParams(), section: @props.section)
+    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), section: @props.section)
 
     <Router.Link className={classnames('page-navigation', @props.direction)}
       to={@props.pageNavRouterLinkTarget}

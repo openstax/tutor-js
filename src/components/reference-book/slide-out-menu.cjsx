@@ -9,6 +9,7 @@ Section = React.createClass
   displayName: 'ReferenceBookTocSection'
   mixins: [ChapterSectionMixin]
   propTypes:
+    ecosystemId: React.PropTypes.string.isRequired
     section: React.PropTypes.object.isRequired
     activeSection: React.PropTypes.string.isRequired
     onMenuSelection: React.PropTypes.func.isRequired
@@ -25,7 +26,7 @@ Section = React.createClass
     section = @sectionFormat(@props.section.chapter_section)
 
     className = if section is activeSection then 'active' else ''
-    params = _.extend({}, @context.router.getCurrentParams(), {section: section})
+    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), {section: section})
 
     <ul className="section" data-depth={@props.section.chapter_section.length}>
       <li data-section={section}>
