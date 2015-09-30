@@ -3,7 +3,7 @@
 # The tests still run and progress just fine despite the warnings, but for now,
 # I'm leaving this test here.
 # TODO figure out why.
-
+#
 # Components
 require './components/course-listing.spec'
 require './components/navbar.spec'
@@ -57,6 +57,7 @@ require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
 require './course-listing-store.spec'
+require './exercise-store.spec'
 require './flux/plan-publish.spec'
 require './flux/media.spec'
 

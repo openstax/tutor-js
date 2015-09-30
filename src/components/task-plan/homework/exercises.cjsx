@@ -226,7 +226,7 @@ ExerciseTable = React.createClass
       </td>
       <td className="ellipses">{lo}</td>
       {teks}
-      <td className="ellipses">{tagString}</td>
+      <td className="ellipses">{tagString.join(' / ')}</td>
     </tr>
 
   renderTutorRow: (index, hasTeks) ->
