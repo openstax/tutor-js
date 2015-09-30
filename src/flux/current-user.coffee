@@ -145,7 +145,7 @@ CurrentUserStore = flux.createStore
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.
-    getMenuRoutes: (courseId, silent = false) ->
+    getCourseMenuRoutes: (courseId, silent = false) ->
       menuRole = @_getCourseRole(courseId, silent)
       routes = _.keys(ROUTES)
 
