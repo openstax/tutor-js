@@ -3,7 +3,7 @@
 # The tests still run and progress just fine despite the warnings, but for now,
 # I'm leaving this test here.
 # TODO figure out why.
-
+#
 # Components
 require './components/course-listing.spec'
 require './components/navbar.spec'
@@ -43,6 +43,8 @@ require './components/scores/reading-cell.spec'
 require './components/scores/homework-cell.spec'
 require './components/name.spec'
 require './components/scroll-to.spec'
+require './components/media-preview.spec'
+require './components/tutor-popover.spec'
 
 # Flux your muscle
 require './crud-store.spec'
@@ -55,7 +57,9 @@ require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
 require './course-listing-store.spec'
+require './exercise-store.spec'
 require './flux/plan-publish.spec'
+require './flux/media.spec'
 
 # Helpers
 require './task-helpers.spec'
@@ -64,3 +68,4 @@ require './helpers/string.spec'
 require './helpers/period.spec'
 require './helpers/job.spec'
 require './helpers/time.spec'
+require './helpers/analytics.spec'

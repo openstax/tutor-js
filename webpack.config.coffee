@@ -21,11 +21,9 @@ module.exports =
   output:
     path: if isProduction then 'dist' else '/'
     filename: '[name].js'
-    publicPath: if isProduction then '/dist/' else 'http://localhost:8000/dist/'
+    publicPath: if isProduction then '' else 'http://localhost:8000/dist/'
 
-  plugins: [
-    new ExtractTextPlugin("tutor.css")
-  ]
+  plugins: [ new ExtractTextPlugin('tutor.css') ]
 
   module:
     noParse: [
@@ -47,7 +45,7 @@ module.exports =
     publicPath: 'http://localhost:8000/dist/'
     historyApiFallback: true
     inline: true
-    port: 8000
+    port: process.env['PORT'] or 8000
     # It suppress error shown in console, so it has to be set to false.
     quiet: false,
     # It suppress everything except error, so it has to be set to false as well

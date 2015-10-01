@@ -1,0 +1,482 @@
+{
+    "total_count": 5,
+    "items": [{
+        "id": "1616",
+        "url": "https://exercises-dev.openstax.org/exercises/1663@1",
+        "content": {
+            "uid": "1663@1",
+            "number": 1663,
+            "version": 1,
+            "published_at": "2015-09-16T20:13:52.606Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1,
+                "name": "OpenStax"
+            }],
+            "copyright_holders": [{
+                "user_id": 2,
+                "name": "Rice University"
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["inbook-yes", "dok2", "ost-chapter-review", "time-short", "blooms-2", "display-simple-mc", "k12phys", "k12phys-ch01", "k12phys-ch01-s01", "k12phys-ch01-s01-lo01", "k12phys-ch01-ex008", "concept"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": 1663,
+                "stimulus_html": "",
+                "stem_html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                "answers": [{
+                    "id": 6611,
+                    "content_html": "Natural philosophy and physics are essentially the same thing.",
+                    "correctness": "0.0",
+                    "feedback_html": "Biology and chemistry are also part of natural philosophy, but not part of physics."
+                }, {
+                    "id": 6610,
+                    "content_html": "Natural philosophy and physics are different.",
+                    "correctness": "0.0",
+                    "feedback_html": "Physics is part of natural philosophy."
+                }, {
+                    "id": 6609,
+                    "content_html": "Natural philosophy included all aspects of nature excluding physics.",
+                    "correctness": "0.0",
+                    "feedback_html": "Natural philosophy included all aspects of nature, including physics."
+                }, {
+                    "id": 6608,
+                    "content_html": "Natural philosophy included all aspects of nature including physics.",
+                    "correctness": "1.0",
+                    "feedback_html": "Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe."
+                }],
+                "solutions": [{
+                    "uid": "1663@1",
+                    "number": 1663,
+                    "version": 1,
+                    "published_at": "2015-09-16T20:13:52.600Z",
+                    "editors": [],
+                    "authors": [{
+                        "user_id": 1,
+                        "name": "OpenStax"
+                    }],
+                    "copyright_holders": [{
+                        "user_id": 2,
+                        "name": "Rice University"
+                    }],
+                    "derived_from": [],
+                    "attachments": [],
+                    "solution_type": "detailed",
+                    "content_html": "Natural philosophy included all aspects of nature by lumping physics in with other fields of science such as chemistry and biology. Now physics mainly describes the most fundamental aspects of our universe, such as motion, energy, matter, and space."
+                }],
+                "hints": [],
+                "formats": ["multiple-choice"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch01-s01-lo01",
+            "type": "lo",
+            "description": "(3D): Explain the impacts of the scientific contributions of a variety of historical and contemporary scientists on scientific thought and society.",
+            "chapter_section": [1, 1]
+        }, {
+            "id": "dok2",
+            "type": "dok",
+            "name": "DOK: 2",
+            "data": "2"
+        }, {
+            "id": "time-short",
+            "type": "length",
+            "name": "Length: S",
+            "data": "short"
+        }, {
+            "id": "blooms-2",
+            "type": "blooms",
+            "name": "Blooms: 2",
+            "data": "2"
+        }, {
+            "id": "teks-112-39-c-2a",
+            "type": "teks",
+            "name": "(2A)",
+            "description": "Know the definition of science and understand that it has limitations, as specified in subsection (b)(2) of this section."
+        }]
+    }, {
+        "id": "1617",
+        "url": "https://exercises-dev.openstax.org/exercises/1664@1",
+        "content": {
+            "uid": "1664@1",
+            "number": 1664,
+            "version": 1,
+            "published_at": "2015-09-16T20:13:52.616Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1,
+                "name": "OpenStax"
+            }],
+            "copyright_holders": [{
+                "user_id": 2,
+                "name": "Rice University"
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["inbook-yes", "time-medium", "display-free-response", "display-rec-sensitive", "dok2", "ost-chapter-review", "blooms-1", "k12phys", "k12phys-ch01", "k12phys-ch01-s01", "k12phys-ch01-s01-lo02", "concept", "k12phys-ch01-ex009"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": 1664,
+                "stimulus_html": "",
+                "stem_html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                "answers": [{
+                    "id": 6615,
+                    "content_html": "<ol>\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\n  <li>objects are large enough to be seen with the naked eye, and</li>\n  <li>there is the involvement of a weak gravitational field</li>\n</ol>\n",
+                    "correctness": "1.0",
+                    "feedback_html": "Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied."
+                }, {
+                    "id": 6614,
+                    "content_html": "<ol>\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\n  <li>objects are too small to be seen with the naked eye, and</li>\n  <li>there is the involvement of only a weak gravitational field</li>\n</ol>\n",
+                    "correctness": "0.0",
+                    "feedback_html": "Objects far smaller than what is visible may require quantum mechanics."
+                }, {
+                    "id": 6613,
+                    "content_html": "<ol>\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\n  <li>objects are large enough to be seen with the naked eye, and</li>\n  <li>there is the involvement of a strong gravitational field</li>\n</ol>\n",
+                    "correctness": "0.0",
+                    "feedback_html": "Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity."
+                }, {
+                    "id": 6612,
+                    "content_html": "<ol>\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\n  <li>objects are large enough to be seen with the naked eye, and</li>\n  <li>there is the involvement of a strong gravitational field</li>\n</ol>\n",
+                    "correctness": "0.0",
+                    "feedback_html": "A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain."
+                }],
+                "solutions": [{
+                    "uid": "1664@1",
+                    "number": 1664,
+                    "version": 1,
+                    "published_at": "2015-09-16T20:13:52.611Z",
+                    "editors": [],
+                    "authors": [{
+                        "user_id": 1,
+                        "name": "OpenStax"
+                    }],
+                    "copyright_holders": [{
+                        "user_id": 2,
+                        "name": "Rice University"
+                    }],
+                    "derived_from": [],
+                    "attachments": [],
+                    "solution_type": "detailed",
+                    "content_html": "<p>The conditions that must be met include:</p>\n\n<ol>\n  <li>matter must be moving at speeds of less than 1% of the speed of light,</li>\n  <li>microscopic, not subatomic, particles as well as those visible with the naked eye, and</li>\n  <li>only weak gravitational fields, such as the field generated by the Earth, can be involved.</li>\n</ol>\n"
+                }],
+                "hints": [],
+                "formats": ["free-response", "multiple-choice"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch01-s01-lo02",
+            "type": "lo",
+            "description": "Describe and distinguish classical physics from modern physics and describe the importance of relativity, quantum mechanics, and relativistic quantum mechanics in modern physics",
+            "chapter_section": [1, 1]
+        }, {
+            "id": "dok2",
+            "type": "dok",
+            "name": "DOK: 2",
+            "data": "2"
+        }, {
+            "id": "blooms-1",
+            "type": "blooms",
+            "name": "Blooms: 1",
+            "data": "1"
+        }, {
+            "id": "time-medium",
+            "type": "length",
+            "name": "Length: M",
+            "data": "medium"
+        }, {
+            "id": "teks-112-39-c-2a",
+            "type": "teks",
+            "name": "(2A)",
+            "description": "Know the definition of science and understand that it has limitations, as specified in subsection (b)(2) of this section."
+        }]
+    }, {
+        "id": "1618",
+        "url": "https://exercises-dev.openstax.org/exercises/1665@1",
+        "content": {
+            "uid": "1665@1",
+            "number": 1665,
+            "version": 1,
+            "published_at": "2015-09-16T20:13:52.622Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1,
+                "name": "OpenStax"
+            }],
+            "copyright_holders": [{
+                "user_id": 2,
+                "name": "Rice University"
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["inbook-yes", "display-free-response", "display-rec-sensitive", "dok2", "ost-chapter-review", "time-short", "blooms-3", "k12phys", "k12phys-ch01", "k12phys-ch01-s01", "k12phys-ch01-s01-lo03", "concept", "k12phys-ch01-ex010"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": 1665,
+                "stimulus_html": "",
+                "stem_html": "How could physics be useful in weather prediction?",
+                "answers": [{
+                    "id": 6619,
+                    "content_html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                    "correctness": "0.0",
+                    "feedback_html": "This is true, but its effects are not involved in day-to-day weather prediction."
+                }, {
+                    "id": 6618,
+                    "content_html": "Physics helps in predicting the motion of tectonic plates.",
+                    "correctness": "0.0",
+                    "feedback_html": "This is true, but it is not involved in day to day weather prediction."
+                }, {
+                    "id": 6617,
+                    "content_html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                    "correctness": "1.0",
+                    "feedback_html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain."
+                }, {
+                    "id": 6616,
+                    "content_html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                    "correctness": "0.0",
+                    "feedback_html": "This would be chemistry rather than physics."
+                }],
+                "solutions": [{
+                    "uid": "1665@1",
+                    "number": 1665,
+                    "version": 1,
+                    "published_at": "2015-09-16T20:13:52.628Z",
+                    "editors": [],
+                    "authors": [{
+                        "user_id": 1,
+                        "name": "OpenStax"
+                    }],
+                    "copyright_holders": [{
+                        "user_id": 2,
+                        "name": "Rice University"
+                    }],
+                    "derived_from": [],
+                    "attachments": [],
+                    "solution_type": "detailed",
+                    "content_html": "Physics is useful in weather prediction because the physical laws of motion and energy govern the movement of air masses and energy in our atmosphere, which is what generates weather."
+                }],
+                "hints": [],
+                "formats": ["free-response", "multiple-choice"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch01-s01-lo03",
+            "type": "lo",
+            "description": "Describe how aspects of physics are used in other sciences (e.g. biology, chemistry, geology, etc.) as well as in everyday technology",
+            "chapter_section": [1, 1]
+        }, {
+            "id": "dok2",
+            "type": "dok",
+            "name": "DOK: 2",
+            "data": "2"
+        }, {
+            "id": "time-short",
+            "type": "length",
+            "name": "Length: S",
+            "data": "short"
+        }, {
+            "id": "blooms-3",
+            "type": "blooms",
+            "name": "Blooms: 3",
+            "data": "3"
+        }, {
+            "id": "teks-112-39-c-3a",
+            "type": "teks",
+            "name": "(3A)",
+            "description": "In all fields of science, analyze, evaluate, and critique scientific explanations by using empirical evidence, logical reasoning, and experimental and observational testing, including examining all sides of scientific evidence of those scientific explanations, so as to encourage critical thinking by the student."
+        }]
+    }, {
+        "id": "1619",
+        "url": "https://exercises-dev.openstax.org/exercises/1666@1",
+        "content": {
+            "uid": "1666@1",
+            "number": 1666,
+            "version": 1,
+            "published_at": "2015-09-16T20:13:52.633Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1,
+                "name": "OpenStax"
+            }],
+            "copyright_holders": [{
+                "user_id": 2,
+                "name": "Rice University"
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["inbook-yes", "time-medium", "display-free-response", "display-rec-sensitive", "ost-chapter-review", "blooms-2", "critical-thinking", "dok4", "k12phys", "k12phys-ch01", "k12phys-ch01-s01", "k12phys-ch01-s01-lo01", "k12phys-ch01-ex011"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": 1666,
+                "stimulus_html": "",
+                "stem_html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                "answers": [{
+                    "id": 6623,
+                    "content_html": "It describes how a frame of reference is necessary to describe position or motion.",
+                    "correctness": "0.0",
+                    "feedback_html": "While that is true, it is not the content of the theory of relativity."
+                }, {
+                    "id": 6622,
+                    "content_html": "It describes how people think of other people’s views from their own frame of reference.",
+                    "correctness": "0.0",
+                    "feedback_html": "Physics is not about people’s perceptions of other people’s opinions."
+                }, {
+                    "id": 6621,
+                    "content_html": "It describes how different parts of the universe are far apart and do not affect each other",
+                    "correctness": "0.0",
+                    "feedback_html": "This is not the main content of the theory of relativity."
+                }, {
+                    "id": 6620,
+                    "content_html": "It describes how speed affects different observers’ measurements of time and space.",
+                    "correctness": "1.0",
+                    "feedback_html": "Einstein’s theory of relativity affects the values measured for time intervals and distances from the viewpoints of observers in relative motion to each other."
+                }],
+                "solutions": [{
+                    "uid": "1666@1",
+                    "number": 1666,
+                    "version": 1,
+                    "published_at": "2015-09-16T20:13:52.639Z",
+                    "editors": [],
+                    "authors": [{
+                        "user_id": 1,
+                        "name": "OpenStax"
+                    }],
+                    "copyright_holders": [{
+                        "user_id": 2,
+                        "name": "Rice University"
+                    }],
+                    "derived_from": [],
+                    "attachments": [],
+                    "solution_type": "detailed",
+                    "content_html": "This means that, according to Einstein’s theory of relativity, gravity or the speed of the observer can affect what they observe as measured time intervals and measured distances, as occurs with length contraction or time dilation."
+                }],
+                "hints": [],
+                "formats": ["free-response", "multiple-choice"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch01-s01-lo01",
+            "type": "lo",
+            "description": "(3D): Explain the impacts of the scientific contributions of a variety of historical and contemporary scientists on scientific thought and society.",
+            "chapter_section": [1, 1]
+        }, {
+            "id": "blooms-2",
+            "type": "blooms",
+            "name": "Blooms: 2",
+            "data": "2"
+        }, {
+            "id": "time-medium",
+            "type": "length",
+            "name": "Length: M",
+            "data": "medium"
+        }, {
+            "id": "dok4",
+            "type": "dok",
+            "name": "DOK: 4",
+            "data": "4"
+        }, {
+            "id": "teks-112-39-c-3d",
+            "type": "teks"
+        }]
+    }, {
+        "id": "1620",
+        "url": "https://exercises-dev.openstax.org/exercises/1667@1",
+        "content": {
+            "uid": "1667@1",
+            "number": 1667,
+            "version": 1,
+            "published_at": "2015-09-16T20:13:52.650Z",
+            "editors": [],
+            "authors": [{
+                "user_id": 1,
+                "name": "OpenStax"
+            }],
+            "copyright_holders": [{
+                "user_id": 2,
+                "name": "Rice University"
+            }],
+            "derived_from": [],
+            "attachments": [],
+            "tags": ["inbook-yes", "display-free-response", "display-rec-sensitive", "ost-chapter-review", "time-short", "blooms-2", "critical-thinking", "dok4", "k12phys", "k12phys-ch01", "k12phys-ch01-s01", "k12phys-ch01-s01-lo02", "k12phys-ch01-ex012"],
+            "stimulus_html": "",
+            "questions": [{
+                "id": 1667,
+                "stimulus_html": "",
+                "stem_html": "Can classical physics be used to accurately describe a satellite moving at a speed of <span data-math=\"7500\\,\\text{m/s}\">7500\\,\\text{m/s}</span>? Explain why or why not.",
+                "answers": [{
+                    "id": 6627,
+                    "content_html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                    "correctness": "0.0",
+                    "feedback_html": "While the speed of the satellite is far less than the speed of light, if it is in a strong gravitational field it cannot be described by classical physics."
+                }, {
+                    "id": 6626,
+                    "content_html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                    "correctness": "1.0",
+                    "feedback_html": "Classical physics could describe the motion of a satellite because it is moving at a speed much smaller than the speed of light, because it is not in a strong gravitational field, and because it involves an object that is visible to the naked eye."
+                }, {
+                    "id": 6625,
+                    "content_html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                    "correctness": "0.0",
+                    "feedback_html": "Objects in a strong gravitational field cannot be described by classical physics."
+                }, {
+                    "id": 6624,
+                    "content_html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                    "correctness": "0.0",
+                    "feedback_html": "The speed of the satellite is far less than the speed of light so it can be described by classical physics."
+                }],
+                "solutions": [{
+                    "uid": "1667@1",
+                    "number": 1667,
+                    "version": 1,
+                    "published_at": "2015-09-16T20:13:52.644Z",
+                    "editors": [],
+                    "authors": [{
+                        "user_id": 1,
+                        "name": "OpenStax"
+                    }],
+                    "copyright_holders": [{
+                        "user_id": 2,
+                        "name": "Rice University"
+                    }],
+                    "derived_from": [],
+                    "attachments": [],
+                    "solution_type": "detailed",
+                    "content_html": "Yes, classical physics could describe the motion of a satellite because it is moving at a speed much smaller than the speed of light, because it is not in a strong gravitational field, and because it involves an object that is visible to the naked eye."
+                }],
+                "hints": [],
+                "formats": ["free-response", "multiple-choice"],
+                "combo_choices": []
+            }]
+        },
+        "tags": [{
+            "id": "k12phys-ch01-s01-lo02",
+            "type": "lo",
+            "description": "Describe and distinguish classical physics from modern physics and describe the importance of relativity, quantum mechanics, and relativistic quantum mechanics in modern physics",
+            "chapter_section": [1, 1]
+        }, {
+            "id": "time-short",
+            "type": "length",
+            "name": "Length: S",
+            "data": "short"
+        }, {
+            "id": "blooms-2",
+            "type": "blooms",
+            "name": "Blooms: 2",
+            "data": "2"
+        }, {
+            "id": "dok4",
+            "type": "dok",
+            "name": "DOK: 4",
+            "data": "4"
+        }, {
+            "id": "teks-112-39-c-2a",
+            "type": "teks",
+            "name": "(2A)",
+            "description": "Know the definition of science and understand that it has limitations, as specified in subsection (b)(2) of this section."
+        }]
+    }]
+}

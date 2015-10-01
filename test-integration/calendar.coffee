@@ -57,14 +57,14 @@ describe 'Calendar and Stats', ->
       CourseSelect.goTo(@, courseCategory)
 
       # HACK: exclude the .continued plans because the center of the label may be off-screen
-      @forEach '.plan.is-open label:not(.continued)', (plan, index, total) =>
+      @forEach '.plan.is-open.is-published label:not(.continued)', (plan, index, total) =>
         @addTimeout(10)
         console.log 'Looking at Review for', courseCategory, index, 'of', total
         plan.click()
         Calendar.Popup.verify(@)
         Calendar.Popup.goReview(@)
 
-        @driver.sleep(1000)
+        @sleep(1000)
         # Loop over each tab
         @forEach '.panel .nav.nav-tabs li', (period) ->
           period.click()
@@ -73,7 +73,7 @@ describe 'Calendar and Stats', ->
         # BUG: Back button goes back to course listing instead of calendar
         @driver.navigate().back()
 
-        @driver.sleep(1000)
+        @sleep(1000)
         Calendar.Popup.verify(@)
         Calendar.Popup.close(@)
         Calendar.verify(@)
@@ -85,17 +85,27 @@ describe 'Calendar and Stats', ->
   @it 'Clicks through the Student Scores (readonly)', ->
     @login(TEACHER_USERNAME)
 
+    # The facebook table has some "fancy" elements that don't move when the table
+    # scrolls vertically. Unfortunately, they cover the links.
+    # There is a UI "border shadow" element that ends up going right
+    # through the middle of a link. So, just hide the element
+    @addTimeoutMs(1000)
+    @driver.executeScript ->
+      hider = document.createElement('style')
+      hider.textContent = '.public_fixedDataTable_bottomShadow { display: none; }'
+      document.head.appendChild(hider)
+
+
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       CourseSelect.goTo(@, courseCategory)
 
       @waitClick(linkText: 'Student Scores').then => @addTimeout(60)
       @waitAnd(css: '.scores-report .course-scores-title')
-      @driver.sleep(500)
+      @sleep(500)
 
       # Click the "Review" links (each task-plan)
       @forEach '.review-plan', (item, index, total) =>
         console.log 'opening Review', courseCategory, index, 'of', total
-        @addTimeout(15)
         item.click()
         @waitClick(css: '.task-breadcrumbs > a')
         @waitAnd(css: '.course-scores-wrap')
@@ -103,7 +113,6 @@ describe 'Calendar and Stats', ->
       # Click each Student Forecast
       @forEach css: '.student-name', ignoreLengthChange: true, (item, index, total) =>
         console.log 'opening Student Forecast', courseCategory, index, 'of', total
-        @addTimeout(5)
         item.click()
         @waitAnd(css: '.chapter-panel.weaker, .no-data-message')
         @waitClick(css: '.learning-guide a.back')
@@ -112,7 +121,6 @@ describe 'Calendar and Stats', ->
       # only test the 1st row of each Student Response
       @forEach '.fixedDataTableRowLayout_rowWrapper:nth-of-type(1) .task-result', (item, index, total) =>
         console.log 'opening Student view', courseCategory, index, 'of', total
-        @addTimeout(5)
         item.click()
         @waitAnd(css: '.async-button.continue')
         # @waitClick(linkText: 'Back to Student Scores')
@@ -121,7 +129,7 @@ describe 'Calendar and Stats', ->
         # # BUG: Click on "Period 1"
         # @waitClick(css: '.course-scores-wrap li:first-child')
         # @waitAnd(css: '.course-scores-wrap li:first-child [aria-selected="true"]')
-        @driver.sleep(2000)
+        @sleep(2000)
 
       # Go back to the course selection
       @waitClick(css: '.navbar-brand')

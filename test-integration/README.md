@@ -1,4 +1,4 @@
-#Setup
+# Setup
 ------
 
 To run some selenium tests that create an iReading and saves a screenshot on failure.
@@ -6,11 +6,29 @@ To run some selenium tests that create an iReading and saves a screenshot on fai
 Instructions
 
 1. Clone the `tutor-js` repo and change into the `tutor-js/` directory
-2. `npm install -g mocha`
-3. `npm install` (to get the current packages and versions)
-4. `mocha ./test-integration/index.js --compilers coffee-script/register`
+2. `npm install` (to get the current packages and versions)
+3. `npm run integration-test` to run all the tests
 
-Visit GoogleAPI's [Chrome Driver](https://code.google.com/p/selenium/wiki/ChromeDriver) webpage for assistance setting up the listener. To test a specific server, set the `SERVER_URL` environment variable prior to running `mocha`:
+## Running a subset of tests
+
+To run a subset of tests you will need run the following line:
+
+```sh
+PATH=$PATH:./node_modules/.bin ./node_modules/.bin/mocha -R spec ./test-integration/task-plan/draft.coffee --compilers coffee:coffee-script/register
+```
+
+The parts are described below:
+
+1. `PATH=$PATH:./node_modules/.bin`: lets Selenium know where to find the `chromedriver`
+2. `./node_modules/.bin/mocha`: use the locally installed `mocha` You could do `npm install -g mocha` to simplify this line
+3. `-R spec`: use the `spec` reporter (prints the name of the test being run instead of just a `.`)
+4. `./test-integration/task-plan/draft.coffee`: which suite to run
+5. `--compilers coffee:coffee-script/register`: teach mocha know how read coffeescript
+
+
+## Testing a remote server
+
+To test a specific server, set the `SERVER_URL` environment variable prior to running `mocha`:
 
     env SERVER_URL='tutor-XXX.openstax.org'
 
@@ -79,7 +97,7 @@ If it is useful to reduce turnaround time by having FE run/update selenium tests
 
 - after a selenium action you can add `.then -> console.log 'some logging text'` to print when an action finishes
 - or just put `.then -> console.log('...')` on a new line after the call
-- use `@addTimeout(seconds)` (preferably in helpers) to extend the time before failing the test
+- use `@addTimeout(ms)` (preferably in helpers) to extend the time before failing the test
 
 ## Regarding JavaScript vs CoffeeScript
 
@@ -99,7 +117,7 @@ Example from [./helpers/describe.coffee](./helpers/describe.coffee):
 this.scrollTop = (function(_this) {
   return function() {
     _this.driver.executeScript("window.scrollTo(0,0);");
-    return _this.driver.sleep(200);
+    return _this.sleep(200);
   };
 })(this);
 ```
@@ -109,7 +127,7 @@ this.scrollTop = (function(_this) {
 ```coffee
 @scrollTop = () =>
   @driver.executeScript("window.scrollTo(0,0);")
-  @driver.sleep(200)
+  @sleep(200)
 ```
 
 Example for adding logging after an action:

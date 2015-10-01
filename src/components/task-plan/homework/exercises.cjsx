@@ -156,7 +156,10 @@ ExercisesRenderMixin =
 
     unless ExerciseStore.isLoaded(pageIds)
       ExerciseActions.load(ecosystemId, pageIds)
-      return <span className="-loading">Loading...</span>
+      return <span className="hw-loading-spinner">
+        <i className="fa fa-spinner fa-spin"></i>
+        Loading...
+      </span>
 
     false
 
@@ -223,7 +226,7 @@ ExerciseTable = React.createClass
       </td>
       <td className="ellipses">{lo}</td>
       {teks}
-      <td className="ellipses">{tagString}</td>
+      <td className="ellipses">{tagString.join(' / ')}</td>
     </tr>
 
   renderTutorRow: (index, hasTeks) ->
