@@ -86,6 +86,11 @@ TaskStepConfig =
       step = @_get(id)
       step.task_id
 
+    getCnxId: (id) ->
+      step = @_get(id)
+      parts = step?.content_url?.split('contents/')
+      if parts.length > 1 then _.last(parts) else undefined
+
     getFreeResponse: (id) ->
       step = @_get(id)
       step.free_response

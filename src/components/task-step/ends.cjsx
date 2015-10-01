@@ -67,7 +67,7 @@ HomeworkEnd = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
-    windowImpl: React.PropTypes.obj
+    windowImpl: React.PropTypes.object
 
   getInitialState: ->
     scrollPos: 0

@@ -5,6 +5,7 @@ Router = require 'react-router'
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 PlanHelper = require '../../helpers/plan'
 AsyncButton = require '../buttons/async-button'
+TutorDialog = require '../tutor-dialog'
 BackButton = require '../buttons/back-button'
 
 PlanFooter = React.createClass
@@ -61,15 +62,12 @@ PlanFooter = React.createClass
     @setState({publishing: true, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
     @props.onPublish()
 
-  onCancel: ->
-    @props.onCancel()
-
   onViewStats: ->
     {id, courseId} = @props
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId, clickedSelectProblem, onPublish, onSave, getBackToCalendarParams} = @props
+    {id, courseId, clickedSelectProblem, onPublish, onSave, onCancel, getBackToCalendarParams} = @props
     {isEditable} = @state
 
     plan = TaskPlanStore.get(id)
@@ -109,7 +107,7 @@ PlanFooter = React.createClass
         </AsyncButton>
 
       cancelButton =
-        <BS.Button aria-role='close' disabled={isWaiting} onClick={@onCancel}>Cancel</BS.Button>
+        <BS.Button aria-role='close' disabled={isWaiting} onClick={onCancel}>Cancel</BS.Button>
 
       helpInfo =
         <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>

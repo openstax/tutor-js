@@ -8,23 +8,22 @@ else
   { test: /\.less$/,   loaders: LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
 
 module.exports =
-  entry: [
-    './resources/styles/tutor.less'
-    './index.coffee'
-  ]
-
   cache: true
 
   devtool: if isProduction then undefined else 'source-map'
 
+  entry:
+    tutor: [
+      './index.coffee',
+      './resources/styles/tutor.less'
+    ]
+
   output:
     path: if isProduction then 'dist' else '/'
     filename: '[name].js'
-    publicPath: if isProduction then '/dist/' else 'http://localhost:8000/dist/'
+    publicPath: if isProduction then '' else 'http://localhost:8000/dist/'
 
-  plugins: [
-    new ExtractTextPlugin("tutor.css")
-  ]
+  plugins: [ new ExtractTextPlugin('tutor.css') ]
 
   module:
     noParse: [
@@ -47,7 +46,6 @@ module.exports =
     historyApiFallback: true
     inline: true
     port: process.env['PORT'] or 8000
-
     # It suppress error shown in console, so it has to be set to false.
     quiet: false,
     # It suppress everything except error, so it has to be set to false as well

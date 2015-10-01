@@ -33,10 +33,12 @@ destinationHelpers =
   getDestinationName: (routeName) ->
     REMEMBERED_ROUTES[routeName]
 
-  destinationFromPath: (path, matchRoutes) ->
+  routeFromPath: (path, matchRoutes) ->
     matchedRoute = matchRoutes(path)
-    deepestRouteName = _.last(matchedRoute.routes).name if matchedRoute?.routes?.length
-    @getDestinationName(deepestRouteName)
+    _.last(matchedRoute.routes) if matchedRoute?.routes?.length
+
+  destinationFromPath: (path, matchRoutes) ->
+    @getDestinationName( @routeFromPath(arguments...)?.name )
 
   shouldRememberRoute: (routeName, router) ->
     !!@destinationFromPath(routeName.path, router.match)

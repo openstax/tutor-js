@@ -1,0 +1,47 @@
+.media-preview {
+  max-width: 50%;
+
+  &.scrollable {
+    .popover-content {
+      overflow: auto;
+      width: 100%;
+      height: inherit;
+    }
+  }
+
+  .tutor-figure();
+  .tutor-tables(@tutor-neutral-light, @tutor-neutral-light);
+
+  table {
+    text-align: left;
+
+    td {
+      padding: 4px;
+    }
+  }
+
+  figure span {
+    min-height: 1.75rem;
+    min-width: 100%;
+    position: relative;
+    .tutor-subtle-load(will-load; 'Loading...');
+
+    &::after {
+      font-size: 1.75rem;
+      line-height: 1em;
+    }
+  }
+
+  .image-loading {
+    figure {
+      min-width: 300px;
+      span {
+        .tutor-subtle-load(loading);
+      }
+    }
+  }
+}
+
+.media-preview-link {
+  display: inline-block;
+}

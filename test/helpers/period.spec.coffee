@@ -6,13 +6,10 @@ PeriodHelper = require '../../src/helpers/period'
 sortPeriods = [
   [
     {
-      name: 0
-    }
-    {
       name: '0th'
     }
     {
-      name: 1
+      name: 0
     }
     {
       name: '1st'
@@ -21,13 +18,19 @@ sortPeriods = [
       name: '1th'
     }
     {
+      name: 1
+    }
+    {
+      name: 'Period 2'
+    }
+    {
       name: 2
     }
     {
-      name: '8th'
+      name: '9th'
     }
     {
-      name: '9th'
+      name: 'Period 10'
     }
     {
       name: '10th'
@@ -50,9 +53,7 @@ sortPeriods = [
     {
       name: 90
     }
-    {
-      name: '100th'
-    }
+
     {
       name: 'Block B'
     }
