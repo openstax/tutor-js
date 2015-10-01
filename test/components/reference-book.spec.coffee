@@ -91,10 +91,10 @@ describe 'Reference Book Component', ->
       .to.contain('menu-open')
 
   it 'navigates forward and back between pages', ->
-    prevControl = @state.div.querySelector('.page-wrapper > .prev')
+    prevControl = @state.div.querySelector('.page-navigation.prev')
     expect(prevControl).to.not.exist # on first page
 
-    nextControl = @state.div.querySelector('.page-wrapper > .next')
+    nextControl = @state.div.querySelector('.page-navigation.next')
     expect(nextControl).to.exist
     expect(nextControl.href).to.contain(SECOND_PAGE)
     page = ReactTestUtils.findRenderedComponentWithType(@state.book, Page)
@@ -106,15 +106,15 @@ describe 'Reference Book Component', ->
     expect(page.context.router.getCurrentParams().section)
       .to.equal(SECOND_PAGE)
 
-    expect(@state.div.querySelector('.page-wrapper > .next').href)
+    expect(@state.div.querySelector('.page-navigation.next').href)
       .to.contain(THIRD_PAGE)
 
-    expect(@state.div.querySelector('.page-wrapper > .prev').href)
+    expect(@state.div.querySelector('.page-navigation.prev').href)
       .to.contain(FIRST_PAGE)
 
   it 'preserves menu toggle when navigating forward and back between pages', ->
     toggle = @state.div.querySelector('.menu-toggle')
-    nextControl = @state.div.querySelector('.page-wrapper > .next')
+    nextControl = @state.div.querySelector('.page-navigation.next')
 
     page = ReactTestUtils.findRenderedComponentWithType(@state.book, Page)
     ReferenceBookPageActions.loaded(PAGE, SECOND_PAGE_ID)
@@ -136,13 +136,13 @@ describe 'Reference Book Component', ->
     expect(_.toArray(@state.div.querySelector('.reference-book').classList))
       .to.contain('menu-open')
 
-    prevControl = @state.div.querySelector('.page-wrapper > .prev')
+    prevControl = @state.div.querySelector('.page-navigation.prev')
     commonActions.click(prevControl, {button: 0})
     expect(_.toArray(@state.div.querySelector('.reference-book').classList))
       .to.contain('menu-open')
 
   it 'sets the menu item to be active based on the current page', ->
-    selection = @state.div.querySelector(".toc [data-section='#{FIRST_PAGE}'] a")
+    selection = @state.div.querySelector(".menu [data-section='#{FIRST_PAGE}'] a")
     expect(selection).not.to.be.null
     expect(_.toArray(selection.classList)).to.include('active')
 
@@ -150,7 +150,7 @@ describe 'Reference Book Component', ->
     expect(_.toArray(@state.div.querySelector('.reference-book').classList))
       .to.contain('menu-open')
 
-    nextSelection = @state.div.querySelector(".toc [data-section='#{SECOND_PAGE}'] a")
+    nextSelection = @state.div.querySelector(".menu [data-section='#{SECOND_PAGE}'] a")
     ReferenceBookPageActions.loaded(PAGE, SECOND_PAGE_ID)
 
     commonActions.click(nextSelection)
@@ -176,15 +176,15 @@ describe 'Reference Book Component for a non-default ecosystem', ->
       .to.match(/1/)
 
   it 'sets the menu item to be active based on the current page', ->
-    selection = @state.div.querySelector(".toc [data-section='#{ECO_FIRST_PAGE}'] a")
+    selection = @state.div.querySelector(".menu [data-section='#{ECO_FIRST_PAGE}'] a")
     expect(selection).not.to.be.null
     expect(_.toArray(selection.classList)).to.include('active')
 
   it 'navigates forward and back between pages, maintaining ecosystem id', ->
-    prevControl = @state.div.querySelector('.page-wrapper > .prev')
+    prevControl = @state.div.querySelector('.page-navigation.prev')
     expect(prevControl).to.not.exist # on first page
 
-    nextControl = @state.div.querySelector('.page-wrapper > .next')
+    nextControl = @state.div.querySelector('.page-navigation.next')
     expect(nextControl).to.exist
     expect(nextControl.href).to.contain(ECO_SECOND_PAGE)
     page = ReactTestUtils.findRenderedComponentWithType(@state.book, Page)
@@ -199,14 +199,14 @@ describe 'Reference Book Component for a non-default ecosystem', ->
     expect(page.context.router.getCurrentQuery())
       .to.have.property('ecosystemId').and.equal(ECO_ID)
 
-    expect(@state.div.querySelector('.page-wrapper > .next').href)
+    expect(@state.div.querySelector('.page-navigation.next').href)
       .to.contain("?ecosystemId=#{ECO_ID}")
 
-    expect(@state.div.querySelector('.page-wrapper > .prev').href)
+    expect(@state.div.querySelector('.page-navigation.prev').href)
       .to.contain("?ecosystemId=#{ECO_ID}")
 
   it 'keeps ecosystem id in table of contents links', ->
-    tocLinks = _.toArray(@state.div.querySelectorAll('.toc a'))
+    tocLinks = _.toArray(@state.div.querySelectorAll('.menu a'))
     linkAddresses = _.pluck(tocLinks, 'href')
 
     _.each(linkAddresses, (linkAddress) ->

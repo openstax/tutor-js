@@ -3,25 +3,21 @@ BS = require 'react-bootstrap'
 
 TeacherContentToggle = React.createClass
 
-  getInitialState: ->
-    isShowing: false
-
   propTypes:
     onChange: React.PropTypes.func.isRequired
+    isShowing: React.PropTypes.bool.isRequired
 
   onClick: ->
-    isShowing = not @state.isShowing
-    @setState({isShowing})
-    @props.onChange(isShowing)
+    @props.onChange(not @props.isShowing)
 
   render: ->
-    teacherLinkText = if @state.isShowing
+    teacherLinkText = if @props.isShowing
       'Hide Teacher Edition'
     else
       'Show Teacher Edition'
 
-    <BS.Button className='btn-sm teacher-edition' onClick={@onClick}>
+    <BS.NavItem className='teacher-edition' onClick={@onClick}>
       {teacherLinkText}
-    </BS.Button>
+    </BS.NavItem>
 
 module.exports = TeacherContentToggle

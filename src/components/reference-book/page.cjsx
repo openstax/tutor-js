@@ -1,5 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
+
 _  = require 'underscore'
 classnames = require 'classnames'
 
@@ -7,7 +7,6 @@ HTML = require '../html'
 ArbitraryHtmlAndMath = require '../html'
 {BookContentMixin} = require '../book-content-mixin'
 GetPositionMixin = require '../get-position-mixin'
-ChapterSectionMixin = require '../chapter-section-mixin'
 SpyModeContent = require '../spy-mode/content'
 
 {ReferenceBookExerciseShell} = require './exercise'
@@ -20,32 +19,11 @@ module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
     cnxId: React.PropTypes.string.isRequired
-  mixins: [BookContentMixin, GetPositionMixin, ChapterSectionMixin]
-  contextTypes:
-    router: React.PropTypes.func
+  mixins: [BookContentMixin, GetPositionMixin]
   componentWillMount: ->
     @setState(skipZeros: false)
   getSplashTitle: ->
     ReferenceBookStore.getPageTitle(@props)
-
-  prevLink: (info) ->
-    params = _.extend({}, @context.router.getCurrentParams(),
-      section: @sectionFormat(info.prev.chapter_section))
-    <Router.Link className='nav prev' to='viewReferenceBookSection'
-      query={@context.router.getCurrentQuery()}
-      params={params}>
-      <div className='triangle' />
-    </Router.Link>
-
-  nextLink: (info) ->
-    params = _.extend({}, @context.router.getCurrentParams(),
-      section: @sectionFormat(info.next.chapter_section))
-
-    <Router.Link className='nav next' to='viewReferenceBookSection'
-      query={@context.router.getCurrentQuery()}
-      params={params}>
-      <div className='triangle' />
-    </Router.Link>
 
   # used by BookContentMixin
   shouldOpenNewTab: -> true
@@ -80,7 +58,6 @@ module.exports = React.createClass
     {courseId, cnxId, ecosystemId} = @props
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
-    info = ReferenceBookStore.getPageInfo({ecosystemId, cnxId})
 
     html = page.content_html
     # FIXME the BE sends HTML with head and body
@@ -91,10 +68,11 @@ module.exports = React.createClass
 
     <div className={classnames('page-wrapper', @props.className)}>
       {@props.children}
-      {@prevLink(info) if info.prev}
-      <ArbitraryHtmlAndMath className='page' block html={html} />
-      {@nextLink(info) if info.next}
+
+      <ArbitraryHtmlAndMath className='page center-panel' block html={html} />
+
       <SpyModeContent className="ecosystem-info">
         PageId: {@props.cnxId}, Ecosystem: {page.spy}
       </SpyModeContent>
+
     </div>

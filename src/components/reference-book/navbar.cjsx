@@ -46,7 +46,5 @@ module.exports = React.createClass
           <i className='ui-rice-logo' />
         </li>
       </BS.Nav>
-      <BS.Nav navbar right>
-        {@props.extraControls}
-      </BS.Nav>
+      {@props.extraControls}
     </BS.Navbar>
