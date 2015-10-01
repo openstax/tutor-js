@@ -1,7 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
 _ = require 'underscore'
-moment = require 'moment'
+moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
 PlanMixin = require './plan-mixin'
@@ -115,12 +115,14 @@ module.exports = React.createClass
     @setPeriodDefaults()
 
   componentWillMount: ->
-    TimeHelper.syncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.syncCourseTimezone(courseId)
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
 
   componentWillUnmount: ->
-    TimeHelper.unsyncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.unsyncCourseTimezone(courseId)
 
   setOpensAt: (value, period) ->
     {id} = @props

@@ -50,10 +50,12 @@ CourseMonth = React.createClass
       TeacherTaskPlanActions.load(@props.courseId)
 
   componentWillMount: ->
-    TimeHelper.syncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.syncCourseTimezone(courseId)
 
   componentWillUnmount: ->
-    TimeHelper.unsyncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.unsyncCourseTimezone(courseId)
 
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?

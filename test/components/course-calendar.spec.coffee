@@ -167,6 +167,13 @@ describe 'Course Calendar', ->
         done()
       , done)
 
+  it 'should adjust the timezone to match the course timezone', (done) ->
+    calendarChecks
+      .checkDoesTimezoneMatchCourse(@result)
+      .then( ->
+        done()
+      , done)
+
   # TODO unsure why this test doesn't work, but it was kinda icing on the cake anyways.
   # it 'should navigate to add homework route when Add Homework is clicked from date', (done) ->
   #   calendarActions

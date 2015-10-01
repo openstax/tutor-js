@@ -1,5 +1,5 @@
 _ = require 'underscore'
-moment = require 'moment'
+moment = require 'moment-timezone'
 
 Builder = require '../../../src/components/task-plan/builder'
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
@@ -8,14 +8,18 @@ Builder = require '../../../src/components/task-plan/builder'
 
 {CourseListingActions, CourseListingStore} = require '../../../src/flux/course-listing'
 {CourseStore} = require '../../../src/flux/course'
+
 {TimeStore} = require '../../../src/flux/time'
+TimeHelper = require '../../../src/helpers/time'
 TutorDateFormat = TimeStore.getFormat()
+ISO_DATE_FORMAT = 'YYYY-MM-DD'
 
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 dayAfter = (new Date(Date.now() + 1000 * 3600 * 48)).toString()
 
-getDateString = (value) -> moment(value).format(TutorDateFormat)
+getDateString = (value) -> moment.utc(moment(value)).format(TutorDateFormat)
+getISODateString = (value) -> moment.utc(moment(value)).format(ISO_DATE_FORMAT)
 
 COURSES = require '../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
@@ -25,7 +29,7 @@ PUBLISHED_MODEL = ExtendBasePlan({
   description: 'description',
   published_at: yesterday}, {opens_at: yesterday, due_at: yesterday, target_id: COURSES[0].periods[0].id})
 
-helper = (model, routerParams) -> PlanRenderHelper(model, Builder, {}, routerParams)
+helper = (model, routerQuery) -> PlanRenderHelper(model, Builder, {}, {}, routerQuery)
 
 
 describe 'Task Plan Builder', ->
@@ -115,14 +119,16 @@ describe 'Task Plan Builder', ->
       expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
 
   it 'sets the correct moment timezone on mount', ->
-    expect((new moment()).tz()).to.be.falsy
+    courseId = COURSES[0].periods[0].id
     helper(NEW_READING).then ({dom, element}) ->
-      expect((new moment()).tz()).to.be.truthy
+      if TimeHelper.isCourseTimezone(courseId)
+        expect(moment().tz()).to.be.undefined
+      else
+        expect(moment().tz()).to.equal(CourseStore.getTimezone(courseId))
 
-  xit 'sets the default due date when based on query string', ->
-    helper(NEW_READING, {due_at: getDateString(tomorrow)} ).then ({dom, element}) ->
+  it 'sets the default due date when based on query string', ->
+    helper(NEW_READING, {due_at: getISODateString(tomorrow)} ).then ({dom, element}) ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
-
       expect(dom.querySelector('.-assignment-due-date input.datepicker__input').value)
         .to.be.equal(getDateString(tomorrow))

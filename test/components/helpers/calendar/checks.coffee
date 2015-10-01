@@ -3,13 +3,15 @@
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-moment = require 'moment'
+moment = require 'moment-timezone'
 twix = require 'twix'
 React = require 'react/addons'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../../../src/flux/task-plan-stats'
 {TimeActions, TimeStore} = require '../../../../src/flux/time'
+TimeHelper = require '../../../../src/helpers/time'
+{CourseStore} = require '../../../../src/flux/course'
 
 Add = require '../../../../src/components/course-calendar/add'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require '../../../../src/components/course-calendar/plan-display'
@@ -201,6 +203,14 @@ checks =
     routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
     targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
     expect(state.path).to.equal(targetHomeworkLink)
+    {div, component, state, router, history, courseId}
+
+  _checkDoesTimezoneMatchCourse: ({div, component, state, router, history, courseId}) ->
+    if TimeHelper.isCourseTimezone(courseId)
+      expect(moment().tz()).to.be.undefined
+    else
+      expect(moment().tz()).to.equal(CourseStore.getTimezone(courseId))
+
     {div, component, state, router, history, courseId}
 
 
