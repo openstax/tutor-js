@@ -295,6 +295,14 @@
   }
 }
 
+.tutor-pad-panel() {
+  .panel-body { padding: @tutor-panel-padding; }
+
+  @media (max-width: @tutor-panel-collapse-breakpoint) {
+    .panel-body { padding: @tutor-panel-padding-collapsed; }
+  }
+}
+
 
 // If you want to use these please uncomment.
 //

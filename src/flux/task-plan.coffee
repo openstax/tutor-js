@@ -19,6 +19,8 @@ TUTOR_SELECTIONS =
 PLAN_TYPES =
   HOMEWORK: 'homework'
   READING: 'reading'
+  EXTERNAL: 'external'
+  EVENT: 'event'
 
 sortTopics = (topics) ->
   _.sortBy(topics, (topicId) ->
@@ -202,6 +204,9 @@ TaskPlanConfig =
   updateUrl: (id, external_url) ->
     @_change(id, {settings: {external_url}})
 
+  setEvent: (id) ->
+    @_change(id, {settings: {}})
+
   sortTopics: (id) ->
     plan = @_getPlan(id)
     {page_ids, exercises_count_dynamic} = plan.settings
@@ -381,6 +386,8 @@ TaskPlanConfig =
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
       else if (plan.type is 'external')
         return plan.title and isValidDates() and validator.isURL(plan.settings?.external_url)
+      else if (plan.type is 'event')
+        return plan.title and isValidDates()
 
     isPublished: (id) ->
       plan = @_getPlan(id)

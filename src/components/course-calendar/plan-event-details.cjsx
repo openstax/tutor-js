@@ -4,12 +4,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{StatsModalShell} = require '../plan-stats'
-LoadableItem = require '../loadable-item'
+{EventModalShell} = require '../plan-stats/event'
 
-# TODO drag and drop, and resize behavior
-CoursePlanDetails = React.createClass
-  displayName: 'CoursePlanDetails'
+CourseEventDetails = React.createClass
+  displayName: 'CourseEventDetails'
 
   propTypes:
     plan: React.PropTypes.shape(
@@ -20,41 +18,18 @@ CoursePlanDetails = React.createClass
     courseId: React.PropTypes.string.isRequired
     onRequestHide: React.PropTypes.func.isRequired
 
-  renderReviewButton: ->
-    {plan, courseId} = @props
-    {type, id} = plan
-    linkParams = {courseId, id}
-
-    reviewButton = <Router.Link
-      className='btn btn-default'
-      to='reviewTask'
-      params={linkParams}>
-      Review Metrics
-    </Router.Link>
-
-    if type is 'external'
-      reviewButton = <Router.Link
-        className='btn btn-default -view-scores'
-        to='viewScores'
-        params={linkParams}>
-        View Scores
-      </Router.Link>
-
-    reviewButton
-
   render: ->
     {plan, courseId, className} = @props
     {title, type, id} = plan
     linkParams = {courseId, id}
     editLinkName = camelCase("edit-#{type}")
 
-    reviewButton = @renderReviewButton()
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
     editButton = <Router.Link
       className='btn btn-default -edit-assignment'
       to={editLinkName}
       params={linkParams}>
-      {viewOrEdit} Assignment
+      {viewOrEdit} Event
     </Router.Link>
 
     <BS.Modal
@@ -63,13 +38,12 @@ CoursePlanDetails = React.createClass
       data-assignment-type={type}
       className="plan-modal #{className}">
       <div className='modal-body'>
-        <StatsModalShell id={id} courseId={courseId} />
+        <EventModalShell id={id} courseId={courseId} />
       </div>
       <div className='modal-footer'>
-        {reviewButton}
         {editButton}
       </div>
     </BS.Modal>
 
 
-module.exports = CoursePlanDetails
+module.exports = CourseEventDetails
