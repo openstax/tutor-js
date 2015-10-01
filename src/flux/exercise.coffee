@@ -99,6 +99,9 @@ ExerciseConfig =
         section.toString() is topic_chapter_section.toString()
       )
 
+    poolTypes: (exercise) ->
+      _.without( exercise.pool_types, 'all_exercises')
+
     allForPage: (pageId) ->
       @_exercises[pageId] or []
 
