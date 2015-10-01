@@ -58,10 +58,8 @@ CoursePeriodsNav = React.createClass
     @setState(active: key)
 
   renderPeriod: (period, key) ->
-    {plan} = @props
-    isTrouble = _.pluck(plan.stats, 'is_trouble')
     <BS.NavItem 
-      className={'is-trouble' if _.contains(isTrouble, true)}
+      className={'is-trouble' if period.is_trouble}
       eventKey={key} 
       key="period-nav-#{period.id}">
       {period.name}
