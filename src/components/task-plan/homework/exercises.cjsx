@@ -361,4 +361,4 @@ AddExercises = React.createClass
     </BS.Grid>
 
 
-module.exports = {AddExercises, ReviewExercises, ExerciseTable}
+module.exports = {AddExercises, ReviewExercises, ExerciseTable, ExerciseCardMixin}
