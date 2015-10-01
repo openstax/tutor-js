@@ -105,3 +105,13 @@ describe 'String helpers', ->
     _.each(sortStringsOnly, (stringsOnly) ->
       testSortOrderHelper(stringsOnly)
     )
+
+  it 'can titleize a string', ->
+    # straight up title
+    expect(S.titleize('foo bar baz')).to.equal('Foo Bar Baz')
+    # ignores short words
+    expect(S.titleize('the 1st bar in a row went via postal mail')).to
+      .equal('The 1st Bar in a Row Went via Postal Mail')
+    # treats underscores and dashes properly
+    expect(S.titleize('my_words_are_concatenated-please help')).to
+      .equal('My Words Are Concatenated-Please Help')
