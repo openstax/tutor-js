@@ -11,6 +11,8 @@ LearningGuideSection = require '../learning-guide/section'
 LearningGuideColorKey = require '../learning-guide/color-key'
 PracticeButton = require '../learning-guide/practice-button'
 Section = require '../learning-guide/section'
+SpyModeContent = require '../spy-mode/content'
+
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -72,11 +74,13 @@ ProgressGuidePanels = React.createClass
           </p><p>
             This area will fill in with topics as you complete your assignments
           </p>
-          <ul className='visible-when-debugging'>
-            <li>{sections.length} sections were returned by the performance forecast</li>
-          { for section in sections
-            <li>{@sectionFormat(section.chapter_section)} section.title</li> }
-          </ul>
+          <SpyModeContent>
+            <ul>
+              <li>{sections.length} sections were returned by the performance forecast</li>
+              { for section in sections
+                <li>{@sectionFormat(section.chapter_section)} section.title</li> }
+            </ul>
+          </SpyModeContent>
       </div>
     </div>
 
