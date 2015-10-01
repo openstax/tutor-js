@@ -44,7 +44,7 @@ TaskStepLoaded = React.createClass
     <div>
       <Type {...@props}/>
       <SpyModeContent className='task-ecosystem-info'>
-        TaskId: {taskId}, StepId: {id}, Ecosystem: {TaskStore.get(taskId).spy}
+        TaskId: {taskId}, StepId: {id}, Ecosystem: {TaskStore.get(taskId).spy?.ecosystem_title}
       </SpyModeContent>
     </div>
 
