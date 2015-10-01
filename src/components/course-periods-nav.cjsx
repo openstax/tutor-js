@@ -16,7 +16,6 @@ CoursePeriodsNav = React.createClass
     handleKeyUpdate: React.PropTypes.func
     initialActive: React.PropTypes.number.isRequired
     periods: React.PropTypes.array.isRequired
-    plan: React.PropTypes.object.isRequired
 
   getDefaultProps: ->
     initialActive: 0

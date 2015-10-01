@@ -257,8 +257,7 @@ Stats = React.createClass
         handleKeyUpdate={@props.handlePeriodKeyUpdate}
         initialActive={@props.initialActivePeriod}
         periods={periods}
-        courseId={courseId}
-        plan={plan} />
+        courseId={courseId} />
       {dataComponent}
     </BS.Panel>
 
