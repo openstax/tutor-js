@@ -17,7 +17,10 @@ ExerciseCardMixin =
 
     <div className={classes.join(' ')}>
       <div className="answer-letter" />
-      <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
+      <div className="answer">
+        <ArbitraryHtmlAndMath className="choice" block={false} html={answer.content_html} />
+        <ArbitraryHtmlAndMath className="feedback" block={false} html={answer.feedback_html} />
+      </div>
     </div>
 
   renderTags: (tag) ->
@@ -52,7 +55,6 @@ ExerciseCardMixin =
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <div className='answers-table'>{renderedAnswers}</div>
-
       <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
