@@ -1,5 +1,4 @@
 React = require 'react'
-ConfirmLeaveMixin = require '../confirm-leave-mixin'
 {HomeworkPlan} = require './homework'
 {ReadingPlan} = require './reading'
 {ExternalPlan} = require './external'
