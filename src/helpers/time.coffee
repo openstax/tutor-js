@@ -42,8 +42,8 @@ TimeHelper =
     weekdaysMin: currentLocale._weekdaysMin
 
   syncCourseTimezone: (courseId) ->
+    return if @isCourseTimezone(courseId)
     courseTimezone = CourseStore.getTimezone(courseId)
-    return if @isCourseTimezone(courseTimezone)
     @_local ?= _.first(@getLocalTimezone())
     zonedMoment = moment.fn.tz(courseTimezone)
     zonedMoment
