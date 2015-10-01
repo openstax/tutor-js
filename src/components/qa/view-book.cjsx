@@ -7,10 +7,11 @@ BS = require 'react-bootstrap'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 ReferenceBook = require '../reference-book/reference-book'
-BindStoreMixin = require '../bind-store-mixin'
+
 TeacherContentToggle = require '../reference-book/teacher-content-toggle'
 LoadableItem = require '../loadable-item'
 QAContent = require './content'
+QAExercises = require './exercises'
 BookLink  = require './book-link'
 
 
@@ -40,17 +41,18 @@ QAViewBook = React.createClass
 
   renderBook: ->
     section = @props.section or ReferenceBookStore.getFirstSection(@props.bookId).join('.')
-
-    <ReferenceBook
-        pageNavRouterLinkTarget='QAViewBook'
-        menuRouterLinkTarget='QAViewBookSection'
-        navbarControls={@renderNavbarControls()}
-        section={section}
-        className={classnames('is-teacher')}
-        className={classnames('is-teacher': @state.isShowingTeacherContent)}
-        ecosystemId={@props.bookId}
-        contentComponent={QAContent}
-    />
+    <div className="qa">
+      <ReferenceBook
+          pageNavRouterLinkTarget='QAViewBook'
+          menuRouterLinkTarget='QAViewBookSection'
+          navbarControls={@renderNavbarControls()}
+          section={section}
+          className={classnames('is-teacher')}
+          className={classnames('is-teacher': @state.isShowingTeacherContent)}
+          ecosystemId={@props.bookId}
+          contentComponent={QAExercises}
+      />
+    </div>
 
   render: ->
     <LoadableItem
