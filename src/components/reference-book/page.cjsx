@@ -69,7 +69,7 @@ module.exports = React.createClass
     <div className={classnames('page-wrapper', @props.className)}>
       {@props.children}
 
-      <ArbitraryHtmlAndMath className='page' block html={html} />
+      <ArbitraryHtmlAndMath className='page center-panel' block html={html} />
 
       <SpyModeContent className="ecosystem-info">
         PageId: {@props.cnxId}, Ecosystem: {page.spy}
