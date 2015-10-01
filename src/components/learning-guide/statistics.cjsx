@@ -10,7 +10,6 @@ Statistics = React.createClass
 
   propTypes:
     section:  ChapterSectionType.isRequired
-    displaying: React.PropTypes.string.isRequired
 
   render: ->
     <div className='statistics'>
@@ -21,8 +20,11 @@ Statistics = React.createClass
       </ul>
       <div className='amount-worked'>
         <span className='count'>
+          {@props.section.clue.unique_learner_count}
+          {pluralize(' students', @props.section.clue.unique_learner_count)}
+          {' have worked '}
           {@props.section.questions_answered_count}
-          {pluralize(' problems', @props.section.questions_answered_count)} worked in this {@props.displaying}
+          {pluralize(' problems', @props.section.questions_answered_count)}
         </span>
       </div>
     </div>

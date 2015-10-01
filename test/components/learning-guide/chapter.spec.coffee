@@ -15,8 +15,20 @@ describe 'Learning Guide Chapter Panel', ->
     }
 
   it 'reports how many problems were worked', ->
+    count = @props.chapter.clue.unique_learner_count
+    total = @props.chapter.questions_answered_count
+    if count > 1
+      pluralA = 'students'
+    else
+      pluralA = 'student'
+    if total > 1
+      pluralB = 'problems'
+    else
+      pluralB = 'problem'
+
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked').textContent).to.equal('10 problems worked in this chapter')
+      expect(dom.querySelector('.amount-worked').textContent).to
+      .equal("#{count} #{pluralA} have worked #{total} #{pluralB}")
 
   it 'displays the title', ->
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) =>

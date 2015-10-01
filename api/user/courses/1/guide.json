@@ -19,7 +19,8 @@
             "confidence_interval_interpretation": "bad",
             "sample_size": 2,
             "sample_size_interpretation": "below",
-            "value_interpretation": "medium"
+            "value_interpretation": "medium",
+            "unique_learner_count": 10
           },
           "questions_answered_count": 8,
           "chapter_section": [1,1],
@@ -36,7 +37,8 @@
             "confidence_interval_interpretation": "bad",
             "sample_size": 2,
             "sample_size_interpretation": "below",
-            "value_interpretation": "medium"
+            "value_interpretation": "medium",
+            "unique_learner_count": 10
           },
           "questions_answered_count": 2,
           "chapter_section": [1,2],
@@ -54,7 +56,8 @@
         "confidence_interval_interpretation": "bad",
         "sample_size": 2,
         "sample_size_interpretation": "below",
-        "value_interpretation": "high"
+        "value_interpretation": "high",
+        "unique_learner_count": 10
       },
       "questions_answered_count": 10,
       "chapter_section": [

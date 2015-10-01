@@ -19,5 +19,17 @@ describe 'Learning Guide Section Panel', ->
       expect(dom.querySelector('.title').textContent).to.equal(@props.section.title)
 
   it 'reports how many problems were worked', ->
+    count = @props.section.clue.unique_learner_count
+    total = @props.section.questions_answered_count
+    if count > 1
+      pluralA = 'students'
+    else
+      pluralA = 'student'
+    if total > 1
+      pluralB = 'problems'
+    else
+      pluralB = 'problem'
+
     Testing.renderComponent( Section, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked .count span:first-child').textContent).to.equal('8')
+      expect(dom.querySelector('.amount-worked').textContent).to
+      .equal("#{count} #{pluralA} have worked #{total} #{pluralB}")

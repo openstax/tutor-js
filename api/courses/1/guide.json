@@ -1,7 +1,6 @@
 {
   "period_id": "",
   "title": "Physics",
-  "students_count": 10,
   "page_ids": [
     "2",
     "3",
@@ -15,7 +14,6 @@
         3
       ],
       "questions_answered_count": 23,
-      "students_answered_count": 6,
       "clue": {
         "value": 0.9025196157281774,
         "confidence_interval": [0.48026796534380245, 0.6802679653438024],
@@ -34,7 +32,6 @@
           "title": "Acceleration",
           "chapter_section": [ 3, 1 ],
           "questions_answered_count": 11,
-          "students_answered_count": 6,
           "clue": {
             "value": 0.7216930483524373,
             "confidence_interval": [0.48026796534380245, 0.6802679653438024],
@@ -52,7 +49,6 @@
           "title": "Representing Acceleration with Equations and Graphs",
           "chapter_section": [ 3, 2 ],
           "questions_answered_count": 12,
-          "students_answered_count": 6,
           "clue": {
             "value": 0.9335832674397897,
             "confidence_interval": [0.07601666252154723, 0.2760166625215472],
@@ -72,7 +68,6 @@
       "title": "Force and Newton's Laws of Motion",
       "chapter_section": [ 4 ],
       "questions_answered_count": 3,
-      "students_answered_count": 6,
       "clue":{
         "value": 0.13278347571119187,
         "confidence_interval": [0.5331585527121938, 0.7331585527121938],
@@ -91,7 +86,6 @@
             1
           ],
           "questions_answered_count": 1,
-          "students_answered_count": 6,
           "clue":{
             "value": 0.5483725909317109,
             "confidence_interval": [0.5331585527121938, 0.7331585527121938],
@@ -107,7 +101,6 @@
           "title": "Newton's First Law of Motion: Inertia",
           "chapter_section": [ 4, 2 ],
           "questions_answered_count": 2,
-          "students_answered_count": 6,
           "clue":{
             "value": 0.35736864708971516,
             "confidence_interval": [0.5331585527121938, 0.7331585527121938],
