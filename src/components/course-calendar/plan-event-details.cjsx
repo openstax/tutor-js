@@ -25,8 +25,11 @@ CourseEventDetails = React.createClass
     editLinkName = camelCase("edit-#{type}")
 
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
-    editButton = <Router.Link to={editLinkName} params={linkParams}>
-      <BS.Button className='-edit-assignment'>{viewOrEdit} Event</BS.Button>
+    editButton = <Router.Link
+      className='btn btn-default -edit-assignment'
+      to={editLinkName}
+      params={linkParams}>
+      {viewOrEdit} Event
     </Router.Link>
 
     <BS.Modal
