@@ -38,9 +38,17 @@ QAExercises = React.createClass
     <Question key={exercise.id} model={exercise.content.questions[0]}/>
 
   render: ->
+    content = if ExerciseStore.isLoaded([@state.pageId])
+      exercises = ExerciseStore.allForPage(@state.pageId)
+      if _.isEmpty(exercises)
+        <h3>No exercises found</h3>
+      else _.map exercises, @renderExercise
+    else
+      <h3>Loading...</h3>
+
     <div className="page-wrapper">
       <div className="exercises center-panel">
-        {_.map ExerciseStore.allForPage(@state.pageId), @renderExercise}
+        {content}
       </div>
     </div>
 
