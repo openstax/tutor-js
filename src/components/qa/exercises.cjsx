@@ -1,15 +1,14 @@
+_ = require 'underscore'
 React = require 'react'
+
 {ReferenceBookStore} = require '../../flux/reference-book'
 ReferenceBookPage = require '../reference-book/page-shell'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 BindStoreMixin = require '../bind-store-mixin'
-TaskStep = require '../task-step'
-ArbitraryHtml = require '../html'
+
 Question = require '../question'
 
 {ReferenceBookExercise} =  require '../reference-book/exercise'
-
-{Reading, Exercise } = require '../task-step/all-steps'
 
 QAExercises = React.createClass
   propTypes:
@@ -23,9 +22,17 @@ QAExercises = React.createClass
   bindStore: ExerciseStore
 
   componentWillMount: ->
-    page = ReferenceBookStore.getPageInfo(@props)
+    @loadPage(@props)
+
+  componentWillReceiveProps: (nextProps) ->
+    if nextProps.cnxId isnt @props.cnxId
+      @loadPage(nextProps)
+
+  loadPage: (props) ->
+    page = ReferenceBookStore.getPageInfo(props)
     @setState(pageId: page.id)
-    ExerciseActions.load(@props.ecosystemId, [page.id], '')
+    if page and _.isEmpty( ExerciseStore.allForPage(page.id) )
+      ExerciseActions.load(@props.ecosystemId, [page.id], '')
 
   renderExercise: (exercise) ->
     <Question key={exercise.id} model={exercise.content.questions[0]}/>

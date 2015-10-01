@@ -43,7 +43,7 @@ QAViewBook = React.createClass
     section = @props.section or ReferenceBookStore.getFirstSection(@props.bookId).join('.')
     <div className="qa">
       <ReferenceBook
-          pageNavRouterLinkTarget='QAViewBook'
+          pageNavRouterLinkTarget='QAViewBookSection'
           menuRouterLinkTarget='QAViewBookSection'
           navbarControls={@renderNavbarControls()}
           section={section}
