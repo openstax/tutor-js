@@ -19,7 +19,7 @@ module.exports =
       './resources/styles/tutor.less'
     ]
     qa: [
-      './src/qa.coffee',
+      './src/qa.coffee'
     ]
 
   output:
