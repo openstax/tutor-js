@@ -19,7 +19,10 @@ class TestRunner
     specs = _.unique @pendingSpecs
 
     # no need to start a server if there are no pending specs, or the spec list hasn't changed
-    return if _.isEmpty(@pendingSpecs) or _.isEqual(@curSpecs?.sort(), specs.sort())
+    return if _.isEmpty(@pendingSpecs)
+    if _.isEqual(@curSpecs?.sort(), specs.sort())
+      @pendingSpecs = []
+      return
 
     # if there's already a karma instance running, then kill it, since we're starting a new one
     if @isKarmaRunning and @child
