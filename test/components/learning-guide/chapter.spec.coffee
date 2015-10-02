@@ -4,6 +4,8 @@ Chapter = require '../../../src/components/learning-guide/chapter'
 
 GUIDE = require '../../../api/user/courses/1/guide.json'
 
+pluralize = require 'pluralize'
+
 describe 'Learning Guide Chapter Panel', ->
 
 
@@ -15,8 +17,11 @@ describe 'Learning Guide Chapter Panel', ->
     }
 
   it 'reports how many problems were worked', ->
+    total = @props.chapter.questions_answered_count
+
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked').textContent).to.equal('10 problems worked in this chapter')
+      expect(dom.querySelector('.amount-worked').textContent).to
+      .equal("#{pluralize(' problems', total, true)} worked in this chapter")
 
   it 'displays the title', ->
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) =>

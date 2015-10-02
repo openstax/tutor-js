@@ -31,6 +31,6 @@ module.exports = React.createClass
       </div>
 
       <ProgressBar {...@props} />
-      <Statistics section={section} displaying="section" />
+      <Statistics courseId={@props.courseId} section={section} displaying="section" />
 
     </div>

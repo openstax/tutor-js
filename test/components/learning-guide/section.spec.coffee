@@ -4,6 +4,8 @@ Section = require '../../../src/components/learning-guide/section'
 
 GUIDE = require '../../../api/user/courses/1/guide.json'
 
+pluralize = require 'pluralize'
+
 describe 'Learning Guide Section Panel', ->
 
 
@@ -19,5 +21,8 @@ describe 'Learning Guide Section Panel', ->
       expect(dom.querySelector('.title').textContent).to.equal(@props.section.title)
 
   it 'reports how many problems were worked', ->
+    total = @props.section.questions_answered_count
+
     Testing.renderComponent( Section, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked .count span:first-child').textContent).to.equal('8')
+      expect(dom.querySelector('.amount-worked').textContent).to
+      .equal("#{pluralize(' problems', total, true)} worked in this section")
