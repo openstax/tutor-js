@@ -4,17 +4,20 @@
     margin-left: -40px;
     margin-right: -40px;
 
-
-    .page {
-      counter-reset: question;
+    .center-panel {
       width: @reference-book-page-width;
       margin: 0 auto;
-      border: 1px solid @tutor-neutral-bright;
-      background-color: @tutor-white;
-      .tutor-book-content();
       @media screen and ( max-width: @book-content-collapse-breakpoint ){
         width: @reference-book-collapse-width;
       }
+
+    }
+
+    .page {
+      counter-reset: question;
+      border: 1px solid @tutor-neutral-bright;
+      background-color: @tutor-white;
+      .tutor-book-content();
       // shown if parent is-teacher present below
       .os-teacher {
         display: none;
@@ -33,6 +36,11 @@
         }
       }
 
+    }
+    // only visible when "spy mode" is enabled
+    .ecosystem-info {
+      .tutor-spy-mode-content();
+      width: 90%;
     }
   }
 

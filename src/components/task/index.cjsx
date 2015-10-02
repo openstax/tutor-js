@@ -23,7 +23,7 @@ module.exports = React.createClass
   propTypes:
     id: React.PropTypes.string
 
-  displayName: 'ReadingTask'
+  displayName: 'Task'
 
   mixins: [StepFooterMixin, CrumbMixin]
 

@@ -121,6 +121,7 @@ CurrentUserStore = flux.createStore
     getCSRFToken: -> CSRF_Token
     getName: -> @_user.name
     isAdmin: -> @_user.is_admin
+    isContentAnalyst: -> @_user.is_content_analyst
     getProfileUrl: -> @_user.profile_url
 
     # Loads the store if it's not already loaded or loading
@@ -145,7 +146,7 @@ CurrentUserStore = flux.createStore
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.
-    getMenuRoutes: (courseId, silent = false) ->
+    getCourseMenuRoutes: (courseId, silent = false) ->
       menuRole = @_getCourseRole(courseId, silent)
       routes = _.keys(ROUTES)
 

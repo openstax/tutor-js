@@ -77,7 +77,7 @@ PlanMixin =
   cancel: ->
     {id, courseId} = @props
 
-    if not TaskPlanStore.isChanged(id)
+    if not TaskPlanStore.hasChanged(id)
       @reset()
     else
       TutorDialog.show(
@@ -113,16 +113,17 @@ PlanMixin =
     {to, params} = @getBackToCalendarParams()
     @context.router.transitionTo(to, params)
 
-  builderHeader: (type) ->
+  builderHeader: (type, label = 'Assignment') ->
     {id} = @props
+    label = " #{label}" if label
     type = S.capitalize(type)
 
     if TaskPlanStore.isNew(id)
-      headerText = "Add #{type} Assignment"
+      headerText = "Add #{type}#{label}"
     else if TaskPlanStore.isDeleteRequested(id)
       headerText = "#{type} is being deleted"
     else
-      headerText = "Edit #{type} Assignment"
+      headerText = "Edit #{type}#{label}"
 
     headerSpan = <span key='header-text'>{headerText}</span>
 

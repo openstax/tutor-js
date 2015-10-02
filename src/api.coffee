@@ -12,6 +12,7 @@ _ = require 'underscore'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {JobActions} = require './flux/job'
+{EcosystemsActions} = require './flux/ecosystems'
 LearningGuide = require './flux/learning-guide'
 
 {ScoresActions} = require './flux/scores'
@@ -188,6 +189,9 @@ start = (bootstrapData) ->
 
   apiHelper JobActions, JobActions.load, JobActions.loaded, 'GET', (id) ->
     url: "/api/jobs/#{id}"
+
+  apiHelper EcosystemsActions, EcosystemsActions.load, EcosystemsActions.loaded, 'GET', ->
+    url: "/api/ecosystems"
 
   apiHelper RosterActions, RosterActions.delete, RosterActions.deleted, 'DELETE', (id) ->
     url: "/api/students/#{id}"

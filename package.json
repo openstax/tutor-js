@@ -35,6 +35,7 @@
     "moment": "^2.9.0",
     "moment-timezone": "^0.4.0",
     "pluralize": "^1.1.2",
+    "promise-loader": "^1.0.0",
     "react": "0.13.1",
     "react-bootstrap": "~0.22.0",
     "react-calendar": "^0.4.0",

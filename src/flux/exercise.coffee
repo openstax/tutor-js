@@ -99,5 +99,8 @@ ExerciseConfig =
         section.toString() is topic_chapter_section.toString()
       )
 
+    allForPage: (pageId) ->
+      @_exercises[pageId] or []
+
 {actions, store} = makeSimpleStore(ExerciseConfig)
 module.exports = {ExerciseActions:actions, ExerciseStore:store}

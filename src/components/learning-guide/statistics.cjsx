@@ -6,8 +6,12 @@ _ = require 'underscore'
 {CurrentUserStore} = require '../../flux/current-user'
 
 ChapterSectionType = require './chapter-section-type'
+
 pluralize = require 'pluralize'
 pluralize.addIrregularRule(' has', ' have')
+
+SpyModeContent = require '../spy-mode/content'
+
 
 Statistics = React.createClass
 
@@ -29,11 +33,13 @@ Statistics = React.createClass
       "#{pluralize(' problems', total, true)} worked in this #{@props.displaying}"
 
     <div className='statistics'>
-      <ul className='clue visible-when-debugging'>
-        { for key, value of @props.section.clue
-          value = value.join(' ') if _.isArray(value)
-          <li key={key}><strong>{key}</strong>: {value}</li>}
-      </ul>
+      <SpyModeContent className="clue">
+        <ul>
+          { for key, value of @props.section.clue
+            value = value.join(' ') if _.isArray(value)
+            <li key={key}><strong>{key}</strong>: {value}</li>}
+        </ul>
+      </SpyModeContent>
       <div className='amount-worked'>
         <span className='count'>
           {if role is 'teacher' then teacherWorkedText else studentWorkedText}
