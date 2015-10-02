@@ -3,6 +3,8 @@ _ = require 'underscore'
 MATH_MARKER_BLOCK  = '\u200c\u200c\u200c' # zero-width non-joiner
 MATH_MARKER_INLINE = '\u200b\u200b\u200b' # zero-width space
 
+MATH_SELECTOR = '[data-math]:not(.math-rendered)'
+
 cleanMathArtifacts = ->
   # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
   # React "Invariant Violation" exceptions.
@@ -19,13 +21,12 @@ cleanMathArtifacts = ->
   ])
 
 
-typesetMath = (root) ->
-  nodes = root.querySelectorAll('[data-math]:not(.math-rendered)') or []
-  hasMath = root.querySelector('math')
 
-  # Return immediatly if no [data-math] or <math> elements are present
-  # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
-  return unless window.MathJax?.Hub?.Queue? and (_.any(nodes) or hasMath)
+# Typesets the entire document
+TypesetDocument = ->
+
+  nodes = document.querySelectorAll(MATH_SELECTOR)
+  return if _.isEmpty(nodes)
 
   for node in nodes
     formula = node.getAttribute('data-math')
@@ -40,10 +41,26 @@ typesetMath = (root) ->
   # submit all nodes at once for optimal rendering performance
   window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, _.toArray(nodes)])
 
+  cleanMathArtifacts()
+
+# Install a debounce around typesetting function so that it will only run once
+# every 10ms even if called multiple calls times in that period
+TypesetDocument = _.debounce( TypesetDocument, 10)
+
+
+typesetMath = (root) ->
+  nodes = root.querySelectorAll(MATH_SELECTOR) or []
+  hasMath = root.querySelector('math')
+
+  # Return immediatly if no [data-math] or <math> elements are present
+  # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
+  return unless window.MathJax?.Hub?.Queue? and (_.any(nodes) or hasMath)
+
   # render MathML with MathJax
   window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
 
-  cleanMathArtifacts()
+  TypesetDocument()
+
 
 
 # The following should be called once and configures MathJax.
