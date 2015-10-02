@@ -9,6 +9,7 @@ Menu = require './slide-out-menu'
 ChapterSectionMixin = require '../chapter-section-mixin'
 PageShell = require './page-shell'
 WindowResizeListenerMixin = require '../resize-listener-mixin'
+SpyModeWrapper = require '../spy-mode/wrapper'
 
 # menu width (300) + page width (1000) + 50 px padding
 # corresponds to @reference-book-page-width and @reference-book-menu-width in variables.less
@@ -61,28 +62,30 @@ module.exports = React.createClass
       'menu-open': @state.isMenuVisible
 
     <div {...@props.dataProps} className={className}>
+        <SpyModeWrapper>
 
-      <NavBar
-        ecosystemId={@props.ecosystemId}
-        section={@state.section}
-        toggleTocMenu={@toggleMenuState}
-        isMenuVisible={@state.isMenuVisible}
-        extraControls={@props.navbarControls}
-      />
+          <NavBar
+            ecosystemId={@props.ecosystemId}
+            section={@state.section}
+            toggleTocMenu={@toggleMenuState}
+            isMenuVisible={@state.isMenuVisible}
+            extraControls={@props.navbarControls}
+          />
 
-      <div className="content">
+          <div className="content">
 
-        <Menu
-          ecosystemId={@props.ecosystemId}
-          activeSection={@state.section}
-          onMenuSelection={@onMenuClick}
-        />
+            <Menu
+              ecosystemId={@props.ecosystemId}
+              activeSection={@state.section}
+              onMenuSelection={@onMenuClick}
+            />
 
-        <@props.contentComponent
-          cnxId={@state.cnxId}
-          section={@state.section}
-          ecosystemId={@props.ecosystemId}
-        />
+            <@props.contentComponent
+              cnxId={@state.cnxId}
+              section={@state.section}
+              ecosystemId={@props.ecosystemId}
+            />
 
+          </div>
+        </SpyModeWrapper>
       </div>
-    </div>

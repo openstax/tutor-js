@@ -8,24 +8,6 @@
   border: 1px solid @tutor-neutral-lighter;
 }
 
-.edit-homework {
-
-  .panel-body { padding: 50px 120px; }
-
-  @media (max-width: @screen-sm) {
-    .panel-body { padding: 50px 30px; }
-  }
-
-  label {
-    display: block;
-  }
-
-  textarea {
-    width: 100%;
-    height: 30px;
-  }
-}
-
 #homework-due-date {
   .rw-select { 
     margin: -10px -10px 0 0;
@@ -51,3 +33,21 @@
 
 }
 
+.hw-loading-spinner {
+  position: absolute;
+  width: 20%;
+  top: 35%;
+  display: block;
+  left: 40%;
+  background: @tutor-white;
+  padding: 25px 0;
+  .tutor-shadow(1);
+  border: 1px solid @tutor-neutral-lighter;
+  font-size: 3rem;
+  z-index: 1000;
+  text-align: center;
+
+  i.fa {
+    margin-right: 10px;
+  }
+}

@@ -5,7 +5,7 @@ _ = require 'underscore'
 tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 dayAfter = (new Date(tomorrow + 1000 * 3600 * 24)).toString()
 
-ExtendBasePlan = (props, taskingProps = {}) ->
+ExtendBasePlan = (props, taskingProps = {}, extendTasking = true) ->
   baseModel =
     id: '111'
     title: 'Test Title'
@@ -19,7 +19,7 @@ ExtendBasePlan = (props, taskingProps = {}) ->
 
   baseModel = _.extend({}, baseModel, props)
 
-  if taskingProps?
+  if taskingProps? and extendTasking
     baseTaskingPlan = _.extend({}, baseTaskingPlan, taskingProps)
 
     baseModel.tasking_plans = []
@@ -32,6 +32,6 @@ PlanRenderHelper = (model, component, moreProps = {}, routerParams, routerQuery)
   # Load the plan into the store
   TaskPlanActions.loaded(model, id)
   props = _.extend({id, courseId: "1"}, moreProps)
-  Testing.renderComponent( component, { props: props, routerParams: routerParams, routerQuery: routerQuery})
+  Testing.renderComponent( component, props: props, routerParams: routerParams, routerQuery: routerQuery)
 
 module.exports = {ExtendBasePlan, PlanRenderHelper}

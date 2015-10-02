@@ -25,13 +25,19 @@ CoursePlanDetails = React.createClass
     {type, id} = plan
     linkParams = {courseId, id}
 
-    reviewButton = <Router.Link to='reviewTask' params={linkParams}>
-      <BS.Button>Review Metrics</BS.Button>
+    reviewButton = <Router.Link
+      className='btn btn-default'
+      to='reviewTask'
+      params={linkParams}>
+      Review Metrics
     </Router.Link>
 
     if type is 'external'
-      reviewButton = <Router.Link to='viewScores' params={linkParams}>
-        <BS.Button className='-view-scores'>View Scores</BS.Button>
+      reviewButton = <Router.Link
+        className='btn btn-default -view-scores'
+        to='viewScores'
+        params={linkParams}>
+        View Scores
       </Router.Link>
 
     reviewButton
@@ -44,8 +50,11 @@ CoursePlanDetails = React.createClass
 
     reviewButton = @renderReviewButton()
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
-    editButton = <Router.Link to={editLinkName} params={linkParams}>
-      <BS.Button className='-edit-assignment'>{viewOrEdit} Assignment</BS.Button>
+    editButton = <Router.Link
+      className='btn btn-default -edit-assignment'
+      to={editLinkName}
+      params={linkParams}>
+      {viewOrEdit} Assignment
     </Router.Link>
 
     <BS.Modal

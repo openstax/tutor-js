@@ -8,6 +8,7 @@ ArbitraryHtmlAndMath = require '../html'
 {BookContentMixin} = require '../book-content-mixin'
 GetPositionMixin = require '../get-position-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
+SpyModeContent = require '../spy-mode/content'
 
 {ReferenceBookExerciseShell} = require './exercise'
 
@@ -47,7 +48,7 @@ module.exports = React.createClass
     </Router.Link>
 
   # used by BookContentMixin
-  shouldOpenNewTab: -> false
+  shouldOpenNewTab: -> true
 
   waitToScrollToSelector: (hash) ->
     images = @getDOMNode().querySelectorAll('img')
@@ -93,4 +94,7 @@ module.exports = React.createClass
       {@prevLink(info) if info.prev}
       <ArbitraryHtmlAndMath className='page' block html={html} />
       {@nextLink(info) if info.next}
+      <SpyModeContent className="ecosystem-info">
+        PageId: {@props.cnxId}, Ecosystem: {page.spy}
+      </SpyModeContent>
     </div>

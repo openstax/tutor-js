@@ -18,6 +18,24 @@ Add = require '../../../../src/components/course-calendar/add'
 
 checks =
 
+  _checkAddMenu: (addOnDayDropdown, router, courseId) ->
+    routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
+    targetReadingLink = router.makeHref('createReading', {courseId}, routeQuery)
+    targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
+    targetExternalLink = router.makeHref('createExternal', {courseId}, routeQuery)
+    targetEventLink = router.makeHref('createEvent', {courseId}, routeQuery)
+
+    expect(addOnDayDropdown.refs.readingLink.props.href).to.equal(targetReadingLink)
+    expect(addOnDayDropdown.refs.homeworkLink.props.href).to.equal(targetHomeworkLink)
+    expect(addOnDayDropdown.refs.externalLink.props.href).to.equal(targetExternalLink)
+    expect(addOnDayDropdown.refs.eventLink.props.href).to.equal(targetEventLink)
+
+    expect(addOnDayDropdown.refs.readingLink.getDOMNode().childNodes[0].href).to.contain(targetReadingLink)
+    expect(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0].href).to.contain(targetHomeworkLink)
+    expect(addOnDayDropdown.refs.externalLink.getDOMNode().childNodes[0].href).to.contain(targetExternalLink)
+    expect(addOnDayDropdown.refs.eventLink.getDOMNode().childNodes[0].href).to.contain(targetEventLink)
+
+
   _doesLabelMatchMonthOf: (testMoment, {div, component, state, router, history, courseId}) ->
     monthLabel = div.querySelector('.calendar-header-label')
     monthFormat = component.refs.calendarHandler.refs.calendarHeader.props.format
@@ -161,16 +179,7 @@ checks =
     isToday = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()), 'day')
     # add date for drop down should be Today
     expect(isToday).to.be.true
-
-    routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
-    targetReadingLink = router.makeHref('createReading', {courseId}, routeQuery)
-    targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
-
-    expect(addOnDayDropdown.refs.readingLink.props.href).to.equal(targetReadingLink)
-    expect(addOnDayDropdown.refs.homeworkLink.props.href).to.equal(targetHomeworkLink)
-
-    expect(addOnDayDropdown.refs.readingLink.getDOMNode().childNodes[0].href).to.contain(targetReadingLink)
-    expect(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0].href).to.contain(targetHomeworkLink)
+    checks._checkAddMenu(addOnDayDropdown, router, courseId)
 
     {div, component, state, router, history, courseId}
 
@@ -185,16 +194,7 @@ checks =
     isTomorrow = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day')
     # add date for drop down should be Tomorrow
     expect(isTomorrow).to.be.true
-
-    routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
-    targetReadingLink = router.makeHref('createReading', {courseId}, routeQuery)
-    targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
-
-    expect(addOnDayDropdown.refs.readingLink.props.href).to.equal(targetReadingLink)
-    expect(addOnDayDropdown.refs.homeworkLink.props.href).to.equal(targetHomeworkLink)
-
-    expect(addOnDayDropdown.refs.readingLink.getDOMNode().childNodes[0].href).to.contain(targetReadingLink)
-    expect(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0].href).to.contain(targetHomeworkLink)
+    checks._checkAddMenu(addOnDayDropdown, router, courseId)
 
     {div, component, state, router, history, courseId}
 

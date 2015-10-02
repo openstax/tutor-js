@@ -4,11 +4,14 @@
 @import './reading-stats';
 @import './homework';
 @import './reading';
-@import './external/index';
 @import './select-topics';
 @import './chapter-section';
 @import './footer';
 
 .task-plan {
   .tutor-plan-set(header, ' .dialog > .panel-heading');
+
+  > .dialog {
+    .tutor-pad-panel();
+  }
 }

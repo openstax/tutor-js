@@ -5,7 +5,7 @@ Router = require 'react-router'
 {CourseListing} = require './components/course-listing'
 LearningGuideShell = require './components/learning-guide'
 {ScoresShell} = require './components/scores'
-{ReadingShell, HomeworkShell, ExternalShell} = require './components/task-plan'
+{ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {TaskTeacherReviewShell} = require './components/task-teacher-review'
@@ -63,6 +63,8 @@ routes = (
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
           <Route path='externals/new/?' name='createExternal' handler={ExternalShell} />
           <Route path='externals/:id/?' name='editExternal' handler={ExternalShell} />
+          <Route path='events/new/?' name='createEvent' handler={EventShell} />
+          <Route path='events/:id/?' name='editEvent' handler={EventShell} />
           <Route path='settings' name='courseSettings' handler={CourseSettings} />
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>

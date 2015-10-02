@@ -5,6 +5,7 @@ moment = require 'moment'
 ReadingRow      = require './reading-row'
 HomeworkRow     = require './homework-row'
 ExternalRow     = require './external-row'
+EventTaskRow        = require './event-task-row'
 EventRow        = require './event-row'
 GenericEventRow = require './generic-event-row'
 _ = require 'underscore'
@@ -36,6 +37,7 @@ module.exports = React.createClass
       when 'reading'  then <ReadingRow  courseId=@props.courseId key={event.id} event={event}/>
       when 'homework' then <HomeworkRow courseId=@props.courseId key={event.id} event={event}/>
       when 'external' then <ExternalRow courseId=@props.courseId key={event.id} event={event}/>
+      when 'event' then <EventTaskRow courseId=@props.courseId key={event.id} event={event}/>
       else
         <GenericEventRow courseId=@props.courseId key={event.id} event={event}/>
 
