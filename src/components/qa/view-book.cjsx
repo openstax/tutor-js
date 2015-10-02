@@ -13,7 +13,7 @@ LoadableItem = require '../loadable-item'
 QAContent = require './content'
 QAExercises = require './exercises'
 BookLink  = require './book-link'
-
+QAContentToggle = require './content-toggle'
 
 QAViewBook = React.createClass
 
@@ -22,25 +22,33 @@ QAViewBook = React.createClass
     section: React.PropTypes.string
 
   getInitialState: ->
-    isShowingTeacherContent: true
+    isShowingTeacherContent: true, isShowingBook: false
 
   renderNavbarControls: ->
+    if @state.isShowingBook
+      teacherContent = <TeacherContentToggle isShowing={@state.isShowingTeacherContent}
+        onChange={@setTeacherContent} />
+
     <BS.Nav navbar right>
+      <BS.NavItem>
+        {teacherContent}
+        <QAContentToggle isShowingBook={@state.isShowingBook} onChange={@setContentShowing}/>
+      </BS.NavItem>
       <BS.DropdownButton title="Available Books" className="dropdown-toggle">
         {for book in EcosystemsStore.allBooks()
           <li key={book.id}><BookLink book={book} /></li>}
       </BS.DropdownButton>
-      <BS.NavItem>
-        <TeacherContentToggle isShowing={@state.isShowingTeacherContent}
-          onChange={@setTeacherContent} />
-      </BS.NavItem>
     </BS.Nav>
+
+  setContentShowing: (visible) ->
+    @setState(isShowingBook: visible.book)
 
   setTeacherContent: (isShowing) ->
     @setState(isShowingTeacherContent: isShowing)
 
   renderBook: ->
     section = @props.section or ReferenceBookStore.getFirstSection(@props.bookId).join('.')
+    contentComponent = if @state.isShowingBook then QAContent else QAExercises
     <div className="qa">
       <ReferenceBook
           pageNavRouterLinkTarget='QAViewBookSection'
@@ -50,7 +58,7 @@ QAViewBook = React.createClass
           className={classnames('is-teacher')}
           className={classnames('is-teacher': @state.isShowingTeacherContent)}
           ecosystemId={@props.bookId}
-          contentComponent={QAExercises}
+          contentComponent={contentComponent}
       />
     </div>
 

@@ -7,6 +7,7 @@ ReferenceBookPage = require '../reference-book/page-shell'
 BindStoreMixin = require '../bind-store-mixin'
 
 Question = require '../question'
+ExerciseCard = require './exercise-card'
 
 {ReferenceBookExercise} =  require '../reference-book/exercise'
 
@@ -31,18 +32,15 @@ QAExercises = React.createClass
   loadPage: (props) ->
     page = ReferenceBookStore.getPageInfo(props)
     @setState(pageId: page.id)
-    if page and _.isEmpty( ExerciseStore.allForPage(page.id) )
+    if page and not ExerciseStore.isLoaded([page.id])
       ExerciseActions.load(@props.ecosystemId, [page.id], '')
-
-  renderExercise: (exercise) ->
-    <Question key={exercise.id} model={exercise.content.questions[0]}/>
 
   render: ->
     content = if ExerciseStore.isLoaded([@state.pageId])
       exercises = ExerciseStore.allForPage(@state.pageId)
       if _.isEmpty(exercises)
         <h3>No exercises found</h3>
-      else _.map exercises, @renderExercise
+      else _.map exercises, (ex) -> <ExerciseCard key={ex.id} exercise={ex} />
     else
       <h3>Loading...</h3>
 

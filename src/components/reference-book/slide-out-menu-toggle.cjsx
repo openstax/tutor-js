@@ -20,7 +20,7 @@ SlideOutMenuToggle = React.createClass
 
     <svg className="slide-out-menu-toggle" width={@props.width} height={@props.height}
       viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
         <g id="icon-list-open">
 
           <path id="line1"

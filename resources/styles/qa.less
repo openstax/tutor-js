@@ -1,9 +1,34 @@
 .qa{
   .exercises {
     width: @reference-book-page-width;
-    .question {
+    .exercise {
       margin-bottom: @tutor-card-body-padding-vertical;
-      background-color: @tutor-white;
+      .panel-heading {
+        position: inherit;
+        display: block;
+        padding: 0;
+      }
+      // override the default hover styles for the card from the teacher's exercise picker
+      &:hover {
+        background-color: white;
+        cursor: auto;
+      }
+
+    }
+    .pools {
+      text-align: right;
+      > span {
+        font-size: 1.6rem;
+        background-color: @tutor-quaternary;
+        margin-left: 0.5rem;
+        padding: 0 5px;
+        border-radius: @border-radius-base;
+      }
+      .reading_dynamic     { background-color: @reading-color;     }
+      .homework_dynamic    { background-color: @homework-color;    }
+      .practice_widget     { background-color: @qa-practice-color;    }
+      .reading_try_another { background-color: @qa-try-another-color; }
+      .homework_core       { background-color: @homework-color;    }
     }
   }
 }
