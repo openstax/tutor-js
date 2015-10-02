@@ -90,6 +90,18 @@
         color: @tutor-neutral-darker !important;
       }
     }
+    
+    &.is-trouble {
+      a {
+      display: inline-block;
+      padding: 10px;
+        &:before {
+          .is-trouble();
+          margin-right: 5px;
+        }
+      }
+    }
+    
   }
 }
 

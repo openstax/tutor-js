@@ -7,6 +7,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 1,
+        "is_trouble": true,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",
@@ -36,6 +37,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 2,
+        "is_trouble": false,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",
@@ -65,6 +67,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 3,
+        "is_trouble": false,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",
@@ -94,6 +97,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 4,
+        "is_trouble": false,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",
@@ -123,6 +127,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 5,
+        "is_trouble": false,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",
@@ -152,6 +157,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 6,
+        "is_trouble": false,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",
@@ -181,6 +187,7 @@
         "mean_grade_percent": 80,
         "total_count": 10,
         "complete_count": 7,
+        "is_trouble": false,
         "partially_complete_count": 0,
         "current_pages": [{
             "id": "1",

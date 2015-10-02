@@ -11,6 +11,8 @@ TaskPlanStatsConfig = {
         .map((stat) ->
           id: stat.period_id
           name: stat.name
+          is_trouble: stat.is_trouble
+
         )
         .tap(PeriodHelper.sort)
         .value()
