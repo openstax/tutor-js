@@ -121,10 +121,7 @@ describe 'Task Plan Builder', ->
   it 'sets the correct moment timezone on mount', ->
     courseId = COURSES[0].periods[0].id
     helper(NEW_READING).then ({dom, element}) ->
-      if TimeHelper.isCourseTimezone(courseId)
-        expect(moment().tz()).to.be.undefined
-      else
-        expect(moment().tz()).to.equal(CourseStore.getTimezone(courseId))
+      expect([undefined, CourseStore.getTimezone(courseId)]).to.contain(moment().tz())
 
   it 'sets the default due date when based on query string', ->
     helper(NEW_READING, {due_at: getISODateString(tomorrow)} ).then ({dom, element}) ->

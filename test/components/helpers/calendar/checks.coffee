@@ -102,7 +102,8 @@ checks =
     past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
     shouldBeYesterday = _.last(past)
 
-    isYesterday = shouldBeYesterday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day')
+    isYesterday = shouldBeYesterday._reactInternalInstance._context.date
+      .isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day')
     expect(isYesterday).to.be.true
     {div, component, state, router, history, courseId}
 
@@ -206,10 +207,7 @@ checks =
     {div, component, state, router, history, courseId}
 
   _checkDoesTimezoneMatchCourse: ({div, component, state, router, history, courseId}) ->
-    if TimeHelper.isCourseTimezone(courseId)
-      expect(moment().tz()).to.be.undefined
-    else
-      expect(moment().tz()).to.equal(CourseStore.getTimezone(courseId))
+    expect([undefined, CourseStore.getTimezone(courseId)]).to.contain(moment().tz())
 
     {div, component, state, router, history, courseId}
 
