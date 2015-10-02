@@ -18,7 +18,10 @@ ExerciseCardMixin =
 
     <div key={answer.id} className={classes}>
       <div className="answer-letter" />
-      <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
+      <div className="answer">
+        <ArbitraryHtmlAndMath className="choice" block={false} html={answer.content_html} />
+        <ArbitraryHtmlAndMath className="feedback" block={false} html={answer.feedback_html} />
+      </div>
     </div>
 
   renderTag: (tag) ->
