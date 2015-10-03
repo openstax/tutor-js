@@ -23,7 +23,7 @@ cleanMathArtifacts = ->
 
 
 # Typesets the entire document
-TypesetDocument = ->
+typesetDocument = ->
 
   nodes = document.querySelectorAll(MATH_SELECTOR)
   return if _.isEmpty(nodes)
@@ -45,7 +45,7 @@ TypesetDocument = ->
 
 # Install a debounce around typesetting function so that it will only run once
 # every 10ms even if called multiple calls times in that period
-TypesetDocument = _.debounce( TypesetDocument, 10)
+typesetDocument = _.debounce( typesetDocument, 10)
 
 
 typesetMath = (root) ->
@@ -59,7 +59,7 @@ typesetMath = (root) ->
   # render MathML with MathJax
   window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
 
-  TypesetDocument()
+  typesetDocument()
 
 
 
