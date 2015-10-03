@@ -3,7 +3,7 @@ _ = require 'underscore'
 MATH_MARKER_BLOCK  = '\u200c\u200c\u200c' # zero-width non-joiner
 MATH_MARKER_INLINE = '\u200b\u200b\u200b' # zero-width space
 
-MATH_SELECTOR = '[data-math]:not(.math-rendered)'
+MATH_SELECTOR = '[data-math]:not(.math-rendered), math:not(.math-rendered)'
 
 cleanMathArtifacts = ->
   # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
@@ -29,14 +29,16 @@ typesetDocument = ->
   return if _.isEmpty(nodes)
 
   for node in nodes
+    node.classList.add('math-rendered')
+    # math elements are corrupted when the marker is inserted
+    continue if node.tagName is 'math'
+
     formula = node.getAttribute('data-math')
     # divs with data-math should be rendered as a block
     if node.tagName.toLowerCase() is 'div'
       node.textContent = "#{MATH_MARKER_BLOCK}#{formula}#{MATH_MARKER_BLOCK}"
     else
       node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
-    # mark node as processed
-    node.classList.add('math-rendered')
 
   # submit all nodes at once for optimal rendering performance
   window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, _.toArray(nodes)])
@@ -48,19 +50,12 @@ typesetDocument = ->
 typesetDocument = _.debounce( typesetDocument, 10)
 
 
+# typesetMath is the main exported function.
+# It's called by components like HTML after they're rendered
 typesetMath = (root) ->
-  nodes = root.querySelectorAll(MATH_SELECTOR) or []
-  hasMath = root.querySelector('math')
-
-  # Return immediatly if no [data-math] or <math> elements are present
-  # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
-  return unless window.MathJax?.Hub?.Queue? and (_.any(nodes) or hasMath)
-
-  # render MathML with MathJax
-  window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
-
-  typesetDocument()
-
+  # schedule a Mathjax pass if there is at least one [data-math] or <math> element present
+  if window.MathJax?.Hub?.Queue? and root.querySelector(MATH_SELECTOR)
+    typesetDocument()
 
 
 # The following should be called once and configures MathJax.
