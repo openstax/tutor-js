@@ -53,8 +53,8 @@
         .tutor-physics-cover-background();
       }
       .tutor-course-alt-link {
-        color: @tutor-tertiary;
-        background-color: @tutor-secondary;
+        color: @tutor-book-hs-physics-primary;
+        background-color: @tutor-book-hs-physics-secondary;
       }
     }
     &[data-category=biology] {
@@ -62,8 +62,8 @@
         .tutor-biology-cover-background();
       }
       .tutor-course-alt-link {
-        color: @tutor-secondary;
-        background-color: @tutor-neutral-darker;
+        color: @tutor-book-ap-bio-primary;
+        background-color: @tutor-book-ap-bio-secondary;
       }
     }
   }
@@ -96,9 +96,8 @@
       &[data-category=biology] {
         .tutor-course-item {
           &::before {
-            // TODO alias these to be subject specific
-            color: @tutor-secondary;
-            background-color: @tutor-neutral-darker;
+            color: @tutor-book-ap-bio-primary;
+            background-color: @tutor-book-ap-bio-secondary;
           }
         }
       }
@@ -106,9 +105,8 @@
       &[data-category=physics] {
         .tutor-course-item {
           &::before {
-            // TODO alias these to be subject specific
-            color: @tutor-tertiary;
-            background-color: @tutor-secondary;
+            color: @tutor-book-hs-physics-primary;
+            background-color: @tutor-book-hs-physics-secondary;
           }
         }
       }
