@@ -15,6 +15,10 @@ WPExtractText   = require 'extract-text-webpack-plugin'
 
 TestRunner      = require './test/config/test-runner'
 
+KARMA_DEV_CONFIG =
+  configFile: __dirname + '/test/karma-dev.config.coffee'
+  singleRun: false
+
 KARMA_CONFIG =
   configFile: __dirname + '/test/config/karma.config.coffee'
   singleRun: true
@@ -71,6 +75,11 @@ gulp.task '_archive', ['_tagRev'], ->
 # -----------------------------------------------------------------------
 #  Development
 # -----------------------------------------------------------------------
+#
+gulp.task '_karma', ->
+  server = new karma.Server(KARMA_DEV_CONFIG)
+  server.start()
+
 gulp.task '_webserver', ->
   env(vars:{ NODE_ENV: 'development' })
   webpackConfig = require './webpack.config'
