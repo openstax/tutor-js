@@ -49,14 +49,6 @@ CourseMonth = React.createClass
       # sync local copy with server again when we change date in view.
       TeacherTaskPlanActions.load(@props.courseId)
 
-  componentWillMount: ->
-    {courseId} = @props
-    TimeHelper.syncCourseTimezone(courseId)
-
-  componentWillUnmount: ->
-    {courseId} = @props
-    TimeHelper.unsyncCourseTimezone(courseId)
-
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
