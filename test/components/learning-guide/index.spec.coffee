@@ -5,13 +5,13 @@ React = require 'react'
 ReactAddons    = require('react/addons')
 ReactTestUtils = React.addons.TestUtils
 {Promise}      = require 'es6-promise'
-{routerStub, commonActions} = require './helpers/utilities'
+{routerStub, commonActions} = require '../helpers/utilities'
 
 
-LearningGuide = require '../../src/flux/learning-guide'
-Guide = require '../../src/components/learning-guide/guide'
+LearningGuide = require '../../../src/flux/learning-guide'
+Guide = require '../../../src/components/learning-guide/guide'
 
-GUIDE_DATA = require '../../api/courses/1/guide.json'
+GUIDE_DATA = require '../../../api/courses/1/guide.json'
 COURSE_ID = '1' # needs to be a string, that's what LoadableItem expects
 
 renderGuide = (url) ->

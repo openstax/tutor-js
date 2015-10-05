@@ -1,11 +1,11 @@
 React = require 'react'
 
-LearningGuide = require '../flux/learning-guide'
-LoadableItem = require './loadable-item'
-TeacherComponent = require './learning-guide/teacher'
-StudentComponent = require './learning-guide/student'
-TeacherStudentComponent = require './learning-guide/teacher-student'
-{ScoresStore, ScoresActions} = require '../flux/scores'
+LearningGuide = require '../../flux/learning-guide'
+LoadableItem = require '../loadable-item'
+TeacherComponent = require './teacher'
+StudentComponent = require './student'
+TeacherStudentComponent = require './teacher-student'
+{ScoresStore, ScoresActions} = require '../../flux/scores'
 
 Student = React.createClass
   displayName: 'LearningGuideStudentShell'
