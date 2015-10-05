@@ -1,6 +1,8 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
+classnames = require 'classnames'
+
 ChapterSectionMixin = require '../chapter-section-mixin'
 
 Progress = React.createClass
@@ -61,9 +63,9 @@ Progress = React.createClass
 
     active = activeSection is sectionLabel
 
-    progressClass = 'reading-progress'
-    progressClass = "#{progressClass} active" if active
-    progressClass = "#{progressClass} inactive" if activeSection and not active
+    progressClass = classnames 'reading-progress',
+      'active': active
+      'inactive': activeSection and not active
 
     <div key="#{type}-bar-#{index}" className={progressClass}>
       <div className='reading-progress-heading'>

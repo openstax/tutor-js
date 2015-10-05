@@ -50,7 +50,12 @@ PracticesPerformance = React.createClass
         <div className='reading-progress-delta'>
           {@calculatePercentDelta(data.correct_count, data.previous_attempt.correct_count)}% change
         </div>
-    <Progress data={data} type='practice' index={i} previous={previous} activeSection={activeSection}/>
+    <Progress
+      data={data}
+      type='practice'
+      index={i}
+      previous={previous}
+      activeSection={activeSection}/>
 
   render: ->
     {spacedPages} = @props
