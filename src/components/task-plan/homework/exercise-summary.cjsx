@@ -19,6 +19,8 @@ ExerciseSummary = React.createClass
   removeTutorSelection: ->
     TaskPlanActions.updateTutorSelection(@props.planId, -1)
 
+  backToTop: -> window.scroll(0, 0)
+
   render: ->
     numSelected = TaskPlanStore.getExercises(@props.planId).length
     numTutor = TaskPlanStore.getTutorSelections(@props.planId)
@@ -62,8 +64,8 @@ ExerciseSummary = React.createClass
             <i className="fa fa-arrow-up"/>
           </BS.Button>
 
-    <BS.Panel className="exercise-summary" bsStyle="default">
-      <BS.Grid>
+    <div className="summary-container">
+      <BS.Panel className="exercise-summary" bsStyle="default">
         <BS.Row>
           <BS.Col sm={6} md={2} className="total">
             <h2>{total}</h2>
@@ -86,10 +88,11 @@ ExerciseSummary = React.createClass
             {buttons}
           </BS.Col>
           <BS.Col sm={6} md={2}>
-
+            <BS.Button onClick={@backToTop}  bsStyle="default" className="back-to-top">
+              <i className="fa fa-chevron-up"></i>
+            </BS.Button>
           </BS.Col>
         </BS.Row>
-      </BS.Grid>
-    </BS.Panel>
-
+      </BS.Panel>
+    </div>
 module.exports = ExerciseSummary
