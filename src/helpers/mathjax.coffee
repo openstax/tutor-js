@@ -3,7 +3,9 @@ _ = require 'underscore'
 MATH_MARKER_BLOCK  = '\u200c\u200c\u200c' # zero-width non-joiner
 MATH_MARKER_INLINE = '\u200b\u200b\u200b' # zero-width space
 
-MATH_SELECTOR = '[data-math]:not(.math-rendered), math:not(.math-rendered)'
+MATH_DATA_SELECTOR = '[data-math]:not(.math-rendered)'
+MATH_ML_SELECTOR   = 'math:not(.math-rendered)'
+COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 
 cleanMathArtifacts = ->
   # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
@@ -22,27 +24,23 @@ cleanMathArtifacts = ->
 
 
 
-# Typesets the entire document
+# Search document for math and [data-math] elements and then typeset them
 typesetDocument = ->
-
-  nodes = document.querySelectorAll(MATH_SELECTOR)
-  return if _.isEmpty(nodes)
-
-  for node in nodes
-    node.classList.add('math-rendered')
-    # math elements are corrupted when the marker is inserted
-    continue if node.tagName is 'math'
-
+  allNodes = []
+  for node in document.querySelectorAll(MATH_DATA_SELECTOR)
     formula = node.getAttribute('data-math')
-    # divs with data-math should be rendered as a block
+    # divs should be rendered as a block, others inline
     if node.tagName.toLowerCase() is 'div'
       node.textContent = "#{MATH_MARKER_BLOCK}#{formula}#{MATH_MARKER_BLOCK}"
     else
       node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
-
-  # submit all nodes at once for optimal rendering performance
-  window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, _.toArray(nodes)])
-
+    allNodes.push(node)
+  # Mathjax doesn't typeset a element when it's passed one directly
+  # It will only render child elements
+  allNodes = allNodes.concat(
+    _.pluck(document.querySelectorAll(MATH_ML_SELECTOR), 'parentNode')
+  )
+  window.MathJax.Hub.Typeset( allNodes )
   cleanMathArtifacts()
 
 # Install a debounce around typesetting function so that it will only run once
@@ -54,7 +52,7 @@ typesetDocument = _.debounce( typesetDocument, 10)
 # It's called by components like HTML after they're rendered
 typesetMath = (root) ->
   # schedule a Mathjax pass if there is at least one [data-math] or <math> element present
-  if window.MathJax?.Hub?.Queue? and root.querySelector(MATH_SELECTOR)
+  if window.MathJax?.Hub?.Queue? and root.querySelector(COMBINED_MATH_SELECTOR)
     typesetDocument()
 
 
