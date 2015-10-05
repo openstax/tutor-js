@@ -5,12 +5,7 @@ commonConfig = require './karma.common'
 module.exports = (karmaConfig) ->
 
   config = _.extend(commonConfig, {
-    browsers: ['Chrome']
-    reporters: ['nyan']
-    nyanReporter:
-      suppressErrorReport: false
-      suppressErrorHighlighting: true
-      numberOfRainbowLines: 5
+    browsers: [process.env.KARMA_BROWSER or 'PhantomJS']
   })
 
   karmaConfig.set(config)
