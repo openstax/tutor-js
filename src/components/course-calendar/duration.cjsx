@@ -70,6 +70,12 @@ CourseDuration = React.createClass
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
       .sortBy((plan) ->
+        moment(plan.published_at).valueOf()
+      )
+      .sortBy((plan) ->
+        plan.duration.end.valueOf()
+      )
+      .sortBy((plan) ->
         plan.duration.start.valueOf()
       )
       .value()
@@ -160,8 +166,12 @@ CourseDuration = React.createClass
     dueDates = _.pluck(plan.tasking_plans, 'due_at')
 
     plan.duration = @_getDurationFromMoments(dueDates)
-    plan.openRange = @_getDurationRange(plan)
-    plan.isOpen = plan.openRange.start.isBefore(referenceDate)
+
+  setPlanStatus: (plan) ->
+    {referenceDate} = @props
+    openRange = @_getDurationRange(plan)
+
+    plan.isOpen = openRange.start.isBefore(referenceDate)
     plan.isPublished = (plan.published_at? and plan.published_at)
     plan.isPublishing = @isPlanPublishing(plan)
     plan.isTrouble = plan.is_trouble
@@ -175,6 +185,8 @@ CourseDuration = React.createClass
       plan.mode = 'day'
       durationMethod = camelCase("set-duration-#{plan.mode}")
       @[durationMethod](plan)
+
+      @setPlanStatus(plan)
 
   isInDuration: (duration) ->
     (plan) ->
@@ -196,7 +208,7 @@ CourseDuration = React.createClass
     # Make a simple plan that omits duration/time related information
     # and adds back in only the relevant time information needed by the
     # CoursePlan component.
-    simplePlan = _.omit(plan, 'duration', 'tasking_plans', 'openRange')
+    simplePlan = _.omit(plan, 'duration', 'tasking_plans')
     earliestOpensAt = @_getEarliestOpensAt(plan)
     simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
     simplePlan.durationLength = plan.duration.length('days')

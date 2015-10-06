@@ -92,7 +92,7 @@ TeacherTaskPlanListing = React.createClass
 
     date = @getDateFromParams()
 
-    loadPlansList = TeacherTaskPlanStore.getActiveCoursePlans.bind(TeacherTaskPlanStore, courseId)
+    loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
 
     loadedCalendarProps = {loadPlansList, courseId, date}
 
@@ -108,7 +108,6 @@ TeacherTaskPlanListing = React.createClass
           id={courseId}
           renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
           renderLoading={-> <CourseCalendar className='calendar-loading'/>}
-          update={@update}
         />
 
       </BS.Panel>
