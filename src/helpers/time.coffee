@@ -70,10 +70,4 @@ TimeHelper =
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.getLocalTimezone().indexOf(courseTimezone) > -1
 
-  zoneTwix: (twix, zoneName) ->
-    twix.start.tz(zoneName)
-    twix.end.tz(zoneName)
-
-    twix
-
 module.exports = TimeHelper
