@@ -16,11 +16,6 @@ TimeHelper = require '../../helpers/time'
 {CourseStore}   = require '../../flux/course'
 {UnsavedStateMixin} = require '../unsaved-state'
 
-DEFAULT_LABELS =
-  assignment: 'Assignment'
-  openDate: 'Open Date'
-  dueDate: 'Due Date'
-
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
   mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]
