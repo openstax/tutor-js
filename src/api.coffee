@@ -13,7 +13,7 @@ _ = require 'underscore'
 {CourseActions} = require './flux/course'
 {JobActions} = require './flux/job'
 {EcosystemsActions} = require './flux/ecosystems'
-LearningGuide = require './flux/learning-guide'
+PerformanceForecast = require './flux/performance-forecast'
 
 {ScoresActions} = require './flux/scores'
 {ScoresExportActions} = require './flux/scores-export'
@@ -168,14 +168,14 @@ start = (bootstrapData) ->
   apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}"
 
-  apiHelper LearningGuide.Student.actions, LearningGuide.Student.actions.load,
-    LearningGuide.Student.actions.loaded, 'GET', (id) -> url: "/api/courses/#{id}/guide"
+  apiHelper PerformanceForecast.Student.actions, PerformanceForecast.Student.actions.load,
+    PerformanceForecast.Student.actions.loaded, 'GET', (id) -> url: "/api/courses/#{id}/guide"
 
-  apiHelper LearningGuide.Teacher.actions, LearningGuide.Teacher.actions.load,
-    LearningGuide.Teacher.actions.loaded, 'GET', (id) -> url: "/api/courses/#{id}/teacher_guide"
+  apiHelper PerformanceForecast.Teacher.actions, PerformanceForecast.Teacher.actions.load,
+    PerformanceForecast.Teacher.actions.loaded, 'GET', (id) -> url: "/api/courses/#{id}/teacher_guide"
 
-  apiHelper LearningGuide.TeacherStudent.actions, LearningGuide.TeacherStudent.actions.load,
-    LearningGuide.TeacherStudent.actions.loaded, 'GET', (id, {roleId}) ->
+  apiHelper PerformanceForecast.TeacherStudent.actions, PerformanceForecast.TeacherStudent.actions.load,
+    PerformanceForecast.TeacherStudent.actions.loaded, 'GET', (id, {roleId}) ->
       url: "/api/courses/#{id}/guide/role/#{roleId}"
 
   apiHelper ScoresActions, ScoresActions.load, ScoresActions.loaded, 'GET', (id) ->

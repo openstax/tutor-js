@@ -13,7 +13,9 @@ module.exports = React.createClass
     ).isRequired
 
   render: ->
-    <Router.Link className={"student-name #{@props.className}"} to='viewStudentTeacherGuide'
+    <Router.Link
+      className={"student-name #{@props.className}"}
+      to='viewStudentTeacherPerformanceForecast'
       params={roleId: @props.roleId, courseId: @props.courseId}>
       <Name {...@props.student} />
     </Router.Link>

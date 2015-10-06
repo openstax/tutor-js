@@ -36,8 +36,8 @@ ROUTES =
   guide:
     label: 'Performance Forecast'
     roles:
-      student: 'viewGuide'
-      teacher: 'viewTeacherGuide'
+      student: 'viewPerformanceForecast'
+      teacher: 'viewTeacherPerformanceForecast'
   scores:
     label: 'Student Scores'
     roles:

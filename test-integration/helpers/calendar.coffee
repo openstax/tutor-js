@@ -31,7 +31,7 @@ goOpen = (test, title) ->
   el.click()
   test.scrollTop()
 
-goLearningGuide = (test) ->
+goPerformanceForecast = (test) ->
   test.waitClick(linkText: 'Performance Forecast')
 
 Popup =
@@ -52,4 +52,4 @@ Popup =
     test.waitAnd(css: '.task-teacher-review .task-breadcrumbs')
 
 
-module.exports = {verify, createNew, goOpen, goLearningGuide, Popup}
+module.exports = {verify, createNew, goOpen, goPerformanceForecast, Popup}

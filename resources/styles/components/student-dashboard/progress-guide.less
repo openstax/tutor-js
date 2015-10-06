@@ -1,12 +1,12 @@
 // guide-dashboard-progress component inherits from above
 // dashboard specific styles only inside .dashboard-container below
-@import "../learning-guide/section-mixin";
-@import "../learning-guide/guide-key-mixin";
+@import "../performance-forecast/section-mixin";
+@import "../performance-forecast/guide-key-mixin";
 
 .student-dashboard {
   .progress-guide {
     .section {
-      .learning-guide-section();
+      .performance-forecast-section();
       text-align: left;
       margin-bottom: 20px;
       &:last-of-type{ margin-bottom: 0; }
@@ -28,12 +28,12 @@
 
     .guide-key {
       margin: 10px 0;
-      .learning-guide-key();
+      .performance-forecast-key();
     }
 
     // full width buttons
     .practice,
-    .view-learning-guide {
+    .view-performance-forecast {
       width: 100%;
     }
 

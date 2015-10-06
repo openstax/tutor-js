@@ -39,7 +39,7 @@ describe 'Calendar and Stats', ->
       @addTimeout(10)
       CourseSelect.goTo(@, courseCategory)
 
-      Calendar.goLearningGuide(@)
+      Calendar.goPerformanceForecast(@)
       @waitAnd(css: '.guide-heading')
       @forEach '.panel .nav.nav-tabs li', (period) ->
         period.click()
@@ -115,7 +115,7 @@ describe 'Calendar and Stats', ->
         console.log 'opening Student Forecast', courseCategory, index, 'of', total
         item.click()
         @waitAnd(css: '.chapter-panel.weaker, .no-data-message')
-        @waitClick(css: '.learning-guide a.back')
+        @waitClick(css: '.performance-forecast a.back')
         @waitAnd(css: '.course-scores-wrap')
 
       # only test the 1st row of each Student Response

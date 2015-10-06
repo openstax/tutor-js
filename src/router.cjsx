@@ -6,7 +6,7 @@ async = require './helpers/webpack-async-loader'
 
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
-LearningGuideShell = require './components/learning-guide'
+PerformanceForecastShell = require './components/performance-forecast'
 {ScoresShell} = require './components/scores'
 {ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
@@ -38,16 +38,19 @@ routes = (
           ignoreScrollBehavior/>
 
         <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
-        <Route path='guide/?' name='viewGuide' handler={LearningGuideShell.Student}/>
+        <Route
+          path='guide/?'
+          name='viewPerformanceForecast'
+          handler={PerformanceForecastShell.Student}/>
 
         <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='scores/?' name='viewScores'
             handler={Handler(ScoresShell, requireRole: 'teacher')} />
-          <Route path='guide' name='viewTeacherGuide'
-            handler={Handler(LearningGuideShell.Teacher, requireRole: 'teacher')} />
-          <Route path='guide/student/:roleId?' name='viewStudentTeacherGuide'
-            handler={Handler(LearningGuideShell.TeacherStudent, requireRole: 'teacher')}/>
+          <Route path='guide' name='viewTeacherPerformanceForecast'
+            handler={Handler(PerformanceForecastShell.Teacher, requireRole: 'teacher')} />
+          <Route path='guide/student/:roleId?' name='viewStudentTeacherPerformanceForecast'
+            handler={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher')}/>
 
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />

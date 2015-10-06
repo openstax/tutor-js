@@ -1,0 +1,55 @@
+.performance-forecast-panel(@spacing: 20px) {
+  padding-top: @spacing;
+  padding-bottom: @spacing;
+  background: @tutor-white;
+  margin-bottom: @spacing;
+  border: 1px solid @tutor-neutral-light;
+  .make-row();
+}
+
+.performance-forecast-section() {
+
+  #fonts > .sans(1.4rem, 1.4rem);
+
+  // if the .progress is a direct desendant then it's not inside a button
+  > .progress {
+    margin: 0.5rem 0;
+  }
+
+  .heading {
+    .flex-display();
+    .number {
+      margin-right: 0.5rem;
+    }
+    .title {
+      .flex(1);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .progress-bar-button {
+    margin-top: 0px;
+    width: 100%;
+  }
+  .amount-worked {
+    .flex-display();
+    .justify-content(flex-end);
+    font-size: 1rem;
+    .count {
+      color: @tutor-neutral;
+      letter-spacing: 0.05rem;
+      &.chapter {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .progress {
+    height: 0.8rem;
+    .progress-bar {
+      .performance-forecast-colors();
+    }
+  }
+}

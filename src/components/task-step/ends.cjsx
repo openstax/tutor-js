@@ -42,7 +42,7 @@ PracticeEnd = React.createClass
     pageIds = CourseStore.getPracticePageIds(courseId)
 
     fallbackLink =
-      to: 'viewGuide'
+      to: 'viewPerformanceForecast'
       params: {courseId}
       text: 'Back to Performance Forecast'
 

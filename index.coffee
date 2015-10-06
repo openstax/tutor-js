@@ -12,7 +12,7 @@ window._STORES =
   COURSE: require './src/flux/course'
   CURRENT_USER: require './src/flux/current-user'
   EXERCISE: require './src/flux/exercise'
-  LEARNING_GUIDE: require './src/flux/learning-guide'
+  PERFORMANCE_FORECAST: require './src/flux/performance-forecast'
   SCORES: require './src/flux/scores'
   STUDENT_DASHBOARD: require './src/flux/student-dashboard'
   TASK_PLAN: require './src/flux/task-plan'
