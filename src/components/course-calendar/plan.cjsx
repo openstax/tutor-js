@@ -5,6 +5,7 @@ React = require 'react'
 Router = require 'react-router'
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
+classnames = require 'classnames'
 
 CoursePlanDetails = require './plan-details'
 CoursePlanPublishingDetails = require './plan-publishing-details'
@@ -155,21 +156,12 @@ CoursePlan = React.createClass
     isPublished or isPublishing
 
   buildPlanClasses: (plan, publishStatus, isPublishing, isPublished, isActive) ->
-    planClasses = [
-      'plan-label-long'
-      "course-plan-#{plan.id}"
-    ]
-
-    planClasses.push('is-published') if isPublished
-    planClasses.push('is-failed') if publishStatus is 'failed'
-    planClasses.push('is-killed') if publishStatus is 'killed'
-    planClasses.push('is-publishing') if isPublishing
-    planClasses.push('is-open') if plan.isOpen
-    planClasses.push('is-trouble') if plan.isTrouble
-    planClasses.push('active') if isActive
-
-    planClasses.join(' ')
-
+    planClasses = classnames 'plan-label-long', "course-plan-#{plan.id}", "is-#{publishStatus}",
+      'is-published'  : isPublished
+      'is-publishing' : isPublishing
+      'is-open'       : plan.isOpen
+      'is-trouble'    : plan.isTrouble
+      'active'        : isActive
 
   renderDisplay: (hasQuickLook, planClasses, display) ->
     {rangeDuration, offset, offsetFromPlanStart, index} = display

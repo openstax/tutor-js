@@ -1,6 +1,7 @@
 moment = require 'moment'
 twix = require 'twix'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 React = require 'react'
 BS = require 'react-bootstrap'
@@ -146,8 +147,7 @@ CourseMonth = React.createClass
 
     days = @renderDays(calendarDuration)
 
-    calendarClassName = 'calendar-container'
-    calendarClassName = calendarClassName + " #{className}" if className
+    calendarClassName = classnames 'calendar-container', className
 
     if plansList?
       plans = <CourseDuration

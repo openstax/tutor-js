@@ -4,6 +4,8 @@ _ = require 'underscore'
 
 React = require 'react'
 BS = require 'react-bootstrap'
+classnames = require 'classnames'
+
 {TimeStore} = require '../../flux/time'
 
 CourseAddMenuMixin = require './add-menu-mixin'
@@ -35,7 +37,6 @@ CourseAdd = React.createClass
 
   render: ->
     {referenceDate, addDate, open} = @state
-    className = 'course-add-dropdown'
 
     # DYNAMIC_ADD_ON_CALENDAR_POSITIONING
     # Positions Add menu on date
@@ -45,11 +46,13 @@ CourseAdd = React.createClass
 
     style['display'] = if open then 'block' else 'none'
 
+    className = classnames 'course-add-dropdown',
+      'no-add': not addDate?.isAfter(referenceDate, 'day')
+
     # only allow add if addDate is on or after reference date
     if addDate?.isAfter(referenceDate, 'day')
       dropdownContent = @renderAddActions()
     else
-      className = "#{className} no-add"
       dayType = if addDate?.isSame(referenceDate, 'day') then 'today' else 'past day'
       dropdownContent = <li>
         <span className='no-add-text'>Cannot assign to {dayType}</span>
