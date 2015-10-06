@@ -19,7 +19,7 @@ STUDENT_MENU = [
     label: 'Dashboard'
   }
   {
-    name: 'viewGuide'
+    name: 'viewPerformanceForecast'
     params: {courseId: '1'}
     label: 'Performance Forecast'
   }
@@ -32,7 +32,7 @@ TEACHER_MENU = [
     params: {courseId: '2'}
   }
   {
-    name: 'viewTeacherGuide'
+    name: 'viewTeacherPerformanceForecast'
     params: {courseId: '2'}
     label: 'Performance Forecast'
   }

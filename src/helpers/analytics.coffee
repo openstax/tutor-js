@@ -21,11 +21,11 @@ Translators =
 
   dashboard:            ({courseId}) -> "/student/choose-course/#{courseId}"
   viewPractice:         ({courseId}) -> "/student/practice/#{courseId}"
-  viewGuide:            ({courseId}) -> "/student/performance-forecast/#{courseId}"
+  viewPerformanceForecast:  ({courseId}) -> "/student/performance-forecast/#{courseId}"
   viewStudentDashboard: ({courseId}) -> "/student/dashboard/#{courseId}"
 
   calendarByDate:        ({courseId}) -> "/teacher/calendar/#{courseId}"
-  viewTeacherGuide:      ({courseId}) -> "/teacher/performance-forecast/#{courseId}"
+  viewTeacherPerformanceForecast:      ({courseId}) -> "/teacher/performance-forecast/#{courseId}"
   viewScores:            ({courseId}) -> "/teacher/student-scores/#{courseId}"
   courseSettings:        ({courseId}) -> "/teacher/roster/#{courseId}"
   editReading:           ({courseId}) -> "/teacher/assignment/edit/reading/#{courseId}"
