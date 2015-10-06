@@ -1,6 +1,6 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
-moment = require 'moment'
+moment = require 'moment-timezone'
 validator = require 'validator'
 
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
@@ -10,6 +10,7 @@ validator = require 'validator'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
 {CourseActions, CourseStore} = require './course'
 TaskHelpers = require '../helpers/task'
+TimeHelper = require '../helpers/time'
 
 TUTOR_SELECTIONS =
   default: 3
@@ -129,7 +130,7 @@ TaskPlanConfig =
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
     dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
-      date = new Date(plan[attr])
+      date = TimeHelper.getMomentPreserveDate(plan[attr]).toDate()
       if isNaN(date.getTime()) then 0 else date.getTime()
     )
     if dates.length is 1 then new Date(_.first(dates)) else null
@@ -178,10 +179,11 @@ TaskPlanConfig =
     # the BE to accept.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = moment(date, [TimeStore.getFormat()]).toDate()
+      tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
     else
       for tasking in tasking_plans
-        tasking[attr] = moment(date, [TimeStore.getFormat()]).toDate()
+        tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
+
     @_change(id, {tasking_plans})
 
   clearDueAt: (id) ->

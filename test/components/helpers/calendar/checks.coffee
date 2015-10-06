@@ -3,13 +3,15 @@
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-moment = require 'moment'
+moment = require 'moment-timezone'
 twix = require 'twix'
 React = require 'react/addons'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../../../src/flux/task-plan-stats'
 {TimeActions, TimeStore} = require '../../../../src/flux/time'
+TimeHelper = require '../../../../src/helpers/time'
+{CourseStore} = require '../../../../src/flux/course'
 
 Add = require '../../../../src/components/course-calendar/add'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require '../../../../src/components/course-calendar/plan-display'
@@ -118,7 +120,8 @@ checks =
     past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
     shouldBeYesterday = _.last(past)
 
-    isYesterday = shouldBeYesterday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day')
+    isYesterday = shouldBeYesterday._reactInternalInstance._context.date
+      .isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day')
     expect(isYesterday).to.be.true
     {div, component, state, router, history, courseId}
 
@@ -201,6 +204,11 @@ checks =
     routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
     targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
     expect(state.path).to.equal(targetHomeworkLink)
+    {div, component, state, router, history, courseId}
+
+  _checkDoesTimezoneMatchCourse: ({div, component, state, router, history, courseId}) ->
+    expect([undefined, CourseStore.getTimezone(courseId)]).to.contain(moment().tz())
+
     {div, component, state, router, history, courseId}
 
 

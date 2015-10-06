@@ -1,7 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
 _ = require 'underscore'
-moment = require 'moment'
+moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
 PlanMixin = require './plan-mixin'
@@ -74,7 +74,7 @@ module.exports = React.createClass
   getQueriedDueAt: ->
     {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    dueAt = if due_at and isNewPlan then moment(due_at).toDate()
+    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at).toDate()
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -117,12 +117,14 @@ module.exports = React.createClass
     @setPeriodDefaults()
 
   componentWillMount: ->
-    TimeHelper.syncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.syncCourseTimezone(courseId)
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
 
   componentWillUnmount: ->
-    TimeHelper.unsyncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.unsyncCourseTimezone(courseId)
 
   setOpensAt: (value, period) ->
     {id} = @props

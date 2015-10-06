@@ -71,8 +71,8 @@ describe 'Course Calendar', ->
   it 'should render next month when next is clicked', (done) ->
     calendarActions
       .clickNext(@result)
-      .then(calendarChecks.checkIsDateNextMonth)
       .then(calendarChecks.checkIsLabelNextMonth)
+      .then(calendarChecks.checkIsDateNextMonth)
       .then( ->
         done()
       , done)
@@ -80,8 +80,8 @@ describe 'Course Calendar', ->
   it 'should render previous month when previous is clicked', (done) ->
     calendarActions
       .clickPrevious(@result)
-      .then(calendarChecks.checkIsDatePreviousMonth)
       .then(calendarChecks.checkIsLabelPreviousMonth)
+      .then(calendarChecks.checkIsDatePreviousMonth)
       .then( ->
         done()
       , done)
@@ -163,6 +163,13 @@ describe 'Course Calendar', ->
     calendarActions
       .clickYesterday(@result)
       .then(calendarChecks.checkAddPlansWarning)
+      .then( ->
+        done()
+      , done)
+
+  it 'should adjust the timezone to match the course timezone', (done) ->
+    calendarChecks
+      .checkDoesTimezoneMatchCourse(@result)
       .then( ->
         done()
       , done)

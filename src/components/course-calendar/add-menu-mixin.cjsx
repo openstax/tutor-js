@@ -1,4 +1,3 @@
-moment = require 'moment'
 _ = require 'underscore'
 
 React = require 'react'
