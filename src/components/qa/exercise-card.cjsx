@@ -1,19 +1,14 @@
 _ = require 'underscore'
 React = require 'react'
 
-{ExerciseCardMixin} = require '../task-plan/homework/exercises'
 {ExerciseStore} = require '../../flux/exercise'
 String = require '../../helpers/string'
+ExerciseCard = require '../exercise-card'
 
 Exercise = React.createClass
 
-  mixins: [ExerciseCardMixin]
-
   propTypes:
     exercise: React.PropTypes.object.isRequired
-
-  getPanelStyle: ->
-    "default"
 
   renderHeader: ->
     <div className='pools'>
@@ -21,9 +16,8 @@ Exercise = React.createClass
         <span key={pool} className={pool}>{String.titleize(pool)}</span>}
     </div>
 
-
   render: ->
-    @renderExercise()
+    <ExerciseCard {...@props} header={@renderHeader()} displayAll />
 
 
 module.exports = Exercise
