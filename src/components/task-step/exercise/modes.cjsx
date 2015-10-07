@@ -171,6 +171,7 @@ ExMultiChoice = React.createClass
     answerId: answer_id
 
   onAnswerChanged: (answer) ->
+    return if answer.id is @state.answerId
     @setState {answerId: answer.id}
     @props.onAnswerChanged?(answer)
 
