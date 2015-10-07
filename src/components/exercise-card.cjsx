@@ -9,9 +9,9 @@ ArbitraryHtmlAndMath = require './html'
 ExerciseCard = React.createClass
 
   PropTypes:
+    displayFeedback: React.PropTypes.bool
     panelStyle: React.PropTypes.string
     header:     React.PropTypes.element
-    displayAll: React.PropTypes.bool
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -54,7 +54,7 @@ ExerciseCard = React.createClass
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
 
     classes = classnames 'card', 'exercise',
-      'is-displaying-all': @props.displayAll
+      'is-displaying-feedback': @props.displayFeedback
 
     <BS.Panel
       className={classes}

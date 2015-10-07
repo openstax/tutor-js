@@ -17,7 +17,7 @@ Exercise = React.createClass
     </div>
 
   render: ->
-    <ExerciseCard {...@props} header={@renderHeader()} displayAll />
+    <ExerciseCard {...@props} header={@renderHeader()} displayFeedback />
 
 
 module.exports = Exercise

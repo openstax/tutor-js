@@ -11,20 +11,20 @@ ChapterSection = require '../chapter-section'
 
 ExerciseCardMixin =
 
-  toggleExpandedContent: ->
-    @setState(showingAllContent: not @state?.showingAllContent)
+  toggleFeedbackDisplay: ->
+    @setState(displayFeedback: not @state?.displayFeedback)
 
   renderExercise: ->
     <ExerciseCard
       {...@props}
       header={@renderHeader()}
-      displayAll={@state?.showingAllContent}
+      displayFeedback={@state?.displayFeedback}
       panelStyle={@getPanelStyle()}>
 
       <BS.Input type="checkbox" label="Display Feedback" standalone
         wrapperClassName={"feedback-toggle"}
-        checked={@state?.showingAllContent}
-        onChange={@toggleExpandedContent} />
+        checked={@state?.displayFeedback}
+        onChange={@toggleFeedbackDisplay} />
 
     </ExerciseCard>
 
