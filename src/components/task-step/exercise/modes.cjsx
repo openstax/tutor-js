@@ -12,6 +12,7 @@ AsyncButton = require '../../buttons/async-button'
 {TaskActions, TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 
+STEP_PROPS = ['content', 'free_response', 'answer_id', 'correct_answer_id', 'feedback_html']
 
 ExContinueButton = React.createClass
   displayName: 'ExContinueButton'
@@ -72,7 +73,7 @@ ExReviewOptions = React.createClass
         Refresh My Memory
       </BS.Button>
 
-    continueButton = 
+    continueButton =
       <ExContinueButton
         isContinueFailed={isContinueFailed}
         waitingText={waitingText}
@@ -261,7 +262,7 @@ ExerciseFreeResponse = React.createClass
 
   render: ->
     {id, focus, waitingText, isContinueFailed} = @props
-    {content} = TaskStepStore.get(id)
+    {content} = _.pick(@props, STEP_PROPS)
     disabled = TaskStepStore.isSaving(id)
 
     <ExFreeResponse
@@ -294,7 +295,7 @@ ExerciseMultiChoice = React.createClass
 
   render: ->
     {id, waitingText, isContinueFailed} = @props
-    multiChoiceProps = TaskStepStore.get(id)
+    multiChoiceProps = _.pick(@props, STEP_PROPS)
     isReady = not TaskStepStore.isLoading(id) and not TaskStepStore.isSaving(id)
 
     <ExMultiChoice
@@ -332,7 +333,7 @@ ExerciseReview = React.createClass
 
   render: ->
     {id, review, waitingText, isContinueFailed} = @props
-    reviewProps = TaskStepStore.get(id)
+    reviewProps = _.pick(@props, STEP_PROPS)
 
     task = TaskStore.get(TaskStepStore.getTaskId(id))
     canTryAnother = TaskStepStore.canTryAnother(id, task)
@@ -361,7 +362,7 @@ ExerciseTeacherReadOnly = React.createClass
 
   render: ->
     {id, review, waitingText, isContinueFailed} = @props
-    reviewProps = TaskStepStore.get(id)
+    reviewProps = _.pick(@props, STEP_PROPS)
 
     <ExReview
       {...reviewProps}

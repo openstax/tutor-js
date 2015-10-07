@@ -52,38 +52,42 @@ module.exports = React.createClass
     review: ''
     pinned: true
 
-  renderReview: (id, waitingText) ->
+  renderReview: (id, step, waitingText) ->
     reviewProps = @props
 
     <ExerciseReview
       {...reviewProps}
+      {...step}
       waitingText={waitingText}
       id={id}
     />
 
-  renderMultipleChoice: (id, waitingText) ->
+  renderMultipleChoice: (id, step, waitingText) ->
     multipleChoiceProps = _.omit(@props, 'goToStep', 'refreshStep', 'recoverFor')
 
     <ExerciseMultiChoice
       {...multipleChoiceProps}
+      {...step}
       waitingText={waitingText}
       id={id}
     />
 
-  renderFreeResponse: (id, waitingText) ->
+  renderFreeResponse: (id, step, waitingText) ->
     freeResponseProps = _.omit(@props, 'onStepCompleted', 'goToStep', 'onNextStep', 'refreshStep', 'recoverFor')
 
     <ExerciseFreeResponse
       {...freeResponseProps}
+      {...step}
       waitingText={waitingText}
       id={id}
     />
 
-  renderTeacherReadOnly: (id, waitingText) ->
+  renderTeacherReadOnly: (id, step, waitingText) ->
     teacherReadOnlyProps = _.omit(@props, 'onStepCompleted')
 
     <ExerciseTeacherReadOnly
       {...teacherReadOnlyProps}
+      {...step}
       waitingText={waitingText}
       id={id}
     />
@@ -93,7 +97,7 @@ module.exports = React.createClass
   render: ->
     {pinned, courseId, id, taskId, review} = @props
     {currentPanel} = @state
-    {group, related_content} = TaskStepStore.get(id)
+    step = {group, related_content} = TaskStepStore.get(id)
 
     waitingText = switch
       when TaskStepStore.isLoading(@props.id) then "Loading…"
@@ -109,7 +113,7 @@ module.exports = React.createClass
       {...@props}
     />
     <CardBody className='task-step' footer={footer} pinned={pinned}>
-      {@[renderPanelMethod]?(id, waitingText)}
+      {@[renderPanelMethod]?(id, step, waitingText)}
       <ExerciseGroup
         key='step-exercise-group'
         group={group}
