@@ -7,6 +7,15 @@ _ = require 'underscore'
 {StepPanel} = require '../../../helpers/policies'
 
 {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReadOnly} = require './modes'
+ExerciseGroup = require './group'
+StepFooter = require '../step-footer'
+{CardBody} = require '../../pinned-header-footer-card/sections'
+
+MODES =
+  'review'            : ExerciseReview
+  'multiple-choice'   : ExerciseMultiChoice
+  'free-response'     : ExerciseFreeResponse
+  'teacher-read-only' : ExerciseTeacherReadOnly
 
 module.exports = React.createClass
   displayName: 'Exercise'
@@ -78,11 +87,25 @@ module.exports = React.createClass
   # add render methods for different panel types as needed here
 
   render: ->
-    {id} = @props
+    {pinned, courseId, id, taskId, review} = @props
     {currentPanel} = @state
+    {group, related_content} = TaskStepStore.get(id)
 
     # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
     renderPanelMethod = camelCase "render-#{currentPanel}"
 
     throw new Error("BUG: panel #{currentPanel} for an exercise does not have a render method") unless @[renderPanelMethod]?
-    @[renderPanelMethod]?(id)
+
+    {isContinueEnabled} = MODES[currentPanel]
+
+    footer = <StepFooter
+      {...@props}
+      isContinueEnabled={isContinueEnabled(id)}
+    />
+    <CardBody className='task-step' footer={footer} pinned={pinned}>
+      {@[renderPanelMethod]?(id)}
+      <ExerciseGroup
+        key='step-exercise-group'
+        group={group}
+        related_content={related_content}/>
+    </CardBody>
