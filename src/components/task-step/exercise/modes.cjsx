@@ -18,6 +18,7 @@ ExContinueButton = React.createClass
   getDefaultProps: ->
     isContinueFailed: false
     waitingText: null
+    isContinueEnabled: true
 
   render: ->
     {isContinueEnabled, isContinueFailed, waitingText, onContinue, children} = @props
