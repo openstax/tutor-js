@@ -138,6 +138,11 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       expect((new moment()).tz()).to.be.truthy
 
+  it 'disables name and description fields when plan is past due', ->
+    helper(PUBLISHED_MODEL).then ({dom}) ->
+      expect(dom.querySelector('#reading-title').disabled).to.be.true
+      expect(dom.querySelector('.assignment-description textarea').disabled).to.be.true
+
   xit 'sets the default due date when based on query string', ->
     helper(NEW_READING, {due_at: getDateString(dayAfter)} ).then ({dom, element}) ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
