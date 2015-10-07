@@ -64,8 +64,8 @@ ExerciseSummary = React.createClass
             <i className="fa fa-arrow-up"/>
           </BS.Button>
 
-    <div className="summary-container">
-      <BS.Panel className="exercise-summary" bsStyle="default">
+    <BS.Panel className="exercise-summary" bsStyle="default">
+      <BS.Grid>
         <BS.Row>
           <BS.Col sm={6} md={2} className="total">
             <h2>{total}</h2>
@@ -93,6 +93,6 @@ ExerciseSummary = React.createClass
             </BS.Button>
           </BS.Col>
         </BS.Row>
-      </BS.Panel>
-    </div>
+      </BS.Grid>
+    </BS.Panel>
 module.exports = ExerciseSummary
