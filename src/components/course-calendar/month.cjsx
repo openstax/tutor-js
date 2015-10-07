@@ -1,6 +1,7 @@
-moment = require 'moment'
+moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 React = require 'react'
 BS = require 'react-bootstrap'
@@ -15,7 +16,6 @@ CourseDuration = require './duration'
 CoursePlan = require './plan'
 CourseAdd = require './add'
 CourseAddMenuMixin = require './add-menu-mixin'
-
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
@@ -49,12 +49,6 @@ CourseMonth = React.createClass
       @setDateParams(date)
       # sync local copy with server again when we change date in view.
       TeacherTaskPlanActions.load(@props.courseId)
-
-  componentWillMount: ->
-    TimeHelper.syncCourseTimezone()
-
-  componentWillUnmount: ->
-    TimeHelper.unsyncCourseTimezone()
 
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
@@ -146,8 +140,7 @@ CourseMonth = React.createClass
 
     days = @renderDays(calendarDuration)
 
-    calendarClassName = 'calendar-container'
-    calendarClassName = calendarClassName + " #{className}" if className
+    calendarClassName = classnames 'calendar-container', className
 
     if plansList?
       plans = <CourseDuration

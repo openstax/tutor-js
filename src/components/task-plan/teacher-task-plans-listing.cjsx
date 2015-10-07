@@ -1,5 +1,5 @@
 React = require 'react'
-moment = require 'moment'
+moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
@@ -9,6 +9,7 @@ LoadableItem = require '../loadable-item'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {CourseStore} = require '../../flux/course'
 {TimeStore} = require '../../flux/time'
+TimeHelper = require '../../helpers/time'
 
 DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -79,6 +80,14 @@ TeacherTaskPlanListing = React.createClass
         return callback()
 
       callback()
+
+  componentWillMount: ->
+    {courseId} = @context.router.getCurrentParams()
+    TimeHelper.syncCourseTimezone(courseId)
+
+  componentWillUnmount: ->
+    {courseId} = @context.router.getCurrentParams()
+    TimeHelper.unsyncCourseTimezone(courseId)
 
   getDateFromParams: ->
     {date} = @context.router.getCurrentParams()

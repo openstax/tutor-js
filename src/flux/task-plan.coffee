@@ -1,6 +1,6 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
-moment = require 'moment'
+moment = require 'moment-timezone'
 validator = require 'validator'
 
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
@@ -10,6 +10,7 @@ validator = require 'validator'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
 {CourseActions, CourseStore} = require './course'
 TaskHelpers = require '../helpers/task'
+TimeHelper = require '../helpers/time'
 
 TUTOR_SELECTIONS =
   default: 3
@@ -19,6 +20,8 @@ TUTOR_SELECTIONS =
 PLAN_TYPES =
   HOMEWORK: 'homework'
   READING: 'reading'
+  EXTERNAL: 'external'
+  EVENT: 'event'
 
 sortTopics = (topics) ->
   _.sortBy(topics, (topicId) ->
@@ -81,13 +84,9 @@ TaskPlanConfig =
       plan.target_id is target_id
     @_change(id, {tasking_plans})
 
-  _removeEmptyTaskings: (id) ->
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    tasking_plans = _.reject tasking_plans, (tasking) ->
+  _removeEmptyTaskings: (tasking_plans) ->
+    _.reject tasking_plans, (tasking) ->
       not (tasking.due_at and tasking.opens_at)
-
-    @_local[id].tasking_plans = tasking_plans
 
   setPeriods: (id, periods) ->
     plan = @_getPlan(id)
@@ -103,10 +102,12 @@ TaskPlanConfig =
         tasking
       )
 
-    @_local[id].tasking_plans = tasking_plans
-    
     if not @exports.isNew(id)
-      @_removeEmptyTaskings(id)
+      tasking_plans = @_removeEmptyTaskings(tasking_plans)
+
+    @_change(id, {tasking_plans})
+
+    @_setInitialPlan(id)
 
   replaceTaskings: (id, taskings) ->
     @_change(id, {tasking_plans: taskings})
@@ -129,7 +130,7 @@ TaskPlanConfig =
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
     dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
-      date = new Date(plan[attr])
+      date = TimeHelper.getMomentPreserveDate(plan[attr]).toDate()
       if isNaN(date.getTime()) then 0 else date.getTime()
     )
     if dates.length is 1 then new Date(_.first(dates)) else null
@@ -178,10 +179,11 @@ TaskPlanConfig =
     # the BE to accept.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = moment(date, [TimeStore.getFormat()]).toDate()
+      tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
     else
       for tasking in tasking_plans
-        tasking[attr] = moment(date, [TimeStore.getFormat()]).toDate()
+        tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
+
     @_change(id, {tasking_plans})
 
   clearDueAt: (id) ->
@@ -203,6 +205,9 @@ TaskPlanConfig =
 
   updateUrl: (id, external_url) ->
     @_change(id, {settings: {external_url}})
+
+  setEvent: (id) ->
+    @_change(id, {settings: {}})
 
   sortTopics: (id) ->
     plan = @_getPlan(id)
@@ -334,6 +339,9 @@ TaskPlanConfig =
     ]
     deleteStates.indexOf(@_asyncStatus[id]) > -1
 
+  _setInitialPlan: (id) ->
+    @_local[id].defaultPlan = _.extend({}, @exports.getChanged.call(@, id))
+
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
@@ -380,6 +388,8 @@ TaskPlanConfig =
         return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
       else if (plan.type is 'external')
         return plan.title and isValidDates() and validator.isURL(plan.settings?.external_url)
+      else if (plan.type is 'event')
+        return plan.title and isValidDates()
 
     isPublished: (id) ->
       plan = @_getPlan(id)
@@ -469,6 +479,8 @@ TaskPlanConfig =
     isStatsLoaded: (id) -> !! @_stats[id]
 
     isStatsFailed: (id) -> !! @_stats[id]
+
+    hasChanged: (id) -> not _.isEqual(@exports.getChanged.call(@, id), @_local[id].defaultPlan)
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)

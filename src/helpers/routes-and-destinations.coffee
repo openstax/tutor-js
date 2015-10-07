@@ -4,7 +4,7 @@ COURSES = 'Courses'
 DASHBOARD = 'Dashboard'
 EXTERNAL_BUILDER = 'External Assignment'
 HOMEWORK_BUILDER = 'Homework Builder'
-LEARNING_GUIDE = 'Performance Forecast'
+PERFORMANCE_FORECAST = 'Performance Forecast'
 SCORES = 'Scores'
 PLAN_REVIEW = 'Plan Review'
 PLAN_STATS = 'Plan Stats'
@@ -16,11 +16,11 @@ TASK = 'Task'
 REMEMBERED_ROUTES =
   dashboard: COURSES
   viewStudentDashboard: DASHBOARD
-  viewGuide: LEARNING_GUIDE
+  viewPerformanceForecast: PERFORMANCE_FORECAST
   viewTeacherDashboard: DASHBOARD
   viewScores: SCORES
-  viewTeacherGuide: LEARNING_GUIDE
-  viewStudentTeacherGuide: LEARNING_GUIDE
+  viewTeacherPerformanceForecast: PERFORMANCE_FORECAST
+  viewStudentTeacherPerformanceForecast: PERFORMANCE_FORECAST
   taskplans: DASHBOARD
   calendarByDate: DASHBOARD
   courseSettings: COURSE_SETTINGS
@@ -33,10 +33,12 @@ destinationHelpers =
   getDestinationName: (routeName) ->
     REMEMBERED_ROUTES[routeName]
 
-  destinationFromPath: (path, matchRoutes) ->
+  routeFromPath: (path, matchRoutes) ->
     matchedRoute = matchRoutes(path)
-    deepestRouteName = _.last(matchedRoute.routes).name if matchedRoute?.routes?.length
-    @getDestinationName(deepestRouteName)
+    _.last(matchedRoute.routes) if matchedRoute?.routes?.length
+
+  destinationFromPath: (path, matchRoutes) ->
+    @getDestinationName( @routeFromPath(arguments...)?.name )
 
   shouldRememberRoute: (routeName, router) ->
     !!@destinationFromPath(routeName.path, router.match)

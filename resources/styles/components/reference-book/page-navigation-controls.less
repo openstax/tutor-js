@@ -1,5 +1,5 @@
 .reference-book {
-  .page-wrapper > .nav {
+  .page-navigation {
     position: fixed;
     height: 100%;
     width: calc(~"50% - " @reference-book-page-width / 2 );
@@ -72,8 +72,9 @@
 
   &.menu-open {
     @media screen and (min-width: (@reference-book-page-width + @reference-book-menu-width + 50px) ) {
-      .page-wrapper > .nav {
+      .page-navigation {
         width: calc(~"50% - " (@reference-book-page-width+@reference-book-menu-width) / 2 );
+        &.prev { margin-left: @reference-book-menu-width; }
       }
     }
   }

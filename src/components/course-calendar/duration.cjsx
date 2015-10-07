@@ -1,4 +1,4 @@
-moment = require 'moment'
+moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
 camelCase = require 'camelcase'

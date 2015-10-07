@@ -19,7 +19,7 @@ STUDENT_MENU = [
     label: 'Dashboard'
   }
   {
-    name: 'viewGuide'
+    name: 'viewPerformanceForecast'
     params: {courseId: '1'}
     label: 'Performance Forecast'
   }
@@ -32,7 +32,7 @@ TEACHER_MENU = [
     params: {courseId: '2'}
   }
   {
-    name: 'viewTeacherGuide'
+    name: 'viewTeacherPerformanceForecast'
     params: {courseId: '2'}
     label: 'Performance Forecast'
   }
@@ -81,8 +81,8 @@ describe 'Current User Store', ->
     expect(CurrentUserStore.getDashboardRoute(3)).to.equal('taskplans')
 
   it 'should return expected menu routes for courses', ->
-    expect(CurrentUserStore.getMenuRoutes('1')).to.deep.equal(STUDENT_MENU)
-    expect(CurrentUserStore.getMenuRoutes('2')).to.deep.equal(TEACHER_MENU)
+    expect(CurrentUserStore.getCourseMenuRoutes('1')).to.deep.equal(STUDENT_MENU)
+    expect(CurrentUserStore.getCourseMenuRoutes('2')).to.deep.equal(TEACHER_MENU)
 
   it 'should return expected guest for non-attending course', ->
     expect(CurrentUserStore.getCourseRole(4)).to.equal('guest')

@@ -1,4 +1,3 @@
-moment = require 'moment'
 _ = require 'underscore'
 
 React = require 'react'
@@ -49,6 +48,14 @@ CourseAddMenuMixin =
         params:
           courseId: courseId
         type: 'external'
+        query:
+          due_at: @state.addDate?.format(dateFormat)
+      }, {
+        text: 'Add Event'
+        to: 'createEvent'
+        params:
+          courseId: courseId
+        type: 'event'
         query:
           due_at: @state.addDate?.format(dateFormat)
       }

@@ -4,13 +4,15 @@ LoadableItem = require '../loadable-item'
 _ = require 'underscore'
 S = require '../../helpers/string'
 
-LearningGuide = require '../../flux/learning-guide'
+PerformanceForecast = require '../../flux/performance-forecast'
 ChapterSection = require '../task-plan/chapter-section'
 ChapterSectionMixin = require '../chapter-section-mixin'
-LearningGuideSection = require '../learning-guide/section'
-LearningGuideColorKey = require '../learning-guide/color-key'
-PracticeButton = require '../learning-guide/practice-button'
-Section = require '../learning-guide/section'
+PerformanceForecastSection = require '../performance-forecast/section'
+PerformanceForecastColorKey = require '../performance-forecast/color-key'
+PracticeButton = require '../performance-forecast/practice-button'
+Section = require '../performance-forecast/section'
+SpyModeContent = require '../spy-mode/content'
+
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -30,9 +32,9 @@ ProgressGuide = React.createClass
 
   render: ->
     courseId = @props.courseId
-    guide = LearningGuide.Student.store.get(courseId)
-    sections = LearningGuide.Helpers.recentSections(
-      LearningGuide.Student.store.getAllSections(courseId)
+    guide = PerformanceForecast.Student.store.get(courseId)
+    sections = PerformanceForecast.Helpers.recentSections(
+      PerformanceForecast.Student.store.getAllSections(courseId)
     )
 
     <div className='progress-guide'>
@@ -45,7 +47,7 @@ ProgressGuide = React.createClass
               {...@props} sampleSizeThreshold={3} />}
         </div>
       </div>
-      <LearningGuideColorKey />
+      <PerformanceForecastColorKey />
     </div>
 
 
@@ -58,8 +60,8 @@ ProgressGuidePanels = React.createClass
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
   mixins: [ChapterSectionMixin]
-  viewGuide: ->
-    @context.router.transitionTo('viewGuide', {courseId: @props.courseId})
+  viewPerformanceForecast: ->
+    @context.router.transitionTo('viewPerformanceForecast', {courseId: @props.courseId})
 
   renderEmpty: (sections) ->
     <div className='progress-guide empty'>
@@ -72,20 +74,22 @@ ProgressGuidePanels = React.createClass
           </p><p>
             This area will fill in with topics as you complete your assignments
           </p>
-          <ul className='visible-when-debugging'>
-            <li>{sections.length} sections were returned by the performance forecast</li>
-          { for section in sections
-            <li>{@sectionFormat(section.chapter_section)} section.title</li> }
-          </ul>
+          <SpyModeContent>
+            <ul>
+              <li>{sections.length} sections were returned by the performance forecast</li>
+              { for section in sections
+                <li>{@sectionFormat(section.chapter_section)} section.title</li> }
+            </ul>
+          </SpyModeContent>
       </div>
     </div>
 
   render: ->
-    sections = LearningGuide.Student.store.getAllSections(@props.courseId)
-    recent = LearningGuide.Helpers.recentSections(sections)
+    sections = PerformanceForecast.Student.store.getAllSections(@props.courseId)
+    recent = PerformanceForecast.Helpers.recentSections(sections)
     return @renderEmpty(sections) if _.isEmpty(recent)
 
-    practiceSections = LearningGuide.Helpers.weakestSections(sections)
+    practiceSections = PerformanceForecast.Helpers.weakestSections(sections)
     if _.isEmpty(practiceSections)
       practiceSections = recent
 
@@ -98,8 +102,8 @@ ProgressGuidePanels = React.createClass
             courseId={@props.courseId} sections={practiceSections} />
 
         <BS.Button
-          onClick={@viewGuide}
-          className='view-learning-guide'
+          onClick={@viewPerformanceForecast}
+          className='view-performance-forecast'
         >
           View All Topics
         </BS.Button>
@@ -122,8 +126,8 @@ module.exports = React.createClass
   render: ->
     <LoadableItem
       id={@props.courseId}
-      store={LearningGuide.Student.store}
+      store={PerformanceForecast.Student.store}
       renderLoading={@renderLoading}
-      actions={LearningGuide.Student.actions}
+      actions={PerformanceForecast.Student.actions}
       renderItem={=> <ProgressGuidePanels {...@props} />}
     />

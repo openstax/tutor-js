@@ -5,6 +5,8 @@ _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 PeriodHelper = require '../helpers/period'
 
+DEFAULT_COURSE_TIMEZONE = 'US/Central'
+
 CourseConfig =
 
   _practices: {}
@@ -96,6 +98,9 @@ CourseConfig =
     getPeriods: (courseId) ->
       periods = @_get(courseId).periods or []
       sortedPeriods = PeriodHelper.sort(periods)
+
+    getTimezone: (courseId) ->
+      @_get(courseId)?.timezone or DEFAULT_COURSE_TIMEZONE
 
     isTeacher: (courseId) ->
       !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')

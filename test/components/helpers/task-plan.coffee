@@ -27,11 +27,11 @@ ExtendBasePlan = (props, taskingProps = {}, extendTasking = true) ->
 
   baseModel
 
-PlanRenderHelper = (model, component, moreProps = {}, routerParams) ->
+PlanRenderHelper = (model, component, moreProps = {}, routerParams, routerQuery) ->
   {id} = model
   # Load the plan into the store
   TaskPlanActions.loaded(model, id)
   props = _.extend({id, courseId: "1"}, moreProps)
-  Testing.renderComponent( component, props: props, routerQuery: routerParams)
+  Testing.renderComponent( component, props: props, routerParams: routerParams, routerQuery: routerQuery)
 
 module.exports = {ExtendBasePlan, PlanRenderHelper}

@@ -1,4 +1,5 @@
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
+webpack = require 'webpack'
 
 isProduction = process.env.NODE_ENV is 'production'
 LOADERS = if isProduction then [] else ["react-hot", "webpack-module-hot-accept"]
@@ -16,6 +17,9 @@ module.exports =
     tutor: [
       './index.coffee',
       './resources/styles/tutor.less'
+    ]
+    qa: [
+      './src/qa.coffee'
     ]
 
   output:

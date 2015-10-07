@@ -3,12 +3,19 @@
 // TODO: Decide where best to organize this once more have accumulated
 @tutor-task-width: 1000px;
 
+@tutor-panel-padding-vertical: 50px;
 @tutor-card-body-padding-vertical: 20px;
 @tutor-card-body-padding-horizontal: 140px;
 @tutor-card-footer-line-height: 35px;
 @tutor-card-body-padding: @tutor-card-body-padding-vertical @tutor-card-body-padding-horizontal;
 @tutor-card-padding-collapse-breakpoint: 1020px;
+
 @tutor-card-body-narrow-padding-horizontal: 20px;
+@tutor-panel-narrow-padding-horizontal: 30px;
+
+@tutor-panel-padding: @tutor-panel-padding-vertical @tutor-card-body-padding-horizontal;
+@tutor-panel-collapse-breakpoint: @screen-sm;
+@tutor-panel-padding-collapsed: @tutor-panel-padding-vertical @tutor-panel-narrow-padding-horizontal;
 
 @student-dashboard-row-height: 60px;
 @tutor-teacher-plan-stats-border-style: 1px dotted @tutor-neutral-light;
@@ -25,6 +32,8 @@
 
 @reading-color: @tutor-quaternary;
 @homework-color: @tutor-tertiary-light;
+@qa-practice-color:    darken(@homework-color, 10%);
+@qa-try-another-color: darken(@reading-color,  10%);
 @external-color: @tutor-tertiary;
 @event-color: @tutor-secondary;
 @extras-color: @tutor-primary;

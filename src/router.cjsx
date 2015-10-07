@@ -1,11 +1,14 @@
 React = require 'react'
 Router = require 'react-router'
 {Route, Redirect, NotFoundRoute} = Router
+
+async = require './helpers/webpack-async-loader'
+
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
-LearningGuideShell = require './components/learning-guide'
+PerformanceForecastShell = require './components/performance-forecast'
 {ScoresShell} = require './components/scores'
-{ReadingShell, HomeworkShell, ExternalShell} = require './components/task-plan'
+{ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {TaskTeacherReviewShell} = require './components/task-teacher-review'
@@ -16,6 +19,8 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
 Handler = require './helpers/conditional-rendering'
+
+QALoader = require 'promise?global!./qa'
 
 routes = (
   <Route handler={Root} name='root'>
@@ -33,16 +38,19 @@ routes = (
           ignoreScrollBehavior/>
 
         <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
-        <Route path='guide/?' name='viewGuide' handler={LearningGuideShell.Student}/>
+        <Route
+          path='guide/?'
+          name='viewPerformanceForecast'
+          handler={PerformanceForecastShell.Student}/>
 
         <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='scores/?' name='viewScores'
             handler={Handler(ScoresShell, requireRole: 'teacher')} />
-          <Route path='guide' name='viewTeacherGuide'
-            handler={Handler(LearningGuideShell.Teacher, requireRole: 'teacher')} />
-          <Route path='guide/student/:roleId?' name='viewStudentTeacherGuide'
-            handler={Handler(LearningGuideShell.TeacherStudent, requireRole: 'teacher')}/>
+          <Route path='guide' name='viewTeacherPerformanceForecast'
+            handler={Handler(PerformanceForecastShell.Teacher, requireRole: 'teacher')} />
+          <Route path='guide/student/:roleId?' name='viewStudentTeacherPerformanceForecast'
+            handler={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher')}/>
 
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />
@@ -63,6 +71,8 @@ routes = (
           <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
           <Route path='externals/new/?' name='createExternal' handler={ExternalShell} />
           <Route path='externals/:id/?' name='editExternal' handler={ExternalShell} />
+          <Route path='events/new/?' name='createEvent' handler={EventShell} />
+          <Route path='events/:id/?' name='editEvent' handler={EventShell} />
           <Route path='settings' name='courseSettings' handler={CourseSettings} />
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>
@@ -82,16 +92,24 @@ routes = (
         </Route>
       </Route>
       <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
-    </Route> # end of App route
+    </Route> # end of routes handled by App
+
     <Route path='/books/:courseId/?' name='viewReferenceBook' handler={ReferenceBookShell}>
       <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookPageShell}/>
-
-      <Route path='section/:section'
-        name='viewReferenceBookSection' handler={ReferenceBookShell} />
-
+      <Route path='section/:section' name='viewReferenceBookSection' handler={ReferenceBookShell} />
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
+    </Route> # end of /books route
 
-    </Route>
+    <Route path='/qa' name='QADashboard' handler={async(QALoader, 'QADashboard')} >
+      <Router.DefaultRoute name="QAViewFirstBook" handler={async(QALoader, 'QABook')}/>
+
+      <Route path=':ecosystemId' name='QAViewBook'
+        handler={async(QALoader, 'QABook')} />
+      <Route path=':ecosystemId/section/:section' name='QAViewBookSection'
+        handler={async(QALoader, 'QABook')} />
+
+    </Route> # end of qa route
+
     <NotFoundRoute handler={Invalid} />
   </Route>
 )

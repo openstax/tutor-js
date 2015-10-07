@@ -1,5 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
+classnames = require 'classnames'
+
 BS = require 'react-bootstrap'
 $ = require 'jquery'
 
@@ -10,37 +12,38 @@ ChapterSection = require '../chapter-section'
 {TocStore} = require '../../../flux/toc'
 
 ExerciseCardMixin =
-  renderAnswers: (answer) ->
-    classes = ['answers-answer']
-    if answer.correctness is '1.0'
-      classes.push('correct')
+  renderAnswer: (answer) ->
+    classes = classnames 'answers-answer',
+      correct: (answer.correctness is '1.0')
 
-    <div className={classes.join(' ')}>
+    <div key={answer.id} className={classes}>
       <div className="answer-letter" />
-      <ArbitraryHtmlAndMath className="answer" block={false} html={answer.content_html} />
+      <div className="answer">
+        <ArbitraryHtmlAndMath className="choice" block={false} html={answer.content_html} />
+        <ArbitraryHtmlAndMath className="feedback" block={false} html={answer.feedback_html} />
+      </div>
     </div>
 
-  renderTags: (tag) ->
+  renderTag: (tag) ->
     {content, isLO} = ExerciseStore.getTagContent(tag)
-    classes = ['exercise-tag']
-
-    if isLO
-      classes = ['lo-tag']
-      loLabel = 'LO: '
-
-    <span className={classes.join(' ')}>{loLabel} {content}</span>
+    classes = if isLO
+      content = "LO: #{content}" if isLO
+      'lo-tag'
+    else
+      'exercise-tag'
+    <span key={tag.id or tag.name} className={classes}>{content}</span>
 
   renderExercise: ->
     content = @props.exercise.content
     question = content.questions[0]
     renderedAnswers = _(question.answers).chain()
       .sortBy('id')
-      .map(@renderAnswers)
+      .map(@renderAnswer)
       .value()
     tags = _.clone @props.exercise.tags
     # Display the exercise uid as a tag
     tags.push(name: "ID: #{@props.exercise.content.uid}")
-    renderedTags = _.map(_.sortBy(tags, 'name'), @renderTags)
+    renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
     header = @renderHeader()
     panelStyle = @getPanelStyle()
 
@@ -52,7 +55,6 @@ ExerciseCardMixin =
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <div className='answers-table'>{renderedAnswers}</div>
-
       <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
@@ -226,7 +228,7 @@ ExerciseTable = React.createClass
       </td>
       <td className="ellipses">{lo}</td>
       {teks}
-      <td className="ellipses">{tagString}</td>
+      <td className="ellipses">{tagString.join(' / ')}</td>
     </tr>
 
   renderTutorRow: (index, hasTeks) ->
@@ -361,4 +363,4 @@ AddExercises = React.createClass
     </BS.Grid>
 
 
-module.exports = {AddExercises, ReviewExercises, ExerciseTable}
+module.exports = {AddExercises, ReviewExercises, ExerciseTable, ExerciseCardMixin}

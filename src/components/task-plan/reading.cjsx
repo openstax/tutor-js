@@ -12,7 +12,6 @@ PlanFooter = require './footer'
 ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
-ConfirmLeaveMixin = require '../confirm-leave-mixin'
 TaskPlanBuilder = require './builder'
 
 ReviewReadingLi = React.createClass

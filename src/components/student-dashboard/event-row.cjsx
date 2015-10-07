@@ -24,7 +24,8 @@ module.exports = React.createClass
       {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
 
   render: ->
-    workable = StudentDashboardStore.canWorkTask(@props.event)
+    {workable} = @props
+    workable ?= StudentDashboardStore.canWorkTask(@props.event)
     # FIXME - use classnames lib when available
     classnames = "task row #{@props.className}"
     classnames += ' workable' if workable

@@ -1,7 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
 _ = require 'underscore'
-moment = require 'moment'
+moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
 PlanMixin = require './plan-mixin'
@@ -23,6 +23,7 @@ module.exports = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
+    label: React.PropTypes.string
 
   getInitialState: ->
     isNewPlan = TaskPlanStore.isNew(@props.id)
@@ -30,11 +31,12 @@ module.exports = React.createClass
     showingPeriods: not isNewPlan
     currentLocale: TimeHelper.getCurrentLocales()
 
+  getDefaultProps: ->
+    label: 'Assignment'
+
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
-  hasUnsavedState: ->
-    TaskPlanStore.isChanged(@props.id)
-
+  hasUnsavedState: -> TaskPlanStore.hasChanged(@props.id)
   unsavedStateMessages: -> 'The assignment has unsaved changes'
 
   mapPeriods: (opensAt, dueAt) ->
@@ -72,7 +74,7 @@ module.exports = React.createClass
   getQueriedDueAt: ->
     {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    dueAt = if due_at and isNewPlan then moment(due_at).toDate()
+    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at).toDate()
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -115,12 +117,14 @@ module.exports = React.createClass
     @setPeriodDefaults()
 
   componentWillMount: ->
-    TimeHelper.syncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.syncCourseTimezone(courseId)
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
 
   componentWillUnmount: ->
-    TimeHelper.unsyncCourseTimezone()
+    {courseId} = @props
+    TimeHelper.unsyncCourseTimezone(courseId)
 
   setOpensAt: (value, period) ->
     {id} = @props
@@ -213,7 +217,7 @@ module.exports = React.createClass
 
 
     assignmentNameLabel = [
-      'Assignment name'
+      "#{@props.label} name"
       <span className='instructions'> (students will see this on their dashboard)</span>
     ]
 

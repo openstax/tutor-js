@@ -1,4 +1,8 @@
 moment = require 'moment-timezone'
+_ = require 'underscore'
+
+{TimeStore} = require '../flux/time'
+{CourseStore} = require '../flux/course'
 
 # Using tzdetect until https://github.com/moment/moment-timezone/issues/138
 # gets straightened out.
@@ -37,16 +41,33 @@ TimeHelper =
     week: currentLocale._week
     weekdaysMin: currentLocale._weekdaysMin
 
-  syncCourseTimezone: (courseTimezone = 'US/Central') ->
-    moment.tz.setDefault(courseTimezone)
+  syncCourseTimezone: (courseId) ->
+    return if @isCourseTimezone(courseId)
+    courseTimezone = CourseStore.getTimezone(courseId)
+    @_local ?= _.first(@getLocalTimezone())
+    zonedMoment = moment.fn.tz(courseTimezone)
+    zonedMoment
 
   unsyncCourseTimezone: ->
-    moment.defaultZone = null
+    return unless @_local?
+    unzonedMoment = moment.fn.tz(@_local)
+    @unsetLocal()
+    unzonedMoment
 
   getLocalTimezone: ->
     tzdetect.matches()
 
-  isCourseTimezone: (courseTimezone = 'US/Central') ->
+  getMomentPreserveDate: (value, args...) ->
+    moment.utc(value, args...).hour(12)
+
+  getLocal: ->
+    @_local
+
+  unsetLocal: ->
+    @_local = null
+
+  isCourseTimezone: (courseId) ->
+    courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.getLocalTimezone().indexOf(courseTimezone) > -1
 
 module.exports = TimeHelper

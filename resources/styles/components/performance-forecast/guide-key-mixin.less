@@ -1,0 +1,24 @@
+.performance-forecast-key() {
+  .flex-display();
+  .justify-content(space-around);
+  .item {
+    .flex-display();
+    .align-items(center);
+    .box {
+      width: 10px;
+      height: 10px;
+      margin-right: 5px;
+      .performance-forecast-colors()
+    }
+    .title {
+      #fonts > .sans(1.2rem, 1.2rem);
+      font-weight: 300;
+      font-style: italic;
+    }
+    &+.item {
+      .box {
+        margin-left: 5px;
+      }
+    }
+  }
+}

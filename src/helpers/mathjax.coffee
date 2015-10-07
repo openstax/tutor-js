@@ -3,6 +3,10 @@ _ = require 'underscore'
 MATH_MARKER_BLOCK  = '\u200c\u200c\u200c' # zero-width non-joiner
 MATH_MARKER_INLINE = '\u200b\u200b\u200b' # zero-width space
 
+MATH_DATA_SELECTOR = '[data-math]:not(.math-rendered)'
+MATH_ML_SELECTOR   = 'math:not(.math-rendered)'
+COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
+
 cleanMathArtifacts = ->
   # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
   # React "Invariant Violation" exceptions.
@@ -19,31 +23,37 @@ cleanMathArtifacts = ->
   ])
 
 
-typesetMath = (root) ->
-  nodes = root.querySelectorAll('[data-math]:not(.math-rendered)') or []
-  hasMath = root.querySelector('math')
 
-  # Return immediatly if no [data-math] or <math> elements are present
-  # TODO: If the MathJax Queue is not available then MathJax has not loaded yet. Add a load callback to enqueue.
-  return unless window.MathJax?.Hub?.Queue? and (_.any(nodes) or hasMath)
-
-  for node in nodes
+# Search document for math and [data-math] elements and then typeset them
+typesetDocument = ->
+  allNodes = []
+  for node in document.querySelectorAll(MATH_DATA_SELECTOR)
     formula = node.getAttribute('data-math')
-    # divs with data-math should be rendered as a block
+    # divs should be rendered as a block, others inline
     if node.tagName.toLowerCase() is 'div'
       node.textContent = "#{MATH_MARKER_BLOCK}#{formula}#{MATH_MARKER_BLOCK}"
     else
       node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
-    # mark node as processed
-    node.classList.add('math-rendered')
-
-  # submit all nodes at once for optimal rendering performance
-  window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, _.toArray(nodes)])
-
-  # render MathML with MathJax
-  window.MathJax.Hub.Queue(['Typeset', MathJax.Hub, root]) if hasMath
-
+    allNodes.push(node)
+  # Mathjax doesn't typeset a element when it's passed one directly
+  # It will only render child elements
+  allNodes = allNodes.concat(
+    _.pluck(document.querySelectorAll(MATH_ML_SELECTOR), 'parentNode')
+  )
+  window.MathJax.Hub.Typeset( allNodes )
   cleanMathArtifacts()
+
+# Install a debounce around typesetting function so that it will only run once
+# every 10ms even if called multiple calls times in that period
+typesetDocument = _.debounce( typesetDocument, 10)
+
+
+# typesetMath is the main exported function.
+# It's called by components like HTML after they're rendered
+typesetMath = (root) ->
+  # schedule a Mathjax pass if there is at least one [data-math] or <math> element present
+  if window.MathJax?.Hub?.Queue? and root.querySelector(COMBINED_MATH_SELECTOR)
+    typesetDocument()
 
 
 # The following should be called once and configures MathJax.
