@@ -52,35 +52,39 @@ module.exports = React.createClass
     review: ''
     pinned: true
 
-  renderReview: (id) ->
+  renderReview: (id, waitingText) ->
     reviewProps = @props
 
     <ExerciseReview
       {...reviewProps}
+      waitingText={waitingText}
       id={id}
     />
 
-  renderMultipleChoice: (id) ->
+  renderMultipleChoice: (id, waitingText) ->
     multipleChoiceProps = _.omit(@props, 'goToStep', 'refreshStep', 'recoverFor')
 
     <ExerciseMultiChoice
       {...multipleChoiceProps}
+      waitingText={waitingText}
       id={id}
     />
 
-  renderFreeResponse: (id) ->
+  renderFreeResponse: (id, waitingText) ->
     freeResponseProps = _.omit(@props, 'onStepCompleted', 'goToStep', 'onNextStep', 'refreshStep', 'recoverFor')
 
     <ExerciseFreeResponse
       {...freeResponseProps}
+      waitingText={waitingText}
       id={id}
     />
 
-  renderTeacherReadOnly: (id) ->
+  renderTeacherReadOnly: (id, waitingText) ->
     teacherReadOnlyProps = _.omit(@props, 'onStepCompleted')
 
     <ExerciseTeacherReadOnly
       {...teacherReadOnlyProps}
+      waitingText={waitingText}
       id={id}
     />
 
@@ -91,19 +95,21 @@ module.exports = React.createClass
     {currentPanel} = @state
     {group, related_content} = TaskStepStore.get(id)
 
+    waitingText = switch
+      when TaskStepStore.isLoading(@props.id) then "Loading…"
+      when TaskStepStore.isSaving(@props.id)  then "Saving…"
+      else null
+
     # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
     renderPanelMethod = camelCase "render-#{currentPanel}"
 
     throw new Error("BUG: panel #{currentPanel} for an exercise does not have a render method") unless @[renderPanelMethod]?
 
-    {isContinueEnabled} = MODES[currentPanel]
-
     footer = <StepFooter
       {...@props}
-      isContinueEnabled={isContinueEnabled(id)}
     />
     <CardBody className='task-step' footer={footer} pinned={pinned}>
-      {@[renderPanelMethod]?(id)}
+      {@[renderPanelMethod]?(id, waitingText)}
       <ExerciseGroup
         key='step-exercise-group'
         group={group}

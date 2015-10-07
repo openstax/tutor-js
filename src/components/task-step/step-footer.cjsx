@@ -15,29 +15,7 @@ StepFooter = React.createClass
   mixins: [StepFooterMixin]
 
   renderContinueButton: ->
-    return null if @props.hideContinue
-
-    # if this is the last step completed and the view is read-only,
-    # then you cannot continue, and this will override @isContinueEnabled
-    waitingText = switch
-      when TaskStepStore.isLoading(@props.id) then "Loading…"
-      when TaskStepStore.isSaving(@props.id)  then "Saving…"
-      else null
-
-    cannotContinue = not StepPanel.canContinue(@props.id) or not @props.isContinueEnabled
-
-    <AsyncButton
-      bsStyle='primary'
-      className='continue'
-      key='step-continue'
-      onClick={@onContinue}
-      disabled={cannotContinue}
-      isWaiting={!!waitingText}
-      waitingText={waitingText}
-      isFailed={TaskStepStore.isFailed(@props.id)}
-      >
-      {@props.continueText or 'Continue'}
-    </AsyncButton>
+    return null
 
   render: ->
     {pinned, courseId, id, taskId, review} = @props

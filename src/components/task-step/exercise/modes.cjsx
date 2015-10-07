@@ -1,17 +1,11 @@
 React = require 'react/addons'
-Router = require 'react-router'
-moment = require 'moment'
+BS = require 'react-bootstrap'
+
 {PureRenderMixin} = React.addons
 
-BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
-StepMixin = require '../step-mixin'
-StepFooterMixin = require '../step-footer-mixin'
-BindStoreMixin = require '../../bind-store-mixin'
-
 Question = require '../../question'
 FreeResponse = require './free-response'
-ExerciseGroup = require './group'
 AsyncButton = require '../../buttons/async-button'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
@@ -19,9 +13,81 @@ AsyncButton = require '../../buttons/async-button'
 {StepPanel} = require '../../../helpers/policies'
 
 
+ExContinueButton = React.createClass
+  displayName: 'ExContinueButton'
+  getDefaultProps: ->
+    isContinueFailed: false
+    waitingText: null
+
+  render: ->
+    {isContinueEnabled, isContinueFailed, waitingText, onContinue, children} = @props
+    buttonText = children or 'Continue'
+
+    <AsyncButton
+      bsStyle='primary'
+      className='continue'
+      key='step-continue'
+      onClick={onContinue}
+      disabled={not isContinueEnabled}
+      isWaiting={!!waitingText}
+      waitingText={waitingText}
+      isFailed={isContinueFailed}
+      >
+      {buttonText}
+    </AsyncButton>
+
+
+ExReviewOptions = React.createClass
+  displayName: 'ExReviewOptions'
+  getDefaultProps: ->
+    review: ''
+    canTryAnother: false
+    isRecovering: false
+    canRefreshMemory: false
+
+  render: ->
+    {review, canTryAnother, tryAnother, isRecovering} = @props
+    {canRefreshMemory, refreshMemory} = @props
+    {isContinueFailed, waitingText, onContinue, isContinueEnabled} = @props
+
+    continueButtonText = if canTryAnother then 'Move On' else ''
+
+    if canTryAnother
+      tryAnotherButton = <AsyncButton
+        bsStyle='primary'
+        className='-try-another'
+        key='step-try-another'
+        onClick={tryAnother}
+        isWaiting={isRecovering}
+        waitingText='Loading Another…'>
+        Try Another
+      </AsyncButton>
+
+    if canRefreshMemory
+      refreshMemoryButton = <BS.Button
+        bsStyle='primary'
+        className='-refresh-memory'
+        onClick={refreshMemory}>
+        Refresh My Memory
+      </BS.Button>
+
+    continueButton = 
+      <ExContinueButton
+        isContinueFailed={isContinueFailed}
+        waitingText={waitingText}
+        onContinue={onContinue}
+        isContinueEnabled={isContinueEnabled}>
+        {continueButtonText}
+      </ExContinueButton> unless review is 'completed'
+
+    <div className='task-footer-buttons' key='step-buttons'>
+      {tryAnotherButton}
+      {continueButton}
+    </div>
+
+
 ExFreeResponse = React.createClass
   displayName: 'ExFreeResponse'
-
   propTypes:
     content: React.PropTypes.object.isRequired
     focus: React.PropTypes.bool.isRequired
@@ -32,6 +98,7 @@ ExFreeResponse = React.createClass
   getDefaultProps: ->
     disabled: false
     defaultFreeResponse: ''
+    isContinueEnabled: true
 
   getInitialState: ->
     {defaultFreeResponse} = @props
@@ -51,11 +118,16 @@ ExFreeResponse = React.createClass
 
     @props.onFreeResponseChange?(freeResponse)
 
+  isContinueEnabled: ->
+    {freeResponse} = @state
+    freeResponse?.trim().length > 0
+  
   render: ->
     {content, disabled} = @props
     question = content.questions[0]
-
     {freeResponse} = @state
+
+    {isContinueFailed, waitingText, onContinue, isContinueEnabled, continueButtonText} = @props
 
     <div className='exercise-free-response'>
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
@@ -66,7 +138,16 @@ ExFreeResponse = React.createClass
         placeholder='Enter your response'
         value={freeResponse}
         onChange={@onFreeResponseChange}
-        />
+      />
+
+      <ExContinueButton
+        isContinueFailed={isContinueFailed}
+        waitingText={waitingText}
+        onContinue={_.partial(onContinue, @state)}
+        isContinueEnabled={isContinueEnabled and @isContinueEnabled()}>
+        {continueButtonText}
+      </ExContinueButton>
+
       <div className="exercise-uid">{content.uid}</div>
     </div>
 
@@ -76,13 +157,14 @@ ExMultiChoice = React.createClass
   propTypes:
     content: React.PropTypes.object.isRequired
     free_response: React.PropTypes.string.isRequired
-    correct_answer_id: React.PropTypes.string.isRequired
-    answer_id: React.PropTypes.string.isRequired
     isReady: React.PropTypes.bool.isRequired
+    correct_answer_id: React.PropTypes.string
+    answer_id: React.PropTypes.string
     onAnswerChanged: React.PropTypes.func
 
   getDefaultProps: ->
     answer_id: ''
+    isContinueEnabled: true
 
   getInitialState: ->
     {answer_id} = @props
@@ -92,22 +174,37 @@ ExMultiChoice = React.createClass
     @setState {answerId: answer.id}
     @props.onAnswerChanged?(answer)
 
+  isContinueEnabled: ->
+    {answerId} = @state
+    answerId?.length > 0
+
   render: ->
     {content, free_response, correct_answer_id, isReady} = @props
     question = content.questions[0]
-
     {answerId} = @state
 
-    <Question
-      answer_id={answerId}
-      onChange={@onAnswerChanged}
-      choicesEnabled={isReady}
-      model={question}
-      exercise_uid={content.uid}
-      correct_answer_id={correct_answer_id}>
-      <FreeResponse free_response={free_response}/>
-      <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
-    </Question>
+    {isContinueFailed, waitingText, onContinue, isContinueEnabled, continueButtonText} = @props
+
+    <div className='exercise-multiple-choice'>
+      <Question
+        answer_id={answerId}
+        onChange={@onAnswerChanged}
+        choicesEnabled={isReady}
+        model={question}
+        exercise_uid={content.uid}
+        correct_answer_id={correct_answer_id}>
+        <FreeResponse free_response={free_response}/>
+        <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
+      </Question>
+
+      <ExContinueButton
+        isContinueFailed={isContinueFailed}
+        waitingText={waitingText}
+        onContinue={_.partial(onContinue, @state)}
+        isContinueEnabled={isContinueEnabled and @isContinueEnabled()}>
+        {continueButtonText}
+      </ExContinueButton>
+    </div>
 
 
 ExReview = React.createClass
@@ -129,17 +226,24 @@ ExReview = React.createClass
     {content, free_response, answer_id, correct_answer_id, feedback_html} = @props
     question = content.questions[0]
 
-    <Question
-      key='step-question'
-      model={question}
-      answer_id={answer_id}
-      exercise_uid={content.uid}
-      correct_answer_id={correct_answer_id}
-      feedback_html={feedback_html}
-      onChangeAttempt={@onChangeAnswerAttempt}>
-      <FreeResponse free_response={free_response}/>
-    </Question>
+    reviewOptionsProps = _.pick(@props,
+      'review', 'canTryAnother', 'tryAnother', 'isRecovering',
+      'isContinueFailed', 'waitingText', 'onContinue', 'isContinueEnabled', 'continueButtonText')
 
+    <div className='exercise-review'>
+      <Question
+        key='step-question'
+        model={question}
+        answer_id={answer_id}
+        exercise_uid={content.uid}
+        correct_answer_id={correct_answer_id}
+        feedback_html={feedback_html}
+        onChangeAttempt={@onChangeAnswerAttempt}>
+        <FreeResponse free_response={free_response}/>
+      </Question>
+
+      <ExReviewOptions {...reviewOptionsProps}/>
+    </div>
 
 
 ExerciseFreeResponse = React.createClass
@@ -148,23 +252,24 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  bindStore: TaskStepStore
-
-  statics:
-    isContinueEnabled: (id) ->
-      {free_response, content} = TaskStepStore.get(id)
-      response = free_response or @state.freeResponse
-      response?.trim().length > 0
+  onContinue: (state) ->
+    {id} = @props
+    {freeResponse} = state
+    TaskStepActions.setFreeResponseAnswer(id, freeResponse)
 
   render: ->
-    {id, focus} = @props
+    {id, focus, waitingText, isContinueFailed} = @props
     {content} = TaskStepStore.get(id)
     disabled = TaskStepStore.isSaving(id)
 
     <ExFreeResponse
       disabled={disabled}
       content={content}
-      focus={focus}/>
+      focus={focus}
+      onContinue={@onContinue}
+      waitingText={waitingText}
+      isContinueFailed={isContinueFailed}
+    />
 
 
 ExerciseMultiChoice = React.createClass
@@ -173,11 +278,6 @@ ExerciseMultiChoice = React.createClass
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func
-
-  statics:
-    isContinueEnabled: (id) ->
-      {answer_id} = TaskStepStore.get(id)
-      !!answer_id
 
   onContinue: ->
     {id, onNextStep, onStepCompleted} = @props
@@ -191,7 +291,7 @@ ExerciseMultiChoice = React.createClass
     TaskStepActions.setAnswerId(id, answer.id)
 
   render: ->
-    {id} = @props
+    {id, waitingText, isContinueFailed} = @props
     multiChoiceProps = TaskStepStore.get(id)
     isReady = not TaskStepStore.isLoading(id) and not TaskStepStore.isSaving(id)
 
@@ -199,6 +299,9 @@ ExerciseMultiChoice = React.createClass
       {...multiChoiceProps}
       isReady={isReady}
       onAnswerChanged={@onAnswerChanged}
+      onContinue={@onContinue}
+      waitingText={waitingText}
+      isContinueFailed={isContinueFailed}
     />
 
 
@@ -208,11 +311,6 @@ ExerciseReview = React.createClass
     id: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
-
-  statics:
-    isContinueEnabled: (id) ->
-      {answer_id} = TaskStepStore.get(id)
-      !!answer_id and not TaskStepStore.isRecovering(id)
 
   onContinue: ->
     @props.onNextStep()
@@ -230,51 +328,23 @@ ExerciseReview = React.createClass
     # Track what step is refreshed so that it can be skipped after refreshing.
     @props.refreshStep(index, id)
 
-  canRefreshMemory: ->
-    {id} = @props
-    step = TaskStepStore.get(id)
-    step?.related_content.length and step.has_recovery and step.correct_answer_id isnt step.answer_id
-
-  continueButtonText: ->
-    {id} = @props
-    task = TaskStore.get(TaskStepStore.getTaskId(id))
-    if TaskStepStore.canTryAnother(id, task) then 'Move On' else 'Continue'
-
-  renderFooterButtons: ->
-    {id, review} = @props
-    task = TaskStore.get(TaskStepStore.getTaskId(id))
-
-    if TaskStepStore.canTryAnother(id, task)
-      tryAnotherButton = <AsyncButton
-        bsStyle='primary'
-        className='-try-another'
-        key='step-try-another'
-        onClick={@tryAnother}
-        isWaiting={TaskStepStore.isRecovering(id)}
-        waitingText='Loading Another…'>
-        Try Another
-      </AsyncButton>
-
-    # "Refresh my Memory" button is disabled until BE gets it working properly.
-    # See corresponding comment in tests.
-    # if @canRefreshMemory()
-    #   refreshMemoryButton = <BS.Button
-    #     bsStyle='primary'
-    #     className='-refresh-memory'
-    #     onClick={@refreshMemory}>
-    #     Refresh My Memory
-    #   </BS.Button>
-
-    <div className='task-footer-buttons' key='step-buttons'>
-      {tryAnotherButton}
-      {@renderContinueButton() unless review is 'completed'}
-    </div>
-
   render: ->
-    {id} = @props
+    {id, review, waitingText, isContinueFailed} = @props
     reviewProps = TaskStepStore.get(id)
 
-    <ExReview {...reviewProps}/>
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
+    canTryAnother = TaskStepStore.canTryAnother(id, task)
+
+    <ExReview
+      {...reviewProps}
+      review={review}
+      canTryAnother={canTryAnother}
+      tryAnother={@tryAnother}
+      refreshMemory={@refreshMemory}
+      onContinue={@onContinue}
+      waitingText={waitingText}
+      isContinueFailed={isContinueFailed}
+    />
 
 
 ExerciseTeacherReadOnly = React.createClass
@@ -284,18 +354,19 @@ ExerciseTeacherReadOnly = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
-  statics:
-    isContinueEnabled: (id) ->
-      {answer_id} = TaskStepStore.get(id)
-      !!answer_id
-
   onContinue: ->
     @props.onNextStep()
 
   render: ->
-    {id} = @props
+    {id, review, waitingText, isContinueFailed} = @props
     reviewProps = TaskStepStore.get(id)
 
-    <ExReview {...reviewProps}/>
+    <ExReview
+      {...reviewProps}
+      review={review}
+      onContinue={@onContinue}
+      waitingText={waitingText}
+      isContinueFailed={isContinueFailed}
+    />
 
 module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReadOnly}
