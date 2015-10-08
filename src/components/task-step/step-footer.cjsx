@@ -13,9 +13,11 @@ StepFooterMixin = require './step-footer-mixin'
 StepFooter = React.createClass
   displayName: 'StepFooter'
   mixins: [StepFooterMixin]
+  getDefaultProps: ->
+    controlButtons: null
 
-  renderContinueButton: ->
-    return null
+  renderFooterButtons: ->
+    @props.controlButtons
 
   render: ->
     {pinned, courseId, id, taskId, review} = @props

@@ -6,7 +6,7 @@ _ = require 'underscore'
 {TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 
-{ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview, ExerciseTeacherReadOnly} = require './modes'
+{ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview} = require './modes'
 ExerciseGroup = require './group'
 StepFooter = require '../step-footer'
 {CardBody} = require '../../pinned-header-footer-card/sections'
@@ -15,7 +15,7 @@ MODES =
   'review'            : ExerciseReview
   'multiple-choice'   : ExerciseMultiChoice
   'free-response'     : ExerciseFreeResponse
-  'teacher-read-only' : ExerciseTeacherReadOnly
+  'teacher-read-only' : ExerciseReview
 
 module.exports = React.createClass
   displayName: 'Exercise'
@@ -75,19 +75,19 @@ module.exports = React.createClass
     TaskStepActions.setAnswerId(id, answer.id)
 
   renderReview: (id, step, waitingText) ->
-    reviewProps = @props
+    reviewProps = _.omit(@props, 'onNextStep')
+    reviewProps.onContinue = @props.onNextStep
 
     task = TaskStore.get(TaskStepStore.getTaskId(id))
     canTryAnother = TaskStepStore.canTryAnother(id, task)
 
     <ExerciseReview
       {...reviewProps}
-      {...step}
+      step={step}
       waitingText={waitingText}
       canTryAnother={canTryAnother}
       refreshMemory={@refreshMemory}
       tryAnother={@tryAnother}
-      id={id}
     />
 
   renderMultipleChoice: (id, step, waitingText) ->
@@ -96,11 +96,10 @@ module.exports = React.createClass
 
     <ExerciseMultiChoice
       {...multipleChoiceProps}
-      {...step}
+      step={step}
       canReview={canReview}
       waitingText={waitingText}
       onAnswerChanged={@onMultipleChoiceAnswerChanged}
-      id={id}
     />
 
   renderFreeResponse: (id, step, waitingText) ->
@@ -109,20 +108,20 @@ module.exports = React.createClass
 
     <ExerciseFreeResponse
       {...freeResponseProps}
-      {...step}
+      step={step}
       waitingText={waitingText}
       disabled={disabled}
       onContinue={@onFreeResponseContinue}
     />
 
   renderTeacherReadOnly: (id, step, waitingText) ->
-    teacherReadOnlyProps = _.omit(@props, 'onStepCompleted')
+    teacherReadOnlyProps = _.omit(@props, 'onStepCompleted', 'onNextStep')
+    teacherReadOnlyProps.onContinue = @props.onNextStep
 
-    <ExerciseTeacherReadOnly
+    <ExerciseReview
       {...teacherReadOnlyProps}
-      {...step}
+      step={step}
       waitingText={waitingText}
-      id={id}
     />
 
   # add render methods for different panel types as needed here
