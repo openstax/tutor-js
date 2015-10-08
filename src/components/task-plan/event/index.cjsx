@@ -35,6 +35,10 @@ EventPlan = React.createClass
     header = @builderHeader('event', '')
     if @state?.invalid then formClasses.push('is-invalid-form')
 
+    labels =
+      assignmentLabel: 'Event'
+      dueDateLabel: 'Event Date'
+
     <div className='event-plan task-plan' data-assignment-type='event'>
       <BS.Panel bsStyle='primary'
         className={formClasses.join(' ')}
@@ -42,7 +46,7 @@ EventPlan = React.createClass
         header={header}>
 
         <BS.Grid fluid>
-          <TaskPlanBuilder courseId={courseId} id={id} label='Event'/>
+          <TaskPlanBuilder {...labels} courseId={courseId} id={id}/>
         </BS.Grid>
       </BS.Panel>
     </div>
