@@ -8,9 +8,6 @@ Question = require '../../question'
 FreeResponse = require './free-response'
 AsyncButton = require '../../buttons/async-button'
 
-{TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
-{TaskStore} = require '../../../flux/task'
-
 STEP_PROPS = ['content', 'free_response', 'answer_id', 'correct_answer_id', 'feedback_html']
 
 ExContinueButton = React.createClass
@@ -254,21 +251,15 @@ ExerciseFreeResponse = React.createClass
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
 
-  onContinue: (state) ->
-    {id} = @props
-    {freeResponse} = state
-    TaskStepActions.setFreeResponseAnswer(id, freeResponse)
-
   render: ->
-    {id, focus, waitingText, isContinueFailed} = @props
+    {disabled, focus, waitingText, isContinueFailed, onContinue} = @props
     {content} = _.pick(@props, STEP_PROPS)
-    disabled = TaskStepStore.isSaving(id)
 
     <ExFreeResponse
       disabled={disabled}
       content={content}
       focus={focus}
-      onContinue={@onContinue}
+      onContinue={onContinue}
       waitingText={waitingText}
       isContinueFailed={isContinueFailed}
     />
@@ -287,19 +278,15 @@ ExerciseMultiChoice = React.createClass
     onStepCompleted()
     onNextStep() unless canReview
 
-  onAnswerChanged: (answer) ->
-    {id} = @props
-    TaskStepActions.setAnswerId(id, answer.id)
-
   render: ->
-    {id, waitingText, isContinueFailed} = @props
+    {id, waitingText, isContinueFailed, onAnswerChanged} = @props
     multiChoiceProps = _.pick(@props, STEP_PROPS)
     isReady = not waitingText
 
     <ExMultiChoice
       {...multiChoiceProps}
       isReady={isReady}
-      onAnswerChanged={@onAnswerChanged}
+      onAnswerChanged={onAnswerChanged}
       onContinue={@onContinue}
       waitingText={waitingText}
       isContinueFailed={isContinueFailed}
@@ -313,36 +300,17 @@ ExerciseReview = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
-  onContinue: ->
-    @props.onNextStep()
-
-  tryAnother: ->
-    {id} = @props
-    @props.recoverFor(id)
-
-  refreshMemory: ->
-    {id} = @props
-    task_id = TaskStepStore.getTaskId(id)
-    {index} = TaskStore.getReadingForTaskId(task_id, id)
-    throw new Error('BUG: No reading found for task') unless index
-
-    # Track what step is refreshed so that it can be skipped after refreshing.
-    @props.refreshStep(index, id)
-
   render: ->
-    {id, review, waitingText, isContinueFailed} = @props
+    {id, review, waitingText, isContinueFailed, canTryAnother, tryAnother, refreshMemory, onNextStep} = @props
     reviewProps = _.pick(@props, STEP_PROPS)
-
-    task = TaskStore.get(TaskStepStore.getTaskId(id))
-    canTryAnother = TaskStepStore.canTryAnother(id, task)
 
     <ExReview
       {...reviewProps}
       review={review}
       canTryAnother={canTryAnother}
-      tryAnother={@tryAnother}
-      refreshMemory={@refreshMemory}
-      onContinue={@onContinue}
+      tryAnother={tryAnother}
+      refreshMemory={refreshMemory}
+      onContinue={onNextStep}
       waitingText={waitingText}
       isContinueFailed={isContinueFailed}
     />
@@ -355,17 +323,14 @@ ExerciseTeacherReadOnly = React.createClass
     onStepCompleted: React.PropTypes.func.isRequired
     goToStep: React.PropTypes.func.isRequired
 
-  onContinue: ->
-    @props.onNextStep()
-
   render: ->
-    {id, review, waitingText, isContinueFailed} = @props
+    {id, review, waitingText, isContinueFailed, onNextStep} = @props
     reviewProps = _.pick(@props, STEP_PROPS)
 
     <ExReview
       {...reviewProps}
       review={review}
-      onContinue={@onContinue}
+      onContinue={onNextStep}
       waitingText={waitingText}
       isContinueFailed={isContinueFailed}
     />

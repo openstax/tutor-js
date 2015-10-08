@@ -2,7 +2,7 @@ React = require 'react'
 camelCase = require 'camelcase'
 _ = require 'underscore'
 
-{TaskStepStore} = require '../../../flux/task-step'
+{TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
 {TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 
@@ -52,13 +52,41 @@ module.exports = React.createClass
     review: ''
     pinned: true
 
+  refreshMemory: ->
+    {id} = @props
+    task_id = TaskStepStore.getTaskId(id)
+    {index} = TaskStore.getReadingForTaskId(task_id, id)
+    throw new Error('BUG: No reading found for task') unless index
+
+    # Track what step is refreshed so that it can be skipped after refreshing.
+    @props.refreshStep(index, id)
+
+  tryAnother: ->
+    {id} = @props
+    @props.recoverFor(id)
+
+  onFreeResponseContinue: (state) ->
+    {id} = @props
+    {freeResponse} = state
+    TaskStepActions.setFreeResponseAnswer(id, freeResponse)
+
+  onMultipleChoiceAnswerChanged: (answer) ->
+    {id} = @props
+    TaskStepActions.setAnswerId(id, answer.id)
+
   renderReview: (id, step, waitingText) ->
     reviewProps = @props
+
+    task = TaskStore.get(TaskStepStore.getTaskId(id))
+    canTryAnother = TaskStepStore.canTryAnother(id, task)
 
     <ExerciseReview
       {...reviewProps}
       {...step}
       waitingText={waitingText}
+      canTryAnother={canTryAnother}
+      refreshMemory={@refreshMemory}
+      tryAnother={@tryAnother}
       id={id}
     />
 
@@ -71,17 +99,20 @@ module.exports = React.createClass
       {...step}
       canReview={canReview}
       waitingText={waitingText}
+      onAnswerChanged={@onMultipleChoiceAnswerChanged}
       id={id}
     />
 
   renderFreeResponse: (id, step, waitingText) ->
     freeResponseProps = _.omit(@props, 'onStepCompleted', 'goToStep', 'onNextStep', 'refreshStep', 'recoverFor')
+    disabled = TaskStepStore.isSaving(id)
 
     <ExerciseFreeResponse
       {...freeResponseProps}
       {...step}
       waitingText={waitingText}
-      id={id}
+      disabled={disabled}
+      onContinue={@onFreeResponseContinue}
     />
 
   renderTeacherReadOnly: (id, step, waitingText) ->
