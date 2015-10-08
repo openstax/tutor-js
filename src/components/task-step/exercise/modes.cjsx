@@ -9,8 +9,7 @@ FreeResponse = require './free-response'
 AsyncButton = require '../../buttons/async-button'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
-{TaskActions, TaskStore} = require '../../../flux/task'
-{StepPanel} = require '../../../helpers/policies'
+{TaskStore} = require '../../../flux/task'
 
 STEP_PROPS = ['content', 'free_response', 'answer_id', 'correct_answer_id', 'feedback_html']
 
@@ -158,10 +157,10 @@ ExMultiChoice = React.createClass
   displayName: 'ExMultiChoice'
   propTypes:
     content: React.PropTypes.object.isRequired
-    free_response: React.PropTypes.string.isRequired
     isReady: React.PropTypes.bool.isRequired
     correct_answer_id: React.PropTypes.string
     answer_id: React.PropTypes.string
+    free_response: React.PropTypes.string
     onAnswerChanged: React.PropTypes.func
 
   getDefaultProps: ->
@@ -214,10 +213,10 @@ ExReview = React.createClass
   displayName: 'ExReview'
   propTypes:
     content: React.PropTypes.object.isRequired
-    free_response: React.PropTypes.string.isRequired
     feedback_html: React.PropTypes.string.isRequired
     correct_answer_id: React.PropTypes.string.isRequired
     answer_id: React.PropTypes.string.isRequired
+    free_response: React.PropTypes.string
     onChangeAnswerAttempt: React.PropTypes.func
   mixins: [PureRenderMixin]
 
@@ -283,8 +282,7 @@ ExerciseMultiChoice = React.createClass
     onNextStep: React.PropTypes.func
 
   onContinue: ->
-    {id, onNextStep, onStepCompleted} = @props
-    canReview = StepPanel.canReview id
+    {canReview, onNextStep, onStepCompleted} = @props
 
     onStepCompleted()
     onNextStep() unless canReview
@@ -296,7 +294,7 @@ ExerciseMultiChoice = React.createClass
   render: ->
     {id, waitingText, isContinueFailed} = @props
     multiChoiceProps = _.pick(@props, STEP_PROPS)
-    isReady = not TaskStepStore.isLoading(id) and not TaskStepStore.isSaving(id)
+    isReady = not waitingText
 
     <ExMultiChoice
       {...multiChoiceProps}

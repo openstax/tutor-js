@@ -64,10 +64,12 @@ module.exports = React.createClass
 
   renderMultipleChoice: (id, step, waitingText) ->
     multipleChoiceProps = _.omit(@props, 'goToStep', 'refreshStep', 'recoverFor')
+    canReview = StepPanel.canReview id
 
     <ExerciseMultiChoice
       {...multipleChoiceProps}
       {...step}
+      canReview={canReview}
       waitingText={waitingText}
       id={id}
     />
