@@ -1,3 +1,4 @@
+
 {
     "tasks": [
         {
@@ -93,8 +94,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-03-04T16:40:23.796Z",
-                "due_at": "2015-03-10T04:00:00.000Z",
-                "is_trouble": true
+                "due_at": "2015-03-10T04:00:00.000Z"
             }]
         },{
             "id": "3",
@@ -104,8 +104,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-02-28T16:40:23.796Z",
-                "due_at": "2015-03-01T04:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-03-01T04:00:00.000Z"
             }]
         },{
             "id": "2",
@@ -115,8 +114,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-03-04T11:40:23.796Z",
-                "due_at": "2015-03-18T04:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-03-18T04:00:00.000Z"
             }]
         },{
             "id": "5",
@@ -126,8 +124,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-03-31T11:40:23.796Z",
-                "due_at": "2015-04-01T04:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-04-01T04:00:00.000Z"
             }]
         },{
             "id": "6",
@@ -137,8 +134,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-03-31T11:40:23.796Z",
-                "due_at": "2015-04-01T04:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-04-01T04:00:00.000Z"
             }]
         },{
             "id": "7",
@@ -148,8 +144,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-03-31T11:40:23.796Z",
-                "due_at": "2015-04-05T10:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-04-05T10:00:00.000Z"
             }]
         },{
             "id": "8",
@@ -159,8 +154,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-03-31T11:40:23.796Z",
-                "due_at": "2015-04-05T10:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-04-05T10:00:00.000Z"
             }]
         },{
             "id": "9",
@@ -170,8 +164,7 @@
                 "target_id": "1",
                 "target_type": "period",
                 "opens_at": "2015-03-31T11:40:23.796Z",
-                "due_at": "2015-04-05T10:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-04-05T10:00:00.000Z"
             }]
         },{
             "id": "13",
@@ -180,8 +173,7 @@
             "tasking_plans": [{
                 "target_id": "1",
                 "target_type": "period",
-                "due_at": "2015-10-14T12:00:00.000Z",
-                "is_trouble": false
+                "due_at": "2015-10-14T12:00:00.000Z"
             }]
         }
     ],
