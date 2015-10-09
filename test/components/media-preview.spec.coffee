@@ -113,7 +113,7 @@ describe 'Media Preview', ->
         Testing.actions.mouseLeave(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent).to.be.falsy
+        expect(element.refs.overlay.refs.popcontent).to.not.be.ok
 
   it 'should render external link book link when without media prop and shouldLinkOut is true', ->
 
@@ -161,7 +161,7 @@ describe 'Media Preview', ->
       .then ({dom, element}) ->
 
         Testing.actions.click(dom)
-        expect(element.refs.overlay.refs.popcontent).to.be.falsy
+        expect(element.refs.overlay.refs.popcontent).to.not.be.ok
 
   it 'should be able to determine if media in viewport', ->
     TaskActions.loaded(TASK_DATA)
@@ -266,7 +266,7 @@ describe 'Media Preview', ->
         Testing.actions.mouseLeave(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent).to.be.falsy
+        expect(element.refs.overlay.refs.popcontent).to.not.be.ok
 
   it 'should display as plain link if media is not loaded and does not load', ->
 
@@ -287,7 +287,7 @@ describe 'Media Preview', ->
         Testing.actions.mouseEnter(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.state.media).to.be.falsy
+        expect(element.state.media).to.not.be.ok
 
   it 'should (attempt to) display as previewer if media does load', (done) ->
 
@@ -308,7 +308,7 @@ describe 'Media Preview', ->
         # Wanted to test for rendering the previewer with newly loaded media html, but we'll just
         # have to settle for testing for MediaStore.get on unmount for now.
         checkMedia = (media) ->
-          expect(media).to.not.be.falsy
+          expect(media).to.be.ok
           expect(media).to.have.property('name')
           expect(media).to.have.property('html')
 
@@ -319,5 +319,5 @@ describe 'Media Preview', ->
           originalUnmount.call(element)
           done()
 
-        expect(MediaStore.get(props.mediaId)).to.be.falsy
+        expect(MediaStore.get(props.mediaId)).to.not.be.ok
         ReferenceBookPageActions.loaded(PAGE_DATA, PAGE_ID)
