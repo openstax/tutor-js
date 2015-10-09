@@ -18,8 +18,8 @@ yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 dayAfter = (new Date(Date.now() + 1000 * 3600 * 48)).toString()
 
-getDateString = (value) -> moment(value).format(TutorDateFormat)
-getISODateString = (value) -> moment(value).format(ISO_DATE_FORMAT)
+getDateString = (value) -> TimeHelper.getMomentPreserveDate(moment(value)).format(TutorDateFormat)
+getISODateString = (value) -> TimeHelper.getMomentPreserveDate(moment(value)).format(ISO_DATE_FORMAT)
 
 COURSES = require '../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)
@@ -31,6 +31,19 @@ PUBLISHED_MODEL = ExtendBasePlan({
 
 helper = (model, routerQuery) -> PlanRenderHelper(model, Builder, {}, {}, routerQuery)
 
+fakePeriodDisable = (element, disabledPeriod) ->
+  fakeEvent =
+    target:
+      checked: false
+
+  element.togglePeriodEnabled(disabledPeriod, fakeEvent)
+
+fakePeriodEnable = (element, enabledPeriod) ->
+  fakeEvent =
+    target:
+      checked: true
+
+  element.togglePeriodEnabled(enabledPeriod, fakeEvent)
 
 describe 'Task Plan Builder', ->
   beforeEach ->
@@ -79,8 +92,8 @@ describe 'Task Plan Builder', ->
       expect(dueAt).to.not.be.ok
 
   it 'can clear due at when there is no common due at', ->
-    firstPeriod = COURSES[0].periods[0].id
-    secondPeriod = COURSES[0].periods[1].id
+    firstPeriod = COURSES[0].periods[0]
+    secondPeriod = COURSES[0].periods[1]
 
     helper(NEW_READING).then ({dom, element}) ->
       #set individual periods
@@ -121,22 +134,55 @@ describe 'Task Plan Builder', ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
 
-  it 'can update open date for individual period', ->
-    periodId = COURSES[0].periods[0].id
+  it 'can disable individual periods', ->
+    disabledPeriod = COURSES[0].periods[1]
+    anotherDisabledPeriod = COURSES[0].periods[7]
+
     helper(NEW_READING).then ({dom, element}) ->
-      element.setOpensAt(new Date(dayAfter))
+      element.setIndividualPeriods()
+
+      fakePeriodDisable(element, disabledPeriod)
+      fakePeriodDisable(element, anotherDisabledPeriod)
+
+      taskings = TaskPlanStore.getEnabledTaskings(NEW_READING.id)
+      expect(taskings).to.have.length(COURSES[0].periods.length - 2)
+      expect(taskings).to.not.have.members([disabledPeriod, anotherDisabledPeriod])
+
+  it 'can update open date for individual period', ->
+    period = COURSES[0].periods[0]
+    anotherPeriod = COURSES[0].periods[2]
+    disabledPeriod = COURSES[0].periods[1]
+    anotherDisabledPeriod = COURSES[0].periods[7]
+
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setIndividualPeriods()
+
+      fakePeriodDisable(element, disabledPeriod)
+      fakePeriodDisable(element, anotherDisabledPeriod)
+      element.setOpensAt(new Date(dayAfter), period)
+
       opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
-      expect(getDateString(opensAt)).to.not.be.ok
-      opensAt = TaskPlanStore.getOpensAt(NEW_READING.id, periodId)
+      expect(opensAt).to.not.be.ok
+
+      opensAt = TaskPlanStore.getOpensAt(NEW_READING.id, period.id)
       expect(getDateString(opensAt)).to.be.equal(getDateString(dayAfter))
 
   it 'can update due date for individual period', ->
-    periodId = COURSES[0].periods[0].id
+    period = COURSES[0].periods[0]
+    disabledPeriod = COURSES[0].periods[1]
+    anotherPeriod = COURSES[0].periods[2]
+
     helper(NEW_READING).then ({dom, element}) ->
-      element.setDueAt(new Date(tomorrow))
+      element.setIndividualPeriods()
+
+      fakePeriodDisable(element, disabledPeriod)
+      element.setDueAt(new Date(dayAfter), anotherPeriod)
+      element.setDueAt(new Date(tomorrow), period)
+
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
-      expect(getDateString(dueAt)).to.not.be.ok
-      dueAt = TaskPlanStore.getDueAt(NEW_READING.id, periodId)
+      expect(dueAt).to.not.be.ok
+
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id, period.id)
       expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
 
   it 'sets the correct moment timezone on mount', ->
