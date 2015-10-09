@@ -6,16 +6,7 @@ _ = require 'underscore'
 {TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 
-{ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview} = require './modes'
-ExerciseGroup = require './group'
-StepFooter = require '../step-footer'
-{CardBody} = require '../../pinned-header-footer-card/sections'
-
-MODES =
-  'review'            : ExerciseReview
-  'multiple-choice'   : ExerciseMultiChoice
-  'free-response'     : ExerciseFreeResponse
-  'teacher-read-only' : ExerciseReview
+ExerciseStepCard = require './card'
 
 module.exports = React.createClass
   displayName: 'Exercise'
@@ -74,80 +65,65 @@ module.exports = React.createClass
     {id} = @props
     TaskStepActions.setAnswerId(id, answer.id)
 
-  renderReview: (id, step, waitingText) ->
+  getReviewProps: (id) ->
     reviewProps = _.omit(@props, 'onNextStep')
     reviewProps.onContinue = @props.onNextStep
 
     task = TaskStore.get(TaskStepStore.getTaskId(id))
     canTryAnother = TaskStepStore.canTryAnother(id, task)
 
-    <ExerciseReview
-      {...reviewProps}
-      step={step}
-      waitingText={waitingText}
-      canTryAnother={canTryAnother}
-      refreshMemory={@refreshMemory}
-      tryAnother={@tryAnother}
-    />
+    reviewProps.canTryAnother = canTryAnother
+    reviewProps.refreshMemory = @refreshMemory
+    reviewProps.tryAnother = @tryAnother
 
-  renderMultipleChoice: (id, step, waitingText) ->
+    reviewProps
+
+  getMultipleChoiceProps: (id) ->
     multipleChoiceProps = _.omit(@props, 'goToStep', 'refreshStep', 'recoverFor')
     canReview = StepPanel.canReview id
 
-    <ExerciseMultiChoice
-      {...multipleChoiceProps}
-      step={step}
-      canReview={canReview}
-      waitingText={waitingText}
-      onAnswerChanged={@onMultipleChoiceAnswerChanged}
-    />
+    multipleChoiceProps.onAnswerChanged = @onMultipleChoiceAnswerChanged
+    multipleChoiceProps.canReview = canReview
 
-  renderFreeResponse: (id, step, waitingText) ->
+    multipleChoiceProps
+
+  getFreeResponseProps: (id) ->
     freeResponseProps = _.omit(@props, 'onStepCompleted', 'goToStep', 'onNextStep', 'refreshStep', 'recoverFor')
     disabled = TaskStepStore.isSaving(id)
 
-    <ExerciseFreeResponse
-      {...freeResponseProps}
-      step={step}
-      waitingText={waitingText}
-      disabled={disabled}
-      onContinue={@onFreeResponseContinue}
-    />
+    freeResponseProps.disabled = disabled
+    freeResponseProps.onContinue = @onFreeResponseContinue
 
-  renderTeacherReadOnly: (id, step, waitingText) ->
+    freeResponseProps
+
+  getTeacherReadOnlyProps: (id) ->
     teacherReadOnlyProps = _.omit(@props, 'onStepCompleted', 'onNextStep')
     teacherReadOnlyProps.onContinue = @props.onNextStep
 
-    <ExerciseReview
-      {...teacherReadOnlyProps}
-      step={step}
-      waitingText={waitingText}
-    />
+    teacherReadOnlyProps
 
-  # add render methods for different panel types as needed here
+  # add get props methods for different panel types as needed here
 
   render: ->
     {pinned, courseId, id, taskId, review} = @props
     {currentPanel} = @state
-    step = {group, related_content} = TaskStepStore.get(id)
+    step = TaskStepStore.get(id)
 
     waitingText = switch
-      when TaskStepStore.isLoading(@props.id) then "Loading…"
-      when TaskStepStore.isSaving(@props.id)  then "Saving…"
+      when TaskStepStore.isLoading(id) then "Loading…"
+      when TaskStepStore.isSaving(id)  then "Saving…"
       else null
 
     # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
-    renderPanelMethod = camelCase "render-#{currentPanel}"
+    getPropsForPanel = camelCase "get-#{currentPanel}-props"
 
-    throw new Error("BUG: panel #{currentPanel} for an exercise does not have a render method") unless @[renderPanelMethod]?
+    cardProps = @[getPropsForPanel]?(id)
 
-    footer = <StepFooter
-      {...@props}
+    <ExerciseStepCard
+      {...cardProps}
+      step={step}
+      pinned={pinned}
+      review={review}
+      panel={currentPanel}
+      waitingText={waitingText}
     />
-    <CardBody className='task-step' footer={footer} pinned={pinned}>
-      {@[renderPanelMethod]?(id, step, waitingText)}
-      <ExerciseGroup
-        key='step-exercise-group'
-        group={group}
-        related_content={related_content}/>
-    </CardBody>

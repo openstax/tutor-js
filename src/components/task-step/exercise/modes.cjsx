@@ -12,19 +12,6 @@ ExerciseGroup = require './group'
 StepFooter = require '../step-footer'
 {CardBody} = require '../../pinned-header-footer-card/sections'
 
-PANELS =
-  'free-response': ExFreeResponse
-  'multiple-choice': ExMultipleChoice
-  'review': ExReview
-  'teacher-read-only': ExReview
-
-CONTROLS =
-  'free-response': ExContinueButton
-  'multiple-choice': ExContinueButton
-  'review': ExReviewOptions
-  'teacher-read-only': ExContinueButton
-
-
 ExContinueButton = React.createClass
   displayName: 'ExContinueButton'
   getDefaultProps: ->
@@ -50,8 +37,8 @@ ExContinueButton = React.createClass
     </AsyncButton>
 
 
-ExReviewOptions = React.createClass
-  displayName: 'ExReviewOptions'
+ExReviewControls = React.createClass
+  displayName: 'ExReviewControls'
   getDefaultProps: ->
     review: ''
     canTryAnother: false
@@ -67,9 +54,9 @@ ExReviewOptions = React.createClass
 
     if canTryAnother
       tryAnotherButton = <AsyncButton
+        key='step-try-another'
         bsStyle='primary'
         className='-try-another'
-        key='step-try-another'
         onClick={tryAnother}
         isWaiting={isRecovering}
         waitingText='Loading Another…'>
@@ -78,6 +65,7 @@ ExReviewOptions = React.createClass
 
     if canRefreshMemory
       refreshMemoryButton = <BS.Button
+        key='step-refresh'
         bsStyle='primary'
         className='-refresh-memory'
         onClick={refreshMemory}>
@@ -86,6 +74,7 @@ ExReviewOptions = React.createClass
 
     continueButton =
       <ExContinueButton
+        key='step-continue'
         isContinueFailed={isContinueFailed}
         waitingText={waitingText}
         onContinue={onContinue}
@@ -141,6 +130,7 @@ ExFreeResponse = React.createClass
       <div className="exercise-uid">{content.uid}</div>
     </div>
 
+
 ExMultipleChoice = React.createClass
   displayName: 'ExMulitpleChoice'
   getDefaultProps: ->
@@ -173,8 +163,10 @@ ExMultipleChoice = React.createClass
       </Question>
     </div>
 
+
 ExReview = React.createClass
   displayName: 'ExReview'
+  mixins: [PureRenderMixin]
   propTypes:
     content: React.PropTypes.object.isRequired
     feedback_html: React.PropTypes.string.isRequired
@@ -200,171 +192,4 @@ ExReview = React.createClass
     </div>
 
 
-
-ExerciseFreeResponse = React.createClass
-  displayName: 'ExerciseFreeResponse'
-  propTypes:
-    step: React.PropTypes.shape(
-      content: React.PropTypes.object.isRequired
-    ).isRequired
-    focus: React.PropTypes.bool.isRequired
-    disabled: React.PropTypes.bool
-    onFreeResponseChange: React.PropTypes.func
-
-  getDefaultProps: ->
-    disabled: false
-    defaultFreeResponse: ''
-    isContinueEnabled: true
-
-  getInitialState: ->
-    {step} = @props
-
-    freeResponse: step.free_response
-
-  onFreeResponseChange: (freeResponse) ->
-    @setState {freeResponse}
-    @props.onFreeResponseChange?(freeResponse)
-
-  isContinueEnabled: ->
-    {freeResponse} = @state
-    freeResponse?.trim().length > 0
-  
-  render: ->
-    {disabled, focus, step} = @props
-    {group, related_content} = step
-
-    {isContinueFailed, waitingText, onContinue, isContinueEnabled, continueButtonText} = @props
-
-    <div className='exercise-free-response'>
-      <ExFreeResponse
-        {...step}
-        disabled={disabled}
-        focus={focus}
-        onFreeResponseChange={@onFreeResponseChange}/>
-
-      <ExContinueButton
-        isContinueFailed={isContinueFailed}
-        waitingText={waitingText}
-        onContinue={_.partial(onContinue, @state)}
-        isContinueEnabled={isContinueEnabled and @isContinueEnabled()}>
-        {continueButtonText}
-      </ExContinueButton>
-    </div>
-
-
-ExerciseMultiChoice = React.createClass
-  displayName: 'ExerciseMultiChoice'
-  propTypes:
-    step: React.PropTypes.shape(
-      content: React.PropTypes.object.isRequired
-      correct_answer_id: React.PropTypes.string
-      answer_id: React.PropTypes.string
-      free_response: React.PropTypes.string
-    ).isRequired
-    isReady: React.PropTypes.bool.isRequired
-    onAnswerChanged: React.PropTypes.func
-
-  getDefaultProps: ->
-    isContinueEnabled: true
-
-  onAnswerChanged: (answer) ->
-    @setState {answerId: answer.id}
-    @props.onAnswerChanged?(answer)
-
-  onContinue: ->
-    {canReview, onNextStep, onStepCompleted} = @props
-
-    onStepCompleted()
-    onNextStep() unless canReview
-
-  isContinueEnabled: ->
-    {answerId} = @state
-    answerId?.length > 0
-
-  render: ->
-    {step} = @props
-    {group, related_content} = step
-    {isContinueFailed, waitingText, isContinueEnabled, continueButtonText} = @props
-    isReady = not waitingText
-
-    <div className='exercise-multiple-choice'>
-      <ExMultipleChoice
-        {...step}
-        choicesEnabled={isReady}
-        onAnswerChanged={@onAnswerChanged}
-      />
-      <ExContinueButton
-        isContinueFailed={isContinueFailed}
-        waitingText={waitingText}
-        onContinue={_.partial(@onContinue, @state)}
-        isContinueEnabled={isContinueEnabled and @isContinueEnabled()}>
-        {continueButtonText}
-      </ExContinueButton>
-    </div>
-
-
-ExerciseReview = React.createClass
-  displayName: 'ExerciseReview'
-  propTypes:
-    step: React.PropTypes.shape(
-      content: React.PropTypes.object.isRequired
-      feedback_html: React.PropTypes.string.isRequired
-      correct_answer_id: React.PropTypes.string.isRequired
-      answer_id: React.PropTypes.string.isRequired
-      free_response: React.PropTypes.string
-    ).isRequired
-    onChangeAnswerAttempt: React.PropTypes.func
-  mixins: [PureRenderMixin]
-
-  onChangeAnswerAttempt: (answer) ->
-    console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
-    @props.onChangeAnswerAttempt?(answer)
-
-  render: ->
-    {step} = @props
-    {group, related_content} = step
-    reviewOptionsProps = _.pick(@props,
-      'review', 'canTryAnother', 'tryAnother', 'isRecovering',
-      'isContinueFailed', 'waitingText', 'onContinue', 'isContinueEnabled', 'continueButtonText')
-
-    <div className='exercise-review'>
-      <ExReview {...step} onChangeAttempt={@onChangeAnswerAttempt}/>
-      <ExReviewOptions {...reviewOptionsProps}/>
-    </div>
-
-ExerciseStepCard = React.createClass
-  displayName: 'ExerciseStepCard'
-  render: ->
-    {step, type, pinned} = @props
-    {group, related_content} = step
-    ExPanel = PANELS[type]
-    ControlButtons = CONTROLS[type]
-
-    controlOptions = ['review', 'canTryAnother', 'tryAnother', 'isRecovering',
-      'isContinueFailed', 'waitingText', 'onContinue', 'isContinueEnabled', 'continueButtonText']
-
-    notPanelOptions = _.union(controlOptions, ['step', 'type'])
-
-    controlOptionsProps = _.pick(@props, controlOptions)
-
-    panelProps = _.omit(@props, notPanelOptions)
-    panelProps.choicesEnabled = not waitingText
-
-    controlButtons = <ControlButtons {...controlOptionsProps}/>
-
-    footer = <StepFooter
-      {...@props}
-      controlButtons={controlButtons}
-    />
-
-    <CardBody className='task-step' footer={footer} pinned={pinned}>
-      <div className="exercise-#{type}">
-        <ExPanel {...panelProps}/>
-        <ExerciseGroup
-          key='step-exercise-group'
-          group={group}
-          related_content={related_content}/>
-      </div>
-    </CardBody>
-
-module.exports = {ExerciseFreeResponse, ExerciseMultiChoice, ExerciseReview}
+module.exports = {ExContinueButton, ExReviewControls, ExFreeResponse, ExMultipleChoice, ExReview}
