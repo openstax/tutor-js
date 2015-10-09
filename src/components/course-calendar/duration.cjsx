@@ -158,14 +158,13 @@ CourseDuration = React.createClass
   setDurationDay: (plan) ->
     {referenceDate} = @props
     dueDates = _.pluck(plan.tasking_plans, 'due_at')
-    isTrouble = _.pluck(plan.tasking_plans, 'is_trouble')
 
     plan.duration = @_getDurationFromMoments(dueDates)
     plan.openRange = @_getDurationRange(plan)
     plan.isOpen = plan.openRange.start.isBefore(referenceDate)
     plan.isPublished = (plan.published_at? and plan.published_at)
     plan.isPublishing = @isPlanPublishing(plan)
-    plan.isTrouble = _.contains(isTrouble, true)
+    plan.isTrouble = plan.is_trouble
     plan.isEditable = plan.duration.start.isAfter(referenceDate)
 
   # TODO see how to pull out plan specific logic to show that this
