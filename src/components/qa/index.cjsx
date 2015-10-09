@@ -21,8 +21,9 @@ QADashboard = React.createClass
 
   render: ->
     if EcosystemsStore.isLoaded()
-      params = @context.router.getCurrentParams()
-      params.bookId = "#{_.first(EcosystemsStore.allBooks()).id}"
+      params = _.clone @context.router.getCurrentParams()
+      params.ecosystemId ?= EcosystemsStore.first().id
+      params.bookId ?= "#{EcosystemsStore.getBook(params.ecosystemId).id}"
       <RouteHandler {...params} />
     else
       <h3>Loading ...</h3>
