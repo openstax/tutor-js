@@ -18,8 +18,8 @@ yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 dayAfter = (new Date(Date.now() + 1000 * 3600 * 48)).toString()
 
-getDateString = (value) -> TimeHelper.getMomentPreserveDate(moment(value)).format(TutorDateFormat)
-getISODateString = (value) -> TimeHelper.getMomentPreserveDate(moment(value)).format(ISO_DATE_FORMAT)
+getDateString = (value) -> moment(value).format(TutorDateFormat)
+getISODateString = (value) -> moment(value).format(ISO_DATE_FORMAT)
 
 COURSES = require '../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)

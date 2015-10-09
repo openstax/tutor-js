@@ -439,7 +439,7 @@ TaskPlanConfig =
     getOpensAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        opensAt = new Date(tasking?.opens_at) if tasking?.opens_at?
+        opensAt = TimeHelper.getMomentPreserveDate(tasking?.opens_at).toDate() if tasking?.opens_at?
       else
         # default opens_at to 1 day from now
         opensAt = @_getTaskingsCommonDate(id, 'opens_at')
@@ -449,7 +449,7 @@ TaskPlanConfig =
     getDueAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        dueAt = new Date(tasking?.due_at) if tasking?.due_at?
+        dueAt = TimeHelper.getMomentPreserveDate(tasking?.due_at).toDate() if tasking?.due_at?
       else
         dueAt = @_getTaskingsCommonDate(id, 'due_at')
 
