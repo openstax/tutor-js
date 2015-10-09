@@ -71,9 +71,14 @@ module.exports = React.createClass
 
     # if there is a queried due date, make sure it's not the same as the open date
     dueAt = @getQueriedDueAt()
-    if dueAt? and not TimeHelper.getMomentPreserveDate(dueAt).isAfter(opensAt, 'day')
-      # make open date today if default due date is tomorrow
-      opensAt = moment(TimeStore.getNow()).format(ISO_DATE_FORMAT)
+
+    if dueAt?
+      dueAtMoment = TimeHelper.getMomentPreserveDate(dueAt)
+      # there's a corner case is certain timezones where isAfter doesn't quite cut it
+      # and we need to check that the ISO strings don't match
+      unless (dueAtMoment.isAfter(opensAt, 'day') and dueAtMoment.format(ISO_DATE_FORMAT) isnt opensAt)
+        # make open date today if default due date is tomorrow
+        opensAt = moment(TimeStore.getNow()).format(ISO_DATE_FORMAT)
 
     opensAt
 
