@@ -20,6 +20,7 @@ QAViewBook = React.createClass
   propTypes:
     bookId: React.PropTypes.string.isRequired
     section: React.PropTypes.string
+    ecosystemId: React.PropTypes.string.isRequired
 
   getInitialState: ->
     isShowingTeacherContent: true, isShowingBook: false
@@ -28,7 +29,6 @@ QAViewBook = React.createClass
     if @state.isShowingBook
       teacherContent = <TeacherContentToggle isShowing={@state.isShowingTeacherContent}
         onChange={@setTeacherContent} />
-
     <BS.Nav navbar right>
       <BS.NavItem>
         {teacherContent}
@@ -36,7 +36,9 @@ QAViewBook = React.createClass
       </BS.NavItem>
       <BS.DropdownButton title="Available Books" className="dropdown-toggle">
         {for book in EcosystemsStore.allBooks()
-          <li key={book.id}><BookLink book={book} /></li>}
+          <li key={book.id} className={'active' if @props.ecosystemId is book.ecosystemId}>
+            <BookLink book={book} />
+          </li>}
       </BS.DropdownButton>
     </BS.Nav>
 
