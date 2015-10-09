@@ -2,7 +2,6 @@ _ = require 'underscore'
 React = require 'react'
 
 {ReferenceBookStore} = require '../../flux/reference-book'
-ReferenceBookPage = require '../reference-book/page-shell'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 BindStoreMixin = require '../bind-store-mixin'
 
@@ -15,6 +14,7 @@ QAExercises = React.createClass
   propTypes:
     cnxId: React.PropTypes.string.isRequired
     ecosystemId: React.PropTypes.string.isRequired
+    section: React.PropTypes.string.isRequired
 
   getInitialState: ->
     pageId: 0
@@ -39,7 +39,7 @@ QAExercises = React.createClass
     content = if ExerciseStore.isLoaded([@state.pageId])
       exercises = ExerciseStore.allForPage(@state.pageId)
       if _.isEmpty(exercises)
-        <h3>No exercises found</h3>
+        <h3>No exercises found for section {@props.section}</h3>
       else _.map exercises, (ex) -> <ExerciseCard key={ex.id} exercise={ex} />
     else
       <h3>Loading...</h3>
