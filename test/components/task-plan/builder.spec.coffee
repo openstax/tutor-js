@@ -71,10 +71,12 @@ describe 'Task Plan Builder', ->
 
   it 'does not load a default due at for all periods', ->
     helper(NEW_READING).then ({dom, element}) ->
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(dueAt).to.not.be.ok
       element.setIndividualPeriods()
       element.setAllPeriods()
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
-      expect(dueAt).to.be.falsy
+      expect(dueAt).to.not.be.ok
 
   it 'can clear due at when there is no common due at', ->
     firstPeriod = COURSES[0].periods[0].id
@@ -93,7 +95,7 @@ describe 'Task Plan Builder', ->
 
       #due at should be cleared
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
-      expect(dueAt).to.be.falsy
+      expect(dueAt).to.not.be.ok
 
   it 'can update open date with date obj', ->
     helper(NEW_READING).then ({dom, element}) ->
@@ -124,7 +126,7 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setOpensAt(new Date(dayAfter))
       opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
-      expect(getDateString(opensAt)).to.be.falsy
+      expect(getDateString(opensAt)).to.not.be.ok
       opensAt = TaskPlanStore.getOpensAt(NEW_READING.id, periodId)
       expect(getDateString(opensAt)).to.be.equal(getDateString(dayAfter))
 
@@ -133,7 +135,7 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setDueAt(new Date(tomorrow))
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
-      expect(getDateString(dueAt)).to.be.falsy
+      expect(getDateString(dueAt)).to.not.be.ok
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id, periodId)
       expect(getDateString(dueAt)).to.be.equal(getDateString(tomorrow))
 
