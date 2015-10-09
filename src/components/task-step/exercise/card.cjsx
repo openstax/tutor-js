@@ -5,7 +5,16 @@ ExerciseGroup = require './group'
 StepFooter = require '../step-footer'
 {CardBody} = require '../../pinned-header-footer-card/sections'
 
-{ExContinueButton, ExReviewControls, ExFreeResponse, ExMultipleChoice, ExReview} = require './modes'
+{
+  ExContinueButton,
+  ExReviewControls,
+  ExFreeResponse,
+  ExMultipleChoice,
+  ExReview,
+  STEP_PROP_TYPES,
+  CONTINUE_PROP_TYPES,
+  REVIEW_CONTROL_PROP_TYPES
+} = require './modes'
 
 PANELS =
   'free-response': ExFreeResponse
@@ -31,9 +40,7 @@ ON_CHANGE =
   'review': 'onChangeAnswerAttempt'
   'teacher-read-only': 'onChangeAnswerAttempt'
 
-
-CONTROL_PROPS = ['review', 'canTryAnother', 'tryAnother', 'isRecovering',
-  'isContinueFailed', 'waitingText', 'continueButtonText']
+CONTROL_PROPS = _.union(_.keys(CONTINUE_PROP_TYPES), _.keys(REVIEW_CONTROL_PROP_TYPES))
 
 FOOTER_PROPS = ['pinned', 'courseId', 'id', 'taskId', 'review']
 
@@ -43,13 +50,23 @@ NOT_PANEL_PROPS = _.union(
   ['panel', 'onContinue', 'isContinueEnabled', 'step']
 )
 
+EXERCISE_STEP_CARD_PROP_TYPES = _.extend({}, CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES)
+EXERCISE_STEP_CARD_PROP_TYPES.step = React.PropTypes.shape(STEP_PROP_TYPES).isRequired
+EXERCISE_STEP_CARD_PROP_TYPES.pinned = React.PropTypes.bool
+EXERCISE_STEP_CARD_PROP_TYPES.panel = React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only'])
+EXERCISE_STEP_CARD_PROP_TYPES.review = React.PropTypes.string
+
+EXERCISE_STEP_CARD_PROP_TYPES.onAnswerChanged = React.PropTypes.func
+EXERCISE_STEP_CARD_PROP_TYPES.onFreeResponseChange = React.PropTypes.func
+EXERCISE_STEP_CARD_PROP_TYPES.onChangeAnswerAttempt = React.PropTypes.func
 
 ExerciseStepCard = React.createClass
   displayName: 'ExerciseStepCard'
+  propTypes:
+    EXERCISE_STEP_CARD_PROP_TYPES
   getDefaultProps: ->
     disabled: false
     isContinueEnabled: true
-
   getInitialState: ->
     {step} = @props
     freeResponse: step.free_response
@@ -84,7 +101,7 @@ ExerciseStepCard = React.createClass
       onNextStep() unless canReview
 
   render: ->
-    {step, panel, pinned, isContinueEnabled, waitingText} = @props
+    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons} = @props
     {group, related_content} = step
 
     ExPanel = PANELS[panel]
@@ -101,7 +118,7 @@ ExerciseStepCard = React.createClass
 
     footerProps = _.pick(@props, FOOTER_PROPS)
 
-    controlButtons = <ControlButtons {...controlProps}/>
+    controlButtons ?= <ControlButtons {...controlProps}/>
 
     footer = <StepFooter
       {...footerProps}

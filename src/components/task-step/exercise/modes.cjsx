@@ -1,5 +1,6 @@
 React = require 'react/addons'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 
 {PureRenderMixin} = React.addons
 
@@ -12,8 +13,35 @@ ExerciseGroup = require './group'
 StepFooter = require '../step-footer'
 {CardBody} = require '../../pinned-header-footer-card/sections'
 
+STEP_PROP_TYPES =
+  content: React.PropTypes.object.isRequired
+  feedback_html: React.PropTypes.string
+  correct_answer_id: React.PropTypes.string
+  answer_id: React.PropTypes.string
+  free_response: React.PropTypes.string
+  group: React.PropTypes.string
+  related_content: React.PropTypes.array
+
+CONTINUE_PROP_TYPES =
+  isContinueEnabled: React.PropTypes.bool
+  isContinueFailed: React.PropTypes.bool
+  waitingText: React.PropTypes.string
+  children: React.PropTypes.string
+  onContinue: React.PropTypes.func
+
+REVIEW_CONTROL_PROP_TYPES =
+  review: React.PropTypes.string
+  isRecovering: React.PropTypes.bool
+  canTryAnother: React.PropTypes.bool
+  tryAnother: React.PropTypes.func
+  canRefreshMemory: React.PropTypes.bool
+  refreshMemory: React.PropTypes.func
+
+getPropTypes = _.partial(_.extend, {})
+
 ExContinueButton = React.createClass
   displayName: 'ExContinueButton'
+  propTypes: getPropTypes(CONTINUE_PROP_TYPES)
   getDefaultProps: ->
     isContinueFailed: false
     waitingText: null
@@ -39,6 +67,7 @@ ExContinueButton = React.createClass
 
 ExReviewControls = React.createClass
   displayName: 'ExReviewControls'
+  propTypes: getPropTypes(CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES)
   getDefaultProps: ->
     review: ''
     canTryAnother: false
@@ -90,13 +119,11 @@ ExReviewControls = React.createClass
 
 ExFreeResponse = React.createClass
   displayName: 'ExFreeResponse'
-  propTypes:
-    content: React.PropTypes.object.isRequired
+  propTypes: getPropTypes(STEP_PROP_TYPES, {
     focus: React.PropTypes.bool.isRequired
     disabled: React.PropTypes.bool
-    free_response: React.PropTypes.string
     onFreeResponseChange: React.PropTypes.func
-
+  })
   getDefaultProps: ->
     disabled: false
     free_response: ''
@@ -133,6 +160,10 @@ ExFreeResponse = React.createClass
 
 ExMultipleChoice = React.createClass
   displayName: 'ExMulitpleChoice'
+  propTypes: getPropTypes(STEP_PROP_TYPES, {
+    choicesEnabled: React.PropTypes.bool.isRequired
+    onAnswerChanged: React.PropTypes.func
+  })
   getDefaultProps: ->
     answer_id: ''
 
@@ -167,15 +198,10 @@ ExMultipleChoice = React.createClass
 ExReview = React.createClass
   displayName: 'ExReview'
   mixins: [PureRenderMixin]
-  propTypes:
-    content: React.PropTypes.object.isRequired
-    feedback_html: React.PropTypes.string.isRequired
-    correct_answer_id: React.PropTypes.string.isRequired
-    answer_id: React.PropTypes.string.isRequired
-    free_response: React.PropTypes.string
+  propTypes: getPropTypes(STEP_PROP_TYPES)
 
   render: ->
-    {content, free_response, answer_id, correct_answer_id, feedback_html, onChangeAnswerAttempt} = @props
+    {content, free_response, answer_id, correct_answer_id, feedback_html, type, onChangeAnswerAttempt} = @props
     question = content.questions[0]
 
     <div className='exercise'>
@@ -186,10 +212,20 @@ ExReview = React.createClass
         exercise_uid={content.uid}
         correct_answer_id={correct_answer_id}
         feedback_html={feedback_html}
+        type={type}
         onChangeAttempt={onChangeAnswerAttempt}>
         <FreeResponse free_response={free_response}/>
       </Question>
     </div>
 
 
-module.exports = {ExContinueButton, ExReviewControls, ExFreeResponse, ExMultipleChoice, ExReview}
+module.exports = {
+  ExContinueButton,
+  ExReviewControls,
+  ExFreeResponse,
+  ExMultipleChoice,
+  ExReview,
+  STEP_PROP_TYPES,
+  CONTINUE_PROP_TYPES,
+  REVIEW_CONTROL_PROP_TYPES
+}

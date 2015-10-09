@@ -99,6 +99,9 @@ module.exports = React.createClass
   getTeacherReadOnlyProps: (id) ->
     teacherReadOnlyProps = _.omit(@props, 'onStepCompleted', 'onNextStep')
     teacherReadOnlyProps.onContinue = @props.onNextStep
+    teacherReadOnlyProps.isContinueEnabled = false
+    teacherReadOnlyProps.controlButtons = false
+    teacherReadOnlyProps.type = 'teacher-review'
 
     teacherReadOnlyProps
 
