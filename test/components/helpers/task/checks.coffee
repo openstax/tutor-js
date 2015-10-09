@@ -14,7 +14,7 @@ checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
     continueButton = div.querySelector('.continue')
     expect(continueButton).to.not.be.null
-    expect(continueButton.disabled).to.be.falsy
+    expect(continueButton.disabled).to.not.be.ok
 
     {div, component, state, router, history}
 
@@ -73,7 +73,7 @@ checks =
     continueButton = div.querySelector('.continue')
 
     # Continue should be allowed
-    expect(continueButton.disabled).to.be.falsy
+    expect(continueButton.disabled).to.not.be.ok
     expect(step.answer_id).to.not.be.null
     expect(step.answer_id).to.equal(answer.id)
     {div, component, stepId, taskId, state, router, history, answer}
