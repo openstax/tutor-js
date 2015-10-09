@@ -3,11 +3,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 Router = require 'react-router'
 
-ChapterSectionMixin = require '../chapter-section-mixin'
-
 PageNavigation = React.createClass
-
-  mixins: [ ChapterSectionMixin ]
 
   propTypes:
     ecosystemId: React.PropTypes.string.isRequired

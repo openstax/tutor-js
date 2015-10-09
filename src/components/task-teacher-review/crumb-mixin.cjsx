@@ -125,7 +125,7 @@ module.exports =
     listeners[stepType] or 1
 
   _buildSectionLabel: (chapter_section) ->
-    sectionLabel = @sectionFormat?(chapter_section, @state.sectionSeparator) if chapter_section?
+    sectionLabel = @sectionFormat?(chapter_section, @props.sectionSeparator) if chapter_section?
 
   _generateCrumbsFromStats: (stats, type) ->
     getCrumbs = camelCase("get-crumbs-for-#{type}")

@@ -1,13 +1,13 @@
 _ = require 'underscore'
 
 module.exports =
-  getInitialState: ->
+  getDefaultProps: ->
     sectionSeparator: '.'
     skipZeros: true
     inputStringSeparator: '.'
 
   sectionFormat: (section, separator) ->
-    {inputStringSeparator, skipZeros, sectionSeparator} = @state
+    {inputStringSeparator, skipZeros, sectionSeparator} = @props
 
     if _.isString(section)
       sectionArray = section.split(inputStringSeparator)

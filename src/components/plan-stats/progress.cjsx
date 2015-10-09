@@ -59,7 +59,7 @@ Progress = React.createClass
         ({data.student_count} students)
       </span>
 
-    sectionLabel = @sectionFormat(data.chapter_section, @state.sectionSeparator)
+    sectionLabel = @sectionFormat(data.chapter_section, @props.sectionSeparator)
 
     active = activeSection is sectionLabel
 
