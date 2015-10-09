@@ -47,8 +47,7 @@ module.exports = React.createClass
     planId = @props.id
     isNewPlan = TaskPlanStore.isNew(@props.id)
     course = CourseStore.get(@props.courseId)
-
-    _.map course?.periods, (period) ->
+    _.map CourseStore.getPeriods(@props.courseId), (period) ->
       if not TaskPlanStore.hasTasking(planId, period.id) and not isNewPlan
         tasking = id: period.id
       else
@@ -155,9 +154,8 @@ module.exports = React.createClass
     @setOpensAt(taskingOpensAt)
 
     #enable all periods
-    course = CourseStore.get(@props.courseId)
-    periods = _.map course?.periods, (period) -> id: period.id
-    TaskPlanActions.setPeriods(@props.id, periods)
+    period_ids = _.pluck(CourseStore.getPeriods(@props.courseId), 'id')
+    TaskPlanActions.setPeriods(@props.id, period_ids)
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id)
@@ -340,7 +338,7 @@ module.exports = React.createClass
       </BS.Col>
     </BS.Row>
 
-    periodsChoice = _.map(CourseStore.get(@props.courseId)?.periods, @renderTaskPlanRow) if @state.showingPeriods
+    periodsChoice = _.map(CourseStore.getPeriods(@props.courseId), @renderTaskPlanRow) if @state.showingPeriods
     periodsChoice ?= []
     periodsChoice.unshift(choiceLabel)
     periodsChoice

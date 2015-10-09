@@ -69,6 +69,12 @@ describe 'Task Plan Builder', ->
       element.setIndividualPeriods()
       expect(dom.querySelectorAll('.tasking-plan.tutor-date-input').length).to.equal(COURSES[0].periods.length)
 
+  it 'sorts individual periods alphanumerically', ->
+    helper(NEW_READING).then ({dom, element}) ->
+      element.setIndividualPeriods()
+      labels = _.pluck(dom.querySelectorAll('.tasking-plan label'), 'textContent')
+      expect( labels ).to.be.deep.equal(['1st', '3rd', '4th', '5th', '6th', '10th', 'AAA', 'zZZ'])
+
   it 'does not load a default due at for all periods', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setIndividualPeriods()
@@ -148,4 +154,3 @@ describe 'Task Plan Builder', ->
       expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
       expect(dom.querySelector('.-assignment-due-date input.datepicker__input').value)
         .to.be.equal(getDateString(dayAfter))
-
