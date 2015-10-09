@@ -162,7 +162,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
 
     if taskingDueAt
       @setDueAt(taskingDueAt)

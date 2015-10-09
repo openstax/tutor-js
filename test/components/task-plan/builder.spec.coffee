@@ -110,6 +110,25 @@ describe 'Task Plan Builder', ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(dueAt).to.not.be.ok
 
+  it 'will default to queried due date if no common due at with a due date query string', ->
+    firstPeriod = COURSES[0].periods[0]
+    secondPeriod = COURSES[0].periods[1]
+
+    helper(NEW_READING, {due_at: getISODateString(dayAfter)} ).then ({dom, element}) ->
+      #set individual periods
+      element.setIndividualPeriods()
+
+      #set due dates to be different
+      element.setDueAt(getDateString(tomorrow), firstPeriod)
+      element.setDueAt(getDateString(dayAfter), secondPeriod)
+
+      #set all periods
+      element.setAllPeriods()
+
+      #due at should reset to query string due at
+      dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
+      expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
+
   it 'can update open date with date obj', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setOpensAt(new Date(dayAfter))
