@@ -156,7 +156,7 @@ describe 'Tutor Popover', ->
         expect(overlay.state.placement).to.equal('left')
         expect(overlayDOM.classList.contains('left')).to.be.true
 
-  it 'should retrigger positioning and have image-loading class when image(s) loading', ->
+  xit 'should retrigger positioning and have image-loading class when image(s) loading', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({dom, element}) ->
