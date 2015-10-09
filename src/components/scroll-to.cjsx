@@ -47,6 +47,7 @@ ScrollTo =
     @props.windowImpl.removeEventListener('hashchange', @_onHashChange, false)
 
   scrollToSelector: (selector) ->
+    return if _.isEmpty(selector)
     root = React.findDOMNode(@)
     el = root.querySelector(selector)
     @scrollToElement(el) if el
