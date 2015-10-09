@@ -16,6 +16,8 @@ TimeHelper = require '../../helpers/time'
 {CourseStore}   = require '../../flux/course'
 {UnsavedStateMixin} = require '../unsaved-state'
 
+ISO_DATE_FORMAT = 'YYYY-MM-DD'
+
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
   mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]
@@ -57,21 +59,21 @@ module.exports = React.createClass
       tasking
 
   getOpensAtDefault: ->
-    moment(TimeStore.getNow()).add(1, 'day').toDate()
+    moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
 
   getQueriedOpensAt: ->
     {opens_at} = @context?.router?.getCurrentQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    opensAt = if opens_at and isNewPlan then moment(opens_at).toDate()
+    opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at).toDate()
     if not opensAt
       # default open date is tomorrow
       opensAt = @getOpensAtDefault()
 
     # if there is a queried due date, make sure it's not the same as the open date
     dueAt = @getQueriedDueAt()
-    if dueAt? and moment(dueAt).isSame(opensAt, 'day')
+    if dueAt? and not TimeHelper.getMomentPreserveDate(dueAt).isAfter(opensAt, 'day')
       # make open date today if default due date is tomorrow
-      opensAt = moment(TimeStore.getNow()).toDate()
+      opensAt = moment(TimeStore.getNow()).format(ISO_DATE_FORMAT)
 
     opensAt
 
