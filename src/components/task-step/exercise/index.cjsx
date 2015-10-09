@@ -108,7 +108,7 @@ module.exports = React.createClass
   # add get props methods for different panel types as needed here
 
   render: ->
-    {pinned, courseId, id, taskId, review} = @props
+    {id} = @props
     {currentPanel} = @state
     step = TaskStepStore.get(id)
 
@@ -125,8 +125,6 @@ module.exports = React.createClass
     <ExerciseStepCard
       {...cardProps}
       step={step}
-      pinned={pinned}
-      review={review}
       panel={currentPanel}
       waitingText={waitingText}
     />
