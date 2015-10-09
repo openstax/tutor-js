@@ -58,7 +58,10 @@ TimeHelper =
     tzdetect.matches()
 
   getMomentPreserveDate: (value, args...) ->
-    moment.utc(value, args...).hour(12)
+    if @_local
+      return moment(value, args...).tz(@_local).hour(12)
+
+    moment(value, args...).hour(12)
 
   getLocal: ->
     @_local
