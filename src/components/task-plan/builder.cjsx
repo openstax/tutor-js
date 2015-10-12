@@ -287,6 +287,7 @@ module.exports = React.createClass
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates()
     commonOpensAt = taskingOpensAt
     commonDueAt = taskingDueAt
+    maxOpensAt = new moment(TaskPlanStore.getDueAt(@props.id)).subtract(1, 'day').toDate()
 
     opensAt = <BS.Col sm=4 md=3>
       <TutorDateInput
@@ -297,7 +298,7 @@ module.exports = React.createClass
         onChange={@setOpensAt}
         disabled={@state.showingPeriods or @state.isVisibleToStudents or not @state.isEditable}
         min={TimeStore.getNow()}
-        max={TaskPlanStore.getDueAt(@props.id)}
+        max={maxOpensAt}
         value={commonOpensAt}
         currentLocale={@state.currentLocale} />
     </BS.Col>
@@ -365,6 +366,7 @@ module.exports = React.createClass
 
   renderEnabledTasking: (plan) ->
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(plan.id)
+    maxOpensAt = new moment(TaskPlanStore.getDueAt(@props.id, plan.id)).subtract(1, 'day').toDate()
 
     <BS.Row key={plan.id} className="tasking-plan tutor-date-input">
       <BS.Col sm=4 md=3>
@@ -381,7 +383,7 @@ module.exports = React.createClass
           label="Open Date"
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
-          max={TaskPlanStore.getDueAt(@props.id, plan.id)}
+          max={maxOpensAt}
           onChange={_.partial(@setOpensAt, _, plan)}
           value={ taskingOpensAt }
           currentLocale={@state.currentLocale} />
