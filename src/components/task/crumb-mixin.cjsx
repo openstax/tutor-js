@@ -40,7 +40,7 @@ module.exports =
     listeners[stepType] or 1
 
   _buildSectionLabel: (chapter_section, crumbs) ->
-    sectionLabel = @sectionFormat?(chapter_section, @state.sectionSeparator) if chapter_section?
+    sectionLabel = @sectionFormat?(chapter_section, @props.sectionSeparator) if chapter_section?
 
     # don't label crumbs that don't start a section
     sectionLabel = null if _.findWhere(crumbs, {sectionLabel: sectionLabel})?

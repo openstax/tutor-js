@@ -5,6 +5,8 @@
 @primary-background: #f47642;
 @primary-background-hover: #fa804d;
 
+@btn-preselector: ~':not(.btn-link):not(.btn-flat):not(.btn-fab)';
+
 // Override the defaults from bootstrap-material-design
 .btn-hover() {
   box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
@@ -65,11 +67,13 @@
     background: transparent;
     color: @tutor-primary;
     border: 2px solid lighten(@tutor-primary, 20%);
-    margin: -1px;
+    // annoyingly, there's a margin on btns from material bootstrap.
+    // Take 1px off around to offset the increased border.
+    margin: 9px 0;
   }
 }
 
-:not(.btn-link):not(.btn-flat):not(.btn-fab) {
+@{btn-preselector} {
 
   &.btn {
     .btn-round();
