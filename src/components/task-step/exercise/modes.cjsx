@@ -120,6 +120,7 @@ ExReviewControls = React.createClass
 ExFreeResponse = React.createClass
   displayName: 'ExFreeResponse'
   propTypes: getPropTypes(STEP_PROP_TYPES, {
+    free_response: React.PropTypes.string
     focus: React.PropTypes.bool.isRequired
     disabled: React.PropTypes.bool
     onFreeResponseChange: React.PropTypes.func
@@ -162,6 +163,7 @@ ExMultipleChoice = React.createClass
   displayName: 'ExMulitpleChoice'
   propTypes: getPropTypes(STEP_PROP_TYPES, {
     choicesEnabled: React.PropTypes.bool.isRequired
+    canReview: React.PropTypes.bool.isRequired
     onAnswerChanged: React.PropTypes.func
   })
   getDefaultProps: ->

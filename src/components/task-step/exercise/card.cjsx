@@ -1,8 +1,8 @@
 React = require 'react'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 ExerciseGroup = require './group'
-StepFooter = require '../step-footer'
 {CardBody} = require '../../pinned-header-footer-card/sections'
 
 {
@@ -42,16 +42,17 @@ ON_CHANGE =
 
 CONTROL_PROPS = _.union(_.keys(CONTINUE_PROP_TYPES), _.keys(REVIEW_CONTROL_PROP_TYPES))
 
-FOOTER_PROPS = ['pinned', 'courseId', 'id', 'taskId', 'review']
+FOOTER_PROPS = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel']
 
 NOT_PANEL_PROPS = _.union(
   CONTROL_PROPS,
   FOOTER_PROPS,
-  ['panel', 'onContinue', 'isContinueEnabled', 'step']
+  ['onContinue', 'isContinueEnabled', 'step']
 )
 
 EXERCISE_STEP_CARD_PROP_TYPES = _.extend({}, CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES)
 EXERCISE_STEP_CARD_PROP_TYPES.step = React.PropTypes.shape(STEP_PROP_TYPES).isRequired
+EXERCISE_STEP_CARD_PROP_TYPES.footer = React.PropTypes.element.isRequired
 EXERCISE_STEP_CARD_PROP_TYPES.pinned = React.PropTypes.bool
 EXERCISE_STEP_CARD_PROP_TYPES.panel = React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only'])
 EXERCISE_STEP_CARD_PROP_TYPES.review = React.PropTypes.string
@@ -102,7 +103,7 @@ ExerciseStepCard = React.createClass
       onNextStep() unless canReview
 
   render: ->
-    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons} = @props
+    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, className, footer} = @props
     {group, related_content} = step
 
     ExPanel = PANELS[panel]
@@ -118,15 +119,12 @@ ExerciseStepCard = React.createClass
     panelProps[onInputChange] = @[onInputChange]
 
     footerProps = _.pick(@props, FOOTER_PROPS)
+    footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
+    footer = React.addons.cloneWithProps(footer, footerProps)
 
-    controlButtons ?= <ControlButtons {...controlProps}/>
+    cardClasses = classnames 'task-step', className
 
-    footer = <StepFooter
-      {...footerProps}
-      controlButtons={controlButtons}
-    />
-
-    <CardBody className='task-step' footer={footer} pinned={pinned}>
+    <CardBody className={cardClasses} footer={footer} pinned={pinned}>
       <div className="exercise-#{panel}">
         <ExPanel
           {...step}
