@@ -4,7 +4,7 @@ _ = require 'underscore'
 {TaskStepStore} = require '../../flux/task-step'
 ArbitraryHtmlAndMath = require '../html'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
-
+ChapterSectionMixin = require '../chapter-section-mixin'
 
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass
@@ -15,13 +15,13 @@ ReadingStepContent = React.createClass
     courseDataProps: React.PropTypes.object.isRequired
     stepType: React.PropTypes.string.isRequired
 
-  mixins: [BookContentMixin]
+  mixins: [BookContentMixin, ChapterSectionMixin]
   # used by BookContentMixin
   getSplashTitle: ->
     TaskStepStore.get(@props.id)?.title or ''
   getCnxId: ->
     TaskStepStore.getCnxId(@props.id)
-
+  shouldOpenNewTab: -> true
   render: ->
     {id, courseDataProps, stepType} = @props
     {content_html} = TaskStepStore.get(id)
