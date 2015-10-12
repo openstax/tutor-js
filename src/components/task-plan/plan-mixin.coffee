@@ -89,7 +89,7 @@ PlanMixin =
 
   reset: ->
     {id, courseId} = @props
-    TaskPlanActions.reset(id)
+    TaskPlanActions.resetPlan(id)
     @goBackToCalendar()
 
   # TODO move to helper type thing.
