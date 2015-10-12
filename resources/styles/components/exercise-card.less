@@ -1,0 +1,155 @@
+.exercise.card {
+  position: relative;
+  max-width: 1200px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @tutor-info-bg;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 20px auto;
+  }
+
+  // Selected card
+  &.panel-info {
+    background-color: @selected-exercise-background;
+  }
+
+  .panel-heading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    background-color: fade(@tutor-neutral-lighter, 0%);
+    border: none;
+
+    .add-or-remove {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 100px;
+      width: 100px;
+      margin-top: -50px;
+      margin-left: -50px;
+      background-color: fade(@tutor-white, 85%);
+      border: 1px solid @tutor-neutral-lighter;
+      border-radius: 100px;
+      color: @tutor-neutral;
+
+      &::before {
+        .fa-icon();
+        content: @fa-var-plus;
+        font-weight: 300;
+        text-align: center;
+        font-size: 50px;
+        line-height: 100px;
+        width: 100px;
+        position: relative;
+      }
+
+      &.active {
+        &::before {
+          content: @fa-var-minus;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .panel-heading {
+      display: block;
+    }
+  }
+
+  .panel-body {
+
+    .stem {
+      font-weight: 700;
+      margin-bottom: 2rem;
+      font-size: 1.6rem;
+      line-height: 1.4em;
+    }
+
+    .answers-table {
+      counter-reset: answer;
+      font-size: 1.4rem;
+      line-height: 1.4em;
+      margin-bottom: 2rem;
+      .answers-answer.correct {
+        color: @tutor-secondary;
+        padding-left: 0;
+        &::before {
+          .fa;
+          float: left;
+          margin-top: 0.15em;
+          margin-right: .125em;
+          content: @fa-var-check;
+        }
+      }
+
+      .answers-answer {
+        padding-left: 15px;
+        counter-increment: answer;
+
+        .answer-letter {
+          margin-right: 1rem;
+          float: left;
+
+          &::after { content: counter(answer, lower-latin) ')'; }
+        }
+        .answer {
+          display: table;
+          margin-bottom: 5px;
+        }
+        .feedback {
+          display: none;
+          margin-bottom: 5px;
+          color: @tutor-neutral;
+          margin-left: 0;
+          #fonts >.sans(1.1rem, 1.1rem);
+          font-style: italic;
+        }
+      }
+    }
+    .detailed-solution {
+      display: none;
+      margin-bottom: 1.5rem;
+      .header {
+        color: @tutor-neutral-darker;
+        #fonts >.sans(1.3rem, 1.3rem);
+      }
+      .solution {
+        color: @tutor-neutral;
+        #fonts >.sans(1.1rem, 1.1rem);
+        font-style: italic;
+      }
+    }
+    .exercise-tags {
+      color: @tutor-neutral;
+      font-size: 1.2rem;
+      line-height: 1.4em;
+
+      .exercise-tag + .exercise-tag::before {
+        content: ',';
+        margin-right: 1rem;
+      }
+
+      .lo-tag {
+        margin-right: 1rem;
+        display: block;
+        content: '';
+      }
+    }
+  }
+
+
+  &.is-displaying-feedback {
+    .panel-body .answers-table .feedback{ display: table; }
+    .detailed-solution{ display: block; }
+  }
+} // end of exercise.card styles

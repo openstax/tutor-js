@@ -22,7 +22,9 @@ body {
 @import "@{material-path}/_buttons";
 
 // Checkboxes
-@import "@{material-path}/_checkboxes";
+// disabled because they set the checkbox to be display:none and set weird styles on it
+// it's intended for displaying as an font-icon (which we don't use)
+// @import "@{material-path}/_checkboxes";
 
 // Toggle buttons
 @import "@{material-path}/_togglebutton";
@@ -46,7 +48,7 @@ legend {
 .navbar.navbar .dropdown-menu,
 .navbar-default.navbar .dropdown-menu,
 .dropdown-menu {
-  border: 0; 
+  border: 0;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   .divider {
     background-color: @tutor-neutral-light;

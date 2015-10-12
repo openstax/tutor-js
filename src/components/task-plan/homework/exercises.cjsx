@@ -1,62 +1,32 @@
 React = require 'react'
 _ = require 'underscore'
-classnames = require 'classnames'
-
 BS = require 'react-bootstrap'
-$ = require 'jquery'
 
 ArbitraryHtmlAndMath = require '../../html'
+ExerciseCard = require '../../exercise-card'
 ChapterSection = require '../chapter-section'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TocStore} = require '../../../flux/toc'
 
 ExerciseCardMixin =
-  renderAnswer: (answer) ->
-    classes = classnames 'answers-answer',
-      correct: (answer.correctness is '1.0')
 
-    <div key={answer.id} className={classes}>
-      <div className="answer-letter" />
-      <div className="answer">
-        <ArbitraryHtmlAndMath className="choice" block={false} html={answer.content_html} />
-        <ArbitraryHtmlAndMath className="feedback" block={false} html={answer.feedback_html} />
-      </div>
-    </div>
-
-  renderTag: (tag) ->
-    {content, isLO} = ExerciseStore.getTagContent(tag)
-    classes = if isLO
-      content = "LO: #{content}" if isLO
-      'lo-tag'
-    else
-      'exercise-tag'
-    <span key={tag.id or tag.name} className={classes}>{content}</span>
+  toggleFeedbackDisplay: ->
+    @setState(displayFeedback: not @state?.displayFeedback)
 
   renderExercise: ->
-    content = @props.exercise.content
-    question = content.questions[0]
-    renderedAnswers = _(question.answers).chain()
-      .sortBy('id')
-      .map(@renderAnswer)
-      .value()
-    tags = _.clone @props.exercise.tags
-    # Display the exercise uid as a tag
-    tags.push(name: "ID: #{@props.exercise.content.uid}")
-    renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
-    header = @renderHeader()
-    panelStyle = @getPanelStyle()
+    <ExerciseCard
+      {...@props}
+      header={@renderHeader()}
+      displayFeedback={@state?.displayFeedback}
+      panelStyle={@getPanelStyle()}>
 
-    <BS.Panel
-      className='card exercise'
-      bsStyle={panelStyle}
-      header={header}
-      onClick={@toggleExercise}>
-      <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
-      <div className='answers-table'>{renderedAnswers}</div>
-      <div className='exercise-tags'>{renderedTags}</div>
-    </BS.Panel>
+      <BS.Input type="checkbox" label="Display Feedback" standalone
+        wrapperClassName={"feedback-toggle"}
+        checked={@state?.displayFeedback}
+        onChange={@toggleFeedbackDisplay} />
+
+    </ExerciseCard>
 
 ReviewExerciseCard = React.createClass
   displayName: 'ReviewExerciseCard'
