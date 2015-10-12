@@ -13,6 +13,7 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    roleId:   React.PropTypes.string.isRequired
     section:  ChapterSectionType.isRequired
     onPractice: React.PropTypes.func
     sampleSizeThreshold: React.PropTypes.number.isRequired
@@ -31,6 +32,10 @@ module.exports = React.createClass
       </div>
 
       <ProgressBar {...@props} />
-      <Statistics courseId={@props.courseId} section={section} displaying="section" />
+      <Statistics
+      courseId={@props.courseId}
+      roleId={@props.roleId}
+      section={section}
+      displaying="section" />
 
     </div>

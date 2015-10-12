@@ -83,6 +83,7 @@ module.exports = React.createClass
     <BS.Panel className='performance-forecast teacher-student'>
       <Guide
         courseId={courseId}
+        roleId={roleId}
         isLoaded={isLoaded}
         isLoading={isLoading}
         loadingMessage="Loading..."

@@ -20,8 +20,9 @@ describe 'Learning Guide Chapter Panel', ->
     total = @props.chapter.questions_answered_count
 
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked').textContent).to
-      .equal("#{pluralize(' problems', total, true)} worked in this chapter")
+      _.delay ->
+        expect(dom.querySelector('.amount-worked').textContent).to
+        .equal("#{pluralize(' problems', total, true)} worked in this chapter")
 
   it 'displays the title', ->
     Testing.renderComponent( Chapter, props: @props ).then ({dom}) =>

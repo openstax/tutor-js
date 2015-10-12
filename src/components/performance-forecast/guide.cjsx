@@ -17,6 +17,7 @@ module.exports = React.createClass
 
   propTypes:
     courseId:    React.PropTypes.string.isRequired
+    roleId:   React.PropTypes.string.isRequired
     allSections: React.PropTypes.array.isRequired
     chapters:    React.PropTypes.arrayOf(ChapterSectionType)
     heading:     React.PropTypes.element

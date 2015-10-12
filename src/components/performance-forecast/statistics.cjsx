@@ -17,20 +17,27 @@ Statistics = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    roleId:   React.PropTypes.string.isRequired
     section:  ChapterSectionType.isRequired
     displaying: React.PropTypes.string.isRequired
 
-  render: ->
-    role = CurrentUserStore.getCourseRole(@props.courseId, true)
+  getWorkedText: (role) ->
     count = @props.section.clue.unique_learner_count
     total = @props.section.questions_answered_count
+    switch role
+      when 'teacher'
+        "#{pluralize(' students', count, true)}
+         #{pluralize(' has', count)} worked #{pluralize(' problems', total, true)}"
+      when 'student'
+        "#{pluralize(' problems', total, true)} worked in this #{@props.displaying}"
+      when 'teacher-student'
+        "#{pluralize(' problems', total, true)} worked"
 
-    teacherWorkedText =
-      "#{pluralize(' students', count, true)}
-       #{pluralize(' has', count)} worked #{pluralize(' problems', total, true)}"
-
-    studentWorkedText =
-      "#{pluralize(' problems', total, true)} worked in this #{@props.displaying}"
+  render: ->
+    if @props.roleId?
+      role = 'teacher-student'
+    else
+      role = CurrentUserStore.getCourseRole(@props.courseId, true)
 
     <div className='statistics'>
       <SpyModeContent className="clue">
@@ -42,7 +49,7 @@ Statistics = React.createClass
       </SpyModeContent>
       <div className='amount-worked'>
         <span className='count'>
-          {if role is 'teacher' then teacherWorkedText else studentWorkedText}
+          {@getWorkedText(role)}
         </span>
       </div>
     </div>
