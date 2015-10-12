@@ -239,6 +239,7 @@ TutorTextArea = React.createClass
         onPaste={@resize}
         className={classes}
         defaultValue={@props.default}
+        disabled={@props.disabled}
         onChange={@onChange} />
       <div className="floating-label" onClick={@forwardLabelClick}>{@props.label}</div>
       <div className="hint required-hint">

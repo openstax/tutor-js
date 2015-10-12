@@ -241,6 +241,7 @@ module.exports = React.createClass
             id='reading-title'
             default={plan.title}
             required={true}
+            disabled={not @state.isEditable}
             onChange={@setTitle} />
         </BS.Col>
       </BS.Row><BS.Row>
@@ -250,6 +251,7 @@ module.exports = React.createClass
             className='assignment-description'
             id='assignment-description'
             default={TaskPlanStore.getDescription(@props.id)}
+            disabled={not @state.isEditable}
             onChange={@setDescription} />
         </BS.Col>
       </BS.Row><BS.Row>
