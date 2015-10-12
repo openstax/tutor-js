@@ -130,8 +130,8 @@ TaskPlanConfig =
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
     dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
-      date = TimeHelper.getMomentPreserveDate(plan[attr]).toDate()
-      if isNaN(date.getTime()) then 0 else date.getTime()
+      date = TimeHelper.getMomentPreserveDate(plan[attr]).toDate() if plan[attr]
+      if not date or isNaN(date.getTime()) then 0 else date.getTime()
     )
     if dates.length is 1 then new Date(_.first(dates)) else null
 
