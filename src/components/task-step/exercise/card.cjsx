@@ -70,6 +70,7 @@ ExerciseStepCard = React.createClass
   getInitialState: ->
     {step} = @props
     freeResponse: step.free_response
+    answerId: step.answer_id
 
   isContinueEnabled: ->
     {panel} = @props
