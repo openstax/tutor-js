@@ -40,7 +40,14 @@
     // only visible when "spy mode" is enabled
     .ecosystem-info {
       .tutor-spy-mode-content();
-      width: 90%;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      .tutor-shadow(2);
     }
   }
 
@@ -97,6 +104,9 @@
   &.menu-open {
     @media screen and (min-width: (@reference-book-page-width + @reference-book-menu-width + 50px) ) {
       .page-wrapper{ margin-left: @reference-book-menu-width; }
+    }
+    .content .ecosystem-info{
+      left: @reference-book-menu-width;
     }
   }
 

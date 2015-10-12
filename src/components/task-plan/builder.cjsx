@@ -16,6 +16,8 @@ TimeHelper = require '../../helpers/time'
 {CourseStore}   = require '../../flux/course'
 {UnsavedStateMixin} = require '../unsaved-state'
 
+ISO_DATE_FORMAT = 'YYYY-MM-DD'
+
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
   mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]
@@ -23,7 +25,9 @@ module.exports = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
-    label: React.PropTypes.string
+    assignmentLabel: React.PropTypes.string
+    openDateLabel:    React.PropTypes.string
+    dueDateLabel:    React.PropTypes.string
 
   getInitialState: ->
     isNewPlan = TaskPlanStore.isNew(@props.id)
@@ -32,7 +36,9 @@ module.exports = React.createClass
     currentLocale: TimeHelper.getCurrentLocales()
 
   getDefaultProps: ->
-    label: 'Assignment'
+    assignmentLabel: 'Assignment'
+    openDateLabel: 'Open Date'
+    dueDateLabel: 'Due Date'
 
   # Called by the UnsavedStateMixin to detect if anything needs to be persisted
   # This logic could be improved, all it checks is if a title is set on a new task plan
@@ -53,21 +59,26 @@ module.exports = React.createClass
       tasking
 
   getOpensAtDefault: ->
-    moment(TimeStore.getNow()).add(1, 'day').toDate()
+    moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
 
   getQueriedOpensAt: ->
     {opens_at} = @context?.router?.getCurrentQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    opensAt = if opens_at and isNewPlan then moment(opens_at).toDate()
+    opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at).toDate()
     if not opensAt
       # default open date is tomorrow
       opensAt = @getOpensAtDefault()
 
     # if there is a queried due date, make sure it's not the same as the open date
     dueAt = @getQueriedDueAt()
-    if dueAt? and moment(dueAt).isSame(opensAt, 'day')
-      # make open date today if default due date is tomorrow
-      opensAt = moment(TimeStore.getNow()).toDate()
+
+    if dueAt?
+      dueAtMoment = TimeHelper.getMomentPreserveDate(dueAt)
+      # there's a corner case is certain timezones where isAfter doesn't quite cut it
+      # and we need to check that the ISO strings don't match
+      unless (dueAtMoment.isAfter(opensAt, 'day') and dueAtMoment.format(ISO_DATE_FORMAT) isnt opensAt)
+        # make open date today if default due date is tomorrow
+        opensAt = moment(TimeStore.getNow()).format(ISO_DATE_FORMAT)
 
     opensAt
 
@@ -156,7 +167,7 @@ module.exports = React.createClass
     TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id)
+    taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
 
     if taskingDueAt
       @setDueAt(taskingDueAt)
@@ -217,7 +228,7 @@ module.exports = React.createClass
 
 
     assignmentNameLabel = [
-      "#{@props.label} name"
+      "#{@props.assignmentLabel} name"
       <span className='instructions'> (students will see this on their dashboard)</span>
     ]
 
@@ -294,7 +305,7 @@ module.exports = React.createClass
         className='-assignment-open-date'
         ref="openDate"
         required={not @state.showingPeriods}
-        label="Open Date"
+        label={@props.openDateLabel}
         onChange={@setOpensAt}
         disabled={@state.showingPeriods or @state.isVisibleToStudents or not @state.isEditable}
         min={TimeStore.getNow()}
@@ -308,7 +319,7 @@ module.exports = React.createClass
         className='-assignment-due-date'
         ref="dueDate"
         required={not @state.showingPeriods}
-        label="Due Date"
+        label={@props.dueDateLabel}
         onChange={@setDueAt}
         disabled={@state.showingPeriods or not @state.isEditable}
         min={TaskPlanStore.getMinDueAt(@props.id)}
@@ -380,7 +391,7 @@ module.exports = React.createClass
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           disabled={@state.isVisibleToStudents or not @state.isEditable}
-          label="Open Date"
+          label={@props.openDateLabel}
           required={@state.showingPeriods}
           min={TimeStore.getNow()}
           max={maxOpensAt}
@@ -390,7 +401,7 @@ module.exports = React.createClass
       </BS.Col><BS.Col sm=4 md=3>
         <TutorDateInput
           disabled={not @state.isEditable}
-          label="Due Date"
+          label={@props.dueDateLabel}
           required={@state.showingPeriods}
           min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}
           onChange={_.partial(@setDueAt, _, plan)}

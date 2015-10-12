@@ -11,7 +11,6 @@ StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 CourseDataMixin = require '../course-data-mixin'
-ChapterSectionMixin = require '../chapter-section-mixin'
 
 {StepPanel} = require '../../helpers/policies'
 

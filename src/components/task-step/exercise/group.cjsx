@@ -22,21 +22,17 @@ rules =
     show: true
 
 GroupRulesMixin =
-  getInitialState: ->
-    rules: rules
-
   getPossibleGroups: ->
-    _.keys(@state.rules)
+    _.keys(rules)
 
   buildLabel: (related) ->
-    sectionSeparator = @state.sectionSeparator
-    chapterSection = @sectionFormat(related.chapter_section, sectionSeparator)
+    chapterSection = @sectionFormat(related.chapter_section, @props.sectionSeparator)
     "Review - #{chapterSection} #{related.title}"
 
   getGroupLabel: (group, related_content) ->
 
-    if @state.rules[group].label?
-      labels = @state.rules[group].label
+    if rules[group].label?
+      labels = rules[group].label
     else
       labels = _.map(related_content, @buildLabel)
 
