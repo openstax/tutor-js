@@ -12,29 +12,37 @@
     .size-exercise-card();
   }
 
-  .task-review .card-body {
-    .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
-    max-height: 999px;
-    overflow: hidden;
-
-    &.homework-review-problem-leave-active {
-      max-height: 0;
-      padding: 0;
-      margin: 0;
-    }
-
-    &.homework-review-problem-enter {
-      max-height: 0;
-      padding: 0;
-      margin: 0;
+  .task-review {
+    .card-body {
+      .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
+      max-height: 999px;
       overflow: hidden;
     }
 
-    &.homework-review-problem-enter-active {
-      .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
-      max-height: 999px;
-      padding: @tutor-card-body-padding;
-      margin-bottom: 4rem;
+    .homework-review-problem-leave-active {
+      .card-body {
+        max-height: 0;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .homework-review-problem-enter {
+      .card-body {
+        max-height: 0;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+      }
+    }
+
+    .homework-review-problem-enter-active {
+      .card-body {
+        .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
+        max-height: 999px;
+        padding: @tutor-card-body-padding;
+        margin-bottom: 4rem;
+      }
     }
   }
 }
