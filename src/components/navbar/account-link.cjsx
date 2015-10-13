@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+
 {CurrentUserStore} = require '../../flux/current-user'
 {TransitionAssistant} = require '../unsaved-state'
 
@@ -11,7 +12,10 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   redirectToAccount: ->
-    window.open(CurrentUserStore.getProfileUrl(), 'account-profile')
+    if window.OxAccount
+      OxAccount.Modal.display('profile')
+    else
+      window.open(CurrentUserStore.getProfileUrl(), 'account-profile')
 
   render: ->
     return null unless CurrentUserStore.getProfileUrl()
