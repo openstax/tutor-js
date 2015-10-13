@@ -33,7 +33,6 @@ TaskStepLoaded = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     onNextStep: React.PropTypes.func.isRequired
-    goToStep: React.PropTypes.func.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
 
   render: ->
@@ -54,7 +53,6 @@ module.exports = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     onNextStep: React.PropTypes.func.isRequired
-    goToStep: React.PropTypes.func.isRequired
 
   onStepCompleted: ->
     {id} = @props

@@ -10,11 +10,10 @@ ExerciseGroup = require './group'
   ExReviewControls,
   ExFreeResponse,
   ExMultipleChoice,
-  ExReview,
-  STEP_PROP_TYPES,
-  CONTINUE_PROP_TYPES,
-  REVIEW_CONTROL_PROP_TYPES
+  ExReview
 } = require './modes'
+
+{propTypes, props} = require './props'
 
 PANELS =
   'free-response': ExFreeResponse
@@ -40,31 +39,10 @@ ON_CHANGE =
   'review': 'onChangeAnswerAttempt'
   'teacher-read-only': 'onChangeAnswerAttempt'
 
-CONTROL_PROPS = _.union(_.keys(CONTINUE_PROP_TYPES), _.keys(REVIEW_CONTROL_PROP_TYPES))
-
-FOOTER_PROPS = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel']
-
-NOT_PANEL_PROPS = _.union(
-  CONTROL_PROPS,
-  FOOTER_PROPS,
-  ['onContinue', 'isContinueEnabled', 'step']
-)
-
-EXERCISE_STEP_CARD_PROP_TYPES = _.extend({}, CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES)
-EXERCISE_STEP_CARD_PROP_TYPES.step = React.PropTypes.shape(STEP_PROP_TYPES).isRequired
-EXERCISE_STEP_CARD_PROP_TYPES.footer = React.PropTypes.element.isRequired
-EXERCISE_STEP_CARD_PROP_TYPES.pinned = React.PropTypes.bool
-EXERCISE_STEP_CARD_PROP_TYPES.panel = React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only'])
-EXERCISE_STEP_CARD_PROP_TYPES.review = React.PropTypes.string
-
-EXERCISE_STEP_CARD_PROP_TYPES.onAnswerChanged = React.PropTypes.func
-EXERCISE_STEP_CARD_PROP_TYPES.onFreeResponseChange = React.PropTypes.func
-EXERCISE_STEP_CARD_PROP_TYPES.onChangeAnswerAttempt = React.PropTypes.func
-
 ExerciseStepCard = React.createClass
   displayName: 'ExerciseStepCard'
   propTypes:
-    EXERCISE_STEP_CARD_PROP_TYPES
+    propTypes.ExerciseStepCard
   getDefaultProps: ->
     disabled: false
     isContinueEnabled: true
@@ -110,15 +88,15 @@ ExerciseStepCard = React.createClass
     ControlButtons = CONTROLS[panel]
     onInputChange = ON_CHANGE[panel]
 
-    controlProps = _.pick(@props, CONTROL_PROPS)
+    controlProps = _.pick(@props, props.ExReviewControls)
     controlProps.isContinueEnabled = isContinueEnabled and @isContinueEnabled()
     controlProps.onContinue = @onContinue
 
-    panelProps = _.omit(@props, NOT_PANEL_PROPS)
+    panelProps = _.omit(@props, props.notPanel)
     panelProps.choicesEnabled = not waitingText
     panelProps[onInputChange] = @[onInputChange]
 
-    footerProps = _.pick(@props, FOOTER_PROPS)
+    footerProps = _.pick(@props, props.StepFooter)
     footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
     footer = React.addons.cloneWithProps(footer, footerProps)
 
