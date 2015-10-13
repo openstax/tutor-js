@@ -5,15 +5,14 @@ BS = require 'react-bootstrap'
 {EcosystemsStore} = require '../../flux/ecosystems'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-ReferenceBook = require '../reference-book/reference-book'
-
+ReferenceBook        = require '../reference-book/reference-book'
+SpyModeWrapper       = require '../spy-mode/wrapper'
 TeacherContentToggle = require '../reference-book/teacher-content-toggle'
-LoadableItem = require '../loadable-item'
-QAContent = require './content'
-QAExercises = require './exercises'
-BookLink  = require './book-link'
-QAContentToggle = require './content-toggle'
+LoadableItem         = require '../loadable-item'
+QAContent            = require './content'
+QAExercises          = require './exercises'
+BookLink             = require './book-link'
+QAContentToggle      = require './content-toggle'
 
 QAViewBook = React.createClass
 
@@ -51,18 +50,20 @@ QAViewBook = React.createClass
   renderBook: ->
     section = @props.section or ReferenceBookStore.getFirstSection(@props.bookId).join('.')
     contentComponent = if @state.isShowingBook then QAContent else QAExercises
-    <div className="qa">
-      <ReferenceBook
-          pageNavRouterLinkTarget='QAViewBookSection'
-          menuRouterLinkTarget='QAViewBookSection'
-          navbarControls={@renderNavbarControls()}
-          section={section}
-          className={classnames('is-teacher')}
-          className={classnames('is-teacher': @state.isShowingTeacherContent)}
-          ecosystemId={@props.bookId}
-          contentComponent={contentComponent}
-      />
-    </div>
+    <SpyModeWrapper>
+      <div className="qa">
+        <ReferenceBook
+            pageNavRouterLinkTarget='QAViewBookSection'
+            menuRouterLinkTarget='QAViewBookSection'
+            navbarControls={@renderNavbarControls()}
+            section={section}
+            className={classnames('is-teacher')}
+            className={classnames('is-teacher': @state.isShowingTeacherContent)}
+            ecosystemId={@props.bookId}
+            contentComponent={contentComponent}
+        />
+      </div>
+    </SpyModeWrapper>
 
   render: ->
     <LoadableItem
@@ -71,7 +72,5 @@ QAViewBook = React.createClass
       actions={ReferenceBookActions}
       renderItem={@renderBook}
     />
-
-
 
 module.exports = QAViewBook

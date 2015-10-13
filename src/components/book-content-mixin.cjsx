@@ -86,7 +86,6 @@ LinkContentMixin =
     mediaId = link.hash.replace('#', '')
     mediaDOM = @getMedia(mediaId) if mediaId
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
-
     previewNode = document.createElement('span')
     previewNode.classList.add('media-preview-wrapper')
     link.parentNode.replaceChild(previewNode, link)

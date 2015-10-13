@@ -3,12 +3,11 @@ React = require 'react'
 
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
-BindStoreMixin = require '../bind-store-mixin'
-
-Question = require '../question'
-ExerciseCard = require './exercise-card'
-
-{ReferenceBookExercise} =  require '../reference-book/exercise'
+{EcosystemsStore} = require '../../flux/ecosystems'
+BindStoreMixin    = require '../bind-store-mixin'
+Question          = require '../question'
+ExerciseCard      = require './exercise-card'
+SpyModeContent    = require '../spy-mode/content'
 
 QAExercises = React.createClass
   propTypes:
@@ -35,6 +34,13 @@ QAExercises = React.createClass
     if page and not ExerciseStore.isLoaded([page.id])
       ExerciseActions.load(@props.ecosystemId, [page.id], '')
 
+  renderSpyInfo: ->
+    book = EcosystemsStore.getBook(@props.ecosystemId)
+
+    <SpyModeContent className="ecosystem-info">
+      Page: {@props.cnxId} :: Book: {book.uuid}@{book.version}
+    </SpyModeContent>
+
   render: ->
     content = if ExerciseStore.isLoaded([@state.pageId])
       exercises = ExerciseStore.allForPage(@state.pageId)
@@ -47,6 +53,7 @@ QAExercises = React.createClass
     <div className="page-wrapper">
       <div className="exercises center-panel">
         {content}
+        {@renderSpyInfo() if @state.pageId}
       </div>
     </div>
 
