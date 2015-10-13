@@ -37,7 +37,7 @@ EcosystemsStore = flux.createStore
         _.extend( _.first(ecosystem.books), {ecosystemId: "#{ecosystem.id}"} )
 
     first: ->
-      _first @_ecosystems
+      _.first @_ecosystems
 
     getBook: (ecosystemId) ->
       _.findWhere(@_ecosystems, id: parseInt(ecosystemId, 10))
