@@ -40,7 +40,7 @@ EcosystemsStore = flux.createStore
       _.first @_ecosystems
 
     getBook: (ecosystemId) ->
-      _.findWhere(@_ecosystems, id: parseInt(ecosystemId, 10))
+      _.first( _.findWhere(@_ecosystems, id: parseInt(ecosystemId, 10)).books )
 
 
 module.exports = {EcosystemsActions, EcosystemsStore}
