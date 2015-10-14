@@ -4,14 +4,14 @@ _ = require 'underscore'
 
 {PureRenderMixin} = React.addons
 
-ArbitraryHtmlAndMath = require '../../html'
-Question = require '../../question'
+ArbitraryHtmlAndMath = require '../html'
+Question = require '../question'
 FreeResponse = require './free-response'
-AsyncButton = require '../../buttons/async-button'
+AsyncButton = require '../buttons/async-button'
 
 ExerciseGroup = require './group'
-StepFooter = require '../step-footer'
-{CardBody} = require '../../pinned-header-footer-card/sections'
+StepFooter = require '../task-step/step-footer'
+{CardBody} = require '../pinned-header-footer-card/sections'
 
 {propTypes, props} = require './props'
 

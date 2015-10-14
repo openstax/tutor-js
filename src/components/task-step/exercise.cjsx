@@ -1,11 +1,11 @@
 React = require 'react'
 
-{TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
-{TaskStore} = require '../../../flux/task'
-{StepPanel} = require '../../../helpers/policies'
+{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskStore} = require '../../flux/task'
+{StepPanel} = require '../../helpers/policies'
 
-Exercise = require './exercise'
-StepFooter = require '../step-footer'
+Exercise = require '../exercise'
+StepFooter = require './step-footer'
 
 module.exports = React.createClass
   displayName: 'ExerciseShell'

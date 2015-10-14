@@ -9,7 +9,7 @@ React = require 'react/addons'
 
 TaskStep = require '../../../../src/components/task-step'
 {BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
-{ExerciseReview} = require '../../../../src/components/task-step/exercise/modes'
+{ExerciseReview} = require '../../../../src/components/exercise/modes'
 
 {routerStub, commonActions} = require '../utilities'
 

@@ -8,7 +8,7 @@ React = require 'react/addons'
 {StepPanel} = require '../../../../src/helpers/policies'
 
 {BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
-Group = require '../../../../src/components/task-step/exercise/group'
+Group = require '../../../../src/components/exercise/group'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->

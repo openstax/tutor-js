@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../html'
 Question = require '../question'
 {CardBody} = require '../pinned-header-footer-card/sections'
-FreeResponse = require '../task-step/exercise/free-response'
+FreeResponse = require '../exercise/free-response'
 
 TaskTeacherReviewExercise = React.createClass
   displayName: 'TaskTeacherReviewExercise'

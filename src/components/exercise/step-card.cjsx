@@ -3,7 +3,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 ExerciseGroup = require './group'
-{CardBody} = require '../../pinned-header-footer-card/sections'
+{CardBody} = require '../pinned-header-footer-card/sections'
 
 {
   ExContinueButton,

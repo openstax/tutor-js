@@ -2,7 +2,7 @@ React = require 'react'
 camelCase = require 'camelcase'
 _ = require 'underscore'
 
-ChapterSectionMixin = require '../../chapter-section-mixin'
+ChapterSectionMixin = require '../chapter-section-mixin'
 
 DEFAULT_GROUP =
   show: false
