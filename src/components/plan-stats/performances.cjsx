@@ -63,7 +63,7 @@ PracticesPerformance = React.createClass
     unless _.isEmpty(spacedPages)
       practices = _.map(spacedPages, @renderPracticeBars)
       practices = <section>
-        <label>Space Practice Performance</label>
+        <label>Spaced Practice Performance</label>
         {practices}
       </section>
 
