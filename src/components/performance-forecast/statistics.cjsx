@@ -17,7 +17,7 @@ Statistics = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    roleId:   React.PropTypes.string.isRequired
+    roleId:   React.PropTypes.string
     section:  ChapterSectionType.isRequired
     displaying: React.PropTypes.string.isRequired
 
@@ -34,9 +34,11 @@ Statistics = React.createClass
         "#{pluralize(' problems', total, true)} worked"
 
   render: ->
+    # if roleid then we're on teacher-student view
     if @props.roleId?
       role = 'teacher-student'
     else
+    # else use the course role of teacher or student
       role = CurrentUserStore.getCourseRole(@props.courseId, true)
 
     <div className='statistics'>

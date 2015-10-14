@@ -16,7 +16,7 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    roleId:   React.PropTypes.string.isRequired
+    roleId:   React.PropTypes.string
     chapter:  ChapterSectionType.isRequired
     onPractice: React.PropTypes.func
     sampleSizeThreshold: React.PropTypes.number.isRequired
