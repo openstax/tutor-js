@@ -105,6 +105,10 @@ CourseConfig =
     isTeacher: (courseId) ->
       !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')
 
+    getByEcosystemId: (ecosystemId) ->
+      _.findWhere(@_local, ecosystem_id: ecosystemId)
+
+
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)
 module.exports = {CourseActions:actions, CourseStore:store}

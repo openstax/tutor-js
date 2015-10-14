@@ -2,19 +2,18 @@ _ = require 'underscore'
 React = require 'react'
 
 {ReferenceBookStore} = require '../../flux/reference-book'
-ReferenceBookPage = require '../reference-book/page-shell'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
-BindStoreMixin = require '../bind-store-mixin'
-
-Question = require '../question'
-ExerciseCard = require './exercise-card'
-
-{ReferenceBookExercise} =  require '../reference-book/exercise'
+{EcosystemsStore} = require '../../flux/ecosystems'
+BindStoreMixin    = require '../bind-store-mixin'
+Question          = require '../question'
+ExerciseCard      = require './exercise-card'
+SpyModeContent    = require '../spy-mode/content'
 
 QAExercises = React.createClass
   propTypes:
     cnxId: React.PropTypes.string.isRequired
     ecosystemId: React.PropTypes.string.isRequired
+    section: React.PropTypes.string.isRequired
 
   getInitialState: ->
     pageId: 0
@@ -35,11 +34,18 @@ QAExercises = React.createClass
     if page and not ExerciseStore.isLoaded([page.id])
       ExerciseActions.load(@props.ecosystemId, [page.id], '')
 
+  renderSpyInfo: ->
+    book = EcosystemsStore.getBook(@props.ecosystemId)
+
+    <SpyModeContent className="ecosystem-info">
+      Page: {@props.cnxId} :: Book: {book.uuid}@{book.version}
+    </SpyModeContent>
+
   render: ->
     content = if ExerciseStore.isLoaded([@state.pageId])
       exercises = ExerciseStore.allForPage(@state.pageId)
       if _.isEmpty(exercises)
-        <h3>No exercises found</h3>
+        <h3>No exercises found for section {@props.section}</h3>
       else _.map exercises, (ex) -> <ExerciseCard key={ex.id} exercise={ex} />
     else
       <h3>Loading...</h3>
@@ -47,6 +53,7 @@ QAExercises = React.createClass
     <div className="page-wrapper">
       <div className="exercises center-panel">
         {content}
+        {@renderSpyInfo() if @state.pageId}
       </div>
     </div>
 

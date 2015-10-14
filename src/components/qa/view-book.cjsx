@@ -5,21 +5,21 @@ BS = require 'react-bootstrap'
 {EcosystemsStore} = require '../../flux/ecosystems'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-ReferenceBook = require '../reference-book/reference-book'
-
+ReferenceBook        = require '../reference-book/reference-book'
+SpyModeWrapper       = require '../spy-mode/wrapper'
 TeacherContentToggle = require '../reference-book/teacher-content-toggle'
-LoadableItem = require '../loadable-item'
-QAContent = require './content'
-QAExercises = require './exercises'
-BookLink  = require './book-link'
-QAContentToggle = require './content-toggle'
+LoadableItem         = require '../loadable-item'
+QAContent            = require './content'
+QAExercises          = require './exercises'
+BookLink             = require './book-link'
+QAContentToggle      = require './content-toggle'
 
 QAViewBook = React.createClass
 
   propTypes:
     bookId: React.PropTypes.string.isRequired
     section: React.PropTypes.string
+    ecosystemId: React.PropTypes.string.isRequired
 
   getInitialState: ->
     isShowingTeacherContent: true, isShowingBook: false
@@ -28,7 +28,6 @@ QAViewBook = React.createClass
     if @state.isShowingBook
       teacherContent = <TeacherContentToggle isShowing={@state.isShowingTeacherContent}
         onChange={@setTeacherContent} />
-
     <BS.Nav navbar right>
       <BS.NavItem>
         {teacherContent}
@@ -36,7 +35,9 @@ QAViewBook = React.createClass
       </BS.NavItem>
       <BS.DropdownButton title="Available Books" className="dropdown-toggle">
         {for book in EcosystemsStore.allBooks()
-          <li key={book.id}><BookLink book={book} /></li>}
+          <li key={book.id} className={'active' if @props.ecosystemId is book.ecosystemId}>
+            <BookLink book={book} />
+          </li>}
       </BS.DropdownButton>
     </BS.Nav>
 
@@ -49,18 +50,20 @@ QAViewBook = React.createClass
   renderBook: ->
     section = @props.section or ReferenceBookStore.getFirstSection(@props.bookId).join('.')
     contentComponent = if @state.isShowingBook then QAContent else QAExercises
-    <div className="qa">
-      <ReferenceBook
-          pageNavRouterLinkTarget='QAViewBookSection'
-          menuRouterLinkTarget='QAViewBookSection'
-          navbarControls={@renderNavbarControls()}
-          section={section}
-          className={classnames('is-teacher')}
-          className={classnames('is-teacher': @state.isShowingTeacherContent)}
-          ecosystemId={@props.bookId}
-          contentComponent={contentComponent}
-      />
-    </div>
+    <SpyModeWrapper>
+      <div className="qa">
+        <ReferenceBook
+            pageNavRouterLinkTarget='QAViewBookSection'
+            menuRouterLinkTarget='QAViewBookSection'
+            navbarControls={@renderNavbarControls()}
+            section={section}
+            className={classnames('is-teacher')}
+            className={classnames('is-teacher': @state.isShowingTeacherContent)}
+            ecosystemId={@props.bookId}
+            contentComponent={contentComponent}
+        />
+      </div>
+    </SpyModeWrapper>
 
   render: ->
     <LoadableItem
@@ -69,7 +72,5 @@ QAViewBook = React.createClass
       actions={ReferenceBookActions}
       renderItem={@renderBook}
     />
-
-
 
 module.exports = QAViewBook

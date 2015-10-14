@@ -33,9 +33,14 @@ EcosystemsStore = flux.createStore
     isFailed:  -> @_asyncStatus is FAILED
 
     allBooks: ->
-      _.flatten _.pluck(@_ecosystems, 'books')
+      _.map @_ecosystems, (ecosystem) ->
+        _.extend( _.first(ecosystem.books), {ecosystemId: "#{ecosystem.id}"} )
 
-    getBook: (attrs) ->
-      _.findWhere(@_ecosystems, attrs)
+    first: ->
+      _.first @_ecosystems
+
+    getBook: (ecosystemId) ->
+      _.first( _.findWhere(@_ecosystems, id: parseInt(ecosystemId, 10)).books )
+
 
 module.exports = {EcosystemsActions, EcosystemsStore}

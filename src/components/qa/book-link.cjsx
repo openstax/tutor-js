@@ -5,6 +5,7 @@ BookLink = React.createClass
 
   propTypes:
     book: React.PropTypes.shape(
+      ecosystemId: React.PropTypes.string
       id:      React.PropTypes.number
       title:   React.PropTypes.string
       uuid:    React.PropTypes.string
@@ -13,7 +14,7 @@ BookLink = React.createClass
 
   render: ->
     <Router.Link to='QAViewBook'
-      params={ecosystemId: @props.book.id}>
+      params={ecosystemId: @props.book.ecosystemId}>
         {@props.book.title}
     </Router.Link>
 

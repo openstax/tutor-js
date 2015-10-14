@@ -7,6 +7,7 @@ dom = require '../helpers/dom'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
 {MediaStore} = require '../flux/media'
+{CourseStore} = require '../flux/course'
 ScrollTo = require './scroll-to'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
@@ -42,11 +43,18 @@ LinkContentMixin =
     _.last(beforeHash.split('/'))
 
   buildReferenceBookLink: (cnxId) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, ecosystemId} = @context.router.getCurrentParams()
     {query, id} = @props
-  
+
+    if ecosystemId and not courseId
+      courseId = CourseStore.getByEcosystemId(ecosystemId)?.id
+
+    # suboptimal but is the best we can as long as the reference book depends on having a courseId in url
+    return null unless courseId
+
     if id?
       related_content = TaskStepStore.get(id)?.related_content
+
       if related_content?
         section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
         referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {courseId, section}, query) if section?
@@ -78,7 +86,6 @@ LinkContentMixin =
     mediaId = link.hash.replace('#', '')
     mediaDOM = @getMedia(mediaId) if mediaId
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
-
     previewNode = document.createElement('span')
     previewNode.classList.add('media-preview-wrapper')
     link.parentNode.replaceChild(previewNode, link)
