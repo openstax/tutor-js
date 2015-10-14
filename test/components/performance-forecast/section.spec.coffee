@@ -24,5 +24,6 @@ describe 'Learning Guide Section Panel', ->
     total = @props.section.questions_answered_count
 
     Testing.renderComponent( Section, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.amount-worked').textContent).to
-      .equal("#{pluralize(' problems', total, true)} worked in this section")
+      _.delay ->
+        expect(dom.querySelector('.amount-worked').textContent).to
+        .equal("#{pluralize(' problems', total, true)} worked in this section")
