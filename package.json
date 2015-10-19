@@ -31,7 +31,7 @@
     "twix": "^0.6.3",
     "underscore": "~1.8.2",
     "validator": "^3.41.2",
-    "katex": "^0.1.1",
+    "katex": "^0.5.1",
     "quill-with-math": "philschatz/quill-with-math#master"
   },
   "devDependencies": {
