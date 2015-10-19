@@ -15,7 +15,7 @@ module.exports =
   entry:
     exercises: [
       './src/index.coffee',
-      './style/exercises.less'
+      './resources/styles/exercises.less'
     ]
 
   output:
@@ -23,7 +23,7 @@ module.exports =
     filename: '[name].js'
     publicPath: if isProduction then '' else 'http://localhost:8000/dist/'
 
-  plugins: [ new ExtractTextPlugin('tutor.css') ]
+  plugins: [ new ExtractTextPlugin('exercises.css') ]
 
   module:
     noParse: [
