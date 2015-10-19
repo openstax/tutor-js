@@ -1,6 +1,7 @@
 React = require 'react'
 CardMixin = require './card-mixin'
 DialogButton = require './dialog-button'
+HeaderMixin = require './header-mixin'
 
 {ExerciseActions} = require '../stores/exercise'
 

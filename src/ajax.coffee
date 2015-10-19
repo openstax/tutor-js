@@ -6,10 +6,6 @@ ajax = (options, cb) ->
   # Pull this in for every request so sepia.js has a chance to override `window.XMLHTTPRequest`
   if window?
     XMLHttpRequest = window.XMLHttpRequest
-  else
-    req = require
-    XMLHttpRequest = req('xmlhttprequest').XMLHttpRequest
-
 
   xhr = new XMLHttpRequest()
   xhr.dataType = options.dataType
@@ -22,8 +18,8 @@ ajax = (options, cb) ->
   for name, value of options.headers
     xhr.setRequestHeader(name, value)
 
-  xhr.onreadystatechange = () ->
-    if 4 == xhr.readyState
+  xhr.onreadystatechange ->
+    if 4 is xhr.readyState
       options.statusCode?[xhr.status]?()
 
       if xhr.status >= 200 and xhr.status < 300 or xhr.status is 304 or xhr.status is 302

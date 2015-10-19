@@ -1,5 +1,3 @@
-# @cjsx React.DOM
-
 React = require 'react'
 Quill = require 'quill-with-math'
 KatexMixin = require './katex-mixin'
@@ -37,7 +35,7 @@ module.exports = React.createClass
       if MOST_RECENTLY_FOCUSED is editor
         editor_focus.call(editor)
 
-    editor.on 'selection-change', =>
+    editor.on 'selection-change', ->
       MOST_RECENTLY_FOCUSED = editor
 
   componentDidMount: -> @initializeEditor()

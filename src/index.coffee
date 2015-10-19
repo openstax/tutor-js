@@ -7,7 +7,7 @@ ajax = require './ajax'
 
 # Just for debugging
 window.React = React
-window.ExerciseComponent = Exercise
+window.ExerciseComponent = React.createFactory(Exercise)
 window.ExerciseActions = ExerciseActions
 window.ExerciseStore = ExerciseStore
 window.EXERCISE_MODES = EXERCISE_MODES
@@ -20,7 +20,7 @@ if /\/exercises\/\d+/.test(window.location.pathname)
   # Determine if the user is logged in first
   ajax {type:'GET', url: '/api/user'}, (err, xhr) ->
 
-    isLoggedIn = !err
+    isLoggedIn = not err
     if isLoggedIn
       ExerciseActions.changeExerciseMode(EXERCISE_MODES.EDIT)
     else

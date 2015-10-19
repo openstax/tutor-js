@@ -17,22 +17,28 @@ View = React.createClass
   renderActions: ->
     html = @props.model.stem_html
     buttons = [
-      <DialogButton onClick={@props.onEditMode}>Edit</DialogButton>
-      <DialogButton onClick={@props.onPreviewMode}>Preview</DialogButton>
+      <DialogButton onClick={@props.onEditMode}>
+        Edit
+      </DialogButton>
+      <DialogButton onClick={@props.onPreviewMode}>
+        Preview
+      </DialogButton>
       <DialogButton onClick={@onRemove} isDanger=true isRight=true title="Remove Question">
         <i className="fa fa-trash-o"></i>
       </DialogButton>
     ]
 
     unless ExerciseStore.isLastQuestion(@props.parent, @props.model)
-      buttons.push(<DialogButton onClick={@onMoveDown} isDanger=true isRight=true title="Move Question Down">
-        <i className="fa fa-arrow-down"></i>
-      </DialogButton>)
+      buttons.push(
+        <DialogButton onClick={@onMoveDown} isDanger=true isRight=true title="Move Question Down">
+          <i className="fa fa-arrow-down"></i>
+        </DialogButton>)
 
     unless ExerciseStore.isFirstQuestion(@props.parent, @props.model)
-      buttons.push(<DialogButton onClick={@onMoveUp} isDanger=true isRight=true title="Move Question Up">
-        <i className="fa fa-arrow-up"></i>
-      </DialogButton>)
+      buttons.push(
+        <DialogButton onClick={@onMoveUp} isDanger=true isRight=true title="Move Question Up">
+          <i className="fa fa-arrow-up"></i>
+        </DialogButton>)
 
     buttons
 
@@ -81,10 +87,14 @@ Preview = React.createClass
 
     answers = for answer, i in @props.model.answers
       <div className="-answer-preview-wrapper">
-        <input id="#{qid}-option-#{i}" name="#{qid}-options" type="radio" className="answer-input-box" />
+        <input id="#{qid}-option-#{i}" 
+          name="#{qid}-options" 
+          type="radio" 
+          className="answer-input-box" />
         <label htmlFor="#{qid}-option-#{i}" className="answers-answer">
           <div className="answer-letter" />
-          <div className="answer-content has-html" dangerouslySetInnerHTML={__html: answer.content_html} />
+          <div className="answer-content has-html" 
+            dangerouslySetInnerHTML={__html: answer.content_html} />
         </label>
       </div>
 
@@ -102,7 +112,9 @@ Toolbar = React.createClass
   renderFirstRow: ->
     [
       <span className="brand-logo question-toolbar-title">Editing Question</span>
-      <button className="btn-toolbar btn-close" onClick={@props.onClose}><i className="mdi-navigation-close"></i></button>
+      <button className="btn-toolbar btn-close" onClick={@props.onClose}>
+        <i className="mdi-navigation-close"></i>
+      </button>
     ]
 
   renderSecondRow: ->
@@ -117,7 +129,11 @@ EditAnswer = React.createClass
     <div className="answers-answer">
       <div className="answer-letter"></div>
       <div className="answer-content">
-        <HtmlEditor toolbarId="#hack-quill-toolbar-id" html={html} onChange={@props.onChange} noInitialFocus={@props.noInitialFocus} />
+        <HtmlEditor 
+          toolbarId="#hack-quill-toolbar-id" 
+          html={html} 
+          onChange={@props.onChange} 
+          noInitialFocus={@props.noInitialFocus} />
       </div>
       <div className="answer-actions">
         <DialogButton isDanger={true} onClick={@props.onRemove} title="Remove Answer">
@@ -162,7 +178,7 @@ Edit = React.createClass
     </Toolbar>
 
   renderAnswers: ->
-    noInitialFocus = !@state.justAddedAnswer
+    noInitialFocus = not @state.justAddedAnswer
     @state.justAddedAnswer = false
 
     answers = for answer in @state.answers
