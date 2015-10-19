@@ -30,10 +30,14 @@ MultiMode = React.createClass
       onDone: @props.onDone
       children: @props.children
 
+    renderView = React.createFactory(@props.viewClass)
+    renderEdit = React.createFactory(@props.editClass)
+    renderPreview = React.createFactory(@props.previewClass)
+
     switch @state.mode
-      when MODES.VIEW     then @props.viewClass(childProps)
-      when MODES.EDIT     then @props.editClass(childProps)
-      when MODES.PREVIEW  then @props.previewClass(childProps)
+      when MODES.VIEW     then renderView(childProps)
+      when MODES.EDIT     then renderEdit(childProps)
+      when MODES.PREVIEW  then renderPreview(childProps)
       else throw new Error('BUG!')
 
   onEditMode: -> @setState {mode: MODES.EDIT}

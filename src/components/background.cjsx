@@ -50,7 +50,9 @@ Toolbar = React.createClass
   renderFirstRow: ->
     [
       <span className="brand-logo question-toolbar-title">Editing Background</span>
-      <button className="btn-toolbar btn-close" onClick={@props.onClose}><i className="mdi-navigation-close"></i></button>
+      <button className="btn-toolbar btn-close" onClick={@props.onClose}>
+        <i className="mdi-navigation-close"></i>
+      </button>
     ]
 
   renderSecondRow: ->
