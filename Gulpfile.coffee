@@ -13,7 +13,6 @@ webpack         = require 'webpack'
 webpackServer   = require 'webpack-dev-server'
 WPExtractText   = require 'extract-text-webpack-plugin'
 
-###
 TestRunner      = require './test/config/test-runner'
 
 KARMA_CONFIG =
@@ -23,7 +22,6 @@ KARMA_CONFIG =
 KARMA_COVERAGE_CONFIG =
   configFile: __dirname + '/test/config/karma-coverage.config.coffee'
   singleRun: true
-###
 
 DIST_DIR = './dist'
 
@@ -107,7 +105,6 @@ gulp.task 'prod', ['_archive']
 
 gulp.task 'serve', ['_webserver']
 
-###
 gulp.task 'test', ['lint'], (done) ->
   server = new karma.Server(KARMA_CONFIG)
   server.start()
@@ -115,7 +112,6 @@ gulp.task 'test', ['lint'], (done) ->
 gulp.task 'coverage', ->
   server = new karma.Server(KARMA_COVERAGE_CONFIG)
   server.start()
-###
 
 # clean out the dist directory before running since otherwise stale files might be served from there.
 # The _webserver task builds and serves from memory with a fallback to files in dist

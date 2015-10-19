@@ -101,7 +101,9 @@ module.exports =
     } # End part
 
     {
-      background: 'These questions have aleady been answered by the student and are meant to test that the Exercise knows not to render radio buttons, input boxes, etc'
+      background: 'These questions have aleady been answered by the student
+                  and are meant to test that the Exercise knows not to render
+                  radio buttons, input boxes, etc'
       questions: [
         {
           formats: ['short-answer']
