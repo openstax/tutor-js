@@ -1,6 +1,8 @@
 camelCase = require 'camelcase'
 
 ExerciseStepCard = require './step-card'
+{propTypes} = require './props'
+{step} = propTypes.ExerciseStepCard
 
 # TODO clean this up.
 REVIEW_CONTROL_PROPS = ['refreshStep', 'recoverFor', 'canTryAnother']
@@ -17,15 +19,17 @@ Exercise = React.createClass
     taskId: React.PropTypes.string.isRequired
     onStepCompleted: React.PropTypes.func.isRequired
     onNextStep: React.PropTypes.func.isRequired
+    getCurrentPanel: React.PropTypes.func.isRequired
+    step: step
 
-    setFreeResponseAnswer: React.PropTypes.func
-    setAnswerId: React.PropTypes.func
+    setFreeResponseAnswer: React.PropTypes.func.isRequired
+    setAnswerId: React.PropTypes.func.isRequired
+
     getReadingForStep: React.PropTypes.func
     refreshStep: React.PropTypes.func
     recoverFor: React.PropTypes.func
-    getCurrentPanel: React.PropTypes.func
 
-    review: React.PropTypes.string.isRequired
+    review: React.PropTypes.string
     focus: React.PropTypes.bool
     courseId: React.PropTypes.string
     canTryAnother: React.PropTypes.bool
@@ -54,6 +58,7 @@ Exercise = React.createClass
     review: ''
     pinned: true
     canTryAnother: false
+    canReview: false
 
   refreshMemory: ->
     {id, taskId} = @props

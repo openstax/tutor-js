@@ -16,8 +16,9 @@ module.exports =
     path: if isProduction then './dist/' else '/'
     filename: '[name].js'
     publicPath: if isProduction then '/assets/' else 'http://localhost:8000/dist/'
-    libraryTarget: 'amd'
+    libraryTarget: 'umd'
     library: 'TutorJSShared'
+    umdNamedDefine: true
 
   module:
     noParse: [
@@ -35,15 +36,35 @@ module.exports =
 
   externals: [
     {
-      react: 'react'
+      react:
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react'
     },{
-      'react/addons': 'react'
+      'react/addons':
+        root: 'React.addons',
+        commonjs2: 'react/addons',
+        commonjs: 'react/addons',
+        amd: 'react/addons'
     },{
-      'react-bootstrap': 'react-bootstrap'
+      'react-bootstrap':
+        root: 'ReactBootstrap',
+        commonjs2: 'react-bootstrap',
+        commonjs: 'react-bootstrap',
+        amd: 'react-bootstrap'
     },{
-      'react-scroll-components': 'react-scroll-components'
+      'react-scroll-components':
+        root: 'ReactScrollComponents',
+        commonjs2: 'react-scroll-components',
+        commonjs: 'react-scroll-components',
+        amd: 'react-scroll-components'
     },{
-      underscore: 'underscore'
+      underscore:
+        root: '_',
+        commonjs2: 'underscore',
+        commonjs: 'underscore',
+        amd: 'underscore'
     }
   ]
 

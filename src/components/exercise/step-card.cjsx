@@ -37,6 +37,11 @@ ON_CHANGE =
   'review': 'onChangeAnswerAttempt'
   'teacher-read-only': 'onChangeAnswerAttempt'
 
+ExerciseDefaultFooter = React.createClass
+  displayName: 'ExerciseDefaultFooter'
+  render: ->
+    <div>{@props.controlButtons}</div>
+
 ExerciseStepCard = React.createClass
   displayName: 'ExerciseStepCard'
   propTypes:
@@ -44,6 +49,7 @@ ExerciseStepCard = React.createClass
   getDefaultProps: ->
     disabled: false
     isContinueEnabled: true
+    Footer: ExerciseDefaultFooter
   getInitialState: ->
     {step} = @props
     freeResponse: step.free_response
