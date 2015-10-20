@@ -50,16 +50,29 @@ gulp.task '_build', ['_cleanDist'], (done) ->
         BS: 'react-bootstrap'
       })
       # new WPExtractText("tutor-js-shared.min.css")
-      # new webpack.optimize.UglifyJsPlugin({minimize: true})
+      new webpack.optimize.UglifyJsPlugin({minimize: true})
     ]
   })
-  config.output.filename = 'tutor-js-shared.min.js'
+  # console.info(config.externals)
+  config.output.filename = 'components-only.min.js'
   webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
     gutil.log("[webpack]", stats.toString({
       # output options
     }))
-    done()
+    fullConfig = _.omit(config, 'externals')
+    fullConfig.entry = './full-build'
+    fullConfig.output.filename = 'full-build.min.js'
+
+    webpack(fullConfig, (err, stats) ->
+
+      throw new gutil.PluginError("webpack", err) if err
+      gutil.log("[webpack]", stats.toString({
+        # output options
+      }))
+
+      done()
+    )
   )
 
 gulp.task '_tagRev', ['_build'], ->

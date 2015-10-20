@@ -17,7 +17,7 @@ module.exports =
     filename: '[name].js'
     publicPath: if isProduction then '/assets/' else 'http://localhost:8000/dist/'
     libraryTarget: 'umd'
-    library: 'TutorJSShared'
+    library: 'OpenStaxReactComponents'
     umdNamedDefine: true
 
   module:
@@ -34,39 +34,33 @@ module.exports =
   resolve:
     extensions: ['', '.js', '.json', '.coffee', '.cjsx']
 
-  externals: [
-    {
+  externals: [{
       react:
         root: 'React',
         commonjs2: 'react',
         commonjs: 'react',
         amd: 'react'
-    },{
       'react/addons':
         root: 'React.addons',
         commonjs2: 'react/addons',
         commonjs: 'react/addons',
         amd: 'react/addons'
-    },{
       'react-bootstrap':
         root: 'ReactBootstrap',
         commonjs2: 'react-bootstrap',
         commonjs: 'react-bootstrap',
         amd: 'react-bootstrap'
-    },{
       'react-scroll-components':
         root: 'ReactScrollComponents',
         commonjs2: 'react-scroll-components',
         commonjs: 'react-scroll-components',
         amd: 'react-scroll-components'
-    },{
       underscore:
         root: '_',
         commonjs2: 'underscore',
         commonjs: 'underscore',
         amd: 'underscore'
-    }
-  ]
+    }]
 
   devServer:
     contentBase: './'
