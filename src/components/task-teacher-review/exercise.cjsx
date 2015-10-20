@@ -2,10 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-ArbitraryHtmlAndMath = require '../html'
-Question = require '../question'
-{CardBody} = require '../pinned-header-footer-card/sections'
-FreeResponse = require '../exercise/free-response'
+{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse} = require 'openstax-react-components'
 
 TaskTeacherReviewExercise = React.createClass
   displayName: 'TaskTeacherReviewExercise'

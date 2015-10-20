@@ -3,10 +3,8 @@ React = require 'react'
 _  = require 'underscore'
 classnames = require 'classnames'
 
-HTML = require '../html'
-ArbitraryHtmlAndMath = require '../html'
 {BookContentMixin} = require '../book-content-mixin'
-GetPositionMixin = require '../get-position-mixin'
+{ArbitraryHtmlAndMath, GetPositionMixin} = require 'openstax-react-components'
 SpyModeContent = require '../spy-mode/content'
 
 {ReferenceBookExerciseShell} = require './exercise'

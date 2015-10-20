@@ -4,7 +4,7 @@ React = require 'react'
 {TaskStore} = require '../../flux/task'
 {StepPanel} = require '../../helpers/policies'
 
-Exercise = require '../exercise'
+{Exercise} = require 'openstax-react-components'
 StepFooter = require './step-footer'
 
 module.exports = React.createClass
@@ -42,5 +42,5 @@ module.exports = React.createClass
       {...@props}
       {...stepProps}
       step={step}
-      footer={<StepFooter/>}
+      Footer={StepFooter}
     />
