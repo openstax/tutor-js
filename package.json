@@ -70,6 +70,7 @@
     "karma-webpack": "^1.7.0",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
+    "lodash": "^3.10.1",
     "mocha": "~2.2.1",
     "parent-require": "^1.0.0",
     "phantomjs": "^1.9.18",

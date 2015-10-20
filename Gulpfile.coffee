@@ -35,45 +35,23 @@ DIST_DIR = './dist'
 gulp.task '_cleanDist', (done) ->
   del(['./dist/*'], done)
 
-gulp.task '_build', ['_cleanDist'], (done) ->
+gulpWebpack = (name) ->
   env(vars:{ NODE_ENV: 'production' })
-  webpackConfig = require './webpack.config'
-  config = _.extend({}, webpackConfig, {
-    plugins: [
-      # Use the production version of React (no warnings/runtime checks)
-      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
-      # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
-      new webpack.optimize.DedupePlugin()
-      new webpack.ProvidePlugin({
-        React: 'react'
-        _: 'underscore'
-        BS: 'react-bootstrap'
-      })
-      # new WPExtractText("tutor-js-shared.min.css")
-      new webpack.optimize.UglifyJsPlugin({minimize: true})
-    ]
-  })
-  # console.info(config.externals)
-  config.output.filename = 'components-only.min.js'
+  webpackConfigs = require './webpack.config'
+  config = webpackConfigs[name]
   webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
     gutil.log("[webpack]", stats.toString({
       # output options
     }))
-    fullConfig = _.omit(config, 'externals')
-    fullConfig.entry = './full-build'
-    fullConfig.output.filename = 'full-build.min.js'
-
-    webpack(fullConfig, (err, stats) ->
-
-      throw new gutil.PluginError("webpack", err) if err
-      gutil.log("[webpack]", stats.toString({
-        # output options
-      }))
-
-      done()
-    )
   )
+
+gulp.task '_buildMain', _.partial(gulpWebpack, 'main')
+gulp.task '_buildMainMin', _.partial(gulpWebpack, 'main.min')
+gulp.task '_buildFull', _.partial(gulpWebpack, 'fullBuild')
+gulp.task '_buildFullMin', _.partial(gulpWebpack, 'fullBuild.min')
+
+gulp.task '_build', ['_cleanDist', '_buildMain', '_buildMainMin', '_buildFull', '_buildFullMin']
 
 gulp.task '_tagRev', ['_build'], ->
   gulp.src("#{DIST_DIR}/*.min.*")
@@ -100,6 +78,7 @@ gulp.task '_karma', ->
   server = new karma.Server(KARMA_DEV_CONFIG)
   server.start()
 
+# TODO will rewrite this to fit new config
 gulp.task '_webserver', ->
   env(vars:{ NODE_ENV: 'development' })
   webpackConfig = require './webpack.config'
