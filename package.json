@@ -1,0 +1,101 @@
+{
+  "name": "tutor-js-shared",
+  "version": "0.0.0",
+  "description": "Bare Repo for OpenStax Tutor",
+  "main": "dist/tutor-js-shared.min.js",
+  "scripts": {
+    "test": "gulp test && gulp prod",
+    "coverage": "gulp coverage",
+    "deployment": "gulp prod",
+    "test-integration": "mocha -R spec ./test-integration/",
+    "start": "gulp dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openstax/tutor-js-bare.git"
+  },
+  "author": "Philip Schatz <http://philschatz.com>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/openstax/tutor-js-bare/issues"
+  },
+  "homepage": "https://github.com/openstax/tutor-js-bare",
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "camelcase": "^1.0.2",
+    "classnames": "^2.1.3",
+    "markdown-it": "^4.1.1",
+    "moment": "^2.9.0",
+    "underscore": "~1.8.2"
+  },
+  "devDependencies": {
+    "blanket": "^1.1.7",
+    "chai": "~2.1.1",
+    "chai-as-promised": "^5.1.0",
+    "chromedriver": "^2.16.0",
+    "cjsxify": "0.2.6",
+    "coffee-jsx-loader": "^0.1.3",
+    "coffee-loader": "^0.7.2",
+    "coffee-react-transform": "^3.1.0",
+    "coffee-script": "~1.9.1",
+    "coffeelint": "^1.11.1",
+    "coffeelint-loader": "^0.1.1",
+    "css-loader": "^0.16.0",
+    "del": "~1.1.1",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-exists": "^0.1.1",
+    "file-loader": "^0.8.4",
+    "fixed-data-table": "0.4.1",
+    "gulp": "~3.9",
+    "gulp-coffeelint": "^0.4.0",
+    "gulp-env": "^0.2.0",
+    "gulp-gzip": "~1.0.0",
+    "gulp-rev": "~3.0.1",
+    "gulp-tar": "~1.4.0",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.5",
+    "istanbul-instrumenter-loader": "^0.1.3",
+    "json-loader": "^0.5.2",
+    "karma": "^0.13",
+    "karma-chai": "^0.1.0",
+    "karma-chai-sinon": "^0.1.5",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.5.0",
+    "karma-mocha": "~0.1.10",
+    "karma-mocha-reporter": "~1.0.0",
+    "karma-nyan-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs-shim": "^1.1.1",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.7.0",
+    "less": "^2.5.1",
+    "less-loader": "^2.2.0",
+    "mocha": "~2.2.1",
+    "parent-require": "^1.0.0",
+    "phantomjs": "^1.9.18",
+    "react": "0.13.1",
+    "react-bootstrap": "~0.22.0",
+    "react-clonewithprops": "^1.0.1",
+    "react-hot-loader": "^1.3.0",
+    "react-scroll-components": "^0.2.2",
+    "selenium-webdriver": "^2.46.1",
+    "sinon": "^1.16.1",
+    "sinon-chai": "^2.8.0",
+    "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.0",
+    "webpack-dev-server": "^1.10.1",
+    "webpack-module-hot-accept": "^1.0.3",
+    "when": "~3.7.2"
+  },
+  "peerDependencies": {
+    "react": "0.13.1",
+    "react-bootstrap": "~0.22.0",
+    "react-scroll-components": "^0.2.2"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "src"
+    }
+  }
+}
