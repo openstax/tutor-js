@@ -1,28 +1,8 @@
-React = require 'react'
-_ = require 'underscore'
+exportsToPassOn = require './index'
+mixinsNames = ['ChapterSectionMixin', 'GetPositionMixin', 'ResizeListenerMixin']
 
-componentsToExport = {
-  Exercise,
-  FreeResponse,
-
-  PinnedHeaderFooterCard,
-  PinnedHeader,
-  CardBody,
-  PinnableFooter,
-
-  Question,
-  ArbitraryHtmlAndMath,
-
-  RefreshButton,
-  AsyncButton
-
-} = require './index'
-
-mixins = {
-  ChapterSectionMixin,
-  GetPositionMixin,
-  ResizeListenerMixin
-} = require './index'
+componentsToExport = _.omit(exportsToPassOn, mixinsNames)
+mixins = _.pick(exportsToPassOn, mixinsNames)
 
 wrapComponent = (component) ->
   (DOMNode, props) ->
