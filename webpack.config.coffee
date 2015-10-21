@@ -1,38 +1,31 @@
-baseConfig = {externals} = require './webpack.config.base'
-webpack = require 'webpack'
-_ = require 'lodash'
+{makeConfig, otherConfigs} = require './webpack-helper'
 
-mergeWebpackConfig = (config) ->
-  _.merge {}, _.omit(baseConfig, 'externals'), config, (a, b) ->
-    if _.isArray(a)
-      return a.concat(b)
+getWebpackConfig = (name, isProduction) ->
+  configs =
+    main: [{
+        entry: './index'
+        output:
+          filename: 'main.js'
+      }, {isProduction}]
+    fullBuild: [{
+        entry: './full-build'
+        output:
+          filename: 'full-build.js'
+      }, {isProduction, excludeExternals: false}]
+    'main.min': [{
+        entry: './index'
+        output:
+          filename: 'main.min.js'
+      }, {isProduction, minify: true}]
+    'fullBuild.min': [{
+        entry: './full-build'
+        output:
+          filename: 'full-build.min.js'
+      }, {isProduction, excludeExternals: false, minify: true}]
 
-module.exports =
-  main: mergeWebpackConfig(
-      entry: './index'
-      externals: externals
-      output:
-        filename: 'main.js'
-    )
-  fullBuild: mergeWebpackConfig(
-      entry: './full-build'
-      output:
-        filename: 'full-build.js'
-    )
-  'main.min': mergeWebpackConfig(
-      entry: './index'
-      externals: externals
-      output:
-        filename: 'main.min.js'
-      plugins: [
-        new webpack.optimize.UglifyJsPlugin({minimize: true})
-      ]
-    )
-  'fullBuild.min': mergeWebpackConfig(
-      entry: './full-build'
-      output:
-        filename: 'full-build.min.js'
-      plugins: [
-        new webpack.optimize.UglifyJsPlugin({minimize: true})
-      ]
-    )
+  if configs[name]?
+    makeConfig.apply(null, configs[name])
+  else
+    otherConfigs[name]
+
+module.exports = getWebpackConfig

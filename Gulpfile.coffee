@@ -13,6 +13,8 @@ webpack         = require 'webpack'
 webpackServer   = require 'webpack-dev-server'
 WPExtractText   = require 'extract-text-webpack-plugin'
 
+getWebpackConfig = require './webpack.config'
+
 TestRunner      = require './test/config/test-runner'
 
 KARMA_DEV_CONFIG =
@@ -37,8 +39,7 @@ gulp.task '_cleanDist', (done) ->
 
 gulpWebpack = (name) ->
   env(vars:{ NODE_ENV: 'production' })
-  webpackConfigs = require './webpack.config'
-  config = webpackConfigs[name]
+  config = getWebpackConfig(name, process.env.NODE_ENV is 'production')
   webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
     gutil.log("[webpack]", stats.toString({
