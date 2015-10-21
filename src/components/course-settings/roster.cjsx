@@ -14,10 +14,27 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  updateCourseName:(courseId)->
+    RosterActions.save(@props.courseId)
+    console.log('waka kinda working');
+
+  changeCourseName:->
+    course = CourseStore.get(@props.courseId)
+    <BS.Popover tilte={'Change Course Name'} {...@props}>
+      <form onSubmit={@updateCourseName} >
+        edit <input className='courseTitle' ></input>
+         <input type="submit" className="submit" value="rename" onSubmit={@updateCourseName}/>
+      </form>
+    </BS.Popover>
+
   render: ->
     course = CourseStore.get(@props.courseId)
     tabs = _.map course.periods, (period, index) =>
       <BS.TabPane key={period.id}, eventKey={index} tab={period.name}>
+        <BS.OverlayTrigger rootClose={true} trigger='click' placement='right'
+          overlay={@changeCourseName()}>
+             <a><i className='fa' />Change Period Name</a>
+          </BS.OverlayTrigger>
         <PeriodRoster period={period} courseId={@props.courseId} />
       </BS.TabPane>
 
