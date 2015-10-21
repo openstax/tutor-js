@@ -87,9 +87,9 @@ CourseConfig =
     # This is currently bassed on the course title.
     # eventually the backend will provide it as part of the course's metadata.
     getCategory: (courseId) ->
-      this.exports
-        .getShortName.call(this, courseId)
-        .toLowerCase()
+      return @_get(courseId).catalog_offering_identifier or (
+        this.exports.getShortName.call(this, courseId).toLowerCase()
+      )
 
     getShortName: (courseId) ->
       title = @_get(courseId)?.name or ""
