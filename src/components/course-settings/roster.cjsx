@@ -27,7 +27,7 @@ module.exports = React.createClass
 
     <BS.TabbedArea defaultActiveKey=0>
       <div className='period-edit-ui'>
-        <AddPeriodLink courseId={@props.courseId} />
+        <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
       </div>
       <div><span className='course-settings-subtitle'>Roster</span></div>
       {tabs}
