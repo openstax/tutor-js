@@ -13,6 +13,8 @@ webpack         = require 'webpack'
 webpackServer   = require 'webpack-dev-server'
 WPExtractText   = require 'extract-text-webpack-plugin'
 
+getWebpackConfig = require './webpack.config'
+
 TestRunner      = require './test/config/test-runner'
 
 KARMA_DEV_CONFIG =
@@ -37,8 +39,7 @@ gulp.task '_cleanDist', (done) ->
 
 gulpWebpack = (name) ->
   env(vars:{ NODE_ENV: 'production' })
-  webpackConfigs = require './webpack.config'
-  config = webpackConfigs[name]
+  config = getWebpackConfig(name, process.env.NODE_ENV is 'production')
   webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
     gutil.log("[webpack]", stats.toString({
@@ -81,17 +82,9 @@ gulp.task '_karma', ->
 # TODO will rewrite this to fit new config
 gulp.task '_webserver', ->
   env(vars:{ NODE_ENV: 'development' })
-  webpackConfig = require './webpack.config'
-  config = _.extend( {}, webpackConfig)
-  config.entry.tutor.unshift(
-    './node_modules/webpack-dev-server/client/index.js?http://localhost:8000'
-    'webpack/hot/dev-server'
-  )
-  config.plugins.push( new webpack.HotModuleReplacementPlugin() )
-  for loader in config.module.loaders when _.isArray(loader.loaders)
-    loader.loaders.unshift("react-hot", "webpack-module-hot-accept")
+  config = getWebpackConfig('devServer', process.env.NODE_ENV is 'production')
   server = new webpackServer(webpack(config), config.devServer)
-  server.listen(webpackConfig.devServer.port, '0.0.0.0', (err) ->
+  server.listen(config.devServer.port, '0.0.0.0', (err) ->
     throw new gutil.PluginError("webpack-dev-server", err) if err
   )
 
