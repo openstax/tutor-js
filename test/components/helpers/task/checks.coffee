@@ -8,7 +8,7 @@ React = require 'react/addons'
 {StepPanel} = require '../../../../src/helpers/policies'
 
 {BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
-Group = require '../../../../src/components/exercise/group'
+{ExerciseGroup} = require 'openstax-react-components'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->
@@ -202,7 +202,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasExpectedGroupLabel: ({div, component, stepId, taskId, state, router, history}) ->
-    group = React.addons.TestUtils.findRenderedComponentWithType(component, Group)
+    group = React.addons.TestUtils.findRenderedComponentWithType(component, ExerciseGroup)
     step = TaskStepStore.get(stepId)
 
     if step.group is 'personalized'
