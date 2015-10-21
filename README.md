@@ -36,12 +36,14 @@ Once installed, you need only to require it and use it like so:
 Should you be using this in a project without React, you can require it like this:
 
 ```coffeescript
-{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse} = require 'openstax-react-components\full-build.min'
+{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse} = require 'openstax-react-components/full-build.min'
 
 # Mount like this
 FreeResponse(DOMNode, props)
 
 ```
+
+Support for this will be deprecated.
 
 ## Current exposed things
 
