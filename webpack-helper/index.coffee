@@ -11,7 +11,7 @@ makeConfig = (config, options) ->
   defaultOptions =
     isProduction: false
     minify: false
-    excludeExternals: true
+    excludeExternals: false
 
   {isProduction} = options = _.defaults({}, options, defaultOptions)
   options.isDev = not isProduction
@@ -27,4 +27,4 @@ makeConfig = (config, options) ->
   # merge in option configs with base config
   mergeWebpackConfig(baseOptions, config)
 
-module.exports = {makeConfig, otherConfigs: {devServer}}
+module.exports = {makeConfig}

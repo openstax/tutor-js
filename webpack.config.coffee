@@ -1,4 +1,4 @@
-{makeConfig, otherConfigs} = require './webpack-helper'
+{makeConfig} = require './webpack-helper'
 
 getWebpackConfig = (name, isProduction) ->
   configs =
@@ -6,26 +6,33 @@ getWebpackConfig = (name, isProduction) ->
         entry: './index'
         output:
           filename: 'main.js'
-      }, {isProduction}]
-    fullBuild: [{
-        entry: './full-build'
-        output:
-          filename: 'full-build.js'
-      }, {isProduction, excludeExternals: false}]
+      }, {isProduction, excludeExternals: true}]
     'main.min': [{
         entry: './index'
         output:
           filename: 'main.min.js'
-      }, {isProduction, minify: true}]
+      }, {isProduction, excludeExternals: true, minify: true}]
+    fullBuild: [{
+        entry: './full-build'
+        output:
+          filename: 'full-build.js'
+      }, {isProduction}]
     'fullBuild.min': [{
         entry: './full-build'
         output:
           filename: 'full-build.min.js'
-      }, {isProduction, excludeExternals: false, minify: true}]
+      }, {isProduction, minify: true}]
+    'devServer': [{
+        entry: 
+          demo: [
+            './index.coffee'
+            './resources/styles/main.less'
+          ]
+      }, {isProduction}]
 
   if configs[name]?
     makeConfig.apply(null, configs[name])
   else
-    otherConfigs[name]
+    {}
 
 module.exports = getWebpackConfig

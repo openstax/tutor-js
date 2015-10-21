@@ -2,11 +2,11 @@ webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 webpackUMDExternal = require 'webpack-umd-external'
 
-devPort = process.env['PORT'] or 8000
+DEV_PORT = process.env['PORT'] or 8000
 DEV_LOADERS = ['react-hot', 'webpack-module-hot-accept']
 
 # base config, true for all builds no matter what conditions
-base = 
+base =
   cache: true
   output:
     filename: '[name].js'
@@ -27,9 +27,9 @@ base =
   plugins: [
     # TODO check what plugins are need
     # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
-    # new ExtractTextPlugin('tutor.css')
     # Use the production version of React (no warnings/runtime checks)
     new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
+    new ExtractTextPlugin('main.css')
     new webpack.optimize.DedupePlugin()
     new webpack.ProvidePlugin({
       React: 'react'
@@ -62,45 +62,51 @@ optionConfigs =
       loaders: [
         { test: /\.coffee$/, loaders: ['coffee-loader']}
         { test: /\.cjsx$/,   loaders: ['coffee-jsx-loader']}
-        # { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
+        { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
       ]
 
   isDev:
     devtool: 'source-map'
+    entry:
+      demo: [
+        "./node_modules/webpack-dev-server/client/index.js?http://localhost:#{DEV_PORT}"
+        'webpack/hot/dev-server'
+      ]
     output:
       path: '/'
-      publicPath: 'http://localhost:8000/dist/'
+      publicPath: "http://localhost:#{DEV_PORT}/dist/"
     module:
       loaders: [
         { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee-loader')}
         { test: /\.cjsx$/,   loaders: DEV_LOADERS.concat('coffee-jsx-loader')}
-        # { test: /\.less$/,   loaders: DEV_LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
+        { test: /\.less$/,   loaders: DEV_LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
       ]
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
+    ]
+    devServer:
+      contentBase: './'
+      publicPath: "http://localhost:#{DEV_PORT}/dist/"
+      historyApiFallback: true
+      inline: true
+      port: DEV_PORT
+      # It suppress error shown in console, so it has to be set to false.
+      quiet: false,
+      # It suppress everything except error, so it has to be set to false as well
+      # to see success build.
+      noInfo: false
+      host: 'localhost',
+      outputPath: '/',
+      filename: '[name].js',
+      hot: true
+      stats:
+        # Config for minimal console.log mess.
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false
 
-# dev server config, for dev purposes
-devServer =
-  contentBase: './'
-  publicPath: "http://localhost:#{devPort}/dist/"
-  historyApiFallback: true
-  inline: true
-  port: devPort
-  # It suppress error shown in console, so it has to be set to false.
-  quiet: false,
-  # It suppress everything except error, so it has to be set to false as well
-  # to see success build.
-  noInfo: false
-  host: 'localhost',
-  outputPath: '/',
-  filename: '[name].js',
-  hot: true
-  stats:
-    # Config for minimal console.log mess.
-    assets: false,
-    colors: true,
-    version: false,
-    hash: false,
-    timings: false,
-    chunks: false,
-    chunkModules: false
-
-module.exports = {base, optionConfigs, devServer}
+module.exports = {base, optionConfigs}
