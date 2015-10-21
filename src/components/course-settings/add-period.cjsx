@@ -1,13 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
-{RosterActions, RosterStore} = require '../../flux/roster'
+{PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
 BindStoreMixin = require '../bind-store-mixin'
 PeriodNameMixin = require '../period-name-mixin'
 
-
-BLANK_PERIOD = period: {name: ''}
 
 Field = React.createClass
 
@@ -41,19 +39,18 @@ module.exports = React.createClass
     periods: React.PropTypes.array.isRequired
 
   mixins: [BindStoreMixin, PeriodNameMixin]
-  bindStore: RosterStore
-  bindEvent: 'created'
+  bindStore: PeriodStore
+  bindEvent: 'create'
 
   getInitialState: ->
-    _.clone(BLANK_PERIOD)
+    warning: ''
 
   performUpdate: ->
     name = @validatePeriodName(@state.period_name, @props.periods)
     if name.valid
-      console.log(@state.period_name)
-      #@refs.overlay.hide()
-      #RosterActions.create(@props.courseId, @state)
-      #@setState(_.clone(BLANK_PERIOD))
+      @refs.overlay.hide()
+      PeriodActions.create(@props.courseId, period: {name: @state.period_name})
+      @forceUpdate()
     else
       @displayValidationWarning(name.error)
 
