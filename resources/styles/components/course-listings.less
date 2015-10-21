@@ -49,18 +49,14 @@
     }
 
     &[data-category=physics] {
-      .tutor-course-item {
-        .tutor-physics-cover-background();
-      }
+      &[data-title=Physics]{ .tutor-course-item { .tutor-physics-cover-background(); } }
       .tutor-course-alt-link {
         color: @tutor-book-hs-physics-primary;
         background-color: @tutor-book-hs-physics-secondary;
       }
     }
     &[data-category=biology] {
-      .tutor-course-item {
-        .tutor-biology-cover-background();
-      }
+      &[data-title=Biology]{ .tutor-course-item { .tutor-biology-cover-background(); }
       .tutor-course-alt-link {
         color: @tutor-book-ap-bio-primary;
         background-color: @tutor-book-ap-bio-secondary;
