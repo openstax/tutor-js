@@ -4,7 +4,6 @@ _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
 BindStoreMixin = require '../bind-store-mixin'
-PeriodNameMixin = require '../period-name-mixin'
 
 
 AddPeriodField = React.createClass
@@ -38,7 +37,7 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     periods: React.PropTypes.array.isRequired
 
-  mixins: [BindStoreMixin, PeriodNameMixin]
+  mixins: [BindStoreMixin]
   bindStore: PeriodStore
   bindEvent: 'create'
 
@@ -46,7 +45,7 @@ module.exports = React.createClass
     warning: ''
 
   performUpdate: ->
-    name = @validatePeriodName(@state.period_name, @props.periods)
+    name = PeriodStore.validatePeriodName(@state.period_name, @props.periods)
     if not name.error
       @refs.overlay.hide()
       PeriodActions.create(@props.courseId, period: {name: @state.period_name})
