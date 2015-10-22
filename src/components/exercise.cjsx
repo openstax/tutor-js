@@ -1,66 +1,37 @@
 # @csx React.DOM
 React = require 'react'
-
-CardList = require './card-list'
-Background = require './background'
+_ = require 'underscore'
 Question = require './question'
-PrimaryAdd = require './primary-add'
-{MULTI_MODES} = require './multi-mode'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
 module.exports = React.createClass
   displayName: 'Exercise'
 
-  getInitialState: ->
-    addingQuestion: null
+  getInitialState: -> {}
 
-  componentWillMount: ->
-    ExerciseStore.addChangeListener(@update)
+  componentWillMount: -> ExerciseStore.addChangeListener(@update)
 
-  update: -> @setState({}) # Just enough to trigger a re-render
+  update: -> @setState({})
 
   render: ->
-    classes = null
-    classes = 'has-single-question' if @props.config.questions.length is 1
+    questions = []
+    for question in ExerciseStore.getQuestions(@props.config)
+      questions.push(<Question model={question} parent={@props.config} />)
 
-    cards = [<Background model={@props.config} />]
-    for question in @props.config.questions
-      cards.push(<Question model={question} parent={@props.config} />)
-
-    if @state.addingQuestion
-      addOrBlankQuestion = null
-      cards.push(
-        <Question
-          model={@state.addingQuestion}
-          parent={@props.config}
-          initialMode={MULTI_MODES.EDIT}
-          onCancel={@onCancelAdd}
-          onDone={@onDoneAdd} />
-      )
-    else
-      addOrBlankQuestion =
-        <PrimaryAdd title="Add a New Question" onClick={@onAdd} />
-
-    <div className="exercise">
-      <CardList className={classes}>{cards}</CardList>
-      {addOrBlankQuestion}
+    <div>
+      <div>
+        <label>Exercise ID {ExerciseStore.getId(@props.config)}</label>
+      </div><div>
+        <label>Exercise Number</label>
+        <input value={ExerciseStore.getNumber(@props.config)}/>
+      </div><div>
+        <label>Exercise Stimulus</label>
+        <textarea>{ExerciseStore.getStimulus(@props.config)}</textarea>
+      </div>
+      {questions}
+      <div>
+        <label>Tags</label>
+        <textarea>{ExerciseStore.getTags(@props.config).join(',')}</textarea>
+      </div>
     </div>
 
-  onAdd: ->
-    blankQuestion =
-      formats: ['multiple-choice']
-      stem_html: ''
-      answers: []
-    @setState {addingQuestion: blankQuestion}
-
-  onCancelAdd: ->
-    @setState {addingQuestion: null}
-
-  onDoneAdd: (stem, answers) ->
-    question =
-      formats: ['multiple-choice']
-      stem_html: stem
-      answers: answers
-
-    ExerciseActions.addQuestion(@props.config, question)
-    @setState {addingQuestion: null}
