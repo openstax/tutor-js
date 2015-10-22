@@ -47,7 +47,7 @@ module.exports = React.createClass
 
   performUpdate: ->
     name = @validatePeriodName(@state.period_name, @props.periods)
-    if name.valid
+    if not name.error
       @refs.overlay.hide()
       PeriodActions.create(@props.courseId, period: {name: @state.period_name})
     else
