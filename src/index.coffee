@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', ->
     request.open('GET', url, true)
 
     request.onload = ->
-      if (request.status >= 200 && request.status < 400)
+      if (request.status >= 200 and request.status < 400)
         data = JSON.parse(request.responseText)
 
         root = document.getElementById('exercise')
