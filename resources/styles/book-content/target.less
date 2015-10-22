@@ -16,13 +16,6 @@ a[target=_blank] { .tutor-external-link-indicator(); }
 figure {
   .highlight-target(will-transition);
 
-  &:target, &.link-target, &.target-scroll {
-    img {
-      mix-blend-mode: multiply;
-    }
-  }
-
-
   &:target, &.link-target {
     .highlight-animation();
 
@@ -50,17 +43,12 @@ section, div, span, table {
   &:target, &.link-target, &.target-scroll {
     position: relative;
 
-    img {
-      mix-blend-mode: multiply;
-    }
-
     &::after {
       content: ' ';
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
-      mix-blend-mode: multiply;
     }
   }
 
