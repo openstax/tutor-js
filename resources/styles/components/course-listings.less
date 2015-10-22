@@ -11,7 +11,7 @@
     .tutor-course-item {
       height: @course-listing-item-height;
       width: 100%;
-      display: block;
+      display: inline;
       overflow: hidden;
       background-repeat: no-repeat;
       background-size: contain;
@@ -20,20 +20,17 @@
 
       &::before {
         content: 'Go to ';
-        display: block;
-        margin-top: -40px;
+        height: 100%;
         font-style: italic;
+        display: block;
+        width: @course-listing-item-offset;
+        float: left;
+        overflow: hidden;
         .transition(margin .1s ease-in);
       }
-
       &:hover {
         background-position-y: 30px;
-
-        &::before {
-          margin-top: 0;
-        }
       }
-
     }
 
     .tutor-course-alt-link {
@@ -48,18 +45,43 @@
       }
     }
 
-    &[data-category=physics] {
-      &[data-title=Physics]{ .tutor-course-item { .tutor-physics-cover-background(); } }
-      .tutor-course-alt-link {
-        color: @tutor-book-hs-physics-primary;
-        background-color: @tutor-book-hs-physics-secondary;
+    &[data-category]{
+      .flex-display();
+      .tutor-course-item {
+        .flex(1);
+        font-family: 'Helvetica', 'Lato', sans-serif;
+        font-size: 18rem;
+        line-height: 18rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 800;
       }
     }
+    &[data-category=physics] {
+      .tutor-course-item {
+        color: @tutor-book-hs-physics-secondary;
+        background-color: @tutor-book-hs-physics-primary;
+      }
+      // use SVG background if the title matches
+      &[data-title=Physics]{
+        .tutor-course-item {
+          .tutor-physics-cover-background();
+          font-size: 0px; // hide text title
+        }
+      }
+    }
+
     &[data-category=biology] {
-      &[data-title=Biology]{ .tutor-course-item { .tutor-biology-cover-background(); }
-      .tutor-course-alt-link {
-        color: @tutor-book-ap-bio-primary;
-        background-color: @tutor-book-ap-bio-secondary;
+      .tutor-course-item {
+        color: @tutor-book-ap-bio-secondary;
+        background-color: @tutor-book-ap-bio-primary;
+      }
+      // use SVG background if the title matches
+      &[data-title=Biology]{
+        .tutor-course-item {
+          .tutor-biology-cover-background();
+          font-size: 0px; // hide text title
+        }
       }
     }
   }
@@ -71,10 +93,7 @@
       .tutor-course-item {
         &::before {
           font-size: 4rem;
-          content: 'Go to ';
-          height: 100%;
           width: @course-listing-item-offset;
-          display: block;
           padding: @course-listing-buffer/2 0 0 @course-listing-buffer/2;
           margin-left: -@course-listing-item-offset;
           margin-top: 0;
@@ -82,7 +101,6 @@
 
         &:hover {
           background-position: 200px 0;
-
           &::before {
             margin-left: 0;
           }
