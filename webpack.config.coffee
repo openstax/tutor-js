@@ -25,7 +25,7 @@ getWebpackConfig = (name, isProduction) ->
     'devServer': [{
         entry: 
           demo: [
-            './index.coffee'
+            './demo'
             './resources/styles/main.less'
           ]
       }, {isProduction}]

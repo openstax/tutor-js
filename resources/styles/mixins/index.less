@@ -1,0 +1,53 @@
+@import './flexbox';
+
+
+.openstax-tables() {
+  table {
+    width: 100%;
+    margin-bottom: 32px;
+
+    padding: 20px 0;
+    line-height: 2.5rem;
+    thead {
+      th {
+        padding: 8px 10px;
+        border-bottom: solid 2px @openstax-neutral-light;
+      }
+      tr:first-of-type:not(:last-child) th {
+        padding-left: 0;
+      }
+    }
+    tr:nth-child(odd) {
+       background: @openstax-neutral-lightest;
+     }
+    tr:nth-child(even) {
+       background: @openstax-white;
+     }
+    td {
+      padding: 8px 10px;
+    }
+    tbody {
+      border-top: solid 4px @openstax-neutral-light;
+    }
+    caption,
+    thead tr:first-of-type:not(:last-child) th{
+      background: @openstax-white;
+
+     font-weight: 900;
+     color: @openstax-neutral-darker;
+    }
+  }
+}
+
+.openstax-tables(@table-header, @table-bottom-color) {
+  table {
+    thead {
+      th {
+        background: @table-header;
+      }
+    }
+    tbody {
+      border-bottom: solid 4px @table-bottom-color;
+    }
+  }
+}

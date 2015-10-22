@@ -1,0 +1,57 @@
+@orange: rgb(244, 118, 65);
+@green: rgb(119, 175, 65);
+@dark-blue: rgb(35, 48, 102);
+@yellow: rgb(244, 208, 25);
+
+@pale-yellow: rgb(255, 255, 187);
+@light-green: rgb(139, 199, 83);
+@light-blue: rgb(0, 193, 222);
+
+@red: rgb(194, 0, 47);
+@white: rgb(255, 255, 255);
+@black: rgb(0, 0, 0);
+
+
+@openstax-primary: @orange;
+@openstax-secondary: @green;
+@openstax-tertiary: @dark-blue;
+@openstax-quaternary: @yellow;
+@openstax-highlight: @pale-yellow;
+
+@openstax-secondary-light: @light-green;
+@openstax-tertiary-light: @light-blue;
+
+@openstax-success: @openstax-secondary;
+@openstax-info: @openstax-tertiary-light;
+@openstax-info-bg: lighten(@openstax-info, 53%); // even lighter blue
+@openstax-warning: @openstax-quaternary;
+@openstax-danger: @red; // red
+
+@openstax-correct-color: @openstax-success;
+@openstax-correct-background: lighten(saturate(@openstax-success, 60%), 38%);
+@openstax-incorrect-color: @openstax-danger;
+@openstax-incorrect-background: lighten(@openstax-danger, 55%);
+@openstax-answer-background: @openstax-info-bg;
+@openstax-answer-color: @openstax-tertiary-light; // darker than hover
+
+@openstax-white: @white;
+@openstax-neutral-lightest: rgb(249, 249, 249); // nearly white
+@openstax-neutral-bright: rgb(245, 245, 245); // bright gray
+@openstax-neutral-lighter: rgb(241, 241, 241); // light gray
+@openstax-neutral-light: rgb(229, 229, 229); // light gray
+@openstax-neutral: rgb(129, 129, 129); // gray
+@openstax-neutral-dark: rgb(95, 97, 99); // dark gray
+@openstax-neutral-darker: rgb(66, 66, 66); // very dark gray
+@openstax-black: @black;
+
+@page-background: @openstax-neutral-lighter;
+@footer-background: @openstax-neutral-bright;
+@border-color: @openstax-neutral-light;
+
+@form-error-color: #E35C3B;
+
+@link-color: darken(@openstax-info, 5%);
+@exercise-question-uid-color: lighten(@openstax-neutral,20%);
+
+// NOTE: Make borders and input background colors one of the above grays with a high opacity so it works on
+//       multiple backgrounds.

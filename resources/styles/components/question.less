@@ -1,0 +1,262 @@
+@correct-answer-color: @openstax-correct-color;
+@correct-answer-background: @openstax-correct-background;
+@wrong-answer-color: @openstax-incorrect-color;
+@wrong-answer-background: @openstax-incorrect-background;
+
+@answer-background: @openstax-answer-background;
+@answer-hover-background: lighten(@openstax-info, 48%);
+@answer-select-background: lighten(@openstax-info, 44%); // darker than hover
+
+@free-response-color: @openstax-neutral-dark;
+@free-response-background:  @openstax-neutral-lighter;
+
+@answer-label-color: @openstax-neutral-dark;
+
+@answer-vertical-spacing: 5px;
+@answer-checked-font-weight: 600;
+
+.answer() {
+  .flex-display();
+  .align-items(center);
+  margin: @answer-vertical-spacing 0;
+}
+
+.answer-label() {
+  display: inline-block;
+  // margin-left: -@openstax-card-body-padding-horizontal;
+  // width: @openstax-card-body-padding-horizontal;
+  text-align: right;
+  padding-right: 8px;
+}
+
+.answer-text-label() {
+
+  color: @answer-label-color;
+}
+
+.answer-icon-label() {
+  // .fa-icon();
+  font-size: 3.5em;
+  font-weight: normal;
+  color: inherit;
+}
+
+.answer-content() {
+  width: 100%;
+  padding: 15px 20px;
+  margin: 0;
+
+}
+
+.answer-label-disable() {
+  label.answer-label {
+    padding: 4px 0;
+    background-color: transparent;
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.question {
+  img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+  }
+
+  .clearfix();
+
+  counter-reset: answer 0;
+
+  font-weight: 600;
+  padding-top: .5em;
+
+  .question-stem {
+    margin-bottom: 20px;
+  }
+
+  .free-response, .question-feedback{
+    .answer();
+
+    &-content {
+      .answer-content();
+    }
+
+    &::before {
+      .answer-label();
+      .answer-text-label();
+    }
+  }
+
+  .free-response {
+    &-content {
+      font-style: italic;
+      font-weight: 300;
+      color: @free-response-color;
+      background: @free-response-background;
+    }
+
+    &::before {
+      content: "My Answer:";
+    }
+
+    &[data-student-names] {
+      &::before {
+        content: attr(data-student-names);
+      }
+    }
+  }
+
+  .question-feedback {
+    margin-top: 20px;
+
+    &-content {
+      padding: 0;
+    }
+
+    &::before {
+      content: "Why?";
+    }
+  }
+
+  .multiple-choice-prompt {
+    display: block;
+    margin: 30px 0 10px 0;
+  }
+
+  .answers-table {
+    width: 100%;
+
+    .answers-answer {
+      counter-increment: answer 1;
+      .answer();
+      margin: 0;
+      width: initial;
+
+      .answer-letter {
+        display: table-cell;
+        width: 2.5rem;
+        &:after {
+          content: counter(answer, lower-latin) ')';
+        }
+      }
+
+      .answer-content {
+        display: table-cell;
+      }
+    }
+
+    label.answer-label {
+      display: table;
+      background: @answer-background;
+      transition: background-color .1s ease-in;
+      cursor: pointer;
+      .answer-content();
+      margin: @answer-vertical-spacing 0;
+
+      &:hover {
+        background-color: @answer-hover-background;
+      }
+    }
+  }
+
+  .answer-input-box {
+    display: none;
+
+    &:checked + label.answer-label,
+    &:checked + label.answer-label:hover {
+      font-weight: @answer-checked-font-weight;
+      background-color: @answer-select-background; // darker than hover
+    }
+  }
+
+  .answer-checked {
+    &::before{
+      .answer-label();
+      .answer-text-label();
+      content: "My Choice:";
+    }
+  }
+
+  &.has-correct-answer {
+
+    .answers-table {
+
+      .answers-answer label.answer-label {
+        cursor: auto;
+      }
+
+      // For questions showing feedback,
+      // if the answers are not correct and are not chosen, tone down the distracting answer.
+      .answers-answer:not(.answer-correct):not(.answer-checked) .answer-label{
+        &:hover {
+          background: @answer-background;
+        }
+      }
+
+      .answer-correct:not(.answer-checked)::before {
+        content: "Correct Answer:";
+        .answer-label();
+        .answer-text-label();
+      }
+
+      .answer-checked {
+        &::before{
+          .answer-icon-label();
+        }
+        &.answer-correct::before {
+          // content: @fa-var-check;
+          color: @correct-answer-color;
+        }
+        &:not(.answer-correct)::before {
+          // content: @fa-var-close;
+          color: @wrong-answer-color;
+        }
+      }
+
+      .answer-correct .answer-label {
+        background-color: @correct-answer-background;
+        color: @correct-answer-color;
+        font-weight: @answer-checked-font-weight;
+
+        .answer-content:hover {
+          background-color: @correct-answer-background;
+        }
+      }
+
+      .answer-checked:not(.answer-correct) .answer-label {
+        background-color: @wrong-answer-background;
+        color: @wrong-answer-color;
+        font-weight: @answer-checked-font-weight;
+
+        .answer-content:hover {
+          background-color: @wrong-answer-background;
+        }
+      }
+    }
+  }
+
+} // end of .question
+
+.task-teacher-read-only {
+  .question {
+    .free-response {
+      &::before {
+        content: "Student Answer:";
+      }
+    }
+    .answers-table label.answer-label {
+      cursor: default;
+
+      &:hover {
+        background: @answer-background;
+      }
+    }
+    .answer-checked::before {
+      content: "Student Choice:";
+    }
+  }
+}
