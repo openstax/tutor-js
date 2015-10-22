@@ -5,9 +5,15 @@
 .course-listing {
   margin-top: @course-listing-buffer;
 
+  .row {
+    margin-top: @course-listing-buffer;
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+
   .tutor-booksplash-course-item {
     position: relative;
-
     .tutor-course-item {
       height: @course-listing-item-height;
       width: 100%;
