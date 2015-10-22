@@ -7,7 +7,7 @@ BindStoreMixin = require '../bind-store-mixin'
 PeriodNameMixin = require '../period-name-mixin'
 
 
-Field = React.createClass
+AddPeriodField = React.createClass
 
   displayName: 'AddPeriodField'
   propTypes:
@@ -50,13 +50,8 @@ module.exports = React.createClass
     if name.valid
       @refs.overlay.hide()
       PeriodActions.create(@props.courseId, period: {name: @state.period_name})
-      @forceUpdate()
     else
-      @displayValidationWarning(name.error)
-
-  displayValidationWarning: (error) ->
-    @state.warning = error
-    @forceUpdate()
+      @setState(warning: name.error)
 
   renderForm: ->
     <BS.Modal
@@ -65,14 +60,14 @@ module.exports = React.createClass
       className="teacher-add-period-form">
 
       <div className='modal-body'>
-        <Field label='Period Name' name='period_name' default={@state.period_name}
+        <AddPeriodField label='Period Name' name='period_name' default={@state.period_name}
           onChange={(val) => @setState(period_name: val)} autofocus />
 
         <div className='warning'>
           {@state.warning}
         </div>
 
-        <BS.Button onClick={@performUpdate}>
+        <BS.Button className='-add-period-confirm' onClick={@performUpdate}>
           Add
         </BS.Button>
       </div>
@@ -85,5 +80,7 @@ module.exports = React.createClass
       rootClose={true}
       trigger='click'
       overlay={@renderForm()}>
-        <a><i className='fa fa-plus' /> Add Period</a>
+        <BS.Button bsStyle='link' className='add-period'>
+          <i className='fa fa-plus' /> Add Period
+        </BS.Button>
     </BS.OverlayTrigger>
