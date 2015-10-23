@@ -8,7 +8,8 @@
     "coverage": "gulp coverage",
     "deployment": "gulp prod",
     "test-integration": "mocha -R spec ./test-integration/",
-    "start": "gulp dev"
+    "start": "gulp dev",
+    "postinstall": "gulp _build"
   },
   "repository": {
     "type": "git",
