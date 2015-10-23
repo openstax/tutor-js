@@ -1,4 +1,4 @@
-React = require 'react'
+React = require 'react/addons'
 _ = require 'underscore'
 
 classnames = require 'classnames'
