@@ -6,7 +6,7 @@
 #
 # Components
 require './components/course-listing.spec'
-require './components/navbar.spec'
+require './components/navbar/index.spec'
 require './components/navbar/account-link.spec'
 require './components/task-plan/reading-plan.spec'
 require './components/task-plan/builder.spec'
