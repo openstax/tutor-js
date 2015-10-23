@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 camelCase = require 'camelcase'
 
 ExerciseStepCard = require './step-card'

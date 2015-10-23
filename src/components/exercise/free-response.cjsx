@@ -1,3 +1,5 @@
+React = require 'react'
+
 FreeResponse = React.createClass
   displayName: 'FreeResponse'
   propTypes:

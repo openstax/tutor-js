@@ -1,3 +1,5 @@
+React = require 'react'
+
 PinnedHeader = React.createClass
   displayName: 'PinnedHeader'
 

@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 classnames = require 'classnames'
 
 ExerciseGroup = require './group'
@@ -49,7 +52,7 @@ ExerciseStepCard = React.createClass
   getDefaultProps: ->
     disabled: false
     isContinueEnabled: true
-    Footer: ExerciseDefaultFooter
+    footer: <ExerciseDefaultFooter/>
   getInitialState: ->
     {step} = @props
     freeResponse: step.free_response
@@ -85,7 +88,7 @@ ExerciseStepCard = React.createClass
       onNextStep() unless canReview
 
   render: ->
-    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, className, Footer} = @props
+    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, className, footer} = @props
     {group, related_content} = step
 
     ExPanel = PANELS[panel]
@@ -102,7 +105,7 @@ ExerciseStepCard = React.createClass
 
     footerProps = _.pick(@props, props.StepFooter)
     footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
-    footer = <Footer {...footerProps}/>
+    footer = React.addons.cloneWithProps(footer, footerProps)
 
     cardClasses = classnames 'task-step', className
 

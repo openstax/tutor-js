@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 extendPropTypes = (propTypes...) ->
   propTypes.unshift({})
   _.extend.apply(_, propTypes)
@@ -40,7 +43,7 @@ MULTIPLE_CHOICE_PROP_TYPES =
 
 EXERCISE_STEP_CARD_PROP_TYPES = _.extend({}, CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES)
 EXERCISE_STEP_CARD_PROP_TYPES.step = React.PropTypes.shape(STEP_PROP_TYPES).isRequired
-EXERCISE_STEP_CARD_PROP_TYPES.Footer = React.PropTypes.func.isRequired
+EXERCISE_STEP_CARD_PROP_TYPES.footer = React.PropTypes.node.isRequired
 EXERCISE_STEP_CARD_PROP_TYPES.pinned = React.PropTypes.bool
 EXERCISE_STEP_CARD_PROP_TYPES.panel = React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only'])
 EXERCISE_STEP_CARD_PROP_TYPES.review = React.PropTypes.string

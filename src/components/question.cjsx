@@ -1,4 +1,8 @@
+React = require 'react'
+_ = require 'underscore'
+
 classnames = require 'classnames'
+
 ArbitraryHtml = require './html'
 
 idCounter = 0

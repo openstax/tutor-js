@@ -1,3 +1,7 @@
+React = require 'react'
+BS = require 'react-bootstrap'
+_ = require 'underscore'
+
 ArbitraryHtmlAndMath = require '../html'
 Question = require '../question'
 FreeResponse = require './free-response'
