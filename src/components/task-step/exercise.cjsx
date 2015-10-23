@@ -18,29 +18,30 @@ module.exports = React.createClass
     step = TaskStepStore.get(id)
     task = TaskStore.get(taskId)
 
-    stepProps = {}
-    stepProps.canTryAnother = TaskStepStore.canTryAnother(id, task)
-    stepProps.disabled = TaskStepStore.isSaving(id)
-    stepProps.canReview = StepPanel.canReview(id)
-    stepProps.waitingText = switch
+    waitingText = switch
       when TaskStepStore.isLoading(id) then "Loading…"
       when TaskStepStore.isSaving(id)  then "Saving…"
       else null
 
-    stepProps.setFreeResponseAnswer = TaskStepActions.setFreeResponseAnswer
-
-    stepProps.setAnswerId = TaskStepActions.setAnswerId
-
-    stepProps.getReadingForStep = (id, taskId) ->
+    getReadingForStep = (id, taskId) ->
       TaskStore.getReadingForTaskId(taskId, id)
 
-    stepProps.getCurrentPanel = (id) ->
+    getCurrentPanel = (id) ->
       unless TaskStepStore.isSaving(id)
         currentPanel = StepPanel.getPanel(id)
 
     <Exercise
       {...@props}
-      {...stepProps}
       step={step}
       Footer={StepFooter}
+      waitingText={waitingText}
+
+      canTryAnother={TaskStepStore.canTryAnother(id, task)}
+      disabled={TaskStepStore.isSaving(id)}
+      canReview={StepPanel.canReview(id)}
+
+      getCurrentPanel={getCurrentPanel}
+      getReadingForStep={getReadingForStep}
+      setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+      setAnswerId={TaskStepActions.setAnswerId}
     />
