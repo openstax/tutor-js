@@ -39,20 +39,23 @@ UserActionsMenu = React.createClass
   renderMenuItems: ->
     {courseId} = @props
 
-    menuItems = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderMenuItem
+    menu = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderMenuItem
 
-    menuItems.push <li key='nav-browse-the-book'>
+    menu.push <li key='nav-browse-the-book'>
       <BrowseTheBook unstyled={true} courseId={courseId} />
     </li>
 
     if CurrentUserStore.isAdmin()
-      menuItems.push <li key='admin'><a key='admin' href='/admin'>Admin</a></li>
+      menu.push <li key='admin'><a href='/admin'>Admin</a></li>
+
+    if CurrentUserStore.isCustomerService()
+      menu.push <li key='cs'><a href='/customer_service'>Customer Service</a></li>
 
     if CurrentUserStore.isContentAnalyst()
-      menuItems.push @renderMenuItem({name: 'QADashboard', label: 'QA Content', params: {}}, menuItems.length )
+      menu.push @renderMenuItem({name: 'QADashboard', label: 'QA Content', params: {}}, menu.length )
 
-    menuItems.push <BS.MenuItem divider key='dropdown-item-divider'/>
-    menuItems
+    menu.push <BS.MenuItem divider key='dropdown-item-divider'/>
+    menu
 
 
   render: ->
