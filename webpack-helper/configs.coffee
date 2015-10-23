@@ -32,7 +32,7 @@ base =
     new ExtractTextPlugin('main.css')
     new webpack.optimize.DedupePlugin()
     new webpack.ProvidePlugin({
-      React: 'react'
+      React: 'react/addons'
       _: 'underscore'
       BS: 'react-bootstrap'
     })
