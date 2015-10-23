@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 ArbitraryHtml = require './html'
 
 idCounter = 0

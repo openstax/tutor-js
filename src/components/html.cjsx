@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 {typesetMath} = require '../helpers/mathjax'
 
 module.exports = React.createClass

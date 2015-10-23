@@ -31,11 +31,6 @@ base =
     new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
     new ExtractTextPlugin('main.css')
     new webpack.optimize.DedupePlugin()
-    new webpack.ProvidePlugin({
-      React: 'react'
-      _: 'underscore'
-      BS: 'react-bootstrap'
-    })
   ]
 
 # option configs, gets merged with base depending on build
@@ -64,6 +59,13 @@ optionConfigs =
         { test: /\.cjsx$/,   loaders: ['coffee-jsx-loader']}
         { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
       ]
+    plugins: [
+      new webpack.ProvidePlugin({
+        React: 'react/addons'
+        _: 'underscore'
+        BS: 'react-bootstrap'
+      })
+    ]
 
   isDev:
     devtool: 'source-map'

@@ -23,7 +23,7 @@ getWebpackConfig = (name, isProduction) ->
           filename: 'full-build.min.js'
       }, {isProduction, minify: true}]
     'devServer': [{
-        entry: 
+        entry:
           demo: [
             './index.coffee'
             './resources/styles/main.less'

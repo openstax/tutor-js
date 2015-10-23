@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 module.exports =
   propTypes:
     resizeThrottle: React.PropTypes.number
