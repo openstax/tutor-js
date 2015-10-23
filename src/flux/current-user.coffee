@@ -32,7 +32,7 @@ ROUTES =
     roles:
       teacher: 'taskplans'
       student: 'viewStudentDashboard'
-      default: 'root'
+      default: 'app'
   guide:
     label: 'Performance Forecast'
     roles:
