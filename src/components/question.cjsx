@@ -1,3 +1,4 @@
+classnames = require 'classnames'
 ArbitraryHtml = require './html'
 
 idCounter = 0
@@ -41,10 +42,9 @@ Answer = React.createClass
 
     isCorrect = (answer.correctness is '1.0') if answer.correctness?
 
-    classes = ['answers-answer']
-    classes.push('answer-checked') if isChecked
-    classes.push('answer-correct') if isCorrect
-    classes = classes.join(' ')
+    classes = classnames 'answers-answer',
+      'answer-checked': isChecked
+      'answer-correct': isCorrect
 
     unless (hasCorrectAnswer or type is 'teacher-review')
       radioBox = <input
@@ -142,9 +142,8 @@ module.exports = React.createClass
         <Answer {...answerProps}/>
       .value()
 
-    classes = ['question']
-    classes.push('has-correct-answer') if hasCorrectAnswer
-    classes = classes.join(' ')
+    classes = classnames 'question',
+      'has-correct-answer': hasCorrectAnswer
 
     <div className={classes}>
       <ArbitraryHtml className='question-stem' block={true} html={html} />
