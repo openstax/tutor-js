@@ -33,7 +33,7 @@ module.exports = React.createClass
     <Exercise
       {...@props}
       step={step}
-      Footer={StepFooter}
+      footer={<StepFooter/>}
       waitingText={waitingText}
 
       canTryAnother={TaskStepStore.canTryAnother(id, task)}
