@@ -1,3 +1,7 @@
+React = require 'react'
+BS = require 'react-bootstrap'
+_ = require 'underscore'
+
 RefreshButton = require './refresh-button'
 
 module.exports = React.createClass

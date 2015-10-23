@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 classnames = require 'classnames'
 
 ExerciseGroup = require './group'

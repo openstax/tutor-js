@@ -1,3 +1,6 @@
+React = require 'react'
+_ = require 'underscore'
+
 extendPropTypes = (propTypes...) ->
   propTypes.unshift({})
   _.extend.apply(_, propTypes)
