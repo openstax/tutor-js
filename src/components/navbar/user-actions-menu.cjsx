@@ -28,19 +28,18 @@ UserActionsMenu = React.createClass
   componentWillMount: ->
     CurrentUserStore.ensureLoaded()
 
-  renderCourseMenuItem: (route, index) ->
-    isActive = @context.router.isActive(route.name, {courseId: @props.courseId})
-    className = 'active' if isActive
+  renderMenuItem: (route, index) ->
+    isActive = @context.router.isActive(route.name)
     <BS.MenuItem
       key="dropdown-item-#{index}"
       onSelect={_.partial(@transitionToMenuItem, route.name, route.params)}
-      className={className}
+      className={'active' if isActive}
       eventKey={index + 2}>{route.label}</BS.MenuItem>
 
   renderMenuItems: ->
     {courseId} = @props
 
-    menuItems = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderCourseMenuItem
+    menuItems = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderMenuItem
 
     menuItems.push <li key='nav-browse-the-book'>
       <BrowseTheBook unstyled={true} courseId={courseId} />
@@ -50,7 +49,7 @@ UserActionsMenu = React.createClass
       menuItems.push <li key='admin'><a key='admin' href='/admin'>Admin</a></li>
 
     if CurrentUserStore.isContentAnalyst()
-      menuItems.push <li key='qa'><Router.Link to='QADashboard'>QA Content</Router.Link></li>
+      menuItems.push @renderMenuItem({name: 'QADashboard', label: 'QA Content', params: {}}, menuItems.length )
 
     menuItems.push <BS.MenuItem divider key='dropdown-item-divider'/>
     menuItems
