@@ -1,3 +1,4 @@
+React = require 'react'
 Demo = require './src/components/demo'
 
 loadApp = ->
