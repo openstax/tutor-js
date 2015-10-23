@@ -22,7 +22,7 @@ StepFooter = React.createClass
   render: ->
     {pinned, courseId, id, taskId, review} = @props
 
-    <div>
+    <div className='-step-footer'>
       {@renderFooter({stepId: id, taskId, courseId, review})}
     </div>
 
