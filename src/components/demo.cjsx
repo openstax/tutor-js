@@ -69,6 +69,7 @@ Demo = React.createClass
     demos = _.map(demos, (demo, name) ->
       <BS.Row>
         <BS.Col xs={12}>
+          <h1>{"#{name}"}</h1>
           <section className={"#{name}-demo"}>{demo}</section>
         </BS.Col>
       </BS.Row>

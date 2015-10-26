@@ -7,6 +7,15 @@ ArbitraryHtml = require './html'
 
 idCounter = 0
 
+isAnswerCorrect = (answer, correctAnswerId) ->
+  isCorrect = answer.id is correctAnswerId
+  isCorrect = (answer.correctness is '1.0') if answer.correctness?
+
+  isCorrect
+
+isAnswerChecked = (answer, chosenAnswer) ->
+  isChecked = answer.id in chosenAnswer
+
 Answer = React.createClass
   displayName: 'Answer'
   propTypes:
@@ -30,21 +39,19 @@ Answer = React.createClass
     onChangeAnswer: React.PropTypes.func.isRequired
 
     disabled: React.PropTypes.bool
-    chosen_answer: React.PropTypes.array
-    correct_answer_id: React.PropTypes.string
+    chosenAnswer: React.PropTypes.array
+    correctAnswerId: React.PropTypes.string
     answered_count: React.PropTypes.number
 
   getDefaultProps: ->
     disabled: false
 
   render: ->
-    {answer, iter, qid, type, correct_answer_id, answered_count, hasCorrectAnswer, chosen_answer, onChangeAnswer, disabled} = @props
+    {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
     qid ?= "auto-#{idCounter++}"
 
-    isChecked = answer.id in chosen_answer
-    isCorrect = answer.id is correct_answer_id
-
-    isCorrect = (answer.correctness is '1.0') if answer.correctness?
+    isChecked = isAnswerChecked(answer, chosenAnswer)
+    isCorrect = isAnswerCorrect(answer, correctAnswerId)
 
     classes = classnames 'answers-answer',
       'answer-checked': isChecked
@@ -81,7 +88,23 @@ Answer = React.createClass
       </label>
     </div>
 
+Feedback = React.createClass
+  displayName: 'Feedback'
+  propTypes:
+    children: React.PropTypes.string.isRequired
+    position: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
+  getDefaultProps: ->
+    position: 'bottom'
+  render: ->
+    wrapperClasses = classnames 'question-feedback', 'popover', @props.position
 
+    <div className={wrapperClasses}>
+      <div className='arrow'/>
+      <ArbitraryHtml
+        className='question-feedback-content has-html popover-content'
+        html={@props.children}
+        block={true}/>
+    </div>
 
 module.exports = React.createClass
   displayName: 'Question'
@@ -113,25 +136,22 @@ module.exports = React.createClass
         @props.onChangeAttempt?(answer)
 
   render: ->
-    {type, answered_count, choicesEnabled} = @props
+    {type, answered_count, choicesEnabled, correct_answer_id} = @props
+    chosenAnswer = [@props.answer_id, @state.answer_id]
+    checkedAnswerIndex = null
 
     html = @props.model.stem_html
     qid = @props.model.id or "auto-#{idCounter++}"
-    hasCorrectAnswer = !! @props.correct_answer_id
+    hasCorrectAnswer = !! correct_answer_id
 
     if @props.feedback_html
-      feedback = <div className='question-feedback'>
-          <ArbitraryHtml
-            className='question-feedback-content has-html'
-            html={@props.feedback_html}
-            block={true}/>
-        </div>
+      feedback = <Feedback>{@props.feedback_html}</Feedback>
 
     questionAnswerProps =
       qid: @props.model.id,
-      correct_answer_id: @props.correct_answer_id
+      correctAnswerId: correct_answer_id
       hasCorrectAnswer: hasCorrectAnswer
-      chosen_answer: [@props.answer_id, @state.answer_id]
+      chosenAnswer: chosenAnswer
       onChangeAnswer: @onChangeAnswer
       type: type
       answered_count: answered_count
@@ -143,8 +163,11 @@ module.exports = React.createClass
       .map (answer, i) ->
         additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}"}
         answerProps = _.extend({}, additionalProps, questionAnswerProps)
+        checkedAnswerIndex = i if isAnswerChecked(answer, chosenAnswer)
         <Answer {...answerProps}/>
       .value()
+
+    answers.splice(checkedAnswerIndex + 1, 0, feedback) if feedback? and checkedAnswerIndex?
 
     classes = classnames 'question',
       'has-correct-answer': hasCorrectAnswer
@@ -155,6 +178,5 @@ module.exports = React.createClass
       <div className='answers-table'>
         {answers}
       </div>
-      {feedback}
       <div className="exercise-uid">{@props.exercise_uid}</div>
     </div>

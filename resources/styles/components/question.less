@@ -3,67 +3,129 @@
 @wrong-answer-color: @openstax-incorrect-color;
 @wrong-answer-background: @openstax-incorrect-background;
 
-@answer-background: @openstax-answer-background;
-@answer-hover-background: lighten(@openstax-info, 48%);
-@answer-select-background: lighten(@openstax-info, 44%); // darker than hover
-
 @free-response-color: @openstax-neutral-dark;
 @free-response-background:  @openstax-neutral-lighter;
 
-@answer-label-color: @openstax-neutral-dark;
+@answer-label-color: @openstax-neutral-medium;
+@answer-label-color-hover: @openstax-neutral-dark;
+@answer-label-color-selected: @openstax-info;
 
-@answer-vertical-spacing: 5px;
-@answer-checked-font-weight: 600;
-
+@answer-vertical-spacing: 1.5rem;
+@answer-horizontal-spacing: 1rem;
+@answer-horizontal-buffer: 2 * @answer-horizontal-spacing;
 @answer-bubble-size: 4rem;
+@answer-label-spacing: @answer-bubble-size + @answer-horizontal-buffer;
 
-.answer() {
-  .flex-display();
-  .align-items(center);
-  margin: @answer-vertical-spacing 0;
-}
+@answer-transition: ~'0.1s ease-in-out';
 
-.answer-label() {
-  display: inline-block;
-  // margin-left: -@openstax-card-body-padding-horizontal;
-  // width: @openstax-card-body-padding-horizontal;
-  text-align: right;
-  padding-right: 8px;
-  padding-left: @answer-bubble-size;
-}
+@feedback-horizontal-spacing: 2 * @answer-horizontal-spacing;
+@feedback-vertical-spacing: @feedback-horizontal-spacing;
+@feedback-horizontal-buffer: 2 * @feedback-horizontal-spacing;
 
-.answer-text-label() {
+.openstax-bubble(@diameter, @border-size){
+  width: @diameter;
+  height: @diameter;
+  border-radius: 2 * @diameter;
+  border-width: @border-size;
+  border-style: solid;
 
-  color: @answer-label-color;
-}
-
-.answer-icon-label() {
-  // .fa-icon();
-  font-size: 3.5em;
-  font-weight: normal;
-  color: inherit;
-}
-
-.answer-content() {
-  width: 100%;
-  padding: 15px 20px;
-  margin: 0;
-
-}
-
-.answer-label-disable() {
-  label.answer-label {
-    padding: 4px 0;
-    background-color: transparent;
-    cursor: default;
-
-    &:hover {
-      background-color: transparent;
-    }
+  &::after {
+    width: @diameter;
+    height: @diameter;
+    line-height: @diameter;
+    margin-left: -1 * @border-size;
+    margin-top: -1 * @border-size;
+    text-align: center;
+    display: inline-block;
   }
 }
 
+.answer-bubble(){
+  .openstax-bubble(@answer-bubble-size, 2px);
+  border-color: lighten(@answer-label-color, 15%);
+  color: @answer-label-color-hover;
+
+  .transition(~'color @{answer-transition}, border-color @{answer-transition}, background-color @{answer-transition}');
+}
+
+.answer-bubble(hover){
+  border-color: @answer-label-color-selected;
+}
+
+.answer-bubble(checked){
+  border-color: @answer-label-color-selected;
+  background-color: @answer-label-color-selected;
+  color: @openstax-white;
+}
+
+.answer-bubble(wrong){
+  border-color: @wrong-answer-color;
+  background-color: @wrong-answer-color;
+  color: @openstax-white;
+
+  &::after {
+    .fa-icon();
+    content: @fa-var-close;
+    line-height: @answer-bubble-size;
+  }
+}
+
+.answer-bubble(correct){
+  border-color: @correct-answer-color;
+  background-color: @correct-answer-color;
+  color: @openstax-white;
+
+  &::after {
+    .fa-icon();
+    content: @fa-var-check;
+    line-height: @answer-bubble-size;
+  }
+}
+
+.answer-left-block(){
+  display: block;
+  float: left;
+}
+
+.answer(){
+  color: @answer-label-color;
+  .answer-letter {
+    .answer-bubble();  
+  }
+}
+
+.answer(hover){
+  color: @answer-label-color-hover;
+  .answer-letter {
+    .answer-bubble(hover);  
+  }
+}
+
+.answer(checked){
+  color: @answer-label-color-selected;
+  .answer-letter {
+    .answer-bubble(checked);
+  }
+}
+
+.answer(wrong){
+  color: @wrong-answer-color;
+  .answer-letter {
+    .answer-bubble(wrong);
+  }
+}
+
+.answer(correct){
+  color: @correct-answer-color;
+  .answer-letter {
+    .answer-bubble(correct);
+  }
+}
+
+
 .question {
+
+  font-size: 1.7rem;
 
   .clearfix();
 
@@ -73,182 +135,131 @@
     max-width: 100%;
   }
 
-  .question-stem {
+  .question-stem,
+  .answers-table {
     margin-bottom: 20px;
   }
 
+  // free response
+  .free-response {
+    padding: @answer-vertical-spacing @answer-horizontal-spacing;
+    margin: @answer-vertical-spacing 0;
+    border-left: @answer-horizontal-spacing solid @free-response-background;
+    font-style: italic;
+  }
+
+  // answers
   counter-reset: answer 0;
 
-  .free-response, .question-feedback{
-    .answer();
+  .answers-answer {
+    counter-increment: answer 1;
+    width: initial;
+  }
 
-    &-content {
-      .answer-content();
-    }
+  .answer-content {
+    width: calc(~'100% - @{answer-label-spacing}');
+    margin-left: @answer-horizontal-spacing;
+    .answer-left-block();
+  }
 
-    &::before {
-      .answer-label();
-      .answer-text-label();
+  .answer-letter {
+    .answer-left-block();
+    &::after {
+      content: counter(answer, lower-latin);
     }
   }
 
-  .free-response {
-    &-content {
-      font-style: italic;
-      font-weight: 300;
-      color: @free-response-color;
-      background: @free-response-background;
-    }
-
-    &::before {
-      content: "My Answer:";
-    }
-
-    &[data-student-names] {
-      &::before {
-        content: attr(data-student-names);
-      }
-    }
-  }
-
-  .question-feedback {
-    margin-top: 20px;
-
-    &-content {
-      padding: 0;
-    }
-
-    &::before {
-      content: "Why?";
-    }
-  }
-
-  .multiple-choice-prompt {
-    display: block;
-    margin: 30px 0 10px 0;
-  }
-
-  .answers-table {
+  .answer-label {
+    font-weight: normal;
     width: 100%;
+    padding: @answer-vertical-spacing 0;
+    margin: 0;
+    .flex-display();
+    .align-items(center);
 
-    .answers-answer {
-      counter-increment: answer 1;
-      .answer();
-      margin: 0;
-      width: initial;
+    .transition(~'color @{answer-transition}');
+    .answer();
+  }
 
-      .answer-letter {
-        width: @answer-bubble-size;
-        height: @answer-bubble-size;
-        display: inline-block;
-        border-radius: 2 * @answer-bubble-size;
-        border: 2px solid @answer-label-color;
-
-        &:after {
-          width: @answer-bubble-size;
-          height: @answer-bubble-size;
-          line-height: @answer-bubble-size;
-          margin-left: -2px;
-          margin-top: -2px;
-          text-align: center;
-          display: inline-block;
-          content: counter(answer, lower-latin);
-        }
-      }
-
-      .answer-content {
-        display: table-cell;
-      }
-    }
-
-    label.answer-label {
-      display: table;
-      background: @answer-background;
-      transition: background-color .1s ease-in;
+  &:not(.has-correct-answer){
+    .answer-label {
       cursor: pointer;
-      .answer-content();
-      margin: @answer-vertical-spacing 0;
 
       &:hover {
-        background-color: @answer-hover-background;
+        .answer(hover);
       }
     }
-  }
 
-  .answer-input-box {
-    display: none;
+    .answer-input-box {
+      display: none;
 
-    &:checked + label.answer-label,
-    &:checked + label.answer-label:hover {
-      font-weight: @answer-checked-font-weight;
-      background-color: @answer-select-background; // darker than hover
+      &:checked {
+        + .answer-label,
+        + .answer-label:hover {
+          .answer(checked);
+        }
+      }
     }
-  }
 
-  .answer-checked {
-    &::before{
-      .answer-label();
-      .answer-text-label();
-      content: "My Choice:";
+    .answer-checked{
+      .answer-label {
+        .answer(checked);
+      }
     }
   }
 
   &.has-correct-answer {
-
-    .answers-table {
-
-      .answers-answer label.answer-label {
-        cursor: auto;
-      }
-
-      // For questions showing feedback,
-      // if the answers are not correct and are not chosen, tone down the distracting answer.
-      .answers-answer:not(.answer-correct):not(.answer-checked) .answer-label{
-        &:hover {
-          background: @answer-background;
+    .answer-checked {
+      &:not(.answer-correct) {
+        .answer-label {
+          .answer(wrong);
         }
       }
 
-      .answer-correct:not(.answer-checked)::before {
-        content: "Correct Answer:";
-        .answer-label();
-        .answer-text-label();
-      }
-
-      .answer-checked {
-        &::before{
-          .answer-icon-label();
+      &.answer-correct {
+        .answer-label {
+          .answer(correct);
         }
-        &.answer-correct::before {
-          // content: @fa-var-check;
+      }
+    }
+
+    .answer-correct:not(.answer-checked) {
+      .answer-label {
+        &::before {
+          .fa-icon();
+          content: @fa-var-hand-o-right;
           color: @correct-answer-color;
-        }
-        &:not(.answer-correct)::before {
-          // content: @fa-var-close;
-          color: @wrong-answer-color;
-        }
-      }
-
-      .answer-correct .answer-label {
-        background-color: @correct-answer-background;
-        color: @correct-answer-color;
-        font-weight: @answer-checked-font-weight;
-
-        .answer-content:hover {
-          background-color: @correct-answer-background;
-        }
-      }
-
-      .answer-checked:not(.answer-correct) .answer-label {
-        background-color: @wrong-answer-background;
-        color: @wrong-answer-color;
-        font-weight: @answer-checked-font-weight;
-
-        .answer-content:hover {
-          background-color: @wrong-answer-background;
+          width: @answer-bubble-size;
+          margin-left: -1 * @answer-bubble-size;
+          text-align: center;
         }
       }
     }
   }
 
+  .question-feedback.popover {
+    font-style: italic;
+    color: @answer-label-color;
+
+    position: relative;
+    display: block;
+    width: calc(~'100% + @{feedback-horizontal-buffer}');
+    margin-left: -1 * @feedback-horizontal-spacing;
+    margin-top: -1 * (@answer-vertical-spacing - @popover-arrow-width/10);
+
+    .arrow {
+      left: @answer-bubble-size/2 + @feedback-horizontal-spacing;
+    }
+
+    .popover-content {
+      padding: @feedback-vertical-spacing @feedback-horizontal-spacing;
+    }
+  }
+}
+
+.exercise-uid {
+  position: absolute;
+  right: @answer-horizontal-spacing;
+  bottom: @answer-vertical-spacing;
+  color: @answer-label-color;
 }
