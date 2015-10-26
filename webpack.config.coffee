@@ -29,6 +29,13 @@ getWebpackConfig = (name, isProduction) ->
             './resources/styles/main.less'
           ]
       }, {isProduction}]
+    'demo': [{
+        entry:
+          demo: [
+            './demo'
+            './resources/styles/main.less'
+          ]
+      }, {isProduction, minify: true}]
 
   if configs[name]?
     makeConfig.apply(null, configs[name])
