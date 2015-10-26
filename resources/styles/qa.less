@@ -31,4 +31,25 @@
       .homework_core       { background-color: @homework-color;    }
     }
   }
+  nav.navbar {
+    // clip so that a long title doesn't push the menus below the navbar
+    .section-title {
+      span { display: inline-block; }
+      .chapter-section {
+        float: left;
+        &+span {
+          max-width: 250px;
+          overflow: hidden;
+          display: inline-block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+    // hide logos when screen is narrow
+    @media screen and ( max-width: @reference-book-page-width ){
+      .ui-rice-logo, .ui-brand-logo { display: none; }
+    }
+
+  }
 }

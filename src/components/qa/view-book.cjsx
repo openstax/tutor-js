@@ -13,6 +13,7 @@ QAContent            = require './content'
 QAExercises          = require './exercises'
 BookLink             = require './book-link'
 QAContentToggle      = require './content-toggle'
+UserActionsMenu      = require '../navbar/user-actions-menu'
 
 QAViewBook = React.createClass
 
@@ -39,6 +40,7 @@ QAViewBook = React.createClass
             <BookLink book={book} />
           </li>}
       </BS.DropdownButton>
+      <UserActionsMenu />
     </BS.Nav>
 
   setContentShowing: (visible) ->

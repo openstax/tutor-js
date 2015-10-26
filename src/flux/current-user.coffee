@@ -32,7 +32,7 @@ ROUTES =
     roles:
       teacher: 'taskplans'
       student: 'viewStudentDashboard'
-      default: 'root'
+      default: 'app'
   guide:
     label: 'Performance Forecast'
     roles:
@@ -122,6 +122,7 @@ CurrentUserStore = flux.createStore
     getName: -> @_user.name
     isAdmin: -> @_user.is_admin
     isContentAnalyst: -> @_user.is_content_analyst
+    isCustomerService: -> @_user.is_customer_service
     getProfileUrl: -> @_user.profile_url
 
     # Loads the store if it's not already loaded or loading

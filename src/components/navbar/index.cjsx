@@ -2,31 +2,22 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
-{ScrollListenerMixin} = require 'react-scroll-components'
 
-UserName = require './username'
-AccountLink = require './account-link'
 CourseName = require './course-name'
-LogOut = require './logout'
-BindStoreMixin = require '../bind-store-mixin'
 ServerErrorMonitoring = require './server-error-monitoring'
-BrowseTheBook = require '../buttons/browse-the-book'
+UserActionsMenu = require './user-actions-menu'
 
-{CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
+{CurrentUserActions} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
-{CourseListingActions, CourseListingStore} = require '../../flux/course-listing'
+{CourseListingStore} = require '../../flux/course-listing'
 
 module.exports = React.createClass
   displayName: 'Navigation'
-
-  mixins: [BindStoreMixin]
-  bindStore: CurrentUserStore
 
   contextTypes:
     router: React.PropTypes.func
 
   componentWillMount: ->
-    CurrentUserStore.ensureLoaded()
     CourseListingStore.ensureLoaded()
 
   getInitialState: ->
@@ -52,35 +43,6 @@ module.exports = React.createClass
   componentWillUnmount: ->
     CourseStore.off('course.loaded', @handleCourseChanges)
 
-  transitionToMenuItem: (routeName, params) ->
-    @context.router.transitionTo(routeName, params)
-
-  renderCourseMenuItem: (courseId, route, index) ->
-    isActive = @context.router.isActive(route.name, {courseId})
-    className = 'active' if isActive
-    <BS.MenuItem
-      key="dropdown-item-#{index}"
-      onSelect={_.partial(@transitionToMenuItem, route.name, route.params)}
-      className={className}
-      eventKey={index + 2}>{route.label}</BS.MenuItem>
-
-  renderMenuItems: (courseId) ->
-    menuItems = _.map CurrentUserStore.getCourseMenuRoutes(courseId),
-      _.partial(@renderCourseMenuItem, courseId)
-
-    menuItems.push <li key='nav-browse-the-book'>
-      <BrowseTheBook unstyled={true} courseId={courseId} />
-    </li>
-
-    if CurrentUserStore.isAdmin()
-      menuItems.push <li key='admin'><a key='admin' href='/admin'>Admin</a></li>
-
-    if CurrentUserStore.isContentAnalyst()
-      menuItems.push <li key='qa'><Router.Link to='QADashboard'>QA Content</Router.Link></li>
-
-    menuItems.push <BS.MenuItem divider key='dropdown-item-divider'/>
-    menuItems
-
   render: ->
     {course} = @state
     {courseId} = @context.router.getCurrentParams()
@@ -95,26 +57,7 @@ module.exports = React.createClass
           <CourseName course={course}/>
         </BS.Nav>
         <BS.Nav right navbar>
-          <BS.DropdownButton
-            eventKey={1}
-            className='-hamburger-menu'
-            title={<UserName/>}
-            ref='navDropDown'>
-            {@renderMenuItems(courseId)}
-            <AccountLink key='accounts-link' />
-            <BS.MenuItem
-              key='nav-help-link'
-              target='_blank'
-              href={CurrentUserStore.getHelpLink(courseId)}>
-                Get Help
-            </BS.MenuItem>
-            <BS.MenuItem
-              className="logout"
-              eventKey={4}
-              key='dropdown-item-logout'>
-                <LogOut className='btn btn-link btn-xs'>Log Out</LogOut>
-            </BS.MenuItem>
-          </BS.DropdownButton>
+          <UserActionsMenu courseId={courseId} />
         </BS.Nav>
       </BS.CollapsibleNav>
       <ServerErrorMonitoring />
