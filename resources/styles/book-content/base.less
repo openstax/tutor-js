@@ -47,6 +47,10 @@ div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
 
+// prevent larger images from pushing out past their container.
+// Most images are inside a <figure> and will be handled by the rules below
+img { max-width: 100%; }
+
 .tutor-figure();
 figure {
   margin-right: 30px;
