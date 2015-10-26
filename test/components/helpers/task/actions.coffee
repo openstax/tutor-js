@@ -9,7 +9,7 @@ React = require 'react/addons'
 
 TaskStep = require '../../../../src/components/task-step'
 {BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
-{ExerciseReview} = require '../../../../src/components/task-step/exercise/modes'
+{Exercise} = require 'openstax-react-components'
 
 {routerStub, commonActions} = require '../utilities'
 
@@ -139,7 +139,7 @@ actions =
 
   forceRecovery: (args...) ->
     {component} = args[0]
-    exerciseReview = React.addons.TestUtils.findRenderedComponentWithType(component, ExerciseReview)
+    exerciseReview = React.addons.TestUtils.findRenderedComponentWithType(component, Exercise)
     exerciseReview.props.onNextStep()
 
     actions.forceUpdate(args[0])

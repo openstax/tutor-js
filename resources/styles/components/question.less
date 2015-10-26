@@ -67,7 +67,6 @@
     max-width: 100%;
   }
 
-  .size-exercise-card();
   .clearfix();
 
   counter-reset: answer 0;
@@ -253,6 +252,10 @@
     }
     .answers-table label.answer-label {
       cursor: default;
+
+      &:hover {
+        background: @answer-background;
+      }
     }
     .answer-checked::before {
       content: "Student Choice:";

@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 
-GetPositionMixin = require './get-position-mixin'
+{GetPositionMixin} = require 'openstax-react-components'
 
 ScrollTracker =
   mixins: [GetPositionMixin]

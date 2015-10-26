@@ -1,6 +1,4 @@
 .exercise-free-response {
-  .size-exercise-card();
-
   // images in exercises are not wrapped and don't have a class.
   // This will work fine until there's some images that shouldn't be targeted
   img {
@@ -22,4 +20,11 @@
   }
 
   .exercise-uid { .tutor-task-step-question-uid(); }
+}
+
+.exercise-free-response,
+.exercise-review,
+.exercise-multiple-choice,
+.exercise-teacher-read-only {
+  .size-exercise-card();
 }

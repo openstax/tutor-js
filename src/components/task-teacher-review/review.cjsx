@@ -6,7 +6,7 @@ TaskTeacherReviewExercise = require './exercise'
 LoadableItem = require '../loadable-item'
 
 CrumbMixin = require './crumb-mixin'
-ChapterSectionMixin = require '../chapter-section-mixin'
+{ChapterSectionMixin} = require 'openstax-react-components'
 {ScrollListenerMixin} = require 'react-scroll-components'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
