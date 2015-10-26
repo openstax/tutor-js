@@ -57,7 +57,7 @@ CourseListing = React.createClass
         courseLink = <Router.Link
           className='tutor-course-item'
           to='viewStudentDashboard'
-          params={{courseId}}></Router.Link>
+          params={{courseId}}>{course.name}</Router.Link>
 
       if isTeacher
         if courseLink?
@@ -69,7 +69,7 @@ CourseListing = React.createClass
           courseLink = <Router.Link
             className='tutor-course-item'
             to='taskplans'
-            params={{courseId}}></Router.Link>
+            params={{courseId}}>{course.name}</Router.Link>
 
       courseDataProps = @getCourseDataProps(courseId)
       <BS.Row>
