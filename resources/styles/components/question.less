@@ -40,6 +40,12 @@
   }
 }
 
+.answer-fa-icon(){
+  .fa-icon();
+  line-height: @answer-bubble-size;
+  font-size: 2.5rem;
+}
+
 .answer-bubble(){
   .openstax-bubble(@answer-bubble-size, 2px);
   border-color: lighten(@answer-label-color, 15%);
@@ -64,9 +70,8 @@
   color: @openstax-white;
 
   &::after {
-    .fa-icon();
+    .answer-fa-icon();
     content: @fa-var-close;
-    line-height: @answer-bubble-size;
   }
 }
 
@@ -76,9 +81,8 @@
   color: @openstax-white;
 
   &::after {
-    .fa-icon();
+    .answer-fa-icon();
     content: @fa-var-check;
-    line-height: @answer-bubble-size;
   }
 }
 
@@ -125,8 +129,6 @@
 
 .question {
 
-  font-size: 1.7rem;
-
   .clearfix();
 
   img {
@@ -138,6 +140,10 @@
   .question-stem,
   .answers-table {
     margin-bottom: 20px;
+  }
+
+  .multiple-choice-prompt {
+    font-weight: 600;
   }
 
   // free response
@@ -226,7 +232,7 @@
     .answer-correct:not(.answer-checked) {
       .answer-label {
         &::before {
-          .fa-icon();
+          .answer-fa-icon();
           content: @fa-var-hand-o-right;
           color: @correct-answer-color;
           width: @answer-bubble-size;
