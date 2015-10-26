@@ -1,0 +1,18 @@
+.exercise {
+
+  @{placeholder-selector} {
+    font-style: italic;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 8em;
+    line-height: 1.5em;
+    margin: 1em 0;
+    padding: 0.75em;
+
+    &[disabled] {
+      border: none;
+    }
+  }
+}

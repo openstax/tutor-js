@@ -18,7 +18,7 @@ FreeResponse = React.createClass
 
     if free_response? and free_response.length
       FreeResponse = <div {...freeResponseProps}>
-        <div className='free-response-content'>{free_response}</div>
+        {free_response}
       </div>
 
     FreeResponse

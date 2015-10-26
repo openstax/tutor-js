@@ -1,0 +1,95 @@
+{
+  "id": "529",
+  "task_id": "10",
+  "type": "exercise",
+  "group": "core",
+  "is_completed": true,
+  "last_completed_at": "2015-10-06T11:59:00.000Z",
+  "first_completed_at": "2015-10-06T11:59:00.000Z",
+  "related_content": [{
+    "title": "The Science of Biology",
+    "chapter_section": [
+      1,
+      1
+    ]
+  }],
+  "labels": [],
+  "content_url": "https://exercises-dev.openstax.org/exercises/1@1",
+  "content": {
+    "uid": "1@1",
+    "number": 1,
+    "version": 1,
+    "published_at": "2015-09-16T20:13:32.569Z",
+    "editors": [],
+    "authors": [{
+      "user_id": "1",
+      "name": "OpenStax"
+    }],
+    "copyright_holders": [{
+      "user_id": "2",
+      "name": "Rice University"
+    }],
+    "derived_from": [],
+    "attachments": [],
+    "tags": [
+      "apbio",
+      "apbio-ch01",
+      "apbio-ch01-s01",
+      "apbio-ch01-s01-lo02",
+      "apbio-ch01-ex001",
+      "visual-connection",
+      "inbook-yes",
+      "dok3",
+      "time-medium",
+      "display-free-response",
+      "display-rec-sensitive",
+      "blooms-4"
+    ],
+    "stimulus_html": "",
+    "questions": [{
+      "id": "1",
+      "stimulus_html": "",
+      "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\"> </th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\"> </th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my coffeemaker from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
+      "answers": [{
+        "id": "4",
+        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken."
+      }, {
+        "id": "3",
+        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet."
+      }, {
+        "id": "2",
+        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on."
+      }, {
+        "id": "1",
+        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work."
+      }],
+      "solutions": [{
+        "uid": "1@1",
+        "number": 1,
+        "version": 1,
+        "published_at": "2015-09-16T20:13:32.533Z",
+        "editors": [],
+        "authors": [{
+          "user_id": 1,
+          "name": "OpenStax"
+        }],
+        "copyright_holders": [{
+          "user_id": 2,
+          "name": "Rice University"
+        }],
+        "derived_from": [],
+        "attachments": [],
+        "solution_type": "detailed",
+        "content_html": "<ol>\n  <li>C</li>\n  <li>F</li>\n  <li>A</li>\n  <li>B</li>\n  <li>D</li>\n  <li>E</li>\n</ol>\n\n<p>The original hypothesis is incorrect, as the coffeemaker works when plugged into the outlet. Alternative hypotheses include that the toaster might be broken or that the toaster wasn’t turned on.</p>\n"
+      }],
+      "hints": [],
+      "formats": [
+        "free-response",
+        "multiple-choice"
+      ],
+      "combo_choices": []
+    }]
+  },
+  "has_recovery": false,
+  "free_response": "A sentence explaining all the things!"
+}
