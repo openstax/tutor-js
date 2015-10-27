@@ -6,9 +6,9 @@ _ = require 'underscore'
 BindStoreMixin = require '../bind-store-mixin'
 
 
-AddPeriodField = React.createClass
+RenamePeriodField = React.createClass
 
-  displayName: 'AddPeriodField'
+  displayName: 'RenamePeriodField'
   propTypes:
     courseId: React.PropTypes.string.isRequired
     label: React.PropTypes.string.isRequired
@@ -32,42 +32,53 @@ AddPeriodField = React.createClass
       onChange={@onChange} />
 
 module.exports = React.createClass
-  displayName: 'AddPeriodLink'
+  displayName: 'RenamePeriodLink'
   propTypes:
     courseId: React.PropTypes.string.isRequired
     periods: React.PropTypes.array.isRequired
+    activeTab: React.PropTypes.number.isRequired
 
   mixins: [BindStoreMixin]
   bindStore: PeriodStore
-  bindEvent: 'create'
+  bindEvent: 'save'
 
   getInitialState: ->
     warning: ''
+    period_name: @getActivePeriodName(@props.activeTab, @props.periods)
+
+  getActivePeriodName: (active, periods) ->
+    for period, i in periods
+      if i is active then tab = period.name
+    tab
 
   performUpdate: ->
     name = PeriodStore.validatePeriodName(@state.period_name, @props.periods)
     if not name.error
       @refs.overlay.hide()
-      PeriodActions.create(@props.courseId, period: {name: @state.period_name})
+      PeriodActions.save(@props.courseId, period: {name: @state.period_name})
     else
       @setState(warning: name.error)
 
   renderForm: ->
     <BS.Modal
       {...@props}
-      title={'Add Period'}
+      title={'Rename Period'}
       className="teacher-edit-period-form">
 
       <div className='modal-body'>
-        <AddPeriodField label='Period Name' name='period_name' default={@state.period_name}
-          onChange={(val) => @setState(period_name: val)} autofocus />
+        <RenamePeriodField
+        label='Period Name'
+        name='period_name'
+        default={@getActivePeriodName(@props.activeTab, @props.periods)}
+        onChange={(val) => @setState(period_name: val)} 
+        autofocus />
 
         <div className='warning'>
           {@state.warning}
         </div>
 
         <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
-          Add
+          Rename
         </BS.Button>
       </div>
 
@@ -80,6 +91,6 @@ module.exports = React.createClass
       trigger='click'
       overlay={@renderForm()}>
         <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-plus' /> Add Period
+          <i className='fa fa-plus' /> Rename Period
         </BS.Button>
     </BS.OverlayTrigger>

@@ -1,4 +1,5 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{CourseActions} = require './course'
 _ = require 'underscore'
 
 PeriodConfig = {
@@ -6,7 +7,13 @@ PeriodConfig = {
   create: (courseId, params) ->
 
   created: (period, courseId) ->
-    @emitChange()
+    CourseActions.load(courseId)
+
+  save: (courseId, params) ->
+
+  saved: (period, courseId) ->
+    CourseActions.load(courseId)
+    
 
   exports:
 
