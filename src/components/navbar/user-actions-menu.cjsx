@@ -53,6 +53,7 @@ UserActionsMenu = React.createClass
 
     if CurrentUserStore.isContentAnalyst()
       menu.push @renderMenuItem({name: 'QADashboard', label: 'QA Content', params: {}}, menu.length )
+      menu.push <li key='ca'><a href='/content_analyst'>Content Analyst</a></li>
 
     menu.push <BS.MenuItem divider key='dropdown-item-divider'/>
     menu
