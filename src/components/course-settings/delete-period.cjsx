@@ -1,0 +1,77 @@
+React = require 'react'
+BS = require 'react-bootstrap'
+_ = require 'underscore'
+{PeriodActions, PeriodStore} = require '../../flux/period'
+{RosterActions, RosterStore} = require '../../flux/roster'
+{TutorInput} = require '../tutor-input'
+BindStoreMixin = require '../bind-store-mixin'
+
+EMPTY_WARNING = 'Only periods without students enrolled can be deleted.'
+
+module.exports = React.createClass
+  displayName: 'DeletePeriodLink'
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+    periods: React.PropTypes.array.isRequired
+    activeTab: React.PropTypes.number.isRequired
+
+  mixins: [BindStoreMixin]
+  bindStore: PeriodStore
+  bindEvent: 'delete'
+
+  getInitialState: ->
+    warning: ''
+
+  performUpdate: ->
+    if @isPeriodEmpty()
+      @refs.overlay.hide()
+      id = @props.activeTab.id
+      PeriodActions.delete(id)
+    else
+      @setState(warning: EMPTY_WARNING)
+
+  isPeriodEmpty: ->
+    id = @props.activeTab.id
+    students = RosterStore.getActiveStudentsForPeriod(@props.courseId, id)
+    students.length is 0
+
+  renderForm: ->
+    if not @isPeriodEmpty()
+      @state.warning = EMPTY_WARNING
+    else
+      @state.warning = ''
+    deleteQuestion = "Delete '#{@props.activeTab.name}'?"
+    deleteButton =
+      <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
+        Delete
+      </BS.Button>
+
+    <BS.Modal
+      {...@props}
+      title={'Delete Period'}
+      className="teacher-edit-period-form">
+
+      <div className='modal-body'>
+
+        <div className='-delete-question'>
+          {deleteQuestion if @isPeriodEmpty()}
+        </div>
+        <div className='warning'>
+          {@state.warning}
+        </div>
+
+        {deleteButton if @isPeriodEmpty()}
+      </div>
+
+    </BS.Modal>
+
+  render: ->
+    <BS.OverlayTrigger
+      ref='overlay'
+      rootClose={true}
+      trigger='click'
+      overlay={@renderForm()}>
+        <BS.Button bsStyle='link' className='edit-period'>
+          <i className='fa fa-trash-o' /> Delete Period
+        </BS.Button>
+    </BS.OverlayTrigger>

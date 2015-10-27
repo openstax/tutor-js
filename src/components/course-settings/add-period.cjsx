@@ -10,10 +10,10 @@ AddPeriodField = React.createClass
 
   displayName: 'AddPeriodField'
   propTypes:
-    courseId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string
     label: React.PropTypes.string.isRequired
     name:  React.PropTypes.string.isRequired
-    default: React.PropTypes.string.isRequired
+    default: React.PropTypes.string
     onChange:  React.PropTypes.func.isRequired
     autofocus: React.PropTypes.bool
 

@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {CourseActions} = require './course'
 _ = require 'underscore'
@@ -9,9 +10,14 @@ PeriodConfig = {
   created: (period, courseId) ->
     CourseActions.load(courseId)
 
-  save: (courseId, params) ->
+  save: (courseId, period, params) ->
 
   saved: (period, courseId) ->
+    CourseActions.load(courseId)
+
+  delete: (period, courseId) ->
+
+  deleted: (period, courseId) ->
     CourseActions.load(courseId)
     
 

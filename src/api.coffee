@@ -205,8 +205,8 @@ start = (bootstrapData) ->
 
   apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/periods", payload: params
-  apiHelper PeriodActions, PeriodActions.save, PeriodActions.saved, 'PATCH', (id, params) ->
-    url: "/api/periods/#{id}", payload: params
+  apiHelper PeriodActions, PeriodActions.save, PeriodActions.saved, 'PATCH', (id, period, params) ->
+    url: "/api/periods/#{period}", payload: params
   apiHelper PeriodActions, PeriodActions.delete, PeriodActions.deleted, 'DELETE', (id) ->
     url: "/api/periods/#{id}"
 

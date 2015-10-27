@@ -10,7 +10,7 @@ RenamePeriodField = React.createClass
 
   displayName: 'RenamePeriodField'
   propTypes:
-    courseId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string
     label: React.PropTypes.string.isRequired
     name:  React.PropTypes.string.isRequired
     default: React.PropTypes.string.isRequired
@@ -44,18 +44,14 @@ module.exports = React.createClass
 
   getInitialState: ->
     warning: ''
-    period_name: @getActivePeriodName(@props.activeTab, @props.periods)
-
-  getActivePeriodName: (active, periods) ->
-    for period, i in periods
-      if i is active then tab = period.name
-    tab
+    period_name: @props.activeTab.name
 
   performUpdate: ->
     name = PeriodStore.validatePeriodName(@state.period_name, @props.periods)
     if not name.error
       @refs.overlay.hide()
-      PeriodActions.save(@props.courseId, period: {name: @state.period_name})
+      id = @props.activeTab.id
+      PeriodActions.save(@props.courseId, id, period: {name: @state.period_name})
     else
       @setState(warning: name.error)
 
@@ -69,7 +65,7 @@ module.exports = React.createClass
         <RenamePeriodField
         label='Period Name'
         name='period_name'
-        default={@getActivePeriodName(@props.activeTab, @props.periods)}
+        default={@props.activeTab.name}
         onChange={(val) => @setState(period_name: val)} 
         autofocus />
 
@@ -91,6 +87,6 @@ module.exports = React.createClass
       trigger='click'
       overlay={@renderForm()}>
         <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-plus' /> Rename Period
+          <i className='fa fa-pencil' /> Rename Period
         </BS.Button>
     </BS.OverlayTrigger>
