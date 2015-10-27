@@ -76,7 +76,7 @@ gulp.task '_webserver', ->
   webpackConfig = require './webpack.config'
   config = _.extend( {}, webpackConfig)
   config.entry.exercises.unshift(
-    './node_modules/webpack-dev-server/client/index.js?http://localhost:8000'
+    './node_modules/webpack-dev-server/client/index.js?http://localhost:8001'
     'webpack/hot/dev-server'
   )
   config.plugins.push( new webpack.HotModuleReplacementPlugin() )
