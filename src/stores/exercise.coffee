@@ -139,6 +139,20 @@ ExerciseConfig = {
     isFirstQuestion: (exercise, question) -> exercise.questions[0] is question
     isLastQuestion: (exercise, question) ->
       exercise.questions[exercise.questions.length - 1] is question
+
+    getQuestions: (exercise) -> exercise.questions
+    getId: (exercise) -> exercise.uid
+    getNumber: (exercise) -> exercise.number
+    getStimulus: (exercise) -> exercise.stimulus_html
+    getTags: (exercise) -> exercise.tags
+
+    getQuestionAnswers: (question) -> question.answers
+    getQuestionId: (question) -> question.id
+    getQuestionStem: (question) -> question.stem_html
+    getQuestionStimulus: (question) -> question.stimulus_html
+
+    getAnswerContent: (answer) -> answer.content_html
+    isAnswerCorrect: (answer) -> answer.correctness is "1.0"
 }
 
 # Helper for creating a simple store for actions

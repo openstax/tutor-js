@@ -47,7 +47,8 @@ if /\/exercises\/\d+/.test(window.location.pathname)
       root.id = 'exercise'
       document.body.appendChild(root)
 
-      React.renderComponent(Exercise({config}), root)
+      exercise = window.ExerciseComponent({config})
+      window.React.render(exercise, root)
 
       # Save on every change
       ExerciseStore.addChangeListener ->
@@ -61,3 +62,36 @@ if /\/exercises\/\d+/.test(window.location.pathname)
 
         ajax options, (err, value) ->
           console.log('Save Response:', arguments...)
+
+
+document.addEventListener('DOMContentLoaded', ->
+  url = prompt('URL to fetch Exercise JSON\n (leave blank to use local test file)',
+    '/api/exercises/1')
+  if (url)
+    request = new XMLHttpRequest()
+    request.open('GET', url, true)
+
+    request.onload = ->
+      if (request.status >= 200 and request.status < 400)
+        data = JSON.parse(request.responseText)
+
+        root = document.getElementById('exercise')
+        exercise = window.ExerciseComponent({config:data})
+        window.React.render(exercise, root)
+
+      else
+        alert('Woops, server returned a non 200 error')
+
+    request.onerror = ->
+      alert('Woops, problem connecting to server')
+
+    request.send()
+
+  else
+    window.ExerciseComponent(document.getElementById('exercise'), window.config)
+    window.ExerciseActionsStore.ExerciseActions.changeExerciseMode(
+      window.ExerciseActionsStore.EXERCISE_MODES.EDIT
+    )
+
+)
+

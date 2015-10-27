@@ -18,7 +18,7 @@ ajax = (options, cb) ->
   for name, value of options.headers
     xhr.setRequestHeader(name, value)
 
-  xhr.onreadystatechange ->
+  xhr.onreadystatechange = ->
     if 4 is xhr.readyState
       options.statusCode?[xhr.status]?()
 

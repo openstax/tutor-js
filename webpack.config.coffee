@@ -21,7 +21,7 @@ module.exports =
   output:
     path: if isProduction then 'dist' else '/'
     filename: '[name].js'
-    publicPath: if isProduction then '' else 'http://localhost:8000/dist/'
+    publicPath: if isProduction then '' else 'http://localhost:8001/dist/'
 
   plugins: [ new ExtractTextPlugin('exercises.css') ]
 
@@ -42,10 +42,10 @@ module.exports =
 
   devServer:
     contentBase: './'
-    publicPath: 'http://localhost:8000/dist/'
+    publicPath: 'http://localhost:8001/dist/'
     historyApiFallback: true
     inline: true
-    port: process.env['PORT'] or 8000
+    port: process.env['PORT'] or 8001
     # It suppress error shown in console, so it has to be set to false.
     quiet: false,
     # It suppress everything except error, so it has to be set to false as well
