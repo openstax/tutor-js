@@ -1,8 +1,7 @@
 React = require 'react'
 Demo = require './src/exercise'
 
-{loadAPISettings} = require './src/api/helper'
-{api} = require './src/settings'
+api = require './src/api'
 
 loadApp = ->
   unless document.readyState is 'interactive'
@@ -12,7 +11,7 @@ loadApp = ->
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
 
-  loadAPISettings(api)
+  api.initialize()
 
   React.render(<Demo/>, mainDiv)
   true

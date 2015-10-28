@@ -1,4 +1,4 @@
-api =
+settings =
   # # set/comment in to use actual BE
   # baseUrl: 'http://localhost:3001'
 
@@ -28,4 +28,4 @@ api =
       method: 'GET'
       completedEvent: 'task.{collectionUUID}.{moduleUUID}.fetch.done'
 
-module.exports = {api}
+module.exports = settings

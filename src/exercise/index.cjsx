@@ -2,8 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 {Exercise} = require 'openstax-react-components'
-
-{ccEvents} = require '../events'
+api = require '../api'
 
 STEP_ID = '4571'
 steps = {}
@@ -22,7 +21,7 @@ getCurrentPanel = (stepId) ->
 getUpdatedStep = (stepId) ->
   step = steps[stepId]
   panel = getCurrentPanel(stepId)
-  ccEvents.emit("exercise.#{stepId}.fetch", {data: id: stepId})
+  api.channel.emit("exercise.#{stepId}.fetch", {data: id: stepId})
 
 getProps = (step = {content: {questions:[{}]}}) ->
 
@@ -37,16 +36,16 @@ getProps = (step = {content: {questions:[{}]}}) ->
     setAnswerId: (stepId, answerId) ->
       step.answer_id = answerId
       waitingText = 'Saving...'
-      ccEvents.emit("exercise.#{stepId}.saveAnswer", change: step, data: id: stepId)
+      api.channel.emit("exercise.#{stepId}.saveAnswer", change: step, data: id: stepId)
 
     setFreeResponseAnswer: (stepId, freeResponse) ->
       step.free_response = freeResponse
       waitingText = 'Saving...'
-      ccEvents.emit("exercise.#{stepId}.savefreeResponse", change: step, data: id: stepId)
+      api.channel.emit("exercise.#{stepId}.savefreeResponse", change: step, data: id: stepId)
 
     onContinue: ->
       step.is_completed = true
-      ccEvents.emit("exercise.#{STEP_ID}.complete", change: step, data: id: STEP_ID)
+      api.channel.emit("exercise.#{STEP_ID}.complete", change: step, data: id: STEP_ID)
 
     onStepCompleted: ->
       console.info('onStepCompleted')
@@ -71,7 +70,7 @@ ExerciseDemo = React.createClass
     @setState(exerciseProps: exerciseProps)
   componentWillMount: ->
     getUpdatedStep(STEP_ID)
-    ccEvents.on("exercise.#{STEP_ID}.*.done", @update)
+    api.channel.on("exercise.#{STEP_ID}.*.done", @update)
   render: ->
     {exerciseProps} = @state
     <Exercise {...exerciseProps}/>
