@@ -1,4 +1,6 @@
 api =
+  # # set/comment in to use actual BE
+  # baseUrl: 'http://localhost:3001'
 
   endpoints:
     'exercise.*.savefreeResponse':
