@@ -2,8 +2,9 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
 
-{CourseStore} = require '../../flux/course'
+{CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
+{PeriodActions, PeriodStore} = require '../../flux/period'
 BindStoreMixin = require '../bind-store-mixin'
 PeriodRoster = require './period-roster'
 
@@ -31,6 +32,16 @@ module.exports = React.createClass
         id = period.id
     {name, id}
 
+  reloadCourse: ->
+    CourseActions.load(@props.courseId)
+    @forceUpdate()
+
+  addBindListener: ->
+    PeriodStore.on('delete', @reloadCourse)
+
+  removeBindListener: ->
+    PeriodStore.off('delete', @reloadCourse)
+
   render: ->
     course = CourseStore.get(@props.courseId)
     tabs = _.map course.periods, (period, index) =>
@@ -47,7 +58,8 @@ module.exports = React.createClass
         <DeletePeriodLink
         courseId={@props.courseId}
         periods={course.periods}
-        activeTab={@getActivePeriod(@state.key, course.periods)} />
+        activeTab={@getActivePeriod(@state.key, course.periods)}
+        reloadCourse={@reloadCourse} />
       </div>
       <div><span className='course-settings-subtitle'>Roster</span></div>
       {tabs}

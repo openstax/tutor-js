@@ -10,15 +10,14 @@ PeriodConfig = {
   created: (period, courseId) ->
     CourseActions.load(courseId)
 
-  save: (courseId, period, params) ->
+  save: (courseId, periodId, params) ->
 
-  saved: (period, courseId) ->
+  saved: (periodId, courseId) ->
     CourseActions.load(courseId)
 
-  delete: (period, courseId) ->
+  delete: (periodId) ->
 
-  deleted: (period, courseId) ->
-    CourseActions.load(courseId)
+  deleted: (periodId) ->
     
 
   exports:

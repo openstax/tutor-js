@@ -3,7 +3,6 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
-BindStoreMixin = require '../bind-store-mixin'
 
 
 RenamePeriodField = React.createClass
@@ -36,11 +35,7 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     periods: React.PropTypes.array.isRequired
-    activeTab: React.PropTypes.number.isRequired
-
-  mixins: [BindStoreMixin]
-  bindStore: PeriodStore
-  bindEvent: 'save'
+    activeTab: React.PropTypes.object.isRequired
 
   getInitialState: ->
     warning: ''

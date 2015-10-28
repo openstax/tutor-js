@@ -4,7 +4,6 @@ _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
-BindStoreMixin = require '../bind-store-mixin'
 
 EMPTY_WARNING = 'Only periods without students enrolled can be deleted.'
 
@@ -13,11 +12,8 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     periods: React.PropTypes.array.isRequired
-    activeTab: React.PropTypes.number.isRequired
-
-  mixins: [BindStoreMixin]
-  bindStore: PeriodStore
-  bindEvent: 'delete'
+    activeTab: React.PropTypes.object.isRequired
+    reloadCourse: React.PropTypes.func.isRequired
 
   getInitialState: ->
     warning: ''
@@ -27,6 +23,7 @@ module.exports = React.createClass
       @refs.overlay.hide()
       id = @props.activeTab.id
       PeriodActions.delete(id)
+      @props.reloadCourse()
     else
       @setState(warning: EMPTY_WARNING)
 
