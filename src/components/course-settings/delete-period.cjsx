@@ -43,7 +43,7 @@ module.exports = React.createClass
 
     <BS.Modal
       {...@props}
-      title={'Delete Period'}
+      title='Delete Period'
       className="teacher-edit-period-form">
 
       <div className='modal-body'>

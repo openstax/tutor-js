@@ -43,12 +43,12 @@ module.exports = React.createClass
 
   performUpdate: ->
     name = PeriodStore.validatePeriodName(@state.period_name, @props.periods)
-    if not name.error
+    if name.error
+      @setState(warning: name.error)
+    else
       @refs.overlay.hide()
       id = @props.activeTab.id
       PeriodActions.save(@props.courseId, id, period: {name: @state.period_name})
-    else
-      @setState(warning: name.error)
 
   renderForm: ->
     <BS.Modal
