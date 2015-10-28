@@ -59,8 +59,11 @@ getProps = (stepId) ->
 
     onStepCompleted: ->
       console.info('onStepCompleted')
+      channel.emit("completed.#{stepId}")
+
     onNextStep: ->
       console.info('onNextStep')
+      channel.emit("leave.#{stepId}")
 
 api.channel.on("exercise.*.receive.*", update)
 
