@@ -32,16 +32,6 @@ module.exports = React.createClass
         id = period.id
     {name, id}
 
-  reloadCourse: ->
-    CourseActions.load(@props.courseId)
-    @forceUpdate()
-
-  addBindListener: ->
-    PeriodStore.on('delete', @reloadCourse)
-
-  removeBindListener: ->
-    PeriodStore.off('delete', @reloadCourse)
-
   render: ->
     course = CourseStore.get(@props.courseId)
     tabs = _.map course.periods, (period, index) =>
@@ -58,8 +48,7 @@ module.exports = React.createClass
         <DeletePeriodLink
         courseId={@props.courseId}
         periods={course.periods}
-        activeTab={@getActivePeriod(@state.key, course.periods)}
-        reloadCourse={@reloadCourse} />
+        activeTab={@getActivePeriod(@state.key, course.periods)} />
       </div>
       <div><span className='course-settings-subtitle'>Roster</span></div>
       {tabs}

@@ -13,7 +13,6 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     periods: React.PropTypes.array.isRequired
     activeTab: React.PropTypes.object.isRequired
-    reloadCourse: React.PropTypes.func.isRequired
 
   getInitialState: ->
     warning: ''
@@ -22,8 +21,7 @@ module.exports = React.createClass
     if @isPeriodEmpty()
       @refs.overlay.hide()
       id = @props.activeTab.id
-      PeriodActions.delete(id)
-      @props.reloadCourse()
+      PeriodActions.delete(id, @props.courseId)
     else
       @setState(warning: EMPTY_WARNING)
 
