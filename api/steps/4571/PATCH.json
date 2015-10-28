@@ -1,0 +1,30 @@
+{
+    "id": "4571",
+    "task_id": "265",
+    "type": "exercise",
+    "group": "default",
+    "is_completed": false,
+    "related_content": [],
+    "labels": [],
+    "content_url": "https://exercises-dev.openstax.org/exercises/-1@1",
+    "content": {
+        "uid": "-1@1",
+        "tags": [],
+        "stimulus_html": "This is fake exercise -1. <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span>",
+        "questions": [{
+            "id": "-1",
+            "formats": [
+                "multiple-choice",
+                "free-response"
+            ],
+            "stem_html": "Select 10 N.",
+            "answers": [{
+                "id": "-2",
+                "content_html": "10 N"
+            }, {
+                "id": "-3",
+                "content_html": "1 N"
+            }]
+        }]
+    }
+}
