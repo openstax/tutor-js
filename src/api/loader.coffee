@@ -39,23 +39,27 @@ getResponseDataByEnv = (isLocal, eventData, response) ->
 
 handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
   isLocal = not baseUrl?
+  # simulate server delay
+  delay = if isLocal then 200 else 0
 
   apiSetting = getAjaxSettingsByEnv(isLocal, baseUrl, setting, eventData)
 
-  axios(apiSetting)
-    .then((response) ->
+  _.delay ->
+    axios(apiSetting)
+      .then((response) ->
 
-      completedEvent = interpolate(setting.completedEvent, eventData.data)
-      completedData = getResponseDataByEnv(isLocal, eventData, response)
+        completedEvent = interpolate(setting.completedEvent, eventData.data)
+        completedData = getResponseDataByEnv(isLocal, eventData, response)
 
-      apiEventChannel.emit(completedEvent, completedData)
-      Promise.resolve(response)
+        apiEventChannel.emit(completedEvent, completedData)
+        Promise.resolve(response)
 
-    ).catch((response) ->
+      ).catch((response) ->
 
-      setting.onFail?(response) or defaultFail(response)
-      Promise.reject(response)
-    )
+        setting.onFail?(response) or defaultFail(response)
+        Promise.reject(response)
+      )
+  , delay
 
 loader = (apiEventChannel, settings) ->
 

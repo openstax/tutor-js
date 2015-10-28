@@ -1,5 +1,5 @@
 React = require 'react'
-Demo = require './src/exercise'
+Demo = require './src/demo'
 
 api = require './src/api'
 

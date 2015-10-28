@@ -1,97 +1,46 @@
 React = require 'react'
-BS = require 'react-bootstrap'
-
 {Exercise} = require 'openstax-react-components'
+
+exercises = require './collection'
 api = require '../api'
 
-STEP_ID = '4571'
-steps = {}
-steps[STEP_ID] = {}
+getWaitingText = (status) ->
+  "#{status}…"
 
+ExerciseStep = React.createClass
+  displayName: 'ExerciseStep'
 
-getCurrentPanel = (stepId) ->
-  step = steps[stepId]
-  panel = 'free-response'
-  if step.correct_answer_id
-    panel = 'review'
-  else if step.free_response
-    panel = 'multiple-choice'
-  panel
-
-getUpdatedStep = (stepId) ->
-  step = steps[stepId]
-  panel = getCurrentPanel(stepId)
-  api.channel.emit("exercise.#{stepId}.fetch", {data: id: stepId})
-
-getProps = (step = {content: {questions:[{}]}}) ->
-
-  waitingText = null
-
-  props =
-    id: STEP_ID
-    taskId: '1'
-    step: step
-    getCurrentPanel: getCurrentPanel
-
-    setAnswerId: (stepId, answerId) ->
-      step.answer_id = answerId
-      waitingText = 'Saving...'
-      api.channel.emit("exercise.#{stepId}.saveAnswer", change: step, data: id: stepId)
-
-    setFreeResponseAnswer: (stepId, freeResponse) ->
-      step.free_response = freeResponse
-      waitingText = 'Saving...'
-      api.channel.emit("exercise.#{stepId}.savefreeResponse", change: step, data: id: stepId)
-
-    onContinue: ->
-      step.is_completed = true
-      api.channel.emit("exercise.#{STEP_ID}.complete", change: step, data: id: STEP_ID)
-
-    onStepCompleted: ->
-      console.info('onStepCompleted')
-    onNextStep: ->
-      console.info('onNextStep')
-  
-  props.waitingText = waitingText
-
-  props
-
-
-ExerciseDemo = React.createClass
-  displayName: 'ExerciseDemo'
   getInitialState: ->
-    exerciseProps: getProps()
-  update: (eventData) ->
-    {data} = eventData
-    steps[STEP_ID] = data
+    {id} = @props
+    exerciseProps: exercises.getProps(id)
 
-    exerciseProps = getProps(data)
+  update: (eventData) ->
+    {id} = @props
+    exerciseProps = exercises.getProps(id)
+    @setState(exerciseProps: exerciseProps)
+
+  setWaiting: ({status}) ->
+    {exerciseProps} = @state
+
+    exerciseProps.className = status
+    exerciseProps.waitingText = getWaitingText(status)
 
     @setState(exerciseProps: exerciseProps)
+
   componentWillMount: ->
-    getUpdatedStep(STEP_ID)
-    api.channel.on("exercise.#{STEP_ID}.*.done", @update)
+    {id} = @props
+
+    exercises.fetch(id)
+    exercises.channel.on("load.#{id}", @update)
+    api.channel.on("exercise.#{id}.send.*", @setWaiting)
+
+  componentWillUnmount: ->
+    {id} = @props
+    exercises.channel.off("load.#{id}", @update)
+    api.channel.off("exercise.#{id}.send.*", @setWaiting)
+
   render: ->
     {exerciseProps} = @state
-    <Exercise {...exerciseProps}/>
+    <Exercise {...exerciseProps} {...@props}/>
 
-
-Demo = React.createClass
-  displayName: 'Demo'
-  render: ->
-    demos =
-      exercise: <ExerciseDemo/>
-
-    demos = _.map(demos, (demo, name) ->
-      <BS.Row>
-        <BS.Col xs={12}>
-          <h1>{"#{name}"}</h1>
-          <section className={"#{name}-demo"}>{demo}</section>
-        </BS.Col>
-      </BS.Row>
-    )
-    <BS.Grid className='demo'>
-      {demos}
-    </BS.Grid>
-
-module.exports = Demo
+module.exports = {ExerciseStep}
