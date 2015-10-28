@@ -33,7 +33,7 @@ PeriodConfig = {
         error = 'Period name is required.'
       if name?.length > maxLength
         error = "Period name must be #{maxLength} characters or less."
-      if not error and name?.match(/[^A-Z0-9-.]+/ig)
+      if not error and name?.match(/[^A-Z0-9-. ]+/ig)
         error = "Period name must contain only letters, numbers, periods or hyphens."
       {error}
 
