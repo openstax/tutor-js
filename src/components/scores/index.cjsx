@@ -209,36 +209,39 @@ Scores = React.createClass
     data = @getStudentRowData()
 
     rowGetter = (rowIndex) =>
-      @renderStudentRow(data.rows[rowIndex])
+        @renderStudentRow(data.rows[rowIndex])
+      if data.rows.length > 0
+        <div className='course-scores-wrap'>
+          <span className='course-scores-title'>Student Scores</span>
+          <ScoresExport courseId={courseId} className='pull-right'/>
+          <CoursePeriodsNavShell
+            handleSelect={@selectPeriod}
+            handleKeyUpdate={@setPeriodIndex}
+            intialActive={period_id}
+            courseId={courseId} />
+          <div className='course-scores-container' ref='tableContainer'>
+            <Table
+              onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
+              rowHeight={46}
+              rowGetter={rowGetter}
 
-    <div className='course-scores-wrap'>
-      <span className='course-scores-title'>Student Scores</span>
-      <ScoresExport courseId={courseId} className='pull-right'/>
-      <CoursePeriodsNavShell
-        handleSelect={@selectPeriod}
-        handleKeyUpdate={@setPeriodIndex}
-        intialActive={period_id}
-        courseId={courseId} />
-      <div className='course-scores-container' ref='tableContainer'>
-        <Table
-          onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
-          rowHeight={46}
-          rowGetter={rowGetter}
+              rowsCount={data.rows.length}
+              width={tableWidth}
+              height={tableHeight}
+              headerHeight={92}
+              groupHeaderHeight={50}>
 
-          rowsCount={data.rows.length}
-          width={tableWidth}
-          height={tableHeight}
-          headerHeight={92}
-          groupHeaderHeight={50}>
+              {@renderNameHeader()}
+              {_.map(data.headings, @renderHeadingCell)}
 
-          {@renderNameHeader()}
-          {_.map(data.headings, @renderHeadingCell)}
+            </Table>
 
-        </Table>
-
+          </div>
       </div>
-    </div>
-
+      else
+       <div className='course-scores-wrap'>
+        <span className='course-scores-title'>No Assignments Yet</span>
+      </div>
 
 ScoresShell = React.createClass
   contextTypes:
