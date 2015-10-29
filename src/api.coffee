@@ -64,7 +64,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
       $.ajax(url, opts)
       .then(resolved, rejected)
 
-start = () ->
+start = ->
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (id) ->
     url: "/api/exercises/#{id}"
 
