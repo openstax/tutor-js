@@ -2,26 +2,33 @@ React = require 'react'
 _ = require 'underscore'
 
 Answer = require './answer'
-{ExerciseActions, ExerciseStore} = require '../stores/exercise'
+{QuestionActions, QuestionStore} = require '../stores/question'
 
 module.exports = React.createClass
   displayName: 'Question'
 
   getInitialState: -> {}
 
+  changeAnswer: (answerId, correct)->
+    answerId
+
+  updateStimulus: (event) -> QuestionActions.updateStimulus(@props.id, event.target?.value)
+  updateStem: (event) -> QuestionActions.updateStem(@props.id, event.target?.value)
+
   render: ->
+    {id} = @props
     answers = []
-    for answer in ExerciseStore.getQuestionAnswers(@props.model)
-      answers.push(<Answer model={answer} question={@props.model} parent={@props.config} />)
+    for answer in QuestionStore.getAnswers(id)
+      answers.push(<Answer id={answer.id} changeAnswer={@changeAnswer}/>)
 
     <div>
       <div>
         <label>Question Stem</label>
-        <textarea>{ExerciseStore.getQuestionStem(@props.model)}</textarea>
+        <textarea onChange={@updateStem}>{QuestionStore.getStem(id)}</textarea>
       </div>
       <div>
         <label>Question Stimulus</label>
-        <textarea>{ExerciseStore.getQuestionStimulus(@props.model)}</textarea>
+        <textarea onChange={@updateStimulus}>{QuestionStore.getStimulus(id)}</textarea>
       </div>
       <div>
         <label>Answers</label>
