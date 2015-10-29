@@ -1,32 +1,26 @@
-_ = require 'underscore'
 flux = require 'flux-react'
+{CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 
-AnswerActions = flux.createActions [
-  'reset'     # () ->
-  'setAnswer' # (question, answer) ->
-]
-
-
-AnswerStore = flux.createStore
-  actions: [AnswerActions.reset, AnswerActions.setAnswer]
-
-  _answers: {}
-
-  reset: ->
-    @_answers = {}
+AnswerConfig = {
+  updateContent: (id, content) ->
+    @_local[id].content_html = content
     @emitChange()
 
-  setAnswer: (question, answer) ->
-    @_answers[question.id] = answer
+  setCorrect: (id) ->
+    @_local[id].correctness = "1.0"
+    @emitChange()
+
+  setIncorrect: (id) ->
+    @_local[id].correctness = "0.0"
     @emitChange()
 
   exports:
-    getAnswer: (question) ->
-      id = question.id
-      if @_answers[id]? # For true/false questions falsy is not sufficient
-        @_answers[id]
-      else
-        question.answer
-    getAllAnswers: -> @_answers
+    getContent: (id) -> @_local[id].content_html
 
-module.exports = {AnswerActions, AnswerStore}
+    isCorrect: (id) -> @_local[id].correctness is "1.0"
+}
+
+extendConfig(AnswerConfig, new CrudConfig())
+{actions, store} = makeSimpleStore(AnswerConfig)
+
+module.exports = {AnswerActions:actions, AnswerStore:store}
