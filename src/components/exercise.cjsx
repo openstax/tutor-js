@@ -20,6 +20,10 @@ module.exports = React.createClass
 
   getId: -> @props.id or prompt('Enter exercise id:')
 
+  saveExercise: ->
+    if confirm('Are you sure you want to save?')
+      ExerciseActions.save(@props.id)
+
   renderLoading: ->
     <div>Loading exercise: {@getId()}</div>
 
@@ -48,5 +52,5 @@ module.exports = React.createClass
         <label>Tags</label>
         <textarea onChange={@updateTags}>{ExerciseStore.getTags(id).join(',')}</textarea>
       </div>
+      <button onClick={@saveExercise}>Save</button>
     </div>
-
