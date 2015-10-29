@@ -9,7 +9,7 @@ module.exports = React.createClass
 
   getInitialState: -> {}
 
-  changeAnswer: (answerId, correct)->
+  changeAnswer: (answerId, correct) ->
     answerId
 
   updateStimulus: (event) -> QuestionActions.updateStimulus(@props.id, event.target?.value)
