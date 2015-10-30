@@ -18,10 +18,7 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
     apiSetting.url = "#{interpolate(apiSetting.url, data)}/#{apiSetting.method}.json"
     apiSetting.method = 'GET'
   else
-    CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
-    apiSetting.headers =
-      'X-CSRF-Token': CSRF_Token
-      token: null
+    apiSetting.withCredentials = true
     apiSetting.url = "#{baseUrl}/#{interpolate(apiSetting.url, data)}"
 
   apiSetting
