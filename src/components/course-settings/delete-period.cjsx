@@ -47,9 +47,9 @@ module.exports = React.createClass
     <BS.Modal
       {...@props}
       title='Delete Period'
-      className="teacher-edit-period-form">
+      className="teacher-edit-period-modal">
 
-      <div className='modal-body'>
+      <div className='modal-body teacher-edit-period-form'>
 
         <div className='-delete-question'>
           {deleteQuestion if @isPeriodEmpty()}
@@ -58,8 +58,13 @@ module.exports = React.createClass
           {@state.warning}
         </div>
 
+      </div>
+
+      <div className='modal-footer'>
         {deleteButton if @isPeriodEmpty()}
       </div>
+
+      
 
     </BS.Modal>
 

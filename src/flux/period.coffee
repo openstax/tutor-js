@@ -23,10 +23,10 @@ PeriodConfig = {
 
   exports:
 
-    validatePeriodName: (name, periods) ->
+    validatePeriodName: (name, periods, active) ->
       for period in periods
         if period.name is name
-          return ['periodNameExists']
+          return ['periodNameExists'] unless name is active
       if not name? or name is ''
         return ['required']
 

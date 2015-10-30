@@ -53,10 +53,13 @@ module.exports = React.createClass
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
-    if @state?.invalid then formClasses.push('is-invalid-form')
+    if @state?.invalid
+      formClasses.push('is-invalid-form')
+      disabled = true
     <BS.Modal
       {...@props}
-      title={'Add Period'}>
+      title={'Add Period'}
+      className='teacher-edit-period-modal'>
 
       <div className={formClasses.join(' ')}>
         <AddPeriodField
@@ -66,8 +69,13 @@ module.exports = React.createClass
         onChange={(val) => @setState(period_name: val)}
         validate={@validate}
         autofocus />
+      </div>
 
-        <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
+      <div className='modal-footer'>
+        <BS.Button
+        className='-edit-period-confirm'
+        onClick={@performUpdate}
+        disabled={disabled}>
           Add
         </BS.Button>
       </div>

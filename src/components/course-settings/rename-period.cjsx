@@ -19,6 +19,7 @@ RenamePeriodField = React.createClass
 
   componentDidMount: ->
     @refs.input.focus() if @props.autofocus
+    @refs.input.cursorToEnd() if @props.autofocus
 
   onChange: (value) ->
     @props.onChange(value)
@@ -43,7 +44,7 @@ module.exports = React.createClass
     period_name: @props.activeTab.name
 
   validate: (name) ->
-    error = PeriodStore.validatePeriodName(name, @props.periods)
+    error = PeriodStore.validatePeriodName(name, @props.periods, @props.activeTab.name)
     @setState({invalid: error?})
     error
 
@@ -55,10 +56,13 @@ module.exports = React.createClass
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
-    if @state?.invalid then formClasses.push('is-invalid-form')
+    if @state?.invalid
+      formClasses.push('is-invalid-form')
+      disabled = true
     <BS.Modal
       {...@props}
-      title={'Rename Period'}>
+      title={'Rename Period'}
+      className='teacher-edit-period-modal'>
 
       <div className={formClasses.join(' ')}>
         <RenamePeriodField
@@ -68,8 +72,13 @@ module.exports = React.createClass
         onChange={(val) => @setState(period_name: val)}
         validate={@validate}
         autofocus />
+      </div>
 
-        <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
+      <div className='modal-footer'>
+        <BS.Button
+        className='-edit-period-confirm'
+          onClick={@performUpdate}
+          disabled={disabled}>
           Rename
         </BS.Button>
       </div>
