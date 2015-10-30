@@ -27,8 +27,8 @@ base =
   plugins: [
     # TODO check what plugins are need
     # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
-    # Use the production version of React (no warnings/runtime checks)
-    new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
+    # Use the production version of React (no warnings/runtime checks), and pass the BASE_URL along
+    new webpack.EnvironmentPlugin( 'NODE_ENV', 'BASE_URL' )
     new ExtractTextPlugin('main.css')
     new webpack.optimize.DedupePlugin()
   ]
