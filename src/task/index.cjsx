@@ -1,53 +1,10 @@
 React = require 'react'
-Hello = {Breadcrumb} = require 'openstax-react-components'
-_ = require 'underscore'
 
 tasks = require './collection'
 api = require '../api'
 
 exercises = {ExerciseStep} = require '../exercise'
-
-Breadcrumbs = React.createClass
-  displayName: 'Breadcrumbs'
-  getInitialState: ->
-    {collectionUUID, moduleUUID} = @props
-    taskId = "#{collectionUUID}/#{moduleUUID}"
-
-    task: tasks.get(taskId)
-
-  goToStep: (stepIndex) ->
-    console.info("goToStep #{stepIndex}")
-    @props.goToStep(stepIndex)
-
-  render: ->
-    {task} = @state
-    {currentStep} = @props
-
-    crumbs = _.map(task.steps, (crumbStep, index) ->
-      crumb =
-        key: index
-        data: crumbStep
-        crumb: true
-        type: 'step'
-    )
-
-    crumbs.push(type: 'end', key: crumbs.length, data: {})
-
-    breadcrumbs = _.map(crumbs, (crumb) =>
-      <Breadcrumb
-        crumb={crumb}
-        step={crumb.data or {}}
-        currentStep={currentStep}
-        canReview={-> true}
-        goToStep={@goToStep}/>
-    )
-
-    <div className='task-homework'>
-      <div className='task-breadcrumbs'>
-        {breadcrumbs}
-      </div>
-    </div>
-
+breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
 
 Task = React.createClass
   displayName: 'Task'
