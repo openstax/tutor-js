@@ -1,15 +1,16 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{ExerciseStep} = require '../exercise'
+{Task} = require '../task'
 
-STEP_ID = '4571'
+COLLECTION_UUID = 'C_UUID'
+MODULE_UUID = 'm_uuid'
 
 Demo = React.createClass
   displayName: 'Demo'
   render: ->
     demos =
-      exercise: <ExerciseStep id={STEP_ID}/>
+      task: <Task collectionUUID={COLLECTION_UUID} moduleUUID={MODULE_UUID}/>
 
     demos = _.map(demos, (demo, name) ->
       <BS.Row>

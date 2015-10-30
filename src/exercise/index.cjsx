@@ -1,7 +1,7 @@
 React = require 'react'
 {Exercise} = require 'openstax-react-components'
 
-exercises = require './collection'
+{channel} = exercises = require './collection'
 api = require '../api'
 
 getWaitingText = (status) ->
@@ -39,8 +39,17 @@ ExerciseStep = React.createClass
     exercises.channel.off("load.#{id}", @update)
     api.channel.off("exercise.#{id}.send.*", @setWaiting)
 
+  componentWillReceiveProps: (nextProps) ->
+    {id} = @props
+    exercises.channel.off("load.#{id}", @update)
+    api.channel.on("exercise.#{id}.send.*", @setWaiting)
+
+    exercises.fetch(nextProps.id)
+    exercises.channel.on("load.#{nextProps.id}", @update)
+    api.channel.on("exercise.#{nextProps.id}.send.*", @setWaiting)
+
   render: ->
     {exerciseProps} = @state
     <Exercise {...exerciseProps} {...@props}/>
 
-module.exports = {ExerciseStep}
+module.exports = {ExerciseStep, channel}
