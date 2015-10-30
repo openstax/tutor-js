@@ -64,7 +64,7 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
 loader = (apiEventChannel, settings) ->
 
   _.each settings.endpoints, (setting, eventName) ->
-    apiEventChannel.on eventName, _.partial(handleAPIEvent, apiEventChannel, settings.baseUrl, setting)
+    apiEventChannel.on eventName, _.partial(handleAPIEvent, apiEventChannel, settings.baseUrl or setting.baseUrl, setting)
 
 
 module.exports = loader
