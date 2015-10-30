@@ -76,7 +76,7 @@ optionConfigs =
       ]
     output:
       path: '/'
-      publicPath: "http://localhost:#{DEV_PORT}/dist/"
+      publicPath: "http://localhost:#{DEV_PORT}/assets/"
     module:
       loaders: [
         { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee-loader')}
@@ -88,7 +88,7 @@ optionConfigs =
     ]
     devServer:
       contentBase: './'
-      publicPath: "http://localhost:#{DEV_PORT}/dist/"
+      publicPath: "http://localhost:#{DEV_PORT}/assets/"
       historyApiFallback: true
       inline: true
       port: DEV_PORT

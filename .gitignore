@@ -2,4 +2,5 @@
 *.orig
 /.tmp
 /dist
+/assets
 /test-failed-*.png
