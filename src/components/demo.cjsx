@@ -12,6 +12,9 @@ STEP_ID = exerciseStub['free-response'].content.questions[0].id
 steps = []
 steps[STEP_ID] = {}
 
+Breadcrumb = require './breadcrumb'
+breadcrumbStub = require '../../stubs/breadcrumbs/steps'
+
 getCurrentPanel = (stepId) ->
   step = steps[stepId]
   panel = 'free-response'
@@ -60,21 +63,93 @@ ExerciseDemo = React.createClass
     {exerciseProps} = @state
     <Exercise {...exerciseProps}/>
 
+
+BreadcrumbDemo = React.createClass
+  displayName: 'BreadcrumbDemo'
+  getInitialState: ->
+    currentStep: 0
+
+  goToStep: (stepIndex) ->
+    console.info("goToStep #{stepIndex}")
+    @setState(currentStep: stepIndex)
+
+  render: ->
+    {currentStep} = @state
+
+    crumbs = _.map(breadcrumbStub.steps, (crumbStep, index) =>
+      crumb =
+        key: index
+        data: crumbStep
+        crumb: true
+        type: 'step'
+    )
+
+    crumbs.push(type: 'end', key: crumbs.length, data: {})
+
+    breadcrumbsNoReview = _.map(crumbs, (crumb) =>
+      <Breadcrumb
+        crumb={crumb}
+        step={crumb.data or {}}
+        currentStep={currentStep}
+        canReview={false}
+        goToStep={@goToStep}/>
+    )
+
+    breadcrumbsReview = _.map(crumbs, (crumb) =>
+      if crumb.type is 'step' and crumb.data.is_completed
+        crumb.data.correct_answer_id = "3"
+
+      <Breadcrumb
+        crumb={crumb}
+        step={crumb.data or {}}
+        currentStep={currentStep}
+        canReview={true}
+        goToStep={@goToStep}/>
+    )
+
+    <div>
+      <div>
+        <h3>Reading, no review</h3>
+        <div className='task-breadcrumbs'>
+          {breadcrumbsNoReview}
+        </div>
+      </div>
+      <div className='task-homework'>
+        <h3>Homework, no review</h3>
+        <div className='task-breadcrumbs'>
+          {breadcrumbsNoReview}
+        </div>
+      </div>
+      <div>
+        <h3>Reading, with review</h3>
+        <div className='task-breadcrumbs'>
+          {breadcrumbsReview}
+        </div>
+      </div>
+      <div className='task-homework'>
+        <h3>Homework, with review</h3>
+        <div className='task-breadcrumbs'>
+          {breadcrumbsReview}
+        </div>
+      </div>
+    </div>
+
 Demo = React.createClass
   displayName: 'Demo'
   render: ->
     demos =
       exercise: <ExerciseDemo/>
+      breadcrumbs: <BreadcrumbDemo/>
 
     demos = _.map(demos, (demo, name) ->
-      <BS.Row>
+      <BS.Row className='demo'>
         <BS.Col xs={12}>
           <h1>{"#{name}"}</h1>
           <section className={"#{name}-demo"}>{demo}</section>
         </BS.Col>
       </BS.Row>
     )
-    <BS.Grid className='demo'>
+    <BS.Grid className='demos'>
       {demos}
     </BS.Grid>
 
