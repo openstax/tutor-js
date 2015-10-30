@@ -57,8 +57,8 @@ TutorInput = React.createClass
 
     errors = _.map(@state.errors, (error) ->
       return unless TutorErrors[error]?
-      errorWarning = TutorErrors[error]
-      <errorWarning key={error}/>
+      ErrorWarning = TutorErrors[error]
+      <ErrorWarning key={error}/>
     )
 
     inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value')

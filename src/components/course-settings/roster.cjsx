@@ -32,6 +32,13 @@ module.exports = React.createClass
         id = period.id
     {name, id}
 
+  selectPreviousTab: ->
+    if @state.key > 0
+      previous = @state.key - 1
+    else
+      previous = 0
+    @handleSelect(previous)
+
   render: ->
     course = CourseStore.get(@props.courseId)
     tabs = _.map course.periods, (period, index) =>
@@ -48,7 +55,8 @@ module.exports = React.createClass
         <DeletePeriodLink
         courseId={@props.courseId}
         periods={course.periods}
-        activeTab={@getActivePeriod(@state.key, course.periods)} />
+        activeTab={@getActivePeriod(@state.key, course.periods)}
+        selectPreviousTab={@selectPreviousTab} />
       </div>
       <div><span className='course-settings-subtitle'>Roster</span></div>
       {tabs}

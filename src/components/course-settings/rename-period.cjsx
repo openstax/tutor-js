@@ -15,6 +15,7 @@ RenamePeriodField = React.createClass
     default: React.PropTypes.string.isRequired
     onChange:  React.PropTypes.func.isRequired
     autofocus: React.PropTypes.bool
+    validate: React.PropTypes.func.isRequired
 
   componentDidMount: ->
     @refs.input.focus() if @props.autofocus
@@ -28,7 +29,8 @@ RenamePeriodField = React.createClass
       label={@props.label}
       default={@props.default}
       required={true}
-      onChange={@onChange} />
+      onChange={@onChange}
+      validate={@props.validate} />
 
 module.exports = React.createClass
   displayName: 'RenamePeriodLink'
@@ -38,35 +40,34 @@ module.exports = React.createClass
     activeTab: React.PropTypes.object.isRequired
 
   getInitialState: ->
-    warning: ''
     period_name: @props.activeTab.name
 
+  validate: (name) ->
+    error = PeriodStore.validatePeriodName(name, @props.periods)
+    @setState({invalid: error?})
+    error
+
   performUpdate: ->
-    name = PeriodStore.validatePeriodName(@state.period_name, @props.periods)
-    if name.error
-      @setState(warning: name.error)
-    else
-      @refs.overlay.hide()
+    if not @state.invalid
       id = @props.activeTab.id
       PeriodActions.save(@props.courseId, id, period: {name: @state.period_name})
+      @refs.overlay.hide()
 
   renderForm: ->
+    formClasses = ['modal-body', 'teacher-edit-period-form']
+    if @state?.invalid then formClasses.push('is-invalid-form')
     <BS.Modal
       {...@props}
-      title={'Rename Period'}
-      className="teacher-edit-period-form">
+      title={'Rename Period'}>
 
-      <div className='modal-body'>
+      <div className={formClasses.join(' ')}>
         <RenamePeriodField
         label='Period Name'
-        name='period_name'
+        name='period-name'
         default={@props.activeTab.name}
-        onChange={(val) => @setState(period_name: val)} 
+        onChange={(val) => @setState(period_name: val)}
+        validate={@validate}
         autofocus />
-
-        <div className='warning'>
-          {@state.warning}
-        </div>
 
         <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
           Rename

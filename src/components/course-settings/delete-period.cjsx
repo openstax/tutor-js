@@ -13,6 +13,7 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     periods: React.PropTypes.array.isRequired
     activeTab: React.PropTypes.object.isRequired
+    selectPreviousTab: React.PropTypes.func.isRequired
 
   getInitialState: ->
     warning: ''
@@ -20,6 +21,8 @@ module.exports = React.createClass
   performUpdate: ->
     if @isPeriodEmpty()
       @refs.overlay.hide()
+      # tab to be deleted cannot be activeTab unless first, so select previous or first
+      @props.selectPreviousTab()
       id = @props.activeTab.id
       PeriodActions.delete(id, @props.courseId)
     else

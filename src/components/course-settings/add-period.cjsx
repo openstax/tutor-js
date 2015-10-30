@@ -15,6 +15,7 @@ AddPeriodField = React.createClass
     default: React.PropTypes.string
     onChange:  React.PropTypes.func.isRequired
     autofocus: React.PropTypes.bool
+    validate: React.PropTypes.func.isRequired
 
   componentDidMount: ->
     @refs.input.focus() if @props.autofocus
@@ -28,7 +29,8 @@ AddPeriodField = React.createClass
       label={@props.label}
       default={@props.default}
       required={true}
-      onChange={@onChange} />
+      onChange={@onChange}
+      validate={@props.validate} />
 
 module.exports = React.createClass
   displayName: 'AddPeriodLink'
@@ -36,31 +38,34 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     periods: React.PropTypes.array.isRequired
 
-
   getInitialState: ->
-    warning: ''
+    period_name: ''
+
+  validate: (name) ->
+    error = PeriodStore.validatePeriodName(name, @props.periods)
+    @setState({invalid: error?})
+    error
 
   performUpdate: ->
-    name = PeriodStore.validatePeriodName(@state.period_name, @props.periods)
-    if name.error
-      @setState(warning: name.error)
-    else
-      @refs.overlay.hide()
+    if not @state.invalid
       PeriodActions.create(@props.courseId, period: {name: @state.period_name})
+      @refs.overlay.hide()
 
   renderForm: ->
+    formClasses = ['modal-body', 'teacher-edit-period-form']
+    if @state?.invalid then formClasses.push('is-invalid-form')
     <BS.Modal
       {...@props}
-      title={'Add Period'}
-      className="teacher-edit-period-form">
+      title={'Add Period'}>
 
-      <div className='modal-body'>
-        <AddPeriodField label='Period Name' name='period_name' default={@state.period_name}
-          onChange={(val) => @setState(period_name: val)} autofocus />
-
-        <div className='warning'>
-          {@state.warning}
-        </div>
+      <div className={formClasses.join(' ')}>
+        <AddPeriodField
+        label='Period Name'
+        name='period-name'
+        default={@state.period_name}
+        onChange={(val) => @setState(period_name: val)}
+        validate={@validate}
+        autofocus />
 
         <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
           Add
