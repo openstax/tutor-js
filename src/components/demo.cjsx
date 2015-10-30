@@ -76,7 +76,7 @@ BreadcrumbDemo = React.createClass
   render: ->
     {currentStep} = @state
 
-    crumbs = _.map(breadcrumbStub.steps, (crumbStep, index) =>
+    crumbs = _.map(breadcrumbStub.steps, (crumbStep, index) ->
       crumb =
         key: index
         data: crumbStep

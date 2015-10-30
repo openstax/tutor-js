@@ -37,6 +37,7 @@ getWebpackConfig = (name, isProduction) ->
           ]
         output:
           path: './assets/'
+          publicPath: './'
       }, {isProduction, minify: true}]
 
   if configs[name]?
