@@ -210,6 +210,7 @@ Scores = React.createClass
 
     rowGetter = (rowIndex) =>
         @renderStudentRow(data.rows[rowIndex])
+
       if data.rows.length > 0
         <div className='course-scores-wrap'>
           <span className='course-scores-title'>Student Scores</span>
@@ -224,7 +225,6 @@ Scores = React.createClass
               onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
               rowHeight={46}
               rowGetter={rowGetter}
-
               rowsCount={data.rows.length}
               width={tableWidth}
               height={tableHeight}
@@ -232,16 +232,16 @@ Scores = React.createClass
               groupHeaderHeight={50}>
 
               {@renderNameHeader()}
-              {_.map(data.headings, @renderHeadingCell)}
-
-            </Table>
-
+             {_.map(data.headings, @renderHeadingCell)}
+           </Table>
           </div>
-      </div>
+        </div>
       else
        <div className='course-scores-wrap'>
         <span className='course-scores-title'>No Assignments Yet</span>
+        <div className='course-scores-container' ref='tableContainer'></div>
       </div>
+
 
 ScoresShell = React.createClass
   contextTypes:
