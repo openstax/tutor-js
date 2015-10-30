@@ -35,6 +35,8 @@ getWebpackConfig = (name, isProduction) ->
             './demo'
             './resources/styles/main.less'
           ]
+        output:
+          publicPath: '/dist/'
       }, {isProduction, minify: true}]
 
   if configs[name]?
