@@ -201,7 +201,8 @@ Scores = React.createClass
         d.last_name.toLowerCase()
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
-
+  onColumnResizeEndCallback: (colWidth, columnKey) ->
+    @setState({colResizeWidth: colWidth, colResizeKey: columnKey})
   render: ->
     {courseId} = @props
     {period_id, tableWidth, tableHeight} = @state
@@ -209,10 +210,10 @@ Scores = React.createClass
     data = @getStudentRowData()
 
     rowGetter = (rowIndex) =>
-        @renderStudentRow(data.rows[rowIndex])
+      @renderStudentRow(data.rows[rowIndex])
 
-      if data.rows.length > 0
-        <div className='course-scores-wrap'>
+    if data.rows.length > 0
+      <div className='course-scores-wrap'>
           <span className='course-scores-title'>Student Scores</span>
           <ScoresExport courseId={courseId} className='pull-right'/>
           <CoursePeriodsNavShell
@@ -222,7 +223,7 @@ Scores = React.createClass
             courseId={courseId} />
           <div className='course-scores-container' ref='tableContainer'>
             <Table
-              onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
+              onColumnResizeEndCallback={@onColumnResizeEndCallback}
               rowHeight={46}
               rowGetter={rowGetter}
               rowsCount={data.rows.length}
@@ -235,11 +236,11 @@ Scores = React.createClass
              {_.map(data.headings, @renderHeadingCell)}
            </Table>
           </div>
-        </div>
-      else
-       <div className='course-scores-wrap'>
+      </div>
+    else
+      <div className='course-scores-wrap'>
         <span className='course-scores-title'>No Assignments Yet</span>
-        <div className='course-scores-container' ref='tableContainer'></div>
+          <div className='course-scores-container' ref='tableContainer'></div>
       </div>
 
 
