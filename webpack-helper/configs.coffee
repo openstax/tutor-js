@@ -2,7 +2,7 @@ webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 webpackUMDExternal = require 'webpack-umd-external'
 
-DEV_PORT = process.env['PORT'] or 8000
+DEV_PORT = process.env['PORT'] or 9000
 DEV_LOADERS = ['react-hot', 'webpack-module-hot-accept']
 
 # base config, true for all builds no matter what conditions
