@@ -20,7 +20,7 @@ Demo = React.createClass
         </BS.Col>
       </BS.Row>
     )
-    <BS.Grid className='demo'>
+    <BS.Grid>
       {demos}
     </BS.Grid>
 

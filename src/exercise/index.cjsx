@@ -16,10 +16,16 @@ ExerciseStep = React.createClass
 
   update: (eventData) ->
     {id} = @props
+    return unless eventData.data.id is id
+
     exerciseProps = exercises.getProps(id)
     @setState(exerciseProps: exerciseProps)
 
-  setWaiting: ({status}) ->
+  setWaiting: (eventData) ->
+    {status, data} = eventData
+    {id} = @props
+    return unless data.id is id
+
     {exerciseProps} = @state
 
     exerciseProps.className = status
@@ -31,22 +37,17 @@ ExerciseStep = React.createClass
     {id} = @props
 
     exercises.fetch(id)
-    exercises.channel.on("load.#{id}", @update)
-    api.channel.on("exercise.#{id}.send.*", @setWaiting)
+    exercises.channel.on("load.*", @update)
+    api.channel.on("exercise.*.send.*", @setWaiting)
 
   componentWillUnmount: ->
     {id} = @props
-    exercises.channel.off("load.#{id}", @update)
-    api.channel.off("exercise.#{id}.send.*", @setWaiting)
+    exercises.channel.off("load.*", @update)
+    api.channel.off("exercise.*.send.*", @setWaiting)
 
   componentWillReceiveProps: (nextProps) ->
     {id} = @props
-    exercises.channel.off("load.#{id}", @update)
-    api.channel.on("exercise.#{id}.send.*", @setWaiting)
-
     exercises.fetch(nextProps.id)
-    exercises.channel.on("load.#{nextProps.id}", @update)
-    api.channel.on("exercise.#{nextProps.id}.send.*", @setWaiting)
 
   render: ->
     {exerciseProps} = @state

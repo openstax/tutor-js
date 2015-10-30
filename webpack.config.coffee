@@ -8,7 +8,8 @@ getWebpackConfig = (name, isProduction) ->
           filename: 'main.js'
       }, {isProduction, excludeExternals: true}]
     'main.min': [{
-        entry: ['./index', './resources/styles/main.less']
+        entry:
+          main: './index'
         output:
           filename: 'main.min.js'
       }, {isProduction, excludeExternals: true, minify: true}]
