@@ -8,7 +8,7 @@ getWebpackConfig = (name, isProduction) ->
           filename: 'main.js'
       }, {isProduction, excludeExternals: true}]
     'main.min': [{
-        entry: './index'
+        entry: ['./index', './resources/styles/main.less']
         output:
           filename: 'main.min.js'
       }, {isProduction, excludeExternals: true, minify: true}]
@@ -35,6 +35,9 @@ getWebpackConfig = (name, isProduction) ->
             './demo'
             './resources/styles/main.less'
           ]
+        output:
+          path: './assets/'
+          publicPath: './'
       }, {isProduction, minify: true}]
 
   if configs[name]?
