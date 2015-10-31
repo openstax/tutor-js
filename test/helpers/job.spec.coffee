@@ -15,7 +15,7 @@ expectedActions = [
 expectedStore = [
   'getAsyncStatus'
   'isProgressing'
-  'isCompleted'
+  'isSucceeded'
   'isDone'
   'isFailed'
 ]
@@ -39,7 +39,7 @@ JOB_STATUSES = [
   'unknown'
   'working'
   'queued'
-  'completed'
+  'succeeded'
   'failed'
   'killed'
 ]
