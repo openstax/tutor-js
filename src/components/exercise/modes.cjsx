@@ -97,20 +97,29 @@ ExFreeResponse = React.createClass
     disabled: false
     free_response: ''
 
+  getInitialState: ->
+    freeResponse: @props.free_response
+
   componentDidMount: ->
     @focusBox()
   componentDidUpdate: ->
     @focusBox()
+
+  componentWillReceiveProps: (nextProps) ->
+    if @state.freeResponse isnt nextProps.free_response
+      @setState(freeResponse: nextProps.free_response)
 
   focusBox: ->
     @refs.freeResponse.getDOMNode().focus() if @props.focus
 
   onFreeResponseChange: ->
     freeResponse = @refs.freeResponse.getDOMNode().value
+    @setState({freeResponse})
     @props.onFreeResponseChange?(freeResponse)
 
   render: ->
     {content, disabled, onFreeResponseChange, free_response} = @props
+    {freeResponse} = @state
     question = content.questions[0]
 
     <div className='exercise'>
@@ -120,7 +129,7 @@ ExFreeResponse = React.createClass
         disabled={disabled}
         ref='freeResponse'
         placeholder='Enter your response'
-        defaultValue={free_response}
+        value={freeResponse}
         onChange={@onFreeResponseChange}
       />
       <div className="exercise-uid">{content.uid}</div>

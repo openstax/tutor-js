@@ -54,15 +54,28 @@ ExerciseStepCard = React.createClass
     isContinueEnabled: true
     footer: <ExerciseDefaultFooter/>
   getInitialState: ->
-    {step} = @props
-    freeResponse: step.free_response
-    answerId: step.answer_id
+    stepState = @getStepState(@props)
 
-  isContinueEnabled: ->
-    {panel} = @props
+  shouldComponentUpdate: (nextProps, nextState) ->
+    not (_.isEqual(@props, nextProps) and
+      @props.isContinueEnabled is @isContinueEnabled(@props, @state) and
+      @isContinueEnabled(@props, @state) is @isContinueEnabled(nextProps, nextState))
+
+  componentWillReceiveProps: (nextProps) ->
+    unless _.isEqual(@getStepState(@props), @getStepState(nextProps))
+      nextStepState = @getStepState(nextProps)
+      @setState(nextStepState)
+
+  getStepState: (props) ->
+    {step} = props
+    freeResponse: step.free_response or ''
+    answerId: step.answer_id or ''
+
+  isContinueEnabled: (props, state) ->
+    {panel} = props
     toCheck = CONTINUE_CHECKS[panel]
     return true unless toCheck?
-    @state[toCheck]?.trim().length > 0
+    state[toCheck]?.trim().length > 0
 
   onAnswerChanged: (answer) ->
     @setState {answerId: answer.id}
@@ -96,7 +109,7 @@ ExerciseStepCard = React.createClass
     onInputChange = ON_CHANGE[panel]
 
     controlProps = _.pick(@props, props.ExReviewControls)
-    controlProps.isContinueEnabled = isContinueEnabled and @isContinueEnabled()
+    controlProps.isContinueEnabled = isContinueEnabled and @isContinueEnabled(@props, @state)
     controlProps.onContinue = @onContinue
 
     panelProps = _.omit(@props, props.notPanel)
