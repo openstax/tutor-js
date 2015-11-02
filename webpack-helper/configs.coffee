@@ -2,7 +2,7 @@ webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 webpackUMDExternal = require 'webpack-umd-external'
 
-DEV_PORT = process.env['PORT'] or 8000
+DEV_PORT = process.env['PORT'] or 8001
 DEV_LOADERS = ['react-hot', 'webpack-module-hot-accept']
 
 # base config, true for all builds no matter what conditions
@@ -27,6 +27,8 @@ base =
   plugins: [
     # TODO check what plugins are need
     # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
+    # Pass the BASE_URL along
+    new webpack.EnvironmentPlugin( 'NODE_ENV', 'BASE_URL' )
     new ExtractTextPlugin('main.css')
     new webpack.optimize.DedupePlugin()
   ]

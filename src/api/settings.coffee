@@ -1,6 +1,7 @@
 settings =
-  # # set/comment in to use actual BE
-  # baseUrl: 'http://localhost:3001'
+  # to customize, set environmental var BASE_URL when building or running webpack-dev-server
+  # Currently is set on an endpoint by endpoint basis until all are implemented by BE
+  # baseUrl: process?.env?.BASE_URL
 
   endpoints:
     'exercise.*.send.save':
@@ -26,6 +27,7 @@ settings =
     'task.*.send.fetchByModule':
       url: 'api/cc/tasks/{collectionUUID}/{moduleUUID}'
       method: 'GET'
+      baseUrl: process?.env?.BASE_URL
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
 
 module.exports = settings
