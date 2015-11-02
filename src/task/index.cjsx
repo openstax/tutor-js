@@ -1,6 +1,6 @@
 React = require 'react'
 
-tasks = require './collection'
+{channel} = tasks = require './collection'
 api = require '../api'
 
 exercises = {ExerciseStep} = require '../exercise'
@@ -56,4 +56,4 @@ Task = React.createClass
       null
 
 
-module.exports = {Task}
+module.exports = {Task, channel}
