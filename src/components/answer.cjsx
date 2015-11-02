@@ -1,16 +1,20 @@
 React = require 'react'
-{ExerciseActions, ExerciseStore} = require '../stores/exercise'
+{AnswerActions, AnswerStore} = require '../stores/answer'
 
 module.exports = React.createClass
   displayName: 'Answer'
 
   getInitialState: -> {}
 
+  updateContent: (event) -> AnswerActions.updateContent(@props.id, event.target?.value)
+  changeCorrect: (event) -> @props.changeAnswer(@props.id, event.target.checked)
+
   render: ->
-    isCorrect = ExerciseStore.isAnswerCorrect(@props.model)
+    isCorrect = AnswerStore.isCorrect(@props.id)
     <li>
-      <input type="checkbox" checked={isCorrect}/>
+      <input type="checkbox" checked={isCorrect} onChange={@changeCorrect}/>
       <span>Correct Answer:</span>
       <label>Answer Content</label>
-      <textarea>{ExerciseStore.getAnswerContent(@props.model)}</textarea>
+      <textarea onChange={@updateContent} defaultValue={AnswerStore.getContent(@props.id)}>
+      </textarea>
     </li>
