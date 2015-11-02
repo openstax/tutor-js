@@ -9,7 +9,12 @@ module.exports = React.createClass
 
   getInitialState: -> {}
 
-  componentWillMount: -> ExerciseStore.addChangeListener(@update)
+  componentWillMount: ->
+    if (not @props.id)
+      @setState({
+        id: prompt('Enter exercise id:')
+      })
+    ExerciseStore.addChangeListener(@update)
 
   update: -> @setState({})
   updateNumber: (event) -> ExerciseActions.updateNumber(@getId(), event.target?.value)
@@ -18,7 +23,9 @@ module.exports = React.createClass
     tagsArray = event.target?.value.split(",")
     ExerciseActions.updateTags(@getId(), tagsArray)
 
-  getId: -> @props.id or prompt('Enter exercise id:')
+  getId: ->
+    @props.id or @state.id
+
 
   saveExercise: ->
     if confirm('Are you sure you want to save?')
@@ -35,7 +42,7 @@ module.exports = React.createClass
 
     questions = []
     for question in ExerciseStore.getQuestions(id)
-      questions.push(<Question id={question.id} />)
+      questions.push(<Question key={question.id} id={question.id} />)
 
     <div>
       <div>
@@ -45,12 +52,14 @@ module.exports = React.createClass
         <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
       </div><div>
         <label>Exercise Stimulus</label>
-        <textarea onChange={@updateStimulus}>{ExerciseStore.getStimulus(id)}</textarea>
+        <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
+        </textarea>
       </div>
       {questions}
       <div>
         <label>Tags</label>
-        <textarea onChange={@updateTags}>{ExerciseStore.getTags(id).join(',')}</textarea>
+        <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
+        </textarea>
       </div>
       <button onClick={@saveExercise}>Save</button>
     </div>

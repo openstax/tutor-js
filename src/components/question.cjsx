@@ -19,16 +19,16 @@ module.exports = React.createClass
     {id} = @props
     answers = []
     for answer in QuestionStore.getAnswers(id)
-      answers.push(<Answer id={answer.id} changeAnswer={@changeAnswer}/>)
+      answers.push(<Answer key={answer.id} id={answer.id} changeAnswer={@changeAnswer}/>)
 
     <div>
       <div>
         <label>Question Stem</label>
-        <textarea onChange={@updateStem}>{QuestionStore.getStem(id)}</textarea>
+        <textarea onChange={@updateStem} defaultValue={QuestionStore.getStem(id)}></textarea>
       </div>
       <div>
         <label>Question Stimulus</label>
-        <textarea onChange={@updateStimulus}>{QuestionStore.getStimulus(id)}</textarea>
+        <textarea onChange={@updateStimulus} defaultValue={QuestionStore.getStimulus(id)}></textarea>
       </div>
       <div>
         <label>Answers</label>

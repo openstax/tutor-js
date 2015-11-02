@@ -15,7 +15,6 @@ module.exports = React.createClass
       <input type="checkbox" checked={isCorrect} onChange={@changeCorrect}/>
       <span>Correct Answer:</span>
       <label>Answer Content</label>
-      <textarea onChange={@updateContent}>
-        {AnswerStore.getContent(@props.id)}
+      <textarea onChange={@updateContent} defaultValue={AnswerStore.getContent(@props.id)}>
       </textarea>
     </li>
