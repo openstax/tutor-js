@@ -1,6 +1,7 @@
 Exercise = require './src/components/exercise'
 FreeResponse = require './src/components/exercise/free-response'
 ExerciseGroup = require './src/components/exercise/group'
+Breadcrumb = require './src/components/breadcrumb'
 
 PinnedHeaderFooterCard = require './src/components/pinned-header-footer-card'
 {PinnedHeader, CardBody, PinnableFooter} = require './src/components/pinned-header-footer-card/sections'
@@ -19,6 +20,7 @@ module.exports = {
   Exercise,
   ExerciseGroup,
   FreeResponse,
+  Breadcrumb,
 
   PinnedHeaderFooterCard,
   PinnedHeader,

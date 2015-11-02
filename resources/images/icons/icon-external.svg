@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
+<svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" xml:space="preserve">
+<circle fill="#232E66" cx="20" cy="20" r="20"/>
+<g>
+	<path fill="#FFFFFF" d="M30,32.987c0,0.78-0.613,1.412-1.369,1.412H11.369c-0.757,0-1.369-0.632-1.369-1.412V7.013
+		c0-0.78,0.612-1.413,1.369-1.413h17.262C29.387,5.6,30,6.232,30,7.013V32.987z"/>
+	<rect x="12" y="21.396" fill="#A7A9AC" width="16" height="0.801"/>
+	<rect x="12" y="25.136" fill="#A7A9AC" width="16" height="0.801"/>
+	<rect x="12" y="28.876" fill="#A7A9AC" width="11.199" height="0.801"/>
+</g>
+<polygon fill="#73B451" points="19.434,18.999 23.566,14.867 25.633,16.933 25.632,8.67 17.368,8.67 19.434,10.736 15.303,14.867 
+	"/>
+</svg>
