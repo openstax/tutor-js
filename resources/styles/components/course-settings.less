@@ -7,7 +7,38 @@
     margin-right: 0.5rem;
   }
 
-  .nav-tabs { .tutor-nav-tabs(); }
+  .course-settings-title {
+    font-size: 3rem;
+    padding-bottom: 40px;
+    display: inline-block;
+  }
+  .course-settings-subtitle {
+    font-size: 2.5rem;
+    padding-top: 40px;
+    padding-bottom: 15px;
+    display: inline-block;
+  }
+
+  .nav-tabs {
+    .tutor-nav-tabs();
+
+    li.active {
+      border: 1px solid @nav-tabs-border-color;
+      border-bottom: none;
+    }
+  }
+
+  .period-edit-ui {
+    float: right;
+    .edit-period {
+      color: @tutor-tertiary-light;
+      text-transform: capitalize;
+      margin-left: 10px;
+      &.btn {
+        padding: 0;
+      }
+    }
+  }
 
   .roster {
     table-layout: fixed;
@@ -15,10 +46,7 @@
       a{
         cursor: pointer;
         margin-right: 1rem;
-        &:hover {
-          background-color: @tutor-neutral-light;
-          text-decoration: none;
-        }
+        color: @tutor-tertiary-light;
       }
     }
   }
@@ -31,3 +59,24 @@
     margin-bottom: 10px;
   }
 }
+
+.teacher-edit-period-form {
+
+  margin: 20px 0px 10px 0px;
+
+
+  .warning {
+    color: @form-error-color;
+  }
+}
+
+.teacher-edit-period-modal {
+
+  .tutor-plan-modal(@tutor-tertiary-light);
+
+  .tutor-modal();
+
+
+}
+
+
