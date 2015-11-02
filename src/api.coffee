@@ -7,7 +7,7 @@ _ = require 'underscore'
 # - suffix calls with `.json` so we can have `/plans` and `/plans/1`
 #   - otherwise there would be a file named `plans` and a directory named `plans`
 # - do not error when a PUT occurs
-IS_LOCAL = window.location.port is '8000' or window.__karma__
+IS_LOCAL = window.location.port is '8001' or window.__karma__
 
 CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
 
