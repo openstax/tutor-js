@@ -4,6 +4,7 @@ interpolate = require 'interpolate'
 
 METHODS_WITH_DATA = ['PUT', 'PATCH', 'POST']
 
+API_ACCESS_TOKEN = false
 
 defaultFail = (response) ->
   console.info(response)
@@ -18,7 +19,12 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
     apiSetting.url = "#{interpolate(apiSetting.url, data)}/#{apiSetting.method}.json"
     apiSetting.method = 'GET'
   else
-    apiSetting.withCredentials = true
+    if API_ACCESS_TOKEN
+      apiSetting.transformRequest = axios.defaults.transformRequest.concat( (data, headers) ->
+        headers['Authorization'] = "Bearer #{API_ACCESS_TOKEN}"
+      )
+    else if setting.useCredentials
+      apiSetting.withCredentials = true
     apiSetting.url = "#{baseUrl}/#{interpolate(apiSetting.url, data)}"
 
   apiSetting
@@ -59,6 +65,8 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
   , delay
 
 loader = (apiEventChannel, settings) ->
+  apiEventChannel.on 'set.access_token', (token) ->
+    API_ACCESS_TOKEN = token
 
   _.each settings.endpoints, (setting, eventName) ->
     apiEventChannel.on eventName, _.partial(handleAPIEvent, apiEventChannel, settings.baseUrl or setting.baseUrl, setting)
