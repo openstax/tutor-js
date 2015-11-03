@@ -145,7 +145,7 @@ module.exports = React.createClass
     hasCorrectAnswer = !! correct_answer_id
 
     if @props.feedback_html
-      feedback = <Feedback>{@props.feedback_html}</Feedback>
+      feedback = <Feedback key='question-mc-feedback'>{@props.feedback_html}</Feedback>
 
     questionAnswerProps =
       qid: @props.model.id,

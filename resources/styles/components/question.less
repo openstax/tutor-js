@@ -252,6 +252,7 @@
     width: calc(~'100% + @{feedback-horizontal-buffer}');
     margin-left: -1 * @feedback-horizontal-spacing;
     margin-top: -1 * (@answer-vertical-spacing - @popover-arrow-width/10);
+    z-index: 1;
 
     .arrow {
       left: @answer-bubble-size/2 + @feedback-horizontal-spacing;
@@ -268,4 +269,6 @@
   right: @answer-horizontal-spacing;
   bottom: @answer-vertical-spacing;
   color: @answer-label-color;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
 }
