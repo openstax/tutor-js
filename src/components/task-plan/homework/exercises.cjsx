@@ -16,7 +16,7 @@ ExerciseCardMixin =
     @setState(displayFeedback: not @state?.displayFeedback)
 
   renderExercise: ->
-    <div>
+    <div className="-exercise-wrapper">
       <ExerciseCard
         {...@props}
         toggleExercise={@toggleExercise}
