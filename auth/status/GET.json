@@ -1,0 +1,10 @@
+{
+  "access_token": "",
+  "current_user": {
+    "name": "Studious Student",
+    "is_admin": false,
+    "is_customer_service": false,
+    "is_content_analyst": false,
+    "profile_url": "http://localhost:2999/profile"
+  }
+}

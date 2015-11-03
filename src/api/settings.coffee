@@ -30,4 +30,11 @@ settings =
       baseUrl: process?.env?.BASE_URL
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
 
+    'user.send.statusUpdate':
+      url: 'auth/status'
+      method: 'GET'
+      useCredentials: true
+      baseUrl: process?.env?.BASE_URL
+      completedEvent: 'user.receive.statusUpdate'
+
 module.exports = settings
