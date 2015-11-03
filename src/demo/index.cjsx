@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+UserStatus = require '../user/status'
 {ExerciseStep} = require '../exercise'
 
 STEP_ID = '4571'
@@ -20,6 +21,7 @@ Demo = React.createClass
       </BS.Row>
     )
     <BS.Grid className='demo'>
+      <UserStatus />
       {demos}
     </BS.Grid>
 
