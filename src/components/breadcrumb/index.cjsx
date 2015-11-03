@@ -8,7 +8,7 @@ Breadcrumb = React.createClass
     crumb: React.PropTypes.object.isRequired
     goToStep: React.PropTypes.func.isRequired
     step: React.PropTypes.object.isRequired
-    canReview: React.PropTypes.boolean
+    canReview: React.PropTypes.bool
     currentStep: React.PropTypes.number
     onMouseEnter: React.PropTypes.func
     onMouseLeave: React.PropTypes.func

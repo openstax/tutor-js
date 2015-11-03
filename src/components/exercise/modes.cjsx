@@ -146,6 +146,10 @@ ExMultipleChoice = React.createClass
     {answer_id} = @props
     answerId: answer_id
 
+  componentWillReceiveProps: (nextProps) ->
+    if @state.answerId isnt nextProps.answer_id
+      @setState(answerId: nextProps.answer_id)
+
   onAnswerChanged: (answer) ->
     return if answer.id is @state.answerId
     @setState {answerId: answer.id}
