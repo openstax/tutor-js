@@ -33,6 +33,7 @@ settings =
     'user.send.statusUpdate':
       url: 'auth/status.json'
       method: 'GET'
+      useCredentials: true
       failureEvent: 'user.recieve.loadFailure'
       baseUrl: process?.env?.BASE_URL
       completedEvent: 'user.receive.statusUpdate'
