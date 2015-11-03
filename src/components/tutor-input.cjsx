@@ -41,6 +41,10 @@ TutorInput = React.createClass
   focus: ->
     React.findDOMNode(@refs.input)?.focus()
 
+  cursorToEnd: ->
+    input = React.findDOMNode(@refs.input)
+    input.selectionStart = input.selectionEnd = input.value.length
+
   # The label has style "pointer-events: none" set.  Unfortunantly IE 10
   # doesn't support that and refuses to pass the click through the label into the input
   # We help it out here by manually focusing when then label is clicked
@@ -57,8 +61,8 @@ TutorInput = React.createClass
 
     errors = _.map(@state.errors, (error) ->
       return unless TutorErrors[error]?
-      errorWarning = TutorErrors[error]
-      <errorWarning key={error}/>
+      ErrorWarning = TutorErrors[error]
+      <ErrorWarning key={error}/>
     )
 
     inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value')

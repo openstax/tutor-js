@@ -201,7 +201,8 @@ Scores = React.createClass
         d.last_name.toLowerCase()
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
-
+  onColumnResizeEndCallback: (colWidth, columnKey) ->
+    @setState({colResizeWidth: colWidth, colResizeKey: columnKey})
   render: ->
     {courseId} = @props
     {period_id, tableWidth, tableHeight} = @state
@@ -211,33 +212,36 @@ Scores = React.createClass
     rowGetter = (rowIndex) =>
       @renderStudentRow(data.rows[rowIndex])
 
-    <div className='course-scores-wrap'>
-      <span className='course-scores-title'>Student Scores</span>
-      <ScoresExport courseId={courseId} className='pull-right'/>
-      <CoursePeriodsNavShell
-        handleSelect={@selectPeriod}
-        handleKeyUpdate={@setPeriodIndex}
-        intialActive={period_id}
-        courseId={courseId} />
-      <div className='course-scores-container' ref='tableContainer'>
-        <Table
-          onColumnResizeEndCallback={(colWidth, columnKey) => @setState({colResizeWidth: colWidth, colResizeKey: columnKey})}
-          rowHeight={46}
-          rowGetter={rowGetter}
+    if data.rows.length > 0
+      <div className='course-scores-wrap'>
+          <span className='course-scores-title'>Student Scores</span>
+          <ScoresExport courseId={courseId} className='pull-right'/>
+          <CoursePeriodsNavShell
+            handleSelect={@selectPeriod}
+            handleKeyUpdate={@setPeriodIndex}
+            intialActive={period_id}
+            courseId={courseId} />
+          <div className='course-scores-container' ref='tableContainer'>
+            <Table
+              onColumnResizeEndCallback={@onColumnResizeEndCallback}
+              rowHeight={46}
+              rowGetter={rowGetter}
+              rowsCount={data.rows.length}
+              width={tableWidth}
+              height={tableHeight}
+              headerHeight={92}
+              groupHeaderHeight={50}>
 
-          rowsCount={data.rows.length}
-          width={tableWidth}
-          height={tableHeight}
-          headerHeight={92}
-          groupHeaderHeight={50}>
-
-          {@renderNameHeader()}
-          {_.map(data.headings, @renderHeadingCell)}
-
-        </Table>
-
+              {@renderNameHeader()}
+             {_.map(data.headings, @renderHeadingCell)}
+           </Table>
+          </div>
       </div>
-    </div>
+    else
+      <div className='course-scores-wrap'>
+        <span className='course-scores-title'>No Assignments Yet</span>
+          <div className='course-scores-container' ref='tableContainer'></div>
+      </div>
 
 
 ScoresShell = React.createClass

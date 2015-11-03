@@ -60,7 +60,7 @@ ExerciseCard = React.createClass
       className={classes}
       bsStyle={@props.panelStyle}
       header={@props.header}
-      onClick={@toggleExercise}>
+      onClick={@props.toggleExercise}>
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <div className='answers-table'>{renderedAnswers}</div>

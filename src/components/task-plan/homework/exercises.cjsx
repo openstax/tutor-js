@@ -17,6 +17,7 @@ ExerciseCardMixin =
   renderExercise: ->
     <ExerciseCard
       {...@props}
+      toggleExercise={@toggleExercise}
       header={@renderHeader()}
       displayFeedback={@state?.displayFeedback}
       panelStyle={@getPanelStyle()}>

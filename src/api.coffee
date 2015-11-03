@@ -18,6 +18,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {ScoresActions} = require './flux/scores'
 {ScoresExportActions} = require './flux/scores-export'
 {RosterActions} = require './flux/roster'
+{PeriodActions} = require './flux/period'
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
@@ -201,6 +202,13 @@ start = (bootstrapData) ->
     url: "/api/courses/#{courseId}/students", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/students"
+
+  apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, createMethod, (courseId, params) ->
+    url: "/api/courses/#{courseId}/periods", payload: params
+  apiHelper PeriodActions, PeriodActions.save, PeriodActions.saved, 'PATCH', (id, period, params) ->
+    url: "/api/periods/#{period}", payload: params
+  apiHelper PeriodActions, PeriodActions.delete, PeriodActions.deleted, 'DELETE', (id) ->
+    url: "/api/periods/#{id}"
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'

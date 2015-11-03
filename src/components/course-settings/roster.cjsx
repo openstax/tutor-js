@@ -2,10 +2,15 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
 
-{CourseStore} = require '../../flux/course'
+{CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
+{PeriodActions, PeriodStore} = require '../../flux/period'
 BindStoreMixin = require '../bind-store-mixin'
 PeriodRoster = require './period-roster'
+
+AddPeriodLink = require './add-period'
+RenamePeriodLink = require './rename-period'
+DeletePeriodLink = require './delete-period'
 
 module.exports = React.createClass
   displayName: 'PeriodRoster'
@@ -14,13 +19,45 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    key: 0
+
+  handleSelect: (key) ->
+    @setState({key})
+
+  getActivePeriod: (active, periods) ->
+    for period, i in periods
+      if i is active
+        name = period.name
+        id = period.id
+    {name, id}
+
+  selectPreviousTab: ->
+    if @state.key > 0
+      previous = @state.key - 1
+    else
+      previous = 0
+    @handleSelect(previous)
+
   render: ->
     course = CourseStore.get(@props.courseId)
     tabs = _.map course.periods, (period, index) =>
       <BS.TabPane key={period.id}, eventKey={index} tab={period.name}>
         <PeriodRoster period={period} courseId={@props.courseId} />
       </BS.TabPane>
-
-    <BS.TabbedArea defaultActiveKey=0>
+    <BS.TabbedArea activeKey={@state.key} onSelect={@handleSelect}>
+      <div className='period-edit-ui'>
+        <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
+        <RenamePeriodLink
+        courseId={@props.courseId}
+        periods={course.periods}
+        activeTab={@getActivePeriod(@state.key, course.periods)} />
+        <DeletePeriodLink
+        courseId={@props.courseId}
+        periods={course.periods}
+        activeTab={@getActivePeriod(@state.key, course.periods)}
+        selectPreviousTab={@selectPreviousTab} />
+      </div>
+      <div><span className='course-settings-subtitle'>Roster</span></div>
       {tabs}
     </BS.TabbedArea>

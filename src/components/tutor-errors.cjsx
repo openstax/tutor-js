@@ -12,6 +12,13 @@ TutorUrl = React.createClass
       Please type in a url.
     </div>
 
+TutorPeriodNameExists = React.createClass
+  render: ->
+    <div className='hint'>
+      Name already exists.
+    </div>
+
 module.exports =
   required: TutorRequired
   url: TutorUrl
+  periodNameExists: TutorPeriodNameExists

@@ -40,7 +40,7 @@ describe 'Course Settings', ->
 
   it 'renders students in the panels', ->
     # Pluck the last names from second column.  Should appear in alphabetical order and obey is_active
-    for names, tab in [['Potter'], ['Ariza', 'Griffiths']]
+    for names, tab in [[], [], ['Potter'], ['Ariza', 'Griffiths']]
       rendered_names = _.pluck(@state.div.querySelectorAll(
         ".tab-content .tab-pane:nth-child(#{tab+1}) tr td:nth-child(2)"
       ), 'textContent')
