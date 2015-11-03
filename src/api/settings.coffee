@@ -31,7 +31,7 @@ settings =
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
 
     'user.send.statusUpdate':
-      url: 'auth/status.json'
+      url: 'auth/status'
       method: 'GET'
       useCredentials: true
       failureEvent: 'user.recieve.loadFailure'
