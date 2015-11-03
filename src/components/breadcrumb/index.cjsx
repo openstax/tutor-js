@@ -1,5 +1,5 @@
 React = require 'react'
-BreadcrumbMixin = require './breadcrumb-mixin'
+{Breadcrumb} = require 'openstax-react-components'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -8,7 +8,6 @@ BreadcrumbMixin = require './breadcrumb-mixin'
 
 BreadcrumbStatic = React.createClass
   displayName: 'BreadcrumbStatic'
-  mixins: [BreadcrumbMixin]
   componentWillMount: ->
     @setStep(@props)
 
@@ -21,9 +20,16 @@ BreadcrumbStatic = React.createClass
 
     @setState({step})
 
+  render: ->
+    {step} = @state
+    crumbProps = _.omit(@props, 'step')
+
+    <Breadcrumb
+      {...crumbProps}
+      step={step}/>
+
 BreadcrumbTaskDynamic = React.createClass
   displayName: 'BreadcrumbTaskDynamic'
-  mixins: [BreadcrumbMixin]
   componentWillMount: ->
     {crumb} = @props
 
@@ -68,5 +74,13 @@ BreadcrumbTaskDynamic = React.createClass
 
     if (crumb.data.id is id)
       @setStep(@props)
+
+  render: ->
+    {step} = @state
+    crumbProps = _.omit(@props, 'step')
+
+    <Breadcrumb
+      {...crumbProps}
+      step={step}/>
 
 module.exports = {BreadcrumbTaskDynamic, BreadcrumbStatic}

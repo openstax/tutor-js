@@ -42,7 +42,7 @@ module.exports = React.createClass
       @setState(currentStep: crumbKey)
     # otherwise, redirect to the latest accessible step
     else
-      @goToStep(defaultKey)(true)
+      @goToStep(defaultKey, true)
 
   getInitialState: ->
     {
@@ -124,12 +124,12 @@ module.exports = React.createClass
   # also, ask the step to be recovered.  this will trigger loadRecovery to be called within shouldComponentUpdate
   refreshStep: (refreshTo, stepId) ->
     @setState({refreshFrom: @state.currentStep, refreshTo: refreshTo, recoverForStepId: stepId})
-    @goToStep(refreshTo)()
+    @goToStep(refreshTo)
 
   # on leaving refresh step, go to the step after the step that triggered the refresh and clear related states.
   # the step after should be the recovered step!
   continueAfterRefreshStep: ->
-    @goToStep(@state.refreshFrom + 1)()
+    @goToStep(@state.refreshFrom + 1)
     @setState({refreshFrom: false, refreshTo: false, recoverForStepId: false})
 
   # set what step needs to be recovered.  this will trigger loadRecovery.
@@ -144,17 +144,15 @@ module.exports = React.createClass
       @setState({recoveredStepId: false})
       TaskStepStore.off('step.loaded', @recoverStep)
 
-  # Curried for React
-  goToStep: (stepKey) ->
-    (silent = false) =>
-      params = _.clone(@context.router.getCurrentParams())
-      # url is 1 based so it matches the breadcrumb button numbers
-      params.stepIndex = stepKey + 1
-      params.id = @props.id # if we were rendered directly, the router might not have the id
-      if silent
-        @context.router.replaceWith('viewTaskStep', params)
-      else
-        @context.router.transitionTo('viewTaskStep', params)
+  goToStep: (stepKey, silent = false) ->
+    params = _.clone(@context.router.getCurrentParams())
+    # url is 1 based so it matches the breadcrumb button numbers
+    params.stepIndex = stepKey + 1
+    params.id = @props.id # if we were rendered directly, the router might not have the id
+    if silent
+      @context.router.replaceWith('viewTaskStep', params)
+    else
+      @context.router.transitionTo('viewTaskStep', params)
 
   getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()
@@ -244,4 +242,4 @@ module.exports = React.createClass
     @setState({currentStep: 0})
 
   onNextStep: ->
-    @goToStep(@state.currentStep + 1)()
+    @goToStep(@state.currentStep + 1)

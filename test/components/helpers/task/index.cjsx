@@ -33,7 +33,7 @@ tests =
 
     # TODO Do something for these handlers
     onNextStep = ->
-    goToStep = (num) -> ->
+    goToStep = (num) ->
 
     @_renderTaskStep(id, taskId, onNextStep, goToStep)
 
