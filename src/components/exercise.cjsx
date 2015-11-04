@@ -1,9 +1,12 @@
 # @csx React.DOM
 React = require 'react'
 _ = require 'underscore'
+BS = require 'react-bootstrap'
 Question = require './question'
+Preview = require './preview'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 module.exports = React.createClass
   displayName: 'Exercise'
 
@@ -26,10 +29,15 @@ module.exports = React.createClass
   getId: ->
     @props.id or @state.id
 
-
   saveExercise: ->
     if confirm('Are you sure you want to save?')
       ExerciseActions.save(@props.id)
+
+  previewExercise: ->
+    @setState({preview: true})
+
+  closePreview: ->
+    @setState({preview: false})
 
   renderLoading: ->
     <div>Loading exercise: {@getId()}</div>
@@ -43,6 +51,11 @@ module.exports = React.createClass
     questions = []
     for question in ExerciseStore.getQuestions(id)
       questions.push(<Question key={question.id} id={question.id} />)
+
+    if @state.preview
+      ExerciseActions.sync(id)
+      exercise = ExerciseStore.get(id)
+      preview = <Preview exercise={exercise} closePreview={@closePreview}/>
 
     <div>
       <div>
@@ -62,4 +75,7 @@ module.exports = React.createClass
         </textarea>
       </div>
       <button onClick={@saveExercise}>Save</button>
+      <button onClick={@previewExercise}>Preview</button>
+
+      {preview}
     </div>
