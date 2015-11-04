@@ -15,17 +15,17 @@ module.exports = React.createClass
   render: ->
     course = CourseStore.get(@props.courseId)
 
-    <div className='course-settings form-horizontal'>
-      <h2>Course: {course.name}</h2>
-      <h2>Roster</h2>
-      <div className="periods">
+    <BS.Panel className='course-settings'>
 
+      <span className='course-settings-title'>{course.name}</span>
+
+      <div className="periods">
         <LoadableItem
           id={@props.courseId}
           store={RosterStore}
           actions={RosterActions}
           renderItem={=> <Roster courseId={@props.courseId}/>}
         />
-
       </div>
-    </div>
+
+    </BS.Panel>

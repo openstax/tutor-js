@@ -5,29 +5,31 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../../html'
 ExerciseCard = require '../../exercise-card'
 ChapterSection = require '../chapter-section'
+Icon = require '../../icon'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TocStore} = require '../../../flux/toc'
 
 ExerciseCardMixin =
 
-  toggleFeedbackDisplay: ->
+  toggleFeedbackDisplay: (ev) ->
     @setState(displayFeedback: not @state?.displayFeedback)
 
   renderExercise: ->
-    <ExerciseCard
-      {...@props}
-      toggleExercise={@toggleExercise}
-      header={@renderHeader()}
-      displayFeedback={@state?.displayFeedback}
-      panelStyle={@getPanelStyle()}>
-
-      <BS.Input type="checkbox" label="Display Feedback" standalone
-        wrapperClassName={"feedback-toggle"}
-        checked={@state?.displayFeedback}
-        onChange={@toggleFeedbackDisplay} />
-
-    </ExerciseCard>
+    <div className="-exercise-wrapper">
+      <ExerciseCard
+        {...@props}
+        toggleExercise={@toggleExercise}
+        header={@renderHeader()}
+        displayFeedback={@state?.displayFeedback}
+        panelStyle={@getPanelStyle()}>
+      </ExerciseCard>
+      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
+        <Icon
+          type={(if @state?.displayFeedback then 'check-' else '' ) + 'square-o'}
+        /> Display Feedback
+      </button>
+    </div>
 
 ReviewExerciseCard = React.createClass
   displayName: 'ReviewExerciseCard'
