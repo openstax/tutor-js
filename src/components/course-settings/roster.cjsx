@@ -14,13 +14,11 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  updateCourseName:(courseId)->
-    stuff = @refs.updatePeriod.getDOMNode().value
-    console.info({stuff});
+  updateCourseName:(courseId) ->
+    RosterActions.save(period_id: periodId)
+    console.info({stuff})
 
-  changeCourseName:->
-    course = CourseStore.get(@props.courseId)
-    console.log(course)
+  changeCourseName: ->
     <BS.Popover title={'Change Course Name'}>
       <form onSubmit={@updateCourseName} >
         edit <input type="text" className='courseTitle' ref="updatePeriod" ></input>
