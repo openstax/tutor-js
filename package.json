@@ -29,7 +29,7 @@
     "interpolate": "^0.1.0",
     "lodash": "^3.10.1",
     "moment": "^2.9.0",
-    "openstax-react-components": "openstax/react-components#192ef83",
+    "openstax-react-components": "openstax/react-components#d5ef167",
     "underscore": "~1.8.2"
   },
   "devDependencies": {

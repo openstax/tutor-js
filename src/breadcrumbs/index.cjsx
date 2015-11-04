@@ -34,7 +34,7 @@ BreadcrumbDynamic = React.createClass
     <Breadcrumb
       {...crumbProps}
       step={step}
-      canReview={-> true}
+      canReview={true}
       goToStep={@goToStep}/>
 
 
