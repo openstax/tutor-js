@@ -20,9 +20,8 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
     apiSetting.method = 'GET'
   else
     if API_ACCESS_TOKEN
-      apiSetting.transformRequest = axios.defaults.transformRequest.concat( (data, headers) ->
-        headers['Authorization'] = "Bearer #{API_ACCESS_TOKEN}"
-      )
+      apiSetting.headers =
+        Authorization: "Bearer #{API_ACCESS_TOKEN}"
     else if setting.useCredentials
       apiSetting.withCredentials = true
     apiSetting.url = "#{baseUrl}/#{interpolate(apiSetting.url, data)}"
