@@ -15,8 +15,9 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   updateCourseName:(courseId) ->
-    RosterActions.save(period_id: periodId)
-    console.info({stuff})
+    #RosterActions.save(period_id: periodId)
+    waka = @refs.updatePeriod.getDOMNode().value
+    console.log({waka})
 
   changeCourseName: ->
     <BS.Popover title={'Change Course Name'}>
