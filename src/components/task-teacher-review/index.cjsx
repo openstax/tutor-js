@@ -53,17 +53,15 @@ TaskTeacherReview = React.createClass
   componentWillReceiveProps: ->
     @setStepKey()
 
-  # Curried for React
   goToStep: (stepKey) ->
-    =>
-      params = _.clone(@context.router.getCurrentParams())
-      # url is 1 based so it matches the breadcrumb button numbers
-      params.sectionIndex = stepKey + 1
-      params.id = @props.id # if we were rendered directly, the router might not have the id
+    params = _.clone(@context.router.getCurrentParams())
+    # url is 1 based so it matches the breadcrumb button numbers
+    params.sectionIndex = stepKey + 1
+    params.id = @props.id # if we were rendered directly, the router might not have the id
 
-      params.periodIndex ?= 1
+    params.periodIndex ?= 1
 
-      @context.router.replaceWith('reviewTaskStep', params)
+    @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
     @setState({period})

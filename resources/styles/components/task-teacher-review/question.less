@@ -6,8 +6,8 @@
   .answers-answer {
 
     &::before {
-      .answer-label();
-      .answer-icon-label();
+      // .answer-label();
+      // .answer-icon-label();
       text-align: center;
       width: 80px;
       font-size: 2rem;
@@ -38,19 +38,19 @@
       }
     }
 
-    &.answer-correct::before {
-      content: @fa-var-check;
-      color: @correct-answer-color;
-    }
+    // &.answer-correct::before {
+    //   content: @fa-var-check;
+    //   color: @correct-answer-color;
+    // }
 
-    &:not(.answer-correct)::before {
-      content: @fa-var-close;
-      color: @wrong-answer-color;
-    }
+    // &:not(.answer-correct)::before {
+    //   content: @fa-var-close;
+    //   color: @wrong-answer-color;
+    // }
   }
 
   .answers-table {
-    .answer-label-disable();
+    // .answer-label-disable();
 
     .answers-answer {
       .align-items(flex-start);
@@ -66,7 +66,7 @@
       .box-shadow(none);
 
       > .panel-heading {
-        color: @free-response-color;
+        // color: @free-response-color;
         background: transparent;
         padding: 0;
       }
