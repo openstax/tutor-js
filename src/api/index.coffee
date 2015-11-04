@@ -5,7 +5,8 @@ settings = require './settings'
 
 channel = new EventEmitter2 wildcard: true
 
-initialize = ->
+initialize = (baseUrl) ->
+  settings.baseUrl ?= baseUrl
   loader(channel, settings)
 
 module.exports = {loader, settings, initialize, channel}

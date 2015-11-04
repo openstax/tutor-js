@@ -3,7 +3,7 @@ React = require 'react'
 helpers =
 
   wrapComponent: (component) ->
-    (DOMNode, props) ->
+    (DOMNode, props = {}) ->
       React.render React.createElement(component, props), DOMNode
 
 

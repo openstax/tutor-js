@@ -13,7 +13,11 @@ loadApp = ->
 
   api.initialize()
 
-  React.render(<Demo/>, mainDiv)
+  Demo.on('user.change', ->
+    Demo.open(mainDiv)
+  )
+  Demo.init()
+
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)
