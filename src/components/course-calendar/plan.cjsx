@@ -106,7 +106,7 @@ CoursePlan = React.createClass
     @setState({isViewingStats})
 
   _isPublished: (previous, status) ->
-    previous or status is 'completed'
+    previous or status is 'succeeded'
 
   checkPublishingStatus: (published) ->
     planId = @props.item.plan.id
