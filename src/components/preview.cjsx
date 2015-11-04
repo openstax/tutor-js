@@ -39,14 +39,7 @@ ExerciseCard = React.createClass
 
   render: ->
     questions = _.map(@props.exercise.questions, @renderQuestions)
-    
-    <BS.Modal
-      title='Preview Exercise'
-      onRequestHide={@props.closePreview}
-      bsStyle={@props.panelStyle}>
-      <div className="modal-body">
-        {questions}
-      </div>
-    </BS.Modal>
+
+    <div>{questions}</div>
 
 module.exports = ExerciseCard

@@ -33,12 +33,6 @@ module.exports = React.createClass
     if confirm('Are you sure you want to save?')
       ExerciseActions.save(@props.id)
 
-  previewExercise: ->
-    @setState({preview: true})
-
-  closePreview: ->
-    @setState({preview: false})
-
   renderLoading: ->
     <div>Loading exercise: {@getId()}</div>
 
@@ -52,30 +46,30 @@ module.exports = React.createClass
     for question in ExerciseStore.getQuestions(id)
       questions.push(<Question key={question.id} id={question.id} />)
 
-    if @state.preview
-      ExerciseActions.sync(id)
-      exercise = ExerciseStore.get(id)
-      preview = <Preview exercise={exercise} closePreview={@closePreview}/>
+    ExerciseActions.sync(id)
+    exercise = ExerciseStore.get(id)
+    preview = <Preview exercise={exercise} closePreview={@closePreview}/>
 
-    <div>
-      <div>
-        <label>Exercise ID {ExerciseStore.getId(id)}</label>
-      </div><div>
-        <label>Exercise Number</label>
-        <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
-      </div><div>
-        <label>Exercise Stimulus</label>
-        <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
-        </textarea>
-      </div>
-      {questions}
-      <div>
-        <label>Tags</label>
-        <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
-        </textarea>
-      </div>
-      <button onClick={@saveExercise}>Save</button>
-      <button onClick={@previewExercise}>Preview</button>
-
-      {preview}
-    </div>
+    <BS.Grid>
+      <BS.Row><BS.Col xs={6}>
+        <div>
+          <label>Exercise ID {ExerciseStore.getId(id)}</label>
+        </div><div>
+          <label>Exercise Number</label>
+          <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
+        </div><div>
+          <label>Exercise Stimulus</label>
+          <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
+          </textarea>
+        </div>
+        {questions}
+        <div>
+          <label>Tags</label>
+          <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
+          </textarea>
+        </div>
+        <button onClick={@saveExercise}>Save</button>
+      </BS.Col><BS.Col xs={6}>
+        {preview}
+      </BS.Col></BS.Row>
+    </BS.Grid>
