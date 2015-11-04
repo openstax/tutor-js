@@ -1,5 +1,4 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 
 {Task} = require '../task'
 UserStatus = require '../user/status'
@@ -7,30 +6,15 @@ UserStatus = require '../user/status'
 
 {channel} = require './model'
 
-COLLECTION_UUID = 'C_UUID'
-MODULE_UUID = 'm_uuid'
-
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
   componentDidMount: ->
     channel.emit('coach.mount.success')
 
   render: ->
-    demos =
-      task: <Task collectionUUID={COLLECTION_UUID} moduleUUID={MODULE_UUID}/>
-
-    demos = _.map(demos, (demo, name) ->
-      <BS.Row>
-        <BS.Col xs={12}>
-          <h1>{"#{name}"}</h1>
-          <section className={"#{name}-demo"}>{demo}</section>
-        </BS.Col>
-      </BS.Row>
-    )
-
-    <BS.Grid className='demo'>
+    <div className='concept-coach'>
       <UserStatus />
-      {demos}
-    </BS.Grid>
+      <Task {...@props}/>
+    </div>
 
 module.exports = {ConceptCoach, channel}

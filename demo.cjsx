@@ -3,18 +3,22 @@ Demo = require './src/demo'
 
 api = require './src/api'
 
+COLLECTION_UUID = 'C_UUID'
+MODULE_UUID = 'm_uuid'
+
 loadApp = ->
   unless document.readyState is 'interactive'
     return false
 
   mainDiv = document.createElement('div')
+  mainDiv.classList.add('demo')
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
 
   api.initialize()
 
   Demo.on('user.change', ->
-    Demo.open(mainDiv)
+    Demo.open(mainDiv, collectionUUID: COLLECTION_UUID, moduleUUID: MODULE_UUID)
   )
   Demo.init()
 
