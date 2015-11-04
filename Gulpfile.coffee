@@ -53,7 +53,7 @@ gulp.task '_buildFull', _.partial(gulpWebpack, 'fullBuild')
 gulp.task '_buildFullMin', _.partial(gulpWebpack, 'fullBuild.min')
 gulp.task '_buildDemo', _.partial(gulpWebpack, 'demo')
 
-gulp.task '_build', ['_cleanDist', '_buildMain', '_buildMainMin', '_buildFull', '_buildFullMin', '_buildDemo']
+gulp.task '_build', ['_cleanDist', '_buildMain', '_buildMainMin', '_buildFull', '_buildFullMin']
 
 gulp.task '_tagRev', ['_build'], ->
   gulp.src("#{DIST_DIR}/*.min.*")
@@ -124,3 +124,5 @@ gulp.task 'tdd', ['_cleanDist', '_webserver'], ->
   watch('{src,test}/**/*', (change) ->
     runner.onFileChange(change) unless change.unlink
   )
+
+gulp.task 'demo', ['_buildDemo']

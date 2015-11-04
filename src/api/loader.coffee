@@ -31,7 +31,7 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
 
 getResponseDataByEnv = (isLocal, eventData, response) ->
   if isLocal
-    datasToMerge = [{}, {data: response.data}]
+    datasToMerge = [{}, {data: response.data, query: eventData.query}]
     if eventData.change?
       datasToMerge.push(data: eventData.change)
   else

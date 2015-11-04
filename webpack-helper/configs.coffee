@@ -27,7 +27,7 @@ base =
   plugins: [
     # TODO check what plugins are need
     # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
-    # Use the production version of React (no warnings/runtime checks), and pass the BASE_URL along
+    # Pass the BASE_URL along
     new webpack.EnvironmentPlugin( 'NODE_ENV', 'BASE_URL' )
     new ExtractTextPlugin('main.css')
     new webpack.optimize.DedupePlugin()
@@ -60,6 +60,8 @@ optionConfigs =
         { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
       ]
     plugins: [
+      # Use the production version of React (no warnings/runtime checks)
+      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
       new webpack.ProvidePlugin({
         React: 'react/addons'
         _: 'underscore'
@@ -76,7 +78,7 @@ optionConfigs =
       ]
     output:
       path: '/'
-      publicPath: "http://localhost:#{DEV_PORT}/dist/"
+      publicPath: "http://localhost:#{DEV_PORT}/assets/"
     module:
       loaders: [
         { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee-loader')}
@@ -88,7 +90,7 @@ optionConfigs =
     ]
     devServer:
       contentBase: './'
-      publicPath: "http://localhost:#{DEV_PORT}/dist/"
+      publicPath: "http://localhost:#{DEV_PORT}/assets/"
       historyApiFallback: true
       inline: true
       port: DEV_PORT

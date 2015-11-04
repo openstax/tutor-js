@@ -21,9 +21,9 @@ fetch = (stepId) ->
 getCurrentPanel = (stepId) ->
   step = steps[stepId]
   panel = 'free-response'
-  if step.correct_answer_id?
+  if step?.correct_answer_id?
     panel = 'review'
-  else if step.free_response?
+  else if step?.free_response?
     panel = 'multiple-choice'
   panel
 
