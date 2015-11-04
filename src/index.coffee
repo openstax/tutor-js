@@ -3,6 +3,9 @@ React = require 'react'
 {AnswerActions, AnswerStore} = require './stores/answer'
 {QuestionActions, QuestionStore} = require './stores/answer'
 {ExerciseActions, ExerciseStore} = require './stores/exercise'
+
+MathJaxHelper =  require 'openstax-react-components/src/helpers/mathjax'
+
 Exercise = require './components/exercise'
 api = require './api'
 
@@ -20,6 +23,7 @@ window.logout = -> ExerciseActions.changeExerciseMode(EXERCISE_MODES.VIEW)
 loadApp = ->
   api.start()
 
+  MathJaxHelper.startMathJax()
   root = document.getElementById('exercise')
 
   if not root
