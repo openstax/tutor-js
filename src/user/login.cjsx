@@ -1,10 +1,7 @@
 React = require 'react'
 
 api   = require '../api'
-axios = require 'axios'
 User  = require './model'
-
-api = require '../api'
 
 UserLogin = React.createClass
 
