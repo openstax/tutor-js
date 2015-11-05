@@ -49,7 +49,10 @@ Task = React.createClass
   render: ->
     {task, currentStep} = @state
     if task?
-      breadcrumbs = <Breadcrumbs {...@props} goToStep={@goToStep} currentStep={currentStep}/>
+      breadcrumbs = <Breadcrumbs
+        {...@props}
+        goToStep={@goToStep}
+        currentStep={currentStep}/>
 
       <PinnedHeaderFooterCard
         forceShy={true}
@@ -59,6 +62,7 @@ Task = React.createClass
         <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
       </PinnedHeaderFooterCard>
     else
+      # TODO finesse
       null
 
 
