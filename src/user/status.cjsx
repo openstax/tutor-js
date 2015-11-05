@@ -9,7 +9,7 @@ getWaitingText = (status) ->
 UserStatus = React.createClass
 
   componentWillMount: ->
-    user.updateStatus()
+    user.ensureStatusLoaded()
     user.channel.on("change", @update)
 
   componentWillUnmount: ->
