@@ -8,6 +8,7 @@ PinnedHeaderFooterCard = require './src/components/pinned-header-footer-card'
 
 Question = require './src/components/question'
 ArbitraryHtmlAndMath = require './src/components/html'
+SmartOverflow = require './src/components/smart-overflow'
 
 RefreshButton = require './src/components/buttons/refresh-button'
 AsyncButton = require './src/components/buttons/async-button'
@@ -29,6 +30,7 @@ module.exports = {
 
   Question,
   ArbitraryHtmlAndMath,
+  SmartOverflow,
 
   RefreshButton,
   AsyncButton,
