@@ -61,7 +61,7 @@ ExerciseDemo = React.createClass
     exerciseEvents.off('change', @update)
   render: ->
     {exerciseProps} = @state
-    <Exercise {...exerciseProps}/>
+    <Exercise {...exerciseProps} pinned={false}/>
 
 
 BreadcrumbDemo = React.createClass

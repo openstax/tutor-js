@@ -1,0 +1,22 @@
+@pinned-top-heading-buffer: @openstax-navbar-height;
+
+.make-shy() {
+  .transform-origin(0 0);
+  .translate(0, -@pinned-top-heading-buffer);
+}
+
+.make-shy-animate() {
+  .transition(transform 0.2s ease-out);
+}
+
+
+body.pinned-shy {
+  .pinned-header, .navbar-fixed-top {
+    .make-shy();
+  }
+}
+
+body.pinned-force-shy {
+  // force min height to allow shy scroll on a short task step
+  min-height: 120%;
+}

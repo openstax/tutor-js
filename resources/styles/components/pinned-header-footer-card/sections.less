@@ -1,0 +1,17 @@
+.pinned-footer {
+  .fixed-bar();
+  background: fadeout(@openstax-white, 20%);
+  padding: 10px @openstax-navbar-padding-horizontal;
+  bottom: 0;
+}
+
+.pinned-header {
+  .make-shy-animate();
+}
+
+.pinned-on {
+  .pinned-header {
+    top: @pinned-top-heading-buffer;
+    .fixed-bar();
+  }
+}
