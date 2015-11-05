@@ -1,5 +1,5 @@
 React = require 'react'
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, SmartOverflow} = require 'openstax-react-components'
 
 {channel} = tasks = require './collection'
 api = require '../api'
@@ -58,8 +58,10 @@ Task = React.createClass
         forceShy={true}
         fixedOffset={0}
         header={breadcrumbs}
-        cardType='task'>
-        <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
+        cardType='concept-coach'>
+          <SmartOverflow className='concept-coach-card-wrapper' heightBuffer={0}>
+            <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
+          </SmartOverflow>
       </PinnedHeaderFooterCard>
     else
       # TODO finesse
