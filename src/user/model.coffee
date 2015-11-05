@@ -23,19 +23,19 @@ User =
     _.extend(this, BLANK_USER)
     @channel.emit('change')
 
-  updateStatus: ->
-    api.channel.emit("user.send.statusUpdate")
+  ensureStatusLoaded: ->
+    api.channel.emit("user.send.statusUpdate") unless @isLoggedIn()
 
   isLoggedIn: -> !!@profile_url
 
-# start out as a blank user
-_.extend(User, BLANK_USER)
-
-api.channel.on 'user.receive.*', (resp) ->
-  {data} = resp
+api.channel.on 'user.receive.*', ({data}) ->
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
+  User.endpoints = data.endpoints
   if data.current_user then User.update(data.current_user) else User.logout()
+
+# start out as a blank user
+_.extend(User, BLANK_USER)
 
 
 module.exports = User
