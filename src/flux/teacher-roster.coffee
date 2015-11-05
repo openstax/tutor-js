@@ -5,30 +5,7 @@ _ = require 'underscore'
 
 TeacherRosterConfig = {
 
-  # create: (courseId, params) ->
 
-  # created: (period, courseId) ->
-  #   CourseActions.load(courseId)
-
-  # save: (courseId, periodId, params) ->
-
-  # saved: (periodId, courseId) ->
-  #   CourseActions.load(courseId)
-
-  # delete: (periodId, courseId) ->
-
-  # deleted: (result, periodId, courseId) ->
-  #   CourseActions.load(courseId)
-    
-
-  #exports:
-
-    # validatePeriodName: (name, periods, active) ->
-    #   for period in periods
-    #     if period.name is name
-    #       return ['periodNameExists'] unless name is active
-    #   if not name? or name is ''
-    #     return ['required']
 
 }
 
