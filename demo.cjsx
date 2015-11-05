@@ -11,16 +11,14 @@ loadApp = ->
     return false
 
   mainDiv = document.createElement('div')
-  mainDiv.classList.add('demo')
+  mainDiv.classList.add('cc-demo')
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
 
   api.initialize()
 
-  Demo.on('user.change', ->
-    Demo.open(mainDiv, collectionUUID: COLLECTION_UUID, moduleUUID: MODULE_UUID)
-  )
   Demo.init()
+  Demo.open(mainDiv, collectionUUID: COLLECTION_UUID, moduleUUID: MODULE_UUID)
 
   true
 

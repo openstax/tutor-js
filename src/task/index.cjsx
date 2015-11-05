@@ -1,4 +1,5 @@
 React = require 'react'
+{PinnedHeaderFooterCard} = require 'openstax-react-components'
 
 {channel} = tasks = require './collection'
 api = require '../api'
@@ -48,10 +49,15 @@ Task = React.createClass
   render: ->
     {task, currentStep} = @state
     if task?
-      <div>
-        <Breadcrumbs {...@props} goToStep={@goToStep} currentStep={currentStep}/>
-        <ExerciseStep id={task.steps[currentStep].id}/>
-      </div>
+      breadcrumbs = <Breadcrumbs {...@props} goToStep={@goToStep} currentStep={currentStep}/>
+
+      <PinnedHeaderFooterCard
+        forceShy={true}
+        fixedOffset={0}
+        header={breadcrumbs}
+        cardType='task'>
+        <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
+      </PinnedHeaderFooterCard>
     else
       null
 

@@ -4,9 +4,9 @@ EventEmitter2 = require 'eventemitter2'
 helpers = require '../helpers'
 api = require '../api'
 
-{ConceptCoach, channel} = require './base'
+{ModalCoach, channel} = require './modal-coach'
 
-renderConceptCoach = helpers.wrapComponent(ConceptCoach)
+openCC = helpers.wrapComponent(ModalCoach)
 
 publicChannel = new EventEmitter2 wildcard: true
 
@@ -29,7 +29,11 @@ publicMethods =
 
     api.channel.emit('user.send.statusUpdate')
 
-  open: renderConceptCoach
+  open: (mountNode, props) ->
+    modalNode = document.createElement('div')
+    modalNode.classList.add('concept-coach-wrapper')
+    mountNode.appendChild(modalNode)
+    openCC(modalNode, props)
 
   handleError: (error) ->
     channel.emit('error', error)
