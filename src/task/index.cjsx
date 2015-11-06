@@ -54,7 +54,7 @@ Task = React.createClass
         goToStep={@goToStep}
         currentStep={currentStep}/>
 
-      <div className='concept-coach-view'>
+      <div className='concept-coach-task'>
         {breadcrumbs}
         <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
       </div>

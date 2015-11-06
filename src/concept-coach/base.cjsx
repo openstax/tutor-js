@@ -1,4 +1,5 @@
 React = require 'react'
+classnames = require 'classnames'
 
 {Task} = require '../task'
 UserStatus = require '../user/status'
@@ -6,6 +7,8 @@ UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
 
 {ExerciseStep} = require '../exercise'
+
+User = require '../user/model'
 
 {channel} = require './model'
 
@@ -15,30 +18,49 @@ ConceptCoach = React.createClass
   propTypes:
     close: React.PropTypes.func
 
+  getInitialState: ->
+    isLoggedIn: User.isLoggedIn()
+    displayLogin: false
+    loaded: false
+
   onAttemptLogin: ->
     @setState(displayLogin: true)
 
   onLoginComplete: ->
     @setState(displayLogin: false)
 
+  componentWillMount: ->
+    User.ensureStatusLoaded()
+
   componentDidMount: ->
     channel.emit('coach.mount.success')
+    User.channel.on('change', @update)
 
   componentWillUnmount: ->
     channel.emit('coach.unmount.success')
+    User.channel.off('change', @update)
+
+  update: ->
+    @setState(isLoggedIn: User.isLoggedIn(), isLoaded: User.loaded)
 
   render: ->
-    if @state?.displayLogin
+    if @state.isLoggedIn
+      coach = <Task {...@props} key='task'/>
+    else if @state.displayLogin
       coach = <UserLogin onComplete={@onLoginComplete} />
+    else if @state.isLoaded
+      coach = <UserLoginButton onAttemptLogin={@onAttemptLogin} key='user-login-button'/>
     else
-      coach = [
-        <UserStatus key='user-status' close={@props.close}/>
-        <UserLoginButton onAttemptLogin={@onAttemptLogin} key='user-login-button'/>
-        <Task {...@props} key='task'/>
-      ]
+      coach = 'Loading...'
+
+    className = classnames 'concept-coach-view',
+      loading: not @state.isLoaded
 
     <div className='concept-coach'>
-      {coach}
+      <UserStatus key='user-status' close={@props.close}/>
+      <div className={className}>
+        {coach}
+      </div>
     </div>
 
 module.exports = {ConceptCoach, channel}

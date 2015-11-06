@@ -1,4 +1,5 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 
 User  = require './model'
 
@@ -17,6 +18,16 @@ UserLoginButton = React.createClass
 
   render: ->
     return null if User.isLoggedIn()
-    <button onClick={@props.onAttemptLogin}>Login Now</button>
+    <div className='text-center'>
+      <h1>
+        Super charge your learning experience.
+      </h1>
+      <h3>
+        <i>Login and get a coach!</i>
+      </h3>
+      <div
+        className='concept-coach-login'
+        onClick={@props.onAttemptLogin}/>
+    </div>
 
 module.exports = UserLoginButton

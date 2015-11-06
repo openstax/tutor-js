@@ -36,9 +36,7 @@ publicMethods =
     modalNode.classList.add('concept-coach-wrapper')
     mountNode.appendChild(modalNode)
     props.close = ->
-      console.info('closing')
       channel.emit('close.clicked')
-      console.info(modalNode)
       CCWrapped.unmountFrom(modalNode)
     
     renderedComponent = CCWrapped.render(modalNode, props)

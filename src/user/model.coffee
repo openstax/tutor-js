@@ -10,12 +10,14 @@ BLANK_USER =
   is_customer_service: false
   name: null
   profile_url: null
+  loaded: false
 
 User =
 
   channel: new EventEmitter2 wildcard: true
 
   update: (data) ->
+    data.loaded = true
     _.extend(this, data)
     @channel.emit('change')
 
