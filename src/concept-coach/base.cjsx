@@ -57,7 +57,7 @@ ConceptCoach = React.createClass
       coach = 'Loading...'
 
     className = classnames 'concept-coach-view',
-      loading: not isLoaded
+      loading: not (isLoggedIn or isLoaded)
 
     <SmartOverflow
       className='concept-coach'
