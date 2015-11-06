@@ -12,6 +12,7 @@ SmartOverflow = require './src/components/smart-overflow'
 
 RefreshButton = require './src/components/buttons/refresh-button'
 AsyncButton = require './src/components/buttons/async-button'
+CloseButton = require './src/components/buttons/close-button'
 
 ChapterSectionMixin = require './src/components/chapter-section-mixin'
 GetPositionMixin = require './src/components/get-position-mixin'
@@ -34,6 +35,7 @@ module.exports = {
 
   RefreshButton,
   AsyncButton,
+  CloseButton,
 
   ChapterSectionMixin,
   GetPositionMixin,
