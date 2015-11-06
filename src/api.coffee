@@ -17,6 +17,7 @@ PerformanceForecast = require './flux/performance-forecast'
 
 {ScoresActions} = require './flux/scores'
 {ScoresExportActions} = require './flux/scores-export'
+{TeacherRosterActions} = require './flux/teacher-roster'
 {RosterActions} = require './flux/roster'
 {PeriodActions} = require './flux/period'
 {TaskActions} = require './flux/task'
@@ -193,6 +194,9 @@ start = (bootstrapData) ->
 
   apiHelper EcosystemsActions, EcosystemsActions.load, EcosystemsActions.loaded, 'GET', ->
     url: "/api/ecosystems"
+
+  apiHelper TeacherRosterActions, TeacherRosterActions.delete, TeacherRosterActions.deleted, 'DELETE', (id) ->
+    url: "/api/teachers/#{id}"
 
   apiHelper RosterActions, RosterActions.delete, RosterActions.deleted, 'DELETE', (id) ->
     url: "/api/students/#{id}"

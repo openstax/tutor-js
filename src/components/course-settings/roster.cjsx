@@ -1,11 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
+BindStoreMixin = require '../bind-store-mixin'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
-{PeriodActions, PeriodStore} = require '../../flux/period'
-BindStoreMixin = require '../bind-store-mixin'
+
 PeriodRoster = require './period-roster'
 
 AddPeriodLink = require './add-period'
@@ -58,6 +58,6 @@ module.exports = React.createClass
         activeTab={@getActivePeriod(@state.key, course.periods)}
         selectPreviousTab={@selectPreviousTab} />
       </div>
-      <div><span className='course-settings-subtitle'>Roster</span></div>
+      <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
       {tabs}
     </BS.TabbedArea>
