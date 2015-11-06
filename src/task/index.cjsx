@@ -1,6 +1,4 @@
 React = require 'react'
-{SmartOverflow} = require 'openstax-react-components'
-
 {channel} = tasks = require './collection'
 api = require '../api'
 

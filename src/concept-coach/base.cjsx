@@ -1,5 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
+{SmartOverflow} = require 'openstax-react-components'
 
 {Task} = require '../task'
 UserStatus = require '../user/status'
@@ -21,7 +22,7 @@ ConceptCoach = React.createClass
   getInitialState: ->
     isLoggedIn: User.isLoggedIn()
     displayLogin: false
-    loaded: false
+    isLoaded: false
 
   onAttemptLogin: ->
     @setState(displayLogin: true)
@@ -56,11 +57,13 @@ ConceptCoach = React.createClass
     className = classnames 'concept-coach-view',
       loading: not @state.isLoaded
 
-    <div className='concept-coach'>
+    <SmartOverflow
+      className='concept-coach'
+      heightBuffer={0}>
       <UserStatus key='user-status' close={@props.close}/>
       <div className={className}>
         {coach}
       </div>
-    </div>
+    </SmartOverflow>
 
 module.exports = {ConceptCoach, channel}
