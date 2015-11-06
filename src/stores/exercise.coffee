@@ -15,12 +15,13 @@ ExerciseConfig = {
 
   updateTags: (id, tags) -> @_change(id, {tags})
 
-  save: (id) ->
+  sync: (id) ->
     questions = _.map @_local[id].questions, (question) ->
       QuestionActions.sync(question.id)
       QuestionStore.get(question.id)
-  
     @_change(id, {questions})
+
+  save: (id) -> @sync(id)
 
   exports:
     getQuestions: (id) -> @_local[id].questions
@@ -32,6 +33,7 @@ ExerciseConfig = {
     getStimulus: (id) -> @_local[id].stimulus_html
     
     getTags: (id) -> @_local[id].tags
+
 }
 
 extendConfig(ExerciseConfig, new CrudConfig())

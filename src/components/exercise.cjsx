@@ -1,9 +1,12 @@
 # @csx React.DOM
 React = require 'react'
 _ = require 'underscore'
+BS = require 'react-bootstrap'
 Question = require './question'
+Preview = require './preview'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 module.exports = React.createClass
   displayName: 'Exercise'
 
@@ -26,7 +29,6 @@ module.exports = React.createClass
   getId: ->
     @props.id or @state.id
 
-
   saveExercise: ->
     if confirm('Are you sure you want to save?')
       ExerciseActions.save(@props.id)
@@ -44,22 +46,30 @@ module.exports = React.createClass
     for question in ExerciseStore.getQuestions(id)
       questions.push(<Question key={question.id} id={question.id} />)
 
-    <div>
-      <div>
-        <label>Exercise ID {ExerciseStore.getId(id)}</label>
-      </div><div>
-        <label>Exercise Number</label>
-        <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
-      </div><div>
-        <label>Exercise Stimulus</label>
-        <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
-        </textarea>
-      </div>
-      {questions}
-      <div>
-        <label>Tags</label>
-        <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
-        </textarea>
-      </div>
-      <button onClick={@saveExercise}>Save</button>
-    </div>
+    ExerciseActions.sync(id)
+    exercise = ExerciseStore.get(id)
+    preview = <Preview exercise={exercise} closePreview={@closePreview}/>
+
+    <BS.Grid>
+      <BS.Row><BS.Col xs={6}>
+        <div>
+          <label>Exercise ID {ExerciseStore.getId(id)}</label>
+        </div><div>
+          <label>Exercise Number</label>
+          <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
+        </div><div>
+          <label>Exercise Stimulus</label>
+          <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
+          </textarea>
+        </div>
+        {questions}
+        <div>
+          <label>Tags</label>
+          <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
+          </textarea>
+        </div>
+        <button onClick={@saveExercise}>Save</button>
+      </BS.Col><BS.Col xs={6}>
+        {preview}
+      </BS.Col></BS.Row>
+    </BS.Grid>
