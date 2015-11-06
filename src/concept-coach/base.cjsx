@@ -45,17 +45,19 @@ ConceptCoach = React.createClass
     @setState(isLoggedIn: User.isLoggedIn(), isLoaded: User.loaded)
 
   render: ->
-    if @state.isLoggedIn
+    {isLoaded, isLoggedIn, displayLogin} = @state
+
+    if isLoggedIn
       coach = <Task {...@props} key='task'/>
-    else if @state.displayLogin
+    else if displayLogin
       coach = <UserLogin onComplete={@onLoginComplete} />
-    else if @state.isLoaded
+    else if isLoaded
       coach = <UserLoginButton onAttemptLogin={@onAttemptLogin} key='user-login-button'/>
     else
       coach = 'Loading...'
 
     className = classnames 'concept-coach-view',
-      loading: not @state.isLoaded
+      loading: not isLoaded
 
     <SmartOverflow
       className='concept-coach'
