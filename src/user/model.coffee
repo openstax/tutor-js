@@ -10,14 +10,12 @@ BLANK_USER =
   is_customer_service: false
   name: null
   profile_url: null
-  loaded: false
 
 User =
 
   channel: new EventEmitter2 wildcard: true
 
   update: (data) ->
-    data.loaded = true
     _.extend(this, data)
     @channel.emit('change')
 
@@ -31,6 +29,7 @@ User =
   isLoggedIn: -> !!@profile_url
 
 api.channel.on 'user.receive.*', ({data}) ->
+  User.update(loaded: true)
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
   User.endpoints = data.endpoints

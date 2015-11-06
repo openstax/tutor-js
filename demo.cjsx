@@ -12,7 +12,7 @@ SETTINGS =
     COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'
     MODULE_UUID: '6a0568d8-23d7-439b-9a01-16e4e73886b3'
 
-settings = SETTINGS.STUBS
+settings = SETTINGS.SERVER
 
 loadApp = ->
   unless document.readyState is 'interactive'
