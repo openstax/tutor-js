@@ -28,6 +28,7 @@ getWebpackConfig = (name, isProduction) ->
           demo: [
             './demo'
             './resources/styles/main.less'
+            './resources/styles/demo.less'
           ]
       }, {isProduction}]
     'demo': [{
@@ -35,6 +36,7 @@ getWebpackConfig = (name, isProduction) ->
           demo: [
             './demo'
             './resources/styles/main.less'
+            './resources/styles/demo.less'
           ]
         output:
           path: './assets/'
