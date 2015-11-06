@@ -42,9 +42,11 @@ Answer = React.createClass
     chosenAnswer: React.PropTypes.array
     correctAnswerId: React.PropTypes.string
     answered_count: React.PropTypes.number
+    show_all_feedback: React.PropTypes.bool
 
   getDefaultProps: ->
     disabled: false
+    show_all_feedback: false
 
   render: ->
     {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
@@ -76,16 +78,21 @@ Answer = React.createClass
         data-percent="#{percent}">
       </div>
 
+    if @props.show_all_feedback and answer.feedback_html
+      feedback = <Feedback key='question-mc-feedback'>{answer.feedback_html}</Feedback>
 
-    <div className={classes}>
-      {selectedCount}
-      {radioBox}
-      <label
-        htmlFor="#{qid}-option-#{iter}"
-        className='answer-label'>
-        <div className='answer-letter' />
-        <ArbitraryHtml className='answer-content' html={answer.content_html} />
-      </label>
+    <div>
+      <div className={classes}>
+        {selectedCount}
+        {radioBox}
+        <label
+          htmlFor="#{qid}-option-#{iter}"
+          className='answer-label'>
+          <div className='answer-letter' />
+          <ArbitraryHtml className='answer-content' html={answer.content_html} />
+        </label>
+      </div>
+      {feedback}
     </div>
 
 Feedback = React.createClass
@@ -116,6 +123,7 @@ module.exports = React.createClass
     content_uid: React.PropTypes.string
     feedback_html: React.PropTypes.string
     answered_count: React.PropTypes.number
+    show_all_feedback: React.PropTypes.bool
     onChange: React.PropTypes.func
     onChangeAttempt: React.PropTypes.func
 
@@ -124,6 +132,7 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     type: 'student'
+    show_all_feedback: false
 
   # Curried function to remember the answer
   onChangeAnswer: (answer) ->
@@ -156,6 +165,7 @@ module.exports = React.createClass
       type: type
       answered_count: answered_count
       disabled: not choicesEnabled
+      show_all_feedback: @props.show_all_feedback
 
     answers = _.chain(@props.model.answers)
       .sortBy (answer) ->
