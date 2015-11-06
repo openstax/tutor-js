@@ -243,7 +243,9 @@
     }
   }
 
-  .question-feedback.popover {
+  .question-feedback {
+    .popover();
+
     font-style: italic;
     color: @answer-label-color;
 
@@ -256,10 +258,25 @@
     z-index: 1;
 
     .arrow {
-      left: @answer-bubble-size/2 + @feedback-horizontal-spacing;
+      &::after {
+        border-width: @popover-arrow-width;
+        content: "";
+      }
+      .popover > .arrow();
     }
 
-    .popover-content {
+    &.bottom,
+    &.top {
+      > .arrow {
+        left: @answer-bubble-size/2 + @feedback-horizontal-spacing;
+      }
+
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .question-feedback-content {
+      .popover-content();
       padding: @feedback-vertical-spacing @feedback-horizontal-spacing;
     }
   }
