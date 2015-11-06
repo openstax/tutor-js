@@ -12,6 +12,9 @@ UserLogin = require '../user/login'
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
 
+  propTypes:
+    close: React.PropTypes.func
+
   onAttemptLogin: ->
     @setState(displayLogin: true)
 
@@ -21,12 +24,15 @@ ConceptCoach = React.createClass
   componentDidMount: ->
     channel.emit('coach.mount.success')
 
+  componentWillUnmount: ->
+    channel.emit('coach.unmount.success')
+
   render: ->
     if @state?.displayLogin
       coach = <UserLogin onComplete={@onLoginComplete} />
     else
       coach = [
-        <UserStatus key='user-status'/>
+        <UserStatus key='user-status' close={@props.close}/>
         <UserLoginButton onAttemptLogin={@onAttemptLogin} key='user-login-button'/>
         <Task {...@props} key='task'/>
       ]

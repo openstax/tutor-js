@@ -4,7 +4,7 @@ User  = require './model'
 
 UserLoginButton = React.createClass
 
-  PropTypes:
+  propTypes:
     onAttemptLogin: React.PropTypes.func.isRequired
 
   componentDidMount: ->

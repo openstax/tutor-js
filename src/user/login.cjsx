@@ -5,7 +5,7 @@ User  = require './model'
 
 UserLogin = React.createClass
 
-  PropTypes:
+  propTypes:
     onComplete: React.PropTypes.func.isRequired
 
   getInitialState: ->

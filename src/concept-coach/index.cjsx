@@ -6,7 +6,7 @@ api = require '../api'
 
 {ModalCoach, channel} = require './modal-coach'
 
-openCC = helpers.wrapComponent(ModalCoach)
+CCWrapped = helpers.wrapComponent(ModalCoach)
 
 publicChannel = new EventEmitter2 wildcard: true
 
@@ -30,10 +30,20 @@ publicMethods =
     api.channel.emit('user.send.statusUpdate')
 
   open: (mountNode, props) ->
+    props = _.clone(props)
+
     modalNode = document.createElement('div')
     modalNode.classList.add('concept-coach-wrapper')
     mountNode.appendChild(modalNode)
-    openCC(modalNode, props)
+    props.close = ->
+      console.info('closing')
+      channel.emit('close.clicked')
+      console.info(modalNode)
+      CCWrapped.unmountFrom(modalNode)
+    
+    renderedComponent = CCWrapped.render(modalNode, props)
+
+    @close = props.close
 
   handleError: (error) ->
     channel.emit('error', error)
