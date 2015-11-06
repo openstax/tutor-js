@@ -25,9 +25,12 @@ UserLoginButton = React.createClass
       <h3>
         <i>Login and get a coach!</i>
       </h3>
-      <div
-        className='concept-coach-login'
-        onClick={@props.onAttemptLogin}/>
+      <BS.Button
+        bsStyle='primary'
+        bsSize='large'
+        onClick={@props.onAttemptLogin}>
+          Login
+      </BS.Button>
     </div>
 
 module.exports = UserLoginButton

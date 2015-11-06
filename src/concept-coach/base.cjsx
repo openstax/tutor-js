@@ -59,13 +59,11 @@ ConceptCoach = React.createClass
     className = classnames 'concept-coach-view',
       loading: not (isLoggedIn or isLoaded)
 
-    <SmartOverflow
-      className='concept-coach'
-      heightBuffer={0}>
+    <div className='concept-coach'>
       <UserStatus key='user-status' close={@props.close}/>
       <div className={className}>
         {coach}
       </div>
-    </SmartOverflow>
+    </div>
 
 module.exports = {ConceptCoach, channel}

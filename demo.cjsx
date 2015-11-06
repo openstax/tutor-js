@@ -18,13 +18,22 @@ loadApp = ->
   unless document.readyState is 'interactive'
     return false
 
-  mainDiv = document.createElement('div')
-  mainDiv.classList.add('cc-demo')
-  mainDiv.id = 'react-root-container'
-  document.body.appendChild(mainDiv)
-
   Demo.init(settings.API_BASE_URL)
-  Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
+  Demo.on('open', ->
+    console.info('OPENNNN')
+  )
+  Demo.on('ui.close', ->
+    console.info('CLOSEDD')
+  )
+
+  mainDiv = document.getElementById('react-root-container')
+
+  buttonA = document.getElementById('launcher')
+  buttonA.addEventListener('click', ->
+    Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
+    true
+  )
+
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)

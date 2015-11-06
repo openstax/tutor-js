@@ -35,13 +35,17 @@ publicMethods =
     modalNode = document.createElement('div')
     modalNode.classList.add('concept-coach-wrapper')
     mountNode.appendChild(modalNode)
+
     props.close = ->
       channel.emit('close.clicked')
       CCWrapped.unmountFrom(modalNode)
-    
+      mountNode.removeChild(modalNode)
+
     renderedComponent = CCWrapped.render(modalNode, props)
 
     @close = props.close
+
+    renderedComponent
 
   handleError: (error) ->
     channel.emit('error', error)
