@@ -1,8 +1,10 @@
 React = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
+_  = require 'underscore'
 
-{TeacherRosterActions} = require '../../flux/teacher-roster'
+{TeacherRosterStore, TeacherRosterActions} = require '../../flux/teacher-roster'
+{CourseStore, CourseActions} = require '../../flux/course'
 Icon = require '../icon'
 Name = require '../name'
 
@@ -17,7 +19,6 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-
   isRemovalCurrentTeacher: ->
     role = _.chain(@props.courseRoles)
       .pluck('id')
@@ -25,10 +26,11 @@ module.exports = React.createClass
       .value()
 
   goToDashboard: ->
-    @context.router.transitionTo('dashboard', {courseId: @props.courseId})
+    TeacherRosterStore.once 'deleted', =>
+      window.location.href = '/dashboard/'
 
   performDeletion: ->
-    TeacherRosterActions.delete(@props.teacher.role_id)
+    TeacherRosterActions.delete(@props.teacher.id, @props.courseId)
     if @isRemovalCurrentTeacher() then @goToDashboard()
 
   confirmPopOver: ->

@@ -5,8 +5,12 @@ _ = require 'underscore'
 
 TeacherRosterConfig = {
 
+  delete: (teacherId, courseId) ->
+    @emit('deleting')
 
-
+  deleted: (result, teacherId, courseId) ->
+    CourseActions.load(courseId)
+    @emit('deleted')
 }
 
 extendConfig(TeacherRosterConfig, new CrudConfig())
