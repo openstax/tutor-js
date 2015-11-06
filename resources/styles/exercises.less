@@ -12,6 +12,7 @@
 
 @import (reference) './mixins/generic';
 
+@import '~openstax-react-components/assets/main.css';
 
 // @answer-correct: #34b27d;
 // @answer-incorrect: #cb4d4d;
@@ -24,7 +25,13 @@ body {
 }
 
 
-
+.exercise-editor {
+  textarea {
+    display: block;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+}
 .btn-toolbar,
 .btn-dialog {
   margin-bottom: 0;
