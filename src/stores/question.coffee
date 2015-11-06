@@ -35,6 +35,9 @@ QuestionConfig = {
 
     getFeedback: (id) ->
       _.first(@_local[id].solutions)?.content_html
+
+    hasFeedback: (id) ->
+      @_local[id].solutions?.length > 0
 }
 
 extendConfig(QuestionConfig, new CrudConfig())

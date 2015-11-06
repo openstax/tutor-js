@@ -20,10 +20,15 @@ ExerciseCard = React.createClass
     panelStyle: 'default'
 
   renderQuestions: (question) ->
-    <Question model={question} show_all_feedback={true}>
-      <div className="free-response">
-        {_.first(question.solutions)?.content_html}
+    feedback_html = _.first(question.solutions)?.content_html
+      
+    if feedback_html
+      feedback = <div className="free-response">
+        {feedback_html}
       </div>
+
+    <Question model={question} show_all_feedback={true}>
+      {feedback}
     </Question>
 
   render: ->
