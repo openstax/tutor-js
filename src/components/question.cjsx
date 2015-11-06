@@ -14,6 +14,7 @@ module.exports = React.createClass
 
   updateStimulus: (event) -> QuestionActions.updateStimulus(@props.id, event.target?.value)
   updateStem: (event) -> QuestionActions.updateStem(@props.id, event.target?.value)
+  updateFeedback: (event) -> QuestionActions.updateFeedback(@props.id, event.target?.value)
 
   render: ->
     {id} = @props
@@ -29,6 +30,10 @@ module.exports = React.createClass
       <div>
         <label>Question Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={QuestionStore.getStimulus(id)}></textarea>
+      </div>
+      <div>
+        <label>Question Feedback</label>
+        <textarea onChange={@updateFeedback} defaultValue={QuestionStore.getFeedback(id)}></textarea>
       </div>
       <div>
         <label>Answers</label>

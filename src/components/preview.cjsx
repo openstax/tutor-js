@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
-{ArbitraryHtmlAndMath, Question} = require 'openstax-react-components'
+Question = require 'openstax-react-components/src/components/question'
 
 
 ExerciseCard = React.createClass
@@ -19,23 +19,12 @@ ExerciseCard = React.createClass
   getDefaultProps: ->
     panelStyle: 'default'
 
-  renderAnswer: (answer) ->
-    classes = classnames 'answers-answer',
-      correct: (answer.correctness is '1.0')
-
-    <div key={answer.id} className={classes}>
-      <div className="answer-letter" />
-      <div className="answer">
-        <ArbitraryHtmlAndMath className="choice" block={false} html={answer.content_html} />
-        <ArbitraryHtmlAndMath className="feedback" block={false} html={answer.feedback_html} />
-      </div>
-    </div>
-
-  renderTag: (tag) ->
-    <span>tag</span>
-
   renderQuestions: (question) ->
-    <Question model={question}/>
+    <Question model={question} show_all_feedback={true}>
+      <div className="free-response">
+        {_.first(question.solutions)?.content_html}
+      </div>
+    </Question>
 
   render: ->
     questions = _.map(@props.exercise.questions, @renderQuestions)

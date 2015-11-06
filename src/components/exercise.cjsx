@@ -51,7 +51,7 @@ module.exports = React.createClass
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
 
     <BS.Grid>
-      <BS.Row><BS.Col xs={6}>
+      <BS.Row><BS.Col xs={5} className="exercise-editor">
         <div>
           <label>Exercise ID {ExerciseStore.getId(id)}</label>
         </div><div>
@@ -69,7 +69,7 @@ module.exports = React.createClass
           </textarea>
         </div>
         <button onClick={@saveExercise}>Save</button>
-      </BS.Col><BS.Col xs={6}>
+      </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
       </BS.Col></BS.Row>
     </BS.Grid>
