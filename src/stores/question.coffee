@@ -19,6 +19,12 @@ QuestionConfig = {
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
+  updateFeedback: (id, feedback) ->
+    solution = _.first(@_local[id].solutions)
+    solution.content_html = feedback
+
+    @_change(id, {solutions: [solution]})
+
   exports:
 
     getAnswers: (id) -> @_local[id]?.answers
@@ -26,6 +32,12 @@ QuestionConfig = {
     getStem: (id) -> @_local[id]?.stem_html
 
     getStimulus: (id) -> @_local[id]?.stimulus_html
+
+    getFeedback: (id) ->
+      _.first(@_local[id].solutions)?.content_html
+
+    hasFeedback: (id) ->
+      @_local[id].solutions?.length > 0
 }
 
 extendConfig(QuestionConfig, new CrudConfig())
