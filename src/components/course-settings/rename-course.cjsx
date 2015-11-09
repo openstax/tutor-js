@@ -33,17 +33,22 @@ RenameCourseField = React.createClass
       validate={@props.validate} />
 
 module.exports = React.createClass
-  displayName: 'RenameCourseName'
+  displayName: 'RenameCourse'
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    course_name = "wa"
+    course_name: @props.course.name
 
-  updateCourseName:(courseId) ->
-    newCourseName = @refs.updatePeriod.getDOMNode().value
-    CourseActions.save(course_id: courseId)
-    console.log({newCourseName})
+  validate: (name) ->
+    error = CourseStore.validateCourseName(name, @props.course.name)
+    @setState({invalid: error?})
+    error
+
+  updateName: ->
+    if not @state.invalid
+
+      @refs.overlay.hide()
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-course-form']
@@ -60,16 +65,28 @@ module.exports = React.createClass
         <RenameCourseField
         label="Rename Course"
         name="course-name"
-        default="@props.course.name"
+        default={@props.course.name}
         onChange={(val) => @setState(course_name: val)}
         validate={@validate}
         autofocus />
       </div>
+
+      <div className='modal-footer'>
+        <BS.Button
+        className='-edit-course-confirm'
+        onClick={@updateName} >
+        Rename
+        </BS.Button>
+      </div>
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger rootClose={true}
+    <BS.OverlayTrigger
+    rootClose={true}
     trigger='click'
-    placement='right' overlay={@renderForm()}>
-      <a><i className='fa' />Change Course Name</a>
+    ref="overlay"
+    overlay={@renderForm()}>
+        <BS.Button bsStyle='link' className='edit-course'>
+          <i className='fa fa-pencil' /> Rename Course
+        </BS.Button>
     </BS.OverlayTrigger>

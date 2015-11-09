@@ -10,6 +10,8 @@ LoadableItem = require '../loadable-item'
 Roster = require './roster'
 TeacherRoster = require './teacher-roster'
 
+RenameCourse = require './rename-course'
+
 module.exports = React.createClass
   displayName: 'CourseSettings'
   propTypes:
@@ -20,7 +22,9 @@ module.exports = React.createClass
 
     <BS.Panel className='course-settings'>
 
-      <span className='course-settings-title'>{course.name}</span>
+      <span className='course-settings-title'>{course.name}
+        <RenameCourse courseId={@props.courseId}  />
+      </span>
 
       <div className="settings-section teachers">
         <LoadableItem
