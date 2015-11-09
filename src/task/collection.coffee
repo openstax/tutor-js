@@ -1,4 +1,5 @@
 EventEmitter2 = require 'eventemitter2'
+_ = require 'underscore'
 api = require '../api'
 
 tasks = {}
@@ -29,6 +30,16 @@ fetchByModule = (collectionUUID, moduleUUID) ->
 get = (taskId) ->
   tasks[taskId]
 
+getCompleteSteps = (taskId) ->
+  _.filter(tasks[taskId].steps, (step) ->
+    step? and step.is_completed
+  )
+
+getIncompleteSteps = (taskId) ->
+  _.filter(tasks[taskId].steps, (step) ->
+    step? and not step.is_completed
+  )
+
 api.channel.on("task.*.receive.*", update)
 
-module.exports = {load, fetch, fetchByModule, get, channel}
+module.exports = {load, fetch, fetchByModule, get, getCompleteSteps, getIncompleteSteps, channel}
