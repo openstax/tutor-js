@@ -41,11 +41,18 @@ publicMethods =
       CCWrapped.unmountFrom(modalNode)
       mountNode.removeChild(modalNode)
 
-    renderedComponent = CCWrapped.render(modalNode, props)
-
+    @component = CCWrapped.render(modalNode, props)
     @close = props.close
 
-    renderedComponent
+    @component
+
+  handleOpened: (eventData, scrollTo = window.scrollTo, body = document.body) ->
+    {top} = eventData.coach.el.getBoundingClientRect()
+    scrollTo(0, top)
+    body.classList.add('cc-opened')
+
+  handleClosed: (eventData, body = document.body) ->
+    body.classList.remove('cc-opened')
 
   handleError: (error) ->
     channel.emit('error', error)

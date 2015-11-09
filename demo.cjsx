@@ -19,10 +19,9 @@ loadApp = ->
     return false
 
   Demo.init(settings.API_BASE_URL)
-  Demo.on 'open', (eventData) ->
-    console.info('OPENNNN')
-  Demo.on 'ui.close', ->
-    console.info('CLOSEDD')
+
+  Demo.on 'open', Demo.handleOpened
+  Demo.on 'ui.close', Demo.handleClosed
 
   mainDiv = document.getElementById('react-root-container')
 
