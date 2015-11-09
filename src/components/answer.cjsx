@@ -7,7 +7,7 @@ module.exports = React.createClass
   getInitialState: -> {}
 
   updateContent: (event) -> AnswerActions.updateContent(@props.id, event.target?.value)
-  changeCorrect: (event) -> @props.changeAnswer(@props.id, event.target.checked)
+  changeCorrect: (event) -> @props.changeAnswer(@props.id)
   updateFeedback: (event) -> AnswerActions.updateFeedback(@props.id, event.target?.value)
 
   render: ->

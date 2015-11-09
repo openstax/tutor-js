@@ -5,13 +5,13 @@ flux = require 'flux-react'
 
 QuestionConfig = {
   _loaded: (obj, id) ->
-    for answer in obj.answers
+    for answer in obj?.answers
       AnswerActions.loaded(answer, answer.id)
 
     obj
 
   sync: (id) ->
-    answers = _.map @_local[id].answers, (answer) ->
+    answers = _.map @_local[id]?.answers, (answer) ->
       AnswerStore.get(answer.id)
     @_change(id, {answers})
     
@@ -24,6 +24,11 @@ QuestionConfig = {
     solution.content_html = feedback
 
     @_change(id, {solutions: [solution]})
+
+  setCorrectAnswer: (id, newAnswer, curAnswer) ->
+    if not AnswerStore.isCorrect(newAnswer)
+      AnswerActions.setCorrect(newAnswer)
+      AnswerActions.setIncorrect(curAnswer)
 
   exports:
 
@@ -38,6 +43,9 @@ QuestionConfig = {
 
     hasFeedback: (id) ->
       @_local[id].solutions?.length > 0
+
+    getCorrectAnswer: (id) ->
+      _.find @_local[id]?.answers, (answer) -> AnswerStore.isCorrect(answer.id)
 }
 
 extendConfig(QuestionConfig, new CrudConfig())
