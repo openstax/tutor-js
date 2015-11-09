@@ -103,12 +103,12 @@ Feedback = React.createClass
   getDefaultProps: ->
     position: 'bottom'
   render: ->
-    wrapperClasses = classnames 'question-feedback', 'popover', @props.position
+    wrapperClasses = classnames 'question-feedback', @props.position
 
     <div className={wrapperClasses}>
       <div className='arrow'/>
       <ArbitraryHtml
-        className='question-feedback-content has-html popover-content'
+        className='question-feedback-content has-html'
         html={@props.children}
         block={true}/>
     </div>
