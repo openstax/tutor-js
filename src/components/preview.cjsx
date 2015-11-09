@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 Question = require 'openstax-react-components/src/components/question'
 
 
-ExerciseCard = React.createClass
+Preview = React.createClass
 
   PropTypes:
     displayFeedback: React.PropTypes.bool
@@ -27,7 +27,7 @@ ExerciseCard = React.createClass
         {feedback_html}
       </div>
 
-    <Question model={question} show_all_feedback={true}>
+    <Question key={question.id} model={question} show_all_feedback={true}>
       {feedback}
     </Question>
 
@@ -36,4 +36,4 @@ ExerciseCard = React.createClass
 
     <div>{questions}</div>
 
-module.exports = ExerciseCard
+module.exports = Preview
