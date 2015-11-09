@@ -19,20 +19,17 @@ loadApp = ->
     return false
 
   Demo.init(settings.API_BASE_URL)
-  Demo.on('open', ->
+  Demo.on 'open', (eventData) ->
     console.info('OPENNNN')
-  )
-  Demo.on('ui.close', ->
+  Demo.on 'ui.close', ->
     console.info('CLOSEDD')
-  )
 
   mainDiv = document.getElementById('react-root-container')
 
   buttonA = document.getElementById('launcher')
-  buttonA.addEventListener('click', ->
+  buttonA.addEventListener 'click', ->
     Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
     true
-  )
 
   true
 

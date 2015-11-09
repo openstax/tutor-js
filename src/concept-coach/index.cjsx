@@ -17,8 +17,8 @@ listenAndBroadcast = (channelOut) ->
   api.channel.on 'user.receive.statusUpdate', (response) ->
     channelOut.emit('user.change', response)
 
-  channel.on 'coach.mount.success', ->
-    channelOut.emit('open')
+  channel.on 'coach.mount.success', (eventData) ->
+    channelOut.emit('open', eventData)
   channel.on 'close.clicked', ->
     channelOut.emit('ui.close')
 

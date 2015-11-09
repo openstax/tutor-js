@@ -5,7 +5,8 @@ React = require 'react'
 CCModal = React.createClass
   displayName: 'CCModal'
   componentDidMount: ->
-    channel.emit('modal.mount.success')
+    mountData = modal: el: @getDOMNode()
+    channel.emit('modal.mount.success', mountData)
 
   render: ->
     <div className='concept-coach-modal'>
