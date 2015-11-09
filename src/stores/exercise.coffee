@@ -4,9 +4,10 @@ flux = require 'flux-react'
 {QuestionActions, QuestionStore} = require './question'
 
 cascadeLoad = (obj, exerciseId) ->
-    for question in obj.questions
-      QuestionActions.loaded(question, question.id)
-    obj
+  for question in obj.questions
+    QuestionActions.loaded(question, question.id)
+  obj
+
 ExerciseConfig = {
   _loaded: cascadeLoad
   _saved: cascadeLoad
