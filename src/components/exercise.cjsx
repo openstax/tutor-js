@@ -33,6 +33,11 @@ module.exports = React.createClass
     if confirm('Are you sure you want to save?')
       ExerciseActions.save(@props.id)
 
+  publishExercise: ->
+    if confirm('Are you sure you want to publish?')
+      ExerciseActions.save(@props.id)
+      ExerciseActions.publish(@props.id)
+
   renderLoading: ->
     <div>Loading exercise: {@getId()}</div>
 
@@ -68,7 +73,8 @@ module.exports = React.createClass
           <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
           </textarea>
         </div>
-        <button onClick={@saveExercise}>Save</button>
+        <button bsStyle="primary" onClick={@saveExercise}>Save</button>
+        <button bsStyle="warning" onClick={@publishExercise}>Publish</button>
       </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
       </BS.Col></BS.Row>
