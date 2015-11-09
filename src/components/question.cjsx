@@ -3,14 +3,16 @@ _ = require 'underscore'
 
 Answer = require './answer'
 {QuestionActions, QuestionStore} = require '../stores/question'
+{AnswerActions, AnswerStore} = require '../stores/answer'
 
 module.exports = React.createClass
   displayName: 'Question'
 
   getInitialState: -> {}
 
-  changeAnswer: (answerId, correct) ->
-    answerId
+  changeAnswer: (answerId) ->
+    curAnswer = QuestionStore.getCorrectAnswer(@props.id)
+    QuestionActions.setCorrectAnswer(@props.id, answerId, curAnswer.id)
 
   updateStimulus: (event) -> QuestionActions.updateStimulus(@props.id, event.target?.value)
   updateStem: (event) -> QuestionActions.updateStem(@props.id, event.target?.value)
@@ -19,6 +21,7 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     answers = []
+
     for answer in QuestionStore.getAnswers(id)
       answers.push(<Answer key={answer.id} id={answer.id} changeAnswer={@changeAnswer}/>)
 
