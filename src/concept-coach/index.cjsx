@@ -46,9 +46,11 @@ publicMethods =
 
     @component
 
-  handleOpened: (eventData, scrollTo = window.scrollTo, body = document.body) ->
+  handleOpened: (eventData, scrollTo, body = document.body) ->
+    scrollTo ?= _.partial(window.scrollTo, 0)
     {top} = eventData.coach.el.getBoundingClientRect()
-    scrollTo(0, top)
+    top +=  window.scrollY
+    scrollTo(top)
     body.classList.add('cc-opened')
 
   handleClosed: (eventData, body = document.body) ->
