@@ -23,7 +23,7 @@ module.exports = React.createClass
     <BS.Panel className='course-settings'>
 
       <span className='course-settings-title'>{course.name}
-        <RenameCourse courseId={@props.courseId}  />
+        <RenameCourse courseId={@props.courseId}  course={course}/>
       </span>
 
       <div className="settings-section teachers">

@@ -30,7 +30,8 @@ RenameCourseField = React.createClass
       default={@props.default}
       required={true}
       onChange={@onChange}
-      validate={@props.validate} />
+      validate={@props.validate}
+      />
 
 module.exports = React.createClass
   displayName: 'RenameCourse'
@@ -38,17 +39,20 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    course_name: @props.course.name
+   course_name: @props.course.name
 
   validate: (name) ->
     error = CourseStore.validateCourseName(name, @props.course.name)
     @setState({invalid: error?})
     error
 
-  updateName: ->
+  performUpdate: ->
     if not @state.invalid
-
+      CourseActions.save(@props.courseId, course: {name: @state.course_name})
       @refs.overlay.hide()
+      WAKA = @state.course_name
+      console.log(WAKA)
+
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-course-form']
@@ -59,14 +63,17 @@ module.exports = React.createClass
     <BS.Modal
       {...@props}
       title={'Rename Course'}
-      className='teacher-edit-course-modal'>
+      className='teacher-edit-course-modal'
+      >
 
-      <div className={formClasses.join(' ')}>
+
+      <div className={formClasses.join(' ')} >
         <RenameCourseField
         label="Rename Course"
         name="course-name"
         default={@props.course.name}
         onChange={(val) => @setState(course_name: val)}
+        ref = "wiki"
         validate={@validate}
         autofocus />
       </div>
@@ -74,8 +81,10 @@ module.exports = React.createClass
       <div className='modal-footer'>
         <BS.Button
         className='-edit-course-confirm'
-        onClick={@updateName} >
+        onClick={@performUpdate}
+        disabled={disabled}>
         Rename
+        {console.log (@state.course_name) }
         </BS.Button>
       </div>
     </BS.Modal>

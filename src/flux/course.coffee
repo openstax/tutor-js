@@ -84,6 +84,13 @@ CourseConfig =
         task = TaskStore.get(id)
       task
 
+    validateCourseName: (name, courses, active) ->
+      for course in courses
+        if course.name is name
+          return['courseNameExists'] unless name is active
+        if not name? or name is ''
+          return ['required']
+
     # This is currently bassed on the course title.
     # eventually the backend will provide it as part of the course's metadata.
     getCategory: (courseId) ->
