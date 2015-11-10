@@ -38,7 +38,7 @@ settings =
       completedEvent: 'user.receive.statusUpdate'
 
     'course.*.send.registration':
-      url: 'endrollment_change'
+      url: 'api/enrollment_changes'
       method: 'POST'
       useCredentials: true
       baseUrl: process?.env?.BASE_URL
