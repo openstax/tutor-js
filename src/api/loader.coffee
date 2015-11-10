@@ -57,7 +57,9 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
         Promise.resolve(response)
 
       ).catch((response) ->
-
+        if _.isString(setting.failedEvent)
+          failedEvent = interpolate(setting.failedEvent, eventData.data)
+          apiEventChannel.emit(failedEvent, response)
         setting.onFail?(response) or defaultFail(response)
         apiEventChannel.emit('error', response: response, apiSetting: apiSetting)
         Promise.reject(response)
