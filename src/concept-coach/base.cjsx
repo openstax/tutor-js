@@ -8,10 +8,13 @@ UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
 
 {ExerciseStep} = require '../exercise'
+{Dashboard} = require '../dashboard'
 
 User = require '../user/model'
 
 {channel} = require './model'
+
+COURSE_ID = '1'
 
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
@@ -23,6 +26,7 @@ ConceptCoach = React.createClass
     isLoggedIn: User.isLoggedIn()
     displayLogin: false
     isLoaded: false
+    view: 'task'
 
   onAttemptLogin: ->
     @setState(displayLogin: true)
@@ -37,20 +41,32 @@ ConceptCoach = React.createClass
     mountData = coach: {el: @getDOMNode(), action: 'mount'}
     channel.emit('coach.mount.success', mountData)
     User.channel.on('change', @update)
+    User.channel.on('show.*', @update)
 
   componentWillUnmount: ->
     mountData = coach: {el: @getDOMNode(), action: 'unmount'}
     channel.emit('coach.unmount.success', mountData)
     User.channel.off('change', @update)
+    User.channel.off('show.*', @update)
 
-  update: ->
-    @setState(isLoggedIn: User.isLoggedIn(), isLoaded: User.loaded)
+  update: (eventData) ->
+    {view} = eventData
+
+    state =
+      isLoggedIn: User.isLoggedIn()
+      isLoaded: User.loaded
+
+    state.view = view if view?
+    @setState(state)
 
   render: ->
-    {isLoaded, isLoggedIn, displayLogin} = @state
+    {isLoaded, isLoggedIn, displayLogin, view} = @state
 
     if isLoggedIn
-      coach = <Task {...@props} key='task'/>
+      if view is 'task'
+        coach = <Task {...@props} key='task'/>
+      else if view is 'dashboard'
+        coach = <Dashboard id={COURSE_ID}/>
     else if displayLogin
       coach = <UserLogin onComplete={@onLoginComplete} />
     else if isLoaded

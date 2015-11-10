@@ -37,4 +37,10 @@ settings =
       baseUrl: process?.env?.BASE_URL
       completedEvent: 'user.receive.statusUpdate'
 
+    'courseDashboard.*.send.fetch':
+      url: 'api/courses/{id}/dashboard'
+      method: 'GET'
+      baseUrl: process?.env?.BASE_URL
+      completedEvent: 'courseDashboard.{id}.receive.fetch'
+
 module.exports = settings
