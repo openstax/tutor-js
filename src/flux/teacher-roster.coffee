@@ -3,14 +3,20 @@
 {CourseActions} = require './course'
 _ = require 'underscore'
 
+DELETING = 'deleting'
+DELETED = 'deleted'
+
 TeacherRosterConfig = {
 
-  delete: (teacherId, courseId) ->
-    @emit('deleting')
+  delete: (teacherId) ->
+    @_asyncStatus[teacherId] = DELETING
+    @emit(DELETING)
 
-  deleted: (result, teacherId, courseId) ->
-    CourseActions.load(courseId)
-    @emit('deleted')
+  deleted: (result, teacherId) ->
+    @emit(DELETED)
+
+  exports:
+    isDeleting: (teacherId) -> @_asyncStatus[teacherId] is DELETING
 }
 
 extendConfig(TeacherRosterConfig, new CrudConfig())
