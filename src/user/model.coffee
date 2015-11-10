@@ -24,9 +24,8 @@ User =
     _.extend(this, BLANK_USER)
     @channel.emit('change')
 
-  isMemberOfCourse: (collectionUUID) ->
-    course = _.findWhere @courses, ecosystem_book_uuid: collectionUUID
-    return !!course
+  getCourse: (collectionUUID) ->
+    _.findWhere @courses, ecosystem_book_uuid: collectionUUID
 
   ensureStatusLoaded: ->
     api.channel.emit("user.send.statusUpdate") unless @isLoggedIn()
