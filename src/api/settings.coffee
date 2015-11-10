@@ -42,7 +42,8 @@ settings =
       method: 'POST'
       useCredentials: true
       baseUrl: process?.env?.BASE_URL
-      completedEvent: 'course.*.registration.complete'
+      failedEvent: 'course.*.registration.failure'
+      completedEvent: 'Course.*.registration.complete'
 
 
 module.exports = settings
