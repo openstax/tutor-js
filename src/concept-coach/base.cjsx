@@ -3,7 +3,7 @@ classnames = require 'classnames'
 {SmartOverflow} = require 'openstax-react-components'
 
 {Task} = require '../task'
-UserStatus = require '../user/status'
+{Navigation} = require './navigation'
 UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
 
@@ -40,24 +40,21 @@ ConceptCoach = React.createClass
   componentDidMount: ->
     mountData = coach: {el: @getDOMNode(), action: 'mount'}
     channel.emit('coach.mount.success', mountData)
-    User.channel.on('change', @update)
-    User.channel.on('show.*', @update)
+    User.channel.on('change', @updateUser)
+    channel.on('show.*', @updateView)
 
   componentWillUnmount: ->
     mountData = coach: {el: @getDOMNode(), action: 'unmount'}
     channel.emit('coach.unmount.success', mountData)
-    User.channel.off('change', @update)
-    User.channel.off('show.*', @update)
+    User.channel.off('change', @updateUser)
+    channel.off('show.*', @updateView)
 
-  update: (eventData) ->
+  updateView: (eventData) ->
     {view} = eventData
+    @setState({view}) if view?
 
-    state =
-      isLoggedIn: User.isLoggedIn()
-      isLoaded: User.loaded
-
-    state.view = view if view?
-    @setState(state)
+  updateUser: ->
+    @setState(isLoggedIn: User.isLoggedIn(), isLoaded: User.loaded)
 
   render: ->
     {isLoaded, isLoggedIn, displayLogin, view} = @state
@@ -78,7 +75,7 @@ ConceptCoach = React.createClass
       loading: not (isLoggedIn or isLoaded)
 
     <div className='concept-coach'>
-      <UserStatus key='user-status' close={@props.close}/>
+      <Navigation key='user-status' close={@props.close}/>
       <div className={className}>
         {coach}
       </div>
