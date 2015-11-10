@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 EventEmitter2 = require 'eventemitter2'
-
+Course = require '../course/model'
 api = require '../api'
 
 BLANK_USER =
@@ -16,12 +16,17 @@ User =
   channel: new EventEmitter2 wildcard: true
 
   update: (data) ->
-    _.extend(this, data)
+    _.extend(this, data.user)
+    @courses = _.map data.courses, (course) -> new Course(course)
     @channel.emit('change')
 
   logout: ->
     _.extend(this, BLANK_USER)
     @channel.emit('change')
+
+  isMemeberOfCourse: (collectionUUID) ->
+    # MAGIC HAPPENS HERE!
+    false
 
   ensureStatusLoaded: ->
     api.channel.emit("user.send.statusUpdate") unless @isLoggedIn()

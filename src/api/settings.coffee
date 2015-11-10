@@ -37,4 +37,12 @@ settings =
       baseUrl: process?.env?.BASE_URL
       completedEvent: 'user.receive.statusUpdate'
 
+    'course.*.send.registration':
+      url: 'endrollment_change'
+      method: 'POST'
+      useCredentials: true
+      baseUrl: process?.env?.BASE_URL
+      completedEvent: 'course.*.registration.complete'
+
+
 module.exports = settings
