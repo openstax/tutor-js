@@ -27,7 +27,7 @@ settings =
     'task.*.send.fetchByModule':
       url: 'api/cc/tasks/{collectionUUID}/{moduleUUID}'
       method: 'GET'
-      baseUrl: process?.env?.BASE_URL
+      # baseUrl: process?.env?.BASE_URL
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
 
     'user.send.statusUpdate':
@@ -42,8 +42,15 @@ settings =
       method: 'POST'
       useCredentials: true
       baseUrl: process?.env?.BASE_URL
-      failedEvent: 'course.*.registration.failure'
-      completedEvent: 'course.*.registration.complete'
+      failedEvent: 'course.{book_uuid}.receive.registration.failure'
+      completedEvent: 'course.{book_uuid}.receive.registration.complete'
 
+    'course.*.send.confirmation':
+      url: 'api/enrollment_changes/{id}/approve'
+      method: 'PUT'
+      useCredentials: true
+      baseUrl: process?.env?.BASE_URL
+      failedEvent: 'course.{id}.receive.confirmation.failure'
+      completedEvent: 'course.{id}.receive.confirmation.complete'
 
 module.exports = settings
