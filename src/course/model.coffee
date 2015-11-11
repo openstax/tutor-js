@@ -20,9 +20,10 @@ class Course
     @set(attributes)
     _.bindAll(@, '_onRegistered', '_onConfirmed')
 
-
-  isPending: ->
-    @status is "pending"
+  isRegistered: -> not (@isIncomplete() or @isPending())
+  isIncomplete: -> not (@name or @to)
+  isPending: ->    @status is "pending"
+  cancelJoin: ->   @user.removeCourse(@)
 
   description: ->
     if @isIncomplete() # still fetching
@@ -32,7 +33,6 @@ class Course
     else
       "#{@name} #{_.first(@periods).name} period"
 
-  isIncomplete: -> not (@name or @to)
 
   set: (attributes) ->
     _.extend(@, attributes)
@@ -50,9 +50,7 @@ class Course
 
   confirm: ->
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
-    api.channel.emit("course.#{@id}.send.confirmation", data: {
-      id: @id
-    })
+    api.channel.emit("course.#{@id}.send.confirmation", data: { id: @id })
 
   _onConfirmed:  ({data}) ->
     _.extend(@, data.to.course)
