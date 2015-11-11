@@ -8,7 +8,7 @@ PlanHelper =
   isPublishing: (plan, recentTolerance = 3600000) ->
     isPublishing = (plan.is_publish_requested? and plan.is_publish_requested) or plan.publish_last_requested_at?
     if plan.published_at? and plan.publish_last_requested_at?
-      # is the last requested publishing after the last completed publish?
+      # is the last requested publishing after the last successful publish?
       isPublishing = moment(plan.publish_last_requested_at).diff(plan.published_at) > 0
     else if plan.published_at? and not plan.publish_last_requested_at?
       isPublishing = false

@@ -110,12 +110,12 @@ ScoresExport = React.createClass
 
   addBindListener: ->
     {courseId} = @props
-    ScoresExportStore.on("progress.#{courseId}.completed", @handleCompletedExport)
+    ScoresExportStore.on("progress.#{courseId}.succeeded", @handleCompletedExport)
     ScoresExportStore.on('loaded', @handleLoadedExport)
 
   removeBindListener: ->
     {courseId} = @props
-    ScoresExportStore.off("progress.#{courseId}.completed", @handleCompletedExport)
+    ScoresExportStore.off("progress.#{courseId}.succeeded", @handleCompletedExport)
     ScoresExportStore.off('loaded', @handleLoadedExport)
 
   render: ->

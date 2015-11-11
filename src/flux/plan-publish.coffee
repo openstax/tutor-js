@@ -13,7 +13,7 @@ PlanPublishConfig =
 extendConfig(PlanPublishConfig, new JobListenerConfig(2000, 100))
 
 PlanPublishConfig.exports.isPublishing = PlanPublishConfig.exports.isProgressing
-PlanPublishConfig.exports.isPublished = PlanPublishConfig.exports.isCompleted
+PlanPublishConfig.exports.isPublished = PlanPublishConfig.exports.isSucceeded
 
 {actions, store} = makeSimpleStore(PlanPublishConfig)
 module.exports = {PlanPublishActions:actions, PlanPublishStore:store}

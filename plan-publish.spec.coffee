@@ -40,12 +40,13 @@ JOB_QUEUED_RESPONSE =
 JOB_STATUSES = [
   'job_requesting'
   'job_queued'
-  'unknown'
+  'unqueued'
   'working'
   'queued'
   'succeeded'
   'failed'
   'killed'
+  'unknown'
 ]
 
 describe 'Plan Publish flux', ->

@@ -4,12 +4,13 @@ moment = require 'moment'
 
 JOB_REQUESTING = 'job_requesting'
 JOB_REQUESTED = 'job_queued'
-JOB_UNSTARTED = 'unknown'
+JOB_UNSTARTED = 'unqueued'
 JOBBING = 'working'
 JOB_QUEUED = 'queued'
 JOBBED = 'succeeded'
 JOB_FAILED = 'failed'
 JOB_KILLED = 'killed'
+JOB_UNKNOWN = 'unknown'
 
 JobListenerConfig = (checkIntervals, checkRepeats) ->
   {
