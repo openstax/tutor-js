@@ -14,8 +14,14 @@ CourseName = React.createClass
   propTypes:
     course: React.PropTypes.object
 
+  mixins: [BindStoreMixin]
+  bindStore: CourseStore
+
   render: ->
+
     {course} = @props
+    course = CourseStore.get(course?.id)
+
     coursenameComponent = null
 
     routeName = CurrentUserStore.getDashboardRoute(course?.id)

@@ -24,6 +24,7 @@ CourseConfig =
   _guides: {}
   _asyncStatusGuides: {}
 
+
   loadGuide: (courseId) ->
     delete @_guides[courseId]
     @_asyncStatusGuides[courseId] = 'loading'

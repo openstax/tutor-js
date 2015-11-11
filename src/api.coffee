@@ -162,6 +162,10 @@ start = (bootstrapData) ->
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
 
+  apiHelper CourseActions, CourseActions.save, CourseActions.saved, 'PATCH', (courseId, params) ->
+    url: "/api/courses/#{courseId}"
+    payload: params
+
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/practice"
