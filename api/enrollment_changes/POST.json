@@ -1,0 +1,13 @@
+{
+  "id":"1",
+  "to": {
+    "course": {
+      "id":"3","name":"Physics I"
+    },
+    "period":{
+      "id":"6","name":"1st"
+    }
+  },
+  "status":"pending",
+  "requires_enrollee_approval":true
+}
