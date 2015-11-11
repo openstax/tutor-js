@@ -15,7 +15,10 @@ Reactive = React.createClass
     getStatusMessage: React.PropTypes.func
 
   getInitialState: ->
-    @getState()
+    state = @getState()
+    state.status = 'loading'
+
+    state
 
   getState: (eventData = {}) ->
     {id, store} = @props
@@ -63,7 +66,8 @@ Reactive = React.createClass
     {status, item} = @state
     {className} = @props
 
-    classes = classnames "reactive-#{status}", className
+    classes = classnames 'reactive', "reactive-#{status}", className,
+      'is-empty': _.isEmpty(item)
 
     propsForChildren = _.clone(@state)
 

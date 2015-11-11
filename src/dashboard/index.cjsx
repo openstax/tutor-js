@@ -15,27 +15,30 @@ DashboardBase = React.createClass
     item: {}
   mixins: [ChapterSectionMixin]
   render: ->
-    {item, className} = @props
-
-    maxExercises = _.chain(item.chapters)
-      .pluck('pages')
-      .flatten()
-      .pluck('exercises')
-      .max((exercises) ->
-        exercises.length
-      )
-      .value()
-
+    {item, className, status} = @props
     classes = classnames 'concept-coach-student-dashboard', className
 
-    chapters = _.map item.chapters, (chapter) ->
-      <ChapterProgress
-        chapter={chapter}
-        maxLength={maxExercises.length}
-        key={"progress-chapter-#{chapter.id}"}/>
+    if status is 'loaded' and _.isEmpty(item)
+      progress = <h3>Work problems to see progress</h3>
+    else
+      maxExercises = _.chain(item.chapters)
+        .pluck('pages')
+        .flatten()
+        .pluck('exercises')
+        .max((exercises) ->
+          exercises.length
+        )
+        .value()
+
+
+      progress = _.map item.chapters, (chapter) ->
+        <ChapterProgress
+          chapter={chapter}
+          maxLength={maxExercises.length}
+          key={"progress-chapter-#{chapter.id}"}/>
 
     <div className={classes}>
-      {chapters}
+      {progress}
     </div>
 
 Dashboard = React.createClass
