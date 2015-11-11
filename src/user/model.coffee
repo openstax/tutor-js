@@ -38,7 +38,8 @@ User =
   ensureStatusLoaded: ->
     api.channel.emit("user.send.statusUpdate") unless @isLoggedIn()
 
-  isLoggedIn: -> !!@profile_url
+  isLoggedIn: ->
+    !!@profile_url
 
   onCourseUpdate: (course) ->
     @channel.emit('change')
@@ -48,7 +49,7 @@ api.channel.on 'user.receive.*', ({data}) ->
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
   User.endpoints = data.endpoints
-  if data.user then User.update(data.user) else User.logout()
+  if data.user then User.update(data) else User.logout()
 
 # start out as a blank user
 _.extend(User, BLANK_USER)
