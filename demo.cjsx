@@ -1,6 +1,7 @@
 Demo = require './src/demo'
 
 api = require './src/api'
+AUTOSHOW = false
 
 SETTINGS =
   STUBS:
@@ -29,7 +30,10 @@ loadApp = ->
   buttonA.addEventListener 'click', ->
     Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
     true
-
+  if AUTOSHOW
+    setTimeout( ->
+      Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
+    , 300)
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)
