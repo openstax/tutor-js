@@ -17,8 +17,8 @@ CourseStatus = React.createClass
 
   startRegistration: ->
     course = @getCourse()
-    course.set(enrollment_code: @refs.input.value, book_cnx_id: @props.collectionUUID)
-    course.register()
+    course.set(ecosystem_book_uuid: @props.collectionUUID)
+    course.register(React.findDOMNode(@refs.input).value)
 
   onCourseChange: -> @forceUpdate()
   componentWillUnmount: -> @course.channel.off('change', @onCourseChange) if @course
