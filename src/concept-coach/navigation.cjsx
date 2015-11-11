@@ -19,10 +19,13 @@ Navigation = React.createClass
   componentWillUnmount: ->
     user.channel.off("change", @update)
 
+  getInitialState: ->
+    active: ''
+
   update: ->
     @forceUpdate() if @isMounted()
 
-  showProfile: ->
+  showExercise: ->
     channel.emit('show.task', {view: 'task'})
 
   showProgress: ->
@@ -33,10 +36,12 @@ Navigation = React.createClass
     @props.close?()
 
   handleSelect: (selectedKey) ->
+    @setState(active: selectedKey)
     @[selectedKey]?()
 
   render: ->
-    status = if user.isLoggedIn() then "logged in as #{user.name}" else 'an unknown user'
+    {active} = @state
+
     brand = [
       <strong>Concept</strong>
       'Coach'
@@ -45,15 +50,21 @@ Navigation = React.createClass
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
         </BS.Nav>
-        <BS.Nav right navbar activeKey={1} onSelect={@handleSelect}>
+        <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
           <BS.NavItem
             eventKey='showProfile'
-            className='concept-coach-user'>
+            className='concept-coach-user'
+            disabled={true}>
             {user.name}
           </BS.NavItem>
           <BS.NavItem
+            eventKey='showExercise'
+            className='concept-coach-exercise-nav'>
+            Exercise
+          </BS.NavItem>
+          <BS.NavItem
             eventKey='showProgress'
-            className='concept-coach-dashboard-button'>
+            className='concept-coach-dashboard-nav'>
             My Progress
           </BS.NavItem>
           <BS.NavItem

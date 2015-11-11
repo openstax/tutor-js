@@ -1,0 +1,27 @@
+@import './exercise';
+@import './page';
+
+.chapter-section-prefix {
+  font-weight: 400;
+
+  &[data-section] {
+    &::before {
+      content: attr(data-section);
+      padding-right: 2rem;
+    }
+  }
+}
+
+.concept-coach-progress-pages {
+  list-style: none;
+  padding-left: 0;
+  display: table;
+  width: 100%;
+}
+
+.concept-coach-progress-chapter {
+  h3 {
+    line-height: 1.5em;
+    border-bottom: 1px solid @openstax-neutral-light;
+  }
+}
