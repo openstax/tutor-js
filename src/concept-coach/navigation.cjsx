@@ -46,27 +46,32 @@ Navigation = React.createClass
       <strong>Concept</strong>
       'Coach'
     ]
+
+    navigationItems = [
+      <BS.NavItem
+        eventKey='showProfile'
+        className='concept-coach-user'
+        disabled={true}>
+        {user.name}
+      </BS.NavItem>
+      <BS.NavItem
+        eventKey='showExercise'
+        className='concept-coach-exercise-nav'>
+        Exercise
+      </BS.NavItem>
+      <BS.NavItem
+        eventKey='showProgress'
+        className='concept-coach-dashboard-nav'>
+        My Progress
+      </BS.NavItem>
+    ] if user.isLoggedIn()
+
     <BS.Navbar brand={brand} fixedTop fluid>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
         </BS.Nav>
         <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
-          <BS.NavItem
-            eventKey='showProfile'
-            className='concept-coach-user'
-            disabled={true}>
-            {user.name}
-          </BS.NavItem>
-          <BS.NavItem
-            eventKey='showExercise'
-            className='concept-coach-exercise-nav'>
-            Exercise
-          </BS.NavItem>
-          <BS.NavItem
-            eventKey='showProgress'
-            className='concept-coach-dashboard-nav'>
-            My Progress
-          </BS.NavItem>
+          {navigationItems}
           <BS.NavItem
             eventKey='close'>
             <CloseButton/>

@@ -8,44 +8,7 @@ channelName = 'task'
 exercises = {ExerciseStep} = require '../exercise'
 breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
 
-TaskReview = React.createClass
-  displayName: 'TaskReview'
-  getInitialState: ->
-    {collectionUUID, moduleUUID} = @props
-    taskId = "#{collectionUUID}/#{moduleUUID}"
-
-    completeSteps: tasks.getCompleteSteps(taskId)
-    incompleteSteps: tasks.getIncompleteSteps(taskId)
-
-  componentWillMount: ->
-    {collectionUUID, moduleUUID} = @props
-    tasks.fetchByModule({collectionUUID, moduleUUID})
-
-  render: ->
-    {completeSteps, incompleteSteps} = @state
-
-    completeStepsReview = _.map completeSteps, (step) ->
-      <ExerciseStep
-        id={step.id}
-        pinned={false}
-        review='completed'
-        focus={false}/>
-
-    incompleteStepsReview = _.map incompleteSteps, (step, index) ->
-      # onStepCompleted need to set
-      <ExerciseStep
-        id={step.id}
-        pinned={false}
-        review='review'
-        focus={index is 0}/>
-
-    <div className='concept-coach-task-review'>
-      <h1>To Do</h1>
-      {incompleteStepsReview}
-      <h1>Completed</h1>
-      {completeStepsReview}
-    </div>
-
+{TaskReview} = require './review'
 
 TaskBase = React.createClass
   displayName: 'TaskBase'
