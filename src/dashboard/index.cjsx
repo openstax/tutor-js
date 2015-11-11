@@ -17,11 +17,22 @@ DashboardBase = React.createClass
   render: ->
     {item, className} = @props
 
+    maxExercises = _.chain(item.chapters)
+      .pluck('pages')
+      .flatten()
+      .pluck('exercises')
+      .max((exercises) ->
+        exercises.length
+      )
+      .value()
+
     classes = classnames 'concept-coach-student-dashboard', className
 
-    chapters = _.map(item.chapters, (chapter) ->
-      <ChapterProgress chapter={chapter} key={"progress-chapter-#{chapter.id}"}/>
-    )
+    chapters = _.map item.chapters, (chapter) ->
+      <ChapterProgress
+        chapter={chapter}
+        maxLength={maxExercises.length}
+        key={"progress-chapter-#{chapter.id}"}/>
 
     <div className={classes}>
       {chapters}

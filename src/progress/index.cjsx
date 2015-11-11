@@ -11,7 +11,7 @@ ChapterProgress = React.createClass
     chapter: {}
   mixins: [ChapterSectionMixin]
   render: ->
-    {chapter, className} = @props
+    {chapter, className, maxLength} = @props
 
     classes = classnames 'concept-coach-progress-chapter', className
     section = @sectionFormat(chapter.chapter_section)
@@ -20,9 +20,11 @@ ChapterProgress = React.createClass
       className: 'chapter-section-prefix'
     sectionProps['data-section'] = section if section?
 
-    pages = _.map(chapter.pages, (page) ->
-      <PageProgress page={page} key={"progress-page-#{page.id}"}/>
-    )
+    pages = _.map chapter.pages, (page) ->
+      <PageProgress
+        page={page}
+        maxLength={maxLength}
+        key={"progress-page-#{page.id}"}/>
 
     <div className={classes}>
       <h3 {...sectionProps}>
