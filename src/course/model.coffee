@@ -2,7 +2,7 @@ _ = require 'underscore'
 React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 
-api = require '../api'
+api  = require '../api'
 
 ERROR_MAP = {
   invalid_enrollment_code: 'The enrollment code is invalid'
@@ -15,15 +15,24 @@ ERROR_MAP = {
 
 class Course
 
-  constructor: (attributes) ->
+  constructor: (@user, attributes) ->
     @channel = new EventEmitter2
     @set(attributes)
-    api.channel.on "course.#{@ecosystem_book_uuid}.registration.complete", ({data}) =>
-      _.extend(this, data)
+    _.bindAll(@, '_onRegistered', '_onConfirmed')
 
-    api.channel.on "course.#{@ecosystem_book_uuid}.registration.failure", ({data}) =>
-      _.extend(@, data)
-      @channel.emit('change')
+
+  isPending: ->
+    @status is "pending"
+
+  description: ->
+    if @isIncomplete() # still fetching
+      ""
+    else if @isPending() # we originated from a join request
+      "#{@to.course.name} #{@to.period.name} period"
+    else
+      "#{@name} #{_.first(@periods).name} period"
+
+  isIncomplete: -> not (@name or @to)
 
   set: (attributes) ->
     _.extend(@, attributes)
@@ -34,10 +43,30 @@ class Course
 
   register: (inviteCode) ->
     @errors = []
+    api.channel.once "course.#{@ecosystem_book_uuid}.receive.registration.*", @_onRegistered
     api.channel.emit("course.#{@ecosystem_book_uuid}.send.registration", data: {
-      book_cnx_id: @ecosystem_book_uuid, enrollment_code: inviteCode
+      book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
     })
 
+  confirm: ->
+    api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
+    api.channel.emit("course.#{@id}.send.confirmation", data: {
+      id: @id
+    })
+
+  _onConfirmed:  ({data}) ->
+    _.extend(@, data.to.course)
+    @periods = [ data.to.period ]
+    @user.onCourseUpdate(@)
+    delete @status # blank status indicates good to go
+    @channel.emit('change')
+
+
+  _onRegistered: ({data}) ->
+    # confirmation has completed
+    _.extend(@, data)
+    @user.onCourseUpdate(@)
+    @channel.emit('change')
 
 
 module.exports = Course
