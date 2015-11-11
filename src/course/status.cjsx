@@ -20,11 +20,14 @@ CourseStatus = React.createClass
     course.set(ecosystem_book_uuid: @props.collectionUUID)
     course.register(React.findDOMNode(@refs.input).value)
 
+  startConfirmation: ->
+    @getCourse().confirm()
+
   onCourseChange: -> @forceUpdate()
   componentWillUnmount: -> @course.channel.off('change', @onCourseChange) if @course
   getCourse: ->
     return @course if @course
-    @course = @getUser().getCourse(@props.collectionUUID) or new Course()
+    @course = @getUser().findOrCreateCourse(@props.collectionUUID)
     @course.channel.on('change', @onCourseChange)
     @course
 
@@ -38,8 +41,17 @@ CourseStatus = React.createClass
     <ul className="errors">{errors}</ul>
 
   render: ->
-    if @getUser().getCourse(@props.collectionUUID)
-      <span>You have joined this course, start working now!</span>
+    course = @getUser().getCourse(@props.collectionUUID)
+    if course
+      if course.isIncomplete()
+        <span><i className='fa fa-spinner fa-spin'/>Joining ...</span>
+      else if course.isPending()
+        <span>
+          Would you like to join {course.description()}?
+          <button onClick={@startConfirmation}>Confirm</button>
+        </span>
+      else
+        <span>You have joined {course.description()}, start working now!</span>
     else
       <div>
         <label>Register for course using invite code:
