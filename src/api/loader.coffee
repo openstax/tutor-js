@@ -20,9 +20,8 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
     apiSetting.method = 'GET'
   else
     if API_ACCESS_TOKEN
-      apiSetting.transformRequest = axios.defaults.transformRequest.concat( (data, headers) ->
-        headers['Authorization'] = "Bearer #{API_ACCESS_TOKEN}"
-      )
+      apiSetting.headers =
+        Authorization: "Bearer #{API_ACCESS_TOKEN}"
     else if setting.useCredentials
       apiSetting.withCredentials = true
     apiSetting.url = "#{baseUrl}/#{interpolate(apiSetting.url, data)}"
@@ -60,6 +59,7 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
       ).catch((response) ->
 
         setting.onFail?(response) or defaultFail(response)
+        apiEventChannel.emit('error', response: response, apiSetting: apiSetting)
         Promise.reject(response)
       )
   , delay

@@ -1,5 +1,4 @@
 React = require 'react'
-
 {channel} = tasks = require './collection'
 api = require '../api'
 
@@ -48,11 +47,17 @@ Task = React.createClass
   render: ->
     {task, currentStep} = @state
     if task?
-      <div>
-        <Breadcrumbs {...@props} goToStep={@goToStep} currentStep={currentStep}/>
-        <ExerciseStep id={task.steps[currentStep].id}/>
+      breadcrumbs = <Breadcrumbs
+        {...@props}
+        goToStep={@goToStep}
+        currentStep={currentStep}/>
+
+      <div className='concept-coach-task'>
+        {breadcrumbs}
+        <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
       </div>
     else
+      # TODO finesse
       null
 
 

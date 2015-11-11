@@ -29,6 +29,7 @@ User =
   isLoggedIn: -> !!@profile_url
 
 api.channel.on 'user.receive.*', ({data}) ->
+  User.update(loaded: true)
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
   User.endpoints = data.endpoints
