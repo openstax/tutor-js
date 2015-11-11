@@ -13,7 +13,7 @@ BLANK_USER =
   courses: []
 
 User =
-
+  isLoaded: false
   channel: new EventEmitter2 wildcard: true
 
   update: (data) ->
@@ -43,8 +43,13 @@ User =
 
   onCourseUpdate: (course) ->
     @channel.emit('change')
+  removeCourse: (course) ->
+    index = @courses.indexOf(course)
+    @courses.splice(index, 1) unless index is -1
+    @channel.emit('change')
 
 api.channel.on 'user.receive.*', ({data}) ->
+  User.isLoaded = true
   User.update(loaded: true)
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
