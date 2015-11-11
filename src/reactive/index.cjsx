@@ -1,4 +1,5 @@
 React = require 'react/addons'
+classnames = require 'classnames'
 api = require '../api'
 
 Reactive = React.createClass
@@ -57,7 +58,9 @@ Reactive = React.createClass
 
   render: ->
     {status, item} = @state
-    {id} = @props
+    {id, className} = @props
+
+    classes = classnames "reactive-#{status}", className
 
     propsForChildren = _.clone(@state)
     propsForChildren.id = id
@@ -66,7 +69,7 @@ Reactive = React.createClass
       React.addons.cloneWithProps(child, propsForChildren)
     )
 
-    <div className={"reactive-#{status}"}>
+    <div className={classes}>
       {reactiveItems}
     </div>
 
