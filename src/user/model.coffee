@@ -10,6 +10,7 @@ BLANK_USER =
   is_customer_service: false
   name: null
   profile_url: null
+  courses: []
 
 User =
 
@@ -17,7 +18,7 @@ User =
 
   update: (data) ->
     _.extend(this, data.user)
-    @courses = _.map data.courses, (course) -> new Course(course)
+    @courses = _.map data.courses, (course) => new Course(@, course)
     @channel.emit('change')
 
   logout: ->
@@ -25,12 +26,22 @@ User =
     @channel.emit('change')
 
   getCourse: (collectionUUID) ->
-    _.findWhere @courses, ecosystem_book_uuid: collectionUUID
+    _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
+
+  findOrCreateCourse: (collectionUUID) ->
+    @getCourse(collectionUUID) or (
+      course = new Course(@, ecosystem_book_uuid: collectionUUID)
+      @courses.push(course)
+      course
+    )
 
   ensureStatusLoaded: ->
     api.channel.emit("user.send.statusUpdate") unless @isLoggedIn()
 
   isLoggedIn: -> !!@profile_url
+
+  onCourseUpdate: (course) ->
+    @channel.emit('change')
 
 api.channel.on 'user.receive.*', ({data}) ->
   User.update(loaded: true)
