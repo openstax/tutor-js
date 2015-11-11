@@ -43,7 +43,7 @@ settings =
       useCredentials: true
       baseUrl: process?.env?.BASE_URL
       failedEvent: 'course.*.registration.failure'
-      completedEvent: 'Course.*.registration.complete'
+      completedEvent: 'course.*.registration.complete'
 
 
 module.exports = settings
