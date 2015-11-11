@@ -20,7 +20,7 @@ fetch = (taskId) ->
   channel.emit("fetch.#{taskId}", eventData)
   api.channel.emit("task.#{taskId}.send.fetch", eventData)
 
-fetchByModule = (collectionUUID, moduleUUID) ->
+fetchByModule = ({collectionUUID, moduleUUID}) ->
   eventData = {data: {collectionUUID, moduleUUID}, status: 'loading'}
   eventData.query = "#{collectionUUID}/#{moduleUUID}"
 

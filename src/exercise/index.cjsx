@@ -10,9 +10,9 @@ channelName = 'exercise'
 ExerciseBase = React.createClass
   displayName: 'ExerciseBase'
   getInitialState: ->
-    {id} = @props
+    {item} = @props
 
-    step: exercises.get(id)
+    step: item
 
   componentWillReceiveProps: (nextProps) ->
     {item} = nextProps

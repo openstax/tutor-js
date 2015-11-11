@@ -10,6 +10,8 @@ Reactive = React.createClass
     channelName: React.PropTypes.string.isRequired
     store: React.PropTypes.object.isRequired
     id: React.PropTypes.string.isRequired
+    fetcher: React.PropTypes.func
+    filter: React.PropTypes.func
     getStatusMessage: React.PropTypes.func
 
   getInitialState: ->
@@ -28,21 +30,22 @@ Reactive = React.createClass
     eventData.data.id is id
 
   update: (eventData) ->
-    return unless @isForThisComponent(eventData)
+    {filter} = @props
+    return unless filter?(@props, eventData) or @isForThisComponent(eventData)
     
     nextState = @getState(eventData)
     @setState(nextState)
 
   setStatus: (eventData) ->
-    return unless @isForThisComponent(eventData)
+    {filter} = @props
+    return unless filter?(@props, eventData) or @isForThisComponent(eventData)
 
     {status} = eventData
     @setState({status})
 
   componentWillMount: ->
-    {id, store, channelName} = @props
-
-    store.fetch(id)
+    {id, store, channelName, fetcher} = @props
+    fetcher?(@props) or store.fetch(id)
     store.channel.on("load.*", @update)
     api.channel.on("#{channelName}.*.send.*", @setStatus)
 
@@ -53,17 +56,16 @@ Reactive = React.createClass
     api.channel.off("#{channelName}.*.send.*", @setStatus)
 
   componentWillReceiveProps: (nextProps) ->
-    {id, store} = @props
-    store.fetch(nextProps.id)
+    {id, store, fetcher} = @props
+    fetcher?(nextProps) or store.fetch(nextProps.id)
 
   render: ->
     {status, item} = @state
-    {id, className} = @props
+    {className} = @props
 
     classes = classnames "reactive-#{status}", className
 
     propsForChildren = _.clone(@state)
-    propsForChildren.id = id
 
     reactiveItems = React.Children.map(@props.children, (child) ->
       React.addons.cloneWithProps(child, propsForChildren)
