@@ -10,6 +10,7 @@ UserLogin = require '../user/login'
 {ExerciseStep} = require '../exercise'
 {Dashboard} = require '../dashboard'
 
+CourseRegistration = require '../course/registration'
 User = require '../user/model'
 
 {channel} = require './model'
@@ -20,13 +21,15 @@ ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
 
   propTypes:
-    close: React.PropTypes.func
+    close:          React.PropTypes.func
+    moduleUUID:     React.PropTypes.string.isRequired
+    collectionUUID: React.PropTypes.string.isRequired
 
   getInitialState: ->
     isLoggedIn: User.isLoggedIn()
     displayLogin: false
-    isLoaded: false
     view: 'task'
+    isLoaded: User.isLoaded
 
   onAttemptLogin: ->
     @setState(displayLogin: true)
@@ -54,22 +57,33 @@ ConceptCoach = React.createClass
     @setState({view}) if view?
 
   updateUser: ->
-    @setState(isLoggedIn: User.isLoggedIn(), isLoaded: User.loaded)
+    course = User.getCourse(@props.collectionUUID)
 
-  render: ->
-    {isLoaded, isLoggedIn, displayLogin, view} = @state
+    @setState(
+      isLoggedIn: User.isLoggedIn(),
+      isLoaded: User.isLoaded,
+      isRegistered: course?.isRegistered()
+    )
 
-    if isLoggedIn
+  childComponent: ->
+    {isLoaded, isRegistered, isLoggedIn, displayLogin, view} = @state
+    console.info(@state)
+    if not isLoaded
+      <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
+    else if not isLoggedIn
+      <UserLogin onComplete={@onLoginComplete} />
+    else if not isRegistered
+      <CourseRegistration {...@props} onComplete={@update} />
+    else
+      course = User.getCourse(@props.collectionUUID)
+      console.info(course)
       if view is 'task'
         coach = <Task {...@props} key='task'/>
       else if view is 'dashboard'
         coach = <Dashboard id={COURSE_ID}/>
-    else if displayLogin
-      coach = <UserLogin onComplete={@onLoginComplete} />
-    else if isLoaded
-      coach = <UserLoginButton onAttemptLogin={@onAttemptLogin} key='user-login-button'/>
-    else
-      coach = 'Loading...'
+
+  render: ->
+    {isLoaded, isLoggedIn} = @state
 
     className = classnames 'concept-coach-view',
       loading: not (isLoggedIn or isLoaded)
@@ -77,7 +91,7 @@ ConceptCoach = React.createClass
     <div className='concept-coach'>
       <Navigation key='user-status' close={@props.close}/>
       <div className={className}>
-        {coach}
+        {@childComponent()}
       </div>
     </div>
 

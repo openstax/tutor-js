@@ -40,7 +40,7 @@ getResponseDataByEnv = (isLocal, eventData, response) ->
 
 
 handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
-  isLocal = not baseUrl?
+  isLocal = setting.loadLocally
   # simulate server delay
   delay = if isLocal then 200 else 0
 
@@ -57,7 +57,9 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
         Promise.resolve(response)
 
       ).catch((response) ->
-
+        if _.isString(setting.failedEvent)
+          failedEvent = interpolate(setting.failedEvent, eventData.data)
+          apiEventChannel.emit(failedEvent, response)
         setting.onFail?(response) or defaultFail(response)
         apiEventChannel.emit('error', response: response, apiSetting: apiSetting)
         Promise.reject(response)
@@ -69,7 +71,7 @@ loader = (apiEventChannel, settings) ->
     API_ACCESS_TOKEN = token
 
   _.each settings.endpoints, (setting, eventName) ->
-    apiEventChannel.on eventName, _.partial(handleAPIEvent, apiEventChannel, settings.baseUrl or setting.baseUrl, setting)
+    apiEventChannel.on eventName, _.partial(handleAPIEvent, apiEventChannel, setting.baseUrl or settings.baseUrl, setting)
 
 
 module.exports = loader

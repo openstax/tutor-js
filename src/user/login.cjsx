@@ -38,7 +38,6 @@ UserLogin = React.createClass
     return unless @isMounted()
     try
       json = JSON.parse(msg.data)
-      return unless msg.source.name is 'OxAccountIframe'
       for method, payload of json.data
         if @[method]
           @[method](payload)

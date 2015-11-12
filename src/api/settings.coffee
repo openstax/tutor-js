@@ -1,7 +1,4 @@
 settings =
-  # to customize, set environmental var BASE_URL when building or running webpack-dev-server
-  # Currently is set on an endpoint by endpoint basis until all are implemented by BE
-  # baseUrl: process?.env?.BASE_URL
 
   endpoints:
     'exercise.*.send.save':
@@ -27,14 +24,12 @@ settings =
     'task.*.send.fetchByModule':
       url: 'api/cc/tasks/{collectionUUID}/{moduleUUID}'
       method: 'GET'
-      baseUrl: process?.env?.BASE_URL
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
 
     'user.send.statusUpdate':
       url: 'auth/status'
       method: 'GET'
       useCredentials: true
-      baseUrl: process?.env?.BASE_URL
       completedEvent: 'user.receive.statusUpdate'
 
     'courseDashboard.*.send.fetch':
@@ -42,5 +37,19 @@ settings =
       method: 'GET'
       baseUrl: process?.env?.BASE_URL
       completedEvent: 'courseDashboard.{id}.receive.fetch'
+
+    'course.*.send.registration':
+      url: 'api/enrollment_changes'
+      method: 'POST'
+      useCredentials: true
+      failedEvent: 'course.{book_uuid}.receive.registration.failure'
+      completedEvent: 'course.{book_uuid}.receive.registration.complete'
+
+    'course.*.send.confirmation':
+      url: 'api/enrollment_changes/{id}/approve'
+      method: 'PUT'
+      useCredentials: true
+      failedEvent: 'course.{id}.receive.confirmation.failure'
+      completedEvent: 'course.{id}.receive.confirmation.complete'
 
 module.exports = settings
