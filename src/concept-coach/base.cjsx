@@ -15,8 +15,6 @@ User = require '../user/model'
 
 {channel} = require './model'
 
-COURSE_ID = '1'
-
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
 
@@ -30,6 +28,7 @@ ConceptCoach = React.createClass
     displayLogin: false
     view: 'task'
     isLoaded: User.isLoaded
+    isRegistered: false
 
   onAttemptLogin: ->
     @setState(displayLogin: true)
@@ -41,6 +40,7 @@ ConceptCoach = React.createClass
     User.ensureStatusLoaded()
 
   componentDidMount: ->
+    @updateUser()
     mountData = coach: {el: @getDOMNode(), action: 'mount'}
     channel.emit('coach.mount.success', mountData)
     User.channel.on('change', @updateUser)
@@ -67,7 +67,7 @@ ConceptCoach = React.createClass
 
   childComponent: ->
     {isLoaded, isRegistered, isLoggedIn, displayLogin, view} = @state
-    console.info(@state)
+
     if not isLoaded
       <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
     else if not isLoggedIn
@@ -76,11 +76,11 @@ ConceptCoach = React.createClass
       <CourseRegistration {...@props} onComplete={@update} />
     else
       course = User.getCourse(@props.collectionUUID)
-      console.info(course)
+
       if view is 'task'
         coach = <Task {...@props} key='task'/>
       else if view is 'dashboard'
-        coach = <Dashboard id={COURSE_ID}/>
+        coach = <Dashboard id={course.id}/>
 
   render: ->
     {isLoaded, isLoggedIn} = @state
