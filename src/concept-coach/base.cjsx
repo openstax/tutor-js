@@ -9,6 +9,7 @@ UserLogin = require '../user/login'
 
 {ExerciseStep} = require '../exercise'
 
+CourseRegistration = require '../course/registration'
 User = require '../user/model'
 
 {channel} = require './model'
@@ -17,12 +18,14 @@ ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
 
   propTypes:
-    close: React.PropTypes.func
+    close:          React.PropTypes.func
+    moduleUUID:     React.PropTypes.string.isRequired
+    collectionUUID: React.PropTypes.string.isRequired
 
   getInitialState: ->
     isLoggedIn: User.isLoggedIn()
     displayLogin: false
-    isLoaded: false
+    isLoaded: User.isLoaded
 
   onAttemptLogin: ->
     @setState(displayLogin: true)
@@ -44,19 +47,26 @@ ConceptCoach = React.createClass
     User.channel.off('change', @update)
 
   update: ->
-    @setState(isLoggedIn: User.isLoggedIn(), isLoaded: User.loaded)
+    course = User.getCourse(@props.collectionUUID)
+    @setState(
+      isLoggedIn: User.isLoggedIn(),
+      isLoaded: User.isLoaded,
+      isRegistered: course?.isRegistered()
+    )
+
+  childComponent: ->
+    {isLoaded, isRegistered, isLoggedIn, displayLogin} = @state
+    if not isLoaded
+      <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
+    else if not isLoggedIn
+      <UserLogin onComplete={@onLoginComplete} />
+    else if not isRegistered
+      <CourseRegistration {...@props} onComplete={@update} />
+    else
+      <Task {...@props} key='task'/>
 
   render: ->
-    {isLoaded, isLoggedIn, displayLogin} = @state
-
-    if isLoggedIn
-      coach = <Task {...@props} key='task'/>
-    else if displayLogin
-      coach = <UserLogin onComplete={@onLoginComplete} />
-    else if isLoaded
-      coach = <UserLoginButton onAttemptLogin={@onAttemptLogin} key='user-login-button'/>
-    else
-      coach = 'Loading...'
+    {isLoaded, isLoggedIn} = @state
 
     className = classnames 'concept-coach-view',
       loading: not (isLoggedIn or isLoaded)
@@ -64,7 +74,7 @@ ConceptCoach = React.createClass
     <div className='concept-coach'>
       <UserStatus key='user-status' close={@props.close}/>
       <div className={className}>
-        {coach}
+        {@childComponent()}
       </div>
     </div>
 
