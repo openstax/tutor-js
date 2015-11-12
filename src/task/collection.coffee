@@ -40,6 +40,18 @@ getIncompleteSteps = (taskId) ->
     step? and not step.is_completed
   )
 
+getFirstIncompleteIndex = (taskId) ->
+  _.max [_.findIndex(tasks[taskId]?.steps, {is_completed: false}), 0]
+
 api.channel.on("task.*.receive.*", update)
 
-module.exports = {load, fetch, fetchByModule, get, getCompleteSteps, getIncompleteSteps, channel}
+module.exports = {
+  load,
+  fetch,
+  fetchByModule,
+  get,
+  getCompleteSteps,
+  getIncompleteSteps,
+  getFirstIncompleteIndex,
+  channel
+}

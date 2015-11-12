@@ -25,6 +25,11 @@ TaskBase = React.createClass
   goToStep: (stepIndex) ->
     @setState(currentStep: stepIndex)
 
+  goToFirstIncomplete: ->
+    {taskId} = @props
+    stepIndex = tasks.getFirstIncompleteIndex(taskId)
+    @setState(currentStep: stepIndex)
+
   componentWillMount: ->
     exercises.channel.on('leave.*', @nextStep)
 
@@ -32,8 +37,15 @@ TaskBase = React.createClass
     exercises.channel.off('leave.*', @nextStep)
 
   componentWillReceiveProps: (nextProps) ->
-    {item} = nextProps
-    @setState(task: item)
+    nextState =
+      task: nextProps.item
+
+    if (_.isEmpty(@props.item) and not _.isEmpty(nextProps.item)) or
+      (@props.taskId isnt nextProps.taskId)
+        stepIndex = tasks.getFirstIncompleteIndex(nextProps.taskId)
+        nextState.currentStep = stepIndex
+
+    @setState(nextState)
 
   render: ->
     {task, currentStep} = @state
@@ -47,7 +59,7 @@ TaskBase = React.createClass
     if task.steps[currentStep]?
       panel = <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
     else if currentStep is task.steps.length
-      panel = <TaskReview {...@props}/>
+      panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
 
     <div className='concept-coach-task'>
       {breadcrumbs}
@@ -75,7 +87,7 @@ Task = React.createClass
       moduleUUID={moduleUUID}
       fetcher={tasks.fetchByModule}
       filter={@filter}>
-      <TaskBase {...@props}/>
+      <TaskBase {...@props} taskId={taskId}/>
     </Reactive>
 
 

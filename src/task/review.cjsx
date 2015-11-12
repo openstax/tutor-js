@@ -3,6 +3,7 @@ _ = require 'underscore'
 tasks = require './collection'
 
 {ExerciseStep} = require '../exercise'
+{ExerciseButton} = require '../buttons'
 
 TaskReview = React.createClass
   displayName: 'TaskReview'
@@ -19,21 +20,20 @@ TaskReview = React.createClass
 
   render: ->
     {completeSteps, incompleteSteps} = @state
+    {status} = @props
 
-    completeStepsReview = _.map completeSteps, (step) ->
-      <ExerciseStep
-        id={step.id}
-        pinned={false}
-        review='completed'
-        focus={false}/>
-
-    incompleteStepsReview = _.map incompleteSteps, (step, index) ->
-      # onStepCompleted need to set
-      <ExerciseStep
-        id={step.id}
-        pinned={false}
-        review='review'
-        focus={index is 0}/>
+    if status is 'loaded' and _.isEmpty(completeSteps)
+      completeStepsReview = <div>
+        <h3>Exercise to see Review</h3>
+        <ExerciseButton onClick={_.partial(@props.goToStep, 0)}/>
+      </div>
+    else
+      completeStepsReview = _.map completeSteps, (step) ->
+        <ExerciseStep
+          id={step.id}
+          pinned={false}
+          review='completed'
+          focus={false}/>
 
     <div className='concept-coach-task-review'>
       <h1>Review</h1>
