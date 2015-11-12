@@ -10,6 +10,10 @@ ERROR_MAP = {
   already_enrolled: 'You are already enrolled in this course'
   multiple_roles: 'You are listed as both  teacher and a student'
   dropped_student: 'Your account is  unable to participate at this time'
+  already_processed: 'The request has already been processed'
+  already_approved: 'The request has already been proccessed'
+  already_rejected: 'The request has already been rejected'
+  taken: 'You are already a member of this course'
 }
 
 
@@ -38,6 +42,9 @@ class Course
     _.extend(@, attributes)
     @channel.emit('change')
 
+  hasErrors: ->
+    not _.isEmpty(@errors)
+
   errorMessages: ->
     _.map @errors, (err) -> ERROR_MAP[err.code]
 
@@ -53,10 +60,12 @@ class Course
     api.channel.emit("course.#{@id}.send.confirmation", data: { id: @id })
 
   _onConfirmed:  ({data}) ->
-    _.extend(@, data.to.course)
-    @periods = [ data.to.period ]
+    if data.to
+      _.extend(@, data.to.course)
+      @periods = [ data.to.period ]
+    @errors = data.errors
     @user.onCourseUpdate(@)
-    delete @status # blank status indicates good to go
+    delete @status unless @hasErrors() # blank status indicates good to go
     @channel.emit('change')
 
 

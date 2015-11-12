@@ -51,16 +51,19 @@ CourseRegistration = React.createClass
     @startRegistration() if ev.key is ENTER
 
   renderErrors: ->
-    return null unless @course and @course.errors
+    return null unless @course and @course.hasErrors()
     errors = for msg, i in @course.errorMessages()
       <li key={i}>{msg}</li>
-    <ul className="errors">{errors}</ul>
+    <div className="alert alert-danger">
+      <ul className="errors">{errors}</ul>
+    </div>
 
   renderInvite: ->
     <div className="form-group">
       <h3 className="text-center">Register for a Concept Coach course</h3>
       <hr/>
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {@renderErrors()}
         <label>
           Course invitation code:
           <div className="input-group">
@@ -85,6 +88,7 @@ CourseRegistration = React.createClass
       <h3 className="text-center">
         Would you like to join {course.description()}?
       </h3>
+      {@renderErrors()}
       <div className="text-center">
         <button className="btn"
           onClick={@cancelConfirmation}>Cancel</button>
@@ -101,15 +105,16 @@ CourseRegistration = React.createClass
 
   render: ->
     course = @getUser().getCourse(@props.collectionUUID)
-    body = if course
-      if course.isIncomplete()
-        @renderSaving(course)
-      else if course.isPending()
-        @renderPending(course)
+    body =
+      if course and not course.hasErrors()
+        if course.isIncomplete()
+          @renderSaving(course)
+        else if course.isPending()
+          @renderPending(course)
+        else
+          @renderComplete(course)
       else
-        @renderComplete(course)
-    else
-      @renderInvite()
+        @renderInvite()
 
     <div className="row">
       {body}
