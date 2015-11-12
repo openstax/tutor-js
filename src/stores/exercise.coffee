@@ -39,6 +39,7 @@ ExerciseConfig = {
     
     getTags: (id) -> @_local[id].tags
 
+    isPublished: (id) -> @_local[id].published_at
 }
 
 extendConfig(ExerciseConfig, new CrudConfig())
