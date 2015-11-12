@@ -65,7 +65,7 @@ ConceptCoach = React.createClass
     if not isLoaded
       <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
     else if not isLoggedIn
-      <UserLogin onComplete={@onLoginComplete} />
+      <UserLogin onComplete={@updateUser} />
     else if not isRegistered
       <CourseRegistration {...@props} onComplete={@updateUser} />
     else
