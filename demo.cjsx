@@ -8,12 +8,16 @@ SETTINGS =
     API_BASE_URL: ''
     COLLECTION_UUID: 'C_UUID'
     MODULE_UUID: 'm_uuid'
-  SERVER:
+  LOCAL:
     API_BASE_URL: 'http://localhost:3001'
     COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'
     MODULE_UUID: '7636a3bf-eb80-4898-8b2c-e81c1711b99f'
+  SERVER:
+    API_BASE_URL: 'https://tutor-dev.openstax.org'
+    COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'
+    MODULE_UUID: '7636a3bf-eb80-4898-8b2c-e81c1711b99f'
 
-settings = SETTINGS.SERVER
+settings = SETTINGS.LOCAL
 
 loadApp = ->
   unless document.readyState is 'interactive'
