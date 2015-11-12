@@ -25,6 +25,9 @@ Navigation = React.createClass
   update: ->
     @forceUpdate() if @isMounted()
 
+  showProfile: ->
+    channel.emit('show.profile', {view: 'profile'})
+
   showExercise: ->
     channel.emit('show.task', {view: 'task'})
 
@@ -50,8 +53,7 @@ Navigation = React.createClass
     navigationItems = [
       <BS.NavItem
         eventKey='showProfile'
-        className='concept-coach-user'
-        disabled={true}>
+        className='concept-coach-user'>
         {user.name}
       </BS.NavItem>
       <BS.NavItem

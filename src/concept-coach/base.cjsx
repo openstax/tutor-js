@@ -75,6 +75,8 @@ ConceptCoach = React.createClass
         coach = <Task {...@props} key='task'/>
       else if view is 'dashboard'
         coach = <Dashboard id={course.id}/>
+      else if view is 'profile'
+        coach = <CourseRegistration {...@props} onComplete={@update} />
 
   render: ->
     {isLoaded, isLoggedIn} = @state
