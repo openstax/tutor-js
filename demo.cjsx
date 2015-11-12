@@ -1,7 +1,7 @@
 Demo = require './src/demo'
 
 api = require './src/api'
-AUTOSHOW = false
+AUTOSHOW = true
 
 SETTINGS =
   STUBS:
@@ -27,13 +27,12 @@ loadApp = ->
   mainDiv = document.getElementById('react-root-container')
 
   buttonA = document.getElementById('launcher')
-  buttonA.addEventListener 'click', ->
+  show = ->
     Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
     true
+  buttonA.addEventListener 'click', show
   if AUTOSHOW
-    setTimeout( ->
-      Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
-    , 300)
+    setTimeout( show, 300)
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)
