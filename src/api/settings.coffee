@@ -24,7 +24,6 @@ settings =
     'task.*.send.fetchByModule':
       url: 'api/cc/tasks/{collectionUUID}/{moduleUUID}'
       method: 'GET'
-      loadLocally: true
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
 
     'user.send.statusUpdate':
@@ -37,7 +36,6 @@ settings =
       url: 'api/enrollment_changes'
       method: 'POST'
       useCredentials: true
-      loadLocally: true
       failedEvent: 'course.{book_uuid}.receive.registration.failure'
       completedEvent: 'course.{book_uuid}.receive.registration.complete'
 
@@ -45,7 +43,6 @@ settings =
       url: 'api/enrollment_changes/{id}/approve'
       method: 'PUT'
       useCredentials: true
-      loadLocally: true
       failedEvent: 'course.{id}.receive.confirmation.failure'
       completedEvent: 'course.{id}.receive.confirmation.complete'
 
