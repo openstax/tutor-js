@@ -13,7 +13,8 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
 
   {data, change} = eventData
   apiSetting = _.pick(setting, 'url', 'method')
-  apiSetting.data = change if _.includes(METHODS_WITH_DATA, apiSetting.method)
+  if _.includes(METHODS_WITH_DATA, apiSetting.method)
+    apiSetting.data = change or data
 
   if isLocal
     apiSetting.url = "#{interpolate(apiSetting.url, data)}/#{apiSetting.method}.json"
