@@ -1,7 +1,7 @@
 Demo = require './src/demo'
 
 api = require './src/api'
-AUTOSHOW = true
+AUTOSHOW = false
 
 SETTINGS =
   STUBS:
