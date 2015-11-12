@@ -24,23 +24,15 @@ ConceptCoach = React.createClass
     collectionUUID: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    isLoggedIn: User.isLoggedIn()
-    displayLogin: false
-    view: 'task'
-    isLoaded: User.isLoaded
-    isRegistered: false
+    userState = @getUserState()
+    userState.view = 'task'
 
-  onAttemptLogin: ->
-    @setState(displayLogin: true)
-
-  onLoginComplete: ->
-    @setState(displayLogin: false)
+    userState
 
   componentWillMount: ->
     User.ensureStatusLoaded()
 
   componentDidMount: ->
-    @updateUser()
     mountData = coach: {el: @getDOMNode(), action: 'mount'}
     channel.emit('coach.mount.success', mountData)
     User.channel.on('change', @updateUser)
@@ -56,14 +48,16 @@ ConceptCoach = React.createClass
     {view} = eventData
     @setState({view}) if view?
 
-  updateUser: ->
+  getUserState: ->
     course = User.getCourse(@props.collectionUUID)
 
-    @setState(
-      isLoggedIn: User.isLoggedIn(),
-      isLoaded: User.isLoaded,
-      isRegistered: course?.isRegistered()
-    )
+    isLoggedIn: User.isLoggedIn(),
+    isLoaded: User.isLoaded,
+    isRegistered: course?.isRegistered()
+
+  updateUser: ->
+    userState = @getUserState()
+    @setState(userState)
 
   childComponent: ->
     {isLoaded, isRegistered, isLoggedIn, displayLogin, view} = @state
