@@ -44,18 +44,22 @@ Navigation = React.createClass
 
   render: ->
     {active} = @state
+    {course} = @props
 
     brand = [
       <strong>Concept</strong>
       'Coach'
     ]
 
-    navigationItems = [
+    loggedInItems = [
       <BS.NavItem
         eventKey='showProfile'
         className='concept-coach-user'>
         {user.name}
       </BS.NavItem>
+    ]
+
+    courseItems = [
       <BS.NavItem
         eventKey='showExercise'
         className='concept-coach-exercise-nav'>
@@ -66,14 +70,15 @@ Navigation = React.createClass
         className='concept-coach-dashboard-nav'>
         My Progress
       </BS.NavItem>
-    ] if user.isLoggedIn()
+    ] if course?.isRegistered()
 
     <BS.Navbar brand={brand} fixedTop fluid>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
         </BS.Nav>
         <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
-          {navigationItems}
+          {loggedInItems}
+          {courseItems}
           <BS.NavItem
             eventKey='close'>
             <CloseButton/>

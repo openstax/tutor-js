@@ -80,12 +80,13 @@ ConceptCoach = React.createClass
 
   render: ->
     {isLoaded, isLoggedIn} = @state
+    course = User.getCourse(@props.collectionUUID)
 
     className = classnames 'concept-coach-view',
       loading: not (isLoggedIn or isLoaded)
 
     <div className='concept-coach'>
-      <Navigation key='user-status' close={@props.close}/>
+      <Navigation key='user-status' close={@props.close} course={course}/>
       <div className={className}>
         {@childComponent()}
       </div>
