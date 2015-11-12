@@ -67,7 +67,7 @@ ConceptCoach = React.createClass
     else if not isLoggedIn
       <UserLogin onComplete={@onLoginComplete} />
     else if not isRegistered
-      <CourseRegistration {...@props} onComplete={@update} />
+      <CourseRegistration {...@props} onComplete={@updateUser} />
     else
       course = User.getCourse(@props.collectionUUID)
 
@@ -76,7 +76,7 @@ ConceptCoach = React.createClass
       else if view is 'dashboard'
         coach = <Dashboard id={course.id}/>
       else if view is 'profile'
-        coach = <CourseRegistration {...@props} onComplete={@update} />
+        coach = <CourseRegistration {...@props} onComplete={@updateUser} />
 
   render: ->
     {isLoaded, isLoggedIn} = @state
