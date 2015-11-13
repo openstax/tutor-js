@@ -14,7 +14,7 @@ listenAndBroadcast = (channelOut) ->
   api.channel.on 'error', (response) ->
     channelOut.emit('api.error', response)
 
-  api.channel.on 'user.receive.statusUpdate', (response) ->
+  api.channel.on 'user.status.receive.fetch', (response) ->
     channelOut.emit('user.change', response)
 
   channel.on 'coach.mount.success', (eventData) ->
@@ -27,7 +27,7 @@ publicMethods =
     api.initialize(baseUrl)
     listenAndBroadcast(publicChannel)
 
-    api.channel.emit('user.send.statusUpdate')
+    api.channel.emit('user.status.send.fetch')
 
   open: (mountNode, props) ->
     props = _.clone(props)

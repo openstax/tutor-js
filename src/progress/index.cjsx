@@ -3,36 +3,54 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
-{PageProgress} = require './page'
+{Reactive} = require '../reactive'
+{ExerciseButton} = require '../buttons'
+{ChapterProgress} = require './chapter'
+{channel} = progresses = require './collection'
 
-ChapterProgress = React.createClass
-  displayName: 'ChapterProgress'
+apiChannelName = 'courseDashboard'
+
+ProgressBase = React.createClass
+  displayName: 'ProgressBase'
   getDefaultProps: ->
-    chapter: {}
+    item: {}
   mixins: [ChapterSectionMixin]
   render: ->
-    {chapter, className, maxLength} = @props
+    {item, className, status} = @props
+    classes = classnames 'concept-coach-student-dashboard', className
 
-    classes = classnames 'concept-coach-progress-chapter', className
-    section = @sectionFormat(chapter.chapter_section)
+    if status is 'loaded' and _.isEmpty(item?.chapters)
+      progress = <div>
+        <h3>Exercise to see progress</h3>
+        <ExerciseButton/>
+      </div>
+    else
+      maxExercises = _.chain(item.chapters)
+        .pluck('pages')
+        .flatten()
+        .pluck('exercises')
+        .max((exercises) ->
+          exercises.length
+        )
+        .value()
 
-    sectionProps =
-      className: 'chapter-section-prefix'
-    sectionProps['data-section'] = section if section?
-
-    pages = _.map chapter.pages, (page) ->
-      <PageProgress
-        page={page}
-        maxLength={maxLength}
-        key={"progress-page-#{page.id}"}/>
+      progress = _.map item.chapters, (chapter) ->
+        <ChapterProgress
+          chapter={chapter}
+          maxLength={maxExercises.length}
+          key={"progress-chapter-#{chapter.id}"}/>
 
     <div className={classes}>
-      <h3 {...sectionProps}>
-          {chapter.title}
-      </h3>
-      <ul className='concept-coach-progress-pages'>
-        {pages}
-      </ul>
+      {progress}
     </div>
 
-module.exports = {ChapterProgress}
+Progress = React.createClass
+  displayName: 'Progress'
+  render: ->
+    {id} = @props
+
+    <Reactive topic={id} store={progresses} apiChannelName={apiChannelName}>
+      <ProgressBase/>
+    </Reactive>
+
+module.exports = {Progress, ProgressBase, channel}

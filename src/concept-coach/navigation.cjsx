@@ -32,7 +32,10 @@ Navigation = React.createClass
     channel.emit('show.task', {view: 'task'})
 
   showProgress: ->
-    channel.emit('show.progress', {view: 'dashboard'})
+    channel.emit('show.progress', {view: 'progress'})
+
+  showDashboard: ->
+    channel.emit('show.dashboard', {view: 'dashboard'})
 
   close: ->
     channel.emit('close.clicked')
@@ -46,10 +49,9 @@ Navigation = React.createClass
     {active} = @state
     {course} = @props
 
-    brand = [
-      <strong>Concept</strong>
-      'Coach'
-    ]
+    brand = <a onClick={_.partial(@handleSelect, 'showDashboard')}>
+      <strong>Concept</strong> Coach
+    </a>
 
     loggedInItems = [
       <BS.NavItem

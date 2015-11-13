@@ -26,11 +26,11 @@ settings =
       method: 'GET'
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
 
-    'user.send.statusUpdate':
+    'user.status.send.fetch':
       url: 'auth/status'
       method: 'GET'
       useCredentials: true
-      completedEvent: 'user.receive.statusUpdate'
+      completedEvent: 'user.status.receive.fetch'
 
     'courseDashboard.*.send.fetch':
       url: 'api/courses/{id}/cc/dashboard'

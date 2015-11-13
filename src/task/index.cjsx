@@ -3,7 +3,7 @@ _ = require 'underscore'
 {channel} = tasks = require './collection'
 api = require '../api'
 {Reactive} = require '../reactive'
-channelName = 'task'
+apiChannelName = 'task'
 
 exercises = {ExerciseStep} = require '../exercise'
 breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
@@ -80,9 +80,9 @@ Task = React.createClass
     taskId = "#{collectionUUID}/#{moduleUUID}"
 
     <Reactive
-      id={taskId}
+      topic={taskId}
       store={tasks}
-      channelName={channelName}
+      apiChannelName={apiChannelName}
       collectionUUID={collectionUUID}
       moduleUUID={moduleUUID}
       fetcher={tasks.fetchByModule}

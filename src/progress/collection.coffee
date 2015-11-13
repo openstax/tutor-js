@@ -4,7 +4,7 @@ api = require '../api'
 local = {}
 channel = new EventEmitter2 wildcard: true
 
-channelName = 'courseDashboard'
+apiChannelName = 'courseDashboard'
 
 load = (id, data) ->
   local[id] = data
@@ -18,11 +18,11 @@ fetch = (id) ->
   eventData = {data: {id: id}, status: 'loading'}
 
   channel.emit("fetch.#{id}", eventData)
-  api.channel.emit("#{channelName}.#{id}.send.fetch", eventData)
+  api.channel.emit("#{apiChannelName}.#{id}.send.fetch", eventData)
 
 get = (id) ->
   local[id]
 
-api.channel.on("#{channelName}.*.receive.*", update)
+api.channel.on("#{apiChannelName}.*.receive.*", update)
 
 module.exports = {fetch, get, channel}

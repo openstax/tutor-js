@@ -9,6 +9,7 @@ UserLogin = require '../user/login'
 
 {ExerciseStep} = require '../exercise'
 {Dashboard} = require '../dashboard'
+{Progress} = require '../progress'
 
 CourseRegistration = require '../course/registration'
 User = require '../user/model'
@@ -73,8 +74,10 @@ ConceptCoach = React.createClass
 
       if view is 'task'
         coach = <Task {...@props} key='task'/>
+      else if view is 'progress'
+        coach = <Progress id={course.id}/>
       else if view is 'dashboard'
-        coach = <Dashboard id={course.id}/>
+        coach = <Dashboard/>
       else if view is 'profile'
         coach = <CourseRegistration {...@props} onComplete={@updateUser} />
 

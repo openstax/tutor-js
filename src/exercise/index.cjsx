@@ -5,7 +5,7 @@ _ = require 'underscore'
 {channel, getCurrentPanel} = exercises = require './collection'
 api = require '../api'
 {Reactive} = require '../reactive'
-channelName = 'exercise'
+apiChannelName = 'exercise'
 
 ExerciseBase = React.createClass
   displayName: 'ExerciseBase'
@@ -63,7 +63,7 @@ ExerciseStep = React.createClass
   render: ->
     {id} = @props
 
-    <Reactive id={id} store={exercises} channelName={channelName}>
+    <Reactive topic={id} store={exercises} apiChannelName={apiChannelName}>
       <ExerciseBase {...@props}/>
     </Reactive>
 
