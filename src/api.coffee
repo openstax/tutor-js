@@ -80,4 +80,12 @@ start = ->
     payload: obj
 
 
+  apiHelper ExerciseActions, ExerciseActions.publish, ExerciseActions.saved, 'PUT', (id) ->
+    
+    obj = ExerciseStore.get(id)
+
+    url: "/api/exercises/#{id}/publish"
+    httpMethod: 'PUT'
+    payload: obj
+
 module.exports = {start}

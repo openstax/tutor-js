@@ -33,6 +33,11 @@ module.exports = React.createClass
     if confirm('Are you sure you want to save?')
       ExerciseActions.save(@props.id)
 
+  publishExercise: ->
+    if confirm('Are you sure you want to publish?')
+      ExerciseActions.save(@props.id)
+      ExerciseActions.publish(@props.id)
+
   renderLoading: ->
     <div>Loading exercise: {@getId()}</div>
 
@@ -49,6 +54,9 @@ module.exports = React.createClass
     ExerciseActions.sync(id)
     exercise = ExerciseStore.get(id)
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
+  
+    if ExerciseStore.isPublished(id)
+      isPublished = true
 
     <BS.Grid>
       <BS.Row><BS.Col xs={5} className="exercise-editor">
@@ -68,7 +76,8 @@ module.exports = React.createClass
           <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
           </textarea>
         </div>
-        <button onClick={@saveExercise}>Save</button>
+        <BS.Button bsStyle="info" disabled={isPublished} onClick={@saveExercise}>Save</BS.Button>
+        <BS.Button bsStyle="primary" disabled={isPublished} onClick={@publishExercise}>Publish</BS.Button>
       </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
       </BS.Col></BS.Row>

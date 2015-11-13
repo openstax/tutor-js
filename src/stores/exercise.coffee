@@ -3,11 +3,14 @@ flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {QuestionActions, QuestionStore} = require './question'
 
+cascadeLoad = (obj, exerciseId) ->
+  for question in obj.questions
+    QuestionActions.loaded(question, question.id)
+  obj
+
 ExerciseConfig = {
-  _loaded: (obj, exerciseId) ->
-    for question in obj.questions
-      QuestionActions.loaded(question, question.id)
-    obj
+  _loaded: cascadeLoad
+  _saved: cascadeLoad
 
   updateNumber: (id, number) -> @_change(id, {number})
 
@@ -23,6 +26,8 @@ ExerciseConfig = {
 
   save: (id) -> @sync(id)
 
+  publish: (id) -> @emitChange()
+
   exports:
     getQuestions: (id) -> @_local[id].questions
 
@@ -34,6 +39,7 @@ ExerciseConfig = {
     
     getTags: (id) -> @_local[id].tags
 
+    isPublished: (id) -> @_local[id].published_at
 }
 
 extendConfig(ExerciseConfig, new CrudConfig())
