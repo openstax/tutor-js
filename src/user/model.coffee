@@ -25,6 +25,9 @@ User =
     _.extend(this, BLANK_USER)
     @channel.emit('change')
 
+  get: ->
+    @
+
   getCourse: (collectionUUID) ->
     _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
 

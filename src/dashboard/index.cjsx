@@ -3,6 +3,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 {Reactive} = require '../reactive'
+{CourseItem} = require '../course/item'
 User = require '../user/model'
 
 apiChannelName = 'user'
@@ -13,8 +14,15 @@ DashboardBase = React.createClass
     item: {}
   render: ->
     {item, className, status} = @props
-    console.info(item)
-    <div className={classes}></div>
+    courses = _.map item.courses, (course) ->
+      <CourseItem key={course.id} course={course}/>
+
+    <div className='concept-coach-courses'>
+      <h1>Enrolled Courses</h1>
+      <ul className='concept-coach-courses-listing'>
+        {courses}
+      </ul>
+    </div>
 
 Dashboard = React.createClass
   displayName: 'Dashboard'
@@ -22,6 +30,7 @@ Dashboard = React.createClass
     <Reactive
       store={User}
       topic='status'
+      fetcher={User.ensureStatusLoaded.bind(User)}
       apiChannelName={apiChannelName}
       channelUpdatePattern='change'>
       <DashboardBase/>

@@ -33,12 +33,18 @@ Reactive = React.createClass
 
     state
 
+  fetchModel: (props) ->
+    props ?= @props
+    {topic, store, fetcher} = props
+
+    if _.isFunction(fetcher) then fetcher(props) else store.fetch(topic)
+
   getState: (eventData = {}) ->
     {topic, store} = @props
     {status} = eventData
     status ?= 'loaded'
 
-    item: store.get(topic)
+    item: store.get?(topic)
     status: status
 
   isForThisComponent: (eventData) ->
@@ -58,11 +64,10 @@ Reactive = React.createClass
     @setState({status})
 
   componentWillMount: ->
-    {topic, store, fetcher} = @props
+    {store} = @props
     {storeChannelUpdate, apiChannelSend} = @state
 
-    fetcher?(@props) or store.fetch(topic)
-
+    @fetchModel()
     store.channel.on(storeChannelUpdate, @update)
     api.channel.on(apiChannelSend, @setStatus)
 
@@ -74,8 +79,7 @@ Reactive = React.createClass
     api.channel.off(apiChannelSend, @setStatus)
 
   componentWillReceiveProps: (nextProps) ->
-    {topic, store, fetcher} = @props
-    fetcher?(nextProps) or store.fetch(nextProps.topic)
+    @fetchModel(nextProps)
 
   render: ->
     {status, item} = @state
