@@ -16,7 +16,8 @@ AccountsIframeMixin =
     @setState(height: height)
 
   setTitle: (title) ->
-    @setState(title: title)
+    # Hack for expediency.  Replace strings that mention tutor with Concept Coach
+    @setState(title: title.replace(/\btutor\b/gi, "Concept Coach"))
 
   iFrameReady: ->
     @setState(isLoading: false)

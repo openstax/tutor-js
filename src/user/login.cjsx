@@ -22,10 +22,13 @@ UserLogin = React.createClass
 
   render: ->
     classlist = classnames('user-login', 'is-loading': @state.isLoading)
-
     <div className={classlist}>
+      <div className="heading">
+        <h3 className="title">{@state?.title}</h3>
+      </div>
       {@renderIframe()}
     </div>
+
 
 
 module.exports = UserLogin
