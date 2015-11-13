@@ -1,5 +1,8 @@
 React = require 'react'
+classnames = require 'classnames'
+
 AccountsIframe = require './accounts-iframe-mixin'
+User  = require './model'
 
 UserLogin = React.createClass
 
@@ -13,11 +16,14 @@ UserLogin = React.createClass
     @props.onComplete()
 
   # called by iframe when it's content is loaded and it's ready for requests
-  iFrameReady: ->
+  onIframeReady: ->
+    @setState(isLoading: true)
     @sendCommand('displayLogin', User.endpoints.iframe_login)
 
   render: ->
-    <div className="-user-login">
+    classlist = classnames('user-login', 'is-loading': @state.isLoading)
+
+    <div className={classlist}>
       {@renderIframe()}
     </div>
 
