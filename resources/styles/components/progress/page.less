@@ -2,13 +2,20 @@
   display: table-row;
   width: 100%;
 
-  h4,
+  .concept-coach-progress-page-title,
   .concept-coach-progress-page-last-worked,
   .concept-coach-progress-exercises {
     display: table-cell;
     vertical-align: middle;
     border-bottom: 1px solid @openstax-neutral-lighter;
     padding: 0.75rem 0;
+  }
+
+  .concept-coach-progress-page-title .chapter-section-prefix {
+    width: inherit;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .concept-coach-progress-page-last-worked {
