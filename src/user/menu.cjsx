@@ -4,7 +4,6 @@ BS = require 'react-bootstrap'
 
 Status = require './status-mixin'
 
-User = require './model'
 Coach = require '../concept-coach/model'
 
 api = require '../api'
@@ -19,14 +18,10 @@ UserMenu = React.createClass
     close: React.PropTypes.func
 
   componentWillMount: ->
-    User.ensureStatusLoaded()
-    User.channel.on("change", @update)
-
-  componentWillUnmount: ->
-    User.channel.off("change", @update)
+    @getUser().ensureStatusLoaded()
 
   logoutUser: ->
-    User.logout()
+    @getUser().logout()
 
   showProfile: ->
     Coach.channel.emit('show.panel', view: 'profile')
@@ -40,35 +35,12 @@ UserMenu = React.createClass
 
   render: ->
     # The menu has no valid actions unless the useris logged in
-    return null unless User.isLoggedIn()
+    user = @getUser()
+    return null unless user.isLoggedIn()
 
-    <BS.DropdownButton navItem className='concept-coach-user' title={User.name}>
+    <BS.DropdownButton navItem className='concept-coach-user' title={user.name}>
       <BS.MenuItem onClick={@showProfile}>Account Profile</BS.MenuItem>
       <BS.MenuItem onClick={@logoutUser}>Logout</BS.MenuItem>
     </BS.DropdownButton>
-
-
-
-    # brand = [
-    #   <strong>Concept</strong>
-    #   'Coach'
-    # ]
-
-    # <BS.Navbar brand={brand} fixedTop fluid>
-    #   <BS.CollapsibleNav eventKey={0}>
-    #     <BS.Nav navbar>
-    #     </BS.Nav>
-    #     <BS.Nav right navbar>
-    #       <BS.NavItem className='concept-coach-user'>
-    #         {user.name}
-    #       </BS.NavItem>
-    #       {@renderLogout()}
-    #       <BS.NavItem onClick={@close}>
-    #         <CloseButton/>
-    #       </BS.NavItem>
-    #     </BS.Nav>
-    #   </BS.CollapsibleNav>
-    # </BS.Navbar>
-
 
 module.exports = UserMenu
