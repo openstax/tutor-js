@@ -27,44 +27,9 @@ getCurrentPanel = (stepId) ->
     panel = 'multiple-choice'
   panel
 
-getProps = (stepId) ->
-  step = steps[stepId] or {content: {questions:[{formats:[]}]}}
-  steps[stepId] ?= step
-
-  props =
-    taskId: step.task_id
-    step: step
-    getCurrentPanel: getCurrentPanel
-
-    setAnswerId: (stepId, answerId) ->
-      step.answer_id = answerId
-      eventData = change: step, data: step, status: 'saving'
-
-      channel.emit("change.#{stepId}", eventData)
-      api.channel.emit("exercise.#{stepId}.send.save", eventData)
-
-    setFreeResponseAnswer: (stepId, freeResponse) ->
-      step.free_response = freeResponse
-      eventData = change: step, data: step, status: 'saving'
-
-      channel.emit("change.#{stepId}", eventData)
-      api.channel.emit("exercise.#{stepId}.send.save", eventData)
-
-    onContinue: ->
-      step.is_completed = true
-      eventData = change: step, data: step, status: 'loading'
-
-      channel.emit("change.#{stepId}", eventData)
-      api.channel.emit("exercise.#{stepId}.send.complete", eventData)
-
-    onStepCompleted: ->
-      console.info('onStepCompleted')
-      channel.emit("completed.#{stepId}")
-
-    onNextStep: ->
-      console.info('onNextStep')
-      channel.emit("leave.#{stepId}")
+get = (stepId) ->
+  steps[stepId]
 
 api.channel.on("exercise.*.receive.*", update)
 
-module.exports = {fetch, getCurrentPanel, getProps, channel}
+module.exports = {fetch, getCurrentPanel, get, channel}

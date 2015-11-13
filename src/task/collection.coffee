@@ -1,4 +1,5 @@
 EventEmitter2 = require 'eventemitter2'
+_ = require 'underscore'
 api = require '../api'
 
 tasks = {}
@@ -19,7 +20,7 @@ fetch = (taskId) ->
   channel.emit("fetch.#{taskId}", eventData)
   api.channel.emit("task.#{taskId}.send.fetch", eventData)
 
-fetchByModule = (collectionUUID, moduleUUID) ->
+fetchByModule = ({collectionUUID, moduleUUID}) ->
   eventData = {data: {collectionUUID, moduleUUID}, status: 'loading'}
   eventData.query = "#{collectionUUID}/#{moduleUUID}"
 
@@ -29,6 +30,28 @@ fetchByModule = (collectionUUID, moduleUUID) ->
 get = (taskId) ->
   tasks[taskId]
 
+getCompleteSteps = (taskId) ->
+  _.filter(tasks[taskId].steps, (step) ->
+    step? and step.is_completed
+  )
+
+getIncompleteSteps = (taskId) ->
+  _.filter(tasks[taskId].steps, (step) ->
+    step? and not step.is_completed
+  )
+
+getFirstIncompleteIndex = (taskId) ->
+  _.max [_.findIndex(tasks[taskId]?.steps, {is_completed: false}), 0]
+
 api.channel.on("task.*.receive.*", update)
 
-module.exports = {load, fetch, fetchByModule, get, channel}
+module.exports = {
+  load,
+  fetch,
+  fetchByModule,
+  get,
+  getCompleteSteps,
+  getIncompleteSteps,
+  getFirstIncompleteIndex,
+  channel
+}

@@ -24,9 +24,17 @@ UserStatus = React.createClass
   update: ->
     @forceUpdate() if @isMounted()
 
-  close: (clickEvent) ->
-    clickEvent.preventDefault()
+  showProfile: ->
+    user.channel.emit("show.task", {view: 'task'})
+
+  showProgress: ->
+    user.channel.emit("show.progress", {view: 'dashboard'})
+
+  close: ->
     @props.close?()
+
+  handleSelect: (selectedKey) ->
+    @[selectedKey]?()
 
   render: ->
     status = if user.isLoggedIn() then "logged in as #{user.name}" else 'an unknown user'
@@ -38,11 +46,19 @@ UserStatus = React.createClass
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
         </BS.Nav>
-        <BS.Nav right navbar>
-          <BS.NavItem className='concept-coach-user'>
+        <BS.Nav right navbar activeKey={1} onSelect={@handleSelect}>
+          <BS.NavItem
+            eventKey={'showProfile'}
+            className='concept-coach-user'>
             {user.name}
           </BS.NavItem>
-          <BS.NavItem onClick={@close}>
+          <BS.NavItem
+            eventKey={'showProgress'}
+            className='concept-coach-dashboard-button'>
+            My Progress
+          </BS.NavItem>
+          <BS.NavItem
+            eventKey={'close'}>
             <CloseButton/>
           </BS.NavItem>
         </BS.Nav>

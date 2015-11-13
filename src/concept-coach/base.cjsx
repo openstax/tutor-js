@@ -3,11 +3,12 @@ classnames = require 'classnames'
 {SmartOverflow} = require 'openstax-react-components'
 
 {Task} = require '../task'
-UserStatus = require '../user/status'
+{Navigation} = require './navigation'
 UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
 
 {ExerciseStep} = require '../exercise'
+{Dashboard} = require '../dashboard'
 
 CourseRegistration = require '../course/registration'
 User = require '../user/model'
@@ -23,15 +24,10 @@ ConceptCoach = React.createClass
     collectionUUID: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    isLoggedIn: User.isLoggedIn()
-    displayLogin: false
-    isLoaded: User.isLoaded
+    userState = @getUserState()
+    userState.view = 'task'
 
-  onAttemptLogin: ->
-    @setState(displayLogin: true)
-
-  onLoginComplete: ->
-    @setState(displayLogin: false)
+    userState
 
   componentWillMount: ->
     User.ensureStatusLoaded()
@@ -39,40 +35,58 @@ ConceptCoach = React.createClass
   componentDidMount: ->
     mountData = coach: {el: @getDOMNode(), action: 'mount'}
     channel.emit('coach.mount.success', mountData)
-    User.channel.on('change', @update)
+    User.channel.on('change', @updateUser)
+    channel.on('show.*', @updateView)
 
   componentWillUnmount: ->
     mountData = coach: {el: @getDOMNode(), action: 'unmount'}
     channel.emit('coach.unmount.success', mountData)
-    User.channel.off('change', @update)
+    User.channel.off('change', @updateUser)
+    channel.off('show.*', @updateView)
 
-  update: ->
+  updateView: (eventData) ->
+    {view} = eventData
+    @setState({view}) if view?
+
+  getUserState: ->
     course = User.getCourse(@props.collectionUUID)
-    @setState(
-      isLoggedIn: User.isLoggedIn(),
-      isLoaded: User.isLoaded,
-      isRegistered: course?.isRegistered()
-    )
+
+    isLoggedIn: User.isLoggedIn(),
+    isLoaded: User.isLoaded,
+    isRegistered: course?.isRegistered()
+
+  updateUser: ->
+    userState = @getUserState()
+    @setState(userState)
 
   childComponent: ->
-    {isLoaded, isRegistered, isLoggedIn, displayLogin} = @state
+    {isLoaded, isRegistered, isLoggedIn, displayLogin, view} = @state
+
     if not isLoaded
       <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
     else if not isLoggedIn
-      <UserLogin onComplete={@onLoginComplete} />
+      <UserLogin onComplete={@updateUser} />
     else if not isRegistered
-      <CourseRegistration {...@props} onComplete={@update} />
+      <CourseRegistration {...@props} onComplete={@updateUser} />
     else
-      <Task {...@props} key='task'/>
+      course = User.getCourse(@props.collectionUUID)
+
+      if view is 'task'
+        coach = <Task {...@props} key='task'/>
+      else if view is 'dashboard'
+        coach = <Dashboard id={course.id}/>
+      else if view is 'profile'
+        coach = <CourseRegistration {...@props} onComplete={@updateUser} />
 
   render: ->
     {isLoaded, isLoggedIn} = @state
+    course = User.getCourse(@props.collectionUUID)
 
     className = classnames 'concept-coach-view',
       loading: not (isLoggedIn or isLoaded)
 
     <div className='concept-coach'>
-      <UserStatus key='user-status' close={@props.close}/>
+      <Navigation key='user-status' close={@props.close} course={course}/>
       <div className={className}>
         {@childComponent()}
       </div>

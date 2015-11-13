@@ -1,64 +1,95 @@
 React = require 'react'
+_ = require 'underscore'
 {channel} = tasks = require './collection'
 api = require '../api'
+{Reactive} = require '../reactive'
+channelName = 'task'
 
 exercises = {ExerciseStep} = require '../exercise'
 breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
 
-Task = React.createClass
-  displayName: 'Task'
+{TaskReview} = require './review'
+
+TaskBase = React.createClass
+  displayName: 'TaskBase'
   getInitialState: ->
-    {collectionUUID, moduleUUID} = @props
-    taskId = "#{collectionUUID}/#{moduleUUID}"
+    {item} = @props
 
-    task: tasks.get(taskId)
+    task: item
     currentStep: 0
-
-  update: (eventData) ->
-    {collectionUUID, moduleUUID} = @props
-    taskId = "#{collectionUUID}/#{moduleUUID}"
-
-    task = tasks.get(taskId)
-    @setState(task: task)
 
   nextStep: ->
     {currentStep} = @state
-
     @setState(currentStep: currentStep + 1)
 
   goToStep: (stepIndex) ->
     @setState(currentStep: stepIndex)
 
-  componentWillMount: ->
-    {collectionUUID, moduleUUID} = @props
-    taskId = "#{collectionUUID}/#{moduleUUID}"
+  goToFirstIncomplete: ->
+    {taskId} = @props
+    stepIndex = tasks.getFirstIncompleteIndex(taskId)
+    @setState(currentStep: stepIndex)
 
-    tasks.fetchByModule(collectionUUID, moduleUUID)
-    tasks.channel.on("load.#{taskId}", @update)
+  componentWillMount: ->
     exercises.channel.on('leave.*', @nextStep)
 
   componentWillUnmount: ->
-    {collectionUUID, moduleUUID} = @props
-    taskId = "#{collectionUUID}/#{moduleUUID}"
-
-    tasks.channel.off("load.#{taskId}", @update)
     exercises.channel.off('leave.*', @nextStep)
+
+  componentWillReceiveProps: (nextProps) ->
+    nextState =
+      task: nextProps.item
+
+    if (_.isEmpty(@props.item) and not _.isEmpty(nextProps.item)) or
+      (@props.taskId isnt nextProps.taskId)
+        stepIndex = tasks.getFirstIncompleteIndex(nextProps.taskId)
+        nextState.currentStep = stepIndex
+
+    @setState(nextState)
 
   render: ->
     {task, currentStep} = @state
-    if task?
-      breadcrumbs = <Breadcrumbs
-        {...@props}
-        goToStep={@goToStep}
-        currentStep={currentStep}/>
+    return null unless task?
 
-      <div className='concept-coach-task'>
-        {breadcrumbs}
-        <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
-      </div>
-    else
-      # TODO finesse
-      null
+    breadcrumbs = <Breadcrumbs
+      {...@props}
+      goToStep={@goToStep}
+      currentStep={currentStep}/>
+
+    if task.steps[currentStep]?
+      panel = <ExerciseStep id={task.steps[currentStep].id} pinned={false}/>
+    else if currentStep is task.steps.length
+      panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
+
+    <div className='concept-coach-task'>
+      {breadcrumbs}
+      {panel}
+    </div>
+
+
+Task = React.createClass
+  displayName: 'Task'
+  filter: (props, eventData) ->
+    setProps = _.pick(props, 'collectionUUID', 'moduleUUID')
+    receivedData = _.pick(eventData.data, 'collectionUUID', 'moduleUUID')
+
+    _.isEqual(setProps, receivedData)
+
+  render: ->
+    {collectionUUID, moduleUUID} = @props
+    taskId = "#{collectionUUID}/#{moduleUUID}"
+
+    <Reactive
+      id={taskId}
+      store={tasks}
+      channelName={channelName}
+      collectionUUID={collectionUUID}
+      moduleUUID={moduleUUID}
+      fetcher={tasks.fetchByModule}
+      filter={@filter}>
+      <TaskBase {...@props} taskId={taskId}/>
+    </Reactive>
+
 
 
 module.exports = {Task, channel}
