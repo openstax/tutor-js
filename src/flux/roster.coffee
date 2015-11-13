@@ -15,21 +15,23 @@ RosterConfig = {
   saved: (newProps, studentId) ->
     # update the student from all the courses rosters
     for courseId, roster of @_local
-      student = _.findWhere(roster, id: studentId)
+      students = roster.students
+      student = _.findWhere(students, id: studentId)
       _.extend(student, newProps) if student
     @emitChange()
 
   deleted: (unused, studentId) ->
     # remove the student from all the courses rosters
     for courseId, roster of @_local
-      index = _.findIndex(roster, id: studentId)
-      roster.splice(index, 1) unless -1 is index
+      students = roster.students
+      index = _.findIndex(students, id: studentId)
+      students.splice(index, 1) unless -1 is index
     @emitChange()
 
   exports:
 
     getActiveStudentsForPeriod: (courseId, periodId) ->
-      _.where(@_get(courseId), period_id: periodId, is_active: true)
+      _.where(@_get(courseId).students, period_id: periodId, is_active: true)
 
 }
 
