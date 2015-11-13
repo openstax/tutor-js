@@ -7,12 +7,16 @@ flux = require 'flux-react'
 LOADING = 'loading'
 LOADED  = 'loaded'
 FAILED  = 'failed'
+DELETING = 'deleting'
+DELETED = 'deleted'
 
 CourseListingActions = flux.createActions [
   'load'
   'loaded'
   'reset'
   'FAILED'
+  'delete'
+  'deleted'
 ]
 
 CourseListingStore = flux.createStore
@@ -39,6 +43,15 @@ CourseListingStore = flux.createStore
       course.id # Store only the ids
     @_asyncStatus = LOADED
     @emit('loaded')
+
+  delete: (courseId) ->
+    @_asyncStatus[courseId] = DELETING
+    @_course_ids = _.without(@_course_ids, courseId)
+    @emit(DELETING)
+
+  deleted: (courseId) ->
+    @_asyncStatus[courseId] = DELETED
+    @emit(DELETED)
 
   exports:
     isLoading: -> @_asyncStatus is LOADING

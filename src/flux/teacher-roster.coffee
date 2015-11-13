@@ -1,6 +1,7 @@
 # coffeelint: disable=no_empty_functions
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {CourseActions} = require './course'
+{CourseListingActions} = require './course-listing'
 _ = require 'underscore'
 
 DELETING = 'deleting'
@@ -8,11 +9,13 @@ DELETED = 'deleted'
 
 TeacherRosterConfig = {
 
-  delete: (teacherId) ->
+  delete: (teacherId, courseId) ->
     @_asyncStatus[teacherId] = DELETING
     @emit(DELETING)
 
-  deleted: (result, teacherId) ->
+  deleted: (result, teacherId, courseId) ->
+    @_asyncStatus[teacherId] = DELETED
+    CourseListingActions.delete(courseId)
     @emit(DELETED)
 
   exports:

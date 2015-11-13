@@ -27,12 +27,11 @@ module.exports = React.createClass
 
   goToDashboard: ->
     TeacherRosterStore.once 'deleted', =>
-      #window.location.href = '/dashboard/'
       @context.router.transitionTo('dashboard')
 
   performDeletion: ->
     {courseId} = @props
-    TeacherRosterActions.delete(@props.teacher.id)
+    TeacherRosterActions.delete(@props.teacher.id, courseId)
     if @isRemovalCurrentTeacher() then @goToDashboard() else CourseActions.load(courseId)
 
   confirmPopOver: ->
