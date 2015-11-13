@@ -64,7 +64,7 @@ module.exports = React.createClass
 
       <div className={formClasses.join(' ')} >
         <RenameCourseField
-        label="Rename Course"
+        label="Course Name"
         name="course-name"
         default={@props.course.name}
         onChange={(val) => @setState(course_name: val)}

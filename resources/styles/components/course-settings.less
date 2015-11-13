@@ -24,7 +24,7 @@
   .course-settings-subtitle {
     font-size: 2.5rem;
     &.tabbed {
-      padding-top: 40px; 
+      padding-top: 40px;
     }
     padding-bottom: 15px;
     display: inline-block;
@@ -48,6 +48,15 @@
       &.btn {
         padding: 0;
       }
+    }
+  }
+
+  .edit-course {
+    color: @tutor-tertiary-light;
+    text-transform: capitalize;
+    margin-left: 10px;
+    &.btn {
+      padding: 0;
     }
   }
 
@@ -83,13 +92,14 @@
   }
 }
 
-.teacher-edit-period-modal {
+.teacher-edit-period-modal, .teacher-edit-course-modal {
 
   .tutor-plan-modal(@tutor-tertiary-light);
 
   .tutor-modal();
 
 }
+
 
 .teacher-remove.popover {
   .warning {
