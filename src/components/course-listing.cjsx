@@ -49,7 +49,7 @@ CourseListing = React.createClass
 
   renderCourses: (courses) ->
     _.map courses, (course) =>
-      {id:courseId, name, roles} = course
+      {id:courseId, name, roles, is_concept_coach:isConceptCoach} = course
       isStudent = _.find roles, (role) -> role.type is 'student'
       isTeacher = _.find roles, (role) -> role.type is 'teacher'
 
@@ -66,9 +66,10 @@ CourseListing = React.createClass
             to='taskplans'
             params={{courseId}}>View as Teacher</Router.Link>
         else
+          to = if isConceptCoach then 'cc-taskplans' else 'taskplans'
           courseLink = <Router.Link
             className='tutor-course-item'
-            to='taskplans'
+            to={to}
             params={{courseId}}>{course.name}</Router.Link>
 
       courseDataProps = @getCourseDataProps(courseId)

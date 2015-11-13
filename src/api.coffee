@@ -101,7 +101,6 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
           catch e
             msg = jqXhr.responseText
           Actions.FAILED(statusCode, msg, args...)
-
       $.ajax(url, opts)
       .then(resolved, rejected)
 
@@ -161,6 +160,9 @@ start = (bootstrapData) ->
 
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
+
+  apiHelper CourseActions, CourseActions.loadCCDashboard, CourseActions.loadedCCDashboard, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/cc/dashboard"
 
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->

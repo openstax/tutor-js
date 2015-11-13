@@ -50,6 +50,19 @@ CourseConfig =
     TaskActions.loaded(obj, obj.id)
     @emit('practice.loaded', obj.id)
 
+  _cc_dashboard: {}
+  _asyncStatusCCDashboard: {}
+
+  loadCCDashboard: (courseId) ->
+    delete @_cc_dashboard[courseId]
+    @_asyncStatusCCDashboard[courseId] = 'loading'
+    @emitChange()
+
+  loadedCCDashboard: (obj, courseId) ->
+    @_cc_dashboard[courseId] = obj
+    @_asyncStatusCCDashboard[courseId] = 'loaded'
+    @emitChange()
+
   _loaded: (obj, id) ->
     @emit('course.loaded', obj.id)
 
@@ -69,6 +82,9 @@ CourseConfig =
     isPracticeLoading: (courseId) -> @_asyncStatusPractices[courseId] is 'loading'
     isPracticeLoaded: (courseId) -> !! @_practices[courseId]
 
+    isCCDashboardLoading: (courseId) -> @_asyncStatusCCDashboard is 'loading'
+    isCCDashboardLoaded : (courseId) -> !! @_cc_dashboard[courseId]
+
     getPracticeId: (courseId) ->
       @_practices[courseId]?.id
 
@@ -84,6 +100,9 @@ CourseConfig =
         task = TaskStore.get(id)
       task
 
+    getCCDashboard: (courseId) ->
+      @_cc_dashboard[courseId]
+
     # This is currently bassed on the course title.
     # eventually the backend will provide it as part of the course's metadata.
     getCategory: (courseId) ->
@@ -98,6 +117,9 @@ CourseConfig =
     getPeriods: (courseId) ->
       periods = @_get(courseId).periods or []
       sortedPeriods = PeriodHelper.sort(periods)
+
+    getCCPeriods: (courseId) ->
+      @_cc_dashboard[courseId]?.periods
 
     getTimezone: (courseId) ->
       @_get(courseId)?.timezone or DEFAULT_COURSE_TIMEZONE
