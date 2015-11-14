@@ -18,17 +18,17 @@ TaskBase = React.createClass
     task: item
     currentStep: 0
 
-  nextStep: ->
-    {currentStep} = @state
-    @setState(currentStep: currentStep + 1)
-
   goToStep: (stepIndex) ->
     @setState(currentStep: stepIndex)
+
+  nextStep: ->
+    {currentStep} = @state
+    @goToStep(currentStep + 1)
 
   goToFirstIncomplete: ->
     {taskId} = @props
     stepIndex = tasks.getFirstIncompleteIndex(taskId)
-    @setState(currentStep: stepIndex)
+    @goToStep(stepIndex)
 
   componentWillMount: ->
     exercises.channel.on('leave.*', @nextStep)
@@ -70,8 +70,10 @@ TaskBase = React.createClass
 Task = React.createClass
   displayName: 'Task'
   filter: (props, eventData) ->
-    setProps = _.pick(props, 'collectionUUID', 'moduleUUID')
-    receivedData = _.pick(eventData.data, 'collectionUUID', 'moduleUUID')
+    toCompare = ['collectionUUID', 'moduleUUID']
+
+    setProps = _.pick(props, toCompare)
+    receivedData = _.pick(eventData.data, toCompare)
 
     _.isEqual(setProps, receivedData)
 

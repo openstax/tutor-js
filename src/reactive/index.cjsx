@@ -88,7 +88,7 @@ Reactive = React.createClass
     classes = classnames 'reactive', "reactive-#{status}", className,
       'is-empty': _.isEmpty(item)
 
-    propsForChildren = _.clone(@state)
+    propsForChildren = _.pick(@state, 'status', 'item')
 
     reactiveItems = React.Children.map(@props.children, (child) ->
       React.addons.cloneWithProps(child, propsForChildren)

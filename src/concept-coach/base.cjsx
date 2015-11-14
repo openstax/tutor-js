@@ -39,19 +39,25 @@ ConceptCoach = React.createClass
     User.ensureStatusLoaded()
 
   componentDidMount: ->
-    mountData = coach: {el: @getDOMNode(), action: 'mount'}
+    mountData = @getMountData('mount')
     channel.emit('coach.mount.success', mountData)
+
     User.channel.on('change', @updateUser)
     channel.on('show.*', @updateView)
 
   componentWillUnmount: ->
-    {moduleUUID, collectionUUID} = @props
-    {view} = @state
-
-    mountData = coach: {el: @getDOMNode(), action: 'unmount', view, moduleUUID, collectionUUID}
+    mountData = @getMountData('ummount')
     channel.emit('coach.unmount.success', mountData)
+
     User.channel.off('change', @updateUser)
     channel.off('show.*', @updateView)
+
+  getMountData: (action) ->
+    {moduleUUID, collectionUUID} = @props
+    {view} = @state
+    el = @getDOMNode()
+
+    coach: {el, action, view, moduleUUID, collectionUUID}
 
   updateView: (eventData) ->
     {view} = eventData

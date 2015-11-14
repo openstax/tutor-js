@@ -13,7 +13,7 @@ DashboardBase = React.createClass
   getDefaultProps: ->
     item: {}
   render: ->
-    {item, className, status} = @props
+    {item, status} = @props
     courses = _.map item.courses, (course) ->
       <CourseItem key={course.id} course={course}/>
 

@@ -20,6 +20,7 @@ listenAndBroadcast = (channelOut) ->
 
   channel.on 'coach.mount.success', (eventData) ->
     channelOut.emit('open', eventData)
+
   channel.on 'coach.unmount.success', (eventData) ->
     cache = _.pick(eventData.coach, 'view', 'moduleUUID', 'collectionUUID')
     _.extend(model, cache)
