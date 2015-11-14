@@ -24,9 +24,14 @@ ConceptCoach = React.createClass
     moduleUUID:     React.PropTypes.string.isRequired
     collectionUUID: React.PropTypes.string.isRequired
 
+  getDefaultProps: ->
+    defaultView: 'task'
+
   getInitialState: ->
+    {defaultView} = @props
+
     userState = @getUserState()
-    userState.view = 'task'
+    userState.view = defaultView
 
     userState
 
@@ -40,7 +45,10 @@ ConceptCoach = React.createClass
     channel.on('show.*', @updateView)
 
   componentWillUnmount: ->
-    mountData = coach: {el: @getDOMNode(), action: 'unmount'}
+    {moduleUUID, collectionUUID} = @props
+    {view} = @state
+
+    mountData = coach: {el: @getDOMNode(), action: 'unmount', view, moduleUUID, collectionUUID}
     channel.emit('coach.unmount.success', mountData)
     User.channel.off('change', @updateUser)
     channel.off('show.*', @updateView)
@@ -52,8 +60,8 @@ ConceptCoach = React.createClass
   getUserState: ->
     course = User.getCourse(@props.collectionUUID)
 
-    isLoggedIn: User.isLoggedIn(),
-    isLoaded: User.isLoaded,
+    isLoggedIn: User.isLoggedIn()
+    isLoaded: User.isLoaded
     isRegistered: course?.isRegistered()
 
   updateUser: ->

@@ -4,7 +4,8 @@ EventEmitter2 = require 'eventemitter2'
 helpers = require '../helpers'
 api = require '../api'
 
-{ModalCoach, channel} = require './modal-coach'
+{ModalCoach} = require './modal-coach'
+model = {channel} = require './model'
 
 CCWrapped = helpers.wrapComponent(ModalCoach)
 
@@ -19,6 +20,11 @@ listenAndBroadcast = (channelOut) ->
 
   channel.on 'coach.mount.success', (eventData) ->
     channelOut.emit('open', eventData)
+  channel.on 'coach.unmount.success', (eventData) ->
+    cache = _.pick(eventData.coach, 'view', 'moduleUUID', 'collectionUUID')
+    _.extend(model, cache)
+
+    channelOut.emit('close', eventData)
   channel.on 'close.clicked', ->
     channelOut.emit('ui.close')
 
@@ -31,6 +37,10 @@ publicMethods =
 
   open: (mountNode, props) ->
     props = _.clone(props)
+
+    toCompare = ['moduleUUID', 'collectionUUID']
+    if _.isEqual(_.pick(props, toCompare), _.pick(model, toCompare))
+      props.defaultView ?= model.view
 
     modalNode = document.createElement('div')
     modalNode.classList.add('concept-coach-wrapper')
