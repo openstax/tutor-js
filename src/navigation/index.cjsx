@@ -7,6 +7,7 @@ BS = require 'react-bootstrap'
 user = require '../user/model'
 {channel} = require './model'
 api = require '../api'
+UserMenu = require '../user/menu'
 
 Navigation = React.createClass
   displayName: 'Navigation'
@@ -26,9 +27,6 @@ Navigation = React.createClass
 
   update: ->
     @forceUpdate() if @isMounted()
-
-  showProfile: ->
-    channel.emit('show.profile', {view: 'profile'})
 
   showExercise: ->
     channel.emit('show.task', {view: 'task'})
@@ -55,14 +53,6 @@ Navigation = React.createClass
       <strong>Concept</strong> Coach
     </a>
 
-    loggedInItems = [
-      <BS.NavItem
-        eventKey='showProfile'
-        className='concept-coach-user'>
-        {user.name}
-      </BS.NavItem>
-    ]
-
     courseItems = [
       <BS.NavItem
         eventKey='showExercise'
@@ -84,7 +74,7 @@ Navigation = React.createClass
           </BS.NavItem>
         </BS.Nav>
         <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
-          {loggedInItems}
+          <UserMenu />
           {courseItems}
           <BS.NavItem
             eventKey='close'>

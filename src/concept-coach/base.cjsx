@@ -4,14 +4,17 @@ classnames = require 'classnames'
 
 {Task} = require '../task'
 navigation = {Navigation} = require '../navigation'
+CourseRegistration = require '../course/registration'
+
 UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
+UserProfile = require '../user/profile'
 
 {ExerciseStep} = require '../exercise'
 {Dashboard} = require '../dashboard'
 {Progress} = require '../progress'
 
-CourseRegistration = require '../course/registration'
+
 User = require '../user/model'
 
 {channel} = require './model'
@@ -63,6 +66,9 @@ ConceptCoach = React.createClass
     {view} = eventData
     @setState({view}) if view?
 
+  showTasks: ->
+    @updateView(view: 'task')
+
   getUserState: ->
     course = User.getCourse(@props.collectionUUID)
 
@@ -87,13 +93,15 @@ ConceptCoach = React.createClass
       course = User.getCourse(@props.collectionUUID)
 
       if view is 'task'
-        coach = <Task {...@props} key='task'/>
+        <Task {...@props} key='task'/>
       else if view is 'progress'
-        coach = <Progress id={course.id}/>
+        <Progress id={course.id}/>
       else if view is 'dashboard'
-        coach = <Dashboard/>
+        <Dashboard/>
       else if view is 'profile'
-        coach = <CourseRegistration {...@props} onComplete={@updateUser} />
+        <UserProfile onComplete={@showTasks} />
+      else
+        <h3 className="error">bad internal state, no view is set</h3>
 
   render: ->
     {isLoaded, isLoggedIn} = @state

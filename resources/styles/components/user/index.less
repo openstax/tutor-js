@@ -1,0 +1,15 @@
+.user-profile,
+.user-login {
+
+  .heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid @openstax-neutral;
+  }
+
+  .openstax-subtle-load(will-load; 'Loading...'; 0.5s);
+  &.is-loading {
+    .openstax-subtle-load(loading; 0.9);
+  }
+}
