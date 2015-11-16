@@ -8,16 +8,24 @@ SETTINGS =
     API_BASE_URL: ''
     COLLECTION_UUID: 'C_UUID'
     MODULE_UUID: 'm_uuid'
+    CNX_URL: ''
   LOCAL:
     API_BASE_URL: 'http://localhost:3001'
     COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'
     MODULE_UUID: '7636a3bf-eb80-4898-8b2c-e81c1711b99f'
+    CNX_URL: 'http://localhost:8000'
+  LOCAL_NOT_REGISTERED:
+    API_BASE_URL: 'http://localhost:3001'
+    COLLECTION_UUID: 'f10533ca-f803-490d-b935'
+    MODULE_UUID: '7636a3bf-eb80-4898-8b2c-e81c1711b99f'
+    CNX_URL: 'http://localhost:8000'
   SERVER:
     API_BASE_URL: 'https://tutor-dev.openstax.org'
     COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'
     MODULE_UUID: '7636a3bf-eb80-4898-8b2c-e81c1711b99f'
+    CNX_URL: 'https://dev.cnx.org'
 
-settings = SETTINGS.LOCAL
+settings = SETTINGS.LOCAL_NOT_REGISTERED
 
 loadApp = ->
   unless document.readyState is 'interactive'
@@ -32,7 +40,12 @@ loadApp = ->
 
   buttonA = document.getElementById('launcher')
   show = ->
-    Demo.open(mainDiv, collectionUUID: settings.COLLECTION_UUID, moduleUUID: settings.MODULE_UUID)
+    demoSettings =
+      collectionUUID: settings.COLLECTION_UUID
+      moduleUUID: settings.MODULE_UUID
+      cnxUrl: settings.CNX_URL
+
+    Demo.open(mainDiv, demoSettings)
     true
   buttonA.addEventListener 'click', show
   if AUTOSHOW

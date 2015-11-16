@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {CloseButton} = require 'openstax-react-components'
+{CourseNameBase} = require './course-name'
+
 
 user = require '../user/model'
 {channel} = require './model'
@@ -76,7 +78,10 @@ Navigation = React.createClass
 
     <BS.Navbar brand={brand} fixedTop fluid>
       <BS.CollapsibleNav eventKey={0}>
-        <BS.Nav navbar>
+        <BS.Nav navbar onSelect={@handleSelect}>
+          <BS.NavItem disabled={true} eventKey='showCourse'>
+            <CourseNameBase course={course}/>
+          </BS.NavItem>
         </BS.Nav>
         <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
           {loggedInItems}
@@ -89,5 +94,4 @@ Navigation = React.createClass
       </BS.CollapsibleNav>
     </BS.Navbar>
 
-
-module.exports = {Navigation}
+module.exports = {Navigation, channel}

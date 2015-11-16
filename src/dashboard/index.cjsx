@@ -3,7 +3,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 {Reactive} = require '../reactive'
-{CourseItem} = require '../course/item'
+{CourseListing} = require '../course/listing'
 User = require '../user/model'
 
 apiChannelName = 'user'
@@ -14,14 +14,10 @@ DashboardBase = React.createClass
     item: {}
   render: ->
     {item, status} = @props
-    courses = _.map item.courses, (course) ->
-      <CourseItem key={course.id} course={course}/>
 
     <div className='concept-coach-courses'>
       <h1>Enrolled Courses</h1>
-      <ul className='concept-coach-courses-listing'>
-        {courses}
-      </ul>
+      <CourseListing courses={item.courses}/>
     </div>
 
 Dashboard = React.createClass

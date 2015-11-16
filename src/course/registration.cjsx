@@ -5,6 +5,8 @@ UserStatus = require '../user/status-mixin'
 Course = require './model'
 ENTER = 'Enter'
 
+{CourseListing} = require './listing'
+
 CourseRegistration = React.createClass
 
   propTypes:
@@ -50,6 +52,15 @@ CourseRegistration = React.createClass
   onKeyPress: (ev) ->
     @startRegistration() if ev.key is ENTER
 
+  renderCurrentCourses: ->
+    <div className='text-center'>
+      <h3>You are not registered for this course.</h3>
+      <p>Did you mean to go to one of these?</p>
+      <CourseListing
+        courses={@getUser().courses}
+        cnxUrl={@props.cnxUrl}/>
+    </div>
+
   renderErrors: ->
     return null unless @course and @course.hasErrors()
     errors = for msg, i in @course.errorMessages()
@@ -60,7 +71,8 @@ CourseRegistration = React.createClass
 
   renderInvite: ->
     <div className="form-group">
-      <h3 className="text-center">Register for a Concept Coach course</h3>
+      {@renderCurrentCourses() if @getUser().courses?.length}
+      <h3 className="text-center">Register for this Concept Coach course</h3>
       <hr/>
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
         {@renderErrors()}

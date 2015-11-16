@@ -3,7 +3,7 @@ classnames = require 'classnames'
 {SmartOverflow} = require 'openstax-react-components'
 
 {Task} = require '../task'
-{Navigation} = require './navigation'
+navigation = {Navigation} = require '../navigation'
 UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
 
@@ -43,14 +43,14 @@ ConceptCoach = React.createClass
     channel.emit('coach.mount.success', mountData)
 
     User.channel.on('change', @updateUser)
-    channel.on('show.*', @updateView)
+    navigation.channel.on('show.*', @updateView)
 
   componentWillUnmount: ->
     mountData = @getMountData('ummount')
     channel.emit('coach.unmount.success', mountData)
 
     User.channel.off('change', @updateUser)
-    channel.off('show.*', @updateView)
+    navigation.channel.off('show.*', @updateView)
 
   getMountData: (action) ->
     {moduleUUID, collectionUUID} = @props
