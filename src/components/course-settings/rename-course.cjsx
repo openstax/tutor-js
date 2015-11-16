@@ -52,9 +52,8 @@ RenameCourse = React.createClass
       @refs.overlay.hide()
 
   renderForm: ->
-    formClasses = ['modal-body', 'teacher-edit-course-form']
+    formClasses = classnames 'modal-body', 'teacher-edit-course-form', 'is-invalid-form': @state?.invalid
     if @state?.invalid
-      formClasses.push('is-invalid-form')
       disabled = true
 
     <BS.Modal
@@ -62,7 +61,7 @@ RenameCourse = React.createClass
       title={'Rename Course'}
       className='teacher-edit-course-modal'>
 
-      <div className={formClasses.join(' ')} >
+      <div className={formClasses} >
         <RenameCourseField
         label='Course Name'
         name='course-name'
