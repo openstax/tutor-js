@@ -23,11 +23,11 @@ AccountsIframeMixin =
     @setState(isLoading: false)
     @onIframeReady()
 
-  loadPage: (pageName) ->
-    @setState(isLoading: true)
-    @sendCommand('loadPage', pageName)
+  displayLoadingStatus: ->
+    @state.isLoading and not User.endpoints.is_stubbed
 
-  sendCommand: (command, payload) ->
+  sendCommand: (command, payload = {}) ->
+    @setState(isLoading: true)
     msg = JSON.stringify(data: {"#{command}": payload})
     React.findDOMNode(@refs.iframe).contentWindow.postMessage(msg, '*')
 
@@ -51,7 +51,9 @@ AccountsIframeMixin =
   renderIframe: ->
     # the other side of the iframe will validate our address and then only send messages to it
     me = window.location.protocol + '//' + window.location.host
-    url = "#{User.endpoints.accounts_iframe}?parent=#{me}"
+
+    url = if User.isLoggingOut then User.endpoints.iframe_logout else User.endpoints.accounts_iframe
+    url = "#{url}?parent=#{me}"
     <iframe src={url} ref='iframe'
       style={width: @state.width, height: @state.height, border: 0}
       id="OxAccountIframe" name="OxAccountIframe">
