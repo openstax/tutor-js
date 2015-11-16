@@ -7,6 +7,8 @@ Preview = require './preview'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
 {ArbitraryHtmlAndMath} = require 'openstax-react-components'
+AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
+
 module.exports = React.createClass
   displayName: 'Exercise'
 
@@ -54,9 +56,20 @@ module.exports = React.createClass
     ExerciseActions.sync(id)
     exercise = ExerciseStore.get(id)
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
-  
-    if ExerciseStore.isPublished(id)
-      isPublished = true
+
+    isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
+
+    if not ExerciseStore.isPublished(id)
+      publishButton = <AsyncButton
+        bsStyle='primary'
+        onClick={@publishExercise}
+        disabled={isWorking}
+        isWaiting={ExerciseStore.isPublishing(id)}
+        waitingText='Publishing...'
+        isFailed={ExerciseStore.isFailed(id)}
+        >
+        Publish
+      </AsyncButton>
 
     <BS.Grid>
       <BS.Row><BS.Col xs={5} className="exercise-editor">
@@ -76,8 +89,17 @@ module.exports = React.createClass
           <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
           </textarea>
         </div>
-        <BS.Button bsStyle="info" disabled={isPublished} onClick={@saveExercise}>Save</BS.Button>
-        <BS.Button bsStyle="primary" disabled={isPublished} onClick={@publishExercise}>Publish</BS.Button>
+        <AsyncButton
+          bsStyle='info'
+          onClick={@saveExercise}
+          disabled={isWorking}
+          isWaiting={ExerciseStore.isSaving(id)}
+          waitingText='Saving...'
+          isFailed={ExerciseStore.isFailed(id)}
+          >
+          Save
+        </AsyncButton>
+        {publishButton}
       </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
       </BS.Col></BS.Row>
