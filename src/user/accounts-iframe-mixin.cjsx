@@ -23,6 +23,11 @@ AccountsIframeMixin =
     @setState(isLoading: false)
     @onIframeReady()
 
+  # called when an login process completes
+  onLogin: (payload) ->
+    api.channel.emit 'user.receive.statusUpdate', data: payload
+    @props.onComplete()
+
   displayLoadingStatus: ->
     @state.isLoading and not User.endpoints.is_stubbed
 
