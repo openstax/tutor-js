@@ -1,34 +1,30 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 AccountsIframe = require './accounts-iframe-mixin'
-User  = require './model'
 
-UserLogin = React.createClass
+UserProfile = React.createClass
 
   mixins: [AccountsIframe]
   propTypes:
     onComplete: React.PropTypes.func.isRequired
 
-  # called when an login process completes
-  onLogin: (payload) ->
-    api.channel.emit 'user.receive.statusUpdate', data: payload
-    @props.onComplete()
-
   # called by iframe when it's content is loaded and it's ready for requests
   onIframeReady: ->
-    @setState(isLoading: true)
-    @sendCommand('displayLogin', User.endpoints.iframe_login)
+    @loadPage('profile')
 
   render: ->
-    classlist = classnames('user-login', 'is-loading': @state.isLoading)
+    classlist = classnames('user-profile', 'is-loading': @state.isLoading)
+
     <div className={classlist}>
       <div className="heading">
         <h3 className="title">{@state?.title}</h3>
+        <i className='close-icon' onClick={@props.onComplete}/>
+
       </div>
       {@renderIframe()}
     </div>
 
 
-
-module.exports = UserLogin
+module.exports = UserProfile
