@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {CourseStore, CourseActions} = require '../../flux/course'
 {TutorInput} = require '../tutor-input'
+classnames = require 'classnames'
 
 RenameCourseField = React.createClass
 
@@ -25,7 +26,7 @@ RenameCourseField = React.createClass
 
   render: ->
     <TutorInput
-      ref="input"
+      ref='input'
       label={@props.label}
       default={@props.default}
       required={true}
@@ -33,8 +34,7 @@ RenameCourseField = React.createClass
       validate={@props.validate}
       />
 
-module.exports = React.createClass
-  displayName: 'RenameCourse'
+RenameCourse = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
@@ -47,7 +47,7 @@ module.exports = React.createClass
     error
 
   performUpdate: ->
-    if not @state.invalid
+    unless @state.invalid
       CourseActions.save(@props.courseId, course: {name: @state.course_name})
       @refs.overlay.hide()
 
@@ -64,8 +64,8 @@ module.exports = React.createClass
 
       <div className={formClasses.join(' ')} >
         <RenameCourseField
-        label="Course Name"
-        name="course-name"
+        label='Course Name'
+        name='course-name'
         default={@props.course.name}
         onChange={(val) => @setState(course_name: val)}
         validate={@validate}
@@ -86,9 +86,11 @@ module.exports = React.createClass
     <BS.OverlayTrigger
     rootClose={true}
     trigger='click'
-    ref="overlay"
+    ref='overlay'
     overlay={@renderForm()}>
         <BS.Button bsStyle='link' className='edit-course'>
           <i className='fa fa-pencil' /> Rename Course
         </BS.Button>
     </BS.OverlayTrigger>
+
+module.exports = RenameCourse
