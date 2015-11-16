@@ -97,7 +97,7 @@ ConceptCoach = React.createClass
       else if view is 'progress'
         <Progress id={course.id}/>
       else if view is 'dashboard'
-        <Dashboard/>
+        <Dashboard cnxUrl={@props.cnxUrl}/>
       else if view is 'profile'
         <UserProfile onComplete={@showTasks} />
       else

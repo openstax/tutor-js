@@ -23,7 +23,8 @@ UserMenu = React.createClass
   logoutUser: ->
     @getUser().logout()
 
-  showProfile: ->
+  showProfile: (clickEvent) ->
+    clickEvent.preventDefault()
     Navigation.channel.emit('show.panel', view: 'profile')
 
   update: ->

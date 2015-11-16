@@ -13,11 +13,13 @@ DashboardBase = React.createClass
   getDefaultProps: ->
     item: {}
   render: ->
-    {item, status} = @props
+    {item, status, cnxUrl} = @props
 
     <div className='concept-coach-courses'>
       <h1>Enrolled Courses</h1>
-      <CourseListing courses={item.courses}/>
+      <CourseListing
+        courses={item.courses}
+        cnxUrl={cnxUrl}/>
     </div>
 
 Dashboard = React.createClass
@@ -29,7 +31,7 @@ Dashboard = React.createClass
       fetcher={User.ensureStatusLoaded.bind(User)}
       apiChannelName={apiChannelName}
       channelUpdatePattern='change'>
-      <DashboardBase/>
+      <DashboardBase cnxUrl={@props.cnxUrl}/>
     </Reactive>
 
 module.exports = {Dashboard, DashboardBase}
