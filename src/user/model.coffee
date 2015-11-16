@@ -20,9 +20,11 @@ User =
     _.extend(this, data.user)
     @courses = _.map data.courses, (course) => new Course(@, course)
     @channel.emit('change')
+    delete @isLoggingOut
 
   logout: ->
     _.extend(this, BLANK_USER)
+    @isLoggingOut = true
     @channel.emit('change')
 
   getCourse: (collectionUUID) ->
@@ -43,6 +45,7 @@ User =
 
   onCourseUpdate: (course) ->
     @channel.emit('change')
+
   removeCourse: (course) ->
     index = @courses.indexOf(course)
     @courses.splice(index, 1) unless index is -1
@@ -54,7 +57,12 @@ api.channel.on 'user.receive.*', ({data}) ->
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
   User.endpoints = data.endpoints
-  if data.user then User.update(data) else User.logout()
+  if data.user
+    User.update(data)
+  else
+    _.extend(this, BLANK_USER)
+    User.channel.emit('change')
+
 
 # start out as a blank user
 _.extend(User, BLANK_USER)
