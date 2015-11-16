@@ -66,8 +66,10 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 
 start = ->
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (id) ->
-    url: "/api/exercises/#{id}"
-
+    if id.indexOf("@") is -1
+      url: "/api/exercises/#{id}@draft"
+    else
+      url: "/api/exercises/#{id}"
     
   apiHelper ExerciseActions, ExerciseActions.save, ExerciseActions.saved, 'PUT', (id) ->
     
@@ -75,7 +77,7 @@ start = ->
     obj = ExerciseStore.getChanged(id)
     obj.exercise = ExerciseStore.get(id)
 
-    url: "/api/exercises/#{id}"
+    url: "/api/exercises/#{id}@draft"
     httpMethod: 'PUT'
     payload: obj
 
@@ -83,8 +85,9 @@ start = ->
   apiHelper ExerciseActions, ExerciseActions.publish, ExerciseActions.saved, 'PUT', (id) ->
     
     obj = ExerciseStore.get(id)
+    uid = ExerciseStore.getId(id)
 
-    url: "/api/exercises/#{id}/publish"
+    url: "/api/exercises/#{uid}/publish"
     httpMethod: 'PUT'
     payload: obj
 
