@@ -77,7 +77,9 @@ start = ->
     obj = ExerciseStore.getChanged(id)
     obj.exercise = ExerciseStore.get(id)
 
-    url: "/api/exercises/#{id}@draft"
+    exerciseId = if id.indexOf("@") is -1 then id else id.split("@")[0]
+      
+    url:"/api/exercises/#{exerciseId}@draft"
     httpMethod: 'PUT'
     payload: obj
 
