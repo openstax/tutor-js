@@ -3,6 +3,7 @@ classnames = require 'classnames'
 
 AccountsIframe = require './accounts-iframe-mixin'
 User  = require './model'
+api = require '../api'
 
 UserLogin = React.createClass
 
@@ -17,7 +18,7 @@ UserLogin = React.createClass
 
   # called by iframe when it's content is loaded and it's ready for requests
   onIframeReady: ->
-    @setState(isLoading: true)
+    # @setState(isLoading: true)
     @sendCommand('displayLogin', User.endpoints.iframe_login)
 
   render: ->
