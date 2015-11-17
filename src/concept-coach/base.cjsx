@@ -5,8 +5,6 @@ classnames = require 'classnames'
 {Task} = require '../task'
 navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
-
-UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
 UserProfile = require '../user/profile'
 
