@@ -14,7 +14,7 @@ UserLoginButton = React.createClass
     User.channel.off("change", @onUserChange)
 
   onUserChange: ->
-    @forceUpdate()
+    @forceUpdate() if @isMounted()
 
   render: ->
     return null if User.isLoggedIn()

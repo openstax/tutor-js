@@ -38,7 +38,7 @@ CourseRegistration = React.createClass
     if @course.isRegistered()
       # wait 1.5 secs so our success message is briefly displayed, then call onComplete
       _.delay(@props.onComplete, 1500)
-    @forceUpdate()
+    @forceUpdate() if @isMounted()
 
   componentWillUnmount: ->
     @clearCourse()

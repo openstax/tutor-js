@@ -31,32 +31,42 @@ loadApp = ->
   Demo.on 'open', Demo.handleOpened
   Demo.on 'ui.close', Demo.handleClosed
 
+  Demo.on 'view.update', (eventData) ->
+    if eventData.url isnt location.pathname
+      history.pushState(eventData.state, null, eventData.url)
+
   mainDiv = document.getElementById('react-root-container')
 
   buttonA = document.getElementById('launcher')
   buttonB = document.getElementById('launcher-fake')
 
-  show = ->
-    demoSettings =
-      collectionUUID: settings.COLLECTION_UUID
-      moduleUUID: settings.MODULE_UUID
-      cnxUrl: settings.CNX_URL
+  demoSettings =
+    collectionUUID: settings.COLLECTION_UUID
+    moduleUUID: settings.MODULE_UUID
+    cnxUrl: settings.CNX_URL
 
+  show = ->
     Demo.open(mainDiv, demoSettings)
     true
 
   showFake = ->
-    demoSettings =
+    fakeSettings =
       collectionUUID: 'FAKE_COLLECTION'
       moduleUUID: 'FAKE_MODULE'
       cnxUrl: settings.CNX_URL
 
-    Demo.open(mainDiv, demoSettings)
+    Demo.open(mainDiv, fakeSettings)
     true
 
   buttonA.addEventListener 'click', show
   buttonB.addEventListener 'click', showFake
 
+  window.addEventListener 'popstate', (eventData) ->
+    view = Demo.getViewByUrl(location.pathname)
+    if view?
+      Demo.emit("show.#{view}", {view})
+
+  Demo.openByUrl(mainDiv, demoSettings, location.pathname) if location.pathname?
 
   if AUTOSHOW
     setTimeout( show, 300)

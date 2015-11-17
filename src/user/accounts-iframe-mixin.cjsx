@@ -49,13 +49,16 @@ AccountsIframeMixin =
     window.addEventListener('message', @parseAndDispatchMessage)
 
   renderIframe: ->
-    # the other side of the iframe will validate our address and then only send messages to it
-    me = window.location.protocol + '//' + window.location.host
-    url = "#{User.endpoints.accounts_iframe}?parent=#{me}"
-    <iframe src={url} ref='iframe'
-      style={width: @state.width, height: @state.height, border: 0}
-      id="OxAccountIframe" name="OxAccountIframe">
-    </iframe>
+    if User.endpoints?
+      # the other side of the iframe will validate our address and then only send messages to it
+      me = window.location.protocol + '//' + window.location.host
+      url = "#{User.endpoints.accounts_iframe}?parent=#{me}"
+      <iframe src={url} ref='iframe'
+        style={width: @state.width, height: @state.height, border: 0}
+        id="OxAccountIframe" name="OxAccountIframe">
+      </iframe>
+    else
+      null
 
 
 module.exports = AccountsIframeMixin

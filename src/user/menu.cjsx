@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 Status = require './status-mixin'
 
-Navigation = require '../navigation/model'
+navigation = require '../navigation'
 
 api = require '../api'
 
@@ -25,7 +25,7 @@ UserMenu = React.createClass
 
   showProfile: (clickEvent) ->
     clickEvent.preventDefault()
-    Navigation.channel.emit('show.panel', view: 'profile')
+    navigation.channel.emit('show.profile', view: 'profile')
 
   update: ->
     @forceUpdate() if @isMounted()
