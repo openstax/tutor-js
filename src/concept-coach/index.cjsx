@@ -27,20 +27,23 @@ listenAndBroadcast = (channelOut) ->
     channelOut.emit('view.update', navigation.getDataByView(eventData.coach.view))
 
   channel.on 'coach.unmount.success', (eventData) ->
-    view = 'close'
     _.extend(model, eventData.coach)
     channelOut.emit('close', eventData)
-    channelOut.emit('view.update', navigation.getDataByView(view))
+    channelOut.emit('view.update', navigation.getDataByView('close'))
 
   channel.on 'close.clicked', ->
     channelOut.emit('ui.close')
 
   navigation.channel.on 'show.*', (eventData) ->
-    {view} = eventData
-    channelOut.emit('view.update', navigation.getDataByView(view))
+    channelOut.emit('view.update', navigation.getDataByView(eventData.view))
 
   channelOut.on 'show.*', (eventData) ->
-    @updateToView(eventData.view)
+    cc.updateToView(eventData.view)
+
+  navigation.channel.on "switch.*", (eventData) ->
+    {data, view} = eventData
+    cc.update(data)
+    navigation.channel.emit("show.#{view}", {view})
 
 publicMethods =
   init: (baseUrl, navOptions = {}) ->
@@ -97,6 +100,11 @@ publicMethods =
   updateToRoute: (route) ->
     view = navigation.getViewByRoute(route)
     @updateToView(view) if view?
+
+  update: (nextProps) ->
+    return unless @component?
+    props = _.extend({}, _.pick(nextProps, PROPS))
+    @component.setProps(props)
 
   handleOpened: (eventData, scrollTo, body = document.body) ->
     scrollTo ?= _.partial(window.scrollTo, 0)
