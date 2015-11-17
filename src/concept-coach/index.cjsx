@@ -7,25 +7,13 @@ api = require '../api'
 {ModalCoach} = require './modal-coach'
 model = {channel} = require './model'
 
-navigation = require '../navigation'
+navigation = require '../navigation/model'
 
 CCWrapped = helpers.wrapComponent(ModalCoach)
 
 publicChannel = new EventEmitter2 wildcard: true
 
-VIEWS =
-  'profile': '/concept-coach/profile'
-  'dashboard': '/concept-coach/dashboard'
-  'task': '/concept-coach/task'
-  'progress': '/concept-coach/progress'
-  'default': '/concept-coach'
-  'close': '/'
-
 PROPS = ['moduleUUID', 'collectionUUID']
-
-getViewData = (view) ->
-  url: VIEWS[view]
-  state: {view}
 
 listenAndBroadcast = (channelOut) ->
   api.channel.on 'error', (response) ->
@@ -36,51 +24,36 @@ listenAndBroadcast = (channelOut) ->
 
   channel.on 'coach.mount.success', (eventData) ->
     channelOut.emit('open', eventData)
-    channelOut.emit('view.update', getViewData(eventData.coach.view))
+    channelOut.emit('view.update', navigation.getDataByView(eventData.coach.view))
 
   channel.on 'coach.unmount.success', (eventData) ->
     view = 'close'
     _.extend(model, eventData.coach)
     channelOut.emit('close', eventData)
-    channelOut.emit('view.update', getViewData(view))
+    channelOut.emit('view.update', navigation.getDataByView(view))
 
   channel.on 'close.clicked', ->
     channelOut.emit('ui.close')
 
   navigation.channel.on 'show.*', (eventData) ->
     {view} = eventData
-    channelOut.emit('view.update', getViewData(view))
+    channelOut.emit('view.update', navigation.getDataByView(view))
 
   channelOut.on 'show.*', (eventData) ->
-    {view} = eventData
-
-    if @component.isMounted()
-      if view is 'close'
-        @component.props.close()
-      else
-        navigation.channel.emit("show.#{view}", eventData)
-    else if @component?
-      props = _.pick(model, PROPS)
-      props.defaultView = view
-
-      @open(model.mounter, props)
+    @updateToView(eventData.view)
 
 publicMethods =
-  init: (baseUrl) ->
+  init: (baseUrl, navOptions = {}) ->
+    _.defaults(navOptions, {prefix: '/', base: 'concept-coach/'})
+
     api.initialize(baseUrl)
+    navigation.initialize(navOptions)
     listenAndBroadcast(publicChannel)
 
     api.channel.emit('user.status.send.fetch')
 
-  getViewByUrl: (url) ->
-    URL_TO_VIEWS = _.invert(VIEWS)
-
-    view = URL_TO_VIEWS[url]
-
-    if view?
-      view = 'task' if view is 'default'
-
-    view
+  setOptions: (initialModel) ->
+    _.extend(model, initialModel)
 
   open: (mountNode, props) ->
     props = _.clone(props)
@@ -103,13 +76,27 @@ publicMethods =
 
     @component
 
-  openByUrl: (mountNode, props, url) ->
+  openByRoute: (mountNode, props, route) ->
     props = _.clone(props)
-
-    props.defaultView = @getViewByUrl(url)
+    props.defaultView = navigation.getViewByRoute(route)
 
     if props.defaultView?
       @open(mountNode, props) unless props.defaultView is 'close'
+
+  updateToView: (view) ->
+    if @component?.isMounted()
+      if view is 'close'
+        @component.props.close()
+      else
+        navigation.channel.emit("show.#{view}", {view})
+    else if model.mounter?
+      props = _.pick(model, PROPS)
+      props.defaultView = view
+      @open(model.mounter, props)
+
+  updateToRoute: (route) ->
+    view = navigation.getViewByRoute(route)
+    @updateToView(view) if view?
 
   handleOpened: (eventData, scrollTo, body = document.body) ->
     scrollTo ?= _.partial(window.scrollTo, 0)
