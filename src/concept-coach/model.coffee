@@ -1,6 +1,10 @@
+_ = require 'underscore'
 EventEmitter2 = require 'eventemitter2'
 
-coach = {}
-channel = new EventEmitter2 wildcard: true
+coach =
+  update: (options) ->
+    _.extend(@, options)
 
-module.exports = {channel}
+  channel: new EventEmitter2 wildcard: true
+
+module.exports = coach
