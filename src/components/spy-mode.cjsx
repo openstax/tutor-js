@@ -19,5 +19,14 @@ SpyModeWrapper = React.createClass
       <a href='#spy' onClick={@toggleDebug} className='debug-toggle-link'>&pi;</a>
     </div>
 
+SpyModeContent = React.createClass
 
-module.exports = SpyModeWrapper
+  propTypes:
+    className: React.PropTypes.string
+
+  render: ->
+    <div className={classnames('visible-when-debugging', @props.className)}>
+      {@props.children}
+    </div>
+
+module.exports = {Content: SpyModeContent, Wrapper:SpyModeWrapper}

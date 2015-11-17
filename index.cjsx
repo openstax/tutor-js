@@ -2,7 +2,7 @@ Exercise = require './src/components/exercise'
 FreeResponse = require './src/components/exercise/free-response'
 ExerciseGroup = require './src/components/exercise/group'
 Breadcrumb = require './src/components/breadcrumb'
-
+SpyMode = require './src/components/spy-mode'
 PinnedHeaderFooterCard = require './src/components/pinned-header-footer-card'
 {PinnedHeader, CardBody, PinnableFooter} = require './src/components/pinned-header-footer-card/sections'
 
@@ -39,5 +39,7 @@ module.exports = {
 
   ChapterSectionMixin,
   GetPositionMixin,
-  ResizeListenerMixin
+  ResizeListenerMixin,
+
+  SpyMode
 }
