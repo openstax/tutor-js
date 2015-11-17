@@ -31,12 +31,7 @@ loadApp = ->
   Demo.on 'open', Demo.handleOpened
   Demo.on 'ui.close', Demo.handleClosed
 
-  Demo.on 'view.update', (eventData) ->
-    if eventData.url isnt location.pathname
-      history.pushState(eventData.state, null, eventData.url)
-
   mainDiv = document.getElementById('react-root-container')
-
   buttonA = document.getElementById('launcher')
   buttonB = document.getElementById('launcher-fake')
 
@@ -61,11 +56,19 @@ loadApp = ->
   buttonA.addEventListener 'click', show
   buttonB.addEventListener 'click', showFake
 
+
+  # Hook in to writing view updates to history api
+  Demo.on 'view.update', (eventData) ->
+    if eventData.url isnt location.pathname
+      history.pushState(eventData.state, null, eventData.url)
+
+  # listen to back/forward and broadcasting to coach navigation
   window.addEventListener 'popstate', (eventData) ->
     view = Demo.getViewByUrl(location.pathname)
     if view?
       Demo.emit("show.#{view}", {view})
 
+  # open to the expected view right away if view in url
   Demo.openByUrl(mainDiv, demoSettings, location.pathname) if location.pathname?
 
   if AUTOSHOW
