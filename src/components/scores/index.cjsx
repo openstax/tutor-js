@@ -16,7 +16,7 @@ ColumnGroup = FixedDataTable.ColumnGroup
 
 Router = require 'react-router'
 
-
+{CourseStore} = require '../../flux/course'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
 {ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'
 LoadableItem = require '../loadable-item'
@@ -37,6 +37,7 @@ Scores = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    isConceptCoach: React.PropTypes.bool.isRequired
 
   mixins: [ResizeListenerMixin]
 
@@ -103,12 +104,11 @@ Scores = React.createClass
       sortState={@state.sort} onSort={@changeSortingOrder}
     >{heading.title}</SortingHeader>
 
+    dueDates = <div><Time date={heading.due_at} format='shortest'/></div>
     customHeader = <div
       data-assignment-type="#{heading.type}"
       className='assignment-header-cell'>
-      <div>
-        <Time date={heading.due_at} format='shortest'/>
-      </div>
+      {dueDates unless @props.isConceptCoach}
       <div>
         {summary}
         {review}
@@ -135,7 +135,7 @@ Scores = React.createClass
   renderStudentRow: (student_data) ->
     props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
     columns = [
-      <NameCell key='name' {...props} />
+      <NameCell isConceptCoach={@props.isConceptCoach} key='name' {...props} />
     ]
     for task in student_data.data
       props.task = task
@@ -154,7 +154,7 @@ Scores = React.createClass
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
     customHeader = <div className='assignment-header-cell'>
-      {dueDateHeading}
+      {dueDateHeading unless @props.isConceptCoach}
       {header}
     </div>
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
@@ -201,8 +201,13 @@ Scores = React.createClass
         d.last_name.toLowerCase()
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
+
   onColumnResizeEndCallback: (colWidth, columnKey) ->
     @setState({colResizeWidth: colWidth, colResizeKey: columnKey})
+
+  headerType: ->
+    if @props.isConceptCoach then 60 else 92
+
   render: ->
     {courseId} = @props
     {period_id, tableWidth, tableHeight} = @state
@@ -229,7 +234,7 @@ Scores = React.createClass
               rowsCount={data.rows.length}
               width={tableWidth}
               height={tableHeight}
-              headerHeight={92}
+              headerHeight={@headerType()}
               groupHeaderHeight={50}>
 
               {@renderNameHeader()}
@@ -250,12 +255,13 @@ ScoresShell = React.createClass
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
+    course = CourseStore.get(courseId)
     <BS.Panel className='scores-report'>
       <LoadableItem
         id={courseId}
         store={ScoresStore}
         actions={ScoresActions}
-        renderItem={-> <Scores courseId={courseId} />}
+        renderItem={-> <Scores courseId={courseId} isConceptCoach={course.is_concept_coach} />}
       />
     </BS.Panel>
 
