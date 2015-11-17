@@ -30,17 +30,19 @@ class Course
   cancelJoin: ->   @user.removeCourse(@)
 
   description: ->
-    status = if @isIncomplete() # still fetching
+    status = \
+      if @isIncomplete() # still fetching
         ""
       else if @isPending() # we originated from a join request
         "#{@to.course.name} #{@to.period.name} period"
       else
         "#{@name} #{_.first(@periods).name} period"
-      teachers = @teacherNames()
-      if status and teachers
-        "#{status} taught by #{teachers}"
-      else
-        status
+
+    teachers = @teacherNames()
+    if status and teachers
+      "#{status} taught by #{teachers}"
+    else
+      status
 
   teacherNames: ->
     teachers = @teachers or @to?.course.teachers
@@ -69,9 +71,11 @@ class Course
       book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
     })
 
-  confirm: ->
+  confirm: (studentId) ->
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
-    api.channel.emit("course.#{@id}.send.confirmation", data: { id: @id })
+    api.channel.emit("course.#{@id}.send.confirmation",
+      data: { id: @id, student_identifier: studentId}
+    )
 
   _onConfirmed:  ({data}) ->
     if data.to
