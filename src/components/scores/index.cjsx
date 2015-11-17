@@ -101,7 +101,7 @@ Scores = React.createClass
       </span>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
-      sortState={@state.sort} onSort={@changeSortingOrder}
+      sortState={@state.sort} onSort={@changeSortingOrder} isConceptCoach={@props.isConceptCoach}
     >{heading.title}</SortingHeader>
 
     dueDates = <div><Time date={heading.due_at} format='shortest'/></div>
@@ -206,7 +206,7 @@ Scores = React.createClass
     @setState({colResizeWidth: colWidth, colResizeKey: columnKey})
 
   headerType: ->
-    if @props.isConceptCoach then 60 else 92
+    if @props.isConceptCoach then 47 else 92
 
   render: ->
     {courseId} = @props
