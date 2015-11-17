@@ -30,13 +30,27 @@ class Course
   cancelJoin: ->   @user.removeCourse(@)
 
   description: ->
-    if @isIncomplete() # still fetching
-      ""
-    else if @isPending() # we originated from a join request
-      "#{@to.course.name} #{@to.period.name} period"
-    else
-      "#{@name} #{_.first(@periods).name} period"
+    status = if @isIncomplete() # still fetching
+        ""
+      else if @isPending() # we originated from a join request
+        "#{@to.course.name} #{@to.period.name} period"
+      else
+        "#{@name} #{_.first(@periods).name} period"
+      teachers = @teacherNames()
+      if status and teachers
+        "#{status} taught by #{teachers}"
+      else
+        status
 
+  teacherNames: ->
+    teachers = @teachers or @to?.course.teachers
+    names = _.map teachers, (teacher) ->
+      teacher.name or "#{teacher.first_name} #{teacher.last_name}"
+    # convert array to sentence
+    if names.length > 1
+      names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
+    else
+      _.first(names)
 
   set: (attributes) ->
     _.extend(@, attributes)
