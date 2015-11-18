@@ -65,7 +65,7 @@ DashboardSection = React.createClass
         <DashboardSectionProgress section={@props.section} />
       </BS.Col>
       <BS.Col xs={2}>
-        <DashboardSectionPerformance section={@props.section} /> 
+        <DashboardSectionPerformance section={@props.section} />
       </BS.Col>
       <BS.Col xs={2}>
       </BS.Col>
