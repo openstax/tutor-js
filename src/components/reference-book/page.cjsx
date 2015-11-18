@@ -1,11 +1,11 @@
 React = require 'react'
+{SpyMode} = require 'openstax-react-components'
 
 _  = require 'underscore'
 classnames = require 'classnames'
 
 {BookContentMixin} = require '../book-content-mixin'
 {ArbitraryHtmlAndMath, GetPositionMixin} = require 'openstax-react-components'
-SpyModeContent = require '../spy-mode/content'
 
 {ReferenceBookExerciseShell} = require './exercise'
 
@@ -69,8 +69,8 @@ module.exports = React.createClass
 
       <ArbitraryHtmlAndMath className='page center-panel' block html={html} />
 
-      <SpyModeContent className="ecosystem-info">
+      <SpyMode.Content className="ecosystem-info">
         PageId: {@props.cnxId}, Ecosystem: {page.spy}
-      </SpyModeContent>
+      </SpyMode.Content>
 
     </div>
