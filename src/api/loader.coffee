@@ -20,11 +20,11 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
     apiSetting.url = "#{interpolate(apiSetting.url, data)}/#{apiSetting.method}.json"
     apiSetting.method = 'GET'
   else
-    if API_ACCESS_TOKEN
+    if setting.useCredentials
+      apiSetting.withCredentials = true
+    else if API_ACCESS_TOKEN
       apiSetting.headers =
         Authorization: "Bearer #{API_ACCESS_TOKEN}"
-    else if setting.useCredentials
-      apiSetting.withCredentials = true
     apiSetting.url = "#{baseUrl}/#{interpolate(apiSetting.url, data)}"
 
   apiSetting

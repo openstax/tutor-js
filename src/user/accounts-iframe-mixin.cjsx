@@ -25,7 +25,7 @@ AccountsIframeMixin =
 
   # called when an login process completes
   onLogin: (payload) ->
-    api.channel.emit 'user.receive.statusUpdate', data: payload
+    api.channel.emit 'user.status.receive.fetch', data: payload
     @props.onComplete()
 
   displayLoadingStatus: ->

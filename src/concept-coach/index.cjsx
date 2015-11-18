@@ -65,6 +65,7 @@ coachAPI.setOptions = componentModel.update.bind(componentModel)
 coachAPI.open = (mountNode, props) ->
   props = _.clone(props)
   componentModel.update({mounter: mountNode})
+  restAPI.channel.emit('user.status.send.fetch')
 
   if _.isEqual(_.pick(props, PROPS), _.pick(componentModel, PROPS))
     props.defaultView ?= componentModel.view
