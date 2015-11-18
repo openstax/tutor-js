@@ -3,14 +3,16 @@ classnames = require 'classnames'
 {SmartOverflow} = require 'openstax-react-components'
 
 {Task} = require '../task'
-{Navigation} = require './navigation'
+navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
+
 UserLoginButton = require '../user/login-button'
 UserLogin = require '../user/login'
 UserProfile = require '../user/profile'
 
 {ExerciseStep} = require '../exercise'
 {Dashboard} = require '../dashboard'
+{Progress} = require '../progress'
 
 
 User = require '../user/model'
@@ -25,9 +27,14 @@ ConceptCoach = React.createClass
     moduleUUID:     React.PropTypes.string.isRequired
     collectionUUID: React.PropTypes.string.isRequired
 
+  getDefaultProps: ->
+    defaultView: 'task'
+
   getInitialState: ->
+    {defaultView} = @props
+
     userState = @getUserState()
-    userState.view = 'task'
+    userState.view = defaultView
 
     userState
 
@@ -35,16 +42,25 @@ ConceptCoach = React.createClass
     User.ensureStatusLoaded()
 
   componentDidMount: ->
-    mountData = coach: {el: @getDOMNode(), action: 'mount'}
+    mountData = @getMountData('mount')
     channel.emit('coach.mount.success', mountData)
+
     User.channel.on('change', @updateUser)
-    channel.on('show.*', @updateView)
+    navigation.channel.on('show.*', @updateView)
 
   componentWillUnmount: ->
-    mountData = coach: {el: @getDOMNode(), action: 'unmount'}
+    mountData = @getMountData('ummount')
     channel.emit('coach.unmount.success', mountData)
+
     User.channel.off('change', @updateUser)
-    channel.off('show.*', @updateView)
+    navigation.channel.off('show.*', @updateView)
+
+  getMountData: (action) ->
+    {moduleUUID, collectionUUID} = @props
+    {view} = @state
+    el = @getDOMNode()
+
+    coach: {el, action, view, moduleUUID, collectionUUID}
 
   updateView: (eventData) ->
     {view} = eventData
@@ -55,6 +71,7 @@ ConceptCoach = React.createClass
 
   getUserState: ->
     course = User.getCourse(@props.collectionUUID)
+
     isLoggedIn: User.isLoggedIn(),
     isLoaded: User.isLoaded,
     isRegistered: course?.isRegistered()
@@ -77,8 +94,10 @@ ConceptCoach = React.createClass
 
       if view is 'task'
         <Task {...@props} key='task'/>
+      else if view is 'progress'
+        <Progress id={course.id}/>
       else if view is 'dashboard'
-        <Dashboard id={course.id}/>
+        <Dashboard cnxUrl={@props.cnxUrl}/>
       else if view is 'profile'
         <UserProfile onComplete={@showTasks} />
       else
