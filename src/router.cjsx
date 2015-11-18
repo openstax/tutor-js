@@ -67,7 +67,7 @@ routes = (
                 ignoreScrollBehavior/>
             </Route>
           </Route>
-          <Route path='cc-taskplans/?' name='cc-taskplans' handler={CCDashboard} />
+          <Route path='cc-dashboard/?' name='cc-dashboard' handler={CCDashboard} />
 
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
