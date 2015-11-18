@@ -1,6 +1,7 @@
 .concept-coach-progress-page {
   display: table-row;
   width: 100%;
+  cursor: pointer;
 
   .concept-coach-progress-page-title,
   .concept-coach-progress-page-last-worked,
@@ -20,6 +21,16 @@
 
   .concept-coach-progress-page-last-worked {
     text-align: center;
+  }
+
+  &:hover {
+    color: @openstax-info;
+
+    .concept-coach-progress-page-title,
+    .concept-coach-progress-page-last-worked,
+    .concept-coach-progress-exercises {
+      border-color: @openstax-info;
+    }
   }
 
 }
