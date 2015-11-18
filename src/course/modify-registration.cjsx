@@ -1,17 +1,24 @@
 React = require 'react'
+
+InviteCodeInput = require './invite-code-input'
+
 Course = require './model'
-ENTER = 'Enter'
+
+Navigation = require '../navigation/model'
 
 ModifyCourseRegistration = React.createClass
   propTypes:
-    collectionUUID: React.PropTypes.string.isRequired
-    onComplete: React.PropTypes.func.isRequired
+    course: React.PropTypes.instanceOf(Course)
+
+  onComplete: ->
+    Navigation.channel.emit('show.panel', view: 'dashboard')
 
   render: ->
-    course = @getUser().getCourse(@props.collectionUUID)
-
-    <div className="row">
-      <h3>Modify {course.description()}</h3>
+    <div>
+      <i className='close-icon' onClick={@onComplete}/>
+      <InviteCodeInput
+        course={@props.course}
+        title={"Leave #{@props.course.description()} for new course/period"} />
     </div>
 
 module.exports = ModifyCourseRegistration
