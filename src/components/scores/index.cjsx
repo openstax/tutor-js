@@ -25,6 +25,8 @@ ScoresExport = require './export'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 ResizeListenerMixin = require '../resize-listener-mixin'
 
+# concept coach does not show due_at row or links on student names
+
 # Index of first column that contains data
 FIRST_DATA_COLUMN = 1
 INITIAL_SORT = { key: 'name', asc: true }
@@ -206,6 +208,7 @@ Scores = React.createClass
     @setState({colResizeWidth: colWidth, colResizeKey: columnKey})
 
   headerType: ->
+    # height changes when dueDates row not in concept coach
     if @props.isConceptCoach then 47 else 92
 
   render: ->
