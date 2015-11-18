@@ -21,10 +21,10 @@ CourseRegistration = React.createClass
   startRegistration: ->
     course = @getCourse()
     course.set(ecosystem_book_uuid: @props.collectionUUID)
-    course.register(React.findDOMNode(@refs.input).value)
+    course.register(React.findDOMNode(@refs.inviteInput).value)
 
   startConfirmation: ->
-    @getCourse().confirm()
+    @getCourse().confirm(React.findDOMNode(@refs.stduentIdInput).value)
 
   cancelConfirmation: ->
     @getCourse().cancelJoin()
@@ -80,7 +80,7 @@ CourseRegistration = React.createClass
           Course invitation code:
           <div className="input-group">
             <input
-              ref='input' autofocus
+              ref='inviteInput' autofocus
               onKeyPress={@onKeyPress} type="text" className="form-control"
             />
             <span className="input-group-btn">
@@ -96,19 +96,27 @@ CourseRegistration = React.createClass
     <span><i className='fa fa-spinner fa-spin'/>Saving ...</span>
 
   renderPending: (course) ->
-    <span>
+    <div className="form-group">
       <h3 className="text-center">
         Would you like to join {course.description()}?
       </h3>
       {@renderErrors()}
-      <div className="text-center">
-        <button className="btn"
-          onClick={@cancelConfirmation}>Cancel</button>
-        <button className="btn btn-success"
-          style={marginLeft: '3rem'}
-          onClick={@startConfirmation}>Confirm</button>
+      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <label className="col-sm-12">
+          My Student ID is:
+          <input ref='stduentIdInput' autofocus
+            onKeyPress={@onKeyPress} type="text" className="form-control" />
+        </label>
+
+        <div className="text-center">
+          <button className="btn"
+            onClick={@cancelConfirmation}>Cancel</button>
+          <button className="btn btn-success"
+            style={marginLeft: '3rem'}
+            onClick={@startConfirmation}>Confirm</button>
+        </div>
       </div>
-    </span>
+    </div>
 
   renderComplete: (course) ->
     <h3 className="text-center">

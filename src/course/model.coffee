@@ -30,13 +30,29 @@ class Course
   cancelJoin: ->   @user.removeCourse(@)
 
   description: ->
-    if @isIncomplete() # still fetching
-      ""
-    else if @isPending() # we originated from a join request
-      "#{@to.course.name} #{@to.period.name} period"
-    else
-      "#{@name} #{_.first(@periods).name} period"
+    status = \
+      if @isIncomplete() # still fetching
+        ""
+      else if @isPending() # we originated from a join request
+        "#{@to.course.name} #{@to.period.name} period"
+      else
+        "#{@name} #{_.first(@periods).name} period"
 
+    teachers = @teacherNames()
+    if status and teachers
+      "#{status} taught by #{teachers}"
+    else
+      status
+
+  teacherNames: ->
+    teachers = @teachers or @to?.course.teachers
+    names = _.map teachers, (teacher) ->
+      teacher.name or "#{teacher.first_name} #{teacher.last_name}"
+    # convert array to sentence
+    if names.length > 1
+      names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
+    else
+      _.first(names)
 
   set: (attributes) ->
     _.extend(@, attributes)
@@ -55,9 +71,11 @@ class Course
       book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
     })
 
-  confirm: ->
+  confirm: (studentId) ->
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
-    api.channel.emit("course.#{@id}.send.confirmation", data: { id: @id })
+    api.channel.emit("course.#{@id}.send.confirmation",
+      data: { id: @id, student_identifier: studentId}
+    )
 
   _onConfirmed:  ({data}) ->
     if data.to
