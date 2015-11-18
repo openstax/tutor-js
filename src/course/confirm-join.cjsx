@@ -1,8 +1,8 @@
 React = require 'react'
+ENTER = 'Enter'
 
 Course = require './model'
-
-ENTER = 'Enter'
+ErrorList = require './error-list'
 
 ConfirmJoin = React.createClass
 
@@ -18,12 +18,17 @@ ConfirmJoin = React.createClass
   onConfirmKeyPress: (ev) ->
     @startConfirmation() if ev.key is ENTER
 
+  cancelConfirmation: ->
+    @props.course.resetToBlankState()
+
   render: ->
     <div className="form-group">
       <h3 className="text-center">
         Would you like to join {@props.course.description()}?
       </h3>
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <ErrorList course={@props.course} />
+
         <label className="col-sm-12">
           My Student ID is:
           <input ref='input' autoFocus

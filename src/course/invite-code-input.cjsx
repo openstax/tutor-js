@@ -1,14 +1,17 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
 {CourseListing} = require './listing'
-User = require '../user/model'
+ErrorList = require './error-list'
 Course = require './model'
 
 InviteCodeInput = React.createClass
 
   propTypes:
+    title: React.PropTypes.string.isRequired
     course: React.PropTypes.instanceOf(Course)
+    currentCourses: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Course))
 
   startRegistration: ->
     @props.course.register(React.findDOMNode(@refs.input).value)
@@ -21,30 +24,24 @@ InviteCodeInput = React.createClass
       <h3>You are not registered for this course.</h3>
       <p>Did you mean to go to one of these?</p>
       <CourseListing
-        courses={User.courses}
+        courses={@props.currentCourses}
         cnxUrl={@props.cnxUrl}/>
     </div>
 
   render: ->
+    button =
+      <button className="btn btn-default" type="button" autoFocus
+        onKeyPress={@onKeyPress}
+        onClick={@startRegistration}>Register</button>
     <div className="form-group">
-
-      {@renderCurrentCourses() if User.courses?.length}
-      <h3 className="text-center">Register for this Concept Coach course</h3>
+      {@renderCurrentCourses() if @props.currentCourses?.length}
+      <h3 className="text-center">{@props.title}</h3>
       <hr/>
+      <ErrorList course={@props.course} />
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <label>
-          Course invitation code:
-          <div className="input-group">
-            <input
-              ref='input' autoFocus
-              onKeyPress={@onKeyPress} type="text" className="form-control"
-            />
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="button"
-                onClick={@startRegistration}>Register</button>
-            </span>
-          </div>
-        </label>
+        <BS.Input type="text" ref="input" label="Course invitation code"
+          placeholder="Enter code"
+          buttonAfter={button} />
       </div>
     </div>
 

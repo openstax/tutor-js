@@ -24,10 +24,22 @@ class Course
     @set(attributes)
     _.bindAll(@, '_onRegistered', '_onConfirmed')
 
+  # complete and ready for use
   isRegistered: -> not (@isIncomplete() or @isPending())
+  # Freshly initialized, registration code has not been entered
   isIncomplete: -> not (@name or @to)
+  # Has registration code, but not confimed
   isPending: ->    @status is "pending"
-  cancelJoin: ->   @user.removeCourse(@)
+
+  # Cleanup after a course that's been canceled out of
+  cancelJoin: ->
+    @user.removeCourse(@)
+
+  resetToBlankState: ->
+    # forget course information and reset to blank state
+    delete @to
+    delete @name
+    @channel.emit('change')
 
   description: ->
     status = \
@@ -87,9 +99,11 @@ class Course
     @channel.emit('change')
 
 
+
   _onRegistered: ({data}) ->
     # confirmation has completed
     _.extend(@, data)
+    @errors = data.errors
     @user.onCourseUpdate(@)
     @channel.emit('change')
 
