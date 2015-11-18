@@ -1,6 +1,8 @@
 React = require 'react'
 classnames = require 'classnames'
 
+api   = require '../api'
+
 AccountsIframe = require './accounts-iframe-mixin'
 User  = require './model'
 api = require '../api'
@@ -11,18 +13,15 @@ UserLogin = React.createClass
   propTypes:
     onComplete: React.PropTypes.func.isRequired
 
-  # called when an login process completes
-  onLogin: (payload) ->
-    api.channel.emit 'user.status.receive.fetch', data: payload
-    @props.onComplete()
-
   # called by iframe when it's content is loaded and it's ready for requests
   onIframeReady: ->
-    # @setState(isLoading: true)
-    @sendCommand('displayLogin', User.endpoints.iframe_login)
+    if User.isLoggingOut
+      @sendCommand('displayLogout', User.endpoints.iframe_login)
+    else
+      @sendCommand('displayLogin', User.endpoints.iframe_login)
 
   render: ->
-    classlist = classnames('user-login', 'is-loading': @state.isLoading)
+    classlist = classnames('user-login', 'is-loading': @displayLoadingStatus())
     <div className={classlist}>
       <div className="heading">
         <h3 className="title">{@state?.title}</h3>
