@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {CloseButton} = require 'openstax-react-components'
+{CourseNameBase} = require './course-name'
+
 
 user = require '../user/model'
 {channel} = require './model'
@@ -30,7 +32,10 @@ Navigation = React.createClass
     channel.emit('show.task', {view: 'task'})
 
   showProgress: ->
-    channel.emit('show.progress', {view: 'dashboard'})
+    channel.emit('show.progress', {view: 'progress'})
+
+  showDashboard: ->
+    channel.emit('show.dashboard', {view: 'dashboard'})
 
   close: ->
     channel.emit('close.clicked')
@@ -44,10 +49,9 @@ Navigation = React.createClass
     {active} = @state
     {course} = @props
 
-    brand = [
-      <strong>Concept</strong>
-      'Coach'
-    ]
+    brand = <a onClick={_.partial(@handleSelect, 'showDashboard')}>
+      <strong>Concept</strong> Coach
+    </a>
 
     courseItems = [
       <BS.NavItem
@@ -64,7 +68,10 @@ Navigation = React.createClass
 
     <BS.Navbar brand={brand} fixedTop fluid>
       <BS.CollapsibleNav eventKey={0}>
-        <BS.Nav navbar>
+        <BS.Nav navbar onSelect={@handleSelect}>
+          <BS.NavItem disabled={true} eventKey='showCourse'>
+            <CourseNameBase course={course}/>
+          </BS.NavItem>
         </BS.Nav>
         <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
           <UserMenu />
@@ -77,5 +84,4 @@ Navigation = React.createClass
       </BS.CollapsibleNav>
     </BS.Navbar>
 
-
-module.exports = {Navigation}
+module.exports = {Navigation, channel}

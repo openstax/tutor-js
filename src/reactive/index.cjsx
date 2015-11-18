@@ -2,65 +2,84 @@ React = require 'react/addons'
 classnames = require 'classnames'
 api = require '../api'
 
+interpolate = require 'interpolate'
+
 Reactive = React.createClass
   displayName: 'Reactive'
 
   propTypes:
     children: React.PropTypes.node.isRequired
-    channelName: React.PropTypes.string.isRequired
     store: React.PropTypes.object.isRequired
-    id: React.PropTypes.string.isRequired
+    topic: React.PropTypes.string.isRequired
+    apiChannelPattern: React.PropTypes.string
+    channelUpdatePattern: React.PropTypes.string
+    apiChannelName: React.PropTypes.string
     fetcher: React.PropTypes.func
     filter: React.PropTypes.func
     getStatusMessage: React.PropTypes.func
 
+  getDefaultProps: ->
+    apiChannelPattern: '{apiChannelName}.{topic}.send.*'
+    channelUpdatePattern: 'load.*'
+
   getInitialState: ->
+    {channelUpdatePattern, apiChannelPattern} = @props
+
     state = @getState()
     state.status = 'loading'
 
+    state.storeChannelUpdate = interpolate(channelUpdatePattern, @props)
+    state.apiChannelSend = interpolate(apiChannelPattern, @props)
+
     state
 
+  fetchModel: (props) ->
+    props ?= @props
+    {topic, store, fetcher} = props
+
+    if _.isFunction(fetcher) then fetcher(props) else store.fetch(topic)
+
   getState: (eventData = {}) ->
-    {id, store} = @props
+    {topic, store} = @props
     {status} = eventData
     status ?= 'loaded'
 
-    item: store.get(id)
+    item: store.get?(topic)
     status: status
 
   isForThisComponent: (eventData) ->
-    {id} = @props
-    eventData.data.id is id
+    {topic, filter} = @props
+    filter?(@props, eventData) or eventData.data.id is topic or eventData.data.topic is topic
 
   update: (eventData) ->
-    {filter} = @props
-    return unless filter?(@props, eventData) or @isForThisComponent(eventData)
-    
+    return unless @isForThisComponent(eventData)
+
     nextState = @getState(eventData)
     @setState(nextState)
 
   setStatus: (eventData) ->
-    {filter} = @props
-    return unless filter?(@props, eventData) or @isForThisComponent(eventData)
+    return unless @isForThisComponent(eventData)
 
     {status} = eventData
     @setState({status})
 
   componentWillMount: ->
-    {id, store, channelName, fetcher} = @props
-    fetcher?(@props) or store.fetch(id)
-    store.channel.on("load.*", @update)
-    api.channel.on("#{channelName}.*.send.*", @setStatus)
+    {store} = @props
+    {storeChannelUpdate, apiChannelSend} = @state
+
+    @fetchModel()
+    store.channel.on(storeChannelUpdate, @update)
+    api.channel.on(apiChannelSend, @setStatus)
 
   componentWillUnmount: ->
-    {id, store, channelName} = @props
+    {topic, store} = @props
+    {storeChannelUpdate, apiChannelSend} = @state
 
-    store.channel.off("load.*", @update)
-    api.channel.off("#{channelName}.*.send.*", @setStatus)
+    store.channel.off(storeChannelUpdate, @update)
+    api.channel.off(apiChannelSend, @setStatus)
 
   componentWillReceiveProps: (nextProps) ->
-    {id, store, fetcher} = @props
-    fetcher?(nextProps) or store.fetch(nextProps.id)
+    @fetchModel(nextProps)
 
   render: ->
     {status, item} = @state
@@ -69,7 +88,7 @@ Reactive = React.createClass
     classes = classnames 'reactive', "reactive-#{status}", className,
       'is-empty': _.isEmpty(item)
 
-    propsForChildren = _.clone(@state)
+    propsForChildren = _.pick(@state, 'status', 'item')
 
     reactiveItems = React.Children.map(@props.children, (child) ->
       React.addons.cloneWithProps(child, propsForChildren)

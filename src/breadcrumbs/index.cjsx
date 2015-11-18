@@ -64,6 +64,7 @@ Breadcrumbs = React.createClass
 
     breadcrumbs = _.map(crumbs, (crumb) =>
       <BreadcrumbDynamic
+        key={crumb.data.id}
         crumb={crumb}
         step={crumb.data or {}}
         currentStep={currentStep}

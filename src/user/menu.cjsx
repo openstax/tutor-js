@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 Status = require './status-mixin'
 
-Coach = require '../concept-coach/model'
+Navigation = require '../navigation/model'
 
 api = require '../api'
 
@@ -23,8 +23,9 @@ UserMenu = React.createClass
   logoutUser: ->
     @getUser().logout()
 
-  showProfile: ->
-    Coach.channel.emit('show.panel', view: 'profile')
+  showProfile: (clickEvent) ->
+    clickEvent.preventDefault()
+    Navigation.channel.emit('show.panel', view: 'profile')
 
   update: ->
     @forceUpdate() if @isMounted()

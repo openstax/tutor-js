@@ -3,7 +3,7 @@ _ = require 'underscore'
 {channel} = tasks = require './collection'
 api = require '../api'
 {Reactive} = require '../reactive'
-channelName = 'task'
+apiChannelName = 'task'
 
 exercises = {ExerciseStep} = require '../exercise'
 breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
@@ -18,17 +18,17 @@ TaskBase = React.createClass
     task: item
     currentStep: 0
 
-  nextStep: ->
-    {currentStep} = @state
-    @setState(currentStep: currentStep + 1)
-
   goToStep: (stepIndex) ->
     @setState(currentStep: stepIndex)
+
+  nextStep: ->
+    {currentStep} = @state
+    @goToStep(currentStep + 1)
 
   goToFirstIncomplete: ->
     {taskId} = @props
     stepIndex = tasks.getFirstIncompleteIndex(taskId)
-    @setState(currentStep: stepIndex)
+    @goToStep(stepIndex)
 
   componentWillMount: ->
     exercises.channel.on('leave.*', @nextStep)
@@ -70,8 +70,10 @@ TaskBase = React.createClass
 Task = React.createClass
   displayName: 'Task'
   filter: (props, eventData) ->
-    setProps = _.pick(props, 'collectionUUID', 'moduleUUID')
-    receivedData = _.pick(eventData.data, 'collectionUUID', 'moduleUUID')
+    toCompare = ['collectionUUID', 'moduleUUID']
+
+    setProps = _.pick(props, toCompare)
+    receivedData = _.pick(eventData.data, toCompare)
 
     _.isEqual(setProps, receivedData)
 
@@ -80,9 +82,9 @@ Task = React.createClass
     taskId = "#{collectionUUID}/#{moduleUUID}"
 
     <Reactive
-      id={taskId}
+      topic={taskId}
       store={tasks}
-      channelName={channelName}
+      apiChannelName={apiChannelName}
       collectionUUID={collectionUUID}
       moduleUUID={moduleUUID}
       fetcher={tasks.fetchByModule}

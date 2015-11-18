@@ -3,7 +3,7 @@ _ = require 'underscore'
 moment = require 'moment'
 classnames = require 'classnames'
 
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ResizeListenerMixin} = require 'openstax-react-components'
 {ExerciseProgress} = require './exercise'
 
 PageProgress = React.createClass
@@ -13,9 +13,14 @@ PageProgress = React.createClass
     dateFormat: 'MMM. D'
     progressWidth: 30
     progressMargin: 5
-  mixins: [ChapterSectionMixin]
+    dateBuffer: 100
+  mixins: [ChapterSectionMixin, ResizeListenerMixin]
   render: ->
-    {page, dateFormat, maxLength, progressWidth, progressMargin, className} = @props
+    {page, dateFormat, dateBuffer, maxLength, progressWidth, progressMargin, className} = @props
+    {componentEl} = @state
+
+    exercisesProgressWidth = maxLength * progressWidth + (maxLength - 1) * progressMargin
+    titleWidth = componentEl.width - exercisesProgressWidth - dateBuffer
 
     classes = classnames 'concept-coach-progress-page', className
     section = @sectionFormat(page.chapter_section)
@@ -30,11 +35,11 @@ PageProgress = React.createClass
         exercise={exercise}
         key={"progress-exercise-#{exercise.id}"}/>
 
-    exercisesProgressWidth = maxLength * progressWidth + (maxLength - 1) * progressMargin
-
     <li className={classes}>
-      <h4 {...sectionProps}>
-        {page.title}
+      <h4 className='concept-coach-progress-page-title' style={width: titleWidth}>
+        <div {...sectionProps}>
+          {page.title}
+        </div>
       </h4>
       <span className='concept-coach-progress-page-last-worked'>{pageLastWorked}</span>
       <div

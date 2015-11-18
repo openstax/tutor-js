@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-conceptCoach = require '../concept-coach/model'
+{channel} = require '../navigation/model'
 
 ExerciseButton = React.createClass
   displayName: 'ExerciseButton'
@@ -10,7 +10,7 @@ ExerciseButton = React.createClass
   getDefaultProps: ->
     children: 'Exercise'
   showExercise: ->
-    conceptCoach.channel.emit('show.task', {view: 'task'})
+    channel.emit('show.task', {view: 'task'})
     @props.onClick?()
   render: ->
     <BS.Button onClick={@showExercise}>{@props.children}</BS.Button>

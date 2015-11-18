@@ -27,6 +27,9 @@ User =
     @isLoggingOut = true
     @channel.emit('change')
 
+  get: ->
+    @
+
   getCourse: (collectionUUID) ->
     _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
 
@@ -38,7 +41,7 @@ User =
     )
 
   ensureStatusLoaded: ->
-    api.channel.emit("user.send.statusUpdate") unless @isLoggedIn()
+    api.channel.emit('user.status.send.fetch') unless @isLoggedIn()
 
   isLoggedIn: ->
     !!@profile_url
@@ -51,7 +54,7 @@ User =
     @courses.splice(index, 1) unless index is -1
     @channel.emit('change')
 
-api.channel.on 'user.receive.*', ({data}) ->
+api.channel.on 'user.status.receive.*', ({data}) ->
   User.isLoaded = true
   User.update(loaded: true)
   if data.access_token
