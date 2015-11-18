@@ -12,10 +12,10 @@ UserProfile = React.createClass
 
   # called by iframe when it's content is loaded and it's ready for requests
   onIframeReady: ->
-    @loadPage('profile')
+    @sendCommand('displayProfile')
 
   render: ->
-    classlist = classnames('user-profile', 'is-loading': @state.isLoading)
+    classlist = classnames('user-profile', 'is-loading': @displayLoadingStatus() )
 
     <div className={classlist}>
       <div className="heading">
