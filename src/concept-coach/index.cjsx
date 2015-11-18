@@ -96,7 +96,7 @@ coachAPI.updateToView = (view) ->
       @component.props.close()
     else
       navigation.channel.emit("show.#{view}", {view})
-  else if componentModel.mounter?
+  else if componentModel.mounter? and view isnt 'close'
     props = _.pick(componentModel, PROPS)
     props.defaultView = view
     @open(componentModel.mounter, props)
