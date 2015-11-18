@@ -55,7 +55,6 @@ ConceptCoach = React.createClass
 
   getUserState: ->
     course = User.getCourse(@props.collectionUUID)
-
     isLoggedIn: User.isLoggedIn(),
     isLoaded: User.isLoaded,
     isRegistered: course?.isRegistered()
