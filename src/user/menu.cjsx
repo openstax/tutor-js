@@ -6,6 +6,8 @@ Status = require './status-mixin'
 
 navigation = require '../navigation'
 
+Course = require '../course/model'
+
 api = require '../api'
 
 getWaitingText = (status) ->
@@ -16,6 +18,7 @@ UserMenu = React.createClass
 
   propTypes:
     close: React.PropTypes.func
+    course: React.PropTypes.instanceOf(Course)
 
   componentWillMount: ->
     @getUser().ensureStatusLoaded()
@@ -34,12 +37,18 @@ UserMenu = React.createClass
     clickEvent.preventDefault()
     @props.close?()
 
+  modifyCourse: ->
+    navigation.channel.emit('show.panel', view: 'registration')
+
+  renderCourseOption: ->
+    <BS.MenuItem onClick={@modifyCourse}>Change Course and ID</BS.MenuItem>
+
   render: ->
     # The menu has no valid actions unless the useris logged in
     user = @getUser()
     return null unless user.isLoggedIn()
-
     <BS.DropdownButton navItem className='concept-coach-user' title={user.name}>
+      {@renderCourseOption() if @props.course?.isRegistered()}
       <BS.MenuItem onClick={@showProfile}>Account Profile</BS.MenuItem>
       <BS.MenuItem onClick={@logoutUser}>Logout</BS.MenuItem>
     </BS.DropdownButton>
