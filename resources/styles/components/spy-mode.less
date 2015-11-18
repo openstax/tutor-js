@@ -1,0 +1,30 @@
+.debug-content {
+
+  &.is-enabled {
+    .debug-toggle-link {
+      color: @openstax-neutral;
+    }
+    .visible-when-debugging {
+      display: block;
+      border: 1px solid;
+      padding: 5px;
+      border-radius: 4px;
+      margin: 5px 0;
+     }
+  }
+
+  .visible-when-debugging {
+    display: none;
+  }
+
+  .debug-toggle-link {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 10; // overlay navbar
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+    color: transparent;
+    &:hover { color: @openstax-neutral; }
+  }
+}
