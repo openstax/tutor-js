@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 {CCDashboardStore, CCDashboardActions} = require '../../flux/cc-dashboard'
 ChapterSection = require '../task-plan/chapter-section'
 LoadableItem = require '../loadable-item'
+Router = require 'react-router'
 
 DashboardSectionProgress = React.createClass
   _getPercentage: (num, total) ->
@@ -108,7 +109,10 @@ CCDashboard = React.createClass
     periods = CCDashboardStore.getPeriods(courseId)
     periodChapters = CCDashboardStore.getPeriodChapters(courseId, @state.activePeriodId)
 
-    chapters = _.map periodChapters, @renderChapters
+    if periodChapters.length
+      chapters = _.map periodChapters, @renderChapters
+    else
+      chapters = <div>There are no completed concept coach tasks for this period.</div>
 
     <BS.Panel className='reading-stats'>
       <CoursePeriodsNav
@@ -141,12 +145,20 @@ DashboardShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
 
-    <LoadableItem
-      store={CCDashboardStore}
-      actions={CCDashboardActions}
-      id={courseId}
-      renderItem={-> <CCDashboard key={courseId} id={courseId} />}
-    />
+    <div>
+      <h1>
+        Class Performance
+        <Router.Link className='btn btn-default pull-right' to='viewScores' params={{courseId}}>
+          View Detailed Scores
+        </Router.Link>
+      </h1>
+      <LoadableItem
+        store={CCDashboardStore}
+        actions={CCDashboardActions}
+        id={courseId}
+        renderItem={-> <CCDashboard key={courseId} id={courseId} />}
+      />
+    </div>
 
 module.exports = DashboardShell
 
