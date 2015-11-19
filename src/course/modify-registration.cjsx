@@ -27,9 +27,12 @@ ModifyCourseRegistration = React.createClass
       _.delay(@onComplete, 1500)
     @forceUpdate()
 
+  showTasks: ->
+    Navigation.channel.emit('show.panel', view: 'task')
+
   onComplete: ->
     @state.course.persist(User)
-    Navigation.channel.emit('show.panel', view: 'task')
+    @showTasks()
 
   renderComplete: (course) ->
     <h3 className="text-center">
@@ -52,7 +55,7 @@ ModifyCourseRegistration = React.createClass
 
   render: ->
     <div className='-modify-registration'>
-      <i className='close-icon' onClick={@onComplete}/>
+      <i className='close-icon' onClick={@showTasks}/>
       {@renderCurrentStep()}
     </div>
 
