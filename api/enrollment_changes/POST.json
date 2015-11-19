@@ -3,6 +3,10 @@
   "to": {
     "course": {
       "id":"3","name":"Physics I"
+      "teachers": [
+        {"name": "Charles Morris", "first_name": "Charles", "last_name": "Morris"},
+        {"name": "", "first_name": "William", "last_name": "Blake"}
+      ]
     },
     "period":{
       "id":"6","name":"1st"
