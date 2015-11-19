@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 Status = require './status-mixin'
 
-navigation = require '../navigation'
+navigation = require '../navigation/model'
 
 Course = require '../course/model'
 
