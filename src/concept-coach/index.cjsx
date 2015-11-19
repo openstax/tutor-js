@@ -2,75 +2,126 @@ _ = require 'lodash'
 EventEmitter2 = require 'eventemitter2'
 
 helpers = require '../helpers'
-api = require '../api'
+restAPI = require '../api'
 
 {ModalCoach} = require './modal-coach'
-model = {channel} = require './model'
+componentModel = require './model'
+navigation = require '../navigation/model'
+
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
+
+listenAndBroadcast = (componentAPI) ->
+  # Broadcast various internal events out to parent
+  restAPI.channel.on 'error', (response) ->
+    componentAPI.emit('api.error', response)
+
+  restAPI.channel.on 'user.status.receive.fetch', (response) ->
+    componentAPI.emit('user.change', response)
+
+  componentModel.channel.on 'coach.mount.success', (eventData) ->
+    componentModel.update(eventData.coach)
+
+    componentAPI.emit('open', eventData)
+    componentAPI.emit('view.update', navigation.getDataByView(eventData.coach.view))
+
+  componentModel.channel.on 'coach.unmount.success', (eventData) ->
+    componentModel.update(eventData.coach)
+
+    componentAPI.emit('close', eventData)
+    componentAPI.emit('view.update', navigation.getDataByView('close'))
+
+  componentModel.channel.on 'close.clicked', ->
+    componentAPI.emit('ui.close')
+
+  navigation.channel.on 'show.*', (eventData) ->
+    componentAPI.emit('view.update', navigation.getDataByView(eventData.view))
+
+setupAPIListeners = (componentAPI) ->
+  navigation.channel.on "switch.*", (eventData) ->
+    {data, view} = eventData
+    componentAPI.update(data)
+    navigation.channel.emit("show.#{view}", {view})
+
+  componentAPI.on 'show.*', (eventData) ->
+    componentAPI.updateToView(eventData.view)
 
 CCWrapped = helpers.wrapComponent(ModalCoach)
 
-publicChannel = new EventEmitter2 wildcard: true
+coachAPI = new EventEmitter2 wildcard: true
 
-listenAndBroadcast = (channelOut) ->
-  api.channel.on 'error', (response) ->
-    channelOut.emit('api.error', response)
+coachAPI.init = (baseUrl, navOptions = {}) ->
+  _.defaults(navOptions, {prefix: '/', base: 'concept-coach/'})
 
-  api.channel.on 'user.status.receive.fetch', (response) ->
-    channelOut.emit('user.change', response)
+  restAPI.initialize(baseUrl)
+  navigation.initialize(navOptions)
 
-  channel.on 'coach.mount.success', (eventData) ->
-    channelOut.emit('open', eventData)
+  listenAndBroadcast(@)
+  setupAPIListeners(@)
 
-  channel.on 'coach.unmount.success', (eventData) ->
-    cache = _.pick(eventData.coach, 'view', 'moduleUUID', 'collectionUUID')
-    _.extend(model, cache)
+  restAPI.channel.emit('user.status.send.fetch')
 
-    channelOut.emit('close', eventData)
-  channel.on 'close.clicked', ->
-    channelOut.emit('ui.close')
+coachAPI.setOptions = componentModel.update.bind(componentModel)
 
-publicMethods =
-  init: (baseUrl) ->
-    api.initialize(baseUrl)
-    listenAndBroadcast(publicChannel)
+coachAPI.open = (mountNode, props) ->
+  props = _.clone(props)
+  componentModel.update({mounter: mountNode})
 
-    api.channel.emit('user.status.send.fetch')
+  if _.isEqual(_.pick(props, PROPS), _.pick(componentModel, PROPS))
+    props.defaultView ?= componentModel.view
 
-  open: (mountNode, props) ->
-    props = _.clone(props)
+  modalNode = document.createElement('div')
+  modalNode.classList.add('concept-coach-wrapper')
+  mountNode.appendChild(modalNode)
 
-    toCompare = ['moduleUUID', 'collectionUUID']
-    if _.isEqual(_.pick(props, toCompare), _.pick(model, toCompare))
-      props.defaultView ?= model.view
+  props.close = ->
+    componentModel.channel.emit('close.clicked')
+    CCWrapped.unmountFrom(modalNode)
+    mountNode.removeChild(modalNode)
 
-    modalNode = document.createElement('div')
-    modalNode.classList.add('concept-coach-wrapper')
-    mountNode.appendChild(modalNode)
+  @component = CCWrapped.render(modalNode, props)
+  @close = props.close
 
-    props.close = ->
-      channel.emit('close.clicked')
-      CCWrapped.unmountFrom(modalNode)
-      mountNode.removeChild(modalNode)
+  @component
 
-    @component = CCWrapped.render(modalNode, props)
-    @close = props.close
+coachAPI.openByRoute = (mountNode, props, route) ->
+  props = _.clone(props)
+  props.defaultView = navigation.getViewByRoute(route)
 
-    @component
+  if props.defaultView? and props.defaultView isnt 'close'
+    @open(mountNode, props)
 
-  handleOpened: (eventData, scrollTo, body = document.body) ->
-    scrollTo ?= _.partial(window.scrollTo, 0)
-    {top} = eventData.coach.el.getBoundingClientRect()
-    top +=  window.scrollY
-    scrollTo(top)
-    body.classList.add('cc-opened')
+coachAPI.updateToView = (view) ->
+  if @component?.isMounted()
+    if view is 'close'
+      @component.props.close()
+    else
+      navigation.channel.emit("show.#{view}", {view})
+  else if componentModel.mounter? and view isnt 'close'
+    props = _.pick(componentModel, PROPS)
+    props.defaultView = view
+    @open(componentModel.mounter, props)
 
-  handleClosed: (eventData, body = document.body) ->
-    body.classList.remove('cc-opened')
+coachAPI.updateToRoute = (route) ->
+  view = navigation.getViewByRoute(route)
+  @updateToView(view) if view?
 
-  handleError: (error) ->
-    channel.emit('error', error)
-    console.info(error)
+coachAPI.update = (nextProps) ->
+  return unless @component?
+  props = _.extend({}, _.pick(nextProps, PROPS))
+  @component.setProps(props)
 
-cc = _.defaults(publicChannel, publicMethods)
+coachAPI.handleOpened = (eventData, scrollTo, body = document.body) ->
+  scrollTo ?= _.partial(window.scrollTo, 0)
+  {top} = eventData.coach.el.getBoundingClientRect()
+  top +=  window.scrollY
+  scrollTo(top)
+  body.classList.add('cc-opened')
 
-module.exports = cc
+coachAPI.handleClosed = (eventData, body = document.body) ->
+  body.classList.remove('cc-opened')
+
+coachAPI.handleError = (error) ->
+  channel.emit('error', error)
+  console.info(error)
+
+module.exports = coachAPI

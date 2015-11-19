@@ -5,7 +5,6 @@ api   = require '../api'
 
 AccountsIframe = require './accounts-iframe-mixin'
 User  = require './model'
-api = require '../api'
 
 UserLogin = React.createClass
 

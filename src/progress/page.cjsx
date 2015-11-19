@@ -3,6 +3,8 @@ _ = require 'underscore'
 moment = require 'moment'
 classnames = require 'classnames'
 
+navigation = require '../navigation/model'
+
 {ChapterSectionMixin, ResizeListenerMixin} = require 'openstax-react-components'
 {ExerciseProgress} = require './exercise'
 
@@ -15,6 +17,8 @@ PageProgress = React.createClass
     progressMargin: 5
     dateBuffer: 100
   mixins: [ChapterSectionMixin, ResizeListenerMixin]
+  switchModule: (data) ->
+    navigation.channel.emit('switch.module', {data, view: 'task'})
   render: ->
     {page, dateFormat, dateBuffer, maxLength, progressWidth, progressMargin, className} = @props
     {componentEl} = @state
@@ -35,7 +39,7 @@ PageProgress = React.createClass
         exercise={exercise}
         key={"progress-exercise-#{exercise.id}"}/>
 
-    <li className={classes}>
+    <li className={classes} onClick={_.partial(@switchModule, {moduleUUID: page.uuid})}>
       <h4 className='concept-coach-progress-page-title' style={width: titleWidth}>
         <div {...sectionProps}>
           {page.title}

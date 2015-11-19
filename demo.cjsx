@@ -26,37 +26,52 @@ loadApp = ->
   unless document.readyState is 'interactive'
     return false
 
+  mainDiv = document.getElementById('react-root-container')
+  buttonA = document.getElementById('launcher')
+  buttonB = document.getElementById('launcher-fake')
+
+  demoSettings =
+    collectionUUID: settings.COLLECTION_UUID
+    moduleUUID: settings.MODULE_UUID
+    cnxUrl: settings.CNX_URL
+
+  initialModel = _.clone(demoSettings)
+  initialModel.mounter = mainDiv
+
   Demo.init(settings.API_BASE_URL)
+  Demo.setOptions(initialModel)
 
   Demo.on 'open', Demo.handleOpened
   Demo.on 'ui.close', Demo.handleClosed
 
-  mainDiv = document.getElementById('react-root-container')
-
-  buttonA = document.getElementById('launcher')
-  buttonB = document.getElementById('launcher-fake')
-
   show = ->
-    demoSettings =
-      collectionUUID: settings.COLLECTION_UUID
-      moduleUUID: settings.MODULE_UUID
-      cnxUrl: settings.CNX_URL
-
     Demo.open(mainDiv, demoSettings)
     true
 
   showFake = ->
-    demoSettings =
+    fakeSettings =
       collectionUUID: 'FAKE_COLLECTION'
       moduleUUID: 'FAKE_MODULE'
       cnxUrl: settings.CNX_URL
 
-    Demo.open(mainDiv, demoSettings)
+    Demo.open(mainDiv, fakeSettings)
     true
 
   buttonA.addEventListener 'click', show
   buttonB.addEventListener 'click', showFake
 
+
+  # Hook in to writing view updates to history api
+  Demo.on 'view.update', (eventData) ->
+    if eventData.route isnt location.pathname
+      history.pushState(eventData.state, null, eventData.route)
+
+  # listen to back/forward and broadcasting to coach navigation
+  window.addEventListener 'popstate', (eventData) ->
+    Demo.updateToRoute(location.pathname)
+
+  # open to the expected view right away if view in url
+  Demo.openByRoute(mainDiv, demoSettings, location.pathname) if location.pathname?
 
   if AUTOSHOW
     setTimeout( show, 300)

@@ -41,14 +41,12 @@ settings =
     'course.*.send.registration':
       url: 'api/enrollment_changes'
       method: 'POST'
-      useCredentials: true
       failedEvent: 'course.{book_uuid}.receive.registration.failure'
       completedEvent: 'course.{book_uuid}.receive.registration.complete'
 
     'course.*.send.confirmation':
       url: 'api/enrollment_changes/{id}/approve'
       method: 'PUT'
-      useCredentials: true
       failedEvent: 'course.{id}.receive.confirmation.failure'
       completedEvent: 'course.{id}.receive.confirmation.complete'
 
