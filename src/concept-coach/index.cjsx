@@ -8,7 +8,7 @@ restAPI = require '../api'
 componentModel = require './model'
 navigation = require '../navigation/model'
 
-PROPS = ['moduleUUID', 'collectionUUID']
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
 
 listenAndBroadcast = (componentAPI) ->
   # Broadcast various internal events out to parent
