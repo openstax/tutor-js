@@ -15,11 +15,17 @@ DisplayOrRedirect = (transition, callback) ->
   [course] = courses
   if courses.length is 1 and course.roles?.length is 1
     roleType = courses[0].roles[0].type
-    type = switch roleType
-      when 'student' then 'viewStudentDashboard'
-      when 'teacher' then 'taskplans'
-      else
-        throw new Error("BUG: Unrecognized role type #{roleType}")
+    conceptCoach = courses[0].is_concept_coach
+
+    if roleType is 'student'
+      type = 'viewStudentDashboard'
+    else if roleType is 'teacher' and not conceptCoach
+      type = 'taskplans'
+    else if roleType is 'teacher' and conceptCoach
+      type = 'cc-dashboard'
+    else
+      throw new Error("BUG: Unrecognized role type #{roleType}")
+
     transition.redirect(type, {courseId: _.first(courses).id})
   callback()
 
