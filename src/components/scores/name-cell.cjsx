@@ -7,15 +7,21 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    isConceptCoach: React.PropTypes.bool.isRequired
     student: React.PropTypes.shape(
       first_name: React.PropTypes.string
       last_name: React.PropTypes.string
     ).isRequired
 
   render: ->
-    <Router.Link
-      className={"student-name #{@props.className}"}
-      to='viewStudentTeacherPerformanceForecast'
-      params={roleId: @props.roleId, courseId: @props.courseId}>
-      <Name {...@props.student} />
-    </Router.Link>
+    name = <Name {...@props.student} />
+    link =
+      <Router.Link
+        className={"student-name #{@props.className}"}
+        to='viewStudentTeacherPerformanceForecast'
+        params={roleId: @props.roleId, courseId: @props.courseId}>
+        {name}
+      </Router.Link>
+    <div>
+      {if @props.isConceptCoach then name else link}
+    </div>
