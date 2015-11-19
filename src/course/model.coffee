@@ -13,15 +13,15 @@ ERROR_MAP = {
   already_processed: 'The request has already been processed'
   already_approved: 'The request has already been proccessed'
   already_rejected: 'The request has already been rejected'
-  taken: 'You are already a member of this course'
+  taken: 'The Student ID is already a member'
 }
 
 
 class Course
 
-  constructor: (@user, attributes) ->
+  constructor: (attributes) ->
     @channel = new EventEmitter2
-    @set(attributes)
+    _.extend(@, attributes)
     _.bindAll(@, '_onRegistered', '_onConfirmed')
 
   # complete and ready for use
@@ -31,33 +31,27 @@ class Course
   # Has registration code, but not confimed
   isPending: ->    @status is "pending"
 
-  # Cleanup after a course that's been canceled out of
-  cancelJoin: ->
-    @user.removeCourse(@)
-
+  # forget in-progress registration information.  Called when a join is canceled
   resetToBlankState: ->
-    # forget course information and reset to blank state
     delete @to
     delete @name
     @channel.emit('change')
 
   description: ->
-    status = \
-      if @isIncomplete() # still fetching
-        ""
-      else if @isPending() # we originated from a join request
-        "#{@to.course.name} #{@to.period.name} period"
-      else
-        "#{@name} #{_.first(@periods).name} period"
-
-    teachers = @teacherNames()
-    if status and teachers
-      "#{status} taught by #{teachers}"
+    if @isIncomplete() # still fetching
+      ""
+    else if @isPending() # we originated from a join or move request
+      msg = @describeMovePart(@to)
+      if @from then "from #{msg} to #{@describeMovePart(@from)}" else msg
     else
-      status
+      "#{@name} #{_.first(@periods).name} period"
 
-  teacherNames: ->
-    teachers = @teachers or @to?.course.teachers
+  describeMovePart: (part) ->
+    return '' unless part
+    "#{part.course.name} (#{part.period.name}) by #{@teacherNames(part)}"
+
+  teacherNames: (part) ->
+    teachers = part.course.teachers
     names = _.map teachers, (teacher) ->
       teacher.name or "#{teacher.first_name} #{teacher.last_name}"
     # convert array to sentence
@@ -66,23 +60,24 @@ class Course
     else
       _.first(names)
 
-  set: (attributes) ->
-    _.extend(@, attributes)
-    @channel.emit('change')
-
   hasErrors: ->
     not _.isEmpty(@errors)
 
   errorMessages: ->
     _.map @errors, (err) -> ERROR_MAP[err.code]
 
-  register: (inviteCode) ->
-    @errors = []
-    api.channel.once "course.#{@ecosystem_book_uuid}.receive.registration.*", @_onRegistered
-    api.channel.emit("course.#{@ecosystem_book_uuid}.send.registration", data: {
-      book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
-    })
+  # When a course needs to be manipluated, it's cloned
+  clone: ->
+    new Course({ecosystem_book_uuid: @ecosystem_book_uuid})
 
+  # The clone's attributes are persisted to the user once complete
+  persist: (user) ->
+    other = user.findOrCreateCourse(@ecosystem_book_uuid)
+    other.name = @to.course.name
+    other.periods = [ @to.period ]
+    user.onCourseUpdate(other)
+
+  # Submits pending course change for confirmation
   confirm: (studentId) ->
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
     api.channel.emit("course.#{@id}.send.confirmation",
@@ -94,17 +89,22 @@ class Course
       _.extend(@, data.to.course)
       @periods = [ data.to.period ]
     @errors = data.errors
-    @user.onCourseUpdate(@)
     delete @status unless @hasErrors() # blank status indicates good to go
     @channel.emit('change')
 
 
+  # Submits a course invite for registration
+  register: (inviteCode) ->
+    @errors = []
+    api.channel.once "course.#{@ecosystem_book_uuid}.receive.registration.*", @_onRegistered
+    api.channel.emit("course.#{@ecosystem_book_uuid}.send.registration", data: {
+      book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
+    })
 
   _onRegistered: ({data}) ->
     # confirmation has completed
     _.extend(@, data)
     @errors = data.errors
-    @user.onCourseUpdate(@)
     @channel.emit('change')
 
 

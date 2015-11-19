@@ -15,7 +15,7 @@ CourseRegistration = React.createClass
 
   render: ->
     course = @getUser().getCourse(@props.collectionUUID)
-    body = if course?.isRegistered()
+    body = if course
       <ModifyCourseRegistration {...@props} course={course} />
     else
       <NewCourseRegistration {...@props} />

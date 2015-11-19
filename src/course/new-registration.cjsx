@@ -6,29 +6,29 @@ ENTER = 'Enter'
 
 InviteCodeInput = require './invite-code-input'
 ConfirmJoin = require './confirm-join'
-
+Navigation = require '../navigation/model'
 
 NewCourseRegistration = React.createClass
 
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
-    onComplete: React.PropTypes.func.isRequired
 
   componentWillMount: ->
-    course = User.findOrCreateCourse(@props.collectionUUID)
+    course = new Course({ecosystem_book_uuid: @props.collectionUUID})
     course.channel.on('change', @onCourseChange)
     @setState({course})
 
   componentWillUnmount: ->
-    # If our course isn't fully registered then we need to remove it
-    # so that other components don't attempt to use it
     @state.course.channel.off('change', @onCourseChange)
-    User.removeCourse(@state.course) unless @state.course.isRegistered()
+
+  onComplete: ->
+    @state.course.persist(User)
+    Navigation.channel.emit('show.panel', view: 'task')
 
   onCourseChange: ->
     if @state.course.isRegistered()
       # wait 1.5 secs so our success message is briefly displayed, then call onComplete
-      _.delay(@props.onComplete, 1500)
+      _.delay(@onComplete, 1500)
     @forceUpdate()
 
   renderComplete: (course) ->
@@ -36,21 +36,23 @@ NewCourseRegistration = React.createClass
       You have successfully joined {course.description()}
     </h3>
 
-  renderCurrentStep: (course) ->
+  renderCurrentStep: ->
+    {course} = @state
     if course.isIncomplete()
       <InviteCodeInput course={course}
         currentCourses={User.courses}
         title="Register for this Concept Coach course"
       />
     else if course.isPending()
-      <ConfirmJoin course={course} />
+      <ConfirmJoin
+        title={"Would you like to join #{@state.course.description()}?"}
+        course={course} />
     else
       @renderComplete(course)
 
   render: ->
-    course = User.getCourse(@props.collectionUUID)
-    <div className="row">
-      {@renderCurrentStep(course)}
+    <div className="-new-registration">
+      {@renderCurrentStep()}
     </div>
 
 module.exports = NewCourseRegistration

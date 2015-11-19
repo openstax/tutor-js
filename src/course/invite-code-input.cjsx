@@ -14,7 +14,7 @@ InviteCodeInput = React.createClass
     currentCourses: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Course))
 
   startRegistration: ->
-    @props.course.register(React.findDOMNode(@refs.input).value)
+    @props.course.register(@refs.input.getValue())
 
   onKeyPress: (ev) ->
     @startRegistration() if ev.key is ENTER
@@ -33,6 +33,7 @@ InviteCodeInput = React.createClass
       <button className="btn btn-default" type="button" autoFocus
         onKeyPress={@onKeyPress}
         onClick={@startRegistration}>Register</button>
+
     <div className="form-group">
       {@renderCurrentCourses() if @props.currentCourses?.length}
       <h3 className="text-center">{@props.title}</h3>
@@ -40,7 +41,8 @@ InviteCodeInput = React.createClass
       <ErrorList course={@props.course} />
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
         <BS.Input type="text" ref="input" label="Course invitation code"
-          placeholder="Enter code"
+          placeholder="Enter code" autoFocus
+          onKeyPress={@onKeyPress}
           buttonAfter={button} />
       </div>
     </div>
