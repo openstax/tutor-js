@@ -1,0 +1,112 @@
+@concept-coach-breadcrumb-background: @openstax-white;
+@concept-coach-breadcrumb-color: @openstax-neutral;
+@concept-coach-breadcrumb-border-radius: 0;
+
+.concept-coach-task {
+  .task-breadcrumbs {
+    margin: 1rem 0;
+  }
+
+  .task-breadcrumbs-step {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: @concept-coach-breadcrumb-border-radius;
+    background: @concept-coach-breadcrumb-background;
+    border-color: @concept-coach-breadcrumb-background;
+    color: @concept-coach-breadcrumb-color;
+    margin-right: 1rem;
+    font-size: 2.5rem;
+    line-height: 3.8rem;
+
+    .transition(~'background 0.1s ease-in-out, border-color 0.1s ease-in-out');
+
+    &.status-incorrect,
+    &.status-correct {
+      background: @concept-coach-breadcrumb-background;
+    }
+
+    &:hover,
+    &.active {
+      box-shadow: none;
+      border-radius: @concept-coach-breadcrumb-border-radius;
+      .scale(1);
+    }
+
+    &.active {
+      color: @openstax-white;
+      background: @openstax-info;
+      border-color: @openstax-info;
+      cursor: default;
+      font-weight: 400;
+    }
+
+    &:hover {
+      border-color: @openstax-info;
+    }
+  }
+
+  .task-homework,
+  .task-practice,
+  .task-chapter_practice,
+  .task-page_practice {
+    .task-breadcrumbs-step{
+      &.end {
+        &::before {
+          content: 'R';
+          position: absolute;
+          left: 0;
+          text-align: center;
+          width: 100%;
+          font-weight: 400;
+        }
+      }
+
+      &:not(.end){
+        &::before {
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  .icon-end {
+    display: none;
+  }
+
+  .icon-stack {
+    > .icon-sm,
+    > .icon-lg {
+      top: -1.5rem;
+      left: 2rem;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 1.5rem;
+      border: 4px solid @openstax-neutral-light;
+    }
+  }
+
+
+  .icon-incorrect,
+  .icon-correct {
+    .fa-icon();
+    font-size: 2.6rem;
+    line-height: 2.4rem;
+    background: @openstax-white;
+  }
+
+  .icon-incorrect {
+    color: @openstax-incorrect-color;
+
+    &::after {    
+      content: @fa-var-times-circle;
+    }
+  }
+
+  .icon-correct {
+    color: @openstax-correct-color;
+
+    &::after {
+      content: @fa-var-check-circle;    
+    }
+  }
+}

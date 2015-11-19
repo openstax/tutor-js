@@ -35,7 +35,7 @@ TaskReview = React.createClass
           review='completed'
           focus={false}/>
 
-    <div className='concept-coach-task-review'>
+    <div className='concept-coach-task-review concept-coach-task-body'>
       <h1>Review</h1>
       {completeStepsReview}
     </div>
