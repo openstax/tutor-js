@@ -12,8 +12,11 @@ DashboardConfig =
     getPeriods: (courseId) -> @_get(courseId)?.course?.periods
 
     getPeriodChapters: (courseId, periodId) ->
+
       periods = @_get(courseId)?.course?.periods
-      _.findWhere(periods, {id: periodId})?.chapters
+
+      _.sortBy(_.findWhere(periods, {id: periodId})?.chapters, (chapter) ->
+        chapter.chapter_section?[0])?.reverse()
 
     
 
