@@ -1,5 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
+{SpyMode} = require 'openstax-react-components'
+
 {channel} = tasks = require './collection'
 api = require '../api'
 {Reactive} = require '../reactive'
@@ -64,6 +66,7 @@ TaskBase = React.createClass
     <div className='concept-coach-task'>
       {breadcrumbs}
       {panel}
+      <SpyMode.Content>{JSON.stringify(task.spy)}</SpyMode.Content>
     </div>
 
 
