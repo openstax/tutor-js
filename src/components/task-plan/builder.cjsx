@@ -4,6 +4,7 @@ _ = require 'underscore'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
+PeriodSectionLabel = require '../period-section-label'
 PlanMixin = require './plan-mixin'
 BindStoreMixin = require '../bind-store-mixin'
 
@@ -340,7 +341,9 @@ module.exports = React.createClass
     choiceLabel = <BS.Row>
       <BS.Col md=12>
         {radio}
-        <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
+        <label className="period" htmlFor='show-periods-radio'>
+          Individual <PeriodSectionLabel courseId={@props.courseId} plural />
+        </label>
       </BS.Col>
     </BS.Row>
 
