@@ -59,7 +59,10 @@ TaskBase = React.createClass
       currentStep={currentStep}/>
 
     if task.steps[currentStep]?
-      panel = <ExerciseStep className='concept-coach-task-body' id={task.steps[currentStep].id} pinned={false}/>
+      panel = <ExerciseStep
+        className='concept-coach-task-body'
+        id={task.steps[currentStep].id}
+        pinned={false}/>
     else if currentStep is task.steps.length
       panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
 
