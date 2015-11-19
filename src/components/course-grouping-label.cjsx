@@ -2,7 +2,7 @@ React = require 'react'
 
 {CourseStore}   = require '../flux/course'
 
-PeriodSectionLabel = React.createClass
+CourseGroupingLabel = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -14,4 +14,4 @@ PeriodSectionLabel = React.createClass
     if @props.plural then name += 's'
     <span>{name}</span>
 
-module.exports = PeriodSectionLabel
+module.exports = CourseGroupingLabel
