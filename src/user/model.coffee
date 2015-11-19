@@ -40,8 +40,8 @@ User =
       course
     )
 
-  ensureStatusLoaded: ->
-    api.channel.emit('user.status.send.fetch') unless @isLoggedIn()
+  ensureStatusLoaded: (force = false) ->
+    api.channel.emit('user.status.send.fetch') unless force or @isLoggedIn()
 
   isLoggedIn: ->
     !!@profile_url
@@ -56,7 +56,7 @@ User =
 
 api.channel.on 'user.status.receive.*', ({data}) ->
   User.isLoaded = true
-  User.update(loaded: true)
+
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
   User.endpoints = data.endpoints
