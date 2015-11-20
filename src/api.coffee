@@ -30,6 +30,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 {StudentDashboardActions} = require './flux/student-dashboard'
 {CourseListingActions, CourseListingStore} = require './flux/course-listing'
+{CCDashboardStore, CCDashboardActions} = require './flux/cc-dashboard'
 {ReferenceBookActions, ReferenceBookStore} = require './flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require './flux/reference-book-page'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require './flux/reference-book-exercise'
@@ -101,7 +102,6 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
           catch e
             msg = jqXhr.responseText
           Actions.FAILED(statusCode, msg, args...)
-
       $.ajax(url, opts)
       .then(resolved, rejected)
 
@@ -161,6 +161,9 @@ start = (bootstrapData) ->
 
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
+
+  apiHelper CCDashboardActions, CCDashboardActions.load, CCDashboardActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/cc/dashboard"
 
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->

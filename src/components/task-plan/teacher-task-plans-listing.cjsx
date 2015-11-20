@@ -68,7 +68,12 @@ TeacherTaskPlanListing = React.createClass
 
   statics:
     willTransitionTo: (transition, params, query, callback) ->
-      {date, planId} = params
+      {date, planId, courseId} = params
+      course = CourseStore.get(courseId)
+      if course.is_concept_coach
+        transition.redirect('cc-dashboard', {courseId})
+        return callback()
+
       unless date? and moment(date, DATE_FORMAT).isValid()
         date = moment(TimeStore.getNow())
         params.date = date.format(DATE_FORMAT)
