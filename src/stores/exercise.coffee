@@ -10,7 +10,7 @@ cascadeLoad = (obj, exerciseId) ->
 
 ExerciseConfig = {
   _loaded: cascadeLoad
-  _saved: cascadeLoad
+  _asyncStatusPublish: {}
 
   updateNumber: (id, number) -> @_change(id, {number})
 
@@ -24,9 +24,17 @@ ExerciseConfig = {
       QuestionStore.get(question.id)
     @_change(id, {questions})
 
-  save: (id) -> @sync(id)
+  save: (id) ->
+    @sync(id)
+    @_save(id)
 
-  publish: (id) -> @emitChange()
+  _saved: (obj, id) ->
+    cascadeLoad(obj, id)
+    @_asyncStatusPublish[id] = false
+
+  publish: (id) ->
+    @_asyncStatusPublish[id] = true
+    @emitChange()
 
   exports:
     getQuestions: (id) -> @_local[id].questions
@@ -40,6 +48,8 @@ ExerciseConfig = {
     getTags: (id) -> @_local[id].tags
 
     isPublished: (id) -> @_local[id].published_at
+
+    isPublishing: (id) -> !!@_asyncStatusPublish[id]
 }
 
 extendConfig(ExerciseConfig, new CrudConfig())
