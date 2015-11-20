@@ -104,10 +104,10 @@ ConceptCoach = React.createClass
         <h3 className="error">bad internal state, no view is set</h3>
 
   render: ->
-    {isLoaded, isLoggedIn} = @state
+    {isLoaded, isLoggedIn, view} = @state
     course = User.getCourse(@props.collectionUUID)
 
-    className = classnames 'concept-coach-view',
+    className = classnames 'concept-coach-view', "concept-coach-view-#{view}",
       loading: not (isLoggedIn or isLoaded)
 
     <div className='concept-coach'>

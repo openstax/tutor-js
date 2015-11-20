@@ -49,21 +49,26 @@
   .task-practice,
   .task-chapter_practice,
   .task-page_practice {
-    .task-breadcrumbs-step{
+    .task-breadcrumbs-step {
+      width: auto;
+      position: relative;
+
       &.end {
         &::before {
-          content: 'R';
-          position: absolute;
-          left: 0;
+          content: 'Review';
+          position: relative;
           text-align: center;
           width: 100%;
-          font-weight: 400;
+          font-weight: 300;
+          padding: 0 1rem;
+          font-style: italic;
         }
       }
 
       &:not(.end){
         &::before {
-          font-weight: 400;
+          font-weight: 300;
+          position: relative;
         }
       }
     }

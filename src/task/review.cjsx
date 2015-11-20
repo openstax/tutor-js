@@ -22,8 +22,8 @@ TaskReview = React.createClass
     {completeSteps, incompleteSteps} = @state
     {status} = @props
 
-    if status is 'loaded' and _.isEmpty(completeSteps)
-      completeStepsReview = <div>
+    if _.isEmpty(completeSteps)
+      completeStepsReview = <div className='card-body'>
         <h3>Exercise to see Review</h3>
         <ExerciseButton onClick={_.partial(@props.goToStep, 0)}/>
       </div>
@@ -35,8 +35,7 @@ TaskReview = React.createClass
           review='completed'
           focus={false}/>
 
-    <div className='concept-coach-task-review concept-coach-task-body'>
-      <h1>Review</h1>
+    <div className='concept-coach-task-review'>
       {completeStepsReview}
     </div>
 
