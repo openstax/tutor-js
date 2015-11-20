@@ -1,19 +1,28 @@
 @course-listing-buffer: 40px;
-@course-listing-item-height: 200px;
+@course-listing-item-width: 400px;
+@course-listing-item-height: 400px;
+
 @course-listing-item-offset: 140px;
 
 .course-listing {
   margin-top: @course-listing-buffer;
-
-  .row {
-    margin-top: @course-listing-buffer;
-    &:first-child{
-      margin-top: 0;
-    }
+  border: 0px;
+  background: none;
+  box-shadow: none;
+  > .panel-body {
+    padding: 0;
   }
+  // .row {
+  //   margin-top: @course-listing-buffer;
+  //   &:first-child{
+  //     margin-top: 0;
+  //   }
+  // }
 
   .tutor-booksplash-course-item {
     position: relative;
+    width: @course-listing-item-width;
+    padding: 0;
     .tutor-course-item {
       height: @course-listing-item-height;
       width: 100%;
@@ -56,11 +65,11 @@
       .tutor-course-item {
         .flex(1);
         font-family: 'Helvetica', 'Lato', sans-serif;
-        font-size: 18rem;
-        line-height: 18rem;
+        // font-size: 18rem;
+        // line-height: 18rem;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-weight: 800;
+        // font-weight: 800;
       }
     }
     &[data-category=physics] {
@@ -69,12 +78,12 @@
         background-color: @tutor-book-hs-physics-primary;
       }
       // use SVG background if the title matches
-      &[data-title=Physics]{
-        .tutor-course-item {
-          .tutor-physics-cover-background();
-          font-size: 0px; // hide text title
-        }
-      }
+      // &[data-title=Physics]{
+      //   .tutor-course-item {
+      //     .tutor-physics-cover-background();
+      //     font-size: 0px; // hide text title
+      //   }
+      // }
     }
 
     &[data-category=biology] {
@@ -83,15 +92,20 @@
         background-color: @tutor-book-ap-bio-primary;
       }
       // use SVG background if the title matches
-      &[data-title=Biology]{
-        .tutor-course-item {
-          .tutor-biology-cover-background();
-          font-size: 0px; // hide text title
-        }
-      }
+      // &[data-title=Biology]{
+      //   .tutor-course-item {
+      //     .tutor-biology-cover-background();
+      //     font-size: 0px; // hide text title
+      //   }
+      // }
     }
   }
+
+
 }
+
+
+
 
 @media (min-width: @screen-xs-min) {
   .course-listing {

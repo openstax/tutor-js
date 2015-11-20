@@ -47,37 +47,31 @@ CourseListing = React.createClass
       else
         DisplayOrRedirect(transition, callback)
 
+  renderCourseData: (course) ->
+    <div>{course.name}</div>
+
   renderCourses: (courses) ->
     _.map courses, (course) =>
       {id:courseId, name, roles} = course
       isStudent = _.find roles, (role) -> role.type is 'student'
       isTeacher = _.find roles, (role) -> role.type is 'teacher'
 
-      if isStudent or not isTeacher # HACK since a student does not currently have a role
+      if isStudent
         courseLink = <Router.Link
           className='tutor-course-item'
           to='viewStudentDashboard'
-          params={{courseId}}>{course.name}</Router.Link>
+          params={{courseId}}>{@renderCourseData(course)}</Router.Link>
 
       if isTeacher
-        if courseLink?
-          altLink = <Router.Link
-            className='tutor-course-alt-link'
-            to='taskplans'
-            params={{courseId}}>View as Teacher</Router.Link>
-        else
-          courseLink = <Router.Link
-            className='tutor-course-item'
-            to='taskplans'
-            params={{courseId}}>{course.name}</Router.Link>
+        courseLink = <Router.Link
+          className='tutor-course-item'
+          to='taskplans'
+          params={{courseId}}>{@renderCourseData(course)}</Router.Link>
 
       courseDataProps = @getCourseDataProps(courseId)
-      <BS.Row>
-        <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
-          {courseLink}
-          {altLink}
-        </BS.Col>
-      </BS.Row>
+      <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
+        {courseLink}
+      </BS.Col>
 
   render: ->
     courses = CourseListingStore.allCourses() or []
@@ -89,9 +83,9 @@ CourseListing = React.createClass
     unless CourseListingStore.isLoaded()
       refreshBtn = <RefreshButton/>
 
-    <div className='course-listing '>
+    <BS.Panel className='course-listing'>
       {body}
       {refreshBtn}
-    </div>
+    </BS.Panel>
 
 module.exports = {CourseListing}
