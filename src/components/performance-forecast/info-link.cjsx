@@ -10,7 +10,7 @@ MESSAGES = {
       </p>
   ]
   teacher: [
-      <p key='s1'>The performance forecast is an estimate of each period's understanding of a topic.</p>
+      <p key='s1'>The performance forecast is an estimate of each group's understanding of a topic.</p>
       <p key='s2'>
         It is personalized display based on their answers to reading questions,
         homework problems, and previous practices.
