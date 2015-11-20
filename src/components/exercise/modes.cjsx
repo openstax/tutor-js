@@ -169,7 +169,6 @@ ExMultipleChoice = React.createClass
         exercise_uid={content.uid}
         correct_answer_id={correct_answer_id}>
         <FreeResponse free_response={free_response}/>
-        <div className='multiple-choice-prompt'>Choose the best answer from the following:</div>
       </Question>
     </div>
 

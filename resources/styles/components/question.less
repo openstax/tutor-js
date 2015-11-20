@@ -12,7 +12,7 @@
 
 @answer-vertical-spacing: 1.5rem;
 @answer-horizontal-spacing: 1rem;
-@answer-horizontal-buffer: 2 * @answer-horizontal-spacing;
+@answer-horizontal-buffer: @answer-vertical-spacing + @answer-horizontal-spacing;
 @answer-bubble-size: 4rem;
 @answer-label-spacing: @answer-bubble-size + @answer-horizontal-buffer;
 
@@ -148,8 +148,8 @@
 
   // free response
   .free-response {
-    padding: @answer-vertical-spacing @answer-horizontal-spacing;
-    margin: @answer-vertical-spacing 0;
+    padding: @answer-vertical-spacing @answer-horizontal-buffer;
+    margin: @answer-vertical-spacing 0 0 @answer-vertical-spacing;
     border-left: @answer-horizontal-spacing solid @free-response-background;
     font-style: italic;
   }
@@ -165,6 +165,7 @@
   .answer-content {
     width: calc(~'100% - @{answer-label-spacing}');
     margin-left: @answer-horizontal-spacing;
+    margin-top: 0.5 * @answer-horizontal-spacing;
     .answer-left-block();
   }
 
@@ -178,10 +179,8 @@
   .answer-label {
     font-weight: normal;
     width: 100%;
-    padding: @answer-vertical-spacing 0;
+    padding: @answer-vertical-spacing 0 0 0;
     margin: 0;
-    .flex-display();
-    .align-items(center);
 
     .transition(~'color @{answer-transition}');
     .answer();
