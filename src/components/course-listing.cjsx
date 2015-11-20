@@ -72,7 +72,7 @@ CourseListing = React.createClass
             to='taskplans'
             params={{courseId}}>View as Teacher</Router.Link>
         else
-          to = if isConceptCoach then 'cc-taskplans' else 'taskplans'
+          to = if isConceptCoach then 'cc-dashboard' else 'taskplans'
           courseLink = <Router.Link
             className='tutor-course-item'
             to={to}
