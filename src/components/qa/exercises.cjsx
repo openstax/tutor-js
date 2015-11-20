@@ -1,5 +1,6 @@
 _ = require 'underscore'
 React = require 'react'
+{SpyMode} = require 'openstax-react-components'
 
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
@@ -7,7 +8,7 @@ React = require 'react'
 BindStoreMixin    = require '../bind-store-mixin'
 Question          = require '../question'
 ExerciseCard      = require './exercise-card'
-SpyModeContent    = require '../spy-mode/content'
+
 
 QAExercises = React.createClass
   propTypes:
@@ -37,9 +38,9 @@ QAExercises = React.createClass
   renderSpyInfo: ->
     book = EcosystemsStore.getBook(@props.ecosystemId)
 
-    <SpyModeContent className="ecosystem-info">
+    <SpyMode.Content className="ecosystem-info">
       Page: {@props.cnxId} :: Book: {book.uuid}@{book.version}
-    </SpyModeContent>
+    </SpyMode.Content>
 
   render: ->
     content = if ExerciseStore.isLoaded([@state.pageId])

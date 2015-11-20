@@ -4,7 +4,7 @@ React = require 'react'
 
 Navbar = require './navbar'
 Analytics = require '../helpers/analytics'
-SpyModeWrapper = require './spy-mode/wrapper'
+{SpyMode} = require 'openstax-react-components'
 
 {TransitionActions, TransitionStore} = require '../flux/transition'
 
@@ -30,8 +30,8 @@ module.exports = React.createClass
 
   render: ->
     <div className='tutor-app'>
-      <SpyModeWrapper>
+      <SpyMode.Wrapper>
         <Navbar />
         <RouteHandler/>
-      </SpyModeWrapper>
+      </SpyMode.Wrapper>
     </div>

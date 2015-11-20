@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
+{SpyMode} = require 'openstax-react-components'
 
 {CurrentUserStore} = require '../../flux/current-user'
 
@@ -10,7 +11,6 @@ ChapterSectionType = require './chapter-section-type'
 pluralize = require 'pluralize'
 pluralize.addIrregularRule(' has', ' have')
 
-SpyModeContent = require '../spy-mode/content'
 
 
 Statistics = React.createClass
@@ -42,13 +42,13 @@ Statistics = React.createClass
       role = CurrentUserStore.getCourseRole(@props.courseId, true)
 
     <div className='statistics'>
-      <SpyModeContent className="clue">
+      <SpyMode.Content className="clue">
         <ul>
           { for key, value of @props.section.clue
             value = value.join(' ') if _.isArray(value)
             <li key={key}><strong>{key}</strong>: {value}</li>}
         </ul>
-      </SpyModeContent>
+      </SpyMode.Content>
       <div className='amount-worked'>
         <span className='count'>
           {@getWorkedText(role)}

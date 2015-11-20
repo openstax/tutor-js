@@ -1,12 +1,12 @@
 React = require 'react'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
+{SpyMode} = require 'openstax-react-components'
 
 {EcosystemsStore} = require '../../flux/ecosystems'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
 ReferenceBook        = require '../reference-book/reference-book'
-SpyModeWrapper       = require '../spy-mode/wrapper'
 TeacherContentToggle = require '../reference-book/teacher-content-toggle'
 LoadableItem         = require '../loadable-item'
 QAContent            = require './content'
@@ -52,7 +52,7 @@ QAViewBook = React.createClass
   renderBook: ->
     section = @props.section or ReferenceBookStore.getFirstSection(@props.bookId).join('.')
     contentComponent = if @state.isShowingBook then QAContent else QAExercises
-    <SpyModeWrapper>
+    <SpyMode.Wrapper>
       <div className="qa">
         <ReferenceBook
             pageNavRouterLinkTarget='QAViewBookSection'
@@ -65,7 +65,7 @@ QAViewBook = React.createClass
             contentComponent={contentComponent}
         />
       </div>
-    </SpyModeWrapper>
+    </SpyMode.Wrapper>
 
   render: ->
     <LoadableItem
