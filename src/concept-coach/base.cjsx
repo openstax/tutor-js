@@ -86,7 +86,7 @@ ConceptCoach = React.createClass
     else if not isLoggedIn
       <UserLogin onComplete={@updateUser} />
     else if not isRegistered
-      <CourseRegistration {...@props} onComplete={@updateUser} />
+      <CourseRegistration {...@props} />
     else
       course = User.getCourse(@props.collectionUUID)
 
@@ -98,6 +98,8 @@ ConceptCoach = React.createClass
         <Dashboard cnxUrl={@props.cnxUrl}/>
       else if view is 'profile'
         <UserProfile onComplete={@showTasks} />
+      else if view is 'registration'
+        <CourseRegistration {...@props} />
       else
         <h3 className="error">bad internal state, no view is set</h3>
 

@@ -5,6 +5,7 @@ settings =
     profile: DEFAULT_PATTERN
     dashboard: DEFAULT_PATTERN
     task: DEFAULT_PATTERN
+    registration: DEFAULT_PATTERN
     progress: DEFAULT_PATTERN
     default: '{prefix}{base}'
     close: '{prefix}'

@@ -12,6 +12,7 @@ CourseItem = React.createClass
     {course, cnxUrl, bookUrlPattern} = @props
     {ecosystem_book_uuid} = course
     routeData = navigation.getDataByView('task')
+    return null unless course.isRegistered()
 
     category = course.catalog_offering_identifier.toLowerCase()
     link = interpolate bookUrlPattern, {cnxUrl, ecosystem_book_uuid}

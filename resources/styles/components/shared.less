@@ -2,6 +2,10 @@ i.close-icon {
   .fa;
   .fa-3x;
   cursor: pointer;
+  // position pointer to the top right of content
+  float: right;
+  margin-right: -(@concept-coach-base-y-padding/2);
+  margin-top: -@concept-coach-base-x-padding;
   &:before {
     content: @fa-var-times-circle;
   }
