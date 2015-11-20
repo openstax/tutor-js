@@ -15,45 +15,45 @@ DashboardSectionProgress = React.createClass
     
     percents =
       completed: @_getPercentage(@props.section.completed, total)
-      inProgress: @_getPercentage(@props.section.in_progress, total)
 
     if percents.completed > 0
       completed = <BS.ProgressBar 
         className="reading-progress-bar" 
-        bsStyle="success" 
+        bsStyle="info" 
         now={percents.completed} 
         key={1} />
 
-    if percents.inProgress > 0
-      inProgress = <BS.ProgressBar 
-        className="reading-progress-bar" 
-        bsStyle="info" 
-        now={percents.inProgress} 
-        key={2} />
-
-    <BS.ProgressBar className="reading-progress-group">
-      {completed}
-      {inProgress}
-    </BS.ProgressBar>
+    <div>
+      <BS.ProgressBar className="reading-progress-group">
+        {completed}
+      </BS.ProgressBar>
+      {percents.completed}%
+    </div>
 
 DashboardSectionPerformance = React.createClass
   render: ->
     percents =
-      correct: Math.round(@props.section.original_performance * 100)
+      correct: if @props.performance then Math.round(@props.performance * 100) else 0
 
     percents.incorrect = 100 - percents.correct
-    
-    <BS.ProgressBar className="reading-progress-group">
-      <BS.ProgressBar 
-        className="reading-progress-bar progress-bar-correct" 
-        now={percents.correct}
-        label="#{percents.correct}%"
-        key={1} />
-      <BS.ProgressBar 
-        className="reading-progress-bar progress-bar-incorrect" 
-        now={percents.incorrect} 
-        key={2} />
-    </BS.ProgressBar>
+
+    correctBar = if percents.correct then <BS.ProgressBar 
+      className="reading-progress-bar progress-bar-correct" 
+      now={percents.correct}
+      key={1} />
+
+    incorrectBar = if percents.incorrect then <BS.ProgressBar 
+      className="reading-progress-bar progress-bar-incorrect" 
+      now={percents.incorrect} 
+      key={2} />
+
+    <div>
+      <BS.ProgressBar className="reading-progress-group">
+        {correctBar}
+        {incorrectBar}
+      </BS.ProgressBar>
+      {percents.correct}%
+    </div>
 
 DashboardSection = React.createClass
   render: ->
@@ -66,9 +66,10 @@ DashboardSection = React.createClass
         <DashboardSectionProgress section={@props.section} />
       </BS.Col>
       <BS.Col xs={2}>
-        <DashboardSectionPerformance section={@props.section} />
+        <DashboardSectionPerformance performance={@props.section.original_performance} />
       </BS.Col>
       <BS.Col xs={2}>
+        <DashboardSectionPerformance performance={@props.section.spaced_practice_performance} />
       </BS.Col>
     </BS.Row>
 
@@ -123,10 +124,7 @@ CCDashboard = React.createClass
       
       <BS.Row className="dashboard-table-header">
         <BS.Col xs={2} xsOffset={6}>
-          <div>Students</div>
-          <span className="progress-legend">
-            Completed / In progress / Not started
-          </span>
+          Complete
         </BS.Col>
         <BS.Col xs={2}>
           Original Performance
