@@ -5,7 +5,8 @@ _ = require 'underscore'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
 
-EMPTY_WARNING = 'Only periods without students enrolled can be deleted.'
+CourseGroupingLabel = require '../course-grouping-label'
+EMPTY_WARNING = 'EMPTY'
 
 module.exports = React.createClass
   displayName: 'DeletePeriodLink'
@@ -43,10 +44,17 @@ module.exports = React.createClass
       <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
         Delete
       </BS.Button>
+    warning = if @state.warning is EMPTY_WARNING
+      <span>
+        Only <CourseGroupingLabel courseId={@props.courseId} lowercase/>
+         without students enrolled can be deleted.
+      </span>
+    title =
+      <span>Delete <CourseGroupingLabel courseId={@props.courseId}/></span>
 
     <BS.Modal
       {...@props}
-      title='Delete Period'
+      title={title}
       className="teacher-edit-period-modal">
 
       <div className='modal-body teacher-edit-period-form'>
@@ -55,7 +63,7 @@ module.exports = React.createClass
           {deleteQuestion if @isPeriodEmpty()}
         </div>
         <div className='warning'>
-          {@state.warning}
+          {warning}
         </div>
 
       </div>
@@ -64,7 +72,7 @@ module.exports = React.createClass
         {deleteButton if @isPeriodEmpty()}
       </div>
 
-      
+
 
     </BS.Modal>
 
@@ -75,6 +83,7 @@ module.exports = React.createClass
       trigger='click'
       overlay={@renderForm()}>
         <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-trash-o' /> Delete Period
+          <i className='fa fa-trash-o' />
+          Delete <CourseGroupingLabel courseId={@props.courseId}/>
         </BS.Button>
     </BS.OverlayTrigger>
