@@ -53,29 +53,47 @@ CourseListing = React.createClass
       else
         DisplayOrRedirect(transition, callback)
 
-  renderCourseData: (course) ->
-    <div>{course.name}</div>
+  renderCourseData: (course, courseDataProps) ->
+    <BS.Panel {...courseDataProps} className='tutor-course-item'>
+      <div className='book-image'></div>
+      <div className='course-info'>
+        <div className='name'>{course.name}</div>
+        <div className='institution'>University of Georgia</div>
+        <div className='code'>
+          <div className='heading'>Course Code</div>
+          GBB121R
+        </div>
+        <div className='instructors'>
+          <div className='heading'>Instructors</div>
+          <ul>
+            <li>Jose Padilla</li>
+            <li>Theresa Chapman</li>
+            <li>Lily Bart</li>
+          </ul>
+        </div>
+      </div>
+    </BS.Panel>
 
   renderCourses: (courses) ->
     _.map courses, (course) =>
       {id:courseId, name, roles} = course
       isStudent = _.find roles, (role) -> role.type is 'student'
       isTeacher = _.find roles, (role) -> role.type is 'teacher'
+      courseDataProps = @getCourseDataProps(courseId)
 
       if isStudent
         courseLink = <Router.Link
-          className='tutor-course-item'
+          className='tutor-course-item-link'
           to='viewStudentDashboard'
-          params={{courseId}}>{@renderCourseData(course)}</Router.Link>
+          params={{courseId}}>{@renderCourseData(course, courseDataProps)}</Router.Link>
 
       if isTeacher
         courseLink = <Router.Link
-          className='tutor-course-item'
+          className='tutor-course-item-link'
           to='taskplans'
-          params={{courseId}}>{@renderCourseData(course)}</Router.Link>
-
-      courseDataProps = @getCourseDataProps(courseId)
-      <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
+          params={{courseId}}>{@renderCourseData(course, courseDataProps)}</Router.Link>
+      
+      <BS.Col className='tutor-booksplash-course-item' xs={12}>
         {courseLink}
       </BS.Col>
 

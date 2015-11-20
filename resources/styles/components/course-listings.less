@@ -1,149 +1,103 @@
-@course-listing-buffer: 40px;
+@course-listing-margin: 30px;
 @course-listing-item-width: 400px;
-@course-listing-item-height: 400px;
-
-@course-listing-item-offset: 140px;
+@course-listing-item-height: 300px;
+@course-listing-item-offset: 10px;
+@course-listing-book-image-width: 140px;
+@course-listing-book-image-height: 180px;
+@course-listing-course-info-width: 180px;
 
 .course-listing {
-  margin-top: @course-listing-buffer;
+  margin-top: @course-listing-margin;
   border: 0px;
   background: none;
   box-shadow: none;
+
   > .panel-body {
     padding: 0;
   }
-  // .row {
-  //   margin-top: @course-listing-buffer;
-  //   &:first-child{
-  //     margin-top: 0;
-  //   }
-  // }
 
   .tutor-booksplash-course-item {
     position: relative;
     width: @course-listing-item-width;
     padding: 0;
-    .tutor-course-item {
-      height: @course-listing-item-height;
+
+    .tutor-course-item-link {
       width: 100%;
       display: inline;
       overflow: hidden;
-      background-repeat: no-repeat;
-      background-size: contain;
       text-decoration: none;
-      .transition(background-position .1s ease-in);
+    }
 
-      &::before {
-        content: 'Go to ';
-        height: 100%;
-        font-style: italic;
-        display: block;
-        width: @course-listing-item-offset;
+    .flex-display();
+
+    .tutor-course-item {
+      height: @course-listing-item-height;
+      margin: @course-listing-item-offset;
+      .book-image {
         float: left;
-        overflow: hidden;
-        .transition(margin .1s ease-in);
+        width: @course-listing-book-image-width;
+        height: @course-listing-book-image-height;
+        background-color: @tutor-neutral-light;
       }
-      &:hover {
-        background-position-y: 30px;
+      &[data-category=physics] .book-image {
+        .tutor-background-image("courses/physics-book-thumbnail.png");
       }
+      &[data-category=biology] .book-image {
+        .tutor-background-image("courses/biology-book-thumbnail.png");
+      }
+      .course-info {
+        float: right;
+        > div {
+          color: @tutor-neutral-darker;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          text-align: right;
+          width: @course-listing-course-info-width;
+          .heading {
+            #fonts > .sans(1.4rem, 1.5rem);
+            color: @tutor-black;
+            font-weight: bold;
+            margin-top: 20px;   
+          }
+          li {
+            list-style: none;
+            height: 2rem;
+          }
+        }
+        .name {
+          #fonts > .sans(2.5rem, 2.9rem);
+          font-weight: 900;
+        }
+        .institution {
+          #fonts > .sans(1.5rem, 2.9rem);
+
+        }
+        .code {
+
+        }
+        .instructors {
+
+        }
+      }
+      &[data-category=physics] .course-info .name {
+        color: @tutor-book-hs-physics-primary;
+      }
+      &[data-category=biology] .course-info .name {
+        color: @tutor-book-ap-bio-primary;
+      }
+      font-family: 'Helvetica', 'Lato', sans-serif;
+      // font-size: 18rem;
+      // line-height: 18rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      // font-weight: 800;
     }
 
-    .tutor-course-alt-link {
-      text-decoration: none;
-      display: inline-block;
-      padding: 10px 20px;
-      float: right;
-      margin-top: -50px;
-
-      &:hover {
-        font-style: italic;
-      }
-    }
-
-    &[data-category]{
-      .flex-display();
-      .tutor-course-item {
-        .flex(1);
-        font-family: 'Helvetica', 'Lato', sans-serif;
-        // font-size: 18rem;
-        // line-height: 18rem;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        // font-weight: 800;
-      }
-    }
-    &[data-category=physics] {
-      .tutor-course-item {
-        color: @tutor-book-hs-physics-secondary;
-        background-color: @tutor-book-hs-physics-primary;
-      }
-      // use SVG background if the title matches
-      // &[data-title=Physics]{
-      //   .tutor-course-item {
-      //     .tutor-physics-cover-background();
-      //     font-size: 0px; // hide text title
-      //   }
-      // }
-    }
-
-    &[data-category=biology] {
-      .tutor-course-item {
-        color: @tutor-book-ap-bio-secondary;
-        background-color: @tutor-book-ap-bio-primary;
-      }
-      // use SVG background if the title matches
-      // &[data-title=Biology]{
-      //   .tutor-course-item {
-      //     .tutor-biology-cover-background();
-      //     font-size: 0px; // hide text title
-      //   }
-      // }
-    }
   }
-
 
 }
 
 
 
 
-@media (min-width: @screen-xs-min) {
-  .course-listing {
-    .tutor-booksplash-course-item {
-      .tutor-course-item {
-        &::before {
-          font-size: 4rem;
-          width: @course-listing-item-offset;
-          padding: @course-listing-buffer/2 0 0 @course-listing-buffer/2;
-          margin-left: -@course-listing-item-offset;
-          margin-top: 0;
-        }
-
-        &:hover {
-          background-position: 200px 0;
-          &::before {
-            margin-left: 0;
-          }
-        }
-      }
-
-      &[data-category=biology] {
-        .tutor-course-item {
-          &::before {
-            color: @tutor-book-ap-bio-primary;
-            background-color: @tutor-book-ap-bio-secondary;
-          }
-        }
-      }
-
-      &[data-category=physics] {
-        .tutor-course-item {
-          &::before {
-            color: @tutor-book-hs-physics-primary;
-            background-color: @tutor-book-hs-physics-secondary;
-          }
-        }
-      }
-    }
-  }
-}
