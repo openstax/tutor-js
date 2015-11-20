@@ -18,7 +18,7 @@ User =
 
   update: (data) ->
     _.extend(this, data.user)
-    @courses = _.map data.courses, (course) => new Course(@, course)
+    @courses = _.map data.courses, (course) -> new Course(course)
     @channel.emit('change')
     delete @isLoggingOut
 
@@ -35,7 +35,7 @@ User =
 
   findOrCreateCourse: (collectionUUID) ->
     @getCourse(collectionUUID) or (
-      course = new Course(@, ecosystem_book_uuid: collectionUUID)
+      course = new Course(ecosystem_book_uuid: collectionUUID)
       @courses.push(course)
       course
     )

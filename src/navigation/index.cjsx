@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 {CloseButton} = require 'openstax-react-components'
 {CourseNameBase} = require './course-name'
 
-
+Course = require '../course/model'
 user = require '../user/model'
 {channel} = require './model'
 api = require '../api'
@@ -14,6 +14,7 @@ Navigation = React.createClass
 
   propTypes:
     close: React.PropTypes.func
+    course: React.PropTypes.instanceOf(Course)
 
   componentWillMount: ->
     user.ensureStatusLoaded()
@@ -74,7 +75,7 @@ Navigation = React.createClass
           </BS.NavItem>
         </BS.Nav>
         <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
-          <UserMenu />
+          <UserMenu course={@props.course} />
           {courseItems}
           <BS.NavItem
             eventKey='close'>
