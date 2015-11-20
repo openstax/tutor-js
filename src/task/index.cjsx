@@ -11,6 +11,7 @@ exercises = {ExerciseStep} = require '../exercise'
 breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
 
 {TaskReview} = require './review'
+{TaskTitle} = require './title'
 
 TaskBase = React.createClass
   displayName: 'TaskBase'
@@ -51,6 +52,7 @@ TaskBase = React.createClass
 
   render: ->
     {task, currentStep} = @state
+    {taskId} = @props
     return null unless task?
 
     breadcrumbs = <Breadcrumbs
@@ -67,6 +69,7 @@ TaskBase = React.createClass
       panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
 
     <div className='concept-coach-task'>
+      <TaskTitle {...@props}/>
       {breadcrumbs}
       {panel}
       <SpyMode.Content>{JSON.stringify(task.spy)}</SpyMode.Content>
