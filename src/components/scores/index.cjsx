@@ -149,7 +149,7 @@ Scores = React.createClass
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
         when 'homework' then <HomeworkCell key='homework' {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
-        when 'concept_coach' then <ConceptCoachCell  key='reading'  {...props} />
+        when 'concept_coach' then <ConceptCoachCell  key='cc'  {...props} />
     columns
 
   renderNameHeader: ->
