@@ -1,0 +1,117 @@
+@concept-coach-breadcrumb-background: @openstax-white;
+@concept-coach-breadcrumb-color: @openstax-neutral;
+@concept-coach-breadcrumb-border-radius: 0;
+
+.concept-coach-task {
+  .task-breadcrumbs {
+    margin: 1rem 0;
+  }
+
+  .task-breadcrumbs-step {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: @concept-coach-breadcrumb-border-radius;
+    background: @concept-coach-breadcrumb-background;
+    border-color: @concept-coach-breadcrumb-background;
+    color: @concept-coach-breadcrumb-color;
+    margin-right: 1rem;
+    font-size: 2.5rem;
+    line-height: 3.8rem;
+
+    .transition(~'background 0.1s ease-in-out, border-color 0.1s ease-in-out');
+
+    &.status-incorrect,
+    &.status-correct {
+      background: @concept-coach-breadcrumb-background;
+    }
+
+    &:hover,
+    &.active {
+      box-shadow: none;
+      border-radius: @concept-coach-breadcrumb-border-radius;
+      .scale(1);
+    }
+
+    &.active {
+      color: @openstax-white;
+      background: @openstax-info;
+      border-color: @openstax-info;
+      cursor: default;
+      font-weight: 400;
+    }
+
+    &:hover {
+      border-color: @openstax-info;
+    }
+  }
+
+  .task-homework,
+  .task-practice,
+  .task-chapter_practice,
+  .task-page_practice {
+    .task-breadcrumbs-step {
+      width: auto;
+      position: relative;
+
+      &.end {
+        &::before {
+          content: 'Review';
+          position: relative;
+          text-align: center;
+          width: 100%;
+          font-weight: 300;
+          padding: 0 1rem;
+          font-style: italic;
+        }
+      }
+
+      &:not(.end){
+        &::before {
+          font-weight: 300;
+          position: relative;
+        }
+      }
+    }
+  }
+
+  .icon-end {
+    display: none;
+  }
+
+  .icon-stack {
+    > .icon-sm,
+    > .icon-lg {
+      top: -1.5rem;
+      left: 2.2rem;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 3px solid @openstax-neutral-light;
+    }
+  }
+
+
+  .icon-incorrect,
+  .icon-correct {
+    .fa-icon();
+    font-size: 2.4rem;
+    line-height: 1.8rem;
+    background: @openstax-white;
+  }
+
+  .icon-incorrect {
+    color: @openstax-incorrect-color;
+
+    &::after {    
+      content: @fa-var-times-circle;
+    }
+  }
+
+  .icon-correct {
+    color: @openstax-correct-color;
+
+    &::after {
+      content: @fa-var-check-circle;    
+    }
+  }
+}

@@ -1,4 +1,5 @@
 EventEmitter2 = require 'eventemitter2'
+interpolate = require 'interpolate'
 _ = require 'underscore'
 api = require '../api'
 
@@ -43,6 +44,18 @@ getIncompleteSteps = (taskId) ->
 getFirstIncompleteIndex = (taskId) ->
   _.max [_.findIndex(tasks[taskId]?.steps, {is_completed: false}), 0]
 
+getModuleInfo = (taskId, cnxUrl = '') ->
+  task = tasks[taskId]
+  return unless task?
+
+  bookUrlPattern = '{cnxUrl}/contents/{collectionUUID}'
+
+  moduleInfo = _.clone(task.steps?[0].related_content?[0]) or {}
+  _.extend moduleInfo, _.pick(task, 'collectionUUID', 'moduleUUID')
+  moduleInfo.link = interpolate bookUrlPattern, {cnxUrl, collectionUUID: task.collectionUUID}
+
+  moduleInfo
+
 api.channel.on("task.*.receive.*", update)
 
 module.exports = {
@@ -53,5 +66,6 @@ module.exports = {
   getCompleteSteps,
   getIncompleteSteps,
   getFirstIncompleteIndex,
+  getModuleInfo,
   channel
 }

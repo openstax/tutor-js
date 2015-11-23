@@ -1,16 +1,10 @@
 .concept-coach-view {
-  background: @openstax-white;
+  margin: 80px auto;
   width: 75%;
-  min-width: 800px;
-  margin: 100px auto;
-  padding: @concept-coach-base-x-padding @concept-coach-base-y-padding;
 
-
-  .task-breadcrumbs-step {
-    &:hover,
-    &.active {
-      box-shadow: none;
-    }
+  &:not(.concept-coach-view-task) {
+    background: @openstax-white;
+    padding: @concept-coach-base-x-padding @concept-coach-base-y-padding;
   }
 
   // TODO move out to common
