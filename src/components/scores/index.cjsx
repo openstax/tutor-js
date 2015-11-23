@@ -101,7 +101,7 @@ Scores = React.createClass
 
     if heading.average
       summary = <span className='summary'>
-        {heading.average}
+        {(heading.average * 100).toFixed(1)}%
       </span>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
