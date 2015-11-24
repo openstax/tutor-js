@@ -3,7 +3,6 @@ BS = require 'react-bootstrap'
 _  = require 'underscore'
 Icon = require '../icon'
 
-{StudentDashboardStore} = require '../../flux/student-dashboard'
 {TeacherRosterStore, TeacherRosterActions} = require '../../flux/teacher-roster'
 RemoveTeacherLink = require './remove-teacher'
 
@@ -12,6 +11,7 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     courseRoles: React.PropTypes.array.isRequired
+    store: React.PropTypes.object.isRequired
 
   renderTeacherRow: (teacher) ->
     <tr key={teacher.id}>
@@ -26,8 +26,8 @@ module.exports = React.createClass
     </tr>
 
   render: ->
-    {courseId} = @props
-    teachers = StudentDashboardStore.get(courseId).course.teachers or []
+    {courseId, store} = @props
+    teachers = store.get(courseId).course.teachers or []
     <div className="teachers-table">
       <div><span className='course-settings-subtitle'>Instructors</span></div>
       <BS.Table striped bordered condensed hover className="roster">
