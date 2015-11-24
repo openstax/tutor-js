@@ -3,6 +3,7 @@ _ = require 'underscore'
 {Exercise} = require 'openstax-react-components'
 
 {channel, getCurrentPanel} = exercises = require './collection'
+tasks = require '../task/collection'
 api = require '../api'
 {Reactive} = require '../reactive'
 apiChannelName = 'exercise'
@@ -20,6 +21,7 @@ ExerciseBase = React.createClass
 
   render: ->
     {step} = @state
+    {taskId} = @props
     return null if _.isEmpty(step)
 
     exerciseProps =
@@ -56,7 +58,13 @@ ExerciseBase = React.createClass
         console.info('onNextStep')
         channel.emit("leave.#{step.id}")
 
-    <Exercise {...exerciseProps} {...@props}/>
+    if taskId?
+      wrapperProps =
+        'data-step-number': tasks.getStepIndex(taskId, step.id) + 1
+
+    <div className='exercise-wrapper' {...wrapperProps}>
+      <Exercise {...exerciseProps} {...@props}/>
+    </div>
 
 ExerciseStep = React.createClass
   displayName: 'ExerciseStep'

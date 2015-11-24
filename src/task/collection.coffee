@@ -44,6 +44,9 @@ getIncompleteSteps = (taskId) ->
 getFirstIncompleteIndex = (taskId) ->
   _.max [_.findIndex(tasks[taskId]?.steps, {is_completed: false}), 0]
 
+getStepIndex = (taskId, stepId) ->
+  _.findIndex(tasks[taskId].steps, id: stepId)
+
 getModuleInfo = (taskId, cnxUrl = '') ->
   task = tasks[taskId]
   return unless task?
@@ -66,6 +69,7 @@ module.exports = {
   getCompleteSteps,
   getIncompleteSteps,
   getFirstIncompleteIndex,
+  getStepIndex,
   getModuleInfo,
   channel
 }
