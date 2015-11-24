@@ -13,15 +13,21 @@ module.exports = React.createClass
       last_name: React.PropTypes.string
     ).isRequired
 
+  renderCCStudent: ->
+    [
+      <Name {...@props.student} />
+      # FIXME - Student ID goes here, but BE isn't provisioning it
+    ]
+
+  renderLinkedName: ->
+    <Router.Link
+      className={"student-name #{@props.className}"}
+      to='viewStudentTeacherPerformanceForecast'
+      params={roleId: @props.roleId, courseId: @props.courseId}>
+       <Name {...@props.student} />
+    </Router.Link>
+
   render: ->
-    name = <Name {...@props.student} />
-    link =
-      <Router.Link
-        className={"student-name #{@props.className}"}
-        to='viewStudentTeacherPerformanceForecast'
-        params={roleId: @props.roleId, courseId: @props.courseId}>
-        {name}
-      </Router.Link>
-    <div>
-      {if @props.isConceptCoach then name else link}
+    <div className="name">
+      {if @props.isConceptCoach then @renderCCStudent() else @renderLinkedName()}
     </div>
