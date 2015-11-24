@@ -67,9 +67,7 @@ coachAPI.setOptions = (options) ->
 
 coachAPI.open = (mountNode, props) ->
   props = _.clone(props)
-
-  if componentModel.isSame
-    props.defaultView ?= componentModel.view
+  props.defaultView ?= if componentModel.isSame then componentModel.view else 'task'
 
   componentModel.update(
     mounter: mountNode
