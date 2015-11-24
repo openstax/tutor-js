@@ -1,0 +1,11 @@
+.exercise-wrapper[data-step-number] {
+  &::before {
+    content: attr(data-step-number) ")";
+    position: absolute;
+    z-index: 2;
+    left: @concept-coach-base-y-padding - 27px;
+    top: @concept-coach-base-x-padding;
+
+    .exercise();
+  }
+}

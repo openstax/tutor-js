@@ -8,19 +8,23 @@ tasks = require './collection'
 TaskReview = React.createClass
   displayName: 'TaskReview'
   getInitialState: ->
-    {collectionUUID, moduleUUID} = @props
-    taskId = "#{collectionUUID}/#{moduleUUID}"
-
-    completeSteps: tasks.getCompleteSteps(taskId)
-    incompleteSteps: tasks.getIncompleteSteps(taskId)
+    @getSteps(@props)
 
   componentWillMount: ->
     {collectionUUID, moduleUUID} = @props
     tasks.fetchByModule({collectionUUID, moduleUUID})
 
+  componentWillReceiveProps: (nextProps) ->
+    @setState(@getSteps(nextProps))
+
+  getSteps: (props) ->
+    {taskId} = props
+    completeSteps: tasks.getCompleteSteps(taskId)
+    incompleteSteps: tasks.getIncompleteSteps(taskId)
+
   render: ->
     {completeSteps, incompleteSteps} = @state
-    {status} = @props
+    {status, taskId} = @props
 
     if _.isEmpty(completeSteps)
       completeStepsReview = <div className='card-body'>
@@ -33,7 +37,8 @@ TaskReview = React.createClass
           id={step.id}
           pinned={false}
           review='completed'
-          focus={false}/>
+          focus={false}
+          taskId={taskId}/>
 
     <div className='concept-coach-task-review'>
       {completeStepsReview}
