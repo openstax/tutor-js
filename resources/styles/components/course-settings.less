@@ -24,7 +24,7 @@
   .course-settings-subtitle {
     font-size: 2.5rem;
     &.tabbed {
-      padding-top: 40px; 
+      padding-top: 20px; 
     }
     padding-bottom: 15px;
     display: inline-block;
@@ -51,6 +51,14 @@
     }
   }
 
+  .show-enrollment-code {
+    color: @tutor-tertiary-light;
+    text-transform: capitalize;
+    &.btn {
+      padding: 0;
+    }
+  }
+
   .roster {
     table-layout: fixed;
     .actions {
@@ -70,6 +78,16 @@
 .teacher-add-student-form {
   .tutor-input {
     margin-bottom: 10px;
+  }
+}
+
+.teacher-enrollment-code-modal {
+  .enrollment-code {
+    .code {
+      font-weight: 800;
+      font-size: 2rem;
+      text-align: center;
+    }
   }
 }
 
