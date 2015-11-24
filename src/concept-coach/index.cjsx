@@ -60,14 +60,21 @@ coachAPI.init = (baseUrl, navOptions = {}) ->
 
   restAPI.channel.emit('user.status.send.fetch')
 
-coachAPI.setOptions = componentModel.update.bind(componentModel)
+coachAPI.setOptions = (options) ->
+  isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
+  options = _.extend({}, options, isSame: isSame)
+  componentModel.update(options)
 
 coachAPI.open = (mountNode, props) ->
   props = _.clone(props)
-  componentModel.update({mounter: mountNode})
 
-  if _.isEqual(_.pick(props, PROPS), _.pick(componentModel, PROPS))
+  if componentModel.isSame
     props.defaultView ?= componentModel.view
+
+  componentModel.update(
+    mounter: mountNode
+    isSame: true
+  )
 
   modalNode = document.createElement('div')
   modalNode.classList.add('concept-coach-wrapper')
