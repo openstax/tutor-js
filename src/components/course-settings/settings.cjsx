@@ -36,7 +36,10 @@ module.exports = React.createClass
           id={@props.courseId}
           store={store}
           actions={actions}
-          renderItem={=> <TeacherRoster store={store} courseRoles={course.roles} courseId={@props.courseId}/>}
+          renderItem={=> <TeacherRoster 
+            store={store} 
+            courseRoles={course.roles} 
+            courseId={@props.courseId}/>}
         />
       </div>
 
