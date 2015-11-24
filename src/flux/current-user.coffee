@@ -34,7 +34,8 @@ ROUTES =
       student: 'viewStudentDashboard'
       default: 'app'
   guide:
-    label: 'Performance Forecast'
+    label: 'Performance Forecast' # a bit hard to read, but we only want to reject the === true case
+    allowedForCourse: (course) -> not course?.is_concept_coach is true
     roles:
       student: 'viewPerformanceForecast'
       teacher: 'viewTeacherPerformanceForecast'
@@ -148,8 +149,12 @@ CurrentUserStore = flux.createStore
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.
     getCourseMenuRoutes: (courseId, silent = false) ->
+      course = CourseStore.get(courseId)
       menuRole = @_getCourseRole(courseId, silent)
-      routes = _.keys(ROUTES)
+      validRoutes = _.pick ROUTES, (route) ->
+        false isnt route.allowedForCourse?(course)
+
+      routes = _.keys(validRoutes)
 
       _.chain(routes)
         .map((routeType) =>
