@@ -204,7 +204,7 @@ Scores = React.createClass
           when 'homework' then d.data[index].correct_exercise_count
           when 'reading' then d.data[index].status
       else
-        d.last_name.toLowerCase()
+        (d.last_name or d.name).toLowerCase()
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
 
