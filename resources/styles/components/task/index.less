@@ -14,14 +14,18 @@
 .concept-coach-title {
   margin-bottom: 1.5rem;
 
-  .chapter-section-prefix {
+  .chapter-section-prefix, .no-title {
     display: inline-block;
     margin-right: 1rem;
   }
 
-  a {
-    color: @openstax-neutral-light;
+  &:not(.no-title) {
+    a {
+      color: @openstax-neutral-light;
+    }
+  }
 
+  a {
     &:hover,
     &:focus {
       color: @openstax-info;

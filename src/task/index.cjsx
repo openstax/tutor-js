@@ -1,5 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
+classnames = require 'classnames'
 {SpyMode} = require 'openstax-react-components'
 
 {channel} = tasks = require './collection'
@@ -12,6 +13,7 @@ breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
 
 {TaskReview} = require './review'
 {TaskTitle} = require './title'
+{NoExercises} = require './no-exercises'
 
 TaskBase = React.createClass
   displayName: 'TaskBase'
@@ -60,7 +62,11 @@ TaskBase = React.createClass
       goToStep={@goToStep}
       currentStep={currentStep}/>
 
-    if task.steps[currentStep]?
+    noExercises = not task.steps? or _.isEmpty(task.steps)
+
+    if noExercises
+      panel = <NoExercises/>
+    else if task.steps[currentStep]?
       panel = <ExerciseStep
         className='concept-coach-task-body'
         id={task.steps[currentStep].id}
@@ -68,7 +74,10 @@ TaskBase = React.createClass
     else if currentStep is task.steps.length
       panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
 
-    <div className='concept-coach-task'>
+    taskClasses = classnames 'concept-coach-task',
+      'card-body': noExercises
+
+    <div className={taskClasses}>
       <TaskTitle {...@props}/>
       {breadcrumbs}
       {panel}

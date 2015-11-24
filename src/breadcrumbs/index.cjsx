@@ -52,6 +52,8 @@ Breadcrumbs = React.createClass
     {task} = @state
     {currentStep} = @props
 
+    return null if _.isEmpty(task.steps)
+
     crumbs = _.map(task.steps, (crumbStep, index) ->
       crumb =
         key: index
