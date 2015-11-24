@@ -11,7 +11,10 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   redirectToAccount: ->
-    window.open(CurrentUserStore.getProfileUrl(), 'account-profile')
+    if window.OxAccount
+      OxAccount.onAvailable -> OxAccount.displayProfile()
+    else
+      window.open(CurrentUserStore.getProfileUrl(), 'account-profile')
 
   render: ->
     return null unless CurrentUserStore.getProfileUrl()
