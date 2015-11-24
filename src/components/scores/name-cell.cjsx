@@ -15,8 +15,8 @@ module.exports = React.createClass
 
   renderCCStudent: ->
     [
-      <Name {...@props.student} />
-      # FIXME - Student ID goes here, but BE isn't provisioning it
+      <Name className="name" {...@props.student} />
+      <div className="student-id">{@props.student.student_identifier}</div>
     ]
 
   renderLinkedName: ->
@@ -28,6 +28,6 @@ module.exports = React.createClass
     </Router.Link>
 
   render: ->
-    <div className="name">
+    <div className="name-cell">
       {if @props.isConceptCoach then @renderCCStudent() else @renderLinkedName()}
     </div>
