@@ -55,7 +55,6 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
         completedData = getResponseDataByEnv(isLocal, eventData, response)
 
         apiEventChannel.emit(completedEvent, completedData)
-        Promise.resolve(response)
 
       ).catch((response) ->
         if _.isString(setting.failedEvent)
@@ -63,7 +62,6 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
           apiEventChannel.emit(failedEvent, response)
         setting.onFail?(response) or defaultFail(response)
         apiEventChannel.emit('error', response: response, apiSetting: apiSetting)
-        Promise.reject(response)
       )
   , delay
 
