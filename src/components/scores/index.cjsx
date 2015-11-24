@@ -200,9 +200,11 @@ Scores = React.createClass
     sortData = _.sortBy(scores.students, (d) ->
       if _.isNumber(sort.key)
         index = sort.key - FIRST_DATA_COLUMN
-        switch d.data[index].type
-          when 'homework' then d.data[index].correct_exercise_count
-          when 'reading' then d.data[index].status
+        record = d.data[index]
+        return 0 unless record
+        switch record.type
+          when 'reading' then record.status
+          when 'homework', 'concept_coach' then record.correct_exercise_count or 0
       else
         (d.last_name or d.name).toLowerCase()
     )
