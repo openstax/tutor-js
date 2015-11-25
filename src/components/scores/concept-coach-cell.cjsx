@@ -10,14 +10,12 @@ ConceptCoachCell = React.createClass
 
   render: ->
     <div className="cc-cell">
-      <div className="score">
-        <Router.Link className="score" to='viewTaskStep'
-          data-assignment-type="#{@props.task.type}"
-          params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}
-        >
-          {@props.task.correct_exercise_count} of {@props.task.exercise_count}
-        </Router.Link>
-      </div>
+      <Router.Link className="score" to='viewTaskStep'
+        data-assignment-type="#{@props.task.type}"
+        params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}
+      >
+        {@props.task.correct_exercise_count} of {@props.task.exercise_count}
+      </Router.Link>
       <div className="worked">
         <Time format='MMM. D' date={@props.task.last_worked_at} />
       </div>
