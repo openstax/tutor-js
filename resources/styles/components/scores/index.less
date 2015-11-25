@@ -1,4 +1,6 @@
 .scores-report {
+  @table-row-height: 46px;
+
   // negates bottom padding on body to eliminate scrollbar
   margin-bottom: -50px;
 
@@ -110,7 +112,6 @@
     > div {
       display: block;
       width: 100%;
-      height: 50%;
       padding: 8px;
     }
 
@@ -137,6 +138,24 @@
     span.review-plan {
       color: @tutor-neutral;
     }
+  }
+
+  // concept coach cells that are split
+  .cc-cell,
+  .name-cell {
+    & > * {
+      line-height: @table-row-height;
+      display: inline-block;
+      width: 50%;
+      text-align: center;
+      &:first-child {
+        border-right: 1px solid @tutor-neutral;
+      }
+    }
+  }
+  .name-cell .name {
+    padding-left: 1rem;
+    text-align: left;
   }
 
 }

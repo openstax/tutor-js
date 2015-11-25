@@ -1,4 +1,7 @@
-React    = require 'react'
+React  = require 'react'
+moment = require 'moment'
+
+Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 
 ConceptCoachCell = React.createClass
@@ -6,11 +9,13 @@ ConceptCoachCell = React.createClass
   mixins: [CellStatusMixin] # prop validation
 
   render: ->
-    msg = if @props.task.status is 'in_progress'
-      'In progress'
-    else
-      "#{@props.task.correct_exercise_count}/#{@props.task.exercise_count}"
+    <div className="cc-cell">
+      <div className="score">{@props.task.correct_exercise_count} of {@props.task.exercise_count}</div>
+      <div className="worked">
+        <Time format='MMM. D' date={@props.task.last_worked_at} />
+      </div>
+    </div>
 
-    <div>{msg}</div>
+
 
 module.exports = ConceptCoachCell

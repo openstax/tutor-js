@@ -18,7 +18,6 @@ module.exports = React.createClass
     defaultText: React.PropTypes.string
 
   getDefaultProps: ->
-    compareWith: TimeStore.getNow()
     compare: 'from'
     customSuffix: undefined
     toleranceMS: 60000
@@ -26,6 +25,7 @@ module.exports = React.createClass
 
   shouldRenderDifference: ->
     {date, compareWith, toleranceMS} = @props
+    compareWith ||= TimeStore.getNow()
     Math.abs(moment(date).diff(compareWith)) > toleranceMS
 
   render: ->

@@ -13,15 +13,21 @@ module.exports = React.createClass
       last_name: React.PropTypes.string
     ).isRequired
 
+  renderCCStudent: ->
+    [
+      <Name className="name" {...@props.student} />
+      <div className="student-id">{@props.student.student_identifier}</div>
+    ]
+
+  renderLinkedName: ->
+    <Router.Link
+      className={"student-name #{@props.className}"}
+      to='viewStudentTeacherPerformanceForecast'
+      params={roleId: @props.roleId, courseId: @props.courseId}>
+       <Name {...@props.student} />
+    </Router.Link>
+
   render: ->
-    name = <Name {...@props.student} />
-    link =
-      <Router.Link
-        className={"student-name #{@props.className}"}
-        to='viewStudentTeacherPerformanceForecast'
-        params={roleId: @props.roleId, courseId: @props.courseId}>
-        {name}
-      </Router.Link>
-    <div>
-      {if @props.isConceptCoach then name else link}
+    <div className="name-cell">
+      {if @props.isConceptCoach then @renderCCStudent() else @renderLinkedName()}
     </div>
