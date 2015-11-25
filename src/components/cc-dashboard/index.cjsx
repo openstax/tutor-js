@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {CoursePeriodsNav} = require '../course-periods-nav'
 {CCDashboardStore, CCDashboardActions} = require '../../flux/cc-dashboard'
+{CourseStore} = require '../../flux/course'
 ChapterSection = require '../task-plan/chapter-section'
 LoadableItem = require '../loadable-item'
 Router = require 'react-router'
@@ -90,6 +91,26 @@ DashboardChapter = React.createClass
       {chapter}
       {sections}
     </div>
+
+DashboardBookLinks = React.createClass
+  goToPdf: ->
+    course = CourseStore.get(@props.courseId)
+    window.open(course.book_pdf_url, 'cc-pdf-link')
+
+  goToWebview: ->
+    console.log 'webview'
+
+  render: ->
+    <BS.Row className='dashboard-header-links'>
+      <div className='pull-right'>
+        <BS.Button bsStyle='link' className='link' onClick={@goToPdf}>
+          Book PDF
+        </BS.Button>
+        <BS.Button bsStyle='link' className='link' onClick={@goToWebview}>
+          Webview <i className='fa fa-external-link' />
+        </BS.Button>
+      </div>
+    </BS.Row>
     
 CCDashboard = React.createClass
   getDefaultProps: ->
@@ -144,6 +165,7 @@ DashboardShell = React.createClass
     {courseId} = @context.router.getCurrentParams()
 
     <div>
+      <DashboardBookLinks courseId={courseId} />
       <h1>
         Class Performance
         <Router.Link className='btn btn-default pull-right' to='viewScores' params={{courseId}}>
