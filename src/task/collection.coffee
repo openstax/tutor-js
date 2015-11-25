@@ -8,7 +8,9 @@ channel = new EventEmitter2 wildcard: true
 
 load = (taskId, data) ->
   tasks[taskId] = data
-  channel.emit("load.#{taskId}", {data})
+  status = if data.errors? then 'failed' else 'loaded'
+
+  channel.emit("load.#{taskId}", {data, status})
 
 update = (eventData) ->
   {data, query} = eventData

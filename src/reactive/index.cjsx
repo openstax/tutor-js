@@ -50,7 +50,7 @@ Reactive = React.createClass
   isForThisComponent: (eventData) ->
     {topic, filter} = @props
 
-    filter?(@props, eventData) or eventData?.data?.id is topic or eventData?.data?.topic is topic
+    eventData.errors? or filter?(@props, eventData) or eventData?.data?.id is topic or eventData?.data?.topic is topic
 
   update: (eventData) ->
     return unless @isForThisComponent(eventData)
