@@ -77,7 +77,9 @@ UserActionsMenu = React.createClass
         className="logout"
         eventKey={4}
         key='dropdown-item-logout'>
-          <LogOut className='btn btn-link btn-xs'>Log Out</LogOut>
+          <LogOut
+          isConceptCoach={@props.course?.is_concept_coach}
+          className='btn btn-link btn-xs'>Log Out</LogOut>
       </BS.MenuItem>
     </BS.DropdownButton>
 

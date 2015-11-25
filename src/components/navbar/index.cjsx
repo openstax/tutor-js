@@ -57,7 +57,7 @@ module.exports = React.createClass
           <CourseName course={course}/>
         </BS.Nav>
         <BS.Nav right navbar>
-          <UserActionsMenu courseId={courseId} />
+          <UserActionsMenu courseId={courseId} course={@getCourseFromParams()} />
         </BS.Nav>
       </BS.CollapsibleNav>
       <ServerErrorMonitoring />
