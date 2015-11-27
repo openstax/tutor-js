@@ -84,11 +84,12 @@ class Course
       data: { id: @id, student_identifier: studentId}
     )
 
-  _onConfirmed:  ({data}) ->
-    if data.to
+  _onConfirmed:  (response) ->
+    if response.data?.to
       _.extend(@, data.to.course)
       @periods = [ data.to.period ]
-    @errors = data.errors
+    @errors = response.data.errors
+    response.stopErrorDisplay = true if @errors
     delete @status unless @hasErrors() # blank status indicates good to go
     @channel.emit('change')
 
@@ -101,10 +102,11 @@ class Course
       book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
     })
 
-  _onRegistered: ({data}) ->
+  _onRegistered: (response) ->
     # confirmation has completed
-    _.extend(@, data)
-    @errors = data.errors
+    _.extend(@, response.data)
+    @errors = response.data.errors
+    response.stopErrorDisplay = true if @errors
     @channel.emit('change')
 
 
