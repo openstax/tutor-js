@@ -24,6 +24,7 @@
         padding: 0 5px;
         border-radius: @border-radius-base;
       }
+      .is-ignored { text-decoration: line-through; }
       .reading_dynamic     { background-color: @reading-color;     }
       .homework_dynamic    { background-color: @homework-color;    }
       .practice_widget     { background-color: @qa-practice-color;    }
@@ -31,7 +32,7 @@
       .homework_core       { background-color: @homework-color;    }
     }
   }
-  nav.navbar {
+  .navbar-nav {
     // clip so that a long title doesn't push the menus below the navbar
     .section-title {
       span { display: inline-block; }
@@ -46,9 +47,13 @@
         }
       }
     }
-    // hide logos when screen is narrow
-    @media screen and ( max-width: @reference-book-page-width ){
-      .ui-rice-logo, .ui-brand-logo { display: none; }
+    // hide logos when screen is narrow.
+    // QA has more navbar controls so needs to be more agressive than reference book media query
+    @media screen and ( max-width: (@reference-book-page-width+300px) ){
+      .ui-rice-logo,
+      .ui-brand-logo {
+        display: none;
+      }
     }
 
   }
