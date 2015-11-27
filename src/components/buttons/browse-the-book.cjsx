@@ -58,7 +58,7 @@ module.exports = React.createClass
   render: ->
     courseId = @props.courseId or @context.router.getCurrentParams().courseId
     # Unable to browse course-less or concept coach books
-    return null unless courseId and not CourseStore.get(courseId).is_concept_coach
+    return null unless courseId and not CourseStore.get(courseId)?.is_concept_coach
 
     routeProps = @buildRouteProps(courseId)
     linkProps = _.extend({}, routeProps, @getLinkProps())
