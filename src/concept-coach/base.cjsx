@@ -1,10 +1,12 @@
 React = require 'react'
+
 classnames = require 'classnames'
 {SmartOverflow, SpyMode} = require 'openstax-react-components'
 
 {Task} = require '../task'
 navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
+ErrorNotification = require './error-notification'
 UserLogin = require '../user/login'
 UserProfile = require '../user/profile'
 
@@ -111,6 +113,8 @@ ConceptCoach = React.createClass
       loading: not (isLoggedIn or isLoaded)
 
     <div className='concept-coach'>
+      <ErrorNotification />
+
       <SpyMode.Wrapper>
         <Navigation key='user-status' close={@props.close} course={course}/>
         <div className={className}>
