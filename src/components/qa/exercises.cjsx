@@ -51,7 +51,6 @@ QAExercises = React.createClass
 
   renderExerciseContent: (exercises) ->
     exercises = _.map exercises, (ex) =>
-      return null if _.every( ExerciseStore.poolTypes(ex), (pt) => @state.ignored[pt] )
       <ExerciseCard key={ex.id} exercise={ex} ignoredPoolTypes={@state.ignored} />
     selections = _.map ExerciseStore.getPagePoolTypes(@state.pageId), (pt) =>
       id: pt, title: String.titleize(pt), selected: not @state.ignored[pt]
