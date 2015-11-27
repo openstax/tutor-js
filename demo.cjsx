@@ -28,7 +28,8 @@ loadApp = ->
 
   mainDiv = document.getElementById('react-root-container')
   buttonA = document.getElementById('launcher')
-  buttonB = document.getElementById('launcher-fake')
+  buttonB = document.getElementById('launcher-other-course')
+  buttonC = document.getElementById('launcher-intro')
 
   demoSettings =
     collectionUUID: settings.COLLECTION_UUID
@@ -48,17 +49,25 @@ loadApp = ->
     Demo.open(mainDiv, demoSettings)
     true
 
-  showFake = ->
-    fakeSettings =
+  showOtherCourse = ->
+    otherCourseSettings =
       collectionUUID: 'FAKE_COLLECTION'
       moduleUUID: 'FAKE_MODULE'
       cnxUrl: settings.CNX_URL
 
-    Demo.open(mainDiv, fakeSettings)
+    Demo.open(mainDiv, otherCourseSettings)
+    true
+
+  showIntro = ->
+    introSettings = _.extend({}, demoSettings, moduleUUID: 'e98bdaec-4060-4b43-ac70-681555a30e22')
+    console.info('introSettings')
+    console.info(introSettings)
+    Demo.open(mainDiv, introSettings)
     true
 
   buttonA.addEventListener 'click', show
-  buttonB.addEventListener 'click', showFake
+  buttonB.addEventListener 'click', showOtherCourse
+  buttonC.addEventListener 'click', showIntro
 
 
   # Hook in to writing view updates to history api

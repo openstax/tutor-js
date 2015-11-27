@@ -44,8 +44,11 @@ Reactive = React.createClass
     {status} = eventData
     status ?= 'loaded'
 
+    errors = eventData?.data?.errors
+
     item: store.get?(topic)
     status: status
+    errors: errors
 
   isForThisComponent: (eventData) ->
     {topic, filter} = @props
@@ -89,7 +92,7 @@ Reactive = React.createClass
     classes = classnames 'reactive', "reactive-#{status}", className,
       'is-empty': _.isEmpty(item)
 
-    propsForChildren = _.pick(@state, 'status', 'item')
+    propsForChildren = _.pick(@state, 'status', 'item', 'errors')
 
     reactiveItems = React.Children.map(@props.children, (child) ->
       React.addons.cloneWithProps(child, propsForChildren)
