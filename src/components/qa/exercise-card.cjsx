@@ -19,7 +19,10 @@ Exercise = React.createClass
     </div>
 
   render: ->
-    <ExerciseCard {...@props} header={@renderHeader()} displayFeedback />
+    editUrl = @props.exercise.url.replace(/@\d+/, '@draft')
+    <ExerciseCard {...@props} header={@renderHeader()} displayFeedback>
+      <a target="exercise-edit-tab" className="edit-link" href={editUrl}>edit</a>
+    </ExerciseCard>
 
 
 module.exports = Exercise
