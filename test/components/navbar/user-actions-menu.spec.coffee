@@ -45,10 +45,11 @@ testWithRole = (roleType) ->
         courseModel.is_concept_coach = false
         CourseActions.loaded(courseModel, courseModel.id)
 
-      it 'should not have performance forecast menu', (done) ->
+      it 'should not have disallowed menus', (done) ->
         Testing.renderComponent( UserActionsMenu, props: {courseId: courseModel.id} ).then ({dom}) ->
           dropdownItems = dom.querySelectorAll('li')
           expect(_.pluck(dropdownItems, 'innerText')).to.not.include('Performance Forecast')
+          expect(_.pluck(dropdownItems, 'innerText')).to.not.include('Browse the Book')
           done()
 
 
