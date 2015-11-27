@@ -60,8 +60,7 @@ loadApp = ->
 
   showIntro = ->
     introSettings = _.extend({}, demoSettings, moduleUUID: 'e98bdaec-4060-4b43-ac70-681555a30e22')
-    console.info('introSettings')
-    console.info(introSettings)
+
     Demo.open(mainDiv, introSettings)
     true
 
