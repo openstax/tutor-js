@@ -108,7 +108,10 @@ module.exports = React.createClass
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
 
     if ExerciseStore.isPublished(id)
-      publishedLabel = <div><label>Published: {ExerciseStore.getPublishedDate(id)}</label></div>
+      publishedLabel =
+        <div>
+          <label>Published: {ExerciseStore.getPublishedDate(id)}</label>
+        </div>
     else
       form = @renderForm(id)
 
