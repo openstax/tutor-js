@@ -105,7 +105,7 @@ Exercise = React.createClass
   getTeacherReadOnlyProps: ->
     teacherReadOnlyProps = _.omit(@props, NOT_TEACHER_READ_ONLY_PROPS)
     teacherReadOnlyProps.onContinue = @props.onNextStep
-    teacherReadOnlyProps.isContinueEnabled = false
+    teacherReadOnlyProps.isContinueEnabled = true
     teacherReadOnlyProps.controlButtons = false
     teacherReadOnlyProps.type = 'teacher-review'
 
