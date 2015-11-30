@@ -40,7 +40,7 @@ module.exports = React.createClass
     <BS.OverlayTrigger rootClose={true} trigger='click' placement='left'
       overlay={@selectNewPeriod()}>
         <a>
-          <i className='fa fa-clock-o' />
-          Change <CourseGroupingLabel courseId={@props.courseId} />
+          <i className='fa fa-clock-o' /> Change <CourseGroupingLabel 
+            courseId={@props.courseId} />
         </a>
     </BS.OverlayTrigger>
