@@ -47,7 +47,7 @@ ErrorNotification = React.createClass
         <h3>Server error encountered</h3>
         <p>
           An unexpected error has occured.  Please
-          visit <a target="zendesk"
+          visit <a target="_blank"
             href="https://openstaxtutor.zendesk.com/hc/en-us/requests/new"
           > our support site </a> so we can help to diagnose and correct the issue.
         </p>
