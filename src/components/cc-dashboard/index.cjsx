@@ -20,6 +20,8 @@ DashboardSectionProgress = React.createClass
       completed = <BS.ProgressBar 
         className="reading-progress-bar" 
         bsStyle="info" 
+        type="Completed"
+        label="#{percents.completed}%"
         now={percents.completed} 
         key={1} />
 
@@ -27,7 +29,6 @@ DashboardSectionProgress = React.createClass
       <BS.ProgressBar className="reading-progress-group">
         {completed}
       </BS.ProgressBar>
-      {percents.completed}%
     </div>
 
 DashboardSectionPerformance = React.createClass
@@ -37,22 +38,29 @@ DashboardSectionPerformance = React.createClass
 
     percents.incorrect = 100 - percents.correct
 
-    correctBar = if percents.correct then <BS.ProgressBar 
-      className="reading-progress-bar progress-bar-correct" 
-      now={percents.correct}
-      key={1} />
+    if percents.correct
+      correctLabel = if percents.incorrect > percents.correct then "#{percents.correct}%"
+      correctBar = <BS.ProgressBar 
+        className="reading-progress-bar progress-bar-correct" 
+        now={percents.correct}
+        label={correctLabel}
+        type="Correct"
+        key={1} />
 
-    incorrectBar = if percents.incorrect then <BS.ProgressBar 
-      className="reading-progress-bar progress-bar-incorrect" 
-      now={percents.incorrect} 
-      key={2} />
+    if percents.incorrect
+      incorrectLabel = if percents.incorrect > percents.correct then "#{percents.incorrect}%"
+      incorrectBar = <BS.ProgressBar 
+        className="reading-progress-bar progress-bar-incorrect" 
+        now={percents.incorrect} 
+        label={incorrectLabel}
+        type="Incorrect"
+        key={2} />
 
     <div>
       <BS.ProgressBar className="reading-progress-group">
         {correctBar}
         {incorrectBar}
       </BS.ProgressBar>
-      {percents.correct}%
     </div>
 
 DashboardSection = React.createClass

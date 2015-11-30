@@ -19,14 +19,27 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 
-  .reading-progress-group {
-    width: 80%;
-    display: inline-block;
-    float: left;
-    margin-right: 2%;
-  }
   .reading-progress-bar {
     margin-bottom: 0;
+    &::after {
+      content: attr(type);
+      position: absolute;
+      bottom: -@progress-on-hover-label-height;
+      left: 50%;
+      width: 100px;
+      margin-left: -50px;
+      text-align: center;
+      color: @tutor-neutral;
+      .opacity(0);
+      .transition(opacity 1s);
+    }
+
+    &:hover {
+      &::after {
+        .opacity(1);
+      }
+    }
+
   }
   &:hover {
     background: rgba(255, 255, 204, 0.5);
