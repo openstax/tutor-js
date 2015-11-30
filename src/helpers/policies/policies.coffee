@@ -159,6 +159,14 @@ policies =
         states:
           teacher: stepTeacherReview
 
+  concept_coach:
+    exercise:
+      panels:
+        default: stepFeedbackImmediate
+        check: 'role'
+        states:
+          teacher: stepTeacherReview
+
   reading: defaultPolicies
 
   external:

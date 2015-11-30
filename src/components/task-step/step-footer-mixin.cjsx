@@ -105,9 +105,9 @@ module.exports =
 
     backButton
 
-  renderTeacherReadOnlyButtons: ({taskId, courseId, review, panel}) ->
+  renderTeacherReadOnlyButtons: ({taskId, courseId, review, panel, controlButtons}) ->
     unless review?.length
-      continueButton = @renderContinueButton?()
+      continueButton = @renderContinueButton?() or @props.controlButtons
 
       backButtonClasses = 'btn btn-primary'
       backButtonClasses = 'btn btn-default' if continueButton?
