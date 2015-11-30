@@ -50,7 +50,7 @@ module.exports = React.createClass
          without students enrolled can be deleted.
       </span>
     title =
-      <span>Delete <CourseGroupingLabel courseId={@props.courseId}/></span>
+      <h4>Delete <CourseGroupingLabel courseId={@props.courseId}/></h4>
 
     <BS.Modal
       {...@props}

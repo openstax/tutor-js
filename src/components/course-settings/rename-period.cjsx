@@ -60,7 +60,7 @@ module.exports = React.createClass
       formClasses.push('is-invalid-form')
       disabled = true
     title =
-      <span>Rename <CourseGroupingLabel courseId={@props.courseId}/></span>
+      <h4>Rename <CourseGroupingLabel courseId={@props.courseId}/></h4>
     label =
       <span><CourseGroupingLabel courseId={@props.courseId}/> Name</span>
 
