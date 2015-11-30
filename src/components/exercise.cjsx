@@ -43,19 +43,15 @@ module.exports = React.createClass
   renderLoading: ->
     <div>Loading exercise: {@getId()}</div>
 
-  render: ->
+  renderFailed: ->
+    <div>Failed loading exercise, please check id</div>
+
+  renderForm: ->
     id = @getId()
-    if not ExerciseStore.get(id)
-      if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
-      return @renderLoading()
 
     questions = []
     for question in ExerciseStore.getQuestions(id)
       questions.push(<Question key={question.id} id={question.id} />)
-
-    ExerciseActions.sync(id)
-    exercise = ExerciseStore.get(id)
-    preview = <Preview exercise={exercise} closePreview={@closePreview}/>
 
     isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
 
@@ -71,35 +67,58 @@ module.exports = React.createClass
         Publish
       </AsyncButton>
 
+    <div>
+      <div>
+        <label>Exercise Number</label>
+        <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
+      </div><div>
+        <label>Exercise Stimulus</label>
+        <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
+        </textarea>
+      </div>
+      {questions}
+      <div>
+        <label>Tags</label>
+        <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
+        </textarea>
+      </div>
+      <AsyncButton
+        bsStyle='info'
+        onClick={@saveExercise}
+        disabled={isWorking}
+        isWaiting={ExerciseStore.isSaving(id)}
+        waitingText='Saving...'
+        isFailed={ExerciseStore.isFailed(id)}
+        >
+        Save
+      </AsyncButton>
+      {publishButton}
+    </div>
+
+  render: ->
+    id = @getId()
+    if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id)
+      if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
+      return @renderLoading()
+    else if ExerciseStore.isFailed(id)
+      return @renderFailed()
+
+    ExerciseActions.sync(id)
+    exercise = ExerciseStore.get(id)
+    preview = <Preview exercise={exercise} closePreview={@closePreview}/>
+
+    if ExerciseStore.isPublished(id)
+      publishedLabel = <div><label>Published: {ExerciseStore.getPublishedDate(id)}</label></div>
+    else
+      form = @renderForm(id)
+
     <BS.Grid>
       <BS.Row><BS.Col xs={5} className="exercise-editor">
         <div>
           <label>Exercise ID {ExerciseStore.getId(id)}</label>
-        </div><div>
-          <label>Exercise Number</label>
-          <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
-        </div><div>
-          <label>Exercise Stimulus</label>
-          <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
-          </textarea>
         </div>
-        {questions}
-        <div>
-          <label>Tags</label>
-          <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
-          </textarea>
-        </div>
-        <AsyncButton
-          bsStyle='info'
-          onClick={@saveExercise}
-          disabled={isWorking}
-          isWaiting={ExerciseStore.isSaving(id)}
-          waitingText='Saving...'
-          isFailed={ExerciseStore.isFailed(id)}
-          >
-          Save
-        </AsyncButton>
-        {publishButton}
+        {publishedLabel}
+        {form}
       </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
       </BS.Col></BS.Row>
