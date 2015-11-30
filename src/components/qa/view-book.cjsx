@@ -18,7 +18,6 @@ UserActionsMenu      = require '../navbar/user-actions-menu'
 QAViewBook = React.createClass
 
   propTypes:
-    bookId: React.PropTypes.string.isRequired
     section: React.PropTypes.string
     ecosystemId: React.PropTypes.string.isRequired
 
@@ -34,7 +33,7 @@ QAViewBook = React.createClass
         {teacherContent}
         <QAContentToggle isShowingBook={@state.isShowingBook} onChange={@setContentShowing}/>
       </BS.NavItem>
-      <BS.DropdownButton title="Available Books" className="dropdown-toggle">
+      <BS.DropdownButton title="Available Books" className="available-books">
         {for book in EcosystemsStore.allBooks()
           <li key={book.id} className={'active' if @props.ecosystemId is book.ecosystemId}>
             <BookLink book={book} />
@@ -50,7 +49,7 @@ QAViewBook = React.createClass
     @setState(isShowingTeacherContent: isShowing)
 
   renderBook: ->
-    section = @props.section or ReferenceBookStore.getFirstSection(@props.bookId).join('.')
+    section = @props.section or ReferenceBookStore.getFirstSection(@props.ecosystemId).join('.')
     contentComponent = if @state.isShowingBook then QAContent else QAExercises
     <SpyMode.Wrapper>
       <div className="qa">
@@ -61,7 +60,7 @@ QAViewBook = React.createClass
             section={section}
             className={classnames('is-teacher')}
             className={classnames('is-teacher': @state.isShowingTeacherContent)}
-            ecosystemId={@props.bookId}
+            ecosystemId={@props.ecosystemId}
             contentComponent={contentComponent}
         />
       </div>
@@ -69,7 +68,7 @@ QAViewBook = React.createClass
 
   render: ->
     <LoadableItem
-      id={@props.bookId}
+      id={@props.ecosystemId}
       store={ReferenceBookStore}
       actions={ReferenceBookActions}
       renderItem={@renderBook}
