@@ -13,9 +13,10 @@ BookLink = React.createClass
     ).isRequired
 
   render: ->
-    <Router.Link to='QAViewBook'
+    <Router.Link to='QAViewBook' className="book"
       params={ecosystemId: @props.book.ecosystemId}>
-        {@props.book.title}
+        <span className="title">{@props.book.title}</span>
+        <span className="version">{@props.book.version}</span>
     </Router.Link>
 
 

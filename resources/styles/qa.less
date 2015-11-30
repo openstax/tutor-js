@@ -55,6 +55,12 @@
         }
       }
     }
+    .available-books .book {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .version { margin-left: 5px; }
+    }
     // hide logos when screen is narrow.
     // QA has more navbar controls so needs to be more agressive than reference book media query
     @media screen and ( max-width: (@reference-book-page-width+300px) ){
