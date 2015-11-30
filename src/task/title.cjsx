@@ -17,11 +17,24 @@ TaskTitle = React.createClass
       className: 'chapter-section-prefix'
     sectionProps['data-section'] = section if section?
 
-    <h3 className='concept-coach-title'>
-      <span {...sectionProps}>
+    linkProps =
+      href: moduleInfo.link
+
+    if moduleInfo.title
+      linkProps.target = '_blank'
+      title = <span {...sectionProps}>
         {moduleInfo.title}
       </span>
-      <a href={moduleInfo.link} target='_blank'>
+    else
+      noTitle = <span className='back-to-book'>Back to Book</span>
+
+    titleClasses = classnames 'concept-coach-title',
+      'has-title': moduleInfo.title?
+
+    <h3 className={titleClasses}>
+      {title}
+      <a {...linkProps}>
+        {noTitle}
         <i className='fa fa-book'></i>
       </a>
     </h3>

@@ -20,11 +20,13 @@ settings =
       url: 'api/tasks/{id}'
       method: 'GET'
       completedEvent: 'task.{id}.receive.fetch'
+      failedEvent: 'task.{id}.receive.failure'
 
     'task.*.send.fetchByModule':
       url: 'api/cc/tasks/{collectionUUID}/{moduleUUID}'
       method: 'GET'
       completedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.fetchByModule'
+      failedEvent: 'task.{collectionUUID}/{moduleUUID}.receive.failure'
 
     'user.status.send.fetch':
       url: 'auth/status'

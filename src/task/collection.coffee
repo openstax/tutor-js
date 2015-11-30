@@ -8,7 +8,9 @@ channel = new EventEmitter2 wildcard: true
 
 load = (taskId, data) ->
   tasks[taskId] = data
-  channel.emit("load.#{taskId}", {data})
+  status = if data.errors? then 'failed' else 'loaded'
+
+  channel.emit("load.#{taskId}", {data, status})
 
 update = (eventData) ->
   {data, query} = eventData
@@ -51,11 +53,12 @@ getModuleInfo = (taskId, cnxUrl = '') ->
   task = tasks[taskId]
   return unless task?
 
-  bookUrlPattern = '{cnxUrl}/contents/{collectionUUID}'
+  moduleUrlPattern = '{cnxUrl}/contents/{collectionUUID}/{moduleUUID}'
+  {collectionUUID, moduleUUID} = task
 
   moduleInfo = _.clone(task.steps?[0].related_content?[0]) or {}
   _.extend moduleInfo, _.pick(task, 'collectionUUID', 'moduleUUID')
-  moduleInfo.link = interpolate bookUrlPattern, {cnxUrl, collectionUUID: task.collectionUUID}
+  moduleInfo.link = interpolate moduleUrlPattern, {cnxUrl, collectionUUID, moduleUUID}
 
   moduleInfo
 
