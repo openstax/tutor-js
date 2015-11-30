@@ -46,8 +46,8 @@ module.exports = React.createClass
       </BS.Button>
     warning = if @state.warning is EMPTY_WARNING
       <span>
-        Only <CourseGroupingLabel courseId={@props.courseId} lowercase/>
-         without students enrolled can be deleted.
+        Only <CourseGroupingLabel courseId={@props.courseId} lowercase/>s without
+         students enrolled can be deleted.
       </span>
     title =
       <h4>Delete <CourseGroupingLabel courseId={@props.courseId}/></h4>
