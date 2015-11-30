@@ -7,7 +7,7 @@ api = require '../api'
 ErrorNotification = React.createClass
 
   getInitialState: ->
-    error: false
+    error: false, isShowingDetails: false
 
   componentWillMount: ->
     api.channel.on 'error', @onError
@@ -26,17 +26,35 @@ ErrorNotification = React.createClass
         )
     @setState(errors: errors)
 
+  toggleDetails: ->
+    @setState(isShowingDetails: not @state.isShowingDetails)
+
   onHide: ->
     @setState(errors: false)
+
+  renderDetails: ->
+    <BS.Panel header="Error Details">
+      <ul className="errors-listing">
+        {for error, i in @state.errors
+          <li key={i}>{error}</li>}
+      </ul>
+    </BS.Panel>
 
   render: ->
     return null unless @state.errors
     <BS.Modal className='errors' onRequestHide={@onHide} title="Server Error">
       <div className='modal-body'>
-        <ul>
-          {for error in @state.errors
-            <li>{error}</li>}
-        </ul>
+        <h3>Server error encountered</h3>
+        <p>
+          An unexpected error has occured.  Please
+          visit <a target="zendesk"
+            href="https://openstaxtutor.zendesk.com/hc/en-us/requests/new"
+          > our support site </a> so we can help to diagnose and correct the issue.
+        </p>
+        <BS.Button onClick={@toggleDetails}>
+          {if @state.isShowingDetails then "Hide" else "Show"} Details
+        </BS.Button>
+        {@renderDetails() if @state.isShowingDetails}
       </div>
       <div className='modal-footer'>
         <BS.Button className='ok' bsStyle='primary' onClick={@onHide}>OK</BS.Button>
