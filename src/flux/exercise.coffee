@@ -99,6 +99,10 @@ ExerciseConfig =
         section.toString() is topic_chapter_section.toString()
       )
 
+    getPagePoolTypes: (pageId) ->
+      types = _.unique _.flatten _.pluck @_exercises[pageId], 'pool_types'
+      _.without( types, 'all_exercises' ).sort()
+
     poolTypes: (exercise) ->
       _.without( exercise.pool_types, 'all_exercises')
 

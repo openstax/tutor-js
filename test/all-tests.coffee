@@ -46,6 +46,7 @@ require './components/name.spec'
 require './components/scroll-to.spec'
 require './components/media-preview.spec'
 require './components/tutor-popover.spec'
+require './components/course-grouping-label.spec'
 
 # Flux your muscle
 require './crud-store.spec'

@@ -1,4 +1,6 @@
 .qa{
+  // qa mode has it's own links at the top and doesn't need to add top margin
+  .reference-book .content { margin-top: 0; }
   .exercises {
     width: @reference-book-page-width;
     .exercise {
@@ -7,6 +9,12 @@
         position: inherit;
         display: block;
         padding: 0;
+      }
+      .edit-link {
+        .tutor-external-link-indicator();
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
       }
       // override the default hover styles for the card from the teacher's exercise picker
       &:hover {
@@ -24,6 +32,7 @@
         padding: 0 5px;
         border-radius: @border-radius-base;
       }
+      .is-ignored { text-decoration: line-through; }
       .reading_dynamic     { background-color: @reading-color;     }
       .homework_dynamic    { background-color: @homework-color;    }
       .practice_widget     { background-color: @qa-practice-color;    }
@@ -31,7 +40,7 @@
       .homework_core       { background-color: @homework-color;    }
     }
   }
-  nav.navbar {
+  .navbar-nav {
     // clip so that a long title doesn't push the menus below the navbar
     .section-title {
       span { display: inline-block; }
@@ -46,9 +55,13 @@
         }
       }
     }
-    // hide logos when screen is narrow
-    @media screen and ( max-width: @reference-book-page-width ){
-      .ui-rice-logo, .ui-brand-logo { display: none; }
+    // hide logos when screen is narrow.
+    // QA has more navbar controls so needs to be more agressive than reference book media query
+    @media screen and ( max-width: (@reference-book-page-width+300px) ){
+      .ui-rice-logo,
+      .ui-brand-logo {
+        display: none;
+      }
     }
 
   }

@@ -1,5 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+
+CourseGroupingLabel = require '../course-grouping-label'
 {RosterActions} = require '../../flux/roster'
 {CourseStore} = require '../../flux/course'
 
@@ -19,7 +21,11 @@ module.exports = React.createClass
 
   selectNewPeriod: ->
     course = CourseStore.get(@props.courseId)
-    <BS.Popover title={'Move to period:'} {...@props}>
+    title =
+      <span>
+        Move to <CourseGroupingLabel courseId={@props.courseId} lowercase/>:
+      </span>
+    <BS.Popover title={title} {...@props}>
       <BS.Nav stacked bsStyle='pills' onSelect={@updatePeriod}>
         {for period in course.periods
           @renderPeriod(period) unless period.id is @props.student.period_id }
@@ -33,5 +39,8 @@ module.exports = React.createClass
 
     <BS.OverlayTrigger rootClose={true} trigger='click' placement='left'
       overlay={@selectNewPeriod()}>
-        <a><i className='fa fa-clock-o' /> Change Period</a>
+        <a>
+          <i className='fa fa-clock-o' />
+          Change <CourseGroupingLabel courseId={@props.courseId} />
+        </a>
     </BS.OverlayTrigger>

@@ -10,6 +10,8 @@ AbsentCell   = require './absent-cell'
 ExternalCell = require './external-cell'
 SortingHeader = require './sorting-header'
 FixedDataTable = require 'fixed-data-table'
+ConceptCoachCell = require './concept-coach-cell'
+
 Table = FixedDataTable.Table
 Column = FixedDataTable.Column
 ColumnGroup = FixedDataTable.ColumnGroup
@@ -99,7 +101,7 @@ Scores = React.createClass
 
     if heading.average
       summary = <span className='summary'>
-        {heading.average.toFixed(1)}
+        {(heading.average * 100).toFixed(1)}%
       </span>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
@@ -139,6 +141,7 @@ Scores = React.createClass
     columns = [
       <NameCell isConceptCoach={@props.isConceptCoach} key='name' {...props} />
     ]
+
     for task in student_data.data
       props.task = task
       columns.push switch task?.type or 'null'
@@ -146,6 +149,7 @@ Scores = React.createClass
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
         when 'homework' then <HomeworkCell key='homework' {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
+        when 'concept_coach' then <ConceptCoachCell  key='cc'  {...props} />
     columns
 
   renderNameHeader: ->
@@ -196,11 +200,13 @@ Scores = React.createClass
     sortData = _.sortBy(scores.students, (d) ->
       if _.isNumber(sort.key)
         index = sort.key - FIRST_DATA_COLUMN
-        switch d.data[index].type
-          when 'homework' then d.data[index].correct_exercise_count
-          when 'reading' then d.data[index].status
+        record = d.data[index]
+        return 0 unless record
+        switch record.type
+          when 'reading' then record.status
+          when 'homework', 'concept_coach' then record.correct_exercise_count or 0
       else
-        d.last_name.toLowerCase()
+        (d.last_name or d.name).toLowerCase()
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
 

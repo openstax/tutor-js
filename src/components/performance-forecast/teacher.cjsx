@@ -4,7 +4,7 @@ Router = require 'react-router'
 _ = require 'underscore'
 
 {CoursePeriodsNavShell} = require '../course-periods-nav'
-
+CourseGroupingLabel = require '../course-grouping-label'
 PerformanceForecast = require '../../flux/performance-forecast'
 
 Guide = require './guide'
@@ -51,17 +51,21 @@ module.exports = React.createClass
         courseId={@props.courseId} />
     </div>
 
-
-
   renderEmptyMessage: ->
-    <div className="no-data-message">There have been no questions worked for this period.</div>
+    <div className="no-data-message">
+      There have been no questions worked for
+      this <CourseGroupingLabel courseId={@props.courseId} lowercase />.
+    </div>
 
   returnToDashboard: ->
     @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
 
   renderWeakerExplanation: ->
     <div className='explanation'>
-      <p>Tutor shows the weakest topics for each period.</p>
+      <p>
+        Tutor shows the weakest topics for
+        each <CourseGroupingLabel courseId={@props.courseId} lowercase />.
+      </p>
       <p>Students may need your help in those areas.</p>
     </div>
 
