@@ -26,10 +26,10 @@ TaskTitle = React.createClass
         {moduleInfo.title}
       </span>
     else
-      noTitle = <span className='no-title'>Back to Book</span>
+      noTitle = <span className='back-to-book'>Back to Book</span>
 
     titleClasses = classnames 'concept-coach-title',
-      'no-title': not moduleInfo.title?
+      'has-title': moduleInfo.title?
 
     <h3 className={titleClasses}>
       {title}

@@ -3,7 +3,7 @@ React = require 'react'
 NoExercises = React.createClass
   displayName: 'NoExercises'
   render: ->
-    <div>
+    <div className='no-exercises'>
       Sorry, there are no exercises for this module.
     </div>
 
