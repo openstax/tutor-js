@@ -223,6 +223,13 @@ Scores = React.createClass
 
     data = @getStudentRowData()
 
+    periodNav =
+      <CoursePeriodsNavShell
+        handleSelect={@selectPeriod}
+        handleKeyUpdate={@setPeriodIndex}
+        intialActive={period_id}
+        courseId={courseId} />
+
     rowGetter = (rowIndex) =>
       @renderStudentRow(data.rows[rowIndex])
 
@@ -230,11 +237,7 @@ Scores = React.createClass
       <div className='course-scores-wrap'>
           <span className='course-scores-title'>Student Scores</span>
           <ScoresExport courseId={courseId} className='pull-right'/>
-          <CoursePeriodsNavShell
-            handleSelect={@selectPeriod}
-            handleKeyUpdate={@setPeriodIndex}
-            intialActive={period_id}
-            courseId={courseId} />
+          {periodNav}
           <div className='course-scores-container' ref='tableContainer'>
             <Table
               onColumnResizeEndCallback={@onColumnResizeEndCallback}
@@ -253,13 +256,9 @@ Scores = React.createClass
       </div>
     else
       <div className='course-scores-wrap'>
+        {periodNav}
         <span className='course-scores-title'>No Assignments Yet</span>
-        <CoursePeriodsNavShell
-          handleSelect={@selectPeriod}
-          handleKeyUpdate={@setPeriodIndex}
-          intialActive={period_id}
-          courseId={courseId} />
-          <div className='course-scores-container' ref='tableContainer'></div>
+        <div className='course-scores-container' ref='tableContainer'></div>
       </div>
 
 
