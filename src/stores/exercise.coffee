@@ -47,6 +47,8 @@ ExerciseConfig = {
     
     getTags: (id) -> @_local[id].tags
 
+    getPublishedDate: (id) -> @_local[id].published_at
+
     isPublished: (id) -> @_local[id].published_at
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
