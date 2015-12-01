@@ -48,11 +48,11 @@ ExReviewControls = React.createClass
     canRefreshMemory: false
 
   render: ->
-    {review, canTryAnother, tryAnother, isRecovering} = @props
+    {review, canTryAnother, tryAnother, isRecovering, children} = @props
     {canRefreshMemory, refreshMemory} = @props
     {isContinueFailed, waitingText, onContinue, isContinueEnabled} = @props
 
-    continueButtonText = if canTryAnother then 'Move On' else ''
+    continueButtonText = if canTryAnother then 'Move On' else children
 
     if canTryAnother
       tryAnotherButton = <AsyncButton
