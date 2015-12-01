@@ -254,6 +254,11 @@ Scores = React.createClass
     else
       <div className='course-scores-wrap'>
         <span className='course-scores-title'>No Assignments Yet</span>
+        <CoursePeriodsNavShell
+          handleSelect={@selectPeriod}
+          handleKeyUpdate={@setPeriodIndex}
+          intialActive={period_id}
+          courseId={courseId} />
           <div className='course-scores-container' ref='tableContainer'></div>
       </div>
 
