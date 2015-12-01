@@ -106,6 +106,8 @@ class Course
     # confirmation has completed
     _.extend(@, response.data)
     @errors = response.data.errors
+    # a freshly registered course doesn't contain the is_concept_coach flag
+    @is_concept_coach = true
     response.stopErrorDisplay = true if @errors
     @channel.emit('change')
 
