@@ -50,9 +50,9 @@ Navigation = React.createClass
     {active} = @state
     {course} = @props
 
-    brand = <a onClick={_.partial(@handleSelect, 'showDashboard')}>
+    brand = <span>
       <strong>Concept</strong> Coach
-    </a>
+    </span>
 
     courseItems = [
       <BS.NavItem
