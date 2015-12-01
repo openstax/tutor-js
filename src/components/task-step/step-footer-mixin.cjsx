@@ -10,7 +10,7 @@ LateIcon = require '../late-icon'
 ChapterSectionMixin = require '../chapter-section-mixin'
 
 {TaskStore} = require '../../flux/task'
-{ViewingAsStudentNameShell} = require '../task/viewing-as-student-name'
+{ViewingAsStudentName} = require '../task/viewing-as-student-name'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -24,7 +24,7 @@ module.exports =
       taskDetails = @renderDefaultDetails({stepId, taskId, courseId, review})
 
       taskDetails = [
-        <ViewingAsStudentNameShell
+        <ViewingAsStudentName
           key='viewing-as'
           courseId={courseId}
           taskId={taskId}
@@ -107,7 +107,7 @@ module.exports =
 
   renderTeacherReadOnlyButtons: ({taskId, courseId, review, panel}) ->
     unless review?.length
-      continueButton = @renderContinueButton?()
+      continueButton = @renderContinueButton?() or @props.controlButtons
 
       backButtonClasses = 'btn btn-primary'
       backButtonClasses = 'btn btn-default' if continueButton?

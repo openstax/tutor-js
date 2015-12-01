@@ -10,12 +10,35 @@ ViewingAsStudentName = React.createClass
     taskId: React.PropTypes.string.isRequired
     className: React.PropTypes.string
 
+  getInitialState: ->
+    @getStudentState()
+
+  getStudentState: (props) ->
+    {courseId, taskId} = props or @props
+    student = ScoresStore.getStudentOfTask(courseId, taskId)
+    {student}
+
+  updateStudent: (props) ->
+    props ?= @props
+    @setState(@getStudentState(props))
+
+  componentWillMount: ->
+    {courseId, taskId} = @props
+    {student} = @state
+
+    unless student?
+      ScoresStore.once('change', @updateStudent)
+      ScoresActions.load(courseId)
+
+  componentWillReceiveProps: (nextProps) ->
+    @updateStudent(nextProps)
+
   render: ->
-    {courseId, taskId, className} = @props
+    {className} = @props
     studentName = null
 
     className += ' task-student'
-    student = ScoresStore.getStudentOfTask(courseId, taskId)
+    {student} = @state
 
     studentName = <div className={className}>
       <Name {...student} />
@@ -23,20 +46,4 @@ ViewingAsStudentName = React.createClass
 
     studentName
 
-ViewingAsStudentNameShell = React.createClass
-  displayName: 'ViewingAsStudentNameShell'
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-    taskId: React.PropTypes.string.isRequired
-
-  render: ->
-    {courseId} = @props
-
-    <LoadableItem
-      id={courseId}
-      store={ScoresStore}
-      actions={ScoresActions}
-      renderItem={=> <ViewingAsStudentName {...@props}/>}
-    />
-
-module.exports = {ViewingAsStudentName, ViewingAsStudentNameShell}
+module.exports = {ViewingAsStudentName}

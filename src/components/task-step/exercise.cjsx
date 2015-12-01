@@ -39,6 +39,7 @@ module.exports = React.createClass
       canTryAnother={TaskStepStore.canTryAnother(id, task)}
       disabled={TaskStepStore.isSaving(id)}
       canReview={StepPanel.canReview(id)}
+      isContinueEnabled={StepPanel.canContinue(id)}
 
       getCurrentPanel={getCurrentPanel}
       getReadingForStep={getReadingForStep}
