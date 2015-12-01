@@ -56,10 +56,13 @@
       }
     }
     .available-books .book {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      .version { margin-left: 5px; }
+      border-top: 1px dashed @openstax-neutral-light;
+      .title-version {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        :last-child { margin-left: 0.5rem; }
+      }
     }
     // hide logos when screen is narrow.
     // QA has more navbar controls so needs to be more agressive than reference book media query
