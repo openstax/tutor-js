@@ -34,7 +34,7 @@ EcosystemsStore = flux.createStore
 
     allBooks: ->
       _.map @_ecosystems, (ecosystem) ->
-        _.extend( _.first(ecosystem.books), {ecosystemId: "#{ecosystem.id}"} )
+        _.extend( _.first(ecosystem.books), {ecosystemId: "#{ecosystem.id}", ecosystemComments: ecosystem.comments} )
 
     first: ->
       _.first @_ecosystems
