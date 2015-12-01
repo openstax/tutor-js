@@ -98,7 +98,8 @@ DashboardBookLinks = React.createClass
     window.open(course.book_pdf_url, 'cc-pdf-link')
 
   goToWebview: ->
-    console.log 'webview'
+    course = CourseStore.get(@props.courseId)
+    window.open("http://cnx.org/contents/#{course.ecosystem_book_uuid}", 'cc-webview-link')
 
   render: ->
     <BS.Row className='dashboard-header-links'>
