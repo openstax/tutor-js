@@ -57,7 +57,7 @@ module.exports = React.createClass
     if @state?.invalid
       formClasses.push('is-invalid-form')
       disabled = true
-    title = <span>Add <CourseGroupingLabel courseId={@props.courseId} /></span>
+    title = <h4>Add <CourseGroupingLabel courseId={@props.courseId} /></h4>
     label = <span><CourseGroupingLabel courseId={@props.courseId} /> Name</span>
     <BS.Modal
       {...@props}
