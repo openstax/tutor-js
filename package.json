@@ -27,9 +27,10 @@
     "eventemitter2": "^0.4.14",
     "font-awesome": "^4.4.0",
     "interpolate": "^0.1.0",
+    "keymaster": "^1.6.2",
     "lodash": "^3.10.1",
     "moment": "^2.9.0",
-    "openstax-react-components": "openstax/react-components#1c1d948",
+    "openstax-react-components": "openstax/react-components#06a34cc3d747272f47b6e66b0ebaee444a6be2f8",
     "underscore": "~1.8.2"
   },
   "devDependencies": {
