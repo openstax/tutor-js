@@ -81,6 +81,15 @@ ExerciseStepCard = React.createClass
       nextStepState = @getStepState(nextProps)
       @setState(nextStepState)
 
+    if @props.allowKeyNext isnt nextProps.allowKeyNext
+      @updateKeyBind(nextProps.allowKeyNext)
+
+  updateKeyBind: (allowKeyNext) ->
+    if allowKeyNext
+      keymaster('enter', @onContinue)
+    else
+      keymaster.unbind('enter')
+
   getStepState: (props) ->
     {step} = props
     freeResponse: step.free_response or ''
@@ -105,7 +114,9 @@ ExerciseStepCard = React.createClass
     @props.onChangeAnswerAttempt?(answer)
 
   onContinue: ->
-    {panel, canReview, onNextStep, onStepCompleted, onContinue} = @props
+    {panel, canReview, onNextStep, onStepCompleted, onContinue, isContinueEnabled} = @props
+
+    return unless isContinueEnabled and @isContinueEnabled(@props, @state)
 
     if onContinue?
       onContinue(@state)
