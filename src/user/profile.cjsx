@@ -15,9 +15,7 @@ UserProfile = React.createClass
     @sendCommand('displayProfile')
 
   render: ->
-    classlist = classnames('user-profile', 'is-loading': @displayLoadingStatus() )
-
-    <div className={classlist}>
+    <div className='user-profile'>
       <div className="heading">
         <h3 className="title">{@state?.title}</h3>
         <i className='close-icon' onClick={@props.onComplete}/>
