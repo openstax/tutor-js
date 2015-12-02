@@ -31,6 +31,10 @@ module.exports = React.createClass
   getId: ->
     @props.id or @state.id
 
+  getDraftId: ->
+    id = if @props.id.indexOf("@") is -1 then @props.id else @props.id.split("@")[0]
+    "#{id}@d"
+
   saveExercise: ->
     if confirm('Are you sure you want to save?')
       ExerciseActions.save(@props.id)
@@ -69,8 +73,7 @@ module.exports = React.createClass
 
     <div>
       <div>
-        <label>Exercise Number</label>
-        <input onChange={@updateNumber} value={ExerciseStore.getNumber(id)}/>
+        <label>Exercise Number</label>: {ExerciseStore.getNumber(id)}
       </div><div>
         <label>Exercise Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
@@ -112,15 +115,20 @@ module.exports = React.createClass
         <div>
           <label>Published: {ExerciseStore.getPublishedDate(id)}</label>
         </div>
+      editLink =
+        <div>
+          <a href="/exercise/#{@getDraftId(id)}">Edit Exercise</a>
+        </div>
     else
       form = @renderForm(id)
 
     <BS.Grid>
       <BS.Row><BS.Col xs={5} className="exercise-editor">
         <div>
-          <label>Exercise ID {ExerciseStore.getId(id)}</label>
+          <label>Exercise ID:</label> {ExerciseStore.getId(id)}
         </div>
         {publishedLabel}
+        {editLink}
         {form}
       </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
