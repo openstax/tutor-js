@@ -1,4 +1,4 @@
-@import '~openstax-react-components/resources/styles/main';
+@import '~openstax-react-components/resources/styles/no-conflict';
 @import './components/concept-coach/modal-opened';
 
 // All styles are included inside the wrapper selector
@@ -8,7 +8,9 @@
   width: 100%;
   height: 100%;
 
-  @import './components/shared';
+  @import "@{bootstrap-path}/variables";
+
+  // @import './components/shared';
   @import './components/concept-coach/index';
   @import './components/navigation/index';
   @import './components/task/index';
@@ -17,9 +19,6 @@
   @import './components/reactive/index';
   @import './components/course/index';
   @import './components/user/index';
-
-  @import "@{bootstrap-path}/navs";
-  @import "@{bootstrap-path}/navbar";
 
   @import './mixins';
   @import './variables';
