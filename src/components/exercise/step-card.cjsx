@@ -2,6 +2,7 @@ React = require 'react/addons'
 _ = require 'underscore'
 
 classnames = require 'classnames'
+keymaster = require 'keymaster'
 
 ExerciseGroup = require './group'
 {CardBody} = require '../pinned-header-footer-card/sections'
@@ -59,8 +60,16 @@ ExerciseStepCard = React.createClass
     disabled: false
     isContinueEnabled: true
     footer: <ExerciseDefaultFooter/>
+    allowKeyNext: true
+
   getInitialState: ->
     stepState = @getStepState(@props)
+
+  componentWillMount: ->
+    keymaster('enter', @onContinue) if @props.allowKeyNext
+
+  componentWilUnmount: ->
+    keymaster.unbind('enter') if @props.allowKeyNext
 
   shouldComponentUpdate: (nextProps, nextState) ->
     not (_.isEqual(@props, nextProps) and

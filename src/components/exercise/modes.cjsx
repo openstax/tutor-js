@@ -156,7 +156,7 @@ ExMultipleChoice = React.createClass
     @props.onAnswerChanged?(answer)
 
   render: ->
-    {content, free_response, correct_answer_id, choicesEnabled} = @props
+    {content, free_response, correct_answer_id, choicesEnabled, answerKeySet} = @props
     question = content.questions[0]
     {answerId} = @state
 
@@ -167,7 +167,8 @@ ExMultipleChoice = React.createClass
         choicesEnabled={choicesEnabled}
         model={question}
         exercise_uid={content.uid}
-        correct_answer_id={correct_answer_id}>
+        correct_answer_id={correct_answer_id}
+        keySet={answerKeySet}>
         <FreeResponse free_response={free_response}/>
       </Question>
     </div>

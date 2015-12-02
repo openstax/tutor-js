@@ -3,6 +3,20 @@ _ = require 'underscore'
 
 classnames = require 'classnames'
 
+keymaster = require 'keymaster'
+keysHelper = require '../helpers/keys'
+
+KEYS =
+  'multiple-choice-numbers': _.range(1, 10) # 1 - 9
+
+# a - i
+KEYS['multiple-choice-alpha'] = _.map(KEYS['multiple-choice-numbers'], _.partial(keysHelper.getCharFromNumKey, _, null))
+
+KEYS['multiple-choice'] = _.zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha'])
+
+KEYSETS_PROPS = _.keys(KEYS)
+KEYSETS_PROPS.push(null) # keySet could be null for disabling keyControling
+
 ArbitraryHtml = require './html'
 
 idCounter = 0
@@ -43,10 +57,27 @@ Answer = React.createClass
     correctAnswerId: React.PropTypes.string
     answered_count: React.PropTypes.number
     show_all_feedback: React.PropTypes.bool
+    keyControl: React.PropTypes.oneOfType([
+      React.PropTypes.string
+      React.PropTypes.number
+      React.PropTypes.array
+    ])
 
   getDefaultProps: ->
     disabled: false
     show_all_feedback: false
+
+  componentWillMount: ->
+    {answer, onChangeAnswer, disabled, keyControl} = @props
+
+    if keyControl and not disabled
+      keyInAnswer = _.partial onChangeAnswer, answer
+      keysHelper.on keyControl, 'multiple-choice', keyInAnswer
+      keymaster.setScope('multiple-choice')
+
+  componentWillUnmount: ->
+    {disabled, keyControl} = @props
+    keysHelper.off(keyControl, 'multiple-choice') if keyControl and not disabled
 
   render: ->
     {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
@@ -66,7 +97,7 @@ Answer = React.createClass
         checked={isChecked}
         id="#{qid}-option-#{iter}"
         name="#{qid}-options"
-        onChange={onChangeAnswer(answer)}
+        onChange={_.partial(onChangeAnswer, answer)}
         disabled={disabled}
       />
 
@@ -126,6 +157,7 @@ module.exports = React.createClass
     show_all_feedback: React.PropTypes.bool
     onChange: React.PropTypes.func
     onChangeAttempt: React.PropTypes.func
+    keySet: React.PropTypes.oneOf(KEYSETS_PROPS)
 
   getInitialState: ->
     answer: null
@@ -133,19 +165,18 @@ module.exports = React.createClass
   getDefaultProps: ->
     type: 'student'
     show_all_feedback: false
+    keySet: 'multiple-choice'
 
-  # Curried function to remember the answer
-  onChangeAnswer: (answer) ->
-    (changeEvent) =>
-      if @props.onChange?
-        @setState({answer_id:answer.id})
-        @props.onChange(answer)
-      else
-        changeEvent.preventDefault()
-        @props.onChangeAttempt?(answer)
+  onChangeAnswer: (answer, changeEvent) ->
+    if @props.onChange?
+      @setState({answer_id:answer.id})
+      @props.onChange(answer)
+    else
+      changeEvent.preventDefault()
+      @props.onChangeAttempt?(answer)
 
   render: ->
-    {type, answered_count, choicesEnabled, correct_answer_id} = @props
+    {type, answered_count, choicesEnabled, correct_answer_id, keySet} = @props
     chosenAnswer = [@props.answer_id, @state.answer_id]
     checkedAnswerIndex = null
 
@@ -171,9 +202,10 @@ module.exports = React.createClass
       .sortBy (answer) ->
         parseInt(answer.id)
       .map (answer, i) ->
-        additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}"}
+        additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}", keyControl: KEYS[keySet]?[i]}
         answerProps = _.extend({}, additionalProps, questionAnswerProps)
         checkedAnswerIndex = i if isAnswerChecked(answer, chosenAnswer)
+
         <Answer {...answerProps}/>
       .value()
 
