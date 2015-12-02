@@ -2,6 +2,8 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
 
+SAVING = 'saving'
+
 RosterConfig = {
 
   create: (courseId, params) ->
@@ -11,6 +13,8 @@ RosterConfig = {
     @emitChange()
 
   save: (courseId, studentId, params) ->
+    @_asyncStatus[courseId] is SAVING
+    @emitChange()
 
   saved: (newProps, studentId) ->
     # update the student from all the courses rosters
@@ -32,6 +36,8 @@ RosterConfig = {
 
     getActiveStudentsForPeriod: (courseId, periodId) ->
       _.where(@_get(courseId).students, period_id: periodId, is_active: true)
+
+    isSaving: (courseId) -> @_asyncStatus[courseId] is SAVING
 
 }
 
