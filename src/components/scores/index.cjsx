@@ -223,6 +223,9 @@ Scores = React.createClass
 
     data = @getStudentRowData()
 
+    rowGetter = (rowIndex) =>
+      @renderStudentRow(data.rows[rowIndex])
+
     periodNav =
       <CoursePeriodsNavShell
         handleSelect={@selectPeriod}
@@ -230,36 +233,35 @@ Scores = React.createClass
         intialActive={period_id}
         courseId={courseId} />
 
-    rowGetter = (rowIndex) =>
-      @renderStudentRow(data.rows[rowIndex])
+    scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
 
-    if data.rows.length > 0
-      <div className='course-scores-wrap'>
-          <span className='course-scores-title'>Student Scores</span>
-          <ScoresExport courseId={courseId} className='pull-right'/>
-          {periodNav}
-          <div className='course-scores-container' ref='tableContainer'>
-            <Table
-              onColumnResizeEndCallback={@onColumnResizeEndCallback}
-              rowHeight={46}
-              rowGetter={rowGetter}
-              rowsCount={data.rows.length}
-              width={tableWidth}
-              height={tableHeight}
-              headerHeight={@headerType()}
-              groupHeaderHeight={50}>
+    scoresTable =
+      <Table
+          onColumnResizeEndCallback={@onColumnResizeEndCallback}
+          rowHeight={46}
+          rowGetter={rowGetter}
+          rowsCount={data.rows.length}
+          width={tableWidth}
+          height={tableHeight}
+          headerHeight={@headerType()}
+          groupHeaderHeight={50}>
 
-              {@renderNameHeader()}
-             {_.map(data.headings, @renderHeadingCell)}
-           </Table>
-          </div>
-      </div>
-    else
-      <div className='course-scores-wrap'>
+          {@renderNameHeader()}
+         {_.map(data.headings, @renderHeadingCell)}
+       </Table>
+
+    noAssignments = <span className='course-scores-title'>No Assignments Yet</span>
+
+    if data.rows.length > 0 then students = true
+
+    <div className='course-scores-wrap'>
+        <span className='course-scores-title'>Student Scores</span>
+        {scoresExport if students}
         {periodNav}
-        <span className='course-scores-title'>No Assignments Yet</span>
-        <div className='course-scores-container' ref='tableContainer'></div>
-      </div>
+        <div className='course-scores-container' ref='tableContainer'>
+          {if students then scoresTable else noAssignments}
+        </div>
+    </div>
 
 
 ScoresShell = React.createClass
