@@ -162,6 +162,10 @@ start = (bootstrapData) ->
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
 
+  apiHelper CourseActions, CourseActions.save, CourseActions.saved, 'PATCH', (courseId, params) ->
+    url: "/api/courses/#{courseId}"
+    payload: params
+
   apiHelper CCDashboardActions, CCDashboardActions.load, CCDashboardActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/cc/dashboard"
 
