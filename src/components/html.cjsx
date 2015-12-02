@@ -1,5 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 {typesetMath} = require '../helpers/mathjax'
 
@@ -13,13 +14,13 @@ module.exports = React.createClass
     block: false
 
   render: ->
-    classes = ['has-html']
-    classes.push(@props.className) if @props.className
-    classes = classes.join(' ')
+    {className, block} = @props
+
+    classes = classnames 'openstax-has-html', className
 
     otherProps = _.omit(@props, 'className', 'block', 'html')
 
-    if @props.block
+    if block
       <div
         {...otherProps}
         className={classes}

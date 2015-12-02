@@ -56,9 +56,9 @@ ExerciseGroup = React.createClass
       className = group.replace(' ', '_')
       labels = @getGroupLabel(group, related_content)
 
-      groupDOM = <div className='task-step-group'>
+      groupDOM = <div className='openstax-step-group'>
           <i className="icon-sm icon-#{className}"></i>
-          <span className='task-step-group-label'>{labels}</span>
+          <span className='openstax-step-group-label'>{labels}</span>
         </div>
 
     groupDOM

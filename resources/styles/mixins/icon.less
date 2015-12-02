@@ -1,0 +1,40 @@
+@icon-path: '../../images/icons';
+@icon-size-xs: 1rem;
+@icon-size-sm: @icon-size-xs * 1.6;
+@icon-size-md: @icon-size-xs * 2;
+@icon-size-lg: @icon-size-xs * 4;
+@icon-size-xlg: @icon-size-xs * 6;
+
+.x-icon-size(@size) {
+  display: inline-block;
+  width: @size;
+  height: @size;
+  background-size: @size @size;
+  background-repeat: no-repeat;
+  background-position: center;
+  .transition(~"transform .1s ease-in-out, margin .3s ease-in-out");
+}
+
+.x-icon-bg(@name) {
+  background-image: url("@{icon-path}/icon-@{name}.svg");
+}
+
+.openstax-icon-active(@scale: 1.4; @shadow: 0.12) {
+  .scale(@scale);
+  .box-shadow(0 1px 6px rgba(0, 0, 0, @shadow));
+  border-radius: 50%;
+}
+
+.crumb-circle(@radius){
+  font-size: @radius;
+  border-radius: 2 * @radius;
+  line-height: 2 * @radius;
+  min-width: 2 * @radius;
+}
+
+.crumb-text(){
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+}

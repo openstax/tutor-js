@@ -1,0 +1,38 @@
+&-breadcrumbs-step {
+  @import './icons';
+
+  &.completed{
+    .icon-end { .x-icon-bg(completed); }
+  }
+
+  .crumb-circle(2rem);
+  position: relative;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 2px;
+  display: inline-block;
+  text-align: center;
+  background: @openstax-white;
+  color: @openstax-neutral;
+
+  &:hover,
+  &.active {
+    .openstax-icon-active(1.4, 0.5);
+  }
+
+  &.active {
+    color: @openstax-primary;
+  }
+  &.completed {
+    background: @openstax-answer-background;
+    color: @openstax-answer-color;
+  }
+  &.status-correct {
+    background: @openstax-correct-background;
+    color: @openstax-correct-color;
+  }
+  &.status-incorrect {
+    background: @openstax-incorrect-background;
+    color: @openstax-incorrect-color;
+  }
+}

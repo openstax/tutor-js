@@ -21,7 +21,7 @@
 @brand-danger:          @openstax-danger;  // openstax-danger, red
 
 @state-info-bg:         @openstax-info-bg;
-@container-large-desktop:      (1200px + @grid-gutter-width);
+// @container-large-desktop:      (1200px + @grid-gutter-width);
 
 @link-hover-color:      darken(@link-color, 5%);
 
@@ -47,13 +47,13 @@
 // //
 // //## Font, line-height, and color for body text, headings, and more.
 
-// @font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
 // @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 // //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 // @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
-// @font-family-base:        @font-family-sans-serif;
+@font-family-base:        @font-family-sans-serif;
 
-// @font-size-base:          14px;
+@font-size-base:          14px;
 // @font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
 // @font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
 
@@ -65,7 +65,7 @@
 // @font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
 
 // //** Unit-less `line-height` for use in components like buttons.
-// @line-height-base:        1.428571429; // 20/14
+@line-height-base:        1.428571429; // 20/14
 // //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 // @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
@@ -108,7 +108,7 @@
 // @line-height-small:         1.5;
 
 // @border-radius-base:        4px;
-// @border-radius-large:       6px;
+@border-radius-large:       6px;
 // @border-radius-small:       3px;
 
 // //** Global color for active items (e.g., navs or dropdowns).
@@ -271,7 +271,7 @@
 
 // @zindex-navbar:            1000;
 // @zindex-dropdown:          1000;
-// @zindex-popover:           1060;
+@zindex-popover:           1060;
 // @zindex-tooltip:           1070;
 // @zindex-navbar-fixed:      1030;
 // @zindex-modal-background:  1040;
@@ -529,33 +529,33 @@
 // @tooltip-arrow-color:         @tooltip-bg;
 
 
-// //== Popovers
-// //
-// //##
+//== Popovers
+//
+//##
 
-// //** Popover body background color
-// @popover-bg:                          #fff;
-// //** Popover maximum width
-// @popover-max-width:                   276px;
-// //** Popover border color
-// @popover-border-color:                rgba(0,0,0,.2);
-// //** Popover fallback border color
-// @popover-fallback-border-color:       #ccc;
+//** Popover body background color
+@popover-bg:                          #fff;
+//** Popover maximum width
+@popover-max-width:                   276px;
+//** Popover border color
+@popover-border-color:                rgba(0,0,0,.2);
+//** Popover fallback border color
+@popover-fallback-border-color:       #ccc;
 
-// //** Popover title background color
-// @popover-title-bg:                    darken(@popover-bg, 3%);
+//** Popover title background color
+@popover-title-bg:                    darken(@popover-bg, 3%);
 
-// //** Popover arrow width
-// @popover-arrow-width:                 10px;
-// //** Popover arrow color
-// @popover-arrow-color:                 @popover-bg;
+//** Popover arrow width
+@popover-arrow-width:                 10px;
+//** Popover arrow color
+@popover-arrow-color:                 @popover-bg;
 
-// //** Popover outer arrow width
-// @popover-arrow-outer-width:           (@popover-arrow-width + 1);
-// //** Popover outer arrow color
-// @popover-arrow-outer-color:           fadein(@popover-border-color, 5%);
-// //** Popover outer arrow fallback color
-// @popover-arrow-outer-fallback-color:  darken(@popover-fallback-border-color, 20%);
+//** Popover outer arrow width
+@popover-arrow-outer-width:           (@popover-arrow-width + 1);
+//** Popover outer arrow color
+@popover-arrow-outer-color:           fadein(@popover-border-color, 5%);
+//** Popover outer arrow fallback color
+@popover-arrow-outer-fallback-color:  darken(@popover-fallback-border-color, 20%);
 
 
 // //== Labels

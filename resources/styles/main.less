@@ -6,14 +6,15 @@
 @import './variables/colors';
 @import './variables/openstax-bootstrap';
 @import './mixins/index';
-@import './globals/icons';
 
-@import './components/html/index';
-@import './components/exercise/index';
-@import './components/breadcrumbs/index';
-@import './components/question';
-@import './components/close';
-@import './components/spy-mode';
-@import './components/smart-overflow';
 @import './components/pinned-header-footer-card/index';
 @import './components/pinned-header-footer-card/sections';
+
+.openstax {
+  @import './components';
+
+  &-wrapper {
+    @import './components/breadcrumbs/index';
+    @import './globals/icons';
+  }
+}

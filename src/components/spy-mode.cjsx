@@ -14,7 +14,7 @@ SpyModeWrapper = React.createClass
     ev.preventDefault()
 
   render: ->
-    <div className={classnames('debug-content', {'is-enabled': @state.isEnabled})}>
+    <div className={classnames('openstax-debug-content', {'is-enabled': @state.isEnabled})}>
       {@props.children}
       <a href='#spy' onClick={@toggleDebug} className='debug-toggle-link'>&pi;</a>
     </div>
