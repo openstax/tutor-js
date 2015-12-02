@@ -2,6 +2,7 @@ EventEmitter2 = require 'eventemitter2'
 interpolate = require 'interpolate'
 _ = require 'underscore'
 api = require '../api'
+exercises = require '../exercise/collection'
 
 tasks = {}
 channel = new EventEmitter2 wildcard: true
@@ -9,6 +10,9 @@ channel = new EventEmitter2 wildcard: true
 load = (taskId, data) ->
   tasks[taskId] = data
   status = if data.errors? then 'failed' else 'loaded'
+
+  _.each data.steps, (step) ->
+    exercises.quickLoad(step.id, step)
 
   channel.emit("load.#{taskId}", {data, status})
 

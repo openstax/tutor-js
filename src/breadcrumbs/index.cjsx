@@ -61,10 +61,10 @@ Breadcrumbs = React.createClass
         type: 'step'
     )
 
-    reviewEnd = 
+    reviewEnd =
       type: 'end'
       key: crumbs.length
-      data: 
+      data:
         id: ''
         title: moduleInfo.title
       disabled: not canReview
