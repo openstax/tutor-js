@@ -250,7 +250,7 @@ Scores = React.createClass
          {_.map(data.headings, @renderHeadingCell)}
        </Table>
 
-    noAssignments = <span className='course-scores-title'>No Assignments Yet</span>
+    noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
 
     if data.rows.length > 0 then students = true
 
