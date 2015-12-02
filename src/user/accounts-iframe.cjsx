@@ -66,9 +66,6 @@ AccountsIframe = React.createClass
   componentWillMount: ->
     window.addEventListener('message', @parseAndDispatchMessage)
 
-  onCloseClick: ->
-    @props.onComplete?()
-
   render: ->
     # the other side of the iframe will validate our address and then only send messages to it
     me = window.location.protocol + '//' + window.location.host
@@ -81,7 +78,7 @@ AccountsIframe = React.createClass
     <div className={className}>
       <div className="heading">
         <h3 className="title">{@state?.title}</h3>
-        <i className='close-icon' onClick={@onCloseClick}/>
+        <i className='close-icon' onClick={@props.onComplete}/>
       </div>
       <iframe src={url} ref='iframe'
         style={width: @state.width, height: @state.height, border: 0}
