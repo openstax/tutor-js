@@ -39,8 +39,9 @@ Reactive = React.createClass
 
     if _.isFunction(fetcher) then fetcher(props) else store.fetch(topic)
 
-  getState: (eventData = {}) ->
-    {topic, store} = @props
+  getState: (eventData = {}, props) ->
+    props ?= @props
+    {topic, store} = props
     {status} = eventData
     status ?= 'loaded'
 
@@ -50,15 +51,17 @@ Reactive = React.createClass
     status: status
     errors: errors
 
-  isForThisComponent: (eventData) ->
-    {topic, filter} = @props
+  isForThisComponent: (eventData, props) ->
+    props ?= @props
+    {topic, filter} = props
 
-    eventData.errors? or filter?(@props, eventData) or eventData?.data?.id is topic or eventData?.data?.topic is topic
+    eventData.errors? or filter?(props, eventData) or eventData?.data?.id is topic or eventData?.data?.topic is topic
 
-  update: (eventData) ->
-    return unless @isForThisComponent(eventData)
+  update: (eventData, props) ->
+    props ?= @props
+    return unless @isForThisComponent(eventData, props)
 
-    nextState = @getState(eventData)
+    nextState = @getState(eventData, props)
     @setState(nextState)
 
   setStatus: (eventData) ->
@@ -83,6 +86,12 @@ Reactive = React.createClass
     api.channel.off(apiChannelSend, @setStatus)
 
   componentWillReceiveProps: (nextProps) ->
+    stubDataForImmediateUpdate =
+      data:
+        id: nextProps.topic
+      status: 'cached'
+
+    @update(stubDataForImmediateUpdate, nextProps)
     @fetchModel(nextProps)
 
   render: ->
