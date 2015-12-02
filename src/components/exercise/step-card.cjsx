@@ -105,7 +105,9 @@ ExerciseStepCard = React.createClass
     @props.onChangeAnswerAttempt?(answer)
 
   onContinue: ->
-    {panel, canReview, onNextStep, onStepCompleted, onContinue} = @props
+    {panel, canReview, onNextStep, onStepCompleted, onContinue, isContinueEnabled} = @props
+
+    return unless isContinueEnabled and @isContinueEnabled(@props, @state)
 
     if onContinue?
       onContinue(@state)
