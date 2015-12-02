@@ -29,6 +29,7 @@
     "flux-react": "~2.6.4",
     "font-awesome": "~4.3.0",
     "htmlparser2": "^3.8.3",
+    "keymaster": "^1.6.2",
     "jquery": "^2.1.4",
     "markdown-it": "^4.1.1",
     "mime-types": "^2.1.3",
