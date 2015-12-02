@@ -6,6 +6,7 @@ BS = require 'react-bootstrap'
 ChapterSection = require '../task-plan/chapter-section'
 LoadableItem = require '../loadable-item'
 Router = require 'react-router'
+classnames = require 'classnames'
 
 DashboardSectionProgress = React.createClass
   _getPercentage: (num, total) ->
@@ -16,19 +17,29 @@ DashboardSectionProgress = React.createClass
     
     percents =
       completed: @_getPercentage(@props.section.completed, total)
+    completedLabel = "#{percents.completed}%"
+    completedLabel = if percents.completed is 100 then "#{completedLabel} completed" else completedLabel
+
+    incompleteClass = ""
+
+    progressClass = classnames 'reading-progress-group',
+      'none-completed': percents.completed is 0
 
     if percents.completed > 0
       completed = <BS.ProgressBar 
         className="reading-progress-bar" 
         bsStyle="info" 
+        label={completedLabel}
         now={percents.completed} 
+        type="completed"
         key={1} />
+    else
+      noneCompleteLabel = "0% complete"
 
     <div>
-      <BS.ProgressBar className="reading-progress-group">
+      <BS.ProgressBar className={progressClass} label={noneCompleteLabel}>
         {completed}
       </BS.ProgressBar>
-      {percents.completed}%
     </div>
 
 DashboardSectionPerformance = React.createClass
@@ -38,22 +49,31 @@ DashboardSectionPerformance = React.createClass
 
     percents.incorrect = 100 - percents.correct
 
-    correctBar = if percents.correct then <BS.ProgressBar 
-      className="reading-progress-bar progress-bar-correct" 
-      now={percents.correct}
-      key={1} />
+    if percents.correct
+      correctLabel = if percents.incorrect > percents.correct then "#{percents.correct}%"
+      correctLabel = if percents.correct is 100 then "#{correctLabel} correct" else correctLabel
+      correctBar = <BS.ProgressBar 
+        className="reading-progress-bar progress-bar-correct" 
+        now={percents.correct}
+        label={correctLabel}
+        type="correct"
+        key={1} />
 
-    incorrectBar = if percents.incorrect then <BS.ProgressBar 
-      className="reading-progress-bar progress-bar-incorrect" 
-      now={percents.incorrect} 
-      key={2} />
+    if percents.incorrect
+      incorrectLabel = if percents.incorrect > percents.correct then "#{percents.incorrect}%"
+      incorrectLabel = if percents.incorrect is 100 then "#{incorrectLabel} incorrect" else incorrectLabel
+      incorrectBar = <BS.ProgressBar 
+        className="reading-progress-bar progress-bar-incorrect" 
+        now={percents.incorrect} 
+        label={incorrectLabel}
+        type="incorrect"
+        key={2} />
 
     <div>
       <BS.ProgressBar className="reading-progress-group">
         {correctBar}
         {incorrectBar}
       </BS.ProgressBar>
-      {percents.correct}%
     </div>
 
 DashboardSection = React.createClass
@@ -132,7 +152,7 @@ CCDashboard = React.createClass
     periods = CCDashboardStore.getPeriods(courseId)
     periodChapters = CCDashboardStore.getPeriodChapters(courseId, @state.activePeriodId)
 
-    if periodChapters.length
+    if periodChapters?.length
       chapters = _.map periodChapters, @renderChapters
     else
       chapters = <div>There are no completed concept coach tasks for this period.</div>

@@ -29,16 +29,38 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 
-  .reading-progress-group {
-    width: 80%;
-    display: inline-block;
-    float: left;
-    margin-right: 2%;
-  }
   .reading-progress-bar {
+    .transition(width 0s);
     margin-bottom: 0;
+    font-size: 0.9rem;
+
+    &::after {
+      content: attr(type);
+      position: absolute;
+      bottom: -@progress-on-hover-label-height;
+      left: 50%;
+      width: 100px;
+      margin-left: -50px;
+      text-align: center;
+      color: @tutor-neutral;
+      .opacity(0);
+      .transition(opacity 1s);
+    }
+
+    &:hover {
+      &::after {
+        .opacity(1);
+      }
+    }
+    &:not(.no-progress) {
+      min-width: 20px;
+    }
   }
-  &:hover {
-    background: rgba(255, 255, 204, 0.5);
+
+  .reading-progress-group.none-completed {
+    font-size: 0.9rem;
+    background: @gray-lighter;
+    color: @tutor-neutral-darker;
+    width: 100%;
   }
 }
