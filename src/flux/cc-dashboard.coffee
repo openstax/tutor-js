@@ -9,7 +9,10 @@ DEFAULT_COURSE_TIMEZONE = 'US/Central'
 
 DashboardConfig =
   exports:
-    getPeriods: (courseId) -> @_get(courseId)?.course?.periods
+    getPeriods: (courseId) ->
+      _.chain(@_get(courseId)?.course?.periods)
+        .tap(PeriodHelper.sort)
+        .value()
 
     getPeriodChapters: (courseId, periodId) ->
 
