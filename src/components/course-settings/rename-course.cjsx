@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 {CourseStore, CourseActions} = require '../../flux/course'
+AsyncButton = require '../buttons/async-button'
 {TutorInput} = require '../tutor-input'
 classnames = require 'classnames'
 
@@ -49,7 +50,8 @@ RenameCourse = React.createClass
   performUpdate: ->
     unless @state.invalid
       CourseActions.save(@props.courseId, course: {name: @state.course_name})
-      @refs.overlay.hide()
+      CourseStore.once 'saved', ->
+        @refs.overlay.hide()
 
   renderForm: ->
     formClasses = classnames 'modal-body', 'teacher-edit-course-form', 'is-invalid-form': @state?.invalid
@@ -72,12 +74,14 @@ RenameCourse = React.createClass
       </div>
 
       <div className='modal-footer'>
-        <BS.Button
-        className='-edit-course-confirm'
-        onClick={@performUpdate}
-        disabled={disabled}>
+        <AsyncButton
+          className='-edit-course-confirm'
+          onClick={@performUpdate}
+          isWaiting={CourseStore.isSaving(@props.courseId)}
+          waitingText="Saving..."
+          disabled={disabled}>
         Rename
-        </BS.Button>
+        </AsyncButton>
       </div>
     </BS.Modal>
 
