@@ -78,8 +78,9 @@ Navigation = React.createClass
           <UserMenu course={@props.course} />
           {courseItems}
           <BS.NavItem
-            eventKey='close'>
-            <CloseButton/>
+            eventKey='close'
+            className='concept-coach-dashboard-nav'>
+            <BS.Button>Back to Book</BS.Button>
           </BS.NavItem>
         </BS.Nav>
       </BS.CollapsibleNav>
