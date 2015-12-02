@@ -2,7 +2,7 @@
   "name": "openstax-react-components",
   "version": "0.0.0",
   "description": "OpenStax shared React components",
-  "main": "dist/main.min.js",
+  "main": "index",
   "scripts": {
     "test": "gulp test && gulp prod",
     "coverage": "gulp coverage",
