@@ -7,6 +7,7 @@ BindStoreMixin = require '../bind-store-mixin'
 {RosterStore, RosterActions} = require '../../flux/roster'
 
 PeriodRoster = require './period-roster'
+PeriodEnrollmentCode = require './period-enrollment-code'
 
 AddPeriodLink = require './add-period'
 RenamePeriodLink = require './rename-period'
@@ -58,6 +59,9 @@ module.exports = React.createClass
         activeTab={@getActivePeriod(@state.key, course.periods)}
         selectPreviousTab={@selectPreviousTab} />
       </div>
+      <PeriodEnrollmentCode
+      activeTab={@getActivePeriod(@state.key, course.periods)}
+      periods={course.periods} />
       <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
       {tabs}
     </BS.TabbedArea>

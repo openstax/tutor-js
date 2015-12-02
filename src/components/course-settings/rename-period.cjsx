@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
-
+CourseGroupingLabel = require '../course-grouping-label'
 
 RenamePeriodField = React.createClass
 
@@ -59,14 +59,19 @@ module.exports = React.createClass
     if @state?.invalid
       formClasses.push('is-invalid-form')
       disabled = true
+    title =
+      <h4>Rename <CourseGroupingLabel courseId={@props.courseId}/></h4>
+    label =
+      <span><CourseGroupingLabel courseId={@props.courseId}/> Name</span>
+
     <BS.Modal
       {...@props}
-      title={'Rename Period'}
+      title={title}
       className='teacher-edit-period-modal'>
 
       <div className={formClasses.join(' ')}>
         <RenamePeriodField
-        label='Period Name'
+        label={label}
         name='period-name'
         default={@props.activeTab.name}
         onChange={(val) => @setState(period_name: val)}
@@ -92,6 +97,7 @@ module.exports = React.createClass
       trigger='click'
       overlay={@renderForm()}>
         <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-pencil' /> Rename Period
+          <i className='fa fa-pencil' />
+          Rename <CourseGroupingLabel courseId={@props.courseId}/>
         </BS.Button>
     </BS.OverlayTrigger>

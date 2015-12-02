@@ -16,6 +16,8 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
   require './components/reference-book'
 
 {StatsShell} = require './components/plan-stats'
+CCDashboard = require './components/cc-dashboard'
+
 CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
 Handler = require './helpers/conditional-rendering'
@@ -65,6 +67,8 @@ routes = (
                 ignoreScrollBehavior/>
             </Route>
           </Route>
+          <Route path='cc-dashboard/?' name='cc-dashboard' handler={CCDashboard} />
+
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />

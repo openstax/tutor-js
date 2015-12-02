@@ -6,6 +6,7 @@ LoadableItem = require '../loadable-item'
 {CourseStore} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
 {StudentDashboardStore, StudentDashboardActions} = require '../../flux/student-dashboard'
+{CCDashboardStore, CCDashboardActions} = require '../../flux/cc-dashboard'
 
 Roster = require './roster'
 TeacherRoster = require './teacher-roster'
@@ -20,6 +21,14 @@ module.exports = React.createClass
   render: ->
     course = CourseStore.get(@props.courseId)
 
+    if course.is_concept_coach
+      store = CCDashboardStore
+      actions = CCDashboardActions
+    else
+      store = StudentDashboardStore
+      actions = StudentDashboardActions
+
+
     <BS.Panel className='course-settings'>
 
       <span className='course-settings-title'>{course.name}
@@ -29,9 +38,12 @@ module.exports = React.createClass
       <div className="settings-section teachers">
         <LoadableItem
           id={@props.courseId}
-          store={StudentDashboardStore}
-          actions={StudentDashboardActions}
-          renderItem={=> <TeacherRoster courseRoles={course.roles} courseId={@props.courseId}/>}
+          store={store}
+          actions={actions}
+          renderItem={=> <TeacherRoster 
+            store={store} 
+            courseRoles={course.roles} 
+            courseId={@props.courseId}/>}
         />
       </div>
 

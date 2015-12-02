@@ -1,10 +1,10 @@
 React = require 'react'
+{SpyMode} = require 'openstax-react-components'
 
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableItem = require '../loadable-item'
 {Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl} = require './all-steps'
-SpyModeContent = require '../spy-mode/content'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -42,9 +42,9 @@ TaskStepLoaded = React.createClass
     Type = getStepType(type)
     <div>
       <Type {...@props}/>
-      <SpyModeContent className='task-ecosystem-info'>
+      <SpyMode.Content className='task-ecosystem-info'>
         TaskId: {taskId}, StepId: {id}, Ecosystem: {spy?.ecosystem_title}
-      </SpyModeContent>
+      </SpyMode.Content>
     </div>
 
 module.exports = React.createClass

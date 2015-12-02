@@ -1,5 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+{SpyMode} = require 'openstax-react-components'
+
 LoadableItem = require '../loadable-item'
 _ = require 'underscore'
 S = require '../../helpers/string'
@@ -11,7 +13,6 @@ PerformanceForecastSection = require '../performance-forecast/section'
 PerformanceForecastColorKey = require '../performance-forecast/color-key'
 PracticeButton = require '../performance-forecast/practice-button'
 Section = require '../performance-forecast/section'
-SpyModeContent = require '../spy-mode/content'
 
 
 # Number of sections to display
@@ -74,13 +75,13 @@ ProgressGuidePanels = React.createClass
           </p><p>
             This area will fill in with topics as you complete your assignments
           </p>
-          <SpyModeContent>
+          <SpyMode.Content>
             <ul>
               <li>{sections.length} sections were returned by the performance forecast</li>
               { for section in sections
                 <li>{@sectionFormat(section.chapter_section)} section.title</li> }
             </ul>
-          </SpyModeContent>
+          </SpyMode.Content>
       </div>
     </div>
 

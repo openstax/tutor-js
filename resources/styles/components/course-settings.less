@@ -24,7 +24,7 @@
   .course-settings-subtitle {
     font-size: 2.5rem;
     &.tabbed {
-      padding-top: 40px;
+      padding-top: 20px; // PHIL Or 40px?
     }
     padding-bottom: 15px;
     display: inline-block;
@@ -51,7 +51,8 @@
     }
   }
 
-  .edit-course {
+  .edit-course,
+  .show-enrollment-code {
     color: @tutor-tertiary-light;
     text-transform: capitalize;
     margin-left: 10px;
@@ -82,6 +83,16 @@
   }
 }
 
+.teacher-enrollment-code-modal {
+  .enrollment-code {
+    .code {
+      font-weight: 800;
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+}
+
 .teacher-edit-period-form {
 
   margin: 20px 0px 10px 0px;
@@ -106,5 +117,3 @@
     width: 300px;
   }
 }
-
-

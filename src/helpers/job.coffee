@@ -7,7 +7,7 @@ JOB_REQUESTED = 'job_queued'
 JOB_UNSTARTED = 'unknown'
 JOBBING = 'working'
 JOB_QUEUED = 'queued'
-JOBBED = 'completed'
+JOBBED = 'succeeded'
 JOB_FAILED = 'failed'
 JOB_KILLED = 'killed'
 
@@ -107,7 +107,7 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
 
         doneStates.indexOf(@_asyncStatus[id]) > -1
 
-      isCompleted: (id, jobId) ->
+      isSucceeded: (id, jobId) ->
         jobId ?= _.last(@_getJobs(id))
         job = JobStore.get(jobId)
         {status} = job if job?

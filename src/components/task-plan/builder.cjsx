@@ -4,6 +4,7 @@ _ = require 'underscore'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
+CourseGroupingLabel = require '../course-grouping-label'
 PlanMixin = require './plan-mixin'
 BindStoreMixin = require '../bind-store-mixin'
 
@@ -135,14 +136,14 @@ module.exports = React.createClass
   setOpensAt: (value, period) ->
     {id} = @props
     if Object.prototype.toString.call(value) is '[object Date]'
-      value = moment(value).format(TutorDateFormat)
+      value = TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat)
 
     TaskPlanActions.updateOpensAt(id, value, period?.id)
 
   setDueAt: (value, period) ->
     {id} = @props
     if Object.prototype.toString.call(value) is '[object Date]'
-      value = moment(value).format(TutorDateFormat)
+      value = TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat)
 
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
@@ -157,8 +158,8 @@ module.exports = React.createClass
     @setOpensAt(taskingOpensAt)
 
     #enable all periods
-    period_ids = _.pluck(CourseStore.getPeriods(@props.courseId), 'id')
-    TaskPlanActions.setPeriods(@props.id, period_ids)
+    periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
+    TaskPlanActions.setPeriods(@props.id, periods)
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
@@ -340,7 +341,9 @@ module.exports = React.createClass
     choiceLabel = <BS.Row>
       <BS.Col md=12>
         {radio}
-        <label className="period" htmlFor='show-periods-radio'>Individual Periods</label>
+        <label className="period" htmlFor='show-periods-radio'>
+          Individual <CourseGroupingLabel courseId={@props.courseId} plural />
+        </label>
       </BS.Col>
     </BS.Row>
 

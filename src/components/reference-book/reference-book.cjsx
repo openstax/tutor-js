@@ -1,6 +1,7 @@
 React = require 'react'
 _  = require 'underscore'
 classnames = require 'classnames'
+{SpyMode} = require 'openstax-react-components'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
@@ -9,7 +10,6 @@ Menu = require './slide-out-menu'
 ChapterSectionMixin = require '../chapter-section-mixin'
 PageShell = require './page-shell'
 WindowResizeListenerMixin = require '../resize-listener-mixin'
-SpyModeWrapper = require '../spy-mode/wrapper'
 PageNavigation = require './page-navigation'
 
 # menu width (300) + page width (1000) + 50 px padding
@@ -73,7 +73,7 @@ module.exports = React.createClass
     })
 
     <div {...@props.dataProps} className={className}>
-      <SpyModeWrapper>
+      <SpyMode.Wrapper>
         <NavBar
           ecosystemId={@props.ecosystemId}
           section={@state.section}
@@ -104,5 +104,5 @@ module.exports = React.createClass
             section={@sectionFormat(pageInfo.next?.chapter_section)} />
         </div>
 
-      </SpyModeWrapper>
+      </SpyMode.Wrapper>
     </div>

@@ -4,6 +4,7 @@ React = require 'react'
 Name = React.createClass
 
   propTypes:
+    className:   React.PropTypes.string
     first_name:  React.PropTypes.string
     last_name:   React.PropTypes.string
     name:        React.PropTypes.string
@@ -14,6 +15,6 @@ Name = React.createClass
     else
       @props.name
 
-    <span className="-name">{name}</span>
+    <span className={@props.className or "-name"}>{name}</span>
 
 module.exports = Name

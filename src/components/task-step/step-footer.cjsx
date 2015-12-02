@@ -17,7 +17,8 @@ StepFooter = React.createClass
     controlButtons: null
 
   renderFooterButtons: ->
-    @props.controlButtons
+    {controlButtons, panel} = @props
+    controlButtons unless panel is 'teacher-read-only'
 
   render: ->
     {pinned, courseId, id, taskId, review} = @props

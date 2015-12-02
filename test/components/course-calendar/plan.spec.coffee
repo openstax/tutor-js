@@ -289,10 +289,10 @@ describe 'Plan on Course Calendar', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
     item.plan = fakePublishing(item.plan)
 
-    completeProgress =
+    succeededProgress =
       for: item.plan.id
       id: JOB_UUID
-      status: 'completed'
+      status: 'succeeded'
 
     Testing
       .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
@@ -306,7 +306,7 @@ describe 'Plan on Course Calendar', ->
 
         checkChildrenComponents(element, item, checks)
 
-        PlanPublishStore.emit("progress.#{plan.id}.#{completeProgress.status}", completeProgress)
+        PlanPublishStore.emit("progress.#{plan.id}.#{succeededProgress.status}", succeededProgress)
 
         checksIsPublished =
           display: (components, {display}) ->
@@ -366,10 +366,10 @@ describe 'Plan on Course Calendar', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
     item.plan = fakePublishing(item.plan)
 
-    completeProgress =
+    succeededProgress =
       for: item.plan.id
       id: JOB_UUID
-      status: 'completed'
+      status: 'succeeded'
 
     Testing
       .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
@@ -394,7 +394,7 @@ describe 'Plan on Course Calendar', ->
 
         checkChildrenComponents(element, item, checksForIsPublishing)
 
-        PlanPublishStore.emit("progress.#{item.plan.id}.#{completeProgress.status}", completeProgress)
+        PlanPublishStore.emit("progress.#{item.plan.id}.#{succeededProgress.status}", succeededProgress)
 
         checksIsPublished =
           display: (components, {display}) ->
@@ -409,10 +409,10 @@ describe 'Plan on Course Calendar', ->
     item.plan = fakePublishing(item.plan)
     item.plan.isPublishing = true
 
-    completeProgress =
+    succeededProgress =
       for: item.plan.id
       id: JOB_UUID
-      status: 'completed'
+      status: 'succeeded'
 
     Testing
       .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )

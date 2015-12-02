@@ -30,6 +30,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 {StudentDashboardActions} = require './flux/student-dashboard'
 {CourseListingActions, CourseListingStore} = require './flux/course-listing'
+{CCDashboardStore, CCDashboardActions} = require './flux/cc-dashboard'
 {ReferenceBookActions, ReferenceBookStore} = require './flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require './flux/reference-book-page'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require './flux/reference-book-exercise'
@@ -101,7 +102,6 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
           catch e
             msg = jqXhr.responseText
           Actions.FAILED(statusCode, msg, args...)
-
       $.ajax(url, opts)
       .then(resolved, rejected)
 
@@ -166,6 +166,9 @@ start = (bootstrapData) ->
     url: "/api/courses/#{courseId}"
     payload: params
 
+  apiHelper CCDashboardActions, CCDashboardActions.load, CCDashboardActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/cc/dashboard"
+
   createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
   apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/practice"
@@ -207,9 +210,9 @@ start = (bootstrapData) ->
   apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
     url: "/api/students/#{id}", payload: params
   apiHelper RosterActions, RosterActions.create, RosterActions.created, createMethod, (courseId, params) ->
-    url: "/api/courses/#{courseId}/students", payload: params
+    url: "/api/courses/#{courseId}/roster", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
-    url: "/api/courses/#{id}/students"
+    url: "/api/courses/#{id}/roster"
 
   apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/periods", payload: params
