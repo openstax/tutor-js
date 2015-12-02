@@ -18,7 +18,8 @@ User =
 
   update: (data) ->
     _.extend(this, data.user)
-    @courses = _.map data.courses, (course) -> new Course(course)
+    @courses = _.compact _.map data.courses, (course) -> new Course(course) if course.is_concept_coach
+
     @channel.emit('change')
     delete @isLoggingOut
 
