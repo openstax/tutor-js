@@ -6,10 +6,10 @@ User  = require './model'
 AccountsIframeMixin =
 
   getInitialState: ->
-    width: '100%', height: 400, isLoading: true
+    width: '100%', height: 400
 
   pageLoad: (page) ->
-    @setState(isLoading: false)
+
 
   # Note: we're currently not doing anything with the width because we want that to stay at 100%
   pageResize: ({width, height}) ->
@@ -19,7 +19,6 @@ AccountsIframeMixin =
     @setState(title: title)
 
   iFrameReady: ->
-    @setState(isLoading: false)
     @onIframeReady()
 
   # called when an login process completes
@@ -27,11 +26,7 @@ AccountsIframeMixin =
     api.channel.emit 'user.status.receive.fetch', data: payload
     @props.onComplete()
 
-  displayLoadingStatus: ->
-    @state.isLoading and not User.endpoints.is_stubbed
-
   sendCommand: (command, payload = {}) ->
-    @setState(isLoading: true)
     msg = JSON.stringify(data: {"#{command}": payload})
     React.findDOMNode(@refs.iframe).contentWindow.postMessage(msg, '*')
 

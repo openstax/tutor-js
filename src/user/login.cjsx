@@ -20,8 +20,7 @@ UserLogin = React.createClass
       @sendCommand('displayLogin', User.endpoints.iframe_login)
 
   render: ->
-    classlist = classnames('user-login', 'is-loading': @displayLoadingStatus())
-    <div className={classlist}>
+    <div className='user-login'>
       <div className="heading">
         <h3 className="title">{@state?.title}</h3>
       </div>
