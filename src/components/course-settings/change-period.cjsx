@@ -18,7 +18,7 @@ module.exports = React.createClass
   renderPeriod: (period) ->
     <AsyncButton
       className='-edit-course-confirm'
-      onClick={@updatePeriod}
+      onClick={_.partial(@updatePeriod, period.id)}
       isWaiting={RosterStore.isSaving(@props.courseId)}
       waitingText="Saving..."
       disabled={false}>
