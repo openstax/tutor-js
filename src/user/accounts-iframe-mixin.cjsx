@@ -1,3 +1,5 @@
+# coffeelint: disable=no_empty_functions
+
 React = require 'react'
 
 api   = require '../api'

@@ -50,9 +50,9 @@ Navigation = React.createClass
     {active} = @state
     {course} = @props
 
-    brand = <a onClick={_.partial(@handleSelect, 'showDashboard')}>
+    brand = <span>
       <strong>Concept</strong> Coach
-    </a>
+    </span>
 
     courseItems = [
       <BS.NavItem
@@ -78,8 +78,9 @@ Navigation = React.createClass
           <UserMenu course={@props.course} />
           {courseItems}
           <BS.NavItem
-            eventKey='close'>
-            <CloseButton/>
+            eventKey='close'
+            className='concept-coach-dashboard-nav'>
+            <BS.Button>Back to Book</BS.Button>
           </BS.NavItem>
         </BS.Nav>
       </BS.CollapsibleNav>

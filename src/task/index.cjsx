@@ -24,7 +24,7 @@ TaskBase = React.createClass
     currentStep: 0
 
   goToStep: (stepIndex) ->
-    @setState(currentStep: stepIndex)
+    @setState(currentStep: stepIndex) if @isStepAllowed(stepIndex)
 
   nextStep: ->
     {currentStep} = @state
@@ -35,10 +35,28 @@ TaskBase = React.createClass
     stepIndex = tasks.getFirstIncompleteIndex(taskId)
     @goToStep(stepIndex)
 
+  isStepAllowed: (stepIndex) ->
+    {task} = @state
+    {taskId} = @props
+    (stepIndex <= task.steps.length) and ((not @isReviewStep(stepIndex)) or @canReview())
+
+  canReview: ->
+    {taskId} = @props
+    not _.isEmpty tasks.getCompleteSteps(taskId)
+
+  isReviewStep: (stepIndex) ->
+    {task} = @state
+    stepIndex is task.steps.length
+
+  fetchTask: ->
+    tasks.fetchByModule(@props)
+
   componentWillMount: ->
+    api.channel.on('exercise.*.receive.complete', @fetchTask)
     exercises.channel.on('leave.*', @nextStep)
 
   componentWillUnmount: ->
+    api.channel.off('exercise.*.receive.complete', @fetchTask)
     exercises.channel.off('leave.*', @nextStep)
 
   componentWillReceiveProps: (nextProps) ->
@@ -59,6 +77,7 @@ TaskBase = React.createClass
 
     breadcrumbs = <Breadcrumbs
       {...@props}
+      canReview={@canReview()}
       goToStep={@goToStep}
       currentStep={currentStep}/>
 
@@ -71,7 +90,7 @@ TaskBase = React.createClass
         className='concept-coach-task-body'
         id={task.steps[currentStep].id}
         pinned={false}/>
-    else if currentStep is task.steps.length
+    else if @isReviewStep(currentStep)
       panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
 
     taskClasses = classnames 'concept-coach-task',

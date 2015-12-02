@@ -4,6 +4,10 @@ api = require '../api'
 steps = {}
 channel = new EventEmitter2 wildcard: true
 
+quickLoad = (stepId, data) ->
+  steps[stepId] = data
+  channel.emit("quickLoad.#{stepId}", {data})
+
 load = (stepId, data) ->
   steps[stepId] = data
   channel.emit("load.#{stepId}", {data})
@@ -32,4 +36,4 @@ get = (stepId) ->
 
 api.channel.on("exercise.*.receive.*", update)
 
-module.exports = {fetch, getCurrentPanel, get, channel}
+module.exports = {fetch, getCurrentPanel, get, channel, quickLoad}

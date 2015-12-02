@@ -2,6 +2,20 @@
 @concept-coach-breadcrumb-color: @openstax-neutral;
 @concept-coach-breadcrumb-border-radius: 0;
 
+.make-breadcrumb-clickable() {
+  &.active {
+    color: @openstax-white;
+    background: @openstax-info;
+    border-color: @openstax-info;
+    cursor: default;
+    font-weight: 400;
+  }
+
+  &:hover {
+    border-color: @openstax-info;
+  }
+}
+
 .concept-coach-task {
   .task-breadcrumbs {
     margin: 1rem 0;
@@ -20,9 +34,37 @@
 
     .transition(~'background 0.1s ease-in-out, border-color 0.1s ease-in-out');
 
+    &.disabled {
+      background: transparent;
+      border-color: transparent;
+      color: lighten(@concept-coach-breadcrumb-color, 25%);
+      cursor: default;
+
+      &:hover {
+        border-color: transparent;
+      }
+    }
+
+    &.end:not(.disabled) {
+      background: @openstax-white;
+      border-color: @openstax-white;
+      color: @concept-coach-breadcrumb-color;
+      cursor: pointer;
+
+      .make-breadcrumb-clickable();
+    }
+
     &.status-incorrect,
     &.status-correct {
       background: @concept-coach-breadcrumb-background;
+    }
+
+    &.status-incorrect {
+      color: @openstax-incorrect-color;
+    }
+
+    &.status-correct {
+      color: @openstax-correct-color;
     }
 
     &:hover,
@@ -32,17 +74,7 @@
       .scale(1);
     }
 
-    &.active {
-      color: @openstax-white;
-      background: @openstax-info;
-      border-color: @openstax-info;
-      cursor: default;
-      font-weight: 400;
-    }
-
-    &:hover {
-      border-color: @openstax-info;
-    }
+    .make-breadcrumb-clickable();
   }
 
   .task-homework,

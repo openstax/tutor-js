@@ -38,7 +38,8 @@ TaskReview = React.createClass
           pinned={false}
           review='completed'
           focus={false}
-          taskId={taskId}/>
+          taskId={taskId}
+          allowKeyNext={false}/>
 
     <div className='concept-coach-task-review'>
       {completeStepsReview}
