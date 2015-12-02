@@ -18,6 +18,8 @@ ChapterSectionMixin = require './src/components/chapter-section-mixin'
 GetPositionMixin = require './src/components/get-position-mixin'
 ResizeListenerMixin = require './src/components/resize-listener-mixin'
 
+KeysHelper = require './src/helpers/keys'
+
 module.exports = {
   Exercise,
   ExerciseGroup,
@@ -41,5 +43,7 @@ module.exports = {
   GetPositionMixin,
   ResizeListenerMixin,
 
-  SpyMode
+  SpyMode,
+
+  KeysHelper
 }
