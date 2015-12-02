@@ -24,7 +24,6 @@ BreadcrumbDynamic = React.createClass
     @setState(step: eventData.data)
 
   goToStep: (stepIndex) ->
-    console.info("goToStep #{stepIndex}")
     @props.goToStep(stepIndex)
 
   render: ->
@@ -46,11 +45,11 @@ Breadcrumbs = React.createClass
     taskId = "#{collectionUUID}/#{moduleUUID}"
 
     task: tasks.get(taskId)
-
+    moduleInfo: tasks.getModuleInfo(taskId)
 
   render: ->
-    {task} = @state
-    {currentStep} = @props
+    {task, moduleInfo} = @state
+    {currentStep, canReview} = @props
 
     return null if _.isEmpty(task.steps)
 
@@ -62,10 +61,19 @@ Breadcrumbs = React.createClass
         type: 'step'
     )
 
-    crumbs.push(type: 'end', key: crumbs.length, data: {id: ''})
+    reviewEnd = 
+      type: 'end'
+      key: crumbs.length
+      data: 
+        id: ''
+        title: moduleInfo.title
+      disabled: not canReview
+
+    crumbs.push(reviewEnd)
 
     breadcrumbs = _.map(crumbs, (crumb) =>
       <BreadcrumbDynamic
+        className={'disabled' if crumb.disabled}
         key={crumb.data.id}
         crumb={crumb}
         step={crumb.data or {}}
