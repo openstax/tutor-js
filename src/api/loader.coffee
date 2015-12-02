@@ -63,7 +63,7 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
 
           apiEventChannel.emit(failedEvent, failedData)
         setting.onFail?(response) or defaultFail(response)
-        apiEventChannel.emit('error', response: response, apiSetting: apiSetting)
+        apiEventChannel.emit('error', {response, apiSetting, failedData})
       )
   , delay
 
