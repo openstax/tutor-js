@@ -13,13 +13,15 @@ module.exports = React.createClass
     student: React.PropTypes.object.isRequired
 
   updatePeriod: (periodId) ->
+    # prevents scroll on href='#'
+    event.preventDefault()
     RosterActions.save(@props.student.id, period_id: periodId)
 
   renderPeriod: (period) ->
     <AsyncButton
       className='-edit-course-confirm'
       onClick={_.partial(@updatePeriod, period.id)}
-      isWaiting={RosterStore.isSaving(@props.courseId)}
+      isWaiting={RosterStore.isSaving(@props.student.id)}
       waitingText="Saving..."
       disabled={false}>
     {period.name}

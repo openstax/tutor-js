@@ -6,6 +6,8 @@ SAVING = 'saving'
 
 RosterConfig = {
 
+  _asyncStatus: {}
+
   create: (courseId, params) ->
 
   created: (student, courseId) ->
@@ -13,7 +15,7 @@ RosterConfig = {
     @emitChange()
 
   save: (courseId, studentId, params) ->
-    @_asyncStatus[courseId] is SAVING
+    @_asyncStatus[studentId] = SAVING
     @emitChange()
 
   saved: (newProps, studentId) ->
@@ -37,7 +39,7 @@ RosterConfig = {
     getActiveStudentsForPeriod: (courseId, periodId) ->
       _.where(@_get(courseId).students, period_id: periodId, is_active: true)
 
-    isSaving: (courseId) -> @_asyncStatus[courseId] is SAVING
+    isSaving: (studentId) -> @_asyncStatus[studentId] is SAVING
 
 }
 
