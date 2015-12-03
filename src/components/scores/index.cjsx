@@ -252,11 +252,17 @@ Scores = React.createClass
 
     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
 
+    scoresNote =
+      <div className='course-scores-note'>
+        Date indicates most recently submitted response.
+      </div>
+
     if data.rows.length > 0 then students = true
 
     <div className='course-scores-wrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
+        {if @props.isConceptCoach then scoresNote}
         {periodNav}
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}
