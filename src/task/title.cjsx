@@ -9,7 +9,7 @@ TaskTitle = React.createClass
   displayName: 'TaskTitle'
   mixins: [ChapterSectionMixin]
   render: ->
-    {taskId, cnxUrl} = @props
+    {taskId, cnxUrl, close} = @props
     moduleInfo = tasks.getModuleInfo(taskId, cnxUrl)
     section = @sectionFormat(moduleInfo.chapter_section)
 
@@ -17,16 +17,17 @@ TaskTitle = React.createClass
       className: 'chapter-section-prefix'
     sectionProps['data-section'] = section if section?
 
-    linkProps =
-      href: moduleInfo.link
-
     if moduleInfo.title
-      linkProps.target = '_blank'
+      linkProps =
+        href: moduleInfo.link
+        target: '_blank'
       title = <span {...sectionProps}>
         {moduleInfo.title}
       </span>
     else
       noTitle = <span className='back-to-book'>Back to Book</span>
+      linkProps =
+        onClick: close
 
     titleClasses = classnames 'concept-coach-title',
       'has-title': moduleInfo.title?
