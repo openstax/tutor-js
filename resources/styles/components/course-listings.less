@@ -51,7 +51,7 @@
       }
     }
 
-    &[data-category]{
+    &[data-appearance]{
       .flex-display();
       .tutor-course-item {
         .flex(1);
@@ -63,7 +63,7 @@
         font-weight: 800;
       }
     }
-    &[data-category=physics] {
+    &[data-appearance=physics] {
       .tutor-course-item {
         color: @tutor-book-hs-physics-secondary;
         background-color: @tutor-book-hs-physics-primary;
@@ -77,7 +77,7 @@
       }
     }
 
-    &[data-category=biology] {
+    &[data-appearance=biology] {
       .tutor-course-item {
         color: @tutor-book-ap-bio-secondary;
         background-color: @tutor-book-ap-bio-primary;
@@ -113,7 +113,7 @@
         }
       }
 
-      &[data-category=biology] {
+      &[data-appearance=biology] {
         .tutor-course-item {
           &::before {
             color: @tutor-book-ap-bio-primary;
@@ -122,7 +122,7 @@
         }
       }
 
-      &[data-category=physics] {
+      &[data-appearance=physics] {
         .tutor-course-item {
           &::before {
             color: @tutor-book-hs-physics-primary;
