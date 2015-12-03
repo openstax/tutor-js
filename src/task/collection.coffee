@@ -7,6 +7,20 @@ exercises = require '../exercise/collection'
 tasks = {}
 channel = new EventEmitter2 wildcard: true
 
+ERRORS_TO_SILENCE = ['page_has_no_exercises']
+
+getUnhandledErrors = (errors) ->
+  otherErrors = _.reject errors, (error) ->
+    _.indexOf(ERRORS_TO_SILENCE, error.code) > -1
+
+handledAllErrors = (otherErrors) ->
+  _.isEmpty otherErrors
+
+checkFailure = (response) ->
+  if response.data.errors
+    response.data.errors = getUnhandledErrors(response.data.errors)
+    response.stopErrorDisplay = handledAllErrors(response.data.errors)
+
 load = (taskId, data) ->
   tasks[taskId] = data
   status = if data.errors? then 'failed' else 'loaded'
@@ -67,6 +81,7 @@ getModuleInfo = (taskId, cnxUrl = '') ->
   moduleInfo
 
 api.channel.on("task.*.receive.*", update)
+api.channel.on('task.*.receive.failure', checkFailure)
 
 module.exports = {
   load,
