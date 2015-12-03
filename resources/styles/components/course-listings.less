@@ -63,6 +63,16 @@
         font-weight: 800;
       }
     }
+
+    // default styles for courses that do not
+    // have a recognized appearance_code
+    &[data-appearance=default] {
+      .tutor-course-item {
+        color: @tutor-primary;
+        background-color: @tutor-neutral-light;
+      }
+    }
+
     &[data-appearance=physics] {
       .tutor-course-item {
         color: @tutor-book-hs-physics-secondary;
@@ -90,6 +100,7 @@
         }
       }
     }
+
   }
 }
 
