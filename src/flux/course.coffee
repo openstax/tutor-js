@@ -92,12 +92,9 @@ CourseConfig =
         if not name? or name is ''
           return ['required']
 
-    # This is currently bassed on the course title.
-    # eventually the backend will provide it as part of the course's metadata.
-    getCategory: (courseId) ->
-      return @_get(courseId).catalog_offering_identifier or (
-        this.exports.getShortName.call(this, courseId).toLowerCase()
-      )
+    # Returns the configured appearance code for a course
+    getAppearanceCode: (courseId) ->
+      return @_get(courseId)?.appearance_code or 'default'
 
     getShortName: (courseId) ->
       title = @_get(courseId)?.name or ""
