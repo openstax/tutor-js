@@ -1,7 +1,9 @@
 EventEmitter2 = require 'eventemitter2'
 api = require '../api'
 
+loading = {}
 steps = {}
+
 channel = new EventEmitter2 wildcard: true
 
 quickLoad = (stepId, data) ->
@@ -10,6 +12,7 @@ quickLoad = (stepId, data) ->
 
 load = (stepId, data) ->
   steps[stepId] = data
+  delete loading[stepId]
   channel.emit("load.#{stepId}", {data})
 
 update = (eventData) ->
@@ -17,8 +20,9 @@ update = (eventData) ->
   load(data.id, data)
 
 fetch = (stepId) ->
+  return if loading[stepId]
+  loading[stepId] = true
   eventData = {data: {id: stepId}, status: 'loading'}
-
   channel.emit("fetch.#{stepId}", eventData)
   api.channel.emit("exercise.#{stepId}.send.fetch", eventData)
 

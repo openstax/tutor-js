@@ -42,7 +42,9 @@ User =
     )
 
   ensureStatusLoaded: (force = false) ->
-    api.channel.emit('user.status.send.fetch') unless force or @isLoggedIn()
+    unless @isLoading or force or @isLoggedIn()
+      @isLoading = true
+      api.channel.emit('user.status.send.fetch')
 
   isLoggedIn: ->
     !!@profile_url
@@ -57,7 +59,6 @@ User =
 
 api.channel.on 'user.status.receive.*', ({data}) ->
   User.isLoaded = true
-
   if data.access_token
     api.channel.emit('set.access_token', data.access_token)
   User.endpoints = data.endpoints
@@ -66,6 +67,7 @@ api.channel.on 'user.status.receive.*', ({data}) ->
   else
     _.extend(this, BLANK_USER)
     User.channel.emit('change')
+  delete User.isLoading
 
 
 # start out as a blank user
