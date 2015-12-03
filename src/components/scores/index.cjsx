@@ -101,7 +101,7 @@ Scores = React.createClass
 
     if heading.average
       summary = <span className='summary'>
-        {(heading.average * 100).toFixed(1)}%
+        {(heading.average * 100).toFixed(1)}% avg
       </span>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
@@ -156,7 +156,7 @@ Scores = React.createClass
     emptyCell = <div className='blank' />
     header =
       <SortingHeader sortKey='name' sortState={@state.sort} onSort={@changeSortingOrder}>
-        Class
+        Student Name
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
     customHeader = <div className='assignment-header-cell'>
