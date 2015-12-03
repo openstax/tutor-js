@@ -81,7 +81,7 @@ Breadcrumbs = React.createClass
         goToStep={@props.goToStep}/>
     )
 
-    <div className='openstax-wrapper task-homework'>
+    <div className='task-homework'>
       <div className='task-breadcrumbs'>
         {breadcrumbs}
       </div>
