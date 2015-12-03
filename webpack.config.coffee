@@ -33,14 +33,19 @@ getWebpackConfig = (name, isProduction) ->
       }, {isProduction}]
     'demo': [{
         entry:
-          demo: [
+          'demo.js': [
             './demo'
-            './resources/styles/main.less'
+          ]
+          'demo': [
             './resources/styles/demo.less'
+          ]
+          'main': [
+            './resources/styles/main.less'
           ]
         output:
           path: './assets/'
           publicPath: './'
+          filename: '[name]'
       }, {isProduction, minify: true}]
 
   if configs[name]?

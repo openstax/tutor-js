@@ -29,7 +29,7 @@ base =
     # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
     # Pass the BASE_URL along
     new webpack.EnvironmentPlugin( 'NODE_ENV', 'BASE_URL' )
-    new ExtractTextPlugin('main.css')
+    new ExtractTextPlugin('[name].css')
     new webpack.optimize.DedupePlugin()
   ]
 
