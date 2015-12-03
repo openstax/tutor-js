@@ -1,17 +1,28 @@
 # coffeelint: disable=no_empty_functions
 
 React = require 'react'
+classnames = require 'classnames'
 
 api   = require '../api'
 User  = require './model'
 
-AccountsIframeMixin =
+AccountsIframe = React.createClass
 
   getInitialState: ->
-    width: '100%', height: 400
+    width: '100%', height: 400, isClosable: @props.type is "profile"
 
   pageLoad: (page) ->
-
+    if page is "/login"
+      @setState(isClosable: false)
+    else # we're displaying a profile or settings related page
+      if User.isLoggedIn()
+        @setState(isClosable: true)
+      else
+        @setState(isClosable: false)
+        # somehow we're displaying the profile page but we don't know we're logged in?
+        if page is "/profile"
+          # redisplaying the login page so we can pickup the login info
+          @sendCommand('displayLogin', User.endpoints.iframe_login)
 
   # Note: we're currently not doing anything with the width because we want that to stay at 100%
   pageResize: ({width, height}) ->
@@ -21,7 +32,13 @@ AccountsIframeMixin =
     @setState(title: title)
 
   iFrameReady: ->
-    @onIframeReady()
+    if @props.type is 'login'
+      if User.isLoggingOut
+        @sendCommand('displayLogout', User.endpoints.iframe_login)
+      else
+        @sendCommand('displayLogin', User.endpoints.iframe_login)
+    else
+      @sendCommand('displayProfile')
 
   # called when an login process completes
   onLogin: (payload) ->
@@ -49,16 +66,27 @@ AccountsIframeMixin =
   componentWillMount: ->
     window.addEventListener('message', @parseAndDispatchMessage)
 
-  renderIframe: ->
+  render: ->
     # the other side of the iframe will validate our address and then only send messages to it
     me = window.location.protocol + '//' + window.location.host
 
     url = if User.isLoggingOut then User.endpoints.iframe_logout else User.endpoints.accounts_iframe
     url = "#{url}?parent=#{me}"
-    <iframe src={url} ref='iframe'
-      style={width: @state.width, height: @state.height, border: 0}
-      id="OxAccountIframe" name="OxAccountIframe">
-    </iframe>
+    className = classnames( 'accounts-iframe', {
+      'is-closable': @state.isClosable
+    })
+    <div className={className}>
+      <div className="heading">
+        <h3 className="title">{@state?.title}</h3>
+        <i className='close-icon' onClick={@props.onComplete}/>
+      </div>
+      <iframe src={url} ref='iframe'
+        style={width: @state.width, height: @state.height, border: 0}
+        id="OxAccountIframe" name="OxAccountIframe">
+      </iframe>
+    </div>
 
 
-module.exports = AccountsIframeMixin
+
+
+module.exports = AccountsIframe

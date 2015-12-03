@@ -1,15 +1,18 @@
-.user-profile,
-.user-login {
+.accounts-iframe {
 
   .heading {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 1px solid @openstax-neutral;
+
+    .close-icon {
+      margin-top: 0;
+      display: none;
+    }
   }
 
-  .openstax-subtle-load(will-load; 'Loading...'; 0.5s);
-  &.is-loading {
-    .openstax-subtle-load(loading; 0.9);
+  &.is-closable {
+    .close-icon { display: inline-block; }
   }
 }

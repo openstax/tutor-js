@@ -15,8 +15,8 @@ ErrorNotification = React.createClass
   componentWillUnmount: ->
     api.channel.off 'error', @onError
 
-  onError: ({response}) ->
-    return if response.stopErrorDisplay # someone else is handling displaying the error
+  onError: ({response, failedData}) ->
+    return if failedData.stopErrorDisplay # someone else is handling displaying the error
     errors = ["#{response.status}: #{response.statusText}"]
     if response.data?.errors # we have something from server to display
       errors = errors.concat(

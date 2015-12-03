@@ -7,8 +7,7 @@ classnames = require 'classnames'
 navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
 ErrorNotification = require './error-notification'
-UserLogin = require '../user/login'
-UserProfile = require '../user/profile'
+AccountsIframe = require '../user/accounts-iframe'
 
 {ExerciseStep} = require '../exercise'
 {Dashboard} = require '../dashboard'
@@ -86,7 +85,7 @@ ConceptCoach = React.createClass
     if not isLoaded
       <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
     else if not isLoggedIn
-      <UserLogin onComplete={@updateUser} />
+      <AccountsIframe type='login' onComplete={@updateUser} />
     else if not isRegistered
       <CourseRegistration {...@props} />
     else
@@ -99,7 +98,7 @@ ConceptCoach = React.createClass
       else if view is 'dashboard'
         <Dashboard cnxUrl={@props.cnxUrl}/>
       else if view is 'profile'
-        <UserProfile onComplete={@showTasks} />
+        <AccountsIframe type='profile' onComplete={@showTasks} />
       else if view is 'registration'
         <CourseRegistration {...@props} />
       else
