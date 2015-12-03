@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-AsyncButton = require '../buttons/async-button'
 
 CourseGroupingLabel = require '../course-grouping-label'
 {RosterActions, RosterStore} = require '../../flux/roster'
@@ -13,28 +12,30 @@ module.exports = React.createClass
     student: React.PropTypes.object.isRequired
 
   updatePeriod: (periodId) ->
-    # prevents scroll on href='#'
-    event.preventDefault()
-    RosterActions.save(@props.student.id, period_id: periodId)
+    if not @isSaving()
+      RosterActions.save(@props.student.id, period_id: periodId)
+
+  isSaving: ->
+    RosterStore.isSaving(@props.student.id)
 
   renderPeriod: (period) ->
-    <AsyncButton
-      className='-edit-course-confirm'
-      onClick={_.partial(@updatePeriod, period.id)}
-      isWaiting={RosterStore.isSaving(@props.student.id)}
-      waitingText="Saving..."
-      disabled={false}>
-    {period.name}
-    </AsyncButton>
+    <BS.NavItem key={period.id} eventKey={period.id}>
+      {period.name}
+    </BS.NavItem>
 
   selectNewPeriod: ->
     course = CourseStore.get(@props.courseId)
     title =
-      <span>
-        Move to <CourseGroupingLabel courseId={@props.courseId} lowercase/>:
-      </span>
-    <BS.Popover title={title} {...@props}>
-      <BS.Nav stacked bsStyle='pills'>
+      if @isSaving()
+        <span>
+          <i className='fa fa-spinner fa-spin'/> Saving...
+        </span>
+      else
+        <span>
+          Move to <CourseGroupingLabel courseId={@props.courseId} lowercase/>:
+        </span>
+    <BS.Popover className='change-period' title={title} {...@props}>
+      <BS.Nav stacked bsStyle='pills' onSelect={@updatePeriod}>
         {for period in course.periods
           @renderPeriod(period) unless period.id is @props.student.period_id }
       </BS.Nav>
