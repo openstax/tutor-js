@@ -50,7 +50,7 @@ DashboardSectionPerformance = React.createClass
     percents.incorrect = 100 - percents.correct
 
     if percents.correct
-      correctLabel = if percents.incorrect > percents.correct then "#{percents.correct}%"
+      correctLabel = "#{percents.correct}%"
       correctLabel = if percents.correct is 100 then "#{correctLabel} correct" else correctLabel
       correctBar = <BS.ProgressBar 
         className="reading-progress-bar progress-bar-correct" 
@@ -60,7 +60,7 @@ DashboardSectionPerformance = React.createClass
         key={1} />
 
     if percents.incorrect
-      incorrectLabel = if percents.incorrect > percents.correct then "#{percents.incorrect}%"
+      incorrectLabel = "#{percents.incorrect}%"
       incorrectLabel = if percents.incorrect is 100 then "#{incorrectLabel} incorrect" else incorrectLabel
       incorrectBar = <BS.ProgressBar 
         className="reading-progress-bar progress-bar-incorrect" 
@@ -106,7 +106,9 @@ DashboardChapter = React.createClass
       </BS.Col>
     </BS.Row>
 
-    sections = _.map @props.chapter.pages, @renderSection
+    pages = CCDashboardStore.sortSections(@props.chapter.pages)
+
+    sections = _.map pages, @renderSection
     <div>
       {chapter}
       {sections}
