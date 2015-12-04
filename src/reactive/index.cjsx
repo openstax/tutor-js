@@ -86,13 +86,14 @@ Reactive = React.createClass
     api.channel.off(apiChannelSend, @setStatus)
 
   componentWillReceiveProps: (nextProps) ->
-    stubDataForImmediateUpdate =
-      data:
-        id: nextProps.topic
-      status: 'cached'
+    if nextProps.topic isnt @props.topic
+      stubDataForImmediateUpdate =
+        data:
+          id: nextProps.topic
+        status: 'cached'
 
-    @update(stubDataForImmediateUpdate, nextProps)
-    @fetchModel(nextProps) if nextProps.topic isnt @props.topic
+      @update(stubDataForImmediateUpdate, nextProps)
+      @fetchModel(nextProps)
 
   render: ->
     {status, item} = @state
