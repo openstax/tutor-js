@@ -3,7 +3,7 @@ interpolate = require 'interpolate'
 _ = require 'underscore'
 api = require '../api'
 exercises = require '../exercise/collection'
-loading = {}
+
 tasks = {}
 channel = new EventEmitter2 wildcard: true
 
@@ -23,7 +23,6 @@ checkFailure = (response) ->
 
 load = (taskId, data) ->
   tasks[taskId] = data
-  delete loading[taskId]
   status = if data.errors? then 'failed' else 'loaded'
 
   _.each data.steps, (step) ->
@@ -37,8 +36,6 @@ update = (eventData) ->
   load(query, data)
 
 fetch = (taskId) ->
-  return if loading[taskId]
-  loading[taskId] = true
   eventData = {data: {id: taskId}, status: 'loading'}
   eventData.query = taskId
 
@@ -48,8 +45,7 @@ fetch = (taskId) ->
 fetchByModule = ({collectionUUID, moduleUUID}) ->
   eventData = {data: {collectionUUID, moduleUUID}, status: 'loading'}
   eventData.query = "#{collectionUUID}/#{moduleUUID}"
-  return if loading[eventData.query]
-  loading[eventData.query] = true
+
   channel.emit("fetch.#{collectionUUID}/#{moduleUUID}", eventData)
   api.channel.emit("task.#{collectionUUID}/#{moduleUUID}.send.fetchByModule", eventData)
 
