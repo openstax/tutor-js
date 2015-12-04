@@ -92,7 +92,7 @@ Reactive = React.createClass
       status: 'cached'
 
     @update(stubDataForImmediateUpdate, nextProps)
-    @fetchModel(nextProps)
+    @fetchModel(nextProps) if nextProps.topic isnt @props.topic
 
   render: ->
     {status, item} = @state
