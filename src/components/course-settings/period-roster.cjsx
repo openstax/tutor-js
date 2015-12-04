@@ -23,9 +23,14 @@ module.exports = React.createClass
       </td>
     </tr>
 
+  isPeriodEmpty: ->
+    id = @props.activeTab.id
+    students = RosterStore.getActiveStudentsForPeriod(@props.courseId, id)
+    students.length is 0
+
   render: ->
     students = RosterStore.getActiveStudentsForPeriod(@props.courseId, @props.period.id)
-    <div className="period">
+    studentsTable =
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
           <tr>
@@ -39,4 +44,13 @@ module.exports = React.createClass
             @renderStudentRow(student)}
         </tbody>
       </BS.Table>
+    emptyInfo =
+      <div className='roster-empty-info'>
+        Use the "Get Enrollment Code" link above to get the code for this section of your course.
+        As your students login to Concept Coach, they will start appearing here.
+        You will be able to drop students or change their sections from this page.
+      </div>
+
+    <div className="period">
+      {if @isPeriodEmpty() then emptyInfo else studentsTable}
     </div>

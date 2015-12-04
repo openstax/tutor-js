@@ -44,7 +44,10 @@ module.exports = React.createClass
     course = CourseStore.get(@props.courseId)
     tabs = _.map course.periods, (period, index) =>
       <BS.TabPane key={period.id}, eventKey={index} tab={period.name}>
-        <PeriodRoster period={period} courseId={@props.courseId} />
+        <PeriodRoster 
+        period={period} 
+        courseId={@props.courseId}
+        activeTab={@getActivePeriod(@state.key, course.periods)} />
       </BS.TabPane>
     <BS.TabbedArea activeKey={@state.key} onSelect={@handleSelect}>
       <div className='period-edit-ui'>
