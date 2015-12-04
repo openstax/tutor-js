@@ -68,7 +68,7 @@ ExerciseStepCard = React.createClass
   componentWillMount: ->
     keymaster('enter', @onContinue) if @props.allowKeyNext
 
-  componentWilUnmount: ->
+  componentWillUnmount: ->
     keymaster.unbind('enter') if @props.allowKeyNext
 
   shouldComponentUpdate: (nextProps, nextState) ->
