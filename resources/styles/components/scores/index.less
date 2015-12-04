@@ -31,6 +31,14 @@
     margin-top: 40px;
     display: inline-block;
   }
+  .course-scores-note {
+    position: absolute;
+    right: 62px;
+    margin-top: 16px;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: @tutor-neutral;
+  }
   .course-scores-container {
     overflow: hidden;
     max-width: 100%;
@@ -117,6 +125,7 @@
     > div {
       display: block;
       width: 100%;
+      height: @table-row-height;
       padding: 8px;
     }
 
@@ -154,7 +163,7 @@
       width: 50%;
       text-align: center;
       &:first-child {
-        border-right: 1px solid @tutor-neutral;
+        border-right: 1px solid @nav-tabs-border-color;
       }
     }
   }
