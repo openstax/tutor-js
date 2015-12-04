@@ -106,7 +106,9 @@ DashboardChapter = React.createClass
       </BS.Col>
     </BS.Row>
 
-    sections = _.map @props.chapter.pages, @renderSection
+    pages = CCDashboardStore.sortSections(@props.chapter.pages)
+
+    sections = _.map pages, @renderSection
     <div>
       {chapter}
       {sections}
