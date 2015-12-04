@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 CourseGroupingLabel = require '../course-grouping-label'
-{RosterActions} = require '../../flux/roster'
+{RosterActions, RosterStore} = require '../../flux/roster'
 {CourseStore} = require '../../flux/course'
 
 module.exports = React.createClass
@@ -12,7 +12,11 @@ module.exports = React.createClass
     student: React.PropTypes.object.isRequired
 
   updatePeriod: (periodId) ->
-    RosterActions.save(@props.student.id, period_id: periodId)
+    if not @isSaving()
+      RosterActions.save(@props.student.id, period_id: periodId)
+
+  isSaving: ->
+    RosterStore.isSaving(@props.student.id)
 
   renderPeriod: (period) ->
     <BS.NavItem key={period.id} eventKey={period.id}>
@@ -22,10 +26,15 @@ module.exports = React.createClass
   selectNewPeriod: ->
     course = CourseStore.get(@props.courseId)
     title =
-      <span>
-        Move to <CourseGroupingLabel courseId={@props.courseId} lowercase/>:
-      </span>
-    <BS.Popover title={title} {...@props}>
+      if @isSaving()
+        <span>
+          <i className='fa fa-spinner fa-spin'/> Saving...
+        </span>
+      else
+        <span>
+          Move to <CourseGroupingLabel courseId={@props.courseId} lowercase/>:
+        </span>
+    <BS.Popover className='change-period' title={title} {...@props}>
       <BS.Nav stacked bsStyle='pills' onSelect={@updatePeriod}>
         {for period in course.periods
           @renderPeriod(period) unless period.id is @props.student.period_id }

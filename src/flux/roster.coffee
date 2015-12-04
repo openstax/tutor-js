@@ -2,7 +2,11 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
 
+LOADED  = 'loaded'
+
 RosterConfig = {
+
+  _asyncStatus: {}
 
   create: (courseId, params) ->
 
@@ -10,9 +14,8 @@ RosterConfig = {
     @_local[courseId].push(student)
     @emitChange()
 
-  save: (courseId, studentId, params) ->
-
   saved: (newProps, studentId) ->
+    @_asyncStatus[studentId] = LOADED
     # update the student from all the courses rosters
     for courseId, roster of @_local
       students = roster.students
