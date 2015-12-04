@@ -111,7 +111,7 @@ ConceptCoach = React.createClass
     className = classnames 'concept-coach-view', "concept-coach-view-#{view}",
       loading: not (isLoggedIn or isLoaded)
 
-    <div className='concept-coach'>
+    <div className='concept-coach openstax-wrapper'>
       <ErrorNotification />
 
       <SpyMode.Wrapper>
