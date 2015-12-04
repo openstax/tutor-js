@@ -46,7 +46,7 @@ module.exports = React.createClass
       </BS.Table>
     emptyInfo =
       <div className='roster-empty-info'>
-        Use the "Get Enrollment Code" link above to get the code for this section of your course.
+        Use the "Get Student Enrollment Code" link above to get the code for this section of your course.
         As your students login to Concept Coach, they will start appearing here.
         You will be able to drop students or change their sections from this page.
       </div>

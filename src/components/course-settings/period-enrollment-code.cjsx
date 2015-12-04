@@ -4,6 +4,8 @@ _ = require 'underscore'
 
 {TutorInput} = require '../tutor-input'
 
+TITLE = 'Get Student Enrollment Code'
+
 module.exports = React.createClass
   displayName: 'PeriodEnrollmentCode'
   propTypes:
@@ -16,13 +18,13 @@ module.exports = React.createClass
 
   getInstructions: (code) ->
     <div>
-      <p>The enrollment code for this section is:</p>
+      <p>The two-word enrollment code for this section is:</p>
       <p className='code'>{code}</p>
       <p>Distribute this code to the students in this
        section along with the URL for your textbook to
        give them access to Concept Coach.</p>
       <p>Each section of your course will have a
-       different enrollment code.</p>
+       different two-word enrollment code.</p>
     </div>
 
   renderForm: ->
@@ -32,7 +34,7 @@ module.exports = React.createClass
 
     <BS.Modal
       {...@props}
-      title='Get Enrollment Code'
+      title={TITLE}
       className="teacher-edit-period-modal">
 
       <div className='modal-body teacher-enrollment-code-modal'>
@@ -50,6 +52,6 @@ module.exports = React.createClass
       trigger='click'
       overlay={@renderForm()}>
         <BS.Button bsStyle='link' className='show-enrollment-code'>
-          <i className='fa fa-qrcode' /> Get Enrollment Code
+          <i className='fa fa-qrcode' /> {TITLE}
         </BS.Button>
     </BS.OverlayTrigger>
