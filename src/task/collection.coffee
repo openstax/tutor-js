@@ -31,6 +31,7 @@ load = (taskId, data) ->
   channel.emit("load.#{taskId}", {data, status})
 
 update = (eventData) ->
+  return unless eventData?
   {data, query} = eventData
   load(query, data)
 
