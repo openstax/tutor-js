@@ -1,0 +1,26 @@
+// Note: Use tokens instead of strings to be able to do LESS compile-time validation
+.icon-feedback { .x-icon-bg(feedback); }
+.icon-exercise { .x-icon-bg(homework); }
+.icon-homework { .x-icon-bg(homework); }
+.icon-external { .x-icon-bg(external); }
+.icon-event { .x-icon-bg(event); }
+.icon-end { .x-icon-bg(end); }
+.icon-interactive { .x-icon-bg(interactive); }
+.icon-coach { .x-icon-bg(coach); }
+.icon-video { .x-icon-bg(video); }
+.icon-reading  { .x-icon-bg(reading); }
+.icon-recover  { .x-icon-bg(recover); }
+.icon-test     { .x-icon-bg(test); }
+.icon-spaced_practice  { .x-icon-bg(review); }
+.icon-personalized     { .x-icon-bg(personalized); }
+.icon-worked-example   { .x-icon-bg(worked-example); }
+
+.icon-placeholder {
+  &:before {
+    content: '?';
+    font-style: normal;
+  }
+}
+// The following are usually overlays on other icons
+.icon-correct  { .x-icon-bg(correct); }
+.icon-incorrect { .x-icon-bg(incorrect); }

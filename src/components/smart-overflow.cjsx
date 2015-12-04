@@ -1,5 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 ResizeListenerMixin = require './resize-listener-mixin'
 
@@ -52,7 +53,7 @@ SmartOverflow = React.createClass
   render: ->
     {className} = @props
 
-    classes = "#{className} smart-overflow"
+    classes = classnames 'openstax-smart-overflow', className
 
     <div className={classes} style={@state.style}>
       {@props.children}

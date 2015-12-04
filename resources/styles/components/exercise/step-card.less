@@ -1,0 +1,32 @@
+&-exercise {
+  .exercise-typography();
+
+  @{placeholder-selector} {
+    font-style: italic;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 8em;
+    line-height: 1.5em;
+    margin: 1em 0;
+    padding: 0.75em;
+
+    &[disabled] {
+      border: none;
+    }
+  }
+
+  .exercise-uid {
+    position: absolute;
+    right: @answer-horizontal-spacing;
+    bottom: @answer-vertical-spacing;
+    color: @answer-label-color;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+}
+
+&-exercise-card {
+  position: relative;
+}

@@ -62,7 +62,7 @@ Breadcrumb = React.createClass
     if isEnd
       title = "#{step.title} Completion"
 
-    classes = classnames 'task-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, crumbType, className,
+    classes = classnames 'openstax-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, crumbType, className,
       current: isCurrent
       active: isCurrent
       completed: isCompleted

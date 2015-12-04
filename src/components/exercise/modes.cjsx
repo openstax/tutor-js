@@ -122,7 +122,7 @@ ExFreeResponse = React.createClass
     {freeResponse} = @state
     question = content.questions[0]
 
-    <div className='exercise'>
+    <div className='openstax-exercise'>
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <textarea
@@ -160,7 +160,7 @@ ExMultipleChoice = React.createClass
     question = content.questions[0]
     {answerId} = @state
 
-    <div className='exercise'>
+    <div className='openstax-exercise'>
       <Question
         answer_id={answerId}
         onChange={@onAnswerChanged}
@@ -182,7 +182,7 @@ ExReview = React.createClass
     {content, free_response, answer_id, correct_answer_id, feedback_html, type, onChangeAnswerAttempt} = @props
     question = content.questions[0]
 
-    <div className='exercise'>
+    <div className='openstax-exercise'>
       <Question
         key='step-question'
         model={question}

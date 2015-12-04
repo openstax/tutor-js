@@ -1,4 +1,5 @@
 @import './flexbox';
+@import './icon';
 
 
 .openstax-tables() {
@@ -52,15 +53,23 @@
   }
 }
 
-.openstax-icon-active(@scale: 1.4; @shadow: 0.12) {
-  .scale(@scale);
-  .box-shadow(0 1px 6px rgba(0, 0, 0, @shadow));
-  border-radius: 50%;
-}
-
 .fixed-bar() {
   left: 0;
   position: fixed;
   width: 100%;
   z-index: 2;
+}
+
+.make-shy() {
+  .transform-origin(0 0);
+  .translate(0, -@openstax-navbar-height);
+}
+
+.make-shy-animate() {
+  .transition(transform 0.2s ease-out);
+}
+
+.exercise-typography() {
+  font-size: 1.8rem;
+  line-height: 1.68em;
 }

@@ -211,7 +211,7 @@ module.exports = React.createClass
 
     answers.splice(checkedAnswerIndex + 1, 0, feedback) if feedback? and checkedAnswerIndex?
 
-    classes = classnames 'question',
+    classes = classnames 'openstax-question',
       'has-correct-answer': hasCorrectAnswer
 
     <div className={classes}>
