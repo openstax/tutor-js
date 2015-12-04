@@ -7,4 +7,4 @@ module.exports =
 
     dataProps =
       'data-title': CourseStore.getShortName(courseId)
-      'data-category': CourseStore.getCategory(courseId)
+      'data-appearance': CourseStore.getAppearanceCode(courseId)
