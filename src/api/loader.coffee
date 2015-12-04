@@ -57,11 +57,13 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
         apiEventChannel.emit(completedEvent, completedData)
 
       ).catch((response) ->
+
+        failedData = getResponseDataByEnv(isLocal, eventData, response)
+
         if _.isString(setting.failedEvent)
           failedEvent = interpolate(setting.failedEvent, eventData.data)
-          failedData = getResponseDataByEnv(isLocal, eventData, response)
-
           apiEventChannel.emit(failedEvent, failedData)
+
         setting.onFail?(response) or defaultFail(response)
         apiEventChannel.emit('error', {response, apiSetting, failedData})
       )
