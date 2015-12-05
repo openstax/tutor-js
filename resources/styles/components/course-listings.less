@@ -64,6 +64,35 @@
       }
     }
 
+    // I tried really hard to make these be an array so they could be looped through
+    // Have came to the conclusion that it's impossible because of less's
+    // lack for variable interpolation for mixins and/or extend()
+    // https://github.com/less/less.js/issues/1196
+    &[data-appearance=principles_economics] {
+      .tutor-course-item { #openstax-books > .principles_economics(); }
+    }
+    &[data-appearance=macro_economics] {
+      .tutor-course-item { #openstax-books > .macro_economics();      }
+    }
+    &[data-appearance=micro_economics] {
+      .tutor-course-item { #openstax-books > .micro_economics();      }
+    }
+    &[data-appearance=college_physics] {
+      .tutor-course-item { #openstax-books > .college_physics();      }
+    }
+    &[data-appearance=biology] {
+      .tutor-course-item { #openstax-books > .biology();              }
+    }
+    &[data-appearance=concepts_biology] {
+      .tutor-course-item { #openstax-books > .concepts_biology();     }
+    }
+    &[data-appearance=intro_sociology] {
+      .tutor-course-item { #openstax-books > .intro_sociology();      }
+    }
+    &[data-appearance=anatomy_physiology] {
+      .tutor-course-item { #openstax-books > .anatomy_physiology();   }
+    }
+
     // default styles for courses that do not
     // have a recognized appearance_code
     &[data-appearance=default] {
@@ -74,10 +103,6 @@
     }
 
     &[data-appearance=physics] {
-      .tutor-course-item {
-        color: @tutor-book-hs-physics-secondary;
-        background-color: @tutor-book-hs-physics-primary;
-      }
       // use SVG background if the title matches
       &[data-title=Physics]{
         .tutor-course-item {
@@ -88,10 +113,6 @@
     }
 
     &[data-appearance=biology] {
-      .tutor-course-item {
-        color: @tutor-book-ap-bio-secondary;
-        background-color: @tutor-book-ap-bio-primary;
-      }
       // use SVG background if the title matches
       &[data-title=Biology]{
         .tutor-course-item {
@@ -100,7 +121,6 @@
         }
       }
     }
-
   }
 }
 
