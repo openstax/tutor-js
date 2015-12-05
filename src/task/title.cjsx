@@ -8,11 +8,19 @@ tasks = require './collection'
 TaskTitle = React.createClass
   displayName: 'TaskTitle'
   mixins: [ChapterSectionMixin]
+
+  contextTypes:
+    close: React.PropTypes.func
+
   broadcastNav: ->
     {collectionUUID, moduleUUID} = @props
+    {close} = @context
+    close()
     tasks.channel.emit('close.for.book', {collectionUUID, moduleUUID})
+
   render: ->
-    {taskId, cnxUrl, close} = @props
+    {taskId, cnxUrl} = @props
+    {close} = @context
     moduleInfo = tasks.getModuleInfo(taskId, cnxUrl)
     section = @sectionFormat(moduleInfo.chapter_section)
 
