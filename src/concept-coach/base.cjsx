@@ -1,5 +1,6 @@
 React = require 'react'
 
+_ = require 'underscore'
 classnames = require 'classnames'
 {SmartOverflow, SpyMode} = require 'openstax-react-components'
 
@@ -18,6 +19,8 @@ User = require '../user/model'
 
 {channel} = require './model'
 
+VIEWS = ['loading', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration']]
+
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
 
@@ -27,15 +30,28 @@ ConceptCoach = React.createClass
     collectionUUID: React.PropTypes.string.isRequired
 
   getDefaultProps: ->
-    defaultView: 'task'
+    defaultView: _.chain(VIEWS).last().first().value()
 
   getInitialState: ->
-    {defaultView} = @props
-
     userState = @getUserState()
-    userState.view = defaultView
 
+    view = @getAllowedView(userState)
+
+    userState.view = view
     userState
+
+  childContextTypes:
+    view: React.PropTypes.oneOf(_.flatten(VIEWS))
+    cnxUrl: React.PropTypes.string
+    bookUrlPattern: React.PropTypes.string
+    close: React.PropTypes.func
+
+  getChildContext: ->
+    {view} = @state
+    {cnxUrl, close} = @props
+    bookUrlPattern = '{cnxUrl}/contents/{ecosystem_book_uuid}'
+
+    {view, cnxUrl, close, bookUrlPattern}
 
   componentWillMount: ->
     User.ensureStatusLoaded()
@@ -54,6 +70,32 @@ ConceptCoach = React.createClass
     User.channel.off('change', @updateUser)
     navigation.channel.off('show.*', @updateView)
 
+  getAllowedView: (userInfo) ->
+    {defaultView} = @props
+
+    if not userInfo.isLoaded
+      authLevel = 0
+    else if not userInfo.isLoggedIn
+      authLevel = 1
+    else if not userInfo.isRegistered
+      authLevel = 2
+    else
+      authLevel = 3
+
+    view = VIEWS[authLevel]
+
+    # if there are multiple views allowed for this level
+    if _.isArray(view)
+      # and the target/defaultView is one of the views in this level
+      if defaultView in view
+        # then the iew should be the defaultView
+        view = defaultView
+      else
+        # else, the view should be the first of views allowed for this level
+        view = _.first(view)
+
+    view
+
   getMountData: (action) ->
     {moduleUUID, collectionUUID} = @props
     {view} = @state
@@ -69,37 +111,43 @@ ConceptCoach = React.createClass
     @updateView(view: 'task')
 
   getUserState: ->
-    course = User.getCourse(@props.collectionUUID)
+    {collectionUUID} = @props
+    course = User.getCourse(collectionUUID)
 
-    isLoggedIn: User.isLoggedIn(),
-    isLoaded: User.isLoaded,
-    isRegistered: course?.isRegistered()
+    userInfo =
+      isLoggedIn: User.isLoggedIn()
+      isLoaded: User.isLoaded
+      isRegistered: course?.isRegistered()
 
   updateUser: ->
     userState = @getUserState()
+    view = @getAllowedView(userState)
+
+    # tell nav to update view if the next view isn't the current view
+    navigation.channel.emit("show.#{view}", view: view) if view isnt @state.view
+
     @setState(userState)
 
   childComponent: ->
-    {isLoaded, isRegistered, isLoggedIn, displayLogin, view} = @state
+    {view} = @state
+    course = User.getCourse(@props.collectionUUID)
 
-    if not isLoaded
-      <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
-    else if not isLoggedIn
-      <AccountsIframe type='login' onComplete={@updateUser} />
-    else if not isRegistered
-      <CourseRegistration {...@props} />
-    else
-      course = User.getCourse(@props.collectionUUID)
-
-      if view is 'task'
+    switch view
+      when 'loading'
+        <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
+      when 'login'
+        <AccountsIframe type='login' onComplete={@updateUser} />
+      when 'registration'
+        <CourseRegistration {...@props} />
+      when 'task'
         <Task {...@props} key='task'/>
-      else if view is 'progress'
+      when 'progress'
         <Progress id={course.id}/>
-      else if view is 'dashboard'
+      when 'dashboard'
         <Dashboard cnxUrl={@props.cnxUrl}/>
-      else if view is 'profile'
-        <AccountsIframe type='profile' onComplete={@showTasks} />
-      else if view is 'registration'
+      when 'profile'
+        <AccountsIframe type='profile' onComplete={@updateUser} />
+      when 'registration'
         <CourseRegistration {...@props} />
       else
         <h3 className="error">bad internal state, no view is set</h3>

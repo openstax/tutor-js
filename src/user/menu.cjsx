@@ -16,8 +16,10 @@ getWaitingText = (status) ->
 UserMenu = React.createClass
   mixins: [Status]
 
-  propTypes:
+  contextType:
     close: React.PropTypes.func
+
+  propTypes:
     course: React.PropTypes.instanceOf(Course)
 
   componentWillMount: ->
@@ -35,10 +37,10 @@ UserMenu = React.createClass
 
   close: (clickEvent) ->
     clickEvent.preventDefault()
-    @props.close?()
+    @context.close?()
 
   modifyCourse: ->
-    navigation.channel.emit('show.panel', view: 'registration')
+    navigation.channel.emit('show.registration', view: 'registration')
 
   renderCourseOption: ->
     <BS.MenuItem onClick={@modifyCourse}>Change Course and ID</BS.MenuItem>

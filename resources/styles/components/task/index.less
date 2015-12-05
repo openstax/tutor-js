@@ -22,8 +22,19 @@
 
   &.has-title {
     a {
-      color: @openstax-neutral-light;
+      color: @openstax-neutral;
+      text-decoration: none;
+
+      .chapter-section-prefix {
+        &[data-section] {
+          &::before {
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+          }
+        }
+      }
     }
+    
   }
 
   a {
