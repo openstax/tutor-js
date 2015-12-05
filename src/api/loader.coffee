@@ -3,7 +3,7 @@ axios = require 'axios'
 interpolate = require 'interpolate'
 
 METHODS_WITH_DATA = ['PUT', 'PATCH', 'POST']
-
+LOADING = {}
 API_ACCESS_TOKEN = false
 
 defaultFail = (response) ->
@@ -41,25 +41,28 @@ getResponseDataByEnv = (isLocal, eventData, response) ->
 
 
 handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
+
   isLocal = setting.loadLocally
   # simulate server delay
   delay = if isLocal then 200 else 0
 
   apiSetting = getAjaxSettingsByEnv(isLocal, baseUrl, setting, eventData)
+  if apiSetting.method is 'GET'
+    return if LOADING[apiSetting.url]
+    LOADING[apiSetting.url] = true
 
   _.delay ->
     axios(apiSetting)
       .then((response) ->
-
+        delete LOADING[apiSetting.url]
         completedEvent = interpolate(setting.completedEvent, eventData.data)
         completedData = getResponseDataByEnv(isLocal, eventData, response)
 
         apiEventChannel.emit(completedEvent, completedData)
 
       ).catch((response) ->
-
+        delete LOADING[apiSetting.url]
         failedData = getResponseDataByEnv(isLocal, eventData, response)
-
         if _.isString(setting.failedEvent)
           failedEvent = interpolate(setting.failedEvent, eventData.data)
           apiEventChannel.emit(failedEvent, failedData)

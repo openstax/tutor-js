@@ -7,6 +7,7 @@ restAPI = require '../api'
 {ModalCoach} = require './modal-coach'
 componentModel = require './model'
 navigation = require '../navigation/model'
+User = require '../user/model'
 
 PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
 
@@ -57,8 +58,7 @@ coachAPI.init = (baseUrl, navOptions = {}) ->
 
   listenAndBroadcast(@)
   setupAPIListeners(@)
-
-  restAPI.channel.emit('user.status.send.fetch')
+  User.ensureStatusLoaded()
 
 coachAPI.setOptions = (options) ->
   isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
