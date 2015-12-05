@@ -1,11 +1,12 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-ChapterSection = require './chapter-section'
+ChapterSection = require '../task-plan/chapter-section'
+Section = require './section'
 
 DashboardChapter = React.createClass
   renderSection: (section, index) ->
-    <DashboardSection section={section} key={index} />
+    <Section section={section} key={index} />
 
   render: ->
     chapter = <BS.Row className="chapter-name-row" key={@props.chapter.id}>

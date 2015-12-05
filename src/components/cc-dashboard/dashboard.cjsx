@@ -18,16 +18,14 @@ CCDashboard = React.createClass
   handlePeriodSelect: (period) ->
     @setState({activePeriodId: period.id})
 
-  renderChapters: (chapter, index) ->
-    <DashboardChapter chapter={chapter} key={index} />
-
   render: ->
     courseId = @props.id
     periods = CCDashboardStore.getPeriods(courseId)
     periodChapters = CCDashboardStore.getPeriodChapters(courseId, @state.activePeriodId)
 
-    if periodChapters?.length
-      chapters = _.map periodChapters, @renderChapters
+    if _.any(periodChapters)
+      chapters = _.map periodChapters, (chapter, index) ->
+        <DashboardChapter chapter={chapter} key={index} />
     else
       chapters = <div>There are no completed concept coach tasks for this period.</div>
     courseDataProps = @getCourseDataProps(courseId)

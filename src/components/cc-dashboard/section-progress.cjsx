@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+classnames = require 'classnames'
+
 SectionProgress = React.createClass
   _getPercentage: (num, total) ->
     Math.round((num / total) * 100)
