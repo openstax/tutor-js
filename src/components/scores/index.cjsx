@@ -11,7 +11,6 @@ ExternalCell = require './external-cell'
 SortingHeader = require './sorting-header'
 FixedDataTable = require 'fixed-data-table'
 ConceptCoachCell = require './concept-coach-cell'
-NoPeriods = require '../no-periods'
 
 Table = FixedDataTable.Table
 Column = FixedDataTable.Column
@@ -278,16 +277,12 @@ ScoresShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)
-    if course.periods.length > 0
-      renderItem = <Scores courseId={courseId} isConceptCoach={course.is_concept_coach} />
-    else
-      renderItem = <NoPeriods/>
     <BS.Panel className='scores-report'>
       <LoadableItem
         id={courseId}
         store={ScoresStore}
         actions={ScoresActions}
-        renderItem={-> renderItem}
+        renderItem={-> <Scores courseId={courseId} isConceptCoach={course.is_concept_coach} />}
       />
     </BS.Panel>
 

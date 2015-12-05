@@ -48,11 +48,11 @@ routes = (
         <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='scores/?' name='viewScores'
-            handler={Handler(ScoresShell, requireRole: 'teacher')} />
+            handler={Handler(ScoresShell, requireRole: 'teacher', requirePeriods: true)} />
           <Route path='guide' name='viewTeacherPerformanceForecast'
-            handler={Handler(PerformanceForecastShell.Teacher, requireRole: 'teacher')} />
+            handler={Handler(PerformanceForecastShell.Teacher, requireRole: 'teacher', requirePeriods: true)} />
           <Route path='guide/student/:roleId?' name='viewStudentTeacherPerformanceForecast'
-            handler={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher')}/>
+            handler={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher', requirePeriods: true)}/>
 
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />
