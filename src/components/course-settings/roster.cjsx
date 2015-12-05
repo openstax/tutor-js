@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
 BindStoreMixin = require '../bind-store-mixin'
+NoPeriods = require '../no-periods'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
@@ -42,6 +43,7 @@ module.exports = React.createClass
 
   render: ->
     course = CourseStore.get(@props.courseId)
+    periods = course.periods.length > 0
     tabs = _.map course.periods, (period, index) =>
       <BS.TabPane key={period.id}, eventKey={index} tab={period.name}>
         <PeriodRoster 
@@ -49,22 +51,32 @@ module.exports = React.createClass
         courseId={@props.courseId}
         activeTab={@getActivePeriod(@state.key, course.periods)} />
       </BS.TabPane>
-    <BS.TabbedArea activeKey={@state.key} onSelect={@handleSelect}>
-      <div className='period-edit-ui'>
-        <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
-        <RenamePeriodLink
-        courseId={@props.courseId}
-        periods={course.periods}
-        activeTab={@getActivePeriod(@state.key, course.periods)} />
-        <DeletePeriodLink
-        courseId={@props.courseId}
-        periods={course.periods}
-        activeTab={@getActivePeriod(@state.key, course.periods)}
-        selectPreviousTab={@selectPreviousTab} />
-      </div>
+    enrollmentButton =
       <PeriodEnrollmentCode
       activeTab={@getActivePeriod(@state.key, course.periods)}
       periods={course.periods} />
+    renameButton =
+      <RenamePeriodLink
+      courseId={@props.courseId}
+      periods={course.periods}
+      activeTab={@getActivePeriod(@state.key, course.periods)} />
+    deleteButton =
+      <DeletePeriodLink
+      courseId={@props.courseId}
+      periods={course.periods}
+      activeTab={@getActivePeriod(@state.key, course.periods)}
+      selectPreviousTab={@selectPreviousTab} />
+    noPeriodMessage =
+      <NoPeriods noPanel={true} />
+
+    <BS.TabbedArea activeKey={@state.key} onSelect={@handleSelect}>
+      <div className='period-edit-ui'>
+        <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
+        {renameButton if periods}
+        {deleteButton if periods}
+      </div>
+      {enrollmentButton if periods}
       <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
+      {noPeriodMessage unless periods}
       {tabs}
     </BS.TabbedArea>
