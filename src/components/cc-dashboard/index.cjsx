@@ -21,7 +21,7 @@ DashboardShell = React.createClass
     <div>
       <BookLinks courseId={courseId} />
       <h1>
-        Class Performance
+        Class Dashboard
         <Router.Link className='btn btn-default pull-right' to='viewScores' params={{courseId}}>
           View Detailed Scores
         </Router.Link>
