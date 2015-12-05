@@ -24,7 +24,7 @@ CCDashboard = React.createClass
     periodChapters = CCDashboardStore.getPeriodChapters(courseId, @state.activePeriodId)
 
     if _.any(periodChapters)
-      chapters = _.map periodChapters, (chapter, index) ->
+      chapters = _.map periodChapters.reverse(), (chapter, index) ->
         <DashboardChapter chapter={chapter} key={index} />
     else
       chapters = <div>There are no completed concept coach tasks for this period.</div>

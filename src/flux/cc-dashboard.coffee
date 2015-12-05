@@ -15,16 +15,13 @@ DashboardConfig =
         .value()
 
     getPeriodChapters: (courseId, periodId) ->
-
       periods = @_get(courseId)?.course?.periods
-
       _.sortBy(_.findWhere(periods, {id: periodId})?.chapters, (chapter) ->
         parseInt(chapter.chapter_section?[0]))
 
     sortSections: (sections) ->
-      _.sortBy sections, (section) ->
-        chapterSection = section.chapter_section
-        parseFloat("#{chapterSection[0]}.#{chapterSection[1]}")
+      sorted_sections = _.sortBy (sections), (section) ->
+        section.chapter_section[1] or 0
 
 extendConfig(DashboardConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(DashboardConfig)
