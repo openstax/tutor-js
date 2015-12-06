@@ -138,7 +138,17 @@
     .side-by-side {
       display: flex;
     }
-
+    .help {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      // override flat styles
+      :not(.btn-link):not(.btn-flat):not(.btn-fab).btn{
+        align-self: center;
+        color: @tutor-white !important;
+        background-color: @tutor-primary !important;
+      }
+    }
     svg.desktop {
       margin-left: 20px;
       .course-name{
