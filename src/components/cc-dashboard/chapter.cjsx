@@ -16,15 +16,8 @@ DashboardChapter = React.createClass
     )
 
   renderSections: ->
-    if _.any @props.chapter.valid_sections
-      _.map @props.chapter.valid_sections, (section, index) ->
-        <Section section={section} key={index} />
-    else
-      <BS.Row className="msg">
-        <BS.Col xs={12}>
-          Unable to display progres, not enough questions have been answered.
-        </BS.Col>
-      </BS.Row>
+    _.map @props.chapter.valid_sections, (section, index) ->
+      <Section section={section} key={index} />
 
   render: ->
     classes = classnames('chapter', empty: @props.chapter.valid_sections)
