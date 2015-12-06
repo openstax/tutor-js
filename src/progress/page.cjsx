@@ -2,8 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 moment = require 'moment'
 classnames = require 'classnames'
-
-navigation = require '../navigation/model'
+EventEmitter2 = require 'eventemitter2'
 
 {ChapterSectionMixin, ResizeListenerMixin} = require 'openstax-react-components'
 {ExerciseProgress} = require './exercise'
@@ -16,9 +15,13 @@ PageProgress = React.createClass
     progressWidth: 30
     progressMargin: 5
     dateBuffer: 100
+
+  contextTypes:
+    navigator: React.PropTypes.instanceOf(EventEmitter2)
+
   mixins: [ChapterSectionMixin, ResizeListenerMixin]
   switchModule: (data) ->
-    navigation.channel.emit('switch.module', {data, view: 'task'})
+    @context.navigator.emit('switch.module', {data, view: 'task'})
   render: ->
     {page, dateFormat, dateBuffer, maxLength, progressWidth, progressMargin, className} = @props
     {componentEl} = @state

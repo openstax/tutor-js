@@ -2,6 +2,8 @@ React = require 'react'
 
 _ = require 'underscore'
 classnames = require 'classnames'
+EventEmitter2 = require 'eventemitter2'
+
 {SmartOverflow, SpyMode} = require 'openstax-react-components'
 
 {Task} = require '../task'
@@ -18,6 +20,7 @@ AccountsIframe = require '../user/accounts-iframe'
 User = require '../user/model'
 
 {channel} = require './model'
+navigator = navigation.channel
 
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
@@ -47,13 +50,14 @@ ConceptCoach = React.createClass
     cnxUrl: React.PropTypes.string
     bookUrlPattern: React.PropTypes.string
     close: React.PropTypes.func
+    navigator: React.PropTypes.instanceOf(EventEmitter2)
 
   getChildContext: ->
     {view} = @state
     {cnxUrl, close} = @props
     bookUrlPattern = '{cnxUrl}/contents/{ecosystem_book_uuid}'
 
-    {view, cnxUrl, close, bookUrlPattern}
+    {view, cnxUrl, close, bookUrlPattern, navigator}
 
   componentWillMount: ->
     User.ensureStatusLoaded()
@@ -63,14 +67,14 @@ ConceptCoach = React.createClass
     channel.emit('coach.mount.success', mountData)
 
     User.channel.on('change', @updateUser)
-    navigation.channel.on('show.*', @updateView)
+    navigator.on('show.*', @updateView)
 
   componentWillUnmount: ->
     mountData = @getMountData('ummount')
     channel.emit('coach.unmount.success', mountData)
 
     User.channel.off('change', @updateUser)
-    navigation.channel.off('show.*', @updateView)
+    navigator.off('show.*', @updateView)
 
   getAllowedView: (userInfo) ->
     {defaultView} = @props
@@ -126,7 +130,7 @@ ConceptCoach = React.createClass
     view = @getAllowedView(userState)
 
     # tell nav to update view if the next view isn't the current view
-    navigation.channel.emit("show.#{view}", view: view) if view isnt @state.view
+    navigator.emit("show.#{view}", view: view) if view isnt @state.view
 
     @setState(userState)
 

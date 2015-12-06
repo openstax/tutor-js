@@ -1,10 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+EventEmitter2 = require 'eventemitter2'
 {CloseButton} = require 'openstax-react-components'
 
 Status = require './status-mixin'
-
-navigation = require '../navigation/model'
 
 Course = require '../course/model'
 
@@ -16,8 +15,9 @@ getWaitingText = (status) ->
 UserMenu = React.createClass
   mixins: [Status]
 
-  contextType:
+  contextTypes:
     close: React.PropTypes.func
+    navigator: React.PropTypes.instanceOf(EventEmitter2)
 
   propTypes:
     course: React.PropTypes.instanceOf(Course)
@@ -30,7 +30,7 @@ UserMenu = React.createClass
 
   showProfile: (clickEvent) ->
     clickEvent.preventDefault()
-    navigation.channel.emit('show.profile', view: 'profile')
+    @context.navigator.emit('show.profile', view: 'profile')
 
   update: ->
     @forceUpdate() if @isMounted()
@@ -39,8 +39,9 @@ UserMenu = React.createClass
     clickEvent.preventDefault()
     @context.close?()
 
-  modifyCourse: ->
-    navigation.channel.emit('show.registration', view: 'registration')
+  modifyCourse: (clickEvent) ->
+    clickEvent.preventDefault()
+    @context.navigator.emit('show.registration', view: 'registration')
 
   renderCourseOption: ->
     <BS.MenuItem onClick={@modifyCourse}>Change Course and ID</BS.MenuItem>
