@@ -2,7 +2,7 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 DesktopImage = require './desktop-image'
-
+CourseGroupingLabel = require '../course-grouping-label'
 BlankCourse = React.createClass
 
   propTypes:
@@ -18,15 +18,21 @@ BlankCourse = React.createClass
         <div className="side-by-side">
           <ol>
             <li>
-              Add sections to your course by clicking on your name in the top
+              Add <CourseGroupingLabel plural courseId={@props.courseId} /> to
+              your course by clicking on your name in the top
               right corner and selecting "Course Settings and Roster."
             </li>
             <li>
-              Generate a student enrollment code for each section you create.
+              Generate a student enrollment code for
+              each <CourseGroupingLabel courseId={@props.courseId} /> you
+              create.
             </li>
             <li>
-              Distribute the enrollment codes for each section and textbook URL
-              (which is the same for each section) to your students.
+              Distribute the enrollment codes for
+              each <CourseGroupingLabel courseId={@props.courseId} /> and
+              textbook URL (which is the same for
+              each <CourseGroupingLabel courseId={@props.courseId} />) to
+              your students.
             </li>
             <li>
               Encourage your students to login to Concept Coach as part of their
@@ -39,6 +45,7 @@ BlankCourse = React.createClass
           </ol>
           <DesktopImage courseId={@props.courseId} />
         </div>
+
       </div>
     </div>
 
