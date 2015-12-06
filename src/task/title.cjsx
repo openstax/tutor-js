@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 tasks = require './collection'
+navigation = require '../navigation/model'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
 
@@ -18,7 +19,7 @@ TaskTitle = React.createClass
     {link} = tasks.getModuleInfo(taskId, cnxUrl)
 
     close()
-    tasks.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
+    navigation.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
 
   render: ->
     {taskId, cnxUrl} = @props
@@ -34,8 +35,10 @@ TaskTitle = React.createClass
       linkProps =
         target: '_blank'
         onClick: @broadcastNav
-      title = <span {...sectionProps}>
-        Go to {moduleInfo.title}
+      title = <span> Go to
+        <span {...sectionProps}>
+          {moduleInfo.title}
+        </span>
       </span>
     else
       noTitle = <span className='back-to-book'>Back to Book</span>
