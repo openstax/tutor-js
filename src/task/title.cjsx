@@ -13,10 +13,12 @@ TaskTitle = React.createClass
     close: React.PropTypes.func
 
   broadcastNav: ->
-    {collectionUUID, moduleUUID} = @props
+    {collectionUUID, moduleUUID, taskId, cnxUrl} = @props
     {close} = @context
+    {link} = tasks.getModuleInfo(taskId, cnxUrl)
+
     close()
-    tasks.channel.emit('close.for.book', {collectionUUID, moduleUUID})
+    tasks.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
 
   render: ->
     {taskId, cnxUrl} = @props
