@@ -42,7 +42,7 @@ class Course
       ""
     else if @isPending() # we originated from a join or move request
       msg = @describeMovePart(@to)
-      if @from then "from #{msg} to #{@describeMovePart(@from)}" else msg
+      if @from then "from #{@describeMovePart(@from)} to #{msg}" else msg
     else
       "#{@name} #{_.first(@periods).name} period"
 
@@ -85,10 +85,11 @@ class Course
     )
 
   _onConfirmed:  (response) ->
-    if response.data?.to
+    {data} = response
+    if data?.to
       _.extend(@, data.to.course)
       @periods = [ data.to.period ]
-    @errors = response.data.errors
+    @errors = data?.errors
     response.stopErrorDisplay = true if @errors
     delete @status unless @hasErrors() # blank status indicates good to go
     @channel.emit('change')
