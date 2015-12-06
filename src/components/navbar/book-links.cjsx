@@ -11,6 +11,7 @@ BookLinks = React.createClass
   render: ->
     course = CourseStore.get(@props.courseId)
     return null unless course?.is_concept_coach
+    links = []
     if course.book_pdf_url
       links.push(
         <a key='pdf' target='_blank' href={course.book_pdf_url}>
