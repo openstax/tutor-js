@@ -7,6 +7,19 @@ ChapterSection = require '../task-plan/chapter-section'
 SectionProgress = require './section-progress'
 
 Section = React.createClass
+
+  PropTypes:
+    section: React.PropTypes.shape(
+      id: React.PropTypes.string
+      title: React.PropTypes.string
+      chapter_section: React.PropTypes.array
+      valid_sections: React.PropTypes.array
+      original_performance: React.PropTypes.number
+      spaced_practice_performance: React.PropTypes.spaced_practice_performance
+    )
+
+
+
   render: ->
     <BS.Row className="section" key={@props.section.id}>
       <BS.Col xs={6}>

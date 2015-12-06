@@ -7,6 +7,13 @@ ChapterSection = require '../task-plan/chapter-section'
 Section = require './section'
 
 DashboardChapter = React.createClass
+  PropTypes:
+    chapter: React.PropTypes.shape(
+      id: React.PropTypes.string
+      chapter_section: React.PropTypes.array
+      valid_sections: React.PropTypes.array
+    )
+
 
   render: ->
     <div className='chapter'>
@@ -16,7 +23,7 @@ DashboardChapter = React.createClass
           {@props.chapter.title}
         </BS.Col>
       </BS.Row>
-      {for section, index in CCDashboardStore.sortSections(@props.chapter.pages).reverse()
+      {for section, index in @props.chapter.valid_sections
         <Section section={section} key={index} /> }
     </div>
 

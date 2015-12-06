@@ -23,13 +23,14 @@ CCDashboard = React.createClass
   render: ->
     courseId = @props.id
     periods = CCDashboardStore.getPeriods(courseId)
-    periodChapters = CCDashboardStore.getPeriodChapters(courseId, @state.activePeriodId)
+    chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
 
-    if _.any(periodChapters)
-      chapters = _.map periodChapters.reverse(), (chapter, index) ->
+    chapters = if _.any(chapters)
+      for chapter, index in chapters
         <DashboardChapter chapter={chapter} key={index} />
     else
-      chapters = <div>There are no completed concept coach tasks for this period.</div>
+      <div>There are no completed concept coach tasks for this period.</div>
+
     courseDataProps = @getCourseDataProps(courseId)
 
     <BS.Panel {...courseDataProps} className='reading-stats tutor-booksplash-background'>
