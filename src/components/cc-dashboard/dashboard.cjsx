@@ -9,6 +9,30 @@ Icon = require '../icon'
 CourseDataMixin = require '../course-data-mixin'
 DashboardChapter = require './chapter'
 
+TOOLTIPS =
+  complete: '''
+    Complete shows the percentage of students who
+    have completed the Concept Coach for this section.
+    Students who have not answered all of the Concept Coach
+    questions for this section will not be counted, although
+    the questions they have answered will be included in the
+    Original and Spaced Practice Performance percentages.
+  '''
+  original: '''
+    The original performance shows the percentage of Concept Coach
+    questions that students answered correctly on this section of the
+    book the first time they were presented. The performance bars
+    show up for a section of the book once at least 10% of students
+    in the class (or section) have submitted answers.
+  '''
+  spaced: '''
+    Spaced practice performance shows the percentage of Concept Coach
+    questions on this section that were correctly answered after the
+    section was originally practiced. Compare this measure to
+    Original Performance to gauge how well students are retaining
+    the information.
+  '''
+
 CCDashboard = React.createClass
   mixins: [CourseDataMixin]
   contextTypes:
@@ -53,19 +77,19 @@ CCDashboard = React.createClass
             Complete
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip='Displays the percentage of students who have completed concept coach questions for a given section' />
+              tooltip={TOOLTIPS.complete} />
           </BS.Col>
           <BS.Col xs={2}>
             Original Performance
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip='Indicates the ratio of students that have correctly answered the ConceptCoach questions' />
+              tooltip={TOOLTIPS.original} />
           </BS.Col>
           <BS.Col xs={2}>
             Spaced Practice Performance
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip='Indicates how well students performed on system assigned problems' />
+              tooltip={TOOLTIPS.spaced} />
           </BS.Col>
         </BS.Row>
         {for chapter, index in chapters
