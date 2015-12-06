@@ -8,6 +8,7 @@
     }
   }
 }
+
 .dashboard-table-header {
   font-size: 1.2rem;
 
@@ -24,6 +25,7 @@
     font-size: 2rem;
     padding: 1.5rem 0;
   }
+
   // both chapter and section labels
   .chapter-section {
     width: 3.5rem;
@@ -35,6 +37,10 @@
     border-bottom: 1px solid @table-bg-accent;
     padding-top: 1rem;
     padding-bottom: 1rem;
+
+    &:nth-child(even) {
+      background-color: @tutor-neutral-lightest;
+    }
 
     .reading-progress-bar {
       .transition(width 0s);
