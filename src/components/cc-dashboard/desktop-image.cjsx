@@ -11,8 +11,8 @@ DesktopImage = React.createClass
 
   render: ->
     course = CourseStore.get(@props.courseId)
-
-    <svg className='desktop'
+    appearance = CourseStore.getAppearanceCode(@props.courseId)
+    <svg className={"desktop #{appearance}"}
         width="100%" height="100%" viewBox="0 0 430 337" version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         style={fillRule:'evenodd', clipRule:'evenodd', strokeLinejoin: 'round', strokeMiterLimit: '1.41421'}>
@@ -40,7 +40,7 @@ DesktopImage = React.createClass
         <path d="M38.755,27.553c0,0.122 -0.182,0.222 -0.406,0.222l-12.405,0c-0.223,0 -0.405,-0.1 -0.405,-0.222l0,-0.48c0,-0.122 0.182,-0.221 0.405,-0.221l12.406,0c0.224,0 0.406,0.099 0.406,0.221l-0.001,0.48Z" style={fill:'#f47641'} />
       </g>
       <path d="M213.116,103.129l7.405,0l8.75,-5.476l-170.451,0l0,15.299l146.007,0l8.289,-5.187l0,-4.636Z" style={fill:'#f1f1f1'} />
-      <rect x="67.12" y="103.303" width="65.923" height="4" style={fill:'#e5e5e5;'} />
+      <rect x="67.12" y="103.303" width="65.923" height="4" style={fill:'#e5e5e5'} />
       <path d="M159.285,138.335l0,-4.868l12.763,0l8.334,-5.216l-121.562,0l0,15.299l97.117,0l8.333,-5.215l-4.985,0Z" style={fill:'#f1f1f1'} />
       <rect x="67.12" y="133.9" width="77.094" height="4" style={fill:'#e5e5e5'}/>
       <rect x="159.285" y="103.129" width="38.312" height="4.868" style={fill:'#0dc0dc'} />
@@ -49,7 +49,7 @@ DesktopImage = React.createClass
       <path d="M314.382,204.746l0,-15.299l-231.781,0l-9.027,5.65l59.469,0l0,4l-65.86,0l-8.363,5.234l0,0.415l255.562,0Z" style={fill:'#f5f5f5'} />
       <rect x="159.285" y="194.662" width="30.14" height="4.869" style={fill:'#77cfe0'} />
       <path d="M354.842,19.065l-7.291,4.563l1.139,0l0,1.535l-3.59,0l-3.683,2.304l7.271,0l0,1.536l-9.726,0l-17.702,11.079l37.858,0l0,-11.957c0.001,-3.648 -1.664,-6.908 -4.276,-9.06ZM348.689,32.842l-11.52,0l0,-1.536l11.52,0l0,1.536Z" style={fill:'#fff'} />
-      <path d="M281.111,65.209l78.008,0l0,-25.127l-37.859,0l-40.149,25.127Z" style={fill:'#fee787'}/>
+      <path className='banner-light' d="M281.111,65.209l78.008,0l0,-25.127l-37.859,0l-40.149,25.127Z" />
       <path d="M337.17,23.628l0,1.535l7.93,0l2.451,-1.535l-10.381,0Z" style={fill:'#9a9a9b'} />
       <path d="M348.689,23.628l-1.138,0l-2.451,1.535l3.589,0l0,-1.535Z" style={fill:'#b2b3b3'} />
       <path d="M337.17,27.467l0,1.536l1.793,0l2.454,-1.536l-4.247,0Z" style={fill:'#9a9a9b'} />

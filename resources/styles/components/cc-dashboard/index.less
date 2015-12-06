@@ -135,6 +135,10 @@
       width: @tutor-task-width;
       margin: 0 auto;
     }
+    .side-by-side {
+      display: flex;
+    }
+
     svg.desktop {
       margin-left: 20px;
       .course-name{
@@ -142,12 +146,46 @@
         font-size: 15px;
         fill:#000;
       }
-      .banner {
-        fill: #f4d019;
+      &.principles_economics {
+        .banner       { fill: @principles_economics-bg; }
+        .banner-light { fill: lighten(@principles_economics-bg, 10%); }
+        .course-name  { fill: @principles_economics-fg; }
       }
-    }
-    .side-by-side {
-      display: flex;
+      &.macro_economics {
+        .banner       { fill: @macro_economics-bg; }
+        .banner-light { fill: lighten(@macro_economics-bg, 10%); }
+        .course-name  { fill: @macro_economics-fg; }
+      }
+      &.college_physics {
+        .banner       { fill: @college_physics-bg; }
+        .banner-light { fill: lighten(@college_physics-bg, 10%); }
+        .course-name  { fill: @college_physics-fg; }
+      }
+      &.biology {
+        .banner       { fill: @biology-bg; }
+        .banner-light { fill: lighten(@biology-bg, 10%); }
+        .course-name  { fill: @biology-fg; }
+      }
+      &.micro_economics {
+        .banner       { fill: @micro_economics-bg; }
+        .banner-light { fill: lighten(@micro_economics-bg, 10%); }
+        .course-name  { fill: @micro_economics-fg; }
+      }
+      &.concepts_biology {
+        .banner       { fill: @concepts_biology-bg; }
+        .banner-light { fill: lighten(@concepts_biology-bg, 10%); }
+        .course-name  { fill: @concepts_biology-fg; }
+      }
+      &.intro_sociology {
+        .banner       { fill: @intro_sociology-bg; }
+        .banner-light { fill: lighten(@intro_sociology-bg, 10%); }
+        .course-name  { fill: @intro_sociology-fg; }
+      }
+      &.anatomy_physiology {
+        .banner       { fill: @anatomy_physiology-bg; }
+        .banner-light { fill: lighten(@anatomy_physiology-bg, 10%); }
+        .course-name  { fill: @anatomy_physiology-fg; }
+      }
 
     }
   }
