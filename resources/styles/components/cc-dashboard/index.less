@@ -1,4 +1,5 @@
 .cc-dashboard {
+  @banner-height: 120px;
   .column-legend {
     span {
       color: @tutor-neutral;
@@ -99,9 +100,9 @@
     .tutor-nav-tabs();
   }
   .tutor-booksplash-background {
-    height: 120px;
+    height: @banner-height;
     &:before {
-      height: 120px;
+      height: @banner-height;
       font-family: 'Helevtica bold';
       font-size: 14rem;
       letter-spacing: -5px;
@@ -116,4 +117,90 @@
       line-height: 0;
     }
   }
+
+  .blank-course {
+    .title {
+      background-color: @tutor-quaternary;
+      height: @banner-height;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0;
+      line-height: @banner-height;
+      font-size: 3.5rem;
+      padding-left: 50px;
+    }
+    .body {
+      padding-top: @banner-height + @jumbotron-padding;
+      width: @tutor-task-width;
+      margin: 0 auto;
+    }
+    .side-by-side {
+      display: flex;
+    }
+    .help {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      // override flat styles
+      :not(.btn-link):not(.btn-flat):not(.btn-fab).btn{
+        align-self: center;
+        color: @tutor-white !important;
+        background-color: @tutor-primary !important;
+      }
+    }
+    svg.desktop {
+      margin-left: 20px;
+      .banner       { fill: @tutor-neutral; }
+      .banner-light { fill: lighten(@tutor-neutral, 10%); }
+      .course-name{
+        font-family:'Helevtica bold';
+        font-size: 15px;
+        fill: @tutor-white;
+      }
+      &.principles_economics {
+        .banner       { fill: @principles_economics-bg; }
+        .banner-light { fill: lighten(@principles_economics-bg, 10%); }
+        .course-name  { fill: @principles_economics-fg; }
+      }
+      &.macro_economics {
+        .banner       { fill: @macro_economics-bg; }
+        .banner-light { fill: lighten(@macro_economics-bg, 10%); }
+        .course-name  { fill: @macro_economics-fg; }
+      }
+      &.college_physics {
+        .banner       { fill: @college_physics-bg; }
+        .banner-light { fill: lighten(@college_physics-bg, 10%); }
+        .course-name  { fill: @college_physics-fg; }
+      }
+      &.biology {
+        .banner       { fill: @biology-bg; }
+        .banner-light { fill: lighten(@biology-bg, 10%); }
+        .course-name  { fill: @biology-fg; }
+      }
+      &.micro_economics {
+        .banner       { fill: @micro_economics-bg; }
+        .banner-light { fill: lighten(@micro_economics-bg, 10%); }
+        .course-name  { fill: @micro_economics-fg; }
+      }
+      &.concepts_biology {
+        .banner       { fill: @concepts_biology-bg; }
+        .banner-light { fill: lighten(@concepts_biology-bg, 10%); }
+        .course-name  { fill: @concepts_biology-fg; }
+      }
+      &.intro_sociology {
+        .banner       { fill: @intro_sociology-bg; }
+        .banner-light { fill: lighten(@intro_sociology-bg, 10%); }
+        .course-name  { fill: @intro_sociology-fg; }
+      }
+      &.anatomy_physiology {
+        .banner       { fill: @anatomy_physiology-bg; }
+        .banner-light { fill: lighten(@anatomy_physiology-bg, 10%); }
+        .course-name  { fill: @anatomy_physiology-fg; }
+      }
+
+    }
+  }
+
+
 }

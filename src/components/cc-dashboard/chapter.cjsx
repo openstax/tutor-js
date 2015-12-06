@@ -8,7 +8,7 @@ ChapterSection = require '../task-plan/chapter-section'
 Section = require './section'
 
 DashboardChapter = React.createClass
-  PropTypes:
+  propTypes:
     chapter: React.PropTypes.shape(
       id: React.PropTypes.string
       chapter_section: React.PropTypes.array
