@@ -9,11 +9,10 @@ CourseListing = React.createClass
   getDefaultProps: ->
     disabled: false
   render: ->
-    {courses, cnxUrl} = @props
+    {courses} = @props
     listedCourses = _.map courses, (course) ->
       <CourseItem
         key="course-#{course.id}"
-        cnxUrl={cnxUrl}
         course={course}/>
 
     <BS.ListGroup className='concept-coach-courses-listing'>

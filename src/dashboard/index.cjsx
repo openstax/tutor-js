@@ -18,8 +18,7 @@ DashboardBase = React.createClass
     <div className='concept-coach-courses'>
       <h1>Enrolled Courses</h1>
       <CourseListing
-        courses={item.courses}
-        cnxUrl={cnxUrl}/>
+        courses={item.courses}/>
     </div>
 
 Dashboard = React.createClass

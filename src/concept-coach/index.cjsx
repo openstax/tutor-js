@@ -7,6 +7,7 @@ restAPI = require '../api'
 {ModalCoach} = require './modal-coach'
 componentModel = require './model'
 navigation = require '../navigation/model'
+tasks = require '../task/collection'
 User = require '../user/model'
 
 PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
@@ -36,6 +37,9 @@ listenAndBroadcast = (componentAPI) ->
 
   navigation.channel.on 'show.*', (eventData) ->
     componentAPI.emit('view.update', navigation.getDataByView(eventData.view))
+
+  tasks.channel.on 'close.for.book', (eventData) ->
+    componentAPI.emit('book.update', eventData)
 
 setupAPIListeners = (componentAPI) ->
   navigation.channel.on "switch.*", (eventData) ->

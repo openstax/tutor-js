@@ -23,9 +23,7 @@ InviteCodeInput = React.createClass
     <div className='text-center'>
       <h3>You are not registered for this course.</h3>
       <p>Did you mean to go to one of these?</p>
-      <CourseListing
-        courses={@props.currentCourses}
-        cnxUrl={@props.cnxUrl}/>
+      <CourseListing courses={@props.currentCourses}/>
     </div>
 
   render: ->

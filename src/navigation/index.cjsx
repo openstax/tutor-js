@@ -12,43 +12,33 @@ UserMenu = require '../user/menu'
 Navigation = React.createClass
   displayName: 'Navigation'
 
-  propTypes:
+  contextTypes:
     close: React.PropTypes.func
+    view: React.PropTypes.string
+
+  propTypes:
     course: React.PropTypes.instanceOf(Course)
 
   componentWillMount: ->
     user.ensureStatusLoaded()
-    user.channel.on("change", @update)
+    user.channel.on('change', @update)
 
   componentWillUnmount: ->
-    user.channel.off("change", @update)
-
-  getInitialState: ->
-    active: ''
+    user.channel.off('change', @update)
 
   update: ->
     @forceUpdate() if @isMounted()
 
-  showExercise: ->
-    channel.emit('show.task', {view: 'task'})
-
-  showProgress: ->
-    channel.emit('show.progress', {view: 'progress'})
-
-  showDashboard: ->
-    channel.emit('show.dashboard', {view: 'dashboard'})
-
   close: ->
     channel.emit('close.clicked')
-    @props.close?()
+    @context.close?()
 
   handleSelect: (selectedKey) ->
-    @setState(active: selectedKey)
-    @[selectedKey]?()
+    channel.emit("show.#{selectedKey}", view: selectedKey) if selectedKey?
 
   render: ->
-    {active} = @state
     {course} = @props
+    {view} = @context
 
     brand = <span>
       <strong>Concept</strong> Coach
@@ -56,12 +46,9 @@ Navigation = React.createClass
 
     courseItems = [
       <BS.NavItem
-        eventKey='showExercise'
-        className='concept-coach-exercise-nav'>
-        Exercise
-      </BS.NavItem>
-      <BS.NavItem
-        eventKey='showProgress'
+        active={view is 'progress'}
+        eventKey='progress'
+        key='progress'
         className='concept-coach-dashboard-nav'>
         My Progress
       </BS.NavItem>
@@ -70,17 +57,17 @@ Navigation = React.createClass
     <BS.Navbar brand={brand} fixedTop fluid>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar onSelect={@handleSelect}>
-          <BS.NavItem disabled={true} eventKey='showCourse'>
+          <BS.NavItem disabled={true}>
             <CourseNameBase course={course}/>
           </BS.NavItem>
         </BS.Nav>
-        <BS.Nav right navbar activeKey={active} onSelect={@handleSelect}>
+        <BS.Nav right navbar activeKey={view} onSelect={@handleSelect}>
           <UserMenu course={@props.course} />
           {courseItems}
           <BS.NavItem
-            eventKey='close'
+            onClick={@close}
             className='concept-coach-dashboard-nav'>
-            <BS.Button>Back to Book</BS.Button>
+            <BS.Button className='btn-plain'>Close</BS.Button>
           </BS.NavItem>
         </BS.Nav>
       </BS.CollapsibleNav>

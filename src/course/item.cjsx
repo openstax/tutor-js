@@ -6,10 +6,14 @@ navigation = require '../navigation/model'
 
 CourseItem = React.createClass
   displayName: 'CourseItem'
-  getDefaultProps: ->
-    bookUrlPattern: '{cnxUrl}/contents/{ecosystem_book_uuid}'
+
+  contextTypes:
+    cnxUrl: React.PropTypes.string
+    bookUrlPattern: React.PropTypes.string
+
   render: ->
-    {course, cnxUrl, bookUrlPattern} = @props
+    {cnxUrl, bookUrlPattern} = @context
+    {course} = @props
     {ecosystem_book_uuid} = course
     routeData = navigation.getDataByView('task')
     return null unless course.isRegistered()

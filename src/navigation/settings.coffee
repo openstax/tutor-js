@@ -7,6 +7,8 @@ settings =
     task: DEFAULT_PATTERN
     registration: DEFAULT_PATTERN
     progress: DEFAULT_PATTERN
+    loading: DEFAULT_PATTERN
+    login: DEFAULT_PATTERN
     default: '{prefix}{base}'
     close: '{prefix}'
 

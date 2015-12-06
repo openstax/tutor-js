@@ -8,8 +8,21 @@ tasks = require './collection'
 TaskTitle = React.createClass
   displayName: 'TaskTitle'
   mixins: [ChapterSectionMixin]
+
+  contextTypes:
+    close: React.PropTypes.func
+
+  broadcastNav: ->
+    {collectionUUID, moduleUUID, taskId, cnxUrl} = @props
+    {close} = @context
+    {link} = tasks.getModuleInfo(taskId, cnxUrl)
+
+    close()
+    tasks.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
+
   render: ->
-    {taskId, cnxUrl, close} = @props
+    {taskId, cnxUrl} = @props
+    {close} = @context
     moduleInfo = tasks.getModuleInfo(taskId, cnxUrl)
     section = @sectionFormat(moduleInfo.chapter_section)
 
@@ -19,10 +32,10 @@ TaskTitle = React.createClass
 
     if moduleInfo.title
       linkProps =
-        href: moduleInfo.link
         target: '_blank'
+        onClick: @broadcastNav
       title = <span {...sectionProps}>
-        {moduleInfo.title}
+        Go to {moduleInfo.title}
       </span>
     else
       noTitle = <span className='back-to-book'>Back to Book</span>
@@ -32,12 +45,12 @@ TaskTitle = React.createClass
     titleClasses = classnames 'concept-coach-title',
       'has-title': moduleInfo.title?
 
-    <h3 className={titleClasses}>
-      {title}
+    <p className={titleClasses}>
       <a {...linkProps}>
-        {noTitle}
         <i className='fa fa-book'></i>
+        {title}
+        {noTitle}
       </a>
-    </h3>
+    </p>
 
 module.exports = {TaskTitle}
