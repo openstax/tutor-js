@@ -38,7 +38,6 @@ listenAndBroadcast = (componentAPI) ->
     componentAPI.emit('view.update', navigation.getDataByView(eventData.view))
 
   navigation.channel.on 'close.for.book', (eventData) ->
-    console.info(eventData)
     componentAPI.emit('book.update', eventData)
 
 setupAPIListeners = (componentAPI) ->
