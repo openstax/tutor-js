@@ -8,23 +8,28 @@ PeriodHelper = require '../helpers/period'
 DEFAULT_COURSE_TIMEZONE = 'US/Central'
 
 DashboardConfig =
+
   exports:
+
     getPeriods: (courseId) ->
       _.chain(@_get(courseId)?.course?.periods)
         .tap(PeriodHelper.sort)
         .value()
 
-    getPeriodChapters: (courseId, periodId) ->
+    chaptersForDisplay: (courseId, periodId) ->
+      period = _.findWhere( @_get(courseId)?.course?.periods, {id: periodId})
+      return [] unless period
+      chapters = _.map period.chapters, (chapter) ->
+        valid_sections = _.select chapter.pages, (page) ->
+          total = page.completed + page.in_progress + page.not_started
+          page.completed_percentage = page.completed / total
+          page.completed_percentage > 0.1
+        chapter.valid_sections = _.sortBy(valid_sections, (page) ->
+          page.chapter_section[1] or 0
+        ).reverse()
+        chapter
+      chapters.reverse()
 
-      periods = @_get(courseId)?.course?.periods
-
-      _.sortBy(_.findWhere(periods, {id: periodId})?.chapters, (chapter) ->
-        parseInt(chapter.chapter_section?[0]))
-
-    sortSections: (sections) ->
-      _.sortBy sections, (section) ->
-        chapterSection = section.chapter_section
-        parseFloat("#{chapterSection[0]}.#{chapterSection[1]}")
 
 extendConfig(DashboardConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(DashboardConfig)

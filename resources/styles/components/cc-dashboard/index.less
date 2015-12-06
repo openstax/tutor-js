@@ -1,66 +1,98 @@
-.dashboard-header-links {
-  .link {
-    color: @tutor-tertiary-light;
-    text-transform: capitalize;
-    margin-left: 10px;
-    &.btn {
-      padding: 0;
-    }
-  }     
-}
-.dashboard-table-header {
-  font-size: 1.2rem;
-
-  > div {
-    text-align: left;
-  }
-  span.progress-legend {
-    font-size: 1rem;
-  }
-}
-
-.chapter-name-row {
-  font-size: 2rem;
-  padding: 1.5rem 0;
-}
-
-.section-info-row {
-  border-bottom: 1px solid @table-bg-accent;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-
-  .reading-progress-bar {
-    .transition(width 0s);
-    margin-bottom: 0;
-    font-size: 0.9rem;
-
-    &::after {
-      content: attr(type);
-      position: absolute;
-      bottom: -@progress-on-hover-label-height;
-      left: 50%;
-      width: 100px;
-      margin-left: -50px;
-      text-align: center;
+cc-dashboard {
+  .column-legend {
+    span {
       color: @tutor-neutral;
-      .opacity(0);
-      .transition(opacity 1s);
+      #fonts .sans(1.2rem, 1.2rem);
+      font-weight: 300;
+      font-style: italic;
     }
 
-    &:hover {
-      &::after {
-        .opacity(1);
+    .tutor-icon {
+      margin-left: 0.5rem;
+    }
+    // hack so long text will barely fit
+    div:last-child {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  a.detailed-scores{
+    float: right;
+    margin: -10px 0 0 0;
+  }
+
+  .chapter {
+
+    &.empty {
+      border-bottom: 1px solid @tutor-neutral-light;
+      .name {
+        padding-bottom: 0px;
+      }
+      .msg {
+        text-align: center;
+        #fonts .sans(1.4rem, 1.4rem);
+        font-weight: 300;
+        font-style: italic;
+        line-height: 3rem;
       }
     }
-    &:not(.no-progress) {
-      min-width: 20px;
-    }
-  }
 
-  .reading-progress-group.none-completed {
-    font-size: 0.9rem;
-    background: @gray-lighter;
-    color: @tutor-neutral-darker;
-    width: 100%;
+    .name {
+      font-size: 2rem;
+      padding: 1.5rem 0;
+    }
+
+    // both chapter and section labels
+    .chapter-section {
+      width: 3.5rem;
+      display: inline-block;
+      color: @tutor-black;
+    }
+
+    .section {
+      border-bottom: 1px solid @tutor-neutral-light;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+
+      &:nth-child(even) {
+        background-color: @tutor-neutral-lightest;
+      }
+
+      .reading-progress-bar {
+        .transition(width 0s);
+        margin-bottom: 0;
+        font-size: 0.9rem;
+
+        &::after {
+          content: attr(type);
+          position: absolute;
+          bottom: -@progress-on-hover-label-height;
+          left: 50%;
+          width: 100px;
+          margin-left: -50px;
+          text-align: center;
+          color: @tutor-neutral;
+          .opacity(0);
+          .transition(opacity 1s);
+        }
+
+        &:hover {
+          &::after {
+            .opacity(1);
+          }
+        }
+        &:not(.no-progress) {
+          min-width: 20px;
+        }
+      }
+
+      .reading-progress-group.none-completed {
+        font-size: 0.9rem;
+        background: @gray-lighter;
+        color: @tutor-neutral-darker;
+        width: 100%;
+      }
+    }
   }
 }
