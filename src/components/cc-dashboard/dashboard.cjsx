@@ -26,7 +26,7 @@ CCDashboard = React.createClass
     chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
     courseDataProps = @getCourseDataProps(courseId)
 
-    <BS.Panel {...courseDataProps} className='reading-stats tutor-booksplash-background'>
+    <BS.Panel {...courseDataProps} className='tutor-booksplash-background'>
       <Router.Link className='detailed-scores btn btn-default'
         to='viewScores' params={{courseId}}
       >

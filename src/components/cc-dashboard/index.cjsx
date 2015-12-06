@@ -15,7 +15,7 @@ DashboardShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
 
-    <div>
+    <div className="cc-dashboard">
       <h1>
         Class Dashboard
       </h1>
