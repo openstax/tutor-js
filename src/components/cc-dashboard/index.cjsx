@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
 {CCDashboardStore, CCDashboardActions} = require '../../flux/cc-dashboard'
 LoadableItem = require '../loadable-item'
@@ -22,9 +21,6 @@ DashboardShell = React.createClass
       <BookLinks courseId={courseId} />
       <h1>
         Class Dashboard
-        <Router.Link className='btn btn-default pull-right' to='viewScores' params={{courseId}}>
-          View Detailed Scores
-        </Router.Link>
       </h1>
       <LoadableItem
         store={CCDashboardStore}

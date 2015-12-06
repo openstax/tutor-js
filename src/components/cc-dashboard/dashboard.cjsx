@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 
 {CCDashboardStore} = require '../../flux/cc-dashboard'
 {CoursePeriodsNav} = require '../course-periods-nav'
@@ -32,12 +33,16 @@ CCDashboard = React.createClass
     courseDataProps = @getCourseDataProps(courseId)
 
     <BS.Panel {...courseDataProps} className='reading-stats tutor-booksplash-background'>
+      <Router.Link className='detailed-scores btn btn-default'
+        to='viewScores' params={{courseId}}
+      >
+        View Detailed Scores
+      </Router.Link>
       <CoursePeriodsNav
         handleSelect={@handlePeriodSelect}
         initialActive={@props.initialActivePeriod}
         periods={periods}
         courseId={courseId} />
-
       <BS.Row className="dashboard-table-header">
         <BS.Col xs={2} xsOffset={6}>
           Complete
