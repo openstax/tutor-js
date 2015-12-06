@@ -43,11 +43,12 @@ module.exports = React.createClass
 
   render: ->
     course = CourseStore.get(@props.courseId)
+    {is_concept_coach} = course
     periods = course.periods.length > 0
     tabs = _.map course.periods, (period, index) =>
       <BS.TabPane key={period.id}, eventKey={index} tab={period.name}>
-        <PeriodRoster 
-        period={period} 
+        <PeriodRoster
+        period={period}
         courseId={@props.courseId}
         activeTab={@getActivePeriod(@state.key, course.periods)} />
       </BS.TabPane>
@@ -75,7 +76,7 @@ module.exports = React.createClass
         {renameButton if periods}
         {deleteButton if periods}
       </div>
-      {enrollmentButton if periods}
+      {enrollmentButton if periods and is_concept_coach}
       <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
       {noPeriodMessage unless periods}
       {tabs}

@@ -25,8 +25,6 @@ BookLinks = React.createClass
         </a>
       )
 
-    window.open(course.webview_url, 'cc-webview-link')
-
     <li className='book-links'>
       {links}
     </li>
