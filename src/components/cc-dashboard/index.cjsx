@@ -16,9 +16,6 @@ DashboardShell = React.createClass
     {courseId} = @context.router.getCurrentParams()
 
     <div className="cc-dashboard">
-      <h1>
-        Class Dashboard
-      </h1>
       <LoadableItem
         store={CCDashboardStore}
         actions={CCDashboardActions}
