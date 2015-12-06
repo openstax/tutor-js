@@ -4,23 +4,31 @@ BS = require 'react-bootstrap'
 {CourseStore} = require '../../flux/course'
 
 BookLinks = React.createClass
-  goToPdf: ->
-    course = CourseStore.get(@props.courseId)
-    window.open(course.book_pdf_url, 'cc-pdf-link')
 
-  goToWebview: ->
-    course = CourseStore.get(@props.courseId)
-    window.open(course.webview_url, 'cc-webview-link')
+  PropTypes:
+    courseId: React.PropTypes.string
 
   render: ->
-    return null unless CourseStore.get(@props.courseId)?.is_concept_coach
+    course = CourseStore.get(@props.courseId)
+    return null unless course?.is_concept_coach
+    links = []
+    if course.book_pdf_url
+      links.push(
+        <a key='pdf' target='_blank' href={course.book_pdf_url}>
+          Book PDF
+        </a>
+      )
+    if course.webview_url
+      links.push(
+        <a key='webview' target='_blank' href={course.webview_url}>
+          Webview <i className='fa fa-external-link' />
+        </a>
+      )
+
+    window.open(course.webview_url, 'cc-webview-link')
+
     <li className='book-links'>
-      <BS.Button bsStyle='link' onClick={@goToPdf}>
-        Book PDF
-      </BS.Button>
-      <BS.Button bsStyle='link' onClick={@goToWebview}>
-        Webview <i className='fa fa-external-link' />
-      </BS.Button>
+      {links}
     </li>
 
 
