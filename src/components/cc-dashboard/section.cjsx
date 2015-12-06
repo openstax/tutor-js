@@ -8,10 +8,10 @@ SectionProgress = require './section-progress'
 
 Section = React.createClass
   render: ->
-    <BS.Row className="section-info-row" key={@props.section.id}>
+    <BS.Row className="section" key={@props.section.id}>
       <BS.Col xs={6}>
-        <ChapterSection section={@props.section.chapter_section} />
-        . {@props.section.title}
+        <ChapterSection skipZeros={false} section={@props.section.chapter_section} />
+        {@props.section.title}
       </BS.Col>
       <BS.Col xs={2}>
         <SectionProgress section={@props.section} />

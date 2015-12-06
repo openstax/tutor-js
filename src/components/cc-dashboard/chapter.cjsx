@@ -9,11 +9,11 @@ Section = require './section'
 DashboardChapter = React.createClass
 
   render: ->
-    <div>
-      <BS.Row className="chapter-name-row" key={@props.chapter.id}>
-      <BS.Col xs={12}>
-        <ChapterSection section={@props.chapter.chapter_section} />
-        . {@props.chapter.title}
+    <div className='chapter'>
+      <BS.Row className="name" key={@props.chapter.id}>
+        <BS.Col xs={12}>
+          <ChapterSection section={@props.chapter.chapter_section} />
+          {@props.chapter.title}
         </BS.Col>
       </BS.Row>
       {for section, index in CCDashboardStore.sortSections(@props.chapter.pages).reverse()
