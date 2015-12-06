@@ -6,6 +6,7 @@ _ = require 'underscore'
 CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
+BookLinks = require './book-links'
 
 {CurrentUserActions} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
@@ -55,6 +56,7 @@ module.exports = React.createClass
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>
+          <BookLinks courseId={courseId} />
         </BS.Nav>
         <BS.Nav right navbar>
           <UserActionsMenu courseId={courseId} course={@getCourseFromParams()} />

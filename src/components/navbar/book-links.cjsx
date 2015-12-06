@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{CCDashboardStore} = require '../../flux/cc-dashboard'
+{CourseStore} = require '../../flux/course'
 
 BookLinks = React.createClass
   goToPdf: ->
@@ -13,14 +13,15 @@ BookLinks = React.createClass
     window.open(course.webview_url, 'cc-webview-link')
 
   render: ->
-    <div className='book-links'>
-      <BS.Button bsStyle='link' className='link' onClick={@goToPdf}>
+    return null unless CourseStore.get(@props.courseId)?.is_concept_coach
+    <li className='book-links'>
+      <BS.Button bsStyle='link' onClick={@goToPdf}>
         Book PDF
       </BS.Button>
-      <BS.Button bsStyle='link' className='link' onClick={@goToWebview}>
+      <BS.Button bsStyle='link' onClick={@goToWebview}>
         Webview <i className='fa fa-external-link' />
       </BS.Button>
-    </div>
+    </li>
 
 
 

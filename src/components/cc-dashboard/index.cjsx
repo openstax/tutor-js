@@ -5,8 +5,6 @@ BS = require 'react-bootstrap'
 LoadableItem = require '../loadable-item'
 CCDashboard = require './dashboard'
 
-BookLinks = require './book-links'
-
 classnames = require 'classnames'
 
 
@@ -18,7 +16,6 @@ DashboardShell = React.createClass
     {courseId} = @context.router.getCurrentParams()
 
     <div>
-      <BookLinks courseId={courseId} />
       <h1>
         Class Dashboard
       </h1>
