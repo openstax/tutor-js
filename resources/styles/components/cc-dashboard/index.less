@@ -151,10 +151,12 @@
     }
     svg.desktop {
       margin-left: 20px;
+      .banner       { fill: @tutor-neutral; }
+      .banner-light { fill: lighten(@tutor-neutral, 10%); }
       .course-name{
         font-family:'Helevtica bold';
         font-size: 15px;
-        fill:#000;
+        fill: @tutor-white;
       }
       &.principles_economics {
         .banner       { fill: @principles_economics-bg; }
