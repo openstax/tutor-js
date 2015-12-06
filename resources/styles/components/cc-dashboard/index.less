@@ -1,28 +1,24 @@
-.dashboard-header-links {
-  .link {
-    color: @tutor-tertiary-light;
-    text-transform: capitalize;
-    margin-left: 10px;
-    &.btn {
-      padding: 0;
-    }
+.column-legend {
+  span {
+    color: @tutor-neutral;
+    #fonts .sans(1.2rem, 1.2rem);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .tutor-icon {
+    margin-left: 0.5rem;
+  }
+  // hack so long text will barely fit
+  div:last-child {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
 a.detailed-scores{
   float: right;
   margin: -10px 0 0 0;
-}
-
-.dashboard-table-header {
-  font-size: 1.2rem;
-
-  > div {
-    text-align: left;
-  }
-  span.progress-legend {
-    font-size: 1rem;
-  }
 }
 
 .chapter {
