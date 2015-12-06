@@ -11,24 +11,27 @@ DashboardChapter = require './chapter'
 
 CCDashboard = React.createClass
   mixins: [CourseDataMixin]
-
+  contextTypes:
+    router: React.PropTypes.func
+  propTypes:
+    courseId: React.PropTypes.string
 
   getDefaultProps: ->
     initialActivePeriod: 0
 
   getInitialState: ->
-    activePeriod = CCDashboardStore.getPeriods(@props.id)?[@props.initialActivePeriod]
+    activePeriod = CCDashboardStore.getPeriods(@props.courseId)?[@props.initialActivePeriod]
     activePeriodId: activePeriod?.id
 
   handlePeriodSelect: (period) ->
     @setState({activePeriodId: period.id})
 
   render: ->
-    courseId = @props.id
+    {courseId} = @props
     periods = CCDashboardStore.getPeriods(courseId)
     chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
     courseDataProps = @getCourseDataProps(courseId)
-    course = CourseStore.get(@props.id)
+    course = CourseStore.get(courseId)
     <div className="dashboard">
       <div {...courseDataProps} className='tutor-booksplash-background' />
       <BS.Panel>
@@ -36,7 +39,7 @@ CCDashboard = React.createClass
           Class Dashboard
         </h2>
         <Router.Link className='detailed-scores btn btn-default'
-          to='viewScores' params={{courseId}}
+          to='viewScores' params={courseId: courseId}
         >
           View Detailed Scores
         </Router.Link>

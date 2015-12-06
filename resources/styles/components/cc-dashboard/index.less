@@ -1,4 +1,5 @@
 .cc-dashboard {
+  @banner-height: 120px;
   .column-legend {
     span {
       color: @tutor-neutral;
@@ -99,9 +100,9 @@
     .tutor-nav-tabs();
   }
   .tutor-booksplash-background {
-    height: 120px;
+    height: @banner-height;
     &:before {
-      height: 120px;
+      height: @banner-height;
       font-family: 'Helevtica bold';
       font-size: 14rem;
       letter-spacing: -5px;
@@ -116,4 +117,40 @@
       line-height: 0;
     }
   }
+
+  .blank-course {
+    .title {
+      background-color: @tutor-quaternary;
+      height: @banner-height;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0;
+      line-height: @banner-height;
+      font-size: 3.5rem;
+      padding-left: 50px;
+    }
+    .body {
+      padding-top: @banner-height + @jumbotron-padding;
+      width: @tutor-task-width;
+      margin: 0 auto;
+    }
+    svg.desktop {
+      margin-left: 20px;
+      .course-name{
+        font-family:'Helevtica bold';
+        font-size:'15px';
+        fill:'#000';
+      }
+      .banner {
+        fill: '#f4d019'
+      }
+    }
+    .side-by-side {
+      display: flex;
+
+    }
+  }
+
+
 }
