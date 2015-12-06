@@ -41,12 +41,13 @@ TaskTitle = React.createClass
         </span>
       </span>
     else
-      noTitle = <span className='back-to-book'>Back to Book</span>
+      noTitle = <span>Back to Book</span>
       linkProps =
         onClick: close
 
     titleClasses = classnames 'concept-coach-title',
       'has-title': moduleInfo.title?
+      'back-to-book': noTitle?
 
     <p className={titleClasses}>
       <a {...linkProps}>

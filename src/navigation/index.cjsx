@@ -46,6 +46,13 @@ Navigation = React.createClass
 
     courseItems = [
       <BS.NavItem
+        active={view is 'task'}
+        eventKey='task'
+        key='task'
+        className='concept-coach-exercise-nav'>
+        Exercise
+      </BS.NavItem>
+      <BS.NavItem
         active={view is 'progress'}
         eventKey='progress'
         key='progress'
