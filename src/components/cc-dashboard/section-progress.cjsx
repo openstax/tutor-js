@@ -4,28 +4,23 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 SectionProgress = React.createClass
-  _getPercentage: (num, total) ->
-    Math.round((num / total) * 100)
 
   render: ->
-    total = @props.section.completed + @props.section.in_progress + @props.section.not_started
-
-    percents =
-      completed: @_getPercentage(@props.section.completed, total)
-    completedLabel = "#{percents.completed}%"
-    completedLabel = if percents.completed is 100 then "#{completedLabel} completed" else completedLabel
+    percent = Math.round(@props.section.completed_percentage * 100)
+    completedLabel = "#{percent}%"
+    completedLabel = if percent is 100 then "#{completedLabel} completed" else completedLabel
 
     incompleteClass = ""
 
     progressClass = classnames 'reading-progress-group',
-      'none-completed': percents.completed is 0
+      'none-completed': percent is 0
 
-    if percents.completed > 0
+    if percent > 0
       completed = <BS.ProgressBar
         className="reading-progress-bar"
         bsStyle="info"
         label={completedLabel}
-        now={percents.completed}
+        now={percent}
         type="completed"
         key={1} />
     else
