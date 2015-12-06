@@ -24,13 +24,6 @@ CCDashboard = React.createClass
     courseId = @props.id
     periods = CCDashboardStore.getPeriods(courseId)
     chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
-
-    chapters = if _.any(chapters)
-      for chapter, index in chapters
-        <DashboardChapter chapter={chapter} key={index} />
-    else
-      <div>There are no completed concept coach tasks for this period.</div>
-
     courseDataProps = @getCourseDataProps(courseId)
 
     <BS.Panel {...courseDataProps} className='reading-stats tutor-booksplash-background'>
@@ -44,7 +37,7 @@ CCDashboard = React.createClass
         initialActive={@props.initialActivePeriod}
         periods={periods}
         courseId={courseId} />
-      <BS.Row className="dashboard-table-header">
+      <BS.Row className="column-legend">
         <BS.Col xs={2} xsOffset={6}>
           Complete
           <Icon type='info-circle'
@@ -64,7 +57,8 @@ CCDashboard = React.createClass
             tooltip='Indicates how well students performed on system assigned problems' />
         </BS.Col>
       </BS.Row>
-      {chapters}
+      {for chapter, index in chapters
+        <DashboardChapter chapter={chapter} key={index} />}
     </BS.Panel>
 
 module.exports = CCDashboard
