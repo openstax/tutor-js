@@ -9,6 +9,7 @@ BlankCourse = React.createClass
     courseId: React.PropTypes.string
 
   render: ->
+    glprops = {lowercase:true, courseId: @props.courseId}
     <div className="blank-course">
       <h3 className="title">
         Welcome to your OpenStax Concept Coach™ Dashboard
@@ -18,20 +19,20 @@ BlankCourse = React.createClass
         <div className="side-by-side">
           <ol>
             <li>
-              Add <CourseGroupingLabel plural courseId={@props.courseId} /> to
+              Add <CourseGroupingLabel plural {...glprops} /> to
               your course by clicking on your name in the top
               right corner and selecting "Course Settings and Roster."
             </li>
             <li>
               Generate a student enrollment code for
-              each <CourseGroupingLabel courseId={@props.courseId} /> you
+              each <CourseGroupingLabel {...glprops} /> you
               create.
             </li>
             <li>
               Distribute the enrollment codes for
-              each <CourseGroupingLabel courseId={@props.courseId} /> and
+              each <CourseGroupingLabel {...glprops} /> and
               textbook URL (which is the same for
-              each <CourseGroupingLabel courseId={@props.courseId} />) to
+              each <CourseGroupingLabel {...glprops} />) to
               your students.
             </li>
             <li>
