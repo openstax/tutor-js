@@ -1,4 +1,4 @@
-cc-dashboard {
+.cc-dashboard {
   .column-legend {
     span {
       color: @tutor-neutral;
@@ -93,6 +93,27 @@ cc-dashboard {
         color: @tutor-neutral-darker;
         width: 100%;
       }
+    }
+  }
+  .nav-tabs {
+    .tutor-nav-tabs();
+  }
+  .tutor-booksplash-background {
+    height: 120px;
+    &:before {
+      height: 120px;
+      font-family: 'Helevtica bold';
+      font-size: 14rem;
+      letter-spacing: -5px;
+      overflow: hidden;
+      color: #77af41;
+      text-align: left;
+      font-size: 16rem;
+      font-weight: 900;
+      z-index: -1;
+      letter-spacing: -6px;
+      padding: 60px 0 10px 42px;
+      line-height: 0;
     }
   }
 }

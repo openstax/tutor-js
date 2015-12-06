@@ -22,7 +22,7 @@ DashboardChapter = React.createClass
     else
       <BS.Row className="msg">
         <BS.Col xs={12}>
-          Unable to display progres, not enough questions have been answered.
+          Unable to display progress, not enough questions have been answered.
         </BS.Col>
       </BS.Row>
 

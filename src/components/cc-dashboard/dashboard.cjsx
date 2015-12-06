@@ -4,12 +4,15 @@ Router = require 'react-router'
 
 {CCDashboardStore} = require '../../flux/cc-dashboard'
 {CoursePeriodsNav} = require '../course-periods-nav'
+{CourseStore} = require '../../flux/course'
 Icon = require '../icon'
 CourseDataMixin = require '../course-data-mixin'
 DashboardChapter = require './chapter'
 
 CCDashboard = React.createClass
   mixins: [CourseDataMixin]
+
+
   getDefaultProps: ->
     initialActivePeriod: 0
 
@@ -25,6 +28,7 @@ CCDashboard = React.createClass
     periods = CCDashboardStore.getPeriods(courseId)
     chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
     courseDataProps = @getCourseDataProps(courseId)
+    course = CourseStore.get(@props.id)
     <div className="dashboard">
       <div {...courseDataProps} className='tutor-booksplash-background' />
       <BS.Panel>
