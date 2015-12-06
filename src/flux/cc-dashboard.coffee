@@ -19,16 +19,15 @@ DashboardConfig =
     chaptersForDisplay: (courseId, periodId) ->
       period = _.findWhere( @_get(courseId)?.course?.periods, {id: periodId})
       return [] unless period
-      chapters = _.select period.chapters, (chapter) ->
+      chapters = _.map period.chapters, (chapter) ->
         valid_sections = _.select chapter.pages, (page) ->
           total = page.completed + page.in_progress + page.not_started
           page.completed_percentage = page.completed / total
           page.completed_percentage > 0.1
-        if _.any(valid_sections)
-          chapter.valid_sections = _.sortBy(valid_sections, (page) ->
-            page.chapter_section[1] or 0
-          ).reverse()
-          true
+        chapter.valid_sections = _.sortBy(valid_sections, (page) ->
+          page.chapter_section[1] or 0
+        ).reverse()
+        chapter
       chapters.reverse()
 
 

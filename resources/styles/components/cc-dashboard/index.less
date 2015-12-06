@@ -26,6 +26,21 @@ a.detailed-scores{
 }
 
 .chapter {
+
+  &.empty {
+    border-bottom: 1px solid @tutor-neutral-light;
+    .name {
+      padding-bottom: 0px;
+    }
+    .msg {
+      text-align: center;
+      #fonts .sans(1.4rem, 1.4rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 3rem;
+    }
+  }
+
   .name {
     font-size: 2rem;
     padding: 1.5rem 0;
@@ -39,7 +54,7 @@ a.detailed-scores{
   }
 
   .section {
-    border-bottom: 1px solid @table-bg-accent;
+    border-bottom: 1px solid @tutor-neutral-light;
     padding-top: 1rem;
     padding-bottom: 1rem;
 

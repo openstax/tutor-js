@@ -1,6 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
+classnames = require 'classnames'
 
 {CCDashboardStore} = require '../../flux/cc-dashboard'
 ChapterSection = require '../task-plan/chapter-section'
@@ -14,17 +15,27 @@ DashboardChapter = React.createClass
       valid_sections: React.PropTypes.array
     )
 
+  renderSections: ->
+    if _.any @props.chapter.valid_sections
+      _.map @props.chapter.valid_sections, (section, index) ->
+        <Section section={section} key={index} />
+    else
+      <BS.Row className="msg">
+        <BS.Col xs={12}>
+          Unable to display progres, not enough questions have been answered.
+        </BS.Col>
+      </BS.Row>
 
   render: ->
-    <div className='chapter'>
+    classes = classnames('chapter', empty: @props.chapter.valid_sections)
+    <div className={classes}>
       <BS.Row className="name" key={@props.chapter.id}>
         <BS.Col xs={12}>
           <ChapterSection section={@props.chapter.chapter_section} />
           {@props.chapter.title}
         </BS.Col>
       </BS.Row>
-      {for section, index in @props.chapter.valid_sections
-        <Section section={section} key={index} /> }
+      {@renderSections()}
     </div>
 
 module.exports = DashboardChapter
