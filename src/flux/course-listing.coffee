@@ -67,7 +67,9 @@ CourseListingStore = flux.createStore
         CourseListingActions.load() unless CourseListingStore.isLoading()
         true
 
-    allCourses: ->
-      return _.map @_course_ids, CourseStore.get
+    allValidCourses: ->
+      _.reject( _.map( @_course_ids, CourseStore.get ), (course) ->
+        course.is_concept_coach and course.roles.length is 1 and course.roles[0].type is 'student'
+      )
 
 module.exports = {CourseListingActions, CourseListingStore}
