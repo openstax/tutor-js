@@ -31,7 +31,9 @@ DashboardConfig =
           page.chapter_section[1] or 0
         ).reverse()
         chapter
-      chapters.reverse()
+
+      _.select chapters.reverse(), (chapter) ->
+        chapter.valid_sections?.length
 
 
 extendConfig(DashboardConfig, new CrudConfig())
