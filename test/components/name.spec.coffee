@@ -9,6 +9,7 @@ describe 'Name Component', ->
       name: 'Prince Humperdinck'
       first_name: 'Vincent'
       last_name: 'Adultman'
+      tooltip: {enable: false}
 
   it 'renders using name if present and ignores first and last name', ->
     Testing.renderComponent( Name, props: @props ).then ({dom}) ->
