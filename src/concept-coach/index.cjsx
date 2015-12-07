@@ -121,12 +121,18 @@ coachAPI.update = (nextProps) ->
 coachAPI.handleOpened = (eventData, scrollTo, body = document.body) ->
   scrollTo ?= _.partial(window.scrollTo, 0)
   {top} = eventData.coach.el.getBoundingClientRect()
-  top +=  window.scrollY
+  {scrollY} = window
+  top +=  scrollY
+  componentModel.update(
+    closeScroll: ->
+      scrollTo(scrollY)
+  )
   scrollTo(top)
   body.classList.add('cc-opened')
 
 coachAPI.handleClosed = (eventData, body = document.body) ->
   body.classList.remove('cc-opened')
+  componentModel.closeScroll?()
 
 coachAPI.handleError = (error) ->
   channel.emit('error', error)

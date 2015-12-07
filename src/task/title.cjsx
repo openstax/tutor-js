@@ -31,10 +31,12 @@ TaskTitle = React.createClass
       className: 'chapter-section-prefix'
     sectionProps['data-section'] = section if section?
 
+    linkProps =
+      role: 'button'
+
     if moduleInfo.title
-      linkProps =
-        target: '_blank'
-        onClick: @broadcastNav
+      linkProps.target = '_blank'
+      linkProps.onClick = @broadcastNav
       title = <span> Go to
         <span {...sectionProps}>
           {moduleInfo.title}
