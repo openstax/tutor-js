@@ -86,8 +86,10 @@ coachAPI.open = (mountNode, props) ->
     CCWrapped.unmountFrom(modalNode)
     mountNode.removeChild(modalNode)
 
-  @component = CCWrapped.render(modalNode, props)
+  @component = component = CCWrapped.render(modalNode, props)
   @close = props.close
+
+  # componentModel.update({component})
 
   @component
 
@@ -124,8 +126,9 @@ coachAPI.handleOpened = (eventData, scrollTo, body = document.body) ->
   {scrollY} = window
   top +=  scrollY
   componentModel.update(
+    scrollY: scrollY
     closeScroll: ->
-      scrollTo(scrollY)
+      scrollTo(@scrollY)
   )
   scrollTo(top)
   body.classList.add('cc-opened')
@@ -133,6 +136,13 @@ coachAPI.handleOpened = (eventData, scrollTo, body = document.body) ->
 coachAPI.handleClosed = (eventData, body = document.body) ->
   body.classList.remove('cc-opened')
   componentModel.closeScroll?()
+
+coachAPI.handleResize = ->
+  return unless componentModel.el?
+  {top} = componentModel.el.getBoundingClientRect()
+  {scrollY} = window
+  top += scrollY
+  window.scrollTo(0, top)
 
 coachAPI.handleError = (error) ->
   channel.emit('error', error)
