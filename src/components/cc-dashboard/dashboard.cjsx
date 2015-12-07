@@ -94,6 +94,11 @@ CCDashboard = React.createClass
         </BS.Row>
         {for chapter, index in chapters
           <DashboardChapter chapter={chapter} key={index} />}
+        <BS.Row>
+          <BS.Col className="hide-section-legend" xs={12}>
+            Chapters and sections that are less than 10% complete are hidden
+          </BS.Col>
+        </BS.Row>
       </BS.Panel>
     </div>
 module.exports = CCDashboard
