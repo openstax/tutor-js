@@ -13,16 +13,20 @@ module.exports = React.createClass
     courseRoles: React.PropTypes.array.isRequired
     store: React.PropTypes.object.isRequired
 
-  renderTeacherRow: (teacher) ->
+  renderTeacherRow: (teacher, numTeachers) ->
+    if numTeachers > 1
+      removeTeacherLink =
+        <td className="actions">
+          <RemoveTeacherLink
+          courseId={@props.courseId}
+          courseRoles={@props.courseRoles}
+          teacher={teacher} />
+        </td>
+
     <tr key={teacher.id}>
       <td>{teacher.first_name}</td>
       <td>{teacher.last_name}</td>
-      <td className="actions">
-        <RemoveTeacherLink
-        courseId={@props.courseId}
-        courseRoles={@props.courseRoles}
-        teacher={teacher} />
-      </td>
+      {removeTeacherLink}
     </tr>
 
   render: ->
@@ -35,12 +39,12 @@ module.exports = React.createClass
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Actions</th>
+            { if teachers.length > 1 then <th>Actions</th> }
           </tr>
         </thead>
         <tbody>
           {for teacher in _.sortBy(teachers, 'last_name')
-            @renderTeacherRow(teacher)}
+            @renderTeacherRow(teacher, teachers.length)}
         </tbody>
       </BS.Table>
     </div>
