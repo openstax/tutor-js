@@ -165,7 +165,7 @@ Scores = React.createClass
     </div>
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
-        width={@state.colSetWidth}
+        width={@state.colSetWidth * 2}
         flexGrow={1}
         dataKey='0'
         fixed={true}
