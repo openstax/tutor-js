@@ -86,6 +86,12 @@
   }
 }
 
+.answer-bubble(correct-answer){
+  border-color: @correct-answer-color;
+  background-color: @correct-answer-color;
+  color: @openstax-white;
+}
+
 .answer-left-block(){
   display: block;
   float: left;
@@ -123,6 +129,22 @@
   color: @correct-answer-color;
   .answer-letter {
     .answer-bubble(correct);
+  }
+}
+
+.answer(correct-answer){
+  color: @correct-answer-color;
+  .answer-letter {
+    .answer-bubble(correct-answer);
+  }
+
+  &::before {
+    .answer-fa-icon();
+    content: @fa-var-hand-o-right;
+    width: @answer-bubble-size;
+    margin-left: -1 * @answer-bubble-size;
+    text-align: center;
+    .answer-left-block();
   }
 }
 
@@ -230,15 +252,7 @@
 
     .answer-correct:not(.answer-checked) {
       .answer-label {
-        &::before {
-          .answer-fa-icon();
-          content: @fa-var-hand-o-right;
-          color: @correct-answer-color;
-          width: @answer-bubble-size;
-          margin-left: -1 * @answer-bubble-size;
-          text-align: center;
-          .answer-left-block();
-        }
+        .answer(correct-answer);
       }
     }
   }
