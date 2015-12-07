@@ -56,6 +56,9 @@ CurrentUserActions = flux.createActions [
   'reset'
 ]
 
+TUTOR_HELP = 'https://openstaxtutor.zendesk.com'
+CONCEPT_COACH_HELP = 'https://openstaxcc.zendesk.com/hc/en-us'
+
 CurrentUserStore = flux.createStore
   actions: [
     CurrentUserActions.setToken
@@ -143,8 +146,8 @@ CurrentUserStore = flux.createStore
       @_getRouteByRole('dashboard', menuRole)
 
     getHelpLink: (courseId) ->
-      'https://openstaxtutor.zendesk.com'
-
+      course = CourseStore.get(courseId)
+      if course?.is_concept_coach then CONCEPT_COACH_HELP else TUTOR_HELP
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.

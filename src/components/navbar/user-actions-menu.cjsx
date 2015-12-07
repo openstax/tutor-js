@@ -70,7 +70,7 @@ UserActionsMenu = React.createClass
       <BS.MenuItem
         key='nav-help-link'
         target='_blank'
-        href={CurrentUserStore.getHelpLink()}>
+        href={CurrentUserStore.getHelpLink(@props.courseId)}>
           Get Help
       </BS.MenuItem>
       <BS.MenuItem
