@@ -2,6 +2,8 @@ React    = require 'react'
 Router = require 'react-router'
 Name = require '../name'
 
+TOOLTIP_OPTIONS = enable: true, placement: 'top', delayShow: 1500, delayHide: 150
+
 module.exports = React.createClass
   displayName: 'NameCell'
 
@@ -15,7 +17,7 @@ module.exports = React.createClass
 
   renderCCStudent: ->
     [
-      <Name className="name" {...@props.student} />
+      <Name tooltip={TOOLTIP_OPTIONS} className="name" {...@props.student} />
       <div className="student-id">{@props.student.student_identifier}</div>
     ]
 
@@ -24,7 +26,7 @@ module.exports = React.createClass
       className={"student-name #{@props.className}"}
       to='viewStudentTeacherPerformanceForecast'
       params={roleId: @props.roleId, courseId: @props.courseId}>
-       <Name {...@props.student} />
+       <Name tooltip={TOOLTIP_OPTIONS} {...@props.student} />
     </Router.Link>
 
   render: ->
