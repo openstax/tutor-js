@@ -79,10 +79,10 @@ class Course
 
   # Submits pending course change for confirmation
   confirm: (studentId) ->
+    payload = { id: @id }
+    payload.student_identifier = studentId unless _.isEmpty(studentId)
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
-    api.channel.emit("course.#{@id}.send.confirmation",
-      data: { id: @id, student_identifier: studentId}
-    )
+    api.channel.emit("course.#{@id}.send.confirmation", data: payload)
 
   _onConfirmed:  (response) ->
     {data} = response

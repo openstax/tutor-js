@@ -47,7 +47,7 @@ ModifyCourseRegistration = React.createClass
         course={course}
         title={"Leave #{original.description()} for new course/period"} />
     else if course.isPending()
-      <ConfirmJoin course={course}
+      <ConfirmJoin course={course} optionalStudentId
         title={"Are you sure you want to switch your registration #{course.description()}?"}
       />
     else

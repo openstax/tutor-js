@@ -10,6 +10,7 @@ ConfirmJoin = React.createClass
   propTypes:
     title: React.PropTypes.string.isRequired
     course: React.PropTypes.instanceOf(Course)
+    optionalStudentId: React.PropTypes.bool
 
   startConfirmation: ->
     @props.course.confirm(@refs.input.getValue())
@@ -24,6 +25,11 @@ ConfirmJoin = React.createClass
     @props.course.resetToBlankState()
 
   render: ->
+    label = if @props.optionalStudentId
+      "Update Student ID (leave blank to leave unchanged):"
+    else
+      "My Student ID is:"
+
     <div className="form-group">
       <h3 className="text-center">
         {@props.title}
@@ -31,7 +37,7 @@ ConfirmJoin = React.createClass
       <ErrorList course={@props.course} />
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
 
-        <BS.Input type="text" ref="input" label="My Student ID is:"
+        <BS.Input type="text" ref="input" label={label}
           placeholder="Student ID" autoFocus
           onKeyPress={@onKeyPress}
         />
