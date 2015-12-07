@@ -48,7 +48,10 @@
   &[data-appearance=biology]:before{
     .tutor-biology-cover-background();
   }
-
+  &[data-appearance]:before {
+    #openstax-books > .default();
+    content: attr(data-title);
+  }
   &[data-appearance=principles_economics]:before {
     #openstax-books > .principles_economics();
     content: "Principles of Economics";
