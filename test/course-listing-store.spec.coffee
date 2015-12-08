@@ -12,7 +12,7 @@ describe 'CourseListing Store', ->
 
   it 'should load courses', ->
     expect(CourseListingStore.isLoaded()).to.be.true
-    names = _.pluck(CourseListingStore.allCourses(), 'name')
+    names = _.pluck(CourseListingStore.allValidCourses(), 'name')
     expect(names).to.deep.equal(_.pluck(COURSES, 'name'))
 
   it 'should clear the store and the course store on reset', ->
