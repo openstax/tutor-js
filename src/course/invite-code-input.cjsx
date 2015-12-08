@@ -5,6 +5,7 @@ ENTER = 'Enter'
 {CourseListing} = require './listing'
 ErrorList = require './error-list'
 Course = require './model'
+{AsyncButton} = require 'openstax-react-components'
 
 InviteCodeInput = React.createClass
 
@@ -17,6 +18,7 @@ InviteCodeInput = React.createClass
     @props.course.register(@refs.input.getValue())
 
   onKeyPress: (ev) ->
+    return if @props.course.isBusy # double enter
     @startRegistration() if ev.key is ENTER
 
   renderCurrentCourses: ->
@@ -28,9 +30,13 @@ InviteCodeInput = React.createClass
 
   render: ->
     button =
-      <button className="btn btn-default" type="button" autoFocus
-        onKeyPress={@onKeyPress}
-        onClick={@startRegistration}>Register</button>
+      <AsyncButton
+        isWaiting={@props.course.isBusy}
+        waitingText={'Registering…'}
+        onClick={@startRegistration}
+      >
+        Register
+      </AsyncButton>
 
     <div className="form-group">
       {@renderCurrentCourses() if @props.currentCourses?.length}

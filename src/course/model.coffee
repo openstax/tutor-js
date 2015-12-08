@@ -81,8 +81,10 @@ class Course
   confirm: (studentId) ->
     payload = { id: @id }
     payload.student_identifier = studentId unless _.isEmpty(studentId)
+    @isBusy = true
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
     api.channel.emit("course.#{@id}.send.confirmation", data: payload)
+    @channel.emit('change')
 
   _onConfirmed:  (response) ->
     {data} = response
@@ -92,24 +94,26 @@ class Course
     @errors = data?.errors
     response.stopErrorDisplay = true if @errors
     delete @status unless @hasErrors() # blank status indicates good to go
+    delete @isBusy
     @channel.emit('change')
-
 
   # Submits a course invite for registration
   register: (inviteCode) ->
-    @errors = []
+    @isBusy = true
     api.channel.once "course.#{@ecosystem_book_uuid}.receive.registration.*", @_onRegistered
     api.channel.emit("course.#{@ecosystem_book_uuid}.send.registration", data: {
       book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
     })
+    @channel.emit('change')
 
   _onRegistered: (response) ->
-    # confirmation has completed
-    _.extend(@, response.data)
-    @errors = response.data.errors
+    {data} = response
+    _.extend(@, data)
+    @errors = data.errors
     # a freshly registered course doesn't contain the is_concept_coach flag
     @is_concept_coach = true
     response.stopErrorDisplay = true if @errors
+    delete @isBusy
     @channel.emit('change')
 
 
