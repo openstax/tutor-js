@@ -13,6 +13,8 @@ AccountsIframe = React.createClass
 
   pageLoad: (page) ->
     if page is "/login"
+      if User.isLoggingOut # we've logged out and are re-displaying login
+        User._signalLogoutCompleted()
       @setState(isClosable: false)
     else # we're displaying a profile or settings related page
       if User.isLoggedIn()

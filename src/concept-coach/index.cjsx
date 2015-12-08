@@ -49,6 +49,7 @@ setupAPIListeners = (componentAPI) ->
   componentAPI.on 'show.*', (eventData) ->
     componentAPI.updateToView(eventData.view)
 
+
 modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 
 class ConceptCoachAPI extends EventEmitter2
@@ -86,6 +87,10 @@ class ConceptCoachAPI extends EventEmitter2
       componentModel.channel.emit('close.clicked')
       modalCoachWrapped.unmountFrom(modalNode)
       mountNode.removeChild(modalNode)
+
+    # wait until our logout request has been received and the close
+    User.channel.once 'logout.received', ->
+      props.close()
 
     @component = modalCoachWrapped.render(modalNode, props)
     @close = props.close
