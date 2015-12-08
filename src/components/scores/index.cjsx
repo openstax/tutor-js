@@ -163,9 +163,11 @@ Scores = React.createClass
       {dueDateHeading unless @props.isConceptCoach}
       {header}
     </div>
+    # student name column width
+    if @props.isConceptCoach then nameColumns = 2 else nameColumns = 1
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
-        width={@state.colSetWidth * 2}
+        width={@state.colSetWidth * nameColumns}
         flexGrow={1}
         dataKey='0'
         fixed={true}
