@@ -22,6 +22,7 @@ Navigation = React.createClass
   componentWillMount: ->
     user.ensureStatusLoaded()
     user.channel.on('change', @update)
+    user.channel.on('logout.received', @close)
 
   componentWillUnmount: ->
     user.channel.off('change', @update)
