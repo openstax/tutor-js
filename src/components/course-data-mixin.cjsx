@@ -6,5 +6,5 @@ module.exports =
       {courseId} = @context.router.getCurrentParams()
 
     dataProps =
-      'data-title': CourseStore.getShortName(courseId)
+      'data-title': CourseStore.getName(courseId)
       'data-appearance': CourseStore.getAppearanceCode(courseId)

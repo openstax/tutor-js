@@ -1,5 +1,6 @@
 @import './book-content/ap-bio/variables';
 @import './book-content/hs-physics/variables';
+@import './mixins/for';
 @import './mixins/flexbox';
 @import './mixins/tutor-plans';
 @import './mixins/tutor-modal';
@@ -93,7 +94,7 @@
         color: @tutor-neutral-darker !important;
       }
     }
-    
+
     &.is-trouble {
       a {
       display: inline-block;
@@ -104,7 +105,7 @@
         }
       }
     }
-    
+
   }
 }
 
@@ -132,18 +133,6 @@
     content: @fa-var-clock-o;
     color: @tutor-warning;
   }
-}
-
-.tutor-physics-cover-background() {
-  color: @tutor-book-hs-physics-secondary;
-  background-color: @tutor-book-hs-physics-primary;
-  .tutor-background-image("courses/physics-title-background.svg");
-}
-
-.tutor-biology-cover-background() {
-  color: @tutor-book-ap-bio-secondary;
-  background-color: @tutor-book-ap-bio-primary;
-  .tutor-background-image("courses/biology-title-background.svg");
 }
 
 .tutor-popover() {

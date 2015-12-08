@@ -55,7 +55,7 @@
       .flex-display();
       .tutor-course-item {
         .flex(1);
-        font-family: 'Helvetica', 'Lato', sans-serif;
+        #fonts > .book-cover();
         font-size: 18rem;
         line-height: 18rem;
         text-overflow: ellipsis;
@@ -64,63 +64,18 @@
       }
     }
 
-    // I tried really hard to make these be an array so they could be looped through
-    // Have came to the conclusion that it's impossible because of less's
-    // lack for variable interpolation for mixins and/or extend()
-    // https://github.com/less/less.js/issues/1196
-    &[data-appearance=principles_economics] {
-      .tutor-course-item { #openstax-books > .principles_economics(); }
-    }
-    &[data-appearance=macro_economics] {
-      .tutor-course-item { #openstax-books > .macro_economics();      }
-    }
-    &[data-appearance=micro_economics] {
-      .tutor-course-item { #openstax-books > .micro_economics();      }
-    }
-    &[data-appearance=college_physics] {
-      .tutor-course-item { #openstax-books > .college_physics();      }
-    }
-    &[data-appearance=biology] {
-      .tutor-course-item { #openstax-books > .biology();              }
-    }
-    &[data-appearance=concepts_biology] {
-      .tutor-course-item { #openstax-books > .concepts_biology();     }
-    }
-    &[data-appearance=intro_sociology] {
-      .tutor-course-item { #openstax-books > .intro_sociology();      }
-    }
-    &[data-appearance=anatomy_physiology] {
-      .tutor-course-item { #openstax-books > .anatomy_physiology();   }
-    }
-
-    // default styles for courses that do not
-    // have a recognized appearance_code
-    &[data-appearance=default] {
-      .tutor-course-item {
-        color: @openstax-book-default-fg;
-        background-color: @openstax-book-default-bg;
-      }
-    }
-
-    &[data-appearance=physics] {
-      // use SVG background if the title matches
-      &[data-title=Physics]{
+    .apply-course-listing-book-styling(@code; @fg; @bg) {
+      &[data-appearance=@{code}] {
         .tutor-course-item {
-          .tutor-physics-cover-background();
-          font-size: 0px; // hide text title
+          color: @@fg;
+          background-color: @@bg;
         }
       }
     }
-
-    &[data-appearance=biology] {
-      // use SVG background if the title matches
-      &[data-title=Biology]{
-        .tutor-course-item {
-          .tutor-biology-cover-background();
-          font-size: 0px; // hide text title
-        }
-      }
+    .for(@openstax-book-appearance-codes); .-each(@code) {
+      .apply-course-listing-book-styling(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
     }
+
   }
 }
 
@@ -144,23 +99,6 @@
         }
       }
 
-      &[data-appearance=biology] {
-        .tutor-course-item {
-          &::before {
-            color: @tutor-book-ap-bio-primary;
-            background-color: @tutor-book-ap-bio-secondary;
-          }
-        }
-      }
-
-      &[data-appearance=physics] {
-        .tutor-course-item {
-          &::before {
-            color: @tutor-book-hs-physics-primary;
-            background-color: @tutor-book-hs-physics-secondary;
-          }
-        }
-      }
     }
   }
 }
