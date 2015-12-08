@@ -96,9 +96,8 @@ CourseConfig =
     getAppearanceCode: (courseId) ->
       return @_get(courseId)?.appearance_code or 'default'
 
-    getShortName: (courseId) ->
-      title = @_get(courseId)?.name or ""
-      _.first(title.split(' '))
+    getName: (courseId) ->
+      @_get(courseId)?.name or ""
 
     getPeriods: (courseId) ->
       periods = @_get(courseId).periods or []
