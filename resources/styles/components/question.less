@@ -88,8 +88,7 @@
 
 .answer-bubble(correct-answer){
   border-color: @correct-answer-color;
-  background-color: @correct-answer-color;
-  color: @openstax-white;
+  color: @correct-answer-color;
 }
 
 .answer-left-block(){
@@ -139,12 +138,16 @@
   }
 
   &::before {
-    .answer-fa-icon();
-    content: @fa-var-hand-o-right;
-    width: @answer-bubble-size;
-    margin-left: -1 * @answer-bubble-size;
+    content: 'correct';
+    // .answer-fa-icon();
+    // content: @fa-var-check;
+    // width: 1.25 * @answer-bubble-size;
+    margin-left: -1.25 * @answer-bubble-size;
     text-align: center;
+    font-size: 1.2rem;
+    line-height: @answer-bubble-size;
     .answer-left-block();
+    // font-size: 1.25 * @answer-bubble-size;
   }
 }
 
