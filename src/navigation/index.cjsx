@@ -61,8 +61,8 @@ Navigation = React.createClass
       </BS.NavItem>
     ] if course?.isRegistered()
 
-    <BS.Navbar brand={brand} fixedTop fluid>
-      <BS.CollapsibleNav eventKey={0}>
+    <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
+      <BS.CollapsibleNav eventKey={0} collapsible={true}>
         <BS.Nav navbar onSelect={@handleSelect}>
           <BS.NavItem disabled={true}>
             <CourseNameBase course={course}/>

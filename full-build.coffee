@@ -1,3 +1,3 @@
-cc = require './src/concept-coach'
+ConceptCoachAPI = require './src/concept-coach'
 
-module.exports = cc
+module.exports = ConceptCoachAPI

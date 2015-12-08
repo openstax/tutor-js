@@ -11,7 +11,7 @@ base =
   output:
     filename: '[name].js'
     libraryTarget: 'umd'
-    library: 'OpenStaxReactComponents'
+    library: 'OpenStaxConceptCoach'
     umdNamedDefine: true
   module:
     noParse: [
