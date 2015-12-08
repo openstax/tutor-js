@@ -72,7 +72,7 @@ getModuleInfo = (taskId, cnxUrl = '') ->
   task = tasks[taskId]
   return unless task?
 
-  moduleUrlPattern = '{cnxUrl}/contents/{collectionUUID}/{moduleUUID}'
+  moduleUrlPattern = '{cnxUrl}/contents/{collectionUUID}:{moduleUUID}'
   {collectionUUID, moduleUUID} = task
 
   moduleInfo = _.clone(task.steps?[0].related_content?[0]) or {}
