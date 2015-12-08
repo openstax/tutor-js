@@ -36,50 +36,21 @@
     right: 0;
   }
 
-  // custom backgrounds images for different courses
-  &[data-appearance=physics]:after{ .tutor-background-image("courses/physics-background.jpg"); }
-  &[data-appearance=biology]:after{ .tutor-background-image("courses/biology-background.jpg"); }
-
-  // custom colors for specific courses
-  &[data-appearance=physics]:before{
-    .tutor-physics-cover-background();
-  }
-
-  &[data-appearance=biology]:before{
-    .tutor-biology-cover-background();
-  }
   &[data-appearance]:before {
-    #openstax-books > .default();
+    color: @openstax-book-default-fg;
+    background-color: @openstax-book-default-bg;
     content: attr(data-title);
   }
-  &[data-appearance=principles_economics]:before {
-    #openstax-books > .principles_economics();
-    content: "Principles of Economics";
+  .apply-booksplash-background(@code; @fg; @bg) {
+    &[data-appearance=@{code}]:before {
+        color: @@fg;
+        background-color: @@bg;
+    }
   }
-  &[data-appearance=macro_economics]:before {
-    #openstax-books > .macro_economics();
-    content: "Macroeconomics";
+  .for(@openstax-book-appearance-codes); .-each(@code) {
+    .apply-booksplash-background(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
   }
-  &[data-appearance=micro_economics]:before {
-    #openstax-books > .micro_economics();
-    content: "Microeconomics";
-  }
-  &[data-appearance=college_physics]:before {
-    #openstax-books > .college_physics();
-    content: "Physics";
-  }
-  &[data-appearance=concepts_biology]:before{
-    #openstax-books > .concepts_biology();
-    content: "Concepts of Biology";
-  }
-  &[data-appearance=intro_sociology]:before {
-    #openstax-books > .intro_sociology();
-    content: "Sociology";
-  }
-  &[data-appearance=anatomy_physiology]:before {
-    #openstax-books > .anatomy_physiology();
-    content: "Anatomy";
-  }
+
 }
 .tutor-booksplash-adjust-top-margin(@normal-top-margin: 100px, @short-top-margin: 35px){
   margin-top: @normal-top-margin;

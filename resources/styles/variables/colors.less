@@ -33,71 +33,38 @@
 @exercise-question-uid-color: lighten(@tutor-neutral,20%);
 
 // TODO: Move book styles to react-components
+
+@openstax-book-appearance-codes: default physics biology principles_economics macro_economics college_physics micro_economics college_physics micro_economics concepts_biology intro_sociology anatomy_physiology;
+
 @openstax-book-default-fg: rgb(119, 175, 66);
 @openstax-book-default-bg: rgb(94,96,98);
 
-@principles_economics-fg: rgb(94, 96, 98);
-@principles_economics-bg: white;
+@openstax-book-biology-fg: rgb(94, 96, 98);
+@openstax-book-biology-bg: rgb(119, 175, 66);
 
-@macro_economics-fg: rgb(119, 175, 66);
-@macro_economics-bg: rgb(94,96,98);
+@openstax-book-physics-fg: rgb(94, 96, 98);
+@openstax-book-physics-bg: rgb(119, 175, 66);
 
-@college_physics-fg: rgb(119, 175, 66);
-@college_physics-bg: rgb(0, 36, 106);
+@openstax-book-principles_economics-fg: rgb(94, 96, 98);
+@openstax-book-principles_economics-bg: white;
 
-@biology-fg: rgb(94, 96, 98);
-@biology-bg: rgb(119, 175, 66);
+@openstax-book-macro_economics-fg: rgb(119, 175, 66);
+@openstax-book-macro_economics-bg: rgb(94,96,98);
 
-@micro_economics-fg: rgb(244, 208, 25);
-@micro_economics-bg: rgb(94, 96, 98);
+@openstax-book-college_physics-fg: rgb(119, 175, 66);
+@openstax-book-college_physics-bg: rgb(0, 36, 106);
 
-@concepts_biology-fg: rgb(244, 208, 25);
-@concepts_biology-bg: rgb(244, 118, 65);
+@openstax-book-micro_economics-fg: rgb(244, 208, 25);
+@openstax-book-micro_economics-bg: rgb(94, 96, 98);
 
-@intro_sociology-fg: rgb(0, 36, 106);
-@intro_sociology-bg: rgb(244, 208, 25);
+@openstax-book-concepts_biology-fg: rgb(244, 208, 25);
+@openstax-book-concepts_biology-bg: rgb(244, 118, 65);
 
-@anatomy_physiology-fg: rgb(244, 118, 65);
-@anatomy_physiology-bg: rgb(94, 96, 98);
+@openstax-book-intro_sociology-fg: rgb(0, 36, 106);
+@openstax-book-intro_sociology-bg: rgb(244, 208, 25);
 
-#openstax-books {
-  .default(){
-    color: @openstax-book-default-fg;
-    background-color: @openstax-book-default-bg;
-  }
-  .principles_economics(){
-    color: @principles_economics-fg;
-    background-color: @principles_economics-bg;
-  }
-  .macro_economics {
-    color: @macro_economics-fg;
-    background-color: @macro_economics-bg;
-  }
-  .college_physics() {
-    color: @college_physics-fg;
-    background-color: @college_physics-bg;
-  }
-  .biology() {
-    color: @biology-fg;
-    background-color: @biology-bg;
-  }
-  .micro_economics() {
-    color: @micro_economics-fg;
-    background-color: @micro_economics-bg;
-  }
-  .concepts_biology() {
-    color: @concepts_biology-fg;
-    background-color: @concepts_biology-bg;
-  }
-  .intro_sociology() {
-    color: @intro_sociology-fg;
-    background-color: @intro_sociology-bg;
-  }
-  .anatomy_physiology() {
-    color: @anatomy_physiology-fg;
-    background-color: @anatomy_physiology-bg;
-  }
-}
+@openstax-book-anatomy_physiology-fg: rgb(244, 118, 65);
+@openstax-book-anatomy_physiology-bg: rgb(94, 96, 98);
 
 // NOTE: Make borders and input background colors one of the above grays with a high opacity so it works on
 //       multiple backgrounds.
