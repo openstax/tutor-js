@@ -55,6 +55,10 @@ User =
     @courses.splice(index, 1) unless index is -1
     @channel.emit('change')
 
+  _signalLogoutCompleted: ->
+    @isLoggingOut = false
+    @channel.emit('logout.received')
+
 api.channel.on 'user.status.receive.*', ({data}) ->
   User.isLoaded = true
 
