@@ -11,7 +11,7 @@ CourseDataMixin = require './course-data-mixin'
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role
 DisplayOrRedirect = (transition, callback) ->
-  courses = CourseListingStore.allCourses() or []
+  courses = CourseListingStore.allValidCourses() or []
   [course] = courses
   if courses.length is 1 and course.roles?.length is 1
     roleType = courses[0].roles[0].type
@@ -59,12 +59,6 @@ CourseListing = React.createClass
       isStudent = _.find roles, (role) -> role.type is 'student'
       isTeacher = _.find roles, (role) -> role.type is 'teacher'
 
-      if isStudent or not isTeacher # HACK since a student does not currently have a role
-        courseLink = <Router.Link
-          className='tutor-course-item'
-          to='viewStudentDashboard'
-          params={{courseId}}>{course.name}</Router.Link>
-
       if isTeacher
         if courseLink?
           altLink = <Router.Link
@@ -77,7 +71,14 @@ CourseListing = React.createClass
             className='tutor-course-item'
             to={to}
             params={{courseId}}>{course.name}</Router.Link>
-
+      else if isStudent
+        courseLink = <Router.Link
+          className='tutor-course-item'
+          to='viewStudentDashboard'
+          params={{courseId}}>{course.name}</Router.Link>
+      else
+        console.warn?("BUG: User is not a teacher or a student on course id: #{course.id}")
+        return null
       courseDataProps = @getCourseDataProps(courseId)
       <BS.Row>
         <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
@@ -87,7 +88,7 @@ CourseListing = React.createClass
       </BS.Row>
 
   render: ->
-    courses = CourseListingStore.allCourses() or []
+    courses = CourseListingStore.allValidCourses() or []
     body = if courses.length
       <div className='-course-list'>{@renderCourses(courses)}</div>
     else
