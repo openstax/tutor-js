@@ -29,7 +29,6 @@ InviteCodeInput = React.createClass
     </div>
 
   render: ->
-    console.log "Render: #{@props.course.isBusy}"
     button =
       <AsyncButton
         isWaiting={@props.course.isBusy}
