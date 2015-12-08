@@ -6,34 +6,19 @@
 
   &:before {
     content: " ";
-    background-position: center -20px;
-    background-size: 1300px auto;
-    background-repeat: no-repeat;
     position: fixed;
     top: 60px;
     left: 0px;
     right: 0px;
     height: 24rem;
+    line-height: 24rem;
     overflow: hidden;
     color: @tutor-secondary;
     text-align: center;
     font-size: 35rem;
-    padding-top: 10rem;
+    letter-spacing: -6px;
     #fonts > .book-cover();
     z-index: -1;
-    letter-spacing: 20px;  // space wider so text extends past margins
-  }
-
-  // The background is applied as a :after block so the opacity can
-  // be applied to only the background image, not the content itself
-  &:after {
-    content: "";
-    position: fixed;
-    z-index: -2;
-    top: 240px;
-    bottom: 0;
-    left: 0;
-    right: 0;
   }
 
   &[data-appearance]:before {
