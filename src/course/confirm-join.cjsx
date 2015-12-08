@@ -4,6 +4,7 @@ ENTER = 'Enter'
 
 Course = require './model'
 ErrorList = require './error-list'
+{AsyncButton} = require 'openstax-react-components'
 
 ConfirmJoin = React.createClass
 
@@ -45,9 +46,16 @@ ConfirmJoin = React.createClass
         <div className="text-center">
           <button className="btn"
             onClick={@cancelConfirmation}>Cancel</button>
-          <button className="btn btn-success"
-            style={marginLeft: '3rem'}
-            onClick={@startConfirmation}>Confirm</button>
+
+           <AsyncButton
+             className="btn btn-success"
+             isWaiting={@props.course.isBusy}
+             waitingText={'Confirming…'}
+             onClick={@startConfirmation}
+             style={marginLeft: '3rem'}
+           >
+            Confirm
+          </AsyncButton>
         </div>
       </div>
     </div>
