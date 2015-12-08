@@ -1,4 +1,4 @@
-Demo = require './src/demo'
+ConceptCoachAPI = require './src/concept-coach'
 
 api = require './src/api'
 AUTOSHOW = false
@@ -39,14 +39,14 @@ loadApp = ->
   initialModel = _.clone(demoSettings)
   initialModel.mounter = mainDiv
 
-  Demo.init(settings.API_BASE_URL)
-  Demo.setOptions(initialModel)
+  conceptCoachDemo = new ConceptCoachAPI(settings.API_BASE_URL)
+  conceptCoachDemo.setOptions(initialModel)
 
-  Demo.on 'open', Demo.handleOpened
-  Demo.on 'ui.close', Demo.handleClosed
+  conceptCoachDemo.on 'open', conceptCoachDemo.handleOpened
+  conceptCoachDemo.on 'ui.close', conceptCoachDemo.handleClosed
 
   show = ->
-    Demo.open(mainDiv, demoSettings)
+    conceptCoachDemo.open(mainDiv, demoSettings)
     true
 
   showOtherCourse = ->
@@ -55,13 +55,13 @@ loadApp = ->
       moduleUUID: 'FAKE_MODULE'
       cnxUrl: settings.CNX_URL
 
-    Demo.open(mainDiv, otherCourseSettings)
+    conceptCoachDemo.open(mainDiv, otherCourseSettings)
     true
 
   showIntro = ->
     introSettings = _.extend({}, demoSettings, moduleUUID: 'e98bdaec-4060-4b43-ac70-681555a30e22')
 
-    Demo.open(mainDiv, introSettings)
+    conceptCoachDemo.open(mainDiv, introSettings)
     true
 
   buttonA.addEventListener 'click', show
@@ -70,16 +70,20 @@ loadApp = ->
 
 
   # Hook in to writing view updates to history api
-  Demo.on 'view.update', (eventData) ->
+  conceptCoachDemo.on 'view.update', (eventData) ->
     if eventData.route isnt location.pathname
       history.pushState(eventData.state, null, eventData.route)
 
   # listen to back/forward and broadcasting to coach navigation
   window.addEventListener 'popstate', (eventData) ->
-    Demo.updateToRoute(location.pathname)
+    conceptCoachDemo.updateToRoute(location.pathname)
+
+
+  window.addEventListener 'resize', (eventData) ->
+    conceptCoachDemo.handleResize()
 
   # open to the expected view right away if view in url
-  Demo.openByRoute(mainDiv, demoSettings, location.pathname) if location.pathname?
+  conceptCoachDemo.openByRoute(mainDiv, demoSettings, location.pathname) if location.pathname?
 
   if AUTOSHOW
     setTimeout( show, 300)

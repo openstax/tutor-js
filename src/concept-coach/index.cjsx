@@ -49,103 +49,102 @@ setupAPIListeners = (componentAPI) ->
   componentAPI.on 'show.*', (eventData) ->
     componentAPI.updateToView(eventData.view)
 
-CCWrapped = helpers.wrapComponent(ModalCoach)
+modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 
-coachAPI = new EventEmitter2 wildcard: true
+class ConceptCoachAPI extends EventEmitter2
+  constructor: (baseUrl, navOptions = {}) ->
+    super(wildcard: true)
 
-coachAPI.init = (baseUrl, navOptions = {}) ->
-  _.defaults(navOptions, {prefix: '/', base: 'concept-coach/'})
+    _.defaults(navOptions, {prefix: '/', base: 'concept-coach/'})
 
-  restAPI.initialize(baseUrl)
-  navigation.initialize(navOptions)
+    restAPI.initialize(baseUrl)
+    navigation.initialize(navOptions)
 
-  listenAndBroadcast(@)
-  setupAPIListeners(@)
-  User.ensureStatusLoaded()
+    listenAndBroadcast(@)
+    setupAPIListeners(@)
+    User.ensureStatusLoaded()
 
-coachAPI.setOptions = (options) ->
-  isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
-  options = _.extend({}, options, isSame: isSame)
-  componentModel.update(options)
+  setOptions: (options) ->
+    isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
+    options = _.extend({}, options, isSame: isSame)
+    componentModel.update(options)
 
-coachAPI.open = (mountNode, props) ->
-  props = _.clone(props)
-  props.defaultView ?= if componentModel.isSame then componentModel.view else 'task'
+  open: (mountNode, props) ->
+    props = _.clone(props)
+    props.defaultView ?= if componentModel.isSame then componentModel.view else 'task'
 
-  componentModel.update(
-    mounter: mountNode
-    isSame: true
-  )
+    componentModel.update(
+      mounter: mountNode
+      isSame: true
+    )
 
-  modalNode = document.createElement('div')
-  modalNode.classList.add('concept-coach-wrapper')
-  mountNode.appendChild(modalNode)
+    modalNode = document.createElement('div')
+    modalNode.classList.add('concept-coach-wrapper')
+    mountNode.appendChild(modalNode)
 
-  props.close = ->
-    componentModel.channel.emit('close.clicked')
-    CCWrapped.unmountFrom(modalNode)
-    mountNode.removeChild(modalNode)
+    props.close = ->
+      componentModel.channel.emit('close.clicked')
+      modalCoachWrapped.unmountFrom(modalNode)
+      mountNode.removeChild(modalNode)
 
-  @component = component = CCWrapped.render(modalNode, props)
-  @close = props.close
+    @component = modalCoachWrapped.render(modalNode, props)
+    @close = props.close
 
-  # componentModel.update({component})
+    @component
 
-  @component
+  openByRoute: (mountNode, props, route) ->
+    props = _.clone(props)
+    props.defaultView = navigation.getViewByRoute(route)
 
-coachAPI.openByRoute = (mountNode, props, route) ->
-  props = _.clone(props)
-  props.defaultView = navigation.getViewByRoute(route)
+    if props.defaultView? and props.defaultView isnt 'close'
+      @open(mountNode, props)
 
-  if props.defaultView? and props.defaultView isnt 'close'
-    @open(mountNode, props)
+  updateToView: (view) ->
+    if @component?.isMounted()
+      if view is 'close'
+        @component.props.close()
+      else
+        navigation.channel.emit("show.#{view}", {view})
+    else if componentModel.mounter? and view isnt 'close'
+      props = _.pick(componentModel, PROPS)
+      props.defaultView = view
+      @open(componentModel.mounter, props)
 
-coachAPI.updateToView = (view) ->
-  if @component?.isMounted()
-    if view is 'close'
-      @component.props.close()
-    else
-      navigation.channel.emit("show.#{view}", {view})
-  else if componentModel.mounter? and view isnt 'close'
-    props = _.pick(componentModel, PROPS)
-    props.defaultView = view
-    @open(componentModel.mounter, props)
+  updateToRoute: (route) ->
+    view = navigation.getViewByRoute(route)
+    @updateToView(view) if view?
 
-coachAPI.updateToRoute = (route) ->
-  view = navigation.getViewByRoute(route)
-  @updateToView(view) if view?
+  update: (nextProps) ->
+    return unless @component?
+    props = _.extend({}, _.pick(nextProps, PROPS))
+    @component.setProps(props)
 
-coachAPI.update = (nextProps) ->
-  return unless @component?
-  props = _.extend({}, _.pick(nextProps, PROPS))
-  @component.setProps(props)
+  handleOpened: (eventData, scrollTo, body = document.body) ->
+    scrollTo ?= _.partial(window.scrollTo, 0)
+    {top} = eventData.coach.el.getBoundingClientRect()
+    {scrollY} = window
+    top +=  scrollY
+    componentModel.update(
+      scrollY: scrollY
+      closeScroll: ->
+        scrollTo(@scrollY)
+    )
+    scrollTo(top)
+    body.classList.add('cc-opened')
 
-coachAPI.handleOpened = (eventData, scrollTo, body = document.body) ->
-  scrollTo ?= _.partial(window.scrollTo, 0)
-  {top} = eventData.coach.el.getBoundingClientRect()
-  {scrollY} = window
-  top +=  scrollY
-  componentModel.update(
-    scrollY: scrollY
-    closeScroll: ->
-      scrollTo(@scrollY)
-  )
-  scrollTo(top)
-  body.classList.add('cc-opened')
+  handleClosed: (eventData, body = document.body) ->
+    body.classList.remove('cc-opened')
+    componentModel.closeScroll?()
 
-coachAPI.handleClosed = (eventData, body = document.body) ->
-  body.classList.remove('cc-opened')
-  componentModel.closeScroll?()
+  handleResize: ->
+    return unless componentModel.el? and @component?.isMounted()
+    {top} = componentModel.el.getBoundingClientRect()
+    {scrollY} = window
+    top += scrollY
+    window.scrollTo(0, top)
 
-coachAPI.handleResize = ->
-  return unless componentModel.el?
-  {top} = componentModel.el.getBoundingClientRect()
-  {scrollY} = window
-  top += scrollY
-  window.scrollTo(0, top)
+  handleError: (error) ->
+    channel.emit('error', error)
+    console.info(error)
 
-coachAPI.handleError = (error) ->
-  channel.emit('error', error)
-  console.info(error)
-
-module.exports = coachAPI
+module.exports = ConceptCoachAPI
