@@ -66,10 +66,11 @@ ExerciseStepCard = React.createClass
     stepState = @getStepState(@props)
 
   componentWillMount: ->
-    keymaster('enter', @onContinue) if @props.allowKeyNext
+    @clearKeys()
+    @startKeys() if @props.allowKeyNext
 
   componentWillUnmount: ->
-    keymaster.unbind('enter') if @props.allowKeyNext
+    @clearKeys()
 
   shouldComponentUpdate: (nextProps, nextState) ->
     not (_.isEqual(@props, nextProps) and
@@ -85,10 +86,15 @@ ExerciseStepCard = React.createClass
       @updateKeyBind(nextProps.allowKeyNext)
 
   updateKeyBind: (allowKeyNext) ->
-    if allowKeyNext
-      keymaster('enter', @onContinue)
-    else
-      keymaster.unbind('enter')
+    if allowKeyNext then @startKeys() else @clearKeys()
+
+  startKeys: ->
+    keymaster('enter', 'multiple-choice', @onContinue)
+    keymaster.setScope('multiple-choice')
+
+  clearKeys: ->
+    keymaster.unbind('enter', 'multiple-choice')
+    keymaster.deleteScope('multiple-choice')
 
   getStepState: (props) ->
     {step} = props
