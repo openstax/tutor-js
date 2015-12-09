@@ -12,6 +12,7 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
+    isConceptCoach: React.PropTypes.bool.isRequired
 
   renderStudentRow: (student) ->
     <tr key={student.id}>
@@ -52,5 +53,5 @@ module.exports = React.createClass
       </div>
 
     <div className="period">
-      {if @isPeriodEmpty() then emptyInfo else studentsTable}
+      {if @isPeriodEmpty() and @props.isConceptCoach then emptyInfo else studentsTable}
     </div>
