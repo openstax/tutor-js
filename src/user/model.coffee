@@ -42,7 +42,7 @@ User =
     )
 
   ensureStatusLoaded: (force = false) ->
-    api.channel.emit('user.status.send.fetch') unless force or @isLoggedIn()
+    api.channel.emit('user.status.send.fetch') if force or not @isLoggedIn()
 
   isLoggedIn: ->
     !!@profile_url
