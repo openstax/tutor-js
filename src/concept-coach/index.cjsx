@@ -9,6 +9,7 @@ restAPI = require '../api'
 componentModel = require './model'
 navigation = require '../navigation/model'
 User = require '../user/model'
+exercise = require '../exercise/collection'
 
 PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
 
@@ -40,6 +41,9 @@ listenAndBroadcast = (componentAPI) ->
 
   navigation.channel.on 'close.for.book', (eventData) ->
     componentAPI.emit('book.update', eventData)
+
+  exercise.channel.on 'component.*', (eventData) ->
+    componentAPI.emit("exercise.component.#{eventData.status}", eventData)
 
 setupAPIListeners = (componentAPI) ->
   navigation.channel.on "switch.*", (eventData) ->

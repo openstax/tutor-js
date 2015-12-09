@@ -19,6 +19,12 @@ ExerciseBase = React.createClass
     {item} = nextProps
     @setState(step: item)
 
+  componentDidUpdate: (prevProps, prevState) ->
+    {status} = @props
+    {step} = @state
+
+    channel.emit("component.#{status}", status: status, step: step)
+
   render: ->
     {step} = @state
     {taskId} = @props
