@@ -1,5 +1,5 @@
 _ = require 'lodash'
-axios = require 'axios'
+$ = require 'jquery'
 interpolate = require 'interpolate'
 
 METHODS_WITH_DATA = ['PUT', 'PATCH', 'POST']
@@ -13,15 +13,19 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
 
   {data, change} = eventData
   apiSetting = _.pick(setting, 'url', 'method')
+  apiSetting.dataType = 'json'
+  apiSetting.contentType = 'application/json;charset=UTF-8'
+
   if _.includes(METHODS_WITH_DATA, apiSetting.method)
-    apiSetting.data = change or data
+    apiSetting.data = JSON.stringify(change or data)
 
   if isLocal
     apiSetting.url = "#{interpolate(apiSetting.url, data)}/#{apiSetting.method}.json"
     apiSetting.method = 'GET'
   else
     if setting.useCredentials
-      apiSetting.withCredentials = true
+      apiSetting.xhrFields =
+        withCredentials: true
     else if API_ACCESS_TOKEN
       apiSetting.headers =
         Authorization: "Bearer #{API_ACCESS_TOKEN}"
@@ -29,45 +33,46 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
 
   apiSetting
 
-getResponseDataByEnv = (isLocal, eventData, response) ->
+getResponseDataByEnv = (isLocal, requestEvent, data) ->
   if isLocal
-    datasToMerge = [{}, {data: response.data, query: eventData.query}]
-    if eventData.change?
-      datasToMerge.push(data: eventData.change)
+    datasToMerge = [{}, {data, query: requestEvent.query}]
+    if requestEvent.change?
+      datasToMerge.push(data: requestEvent.change)
   else
-    datasToMerge = [{}, eventData, {data: response.data}]
-
+    datasToMerge = [{}, requestEvent, {data}]
   _.spread(_.merge)(datasToMerge)
 
 
-handleAPIEvent = (apiEventChannel, baseUrl, setting, eventData = {}) ->
+handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
 
   isLocal = setting.loadLocally
   # simulate server delay
   delay = if isLocal then 200 else 0
 
-  apiSetting = getAjaxSettingsByEnv(isLocal, baseUrl, setting, eventData)
+  apiSetting = getAjaxSettingsByEnv(isLocal, baseUrl, setting, requestEvent)
   if apiSetting.method is 'GET'
     return if LOADING[apiSetting.url]
     LOADING[apiSetting.url] = true
 
   _.delay ->
-    axios(apiSetting)
-      .then((response) ->
+    $.ajax(apiSetting)
+      .then((responseData) ->
         delete LOADING[apiSetting.url]
-        completedEvent = interpolate(setting.completedEvent, eventData.data)
-        completedData = getResponseDataByEnv(isLocal, eventData, response)
-
+        completedEvent = interpolate(setting.completedEvent, requestEvent.data)
+        completedData = getResponseDataByEnv(isLocal, requestEvent, responseData)
         apiEventChannel.emit(completedEvent, completedData)
 
-      ).catch((response) ->
+      ).fail((response) ->
         delete LOADING[apiSetting.url]
-        failedData = getResponseDataByEnv(isLocal, eventData, response)
+
+        {responseJSON} = response
+
+        failedData = getResponseDataByEnv(isLocal, requestEvent, responseJSON)
         if _.isString(setting.failedEvent)
-          failedEvent = interpolate(setting.failedEvent, eventData.data)
+          failedEvent = interpolate(setting.failedEvent, requestEvent.data)
           apiEventChannel.emit(failedEvent, failedData)
 
-        setting.onFail?(response) or defaultFail(response)
+        defaultFail(response)
         apiEventChannel.emit('error', {response, apiSetting, failedData})
       )
   , delay
