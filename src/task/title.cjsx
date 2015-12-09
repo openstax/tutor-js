@@ -5,6 +5,7 @@ tasks = require './collection'
 navigation = require '../navigation/model'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
+componentModel = require '../concept-coach/model'
 
 TaskTitle = React.createClass
   displayName: 'TaskTitle'
@@ -18,6 +19,7 @@ TaskTitle = React.createClass
     {close} = @context
     {link} = tasks.getModuleInfo(taskId, cnxUrl)
 
+    componentModel.update(scrollY: 0)
     close()
     navigation.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
 

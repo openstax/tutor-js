@@ -5,6 +5,7 @@ interpolate = require 'interpolate'
 _ = require 'underscore'
 
 navigation = require '../navigation/model'
+componentModel = require '../concept-coach/model'
 
 CourseItem = React.createClass
   displayName: 'CourseItem'
@@ -23,6 +24,7 @@ CourseItem = React.createClass
     routeData = navigation.getDataByView('task')
     link = "#{link}#{routeData.route}"
 
+    componentModel.update(scrollY: 0)
     close()
     navigator.emit('close.for.book', {collectionUUID: ecosystem_book_uuid, link})
 
