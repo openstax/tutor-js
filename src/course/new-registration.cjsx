@@ -22,7 +22,7 @@ NewCourseRegistration = React.createClass
     @state.course.channel.off('change', @onCourseChange)
 
   onComplete: ->
-    User.ensureStatusLoaded(true)
+    @state.course.persist(User)
     Navigation.channel.emit('show.panel', view: 'task')
 
   onCourseChange: ->

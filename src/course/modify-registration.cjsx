@@ -31,7 +31,7 @@ ModifyCourseRegistration = React.createClass
     Navigation.channel.emit('show.panel', view: 'task')
 
   onComplete: ->
-    User.ensureStatusLoaded(true)
+    @state.course.persist(User)
     @showTasks()
 
   renderComplete: (course) ->
