@@ -68,7 +68,6 @@ module.exports = React.createClass
         <AddPeriodField
         label={label}
         name='period-name'
-        default={@state.period_name}
         onChange={(val) => @setState(period_name: val)}
         validate={@validate}
         autofocus />
