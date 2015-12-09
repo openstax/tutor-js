@@ -50,7 +50,8 @@ module.exports = React.createClass
         <PeriodRoster
         period={period}
         courseId={@props.courseId}
-        activeTab={@getActivePeriod(@state.key, course.periods)} />
+        activeTab={@getActivePeriod(@state.key, course.periods)}
+        isConceptCoach={is_concept_coach} />
       </BS.TabPane>
     enrollmentButton =
       <PeriodEnrollmentCode
