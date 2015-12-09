@@ -123,7 +123,7 @@ ConceptCoach = React.createClass
     userInfo =
       isLoggedIn: User.isLoggedIn()
       isLoaded: User.isLoaded
-      isRegistered: course?.isRegistered()
+      isRegistered: course?.isRegistered() and course?.id?
 
   updateUser: ->
     userState = @getUserState()
