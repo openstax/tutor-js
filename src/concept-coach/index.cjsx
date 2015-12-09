@@ -1,4 +1,5 @@
 _ = require 'lodash'
+$ = require 'jquery'
 EventEmitter2 = require 'eventemitter2'
 
 helpers = require '../helpers'
@@ -126,11 +127,10 @@ class ConceptCoachAPI extends EventEmitter2
 
   handleOpened: (eventData, scrollTo, body = document.body) ->
     scrollTo ?= _.partial(window.scrollTo, 0)
-    {top} = eventData.coach.el.getBoundingClientRect()
-    {scrollY} = window
-    top +=  scrollY
+    {top} = $(eventData.coach.el).offset()
+
     componentModel.update(
-      scrollY: scrollY
+      scrollY: top
       closeScroll: ->
         scrollTo(@scrollY)
     )
@@ -143,9 +143,8 @@ class ConceptCoachAPI extends EventEmitter2
 
   handleResize: ->
     return unless componentModel.el? and @component?.isMounted()
-    {top} = componentModel.el.getBoundingClientRect()
-    {scrollY} = window
-    top += scrollY
+    {top} = $(componentModel.el).offset()
+
     window.scrollTo(0, top)
 
   handleError: (error) ->
