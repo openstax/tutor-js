@@ -49,6 +49,7 @@ User =
 
   onCourseUpdate: (course) ->
     @channel.emit('change')
+    @ensureStatusLoaded(true) # re-fetch course list from server
 
   removeCourse: (course) ->
     index = @courses.indexOf(course)
