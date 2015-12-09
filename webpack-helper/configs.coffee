@@ -44,6 +44,12 @@ optionConfigs =
       underscore: '_'
     )
 
+  excludePeers:
+    externals: webpackUMDExternal(
+      underscore: '_'
+      jquery: '$'
+    )
+
   minify:
     plugins: [
       new webpack.optimize.UglifyJsPlugin({minimize: true})
@@ -66,6 +72,7 @@ optionConfigs =
         React: 'react/addons'
         _: 'underscore'
         BS: 'react-bootstrap'
+        $: 'jquery'
       })
     ]
 

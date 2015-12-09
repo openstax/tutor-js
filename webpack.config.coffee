@@ -17,12 +17,12 @@ getWebpackConfig = (name, isProduction) ->
         entry: './full-build'
         output:
           filename: 'full-build.js'
-      }, {isProduction}]
+      }, {isProduction, excludePeers: true}]
     'fullBuild.min': [{
         entry: './full-build'
         output:
           filename: 'full-build.min.js'
-      }, {isProduction, minify: true}]
+      }, {isProduction, excludePeers: true, minify: true}]
     'devServer': [{
         entry:
           demo: [
