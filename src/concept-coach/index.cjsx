@@ -128,9 +128,10 @@ class ConceptCoachAPI extends EventEmitter2
   handleOpened: (eventData, scrollTo, body = document.body) ->
     scrollTo ?= _.partial(window.scrollTo, 0)
     {top} = $(eventData.coach.el).offset()
+    scrollY = $(window).scrollTop()
 
     componentModel.update(
-      scrollY: top
+      scrollY: scrollY
       closeScroll: ->
         scrollTo(@scrollY)
     )
