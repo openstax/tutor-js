@@ -17,13 +17,16 @@ ErrorNotification = React.createClass
 
   onError: ({response, failedData}) ->
     return if failedData?.stopErrorDisplay # someone else is handling displaying the error
-    errors = ["#{response.status}: #{response.statusText}"]
-    if _.isArray(failedData.data?.errors) # we have something from server to display
-      errors = errors.concat(
-        _.flatten _.map failedData.data.errors, (error) ->
-          # All 422 errors from BE *should* have a "code" property.  If not, show whatever it is
-          if error.code then error.code else JSON.stringify(error)
-        )
+    if response.status is 0 # either no response, or the response lacked CORS headers and the browser rejected it
+      errors = ["Unknown response received from server"]
+    else
+      errors = ["#{response.status}: #{response.statusText}"]
+      if _.isArray(failedData.data?.errors) # we have something from server to display
+        errors = errors.concat(
+          _.flatten _.map failedData.data.errors, (error) ->
+            # All 422 errors from BE *should* have a "code" property.  If not, show whatever it is
+            if error.code then error.code else JSON.stringify(error)
+          )
     @setState(errors: errors)
 
   toggleDetails: ->
