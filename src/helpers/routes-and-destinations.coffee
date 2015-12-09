@@ -14,7 +14,7 @@ STEP = 'Step'
 TASK = 'Task'
 
 REMEMBERED_ROUTES =
-  dashboard: COURSES
+  dashboard: DASHBOARD
   viewStudentDashboard: DASHBOARD
   viewPerformanceForecast: PERFORMANCE_FORECAST
   viewTeacherDashboard: DASHBOARD
@@ -23,6 +23,7 @@ REMEMBERED_ROUTES =
   viewStudentTeacherPerformanceForecast: PERFORMANCE_FORECAST
   taskplans: DASHBOARD
   calendarByDate: DASHBOARD
+  calendarViewPlanStats: DASHBOARD
   courseSettings: COURSE_SETTINGS
   viewStats: PLAN_STATS
   reviewTask: PLAN_REVIEW
