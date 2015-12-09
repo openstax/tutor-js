@@ -25,7 +25,7 @@ class Course
     _.bindAll(@, '_onRegistered', '_onConfirmed')
 
   # complete and ready for use
-  isRegistered: -> not (@isIncomplete() or @isPending())
+  isRegistered: -> @id and not (@isIncomplete() or @isPending())
   # Freshly initialized, registration code has not been entered
   isIncomplete: -> not (@name or @to)
   # Has registration code, but not confimed
