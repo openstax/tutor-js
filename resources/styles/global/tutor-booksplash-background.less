@@ -4,8 +4,10 @@
 // the user is styling, i.e. Physics, Biology, etc
 .tutor-booksplash-background {
 
-  &:before {
-    content: " ";
+  &[data-appearance]:before {
+    color: @openstax-book-default-fg;
+    background-color: @openstax-book-default-bg;
+    content: attr(data-title);
     position: fixed;
     top: 60px;
     left: 0px;
@@ -19,13 +21,11 @@
     letter-spacing: -6px;
     #fonts > .book-cover();
     z-index: -1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  &[data-appearance]:before {
-    color: @openstax-book-default-fg;
-    background-color: @openstax-book-default-bg;
-    content: attr(data-title);
-  }
   .apply-booksplash-background(@code; @fg; @bg) {
     &[data-appearance=@{code}]:before {
         color: @@fg;
