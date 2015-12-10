@@ -97,6 +97,11 @@ class ConceptCoachAPI extends EventEmitter2
     User.channel.once 'logout.received', ->
       props.close()
 
+    onPopStateClose = ->
+      props.close()
+      window.removeEventListener 'popstate', onPopStateClose
+    window.addEventListener 'popstate', onPopStateClose
+
     @component = modalCoachWrapped.render(modalNode, props)
     @close = props.close
 
