@@ -58,10 +58,12 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
     $.ajax(apiSetting)
       .then((responseData) ->
         delete LOADING[apiSetting.url]
-        completedEvent = interpolate(setting.completedEvent, requestEvent.data)
-        completedData = getResponseDataByEnv(isLocal, requestEvent, responseData)
-        apiEventChannel.emit(completedEvent, completedData)
-
+        try
+          completedEvent = interpolate(setting.completedEvent, requestEvent.data)
+          completedData = getResponseDataByEnv(isLocal, requestEvent, responseData)
+          apiEventChannel.emit(completedEvent, completedData)
+        catch error
+          apiEventChannel.emit('error', {apiSetting, response: responseData, failedData: completedData, exception: error})
       ).fail((response) ->
         delete LOADING[apiSetting.url]
 
