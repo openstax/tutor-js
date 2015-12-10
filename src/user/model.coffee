@@ -42,13 +42,14 @@ User =
     )
 
   ensureStatusLoaded: (force = false) ->
-    api.channel.emit('user.status.send.fetch') unless force or @isLoggedIn()
+    api.channel.emit('user.status.send.fetch') if force or not @isLoggedIn()
 
   isLoggedIn: ->
     !!@profile_url
 
   onCourseUpdate: (course) ->
     @channel.emit('change')
+    @ensureStatusLoaded(true) # re-fetch course list from server
 
   removeCourse: (course) ->
     index = @courses.indexOf(course)

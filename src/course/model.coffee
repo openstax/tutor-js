@@ -25,7 +25,7 @@ class Course
     _.bindAll(@, '_onRegistered', '_onConfirmed')
 
   # complete and ready for use
-  isRegistered: -> not (@isIncomplete() or @isPending())
+  isRegistered: -> @id and not (@isIncomplete() or @isPending())
   # Freshly initialized, registration code has not been entered
   isIncomplete: -> not (@name or @to)
   # Has registration code, but not confimed
@@ -73,7 +73,7 @@ class Course
   # The clone's attributes are persisted to the user once complete
   persist: (user) ->
     other = user.findOrCreateCourse(@ecosystem_book_uuid)
-    other.name = @to.course.name
+    _.extend(other, @to.course)
     other.periods = [ @to.period ]
     user.onCourseUpdate(other)
 
