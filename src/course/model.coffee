@@ -87,6 +87,7 @@ class Course
     @channel.emit('change')
 
   _onConfirmed:  (response) ->
+    throw new Error("response is empty in onConfirmed") if _.isEmpty(response)
     {data} = response
     if data?.to
       _.extend(@, data.to.course)
@@ -107,9 +108,10 @@ class Course
     @channel.emit('change')
 
   _onRegistered: (response) ->
+    throw new Error("response is empty in onRegistered") if _.isEmpty(response)
     {data} = response
-    _.extend(@, data)
-    @errors = data.errors
+    _.extend(@, data) if data
+    @errors = data?.errors
     # a freshly registered course doesn't contain the is_concept_coach flag
     @is_concept_coach = true
     response.stopErrorDisplay = true if @errors
