@@ -91,7 +91,7 @@ class ConceptCoachAPI extends EventEmitter2
     props.close = ->
       componentModel.channel.emit('close.clicked')
       modalCoachWrapped.unmountFrom(modalNode)
-      mountNode.removeChild(modalNode)
+      mountNode.removeChild(modalNode) if modalNode.parentNode is mountNode
 
     # wait until our logout request has been received and the close
     User.channel.once 'logout.received', ->
