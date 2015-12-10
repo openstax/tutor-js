@@ -15,9 +15,11 @@ ErrorNotification = React.createClass
   componentWillUnmount: ->
     api.channel.off 'error', @onError
 
-  onError: ({response, failedData}) ->
+  onError: ({response, failedData, exception}) ->
     return if failedData?.stopErrorDisplay # someone else is handling displaying the error
-    if response.status is 0 # either no response, or the response lacked CORS headers and the browser rejected it
+    if exception?
+      errors = [exception.toString()]
+    else if response.status is 0 # either no response, or the response lacked CORS headers and the browser rejected it
       errors = ["Unknown response received from server"]
     else
       errors = ["#{response.status}: #{response.statusText}"]
