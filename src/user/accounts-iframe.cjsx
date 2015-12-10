@@ -72,7 +72,9 @@ AccountsIframe = React.createClass
     browser = window.navigator.userAgent
     return unless @props.type is 'login' and _.contains(browser, 'Safari') and not _.contains(browser, 'Chrome')
     # strip off the pathname
-    url = User.endpoints.accounts_iframe.replace(/openstax.org\/.*/, 'openstax.org/')
+    a = document.createElement('a')
+    a.href = User.endpoints.accounts_iframe
+    url = "https://#{a.hostname}/"
     <div class="warning">
       <h3>
         Warning!  You appear to be using the Safari web-browser.
