@@ -1,3 +1,4 @@
+require './record-for-qa'
 require 'jquery'
 
 api = require './src/api'
