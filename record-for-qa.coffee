@@ -9,6 +9,7 @@
 # - [x] how the URL recently changed
 
 $ = require 'jquery' # Using jQuery only because I don't know how they do the click delegation
+Clipboard = require 'clipboard'
 
 MAX_LOG_SIZE = 100
 
@@ -163,6 +164,18 @@ start = ->
   window.onerror = loggedOnError
   window.onpopstate = loggedOnPopState
   $('body').on('click.global-qa', '*', logClickHandler)
+  # Add a button to copy to clipboard
+  new Clipboard '.-copy-to-clipboard',
+    text: -> JSON.stringify(REPLAY_LOG)
+  clipBtn = document.createElement('button')
+  clipBtn.classList.add('-copy-to-clipboard')
+  clipBtn.textContent = 'Copy ReplayLog'
+  clipBtn.style.position = 'absolute'
+  clipBtn.style.bottom = 0
+  clipBtn.style.right = 0
+  clipBtn.style.zIndex = 10000
+
+  document.body.appendChild(clipBtn)
   isStarted = true
 
 stop = ->
