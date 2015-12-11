@@ -28,7 +28,7 @@ QuestionConfig = {
   setCorrectAnswer: (id, newAnswer, curAnswer) ->
     if not AnswerStore.isCorrect(newAnswer)
       AnswerActions.setCorrect(newAnswer)
-      AnswerActions.setIncorrect(curAnswer)
+      AnswerActions.setIncorrect(curAnswer) if curAnswer
 
   exports:
 

@@ -1,0 +1,49 @@
+{
+    "uid": "1@1",
+    "number": 1541,
+    "version": 2,
+    "editors": [],
+    "authors": [{
+        "user_id": 1,
+        "name": "OpenStax"
+    }],
+    "copyright_holders": [{
+        "user_id": 2,
+        "name": "Rice University"
+    }],
+    "derived_from": [],
+    "attachments": [{
+        "asset": {
+            "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/GjvOxyz198x-qa/exercises/attachments/3e543cffdf297fab85c482b9b1a8cbb09010c165a0ba7996368a21ff3ea86bf3.png",
+            "large": {
+                "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/GjvOxyz198x-qa/exercises/attachments/large_3e543cffdf297fab85c482b9b1a8cbb09010c165a0ba7996368a21ff3ea86bf3.png"
+            },
+            "medium": {
+                "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/GjvOxyz198x-qa/exercises/attachments/medium_3e543cffdf297fab85c482b9b1a8cbb09010c165a0ba7996368a21ff3ea86bf3.png"
+            },
+            "small": {
+                "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/GjvOxyz198x-qa/exercises/attachments/small_3e543cffdf297fab85c482b9b1a8cbb09010c165a0ba7996368a21ff3ea86bf3.png"
+            }
+        }
+    }],
+    "tags": ["apbio", "dok3", "display-free-response", "display-rec-sensitive", "ost-chapter-review", "review", "time-short", "blooms-2", "tutor-only", "apbio-ch19", "apbio-ch19-s02", "apbio-ch19-s02-lo01", "apbio-ch19-ot027"],
+    "stimulus_html": "",
+    "questions": [{
+        "id": 10033,
+        "stimulus_html": "",
+        "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/GjvOxyz198x-qa/exercises/attachments/large_3e543cffdf297fab85c482b9b1a8cbb09010c165a0ba7996368a21ff3ea86bf3.png\" alt=\"alt text\"></p>\n\n<p>The population of a species shows changes as illustrated. Two possible future outcomes for the population are also shown. Which of the following can be concluded about this population from the illustration?</p>\n\n<ol>\n  <li>Gene flow in this population has changed the allele frequencies in this population.</li>\n  <li>Natural selection has selected against individuals that are not fit, and selected for individuals that are more fit.</li>\n  <li>Genetic drift is likely to occur as a result of a bottleneck effect in this population. Genetic structure of the survivors will become the genetic structure of the entire population in outcome 1.</li>\n  <li>Genetic drift is likely to occur as a result of inbreeding depression in this population. Genetic structure of the survivors will become the genetic structure of the entire population in outcome 2.</li>\n</ol>\n",
+        "answers": [{
+            "id": 40509,
+            "content_html": "1",
+            "correctness": "0.0"
+        }, {
+            "id": 40508,
+            "content_html": "2",
+            "correctness": "0.0"
+        }],
+        "solutions": [],
+        "hints": [],
+        "formats": ["free-response", "multiple-choice"],
+        "combo_choices": []
+    }]
+}
