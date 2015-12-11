@@ -12,7 +12,7 @@ module.exports = React.createClass
 
   changeAnswer: (answerId) ->
     curAnswer = QuestionStore.getCorrectAnswer(@props.id)
-    QuestionActions.setCorrectAnswer(@props.id, answerId, curAnswer.id)
+    QuestionActions.setCorrectAnswer(@props.id, answerId, curAnswer?.id)
 
   updateStimulus: (event) -> QuestionActions.updateStimulus(@props.id, event.target?.value)
   updateStem: (event) -> QuestionActions.updateStem(@props.id, event.target?.value)
