@@ -64,11 +64,36 @@
   .teacher-review-answers {
     &.panel {
       .box-shadow(none);
-
+      
       > .panel-heading {
         // color: @free-response-color;
         background: transparent;
         padding: 0;
+      }
+    }
+    .free-response {
+      font-style: italic;
+      font-weight: 300;
+      color: @free-response-color;
+      background: @free-response-background;
+      border-left: 0px;
+
+      &[data-student-names] {
+        &::before {
+          content: attr(data-student-names);
+          display: inline-block;
+          margin-left: -150px;
+          margin-right: 10px;
+          width: 140px;
+          text-align: right;
+          padding-right: 10px;
+          font-family: 'Architects Daughter', cursive;
+          font-size: 1.4rem;
+          font-weight: 400;
+          line-height: 3rem;
+          font-style: normal;
+          color: #5f6163;
+        }
       }
     }
 
