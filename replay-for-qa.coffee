@@ -167,7 +167,7 @@ clearLog = ->
   REPLAY_LOG.splice(0, REPLAY_LOG.length)
 
 
-start = (config={}) ->
+start = (config = {}) ->
   return if isStarted
 
   if window.localStorage['__REPLAY_LOG']
@@ -218,7 +218,10 @@ start = (config={}) ->
     copyBtn.classList.add('-replay')
     copyBtn.classList.add('-replay-copy-to-clipboard')
     copyBtn.textContent = 'Copy'
-    copyBtn.title = 'Copies the log to the clipboard. In Safari you need to click this and then press Press ⌘-C to copy to the clipboard'
+    copyBtn.title = '''
+      Copies the log to the clipboard.
+      In Safari you need to click this and then press Press ⌘-C to copy to the clipboard
+    '''
     controlsDiv.appendChild(copyBtn)
 
   replayCount = document.querySelector('.-replay-count')
