@@ -1,4 +1,4 @@
-require './record-for-qa'
+require './replay-for-qa'
 require 'jquery'
 
 api = require './src/api'
