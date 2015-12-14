@@ -10,6 +10,8 @@ componentModel = require './model'
 navigation = require '../navigation/model'
 User = require '../user/model'
 exercise = require '../exercise/collection'
+progress = require '../progress/collection'
+task = require '../task/collection'
 
 PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
 
@@ -54,6 +56,9 @@ setupAPIListeners = (componentAPI) ->
   componentAPI.on 'show.*', (eventData) ->
     componentAPI.updateToView(eventData.view)
 
+initializeModels = (models) ->
+  _.each models, (model) ->
+    model.init?()
 
 modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 
@@ -66,9 +71,20 @@ class ConceptCoachAPI extends EventEmitter2
     restAPI.initialize(baseUrl)
     navigation.initialize(navOptions)
 
+    initializeModels [User, exercise, progress, task]
+
     listenAndBroadcast(@)
     setupAPIListeners(@)
-    User.ensureStatusLoaded()
+    User.ensureStatusLoaded(true)
+
+  destroy: ->
+    @close?()
+    restAPI.destroy()
+
+    componentModel.channel.removeAllListeners()
+    navigation.channel.removeAllListeners()
+
+    @removeAllListeners()
 
   setOptions: (options) ->
     isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))

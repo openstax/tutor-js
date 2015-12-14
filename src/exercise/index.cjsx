@@ -57,11 +57,9 @@ ExerciseBase = React.createClass
         api.channel.emit("exercise.#{step.id}.send.complete", eventData)
 
       onStepCompleted: ->
-        console.info('onStepCompleted')
         channel.emit("completed.#{step.id}")
 
       onNextStep: ->
-        console.info('onNextStep')
         channel.emit("leave.#{step.id}")
 
     if taskId?

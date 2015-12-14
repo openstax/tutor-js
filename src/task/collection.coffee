@@ -81,10 +81,12 @@ getModuleInfo = (taskId, cnxUrl = '') ->
 
   moduleInfo
 
-api.channel.on("task.*.receive.*", update)
-api.channel.on('task.*.receive.failure', checkFailure)
+init = ->
+  api.channel.on("task.*.receive.*", update)
+  api.channel.on('task.*.receive.failure', checkFailure)
 
 module.exports = {
+  init,
   load,
   fetch,
   fetchByModule,

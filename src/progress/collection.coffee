@@ -23,6 +23,7 @@ fetch = (id) ->
 get = (id) ->
   local[id]
 
-api.channel.on("#{apiChannelName}.*.receive.*", update)
+init = ->
+  api.channel.on("#{apiChannelName}.*.receive.*", update)
 
-module.exports = {fetch, get, channel}
+module.exports = {fetch, get, init, channel}
