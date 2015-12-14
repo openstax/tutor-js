@@ -65,17 +65,19 @@ Scores = React.createClass
     @sizeTable()
 
   sizeTable: ->
-    @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
+    _.delay( =>
+      @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()}) if @isMounted()
+    , 100)
 
   tableWidth: ->
     table = React.findDOMNode(@refs.tableContainer)
-    table.clientWidth
+    Math.max(400, table.clientWidth)
 
   tableHeight: ->
     windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
     bottomMargin = 40
-    windowEl.height - table.offsetTop - bottomMargin
+    Math.max(500, windowEl.height - table.offsetTop - bottomMargin)
 
   renderHeadingCell: (heading, i) ->
     i += FIRST_DATA_COLUMN # for the first/last name colums
