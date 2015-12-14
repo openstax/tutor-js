@@ -65,6 +65,11 @@ stopModelChannels = (models) ->
   _.each models, (model) ->
     model.destroy?() or model.channel?.removeAllListeners?()
 
+deleteProperties = (obj) ->
+  for property, value of obj
+    delete obj[property] unless _.isFunction(obj[property]) or property is 'channel'
+    null
+
 modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 
 class ConceptCoachAPI extends EventEmitter2
@@ -76,7 +81,7 @@ class ConceptCoachAPI extends EventEmitter2
     restAPI.init = _.partial restAPI.initialize, baseUrl
     navigation.init = _.partial navigation.initialize, navOptions
 
-    @models = [restAPI, navigation, User, exercise, progress, task]
+    @models = [restAPI, navigation, User, exercise, progress, task, componentModel]
     initializeModels(@models)
 
     listenAndBroadcast(@)
@@ -86,6 +91,8 @@ class ConceptCoachAPI extends EventEmitter2
   destroy: ->
     @close?()
     stopModelChannels(@models)
+    deleteProperties(@models)
+    deleteProperties(componentModel)
 
     @removeAllListeners()
 
