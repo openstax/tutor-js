@@ -73,6 +73,14 @@ User =
         _.extend(this, BLANK_USER)
         User.channel.emit('change')
 
+  destroy: ->
+    User.channel.removeAllListeners()
+
+    _.each @courses, (course) ->
+      course.channel.removeAllListeners()
+
+    delete @courses
+
 
 # start out as a blank user
 _.extend(User, BLANK_USER)

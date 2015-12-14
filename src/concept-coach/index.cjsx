@@ -6,6 +6,7 @@ helpers = require '../helpers'
 restAPI = require '../api'
 
 {ModalCoach} = require './modal-coach'
+
 componentModel = require './model'
 navigation = require '../navigation/model'
 User = require '../user/model'
@@ -60,6 +61,10 @@ initializeModels = (models) ->
   _.each models, (model) ->
     model.init?()
 
+stopModelChannels = (models) ->
+  _.each models, (model) ->
+    model.destroy?() or model.channel?.removeAllListeners?()
+
 modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 
 class ConceptCoachAPI extends EventEmitter2
@@ -68,10 +73,11 @@ class ConceptCoachAPI extends EventEmitter2
 
     _.defaults(navOptions, {prefix: '/', base: 'concept-coach/'})
 
-    restAPI.initialize(baseUrl)
-    navigation.initialize(navOptions)
+    restAPI.init = _.partial restAPI.initialize, baseUrl
+    navigation.init = _.partial navigation.initialize, navOptions
 
-    initializeModels [User, exercise, progress, task]
+    @models = [restAPI, navigation, User, exercise, progress, task]
+    initializeModels(@models)
 
     listenAndBroadcast(@)
     setupAPIListeners(@)
@@ -79,10 +85,7 @@ class ConceptCoachAPI extends EventEmitter2
 
   destroy: ->
     @close?()
-    restAPI.destroy()
-
-    componentModel.channel.removeAllListeners()
-    navigation.channel.removeAllListeners()
+    stopModelChannels(@models)
 
     @removeAllListeners()
 
@@ -112,11 +115,6 @@ class ConceptCoachAPI extends EventEmitter2
     # wait until our logout request has been received and the close
     User.channel.once 'logout.received', ->
       props.close()
-
-    onPopStateClose = ->
-      props.close()
-      window.removeEventListener 'popstate', onPopStateClose
-    window.addEventListener 'popstate', onPopStateClose
 
     @component = modalCoachWrapped.render(modalNode, props)
     @close = props.close
