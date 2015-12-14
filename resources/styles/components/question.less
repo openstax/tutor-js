@@ -138,16 +138,15 @@
   }
 
   &::before {
-    content: 'correct';
-    // .answer-fa-icon();
-    // content: @fa-var-check;
-    // width: 1.25 * @answer-bubble-size;
+    content: 'correct answer';
+    color: @answer-label-color;
     margin-left: -1.25 * @answer-bubble-size;
+    width: 1.25 * @answer-bubble-size;
     text-align: center;
     font-size: 1.2rem;
-    line-height: @answer-bubble-size;
+    line-height: 1.2rem;
+    margin-top: 0.8rem;
     .answer-left-block();
-    // font-size: 1.25 * @answer-bubble-size;
   }
 }
 
