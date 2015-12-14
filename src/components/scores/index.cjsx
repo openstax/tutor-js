@@ -127,6 +127,7 @@ Scores = React.createClass
         cellRenderer={-> @cellData}
         width={@state.colSetWidth}
         flexGrow={1}
+        allowCellsRecycling={true}
         isResizable=false
         dataKey={i} />
     </ColumnGroup>
@@ -169,6 +170,8 @@ Scores = React.createClass
       <Column
         width={@state.colSetWidth * nameColumns}
         flexGrow={1}
+        allowCellsRecycling={true}
+        isResizable=false
         dataKey='0'
         fixed={true}
         cellRenderer={-> @cellData}
