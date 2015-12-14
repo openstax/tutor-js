@@ -16,7 +16,8 @@ AccountsIframe = require '../user/accounts-iframe'
 {Dashboard} = require '../dashboard'
 {Progress} = require '../progress'
 
-
+LoginGateway = require '../user/login-gateway'
+LogoutGateway = require '../user/logout-gateway'
 User = require '../user/model'
 
 {channel} = require './model'
@@ -142,7 +143,7 @@ ConceptCoach = React.createClass
       when 'loading'
         <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
       when 'login'
-        <AccountsIframe type='login' onComplete={@updateUser} />
+        <LoginGateway />
       when 'registration'
         <CourseRegistration {...@props} />
       when 'task'

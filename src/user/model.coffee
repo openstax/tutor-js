@@ -51,6 +51,14 @@ User =
     @channel.emit('change')
     @ensureStatusLoaded(true) # re-fetch course list from server
 
+
+  urlForLogin:  -> @_urlWithReturn('login')
+  urlForLogout: -> @_urlWithReturn('logout')
+
+  _urlWithReturn: (type) ->
+    self = encodeURIComponent(window.location.href)
+    @endpoints[type] + '?parent=' + self
+
   removeCourse: (course) ->
     index = @courses.indexOf(course)
     @courses.splice(index, 1) unless index is -1
@@ -60,6 +68,7 @@ User =
     @isLoggingOut = false
     @channel.emit('logout.received')
 
+<<<<<<< fdd8b1358cb4fba314c089ee25e1a96cd60f4be8
   init: ->
     api.channel.on 'user.status.receive.*', ({data}) ->
       User.isLoaded = true
