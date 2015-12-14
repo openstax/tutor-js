@@ -154,9 +154,10 @@ Scores = React.createClass
 
   renderNameHeader: ->
     emptyCell = <div className='blank' />
+    studentIdHeader = <span className='student-id'>Student ID</span>
     header =
       <SortingHeader sortKey='name' sortState={@state.sort} onSort={@changeSortingOrder}>
-        Student Name
+        <span>Student Name</span>{studentIdHeader if @props.isConceptCoach}
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
     customHeader = <div className='assignment-header-cell'>
