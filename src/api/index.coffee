@@ -15,4 +15,8 @@ initialize = (baseUrl) ->
   loader(channel, settings) unless IS_INITIALIZED
   IS_INITIALIZED = true
 
-module.exports = {loader, settings, initialize, channel}
+destroy = ->
+  channel.removeAllListeners()
+  IS_INITIALIZED = false
+
+module.exports = {loader, settings, initialize, destroy, channel}

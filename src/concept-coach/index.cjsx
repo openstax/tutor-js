@@ -6,10 +6,13 @@ helpers = require '../helpers'
 restAPI = require '../api'
 
 {ModalCoach} = require './modal-coach'
+
 componentModel = require './model'
 navigation = require '../navigation/model'
 User = require '../user/model'
 exercise = require '../exercise/collection'
+progress = require '../progress/collection'
+task = require '../task/collection'
 
 PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
 
@@ -54,6 +57,18 @@ setupAPIListeners = (componentAPI) ->
   componentAPI.on 'show.*', (eventData) ->
     componentAPI.updateToView(eventData.view)
 
+initializeModels = (models) ->
+  _.each models, (model) ->
+    model.init?()
+
+stopModelChannels = (models) ->
+  _.each models, (model) ->
+    model.destroy?() or model.channel?.removeAllListeners?()
+
+deleteProperties = (obj) ->
+  for property, value of obj
+    delete obj[property] unless _.isFunction(obj[property]) or property is 'channel'
+    null
 
 modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 
@@ -63,12 +78,23 @@ class ConceptCoachAPI extends EventEmitter2
 
     _.defaults(navOptions, {prefix: '/', base: 'concept-coach/'})
 
-    restAPI.initialize(baseUrl)
-    navigation.initialize(navOptions)
+    restAPI.init = _.partial restAPI.initialize, baseUrl
+    navigation.init = _.partial navigation.initialize, navOptions
+
+    @models = [restAPI, navigation, User, exercise, progress, task, componentModel]
+    initializeModels(@models)
 
     listenAndBroadcast(@)
     setupAPIListeners(@)
-    User.ensureStatusLoaded()
+    User.ensureStatusLoaded(true)
+
+  destroy: ->
+    @close?()
+    stopModelChannels(@models)
+    deleteProperties(@models)
+    deleteProperties(componentModel)
+
+    @removeAllListeners()
 
   setOptions: (options) ->
     isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
@@ -96,11 +122,6 @@ class ConceptCoachAPI extends EventEmitter2
     # wait until our logout request has been received and the close
     User.channel.once 'logout.received', ->
       props.close()
-
-    onPopStateClose = ->
-      props.close()
-      window.removeEventListener 'popstate', onPopStateClose
-    window.addEventListener 'popstate', onPopStateClose
 
     @component = modalCoachWrapped.render(modalNode, props)
     @close = props.close

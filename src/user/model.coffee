@@ -60,17 +60,26 @@ User =
     @isLoggingOut = false
     @channel.emit('logout.received')
 
-api.channel.on 'user.status.receive.*', ({data}) ->
-  User.isLoaded = true
+  init: ->
+    api.channel.on 'user.status.receive.*', ({data}) ->
+      User.isLoaded = true
 
-  if data.access_token
-    api.channel.emit('set.access_token', data.access_token)
-  User.endpoints = data.endpoints
-  if data.user
-    User.update(data)
-  else
-    _.extend(this, BLANK_USER)
-    User.channel.emit('change')
+      if data.access_token
+        api.channel.emit('set.access_token', data.access_token)
+      User.endpoints = data.endpoints
+      if data.user
+        User.update(data)
+      else
+        _.extend(this, BLANK_USER)
+        User.channel.emit('change')
+
+  destroy: ->
+    User.channel.removeAllListeners()
+
+    _.each @courses, (course) ->
+      course.channel.removeAllListeners()
+
+    delete @courses
 
 
 # start out as a blank user

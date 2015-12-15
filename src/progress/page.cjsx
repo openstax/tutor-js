@@ -1,6 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
-moment = require 'moment'
+dateFormat = require 'dateformat'
 classnames = require 'classnames'
 EventEmitter2 = require 'eventemitter2'
 
@@ -11,7 +11,7 @@ PageProgress = React.createClass
   displayName: 'PageProgress'
   getDefaultProps: ->
     page: {}
-    dateFormat: 'MMM. D'
+    dateFormatString: 'mmm. d'
     progressWidth: 30
     progressMargin: 5
     dateBuffer: 100
@@ -23,7 +23,7 @@ PageProgress = React.createClass
   switchModule: (data) ->
     @context.navigator.emit('switch.module', {data, view: 'task'})
   render: ->
-    {page, dateFormat, dateBuffer, maxLength, progressWidth, progressMargin, className} = @props
+    {page, dateFormatString, dateBuffer, maxLength, progressWidth, progressMargin, className} = @props
     {componentEl} = @state
 
     exercisesProgressWidth = maxLength * progressWidth + (maxLength - 1) * progressMargin
@@ -31,7 +31,7 @@ PageProgress = React.createClass
 
     classes = classnames 'concept-coach-progress-page', className
     section = @sectionFormat(page.chapter_section)
-    pageLastWorked = moment(page.last_worked_at).format(dateFormat)
+    pageLastWorked = dateFormat(new Date(page.last_worked_at), dateFormatString)
 
     sectionProps =
       className: 'chapter-section-prefix'

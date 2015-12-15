@@ -34,6 +34,7 @@ getCurrentPanel = (stepId) ->
 get = (stepId) ->
   steps[stepId]
 
-api.channel.on("exercise.*.receive.*", update)
+init = ->
+  api.channel.on("exercise.*.receive.*", update)
 
-module.exports = {fetch, getCurrentPanel, get, channel, quickLoad}
+module.exports = {fetch, getCurrentPanel, get, init, channel, quickLoad}
