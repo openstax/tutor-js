@@ -22,9 +22,9 @@ LoginGateway = React.createClass
       "top=" + (window.screen.height - oY) / 2,
       "left=" + (window.screen.width - nY) / 2].join()
 
-    loginWindow = window.open(User.urlForLogin(), 'oxlogin', options)
-    @ieWindowClosedCheck() if IS_IE
+    loginWindow = window.open(@urlForLogin(), 'oxlogin', options)
     @setState({loginWindow})
+    @ieWindowClosedCheck(loginWindow) if IS_IE
 
   parseAndDispatchMessage: (msg) ->
     return unless @isMounted()
@@ -38,20 +38,25 @@ LoginGateway = React.createClass
   componentWillMount: ->
     window.addEventListener('message', @parseAndDispatchMessage)
 
-  ieWindowClosedCheck: ->
+  ieWindowClosedCheck: (loginWindow) ->
     return unless @isMounted()
-    if @state.loginWindow and @state.loginWindow.closed
+    if loginWindow.closed
       User.ensureStatusLoaded(true)
     else
-      _.delay(@ieWindowClosedCheck, SECOND)
+      _.delay( =>
+        @ieWindowClosedCheck(loginWindow)
+      , SECOND)
 
   renderWaiting: ->
     <p>
       Please log in using your OpenStax account in the window. {@loginLink('Click to reopen window.')}
     </p>
 
+  urlForLogin: ->
+    User.endpoints.login + '?parent=' + encodeURIComponent(window.location.href)
+
   loginLink: (msg) ->
-    <a target='_blank' onClick={@openLogin} href={User.urlForLogin()}>{msg}</a>
+    <a target='_blank' onClick={@openLogin} href={@urlForLogin()}>{msg}</a>
 
   renderLogin: ->
     <p>
