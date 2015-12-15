@@ -19,13 +19,6 @@ User =
   update: (data) ->
     _.extend(this, data.user)
     @courses = _.compact _.map data.courses, (course) -> new Course(course) if course.is_concept_coach
-
-    @channel.emit('change')
-    delete @isLoggingOut
-
-  logout: ->
-    _.extend(this, BLANK_USER)
-    @isLoggingOut = true
     @channel.emit('change')
 
   get: ->
@@ -51,21 +44,14 @@ User =
     @channel.emit('change')
     @ensureStatusLoaded(true) # re-fetch course list from server
 
-
-  urlForLogin:  -> @_urlWithReturn('login')
-  urlForLogout: -> @_urlWithReturn('logout')
-
-  _urlWithReturn: (type) ->
-    self = encodeURIComponent(window.location.href)
-    @endpoints[type] + '?parent=' + self
-
   removeCourse: (course) ->
     index = @courses.indexOf(course)
     @courses.splice(index, 1) unless index is -1
     @channel.emit('change')
 
   _signalLogoutCompleted: ->
-    @isLoggingOut = false
+    _.extend(this, BLANK_USER)
+    @isLoggingOut = true
     @channel.emit('logout.received')
 
 <<<<<<< fdd8b1358cb4fba314c089ee25e1a96cd60f4be8
