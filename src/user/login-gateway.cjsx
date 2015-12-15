@@ -12,15 +12,13 @@ LoginGateway = React.createClass
 
   openLogin: (ev) ->
     ev.preventDefault()
-    nY = Math.min(1000, window.screen.width - 20)
-    oY = Math.min(800, window.screen.height - 30)
-
+    width  = Math.min(1000, window.screen.width - 20)
+    height = Math.min(800, window.screen.height - 30)
     options = ["toolbar=no", "location=" + (window.opera ? "no" : "yes"),
       "directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no",
-      "width=" + nY,
-      "height=" + oY,
-      "top=" + (window.screen.height - oY) / 2,
-      "left=" + (window.screen.width - nY) / 2].join()
+      "width=" + width, "height=" + height,
+      "top="   + (window.screen.height - height) / 2,
+      "left="  + (window.screen.width - width)   / 2].join()
 
     loginWindow = window.open(@urlForLogin(), 'oxlogin', options)
     @setState({loginWindow})
@@ -40,7 +38,6 @@ LoginGateway = React.createClass
 
   windowClosedCheck: ->
     return unless @isMounted()
-    console.log 'win close'
     if @state.loginWindow and @state.loginWindow.closed
       User.ensureStatusLoaded(true)
     else
