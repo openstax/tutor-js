@@ -40,7 +40,6 @@ AccountsIframe = React.createClass
   logoutComplete: (success) ->
     return unless success
     User._signalLogoutCompleted()
-    @props.onComplete()
 
   sendCommand: (command, payload = {}) ->
     msg = JSON.stringify(data: {"#{command}": payload})
