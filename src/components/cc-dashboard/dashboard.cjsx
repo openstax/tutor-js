@@ -58,7 +58,7 @@ CCDashboard = React.createClass
     courseDataProps = @getCourseDataProps(courseId)
     course = CourseStore.get(courseId)
     emptyPeriod = chapters.length is 0
-    emptyGraphic = <BlankCourse courseId={courseId}/>
+    emptyGraphic = <BlankCourse courseId={courseId} inPeriod={emptyPeriod} />
 
     dashboardResults =
       <div>

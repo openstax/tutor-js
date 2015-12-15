@@ -6,15 +6,18 @@ Router = require 'react-router'
 DesktopImage = require './desktop-image'
 CourseGroupingLabel = require '../course-grouping-label'
 Icon = require '../icon'
+classnames = require 'classnames'
 
 BlankCourse = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string
+    inPeriod: React.PropTypes.bool
 
   render: ->
     glprops = {lowercase:true, courseId: @props.courseId}
-    <div className="blank-course">
+    classes = classnames 'blank-course', 'in-period': @props.inPeriod
+    <div className="#{classes}">
       <h3 className="title">
         Welcome to your OpenStax Concept Coach™ Dashboard
       </h3>
