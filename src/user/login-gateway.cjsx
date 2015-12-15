@@ -3,6 +3,8 @@ React = require 'react'
 User  = require './model'
 api   = require '../api'
 
+SECOND = 1000
+IS_IE  = window.navigator.userAgent.indexOf("MSIE ")
 LoginGateway = React.createClass
 
   getInitialState: ->
@@ -21,6 +23,7 @@ LoginGateway = React.createClass
       "left=" + (window.screen.width - nY) / 2].join()
 
     loginWindow = window.open(User.urlForLogin(), 'oxlogin', options)
+    @ieWindowClosedCheck() if IS_IE
     @setState({loginWindow})
 
   parseAndDispatchMessage: (msg) ->
@@ -34,6 +37,13 @@ LoginGateway = React.createClass
     window.removeEventListener('message', @parseAndDispatchMessage)
   componentWillMount: ->
     window.addEventListener('message', @parseAndDispatchMessage)
+
+  ieWindowClosedCheck: ->
+    return unless @isMounted()
+    if @state.loginWindow and @state.loginWindow.closed
+      User.ensureStatusLoaded(true)
+    else
+      _.delay(@ieWindowClosedCheck, SECOND)
 
   renderWaiting: ->
     <p>
