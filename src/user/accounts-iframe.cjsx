@@ -34,17 +34,12 @@ AccountsIframe = React.createClass
     @setState(title: title)
 
   iFrameReady: ->
-    if @props.type is 'login'
-      if User.isLoggingOut
-        @sendCommand('displayLogout', User.endpoints.iframe_login)
-      else
-        @sendCommand('displayLogin', User.endpoints.iframe_login)
-    else
-      @sendCommand('displayProfile')
+    @sendCommand('displayProfile')
 
-  # called when an login process completes
-  onLogin: (payload) ->
-    api.channel.emit 'user.status.receive.fetch', data: payload
+  # called when an logout process completes
+  logoutComplete: (success) ->
+    return unless success
+    User._signalLogoutCompleted()
     @props.onComplete()
 
   sendCommand: (command, payload = {}) ->
@@ -90,12 +85,9 @@ AccountsIframe = React.createClass
   render: ->
     # the other side of the iframe will validate our address and then only send messages to it
     me = window.location.protocol + '//' + window.location.host
-
-    url = if User.isLoggingOut then User.endpoints.iframe_logout else User.endpoints.accounts_iframe
+    url = if @props.type is 'logout' then User.endpoints.logout else User.endpoints.accounts_iframe
     url = "#{url}?parent=#{me}"
-    className = classnames( 'accounts-iframe', {
-      'is-closable': @state.isClosable
-    })
+    className = classnames( 'accounts-iframe', @props.type )
     <div className={className}>
       {@safariWarning()}
       <div className="heading">
