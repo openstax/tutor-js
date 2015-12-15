@@ -23,7 +23,7 @@ navigator = navigation.channel
 
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
-VIEWS = ['loading', 'login', 'logout', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration']]
+VIEWS = ['loading', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration']]
 
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
