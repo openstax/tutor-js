@@ -5,14 +5,11 @@
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 1px solid @openstax-neutral;
-
-    .close-icon {
-      margin-top: 0;
-      display: none;
-    }
   }
 
-  &.is-closable {
-    .close-icon { display: inline-block; }
+  .accounts-iframe {
+    &.logout {
+      overflow: hidden;
+    }
   }
 }
