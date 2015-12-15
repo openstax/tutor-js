@@ -54,7 +54,6 @@ User =
     @isLoggingOut = true
     @channel.emit('logout.received')
 
-<<<<<<< fdd8b1358cb4fba314c089ee25e1a96cd60f4be8
   init: ->
     api.channel.on 'user.status.receive.*', ({data}) ->
       User.isLoaded = true
