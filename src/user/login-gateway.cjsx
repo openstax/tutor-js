@@ -4,7 +4,7 @@ User  = require './model'
 api   = require '../api'
 
 SECOND = 1000
-IS_IE  = window.navigator.userAgent.indexOf("MSIE ")
+
 LoginGateway = React.createClass
 
   getInitialState: ->
@@ -24,12 +24,12 @@ LoginGateway = React.createClass
 
     loginWindow = window.open(@urlForLogin(), 'oxlogin', options)
     @setState({loginWindow})
-    @ieWindowClosedCheck(loginWindow) if IS_IE
+    _.delay(@windowClosedCheck, SECOND)
 
   parseAndDispatchMessage: (msg) ->
     return unless @isMounted()
     try
-      @state.loginWindow.close()
+      @setState(loginWindow: false) # cancel checking for close
       api.channel.emit 'user.status.receive.fetch', data: JSON.parse(msg.data)
     catch error
       console.warn(error)
@@ -38,14 +38,13 @@ LoginGateway = React.createClass
   componentWillMount: ->
     window.addEventListener('message', @parseAndDispatchMessage)
 
-  ieWindowClosedCheck: (loginWindow) ->
+  windowClosedCheck: ->
     return unless @isMounted()
-    if loginWindow.closed
+    console.log 'win close'
+    if @state.loginWindow and @state.loginWindow.closed
       User.ensureStatusLoaded(true)
     else
-      _.delay( =>
-        @ieWindowClosedCheck(loginWindow)
-      , SECOND)
+      _.delay( @windowClosedCheck, SECOND)
 
   renderWaiting: ->
     <p>
