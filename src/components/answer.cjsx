@@ -1,4 +1,5 @@
 React = require 'react'
+_ = require 'underscore'
 {AnswerActions, AnswerStore} = require '../stores/answer'
 
 module.exports = React.createClass
@@ -12,9 +13,14 @@ module.exports = React.createClass
 
   render: ->
     isCorrect = AnswerStore.isCorrect(@props.id)
+    removeAnswer = _.partial(@props.removeAnswer, @props.id)
+
     <li>
-      <input type="checkbox" checked={isCorrect} onChange={@changeCorrect}/>
-      <span>Correct Answer:</span>
+      <p>
+        <span>Correct Answer:</span>
+        <input type="checkbox" checked={isCorrect} onChange={@changeCorrect}/>
+        <a className="pull-right" onClick={removeAnswer}>Remove Answer</a>
+      </p>
       <label>Answer Content</label>
       <textarea onChange={@updateContent} defaultValue={AnswerStore.getContent(@props.id)}>
       </textarea>

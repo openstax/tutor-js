@@ -3,6 +3,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
 Question = require 'openstax-react-components/src/components/question'
+ArbitraryHtml = require 'openstax-react-components/src/components/html'
 
 
 Preview = React.createClass
@@ -23,9 +24,7 @@ Preview = React.createClass
     feedback_html = _.first(question.solutions)?.content_html
       
     if feedback_html
-      feedback = <div className="free-response">
-        {feedback_html}
-      </div>
+      feedback = <ArbitraryHtml className="free-response" html={feedback_html} />
 
     <Question key={question.id} model={question} show_all_feedback={true}>
       {feedback}

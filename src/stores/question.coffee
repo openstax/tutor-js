@@ -15,6 +15,24 @@ QuestionConfig = {
       AnswerStore.get(answer.id)
     @_change(id, {answers})
     
+  addNewAnswer: (id) ->
+    newAnswer =
+      id: AnswerStore.freshLocalId()
+      correctness: "0.0"
+      feedback_html: ''
+      content_html: ''
+
+    AnswerActions.created(newAnswer, newAnswer.id)
+    answers = @_local[id]?.answers.push(newAnswer)
+    @sync(id)
+
+  removeAnswer: (id, answerId) ->
+    AnswerActions.delete(answerId)
+    answers = _.reject @_local[id]?.answers, (answer) ->
+      answer.id is answerId
+    @_local[id]?.answers = answers
+    @sync(id)
+
   updateStem: (id, stem_html) -> @_change(id, {stem_html})
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
@@ -32,7 +50,7 @@ QuestionConfig = {
 
   exports:
 
-    getAnswers: (id) -> @_local[id]?.answers
+    getAnswers: (id) -> @_local[id]?.answers or []
 
     getStem: (id) -> @_local[id]?.stem_html
 

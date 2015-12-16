@@ -18,16 +18,21 @@ module.exports = React.createClass
   updateStem: (event) -> QuestionActions.updateStem(@props.id, event.target?.value)
   updateFeedback: (event) -> QuestionActions.updateFeedback(@props.id, event.target?.value)
 
+  addAnswer: -> QuestionActions.addNewAnswer(@props.id)
+  removeAnswer:(answerId) -> QuestionActions.removeAnswer(@props.id, answerId)
+
   render: ->
     {id} = @props
     answers = []
 
     for answer in QuestionStore.getAnswers(id)
-      answers.push(<Answer key={answer.id} id={answer.id} changeAnswer={@changeAnswer}/>)
+      answers.push(<Answer key={answer.id} 
+        id={answer.id} 
+        removeAnswer={@removeAnswer} changeAnswer={@changeAnswer}/>)
 
     if QuestionStore.hasFeedback(id)
       feedback = <div>
-        <label>Question Feedback</label>
+        <label>Detailed Solution</label>
         <textarea onChange={@updateFeedback} defaultValue={QuestionStore.getFeedback(id)}></textarea>
       </div>
 
@@ -42,7 +47,10 @@ module.exports = React.createClass
       </div>
       {feedback}
       <div>
-        <label>Answers</label>
+        <label>
+          Answers:
+        </label>
+        <a className="pull-right" onClick={@addAnswer}>Add New</a>
         <ol>
           {answers}
         </ol>
