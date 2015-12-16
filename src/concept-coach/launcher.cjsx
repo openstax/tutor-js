@@ -12,13 +12,11 @@ Launcher = React.createClass
     isLaunching: false
     isClosing: false
 
-  toggleLaunching: ->
-    {isLaunching} = @state
-    @setState(isLaunching: not isLaunching)
+  launch: ->
+    @setState(isLaunching: true)
 
-  toggleClosing: ->
-    {isClosing} = @state
-    @setState(isClosing: not isClosing)
+  close: ->
+    @setState(isClosing: true)
 
   delayedReset: ->
     _.delay( =>
@@ -33,6 +31,9 @@ Launcher = React.createClass
       channel.emit('launcher.clicked')
     , 1000)
 
+  shouldComponentUpdate: (nextProps, nextState) ->
+    @state.isClosing isnt nextState.isClosing or @state.isLaunching isnt nextState.isLaunching
+
   componentDidUpdate: ->
     {isLaunching, isClosing} = @state
 
@@ -42,12 +43,10 @@ Launcher = React.createClass
       @delayedLaunch()
 
   componentWillMount: ->
-    @throttledLaunching = _.debounce @toggleLaunching, 1000, true
-    @throttledClosing = _.debounce @toggleClosing, 1000, true
-    channel.on 'coach.unmount.success', @throttledClosing
+    channel.on 'coach.unmount.success', @close
 
   componentWillUnmount: ->
-    channel.off 'coach.unmount.success', @throttledClosing
+    channel.off 'coach.unmount.success', @close
 
   render: ->
     {isLaunching, isClosing} = @state
@@ -56,7 +55,7 @@ Launcher = React.createClass
       launching: isLaunching
       closing: isClosing
 
-    <div className={classes} onClick={@throttledLaunching}>
+    <div className={classes} onClick={@launch}>
       <BS.Button bsStyle='primary'>Launch Concept Coach</BS.Button>
       <svg x="0px" y="0px" width="840px" height="388px" viewBox="0 0 840 388"
         version="1.1" xmlns="http://www.w3.org/2000/svg">
