@@ -24,9 +24,7 @@ Launcher = React.createClass
     @setState(isClosing: true, isLaunching: false)
 
   delayedClose: ->
-    _.delay( =>
-      @setState(isClosing: false)
-    , 800)
+    _.defer => @setState(isClosing: false)
 
   shouldComponentUpdate: (nextProps, nextState) ->
     @state.isClosing isnt nextState.isClosing or @state.isLaunching isnt nextState.isLaunching
@@ -53,7 +51,7 @@ Launcher = React.createClass
     <div className='concept-coach-launcher-wrapper'>
       <div className={classes} onClick={@launch}>
         <BackgroundAndDesk height={height}/>
-        <LaptopAndMug height={height}/>
+        <LaptopAndMug/>
 
         <BS.Button bsStyle='primary' bsSize='large'>Launch Concept Coach</BS.Button>
 
