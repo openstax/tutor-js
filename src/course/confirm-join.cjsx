@@ -27,7 +27,10 @@ ConfirmJoin = React.createClass
 
   render: ->
     label = if @props.optionalStudentId
-      "Update school issued ID (leave blank to leave unchanged):"
+      <span>
+        Update school issued ID<br/>
+        (<i>leave blank to leave unchanged</i>):
+        </span>
     else
       "Enter your school issued ID:"
 
