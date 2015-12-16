@@ -56,7 +56,9 @@ module.exports = React.createClass
     enrollmentButton =
       <PeriodEnrollmentCode
       activeTab={@getActivePeriod(@state.key, course.periods)}
-      periods={course.periods} />
+      periods={course.periods} 
+      bookUrl={course.webview_url}
+      bookName={course.salesforce_book_name} />
     renameButton =
       <RenamePeriodLink
       courseId={@props.courseId}
