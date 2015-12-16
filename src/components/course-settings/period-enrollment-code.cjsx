@@ -40,7 +40,8 @@ module.exports = React.createClass
       <div className='howto'>
         <p>
           As you read your OpenStax textbook online,
-           you will come across embedded Concept Coach quizzes to help you understand and retain what you’ve read.
+           you will come across embedded Concept Coach question sets
+            to help you understand and retain what you’ve read.
         </p>
         <p>Follow the steps below to register for Concept Coach:</p>
         <ol>
