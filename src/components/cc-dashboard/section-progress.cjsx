@@ -7,6 +7,7 @@ SectionProgress = React.createClass
 
   render: ->
     percent = Math.round(@props.section.completed_percentage * 100)
+    if (percent > 100) then percent = 100
     completedLabel = "#{percent}%"
     completedLabel = if percent is 100 then "#{completedLabel} completed" else completedLabel
 
