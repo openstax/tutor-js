@@ -42,7 +42,7 @@ Navigation = React.createClass
 
     brand = [
       <span className='navbar-logo'><strong>Concept</strong> Coach</span>
-      <CourseNameBase course={course}/>
+      <CourseNameBase className='hidden-sm hidden-xs' course={course}/>
     ]
 
     courseItems = [

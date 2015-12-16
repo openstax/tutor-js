@@ -1,14 +1,18 @@
 React = require 'react'
 _ = require 'underscore'
 
+classnames = require 'classnames'
+
 CourseNameBase = React.createClass
   displayName: 'CourseNameBase'
   getDefaultProps: ->
     course: {}
   render: ->
-    {course} = @props
+    {course, className} = @props
 
-    <span className='concept-coach-course-name'>
+    classes = classnames 'concept-coach-course-name', className
+
+    <span className={classes}>
       {course.description?()}
     </span>
 
