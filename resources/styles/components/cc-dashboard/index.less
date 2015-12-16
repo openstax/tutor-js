@@ -126,11 +126,19 @@
       line-height: @banner-height;
       font-size: 3.5rem;
       padding-left: 50px;
+
+    }
+    &.in-period .title {
+      position: relative;
+      margin-top: 20px;
     }
     .body {
       padding-top: @banner-height + @jumbotron-padding;
       width: @tutor-task-width;
       margin: 0 auto;
+    }
+    &.in-period .body {
+      padding-top: (@banner-height / 2);
     }
     .side-by-side {
       display: flex;

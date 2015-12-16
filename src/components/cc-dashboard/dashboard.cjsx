@@ -8,6 +8,7 @@ Router = require 'react-router'
 Icon = require '../icon'
 CourseDataMixin = require '../course-data-mixin'
 DashboardChapter = require './chapter'
+BlankCourse = require './blank-course'
 
 TOOLTIPS =
   complete: '''
@@ -56,22 +57,11 @@ CCDashboard = React.createClass
     chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
     courseDataProps = @getCourseDataProps(courseId)
     course = CourseStore.get(courseId)
-    <div className="dashboard">
-      <div {...courseDataProps} className='tutor-booksplash-background' />
-      <BS.Panel>
-        <h2>
-          Class Dashboard
-        </h2>
-        <Router.Link className='detailed-scores btn btn-default'
-          to='viewScores' params={courseId: courseId}
-        >
-          View Detailed Scores
-        </Router.Link>
-        <CoursePeriodsNav
-          handleSelect={@handlePeriodSelect}
-          initialActive={@props.initialActivePeriod}
-          periods={periods}
-          courseId={courseId} />
+    emptyPeriod = chapters.length is 0
+    emptyGraphic = <BlankCourse courseId={courseId} inPeriod={emptyPeriod} />
+
+    dashboardResults =
+      <div>
         <BS.Row className="column-legend">
           <BS.Col xs={2} xsOffset={6}>
             Complete
@@ -99,6 +89,25 @@ CCDashboard = React.createClass
             Chapters and sections that are less than 10% complete are hidden
           </BS.Col>
         </BS.Row>
+      </div>
+
+    <div className="dashboard">
+      <div {...courseDataProps} className='tutor-booksplash-background' />
+      <BS.Panel>
+        <h2>
+          Class Dashboard
+        </h2>
+        <Router.Link className='detailed-scores btn btn-default'
+          to='viewScores' params={courseId: courseId}
+        >
+          View Detailed Scores
+        </Router.Link>
+        <CoursePeriodsNav
+          handleSelect={@handlePeriodSelect}
+          initialActive={@props.initialActivePeriod}
+          periods={periods}
+          courseId={courseId} />
+          {if emptyPeriod then emptyGraphic else dashboardResults}
       </BS.Panel>
     </div>
 module.exports = CCDashboard
