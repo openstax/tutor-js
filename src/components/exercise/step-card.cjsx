@@ -60,17 +60,10 @@ ExerciseStepCard = React.createClass
     disabled: false
     isContinueEnabled: true
     footer: <ExerciseDefaultFooter/>
-    allowKeyNext: true
+    allowKeyNext: false
 
   getInitialState: ->
     stepState = @getStepState(@props)
-
-  componentWillMount: ->
-    @clearKeys()
-    @startKeys() if @props.allowKeyNext
-
-  componentWillUnmount: ->
-    @clearKeys()
 
   shouldComponentUpdate: (nextProps, nextState) ->
     not (_.isEqual(@props, nextProps) and
