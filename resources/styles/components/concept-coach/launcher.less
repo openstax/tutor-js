@@ -19,27 +19,16 @@
     .launcher-letter {
       fill: @launcher-circle-text;
 
-      &-hole {
-        fill: @openstax-white;
-      }
-
-      &-dark {
-        fill: @launcher-letter-dark;
-      }
+      &-hole { fill: @openstax-white; }
+      &-dark { fill: @launcher-letter-dark; }
     }
   }
   .launcher-text {
     polygon {
-      &:nth-child(odd) {
-        fill: @launcher-text-dark;
-      }
-      &:nth-child(even) {
-        fill: @launcher-text-light;
-      }
+      &:nth-child(odd)  { fill: @launcher-text-dark; }
+      &:nth-child(even) { fill: @launcher-text-light; }
     }
-    rect {
-      fill: @launcher-text-light;
-    }
+    rect { fill: @launcher-text-light; }
   }
 }
 
@@ -52,23 +41,15 @@
     .launcher-letter {
       fill: @launcher-circle-text;
 
-      &-dark {
-        fill: @launcher-circle-text;
-      }
+      &-dark { fill: @launcher-circle-text; }
     }
   }
   .launcher-text {
     polygon {
-      &:nth-child(odd) {
-        fill: @launcher-text-dark;
-      }
-      &:nth-child(even) {
-        fill: @launcher-text-dark;
-      }
+      &:nth-child(odd)  { fill: @launcher-text-dark; }
+      &:nth-child(even) { fill: @launcher-text-dark; }
     }
-    rect {
-      fill: @launcher-text-dark;
-    }
+    rect { fill: @launcher-text-dark; }
   }
 }
 
@@ -81,52 +62,32 @@
 }
 
 .keyframes(launcher-circle-select; {
-  @default-circle-select: {
-    fill: @openstax-white;
-  };
-  @circle-select: {
-    fill: @openstax-info;
-  };
+  @default-circle-select: { fill: @openstax-white; };
+          @circle-select: { fill: @openstax-info; };
   .launcher-select-keyframes(@default-circle-select, @circle-select);
 });
 
 .keyframes(launcher-letter-select; {
-  @default-letter-select: {
-    fill: @launcher-circle-text;
-  };
-  @letter-select: {
-    fill: @openstax-white;
-  };
+  @default-letter-select: { fill: @launcher-circle-text; };
+          @letter-select: { fill: @openstax-white; };
   .launcher-select-keyframes(@default-letter-select, @letter-select);
 });
 
 .keyframes(launcher-letter-dark-select; {
-  @default-letter-select: {
-    fill: @launcher-letter-dark;
-  };
-  @letter-select: {
-    fill: @openstax-white;
-  };
+  @default-letter-select: { fill: @launcher-letter-dark; };
+          @letter-select: { fill: @openstax-white; };
   .launcher-select-keyframes(@default-letter-select, @letter-select);
 });
 
 .keyframes(launcher-text-odd-select; {
-  @default-text-select: {
-    fill: @launcher-text-dark;
-  };
-  @text-select: {
-    fill: @launcher-text-selected-dark;
-  };
+  @default-text-select: { fill: @launcher-text-dark; };
+          @text-select: { fill: @launcher-text-selected-dark; };
   .launcher-select-keyframes(@default-text-select, @text-select);
 });
 
 .keyframes(launcher-text-even-select; {
-  @default-text-select: {
-    fill: @launcher-text-light;
-  };
-  @text-select: {
-    fill: @launcher-text-selected-light;
-  };
+  @default-text-select: { fill: @launcher-text-light; };
+          @text-select: { fill: @launcher-text-selected-light; };
   .launcher-select-keyframes(@default-text-select, @text-select);
 });
 
@@ -147,23 +108,14 @@
     .launcher-letter {
       .launcher-animate-concept(launcher-letter-select, @delay, @duration);
 
-      &-hole {
-        .launcher-animate-concept(launcher-circle-select, @delay, @duration);
-      }
-
-      &-dark {
-        .launcher-animate-concept(launcher-letter-dark-select, @delay, @duration);
-      }
+      &-hole { .launcher-animate-concept(launcher-circle-select, @delay, @duration); }
+      &-dark { .launcher-animate-concept(launcher-letter-dark-select, @delay, @duration); }
     }
   }
   .launcher-text {
     polygon {
-      &:nth-child(odd) {
-        .launcher-animate-concept(launcher-text-odd-select, @delay, @duration);
-      }
-      &:nth-child(even) {
-        .launcher-animate-concept(launcher-text-even-select, @delay, @duration);
-      }
+      &:nth-child(odd)  { .launcher-animate-concept(launcher-text-odd-select, @delay, @duration); }
+      &:nth-child(even) { .launcher-animate-concept(launcher-text-even-select, @delay, @duration); }
     }
     rect {
       .launcher-animate-concept(launcher-text-even-select, @delay, @duration);
@@ -172,118 +124,46 @@
 }
 
 .keyframes(launcher-answer-enter; {
-  0% {
-    opacity: 0;
-    .translate(-200px; 0);
-  }
-
-  20% {
-    opacity: 0;
-  }
-
-  60% {
-    opacity: 1;
-    .translate(30px; 0);
-  }
-  
-  80% {
-    .translate(-10px; 0);
-  }
-  
-  100% {
-    .translate(0; 0);
-  }
+    0% { opacity: 0; .translate(-200px; 0); }
+   20% { opacity: 0; }
+   60% { opacity: 1; .translate(30px; 0); }
+   80% {             .translate(-10px; 0); }
+  100% {             .translate(0; 0); }
 });
 
 .keyframes(launcher-answer-leave; {
-  0% {
-    .translate(0; 0);
-  }
-
-  20% {
-    opacity: 1;
-    .translate(-20px; 0);
-  }
-  
-  100% {
-    opacity: 0;
-    .translate(2000px; 0);
-  }
+    0% {             .translate(0; 0); }
+   20% { opacity: 1; .translate(-20px; 0); }
+  100% { opacity: 0; .translate(2000px; 0); }
 });
 
 .keyframes(launcher-steam; {
-  0% {
-    opacity: 1;
-    .translate(0; 10px);
-  }
-
-  100% {
-    opacity: 0;
-    .translate(0; -40px);
-  }
+    0% { opacity: 1; .translate(0; 10px); }
+  100% { opacity: 0; .translate(0; -40px); }
 });
 
 .keyframes(launcher-coach-launching; {
-  0% {
-    .scale(1);
-  }
-
-  100% {
-    .transform(~'scale(2.57) translate(-25px, 0)');
-  }
+    0% { .scale(1); }
+  100% { .transform(~'scale(2.57) translate(-25px, 0)'); }
 });
 
 .keyframes(launcher-coach-closing; {
-  0% {
-    .transform(~'scale(2.57) translate(-25px, 0)');
-  }
-
-  20% {
-    .transform(~'scale(2.57) translate(0, 0)');
-  }
-
-  100% {
-    .scale(1);
-  }
+    0% { .transform(~'scale(2.57) translate(-25px, 0)'); }
+   20% { .transform(~'scale(2.57) translate(0, 0)'); }
+  100% { .scale(1); }
 });
 
 .keyframes(launcher-mug-leave; {
-  0% {
-    opacity: 1;
-    .translate(0; 0);
-  }
-
-  20% {
-    opacity: 1;
-    .translate(-20px; 0);
-  }
-
-  40% {
-    opacity: 0;
-    .translate(600px; 0);
-  }
-
-  100% {
-    opacity: 0;
-    .translate(600px; 0);
-  }
+    0% { opacity: 1; .translate(0; 0); }
+   20% { opacity: 1; .translate(-20px; 0); }
+   40% { opacity: 0; .translate(600px; 0); }
+  100% { opacity: 0; .translate(600px; 0); }
 });
 
 .keyframes(launcher-mug-enter; {
-  0% {
-    opacity: 0;
-    .translate(600px; 0);
-  }
-
-  80% {
-    opacity: 1;
-    .translate(-20px; 0);
-  }
-
-  100% {
-    opacity: 1;
-    .translate(0; 0);
-  }
+    0% { opacity: 0; .translate(600px; 0); }
+   80% { opacity: 1; .translate(-20px; 0); }
+  100% { opacity: 1; .translate(0; 0); }
 });
 
 .launcher-base() {
@@ -326,21 +206,10 @@
 
 .launcher-animate() {
 
-  .launcher-a {
-    .launcher-concept(selected, 2600ms);
-  }
-
-  .launcher-b {
-    .launcher-concept(selected, 4600ms);
-  }
-
-  .launcher-c {
-    .launcher-concept(selected, 600ms);
-  }
-
-  .launcher-d {
-    .launcher-concept(selected, 6600ms);
-  }
+  .launcher-a { .launcher-concept(selected, 2600ms); }
+  .launcher-b { .launcher-concept(selected, 4600ms); }
+  .launcher-c { .launcher-concept(selected, 600ms); }
+  .launcher-d { .launcher-concept(selected, 6600ms); }
 
   .launcher-coffee-steam {
     path {
@@ -358,21 +227,11 @@
 
 .launcher-animate(active) {
   .launcher-concept-row {
-    &.launcher-question {
-      .animation-duration(100ms);
-    }
-    &.launcher-a {
-      .animation-duration(200ms);
-    }
-    &.launcher-b {
-      .animation-duration(300ms);
-    }
-    &.launcher-c {
-      .animation-duration(400ms);
-    }
-    &.launcher-d {
-      .animation-duration(500ms);
-    }
+    &.launcher-question { .animation-duration(100ms); }
+    &.launcher-a { .animation-duration(200ms); }
+    &.launcher-b { .animation-duration(300ms); }
+    &.launcher-c { .animation-duration(400ms); }
+    &.launcher-d { .animation-duration(500ms); }
     .animation(launcher-answer-enter ease-in-out);
   }
 
@@ -399,21 +258,12 @@
     opacity: 0;
   }
   .launcher-concept-row {
-    &.launcher-question {
-      .animation-duration(100ms);
-    }
-    &.launcher-a {
-      .animation-duration(200ms);
-    }
-    &.launcher-b {
-      .animation-duration(300ms);
-    }
-    &.launcher-c {
-      .animation-duration(400ms);
-    }
-    &.launcher-d {
-      .animation-duration(500ms);
-    }
+    // The following looks like copy-pasted from above
+    &.launcher-question { .animation-duration(100ms); }
+    &.launcher-a { .animation-duration(200ms); }
+    &.launcher-b { .animation-duration(300ms); }
+    &.launcher-c { .animation-duration(400ms); }
+    &.launcher-d { .animation-duration(500ms); }
     .animation(launcher-answer-leave ease-in-out);
     .animation-delay(500ms);
   }
@@ -443,22 +293,13 @@
 }
 
 .launcher-animate(closing) {
+  // More copy-pasted code from above
   .launcher-concept-row {
-    &.launcher-question {
-      .animation-duration(100ms);
-    }
-    &.launcher-a {
-      .animation-duration(200ms);
-    }
-    &.launcher-b {
-      .animation-duration(300ms);
-    }
-    &.launcher-c {
-      .animation-duration(400ms);
-    }
-    &.launcher-d {
-      .animation-duration(500ms);
-    }
+    &.launcher-question { .animation-duration(100ms); }
+    &.launcher-a { .animation-duration(200ms); }
+    &.launcher-b { .animation-duration(300ms); }
+    &.launcher-c { .animation-duration(400ms); }
+    &.launcher-d { .animation-duration(500ms); }
     .animation(launcher-answer-enter ease-in-out);
     .animation-delay(500ms);
   }
@@ -487,7 +328,7 @@
     &:hover,
     &:focus {
       .launcher-animate(active);
-    } 
+    }
   }
 
   &.launching {
