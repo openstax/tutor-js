@@ -30,6 +30,7 @@ loadApp = ->
   buttonA = document.getElementById('launcher')
   buttonB = document.getElementById('launcher-other-course')
   buttonC = document.getElementById('launcher-intro')
+  buttonMATHS = document.getElementById('launcher-maths')
 
   demoSettings =
     collectionUUID: settings.COLLECTION_UUID
@@ -64,9 +65,19 @@ loadApp = ->
     conceptCoachDemo.open(mainDiv, introSettings)
     true
 
+  showMaths = ->
+    introSettings = _.extend({}, demoSettings,
+      moduleUUID: '4bba6a1c-a0e6-45c0-988c-0d5c23425670',
+      collectionUUID: '27275f49-f212-4506-b3b1-a4d5e3598b99'
+    )
+
+    conceptCoachDemo.open(mainDiv, introSettings)
+    true
+
   buttonA.addEventListener 'click', show
   buttonB.addEventListener 'click', showOtherCourse
   buttonC.addEventListener 'click', showIntro
+  buttonMATHS.addEventListener 'click', showMaths
 
 
   # Hook in to writing view updates to history api
