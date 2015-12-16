@@ -11,13 +11,12 @@ navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
 ErrorNotification = require './error-notification'
 AccountsIframe = require '../user/accounts-iframe'
+LoginGateway = require '../user/login-gateway'
+User = require '../user/model'
 
 {ExerciseStep} = require '../exercise'
 {Dashboard} = require '../dashboard'
 {Progress} = require '../progress'
-
-
-User = require '../user/model'
 
 {channel} = require './model'
 navigator = navigation.channel
@@ -141,8 +140,10 @@ ConceptCoach = React.createClass
     switch view
       when 'loading'
         <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
+      when 'logout'
+        <AccountsIframe type='logout' />
       when 'login'
-        <AccountsIframe type='login' onComplete={@updateUser} />
+        <LoginGateway />
       when 'registration'
         <CourseRegistration {...@props} />
       when 'task'
