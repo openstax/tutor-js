@@ -6,4 +6,10 @@
   left: 0;
   top: 0;
   z-index: 100;
+  opacity: 0;
+  .transition(opacity 200ms ease-in-out);
+
+  &.loaded {
+    opacity: 1;
+  }
 }

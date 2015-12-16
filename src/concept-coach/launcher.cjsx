@@ -13,34 +13,25 @@ Launcher = React.createClass
     isClosing: false
 
   launch: ->
+    {isClosing} = @state
+    return if isClosing
     @setState(isLaunching: true)
+    channel.emit('launcher.clicked')
 
   close: ->
-    @setState(isClosing: true)
+    @setState(isClosing: true, isLaunching: false)
 
-  delayedReset: ->
+  delayedClose: ->
     _.delay( =>
-      @setState(isLaunching: false)
-      _.delay( =>
-        @setState(isClosing: false)
-      , 1000)
-    , 500)
-
-  delayedLaunch: ->
-    _.delay( ->
-      channel.emit('launcher.clicked')
-    , 1000)
+      @setState(isClosing: false)
+    , 800)
 
   shouldComponentUpdate: (nextProps, nextState) ->
     @state.isClosing isnt nextState.isClosing or @state.isLaunching isnt nextState.isLaunching
 
   componentDidUpdate: ->
     {isLaunching, isClosing} = @state
-
-    if isClosing
-      @delayedReset()
-    else if isLaunching
-      @delayedLaunch()
+    @delayedClose() if isClosing and not isLaunching
 
   componentWillMount: ->
     channel.on 'coach.unmount.success', @close
@@ -50,18 +41,26 @@ Launcher = React.createClass
 
   render: ->
     {isLaunching, isClosing} = @state
+    height = '388px'
+    height = "#{window.innerHeight}px" if isLaunching and not isClosing
 
     classes = classnames 'concept-coach-launcher',
       launching: isLaunching
       closing: isClosing
 
-    <div className={classes} onClick={@launch}>
-      <BS.Button bsStyle='primary'>Launch Concept Coach</BS.Button>
-      <svg x="0px" y="0px" width="840px" height="388px" viewBox="0 0 840 388"
-        version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <g>
-          <rect className='launcher-background' y="0.541" fill="#E5E5E5" width="840" height="388"/>
-          <rect className='launcher-desk' y="266" fill-rule="evenodd" fill="#FFFFFF" width="840" height="122"/>
+    <div className='concept-coach-launcher-wrapper'>
+      <div className={classes} onClick={@launch}>
+        <BS.Button bsStyle='primary'>Launch Concept Coach</BS.Button>
+        <svg x="0px" y="0px" width="100%" height={height}
+          preserveAspectRatio="xMidYMin meet" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <rect className='launcher-background' y="0.541" fill="#E5E5E5" width="100%" height="100%"/>
+            <rect className='launcher-desk' y="70%" fill-rule="evenodd" fill="#FFFFFF" width="100%" height="30%"/>
+          </g>
+        </svg>
+
+        <svg x="0px" y="0px" width="100%" height={height} viewBox="-100 0 1140 388"
+          preserveAspectRatio="xMidYMin slice" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
           <g className='launcher-laptop'>
             <path fill-rule="evenodd" fill="#5F6163" d="M385.927,295.597V122.57c0-20.053,5.683-25.72,25.72-25.72h240.835
@@ -234,9 +233,9 @@ Launcher = React.createClass
               </g>
             </g>
           </g>
-        </g>
-      </svg>
-    </div>
 
+        </svg>
+      </div>
+    </div>
 
 module.exports = {Launcher}
