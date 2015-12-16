@@ -157,42 +157,16 @@
 });
 
 .keyframes(launcher-mug-leave; {
-  0% {
-    opacity: 1;
-    .translate(0; 0);
-  }
-
-  20% {
-    opacity: 1;
-    .translate(-20px; 0);
-  }
-
-  40% {
-    opacity: 0;
-    .translate(600px; 0);
-  }
-
-  100% {
-    opacity: 0;
-    .translate(600px; 0);
-  }
+    0% { opacity: 1; .translate(0; 0); }
+   20% { opacity: 1; .translate(-20px; 0); }
+   40% { opacity: 0; .translate(600px; 0); }
+  100% { opacity: 0; .translate(600px; 0); }
 });
 
 .keyframes(launcher-mug-enter; {
-  0% {
-    opacity: 0;
-    .translate(600px; 0);
-  }
-
-  80% {
-    opacity: 1;
-    .translate(-20px; 0);
-  }
-
-  100% {
-    opacity: 1;
-    .translate(0; 0);
-  }
+    0% { opacity: 0; .translate(600px; 0); }
+   80% { opacity: 1; .translate(-20px; 0); }
+  100% { opacity: 1; .translate(0; 0); }
 });
 
 .launcher-base() {
@@ -235,21 +209,10 @@
 
 .launcher-animate() {
 
-  .launcher-a {
-    .launcher-concept(selected, 2600ms);
-  }
-
-  .launcher-b {
-    .launcher-concept(selected, 4600ms);
-  }
-
-  .launcher-c {
-    .launcher-concept(selected, 600ms);
-  }
-
-  .launcher-d {
-    .launcher-concept(selected, 6600ms);
-  }
+  .launcher-a { .launcher-concept(selected, 2600ms); }
+  .launcher-b { .launcher-concept(selected, 4600ms); }
+  .launcher-c { .launcher-concept(selected, 600ms); }
+  .launcher-d { .launcher-concept(selected, 6600ms); }
 
   .launcher-coffee-steam {
     path {
@@ -267,21 +230,11 @@
 
 .launcher-animate(active) {
   .launcher-concept-row {
-    &.launcher-question {
-      .animation-duration(100ms);
-    }
-    &.launcher-a {
-      .animation-duration(200ms);
-    }
-    &.launcher-b {
-      .animation-duration(300ms);
-    }
-    &.launcher-c {
-      .animation-duration(400ms);
-    }
-    &.launcher-d {
-      .animation-duration(500ms);
-    }
+    &.launcher-question { .animation-duration(100ms); }
+    &.launcher-a { .animation-duration(200ms); }
+    &.launcher-b { .animation-duration(300ms); }
+    &.launcher-c { .animation-duration(400ms); }
+    &.launcher-d { .animation-duration(500ms); }
     .animation(launcher-answer-enter ease-in-out);
   }
 
@@ -308,21 +261,12 @@
     opacity: 0;
   }
   .launcher-concept-row {
-    &.launcher-question {
-      .animation-duration(100ms);
-    }
-    &.launcher-a {
-      .animation-duration(200ms);
-    }
-    &.launcher-b {
-      .animation-duration(300ms);
-    }
-    &.launcher-c {
-      .animation-duration(400ms);
-    }
-    &.launcher-d {
-      .animation-duration(500ms);
-    }
+    // The following looks like copy-pasted from above
+    &.launcher-question { .animation-duration(100ms); }
+    &.launcher-a { .animation-duration(200ms); }
+    &.launcher-b { .animation-duration(300ms); }
+    &.launcher-c { .animation-duration(400ms); }
+    &.launcher-d { .animation-duration(500ms); }
     .animation(launcher-answer-leave ease-in-out);
     .animation-delay(500ms);
   }
@@ -352,22 +296,13 @@
 }
 
 .launcher-animate(closing) {
+  // More copy-pasted code from above
   .launcher-concept-row {
-    &.launcher-question {
-      .animation-duration(100ms);
-    }
-    &.launcher-a {
-      .animation-duration(200ms);
-    }
-    &.launcher-b {
-      .animation-duration(300ms);
-    }
-    &.launcher-c {
-      .animation-duration(400ms);
-    }
-    &.launcher-d {
-      .animation-duration(500ms);
-    }
+    &.launcher-question { .animation-duration(100ms); }
+    &.launcher-a { .animation-duration(200ms); }
+    &.launcher-b { .animation-duration(300ms); }
+    &.launcher-c { .animation-duration(400ms); }
+    &.launcher-d { .animation-duration(500ms); }
     .animation(launcher-answer-enter ease-in-out);
     .animation-delay(500ms);
   }
