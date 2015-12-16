@@ -62,24 +62,6 @@ AccountsIframe = React.createClass
   componentWillMount: ->
     window.addEventListener('message', @parseAndDispatchMessage)
 
-  safariWarning: ->
-    browser = window.navigator.userAgent
-    return unless @props.type is 'login' and _.contains(browser, 'Safari') and not _.contains(browser, 'Chrome')
-    # strip off the pathname
-    a = document.createElement('a')
-    a.href = User.endpoints.accounts_iframe
-    url = "https://#{a.hostname}/"
-    <div class="warning">
-      <h3>
-        Warning!  You appear to be using the Safari web-browser.
-      </h3>
-      Unfortunantly, you cannot login from here. Please visit
-       the <a target="_blank" href={url}>
-        OpenStax Account Login
-      </a> page to login directly and then return to Concept Coach.
-      After you do so, your login should be activated.
-    </div>
-
 
   render: ->
     # the other side of the iframe will validate our address and then only send messages to it
@@ -88,7 +70,6 @@ AccountsIframe = React.createClass
     url = "#{url}?parent=#{me}"
     className = classnames( 'accounts-iframe', @props.type )
     <div className={className}>
-      {@safariWarning()}
       <div className="heading">
         <h3 className="title">{@state?.title}</h3>
         <i className='close-icon' onClick={@props.onComplete}/>
