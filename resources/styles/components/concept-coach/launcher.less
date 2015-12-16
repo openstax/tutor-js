@@ -81,7 +81,7 @@
   .launcher-select-keyframes(@launcher-text-light, @launcher-text-selected-light);
 });
 
-.launcher-animate-concept(@name, @delay, @duration, @timing-function: ease-in-out){
+.launcher-animate-concept(@name, @delay, @duration, @timing-function: ease-in){
   .animation(~'@{name} @{duration} @{timing-function}');
   .animation-name(@name);
   .animation-duration(@duration);
@@ -166,7 +166,7 @@
   }
   .launcher-concept-coach {
     .transform-origin(50% 25%);
-    .transition(all 400ms ease-in-out);
+    .transition(all 400ms ease-in);
   }
   .btn,
   .launcher-concept-coach-shine-bottom,
@@ -196,7 +196,7 @@
       &:nth-child(2){
         .animation-duration(4s);
       }
-      .animation(launcher-steam ease-in-out);
+      .animation(launcher-steam ease-in);
       .animation-iteration-count(infinite);
     }
   }
@@ -205,7 +205,7 @@
 .launcher-animate(active) {
   .launcher-concept-row {
     .launcher-concepts-animate();
-    .animation(launcher-answer-enter ease-in-out);
+    .animation(launcher-answer-enter ease-in);
   }
 
   .btn {
@@ -227,13 +227,13 @@
     .transform-origin(50% 100%);
   }
   .launcher-concept-coach {
-    .transform(~'scale(3.97) translate(-16px, 10px)');
+    .transform(~'translate(-62px, 30px) scale(3.97)');
   }
   .launcher-answer {
     .launcher-concept(launching);
   }
   .launcher-coffee {
-    .animation(launcher-mug-leave 300ms ease-in-out);
+    .animation(launcher-mug-leave 300ms ease-in);
   }
   .launcher-concept-coach-screen {
     fill: @openstax-white;
