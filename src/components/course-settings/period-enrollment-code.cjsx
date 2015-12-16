@@ -50,13 +50,16 @@ module.exports = React.createClass
              <div className='emphasis'>{bookUrl}:3</div>
           </div>
           <div>
-            <span>2.</span> Click on section 1.1 in the book. Scroll to the bottom of the section and click on the Concept Coach button.
+            <span>2.</span> 
+             Click on section 1.1 in the book.
+              Scroll to the bottom of the section and click on the Concept Coach button.
           </div>
           <div>
             <span>3.</span> Click "Sign up" and follow the prompts to create your free account.
           </div>
           <div>
-            <span>4.</span> At the end of your account set-up, you will be prompted to enter your two-word enrollment
+            <span>4.</span> 
+             At the end of your account set-up, you will be prompted to enter your two-word enrollment
              code: <span className='emphasis'>{code}</span>
           </div>
           <div>
