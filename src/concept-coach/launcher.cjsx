@@ -50,7 +50,6 @@ Launcher = React.createClass
 
     <div className='concept-coach-launcher-wrapper'>
       <div className={classes} onClick={@launch}>
-        <BS.Button bsStyle='primary'>Launch Concept Coach</BS.Button>
         <svg x="0px" y="0px" width="100%" height={height}
           preserveAspectRatio="xMidYMin meet" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <g>
@@ -235,6 +234,9 @@ Launcher = React.createClass
           </g>
 
         </svg>
+
+        <BS.Button bsStyle='primary'>Launch Concept Coach</BS.Button>
+
       </div>
     </div>
 

@@ -12,6 +12,7 @@ CCModal = React.createClass
   componentDidMount: ->
     mountData = modal: el: @getDOMNode()
     channel.emit('modal.mount.success', mountData)
+    mountData.modal.el.focus()
 
   componentWillMount: ->
     api.channel.once 'success', @setLoaded
@@ -25,7 +26,7 @@ CCModal = React.createClass
     classes = classnames 'concept-coach-modal',
       loaded: isLoaded
 
-    <div className={classes}>
+    <div className={classes} tabIndex="-1">
       {@props.children}
     </div>
 
