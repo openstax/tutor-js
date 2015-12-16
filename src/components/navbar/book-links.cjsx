@@ -15,13 +15,13 @@ BookLinks = React.createClass
     if course.book_pdf_url
       links.push(
         <a key='pdf' target='_blank' href={course.book_pdf_url}>
-          Book PDF
+          Homework PDF
         </a>
       )
     if course.webview_url
       links.push(
         <a key='webview' target='_blank' href={course.webview_url}>
-          Webview <i className='fa fa-external-link' />
+          Online Book <i className='fa fa-external-link' />
         </a>
       )
 
