@@ -73,25 +73,11 @@
 }
 
 .launcher-select-keyframes(@default-rule, @select-rule){
-  0% {
-    @default-rule();
-  }
-
-  5% {
-    @select-rule();
-  }
-
-  20% {
-    @select-rule();
-  }
-
-  25% {
-    @default-rule();
-  }
-
-  100% {
-    @default-rule();
-  }
+  0%   { @default-rule(); }
+  5%   { @select-rule(); }
+  20%  { @select-rule(); }
+  25%  { @default-rule(); }
+  100% { @default-rule(); }
 }
 
 .keyframes(launcher-circle-select; {
