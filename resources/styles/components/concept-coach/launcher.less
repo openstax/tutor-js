@@ -1,0 +1,497 @@
+@launcher-screen: #F1F1F1;
+@launcher-screen-shine: #F5F5F5;
+
+@launcher-text-question-dark: #222E65;
+@launcher-text-question-light: #7A7A99;
+@launcher-text-dark: #E5E5E5;
+@launcher-text-light: #EFEFEF;
+@launcher-text-selected-dark: #9A9A9B;
+@launcher-text-selected-light: #CFCECE;
+
+@launcher-letter-dark: #CFCECE;
+@launcher-circle-text: #9A9A9B;
+
+.launcher-concept() {
+  .launcher-circle {
+    circle {
+      fill: @openstax-white;
+    }
+    .launcher-letter {
+      fill: @launcher-circle-text;
+
+      &-hole {
+        fill: @openstax-white;
+      }
+
+      &-dark {
+        fill: @launcher-letter-dark;
+      }
+    }
+  }
+  .launcher-text {
+    polygon {
+      &:nth-child(odd) {
+        fill: @launcher-text-dark;
+      }
+      &:nth-child(even) {
+        fill: @launcher-text-light;
+      }
+    }
+    rect {
+      fill: @launcher-text-light;
+    }
+  }
+}
+
+.launcher-concept(launching) {
+  .launcher-circle {
+    circle {
+      fill: @openstax-white;
+      stroke: @launcher-screen;
+    }
+    .launcher-letter {
+      fill: @launcher-circle-text;
+
+      &-dark {
+        fill: @launcher-circle-text;
+      }
+    }
+  }
+  .launcher-text {
+    polygon {
+      &:nth-child(odd) {
+        fill: @launcher-text-dark;
+      }
+      &:nth-child(even) {
+        fill: @launcher-text-dark;
+      }
+    }
+    rect {
+      fill: @launcher-text-dark;
+    }
+  }
+}
+
+.launcher-select-keyframes(@default-rule, @select-rule){
+  0% {
+    @default-rule();
+  }
+
+  5% {
+    @select-rule();
+  }
+
+  20% {
+    @select-rule();
+  }
+
+  25% {
+    @default-rule();
+  }
+
+  100% {
+    @default-rule();
+  }
+}
+
+.keyframes(launcher-circle-select; {
+  @default-circle-select: {
+    fill: @openstax-white;
+  };
+  @circle-select: {
+    fill: @openstax-info;
+  };
+  .launcher-select-keyframes(@default-circle-select, @circle-select);
+});
+
+.keyframes(launcher-letter-select; {
+  @default-letter-select: {
+    fill: @launcher-circle-text;
+  };
+  @letter-select: {
+    fill: @openstax-white;
+  };
+  .launcher-select-keyframes(@default-letter-select, @letter-select);
+});
+
+.keyframes(launcher-letter-dark-select; {
+  @default-letter-select: {
+    fill: @launcher-letter-dark;
+  };
+  @letter-select: {
+    fill: @openstax-white;
+  };
+  .launcher-select-keyframes(@default-letter-select, @letter-select);
+});
+
+.keyframes(launcher-text-odd-select; {
+  @default-text-select: {
+    fill: @launcher-text-dark;
+  };
+  @text-select: {
+    fill: @launcher-text-selected-dark;
+  };
+  .launcher-select-keyframes(@default-text-select, @text-select);
+});
+
+.keyframes(launcher-text-even-select; {
+  @default-text-select: {
+    fill: @launcher-text-light;
+  };
+  @text-select: {
+    fill: @launcher-text-selected-light;
+  };
+  .launcher-select-keyframes(@default-text-select, @text-select);
+});
+
+.launcher-animate-concept(@name, @delay, @duration, @timing-function: ease-in-out){
+  .animation(~'@{name} @{duration} @{timing-function}');
+  .animation-name(@name);
+  .animation-duration(@duration);
+  .animation-delay(@delay);
+  .animation-timing-function(@timing-function);
+  .animation-iteration-count(infinite);
+}
+
+.launcher-concept(selected, @delay: 0s, @duration: 8s) {
+  .launcher-circle {
+    circle {
+      .launcher-animate-concept(launcher-circle-select, @delay, @duration);
+    }
+    .launcher-letter {
+      .launcher-animate-concept(launcher-letter-select, @delay, @duration);
+
+      &-hole {
+        .launcher-animate-concept(launcher-circle-select, @delay, @duration);
+      }
+
+      &-dark {
+        .launcher-animate-concept(launcher-letter-dark-select, @delay, @duration);
+      }
+    }
+  }
+  .launcher-text {
+    polygon {
+      &:nth-child(odd) {
+        .launcher-animate-concept(launcher-text-odd-select, @delay, @duration);
+      }
+      &:nth-child(even) {
+        .launcher-animate-concept(launcher-text-even-select, @delay, @duration);
+      }
+    }
+    rect {
+      .launcher-animate-concept(launcher-text-even-select, @delay, @duration);
+    }
+  }
+}
+
+.keyframes(launcher-answer-enter; {
+  0% {
+    opacity: 0;
+    .translate(-200px; 0);
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+    .translate(30px; 0);
+  }
+  
+  80% {
+    .translate(-10px; 0);
+  }
+  
+  100% {
+    .translate(0; 0);
+  }
+});
+
+.keyframes(launcher-answer-leave; {
+  0% {
+    .translate(0; 0);
+  }
+
+  20% {
+    opacity: 1;
+    .translate(-20px; 0);
+  }
+  
+  100% {
+    opacity: 0;
+    .translate(2000px; 0);
+  }
+});
+
+.keyframes(launcher-steam; {
+  0% {
+    opacity: 1;
+    .translate(0; 10px);
+  }
+
+  100% {
+    opacity: 0;
+    .translate(0; -40px);
+  }
+});
+
+.keyframes(launcher-coach-launching; {
+  0% {
+    .scale(1);
+  }
+
+  100% {
+    .transform(~'scale(2) translate(-56.0845px, 0)');
+  }
+});
+
+.keyframes(launcher-coach-closing; {
+  0% {
+    .transform(~'scale(2) translate(-56.0845px, 0)');
+  }
+
+  100% {
+    .scale(1);
+  }
+});
+
+.keyframes(launcher-mug-leave; {
+  0% {
+    opacity: 1;
+    .translate(0; 0);
+  }
+
+  80% {
+    opacity: 1;
+    .translate(-20px; 0);
+  }
+
+  100% {
+    opacity: 0;
+    .translate(200px; 0);
+  }
+});
+
+.keyframes(launcher-mug-enter; {
+  0% {
+    opacity: 0;
+    .translate(200px; 0);
+  }
+
+  80% {
+    opacity: 1;
+    .translate(-20px; 0);
+  }
+
+  100% {
+    opacity: 1;
+    .translate(0; 0);
+  }
+});
+
+.launcher-base() {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+
+  svg {
+    width: 100%;
+  }
+
+  .btn {
+    position: absolute;
+    top: 45%;
+    left: 15%;
+  }
+
+  .launcher-answer {
+    .launcher-concept();
+  }
+  .launcher-desk {
+    .transition(all 200ms linear);
+  }
+  .launcher-concept-coach-shine-bottom {
+    .transition(opacity 200ms linear);
+  }
+
+  .launcher-question .launcher-text polygon,
+  .launcher-laptop,
+  .launcher-section-label,
+  .btn {
+    .transition(opacity 200ms linear);
+  }
+  .launcher-background,
+  .launcher-concept-coach-screen {
+    .transition(fill 200ms linear);
+  }
+}
+
+.launcher-animate() {
+
+  .launcher-a {
+    .launcher-concept(selected, 2600ms);
+  }
+
+  .launcher-b {
+    .launcher-concept(selected, 4600ms);
+  }
+
+  .launcher-c {
+    .launcher-concept(selected, 600ms);
+  }
+
+  .launcher-d {
+    .launcher-concept(selected, 6600ms);
+  }
+
+  .launcher-coffee-steam {
+    path {
+      &:nth-child(1){
+        .animation-duration(3s);
+      }
+      &:nth-child(2){
+        .animation-duration(4s);
+      }
+      .animation(launcher-steam ease-in-out);
+      .animation-iteration-count(infinite);
+    }
+  }
+}
+
+.launcher-animate(active) {
+  .launcher-concept-row {
+    &.launcher-question {
+      .animation-duration(100ms);
+    }
+    &.launcher-a {
+      .animation-duration(200ms);
+    }
+    &.launcher-b {
+      .animation-duration(300ms);
+    }
+    &.launcher-c {
+      .animation-duration(400ms);
+    }
+    &.launcher-d {
+      .animation-duration(500ms);
+    }
+    .animation(launcher-answer-enter ease-in-out);
+  }
+
+  .btn {
+    .box-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
+  }
+}
+
+.launcher-animate(launching) {
+  .launcher-concept-coach-shine-bottom {
+    opacity: 0;
+  }
+  .launcher-question {
+    .launcher-text {
+      polygon {
+        opacity: 0;
+      }
+    }
+  }
+  .btn {
+    opacity: 0;
+  }
+  .launcher-section-label {
+    opacity: 0;
+  }
+  .launcher-concept-row {
+    &.launcher-question {
+      .animation-duration(100ms);
+    }
+    &.launcher-a {
+      .animation-duration(200ms);
+    }
+    &.launcher-b {
+      .animation-duration(300ms);
+    }
+    &.launcher-c {
+      .animation-duration(400ms);
+    }
+    &.launcher-d {
+      .animation-duration(500ms);
+    }
+    .animation(launcher-answer-leave ease-in-out);
+    .animation-delay(500ms);
+  }
+  .launcher-desk {
+    .translate(0, 100%);
+    .transform-origin(50% 100%);
+  }
+  .launcher-concept-coach {
+    .transform-origin(50% 50%);
+    .animation(launcher-coach-launching 500ms);
+  }
+  .launcher-answer {
+    .launcher-concept(launching);
+  }
+  .launcher-coffee {
+    .animation(launcher-mug-leave 300ms ease-in-out);
+  }
+  .launcher-concept-coach-screen {
+    fill: @openstax-white;
+  }
+  .launcher-background {
+    fill: @openstax-neutral-lighter;
+  }
+  .launcher-laptop {
+    opacity: 0;
+  }
+}
+
+.launcher-animate(closing) {
+  .launcher-concept-row {
+    &.launcher-question {
+      .animation-duration(100ms);
+    }
+    &.launcher-a {
+      .animation-duration(200ms);
+    }
+    &.launcher-b {
+      .animation-duration(300ms);
+    }
+    &.launcher-c {
+      .animation-duration(400ms);
+    }
+    &.launcher-d {
+      .animation-duration(500ms);
+    }
+    .animation(launcher-answer-enter ease-in-out);
+    .animation-delay(500ms);
+  }
+  .launcher-concept-coach {
+    .transform-origin(50% 50%);
+    .animation(launcher-coach-closing 500ms);
+  }
+  .launcher-coffee {
+    .animation(launcher-mug-enter 300ms ease-in-out);
+  }
+}
+
+.concept-coach-launcher {
+  .launcher-base();
+
+  &:not(.launching):not(.closing){
+    .launcher-animate();
+
+    &:hover,
+    &:focus {
+      .launcher-animate(active);
+    } 
+  }
+
+  &.launching {
+    .launcher-animate(launching);
+  }
+
+  &.closing {
+    .launcher-animate(closing);
+  }
+}
