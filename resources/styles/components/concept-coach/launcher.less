@@ -312,9 +312,8 @@
   }
 
   .btn {
-    position: absolute;
-    top: 45%;
-    left: 10%;
+    position: relative;
+    top: 5%;
   }
 
   .launcher-answer {
@@ -516,5 +515,15 @@
 
   &.closing {
     .launcher-animate(closing);
+  }
+}
+
+@media (min-width: @screen-xs-min) {
+  .concept-coach-launcher {
+    .btn {
+      position: absolute;
+      top: 45%;
+      left: 8%;
+    }
   }
 }

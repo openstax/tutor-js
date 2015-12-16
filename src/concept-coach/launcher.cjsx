@@ -163,7 +163,7 @@ Launcher = React.createClass
 
         </svg>
 
-        <BS.Button bsStyle='primary'>Launch Concept Coach</BS.Button>
+        <BS.Button bsStyle='primary' bsSize='large'>Launch Concept Coach</BS.Button>
 
       </div>
     </div>
