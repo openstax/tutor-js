@@ -32,12 +32,18 @@
     display: inline-block;
   }
   .course-scores-note {
-    position: absolute;
-    right: 62px;
-    margin-top: 16px;
     font-style: italic;
     font-size: 1.2rem;
     color: @tutor-neutral;
+    &.right {
+      position: absolute;
+      right: 62px;
+      margin-top: 16px;
+    }
+    &.tab {
+      margin-left: 10px;
+      line-height: 40px;
+    }
   }
   .course-scores-container {
     overflow: hidden;
@@ -91,6 +97,9 @@
     .tutor-plan-set(heading);
     &.concept-coach {
       height: 100%;
+    }
+    .student-id {
+      margin-left: 160px; 
     }
   }
 

@@ -16,6 +16,7 @@ CoursePeriodsNav = React.createClass
     handleKeyUpdate: React.PropTypes.func
     initialActive: React.PropTypes.number.isRequired
     periods: React.PropTypes.array.isRequired
+    afterTabsItem: React.PropTypes.func
 
   getDefaultProps: ->
     initialActive: 0
@@ -66,10 +67,12 @@ CoursePeriodsNav = React.createClass
 
   render: ->
     {active, sortedPeriods} = @state
+    {afterTabsItem} = @props
     periodsItems = _.map(sortedPeriods, @renderPeriod)
 
     <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
       {periodsItems}
+      {afterTabsItem?()}
     </BS.Nav>
 
 

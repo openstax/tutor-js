@@ -157,9 +157,10 @@ Scores = React.createClass
 
   renderNameHeader: ->
     emptyCell = <div className='blank' />
+    studentIdHeader = <span className='student-id'>Student ID</span>
     header =
       <SortingHeader sortKey='name' sortState={@state.sort} onSort={@changeSortingOrder}>
-        Student Name
+        <span>Student Name</span>{studentIdHeader if @props.isConceptCoach}
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
     customHeader = <div className='assignment-header-cell'>
@@ -224,8 +225,14 @@ Scores = React.createClass
     # height changes when dueDates row not in concept coach
     if @props.isConceptCoach then 47 else 92
 
+  reviewInfoText: ->
+    return null unless @props.isConceptCoach
+    <span className='course-scores-note tab'>
+      Click on a student's score to review their work.
+    </span>
+
   render: ->
-    {courseId} = @props
+    {courseId, isConceptCoach} = @props
     {period_id, tableWidth, tableHeight} = @state
 
     data = @getStudentRowData()
@@ -238,7 +245,8 @@ Scores = React.createClass
         handleSelect={@selectPeriod}
         handleKeyUpdate={@setPeriodIndex}
         intialActive={period_id}
-        courseId={courseId} />
+        courseId={courseId}
+        afterTabsItem={@reviewInfoText} />
 
     scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
 
@@ -260,7 +268,7 @@ Scores = React.createClass
     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
 
     scoresNote =
-      <div className='course-scores-note'>
+      <div className='course-scores-note right'>
         Date indicates most recently submitted response.
       </div>
 
@@ -269,7 +277,7 @@ Scores = React.createClass
     <div className='course-scores-wrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
-        {if @props.isConceptCoach then scoresNote}
+        {if isConceptCoach then scoresNote}
         {periodNav}
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}
