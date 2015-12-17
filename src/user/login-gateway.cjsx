@@ -12,6 +12,7 @@ LoginGateway = React.createClass
 
   openLogin: (ev) ->
     ev.preventDefault()
+
     width  = Math.min(1000, window.screen.width - 20)
     height = Math.min(800, window.screen.height - 30)
     options = ["toolbar=no", "location=" + (window.opera ? "no" : "yes"),
@@ -54,11 +55,13 @@ LoginGateway = React.createClass
     User.endpoints.login + '?parent=' + encodeURIComponent(window.location.href)
 
   loginLink: (msg) ->
-    <a target='_blank' onClick={@openLogin} href={@urlForLogin()}>{msg}</a>
+    <a data-bypass onClick={@openLogin} href={@urlForLogin()}>
+      {msg}
+    </a>
 
   renderLogin: ->
     <p>
-      Please {@loginLink('click to begin login.')}
+      {@loginLink('click to begin login.')}
     </p>
 
   render: ->
