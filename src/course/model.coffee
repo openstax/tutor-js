@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 _ = require 'underscore'
 React = require 'react'
 EventEmitter2 = require 'eventemitter2'
@@ -5,14 +7,14 @@ EventEmitter2 = require 'eventemitter2'
 api  = require '../api'
 
 ERROR_MAP = {
-  invalid_enrollment_code: 'The enrollment code is invalid'
+  invalid_enrollment_code: 'This is not a valid enrollment code for this book. Please try again. Contact your instructor to verify your enrollment code.'
   enrollment_code_does_not_match_book: 'The enrollment code is invalid for this content'
   already_enrolled: 'You are already enrolled in this course'
   multiple_roles: 'You are listed as both  teacher and a student'
   dropped_student: 'Your account is  unable to participate at this time'
   already_processed: 'The request has already been processed'
-  already_approved: 'The request has already been proccessed'
-  already_rejected: 'The request has already been rejected'
+  already_approved: 'The request has already been approved'
+  already_rejected: 'The request has been rejected'
   taken: 'The Student ID is already a member'
 }
 
