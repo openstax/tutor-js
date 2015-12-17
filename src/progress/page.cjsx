@@ -31,7 +31,7 @@ PageProgress = React.createClass
 
     classes = classnames 'concept-coach-progress-page', className
     section = @sectionFormat(page.chapter_section)
-    pageLastWorked = dateFormat(new Date(page.last_worked_at), dateFormatString)
+    pageLastWorked = dateFormat(new Date(page.last_worked_at), dateFormatString) if page.last_worked_at?
 
     sectionProps =
       className: 'chapter-section-prefix'

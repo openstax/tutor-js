@@ -90,10 +90,6 @@ loadApp = ->
   window.addEventListener 'popstate', (eventData) ->
     conceptCoachDemo.updateToRoute(location.pathname)
 
-
-  window.addEventListener 'resize', (eventData) ->
-    conceptCoachDemo.handleResize()
-
   # open to the expected view right away if view in url
   conceptCoachDemo.openByRoute(mainDiv, demoSettings, location.pathname) if location.pathname?
 

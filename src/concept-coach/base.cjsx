@@ -45,6 +45,8 @@ ConceptCoach = React.createClass
     userState
 
   childContextTypes:
+    moduleUUID:     React.PropTypes.string
+    collectionUUID: React.PropTypes.string
     view: React.PropTypes.oneOf(_.flatten(VIEWS))
     cnxUrl: React.PropTypes.string
     bookUrlPattern: React.PropTypes.string
@@ -53,10 +55,10 @@ ConceptCoach = React.createClass
 
   getChildContext: ->
     {view} = @state
-    {cnxUrl, close} = @props
+    {cnxUrl, close, moduleUUID, collectionUUID} = @props
     bookUrlPattern = '{cnxUrl}/contents/{ecosystem_book_uuid}'
 
-    {view, cnxUrl, close, bookUrlPattern, navigator}
+    {view, cnxUrl, close, bookUrlPattern, navigator,  moduleUUID, collectionUUID}
 
   componentWillMount: ->
     User.ensureStatusLoaded()

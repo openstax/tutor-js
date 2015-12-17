@@ -169,9 +169,6 @@ class ConceptCoachAPI extends EventEmitter2
   handleClosed: (eventData, body = document.body) ->
     body.classList.remove('cc-opened')
 
-  handleResize: ->
-    return unless componentModel.el? and @component?.isMounted()
-
   handleError: (error) ->
     channel.emit('error', error)
     console.info(error)
