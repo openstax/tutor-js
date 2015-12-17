@@ -25,7 +25,8 @@ UserMenu = React.createClass
   componentWillMount: ->
     @getUser().ensureStatusLoaded()
 
-  logoutUser: ->
+  logoutUser: (clickEvent) ->
+    clickEvent.preventDefault()
     @context.navigator.emit('show.logout', view: 'logout')
 
   showProfile: (clickEvent) ->

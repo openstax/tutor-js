@@ -15,7 +15,7 @@ CCModal = React.createClass
     channel.emit('modal.mount.success', mountData)
     mountData.modal.el.focus()
     # ensure cc show even if no api call has been made on cc open
-    _.delay @setLoaded, 500
+    _.delay @setLoaded, 1000
 
   componentWillMount: ->
     api.channel.once 'success', @setLoaded

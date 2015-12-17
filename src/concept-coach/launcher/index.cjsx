@@ -24,7 +24,9 @@ Launcher = React.createClass
     @setState(isClosing: true, isLaunching: false)
 
   delayedClose: ->
-    _.defer => @setState(isClosing: false)
+    _.delay =>
+      @setState(isClosing: false)
+    , 1000
 
   shouldComponentUpdate: (nextProps, nextState) ->
     @state.isClosing isnt nextState.isClosing or @state.isLaunching isnt nextState.isLaunching
