@@ -16,7 +16,7 @@ task = require '../task/collection'
 modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 launcherWrapped = helpers.wrapComponent(Launcher)
 
-PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'processHtmlAndMath']
 WRAPPER_CLASSNAME = 'concept-coach-wrapper'
 
 listenAndBroadcast = (componentAPI) ->

@@ -36,6 +36,8 @@ loadApp = ->
     collectionUUID: settings.COLLECTION_UUID
     moduleUUID: settings.MODULE_UUID
     cnxUrl: settings.CNX_URL
+    processHtmlAndMath: ->
+      console.info('HELLO')
 
   initialModel = _.clone(demoSettings)
   initialModel.mounter = mainDiv
