@@ -17,7 +17,7 @@ KEYS['multiple-choice'] = _.zip(KEYS['multiple-choice-numbers'], KEYS['multiple-
 KEYSETS_PROPS = _.keys(KEYS)
 KEYSETS_PROPS.push(null) # keySet could be null for disabling keyControling
 
-ArbitraryHtml = require './html'
+ArbitraryHtmlAndMath = require './html'
 
 idCounter = 0
 
@@ -79,6 +79,9 @@ Answer = React.createClass
     {disabled, keyControl} = @props
     keysHelper.off(keyControl, 'multiple-choice') if keyControl and not disabled
 
+  contextTypes:
+    processHtmlAndMath: React.PropTypes.func
+
   render: ->
     {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
     qid ?= "auto-#{idCounter++}"
@@ -112,6 +115,8 @@ Answer = React.createClass
     if @props.show_all_feedback and answer.feedback_html
       feedback = <Feedback key='question-mc-feedback'>{answer.feedback_html}</Feedback>
 
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+
     <div>
       <div className={classes}>
         {selectedCount}
@@ -120,7 +125,10 @@ Answer = React.createClass
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'>
           <div className='answer-letter' />
-          <ArbitraryHtml className='answer-content' html={answer.content_html} />
+          <ArbitraryHtmlAndMath
+            {...htmlAndMathProps}
+            className='answer-content'
+            html={answer.content_html} />
         </label>
       </div>
       {feedback}
@@ -133,12 +141,16 @@ Feedback = React.createClass
     position: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
   getDefaultProps: ->
     position: 'bottom'
+  contextTypes:
+    processHtmlAndMath: React.PropTypes.func
   render: ->
     wrapperClasses = classnames 'question-feedback', @props.position
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
     <div className={wrapperClasses}>
       <div className='arrow'/>
-      <ArbitraryHtml
+      <ArbitraryHtmlAndMath
+        {...htmlAndMathProps}
         className='question-feedback-content has-html'
         html={@props.children}
         block={true}/>
@@ -166,6 +178,12 @@ module.exports = React.createClass
     type: 'student'
     show_all_feedback: false
     keySet: 'multiple-choice'
+
+  childContextTypes:
+    processHtmlAndMath: React.PropTypes.func
+
+  getChildContext: ->
+    processHtmlAndMath: @props.processHtmlAndMath
 
   onChangeAnswer: (answer, changeEvent) ->
     if @props.onChange?
@@ -210,12 +228,17 @@ module.exports = React.createClass
       .value()
 
     answers.splice(checkedAnswerIndex + 1, 0, feedback) if feedback? and checkedAnswerIndex?
+    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
 
     classes = classnames 'openstax-question',
       'has-correct-answer': hasCorrectAnswer
 
     <div className={classes}>
-      <ArbitraryHtml className='question-stem' block={true} html={html} />
+      <ArbitraryHtmlAndMath
+        {...htmlAndMathProps}
+        className='question-stem'
+        block={true}
+        html={html} />
       {@props.children}
       <div className='answers-table'>
         {answers}
