@@ -57,6 +57,7 @@ Scores = React.createClass
     colResizeWidth: 180
     colResizeKey: 0
     sort: INITIAL_SORT
+    resizeSpacerNeeded: true
 
   componentDidMount: ->
     @sizeTable()
@@ -66,10 +67,11 @@ Scores = React.createClass
 
   sizeTable: ->
     _.delay( =>
-      @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()}) if @isMounted()
+      @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight(), resizeSpacerNeeded: false}) if @isMounted()
     , 100)
 
-  tableWidth: ->
+
+  tableWidth: (debug) ->
     table = React.findDOMNode(@refs.tableContainer)
     Math.max(400, table.clientWidth)
 
@@ -274,12 +276,15 @@ Scores = React.createClass
 
     if data.rows.length > 0 then students = true
 
+    if @state.resizeSpacerNeeded then resizeSpacer = <span>&nbsp;</span>
+
     <div className='course-scores-wrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
         {if isConceptCoach then scoresNote}
         {periodNav}
         <div className='course-scores-container' ref='tableContainer'>
+          {resizeSpacer}
           {if students then scoresTable else noAssignments}
         </div>
     </div>
