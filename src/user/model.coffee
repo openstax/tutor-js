@@ -19,13 +19,6 @@ User =
   update: (data) ->
     _.extend(this, data.user)
     @courses = _.compact _.map data.courses, (course) -> new Course(course) if course.is_concept_coach
-
-    @channel.emit('change')
-    delete @isLoggingOut
-
-  logout: ->
-    _.extend(this, BLANK_USER)
-    @isLoggingOut = true
     @channel.emit('change')
 
   get: ->
@@ -57,7 +50,8 @@ User =
     @channel.emit('change')
 
   _signalLogoutCompleted: ->
-    @isLoggingOut = false
+    _.extend(this, BLANK_USER)
+    @isLoggingOut = true
     @channel.emit('logout.received')
 
   init: ->

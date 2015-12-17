@@ -74,11 +74,12 @@ loadApp = ->
     conceptCoachDemo.open(mainDiv, introSettings)
     true
 
-  buttonA.addEventListener 'click', show
+  conceptCoachDemo.displayLauncher(buttonA)
   buttonB.addEventListener 'click', showOtherCourse
   buttonC.addEventListener 'click', showIntro
   buttonMATHS.addEventListener 'click', showMaths
 
+  conceptCoachDemo.on 'ui.launching', show
 
   # Hook in to writing view updates to history api
   conceptCoachDemo.on 'view.update', (eventData) ->

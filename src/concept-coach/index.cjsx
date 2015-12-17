@@ -1,12 +1,9 @@
 _ = require 'lodash'
 $ = require 'jquery'
 EventEmitter2 = require 'eventemitter2'
-
 helpers = require '../helpers'
+
 restAPI = require '../api'
-
-{ModalCoach} = require './modal-coach'
-
 componentModel = require './model'
 navigation = require '../navigation/model'
 User = require '../user/model'
@@ -14,7 +11,13 @@ exercise = require '../exercise/collection'
 progress = require '../progress/collection'
 task = require '../task/collection'
 
+{ModalCoach} = require './modal-coach'
+{Launcher} = require './launcher'
+modalCoachWrapped = helpers.wrapComponent(ModalCoach)
+launcherWrapped = helpers.wrapComponent(Launcher)
+
 PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
+WRAPPER_CLASSNAME = 'concept-coach-wrapper'
 
 listenAndBroadcast = (componentAPI) ->
   # Broadcast various internal events out to parent
@@ -38,6 +41,9 @@ listenAndBroadcast = (componentAPI) ->
 
   componentModel.channel.on 'close.clicked', ->
     componentAPI.emit('ui.close')
+
+  componentModel.channel.on 'launcher.clicked', ->
+    componentAPI.emit('ui.launching')
 
   navigation.channel.on 'show.*', (eventData) ->
     componentAPI.emit('view.update', navigation.getDataByView(eventData.view))
@@ -70,8 +76,6 @@ deleteProperties = (obj) ->
     delete obj[property] unless _.isFunction(obj[property]) or property is 'channel'
     null
 
-modalCoachWrapped = helpers.wrapComponent(ModalCoach)
-
 class ConceptCoachAPI extends EventEmitter2
   constructor: (baseUrl, navOptions = {}) ->
     super(wildcard: true)
@@ -101,6 +105,10 @@ class ConceptCoachAPI extends EventEmitter2
     options = _.extend({}, options, isSame: isSame)
     componentModel.update(options)
 
+  displayLauncher: (mountNode) ->
+    mountNode.classList.add(WRAPPER_CLASSNAME)
+    launcherWrapped.render(mountNode)
+
   open: (mountNode, props) ->
     props = _.clone(props)
     props.defaultView ?= if componentModel.isSame then componentModel.view else 'task'
@@ -111,7 +119,7 @@ class ConceptCoachAPI extends EventEmitter2
     )
 
     modalNode = document.createElement('div')
-    modalNode.classList.add('concept-coach-wrapper')
+    modalNode.classList.add(WRAPPER_CLASSNAME)
     mountNode.appendChild(modalNode)
 
     props.close = ->
@@ -155,28 +163,14 @@ class ConceptCoachAPI extends EventEmitter2
     props = _.extend({}, _.pick(nextProps, PROPS))
     @component.setProps(props)
 
-  handleOpened: (eventData, scrollTo, body = document.body) ->
-    scrollTo ?= _.partial(window.scrollTo, 0)
-    {top} = $(eventData.coach.el).offset()
-    scrollY = $(window).scrollTop()
-
-    componentModel.update(
-      scrollY: scrollY
-      closeScroll: ->
-        scrollTo(@scrollY)
-    )
-    scrollTo(top)
+  handleOpened: (eventData, body = document.body) ->
     body.classList.add('cc-opened')
 
   handleClosed: (eventData, body = document.body) ->
     body.classList.remove('cc-opened')
-    componentModel.closeScroll?()
 
   handleResize: ->
     return unless componentModel.el? and @component?.isMounted()
-    {top} = $(componentModel.el).offset()
-
-    window.scrollTo(0, top)
 
   handleError: (error) ->
     channel.emit('error', error)

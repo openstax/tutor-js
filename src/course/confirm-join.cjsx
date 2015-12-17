@@ -27,9 +27,12 @@ ConfirmJoin = React.createClass
 
   render: ->
     label = if @props.optionalStudentId
-      "Update Student ID (leave blank to leave unchanged):"
+      <span>
+        Update school issued ID<br/>
+        (<i>leave blank to leave unchanged</i>):
+        </span>
     else
-      "My Student ID is:"
+      "Enter your school issued ID:"
 
     <div className="form-group">
       <h3 className="text-center">
@@ -39,7 +42,7 @@ ConfirmJoin = React.createClass
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
 
         <BS.Input type="text" ref="input" label={label}
-          placeholder="Student ID" autoFocus
+          placeholder="School issued ID" autoFocus
           onKeyPress={@onKeyPress}
         />
 

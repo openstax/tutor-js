@@ -62,6 +62,7 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
           completedEvent = interpolate(setting.completedEvent, requestEvent.data)
           completedData = getResponseDataByEnv(isLocal, requestEvent, responseData)
           apiEventChannel.emit(completedEvent, completedData)
+          apiEventChannel.emit('success', {responseData, apiSetting, completedData})
         catch error
           apiEventChannel.emit('error', {apiSetting, response: responseData, failedData: completedData, exception: error})
       ).fail((response) ->
