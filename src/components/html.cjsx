@@ -10,6 +10,7 @@ module.exports = React.createClass
     className: React.PropTypes.string
     html: React.PropTypes.string
     block: React.PropTypes.bool.isRequired
+    processHtmlAndMath: React.PropTypes.func
   getDefaultProps: ->
     block: false
 
@@ -54,4 +55,4 @@ module.exports = React.createClass
     links = root.querySelectorAll('a')
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
-    typesetMath(root)
+    @props.processHtmlAndMath?(root) or typesetMath(root)

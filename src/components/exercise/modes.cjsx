@@ -121,10 +121,19 @@ ExFreeResponse = React.createClass
     {content, disabled, onFreeResponseChange, free_response} = @props
     {freeResponse} = @state
     question = content.questions[0]
+    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
 
     <div className='openstax-exercise'>
-      <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
+      <ArbitraryHtmlAndMath
+        {...htmlAndMathProps}
+        className='stimulus'
+        block={true}
+        html={content.stimulus_html} />
+      <ArbitraryHtmlAndMath
+        {...htmlAndMathProps}
+        className='stem'
+        block={true}
+        html={question.stem_html} />
       <textarea
         disabled={disabled}
         ref='freeResponse'
@@ -159,9 +168,11 @@ ExMultipleChoice = React.createClass
     {content, free_response, correct_answer_id, choicesEnabled, answerKeySet} = @props
     question = content.questions[0]
     {answerId} = @state
+    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
 
     <div className='openstax-exercise'>
       <Question
+        {...htmlAndMathProps}
         answer_id={answerId}
         onChange={@onAnswerChanged}
         choicesEnabled={choicesEnabled}
@@ -181,9 +192,11 @@ ExReview = React.createClass
   render: ->
     {content, free_response, answer_id, correct_answer_id, feedback_html, type, onChangeAnswerAttempt} = @props
     question = content.questions[0]
+    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
 
     <div className='openstax-exercise'>
       <Question
+        {...htmlAndMathProps}
         key='step-question'
         model={question}
         answer_id={answer_id}
