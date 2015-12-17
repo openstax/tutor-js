@@ -12,9 +12,11 @@ makeConfig = (config, options) ->
     isProduction: false
     minify: false
     excludeExternals: false
+    isDebug: false
 
-  {isProduction} = options = _.defaults({}, options, defaultOptions)
+  {isProduction, isDebug} = options = _.defaults({}, options, defaultOptions)
   options.isDev = not isProduction
+  options.isClean = not isDebug
 
   # merge in minify and externals with base as declared in options
   baseOptions = _.reduce options, (mergedOptions, isOn, option) ->

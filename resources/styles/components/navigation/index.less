@@ -1,7 +1,18 @@
 .concept-coach {
 
   .navbar-brand {
-    text-transform: uppercase;
+    > span {
+      display: inline-block;
+    }
+    .navbar-logo {
+      text-transform: uppercase;
+    }
+    .concept-coach-course-name {
+      margin-left: 2rem;
+      font-style: italic;
+      color: @openstax-neutral-light;
+      font-weight: 300;
+    }
   }
   .navbar-default {
     background: @openstax-white;

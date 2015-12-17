@@ -66,14 +66,26 @@ optionConfigs =
         { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
       ]
     plugins: [
-      # Use the production version of React (no warnings/runtime checks)
-      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
+      # Use the appropriate version of React (no warnings/runtime checks for production)
+      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV) } })
       new webpack.ProvidePlugin({
         React: 'react/addons'
         _: 'underscore'
         BS: 'react-bootstrap'
         $: 'jquery'
       })
+    ]
+
+  isDebug:
+    plugins: [
+      # Use the development version of React
+      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('development') } })
+    ]
+
+  isClean:
+    plugins: [
+      # Use the appropriate version of React (no warnings/runtime checks for production)
+      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
     ]
 
   isDev:

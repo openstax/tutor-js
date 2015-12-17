@@ -25,3 +25,16 @@
     opacity: @opacity;
   }
 }
+
+.keyframes(@name; @arguments) {
+  @-moz-keyframes @name { @arguments(); }
+  @-webkit-keyframes @name { @arguments(); }
+  @keyframes @name { @arguments(); }
+}
+
+.transform(@transforms) {
+  -webkit-transform: @transforms;
+      -ms-transform: @transforms; // IE9 only
+       -o-transform: @transforms;
+          transform: @transforms;
+}

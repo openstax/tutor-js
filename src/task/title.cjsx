@@ -14,14 +14,17 @@ TaskTitle = React.createClass
   contextTypes:
     close: React.PropTypes.func
 
-  broadcastNav: ->
+  broadcastNav: (clickEvent) ->
+    clickEvent.preventDefault()
+
     {collectionUUID, moduleUUID, taskId, cnxUrl} = @props
     {close} = @context
     {link} = tasks.getModuleInfo(taskId, cnxUrl)
 
-    componentModel.update(scrollY: 0)
     close()
     navigation.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
+
+    true
 
   render: ->
     {taskId, cnxUrl} = @props

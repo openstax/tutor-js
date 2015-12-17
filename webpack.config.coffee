@@ -6,7 +6,7 @@ getWebpackConfig = (name, isProduction) ->
         entry: './index'
         output:
           filename: 'main.js'
-      }, {isProduction, excludeExternals: true}]
+      }, {isProduction, isDebug: true, excludeExternals: true}]
     'main.min': [{
         entry:
           main: './index'
@@ -17,7 +17,7 @@ getWebpackConfig = (name, isProduction) ->
         entry: './full-build'
         output:
           filename: 'full-build.js'
-      }, {isProduction, excludePeers: true}]
+      }, {isProduction, isDebug: true, excludePeers: true}]
     'fullBuild.min': [{
         entry: './full-build'
         output:
