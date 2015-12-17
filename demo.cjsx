@@ -30,11 +30,14 @@ loadApp = ->
   buttonA = document.getElementById('launcher')
   buttonB = document.getElementById('launcher-other-course')
   buttonC = document.getElementById('launcher-intro')
+  buttonMATHS = document.getElementById('launcher-maths')
 
   demoSettings =
     collectionUUID: settings.COLLECTION_UUID
     moduleUUID: settings.MODULE_UUID
     cnxUrl: settings.CNX_URL
+    processHtmlAndMath: ->
+      console.info('HELLO')
 
   initialModel = _.clone(demoSettings)
   initialModel.mounter = mainDiv
@@ -64,10 +67,19 @@ loadApp = ->
     conceptCoachDemo.open(mainDiv, introSettings)
     true
 
-  conceptCoachDemo.displayLauncher(buttonA)
+  showMaths = ->
+    introSettings = _.extend({}, demoSettings,
+      moduleUUID: '4bba6a1c-a0e6-45c0-988c-0d5c23425670',
+      collectionUUID: '27275f49-f212-4506-b3b1-a4d5e3598b99'
+    )
 
+    conceptCoachDemo.open(mainDiv, introSettings)
+    true
+
+  conceptCoachDemo.displayLauncher(buttonA)
   buttonB.addEventListener 'click', showOtherCourse
   buttonC.addEventListener 'click', showIntro
+  buttonMATHS.addEventListener 'click', showMaths
 
   conceptCoachDemo.on 'ui.launching', show
 
@@ -79,10 +91,6 @@ loadApp = ->
   # listen to back/forward and broadcasting to coach navigation
   window.addEventListener 'popstate', (eventData) ->
     conceptCoachDemo.updateToRoute(location.pathname)
-
-
-  window.addEventListener 'resize', (eventData) ->
-    conceptCoachDemo.handleResize()
 
   # open to the expected view right away if view in url
   conceptCoachDemo.openByRoute(mainDiv, demoSettings, location.pathname) if location.pathname?

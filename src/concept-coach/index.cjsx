@@ -16,7 +16,7 @@ task = require '../task/collection'
 modalCoachWrapped = helpers.wrapComponent(ModalCoach)
 launcherWrapped = helpers.wrapComponent(Launcher)
 
-PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl']
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'processHtmlAndMath']
 WRAPPER_CLASSNAME = 'concept-coach-wrapper'
 
 listenAndBroadcast = (componentAPI) ->
@@ -168,9 +168,6 @@ class ConceptCoachAPI extends EventEmitter2
 
   handleClosed: (eventData, body = document.body) ->
     body.classList.remove('cc-opened')
-
-  handleResize: ->
-    return unless componentModel.el? and @component?.isMounted()
 
   handleError: (error) ->
     channel.emit('error', error)
