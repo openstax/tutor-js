@@ -79,6 +79,9 @@ Answer = React.createClass
     {disabled, keyControl} = @props
     keysHelper.off(keyControl, 'multiple-choice') if keyControl and not disabled
 
+  contextTypes:
+    processHtmlAndMath: React.PropTypes.func
+
   render: ->
     {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
     qid ?= "auto-#{idCounter++}"
@@ -112,7 +115,7 @@ Answer = React.createClass
     if @props.show_all_feedback and answer.feedback_html
       feedback = <Feedback key='question-mc-feedback'>{answer.feedback_html}</Feedback>
 
-    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
     <div>
       <div className={classes}>
@@ -138,9 +141,11 @@ Feedback = React.createClass
     position: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
   getDefaultProps: ->
     position: 'bottom'
+  contextTypes:
+    processHtmlAndMath: React.PropTypes.func
   render: ->
     wrapperClasses = classnames 'question-feedback', @props.position
-    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
     <div className={wrapperClasses}>
       <div className='arrow'/>
@@ -173,6 +178,12 @@ module.exports = React.createClass
     type: 'student'
     show_all_feedback: false
     keySet: 'multiple-choice'
+
+  childContextTypes:
+    processHtmlAndMath: React.PropTypes.func
+
+  getChildContext: ->
+    processHtmlAndMath: @props.processHtmlAndMath
 
   onChangeAnswer: (answer, changeEvent) ->
     if @props.onChange?
