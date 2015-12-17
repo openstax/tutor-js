@@ -11,22 +11,20 @@ CourseDataMixin = require './course-data-mixin'
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role
 DisplayOrRedirect = (transition, callback) ->
-  courses = CourseListingStore.allValidCourses() or []
+  courses = CourseListingStore.allCourses() or []
   [course] = courses
   if courses.length is 1 and course.roles?.length is 1
     roleType = courses[0].roles[0].type
     conceptCoach = courses[0].is_concept_coach
 
     if roleType is 'student'
-      type = 'viewStudentDashboard'
-    else if roleType is 'teacher' and not conceptCoach
-      type = 'taskplans'
-    else if roleType is 'teacher' and conceptCoach
-      type = 'cc-dashboard'
+      if conceptCoach then callback() else view = 'viewStudentDashboard'
+    else if roleType is 'teacher'
+      view = if conceptCoach then 'cc-dashboard' else 'taskplans'
     else
       throw new Error("BUG: Unrecognized role type #{roleType}")
 
-    transition.redirect(type, {courseId: _.first(courses).id})
+    transition.redirect(view, {courseId: _.first(courses).id}) if view
   callback()
 
 
@@ -72,10 +70,15 @@ CourseListing = React.createClass
             to={to}
             params={{courseId}}>{course.name}</Router.Link>
       else if isStudent
-        courseLink = <Router.Link
-          className='tutor-course-item'
-          to='viewStudentDashboard'
-          params={{courseId}}>{course.name}</Router.Link>
+        if isConceptCoach
+          courseLink = <a className='tutor-course-item' href={course.webview_url}>
+            {course.name}
+            </a>
+        else
+          courseLink = <Router.Link
+            className='tutor-course-item'
+            to='viewStudentDashboard'
+            params={{courseId}}>{course.name}</Router.Link>
       else
         console.warn?("BUG: User is not a teacher or a student on course id: #{course.id}")
         return null
@@ -88,7 +91,7 @@ CourseListing = React.createClass
       </BS.Row>
 
   render: ->
-    courses = CourseListingStore.allValidCourses() or []
+    courses = CourseListingStore.allCourses() or []
     body = if courses.length
       <div className='-course-list'>{@renderCourses(courses)}</div>
     else
