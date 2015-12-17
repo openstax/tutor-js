@@ -1,6 +1,8 @@
 # Only load recordo for dev code for now
 if 'production' isnt process.env.NODE_ENV
-  require('recordo').initialize()
+  Recordo = require('recordo')
+  Recordo.initialize()
+  Recordo.start()
 
 require 'jquery'
 
