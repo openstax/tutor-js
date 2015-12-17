@@ -1,4 +1,7 @@
-require './replay-for-qa'
+# Only load recordo for dev code for now
+if 'production' isnt process.env.NODE_ENV
+  require('recordo').initialize()
+
 require 'jquery'
 
 api = require './src/api'

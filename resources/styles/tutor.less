@@ -1,6 +1,7 @@
 // External Libraries
 @import './variables/paths';
 @import './global/externals';
+@import (inline) '~recordo/recordo.css';
 
 // Variables and Mixins
 @import './variables';
@@ -69,8 +70,6 @@
 
 // OLD Components
 @import './old/task-plan/homework';
-
-@import './replay-for-qa';
 
 body[data-js-error]::before {
   content: attr(data-js-error);
