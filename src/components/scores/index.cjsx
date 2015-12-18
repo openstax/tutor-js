@@ -65,13 +65,13 @@ Scores = React.createClass
     @sizeTable()
 
   sizeTable: ->
-    _.delay( =>
-      @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()}) if @isMounted()
-    , 100)
+    @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
 
   tableWidth: ->
     table = React.findDOMNode(@refs.tableContainer)
-    Math.max(400, table.clientWidth)
+    rightPadding = 120
+    # max sets width based on window for IE, if clientWidth returns 0 on initial load.
+    Math.max(window.innerWidth - rightPadding, table.clientWidth)
 
   tableHeight: ->
     windowEl = @_getWindowSize()
