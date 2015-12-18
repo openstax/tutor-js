@@ -28,7 +28,7 @@ base =
     # TODO check what plugins are need
     # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
     # Pass the BASE_URL along
-    new webpack.EnvironmentPlugin( 'NODE_ENV', 'BASE_URL' )
+    new webpack.EnvironmentPlugin( 'BASE_URL' )
     new ExtractTextPlugin('[name].css')
     new webpack.optimize.DedupePlugin()
   ]
