@@ -11,10 +11,8 @@ exercise = require '../exercise/collection'
 progress = require '../progress/collection'
 task = require '../task/collection'
 
-{ModalCoach} = require './modal-coach'
-{Launcher} = require './launcher'
-modalCoachWrapped = helpers.wrapComponent(ModalCoach)
-launcherWrapped = helpers.wrapComponent(Launcher)
+{Coach} = require './coach'
+coachWrapped = helpers.wrapComponent(Coach)
 
 PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'processHtmlAndMath']
 WRAPPER_CLASSNAME = 'concept-coach-wrapper'
@@ -94,6 +92,8 @@ class ConceptCoachAPI extends EventEmitter2
 
   destroy: ->
     @close?()
+    coachWrapped.unmountFrom(componentModel.mounter) if @component?.isMounted()
+
     stopModelChannels(@models)
     deleteProperties(@models)
     deleteProperties(componentModel)
@@ -105,11 +105,7 @@ class ConceptCoachAPI extends EventEmitter2
     options = _.extend({}, options, isSame: isSame)
     componentModel.update(options)
 
-  displayLauncher: (mountNode) ->
-    mountNode.classList.add(WRAPPER_CLASSNAME)
-    launcherWrapped.render(mountNode)
-
-  open: (mountNode, props) ->
+  initialize: (mountNode, props = {}) ->
     props = _.clone(props)
     props.defaultView ?= if componentModel.isSame then componentModel.view else 'task'
 
@@ -118,30 +114,27 @@ class ConceptCoachAPI extends EventEmitter2
       isSame: true
     )
 
-    modalNode = document.createElement('div')
-    modalNode.classList.add(WRAPPER_CLASSNAME)
-    mountNode.appendChild(modalNode)
-
-    props.close = ->
+    props.close = =>
+      @component.setProps(open: false)
       componentModel.channel.emit('close.clicked')
-      modalCoachWrapped.unmountFrom(modalNode)
-      mountNode.removeChild(modalNode) if modalNode.parentNode is mountNode
 
+    @close = props.close
+    @component = coachWrapped.render(mountNode, props)
+
+  open: (props) ->
     # wait until our logout request has been received and the close
     User.channel.once 'logout.received', ->
       props.close()
 
-    @component = modalCoachWrapped.render(modalNode, props)
-    @close = props.close
+    openProps = _.extend({}, props, open: true)
+    @component.setProps(openProps)
 
-    @component
-
-  openByRoute: (mountNode, props, route) ->
+  openByRoute: (props, route) ->
     props = _.clone(props)
     props.defaultView = navigation.getViewByRoute(route)
 
     if props.defaultView? and props.defaultView isnt 'close'
-      @open(mountNode, props)
+      @open(props)
 
   updateToView: (view) ->
     if @component?.isMounted()
@@ -152,7 +145,7 @@ class ConceptCoachAPI extends EventEmitter2
     else if componentModel.mounter? and view isnt 'close'
       props = _.pick(componentModel, PROPS)
       props.defaultView = view
-      @open(componentModel.mounter, props)
+      @open(props)
 
   updateToRoute: (route) ->
     view = navigation.getViewByRoute(route)

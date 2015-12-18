@@ -30,7 +30,6 @@ Navigation = React.createClass
     @forceUpdate() if @isMounted()
 
   close: ->
-    channel.emit('close.clicked')
     @context.close?()
 
   handleSelect: (selectedKey) ->

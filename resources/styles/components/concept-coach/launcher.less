@@ -234,6 +234,7 @@
   }
   .launcher-coffee {
     .animation(launcher-mug-leave 300ms ease-in);
+    .animation-fill-mode(both);
   }
   .launcher-concept-coach-screen {
     fill: @openstax-white;
@@ -286,7 +287,7 @@
     .launcher-animate(launching);
   }
 
-  &.closing {
+  &:not(.launching) {
     .launcher-animate(closing);
   }
 }
