@@ -24,7 +24,7 @@ CurrentProgressBase = React.createClass
   render: ->
     {task} = @state
     {taskId, maxLength, moduleUUID} = @props
-    return null unless task?
+    return null unless task?.steps?
 
     page = _.pick task, 'last_worked_at', 'id'
     _.extend page, _.first(_.first(task.steps).related_content)
