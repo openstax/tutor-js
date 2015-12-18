@@ -70,6 +70,12 @@ TaskBase = React.createClass
 
     @setState(nextState)
 
+  childContextTypes:
+    processHtmlAndMath: React.PropTypes.func
+
+  getChildContext: ->
+    processHtmlAndMath: @props.processHtmlAndMath
+
   render: ->
     {task, currentStep} = @state
     {taskId} = @props
@@ -82,13 +88,11 @@ TaskBase = React.createClass
       currentStep={currentStep}/>
 
     noExercises = not task.steps? or _.isEmpty(task.steps)
-    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
 
     if noExercises
       panel = <NoExercises/>
     else if task.steps[currentStep]?
       panel = <ExerciseStep
-        {...htmlAndMathProps}
         className='concept-coach-task-body'
         id={task.steps[currentStep].id}
         pinned={false}/>

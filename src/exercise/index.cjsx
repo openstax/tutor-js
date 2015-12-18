@@ -25,6 +25,9 @@ ExerciseBase = React.createClass
 
     channel.emit("component.#{status}", status: status, step: step)
 
+  contextTypes:
+    processHtmlAndMath: React.PropTypes.func
+
   render: ->
     {step} = @state
     {taskId} = @props
@@ -66,8 +69,10 @@ ExerciseBase = React.createClass
       wrapperProps =
         'data-step-number': tasks.getStepIndex(taskId, step.id) + 1
 
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+
     <div className='exercise-wrapper' {...wrapperProps}>
-      <Exercise {...exerciseProps} {...@props}/>
+      <Exercise {...exerciseProps} {...htmlAndMathProps} {...@props}/>
     </div>
 
 ExerciseStep = React.createClass
