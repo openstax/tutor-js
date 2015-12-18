@@ -66,8 +66,6 @@ optionConfigs =
         { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
       ]
     plugins: [
-      # Use the appropriate version of React (no warnings/runtime checks for production)
-      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV) } })
       new webpack.ProvidePlugin({
         React: 'react/addons'
         _: 'underscore'
