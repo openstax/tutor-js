@@ -51,7 +51,7 @@ BlankCourse = React.createClass
                 As your students begin using Concept Coach, you will be able to
                 track their performance and see their scores in your dashboard.
                 <p>
-                  Performance metrics will appear when at least 10% of students 
+                  Performance metrics will appear when at least 10% of students
                   have completed a Concept Coach reading
                 </p>
               </li>
