@@ -56,13 +56,12 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
 
   _.delay ->
     $.ajax(apiSetting)
-      .then((responseData) ->
+      .done((responseData) ->
         delete LOADING[apiSetting.url]
         try
           completedEvent = interpolate(setting.completedEvent, requestEvent.data)
           completedData = getResponseDataByEnv(isLocal, requestEvent, responseData)
           apiEventChannel.emit(completedEvent, completedData)
-          apiEventChannel.emit('success', {responseData, apiSetting, completedData})
         catch error
           apiEventChannel.emit('error', {apiSetting, response: responseData, failedData: completedData, exception: error})
       ).fail((response) ->
@@ -77,8 +76,13 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
 
         defaultFail(response)
         apiEventChannel.emit('error', {response, apiSetting, failedData})
+      ).always((response) ->
+        apiEventChannel.emit('completed')
       )
   , delay
+
+isPending = ->
+  not _.isEmpty(LOADING)
 
 loader = (apiEventChannel, settings) ->
   apiEventChannel.on 'set.access_token', (token) ->
@@ -88,4 +92,4 @@ loader = (apiEventChannel, settings) ->
     apiEventChannel.on eventName, _.partial(handleAPIEvent, apiEventChannel, setting.baseUrl or settings.baseUrl, setting)
 
 
-module.exports = loader
+module.exports = {loader, isPending}

@@ -14,11 +14,12 @@ CCModal = React.createClass
     mountData = modal: el: @getDOMNode()
     channel.emit('modal.mount.success', mountData)
     mountData.modal.el.focus()
-    # ensure cc show even if no api call has been made on cc open
-    _.delay @setLoaded, 1000
 
-  componentWillMount: ->
-    api.channel.once 'success', @setLoaded
+    # only wait to set loaded if there is a pending api call
+    if api.isPending()
+      api.channel.once('completed', @setLoaded)
+    else
+      @setLoaded()
 
   setLoaded: ->
     {isLoaded} = @state
