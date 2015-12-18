@@ -141,17 +141,24 @@
       padding-top: (@banner-height / 2);
     }
     .side-by-side {
-      display: flex;
+   
     }
     .help {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
+      float: left;
       // override flat styles
       :not(.btn-link):not(.btn-flat):not(.btn-fab).btn{
         align-self: center;
         color: @tutor-white !important;
         background-color: @tutor-primary !important;
+      }
+      width: 50%;
+    }
+    .graphic {
+      float: right;
+      width: 50%;
+      .svg-container {
+        width: 100%;
+        height: 100%;
       }
     }
     svg.desktop {
