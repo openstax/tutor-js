@@ -37,9 +37,9 @@ DIST_DIR = './dist'
 gulp.task '_cleanDist', (done) ->
   del(['./dist/*'], done)
 
-gulpWebpack = (name) ->
-  env(vars:{ NODE_ENV: 'production' })
-  config = getWebpackConfig(name, process.env.NODE_ENV is 'production')
+gulpWebpack = (name, nodeEnv = 'production') ->
+  env(vars:{ NODE_ENV: nodeEnv })
+  config = getWebpackConfig(name, true)
   webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
     gutil.log("[webpack]", stats.toString({
@@ -47,9 +47,9 @@ gulpWebpack = (name) ->
     }))
   )
 
-gulp.task '_buildMain', _.partial(gulpWebpack, 'main')
+gulp.task '_buildMain', _.partial(gulpWebpack, 'main', 'development')
 gulp.task '_buildMainMin', _.partial(gulpWebpack, 'main.min')
-gulp.task '_buildFull', _.partial(gulpWebpack, 'fullBuild')
+gulp.task '_buildFull', _.partial(gulpWebpack, 'fullBuild', 'development')
 gulp.task '_buildFullMin', _.partial(gulpWebpack, 'fullBuild.min')
 gulp.task '_buildDemo', _.partial(gulpWebpack, 'demo')
 
