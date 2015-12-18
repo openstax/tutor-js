@@ -1,3 +1,8 @@
+# Only load recordo for dev code for now
+Recordo = require('recordo')
+Recordo.initialize()
+# Recordo.start()
+
 require 'jquery'
 
 api = require './src/api'
