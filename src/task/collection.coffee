@@ -5,6 +5,11 @@ api = require '../api'
 exercises = require '../exercise/collection'
 
 tasks = {}
+
+user = require '../user/model'
+user.channel.on 'change', ->
+  tasks = {}
+
 channel = new EventEmitter2 wildcard: true
 
 ERRORS_TO_SILENCE = ['page_has_no_exercises']
