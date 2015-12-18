@@ -3,8 +3,9 @@ _ = require 'underscore'
 MATH_MARKER_BLOCK  = '\u200c\u200c\u200c' # zero-width non-joiner
 MATH_MARKER_INLINE = '\u200b\u200b\u200b' # zero-width space
 
-MATH_DATA_SELECTOR = '[data-math]:not(.math-rendered)'
-MATH_ML_SELECTOR   = 'math:not(.math-rendered)'
+MATH_RENDERED_CLASS = 'math-rendered'
+MATH_DATA_SELECTOR = "[data-math]:not(.#{MATH_RENDERED_CLASS})"
+MATH_ML_SELECTOR   = "math:not(.#{MATH_RENDERED_CLASS})"
 COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 
 cleanMathArtifacts = ->
@@ -22,7 +23,9 @@ cleanMathArtifacts = ->
       el.parentElement.removeChild(el)
   ])
 
-
+setAsRendered = (node, type = 'mathjax') ->
+  node.classList.add("#{type}-rendered")
+  node.classList.add(MATH_RENDERED_CLASS)
 
 # Search document for math and [data-math] elements and then typeset them
 typesetDocument = ->
@@ -41,6 +44,10 @@ typesetDocument = ->
     _.pluck(document.querySelectorAll(MATH_ML_SELECTOR), 'parentNode')
   )
   window.MathJax.Hub.Typeset( allNodes )
+  window.MathJax.Hub.Queue ->
+    for node in allNodes
+      setAsRendered(node)
+
   cleanMathArtifacts()
 
 # Install a debounce around typesetting function so that it will only run once
