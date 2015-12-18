@@ -49,7 +49,11 @@ BlankCourse = React.createClass
               </li>
               <li>
                 As your students begin using Concept Coach, you will be able to
-                track their performance and see their scores in your dashboard
+                track their performance and see their scores in your dashboard.
+                <p>
+                  Performance metrics will appear when at least 10% of students 
+                  have completed a Concept Coach reading
+                </p>
               </li>
             </ol>
             <Router.Link className='settings btn btn-default btn-large'
