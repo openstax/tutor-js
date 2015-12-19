@@ -36,16 +36,24 @@ gulp.task '_cleanDist', (done) ->
   del(['./dist/*'], done)
 
 gulp.task '_build', ['_cleanDist'], (done) ->
-  env(vars:{ NODE_ENV: 'production' })
+  # use the webpack config as if it was being built for a remote machine
+  # (ie no hotloader) but keep the actual React runtime warnings and sourcemaps
+  # in place
+  env(vars:{NODE_BUILD_TYPE: 'standalone'})
+  # Default to "production"
+  unless process.env.NODE_ENV
+    env(vars:{NODE_ENV: JSON.stringify('production')})
+
+  plugins = [
+    # Use the production version of React (no warnings/runtime checks)
+    new webpack.DefinePlugin({ 'process.env': {NODE_ENV: process.env.NODE_ENV} })
+    new WPExtractText("tutor.min.css")
+  ]
+  if process.env.NODE_ENV is 'production'
+    plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}))
+
   webpackConfig = require './webpack.config'
-  config = _.extend({}, webpackConfig, {
-    plugins: [
-      # Use the production version of React (no warnings/runtime checks)
-      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
-      new WPExtractText("tutor.min.css")
-      new webpack.optimize.UglifyJsPlugin({minimize: true})
-    ]
-  })
+  config = _.extend({}, webpackConfig, {plugins})
   config.output.filename = 'tutor.min.js'
   webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
@@ -131,6 +139,7 @@ gulp.task 'lint', ->
   .pipe(coffeelint.reporter('fail'))
 
 gulp.task 'prod', ['_archive']
+gulp.task 'build-archive', ['_archive']
 
 gulp.task 'serve', ['_webserver']
 

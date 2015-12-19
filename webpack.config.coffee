@@ -1,9 +1,9 @@
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 webpack = require 'webpack'
 
-isProduction = process.env.NODE_ENV is 'production'
-LOADERS = if isProduction then [] else ["react-hot", "webpack-module-hot-accept"]
-lessLoader = if isProduction
+isStandaloneBuild = process.env.NODE_BUILD_TYPE is 'standalone'
+LOADERS = if isStandaloneBuild then [] else ["react-hot", "webpack-module-hot-accept"]
+lessLoader = if isStandaloneBuild
   { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
 else
   { test: /\.less$/,   loaders: LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
@@ -11,7 +11,7 @@ else
 module.exports =
   cache: true
 
-  devtool: if isProduction then undefined else 'source-map'
+  devtool: if isStandaloneBuild then undefined else 'source-map'
 
   entry:
     tutor: [
@@ -23,9 +23,9 @@ module.exports =
     ]
 
   output:
-    path: if isProduction then 'dist' else '/'
+    path: if isStandaloneBuild then 'dist' else '/'
     filename: '[name].js'
-    publicPath: if isProduction then '/assets/' else 'http://localhost:8000/dist/'
+    publicPath: if isStandaloneBuild then '/assets/' else 'http://localhost:8000/dist/'
 
   plugins: [ new ExtractTextPlugin('tutor.css') ]
 
