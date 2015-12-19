@@ -8,21 +8,6 @@ MATH_DATA_SELECTOR = "[data-math]:not(.#{MATH_RENDERED_CLASS})"
 MATH_ML_SELECTOR   = "math:not(.#{MATH_RENDERED_CLASS})"
 COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 
-cleanMathArtifacts = ->
-  # Once MathJax finishes processing, cleanup the MathJax message nodes to prevent
-  # React "Invariant Violation" exceptions.
-  # MathJax calls queued events in order, so this will be called after processing completes
-  window.MathJax.Hub.Queue([ ->
-    # copy-pasta in `/index.coffee`
-    for nodeId in ['MathJax_Message', 'MathJax_Font_Test']
-      el = document.getElementById(nodeId)
-      break unless el # the elements won't exist if MathJax didn't do anything
-      # Some of the elements are wrapped by divs without selectors under body
-      # Select the parentElement unless it's already directly under body.
-      el = el.parentElement unless el.parentElement is document.body
-      el.parentElement.removeChild(el)
-  ])
-
 setAsRendered = (node, type = 'mathjax') ->
   node.classList.add("#{type}-rendered")
   node.classList.add(MATH_RENDERED_CLASS)
@@ -47,8 +32,6 @@ typesetDocument = ->
   window.MathJax.Hub.Queue ->
     for node in allNodes
       setAsRendered(node)
-
-  cleanMathArtifacts()
 
 # Install a debounce around typesetting function so that it will only run once
 # every 10ms even if called multiple calls times in that period
