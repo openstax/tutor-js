@@ -58,7 +58,7 @@ NewCourseRegistration = React.createClass
   teacherMessage: ->
     <div className="teacher-message">
       <p className="lead">
-        Welcome teacher!  To see the student view,
+        Welcome!  To see the student view,
         enter an enrollment code from one of your sections.
       </p>
       <p>
