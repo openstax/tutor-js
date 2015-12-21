@@ -49,7 +49,7 @@ loadApp = ->
   conceptCoachDemo.on 'ui.close', conceptCoachDemo.handleClosed
 
   show = ->
-    conceptCoachDemo.open(mainDiv, demoSettings)
+    conceptCoachDemo.open(demoSettings)
     true
 
   showOtherCourse = ->
@@ -58,13 +58,13 @@ loadApp = ->
       moduleUUID: 'FAKE_MODULE'
       cnxUrl: settings.CNX_URL
 
-    conceptCoachDemo.open(mainDiv, otherCourseSettings)
+    conceptCoachDemo.open(otherCourseSettings)
     true
 
   showIntro = ->
     introSettings = _.extend({}, demoSettings, moduleUUID: 'e98bdaec-4060-4b43-ac70-681555a30e22')
 
-    conceptCoachDemo.open(mainDiv, introSettings)
+    conceptCoachDemo.open(introSettings)
     true
 
   showMaths = ->
@@ -73,10 +73,11 @@ loadApp = ->
       collectionUUID: '27275f49-f212-4506-b3b1-a4d5e3598b99'
     )
 
-    conceptCoachDemo.open(mainDiv, introSettings)
+    conceptCoachDemo.open(introSettings)
     true
 
-  conceptCoachDemo.displayLauncher(buttonA)
+  window.conceptCoachDemo = conceptCoachDemo
+  conceptCoachDemo.initialize(buttonA)
   buttonB.addEventListener 'click', showOtherCourse
   buttonC.addEventListener 'click', showIntro
   buttonMATHS.addEventListener 'click', showMaths
@@ -87,13 +88,15 @@ loadApp = ->
   conceptCoachDemo.on 'view.update', (eventData) ->
     if eventData.route isnt location.pathname
       history.pushState(eventData.state, null, eventData.route)
+    true
 
   # listen to back/forward and broadcasting to coach navigation
   window.addEventListener 'popstate', (eventData) ->
     conceptCoachDemo.updateToRoute(location.pathname)
+    true
 
   # open to the expected view right away if view in url
-  conceptCoachDemo.openByRoute(mainDiv, demoSettings, location.pathname) if location.pathname?
+  conceptCoachDemo.openByRoute(demoSettings, location.pathname) if location.pathname?
 
   if AUTOSHOW
     setTimeout( show, 300)

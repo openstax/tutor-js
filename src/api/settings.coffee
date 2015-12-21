@@ -37,7 +37,6 @@ settings =
     'courseDashboard.*.send.fetch':
       url: 'api/courses/{id}/cc/dashboard'
       method: 'GET'
-      baseUrl: process?.env?.BASE_URL
       completedEvent: 'courseDashboard.{id}.receive.fetch'
 
     'course.*.send.registration':

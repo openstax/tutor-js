@@ -1,6 +1,6 @@
 EventEmitter2 = require 'eventemitter2'
 
-loader = require './loader'
+{loader, isPending} = require './loader'
 settings = require './settings'
 
 channel = new EventEmitter2 wildcard: true
@@ -19,4 +19,4 @@ destroy = ->
   channel.removeAllListeners()
   IS_INITIALIZED = false
 
-module.exports = {loader, settings, initialize, destroy, channel}
+module.exports = {loader, isPending, settings, initialize, destroy, channel}
