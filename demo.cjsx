@@ -2,6 +2,7 @@ ConceptCoachAPI = require './src/concept-coach'
 
 api = require './src/api'
 AUTOSHOW = false
+{startMathJax, typesetMath} = require './demo-mathjax-config'
 
 SETTINGS =
   STUBS:
@@ -26,6 +27,8 @@ loadApp = ->
   unless document.readyState is 'interactive'
     return false
 
+  startMathJax()
+
   mainDiv = document.getElementById('react-root-container')
   buttonA = document.getElementById('launcher')
   buttonB = document.getElementById('launcher-other-course')
@@ -36,8 +39,7 @@ loadApp = ->
     collectionUUID: settings.COLLECTION_UUID
     moduleUUID: settings.MODULE_UUID
     cnxUrl: settings.CNX_URL
-    processHtmlAndMath: ->
-      console.info('HELLO')
+    processHtmlAndMath: typesetMath # from demo
 
   initialModel = _.clone(demoSettings)
   initialModel.mounter = mainDiv
