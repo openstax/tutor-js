@@ -35,7 +35,7 @@ InviteCodeInput = React.createClass
         waitingText={'Registering…'}
         onClick={@startRegistration}
       >
-        Register
+        Enroll
       </AsyncButton>
 
     <div className="form-group">

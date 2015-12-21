@@ -18,8 +18,15 @@ User =
 
   update: (data) ->
     _.extend(this, data.user)
-    @courses = _.compact _.map data.courses, (course) -> new Course(course) if course.is_concept_coach
+    @_course_data = data.courses
+    @courses = _.compact _.map data.courses, (course) ->
+      if course.is_concept_coach and _.detect(course.roles, (role) -> role.type is 'student')
+        new Course(course)
     @channel.emit('change')
+
+  isTeacherForCourse: (collectionUUID) ->
+    course = _.findWhere @_course_data, ecosystem_book_uuid: collectionUUID
+    course and _.detect(course.roles, (role) -> role.type is 'teacher')
 
   get: ->
     @
