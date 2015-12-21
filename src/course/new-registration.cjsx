@@ -58,12 +58,13 @@ NewCourseRegistration = React.createClass
   teacherMessage: ->
     <div className="teacher-message">
       <p className="lead">
-        Welcome!  To see the student view,
+        Welcome!
+      </p><p className="lead">
+        To see the student view of your course in Concept Coach,
         enter an enrollment code from one of your sections.
-      </p>
-      <p>
-        You may want to create a test section to keep your
-        responses separate from your real students.
+      </p><p>
+        We suggest creating a test section for yourself so you can
+        separate your Concept Coach responses from those of your students.
       </p>
     </div>
 
