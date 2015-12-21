@@ -7,6 +7,7 @@ ENTER = 'Enter'
 InviteCodeInput = require './invite-code-input'
 ConfirmJoin = require './confirm-join'
 Navigation = require '../navigation/model'
+User = require '../user/model'
 
 NewCourseRegistration = React.createClass
 
@@ -36,12 +37,16 @@ NewCourseRegistration = React.createClass
       You have successfully joined {course.description()}
     </h3>
 
+  isTeacher: ->
+    User.isTeacherForCourse(@props.collectionUUID)
+
   renderCurrentStep: ->
     {course} = @state
     if course.isIncomplete()
+      title = if @isTeacher() then '' else 'Register for this Concept Coach course'
       <InviteCodeInput course={course}
         currentCourses={User.courses}
-        title="Register for this Concept Coach course"
+        title={title}
       />
     else if course.isPending()
       <ConfirmJoin
@@ -50,8 +55,21 @@ NewCourseRegistration = React.createClass
     else
       @renderComplete(course)
 
+  teacherMessage: ->
+    <div className="teacher-message">
+      <p className="lead">
+        Welcome teacher!  To see the student view,
+        enter an enrollment code from one of your sections.
+      </p>
+      <p>
+        You may want to create a test section to keep your
+        responses separate from your real students.
+      </p>
+    </div>
+
   render: ->
     <div className="-new-registration">
+      {@teacherMessage() if @isTeacher()}
       {@renderCurrentStep()}
     </div>
 
