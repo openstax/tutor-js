@@ -18,7 +18,9 @@ User =
 
   update: (data) ->
     _.extend(this, data.user)
-    @courses = _.compact _.map data.courses, (course) -> new Course(course) if course.is_concept_coach
+    @courses = _.compact _.map data.courses, (course) ->
+      if course.is_concept_coach and _.detect(course.roles, (role) -> role.type is 'student')
+        new Course(course)
     @channel.emit('change')
 
   get: ->
