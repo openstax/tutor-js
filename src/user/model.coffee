@@ -28,8 +28,14 @@ User =
     course = _.findWhere @_course_data, ecosystem_book_uuid: collectionUUID
     course and _.detect(course.roles, (role) -> role.type is 'teacher')
 
-  get: ->
-    @
+  status: (collectionUUID) ->
+    isLoggedIn: User.isLoggedIn()
+    isLoaded: User.isLoaded
+    isRegistrationPending: User._pendingRegistration?
+    isRegistered: @getCourse(collectionUUID)?.isRegistered()
+
+  getPendingRegistration: ->
+    @_pendingRegistration
 
   getCourse: (collectionUUID) ->
     _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
