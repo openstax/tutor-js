@@ -66,9 +66,7 @@ Scores = React.createClass
     @sizeTable()
 
   sizeTable: ->
-    _.delay( =>
-      @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight(), resizeSpacerNeeded: false}) if @isMounted()
-    , 100)
+    @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight(), resizeSpacerNeeded: false}) if @isMounted()
 
 
   tableWidth: (debug) ->
