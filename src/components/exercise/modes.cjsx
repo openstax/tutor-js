@@ -2,13 +2,9 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-ArbitraryHtmlAndMath = require '../html'
-Question = require '../question'
-FreeResponse = require './free-response'
 AsyncButton = require '../buttons/async-button'
-
+{ExPanel} = require './panel'
 ExerciseGroup = require './group'
-{CardBody} = require '../pinned-header-footer-card/sections'
 
 {propTypes, props} = require './props'
 
@@ -93,122 +89,20 @@ ExReviewControls = React.createClass
 ExFreeResponse = React.createClass
   displayName: 'ExFreeResponse'
   propTypes: propTypes.ExFreeResponse
-  getDefaultProps: ->
-    disabled: false
-    free_response: ''
-
-  getInitialState: ->
-    freeResponse: @props.free_response
-
-  componentDidMount: ->
-    @focusBox()
-  componentDidUpdate: ->
-    @focusBox()
-
-  componentWillReceiveProps: (nextProps) ->
-    if @state.freeResponse isnt nextProps.free_response
-      @setState(freeResponse: nextProps.free_response)
-
-  focusBox: ->
-    @refs.freeResponse.getDOMNode().focus() if @props.focus
-
-  onFreeResponseChange: ->
-    freeResponse = @refs.freeResponse.getDOMNode().value
-    @setState({freeResponse})
-    @props.onFreeResponseChange?(freeResponse)
-
   render: ->
-    {content, disabled, onFreeResponseChange, free_response} = @props
-    {freeResponse} = @state
-    question = content.questions[0]
-    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
-
-    <div className='openstax-exercise'>
-      <ArbitraryHtmlAndMath
-        {...htmlAndMathProps}
-        className='stimulus'
-        block={true}
-        html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath
-        {...htmlAndMathProps}
-        className='stem'
-        block={true}
-        html={question.stem_html} />
-      <textarea
-        disabled={disabled}
-        ref='freeResponse'
-        placeholder='Enter your response'
-        value={freeResponse}
-        onChange={@onFreeResponseChange}
-      />
-      <div className="exercise-uid">{content.uid}</div>
-    </div>
-
+    <ExPanel {...@props} panel='free-response'/>
 
 ExMultipleChoice = React.createClass
   displayName: 'ExMulitpleChoice'
   propTypes: propTypes.ExMulitpleChoice
-  getDefaultProps: ->
-    answer_id: ''
-
-  getInitialState: ->
-    {answer_id} = @props
-    answerId: answer_id
-
-  componentWillReceiveProps: (nextProps) ->
-    if @state.answerId isnt nextProps.answer_id
-      @setState(answerId: nextProps.answer_id)
-
-  onAnswerChanged: (answer) ->
-    return if answer.id is @state.answerId
-    @setState {answerId: answer.id}
-    @props.onAnswerChanged?(answer)
-
   render: ->
-    {content, free_response, correct_answer_id, choicesEnabled, answerKeySet} = @props
-    question = content.questions[0]
-    {answerId} = @state
-    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
-
-    <div className='openstax-exercise'>
-      <Question
-        {...htmlAndMathProps}
-        answer_id={answerId}
-        onChange={@onAnswerChanged}
-        choicesEnabled={choicesEnabled}
-        model={question}
-        exercise_uid={content.uid}
-        correct_answer_id={correct_answer_id}
-        keySet={answerKeySet}>
-        <FreeResponse free_response={free_response}/>
-      </Question>
-    </div>
-
+    <ExPanel {...@props} panel='multiple-choice'/>
 
 ExReview = React.createClass
   displayName: 'ExReview'
   propTypes: propTypes.ExReview
-
   render: ->
-    {content, free_response, answer_id, correct_answer_id, feedback_html, type, onChangeAnswerAttempt} = @props
-    question = content.questions[0]
-    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
-
-    <div className='openstax-exercise'>
-      <Question
-        {...htmlAndMathProps}
-        key='step-question'
-        model={question}
-        answer_id={answer_id}
-        exercise_uid={content.uid}
-        correct_answer_id={correct_answer_id}
-        feedback_html={feedback_html}
-        type={type}
-        onChangeAttempt={onChangeAnswerAttempt}>
-        <FreeResponse free_response={free_response}/>
-      </Question>
-    </div>
-
+    <ExPanel {...@props} panel='review'/>
 
 module.exports = {
   ExContinueButton,

@@ -15,6 +15,8 @@ ExerciseGroup = require './group'
   ExReview
 } = require './modes'
 
+{ExPanel} = require './panel'
+
 {propTypes, props} = require './props'
 
 PANELS =
@@ -129,7 +131,6 @@ ExerciseStepCard = React.createClass
     {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, className, footer} = @props
     {group, related_content} = step
 
-    ExPanel = PANELS[panel]
     ControlButtons = CONTROLS[panel]
     onInputChange = ON_CHANGE[panel]
     controlText = CONTROLS_TEXT[panel]
@@ -140,7 +141,7 @@ ExerciseStepCard = React.createClass
     controlProps.children = controlText
 
     panelProps = _.omit(@props, props.notPanel)
-    panelProps.choicesEnabled = not waitingText
+    panelProps.choicesEnabled = not waitingText and panel is 'multiple-choice'
     panelProps[onInputChange] = @[onInputChange]
 
     footerProps = _.pick(@props, props.StepFooter)
@@ -153,7 +154,8 @@ ExerciseStepCard = React.createClass
       <div className="exercise-#{panel}">
         <ExPanel
           {...step}
-          {...panelProps}/>
+          {...panelProps}
+          panel={panel}/>
         <ExerciseGroup
           key='step-exercise-group'
           group={group}

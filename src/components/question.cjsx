@@ -68,16 +68,27 @@ Answer = React.createClass
     show_all_feedback: false
 
   componentWillMount: ->
+    @setUpKeys()
+
+  componentWillUnmount: ->
+    {keyControl} = @props
+    keysHelper.off(keyControl, 'multiple-choice') if keyControl?
+
+  componentDidUpdate: (prevProps) ->
+    {keyControl, disabled} = @props
+    if prevProps.keyControl? and (disabled or not keyControl?)
+      keysHelper.off(prevProps.keyControl, 'multiple-choice')
+
+    if keyControl? and not disabled and prevProps.keyControl isnt keyControl
+      @setUpKeys()
+
+  setUpKeys: ->
     {answer, onChangeAnswer, disabled, keyControl} = @props
 
     if keyControl and not disabled
       keyInAnswer = _.partial onChangeAnswer, answer
       keysHelper.on keyControl, 'multiple-choice', keyInAnswer
       keymaster.setScope('multiple-choice')
-
-  componentWillUnmount: ->
-    {disabled, keyControl} = @props
-    keysHelper.off(keyControl, 'multiple-choice') if keyControl and not disabled
 
   contextTypes:
     processHtmlAndMath: React.PropTypes.func
