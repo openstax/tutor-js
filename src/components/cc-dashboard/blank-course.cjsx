@@ -64,7 +64,11 @@ BlankCourse = React.createClass
             </Router.Link>
 
           </div>
-          <DesktopImage courseId={@props.courseId} />
+          <div className='graphic'>
+            <div className='svg-container'>
+              <DesktopImage courseId={@props.courseId} />
+            </div>
+          </div>
         </div>
 
       </div>
