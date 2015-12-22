@@ -172,7 +172,7 @@ Scores = React.createClass
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
         width={@state.colSetWidth * nameColumns}
-        flexGrow={1}
+        flexGrow={0}
         allowCellsRecycling={true}
         isResizable=false
         dataKey='0'
