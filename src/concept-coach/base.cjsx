@@ -9,6 +9,7 @@ EventEmitter2 = require 'eventemitter2'
 {Task} = require '../task'
 navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
+CourseValidation   = require '../course/validation'
 ErrorNotification = require './error-notification'
 AccountsIframe = require '../user/accounts-iframe'
 LoginGateway = require '../user/login-gateway'
@@ -23,7 +24,7 @@ navigator = navigation.channel
 
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
-VIEWS = ['loading', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration'], 'logout']
+VIEWS = ['loading', 'prevalidate', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration'], 'logout']
 
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
@@ -37,10 +38,8 @@ ConceptCoach = React.createClass
     defaultView: _.chain(VIEWS).last().first().value()
 
   getInitialState: ->
-    userState = @getUserState()
-
+    userState = User.status(@props.collectionUUID)
     view = @getAllowedView(userState)
-
     userState.view = view
     userState
 
@@ -82,12 +81,14 @@ ConceptCoach = React.createClass
 
     if not userInfo.isLoaded
       authLevel = 0
-    else if not userInfo.isLoggedIn
+    else if not userInfo.isRegistered or userInfo.isRegistationPending
       authLevel = 1
-    else if not userInfo.isRegistered
+    else if not userInfo.isLoggedIn
       authLevel = 2
-    else
+    else if not userInfo.isRegistered
       authLevel = 3
+    else
+      authLevel = 4
 
     view = VIEWS[authLevel]
 
@@ -117,17 +118,9 @@ ConceptCoach = React.createClass
   showTasks: ->
     @updateView(view: 'task')
 
-  getUserState: ->
-    {collectionUUID} = @props
-    course = User.getCourse(collectionUUID)
-
-    userInfo =
-      isLoggedIn: User.isLoggedIn()
-      isLoaded: User.isLoaded
-      isRegistered: course?.isRegistered()
 
   updateUser: ->
-    userState = @getUserState()
+    userState = User.status(@props.collectionUUID)
     view = @getAllowedView(userState)
 
     # tell nav to update view if the next view isn't the current view
@@ -142,6 +135,8 @@ ConceptCoach = React.createClass
     switch view
       when 'loading'
         <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
+      when 'prevalidate'
+        <CourseRegistration {...@props} validateOnly />
       when 'logout'
         <AccountsIframe type='logout' />
       when 'login'

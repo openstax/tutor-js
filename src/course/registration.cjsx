@@ -10,15 +10,16 @@ CourseRegistration = React.createClass
 
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
+    validateOnly: React.PropTypes.bool
 
   mixins: [UserStatus]
 
   render: ->
     course = @getUser().getCourse(@props.collectionUUID)
-    body = if course
+    body = if course and not @props.validateOnly
       <ModifyCourseRegistration {...@props} course={course} />
     else
-      <NewCourseRegistration {...@props} />
+      <NewCourseRegistration {...@props} validateOnly={@props.validateOnly} />
 
     <div className="row">
       {body}
