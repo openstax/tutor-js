@@ -24,7 +24,7 @@ class Course
   constructor: (attributes) ->
     @channel = new EventEmitter2
     _.extend(@, attributes)
-    _.bindAll(@, '_onRegistered', '_onConfirmed')
+    _.bindAll(@, '_onRegistered', '_onConfirmed', '_onValidated')
 
   # complete and ready for use
   isRegistered: -> @id and not (@isIncomplete() or @isPending())
@@ -78,6 +78,23 @@ class Course
     _.extend(other, @to.course)
     other.periods = [ @to.period ]
     user.onCourseUpdate(other)
+
+  validate: (inviteCode) ->
+    @isBusy = true
+    api.channel.once "course.#{@ecosystem_book_uuid}.receive.prevalidation.*", @_onValidated
+    api.channel.emit("course.#{@ecosystem_book_uuid}.send.prevalidation", data: {
+      book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
+    })
+    @channel.emit('change')
+
+  _onValidated: (response) ->
+    {data} = response
+    delete @isBusy
+    @errors = data?.errors
+    response.stopErrorDisplay = true if @errors
+    @isValidated = data?.response
+    @channel.emit('change')
+
 
   # Submits pending course change for confirmation
   confirm: (studentId) ->
