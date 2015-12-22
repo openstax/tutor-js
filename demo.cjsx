@@ -1,3 +1,4 @@
+_ = require 'underscore'
 ConceptCoachAPI = require './src/concept-coach'
 
 api = require './src/api'

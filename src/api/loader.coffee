@@ -1,4 +1,5 @@
-_ = require 'lodash'
+_ = require 'underscore'
+deepMerge = require 'lodash/object/merge'
 $ = require 'jquery'
 interpolate = require 'interpolate'
 
@@ -40,7 +41,7 @@ getResponseDataByEnv = (isLocal, requestEvent, data) ->
       datasToMerge.push(data: requestEvent.change)
   else
     datasToMerge = [{}, requestEvent, {data}]
-  _.spread(_.merge)(datasToMerge)
+  deepMerge.apply {}, datasToMerge
 
 
 handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->

@@ -1,4 +1,4 @@
-_ = require 'lodash'
+_ = require 'underscore'
 $ = require 'jquery'
 EventEmitter2 = require 'eventemitter2'
 helpers = require '../helpers'
