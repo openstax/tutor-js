@@ -13,9 +13,11 @@ NewCourseRegistration = React.createClass
 
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
+    validateOnly: React.PropTypes.bool
+    course: React.PropTypes.instanceOf(Course)
 
   componentWillMount: ->
-    course = new Course({ecosystem_book_uuid: @props.collectionUUID})
+    course = @props.course or new Course({ecosystem_book_uuid: @props.collectionUUID})
     course.channel.on('change', @onCourseChange)
     @setState({course})
 
@@ -44,7 +46,8 @@ NewCourseRegistration = React.createClass
     {course} = @state
     if course.isIncomplete()
       title = if @isTeacher() then '' else 'Register for this Concept Coach course'
-      <InviteCodeInput course={course}
+      <InviteCodeInput validateOnly={@props.validateOnly}
+        course={course}
         currentCourses={User.courses}
         title={title}
       />
