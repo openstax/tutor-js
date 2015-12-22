@@ -1,4 +1,5 @@
 _ = require 'underscore'
+katex = require 'katex'
 
 MATH_MARKER_BLOCK  = '\u200c\u200c\u200c' # zero-width non-joiner
 MATH_MARKER_INLINE = '\u200b\u200b\u200b' # zero-width space
@@ -22,25 +23,51 @@ cleanMathArtifacts = ->
       el.parentElement.removeChild(el)
   ])
 
+setAsRendered = (node, type = 'katex') ->
+  node.classList.add("#{type}-rendered")
+  node.classList.add('math-rendered')
 
+filterWithKatex = (formula, node, displayMode) ->
+  try
+    katex.render(formula, node, {displayMode})
+    setAsRendered(node)
+    false
+  catch error
+    node
 
 # Search document for math and [data-math] elements and then typeset them
 typesetDocument = ->
-  allNodes = []
-  for node in document.querySelectorAll(MATH_DATA_SELECTOR)
-    formula = node.getAttribute('data-math')
-    # divs should be rendered as a block, others inline
-    if node.tagName.toLowerCase() is 'div'
-      node.textContent = "#{MATH_MARKER_BLOCK}#{formula}#{MATH_MARKER_BLOCK}"
-    else
-      node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
-    allNodes.push(node)
+  jaxNodes = []
+  dataMathNodes = document.querySelectorAll(MATH_DATA_SELECTOR)
   # Mathjax doesn't typeset a element when it's passed one directly
   # It will only render child elements
-  allNodes = allNodes.concat(
-    _.pluck(document.querySelectorAll(MATH_ML_SELECTOR), 'parentNode')
-  )
-  window.MathJax.Hub.Typeset( allNodes )
+  mathNodes = _.pluck(document.querySelectorAll(MATH_ML_SELECTOR), 'parentNode')
+
+  for node in mathNodes
+    formula = node.textContent
+    displayMode = window.getComputedStyle?(node).display is 'block'
+
+    node = filterWithKatex(formula, node, displayMode)
+    jaxNodes.push(node) if node
+
+  for node in dataMathNodes
+    formula = node.getAttribute('data-math')
+    displayMode = node.tagName.toLowerCase() is 'div'
+
+    node = filterWithKatex(formula, node, displayMode)
+    if node
+      # divs should be rendered as a block, others inline
+      if displayMode
+        node.textContent = "#{MATH_MARKER_BLOCK}#{formula}#{MATH_MARKER_BLOCK}"
+      else
+        node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
+      jaxNodes.push(node)
+
+  window.MathJax.Hub.Typeset( jaxNodes )
+  window.MathJax.Hub.Queue ->
+    for node in jaxNodes
+      setAsRendered(node, 'mathjax')
+
   cleanMathArtifacts()
 
 # Install a debounce around typesetting function so that it will only run once
