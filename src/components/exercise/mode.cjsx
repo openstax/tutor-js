@@ -6,7 +6,8 @@ Question = require '../question'
 FreeResponse = require './free-response'
 
 {propTypes, props} = require './props'
-modeProps = _.extend {}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview
+modeType = propTypes.ExerciseStepCard.panel
+modeProps = _.extend {}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview, mode: modeType
 
 ExMode = React.createClass
   displayName: 'ExMode'
