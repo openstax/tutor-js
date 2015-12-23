@@ -6,11 +6,11 @@ Question = require '../question'
 FreeResponse = require './free-response'
 
 {propTypes, props} = require './props'
-panelProps = _.extend {}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview
+modeProps = _.extend {}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview
 
-ExPanel = React.createClass
-  displayName: 'ExPanel'
-  propTypes: panelProps
+ExMode = React.createClass
+  displayName: 'ExMode'
+  propTypes: modeProps
   getDefaultProps: ->
     disabled: false
     free_response: ''
@@ -22,25 +22,25 @@ ExPanel = React.createClass
     answerId: answer_id
 
   componentDidMount: ->
-    {panel} = @props
-    @focusBox() if panel is 'free-response'
+    {mode} = @props
+    @focusBox() if mode is 'free-response'
 
   componentDidUpdate: (nextProps, nextState) ->
-    {panel} = nextProps
-    @focusBox() if panel is 'free-response'
+    {mode} = nextProps
+    @focusBox() if mode is 'free-response'
 
   componentWillReceiveProps: (nextProps) ->
-    {panel, free_response, answer_id} = nextProps
+    {mode, free_response, answer_id} = nextProps
 
-    switch panel
+    switch mode
       when 'free-response'
         @setState(freeResponse: free_response) if @state.freeResponse isnt free_response
       when 'multiple-choice'
         @setState(answerId: answer_id) if @state.answerId isnt answer_id
 
   focusBox: ->
-    {focus, panel} = @props
-    @refs.freeResponse?.getDOMNode?().focus?() if focus and panel is 'free-response'
+    {focus, mode} = @props
+    @refs.freeResponse?.getDOMNode?().focus?() if focus and mode is 'free-response'
 
   onFreeResponseChange: ->
     freeResponse = @refs.freeResponse?.getDOMNode()?.value
@@ -48,15 +48,15 @@ ExPanel = React.createClass
     @props.onFreeResponseChange?(freeResponse)
 
   onAnswerChanged: (answer) ->
-    return if answer.id is @state.answerId or @props.panel isnt 'multiple-choice'
+    return if answer.id is @state.answerId or @props.mode isnt 'multiple-choice'
     @setState {answerId: answer.id}
     @props.onAnswerChanged?(answer)
 
   getFreeResponse: ->
-    {panel, free_response, disabled} = @props
+    {mode, free_response, disabled} = @props
     {freeResponse} = @state
 
-    if panel is 'free-response'
+    if mode is 'free-response'
       <textarea
         disabled={disabled}
         ref='freeResponse'
@@ -68,18 +68,18 @@ ExPanel = React.createClass
       <FreeResponse free_response={free_response}/>
 
   render: ->
-    {panel, content, onChangeAnswerAttempt, answerKeySet, choicesEnabled} = @props
+    {mode, content, onChangeAnswerAttempt, answerKeySet, choicesEnabled} = @props
     {answerId} = @state
 
     answerKeySet = null unless choicesEnabled
     question = content.questions[0]
-    question = _.omit(question, 'answers') if panel is 'free-response'
+    question = _.omit(question, 'answers') if mode is 'free-response'
 
     questionProps = _.pick(@props, 'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id', 'feedback_html', 'type')
-    if panel is 'multiple-choice'
+    if mode is 'multiple-choice'
       changeProps =
         onChange: @onAnswerChanged
-    else if panel is 'review'
+    else if mode is 'review'
       changeProps =
         onChangeAttempt: onChangeAnswerAttempt
 
@@ -97,4 +97,4 @@ ExPanel = React.createClass
     </div>
 
 
-module.exports = {ExPanel}
+module.exports = {ExMode}

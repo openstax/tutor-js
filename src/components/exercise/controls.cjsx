@@ -3,9 +3,6 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 AsyncButton = require '../buttons/async-button'
-{ExPanel} = require './panel'
-ExerciseGroup = require './group'
-
 {propTypes, props} = require './props'
 
 ExContinueButton = React.createClass
@@ -85,29 +82,4 @@ ExReviewControls = React.createClass
       {continueButton}
     </div>
 
-
-ExFreeResponse = React.createClass
-  displayName: 'ExFreeResponse'
-  propTypes: propTypes.ExFreeResponse
-  render: ->
-    <ExPanel {...@props} panel='free-response'/>
-
-ExMultipleChoice = React.createClass
-  displayName: 'ExMulitpleChoice'
-  propTypes: propTypes.ExMulitpleChoice
-  render: ->
-    <ExPanel {...@props} panel='multiple-choice'/>
-
-ExReview = React.createClass
-  displayName: 'ExReview'
-  propTypes: propTypes.ExReview
-  render: ->
-    <ExPanel {...@props} panel='review'/>
-
-module.exports = {
-  ExContinueButton,
-  ExReviewControls,
-  ExFreeResponse,
-  ExMultipleChoice,
-  ExReview
-}
+module.exports = {ExContinueButton, ExReviewControls}
