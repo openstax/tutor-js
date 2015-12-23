@@ -58,12 +58,12 @@ get = (taskId) ->
   tasks[taskId]
 
 getCompleteSteps = (taskId) ->
-  _.filter(tasks[taskId].steps, (step) ->
+  _.filter(tasks[taskId]?.steps, (step) ->
     step? and step.is_completed
   )
 
 getIncompleteSteps = (taskId) ->
-  _.filter(tasks[taskId].steps, (step) ->
+  _.filter(tasks[taskId]?.steps, (step) ->
     step? and not step.is_completed
   )
 
@@ -71,7 +71,7 @@ getFirstIncompleteIndex = (taskId) ->
   _.max [_.findIndex(tasks[taskId]?.steps, {is_completed: false}), 0]
 
 getStepIndex = (taskId, stepId) ->
-  _.findIndex(tasks[taskId].steps, id: stepId)
+  _.findIndex(tasks[taskId]?.steps, id: stepId)
 
 getModuleInfo = (taskId, cnxUrl = '') ->
   task = tasks[taskId]
