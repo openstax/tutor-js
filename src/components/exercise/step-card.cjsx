@@ -7,21 +7,11 @@ keymaster = require 'keymaster'
 ExerciseGroup = require './group'
 {CardBody} = require '../pinned-header-footer-card/sections'
 
-{
-  ExContinueButton,
-  ExReviewControls,
-  ExFreeResponse,
-  ExMultipleChoice,
-  ExReview
-} = require './modes'
+{ExContinueButton, ExReviewControls} = require './controls'
+
+{ExMode} = require './mode'
 
 {propTypes, props} = require './props'
-
-PANELS =
-  'free-response': ExFreeResponse
-  'multiple-choice': ExMultipleChoice
-  'review': ExReview
-  'teacher-read-only': ExReview
 
 CONTROLS =
   'free-response': ExContinueButton
@@ -129,7 +119,6 @@ ExerciseStepCard = React.createClass
     {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, className, footer} = @props
     {group, related_content} = step
 
-    ExPanel = PANELS[panel]
     ControlButtons = CONTROLS[panel]
     onInputChange = ON_CHANGE[panel]
     controlText = CONTROLS_TEXT[panel]
@@ -140,7 +129,7 @@ ExerciseStepCard = React.createClass
     controlProps.children = controlText
 
     panelProps = _.omit(@props, props.notPanel)
-    panelProps.choicesEnabled = not waitingText
+    panelProps.choicesEnabled = not waitingText and panel is 'multiple-choice'
     panelProps[onInputChange] = @[onInputChange]
 
     footerProps = _.pick(@props, props.StepFooter)
@@ -151,9 +140,10 @@ ExerciseStepCard = React.createClass
 
     <CardBody className={cardClasses} footer={footer} pinned={pinned}>
       <div className="exercise-#{panel}">
-        <ExPanel
+        <ExMode
           {...step}
-          {...panelProps}/>
+          {...panelProps}
+          mode={panel}/>
         <ExerciseGroup
           key='step-exercise-group'
           group={group}
