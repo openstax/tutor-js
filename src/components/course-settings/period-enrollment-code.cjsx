@@ -21,6 +21,8 @@ module.exports = React.createClass
 
   getInstructions: (code) ->
     {bookUrl, bookName} = @props
+    # appends :3 to skip book intro
+    url = bookUrl + ':3'
     <div>
 
       <div className='summary'>
@@ -47,8 +49,8 @@ module.exports = React.createClass
         <ol>
           <div>
             <span>1.</span> Paste this link in your web browser to visit
-             your <a href="#{bookUrl}:3" target='_blank'>{bookName} textbook</a>:
-             <div className='emphasis'>{bookUrl}:3</div>
+             your<a href={url} target='_blank'>{bookName}textbook</a>:
+             <div className='emphasis'>{url}</div>
           </div>
           <div>
             <span>2.</span> 
