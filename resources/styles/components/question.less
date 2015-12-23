@@ -42,7 +42,9 @@
 
 .answer-fa-icon(){
   .fa-icon();
-  line-height: @answer-bubble-size;
+  // em used here for line-height for compatibility with IE
+  // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
+  line-height: 1.6em;
   font-size: 2.5rem;
 }
 
@@ -144,7 +146,9 @@
     width: 1.25 * @answer-bubble-size;
     text-align: center;
     font-size: 1.2rem;
-    line-height: 1.2rem;
+    // em used here for line-height for compatibility with IE
+    // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
+    line-height: 1em;
     margin-top: 0.8rem;
     .answer-left-block();
   }
