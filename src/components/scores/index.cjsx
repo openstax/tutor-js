@@ -73,7 +73,7 @@ Scores = React.createClass
     # tableHorzSpacing is body width - table container width
     wrap = React.findDOMNode(@refs.scoresWrap)
     tableHorzSpacing = document.body.clientWidth - wrap.clientWidth
-    # since table returns 0 on initial load in IE, include windowEl as a fallback
+    # since table.clientWidth returns 0 on initial load in IE, include windowEl as a fallback
     Math.max(windowEl.width - tableHorzSpacing, table.clientWidth)
 
   tableHeight: ->
