@@ -68,10 +68,13 @@ Scores = React.createClass
     @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
 
   tableWidth: ->
+    windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
-    rightPadding = 120
-    # max sets width based on window for IE, if clientWidth returns 0 on initial load.
-    Math.max(window.innerWidth - rightPadding, table.clientWidth)
+    # tableHorzSpacing is body width - table container width
+    wrap = React.findDOMNode(@refs.scoresWrap)
+    tableHorzSpacing = document.body.clientWidth - wrap.clientWidth
+    # since table returns 0 on initial load in IE, include windowEl as a fallback
+    Math.max(windowEl.width - tableHorzSpacing, table.clientWidth)
 
   tableHeight: ->
     windowEl = @_getWindowSize()
@@ -274,7 +277,7 @@ Scores = React.createClass
 
     if data.rows.length > 0 then students = true
 
-    <div className='course-scores-wrap'>
+    <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
         {if isConceptCoach then scoresNote}
