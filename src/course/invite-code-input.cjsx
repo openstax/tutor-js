@@ -6,20 +6,17 @@ ENTER = 'Enter'
 ErrorList = require './error-list'
 Course = require './model'
 {AsyncButton} = require 'openstax-react-components'
+User = require '../user/model'
 
 InviteCodeInput = React.createClass
 
   propTypes:
     title: React.PropTypes.string.isRequired
     course: React.PropTypes.instanceOf(Course)
-    validateOnly: React.PropTypes.bool
     currentCourses: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Course))
 
   startRegistration: ->
-    if @props.validateOnly
-      @props.course.validate(@refs.input.getValue())
-    else
-      @props.course.register(@refs.input.getValue())
+    @props.course.register(@refs.input.getValue(), User)
 
   onKeyPress: (ev) ->
     return if @props.course.isBusy # double enter
