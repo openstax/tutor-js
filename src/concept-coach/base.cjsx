@@ -132,8 +132,6 @@ ConceptCoach = React.createClass
     switch view
       when 'loading'
         <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
-      when 'prevalidate'
-        <CourseRegistration {...@props} validateOnly />
       when 'logout'
         <AccountsIframe type='logout' />
       when 'login'
