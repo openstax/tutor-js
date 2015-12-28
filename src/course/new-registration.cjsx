@@ -31,18 +31,16 @@ NewCourseRegistration = React.createClass
     Navigation.channel.emit('show')
 
   onCourseChange: ->
-    if @state.course.isValidated() or @state.course.isRegistered()
+    if @state.course.isRegistered()
       # wait 1.5 secs so our success message is briefly displayed, then call onComplete
       _.delay(@onComplete, 1500)
+    else if @state.course.isValidated()
+      @onComplete()
+
     @forceUpdate()
 
   renderValidated: ->
-    <div>
-      <h3 className="text-center">
-        Course validation is complete.
-      </h3>
-      <p className="lead">You can now login or signup to start using Concept Coach</p>
-    </div>
+    <p className="lead">Redirecting to login...</p>
 
   renderComplete: (course) ->
     <h3 className="text-center">
