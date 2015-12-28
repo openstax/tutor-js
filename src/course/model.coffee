@@ -30,8 +30,10 @@ class Course
   isRegistered: -> @id and not (@isIncomplete() or @isPending())
   # Freshly initialized, registration code has not been entered
   isIncomplete: -> not (@name or @to)
-  # Has registration code, but not confimed
-  isPending: ->    @status is "pending"
+  # The registration code has been validated but sign-up is not yet started
+  isValidated: -> @status is "validated"
+  # A registration has been created, but not confimed
+  isPending: ->  @status is "pending"
 
   # forget in-progress registration information.  Called when a join is canceled
   resetToBlankState: ->
@@ -75,26 +77,19 @@ class Course
   # The clone's attributes are persisted to the user once complete
   persist: (user) ->
     other = user.findOrCreateCourse(@ecosystem_book_uuid)
-    _.extend(other, @to.course)
-    other.periods = [ @to.period ]
+    _.extend(other, @to?.course)
+    other.status = @status
+    other.enrollment_code = @enrollment_code
+    other.periods = [ @to?.period ]
     user.onCourseUpdate(other)
-
-  validate: (inviteCode) ->
-    @isBusy = true
-    api.channel.once "course.#{@ecosystem_book_uuid}.receive.prevalidation.*", @_onValidated
-    api.channel.emit("course.#{@ecosystem_book_uuid}.send.prevalidation", data: {
-      book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
-    })
-    @channel.emit('change')
 
   _onValidated: (response) ->
     {data} = response
     delete @isBusy
     @errors = data?.errors
     response.stopErrorDisplay = true if @errors
-    @isValidated = data?.response
+    @status = 'validated' if data?.response is true
     @channel.emit('change')
-
 
   # Submits pending course change for confirmation
   confirm: (studentId) ->
@@ -117,13 +112,18 @@ class Course
     delete @isBusy
     @channel.emit('change')
 
-  # Submits a course invite for registration
-  register: (inviteCode) ->
+  # Submits a course invite for registration.  If user is signed in
+  # the registration will be saved, otherwise it will only be vaidated
+  register: (enrollment_code, user) ->
+    @enrollment_code = enrollment_code
+    data = {enrollment_code, book_uuid: @ecosystem_book_uuid}
     @isBusy = true
-    api.channel.once "course.#{@ecosystem_book_uuid}.receive.registration.*", @_onRegistered
-    api.channel.emit("course.#{@ecosystem_book_uuid}.send.registration", data: {
-      book_uuid: @ecosystem_book_uuid, enrollment_code: inviteCode
-    })
+    if user.isLoggedIn()
+      api.channel.once "course.#{@ecosystem_book_uuid}.receive.registration.*", @_onRegistered
+      api.channel.emit("course.#{@ecosystem_book_uuid}.send.registration", {data})
+    else
+      api.channel.once "course.#{@ecosystem_book_uuid}.receive.prevalidation.*", @_onValidated
+      api.channel.emit("course.#{@ecosystem_book_uuid}.send.prevalidation", {data})
     @channel.emit('change')
 
   _onRegistered: (response) ->
