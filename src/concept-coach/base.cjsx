@@ -23,7 +23,7 @@ navigator = navigation.channel
 
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
-VIEWS = ['loading', 'prevalidate', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration'], 'logout']
+VIEWS = ['loading', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration'], 'logout']
 
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
@@ -77,17 +77,16 @@ ConceptCoach = React.createClass
 
   getAllowedView: (userInfo) ->
     {defaultView} = @props
-
     if not userInfo.isLoaded
       authLevel = 0
-    else if not userInfo.isRegistered or userInfo.isRegistationPending
-      authLevel = 1
+    else if userInfo.preValidate
+      authLevel = 2 # prevalidate the course
     else if not userInfo.isLoggedIn
-      authLevel = 2
+      authLevel = 1 # login / signup
     else if not userInfo.isRegistered
-      authLevel = 3
+      authLevel = 2 # complete joining the course
     else
-      authLevel = 4
+      authLevel = 3
 
     view = VIEWS[authLevel]
 
@@ -116,7 +115,6 @@ ConceptCoach = React.createClass
 
   showTasks: ->
     @updateView(view: 'task')
-
 
   updateUser: ->
     userState = User.status(@props.collectionUUID)
