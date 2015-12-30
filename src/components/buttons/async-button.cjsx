@@ -16,6 +16,7 @@ module.exports = React.createClass
     failedProps: React.PropTypes.object
     doneText: React.PropTypes.node
     isJob: React.PropTypes.bool
+    timeoutLength: React.PropTypes.number
 
   getInitialState: ->
     isTimedout: false
@@ -24,16 +25,14 @@ module.exports = React.createClass
     {isWaiting, isJob} = @props
     {isTimedout} = @state
 
-    timeout = if isJob then 600000 else 30000
+    timeout = @props.timeoutLength or if isJob then 600000 else 30000
 
     if isWaiting and not isTimedout
-      _.delay =>
-        @checkForTimeout()
-      , timeout
+      _.delay @checkForTimeout, timeout
 
   checkForTimeout: ->
     {isWaiting} = @props
-    @setState(isTimedout: true) if isWaiting
+    @setState(isTimedout: true) if isWaiting and @isMounted()
 
   getDefaultProps: ->
     isDone: false
