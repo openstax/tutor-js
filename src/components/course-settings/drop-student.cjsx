@@ -15,11 +15,13 @@ module.exports = React.createClass
 
   confirmPopOver: ->
     title = <span>Drop <Name {...@props.student} />?</span>
-    <BS.Popover title={title} {...@props}>
-      <BS.Button onClick={@performDeletion} bsStyle="danger">
-        <Icon type='ban' /> Drop
-      </BS.Button>
-    </BS.Popover>
+    <BS.Modal bsSize='small' title={title} {...@props}>
+      <div className='modal-body'>
+        <BS.Button onClick={@performDeletion} bsStyle="danger">
+          <Icon type='ban' /> Drop
+        </BS.Button>
+      </div>
+    </BS.Modal>
 
   render: ->
     <BS.OverlayTrigger rootClose={true} trigger='click' placement='left'
