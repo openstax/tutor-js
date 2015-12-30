@@ -7,6 +7,16 @@ RefreshButton = require './refresh-button'
 module.exports = React.createClass
   displayName: 'AsyncButton'
 
+  propTypes:
+    isWaiting: React.PropTypes.bool.isRequired
+    isDone: React.PropTypes.bool
+    isFailed: React.PropTypes.bool
+    waitingText: React.PropTypes.node # TODO: This should be a Component or array
+    failedState: React.PropTypes.func
+    failedProps: React.PropTypes.object
+    doneText: React.PropTypes.node
+    isJob: React.PropTypes.bool
+
   getInitialState: ->
     isTimedout: false
 
@@ -24,16 +34,6 @@ module.exports = React.createClass
   checkForTimeout: ->
     {isWaiting} = @props
     @setState(isTimedout: true) if isWaiting
-
-  propTypes:
-    isWaiting: React.PropTypes.bool.isRequired
-    isDone: React.PropTypes.bool
-    isFailed: React.PropTypes.bool
-    waitingText: React.PropTypes.node # TODO: This should be a Component or array
-    failedState: React.PropTypes.func
-    failedProps: React.PropTypes.object
-    doneText: React.PropTypes.node
-    isJob: React.PropTypes.bool
 
   getDefaultProps: ->
     isDone: false
