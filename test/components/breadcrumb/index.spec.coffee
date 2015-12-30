@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require 'ox-component-testing'
+{Testing, expect, sinon, _} = require 'test/helpers'
 
 BC = require 'components/breadcrumb'
 
