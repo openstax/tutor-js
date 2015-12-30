@@ -44,8 +44,9 @@ Testing = {
   renderComponent: (component, options = {}) ->
     options.props ||= {}
     CURRENT_ROUTER_PARAMS = options.routerParams or {}
-    CURRENT_ROUTER_QUERY = options.routerQuery or {}
+    CURRENT_ROUTER_QUERY  = options.routerQuery or {}
     CURRENT_ROUTER_PATH   = options.routerPath   or '/'
+    unmountAfter = options.unmountAfter or 1
     root = document.createElement('div')
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
@@ -60,9 +61,11 @@ Testing = {
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return
     _.defer -> promise.then ->
-      React.unmountComponentAtNode(root)
-      CURRENT_ROUTER_PATH   = '/'
-      CURRENT_ROUTER_PARAMS = {}
+      _.delay ->
+        React.unmountComponentAtNode(root)
+        CURRENT_ROUTER_PATH   = '/'
+        CURRENT_ROUTER_PARAMS = {}
+      , unmountAfter
       return arguments
     promise
 
