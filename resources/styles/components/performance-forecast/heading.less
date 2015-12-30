@@ -10,23 +10,22 @@
     .flex-display();
     .justify-content(flex-start);
     .align-items(center);
+    .flex-wrap(wrap);
 
     .guide-group-title {
       .flex(1);
+      font-size: 3rem;
+      display: inline-block;
+      min-width: 45%;
     }
     .info {
       .flex-display();
       .flex-flow(space-between);
-      flex-wrap: wrap;
-      .btn { margin: 0; }
-    }
-    flex-wrap: wrap;
+      .flex-wrap(wrap);
+      .align-items(baseline);
+    } 
   }
-  .guide-group-title {
-    font-size: 3rem;
-    display: inline-block;
-    min-width: 377px;
-  }
+
   .info-link:after {
     padding-left: 10px;
     .fa-icon();
