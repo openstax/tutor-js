@@ -55,7 +55,7 @@ module.exports = React.createClass
 
     if isFailed or isTimedout
       stateClass = 'is-failed'
-      return <failedState {...failedProps}/>
+      return React.createElement(failedState, failedProps)
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText
