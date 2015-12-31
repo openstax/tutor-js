@@ -39,7 +39,7 @@
     "pluralize": "^1.1.2",
     "promise-loader": "^1.0.0",
     "react": "0.13.1",
-    "react-bootstrap": "0.24.0",
+    "react-bootstrap": "0.23.0",
     "react-calendar": "^0.4.0",
     "react-datepicker": "^0.8.0",
     "react-router": "~0.13.2",
