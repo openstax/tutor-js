@@ -10,25 +10,20 @@ Coach = React.createClass
   getDefaultProps: ->
     open: false
     displayLauncher: true
-
-  getInitialState: ->
-    {open} = @props
-    isOpen: open
-
-  componentWillReceiveProps: (nextProps) ->
-    {open} = nextProps
-    @setState(isOpen: open) if open isnt @state.isOpen
+  propTypes:
+    open: React.PropTypes.bool
+    displayLauncher: React.PropTypes.bool
 
   render: ->
-    {isOpen} = @state
+    {open} = @props
     {displayLauncher} = @props
     coachProps = _.omit(@props, 'open')
 
     modal = <CCModal>
       <ConceptCoach {...coachProps}/>
-    </CCModal> if isOpen
+    </CCModal> if open
 
-    launcher = <Launcher/> if displayLauncher
+    launcher = <Launcher isLaunching={open}/> if displayLauncher
 
     <div className='concept-coach-wrapper'>
       {launcher}
