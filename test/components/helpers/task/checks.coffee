@@ -159,7 +159,7 @@ checks =
 
   _checkAreAllStepsShowing: ({div, component, stepId, taskId, state, router, history}) ->
     steps = TaskStore.getStepsIds(taskId)
-    stepNodes = div.querySelectorAll('.task-breadcrumbs-step')
+    stepNodes = div.querySelectorAll('.openstax-breadcrumbs-step')
 
     expect(stepNodes.length).to.equal(steps.length + 1)
 
