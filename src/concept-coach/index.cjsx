@@ -92,7 +92,7 @@ class ConceptCoachAPI extends EventEmitter2
 
   destroy: ->
     @close?()
-    coachWrapped.unmountFrom(componentModel.mounter) if @component?.isMounted()
+    @remove()
 
     stopModelChannels(@models)
     deleteProperties(@models)
@@ -100,12 +100,16 @@ class ConceptCoachAPI extends EventEmitter2
 
     @removeAllListeners()
 
+  remove: ->
+    coachWrapped.unmountFrom(componentModel.mounter) if @component?.isMounted()
+
   setOptions: (options) ->
     isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
     options = _.extend({}, options, isSame: isSame)
     componentModel.update(options)
 
   initialize: (mountNode, props = {}) ->
+    @remove()
     props = _.clone(props)
     props.defaultView ?= if componentModel.isSame then componentModel.view else 'task'
 
