@@ -31,7 +31,7 @@
     "keymaster": "^1.6.2",
     "lodash": "^3.10.1",
     "moment": "^2.9.0",
-    "openstax-react-components": "openstax/react-components#0064fc20f6b7d07ae9649bb79956b0603081a7b0",
+    "openstax-react-components": "openstax/react-components#c4030e6e40eb63e2800bfb7c949129fdf4232ee0",
     "underscore": "~1.8.2"
   },
   "devDependencies": {
