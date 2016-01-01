@@ -2,9 +2,8 @@ React = require 'react'
 
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
-Question = require '../question'
 LoadableItem = require '../loadable-item'
-ArbitraryHtml = require '../html'
+{ArbitraryHtmlAndMath, Question} = require 'openstax-react-components'
 
 ReferenceBookMissingExercise = React.createClass
   displayName: 'ReferenceBookMissingExercise'
@@ -43,7 +42,7 @@ ReferenceBookExerciseShell = React.createClass
     ReferenceBookExerciseActions.load(exerciseAPIUrl) unless @isLoading()
   renderExercise: ->
     exerciseHtml = React.renderToStaticMarkup(<ReferenceBookExercise {...@props} />)
-    <ArbitraryHtml html={exerciseHtml}/>
+    <ArbitraryHtmlAndMath html={exerciseHtml}/>
   render: ->
     {exerciseAPIUrl} = @props
 

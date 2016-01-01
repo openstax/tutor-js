@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 
 {TaskStepStore} = require '../../flux/task-step'
-ArbitraryHtmlAndMath = require '../html'
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 ChapterSectionMixin = require '../chapter-section-mixin'
 

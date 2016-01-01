@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
-ArbitraryHtmlAndMath = require './html'
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 {ExerciseStore} = require '../flux/exercise'
 
 

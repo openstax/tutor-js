@@ -1,7 +1,7 @@
 React = require 'react'
 LoadableItem = require './loadable-item'
 TutorPopover = require './tutor-popover'
-ArbitraryHtml = require './html'
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 
 _ = require 'underscore'
 S = require '../helpers/string'
@@ -144,7 +144,7 @@ MediaPreview = React.createClass
         className: 'media-preview'
         ref: 'popover'
 
-      content = <ArbitraryHtml {...contentProps} html={contentHtml}/>
+      content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml}/>
       allProps = {content, overlayProps, popoverProps, windowImpl}
 
       linkText = children unless children is '[link]'

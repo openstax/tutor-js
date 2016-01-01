@@ -1,7 +1,7 @@
 {Testing, sinon, expect, _, React} = require './helpers/component-testing'
 
 TutorPopover = require '../../src/components/tutor-popover'
-ArbitraryHtml = require '../../src/components/html'
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 
 TEST_LINK_TEXT = 'This is the link text.'
 TEST_HTML = '<p>This is the test HTML</p>
@@ -69,7 +69,7 @@ fakePopoverShould = (fakeAs, dom, popper, overlay) ->
 PopoverWrapper = React.createClass
   displayName: 'PopoverWrapper'
   makeProps: ->
-    content = <ArbitraryHtml html={TEST_HTML}/>
+    content = <ArbitraryHtmlAndMath html={TEST_HTML}/>
     linkProps =
       onClick: =>
         @refs.overlay.show()
