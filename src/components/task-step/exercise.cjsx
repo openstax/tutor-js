@@ -37,6 +37,7 @@ module.exports = React.createClass
       waitingText={waitingText}
 
       canTryAnother={TaskStepStore.canTryAnother(id, task)}
+      isRecovering={TaskStepStore.isRecovering(id)}
       disabled={TaskStepStore.isSaving(id)}
       canReview={StepPanel.canReview(id)}
       isContinueEnabled={StepPanel.canContinue(id)}
