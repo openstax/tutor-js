@@ -18,8 +18,8 @@ yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
 dayAfter = (new Date(Date.now() + 1000 * 3600 * 48)).toString()
 
-getDateString = (value) -> moment(value).format(TutorDateFormat)
-getISODateString = (value) -> moment(value).format(ISO_DATE_FORMAT)
+getDateString = (value) -> TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat)
+getISODateString = (value) -> TimeHelper.getMomentPreserveDate(value).format(ISO_DATE_FORMAT)
 
 COURSES = require '../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)
@@ -143,7 +143,7 @@ describe 'Task Plan Builder', ->
 
   it 'can update open date with string', ->
     helper(NEW_READING).then ({dom, element}) ->
-      element.setDueAt(getDateString(tomorrow))
+      element.setOpensAt(getDateString(tomorrow))
       opensAt = TaskPlanStore.getOpensAt(NEW_READING.id)
       expect(getDateString(opensAt)).to.be.equal(getDateString(tomorrow))
 
