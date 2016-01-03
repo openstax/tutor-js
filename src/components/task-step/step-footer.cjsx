@@ -3,8 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {StepPanel} = require '../../helpers/policies'
 
-{CardBody} = require '../pinned-header-footer-card/sections'
-AsyncButton = require '../buttons/async-button'
+{CardBody, AsyncButton} = require 'openstax-react-components'
 {TaskStore} = require '../../flux/task'
 StepFooterMixin = require './step-footer-mixin'
 

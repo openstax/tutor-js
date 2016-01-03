@@ -7,7 +7,7 @@ PlanFooter = require './footer'
 SelectTopics = require './select-topics'
 ExerciseSummary = require './homework/exercise-summary'
 PlanMixin = require './plan-mixin'
-PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+{PinnedHeaderFooterCard} = require 'openstax-react-components'
 TaskPlanBuilder = require './builder'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'

@@ -4,7 +4,7 @@ Router = require 'react-router'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 PlanHelper = require '../../helpers/plan'
-AsyncButton = require '../buttons/async-button'
+{AsyncButton} = require 'openstax-react-components'
 TutorDialog = require '../tutor-dialog'
 BackButton = require '../buttons/back-button'
 
