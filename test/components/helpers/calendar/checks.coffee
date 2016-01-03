@@ -69,22 +69,22 @@ checks =
     {div, component, state, router, history, courseId}
 
   _checkIsDateToday: (args...) ->
-    checks.doesDateMatchMonthOf(moment(TimeStore.getNow()), args...)
+    checks.doesDateMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()), args...)
 
   _checkIsLabelThisMonth: (args...) ->
-    checks.doesLabelMatchMonthOf(moment(TimeStore.getNow()), args...)
+    checks.doesLabelMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()), args...)
 
   _checkIsDateNextMonth: (args...) ->
-    checks.doesDateMatchMonthOf(moment(TimeStore.getNow()).add(1, 'month'), args...)
+    checks.doesDateMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()).add(1, 'month'), args...)
 
   _checkIsLabelNextMonth: (args...) ->
-    checks.doesLabelMatchMonthOf(moment(TimeStore.getNow()).add(1, 'month'), args...)
+    checks.doesLabelMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()).add(1, 'month'), args...)
 
   _checkIsDatePreviousMonth: (args...) ->
-    checks.doesDateMatchMonthOf(moment(TimeStore.getNow()).subtract(1, 'month'), args...)
+    checks.doesDateMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()).subtract(1, 'month'), args...)
 
   _checkIsLabelPreviousMonth: (args...) ->
-    checks.doesLabelMatchMonthOf(moment(TimeStore.getNow()).subtract(1, 'month'), args...)
+    checks.doesLabelMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()).subtract(1, 'month'), args...)
 
   _checkDoesViewHavePlans: ({div, component, state, router, history, courseId}) ->
     {durations, viewingDuration} = component.refs.calendarHandler.refs.courseDurations.props
