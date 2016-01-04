@@ -51,10 +51,11 @@ module.exports = React.createClass
     {isTimedout} = @state
 
     buttonTypeClass = 'async-button'
+    FailedState = @props.failedState
 
     if isFailed or isTimedout
       stateClass = 'is-failed'
-      return <failedState {...failedProps}/>
+      return <FailedState {...failedProps}/>
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText
