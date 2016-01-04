@@ -13,9 +13,13 @@ NewCourseRegistration = React.createClass
 
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
+    validateOnly: React.PropTypes.bool
+    course: React.PropTypes.instanceOf(Course)
 
   componentWillMount: ->
-    course = new Course({ecosystem_book_uuid: @props.collectionUUID})
+    course = @props.course or
+      User.getCourse(@props.collectionUUID) or
+      new Course({ecosystem_book_uuid: @props.collectionUUID})
     course.channel.on('change', @onCourseChange)
     @setState({course})
 
@@ -24,13 +28,19 @@ NewCourseRegistration = React.createClass
 
   onComplete: ->
     @state.course.persist(User)
-    Navigation.channel.emit('show.panel', view: 'task')
+    Navigation.channel.emit('show')
 
   onCourseChange: ->
     if @state.course.isRegistered()
       # wait 1.5 secs so our success message is briefly displayed, then call onComplete
       _.delay(@onComplete, 1500)
+    else if @state.course.isValidated()
+      @onComplete()
+
     @forceUpdate()
+
+  renderValidated: ->
+    <p className="lead">Redirecting to login...</p>
 
   renderComplete: (course) ->
     <h3 className="text-center">
@@ -42,12 +52,11 @@ NewCourseRegistration = React.createClass
 
   renderCurrentStep: ->
     {course} = @state
-    if course.isIncomplete()
+    if course.isValidated()
+      @renderValidated()
+    else if course.isIncomplete()
       title = if @isTeacher() then '' else 'Register for this Concept Coach course'
-      <InviteCodeInput course={course}
-        currentCourses={User.courses}
-        title={title}
-      />
+      <InviteCodeInput course={course} currentCourses={User.registeredCourses()} title={title} />
     else if course.isPending()
       <ConfirmJoin
         title={"Would you like to join #{@state.course.description()}?"}

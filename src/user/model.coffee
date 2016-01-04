@@ -19,20 +19,34 @@ User =
   update: (data) ->
     _.extend(this, data.user)
     @_course_data = data.courses
+    pending = @validatedPendingCourses()
     @courses = _.compact _.map data.courses, (course) ->
       if course.is_concept_coach and _.detect(course.roles, (role) -> role.type is 'student')
         new Course(course)
+    _.each pending, (course) =>
+      @courses.push(course)
+      course.register(course.enrollment_code, @)
     @channel.emit('change')
+
+  validatedPendingCourses: ->
+    _.filter @courses, (course) -> course.isValidated()
 
   isTeacherForCourse: (collectionUUID) ->
     course = _.findWhere @_course_data, ecosystem_book_uuid: collectionUUID
     course and _.detect(course.roles, (role) -> role.type is 'teacher')
 
-  get: ->
-    @
+  status: (collectionUUID) ->
+    course = @getCourse(collectionUUID)
+    isLoggedIn: @isLoggedIn()
+    isLoaded:   @isLoaded
+    isRegistered: !!course?.isRegistered()
+    preValidate: (not @isLoggedIn()) and (not course?.isValidated())
 
   getCourse: (collectionUUID) ->
     _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
+
+  registeredCourses: ->
+    _.filter @courses, (course) -> course.isRegistered()
 
   findOrCreateCourse: (collectionUUID) ->
     @getCourse(collectionUUID) or (

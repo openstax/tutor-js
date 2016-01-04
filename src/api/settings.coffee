@@ -39,6 +39,12 @@ settings =
       method: 'GET'
       completedEvent: 'courseDashboard.{id}.receive.fetch'
 
+    'course.*.send.prevalidation':
+      url: 'api/enrollment_changes/prevalidate'
+      method: 'POST'
+      failedEvent: 'course.{book_uuid}.receive.prevalidation.failure'
+      completedEvent: 'course.{book_uuid}.receive.prevalidation.complete'
+
     'course.*.send.registration':
       url: 'api/enrollment_changes'
       method: 'POST'
