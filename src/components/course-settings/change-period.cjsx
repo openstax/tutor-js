@@ -34,12 +34,14 @@ module.exports = React.createClass
         <span>
           Move to <CourseGroupingLabel courseId={@props.courseId} lowercase/>:
         </span>
-    <BS.Popover className='change-period' title={title} {...@props}>
-      <BS.Nav stacked bsStyle='pills' onSelect={@updatePeriod}>
-        {for period in course.periods
-          @renderPeriod(period) unless period.id is @props.student.period_id }
-      </BS.Nav>
-    </BS.Popover>
+    <BS.Modal bsSize='small' className='change-period' title={title} {...@props}>
+      <div className='modal-body'>
+        <BS.Nav stacked bsStyle='pills' onSelect={@updatePeriod}>
+          {for period in course.periods
+            @renderPeriod(period) unless period.id is @props.student.period_id }
+        </BS.Nav>
+      </div>
+    </BS.Modal>
 
   render: ->
     # if we have only 1 period, it's imposible to move a student

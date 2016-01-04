@@ -45,12 +45,14 @@ module.exports = React.createClass
       </AsyncButton>
 
     title = <span>Remove <Name {...@props.teacher} />?</span>
-    <BS.Popover className='teacher-remove' title={title} {...@props}>
-      {removeButton}
-      <div className='warning'>
-        {WARN_REMOVE_CURRENT if @isRemovalCurrentTeacher()}
+    <BS.Modal bsSize='small' className='teacher-remove' title={title} {...@props}>
+      <div className='modal-body'>
+        {removeButton}
+        <div className='warning'>
+          {WARN_REMOVE_CURRENT if @isRemovalCurrentTeacher()}
+        </div>
       </div>
-    </BS.Popover>
+    </BS.Modal>
 
   render: ->
     <BS.OverlayTrigger rootClose={true} trigger='click' placement='left'
