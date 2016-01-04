@@ -70,12 +70,6 @@ TaskBase = React.createClass
 
     @setState(nextState)
 
-  childContextTypes:
-    processHtmlAndMath: React.PropTypes.func
-
-  getChildContext: ->
-    processHtmlAndMath: @props.processHtmlAndMath
-
   render: ->
     {task, currentStep} = @state
     {taskId} = @props

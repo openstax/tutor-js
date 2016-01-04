@@ -3,11 +3,11 @@ React = require 'react'
 
 LaptopAndMug = React.createClass
   displayName: 'LaptopAndMug'
-  getDefaultProps: ->
-    height: '388px'
+  propTypes:
+    height: React.PropTypes.number.isRequired
   render: ->
     {height} = @props
-    <svg x="0px" y="0px" width="100%" height={height} viewBox="-100 0 1140 388"
+    <svg x="0px" y="0px" width="100%" height={"#{height}px"} viewBox="-100 0 1140 388"
       preserveAspectRatio="xMidYMin slice" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
       <g className='launcher-laptop'>
@@ -109,11 +109,11 @@ LaptopAndMug = React.createClass
 
 BackgroundAndDesk = React.createClass
   displayName: 'BackgroundAndDesk'
-  getDefaultProps: ->
-    height: '388px'
+  propTypes:
+    height: React.PropTypes.number.isRequired
   render: ->
     {height} = @props
-    <svg x="0px" y="0px" width="100%" height={height}
+    <svg x="0px" y="0px" width="100%" height={"#{height}px"}
       preserveAspectRatio="xMidYMin meet" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <g>
         <rect className='launcher-background' y="0.541" fill="#E5E5E5" width="100%" height="100%"/>

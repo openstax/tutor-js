@@ -50,13 +50,15 @@ ConceptCoach = React.createClass
     bookUrlPattern: React.PropTypes.string
     close: React.PropTypes.func
     navigator: React.PropTypes.instanceOf(EventEmitter2)
+    processHtmlAndMath: React.PropTypes.func
 
   getChildContext: ->
     {view} = @state
     {cnxUrl, close, moduleUUID, collectionUUID} = @props
     bookUrlPattern = '{cnxUrl}/contents/{ecosystem_book_uuid}'
+    processHtmlAndMath = @props.processHtmlAndMath
 
-    {view, cnxUrl, close, bookUrlPattern, navigator,  moduleUUID, collectionUUID}
+    {view, cnxUrl, close, processHtmlAndMath, bookUrlPattern, navigator,  moduleUUID, collectionUUID}
 
   componentWillMount: ->
     User.ensureStatusLoaded()

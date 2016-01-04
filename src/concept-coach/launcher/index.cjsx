@@ -10,31 +10,28 @@ classnames = require 'classnames'
 
 Launcher = React.createClass
   displayName: 'Launcher'
-  getInitialState: ->
+  propTypes:
+    isLaunching: React.PropTypes.bool
+    defaultHeight: React.PropTypes.number
+  getDefaultProps: ->
     isLaunching: false
+    defaultHeight: 388
+  getInitialState: ->
+    height: @getHeight()
+  componentWillReceiveProps: (nextProps) ->
+    @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
+
+  getHeight: (props) ->
+    props ?= @props
+    {isLaunching, defaultHeight} = props
+    if isLaunching then window.innerHeight else defaultHeight
 
   launch: ->
-    {isLaunching} = @state
-    return if isLaunching
-    @setState(isLaunching: true)
     channel.emit('launcher.clicked')
 
-  close: ->
-    @setState(isLaunching: false)
-
-  shouldComponentUpdate: (nextProps, nextState) ->
-    @state.isLaunching isnt nextState.isLaunching
-
-  componentWillMount: ->
-    channel.on 'coach.unmount.success', @close
-
-  componentWillUnmount: ->
-    channel.off 'coach.unmount.success', @close
-
   render: ->
-    {isLaunching} = @state
-    height = '388px'
-    height = "#{window.innerHeight}px" if isLaunching
+    {isLaunching, defaultHeight} = @props
+    {height} = @state
 
     classes = classnames 'concept-coach-launcher',
       launching: isLaunching
@@ -42,7 +39,7 @@ Launcher = React.createClass
     <div className='concept-coach-launcher-wrapper'>
       <div className={classes} onClick={@launch}>
         <BackgroundAndDesk height={height}/>
-        <LaptopAndMug/>
+        <LaptopAndMug height={defaultHeight}/>
 
         <BS.Button bsStyle='primary' bsSize='large'>Launch Concept Coach</BS.Button>
 
