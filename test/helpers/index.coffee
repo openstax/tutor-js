@@ -11,7 +11,8 @@ Wrapper = React.createClass
 
   render: ->
     React.createElement(@props._wrapped_component,
-      _.extend(_.omit(@props, '_wrapped_component'), ref: 'element')
+      _.extend(_.omit(@props, '_wrapped_component', 'children'), ref: 'element')
+      @props.children
     )
 
 Testing = {
