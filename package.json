@@ -78,7 +78,7 @@
     "parent-require": "^1.0.0",
     "phantomjs": "^1.9.18",
     "react": "0.13.1",
-    "react-bootstrap": "~0.22.0",
+    "react-bootstrap": "0.23.0",
     "react-clonewithprops": "^1.0.1",
     "react-hot-loader": "^1.3.0",
     "react-scroll-components": "^0.2.2",
@@ -95,7 +95,7 @@
   },
   "peerDependencies": {
     "react": "0.13.1",
-    "react-bootstrap": "~0.22.0",
+    "react-bootstrap": "0.23.0",
     "react-scroll-components": "^0.2.2"
   },
   "config": {
