@@ -47,14 +47,16 @@ module.exports = React.createClass
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
-    {children, waitingText, failedState, failedProps, doneText} = @props
+    {children, waitingText, failedProps, doneText} = @props
     {isTimedout} = @state
+    # needs to be capitalized so JSX will transpile as a variable, not element
+    FailedState = @props.failedState
 
     buttonTypeClass = 'async-button'
 
     if isFailed or isTimedout
       stateClass = 'is-failed'
-      return React.createElement(failedState, failedProps)
+      return <FailedState {...failedProps} />
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText
