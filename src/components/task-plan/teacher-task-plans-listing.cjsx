@@ -97,7 +97,7 @@ TeacherTaskPlanListing = React.createClass
   getDateFromParams: ->
     {date} = @context.router.getCurrentParams()
     if date?
-      date = moment(date, @props.dateFormat)
+      date = TimeHelper.getMomentPreserveDate(date, @props.dateFormat)
     date
 
   render: ->
