@@ -214,15 +214,17 @@
     .answer();
   }
 
-  &:not(.has-correct-answer){
-    .answer-label {
-      cursor: pointer;
+  // a selectable answer
+  .answer-input-box:not([disabled]) ~ .answer-label {
+    cursor: pointer;
 
-      &:hover {
-        .answer(hover);
-      }
+    &:hover {
+      .answer(hover);
     }
+  }
 
+  // a selected answer
+  &:not(.has-correct-answer){
     .answer-input-box {
       display: none;
 
@@ -241,6 +243,7 @@
     }
   }
 
+  // answer that has been checked
   &.has-correct-answer {
     .answer-checked {
       &:not(.answer-correct) {

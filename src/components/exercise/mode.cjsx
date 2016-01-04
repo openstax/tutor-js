@@ -84,7 +84,15 @@ ExMode = React.createClass
       changeProps =
         onChangeAttempt: onChangeAnswerAttempt
 
+    htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
+    {stimulus_html} = content
+
     <div className='openstax-exercise'>
+      <ArbitraryHtmlAndMath
+        {...htmlAndMathProps}
+        className='exercise-stimulus'
+        block={true}
+        html={stimulus_html} />
       <Question
         {...questionProps}
         {...changeProps}
