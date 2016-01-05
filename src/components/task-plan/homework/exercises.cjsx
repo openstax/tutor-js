@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
+$ = require 'jquery'
 
 ArbitraryHtmlAndMath = require '../../html'
 ExerciseCard = require '../../exercise-card'
@@ -183,6 +184,9 @@ ExerciseTable = React.createClass
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
     content = ExerciseStore.getContent(exerciseId)
+
+    if $("<div>#{content}</div>").children().length > 1
+      content = $(content).first().html()
 
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
