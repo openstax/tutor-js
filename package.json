@@ -25,7 +25,7 @@
     "camelcase": "1.2.1",
     "classnames": "2.1.5",
     "eventemitter2": "0.4.14",
-    "font-awesome": "4.3.0",
+    "font-awesome": "4.4.0",
     "keymaster": "1.6.2",
     "markdown-it": "4.4.0",
     "moment": "2.10.6",
@@ -92,9 +92,9 @@
     "when": "3.7.3"
   },
   "peerDependencies": {
-    "react": "0.13.1",
-    "react-bootstrap": "0.23.0",
-    "react-scroll-components": "0.2.2"
+    "react": "^0.13.1",
+    "react-bootstrap": "^0.23.0",
+    "react-scroll-components": "^0.2.2"
   },
   "config": {
     "blanket": {
