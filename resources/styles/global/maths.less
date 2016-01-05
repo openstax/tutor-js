@@ -1,13 +1,3 @@
-// Math Rendering
-// Hides all data-math elements, but still reserves their space in the DOM.
-// when .MathJax renders them, it'll be inside a .MathJax element which is displayed
-[data-math]:not(.math-rendered) {
-  visibility: hidden;
-  .MathJax {
-    visibility: visible;
-  }
-}
-
 // Override the inline style on mathjax text elements to match the tutor default of lato
 .MathJax .mtext { font-family: lato !important; }
 // a more specific style to override those for .exercise.card img to make sure that
