@@ -26,7 +26,6 @@ base =
     extensions: ['', '.js', '.json', '.coffee', '.cjsx']
   plugins: [
     # TODO check what plugins are need
-    # new webpack.NormalModuleReplacementPlugin(/\/react\/lib\/cloneWithProps/, '../../react-clonewithprops/index.js')
     new ExtractTextPlugin('main.css')
     new webpack.optimize.DedupePlugin()
   ]
