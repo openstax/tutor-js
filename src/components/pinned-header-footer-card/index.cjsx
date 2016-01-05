@@ -10,6 +10,7 @@ GetPositionMixin = require '../get-position-mixin'
 module.exports = React.createClass
   displayName: 'PinnedHeaderFooterCard'
   propTypes:
+    cardType: React.PropTypes.string.isRequired
     buffer: React.PropTypes.number
     scrollSpeedBuffer: React.PropTypes.number
     forceShy: React.PropTypes.bool

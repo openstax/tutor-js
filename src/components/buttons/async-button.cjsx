@@ -7,24 +7,6 @@ RefreshButton = require './refresh-button'
 module.exports = React.createClass
   displayName: 'AsyncButton'
 
-  getInitialState: ->
-    isTimedout: false
-
-  componentDidUpdate: ->
-    {isWaiting, isJob} = @props
-    {isTimedout} = @state
-
-    timeout = if isJob then 600000 else 30000
-
-    if isWaiting and not isTimedout
-      _.delay =>
-        @checkForTimeout()
-      , timeout
-
-  checkForTimeout: ->
-    {isWaiting} = @props
-    @setState(isTimedout: true) if isWaiting
-
   propTypes:
     isWaiting: React.PropTypes.bool.isRequired
     isDone: React.PropTypes.bool
@@ -34,6 +16,23 @@ module.exports = React.createClass
     failedProps: React.PropTypes.object
     doneText: React.PropTypes.node
     isJob: React.PropTypes.bool
+    timeoutLength: React.PropTypes.number
+
+  getInitialState: ->
+    isTimedout: false
+
+  componentDidUpdate: ->
+    {isWaiting, isJob} = @props
+    {isTimedout} = @state
+
+    timeout = @props.timeoutLength or if isJob then 600000 else 30000
+
+    if isWaiting and not isTimedout
+      _.delay @checkForTimeout, timeout
+
+  checkForTimeout: ->
+    {isWaiting} = @props
+    @setState(isTimedout: true) if isWaiting and @isMounted()
 
   getDefaultProps: ->
     isDone: false
@@ -48,14 +47,16 @@ module.exports = React.createClass
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
-    {children, waitingText, failedState, failedProps, doneText} = @props
+    {children, waitingText, failedProps, doneText} = @props
     {isTimedout} = @state
+    # needs to be capitalized so JSX will transpile as a variable, not element
+    FailedState = @props.failedState
 
     buttonTypeClass = 'async-button'
 
     if isFailed or isTimedout
       stateClass = 'is-failed'
-      return <failedState {...failedProps}/>
+      return <FailedState {...failedProps} />
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText
