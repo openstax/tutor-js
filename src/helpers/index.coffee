@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 
-TABBABLE_SELECTORS = ['a', 'button', 'input', 'form', 'textarea', '[tabindex]']
+TABBABLE_SELECTORS = ['a', 'button', 'input', 'form', 'textarea', 'select', '[tabindex]']
 TABBABLE_CLASS = 'openstax-tabbable'
 UNTABBABLE_CLASS = 'openstax-untabbable'
 
