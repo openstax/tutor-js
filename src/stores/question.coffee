@@ -3,6 +3,20 @@ flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {AnswerActions, AnswerStore} = require './answer'
 
+__FORMATS =
+  freeResponse: 'free-response'
+  multipleChoice: 'multiple-choice'
+
+hasFormat = (formats, form) ->
+  _.find formats, (format) -> format is form
+
+toggleFormat = (formats, form) ->
+  if hasFormat(formats, form)
+    _.reject formats, (format) -> format is form
+  else
+    formats.push(form)
+    return formats
+
 QuestionConfig = {
   _loaded: (obj, id) ->
     obj.answers = _.sortBy obj?.answers, (answer) ->
@@ -51,6 +65,14 @@ QuestionConfig = {
       AnswerActions.setCorrect(newAnswer)
       AnswerActions.setIncorrect(curAnswer) if curAnswer
 
+  toggleMultipleChoiceFormat: (id) ->
+    newFormats = toggleFormat(@_local[id].formats, __FORMATS.multipleChoice)
+    @_change(id, {formats: newFormats})
+
+  toggleFreeResponseFormat: (id) ->
+    newFormats = toggleFormat(@_local[id].formats, __FORMATS.freeResponse)
+    @_change(id, {formats: newFormats})
+
   exports:
 
     getAnswers: (id) -> @_local[id]?.answers or []
@@ -67,6 +89,11 @@ QuestionConfig = {
 
     getCorrectAnswer: (id) ->
       _.find @_local[id]?.answers, (answer) -> AnswerStore.isCorrect(answer.id)
+
+    isMultipleChoice: (id) ->
+      hasFormat(@_local[id].formats, __FORMATS.multipleChoice)
+    isFreeResponse: (id) ->
+      hasFormat(@_local[id].formats, __FORMATS.freeResponse)
 }
 
 extendConfig(QuestionConfig, new CrudConfig())

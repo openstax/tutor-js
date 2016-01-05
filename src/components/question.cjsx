@@ -21,6 +21,9 @@ module.exports = React.createClass
   addAnswer: -> QuestionActions.addNewAnswer(@props.id)
   removeAnswer:(answerId) -> QuestionActions.removeAnswer(@props.id, answerId)
 
+  multipleChoiceClicked: (event) -> QuestionActions.toggleMultipleChoiceFormat(@props.id)
+  freeResponseClicked: (event) -> QuestionActions.toggleFreeResponseFormat(@props.id)
+
   render: ->
     {id} = @props
     answers = []
@@ -44,6 +47,23 @@ module.exports = React.createClass
       <div>
         <label>Question Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={QuestionStore.getStimulus(id)}></textarea>
+      </div>
+      <div>
+        <label>Question Formats</label>
+      </div>
+      <div>
+        <input onChange={@multipleChoiceClicked}
+          id="multipleChoiceFormat#{id}"
+          type="checkbox"
+          defaultChecked={QuestionStore.isMultipleChoice(id)} />
+        <label htmlFor="multipleChoiceFormat#{id}">Multiple Choice</label>
+      </div>
+      <div>
+        <input onChange={@freeResponseClicked}
+          id="freeResponseFormat#{id}"
+          type="checkbox"
+          defaultChecked={QuestionStore.isFreeResponse(id)} />
+        <label htmlFor="freeResponseFormat#{id}">Free Response</label>
       </div>
       {feedback}
       <div>
