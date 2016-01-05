@@ -70,7 +70,7 @@ TaskTeacherReviewExercise = React.createClass
     if @expectsFreeResponse()
       studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
 
-    <CardBody className='task-step' pinned={false}>
+    <CardBody className='task-step openstax-exercise' pinned={false}>
       <Question
         model={question}
         answered_count={answered_count}
