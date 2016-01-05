@@ -17,7 +17,7 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     buildLateMessage: (task, status) ->
-      S.capitalize(task.type) + ' was worked ' + status.how_late + ' late'
+      S.capitalize(task.type) + ' was started ' + status.how_late + ' late'
 
   render: ->
     {task, className, buildLateMessage} = @props

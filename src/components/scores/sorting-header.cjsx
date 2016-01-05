@@ -8,7 +8,7 @@ module.exports = React.createClass
     onSort:  React.PropTypes.func.isRequired
     sortKey: React.PropTypes.any.isRequired
     sortState: React.PropTypes.object.isRequired
-    isConceptCoach: React.PropTypes.bool.isRequired
+    isConceptCoach: React.PropTypes.bool
 
   onClick: ->
     @props.onSort(@props.sortKey)
