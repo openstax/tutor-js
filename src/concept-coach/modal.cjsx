@@ -31,7 +31,7 @@ CCModal = React.createClass
     classes = classnames 'concept-coach-modal',
       loaded: isLoaded
 
-    <div className={classes} tabIndex="-1">
+    <div className={classes} tabIndex="1">
       {@props.children}
     </div>
 

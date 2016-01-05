@@ -162,9 +162,11 @@ class ConceptCoachAPI extends EventEmitter2
 
   handleOpened: (eventData, body = document.body) ->
     body.classList.add('cc-opened')
+    helpers.setTabbing(componentModel.mounter, body)
 
   handleClosed: (eventData, body = document.body) ->
     body.classList.remove('cc-opened')
+    helpers.unsetTabbing(componentModel.mounter, body)
 
   handleError: (error) ->
     channel.emit('error', error)
