@@ -6,7 +6,15 @@ body.cc-opened {
   background: @openstax-neutral-light;
   overflow: hidden !important;
 
-  .openstax-untabbable {
-    visibility: hidden !important;
+  a, button, input, form, textarea, select, [tabindex] {
+    visibility: hidden;
+  }
+
+  .concept-coach-modal {
+    visibility: visible;
+
+    a, button, input, form, textarea, select, [tabindex] {
+      visibility: visible;
+    }
   }
 }
