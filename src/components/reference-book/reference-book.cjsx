@@ -7,9 +7,8 @@ classnames = require 'classnames'
 
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
-ChapterSectionMixin = require '../chapter-section-mixin'
+{ChapterSectionMixin, ResizeListenerMixin} = require 'openstax-react-components'
 PageShell = require './page-shell'
-WindowResizeListenerMixin = require '../resize-listener-mixin'
 PageNavigation = require './page-navigation'
 
 # menu width (300) + page width (1000) + 50 px padding
@@ -19,7 +18,7 @@ MENU_VISIBLE_BREAKPOINT = 1350
 module.exports = React.createClass
   displayName: 'ReferenceBook'
 
-  mixins: [WindowResizeListenerMixin, ChapterSectionMixin]
+  mixins: [ResizeListenerMixin, ChapterSectionMixin]
 
   propTypes:
     navbarControls: React.PropTypes.element

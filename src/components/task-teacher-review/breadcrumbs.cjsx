@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
-ChapterSectionMixin = require '../chapter-section-mixin'
+{ChapterSectionMixin} = require 'openstax-react-components'
 {BreadcrumbStatic} = require '../breadcrumb'
 
 BackButton = require '../buttons/back-button'

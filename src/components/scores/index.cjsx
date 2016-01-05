@@ -25,7 +25,7 @@ LoadableItem = require '../loadable-item'
 ScoresExport = require './export'
 {QuickStatsShell} = require './quick-external-stats'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
-ResizeListenerMixin = require '../resize-listener-mixin'
+{ResizeListenerMixin} = require 'openstax-react-components'
 
 # concept coach does not show due_at row or links on student names
 

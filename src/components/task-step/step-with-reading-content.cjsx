@@ -2,9 +2,8 @@ React = require 'react'
 _ = require 'underscore'
 
 {TaskStepStore} = require '../../flux/task-step'
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'openstax-react-components'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
-ChapterSectionMixin = require '../chapter-section-mixin'
 
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass
