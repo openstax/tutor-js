@@ -29,7 +29,7 @@ module.exports = React.createClass
     isDone: React.PropTypes.bool
     isFailed: React.PropTypes.bool
     waitingText: React.PropTypes.node # TODO: This should be a Component or array
-    failedState: React.PropTypes.func
+    FailedState: React.PropTypes.func
     failedProps: React.PropTypes.object
     doneText: React.PropTypes.node
     isJob: React.PropTypes.bool
@@ -38,7 +38,7 @@ module.exports = React.createClass
     isDone: false
     isFailed: false
     waitingText: 'Loading…'
-    failedState: RefreshButton
+    FailedState: RefreshButton
     failedProps:
       beforeText: 'There was a problem.  '
     doneText: ''
@@ -47,14 +47,14 @@ module.exports = React.createClass
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
-    {children, waitingText, failedState, failedProps, doneText} = @props
+    {children, waitingText, FailedState, failedProps, doneText} = @props
     {isTimedout} = @state
 
     buttonTypeClass = 'async-button'
 
     if isFailed or isTimedout
       stateClass = 'is-failed'
-      return <failedState {...failedProps}/>
+      return <FailedState {...failedProps}/>
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText
