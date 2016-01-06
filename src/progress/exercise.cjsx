@@ -1,8 +1,5 @@
 React = require 'react'
-_ = require 'underscore'
 classnames = require 'classnames'
-
-{ChapterSectionMixin} = require 'openstax-react-components'
 
 ExerciseProgress = React.createClass
   displayName: 'ExerciseProgress'

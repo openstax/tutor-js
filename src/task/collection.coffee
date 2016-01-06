@@ -86,6 +86,17 @@ getModuleInfo = (taskId, cnxUrl = '') ->
 
   moduleInfo
 
+getAsPage = (taskId) ->
+  task = get(taskId)
+  {moduleUUID, steps} = task
+
+  page = _.pick task, 'last_worked_at', 'id'
+  _.extend page, _.first(_.first(steps).related_content)
+  page.exercises = steps
+  page.uuid = moduleUUID
+
+  page
+
 init = ->
   api.channel.on("task.*.receive.*", update)
   api.channel.on('task.*.receive.failure', checkFailure)
@@ -101,5 +112,6 @@ module.exports = {
   getFirstIncompleteIndex,
   getStepIndex,
   getModuleInfo,
+  getAsPage,
   channel
 }

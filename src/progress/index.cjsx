@@ -5,6 +5,7 @@ classnames = require 'classnames'
 {ChapterSectionMixin} = require 'openstax-react-components'
 {Reactive} = require '../reactive'
 {ExerciseButton} = require '../buttons'
+{SectionProgress} = require './section'
 {ChapterProgress} = require './chapter'
 {CurrentProgress} = require './current'
 {channel} = progresses = require './collection'
@@ -19,13 +20,13 @@ ProgressBase = React.createClass
   contextTypes:
     moduleUUID:     React.PropTypes.string
     collectionUUID: React.PropTypes.string
-  mixins: [ChapterSectionMixin]
   render: ->
     {item, className, status} = @props
     {moduleUUID, collectionUUID} = @context
 
+    chapters = item
     classes = classnames 'concept-coach-student-dashboard', className
-    chapters = _.clone(item.chapters) or []
+
     currentTask = tasks.get("#{collectionUUID}/#{moduleUUID}")
     maxExercises = _.chain(chapters)
       .pluck('pages')
@@ -45,16 +46,27 @@ ProgressBase = React.createClass
         key={"progress-chapter-#{chapter.id}"}/>
 
     <div className={classes}>
-      <CurrentProgress maxLength={maxLength}/>
-      {progress}
+      <SectionProgress title='Current Progress'>
+        <CurrentProgress maxLength={maxLength}/>
+      </SectionProgress>
+      <SectionProgress title='Previous'>
+        {progress}
+      </SectionProgress>
     </div>
 
 Progress = React.createClass
   displayName: 'Progress'
+  contextTypes:
+    moduleUUID:     React.PropTypes.string
   render: ->
     {id} = @props
+    {moduleUUID} = @context
 
-    <Reactive topic={id} store={progresses} apiChannelName={apiChannelName}>
+    <Reactive
+      topic={id}
+      getter={_.partial(progresses.getFilteredChapters, _, [moduleUUID])}
+      store={progresses}
+      apiChannelName={apiChannelName}>
       <ProgressBase/>
     </Reactive>
 
