@@ -1,4 +1,5 @@
 React = require 'react'
+EventEmitter2 = require 'eventemitter2'
 _ = require 'underscore'
 classnames = require 'classnames'
 {SpyMode} = require 'openstax-react-components'
@@ -22,6 +23,18 @@ TaskBase = React.createClass
 
     task: item
     currentStep: 0
+    steps: @setupSteps(item)
+
+  contextTypes:
+    close: React.PropTypes.func
+    navigator: React.PropTypes.instanceOf(EventEmitter2)
+
+  setupSteps: (task) ->
+    steps = _.keys(task?.steps)
+    steps.push('summary')
+    steps.push('continue')
+
+    steps
 
   goToStep: (stepIndex) ->
     @setState(currentStep: stepIndex) if @isStepAllowed(stepIndex)
@@ -38,15 +51,25 @@ TaskBase = React.createClass
   isStepAllowed: (stepIndex) ->
     {task} = @state
     {taskId} = @props
-    (stepIndex <= task.steps.length) and ((not @isReviewStep(stepIndex)) or @canReview())
+    (stepIndex <= task.steps.length) or
+      (@isReviewStep(stepIndex) and @canReview()) or
+      (@isContinueStep(stepIndex) and @shouldContinue())
 
   canReview: ->
     {taskId} = @props
     not _.isEmpty tasks.getCompleteSteps(taskId)
 
+  shouldContinue: ->
+    {taskId} = @props
+    _.isEmpty tasks.getIncompleteSteps(taskId)
+
   isReviewStep: (stepIndex) ->
-    {task} = @state
-    stepIndex is task.steps.length
+    {steps} = @state
+    steps[stepIndex] is 'summary'
+
+  isContinueStep: (stepIndex) ->
+    {steps} = @state
+    steps[stepIndex] is 'continue'
 
   fetchTask: ->
     tasks.fetchByModule(@props)
@@ -62,6 +85,7 @@ TaskBase = React.createClass
   componentWillReceiveProps: (nextProps) ->
     nextState =
       task: nextProps.item
+      steps: @setupSteps(nextProps.item)
 
     if (_.isEmpty(@props.item) and not _.isEmpty(nextProps.item)) or
       (@props.taskId isnt nextProps.taskId)
@@ -69,6 +93,15 @@ TaskBase = React.createClass
         nextState.currentStep = stepIndex
 
     @setState(nextState)
+
+  componentDidUpdate: ->
+    {currentStep, steps} = @state
+    {close, navigator} = @context
+
+    step = steps[currentStep]
+    navigator.emit('show.task', {view: 'task', step: step})
+
+    close() if @isContinueStep(currentStep)
 
   render: ->
     {task, currentStep} = @state
@@ -78,6 +111,7 @@ TaskBase = React.createClass
     breadcrumbs = <Breadcrumbs
       {...@props}
       canReview={@canReview()}
+      shouldContinue={@shouldContinue()}
       goToStep={@goToStep}
       currentStep={currentStep}/>
 
@@ -92,6 +126,8 @@ TaskBase = React.createClass
         pinned={false}/>
     else if @isReviewStep(currentStep)
       panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
+    else if @isContinueStep(currentStep)
+      panel = null
 
     taskClasses = classnames 'concept-coach-task',
       'card-body': noExercises

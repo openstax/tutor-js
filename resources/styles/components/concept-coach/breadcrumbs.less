@@ -89,13 +89,24 @@
 
       &.breadcrumb-end {
         &::before {
-          content: 'Summary';
           position: relative;
           text-align: center;
           width: 100%;
           font-weight: 300;
           padding: 0 1rem;
           font-style: italic;
+        }
+
+        &.coach-summary {
+          &::before {
+            content: 'Summary';
+          }
+        }
+
+        &.coach-continue {
+          &::before {
+            content: 'Continue';
+          }
         }
       }
 
