@@ -21,6 +21,21 @@ CCModal = React.createClass
     else
       @setLoaded()
 
+  componentWillMount: ->
+    document.addEventListener('click', this.checkAllowed, true)
+    document.addEventListener('focus', this.checkAllowed, true)
+
+  componentWillUnmount: ->
+    document.removeEventListener('click', this.checkAllowed, true)
+    document.removeEventListener('focus', this.checkAllowed, true)
+
+  checkAllowed: (focusEvent) ->
+    modal = @getDOMNode()
+    unless modal.contains(focusEvent.target)
+      focusEvent.preventDefault()
+      focusEvent.stopImmediatePropagation()
+      modal.focus()
+
   setLoaded: ->
     {isLoaded} = @state
     @setState(isLoaded: true) unless isLoaded
@@ -31,8 +46,10 @@ CCModal = React.createClass
     classes = classnames 'concept-coach-modal',
       loaded: isLoaded
 
-    <div className={classes} tabIndex="-1">
-      {@props.children}
+    <div className={classes} role='dialog' tabIndex='-1'>
+      <div role='document'>
+        {@props.children}
+      </div>
     </div>
 
 module.exports = {CCModal, channel}
