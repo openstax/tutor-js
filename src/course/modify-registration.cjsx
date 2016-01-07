@@ -1,4 +1,5 @@
 React = require 'react'
+_ = require 'underscore'
 
 InviteCodeInput = require './invite-code-input'
 ConfirmJoin = require './confirm-join'

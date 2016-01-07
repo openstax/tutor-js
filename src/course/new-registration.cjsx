@@ -1,4 +1,5 @@
 React = require 'react'
+_ = require 'underscore'
 
 Course = require './model'
 User = require '../user/model'
