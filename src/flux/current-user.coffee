@@ -151,8 +151,11 @@ CurrentUserStore = flux.createStore
         if course.is_concept_coach then CONCEPT_COACH_HELP else TUTOR_HELP
       else
         courses = CourseListingStore.allCourses()
-        # link to TUTOR_HELP if they have any tutor courses
-        if _.findWhere(courses, is_concept_coach: false) then TUTOR_HELP else CONCEPT_COACH_HELP
+        # link to TUTOR_HELP if they do not have any CC courses
+        if _.all(courses, (course) -> not course.is_concept_coach)
+          TUTOR_HELP
+        else
+          CONCEPT_COACH_HELP
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.
