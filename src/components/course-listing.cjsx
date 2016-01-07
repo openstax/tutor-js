@@ -18,7 +18,10 @@ DisplayOrRedirect = (transition, callback) ->
     conceptCoach = courses[0].is_concept_coach
 
     if roleType is 'student'
-      if conceptCoach then callback() else view = 'viewStudentDashboard'
+      if conceptCoach
+        window.location.replace(course.webview_url)
+      else
+        view = 'viewStudentDashboard'
     else if roleType is 'teacher'
       view = if conceptCoach then 'cc-dashboard' else 'taskplans'
     else
