@@ -1,7 +1,7 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 flux = require 'flux-react'
-
+{CourseListingStore} = require './course-listing'
 {CourseActions, CourseStore} = require './course'
 
 # Read the CSRF token from document's meta tag.  If not found, log a warning but proceed
@@ -150,7 +150,7 @@ CurrentUserStore = flux.createStore
       if course
         if course.is_concept_coach then CONCEPT_COACH_HELP else TUTOR_HELP
       else
-        courses = CourseStore.allCourses()
+        courses = CourseListingStore.allCourses()
         # link to TUTOR_HELP if they have any tutor courses
         if _.findWhere(courses, is_concept_coach: false) then TUTOR_HELP else CONCEPT_COACH_HELP
 
