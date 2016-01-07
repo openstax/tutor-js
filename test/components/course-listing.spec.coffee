@@ -36,6 +36,22 @@ describe 'Course Listing Component', ->
       # no refresh button when load succeeds
       expect(state.div.querySelector(".refresh-button")).to.be.null
 
+  it 'renders course appropriate help', ->
+    CourseListingActions.loaded(MASTER_COURSES_LIST)
+    renderListing().then (state) ->
+      # no courses are CC, so link should be tutor
+      expect(state.div.querySelector('.-help-link a').getAttribute('href'))
+        .equal('https://openstaxtutor.zendesk.com')
+
+    courses = _.clone(MASTER_COURSES_LIST)
+    courses[0] = _.clone(MASTER_COURSES_LIST[0])
+    courses[0].is_concept_coach = true
+    CourseListingActions.loaded(courses)
+    renderListing().then (state) ->
+      # has at least one CC course, so link should be to CC
+      expect(state.div.querySelector('.-help-link a').getAttribute('href'))
+        .equal('https://openstaxcc.zendesk.com/hc/en-us')
+
   it 'displays refresh button when loading fails', ->
     CourseListingActions.FAILED()
     expect(CourseListingStore.isFailed()).to.be.true
