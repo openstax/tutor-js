@@ -46,6 +46,7 @@ module.exports =
     height: componentNode.offsetHeight
 
   setInitialSize: ->
+    return unless @isMounted()
     windowEl = @_getWindowSize()
     componentEl = @_getComponentSize()
 

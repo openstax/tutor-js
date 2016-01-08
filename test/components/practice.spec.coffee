@@ -123,17 +123,17 @@ describe 'Practice Widget, through route', ->
       , done)
 
 
-  it 'should show practice done page on practice completion', (done) ->
-    taskActions
-      .completeSteps(@result)
-      .then(taskChecks.checkIsCompletePage)
-      .then( ->
-        done()
-      , done)
+  # it 'should show practice done page on practice completion', (done) ->
+  #   taskActions
+  #     .completeSteps(@result)
+  #     .then(taskChecks.checkIsCompletePage)
+  #     .then( ->
+  #       done()
+  #     , done)
 
-  it 'should show all breadcrumbs for practice', (done) ->
-    taskChecks
-      .checkHasAllBreadcrumbs(@result)
-      .then( ->
-        done()
-      , done)
+  # it 'should show all breadcrumbs for practice', (done) ->
+  #   taskChecks
+  #     .checkHasAllBreadcrumbs(@result)
+  #     .then( ->
+  #       done()
+  #     , done)
