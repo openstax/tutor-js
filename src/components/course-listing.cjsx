@@ -2,6 +2,7 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
 RefreshButton = require './buttons/refresh-button'
@@ -18,8 +19,8 @@ DisplayOrRedirect = (transition, callback) ->
     conceptCoach = courses[0].is_concept_coach
 
     if roleType is 'student'
-      if conceptCoach
-        window.location.replace(course.webview_url)
+      if conceptCoach and course.webview_url
+        WindowHelpers.replaceBrowserLocation(course.webview_url)
       else
         view = 'viewStudentDashboard'
     else if roleType is 'teacher'

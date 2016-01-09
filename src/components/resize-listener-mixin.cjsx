@@ -40,12 +40,13 @@ module.exports =
     {width, height}
 
   _getComponentSize: ->
+    return {height: 0, width: 0} unless @isMounted()
     componentNode = @getDOMNode()
-
     width: componentNode.offsetWidth
     height: componentNode.offsetHeight
 
   setInitialSize: ->
+    return unless @isMounted()
     windowEl = @_getWindowSize()
     componentEl = @_getComponentSize()
 
