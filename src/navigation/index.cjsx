@@ -40,8 +40,8 @@ Navigation = React.createClass
     {view} = @context
 
     brand = [
-      <span className='navbar-logo'><strong>Concept</strong> Coach</span>
-      <CourseNameBase className='hidden-sm hidden-xs' course={course}/>
+      <span key='app' className='navbar-logo'><strong>Concept</strong> Coach</span>
+      <CourseNameBase key = 'course-name' className='hidden-sm hidden-xs' course={course}/>
     ]
 
     courseItems = [
