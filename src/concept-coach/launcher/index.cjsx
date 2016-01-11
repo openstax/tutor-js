@@ -28,6 +28,7 @@ Launcher = React.createClass
 
   launch: ->
     channel.emit('launcher.clicked')
+    undefined # stop react from complaining about returning false from a handler
 
   render: ->
     {isLaunching, defaultHeight} = @props
