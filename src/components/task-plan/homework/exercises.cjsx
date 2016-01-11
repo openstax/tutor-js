@@ -183,11 +183,6 @@ ExerciseTable = React.createClass
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
     content = ExerciseStore.getContent(exerciseId)
-    contentDiv = document.createElement('div')
-    contentDiv.innerHTML = content
-    
-    if contentDiv.children.length > 1
-      content = contentDiv.children[0].innerHTML
 
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
