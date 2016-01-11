@@ -10,7 +10,7 @@ ConfirmJoin = React.createClass
 
   propTypes:
     title: React.PropTypes.string.isRequired
-    course: React.PropTypes.instanceOf(Course)
+    course: React.PropTypes.instanceOf(Course).isRequired
     optionalStudentId: React.PropTypes.bool
 
   startConfirmation: ->
@@ -52,7 +52,7 @@ ConfirmJoin = React.createClass
 
            <AsyncButton
              className="btn btn-success"
-             isWaiting={@props.course.isBusy}
+             isWaiting={!!@props.course.isBusy}
              waitingText={'Confirming…'}
              onClick={@startConfirmation}
              style={marginLeft: '3rem'}

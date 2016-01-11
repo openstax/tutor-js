@@ -32,7 +32,7 @@ InviteCodeInput = React.createClass
   render: ->
     button =
       <AsyncButton
-        isWaiting={@props.course.isBusy}
+        isWaiting={!!@props.course.isBusy}
         waitingText={'Registering…'}
         onClick={@startRegistration}
       >
