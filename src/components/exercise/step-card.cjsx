@@ -147,6 +147,7 @@ ExerciseStepCard = React.createClass
         <ExerciseGroup
           key='step-exercise-group'
           group={group}
+          exercise_uid={step.content?.uid}
           related_content={related_content}/>
       </div>
     </CardBody>

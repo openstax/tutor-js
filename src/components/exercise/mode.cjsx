@@ -100,8 +100,7 @@ ExMode = React.createClass
         key='step-question'
         model={question}
         answer_id={answerId}
-        keySet={answerKeySet}
-        exercise_uid={content.uid}>
+        keySet={answerKeySet}>
         {@getFreeResponse()}
       </Question>
     </div>
