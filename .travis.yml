@@ -3,5 +3,9 @@ sudo: false
 language: node_js
 node_js:
   - "0.10"
+script:
+  - npm run ci
 after_failure:
   - npm list
+after_success:
+  - cat ./coverage/all.lcov.txt | node ./node_modules/.bin/coveralls
