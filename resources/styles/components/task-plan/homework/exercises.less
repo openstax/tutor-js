@@ -48,7 +48,10 @@ table.exercise-table {
     text-overflow: ellipsis;
     max-width: 250px;
 
-    img {
+    *:first-child {
+      margin: 0;
+    }
+    * + * {
       display: none;
     }
   }
