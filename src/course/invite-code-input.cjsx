@@ -12,7 +12,7 @@ InviteCodeInput = React.createClass
 
   propTypes:
     title: React.PropTypes.string.isRequired
-    course: React.PropTypes.instanceOf(Course)
+    course: React.PropTypes.instanceOf(Course).isRequired
     currentCourses: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Course))
 
   startRegistration: ->
