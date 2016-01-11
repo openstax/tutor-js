@@ -52,8 +52,8 @@ Exercise = React.createClass
     @updateCurrentPanel(nextProps)
 
   updateCurrentPanel: (props) ->
-    {id} = props or @props
-    currentPanel = @props.getCurrentPanel(id)
+    {id, getCurrentPanel} = props or @props
+    currentPanel = getCurrentPanel(id)
     @setState({currentPanel}) if currentPanel? and @state.currentPanel isnt currentPanel
 
   getDefaultProps: ->
