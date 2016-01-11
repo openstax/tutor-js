@@ -31,13 +31,14 @@ ExMode = React.createClass
     @focusBox() if mode is 'free-response'
 
   componentWillReceiveProps: (nextProps) ->
-    {mode, free_response, answer_id} = nextProps
+    {free_response, answer_id} = nextProps
 
-    switch mode
-      when 'free-response'
-        @setState(freeResponse: free_response) if @state.freeResponse isnt free_response
-      when 'multiple-choice'
-        @setState(answerId: answer_id) if @state.answerId isnt answer_id
+    nextAnswers = {}
+
+    nextAnswers.freeResponse = free_response if @state.freeResponse isnt free_response
+    nextAnswers.answerId = answer_id if @state.answerId isnt answer_id
+
+    @setState(nextAnswers) unless _.isEmpty(nextAnswers)
 
   focusBox: ->
     {focus, mode} = @props
