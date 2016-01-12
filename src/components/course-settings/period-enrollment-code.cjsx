@@ -1,3 +1,4 @@
+# coffeelint: disable=max_line_length
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
@@ -23,6 +24,24 @@ module.exports = React.createClass
     {bookUrl, bookName} = @props
     # appends :3 to skip book intro
     url = bookUrl + ':3'
+
+    msg = """
+       As you read your OpenStax textbook online, you will come across embedded Concept Coach question sets to help you understand and retain what you’ve read.
+
+       Follow the steps below to register for Concept Coach:
+
+       1. Paste this link in your web browser to visit the class textbook:
+       #{url}
+
+       2. Click on section 1.1 in the book. Scroll to the bottom of the section and click on the Concept Coach button.
+
+       3. On the right side of the screen, enter your two-word enrollment code:
+       #{code}
+
+       4. On the next screen, click “Click to begin login.” Then click “Sign up” and follow the prompts to create your free account.
+
+       5. Continue to your Concept Coach questions!
+    """
     <div>
 
       <div className='summary'>
@@ -39,39 +58,12 @@ module.exports = React.createClass
         </p>
       </div>
 
-      <div className='howto'>
-        <p>
-          As you read your OpenStax textbook online,
-           you will come across embedded Concept Coach question sets
-            to help you understand and retain what you’ve read.
-        </p>
-        <p>Follow the steps below to register for Concept Coach:</p>
-        <ol>
-          <div>
-            <span>1.</span> Paste this link in your web browser to visit
-             your<a href={url} target='_blank'>{bookName}textbook</a>:
-             <div className='emphasis'>{url}</div>
-          </div>
-          <div>
-            <span>2.</span> 
-             Click on section 1.1 in the book.
-              Scroll to the bottom of the section and click on the Concept Coach button.
-          </div>
-          <div>
-            <span>3.</span> Click "Sign up" and follow the prompts to create your free account.
-          </div>
-          <div>
-            <span>4.</span> 
-             At the end of your account set-up, you will be prompted to enter your two-word enrollment
-             code: <span className='emphasis'>{code}</span>
-          </div>
-          <div>
-            <span>5.</span> Continue to your Concept Coach questions!
-          </div>
-        </ol>
-      </div>
+      <textarea ref="textarea" onFocus={@selectText}>{msg}</textarea>
 
     </div>
+
+  selectText: (ev) ->
+    ev.target.select()
 
   renderForm: ->
     {activeTab, periods} = @props
