@@ -32,6 +32,7 @@ module.exports = React.createClass
     width: React.PropTypes.number.isRequired
     height: React.PropTypes.number.isRequired
     sort: React.PropTypes.string.isRequired
+    onSort: React.PropTypes.func.isRequired
     colSetWidth: React.PropTypes.number.isRequired
     period_id: React.PropTypes.number.isRequired
     periodIndex: React.PropTypes.number.isRequired
@@ -41,7 +42,7 @@ module.exports = React.createClass
     emptyCell = <div className='blank' />
     studentIdHeader = <span className='student-id'>Student ID</span>
     header =
-      <SortingHeader sortKey='name' sortState={@props.sort} onSort={@changeSortingOrder}>
+      <SortingHeader sortKey='name' sortState={@props.sort} onSort={@props.onSort}>
         <span>Student Name</span>
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
@@ -92,7 +93,7 @@ module.exports = React.createClass
       </span>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
-      sortState={@props.sort} onSort={@changeSortingOrder} isConceptCoach={false}
+      sortState={@props.sort} onSort={@props.onSort} isConceptCoach={false}
     >{heading.title}</SortingHeader>
 
     dueDates = <div><Time date={heading.due_at} format='shortest'/></div>
