@@ -12,7 +12,7 @@ EnrollOrLogin = React.createClass
   render: ->
     <div className="enroll-or-login">
       <LoginGateway title="Already entered an enrollment code?" />
-      <NewCourseRegistration {...@props} />
+      <NewCourseRegistration title='First time here?' {...@props} />
     </div>
 
 module.exports = EnrollOrLogin
