@@ -79,7 +79,7 @@ NewCourseRegistration = React.createClass
     </div>
 
   render: ->
-    <div className="-new-registration">
+    <div className="new-registration">
       {@teacherMessage() if @isTeacher()}
       {@renderCurrentStep()}
     </div>
