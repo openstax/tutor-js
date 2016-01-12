@@ -49,7 +49,7 @@ Navigation = React.createClass
         active={view is 'progress'}
         eventKey='progress'
         key='progress'
-        className='concept-coach-dashboard-nav'>
+        className='concept-coach-dashboard-nav -progress'>
         My Progress
       </BS.NavItem>
     ] if course?.isRegistered()
@@ -62,7 +62,7 @@ Navigation = React.createClass
           <BS.NavItem
             onClick={@close}
             className='concept-coach-dashboard-nav'>
-            <BS.Button className='btn-plain'>Close</BS.Button>
+            <BS.Button className='btn-plain close'>Close</BS.Button>
           </BS.NavItem>
         </BS.Nav>
       </BS.CollapsibleNav>
