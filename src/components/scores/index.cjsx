@@ -262,12 +262,7 @@ Scores = React.createClass
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
 
-  onColumnResizeEndCallback: (colWidth, columnKey) ->
-    @setState({colResizeWidth: colWidth, colResizeKey: columnKey})
 
-  headerType: ->
-    # height changes when dueDates row not in concept coach
-    if @props.isConceptCoach then 47 else 92
 
   reviewInfoText: ->
     return null unless @props.isConceptCoach
@@ -286,8 +281,7 @@ Scores = React.createClass
 
     data = @getStudentRowData()
 
-    rowGetter = (rowIndex) =>
-      @renderStudentRow(data.rows[rowIndex])
+
 
     periodNav =
       <CoursePeriodsNavShell
@@ -326,20 +320,7 @@ Scores = React.createClass
         periodIndex={@state.periodIndex}
           />
 
-    # scoresTable =
-    #   <Table
-    #       onColumnResizeEndCallback={@onColumnResizeEndCallback}
-    #       rowHeight={46}
-    #       rowGetter={rowGetter}
-    #       rowsCount={data.rows.length}
-    #       width={tableWidth}
-    #       height={tableHeight}
-    #       headerHeight={@headerType()}
-    #       groupHeaderHeight={50}>
 
-    #       {@renderNameHeader()}
-    #      {_.map(data.headings, @renderHeadingCell)}
-    #    </Table>
 
     
 

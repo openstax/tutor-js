@@ -42,15 +42,15 @@ module.exports = React.createClass
     studentIdHeader = <span className='student-id'>Student ID</span>
     header =
       <SortingHeader sortKey='name' sortState={@props.sort} onSort={@changeSortingOrder}>
-        <span>Student Name</span>{studentIdHeader if @props.isConceptCoach}
+        <span>Student Name</span>
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
     customHeader = <div className='assignment-header-cell'>
-      {dueDateHeading unless @props.isConceptCoach}
+      {dueDateHeading}
       {header}
     </div>
     # student name column width
-    if @props.isConceptCoach then nameColumns = 2 else nameColumns = 1
+    nameColumns = 1
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
         width={@props.colSetWidth * nameColumns}
@@ -92,14 +92,14 @@ module.exports = React.createClass
       </span>
 
     sortingHeader = <SortingHeader type={heading.type} sortKey={i}
-      sortState={@props.sort} onSort={@changeSortingOrder} isConceptCoach={@props.isConceptCoach}
+      sortState={@props.sort} onSort={@changeSortingOrder} isConceptCoach={false}
     >{heading.title}</SortingHeader>
 
     dueDates = <div><Time date={heading.due_at} format='shortest'/></div>
     customHeader = <div
       data-assignment-type="#{heading.type}"
       className='assignment-header-cell'>
-      {dueDates unless @props.isConceptCoach}
+      {dueDates}
       <div>
         {summary}
         {review}
@@ -124,7 +124,7 @@ module.exports = React.createClass
   renderStudentRow: (student_data) ->
     props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
     columns = [
-      <NameCell isConceptCoach={@props.isConceptCoach} key='name' {...props} />
+      <NameCell isConceptCoach={false} key='name' {...props} />
     ]
 
     for task in student_data.data
@@ -142,7 +142,7 @@ module.exports = React.createClass
 
 
     rowGetter = (rowIndex) =>
-      @renderStudentRow(data.rows[rowIndex])
+      @renderStudentRow(@props.data.rows[rowIndex])
 
 
     <Table
