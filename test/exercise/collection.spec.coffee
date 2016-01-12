@@ -1,5 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'openstax-react-components/test/helpers'
-
+_ = require 'underscore'
 Collection = require 'exercise/collection'
 step = require '../../api/steps/4571/GET'
 
