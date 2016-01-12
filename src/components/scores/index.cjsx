@@ -16,6 +16,9 @@ Table = FixedDataTable.Table
 Column = FixedDataTable.Column
 ColumnGroup = FixedDataTable.ColumnGroup
 
+HSTable = require './table-hs'
+CCTable = require './table-cc'
+
 Router = require 'react-router'
 
 {CourseStore} = require '../../flux/course'
@@ -82,6 +85,13 @@ Scores = React.createClass
     bottomMargin = 40
     Math.max(500, windowEl.height - table.offsetTop - bottomMargin)
 
+
+
+
+
+
+
+
   renderHeadingCell: (heading, i) ->
     i += FIRST_DATA_COLUMN # for the first/last name colums
     if heading.type is 'external'
@@ -135,12 +145,26 @@ Scores = React.createClass
         allowCellsRecycling={true}
         isResizable=false
         dataKey={i} />
+
     </ColumnGroup>
+
+
+
+
+
+
 
   renderAverageCell: (heading) ->
     if heading.class_average
       classAverage = Math.round(heading.class_average)
     classAverage
+
+
+
+
+
+
+
 
   renderStudentRow: (student_data) ->
     props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
@@ -157,6 +181,11 @@ Scores = React.createClass
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'concept_coach' then <ConceptCoachCell  key='cc'  {...props} />
     columns
+
+
+
+
+
 
   renderNameHeader: ->
     emptyCell = <div className='blank' />
@@ -184,6 +213,11 @@ Scores = React.createClass
         headerRenderer={-> customHeader} />
     </ColumnGroup>
 
+
+
+
+
+
   changeSortingOrder: (key) ->
     asc = if @state.sort.key is key then not @state.sort.asc else false
     @setState(sort: { key, asc})
@@ -198,6 +232,13 @@ Scores = React.createClass
 
   setPeriodIndex: (key) ->
     @setState({periodIndex: key + 1})
+
+
+
+
+
+
+
 
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
@@ -234,6 +275,11 @@ Scores = React.createClass
       Click on a student's score to review their work.
     </span>
 
+
+
+
+
+
   render: ->
     {courseId, isConceptCoach} = @props
     {period_id, tableWidth, tableHeight} = @state
@@ -253,20 +299,51 @@ Scores = React.createClass
 
     scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
 
-    scoresTable =
-      <Table
-          onColumnResizeEndCallback={@onColumnResizeEndCallback}
-          rowHeight={46}
-          rowGetter={rowGetter}
-          rowsCount={data.rows.length}
-          width={tableWidth}
-          height={tableHeight}
-          headerHeight={@headerType()}
-          groupHeaderHeight={50}>
 
-          {@renderNameHeader()}
-         {_.map(data.headings, @renderHeadingCell)}
-       </Table>
+    
+    if isConceptCoach
+      scoresTable =
+        <CCTable
+        courseId={@props.courseId} 
+        data={data}
+        width={tableWidth}
+        height={tableHeight}
+        sort={@state.sort}
+        colSetWidth={@state.colSetWidth}
+        period_id={@state.period_id}
+        periodIndex={@state.periodIndex}
+          />
+    else
+      scoresTable =
+        <HSTable
+        courseId={@props.courseId}
+        data={data}
+        width={tableWidth}
+        height={tableHeight}
+        sort={@state.sort}
+        colSetWidth={@state.colSetWidth}
+        period_id={@state.period_id}
+        periodIndex={@state.periodIndex}
+          />
+
+    # scoresTable =
+    #   <Table
+    #       onColumnResizeEndCallback={@onColumnResizeEndCallback}
+    #       rowHeight={46}
+    #       rowGetter={rowGetter}
+    #       rowsCount={data.rows.length}
+    #       width={tableWidth}
+    #       height={tableHeight}
+    #       headerHeight={@headerType()}
+    #       groupHeaderHeight={50}>
+
+    #       {@renderNameHeader()}
+    #      {_.map(data.headings, @renderHeadingCell)}
+    #    </Table>
+
+    
+
+
 
     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
 
@@ -286,6 +363,11 @@ Scores = React.createClass
           {if students then scoresTable else noAssignments}
         </div>
     </div>
+
+
+
+
+
 
 
 ScoresShell = React.createClass
