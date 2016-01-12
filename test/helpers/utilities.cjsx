@@ -115,6 +115,20 @@ commonActions =
     (args...) ->
       Promise.resolve(commonActions._focusMatch(selector, args...))
 
+  _changeDOMNode: (targetNode, eventData, args...) ->
+    React.addons.TestUtils.Simulate.change(targetNode, eventData)
+    args[0]
+
+  _changeMatch: (selector, eventData, args...) ->
+    {div} = args[0]
+    elementNode = div.querySelector(selector)
+    commonActions._changeDOMNode(elementNode, eventData)
+    args[0]
+
+  changeMatch: (selector, eventData) ->
+    (args...) ->
+      Promise.resolve(commonActions._changeMatch(selector, eventData, args...))
+
   _hoverMatch: (selector, args...) ->
     {div} = args[0]
     elementNode = div.querySelector(selector)

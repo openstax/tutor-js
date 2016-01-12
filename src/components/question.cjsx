@@ -134,7 +134,7 @@ Answer = React.createClass
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
-    <div>
+    <div className='openstax-answer'>
       <div className={classes}>
         {selectedCount}
         {radioBox}
