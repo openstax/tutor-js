@@ -7,6 +7,12 @@ SECOND = 1000
 
 LoginGateway = React.createClass
 
+  propTypes:
+    title: React.PropTypes.string
+
+  getDefaultProps: ->
+    title: 'You need to login or signup in order to use ConceptCoach™'
+
   getInitialState: ->
     loginWindow: false
 
@@ -28,10 +34,10 @@ LoginGateway = React.createClass
   parseAndDispatchMessage: (msg) ->
     return unless @isMounted()
     try
-      @setState(loginWindow: false) # cancel checking for close
       data = JSON.parse(msg.data)
       if data.user
         api.channel.emit 'user.status.receive.fetch', data: data
+      @setState(loginWindow: false) # cancel checking for close
     catch error
       console.warn(error)
   componentWillUnmount: ->
@@ -65,9 +71,8 @@ LoginGateway = React.createClass
     </p>
 
   render: ->
-
     <div className='login'>
-      <h3>You need to login or signup in order to use ConceptCoach™</h3>
+      <h3>{@props.title}</h3>
       {if @state.loginWindow then @renderWaiting() else @renderLogin()}
     </div>
 
