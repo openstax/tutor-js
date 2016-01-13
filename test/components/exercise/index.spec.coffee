@@ -86,7 +86,7 @@ exerciseActionsAndChecks =
     Testing.actions._clickMatch('.continue', {div: dom}) if dom?
 
     step.correct_answer_id = CHOICES[choiceIndex].id
-    step.feedback_html = 'The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on.'
+    step.feedback_html = 'The original hypothesis is incorrect.'
     wrapper?.setProps({})
 
   checkCorrectAnswerAndFeedback: ({dom, wrapper}, choiceIndex = 0) ->
