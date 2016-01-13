@@ -19,10 +19,24 @@
   width: 100%;
 }
 
+.concept-coach-progress-section {
+  h1 {
+    font-weight: 100;
+    border-bottom: 1px solid @openstax-neutral-light;
+  }
+}
+
 .concept-coach-progress-chapter {
   h3 {
     line-height: 1.5em;
     border-bottom: 1px solid @openstax-neutral-light;
     margin-bottom: 0 !important;
+    font-weight: 100;
+  }
+
+  &.current {
+    h3 {
+      color: @openstax-info;
+    }
   }
 }

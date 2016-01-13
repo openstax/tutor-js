@@ -18,6 +18,7 @@ Reactive = React.createClass
     fetcher: React.PropTypes.func
     filter: React.PropTypes.func
     getStatusMessage: React.PropTypes.func
+    getter: React.PropTypes.func
 
   getDefaultProps: ->
     apiChannelPattern: '{apiChannelName}.{topic}.send.*'
@@ -42,13 +43,13 @@ Reactive = React.createClass
 
   getState: (eventData = {}, props) ->
     props ?= @props
-    {topic, store} = props
+    {topic, store, getter} = props
     {status} = eventData
     status ?= 'loaded'
 
     errors = eventData?.data?.errors
 
-    item: store.get?(topic)
+    item: getter?(topic) or store.get?(topic)
     status: status
     errors: errors
 

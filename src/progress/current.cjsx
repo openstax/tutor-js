@@ -10,29 +10,14 @@ apiChannelName = 'task'
 
 CurrentProgressBase = React.createClass
   displayName: 'CurrentProgressBase'
-  getInitialState: ->
-    {item} = @props
-
-    task: item
-
-  componentWillReceiveProps: (nextProps) ->
-    nextState =
-      task: nextProps.item
-
-    @setState(nextState)
-
   render: ->
-    {task} = @state
-    {taskId, maxLength, moduleUUID} = @props
+    {item, taskId, maxLength, moduleUUID} = @props
+    task = item
     return null unless task?.steps?
 
-    page = _.pick task, 'last_worked_at', 'id'
-    _.extend page, _.first(_.first(task.steps).related_content)
-    page.exercises = task.steps
-    page.uuid = moduleUUID
+    page = tasks.getAsPage(taskId)
 
     chapter =
-      title: 'Current'
       pages: [page]
 
     <ChapterProgress
