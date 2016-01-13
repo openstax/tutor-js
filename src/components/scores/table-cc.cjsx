@@ -17,7 +17,6 @@ Column = FixedDataTable.Column
 ColumnGroup = FixedDataTable.ColumnGroup
 
 Router = require 'react-router'
-{QuickStatsShell} = require './quick-external-stats'
 
 module.exports = React.createClass
   displayName: 'CCTable'
@@ -40,16 +39,16 @@ module.exports = React.createClass
 
   renderNameHeader: ->
     emptyCell = <div className='blank' />
-    studentIdHeader = <span className='student-id'>Student ID</span>
     header =
       <SortingHeader sortKey='name' sortState={@props.sort} onSort={@props.onSort}>
-        <span>Student Name</span>{studentIdHeader}
+        <span>Student Name</span>
+        <span className='student-id'>Student ID</span>
       </SortingHeader>
-    dueDateHeading = <div>Due Date</div>
-    customHeader = <div className='assignment-header-cell'>
-      {header}
-    </div>
-    # student name column width
+    customHeader = 
+      <div className='assignment-header-cell'>
+        {header}
+      </div>
+    # student name column count
     nameColumns = 2
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
@@ -66,47 +65,32 @@ module.exports = React.createClass
 
   renderHeadingCell: (heading, i) ->
     i += @props.firstDataColumn # for the first/last name columns
-    if heading.type is 'external'
-      summary = <QuickStatsShell
-        className='summary'
-        id={"#{heading.plan_id}"}
-        periodId={@props.period_id}/>
-
-    else if heading.plan_id?
-      linkParams =
-        id: heading.plan_id
-        periodIndex: @props.periodIndex
-        courseId: @props.courseId
-
-      review =
-        <Router.Link
-          to='reviewTaskPeriod'
-          params={linkParams}
-          className='review-plan btn btn-default'>
-          Review
-        </Router.Link>
 
     if heading.average
-      summary = <span className='summary'>
-        {(heading.average * 100).toFixed(0)}% avg
-      </span>
+      summary =
+        <span className='summary'>
+          {(heading.average * 100).toFixed(0)}% avg
+        </span>
 
-    sortingHeader = <SortingHeader type={heading.type} sortKey={i}
-      sortState={@props.sort} onSort={@props.onSort} isConceptCoach={true}
-    >{heading.title}</SortingHeader>
+    sortingHeader =
+      <SortingHeader
+      type={heading.type}
+      sortKey={i}
+      sortState={@props.sort}
+      onSort={@props.onSort}
+      isConceptCoach={true}>
+        {heading.title}
+      </SortingHeader>
 
-    dueDates = <div><Time date={heading.due_at} format='shortest'/></div>
     customHeader = <div
       data-assignment-type="#{heading.type}"
       className='assignment-header-cell'>
       <div>
         {summary}
-        {review}
       </div>
     </div>
 
     <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
-
       <Column
         label={heading.title}
         headerRenderer={-> customHeader}
@@ -116,7 +100,6 @@ module.exports = React.createClass
         allowCellsRecycling={true}
         isResizable=false
         dataKey={i} />
-
     </ColumnGroup>
 
 
@@ -129,21 +112,12 @@ module.exports = React.createClass
     for task in student_data.data
       props.task = task
       columns.push switch task?.type or 'null'
-        when 'null'     then <AbsentCell   key='absent'   {...props} />
-        when 'reading'  then <ReadingCell  key='reading'  {...props} />
-        when 'homework' then <HomeworkCell key='homework' {...props} />
-        when 'external' then <ExternalCell key='extern'   {...props} />
-        when 'concept_coach' then <ConceptCoachCell  key='cc'  {...props} />
+        when 'null'          then <AbsentCell       key='absent' {...props} />
+        when 'concept_coach' then <ConceptCoachCell key='cc'     {...props} />
     columns
 
 
-
-
-
-
-
   render: ->
-
     rowGetter = (rowIndex) =>
       @renderStudentRow(@props.data.rows[rowIndex])
 
@@ -157,5 +131,6 @@ module.exports = React.createClass
       groupHeaderHeight={50}>
 
       {@renderNameHeader()}
-     {_.map(@props.data.headings, @renderHeadingCell)}
+      {_.map(@props.data.headings, @renderHeadingCell)}
+
     </Table>

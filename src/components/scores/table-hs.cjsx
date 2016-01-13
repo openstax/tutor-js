@@ -45,11 +45,12 @@ module.exports = React.createClass
         <span>Student Name</span>
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
-    customHeader = <div className='assignment-header-cell'>
-      {dueDateHeading}
-      {header}
-    </div>
-    # student name column width
+    customHeader = 
+      <div className='assignment-header-cell'>
+        {dueDateHeading}
+        {header}
+      </div>
+    # student name column count
     nameColumns = 1
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
@@ -87,15 +88,23 @@ module.exports = React.createClass
         </Router.Link>
 
     if heading.average
-      summary = <span className='summary'>
-        {(heading.average * 100).toFixed(0)}% avg
-      </span>
+      summary =
+        <span className='summary'>
+          {(heading.average * 100).toFixed(0)}% avg
+        </span>
 
-    sortingHeader = <SortingHeader type={heading.type} sortKey={i}
-      sortState={@props.sort} onSort={@props.onSort} isConceptCoach={false}
-    >{heading.title}</SortingHeader>
+    sortingHeader =
+      <SortingHeader
+      type={heading.type}
+      sortKey={i}
+      sortState={@props.sort}
+      onSort={@props.onSort}
+      isConceptCoach={false}>
+        {heading.title}
+      </SortingHeader>
 
     dueDates = <div><Time date={heading.due_at} format='shortest'/></div>
+
     customHeader = <div
       data-assignment-type="#{heading.type}"
       className='assignment-header-cell'>
@@ -107,7 +116,6 @@ module.exports = React.createClass
     </div>
 
     <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
-
       <Column
         label={heading.title}
         headerRenderer={-> customHeader}
@@ -117,7 +125,6 @@ module.exports = React.createClass
         allowCellsRecycling={true}
         isResizable=false
         dataKey={i} />
-
     </ColumnGroup>
 
 
@@ -134,16 +141,12 @@ module.exports = React.createClass
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
         when 'homework' then <HomeworkCell key='homework' {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
-        when 'concept_coach' then <ConceptCoachCell  key='cc'  {...props} />
     columns
 
 
   render: ->
-
-
     rowGetter = (rowIndex) =>
       @renderStudentRow(@props.data.rows[rowIndex])
-
 
     <Table
       rowHeight={46}
@@ -155,5 +158,6 @@ module.exports = React.createClass
       groupHeaderHeight={50}>
 
       {@renderNameHeader()}
-     {_.map(@props.data.headings, @renderHeadingCell)}
+      {_.map(@props.data.headings, @renderHeadingCell)}
+
     </Table>
