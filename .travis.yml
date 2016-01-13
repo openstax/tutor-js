@@ -8,4 +8,4 @@ script:
 after_failure:
   - npm list
 after_success:
-  - cat ./coverage/all.lcov.txt | node ./node_modules/.bin/coveralls
+  - cat ./coverage/all.lcov.txt | node ./node_modules/.bin/coveralls --verbose
