@@ -5,7 +5,7 @@ _ = require 'underscore'
 Time   = require '../time'
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
-NameCell     = require './name-cell'
+HSNameCell     = require './name-cell-hs'
 AbsentCell   = require './absent-cell'
 ExternalCell = require './external-cell'
 SortingHeader = require './sorting-header'
@@ -134,7 +134,7 @@ module.exports = React.createClass
   renderStudentRow: (student_data) ->
     props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
     columns = [
-      <NameCell isConceptCoach={false} key='name' {...props} />
+      <HSNameCell key='name' {...props} />
     ]
 
     for task in student_data.data
