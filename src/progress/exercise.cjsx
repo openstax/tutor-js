@@ -3,6 +3,12 @@ classnames = require 'classnames'
 
 ExerciseProgress = React.createClass
   displayName: 'ExerciseProgress'
+  propTypes:
+    className: React.PropTypes.string
+    exercise: React.PropTypes.shape(
+      is_completed: React.PropTypes.bool
+      is_correct: React.PropTypes.bool
+    )
   getDefaultProps: ->
     exercise: {}
   render: ->
