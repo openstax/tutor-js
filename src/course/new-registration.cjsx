@@ -15,7 +15,11 @@ NewCourseRegistration = React.createClass
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
     validateOnly: React.PropTypes.bool
+    title: React.PropTypes.string
     course: React.PropTypes.instanceOf(Course)
+
+  getDefaultProps: ->
+    title: 'Register for this Concept Coach course'
 
   componentWillMount: ->
     course = @props.course or
@@ -56,7 +60,7 @@ NewCourseRegistration = React.createClass
     if course.isValidated()
       @renderValidated()
     else if course.isIncomplete()
-      title = if @isTeacher() then '' else 'Register for this Concept Coach course'
+      title = if @isTeacher() then '' else @props.title
       <InviteCodeInput course={course} currentCourses={User.registeredCourses()} title={title} />
     else if course.isPending()
       <ConfirmJoin
@@ -79,7 +83,7 @@ NewCourseRegistration = React.createClass
     </div>
 
   render: ->
-    <div className="-new-registration">
+    <div className="new-registration">
       {@teacherMessage() if @isTeacher()}
       {@renderCurrentStep()}
     </div>

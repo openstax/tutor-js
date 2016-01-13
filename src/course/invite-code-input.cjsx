@@ -44,7 +44,7 @@ InviteCodeInput = React.createClass
       <h3 className="text-center">{@props.title}</h3>
       <hr/>
       <ErrorList course={@props.course} />
-      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+      <div className="code-wrapper col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
         <BS.Input type="text" ref="input" label="Enter the two-word enrollment code"
           placeholder="enrollment code" autoFocus
           onKeyPress={@onKeyPress}
