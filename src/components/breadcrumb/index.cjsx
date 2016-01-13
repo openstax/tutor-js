@@ -42,13 +42,13 @@ Breadcrumb = React.createClass
     {isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType}
 
   render: ->
-    {step, crumb, goToStep, className, title} = @props
+    {step, crumb, goToStep, className} = @props
     {isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType} = @state
 
     propsToPassOn = _.omit(@props, 'onClick', 'title', 'className', 'data-chapter', 'key')
 
     if isCurrent
-      title ?= "Current Step (#{crumbType})"
+      title = "Current Step (#{crumbType})"
 
     if isCompleted
       title ?= "Step Completed (#{crumbType}). Click to review"
@@ -60,7 +60,7 @@ Breadcrumb = React.createClass
       status = <i className='icon-lg icon-incorrect'></i>
 
     if isEnd
-      title ?= "#{step.title} Completion"
+      title = "#{step.title} Completion"
 
     classes = classnames 'openstax-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, "breadcrumb-#{crumbType}", className,
       current: isCurrent
