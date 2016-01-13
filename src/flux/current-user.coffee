@@ -1,7 +1,7 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 flux = require 'flux-react'
-
+{CourseListingStore} = require './course-listing'
 {CourseActions, CourseStore} = require './course'
 
 # Read the CSRF token from document's meta tag.  If not found, log a warning but proceed
@@ -147,7 +147,15 @@ CurrentUserStore = flux.createStore
 
     getHelpLink: (courseId) ->
       course = CourseStore.get(courseId)
-      if course?.is_concept_coach then CONCEPT_COACH_HELP else TUTOR_HELP
+      if course
+        if course.is_concept_coach then CONCEPT_COACH_HELP else TUTOR_HELP
+      else
+        courses = CourseListingStore.allCourses()
+        # link to TUTOR_HELP if they do not have any CC courses
+        if _.all(courses, (course) -> not course.is_concept_coach)
+          TUTOR_HELP
+        else
+          CONCEPT_COACH_HELP
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.

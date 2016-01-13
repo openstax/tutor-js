@@ -68,6 +68,6 @@ CourseListingStore = flux.createStore
         true
 
     allCourses: ->
-      return _.map @_course_ids, CourseStore.get
+      return _.compact _.map @_course_ids, CourseStore.get
 
 module.exports = {CourseListingActions, CourseListingStore}

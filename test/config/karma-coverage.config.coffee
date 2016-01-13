@@ -2,6 +2,8 @@
 _ = require 'underscore'
 commonConfig = require './karma.common'
 
+LCOV_FILENAME = 'all.lcov.txt'
+
 module.exports = (karmaConfig) ->
 
   config = _.extend({
@@ -10,7 +12,12 @@ module.exports = (karmaConfig) ->
     # logLevel: karmaConfig.LOG_DEBUG
 
     coverageReporter:
-      type: 'text'
+      dir: 'coverage'
+      reporters: [
+        {type: 'html', subdir: '.'}
+        {type: 'lcovonly', subdir: '.', file: LCOV_FILENAME}
+        # {type: 'text'}
+      ]
 
   }, commonConfig)
 

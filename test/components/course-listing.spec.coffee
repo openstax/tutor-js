@@ -5,11 +5,13 @@ React          = require 'react'
 ReactAddons    = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
 {routerStub}   = require './helpers/utilities'
-
+{sinon}        = require './helpers/component-testing'
 {CourseListing} = require '../../src/components/course-listing'
 {CourseListingActions, CourseListingStore} = require '../../src/flux/course-listing'
 {StudentDashboardShell} = require '../../src/components/student-dashboard'
 CourseCalendar = require '../../src/components/course-calendar'
+WindowHelpers  = require '../../src/helpers/window'
+
 {
   STUDENT_COURSE_ONE_MODEL
   TEACHER_COURSE_TWO_MODEL
@@ -36,6 +38,22 @@ describe 'Course Listing Component', ->
       # no refresh button when load succeeds
       expect(state.div.querySelector(".refresh-button")).to.be.null
 
+  it 'renders course appropriate help', ->
+    CourseListingActions.loaded(MASTER_COURSES_LIST)
+    renderListing().then (state) ->
+      # no courses are CC, so link should be tutor
+      expect(state.div.querySelector('.-help-link a').getAttribute('href'))
+        .equal('https://openstaxtutor.zendesk.com')
+
+    courses = _.clone(MASTER_COURSES_LIST)
+    courses[0] = _.clone(MASTER_COURSES_LIST[0])
+    courses[0].is_concept_coach = true
+    CourseListingActions.loaded(courses)
+    renderListing().then (state) ->
+      # has at least one CC course, so link should be to CC
+      expect(state.div.querySelector('.-help-link a').getAttribute('href'))
+        .equal('https://openstaxcc.zendesk.com/hc/en-us')
+
   it 'displays refresh button when loading fails', ->
     CourseListingActions.FAILED()
     expect(CourseListingStore.isFailed()).to.be.true
@@ -55,3 +73,23 @@ describe 'Course Listing Component', ->
       expect(state.listing).to.be.undefined # Won't have rendered the listing
       expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, CourseCalendar))
         .to.have.length(1)
+
+  describe 'redirecting to CC', ->
+    beforeEach ->
+      sinon.stub(WindowHelpers, 'replaceBrowserLocation')
+      @course = _.clone(STUDENT_COURSE_ONE_MODEL)
+      @course.is_concept_coach = true
+      @course.webview_url = 'http://test.com/cc'
+
+    afterEach ->
+      WindowHelpers.replaceBrowserLocation.restore()
+
+    it 'redirects when a member of a single CC course', ->
+      CourseListingActions.loaded([@course])
+      renderListing().then (state) =>
+        expect(WindowHelpers.replaceBrowserLocation.calledWith(@course.webview_url)).to.be.true
+
+    it 'does not redirect if a member of multiple course', ->
+      CourseListingActions.loaded([@course, TEACHER_COURSE_TWO_MODEL])
+      renderListing().then (state) ->
+        expect(WindowHelpers.replaceBrowserLocation.callCount).equal(0)

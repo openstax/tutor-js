@@ -4,5 +4,6 @@
 /.tmp
 /dist
 /test-failed-*.png
+/coverage
 
 *.cjsx.js

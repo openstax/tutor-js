@@ -2,6 +2,7 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
 {RefreshButton} = require 'openstax-react-components'
@@ -18,7 +19,10 @@ DisplayOrRedirect = (transition, callback) ->
     conceptCoach = courses[0].is_concept_coach
 
     if roleType is 'student'
-      if conceptCoach then callback() else view = 'viewStudentDashboard'
+      if conceptCoach and course.webview_url
+        WindowHelpers.replaceBrowserLocation(course.webview_url)
+      else
+        view = 'viewStudentDashboard'
     else if roleType is 'teacher'
       view = if conceptCoach then 'cc-dashboard' else 'taskplans'
     else
