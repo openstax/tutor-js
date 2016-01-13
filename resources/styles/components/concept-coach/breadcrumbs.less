@@ -95,18 +95,8 @@
           font-weight: 300;
           padding: 0 1rem;
           font-style: italic;
-        }
-
-        &.coach-summary {
-          &::before {
-            content: 'Summary';
-          }
-        }
-
-        &.coach-continue {
-          &::before {
-            content: 'Continue';
-          }
+          text-transform: capitalize;
+          content: attr(data-type);
         }
       }
 

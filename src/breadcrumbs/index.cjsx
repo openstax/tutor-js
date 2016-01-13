@@ -56,7 +56,7 @@ Breadcrumbs = React.createClass
       data:
         id: "#{type}"
         title: moduleInfo.title
-      className: "coach-#{type}"
+      label: type
       disabled: not enabled
 
   render: ->
@@ -76,14 +76,13 @@ Breadcrumbs = React.createClass
     crumbs.push(bookEnd)
 
     breadcrumbs = _.map crumbs, (crumb, index) =>
-      {className, disabled} = crumb
-      classes = classnames crumb.className,
-        disabled: disabled
-
+      {disabled} = crumb
+      classes = classnames({disabled})
       crumb.key = index
 
       <BreadcrumbDynamic
         className={classes}
+        data-type={crumb.label}
         key={crumb.data.id}
         crumb={crumb}
         step={crumb.data or {}}
