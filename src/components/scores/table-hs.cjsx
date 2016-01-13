@@ -18,8 +18,6 @@ ColumnGroup = FixedDataTable.ColumnGroup
 Router = require 'react-router'
 {QuickStatsShell} = require './quick-external-stats'
 
-FIRST_DATA_COLUMN = 1
-
 module.exports = React.createClass
   displayName: 'HSTable'
 
@@ -36,6 +34,7 @@ module.exports = React.createClass
     colSetWidth: React.PropTypes.number.isRequired
     period_id: React.PropTypes.string
     periodIndex: React.PropTypes.number.isRequired
+    firstDataColumn: React.PropTypes.number.isRequired
 
 
   renderNameHeader: ->
@@ -66,7 +65,7 @@ module.exports = React.createClass
 
 
   renderHeadingCell: (heading, i) ->
-    i += FIRST_DATA_COLUMN # for the first/last name colums
+    i += @props.firstDataColumn # for the first/last name columns
     if heading.type is 'external'
       summary = <QuickStatsShell
         className='summary'

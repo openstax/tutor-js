@@ -15,10 +15,6 @@ ScoresExport = require './export'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 ResizeListenerMixin = require '../resize-listener-mixin'
 
-# Index of first column that contains data
-FIRST_DATA_COLUMN = 1
-INITIAL_SORT = { key: 'name', asc: true }
-
 Scores = React.createClass
   displayName: 'Scores'
 
@@ -41,7 +37,9 @@ Scores = React.createClass
     colSetWidth: 180
     colResizeWidth: 180
     colResizeKey: 0
-    sort: INITIAL_SORT
+    sort: { key: 'name', asc: true }
+    # index of first column that contains data
+    firstDataColumn: 1
 
   componentDidMount: ->
     @sizeTable()
@@ -79,25 +77,27 @@ Scores = React.createClass
 
   selectPeriod: (period) ->
     newState = {period_id: period.id}
-    newState.sort = INITIAL_SORT if @isSortingByData()
+    newState.sort = @state.sort if @isSortingByData()
     @setState(newState)
 
   setPeriodIndex: (key) ->
     @setState({periodIndex: key + 1})
 
 
+
+
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
-    {sort, period_id} = @state
+    {sort, period_id, firstDataColumn} = @state
     data = ScoresStore.get(@props.courseId)
     scores = if period_id
       _.findWhere(data, {period_id})
     else
-      data[0] or throw new Error('BUG: No periods')
+      data[0]
 
     sortData = _.sortBy(scores.students, (d) ->
       if _.isNumber(sort.key)
-        index = sort.key - FIRST_DATA_COLUMN
+        index = sort.key - firstDataColumn
         record = d.data[index]
         return 0 unless record
         switch record.type
@@ -107,7 +107,6 @@ Scores = React.createClass
         (d.last_name or d.name).toLowerCase()
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
-
 
 
 
@@ -132,6 +131,7 @@ Scores = React.createClass
         colSetWidth={@state.colSetWidth}
         period_id={@state.period_id}
         periodIndex={@state.periodIndex}
+        firstDataColumn={@state.firstDataColumn}
           />
       afterTabsItem = ->
         <span className='course-scores-note tab'>
@@ -153,6 +153,7 @@ Scores = React.createClass
         colSetWidth={@state.colSetWidth}
         period_id={@state.period_id}
         periodIndex={@state.periodIndex}
+        firstDataColumn={@state.firstDataColumn}
           />
       afterTabsItem = -> null
       tableMarginNote = null
