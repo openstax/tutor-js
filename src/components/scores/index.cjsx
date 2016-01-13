@@ -15,8 +15,6 @@ ScoresExport = require './export'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 ResizeListenerMixin = require '../resize-listener-mixin'
 
-# concept coach does not show due_at row or links on student names
-
 # Index of first column that contains data
 FIRST_DATA_COLUMN = 1
 INITIAL_SORT = { key: 'name', asc: true }
@@ -36,7 +34,6 @@ Scores = React.createClass
   getInitialState: ->
     period_id: null
     periodIndex: 1
-    sortOrder: 'is-ascending'
     sortIndex: 0
     tableWidth: 0
     tableHeight: 0
@@ -68,12 +65,14 @@ Scores = React.createClass
     windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
     bottomMargin = 40
-    Math.max(500, windowEl.height - table.offsetTop - bottomMargin)
+    windowEl.height - table.offsetTop - bottomMargin
+
+
 
 
   changeSortingOrder: (key) ->
     asc = if @state.sort.key is key then not @state.sort.asc else false
-    @setState(sort: { key, asc})
+    @setState(sort: {key, asc})
 
   isSortingByData: ->
     _.isNumber(@state.sort.key)
@@ -110,11 +109,6 @@ Scores = React.createClass
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
 
 
-  reviewInfoText: ->
-    return null unless @props.isConceptCoach
-    <span className='course-scores-note tab'>
-      Click on a student's score to review their work.
-    </span>
 
 
 
@@ -123,14 +117,6 @@ Scores = React.createClass
     {period_id, tableWidth, tableHeight} = @state
 
     data = @getStudentRowData()
-
-    periodNav =
-      <CoursePeriodsNavShell
-        handleSelect={@selectPeriod}
-        handleKeyUpdate={@setPeriodIndex}
-        intialActive={period_id}
-        courseId={courseId}
-        afterTabsItem={@reviewInfoText} />
 
     scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
 
@@ -147,6 +133,14 @@ Scores = React.createClass
         period_id={@state.period_id}
         periodIndex={@state.periodIndex}
           />
+      afterTabsItem = ->
+        <span className='course-scores-note tab'>
+          Click on a student's score to review their work.
+        </span>
+      tableMarginNote =
+        <div className='course-scores-note right'>
+          Date indicates most recently submitted response.
+        </div>
     else
       scoresTable =
         <HSTable
@@ -160,21 +154,27 @@ Scores = React.createClass
         period_id={@state.period_id}
         periodIndex={@state.periodIndex}
           />
+      afterTabsItem = -> null
+      tableMarginNote = null
 
+
+    periodNav =
+      <CoursePeriodsNavShell
+        handleSelect={@selectPeriod}
+        handleKeyUpdate={@setPeriodIndex}
+        intialActive={period_id}
+        courseId={courseId}
+        afterTabsItem={afterTabsItem} />
 
     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
 
-    scoresNote =
-      <div className='course-scores-note right'>
-        Date indicates most recently submitted response.
-      </div>
 
     if data.rows.length > 0 then students = true
 
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
-        {if isConceptCoach then scoresNote}
+        {tableMarginNote}
         {periodNav}
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}

@@ -19,6 +19,10 @@ ColumnGroup = FixedDataTable.ColumnGroup
 Router = require 'react-router'
 {QuickStatsShell} = require './quick-external-stats'
 
+
+# concept coach does not show due_at row or links on student names
+
+# Index of first column that contains data
 FIRST_DATA_COLUMN = 1
 
 module.exports = React.createClass
@@ -32,10 +36,10 @@ module.exports = React.createClass
     data: React.PropTypes.object.isRequired
     width: React.PropTypes.number.isRequired
     height: React.PropTypes.number.isRequired
-    sort: React.PropTypes.string.isRequired
+    sort: React.PropTypes.object.isRequired
     onSort: React.PropTypes.func.isRequired
     colSetWidth: React.PropTypes.number.isRequired
-    period_id: React.PropTypes.number.isRequired
+    period_id: React.PropTypes.string
     periodIndex: React.PropTypes.number.isRequired
 
 
