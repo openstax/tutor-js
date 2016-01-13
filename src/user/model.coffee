@@ -94,7 +94,7 @@ User =
     _.each @courses, (course) ->
       course.channel.removeAllListeners()
 
-    delete @courses
+    @courses = []
 
 
 # start out as a blank user

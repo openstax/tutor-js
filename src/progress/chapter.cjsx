@@ -12,6 +12,7 @@ ChapterProgress = React.createClass
   mixins: [ChapterSectionMixin]
   render: ->
     {chapter, className, maxLength} = @props
+    return null unless chapter.pages?.length > 0
 
     classes = classnames 'concept-coach-progress-chapter', className
     section = @sectionFormat(chapter.chapter_section)
@@ -26,10 +27,12 @@ ChapterProgress = React.createClass
         maxLength={maxLength}
         key={"progress-page-#{page.id}"}/>
 
+    title = <h3 {...sectionProps}>
+        {chapter.title}
+    </h3> if chapter.title?
+
     <div className={classes}>
-      <h3 {...sectionProps}>
-          {chapter.title}
-      </h3>
+      {title}
       <ul className='concept-coach-progress-pages'>
         {pages}
       </ul>
