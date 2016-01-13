@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
+_  = require 'underscore'
 api = require '../api'
 
 
@@ -43,20 +43,25 @@ ErrorNotification = React.createClass
         {for error, i in @state.errors
           <li key={i}>{error}</li>}
       </ul>
+      <p>
+        {window.navigator.userAgent}
+      </p>
     </BS.Panel>
 
   render: ->
     return null unless @state.errors
-    <BS.Modal className='errors' onRequestHide={@onHide} title="Server Error">
+    <BS.Modal className='errors' onRequestHide={@onHide} title="Error encountered">
       <div className='modal-body'>
-        <h3>Server error encountered</h3>
         <p>
           An unexpected error has occured.  Please
           visit <a target="_blank"
-            href="https://openstaxtutor.zendesk.com/hc/en-us/requests/new"
+            href="https://openstaxcc.zendesk.com/hc/en-us"
           > our support site </a> so we can help to diagnose and correct the issue.
         </p>
-        <BS.Button onClick={@toggleDetails}>
+        <p>
+          When reporting the issue, it would be helpful if you could include the error details.
+        </p>
+        <BS.Button className='-display-errors' style={marginBottom: '1rem'} onClick={@toggleDetails}>
           {if @state.isShowingDetails then "Hide" else "Show"} Details
         </BS.Button>
         {@renderDetails() if @state.isShowingDetails}
