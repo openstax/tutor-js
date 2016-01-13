@@ -1,4 +1,8 @@
-# tutor-js [![Build Status](https://travis-ci.org/openstax/tutor-js.svg?branch=master)](https://travis-ci.org/openstax/tutor-js) [![devDependency Status](https://david-dm.org/openstax/tutor-js/dev-status.svg)](https://david-dm.org/openstax/tutor-js#info=devDependencies)
+# tutor-js 
+[![build status][travis-image]][travis-url]
+[![code coverage][coveralls-image]][coveralls-url]
+[![dependency status][dependency-image]][dependency-url]
+[![dev dependency status][dev-dependency-image]][dev-dependency-url]
 
 The JavaScript client for openstax Tutor.
 
@@ -46,3 +50,13 @@ Before starting up vagrant, you can debug using a more production-like config by
 4. update the paths in `tutor-server/conf/secrets.yml` to point to `http://localhost:[NGINX-PORT]/assets/tutor.min-####.css` and `tutor.min-####.js` respectively
 5. in `tutor-server` run `rails s`
 6. go to <http://localhost:3001>
+
+
+[travis-image]: https://img.shields.io/travis/openstax/tutor-js.svg?style=flat-square
+[travis-url]: https://travis-ci.org/openstax/tutor-js
+[dependency-image]: https://img.shields.io/david/openstax/tutor-js.svg?style=flat-square
+[dependency-url]: https://david-dm.org/openstax/tutor-js
+[dev-dependency-image]: https://img.shields.io/david/dev/openstax/tutor-js.svg?style=flat-square
+[dev-dependency-url]: https://david-dm.org/openstax/tutor-js#info=devDependencies
+[coveralls-image]: https://img.shields.io/coveralls/openstax/tutor-js.svg
+[coveralls-url]: https://coveralls.io/github/openstax/tutor-js
