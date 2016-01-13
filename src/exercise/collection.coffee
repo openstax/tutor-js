@@ -2,11 +2,17 @@ EventEmitter2 = require 'eventemitter2'
 api = require '../api'
 steps = {}
 
+_ = require 'underscore'
+
 user = require '../user/model'
 user.channel.on 'change', ->
   steps = {}
 
 channel = new EventEmitter2 wildcard: true
+
+STEP_TYPES =
+  'free-response': ['free_response']
+  'multiple-choice': ['answer_id', 'is_completed']
 
 quickLoad = (stepId, data) ->
   steps[stepId] = data
@@ -27,12 +33,24 @@ fetch = (stepId) ->
   api.channel.emit("exercise.#{stepId}.send.fetch", eventData)
 
 getCurrentPanel = (stepId) ->
+  panel = 'review'
+
   step = steps[stepId]
-  panel = 'free-response'
-  if step?.correct_answer_id?
-    panel = 'review'
-  else if step?.free_response?
-    panel = 'multiple-choice'
+  question = step?.content?.questions?[0]
+  return panel unless question?
+
+  {formats} = question
+
+  _.find(STEP_TYPES, (stepChecks, format) ->
+    return false unless format in formats
+    isStepCompleted = _.reduce(stepChecks, (isOtherCompleted, currentCheck) ->
+      step[currentCheck]? and step[currentCheck] and isOtherCompleted
+    , true)
+
+    unless isStepCompleted
+      panel = format
+      true
+  )
   panel
 
 get = (stepId) ->
