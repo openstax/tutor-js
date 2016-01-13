@@ -58,7 +58,7 @@ module.exports = React.createClass
         </p>
       </div>
 
-      <textarea ref="textarea" onFocus={@selectText}>{msg}</textarea>
+      <textarea readOnly onClick={@selectText} value={msg} />
 
     </div>
 
