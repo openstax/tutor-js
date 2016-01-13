@@ -40,7 +40,10 @@ module.exports = React.createClass
   renderNameHeader: ->
     emptyCell = <div className='blank' />
     header =
-      <SortingHeader sortKey='name' sortState={@props.sort} onSort={@props.onSort}>
+      <SortingHeader
+      sortKey='name'
+      sortState={@props.sort}
+      onSort={@props.onSort}>
         <span>Student Name</span>
         <span className='student-id'>Student ID</span>
       </SortingHeader>

@@ -41,7 +41,10 @@ module.exports = React.createClass
     emptyCell = <div className='blank' />
     studentIdHeader = <span className='student-id'>Student ID</span>
     header =
-      <SortingHeader sortKey='name' sortState={@props.sort} onSort={@props.onSort}>
+      <SortingHeader
+      sortKey='name'
+      sortState={@props.sort}
+      onSort={@props.onSort}>
         <span>Student Name</span>
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
