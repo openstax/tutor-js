@@ -13,12 +13,12 @@ describe 'Exercise Collection', ->
     it 'returns free-response by default', ->
       expect(Collection.getCurrentPanel(@stepId)).equal('free-response')
 
-    it 'returns review if correct answer is present', ->
-      @step.correct_answer_id = 99
+    it 'returns review if content.questions is missing', ->
+      @step.content = {}
       Collection.quickLoad(@stepId, @step)
       expect(Collection.getCurrentPanel(@stepId)).equal('review')
 
-    it 'returns multiple-choice if free response is present', ->
+    it 'returns multiple-choice if free_response is present', ->
       @step.free_response = 'my best guess'
       Collection.quickLoad(@stepId, @step)
       expect(Collection.getCurrentPanel(@stepId)).equal('multiple-choice')
