@@ -11,9 +11,11 @@ BLANK_USER =
   name: null
   profile_url: null
   courses: []
+  _course_data: []
+  isLoaded: false
+  isLoggingOut: false
 
 User =
-  isLoaded: false
   channel: new EventEmitter2 wildcard: true
 
   update: (data) ->
@@ -99,6 +101,5 @@ User =
 
 # start out as a blank user
 _.extend(User, BLANK_USER)
-
 
 module.exports = User
