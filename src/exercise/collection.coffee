@@ -5,7 +5,7 @@ steps = {}
 _ = require 'underscore'
 
 user = require '../user/model'
-user.channel.on 'change', ->
+user.channel.on 'logout.received', ->
   steps = {}
 
 channel = new EventEmitter2 wildcard: true

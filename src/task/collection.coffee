@@ -7,7 +7,7 @@ exercises = require '../exercise/collection'
 tasks = {}
 
 user = require '../user/model'
-user.channel.on 'change', ->
+user.channel.on 'logout.received', ->
   tasks = {}
 
 channel = new EventEmitter2 wildcard: true
