@@ -7,6 +7,11 @@ tasks = require './collection'
 
 TaskReview = React.createClass
   displayName: 'TaskReview'
+
+  propTypes:
+    moduleUUID:     React.PropTypes.string.isRequired
+    collectionUUID: React.PropTypes.string.isRequired
+
   getInitialState: ->
     @getSteps(@props)
 
@@ -35,6 +40,7 @@ TaskReview = React.createClass
       completeStepsReview = _.map completeSteps, (step) ->
         <ExerciseStep
           id={step.id}
+          key={step.id}
           pinned={false}
           review='completed'
           focus={false}
