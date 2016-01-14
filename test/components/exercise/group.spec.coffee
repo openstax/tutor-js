@@ -17,7 +17,14 @@ describe 'Exercise Group Component', ->
       expect(dom.textContent).equal('Personalized')
       expect(dom.querySelector('i.icon-personalized')).not.to.be.null
 
-  it 'renders null for groups that should not be visible', ->
+  it 'renders null label and icon for groups that should not be visible', ->
     @props.group = 'core'
     Testing.renderComponent( Group, props: @props ).then ({dom, wrapper}) ->
-      expect(dom).to.be.null
+      expect(dom.querySelector('i.icon-personalized')).to.be.null
+      expect(dom.textContent).equal('')
+
+  it 'renders the exercise uid when passed in', ->
+    EXERCISE_UID = '1@1'
+    @props.exercise_uid = EXERCISE_UID
+    Testing.renderComponent( Group, props: @props ).then ({dom, wrapper}) ->
+      expect(dom.textContent).include(EXERCISE_UID)

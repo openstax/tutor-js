@@ -1,7 +1,6 @@
-_ = require 'underscore'
+_ = require 'lodash'
 expect = chai.expect
-React = require 'react'
-ReactAddons    = require('react/addons')
+React = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'

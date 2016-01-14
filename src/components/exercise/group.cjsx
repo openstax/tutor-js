@@ -49,18 +49,25 @@ ExerciseGroup = React.createClass
     labels
 
   render: ->
-    {group, related_content} = @props
-    groupDOM = null
+    {group, related_content, exercise_uid} = @props
+    groupDOM = []
 
     if RULES[group].show
       className = group.replace(' ', '_')
       labels = @getGroupLabel(group, related_content)
 
-      groupDOM = <div className='openstax-step-group'>
-          <i className="icon-sm icon-#{className}"></i>
-          <span className='openstax-step-group-label'>{labels}</span>
-        </div>
+      groupDOM = [<i className="icon-sm icon-#{className}" key='group-icon'></i>
+        <span className='openstax-step-group-label' key='group-label'>{labels}</span>
+      ]
 
-    groupDOM
+    if exercise_uid
+      exerciseUid = <span className='exercise-uid' key='exercise-uid'>
+        {exercise_uid}
+      </span>
+      groupDOM.push(exerciseUid)
+
+    <div className='openstax-step-group'>
+      {groupDOM}
+    </div>
 
 module.exports = ExerciseGroup
