@@ -48,15 +48,15 @@ Breadcrumbs = React.createClass
     task: tasks.get(taskId)
     moduleInfo: tasks.getModuleInfo(taskId)
 
-  makeCrumbEnd: (type, enabled) ->
+  makeCrumbEnd: (label, enabled) ->
     {moduleInfo} = @state
 
     reviewEnd =
       type: 'end'
       data:
-        id: "#{type}"
+        id: "#{label}"
         title: moduleInfo.title
-      label: type
+      label: label
       disabled: not enabled
 
   render: ->
@@ -82,7 +82,7 @@ Breadcrumbs = React.createClass
 
       <BreadcrumbDynamic
         className={classes}
-        data-type={crumb.label}
+        data-label={crumb.label}
         key={crumb.data.id}
         crumb={crumb}
         step={crumb.data or {}}
