@@ -13,7 +13,7 @@ describe 'ChapterProgress Component', ->
 
   it 'renders the title', ->
     Testing.renderComponent(ChapterProgress, props: @props).then ({dom}) =>
-      expect(dom.querySelector('h3')).equal(@props.chapter.title)
+      expect(dom.querySelector('h3').textContent).equal(@props.chapter.title)
 
   it 'renders pages', ->
     Testing.renderComponent(ChapterProgress, props: @props).then ({dom}) =>
