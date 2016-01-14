@@ -7,7 +7,7 @@ Instructions
 
 1. Clone the `tutor-js` repo and change into the `tutor-js/` directory
 2. `npm install` (to get the current packages and versions)
-3. `npm run integration-test` to run all the tests
+3. `npm run test-integration` to run all the tests
 
 ## Running a subset of tests
 
