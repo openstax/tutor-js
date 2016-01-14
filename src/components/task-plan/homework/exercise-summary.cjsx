@@ -19,11 +19,13 @@ ExerciseSummary = React.createClass
   removeTutorSelection: ->
     TaskPlanActions.updateTutorSelection(@props.planId, -1)
 
+  backToTop: -> window.scroll(0, 0)
+
   render: ->
     numSelected = TaskPlanStore.getExercises(@props.planId).length
     numTutor = TaskPlanStore.getTutorSelections(@props.planId)
     total = numSelected + numTutor
-    buttonColumnSize = 2
+    buttonColumnSize = 4
     explanation =
       <BS.Col sm={6} md={2} className="tutor-added-later"><em>
         Tutor selections are added later to support spaced practice and personalized learning.
@@ -43,7 +45,7 @@ ExerciseSummary = React.createClass
 
     else if @props.canAdd
       explanation = null
-      buttonColumnSize = 4
+      buttonColumnSize = 6
 
       buttons = <BS.Button bsStyle="default" 
         className="-add-exercises" 
@@ -63,33 +65,30 @@ ExerciseSummary = React.createClass
           </BS.Button>
 
     <BS.Panel className="exercise-summary" bsStyle="default">
-      <BS.Grid>
-        <BS.Row>
-          <BS.Col sm={6} md={2} className="total">
-            <h2>{total}</h2>
-            Total Problems
-          </BS.Col>
-          <BS.Col sm={6} md={2} className="num-selected">
-            <h2>{numSelected}</h2>
-            My Selections
-          </BS.Col>
-          <BS.Col sm={6} md={2} className="num-tutor">
-            <div className="tutor-selections">
-              {removeSelection}
-              <h2>{numTutor}</h2>
-              {addSelection}
-            </div>
-            Tutor Selections
-          </BS.Col>
-          {explanation}
-          <BS.Col sm={6} md={buttonColumnSize}>
-            {buttons}
-          </BS.Col>
-          <BS.Col sm={6} md={2}>
-
-          </BS.Col>
-        </BS.Row>
-      </BS.Grid>
+      <BS.Row>
+        <BS.Col sm={6} md={2} className="total">
+          <h2>{total}</h2>
+          Total Problems
+        </BS.Col>
+        <BS.Col sm={6} md={2} className="num-selected">
+          <h2>{numSelected}</h2>
+          My Selections
+        </BS.Col>
+        <BS.Col sm={6} md={2} className="num-tutor">
+          <div className="tutor-selections">
+            {removeSelection}
+            <h2>{numTutor}</h2>
+            {addSelection}
+          </div>
+          Tutor Selections
+        </BS.Col>
+        {explanation}
+        <BS.Col sm={6} md={buttonColumnSize}>
+          {buttons}
+          <BS.Button onClick={@backToTop}  bsStyle="default" className="back-to-top pull-right">
+            <i className="fa fa-chevron-up"></i>
+          </BS.Button>
+        </BS.Col>
+      </BS.Row>
     </BS.Panel>
-
 module.exports = ExerciseSummary
