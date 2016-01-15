@@ -14,43 +14,58 @@ MAIN_ELEMENTS = [
 ]
 
 
+class StudentScores
+
+  constructor: (@test, @login, @courseTitle) ->
+    @test.login(@login)
+    CourseSelect.goTo(@test, @courseTitle)
+
+  goToScores: ->
+    if @courseTitle is 'CC'
+      @test.waitClick(css: '.detailed-scores')
+    else
+      @test.waitClick(css: '.calendar-actions a:nth-child(3)')
+    @test.sleep(1000)
+
+  findMainElements: (elements) ->
+    for element in elements
+      e = @test.driver.findElement(css: element)
+      e.getAttribute('class').then (element) ->
+        console.log "found element: #{element}"
+      e.isDisplayed().then (element) ->
+        if not element
+          throw Error('element is not visible')
+
+  clickNameHeaderSort: ->
+    @test.driver.findElement(css: '.header-cell.is-ascending').click().then ->
+      console.log 'clicked name header sort'
+
+  clickDataHeaderSort: ->
+    @test.driver.findElement(css: '.header-cell').click().then ->
+      console.log 'clicked data header sort'
+
+
+module.exports = StudentScores
+
+
+
 describe 'Student Scores', ->
 
   @it 'loads HS scores table', ->
-    @login(TEACHER_USERNAME)
-    CourseSelect.goTo(@, 'PHYSICS')
-    @waitClick(css: '.calendar-actions a:nth-child(3)')
-    @sleep(1000)
 
-    elements = MAIN_ELEMENTS
-
-    for element in elements
-      @driver.findElement(css: element).getAttribute('class').then (element) ->
-        console.log "found element: #{element}"
-
-    @driver.findElement(css: '.header-cell.is-ascending').click().then ->
-      console.log 'clicked name header sort'
-
-    @driver.findElement(css: '.header-cell').click().then ->
-      console.log 'clicked data header sort'
+    @scores = new StudentScores(@, TEACHER_USERNAME, 'PHYSICS')
+    @scores.goToScores()
+    @scores.findMainElements(MAIN_ELEMENTS)
+    @scores.clickNameHeaderSort()
+    @scores.clickDataHeaderSort()
 
   
   @it 'loads CC scores table', ->
-    @login(TEACHER_USERNAME)
-    CourseSelect.goTo(@, 'CC')
-    @waitClick(css: '.detailed-scores')
-    @sleep(1000)
 
-    elements = MAIN_ELEMENTS
-
-    for element in elements
-      @driver.findElement(css: element).getAttribute('class').then (element) ->
-        console.log "found element: #{element}"
-
-    @driver.findElement(css: '.header-cell.is-ascending').click().then ->
-      console.log 'clicked name header sort'
-
-    @driver.findElement(css: '.header-cell').click().then ->
-      console.log 'clicked data header sort'
+    @scores = new StudentScores(@, TEACHER_USERNAME, 'CC')
+    @scores.goToScores()
+    @scores.findMainElements(MAIN_ELEMENTS)
+    @scores.clickNameHeaderSort()
+    @scores.clickDataHeaderSort()
 
 
