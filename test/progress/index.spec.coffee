@@ -8,6 +8,7 @@ TASK = require 'cc/tasks/C_UUID/m_uuid/GET'
 Wrapper = React.createClass
   childContextTypes:
     moduleUUID:     React.PropTypes.string
+    collectionUUID: React.PropTypes.string
 
   getChildContext: ->
     _.pick @props, 'moduleUUID', 'collectionUUID'
@@ -20,6 +21,7 @@ describe 'Progress Component', ->
   beforeEach ->
     @props =
       moduleUUID: 'm_uuid'
+      collectionUUID: 'C_UUID'
 
     Collection.load("#{@props.collectionUUID}/#{@props.moduleUUID}", _.extend({}, TASK, @props))
 
