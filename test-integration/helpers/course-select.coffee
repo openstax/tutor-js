@@ -35,4 +35,7 @@ class CourseSelect extends TestHelper
       when 'CONCEPT_COACH' then @el.courseLink.get(null, true).click()
       else @el.courseLink.get().click()
 
+  goToCourseByName: (name) ->
+    test.waitClick(css: "[data-title='#{name}'] > a")
+
 module.exports = CourseSelect
