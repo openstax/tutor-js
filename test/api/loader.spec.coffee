@@ -31,7 +31,7 @@ describe 'API loader', ->
     _.delay =>
       expect(@api.isPending()).to.be.false
       done()
-    , 21 # longer than loader's isLocal delay
+    , 50 # longer than loader's isLocal delay
 
   it 'debounces calls to the same URL', (done) ->
     for i in [1..10]
@@ -39,4 +39,4 @@ describe 'API loader', ->
     _.delay =>
       expect(@jquery.ajax.callCount).equal(1)
       done()
-    , 21
+    , 50
