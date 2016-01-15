@@ -23,6 +23,7 @@ BreadcrumbStatic = React.createClass
   render: ->
     {step} = @state
     crumbProps = _.omit(@props, 'step')
+    step = _.first(step) if _.isArray(step)
 
     <Breadcrumb
       {...crumbProps}

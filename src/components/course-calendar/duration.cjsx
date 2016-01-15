@@ -6,6 +6,7 @@ camelCase = require 'camelcase'
 React = require 'react/addons'
 CoursePlan = require './plan'
 PlanHelper = require '../../helpers/plan'
+TimeHelper = require '../../helpers/time'
 {TimeStore} = require '../../flux/time'
 
 CourseDuration = React.createClass
@@ -16,9 +17,7 @@ CourseDuration = React.createClass
     courseId: React.PropTypes.string.isRequired
     viewingDuration: React.PropTypes.instanceOf(twix).isRequired
     groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired
-    referenceDate: (props, propName, componentName) ->
-      unless moment.isMoment(props[propName])
-        new Error("#{propName} should be a moment for #{componentName}")
+    referenceDate: TimeHelper.isPropAMoment
     children: React.PropTypes.element
     recentTolerance: React.PropTypes.number
 

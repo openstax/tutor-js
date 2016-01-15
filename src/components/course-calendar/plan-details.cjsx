@@ -1,15 +1,20 @@
 camelCase = require 'camelcase'
-
+classnames = require 'classnames'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {StatsModalShell} = require '../plan-stats'
+{EventModalShell} = require '../plan-stats/event'
+
 LoadableItem = require '../loadable-item'
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass
   displayName: 'CoursePlanDetails'
+
+  getInitialState: ->
+    forceOpen: false
 
   propTypes:
     plan: React.PropTypes.shape(
@@ -42,33 +47,53 @@ CoursePlanDetails = React.createClass
 
     reviewButton
 
+  componentWillReceiveProps: (nextProps) ->
+    @setState(forceOpen: true)
+
   render: ->
-    {plan, courseId, className} = @props
+    {plan, courseId, className, isPublishing, isPublished} = @props
     {title, type, id} = plan
     linkParams = {courseId, id}
-    editLinkName = camelCase("edit-#{type}")
+    {forceOpen} = @state
+    return null unless isPublishing or isPublished
 
-    reviewButton = @renderReviewButton()
+    reviewButton = @renderReviewButton() unless type is 'event'
+
+    editLinkName = camelCase("edit-#{type}")
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
+    assignmentOrEvent = if type is 'event' then 'Event' else 'Assignment'
     editButton = <Router.Link
       className='btn btn-default -edit-assignment'
       to={editLinkName}
       params={linkParams}>
-      {viewOrEdit} Assignment
+      {viewOrEdit} {assignmentOrEvent}
     </Router.Link>
+
+    body = if isPublishing
+      <p>This plan is publishing.</p>
+    else if type is 'event'
+      <EventModalShell id={id} courseId={courseId} />
+    else
+      <StatsModalShell id={id} courseId={courseId} />
+
+    footer = unless isPublishing
+      <div className='modal-footer'>
+        {reviewButton}
+        {editButton}
+      </div>
+
+    classes = classnames 'plan-modal', className,
+      'in': forceOpen
 
     <BS.Modal
       {...@props}
       title={title}
       data-assignment-type={type}
-      className="plan-modal #{className}">
+      className={classes}>
       <div className='modal-body'>
-        <StatsModalShell id={id} courseId={courseId} />
+        {body}
       </div>
-      <div className='modal-footer'>
-        {reviewButton}
-        {editButton}
-      </div>
+      {footer}
     </BS.Modal>
 
 
