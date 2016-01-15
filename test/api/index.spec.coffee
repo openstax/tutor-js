@@ -17,16 +17,17 @@ describe 'API', ->
     require.cache[require.resolve('api/loader')].exports = {loader: REAL_LOADER, isPending}
     # force require to re-parse the api file now that the stub's removed
     delete require.cache[require.resolve('api')]
+    @api.initialize('/')
 
   it 'only calls loader a single time', ->
-    @api.initialize('/test/url')
+    @api.initialize('/')
     expect(@loader.callCount).equal(1)
-    @api.initialize('/test/url')
+    @api.initialize('/')
     expect(@loader.callCount).equal(1)
 
   it 'can be re-initialized after destroy', ->
-    @api.initialize('/test/url')
+    @api.initialize('/')
     expect(@loader.callCount).equal(1)
     @api.destroy()
-    @api.initialize('/test/url')
+    @api.initialize('/')
     expect(@loader.callCount).equal(2)
