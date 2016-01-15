@@ -25,14 +25,14 @@ describe 'Student Scores', ->
     elements = MAIN_ELEMENTS
 
     for element in elements
-      @driver.findElement(css: element)
-      console.log "found element: #{element}"
+      @driver.findElement(css: element).getAttribute('class').then (element) ->
+        console.log "found element: #{element}"
 
-    @driver.findElement(css: '.header-cell.is-ascending').click()
-    console.log 'name sort click'
+    @driver.findElement(css: '.header-cell.is-ascending').click().then ->
+      console.log 'clicked name header sort'
 
-    @driver.findElement(css: '.header-cell').click()
-    console.log 'data sort click'
+    @driver.findElement(css: '.header-cell').click().then ->
+      console.log 'clicked data header sort'
 
   
   @it 'loads CC scores table', ->
@@ -44,13 +44,13 @@ describe 'Student Scores', ->
     elements = MAIN_ELEMENTS
 
     for element in elements
-      @driver.findElement(css: element)
-      console.log "found element: #{element}"
+      @driver.findElement(css: element).getAttribute('class').then (element) ->
+        console.log "found element: #{element}"
 
-    @driver.findElement(css: '.header-cell.is-ascending').click()
-    console.log 'name sort click'
+    @driver.findElement(css: '.header-cell.is-ascending').click().then ->
+      console.log 'clicked name header sort'
 
-    @driver.findElement(css: '.header-cell').click()
-    console.log 'data sort click'
+    @driver.findElement(css: '.header-cell').click().then ->
+      console.log 'clicked data header sort'
 
 
