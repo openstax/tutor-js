@@ -19,6 +19,7 @@ class StudentScores
   constructor: (@test, @login, @courseTitle) ->
     @test.login(@login)
     CourseSelect.goTo(@test, @courseTitle)
+    @goToScores()
 
   goToScores: ->
     if @courseTitle is 'CC'
@@ -54,7 +55,6 @@ describe 'Student Scores', ->
   @it 'loads HS scores table', ->
 
     @scores = new StudentScores(@, TEACHER_USERNAME, 'PHYSICS')
-    @scores.goToScores()
     @scores.findMainElements(MAIN_ELEMENTS)
     @scores.clickNameHeaderSort()
     @scores.clickDataHeaderSort()
@@ -63,7 +63,6 @@ describe 'Student Scores', ->
   @it 'loads CC scores table', ->
 
     @scores = new StudentScores(@, TEACHER_USERNAME, 'CC')
-    @scores.goToScores()
     @scores.findMainElements(MAIN_ELEMENTS)
     @scores.clickNameHeaderSort()
     @scores.clickDataHeaderSort()
