@@ -14,13 +14,13 @@ describe 'Accounts iframe component', ->
 
   it 'sets src with our url as parent', ->
     Testing.renderComponent( AccountsIframe, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('iframe').getAttribute('src')).to.equal(
-        '/accounts?parent=http://localhost:9880'
+      expect(dom.querySelector('iframe').getAttribute('src')).to.match(
+        /\/accounts\?parent=http:\/\/localhost:\d+/
       )
 
   it 'uses logout url', ->
     @props.type = 'logout'
     Testing.renderComponent( AccountsIframe, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('iframe').getAttribute('src')).to.equal(
-        '/logout?parent=http://localhost:9880'
+      expect(dom.querySelector('iframe').getAttribute('src')).to.match(
+        /\/logout\?parent=http:\/\/localhost:\d+/
       )

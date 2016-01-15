@@ -20,7 +20,7 @@ describe 'User login gateway component', ->
     Testing.renderComponent( LoginGateway, props: @props ).then ({dom, element}) =>
       Testing.actions.click(dom.querySelector('a.login'))
       expect(@props.window.open).to.have.been.calledWith(
-        '/test-login?parent=http%3A%2F%2Flocalhost%3A9880%2Fcontext.html', 'oxlogin',
+        sinon.match(/test-login\?parent=http%3A%2F%2Flocalhost%3A\d+%2Fcontext.html/), 'oxlogin',
         sinon.match(/toolbar=no,location=yes,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=\d+,height=\d+,top=\d+,left=\d+/)
       )
       expect( element.getDOMNode().textContent ).to.include('Click to reopen window')
