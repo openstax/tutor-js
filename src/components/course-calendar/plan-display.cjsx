@@ -2,6 +2,7 @@ React = require 'react'
 Router = require 'react-router'
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 
 DisplayProperties =
   plan: React.PropTypes.shape(
@@ -83,8 +84,8 @@ CoursePlanDisplayEdit = React.createClass
       style={planStyle}
       className={planClasses}
       data-assignment-type={plan.type}
-      onMouseEnter={setHover.bind(null, true)}
-      onMouseLeave={setHover.bind(null, false)}
+      onMouseEnter={_.partial(setHover, true)}
+      onMouseLeave={_.partial(setHover, false)}
       ref='plan'>
       <Router.Link
         to={linkTo}
@@ -107,9 +108,9 @@ CoursePlanDisplayQuickLook = React.createClass
       style={planStyle}
       className={planClasses}
       data-assignment-type={plan.type}
-      onMouseEnter={setHover.bind(null, true)}
-      onMouseLeave={setHover.bind(null, false)}
-      onClick={setIsViewing.bind(null, true)}
+      onMouseEnter={_.partial(setHover, true)}
+      onMouseLeave={_.partial(setHover, false)}
+      onClick={_.partial(setIsViewing, true)}
       ref='plan'>
       {label}
     </div>

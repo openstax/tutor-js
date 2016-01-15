@@ -8,8 +8,6 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 CoursePlanDetails = require './plan-details'
-CoursePlanPublishingDetails = require './plan-publishing-details'
-CourseEventDetails = require './plan-event-details'
 CoursePlanLabel = require './plan-label'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require './plan-display'
 
@@ -125,6 +123,7 @@ CoursePlan = React.createClass
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item.plan)
+    @checkRoute()
     location = @context.router.getLocation()
     location.addChangeListener(@checkRoute)
 
@@ -211,14 +210,10 @@ CoursePlan = React.createClass
         className: planClasses
         onRequestHide: _.partial(@syncIsViewingStats, false)
         ref: 'details'
+        isPublished: isPublished
+        isPublishing: isPublishing
 
-      if isPublished
-        if plan.type is 'event'
-          planModal = <CourseEventDetails {...modalProps}/>
-        else
-          planModal = <CoursePlanDetails {...modalProps}/>
-      else if isPublishing
-        planModal = <CoursePlanPublishingDetails {...modalProps}/>
+      planModal = <CoursePlanDetails {...modalProps}/>
 
     planClasses = "plan #{planClasses}"
     renderDisplay = _.partial(@renderDisplay, @canQuickLook(), planClasses)
