@@ -18,6 +18,7 @@ DisplayProperties =
   courseId: React.PropTypes.string.isRequired
   planClasses: React.PropTypes.string.isRequired
   setHover: React.PropTypes.func.isRequired
+  hasReview: React.PropTypes.bool
   isFirst: React.PropTypes.bool
   isLast: React.PropTypes.bool
   setIsViewing: React.PropTypes.func
@@ -27,6 +28,7 @@ CoursePlanDisplayMixin =
 
   propTypes: DisplayProperties
   getDefaultProps: ->
+    hasReview: false
     isFirst: false
     isLast: false
     spacingMargin: 2
@@ -100,7 +102,7 @@ CoursePlanDisplayQuickLook = React.createClass
   mixins: [CoursePlanDisplayMixin]
 
   render: ->
-    {planClasses, planModal, label, setHover, setIsViewing, plan} = @props
+    {planClasses, planModal, label, setHover, setIsViewing, plan, hasReview} = @props
 
     planStyle = @buildPlanStyles()
 
@@ -108,6 +110,7 @@ CoursePlanDisplayQuickLook = React.createClass
       style={planStyle}
       className={planClasses}
       data-assignment-type={plan.type}
+      data-has-review={hasReview}
       onMouseEnter={_.partial(setHover, true)}
       onMouseLeave={_.partial(setHover, false)}
       onClick={_.partial(setIsViewing, true)}

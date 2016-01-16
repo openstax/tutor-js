@@ -57,7 +57,7 @@ describe 'Calendar and Stats', ->
       CourseSelect.goTo(@, courseCategory)
 
       # HACK: exclude the .continued plans because the center of the label may be off-screen
-      @forEach '.plan.is-open.is-published label:not(.continued)', (plan, index, total) =>
+      @forEach '.plan[data-has-review="true"] label:not(.continued)', (plan, index, total) =>
         @addTimeout(10)
         console.log 'Looking at Review for', courseCategory, index, 'of', total
         plan.click()
