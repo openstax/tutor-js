@@ -10,8 +10,9 @@ SECTIONS_TO_TEST = 10
 
 describe 'Reference Book Exercises', ->
 
-  @it 'Loads Biology reference book (readonly)', ->
-    @login(TEACHER_USERNAME)
+  @it 'Loads Biology and Physics reference book, and checks for missing exercises (readonly)', ->
+
+    allMissingExercises = []
 
     checkSectionsForMissingExercises = =>
       # Wait until the book has loaded.
@@ -84,8 +85,26 @@ describe 'Reference Book Exercises', ->
             element.getAttribute('data-exercise-url')
           # We can get the urls of the elements in parallel and continue whenever we get them all back.
           Promise.all(getMissingExerciseUrls)
+        # Store for reporting at the end.
         .then (elementUrls) ->
-          console.log "Found #{elementUrls.length} missing exercises in #{currentPageUrl}: #{JSON.stringify(elementUrls)}"
+          storeMissingExercises(elementUrls, currentPageUrl)
+
+    storeMissingExercises = (elementUrls, pageUrl) ->
+      if elementUrls.length isnt 0
+        allMissingExercises.push
+          exercises: elementUrls
+          page: pageUrl
+
+    reportMissingExercises = (missingExercises) ->
+      numberMissing = _.chain(missingExercises)
+        .pluck('exercises')
+        .flatten()
+        .value()
+        .length
+
+      console.log "Found #{numberMissing} missing exercises: #{JSON.stringify(missingExercises)}"
+
+    @login(TEACHER_USERNAME)
 
     # Open the reference book
     # Manually setting the URL because ref book opens in a new tab
@@ -100,3 +119,5 @@ describe 'Reference Book Exercises', ->
       .then =>
         @injectErrorLogging()
       .then(checkSectionsForMissingExercises)
+      # report all missing exercises found
+      .then _.partial(reportMissingExercises, allMissingExercises)
