@@ -78,18 +78,19 @@ CoursePlanDetails = React.createClass
       {viewOrEdit} {assignmentOrEvent}
     </Router.Link>
 
-    body = if isPublishing
-      <p>This plan is publishing.</p>
-    else if type is 'event'
-      <EventModalShell id={id} courseId={courseId} />
-    else
-      <StatsModalShell id={id} courseId={courseId} />
-
-    footer = unless isPublishing
-      <div className='modal-footer'>
+    body = if isPublished
+      footer =  <div className='modal-footer'>
         {reviewButton}
         {editButton}
       </div>
+
+      if type is 'event'
+        <EventModalShell id={id} courseId={courseId} />
+      else
+        <StatsModalShell id={id} courseId={courseId} />
+
+    else if isPublishing
+      <p>This plan is publishing.</p>
 
     classes = classnames 'plan-modal', className,
       'in': keepVisible
