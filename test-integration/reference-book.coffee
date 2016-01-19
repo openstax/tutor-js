@@ -96,7 +96,7 @@ describe 'Reference Book Exercises', ->
         @injectErrorLogging()
       .then(checkSectionsForMissingExercises)
       .then =>
-        @driver.get("#{SERVER_URL}books/1")
+        @driver.get("#{SERVER_URL}books/3")
       .then =>
         @injectErrorLogging()
       .then(checkSectionsForMissingExercises)
