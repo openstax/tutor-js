@@ -183,7 +183,7 @@ describe = (name, cb) ->
         arrayOfFns = []
 
         for i in [1..nTimes]
-          arrayOfFns.push(fn)
+          arrayOfFns.push(new Promise(fn))
 
         (args...) =>
           @checkInSeries(arrayOfFns, fn2)(args...)

@@ -1,91 +1,95 @@
 {describe} = require './helpers'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
+_ = require 'underscore'
 
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 TEACHER_USERNAME = 'teacher01'
 
-# decreased to 7, because sample bio only has 8 sections
-SECTIONS_TO_TEST = 7
+SECTIONS_TO_TEST = 10
 
 describe 'Reference Book Exercises', ->
 
   @it 'Loads Biology reference book (readonly)', ->
     @login(TEACHER_USERNAME)
 
-
     checkForMissingExercises = =>
       # Wait until the book has loaded.
       @addTimeout(60)
       @waitAnd(css: '.page-wrapper .page.has-html')
+        .then(closeMenuAndResizeBook)
+        .then =>
+          @forNTimesInSeries(SECTIONS_TO_TEST, checkEachPage)()
+
+    closeMenuAndResizeBook = =>
+      # resize prevents need to click next again
+      @driver.manage().window().setSize(1080, 1080)
       @waitClick(css: '.menu-toggle')
 
-      doneLoading = =>
-        # Wait until the modal closes after clicking the date
-        @driver.isElementPresent(css: '.loadable.is-loading, .loading-exercise').then (isPresent) -> not isPresent
+    checkEachPage = =>
+      hrefToCheck = null
+      # Selenium sometimes keeps pressing the same next button (doneLoading doesn't seem to work 100%)
+      @driver.wait(doneLoading)
+        .then =>
+          console.info('Find next href')
+          @driver.findElement(css: 'a.page-navigation.next').getAttribute('href')
+        .then (oldHref) =>
+          console.log '----------------'
+          console.info("Next href is #{oldHref}. Clicking next.")
+          hrefToCheck = oldHref
+          @driver.findElement(css: 'a.page-navigation.next').click()
+        .then =>
+          @driver.wait(doneLoading)
+        .then =>
+          checkPageChanged(hrefToCheck)
 
-      checkPageChanged = (oldHref) =>
-        @driver.findElement(css: 'a.page-navigation.next').getAttribute('href')
-          .then (newHref) =>
-            console.info('Moving from ',oldHref, 'to', newHref)
-            if newHref isnt oldHref
-              ifPageDidntChange()
-            else
-              # only check exercises if new page has been loaded
-              checkExercises()
+    doneLoading = =>
+      # sleep to make sure exercises have a chance to start loading before checking if page is indeed done loading
+      @sleep(100)
+      @driver.isElementPresent(css: '.loadable.is-loading, .loading-exercise').then (isPresent) -> not isPresent
 
-      ifPageDidntChange = =>
-        @addTimeout(3)
-        console.log 'Page did not change. Reclicking.'
-        # try again
-        checkEachPage()
+    checkPageChanged = (oldHref) =>
+      @driver.findElement(css: 'a.page-navigation.next').getAttribute('href')
+        .then (newHref) =>
+          console.info('Moving from ',oldHref, 'to', newHref)
+          nextStep = if newHref isnt oldHref then checkExercises else retryChangingPage
+          nextStep()
 
-      checkExercises = =>
-        console.info('Checking exercises.')
-        @driver.getCurrentUrl().then (pageUrl) =>
-          @addTimeout(3)
-          @driver.findElements(css: '[data-type="exercise"] .question').then (elements) =>
-            if elements.length
-              console.log "Found #{elements.length} exercises"
+    retryChangingPage = =>
+      @addTimeout(3)
+      console.log 'Page did not change. Reclicking.'
+      # try again
+      checkEachPage()
 
-          @driver.findElements(css: '.reference-book-missing-exercise').then (elements) =>
-            if elements.length > 0
-              console.log "Found #{elements.length} missing exercises in #{pageUrl}"
-              # msg = []
-              # for el in elements
-              #   el.getAttribute('data-exercise-url').then (url) ->
-              #     msg.push(url)
-              #
-              # @driver.getCurrentUrl().then =>
-              #   console.log "Found #{elements.length} missing exercises in #{pageUrl}: #{JSON.stringify(msg)}"
+    checkExercises = =>
+      console.info('Checking exercises.')
+      currentPageUrl = null
+      @driver.wait(doneLoading)
+        .then =>
+          @driver.getCurrentUrl()
+        .then (pageUrl) =>
+          currentPageUrl = pageUrl
+          @driver.findElements(css: '[data-type="exercise"] .question')
+        .then (elements) =>
+          console.log "Found #{elements.length} exercises in #{currentPageUrl}"
+          @driver.findElements(css: '.reference-book-missing-exercise')
+        .then (elements) =>
+          getMissingExerciseUrls = elements.map (element) ->
+            element.getAttribute('data-exercise-url')
+          Promise.all(getMissingExerciseUrls)
+        .then (elementUrls) ->
+          console.log "Found #{elementUrls.length} missing exercises in #{currentPageUrl}: #{JSON.stringify(elementUrls)}"
 
-      checkEachPage = =>
-        hrefToCheck = null
-        @driver.wait(doneLoading)
-        # Selenium sometimes keeps pressing the same next button (doneLoading doesn't seem to work 100%)
-        @driver.findElement(css: 'a.page-navigation.next').getAttribute('href')
-          .then (oldHref) =>
-            @addTimeout(3)
-            console.log '----------------'
-
-            hrefToCheck = oldHref
-            @driver.findElement(css: 'a.page-navigation.next').click()
-          .then =>
-            @sleep(1000)
-            @driver.wait(doneLoading)
-          .then =>
-            checkPageChanged(hrefToCheck)
-
-      @forNTimesInSeries(SECTIONS_TO_TEST, checkEachPage)()
-
-    @driver
-      .get("#{SERVER_URL}books/2")
-      .then(checkForMissingExercises)
-    @injectErrorLogging()
     # Open the reference book
     # Manually setting the URL because ref book opens in a new tab
     # Selenium has a way of handling this but I didn't read enough
     @driver
-      .get("#{SERVER_URL}books/1/section/1")
+      .get("#{SERVER_URL}books/1")
+      .then =>
+        @injectErrorLogging()
       .then(checkForMissingExercises)
-    @injectErrorLogging()
+      .then =>
+        @driver.get("#{SERVER_URL}books/1")
+      .then =>
+        @injectErrorLogging()
+      .then(checkForMissingExercises)
