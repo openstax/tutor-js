@@ -34,9 +34,7 @@ describe 'Reference Book Exercises', ->
       nextNav = null
       # Selenium sometimes keeps pressing the same next button (doneLoading doesn't seem to work 100%)
       @driver.wait(doneLoading)
-        .then =>
-          console.info('Find next href')
-          @driver.findElement(css: 'a.page-navigation.next')
+      @driver.findElement(css: 'a.page-navigation.next')
         .then (element) ->
           nextNav = element
           element.getAttribute('href')
@@ -45,10 +43,9 @@ describe 'Reference Book Exercises', ->
           console.info("Next href is #{oldHref}. Clicking next.")
           hrefToCheck = oldHref
           nextNav.click()
-        .then =>
-          @driver.wait(doneLoading)
-        .then ->
-          checkPageChanged(hrefToCheck)
+
+      @driver.wait(doneLoading)
+      checkPageChanged(hrefToCheck)
 
     doneLoading = =>
       # sleep to make sure exercises have a chance to start loading before checking if page is indeed done loading
@@ -72,19 +69,20 @@ describe 'Reference Book Exercises', ->
       console.info('Checking exercises.')
       currentPageUrl = null
       @driver.wait(doneLoading)
-        .then =>
-          @driver.getCurrentUrl()
-        .then (pageUrl) =>
-          currentPageUrl = pageUrl
-          @driver.findElements(css: '[data-type="exercise"] .question')
-        .then (elements) =>
-          console.log "Found #{elements.length} exercises in #{currentPageUrl}"
-          @driver.findElements(css: '.reference-book-missing-exercise')
+
+      @driver.getCurrentUrl().then (pageUrl) =>
+        currentPageUrl = pageUrl
+
+      @driver.findElements(css: '[data-type="exercise"] .question').then (elements) =>
+        console.log "Found #{elements.length} exercises in #{currentPageUrl}"
+
+      @driver.findElements(css: '.reference-book-missing-exercise')
         .then (elements) =>
           getMissingExerciseUrls = elements.map (element) ->
-            element.getAttribute('data-exercise-url')
-          # We can get the urls of the elements in parallel and continue whenever we get them all back.
-          Promise.all(getMissingExerciseUrls)
+            selenium.promise.createFlow ->
+              element.getAttribute('data-exercise-url')
+            # We can get the urls of the elements in parallel and continue whenever we get them all back.
+          selenium.promise.fullyResolved(getMissingExerciseUrls)
         # Store for reporting at the end.
         .then (elementUrls) ->
           storeMissingExercises(elementUrls, currentPageUrl)
@@ -109,15 +107,14 @@ describe 'Reference Book Exercises', ->
     # Open the reference book
     # Manually setting the URL because ref book opens in a new tab
     # Selenium has a way of handling this but I didn't read enough
-    @driver
-      .get("#{SERVER_URL}books/1")
-      .then =>
+
+    booksToCheck = ["#{SERVER_URL}books/1", "#{SERVER_URL}books/3"]
+
+    bookCheckingFlows = booksToCheck.map (url) =>
+      selenium.promise.createFlow =>
+        @driver.get(url)
         @injectErrorLogging()
-      .then(checkSectionsForMissingExercises)
-      .then =>
-        @driver.get("#{SERVER_URL}books/3")
-      .then =>
-        @injectErrorLogging()
-      .then(checkSectionsForMissingExercises)
-      # report all missing exercises found
-      .then _.partial(reportMissingExercises, allMissingExercises)
+        checkSectionsForMissingExercises()
+
+    # report all missing exercises found
+    selenium.promise.fullyResolved(bookCheckingFlows).then _.partial(reportMissingExercises, allMissingExercises)
