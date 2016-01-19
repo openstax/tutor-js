@@ -43,7 +43,6 @@ describe 'Reference Book Exercises', ->
           console.log '----------------'
           console.info("Next href is #{oldHref}. Clicking next.")
           hrefToCheck = oldHref
-        .then ->
           nextNav.click()
         .then =>
           @driver.wait(doneLoading)
