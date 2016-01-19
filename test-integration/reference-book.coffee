@@ -13,34 +13,41 @@ describe 'Reference Book Exercises', ->
   @it 'Loads Biology reference book (readonly)', ->
     @login(TEACHER_USERNAME)
 
-    checkForMissingExercises = =>
+    checkSectionsForMissingExercises = =>
       # Wait until the book has loaded.
-      @addTimeout(60)
       @waitAnd(css: '.page-wrapper .page.has-html')
         .then(closeMenuAndResizeBook)
         .then =>
+          # Perform `checkEachPage` in series for SECTIONS_TO_TEST times.
           @forNTimesInSeries(SECTIONS_TO_TEST, checkEachPage)()
 
     closeMenuAndResizeBook = =>
-      # resize prevents need to click next again
+      # Resize prevents need to click next again -- without this,
+      # if the window is too skinny/if the next button is right by the scroll bar,
+      # the page will accidentally get clicked to scroll as opposed to clicking next.
       @driver.manage().window().setSize(1080, 1080)
       @waitClick(css: '.menu-toggle')
 
     checkEachPage = =>
       hrefToCheck = null
+      nextNav = null
       # Selenium sometimes keeps pressing the same next button (doneLoading doesn't seem to work 100%)
       @driver.wait(doneLoading)
         .then =>
           console.info('Find next href')
-          @driver.findElement(css: 'a.page-navigation.next').getAttribute('href')
-        .then (oldHref) =>
+          @driver.findElement(css: 'a.page-navigation.next')
+        .then (element) ->
+          nextNav = element
+          element.getAttribute('href')
+        .then (oldHref) ->
           console.log '----------------'
           console.info("Next href is #{oldHref}. Clicking next.")
           hrefToCheck = oldHref
-          @driver.findElement(css: 'a.page-navigation.next').click()
+        .then ->
+          nextNav.click()
         .then =>
           @driver.wait(doneLoading)
-        .then =>
+        .then ->
           checkPageChanged(hrefToCheck)
 
     doneLoading = =>
@@ -51,7 +58,7 @@ describe 'Reference Book Exercises', ->
     checkPageChanged = (oldHref) =>
       @driver.findElement(css: 'a.page-navigation.next').getAttribute('href')
         .then (newHref) =>
-          console.info('Moving from ',oldHref, 'to', newHref)
+          console.info('Moving from', oldHref, 'to', newHref)
           nextStep = if newHref isnt oldHref then checkExercises else retryChangingPage
           nextStep()
 
@@ -76,6 +83,7 @@ describe 'Reference Book Exercises', ->
         .then (elements) =>
           getMissingExerciseUrls = elements.map (element) ->
             element.getAttribute('data-exercise-url')
+          # We can get the urls of the elements in parallel and continue whenever we get them all back.
           Promise.all(getMissingExerciseUrls)
         .then (elementUrls) ->
           console.log "Found #{elementUrls.length} missing exercises in #{currentPageUrl}: #{JSON.stringify(elementUrls)}"
@@ -87,9 +95,9 @@ describe 'Reference Book Exercises', ->
       .get("#{SERVER_URL}books/1")
       .then =>
         @injectErrorLogging()
-      .then(checkForMissingExercises)
+      .then(checkSectionsForMissingExercises)
       .then =>
         @driver.get("#{SERVER_URL}books/1")
       .then =>
         @injectErrorLogging()
-      .then(checkForMissingExercises)
+      .then(checkSectionsForMissingExercises)
