@@ -15,7 +15,7 @@ describe 'Breadcrumbs Component', ->
 
   it 'renders steps', ->
     Testing.renderComponent( Breadcrumbs, props: @props ).then ({dom}) ->
-      expect(dom.querySelectorAll('.openstax-breadcrumbs-step').length).equal(4)
+      expect(dom.querySelectorAll('.openstax-breadcrumbs-step:not(.breadcrumb-end)').length).equal(TASK.steps.length)
 
   it 'calls goToStep callback', ->
     Testing.renderComponent( Breadcrumbs, props: @props ).then ({dom}) =>

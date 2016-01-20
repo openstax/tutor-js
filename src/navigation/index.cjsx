@@ -62,7 +62,7 @@ Navigation = React.createClass
           <BS.NavItem
             onClick={@close}
             className='concept-coach-dashboard-nav'>
-            <BS.Button className='btn-plain close'>Close</BS.Button>
+            <BS.Button className='btn-plain -coach-close'>Close</BS.Button>
           </BS.NavItem>
         </BS.Nav>
       </BS.CollapsibleNav>

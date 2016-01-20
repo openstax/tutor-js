@@ -27,7 +27,7 @@ describe 'Navigation Component', ->
 
   it 'calls close callback', ->
     Testing.renderComponent(Wrapper, props: @props).then ({dom}) =>
-      Testing.actions.click(dom.querySelector('button.close'))
+      Testing.actions.click(dom.querySelector('button.-coach-close'))
       expect(@props.close).to.have.been.called
 
   it 'hides progress if course is not registered', ->
