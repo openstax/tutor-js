@@ -51,7 +51,7 @@ TaskBase = React.createClass
   isStepAllowed: (stepIndex) ->
     {task} = @state
     {taskId} = @props
-    (stepIndex <= task.steps.length) or
+    (stepIndex < task.steps.length) or
       (@isReviewStep(stepIndex) and @canReview()) or
       (@isContinueStep(stepIndex) and @shouldContinue())
 
