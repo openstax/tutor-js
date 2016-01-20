@@ -37,13 +37,15 @@ class StudentScores
         if not element
           throw Error('element is not visible')
 
+  clickElement: (className, message) ->
+    @test.driver.findElement(css: className).click().then ->
+      console.log "clicked: #{message}"
+
   nameHeaderSort: ->
-    @test.driver.findElement(css: '.header-cell.is-ascending').click().then ->
-      console.log 'clicked name header sort'
+    @clickElement('.header-cell.is-ascending','name header sort')
 
   dataHeaderSort: ->
-    @test.driver.findElement(css: '.header-cell').click().then ->
-      console.log 'clicked data header sort'
+    @clickElement('.header-cell','data header sort')
 
   changePeriod: ->
     nextPeriod = @test.driver.findElement(css: '.nav-tabs li:nth-child(2)')
@@ -52,8 +54,7 @@ class StudentScores
         console.log 'changed period/section'
 
   generateExport: ->
-    @test.driver.findElement(css: '.export-button').click().then ->
-      console.log 'generate export'
+    @clickElement('.export-button','generate export')
 
   doneGenerating: ->
     @test.driver.wait =>
@@ -61,8 +62,30 @@ class StudentScores
 
   downloadExport: ->
     if @doneGenerating()
-      @test.driver.findElement(css: '.export-button-buttons a').click().then ->
-        console.log 'clicked download'
+      @clickElement('.export-button-buttons a','download')
+
+  goBack: ->
+    @test.driver.navigate().back()
+
+  hsNameLink: ->
+    @clickElement('.name-cell a.student-name','student name link')
+    @goBack()
+
+  hsReviewLink: ->
+    @clickElement('a.review-plan','review plan link')
+    @goBack()
+
+  hsHomeworkLink: ->
+    @clickElement('a.scores-cell[data-assignment-type="homework"]','homework link')
+    @goBack()
+
+  hsReadingLink: ->
+    @clickElement('a.scores-cell[data-assignment-type="reading"]','reading link')
+    @goBack()
+
+  ccScoreLink: ->
+    @clickElement('.cc-cell a.score','cc score link')
+    @goBack()
 
 module.exports = StudentScores
 
@@ -82,6 +105,10 @@ describe 'Student Scores', ->
     @scores.changePeriod()
     @scores.generateExport()
     @scores.downloadExport()
+    @scores.hsNameLink()
+    @scores.hsReviewLink()
+    @scores.hsHomeworkLink()
+    @scores.hsReadingLink()
 
   
   @it 'CC Scores workflow', ->
@@ -96,4 +123,5 @@ describe 'Student Scores', ->
     @scores.changePeriod()
     @scores.generateExport()
     @scores.downloadExport()
+    @scores.ccScoreLink()
 
