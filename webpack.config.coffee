@@ -30,7 +30,7 @@ getWebpackConfig = (name, isProduction) ->
             './resources/styles/main.less'
             './resources/styles/demo.less'
           ]
-      }, {isProduction}]
+      }, {isProduction, isDebug: true}]
     'demo': [{
         entry:
           'demo.js': [
@@ -46,7 +46,7 @@ getWebpackConfig = (name, isProduction) ->
           path: './assets/'
           publicPath: './'
           filename: '[name]'
-      }, {isProduction, minify: true}]
+      }, {isProduction, isDebug: true, minify: true}]
 
   if configs[name]?
     makeConfig.apply(null, configs[name])
