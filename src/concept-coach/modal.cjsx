@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 {channel} = require './model'
 api = require '../api'
+navigation = require '../navigation/model'
 
 CCModal = React.createClass
   displayName: 'CCModal'
@@ -22,12 +23,20 @@ CCModal = React.createClass
       @setLoaded()
 
   componentWillMount: ->
-    document.addEventListener('click', this.checkAllowed, true)
-    document.addEventListener('focus', this.checkAllowed, true)
+    document.addEventListener('click', @checkAllowed, true)
+    document.addEventListener('focus', @checkAllowed, true)
+
+    navigation.channel.on('show.*', @resetScroll)
 
   componentWillUnmount: ->
-    document.removeEventListener('click', this.checkAllowed, true)
-    document.removeEventListener('focus', this.checkAllowed, true)
+    document.removeEventListener('click', @checkAllowed, true)
+    document.removeEventListener('focus', @checkAllowed, true)
+
+    navigation.channel.off('show.*', @resetScroll)
+
+  resetScroll: ->
+    modal = @getDOMNode()
+    modal.scrollTop = 0
 
   checkAllowed: (focusEvent) ->
     modal = @getDOMNode()

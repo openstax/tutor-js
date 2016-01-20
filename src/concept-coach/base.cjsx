@@ -113,7 +113,7 @@ ConceptCoach = React.createClass
 
   updateView: (eventData) ->
     {view} = eventData
-    @setState({view}) if view?
+    @setState({view}) if view? and view isnt @state.view
 
   showTasks: ->
     @updateView(view: 'task')
