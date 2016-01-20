@@ -1,4 +1,4 @@
-{describe, CourseSelect} = require './helpers'
+{describe, CourseSelect, screenshot} = require './helpers'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
@@ -26,7 +26,7 @@ class StudentScores
       @test.waitClick(css: '.detailed-scores')
     else
       @test.waitClick(css: '.calendar-actions a:nth-child(3)')
-    @test.sleep(1000)
+    @test.sleep(1500)
 
   findMainElements: (elements) ->
     for element in elements
@@ -37,14 +37,32 @@ class StudentScores
         if not element
           throw Error('element is not visible')
 
-  clickNameHeaderSort: ->
+  nameHeaderSort: ->
     @test.driver.findElement(css: '.header-cell.is-ascending').click().then ->
       console.log 'clicked name header sort'
 
-  clickDataHeaderSort: ->
+  dataHeaderSort: ->
     @test.driver.findElement(css: '.header-cell').click().then ->
       console.log 'clicked data header sort'
 
+  changePeriod: ->
+    nextPeriod = @test.driver.findElement(css: '.nav-tabs li:nth-child(2)')
+    if nextPeriod?
+      nextPeriod.click().then ->
+        console.log 'changed period/section'
+
+  generateExport: ->
+    @test.driver.findElement(css: '.export-button').click().then ->
+      console.log 'generate export'
+
+  doneGenerating: ->
+    @test.driver.wait =>
+      @test.driver.isElementPresent(css: '.export-button-buttons a')
+
+  downloadExport: ->
+    if @doneGenerating()
+      @test.driver.findElement(css: '.export-button-buttons a').click().then ->
+        console.log 'clicked download'
 
 module.exports = StudentScores
 
@@ -52,19 +70,30 @@ module.exports = StudentScores
 
 describe 'Student Scores', ->
 
-  @it 'loads HS scores table', ->
+  @it 'HS Scores workflow', ->
 
     @scores = new StudentScores(@, TEACHER_USERNAME, 'PHYSICS')
+
+    @screenshot("test-hs-scores-loaded")
+
     @scores.findMainElements(MAIN_ELEMENTS)
-    @scores.clickNameHeaderSort()
-    @scores.clickDataHeaderSort()
+    @scores.nameHeaderSort()
+    @scores.dataHeaderSort()
+    @scores.changePeriod()
+    @scores.generateExport()
+    @scores.downloadExport()
 
   
-  @it 'loads CC scores table', ->
+  @it 'CC Scores workflow', ->
 
     @scores = new StudentScores(@, TEACHER_USERNAME, 'CC')
-    @scores.findMainElements(MAIN_ELEMENTS)
-    @scores.clickNameHeaderSort()
-    @scores.clickDataHeaderSort()
 
+    @screenshot("test-cc-scores-loaded")
+
+    @scores.findMainElements(MAIN_ELEMENTS)
+    @scores.nameHeaderSort()
+    @scores.dataHeaderSort()
+    @scores.changePeriod()
+    @scores.generateExport()
+    @scores.downloadExport()
 
