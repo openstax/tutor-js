@@ -1,5 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
+_ = require 'underscore'
 
 ArbitraryHtmlAndMath = require '../html'
 
