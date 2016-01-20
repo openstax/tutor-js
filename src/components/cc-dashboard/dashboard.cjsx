@@ -91,7 +91,7 @@ CCDashboard = React.createClass
         </BS.Row>
       </div>
 
-    <div className="dashboard">
+    <div className="dashboard" data-period={@state.activePeriodId}>
       <div {...courseDataProps} className='tutor-booksplash-background' />
       <BS.Panel>
         <h2>

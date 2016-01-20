@@ -1,4 +1,5 @@
 require './calendar'
+require './cc-dashboard'
 require './task-plan/cleanup'
 require './task-plan/draft'
 require './task-plan/publish'
