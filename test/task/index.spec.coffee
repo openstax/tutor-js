@@ -25,6 +25,7 @@ describe 'Task Component', ->
       question = dom.querySelector('.openstax-exercise .question-stem').textContent
       expect(question).equal(@task.steps[0].content.questions[0].stem_html)
 
+  # TODO: make an update to shared testing component to take in context as an option
   xit 'renders different step when breadcrumb is clicked', ->
     Testing.renderComponent(Task, props: @props, context: navigator: channel).then ({element}) =>
       crumbs = element.getDOMNode().querySelectorAll('.openstax-breadcrumbs-step')
