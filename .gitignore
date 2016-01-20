@@ -3,7 +3,7 @@
 /bower_components
 /.tmp
 /dist
-/test-failed-*.png
+/test-*.png
 /coverage
 
 *.cjsx.js
