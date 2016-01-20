@@ -4,7 +4,7 @@ Course = require './model'
 ErrorList = React.createClass
 
   propTypes:
-    course: React.PropTypes.instanceOf(Course)
+    course: React.PropTypes.instanceOf(Course).isRequired
 
   render: ->
     return null unless @props.course.hasErrors()

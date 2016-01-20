@@ -22,15 +22,16 @@ handledAllErrors = (otherErrors) ->
   _.isEmpty otherErrors
 
 checkFailure = (response) ->
-  if response.data.errors
+  if response.data?.errors
     response.data.errors = getUnhandledErrors(response.data.errors)
     response.stopErrorDisplay = handledAllErrors(response.data.errors)
 
 load = (taskId, data) ->
   tasks[taskId] = data
-  status = if data.errors? then 'failed' else 'loaded'
 
-  _.each data.steps, (step) ->
+  status = if not data or data.errors? then 'failed' else 'loaded'
+
+  _.each data?.steps, (step) ->
     exercises.quickLoad(step.id, step)
 
   channel.emit("load.#{taskId}", {data, status})

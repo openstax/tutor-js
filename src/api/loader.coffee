@@ -8,7 +8,7 @@ LOADING = {}
 API_ACCESS_TOKEN = false
 
 defaultFail = (response) ->
-  console.info(response)
+  console.info(response) unless window.__karma__
 
 getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
 
@@ -46,9 +46,9 @@ getResponseDataByEnv = (isLocal, requestEvent, data) ->
 
 handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
 
-  isLocal = setting.loadLocally
+  isLocal = window.__karma__ or setting.loadLocally
   # simulate server delay
-  delay = if isLocal then 200 else 0
+  delay = if isLocal then 20 else 0
 
   apiSetting = getAjaxSettingsByEnv(isLocal, baseUrl, setting, requestEvent)
   if apiSetting.method is 'GET'

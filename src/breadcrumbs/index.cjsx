@@ -10,6 +10,10 @@ exercises = require '../exercise/collection'
 BreadcrumbDynamic = React.createClass
   displayName: 'BreadcrumbDynamic'
 
+  propTypes:
+    goToStep: React.PropTypes.func.isRequired
+    step: React.PropTypes.object.isRequired
+
   getInitialState: ->
     step: @props.step
 
@@ -41,6 +45,14 @@ BreadcrumbDynamic = React.createClass
 
 Breadcrumbs = React.createClass
   displayName: 'Breadcrumbs'
+
+  propTypes:
+    goToStep: React.PropTypes.func.isRequired
+    moduleUUID: React.PropTypes.string.isRequired
+    collectionUUID: React.PropTypes.string.isRequired
+    currentStep: React.PropTypes.number
+    canReview: React.PropTypes.bool
+
   getInitialState: ->
     {collectionUUID, moduleUUID} = @props
     taskId = "#{collectionUUID}/#{moduleUUID}"

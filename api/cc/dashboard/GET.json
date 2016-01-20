@@ -1,0 +1,107 @@
+{
+  "tasks": [
+    {
+      "id": "403",
+      "title": "Concept Coach",
+      "opens_at": "2016-01-12T19:59:13.835Z",
+      "last_worked_at": "2016-01-12T20:10:06.043Z",
+      "type": "concept_coach",
+      "complete": true
+    }
+  ],
+  "role": {
+    "id": "238",
+    "type": "student"
+  },
+  "course": {
+    "name": "Concept Coach",
+    "teachers": [
+      {
+        "id": "2",
+        "role_id": "43",
+        "first_name": "Charles",
+        "last_name": "Morris"
+      },
+      {
+        "id": "6",
+        "role_id": "171",
+        "first_name": "Molly",
+        "last_name": "Bloom"
+      },
+      {
+        "id": "7",
+        "role_id": "172",
+        "first_name": "Lionel",
+        "last_name": "Hayes"
+      }
+    ]
+  },
+  "chapters": [
+    {
+      "id": "22",
+      "title": "The Chemical Foundation of Life",
+      "chapter_section": [
+        2
+      ],
+      "pages": [
+        {
+          "id": "106",
+          "title": "Sample module 2",
+          "uuid": "7636a3bf-eb80-4898-8b2c-e81c1711b99f",
+          "version": "2",
+          "chapter_section": [
+            2,
+            1
+          ],
+          "last_worked_at": "2016-01-12T20:10:06.043Z",
+          "exercises": [
+            {
+              "id": "1632",
+              "is_completed": true,
+              "is_correct": false
+            },
+            {
+              "id": "1634",
+              "is_completed": true,
+              "is_correct": true
+            },
+            {
+              "id": "1626",
+              "is_completed": true,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "107",
+          "title": "Sample module 3",
+          "uuid": "7636a3bf-eb80-4898-8b2c-e81c1711b99f",
+          "version": "2",
+          "chapter_section": [
+            3,
+            1
+          ],
+          "last_worked_at": "2016-01-12T20:10:06.043Z",
+          "exercises": [
+            {
+              "id": "1832",
+              "is_completed": true,
+              "is_correct": false
+            },
+            {
+              "id": "1834",
+              "is_completed": true,
+              "is_correct": true
+            },
+            {
+              "id": "1826",
+              "is_completed": true,
+              "is_correct": true
+            }
+          ]
+        }
+
+      ]
+    }
+  ]
+}

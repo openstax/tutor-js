@@ -7,6 +7,14 @@ classnames = require 'classnames'
 
 ChapterProgress = React.createClass
   displayName: 'ChapterProgress'
+  propTypes:
+    maxLength: React.PropTypes.number
+    className: React.PropTypes.string
+    chapter: React.PropTypes.shape(
+      chapter_section: React.PropTypes.array
+      pages: React.PropTypes.arrayOf(React.PropTypes.object)
+    )
+
   getDefaultProps: ->
     chapter: {}
   mixins: [ChapterSectionMixin]

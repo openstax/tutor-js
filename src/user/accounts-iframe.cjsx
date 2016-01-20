@@ -8,6 +8,9 @@ User  = require './model'
 
 AccountsIframe = React.createClass
 
+  propTypes:
+    type: React.PropTypes.oneOf(['logout', 'profile']).isRequired
+
   getInitialState: ->
     width: '100%', height: 400, isClosable: @props.type is "profile"
 
@@ -72,7 +75,6 @@ AccountsIframe = React.createClass
     <div className={className}>
       <div className="heading">
         <h3 className="title">{@state?.title}</h3>
-        <i className='close-icon' onClick={@props.onComplete}/>
       </div>
       <iframe src={url} ref='iframe'
         style={width: @state.width, height: @state.height, border: 0}

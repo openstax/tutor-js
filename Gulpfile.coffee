@@ -119,10 +119,12 @@ gulp.task 'coverage', ->
 # The _webserver task builds and serves from memory with a fallback to files in dist
 gulp.task 'dev', ['_cleanDist', '_webserver']
 
-gulp.task 'tdd', ['_cleanDist', '_webserver'], ->
+gulp.task 'testrunner', ->
   runner = new TestRunner()
   watch('{src,test}/**/*', (change) ->
     runner.onFileChange(change) unless change.unlink
   )
+
+gulp.task 'tdd', ['_cleanDist', '_webserver', 'testrunner']
 
 gulp.task 'demo', ['_buildDemo']

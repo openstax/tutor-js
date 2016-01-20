@@ -99,6 +99,6 @@ User =
 
 # start out as a blank user
 _.extend(User, BLANK_USER)
-
+User.endpoints = {} # this shoudn't be part of BLANK_USER so it persists between logins
 
 module.exports = User
