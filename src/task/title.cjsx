@@ -30,6 +30,8 @@ TaskTitle = React.createClass
     {taskId, cnxUrl} = @props
     {close} = @context
     moduleInfo = tasks.getModuleInfo(taskId, cnxUrl)
+    return null unless moduleInfo
+
     section = @sectionFormat(moduleInfo.chapter_section)
 
     sectionProps =

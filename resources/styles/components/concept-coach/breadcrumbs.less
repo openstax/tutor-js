@@ -87,15 +87,16 @@
       width: auto;
       position: relative;
 
-      &.breadcrumb-end {
+      &.breadcrumb-end[data-label] {
         &::before {
-          content: 'Summary';
           position: relative;
           text-align: center;
           width: 100%;
           font-weight: 300;
           padding: 0 1rem;
           font-style: italic;
+          text-transform: capitalize;
+          content: attr(data-label);
         }
       }
 

@@ -9,9 +9,13 @@ LoginGateway = React.createClass
 
   propTypes:
     title: React.PropTypes.string
+    window: React.PropTypes.shape(
+      open: React.PropTypes.func
+    )
 
   getDefaultProps: ->
     title: 'You need to login or signup in order to use ConceptCoach™'
+    window: window
 
   getInitialState: ->
     loginWindow: false
@@ -21,13 +25,12 @@ LoginGateway = React.createClass
 
     width  = Math.min(1000, window.screen.width - 20)
     height = Math.min(800, window.screen.height - 30)
-    options = ["toolbar=no", "location=" + (window.opera ? "no" : "yes"),
+    options = ["toolbar=no", "location=" + (if @props.window.opera then "no" else "yes"),
       "directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no",
       "width=" + width, "height=" + height,
       "top="   + (window.screen.height - height) / 2,
       "left="  + (window.screen.width - width)   / 2].join()
-
-    loginWindow = window.open(@urlForLogin(), 'oxlogin', options)
+    loginWindow = @props.window.open(@urlForLogin(), 'oxlogin', options)
     @setState({loginWindow})
     _.delay(@windowClosedCheck, SECOND)
 
@@ -61,7 +64,7 @@ LoginGateway = React.createClass
     User.endpoints.login + '?parent=' + encodeURIComponent(window.location.href)
 
   loginLink: (msg) ->
-    <a data-bypass onClick={@openLogin} href={@urlForLogin()}>
+    <a data-bypass className='login' onClick={@openLogin} href={@urlForLogin()}>
       {msg}
     </a>
 

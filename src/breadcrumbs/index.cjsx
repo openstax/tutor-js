@@ -1,4 +1,5 @@
 React = require 'react'
+classnames = require 'classnames'
 {Breadcrumb} = require 'openstax-react-components'
 _ = require 'underscore'
 
@@ -8,6 +9,10 @@ exercises = require '../exercise/collection'
 
 BreadcrumbDynamic = React.createClass
   displayName: 'BreadcrumbDynamic'
+
+  propTypes:
+    goToStep: React.PropTypes.func.isRequired
+    step: React.PropTypes.object.isRequired
 
   getInitialState: ->
     step: @props.step
@@ -40,6 +45,14 @@ BreadcrumbDynamic = React.createClass
 
 Breadcrumbs = React.createClass
   displayName: 'Breadcrumbs'
+
+  propTypes:
+    goToStep: React.PropTypes.func.isRequired
+    moduleUUID: React.PropTypes.string.isRequired
+    collectionUUID: React.PropTypes.string.isRequired
+    currentStep: React.PropTypes.number
+    canReview: React.PropTypes.bool
+
   getInitialState: ->
     {collectionUUID, moduleUUID} = @props
     taskId = "#{collectionUUID}/#{moduleUUID}"
@@ -47,39 +60,47 @@ Breadcrumbs = React.createClass
     task: tasks.get(taskId)
     moduleInfo: tasks.getModuleInfo(taskId)
 
-  render: ->
-    {task, moduleInfo} = @state
-    {currentStep, canReview} = @props
-
-    return null if _.isEmpty(task.steps)
-
-    crumbs = _.map(task.steps, (crumbStep, index) ->
-      crumb =
-        key: index
-        data: crumbStep
-        crumb: true
-        type: 'step'
-    )
+  makeCrumbEnd: (label, enabled) ->
+    {moduleInfo} = @state
 
     reviewEnd =
       type: 'end'
-      key: crumbs.length
       data:
-        id: ''
+        id: "#{label}"
         title: moduleInfo.title
-      disabled: not canReview
+      label: label
+      disabled: not enabled
+
+  render: ->
+    {task, moduleInfo} = @state
+    {currentStep, canReview, shouldContinue} = @props
+    return null if _.isEmpty(task.steps)
+
+    crumbs = _.map task.steps, (crumbStep, index) ->
+      data: crumbStep
+      crumb: true
+      type: 'step'
+
+    reviewEnd = @makeCrumbEnd('summary', canReview)
+    bookEnd = @makeCrumbEnd('continue', shouldContinue)
 
     crumbs.push(reviewEnd)
+    crumbs.push(bookEnd)
 
-    breadcrumbs = _.map(crumbs, (crumb) =>
+    breadcrumbs = _.map crumbs, (crumb, index) =>
+      {disabled} = crumb
+      classes = classnames({disabled})
+      crumb.key = index
+
       <BreadcrumbDynamic
-        className={'disabled' if crumb.disabled}
+        className={classes}
+        data-label={crumb.label}
         key={crumb.data.id}
         crumb={crumb}
         step={crumb.data or {}}
         currentStep={currentStep}
         goToStep={@props.goToStep}/>
-    )
+
 
     <div className='task-homework'>
       <div className='task-breadcrumbs'>

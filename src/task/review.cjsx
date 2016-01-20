@@ -3,10 +3,15 @@ _ = require 'underscore'
 tasks = require './collection'
 
 {ExerciseStep} = require '../exercise'
-{ExerciseButton} = require '../buttons'
+{ExerciseButton, ContinueToBookButton} = require '../buttons'
 
 TaskReview = React.createClass
   displayName: 'TaskReview'
+
+  propTypes:
+    moduleUUID:     React.PropTypes.string.isRequired
+    collectionUUID: React.PropTypes.string.isRequired
+
   getInitialState: ->
     @getSteps(@props)
 
@@ -35,14 +40,19 @@ TaskReview = React.createClass
       completeStepsReview = _.map completeSteps, (step) ->
         <ExerciseStep
           id={step.id}
+          key={step.id}
           pinned={false}
           review='completed'
           focus={false}
           taskId={taskId}
           allowKeyNext={false}/>
 
+    if _.isEmpty(incompleteSteps)
+      continueToBookButton = <ContinueToBookButton bsStyle='primary' className='review-continue-to-book'/>
+
     <div className='concept-coach-task-review'>
       {completeStepsReview}
+      {continueToBookButton}
     </div>
 
 module.exports = {TaskReview}
