@@ -66,8 +66,6 @@ Scores = React.createClass
     windowEl.height - table.offsetTop - bottomMargin
 
 
-
-
   changeSortingOrder: (key) ->
     asc = if @state.sort.key is key then not @state.sort.asc else false
     @setState(sort: {key, asc})
@@ -82,8 +80,6 @@ Scores = React.createClass
 
   setPeriodIndex: (key) ->
     @setState({periodIndex: key + 1})
-
-
 
 
   getStudentRowData: ->
@@ -107,8 +103,6 @@ Scores = React.createClass
         (d.last_name or d.name).toLowerCase()
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
-
-
 
 
   render: ->
@@ -191,7 +185,8 @@ ScoresShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)
-    <BS.Panel className='scores-report'>
+    tableClass = if course.is_concept_coach then 'cc' else 'hs'
+    <BS.Panel className="scores-report #{tableClass}">
       <LoadableItem
         id={courseId}
         store={ScoresStore}

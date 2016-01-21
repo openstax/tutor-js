@@ -17,7 +17,7 @@ module.exports = React.createClass
   render: ->
     <div className="name-cell">
       <Router.Link
-        className={"student-name fullwidth #{@props.className}"}
+        className={"student-name #{@props.className}"}
         to='viewStudentTeacherPerformanceForecast'
         params={roleId: @props.roleId, courseId: @props.courseId}>
          <Name tooltip={TOOLTIP_OPTIONS} {...@props.student} />

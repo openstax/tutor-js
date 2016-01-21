@@ -48,7 +48,7 @@ module.exports = React.createClass
         <span>Student Name</span>
       </SortingHeader>
     dueDateHeading = <div>Due Date</div>
-    customHeader = 
+    customHeader =
       <div className='assignment-header-cell'>
         {dueDateHeading}
         {header}
