@@ -11,6 +11,8 @@ class PanelElement
       el = @test.driver.findElement(css: el)
     @_element = el
 
+# Using defined properties for access eliminates the possibility
+# of accidental assignment
 Object.defineProperties PanelElement.prototype,
   valid:
     get: -> !!@_element
