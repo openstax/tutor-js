@@ -7,9 +7,13 @@ goTo = (test, category) =>
   switch category
     when 'BIOLOGY' then test.waitClick(css: '[data-appearance="biology"] > [href*="calendar"]')
     when 'PHYSICS' then test.waitClick(css: '[data-appearance="physics"] > [href*="calendar"]')
-    when 'CC'      then test.waitClick(css: '[data-title="Concept Coach"] > [href*="cc-dashboard"]')
     else test.waitClick(css: '[data-appearance] > [href*="calendar"]')
 
-  CourseCalendar.verify(test) unless category is 'CC'
+  CourseCalendar.verify(test)
 
-module.exports = {goTo}
+
+goToCourseByName = (test, name) ->
+  test.waitClick(css: "[data-title='#{name}'] > a")
+
+
+module.exports = {goTo, goToCourseByName}

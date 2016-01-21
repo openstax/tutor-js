@@ -18,13 +18,14 @@ class StudentScores
 
   constructor: (@test, @login, @courseTitle) ->
     @test.login(@login)
-    CourseSelect.goTo(@test, @courseTitle)
     @goToScores()
 
   goToScores: ->
-    if @courseTitle is 'CC'
+    if @courseTitle is 'Concept Coach'
+      CourseSelect.goToCourseByName(@test, @courseTitle)
       @test.waitClick(css: '.detailed-scores')
     else
+      CourseSelect.goTo(@test, @courseTitle)
       @test.waitClick(css: '.calendar-actions a:nth-child(3)')
     @test.sleep(1500)
 
@@ -113,7 +114,7 @@ describe 'Student Scores', ->
   
   @it 'CC Scores workflow', ->
 
-    scores = new StudentScores(@, TEACHER_USERNAME, 'CC')
+    scores = new StudentScores(@, TEACHER_USERNAME, 'Concept Coach')
 
     @screenshot("test-cc-scores-loaded")
 
