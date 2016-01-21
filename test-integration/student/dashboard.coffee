@@ -1,89 +1,52 @@
-selenium = require 'selenium-webdriver'
-{describe, CourseSelect, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, Calendar, ReadingBuilder, StudentDashboard} = require '../helpers'
 {expect} = require 'chai'
 _ = require 'underscore'
-
-class PanelElement
-
-  constructor: (test, el) ->
-    @_test = test
-    if _.isString(el)
-      el = @test.driver.findElement(css: el)
-    @_element = el
-
-Object.defineProperties PanelElement.prototype,
-  valid:
-    get: -> !!@_element
-  element:
-    get: -> @_element
-  test:
-    get: -> @_test
-
-class TaskStep extends PanelElement
-
-
-class Forecast extends PanelElement
-
-  practice: ->
-    new selenium.promise.Promise (resolve, reject) =>
-      @element.findElement(css: 'button').click()
-      @test.driver.wait =>
-        @test.driver.isElementPresent(
-          css: '.loadable.is-loading'
-        ).then (isPresent) -> not isPresent
-
-        resolve(new TaskStep(@test, '.task-step'))
-
-  getTopic: ->
-    new selenium.promise.Promise (resolve, reject) =>
-      Promise.all([
-        @element.findElement(css: '.number').getText()
-        @element.findElement(css: '.title').getText()
-      ]).then (texts) ->
-        resolve({chapter_section: texts[0], title: texts[1]})
-
-class ProgressGuide extends PanelElement
-
-  getForecast: (options = {}) ->
-    options.index ||= 0
-    new Forecast(@test, ".chapter-panel .section:nth-of-type(#{options.index+1}")
-
-
-
-class StudentDashboard extends PanelElement
-
-  constructor: (test, @login, @courseTitle) ->
-    super(test)
-    @test.login(@login)
-    CourseSelect.goToCourseByName(@test, @courseTitle)
-
-  progressGuide: ->
-    @test.driver.wait =>
-      @test.driver.isElementPresent(css: '.loadable.is-loading').then (isPresent) -> not isPresent
-    new ProgressGuide(@test, '.progress-guide')
-
-
-
-module.exports = StudentDashboard
 
 
 describe 'Student Dashboard', ->
 
-  @beforeEach ->
-    @dash = new StudentDashboard(@, 'student01', 'Biology I')
-
   @it 'Shows Performance Forecast', ->
+    @dash = new StudentDashboard(@, 'student01', 'Biology I')
     guide = @dash.progressGuide()
     expect(guide.valid).to.equal(true, 'Forecast is missing')
 
   @it 'can read forecast topic', ->
+    @dash = new StudentDashboard(@, 'student01', 'Biology I')
     forecast = @dash.progressGuide().getForecast(index: 0)
     forecast.getTopic().then (topic) ->
       expect(topic.chapter_section).to
-        .equal('1.1', "First topic had incorrect chapter_section")
+        .match(/\d+\.\d+/, "First topic had incorrect chapter_section")
 
-  @it 'Can practice Forecast', ->
+
+  @it 'Can practice Forecast', (done) ->
+    @dash = new StudentDashboard(@, 'student01', 'Biology I')
     forecast = @dash.progressGuide().getForecast(index: 1)
     expect(forecast.valid).to.equal(true, 'Forecast was not found')
     forecast.practice().then (taskstep) ->
-      expect(taskstep.valid).to.equal(true, 'Task Step is missing')
+      taskstep.getExerciseId().then (num) ->
+        expect(num).to.match(/\d+\@\d+/)
+        done()
+
+
+  it 'displays tasks that are assigned', ->
+    title = @freshId()
+    @login('teacher01')
+    CourseSelect.goToCourseByName(@, 'Biology I')
+    Calendar.createNew(@, 'READING')
+    ReadingBuilder.edit @,
+      name: title
+      opensAt: 'NOT_TODAY'
+      dueAt: 'EARLIEST'
+      sections: [1.2]
+      action: 'PUBLISH'
+    @logout()
+
+    @dash = new StudentDashboard(@, 'student01', 'Biology I')
+    @dash.findVisibleTask(title: title).then (task) ->
+      expect(task).not.to.be.null
+      expect(task).to.be.an.instanceof(DashboardTask)
+      task.getTitle().then (taskTitle) ->
+        expect(taskTitle).to.equal(title)
+      task.getProgress().then (progress) ->
+        expect(progress).to.equal('Not started')
+    @logout()
