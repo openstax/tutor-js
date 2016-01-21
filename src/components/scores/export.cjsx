@@ -3,7 +3,7 @@ React = require 'react'
 mime = require 'mime-types'
 
 BindStoreMixin = require '../bind-store-mixin'
-AsyncButton = require '../buttons/async-button'
+{AsyncButton} = require 'openstax-react-components'
 TimeDifference = require '../time-difference'
 
 {ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'

@@ -14,7 +14,7 @@ TaskStep = require './index'
 {CourseStore} = require '../../flux/course'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
-{CardBody, PinnableFooter} = require '../pinned-header-footer-card/sections'
+{CardBody, PinnableFooter} = require 'openstax-react-components'
 Review = require '../task/review'
 
 # A function to render the status message.

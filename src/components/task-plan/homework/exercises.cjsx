@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-ArbitraryHtmlAndMath = require '../../html'
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 ExerciseCard = require '../../exercise-card'
 ChapterSection = require '../chapter-section'
 Icon = require '../../icon'

@@ -1,4 +1,9 @@
 @answer-label-color: @tutor-neutral-dark;
+@correct-answer-color: @tutor-correct-color;
+@wrong-answer-color: @tutor-incorrect-color;
+@answer-vertical-spacing: 5px;
+@free-response-color: @tutor-neutral-dark;
+@free-response-background:  @tutor-neutral-lighter;
 
 .answer() {
   .flex-display();
@@ -25,10 +30,10 @@
   font-weight: normal;
   color: inherit;
 }
-.question {
+.openstax-question {
 
-  #fonts > .sans(1.8rem, 2.4rem);
   .size-exercise-card();
+  #fonts > .sans(1.8rem, 2.4rem);
 
   .answers-answer {
 
@@ -75,8 +80,6 @@
   }
 
   .answers-table {
-    // .answer-label-disable();
-
     .answers-answer {
       .answer();
     }
@@ -102,22 +105,18 @@
       color: @free-response-color;
       background: @free-response-background;
       border-left: 0px;
+      margin: 0 0 0.25rem 0;
 
       &[data-student-names] {
         &::before {
+          .answer-text-label();
+          line-height: 1.25em;
           content: attr(data-student-names);
           display: inline-block;
-          margin-left: -150px;
-          margin-right: 10px;
-          width: 140px;
+          margin-left: -140px;
+          width: 130px;
           text-align: right;
-          padding-right: 10px;
-          font-family: 'Architects Daughter', cursive;
-          font-size: 1.4rem;
-          font-weight: 400;
-          line-height: 3rem;
-          font-style: normal;
-          color: #5f6163;
+          padding-right: 30px;
         }
       }
     }
@@ -144,6 +143,7 @@
       }
       .panel-title {
         font-weight: 100;
+        color: @answer-label-color;
       }
     }
   }

@@ -5,7 +5,7 @@ Router = require 'react-router'
 WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
-RefreshButton = require './buttons/refresh-button'
+{RefreshButton} = require 'openstax-react-components'
 
 CourseDataMixin = require './course-data-mixin'
 

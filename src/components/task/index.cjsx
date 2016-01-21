@@ -17,7 +17,7 @@ Breadcrumbs = require './breadcrumbs'
 
 {StepPanel} = require '../../helpers/policies'
 
-PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+{PinnedHeaderFooterCard} = require 'openstax-react-components'
 
 module.exports = React.createClass
   propTypes:

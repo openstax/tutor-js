@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 {CourseStore, CourseActions} = require '../../flux/course'
-AsyncButton = require '../buttons/async-button'
+{AsyncButton} = require 'openstax-react-components'
 {TutorInput} = require '../tutor-input'
 classnames = require 'classnames'
 

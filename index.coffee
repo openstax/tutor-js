@@ -8,7 +8,7 @@ require 'jquery'
 api = require './src/api'
 router = require './src/router'
 dom = require './src/helpers/dom'
-{startMathJax} = require './src/helpers/mathjax'
+{startMathJax} = require 'openstax-react-components/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
 
 

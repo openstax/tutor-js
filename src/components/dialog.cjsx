@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 TutorDialog = require './tutor-dialog'
 
-Close = require './close'
+{CloseButton} = require 'openstax-react-components'
 
 ###
 <Dialog
@@ -46,7 +46,7 @@ module.exports = React.createClass
     if cancel
       cancelBtn = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button>
 
-    closeBtn = <Close onClick={@onCancel}/>
+    closeBtn = <CloseButton onClick={@onCancel}/>
     header = [header, closeBtn]
     footer = [primary, cancelBtn, footer] if footer or primary or cancelBtn
 

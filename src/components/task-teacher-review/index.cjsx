@@ -5,7 +5,7 @@ Router = require 'react-router'
 Breadcrumbs = require './breadcrumbs'
 {ReviewShell} = require './review'
 {StatsModalShell} = require '../plan-stats'
-PinnedHeaderFooterCard = require '../pinned-header-footer-card'
+{PinnedHeaderFooterCard} = require 'openstax-react-components'
 
 _ = require 'underscore'
 camelCase = require 'camelcase'

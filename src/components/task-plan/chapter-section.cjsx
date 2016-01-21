@@ -1,5 +1,5 @@
 React = require 'react'
-ChapterSectionMixin = require '../chapter-section-mixin'
+{ChapterSectionMixin} = require 'openstax-react-components'
 _ = require 'underscore'
 
 module.exports = React.createClass

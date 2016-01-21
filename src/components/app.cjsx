@@ -29,7 +29,7 @@ module.exports = React.createClass
     TransitionActions.load(locationChangeEvent, @context.router)
 
   render: ->
-    <div className='tutor-app'>
+    <div className='tutor-app openstax-wrapper'>
       <SpyMode.Wrapper>
         <Navbar />
         <RouteHandler/>

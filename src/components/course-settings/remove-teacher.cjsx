@@ -6,7 +6,7 @@ _  = require 'underscore'
 {CourseStore, CourseActions} = require '../../flux/course'
 Icon = require '../icon'
 Name = require '../name'
-AsyncButton = require '../buttons/async-button'
+{AsyncButton} = require 'openstax-react-components'
 
 WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be redirected to the dashboard.'
 

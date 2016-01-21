@@ -3,7 +3,7 @@ Router = require 'react-router'
 _  = require 'underscore'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-ChapterSectionMixin = require '../chapter-section-mixin'
+{ChapterSectionMixin} = require 'openstax-react-components'
 
 Section = React.createClass
   displayName: 'ReferenceBookTocSection'

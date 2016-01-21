@@ -9,7 +9,6 @@ React = require 'react'
 
 String         = require '../../helpers/string'
 BindStoreMixin = require '../bind-store-mixin'
-Question       = require '../question'
 ExerciseCard   = require './exercise-card'
 MultiSelect    = require '../multi-select'
 
