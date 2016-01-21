@@ -95,33 +95,33 @@ describe 'Student Scores', ->
 
   @it 'HS Scores workflow', ->
 
-    @scores = new StudentScores(@, TEACHER_USERNAME, 'PHYSICS')
+    scores = new StudentScores(@, TEACHER_USERNAME, 'PHYSICS')
 
     @screenshot("test-hs-scores-loaded")
 
-    @scores.findMainElements(MAIN_ELEMENTS)
-    @scores.nameHeaderSort()
-    @scores.dataHeaderSort()
-    @scores.changePeriod()
-    @scores.generateExport()
-    @scores.downloadExport()
-    @scores.hsNameLink()
-    @scores.hsReviewLink()
-    @scores.hsHomeworkLink()
-    @scores.hsReadingLink()
+    scores.findMainElements(MAIN_ELEMENTS)
+    scores.nameHeaderSort()
+    scores.dataHeaderSort()
+    scores.changePeriod()
+    scores.generateExport()
+    scores.downloadExport()
+    scores.hsNameLink()
+    scores.hsReviewLink()
+    scores.hsHomeworkLink()
+    scores.hsReadingLink()
 
   
   @it 'CC Scores workflow', ->
 
-    @scores = new StudentScores(@, TEACHER_USERNAME, 'CC')
+    scores = new StudentScores(@, TEACHER_USERNAME, 'CC')
 
     @screenshot("test-cc-scores-loaded")
 
-    @scores.findMainElements(MAIN_ELEMENTS)
-    @scores.nameHeaderSort()
-    @scores.dataHeaderSort()
-    @scores.changePeriod()
-    @scores.generateExport()
-    @scores.downloadExport()
-    @scores.ccScoreLink()
+    scores.findMainElements(MAIN_ELEMENTS)
+    scores.nameHeaderSort()
+    scores.dataHeaderSort()
+    scores.changePeriod()
+    scores.generateExport()
+    scores.downloadExport()
+    scores.ccScoreLink()
 
