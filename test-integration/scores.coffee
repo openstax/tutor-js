@@ -1,4 +1,4 @@
-{describe, CourseSelect, screenshot} = require './helpers'
+{describe, CourseSelect, screenshot, Browser} = require './helpers'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
@@ -65,28 +65,25 @@ class StudentScores
     if @doneGenerating()
       @clickElement('.export-button-buttons a','download')
 
-  goBack: ->
-    @test.driver.navigate().back()
-
   hsNameLink: ->
     @clickElement('.name-cell a.student-name','student name link')
-    @goBack()
+    Browser.goBack(@test)
 
   hsReviewLink: ->
     @clickElement('a.review-plan','review plan link')
-    @goBack()
+    Browser.goBack(@test)
 
   hsHomeworkLink: ->
     @clickElement('a.scores-cell[data-assignment-type="homework"]','homework link')
-    @goBack()
+    Browser.goBack(@test)
 
   hsReadingLink: ->
     @clickElement('a.scores-cell[data-assignment-type="reading"]','reading link')
-    @goBack()
+    Browser.goBack(@test)
 
   ccScoreLink: ->
     @clickElement('.cc-cell a.score','cc score link')
-    @goBack()
+    Browser.goBack(@test)
 
 module.exports = StudentScores
 
