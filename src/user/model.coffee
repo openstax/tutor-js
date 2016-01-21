@@ -11,9 +11,11 @@ BLANK_USER =
   name: null
   profile_url: null
   courses: []
+  _course_data: []
+  isLoaded: false
+  isLoggingOut: false
 
 User =
-  isLoaded: false
   channel: new EventEmitter2 wildcard: true
 
   update: (data) ->
@@ -94,7 +96,7 @@ User =
     _.each @courses, (course) ->
       course.channel.removeAllListeners()
 
-    @courses = []
+    _.extend(this, BLANK_USER)
 
 
 # start out as a blank user
