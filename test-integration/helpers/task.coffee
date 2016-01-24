@@ -3,6 +3,8 @@ _ = require 'underscore'
 
 {TestHelper} = require './test-element'
 
+# all convenience functions for helping with task tests will be seen here.
+
 class TaskHelper extends TestHelper
   constructor: (test, testElementLocator) ->
     commonElements =
