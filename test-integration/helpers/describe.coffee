@@ -75,6 +75,29 @@ describe = (name, cb) ->
         else
           locator
 
+      @waitAndMultiple = (locator, ms=60 * 1000) =>
+        locator = @toLocator(locator)
+        start = null
+        @driver.call => # Enqueue the timeout to increase only once this starts
+          start = Date.now()
+          @addTimeoutMs(ms)
+        @driver.wait(selenium.until.elementsLocated(locator))
+        .then (val) =>
+          end = Date.now()
+          spent = end - start
+          diff = ms - spent
+          # console.log "Took #{spent / 1000}sec of #{ms / 1000}"
+          if spent > ms
+            throw new Error("BUG: Took longer than expected (#{spent / 1000}). Expected #{ms / 1000} sec")
+          @addTimeoutMs(-diff)
+          val
+        # Because of animations an element might be in the DOM but not visible
+        el = @driver.findElements(locator)
+
+        el.then (elements) =>
+          @driver.wait(selenium.until.elementIsVisible(elements[0]))
+
+        el
 
       # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
       @waitAnd = (locator, ms=60 * 1000) =>
