@@ -34,21 +34,21 @@ Object.defineProperties TestItemHelper.prototype,
 
 class TestHelper extends TestItemHelper
   constructor: (test, testElementLocator, commonElements = {}, options) ->
-    super(test, testElementLocator, 'parent')
-
     defaultOptions =
       loadingLocator:
         css: '.is-loading'
+      defaultWaitTime: 1000
 
-    @_options = _.assign {}, defaultOptions, options 
+    @_options = _.assign {}, defaultOptions, options
 
+    super(test, testElementLocator, 'parent')
     _.each commonElements, @setCommonElement
     @
 
-  waitUntilLoaded: (ms) =>
+  waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
     @test.driver.wait =>
-      @test.driver.isElementPresent(@_options.loadingLocator).then (isPresent) -> not isPresent
-    , ms
+      @test.driver.isElementPresent(@options.loadingLocator).then (isPresent) -> not isPresent
+    , waitTime
 
   setCommonElement: (commonElementInfo, name) =>
     {locator, isSingle} = commonElementInfo
@@ -57,5 +57,11 @@ class TestHelper extends TestItemHelper
     # alias
     @["get#{S.capitalize(name, false)}"] = @[name].get.bind(@[name])
 
+
+# Using defined properties for access eliminates the possibility
+# of accidental assignment
+Object.defineProperties TestHelper.prototype,
+  options:
+    get: -> @_options
 
 module.exports = {TestHelper}
