@@ -8,14 +8,12 @@ module.exports = React.createClass
     onSort:  React.PropTypes.func.isRequired
     sortKey: React.PropTypes.any.isRequired
     sortState: React.PropTypes.object.isRequired
-    isConceptCoach: React.PropTypes.bool
 
   onClick: ->
     @props.onSort(@props.sortKey)
 
   render: ->
     classNames = ['header-cell', @props.className]
-    classNames.push if @props.isConceptCoach then 'concept-coach'
     if @props.sortState.key is @props.sortKey
       classNames.push if @props.sortState.asc then 'is-ascending' else 'is-descending'
 
