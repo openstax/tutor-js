@@ -14,7 +14,10 @@ CoursePlanDetails = React.createClass
   displayName: 'CoursePlanDetails'
 
   getInitialState: ->
-    forceOpen: false
+    keepVisible: false
+
+  getDefaultProps: ->
+    hasReview: false
 
   propTypes:
     plan: React.PropTypes.shape(
@@ -24,6 +27,7 @@ CoursePlanDetails = React.createClass
     ).isRequired
     courseId: React.PropTypes.string.isRequired
     onRequestHide: React.PropTypes.func.isRequired
+    hasReview: React.PropTypes.bool
 
   renderReviewButton: ->
     {plan, courseId} = @props
@@ -48,16 +52,21 @@ CoursePlanDetails = React.createClass
     reviewButton
 
   componentWillReceiveProps: (nextProps) ->
-    @setState(forceOpen: true)
+    # Sometimes, this plan modal will be asked to update while it's opened.
+    # i.e. when a plan is mid-publish on open, but completes publishing
+    # while the modal is open.
+    # In that case, make sure the modal remains open while it's content
+    # is updating.
+    @setState(keepVisible: true)
 
   render: ->
-    {plan, courseId, className, isPublishing, isPublished} = @props
+    {plan, courseId, className, isPublishing, isPublished, hasReview} = @props
     {title, type, id} = plan
     linkParams = {courseId, id}
-    {forceOpen} = @state
+    {keepVisible} = @state
     return null unless isPublishing or isPublished
 
-    reviewButton = @renderReviewButton() unless type is 'event'
+    reviewButton = @renderReviewButton() if hasReview
 
     editLinkName = camelCase("edit-#{type}")
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
@@ -83,7 +92,7 @@ CoursePlanDetails = React.createClass
       </div>
 
     classes = classnames 'plan-modal', className,
-      'in': forceOpen
+      'in': keepVisible
 
     <BS.Modal
       {...@props}
