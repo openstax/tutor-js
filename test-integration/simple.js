@@ -13,7 +13,8 @@ describe('Draft Tests', function() {
     console.log('Done logging in. No need for promises');
 
     // Go to the 1st courses dashboard
-    var x = await CourseSelect.goTo(this, 'ANY');
+    const courseSelect = new CourseSelect(this)
+    var x = await courseSelect.goTo(this, 'ANY');
     console.log('Done selecting a course. No need for promises');
   });
 });

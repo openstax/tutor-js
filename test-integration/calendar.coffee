@@ -14,7 +14,7 @@ describe 'Calendar and Stats', ->
     @login(TEACHER_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      CourseSelect.goTo(@, courseCategory)
+      new CourseSelect(@).goTo(courseCategory)
 
       # HACK: exclude the .continued plans because the center of the label may be off-screen
       @forEach '.plan.is-published label:not(.continued)', (plan, index, total) =>
@@ -37,7 +37,7 @@ describe 'Calendar and Stats', ->
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       @addTimeout(10)
-      CourseSelect.goTo(@, courseCategory)
+      new CourseSelect(@).goTo(courseCategory)
 
       Calendar.goPerformanceForecast(@)
       @waitAnd(css: '.guide-heading')
@@ -54,7 +54,7 @@ describe 'Calendar and Stats', ->
     @login(TEACHER_USERNAME)
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
-      CourseSelect.goTo(@, courseCategory)
+      new CourseSelect(@).goTo(courseCategory)
 
       # HACK: exclude the .continued plans because the center of the label may be off-screen
       @forEach '.plan.is-open.is-published label:not(.continued)', (plan, index, total) =>
@@ -97,7 +97,7 @@ describe 'Calendar and Stats', ->
 
 
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
-      CourseSelect.goTo(@, courseCategory)
+      new CourseSelect(@).goTo(courseCategory)
 
       @waitClick(linkText: 'Student Scores').then => @addTimeout(60)
       @waitAnd(css: '.scores-report .course-scores-title')

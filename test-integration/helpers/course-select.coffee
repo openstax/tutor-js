@@ -10,9 +10,4 @@ class CourseSelect extends TaskHelper
       when 'PHYSICS' then @test.waitClick(css: '[data-appearance="physics"] > [href*="calendar"]')
       else @test.waitClick(css: '[data-appearance] > [href*="calendar"]')
 
-  @goTo: (test, category) ->
-    cs = new CourseSelect(test)
-    cs.goTo(category)
-    cs
-
 module.exports = CourseSelect
