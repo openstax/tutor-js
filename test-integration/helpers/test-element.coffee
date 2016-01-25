@@ -56,7 +56,7 @@ class TestHelper extends TestItemHelper
     @el[name] = new TestItemHelper(@test, locator, name, isSingle)
 
     # alias
-    @["get#{S.capitalize(name, false)}"] = @el[name].get.bind(@[name])
+    @["get#{S.capitalize(name, false)}"] = @el[name].get.bind(@el[name])
 
 
 # Using defined properties for access eliminates the possibility
