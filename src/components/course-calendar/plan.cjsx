@@ -8,8 +8,6 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 CoursePlanDetails = require './plan-details'
-CoursePlanPublishingDetails = require './plan-publishing-details'
-CourseEventDetails = require './plan-event-details'
 CoursePlanLabel = require './plan-label'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require './plan-display'
 
@@ -125,6 +123,7 @@ CoursePlan = React.createClass
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item.plan)
+    @checkRoute()
     location = @context.router.getLocation()
     location.addChangeListener(@checkRoute)
 
@@ -155,6 +154,13 @@ CoursePlan = React.createClass
 
     isPublished or isPublishing
 
+  hasReview: ->
+    {isPublished} = @state
+    {item} = @props
+    {plan} = item
+
+    isPublished and plan.isOpen and plan.type isnt 'event'
+
   buildPlanClasses: (plan, publishStatus, isPublishing, isPublished, isActive) ->
     planClasses = classnames 'plan-label-long', "course-plan-#{plan.id}", "is-#{publishStatus}",
       'is-published'  : isPublished
@@ -163,7 +169,7 @@ CoursePlan = React.createClass
       'is-trouble'    : plan.isTrouble
       'active'        : isActive
 
-  renderDisplay: (hasQuickLook, planClasses, display) ->
+  renderDisplay: (hasQuickLook, hasReview, planClasses, display) ->
     {rangeDuration, offset, offsetFromPlanStart, index} = display
     {item, courseId} = @props
     {plan, displays} = item
@@ -180,6 +186,7 @@ CoursePlan = React.createClass
       label,
       courseId,
       planClasses,
+      hasReview,
       isFirst: (index is 0),
       isLast: (index is displays.length - 1),
       setHover: @setHover,
@@ -196,6 +203,7 @@ CoursePlan = React.createClass
     {publishStatus, isPublishing, isPublished, isHovered, isViewingStats} = @state
     {plan, displays} = item
     {durationLength} = plan
+    hasReview = @hasReview()
 
     planClasses = @buildPlanClasses(plan,
       publishStatus,
@@ -211,17 +219,14 @@ CoursePlan = React.createClass
         className: planClasses
         onRequestHide: _.partial(@syncIsViewingStats, false)
         ref: 'details'
+        isPublished: isPublished
+        isPublishing: isPublishing
+        hasReview: hasReview
 
-      if isPublished
-        if plan.type is 'event'
-          planModal = <CourseEventDetails {...modalProps}/>
-        else
-          planModal = <CoursePlanDetails {...modalProps}/>
-      else if isPublishing
-        planModal = <CoursePlanPublishingDetails {...modalProps}/>
+      planModal = <CoursePlanDetails {...modalProps}/>
 
     planClasses = "plan #{planClasses}"
-    renderDisplay = _.partial(@renderDisplay, @canQuickLook(), planClasses)
+    renderDisplay = _.partial(@renderDisplay, @canQuickLook(), hasReview, planClasses)
     planDisplays = _.map(displays, renderDisplay)
 
     <div>

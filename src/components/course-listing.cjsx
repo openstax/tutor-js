@@ -87,7 +87,7 @@ CourseListing = React.createClass
         console.warn?("BUG: User is not a teacher or a student on course id: #{course.id}")
         return null
       courseDataProps = @getCourseDataProps(courseId)
-      <BS.Row>
+      <BS.Row key="course-#{courseId}">
         <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
           {courseLink}
           {altLink}

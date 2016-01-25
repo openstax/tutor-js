@@ -15,7 +15,12 @@ ChaptersPerformance = React.createClass
 
     unless _.isEmpty(currentPages)
       chapters = _.map(currentPages, (data, i) ->
-        <Progress data={data} type='chapter' index={i} activeSection={activeSection}/>
+        <Progress
+          key="chapter-performance-#{data.id}-#{i}"
+          data={data}
+          type='chapter'
+          index={i}
+          activeSection={activeSection}/>
       )
       chapters = <section>
         <label>Current Topics Performance</label>
@@ -51,6 +56,7 @@ PracticesPerformance = React.createClass
           {@calculatePercentDelta(data.correct_count, data.previous_attempt.correct_count)}% change
         </div>
     <Progress
+      key="practice-performance-#{data.id}-#{i}"
       data={data}
       type='practice'
       index={i}

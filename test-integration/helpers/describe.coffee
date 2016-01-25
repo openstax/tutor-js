@@ -179,6 +179,22 @@ describe = (name, cb) ->
                 fn.call(@, el, index, els1.length)
 
 
+      @forNTimesInSeries = (nTimes, fn, fn2) =>
+        arrayOfFns = []
+
+        for i in [1..nTimes]
+          arrayOfFns.push(new Promise(fn))
+
+        (args...) =>
+          @checkInSeries(arrayOfFns, fn2)(args...)
+
+      @checkInSeries = (arrayOfFns, fnBetween) =>
+        (args...) =>
+          arrayOfFns.reduce((current, next) =>
+            fnBetween?(args...)
+            current.then(next)
+          , Promise.resolve(args...))
+
       @login = (username, password = 'password') =>
         @waitClick(linkText: 'Login')
 

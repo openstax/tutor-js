@@ -34,6 +34,11 @@ tzdetect =
 
 
 TimeHelper =
+
+  isPropAMoment: (props, propName, componentName) ->
+    unless moment.isMoment(props[propName])
+      new Error("#{propName} should be a moment for #{componentName}")
+
   getCurrentLocales: ->
     currentLocale = moment.localeData()
 
