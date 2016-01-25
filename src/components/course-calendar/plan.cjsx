@@ -8,8 +8,6 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 CoursePlanDetails = require './plan-details'
-CoursePlanPublishingDetails = require './plan-publishing-details'
-CourseEventDetails = require './plan-event-details'
 CoursePlanLabel = require './plan-label'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require './plan-display'
 
@@ -96,7 +94,7 @@ CoursePlan = React.createClass
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
-  checkRoute: ->
+  syncRoute: ->
     isViewingStats = @_doesPlanMatchesRoute()
     @setState({isViewingStats})
 
@@ -125,8 +123,9 @@ CoursePlan = React.createClass
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item.plan)
+    @syncRoute()
     location = @context.router.getLocation()
-    location.addChangeListener(@checkRoute)
+    location.addChangeListener(@syncRoute)
 
   componentWillReceiveProps: (nextProps) ->
     if @props.item.plan.id isnt nextProps.item.plan.id
@@ -138,7 +137,7 @@ CoursePlan = React.createClass
   componentWillUnmount: ->
     @stopCheckingPlan(@props.item.plan)
     location = @context.router.getLocation()
-    location.removeChangeListener(@checkRoute)
+    location.removeChangeListener(@syncRoute)
 
   stopCheckingPlan: (plan) ->
     PlanPublishActions.stopChecking(plan.id) if @state.isPublishing
@@ -155,6 +154,13 @@ CoursePlan = React.createClass
 
     isPublished or isPublishing
 
+  hasReview: ->
+    {isPublished} = @state
+    {item} = @props
+    {plan} = item
+
+    isPublished and plan.isOpen and plan.type isnt 'event'
+
   buildPlanClasses: (plan, publishStatus, isPublishing, isPublished, isActive) ->
     planClasses = classnames 'plan-label-long', "course-plan-#{plan.id}", "is-#{publishStatus}",
       'is-published'  : isPublished
@@ -163,7 +169,7 @@ CoursePlan = React.createClass
       'is-trouble'    : plan.isTrouble
       'active'        : isActive
 
-  renderDisplay: (hasQuickLook, planClasses, display) ->
+  renderDisplay: (hasQuickLook, hasReview, planClasses, display) ->
     {rangeDuration, offset, offsetFromPlanStart, index} = display
     {item, courseId} = @props
     {plan, displays} = item
@@ -180,6 +186,7 @@ CoursePlan = React.createClass
       label,
       courseId,
       planClasses,
+      hasReview,
       isFirst: (index is 0),
       isLast: (index is displays.length - 1),
       setHover: @setHover,
@@ -196,6 +203,7 @@ CoursePlan = React.createClass
     {publishStatus, isPublishing, isPublished, isHovered, isViewingStats} = @state
     {plan, displays} = item
     {durationLength} = plan
+    hasReview = @hasReview()
 
     planClasses = @buildPlanClasses(plan,
       publishStatus,
@@ -211,17 +219,14 @@ CoursePlan = React.createClass
         className: planClasses
         onRequestHide: _.partial(@syncIsViewingStats, false)
         ref: 'details'
+        isPublished: isPublished
+        isPublishing: isPublishing
+        hasReview: hasReview
 
-      if isPublished
-        if plan.type is 'event'
-          planModal = <CourseEventDetails {...modalProps}/>
-        else
-          planModal = <CoursePlanDetails {...modalProps}/>
-      else if isPublishing
-        planModal = <CoursePlanPublishingDetails {...modalProps}/>
+      planModal = <CoursePlanDetails {...modalProps}/>
 
     planClasses = "plan #{planClasses}"
-    renderDisplay = _.partial(@renderDisplay, @canQuickLook(), planClasses)
+    renderDisplay = _.partial(@renderDisplay, @canQuickLook(), hasReview, planClasses)
     planDisplays = _.map(displays, renderDisplay)
 
     <div>

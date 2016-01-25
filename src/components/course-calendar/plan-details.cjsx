@@ -1,15 +1,23 @@
 camelCase = require 'camelcase'
-
+classnames = require 'classnames'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 {StatsModalShell} = require '../plan-stats'
+{EventModalShell} = require '../plan-stats/event'
+
 LoadableItem = require '../loadable-item'
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass
   displayName: 'CoursePlanDetails'
+
+  getInitialState: ->
+    keepVisible: false
+
+  getDefaultProps: ->
+    hasReview: false
 
   propTypes:
     plan: React.PropTypes.shape(
@@ -19,6 +27,7 @@ CoursePlanDetails = React.createClass
     ).isRequired
     courseId: React.PropTypes.string.isRequired
     onRequestHide: React.PropTypes.func.isRequired
+    hasReview: React.PropTypes.bool
 
   renderReviewButton: ->
     {plan, courseId} = @props
@@ -42,33 +51,59 @@ CoursePlanDetails = React.createClass
 
     reviewButton
 
+  componentWillReceiveProps: (nextProps) ->
+    # Sometimes, this plan modal will be asked to update while it's opened.
+    # i.e. when a plan is mid-publish on open, but completes publishing
+    # while the modal is open.
+    # In that case, make sure the modal remains open while it's content
+    # is updating.
+    @setState(keepVisible: true)
+
   render: ->
-    {plan, courseId, className} = @props
+    {plan, courseId, className, isPublishing, isPublished, hasReview} = @props
     {title, type, id} = plan
     linkParams = {courseId, id}
-    editLinkName = camelCase("edit-#{type}")
+    {keepVisible} = @state
+    return null unless isPublishing or isPublished
 
-    reviewButton = @renderReviewButton()
+    reviewButton = @renderReviewButton() if hasReview
+
+    editLinkName = camelCase("edit-#{type}")
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
+    assignmentOrEvent = if type is 'event' then 'Event' else 'Assignment'
     editButton = <Router.Link
       className='btn btn-default -edit-assignment'
       to={editLinkName}
       params={linkParams}>
-      {viewOrEdit} Assignment
+      {viewOrEdit} {assignmentOrEvent}
     </Router.Link>
+
+    body = if isPublished
+      footer =  <div className='modal-footer'>
+        {reviewButton}
+        {editButton}
+      </div>
+
+      if type is 'event'
+        <EventModalShell id={id} courseId={courseId} />
+      else
+        <StatsModalShell id={id} courseId={courseId} />
+
+    else if isPublishing
+      <p>This plan is publishing.</p>
+
+    classes = classnames 'plan-modal', className,
+      'in': keepVisible
 
     <BS.Modal
       {...@props}
       title={title}
       data-assignment-type={type}
-      className="plan-modal #{className}">
+      className={classes}>
       <div className='modal-body'>
-        <StatsModalShell id={id} courseId={courseId} />
+        {body}
       </div>
-      <div className='modal-footer'>
-        {reviewButton}
-        {editButton}
-      </div>
+      {footer}
     </BS.Modal>
 
 

@@ -21,7 +21,7 @@ ReferenceBookExercise = React.createClass
     {exerciseAPIUrl} = @props
     {items} = ReferenceBookExerciseStore.get(exerciseAPIUrl)
 
-    unless items?.length
+    unless items?.length and items?[0]?.questions?[0]?
       # warning about missing exercise --
       # is there a need to show the reader anything?
       console.warn("WARNING: #{exerciseAPIUrl} appears to be missing.")
