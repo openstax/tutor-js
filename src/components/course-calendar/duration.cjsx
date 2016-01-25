@@ -17,7 +17,7 @@ CourseDuration = React.createClass
     courseId: React.PropTypes.string.isRequired
     viewingDuration: React.PropTypes.instanceOf(twix).isRequired
     groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired
-    referenceDate: TimeHelper.isPropAMoment
+    referenceDate: TimeHelper.PropTypes.moment
     children: React.PropTypes.element
     recentTolerance: React.PropTypes.number
 

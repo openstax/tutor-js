@@ -27,10 +27,10 @@ CourseMonth = React.createClass
 
   propTypes:
     plansList: React.PropTypes.array
-    date: TimeHelper.isPropAMoment
+    date: TimeHelper.PropTypes.moment
 
   childContextTypes:
-    date: TimeHelper.isPropAMoment
+    date: TimeHelper.PropTypes.moment
 
   getChildContext: ->
     date: @props.date

@@ -19,7 +19,7 @@ CourseCalendarHeader = React.createClass
   propTypes:
     duration: React.PropTypes.oneOf(['month', 'week', 'day']).isRequired
     setDate: React.PropTypes.func
-    date: TimeHelper.isPropAMoment
+    date: TimeHelper.PropTypes.moment
     format: React.PropTypes.string.isRequired
 
   mixins: [ CourseAddMenuMixin ]

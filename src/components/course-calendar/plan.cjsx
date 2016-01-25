@@ -94,7 +94,7 @@ CoursePlan = React.createClass
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
-  checkRoute: ->
+  syncRoute: ->
     isViewingStats = @_doesPlanMatchesRoute()
     @setState({isViewingStats})
 
@@ -123,9 +123,9 @@ CoursePlan = React.createClass
 
   componentWillMount: ->
     @subscribeToPublishing(@props.item.plan)
-    @checkRoute()
+    @syncRoute()
     location = @context.router.getLocation()
-    location.addChangeListener(@checkRoute)
+    location.addChangeListener(@syncRoute)
 
   componentWillReceiveProps: (nextProps) ->
     if @props.item.plan.id isnt nextProps.item.plan.id
@@ -137,7 +137,7 @@ CoursePlan = React.createClass
   componentWillUnmount: ->
     @stopCheckingPlan(@props.item.plan)
     location = @context.router.getLocation()
-    location.removeChangeListener(@checkRoute)
+    location.removeChangeListener(@syncRoute)
 
   stopCheckingPlan: (plan) ->
     PlanPublishActions.stopChecking(plan.id) if @state.isPublishing
