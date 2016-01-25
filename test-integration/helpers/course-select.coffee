@@ -1,14 +1,18 @@
 selenium = require 'selenium-webdriver'
-CourseCalendar = require './calendar'
+{TaskHelper} = require './task'
 
-#   category: 'BIOLOGY', 'PHYSICS', 'ANY'
-goTo = (test, category) =>
-  # Go to the bio dashboard
-  switch category
-    when 'BIOLOGY' then test.waitClick(css: '[data-appearance="biology"] > [href*="calendar"]')
-    when 'PHYSICS' then test.waitClick(css: '[data-appearance="physics"] > [href*="calendar"]')
-    else test.waitClick(css: '[data-appearance] > [href*="calendar"]')
+class CourseSelect extends TaskHelper
 
-  CourseCalendar.verify(test)
+  goTo: (category) ->
+    # Go to the bio dashboard
+    switch category
+      when 'BIOLOGY' then @test.waitClick(css: '[data-appearance="biology"] > [href*="calendar"]')
+      when 'PHYSICS' then @test.waitClick(css: '[data-appearance="physics"] > [href*="calendar"]')
+      else @test.waitClick(css: '[data-appearance] > [href*="calendar"]')
 
-module.exports = {goTo}
+  @goTo: (test, category) ->
+    cs = new CourseSelect(test)
+    cs.goTo(category)
+    cs
+
+module.exports = CourseSelect
