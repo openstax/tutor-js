@@ -23,7 +23,7 @@ class TaskHelper extends TestHelper
     super(test, testElementLocator, commonElements)
 
   continue: =>
-    continueButton = @continueButton.get()
+    continueButton = @getContinueButton()
     @test.driver.wait selenium.until.elementIsEnabled(continueButton)
     continueButton.click()
 

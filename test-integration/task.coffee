@@ -3,7 +3,7 @@
 _ = require 'underscore'
 selenium = require 'selenium-webdriver'
 
-{TaskElement, TaskHelper} = Task
+{TaskHelper} = Task
 
 STUDENT_USERNAME = 'student01'
 
@@ -23,9 +23,9 @@ describe 'Student performing tasks', ->
       @waitClick(css: '.workable.task')
 
       @task.waitUntilLoaded(2000)
-      @task.enabledContinueButton.get().click()
-      @task.enabledContinueButton.get().click()
-      @task.stepCrumbs.get(4).then (crumb) ->
+      @task.getEnabledContinueButton().click()
+      @task.getEnabledContinueButton().click()
+      @task.getStepCrumbs(4).then (crumb) ->
         crumb.click()
 
       # Go back to the course selection
