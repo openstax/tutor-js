@@ -3,6 +3,7 @@
 {TaskReview} = require 'task/review'
 Collection = require 'task/collection'
 TASK = require 'cc/tasks/C_UUID/m_uuid/GET'
+User = require 'user/model'
 
 describe 'Task Collection', ->
 
@@ -26,3 +27,9 @@ describe 'Task Collection', ->
     expect(info).to.deep.equal(
       collectionUUID:"C_UUID", moduleUUID:"m_uuid", link:'test/contents/C_UUID:m_uuid'
     )
+
+
+  it 'is reset after user logs out', ->
+    expect( Collection.getModuleInfo(@taskId, 'test') ).not.to.be.undefined
+    User._signalLogoutCompleted()
+    expect( Collection.getModuleInfo(@taskId, 'test') ).to.be.undefined

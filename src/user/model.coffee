@@ -91,12 +91,8 @@ User =
         User.channel.emit('change')
 
   destroy: ->
-    User.channel.removeAllListeners()
-
-    _.each @courses, (course) ->
-      course.channel.removeAllListeners()
-
-    _.extend(this, BLANK_USER)
+    _.invoke @courses, 'destroy'
+    @courses = []
 
 
 # start out as a blank user
