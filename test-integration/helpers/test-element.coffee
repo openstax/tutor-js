@@ -51,12 +51,14 @@ class TestHelper extends TestItemHelper
       @test.driver.isElementPresent(@options.loadingLocator).then (isPresent) -> not isPresent
     , waitTime
 
+  setCommonHelper: (name, helper) =>
+    @el[name] = helper
+    # alias
+    @["get#{S.capitalize(name, false)}"] = helper.get.bind(helper)
+
   setCommonElement: (commonElementInfo, name) =>
     {locator, isSingle} = commonElementInfo
-    @el[name] = new TestItemHelper(@test, locator, name, isSingle)
-
-    # alias
-    @["get#{S.capitalize(name, false)}"] = @el[name].get.bind(@el[name])
+    @setCommonHelper(new TestItemHelper(@test, locator, name, isSingle))
 
 
 # Using defined properties for access eliminates the possibility
