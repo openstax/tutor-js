@@ -137,5 +137,9 @@ class Course
     delete @isBusy
     @channel.emit('change')
 
+  destroy: ->
+    @channel.emit('destroy')
+    @channel.removeAllListeners()
+
 
 module.exports = Course
