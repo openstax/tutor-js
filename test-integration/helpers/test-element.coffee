@@ -40,6 +40,7 @@ class TestHelper extends TestItemHelper
       defaultWaitTime: 1000
 
     @_options = _.assign {}, defaultOptions, options
+    @_el = {}
 
     super(test, testElementLocator, 'parent')
     _.each commonElements, @setCommonElement
@@ -52,10 +53,10 @@ class TestHelper extends TestItemHelper
 
   setCommonElement: (commonElementInfo, name) =>
     {locator, isSingle} = commonElementInfo
-    @[name] = new TestItemHelper(@test, locator, name, isSingle)
+    @el[name] = new TestItemHelper(@test, locator, name, isSingle)
 
     # alias
-    @["get#{S.capitalize(name, false)}"] = @[name].get.bind(@[name])
+    @["get#{S.capitalize(name, false)}"] = @el[name].get.bind(@[name])
 
 
 # Using defined properties for access eliminates the possibility
@@ -63,5 +64,7 @@ class TestHelper extends TestItemHelper
 Object.defineProperties TestHelper.prototype,
   options:
     get: -> @_options
+  el:
+    get: -> @_el
 
 module.exports = {TestHelper}

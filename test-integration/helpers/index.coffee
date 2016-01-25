@@ -6,3 +6,4 @@ module.exports =
   CourseSelect  : require './course-select'
   describe      : describe
   xdescribe     : xdescribe
+  Task          : require './task'
