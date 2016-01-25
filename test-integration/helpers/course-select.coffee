@@ -1,9 +1,13 @@
 selenium = require 'selenium-webdriver'
-{TaskHelper} = require './task'
+{TestHelper} = require './test-element'
 
-class CourseSelect extends TaskHelper
+class CourseSelect extends TestHelper
+
+  constructor: (test ) ->
+    super(test, '.course-listing')
 
   goTo: (category) ->
+    @waitUntilLoaded()
     # Go to the bio dashboard
     switch category
       when 'BIOLOGY' then @test.waitClick(css: '[data-appearance="biology"] > [href*="calendar"]')
