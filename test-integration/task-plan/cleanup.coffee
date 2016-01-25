@@ -8,7 +8,7 @@ describe 'Assignment Cleanup', ->
   @it 'Deletes all drafts (not really a test but nice cleanup)', ->
     @login(TEACHER_USERNAME)
     @addTimeout(2)
-    CourseSelect.goTo(@, 'ANY')
+    new CourseSelect(@).goTo('ANY')
     Calendar.verify(@)
 
     # Since we are deleting we need a special forEach that will not complain when the length changes

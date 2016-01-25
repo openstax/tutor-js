@@ -12,7 +12,7 @@ describe 'Assignment Publishing Tests', ->
     @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
-    CourseSelect.goTo(@, 'ANY')
+    new CourseSelect(@).goTo('ANY')
 
     Calendar.createNew(@, 'READING')
 

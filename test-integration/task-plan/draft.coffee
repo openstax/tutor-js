@@ -20,7 +20,7 @@ describe 'Draft Tests', ->
     @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
-    CourseSelect.goTo(@, 'ANY')
+    new CourseSelect(@).goTo('ANY')
 
     Calendar.createNew(@, 'READING')
     ReadingBuilder.edit(@, action: 'SAVE')
@@ -55,7 +55,7 @@ describe 'Draft Tests', ->
     @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
-    CourseSelect.goTo(@, 'ANY')
+    new CourseSelect(@).goTo('ANY')
 
     # Click to add a reading
     Calendar.createNew(@, 'READING')
@@ -87,7 +87,7 @@ describe 'Draft Tests', ->
     @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
-    CourseSelect.goTo(@, 'ANY')
+    new CourseSelect(@).goTo('ANY')
 
     # Click to add a reading
     Calendar.createNew(@, 'READING')
