@@ -26,7 +26,7 @@ describe 'Assignment Cleanup', ->
     forEach('.plan:not(.is-published)',
       (plan, index, total) =>
         plan.click()
-        ReadingBuilder.edit(@, action: 'DELETE').then ->
+        new ReadingBuilder(@).edit(action: 'DELETE').then ->
           console.log 'Deleted', index, '/', total
         Calendar.verify(@)
 
@@ -40,7 +40,7 @@ describe 'Assignment Cleanup', ->
         @addTimeout(10) # Published plans take a while to delete
         plan.click()
         Calendar.Popup.goEdit(@)
-        ReadingBuilder.edit(@, action: 'DELETE').then ->
+        new ReadingBuilder(@).edit(action: 'DELETE').then ->
           console.log 'Deleted', index, '/', total
         Calendar.verify(@)
 
