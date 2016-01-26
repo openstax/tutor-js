@@ -55,6 +55,26 @@ gulp.task '_build', ['_cleanDist'], (done) ->
     done()
   )
 
+# Copy-Pasta from `_build` task just without the minimize, and naming the files `*.min.*`
+gulp.task 'build', ['_cleanDist'], (done) ->
+  env(vars:{ NODE_ENV: 'production' })
+  webpackConfig = require './webpack.config'
+  config = _.extend({}, webpackConfig, {
+    plugins: [
+      # Use the production version of React (no warnings/runtime checks)
+      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
+      new WPExtractText("tutor.css")
+    ]
+  })
+  config.output.filename = 'tutor.js'
+  webpack(config, (err, stats) ->
+    throw new gutil.PluginError("webpack", err) if err
+    gutil.log("[webpack]", stats.toString({
+      # output options
+    }))
+    done()
+  )
+
 gulp.task '_tagRev', ['_build'], ->
   gulp.src("#{DIST_DIR}/*.min.*")
     .pipe(rev())
