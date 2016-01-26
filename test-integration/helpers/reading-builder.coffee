@@ -100,10 +100,13 @@ class ReadingBuilder extends TestHelper
       when 'CANCEL'
         # BUG: "X" close button behaves differently than the footer close button
         @test.waitClick(css: '.footer-buttons [aria-role="close"]')
-        # BUG: Should not prompt when canceling
-        # Confirm the "Unsaved Changes" dialog
-        @test.waitClick(css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn')
-        @test.sleep(1000) # Wait for dialog to close
+        # # BUG: Should not prompt when canceling
+        # # Confirm the "Unsaved Changes" dialog
+        @test.sleep(500) # Wait for unsaved dialog
+        unsavedModalOk = '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
+        @test.driver.isElementPresent(css: unsavedModalOk).then (isPresent) =>
+          @test.waitClick(css: unsavedModalOk) if isPresent
+          @test.sleep(500) # Wait for dialog to close
         Calendar.verify(@test)
 
       when 'DELETE'
