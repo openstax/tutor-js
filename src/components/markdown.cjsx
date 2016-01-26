@@ -1,6 +1,6 @@
 React = require 'react'
 Markdown = require 'markdown-it'
-ArbitraryHtml = require './html'
+{ArbitraryHtmlAndMath} = require 'openstax-react-components'
 _ = require 'underscore'
 
 md = new Markdown()
@@ -13,4 +13,4 @@ module.exports = React.createClass
     html = md.render(text)
     htmlProps.html = html
 
-    <ArbitraryHtml {...htmlProps}/>
+    <ArbitraryHtmlAndMath {...htmlProps}/>

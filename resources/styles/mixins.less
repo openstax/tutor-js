@@ -1,7 +1,6 @@
 @import './book-content/ap-bio/variables';
 @import './book-content/hs-physics/variables';
 @import './mixins/for';
-@import './mixins/flexbox';
 @import './mixins/tutor-plans';
 @import './mixins/tutor-modal';
 
@@ -107,18 +106,6 @@
     }
 
   }
-}
-
-.tutor-exercise-question-uid() {
-  color: @exercise-question-uid-color;
-  #fonts > .sans(1.2rem, 1.2rem);
-}
-
-.tutor-task-step-question-uid() {
-  position: absolute;
-  right: @tutor-card-body-padding-horizontal;
-  bottom: 10px;
-  .tutor-exercise-question-uid();
 }
 
 .tutor-icon-active(@scale: 1.4; @shadow: 0.12) {

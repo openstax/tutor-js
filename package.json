@@ -36,7 +36,7 @@
     "mime-types": "2.1.7",
     "moment": "2.10.6",
     "moment-timezone": "0.4.1",
-    "openstax-react-components": "openstax/react-components#7385391a312779a5c2e80fb94ad158b821785fef",
+    "openstax-react-components": "openstax/react-components#42bedfe310c08128fe964f91a320957c3c680ddb",
     "pluralize": "1.2.1",
     "promise-loader": "1.0.0",
     "react": "0.13.1",
@@ -51,6 +51,13 @@
     "validator": "3.43.0"
   },
   "devDependencies": {
+    "babel-core": "6.4.0",
+    "babel-loader": "6.2.1",
+    "babel-polyfill": "6.3.14",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-stage-3": "6.3.13",
+    "babel-register": "6.4.3",
+    "babel-runtime": "6.3.19",
     "blanket": "1.1.7",
     "chai": "2.1.2",
     "chai-as-promised": "5.1.0",

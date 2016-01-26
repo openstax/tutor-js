@@ -11,6 +11,7 @@ PracticeButton = require '../buttons/practice-button'
 BrowseTheBook = require '../buttons/browse-the-book'
 
 {TimeStore} = require '../../flux/time'
+TimeHelper = require '../../helpers/time'
 
 CourseCalendarHeader = React.createClass
   displayName: 'CourseCalendarHeader'
@@ -18,9 +19,7 @@ CourseCalendarHeader = React.createClass
   propTypes:
     duration: React.PropTypes.oneOf(['month', 'week', 'day']).isRequired
     setDate: React.PropTypes.func
-    date: (props, propName, componentName) ->
-      unless moment.isMoment(props[propName])
-        new Error("#{propName} should be a moment for #{componentName}")
+    date: TimeHelper.PropTypes.moment
     format: React.PropTypes.string.isRequired
 
   mixins: [ CourseAddMenuMixin ]

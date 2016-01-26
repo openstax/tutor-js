@@ -1,7 +1,7 @@
 React = require 'react'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TimeStore} = require '../../flux/time'
-Close = require '../close'
+{CloseButton} = require 'openstax-react-components'
 TutorDialog = require '../tutor-dialog'
 S = require '../../helpers/string'
 
@@ -127,7 +127,7 @@ PlanMixin =
 
     headerSpan = <span key='header-text'>{headerText}</span>
 
-    closeBtn = <Close
+    closeBtn = <CloseButton
       key='close-button'
       className='pull-right'
       onClick={@cancel}/>

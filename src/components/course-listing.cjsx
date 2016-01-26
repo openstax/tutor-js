@@ -5,7 +5,7 @@ Router = require 'react-router'
 WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
-RefreshButton = require './buttons/refresh-button'
+{RefreshButton} = require 'openstax-react-components'
 
 CourseDataMixin = require './course-data-mixin'
 
@@ -87,7 +87,7 @@ CourseListing = React.createClass
         console.warn?("BUG: User is not a teacher or a student on course id: #{course.id}")
         return null
       courseDataProps = @getCourseDataProps(courseId)
-      <BS.Row>
+      <BS.Row key="course-#{courseId}">
         <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
           {courseLink}
           {altLink}

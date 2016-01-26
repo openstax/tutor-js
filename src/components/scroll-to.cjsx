@@ -1,10 +1,10 @@
 React = require 'react'
 _ = require 'underscore'
 
-# Note that the Position mixin methods are called directly rather than mixing it in
+# Note that the GetPositionMixin methods are called directly rather than mixing it in
 # since we're a mixin ourselves our consumers also include GetPosition and it causes
 # duplicate method name errors to mix it in
-Position = require './get-position-mixin'
+{GetPositionMixin} = require 'openstax-react-components'
 
 DEFAULT_DURATION   = 750 # milliseconds
 # This is calculated to be enough for the targeted element to fit under the top navbar
@@ -62,7 +62,7 @@ ScrollTo =
       ev.preventDefault()
 
   _desiredTopPosition: (el) ->
-    Position.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
+    GetPositionMixin.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
 
   _onBeforeScroll: (el) ->
     el.classList.add('target-scroll')

@@ -112,7 +112,7 @@ describe 'Practice Widget, through route', ->
   it 'should load expected practice at the practice url', ->
     tests = ({div}) ->
       expect(div.querySelector('.task-practice')).to.not.be.null
-      expect(div.querySelector('.task-practice .stimulus').innerText).to.equal(VALID_MODEL.steps[0].content.stimulus_html)
+      expect(div.querySelector('.task-practice .exercise-stimulus').innerText).to.equal(VALID_MODEL.steps[0].content.stimulus_html)
 
     tests(@result)
 

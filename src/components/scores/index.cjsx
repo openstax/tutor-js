@@ -2,19 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-Time   = require '../time'
-ReadingCell  = require './reading-cell'
-HomeworkCell = require './homework-cell'
-NameCell     = require './name-cell'
-AbsentCell   = require './absent-cell'
-ExternalCell = require './external-cell'
-SortingHeader = require './sorting-header'
-FixedDataTable = require 'fixed-data-table'
-ConceptCoachCell = require './concept-coach-cell'
-
-Table = FixedDataTable.Table
-Column = FixedDataTable.Column
-ColumnGroup = FixedDataTable.ColumnGroup
+HSTable = require './table-hs'
+CCTable = require './table-cc'
 
 Router = require 'react-router'
 
@@ -23,15 +12,8 @@ Router = require 'react-router'
 {ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'
 LoadableItem = require '../loadable-item'
 ScoresExport = require './export'
-{QuickStatsShell} = require './quick-external-stats'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
-ResizeListenerMixin = require '../resize-listener-mixin'
-
-# concept coach does not show due_at row or links on student names
-
-# Index of first column that contains data
-FIRST_DATA_COLUMN = 1
-INITIAL_SORT = { key: 'name', asc: true }
+{ResizeListenerMixin} = require 'openstax-react-components'
 
 Scores = React.createClass
   displayName: 'Scores'
@@ -48,7 +30,6 @@ Scores = React.createClass
   getInitialState: ->
     period_id: null
     periodIndex: 1
-    sortOrder: 'is-ascending'
     sortIndex: 0
     tableWidth: 0
     tableHeight: 0
@@ -56,7 +37,9 @@ Scores = React.createClass
     colSetWidth: 180
     colResizeWidth: 180
     colResizeKey: 0
-    sort: INITIAL_SORT
+    sort: { key: 'name', asc: true }
+    # index of first column that contains data
+    firstDataColumn: 1
 
   componentDidMount: ->
     @sizeTable()
@@ -80,137 +63,37 @@ Scores = React.createClass
     windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
     bottomMargin = 40
-    Math.max(500, windowEl.height - table.offsetTop - bottomMargin)
+    windowEl.height - table.offsetTop - bottomMargin
 
-  renderHeadingCell: (heading, i) ->
-    i += FIRST_DATA_COLUMN # for the first/last name colums
-    if heading.type is 'external'
-      summary = <QuickStatsShell
-        className='summary'
-        id={"#{heading.plan_id}"}
-        periodId={@state.period_id}/>
-
-    else if heading.plan_id?
-      linkParams =
-        id: heading.plan_id
-        periodIndex: @state.periodIndex
-        courseId: @props.courseId
-
-      review =
-        <Router.Link
-          to='reviewTaskPeriod'
-          params={linkParams}
-          className='review-plan btn btn-default'>
-          Review
-        </Router.Link>
-
-    if heading.average
-      summary = <span className='summary'>
-        {(heading.average * 100).toFixed(0)}% avg
-      </span>
-
-    sortingHeader = <SortingHeader type={heading.type} sortKey={i}
-      sortState={@state.sort} onSort={@changeSortingOrder} isConceptCoach={@props.isConceptCoach}
-    >{heading.title}</SortingHeader>
-
-    dueDates = <div><Time date={heading.due_at} format='shortest'/></div>
-    customHeader = <div
-      data-assignment-type="#{heading.type}"
-      className='assignment-header-cell'>
-      {dueDates unless @props.isConceptCoach}
-      <div>
-        {summary}
-        {review}
-      </div>
-    </div>
-
-    <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
-
-      <Column
-        label={heading.title}
-        headerRenderer={-> customHeader}
-        cellRenderer={-> @cellData}
-        width={@state.colSetWidth}
-        flexGrow={1}
-        allowCellsRecycling={true}
-        isResizable=false
-        dataKey={i} />
-    </ColumnGroup>
-
-  renderAverageCell: (heading) ->
-    if heading.class_average
-      classAverage = Math.round(heading.class_average)
-    classAverage
-
-  renderStudentRow: (student_data) ->
-    props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
-    columns = [
-      <NameCell isConceptCoach={@props.isConceptCoach} key='name' {...props} />
-    ]
-
-    for task in student_data.data
-      props.task = task
-      columns.push switch task?.type or 'null'
-        when 'null'     then <AbsentCell   key='absent'   {...props} />
-        when 'reading'  then <ReadingCell  key='reading'  {...props} />
-        when 'homework' then <HomeworkCell key='homework' {...props} />
-        when 'external' then <ExternalCell key='extern'   {...props} />
-        when 'concept_coach' then <ConceptCoachCell  key='cc'  {...props} />
-    columns
-
-  renderNameHeader: ->
-    emptyCell = <div className='blank' />
-    studentIdHeader = <span className='student-id'>Student ID</span>
-    header =
-      <SortingHeader sortKey='name' sortState={@state.sort} onSort={@changeSortingOrder}>
-        <span>Student Name</span>{studentIdHeader if @props.isConceptCoach}
-      </SortingHeader>
-    dueDateHeading = <div>Due Date</div>
-    customHeader = <div className='assignment-header-cell'>
-      {dueDateHeading unless @props.isConceptCoach}
-      {header}
-    </div>
-    # student name column width
-    if @props.isConceptCoach then nameColumns = 2 else nameColumns = 1
-    <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
-      <Column
-        width={@state.colSetWidth * nameColumns}
-        flexGrow={0}
-        allowCellsRecycling={true}
-        isResizable=false
-        dataKey='0'
-        fixed={true}
-        cellRenderer={-> @cellData}
-        headerRenderer={-> customHeader} />
-    </ColumnGroup>
 
   changeSortingOrder: (key) ->
     asc = if @state.sort.key is key then not @state.sort.asc else false
-    @setState(sort: { key, asc})
+    @setState(sort: {key, asc})
 
   isSortingByData: ->
     _.isNumber(@state.sort.key)
 
   selectPeriod: (period) ->
     newState = {period_id: period.id}
-    newState.sort = INITIAL_SORT if @isSortingByData()
+    newState.sort = @state.sort if @isSortingByData()
     @setState(newState)
 
   setPeriodIndex: (key) ->
     @setState({periodIndex: key + 1})
 
+
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
-    {sort, period_id} = @state
+    {sort, period_id, firstDataColumn} = @state
     data = ScoresStore.get(@props.courseId)
     scores = if period_id
       _.findWhere(data, {period_id})
     else
-      data[0] or throw new Error('BUG: No periods')
+      data[0]
 
     sortData = _.sortBy(scores.students, (d) ->
       if _.isNumber(sort.key)
-        index = sort.key - FIRST_DATA_COLUMN
+        index = sort.key - firstDataColumn
         record = d.data[index]
         return 0 unless record
         switch record.type
@@ -221,18 +104,6 @@ Scores = React.createClass
     )
     { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
 
-  onColumnResizeEndCallback: (colWidth, columnKey) ->
-    @setState({colResizeWidth: colWidth, colResizeKey: columnKey})
-
-  headerType: ->
-    # height changes when dueDates row not in concept coach
-    if @props.isConceptCoach then 47 else 92
-
-  reviewInfoText: ->
-    return null unless @props.isConceptCoach
-    <span className='course-scores-note tab'>
-      Click on a student's score to review their work.
-    </span>
 
   render: ->
     {courseId, isConceptCoach} = @props
@@ -240,8 +111,47 @@ Scores = React.createClass
 
     data = @getStudentRowData()
 
-    rowGetter = (rowIndex) =>
-      @renderStudentRow(data.rows[rowIndex])
+    scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
+
+    if isConceptCoach
+      scoresTable =
+        <CCTable
+        courseId={@props.courseId} 
+        data={data}
+        width={tableWidth}
+        height={tableHeight}
+        sort={@state.sort}
+        onSort={@changeSortingOrder}
+        colSetWidth={@state.colSetWidth}
+        period_id={@state.period_id}
+        periodIndex={@state.periodIndex}
+        firstDataColumn={@state.firstDataColumn}
+          />
+      afterTabsItem = ->
+        <span className='course-scores-note tab'>
+          Click on a student's score to review their work.
+        </span>
+      tableMarginNote =
+        <div className='course-scores-note right'>
+          Date indicates most recently submitted response.
+        </div>
+    else
+      scoresTable =
+        <HSTable
+        courseId={@props.courseId}
+        data={data}
+        width={tableWidth}
+        height={tableHeight}
+        sort={@state.sort}
+        onSort={@changeSortingOrder}
+        colSetWidth={@state.colSetWidth}
+        period_id={@state.period_id}
+        periodIndex={@state.periodIndex}
+        firstDataColumn={@state.firstDataColumn}
+          />
+      afterTabsItem = -> null
+      tableMarginNote = null
+
 
     periodNav =
       <CoursePeriodsNavShell
@@ -249,43 +159,23 @@ Scores = React.createClass
         handleKeyUpdate={@setPeriodIndex}
         intialActive={period_id}
         courseId={courseId}
-        afterTabsItem={@reviewInfoText} />
-
-    scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
-
-    scoresTable =
-      <Table
-          onColumnResizeEndCallback={@onColumnResizeEndCallback}
-          rowHeight={46}
-          rowGetter={rowGetter}
-          rowsCount={data.rows.length}
-          width={tableWidth}
-          height={tableHeight}
-          headerHeight={@headerType()}
-          groupHeaderHeight={50}>
-
-          {@renderNameHeader()}
-         {_.map(data.headings, @renderHeadingCell)}
-       </Table>
+        afterTabsItem={afterTabsItem} />
 
     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
 
-    scoresNote =
-      <div className='course-scores-note right'>
-        Date indicates most recently submitted response.
-      </div>
 
     if data.rows.length > 0 then students = true
 
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
-        {if isConceptCoach then scoresNote}
+        {tableMarginNote}
         {periodNav}
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}
         </div>
     </div>
+
 
 
 ScoresShell = React.createClass
@@ -295,7 +185,8 @@ ScoresShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)
-    <BS.Panel className='scores-report'>
+    tableClass = if course.is_concept_coach then 'cc' else 'hs'
+    <BS.Panel className="scores-report #{tableClass}">
       <LoadableItem
         id={courseId}
         store={ScoresStore}

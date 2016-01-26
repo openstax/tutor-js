@@ -8,7 +8,7 @@ S = require '../../helpers/string'
 
 PerformanceForecast = require '../../flux/performance-forecast'
 ChapterSection = require '../task-plan/chapter-section'
-ChapterSectionMixin = require '../chapter-section-mixin'
+{ChapterSectionMixin} = require 'openstax-react-components'
 PerformanceForecastSection = require '../performance-forecast/section'
 PerformanceForecastColorKey = require '../performance-forecast/color-key'
 PracticeButton = require '../performance-forecast/practice-button'

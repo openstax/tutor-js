@@ -35,7 +35,7 @@ actions =
   triggerDetails: commonActions.hoverMatch('.task-details .task-details-instructions')
 
   _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = div.querySelectorAll('.task-breadcrumbs-step')
+    breadcrumbs = div.querySelectorAll('.openstax-breadcrumbs-step')
     breadcrumbs = Array.prototype.slice.call(breadcrumbs)
 
     commonActions.click(breadcrumbs[breadcrumbButtonIndex])

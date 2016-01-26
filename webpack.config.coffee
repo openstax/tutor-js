@@ -35,7 +35,8 @@ module.exports =
     ]
     loaders: [
       lessLoader
-      { test: /\.json$/,   loader: "json-loader" }
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { presets: ['stage-3']}}
+      { test: /\.json$/,   loader: 'json-loader' }
       { test: /\.coffee$/, loaders: LOADERS.concat("coffee-loader") }
       { test: /\.cjsx$/,   loaders: LOADERS.concat("coffee-jsx-loader") }
       { test: /\.(png|jpg|svg)/, loader: 'file-loader?name=[name].[ext]'}

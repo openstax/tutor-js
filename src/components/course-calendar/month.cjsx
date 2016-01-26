@@ -27,9 +27,13 @@ CourseMonth = React.createClass
 
   propTypes:
     plansList: React.PropTypes.array
-    date: (props, propName, componentName) ->
-      unless moment.isMoment(props[propName])
-        new Error("#{propName} should be a moment for #{componentName}")
+    date: TimeHelper.PropTypes.moment
+
+  childContextTypes:
+    date: TimeHelper.PropTypes.moment
+
+  getChildContext: ->
+    date: @props.date
 
   getInitialState: ->
     # check isCourseTimezone should we need to show a notice

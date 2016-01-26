@@ -7,7 +7,7 @@ Router = require 'react-router'
 BrowseTheBook = require '../buttons/browse-the-book'
 LateIcon = require '../late-icon'
 
-ChapterSectionMixin = require '../chapter-section-mixin'
+{ChapterSectionMixin} = require 'openstax-react-components'
 
 {TaskStore} = require '../../flux/task'
 {ViewingAsStudentName} = require '../task/viewing-as-student-name'

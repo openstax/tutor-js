@@ -2,9 +2,8 @@ React = require 'react'
 
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
-Question = require '../question'
 LoadableItem = require '../loadable-item'
-ArbitraryHtml = require '../html'
+{ArbitraryHtmlAndMath, Question} = require 'openstax-react-components'
 
 ReferenceBookMissingExercise = React.createClass
   displayName: 'ReferenceBookMissingExercise'
@@ -22,7 +21,7 @@ ReferenceBookExercise = React.createClass
     {exerciseAPIUrl} = @props
     {items} = ReferenceBookExerciseStore.get(exerciseAPIUrl)
 
-    unless items?.length
+    unless items?.length and items?[0]?.questions?[0]?
       # warning about missing exercise --
       # is there a need to show the reader anything?
       console.warn("WARNING: #{exerciseAPIUrl} appears to be missing.")
@@ -43,7 +42,7 @@ ReferenceBookExerciseShell = React.createClass
     ReferenceBookExerciseActions.load(exerciseAPIUrl) unless @isLoading()
   renderExercise: ->
     exerciseHtml = React.renderToStaticMarkup(<ReferenceBookExercise {...@props} />)
-    <ArbitraryHtml html={exerciseHtml}/>
+    <ArbitraryHtmlAndMath html={exerciseHtml}/>
   render: ->
     {exerciseAPIUrl} = @props
 

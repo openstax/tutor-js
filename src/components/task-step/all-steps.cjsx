@@ -3,7 +3,6 @@ _ = require 'underscore'
 
 {TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
-ArbitraryHtmlAndMath = require '../html'
 {StepContent, ReadingStepContent} = require './step-with-reading-content'
 Exercise = require './exercise'
 Markdown = require '../markdown'
