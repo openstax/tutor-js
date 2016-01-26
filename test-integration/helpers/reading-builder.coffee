@@ -1,5 +1,6 @@
 selenium = require 'selenium-webdriver'
 Calendar = require './calendar'
+SelectReadings = require './select-readings-dialog'
 
 # Helper methods for dealing with the Reading Assignment Builder
 
@@ -45,28 +46,7 @@ edit = (test, {name, description, opensAt, dueAt, sections, action, verifyAddRea
   if sections
     # Open the chapter list by clicking the button and waiting for the list to load
     test.driver.findElement(css: '#reading-select').click()
-    test.waitAnd(css: '.select-reading-dialog:not(.hide)')
-    # Make sure nav bar does not cover buttons
-    test.scrollTop()
-
-    # Expand the chapter and then select the section
-    for section in sections
-      do (section) =>
-        section = "#{section}" # Ensure the section is a string so we can split it
-
-        # Selecting an entire chapter requires clicking the input box
-        # So handle chapters differently
-        isChapter = not /\./.test(section)
-        if isChapter
-          test.waitClick(css: ".dialog:not(.hide) [data-chapter-section='#{section}'] .chapter-checkbox input")
-        else
-          # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
-          test.driver.findElement(css: ".dialog:not(.hide) [data-chapter-section='#{section}']").isDisplayed().then (isDisplayed) =>
-            # Expand the chapter accordion if necessary
-            unless isDisplayed
-              test.waitClick(css: ".dialog:not(.hide) [data-chapter-section='#{section.split('.')[0]}']")
-
-            test.waitClick(css: ".dialog:not(.hide) [data-chapter-section='#{section}']")
+    SelectReadings(test, sections)
 
     if verifyAddReadingsDisabled
       # Verify "Add Readings" is disabled and click Cancel
@@ -89,9 +69,6 @@ edit = (test, {name, description, opensAt, dueAt, sections, action, verifyAddRea
     when 'CANCEL'
       # BUG: "X" close button behaves differently than the footer close button
       test.waitClick(css: '.footer-buttons [aria-role="close"]')
-      # BUG: Should not prompt when canceling
-      # Confirm the "Unsaved Changes" dialog
-      test.waitClick(css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn')
       test.sleep(1000) # Wait for dialog to close
       Calendar.verify(test)
 
