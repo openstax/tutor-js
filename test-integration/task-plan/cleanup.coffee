@@ -5,12 +5,13 @@ TEACHER_USERNAME = 'teacher01'
 
 describe 'Assignment Cleanup', ->
 
-  @it 'Deletes all drafts (not really a test but nice cleanup)', ->
+  beforeEach ->
     @login(TEACHER_USERNAME)
     @addTimeout(2)
     new CourseSelect(@).goTo('ANY')
     Calendar.verify(@)
 
+  @it 'Deletes all drafts (not really a test but nice cleanup)', ->
     # Since we are deleting we need a special forEach that will not complain when the length changes
     forEach = (css, fn, fn2) =>
       # Need to query multiple times because we might have moved screens so els are stale
