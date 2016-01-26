@@ -39,7 +39,8 @@ module.exports = React.createClass
 
   renderNameHeader: ->
     emptyCell = <div className='blank' />
-    header =
+    averageLabel = <div>Class Average</div>
+    studentHeader =
       <SortingHeader
       sortKey='name'
       sortState={@props.sort}
@@ -47,9 +48,15 @@ module.exports = React.createClass
         <span>Student Name</span>
         <span className='student-id'>Student ID</span>
       </SortingHeader>
+
     customHeader =
       <div className='assignment-header-cell'>
-        {header}
+        <div className='average-label'>
+          {averageLabel}
+        </div>
+        <div className='student-header'>
+          {studentHeader}
+        </div>   
       </div>
     # student name column count
     nameColumns = 2
@@ -70,10 +77,16 @@ module.exports = React.createClass
     i += @props.firstDataColumn # for the first/last name columns
 
     if heading.average
-      summary =
-        <span className='summary'>
-          {(heading.average * 100).toFixed(0)}% avg
+      average =
+        <span className='average'>
+          {(heading.average * 100).toFixed(0)}%
         </span>
+
+    label = 
+      <div className='cc-cell'>
+        <div className='blank' />
+        <div className='completed'>Completed</div>
+      </div>
 
     sortingHeader =
       <SortingHeader
@@ -88,8 +101,11 @@ module.exports = React.createClass
     customHeader = <div
       data-assignment-type="#{heading.type}"
       className='assignment-header-cell'>
-      <div>
-        {summary}
+      <div className='average-cell'>
+        {average}
+      </div>
+      <div className='label-cell'>
+        {label}
       </div>
     </div>
 
@@ -130,7 +146,7 @@ module.exports = React.createClass
       rowsCount={@props.data.rows.length}
       width={@props.width}
       height={@props.height}
-      headerHeight={47}
+      headerHeight={94}
       groupHeaderHeight={50}>
 
       {@renderNameHeader()}

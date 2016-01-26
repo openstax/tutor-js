@@ -130,6 +130,8 @@ Scores = React.createClass
       afterTabsItem = ->
         <span className='course-scores-note tab'>
           Click on a student's score to review their work.
+          &nbsp 
+          Click the icon to see their progress completing the assignment.
         </span>
       tableMarginNote =
         <div className='course-scores-note right'>

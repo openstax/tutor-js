@@ -4,7 +4,6 @@
   .header-cell {
     .no-select();
     cursor: pointer;
-    background: @tutor-white;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -76,11 +75,23 @@
     &[data-assignment-type] {
       font-weight: 400;
     }
-
-    .summary {
+    .average-label {
+      .align-center();
+    }
+    .average {
+      font-weight: 600;
+      .align-center();
+    }
+    .label-cell {
+      padding: 0px;
       font-weight: 600;
     }
+  }
 
+  .align-center() {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
   }
 
   // concept coach cells that are split
@@ -99,6 +110,7 @@
         border-right: 1px solid @nav-tabs-border-color;
       }
     }
+
   }
   .name-cell {
     .name {
