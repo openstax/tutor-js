@@ -112,6 +112,15 @@
     }
 
   }
+  .cc-cell {
+    .worked {
+      height: @table-row-height;
+      padding-top: 6px;
+      svg {
+        overflow: visible;
+      }
+    }
+  }
   .name-cell {
     .name {
       text-align: left;
@@ -121,6 +130,13 @@
 
   .name-cell .student-id {
     font-size: 1.15rem;
+  }
+
+  .pie-progress {
+    .slice {
+      fill: lighten(@tutor-neutral,30%);
+      stroke: lighten(@tutor-neutral,30%);
+    }
   }
 
 }
