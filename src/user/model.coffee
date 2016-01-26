@@ -91,6 +91,7 @@ User =
         User.channel.emit('change')
 
   destroy: ->
+    User.channel.removeAllListeners()
     _.invoke @courses, 'destroy'
     @courses = []
 

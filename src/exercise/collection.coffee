@@ -5,8 +5,6 @@ steps = {}
 _ = require 'underscore'
 
 user = require '../user/model'
-user.channel.on 'logout.received', ->
-  steps = {}
 
 channel = new EventEmitter2 wildcard: true
 
@@ -57,6 +55,9 @@ get = (stepId) ->
   steps[stepId]
 
 init = ->
+  user.channel.on 'logout.received', ->
+    steps = {}
+
   api.channel.on("exercise.*.receive.*", update)
 
 module.exports = {fetch, getCurrentPanel, get, init, channel, quickLoad}
