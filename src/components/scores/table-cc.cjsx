@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 Time   = require '../time'
+Icon = require '../icon'
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
 CCNameCell     = require './name-cell-cc'
@@ -39,7 +40,15 @@ module.exports = React.createClass
 
   renderNameHeader: ->
     emptyCell = <div className='blank' />
-    averageLabel = <div>Class Average</div>
+    averageTooltip =
+      'Class average is calculated from performance on all attempted questions to date.'
+    averageLabel = 
+      <div>
+        Class Average &nbsp
+        <Icon type='info-circle'
+              tooltipProps={placement: 'top'}
+              tooltip={averageTooltip} />
+      </div>
     studentHeader =
       <SortingHeader
       sortKey='name'
