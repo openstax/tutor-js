@@ -9,8 +9,9 @@
     "coverage": "gulp coverage",
     "deployment": "gulp prod",
     "build": "gulp build",
+    "test-integration:only": "mocha -R spec ./test-integration/index; false",
     "pretest-integration": "npm run build",
-    "test-integration": "parallelshell --verbose \"http-server -p 8000 .\" \"mocha -R spec ./test-integration/\"",
+    "test-integration": "parallelshell --verbose \"http-server -p 8000 .\" \"npm run test-integration:only\"",
     "lint-cjsx": "./lint-cjsx-files.sh",
     "start": "gulp dev"
   },
