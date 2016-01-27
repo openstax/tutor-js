@@ -2,7 +2,7 @@ selenium = require 'selenium-webdriver'
 fs = require 'fs'
 
 # Helper for saving screenshots
-module.exports = (driver, filename) ->
+module.exports = (test, filename) ->
   fn = (data) ->
     base64Data = data.replace(/^data:image\/png;base64,/, "")
 
@@ -14,4 +14,4 @@ module.exports = (driver, filename) ->
         else
           resolve(true)
 
-  driver.takeScreenshot().then(fn)
+  test.driver.takeScreenshot().then(fn)
