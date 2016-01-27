@@ -41,6 +41,7 @@ loadApp = ->
     moduleUUID: settings.MODULE_UUID
     cnxUrl: settings.CNX_URL
     processHtmlAndMath: typesetMath # from demo
+    nextPage: '2.2 Sample module 3'
 
   initialModel = _.clone(demoSettings)
   initialModel.mounter = mainDiv

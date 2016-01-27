@@ -5,6 +5,8 @@ tasks = require './collection'
 navigation = require '../navigation/model'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
+{BookLink} = require '../buttons'
+
 componentModel = require '../concept-coach/model'
 
 TaskTitle = React.createClass
@@ -44,10 +46,8 @@ TaskTitle = React.createClass
     if moduleInfo.title
       linkProps.target = '_blank'
       linkProps.onClick = @broadcastNav
-      title = <span> Go to
-        <span {...sectionProps}>
-          {moduleInfo.title}
-        </span>
+      title = <span {...sectionProps}>
+        {moduleInfo.title}
       </span>
     else
       noTitle = <span>Back to Book</span>
@@ -59,11 +59,10 @@ TaskTitle = React.createClass
       'back-to-book': noTitle?
 
     <p className={titleClasses}>
-      <a {...linkProps}>
-        <i className='fa fa-book'></i>
+      <BookLink {...linkProps}>
         {title}
         {noTitle}
-      </a>
+      </BookLink>
     </p>
 
 module.exports = {TaskTitle}

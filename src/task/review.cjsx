@@ -3,7 +3,7 @@ _ = require 'underscore'
 tasks = require './collection'
 
 {ExerciseStep} = require '../exercise'
-{ExerciseButton, ContinueToBookButton} = require '../buttons'
+{ExerciseButton, ContinueToBookLink} = require '../buttons'
 
 TaskReview = React.createClass
   displayName: 'TaskReview'
@@ -48,11 +48,14 @@ TaskReview = React.createClass
           allowKeyNext={false}/>
 
     if _.isEmpty(incompleteSteps)
-      continueToBookButton = <ContinueToBookButton bsStyle='primary' className='review-continue-to-book'/>
+      completedMessage = <div className='review-continue-to-book'>
+        <h2>You're done.</h2>
+        <ContinueToBookLink/>
+      </div>
 
     <div className='concept-coach-task-review'>
+      {completedMessage}
       {completeStepsReview}
-      {continueToBookButton}
     </div>
 
 module.exports = {TaskReview}

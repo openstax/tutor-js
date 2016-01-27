@@ -10,7 +10,7 @@
   padding-bottom: @concept-coach-base-x-padding;
 
   .review-continue-to-book {
-    margin-left: @concept-coach-base-y-padding;
+    padding: @concept-coach-base-x-padding @concept-coach-base-y-padding;
   }
 
   .exercise-card {
@@ -43,9 +43,13 @@
         &[data-section] {
           &::before {
             padding-right: 0.5rem;
-            padding-left: 0.5rem;
           }
         }
+        margin-right: 0.5rem;
+      }
+
+      &::after {
+        content: '| Return to reading';
       }
     }
     

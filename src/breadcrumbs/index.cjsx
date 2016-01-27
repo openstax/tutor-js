@@ -73,7 +73,7 @@ Breadcrumbs = React.createClass
 
   render: ->
     {task, moduleInfo} = @state
-    {currentStep, canReview, shouldContinue} = @props
+    {currentStep, canReview} = @props
     return null if _.isEmpty(task.steps)
 
     crumbs = _.map task.steps, (crumbStep, index) ->
@@ -82,10 +82,8 @@ Breadcrumbs = React.createClass
       type: 'step'
 
     reviewEnd = @makeCrumbEnd('summary', canReview)
-    bookEnd = @makeCrumbEnd('continue', shouldContinue)
 
     crumbs.push(reviewEnd)
-    crumbs.push(bookEnd)
 
     breadcrumbs = _.map crumbs, (crumb, index) =>
       {disabled} = crumb

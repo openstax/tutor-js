@@ -1,34 +1,63 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+EventEmitter2 = require 'eventemitter2'
+classnames = require 'classnames'
 
-{channel} = require '../navigation/model'
+BookLink = React.createClass
+  displayName: 'BookLink'
+  propTypes:
+    children: React.PropTypes.node
+  render: ->
+    {children, className} = @props
+    linkProps = _.omit(@props, 'children', 'className')
+    classes = classnames 'concept-coach-book-link', className
+
+    <a {...linkProps} role='button' className={classes}>
+      <i className='fa fa-book'></i>
+      {children}
+    </a>
 
 ExerciseButton = React.createClass
   displayName: 'ExerciseButton'
   propTypes:
-    childern: React.PropTypes.node
+    children: React.PropTypes.node
+  contextTypes:
+    navigator: React.PropTypes.instanceOf(EventEmitter2)
   getDefaultProps: ->
     children: 'Exercise'
   showExercise: ->
-    channel.emit('show.task', {view: 'task'})
+    @context.navigator.emit('show.task', {view: 'task'})
     @props.onClick?()
   render: ->
     <BS.Button onClick={@showExercise}>{@props.children}</BS.Button>
 
-ContinueToBookButton = React.createClass
-  displayName: 'ContinueToBookButton'
+ContinueToBookLink = React.createClass
+  displayName: 'ContinueToBookLink'
   propTypes:
-    childern: React.PropTypes.node
+    children: React.PropTypes.node
   contextTypes:
     close: React.PropTypes.func
-  getDefaultProps: ->
-    children: 'Continue to Book'
-  continueToBook: ->
-    @context.close()
+    navigator: React.PropTypes.instanceOf(EventEmitter2)
+    collectionUUID: React.PropTypes.string
+    nextPage: React.PropTypes.string
+
+  continueToBook: (clickEvent) ->
+    clickEvent.preventDefault()
+    {close, collectionUUID, navigator} = @context
+
+    close()
+    navigator.emit('close.for.continue', {collectionUUID})
+    true
+
   render: ->
     props = _.omit(@props, 'children')
+    {nextPage} = @context
+    nextPage ?= 'Book'
 
-    <BS.Button {...props} onClick={@continueToBook}>{@props.children}</BS.Button>
+    continueLabel = @props.children unless _.isEmpty @props.children
+    continueLabel ?= "Continue to #{nextPage}"
 
-module.exports = {ExerciseButton, ContinueToBookButton}
+    <BookLink {...props} onClick={@continueToBook}>{continueLabel}</BookLink>
+
+module.exports = {ExerciseButton, ContinueToBookLink, BookLink}

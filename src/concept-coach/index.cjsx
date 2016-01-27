@@ -14,7 +14,7 @@ task = require '../task/collection'
 {Coach} = require './coach'
 coachWrapped = helpers.wrapComponent(Coach)
 
-PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'processHtmlAndMath']
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'nextPage', 'processHtmlAndMath']
 WRAPPER_CLASSNAME = 'concept-coach-wrapper'
 
 listenAndBroadcast = (componentAPI) ->
@@ -48,6 +48,9 @@ listenAndBroadcast = (componentAPI) ->
 
   navigation.channel.on 'close.for.book', (eventData) ->
     componentAPI.emit('book.update', eventData)
+
+  navigation.channel.on 'close.for.continue', (eventData) ->
+    componentAPI.emit('book.continue', eventData)
 
   exercise.channel.on 'component.*', (eventData) ->
     componentAPI.emit("exercise.component.#{eventData.status}", eventData)
