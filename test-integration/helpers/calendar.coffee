@@ -131,5 +131,4 @@ Popup =
     # Verify the review page loaded
     wait(test).for(css: '.task-teacher-review .task-breadcrumbs')
 
-
 module.exports = {verify, createNew, goOpen, goPerformanceForecast, Popup}
