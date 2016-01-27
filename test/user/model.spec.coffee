@@ -8,7 +8,7 @@ describe 'User', ->
   it 'defaults to not logged in', ->
     expect(User.isLoggedIn()).to.be.false
 
-  it 'resets courses when destroy is called, but still emits signals', ->
+  it 'resets courses when destroy is called and can no longer emit signals', ->
     fakeCourse =
       destroy: -> true
     sinon.stub(fakeCourse, 'destroy')
@@ -21,4 +21,4 @@ describe 'User', ->
     expect(logoutSpy).not.to.have.been.called
 
     User._signalLogoutCompleted()
-    expect(logoutSpy).to.have.been.called
+    expect(logoutSpy).to.have.not.been.called

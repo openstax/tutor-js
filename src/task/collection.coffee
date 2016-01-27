@@ -7,8 +7,6 @@ exercises = require '../exercise/collection'
 tasks = {}
 
 user = require '../user/model'
-user.channel.on 'logout.received', ->
-  tasks = {}
 
 channel = new EventEmitter2 wildcard: true
 
@@ -99,6 +97,8 @@ getAsPage = (taskId) ->
   page
 
 init = ->
+  user.channel.on 'logout.received', ->
+    tasks = {}
   api.channel.on("task.*.receive.*", update)
   api.channel.on('task.*.receive.failure', checkFailure)
 
