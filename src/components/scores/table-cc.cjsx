@@ -36,18 +36,21 @@ module.exports = React.createClass
     period_id: React.PropTypes.string
     periodIndex: React.PropTypes.number.isRequired
     firstDataColumn: React.PropTypes.number.isRequired
+    displayAs: React.PropTypes.string.isRequired
+    basedOn: React.PropTypes.string.isRequired
 
 
   renderNameHeader: ->
+    {basedOn} = @props
     emptyCell = <div className='blank' />
-    averageTooltip =
-      'Class average is calculated from performance on all attempted questions to date.'
+    #helpText =
+      #"based on total #{basedOn}"
+    #temp
+    helpText = null
     averageLabel = 
       <div>
         Class Average &nbsp
-        <Icon type='info-circle'
-              tooltipProps={placement: 'top'}
-              tooltip={averageTooltip} />
+        <span className='help'>{helpText}</span>
       </div>
     studentHeader =
       <SortingHeader
@@ -93,8 +96,8 @@ module.exports = React.createClass
 
     label = 
       <div className='cc-cell'>
-        <div className='blank' />
-        <div className='completed'>Completed</div>
+        <div className='-score'>Score</div>
+        <div className='-completed'>Completed</div>
       </div>
 
     sortingHeader =

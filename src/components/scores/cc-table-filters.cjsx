@@ -5,35 +5,49 @@ _ = require 'underscore'
 module.exports = React.createClass
   displayName: 'CCTableFilters'
 
-  #propTypes:
+  propTypes:
+    displayAs: React.PropTypes.string.isRequired
+    basedOn: React.PropTypes.string.isRequired
+    changeDisplayAs: React.PropTypes.func.isRequired
+    changeBasedOn: React.PropTypes.func.isRequired
 
-  #displayAs: ->
+  clickDisplay: (mode) ->
+    @props.changeDisplayAs(mode)
 
-  #basedOn: ->
+  clickScore: (mode) ->
+    @props.changeBasedOn(mode)
 
-  #includeSpacedPractice: ->
+  activeButton: (state, option) ->
+    if state is option
+        style = 'primary'
+      else
+        style = 'default'
+
+  renderButtons: (method, state, options) ->
+    for option, i in options
+      <BS.Button
+      onClick={method.bind(@, option)}
+      bsStyle={@activeButton(state, option)}
+      bsSize="small"
+      key={i}>{option}</BS.Button>
 
 
   render: ->
+    {displayAs, basedOn} = @props
+    # until attempted avg available
+    temporary =
+      <div className='filter-item'>
+        <div className='filter-label'>Score based on</div>
+        <BS.ButtonGroup className='filter-group'>
+          {@renderButtons(@clickScore, basedOn, ['possible', 'attempted'])}
+        </BS.ButtonGroup>
+      </div>
     <div className='filter-row'>
       <div className='filter-item'>
         <div className='filter-label'>Display as</div>
         <BS.ButtonGroup className='filter-group'>
-          <BS.Button bsStyle='primary' bsSize="small">Percentage</BS.Button>
-          <BS.Button bsSize="small">Number Correct</BS.Button>
+          {@renderButtons(@clickDisplay, displayAs, ['percentage', 'number'])}
         </BS.ButtonGroup>
       </div>
-      <div className='filter-item'>
-        <div className='filter-label'>Score based on</div>
-        <BS.ButtonGroup className='filter-group'>
-          <BS.Button bsSize="small">Total Possible</BS.Button>
-          <BS.Button bsSize="small">Attempted</BS.Button>
-        </BS.ButtonGroup>
-      </div>
-      <div className='filter-item'>
-      <BS.ButtonGroup className='filter-group'>
-        <div><BS.Input type="checkbox" checked readOnly /></div>
-        <div className='filter-label'>Include Spaced Practice Questions</div>
-      </BS.ButtonGroup>
-      </div>
+
     </div>

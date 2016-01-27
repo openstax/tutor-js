@@ -156,10 +156,14 @@
         &.btn-primary {
           border: @tutor-tertiary-light;
           background: @tutor-tertiary-light;
+          height: 32px;
         }
       }
     }
     .filter-item {
+      &:first-child {
+        width: 250px;
+      }
       float: left;
       display: flex;
       align-items: center;
@@ -168,12 +172,6 @@
       }
       .filter-button {
 
-      }
-      &:last-child {
-        margin-left: 30px;
-        input {
-          margin: 0px 0px 0px -10px;
-        }
       }
     }
   }

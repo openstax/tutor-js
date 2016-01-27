@@ -41,6 +41,8 @@ Scores = React.createClass
     sort: { key: 'name', asc: true }
     # index of first column that contains data
     firstDataColumn: 1
+    displayAs: 'percentage'
+    basedOn: 'possible'
 
   componentDidMount: ->
     @sizeTable()
@@ -81,6 +83,13 @@ Scores = React.createClass
 
   setPeriodIndex: (key) ->
     @setState({periodIndex: key + 1})
+
+
+  changeDisplayAs: (mode) ->
+    @setState(displayAs: mode)
+
+  changeBasedOn: (mode) ->
+    @setState(basedOn: mode)
 
 
   getStudentRowData: ->
@@ -127,6 +136,8 @@ Scores = React.createClass
         period_id={@state.period_id}
         periodIndex={@state.periodIndex}
         firstDataColumn={@state.firstDataColumn}
+        displayAs={@state.displayAs}
+        basedOn={@state.basedOn}
           />
       afterTabsItem = ->
         <span className='course-scores-note tab'>
@@ -134,7 +145,13 @@ Scores = React.createClass
           &nbsp 
           Click the icon to see their progress completing the assignment.
         </span>
-      tableFilters = <CCTableFilters />
+      tableFilters =
+        <CCTableFilters
+        displayAs={@state.displayAs}
+        basedOn={@state.basedOn}
+        changeDisplayAs={@changeDisplayAs}
+        changeBasedOn={@changeBasedOn}
+        />
     else
       scoresTable =
         <HSTable
