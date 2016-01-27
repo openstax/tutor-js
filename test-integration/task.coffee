@@ -1,4 +1,4 @@
-{describe, CourseSelect, Task} = require './helpers'
+{describe, CourseSelect, Task, User, wait} = require './helpers'
 {expect} = require 'chai'
 _ = require 'underscore'
 selenium = require 'selenium-webdriver'
@@ -11,16 +11,15 @@ STUDENT_USERNAME = 'student01'
 describe 'Student performing tasks', ->
 
   beforeEach ->
+    new User(@, STUDENT_USERNAME).login()
     @task = new TaskHelper(@)
 
   @it 'Can continue and go to expected steps (readonly)', ->
-    @login(STUDENT_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       appearance = courseCategory.toLowerCase()
-      @waitClick(css: "[data-appearance='#{appearance}'] > [href*='list']")
-
-      @waitClick(css: '.workable.task')
+      wait(@).click(css: "[data-appearance='#{appearance}'] > [href*='list']")
+      wait(@).click(css: '.workable.task')
 
       @task.waitUntilLoaded(2000)
       @task.getEnabledContinueButton().click()
@@ -29,17 +28,16 @@ describe 'Student performing tasks', ->
         crumb.click()
 
       # Go back to the course selection
-      @waitClick(css: '.navbar-brand')
+      wait(@).click(css: '.navbar-brand')
 
 
   @it 'Can continue (readonly)', ->
-    @login(STUDENT_USERNAME)
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       appearance = courseCategory.toLowerCase()
-      @waitClick(css: "[data-appearance='#{appearance}'] > [href*='list']")
+      wait(@).click(css: "[data-appearance='#{appearance}'] > [href*='list']")
 
-      @waitClick(css: '.workable.task')
+      wait(@).click(css: '.workable.task')
 
       @task.waitUntilLoaded(2000)
       @task.continue()
@@ -49,4 +47,4 @@ describe 'Student performing tasks', ->
       @task.continue()
 
       # Go back to the course selection
-      @waitClick(css: '.navbar-brand')
+      wait(@).click(css: '.navbar-brand')
