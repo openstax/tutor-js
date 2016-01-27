@@ -1,4 +1,4 @@
-{describe} = require './helpers'
+{describe, wait, User} = require './helpers'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
@@ -10,14 +10,13 @@ SECTIONS_TO_TEST = 10
 describe 'Reference Book Exercises', ->
 
   @it 'Loads Biology reference book (readonly)', ->
-    @login(TEACHER_USERNAME)
-
+    new User(@, TEACHER_USERNAME).login()
 
     checkForMissingExercises = =>
       # Wait until the book has loaded.
       @addTimeout(60)
-      @waitAnd(css: '.page-wrapper .page.has-html')
-      @waitClick(css: '.menu-toggle')
+      wait(@).for(css: '.page-wrapper .page.has-html')
+      wait(@).click(css: '.menu-toggle')
 
       doneLoading = =>
         # Wait until the modal closes after clicking the date
