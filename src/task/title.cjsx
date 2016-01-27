@@ -16,18 +16,6 @@ TaskTitle = React.createClass
   contextTypes:
     close: React.PropTypes.func
 
-  broadcastNav: (clickEvent) ->
-    clickEvent.preventDefault()
-
-    {collectionUUID, moduleUUID, taskId, cnxUrl} = @props
-    {close} = @context
-    {link} = tasks.getModuleInfo(taskId, cnxUrl)
-
-    close()
-    navigation.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
-
-    true
-
   render: ->
     {taskId, cnxUrl} = @props
     {close} = @context
@@ -40,12 +28,12 @@ TaskTitle = React.createClass
       className: 'chapter-section-prefix'
     sectionProps['data-section'] = section if section?
 
-    linkProps =
-      role: 'button'
+    linkProps = _.pick(@props, 'collectionUUID', 'moduleUUID')
+    linkProps.role = 'button'
+    linkProps.link = moduleInfo.link
 
     if moduleInfo.title
       linkProps.target = '_blank'
-      linkProps.onClick = @broadcastNav
       title = <span {...sectionProps}>
         {moduleInfo.title}
       </span>

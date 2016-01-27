@@ -29,7 +29,7 @@ TaskReview = React.createClass
 
   render: ->
     {completeSteps, incompleteSteps} = @state
-    {status, taskId} = @props
+    {status, taskId, moduleUUID} = @props
 
     if _.isEmpty(completeSteps)
       completeStepsReview = <div className='card-body'>
@@ -50,7 +50,7 @@ TaskReview = React.createClass
     if _.isEmpty(incompleteSteps)
       completedMessage = <div className='review-continue-to-book'>
         <h2>You're done.</h2>
-        <ContinueToBookLink/>
+        <ContinueToBookLink moduleUUID={moduleUUID} taskId={taskId}/>
       </div>
 
     <div className='concept-coach-task-review'>
