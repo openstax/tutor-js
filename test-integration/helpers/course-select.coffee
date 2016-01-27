@@ -1,5 +1,6 @@
 selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
+wait = require './wait'
 
 class CourseSelect extends TestHelper
 
@@ -10,8 +11,8 @@ class CourseSelect extends TestHelper
     @waitUntilLoaded()
     # Go to the bio dashboard
     switch category
-      when 'BIOLOGY' then @test.waitClick(css: '[data-appearance="biology"] > [href*="calendar"]')
-      when 'PHYSICS' then @test.waitClick(css: '[data-appearance="physics"] > [href*="calendar"]')
-      else @test.waitClick(css: '[data-appearance] > [href*="calendar"]')
+      when 'BIOLOGY' then wait(@test).click(css: '[data-appearance="biology"] > [href*="calendar"]')
+      when 'PHYSICS' then wait(@test).click(css: '[data-appearance="physics"] > [href*="calendar"]')
+      else wait(@test).click(css: '[data-appearance] > [href*="calendar"]')
 
 module.exports = CourseSelect

@@ -9,7 +9,7 @@ describe('Simple Draft Tests', function() {
     this.addTimeout(30);
 
     const title = freshId();
-    var y = await new User(this.driver).login(TEACHER_USERNAME);
+    var y = await new User(this, TEACHER_USERNAME).login()
     console.log('Done logging in. No need for promises');
 
     // Go to the 1st courses dashboard
