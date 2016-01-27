@@ -63,7 +63,6 @@ describe 'Calendar and Stats', ->
         Calendar.Popup.verify(@)
         Calendar.Popup.goReview(@)
 
-        @sleep(1000)
         # Loop over each tab
         forEach @, css: '.panel .nav.nav-tabs li', (period) ->
           period.click()
@@ -72,7 +71,6 @@ describe 'Calendar and Stats', ->
         # BUG: Back button goes back to course listing instead of calendar
         @driver.navigate().back()
 
-        @sleep(1000)
         Calendar.Popup.verify(@)
         Calendar.Popup.close(@)
         Calendar.verify(@)
@@ -100,7 +98,6 @@ describe 'Calendar and Stats', ->
 
       wait(@).click(linkText: 'Student Scores').then => @addTimeout(60)
       wait(@).for(css: '.scores-report .course-scores-title')
-      @sleep(500)
 
       # Click the "Review" links (each task-plan)
       forEach @, css: '.review-plan', (item, index, total) =>
@@ -128,7 +125,6 @@ describe 'Calendar and Stats', ->
         # # BUG: Click on "Period 1"
         # wait(@).click(css: '.course-scores-wrap li:first-child')
         # wait(@).for(css: '.course-scores-wrap li:first-child [aria-selected="true"]')
-        @sleep(2000)
 
       # Go back to the course selection
       wait(@).click(css: '.navbar-brand')
