@@ -2,6 +2,7 @@ selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 wait = require './wait'
 {TestHelper} = require './test-element'
+windowPosition = require './window-position'
 
 COMMON_ELEMENTS =
   forecastLink:
@@ -75,9 +76,9 @@ class CalendarHelper extends TestHelper
     # TODO: Make this a `data-title` attribute
     # HACK: Might need to scroll the item to click on into view
     el = wait(@test).for(css: "[data-title='#{title}']")
-    @test.scrollTo(el)
+    windowPosition(test).scrollTo(el)
     el.click()
-    @test.scrollTop()
+    windowPosition(test).scrollTop()
 
 
 # Make sure the current screen is the calendar
@@ -106,9 +107,9 @@ goOpen = (test, title) ->
   # TODO: Make this a `data-title` attribute
   # HACK: Might need to scroll the item to click on into view
   el = wait(test).for(css: "[data-title='#{title}']")
-  test.scrollTo(el)
+  windowPosition(test).scrollTo(el)
   el.click()
-  test.scrollTop()
+  windowPosition(test).scrollTop()
 
 goPerformanceForecast = (test) ->
   wait(test).click(linkText: 'Performance Forecast')
