@@ -4,7 +4,7 @@ classnames = require 'classnames'
 tasks = require './collection'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
-{BookLink} = require '../buttons'
+{GoToBookLink} = require '../buttons'
 
 TaskTitle = React.createClass
   displayName: 'TaskTitle'
@@ -14,16 +14,6 @@ TaskTitle = React.createClass
     close: React.PropTypes.func
     moduleUUID: React.PropTypes.string
     collectionUUID: React.PropTypes.string
-    triggeredFrom:  React.PropTypes.shape(
-      moduleUUID:     React.PropTypes.string
-      collectionUUID: React.PropTypes.string
-    )
-
-  isFromOpen: ->
-    {triggeredFrom} = @context
-    viewingInfo = _.pick(@props, 'moduleUUID', 'collectionUUID')
-
-    _.isEqual(triggeredFrom, viewingInfo)
 
   render: ->
     {taskId, cnxUrl} = @props
@@ -47,16 +37,14 @@ TaskTitle = React.createClass
         {moduleInfo.title}
       </h3>
 
-    linkAction = if @isFromOpen() then 'Return' else 'Go'
-
     titleClasses = classnames 'concept-coach-title',
       'has-title': moduleInfo.title?
 
     <div className={titleClasses}>
       {title}
-      <BookLink {...linkProps}>
-        {linkAction} to Reading
-      </BookLink>
+      <span className='concept-coach-title-link'>
+        <GoToBookLink {...linkProps}/>
+      </span>
     </div>
 
 module.exports = {TaskTitle}

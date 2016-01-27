@@ -45,9 +45,23 @@ BookLink = React.createClass
 
     <BookLinkBase {...linkProps}>
       <a role='button' className={classes}>
-        <i className='fa fa-book'></i>
         {children}
       </a>
+    </BookLinkBase>
+
+BookButton = React.createClass
+  displayName: 'BookButton'
+  propTypes:
+    children: React.PropTypes.node
+  render: ->
+    {children, className} = @props
+    linkProps = _.omit(@props, 'children', 'className')
+    classes = classnames 'concept-coach-book-link', className
+
+    <BookLinkBase {...linkProps}>
+      <BS.Button className={classes} {...linkProps}>
+        {children}
+      </BS.Button>
     </BookLinkBase>
 
 ExerciseButton = React.createClass
@@ -64,8 +78,8 @@ ExerciseButton = React.createClass
   render: ->
     <BS.Button onClick={@showExercise}>{@props.children}</BS.Button>
 
-ContinueToBookLink = React.createClass
-  displayName: 'ContinueToBookLink'
+ContinueToBookButton = React.createClass
+  displayName: 'ContinueToBookButton'
   propTypes:
     children: React.PropTypes.node
     moduleUUID: React.PropTypes.string
@@ -75,7 +89,8 @@ ContinueToBookLink = React.createClass
 
   getInitialState: ->
     @getNextPage()
-
+  getDefaultProps: ->
+    bsStyle: 'primary'
   componentWillReceiveProps: (nextProps, nextContext) ->
     nextPage = @getNextPage(nextProps, nextContext)
     @setState(nextPage)
@@ -88,24 +103,62 @@ ContinueToBookLink = React.createClass
     {collectionUUID} = context
 
     fallBack =
-      nextLabel: 'Reading'
+      nextChapter: 'Reading'
       nextModuleUUID: moduleUUID
 
     context.getNextPage?({moduleUUID, collectionUUID}) or fallBack
 
   render: ->
     props = _.omit(@props, 'children')
-    {nextLabel, nextModuleUUID} = @state
+    {nextChapter, nextModuleUUID} = @state
     {collectionUUID} = @context
 
     continueLabel = @props.children unless _.isEmpty @props.children
-    continueLabel ?= "Continue to #{nextLabel}"
+    continueLabel ?= "Continue to #{nextChapter}"
 
-    <BookLink
+    <BookButton
       {...props}
+      className='btn btn-primary'
       moduleUUID={nextModuleUUID}
       collectionUUID={collectionUUID}>
       {continueLabel}
+      <i className='fa fa-caret-right'></i>
+    </BookButton>
+
+
+GoToBookLink = React.createClass
+  displayName: 'GoToBookLink'
+  contextTypes:
+    moduleUUID: React.PropTypes.string
+    collectionUUID: React.PropTypes.string
+    triggeredFrom:  React.PropTypes.shape(
+      moduleUUID:     React.PropTypes.string
+      collectionUUID: React.PropTypes.string
+    )
+
+  isFromOpen: ->
+    {triggeredFrom} = @context
+    viewingInfo = _.pick(@props, 'moduleUUID', 'collectionUUID')
+
+    _.isEqual(triggeredFrom, viewingInfo)
+
+  render: ->
+    linkAction = if @isFromOpen() then 'Return' else 'Go'
+    <BookLink {...@props}>
+      {linkAction} to Reading
     </BookLink>
 
-module.exports = {ExerciseButton, ContinueToBookLink, BookLink, BookLinkBase}
+
+ReturnToBookButton = React.createClass
+  displayName: 'ReturnToBookButton'
+  getDefaultProps: ->
+    section: 'Reading'
+  render: ->
+    {section} = @props
+
+    <BookButton {...@props} className='btn-plain'>
+      <i className='fa fa-caret-left'></i>
+      Return to {section}
+    </BookButton>
+
+module.exports = {ExerciseButton, ContinueToBookButton, ReturnToBookButton, GoToBookLink, BookLink, BookLinkBase}

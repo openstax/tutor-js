@@ -42,7 +42,8 @@ loadApp = ->
     cnxUrl: settings.CNX_URL
     processHtmlAndMath: typesetMath # from demo
     getNextPage: ->
-      nextLabel: '2.2 Sample module 3'
+      nextChapter: '2.2'
+      nextTitle: 'Sample module 3'
       nextModuleUUID: 'the-next-page-uuid'
 
   initialModel = _.clone(demoSettings)

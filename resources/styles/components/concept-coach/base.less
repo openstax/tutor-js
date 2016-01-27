@@ -3,6 +3,19 @@
   width: 100%;
   max-width: 840px;
 
+  a:not(.btn) {
+    color: inherit;
+    border-bottom: 1px solid @openstax-info;
+    padding-bottom: 3px;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      color: @openstax-info;
+    }
+  }
+
   &:not(.concept-coach-view-task) {
     background: @openstax-white;
     padding: @concept-coach-base-x-padding @concept-coach-base-y-padding;
