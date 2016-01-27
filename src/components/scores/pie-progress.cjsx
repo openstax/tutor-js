@@ -25,17 +25,19 @@ PieProgress = React.createClass
     circle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
     path = <path d="#{@buildCircle(@props.value)}" className='slice' />
     blank = null
+    svg =
+      <svg width="#{@props.size}" height="#{@props.size}" className='pie-progress'>
+        {path}
+      </svg> 
+    finished = <i className="fa fa-check-circle"/>
+    notStarted = <i className="fa fa-minus"/>
     
-    <svg width="#{@props.size}" height="#{@props.size}" className='pie-progress'>
-      {
-        if value >= 100
-          circle
-        else if value <= 0
-          blank
-        else
-          path
-      }
-    </svg>
+    if value >= 100
+      finished
+    else if value <= 0
+      notStarted
+    else
+      svg
 
 
 
