@@ -5,6 +5,8 @@ chai = require 'chai'
 chai.use require 'chai-as-promised'
 expect = {chai}
 User = require './user'
+Timeout = require './timeout'
+
 screenshot = require './screenshot'
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 
@@ -58,35 +60,7 @@ describe = (name, cb) ->
 
 
     @__beforeEach ->
-      timeout = @timeout
-      currentTimeout = 0
-      testStartTime = Date.now()
-
-
-      @addTimeout = (sec) =>
-        @addTimeoutMs(sec * 1000)
-
-      @addTimeoutMs = (ms) =>
-        currentTimeout += ms
-        now = Date.now()
-        msFromNow = testStartTime + currentTimeout - now
-        msFromNow = Math.max(msFromNow, 60 * 1000) # Always make the timeout at least 60sec
-        if ms > 60 * 1000 # If we are extending more than the default 60sec the log it
-          console.log "[Timeout extended by #{ms / 1000}sec]"
-        timeout.call(@, msFromNow, true) # The extra arg is isInternal for use in the overridden @timeout
-
-      @sleep = (ms) =>
-        @driver.call =>
-          @addTimeoutMs(ms * 2) # Add some extra ms just in case
-          @driver.sleep(ms)
-
-      @timeout = (ms, isInternal) =>
-        unless isInternal
-          throw new Error('use addTimeout (preferably in the helper you are using) instead of timeout')
-        if ms
-          timeout.call(@, ms, isInternal)
-        else
-          timeout.call(@)
+      Timeout.installCustomImplementation(@)
 
       @addTimeout(10)
       @driver.get(SERVER_URL)
