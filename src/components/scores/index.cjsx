@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 HSTable = require './table-hs'
 CCTable = require './table-cc'
+CCTableFilters = require './cc-table-filters'
 
 Router = require 'react-router'
 
@@ -133,10 +134,7 @@ Scores = React.createClass
           &nbsp 
           Click the icon to see their progress completing the assignment.
         </span>
-      tableMarginNote =
-        <div className='course-scores-note right'>
-          Date indicates most recently submitted response.
-        </div>
+      tableFilters = <CCTableFilters />
     else
       scoresTable =
         <HSTable
@@ -152,7 +150,7 @@ Scores = React.createClass
         firstDataColumn={@state.firstDataColumn}
           />
       afterTabsItem = -> null
-      tableMarginNote = null
+      tableFilters = null
 
 
     periodNav =
@@ -171,7 +169,7 @@ Scores = React.createClass
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
-        {tableMarginNote}
+        {tableFilters}
         {periodNav}
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}

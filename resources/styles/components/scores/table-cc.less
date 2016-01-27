@@ -139,4 +139,43 @@
     }
   }
 
+  .filter-row {
+    width: 100%;
+    height: 70px;
+    display: block;
+    div {
+      float: left;
+    }
+    div + div {
+      margin-left: 10px;
+    }
+    .filter-group {
+      box-shadow: none;
+      button {
+        border-radius: 0px;
+        &.btn-primary {
+          border: @tutor-tertiary-light;
+          background: @tutor-tertiary-light;
+        }
+      }
+    }
+    .filter-item {
+      float: left;
+      display: flex;
+      align-items: center;
+      .filter-label {
+        font-size: 1.4rem;
+      }
+      .filter-button {
+
+      }
+      &:last-child {
+        margin-left: 30px;
+        input {
+          margin: 0px 0px 0px -10px;
+        }
+      }
+    }
+  }
+
 }
