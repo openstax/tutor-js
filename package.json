@@ -12,7 +12,7 @@
     "test-integration:only": "mocha -R spec ./test-integration/index",
     "pretest-integration": "npm run build",
     "test-integration": "./scripts/run-test-integration.sh",
-    "lint-cjsx": "./lint-cjsx-files.sh",
+    "lint-cjsx": "./scripts/lint-cjsx-files.sh",
     "start": "gulp dev"
   },
   "repository": {
