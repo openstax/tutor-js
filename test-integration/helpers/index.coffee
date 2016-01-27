@@ -9,4 +9,5 @@ module.exports =
   User          : require './user'
   wait          : require './wait'
   freshId       : require './fresh-id'
+  forEach       : require './for-each'
   Task          : require './task'
