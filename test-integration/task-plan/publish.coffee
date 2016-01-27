@@ -1,4 +1,4 @@
-{describe, CourseSelect, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, freshId, User, Calendar, ReadingBuilder} = require '../helpers'
 {expect} = require 'chai'
 
 TEACHER_USERNAME = 'teacher01'
@@ -7,9 +7,8 @@ TEACHER_USERNAME = 'teacher01'
 describe 'Assignment Publishing Tests', ->
 
   beforeEach ->
-    @title = @freshId()
-
-    @login(TEACHER_USERNAME)
+    @title = freshId()
+    new User(@, TEACHER_USERNAME).login()
 
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')

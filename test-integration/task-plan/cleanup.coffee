@@ -1,4 +1,4 @@
-{describe, CourseSelect, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, forEach, Calendar, User, ReadingBuilder} = require '../helpers'
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
@@ -6,24 +6,24 @@ TEACHER_USERNAME = 'teacher01'
 describe 'Assignment Cleanup', ->
 
   beforeEach ->
-    @login(TEACHER_USERNAME)
+    new User(@, TEACHER_USERNAME).login()
     @addTimeout(2)
     new CourseSelect(@).goTo('ANY')
     Calendar.verify(@)
 
   @it 'Deletes all drafts (not really a test but nice cleanup)', ->
     # Since we are deleting we need a special forEach that will not complain when the length changes
-    forEach = (css, fn, fn2) =>
-      # Need to query multiple times because we might have moved screens so els are stale
-      @driver.findElements(css: css).then (els1) =>
-        index = 0
-        fn2?(els1) # Allow for things like printing "Deleting 20 drafts"
-        _.each els1, (el) =>
-          @driver.findElement(css: css).then (el) =>
-            index += 1
-            fn.call(@, el, index, els1.length)
+    # forEach = (css, fn, fn2) =>
+    #   # Need to query multiple times because we might have moved screens so els are stale
+    #   @driver.findElements(css: css).then (els1) =>
+    #     index = 0
+    #     fn2?(els1) # Allow for things like printing "Deleting 20 drafts"
+    #     _.each els1, (el) =>
+    #       @driver.findElement(css: css).then (el) =>
+    #         index += 1
+    #         fn.call(@, el, index, els1.length)
 
-    forEach('.plan:not(.is-published)',
+    forEach(@, '.plan:not(.is-published)',
       (plan, index, total) =>
         plan.click()
         new ReadingBuilder(@).edit(action: 'DELETE').then ->
