@@ -1,3 +1,6 @@
+_ = require 'underscore'
+windowPosition = require './window-position'
+
 # Useful for exhaustive testing like "Click all the links in the Student Scores"
 # Takes 2 args plus one optional one
 # - `options`: Either a string indicating the CSS selector or an object with the following:
@@ -5,7 +8,7 @@
 #   - `linkText`: a string linkText locator
 #   - `ignoreLengthChange`: a boolean indicating that it is OK for the list of elements to change
 #     - This is useful for the Student Scores whose table lazily adds student rows when scrolled
-module.exports = (driver, options, fn, fn2) =>
+module.exports = (test, options, fn, fn2) ->
   if typeof options is 'string'
     locator = {css: options}
   else
@@ -18,11 +21,11 @@ module.exports = (driver, options, fn, fn2) =>
       throw new Error("Unknown locator format. So far only linkText and css are recognized. #{options}")
 
   # Need to query multiple times because we might have moved screens so els are stale
-  driver.findElements(locator).then (els1) =>
+  test.driver.findElements(locator).then (els1) ->
     index = 0
     fn2?(els1) # Allow for things like printing "Clicking on 20 drafts"
-    _.each els1, (el) =>
-      driver.findElements(locator).then (els) =>
+    _.each els1, (el) ->
+      test.driver.findElements(locator).then (els) ->
         el = els[index]
         if els.length isnt els1.length and not ignoreLengthChange
           throw new Error("Length changed during foreach! before: #{els1.length} after: #{els.length}")
@@ -32,7 +35,7 @@ module.exports = (driver, options, fn, fn2) =>
         # scroll if the element is not visible
         el.isDisplayed().then (isDisplayed) =>
           unless isDisplayed
-            @scrollTo(el)
+            windowPosition(test).scrollTo(el)
           fn.call(@, el, index, els1.length)
 
 

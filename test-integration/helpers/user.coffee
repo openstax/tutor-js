@@ -10,7 +10,7 @@ class User
     wait(@test).click(linkText: 'Login')
 
     # Decide if this is local or deployed
-    wait(@test).and(css: '#auth_key, #search_query')
+    wait(@test).for(css: '#auth_key, #search_query')
 
     @test.driver.isElementPresent(css: '#search_query').then (isPresent) =>
       if isPresent
@@ -39,7 +39,7 @@ class User
       test.driver.isElementPresent(css: '.-hamburger-menu').then (isPresent) ->
         if isPresent
           wait(test).click(css: '.-hamburger-menu') # Expand the menu
-          wait(test).and(css: '.-hamburger-menu .-logout-form').submit()
+          wait(test).for(css: '.-hamburger-menu .-logout-form').submit()
 
   logout: -> User.logout(@test)
 

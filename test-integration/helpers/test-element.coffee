@@ -2,6 +2,8 @@ selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 S = require '../../src/helpers/string'
+toLocator = require './to-locator'
+wait = require './wait'
 
 class TestItemHelper
   constructor: (test, testElementLocator, name, isSingle = true) ->
@@ -11,9 +13,8 @@ class TestItemHelper
     @_isSingle = isSingle
 
   get: (iter) =>
-    waitGet = if @isSingle then 'waitAnd' else 'waitAndMultiple'
-    result = @test[waitGet](@test.toLocator(@_locator))
-
+    get = wait(@test)
+    result = if @isSingle then get.for(@_locator) else get.forMultiple(@_locator)
     return result unless iter and not @isSingle
 
     result.then (elements) ->
@@ -58,7 +59,7 @@ class TestHelper extends TestItemHelper
 
   setCommonElement: (commonElementInfo, name) =>
     {locator, isSingle} = commonElementInfo
-    @setCommonHelper(new TestItemHelper(@test, locator, name, isSingle))
+    @setCommonHelper(name, new TestItemHelper(@test, locator, name, isSingle))
 
 
 # Using defined properties for access eliminates the possibility
