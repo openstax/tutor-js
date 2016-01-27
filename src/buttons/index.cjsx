@@ -1,15 +1,15 @@
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 EventEmitter2 = require 'eventemitter2'
 classnames = require 'classnames'
 
-BookLink = React.createClass
-  displayName: 'BookLink'
+BookLinkBase = React.createClass
+  displayName: 'BookLinkBase'
   propTypes:
     children: React.PropTypes.node
     collectionUUID: React.PropTypes.string.isRequired
-    moduleUUID: React.PropTypes.string.isRequired
+    moduleUUID: React.PropTypes.string
     link: React.PropTypes.string
 
   contextTypes:
@@ -19,7 +19,7 @@ BookLink = React.createClass
   broadcastNav: (clickEvent) ->
     clickEvent.preventDefault()
 
-    {conClick} = @props
+    {onClick} = @props
     {close, navigator} = @context
 
     close()
@@ -29,14 +29,25 @@ BookLink = React.createClass
     true
 
   render: ->
+    {children} = @props
+
+    React.addons.cloneWithProps(children, onClick: @broadcastNav)
+
+BookLink = React.createClass
+  displayName: 'BookLink'
+  propTypes:
+    children: React.PropTypes.node
+  render: ->
     {children, className} = @props
-    linkProps = _.omit(@props, 'children', 'className', 'onClick')
+    linkProps = _.omit(@props, 'children', 'className')
     classes = classnames 'concept-coach-book-link', className
 
-    <a {...linkProps} role='button' className={classes} onClick={@broadcastNav}>
-      <i className='fa fa-book'></i>
-      {children}
-    </a>
+    <BookLinkBase {...linkProps}>
+      <a role='button' className={classes}>
+        <i className='fa fa-book'></i>
+        {children}
+      </a>
+    </BookLinkBase>
 
 ExerciseButton = React.createClass
   displayName: 'ExerciseButton'
@@ -57,10 +68,7 @@ ContinueToBookLink = React.createClass
   propTypes:
     children: React.PropTypes.node
     moduleUUID: React.PropTypes.string
-    taskId: React.PropTypes.string
   contextTypes:
-    close: React.PropTypes.func
-    navigator: React.PropTypes.instanceOf(EventEmitter2)
     collectionUUID: React.PropTypes.string
     getNextPage: React.PropTypes.func
 
@@ -81,17 +89,17 @@ ContinueToBookLink = React.createClass
 
   render: ->
     props = _.omit(@props, 'children')
-    {label, moduleUUID} = @state
+    {nextLabel, nextModuleUUID} = @state
     {collectionUUID} = @context
 
     continueLabel = @props.children unless _.isEmpty @props.children
-    continueLabel ?= "Continue to #{label}"
+    continueLabel ?= "Continue to #{nextLabel}"
 
     <BookLink
       {...props}
-      moduleUUID={moduleUUID}
+      moduleUUID={nextModuleUUID}
       collectionUUID={collectionUUID}>
       {continueLabel}
     </BookLink>
 
-module.exports = {ExerciseButton, ContinueToBookLink, BookLink}
+module.exports = {ExerciseButton, ContinueToBookLink, BookLink, BookLinkBase}

@@ -2,12 +2,9 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 tasks = require './collection'
-navigation = require '../navigation/model'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
 {BookLink} = require '../buttons'
-
-componentModel = require '../concept-coach/model'
 
 TaskTitle = React.createClass
   displayName: 'TaskTitle'
