@@ -6,4 +6,7 @@ module.exports =
   CourseSelect  : require './course-select'
   describe      : describe
   xdescribe     : xdescribe
+  User          : require './user'
+  wait          : require './wait'
+  freshId       : require './fresh-id'
   Task          : require './task'
