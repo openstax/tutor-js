@@ -52,10 +52,16 @@ TaskReview = React.createClass
         <h2>You're done.</h2>
         <ContinueToBookLink moduleUUID={moduleUUID} taskId={taskId}/>
       </div>
+      completedEnd = <ContinueToBookLink
+        className='review-continue-to-book'
+        moduleUUID={moduleUUID}
+        taskId={taskId}
+      />
 
     <div className='concept-coach-task-review'>
       {completedMessage}
       {completeStepsReview}
+      {completedEnd}
     </div>
 
 module.exports = {TaskReview}
