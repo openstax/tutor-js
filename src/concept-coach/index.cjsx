@@ -131,6 +131,8 @@ class ConceptCoachAPI extends EventEmitter2
       @close()
 
     openProps = _.extend({}, props, open: true)
+    openProps.triggeredFrom = _.pick(props, 'moduleUUID', 'collectionUUID')
+
     @component.setProps(openProps)
 
   openByRoute: (props, route) ->

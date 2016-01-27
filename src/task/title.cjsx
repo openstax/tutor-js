@@ -12,6 +12,18 @@ TaskTitle = React.createClass
 
   contextTypes:
     close: React.PropTypes.func
+    moduleUUID: React.PropTypes.string
+    collectionUUID: React.PropTypes.string
+    triggeredFrom:  React.PropTypes.shape(
+      moduleUUID:     React.PropTypes.string
+      collectionUUID: React.PropTypes.string
+    )
+
+  isFromOpen: ->
+    {triggeredFrom} = @context
+    viewingInfo = _.pick(@props, 'moduleUUID', 'collectionUUID')
+
+    _.isEqual(triggeredFrom, viewingInfo)
 
   render: ->
     {taskId, cnxUrl} = @props
@@ -31,23 +43,20 @@ TaskTitle = React.createClass
 
     if moduleInfo.title
       linkProps.target = '_blank'
-      title = <span {...sectionProps}>
+      title = <h3 {...sectionProps}>
         {moduleInfo.title}
-      </span>
-    else
-      noTitle = <span>Back to Book</span>
-      linkProps =
-        onClick: close
+      </h3>
+
+    linkAction = if @isFromOpen() then 'Return' else 'Go'
 
     titleClasses = classnames 'concept-coach-title',
       'has-title': moduleInfo.title?
-      'back-to-book': noTitle?
 
-    <p className={titleClasses}>
+    <div className={titleClasses}>
+      {title}
       <BookLink {...linkProps}>
-        {title}
-        {noTitle}
+        {linkAction} to Reading
       </BookLink>
-    </p>
+    </div>
 
 module.exports = {TaskTitle}
