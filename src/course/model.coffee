@@ -48,7 +48,7 @@ class Course
       msg = @describeMovePart(@to)
       if @from then "from #{@describeMovePart(@from)} to #{msg}" else msg
     else
-      "#{@name} #{_.first(@periods).name} period"
+      "#{@name} #{_.first(@periods).name}"
 
   describeMovePart: (part) ->
     return '' unless part

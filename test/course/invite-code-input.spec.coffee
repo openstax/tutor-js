@@ -16,7 +16,7 @@ describe 'InviteCodeInput Component', ->
     @props.optionalStudentId = true
     Testing.renderComponent( InviteCodeInput, props: @props ).then ({dom}) ->
       courses = _.pluck(dom.querySelectorAll('.list-group-item'), 'textContent')
-      expect(courses).to.deep.equal(['Biology I 1st period'])
+      expect(courses).to.deep.equal(['Biology I 1st'])
 
   it 'model registers when submit is clicked', ->
     sinon.stub(@props.course, 'register')
