@@ -8,6 +8,7 @@ module.exports =
   xdescribe     : xdescribe
   User          : require './user'
   wait          : require './wait'
+  windowPosition: require './window-position'
   freshId       : require './fresh-id'
   forEach       : require './for-each'
   Task          : require './task'
