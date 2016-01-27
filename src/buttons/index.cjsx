@@ -30,6 +30,7 @@ BookLinkBase = React.createClass
 
   render: ->
     {children} = @props
+    return null unless children?
 
     React.addons.cloneWithProps(children, onClick: @broadcastNav)
 
@@ -85,7 +86,12 @@ ContinueToBookLink = React.createClass
 
     {moduleUUID} = props
     {collectionUUID} = context
-    context.getNextPage?({moduleUUID, collectionUUID}) or 'Reading'
+
+    fallBack =
+      nextLabel: 'Reading'
+      nextModuleUUID: moduleUUID
+
+    context.getNextPage?({moduleUUID, collectionUUID}) or fallBack
 
   render: ->
     props = _.omit(@props, 'children')

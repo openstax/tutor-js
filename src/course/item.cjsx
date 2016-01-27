@@ -18,9 +18,12 @@ CourseItem = React.createClass
     {course} = @props
     {cnxUrl, bookUrlPattern} = @context
     {ecosystem_book_uuid} = course
+    bookUrlPattern ?= ''
+
     link = interpolate bookUrlPattern, {cnxUrl, ecosystem_book_uuid}
     routeData = navigation.getDataByView('task')
-    link = "#{link}#{routeData.route}"
+
+    "#{link}#{routeData.route}"
 
   render: ->
     {course} = @props
