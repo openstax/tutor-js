@@ -68,7 +68,7 @@ describe = (name, cb) ->
       # Going to the root URL while logged in will redirect to dashboard
       # which may redirect to the course page.
       @driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu, body#home'))
-      User.logout(@driver).then ->
+      User.logout(@).then ->
         # Clear the history
         COMMAND_HISTORY.splice(0, COMMAND_HISTORY.length)
 
@@ -83,25 +83,20 @@ describe = (name, cb) ->
         for msg in COMMAND_HISTORY
           console.log msg
         console.log '------------------'
-        screenshot(@driver, "test-failed-#{title}")
-      # else
-      #   screenshot(@driver, "test-#{title}")
-
-      # in case any alerts switched focus
-      # @driver.switchTo().defaultContent().then -> console.log 'sdkjfhsdkfh'
+        screenshot(@, "test-failed-#{title}")
 
       # Fail if there were any errors
       @driver.findElement(css: 'body').getAttribute('data-js-error').then (msg) =>
         if msg
           console.log 'JS Error! ' + msg
-          screenshot(@driver, "test-failed-#{title}")
+          screenshot(@, "test-failed-#{title}")
 
 
       # Print out all the console messages
       # logs = @driver.manage().logs().get('browser').then (lines) ->
       #   console.log line.level.name, line.message for line in lines
 
-      User.logout(@driver)
+      User.logout(@)
 
 
     @after ->

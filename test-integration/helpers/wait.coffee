@@ -1,16 +1,18 @@
+selenium = require 'selenium-webdriver'
 toLocator = require './to-locator'
+windowPosition = require './window-position'
 
 class Wait
-  constructor: (driver) -> @driver = driver
+  constructor: (test) -> @test = test
 
-  andMultiple: (test, locator, ms = 60 * 1000) =>
+  andMultiple: (locator, ms = 60 * 1000) ->
     locator = toLocator(locator)
     start = null
     timeout = 0
-    @driver.call => # Enqueue the timeout to increase only once this starts
+    @test.driver.call => # Enqueue the timeout to increase only once this starts
       start = Date.now()
-      @addTimeoutMs(ms)
-    @driver.wait(selenium.until.elementsLocated(locator))
+      @test.addTimeoutMs(ms)
+    @test.driver.wait(selenium.until.elementsLocated(locator))
     .then (val) =>
       end = Date.now()
       spent = end - start
@@ -18,24 +20,24 @@ class Wait
       # console.log "Took #{spent / 1000}sec of #{ms / 1000}"
       if spent > ms
         throw new Error("BUG: Took longer than expected (#{spent / 1000}). Expected #{ms / 1000} sec")
-      @addTimeoutMs(-diff)
+      @test.addTimeoutMs(-diff)
       val
     # Because of animations an element might be in the DOM but not visible
-    el = @driver.findElements(locator)
+    el = @test.driver.findElements(locator)
 
-    el.then (elements) ->
-      @driver.wait(selenium.until.elementIsVisible(elements[0]))
+    el.then (elements) =>
+      @test.driver.wait(selenium.until.elementIsVisible(elements[0]))
 
     el
 
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
-  and: (locator, ms = 60 * 1000) =>
+  and: (locator, ms = 60 * 1000) ->
     locator = toLocator(locator)
     start = null
-    @driver.call => # Enqueue the timeout to increase only once this starts
+    @test.driver.call => # Enqueue the timeout to increase only once this starts
       start = Date.now()
-      @addTimeoutMs(ms)
-    @driver.wait(selenium.until.elementLocated(locator))
+      @test.addTimeoutMs(ms)
+    @test.driver.wait(selenium.until.elementLocated(locator))
     .then (val) =>
       end = Date.now()
       spent = end - start
@@ -43,23 +45,23 @@ class Wait
       # console.log "Took #{spent / 1000}sec of #{ms / 1000}"
       if spent > ms
         throw new Error("BUG: Took longer than expected (#{spent / 1000}). Expected #{ms / 1000} sec")
-      @addTimeoutMs(-diff)
+      @test.addTimeoutMs(-diff)
       val
     # Because of animations an element might be in the DOM but not visible
-    el = @driver.findElement(locator)
-    @driver.wait(selenium.until.elementIsVisible(el))
+    el = @test.driver.findElement(locator)
+    @test.driver.wait(selenium.until.elementIsVisible(el))
     el
 
-  click: (locator, ms) =>
+  click: (locator, ms) ->
     el = @and(locator, ms)
     # Scroll to the top so the navbar does not obstruct what we are clicking
-    @scrollTop()
+    windowPosition(@test).scrollTop()
     el.click()
     # return el to support chaining the promises
     el
 
 
-wait = (driver) ->
-  return new Wait(driver)
+wait = (test) ->
+  return new Wait(test)
 
 module.exports = wait
