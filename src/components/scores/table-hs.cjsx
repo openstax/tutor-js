@@ -101,8 +101,7 @@ module.exports = React.createClass
       type={heading.type}
       sortKey={i}
       sortState={@props.sort}
-      onSort={@props.onSort}
-      isConceptCoach={false}>
+      onSort={@props.onSort}>
         {heading.title}
       </SortingHeader>
 

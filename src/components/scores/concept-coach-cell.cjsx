@@ -10,16 +10,20 @@ ConceptCoachCell = React.createClass
   mixins: [CellStatusMixin] # prop validation
 
   render: ->
-    pieValue = (@props.task.correct_exercise_count / @props.task.exercise_count) * 100
+    pieValue = Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
     <div className="cc-cell">
       <Router.Link className="score" to='viewTaskStep'
         data-assignment-type="#{@props.task.type}"
-        params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}
-      >
-        {@props.task.correct_exercise_count} of {@props.task.exercise_count}
+        params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
+        {
+          if @props.displayAs is 'number'
+            "#{@props.task.correct_exercise_count} of #{@props.task.exercise_count}"
+          else
+            "#{pieValue}%"
+        }
       </Router.Link>
       <div className="worked">
-        <PieProgress size={25} value={Math.round(pieValue)} />
+        <PieProgress size={25} value={pieValue} />
       </div>
     </div>
 

@@ -105,8 +105,7 @@ module.exports = React.createClass
       type={heading.type}
       sortKey={i}
       sortState={@props.sort}
-      onSort={@props.onSort}
-      isConceptCoach={true}>
+      onSort={@props.onSort}>
         {heading.title}
       </SortingHeader>
 
@@ -135,7 +134,13 @@ module.exports = React.createClass
 
 
   renderStudentRow: (student_data) ->
-    props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
+    props =
+      {
+        student: student_data,
+        courseId: @props.courseId,
+        roleId: student_data.role,
+        displayAs: @props.displayAs
+      }
     columns = [
       <CCNameCell key='name' {...props} />
     ]
