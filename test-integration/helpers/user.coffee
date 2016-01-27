@@ -17,7 +17,6 @@ class User
         # Login as local
         @test.driver.findElement(css: '#search_query').sendKeys(@username)
         @test.driver.findElement(css: '#search_query').submit()
-        console.log "Click: #{@username}"
         wait(@test).click(linkText: @username)
 
       else
