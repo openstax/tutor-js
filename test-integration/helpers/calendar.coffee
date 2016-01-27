@@ -41,7 +41,9 @@ class PlanPopupHelper extends  TestHelper
 
   close: =>
     @getCloseButton().click()
-    @test.sleep(2000)
+    # waits until the locator element is not present
+    @test.driver.wait =>
+      @test.driver.isElementPresent(@locator).then (isPresent) -> isPresent
 
   goEdit: =>
     @getEditLink().click()
