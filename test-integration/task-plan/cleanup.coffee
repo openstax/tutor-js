@@ -35,7 +35,7 @@ describe 'Assignment Cleanup', ->
     )
 
     # Delete published but not opened plans
-    forEach('.plan.is-published:not(.is-open)',
+    forEach(@, '.plan.is-published:not(.is-open)',
       (plan, index, total) =>
         @addTimeout(10) # Published plans take a while to delete
         plan.click()
