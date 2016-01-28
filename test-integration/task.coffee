@@ -42,10 +42,6 @@ describe 'Student performing tasks', ->
 
       @task.waitUntilLoaded(2000)
       @task.continue()
-      @task.continue()
-      @task.continue()
-      @task.continue()
-      @task.continue()
 
       # Go back to the course selection
       @utils.wait.click(css: '.navbar-brand')
