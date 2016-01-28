@@ -7,7 +7,7 @@ forEach = require './for-each'
 screenshot = require './screenshot'
 
 freshId = require './fresh-id'
-toLocator = require './toLocator'
+toLocator = require './to-locator'
 
 class Utils
   constructor: (test) ->

@@ -1,8 +1,8 @@
 selenium = require 'selenium-webdriver'
 Calendar = require './calendar'
 {TestHelper} = require './test-element'
-wait = require './wait'
-windowPosition = require './window-position'
+wait = require './utils/wait'
+windowPosition = require './utils/window-position'
 
   # Helper methods for dealing with the Reading Assignment Builder
 class ReadingBuilder extends TestHelper

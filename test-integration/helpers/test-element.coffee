@@ -2,8 +2,8 @@ selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 S = require '../../src/helpers/string'
-toLocator = require './to-locator'
-wait = require './wait'
+toLocator = require './utils/to-locator'
+wait = require './utils/wait'
 
 class TestItemHelper
   constructor: (test, testElementLocator, name, isSingle = true) ->

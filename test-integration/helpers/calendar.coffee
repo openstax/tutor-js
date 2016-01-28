@@ -1,8 +1,8 @@
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
-wait = require './wait'
+utils = require './utils'
 {TestHelper} = require './test-element'
-windowPosition = require './window-position'
+windowPosition = require './utils/window-position'
 
 COMMON_ELEMENTS =
   forecastLink:
