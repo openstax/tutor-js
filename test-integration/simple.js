@@ -8,7 +8,7 @@ describe('Simple Draft Tests', function() {
   this.it('Shows Validation Error when saving a blank Reading, Homework, and External (idempotent)', async function() {
     this.addTimeout(30);
 
-    const title = freshId();
+    const title = this.utils.getFreshId();
     var y = await new User(this, TEACHER_USERNAME).login()
     console.log('Done logging in. No need for promises');
 
