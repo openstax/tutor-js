@@ -6,74 +6,70 @@ TEACHER_USERNAME = 'teacher01'
 
 
 describe 'Calendar and Stats', ->
+
+  @eachCourse = (msg, fn) =>
+    _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) => @it msg, ->
+      new CourseSelect(@).goTo(courseCategory)
+      fn.call(@, courseCategory)
+      # Go back to the course selection after the spec
+      wait(@).click(css: '.navbar-brand')
+
   beforeEach ->
     new User(@, TEACHER_USERNAME).login()
 
-  @it 'Shows stats for all published plans (readonly)', ->
-    _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      new CourseSelect(@).goTo(courseCategory)
+  @eachCourse 'Shows stats for all published plans (readonly)', (courseCategory) ->
+    # HACK: exclude the .continued plans because the center of the label may be off-screen
+    forEach @, css: '.plan.is-published label:not(.continued)', (plan, index, total) =>
+      console.log 'Opening', courseCategory, index, '/', total
+      plan.click()
+      Calendar.Popup.verify(@)
+      # Click on each of the periods
+      @driver.findElements(css: '.panel .nav.nav-tabs li').then (periods) ->
+        for period in periods
+          period.click()
+      Calendar.Popup.close(@)
+      Calendar.verify(@)
 
-      # HACK: exclude the .continued plans because the center of the label may be off-screen
-      forEach @, css: '.plan.is-published label:not(.continued)', (plan, index, total) =>
-        console.log 'Opening', courseCategory, index, '/', total
-        plan.click()
-        Calendar.Popup.verify(@)
-        # Click on each of the periods
-        @driver.findElements(css: '.panel .nav.nav-tabs li').then (periods) ->
-          for period in periods
-            period.click()
-        Calendar.Popup.close(@)
-        Calendar.verify(@)
-
-      # Go back to the course selection
-      wait(@).click(css: '.navbar-brand')
+    # Go back to the course selection
+    wait(@).click(css: '.navbar-brand')
 
 
-  @it 'Opens the learning guide for each course (readonly)', ->
-    _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
+  @eachCourse 'Opens the learning guide for each course (readonly)', (courseCategory) ->
+    @addTimeout(10)
+    Calendar.goPerformanceForecast(@)
+    wait(@).for(css: '.guide-heading')
+    forEach @, css: '.panel .nav.nav-tabs li', (period) ->
+      period.click()
+
+    wait(@).click(css: '.back')
+
+    # Go back to the course selection
+    wait(@).click(css: '.navbar-brand')
+
+
+  @eachCourse 'Opens the review page for every visible plan (readonly)', (courseCategory) ->
+    # HACK: exclude the .continued plans because the center of the label may be off-screen
+    forEach @, css: '.plan.is-open.is-published label:not(.continued)', (plan, index, total) =>
       @addTimeout(10)
-      new CourseSelect(@).goTo(courseCategory)
+      console.log 'Looking at Review for', courseCategory, index, 'of', total
+      plan.click()
+      Calendar.Popup.verify(@)
+      Calendar.Popup.goReview(@)
 
-      Calendar.goPerformanceForecast(@)
-      wait(@).for(css: '.guide-heading')
+      # Loop over each tab
       forEach @, css: '.panel .nav.nav-tabs li', (period) ->
         period.click()
 
-      wait(@).click(css: '.back')
+      # TODO: Better way of targeting the "Back" button
+      # BUG: Back button goes back to course listing instead of calendar
+      @driver.navigate().back()
 
-      # Go back to the course selection
-      wait(@).click(css: '.navbar-brand')
-
-
-  @it 'Opens the review page for every visible plan (readonly)', ->
-    _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
-      new CourseSelect(@).goTo(courseCategory)
-
-      # HACK: exclude the .continued plans because the center of the label may be off-screen
-      forEach @, css: '.plan.is-open.is-published label:not(.continued)', (plan, index, total) =>
-        @addTimeout(10)
-        console.log 'Looking at Review for', courseCategory, index, 'of', total
-        plan.click()
-        Calendar.Popup.verify(@)
-        Calendar.Popup.goReview(@)
-
-        # Loop over each tab
-        forEach @, css: '.panel .nav.nav-tabs li', (period) ->
-          period.click()
-
-        # TODO: Better way of targeting the "Back" button
-        # BUG: Back button goes back to course listing instead of calendar
-        @driver.navigate().back()
-
-        Calendar.Popup.verify(@)
-        Calendar.Popup.close(@)
-        Calendar.verify(@)
-
-      # Go back to the course selection
-      wait(@).click(css: '.navbar-brand')
+      Calendar.Popup.verify(@)
+      Calendar.Popup.close(@)
+      Calendar.verify(@)
 
 
-  @it 'Clicks through the Student Scores (readonly)', ->
+  @eachCourse 'Clicks through the Student Scores (readonly)', (courseCategory) ->
     # The facebook table has some "fancy" elements that don't move when the table
     # scrolls vertically. Unfortunately, they cover the links.
     # There is a UI "border shadow" element that ends up going right
