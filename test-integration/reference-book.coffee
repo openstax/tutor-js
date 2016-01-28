@@ -1,4 +1,4 @@
-{describe, wait, User} = require './helpers'
+{describe, User} = require './helpers'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
@@ -15,7 +15,7 @@ describe 'Reference Book Exercises', ->
     checkForMissingExercises = =>
       # Wait until the book has loaded.
       @addTimeout(60)
-      wait(@).click(css: '.menu-toggle')
+      @utils.wait.click(css: '.menu-toggle')
 
       doneLoading = =>
         # Wait until the modal closes after clicking the date
