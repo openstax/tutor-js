@@ -27,7 +27,7 @@ class ReadingBuilder extends TestHelper
         # TODO: May need to click on next month
       else throw new Error("BUG: Invalid date: '#{date}'")
 
-    wait(@test).click(selector)
+    wait(@test).click(css: selector)
 
     # Wait until the modal closes after clicking the date
     @test.driver.wait =>
