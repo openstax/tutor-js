@@ -6,12 +6,10 @@ TEACHER_USERNAME = 'teacher01'
 
 
 describe 'Calendar and Stats', ->
-
-  @xit 'Just logs in (readonly)', ->
+  beforeEach ->
     new User(@, TEACHER_USERNAME).login()
 
   @it 'Shows stats for all published plans (readonly)', ->
-    new User(@, TEACHER_USERNAME).login()
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       new CourseSelect(@).goTo(courseCategory)
 
@@ -32,8 +30,6 @@ describe 'Calendar and Stats', ->
 
 
   @it 'Opens the learning guide for each course (readonly)', ->
-    new User(@, TEACHER_USERNAME).login()
-
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       @addTimeout(10)
       new CourseSelect(@).goTo(courseCategory)
@@ -50,8 +46,6 @@ describe 'Calendar and Stats', ->
 
 
   @it 'Opens the review page for every visible plan (readonly)', ->
-    new User(@, TEACHER_USERNAME).login()
-
     _.each ['PHYSICS', 'BIOLOGY'], (courseCategory) =>
       new CourseSelect(@).goTo(courseCategory)
 
@@ -80,8 +74,6 @@ describe 'Calendar and Stats', ->
 
 
   @it 'Clicks through the Student Scores (readonly)', ->
-    new User(@, TEACHER_USERNAME).login()
-
     # The facebook table has some "fancy" elements that don't move when the table
     # scrolls vertically. Unfortunately, they cover the links.
     # There is a UI "border shadow" element that ends up going right
