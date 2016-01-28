@@ -12,18 +12,7 @@ describe 'Assignment Cleanup', ->
     Calendar.verify(@)
 
   @it 'Deletes all drafts (not really a test but nice cleanup)', ->
-    # Since we are deleting we need a special forEach that will not complain when the length changes
-    # forEach = (css, fn, fn2) =>
-    #   # Need to query multiple times because we might have moved screens so els are stale
-    #   @driver.findElements(css: css).then (els1) =>
-    #     index = 0
-    #     fn2?(els1) # Allow for things like printing "Deleting 20 drafts"
-    #     _.each els1, (el) =>
-    #       @driver.findElement(css: css).then (el) =>
-    #         index += 1
-    #         fn.call(@, el, index, els1.length)
-
-    forEach(@, '.plan:not(.is-published)',
+    @utils.forEach(css: '.plan:not(.is-published)', ignoreLengthChange: true,
       (plan, index, total) =>
         plan.click()
         new ReadingBuilder(@).edit(action: 'DELETE').then ->
@@ -35,7 +24,7 @@ describe 'Assignment Cleanup', ->
     )
 
     # Delete published but not opened plans
-    forEach(@, '.plan.is-published:not(.is-open)',
+    @utils.forEach(css: '.plan.is-published:not(.is-open)', ignoreLengthChange: true,
       (plan, index, total) =>
         @addTimeout(10) # Published plans take a while to delete
         plan.click()
