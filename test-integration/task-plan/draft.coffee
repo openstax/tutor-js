@@ -1,4 +1,4 @@
-{describe, wait, freshId, CourseSelect, User, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, User, Calendar, ReadingBuilder} = require '../helpers'
 
 {expect} = require 'chai'
 
@@ -8,10 +8,10 @@ describe 'Draft Tests', ->
 
   @before ->
     @verifyDisplayed = (css) =>
-      wait(@).for(css: css).isDisplayed().then (isDisplayed) -> expect(isDisplayed).to.be.true
+      @utils.wait(@).for(css: css).isDisplayed().then (isDisplayed) -> expect(isDisplayed).to.be.true
 
   beforeEach ->
-    @title = freshId()
+    @title = @utils.getFreshId()
     new User(@, TEACHER_USERNAME).login()
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')
