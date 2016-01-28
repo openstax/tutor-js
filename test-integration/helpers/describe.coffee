@@ -7,7 +7,7 @@ expect = {chai}
 User = require './user'
 Timeout = require './timeout'
 
-screenshot = require './screenshot'
+screenshot = require './utils/screenshot'
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 
 # Keep the history of commands run to help find where the error occurred
