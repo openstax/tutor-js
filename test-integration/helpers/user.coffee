@@ -1,4 +1,4 @@
-wait = require './wait'
+{wait} = require './wait'
 
 class User
   constructor: (test, username, password = 'password') ->

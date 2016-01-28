@@ -1,6 +1,6 @@
 selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
-wait = require './wait'
+{wait} = require './wait'
 
 class CourseSelect extends TestHelper
 

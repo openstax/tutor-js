@@ -1,4 +1,6 @@
 {describe, xdescribe} = require './describe'
+{wait} = require './wait'
+{forEach} = require './for-each'
 
 module.exports =
   Calendar      : require './calendar'
@@ -7,8 +9,8 @@ module.exports =
   describe      : describe
   xdescribe     : xdescribe
   User          : require './user'
-  wait          : require './wait'
+  wait          : wait
   windowPosition: require './window-position'
   freshId       : require './fresh-id'
-  forEach       : require './for-each'
+  forEach       : forEach
   Task          : require './task'
