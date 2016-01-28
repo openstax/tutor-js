@@ -6,9 +6,9 @@ TEACHER_USERNAME = 'teacher01'
 
 describe 'Draft Tests', ->
 
-  @before ->
+  beforeEach ->
     @verifyDisplayed = (css) =>
-      @utils.wait(@).for(css: css).isDisplayed().then (isDisplayed) -> expect(isDisplayed).to.be.true
+      @utils.wait.for(css: css).isDisplayed().then (isDisplayed) -> expect(isDisplayed).to.be.true
 
   beforeEach ->
     @title = @utils.getFreshId()
