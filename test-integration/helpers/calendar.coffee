@@ -1,6 +1,6 @@
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
-wait = require './wait'
+{wait} = require './wait'
 {TestHelper} = require './test-element'
 windowPosition = require './window-position'
 

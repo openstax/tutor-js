@@ -3,7 +3,7 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 S = require '../../src/helpers/string'
 toLocator = require './to-locator'
-wait = require './wait'
+{wait} = require './wait'
 
 class TestItemHelper
   constructor: (test, testElementLocator, name, isSingle = true) ->
