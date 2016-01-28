@@ -118,7 +118,6 @@ ContinueToBookButton = React.createClass
 
     <BookButton
       {...props}
-      className='btn btn-primary'
       moduleUUID={nextModuleUUID}
       collectionUUID={collectionUUID}>
       {continueLabel}
@@ -156,7 +155,7 @@ ReturnToBookButton = React.createClass
   render: ->
     {section} = @props
 
-    <BookButton {...@props} className='btn-plain'>
+    <BookButton {...@props}>
       <i className='fa fa-caret-left'></i>
       Return to {section}
     </BookButton>

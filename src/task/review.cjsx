@@ -24,10 +24,12 @@ ReviewControls = React.createClass
 
     <BS.ButtonGroup justified className='concept-coach-task-review-controls'>
       <ReturnToBookButton
+        className='btn-lg'
         moduleUUID={moduleUUID}
         collectionUUID={collectionUUID}
         section={section}/>
       <ContinueToBookButton
+        className='btn-lg'
         moduleUUID={moduleUUID}/>
     </BS.ButtonGroup>
 
