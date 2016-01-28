@@ -38,7 +38,7 @@ Scores = React.createClass
     colSetWidth: 180
     colResizeWidth: 180
     colResizeKey: 0
-    sort: { key: 'name', asc: true }
+    sort: { key: 'name', asc: true, dataType: 'score' }
     # index of first column that contains data
     firstDataColumn: 1
     displayAs: 'percentage'
@@ -69,9 +69,9 @@ Scores = React.createClass
     windowEl.height - table.offsetTop - bottomMargin
 
 
-  changeSortingOrder: (key) ->
+  changeSortingOrder: (key, dataType) ->
     asc = if @state.sort.key is key then not @state.sort.asc else false
-    @setState(sort: {key, asc})
+    @setState(sort: {key, asc, dataType})
 
   isSortingByData: ->
     _.isNumber(@state.sort.key)
@@ -91,24 +91,35 @@ Scores = React.createClass
   changeBasedOn: (mode) ->
     @setState(basedOn: mode)
 
+  percent: (num, total) ->
+    Math.round((num / total) * 100)  
 
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
-    {sort, period_id, firstDataColumn} = @state
+    {sort, period_id, firstDataColumn, displayAs} = @state
     data = ScoresStore.get(@props.courseId)
     scores = if period_id
       _.findWhere(data, {period_id})
     else
       data[0]
 
-    sortData = _.sortBy(scores.students, (d) ->
+    sortData = _.sortBy(scores.students, (d) =>
       if _.isNumber(sort.key)
         index = sort.key - firstDataColumn
         record = d.data[index]
         return 0 unless record
         switch record.type
-          when 'reading' then record.status
-          when 'homework', 'concept_coach' then record.correct_exercise_count or 0
+          when 'reading'  then record.status
+          when 'homework' then record.correct_exercise_count or 0
+          when 'concept_coach'
+            switch sort.dataType
+              when 'score'
+                if displayAs is 'number'
+                  record.correct_exercise_count or 0
+                else
+                  @percent(record.correct_exercise_count, record.exercise_count) or 0 
+              when 'completed'
+                @percent(record.correct_exercise_count, record.exercise_count) or 0        
       else
         (d.last_name or d.name).toLowerCase()
     )

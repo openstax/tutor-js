@@ -8,9 +8,10 @@ module.exports = React.createClass
     onSort:  React.PropTypes.func.isRequired
     sortKey: React.PropTypes.any.isRequired
     sortState: React.PropTypes.object.isRequired
+    dataType: React.PropTypes.string
 
   onClick: ->
-    @props.onSort(@props.sortKey)
+    @props.onSort(@props.sortKey, @props.dataType)
 
   render: ->
     classNames = ['header-cell', 'sortable', @props.className]

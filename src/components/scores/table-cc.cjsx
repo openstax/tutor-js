@@ -101,16 +101,18 @@ module.exports = React.createClass
         <SortingHeader
         type={heading.type}
         sortKey={i}
+        dataType='score'
         sortState={@props.sort}
         onSort={@props.onSort}>
-          <div className='-score'>Score</div>
+          <div className='score'>Score</div>
         </SortingHeader>
         <SortingHeader
         type={heading.type}
         sortKey={i}
+        dataType='completed'
         sortState={@props.sort}
         onSort={@props.onSort}>
-          <div className='-completed'>Completed</div>
+          <div className='completed'>Completed</div>
         </SortingHeader>  
       </div>
 
