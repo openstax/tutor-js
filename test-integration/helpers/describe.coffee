@@ -7,6 +7,8 @@ expect = {chai}
 User = require './user'
 Timeout = require './timeout'
 
+utils = require './utils'
+
 screenshot = require './utils/screenshot'
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 
@@ -62,6 +64,8 @@ describe = (name, cb) ->
     @__beforeEach ->
       Timeout.installCustomImplementation(@)
 
+      @utils = utils(@)
+
       @addTimeout(10)
       @driver.get(SERVER_URL)
       # Wait until the page has loaded.
@@ -83,13 +87,13 @@ describe = (name, cb) ->
         for msg in COMMAND_HISTORY
           console.log msg
         console.log '------------------'
-        screenshot(@, "test-failed-#{title}")
+        @utils.screenshot("test-failed-#{title}")
 
       # Fail if there were any errors
       @driver.findElement(css: 'body').getAttribute('data-js-error').then (msg) =>
         if msg
           console.log 'JS Error! ' + msg
-          screenshot(@, "test-failed-#{title}")
+          @utils.screenshot("test-failed-#{title}")
 
 
       # Print out all the console messages
