@@ -125,7 +125,7 @@ Popup =
     test.sleep(2000) # Wait for the modal to animate and disappear
 
   goEdit: (test) ->
-    @test.utils.wait.click(linkText: 'Edit Assignment')
+    test.utils.wait.click(linkText: 'Edit Assignment')
 
   goReview: (test) ->
     # BUG: Should rely on button classes
