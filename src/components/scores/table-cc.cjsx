@@ -53,13 +53,15 @@ module.exports = React.createClass
         <span className='help'>{helpText}</span>
       </div>
     studentHeader =
-      <SortingHeader
-      sortKey='name'
-      sortState={@props.sort}
-      onSort={@props.onSort}>
-        <span>Student Name</span>
-        <span className='student-id'>Student ID</span>
-      </SortingHeader>
+      <div className='cc-cell'>
+        <SortingHeader
+        sortKey='name'
+        sortState={@props.sort}
+        onSort={@props.onSort}>
+          <div className='student-name'>Student Name</div>
+        </SortingHeader>
+        <div className='student-id'>Student ID</div>
+      </div>
 
     customHeader =
       <div className='assignment-header-cell'>
@@ -96,18 +98,36 @@ module.exports = React.createClass
 
     label = 
       <div className='cc-cell'>
-        <div className='-score'>Score</div>
-        <div className='-completed'>Completed</div>
+        <SortingHeader
+        type={heading.type}
+        sortKey={i}
+        sortState={@props.sort}
+        onSort={@props.onSort}>
+          <div className='-score'>Score</div>
+        </SortingHeader>
+        <SortingHeader
+        type={heading.type}
+        sortKey={i}
+        sortState={@props.sort}
+        onSort={@props.onSort}>
+          <div className='-completed'>Completed</div>
+        </SortingHeader>  
       </div>
 
-    sortingHeader =
-      <SortingHeader
-      type={heading.type}
-      sortKey={i}
-      sortState={@props.sort}
-      onSort={@props.onSort}>
-        {heading.title}
-      </SortingHeader>
+    titleHeaderTooltip =
+      <BS.Tooltip>
+        <div>{heading.title}</div>
+      </BS.Tooltip>
+    titleHeader =
+      <BS.OverlayTrigger
+        placement='top'
+        delayShow={1000}
+        delayHide={0}
+        overlay={titleHeaderTooltip}>
+        <div className='header-cell title'>
+          {heading.title}
+        </div>
+      </BS.OverlayTrigger>
 
     customHeader = <div
       data-assignment-type="#{heading.type}"
@@ -120,7 +140,7 @@ module.exports = React.createClass
       </div>
     </div>
 
-    <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
+    <ColumnGroup key={i} groupHeaderRenderer={-> titleHeader} >
       <Column
         label={heading.title}
         headerRenderer={-> customHeader}

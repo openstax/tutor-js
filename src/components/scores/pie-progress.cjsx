@@ -22,9 +22,8 @@ PieProgress = React.createClass
   render: ->
     {size, value} = @props
     radius = size / 2
-    circle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
+    fullCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
     path = <path d="#{@buildCircle(@props.value)}" className='slice' />
-    blank = null
     svg =
       <svg width="#{@props.size}" height="#{@props.size}" className='pie-progress'>
         {path}

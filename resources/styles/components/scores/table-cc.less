@@ -11,11 +11,10 @@
     position: relative;
     &.is-ascending,
     &.is-descending {
-      padding-right: 20px;
       &:after {
         position: absolute;
         right: 8px;
-        top: 6px;
+        top: 15px;
         .fa-icon();
       }
     }
@@ -27,9 +26,12 @@
     }
 
     .tutor-plan-set(heading);
-
+    &.title {
+      padding: 8px;
+      cursor: default;
+    }
     .student-id {
-      margin-left: 85px; 
+      // margin-left: 85px; 
     }
   }
 
@@ -76,7 +78,7 @@
       font-weight: 400;
     }
     .average-label {
-      .align-center();
+
     }
     .average {
       font-weight: 600;
@@ -85,6 +87,13 @@
     .label-cell {
       padding: 0px;
       font-weight: 600;
+    }
+    .student-header {
+      padding: 0px;
+      .student-id, .student-name {
+        text-align: left;
+        padding-left: 8px;
+      }
     }
   }
 
@@ -122,7 +131,7 @@
     }
   }
   .name-cell {
-    .name {
+    .name, .student-id {
       text-align: left;
       padding-left: 8px;
     }
