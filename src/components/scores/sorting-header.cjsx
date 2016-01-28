@@ -13,7 +13,7 @@ module.exports = React.createClass
     @props.onSort(@props.sortKey)
 
   render: ->
-    classNames = ['header-cell', @props.className]
+    classNames = ['header-cell', 'sortable', @props.className]
     if @props.sortState.key is @props.sortKey
       classNames.push if @props.sortState.asc then 'is-ascending' else 'is-descending'
 
