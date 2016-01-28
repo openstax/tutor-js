@@ -4,8 +4,8 @@ EventEmitter2 = require 'eventemitter2'
 interpolate = require 'interpolate'
 _ = require 'underscore'
 
+{BookLinkBase} = require '../buttons'
 navigation = require '../navigation/model'
-componentModel = require '../concept-coach/model'
 
 CourseItem = React.createClass
   displayName: 'CourseItem'
@@ -13,32 +13,32 @@ CourseItem = React.createClass
   contextTypes:
     cnxUrl: React.PropTypes.string
     bookUrlPattern: React.PropTypes.string
-    navigator: React.PropTypes.instanceOf(EventEmitter2)
-    close: React.PropTypes.func
 
-  broadcastNav: (link) ->
+  getLink: ->
     {course} = @props
-    {close, cnxUrl, bookUrlPattern, navigator} = @context
+    {cnxUrl, bookUrlPattern} = @context
     {ecosystem_book_uuid} = course
+    bookUrlPattern ?= ''
+
     link = interpolate bookUrlPattern, {cnxUrl, ecosystem_book_uuid}
     routeData = navigation.getDataByView('task')
-    link = "#{link}#{routeData.route}"
 
-    componentModel.update(scrollY: 0)
-    close()
-    navigator.emit('close.for.book', {collectionUUID: ecosystem_book_uuid, link})
+    "#{link}#{routeData.route}"
 
   render: ->
     {course} = @props
     return null unless course.isRegistered()
 
+    {ecosystem_book_uuid} = course
+    link = @getLink()
     category = course.catalog_offering_identifier?.toLowerCase() or 'unknown'
 
-    <BS.ListGroupItem
-      onClick={@broadcastNav}
-      className='concept-coach-course-item'
-      data-category={category}>
-        {course.description()}
-    </BS.ListGroupItem>
+    <BookLinkBase collectionUUID={ecosystem_book_uuid} link={link}>
+      <BS.ListGroupItem
+        className='concept-coach-course-item'
+        data-category={category}>
+          {course.description()}
+      </BS.ListGroupItem>
+    </BookLinkBase>
 
 module.exports = {CourseItem}

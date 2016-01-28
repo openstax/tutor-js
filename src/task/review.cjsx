@@ -1,9 +1,37 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 _ = require 'underscore'
 tasks = require './collection'
 
+{ChapterSectionMixin} = require 'openstax-react-components'
 {ExerciseStep} = require '../exercise'
-{ExerciseButton, ContinueToBookButton} = require '../buttons'
+{ExerciseButton, ContinueToBookButton, ReturnToBookButton} = require '../buttons'
+
+ReviewControls = React.createClass
+  displayName: 'ReviewControls'
+  mixins: [ChapterSectionMixin]
+
+  propTypes:
+    moduleUUID:     React.PropTypes.string.isRequired
+    collectionUUID: React.PropTypes.string.isRequired
+    taskId:         React.PropTypes.string.isRequired
+
+  render: ->
+    {taskId, moduleUUID, collectionUUID} = @props
+
+    moduleInfo = tasks.getModuleInfo(taskId)
+    section = @sectionFormat(moduleInfo.chapter_section)
+
+    <BS.ButtonGroup justified className='concept-coach-task-review-controls'>
+      <ReturnToBookButton
+        className='btn-lg'
+        moduleUUID={moduleUUID}
+        collectionUUID={collectionUUID}
+        section={section}/>
+      <ContinueToBookButton
+        className='btn-lg'
+        moduleUUID={moduleUUID}/>
+    </BS.ButtonGroup>
 
 TaskReview = React.createClass
   displayName: 'TaskReview'
@@ -29,7 +57,7 @@ TaskReview = React.createClass
 
   render: ->
     {completeSteps, incompleteSteps} = @state
-    {status, taskId} = @props
+    {status, taskId, moduleUUID, collectionUUID} = @props
 
     if _.isEmpty(completeSteps)
       completeStepsReview = <div className='card-body'>
@@ -48,11 +76,25 @@ TaskReview = React.createClass
           allowKeyNext={false}/>
 
     if _.isEmpty(incompleteSteps)
-      continueToBookButton = <ContinueToBookButton bsStyle='primary' className='review-continue-to-book'/>
+      completedMessage = <div className='card-body coach-coach-review-completed'>
+        <h2>You're done.</h2>
+        <ReviewControls
+          taskId={taskId}
+          moduleUUID={moduleUUID}
+          collectionUUID={collectionUUID}/>
+        <p>or review your work below.</p>
+      </div>
+      completedEnd = <div className='card-body coach-coach-review-completed'>
+        <ReviewControls
+          taskId={taskId}
+          moduleUUID={moduleUUID}
+          collectionUUID={collectionUUID}/>
+      </div>
 
     <div className='concept-coach-task-review'>
+      {completedMessage}
       {completeStepsReview}
-      {continueToBookButton}
+      {completedEnd}
     </div>
 
 module.exports = {TaskReview}

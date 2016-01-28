@@ -2,19 +2,32 @@
   .card-body {
     background: @openstax-white;
     padding: @concept-coach-base-x-padding @concept-coach-base-y-padding;
+    margin-bottom: 2rem;
   }
 }
 
 .concept-coach-task-review {
-  background: @openstax-white;
-  padding-bottom: @concept-coach-base-x-padding;
-
-  .review-continue-to-book {
-    margin-left: @concept-coach-base-y-padding;
-  }
-
   .exercise-card {
     margin-bottom: 4rem;
+  }
+
+  .concept-coach-task-review-controls {
+    .btn {
+      width: 50%;
+      i.fa {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .coach-coach-review-completed {
+    text-align: center;
+
+    p {
+      margin-top: 1rem;
+      font-size: 2rem;
+    }
   }
 }
 
@@ -35,20 +48,10 @@
   }
 
   &.has-title {
-    a {
-      color: @openstax-neutral;
-      text-decoration: none;
-
-      .chapter-section-prefix {
-        &[data-section] {
-          &::before {
-            padding-right: 0.5rem;
-            padding-left: 0.5rem;
-          }
-        }
-      }
+    .concept-coach-title-link {
+      border-left: 1px solid @openstax-neutral;
+      padding: 0 1rem;
     }
-    
   }
 
   a {

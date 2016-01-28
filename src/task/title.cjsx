@@ -2,10 +2,9 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 tasks = require './collection'
-navigation = require '../navigation/model'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
-componentModel = require '../concept-coach/model'
+{GoToBookLink} = require '../buttons'
 
 TaskTitle = React.createClass
   displayName: 'TaskTitle'
@@ -13,18 +12,8 @@ TaskTitle = React.createClass
 
   contextTypes:
     close: React.PropTypes.func
-
-  broadcastNav: (clickEvent) ->
-    clickEvent.preventDefault()
-
-    {collectionUUID, moduleUUID, taskId, cnxUrl} = @props
-    {close} = @context
-    {link} = tasks.getModuleInfo(taskId, cnxUrl)
-
-    close()
-    navigation.channel.emit('close.for.book', {collectionUUID, moduleUUID, link})
-
-    true
+    moduleUUID: React.PropTypes.string
+    collectionUUID: React.PropTypes.string
 
   render: ->
     {taskId, cnxUrl} = @props
@@ -38,32 +27,24 @@ TaskTitle = React.createClass
       className: 'chapter-section-prefix'
     sectionProps['data-section'] = section if section?
 
-    linkProps =
-      role: 'button'
+    linkProps = _.pick(@props, 'collectionUUID', 'moduleUUID')
+    linkProps.role = 'button'
+    linkProps.link = moduleInfo.link
 
     if moduleInfo.title
       linkProps.target = '_blank'
-      linkProps.onClick = @broadcastNav
-      title = <span> Go to
-        <span {...sectionProps}>
-          {moduleInfo.title}
-        </span>
-      </span>
-    else
-      noTitle = <span>Back to Book</span>
-      linkProps =
-        onClick: close
+      title = <h3 {...sectionProps}>
+        {moduleInfo.title}
+      </h3>
 
     titleClasses = classnames 'concept-coach-title',
       'has-title': moduleInfo.title?
-      'back-to-book': noTitle?
 
-    <p className={titleClasses}>
-      <a {...linkProps}>
-        <i className='fa fa-book'></i>
-        {title}
-        {noTitle}
-      </a>
-    </p>
+    <div className={titleClasses}>
+      {title}
+      <span className='concept-coach-title-link'>
+        <GoToBookLink {...linkProps}/>
+      </span>
+    </div>
 
 module.exports = {TaskTitle}

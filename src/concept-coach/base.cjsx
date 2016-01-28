@@ -32,6 +32,10 @@ ConceptCoach = React.createClass
     close:          React.PropTypes.func
     moduleUUID:     React.PropTypes.string.isRequired
     collectionUUID: React.PropTypes.string.isRequired
+    triggeredFrom:  React.PropTypes.shape(
+      moduleUUID:     React.PropTypes.string
+      collectionUUID: React.PropTypes.string
+    )
 
   getDefaultProps: ->
     defaultView: _.chain(VIEWS).last().first().value()
@@ -45,6 +49,11 @@ ConceptCoach = React.createClass
   childContextTypes:
     moduleUUID:     React.PropTypes.string
     collectionUUID: React.PropTypes.string
+    triggeredFrom:  React.PropTypes.shape(
+      moduleUUID:     React.PropTypes.string
+      collectionUUID: React.PropTypes.string
+    )
+    getNextPage: React.PropTypes.func
     view: React.PropTypes.oneOf(_.flatten(VIEWS))
     cnxUrl: React.PropTypes.string
     bookUrlPattern: React.PropTypes.string
@@ -54,11 +63,22 @@ ConceptCoach = React.createClass
 
   getChildContext: ->
     {view} = @state
-    {cnxUrl, close, moduleUUID, collectionUUID} = @props
+    {cnxUrl, close, moduleUUID, collectionUUID, getNextPage, triggeredFrom} = @props
     bookUrlPattern = '{cnxUrl}/contents/{ecosystem_book_uuid}'
     processHtmlAndMath = @props.processHtmlAndMath
 
-    {view, cnxUrl, close, processHtmlAndMath, bookUrlPattern, navigator,  moduleUUID, collectionUUID}
+    {
+      view,
+      cnxUrl,
+      close,
+      processHtmlAndMath,
+      bookUrlPattern,
+      navigator,
+      moduleUUID,
+      collectionUUID,
+      triggeredFrom,
+      getNextPage
+    }
 
   componentWillMount: ->
     User.ensureStatusLoaded()

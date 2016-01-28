@@ -14,7 +14,7 @@ task = require '../task/collection'
 {Coach} = require './coach'
 coachWrapped = helpers.wrapComponent(Coach)
 
-PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'processHtmlAndMath']
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'getNextPage', 'processHtmlAndMath']
 WRAPPER_CLASSNAME = 'concept-coach-wrapper'
 
 listenAndBroadcast = (componentAPI) ->
@@ -131,6 +131,8 @@ class ConceptCoachAPI extends EventEmitter2
       @close()
 
     openProps = _.extend({}, props, open: true)
+    openProps.triggeredFrom = _.pick(props, 'moduleUUID', 'collectionUUID')
+
     @component.setProps(openProps)
 
   openByRoute: (props, route) ->
