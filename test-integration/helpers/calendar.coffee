@@ -77,7 +77,7 @@ class CalendarHelper extends TestHelper
     @waitUntilLoaded()
     # TODO: Make this a `data-title` attribute
     # HACK: Might need to scroll the item to click on into view
-    el = wait(@test).for(css: "[data-title='#{title}']")
+    el = @test.utils.wait.for(css: "[data-title='#{title}']")
     windowPosition(test).scrollTo(el)
     el.click()
     windowPosition(test).scrollTop()
@@ -86,7 +86,7 @@ class CalendarHelper extends TestHelper
 # Make sure the current screen is the calendar
 verify = (test, ms) ->
   # wait until the calendar is open
-  wait(test).for(css: '.calendar-container:not(.calendar-loading)', ms)
+  test.utils.wait.for(css: '.calendar-container:not(.calendar-loading)', ms)
 
 
 # type: 'READING', 'HOMEWORK', 'EXTERNAL'
@@ -94,13 +94,13 @@ createNew = (test, type) ->
   verify(test)
 
   # Click "Add Assignment"
-  wait(test).click(css: '.add-assignment .dropdown-toggle')
+  test.utils.wait.click(css: '.add-assignment .dropdown-toggle')
 
   # Go to the bio dashboard
   switch type
-    when 'READING' then wait(test).click(linkText: 'Add Reading')
-    when 'HOMEWORK' then wait(test).click(linkText: 'Add Homework')
-    when 'EXTERNAL' then wait(test).click(linkText: 'Add External Assignment')
+    when 'READING'  then test.utils.wait.click(linkText: 'Add Reading')
+    when 'HOMEWORK' then test.utils.wait.click(linkText: 'Add Homework')
+    when 'EXTERNAL' then test.utils.wait.click(linkText: 'Add External Assignment')
     else expect(false, 'Invalid assignment type').to.be.true
 
 goOpen = (test, title) ->
@@ -108,29 +108,29 @@ goOpen = (test, title) ->
   verify(test)
   # TODO: Make this a `data-title` attribute
   # HACK: Might need to scroll the item to click on into view
-  el = wait(test).for(css: "[data-title='#{title}']")
-  windowPosition(test).scrollTo(el)
+  el = test.utils.wait.for(css: "[data-title='#{title}']")
+  test.utils.windowPosition.scrollTo(el)
   el.click()
-  windowPosition(test).scrollTop()
+  test.utils.windowPosition.scrollTop()
 
 goPerformanceForecast = (test) ->
-  wait(test).click(linkText: 'Performance Forecast')
+  test.utils.wait.click(linkText: 'Performance Forecast')
 
 Popup =
   verify: (test) ->
     # wait until the calendar is open
-    wait(test).for(css: '.plan-modal .panel.panel-default')
+    test.utils.wait.for(css: '.plan-modal .panel.panel-default')
   close: (test) ->
-    wait(test).click(css: '.plan-modal .close')
+    test.utils.wait.click(css: '.plan-modal .close')
     test.sleep(2000) # Wait for the modal to animate and disappear
 
   goEdit: (test) ->
-    wait(test).click(linkText: 'Edit Assignment')
+    @test.utils.wait.click(linkText: 'Edit Assignment')
 
   goReview: (test) ->
     # BUG: Should rely on button classes
-    wait(test).click(linkText: 'Review Metrics')
+    test.utils.wait.click(linkText: 'Review Metrics')
     # Verify the review page loaded
-    wait(test).for(css: '.task-teacher-review .task-breadcrumbs')
+    test.utils.wait.for(css: '.task-teacher-review .task-breadcrumbs')
 
 module.exports = {verify, createNew, goOpen, goPerformanceForecast, Popup}
