@@ -153,9 +153,10 @@ ReturnToBookButton = React.createClass
   getDefaultProps: ->
     section: 'Reading'
   render: ->
-    {section} = @props
+    {section, className} = @props
+    classes = classnames 'btn-plain', className
 
-    <BookButton {...@props}>
+    <BookButton {...@props} className={classes}>
       <i className='fa fa-caret-left'></i>
       Return to {section}
     </BookButton>
