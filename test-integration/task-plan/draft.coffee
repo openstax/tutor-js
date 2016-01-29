@@ -14,7 +14,7 @@ describe 'Draft Tests', ->
 
   beforeEach ->
     @title = @utils.getFreshId()
-    new User(@, TEACHER_USERNAME).login()
+    new User(@).login(TEACHER_USERNAME)
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')
     @calendar = new CalendarHelper(@)

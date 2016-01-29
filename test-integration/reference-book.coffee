@@ -10,7 +10,7 @@ SECTIONS_TO_TEST = 5
 describe 'Reference Book Exercises', ->
 
   @it 'Loads Biology reference book (readonly)', ->
-    new User(@, TEACHER_USERNAME).login()
+    new User(@).login(TEACHER_USERNAME)
 
     checkForMissingExercises = =>
       # Wait until the book has loaded.

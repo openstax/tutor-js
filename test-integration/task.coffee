@@ -11,11 +11,11 @@ STUDENT_USERNAME = 'student01'
 describe 'Student performing tasks', ->
 
   beforeEach ->
-    @user = new User(@, STUDENT_USERNAME)
+    @user = new User(@)
     @task = new TaskHelper(@)
     @courseSelect = new CourseSelect(@)
 
-    @user.login()
+    @user.login(STUDENT_USERNAME)
 
   @it 'Can continue and go to expected steps (readonly)', ->
 

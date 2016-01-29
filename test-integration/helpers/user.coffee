@@ -32,10 +32,7 @@ COMMON_ELEMENTS.eitherSignInElement =
   css: "#{COMMON_ELEMENTS.searchQuery.css}, #{COMMON_ELEMENTS.usernameInput.css}"
 
 class User extends TestHelper
-  constructor: (test, username, password = 'password') ->
-    @username = username
-    @password = password
-
+  constructor: (test) ->
     testElementLocator = 'body'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
@@ -43,26 +40,26 @@ class User extends TestHelper
     @el.eitherSignInElement.get()
     @el.searchQuery.isPresent()
 
-  logInLocal: =>
+  logInLocal: (username) =>
     # Login as local
-    @el.searchQuery.get().sendKeys(@username)
+    @el.searchQuery.get().sendKeys(username)
     @el.searchQuery.get().submit()
-    @el.usernameLink.get(@username).click()
+    @el.usernameLink.get(username).click()
 
-  logInDeployed: =>
+  logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
-    @el.usernameInput.get().sendKeys(@username)
-    @el.passworkInput.get().sendKeys(@password)
+    @el.usernameInput.get().sendKeys(username)
+    @el.passworkInput.get().sendKeys(password)
     @el.loginSubmit.get().click()
 
-  login: =>
+  login: (username, password = 'password') =>
     @el.loginLink.get().click()
 
     @isLocal().then (isLocal) =>
       if isLocal
-        @logInLocal()
+        @logInLocal(username)
       else
-        @logInDeployed()
+        @logInDeployed(username, password)
 
   isModalOpen: =>
     @el.modalClose.isPresent()

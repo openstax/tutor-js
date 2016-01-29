@@ -8,7 +8,7 @@ TEACHER_USERNAME = 'teacher01'
 describe 'Assignment Cleanup', ->
 
   beforeEach ->
-    new User(@, TEACHER_USERNAME).login()
+    new User(@).login(TEACHER_USERNAME)
     @addTimeout(2)
     new CourseSelect(@).goTo('ANY')
 

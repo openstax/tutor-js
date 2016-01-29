@@ -17,11 +17,11 @@ describe 'Calendar and Stats', ->
       @user.goHome()
 
   beforeEach ->
-    @user = new User(@, TEACHER_USERNAME)
+    @user = new User(@)
     @calendar = new CalendarHelper(@)
     @courseSelect = new CourseSelect(@)
 
-    @user.login()
+    @user.login(TEACHER_USERNAME)
 
   @eachCourse 'Shows stats for all published plans (readonly)', (courseCategory) ->
     @calendar.el.publishedPlan.forEach (plan, index, total) =>
