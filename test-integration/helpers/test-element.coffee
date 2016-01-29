@@ -2,8 +2,6 @@ selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 S = require '../../src/helpers/string'
-toLocator = require './utils/to-locator'
-wait = require './utils/wait'
 
 class TestItemHelper
   constructor: (test, testElementLocator, name, isSingle = true) ->
@@ -12,13 +10,14 @@ class TestItemHelper
     @_locator = testElementLocator
     @_isSingle = isSingle
 
-  get: (iter) =>
-    get = wait(@test)
-    result = if @isSingle then get.for(@_locator) else get.forMultiple(@_locator)
-    return result unless iter and not @isSingle
+  get: (args...) =>
+    locator = if _.isFunction(@_locator) then @_locator(args...) else @_locator
+    result = if @isSingle then @test.utils.wait.for(locator) else @test.utils.wait.forMultiple(locator)
+    return result unless args.length and not @isSingle
 
     result.then (elements) ->
-      elements[iter]
+      # TODO find a more graceful thing to do here, probably use a filter instead.
+      elements[args[0]]
 
 # Using defined properties for access eliminates the possibility
 # of accidental assignment

@@ -13,12 +13,13 @@ describe 'Student performing tasks', ->
   beforeEach ->
     new User(@, STUDENT_USERNAME).login()
     @task = new TaskHelper(@)
+    @courseSelect = new CourseSelect(@)
 
   @it 'Can continue and go to expected steps (readonly)', ->
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      appearance = courseCategory.toLowerCase()
-      @utils.wait.click(css: "[data-appearance='#{appearance}'] > [href*='list']")
+      @courseSelect.goTo(courseCategory)
+
       @utils.wait.click(css: '.workable.task')
 
       @task.waitUntilLoaded(2000)
@@ -35,8 +36,7 @@ describe 'Student performing tasks', ->
   @it 'Can continue (readonly)', ->
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      appearance = courseCategory.toLowerCase()
-      @utils.wait.click(css: "[data-appearance='#{appearance}'] > [href*='list']")
+      @courseSelect.goTo(courseCategory)
 
       @utils.wait.click(css: '.workable.task')
 
