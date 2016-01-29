@@ -14,10 +14,7 @@ DashboardConfig =
     isBlank: (courseId) ->
       not _.any @_get(courseId)?.course?.periods
 
-    getPeriods: (courseId) ->
-      _.chain(@_get(courseId)?.course?.periods)
-        .tap(PeriodHelper.sort)
-        .value()
+    getPeriods: (courseId) -> PeriodHelper.sort(@_get(courseId)?.course?.periods)
 
     chaptersForDisplay: (courseId, periodId) ->
       period = _.findWhere( @_get(courseId)?.course?.periods, {id: periodId})
