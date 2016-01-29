@@ -14,14 +14,14 @@ describe 'Assignment Publishing Tests', ->
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')
 
-    @calendar = new Calendar(@)
+    @calendar = new CalendarHelper(@)
     @calendar.createNew('READING')
 
     @reading = new ReadingBuilder(@)
 
   @it 'Sets the name of an reading', ->
     @reading.setName(@title)
-    @reading.el.name.get().getAttribute('value').then (name) =>
+    @reading.getNameValue().then (name) =>
       expect(name).to.equal(@title)
     @reading.edit(action: 'CANCEL')
 

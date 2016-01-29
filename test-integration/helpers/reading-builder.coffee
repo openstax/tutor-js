@@ -2,36 +2,181 @@ selenium = require 'selenium-webdriver'
 Calendar = require './calendar'
 {TestHelper} = require './test-element'
 
-  # Helper methods for dealing with the Reading Assignment Builder
+COMMON_ELEMENTS =
+  name:
+    css: '#reading-title'
+  datepickerContainer:
+    css: '.datepicker__container'
+  dateInput: (type) ->
+    css: ".-assignment-#{type}-date .datepicker__input"
+  datepickerDay: (dayDescription) ->
+    dayDescriptor = switch dayDescription
+      when 'TODAY'
+        '.datepicker__day--today'
+      when 'NOT_TODAY'
+        ':not(.datepicker__day--disabled):not(.datepicker__day--today)'
+      when 'EARLIEST'
+        ':not(.datepicker__day--disabled)'
+        # TODO: May need to click on next month
+      else throw new Error("BUG: Invalid date: '#{dayDescription}'")
+
+    css: ".datepicker__container .datepicker__month .datepicker__day#{dayDescriptor}"
+
+  readingPlan:
+    css: '.reading-plan'
+  homeworkPlan:
+    css: '.homework-plan'
+  externalPlan:
+    css: '.external-plan'
+
+  selectReadingsButton:
+    css: '#reading-select'
+  addReadingsButton:
+    css: '.dialog:not(.hide) .-show-problems'
+  disabledAddReadingsButton:
+    css: '.dialog:not(.hide) .-show-problems[disabled]'
+
+  deleteButton:
+    css: '.async-button.delete-link'
+  saveButton:
+    css: '.async-button.-save'
+  publishButton:
+    css: '.async-button.-publish'
+  cancelButton:
+    css: '.panel-footer [aria-role="close"]'
+
+COMMON_ELEMENTS.anyPlan =
+  css: "#{COMMON_ELEMENTS.readingPlan.css}, #{COMMON_ELEMENTS.homeworkPlan.css}, #{COMMON_ELEMENTS.externalPlan.css}"
+
+
+OPENED_PANEL_SELECTOR = '.dialog:not(.hide)'
+
+COMMON_SELECT_READING_ELEMENTS =
+  sectionItem: (section) ->
+    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section}']"
+  chapterHeadingSelectAll: (section) ->
+    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] .chapter-checkbox input"
+  chapterHeading: (section) ->
+    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}']"
+
+
+COMMON_UNSAVED_DIALOG_ELEMENTS =
+  dismissButton:
+    css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
+
+
+class SelectReadingsList extends TestHelper
+  constructor: (test, testElementLocator) ->
+    testElementLocator ?= css: ".select-reading-dialog#{OPENED_PANEL_SELECTOR}"
+    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, loadingLocator: css: '.select-reading-dialog.hide'
+
+  selectSection: (section) =>
+    # Selecting an entire chapter requires clicking the input box
+    # So handle chapters differently
+    isChapter = not /\./.test(section)
+    if isChapter
+      @el.chapterHeadingSelectAll.get(section).click()
+    else
+      # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
+      @el.sectionItem.getImmediate(section).isDisplayed().then (isDisplayed) =>
+        # Expand the chapter accordion if necessary
+        unless isDisplayed
+          @el.chapterHeading.get(section).click()
+
+        @el.sectionItem.get(section).click()
+
+
+# TODO could probably make this a general dialog/modal helper to extend from.
+class UnsavedDialog extends TestHelper
+  constructor: (test, testElementLocator) ->
+    testElementLocator ?= css: '.tutor-dialog.modal.fade.in'
+    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, loadingLocator: css: '.tutor-dialog.modal.fade:not(.in)'
+  close: =>
+    @waitUntilLoaded()
+    @el.dismissButton.get().click()
+    @test.driver.wait =>
+      @isPresent().then (isPresent) -> not isPresent
+
+
+# Helper methods for dealing with the Reading Assignment Builder
+# TODO this could probably be made into a BuilderHelper that extends the TestHelper
+# and then the ReadingBuilder and HomeworkBuilder can extend the BuilderHelper
 class ReadingBuilder extends TestHelper
 
-  constructor: (test) ->
-    super test, '.task-plan.reading-plan',
-      name:
-        css: '#reading-title'
+  constructor: (test, testElementLocator) ->
+    testElementLocator ?= css: '.task-plan.reading-plan'
+    super test, testElementLocator, COMMON_ELEMENTS, defaultWaitTime: 3000
+    @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
+    @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
+
+  waitUntilLoaded: (ms) =>
+    super(ms)
+    @test.driver.wait =>
+      @el.anyPlan.isPresent()
 
   # Helper for setting a date in the date picker
-  setDate: (css, date) ->
-    @test.driver.findElement(css: "#{css} .datepicker__input").click()
-    selector = switch date
-      when 'TODAY'
-        '.datepicker__container .datepicker__month .datepicker__day.datepicker__day--today'
-      when 'NOT_TODAY'
-        '.datepicker__container .datepicker__month .datepicker__day:not(.datepicker__day--disabled):not(.datepicker__day--today)'
-        # TODO: May need to click on next month
-      when 'EARLIEST'
-        '.datepicker__container .datepicker__month .datepicker__day:not(.datepicker__day--disabled)'
-        # TODO: May need to click on next month
-      else throw new Error("BUG: Invalid date: '#{date}'")
-
-    @test.utils.wait.click(css: selector)
+  # where
+  #   type is open or due and
+  #   date is TODAY, NOT_TODAY, or EARLIEST
+  _setDate: (type, date) =>
+    @openDatePicker(type)
+    @chooseDate(date)
 
     # Wait until the modal closes after clicking the date
-    @test.driver.wait =>
-      @test.driver.isElementPresent(css: '.datepicker__container').then (isPresent) -> not isPresent
+    @waitUntilDatepickerClosed()
 
-  setName: (name) ->
+  setDate: ({opensAt, dueAt}) =>
+    if opensAt
+      @_setDate('open', opensAt)
+    if dueAt
+      @_setDate('due', dueAt)
+
+  openDatePicker: (type) =>
+    @el.dateInput.get(type).click()
+
+  chooseDate: (date) =>
+    @el.datepickerDay.get(date).click()
+
+  waitUntilDatepickerClosed: =>
+    @test.driver.wait =>
+      @el.datepickerContainer.isPresent().then (isPresent) -> not isPresent
+
+  setName: (name) =>
     @el.name.get().sendKeys(name)
+
+  getNameValue: =>
+    @el.name.get().getAttribute('value')
+
+  openSelectReadingList: =>
+    @el.selectReadingsButton.get().click()
+    @el.selectReadingsList.waitUntilLoaded()
+
+
+  publish: =>
+    # Wait up to 3min for publish to complete
+    @el.publishButton.get().click()
+    Calendar.verify(@test, 3 * 60 * 1000)
+
+  save: =>
+    @el.saveButton.get().click()
+
+  cancel: =>
+    # BUG: "X" close button behaves differently than the footer close button
+    @el.cancelButton.get().click()
+    # # BUG: Should not prompt when canceling
+    # # Confirm the "Unsaved Changes" dialog
+    @el.unsavedDialog.close()
+    Calendar.verify(@test)
+
+  delete: =>
+    # Wait up to 60sec for delete to complete
+    @el.deleteButton.get().click()
+    # Accept the browser confirm dialog
+    @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
+      alert.accept()
+
+    Calendar.verify(@test, 60 * 1000)
+
 
   #   name
   #   description
@@ -46,18 +191,13 @@ class ReadingBuilder extends TestHelper
   #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
   edit: ({name, description, opensAt, dueAt, sections, action, verifyAddReadingsDisabled}) ->
     # Just confirm the plan is actually open
-    @test.utils.wait.for(css: '.reading-plan, .homework-plan, .external-plan')
-
+    @waitUntilLoaded()
     @setName(name) if name
+    @setDate({opensAt, dueAt})
 
-    if opensAt
-      @setDate('.-assignment-open-date', opensAt)
-    if dueAt
-      @setDate('.-assignment-due-date', dueAt)
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
-      @test.driver.findElement(css: '#reading-select').click()
-      @test.utils.wait.for(css: '.select-reading-dialog:not(.hide)')
+      @openSelectReadingList()
       # Make sure nav bar does not cover buttons
       @test.utils.windowPosition.scrollTop()
 
@@ -65,59 +205,21 @@ class ReadingBuilder extends TestHelper
       for section in sections
         do (section) =>
           section = "#{section}" # Ensure the section is a string so we can split it
-
-          # Selecting an entire chapter requires clicking the input box
-          # So handle chapters differently
-          isChapter = not /\./.test(section)
-          if isChapter
-            @test.utils.wait.click(css: ".dialog:not(.hide) [data-chapter-section='#{section}'] .chapter-checkbox input")
-          else
-            # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
-            @test.driver.findElement(css: ".dialog:not(.hide) [data-chapter-section='#{section}']").isDisplayed().then (isDisplayed) =>
-              # Expand the chapter accordion if necessary
-              unless isDisplayed
-                @test.utils.wait.click(css: ".dialog:not(.hide) [data-chapter-section='#{section.split('.')[0]}']")
-
-              @test.utils.wait.click(css: ".dialog:not(.hide) [data-chapter-section='#{section}']")
+          @el.selectReadingsList.selectSection(section)
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
-        @test.utils.wait.for(css: '.dialog:not(.hide) .-show-problems[disabled]')
-        @test.utils.wait.click(css: '.dialog:not(.hide) .panel-footer [aria-role="close"]')
-        # Confirm the "Unsaved Changes" dialog
-        @test.utils.wait.click(css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn')
-        @test.sleep(1000) # Wait for dialog to close
+        @el.disabledAddReadingsButton.get()
+        @cancel()
       else
         # Click "Add Readings"
-        @test.utils.wait.click(css: '.-show-problems') # BUG: wrong class name
+        @el.addReadingsButton.get().click()
 
     switch action
-      when 'PUBLISH'
-        # Wait up to 3min for publish to complete
-        @test.utils.wait.click(css: '.async-button.-publish')
-        Calendar.verify(@test, 3 * 60 * 1000)
-
-      when 'SAVE' then @test.utils.wait.click(css: '.async-button.-save')
-      when 'CANCEL'
-        # BUG: "X" close button behaves differently than the footer close button
-        @test.utils.wait.click(css: '.footer-buttons [aria-role="close"]')
-        # # BUG: Should not prompt when canceling
-        # # Confirm the "Unsaved Changes" dialog
-        @test.sleep(500) # Wait for unsaved dialog
-        unsavedModalOk = '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
-        @test.driver.isElementPresent(css: unsavedModalOk).then (isPresent) =>
-          @test.utils.wait.click(css: unsavedModalOk) if isPresent
-          @test.sleep(500) # Wait for dialog to close
-        Calendar.verify(@test)
-
-      when 'DELETE'
-        # Wait up to 60sec for delete to complete
-        @test.utils.wait.click(css: '.async-button.delete-link')
-        # Accept the browser confirm dialog
-        @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
-          alert.accept()
-
-        Calendar.verify(@test, 60 * 1000)
+      when 'PUBLISH' then @publish()
+      when 'SAVE' then @save()
+      when 'CANCEL' then @cancel()
+      when 'DELETE' then @delete()
 
 
 module.exports = ReadingBuilder
