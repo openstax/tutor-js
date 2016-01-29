@@ -3,6 +3,7 @@
 
 TEACHER_USERNAME = 'teacher01'
 
+{CalendarHelper} =  Calendar
 
 describe 'Assignment Publishing Tests', ->
 
@@ -13,9 +14,8 @@ describe 'Assignment Publishing Tests', ->
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')
 
-    # Perhaps the Calendar should return an instance of
-    # ReadingBuilder when createNew('READING') is called
-    Calendar.createNew(@, 'READING')
+    @calendar = new Calendar(@)
+    @calendar.createNew('READING')
 
     @reading = new ReadingBuilder(@)
 
@@ -37,7 +37,7 @@ describe 'Assignment Publishing Tests', ->
     # Wait until the Calendar loads back up
     # Then, open the popup, click edit, and delete the assignment
     # BUG: .course-list shouldn't be in the DOM
-    Calendar.goOpen(@, @title)
-    Calendar.Popup.goEdit(@)
+    @calendar.goOpen(@title)
+    @calendar.el.planPopup.goEdit()
     @reading.edit(action: 'DELETE')
-    Calendar.verify(@)
+    @calendar.waitUntilLoaded()

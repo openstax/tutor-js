@@ -18,8 +18,14 @@ COMMON_ELEMENTS =
     linkText: 'Add External Assignment'
   publishedPlan:
     css: '.plan.is-published label:not(.continued)'
+  draftPlan:
+    css: '.plan:not(.is-published)'
+    ignoreLengthChange: true
   openPlan:
     css: '.plan.is-open.is-published label:not(.continued)'
+  unopenPlan:
+    css: '.plan.is-published:not(.is-open)'
+    ignoreLengthChange: true
   calendarTitle: (title) ->
     css: "[data-title='#{title}']"
 
@@ -96,4 +102,8 @@ class CalendarHelper extends TestHelper
     el.click()
     @test.utils.windowPosition.scrollTop()
 
-module.exports = {CalendarHelper}
+
+verify = (test, ms) ->
+  new CalendarHelper(test).waitUntilLoaded(ms)
+
+module.exports = {CalendarHelper, verify}

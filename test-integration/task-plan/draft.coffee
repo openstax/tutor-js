@@ -4,6 +4,8 @@
 
 TEACHER_USERNAME = 'teacher01'
 
+{CalendarHelper} =  Calendar
+
 describe 'Draft Tests', ->
 
   beforeEach ->
@@ -15,7 +17,8 @@ describe 'Draft Tests', ->
     new User(@, TEACHER_USERNAME).login()
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')
-    Calendar.createNew(@, 'READING')
+    @calendar = new CalendarHelper(@)
+    @calendar.createNew('READING')
     @reading = new ReadingBuilder(@)
 
 
@@ -27,7 +30,7 @@ describe 'Draft Tests', ->
     @verifyDisplayed('.readings-required')
     @reading.edit(action: 'CANCEL')
 
-    Calendar.createNew(@, 'HOMEWORK')
+    @calendar.createNew('HOMEWORK')
     @reading.edit(action: 'SAVE')
     # Verify all the required fields display their message
     @verifyDisplayed('.assignment-name.has-error')
@@ -36,7 +39,7 @@ describe 'Draft Tests', ->
     @reading.edit(action: 'CANCEL')
 
 
-    Calendar.createNew(@, 'EXTERNAL')
+    @calendar.createNew('EXTERNAL')
     @reading.edit(action: 'SAVE')
     # Verify all the required fields display their message
     @verifyDisplayed('.assignment-name.has-error')
@@ -57,12 +60,12 @@ describe 'Draft Tests', ->
     # Wait until the Calendar loads back up
     # And then verify it was added by clicking on it again
     # BUG: .course-list shouldn't be in the DOM
-    Calendar.goOpen(@, @title)
+    @calendar.goOpen(@title)
 
     @reading.edit(action: 'DELETE')
 
     # Just verify we get back to the calendar
-    Calendar.verify(@)
+    @calendar.waitUntilLoaded()
 
 
 
@@ -77,7 +80,7 @@ describe 'Draft Tests', ->
       action: 'SAVE'
 
     # Wait until the Calendar loads back up
-    Calendar.goOpen(@, @title)
+    @calendar.goOpen(@title)
 
     @reading.edit
       sections: [1.1, 1.2, 2.1, 3]
@@ -86,4 +89,4 @@ describe 'Draft Tests', ->
     @reading.edit(action: 'DELETE')
 
     # Just verify we get back to the calendar
-    Calendar.verify(@)
+    @calendar.waitUntilLoaded()
