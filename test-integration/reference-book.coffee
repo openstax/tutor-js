@@ -1,23 +1,21 @@
-{describe} = require './helpers'
+{describe, User} = require './helpers'
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 TEACHER_USERNAME = 'teacher01'
 
-SECTIONS_TO_TEST = 10
+SECTIONS_TO_TEST = 5
 
 describe 'Reference Book Exercises', ->
 
   @it 'Loads Biology reference book (readonly)', ->
-    @login(TEACHER_USERNAME)
-
+    new User(@, TEACHER_USERNAME).login()
 
     checkForMissingExercises = =>
       # Wait until the book has loaded.
       @addTimeout(60)
-      @waitAnd(css: '.page-wrapper .page.has-html')
-      @waitClick(css: '.menu-toggle')
+      @utils.wait.click(css: '.menu-toggle')
 
       doneLoading = =>
         # Wait until the modal closes after clicking the date
@@ -25,24 +23,23 @@ describe 'Reference Book Exercises', ->
 
       for i in [1..SECTIONS_TO_TEST]
         # Selenium sometimes keeps pressing the same next button (doneLoading doesn't seem to work 100%)
-        @driver.findElement(css: 'a.nav.next').getAttribute('href').then (oldHref) =>
+        @driver.findElement(css: 'a.page-navigation.next').getAttribute('href').then (oldHref) =>
           @addTimeout(3)
-          console.log '----------------'
-          # console.log 'old ashkd', oldHref
-          @driver.findElement(css: 'a.nav.next').click()
+
+          @driver.findElement(css: 'a.page-navigation.next').click()
 
           @driver.wait(doneLoading)
-          # @driver.findElement(css: 'a.nav.next').getAttribute('href').then (foo) =>
+          # @driver.findElement(css: 'a.page-navigation.next').getAttribute('href').then (foo) =>
           #   console.log 'new ashkd', foo
 
           checkPageChanged = =>
-            @driver.findElement(css: 'a.nav.next').getAttribute('href').then (newHref) =>
+            @driver.findElement(css: 'a.page-navigation.next').getAttribute('href').then (newHref) =>
               newHref isnt oldHref
 
           ifPageDidntChange = =>
             @addTimeout(3)
             console.log 'Page did not change. reclicking.'
-            @driver.findElement(css: 'a.nav.next').click()
+            @driver.findElement(css: 'a.page-navigation.next').click()
             @driver.wait(doneLoading)
 
           @driver.wait(checkPageChanged, 1000).then(null, ifPageDidntChange)

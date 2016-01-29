@@ -1,31 +1,21 @@
-{describe, CourseSelect, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, forEach, Calendar, User, ReadingBuilder} = require '../helpers'
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
 
 describe 'Assignment Cleanup', ->
 
-  @it 'Deletes all drafts (not really a test but nice cleanup)', ->
-    @login(TEACHER_USERNAME)
+  beforeEach ->
+    new User(@, TEACHER_USERNAME).login()
     @addTimeout(2)
-    CourseSelect.goTo(@, 'ANY')
+    new CourseSelect(@).goTo('ANY')
     Calendar.verify(@)
 
-    # Since we are deleting we need a special forEach that will not complain when the length changes
-    forEach = (css, fn, fn2) =>
-      # Need to query multiple times because we might have moved screens so els are stale
-      @driver.findElements(css: css).then (els1) =>
-        index = 0
-        fn2?(els1) # Allow for things like printing "Deleting 20 drafts"
-        _.each els1, (el) =>
-          @driver.findElement(css: css).then (el) =>
-            index += 1
-            fn.call(@, el, index, els1.length)
-
-    forEach('.plan:not(.is-published)',
+  @it 'Deletes all drafts (not really a test but nice cleanup)', ->
+    @utils.forEach(css: '.plan:not(.is-published)', ignoreLengthChange: true,
       (plan, index, total) =>
         plan.click()
-        ReadingBuilder.edit(@, action: 'DELETE').then ->
+        new ReadingBuilder(@).edit(action: 'DELETE').then ->
           console.log 'Deleted', index, '/', total
         Calendar.verify(@)
 
@@ -34,12 +24,12 @@ describe 'Assignment Cleanup', ->
     )
 
     # Delete published but not opened plans
-    forEach('.plan.is-published:not(.is-open)',
+    @utils.forEach(css: '.plan.is-published:not(.is-open)', ignoreLengthChange: true,
       (plan, index, total) =>
         @addTimeout(10) # Published plans take a while to delete
         plan.click()
         Calendar.Popup.goEdit(@)
-        ReadingBuilder.edit(@, action: 'DELETE').then ->
+        new ReadingBuilder(@).edit(action: 'DELETE').then ->
           console.log 'Deleted', index, '/', total
         Calendar.verify(@)
 

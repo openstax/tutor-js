@@ -1,14 +1,17 @@
 selenium = require 'selenium-webdriver'
-CourseCalendar = require './calendar'
+{TestHelper} = require './test-element'
 
-#   category: 'BIOLOGY', 'PHYSICS', 'ANY'
-goTo = (test, category) =>
-  # Go to the bio dashboard
-  switch category
-    when 'BIOLOGY' then test.waitClick(css: '[data-appearance="biology"] > [href*="calendar"]')
-    when 'PHYSICS' then test.waitClick(css: '[data-appearance="physics"] > [href*="calendar"]')
-    else test.waitClick(css: '[data-appearance] > [href*="calendar"]')
+class CourseSelect extends TestHelper
 
-  CourseCalendar.verify(test)
+  constructor: (test ) ->
+    super(test, '.course-listing')
 
-module.exports = {goTo}
+  goTo: (category) ->
+    @waitUntilLoaded()
+    # Go to the bio dashboard
+    switch category
+      when 'BIOLOGY' then @test.utils.wait.click(css: '[data-appearance="biology"] > [href*="calendar"]')
+      when 'PHYSICS' then @test.utils.wait.click(css: '[data-appearance="physics"] > [href*="calendar"]')
+      else @test.utils.wait.click(css: '[data-appearance] > [href*="calendar"]')
+
+module.exports = CourseSelect

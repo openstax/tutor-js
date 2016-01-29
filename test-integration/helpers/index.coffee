@@ -4,5 +4,8 @@ module.exports =
   Calendar      : require './calendar'
   ReadingBuilder: require './reading-builder'
   CourseSelect  : require './course-select'
+  Task          : require './task'
+  User          : require './user'
+  util          : require './utils'
   describe      : describe
   xdescribe     : xdescribe
