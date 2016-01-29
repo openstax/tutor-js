@@ -20,9 +20,9 @@ module.exports = React.createClass
 
   activeButton: (state, option) ->
     if state is option
-        style = 'primary'
-      else
-        style = 'default'
+      style = 'primary'
+    else
+      style = 'default'
 
   renderButtons: (method, state, options) ->
     for option, i in options

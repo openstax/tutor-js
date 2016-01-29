@@ -92,7 +92,7 @@ Scores = React.createClass
     @setState(basedOn: mode)
 
   percent: (num, total) ->
-    Math.round((num / total) * 100)  
+    Math.round((num / total) * 100)
 
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
@@ -117,9 +117,9 @@ Scores = React.createClass
                 if displayAs is 'number'
                   record.correct_exercise_count or 0
                 else
-                  @percent(record.correct_exercise_count, record.exercise_count) or 0 
+                  @percent(record.correct_exercise_count, record.exercise_count) or 0
               when 'completed'
-                @percent(record.correct_exercise_count, record.exercise_count) or 0        
+                @percent(record.correct_exercise_count, record.exercise_count) or 0
       else
         (d.last_name or d.name).toLowerCase()
     )

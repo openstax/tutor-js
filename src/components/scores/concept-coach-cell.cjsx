@@ -15,19 +15,21 @@ ConceptCoachCell = React.createClass
       Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
     tooltip =
       <BS.Tooltip>
-        <div>Date Last Worked: <Time format='MMM. D' date={@props.task.last_worked_at} /></div>
+        <div>
+          Date Last Worked: <Time format='MMM. D' date={@props.task.last_worked_at} />
+        </div>
       </BS.Tooltip>
 
     <div className="cc-cell">
       <Router.Link className="score" to='viewTaskStep'
         data-assignment-type="#{@props.task.type}"
         params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
-        {
-          if @props.displayAs is 'number'
-            "#{@props.task.correct_exercise_count} of #{@props.task.exercise_count}"
-          else
-            "#{pieValue}%"
-        }
+          {
+            if @props.displayAs is 'number'
+              "#{@props.task.correct_exercise_count} of #{@props.task.exercise_count}"
+            else
+              "#{pieValue}%"
+          }
       </Router.Link>
       <BS.OverlayTrigger
         placement='top'

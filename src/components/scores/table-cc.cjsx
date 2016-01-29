@@ -47,7 +47,7 @@ module.exports = React.createClass
     emptyCell = <div className='blank' />
     helpText =
       "(based on total #{basedOn})"
-    averageLabel = 
+    averageLabel =
       <div>
         Class Average &nbsp
         <span className='help'>{helpText if hasAverageFilter}</span>
@@ -70,7 +70,7 @@ module.exports = React.createClass
         </div>
         <div className='student-header'>
           {studentHeader}
-        </div>   
+        </div>
       </div>
     # student name column count
     nameColumns = 2
@@ -103,7 +103,7 @@ module.exports = React.createClass
           {(classAverage * 100).toFixed(0)}%
         </span>
 
-    label = 
+    label =
       <div className='cc-cell'>
         <SortingHeader
         type={heading.type}
@@ -120,7 +120,7 @@ module.exports = React.createClass
         sortState={@props.sort}
         onSort={@props.onSort}>
           <div ref='completed' className='completed'>Completed</div>
-        </SortingHeader>  
+        </SortingHeader>
       </div>
 
     titleHeaderTooltip =

@@ -27,7 +27,7 @@ PieProgress = React.createClass
     svg =
       <svg width="#{@props.size}" height="#{@props.size}" className='pie-progress'>
         {path}
-      </svg> 
+      </svg>
     finished =
       <svg className='finished'>
         <path
