@@ -3,21 +3,20 @@ selenium = require 'selenium-webdriver'
 
 
 COMMON_ELEMENTS =
-  courseLink:
-    locator: (appearance, isCoach = false) ->
-      dataAttr = 'data-appearance'
+  courseLink: (appearance, isCoach = false) ->
+    dataAttr = 'data-appearance'
 
-      if appearance?
-        dataAttr += "='#{appearance}'"
+    if appearance?
+      dataAttr += "='#{appearance}'"
 
-      if isCoach
-        teacherLink = "[#{dataAttr}] > [href*='cc-dashboard']"
-        studentLink = "[#{dataAttr}] > [href*='content']"
-      else
-        teacherLink = "[#{dataAttr}] > [href*='calendar']"
-        studentLink = "[#{dataAttr}] > [href*='list']"
+    if isCoach
+      teacherLink = "[#{dataAttr}] > [href*='cc-dashboard']"
+      studentLink = "[#{dataAttr}] > [href*='content']"
+    else
+      teacherLink = "[#{dataAttr}] > [href*='calendar']"
+      studentLink = "[#{dataAttr}] > [href*='list']"
 
-      css: "#{teacherLink}, #{studentLink}"
+    css: "#{teacherLink}, #{studentLink}"
 
 
 class CourseSelect extends TestHelper

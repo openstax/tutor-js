@@ -4,11 +4,9 @@ camelCase = require 'camelcase'
 S = require '../../src/helpers/string'
 
 class TestItemHelper
-  constructor: (test, testElementLocator, name, isSingle = true) ->
-    @_name = name
+  constructor: (test, testElementLocator) ->
     @_test = test
     @_locator = testElementLocator
-    @_isSingle = isSingle
 
   getLocator: (args...) =>
     locator = if _.isFunction(@_locator)
@@ -20,12 +18,11 @@ class TestItemHelper
 
   get: (args...) =>
     locator = @getLocator(args...)
-    result = if @isSingle then @test.utils.wait.for(locator) else @test.utils.wait.forMultiple(locator)
-    return result unless args.length and not @isSingle
+    @test.utils.wait.for(locator)
 
-    result.then (elements) ->
-      # TODO find a more graceful thing to do here, probably use a filter instead.
-      elements[args[0]]
+  getAll: (args...) =>
+    locator = @getLocator(args...)
+    result = @test.utils.wait.forMultiple(locator)
 
   isPresent: (args...) =>
     locator = @getLocator(args...)
@@ -37,12 +34,8 @@ class TestItemHelper
 Object.defineProperties TestItemHelper.prototype,
   test:
     get: -> @_test
-  name:
-    get: -> @_name
   locator:
     get: -> @_locator
-  isSingle:
-    get: -> @_isSingle
 
 
 class TestHelper extends TestItemHelper
@@ -55,7 +48,7 @@ class TestHelper extends TestItemHelper
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
 
-    super(test, testElementLocator, 'parent')
+    super(test, testElementLocator)
     _.each commonElements, @setCommonElement
     @
 
@@ -66,12 +59,13 @@ class TestHelper extends TestItemHelper
 
   setCommonHelper: (name, helper) =>
     @el[name] = helper
+
     # alias
+    # TODO remove completely...this was an anti-pattern and discouraged...even though it was kewll.
     @["get#{S.capitalize(name, false)}"] = helper.get.bind(helper)
 
-  setCommonElement: (commonElementInfo, name) =>
-    {locator, isSingle} = commonElementInfo
-    @setCommonHelper(name, new TestItemHelper(@test, locator, name, isSingle))
+  setCommonElement: (locator, name) =>
+    @setCommonHelper(name, new TestItemHelper(@test, locator))
 
 
 # Using defined properties for access eliminates the possibility

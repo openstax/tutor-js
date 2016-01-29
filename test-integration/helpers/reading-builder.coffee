@@ -8,8 +8,7 @@ class ReadingBuilder extends TestHelper
   constructor: (test) ->
     super test, '.task-plan.reading-plan',
       name:
-        locator: {css: '#reading-title'}
-        isSingle: true
+        css: '#reading-title'
 
   # Helper for setting a date in the date picker
   setDate: (css, date) ->

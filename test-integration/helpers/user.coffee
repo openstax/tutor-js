@@ -3,44 +3,33 @@ _ = require 'underscore'
 
 COMMON_ELEMENTS =
   loginLink:
-    locator:
-      linkText: 'Login'
+    linkText: 'Login'
   searchQuery:
-    locator:
-      css: '#search_query'
-  usernameLink:
-    locator: (username) ->
-      linkText: username
+    css: '#search_query'
+  usernameLink: (username) ->
+    linkText: username
 
   usernameInput:
-    locator:
-      css: '#auth_key'
+    css: '#auth_key'
   passworkInput:
-    locator:
-      css: '#password'
+    css: '#password'
   loginSubmit:
-    locator:
-      css: '.password-actions button.standard'
+    css: '.password-actions button.standard'
 
   modalClose:
-    locator:
-      css: '.modal-dialog .modal-header .close'
+    css: '.modal-dialog .modal-header .close'
 
   userMenu:
-    locator:
-      css: '.-hamburger-menu'
+    css: '.-hamburger-menu'
 
   logoutForm:
-    locator:
-      css: '.-hamburger-menu .-logout-form'
+    css: '.-hamburger-menu .-logout-form'
 
   homeLink:
-    locator:
-      css: '.navbar-brand'
+    css: '.navbar-brand'
 
 COMMON_ELEMENTS.eitherSignInElement =
-  locator:
-    css: "#{COMMON_ELEMENTS.searchQuery.locator.css}, #{COMMON_ELEMENTS.usernameInput.locator.css}"
+  css: "#{COMMON_ELEMENTS.searchQuery.css}, #{COMMON_ELEMENTS.usernameInput.css}"
 
 class User extends TestHelper
   constructor: (test, username, password = 'password') ->

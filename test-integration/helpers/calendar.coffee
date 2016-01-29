@@ -6,32 +6,24 @@ windowPosition = require './utils/window-position'
 
 COMMON_ELEMENTS =
   forecastLink:
-    locator:
-      linkText: 'Performance Forecast'
+    linkText: 'Performance Forecast'
   addToggle:
-    locator:
-      css: '.add-assignment .dropdown-toggle'
+    css: '.add-assignment .dropdown-toggle'
   addReadingButton:
-    locator:
-      linkText: 'Add Reading'
+    linkText: 'Add Reading'
   addHomeworkButton:
-    locator:
-      linkText: 'Add Homework'
+    linkText: 'Add Homework'
   addExternalButton:
-    locator:
-      linkText: 'Add External Assignment'
+    linkText: 'Add External Assignment'
 
 
 COMMON_POPUP_ELEMENTS =
   closeButton:
-    locator:
-      css: '.plan-modal .close'
+    css: '.plan-modal .close'
   editLink:
-    locator:
-      linkText: 'Edit Assignment'
+    linkText: 'Edit Assignment'
   reviewLink:
-    locator:
-      linkText: 'Review Metrics'
+    linkText: 'Review Metrics'
 
 class PlanPopupHelper extends  TestHelper
   constructor: (test, testElementLocator) ->
@@ -40,16 +32,16 @@ class PlanPopupHelper extends  TestHelper
     super(test, testElementLocator, COMMON_POPUP_ELEMENTS)
 
   close: =>
-    @getCloseButton().click()
+    @el.closeButton.get().click()
     # waits until the locator element is not present
     @test.driver.wait =>
       @test.driver.isElementPresent(@locator).then (isPresent) -> isPresent
 
   goEdit: =>
-    @getEditLink().click()
+    @el.editLink.get().click()
 
   goReview: =>
-    @getReviewLink().click()
+    @el.reviewLink.get().click()
 
 class CalendarHelper extends TestHelper
   constructor: (test, testElementLocator) ->
@@ -61,16 +53,16 @@ class CalendarHelper extends TestHelper
   createNew: (type) =>
     @waitUntilLoaded()
 
-    @getAddToggle().click()
+    @el.addToggle.get().click()
 
     switch type
-      when 'READING' then @getAddReadingButton().click()
-      when 'HOMEWORK' then @getAddHomeworkButton().click()
-      when 'EXTERNAL' then @getAddExternalButton().click()
+      when 'READING' then @el.addReadingButton.get().click()
+      when 'HOMEWORK' then @el.addHomeworkButton.get().click()
+      when 'EXTERNAL' then @el.addExternalButton.get().click()
       else expect(false, 'Invalid assignment type').to.be.true
 
   goPerformanceForecast: =>
-    @getForecastLink().click()
+    @el.forecastLink().get().click()
 
   goOpen: (title) =>
     # wait until the calendar is open
