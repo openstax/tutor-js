@@ -27,7 +27,7 @@ describe 'Assignment Cleanup', ->
 
     , (plans) ->
       console.log "Deleting #{plans.length} Drafts..." if plans.length
-    )
+
 
     # Delete published but not opened plans
     @calendar.el.unopenPlan.forEach (plan, index, total) =>
@@ -41,4 +41,3 @@ describe 'Assignment Cleanup', ->
 
     , (plans) ->
       console.log "Deleting #{plans.length} Unopened..." if plans.length
-    )
