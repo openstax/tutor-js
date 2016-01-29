@@ -1,5 +1,8 @@
 .scores-report.cc {
   @table-row-height: 46px;
+  @pie-color: lighten(@tutor-neutral,30%);
+  @pie-color-hover: #0DC0DC;
+  @finished-icon-size: 24px;
 
   .header-cell {
     .no-select();
@@ -133,6 +136,24 @@
         padding-top: 6px;
         overflow: visible;
       }
+      .finished {
+        width: @finished-icon-size;
+        height: @finished-icon-size;
+        fill: @tutor-secondary;
+      }
+      &:hover .finished {
+        fill: @pie-color-hover;
+      }
+      .pie-progress {
+        .slice {
+          fill: @pie-color;
+          stroke: @pie-color;
+        }
+        &:hover .slice {
+          fill: @pie-color-hover;
+          stroke: @pie-color-hover;
+        }
+      }
     }
   }
   .name-cell {
@@ -140,18 +161,12 @@
       text-align: left;
       padding-left: 8px;
     }
-  }
-
-  .name-cell .student-id {
-    font-size: 1.15rem;
-  }
-
-  .pie-progress {
-    .slice {
-      fill: lighten(@tutor-neutral,30%);
-      stroke: lighten(@tutor-neutral,30%);
+    .student-id {
+      font-size: 1.15rem;
     }
   }
+
+
 
   .filter-row {
     width: 100%;

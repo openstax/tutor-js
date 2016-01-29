@@ -28,7 +28,12 @@ PieProgress = React.createClass
       <svg width="#{@props.size}" height="#{@props.size}" className='pie-progress'>
         {path}
       </svg> 
-    finished = <i className="fa fa-check-circle"/>
+    finished =
+      <svg className='finished'>
+        <path
+        d="M12 0C5.372 0 0 5.373 0 12c0 6.627 5.372 12 12 12c6.628 0 12-5.373 12-12C24 5.373 18.628 0 12 0z
+          M10.557 19.455l-7.042-7.042l2.828-2.828l4.243 4.242l7.07-7.071l2.829 2.829L10.557 19.455z" />
+      </svg>
     notStarted = <i className="fa fa-minus"/>
     
     if value >= 100
