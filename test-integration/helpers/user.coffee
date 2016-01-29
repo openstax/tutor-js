@@ -1,46 +1,112 @@
-wait = require './utils/wait'
+_ = require 'underscore'
+{TestHelper} = require './test-element'
 
-class User
+COMMON_ELEMENTS =
+  loginLink:
+    locator:
+      linkText: 'Login'
+  searchQuery:
+    locator:
+      css: '#search_query'
+  usernameLink:
+    locator: (username) ->
+      linkText: username
+
+  usernameInput:
+    locator:
+      css: '#auth_key'
+  passworkInput:
+    locator:
+      css: '#password'
+  loginSubmit:
+    locator:
+      css: '.password-actions button.standard'
+
+  modalClose:
+    locator:
+      css: '.modal-dialog .modal-header .close'
+
+  userMenu:
+    locator:
+      css: '.-hamburger-menu'
+
+  logoutForm:
+    locator:
+      css: '.-hamburger-menu .-logout-form'
+
+  homeLink:
+    locator:
+      css: '.navbar-brand'
+
+COMMON_ELEMENTS.eitherSignInElement =
+  locator:
+    css: "#{COMMON_ELEMENTS.searchQuery.locator.css}, #{COMMON_ELEMENTS.usernameInput.locator.css}"
+
+class User extends TestHelper
   constructor: (test, username, password = 'password') ->
-    @test = test
     @username = username
     @password = password
 
-  login: ->
-    wait(@test).click(linkText: 'Login')
+    testElementLocator = 'body'
+    super(test, testElementLocator, COMMON_ELEMENTS)
 
-    # Decide if this is local or deployed
-    wait(@test).for(css: '#auth_key, #search_query')
+  isLocal: =>
+    @el.eitherSignInElement.get()
+    @el.searchQuery.isPresent()
 
-    @test.driver.isElementPresent(css: '#search_query').then (isPresent) =>
-      if isPresent
-        # Login as local
-        @test.driver.findElement(css: '#search_query').sendKeys(@username)
-        @test.driver.findElement(css: '#search_query').submit()
-        wait(@test).click(linkText: @username)
+  logInLocal: =>
+    # Login as local
+    @el.searchQuery.get().sendKeys(@username)
+    @el.searchQuery.get().submit()
+    @el.usernameLink.get(@username).click()
 
+  logInDeployed: =>
+    # Login as dev (using accounts)
+    @el.usernameInput.get().sendKeys(@username)
+    @el.passworkInput.get().sendKeys(@password)
+    @el.loginSubmit.get().click()
+
+  login: =>
+    @el.loginLink.get().click()
+
+    @isLocal().then (isLocal) =>
+      if isLocal
+        @logInLocal()
       else
-        # Login as dev (using accounts)
-        @test.driver.findElement(css: '#auth_key').sendKeys(@username)
-        @test.driver.findElement(css: '#password').sendKeys(@password)
-        @test.driver.findElement(css: '.password-actions button.standard').click()
+        @logInDeployed()
 
-  # as a convenience logout can be called either as a static or instance method
-  @logout: (test) ->
-    # Close the modal if one is open
-    test.driver.isElementPresent(css: '.modal-dialog .modal-header .close').then (isPresent) ->
-      if isPresent
-        # Close the modal
-        console.log 'There is an open dialog. Closing it as part of logout'
-        wait(test).click(css: '.modal-dialog .modal-header .close')
+  isModalOpen: =>
+    @el.modalClose.isPresent()
 
-      # Push the Log out button (ref book does not have one)
-      test.driver.isElementPresent(css: '.-hamburger-menu').then (isPresent) ->
-        if isPresent
-          wait(test).click(css: '.-hamburger-menu') # Expand the menu
-          wait(test).for(css: '.-hamburger-menu .-logout-form').submit()
+  _closeModal: =>
+    @el.modalClose.get().click()
 
-  logout: -> User.logout(@test)
+  closeModal: =>
+    @isModalOpen().then (isOpen) =>
+      if isOpen
+        console.log 'There is an open dialog. Closing.'
+        @_closeModal()
 
+  canLogout: =>
+    @test.utils.windowPosition.scrollTop()
+    @el.userMenu.isPresent()
+
+  _logout: =>
+    @el.userMenu.get().click()
+    @el.logoutForm.get().submit()
+
+  logout: =>
+    @closeModal()
+
+    @canLogout().then (canLogout) =>
+      @_logout() if canLogout
+
+  goHome: =>
+    @test.utils.windowPosition.scrollTop()
+    @el.homeLink.get().click()
+
+
+User.logout = (test) ->
+  user = new User(test).logout()
 
 module.exports = User

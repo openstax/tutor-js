@@ -11,9 +11,11 @@ STUDENT_USERNAME = 'student01'
 describe 'Student performing tasks', ->
 
   beforeEach ->
-    new User(@, STUDENT_USERNAME).login()
+    @user = new User(@, STUDENT_USERNAME)
     @task = new TaskHelper(@)
     @courseSelect = new CourseSelect(@)
+
+    @user.login()
 
   @it 'Can continue and go to expected steps (readonly)', ->
 
@@ -30,7 +32,7 @@ describe 'Student performing tasks', ->
       #   crumb.click()
 
       # Go back to the course selection
-      @utils.wait.click(css: '.navbar-brand')
+      @user.goHome()
 
 
   @it 'Can continue (readonly)', ->
@@ -44,4 +46,4 @@ describe 'Student performing tasks', ->
       @task.continue()
 
       # Go back to the course selection
-      @utils.wait.click(css: '.navbar-brand')
+      @user.goHome()

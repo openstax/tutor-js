@@ -10,14 +10,27 @@ class TestItemHelper
     @_locator = testElementLocator
     @_isSingle = isSingle
 
+  getLocator: (args...) =>
+    locator = if _.isFunction(@_locator)
+      @_locator(args...)
+    else if _.isString(@_locator)
+      @test.utils.toLocator(@_locator)
+    else
+      @_locator
+
   get: (args...) =>
-    locator = if _.isFunction(@_locator) then @_locator(args...) else @_locator
+    locator = @getLocator(args...)
     result = if @isSingle then @test.utils.wait.for(locator) else @test.utils.wait.forMultiple(locator)
     return result unless args.length and not @isSingle
 
     result.then (elements) ->
       # TODO find a more graceful thing to do here, probably use a filter instead.
       elements[args[0]]
+
+  isPresent: (args...) =>
+    locator = @getLocator(args...)
+    @test.driver.isElementPresent(locator).then (isPresent) ->
+      isPresent
 
 # Using defined properties for access eliminates the possibility
 # of accidental assignment
