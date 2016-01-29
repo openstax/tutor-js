@@ -38,6 +38,7 @@ module.exports = React.createClass
     firstDataColumn: React.PropTypes.number.isRequired
     displayAs: React.PropTypes.string.isRequired
     basedOn: React.PropTypes.string.isRequired
+    dataType: React.PropTypes.string
 
 
   renderNameHeader: ->
@@ -101,18 +102,18 @@ module.exports = React.createClass
         <SortingHeader
         type={heading.type}
         sortKey={i}
-        dataType='score'
+        dataType={@props.dataType}
         sortState={@props.sort}
         onSort={@props.onSort}>
-          <div className='score'>Score</div>
+          <div ref='score' className='score'>Score</div>
         </SortingHeader>
         <SortingHeader
         type={heading.type}
         sortKey={i}
-        dataType='completed'
+        dataType={@props.dataType}
         sortState={@props.sort}
         onSort={@props.onSort}>
-          <div className='completed'>Completed</div>
+          <div ref='completed' className='completed'>Completed</div>
         </SortingHeader>  
       </div>
 

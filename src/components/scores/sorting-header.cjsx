@@ -11,11 +11,17 @@ module.exports = React.createClass
     dataType: React.PropTypes.string
 
   onClick: ->
-    @props.onSort(@props.sortKey, @props.dataType)
+    @props.onSort(@props.sortKey, @props.children.ref)
+
+  isSplitHeader: ->
+    if @props.dataType?
+      if (@props.dataType is @props.children.ref) then true else false
+    else
+      true
 
   render: ->
     classNames = ['header-cell', 'sortable', @props.className]
-    if @props.sortState.key is @props.sortKey
+    if @props.sortState.key is @props.sortKey and @isSplitHeader()
       classNames.push if @props.sortState.asc then 'is-ascending' else 'is-descending'
 
     <div

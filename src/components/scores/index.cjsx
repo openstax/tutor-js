@@ -149,6 +149,7 @@ Scores = React.createClass
         firstDataColumn={@state.firstDataColumn}
         displayAs={@state.displayAs}
         basedOn={@state.basedOn}
+        dataType={@state.sort.dataType}
           />
       afterTabsItem = ->
         <span className='course-scores-note tab'>
