@@ -39,19 +39,18 @@ module.exports = React.createClass
     displayAs: React.PropTypes.string.isRequired
     basedOn: React.PropTypes.string.isRequired
     dataType: React.PropTypes.string
+    hasAverageFilter: React.PropTypes.bool
 
 
   renderNameHeader: ->
-    {basedOn} = @props
+    {basedOn, hasAverageFilter} = @props
     emptyCell = <div className='blank' />
-    #helpText =
-      #"based on total #{basedOn}"
-    #temp
-    helpText = null
+    helpText =
+      "(based on total #{basedOn})"
     averageLabel = 
       <div>
         Class Average &nbsp
-        <span className='help'>{helpText}</span>
+        <span className='help'>{helpText if hasAverageFilter}</span>
       </div>
     studentHeader =
       <div className='cc-cell'>
@@ -90,11 +89,18 @@ module.exports = React.createClass
 
   renderHeadingCell: (heading, i) ->
     i += @props.firstDataColumn # for the first/last name columns
+    {basedOn, hasAverageFilter} = @props
 
-    if heading.average
+    classAverage =
+      if basedOn is 'possible' and hasAverageFilter
+        heading.average_possible
+      else
+        heading.average
+
+    if classAverage
       average =
         <span className='average'>
-          {(heading.average * 100).toFixed(0)}%
+          {(classAverage * 100).toFixed(0)}%
         </span>
 
     label = 

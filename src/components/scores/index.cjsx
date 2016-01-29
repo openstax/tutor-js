@@ -132,6 +132,8 @@ Scores = React.createClass
 
     data = @getStudentRowData()
 
+    hasAverageFilter = data.headings[0]?.average_possible?
+
     scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
 
     if isConceptCoach
@@ -150,6 +152,7 @@ Scores = React.createClass
         displayAs={@state.displayAs}
         basedOn={@state.basedOn}
         dataType={@state.sort.dataType}
+        hasAverageFilter={hasAverageFilter}
           />
       afterTabsItem = ->
         <span className='course-scores-note tab'>
@@ -163,6 +166,7 @@ Scores = React.createClass
         basedOn={@state.basedOn}
         changeDisplayAs={@changeDisplayAs}
         changeBasedOn={@changeBasedOn}
+        hasAverageFilter={hasAverageFilter}
         />
     else
       scoresTable =

@@ -10,6 +10,7 @@ module.exports = React.createClass
     basedOn: React.PropTypes.string.isRequired
     changeDisplayAs: React.PropTypes.func.isRequired
     changeBasedOn: React.PropTypes.func.isRequired
+    hasAverageFilter: React.PropTypes.bool
 
   clickDisplay: (mode) ->
     @props.changeDisplayAs(mode)
@@ -35,7 +36,7 @@ module.exports = React.createClass
   render: ->
     {displayAs, basedOn} = @props
     # until attempted avg available
-    temporary =
+    averages =
       <div className='filter-item'>
         <div className='filter-label'>Score based on</div>
         <BS.ButtonGroup className='filter-group'>
@@ -49,5 +50,5 @@ module.exports = React.createClass
           {@renderButtons(@clickDisplay, displayAs, ['percentage', 'number'])}
         </BS.ButtonGroup>
       </div>
-
+      {averages if @props.hasAverageFilter}
     </div>
