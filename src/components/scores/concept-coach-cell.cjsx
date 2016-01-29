@@ -37,7 +37,7 @@ ConceptCoachCell = React.createClass
         delayHide={0}
         overlay={tooltip}>
         <div className="worked">
-          <PieProgress size={25} value={pieValue} />
+          <PieProgress size={24} value={pieValue} />
         </div>
       </BS.OverlayTrigger>
     </div>
