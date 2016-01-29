@@ -6,6 +6,7 @@ _ = require 'underscore'
 
 Dashboard = require '../../../src/components/cc-dashboard/dashboard'
 Chapter = require '../../../src/components/cc-dashboard/chapter'
+Section = require '../../../src/components/cc-dashboard/section'
 SectionProgress = require '../../../src/components/cc-dashboard/section-progress'
 SectionPerformance = require '../../../src/components/cc-dashboard/section-performance'
 
@@ -53,6 +54,28 @@ describe 'Concept Coach', ->
       _.each chapters, (chapter, i) ->
         RenderHelper(Chapter, COURSE_ID, activePeriod, chapter).then ({dom}) ->
           expect(dom.querySelectorAll('.chapter .section').length).to.equal(validSectionArr[i])
+
+  describe 'Section', ->
+    it 'shows a section without spaced practice', ->
+      options =
+        props:
+          section:
+            completed_percentage: 1.0
+            original_performance: 0.5
+
+      Testing.renderComponent(Section, options).then ({dom}) ->
+        expect(dom.querySelector('.empty-spaced-practice')).to.not.be.null
+
+    it 'shows a section with spaced practice', ->
+      options =
+        props:
+          section:
+            completed_percentage: 1.0
+            original_performance: 0.5
+            spaced_practice_performance: 0.5
+
+      Testing.renderComponent(Section, options).then ({dom}) ->
+        expect(dom.querySelector('.empty-spaced-practice')).to.be.null
 
   describe 'Section Progress Bars', ->
     #this is just in case the backend ever returns weird data
