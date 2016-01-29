@@ -25,8 +25,10 @@ describe 'Student performing tasks', ->
       @utils.wait.click(css: '.workable.task')
 
       @task.waitUntilLoaded(2000)
-      @task.getEnabledContinueButton().click()
-      @task.getEnabledContinueButton().click()
+
+      # demonstrating get in spec.
+      @task.el.enabledContinueButton.get().click()
+      @task.el.enabledContinueButton.get().click()
       # get multiple seems to not be working right now.
       # @task.getStepCrumbs(4).then (crumb) ->
       #   crumb.click()

@@ -24,6 +24,10 @@ class TestItemHelper
     locator = @getLocator(args...)
     result = @test.utils.wait.forMultiple(locator)
 
+  forEach: (args..., forEachFunction) =>
+    locator = @getLocator(args...)
+    @test.utils.forEach(locator, forEachFunction)
+
   isPresent: (args...) =>
     locator = @getLocator(args...)
     @test.driver.isElementPresent(locator).then (isPresent) ->
@@ -49,20 +53,18 @@ class TestHelper extends TestItemHelper
     @_el = {}
 
     super(test, testElementLocator)
+    commonElements.loadingState = @options.loadingLocator
+
     _.each commonElements, @setCommonElement
     @
 
   waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
     @test.driver.wait =>
-      @test.driver.isElementPresent(@options.loadingLocator).then (isPresent) -> not isPresent
+      @el.loadingState.isPresent().then (isPresent) -> not isPresent
     , waitTime
 
   setCommonHelper: (name, helper) =>
     @el[name] = helper
-
-    # alias
-    # TODO remove completely...this was an anti-pattern and discouraged...even though it was kewll.
-    @["get#{S.capitalize(name, false)}"] = helper.get.bind(helper)
 
   setCommonElement: (locator, name) =>
     @setCommonHelper(name, new TestItemHelper(@test, locator))
@@ -76,4 +78,4 @@ Object.defineProperties TestHelper.prototype,
   el:
     get: -> @_el
 
-module.exports = {TestHelper}
+module.exports = {TestHelper, TestItemHelper}
