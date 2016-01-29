@@ -21,6 +21,12 @@ Section = React.createClass
 
 
   render: ->
+    if (@props.section.spaced_practice_performance)
+      spacedPractice = <SectionPerformance performance={@props.section.spaced_practice_performance} />
+    else
+      spacedPracticeClass = "empty-spaced-practice"
+      spacedPractice = <i className="fa fa-ellipsis-h"/>
+
     <BS.Row className="section" key={@props.section.id}>
       <BS.Col xs={6}>
         <ChapterSection skipZeros={false} section={@props.section.chapter_section} />
@@ -32,8 +38,8 @@ Section = React.createClass
       <BS.Col xs={2}>
         <SectionPerformance performance={@props.section.original_performance} />
       </BS.Col>
-      <BS.Col xs={2}>
-        <SectionPerformance performance={@props.section.spaced_practice_performance} />
+      <BS.Col xs={2} className={spacedPracticeClass}>
+        {spacedPractice}
       </BS.Col>
     </BS.Row>
 
