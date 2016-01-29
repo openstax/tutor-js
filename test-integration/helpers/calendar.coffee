@@ -19,15 +19,15 @@ COMMON_ELEMENTS =
   publishedPlan:
     css: '.plan.is-published label:not(.continued)'
   draftPlan:
-    css: '.plan:not(.is-published)'
+    css: '.plan:not(.is-published) label:not(.continued)'
     ignoreLengthChange: true
   openPlan:
     css: '.plan.is-open.is-published label:not(.continued)'
   unopenPlan:
-    css: '.plan.is-published:not(.is-open)'
+    css: '.plan.is-published:not(.is-open) label:not(.continued)'
     ignoreLengthChange: true
-  calendarTitle: (title) ->
-    css: "[data-title='#{title}']"
+  planByTitle: (title) ->
+    css: ".plan label[data-title='#{title}']"
 
 COMMON_POPUP_ELEMENTS =
   closeButton:
@@ -97,7 +97,7 @@ class CalendarHelper extends TestHelper
     @waitUntilLoaded()
     # TODO: Make this a `data-title` attribute
     # HACK: Might need to scroll the item to click on into view
-    el = @el.calendarTitle.get()
+    el = @el.planByTitle.get(title)
     @test.utils.windowPosition.scrollTo(el)
     el.click()
     @test.utils.windowPosition.scrollTop()

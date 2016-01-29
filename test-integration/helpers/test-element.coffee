@@ -34,6 +34,7 @@ class TestItemHelper
 
   forEach: (args..., forEachFunction) =>
     locator = @getLocator(args...)
+    console.info(locator)
     @test.utils.forEach(locator, forEachFunction)
 
   isPresent: (args...) =>

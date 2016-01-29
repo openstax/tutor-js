@@ -37,13 +37,45 @@ COMMON_ELEMENTS =
     css: '.dialog:not(.hide) .-show-problems[disabled]'
 
   deleteButton:
-    css: '.async-button.delete-link'
+    css: '.dialog:not(.hide) .async-button.delete-link'
   saveButton:
-    css: '.async-button.-save'
+    css: '.dialog:not(.hide) .async-button.-save'
   publishButton:
-    css: '.async-button.-publish'
+    css: '.dialog:not(.hide) .async-button.-publish'
   cancelButton:
-    css: '.panel-footer [aria-role="close"]'
+    css: '.dialog:not(.hide) .panel-footer [aria-role="close"]'
+
+  hasErrorWarning: (type) ->
+    typeClass = switch type
+      when 'ASSIGNMENT_NAME'
+        '.assignment-name'
+      when 'EXTERNAL_URL'
+        '.external-url'
+      else
+        type
+
+    css: "#{typeClass}.has-error"
+
+  requiredHint: (type) ->
+    typeClass = switch type
+      when 'DUE_DATE'
+        '.-assignment-due-date'
+      else
+        type
+
+    css: "#{typeClass}  .form-control.empty ~ .required-hint"
+
+  requiredItemNotice: (type) ->
+    typeClass = switch type
+      when 'READINGS'
+        'readings'
+      when 'PROBLEMS'
+        'problems'
+      else
+        type
+
+    css: ".#{typeClass}-required"
+
 
 COMMON_ELEMENTS.anyPlan =
   css: "#{COMMON_ELEMENTS.readingPlan.css}, #{COMMON_ELEMENTS.homeworkPlan.css}, #{COMMON_ELEMENTS.externalPlan.css}"
@@ -89,13 +121,20 @@ class SelectReadingsList extends TestHelper
 # TODO could probably make this a general dialog/modal helper to extend from.
 class UnsavedDialog extends TestHelper
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: '.tutor-dialog.modal.fade.in'
-    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, loadingLocator: css: '.tutor-dialog.modal.fade:not(.in)'
-  close: =>
-    @waitUntilLoaded()
-    @el.dismissButton.get().click()
+    testElementLocator ?= css: '.tutor-dialog.modal'
+    super test, testElementLocator, COMMON_UNSAVED_DIALOG_ELEMENTS, loadingLocator: css: '.tutor-dialog.modal.fade:not(.in)'
+
+  waitUntilClose: =>
     @test.driver.wait =>
       @isPresent().then (isPresent) -> not isPresent
+
+  close: =>
+    @isPresent().then (modalIsOpened) =>
+      return unless modalIsOpened
+
+      @waitUntilLoaded()
+      @el.dismissButton.get().click()
+      @waitUntilClose()
 
 
 # Helper methods for dealing with the Reading Assignment Builder
@@ -151,6 +190,14 @@ class ReadingBuilder extends TestHelper
     @el.selectReadingsButton.get().click()
     @el.selectReadingsList.waitUntilLoaded()
 
+  hasError: (type) =>
+    @el.hasErrorWarning.get(type).isDisplayed()
+
+  hasRequiredHint: (type) =>
+    @el.requiredHint.get(type).isDisplayed()
+
+  hasRequiredMessage: (type) =>
+    @el.requiredItemNotice.get(type).isDisplayed()
 
   publish: =>
     # Wait up to 3min for publish to complete
@@ -163,8 +210,8 @@ class ReadingBuilder extends TestHelper
   cancel: =>
     # BUG: "X" close button behaves differently than the footer close button
     @el.cancelButton.get().click()
-    # # BUG: Should not prompt when canceling
-    # # Confirm the "Unsaved Changes" dialog
+    # BUG: Should not prompt when canceling
+    # Confirm the "Unsaved Changes" dialog
     @el.unsavedDialog.close()
     Calendar.verify(@test)
 
@@ -209,8 +256,8 @@ class ReadingBuilder extends TestHelper
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
-        @el.disabledAddReadingsButton.get()
-        @cancel()
+        @el.disabledAddReadingsButton.get().isDisplayed().then (isDisplayed) =>
+          @cancel() if isDisplayed
       else
         # Click "Add Readings"
         @el.addReadingsButton.get().click()

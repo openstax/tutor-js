@@ -9,8 +9,8 @@ TEACHER_USERNAME = 'teacher01'
 describe 'Draft Tests', ->
 
   beforeEach ->
-    @verifyDisplayed = (css) =>
-      @utils.wait.for(css: css).isDisplayed().then (isDisplayed) -> expect(isDisplayed).to.be.true
+    @verifyDisplayed = (hasError) ->
+      expect(hasError).to.be.true
 
   beforeEach ->
     @title = @utils.getFreshId()
@@ -25,26 +25,27 @@ describe 'Draft Tests', ->
   @it 'Shows Validation Error when saving a blank Reading, Homework, and External (idempotent)', ->
     @reading.edit(action: 'SAVE')
     # Verify all the required fields display their message
-    @verifyDisplayed('.assignment-name.has-error')
-    @verifyDisplayed('.-assignment-due-date .form-control.empty ~ .required-hint')
-    @verifyDisplayed('.readings-required')
+    @reading.hasError('ASSIGNMENT_NAME').then @verifyDisplayed
+    @reading.hasRequiredHint('DUE_DATE').then @verifyDisplayed
+    @reading.hasRequiredMessage('READINGS').then @verifyDisplayed
     @reading.edit(action: 'CANCEL')
 
     @calendar.createNew('HOMEWORK')
     @reading.edit(action: 'SAVE')
     # Verify all the required fields display their message
-    @verifyDisplayed('.assignment-name.has-error')
-    @verifyDisplayed('.-assignment-due-date .form-control.empty ~ .required-hint')
-    @verifyDisplayed('.problems-required')
+    @reading.hasError('ASSIGNMENT_NAME').then @verifyDisplayed
+    @reading.hasRequiredHint('DUE_DATE').then @verifyDisplayed
+    @reading.hasRequiredMessage('PROBLEMS').then @verifyDisplayed
     @reading.edit(action: 'CANCEL')
 
 
     @calendar.createNew('EXTERNAL')
     @reading.edit(action: 'SAVE')
     # Verify all the required fields display their message
-    @verifyDisplayed('.assignment-name.has-error')
-    @verifyDisplayed('.-assignment-due-date .form-control.empty ~ .required-hint')
-    @verifyDisplayed('.external-url.has-error')
+    @reading.hasError('ASSIGNMENT_NAME').then @verifyDisplayed
+    @reading.hasRequiredHint('DUE_DATE').then @verifyDisplayed
+    @reading.hasError('EXTERNAL_URL').then @verifyDisplayed
+
     @reading.edit(action: 'CANCEL')
 
 
@@ -66,7 +67,6 @@ describe 'Draft Tests', ->
 
     # Just verify we get back to the calendar
     @calendar.waitUntilLoaded()
-
 
 
   @it 'Creates a draft Reading checks and then unchecks some sections (idempotent)', ->
