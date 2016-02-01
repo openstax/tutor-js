@@ -1,12 +1,11 @@
 selenium = require 'selenium-webdriver'
-toLocator = require './to-locator'
-windowPosition = require './window-position'
 
 class Wait
   constructor: (test) -> @test = test
 
+  # TODO reduce the copy pasta between for and forMultiple
   forMultiple: (locator, ms = 60 * 1000) ->
-    locator = toLocator(locator)
+    locator = @test.utils.toLocator(locator)
     start = null
     timeout = 0
     @test.driver.call => # Enqueue the timeout to increase only once this starts
@@ -32,7 +31,7 @@ class Wait
 
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
   for: (locator, ms = 60 * 1000) ->
-    locator = toLocator(locator)
+    locator = @test.utils.toLocator(locator)
     start = null
     @test.driver.call => # Enqueue the timeout to increase only once this starts
       start = Date.now()
@@ -55,7 +54,7 @@ class Wait
   click: (locator, ms) ->
     el = @for(locator, ms)
     # Scroll to the top so the navbar does not obstruct what we are clicking
-    windowPosition(@test).scrollTop()
+    @test.utils.windowPosition.scrollTop()
     el.click()
     # return el to support chaining the promises
     el

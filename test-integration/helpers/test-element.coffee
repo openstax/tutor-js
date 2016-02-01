@@ -2,35 +2,52 @@ selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 S = require '../../src/helpers/string'
-toLocator = require './utils/to-locator'
-wait = require './utils/wait'
 
 class TestItemHelper
-  constructor: (test, testElementLocator, name, isSingle = true) ->
-    @_name = name
+  constructor: (test, testElementLocator) ->
     @_test = test
     @_locator = testElementLocator
-    @_isSingle = isSingle
 
-  get: (iter) =>
-    get = wait(@test)
-    result = if @isSingle then get.for(@_locator) else get.forMultiple(@_locator)
-    return result unless iter and not @isSingle
+  getLocator: (args...) =>
+    locator = if _.isFunction(@_locator)
+      @_locator(args...)
+    else if _.isString(@_locator)
+      @test.utils.toLocator(@_locator)
+    else
+      @_locator
 
-    result.then (elements) ->
-      elements[iter]
+  get: (args...) =>
+    locator = @getLocator(args...)
+    @test.utils.wait.for(locator)
+
+  getAll: (args...) =>
+    locator = @getLocator(args...)
+    @test.utils.wait.forMultiple(locator)
+
+  getImmediate: (args...) =>
+    locator = @getLocator(args...)
+    @test.driver.findElement(locator)
+
+  getAllImmediate: (args...) =>
+    locator = @getLocator(args...)
+    @test.driver.findElements(locator)
+
+  forEach: (args..., forEachFunction, forEachFunction2) =>
+    locator = @getLocator(args...)
+    @test.utils.forEach(locator, forEachFunction, forEachFunction2)
+
+  isPresent: (args...) =>
+    locator = @getLocator(args...)
+    @test.driver.isElementPresent(locator).then (isPresent) ->
+      isPresent
 
 # Using defined properties for access eliminates the possibility
 # of accidental assignment
 Object.defineProperties TestItemHelper.prototype,
   test:
     get: -> @_test
-  name:
-    get: -> @_name
   locator:
     get: -> @_locator
-  isSingle:
-    get: -> @_isSingle
 
 
 class TestHelper extends TestItemHelper
@@ -43,23 +60,22 @@ class TestHelper extends TestItemHelper
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
 
-    super(test, testElementLocator, 'parent')
+    super(test, testElementLocator)
+    commonElements.loadingState = @options.loadingLocator
+
     _.each commonElements, @setCommonElement
     @
 
   waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
     @test.driver.wait =>
-      @test.driver.isElementPresent(@options.loadingLocator).then (isPresent) -> not isPresent
+      @el.loadingState.isPresent().then (isPresent) -> not isPresent
     , waitTime
 
   setCommonHelper: (name, helper) =>
     @el[name] = helper
-    # alias
-    @["get#{S.capitalize(name, false)}"] = helper.get.bind(helper)
 
-  setCommonElement: (commonElementInfo, name) =>
-    {locator, isSingle} = commonElementInfo
-    @setCommonHelper(name, new TestItemHelper(@test, locator, name, isSingle))
+  setCommonElement: (locator, name) =>
+    @setCommonHelper(name, new TestItemHelper(@test, locator))
 
 
 # Using defined properties for access eliminates the possibility
@@ -70,4 +86,4 @@ Object.defineProperties TestHelper.prototype,
   el:
     get: -> @_el
 
-module.exports = {TestHelper}
+module.exports = {TestHelper, TestItemHelper}

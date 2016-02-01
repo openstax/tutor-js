@@ -11,32 +11,36 @@ STUDENT_USERNAME = 'student01'
 describe 'Student performing tasks', ->
 
   beforeEach ->
-    new User(@, STUDENT_USERNAME).login()
+    @user = new User(@)
     @task = new TaskHelper(@)
+    @courseSelect = new CourseSelect(@)
+
+    @user.login(STUDENT_USERNAME)
 
   @it 'Can continue and go to expected steps (readonly)', ->
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      appearance = courseCategory.toLowerCase()
-      @utils.wait.click(css: "[data-appearance='#{appearance}'] > [href*='list']")
+      @courseSelect.goTo(courseCategory)
+
       @utils.wait.click(css: '.workable.task')
 
       @task.waitUntilLoaded(2000)
-      @task.getEnabledContinueButton().click()
-      @task.getEnabledContinueButton().click()
+
+      # demonstrating get in spec.
+      @task.el.enabledContinueButton.get().click()
+      @task.el.enabledContinueButton.get().click()
       # get multiple seems to not be working right now.
       # @task.getStepCrumbs(4).then (crumb) ->
       #   crumb.click()
 
       # Go back to the course selection
-      @utils.wait.click(css: '.navbar-brand')
+      @user.goHome()
 
 
   @it 'Can continue (readonly)', ->
 
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      appearance = courseCategory.toLowerCase()
-      @utils.wait.click(css: "[data-appearance='#{appearance}'] > [href*='list']")
+      @courseSelect.goTo(courseCategory)
 
       @utils.wait.click(css: '.workable.task')
 
@@ -44,4 +48,4 @@ describe 'Student performing tasks', ->
       @task.continue()
 
       # Go back to the course selection
-      @utils.wait.click(css: '.navbar-brand')
+      @user.goHome()
