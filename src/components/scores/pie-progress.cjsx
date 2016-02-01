@@ -5,6 +5,7 @@ PieProgress = React.createClass
   propTypes:
     size: React.PropTypes.number.isRequired
     value: React.PropTypes.number.isRequired
+    roundToQuarters: React.PropTypes.bool
 
   buildCircle: (value) ->
     size = @props.size
@@ -19,13 +20,22 @@ PieProgress = React.createClass
     d =
       "M#{radius} #{radius} L#{radius} 0 A#{radius} #{radius} 0 #{longArc} 1 #{arcX} #{arcY} z"
 
+  roundToQuarters: (value) ->
+    if value <= 49
+      25
+    else if value >= 50 and value < 75
+      50
+    else
+      75
+
   render: ->
-    {size, value} = @props
+    {size, value, roundToQuarters} = @props
     radius = size / 2
     fullCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
-    path = <path d="#{@buildCircle(@props.value)}" className='slice' />
+    circle = if roundToQuarters? then @buildCircle(@roundToQuarters(value)) else @buildCircle(value)
+    path = <path d="#{circle}" className='slice' />
     svg =
-      <svg width="#{@props.size}" height="#{@props.size}" className='pie-progress'>
+      <svg width="#{size}" height="#{size}" className='pie-progress'>
         {path}
       </svg>
     finished =
