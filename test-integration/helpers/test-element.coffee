@@ -32,10 +32,9 @@ class TestItemHelper
     locator = @getLocator(args...)
     @test.driver.findElements(locator)
 
-  forEach: (args..., forEachFunction) =>
+  forEach: (args..., forEachFunction, forEachFunction2) =>
     locator = @getLocator(args...)
-    console.info(locator)
-    @test.utils.forEach(locator, forEachFunction)
+    @test.utils.forEach(locator, forEachFunction, forEachFunction2)
 
   isPresent: (args...) =>
     locator = @getLocator(args...)

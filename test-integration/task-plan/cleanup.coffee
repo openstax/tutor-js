@@ -20,7 +20,7 @@ describe 'Assignment Cleanup', ->
   @it 'Deletes all drafts (not really a test but nice cleanup)', ->
     @calendar.el.draftPlan.forEach (plan, index, total) =>
       plan.click()
-      @calendar.el.planPopup.goEdit()
+      @reading.waitUntilLoaded()
       @reading.edit(action: 'DELETE').then ->
         console.log 'Deleted', index, '/', total
       @calendar.waitUntilLoaded()
@@ -33,11 +33,11 @@ describe 'Assignment Cleanup', ->
     @calendar.el.unopenPlan.forEach (plan, index, total) =>
       @addTimeout(10) # Published plans take a while to delete
       plan.click()
+      @calendar.el.planPopup.waitUntilLoaded()
       @calendar.el.planPopup.goEdit()
       @reading.edit(action: 'DELETE').then ->
         console.log 'Deleted', index, '/', total
       @calendar.waitUntilLoaded()
-
 
     , (plans) ->
       console.log "Deleting #{plans.length} Unopened..." if plans.length
