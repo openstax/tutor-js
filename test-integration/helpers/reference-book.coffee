@@ -1,5 +1,4 @@
 selenium = require 'selenium-webdriver'
-{expect} = require 'chai'
 {TestHelper} = require './test-element'
 
 COMMON_ELEMENTS =
