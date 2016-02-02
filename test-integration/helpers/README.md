@@ -1,3 +1,10 @@
+# Table of Contents
+
+- [Overview](#overview)
+- [Writing a new UI helper](#writing-a-new-ui-helper)
+- [Writing a spec](#writing-a-spec)
+- [Guiding Principles](#guiding-principles)
+- [Modifying the base UI helper](#modifying-the-base-ui-helper)
 
 # Overview
 
