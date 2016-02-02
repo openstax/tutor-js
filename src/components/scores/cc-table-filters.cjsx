@@ -34,7 +34,6 @@ module.exports = React.createClass
 
   render: ->
     {displayAs, basedOn} = @props
-    # until attempted avg available
     <div className='filter-row'>
       <div className='filter-item'>
         <div className='filter-label'>Display as</div>
