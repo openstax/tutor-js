@@ -11,7 +11,6 @@ describe 'Draft Tests', ->
     @verifyDisplayed = (hasError) ->
       expect(hasError).to.be.true
 
-  beforeEach ->
     @calendar = new Helpers.Calendar(@)
     @title = @utils.getFreshId()
     new Helpers.User(@).login(TEACHER_USERNAME)
