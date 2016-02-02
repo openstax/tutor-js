@@ -110,7 +110,7 @@ class SelectReadingsList extends TestHelper
       @el.chapterHeadingSelectAll.get(section).click()
     else
       # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
-      @el.sectionItem.getImmediate(section).isDisplayed().then (isDisplayed) =>
+      @el.sectionItem.findElement(section).isDisplayed().then (isDisplayed) =>
         # Expand the chapter accordion if necessary
         unless isDisplayed
           @el.chapterHeading.get(section).click()

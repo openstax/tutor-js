@@ -24,13 +24,14 @@ class TestItemHelper
     locator = @getLocator(args...)
     @test.utils.wait.forMultiple(locator)
 
-  getImmediate: (args...) =>
+  findElement: (args...) =>
     locator = @getLocator(args...)
     @test.driver.findElement(locator)
 
-  getAllImmediate: (args...) =>
+  findElements: (args...) =>
     locator = @getLocator(args...)
     @test.driver.findElements(locator)
+
 
   forEach: (args..., forEachFunction, forEachFunction2) =>
     locator = @getLocator(args...)
