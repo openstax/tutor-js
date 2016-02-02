@@ -57,14 +57,21 @@ class ReferenceBookHelper extends TestHelper
       selenium.promise.fullyResolved missingExercises.map (missingExercise) ->
         missingExercise.getAttribute('data-exercise-url')
 
+  logExercises: ({exercises, missingUrls}) =>
+    console.log("Found #{exercises.length} exercises")
+    console.info('Exercises missing with these URLs', missingUrls)
+    {exercises, missingUrls}
+
   checkExercisesOnPage: =>
     @waitUntilExercisesLoaded()
 
-    @el.exerciseElements.findElements().then (exercises) ->
-      console.log("Found #{exercises.length} exercises")
+    checkExercises = [
+      @el.exerciseElements.findElements()
+      @findMissingExerciseUrls()
+    ]
 
-    @findMissingExerciseUrls().then (missingUrls) ->
-      console.info('Exercises missing with these URLs', missingUrls)
+    selenium.promise.all(checkExercises).then ([exercises, missingUrls]) =>
+      {exercises, missingUrls}
 
 
 module.exports = {ReferenceBookHelper}

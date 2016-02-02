@@ -23,6 +23,8 @@ describe 'Reference Book Exercises', ->
         console.log('Testing page', pageUrl)
 
       @referenceBook.checkExercisesOnPage()
+        .then @referenceBook.logExercises
+
       @referenceBook.goNext()
 
   @it 'Loads Physics reference book with exercises (readonly)', ->
@@ -36,4 +38,6 @@ describe 'Reference Book Exercises', ->
         console.log('Testing page', pageUrl)
 
       @referenceBook.checkExercisesOnPage()
+        .then @referenceBook.logExercises
+
       @referenceBook.goNext()
