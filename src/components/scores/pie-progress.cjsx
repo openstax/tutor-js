@@ -1,5 +1,4 @@
 React  = require 'react'
-_ = require 'underscore'
 
 PieProgress = React.createClass
 
@@ -32,13 +31,8 @@ PieProgress = React.createClass
     else
       75
 
-  checkValue: (value) ->
-    if _.isNaN(parseInt(value, 10)) or value % 1 isnt 0 or value > 100 or value < 0
-      throw new Error("invalid pie value: must be integer 0-100. returned: #{value}")
-
   render: ->
     {size, value, roundToQuarters} = @props
-    @checkValue(value)
     radius = @radius(size)
     fullCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
     circle = if roundToQuarters? then @buildCircle(@roundToQuarters(value)) else @buildCircle(value)
@@ -55,9 +49,9 @@ PieProgress = React.createClass
       </svg>
     notStarted = <i className="fa fa-minus"/>
     
-    if value is 100
+    if value >= 100
       finished
-    else if value is 0
+    else if value <= 0
       notStarted
     else
       pieCircle
