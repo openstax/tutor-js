@@ -36,6 +36,6 @@ class CourseSelect extends TestHelper
       else @el.courseLink.get().click()
 
   goToCourseByName: (name) ->
-    test.waitClick(css: "[data-title='#{name}'] > a")
+    @test.utils.wait.click(css: "[data-title='#{name}'] > a")
 
 module.exports = CourseSelect
