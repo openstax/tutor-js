@@ -15,9 +15,18 @@ class Event extends TestHelper
     super(test, ".task[data-event-id='#{eventId}']")
 
   @fromElement: (test, element) ->
-    console.log "from el"
-    element.getAttribute('data-event-id').then (el) ->
-      new Event(test, el)
+    element.getAttribute('data-event-id').then (eventId) ->
+      new Event(test, eventId)
+
+  isMatchFor: (query) ->
+    queryName = _.first _.keys query
+    if @el[queryName]
+      @el[queryName].get().getText().then( (txt) =>
+        if query[queryName] is txt then @ else null
+      )
+    else
+      selenium.promise.fulfilled(null)
+
 
 class Dashboard extends TestHelper
 
@@ -32,10 +41,16 @@ class Dashboard extends TestHelper
   constructor: (test) ->
     super(test, '.student-dashboard')
 
-  getVisibleEventHelpers: ->
+  getVisibleEventHelpers: (options = {}) ->
     makeEvent = _.partial(Event.fromElement, @test)
     @el.visibleEvents.getAll().then( (tasks) ->
-      Promise.all( _.map(tasks, makeEvent ) )
+      selenium.promise.map( tasks, makeEvent )
+    ).then( (events) ->
+      if _.isEmpty(options.where)
+        events
+      else
+        selenium.promise.map(events, (event) -> event.isMatchFor(options.where))
+          .then( (events) -> _.compact(events) )
     )
 
 
