@@ -44,7 +44,6 @@ class TestItemHelper
     locator = @getLocator(args...)
     @test.driver.findElements(locator)
 
-
   forEach: (args..., forEachFunction, forEachFunction2) =>
     locator = @getLocator(args...)
     @test.utils.forEach(locator, forEachFunction, forEachFunction2)
