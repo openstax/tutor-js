@@ -35,6 +35,10 @@ getCompleteSteps = (steps) ->
   _.filter steps, (step) ->
     step? and step.is_completed
 
+getChangedSteps = (steps) ->
+  _.filter steps, (step) ->
+    step? and TaskStepStore.isChanged(step.id)
+
 TaskConfig =
   _steps: {}
 
@@ -158,6 +162,11 @@ TaskConfig =
         coreSteps.push lastIndex
 
       coreSteps
+
+    hasAnyStepChanged: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      getChangedSteps(allSteps).length
+
 
     hasIncompleteCoreStepsIndexes: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
