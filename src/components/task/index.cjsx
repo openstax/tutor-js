@@ -222,12 +222,11 @@ module.exports = React.createClass
     taskClasses += " task-#{panelType}" if panelType?
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
-    unless TaskStore.isSingleStepped(id)
-      breadcrumbs = <Breadcrumbs
-        id={id}
-        goToStep={@goToStep}
-        currentStep={@state.currentStep}
-        key="task-#{id}-breadcrumbs"/>
+    breadcrumbs = <Breadcrumbs
+      id={id}
+      goToStep={@goToStep}
+      currentStep={@state.currentStep}
+      key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard
       forceShy={true}
