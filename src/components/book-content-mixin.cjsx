@@ -21,9 +21,18 @@ MEDIA_LINK_EXCLUDES = [
   '[data-targeted=media]'
 ]
 
-MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
+NOT_MEDIAS = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
   "#{current}:not(#{exclude})"
-, 'a')
+, '')
+
+IS_LOCAL = 'a[href^="#"]'
+IS_CNX = 'a[href~=".cnx.org/contents/"]'
+
+ALLOWED_MEDIAS = [IS_LOCAL, IS_CNX]
+
+MEDIA_LINK_SELECTOR = _.map(ALLOWED_MEDIAS, (allowed) ->
+  "#{allowed}#{NOT_MEDIAS}"
+).join(', ')
 
 LinkContentMixin =
   componentDidMount:  ->
@@ -96,6 +105,7 @@ LinkContentMixin =
       bookHref: @buildReferenceBookLink(mediaCNXId)
       mediaDOMOnParent: mediaDOM
       shouldLinkOut: @shouldOpenNewTab?()
+      originalHref: link.getAttribute('href')
 
     mediaPreview = <MediaPreview {...mediaProps}>
         {link.innerText}
