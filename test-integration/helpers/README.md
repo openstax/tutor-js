@@ -71,65 +71,7 @@ UI helpers should be in this folder.
       # PlanPopupHelper is an extended TestHelper like CalendarHelper is.
       @setCommonHelper('planPopup', new PlanPopupHelper(@test))
   ```
-  From doing the above, if we instantiate CalendarHelper, we get back something that looks like this:
-
-  ```coffee
-  calendarHelper =
-    test: testContext
-    options: calendarOptions
-    el:
-      # from the COMMON_ELEMENTS
-      forecastLink: <TestItemHelper>
-      studentScoresLink: <TestItemHelper>
-      addToggle: <TestItemHelper>
-      planByTitle: <TestItemHelper>
-
-      # uses the loadingLocator option
-      loadingState: <TestItemHelper>
-
-      # from explicitly calling setCommonHelper
-      planPopup: <PlanPopupHelper>
-
-    # This function will block all selenium based promises until
-    # the loading element is absent before continuing.
-    waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
-      @test.driver.wait =>
-        @el.loadingState.isPresent().then (isPresent) -> not isPresent
-      , waitTime
-
-    # The following are used to attach the helpers that are now on CalendarHelper.el
-    # They are exposed here for customizing your helper as needed,
-    # as in this case with the planPopup.
-    # Usually, you can just rely on the commonElements object.
-    setCommonHelper: (name, helper) =>
-      @el[name] = helper
-    setCommonElement: (locator, name) =>
-      @setCommonHelper(name, new TestItemHelper(@test, locator))
-  ```
-  Note that TestHelper itself is extended from `TestItemHelper`, meaning `calendarHelper` and the items on `calendarHelper.el` also have the following methods and properties:
-
-  ```coffee
-  testItemHelper =
-    test: testContext
-    # Where locator is a locator object, or
-    # a function returning the locator object based in during instantiation
-    locator: locator
-
-    # function that will return only the locator object
-    getLocator: function
-
-    # The following are aliases of other useful functions
-    # for getting elements based on the stored locator
-    get: test.utils.wait.for
-    getAll: test.utils.wait.forMultiple
-
-    findElement: test.driver.findElement
-    findElements: test.driver.findElements
-
-    forEach: test.utils.forEach
-    isPresent: test.driver.isElementPresent
-  ```
-  See [test-element.coffee](./test-element.coffee) for details.
+  You can read more about what happens when you instantiate [here](#helper-details).
 
 4. Extend the helper with additional UI process/action methods as needed, using el's element accessor methods:
 
@@ -161,7 +103,113 @@ UI helpers should be in this folder.
 
 With the UI helper, a spec can look like this:
 
+```coffee
+{describe, User, CourseSelect, Calendar, ReadingBuilder} = require './helpers'
+{expect} = require 'chai'
 
+TEACHER_USERNAME = 'teacher01'
+
+{CalendarHelper} = Calendar
+
+describe 'Calendar and Stats', ->
+
+  beforeEach ->
+    @user = new User(@)
+    @calendar = new CalendarHelper(@)
+    @courseSelect = new CourseSelect(@)
+
+    @user.login(TEACHER_USERNAME)
+
+  @it 'Shows stats for all published plans (readonly)', ->
+    COURSE_CATEGORY = 'BIOLOGY'
+    @courseSelect.goTo(COURSE_CATEGORY)
+    @calendar.waitUntilLoaded()
+
+    @calendar.el.publishedPlan.forEach (plan, index, total) =>
+      console.log 'Opening', COURSE_CATEGORY, index, '/', total
+      plan.click()
+      @calendar.el.planPopup.waitUntilLoaded()
+
+      @calendar.el.planPopup.isPresent().then (isPresent) ->
+        expect(isPresent).to.be.true
+
+      # -- advance/detailed usage --
+      popupTitle = @calendar.el.planPopup.getTitle()
+      planTitle = @calendar.getPlanTitle(plan)
+
+      selenium.promise.all([popupTitle, planTitle]).then ([popupTitle, planTitle]) ->
+        expect(popupTitle).to.equal(planTitle)
+      # /-- advance/detailed usage --
+
+      @calendar.el.planPopup.el.periodReviewTab.forEach (period) ->
+        period.click()
+
+      @calendar.el.planPopup.close()
+
+    @user.goHome()
+```
+
+# Helper Details
+
+From doing the above, if we instantiate CalendarHelper, we get back something that looks like this:
+
+```coffee
+calendarHelper =
+  test: testContext
+  options: calendarOptions
+  el:
+    # from the COMMON_ELEMENTS
+    forecastLink: <TestItemHelper>
+    studentScoresLink: <TestItemHelper>
+    addToggle: <TestItemHelper>
+    planByTitle: <TestItemHelper>
+
+    # uses the loadingLocator option
+    loadingState: <TestItemHelper>
+
+    # from explicitly calling setCommonHelper
+    planPopup: <PlanPopupHelper>
+
+  # This function will block all selenium based promises until
+  # the loading element is absent before continuing.
+  waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
+    @test.driver.wait =>
+      @el.loadingState.isPresent().then (isPresent) -> not isPresent
+    , waitTime
+
+  # The following are used to attach the helpers that are now on CalendarHelper.el
+  # They are exposed here for customizing your helper as needed,
+  # as in this case with the planPopup.
+  # Usually, you can just rely on the commonElements object.
+  setCommonHelper: (name, helper) =>
+    @el[name] = helper
+  setCommonElement: (locator, name) =>
+    @setCommonHelper(name, new TestItemHelper(@test, locator))
+```
+Note that TestHelper itself is extended from `TestItemHelper`, meaning `calendarHelper` and the items on `calendarHelper.el` also have the following methods and properties:
+
+```coffee
+testItemHelper =
+  test: testContext
+  # Where locator is a locator object, or
+  # a function returning the locator object based in during instantiation
+  locator: locator
+
+  # function that will return only the locator object
+  getLocator: function
+
+  # The following are aliases of other useful functions
+  # for getting elements based on the stored locator
+  get: test.utils.wait.for
+  getAll: test.utils.wait.forMultiple
+
+  findElement: test.driver.findElement
+  findElements: test.driver.findElements
+
+  forEach: test.utils.forEach
+  isPresent: test.driver.isElementPresent
+```
+See [test-element.coffee](./test-element.coffee) for details.
 
 
 # Guiding Principles
