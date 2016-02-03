@@ -82,6 +82,10 @@ class TestItemHelper
     @test.utils.wait.for(locator)
     @click(args...)
 
+  getParent: (args...) =>
+    locator = @getLocator(args...)
+    @test.utils.dom.getParent(locator)
+
 
 class TestHelper extends TestItemHelper
   constructor: (test, testElementLocator, commonElements, options) ->

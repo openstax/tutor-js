@@ -28,6 +28,9 @@ COMMON_ELEMENTS =
   unopenPlan:
     css: '.plan.is-published:not(.is-open) label:not(.continued)'
     ignoreLengthChange: true
+  canReview:
+    css: '[data-has-review]'
+    attr: 'data-has-review'
   planByTitle: (title) ->
     css: ".plan label[data-title='#{title}']"
   publishedPlanByTitle: (title) ->
@@ -44,6 +47,8 @@ COMMON_POPUP_ELEMENTS =
     linkText: 'Review Metrics'
   modal:
     css: '.plan-modal.active'
+  title:
+    css: '.modal-title'
 
 class PlanPopupHelper extends TestHelper
   constructor: (test, testElementLocator) ->
@@ -67,8 +72,14 @@ class PlanPopupHelper extends TestHelper
       @el.modal.isPresent().then (isPresent) ->
         !isPresent
 
+  canGoToReviewMetrics: =>
+    @el.reviewLink.isPresent()
+
   goReview: =>
     @el.reviewLink.waitClick()
+
+  getTitle: =>
+    @el.title.findElement().getText()
 
 
 class Calendar extends TestHelper
@@ -120,5 +131,11 @@ class Calendar extends TestHelper
     @test.utils.verbose("Waiting to see if plan is published #{title}")
     @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
       @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
+
+  canReviewPlan: (plan) =>
+    @test.utils.dom._getParent(plan).getAttribute(@el.canReview.locator.attr)
+
+  getPlanTitle: (plan) ->
+    plan.getText()
 
 module.exports = Calendar
