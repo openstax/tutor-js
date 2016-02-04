@@ -65,7 +65,7 @@ ExMode = React.createClass
         disabled={disabled}
         ref='freeResponse'
         placeholder='Enter your response'
-        value={freeResponseValue}
+        value={freeResponseValue or ''}
         onChange={@onFreeResponseChange}
       />
     else
