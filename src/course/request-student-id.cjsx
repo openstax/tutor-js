@@ -27,7 +27,7 @@ RequestStudentId = React.createClass
     @props.onSubmit(@refs.input.getValue())
 
   renderCancel: ->
-    <div className="col-sm-2">
+    <div className="cancel">
       <button className="btn"
         onClick={@props.onCancel}>Cancel</button>
     </div>
@@ -41,20 +41,22 @@ RequestStudentId = React.createClass
         onClick={@onSubmit}
       >{@props.saveButtonLabel}</AsyncButton>
 
-    <div className="form-group">
+    <div className="request-student-id form-group">
       <h3 className="text-center">
         {@props.title}
       </h3>
       <ErrorList course={@props.course} />
-      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+      <div className='panels'>
+        <div className='field'>
 
-        <BS.Input type="text" ref="input" label={@props.label}
-          placeholder="School issued ID" autoFocus
-          onKeyPress={@onKeyPress}
-          buttonAfter={button} />
+          <BS.Input type="text" ref="input" label={@props.label}
+            placeholder="School issued ID" autoFocus
+            onKeyPress={@onKeyPress}
+            buttonAfter={button} />
 
-      </div>
+        </div>
         {@renderCancel() if @props.canCancel}
+      </div>
     </div>
 
 module.exports = RequestStudentId
