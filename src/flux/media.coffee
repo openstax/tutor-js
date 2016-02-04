@@ -3,7 +3,7 @@ htmlparser = require 'htmlparser2'
 {makeSimpleStore} = require './helpers'
 
 LINKS_BEGIN = ['#']
-LINKS_CONTAIN = ['/contents/', '.cnx.org']
+LINKS_CONTAIN = ['cnx.org/contents/']
 
 MEDIA_LINK_EXCLUDES = [
   '.nav'
