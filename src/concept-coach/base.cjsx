@@ -150,8 +150,6 @@ ConceptCoach = React.createClass
 
   childComponent: (course) ->
     {view} = @state
-    course = User.getCourse(@props.collectionUUID)
-
     switch view
       when 'loading'
         <span><i className='fa fa-spinner fa-spin'/> Loading ...</span>
