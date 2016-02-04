@@ -11,6 +11,7 @@ navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
 ErrorNotification = require './error-notification'
 AccountsIframe = require '../user/accounts-iframe'
+UpdateStudentIdentifier = require '../course/update-student-identifier'
 LoginGateway = require '../user/login-gateway'
 User = require '../user/model'
 
@@ -23,7 +24,7 @@ navigator = navigation.channel
 
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
-VIEWS = ['loading', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration'], 'logout']
+VIEWS = ['loading', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration', 'student_id'], 'logout']
 
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
@@ -147,7 +148,7 @@ ConceptCoach = React.createClass
 
     @setState(userState)
 
-  childComponent: ->
+  childComponent: (course) ->
     {view} = @state
     course = User.getCourse(@props.collectionUUID)
 
@@ -170,6 +171,8 @@ ConceptCoach = React.createClass
         <AccountsIframe type='profile' onComplete={@updateUser} />
       when 'registration'
         <CourseRegistration {...@props} />
+      when 'student_id'
+        <UpdateStudentIdentifier {...@props} course={course} />
       else
         <h3 className="error">bad internal state, no view is set</h3>
 
@@ -186,7 +189,7 @@ ConceptCoach = React.createClass
       <SpyMode.Wrapper>
         <Navigation key='user-status' close={@props.close} course={course}/>
         <div className={className}>
-          {@childComponent()}
+          {@childComponent(course)}
         </div>
       </SpyMode.Wrapper>
     </div>

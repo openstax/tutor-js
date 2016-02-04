@@ -33,6 +33,10 @@ UserMenu = React.createClass
     clickEvent.preventDefault()
     @context.navigator.emit('show.profile', view: 'profile')
 
+  updateStudentId: (clickEvent) ->
+    clickEvent.preventDefault()
+    @context.navigator.emit('show.student_id', view: 'student_id')
+
   update: ->
     @forceUpdate() if @isMounted()
 
@@ -46,10 +50,14 @@ UserMenu = React.createClass
 
   renderCourseOption: ->
     if @props.course?.isRegistered()
-      courseChangeText = 'Change Course and ID'
+      courseChangeText = 'Change Course'
     else
       courseChangeText = 'Register for Course'
     <BS.MenuItem onClick={@modifyCourse}>{courseChangeText}</BS.MenuItem>
+
+  renderStudentIdOption: ->
+    return null unless @props.course?.isRegistered()
+    <BS.MenuItem onClick={@updateStudentId}>Change student ID</BS.MenuItem>
 
   render: ->
     # The menu has no valid actions unless the useris logged in
@@ -58,6 +66,7 @@ UserMenu = React.createClass
     <BS.DropdownButton navItem className='concept-coach-user' title={user.name}>
       {@renderCourseOption()}
       <BS.MenuItem onClick={@showProfile}>Account Profile</BS.MenuItem>
+      {@renderStudentIdOption()}
       <BS.MenuItem onClick={@logoutUser}>Logout</BS.MenuItem>
     </BS.DropdownButton>
 

@@ -10,6 +10,7 @@ settings =
     progress: DEFAULT_PATTERN
     loading: DEFAULT_PATTERN
     login: DEFAULT_PATTERN
+    student_id: DEFAULT_PATTERN
     logout: DEFAULT_PATTERN
     default: '{prefix}{base}'
     close: '{prefix}'
