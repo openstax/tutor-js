@@ -31,12 +31,9 @@ ConfirmJoin = React.createClass
 
     <BS.Row>
       <RequestStudentId
-
         onCancel={@onCancel}
         onSubmit={@startConfirmation}
         saveButtonLabel="Confirm"
-        canCancel={true}
-
         label={label}
         onConfirmationCancel={@onCancel}
         {...@props}

@@ -26,12 +26,6 @@ RequestStudentId = React.createClass
   onSubmit: ->
     @props.onSubmit(@refs.input.getValue())
 
-  renderCancel: ->
-    <div className="cancel">
-      <button className="btn"
-        onClick={@props.onCancel}>Cancel</button>
-    </div>
-
   render: ->
     button =
       <AsyncButton
@@ -48,14 +42,15 @@ RequestStudentId = React.createClass
       <ErrorList course={@props.course} />
       <div className='panels'>
         <div className='field'>
-
           <BS.Input type="text" ref="input" label={@props.label}
             placeholder="School issued ID" autoFocus
             onKeyPress={@onKeyPress}
             buttonAfter={button} />
-
         </div>
-        {@renderCancel() if @props.canCancel}
+        <div className="cancel">
+          <button className="btn"
+            onClick={@props.onCancel}>Cancel</button>
+        </div>
       </div>
     </div>
 
