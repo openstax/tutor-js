@@ -1,3 +1,6 @@
+SIZE_PRESETS =
+  LARGE: [1080, 1080]
+
 windowPosition = (test) ->
 
   scrollTop: ->
@@ -8,5 +11,11 @@ windowPosition = (test) ->
   scrollTo: (el) ->
     test.driver.executeScript("arguments[0].scrollIntoView(true);", el)
     test.sleep(200)
+
+  set: (args...) ->
+    test.driver.manage().window().setSize(args...)
+
+  setLarge: ->
+    test.driver.manage().window().setSize(SIZE_PRESETS.LARGE...)
 
 module.exports = windowPosition
