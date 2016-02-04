@@ -11,11 +11,13 @@ RequestStudentId = React.createClass
   propTypes:
     onCancel: React.PropTypes.func.isRequired
     onSubmit: React.PropTypes.func.isRequired
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.oneOfType([
+      React.PropTypes.string
+      React.PropTypes.element
+    ]).isRequired
     saveButtonLabel: React.PropTypes.string.isRequired
     title: React.PropTypes.string.isRequired
     course: React.PropTypes.instanceOf(Course).isRequired
-    optionalStudentId: React.PropTypes.bool
 
   startConfirmation: ->
     @props.course.confirm(@refs.input.getValue())
