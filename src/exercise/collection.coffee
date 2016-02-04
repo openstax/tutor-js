@@ -17,7 +17,8 @@ quickLoad = (stepId, data) ->
   channel.emit("quickLoad.#{stepId}", {data})
 
 load = (stepId, data) ->
-  steps[stepId] = data
+  temp_free_response = steps[stepId].temp_free_response
+  steps[stepId] = _.extend({temp_free_response}, data)
   channel.emit("load.#{stepId}", {data})
 
 update = (eventData) ->
