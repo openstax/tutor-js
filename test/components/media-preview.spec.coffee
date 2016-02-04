@@ -43,6 +43,9 @@ fakeMediaNotInViewport = (mediaDOM, window) ->
   window.innerHeight = 400
 
 
+linkString = MediaStore.getLinksContained()[0]
+BOOK_HREF = "link-to-book#{linkString}"
+
 describe 'Media Preview', ->
 
   afterEach ->
@@ -121,7 +124,7 @@ describe 'Media Preview', ->
     mediaIds = MediaStore.getMediaIds()
     mediaId = mediaIds[0]
     media = MediaStore.get(mediaId)
-    bookHref = 'link-to-book'
+    bookHref = BOOK_HREF
 
     props = {mediaId: mediaId, bookHref: bookHref, children: 'this figure', shouldLinkOut: true}
 
@@ -137,7 +140,7 @@ describe 'Media Preview', ->
     mediaIds = MediaStore.getMediaIds()
     mediaId = mediaIds[0]
     media = MediaStore.get(mediaId)
-    bookHref = 'link-to-book'
+    bookHref = BOOK_HREF
 
     props = {mediaId: mediaId, bookHref: bookHref, children: 'this figure', shouldLinkOut: false}
 
@@ -276,12 +279,13 @@ describe 'Media Preview', ->
       mediaId: MEDIA_ID_FROM_ANOTHER_MODULE
       children: 'no figure'
       cnxId: PAGE_ID
-      bookHref: "link-to-book/#{PAGE_ID}"
+      bookHref: "#{BOOK_HREF}#{PAGE_ID}"
+      originalHref: 'originalHrefToExternal'
 
     Testing
       .renderComponent( MediaPreview, props: props )
       .then ({dom, element}) ->
-        expect(dom.href).to.contain(props.bookHref).and.to.contain(props.mediaId)
+        expect(dom.getAttribute('href')).to.equal(props.originalHref)
         expect(dom.target).to.equal('_blank')
 
         Testing.actions.mouseEnter(dom)
@@ -297,7 +301,7 @@ describe 'Media Preview', ->
       mediaId: MEDIA_ID_FROM_ANOTHER_MODULE
       children: 'this figure'
       cnxId: PAGE_ID
-      bookHref: "link-to-book/#{PAGE_ID}"
+      bookHref: "#{BOOK_HREF}#{PAGE_ID}"
 
     Testing
       .renderComponent( MediaPreview, props: props )

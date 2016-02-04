@@ -2,6 +2,26 @@ _ = require 'underscore'
 htmlparser = require 'htmlparser2'
 {makeSimpleStore} = require './helpers'
 
+LINKS_BEGIN = ['#']
+LINKS_CONTAIN = ['/contents/', '.cnx.org']
+
+MEDIA_LINK_EXCLUDES = [
+  '.nav'
+  '.view-reference-guide'
+  '[data-type=footnote-number]'
+  '[data-type=footnote-ref]'
+  '[data-targeted=media]'
+]
+
+buildAllowed = (linksBegin, linksContain) ->
+  beginSelectors = _.map linksBegin, (linkString) ->
+    "a[href^='#{linkString}']"
+
+  containSelectors = _.map linksContain, (linkString) ->
+    "a[href*='#{linkString}']"
+
+  _.union(beginSelectors, containSelectors)
+
 MediaConfig =
 
   _local: {}
@@ -57,6 +77,25 @@ MediaConfig =
     isLoaded: (id) -> @_get(id)?
     getMediaIds: ->
       _.keys(@_local)
+
+    getLinksContained: ->
+      LINKS_CONTAIN
+
+    getAllowed: ->
+      buildAllowed(LINKS_BEGIN, LINKS_CONTAIN)
+
+    getExcluded: ->
+      MEDIA_LINK_EXCLUDES
+
+    getSelector: ->
+      notMedias = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
+        "#{current}:not(#{exclude})"
+      , '')
+
+      _.map(buildAllowed(LINKS_BEGIN, LINKS_CONTAIN), (allowed) ->
+        "#{allowed}#{notMedias}"
+      ).join(', ')
+
 
 {actions, store} = makeSimpleStore(MediaConfig)
 module.exports = {MediaActions:actions, MediaStore:store}
