@@ -5,14 +5,15 @@ _ = require 'underscore'
 
 class Event extends TestHelper
 
-  elementRefs:
+  elementRefs: ->
+    locator = @getLocator().css or ''
     title:
-      css: '.title'
+      css: "#{locator} .title"
     progress:
-      css: '.feedback'
+      css: "#{locator} .feedback"
 
   constructor: (test, eventId) ->
-    super(test, ".task[data-event-id='#{eventId}']")
+    super(test, css: ".task[data-event-id='#{eventId}']")
 
   @fromElement: (test, element) ->
     element.getAttribute('data-event-id').then (eventId) ->
@@ -49,7 +50,8 @@ class Dashboard extends TestHelper
       if _.isEmpty(options.where)
         events
       else
-        selenium.promise.map(events, (event) -> event.isMatchFor(options.where))
+        selenium.promise.map(events, (event) ->
+          event.isMatchFor(options.where))
           .then( (events) -> _.compact(events) )
     )
 
