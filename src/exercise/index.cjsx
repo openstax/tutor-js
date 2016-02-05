@@ -55,8 +55,6 @@ ExerciseBase = React.createClass
 
       onFreeResponseChange: (freeResponse) ->
         step.temp_free_response = freeResponse
-        eventData = change: step, data: step, status: 'saving'
-        api.channel.emit("exercise.#{step.id}.receive.changed", eventData)
 
       onContinue: ->
         step.is_completed = true
