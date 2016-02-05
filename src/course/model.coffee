@@ -24,7 +24,7 @@ class Course
   constructor: (attributes) ->
     @channel = new EventEmitter2
     _.extend(@, attributes)
-    _.bindAll(@, '_onRegistered', '_onConfirmed', '_onValidated')
+    _.bindAll(@, '_onRegistered', '_onConfirmed', '_onValidated', '_onStudentUpdated')
 
   # complete and ready for use
   isRegistered: -> @id and not (@isIncomplete() or @isPending())
@@ -125,6 +125,15 @@ class Course
       api.channel.once "course.#{@ecosystem_book_uuid}.receive.prevalidation.*", @_onValidated
       api.channel.emit("course.#{@ecosystem_book_uuid}.send.prevalidation", {data})
     @channel.emit('change')
+
+  _onStudentUpdated: (response) ->
+    _.extend(@, response.data) if response?.data
+    @channel.emit('change')
+
+  updateStudent: (attributes) ->
+    data = _.extend({}, attributes, id: @id)
+    api.channel.once "course.#{@ecosystem_book_uuid}.receive.studentUpdate.*", @_onStudentUpdated
+    api.channel.emit("course.#{@ecosystem_book_uuid}.send.studentUpdate", {data})
 
   _onRegistered: (response) ->
     throw new Error("response is empty in onRegistered") if _.isEmpty(response)

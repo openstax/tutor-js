@@ -57,4 +57,10 @@ settings =
       failedEvent: 'course.{id}.receive.confirmation.failure'
       completedEvent: 'course.{id}.receive.confirmation.complete'
 
+    'course.*.send.studentUpdate':
+      url: 'api/user/courses/{id}/student'
+      method: 'PATCH'
+      failedEvent: 'course.*.send.studentUpdate.failure'
+      completedEvent: 'course.*.receive.studentUpdate.complete'
+
 module.exports = settings

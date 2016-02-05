@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 ENTER = 'Enter'
+RequestStudentId = require './request-student-id'
 
 Course = require './model'
 ErrorList = require './error-list'
@@ -13,17 +14,11 @@ ConfirmJoin = React.createClass
     course: React.PropTypes.instanceOf(Course).isRequired
     optionalStudentId: React.PropTypes.bool
 
-  startConfirmation: ->
-    @props.course.confirm(@refs.input.getValue())
-
-  onKeyPress: (ev) ->
-    @startConfirmation() if ev.key is ENTER
-
-  onConfirmKeyPress: (ev) ->
-    @startConfirmation() if ev.key is ENTER
-
-  cancelConfirmation: ->
+  onCancel: ->
     @props.course.resetToBlankState()
+
+  startConfirmation: (studentId) ->
+    @props.course.confirm(studentId)
 
   render: ->
     label = if @props.optionalStudentId
@@ -34,33 +29,15 @@ ConfirmJoin = React.createClass
     else
       "Enter your school issued ID:"
 
-    <div className="form-group">
-      <h3 className="text-center">
-        {@props.title}
-      </h3>
-      <ErrorList course={@props.course} />
-      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-
-        <BS.Input type="text" ref="input" label={label}
-          placeholder="School issued ID" autoFocus
-          onKeyPress={@onKeyPress}
-        />
-
-        <div className="text-center">
-          <button className="btn"
-            onClick={@cancelConfirmation}>Cancel</button>
-
-           <AsyncButton
-             className="btn btn-success"
-             isWaiting={!!@props.course.isBusy}
-             waitingText={'Confirming…'}
-             onClick={@startConfirmation}
-             style={marginLeft: '3rem'}
-           >
-            Confirm
-          </AsyncButton>
-        </div>
-      </div>
-    </div>
+    <BS.Row>
+      <RequestStudentId
+        onCancel={@onCancel}
+        onSubmit={@startConfirmation}
+        saveButtonLabel="Confirm"
+        label={label}
+        onConfirmationCancel={@onCancel}
+        {...@props}
+      />
+    </BS.Row>
 
 module.exports = ConfirmJoin
