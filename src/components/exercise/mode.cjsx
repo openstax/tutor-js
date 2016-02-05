@@ -55,15 +55,17 @@ ExMode = React.createClass
     @props.onAnswerChanged?(answer)
 
   getFreeResponse: ->
+    freeResponseValue = @state.freeResponse
     {mode, free_response, disabled} = @props
-    {freeResponse} = @state
+    {freeResponseValue} = @props unless freeResponseValue
+
 
     if mode is 'free-response'
       <textarea
         disabled={disabled}
         ref='freeResponse'
         placeholder='Enter your response'
-        value={freeResponse}
+        value={freeResponseValue or ''}
         onChange={@onFreeResponseChange}
       />
     else
