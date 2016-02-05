@@ -11,7 +11,7 @@ else
 module.exports =
   cache: true
 
-  devtool: if isStandaloneBuild then undefined else 'source-map'
+  devtool: 'source-map' # Always include source maps!
 
   entry:
     tutor: [
