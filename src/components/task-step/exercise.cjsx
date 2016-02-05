@@ -13,6 +13,8 @@ module.exports = React.createClass
     id: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
 
+  updateFreeResponse: (freeResponse) -> TaskStepActions.updateTempFreeResponse(@props.id, freeResponse)
+
   render: ->
     {id, taskId} = @props
     step = TaskStepStore.get(id)
@@ -45,5 +47,7 @@ module.exports = React.createClass
       getCurrentPanel={getCurrentPanel}
       getReadingForStep={getReadingForStep}
       setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+      onFreeResponseChange={@updateFreeResponse}
+      freeResponseValue={TaskStepStore.getTempFreeResponse(id)}
       setAnswerId={TaskStepActions.setAnswerId}
     />
