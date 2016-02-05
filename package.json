@@ -30,7 +30,7 @@
     "jquery": "2.1.4",
     "keymaster": "1.6.2",
     "lodash": "3.10.1",
-    "openstax-react-components": "openstax/react-components#f103313499ebe4c87ec9c6746934368518487d76",
+    "openstax-react-components": "openstax/react-components#7045047a051242830f6b284ec2cea2ea7aff6b73",
     "underscore": "1.8.3"
   },
   "devDependencies": {
