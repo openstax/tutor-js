@@ -10,7 +10,9 @@ describe 'CC Modal Component', ->
         true
       children: <button id="click-me"/>
 
-
+    # simulate click manually.
+    # The event listener for this is outside of React's simulated event system,
+    # because it needs to be the first check for all click and focus events on `document`.
     @click = (el, onClick) ->
       ev = document.createEvent("MouseEvent")
       clickArguments = [
