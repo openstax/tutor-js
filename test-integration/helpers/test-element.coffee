@@ -53,6 +53,7 @@ Object.defineProperties TestItemHelper.prototype,
 
 class TestHelper extends TestItemHelper
   constructor: (test, testElementLocator, commonElements, options) ->
+    super(test, testElementLocator)
     commonElements ||= _.result(@, 'elementRefs', {})
     defaultOptions =
       loadingLocator:
@@ -62,7 +63,6 @@ class TestHelper extends TestItemHelper
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
 
-    super(test, testElementLocator)
     commonElements.loadingState = @options.loadingLocator
 
     _.each commonElements, @setCommonElement
