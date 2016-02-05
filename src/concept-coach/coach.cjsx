@@ -13,13 +13,13 @@ Coach = React.createClass
   propTypes:
     open: React.PropTypes.bool
     displayLauncher: React.PropTypes.bool
+    filterClick: React.PropTypes.func
 
   render: ->
-    {open} = @props
-    {displayLauncher} = @props
+    {open, displayLauncher, filterClick} = @props
     coachProps = _.omit(@props, 'open')
 
-    modal = <CCModal>
+    modal = <CCModal filterClick={filterClick}>
       <ConceptCoach {...coachProps}/>
     </CCModal> if open
 
