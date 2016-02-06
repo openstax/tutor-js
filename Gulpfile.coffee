@@ -36,17 +36,29 @@ gulp.task '_cleanDist', (done) ->
   del(['./dist/*'], done)
 
 gulp.task '_build', ['_cleanDist'], (done) ->
-  env(vars:{ NODE_ENV: 'production' })
+  # use the webpack config as if it was being built for a remote machine
+  # (ie no hotloader) but keep the actual React runtime warnings and sourcemaps
+  # in place
+  env(vars:{NODE_BUILD_TYPE: 'standalone'})
+  # Default to "production"
+  unless process.env.NODE_ENV
+    env(vars:{NODE_ENV: JSON.stringify('production')})
+
+  plugins = [
+    # Use the production version of React (no warnings/runtime checks)
+    new webpack.DefinePlugin({ 'process.env': {NODE_ENV: process.env.NODE_ENV} })
+    new WPExtractText("tutor.min.css")
+  ]
+
   webpackConfig = require './webpack.config'
-  config = _.extend({}, webpackConfig, {
-    plugins: [
-      # Use the production version of React (no warnings/runtime checks)
-      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
-      new WPExtractText("tutor.min.css")
-      new webpack.optimize.UglifyJsPlugin({minimize: true})
-    ]
-  })
-  config.output.filename = 'tutor.min.js'
+  config = _.extend({}, webpackConfig, {plugins})
+
+  if process.env.NODE_ENV is JSON.stringify('production') and process.env.NODE_MINIFY isnt JSON.stringify(false)
+    plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}))
+    config.output.filename = 'tutor.min.js'
+  else
+    config.output.filename = 'tutor.js'
+
   webpack(config, (err, stats) ->
     throw new gutil.PluginError("webpack", err) if err
     gutil.log("[webpack]", stats.toString({
@@ -55,25 +67,14 @@ gulp.task '_build', ['_cleanDist'], (done) ->
     done()
   )
 
-# Copy-Pasta from `_build` task just without the minimize, and naming the files `*.min.*`
-gulp.task 'build', ['_cleanDist'], (done) ->
-  env(vars:{ NODE_ENV: 'production' })
-  webpackConfig = require './webpack.config'
-  config = _.extend({}, webpackConfig, {
-    plugins: [
-      # Use the production version of React (no warnings/runtime checks)
-      new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } })
-      new WPExtractText("tutor.css")
-    ]
-  })
-  config.output.filename = 'tutor.js'
-  webpack(config, (err, stats) ->
-    throw new gutil.PluginError("webpack", err) if err
-    gutil.log("[webpack]", stats.toString({
-      # output options
-    }))
-    done()
-  )
+gulp.task '_disableMinify', ->
+  # Don't minify in order to save time
+  env(vars:{NODE_MINIFY: JSON.stringify(false)})
+
+# Used for selenium testing.
+# Disable minify so the test process is quicker
+gulp.task 'build', ['_disableMinify', '_build'], ->
+
 
 gulp.task '_tagRev', ['_build'], ->
   gulp.src("#{DIST_DIR}/*.min.*")
@@ -130,7 +131,9 @@ gulp.task 'lint', ->
   .pipe(coffeelint.reporter())
   .pipe(coffeelint.reporter('fail'))
 
+# `gulp prod` is currently what deployments use until they switch to `npm run build-archive`
 gulp.task 'prod', ['_archive']
+gulp.task 'build-archive', ['_archive']
 
 gulp.task 'serve', ['_webserver']
 
