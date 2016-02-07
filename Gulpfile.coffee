@@ -47,7 +47,6 @@ gulp.task '_build', ['_cleanDist'], (done) ->
   plugins = [
     # Use the production version of React (no warnings/runtime checks)
     new webpack.DefinePlugin({ 'process.env': {NODE_ENV: process.env.NODE_ENV} })
-    new WPExtractText("tutor.min.css")
   ]
 
   webpackConfig = require './webpack.config'
@@ -55,8 +54,10 @@ gulp.task '_build', ['_cleanDist'], (done) ->
 
   if process.env.NODE_ENV is JSON.stringify('production') and process.env.NODE_MINIFY isnt JSON.stringify(false)
     plugins.push(new webpack.optimize.UglifyJsPlugin({minimize: true}))
+    plugins.push(new WPExtractText("tutor.min.css"))
     config.output.filename = 'tutor.min.js'
   else
+    plugins.push(new WPExtractText("tutor.css"))
     config.output.filename = 'tutor.js'
 
   webpack(config, (err, stats) ->
