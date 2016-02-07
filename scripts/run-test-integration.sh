@@ -6,15 +6,16 @@ then
 
   parallelshell --verbose "http-server -p 8000 ." "./scripts/run-test-integration-inner.sh"
 
-  if [ $? -eq 42 ]
-  then
-    exit 0
-  else
-    exit $?
-  fi
-
 else
   echo "Testing against remote server ${SERVER_URL}"
   # Starting up in parallelshell anyway just so Ctrl+C still works nicely
   parallelshell "./scripts/run-test-integration-inner.sh"
+fi
+
+# run-test-integration-inner.sh returns 42 if successful
+if [ $? -eq 42 ]
+then
+  exit 0
+else
+  exit $?
 fi
