@@ -1,6 +1,6 @@
 verbose = (test, args...) ->
-  if process.env.VERBOSE
-    test.driver.controlFlow().execute ->
+  test.driver.call ->
+    if process.env.VERBOSE
       console.log(args...)
 
 # Example: `...utils.verboseWrap('Opening an assignment', () => calendar.openPlan())`
