@@ -20,7 +20,7 @@ class TaskHelper extends TestHelper
 
   continue: =>
     continueButton = @el.continueButton.get()
-    @test.driver.wait selenium.until.elementIsEnabled(continueButton)
-    continueButton.click()
+    @test.utils.verboseWrap 'Waiting for continue button to be enabled', => @test.driver.wait selenium.until.elementIsEnabled(continueButton)
+    @test.utils.verboseWrap 'Clicking continue button', => continueButton.click()
 
 module.exports = {TaskHelper}

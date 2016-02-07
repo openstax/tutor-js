@@ -1,6 +1,7 @@
 selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
+
 S = require '../../src/helpers/string'
 
 class TestItemHelper
@@ -66,7 +67,7 @@ class TestHelper extends TestItemHelper
     defaultOptions =
       loadingLocator:
         css: '.is-loading'
-      defaultWaitTime: 1000
+      defaultWaitTime: 20000 # TODO: Letting tests define their own wait time is dangerous. tutor-dev takes > 10sec to delete a task-plan
 
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
@@ -76,10 +77,10 @@ class TestHelper extends TestItemHelper
     _.each commonElements, @setCommonElement
     @
 
-  waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
-    @test.driver.wait =>
+  waitUntilLoaded: () =>
+    @test.utils.verboseWrap 'Waiting until Loadable .is-loading is gone', => @test.driver.wait(=>
       @el.loadingState.isPresent().then (isPresent) -> not isPresent
-    , waitTime
+    , @options.defaultWaitTime)
 
   setCommonHelper: (name, helper) =>
     @el[name] = helper

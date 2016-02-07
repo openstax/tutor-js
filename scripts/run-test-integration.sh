@@ -1,8 +1,20 @@
-parallelshell --verbose "http-server -p 8000 ." "./scripts/run-test-integration-inner.sh"
-
-if [ $? -eq 42 ]
+# If you are testing locally then start up a http server and run the selenium tests.
+# If you are testing against a remote server then no need to start up a http server locally.
+if [ -z ${SERVER_URL} ]
 then
-  exit 0
+  echo "Testing locally. If you want to test a remote server then set the SERVER_URL environment variable"
+
+  parallelshell --verbose "http-server -p 8000 ." "./scripts/run-test-integration-inner.sh"
+
+  if [ $? -eq 42 ]
+  then
+    exit 0
+  else
+    exit $?
+  fi
+
 else
-  exit $?
+  echo "Testing against remote server ${SERVER_URL}"
+  # Starting up in parallelshell anyway just so Ctrl+C still works nicely
+  parallelshell "./scripts/run-test-integration-inner.sh"
 fi

@@ -50,7 +50,6 @@ describe 'Draft Tests', ->
 
 
   @it 'Creates a draft Reading with opensAt to today and deletes (idempotent)', ->
-
     @reading.edit
       name: @title
       # opensAt: 'NOT_TODAY'
@@ -70,8 +69,6 @@ describe 'Draft Tests', ->
 
 
   @it 'Creates a draft Reading checks and then unchecks some sections (idempotent)', ->
-    @addTimeout(2 * 60)
-
     # Check all the boxes, uncheck them & verify "Add Readings" is disabled
     @reading.edit
       name: @title

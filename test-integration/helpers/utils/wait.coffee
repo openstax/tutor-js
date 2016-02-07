@@ -24,7 +24,7 @@ class Wait
     # Because of animations an element might be in the DOM but not visible
     el = @test.driver.findElements(locator)
 
-    el.then (elements) =>
+    @test.utils.verboseWrap "Waiting for multiple #{JSON.stringify(locator)}", => el.then (elements) =>
       @test.driver.wait(selenium.until.elementIsVisible(elements[0]))
 
     el
@@ -48,7 +48,7 @@ class Wait
       val
     # Because of animations an element might be in the DOM but not visible
     el = @test.driver.findElement(locator)
-    @test.driver.wait(selenium.until.elementIsVisible(el))
+    @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until.elementIsVisible(el))
     el
 
   click: (locator, ms) ->
@@ -57,7 +57,6 @@ class Wait
     @test.utils.windowPosition.scrollTop()
     el.click()
     # return el to support chaining the promises
-    el
 
 
 wait = (test) ->
