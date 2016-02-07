@@ -9,13 +9,14 @@ camelCase = require 'camelcase'
 
 CrumbMixin = require './crumb-mixin'
 StepFooterMixin = require '../task-step/step-footer-mixin'
-
 TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
 {StepPanel} = require '../../helpers/policies'
+
+{UnsavedStateMixin} = require '../unsaved-state'
 
 {PinnedHeaderFooterCard} = require 'openstax-react-components'
 
@@ -25,7 +26,7 @@ module.exports = React.createClass
 
   displayName: 'Task'
 
-  mixins: [StepFooterMixin, CrumbMixin]
+  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -52,6 +53,9 @@ module.exports = React.createClass
       recoverForStepId: false
       recoveredStepId: false
     }
+
+  hasUnsavedState: -> TaskStore.hasAnyStepChanged(@props.id)
+  unsavedStateMessages: -> 'The assignment has unsaved changes'
 
   componentWillMount: ->
     @setStepKey()
@@ -222,12 +226,11 @@ module.exports = React.createClass
     taskClasses += " task-#{panelType}" if panelType?
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
-    unless TaskStore.isSingleStepped(id)
-      breadcrumbs = <Breadcrumbs
-        id={id}
-        goToStep={@goToStep}
-        currentStep={@state.currentStep}
-        key="task-#{id}-breadcrumbs"/>
+    breadcrumbs = <Breadcrumbs
+      id={id}
+      goToStep={@goToStep}
+      currentStep={@state.currentStep}
+      key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard
       forceShy={true}

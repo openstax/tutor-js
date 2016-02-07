@@ -1,20 +1,38 @@
 selenium = require 'selenium-webdriver'
-CourseCalendar = require './calendar'
-CCDashboard = require './cc-dashboard'
-
-#   category: 'BIOLOGY', 'PHYSICS', 'ANY'
-goTo = (test, category) =>
-  # Go to the bio dashboard
-  switch category
-    when 'BIOLOGY' then test.waitClick(css: '[data-appearance="biology"] > [href*="calendar"]')
-    when 'PHYSICS' then test.waitClick(css: '[data-appearance="physics"] > [href*="calendar"]')
-    when 'CONCEPT_COACH' then test.waitClick(css: '[data-appearance] > [href*="cc-dashboard"]')
-    else test.waitClick(css: '[data-appearance] > [href*="calendar"]')
-
-  if category is 'CONCEPT_COACH'
-    CCDashboard.verify(test)
-  else
-    CourseCalendar.verify(test)
+{TestHelper} = require './test-element'
 
 
-module.exports = {goTo}
+COMMON_ELEMENTS =
+  courseLink: (appearance, isCoach = false) ->
+    dataAttr = 'data-appearance'
+
+    if appearance?
+      dataAttr += "='#{appearance}'"
+
+    if isCoach
+      teacherLink = "[#{dataAttr}] > [href*='cc-dashboard']"
+      studentLink = "[#{dataAttr}] > [href*='content']"
+    else
+      teacherLink = "[#{dataAttr}] > [href*='calendar']"
+      studentLink = "[#{dataAttr}] > [href*='list']"
+
+    css: "#{teacherLink}, #{studentLink}"
+
+
+class CourseSelect extends TestHelper
+
+  constructor: (test, testElementLocator) ->
+
+    testElementLocator ?= '.course-listing'
+    super(test, '.course-listing', COMMON_ELEMENTS)
+
+  goTo: (category) ->
+    @waitUntilLoaded()
+    # Go to the bio dashboard
+    switch category
+      when 'BIOLOGY' then @el.courseLink.get('biology').click()
+      when 'PHYSICS' then @el.courseLink.get('physics').click()
+      when 'CONCEPT_COACH' then @el.courseLink.get('physics').click()
+      else @el.courseLink.get().click()
+
+module.exports = CourseSelect

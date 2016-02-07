@@ -6,6 +6,8 @@
 #
 # Components
 require './components/course-listing.spec'
+require './components/cc-dashboard/index.spec'
+require './components/cc-dashboard/dashboard.spec'
 require './components/navbar/index.spec'
 require './components/navbar/account-link.spec'
 require './components/navbar/user-actions-menu.spec'

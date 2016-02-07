@@ -1,0 +1,2132 @@
+{
+    "tasks": [],
+    "role": {
+        "id": "15108",
+        "type": "teacher"
+    },
+    "course": {
+        "name": "Principles of Economics",
+        "teachers": [{
+            "id": "28",
+            "role_id": "15108",
+            "first_name": "Jennifer",
+            "last_name": "Carter"
+        }],
+        "periods": [{
+            "id": "42",
+            "name": "1st",
+            "chapters": [{
+                "id": "378",
+                "title": "The Aggregate Demand/Aggregate Supply Model",
+                "chapter_section": [24],
+                "pages": [{
+                    "id": "1874",
+                    "title": "Shifts in Aggregate Supply",
+                    "uuid": "57e78001-9993-4f6a-8170-dd559a3ae9c3",
+                    "version": "11",
+                    "chapter_section": [24, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.4,
+                    "spaced_practice_performance": 0.6666666666666666
+                }, {
+                    "id": "1872",
+                    "title": "Macroeconomic Perspectives on Demand and Supply",
+                    "uuid": "01b6831f-61da-4f87-b662-7772e647e07e",
+                    "version": "4",
+                    "chapter_section": [24, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.5
+                }]
+            }, {
+                "id": "377",
+                "title": "The International Trade and Capital Flows",
+                "chapter_section": [23],
+                "pages": [{
+                    "id": "1870",
+                    "title": "The Difference between Level of Trade and the Trade Balance",
+                    "uuid": "360f1150-151b-4cbc-b7ed-e5eb81053518",
+                    "version": "6",
+                    "chapter_section": [23, 6],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1867",
+                    "title": "Trade Balances and Flows of Financial Capital",
+                    "uuid": "fbe75980-802a-4ca4-b366-abd8a15d2ac2",
+                    "version": "6",
+                    "chapter_section": [23, 3],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.45454545454545453,
+                    "spaced_practice_performance": 0.42857142857142855
+                }]
+            }, {
+                "id": "376",
+                "title": "Inflation",
+                "chapter_section": [22],
+                "pages": [{
+                    "id": "1861",
+                    "title": "How the U.S. and Other Countries Experience Inflation",
+                    "uuid": "ab6a03ce-3f75-41ad-b4ad-65f8dad02b9c",
+                    "version": "5",
+                    "chapter_section": [22, 3],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1860",
+                    "title": "How Changes in the Cost of Living are Measured",
+                    "uuid": "8b14d3ca-db22-4a11-ae34-fbe3da3989cd",
+                    "version": "5",
+                    "chapter_section": [22, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.75,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1859",
+                    "title": "Tracking Inflation",
+                    "uuid": "cfd51fde-43a0-4de6-833e-3095dcc2e594",
+                    "version": "7",
+                    "chapter_section": [22, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "375",
+                "title": "Unemployment",
+                "chapter_section": [21],
+                "pages": [{
+                    "id": "1857",
+                    "title": "What Causes Changes in Unemployment over the Long Run",
+                    "uuid": "53835d56-56e1-431a-814b-d5cfe1513f36",
+                    "version": "13",
+                    "chapter_section": [21, 4],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.75,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "374",
+                "title": "Economic Growth",
+                "chapter_section": [20],
+                "pages": [{
+                    "id": "1852",
+                    "title": "Economic Convergence",
+                    "uuid": "8bd1d37d-ff50-43ed-b689-2779632f3e97",
+                    "version": "5",
+                    "chapter_section": [20, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.4,
+                    "spaced_practice_performance": 0.4
+                }, {
+                    "id": "1850",
+                    "title": "Labor Productivity and Economic Growth",
+                    "uuid": "513f94fd-f7fd-42a5-a3f0-ce6f60ea4da0",
+                    "version": "8",
+                    "chapter_section": [20, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25
+                }]
+            }, {
+                "id": "373",
+                "title": "The Macroeconomic Perspective",
+                "chapter_section": [19],
+                "pages": [{
+                    "id": "1845",
+                    "title": "Tracking Real GDP over Time",
+                    "uuid": "5df753ad-f999-440b-92fe-84cd54bb9e20",
+                    "version": "7",
+                    "chapter_section": [19, 3],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.4444444444444444,
+                    "spaced_practice_performance": 0.16666666666666666
+                }, {
+                    "id": "1844",
+                    "title": "Adjusting Nominal Values to Real Values",
+                    "uuid": "1430165f-c953-4641-9bfc-211afe97cfd5",
+                    "version": "6",
+                    "chapter_section": [19, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.5
+                }]
+            }, {
+                "id": "372",
+                "title": "Public Economy",
+                "chapter_section": [18],
+                "pages": [{
+                    "id": "1840",
+                    "title": "Special Interest Politics",
+                    "uuid": "f0db4e9b-bcef-4fa5-b518-f23a1f85ac87",
+                    "version": "5",
+                    "chapter_section": [18, 2],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.4,
+                    "spaced_practice_performance": 0.5
+                }]
+            }, {
+                "id": "371",
+                "title": "Financial Markets",
+                "chapter_section": [17],
+                "pages": [{
+                    "id": "1835",
+                    "title": "How Businesses Raise Financial Capital",
+                    "uuid": "dc09a75b-f97b-4813-93d1-440334ec1ef2",
+                    "version": "7",
+                    "chapter_section": [17, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "370",
+                "title": "Information, Risk, and Insurance",
+                "chapter_section": [16],
+                "pages": [{
+                    "id": "1833",
+                    "title": "Insurance and Imperfect Information",
+                    "uuid": "9b1c0ea6-9bb9-4b72-958a-890aefd7261f",
+                    "version": "7",
+                    "chapter_section": [16, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.5555555555555556,
+                    "spaced_practice_performance": 0.3333333333333333
+                }, {
+                    "id": "1832",
+                    "title": "The Problem of Imperfect Information and Asymmetric Information",
+                    "uuid": "3694565a-4bef-42d2-9652-c602c78870d4",
+                    "version": "5",
+                    "chapter_section": [16, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "369",
+                "title": "Issues in Labor Markets: Unions, Discrimination, Immigration",
+                "chapter_section": [15],
+                "pages": [{
+                    "id": "1830",
+                    "title": "Immigration",
+                    "uuid": "cc3ded8f-be95-4f94-a275-a96d1f853410",
+                    "version": "5",
+                    "chapter_section": [15, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 1.0,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1828",
+                    "title": "Unions",
+                    "uuid": "de64ecef-bbb0-4aa3-8e9f-08076c0b5e67",
+                    "version": "10",
+                    "chapter_section": [15, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.6666666666666666
+                }]
+            }, {
+                "id": "368",
+                "title": "Poverty and Economic Inequality",
+                "chapter_section": [14],
+                "pages": [{
+                    "id": "1826",
+                    "title": "Government Policies to Reduce Income Inequality",
+                    "uuid": "b60a59fd-00ea-4a5f-a581-63700fd97a0c",
+                    "version": "8",
+                    "chapter_section": [14, 5],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.375,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1825",
+                    "title": "Income Inequality: Measurement and Causes",
+                    "uuid": "1640eec3-0cc6-42f8-896c-b13c99ff82f3",
+                    "version": "10",
+                    "chapter_section": [14, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.8,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1824",
+                    "title": "The Safety Net",
+                    "uuid": "5e3e77d8-db2f-48ea-a728-32b098c2e243",
+                    "version": "8",
+                    "chapter_section": [14, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.75,
+                    "spaced_practice_performance": 0.16666666666666666
+                }, {
+                    "id": "1823",
+                    "title": "The Poverty Trap",
+                    "uuid": "1027e9bb-3622-454f-8679-59b60e95b8f1",
+                    "version": "5",
+                    "chapter_section": [14, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.75,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "367",
+                "title": "Positive Externalities and Public Goods",
+                "chapter_section": [13],
+                "pages": [{
+                    "id": "1819",
+                    "title": "How Governments Can Encourage Innovation",
+                    "uuid": "1dfa262c-03e6-45b1-bc9b-8b15850e4939",
+                    "version": "8",
+                    "chapter_section": [13, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.5
+                }, {
+                    "id": "1818",
+                    "title": "Why the Private Sector Under Invests in Innovation",
+                    "uuid": "57acaa8f-4986-4a7b-9dc0-ca7c14a87ea8",
+                    "version": "9",
+                    "chapter_section": [13, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "366",
+                "title": "Environmental Protection and Negative Externalities",
+                "chapter_section": [12],
+                "pages": [{
+                    "id": "1815",
+                    "title": "International Environmental Issues",
+                    "uuid": "58554254-1a76-4753-a007-966ea092ad5e",
+                    "version": "9",
+                    "chapter_section": [12, 5],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1813",
+                    "title": "Market-Oriented Environmental Tools",
+                    "uuid": "6e6ba498-0799-45d5-b1ab-033bc75987e4",
+                    "version": "7",
+                    "chapter_section": [12, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25
+                }]
+            }, {
+                "id": "365",
+                "title": "Monopoly and Antitrust Policy",
+                "chapter_section": [11],
+                "pages": [{
+                    "id": "1807",
+                    "title": "Regulating Anticompetitive Behavior",
+                    "uuid": "6f0e17ec-6ef1-4114-a112-c053ac7eaae6",
+                    "version": "7",
+                    "chapter_section": [11, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.3333333333333333
+                }, {
+                    "id": "1806",
+                    "title": "Corporate Mergers",
+                    "uuid": "56180f37-ef40-4a97-ac2f-d3cd1c60a990",
+                    "version": "6",
+                    "chapter_section": [11, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.6
+                }]
+            }, {
+                "id": "364",
+                "title": "Monopolistic Competition and Oligopoly",
+                "chapter_section": [10],
+                "pages": [{
+                    "id": "1804",
+                    "title": "Oligopoly",
+                    "uuid": "3c0e7234-0012-4f98-8218-dca7dd057b26",
+                    "version": "8",
+                    "chapter_section": [10, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.8,
+                    "spaced_practice_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "363",
+                "title": "Monopoly",
+                "chapter_section": [9],
+                "pages": [{
+                    "id": "1801",
+                    "title": "How a Profit-Maximizing Monopoly Chooses Output and Price",
+                    "uuid": "c461a1fe-31e9-4c5a-bf55-516ce21aadb5",
+                    "version": "10",
+                    "chapter_section": [9, 2],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1800",
+                    "title": "How Monopolies Form: Barriers to Entry",
+                    "uuid": "7b194c82-461c-448e-9e5a-c1714155dcba",
+                    "version": "9",
+                    "chapter_section": [9, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25
+                }]
+            }, {
+                "id": "362",
+                "title": "Perfect Competition",
+                "chapter_section": [8],
+                "pages": [{
+                    "id": "1798",
+                    "title": "Efficiency in Perfectly Competitive Markets",
+                    "uuid": "5416f06f-3fc2-497b-8e3f-41d1ae057dda",
+                    "version": "8",
+                    "chapter_section": [8, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.0
+                }]
+            }, {
+                "id": "361",
+                "title": "Cost and Industry Structure",
+                "chapter_section": [7],
+                "pages": [{
+                    "id": "1792",
+                    "title": "The Structure of Costs in the Short Run",
+                    "uuid": "a0ee7807-91f3-45e0-9348-330574668c78",
+                    "version": "10",
+                    "chapter_section": [7, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 1.0
+                }, {
+                    "id": "1791",
+                    "title": "Explicit and Implicit Costs, and Accounting and Economic Profit",
+                    "uuid": "ce1fd8a8-6cd5-43a2-a523-0a968ac82a66",
+                    "version": "8",
+                    "chapter_section": [7, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "360",
+                "title": "Consumer Choices",
+                "chapter_section": [6],
+                "pages": [{
+                    "id": "1789",
+                    "title": "Intertemporal Choices in Financial Capital Markets",
+                    "uuid": "2cd518d1-c8bc-4cf3-a562-d0f9462f0e5c",
+                    "version": "14",
+                    "chapter_section": [6, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1788",
+                    "title": "Labor-Leisure Choices",
+                    "uuid": "50b75e6e-8249-420e-be90-3e86b619ca40",
+                    "version": "9",
+                    "chapter_section": [6, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.42857142857142855,
+                    "spaced_practice_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "359",
+                "title": "Elasticity",
+                "chapter_section": [5],
+                "pages": [{
+                    "id": "1781",
+                    "title": "Price Elasticity of Demand and Price Elasticity of Supply",
+                    "uuid": "97bd15d4-593f-4913-8cd0-57400cd988b6",
+                    "version": "13",
+                    "chapter_section": [5, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "358",
+                "title": "Labor and Financial Markets",
+                "chapter_section": [4],
+                "pages": [{
+                    "id": "1779",
+                    "title": "The Market System as an Efficient Mechanism for Information",
+                    "uuid": "bd383464-a580-4b3c-b390-3f21ec0927b4",
+                    "version": "9",
+                    "chapter_section": [4, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "357",
+                "title": "Demand and Supply",
+                "chapter_section": [3],
+                "pages": [{
+                    "id": "1775",
+                    "title": "Demand, Supply, and Efficiency",
+                    "uuid": "ca5194a5-4bbd-4eab-9244-83ac7481c07a",
+                    "version": "5",
+                    "chapter_section": [3, 5],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.25
+                }, {
+                    "id": "1774",
+                    "title": "Price Ceilings and Price Floors",
+                    "uuid": "83bc9341-f0b8-459b-8817-36e4add14369",
+                    "version": "11",
+                    "chapter_section": [3, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.0
+                }, {
+                    "id": "1773",
+                    "title": "Changes in Equilibrium Price and Quantity: The Four-Step Process",
+                    "uuid": "61ed0adf-ce2e-4008-81c4-6c70dd64008b",
+                    "version": "9",
+                    "chapter_section": [3, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.0
+                }, {
+                    "id": "1772",
+                    "title": "Shifts in Demand and Supply for Goods and Services",
+                    "uuid": "11300f3f-3e5d-45ce-bda7-40f486299062",
+                    "version": "11",
+                    "chapter_section": [3, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "355",
+                "title": "Welcome to Economics!",
+                "chapter_section": [1],
+                "pages": [{
+                    "id": "1762",
+                    "title": "What Is Economics, and Why Is It Important?",
+                    "uuid": "e911f49c-bb38-49cf-bb03-066373c43a76",
+                    "version": "8",
+                    "chapter_section": [1, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 10,
+                    "original_performance": 0.6666666666666666
+                }]
+            }]
+        }, {
+            "id": "43",
+            "name": "2nd",
+            "chapters": [{
+                "id": "378",
+                "title": "The Aggregate Demand/Aggregate Supply Model",
+                "chapter_section": [24],
+                "pages": [{
+                    "id": "1873",
+                    "title": "Building a Model of Aggregate Demand and Aggregate Supply",
+                    "uuid": "a8f605a5-67db-4a82-a012-2d989e2fbf0e",
+                    "version": "10",
+                    "chapter_section": [24, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "377",
+                "title": "The International Trade and Capital Flows",
+                "chapter_section": [23],
+                "pages": [{
+                    "id": "1867",
+                    "title": "Trade Balances and Flows of Financial Capital",
+                    "uuid": "fbe75980-802a-4ca4-b366-abd8a15d2ac2",
+                    "version": "6",
+                    "chapter_section": [23, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.2,
+                    "spaced_practice_performance": 0.6
+                }, {
+                    "id": "1866",
+                    "title": "Trade Balances in Historical and International Context",
+                    "uuid": "96704ded-e915-4ff8-a0de-70eec71a0c21",
+                    "version": "8",
+                    "chapter_section": [23, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "376",
+                "title": "Inflation",
+                "chapter_section": [22],
+                "pages": [{
+                    "id": "1863",
+                    "title": "Indexing and Its Limitations",
+                    "uuid": "09d73900-047f-431d-b47f-a2a0e9d0fac6",
+                    "version": "6",
+                    "chapter_section": [22, 5],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0
+                }, {
+                    "id": "1862",
+                    "title": "The Confusion Over Inflation",
+                    "uuid": "256a33c8-8031-4f01-ab6d-a69d8f803d99",
+                    "version": "9",
+                    "chapter_section": [22, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1861",
+                    "title": "How the U.S. and Other Countries Experience Inflation",
+                    "uuid": "ab6a03ce-3f75-41ad-b4ad-65f8dad02b9c",
+                    "version": "5",
+                    "chapter_section": [22, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.6666666666666666
+                }]
+            }, {
+                "id": "375",
+                "title": "Unemployment",
+                "chapter_section": [21],
+                "pages": [{
+                    "id": "1857",
+                    "title": "What Causes Changes in Unemployment over the Long Run",
+                    "uuid": "53835d56-56e1-431a-814b-d5cfe1513f36",
+                    "version": "13",
+                    "chapter_section": [21, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1855",
+                    "title": "Patterns of Unemployment",
+                    "uuid": "80b1f366-a220-4a02-a2d8-a523b5c75a98",
+                    "version": "6",
+                    "chapter_section": [21, 2],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.375
+                }]
+            }, {
+                "id": "374",
+                "title": "Economic Growth",
+                "chapter_section": [20],
+                "pages": [{
+                    "id": "1849",
+                    "title": "The Relatively Recent Arrival of Economic Growth",
+                    "uuid": "495c482c-eca3-4470-8fc9-b3a8b6f29cc1",
+                    "version": "8",
+                    "chapter_section": [20, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "373",
+                "title": "The Macroeconomic Perspective",
+                "chapter_section": [19],
+                "pages": [{
+                    "id": "1847",
+                    "title": "How Well GDP Measures the Well-Being of Society",
+                    "uuid": "aaa0b2c3-75b0-4cad-86d8-091beb9f7006",
+                    "version": "4",
+                    "chapter_section": [19, 5],
+                    "completed": 3,
+                    "in_progress": 0,
+                    "not_started": 7,
+                    "original_performance": 0.7777777777777778,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1846",
+                    "title": "Comparing GDP among Countries",
+                    "uuid": "be8af4a5-110d-4041-a74b-920431418ce8",
+                    "version": "8",
+                    "chapter_section": [19, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.3333333333333333
+                }, {
+                    "id": "1844",
+                    "title": "Adjusting Nominal Values to Real Values",
+                    "uuid": "1430165f-c953-4641-9bfc-211afe97cfd5",
+                    "version": "6",
+                    "chapter_section": [19, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }, {
+                    "id": "1843",
+                    "title": "Measuring the Size of the Economy: Gross Domestic Product",
+                    "uuid": "657e90d5-732f-406c-8ad6-27cc2660824d",
+                    "version": "13",
+                    "chapter_section": [19, 1],
+                    "completed": 3,
+                    "in_progress": 0,
+                    "not_started": 7,
+                    "original_performance": 0.7,
+                    "spaced_practice_performance": 0.6666666666666666
+                }]
+            }, {
+                "id": "372",
+                "title": "Public Economy",
+                "chapter_section": [18],
+                "pages": [{
+                    "id": "1840",
+                    "title": "Special Interest Politics",
+                    "uuid": "f0db4e9b-bcef-4fa5-b518-f23a1f85ac87",
+                    "version": "5",
+                    "chapter_section": [18, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1839",
+                    "title": "Voter Participation and Costs of Elections",
+                    "uuid": "5d96ba4f-5fda-4ba3-8e27-74317a39e061",
+                    "version": "4",
+                    "chapter_section": [18, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }]
+            }, {
+                "id": "371",
+                "title": "Financial Markets",
+                "chapter_section": [17],
+                "pages": [{
+                    "id": "1835",
+                    "title": "How Businesses Raise Financial Capital",
+                    "uuid": "dc09a75b-f97b-4813-93d1-440334ec1ef2",
+                    "version": "7",
+                    "chapter_section": [17, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.2857142857142857,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "370",
+                "title": "Information, Risk, and Insurance",
+                "chapter_section": [16],
+                "pages": [{
+                    "id": "1832",
+                    "title": "The Problem of Imperfect Information and Asymmetric Information",
+                    "uuid": "3694565a-4bef-42d2-9652-c602c78870d4",
+                    "version": "5",
+                    "chapter_section": [16, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 0.4444444444444444
+                }]
+            }, {
+                "id": "369",
+                "title": "Issues in Labor Markets: Unions, Discrimination, Immigration",
+                "chapter_section": [15],
+                "pages": [{
+                    "id": "1828",
+                    "title": "Unions",
+                    "uuid": "de64ecef-bbb0-4aa3-8e9f-08076c0b5e67",
+                    "version": "10",
+                    "chapter_section": [15, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6,
+                    "spaced_practice_performance": 0.6
+                }]
+            }, {
+                "id": "368",
+                "title": "Poverty and Economic Inequality",
+                "chapter_section": [14],
+                "pages": [{
+                    "id": "1822",
+                    "title": "Drawing the Poverty Line",
+                    "uuid": "79327788-9cb7-4b2c-9ccf-0c46d0c153d3",
+                    "version": "7",
+                    "chapter_section": [14, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.8,
+                    "spaced_practice_performance": 0.6666666666666666
+                }]
+            }, {
+                "id": "367",
+                "title": "Positive Externalities and Public Goods",
+                "chapter_section": [13],
+                "pages": [{
+                    "id": "1820",
+                    "title": "Public Goods",
+                    "uuid": "4b8246e4-bd24-455d-a21e-ee4107c28617",
+                    "version": "5",
+                    "chapter_section": [13, 3],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.4444444444444444,
+                    "spaced_practice_performance": 0.25
+                }]
+            }, {
+                "id": "366",
+                "title": "Environmental Protection and Negative Externalities",
+                "chapter_section": [12],
+                "pages": [{
+                    "id": "1813",
+                    "title": "Market-Oriented Environmental Tools",
+                    "uuid": "6e6ba498-0799-45d5-b1ab-033bc75987e4",
+                    "version": "7",
+                    "chapter_section": [12, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }, {
+                    "id": "1812",
+                    "title": "Command-and-Control Regulation",
+                    "uuid": "e2a930e1-9b55-479a-82f9-f15c556d5f0d",
+                    "version": "3",
+                    "chapter_section": [12, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "365",
+                "title": "Monopoly and Antitrust Policy",
+                "chapter_section": [11],
+                "pages": [{
+                    "id": "1809",
+                    "title": "The Great Deregulation Experiment",
+                    "uuid": "2ad06e02-daca-4b09-b306-d9420708002f",
+                    "version": "8",
+                    "chapter_section": [11, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666
+                }, {
+                    "id": "1806",
+                    "title": "Corporate Mergers",
+                    "uuid": "56180f37-ef40-4a97-ac2f-d3cd1c60a990",
+                    "version": "6",
+                    "chapter_section": [11, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.4,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "364",
+                "title": "Monopolistic Competition and Oligopoly",
+                "chapter_section": [10],
+                "pages": [{
+                    "id": "1803",
+                    "title": "Monopolistic Competition",
+                    "uuid": "854de1d7-683b-4ee8-8ffe-0ad048f0a48b",
+                    "version": "11",
+                    "chapter_section": [10, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.8
+                }]
+            }, {
+                "id": "363",
+                "title": "Monopoly",
+                "chapter_section": [9],
+                "pages": [{
+                    "id": "1800",
+                    "title": "How Monopolies Form: Barriers to Entry",
+                    "uuid": "7b194c82-461c-448e-9e5a-c1714155dcba",
+                    "version": "9",
+                    "chapter_section": [9, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.2222222222222222
+                }]
+            }, {
+                "id": "362",
+                "title": "Perfect Competition",
+                "chapter_section": [8],
+                "pages": [{
+                    "id": "1795",
+                    "title": "Perfect Competition and Why It Matters",
+                    "uuid": "cd7d7eb6-23d0-4494-97df-eb9b38f0e8f8",
+                    "version": "5",
+                    "chapter_section": [8, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }]
+            }, {
+                "id": "361",
+                "title": "Cost and Industry Structure",
+                "chapter_section": [7],
+                "pages": [{
+                    "id": "1793",
+                    "title": "The Structure of Costs in the Long Run",
+                    "uuid": "31f57a2e-8dbf-4b08-b42c-c3e340f1310d",
+                    "version": "8",
+                    "chapter_section": [7, 3],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "360",
+                "title": "Consumer Choices",
+                "chapter_section": [6],
+                "pages": [{
+                    "id": "1786",
+                    "title": "Consumption Choices",
+                    "uuid": "f7cbca8f-30a1-4c12-b90e-590515720171",
+                    "version": "13",
+                    "chapter_section": [6, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.5555555555555556,
+                    "spaced_practice_performance": 0.5
+                }]
+            }, {
+                "id": "359",
+                "title": "Elasticity",
+                "chapter_section": [5],
+                "pages": [{
+                    "id": "1781",
+                    "title": "Price Elasticity of Demand and Price Elasticity of Supply",
+                    "uuid": "97bd15d4-593f-4913-8cd0-57400cd988b6",
+                    "version": "13",
+                    "chapter_section": [5, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "358",
+                "title": "Labor and Financial Markets",
+                "chapter_section": [4],
+                "pages": [{
+                    "id": "1779",
+                    "title": "The Market System as an Efficient Mechanism for Information",
+                    "uuid": "bd383464-a580-4b3c-b390-3f21ec0927b4",
+                    "version": "9",
+                    "chapter_section": [4, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }, {
+                    "id": "1778",
+                    "title": "Demand and Supply in Financial Markets",
+                    "uuid": "6e96e26b-c2ea-44dc-80cc-baccbed40fdb",
+                    "version": "8",
+                    "chapter_section": [4, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25
+                }, {
+                    "id": "1777",
+                    "title": "Demand and Supply at Work in Labor Markets",
+                    "uuid": "9557f76e-01e6-43b7-932c-1a91997ab42f",
+                    "version": "9",
+                    "chapter_section": [4, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.5714285714285714,
+                    "spaced_practice_performance": 0.6666666666666666
+                }]
+            }, {
+                "id": "356",
+                "title": "Choice in a World of Scarcity",
+                "chapter_section": [2],
+                "pages": [{
+                    "id": "1768",
+                    "title": "The Production Possibilities Frontier and Social Choices",
+                    "uuid": "7c723662-c736-4aa7-8d75-2536a1c49e1a",
+                    "version": "13",
+                    "chapter_section": [2, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.75
+                }]
+            }, {
+                "id": "355",
+                "title": "Welcome to Economics!",
+                "chapter_section": [1],
+                "pages": [{
+                    "id": "1765",
+                    "title": "How Economies Can Be Organized: An Overview of Economic Systems",
+                    "uuid": "9ff3ce08-0471-4d79-81d7-6a57a308d142",
+                    "version": "12",
+                    "chapter_section": [1, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1763",
+                    "title": "Microeconomics and Macroeconomics",
+                    "uuid": "1ce0132e-a951-4e9b-be35-36c2b48b77c3",
+                    "version": "5",
+                    "chapter_section": [1, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.16666666666666666
+                }, {
+                    "id": "1762",
+                    "title": "What Is Economics, and Why Is It Important?",
+                    "uuid": "e911f49c-bb38-49cf-bb03-066373c43a76",
+                    "version": "8",
+                    "chapter_section": [1, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.0
+                }]
+            }]
+        }, {
+            "id": "44",
+            "name": "3rd",
+            "chapters": [{
+                "id": "377",
+                "title": "The International Trade and Capital Flows",
+                "chapter_section": [23],
+                "pages": [{
+                    "id": "1870",
+                    "title": "The Difference between Level of Trade and the Trade Balance",
+                    "uuid": "360f1150-151b-4cbc-b7ed-e5eb81053518",
+                    "version": "6",
+                    "chapter_section": [23, 6],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1869",
+                    "title": "The Pros and Cons of Trade Deficits and Surpluses",
+                    "uuid": "290ff999-28a3-46ec-b85d-ca56628c384b",
+                    "version": "6",
+                    "chapter_section": [23, 5],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.2,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1868",
+                    "title": "The National Saving and Investment Identity",
+                    "uuid": "32ede8e6-8501-4ac7-948d-8ab7efedcc14",
+                    "version": "10",
+                    "chapter_section": [23, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "376",
+                "title": "Inflation",
+                "chapter_section": [22],
+                "pages": [{
+                    "id": "1863",
+                    "title": "Indexing and Its Limitations",
+                    "uuid": "09d73900-047f-431d-b47f-a2a0e9d0fac6",
+                    "version": "6",
+                    "chapter_section": [22, 5],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.42857142857142855,
+                    "spaced_practice_performance": 0.2
+                }, {
+                    "id": "1859",
+                    "title": "Tracking Inflation",
+                    "uuid": "cfd51fde-43a0-4de6-833e-3095dcc2e594",
+                    "version": "7",
+                    "chapter_section": [22, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.75
+                }]
+            }, {
+                "id": "375",
+                "title": "Unemployment",
+                "chapter_section": [21],
+                "pages": [{
+                    "id": "1857",
+                    "title": "What Causes Changes in Unemployment over the Long Run",
+                    "uuid": "53835d56-56e1-431a-814b-d5cfe1513f36",
+                    "version": "13",
+                    "chapter_section": [21, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.8
+                }, {
+                    "id": "1854",
+                    "title": "How the Unemployment Rate is Defined and Computed",
+                    "uuid": "1870e284-bcdd-4955-9847-fee187daff0e",
+                    "version": "9",
+                    "chapter_section": [21, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "374",
+                "title": "Economic Growth",
+                "chapter_section": [20],
+                "pages": [{
+                    "id": "1852",
+                    "title": "Economic Convergence",
+                    "uuid": "8bd1d37d-ff50-43ed-b689-2779632f3e97",
+                    "version": "5",
+                    "chapter_section": [20, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1850",
+                    "title": "Labor Productivity and Economic Growth",
+                    "uuid": "513f94fd-f7fd-42a5-a3f0-ce6f60ea4da0",
+                    "version": "8",
+                    "chapter_section": [20, 2],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.625,
+                    "spaced_practice_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "373",
+                "title": "The Macroeconomic Perspective",
+                "chapter_section": [19],
+                "pages": [{
+                    "id": "1847",
+                    "title": "How Well GDP Measures the Well-Being of Society",
+                    "uuid": "aaa0b2c3-75b0-4cad-86d8-091beb9f7006",
+                    "version": "4",
+                    "chapter_section": [19, 5],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.4
+                }, {
+                    "id": "1845",
+                    "title": "Tracking Real GDP over Time",
+                    "uuid": "5df753ad-f999-440b-92fe-84cd54bb9e20",
+                    "version": "7",
+                    "chapter_section": [19, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }, {
+                    "id": "1843",
+                    "title": "Measuring the Size of the Economy: Gross Domestic Product",
+                    "uuid": "657e90d5-732f-406c-8ad6-27cc2660824d",
+                    "version": "13",
+                    "chapter_section": [19, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0
+                }]
+            }, {
+                "id": "371",
+                "title": "Financial Markets",
+                "chapter_section": [17],
+                "pages": [{
+                    "id": "1835",
+                    "title": "How Businesses Raise Financial Capital",
+                    "uuid": "dc09a75b-f97b-4813-93d1-440334ec1ef2",
+                    "version": "7",
+                    "chapter_section": [17, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.75
+                }]
+            }, {
+                "id": "369",
+                "title": "Issues in Labor Markets: Unions, Discrimination, Immigration",
+                "chapter_section": [15],
+                "pages": [{
+                    "id": "1829",
+                    "title": "Employment Discrimination",
+                    "uuid": "3a8e2f3b-57c9-4b92-be9c-6f24e4794cf8",
+                    "version": "8",
+                    "chapter_section": [15, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.4,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1828",
+                    "title": "Unions",
+                    "uuid": "de64ecef-bbb0-4aa3-8e9f-08076c0b5e67",
+                    "version": "10",
+                    "chapter_section": [15, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "368",
+                "title": "Poverty and Economic Inequality",
+                "chapter_section": [14],
+                "pages": [{
+                    "id": "1826",
+                    "title": "Government Policies to Reduce Income Inequality",
+                    "uuid": "b60a59fd-00ea-4a5f-a581-63700fd97a0c",
+                    "version": "8",
+                    "chapter_section": [14, 5],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.42857142857142855,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1825",
+                    "title": "Income Inequality: Measurement and Causes",
+                    "uuid": "1640eec3-0cc6-42f8-896c-b13c99ff82f3",
+                    "version": "10",
+                    "chapter_section": [14, 4],
+                    "completed": 3,
+                    "in_progress": 0,
+                    "not_started": 7,
+                    "original_performance": 0.6153846153846154,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1822",
+                    "title": "Drawing the Poverty Line",
+                    "uuid": "79327788-9cb7-4b2c-9ccf-0c46d0c153d3",
+                    "version": "7",
+                    "chapter_section": [14, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }]
+            }, {
+                "id": "366",
+                "title": "Environmental Protection and Negative Externalities",
+                "chapter_section": [12],
+                "pages": [{
+                    "id": "1816",
+                    "title": "The Tradeoff between Economic Output and Environmental Protection",
+                    "uuid": "f0c4259e-f864-49a1-950d-3b684415113f",
+                    "version": "5",
+                    "chapter_section": [12, 6],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.625,
+                    "spaced_practice_performance": 0.8
+                }, {
+                    "id": "1815",
+                    "title": "International Environmental Issues",
+                    "uuid": "58554254-1a76-4753-a007-966ea092ad5e",
+                    "version": "9",
+                    "chapter_section": [12, 5],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1813",
+                    "title": "Market-Oriented Environmental Tools",
+                    "uuid": "6e6ba498-0799-45d5-b1ab-033bc75987e4",
+                    "version": "7",
+                    "chapter_section": [12, 3],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.3333333333333333
+                }, {
+                    "id": "1812",
+                    "title": "Command-and-Control Regulation",
+                    "uuid": "e2a930e1-9b55-479a-82f9-f15c556d5f0d",
+                    "version": "3",
+                    "chapter_section": [12, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 0.6666666666666666
+                }]
+            }, {
+                "id": "365",
+                "title": "Monopoly and Antitrust Policy",
+                "chapter_section": [11],
+                "pages": [{
+                    "id": "1808",
+                    "title": "Regulating Natural Monopolies",
+                    "uuid": "306dfeef-9b93-493e-8236-1f1fdceeb634",
+                    "version": "6",
+                    "chapter_section": [11, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }, {
+                    "id": "1807",
+                    "title": "Regulating Anticompetitive Behavior",
+                    "uuid": "6f0e17ec-6ef1-4114-a112-c053ac7eaae6",
+                    "version": "7",
+                    "chapter_section": [11, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }, {
+                    "id": "1806",
+                    "title": "Corporate Mergers",
+                    "uuid": "56180f37-ef40-4a97-ac2f-d3cd1c60a990",
+                    "version": "6",
+                    "chapter_section": [11, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.625,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "364",
+                "title": "Monopolistic Competition and Oligopoly",
+                "chapter_section": [10],
+                "pages": [{
+                    "id": "1804",
+                    "title": "Oligopoly",
+                    "uuid": "3c0e7234-0012-4f98-8218-dca7dd057b26",
+                    "version": "8",
+                    "chapter_section": [10, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.7142857142857143
+                }]
+            }, {
+                "id": "363",
+                "title": "Monopoly",
+                "chapter_section": [9],
+                "pages": [{
+                    "id": "1801",
+                    "title": "How a Profit-Maximizing Monopoly Chooses Output and Price",
+                    "uuid": "c461a1fe-31e9-4c5a-bf55-516ce21aadb5",
+                    "version": "10",
+                    "chapter_section": [9, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.4
+                }]
+            }, {
+                "id": "362",
+                "title": "Perfect Competition",
+                "chapter_section": [8],
+                "pages": [{
+                    "id": "1795",
+                    "title": "Perfect Competition and Why It Matters",
+                    "uuid": "cd7d7eb6-23d0-4494-97df-eb9b38f0e8f8",
+                    "version": "5",
+                    "chapter_section": [8, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }]
+            }, {
+                "id": "361",
+                "title": "Cost and Industry Structure",
+                "chapter_section": [7],
+                "pages": [{
+                    "id": "1791",
+                    "title": "Explicit and Implicit Costs, and Accounting and Economic Profit",
+                    "uuid": "ce1fd8a8-6cd5-43a2-a523-0a968ac82a66",
+                    "version": "8",
+                    "chapter_section": [7, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.8,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "360",
+                "title": "Consumer Choices",
+                "chapter_section": [6],
+                "pages": [{
+                    "id": "1789",
+                    "title": "Intertemporal Choices in Financial Capital Markets",
+                    "uuid": "2cd518d1-c8bc-4cf3-a562-d0f9462f0e5c",
+                    "version": "14",
+                    "chapter_section": [6, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }, {
+                    "id": "1787",
+                    "title": "How Changes in Income and Prices Affect Consumption Choices",
+                    "uuid": "3e5bc68f-976e-4187-bc11-72f3fa3e9ea2",
+                    "version": "7",
+                    "chapter_section": [6, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }]
+            }, {
+                "id": "359",
+                "title": "Elasticity",
+                "chapter_section": [5],
+                "pages": [{
+                    "id": "1783",
+                    "title": "Elasticity and Pricing",
+                    "uuid": "4db5dfd6-0ebe-4e8e-8d92-c138d4e60494",
+                    "version": "12",
+                    "chapter_section": [5, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.2857142857142857,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1782",
+                    "title": "Polar Cases of Elasticity and Constant Elasticity",
+                    "uuid": "ca0ce46f-c92b-4c2c-bdea-ea964f4cb0aa",
+                    "version": "5",
+                    "chapter_section": [5, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.3333333333333333
+                }, {
+                    "id": "1781",
+                    "title": "Price Elasticity of Demand and Price Elasticity of Supply",
+                    "uuid": "97bd15d4-593f-4913-8cd0-57400cd988b6",
+                    "version": "13",
+                    "chapter_section": [5, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }]
+            }, {
+                "id": "358",
+                "title": "Labor and Financial Markets",
+                "chapter_section": [4],
+                "pages": [{
+                    "id": "1778",
+                    "title": "Demand and Supply in Financial Markets",
+                    "uuid": "6e96e26b-c2ea-44dc-80cc-baccbed40fdb",
+                    "version": "8",
+                    "chapter_section": [4, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }, {
+                    "id": "1777",
+                    "title": "Demand and Supply at Work in Labor Markets",
+                    "uuid": "9557f76e-01e6-43b7-932c-1a91997ab42f",
+                    "version": "9",
+                    "chapter_section": [4, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }]
+            }, {
+                "id": "357",
+                "title": "Demand and Supply",
+                "chapter_section": [3],
+                "pages": [{
+                    "id": "1772",
+                    "title": "Shifts in Demand and Supply for Goods and Services",
+                    "uuid": "11300f3f-3e5d-45ce-bda7-40f486299062",
+                    "version": "11",
+                    "chapter_section": [3, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "355",
+                "title": "Welcome to Economics!",
+                "chapter_section": [1],
+                "pages": [{
+                    "id": "1765",
+                    "title": "How Economies Can Be Organized: An Overview of Economic Systems",
+                    "uuid": "9ff3ce08-0471-4d79-81d7-6a57a308d142",
+                    "version": "12",
+                    "chapter_section": [1, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1764",
+                    "title": "How Economists Use Theories and Models to Understand Economic Issues",
+                    "uuid": "bc5f82be-3ddd-479b-a08e-21818cbaedce",
+                    "version": "5",
+                    "chapter_section": [1, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.6666666666666666
+                }, {
+                    "id": "1763",
+                    "title": "Microeconomics and Macroeconomics",
+                    "uuid": "1ce0132e-a951-4e9b-be35-36c2b48b77c3",
+                    "version": "5",
+                    "chapter_section": [1, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.0
+                }]
+            }]
+        }, {
+            "id": "45",
+            "name": "4th",
+            "chapters": [{
+                "id": "378",
+                "title": "The Aggregate Demand/Aggregate Supply Model",
+                "chapter_section": [24],
+                "pages": [{
+                    "id": "1872",
+                    "title": "Macroeconomic Perspectives on Demand and Supply",
+                    "uuid": "01b6831f-61da-4f87-b662-7772e647e07e",
+                    "version": "4",
+                    "chapter_section": [24, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.25
+                }]
+            }, {
+                "id": "377",
+                "title": "The International Trade and Capital Flows",
+                "chapter_section": [23],
+                "pages": [{
+                    "id": "1870",
+                    "title": "The Difference between Level of Trade and the Trade Balance",
+                    "uuid": "360f1150-151b-4cbc-b7ed-e5eb81053518",
+                    "version": "6",
+                    "chapter_section": [23, 6],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.75,
+                    "spaced_practice_performance": 0.3333333333333333
+                }, {
+                    "id": "1865",
+                    "title": "Measuring Trade Balances",
+                    "uuid": "44efb215-8e32-4445-88c2-d77c9c842565",
+                    "version": "8",
+                    "chapter_section": [23, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }]
+            }, {
+                "id": "376",
+                "title": "Inflation",
+                "chapter_section": [22],
+                "pages": [{
+                    "id": "1863",
+                    "title": "Indexing and Its Limitations",
+                    "uuid": "09d73900-047f-431d-b47f-a2a0e9d0fac6",
+                    "version": "6",
+                    "chapter_section": [22, 5],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6,
+                    "spaced_practice_performance": 0.3333333333333333
+                }, {
+                    "id": "1859",
+                    "title": "Tracking Inflation",
+                    "uuid": "cfd51fde-43a0-4de6-833e-3095dcc2e594",
+                    "version": "7",
+                    "chapter_section": [22, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }]
+            }, {
+                "id": "375",
+                "title": "Unemployment",
+                "chapter_section": [21],
+                "pages": [{
+                    "id": "1857",
+                    "title": "What Causes Changes in Unemployment over the Long Run",
+                    "uuid": "53835d56-56e1-431a-814b-d5cfe1513f36",
+                    "version": "13",
+                    "chapter_section": [21, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.4,
+                    "spaced_practice_performance": 0.6666666666666666
+                }, {
+                    "id": "1856",
+                    "title": "What Causes Changes in Unemployment over the Short Run",
+                    "uuid": "cc333633-9d1b-4044-ad17-cad1bb0a8d62",
+                    "version": "5",
+                    "chapter_section": [21, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666
+                }, {
+                    "id": "1855",
+                    "title": "Patterns of Unemployment",
+                    "uuid": "80b1f366-a220-4a02-a2d8-a523b5c75a98",
+                    "version": "6",
+                    "chapter_section": [21, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 1.0
+                }]
+            }, {
+                "id": "373",
+                "title": "The Macroeconomic Perspective",
+                "chapter_section": [19],
+                "pages": [{
+                    "id": "1846",
+                    "title": "Comparing GDP among Countries",
+                    "uuid": "be8af4a5-110d-4041-a74b-920431418ce8",
+                    "version": "8",
+                    "chapter_section": [19, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "372",
+                "title": "Public Economy",
+                "chapter_section": [18],
+                "pages": [{
+                    "id": "1841",
+                    "title": "Flaws in the Democratic System of Government",
+                    "uuid": "d22fec32-6b22-42cc-b5b9-2e59fd462030",
+                    "version": "6",
+                    "chapter_section": [18, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "371",
+                "title": "Financial Markets",
+                "chapter_section": [17],
+                "pages": [{
+                    "id": "1837",
+                    "title": "How to Accumulate Personal Wealth",
+                    "uuid": "94807346-2e8f-42b9-9575-0783a9da7c3b",
+                    "version": "11",
+                    "chapter_section": [17, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1835",
+                    "title": "How Businesses Raise Financial Capital",
+                    "uuid": "dc09a75b-f97b-4813-93d1-440334ec1ef2",
+                    "version": "7",
+                    "chapter_section": [17, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.625,
+                    "spaced_practice_performance": 0.5
+                }]
+            }, {
+                "id": "369",
+                "title": "Issues in Labor Markets: Unions, Discrimination, Immigration",
+                "chapter_section": [15],
+                "pages": [{
+                    "id": "1829",
+                    "title": "Employment Discrimination",
+                    "uuid": "3a8e2f3b-57c9-4b92-be9c-6f24e4794cf8",
+                    "version": "8",
+                    "chapter_section": [15, 2],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.3333333333333333,
+                    "spaced_practice_performance": 0.8
+                }]
+            }, {
+                "id": "368",
+                "title": "Poverty and Economic Inequality",
+                "chapter_section": [14],
+                "pages": [{
+                    "id": "1826",
+                    "title": "Government Policies to Reduce Income Inequality",
+                    "uuid": "b60a59fd-00ea-4a5f-a581-63700fd97a0c",
+                    "version": "8",
+                    "chapter_section": [14, 5],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.42857142857142855
+                }, {
+                    "id": "1825",
+                    "title": "Income Inequality: Measurement and Causes",
+                    "uuid": "1640eec3-0cc6-42f8-896c-b13c99ff82f3",
+                    "version": "10",
+                    "chapter_section": [14, 4],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5714285714285714,
+                    "spaced_practice_performance": 0.3333333333333333
+                }, {
+                    "id": "1824",
+                    "title": "The Safety Net",
+                    "uuid": "5e3e77d8-db2f-48ea-a728-32b098c2e243",
+                    "version": "8",
+                    "chapter_section": [14, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.75,
+                    "spaced_practice_performance": 0.3333333333333333
+                }, {
+                    "id": "1823",
+                    "title": "The Poverty Trap",
+                    "uuid": "1027e9bb-3622-454f-8679-59b60e95b8f1",
+                    "version": "5",
+                    "chapter_section": [14, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1822",
+                    "title": "Drawing the Poverty Line",
+                    "uuid": "79327788-9cb7-4b2c-9ccf-0c46d0c153d3",
+                    "version": "7",
+                    "chapter_section": [14, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }]
+            }, {
+                "id": "367",
+                "title": "Positive Externalities and Public Goods",
+                "chapter_section": [13],
+                "pages": [{
+                    "id": "1820",
+                    "title": "Public Goods",
+                    "uuid": "4b8246e4-bd24-455d-a21e-ee4107c28617",
+                    "version": "5",
+                    "chapter_section": [13, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666
+                }, {
+                    "id": "1818",
+                    "title": "Why the Private Sector Under Invests in Innovation",
+                    "uuid": "57acaa8f-4986-4a7b-9dc0-ca7c14a87ea8",
+                    "version": "9",
+                    "chapter_section": [13, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25,
+                    "spaced_practice_performance": 0.5
+                }]
+            }, {
+                "id": "366",
+                "title": "Environmental Protection and Negative Externalities",
+                "chapter_section": [12],
+                "pages": [{
+                    "id": "1814",
+                    "title": "The Benefits and Costs of U.S. Environmental Laws",
+                    "uuid": "0c0c2dde-d5f4-4bbb-ac31-c1476178859c",
+                    "version": "6",
+                    "chapter_section": [12, 4],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.6,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1812",
+                    "title": "Command-and-Control Regulation",
+                    "uuid": "e2a930e1-9b55-479a-82f9-f15c556d5f0d",
+                    "version": "3",
+                    "chapter_section": [12, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1811",
+                    "title": "The Economics of Pollution",
+                    "uuid": "86b607a4-c4d5-4dc2-b912-a8a97860305d",
+                    "version": "7",
+                    "chapter_section": [12, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "365",
+                "title": "Monopoly and Antitrust Policy",
+                "chapter_section": [11],
+                "pages": [{
+                    "id": "1809",
+                    "title": "The Great Deregulation Experiment",
+                    "uuid": "2ad06e02-daca-4b09-b306-d9420708002f",
+                    "version": "8",
+                    "chapter_section": [11, 4],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.4444444444444444,
+                    "spaced_practice_performance": 0.2
+                }]
+            }, {
+                "id": "364",
+                "title": "Monopolistic Competition and Oligopoly",
+                "chapter_section": [10],
+                "pages": [{
+                    "id": "1803",
+                    "title": "Monopolistic Competition",
+                    "uuid": "854de1d7-683b-4ee8-8ffe-0ad048f0a48b",
+                    "version": "11",
+                    "chapter_section": [10, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0
+                }]
+            }, {
+                "id": "362",
+                "title": "Perfect Competition",
+                "chapter_section": [8],
+                "pages": [{
+                    "id": "1798",
+                    "title": "Efficiency in Perfectly Competitive Markets",
+                    "uuid": "5416f06f-3fc2-497b-8e3f-41d1ae057dda",
+                    "version": "8",
+                    "chapter_section": [8, 4],
+                    "completed": 3,
+                    "in_progress": 0,
+                    "not_started": 7,
+                    "original_performance": 1.0,
+                    "spaced_practice_performance": 0.0
+                }]
+            }, {
+                "id": "361",
+                "title": "Cost and Industry Structure",
+                "chapter_section": [7],
+                "pages": [{
+                    "id": "1792",
+                    "title": "The Structure of Costs in the Short Run",
+                    "uuid": "a0ee7807-91f3-45e0-9348-330574668c78",
+                    "version": "10",
+                    "chapter_section": [7, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6666666666666666,
+                    "spaced_practice_performance": 1.0
+                }, {
+                    "id": "1791",
+                    "title": "Explicit and Implicit Costs, and Accounting and Economic Profit",
+                    "uuid": "ce1fd8a8-6cd5-43a2-a523-0a968ac82a66",
+                    "version": "8",
+                    "chapter_section": [7, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.5
+                }]
+            }, {
+                "id": "360",
+                "title": "Consumer Choices",
+                "chapter_section": [6],
+                "pages": [{
+                    "id": "1788",
+                    "title": "Labor-Leisure Choices",
+                    "uuid": "50b75e6e-8249-420e-be90-3e86b619ca40",
+                    "version": "9",
+                    "chapter_section": [6, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.25
+                }, {
+                    "id": "1786",
+                    "title": "Consumption Choices",
+                    "uuid": "f7cbca8f-30a1-4c12-b90e-590515720171",
+                    "version": "13",
+                    "chapter_section": [6, 1],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.6666666666666666
+                }]
+            }, {
+                "id": "358",
+                "title": "Labor and Financial Markets",
+                "chapter_section": [4],
+                "pages": [{
+                    "id": "1777",
+                    "title": "Demand and Supply at Work in Labor Markets",
+                    "uuid": "9557f76e-01e6-43b7-932c-1a91997ab42f",
+                    "version": "9",
+                    "chapter_section": [4, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }]
+            }, {
+                "id": "357",
+                "title": "Demand and Supply",
+                "chapter_section": [3],
+                "pages": [{
+                    "id": "1775",
+                    "title": "Demand, Supply, and Efficiency",
+                    "uuid": "ca5194a5-4bbd-4eab-9244-83ac7481c07a",
+                    "version": "5",
+                    "chapter_section": [3, 5],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 1.0,
+                    "spaced_practice_performance": 0.0
+                }, {
+                    "id": "1773",
+                    "title": "Changes in Equilibrium Price and Quantity: The Four-Step Process",
+                    "uuid": "61ed0adf-ce2e-4008-81c4-6c70dd64008b",
+                    "version": "9",
+                    "chapter_section": [3, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.6
+                }]
+            }, {
+                "id": "356",
+                "title": "Choice in a World of Scarcity",
+                "chapter_section": [2],
+                "pages": [{
+                    "id": "1769",
+                    "title": "Confronting Objections to the Economic Approach",
+                    "uuid": "fb9f0233-8f5e-45d6-ae68-6ee09d563baa",
+                    "version": "7",
+                    "chapter_section": [2, 3],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.3333333333333333
+                }, {
+                    "id": "1768",
+                    "title": "The Production Possibilities Frontier and Social Choices",
+                    "uuid": "7c723662-c736-4aa7-8d75-2536a1c49e1a",
+                    "version": "13",
+                    "chapter_section": [2, 2],
+                    "completed": 2,
+                    "in_progress": 0,
+                    "not_started": 8,
+                    "original_performance": 0.2,
+                    "spaced_practice_performance": 0.5
+                }]
+            }, {
+                "id": "355",
+                "title": "Welcome to Economics!",
+                "chapter_section": [1],
+                "pages": [{
+                    "id": "1763",
+                    "title": "Microeconomics and Macroeconomics",
+                    "uuid": "1ce0132e-a951-4e9b-be35-36c2b48b77c3",
+                    "version": "5",
+                    "chapter_section": [1, 2],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.6,
+                    "spaced_practice_performance": 0.5
+                }, {
+                    "id": "1762",
+                    "title": "What Is Economics, and Why Is It Important?",
+                    "uuid": "e911f49c-bb38-49cf-bb03-066373c43a76",
+                    "version": "8",
+                    "chapter_section": [1, 1],
+                    "completed": 1,
+                    "in_progress": 0,
+                    "not_started": 9,
+                    "original_performance": 0.0,
+                    "spaced_practice_performance": 0.5
+                }]
+            }]
+        }]
+    }
+}

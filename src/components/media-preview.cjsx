@@ -25,6 +25,7 @@ MediaPreview = React.createClass
     windowImpl: React.PropTypes.object
     buffer: React.PropTypes.number
     shouldLinkOut: React.PropTypes.bool
+    originalHref: React.PropTypes.string
 
   getDefaultProps: ->
     buffer: 160
@@ -37,7 +38,7 @@ MediaPreview = React.createClass
     @updateMedia(media) if media?
 
     unless media? or ReferenceBookPageStore.isLoading(cnxId) or ReferenceBookPageStore.isLoaded(cnxId)
-      ReferenceBookPageActions.load(cnxId)
+      ReferenceBookPageActions.loadSilent(cnxId)
       MediaStore.once("loaded.#{mediaId}", @updateMedia)
 
   componentWillUnmount: ->
@@ -101,7 +102,7 @@ MediaPreview = React.createClass
     _.pick(@props, 'containerPadding')
 
   getLinkProps: (otherProps) ->
-    {mediaId, mediaDOMOnParent, bookHref, shouldLinkOut} = @props
+    {mediaId, mediaDOMOnParent, bookHref, shouldLinkOut, originalHref} = @props
     {media} = @state
 
     otherPropTypes = _.chain(otherProps)
@@ -115,9 +116,12 @@ MediaPreview = React.createClass
 
     if mediaDOMOnParent?
       linkProps.href = "##{mediaId}"
-    else if (media and shouldLinkOut) or not media
+    else if (media and shouldLinkOut) # or not media
       linkProps.href = bookHref
       linkProps.href += "##{mediaId}" if mediaId
+      linkProps.target = '_blank'
+    else if not media
+      linkProps.href = originalHref
       linkProps.target = '_blank'
 
     linkProps.onMouseEnter = @onMouseEnter
