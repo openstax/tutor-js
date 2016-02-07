@@ -1,8 +1,7 @@
 selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
-
-S = require '../../src/helpers/string'
+S = require '../../../src/helpers/string'
 
 class TestItemHelper
   constructor: (test, testElementLocator) ->

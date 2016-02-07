@@ -6,7 +6,7 @@ _ = require 'underscore'
 chai = require 'chai'
 chai.use require 'chai-as-promised'
 expect = {chai}
-User = require './user'
+User = require './ui/user'
 Timeout = require './timeout'
 
 utils = require './utils'
