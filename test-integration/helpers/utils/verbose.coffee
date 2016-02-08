@@ -7,7 +7,7 @@ verbose = (test, args...) ->
 verboseWrap = (test, msg, fn) ->
   throw new Error('BUG: verboseWrap expects a function with no args that returns a promise') if typeof fn isnt 'function'
   verbose(test, "START: #{msg}")
-  promise = fn()
+  promise = fn.apply(test)
   promise.then ->
     verbose(test, "END  : #{msg}")
   promise
