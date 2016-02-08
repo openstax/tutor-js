@@ -2,6 +2,7 @@ require("babel-register")
 require("babel-polyfill")
 
 require './simple'
+require './cc-dashboard'
 require './calendar'
 require './task-plan/cleanup'
 require './task-plan/draft'

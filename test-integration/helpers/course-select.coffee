@@ -32,6 +32,7 @@ class CourseSelect extends TestHelper
     switch category
       when 'BIOLOGY' then @el.courseLink.get('biology').click()
       when 'PHYSICS' then @el.courseLink.get('physics').click()
+      when 'CONCEPT_COACH' then @el.courseLink.get(null, true).click()
       else @el.courseLink.get().click()
 
 module.exports = CourseSelect
