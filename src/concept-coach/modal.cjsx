@@ -40,7 +40,7 @@ CCModal = React.createClass
 
   checkAllowed: (focusEvent) ->
     modal = @getDOMNode()
-    unless modal.contains(focusEvent.target)
+    unless modal.contains(focusEvent.target) or @props.filterClick?(focusEvent)
       focusEvent.preventDefault()
       focusEvent.stopImmediatePropagation()
       modal.focus()

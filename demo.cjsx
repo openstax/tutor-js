@@ -45,6 +45,9 @@ loadApp = ->
       nextChapter: '2.2'
       nextTitle: 'Sample module 3'
       nextModuleUUID: 'the-next-page-uuid'
+    filterClick: (clickEvent) ->
+      console.info('external click or focus')
+      return false
 
   initialModel = _.clone(demoSettings)
   initialModel.mounter = mainDiv
