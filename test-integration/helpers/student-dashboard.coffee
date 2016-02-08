@@ -42,7 +42,7 @@ class Dashboard extends TestHelper
   constructor: (test) ->
     super(test, '.student-dashboard')
 
-  getVisibleEventHelpers: (options = {}) ->
+  findVisibleEvents: (options = {}) ->
     return @el.visibleEvents.getAll() if _.isEmpty(options.where)
     makeEvent = _.partial(Event.fromElement, @test)
     @el.visibleEvents.getAll().then( (tasks) ->

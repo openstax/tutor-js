@@ -40,7 +40,7 @@ describe('Student Dashboard', function(){
     this.student.login('student01');
     this.courseSelect.goToCourseByName('Biology I');
 
-    const eventEls = await this.dash.getVisibleEventHelpers({
+    const eventEls = await this.dash.findVisibleEvents({
       where: {title: title}
     });
     expect(eventEls.length).to.equal(1)
@@ -56,7 +56,7 @@ describe('Student Dashboard', function(){
     const progress = await event.el.progress.get().getText()
     expect(progress).to.equal('Not started')
 
-    const unstartedEvents = await this.dash.getVisibleEventHelpers({
+    const unstartedEvents = await this.dash.findVisibleEvents({
       where: {progress:'Not started'}
     });
     expect(unstartedEvents).not.to.be.empty;
