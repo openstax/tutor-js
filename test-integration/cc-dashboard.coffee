@@ -1,30 +1,37 @@
-{describe, CourseSelect, CCDashboard} = require './helpers'
+{describe, CourseSelect, User, CCDashboard} = require './helpers'
 {expect} = require 'chai'
 
 TEACHER_USERNAME = 'teacher01'
+CC_HELP_LINK = 'openstaxcc.zendesk.com/hc/en-us'
 
 
 describe 'Concept Coach Dashboard', ->
   beforeEach ->
-    @startDashboard = =>
-      @addTimeout(30)
+    @user = new User(@)
+    @courseSelect = new CourseSelect(@)
+    @conceptCoach = new CCDashboard(@)
 
-      @login(TEACHER_USERNAME)
+    @user.login(TEACHER_USERNAME)
+    @courseSelect.goTo('CONCEPT_COACH')
 
-      # Go to the concept coach dashboard
-      CourseSelect.goTo(@, 'CONCEPT_COACH')
+  @it 'Can switch periods (readonly)', ->
+    @conceptCoach.switchPeriods(@)
 
-  @it 'Can switch periods', ->
-    @startDashboard()
-    CCDashboard.switchPeriods(@)
-    CCDashboard.verifyPeriod(@)
+    @conceptCoach.getTabPeriod().then (periodId) =>
+      @conceptCoach.getDashboardPeriod().then (reactId) ->
+        expect(reactId.indexOf("period-nav-#{periodId}")).is.not.equal(-1)
 
-  @it 'Can go to detailed scores', ->
-    @startDashboard()
-    CCDashboard.clickViewScores(@)
-    @waitAnd(css: '.scores-report')
+  @it 'Can go to detailed scores (readonly)', ->
+    @conceptCoach.clickViewScores(@)
+    @utils.wait.for(css: '.scores-report')
 
-  @it 'Can display correct help link', ->
-    @startDashboard()
+  @it 'Can display correct help link (readonly)', ->
     # Go to the concept coach dashboard
-    CCDashboard.verifyHelpLink(@)
+    helpLink = @conceptCoach.getHelpLinkHref(@)
+
+    @conceptCoach.getHelpLinkHref().then (href) ->
+      expect(href.indexOf(CC_HELP_LINK)).is.not.equal(-1)
+
+    @conceptCoach.getHelpLinkTarget().then (target) ->
+      expect(target.toUpperCase().indexOf('_BLANK')).is.not.equal(-1)
+

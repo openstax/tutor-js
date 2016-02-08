@@ -1,37 +1,51 @@
 selenium = require 'selenium-webdriver'
-{expect} = require 'chai'
+{TestHelper} = require './test-element'
 
-CC_HELP_LINK = 'openstaxcc.zendesk.com/hc/en-us'
+COMMON_ELEMENTS =
+  dashboard:
+    css: '.dashboard'
 
-CCDashboard =
-  verify: (test) ->
-    test.waitAnd(css: '.cc-dashboard .dashboard')
+  inactiveTab:
+    css: '.nav.nav-tabs li:not(.active) a'
 
-  switchPeriods: (test) ->
-    test.waitAnd(css: '.cc-dashboard .dashboard')
+  activeTab:
+    css: '.nav.nav-tabs li.active'
 
-    test.waitClick(css: '.nav.nav-tabs li:not(.active) a')
-    test.sleep(100) # wait for render to happen
+  viewScoresButton:
+    css: '.detailed-scores.btn'
 
-  verifyPeriod: (test) ->
-    dashboard = test.driver.findElement(css: '.dashboard')
-    activeTab = test.driver.findElement(css: '.nav.nav-tabs li.active')
+  helpLink:
+    css: 'li.-help-link > a'
 
-    dashboard.getAttribute('data-period').then (periodId) ->
-      activeTab.getAttribute('data-reactid').then (reactId) ->
-        expect(reactId.indexOf("period-nav-#{periodId}")).is.not.equal(-1)
+  scoresReport:
+    css: '.scores-report'
 
-  clickViewScores: (test) ->
-    test.waitAnd(css: '.cc-dashboard .dashboard')
-    test.waitClick(css: '.dashboard .detailed-scores.btn')
 
-  verifyHelpLink: (test) ->
-    helpLink = test.driver.findElement(css: 'li.-help-link > a')
+class CCDashboard extends TestHelper
 
-    helpLink.getAttribute('href').then (href) ->
-      expect(href.indexOf(CC_HELP_LINK)).is.not.equal(-1)
+  constructor: (test, testElementLocator) ->
+    testElementLocator ?= '.cc-dashboard'
+    super(test, testElementLocator, COMMON_ELEMENTS)
 
-    helpLink.getAttribute('target').then (target) ->
-      expect(target.toUpperCase().indexOf('_BLANK')).is.not.equal(-1)
-  
+  switchPeriods: () ->
+    @el.inactiveTab.get().click()
+
+  getTabPeriod: () ->
+    @el.dashboard.get().getAttribute('data-period')
+
+  getDashboardPeriod: () ->
+    @el.activeTab.get().getAttribute('data-reactid')
+
+  clickViewScores: () ->
+    @el.viewScoresButton.get().click()
+
+  getHelpLink: () ->
+    helpLink = @test.driver.findElement(COMMON_ELEMENTS.helpLink)
+
+  getHelpLinkHref: () ->
+    @getHelpLink().getAttribute('href')
+
+  getHelpLinkTarget: () ->
+    @getHelpLink().getAttribute('target')
+
 module.exports = CCDashboard
