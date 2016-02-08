@@ -49,6 +49,8 @@ Object.defineProperties TestItemHelper.prototype,
     get: -> @_test
   locator:
     get: -> @_locator
+  element:
+    get: -> @get()
 
 
 class TestHelper extends TestItemHelper
