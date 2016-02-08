@@ -40,11 +40,13 @@ describe('Student Dashboard', function(){
     this.student.login('student01');
     this.courseSelect.goToCourseByName('Biology I');
 
-    const events = await this.dash.getVisibleEventHelpers({
+    const eventEls = await this.dash.getVisibleEventHelpers({
       where: {title: title}
     });
-    expect(events.length).to.equal(1)
-    const event = _.first(events)
+    expect(eventEls.length).to.equal(1)
+    const event = await StudentDashboard.Event.fromElement(
+      this, _.first(eventEls)
+    )
     expect(event).not.to.be.null
     expect(event).to.be.an.instanceof(StudentDashboard.Event)
 

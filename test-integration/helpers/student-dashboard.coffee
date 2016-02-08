@@ -43,16 +43,16 @@ class Dashboard extends TestHelper
     super(test, '.student-dashboard')
 
   getVisibleEventHelpers: (options = {}) ->
+    return @el.visibleEvents.getAll() if _.isEmpty(options.where)
     makeEvent = _.partial(Event.fromElement, @test)
     @el.visibleEvents.getAll().then( (tasks) ->
       selenium.promise.map( tasks, makeEvent )
     ).then( (events) ->
-      if _.isEmpty(options.where)
-        events
-      else
-        selenium.promise.map(events, (event) ->
-          event.isMatchFor(options.where))
-          .then( (events) -> _.compact(events) )
+      selenium.promise.map(events, (event) ->
+        event.isMatchFor(options.where))
+        .then( (events) ->
+          _.pluck( _.compact(events), 'element' )
+        )
     )
 
 
