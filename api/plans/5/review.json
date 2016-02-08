@@ -4,9 +4,9 @@
   "title": "Complete exercise 12A on pg 12",
   "stats": [{
     "period_id": "1",
-    "total_count": 10,
-    "complete_count": 0,
-    "partially_complete_count": 0,
+    "total_tasks_count": 10,
+    "complete_tasks_count": 0,
+    "partially_complete_tasks_count": 0,
     "current_pages": [],
     "spaced_pages": [{
       "id": "0",
@@ -90,9 +90,9 @@
     }]
   },{
     "period_id": "2",
-    "total_count": 20,
-    "complete_count": 0,
-    "partially_complete_count": 0,
+    "total_tasks_count": 20,
+    "complete_tasks_count": 0,
+    "partially_complete_tasks_count": 0,
     "current_pages": [],
     "spaced_pages": [{
       "id": "0",
@@ -176,9 +176,9 @@
     }]
   },{
     "period_id": "3",
-    "total_count": 20,
-    "complete_count": 0,
-    "partially_complete_count": 0,
+    "total_tasks_count": 20,
+    "complete_tasks_count": 0,
+    "partially_complete_tasks_count": 0,
     "current_pages": [],
     "spaced_pages": [{
       "id": "0",
@@ -262,9 +262,9 @@
     }]
   },{
     "period_id": "4",
-    "total_count": 20,
-    "complete_count": 0,
-    "partially_complete_count": 0,
+    "total_tasks_count": 20,
+    "complete_tasks_count": 0,
+    "partially_complete_tasks_count": 0,
     "current_pages": [],
     "spaced_pages": [{
       "id": "0",
@@ -348,9 +348,9 @@
     }]
   },{
     "period_id": "5",
-    "total_count": 20,
-    "complete_count": 0,
-    "partially_complete_count": 0,
+    "total_tasks_count": 20,
+    "complete_tasks_count": 0,
+    "partially_complete_tasks_count": 0,
     "current_pages": [],
     "spaced_pages": [{
       "id": "0",
@@ -434,9 +434,9 @@
     }]
   },{
     "period_id": "6",
-    "total_count": 20,
-    "complete_count": 0,
-    "partially_complete_count": 0,
+    "total_tasks_count": 20,
+    "complete_tasks_count": 0,
+    "partially_complete_tasks_count": 0,
     "current_pages": [],
     "spaced_pages": [{
       "id": "0",
@@ -520,9 +520,9 @@
     }]
   },{
     "period_id": "7",
-    "total_count": 20,
-    "complete_count": 0,
-    "partially_complete_count": 0,
+    "total_tasks_count": 20,
+    "complete_tasks_count": 0,
+    "partially_complete_tasks_count": 0,
     "current_pages": [],
     "spaced_pages": [{
       "id": "0",
