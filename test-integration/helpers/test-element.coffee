@@ -49,10 +49,14 @@ Object.defineProperties TestItemHelper.prototype,
     get: -> @_test
   locator:
     get: -> @_locator
+  element:
+    get: -> @get()
 
 
 class TestHelper extends TestItemHelper
-  constructor: (test, testElementLocator, commonElements = {}, options) ->
+  constructor: (test, testElementLocator, commonElements, options) ->
+    super(test, testElementLocator)
+    commonElements ||= _.result(@, 'elementRefs', {})
     defaultOptions =
       loadingLocator:
         css: '.is-loading'
@@ -61,7 +65,6 @@ class TestHelper extends TestItemHelper
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
 
-    super(test, testElementLocator)
     commonElements.loadingState = @options.loadingLocator
 
     _.each commonElements, @setCommonElement
