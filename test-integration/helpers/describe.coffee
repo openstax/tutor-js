@@ -8,6 +8,7 @@ User = require './user'
 Timeout = require './timeout'
 
 utils = require './utils'
+{resetIndentationLevel} = require './utils/verbose'
 
 screenshot = require './utils/screenshot'
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
@@ -39,6 +40,7 @@ describe = (name, cb) ->
     @__afterEach = afterEach
 
     @before ->
+      resetIndentationLevel()
 
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)

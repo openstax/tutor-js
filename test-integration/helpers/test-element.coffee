@@ -9,6 +9,14 @@ class TestItemHelper
     @_test = test
     @_locator = testElementLocator
 
+    # Instrument all the methods of helpers to print using verboseWrap
+    # so we can see where Selenium stopped
+    _.each _.omit(@, Object.keys(TestItemHelper::), Object.keys(TestHelper::)), (value, key) =>
+      # Wrap all functions!
+      if typeof value is 'function'
+        @[key] = (args...) =>
+          @test.utils.verboseWrap("HELPER: #{key}", => value.apply(@, args))
+
   getLocator: (args...) =>
     locator = if _.isFunction(@_locator)
       @_locator(args...)
