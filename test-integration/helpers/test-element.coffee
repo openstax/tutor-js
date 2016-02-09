@@ -42,6 +42,12 @@ class TestItemHelper
     @test.driver.isElementPresent(locator).then (isPresent) ->
       isPresent
 
+  # Helper for the common case of `.get(...).click()`.
+  # Plus, it allows a place to add logging since this is one of the most
+  # common places for Selenium to time out (trying to click on an element)
+  click: (args...) =>
+    @get(args...).click()
+
 # Using defined properties for access eliminates the possibility
 # of accidental assignment
 Object.defineProperties TestItemHelper.prototype,
