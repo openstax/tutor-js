@@ -21,15 +21,15 @@ CourseBar = React.createClass
     stats = [{
         type: 'complete'
         label: completeLabel
-        value: data.complete_count
+        value: data.complete_tasks_count
       }, {
         type: 'in-progress'
         label: inProgressLabel
-        value: data.partially_complete_count
+        value: data.partially_complete_tasks_count
       }, {
         type: 'not-started'
         label: notStartedLabel
-        value: data.total_count - (data.complete_count + data.partially_complete_count)
+        value: data.total_tasks_count - (data.complete_tasks_count + data.partially_complete_tasks_count)
     }]
 
     if type is 'external'
@@ -39,18 +39,18 @@ CourseBar = React.createClass
       stats = [{
           type: 'complete'
           label: completeLabel
-          value: data.complete_count
+          value: data.complete_tasks_count
         }, {
           type: 'not-started'
           label: notStartedLabel
-          value: data.total_count - (data.complete_count + data.partially_complete_count)
+          value: data.total_tasks_count - (data.complete_tasks_count + data.partially_complete_tasks_count)
       }]
 
-    if type is 'homework' and data.mean_grade_percent
+    if type is 'homework' and data.complete_exercises_count
       stats.unshift(
         type: 'average'
         label: 'Average'
-        value: "#{data.mean_grade_percent}%"
+        value: "#{data.correct_exercises_count / data.complete_exercises_count}%"
       )
 
     stats

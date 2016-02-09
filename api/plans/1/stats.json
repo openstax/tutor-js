@@ -4,11 +4,13 @@
     "title": "Read Pages 9-11",
     "stats": [{
         "period_id": "1",
-        "mean_grade_percent": 80,
-        "total_count": 10,
-        "complete_count": 1,
+        "total_exercises_count": 100,
+        "complete_exercises_count": 100,
+        "correct_exercises_count": 80,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 1,
         "is_trouble": true,
-        "partially_complete_count": 0,
+        "partially_complete_tasks_count": 0,
         "current_pages": [{
             "id": "1",
             "chapter_section": [1, 2],
@@ -34,11 +36,13 @@
         }]
     },{
         "period_id": "2",
-        "mean_grade_percent": 80,
-        "total_count": 10,
-        "complete_count": 2,
+        "total_exercises_count": 100,
+        "complete_exercises_count": 100,
+        "correct_exercises_count": 80,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 2,
         "is_trouble": false,
-        "partially_complete_count": 0,
+        "partially_complete_tasks_count": 0,
         "current_pages": [{
             "id": "1",
             "chapter_section": [1, 2],
@@ -64,11 +68,13 @@
         }]
     },{
         "period_id": "3",
-        "mean_grade_percent": 80,
-        "total_count": 10,
-        "complete_count": 3,
+        "total_exercises_count": 100,
+        "complete_exercises_count": 100,
+        "correct_exercises_count": 80,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 3,
         "is_trouble": false,
-        "partially_complete_count": 0,
+        "partially_complete_tasks_count": 0,
         "current_pages": [{
             "id": "1",
             "chapter_section": [1, 2],
@@ -94,11 +100,13 @@
         }]
     },{
         "period_id": "4",
-        "mean_grade_percent": 80,
-        "total_count": 10,
-        "complete_count": 4,
+        "total_exercises_count": 100,
+        "complete_exercises_count": 100,
+        "correct_exercises_count": 80,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 4,
         "is_trouble": false,
-        "partially_complete_count": 0,
+        "partially_complete_tasks_count": 0,
         "current_pages": [{
             "id": "1",
             "chapter_section": [1, 2],
@@ -124,11 +132,13 @@
         }]
     },{
         "period_id": "5",
-        "mean_grade_percent": 80,
-        "total_count": 10,
-        "complete_count": 5,
+        "total_exercises_count": 100,
+        "complete_exercises_count": 100,
+        "correct_exercises_count": 80,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 5,
         "is_trouble": false,
-        "partially_complete_count": 0,
+        "partially_complete_tasks_count": 0,
         "current_pages": [{
             "id": "1",
             "chapter_section": [1, 2],
@@ -154,11 +164,13 @@
         }]
     },{
         "period_id": "6",
-        "mean_grade_percent": 80,
-        "total_count": 10,
-        "complete_count": 6,
+        "total_exercises_count": 100,
+        "complete_exercises_count": 100,
+        "correct_exercises_count": 80,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 6,
         "is_trouble": false,
-        "partially_complete_count": 0,
+        "partially_complete_tasks_count": 0,
         "current_pages": [{
             "id": "1",
             "chapter_section": [1, 2],
@@ -184,11 +196,13 @@
         }]
     },{
         "period_id": "7",
-        "mean_grade_percent": 80,
-        "total_count": 10,
-        "complete_count": 7,
+        "total_exercises_count": 100,
+        "complete_exercises_count": 100,
+        "correct_exercises_count": 80,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 7,
         "is_trouble": false,
-        "partially_complete_count": 0,
+        "partially_complete_tasks_count": 0,
         "current_pages": [{
             "id": "1",
             "chapter_section": [1, 2],

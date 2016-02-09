@@ -4,9 +4,9 @@
     "title": "Write short essay on the rise and fall of the Roman Empire",
     "stats":[{
         "period_id": "1",
-        "total_count": 10,
-        "complete_count": 0,
+        "total_tasks_count": 10,
+        "complete_tasks_count": 0,
         "chapter_section": [1, 2],
-        "partially_complete_count": 0
+        "partially_complete_tasks_count": 0
     }]
 }
