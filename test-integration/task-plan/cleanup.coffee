@@ -22,7 +22,7 @@ describe 'Assignment Cleanup', ->
       plan.click()
       @reading.waitUntilLoaded()
       @reading.edit(action: 'DELETE').then ->
-        console.log 'Deleted', index, '/', total
+        console.log 'Deleted draft', index, '/', total
       @calendar.waitUntilLoaded()
 
     , (plans) ->
@@ -36,7 +36,7 @@ describe 'Assignment Cleanup', ->
       @calendar.el.planPopup.waitUntilLoaded()
       @calendar.el.planPopup.goEdit()
       @reading.edit(action: 'DELETE').then ->
-        console.log 'Deleted', index, '/', total
+        console.log 'Deleted Unopened', index, '/', total
       @calendar.waitUntilLoaded()
 
     , (plans) ->

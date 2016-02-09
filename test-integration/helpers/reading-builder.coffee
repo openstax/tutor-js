@@ -146,7 +146,7 @@ class ReadingBuilder extends TestHelper
 
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: '.task-plan.reading-plan'
-    super test, testElementLocator, COMMON_ELEMENTS, defaultWaitTime: 3000
+    super test, testElementLocator, COMMON_ELEMENTS
     @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
     @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
 
@@ -203,11 +203,12 @@ class ReadingBuilder extends TestHelper
 
   publish: =>
     # Wait up to 3min for publish to complete
-    @el.publishButton.click()
-    # wait for
-    @test.driver.wait =>
-      @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
-    , (3 * 60 * 1000)
+    @test.utils.wait.giveTime (3 * 60 * 1000), =>
+      @test.utils.verboseWrap 'Publishing', =>
+        @el.publishButton.click()
+        # wait for
+        @test.driver.wait =>
+          @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
 
   save: =>
     @el.saveButton.click()
@@ -221,13 +222,14 @@ class ReadingBuilder extends TestHelper
     Calendar.verify(@test)
 
   delete: =>
-    # Wait up to 60sec for delete to complete
-    @el.deleteButton.click()
-    # Accept the browser confirm dialog
-    @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
-      alert.accept()
+    # Wait up to 2min for delete to complete
+    @test.utils.wait.giveTime (2 * 60 * 1000), =>
+      @el.deleteButton.click()
+      # Accept the browser confirm dialog
+      @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
+        alert.accept()
 
-    Calendar.verify(@test, 60 * 1000)
+    Calendar.verify(@test, 2 * 60 * 100)
 
 
   #   name
