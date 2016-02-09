@@ -11,6 +11,8 @@ DEFAULT_GROUP =
 RULES =
   default: DEFAULT_GROUP
   core: DEFAULT_GROUP
+  recovery:
+    show: true
   personalized:
     show: true
     label: 'Personalized'
