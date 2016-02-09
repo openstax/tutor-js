@@ -92,9 +92,9 @@ module.exports = React.createClass
 
     classAverage =
       if basedOn is 'possible'
-        heading.average_possible
+        heading.total_average
       else
-        heading.average
+        heading.attempted_average
 
     if classAverage
       average =
