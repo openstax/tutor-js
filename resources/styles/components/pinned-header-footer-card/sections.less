@@ -15,3 +15,6 @@
     .fixed-bar();
   }
 }
+
+// always wrap around elements by extending bootstrap's clearfix
+.card-body { &:extend(.clearfix all); }
