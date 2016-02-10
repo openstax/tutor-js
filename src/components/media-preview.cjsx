@@ -96,10 +96,11 @@ MediaPreview = React.createClass
 
   onMouseLeave: (mouseEvent) ->
     mouseEvent.preventDefault()
-    @hideMedia() if @isMouseLeft(mouseEvent)
+    @hideMedia() if @isMouseExited(mouseEvent)
 
-  isMouseLeft: (mouseEvent) ->
-    return true unless @refs.overlay.refs.popover?
+  # check that mouse has exited both the link and the overlay
+  isMouseExited: (mouseEvent) ->
+    return true unless mouseEvent.relatedTarget?.nodeType? and @refs.overlay.refs.popover?
     linkDOM = @refs.overlay.refs.popper.getDOMNode()
     popoverDOM = @refs.overlay.refs.popover.getDOMNode()
     not (popoverDOM.contains(mouseEvent.relatedTarget) or linkDOM.isEqualNode(mouseEvent.relatedTarget))
