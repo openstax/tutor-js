@@ -13,25 +13,23 @@ BOOK_UID_XREF =
 ExerciseIdentifierLink = React.createClass
 
   propTypes:
-    bookUUID: React.PropTypes.string.isRequired
-    exerciseUID: React.PropTypes.string.isRequired
+    bookUUID: React.PropTypes.string
+    exerciseId: React.PropTypes.string.isRequired
     project: React.PropTypes.oneOf(['concept-coach', 'tutor'])
-
-  isCCValue: ->
-    if @props.project is 'concept-coach' then 'Yes' else 'No'
 
   formUrl: ->
     url = 'https://docs.google.com/a/rice.edu/forms/d/' +
     '1AmwbFIRvZJ6F91PQp1I6jQgqM9Kc3qNMrHdLdqhj8FE/viewform' +
-    "?entry.649352110=#{@props.exerciseUID}" +
-    "&entry.1655668181=#{@isCCValue()}"
-    if BOOK_UID_XREF[@props.bookUUID]
+    "?entry.649352110=#{@props.exerciseId}"
+    if @props.project
+      url += "&entry.1655668181=#{if @props.project is 'concept-coach' then 'Yes' else 'No'}"
+    if @props.bookUUID and BOOK_UID_XREF[@props.bookUUID]
       url += "&entry.1091629000=#{BOOK_UID_XREF[@props.bookUUID]}"
-
+    url
 
   render: ->
     <span className='exercise-identifier-link'>
-      ID# {@props.uid} | <a href={@formUrl()}>Report an error</a>
+      ID# {@props.exerciseId} | <a target="_blank" href={@formUrl()}>Report an error</a>
     </span>
 
 module.exports = ExerciseIdentifierLink
