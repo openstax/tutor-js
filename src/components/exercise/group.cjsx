@@ -4,7 +4,7 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 
 ChapterSectionMixin = require '../chapter-section-mixin'
-
+ExerciseIdentifierLink = require './identifier-link'
 DEFAULT_GROUP =
   show: false
 
@@ -62,10 +62,7 @@ ExerciseGroup = React.createClass
       ]
 
     if exercise_uid
-      exerciseUid = <span className='exercise-uid' key='exercise-uid'>
-        {exercise_uid}
-      </span>
-      groupDOM.push(exerciseUid)
+      groupDOM.push <ExerciseIdentifierLink key='exercise-uid' exerciseId={exercise_uid} />
 
     <div className='openstax-step-group'>
       {groupDOM}
