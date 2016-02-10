@@ -58,6 +58,7 @@ TutorPopover = React.createClass
   setMaxImageWidth: (image, maxWidth) ->
     # unfortunately, css max-width does not work in firefox inside display: table elements
     # https://bugzilla.mozilla.org/show_bug.cgi?id=975632
+    # See https://github.com/openstax/tutor-js/issues/977 for full details.
     return unless image?
     {width} = image.getBoundingClientRect?()
     image.width = maxWidth if width > maxWidth
