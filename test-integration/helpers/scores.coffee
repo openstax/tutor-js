@@ -21,6 +21,16 @@ COMMON_ELEMENTS =
     css: '.name-cell a.student-name'
   hsReviewLink:
     css: 'a.review-plan'
+  periodTab:
+    css: '.nav-tabs li:nth-child(2)'
+  displayAs:
+    css: '.filter-item:nth-child(1) .filter-group .btn:nth-child(2)'
+  basedOn:
+    css: '.filter-item:nth-child(2) .filter-group .btn:nth-child(2)'
+  scoreCell:
+    css: '.cc-cell a.score'
+  averageLabel:
+    css: '.average-label span:last-child'
   assignmentByType: (type) ->
     css: "a.scores-cell[data-assignment-type='#{type}']"
 
@@ -40,8 +50,11 @@ class ScoresHelper extends TestHelper
     @el.ccScoresLink.get().click()
 
   doneGenerating: =>
-    @test.driver.wait =>
-      @test.driver.isElementPresent(css: downloadExport)
+    #@test.driver.wait =>
+      #@test.driver.isElementPresent(css: @el.downloadExport)
+
+    @utils.isPresent(@el.downloadExport)
 
 
+module.exports = {ScoresHelper}
 

@@ -10,8 +10,8 @@ module.exports =
   Task             : require './task'
   User             : require './user'
   ReferenceBook    : require './reference-book'
-  #Scores           : require './scores'
+  Scores           : require './scores'
   util             : require './utils'
   describe         : describe
   xdescribe        : xdescribe
-  
+
