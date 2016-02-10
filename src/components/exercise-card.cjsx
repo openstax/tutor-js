@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, ExerciseIdentifierLink} = require 'openstax-react-components'
 {ExerciseStore} = require '../flux/exercise'
 
 
@@ -41,6 +41,10 @@ ExerciseCard = React.createClass
       'exercise-tag'
     <span key={tag.id or tag.name} className={classes}>{content}</span>
 
+  onClick: (ev) ->
+    # don't toggle exercise selection click target is a link (such as "Report an error")
+    @props.toggleExercise() unless ev.target.tagName is 'A'
+
   render: ->
     content = @props.exercise.content
     question = content.questions[0]
@@ -49,10 +53,10 @@ ExerciseCard = React.createClass
       .map(@renderAnswer)
       .value()
     tags = _.clone @props.exercise.tags
-    # Display the exercise uid as a tag
-    tags.push(name: "ID: #{@props.exercise.content.uid}")
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
-
+    renderedTags.push(
+      <ExerciseIdentifierLink exerciseId={@props.exercise.content.uid} />
+    )
     classes = classnames 'card', 'exercise',
       'is-displaying-feedback': @props.displayFeedback
 
@@ -60,7 +64,7 @@ ExerciseCard = React.createClass
       className={classes}
       bsStyle={@props.panelStyle}
       header={@props.header}
-      onClick={@props.toggleExercise}>
+      onClick={@onClick}>
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <div className='answers-table'>{renderedAnswers}</div>
