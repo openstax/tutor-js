@@ -109,15 +109,15 @@ class SelectReadingsList extends TestHelper
     # So handle chapters differently
     isChapter = not /\./.test(section)
     if isChapter
-      @el.chapterHeadingSelectAll.get(section).click()
+      @el.chapterHeadingSelectAll.click(section)
     else
       # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
       @el.sectionItem.findElement(section).isDisplayed().then (isDisplayed) =>
         # Expand the chapter accordion if necessary
         unless isDisplayed
-          @el.chapterHeading.get(section).click()
+          @el.chapterHeading.click(section)
 
-        @el.sectionItem.get(section).click()
+        @el.sectionItem.click(section)
 
 
 # TODO could probably make this a general dialog/modal helper to extend from.
@@ -135,7 +135,7 @@ class UnsavedDialog extends TestHelper
       return unless modalIsOpened
 
       @waitUntilLoaded()
-      @el.dismissButton.get().click()
+      @el.dismissButton.click()
       @waitUntilClose()
 
 
@@ -173,10 +173,10 @@ class ReadingBuilder extends TestHelper
       @_setDate('due', dueAt)
 
   openDatePicker: (type) =>
-    @el.dateInput.get(type).click()
+    @el.dateInput.click(type)
 
   chooseDate: (date) =>
-    @el.datepickerDay.get(date).click()
+    @el.datepickerDay.click(date)
 
   waitUntilDatepickerClosed: =>
     @test.driver.wait =>
@@ -189,7 +189,7 @@ class ReadingBuilder extends TestHelper
     @el.name.get().getAttribute('value')
 
   openSelectReadingList: =>
-    @el.selectReadingsButton.get().click()
+    @el.selectReadingsButton.click()
     @el.selectReadingsList.waitUntilLoaded()
 
   hasError: (type) =>
@@ -203,18 +203,15 @@ class ReadingBuilder extends TestHelper
 
   publish: =>
     # Wait up to 3min for publish to complete
-    @el.publishButton.get().click()
-    # wait for
-    @test.driver.wait =>
-      @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
-    , (3 * 60 * 1000)
+    @el.publishButton.click()
+    Calendar.verify(@test, 3 * 60 * 1000)
 
   save: =>
-    @el.saveButton.get().click()
+    @el.saveButton.click()
 
   cancel: =>
     # BUG: "X" close button behaves differently than the footer close button
-    @el.cancelButton.get().click()
+    @el.cancelButton.click()
     # BUG: Should not prompt when canceling
     # Confirm the "Unsaved Changes" dialog
     @el.unsavedDialog.close()
@@ -222,7 +219,7 @@ class ReadingBuilder extends TestHelper
 
   delete: =>
     # Wait up to 60sec for delete to complete
-    @el.deleteButton.get().click()
+    @el.deleteButton.click()
     # Accept the browser confirm dialog
     @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
       alert.accept()
@@ -267,7 +264,7 @@ class ReadingBuilder extends TestHelper
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
-        @el.addReadingsButton.get().click()
+        @el.addReadingsButton.click()
 
     switch action
       when 'PUBLISH' then @publish()

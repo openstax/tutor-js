@@ -28,7 +28,7 @@ class CCDashboard extends TestHelper
     super(test, testElementLocator, COMMON_ELEMENTS)
 
   switchPeriods: () ->
-    @el.inactiveTab.get().click()
+    @el.inactiveTab.click()
 
   getTabPeriod: () ->
     @el.dashboard.get().getAttribute('data-period')
@@ -37,7 +37,7 @@ class CCDashboard extends TestHelper
     @el.activeTab.get().getAttribute('data-reactid')
 
   clickViewScores: () ->
-    @el.viewScoresButton.get().click()
+    @el.viewScoresButton.click()
 
   getHelpLink: () ->
     helpLink = @test.driver.findElement(COMMON_ELEMENTS.helpLink)

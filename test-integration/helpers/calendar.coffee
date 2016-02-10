@@ -47,17 +47,17 @@ class PlanPopupHelper extends  TestHelper
 
   close: =>
     @test.utils.windowPosition.scrollTop()
-    @el.closeButton.get().click()
+    @el.closeButton.click()
     # waits until the locator element is not present
     @test.driver.wait =>
       @isPresent().then (isPresent) ->
         not isPresent
 
   goEdit: =>
-    @el.editLink.get().click()
+    @el.editLink.click()
 
   goReview: =>
-    @el.reviewLink.get().click()
+    @el.reviewLink.click()
 
 
 class CalendarHelper extends TestHelper
@@ -76,21 +76,21 @@ class CalendarHelper extends TestHelper
   createNew: (type) =>
     @waitUntilLoaded()
 
-    @el.addToggle.get().click()
+    @el.addToggle.click()
 
     switch type
-      when 'READING' then @el.addReadingButton.get().click()
-      when 'HOMEWORK' then @el.addHomeworkButton.get().click()
-      when 'EXTERNAL' then @el.addExternalButton.get().click()
+      when 'READING' then @el.addReadingButton.click()
+      when 'HOMEWORK' then @el.addHomeworkButton.click()
+      when 'EXTERNAL' then @el.addExternalButton.click()
       else expect(false, 'Invalid assignment type').to.be.true
 
   goPerformanceForecast: =>
     @test.utils.windowPosition.scrollTop()
-    @el.forecastLink.get().click()
+    @el.forecastLink.click()
 
   goStudentScores: =>
     @test.utils.windowPosition.scrollTop()
-    @el.studentScoresLink.get().click()
+    @el.studentScoresLink.click()
 
   goOpen: (title) =>
     # wait until the calendar is open
