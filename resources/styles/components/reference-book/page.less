@@ -10,7 +10,8 @@
       @media screen and ( max-width: @book-content-collapse-breakpoint ){
         width: @reference-book-collapse-width;
       }
-
+      // always wrap around elements by extending bootstrap's clearfix
+      &:extend(.clearfix all);
     }
 
     .page {
