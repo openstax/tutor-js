@@ -78,6 +78,7 @@ TaskStepConfig =
       step = @_get(id)
       coreGroups = [
         'core'
+        'recovery'
         'default'
       ]
       coreGroups.indexOf(step.group) > -1
