@@ -9,6 +9,9 @@ ReferenceBookPageConfig = {
     MediaActions.parse(obj.content_html)
     obj
 
+  loadSilent: (id) ->
+    @load(id)
+
 }
 
 extendConfig(ReferenceBookPageConfig, new CrudConfig())

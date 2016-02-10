@@ -29,7 +29,8 @@ module.exports = React.createClass
     # FIXME - use classnames lib when available
     classnames = "task row #{@props.className}"
     classnames += ' workable' if workable
-    <div className={classnames} onClick={@onClick if workable}>
+    <div className={classnames} onClick={@onClick if workable}
+      data-event-id={@props.event.id}>
       <BS.Col xs={2}  sm={1} className={"column-icon"}>
         <i className={"icon icon-lg icon-#{@props.className}"}/>
       </BS.Col>

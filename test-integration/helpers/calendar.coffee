@@ -1,55 +1,109 @@
 selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
+{TestHelper} = require './test-element'
+{PeriodReviewTab} = require './items'
 
-# Make sure the current screen is the calendar
-verify = (test, ms) ->
-  # wait until the calendar is open
-  test.waitAnd(css: '.calendar-container:not(.calendar-loading)', ms)
+COMMON_ELEMENTS =
+  forecastLink:
+    linkText: 'Performance Forecast'
+  studentScoresLink:
+    linkText: 'Student Scores'
+  addToggle:
+    css: '.add-assignment .dropdown-toggle'
+  addReadingButton:
+    linkText: 'Add Reading'
+  addHomeworkButton:
+    linkText: 'Add Homework'
+  addExternalButton:
+    linkText: 'Add External Assignment'
+  publishedPlan:
+    css: '.plan.is-published label:not(.continued)'
+  draftPlan:
+    css: '.plan:not(.is-published) label:not(.continued)'
+    ignoreLengthChange: true
+  openPlan:
+    css: '.plan.is-open.is-published label:not(.continued)'
+  unopenPlan:
+    css: '.plan.is-published:not(.is-open) label:not(.continued)'
+    ignoreLengthChange: true
+  planByTitle: (title) ->
+    css: ".plan label[data-title='#{title}']"
+
+COMMON_POPUP_ELEMENTS =
+  closeButton:
+    css: '.plan-modal .close'
+  editLink:
+    linkText: 'Edit Assignment'
+  reviewLink:
+    linkText: 'Review Metrics'
+
+class PlanPopupHelper extends  TestHelper
+  constructor: (test, testElementLocator) ->
+
+    testElementLocator ?=
+      css: '.plan-modal .panel.panel-default'
+    super(test, testElementLocator, COMMON_POPUP_ELEMENTS, defaultWaitTime: 3000)
+    @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
+
+  close: =>
+    @test.utils.windowPosition.scrollTop()
+    @el.closeButton.get().click()
+    # waits until the locator element is not present
+    @test.driver.wait =>
+      @isPresent().then (isPresent) ->
+        not isPresent
+
+  goEdit: =>
+    @el.editLink.get().click()
+
+  goReview: =>
+    @el.reviewLink.get().click()
 
 
-# type: 'READING', 'HOMEWORK', 'EXTERNAL'
-createNew = (test, type) ->
-  verify(test)
+class CalendarHelper extends TestHelper
+  constructor: (test, testElementLocator) ->
 
-  # Click "Add Assignment"
-  test.waitClick(css: '.add-assignment .dropdown-toggle')
+    testElementLocator ?=
+      css: '.calendar-container'
+    calendarOptions =
+      loadingLocator:
+        css: '.calendar-loading'
+      defaultWaitTime: 3000
 
-  # Go to the bio dashboard
-  switch type
-    when 'READING' then test.waitClick(linkText: 'Add Reading')
-    when 'HOMEWORK' then test.waitClick(linkText: 'Add Homework')
-    when 'EXTERNAL' then test.waitClick(linkText: 'Add External Assignment')
-    else expect(false, 'Invalid assignment type').to.be.true
+    super(test, testElementLocator, COMMON_ELEMENTS, calendarOptions)
+    @setCommonHelper('planPopup', new PlanPopupHelper(@test))
 
-goOpen = (test, title) ->
-  # wait until the calendar is open
-  verify(test)
-  # TODO: Make this a `data-title` attribute
-  # HACK: Might need to scroll the item to click on into view
-  el = test.waitAnd(css: "[data-title='#{title}']")
-  test.scrollTo(el)
-  el.click()
-  test.scrollTop()
+  createNew: (type) =>
+    @waitUntilLoaded()
 
-goPerformanceForecast = (test) ->
-  test.waitClick(linkText: 'Performance Forecast')
+    @el.addToggle.get().click()
 
-Popup =
-  verify: (test) ->
+    switch type
+      when 'READING' then @el.addReadingButton.get().click()
+      when 'HOMEWORK' then @el.addHomeworkButton.get().click()
+      when 'EXTERNAL' then @el.addExternalButton.get().click()
+      else expect(false, 'Invalid assignment type').to.be.true
+
+  goPerformanceForecast: =>
+    @test.utils.windowPosition.scrollTop()
+    @el.forecastLink.get().click()
+
+  goStudentScores: =>
+    @test.utils.windowPosition.scrollTop()
+    @el.studentScoresLink.get().click()
+
+  goOpen: (title) =>
     # wait until the calendar is open
-    test.waitAnd(css: '.plan-modal .panel.panel-default')
-  close: (test) ->
-    test.waitClick(css: '.plan-modal .close')
-    test.sleep(2000) # Wait for the modal to animate and disappear
-
-  goEdit: (test) ->
-    test.waitClick(linkText: 'Edit Assignment')
-
-  goReview: (test) ->
-    # BUG: Should rely on button classes
-    test.waitClick(linkText: 'Review Metrics')
-    # Verify the review page loaded
-    test.waitAnd(css: '.task-teacher-review .task-breadcrumbs')
+    @waitUntilLoaded()
+    # TODO: Make this a `data-title` attribute
+    # HACK: Might need to scroll the item to click on into view
+    el = @el.planByTitle.get(title)
+    @test.utils.windowPosition.scrollTo(el)
+    el.click()
+    @test.utils.windowPosition.scrollTop()
 
 
-module.exports = {verify, createNew, goOpen, goPerformanceForecast, Popup}
+verify = (test, ms) ->
+  new CalendarHelper(test).waitUntilLoaded(ms)
+
+module.exports = {CalendarHelper, verify}

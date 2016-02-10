@@ -13,17 +13,6 @@ ScrollTo = require './scroll-to'
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
 EXERCISE_LINK_SELECTOR = '.os-exercise > [data-type="problem"] > p > a[href]'
-MEDIA_LINK_EXCLUDES = [
-  '.nav'
-  '.view-reference-guide'
-  '[data-type=footnote-number]'
-  '[data-type=footnote-ref]'
-  '[data-targeted=media]'
-]
-
-MEDIA_LINK_SELECTOR = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) ->
-  "#{current}:not(#{exclude})"
-, 'a')
 
 LinkContentMixin =
   componentDidMount:  ->
@@ -96,6 +85,7 @@ LinkContentMixin =
       bookHref: @buildReferenceBookLink(mediaCNXId)
       mediaDOMOnParent: mediaDOM
       shouldLinkOut: @shouldOpenNewTab?()
+      originalHref: link.getAttribute('href')
 
     mediaPreview = <MediaPreview {...mediaProps}>
         {link.innerText}
@@ -116,7 +106,7 @@ LinkContentMixin =
   _processLinks: ->
     return unless @isMounted()
     root = @getDOMNode()
-    mediaLinks = root.querySelectorAll(MEDIA_LINK_SELECTOR)
+    mediaLinks = root.querySelectorAll(MediaStore.getSelector())
     exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
 
     otherLinks = _.chain(mediaLinks)
