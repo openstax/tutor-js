@@ -96,7 +96,13 @@ MediaPreview = React.createClass
 
   onMouseLeave: (mouseEvent) ->
     mouseEvent.preventDefault()
-    @hideMedia()
+    @hideMedia() if @isMouseLeft(mouseEvent)
+
+  isMouseLeft: (mouseEvent) ->
+    return true unless @refs.overlay.refs.popover?
+    linkDOM = @refs.overlay.refs.popper.getDOMNode()
+    popoverDOM = @refs.overlay.refs.popover.getDOMNode()
+    not (popoverDOM.contains(mouseEvent.relatedTarget) or linkDOM.isEqualNode(mouseEvent.relatedTarget))
 
   getOverlayProps: ->
     _.pick(@props, 'containerPadding')
@@ -147,6 +153,7 @@ MediaPreview = React.createClass
         'data-content-type': media.name
         className: 'media-preview'
         ref: 'popover'
+        onMouseLeave: @onMouseLeave
 
       content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml}/>
       allProps = {content, overlayProps, popoverProps, windowImpl}

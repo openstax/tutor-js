@@ -32,8 +32,7 @@ TutorPopover = React.createClass
   componentDidUpdate: ->
     # Make sure the popover re-positions after the image loads
     if @refs.popcontent? and @state.firstShow
-      content = @refs.popcontent.getDOMNode()
-      images = content.querySelectorAll('img')
+      images = @getImages()
 
       imagesLoading = _.map images, (image, iter) =>
         unless image.onload? or image.complete
@@ -41,6 +40,10 @@ TutorPopover = React.createClass
         return not image.complete
 
       @setState(imagesLoading: imagesLoading, firstShow: false)
+
+  getImages: ->
+    content = @refs.popcontent.getDOMNode()
+    content.querySelectorAll('img')
 
   imageLoaded: (iter) ->
     return unless @isMounted()
@@ -51,6 +54,13 @@ TutorPopover = React.createClass
     currentImageStatus[iter] = false
 
     @setState(imagesLoading: currentImageStatus)
+
+  setMaxImageWidth: (image, maxWidth) ->
+    # unfortunately, css max-width does not work in firefox inside display: table elements
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=975632
+    return unless image?
+    {width} = image.getBoundingClientRect?()
+    image.width = maxWidth if width > maxWidth
 
   areImagesLoading: ->
     _.compact(@state.imagesLoading).length isnt 0
@@ -64,7 +74,9 @@ TutorPopover = React.createClass
     @refs.popper.updateOverlayPosition = =>
       updateOverlayPosition()
       viewer = @refs.popper.getOverlayDOMNode()
+      images = @getImages()
       {height, width} = viewer.getBoundingClientRect()
+      _.each images, _.partial(@setMaxImageWidth, _, width - 30)
 
       scrollable = false
 
