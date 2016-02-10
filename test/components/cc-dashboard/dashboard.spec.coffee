@@ -67,15 +67,24 @@ describe 'Concept Coach', ->
         expect(dom.querySelector('.empty-spaced-practice')).to.not.be.null
 
     it 'shows a section with spaced practice', ->
-      options =
+      spacedPracticeOptions =
         props:
           section:
             completed_percentage: 1.0
             original_performance: 0.5
             spaced_practice_performance: 0.5
 
-      Testing.renderComponent(Section, options).then ({dom}) ->
+      zeroSpacedPracticeOptions =
+        props:
+          section:
+            spaced_practice_performance: 0.0
+
+      Testing.renderComponent(Section, spacedPracticeOptions).then ({dom}) ->
         expect(dom.querySelector('.empty-spaced-practice')).to.be.null
+
+      Testing.renderComponent(Section, zeroSpacedPracticeOptions).then ({dom}) ->
+        expect(dom.querySelector('.empty-spaced-practice')).to.be.null
+
 
   describe 'Section Progress Bars', ->
     #this is just in case the backend ever returns weird data
