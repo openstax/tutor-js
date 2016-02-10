@@ -10,6 +10,8 @@ AppConfig =
 
   setServerError: (statusCode, message, requestDetails) ->
     {url, opts} = requestDetails
+    return unless opts.displayError
+
     sparseOpts = _.pick(opts, 'method', 'data')
     request = {url, opts: sparseOpts}
     @_currentServerError = {statusCode, message, request}

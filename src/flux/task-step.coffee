@@ -44,6 +44,10 @@ TaskStepConfig =
     @_change(id, {free_response})
     @_save(id)
 
+  updateTempFreeResponse: (id, temp_free_response) ->
+    console.log(temp_free_response)
+    @_change(id, {temp_free_response})
+
   loadRecovery: (id) ->
     @_asyncStatus[id] = RECOVERY
     @emit('change', id)
@@ -109,6 +113,11 @@ TaskStepConfig =
       return false unless step.type is 'exercise'
 
       step.content.questions?[0].formats?.indexOf('free-response') > -1
+
+    getTempFreeResponse: (id) ->
+      step = @_get(id)
+      return '' unless step.temp_free_response
+      step.temp_free_response
 
     canTryAnother: (id, task) ->
       step = @_get(id)

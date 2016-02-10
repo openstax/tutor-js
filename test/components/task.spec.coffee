@@ -184,6 +184,22 @@ describe 'Task Widget, through routes', ->
   #     # .then(taskChecks.checkRecoveryContent)
   #     .then(_.delay(done, 1800)).catch(done)
 
+  it 'should continue even if task has only a single step', (done) ->
+    TaskActions.reset()
+    model = _.clone(VALID_MODEL)
+    model.steps = _.clone(VALID_MODEL.steps)
+    model.steps.splice(1, model.steps.length)
+    TaskActions.loaded(model, TASK_ID)
+    expect(model.steps.length).to.equal(1)
+
+    taskActions
+      .clickContinue(@result)
+      .then(taskActions.completeSteps)
+      .then(taskChecks.checkIsCompletePage)
+      .then( ->
+        done()
+      , done)
+
   it 'should show appropriate done page on completion', (done) ->
     # run a full step through and check each step
     taskActions

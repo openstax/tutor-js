@@ -51,7 +51,7 @@ setNow = (jqXhr) ->
   date ?= jqXhr.getResponseHeader('Date')
   TimeActions.setFromString(date)
 
-apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
+apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, options) ->
   listenAction.addListener 'trigger', (args...) ->
     # Make sure API calls occur **after** all local Action listeners complete
     delay 20, ->
@@ -63,11 +63,15 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         headers:
           'X-CSRF-Token': CurrentUserStore.getCSRFToken(),
           token: CurrentUserStore.getToken()
+        displayError: true
+
       if payload?
         opts.data = JSON.stringify(payload)
         opts.processData = false
         # For now, the backend is expecting JSON and cannot accept url-encoded forms
         opts.contentType = 'application/json'
+
+      opts = _.extend({}, opts, options)
 
       if IS_LOCAL
         [uri, params] = url.split("?")
@@ -265,6 +269,10 @@ start = (bootstrapData) ->
 
   apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->
     url: "/api/pages/#{cnxId}"
+
+  apiHelper ReferenceBookPageActions, ReferenceBookPageActions.loadSilent, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->
+    url: "/api/pages/#{cnxId}"
+  , displayError: false
 
   apiHelper ReferenceBookExerciseActions,
     ReferenceBookExerciseActions.load,

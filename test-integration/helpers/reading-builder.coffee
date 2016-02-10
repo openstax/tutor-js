@@ -42,6 +42,8 @@ COMMON_ELEMENTS =
     css: '.dialog:not(.hide) .async-button.-save'
   publishButton:
     css: '.dialog:not(.hide) .async-button.-publish'
+  pendingPublishButton:
+    css: '.dialog:not(.hide) .async-button.-publish.is-waiting'
   cancelButton:
     css: '.dialog:not(.hide) .panel-footer [aria-role="close"]'
 
@@ -110,7 +112,7 @@ class SelectReadingsList extends TestHelper
       @el.chapterHeadingSelectAll.get(section).click()
     else
       # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
-      @el.sectionItem.getImmediate(section).isDisplayed().then (isDisplayed) =>
+      @el.sectionItem.findElement(section).isDisplayed().then (isDisplayed) =>
         # Expand the chapter accordion if necessary
         unless isDisplayed
           @el.chapterHeading.get(section).click()
@@ -202,7 +204,10 @@ class ReadingBuilder extends TestHelper
   publish: =>
     # Wait up to 3min for publish to complete
     @el.publishButton.get().click()
-    Calendar.verify(@test, 3 * 60 * 1000)
+    # wait for
+    @test.driver.wait =>
+      @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+    , (3 * 60 * 1000)
 
   save: =>
     @el.saveButton.get().click()
@@ -238,7 +243,9 @@ class ReadingBuilder extends TestHelper
   #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
   edit: ({name, description, opensAt, dueAt, sections, action, verifyAddReadingsDisabled}) ->
     # Just confirm the plan is actually open
-    @waitUntilLoaded()
+    # Under selenium, a seemingly invisible .is-loading element is present and
+    # hangs around for quite awhile.  Bump the wait time up to 4 seconds to work around
+    @waitUntilLoaded(4000)
     @setName(name) if name
     @setDate({opensAt, dueAt})
 

@@ -24,13 +24,14 @@ class TestItemHelper
     locator = @getLocator(args...)
     @test.utils.wait.forMultiple(locator)
 
-  getImmediate: (args...) =>
+  findElement: (args...) =>
     locator = @getLocator(args...)
     @test.driver.findElement(locator)
 
-  getAllImmediate: (args...) =>
+  findElements: (args...) =>
     locator = @getLocator(args...)
     @test.driver.findElements(locator)
+
 
   forEach: (args..., forEachFunction, forEachFunction2) =>
     locator = @getLocator(args...)
@@ -48,10 +49,14 @@ Object.defineProperties TestItemHelper.prototype,
     get: -> @_test
   locator:
     get: -> @_locator
+  element:
+    get: -> @get()
 
 
 class TestHelper extends TestItemHelper
-  constructor: (test, testElementLocator, commonElements = {}, options) ->
+  constructor: (test, testElementLocator, commonElements, options) ->
+    super(test, testElementLocator)
+    commonElements ||= _.result(@, 'elementRefs', {})
     defaultOptions =
       loadingLocator:
         css: '.is-loading'
@@ -60,7 +65,6 @@ class TestHelper extends TestItemHelper
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
 
-    super(test, testElementLocator)
     commonElements.loadingState = @options.loadingLocator
 
     _.each commonElements, @setCommonElement
