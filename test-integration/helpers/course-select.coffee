@@ -30,10 +30,10 @@ class CourseSelect extends TestHelper
     @waitUntilLoaded()
     # Go to the bio dashboard
     switch category
-      when 'BIOLOGY' then @el.courseLink.get('biology').click()
-      when 'PHYSICS' then @el.courseLink.get('physics').click()
-      when 'CONCEPT_COACH' then @el.courseLink.get(null, true).click()
-      else @el.courseLink.get().click()
+      when 'BIOLOGY' then @el.courseLink.click('biology')
+      when 'PHYSICS' then @el.courseLink.click('physics')
+      when 'CONCEPT_COACH' then @el.courseLink.click(null, true)
+      else @el.courseLink.click()
 
   goToCourseByName: (name) ->
     @test.utils.wait.click(css: "[data-title='#{name}'] > a")

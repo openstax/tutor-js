@@ -35,7 +35,7 @@ class ReferenceBookHelper extends TestHelper
   open: =>
     @waitUntilLoaded()
     @test.utils.windowPosition.setLarge()
-    @el.tocToggle.get().click()
+    @el.tocToggle.click()
 
   goNext: =>
     # go next until old href isnt 
@@ -43,7 +43,7 @@ class ReferenceBookHelper extends TestHelper
       oldNextHref = ''
       @el.nextPageButton.get().getAttribute('href').then (href) =>
         oldNextHref = href
-        @el.nextPageButton.get().click()
+        @el.nextPageButton.click()
         @waitUntilLoaded()
         @el.nextPageButton.get().getAttribute('href')
       .then (href) ->

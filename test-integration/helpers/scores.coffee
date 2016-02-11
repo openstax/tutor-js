@@ -47,7 +47,7 @@ class ScoresHelper extends TestHelper
   # this could be moved to cc-dashboard helper at some point
   goCCScores: =>
     @test.utils.windowPosition.scrollTop()
-    @el.ccScoresLink.get().click()
+    @el.ccScoresLink.click()
 
   doneGenerating: =>
     #@test.driver.wait =>
