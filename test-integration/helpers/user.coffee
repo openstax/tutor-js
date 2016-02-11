@@ -44,16 +44,16 @@ class User extends TestHelper
     # Login as local
     @el.searchQuery.get().sendKeys(username)
     @el.searchQuery.get().submit()
-    @el.usernameLink.get(username).click()
+    @el.usernameLink.click(username)
 
   logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
     @el.usernameInput.get().sendKeys(username)
     @el.passworkInput.get().sendKeys(password)
-    @el.loginSubmit.get().click()
+    @el.loginSubmit.click()
 
   login: (username, password = 'password') =>
-    @el.loginLink.get().click()
+    @el.loginLink.click()
 
     @isLocal().then (isLocal) =>
       if isLocal
@@ -65,7 +65,7 @@ class User extends TestHelper
     @el.modalClose.isPresent()
 
   _closeModal: =>
-    @el.modalClose.get().click()
+    @el.modalClose.click()
 
   closeModal: =>
     @isModalOpen().then (isOpen) =>
@@ -78,7 +78,7 @@ class User extends TestHelper
     @el.userMenu.isPresent()
 
   _logout: =>
-    @el.userMenu.get().click()
+    @el.userMenu.click()
     @el.logoutForm.get().submit()
 
   logout: =>
@@ -89,7 +89,7 @@ class User extends TestHelper
 
   goHome: =>
     @test.utils.windowPosition.scrollTop()
-    @el.homeLink.get().click()
+    @el.homeLink.click()
 
 
 User.logout = (test) ->
