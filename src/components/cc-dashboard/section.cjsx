@@ -21,7 +21,7 @@ Section = React.createClass
 
 
   render: ->
-    if (@props.section.spaced_practice_performance)
+    if (typeof(@props.section.spaced_practice_performance) isnt 'undefined')
       spacedPractice = <SectionPerformance performance={@props.section.spaced_practice_performance} />
     else
       spacedPracticeClass = "empty-spaced-practice"
