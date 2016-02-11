@@ -1,6 +1,10 @@
 .media-preview {
   max-width: 50%;
 
+  &.popover {
+    z-index: 1;
+  }
+
   &.scrollable {
     .popover-content {
       overflow: auto;
@@ -20,7 +24,7 @@
     }
   }
 
-  figure span {
+  figure > figcaption + span {
     min-height: 1.75rem;
     min-width: 100%;
     position: relative;
