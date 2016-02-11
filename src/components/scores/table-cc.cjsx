@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 Time   = require '../time'
+Icon = require '../icon'
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
 CCNameCell     = require './name-cell-cc'
@@ -35,21 +36,40 @@ module.exports = React.createClass
     period_id: React.PropTypes.string
     periodIndex: React.PropTypes.number.isRequired
     firstDataColumn: React.PropTypes.number.isRequired
+    displayAs: React.PropTypes.string.isRequired
+    basedOn: React.PropTypes.string.isRequired
+    dataType: React.PropTypes.string
 
 
   renderNameHeader: ->
+    {basedOn} = @props
     emptyCell = <div className='blank' />
-    header =
-      <SortingHeader
-      sortKey='name'
-      sortState={@props.sort}
-      onSort={@props.onSort}>
-        <span>Student Name</span>
-        <span className='student-id'>Student ID</span>
-      </SortingHeader>
+    helpText =
+      "(based on total #{basedOn})"
+    averageLabel =
+      <div>
+        Class Average &nbsp
+        <span className='help'>{helpText}</span>
+      </div>
+    studentHeader =
+      <div className='cc-cell'>
+        <SortingHeader
+        sortKey='name'
+        sortState={@props.sort}
+        onSort={@props.onSort}>
+          <div className='student-name'>Student Name</div>
+        </SortingHeader>
+        <div className='student-id'>Student ID</div>
+      </div>
+
     customHeader =
       <div className='assignment-header-cell'>
-        {header}
+        <div className='average-label'>
+          {averageLabel}
+        </div>
+        <div className='student-header'>
+          {studentHeader}
+        </div>
       </div>
     # student name column count
     nameColumns = 2
@@ -68,32 +88,67 @@ module.exports = React.createClass
 
   renderHeadingCell: (heading, i) ->
     i += @props.firstDataColumn # for the first/last name columns
+    {basedOn} = @props
 
-    if heading.average
-      summary =
-        <span className='summary'>
-          {(heading.average * 100).toFixed(0)}% avg
+    classAverage =
+      if basedOn is 'possible'
+        heading.total_average
+      else
+        heading.attempted_average
+
+    if classAverage
+      average =
+        <span className='average'>
+          {(classAverage * 100).toFixed(0)}%
         </span>
 
-    sortingHeader =
-      <SortingHeader
-      type={heading.type}
-      sortKey={i}
-      sortState={@props.sort}
-      onSort={@props.onSort}
-      isConceptCoach={true}>
-        {heading.title}
-      </SortingHeader>
+    label =
+      <div className='cc-cell'>
+        <SortingHeader
+        type={heading.type}
+        sortKey={i}
+        dataType={@props.dataType}
+        sortState={@props.sort}
+        onSort={@props.onSort}>
+          <div ref='score' className='score'>Score</div>
+        </SortingHeader>
+        <SortingHeader
+        type={heading.type}
+        sortKey={i}
+        dataType={@props.dataType}
+        sortState={@props.sort}
+        onSort={@props.onSort}>
+          <div ref='completed' className='completed'>Completed</div>
+        </SortingHeader>
+      </div>
+
+    titleHeaderTooltip =
+      <BS.Tooltip>
+        <div>{heading.title}</div>
+      </BS.Tooltip>
+    titleHeader =
+      <BS.OverlayTrigger
+        placement='top'
+        delayShow={1000}
+        delayHide={0}
+        overlay={titleHeaderTooltip}>
+        <div className='header-cell title'>
+          {heading.title}
+        </div>
+      </BS.OverlayTrigger>
 
     customHeader = <div
       data-assignment-type="#{heading.type}"
       className='assignment-header-cell'>
-      <div>
-        {summary}
+      <div className='average-cell'>
+        {average}
+      </div>
+      <div className='label-cell'>
+        {label}
       </div>
     </div>
 
-    <ColumnGroup key={i} groupHeaderRenderer={-> sortingHeader} >
+    <ColumnGroup key={i} groupHeaderRenderer={-> titleHeader} >
       <Column
         label={heading.title}
         headerRenderer={-> customHeader}
@@ -107,7 +162,13 @@ module.exports = React.createClass
 
 
   renderStudentRow: (student_data) ->
-    props = {student:student_data, courseId: @props.courseId, roleId: student_data.role}
+    props =
+      {
+        student: student_data,
+        courseId: @props.courseId,
+        roleId: student_data.role,
+        displayAs: @props.displayAs
+      }
     columns = [
       <CCNameCell key='name' {...props} />
     ]
@@ -130,7 +191,7 @@ module.exports = React.createClass
       rowsCount={@props.data.rows.length}
       width={@props.width}
       height={@props.height}
-      headerHeight={47}
+      headerHeight={94}
       groupHeaderHeight={50}>
 
       {@renderNameHeader()}

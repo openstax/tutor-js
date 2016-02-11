@@ -90,10 +90,10 @@ module.exports = React.createClass
           Review
         </Router.Link>
 
-    if heading.average
+    if heading.attempted_average
       summary =
         <span className='summary'>
-          {(heading.average * 100).toFixed(0)}% avg
+          {(heading.attempted_average * 100).toFixed(0)}% avg
         </span>
 
     sortingHeader =
@@ -101,8 +101,7 @@ module.exports = React.createClass
       type={heading.type}
       sortKey={i}
       sortState={@props.sort}
-      onSort={@props.onSort}
-      isConceptCoach={false}>
+      onSort={@props.onSort}>
         {heading.title}
       </SortingHeader>
 
