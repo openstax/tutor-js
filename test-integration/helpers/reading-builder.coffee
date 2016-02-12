@@ -201,7 +201,7 @@ class ReadingBuilder extends TestHelper
   hasRequiredMessage: (type) =>
     @el.requiredItemNotice.get(type).isDisplayed()
 
-  publish: =>
+  publish: (name) =>
     # Wait up to 3min for publish to complete
     @test.utils.wait.giveTime (3 * 60 * 1000), =>
       @test.utils.verboseWrap 'Publishing', =>
@@ -209,6 +209,10 @@ class ReadingBuilder extends TestHelper
         # wait for
         @test.driver.wait =>
           @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+
+      # Publishing can be async so wait until the assignment shows up as 'published' in the calendar
+      # Added here because folks won't remember to wait for this
+      (new Calendar.CalendarHelper(@test)).waitUntilPublishingFinishedByTitle(name)
 
   save: =>
     @el.saveButton.click()
@@ -269,10 +273,11 @@ class ReadingBuilder extends TestHelper
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
+        @test.sleep(100) # Not sure why this is needed
         @el.addReadingsButton.click()
 
     switch action
-      when 'PUBLISH' then @publish()
+      when 'PUBLISH' then @publish(name)
       when 'SAVE' then @save()
       when 'CANCEL' then @cancel()
       when 'DELETE' then @delete()

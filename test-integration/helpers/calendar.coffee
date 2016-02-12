@@ -3,6 +3,8 @@ selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
 
+PUBLISHING_TIMEOUT = 60 * 1000 # Wait up to a minute for publishing to complete.
+
 COMMON_ELEMENTS =
   forecastLink:
     linkText: 'Performance Forecast'
@@ -28,6 +30,9 @@ COMMON_ELEMENTS =
     ignoreLengthChange: true
   planByTitle: (title) ->
     css: ".plan label[data-title='#{title}']"
+  publishedPlanByTitle: (title) ->
+    css: ".plan.is-published label[data-title='#{title}']"
+
 
 COMMON_POPUP_ELEMENTS =
   closeButton:
@@ -98,9 +103,13 @@ class CalendarHelper extends TestHelper
     # HACK: Might need to scroll the item to click on into view
     el = @el.planByTitle.get(title)
     @test.utils.windowPosition.scrollTo(el)
-    el.click()
+    @el.planByTitle.click(title)
     @test.utils.windowPosition.scrollTop()
 
+  waitUntilPublishingFinishedByTitle: (title) =>
+    @test.utils.verbose("Waiting to see if plan is published #{title}")
+    @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
+      @test.driver.wait((=> @el.publishedPlanByTitle.isPresent(title)), PUBLISHING_TIMEOUT)
 
 verify = (test) ->
   new CalendarHelper(test).waitUntilLoaded()

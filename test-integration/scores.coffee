@@ -10,17 +10,17 @@ TEACHER_USERNAME = 'teacher01'
 
 describe 'HS Student Scores', ->
 
-  beforeEach ->
+  @beforeEach ->
     @user = new User(@)
     @calendar = new CalendarHelper(@)
     @scores = new ScoresHelper(@)
     @courseSelect = new CourseSelect(@)
     @user.login(TEACHER_USERNAME)
-    @courseSelect.goToCourseByName('Physics I')
+    @courseSelect.goTo('PHYSICS')
     @calendar.goStudentScores()
 
-  afterEach ->
-    @user.goHome()
+  # afterEach ->
+  #   @user.goHome()
 
 
   @it 'sorts by name or data', ->
@@ -36,17 +36,17 @@ describe 'HS Student Scores', ->
 
 describe 'CC Student Scores', ->
 
-  beforeEach ->
+  @beforeEach ->
     @user = new User(@)
     @calendar = new CalendarHelper(@)
     @scores = new ScoresHelper(@)
     @courseSelect = new CourseSelect(@)
     @user.login(TEACHER_USERNAME)
-    @courseSelect.goToCourseByName('Concept Coach')
+    @courseSelect.goTo('CONCEPT_COACH')
     @scores.goCCScores()
 
-  afterEach ->
-    @user.goHome()
+  # afterEach ->
+  #   @user.goHome()
 
 
   @it 'sorts by name or data', ->
@@ -69,5 +69,3 @@ describe 'CC Student Scores', ->
     @scores.el.basedOn.click()
     @scores.el.averageLabel.get().getText().then (txt) ->
       expect(txt).to.contain('attempted')
-
-    

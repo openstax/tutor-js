@@ -27,11 +27,9 @@ describe 'Concept Coach Dashboard', ->
 
   @it 'Can display correct help link (readonly)', ->
     # Go to the concept coach dashboard
-    helpLink = @conceptCoach.getHelpLinkHref(@)
-
+    @user.openHamburgerMenu()
     @conceptCoach.getHelpLinkHref().then (href) ->
       expect(href.indexOf(CC_HELP_LINK)).is.not.equal(-1)
 
     @conceptCoach.getHelpLinkTarget().then (target) ->
       expect(target.toUpperCase().indexOf('_BLANK')).is.not.equal(-1)
-

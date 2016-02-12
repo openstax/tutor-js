@@ -22,6 +22,9 @@ COMMON_ELEMENTS =
   userMenu:
     css: '.-hamburger-menu'
 
+  openHamburgerMenu:
+    css: '.-hamburger-menu.open'
+
   logoutForm:
     css: '.-hamburger-menu .-logout-form'
 
@@ -60,6 +63,13 @@ class User extends TestHelper
         @logInLocal(username)
       else
         @logInDeployed(username, password)
+    # Inject a little CSS to unfix the pesky fixed navbar
+    .then =>
+      @test.driver.executeScript ->
+        hider = document.createElement('style')
+        hider.textContent = '.navbar-fixed-bottom, .navbar-fixed-top { position: initial !important; } body { padding: 0; }'
+        document.head.appendChild(hider)
+
 
   isModalOpen: =>
     @el.modalClose.isPresent()
@@ -78,7 +88,7 @@ class User extends TestHelper
     @el.userMenu.isPresent()
 
   _logout: =>
-    @el.userMenu.click()
+    @openHamburgerMenu()
     @el.logoutForm.get().submit()
 
   logout: =>
@@ -91,6 +101,16 @@ class User extends TestHelper
     @test.utils.windowPosition.scrollTop()
     @el.homeLink.click()
 
+  isHamburgerMenuOpen: =>
+    @el.openHamburgerMenu.isPresent()
+
+  toggleHamburgerMenu: =>
+    @el.userMenu.click()
+
+  openHamburgerMenu: =>
+    @isHamburgerMenuOpen().then (isOpen) =>
+      unless isOpen
+        @toggleHamburgerMenu()
 
 User.logout = (test) ->
   user = new User(test).logout()

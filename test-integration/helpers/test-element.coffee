@@ -13,7 +13,7 @@ class TestItemHelper
     # so we can see where Selenium stopped
     _.each _.omit(@, Object.keys(TestItemHelper::), Object.keys(TestHelper::)), (value, key) =>
       # Wrap all functions!
-      if typeof value is 'function'
+      if typeof value is 'function' and not /^_locator/.test(key) # Exclude the _locator() function because that is used in waitUntil loops
         @[key] = (args...) =>
           @test.utils.verboseWrap("HELPER: #{key}", => value.apply(@, args))
 
@@ -48,8 +48,12 @@ class TestItemHelper
 
   isPresent: (args...) =>
     locator = @getLocator(args...)
-    @test.driver.isElementPresent(locator).then (isPresent) ->
-      isPresent
+    @test.driver.isElementPresent(locator)
+
+  isDisplayed: (args...) =>
+    locator = @getLocator(args...)
+    el = @findElement(args...)
+    el.isDisplayed()
 
   # Helper for the common case of `get(...).click()`.
   # Plus, it allows a place to add logging since this is one of the most

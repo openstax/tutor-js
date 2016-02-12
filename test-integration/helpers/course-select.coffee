@@ -35,6 +35,8 @@ class CourseSelect extends TestHelper
       when 'CONCEPT_COACH' then @el.courseLink.click(null, true)
       else @el.courseLink.click()
 
+    @waitUntilLoaded() # TODO: This should probably use the `dashboard.waitUntilLoaded()`
+
   goToCourseByName: (name) ->
     @test.utils.wait.click(css: "[data-title='#{name}'] > a")
 

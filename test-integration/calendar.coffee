@@ -1,9 +1,10 @@
-{describe, User, CourseSelect, Calendar, ReadingBuilder} = require './helpers'
+{describe, User, CourseSelect, Calendar, ReadingBuilder, Scores} = require './helpers'
 {expect} = require 'chai'
 _ = require 'underscore'
 
-TEACHER_USERNAME = 'teacher01';
-{CalendarHelper} = Calendar;
+TEACHER_USERNAME = 'teacher01'
+{CalendarHelper} = Calendar
+{ScoresHelper} = Scores
 
 # Quick test that nothing "blows up". For a more exhaustive version that clicks on all the items, see "./exhaustive"
 
@@ -23,6 +24,7 @@ describe 'Calendar and Stats', ->
     @user = new User(@)
     @calendar = new CalendarHelper(@)
     @courseSelect = new CourseSelect(@)
+    @scores = new ScoresHelper(@)
 
     @user.login(TEACHER_USERNAME)
 
@@ -77,12 +79,15 @@ describe 'Calendar and Stats', ->
       document.head.appendChild(hider)
 
     @calendar.goStudentScores()
+    @scores.waitUntilLoaded()
     @addTimeout(60)
     @utils.wait.for({css: '.scores-report .course-scores-title'})
 
     # Click the "Review" links (each task-plan)
     @utils.wait.click({css: '.review-plan'})
-    @utils.wait.click({css: '.task-breadcrumbs > a'})
+    # Depending on the type of plan, the "Back to Scores" button could be pinned to the bottom (iReading) or up by the breadcrumbs (HW)
+    @utils.wait.for({css: '.task-step .pinned-footer .btn-default, .task-breadcrumbs .btn-default'})
+    @utils.wait.click({css: '.task-step .pinned-footer .btn-default, .task-breadcrumbs .btn-default'})
     @utils.wait.for({css: '.course-scores-wrap'})
 
     # Click each Student Forecast
@@ -97,7 +102,8 @@ describe 'Calendar and Stats', ->
     # console.log 'opening Student view', courseCategory, index, 'of', total
     @utils.wait.for({css: '.async-button.continue'})
     # @utils.wait.click(linkText: 'Back to Student Scores')
-    @utils.wait.click({css: '.pinned-footer a.btn-default'})
+    # Depending on the type of plan, the "Back to Scores" button could be pinned to the bottom (iReading) or up by the breadcrumbs (HW)
+    @utils.wait.click({css: '.task-step .pinned-footer .btn-default, .task-breadcrumbs .btn-default'})
 
     # # BUG: Click on "Period 1"
     # @utils.wait.click({css: '.course-scores-wrap li:first-child'})
