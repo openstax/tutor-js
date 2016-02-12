@@ -60,6 +60,10 @@ class TestItemHelper
   # common places for Selenium to time out (trying to click on an element)
   click: (args...) =>
     locator = @getLocator(args...)
+    # Scroll to the element so it is visible before clicking (this assumes `position: fixed` is overridden for all element)
+    @isDisplayed(args...).then (isDisplayed) ->
+      unless isDisplayed
+        @test.utils.windowPosition.scrollTo(el)
     @test.utils.verboseWrap "Clicking #{JSON.stringify(locator)}", =>
       @get(args...).click()
 
