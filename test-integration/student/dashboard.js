@@ -62,7 +62,7 @@ describe('Student Dashboard', function(){
     expect(unstartedEvents).not.to.be.empty;
 
     // that's all folks
-    // this.student.logout();
+    this.student.logout();
 
   });
 

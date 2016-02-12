@@ -19,8 +19,8 @@ describe 'HS Student Scores', ->
     @courseSelect.goTo('PHYSICS')
     @calendar.goStudentScores()
 
-  # afterEach ->
-  #   @user.goHome()
+  @afterEach ->
+    @user.goHome()
 
 
   @it 'sorts by name or data', ->
@@ -45,8 +45,8 @@ describe 'CC Student Scores', ->
     @courseSelect.goTo('CONCEPT_COACH')
     @scores.goCCScores()
 
-  # afterEach ->
-  #   @user.goHome()
+  @afterEach ->
+    @user.goHome()
 
 
   @it 'sorts by name or data', ->
