@@ -6,6 +6,7 @@ camelCase = require 'camelcase'
 
 {CourseActions, CourseStore} = require '../flux/course'
 PeriodHelper = require '../helpers/period'
+{ResizeListenerMixin} = require 'openstax-react-components'
 
 CoursePeriodsNav = React.createClass
   displayName: 'CoursePeriodsNav'
@@ -18,12 +19,31 @@ CoursePeriodsNav = React.createClass
     periods: React.PropTypes.array.isRequired
     afterTabsItem: React.PropTypes.func
 
+  mixins: [ResizeListenerMixin]
+
   getDefaultProps: ->
     initialActive: 0
     sortedPeriods: []
 
   getInitialState: ->
     active: @props.initialActive
+    maxTabWidth: 100
+    tabWidth: 100
+
+  componentDidMount: ->
+    @sizeTabs()
+
+  _resizeListener: ->
+    @sizeTabs()
+
+  sizeTabs: ->
+    {maxTabWidth} = @props
+    count = @state.sortedPeriods.length
+    bar = React.findDOMNode(@refs.tabBar)
+    scale = (bar.clientWidth / 2) / count
+    width =
+      if scale > maxTabWidth then maxTabWidth else scale
+    @setState({tabWidth: width})
 
   componentWillMount: ->
     @setSortedPeriods(@props.periods)
@@ -58,19 +78,30 @@ CoursePeriodsNav = React.createClass
     @setState(active: key)
 
   renderPeriod: (period, key) ->
-    <BS.NavItem 
+    tooltip =
+      <BS.Tooltip>
+        {period.name}
+      </BS.Tooltip>
+    <BS.NavItem
       className={'is-trouble' if period.is_trouble}
-      eventKey={key} 
+      eventKey={key}
       key="period-nav-#{period.id}">
-      {period.name}
+        <BS.OverlayTrigger
+        placement='top'
+        delayShow={1000}
+        delayHide={0}
+        overlay={tooltip}>
+          <span style={{maxWidth: @state.tabWidth + 'px'}}>{period.name}</span>
+        </BS.OverlayTrigger>
     </BS.NavItem>
+    
 
   render: ->
     {active, sortedPeriods} = @state
     {afterTabsItem} = @props
     periodsItems = _.map(sortedPeriods, @renderPeriod)
 
-    <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
+    <BS.Nav ref='tabBar' bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
       {periodsItems}
       {afterTabsItem?()}
     </BS.Nav>

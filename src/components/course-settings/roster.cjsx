@@ -46,7 +46,20 @@ module.exports = React.createClass
     {is_concept_coach} = course
     periods = course.periods.length > 0
     tabs = _.map course.periods, (period, index) =>
-      <BS.TabPane key={period.id}, eventKey={index} tab={period.name}>
+      tooltip =
+        <BS.Tooltip>
+          {period.name}
+        </BS.Tooltip>
+      name =
+        <BS.OverlayTrigger
+        placement='top'
+        delayShow={1000}
+        delayHide={0}
+        overlay={tooltip}>
+          <span>{period.name}</span>
+        </BS.OverlayTrigger>
+
+      <BS.TabPane key={period.id}, eventKey={index} tab={name}>
         <PeriodRoster
         period={period}
         courseId={@props.courseId}
