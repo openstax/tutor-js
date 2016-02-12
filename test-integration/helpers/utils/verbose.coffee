@@ -1,5 +1,24 @@
 # The "current" indentation (nesting) level to print verbose logging
 indentationLevel = 0
+currentLog = []
+
+# Used when a test finishes. Particularly useful when a test fails (so the next test does not start indented)
+reset = ->
+  indentationLevel = 0
+  currentLog = []
+
+getLog = ->
+  currentLog
+
+_isEnabled = process.env.VERBOSE and JSON.parse(process.env.VERBOSE) # Just parse once
+isEnabled = -> _isEnabled
+
+log = (args...) ->
+  if isEnabled()
+    console.log(args...)
+  currentLog.push(args)
+
+
 
 # Indent the log files depending on what the level is
 indent = (level) ->
@@ -14,34 +33,51 @@ indent = (level) ->
 # Increment the indentationLevel **AFTER** printing a START message
 _verboseStart = (test, msg) ->
   test.driver.call ->
-    if process.env.VERBOSE
-      console.log("#{indent(indentationLevel)}START: #{msg}")
-      indentationLevel++
+    log("#{indent(indentationLevel)}START: #{msg}")
+    indentationLevel++
+
+toString = (val) ->
+  if val
+    if val.then
+      retType = 'Promise'
+    else if typeof val is 'function'
+      if val.name
+        retType = val.name
+      else
+        retType = '[function]'
+    else if val.constructor
+      try
+        retType = JSON.stringify(val)
+      catch
+        retType = val.constructor.name or val.constructor.toString()
+    else
+      try
+        retType = JSON.stringify(val)
+      catch
+        retType = val
+  else
+    retType = 'falsy'
+  retType
 
 # Decrement the indentationLevel **BEFORE** printing the END message
-_verboseEnd = (test, msg) ->
+_verboseEnd = (test, msg, val) ->
+  retType = toString(val)
   test.driver.call ->
-    if process.env.VERBOSE
-      indentationLevel--
-      console.log("#{indent(indentationLevel)}END  : #{msg}")
+    indentationLevel--
+    log("#{indent(indentationLevel)}END  : #{msg} returning=#{retType}")
 
-
-# Used when a test finishes. Particularly useful when a test fails (so the next test does not start indented)
-resetIndentationLevel = ->
-  indentationLevel = 0
 
 verbose = (test, arg0, args...) ->
   test.driver.call ->
-    if process.env.VERBOSE
-      if indentationLevel
-        # If the 1st arg is a string then just prepend the indentation level dashes.
-        # We do this here so the output is `- - MESSAGE` instead of `'- - ' 'MESSAGE'` (see quotes)
-        if typeof arg0 is 'string'
-          console.log(indent(indentationLevel) + arg0, args...)
-        else
-          console.log(indent(indentationLevel), arg0, args...)
+    if indentationLevel
+      # If the 1st arg is a string then just prepend the indentation level dashes.
+      # We do this here so the output is `- - MESSAGE` instead of `'- - ' 'MESSAGE'` (see quotes)
+      if typeof arg0 is 'string'
+        log(indent(indentationLevel) + arg0, args...)
       else
-        console.log(args...)
+        log(indent(indentationLevel), arg0, args...)
+    else
+      log(args...)
 
 # Example: `...utils.verboseWrap('Opening an assignment', () => calendar.openPlan())`
 verboseWrap = (test, msg, fn) ->
@@ -53,15 +89,15 @@ verboseWrap = (test, msg, fn) ->
   if promise?.then
     # Change `promise` so things output in the correct order
     promise = promise.then (val) ->
-      _verboseEnd(test, msg)
+      _verboseEnd(test, msg, val)
       val
 
   else
-    _verboseEnd(test, msg)
+    _verboseEnd(test, msg, promise)
 
   promise
 
-module.exports = {verbose, verboseWrap, resetIndentationLevel}
+module.exports = {verbose, verboseWrap, reset, getLog, isEnabled}
 
 
 
