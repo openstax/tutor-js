@@ -8,6 +8,8 @@ Instructions
 1. Clone the `tutor-js` repo and change into the `tutor-js/` directory
 2. `npm install` (to get the current packages and versions)
 3. `npm run test-integration` to run all the tests
+  - run `SERVER_URL='https://example.com' npm run test-integration` to run the tests against a remote server
+  - run `VERBOSE=true npm run test-integration` to turn on verbose logging
 
 ## Running a subset of tests
 

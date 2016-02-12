@@ -17,35 +17,24 @@ describe 'Student performing tasks', ->
 
     @user.login(STUDENT_USERNAME)
 
+    @courseSelect.goTo('ANY')
+    @utils.wait.click(css: '.workable.task')
+    @task.waitUntilLoaded()
+
   @it 'Can continue and go to expected steps (readonly)', ->
+    # demonstrating get in spec.
+    @task.el.enabledContinueButton.get().click()
+    @task.el.enabledContinueButton.get().click()
+    # get multiple seems to not be working right now.
+    # @task.getStepCrumbs(4).then (crumb) ->
+    #   crumb.click()
 
-    _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      @courseSelect.goTo(courseCategory)
-
-      @utils.wait.click(css: '.workable.task')
-
-      @task.waitUntilLoaded(2000)
-
-      # demonstrating get in spec.
-      @task.el.enabledContinueButton.click()
-      @task.el.enabledContinueButton.click()
-      # get multiple seems to not be working right now.
-      # @task.getStepCrumbs(4).then (crumb) ->
-      #   crumb.click()
-
-      # Go back to the course selection
-      @user.goHome()
+    # Go back to the course selection
+    @user.goHome()
 
 
   @it 'Can continue (readonly)', ->
+    @utils.verboseWrap "continuing", => @task.continue()
 
-    _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
-      @courseSelect.goTo(courseCategory)
-
-      @utils.wait.click(css: '.workable.task')
-
-      @task.waitUntilLoaded(2000)
-      @task.continue()
-
-      # Go back to the course selection
-      @user.goHome()
+    # Go back to the course selection
+    @utils.verboseWrap "going home", => @user.goHome()

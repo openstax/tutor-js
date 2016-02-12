@@ -42,7 +42,7 @@ class PlanPopupHelper extends  TestHelper
 
     testElementLocator ?=
       css: '.plan-modal .panel.panel-default'
-    super(test, testElementLocator, COMMON_POPUP_ELEMENTS, defaultWaitTime: 3000)
+    super(test, testElementLocator, COMMON_POPUP_ELEMENTS)
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
   close: =>
@@ -68,7 +68,6 @@ class CalendarHelper extends TestHelper
     calendarOptions =
       loadingLocator:
         css: '.calendar-loading'
-      defaultWaitTime: 3000
 
     super(test, testElementLocator, COMMON_ELEMENTS, calendarOptions)
     @setCommonHelper('planPopup', new PlanPopupHelper(@test))
@@ -103,7 +102,7 @@ class CalendarHelper extends TestHelper
     @test.utils.windowPosition.scrollTop()
 
 
-verify = (test, ms) ->
-  new CalendarHelper(test).waitUntilLoaded(ms)
+verify = (test) ->
+  new CalendarHelper(test).waitUntilLoaded()
 
 module.exports = {CalendarHelper, verify}

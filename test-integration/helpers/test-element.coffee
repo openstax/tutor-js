@@ -1,12 +1,21 @@
 selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
+
 S = require '../../src/helpers/string'
 
 class TestItemHelper
   constructor: (test, testElementLocator) ->
     @_test = test
     @_locator = testElementLocator
+
+    # Instrument all the methods of helpers to print using verboseWrap
+    # so we can see where Selenium stopped
+    _.each _.omit(@, Object.keys(TestItemHelper::), Object.keys(TestHelper::)), (value, key) =>
+      # Wrap all functions!
+      if typeof value is 'function'
+        @[key] = (args...) =>
+          @test.utils.verboseWrap("HELPER: #{key}", => value.apply(@, args))
 
   getLocator: (args...) =>
     locator = if _.isFunction(@_locator)
@@ -46,7 +55,9 @@ class TestItemHelper
   # Plus, it allows a place to add logging since this is one of the most
   # common places for Selenium to time out (trying to click on an element)
   click: (args...) =>
-    @get(args...).click()
+    locator = @getLocator(args...)
+    @test.utils.verboseWrap "Clicking #{JSON.stringify(locator)}", =>
+      @get(args...).click()
 
 # Using defined properties for access eliminates the possibility
 # of accidental assignment
@@ -66,7 +77,7 @@ class TestHelper extends TestItemHelper
     defaultOptions =
       loadingLocator:
         css: '.is-loading'
-      defaultWaitTime: 1000
+      defaultWaitTime: 20000 # TODO: Letting tests define their own wait time is dangerous. tutor-dev takes > 10sec to delete a task-plan
 
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
@@ -76,10 +87,12 @@ class TestHelper extends TestItemHelper
     _.each commonElements, @setCommonElement
     @
 
-  waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
-    @test.driver.wait =>
-      @el.loadingState.isPresent().then (isPresent) -> not isPresent
-    , waitTime
+  waitUntilLoaded: () =>
+    # Adjust the test timeout *and* tell selenium to wait up to the same amount of time. Maybe this is redundant?
+    @test.utils.wait.giveTime @options.defaultWaitTime, =>
+      @test.utils.verboseWrap 'Waiting until Loadable .is-loading is gone', => @test.driver.wait(=>
+        @el.loadingState.isPresent().then (isPresent) -> not isPresent
+      , @options.defaultWaitTime)
 
   setCommonHelper: (name, helper) =>
     @el[name] = helper

@@ -5,7 +5,7 @@ const TEACHER_USERNAME = 'teacher01';
 
 describe('Simple Draft Tests', function() {
 
-  this.it('Shows Validation Error when saving a blank Reading, Homework, and External (idempotent)', async function() {
+  this.it('Simply logs in and selects a course', async function() {
     this.addTimeout(30);
 
     const title = this.utils.getFreshId();

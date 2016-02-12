@@ -5,6 +5,7 @@ windowPosition = require './window-position'
 
 forEach = require './for-each'
 screenshot = require './screenshot'
+{verbose, verboseWrap} = require './verbose'
 
 freshId = require './fresh-id'
 toLocator = require './to-locator'
@@ -18,6 +19,9 @@ class Utils
 
     @forEach = _.partial forEach, @test
     @screenshot = _.partial screenshot, @test
+
+    @verbose = _.partial verbose, @test
+    @verboseWrap = _.partial verboseWrap, @test
 
   getFreshId: freshId
   toLocator: toLocator

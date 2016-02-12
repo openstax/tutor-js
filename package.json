@@ -9,8 +9,8 @@
     "coverage": "gulp coverage",
     "build": "gulp build",
     "build-archive": "gulp build-archive",
-    "test-integration:only": "mocha -R spec ./test-integration/index",
-    "pretest-integration": "npm run build",
+    "test-integration:only": "mocha --bail -R spec ./test-integration/index",
+    "pretest-integration": "if [ -z ${SERVER_URL} ]; then npm run build; fi",
     "test-integration": "./scripts/run-test-integration.sh",
     "lint-cjsx": "./scripts/lint-cjsx-files.sh",
     "start": "gulp dev"

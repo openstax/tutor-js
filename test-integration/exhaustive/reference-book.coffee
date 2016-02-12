@@ -1,7 +1,7 @@
-{describe, User, ReferenceBook} = require './helpers'
+{describe, User, ReferenceBook} = require '../helpers'
 {ReferenceBookHelper} = ReferenceBook
 
-SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
+SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001'
 TEACHER_USERNAME = 'teacher01'
 
 SECTIONS_TO_TEST = 10
@@ -14,7 +14,7 @@ describe 'Reference Book Exercises', ->
 
   @it 'Loads Biology reference book with exercises (readonly)', ->
 
-    @driver.get("#{SERVER_URL}books/1")
+    @driver.get("#{SERVER_URL}/books/1")
     @referenceBook.open()
 
     for i in [1..SECTIONS_TO_TEST]
@@ -29,7 +29,7 @@ describe 'Reference Book Exercises', ->
 
   @it 'Loads Physics reference book with exercises (readonly)', ->
 
-    @driver.get("#{SERVER_URL}books/3")
+    @driver.get("#{SERVER_URL}/books/3")
     @referenceBook.open()
 
     for i in [1..SECTIONS_TO_TEST]

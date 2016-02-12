@@ -29,9 +29,11 @@ module.exports = (test, options, fn, fn2) ->
         el = els[index]
         if els.length isnt els1.length and not ignoreLengthChange
           throw new Error("Length changed during foreach! before: #{els1.length} after: #{els.length}")
-        index += 1
         unless el
+          if ignoreLengthChange
+            return
           throw new Error("Bug. Looks like an element disappeared! index=#{index} before:#{els1.length} after: #{els.length}")
+        index += 1
         # scroll if the element is not visible
         el.isDisplayed().then (isDisplayed) =>
           unless isDisplayed
