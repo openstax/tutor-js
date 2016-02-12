@@ -37,7 +37,7 @@ JOB_STATUSES = [
   'job_requesting'
   'job_queued'
   'unqueued'
-  'working'
+  'started'
   'queued'
   'succeeded'
   'failed'

@@ -7,7 +7,6 @@ JOB_REQUESTED = 'job_queued'
 JOB_UNSTARTED = 'unqueued'
 JOB_QUEUED = 'queued'
 JOB_STARTED = 'started'
-JOBBING = 'working'
 JOBBED = 'succeeded'
 JOB_FAILED = 'failed'
 JOB_KILLED = 'killed'
@@ -88,7 +87,6 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
           JOB_REQUESTED
           JOB_QUEUED
           JOB_STARTED
-          JOBBING
         ]
 
         jobbingStates.indexOf(@_asyncStatus[id]) > -1
