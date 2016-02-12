@@ -18,10 +18,12 @@ class Wait
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
   for: (locator, ms = 60 * 1000) ->
     locator = @test.utils.toLocator(locator)
-    @giveTime(ms, => @test.driver.wait(selenium.until.elementLocated(locator)))
-    # Because of animations an element might be in the DOM but not visible
+    @giveTime ms, =>
+      @test.driver.wait(selenium.until.elementLocated(locator))
+      el = @test.driver.findElement(locator)
+      # Because of animations an element might be in the DOM but not visible
+      @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until.elementIsVisible(el))
     el = @test.driver.findElement(locator)
-    @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until.elementIsVisible(el))
     el
 
   click: (locator, ms) ->
