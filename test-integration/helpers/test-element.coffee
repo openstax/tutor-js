@@ -61,11 +61,19 @@ class TestItemHelper
   click: (args...) =>
     locator = @getLocator(args...)
     # Scroll to the element so it is visible before clicking (this assumes `position: fixed` is overridden for all element)
-    @isDisplayed(args...).then (isDisplayed) ->
-      unless isDisplayed
-        @test.utils.windowPosition.scrollTo(el)
+    # @isDisplayed(args...).then (isDisplayed) =>
+    #   unless isDisplayed
+    #     el = @findElement(args...)
+    #     @test.utils.windowPosition.scrollTo(el)
     @test.utils.verboseWrap "Clicking #{JSON.stringify(locator)}", =>
-      @get(args...).click()
+      el = @get(args...)
+      @test.utils.windowPosition.scrollTo(el)
+      el.click()
+
+  waitClick: (args...) =>
+    locator = @getLocator(args...)
+    @test.utils.wait.for(locator)
+    @click(args...)
 
 # Using defined properties for access eliminates the possibility
 # of accidental assignment

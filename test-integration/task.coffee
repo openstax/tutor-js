@@ -23,8 +23,9 @@ describe 'Student performing tasks', ->
 
   @it 'Can continue and go to expected steps (readonly)', ->
     # demonstrating get in spec.
-    @task.el.enabledContinueButton.get().click()
-    @task.el.enabledContinueButton.get().click()
+    @task.continue()
+    @task.continue()
+    @task.continue()
     # get multiple seems to not be working right now.
     # @task.getStepCrumbs(4).then (crumb) ->
     #   crumb.click()
@@ -34,7 +35,7 @@ describe 'Student performing tasks', ->
 
 
   @it 'Can continue (readonly)', ->
-    @utils.verboseWrap "continuing", => @task.continue()
+    @task.continue()
 
     # Go back to the course selection
-    @utils.verboseWrap "going home", => @user.goHome()
+    @user.goHome()

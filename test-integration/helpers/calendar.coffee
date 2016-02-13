@@ -38,9 +38,12 @@ COMMON_POPUP_ELEMENTS =
   closeButton:
     css: '.plan-modal .close'
   editLink:
-    linkText: 'Edit Assignment'
+    # linkText: 'Edit Assignment'
+    css: '.plan-modal.in .-edit-assignment'
   reviewLink:
     linkText: 'Review Metrics'
+  modal:
+    css: '.plan-modal.active'
 
 class PlanPopupHelper extends  TestHelper
   constructor: (test, testElementLocator) ->
@@ -59,10 +62,13 @@ class PlanPopupHelper extends  TestHelper
         not isPresent
 
   goEdit: =>
-    @el.editLink.click()
+    @el.editLink.waitClick()
+    @test.utils.wait.until 'modal is closed', =>
+      @el.modal.isPresent().then (isPresent) ->
+        !isPresent
 
   goReview: =>
-    @el.reviewLink.click()
+    @el.reviewLink.waitClick()
 
 
 class CalendarHelper extends TestHelper
@@ -105,6 +111,7 @@ class CalendarHelper extends TestHelper
     @test.utils.windowPosition.scrollTo(el)
     @el.planByTitle.click(title)
     @test.utils.windowPosition.scrollTop()
+    @waitUntilLoaded() # Wait until either the popup opens or the Reading Builder opens (depending on the state of the thing clicked)
 
   waitUntilPublishingFinishedByTitle: (title) =>
     @test.utils.verbose("Waiting to see if plan is published #{title}")

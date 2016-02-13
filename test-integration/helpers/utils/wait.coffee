@@ -53,6 +53,10 @@ class Wait
       @test.addTimeoutMs(-diff)
       val
 
+  until: (msg, fn) ->
+    @test.utils.verboseWrap msg, =>
+      @test.driver.wait(fn)
+      
 wait = (test) ->
   return new Wait(test)
 

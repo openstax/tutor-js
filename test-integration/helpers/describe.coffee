@@ -17,7 +17,7 @@ SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 logger = selenium.logging.getLogger('webdriver.http.Executor')
 logger.setLevel(selenium.logging.Level.ALL)
 COMMAND_HISTORY = []
-COMMAND_HISTORY_MAX = 20
+COMMAND_HISTORY_MAX = 2
 logger.addHandler (record) ->
   # Only print the last COMMAND_HISTORY_MAX items
   if COMMAND_HISTORY.length >= COMMAND_HISTORY_MAX
@@ -68,15 +68,20 @@ describe = (name, cb) ->
 
       @utils = utils(@)
 
-      @addTimeout(10)
-      @driver.get(SERVER_URL)
-      # Wait until the page has loaded.
-      # Going to the root URL while logged in will redirect to dashboard
-      # which may redirect to the course page.
-      @driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu, body#home'))
-      User.logout(@).then ->
-        # Clear the history
-        COMMAND_HISTORY.splice(0, COMMAND_HISTORY.length)
+      {state, title} = @currentTest
+      if state isnt 'failed'
+
+        @addTimeout(10)
+        @driver.get(SERVER_URL)
+        # Wait until the page has loaded.
+        # Going to the root URL while logged in will redirect to dashboard
+        # which may redirect to the course page.
+        @driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu, body#home'))
+        User.logout(@).then ->
+          # Clear the history
+          COMMAND_HISTORY.splice(0, COMMAND_HISTORY.length)
+          Verbose.reset()
+
 
 
 
@@ -85,6 +90,7 @@ describe = (name, cb) ->
       {state, title} = @currentTest
 
       if state is 'failed'
+        @utils.screenshot("test-failed-#{title}")
         console.log "Action history (showing last #{COMMAND_HISTORY_MAX}):"
         for msg in COMMAND_HISTORY
           console.log msg
@@ -92,7 +98,6 @@ describe = (name, cb) ->
         unless Verbose.isEnabled()
           for msg in Verbose.getLog()
             console.log(msg...)
-        @utils.screenshot("test-failed-#{title}")
 
       # Fail if there were any errors
       @driver.findElement(css: 'body').getAttribute('data-js-error').then (msg) =>
@@ -105,6 +110,7 @@ describe = (name, cb) ->
       # logs = @driver.manage().logs().get('browser').then (lines) ->
       #   console.log line.level.name, line.message for line in lines
 
+      Verbose.reset()
       User.logout(@)
 
 

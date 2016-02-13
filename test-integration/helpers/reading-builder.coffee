@@ -32,7 +32,7 @@ COMMON_ELEMENTS =
   selectReadingsButton:
     css: '#reading-select'
   addReadingsButton:
-    css: '.dialog:not(.hide) .-show-problems'
+    css: '.dialog:not(.hide) .-show-problems:not([disabled])'
   disabledAddReadingsButton:
     css: '.dialog:not(.hide) .-show-problems[disabled]'
 
@@ -205,7 +205,7 @@ class ReadingBuilder extends TestHelper
     # Wait up to 3min for publish to complete
     @test.utils.wait.giveTime (3 * 60 * 1000), =>
       @test.utils.verboseWrap 'Publishing', =>
-        @el.publishButton.click()
+        @el.publishButton.waitClick()
         # wait for
         @test.driver.wait =>
           @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
@@ -215,7 +215,7 @@ class ReadingBuilder extends TestHelper
       (new Calendar.CalendarHelper(@test)).waitUntilPublishingFinishedByTitle(name)
 
   save: =>
-    @el.saveButton.click()
+    @el.saveButton.waitClick()
 
   cancel: =>
     # BUG: "X" close button behaves differently than the footer close button
@@ -228,7 +228,7 @@ class ReadingBuilder extends TestHelper
   delete: =>
     # Wait up to 2min for delete to complete
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
-      @el.deleteButton.click()
+      @el.deleteButton.waitClick()
       # Accept the browser confirm dialog
       @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
         alert.accept()
@@ -253,7 +253,7 @@ class ReadingBuilder extends TestHelper
     # hangs around for quite awhile.  Bump the wait time up to 4 seconds to work around
     @waitUntilLoaded(4000)
     @setName(name) if name
-    @setDate({opensAt, dueAt})
+    @setDate({opensAt, dueAt}) if opensAt or dueAt
 
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
@@ -269,12 +269,12 @@ class ReadingBuilder extends TestHelper
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
-        @el.disabledAddReadingsButton.get().isDisplayed().then (isDisplayed) =>
+        @el.disabledAddReadingsButton.isPresent().then (isDisplayed) =>
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
-        @test.sleep(100) # Not sure why this is needed
-        @el.addReadingsButton.click()
+        @test.sleep(500) # Not sure why this is needed
+        @el.addReadingsButton.waitClick()
 
     switch action
       when 'PUBLISH' then @publish(name)

@@ -17,17 +17,24 @@ installCustomImplementation = (test) ->
 
   test.sleep = (ms) ->
     test.driver.call ->
+      console.log("Sleeping for #{ms}ms. DANGEROUS. USE AS A LAST RESORT!!!")
       test.addTimeoutMs(ms * 2) # Add some extra ms just in case
       test.driver.sleep(ms)
 
   # replace selenium timeout with our custom implementation
-  test.timeout = (ms, isInternal) ->
-    unless isInternal
-      throw new Error('use addTimeout (preferably in the helper you are using) instead of timeout')
-    if ms
-      timeout.call(@, ms, isInternal)
-    else
-      timeout.call(@)
+  unless test.timeout.__ORIGINAL
+    originalTimeout = test.timeout
+
+    test.timeout = (ms, isInternal) ->
+      unless isInternal
+        throw new Error('use addTimeout (preferably in the helper you are using) instead of timeout')
+      if ms
+        timeout.call(@, ms, isInternal)
+      else
+        timeout.call(@)
+
+    test.timeout.__ORIGINAL = originalTimeout # Only override once
+    test.timeout.__START_TIME = testStartTime
 
 
 module.exports = {installCustomImplementation}

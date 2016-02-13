@@ -67,7 +67,20 @@ class User extends TestHelper
     .then =>
       @test.driver.executeScript ->
         hider = document.createElement('style')
-        hider.textContent = '.navbar-fixed-bottom, .navbar-fixed-top { position: initial !important; } body { padding: 0; }'
+        hider.textContent = '''
+          .navbar-fixed-bottom, .navbar-fixed-top,
+          .pinned-on .pinned-header,
+          .pinned-footer {
+            z-index: initial !important;
+            position: initial !important;
+          }
+
+          body.pinned-shy .navbar-fixed-top, body.pinned-shy .pinned-header {
+            transform: initial !important;
+          }
+
+          body { padding: 0; }
+        '''
         document.head.appendChild(hider)
 
 
