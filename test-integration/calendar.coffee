@@ -103,6 +103,9 @@ describe 'Calendar and Stats', ->
     @utils.wait.for({css: '.async-button.continue'})
     # @utils.wait.click(linkText: 'Back to Student Scores')
     # Depending on the type of plan, the "Back to Scores" button could be pinned to the bottom (iReading) or up by the breadcrumbs (HW)
+    @utils.wait.for({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
+    el = @driver.findElement({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
+    @utils.windowPosition.scrollTo(el)
     @utils.wait.click({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
 
     # # BUG: Click on "Period 1"

@@ -5,13 +5,14 @@ installCustomImplementation = (test) ->
   testStartTime = Date.now()
 
   test.addTimeoutMs = (ms) ->
-    currentTimeout += ms
-    now = Date.now()
-    msFromNow = testStartTime + currentTimeout - now
-    msFromNow = Math.max(msFromNow, 60 * 1000) # Always make the timeout at least 60sec
-    if ms > 60 * 1000 # If we are extending more than the default 60sec the log it
-      console.log "[Timeout extended by #{ms / 1000}sec]"
-    timeout.call(@, msFromNow, true) # The extra arg is isInternal for use in the overridden @timeout
+    test.timeout.extendFromNow(ms)
+    # currentTimeout += ms
+    # now = Date.now()
+    # msFromNow = testStartTime + currentTimeout - now
+    # msFromNow = Math.max(msFromNow, 60 * 1000) # Always make the timeout at least 60sec
+    # if ms > 60 * 1000 # If we are extending more than the default 60sec the log it
+    #   console.log "[Timeout extended by #{ms / 1000}sec]"
+    # timeout.call(@, msFromNow, true) # The extra arg is isInternal for use in the overridden @timeout
 
   test.addTimeout = (sec) -> test.addTimeoutMs(sec * 1000)
 
@@ -35,6 +36,8 @@ installCustomImplementation = (test) ->
 
     test.timeout.__ORIGINAL = originalTimeout # Only override once
     test.timeout.__START_TIME = testStartTime
+    test.timeout.extendFromNow = (ms = 10 * 1000) ->
+      originalTimeout.call(test, Date.now() - testStartTime + ms)
 
 
 module.exports = {installCustomImplementation}

@@ -50,13 +50,17 @@ class Wait
       # console.log "Took #{spent / 1000}sec of #{ms / 1000}"
       if spent > ms
         throw new Error("BUG: Took longer than expected (#{spent / 1000}). Expected #{ms / 1000} sec")
-      @test.addTimeoutMs(-diff)
+
+      # @test.addTimeoutMs(-diff)
+      # Ensure there is at most 10sec left afterwards
+      @test.timeout.extendFromNow()
+
       val
 
   until: (msg, fn) ->
     @test.utils.verboseWrap msg, =>
       @test.driver.wait(fn)
-      
+
 wait = (test) ->
   return new Wait(test)
 

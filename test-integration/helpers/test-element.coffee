@@ -93,7 +93,8 @@ class TestHelper extends TestItemHelper
     defaultOptions =
       loadingLocator:
         css: '.is-loading'
-      defaultWaitTime: 20000 # TODO: Letting tests define their own wait time is dangerous. tutor-dev takes > 10sec to delete a task-plan
+      defaultWaitTime: 40 * 1000 # TODO: Letting tests define their own wait time is dangerous. tutor-dev takes > 10sec to delete a task-plan
+      # defaultWaitTime: 20 * 1000 # 20sec seems to be enough for deployed code but not local
 
     @_options = _.assign {}, defaultOptions, options
     @_el = {}

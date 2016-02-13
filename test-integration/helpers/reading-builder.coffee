@@ -202,20 +202,23 @@ class ReadingBuilder extends TestHelper
     @el.requiredItemNotice.get(type).isDisplayed()
 
   publish: (name) =>
-    # Wait up to 3min for publish to complete
-    @test.utils.wait.giveTime (3 * 60 * 1000), =>
-      @test.utils.verboseWrap 'Publishing', =>
-        @el.publishButton.waitClick()
-        # wait for
-        @test.driver.wait =>
-          @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+    @el.publishButton.waitClick()
 
+    # Wait up to 4min for publish to complete (Local, synchronous publish)
+    @test.utils.wait.giveTime (4 * 60 * 1000), =>
+      # wait for
+      @test.driver.wait =>
+        @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+
+    # Wait up to 2min for publish to complete (Remote, asynchronous publish)
+    @test.utils.wait.giveTime (2 * 60 * 1000), =>
       # Publishing can be async so wait until the assignment shows up as 'published' in the calendar
       # Added here because folks won't remember to wait for this
       (new Calendar.CalendarHelper(@test)).waitUntilPublishingFinishedByTitle(name)
 
   save: =>
-    @el.saveButton.waitClick()
+    @test.utils.wait.giveTime (2 * 60 * 1000), =>
+      @el.saveButton.waitClick()
 
   cancel: =>
     # BUG: "X" close button behaves differently than the footer close button
