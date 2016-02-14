@@ -6,24 +6,27 @@ S = require '../../src/helpers/string'
 
 class TestItemHelper
   constructor: (test, testElementLocator) ->
-    @_test = test
-    @_locator = testElementLocator
+    throw new Error('BUG: Missing the current test!') unless test
+    throw new Error('BUG: Missing locator') unless testElementLocator
+
+    @test = test
+    @locator = testElementLocator
 
     # Instrument all the methods of helpers to print using verboseWrap
     # so we can see where Selenium stopped
     _.each _.omit(@, Object.keys(TestItemHelper::), Object.keys(TestHelper::)), (value, key) =>
       # Wrap all functions!
-      if typeof value is 'function' and not /^_locator/.test(key) # Exclude the _locator() function because that is used in waitUntil loops
+      if _.isFunction(value) and not /^_locator/.test(key) # Exclude the _locator() function because that is used in waitUntil loops
         @[key] = (args...) =>
           @test.utils.verboseWrap("HELPER: #{key}", => value.apply(@, args))
 
   getLocator: (args...) =>
-    locator = if _.isFunction(@_locator)
-      @_locator(args...)
-    else if _.isString(@_locator)
-      @test.utils.toLocator(@_locator)
+    locator = if _.isFunction(@locator)
+      @locator(args...)
+    else if _.isString(@locator)
+      @test.utils.toLocator(@locator)
     else
-      @_locator
+      @locator
 
   get: (args...) =>
     locator = @getLocator(args...)
@@ -75,16 +78,6 @@ class TestItemHelper
     @test.utils.wait.for(locator)
     @click(args...)
 
-# Using defined properties for access eliminates the possibility
-# of accidental assignment
-Object.defineProperties TestItemHelper.prototype,
-  test:
-    get: -> @_test
-  locator:
-    get: -> @_locator
-  element:
-    get: -> @get()
-
 
 class TestHelper extends TestItemHelper
   constructor: (test, testElementLocator, commonElements, options) ->
@@ -115,7 +108,19 @@ class TestHelper extends TestItemHelper
     @el[name] = helper
 
   setCommonElement: (locator, name) =>
-    @setCommonHelper(name, new TestItemHelper(@test, locator))
+    if _.isFunction(locator)
+      fn = (args...) => new TestItemHelper(@test, locator(args...))
+      # START: BACKWARDS_COMPATIBILITY Area
+      # For backwards compatibility, stick all the testItemHelper Methods onto the fn  (so it "looks like" a TestItemHelper)
+      oldItemHelper = new TestItemHelper(@test, locator)
+      _.each ['getLocator', 'get', 'getAll', 'findElement', 'findElements', 'forEach', 'isPresent', 'isDisplayed', 'click', 'waitClick'], (fnName) ->
+        fn[fnName] = (args...) ->
+          console.log "Deprecated call to el.#{name}.#{fnName}(...). Use el.#{name}(...).#{fnName}() instead"
+          oldItemHelper[fnName].apply(oldItemHelper, args)
+      # END: BACKWARDS_COMPATIBILITY Area
+      @setCommonHelper(name, fn)
+    else
+      @setCommonHelper(name, new TestItemHelper(@test, locator))
 
 
 # Using defined properties for access eliminates the possibility

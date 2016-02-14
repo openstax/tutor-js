@@ -109,15 +109,15 @@ class SelectReadingsList extends TestHelper
     # So handle chapters differently
     isChapter = not /\./.test(section)
     if isChapter
-      @el.chapterHeadingSelectAll.click(section)
+      @el.chapterHeadingSelectAll(section).click()
     else
       # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
-      @el.sectionItem.findElement(section).isDisplayed().then (isDisplayed) =>
+      @el.sectionItem(section).findElement().isDisplayed().then (isDisplayed) =>
         # Expand the chapter accordion if necessary
         unless isDisplayed
-          @el.chapterHeading.click(section)
+          @el.chapterHeading(section).click()
 
-        @el.sectionItem.click(section)
+        @el.sectionItem(section).click()
 
 
 # TODO could probably make this a general dialog/modal helper to extend from.
@@ -173,10 +173,10 @@ class ReadingBuilder extends TestHelper
       @_setDate('due', dueAt)
 
   openDatePicker: (type) =>
-    @el.dateInput.click(type)
+    @el.dateInput(type).click()
 
   chooseDate: (date) =>
-    @el.datepickerDay.click(date)
+    @el.datepickerDay(date).click()
 
   waitUntilDatepickerClosed: =>
     @test.driver.wait =>
@@ -193,13 +193,13 @@ class ReadingBuilder extends TestHelper
     @el.selectReadingsList.waitUntilLoaded()
 
   hasError: (type) =>
-    @el.hasErrorWarning.get(type).isDisplayed()
+    @el.hasErrorWarning(type).get().isDisplayed()
 
   hasRequiredHint: (type) =>
-    @el.requiredHint.get(type).isDisplayed()
+    @el.requiredHint(type).get().isDisplayed()
 
   hasRequiredMessage: (type) =>
-    @el.requiredItemNotice.get(type).isDisplayed()
+    @el.requiredItemNotice(type).get().isDisplayed()
 
   publish: (name) =>
     @el.publishButton.waitClick()

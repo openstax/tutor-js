@@ -31,6 +31,9 @@ COMMON_ELEMENTS =
   homeLink:
     css: '.navbar-brand'
 
+  pageTitle:
+    css: '.navbar-brand.active'
+
 COMMON_ELEMENTS.eitherSignInElement =
   css: "#{COMMON_ELEMENTS.searchQuery.css}, #{COMMON_ELEMENTS.usernameInput.css}"
 
@@ -47,7 +50,7 @@ class User extends TestHelper
     # Login as local
     @el.searchQuery.get().sendKeys(username)
     @el.searchQuery.get().submit()
-    @el.usernameLink.click(username)
+    @el.usernameLink(username).click()
 
   logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
