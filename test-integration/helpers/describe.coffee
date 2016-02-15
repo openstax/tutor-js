@@ -45,7 +45,10 @@ describe = (name, cb) ->
       @timeout(20 * 1000, true)
 
       @driver = new selenium.Builder()
-        # .withCapabilities(selenium.Capabilities.phantomjs())
+        # Choose which browser to run by setting the SELENIUM_BROWSER='firefox' envoronment variable
+        # see https://selenium.googlecode.com/git/docs/api/javascript/module_selenium-webdriver_class_Builder.html
+        .withCapabilities(selenium.Capabilities.phantomjs()) # TODO: get alerts working https://github.com/robotframework/Selenium2Library/issues/441
+        .withCapabilities(selenium.Capabilities.firefox())
         .withCapabilities(selenium.Capabilities.chrome())
         .build()
 
@@ -89,6 +92,12 @@ describe = (name, cb) ->
       @addTimeout(2 * 60) # Server might still be deleting/publishing
       {state, title} = @currentTest
 
+      # # Print out all the console messages
+      # console.log 'Printing log Messages'
+      # console.log '----------------------------------'
+      # @driver.manage().logs().get('browser').then (lines) ->
+      #   console.log line.level.name, line.message for line in lines
+
       if state is 'failed'
         @utils.screenshot("test-failed-#{title}")
         console.log "Action history (showing last #{COMMAND_HISTORY_MAX}):"
@@ -105,10 +114,6 @@ describe = (name, cb) ->
           console.log 'JS Error! ' + msg
           @utils.screenshot("test-failed-#{title}")
 
-
-      # Print out all the console messages
-      # logs = @driver.manage().logs().get('browser').then (lines) ->
-      #   console.log line.level.name, line.message for line in lines
 
       Verbose.reset()
       User.logout(@)

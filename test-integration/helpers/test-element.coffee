@@ -54,9 +54,13 @@ class TestItemHelper
     @test.driver.isElementPresent(locator)
 
   isDisplayed: (args...) =>
-    locator = @getLocator(args...)
-    el = @findElement(args...)
-    el.isDisplayed()
+    @isPresent(args...).then (isPresent) =>
+      if isPresent
+        locator = @getLocator(args...)
+        el = @findElement(args...)
+        el.isDisplayed()
+      else
+        false
 
   # Helper for the common case of `get(...).click()`.
   # Plus, it allows a place to add logging since this is one of the most

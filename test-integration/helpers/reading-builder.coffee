@@ -91,7 +91,7 @@ COMMON_SELECT_READING_ELEMENTS =
   chapterHeadingSelectAll: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] .chapter-checkbox input"
   chapterHeading: (section) ->
-    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}']"
+    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] > a"
 
 
 COMMON_UNSAVED_DIALOG_ELEMENTS =
