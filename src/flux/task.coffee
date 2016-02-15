@@ -183,8 +183,8 @@ TaskConfig =
       incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))
       not incompleteStep
 
-    isSingleStepped: (taskId) ->
-      @_steps[taskId].length is 1
+    hasCrumbs: (taskId) ->
+      not (@_steps[taskId].length is 1 and @_get(taskId).type is 'external')
 
     doesAllowSeeAhead: (taskId) ->
       allowed = [
