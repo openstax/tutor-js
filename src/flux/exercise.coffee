@@ -10,7 +10,9 @@ EXERCISE_TAGS =
   GENERIC: ['blooms', 'dok', 'length']
 
 getTagName = (tag) ->
-  [tag.name, tag.description].join(' ')
+  name = _.compact([tag.name, tag.description]).join(' ')
+  name = tag.id unless name
+  name
 
 getImportantTags = (tags) ->
   obj =
