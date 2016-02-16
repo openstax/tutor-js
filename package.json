@@ -6,6 +6,7 @@
   "scripts": {
     "test": "gulp test && gulp prod",
     "coverage": "gulp coverage",
+    "release": "./release.sh",
     "deployment": "gulp prod",
     "test-integration": "mocha -R spec ./test-integration/",
     "start": "gulp dev"
