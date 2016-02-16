@@ -55,7 +55,7 @@ gulp.task '_buildDemo', _.partial(gulpWebpack, 'demo')
 
 gulp.task 'build', ['_cleanDist', '_buildMain', '_buildMainMin', '_buildFull', '_buildFullMin']
 
-gulp.task '_tagRev', ['_build'], ->
+gulp.task '_tagRev', ['build'], ->
   gulp.src("#{DIST_DIR}/*.min.*")
     .pipe(rev())
     .pipe(gulp.dest(DIST_DIR))
