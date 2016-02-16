@@ -23,9 +23,10 @@ describe 'Student performing tasks', ->
 
   @it 'Can continue and go to expected steps (readonly)', ->
     # demonstrating get in spec.
-    @task.continue()
-    @task.continue()
-    @task.continue()
+    # If the task can continue, then continue
+    @task.canContinue().then (canContinue) => @task.continue() if canContinue
+    @task.canContinue().then (canContinue) => @task.continue() if canContinue
+    @task.canContinue().then (canContinue) => @task.continue() if canContinue
     # get multiple seems to not be working right now.
     # @task.getStepCrumbs(4).then (crumb) ->
     #   crumb.click()
@@ -35,7 +36,7 @@ describe 'Student performing tasks', ->
 
 
   @it 'Can continue (readonly)', ->
-    @task.continue()
+    @task.canContinue().then (canContinue) => @task.continue() if canContinue
 
     # Go back to the course selection
     @user.goHome()
