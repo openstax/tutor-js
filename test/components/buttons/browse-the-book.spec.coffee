@@ -52,12 +52,12 @@ describe 'Browse the book button', ->
     Testing.renderComponent( BTB, props: @props, routerParams: {courseId: undefined}).then ({dom}) ->
       expect(dom).to.be.null
 
-  it 'does not render when the courseId is for a concept coach course', ->
+  it 'does not render a link or button when the courseId is for a concept coach course', ->
     COURSE.is_concept_coach = true
     CourseActions.loaded(COURSE, COURSE_ID)
     Testing.renderComponent( BTB, props: @props, routerParams: {courseId: COURSE_ID}).then ({dom}) ->
       delete COURSE.is_concept_coach
-      expect(dom).to.be.null
+      expect(dom.tagName).to.not.equal('A').and.to.not.equal('BUTTON')
 
   it 'passes down props like onClick', ->
     Testing.renderComponent( BTB, props: @props ).then ({element}) ->

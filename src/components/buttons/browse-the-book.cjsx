@@ -59,8 +59,12 @@ module.exports = React.createClass
     courseId = @props.courseId or @context.router.getCurrentParams().courseId
     text = @props.children or 'Browse the Book'
     linkProps = @getLinkProps()
-    # Unable to browse course-less or concept coach books
-    return <span {...linkProps}>{text}</span> unless courseId and not CourseStore.get(courseId)?.is_concept_coach
+
+    # Unable to browse course-less
+    return null unless courseId
+
+    # can display but unable to browse concept coach books
+    return <span {...linkProps}>{text}</span> if CourseStore.get(courseId)?.is_concept_coach
 
     routeProps = @buildRouteProps(courseId)
     linkProps = _.extend({}, routeProps, linkProps)
