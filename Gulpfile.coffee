@@ -1,4 +1,3 @@
-# coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 coffeelint      = require 'gulp-coffeelint'
 del             = require 'del'
