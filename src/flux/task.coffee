@@ -188,6 +188,7 @@ TaskConfig =
 
     doesAllowSeeAhead: (taskId) ->
       allowed = [
+        'concept_coach'
         'homework'
         'practice'
         'chapter_practice',
@@ -226,6 +227,9 @@ TaskConfig =
       ]
 
       if practices.indexOf(@_get(taskId).type) > -1 then true else false
+
+    getStepIndex: (taskId, stepId) ->
+      _.findIndex(@_steps[taskId], id: stepId)
 
     getStepLateness: (taskId, stepId) ->
       result =
