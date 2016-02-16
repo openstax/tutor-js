@@ -12,6 +12,7 @@ ExerciseCard = React.createClass
     displayFeedback: React.PropTypes.bool
     panelStyle: React.PropTypes.string
     header:     React.PropTypes.element
+    displayAllTags: React.PropTypes.bool
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -53,6 +54,8 @@ ExerciseCard = React.createClass
       .map(@renderAnswer)
       .value()
     tags = _.clone @props.exercise.tags
+    unless @props.displayAllTags
+      tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
     renderedTags.push(
       <ExerciseIdentifierLink exerciseId={@props.exercise.content.uid} />
