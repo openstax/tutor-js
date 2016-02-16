@@ -2,6 +2,7 @@ _ = require 'underscore'
 React = require 'react'
 camelCase = require 'camelcase'
 Router = require 'react-router'
+classnames = require 'classnames'
 
 {Details} = require '../task/details'
 BrowseTheBook = require '../buttons/browse-the-book'
@@ -49,10 +50,10 @@ module.exports =
     return null if review?.length
 
     task = TaskStore.get(taskId)
-    sections = TaskStore.getRelatedSections(taskId)
+    {title, sections} = TaskStore.getDetails(taskId)
 
     taskAbout = <div key='about' className='task-footer-detail'>
-      <div className='task-title'>{task.title}</div>
+      <div className='task-title'>{title}</div>
       {@renderCoversSections(sections) if sections.length}
     </div>
 
@@ -131,7 +132,7 @@ module.exports =
       @renderDefaultButtons({taskId, courseId, review, panel})
 
   getFooterClasses: ({stepId, taskId, courseId, review}) ->
-    sections = TaskStore.getRelatedSections(taskId)
+    {sections} = TaskStore.getDetails(taskId)
 
     className = 'task-footer-details'
     className += ' has-sections' if sections.length

@@ -95,7 +95,21 @@
 
   &.btn-primary {
     .btn-tutor-primary();
-  }  
+  }
+}
+
+.btn-group {
+  > .btn:last-child:not(:first-child),
+  > .dropdown-toggle:not(:first-child) {
+    &@{btn-preselector} {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
+  .btn-primary:disabled@{btn-preselector} {
+    margin: 0;
+    border-width: 1px;
+  }
 }
 
 // bootstrap material design sets this to @darkbg-text

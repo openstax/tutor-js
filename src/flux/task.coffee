@@ -204,6 +204,30 @@ TaskConfig =
         .uniq( (cs) -> cs.join('.') )
         .value()
 
+    getStepsRelatedContent: (taskId) ->
+      _.chain(getSteps(@_steps[taskId]))
+        .filter( (step) -> TaskStepStore.isCore(step.id))
+        .pluck('related_content')
+        .compact()
+        .flatten()
+        .uniq( (cs) -> cs.chapter_section.join('.'))
+        .sortBy( (cs) -> cs.chapter_section.join('.'))
+        .value()
+
+    getDetails: (taskId) ->
+      title = ''
+      sections = []
+
+      {title} = @_get(taskId)
+      sections = @exports.getRelatedSections.call(@, taskId)
+
+      if _.isEmpty(sections)
+        details = @exports.getStepsRelatedContent.call(@, taskId)
+        unless _.isEmpty(details)
+          sections = _.pluck(details, 'chapter_section')
+          title = details[0].title
+
+      {title, sections}
 
     getCompletedStepsCount: (taskId) ->
       allSteps = getSteps(@_steps[taskId])

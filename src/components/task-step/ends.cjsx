@@ -1,6 +1,6 @@
 # coffeelint: disable=no_empty_functions
 
-React = require 'react/addons'
+React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
@@ -16,6 +16,7 @@ TaskStep = require './index'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require 'openstax-react-components'
 Review = require '../task/review'
+{ConceptCoachEnd} = require './concept-coach-end'
 
 # A function to render the status message.
 # Shared between the various ending components
@@ -172,54 +173,6 @@ TaskEnd = React.createClass
         </div>
       </CardBody>
     </div>
-
-ConceptCoachEnd = React.createClass
-  displayName: 'TaskEnd'
-  renderReviewSteps: (taskId, steps, type = 'completed') ->
-    {courseId} = @props
-
-    stepsReview =
-      <div className="task task-review-#{type}">
-        <Review
-          steps={steps}
-          taskId={taskId}
-          courseId={courseId}
-          goToStep={@goToStep}
-          onNextStep={@onNextStep}
-          review={type}
-          key={"task-review-#{type}"}
-          focus={type is 'todo'}/>
-      </div>
-
-  renderStatusMessage: ->
-    {taskId} = @props
-    incompleteSteps = TaskStore.getIncompleteSteps taskId
-    doneMessage = 'You\'re done'
-
-    return null if incompleteSteps?
-
-    <CardBody>
-      <div className='completed-message'>
-        <div className='task-status-message'>
-          <h1>{doneMessage}</h1>
-        </div>
-      </div>
-    </CardBody>
-
-  render: ->
-    {footer, taskId} = @props
-    completedSteps = TaskStore.getCompletedSteps taskId
-    completedReview = @renderReviewSteps(taskId, completedSteps)
-    statusMessage = @renderStatusMessage()
-
-    <div className='task-review -concept-coach-completed'>
-      {statusMessage}
-      {completedReview}
-      <PinnableFooter>
-        {footer}
-      </PinnableFooter>
-    </div>
-
 
 ends = {
   task: TaskEnd,

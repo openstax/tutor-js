@@ -1,3 +1,5 @@
+# coffeelint: disable=no_empty_functions
+
 React = require 'react/addons'
 _ = require 'underscore'
 
@@ -13,6 +15,7 @@ Review = React.createClass
 
   getDefaultProps: ->
     focus: false
+    onNextStep: ->
 
   render: ->
     {taskId, steps, focus} = @props
