@@ -107,16 +107,16 @@ class CalendarHelper extends TestHelper
     @waitUntilLoaded()
     # TODO: Make this a `data-title` attribute
     # HACK: Might need to scroll the item to click on into view
-    el = @el.planByTitle.get(title)
+    el = @el.planByTitle(title).get()
     @test.utils.windowPosition.scrollTo(el)
-    @el.planByTitle.click(title)
+    @el.planByTitle(title).click()
     @test.utils.windowPosition.scrollTop()
     @waitUntilLoaded() # Wait until either the popup opens or the Reading Builder opens (depending on the state of the thing clicked)
 
   waitUntilPublishingFinishedByTitle: (title) =>
     @test.utils.verbose("Waiting to see if plan is published #{title}")
     @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
-      @test.driver.wait((=> @el.publishedPlanByTitle.isPresent(title)), PUBLISHING_TIMEOUT)
+      @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
 
 verify = (test) ->
   new CalendarHelper(test).waitUntilLoaded()

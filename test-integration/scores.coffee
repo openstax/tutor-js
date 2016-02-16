@@ -20,16 +20,14 @@ describe 'HS Student Scores', ->
     @calendar.goStudentScores()
     @scores.waitUntilLoaded()
 
-  @afterEach ->
-    @user.goHome()
-
-
   @it 'sorts by name or data', ->
     @scores.el.nameHeaderSort.get().click() # If you use just `.click()` that will scroll to try to make the element visible but cause the next element to not be clickable
     @scores.el.dataHeaderSort.click()
+    @user.goHome()
 
   @it 'changes periods', ->
     @scores.el.periodTab.click()
+    @user.goHome()
 
 
 
