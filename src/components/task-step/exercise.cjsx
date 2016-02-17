@@ -15,6 +15,13 @@ module.exports = React.createClass
 
   updateFreeResponse: (freeResponse) -> TaskStepActions.updateTempFreeResponse(@props.id, freeResponse)
 
+  canOnlyContinue: ->
+    {id} = @props
+    _.chain(StepPanel.getRemainingActions(id))
+      .difference(['clickContinue'])
+      .isEmpty()
+      .value()
+
   render: ->
     {id, taskId} = @props
     step = TaskStepStore.get(id)
@@ -32,8 +39,12 @@ module.exports = React.createClass
       unless TaskStepStore.isSaving(id)
         currentPanel = StepPanel.getPanel(id)
 
+    controlText = 'Continue' if task.type is 'reading' and @canOnlyContinue()
+
     <Exercise
       {...@props}
+      freeResponseValue={step.temp_free_response}
+      controlText={controlText}
       step={step}
       footer={<StepFooter/>}
       waitingText={waitingText}

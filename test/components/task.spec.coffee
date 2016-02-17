@@ -17,7 +17,7 @@ VALID_MODEL = require '../../api/tasks/4.json'
 VALID_RECOVERY_MODEL = require '../../api/tasks/4-recovered.json'
 VALID_RECOVERY_STEP = require '../../api/steps/step-id-4-2/recovery/PUT.json'
 
-describe 'Task Widget', ->
+describe 'Task Widget, Reading Task', ->
   beforeEach (done) ->
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
@@ -78,6 +78,14 @@ describe 'Task Widget', ->
     taskTests
       .submitMultipleChoice(@result)
       .then(taskChecks.checkSubmitMultipleChoice)
+      .then( ->
+        done()
+      , done)
+
+  it 'should have continue button with "Continue" as text for continuing to next step', (done) ->
+    taskTests
+      .submitMultipleChoice(@result)
+      .then(taskChecks.checkContinueButtonText('Continue'))
       .then( ->
         done()
       , done)
