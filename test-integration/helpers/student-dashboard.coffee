@@ -38,6 +38,8 @@ class Dashboard extends TestHelper
       css: '.panel.-this-week'
     visibleEvents:
       css: '.tab-pane.active .task'
+    workableTask:
+      css: '.tab-pane.active .workable.task'
 
   constructor: (test) ->
     super(test, '.student-dashboard')

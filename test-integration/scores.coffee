@@ -54,17 +54,23 @@ describe 'CC Student Scores', ->
     @user.goHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
 
   @it 'toggles display as', ->
-    @scores.el.scoreCell.get().getText().then (txt) ->
-      expect(txt).to.contain('%')
-    @scores.el.displayAs.click()
-    @scores.el.scoreCell.get().getText().then (txt) ->
-      expect(txt).to.contain('of')
-    @user.goHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
+    @scores.el.scoreCell.isPresent().then (isPresent) =>
+      return console.log('Skipping because there are no assignments') unless isPresent
+
+      @scores.el.scoreCell.get().getText().then (txt) ->
+        expect(txt).to.contain('%')
+      @scores.el.displayAs.click()
+      @scores.el.scoreCell.get().getText().then (txt) ->
+        expect(txt).to.contain('of')
+      @user.goHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
 
   @it 'toggles based on', ->
-    @scores.el.averageLabel.get().getText().then (txt) ->
-      expect(txt).to.contain('possible')
-    @scores.el.basedOn.click()
-    @scores.el.averageLabel.get().getText().then (txt) ->
-      expect(txt).to.contain('attempted')
-    @user.goHome()
+    @scores.el.scoreCell.isPresent().then (isPresent) =>
+      return console.log('Skipping because there are no assignments') unless isPresent
+
+      @scores.el.averageLabel.get().getText().then (txt) ->
+        expect(txt).to.contain('possible')
+      @scores.el.basedOn.click()
+      @scores.el.averageLabel.get().getText().then (txt) ->
+        expect(txt).to.contain('attempted')
+      @user.goHome()
