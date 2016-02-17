@@ -1,0 +1,5 @@
+{
+  "save-live-edit": true,
+  "preload": true,
+  "hidden": ["node_modules/"]
+}
