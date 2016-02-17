@@ -48,6 +48,7 @@ class ScoresHelper extends TestHelper
   goCCScores: =>
     @test.utils.windowPosition.scrollTop()
     @el.ccScoresLink.click()
+    @waitUntilLoaded()
 
   doneGenerating: =>
     #@test.driver.wait =>
@@ -57,4 +58,3 @@ class ScoresHelper extends TestHelper
 
 
 module.exports = {ScoresHelper}
-

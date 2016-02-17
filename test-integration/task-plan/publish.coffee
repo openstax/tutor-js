@@ -26,7 +26,6 @@ describe 'Assignment Publishing Tests', ->
     @reading.edit(action: 'CANCEL')
 
   @it 'Publishes a Reading with opensAt to tomorrow and deletes (idempotent)', ->
-    @addTimeout(120)
     @reading.edit(
       name: @title
       opensAt: 'NOT_TODAY'
@@ -34,6 +33,7 @@ describe 'Assignment Publishing Tests', ->
       sections: [1.2]
       action: 'PUBLISH'
     )
+
     # Wait until the Calendar loads back up
     # Then, open the popup, click edit, and delete the assignment
     # BUG: .course-list shouldn't be in the DOM

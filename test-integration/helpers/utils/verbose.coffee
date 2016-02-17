@@ -13,10 +13,16 @@ getLog = ->
 _isEnabled = process.env.VERBOSE and JSON.parse(process.env.VERBOSE) # Just parse once
 isEnabled = -> _isEnabled
 
-log = (args...) ->
+log = (test, args...) ->
+  msLeft = (test.timeout.__START_TIME + test.timeout.__ORIGINAL.call(test)) - Date.now()
+  secsLeft = Math.floor(msLeft / 1000)
+  # if secsLeft < 10
+  #   if secsLeft >= 0
+  #     secsLeft = "0#{secsLeft}"
+  secs = "[#{secsLeft}s]"
   if isEnabled()
-    console.log(args...)
-  currentLog.push(args)
+    console.log(secs, args...)
+  currentLog.push([secs].concat(args))
 
 
 
@@ -33,7 +39,7 @@ indent = (level) ->
 # Increment the indentationLevel **AFTER** printing a START message
 _verboseStart = (test, msg) ->
   test.driver.call ->
-    log("#{indent(indentationLevel)}START: #{msg}")
+    log(test, "#{indent(indentationLevel)}START: #{msg}")
     indentationLevel++
 
 toString = (val) ->
@@ -64,7 +70,7 @@ _verboseEnd = (test, msg, val) ->
   retType = toString(val)
   test.driver.call ->
     indentationLevel--
-    log("#{indent(indentationLevel)}END  : #{msg} returning=#{retType}")
+    log(test, "#{indent(indentationLevel)}END  : #{msg} returning=#{retType}")
 
 
 verbose = (test, arg0, args...) ->
@@ -73,16 +79,17 @@ verbose = (test, arg0, args...) ->
       # If the 1st arg is a string then just prepend the indentation level dashes.
       # We do this here so the output is `- - MESSAGE` instead of `'- - ' 'MESSAGE'` (see quotes)
       if typeof arg0 is 'string'
-        log(indent(indentationLevel) + arg0, args...)
+        log(test, indent(indentationLevel) + arg0, args...)
       else
-        log(indent(indentationLevel), arg0, args...)
+        log(test, indent(indentationLevel), arg0, args...)
     else
-      log(args...)
+      log(test, args...)
 
 # Example: `...utils.verboseWrap('Opening an assignment', () => calendar.openPlan())`
 verboseWrap = (test, msg, fn) ->
   throw new Error('BUG: verboseWrap expects a message string as its 1st arg') if typeof msg isnt 'string'
   throw new Error('BUG: verboseWrap expects a function with no args that returns a promise as its 2nd argument') if typeof fn isnt 'function'
+
   _verboseStart(test, msg)
 
   promise = fn.apply(test)

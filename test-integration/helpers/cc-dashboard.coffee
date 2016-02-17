@@ -39,13 +39,10 @@ class CCDashboard extends TestHelper
   clickViewScores: () ->
     @el.viewScoresButton.click()
 
-  getHelpLink: () ->
-    helpLink = @test.driver.findElement(COMMON_ELEMENTS.helpLink)
-
   getHelpLinkHref: () ->
-    @getHelpLink().getAttribute('href')
+    @el.helpLink.get().getAttribute('href')
 
   getHelpLinkTarget: () ->
-    @getHelpLink().getAttribute('target')
+    @el.helpLink.get().getAttribute('target')
 
 module.exports = CCDashboard

@@ -8,7 +8,7 @@ User = require './user'
 Timeout = require './timeout'
 
 utils = require './utils'
-{resetIndentationLevel} = require './utils/verbose'
+Verbose = require './utils/verbose'
 
 screenshot = require './utils/screenshot'
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
@@ -17,7 +17,7 @@ SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001/'
 logger = selenium.logging.getLogger('webdriver.http.Executor')
 logger.setLevel(selenium.logging.Level.ALL)
 COMMAND_HISTORY = []
-COMMAND_HISTORY_MAX = 20
+COMMAND_HISTORY_MAX = 2
 logger.addHandler (record) ->
   # Only print the last COMMAND_HISTORY_MAX items
   if COMMAND_HISTORY.length >= COMMAND_HISTORY_MAX
@@ -40,13 +40,15 @@ describe = (name, cb) ->
     @__afterEach = afterEach
 
     @before ->
-      resetIndentationLevel()
 
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)
 
       @driver = new selenium.Builder()
-        # .withCapabilities(selenium.Capabilities.phantomjs())
+        # Choose which browser to run by setting the SELENIUM_BROWSER='firefox' envoronment variable
+        # see https://selenium.googlecode.com/git/docs/api/javascript/module_selenium-webdriver_class_Builder.html
+        .withCapabilities(selenium.Capabilities.phantomjs()) # TODO: get alerts working https://github.com/robotframework/Selenium2Library/issues/441
+        .withCapabilities(selenium.Capabilities.firefox())
         .withCapabilities(selenium.Capabilities.chrome())
         .build()
 
@@ -64,19 +66,25 @@ describe = (name, cb) ->
 
 
     @__beforeEach ->
+      Verbose.reset()
       Timeout.installCustomImplementation(@)
 
       @utils = utils(@)
 
-      @addTimeout(10)
-      @driver.get(SERVER_URL)
-      # Wait until the page has loaded.
-      # Going to the root URL while logged in will redirect to dashboard
-      # which may redirect to the course page.
-      @driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu, body#home'))
-      User.logout(@).then ->
-        # Clear the history
-        COMMAND_HISTORY.splice(0, COMMAND_HISTORY.length)
+      {state, title} = @currentTest
+      if state isnt 'failed'
+
+        @addTimeout(10)
+        @driver.get(SERVER_URL)
+        # Wait until the page has loaded.
+        # Going to the root URL while logged in will redirect to dashboard
+        # which may redirect to the course page.
+        @driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu, body#home'))
+        User.logout(@).then ->
+          # Clear the history
+          COMMAND_HISTORY.splice(0, COMMAND_HISTORY.length)
+          Verbose.reset()
+
 
 
 
@@ -84,12 +92,21 @@ describe = (name, cb) ->
       @addTimeout(2 * 60) # Server might still be deleting/publishing
       {state, title} = @currentTest
 
+      # # Print out all the console messages
+      # console.log 'Printing log Messages'
+      # console.log '----------------------------------'
+      # @driver.manage().logs().get('browser').then (lines) ->
+      #   console.log line.level.name, line.message for line in lines
+
       if state is 'failed'
+        @utils.screenshot("test-failed-#{title}")
         console.log "Action history (showing last #{COMMAND_HISTORY_MAX}):"
         for msg in COMMAND_HISTORY
           console.log msg
         console.log '------------------'
-        @utils.screenshot("test-failed-#{title}")
+        unless Verbose.isEnabled()
+          for msg in Verbose.getLog()
+            console.log(msg...)
 
       # Fail if there were any errors
       @driver.findElement(css: 'body').getAttribute('data-js-error').then (msg) =>
@@ -98,10 +115,7 @@ describe = (name, cb) ->
           @utils.screenshot("test-failed-#{title}")
 
 
-      # Print out all the console messages
-      # logs = @driver.manage().logs().get('browser').then (lines) ->
-      #   console.log line.level.name, line.message for line in lines
-
+      Verbose.reset()
       User.logout(@)
 
 

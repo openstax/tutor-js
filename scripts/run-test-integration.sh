@@ -4,7 +4,7 @@ if [ -z ${SERVER_URL} ]
 then
   echo "Testing locally. If you want to test a remote server then set the SERVER_URL environment variable"
 
-  parallelshell --verbose "http-server -p 8000 ." "./scripts/run-test-integration-inner.sh"
+  parallelshell --verbose "http-server --silent -p 8000 ." "./scripts/run-test-integration-inner.sh"
 
 else
   echo "Testing against remote server ${SERVER_URL}"
