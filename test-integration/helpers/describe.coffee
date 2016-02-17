@@ -1,3 +1,4 @@
+fs = require 'fs'
 selenium = require 'selenium-webdriver'
 seleniumMocha = require('selenium-webdriver/testing')
 _ = require 'underscore'
@@ -67,6 +68,7 @@ describe = (name, cb) ->
 
     @__beforeEach ->
       Verbose.reset()
+      User.resetRecordoLog()
       Timeout.installCustomImplementation(@)
 
       @utils = utils(@)
@@ -116,7 +118,13 @@ describe = (name, cb) ->
 
 
       Verbose.reset()
-      User.logout(@)
+      User.logout(@).then ->
+        if state is 'failed'
+          recordoLog = User.getRecordoLog()
+          if recordoLog
+            fs.writeFileSync("test-failed-#{title}.json", JSON.stringify(recordoLog))
+        User.resetRecordoLog()
+
 
 
     @after ->

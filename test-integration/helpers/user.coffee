@@ -1,6 +1,13 @@
+path = require 'path'
+fs = require 'fs'
+
 _ = require 'underscore'
 {TestHelper} = require './test-element'
 selenium = require 'selenium-webdriver'
+Verbose = require './utils/verbose'
+
+RECORDO_LOG = null
+
 
 COMMON_ELEMENTS =
   loginLink:
@@ -105,6 +112,11 @@ class User extends TestHelper
     # which may redirect to the course page.
     @test.utils.verbose('Waiting until tutor-js page loads up')
     @test.driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu'))
+    # Turn on recording (for logging if the test fails)
+    if Verbose.isEnabled()
+      # @test.driver.executeScript(fs.readFileSync(path.join(__dirname, '..', '..', 'node_modules', 'recordo', 'dist', 'recordo.js'), 'utf8'))
+      @test.driver.executeScript ->
+        window.__Recordo?.start()
 
 
   isModalOpen: =>
@@ -125,6 +137,13 @@ class User extends TestHelper
 
   _logout: =>
     @openHamburgerMenu()
+    # Pull out the Recordo log
+    if Verbose.isEnabled()
+      @test.driver.executeScript ->
+        window.__Recordo?.getLog()
+      .then (log) ->
+        RECORDO_LOG = log
+
     @el.logoutForm.get().submit()
 
   logout: =>
@@ -151,5 +170,8 @@ class User extends TestHelper
 
 User.logout = (test) ->
   user = new User(test).logout()
+
+User.resetRecordoLog = -> RECORDO_LOG = null
+User.getRecordoLog = -> RECORDO_LOG
 
 module.exports = User
