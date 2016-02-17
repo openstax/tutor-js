@@ -15,9 +15,27 @@ ConceptCoachCell = React.createClass
       Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
     tooltip =
       <BS.Tooltip>
-        <div>
-          Date Last Worked: <Time format='MMM. D' date={@props.task.last_worked_at} />
-        </div>
+        <BS.Table>
+          <thead>
+            <tr>
+              <th>Correct</th>
+              <th>Attempted</th>
+              <th>Total possible</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{@props.task.correct_exercise_count}</td>
+              <td>{@props.task.completed_exercise_count}</td>
+              <td>{@props.task.exercise_count}</td>
+            </tr>
+            <tr>
+              <td colSpan="3">
+                Date Last Worked: <Time format='MMM. D' date={@props.task.last_worked_at} />
+              </td>
+            </tr>
+          </tbody>
+        </BS.Table>
       </BS.Tooltip>
 
     <div className="cc-cell">
@@ -32,7 +50,7 @@ ConceptCoachCell = React.createClass
           }
       </Router.Link>
       <BS.OverlayTrigger
-        placement='top'
+        placement='right'
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
