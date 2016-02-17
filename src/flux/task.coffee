@@ -218,10 +218,10 @@ TaskConfig =
       title = ''
       sections = []
 
-      {title} = @_get(taskId)
+      {title, type} = @_get(taskId)
       sections = @exports.getRelatedSections.call(@, taskId)
 
-      if _.isEmpty(sections)
+      if _.isEmpty(sections) and type is 'concept_coach'
         details = @exports.getStepsRelatedContent.call(@, taskId)
         unless _.isEmpty(details)
           sections = _.pluck(details, 'chapter_section')
