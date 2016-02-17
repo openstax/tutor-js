@@ -1,3 +1,5 @@
+{TestHelper} = require './test-element'
+
 OPENED_PANEL_SELECTOR = '.dialog:not(.hide)'
 
 COMMON_SELECT_READING_ELEMENTS =
@@ -7,17 +9,14 @@ COMMON_SELECT_READING_ELEMENTS =
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] .chapter-checkbox input"
   chapterHeading: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}']"
-
-
-COMMON_UNSAVED_DIALOG_ELEMENTS =
-  dismissButton:
-    css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
+  loadingLocator:
+    css: '.loadable.is-loading'
 
 
 class SelectReadingsList extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: ".select-reading-dialog#{OPENED_PANEL_SELECTOR}"
-    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, loadingLocator: css: '.select-reading-dialog.hide'
+    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, defaultWaitTime: 3000
 
   selectSection: (section) =>
     # Selecting an entire chapter requires clicking the input box
@@ -34,7 +33,7 @@ class SelectReadingsList extends TestHelper
 
         @el.sectionItem.click(section)
 
-  selectSections: (sections)
+  selectSections: (sections) =>
     # Expand the chapter and then select the section
     for section in sections
       do (section) =>

@@ -1,6 +1,8 @@
 selenium = require 'selenium-webdriver'
 Calendar = require './calendar'
 SelectReadingsList = require './select-readings-dialog'
+UnsavedDialog = require './unsaved-dialog'
+
 {TestHelper} = require './test-element'
 
 COMMON_ELEMENTS =
@@ -83,23 +85,7 @@ COMMON_ELEMENTS =
 COMMON_ELEMENTS.anyPlan =
   css: "#{COMMON_ELEMENTS.readingPlan.css}, #{COMMON_ELEMENTS.homeworkPlan.css}, #{COMMON_ELEMENTS.externalPlan.css}"
 
-# TODO could probably make this a general dialog/modal helper to extend from.
-class UnsavedDialog extends TestHelper
-  constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: '.tutor-dialog.modal'
-    super test, testElementLocator, COMMON_UNSAVED_DIALOG_ELEMENTS, loadingLocator: css: '.tutor-dialog.modal.fade:not(.in)'
 
-  waitUntilClose: =>
-    @test.driver.wait =>
-      @isPresent().then (isPresent) -> not isPresent
-
-  close: =>
-    @isPresent().then (modalIsOpened) =>
-      return unless modalIsOpened
-
-      @waitUntilLoaded()
-      @el.dismissButton.click()
-      @waitUntilClose()
 
 
 # Helper methods for dealing with the Reading Assignment Builder

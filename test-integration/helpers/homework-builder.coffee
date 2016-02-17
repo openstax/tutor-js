@@ -2,54 +2,113 @@ _ = require 'underscore'
 {expect} = require 'chai'
 selenium = require 'selenium-webdriver'
 
-SelectReadings = require './select-readings-dialog'
+SelectReadingsList = require './select-readings-dialog'
+UnsavedDialog = require './unsaved-dialog'
 Calendar = require './calendar'
+{TestHelper} = require './test-element'
 
-HomeworkBuilder =
-  addSections: (test, sections=[1.1, 1.2, 2.1, 3, 3.1]) ->
-    test.waitClick(css: '#problems-select')
-    SelectReadings(test, sections)
+COMMON_ELEMENTS =
+  selectProblemsBtn:
+    css: '#problems-select'
 
-  addExercises: (test, numExercises=4) ->
-    test.waitClick(css: '.homework-plan-exercise-select-topics button.-show-problems')
-    test.waitAnd(css: '.add-exercise-list')
+  selectSectionsContainer:
+    css: '.homework-plan-exercise-select-topics'
 
-    _.times numExercises, ->
-      test.waitClick(css: '.card.exercise.panel.panel-default')
-      test.sleep(500) # Wait for exercise to get selected
+  showProblemsBtn:
+    css: '.homework-plan-exercise-select-topics button.-show-problems'
 
-  startReview: (test) ->
-    test.waitClick(css: '.exercise-summary .btn.-review-exercises')
-    test.waitAnd(css: '.exercise-table')
+  addExercisesContainer:
+    css: '.add-exercise-list'
 
-  verifySelectedExercises: (test, numExercises) ->
-    test.driver.findElements(css: '.card.exercise.panel').then (els) ->
+  selectedExercises:
+    css: '.card.exercise.panel'
+
+  numExercisesSelected:
+    css: '.exercise-summary .num-selected h2'
+
+  addTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-up'
+
+  removeTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-down'
+
+  tutorSelections:
+    css: '.exercise-summary .tutor-selections h2'
+
+  closeButton:
+    css: '.footer-buttons [aria-role="close"]'
+
+
+EXERCISE_SELECTOR_ELEMENTS =
+  inactiveExerciseCard:
+    css: '.card.exercise.panel.panel-default'
+
+  reviewExercisesButton:
+    css: '.exercise-summary .btn.-review-exercises'
+
+
+class ExerciseSelector extends TestHelper
+  constructor: (test, testElementLocator) ->
+    testElementLocator ?= css: '.add-exercise-list'
+    super test, testElementLocator, EXERCISE_SELECTOR_ELEMENTS, defaultWaitTime: 3000
+
+  selectExercises: (numExercises) ->
+    _.times numExercises, =>
+      @el.inactiveExerciseCard.click()
+      @_test.sleep(500) # Wait for exercise to get selected
+
+  startReview: () ->
+    @el.reviewExercisesButton.click()
+
+
+class HomeworkBuilder extends TestHelper
+  constructor: (test, testElementLocator) ->
+    testElementLocator ?= css: '.task-plan.homework-plan'
+    super test, testElementLocator, COMMON_ELEMENTS, defaultWaitTime: 3000
+    @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
+    @setCommonHelper('exerciseSelector', new ExerciseSelector(@test, COMMON_ELEMENTS.addExercisesContainer))
+    @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
+
+  openSelectSections: ->
+    @el.selectProblemsBtn.click()
+
+  addSections: (sections=[1.1, 1.2, 2.1, 3, 3.1]) ->
+    @el.selectReadingsList.waitUntilLoaded(4000)
+    @el.selectReadingsList.selectSections(sections)
+
+  addExercises: (numExercises=4) ->
+    @el.showProblemsBtn.click()
+    @el.exerciseSelector.waitUntilLoaded()
+    @el.exerciseSelector.selectExercises(numExercises)
+
+  startReview: () ->
+    @el.exerciseSelector.startReview()
+    @test.utils.wait.for(css: '.exercise-table')
+
+  verifySelectedExercises: (numExercises) ->
+
+    @el.selectedExercises.findElements().then (els) ->
       expect(numExercises).to.be.equal(els.length)
 
-    numSelected = test.driver.findElement(css: '.exercise-summary .num-selected h2')
-
-    numSelected.getText().then (text) ->
+    @el.numExercisesSelected.findElement().getText().then (text) ->
       expect(numExercises).to.be.equal(parseInt(text))
 
-  addTutorSelection: (test) ->
-    test.waitClick(css: '.exercise-summary .tutor-selections .btn.-move-exercise-up')
-    test.sleep(500) # Wait for tutor selection to change
+  addTutorSelection: () ->
+    @el.addTutorSelection.click()
 
-  removeTutorSelection: (test) ->
-    test.waitClick(css: '.exercise-summary .tutor-selections .btn.-move-exercise-down')
-    test.sleep(500) # Wait for tutor selection to change
+  removeTutorSelection: () ->
+    @el.removeTutorSelection.click()
 
-  verifyTutorSelection: (test, num) ->
-    numSelected = test.driver.findElement(css: '.exercise-summary .tutor-selections h2')
-    numSelected.getText().then (text) ->
+  verifyTutorSelection: (num) ->
+    @el.tutorSelections.findElement().getText().then (text) ->
       expect(num).to.be.equal(parseInt(text))
 
-  closeBuilder: (test) ->
-    # Wait up to 60sec for delete to complete
-    test.waitClick(css: '.footer-buttons [aria-role="close"]')
-    test.waitClick(css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn')
-    test.sleep(500) # Wait for tutor selection to change
-    Calendar.verify(test, 60 * 1000)
+  closeBuilder: () ->
+    @test.utils.windowPosition.scrollTop()
+
+    @el.closeButton.click()
+    @el.unsavedDialog.close()
+    Calendar.verify(@test)
 
 
 
