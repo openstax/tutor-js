@@ -3,7 +3,7 @@ selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
 
-PUBLISHING_TIMEOUT = 60 * 1000 # Wait up to a minute for publishing to complete.
+PUBLISHING_TIMEOUT = 2 * 60 * 1000 # Wait up to 2 minutes for publishing to complete.
 
 COMMON_ELEMENTS =
   forecastLink:
