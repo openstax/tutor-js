@@ -14,6 +14,7 @@ ExerciseCard = React.createClass
     header:     React.PropTypes.element
     displayAllTags: React.PropTypes.bool
     hideAnswers: React.PropTypes.bool
+    className: React.PropTypes.className
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -64,9 +65,10 @@ ExerciseCard = React.createClass
       <ExerciseIdentifierLink key='identifier'
         exerciseId={@props.exercise.content.uid} />
     )
-    classes = classnames 'card', 'exercise',
+    classes = classnames( 'card', 'exercise', @props.className, {
+      'answers-hidden': @props.hideAnswers,
       'is-displaying-feedback': @props.displayFeedback
-
+    })
     <BS.Panel
       className={classes}
       bsStyle={@props.panelStyle}
