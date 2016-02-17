@@ -34,6 +34,14 @@ module.exports = React.createClass
 
   render: ->
     {displayAs, basedOn} = @props
+    # temp disable
+    basedOn =
+      <div className='filter-item'>
+        <div className='filter-label'>Score based on</div>
+        <BS.ButtonGroup className='filter-group'>
+          {@renderButtons(@clickScore, basedOn, ['possible', 'attempted'])}
+        </BS.ButtonGroup>
+      </div>
     <div className='filter-row'>
       <div className='filter-item'>
         <div className='filter-label'>Display as</div>
@@ -41,10 +49,5 @@ module.exports = React.createClass
           {@renderButtons(@clickDisplay, displayAs, ['percentage', 'number'])}
         </BS.ButtonGroup>
       </div>
-      <div className='filter-item'>
-        <div className='filter-label'>Score based on</div>
-        <BS.ButtonGroup className='filter-group'>
-          {@renderButtons(@clickScore, basedOn, ['possible', 'attempted'])}
-        </BS.ButtonGroup>
-      </div>
+
     </div>
