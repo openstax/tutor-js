@@ -1,4 +1,4 @@
-# tutor-js 
+# tutor-js
 [![build status][travis-image]][travis-url]
 [![code coverage][coveralls-image]][coveralls-url]
 [![dependency status][dependency-image]][dependency-url]
@@ -27,18 +27,29 @@ The JavaScript client for openstax Tutor.
 
 Use `PORT=8000 npm start` to change the default webserver port.
 
-Deprecated:
-
-- `gulp serve` builds files and starts up a static webserver
-- `gulp dev` watches and rebuilds CSS and JS files and starts webserver
-- `gulp tdd` does what `dev` does plus reruns unit tests
-
-
 After local updates are made:
 
 1. stop `npm start`
 1. `npm install`
 1. restart `npm start`
+
+
+## Selenium Tests
+
+To run the Selenium tests:
+
+- `npm run test-integration`: runs the tests locally against `http://localhost:3001` by default (also builds the JS files and serves them)
+  - Environment Variables
+    1. `SERVER_URL="https://example.com"` will run the tests against a remote server
+    1. `VERBOSE=true` will print out what is being done as it is running
+- `npm run test-integration:only` will just run the tests without building and serving the JS files
+
+To debug the Selenium tests:
+
+- `npm run debug-integration`: Starts up `node-inspector`
+  - add `debugger;` to the tests to set a breakpoint that the debugger will stop at
+  - change a test from `this.it()` or `@it()` to `this.it.only()` to only run the one test
+  - **Note:** you may have to kill the process if you pressed <kbd>Ctrl</kbd>+<kbd>C</kbd>  (ie `ps ax|grep 5858`)
 
 ### Pre-production
 
