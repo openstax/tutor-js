@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/plan-stats/event.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/plan-stats/event.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">45.83% <small>(11 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">45.83% <small>(11 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/plan-stats/</a> &#187; event.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, Event, EventModalShell, LoadableItem, Markdown, React, Router, TaskPlanStatsActions, TaskPlanStatsStore, _, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+ref = require('../../flux/task-plan-stats'), TaskPlanStatsStore = ref.TaskPlanStatsStore, TaskPlanStatsActions = ref.TaskPlanStatsActions;
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+Markdown = require('../markdown');
+&nbsp;
+Event = React.createClass({displayName: "Event",
+  propTypes: {
+    id: React.PropTypes.string.isRequired
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, description, id, periods, periodsNames, plan, ref1;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, id = ref1.id, courseId = ref1.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    plan = TaskPlanStatsStore.get(id);</span>
+<span class="cstat-no" title="statement not covered" >    periods = TaskPlanStatsStore.getPeriods(id);</span>
+<span class="cstat-no" title="statement not covered" >    periodsNames = _.pluck(periods, 'name').join(', ');</span>
+<span class="cstat-no" title="statement not covered" >    if (plan.description) {</span>
+<span class="cstat-no" title="statement not covered" >      description = React.createElement(Markdown, {</span>
+        "text": plan.description,
+        "block": true
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Panel, {</span>
+      "className": 'reading-stats'
+    }, React.createElement("h3", null, "For ", React.createElement("strong", null, periodsNames)), description);
+  }
+});
+&nbsp;
+EventModalShell = React.createClass({displayName: "EventModalShell",
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(LoadableItem, {</span>
+      "id": id,
+      "store": TaskPlanStatsStore,
+      "actions": TaskPlanStatsActions,
+      "renderItem": ((<span class="fstat-no" title="function not covered" >function(_this) {</span>
+<span class="cstat-no" title="statement not covered" >        return <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          return React.createElement(Event, React.__spread({}, _this.props));</span>
+        };
+      })(this))
+    });
+  }
+});
+&nbsp;
+module.exports = {
+  EventModalShell: EventModalShell,
+  Event: Event
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

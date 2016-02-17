@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/cc-dashboard.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> cc-dashboard.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">61.29% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>19/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">38.89% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>7/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">42.86% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">61.29% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>19/31</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CrudConfig, DEFAULT_COURSE_TIMEZONE, DashboardConfig, PeriodHelper, TaskActions, TaskStore, _, actions, extendConfig, makeSimpleStore, ref, ref1, ref2, store;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+ref = require('./task'), TaskActions = ref.TaskActions, TaskStore = ref.TaskStore;
+&nbsp;
+ref1 = require('./helpers'), CrudConfig = ref1.CrudConfig, makeSimpleStore = ref1.makeSimpleStore, extendConfig = ref1.extendConfig;
+&nbsp;
+PeriodHelper = require('../helpers/period');
+&nbsp;
+DEFAULT_COURSE_TIMEZONE = 'US/Central';
+&nbsp;
+DashboardConfig = {
+  exports: {
+    isBlank: function(courseId) {
+      var ref2, ref3;
+      return !_.any((ref2 = this._get(courseId)) != null ? (ref3 = ref2.course) != null ? ref3.periods : <span class="branch-1 cbranch-no" title="branch not covered" >void 0 </span>: <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>;
+    },
+    getPeriods: function(courseId) {
+      var ref2, ref3;
+      return PeriodHelper.sort((ref2 = this._get(courseId)) != null ? (ref3 = ref2.course) != null ? ref3.periods : <span class="branch-1 cbranch-no" title="branch not covered" >void 0 </span>: <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>;
+    },
+    chaptersForDisplay: function(courseId, periodId) {
+      var chapters, period, ref2, ref3;
+      period = _.findWhere((ref2 = this._get(courseId)) != null ? (ref3 = ref2.course) != null ? ref3.periods : <span class="branch-1 cbranch-no" title="branch not covered" >void 0 </span>: <span class="branch-1 cbranch-no" title="branch not covered" >void 0,</span> {
+        id: periodId
+      });
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!period) {
+<span class="cstat-no" title="statement not covered" >        return [];</span>
+      }
+      chapters = _.map(period.chapters, <span class="fstat-no" title="function not covered" >function(chapter) {</span>
+<span class="cstat-no" title="statement not covered" >        var valid_sections;</span>
+<span class="cstat-no" title="statement not covered" >        valid_sections = _.select(chapter.pages, <span class="fstat-no" title="function not covered" >function(page) {</span></span>
+<span class="cstat-no" title="statement not covered" >          var total;</span>
+<span class="cstat-no" title="statement not covered" >          total = page.completed + page.in_progress + page.not_started;</span>
+<span class="cstat-no" title="statement not covered" >          page.completed_percentage = page.completed / total;</span>
+<span class="cstat-no" title="statement not covered" >          return page.completed_percentage &gt; 0.1;</span>
+        });
+<span class="cstat-no" title="statement not covered" >        chapter.valid_sections = _.sortBy(valid_sections, <span class="fstat-no" title="function not covered" >function(page) {</span></span>
+<span class="cstat-no" title="statement not covered" >          return page.chapter_section[1] || 0;</span>
+        }).reverse();
+<span class="cstat-no" title="statement not covered" >        return chapter;</span>
+      });
+      return _.select(chapters.reverse(), <span class="fstat-no" title="function not covered" >function(chapter) {</span>
+<span class="cstat-no" title="statement not covered" >        var ref4;</span>
+<span class="cstat-no" title="statement not covered" >        return (ref4 = chapter.valid_sections) != null ? ref4.length : void 0;</span>
+      });
+    }
+  }
+};
+&nbsp;
+extendConfig(DashboardConfig, new CrudConfig());
+&nbsp;
+ref2 = makeSimpleStore(DashboardConfig), actions = ref2.actions, store = ref2.store;
+&nbsp;
+module.exports = {
+  CCDashboardActions: actions,
+  CCDashboardStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

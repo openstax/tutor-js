@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/helpers/analytics.coffee</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/helpers/analytics.coffee</span></h1>
+    <h2>
+        Statements: <span class="metric">33.33% <small>(32 / 96)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">57.14% <small>(8 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">23.08% <small>(6 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">33.33% <small>(32 / 96)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/helpers/</a> &#187; analytics.coffee</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var Analytics, CurrentUserStore, DestinationHelper, Events, GA, HistoryLocation, Router, Translators, _;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+CurrentUserStore = require('../flux/current-user').CurrentUserStore;
+&nbsp;
+HistoryLocation = require('react-router').HistoryLocation;
+&nbsp;
+DestinationHelper = require('../helpers/routes-and-destinations');
+&nbsp;
+Events = {
+  viewTaskStep: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return Analytics.sendEvent('Course', 'Work', {</span>
+      label: courseId
+    });
+  },
+  viewStudentDashboard: function(arg) {
+    var courseId;
+    courseId = arg.courseId;
+    return Analytics.sendEvent('Student', 'Dashboard', {
+      label: courseId
+    });
+  }
+};
+&nbsp;
+Translators = {
+  dashboard: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/student/choose-course/" + courseId;</span>
+  },
+  viewPractice: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/student/practice/" + courseId;</span>
+  },
+  viewPerformanceForecast: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/student/performance-forecast/" + courseId;</span>
+  },
+  viewStudentDashboard: function(arg) {
+    var courseId;
+    courseId = arg.courseId;
+    return "/student/dashboard/" + courseId;
+  },
+  calendarByDate: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/calendar/" + courseId;</span>
+  },
+  viewTeacherPerformanceForecast: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/performance-forecast/" + courseId;</span>
+  },
+  viewScores: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/student-scores/" + courseId;</span>
+  },
+  courseSettings: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/roster/" + courseId;</span>
+  },
+  editReading: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/assignment/edit/reading/" + courseId;</span>
+  },
+  editHomework: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/assignment/edit/homework/" + courseId;</span>
+  },
+  editExternal: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/assignment/edit/external/" + courseId;</span>
+  },
+  createReading: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/assignment/create/reading/" + courseId;</span>
+  },
+  createHomework: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/assignment/create/homework/" + courseId;</span>
+  },
+  createExternal: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/assignment/create/external/" + courseId;</span>
+  },
+  calendarViewPlanStats: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/metrics/quick/" + courseId;</span>
+  },
+  reviewTask: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/teacher/metrics/review/" + courseId;</span>
+  },
+  viewReferenceBook: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/reference-view/" + courseId;</span>
+  },
+  viewReferenceBookSection: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/reference-view/" + courseId;</span>
+  },
+  viewReferenceBookPage: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return "/reference-view/" + courseId;</span>
+  },
+  viewTaskStep: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, role;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = arg.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    role = CurrentUserStore.getCourseRole(courseId, true);</span>
+<span class="cstat-no" title="statement not covered" >    return "/" + role + "/task-step/" + courseId;</span>
+  }
+};
+&nbsp;
+GA = void 0;
+&nbsp;
+Analytics = {
+  setTracker: function(tracker) {
+    return GA = tracker;
+  },
+  sendPageView: function(url) {
+    return typeof GA === "function" ? GA('send', 'pageview', url) : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+  },
+  onNavigation: function(change, router) {
+    var name, params, path, route;
+    if (!GA) {
+      return;
+    }
+    route = DestinationHelper.routeFromPath(change.path, router.match);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!route) {
+<span class="cstat-no" title="statement not covered" >      return this.sendPageView("/not-found/" + change.path);</span>
+    }
+    params = router.getCurrentParams();
+    path = (typeof Translators[name = route.name] === "function" ? Translators[name](params) : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> || <span class="branch-1 cbranch-no" title="branch not covered" >change.path;</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (Events[route.name]) {
+      GA('set', 'page', path);
+      Events[route.name](params);
+      return this.sendPageView();
+    } else {
+<span class="cstat-no" title="statement not covered" >      return this.sendPageView(path);</span>
+    }
+  },
+  sendEvent: function(category, action, attrs) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!GA) {
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+    return GA('send', 'event', category, action, attrs.label, attrs.value);
+  }
+};
+&nbsp;
+module.exports = Analytics;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

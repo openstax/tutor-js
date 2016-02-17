@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/dialog.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/dialog.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">22.22% <small>(6 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 3)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">22.22% <small>(6 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/components/</a> &#187; dialog.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, CloseButton, React, TutorDialog;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+TutorDialog = require('./tutor-dialog');
+&nbsp;
+CloseButton = require('openstax-react-components').CloseButton;
+&nbsp;
+&nbsp;
+/*
+&lt;Dialog
+  className='my-dialog-class'
+  header='Dialog Title'
+  confirmMsg='Are you sure you want to close?'
+  isChanged={-&gt; true}
+  onCancel={-&gt; alert 'Cancelling'}
+  &gt;
+  body text
+&lt;/Dialog&gt;
+ */
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'Dialog',
+  propTypes: {
+    header: React.PropTypes.node.isRequired,
+    onCancel: React.PropTypes.func.isRequired,
+    isChanged: React.PropTypes.func,
+    confirmMsg: React.PropTypes.string,
+    footer: React.PropTypes.node,
+    cancel: React.PropTypes.any,
+    primary: React.PropTypes.node,
+    onPrimary: React.PropTypes.func
+  },
+  onCancel: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var confirmMsg, isChanged, onCancel, ref;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, isChanged = ref.isChanged, confirmMsg = ref.confirmMsg, onCancel = ref.onCancel;</span>
+<span class="cstat-no" title="statement not covered" >    if ((typeof isChanged === "function" ? isChanged() : void 0) &amp;&amp; confirmMsg) {</span>
+<span class="cstat-no" title="statement not covered" >      return TutorDialog.show({</span>
+        title: 'Unsaved Changes',
+        body: confirmMsg
+      }).then(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >        return onCancel();</span>
+      });
+    } else {
+<span class="cstat-no" title="statement not covered" >      return onCancel();</span>
+    }
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var cancel, cancelBtn, className, classes, closeBtn, footer, header, isChanged, primary, ref;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, className = ref.className, header = ref.header, footer = ref.footer, primary = ref.primary, cancel = ref.cancel, isChanged = ref.isChanged;</span>
+<span class="cstat-no" title="statement not covered" >    if (cancel) {</span>
+<span class="cstat-no" title="statement not covered" >      cancelBtn = React.createElement(BS.Button, {</span>
+        "aria-role": 'close',
+        "onClick": this.onCancel
+      }, cancel);
+    }
+<span class="cstat-no" title="statement not covered" >    closeBtn = React.createElement(CloseButton, {</span>
+      "onClick": this.onCancel
+    });
+<span class="cstat-no" title="statement not covered" >    header = [header, closeBtn];</span>
+<span class="cstat-no" title="statement not covered" >    if (footer || primary || cancelBtn) {</span>
+<span class="cstat-no" title="statement not covered" >      footer = [primary, cancelBtn, footer];</span>
+    }
+<span class="cstat-no" title="statement not covered" >    classes = ['dialog default-dialog'];</span>
+<span class="cstat-no" title="statement not covered" >    if (typeof isChanged === "function" ? isChanged() : void 0) {</span>
+<span class="cstat-no" title="statement not covered" >      classes.push('is-changed');</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (className) {</span>
+<span class="cstat-no" title="statement not covered" >      classes.push(className);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    className = classes.join(' ');</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Panel, {</span>
+      "className": className,
+      "header": header,
+      "footer": footer
+    }, this.props.children);
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

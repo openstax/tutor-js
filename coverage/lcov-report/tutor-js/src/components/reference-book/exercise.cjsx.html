@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/reference-book/exercise.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/reference-book/</a> exercise.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>9/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var ArbitraryHtmlAndMath, LoadableItem, Question, React, ReferenceBookExercise, ReferenceBookExerciseActions, ReferenceBookExerciseShell, ReferenceBookExerciseStore, ReferenceBookMissingExercise, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+ref = require('../../flux/reference-book-exercise'), ReferenceBookExerciseActions = ref.ReferenceBookExerciseActions, ReferenceBookExerciseStore = ref.ReferenceBookExerciseStore;
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+ref1 = require('openstax-react-components'), ArbitraryHtmlAndMath = ref1.ArbitraryHtmlAndMath, Question = ref1.Question;
+&nbsp;
+ReferenceBookMissingExercise = React.createClass({
+  displayName: 'ReferenceBookMissingExercise',
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    exerciseAPIUrl = this.props.exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement("small", {</span>
+      "className": 'reference-book-missing-exercise',
+      "data-exercise-url": exerciseAPIUrl
+    }, React.createElement("i", null, "Missing exercise"));
+  }
+});
+&nbsp;
+ReferenceBookExercise = React.createClass({
+  displayName: 'ReferenceBookExercise',
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var exerciseAPIUrl, items, question, questions, ref2, ref3;</span>
+<span class="cstat-no" title="statement not covered" >    exerciseAPIUrl = this.props.exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    items = ReferenceBookExerciseStore.get(exerciseAPIUrl).items;</span>
+<span class="cstat-no" title="statement not covered" >    if (!((items != null ? items.length : void 0) &amp;&amp; ((items != null ? (ref2 = items[0]) != null ? (ref3 = ref2.questions) != null ? ref3[0] : void 0 : void 0 : void 0) != null))) {</span>
+<span class="cstat-no" title="statement not covered" >      console.warn("WARNING: " + exerciseAPIUrl + " appears to be missing.");</span>
+<span class="cstat-no" title="statement not covered" >      return React.createElement(ReferenceBookMissingExercise, {</span>
+        "exerciseAPIUrl": exerciseAPIUrl
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    questions = items[0].questions;</span>
+<span class="cstat-no" title="statement not covered" >    question = questions[0];</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(Question, {</span>
+      "model": question
+    });
+  }
+});
+&nbsp;
+ReferenceBookExerciseShell = React.createClass({
+  displayName: 'ReferenceBookExerciseShell',
+  isLoading: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    exerciseAPIUrl = this.props.exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    return ReferenceBookExerciseStore.isLoading(exerciseAPIUrl) || ReferenceBookExerciseStore.isQueued(exerciseAPIUrl);</span>
+  },
+  load: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    exerciseAPIUrl = this.props.exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    if (!this.isLoading()) {</span>
+<span class="cstat-no" title="statement not covered" >      return ReferenceBookExerciseActions.load(exerciseAPIUrl);</span>
+    }
+  },
+  renderExercise: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var exerciseHtml;</span>
+<span class="cstat-no" title="statement not covered" >    exerciseHtml = React.renderToStaticMarkup(React.createElement(ReferenceBookExercise, React.__spread({}, this.props)));</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(ArbitraryHtmlAndMath, {</span>
+      "html": exerciseHtml
+    });
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    exerciseAPIUrl = this.props.exerciseAPIUrl;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(LoadableItem, {</span>
+      "id": exerciseAPIUrl,
+      "bindEvent": "loaded." + exerciseAPIUrl,
+      "isLoading": this.isLoading,
+      "load": this.load,
+      "store": ReferenceBookExerciseStore,
+      "actions": ReferenceBookExerciseActions,
+      "renderItem": this.renderExercise,
+      "renderLoading": (<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >        return React.createElement("span", {</span>
+          "className": 'loading-exercise'
+        }, "Loading exercise...");
+      }),
+      "renderError": (<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >        return React.createElement(ReferenceBookMissingExercise, null);</span>
+      })
+    });
+  }
+});
+&nbsp;
+module.exports = {
+  ReferenceBookExercise: ReferenceBookExercise,
+  ReferenceBookExerciseShell: ReferenceBookExerciseShell
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

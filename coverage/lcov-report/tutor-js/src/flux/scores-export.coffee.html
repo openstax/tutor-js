@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/scores-export.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> scores-export.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>19/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">28.57% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>19/38</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CrudConfig, JobActions, JobCrudConfig, JobListenerConfig, JobStore, ScoresExportConfig, _, actions, extendConfig, makeSimpleStore, moment, ref, ref1, ref2, store,
+  slice = [].slice;
+&nbsp;
+ref = require('./helpers'), CrudConfig = ref.CrudConfig, makeSimpleStore = ref.makeSimpleStore, extendConfig = ref.extendConfig;
+&nbsp;
+ref1 = require('./job'), JobActions = ref1.JobActions, JobStore = ref1.JobStore;
+&nbsp;
+JobListenerConfig = require('../helpers/job').JobListenerConfig;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+moment = require('moment');
+&nbsp;
+ScoresExportConfig = {
+  _loaded: function(obj, id) {
+    return this.emit('loaded', id);
+  },
+  getJobIdFromJobUrl: <span class="fstat-no" title="function not covered" >function(jobUrl) {</span>
+<span class="cstat-no" title="statement not covered" >    var jobId, jobUrlSegments;</span>
+<span class="cstat-no" title="statement not covered" >    jobUrlSegments = jobUrl.split('/api/jobs/');</span>
+<span class="cstat-no" title="statement not covered" >    if (jobUrlSegments[1] != null) {</span>
+<span class="cstat-no" title="statement not covered" >      jobId = jobUrlSegments[1];</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return jobId;</span>
+  },
+  _getId: <span class="fstat-no" title="function not covered" >function(obj, id) {</span>
+<span class="cstat-no" title="statement not covered" >    var job, jobId;</span>
+<span class="cstat-no" title="statement not covered" >    job = obj.job;</span>
+<span class="cstat-no" title="statement not covered" >    jobId = this.getJobIdFromJobUrl(job);</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      jobId: jobId,
+      id: id
+    };
+  },
+  exports: {
+    getLatestExport: function(id) {
+      var perfExports;
+      perfExports = this._get(id);
+      return _.chain(perfExports).sortBy(<span class="fstat-no" title="function not covered" >function(perfExport) {</span>
+<span class="cstat-no" title="statement not covered" >        return perfExport.created_at;</span>
+      }).last().value();
+    }
+  }
+};
+&nbsp;
+JobCrudConfig = extendConfig(new JobListenerConfig(), new CrudConfig());
+&nbsp;
+extendConfig(ScoresExportConfig, JobCrudConfig);
+&nbsp;
+ScoresExportConfig.exports.isExported = ScoresExportConfig.exports.isSucceeded;
+&nbsp;
+ScoresExportConfig.exports.isExporting = ScoresExportConfig.exports.isProgressing;
+&nbsp;
+ScoresExportConfig["export"] = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var args, ref2;</span>
+<span class="cstat-no" title="statement not covered" >  args = 1 &lt;= arguments.length ? slice.call(arguments, 0) : [];</span>
+<span class="cstat-no" title="statement not covered" >  (ref2 = this.que).call.apply(ref2, [this].concat(slice.call(args)));</span>
+<span class="cstat-no" title="statement not covered" >  return this.emitChange();</span>
+};
+&nbsp;
+ScoresExportConfig.exported = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var args, id, jobId, ref2, ref3;</span>
+<span class="cstat-no" title="statement not covered" >  args = 1 &lt;= arguments.length ? slice.call(arguments, 0) : [];</span>
+<span class="cstat-no" title="statement not covered" >  (ref2 = this.queued).call.apply(ref2, [this].concat(slice.call(args)));</span>
+<span class="cstat-no" title="statement not covered" >  ref3 = this._getId.apply(this, args), id = ref3.id, jobId = ref3.jobId;</span>
+<span class="cstat-no" title="statement not covered" >  return this.startChecking.call(this, id, jobId);</span>
+};
+&nbsp;
+ref2 = makeSimpleStore(ScoresExportConfig), actions = ref2.actions, store = ref2.store;
+&nbsp;
+module.exports = {
+  ScoresExportActions: actions,
+  ScoresExportStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/student-dashboard/progress-guide.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/student-dashboard/progress-guide.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">94.23% <small>(49 / 52)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(4 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">90.91% <small>(10 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">94.23% <small>(49 / 52)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/student-dashboard/</a> &#187; progress-guide.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">150</span>
+<span class="cline-any cline-yes">150</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49</span>
+<span class="cline-any cline-yes">49</span>
+<span class="cline-any cline-yes">49</span>
+<span class="cline-any cline-yes">49</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26</span>
+<span class="cline-any cline-yes">49</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, ChapterSection, ChapterSectionMixin, LoadableItem, NUM_SECTIONS, PerformanceForecast, PerformanceForecastColorKey, PerformanceForecastSection, PracticeButton, ProgressGuide, ProgressGuidePanels, React, S, Section, SpyMode, _;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+SpyMode = require('openstax-react-components').SpyMode;
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+S = require('../../helpers/string');
+&nbsp;
+PerformanceForecast = require('../../flux/performance-forecast');
+&nbsp;
+ChapterSection = require('../task-plan/chapter-section');
+&nbsp;
+ChapterSectionMixin = require('openstax-react-components').ChapterSectionMixin;
+&nbsp;
+PerformanceForecastSection = require('../performance-forecast/section');
+&nbsp;
+PerformanceForecastColorKey = require('../performance-forecast/color-key');
+&nbsp;
+PracticeButton = require('../performance-forecast/practice-button');
+&nbsp;
+Section = require('../performance-forecast/section');
+&nbsp;
+NUM_SECTIONS = 4;
+&nbsp;
+ProgressGuide = React.createClass({
+  displayName: 'ProgressGuide',
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  propTypes: {
+    courseId: React.PropTypes.string.isRequired,
+    sampleSizeThreshold: React.PropTypes.number.isRequired
+  },
+  onPractice: <span class="fstat-no" title="function not covered" >function(section) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.context.router.transitionTo('viewPractice', {</span>
+      courseId: this.props.courseId
+    }, {
+      page_ids: section.page_ids
+    });
+  },
+  render: function() {
+    var courseId, guide, i, section, sections;
+    courseId = this.props.courseId;
+    guide = PerformanceForecast.Student.store.get(courseId);
+    sections = PerformanceForecast.Helpers.recentSections(PerformanceForecast.Student.store.getAllSections(courseId));
+    return React.createElement("div", {
+      "className": 'progress-guide'
+    }, React.createElement("h1", {
+      "className": 'panel-title'
+    }, "Performance Forecast"), React.createElement("h2", {
+      "className": 'recent'
+    }, "Recent topics"), React.createElement("div", {
+      "className": 'guide-group'
+    }, React.createElement("div", {
+      "className": 'chapter-panel'
+    }, (function() {
+      var j, len, results;
+      results = [];
+      for (i = j = 0, len = sections.length; j &lt; len; i = ++j) {
+        section = sections[i];
+        results.push(React.createElement(Section, React.__spread({
+          "key": i,
+          "section": section,
+          "onPractice": this.onPractice
+        }, this.props, {
+          "sampleSizeThreshold": 3.
+        })));
+      }
+      return results;
+    }).call(this))), React.createElement(PerformanceForecastColorKey, null));
+  }
+});
+&nbsp;
+ProgressGuidePanels = React.createClass({displayName: "ProgressGuidePanels",
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  propTypes: {
+    courseId: React.PropTypes.string.isRequired,
+    sampleSizeThreshold: React.PropTypes.number.isRequired
+  },
+  mixins: [ChapterSectionMixin],
+  viewPerformanceForecast: function() {
+    return this.context.router.transitionTo('viewPerformanceForecast', {
+      courseId: this.props.courseId
+    });
+  },
+  renderEmpty: function(sections) {
+    var section;
+    return React.createElement("div", {
+      "className": 'progress-guide empty'
+    }, React.createElement("div", {
+      "className": 'actions-box'
+    }, React.createElement("h1", {
+      "className": 'panel-title'
+    }, "Performance Forecast"), React.createElement("p", null, "The performance forecast is an estimate of your current understanding of a topic.\nIt is a personalized display based on your answers to reading questions,\nhomework problems, and previous practices."), React.createElement("p", null, "This area will fill in with topics as you complete your assignments"), React.createElement(SpyMode.Content, null, React.createElement("ul", null, React.createElement("li", null, sections.length, " sections were returned by the performance forecast"), (function() {
+      var j, len, results;
+      results = [];
+      for (j = 0, len = sections.length; j &lt; len; j++) {
+<span class="cstat-no" title="statement not covered" >        section = sections[j];</span>
+<span class="cstat-no" title="statement not covered" >        results.push(React.createElement("li", null, this.sectionFormat(section.chapter_section), " section.title"));</span>
+      }
+      return results;
+    }).call(this)))));
+  },
+  render: function() {
+    var practiceSections, recent, sections;
+    sections = PerformanceForecast.Student.store.getAllSections(this.props.courseId);
+    recent = PerformanceForecast.Helpers.recentSections(sections);
+    if (_.isEmpty(recent)) {
+      return this.renderEmpty(sections);
+    }
+    practiceSections = PerformanceForecast.Helpers.weakestSections(sections);
+    if (_.isEmpty(practiceSections)) {
+      practiceSections = recent;
+    }
+    return React.createElement("div", {
+      "className": 'progress-guide'
+    }, React.createElement("div", {
+      "className": 'actions-box'
+    }, React.createElement(ProgressGuide, {
+      "sections": recent,
+      "courseId": this.props.courseId
+    }), React.createElement(PracticeButton, {
+      "ref": 'practiceBtn',
+      "title": 'Practice my weakest topics',
+      "courseId": this.props.courseId,
+      "sections": practiceSections
+    }), React.createElement(BS.Button, {
+      "onClick": this.viewPerformanceForecast,
+      "className": 'view-performance-forecast'
+    }, "View All Topics")));
+  }
+});
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'ProgressGuideShell',
+  propTypes: {
+    courseId: React.PropTypes.string.isRequired,
+    sampleSizeThreshold: React.PropTypes.number.isRequired
+  },
+  renderLoading: function(refreshButton) {
+    return React.createElement("div", {
+      "className": 'actions-box loadable is-loading'
+    }, "Loading progress information... ", refreshButton);
+  },
+  render: function() {
+    return React.createElement(LoadableItem, {
+      "id": this.props.courseId,
+      "store": PerformanceForecast.Student.store,
+      "renderLoading": this.renderLoading,
+      "actions": PerformanceForecast.Student.actions,
+      "renderItem": ((function(_this) {
+        return function() {
+          return React.createElement(ProgressGuidePanels, React.__spread({}, _this.props));
+        };
+      })(this))
+    });
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/scores/table-hs.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/scores/</a> table-hs.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.31% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>61/64</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">57.14% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.31% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>61/64</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-yes">69×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">109×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">847×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-yes">1371×</span>
+<span class="cline-any cline-yes">1371×</span>
+<span class="cline-any cline-yes">1371×</span>
+<span class="cline-any cline-yes">1371×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">978×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">393×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-yes">227×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var AbsentCell, BS, Column, ColumnGroup, ExternalCell, FixedDataTable, HSNameCell, HomeworkCell, QuickStatsShell, React, ReadingCell, Router, SortingHeader, Table, Time, _;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+Time = require('../time');
+&nbsp;
+ReadingCell = require('./reading-cell');
+&nbsp;
+HomeworkCell = require('./homework-cell');
+&nbsp;
+HSNameCell = require('./name-cell-hs');
+&nbsp;
+AbsentCell = require('./absent-cell');
+&nbsp;
+ExternalCell = require('./external-cell');
+&nbsp;
+SortingHeader = require('./sorting-header');
+&nbsp;
+FixedDataTable = require('fixed-data-table');
+&nbsp;
+Table = FixedDataTable.Table;
+&nbsp;
+Column = FixedDataTable.Column;
+&nbsp;
+ColumnGroup = FixedDataTable.ColumnGroup;
+&nbsp;
+Router = require('react-router');
+&nbsp;
+QuickStatsShell = require('./quick-external-stats').QuickStatsShell;
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'HSTable',
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  propTypes: {
+    courseId: React.PropTypes.string.isRequired,
+    data: React.PropTypes.object.isRequired,
+    width: React.PropTypes.number.isRequired,
+    height: React.PropTypes.number.isRequired,
+    sort: React.PropTypes.object.isRequired,
+    onSort: React.PropTypes.func.isRequired,
+    colSetWidth: React.PropTypes.number.isRequired,
+    period_id: React.PropTypes.string,
+    periodIndex: React.PropTypes.number.isRequired,
+    firstDataColumn: React.PropTypes.number.isRequired
+  },
+  renderNameHeader: function() {
+    var customHeader, dueDateHeading, emptyCell, header, nameColumns, studentIdHeader;
+    emptyCell = React.createElement("div", {
+      "className": 'blank'
+    });
+    studentIdHeader = React.createElement("span", {
+      "className": 'student-id'
+    }, "Student ID");
+    header = React.createElement(SortingHeader, {
+      "sortKey": 'name',
+      "sortState": this.props.sort,
+      "onSort": this.props.onSort
+    }, React.createElement("span", null, "Student Name"));
+    dueDateHeading = React.createElement("div", null, "Due Date");
+    customHeader = React.createElement("div", {
+      "className": 'assignment-header-cell'
+    }, dueDateHeading, header);
+    nameColumns = 1;
+    return React.createElement(ColumnGroup, {
+      "fixed": true,
+      "groupHeaderRenderer": (function() {
+        return emptyCell;
+      })
+    }, React.createElement(Column, {
+      "width": this.props.colSetWidth * nameColumns,
+      "flexGrow": 0.,
+      "allowCellsRecycling": true,
+      "isResizable": false,
+      "dataKey": '0',
+      "fixed": true,
+      "cellRenderer": (function() {
+        return this.cellData;
+      }),
+      "headerRenderer": (function() {
+        return customHeader;
+      })
+    }));
+  },
+  renderHeadingCell: function(heading, i) {
+    var customHeader, dueDates, linkParams, review, sortingHeader, summary;
+    i += this.props.firstDataColumn;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (heading.type === 'external') {
+<span class="cstat-no" title="statement not covered" >      summary = React.createElement(QuickStatsShell, {</span>
+        "className": 'summary',
+        "id": "" + heading.plan_id,
+        "periodId": this.props.period_id
+      });
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (heading.plan_id != null) {
+      linkParams = {
+        id: heading.plan_id,
+        periodIndex: this.props.periodIndex,
+        courseId: this.props.courseId
+      };
+      review = React.createElement(Router.Link, {
+        "to": 'reviewTaskPeriod',
+        "params": linkParams,
+        "className": 'review-plan btn btn-default'
+      }, "Review");
+    }
+    if (heading.attempted_average) {
+      summary = React.createElement("span", {
+        "className": 'summary'
+      }, (heading.attempted_average * 100).toFixed(0), "% avg");
+    }
+    sortingHeader = React.createElement(SortingHeader, {
+      "type": heading.type,
+      "sortKey": i,
+      "sortState": this.props.sort,
+      "onSort": this.props.onSort
+    }, heading.title);
+    dueDates = React.createElement("div", null, React.createElement(Time, {
+      "date": heading.due_at,
+      "format": 'shortest'
+    }));
+    customHeader = React.createElement("div", {
+      "data-assignment-type": "" + heading.type,
+      "className": 'assignment-header-cell'
+    }, dueDates, React.createElement("div", null, summary, review));
+    return React.createElement(ColumnGroup, {
+      "key": i,
+      "groupHeaderRenderer": (function() {
+        return sortingHeader;
+      })
+    }, React.createElement(Column, {
+      "label": heading.title,
+      "headerRenderer": (function() {
+        return customHeader;
+      }),
+      "cellRenderer": (function() {
+        return this.cellData;
+      }),
+      "width": this.props.colSetWidth,
+      "flexGrow": 1.,
+      "allowCellsRecycling": true,
+      "isResizable": false,
+      "dataKey": i
+    }));
+  },
+  renderStudentRow: function(student_data) {
+    var columns, j, len, props, ref, task;
+    props = {
+      student: student_data,
+      courseId: this.props.courseId,
+      roleId: student_data.role
+    };
+    columns = [
+      React.createElement(HSNameCell, React.__spread({
+        "key": 'name'
+      }, props))
+    ];
+    ref = student_data.data;
+    for (j = 0, len = ref.length; j &lt; len; j++) {
+      task = ref[j];
+      props.task = task;
+      columns.push((function() {
+        switch ((task != null ? task.type : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> || <span class="branch-1 cbranch-no" title="branch not covered" >'null')</span> {
+<span class="branch-0 cbranch-no" title="branch not covered" >          case 'null':</span>
+<span class="cstat-no" title="statement not covered" >            return React.createElement(AbsentCell, React.__spread({</span>
+              "key": 'absent'
+            }, props));
+          case 'reading':
+            return React.createElement(ReadingCell, React.__spread({
+              "key": 'reading'
+            }, props));
+          case 'homework':
+            return React.createElement(HomeworkCell, React.__spread({
+              "key": 'homework'
+            }, props));
+<span class="branch-3 cbranch-no" title="branch not covered" >          case 'external':</span>
+<span class="cstat-no" title="statement not covered" >            return React.createElement(ExternalCell, React.__spread({</span>
+              "key": 'extern'
+            }, props));
+        }
+      })());
+    }
+    return columns;
+  },
+  render: function() {
+    var rowGetter;
+    rowGetter = (function(_this) {
+      return function(rowIndex) {
+        return _this.renderStudentRow(_this.props.data.rows[rowIndex]);
+      };
+    })(this);
+    return React.createElement(Table, {
+      "rowHeight": 46.,
+      "rowGetter": rowGetter,
+      "rowsCount": this.props.data.rows.length,
+      "width": this.props.width,
+      "height": this.props.height,
+      "headerHeight": 92.,
+      "groupHeaderHeight": 50.
+    }, this.renderNameHeader(), _.map(this.props.data.headings, this.renderHeadingCell));
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task/viewing-as-student-name.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/task/viewing-as-student-name.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">23.33% <small>(7 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">23.33% <small>(7 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task/</a> &#187; viewing-as-student-name.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var LoadableItem, Name, React, ScoresActions, ScoresStore, ViewingAsStudentName, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+Name = require('../name');
+&nbsp;
+ref = require('../../flux/scores'), ScoresStore = ref.ScoresStore, ScoresActions = ref.ScoresActions;
+&nbsp;
+ViewingAsStudentName = React.createClass({
+  displayName: 'ViewingAsStudentName',
+  propTypes: {
+    courseId: React.PropTypes.string.isRequired,
+    taskId: React.PropTypes.string.isRequired,
+    className: React.PropTypes.string
+  },
+  getInitialState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.getStudentState();</span>
+  },
+  getStudentState: <span class="fstat-no" title="function not covered" >function(props) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, ref1, student, taskId;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = props || this.props, courseId = ref1.courseId, taskId = ref1.taskId;</span>
+<span class="cstat-no" title="statement not covered" >    student = ScoresStore.getStudentOfTask(courseId, taskId);</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      student: student
+    };
+  },
+  updateStudent: <span class="fstat-no" title="function not covered" >function(props) {</span>
+<span class="cstat-no" title="statement not covered" >    if (props == null) {</span>
+<span class="cstat-no" title="statement not covered" >      props = this.props;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.setState(this.getStudentState(props));</span>
+  },
+  componentWillMount: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, ref1, student, taskId;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, courseId = ref1.courseId, taskId = ref1.taskId;</span>
+<span class="cstat-no" title="statement not covered" >    student = this.state.student;</span>
+<span class="cstat-no" title="statement not covered" >    if (student == null) {</span>
+<span class="cstat-no" title="statement not covered" >      ScoresStore.once('change', this.updateStudent);</span>
+<span class="cstat-no" title="statement not covered" >      return ScoresActions.load(courseId);</span>
+    }
+  },
+  componentWillReceiveProps: <span class="fstat-no" title="function not covered" >function(nextProps) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.updateStudent(nextProps);</span>
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var className, student, studentName;</span>
+<span class="cstat-no" title="statement not covered" >    className = this.props.className;</span>
+<span class="cstat-no" title="statement not covered" >    studentName = null;</span>
+<span class="cstat-no" title="statement not covered" >    className += ' task-student';</span>
+<span class="cstat-no" title="statement not covered" >    student = this.state.student;</span>
+<span class="cstat-no" title="statement not covered" >    if (student != null) {</span>
+<span class="cstat-no" title="statement not covered" >      studentName = React.createElement("div", {</span>
+        "className": className
+      }, React.createElement(Name, React.__spread({}, student)));
+    }
+<span class="cstat-no" title="statement not covered" >    return studentName;</span>
+  }
+});
+&nbsp;
+module.exports = {
+  ViewingAsStudentName: ViewingAsStudentName
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

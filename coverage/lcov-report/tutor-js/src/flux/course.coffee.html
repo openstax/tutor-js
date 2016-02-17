@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/course.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> course.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">28.17% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>20/71</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">18.52% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/27</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">28.17% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>20/71</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">133×</span>
+<span class="cline-any cline-yes">133×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125×</span>
+<span class="cline-any cline-yes">125×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92×</span>
+<span class="cline-any cline-yes">92×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CourseConfig, CrudConfig, DEFAULT_COURSE_TIMEZONE, PeriodHelper, TaskActions, TaskStore, _, actions, extendConfig, makeSimpleStore, ref, ref1, ref2, store;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+ref = require('./task'), TaskActions = ref.TaskActions, TaskStore = ref.TaskStore;
+&nbsp;
+ref1 = require('./helpers'), CrudConfig = ref1.CrudConfig, makeSimpleStore = ref1.makeSimpleStore, extendConfig = ref1.extendConfig;
+&nbsp;
+PeriodHelper = require('../helpers/period');
+&nbsp;
+DEFAULT_COURSE_TIMEZONE = 'US/Central';
+&nbsp;
+CourseConfig = {
+  _practices: {},
+  _asyncStatusPractices: {},
+  _isPractice: <span class="fstat-no" title="function not covered" >function(obj) {</span>
+<span class="cstat-no" title="statement not covered" >    return obj.steps != null;</span>
+  },
+  createPractice: <span class="fstat-no" title="function not covered" >function(courseId, params) {</span>},
+  createdPractice: <span class="fstat-no" title="function not covered" >function(obj, courseId, params) {</span>
+<span class="cstat-no" title="statement not covered" >    obj.created_for = params;</span>
+<span class="cstat-no" title="statement not covered" >    return this._loadedPractice(obj, courseId);</span>
+  },
+  _guides: {},
+  _asyncStatusGuides: {},
+  loadGuide: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    delete this._guides[courseId];</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatusGuides[courseId] = 'loading';</span>
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  loadedGuide: <span class="fstat-no" title="function not covered" >function(obj, courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    this._guides[courseId] = obj;</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatusGuides[courseId] = 'loaded';</span>
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  loadPractice: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    delete this._practices[courseId];</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatusPractices[courseId] = 'loading';</span>
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  loadedPractice: <span class="fstat-no" title="function not covered" >function(obj, courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    this._loadedPractice(obj, courseId);</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatusPractices[courseId] = 'loaded';</span>
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  _loadedPractice: <span class="fstat-no" title="function not covered" >function(obj, courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    if (obj.type == null) {</span>
+<span class="cstat-no" title="statement not covered" >      obj.type = 'practice';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    this._practices[courseId] = obj;</span>
+<span class="cstat-no" title="statement not covered" >    TaskActions.loaded(obj, obj.id);</span>
+<span class="cstat-no" title="statement not covered" >    return this.emit('practice.loaded', obj.id);</span>
+  },
+  _loaded: function(obj, id) {
+    return this.emit('course.loaded', obj.id);
+  },
+  _reset: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._guides = {};</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatusGuides = {};</span>
+<span class="cstat-no" title="statement not covered" >    this._practices = {};</span>
+<span class="cstat-no" title="statement not covered" >    return this._asyncStatusPractices = {};</span>
+  },
+  exports: {
+    getGuide: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._guides[courseId] || (<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('BUG: Not loaded yet');</span>
+      })();
+    },
+    isGuideLoading: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._asyncStatusGuides[courseId] === 'loading';</span>
+    },
+    isGuideLoaded: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return !!this._guides[courseId];</span>
+    },
+    isPracticeLoading: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._asyncStatusPractices[courseId] === 'loading';</span>
+    },
+    isPracticeLoaded: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return !!this._practices[courseId];</span>
+    },
+    getPracticeId: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      var ref2;</span>
+<span class="cstat-no" title="statement not covered" >      return (ref2 = this._practices[courseId]) != null ? ref2.id : void 0;</span>
+    },
+    getPracticePageIds: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      var ref2, ref3;</span>
+<span class="cstat-no" title="statement not covered" >      return (ref2 = this._practices[courseId]) != null ? (ref3 = ref2.created_for) != null ? ref3.page_ids : void 0 : void 0;</span>
+    },
+    hasPractice: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._practices[courseId] != null;</span>
+    },
+    getPractice: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      var id, task;</span>
+<span class="cstat-no" title="statement not covered" >      if (this._practices[courseId] != null) {</span>
+<span class="cstat-no" title="statement not covered" >        id = this._practices[courseId].id;</span>
+<span class="cstat-no" title="statement not covered" >        task = TaskStore.get(id);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return task;</span>
+    },
+    validateCourseName: <span class="fstat-no" title="function not covered" >function(name, courses, active) {</span>
+<span class="cstat-no" title="statement not covered" >      var course, i, len;</span>
+<span class="cstat-no" title="statement not covered" >      for (i = 0, len = courses.length; i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        course = courses[i];</span>
+<span class="cstat-no" title="statement not covered" >        if (course.name === name) {</span>
+<span class="cstat-no" title="statement not covered" >          if (name !== active) {</span>
+<span class="cstat-no" title="statement not covered" >            return ['courseNameExists'];</span>
+          }
+        }
+<span class="cstat-no" title="statement not covered" >        if ((name == null) || name === '') {</span>
+<span class="cstat-no" title="statement not covered" >          return ['required'];</span>
+        }
+      }
+    },
+    getAppearanceCode: function(courseId) {
+      var ref2;
+      return ((ref2 = this._get(courseId)) != null ? ref2.appearance_code : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> || <span class="branch-1 cbranch-no" title="branch not covered" >'default';</span>
+    },
+    getName: function(courseId) {
+      var ref2;
+      return ((ref2 = this._get(courseId)) != null ? ref2.name : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> || <span class="branch-1 cbranch-no" title="branch not covered" >"";</span>
+    },
+    getPeriods: function(courseId) {
+      var periods, sortedPeriods;
+      periods = this._get(courseId).periods || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+      return sortedPeriods = PeriodHelper.sort(periods);
+    },
+    getTimezone: function(courseId) {
+      var ref2;
+      return ((ref2 = this._get(courseId)) != null ? ref2.timezone : void 0) || DEFAULT_COURSE_TIMEZONE;
+    },
+    isTeacher: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      var ref2;</span>
+<span class="cstat-no" title="statement not covered" >      return !!_.findWhere((ref2 = this._get(courseId)) != null ? ref2.roles : void 0, {</span>
+        type: 'teacher'
+      });
+    },
+    getByEcosystemId: <span class="fstat-no" title="function not covered" >function(ecosystemId) {</span>
+<span class="cstat-no" title="statement not covered" >      return _.findWhere(this._local, {</span>
+        ecosystem_id: ecosystemId
+      });
+    }
+  }
+};
+&nbsp;
+extendConfig(CourseConfig, new CrudConfig());
+&nbsp;
+ref2 = makeSimpleStore(CourseConfig), actions = ref2.actions, store = ref2.store;
+&nbsp;
+module.exports = {
+  CourseActions: actions,
+  CourseStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task-teacher-review/exercise.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/task-teacher-review/exercise.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">15.91% <small>(7 / 44)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">15.91% <small>(7 / 44)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task-teacher-review/</a> &#187; exercise.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var ArbitraryHtmlAndMath, BS, CardBody, FreeResponse, Question, React, TaskTeacherReviewExercise, _, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+ref = require('openstax-react-components'), ArbitraryHtmlAndMath = ref.ArbitraryHtmlAndMath, Question = ref.Question, CardBody = ref.CardBody, FreeResponse = ref.FreeResponse;
+&nbsp;
+TaskTeacherReviewExercise = React.createClass({
+  displayName: 'TaskTeacherReviewExercise',
+  propTypes: {
+    content: React.PropTypes.object.isRequired,
+    answers: React.PropTypes.array.isRequired,
+    answered_count: React.PropTypes.number.isRequired
+  },
+  getInitialState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      showAnswers: false
+    };
+  },
+  onChangeAnswerAttempt: <span class="fstat-no" title="function not covered" >function(answer) {</span>
+<span class="cstat-no" title="statement not covered" >    return console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.');</span>
+  },
+  toggleAnswers: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var showAnswers;</span>
+<span class="cstat-no" title="statement not covered" >    showAnswers = this.state.showAnswers;</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      showAnswers: !showAnswers
+    });
+  },
+  getQuestion: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var content;</span>
+<span class="cstat-no" title="statement not covered" >    content = this.props.content;</span>
+<span class="cstat-no" title="statement not covered" >    return content.questions[0];</span>
+  },
+  expectsFreeResponse: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var formats, question;</span>
+<span class="cstat-no" title="statement not covered" >    question = this.getQuestion();</span>
+<span class="cstat-no" title="statement not covered" >    formats = question.formats;</span>
+<span class="cstat-no" title="statement not covered" >    return formats.indexOf('free-response') &gt; -1;</span>
+  },
+  renderNoFreeResponse: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var freeResponsesClasses, header;</span>
+<span class="cstat-no" title="statement not covered" >    freeResponsesClasses = 'teacher-review-answers has-no-answers';</span>
+<span class="cstat-no" title="statement not covered" >    header = React.createElement("i", null, "No student text responses");</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Panel, {</span>
+      "header": header,
+      "className": freeResponsesClasses
+    });
+  },
+  renderFreeResponse: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var answers, freeResponses, freeResponsesClasses, question, showAnswers, toggleAnswersText;</span>
+<span class="cstat-no" title="statement not covered" >    answers = this.props.answers;</span>
+<span class="cstat-no" title="statement not covered" >    showAnswers = this.state.showAnswers;</span>
+<span class="cstat-no" title="statement not covered" >    question = this.getQuestion();</span>
+<span class="cstat-no" title="statement not covered" >    toggleAnswersText = "View student text responses (" + answers.length + ")";</span>
+<span class="cstat-no" title="statement not covered" >    if (showAnswers) {</span>
+<span class="cstat-no" title="statement not covered" >      toggleAnswersText = 'Hide student text responses';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    freeResponsesClasses = 'teacher-review-answers';</span>
+<span class="cstat-no" title="statement not covered" >    if (showAnswers) {</span>
+<span class="cstat-no" title="statement not covered" >      freeResponsesClasses += ' active';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    freeResponses = _.map(answers, <span class="fstat-no" title="function not covered" >function(answer, index) {</span></span>
+<span class="cstat-no" title="statement not covered" >      var freeResponseKey;</span>
+<span class="cstat-no" title="statement not covered" >      freeResponseKey = "free-response-" + question.id + "-" + index;</span>
+<span class="cstat-no" title="statement not covered" >      return React.createElement(FreeResponse, React.__spread({}, answer, {</span>
+        "key": freeResponseKey
+      }));
+    });
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Accordion, {</span>
+      "onSelect": this.toggleAnswers
+    }, React.createElement(BS.Panel, {
+      "header": toggleAnswersText,
+      "eventKey": question.id,
+      "className": freeResponsesClasses
+    }, freeResponses));
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var answered_count, answers, question, ref1, studentResponses;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, answers = ref1.answers, answered_count = ref1.answered_count;</span>
+<span class="cstat-no" title="statement not covered" >    question = this.getQuestion();</span>
+<span class="cstat-no" title="statement not covered" >    if (this.expectsFreeResponse()) {</span>
+<span class="cstat-no" title="statement not covered" >      studentResponses = answers.length ? this.renderFreeResponse() : this.renderNoFreeResponse();</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return React.createElement(CardBody, {</span>
+      "className": 'task-step openstax-exercise',
+      "pinned": false
+    }, React.createElement(Question, {
+      "model": question,
+      "answered_count": answered_count,
+      "type": 'teacher-review',
+      "exercise_uid": this.props.content.uid,
+      "onChangeAttempt": this.onChangeAnswerAttempt
+    }, studentResponses));
+  }
+});
+&nbsp;
+module.exports = TaskTeacherReviewExercise;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

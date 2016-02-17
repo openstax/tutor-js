@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/qa/view-book.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/qa/view-book.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">47.22% <small>(17 / 36)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">47.22% <small>(17 / 36)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/qa/</a> &#187; view-book.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, BookLink, EcosystemsStore, LoadableItem, QAContent, QAContentToggle, QAExercises, QAViewBook, React, ReferenceBook, ReferenceBookActions, ReferenceBookStore, SpyMode, TeacherContentToggle, UserActionsMenu, classnames, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+classnames = require('classnames');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+SpyMode = require('openstax-react-components').SpyMode;
+&nbsp;
+EcosystemsStore = require('../../flux/ecosystems').EcosystemsStore;
+&nbsp;
+ref = require('../../flux/reference-book'), ReferenceBookActions = ref.ReferenceBookActions, ReferenceBookStore = ref.ReferenceBookStore;
+&nbsp;
+ReferenceBook = require('../reference-book/reference-book');
+&nbsp;
+TeacherContentToggle = require('../reference-book/teacher-content-toggle');
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+QAContent = require('./content');
+&nbsp;
+QAExercises = require('./exercises');
+&nbsp;
+BookLink = require('./book-link');
+&nbsp;
+QAContentToggle = require('./content-toggle');
+&nbsp;
+UserActionsMenu = require('../navbar/user-actions-menu');
+&nbsp;
+QAViewBook = React.createClass({displayName: "QAViewBook",
+  propTypes: {
+    section: React.PropTypes.string,
+    ecosystemId: React.PropTypes.string.isRequired
+  },
+  getInitialState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      isShowingTeacherContent: true,
+      isShowingBook: false
+    };
+  },
+  renderNavbarControls: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var book, teacherContent;</span>
+<span class="cstat-no" title="statement not covered" >    if (this.state.isShowingBook) {</span>
+<span class="cstat-no" title="statement not covered" >      teacherContent = React.createElement(TeacherContentToggle, {</span>
+        "isShowing": this.state.isShowingTeacherContent,
+        "onChange": this.setTeacherContent
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Nav, {</span>
+      "navbar": true,
+      "right": true
+    }, React.createElement(BS.NavItem, null, teacherContent, React.createElement(QAContentToggle, {
+      "isShowingBook": this.state.isShowingBook,
+      "onChange": this.setContentShowing
+    })), React.createElement(BS.DropdownButton, {
+      "title": "Available Books",
+      "className": "available-books"
+    }, (<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      var i, len, ref1, results;</span>
+<span class="cstat-no" title="statement not covered" >      ref1 = EcosystemsStore.allBooks();</span>
+<span class="cstat-no" title="statement not covered" >      results = [];</span>
+<span class="cstat-no" title="statement not covered" >      for (i = 0, len = ref1.length; i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        book = ref1[i];</span>
+<span class="cstat-no" title="statement not covered" >        results.push(React.createElement("li", {</span>
+          "key": book.id,
+          "className": (this.props.ecosystemId === book.ecosystemId ? 'active' : void 0)
+        }, React.createElement(BookLink, {
+          "book": book
+        })));
+      }
+<span class="cstat-no" title="statement not covered" >      return results;</span>
+    }).call(this)), React.createElement(UserActionsMenu, null));
+  },
+  setContentShowing: <span class="fstat-no" title="function not covered" >function(visible) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      isShowingBook: visible.book
+    });
+  },
+  setTeacherContent: <span class="fstat-no" title="function not covered" >function(isShowing) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      isShowingTeacherContent: isShowing
+    });
+  },
+  renderBook: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var contentComponent, section;</span>
+<span class="cstat-no" title="statement not covered" >    section = this.props.section || ReferenceBookStore.getFirstSection(this.props.ecosystemId).join('.');</span>
+<span class="cstat-no" title="statement not covered" >    contentComponent = this.state.isShowingBook ? QAContent : QAExercises;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(SpyMode.Wrapper, null, React.createElement("div", {</span>
+      "className": "qa"
+    }, React.createElement(ReferenceBook, {
+      "pageNavRouterLinkTarget": 'QAViewBookSection',
+      "menuRouterLinkTarget": 'QAViewBookSection',
+      "navbarControls": this.renderNavbarControls(),
+      "section": section,
+      "className": classnames('is-teacher'),
+      "className": classnames({
+        'is-teacher': this.state.isShowingTeacherContent
+      }),
+      "ecosystemId": this.props.ecosystemId,
+      "contentComponent": contentComponent
+    })));
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(LoadableItem, {</span>
+      "id": this.props.ecosystemId,
+      "store": ReferenceBookStore,
+      "actions": ReferenceBookActions,
+      "renderItem": this.renderBook
+    });
+  }
+});
+&nbsp;
+module.exports = QAViewBook;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

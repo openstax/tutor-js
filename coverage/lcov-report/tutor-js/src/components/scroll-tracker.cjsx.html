@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/scroll-tracker.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/</a> scroll-tracker.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.71% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>54/63</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">55.56% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.36% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>19/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.71% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>54/63</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">245×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-yes">461×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">203×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var GetPositionMixin, React, ScrollTracker, ScrollTrackerParentMixin, _;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+GetPositionMixin = require('openstax-react-components').GetPositionMixin;
+&nbsp;
+ScrollTracker = {
+  mixins: [GetPositionMixin],
+  propTypes: {
+    setScrollPoint: React.PropTypes.func.isRequired,
+    unsetScrollPoint: React.PropTypes.func,
+    scrollState: React.PropTypes.object.isRequired
+  },
+  getInitialState: function() {
+    return {
+      scrollPoint: 0
+    };
+  },
+  setScrollPoint: function() {
+    var ref, scrollPoint, scrollState, setScrollPoint;
+    ref = this.props, setScrollPoint = ref.setScrollPoint, scrollState = ref.scrollState;
+    scrollPoint = this.getTopPosition(this.getDOMNode());
+    this.setState({
+      scrollPoint: scrollPoint
+    });
+    return setScrollPoint(scrollPoint, scrollState);
+  },
+  unsetScrollPoint: function() {
+    var unsetScrollPoint;
+    unsetScrollPoint = this.props.unsetScrollPoint;
+    return typeof unsetScrollPoint === "function" ? unsetScrollPoint(this.state.scrollPoint) : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+  },
+  componentDidMount: function() {
+    return this.setScrollPoint();
+  },
+  componentWillUnmount: function() {
+    return this.unsetScrollPoint();
+  }
+};
+&nbsp;
+ScrollTrackerParentMixin = {
+  getInitialState: function() {
+    return {
+      scrollPoints: [],
+      scrollState: {},
+      scrollTopBuffer: 0
+    };
+  },
+  setScrollTopBuffer: function() {
+    var scrollTopBuffer;
+    scrollTopBuffer = GetPositionMixin.getTopPosition(this.getDOMNode());
+    return this.setState({
+      scrollTopBuffer: scrollTopBuffer
+    });
+  },
+  setScrollPoint: function(scrollPoint, scrollState) {
+    var scrollPointData;
+    scrollPointData = _.extend({
+      scrollPoint: scrollPoint
+    }, scrollState);
+    this.state.scrollPoints.push(scrollPointData);
+    return this.sortScrollPoints();
+  },
+  unsetScrollPoint: function(unsetScrollPoint) {
+    this.state.scrollPoints = _.reject(this.state.scrollPoints, function(scrollPoint) {
+      return scrollPoint.scrollPoint === unsetScrollPoint;
+    });
+    return this.sortScrollPoints();
+  },
+  sortScrollPoints: function() {
+    var sortedDescScrollPoints;
+    sortedDescScrollPoints = _.sortBy(this.state.scrollPoints, function(scrollData) {
+      return -1 * scrollData.scrollPoint;
+    });
+    return this.setState({
+      scrollPoints: sortedDescScrollPoints
+    });
+  },
+  getScrollStateByScroll: function(scrollTop) {
+    var scrollState;
+    scrollState = _.find(this.state.scrollPoints, (function(_this) {
+      return function(scrollData) {
+        return scrollTop &gt; (scrollData.scrollPoint - _this.state.scrollTopBuffer - 2);
+      };
+    })(this));
+    return scrollState || <span class="branch-1 cbranch-no" title="branch not covered" >_.last(this.state.scrollPoints);</span>
+  },
+  getScrollStateByKey: <span class="fstat-no" title="function not covered" >function(stepKey) {</span>
+<span class="cstat-no" title="statement not covered" >    var scrollStateIndex;</span>
+<span class="cstat-no" title="statement not covered" >    scrollStateIndex = _.findLastIndex(this.state.scrollPoints, <span class="fstat-no" title="function not covered" >function(scrollData) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return scrollData.key === stepKey;</span>
+    });
+<span class="cstat-no" title="statement not covered" >    return this.state.scrollPoints[scrollStateIndex];</span>
+  },
+  setScrollState: function() {
+    var scrollState;
+    scrollState = this.getScrollStateByScroll(this.state.scrollTop);
+    this.setState({
+      scrollState: scrollState
+    });
+    return this.props.setScrollState(scrollState);
+  },
+  componentDidMount: function() {
+    this.setScrollTopBuffer();
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.props.currentStep != null) {
+<span class="cstat-no" title="statement not covered" >      return this.scrollToKey(this.props.currentStep);</span>
+    }
+  },
+  componentWillUpdate: function(nextProps, nextState) {
+    var willScrollStateKeyChange;
+    willScrollStateKeyChange = !(nextState.scrollState.key === this.state.scrollState.key);
+    if (willScrollStateKeyChange) {
+      return this.props.goToStep(nextState.scrollState.key);
+    }
+  },
+  componentDidUpdate: function(prevProps, prevState) {
+    var didCurrentStepChange, doesScrollStateMatch, ref, ref1;
+    doesScrollStateMatch = prevState.scrollState.key === ((ref = this.getScrollStateByScroll(this.state.scrollTop)) != null ? ref.key : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>;
+    didCurrentStepChange = !(this.props.currentStep === ((ref1 = prevState.scrollState) != null ? ref1.key : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>);
+    if (!doesScrollStateMatch) {
+      return this.setScrollState();
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (didCurrentStepChange) {
+<span class="cstat-no" title="statement not covered" >      return this.scrollToKey(this.props.currentStep);</span>
+    }
+  },
+  scrollToKey: <span class="fstat-no" title="function not covered" >function(stepKey) {</span>
+<span class="cstat-no" title="statement not covered" >    var scrollState;</span>
+<span class="cstat-no" title="statement not covered" >    scrollState = this.getScrollStateByKey(stepKey);</span>
+<span class="cstat-no" title="statement not covered" >    return window.scrollTo(0, (scrollState != null ? scrollState.scrollPoint : void 0) - this.state.scrollTopBuffer);</span>
+  }
+};
+&nbsp;
+module.exports = {
+  ScrollTracker: ScrollTracker,
+  ScrollTrackerParentMixin: ScrollTrackerParentMixin
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

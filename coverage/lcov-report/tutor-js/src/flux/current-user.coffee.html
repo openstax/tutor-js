@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/current-user.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> current-user.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.21% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>80/95</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>32/48</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.21% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>25/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.21% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>80/95</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">809×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">417×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">417×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">558×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">348×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">123×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">123×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">219×</span>
+<span class="cline-any cline-yes">219×</span>
+<span class="cline-any cline-yes">219×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">219×</span>
+<span class="cline-any cline-yes">219×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">98×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">76×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-yes">110×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">612×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-yes">590×</span>
+<span class="cline-any cline-yes">590×</span>
+<span class="cline-any cline-yes">590×</span>
+<span class="cline-any cline-yes">417×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CONCEPT_COACH_HELP, CSRF_Token, CourseActions, CourseListingStore, CourseStore, CurrentUserActions, CurrentUserStore, RANKS, ROUTES, TUTOR_HELP, _, flux, getRankByRole, ref, ref1;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+flux = require('flux-react');
+&nbsp;
+CourseListingStore = require('./course-listing').CourseListingStore;
+&nbsp;
+ref = require('./course'), CourseActions = ref.CourseActions, CourseStore = ref.CourseStore;
+&nbsp;
+CSRF_Token = (ref1 = document.head.querySelector('meta[name=csrf-token]')) != null ? ref1.getAttribute("content") : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+&nbsp;
+<span class="missing-if-branch" title="if path not taken" >I</span>if (!CSRF_Token) {
+<span class="cstat-no" title="statement not covered" >  if (typeof console !== "undefined" &amp;&amp; console !== null) {</span>
+<span class="cstat-no" title="statement not covered" >    if (typeof console.warn === "function") {</span>
+<span class="cstat-no" title="statement not covered" >      console.warn("CSRF token was not found, proceeding without CSRF protection");</span>
+    }
+  }
+}
+&nbsp;
+RANKS = ['guest', 'student', 'teacher', 'admin'];
+&nbsp;
+getRankByRole = function(roleType) {
+  var rank;
+  rank = RANKS.indexOf(roleType);
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (rank &lt; 0) {
+<span class="cstat-no" title="statement not covered" >    console.warn("Warning: " + roleType + " does not exist.  Rank of -1 assigned.  Check session status.");</span>
+  }
+  return rank;
+};
+&nbsp;
+ROUTES = {
+  dashboard: {
+    label: 'Dashboard',
+    roles: {
+      teacher: 'taskplans',
+      student: 'viewStudentDashboard',
+      "default": 'app'
+    }
+  },
+  guide: {
+    label: 'Performance Forecast',
+    allowedForCourse: function(course) {
+      return !(course != null ? course.is_concept_coach : void 0) === true;
+    },
+    roles: {
+      student: 'viewPerformanceForecast',
+      teacher: 'viewTeacherPerformanceForecast'
+    }
+  },
+  scores: {
+    label: 'Student Scores',
+    roles: {
+      teacher: 'viewScores'
+    }
+  },
+  course: {
+    label: 'Course Roster',
+    roles: {
+      teacher: 'courseSettings'
+    }
+  }
+};
+&nbsp;
+CurrentUserActions = flux.createActions(['setToken', 'load', 'loaded', 'logout', 'reset']);
+&nbsp;
+TUTOR_HELP = 'https://openstaxtutor.zendesk.com';
+&nbsp;
+CONCEPT_COACH_HELP = 'https://openstaxcc.zendesk.com/hc/en-us';
+&nbsp;
+CurrentUserStore = flux.createStore({
+  actions: [CurrentUserActions.setToken, CurrentUserActions.load, CurrentUserActions.loaded, CurrentUserActions.reset],
+  _user: {},
+  _token: null,
+  _viewingCourseId: null,
+  _getRouteByRole: function(routeType, menuRole) {
+    return ROUTES[routeType].roles[menuRole] || ROUTES[routeType].roles["default"];
+  },
+  _getParamsForRoute: function(courseId, routeType, menuRole) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (_.isFunction(ROUTES[routeType].params)) {
+<span class="cstat-no" title="statement not covered" >      return ROUTES[routeType].params(courseId, menuRole);</span>
+    } else {
+      return {
+        courseId: courseId
+      };
+    }
+  },
+  _getCourseRole: function(courseId, silent) {
+    var course, courseRoles, role;
+    if (silent == null) {
+      silent = true;
+    }
+    course = CourseStore.get(courseId);
+    courseRoles = (course != null ? course.roles : void 0) || [
+      {
+        type: 'guest'
+      }
+    ];
+    role = _.chain(courseRoles).pluck('type').sortBy(function(roleType) {
+      return -1 * getRankByRole(roleType);
+    }).first().value();
+    if (!silent) {
+      this._setViewingCourse(courseId);
+    }
+    return role;
+  },
+  _setViewingCourse: function(courseId) {
+    return this._viewingCourseId = courseId;
+  },
+  _unsetViewingCourse: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this._viewingCourseId = null;</span>
+  },
+  setToken: <span class="fstat-no" title="function not covered" >function(_token) {</span>
+<span class="cstat-no" title="statement not covered" >    this._token = _token;</span>
+  },
+  load: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this._loading = true;</span>
+  },
+  loaded: function(results) {
+    this._user = results;
+    this._loaded = true;
+    this._loading = false;
+    return this.emitChange();
+  },
+  reset: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._token = null;</span>
+<span class="cstat-no" title="statement not covered" >    this._user.name = 'Guest';</span>
+<span class="cstat-no" title="statement not covered" >    this._user.profile_url = null;</span>
+<span class="cstat-no" title="statement not covered" >    this._viewingCourseId = null;</span>
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  exports: {
+    getToken: function() {
+      return this._token;
+    },
+    getCSRFToken: function() {
+      return CSRF_Token;
+    },
+    getName: function() {
+      return this._user.name;
+    },
+    isAdmin: function() {
+      return this._user.is_admin;
+    },
+    isContentAnalyst: function() {
+      return this._user.is_content_analyst;
+    },
+    isCustomerService: function() {
+      return this._user.is_customer_service;
+    },
+    getProfileUrl: function() {
+      return this._user.profile_url;
+    },
+    ensureLoaded: function() {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!(this._loaded || <span class="branch-1 cbranch-no" title="branch not covered" >this._loading)</span>) {
+<span class="cstat-no" title="statement not covered" >        return CurrentUserActions.load();</span>
+      }
+    },
+    getCourseRole: function(courseId, silent) {
+      if (silent == null) {
+        silent = true;
+      }
+      return this._getCourseRole(courseId, silent);
+    },
+    getViewingCourseRole: function() {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (this._viewingCourseId != null) {
+        return this._getCourseRole(this._viewingCourseId);
+      }
+    },
+    getDashboardRoute: function(courseId, silent) {
+      var menuRole;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (silent == null) {
+        silent = true;
+      }
+      menuRole = this._getCourseRole(courseId, silent);
+      return this._getRouteByRole('dashboard', menuRole);
+    },
+    getHelpLink: function(courseId) {
+      var course, courses;
+      course = CourseStore.get(courseId);
+      if (course) {
+        if (course.is_concept_coach) {
+          return CONCEPT_COACH_HELP;
+        } else {
+          return TUTOR_HELP;
+        }
+      } else {
+        courses = CourseListingStore.allCourses();
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (_.all(courses, function(course) {
+          return !course.is_concept_coach;
+        })) {
+<span class="cstat-no" title="statement not covered" >          return TUTOR_HELP;</span>
+        } else {
+          return CONCEPT_COACH_HELP;
+        }
+      }
+    },
+    getCourseMenuRoutes: function(courseId, silent) {
+      var course, menuRole, routes, validRoutes;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (silent == null) {
+        silent = false;
+      }
+      course = CourseStore.get(courseId);
+      menuRole = this._getCourseRole(courseId, silent);
+      validRoutes = _.pick(ROUTES, function(route) {
+        return false !== (typeof route.allowedForCourse === "function" ? route.allowedForCourse(course) : void 0);
+      });
+      routes = _.keys(validRoutes);
+      return _.chain(routes).map((function(_this) {
+        return function(routeType) {
+          var routeName;
+          routeName = _this._getRouteByRole(routeType, menuRole);
+          if (routeName != null) {
+            return {
+              name: routeName,
+              params: _this._getParamsForRoute(courseId, routeType, menuRole),
+              label: ROUTES[routeType].label
+            };
+          }
+        };
+      })(this)).compact().value();
+    }
+  }
+});
+&nbsp;
+module.exports = {
+  CurrentUserActions: CurrentUserActions,
+  CurrentUserStore: CurrentUserStore
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

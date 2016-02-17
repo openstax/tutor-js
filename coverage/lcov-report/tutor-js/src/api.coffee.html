@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/api.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">tutor-js/src/</a> api.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.92% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>139/196</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">39.02% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>16/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">46.15% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>24/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.92% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>139/196</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">120×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">924×</span>
+<span class="cline-any cline-yes">120×</span>
+<span class="cline-any cline-yes">120×</span>
+<span class="cline-any cline-yes">120×</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">116×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var $, AppActions, BOOTSTRAPED_STORES, CCDashboardActions, CCDashboardStore, CourseActions, CourseListingActions, CourseListingStore, CurrentUserActions, CurrentUserStore, EcosystemsActions, ExerciseActions, IS_LOCAL, JobActions, PerformanceForecast, PeriodActions, ReferenceBookActions, ReferenceBookExerciseActions, ReferenceBookExerciseStore, ReferenceBookPageActions, ReferenceBookPageStore, ReferenceBookStore, RosterActions, ScoresActions, ScoresExportActions, StudentDashboardActions, TaskActions, TaskPlanActions, TaskPlanStatsActions, TaskPlanStatsStore, TaskPlanStore, TaskStepActions, TaskTeacherReviewActions, TaskTeacherReviewStore, TeacherRosterActions, TeacherTaskPlanActions, TeacherTaskPlanStore, TimeActions, TocActions, _, apiHelper, delay, ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, setNow, start,
+  slice = [].slice;
+&nbsp;
+$ = require('jquery');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+AppActions = require('./flux/app').AppActions;
+&nbsp;
+TimeActions = require('./flux/time').TimeActions;
+&nbsp;
+ref = require('./flux/current-user'), CurrentUserActions = ref.CurrentUserActions, CurrentUserStore = ref.CurrentUserStore;
+&nbsp;
+CourseActions = require('./flux/course').CourseActions;
+&nbsp;
+JobActions = require('./flux/job').JobActions;
+&nbsp;
+EcosystemsActions = require('./flux/ecosystems').EcosystemsActions;
+&nbsp;
+PerformanceForecast = require('./flux/performance-forecast');
+&nbsp;
+ScoresActions = require('./flux/scores').ScoresActions;
+&nbsp;
+ScoresExportActions = require('./flux/scores-export').ScoresExportActions;
+&nbsp;
+TeacherRosterActions = require('./flux/teacher-roster').TeacherRosterActions;
+&nbsp;
+RosterActions = require('./flux/roster').RosterActions;
+&nbsp;
+PeriodActions = require('./flux/period').PeriodActions;
+&nbsp;
+TaskActions = require('./flux/task').TaskActions;
+&nbsp;
+TaskStepActions = require('./flux/task-step').TaskStepActions;
+&nbsp;
+ref1 = require('./flux/task-plan'), TaskPlanActions = ref1.TaskPlanActions, TaskPlanStore = ref1.TaskPlanStore;
+&nbsp;
+ref2 = require('./flux/task-teacher-review'), TaskTeacherReviewActions = ref2.TaskTeacherReviewActions, TaskTeacherReviewStore = ref2.TaskTeacherReviewStore;
+&nbsp;
+ref3 = require('./flux/task-plan-stats'), TaskPlanStatsActions = ref3.TaskPlanStatsActions, TaskPlanStatsStore = ref3.TaskPlanStatsStore;
+&nbsp;
+TocActions = require('./flux/toc').TocActions;
+&nbsp;
+ExerciseActions = require('./flux/exercise').ExerciseActions;
+&nbsp;
+ref4 = require('./flux/teacher-task-plan'), TeacherTaskPlanActions = ref4.TeacherTaskPlanActions, TeacherTaskPlanStore = ref4.TeacherTaskPlanStore;
+&nbsp;
+StudentDashboardActions = require('./flux/student-dashboard').StudentDashboardActions;
+&nbsp;
+ref5 = require('./flux/course-listing'), CourseListingActions = ref5.CourseListingActions, CourseListingStore = ref5.CourseListingStore;
+&nbsp;
+ref6 = require('./flux/cc-dashboard'), CCDashboardStore = ref6.CCDashboardStore, CCDashboardActions = ref6.CCDashboardActions;
+&nbsp;
+ref7 = require('./flux/reference-book'), ReferenceBookActions = ref7.ReferenceBookActions, ReferenceBookStore = ref7.ReferenceBookStore;
+&nbsp;
+ref8 = require('./flux/reference-book-page'), ReferenceBookPageActions = ref8.ReferenceBookPageActions, ReferenceBookPageStore = ref8.ReferenceBookPageStore;
+&nbsp;
+ref9 = require('./flux/reference-book-exercise'), ReferenceBookExerciseActions = ref9.ReferenceBookExerciseActions, ReferenceBookExerciseStore = ref9.ReferenceBookExerciseStore;
+&nbsp;
+IS_LOCAL = window.location.port === '8000' || window.__karma__;
+&nbsp;
+delay = function(ms, fn) {
+  return setTimeout(fn, ms);
+};
+&nbsp;
+setNow = function(jqXhr) {
+  var date;
+  date = jqXhr.getResponseHeader('X-App-Date');
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (date == null) {
+<span class="cstat-no" title="statement not covered" >    date = jqXhr.getResponseHeader('Date');</span>
+  }
+  return TimeActions.setFromString(date);
+};
+&nbsp;
+apiHelper = function(Actions, listenAction, successAction, httpMethod, pathMaker, options) {
+  return listenAction.addListener('trigger', function() {
+    var args;
+    args = 1 &lt;= arguments.length ? slice.call(arguments, 0) : <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+    return delay(20, function() {
+      var httpMethodOverride, opts, params, payload, ref10, ref11, rejected, resolved, uri, url;
+      ref10 = pathMaker.apply(null, args), url = ref10.url, payload = ref10.payload, httpMethodOverride = ref10.httpMethod;
+      opts = {
+        method: httpMethod || httpMethodOverride,
+        dataType: 'json',
+        headers: {
+          'X-CSRF-Token': CurrentUserStore.getCSRFToken(),
+          token: CurrentUserStore.getToken()
+        },
+        displayError: true
+      };
+      if (payload != null) {
+        opts.data = JSON.stringify(payload);
+        opts.processData = false;
+        opts.contentType = 'application/json';
+      }
+      opts = _.extend({}, opts, options);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (IS_LOCAL) {
+<span class="cstat-no" title="statement not covered" >        ref11 = url.split("?"), uri = ref11[0], params = ref11[1];</span>
+<span class="cstat-no" title="statement not covered" >        if (opts.method === 'GET') {</span>
+<span class="cstat-no" title="statement not covered" >          url = uri + ".json?" + params;</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          url = uri + "/" + opts.method + ".json?" + params;</span>
+<span class="cstat-no" title="statement not covered" >          opts.method = 'GET';</span>
+        }
+      }
+      resolved = function(results, statusStr, jqXhr) {
+        setNow(jqXhr);
+        return successAction.apply(null, [results].concat(slice.call(args)));
+      };
+      rejected = <span class="fstat-no" title="function not covered" >function(jqXhr, statusMessage, err) {</span>
+<span class="cstat-no" title="statement not covered" >        var e, msg, statusCode;</span>
+<span class="cstat-no" title="statement not covered" >        setNow(jqXhr);</span>
+<span class="cstat-no" title="statement not covered" >        statusCode = jqXhr.status;</span>
+<span class="cstat-no" title="statement not covered" >        AppActions.setServerError(statusCode, jqXhr.responseText, {</span>
+          url: url,
+          opts: opts
+        });
+<span class="cstat-no" title="statement not covered" >        if (statusCode === 400) {</span>
+<span class="cstat-no" title="statement not covered" >          return CurrentUserActions.logout();</span>
+        } else <span class="cstat-no" title="statement not covered" >if (statusMessage === 'parsererror' &amp;&amp; statusCode === 200 &amp;&amp; IS_LOCAL) {</span>
+<span class="cstat-no" title="statement not covered" >          if (httpMethod === 'PUT' || httpMethod === 'PATCH') {</span>
+<span class="cstat-no" title="statement not covered" >            return successAction.apply(null, [null].concat(slice.call(args)));</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            return Actions.FAILED.apply(Actions, [404, 'Error Parsing the JSON or a 404'].concat(slice.call(args)));</span>
+          }
+        } else <span class="cstat-no" title="statement not covered" >if (statusCode === 404) {</span>
+<span class="cstat-no" title="statement not covered" >          return Actions.FAILED.apply(Actions, [statusCode, 'ERROR_NOTFOUND'].concat(slice.call(args)));</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          try {</span>
+<span class="cstat-no" title="statement not covered" >            msg = JSON.parse(jqXhr.responseText);</span>
+          } catch (_error) {
+<span class="cstat-no" title="statement not covered" >            e = _error;</span>
+<span class="cstat-no" title="statement not covered" >            msg = jqXhr.responseText;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return Actions.FAILED.apply(Actions, [statusCode, msg].concat(slice.call(args)));</span>
+        }
+      };
+      return $.ajax(url, opts).then(resolved, rejected);
+    });
+  });
+};
+&nbsp;
+BOOTSTRAPED_STORES = {
+  user: CurrentUserActions.loaded,
+  courses: CourseListingActions.loaded
+};
+&nbsp;
+start = function(bootstrapData) {
+  var action, createMethod, data, saveHelper, storeId;
+  for (storeId in BOOTSTRAPED_STORES) {
+    action = BOOTSTRAPED_STORES[storeId];
+    data = bootstrapData[storeId];
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (data) {
+      action(data);
+    }
+  }
+  apiHelper(TaskActions, TaskActions.load, TaskActions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/tasks/" + id
+    };
+  });
+  saveHelper = function(id) {
+    var courseId, obj;
+    obj = TaskPlanStore.getChanged(id);
+    if (TaskPlanStore.isNew(id)) {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (obj.type == null) {
+<span class="cstat-no" title="statement not covered" >        obj.type = 'reading';</span>
+      }
+      courseId = obj._HACK_courseId;
+      delete obj._HACK_courseId;
+      return {
+        url: "/api/courses/" + courseId + "/plans",
+        httpMethod: 'POST',
+        payload: obj
+      };
+    } else {
+      return {
+        url: "/api/plans/" + id,
+        httpMethod: 'PATCH',
+        payload: obj
+      };
+    }
+  };
+  apiHelper(TaskPlanActions, TaskPlanActions.save, TaskPlanActions.saved, null, saveHelper);
+  apiHelper(TaskPlanActions, TaskPlanActions["delete"], TaskPlanActions.deleted, 'DELETE', saveHelper);
+  apiHelper(TaskPlanActions, TaskPlanActions.load, TaskPlanActions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/plans/" + id
+    };
+  });
+  apiHelper(TaskPlanStatsActions, TaskPlanStatsActions.load, TaskPlanStatsActions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/plans/" + id + "/stats"
+    };
+  });
+  apiHelper(ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function(ecosystemId, pageIds, requestType) {</span>
+<span class="cstat-no" title="statement not covered" >    var page_id_str;</span>
+<span class="cstat-no" title="statement not covered" >    if (requestType == null) {</span>
+<span class="cstat-no" title="statement not covered" >      requestType = 'homework_core';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    page_id_str = pageIds.join('&amp;page_ids[]=');</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/ecosystems/" + ecosystemId + "/exercises/" + requestType + "?page_ids[]=" + page_id_str
+    };
+  });
+  apiHelper(TocActions, TocActions.load, TocActions.loaded, 'GET', function(ecosystemId) {
+    return {
+      url: "/api/ecosystems/" + ecosystemId + "/readings"
+    };
+  });
+  apiHelper(CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + courseId + "/practice"
+    };
+  });
+  apiHelper(CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + courseId + "/guide"
+    };
+  });
+  apiHelper(CourseActions, CourseActions.save, CourseActions.saved, 'PATCH', <span class="fstat-no" title="function not covered" >function(courseId, params) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + courseId,
+      payload: params
+    };
+  });
+  apiHelper(CCDashboardActions, CCDashboardActions.load, CCDashboardActions.loaded, 'GET', function(courseId) {
+    return {
+      url: "/api/courses/" + courseId + "/cc/dashboard"
+    };
+  });
+  createMethod = IS_LOCAL ? <span class="branch-0 cbranch-no" title="branch not covered" >'GET' </span>: 'POST';
+  apiHelper(CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, <span class="fstat-no" title="function not covered" >function(courseId, params) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + courseId + "/practice",
+      payload: params
+    };
+  });
+  apiHelper(CourseActions, CourseActions.load, CourseActions.loaded, 'GET', function(courseId) {
+    return {
+      url: "/api/courses/" + courseId
+    };
+  });
+  apiHelper(PerformanceForecast.Student.actions, PerformanceForecast.Student.actions.load, PerformanceForecast.Student.actions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/courses/" + id + "/guide"
+    };
+  });
+  apiHelper(PerformanceForecast.Teacher.actions, PerformanceForecast.Teacher.actions.load, PerformanceForecast.Teacher.actions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/courses/" + id + "/teacher_guide"
+    };
+  });
+  apiHelper(PerformanceForecast.TeacherStudent.actions, PerformanceForecast.TeacherStudent.actions.load, PerformanceForecast.TeacherStudent.actions.loaded, 'GET', function(id, arg) {
+    var roleId;
+    roleId = arg.roleId;
+    return {
+      url: "/api/courses/" + id + "/guide/role/" + roleId
+    };
+  });
+  apiHelper(ScoresActions, ScoresActions.load, ScoresActions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/courses/" + id + "/performance"
+    };
+  });
+  apiHelper(ScoresExportActions, ScoresExportActions.load, ScoresExportActions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/courses/" + id + "/performance/exports"
+    };
+  });
+  apiHelper(ScoresExportActions, ScoresExportActions["export"], ScoresExportActions.exported, 'POST', <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + id + "/performance/export"
+    };
+  });
+  apiHelper(JobActions, JobActions.load, JobActions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/jobs/" + id
+    };
+  });
+  apiHelper(EcosystemsActions, EcosystemsActions.load, EcosystemsActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/ecosystems"
+    };
+  });
+  apiHelper(TeacherRosterActions, TeacherRosterActions["delete"], TeacherRosterActions.deleted, 'DELETE', <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/teachers/" + id
+    };
+  });
+  apiHelper(RosterActions, RosterActions["delete"], RosterActions.deleted, 'DELETE', <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/students/" + id
+    };
+  });
+  apiHelper(RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', <span class="fstat-no" title="function not covered" >function(id, params) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/students/" + id,
+      payload: params
+    };
+  });
+  apiHelper(RosterActions, RosterActions.create, RosterActions.created, createMethod, <span class="fstat-no" title="function not covered" >function(courseId, params) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + courseId + "/roster",
+      payload: params
+    };
+  });
+  apiHelper(RosterActions, RosterActions.load, RosterActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + id + "/roster"
+    };
+  });
+  apiHelper(PeriodActions, PeriodActions.create, PeriodActions.created, createMethod, <span class="fstat-no" title="function not covered" >function(courseId, params) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + courseId + "/periods",
+      payload: params
+    };
+  });
+  apiHelper(PeriodActions, PeriodActions.save, PeriodActions.saved, 'PATCH', <span class="fstat-no" title="function not covered" >function(id, period, params) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/periods/" + period,
+      payload: params
+    };
+  });
+  apiHelper(PeriodActions, PeriodActions["delete"], PeriodActions.deleted, 'DELETE', <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/periods/" + id
+    };
+  });
+  apiHelper(TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', function(id) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!(typeof id === 'string' || <span class="branch-1 cbranch-no" title="branch not covered" >typeof id === 'number')</span>) {
+<span class="cstat-no" title="statement not covered" >      throw new Error('BUG: Wrong type');</span>
+    }
+    return {
+      url: "/api/steps/" + id
+    };
+  });
+  apiHelper(TaskStepActions, TaskStepActions.complete, TaskStepActions.completed, 'PUT', <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/steps/" + id + "/completed"
+    };
+  });
+  apiHelper(TaskStepActions, TaskStepActions.loadRecovery, TaskStepActions.loadedRecovery, 'PUT', <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/steps/" + id + "/recovery"
+    };
+  });
+  apiHelper(TaskStepActions, TaskStepActions.setFreeResponseAnswer, TaskStepActions.saved, 'PATCH', <span class="fstat-no" title="function not covered" >function(id, free_response) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/steps/" + id,
+      payload: {
+        free_response: free_response
+      }
+    };
+  });
+  apiHelper(TaskStepActions, TaskStepActions.setAnswerId, TaskStepActions.saved, 'PATCH', <span class="fstat-no" title="function not covered" >function(id, answer_id) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/steps/" + id,
+      payload: {
+        answer_id: answer_id
+      }
+    };
+  });
+  apiHelper(TaskActions, TaskActions.loadUserTasks, TaskActions.loadedUserTasks, 'GET', <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/courses/" + courseId + "/tasks"
+    };
+  });
+  apiHelper(TaskTeacherReviewActions, TaskTeacherReviewActions.load, TaskTeacherReviewActions.loaded, 'GET', function(id) {
+    return {
+      url: "/api/plans/" + id + "/review"
+    };
+  });
+  apiHelper(TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', function(courseId) {
+    return {
+      url: "/api/courses/" + courseId + "/dashboard"
+    };
+  });
+  apiHelper(CurrentUserActions, CurrentUserActions.load, CurrentUserActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: '/api/user'
+    };
+  });
+  apiHelper(CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: '/api/user/courses'
+    };
+  });
+  apiHelper(ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function(ecosystemId) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/ecosystems/" + ecosystemId + "/readings"
+    };
+  });
+  apiHelper(ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function(cnxId) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/pages/" + cnxId
+    };
+  });
+  apiHelper(ReferenceBookPageActions, ReferenceBookPageActions.loadSilent, ReferenceBookPageActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function(cnxId) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: "/api/pages/" + cnxId
+    };
+  }, {
+    displayError: false
+  });
+  apiHelper(ReferenceBookExerciseActions, ReferenceBookExerciseActions.load, ReferenceBookExerciseActions.loaded, 'GET', <span class="fstat-no" title="function not covered" >function(exerciseAPIUrl) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      url: exerciseAPIUrl
+    };
+  });
+  apiHelper(StudentDashboardActions, StudentDashboardActions.load, StudentDashboardActions.loaded, 'GET', function(courseId) {
+    return {
+      url: "/api/courses/" + courseId + "/dashboard"
+    };
+  });
+  return CurrentUserActions.logout.addListener('trigger', <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    console.warn('Logging out programatically needs to be done via a form submission or follow redirects');</span>
+<span class="cstat-no" title="statement not covered" >    return window.location.href = '/';</span>
+  });
+};
+&nbsp;
+module.exports = {
+  start: start
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

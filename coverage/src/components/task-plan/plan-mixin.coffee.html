@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task-plan/plan-mixin.coffee</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/task-plan/plan-mixin.coffee</span></h1>
+    <h2>
+        Statements: <span class="metric">41.86% <small>(36 / 86)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">25.81% <small>(8 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">33.33% <small>(6 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">41.86% <small>(36 / 86)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task-plan/</a> &#187; plan-mixin.coffee</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CALENDAR_DATE_FORMAT, CloseButton, PlanMixin, React, S, TaskPlanActions, TaskPlanStore, TimeStore, TutorDialog, moment, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+ref = require('../../flux/task-plan'), TaskPlanStore = ref.TaskPlanStore, TaskPlanActions = ref.TaskPlanActions;
+&nbsp;
+TimeStore = require('../../flux/time').TimeStore;
+&nbsp;
+CloseButton = require('openstax-react-components').CloseButton;
+&nbsp;
+TutorDialog = require('../tutor-dialog');
+&nbsp;
+S = require('../../helpers/string');
+&nbsp;
+moment = require('moment');
+&nbsp;
+CALENDAR_DATE_FORMAT = 'YYYY-MM-DD';
+&nbsp;
+PlanMixin = {
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  getInitialState: function() {
+    var isSavedPlanVisibleToStudent;
+    isSavedPlanVisibleToStudent = TaskPlanStore.isVisibleToStudents(this.props.id || <span class="branch-1 cbranch-no" title="branch not covered" >this.props.planId)</span>;
+    return {
+      isVisibleToStudents: isSavedPlanVisibleToStudent,
+      isEditable: TaskPlanStore.isEditable(this.props.id || <span class="branch-1 cbranch-no" title="branch not covered" >this.props.planId)</span>
+    };
+  },
+  updateIsVisibleAndIsEditable: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var isEditable, isVisibleToStudents;</span>
+<span class="cstat-no" title="statement not covered" >    isVisibleToStudents = TaskPlanStore.isVisibleToStudents(this.props.id || this.props.planId);</span>
+<span class="cstat-no" title="statement not covered" >    isEditable = TaskPlanStore.isEditable(this.props.id || this.props.planId);</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      isVisibleToStudents: isVisibleToStudents,
+      isEditable: isEditable
+    });
+  },
+  componentWillMount: function() {
+    return TaskPlanStore.on('publish-queued', this.updateIsVisibleAndIsEditable);
+  },
+  componentWillUnmount: function() {
+    return TaskPlanStore.off('publish-queued', this.updateIsVisibleAndIsEditable);
+  },
+  setTitle: <span class="fstat-no" title="function not covered" >function(title) {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    return TaskPlanActions.updateTitle(id, title);</span>
+  },
+  showSectionTopics: function() {
+    return this.setState({
+      showSectionTopics: true,
+      savedTopics: TaskPlanStore.getTopics(this.props.id),
+      savedExercises: TaskPlanStore.getExercises(this.props.id)
+    });
+  },
+  cancelSelection: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    TaskPlanActions.updateTopics(this.props.id, this.state.savedTopics);</span>
+<span class="cstat-no" title="statement not covered" >    TaskPlanActions.updateExercises(this.props.id, this.state.savedExercises);</span>
+<span class="cstat-no" title="statement not covered" >    return this.hideSectionTopics();</span>
+  },
+  hideSectionTopics: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      showSectionTopics: false
+    });
+  },
+  publish: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var id, saveable;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    saveable = TaskPlanStore.isValid(id);</span>
+<span class="cstat-no" title="statement not covered" >    if (saveable) {</span>
+<span class="cstat-no" title="statement not covered" >      TaskPlanActions.publish(id);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.save();</span>
+  },
+  save: function() {
+    var id, saveable;
+    id = this.props.id;
+    saveable = TaskPlanStore.isValid(id);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (saveable) {
+<span class="cstat-no" title="statement not covered" >      TaskPlanActions.saved.addListener(this.saved);</span>
+<span class="cstat-no" title="statement not covered" >      return TaskPlanActions.save(id);</span>
+    } else {
+      return this.setState({
+        invalid: true
+      });
+    }
+  },
+  saved: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = this.props.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    TaskPlanActions.saved.removeListener('change', this.saved);</span>
+<span class="cstat-no" title="statement not covered" >    TaskPlanStore.isLoading(this.props.id);</span>
+<span class="cstat-no" title="statement not covered" >    return this.goBackToCalendar();</span>
+  },
+  cancel: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, id, ref1;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, id = ref1.id, courseId = ref1.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    if (!TaskPlanStore.hasChanged(id)) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.reset();</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return TutorDialog.show({</span>
+        title: 'Unsaved Changes',
+        body: 'You will lose unsaved changes if you continue.'
+      }).then((<span class="fstat-no" title="function not covered" >function(_this) {</span>
+<span class="cstat-no" title="statement not covered" >        return <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          return _this.reset();</span>
+        };
+      })(this));
+    }
+  },
+  reset: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, id, ref1;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, id = ref1.id, courseId = ref1.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    TaskPlanActions.resetPlan(id);</span>
+<span class="cstat-no" title="statement not covered" >    return this.goBackToCalendar();</span>
+  },
+  getBackToCalendarParams: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var calendarRoute, courseId, date, dueAt, id, planId, ref1;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, id = ref1.id, courseId = ref1.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    calendarRoute = 'calendarByDate';</span>
+<span class="cstat-no" title="statement not covered" >    dueAt = TaskPlanStore.getFirstDueDate(id) || this.context.router.getCurrentQuery().due_at;</span>
+<span class="cstat-no" title="statement not covered" >    if (dueAt != null) {</span>
+<span class="cstat-no" title="statement not covered" >      date = moment(dueAt).format(CALENDAR_DATE_FORMAT);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      date = moment(TimeStore.getNow()).format(CALENDAR_DATE_FORMAT);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (!(TaskPlanStore.isNew(id) || TaskPlanStore.isPublishing(id) || TaskPlanStore.isDeleteRequested(id))) {</span>
+<span class="cstat-no" title="statement not covered" >      calendarRoute = 'calendarViewPlanStats';</span>
+<span class="cstat-no" title="statement not covered" >      planId = id;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      to: calendarRoute,
+      params: {
+        courseId: courseId,
+        date: date,
+        planId: planId
+      }
+    };
+  },
+  goBackToCalendar: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var params, ref1, to;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.getBackToCalendarParams(), to = ref1.to, params = ref1.params;</span>
+<span class="cstat-no" title="statement not covered" >    return this.context.router.transitionTo(to, params);</span>
+  },
+  builderHeader: function(type, label) {
+    var closeBtn, headerSpan, headerText, id;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (label == null) {
+      label = 'Assignment';
+    }
+    id = this.props.id;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (label) {
+      label = " " + label;
+    }
+    type = S.capitalize(type);
+    if (TaskPlanStore.isNew(id)) {
+      headerText = "Add " + type + label;
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (TaskPlanStore.isDeleteRequested(id)) {
+<span class="cstat-no" title="statement not covered" >      headerText = type + " is being deleted";</span>
+    } else {
+      headerText = "Edit " + type + label;
+    }
+    headerSpan = React.createElement("span", {
+      "key": 'header-text'
+    }, headerText);
+    closeBtn = React.createElement(CloseButton, {
+      "key": 'close-button',
+      "className": 'pull-right',
+      "onClick": this.cancel
+    });
+    return [headerSpan, closeBtn];
+  }
+};
+&nbsp;
+module.exports = PlanMixin;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

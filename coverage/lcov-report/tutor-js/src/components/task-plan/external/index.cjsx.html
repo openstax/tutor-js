@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/task-plan/external/index.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/task-plan/external/</a> index.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.35% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>28/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.35% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>28/34</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, ExternalPlan, PlanFooter, PlanMixin, React, Router, TaskPlanActions, TaskPlanBuilder, TaskPlanStore, TutorDateInput, TutorInput, TutorTextArea, _, ref, ref1, validator;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+validator = require('validator');
+&nbsp;
+ref = require('../../tutor-input'), TutorInput = ref.TutorInput, TutorDateInput = ref.TutorDateInput, TutorTextArea = ref.TutorTextArea;
+&nbsp;
+ref1 = require('../../../flux/task-plan'), TaskPlanStore = ref1.TaskPlanStore, TaskPlanActions = ref1.TaskPlanActions;
+&nbsp;
+PlanFooter = require('../footer');
+&nbsp;
+PlanMixin = require('../plan-mixin');
+&nbsp;
+TaskPlanBuilder = require('../builder');
+&nbsp;
+ExternalPlan = React.createClass({
+  displayName: 'ExternalPlan',
+  mixins: [PlanMixin],
+  setUrl: <span class="fstat-no" title="function not covered" >function(url) {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    return TaskPlanActions.updateUrl(id, url);</span>
+  },
+  validate: function(inputValue) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!((inputValue != null) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >inputValue.length &gt; 0)</span>) {
+      return ['required'];
+    }
+<span class="cstat-no" title="statement not covered" >    if (!validator.isURL(inputValue)) {</span>
+<span class="cstat-no" title="statement not covered" >      return ['url'];</span>
+    }
+  },
+  render: function() {
+    var courseId, externalUrl, footer, formClasses, header, id, isURLLocked, label, plan, ref2, ref3, ref4;
+    ref2 = this.props, id = ref2.id, courseId = ref2.courseId;
+    plan = TaskPlanStore.get(id);
+    externalUrl = plan != null ? (ref3 = plan.settings) != null ? ref3.external_url : <span class="branch-1 cbranch-no" title="branch not covered" >void 0 </span>: <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    formClasses = ['edit-external', 'dialog'];
+    footer = React.createElement(PlanFooter, {
+      "id": id,
+      "courseId": courseId,
+      "onPublish": this.publish,
+      "onSave": this.save,
+      "onCancel": this.cancel,
+      "getBackToCalendarParams": this.getBackToCalendarParams,
+      "goBackToCalendar": this.goBackToCalendar
+    });
+    header = this.builderHeader('external');
+    label = 'Assignment URL';
+    if ((ref4 = this.state) != null ? ref4.invalid : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+      formClasses.push('is-invalid-form');
+    }
+    isURLLocked = TaskPlanStore.isOpened(id) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >TaskPlanStore.isPublished(id);</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isURLLocked) {
+<span class="cstat-no" title="statement not covered" >      label = label + " (Cannot be changed once assignment is opened and published)";</span>
+    }
+    return React.createElement("div", {
+      "className": 'external-plan task-plan',
+      "data-assignment-type": 'external'
+    }, React.createElement(BS.Panel, {
+      "bsStyle": 'primary',
+      "className": formClasses.join(' '),
+      "footer": footer,
+      "header": header
+    }, React.createElement(BS.Grid, {
+      "fluid": true
+    }, React.createElement(TaskPlanBuilder, {
+      "courseId": courseId,
+      "id": id
+    }), React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "xs": 12.,
+      "md": 12.
+    }, React.createElement(TutorInput, {
+      "disabled": isURLLocked,
+      "label": label,
+      "className": 'external-url',
+      "id": 'external-url',
+      "default": externalUrl,
+      "required": true,
+      "validate": this.validate,
+      "onChange": this.setUrl
+    }))))));
+  }
+});
+&nbsp;
+module.exports = {
+  ExternalPlan: ExternalPlan
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

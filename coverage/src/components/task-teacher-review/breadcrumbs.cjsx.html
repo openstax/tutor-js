@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task-teacher-review/breadcrumbs.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">src/components/task-teacher-review/breadcrumbs.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">52.94% <small>(9 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">52.94% <small>(9 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task-teacher-review/</a> &#187; breadcrumbs.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, BackButton, BreadcrumbStatic, ChapterSectionMixin, CrumbMixin, React, _;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+CrumbMixin = require('./crumb-mixin');
+&nbsp;
+ChapterSectionMixin = require('openstax-react-components').ChapterSectionMixin;
+&nbsp;
+BreadcrumbStatic = require('../breadcrumb').BreadcrumbStatic;
+&nbsp;
+BackButton = require('../buttons/back-button');
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'Breadcrumbs',
+  mixins: [ChapterSectionMixin, CrumbMixin],
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+    currentStep: React.PropTypes.number,
+    goToStep: React.PropTypes.func.isRequired,
+    title: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var backButton, courseId, crumbs, currentStep, fallbackLink, goToStep, ref, stepButtons, title;</span>
+<span class="cstat-no" title="statement not covered" >    crumbs = this.getCrumableCrumbs();</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, currentStep = ref.currentStep, goToStep = ref.goToStep, title = ref.title, courseId = ref.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    stepButtons = _.map(crumbs, <span class="fstat-no" title="function not covered" >function(crumb) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return React.createElement(BreadcrumbStatic, {</span>
+        "crumb": crumb,
+        "currentStep": currentStep,
+        "goToStep": goToStep,
+        "key": "breadcrumb-" + crumb.type + "-" + crumb.key
+      });
+    });
+<span class="cstat-no" title="statement not covered" >    fallbackLink = {</span>
+      to: 'taskplans',
+      params: {
+        courseId: courseId
+      },
+      text: 'Back to Calendar'
+    };
+<span class="cstat-no" title="statement not covered" >    backButton = React.createElement(BackButton, {</span>
+      "fallbackLink": fallbackLink
+    });
+<span class="cstat-no" title="statement not covered" >    return React.createElement("div", {</span>
+      "className": 'task-breadcrumbs'
+    }, stepButtons, backButton, React.createElement("div", {
+      "className": 'task-title'
+    }, title));
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

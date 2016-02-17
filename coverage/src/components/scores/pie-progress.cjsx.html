@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/scores/pie-progress.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/scores/pie-progress.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">11.43% <small>(4 / 35)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">11.43% <small>(4 / 35)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/scores/</a> &#187; pie-progress.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var PieProgress, React;
+&nbsp;
+React = require('react');
+&nbsp;
+PieProgress = React.createClass({displayName: "PieProgress",
+  propTypes: {
+    size: React.PropTypes.number.isRequired,
+    value: React.PropTypes.number.isRequired,
+    roundToQuarters: React.PropTypes.bool
+  },
+  radius: <span class="fstat-no" title="function not covered" >function(size) {</span>
+<span class="cstat-no" title="statement not covered" >    return size / 2;</span>
+  },
+  buildCircle: <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >    var arcX, arcY, d, longArc, radius, size, x, y;</span>
+<span class="cstat-no" title="statement not covered" >    size = this.props.size;</span>
+<span class="cstat-no" title="statement not covered" >    radius = this.radius(size);</span>
+<span class="cstat-no" title="statement not covered" >    value = parseInt(value);</span>
+<span class="cstat-no" title="statement not covered" >    value = Math.min(Math.max(value, 0), 100);</span>
+<span class="cstat-no" title="statement not covered" >    x = Math.cos((2 * Math.PI) / (100 / value));</span>
+<span class="cstat-no" title="statement not covered" >    y = Math.sin((2 * Math.PI) / (100 / value));</span>
+<span class="cstat-no" title="statement not covered" >    longArc = value &lt;= 50 ? 0 : 1;</span>
+<span class="cstat-no" title="statement not covered" >    arcX = radius + (y * radius);</span>
+<span class="cstat-no" title="statement not covered" >    arcY = radius - (x * radius);</span>
+<span class="cstat-no" title="statement not covered" >    return d = "M" + radius + " " + radius + " L" + radius + " 0 A" + radius + " " + radius + " 0 " + longArc + " 1 " + arcX + " " + arcY + " z";</span>
+  },
+  roundToQuarters: <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >    if (value &lt;= 49) {</span>
+<span class="cstat-no" title="statement not covered" >      return 25;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (value &gt;= 50 &amp;&amp; value &lt; 75) {</span>
+<span class="cstat-no" title="statement not covered" >      return 50;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return 75;</span>
+    }
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var circle, finished, fullCircle, notStarted, path, pieCircle, radius, ref, roundToQuarters, size, value;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, size = ref.size, value = ref.value, roundToQuarters = ref.roundToQuarters;</span>
+<span class="cstat-no" title="statement not covered" >    radius = this.radius(size);</span>
+<span class="cstat-no" title="statement not covered" >    fullCircle = React.createElement("circle", {</span>
+      "r": "" + radius,
+      "cx": "" + radius,
+      "cy": "" + radius,
+      "className": 'slice'
+    });
+<span class="cstat-no" title="statement not covered" >    circle = roundToQuarters != null ? this.buildCircle(this.roundToQuarters(value)) : this.buildCircle(value);</span>
+<span class="cstat-no" title="statement not covered" >    path = React.createElement("path", {</span>
+      "d": "" + circle,
+      "className": 'slice'
+    });
+<span class="cstat-no" title="statement not covered" >    pieCircle = React.createElement("svg", {</span>
+      "width": "" + size,
+      "height": "" + size,
+      "className": 'pie-progress'
+    }, path);
+<span class="cstat-no" title="statement not covered" >    finished = React.createElement("svg", {</span>
+      "className": 'finished'
+    }, React.createElement("path", {
+      "d": "M12 0C5.372 0 0 5.373 0 12c0 6.627 5.372 12 12 12c6.628 0 12-5.373 12-12C24 5.373 18.628 0 12 0z M10.557 19.455l-7.042-7.042l2.828-2.828l4.243 4.242l7.07-7.071l2.829 2.829L10.557 19.455z"
+    }));
+<span class="cstat-no" title="statement not covered" >    notStarted = React.createElement("i", {</span>
+      "className": "fa fa-minus"
+    });
+<span class="cstat-no" title="statement not covered" >    if (value &gt;= 100) {</span>
+<span class="cstat-no" title="statement not covered" >      return finished;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (value &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >      return notStarted;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return pieCircle;</span>
+    }
+  }
+});
+&nbsp;
+module.exports = PieProgress;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

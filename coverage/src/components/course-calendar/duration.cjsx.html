@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/course-calendar/duration.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/course-calendar/duration.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">95.39% <small>(145 / 152)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">57.14% <small>(8 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">96% <small>(48 / 50)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">95.39% <small>(145 / 152)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/course-calendar/</a> &#187; duration.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">435</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1902</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">762</span>
+<span class="cline-any cline-yes">762</span>
+<span class="cline-any cline-yes">1140</span>
+<span class="cline-any cline-yes">1140</span>
+<span class="cline-any cline-yes">1140</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">378</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">1917</span>
+<span class="cline-any cline-yes">1917</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">1491</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CourseDuration, CoursePlan, PlanHelper, React, TimeHelper, TimeStore, _, camelCase, moment, twix;
+&nbsp;
+moment = require('moment-timezone');
+&nbsp;
+twix = require('twix');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+camelCase = require('camelcase');
+&nbsp;
+React = require('react/addons');
+&nbsp;
+CoursePlan = require('./plan');
+&nbsp;
+PlanHelper = require('../../helpers/plan');
+&nbsp;
+TimeHelper = require('../../helpers/time');
+&nbsp;
+TimeStore = require('../../flux/time').TimeStore;
+&nbsp;
+CourseDuration = React.createClass({
+  displayName: 'CourseDuration',
+  propTypes: {
+    durations: React.PropTypes.array.isRequired,
+    courseId: React.PropTypes.string.isRequired,
+    viewingDuration: React.PropTypes.instanceOf(twix).isRequired,
+    groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired,
+    referenceDate: TimeHelper.PropTypes.moment,
+    children: React.PropTypes.element,
+    recentTolerance: React.PropTypes.number
+  },
+  getInitialState: function() {
+    return {
+      ranges: [],
+      durationsByStartDate: []
+    };
+  },
+  getDefaultProps: function() {
+    return {
+      recentTolerance: 3600000
+    };
+  },
+  updateGroupedDurations: function(props) {
+    var durations, durationsByStartDate, groupedDurations, groupingDurations, viewingDuration;
+    durations = props.durations, viewingDuration = props.viewingDuration, groupingDurations = props.groupingDurations;
+    groupedDurations = this.groupDurations(durations, viewingDuration, groupingDurations);
+    durationsByStartDate = _.chain(groupedDurations).pluck('plansInRange').flatten().groupBy(function(rangedPlan) {
+      return rangedPlan.plan.id;
+    }).map(function(groupedPlans) {
+      var displays, plan;
+      plan = _.first(groupedPlans).plan;
+      displays = _.map(groupedPlans, function(groupedPlan) {
+        return _.omit(groupedPlan, 'plan');
+      });
+      return {
+        plan: plan,
+        displays: displays
+      };
+    }).value();
+    return this.setState({
+      ranges: groupedDurations,
+      durationsByStartDate: durationsByStartDate
+    });
+  },
+  componentWillMount: function() {
+    return this.updateGroupedDurations(this.props);
+  },
+  componentWillReceiveProps: function(nextProps) {
+    return this.updateGroupedDurations(nextProps);
+  },
+  groupDurations: function(durations, viewingDuration, groupingDurations) {
+    var durationsInView, groupedDurations;
+    durationsInView = _.chain(durations).clone().each(this.setDuration(viewingDuration)).filter(this.isInDuration(viewingDuration)).sortBy(function(plan) {
+      return moment(plan.published_at).valueOf();
+    }).sortBy(function(plan) {
+      return plan.duration.end.valueOf();
+    }).sortBy(function(plan) {
+      return plan.duration.start.valueOf();
+    }).value();
+    return groupedDurations = _.chain(groupingDurations).map(this.groupByRanges(durationsInView)).tap(this.calcTopOffset).value();
+  },
+  calcTopOffset: function(ranges) {
+    var dayHeights;
+    dayHeights = _.pluck(ranges, 'dayHeight');
+    return _.each(ranges, (function(_this) {
+      return function(range, index) {
+        var maxPlansOnDay, plansByDays, weekTopOffset;
+        weekTopOffset = _.chain(dayHeights).first(index + 1).reduce(function(memo, current) {
+          return memo + current;
+        }).value();
+        maxPlansOnDay = range.maxPlansOnDay, plansByDays = range.plansByDays;
+        return _.each(plansByDays, function(plans) {
+          var current, existingOrdered;
+          current = {
+            adder: 0
+          };
+          existingOrdered = _.chain(plans).pluck('order').compact().value();
+          return _.chain(plans).sortBy(function(plan) {
+            return -1 * plan.rangeDuration.start.valueOf();
+          }).each(_this.setPlanOrder({
+            current: current,
+            existingOrdered: existingOrdered,
+            weekTopOffset: weekTopOffset,
+            maxPlansOnDay: maxPlansOnDay
+          })).value();
+        });
+      };
+    })(this));
+  },
+  setPlanOrder: function(arg) {
+    var current, existingOrdered, maxPlansOnDay, weekTopOffset;
+    current = arg.current, existingOrdered = arg.existingOrdered, weekTopOffset = arg.weekTopOffset, maxPlansOnDay = arg.maxPlansOnDay;
+    return (function(_this) {
+      return function(plan, order) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (plan.order == null) {
+          current.order = order;
+          _this._calcOrder({
+            existingOrdered: existingOrdered,
+            current: current,
+            maxPlansOnDay: maxPlansOnDay
+          });
+          plan.order = current.order;
+          return plan.weekTopOffset = weekTopOffset;
+        }
+      };
+    })(this);
+  },
+  _calcOrder: function(arg) {
+    var current, existingOrdered, maxPlansOnDay;
+    existingOrdered = arg.existingOrdered, current = arg.current, maxPlansOnDay = arg.maxPlansOnDay;
+    while (existingOrdered.indexOf(maxPlansOnDay - (current.order + current.adder)) &gt; -1) {
+<span class="cstat-no" title="statement not covered" >      current.adder = current.adder + 1;</span>
+    }
+    return current.order = maxPlansOnDay - (current.order + current.adder);
+  },
+  _getDay: function(oneMoment) {
+    return moment(oneMoment).startOf('day').twix(moment(oneMoment).endOf('day'), {
+      allDay: true
+    });
+  },
+  _getDurationFromMoments: function(listOfMoments) {
+    return _.reduce(listOfMoments, (function(_this) {
+      return function(current, next) {
+        var nextDay;
+        nextDay = _this._getDay(next);
+        return current.union(nextDay);
+      };
+    })(this), this._getDay(listOfMoments[0]));
+  },
+  _getDurationRange: function(plan) {
+    var dueDates, openDates, rangeDates;
+    openDates = _.pluck(plan.tasking_plans, 'opens_at');
+    dueDates = _.pluck(plan.tasking_plans, 'due_at');
+    rangeDates = _.union(openDates, dueDates);
+    return this._getDurationFromMoments(rangeDates);
+  },
+  _getEarliestOpensAt: function(plan) {
+    var openDates, openRange, rangeDates;
+    openDates = _.pluck(plan.tasking_plans, 'opens_at');
+    rangeDates = _.union(openDates);
+    openRange = this._getDurationFromMoments(rangeDates);
+    return openRange.start;
+  },
+  setDurationRange: <span class="fstat-no" title="function not covered" >function(plan) {</span>
+<span class="cstat-no" title="statement not covered" >    return plan.duration = this._getDurationRange(plan);</span>
+  },
+  isPlanPublishing: function(plan) {
+    return PlanHelper.isPublishing(plan, this.props.recentTolerance);
+  },
+  setDurationDay: function(plan) {
+    var dueDates, referenceDate;
+    referenceDate = this.props.referenceDate;
+    dueDates = _.pluck(plan.tasking_plans, 'due_at');
+    return plan.duration = this._getDurationFromMoments(dueDates);
+  },
+  setPlanStatus: function(plan) {
+    var openRange, referenceDate;
+    referenceDate = this.props.referenceDate;
+    openRange = this._getDurationRange(plan);
+    plan.isOpen = openRange.start.isBefore(referenceDate);
+    plan.isPublished = (plan.published_at != null) &amp;&amp; plan.published_at;
+    plan.isPublishing = this.isPlanPublishing(plan);
+    plan.isTrouble = plan.is_trouble;
+    return plan.isEditable = plan.duration.start.isAfter(referenceDate);
+  },
+  setDuration: function(duration) {
+    return (function(_this) {
+      return function(plan) {
+        var durationMethod;
+        plan.mode = 'day';
+        durationMethod = camelCase("set-duration-" + plan.mode);
+        _this[durationMethod](plan);
+        return _this.setPlanStatus(plan);
+      };
+    })(this);
+  },
+  isInDuration: function(duration) {
+    return function(plan) {
+      return plan.duration.length('hours') &gt; 0;
+    };
+  },
+  _calcDayHeight: function(plans) {
+    return plans * 3.6 + 1;
+  },
+  _setDayHeightToMaxOverlaps: <span class="fstat-no" title="function not covered" >function(currentOverlap, rangeData) {</span>
+<span class="cstat-no" title="statement not covered" >    var calcedHeight;</span>
+<span class="cstat-no" title="statement not covered" >    calcedHeight = this._calcDayHeight(currentOverlap.length);</span>
+<span class="cstat-no" title="statement not covered" >    if (calcedHeight &gt; rangeData.dayHeight) {</span>
+<span class="cstat-no" title="statement not covered" >      return rangeData.dayHeight = calcedHeight;</span>
+    }
+  },
+  _getSimplePlan: function(plan) {
+    var earliestOpensAt, simplePlan;
+    simplePlan = _.omit(plan, 'duration', 'tasking_plans');
+    earliestOpensAt = this._getEarliestOpensAt(plan);
+    simplePlan.opensAt = moment(earliestOpensAt).format('M/D');
+    simplePlan.durationLength = plan.duration.length('days');
+    return simplePlan;
+  },
+  groupByRanges: function(durationsInView) {
+    var counter;
+    counter = {};
+    return (function(_this) {
+      return function(range, nthRange) {
+        var dayDuration, dayHeight, dayIter, dayOfWeek, dayPlans, plansOnDay, rangeData, simplePlans;
+        rangeData = {
+          nthRange: nthRange,
+          dayHeight: 10,
+          maxPlansOnDay: 0,
+          plansByDays: [],
+          plansInRange: []
+        };
+        simplePlans = {};
+        _.each(durationsInView, function(plan) {
+          var name, name1, planForRange;
+          if (plan.duration.overlaps(range)) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (counter[name = plan.id] == null) {
+              counter[name] = 0;
+            }
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (simplePlans[name1 = plan.id] == null) {
+              simplePlans[name1] = _this._getSimplePlan(plan);
+            }
+            planForRange = {
+              rangeDuration: plan.duration.intersection(range),
+              offset: moment(range.start).twix(plan.duration.start).length('days'),
+              plan: simplePlans[plan.id],
+              index: counter[plan.id]
+            };
+            planForRange.offsetFromPlanStart = planForRange.rangeDuration.start.diff(plan.duration.start, 'days');
+            rangeData.plansInRange.push(planForRange);
+            return counter[plan.id] = counter[plan.id] + 1;
+          }
+        });
+        dayIter = range.iterateInner('days');
+        while (dayIter.hasNext()) {
+          dayOfWeek = dayIter.next();
+          dayPlans = {
+            dayOfWeek: dayOfWeek.day(),
+            planSlots: {}
+          };
+          dayDuration = dayOfWeek.twix(dayOfWeek.endOf('day'));
+          plansOnDay = _.filter(rangeData.plansInRange, function(plan) {
+            return plan.rangeDuration.engulfs(dayDuration);
+          });
+          rangeData.plansByDays.push(plansOnDay);
+        }
+        rangeData.maxPlansOnDay = _.max(rangeData.plansByDays, function(plansOnDay) {
+          return plansOnDay.length;
+        }).length;
+        dayHeight = _this._calcDayHeight(rangeData.maxPlansOnDay);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (dayHeight &gt; rangeData.dayHeight) {
+<span class="cstat-no" title="statement not covered" >          rangeData.dayHeight = dayHeight;</span>
+        }
+        return rangeData;
+      };
+    })(this);
+  },
+  renderChildren: function(item) {
+    var courseId;
+    courseId = this.props.courseId;
+    return React.Children.map(this.props.children, function(child) {
+      return React.addons.cloneWithProps(child, {
+        item: item,
+        courseId: courseId
+      });
+    });
+  },
+  renderDurations: function() {
+    var renderedDurations;
+    return renderedDurations = _.map(this.state.durationsByStartDate, this.renderChildren);
+  },
+  render: function() {
+    var renderedDurations;
+    renderedDurations = this.renderDurations();
+    return React.createElement("div", null, renderedDurations);
+  }
+});
+&nbsp;
+module.exports = CourseDuration;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

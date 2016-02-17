@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/course-listing.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/course-listing.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">84.62% <small>(55 / 65)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">67.39% <small>(31 / 46)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">88.89% <small>(8 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">84.62% <small>(55 / 65)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/components/</a> &#187; course-listing.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, CourseDataMixin, CourseListing, CourseListingActions, CourseListingStore, DisplayOrRedirect, React, RefreshButton, Router, WindowHelpers, _, ref;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+WindowHelpers = require('../helpers/window');
+&nbsp;
+ref = require('../flux/course-listing'), CourseListingActions = ref.CourseListingActions, CourseListingStore = ref.CourseListingStore;
+&nbsp;
+RefreshButton = require('openstax-react-components').RefreshButton;
+&nbsp;
+CourseDataMixin = require('./course-data-mixin');
+&nbsp;
+DisplayOrRedirect = function(transition, callback) {
+  var conceptCoach, course, courses, ref1, roleType, view;
+  courses = CourseListingStore.allCourses() || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+  course = courses[0];
+  if (courses.length === 1 &amp;&amp; ((ref1 = course.roles) != null ? ref1.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> === 1) {
+    roleType = courses[0].roles[0].type;
+    conceptCoach = courses[0].is_concept_coach;
+    if (roleType === 'student') {
+      if (conceptCoach &amp;&amp; course.webview_url) {
+        WindowHelpers.replaceBrowserLocation(course.webview_url);
+      } else {
+        view = 'viewStudentDashboard';
+      }
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (roleType === 'teacher') {
+      view = conceptCoach ? <span class="branch-0 cbranch-no" title="branch not covered" >'cc-dashboard' </span>: 'taskplans';
+    } else {
+<span class="cstat-no" title="statement not covered" >      throw new Error("BUG: Unrecognized role type " + roleType);</span>
+    }
+    if (view) {
+      transition.redirect(view, {
+        courseId: _.first(courses).id
+      });
+    }
+  }
+  return callback();
+};
+&nbsp;
+CourseListing = React.createClass({
+  displayName: 'CourseListing',
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  mixins: [CourseDataMixin],
+  statics: {
+    willTransitionTo: function(transition, params, query, callback) {
+      if (CourseListingStore.isFailed()) {
+        return callback();
+      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (!CourseListingStore.isLoaded()) {
+<span class="cstat-no" title="statement not covered" >        if (!CourseListingStore.isLoading()) {</span>
+<span class="cstat-no" title="statement not covered" >          CourseListingActions.load();</span>
+        }
+<span class="cstat-no" title="statement not covered" >        CourseListingStore.once('failed', callback);</span>
+<span class="cstat-no" title="statement not covered" >        return CourseListingStore.once('loaded', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          return DisplayOrRedirect(transition, callback);</span>
+        });
+      } else {
+        return DisplayOrRedirect(transition, callback);
+      }
+    }
+  },
+  renderCourses: function(courses) {
+    return _.map(courses, (function(_this) {
+      return function(course) {
+        var altLink, courseDataProps, courseId, courseLink, isConceptCoach, isStudent, isTeacher, name, roles, to;
+        courseId = course.id, name = course.name, roles = course.roles, isConceptCoach = course.is_concept_coach;
+        isStudent = _.find(roles, function(role) {
+          return role.type === 'student';
+        });
+        isTeacher = _.find(roles, function(role) {
+          return role.type === 'teacher';
+        });
+        if (isTeacher) {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof courseLink !== "undefined" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >courseLink !== null)</span> {
+<span class="cstat-no" title="statement not covered" >            altLink = React.createElement(Router.Link, {</span>
+              "className": 'tutor-course-alt-link',
+              "to": 'taskplans',
+              "params": {
+                courseId: courseId
+              }
+            }, "View as Teacher");
+          } else {
+            to = isConceptCoach ? <span class="branch-0 cbranch-no" title="branch not covered" >'cc-dashboard' </span>: 'taskplans';
+            courseLink = React.createElement(Router.Link, {
+              "className": 'tutor-course-item',
+              "to": to,
+              "params": {
+                courseId: courseId
+              }
+            }, course.name);
+          }
+        } else <span class="missing-if-branch" title="else path not taken" >E</span>if (isStudent) {
+          if (isConceptCoach) {
+            courseLink = React.createElement("a", {
+              "className": 'tutor-course-item',
+              "href": course.webview_url
+            }, course.name);
+          } else {
+            courseLink = React.createElement(Router.Link, {
+              "className": 'tutor-course-item',
+              "to": 'viewStudentDashboard',
+              "params": {
+                courseId: courseId
+              }
+            }, course.name);
+          }
+        } else {
+<span class="cstat-no" title="statement not covered" >          if (typeof console.warn === "function") {</span>
+<span class="cstat-no" title="statement not covered" >            console.warn("BUG: User is not a teacher or a student on course id: " + course.id);</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return null;</span>
+        }
+        courseDataProps = _this.getCourseDataProps(courseId);
+        return React.createElement(BS.Row, {
+          "key": "course-" + courseId
+        }, React.createElement(BS.Col, React.__spread({}, courseDataProps, {
+          "className": 'tutor-booksplash-course-item',
+          "xs": 12.
+        }), courseLink, altLink));
+      };
+    })(this));
+  },
+  render: function() {
+    var body, courses, refreshBtn;
+    courses = CourseListingStore.allCourses() || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+    body = courses.length ? React.createElement("div", {
+      "className": '-course-list'
+    }, this.renderCourses(courses)) : <span class="branch-1 cbranch-no" title="branch not covered" >React.createElement("div", {</span>
+      "className": '-course-list-empty'
+    }, "No Courses");
+    if (!CourseListingStore.isLoaded()) {
+      refreshBtn = React.createElement(RefreshButton, null);
+    }
+    return React.createElement("div", {
+      "className": 'course-listing '
+    }, body, refreshBtn);
+  }
+});
+&nbsp;
+module.exports = {
+  CourseListing: CourseListing
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

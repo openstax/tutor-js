@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task-plan/homework.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/task-plan/homework.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">93.22% <small>(55 / 59)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">73.68% <small>(28 / 38)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">66.67% <small>(2 / 3)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">93.22% <small>(55 / 59)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task-plan/</a> &#187; homework.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var AddExercises, BS, ChooseExercises, ExerciseSummary, ExerciseTable, HomeworkPlan, PinnedHeaderFooterCard, PlanFooter, PlanMixin, React, ReviewExercises, Router, SelectTopics, TaskPlanActions, TaskPlanBuilder, TaskPlanStore, TutorDateInput, TutorInput, TutorTextArea, _, moment, ref, ref1, ref2;
+&nbsp;
+React = require('react');
+&nbsp;
+moment = require('moment');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+PlanFooter = require('./footer');
+&nbsp;
+SelectTopics = require('./select-topics');
+&nbsp;
+ExerciseSummary = require('./homework/exercise-summary');
+&nbsp;
+PlanMixin = require('./plan-mixin');
+&nbsp;
+PinnedHeaderFooterCard = require('openstax-react-components').PinnedHeaderFooterCard;
+&nbsp;
+TaskPlanBuilder = require('./builder');
+&nbsp;
+ref = require('../tutor-input'), TutorInput = ref.TutorInput, TutorDateInput = ref.TutorDateInput, TutorTextArea = ref.TutorTextArea;
+&nbsp;
+ref1 = require('./homework/exercises'), AddExercises = ref1.AddExercises, ReviewExercises = ref1.ReviewExercises, ExerciseTable = ref1.ExerciseTable;
+&nbsp;
+ref2 = require('../../flux/task-plan'), TaskPlanStore = ref2.TaskPlanStore, TaskPlanActions = ref2.TaskPlanActions;
+&nbsp;
+ChooseExercises = React.createClass({
+  displayName: 'ChooseExercises',
+  propTypes: {
+    planId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired,
+    selected: React.PropTypes.array.isRequired,
+    hide: React.PropTypes.func.isRequired,
+    canEdit: React.PropTypes.bool
+  },
+  selectProblems: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      showProblems: true
+    });
+  },
+  render: function() {
+    var addExercises, cancel, classes, courseId, ecosystemId, exerciseSummary, header, hide, planId, primary, ref3, ref4, ref5, selected, shouldShowExercises;
+    ref3 = this.props, courseId = ref3.courseId, planId = ref3.planId, ecosystemId = ref3.ecosystemId, selected = ref3.selected, hide = ref3.hide, cancel = ref3.cancel;
+    header = React.createElement("span", null, "Add Problems");
+    selected = TaskPlanStore.getTopics(planId);
+    shouldShowExercises = ((ref4 = this.props.selected) != null ? ref4.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> &amp;&amp; ((ref5 = this.state) != null ? <span class="branch-0 cbranch-no" title="branch not covered" >ref5.showProblems </span>: void 0);
+    classes = ['-show-problems'];
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!(selected != null ? selected.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>) {
+<span class="cstat-no" title="statement not covered" >      classes.push('disabled');</span>
+    }
+    classes = classes.join(' ');
+    primary = React.createElement(BS.Button, {
+      "className": classes,
+      "bsStyle": 'primary',
+      "onClick": this.selectProblems
+    }, "Show Problems");
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (shouldShowExercises) {
+<span class="cstat-no" title="statement not covered" >      exerciseSummary = React.createElement(ExerciseSummary, {</span>
+        "canReview": true,
+        "canEdit": this.props.canEdit,
+        "reviewClicked": hide,
+        "onCancel": cancel,
+        "planId": planId
+      });
+<span class="cstat-no" title="statement not covered" >      addExercises = React.createElement(AddExercises, {</span>
+        "courseId": courseId,
+        "planId": planId,
+        "pageIds": selected
+      });
+    }
+    return React.createElement("div", {
+      "className": 'homework-plan-exercise-select-topics'
+    }, React.createElement(SelectTopics, {
+      "primary": primary,
+      "header": header,
+      "courseId": courseId,
+      "ecosystemId": ecosystemId,
+      "planId": planId,
+      "selected": selected,
+      "cancel": cancel,
+      "hide": hide
+    }), React.createElement(PinnedHeaderFooterCard, {
+      "containerBuffer": 50.,
+      "header": exerciseSummary,
+      "cardType": 'homework-builder'
+    }, addExercises));
+  }
+});
+&nbsp;
+HomeworkPlan = React.createClass({
+  displayName: 'HomeworkPlan',
+  mixins: [PlanMixin],
+  render: function() {
+    var addProblemsButton, chooseExercises, courseId, ecosystemId, exerciseSummary, exerciseTable, footer, formClasses, hasExercises, header, id, plan, problemsRequired, ref3, ref4, ref5, ref6, ref7, ref8, reviewExercises, reviewExercisesSummary, shouldShowExercises, topics;
+    ref3 = this.props, id = ref3.id, courseId = ref3.courseId;
+    plan = TaskPlanStore.get(id);
+    ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
+    topics = TaskPlanStore.getTopics(id);
+    hasExercises = (ref4 = TaskPlanStore.getExercises(id)) != null ? ref4.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    shouldShowExercises = hasExercises &amp;&amp; !((ref5 = this.state) != null ? ref5.showSectionTopics : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>;
+    footer = React.createElement(PlanFooter, {
+      "id": id,
+      "courseId": courseId,
+      "onPublish": this.publish,
+      "onSave": this.save,
+      "onCancel": this.cancel,
+      "getBackToCalendarParams": this.getBackToCalendarParams,
+      "goBackToCalendar": this.goBackToCalendar
+    });
+    formClasses = ['edit-homework dialog'];
+    if ((ref6 = this.state) != null ? ref6.showSectionTopics : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+      formClasses.push('hide');
+    }
+    if ((ref7 = this.state) != null ? ref7.invalid : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+      formClasses.push('is-invalid-form');
+    }
+    if (this.state.showSectionTopics) {
+      chooseExercises = React.createElement(ChooseExercises, {
+        "courseId": courseId,
+        "planId": id,
+        "ecosystemId": ecosystemId,
+        "cancel": this.cancelSelection,
+        "hide": this.hideSectionTopics,
+        "canEdit": !this.state.isVisibleToStudents,
+        "selected": topics
+      });
+    }
+    if (shouldShowExercises) {
+      exerciseSummary = React.createElement(ExerciseSummary, {
+        "onCancel": this.cancel,
+        "onPublish": this.publish,
+        "canAdd": !this.state.isVisibleToStudents,
+        "addClicked": this.showSectionTopics,
+        "planId": id
+      });
+      exerciseTable = React.createElement(ExerciseTable, {
+        "courseId": courseId,
+        "pageIds": topics,
+        "planId": id
+      });
+      reviewExercises = React.createElement(ReviewExercises, {
+        "courseId": courseId,
+        "pageIds": topics,
+        "canEdit": !this.state.isVisibleToStudents,
+        "planId": id
+      });
+      reviewExercisesSummary = React.createElement(PinnedHeaderFooterCard, {
+        "containerBuffer": 50.,
+        "header": exerciseSummary,
+        "cardType": 'homework-builder'
+      }, exerciseTable, reviewExercises);
+    }
+    header = this.builderHeader('homework');
+    if (!this.state.isVisibleToStudents) {
+      addProblemsButton = React.createElement(BS.Button, {
+        "id": 'problems-select',
+        "onClick": this.showSectionTopics,
+        "bsStyle": 'default'
+      }, "+ Select Problems");
+    }
+    if (((ref8 = this.state) != null ? ref8.invalid : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> &amp;&amp; !hasExercises) {
+      problemsRequired = React.createElement("span", {
+        "className": "problems-required"
+      }, "Please add exercises to this assignment", React.createElement("i", {
+        "className": "fa fa-exclamation-circle"
+      }));
+    }
+    return React.createElement("div", {
+      "className": 'homework-plan task-plan',
+      "data-assignment-type": 'homework'
+    }, React.createElement(BS.Panel, {
+      "bsStyle": 'default',
+      "header": header,
+      "className": formClasses.join(' '),
+      "footer": footer
+    }, React.createElement(BS.Grid, {
+      "fluid": true
+    }, React.createElement(TaskPlanBuilder, {
+      "courseId": courseId,
+      "id": id
+    }), React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "xs": 12,
+      "md": 12
+    }, addProblemsButton, problemsRequired)))), chooseExercises, reviewExercisesSummary);
+  }
+});
+&nbsp;
+module.exports = {
+  HomeworkPlan: HomeworkPlan
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

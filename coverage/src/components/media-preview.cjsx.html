@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/media-preview.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/media-preview.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">91.82% <small>(101 / 110)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">73.58% <small>(39 / 53)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">94.44% <small>(17 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">91.82% <small>(101 / 110)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/components/</a> &#187; media-preview.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31</span>
+<span class="cline-any cline-yes">31</span>
+<span class="cline-any cline-yes">31</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">26</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">39</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var ArbitraryHtmlAndMath, LoadableItem, MediaPreview, MediaStore, React, ReferenceBookPageActions, ReferenceBookPageStore, S, TutorPopover, _, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+LoadableItem = require('./loadable-item');
+&nbsp;
+TutorPopover = require('./tutor-popover');
+&nbsp;
+ArbitraryHtmlAndMath = require('openstax-react-components').ArbitraryHtmlAndMath;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+S = require('../helpers/string');
+&nbsp;
+MediaStore = require('../flux/media').MediaStore;
+&nbsp;
+ref = require('../flux/reference-book-page'), ReferenceBookPageStore = ref.ReferenceBookPageStore, ReferenceBookPageActions = ref.ReferenceBookPageActions;
+&nbsp;
+MediaPreview = React.createClass({
+  displayName: 'MediaPreview',
+  getInitialState: function() {
+    return {
+      popped: false,
+      stick: false,
+      media: null
+    };
+  },
+  propTypes: {
+    mediaId: React.PropTypes.string.isRequired,
+    bookHref: React.PropTypes.string.isRequired,
+    cnxId: React.PropTypes.string.isRequired,
+    mediaDOMOnParent: React.PropTypes.object,
+    windowImpl: React.PropTypes.object,
+    buffer: React.PropTypes.number,
+    shouldLinkOut: React.PropTypes.bool,
+    originalHref: React.PropTypes.string
+  },
+  getDefaultProps: function() {
+    return {
+      buffer: 160,
+      shouldLinkOut: false,
+      windowImpl: window
+    };
+  },
+  componentWillMount: function() {
+    var cnxId, media, mediaId, ref1;
+    ref1 = this.props, mediaId = ref1.mediaId, cnxId = ref1.cnxId;
+    media = MediaStore.get(mediaId);
+    if (media != null) {
+      this.updateMedia(media);
+    }
+    if (!((media != null) || ReferenceBookPageStore.isLoading(cnxId) || ReferenceBookPageStore.isLoaded(cnxId))) {
+      ReferenceBookPageActions.loadSilent(cnxId);
+      return MediaStore.once("loaded." + mediaId, this.updateMedia);
+    }
+  },
+  componentWillUnmount: function() {
+    var mediaId;
+    mediaId = this.props.mediaId;
+    return MediaStore.off("loaded." + mediaId, this.updateMedia);
+  },
+  updateMedia: function(media) {
+    return this.setState({
+      media: media
+    });
+  },
+  checkShouldPop: function() {
+    if (!this.props.mediaDOMOnParent) {
+      return true;
+    }
+    return !this.isMediaInViewport();
+  },
+  isMediaInViewport: function() {
+    var buffer, mediaDOMOnParent, mediaRect, ref1, ref2, windowImpl;
+    ref1 = this.props, mediaDOMOnParent = ref1.mediaDOMOnParent, buffer = ref1.buffer, windowImpl = ref1.windowImpl;
+    mediaRect = mediaDOMOnParent.getBoundingClientRect();
+    return (0 &lt;= (ref2 = mediaRect.top + buffer) &amp;&amp; ref2 &lt;= windowImpl.innerHeight);
+  },
+  highlightMedia: function() {
+    var mediaDOMOnParent;
+    mediaDOMOnParent = this.props.mediaDOMOnParent;
+    return mediaDOMOnParent.classList.add('link-target');
+  },
+  unhighlightMedia: function() {
+    var mediaDOMOnParent;
+    mediaDOMOnParent = this.props.mediaDOMOnParent;
+    return mediaDOMOnParent.classList.remove('link-target');
+  },
+  stickMedia: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      stick: true
+    });
+<span class="cstat-no" title="statement not covered" >    if (!this.state.popped) {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        popped: true
+      });
+<span class="cstat-no" title="statement not covered" >      return this.refs.overlay.show();</span>
+    }
+  },
+  showMedia: function() {
+    var shouldPop;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.state.stick) {
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+    shouldPop = this.checkShouldPop();
+    if (shouldPop) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.state.popped) {
+        this.setState({
+          popped: true
+        });
+        return this.refs.overlay.show();
+      }
+    } else {
+      return this.highlightMedia();
+    }
+  },
+  hideMedia: function() {
+    if (this.state.popped) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.state.stick) {
+        this.setState({
+          popped: false
+        });
+        return this.refs.overlay.hide();
+      }
+    } else {
+      return this.unhighlightMedia();
+    }
+  },
+  onMouseEnter: function(mouseEvent) {
+    mouseEvent.preventDefault();
+    return this.showMedia();
+  },
+  onMouseLeave: function(mouseEvent) {
+    mouseEvent.preventDefault();
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.isMouseExited(mouseEvent)) {
+      return this.hideMedia();
+    }
+  },
+  isMouseExited: function(mouseEvent) {
+    var linkDOM, popoverDOM, ref1;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!((((ref1 = mouseEvent.relatedTarget) != null ? ref1.nodeType : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> != null) &amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >this.refs.overlay.refs.popover != null)</span>)) {
+      return true;
+    }
+<span class="cstat-no" title="statement not covered" >    linkDOM = this.refs.overlay.refs.popper.getDOMNode();</span>
+<span class="cstat-no" title="statement not covered" >    popoverDOM = this.refs.overlay.refs.popover.getDOMNode();</span>
+<span class="cstat-no" title="statement not covered" >    return !(popoverDOM.contains(mouseEvent.relatedTarget) || linkDOM.isEqualNode(mouseEvent.relatedTarget));</span>
+  },
+  getOverlayProps: function() {
+    return _.pick(this.props, 'containerPadding');
+  },
+  getLinkProps: function(otherProps) {
+    var bookHref, defaultClassName, linkProps, media, mediaDOMOnParent, mediaId, originalHref, otherPropTypes, ref1, shouldLinkOut;
+    ref1 = this.props, mediaId = ref1.mediaId, mediaDOMOnParent = ref1.mediaDOMOnParent, bookHref = ref1.bookHref, shouldLinkOut = ref1.shouldLinkOut, originalHref = ref1.originalHref;
+    media = this.state.media;
+    otherPropTypes = _.chain(otherProps).keys().union(['mediaId', 'children', 'mediaDOMOnParent', 'buffer']).value();
+    linkProps = _.omit(this.props, otherPropTypes);
+    linkProps['data-targeted'] = 'media';
+    if (mediaDOMOnParent != null) {
+      linkProps.href = "#" + mediaId;
+    } else if (media &amp;&amp; shouldLinkOut) {
+      linkProps.href = bookHref;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (mediaId) {
+        linkProps.href += "#" + mediaId;
+      }
+      linkProps.target = '_blank';
+    } else if (!media) {
+      linkProps.href = originalHref;
+      linkProps.target = '_blank';
+    }
+    linkProps.onMouseEnter = this.onMouseEnter;
+    linkProps.onMouseLeave = this.onMouseLeave;
+    defaultClassName = 'media-preview-link';
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (linkProps.className != null) {
+<span class="cstat-no" title="statement not covered" >      linkProps.className += " " + defaultClassName;</span>
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (linkProps.className == null) {
+      linkProps.className = defaultClassName;
+    }
+    return linkProps;
+  },
+  render: function() {
+    var allProps, bookHref, children, content, contentHtml, contentProps, linkProps, linkText, media, mediaId, overlayProps, popoverProps, ref1, windowImpl;
+    ref1 = this.props, mediaId = ref1.mediaId, children = ref1.children, bookHref = ref1.bookHref, windowImpl = ref1.windowImpl;
+    media = this.state.media;
+    overlayProps = this.getOverlayProps();
+    linkProps = this.getLinkProps(overlayProps);
+    if (media != null) {
+      contentHtml = media.html;
+      contentProps = {
+        className: 'media-preview-content'
+      };
+      popoverProps = {
+        'data-content-type': media.name,
+        className: 'media-preview',
+        ref: 'popover',
+        onMouseLeave: this.onMouseLeave
+      };
+      content = React.createElement(ArbitraryHtmlAndMath, React.__spread({}, contentProps, {
+        "html": contentHtml
+      }));
+      allProps = {
+        content: content,
+        overlayProps: overlayProps,
+        popoverProps: popoverProps,
+        windowImpl: windowImpl
+      };
+      if (children !== '[link]') {
+        linkText = children;
+      }
+      if (linkText == null) {
+        linkText = S.capitalize(media.name);
+      }
+      return React.createElement(TutorPopover, React.__spread({}, allProps, {
+        "ref": 'overlay'
+      }), React.createElement("a", React.__spread({}, linkProps), linkText));
+    } else {
+      linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave');
+      return React.createElement("a", React.__spread({}, linkProps), children);
+    }
+  }
+});
+&nbsp;
+module.exports = {
+  MediaPreview: MediaPreview
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

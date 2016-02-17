@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/reference-book/slide-out-menu-toggle.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/reference-book/</a> slide-out-menu-toggle.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.5% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.5% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/8</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var React, SlideOutMenuToggle;
+&nbsp;
+React = require('react');
+&nbsp;
+SlideOutMenuToggle = React.createClass({displayName: "SlideOutMenuToggle",
+  getDefaultProps: function() {
+    return {
+      height: 28,
+      width: 28
+    };
+  },
+  propTypes: {
+    isMenuVisible: React.PropTypes.bool.isRequired
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var transform;</span>
+<span class="cstat-no" title="statement not covered" >    transform = this.props.isVisible ? {</span>
+      triangle: "translate(0 0)",
+      line: "scale(1 1) translate(0 0)"
+    } : {
+      triangle: "translate(-30 0)",
+      line: "scale(2 1) translate(-50 0)"
+    };
+<span class="cstat-no" title="statement not covered" >    return React.createElement("svg", {</span>
+      "className": "slide-out-menu-toggle",
+      "width": this.props.width,
+      "height": this.props.height,
+      "viewBox": "0 0 100 100",
+      "version": "1.1",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }, React.createElement("g", {
+      "stroke": "none",
+      "strokeWidth": "1",
+      "fill": "none",
+      "fill-rule": "evenodd"
+    }, React.createElement("g", {
+      "id": "icon-list-open"
+    }, React.createElement("path", {
+      "id": "line1",
+      "d": "M99.961,15.874l0,-13.636c0,-0.615 -0.177,-1.148 -0.531,-1.598c-0.353,-0.45 -0.772,-0.674 -1.255,-0.674l-96.424,0c-0.483,0 -0.902,0.224 -1.255,0.674c-0.354,0.45 -0.53,0.983 -0.53,1.598l0,13.636c0,0.615 0.176,1.148 0.53,1.598c0.353,0.45 0.772,0.674 1.255,0.674l96.424,0c0.483,0 0.902,-0.224 1.255,-0.674c0.354,-0.45 0.531,-0.983 0.531,-1.598Z"
+    }), React.createElement("path", {
+      "id": "line2",
+      "transform": transform.line,
+      "d": "M99.961,43.145l0,-13.635c0,-0.616 -0.177,-1.149 -0.531,-1.598c-0.353,-0.45 -0.772,-0.675 -1.255,-0.675l-60.711,0c-0.484,0 -0.902,0.225 -1.256,0.675c-0.353,0.449 -0.53,0.982 -0.53,1.598l0,13.635c0,0.616 0.177,1.148 0.53,1.598c0.354,0.45 0.772,0.675 1.256,0.675l60.711,0c0.483,0 0.902,-0.225 1.255,-0.675c0.354,-0.45 0.531,-0.982 0.531,-1.598Z"
+    }), React.createElement("path", {
+      "id": "line3",
+      "transform": transform.line,
+      "d": "M99.961,70.417l0,-13.636c0,-0.616 -0.177,-1.148 -0.531,-1.598c-0.353,-0.45 -0.772,-0.675 -1.255,-0.675l-60.711,0c-0.484,0 -0.902,0.225 -1.256,0.675c-0.353,0.45 -0.53,0.982 -0.53,1.598l0,13.636c0,0.615 0.177,1.148 0.53,1.597c0.354,0.45 0.772,0.675 1.256,0.675l60.711,0c0.483,0 0.902,-0.225 1.255,-0.675c0.354,-0.449 0.531,-0.982 0.531,-1.597Z"
+    }), React.createElement("path", {
+      "id": "line4",
+      "d": "M99.961,97.688l0,-13.636c0,-0.615 -0.177,-1.148 -0.531,-1.598c-0.353,-0.45 -0.772,-0.674 -1.255,-0.674l-96.424,0c-0.483,0 -0.902,0.224 -1.255,0.674c-0.354,0.45 -0.53,0.983 -0.53,1.598l0,13.636c0,0.615 0.176,1.148 0.53,1.598c0.353,0.45 0.772,0.675 1.255,0.675l96.424,0c0.483,0 0.902,-0.225 1.255,-0.675c0.354,-0.45 0.531,-0.983 0.531,-1.598Z"
+    }), React.createElement("path", {
+      "id": "triangle",
+      "transform": transform.triangle,
+      "d": "M21.393,70.417l0,-40.907c0,-0.616 -0.177,-1.149 -0.53,-1.598c-0.353,-0.45 -0.772,-0.675 -1.256,-0.675c-0.52,0 -0.948,0.213 -1.283,0.639l-16.071,20.454c-0.334,0.426 -0.502,0.97 -0.502,1.633c0,0.663 0.168,1.207 0.502,1.633l16.071,20.454c0.335,0.426 0.763,0.639 1.283,0.639c0.484,0 0.903,-0.225 1.256,-0.675c0.353,-0.449 0.53,-0.982 0.53,-1.597Z"
+    }))));
+  }
+});
+&nbsp;
+module.exports = SlideOutMenuToggle;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

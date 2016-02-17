@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/flux/scores-export.coffee</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/flux/scores-export.coffee</span></h1>
+    <h2>
+        Statements: <span class="metric">39.47% <small>(15 / 38)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">39.47% <small>(15 / 38)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/flux/</a> &#187; scores-export.coffee</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CrudConfig, JobActions, JobCrudConfig, JobListenerConfig, JobStore, ScoresExportConfig, _, actions, extendConfig, makeSimpleStore, moment, ref, ref1, ref2, store,
+  slice = [].slice;
+&nbsp;
+ref = require('./helpers'), CrudConfig = ref.CrudConfig, makeSimpleStore = ref.makeSimpleStore, extendConfig = ref.extendConfig;
+&nbsp;
+ref1 = require('./job'), JobActions = ref1.JobActions, JobStore = ref1.JobStore;
+&nbsp;
+JobListenerConfig = require('../helpers/job').JobListenerConfig;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+moment = require('moment');
+&nbsp;
+ScoresExportConfig = {
+  _loaded: <span class="fstat-no" title="function not covered" >function(obj, id) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.emit('loaded', id);</span>
+  },
+  getJobIdFromJobUrl: <span class="fstat-no" title="function not covered" >function(jobUrl) {</span>
+<span class="cstat-no" title="statement not covered" >    var jobId, jobUrlSegments;</span>
+<span class="cstat-no" title="statement not covered" >    jobUrlSegments = jobUrl.split('/api/jobs/');</span>
+<span class="cstat-no" title="statement not covered" >    if (jobUrlSegments[1] != null) {</span>
+<span class="cstat-no" title="statement not covered" >      jobId = jobUrlSegments[1];</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return jobId;</span>
+  },
+  _getId: <span class="fstat-no" title="function not covered" >function(obj, id) {</span>
+<span class="cstat-no" title="statement not covered" >    var job, jobId;</span>
+<span class="cstat-no" title="statement not covered" >    job = obj.job;</span>
+<span class="cstat-no" title="statement not covered" >    jobId = this.getJobIdFromJobUrl(job);</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      jobId: jobId,
+      id: id
+    };
+  },
+  exports: {
+    getLatestExport: <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >      var perfExports;</span>
+<span class="cstat-no" title="statement not covered" >      perfExports = this._get(id);</span>
+<span class="cstat-no" title="statement not covered" >      return _.chain(perfExports).sortBy(<span class="fstat-no" title="function not covered" >function(perfExport) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return perfExport.created_at;</span>
+      }).last().value();
+    }
+  }
+};
+&nbsp;
+JobCrudConfig = extendConfig(new JobListenerConfig(), new CrudConfig());
+&nbsp;
+extendConfig(ScoresExportConfig, JobCrudConfig);
+&nbsp;
+ScoresExportConfig.exports.isExported = ScoresExportConfig.exports.isSucceeded;
+&nbsp;
+ScoresExportConfig.exports.isExporting = ScoresExportConfig.exports.isProgressing;
+&nbsp;
+ScoresExportConfig["export"] = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var args, ref2;</span>
+<span class="cstat-no" title="statement not covered" >  args = 1 &lt;= arguments.length ? slice.call(arguments, 0) : [];</span>
+<span class="cstat-no" title="statement not covered" >  (ref2 = this.que).call.apply(ref2, [this].concat(slice.call(args)));</span>
+<span class="cstat-no" title="statement not covered" >  return this.emitChange();</span>
+};
+&nbsp;
+ScoresExportConfig.exported = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var args, id, jobId, ref2, ref3;</span>
+<span class="cstat-no" title="statement not covered" >  args = 1 &lt;= arguments.length ? slice.call(arguments, 0) : [];</span>
+<span class="cstat-no" title="statement not covered" >  (ref2 = this.queued).call.apply(ref2, [this].concat(slice.call(args)));</span>
+<span class="cstat-no" title="statement not covered" >  ref3 = this._getId.apply(this, args), id = ref3.id, jobId = ref3.jobId;</span>
+<span class="cstat-no" title="statement not covered" >  return this.startChecking.call(this, id, jobId);</span>
+};
+&nbsp;
+ref2 = makeSimpleStore(ScoresExportConfig), actions = ref2.actions, store = ref2.store;
+&nbsp;
+module.exports = {
+  ScoresExportActions: actions,
+  ScoresExportStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

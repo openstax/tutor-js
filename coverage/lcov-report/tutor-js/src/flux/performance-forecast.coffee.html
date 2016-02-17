@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/performance-forecast.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> performance-forecast.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">74.74% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>71/95</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>31/50</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.83% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>17/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">74.74% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>71/95</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">129×</span>
+<span class="cline-any cline-yes">129×</span>
+<span class="cline-any cline-yes">129×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129×</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-yes">105×</span>
+<span class="cline-any cline-yes">105×</span>
+<span class="cline-any cline-yes">105×</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">266×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">138×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">71×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CrudConfig, Helpers, Student, Teacher, TeacherStudent, _, extendConfig, findAllSections, makeSimpleStore, ref;
+&nbsp;
+ref = require('./helpers'), CrudConfig = ref.CrudConfig, makeSimpleStore = ref.makeSimpleStore, extendConfig = ref.extendConfig;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+findAllSections = function(section) {
+  var child, i, j, len, len1, ref1, ref2, ref3, sections;
+  sections = [];
+  if (((ref1 = section.chapter_section) != null ? ref1.length : void 0) &gt; 1) {
+    sections.push(section);
+  }
+  if (section.children) {
+    ref2 = section.children;
+    for (i = 0, len = ref2.length; i &lt; len; i++) {
+      child = ref2[i];
+      ref3 = findAllSections(child);
+      for (j = 0, len1 = ref3.length; j &lt; len1; j++) {
+        section = ref3[j];
+        sections.push(section);
+      }
+    }
+  }
+  return sections;
+};
+&nbsp;
+Teacher = makeSimpleStore(extendConfig({
+  exports: {
+    getChaptersForPeriod: function(courseId, periodId) {
+      var period;
+      period = _.findWhere(this._get(courseId), {
+        period_id: periodId
+      });
+      return (period != null ? period.children : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+    },
+    getSectionsForPeriod: function(courseId, periodId) {
+      var period;
+      period = _.findWhere(this._get(courseId), {
+        period_id: periodId
+      });
+      return findAllSections(period);
+    }
+  }
+}, new CrudConfig));
+&nbsp;
+Student = makeSimpleStore(extendConfig({
+  exports: {
+    getSortedSections: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      var sections;</span>
+<span class="cstat-no" title="statement not covered" >      sections = findAllSections(this._get(courseId));</span>
+<span class="cstat-no" title="statement not covered" >      return _.sortBy(sections, <span class="fstat-no" title="function not covered" >function(s) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return s.clue.value;</span>
+      });
+    },
+    getAllSections: function(courseId) {
+      return findAllSections(this._get(courseId));
+    }
+  }
+}, new CrudConfig));
+&nbsp;
+TeacherStudent = makeSimpleStore(extendConfig({
+  loaded: function(obj, id, arg) {
+    var base, base1, roleId;
+    roleId = arg.roleId;
+    (base = this._asyncStatus)[id] || (<span class="branch-1 cbranch-no" title="branch not covered" >base[id] = {})</span>;
+    this._asyncStatus[id][roleId] = 'LOADED';
+    (base1 = this._local)[id] || (base1[id] = {});
+    this._local[id][roleId] = obj;
+    return this.emitChange();
+  },
+  load: function(id, arg) {
+    var base, base1, roleId;
+    roleId = arg.roleId;
+    (base = this._asyncStatus)[id] || (base[id] = {});
+    (base1 = this._reload)[id] || (base1[id] = {});
+    this._reload[id][roleId] = false;
+    this._asyncStatus[id][roleId] = 'LOADING';
+    return this.emitChange();
+  },
+  exports: {
+    getSortedSections: <span class="fstat-no" title="function not covered" >function(courseId, roleId, property) {</span>
+<span class="cstat-no" title="statement not covered" >      var sections;</span>
+<span class="cstat-no" title="statement not covered" >      if (property == null) {</span>
+<span class="cstat-no" title="statement not covered" >        property = 'current_level';</span>
+      }
+<span class="cstat-no" title="statement not covered" >      sections = findAllSections(this._get(courseId));</span>
+<span class="cstat-no" title="statement not covered" >      return _.sortBy(sections, property);</span>
+    },
+    get: <span class="fstat-no" title="function not covered" >function(courseId, arg) {</span>
+<span class="cstat-no" title="statement not covered" >      var ref1, roleId;</span>
+<span class="cstat-no" title="statement not covered" >      roleId = arg.roleId;</span>
+<span class="cstat-no" title="statement not covered" >      return (ref1 = this._local[courseId]) != null ? ref1[roleId] : void 0;</span>
+    },
+    getChapters: function(courseId, arg) {
+      var guide, ref1, roleId;
+      roleId = arg.roleId;
+      guide = (ref1 = this._local[courseId]) != null ? ref1[roleId] : void 0;
+      return (guide != null ? guide.children : void 0) || [];
+    },
+    getAllSections: function(courseId, arg) {
+      var ref1, roleId;
+      roleId = arg.roleId;
+      return findAllSections(((ref1 = this._local[courseId]) != null ? ref1[roleId] : void 0) || {});
+    },
+    reload: <span class="fstat-no" title="function not covered" >function(id, arg) {</span>
+<span class="cstat-no" title="statement not covered" >      var ref1, roleId;</span>
+<span class="cstat-no" title="statement not covered" >      roleId = arg.roleId;</span>
+<span class="cstat-no" title="statement not covered" >      return (ref1 = this._reload[id]) != null ? ref1[roleId] : void 0;</span>
+    },
+    isLoading: function(id, arg) {
+      var ref1, roleId;
+      roleId = arg.roleId;
+      return ((ref1 = this._asyncStatus[id]) != null ? ref1[roleId] : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> === 'LOADING';
+    },
+    isLoaded: <span class="fstat-no" title="function not covered" >function(id, arg) {</span>
+<span class="cstat-no" title="statement not covered" >      var ref1, roleId;</span>
+<span class="cstat-no" title="statement not covered" >      roleId = arg.roleId;</span>
+<span class="cstat-no" title="statement not covered" >      return ((ref1 = this._asyncStatus[id]) != null ? ref1[roleId] : void 0) === 'LOADED';</span>
+    }
+  }
+}, new CrudConfig));
+&nbsp;
+Helpers = {
+  recentSections: function(sections, limit) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (limit == null) {
+      limit = 4;
+    }
+    return _.last(sections, limit);
+  },
+  canDisplayForecast: function(clue, sampleSizeThreshold) {
+    return clue.sample_size &gt;= sampleSizeThreshold || clue.sample_size_interpretation !== 'below';
+  },
+  filterForecastedSections: function(sections, sampleSizeThreshold) {
+    return _.filter(sections, function(s) {
+      return Helpers.canDisplayForecast(s.clue, sampleSizeThreshold);
+    });
+  },
+  weakestSections: function(sections, sampleSizeThreshold, displayCount) {
+    var validSections;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (displayCount == null) {
+      displayCount = 4;
+    }
+    validSections = this.filterForecastedSections(sections, sampleSizeThreshold);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!(validSections.length &gt;= 2)) {
+<span class="cstat-no" title="statement not covered" >      return [];</span>
+    }
+    displayCount = Math.min(Math.max(1, Math.floor(validSections.length / 2)), displayCount);
+    return _.chain(validSections).sortBy(function(s) {
+      return s.clue.value;
+    }).first(displayCount).value();
+  },
+  canPracticeWeakest: <span class="fstat-no" title="function not covered" >function(arg) {</span>
+<span class="cstat-no" title="statement not covered" >    var displayCount, minimumSectionCount, sampleSizeThreshold, sections;</span>
+<span class="cstat-no" title="statement not covered" >    sections = arg.sections, sampleSizeThreshold = arg.sampleSizeThreshold, displayCount = arg.displayCount, minimumSectionCount = arg.minimumSectionCount;</span>
+<span class="cstat-no" title="statement not covered" >    displayCount || (displayCount = 4);</span>
+<span class="cstat-no" title="statement not covered" >    minimumSectionCount || (minimumSectionCount = 1);</span>
+<span class="cstat-no" title="statement not covered" >    return this.weakestSections(sections, displayCount).length &gt;= minimumSectionCount;</span>
+  },
+  canDisplayWeakest: function(arg) {
+    var sampleSizeThreshold, sections;
+    sections = arg.sections, sampleSizeThreshold = arg.sampleSizeThreshold;
+    return this.filterForecastedSections(sections).length &gt; 1;
+  },
+  pagesForSections: function(sections) {
+    return _.chain(sections).pluck('page_ids').flatten().uniq().value();
+  }
+};
+&nbsp;
+module.exports = {
+  Student: Student,
+  Teacher: Teacher,
+  TeacherStudent: TeacherStudent,
+  Helpers: Helpers
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

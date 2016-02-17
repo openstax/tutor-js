@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/router.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/router.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">92.31% <small>(24 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">92.31% <small>(24 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">src/</a> &#187; router.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var App, CCDashboard, CourseListing, CourseSettings, Dashboard, EventShell, ExternalShell, Handler, HomeworkShell, Invalid, NotFoundRoute, PerformanceForecastShell, QALoader, React, ReadingShell, Redirect, ReferenceBookFirstPage, ReferenceBookPageShell, ReferenceBookShell, Root, Route, Router, Sandbox, ScoresShell, SinglePractice, SingleTask, StatsShell, StudentDashboardShell, TaskTeacherReviewShell, TeacherTaskPlans, async, ref, ref1, ref2, router, routes, start;
+&nbsp;
+React = require('react');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+Route = Router.Route, Redirect = Router.Redirect, NotFoundRoute = Router.NotFoundRoute;
+&nbsp;
+async = require('./helpers/webpack-async-loader');
+&nbsp;
+ref = require('./components'), App = ref.App, Root = ref.Root, Dashboard = ref.Dashboard, SingleTask = ref.SingleTask, SinglePractice = ref.SinglePractice, Invalid = ref.Invalid;
+&nbsp;
+CourseListing = require('./components/course-listing').CourseListing;
+&nbsp;
+PerformanceForecastShell = require('./components/performance-forecast');
+&nbsp;
+ScoresShell = require('./components/scores').ScoresShell;
+&nbsp;
+ref1 = require('./components/task-plan'), ReadingShell = ref1.ReadingShell, HomeworkShell = ref1.HomeworkShell, ExternalShell = ref1.ExternalShell, EventShell = ref1.EventShell;
+&nbsp;
+StudentDashboardShell = require('./components/student-dashboard').StudentDashboardShell;
+&nbsp;
+TeacherTaskPlans = require('./components/task-plan/teacher-task-plans-listing');
+&nbsp;
+TaskTeacherReviewShell = require('./components/task-teacher-review').TaskTeacherReviewShell;
+&nbsp;
+ref2 = require('./components/reference-book'), ReferenceBookShell = ref2.ReferenceBookShell, ReferenceBookPageShell = ref2.ReferenceBookPageShell, ReferenceBookFirstPage = ref2.ReferenceBookFirstPage;
+&nbsp;
+StatsShell = require('./components/plan-stats').StatsShell;
+&nbsp;
+CCDashboard = require('./components/cc-dashboard');
+&nbsp;
+CourseSettings = require('./components/course-settings');
+&nbsp;
+Sandbox = require('./sandbox');
+&nbsp;
+Handler = require('./helpers/conditional-rendering');
+&nbsp;
+QALoader = require('promise?global!./qa');
+&nbsp;
+routes = React.createElement(Route, {
+  "handler": Root,
+  "name": 'root'
+}, React.createElement(Route, {
+  "path": '/',
+  "handler": App,
+  "name": 'app'
+}, React.createElement(Redirect, {
+  "from": '/',
+  "to": 'dashboard'
+}), React.createElement(Route, {
+  "path": 'dashboard/?',
+  "name": 'dashboard',
+  "handler": CourseListing
+}), React.createElement(Route, {
+  "path": 'courses/:courseId/?'
+}, React.createElement(Router.DefaultRoute, {
+  "handler": TeacherTaskPlans
+}), React.createElement(Route, {
+  "path": 'list/?',
+  "name": 'viewStudentDashboard',
+  "handler": StudentDashboardShell
+}), React.createElement(Route, {
+  "path": 'tasks/:id/?',
+  "name": 'viewTask',
+  "handler": SingleTask
+}), React.createElement(Route, {
+  "path": 'tasks/:id/steps/:stepIndex/?',
+  "name": 'viewTaskStep',
+  "handler": SingleTask,
+  "ignoreScrollBehavior": true
+}), React.createElement(Route, {
+  "path": 'practice/?',
+  "name": 'viewPractice',
+  "handler": SinglePractice
+}), React.createElement(Route, {
+  "path": 'guide/?',
+  "name": 'viewPerformanceForecast',
+  "handler": PerformanceForecastShell.Student
+}), React.createElement(Route, {
+  "path": 't/',
+  "name": 'viewTeacherDashBoard'
+}, React.createElement(Router.DefaultRoute, {
+  "handler": TeacherTaskPlans
+}), React.createElement(Route, {
+  "path": 'scores/?',
+  "name": 'viewScores',
+  "handler": Handler(ScoresShell, {
+    requireRole: 'teacher',
+    requirePeriods: true
+  })
+}), React.createElement(Route, {
+  "path": 'guide',
+  "name": 'viewTeacherPerformanceForecast',
+  "handler": Handler(PerformanceForecastShell.Teacher, {
+    requireRole: 'teacher',
+    requirePeriods: true
+  })
+}), React.createElement(Route, {
+  "path": 'guide/student/:roleId?',
+  "name": 'viewStudentTeacherPerformanceForecast',
+  "handler": Handler(PerformanceForecastShell.TeacherStudent, {
+    requireRole: 'teacher',
+    requirePeriods: true
+  })
+}), React.createElement(Route, {
+  "path": 'calendar/?',
+  "name": 'taskplans'
+}, React.createElement(Router.DefaultRoute, {
+  "handler": TeacherTaskPlans
+}), React.createElement(Route, {
+  "path": 'months/:date/?',
+  "name": 'calendarByDate',
+  "handler": TeacherTaskPlans,
+  "ignoreScrollBehavior": true
+}, React.createElement(Route, {
+  "path": 'plans/:planId/?',
+  "name": 'calendarViewPlanStats',
+  "ignoreScrollBehavior": true
+}))), React.createElement(Route, {
+  "path": 'cc-dashboard/?',
+  "name": 'cc-dashboard',
+  "handler": CCDashboard
+}), React.createElement(Route, {
+  "path": 'homeworks/new/?',
+  "name": 'createHomework',
+  "handler": HomeworkShell
+}), React.createElement(Route, {
+  "path": 'homeworks/:id/?',
+  "name": 'editHomework',
+  "handler": HomeworkShell
+}), React.createElement(Route, {
+  "path": 'readings/new/?',
+  "name": 'createReading',
+  "handler": ReadingShell
+}), React.createElement(Route, {
+  "path": 'readings/:id/?',
+  "name": 'editReading',
+  "handler": ReadingShell
+}), React.createElement(Route, {
+  "path": 'externals/new/?',
+  "name": 'createExternal',
+  "handler": ExternalShell
+}), React.createElement(Route, {
+  "path": 'externals/:id/?',
+  "name": 'editExternal',
+  "handler": ExternalShell
+}), React.createElement(Route, {
+  "path": 'events/new/?',
+  "name": 'createEvent',
+  "handler": EventShell
+}), React.createElement(Route, {
+  "path": 'events/:id/?',
+  "name": 'editEvent',
+  "handler": EventShell
+}), React.createElement(Route, {
+  "path": 'settings',
+  "name": 'courseSettings',
+  "handler": CourseSettings
+}), React.createElement(Route, {
+  "path": 'plans/:id/?'
+}, React.createElement(Router.DefaultRoute, {
+  "handler": StatsShell
+}), React.createElement(Route, {
+  "path": 'stats/?',
+  "name": 'viewStats',
+  "handler": StatsShell
+}), React.createElement(Route, {
+  "path": 'summary/?',
+  "name": 'reviewTask',
+  "handler": TaskTeacherReviewShell
+}, React.createElement(Route, {
+  "path": 'periods/:periodIndex/?',
+  "name": 'reviewTaskPeriod',
+  "ignoreScrollBehavior": true
+}, React.createElement(Route, {
+  "path": 'sections/:sectionIndex/?',
+  "name": 'reviewTaskStep',
+  "ignoreScrollBehavior": true
+})))))), React.createElement(Route, {
+  "path": 'sandbox/?',
+  "name": 'sandbox',
+  "handler": Sandbox
+})), " # end of routes handled by App\n", React.createElement(Route, {
+  "path": '/books/:courseId/?',
+  "name": 'viewReferenceBook',
+  "handler": ReferenceBookShell
+}, React.createElement(Router.DefaultRoute, {
+  "name": "viewReferenceBookFirstPage",
+  "handler": ReferenceBookPageShell
+}), React.createElement(Route, {
+  "path": 'section/:section',
+  "name": 'viewReferenceBookSection',
+  "handler": ReferenceBookShell
+}), React.createElement(Route, {
+  "path": 'page/:cnxId',
+  "name": 'viewReferenceBookPage',
+  "handler": ReferenceBookPageShell
+})), " # end of \x2Fbooks route\n", React.createElement(Route, {
+  "path": '/qa',
+  "name": 'QADashboard',
+  "handler": async(QALoader, 'QADashboard')
+}, React.createElement(Router.DefaultRoute, {
+  "name": "QAViewFirstBook",
+  "handler": async(QALoader, 'QABook')
+}), React.createElement(Route, {
+  "path": ':ecosystemId',
+  "name": 'QAViewBook',
+  "handler": async(QALoader, 'QABook')
+}), React.createElement(Route, {
+  "path": ':ecosystemId/section/:section',
+  "name": 'QAViewBookSection',
+  "handler": async(QALoader, 'QABook')
+})), " # end of qa route\n", React.createElement(NotFoundRoute, {
+  "handler": Invalid
+}));
+&nbsp;
+router = Router.create({
+  routes: routes,
+  location: Router.HistoryLocation
+});
+&nbsp;
+start = <span class="fstat-no" title="function not covered" >function(mountPoint) {</span>
+<span class="cstat-no" title="statement not covered" >  return router.run(<span class="fstat-no" title="function not covered" >function(Handler) {</span></span>
+<span class="cstat-no" title="statement not covered" >    return React.render(React.createElement(Handler, null), mountPoint);</span>
+  });
+};
+&nbsp;
+module.exports = {
+  start: start,
+  router: router,
+  routes: routes
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

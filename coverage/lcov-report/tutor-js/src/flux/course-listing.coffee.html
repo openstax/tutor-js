@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/course-listing.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> course-listing.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">56.41% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>22/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">56.41% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>22/39</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CourseActions, CourseListingActions, CourseListingStore, CourseStore, DELETED, DELETING, FAILED, LOADED, LOADING, _, flux, ref;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+flux = require('flux-react');
+&nbsp;
+ref = require('./course'), CourseActions = ref.CourseActions, CourseStore = ref.CourseStore;
+&nbsp;
+LOADING = 'loading';
+&nbsp;
+LOADED = 'loaded';
+&nbsp;
+FAILED = 'failed';
+&nbsp;
+DELETING = 'deleting';
+&nbsp;
+DELETED = 'deleted';
+&nbsp;
+CourseListingActions = flux.createActions(['load', 'loaded', 'reset', 'FAILED', 'delete', 'deleted']);
+&nbsp;
+CourseListingStore = flux.createStore({
+  actions: _.values(CourseListingActions),
+  _asyncStatus: null,
+  load: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatus = LOADING;</span>
+<span class="cstat-no" title="statement not covered" >    return this.emit('load');</span>
+  },
+  reset: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._course_ids = [];</span>
+<span class="cstat-no" title="statement not covered" >    CourseActions.reset();</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatus = null;</span>
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  FAILED: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatus = FAILED;</span>
+<span class="cstat-no" title="statement not covered" >    return this.emit('failed');</span>
+  },
+  loaded: function(courses) {
+    this._course_ids = _.map(courses, function(course) {
+      CourseActions.loaded(course, course.id);
+      return course.id;
+    });
+    this._asyncStatus = LOADED;
+    return this.emit('loaded');
+  },
+  "delete": <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatus[courseId] = DELETING;</span>
+<span class="cstat-no" title="statement not covered" >    this._course_ids = _.without(this._course_ids, courseId);</span>
+<span class="cstat-no" title="statement not covered" >    return this.emit(DELETING);</span>
+  },
+  deleted: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >    this._asyncStatus[courseId] = DELETED;</span>
+<span class="cstat-no" title="statement not covered" >    return this.emit(DELETED);</span>
+  },
+  exports: {
+    isLoading: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      return this._asyncStatus === LOADING;</span>
+    },
+    isLoaded: function() {
+      return this._asyncStatus === LOADED;
+    },
+    isFailed: function() {
+      return this._asyncStatus === FAILED;
+    },
+    ensureLoaded: function() {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (CourseListingStore.isLoaded()) {
+        return false;
+      } else {
+<span class="cstat-no" title="statement not covered" >        if (!CourseListingStore.isLoading()) {</span>
+<span class="cstat-no" title="statement not covered" >          CourseListingActions.load();</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+      }
+    },
+    allCourses: function() {
+      return _.compact(_.map(this._course_ids, CourseStore.get));
+    }
+  }
+});
+&nbsp;
+module.exports = {
+  CourseListingActions: CourseListingActions,
+  CourseListingStore: CourseListingStore
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

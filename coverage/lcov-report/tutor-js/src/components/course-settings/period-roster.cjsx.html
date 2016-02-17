@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/course-settings/period-roster.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/course-settings/</a> period-roster.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">34.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>9/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">34.62% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/26</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, ChangePeriodLink, DropStudentLink, Icon, React, RosterActions, RosterStore, _, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+Icon = require('../icon');
+&nbsp;
+ref = require('../../flux/roster'), RosterStore = ref.RosterStore, RosterActions = ref.RosterActions;
+&nbsp;
+ChangePeriodLink = require('./change-period');
+&nbsp;
+DropStudentLink = require('./drop-student');
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'PeriodRoster',
+  propTypes: {
+    courseId: React.PropTypes.string.isRequired,
+    period: React.PropTypes.object.isRequired,
+    isConceptCoach: React.PropTypes.bool.isRequired
+  },
+  renderStudentRow: <span class="fstat-no" title="function not covered" >function(student) {</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement("tr", {</span>
+      "key": student.id
+    }, React.createElement("td", null, student.first_name), React.createElement("td", null, student.last_name), React.createElement("td", {
+      "className": "actions"
+    }, React.createElement(ChangePeriodLink, {
+      "courseId": this.props.courseId,
+      "student": student
+    }), React.createElement(DropStudentLink, {
+      "student": student
+    })));
+  },
+  isPeriodEmpty: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var id, students;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.activeTab.id;</span>
+<span class="cstat-no" title="statement not covered" >    students = RosterStore.getActiveStudentsForPeriod(this.props.courseId, id);</span>
+<span class="cstat-no" title="statement not covered" >    return students.length === 0;</span>
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var emptyInfo, student, students, studentsTable;</span>
+<span class="cstat-no" title="statement not covered" >    students = RosterStore.getActiveStudentsForPeriod(this.props.courseId, this.props.period.id);</span>
+<span class="cstat-no" title="statement not covered" >    studentsTable = React.createElement(BS.Table, {</span>
+      "striped": true,
+      "bordered": true,
+      "condensed": true,
+      "hover": true,
+      "className": "roster"
+    }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "First Name"), React.createElement("th", null, "Last Name"), React.createElement("th", null, "Actions"))), React.createElement("tbody", null, (<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      var i, len, ref1, results;</span>
+<span class="cstat-no" title="statement not covered" >      ref1 = _.sortBy(students, 'last_name');</span>
+<span class="cstat-no" title="statement not covered" >      results = [];</span>
+<span class="cstat-no" title="statement not covered" >      for (i = 0, len = ref1.length; i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        student = ref1[i];</span>
+<span class="cstat-no" title="statement not covered" >        results.push(this.renderStudentRow(student));</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return results;</span>
+    }).call(this)));
+<span class="cstat-no" title="statement not covered" >    emptyInfo = React.createElement("div", {</span>
+      "className": 'roster-empty-info'
+    }, "Use the \"Get Student Enrollment Code\" link above to get the code for this section of your course.\nAs your students login to Concept Coach, they will start appearing here.\nYou will be able to drop students or change their sections from this page.");
+<span class="cstat-no" title="statement not covered" >    return React.createElement("div", {</span>
+      "className": "period"
+    }, (this.isPeriodEmpty() &amp;&amp; this.props.isConceptCoach ? emptyInfo : studentsTable));
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

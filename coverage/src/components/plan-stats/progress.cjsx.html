@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/plan-stats/progress.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/plan-stats/progress.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">20.51% <small>(8 / 39)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">20.51% <small>(8 / 39)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/plan-stats/</a> &#187; progress.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, ChapterSectionMixin, Progress, React, _, classnames;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+classnames = require('classnames');
+&nbsp;
+ChapterSectionMixin = require('openstax-react-components').ChapterSectionMixin;
+&nbsp;
+Progress = React.createClass({
+  displayName: 'Progress',
+  propTypes: {
+    data: React.PropTypes.object.isRequired,
+    type: React.PropTypes.string.isRequired,
+    activeSection: React.PropTypes.string
+  },
+  mixins: [ChapterSectionMixin],
+  _calculatePercent: <span class="fstat-no" title="function not covered" >function(num, total) {</span>
+<span class="cstat-no" title="statement not covered" >    return Math.round((num / total) * 100);</span>
+  },
+  calculatePercent: <span class="fstat-no" title="function not covered" >function(data, correctOrIncorrect) {</span>
+<span class="cstat-no" title="statement not covered" >    var count, total_count;</span>
+<span class="cstat-no" title="statement not covered" >    if (correctOrIncorrect == null) {</span>
+<span class="cstat-no" title="statement not covered" >      correctOrIncorrect = 'correct';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    count = correctOrIncorrect + '_count';</span>
+<span class="cstat-no" title="statement not covered" >    total_count = data.correct_count + data.incorrect_count;</span>
+<span class="cstat-no" title="statement not covered" >    if (total_count) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._calculatePercent(data[count], total_count);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return 0;</span>
+    }
+  },
+  renderPercentBar: <span class="fstat-no" title="function not covered" >function(data, type, percent, correctOrIncorrect) {</span>
+<span class="cstat-no" title="statement not covered" >    var classes, correct, label;</span>
+<span class="cstat-no" title="statement not covered" >    classes = 'reading-progress-bar';</span>
+<span class="cstat-no" title="statement not covered" >    classes += " progress-bar-" + correctOrIncorrect;</span>
+<span class="cstat-no" title="statement not covered" >    if (!percent) {</span>
+<span class="cstat-no" title="statement not covered" >      classes += ' no-progress';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    label = percent + "%";</span>
+<span class="cstat-no" title="statement not covered" >    if (percent === 100) {</span>
+<span class="cstat-no" title="statement not covered" >      label = label + " " + correctOrIncorrect;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return correct = React.createElement(BS.ProgressBar, {</span>
+      "className": classes,
+      "label": label,
+      "now": percent,
+      "key": "page-progress-" + type + "-" + data.id + "-" + correctOrIncorrect,
+      "type": "" + correctOrIncorrect,
+      "alt": percent + "% " + correctOrIncorrect
+    });
+  },
+  renderPercentBars: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var data, percents, ref, type;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, data = ref.data, type = ref.type;</span>
+<span class="cstat-no" title="statement not covered" >    percents = {</span>
+      correct: this.calculatePercent(data, 'correct'),
+      incorrect: this.calculatePercent(data, 'incorrect')
+    };
+<span class="cstat-no" title="statement not covered" >    if (percents.incorrect + percents.correct &gt; 100) {</span>
+<span class="cstat-no" title="statement not covered" >      percents.incorrect = 100 - percents.correct;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return _.map(percents, _.partial(this.renderPercentBar, data, type));</span>
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var active, activeSection, data, index, previous, progressClass, ref, sectionLabel, studentCount, type;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, data = ref.data, type = ref.type, index = ref.index, previous = ref.previous, activeSection = ref.activeSection;</span>
+<span class="cstat-no" title="statement not covered" >    studentCount = React.createElement("span", {</span>
+      "className": 'reading-progress-student-count'
+    }, "(", data.student_count, " students)");
+<span class="cstat-no" title="statement not covered" >    sectionLabel = this.sectionFormat(data.chapter_section, this.props.sectionSeparator);</span>
+<span class="cstat-no" title="statement not covered" >    active = activeSection === sectionLabel;</span>
+<span class="cstat-no" title="statement not covered" >    progressClass = classnames('reading-progress', {</span>
+      'active': active,
+      'inactive': activeSection &amp;&amp; !active
+    });
+<span class="cstat-no" title="statement not covered" >    return React.createElement("div", {</span>
+      "key": type + "-bar-" + index,
+      "className": progressClass
+    }, React.createElement("div", {
+      "className": 'reading-progress-heading'
+    }, React.createElement("strong", null, React.createElement("span", {
+      "className": 'text-success'
+    }, sectionLabel), " ", data.title), " ", studentCount), React.createElement("div", {
+      "className": 'reading-progress-container'
+    }, React.createElement(BS.ProgressBar, {
+      "className": 'reading-progress-group'
+    }, this.renderPercentBars()), previous));
+  }
+});
+&nbsp;
+module.exports = Progress;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

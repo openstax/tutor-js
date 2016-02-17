@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/exercise.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> exercise.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20.27% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>15/74</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.85% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20.27% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>15/74</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var EXERCISE_TAGS, ExerciseConfig, TocStore, _, actions, flux, getImportantTags, getTagName, makeSimpleStore, ref, store;
+&nbsp;
+flux = require('flux-react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+TocStore = require('./toc').TocStore;
+&nbsp;
+makeSimpleStore = require('./helpers').makeSimpleStore;
+&nbsp;
+EXERCISE_TAGS = {
+  TEKS: 'teks',
+  LO: ['lo', 'aplo'],
+  GENERIC: ['blooms', 'dok', 'length']
+};
+&nbsp;
+getTagName = <span class="fstat-no" title="function not covered" >function(tag) {</span>
+<span class="cstat-no" title="statement not covered" >  return [tag.name, tag.description].join(' ');</span>
+};
+&nbsp;
+getImportantTags = <span class="fstat-no" title="function not covered" >function(tags) {</span>
+<span class="cstat-no" title="statement not covered" >  var obj;</span>
+<span class="cstat-no" title="statement not covered" >  obj = {</span>
+    lo: "",
+    section: "",
+    tagString: []
+  };
+<span class="cstat-no" title="statement not covered" >  return _.reduce(_.sortBy(tags, 'name'), <span class="fstat-no" title="function not covered" >function(memo, tag) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (_.include(EXERCISE_TAGS.GENERIC, tag.type)) {</span>
+<span class="cstat-no" title="statement not covered" >      memo.tagString.push(tag.name);</span>
+    } else <span class="cstat-no" title="statement not covered" >if (_.include(EXERCISE_TAGS.LO, tag.type)) {</span>
+<span class="cstat-no" title="statement not covered" >      memo.lo = getTagName(tag);</span>
+<span class="cstat-no" title="statement not covered" >      memo.section = tag.chapter_section;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return memo;</span>
+  }, obj);
+};
+&nbsp;
+ExerciseConfig = {
+  _exercises: [],
+  FAILED: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return console.error('BUG: could not load exercises');</span>
+  },
+  reset: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._exercises = [];</span>
+<span class="cstat-no" title="statement not covered" >    return this._exerciseCache = [];</span>
+  },
+  load: <span class="fstat-no" title="function not covered" >function(courseId, pageIds) {</span>},
+  loaded: <span class="fstat-no" title="function not covered" >function(obj, courseId, pageIds) {</span>
+<span class="cstat-no" title="statement not covered" >    var _exerciseCache, key;</span>
+<span class="cstat-no" title="statement not covered" >    key = pageIds.toString();</span>
+<span class="cstat-no" title="statement not covered" >    if (this._exercises[key] &amp;&amp; this._HACK_DO_NOT_RELOAD) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    this._exercises[key] = obj.items;</span>
+<span class="cstat-no" title="statement not covered" >    _exerciseCache = [];</span>
+<span class="cstat-no" title="statement not covered" >    _.each(obj.items, <span class="fstat-no" title="function not covered" >function(exercise) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return _exerciseCache[exercise.id] = exercise;</span>
+    });
+<span class="cstat-no" title="statement not covered" >    this._exerciseCache = _exerciseCache;</span>
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  HACK_DO_NOT_RELOAD: <span class="fstat-no" title="function not covered" >function(bool) {</span>
+<span class="cstat-no" title="statement not covered" >    return this._HACK_DO_NOT_RELOAD = bool;</span>
+  },
+  exports: {
+    isLoaded: <span class="fstat-no" title="function not covered" >function(pageIds) {</span>
+<span class="cstat-no" title="statement not covered" >      return !!this._exercises[pageIds.toString()];</span>
+    },
+    get: <span class="fstat-no" title="function not covered" >function(pageIds) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._exercises[pageIds.toString()] || (<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('BUG: Invalid page ids');</span>
+      })();
+    },
+    getGroupedExercises: <span class="fstat-no" title="function not covered" >function(pageIds) {</span>
+<span class="cstat-no" title="statement not covered" >      var byChapterSection, exercises;</span>
+<span class="cstat-no" title="statement not covered" >      byChapterSection = <span class="fstat-no" title="function not covered" >function(exercise) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var tag;</span>
+<span class="cstat-no" title="statement not covered" >        tag = _.find(exercise.tags, <span class="fstat-no" title="function not covered" >function(t) {</span></span>
+<span class="cstat-no" title="statement not covered" >          return _.include(EXERCISE_TAGS.LO, t.type);</span>
+        });
+<span class="cstat-no" title="statement not covered" >        return tag != null ? tag.chapter_section : void 0;</span>
+      };
+<span class="cstat-no" title="statement not covered" >      exercises = _.sortBy(this._exercises[pageIds.toString()], byChapterSection);</span>
+<span class="cstat-no" title="statement not covered" >      return _.groupBy(exercises, byChapterSection);</span>
+    },
+    getExerciseById: <span class="fstat-no" title="function not covered" >function(exercise_id) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._exerciseCache[exercise_id];</span>
+    },
+    getTeksString: <span class="fstat-no" title="function not covered" >function(exercise_id) {</span>
+<span class="cstat-no" title="statement not covered" >      var tags, teksTags;</span>
+<span class="cstat-no" title="statement not covered" >      tags = this._exerciseCache[exercise_id].tags;</span>
+<span class="cstat-no" title="statement not covered" >      teksTags = _.where(tags, {</span>
+        type: EXERCISE_TAGS.TEKS
+      });
+<span class="cstat-no" title="statement not covered" >      return _.map(teksTags, <span class="fstat-no" title="function not covered" >function(tag) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var ref;</span>
+<span class="cstat-no" title="statement not covered" >        return (ref = tag.name) != null ? ref.replace(/[()]/g, '') : void 0;</span>
+      }).join(" / ");
+    },
+    getContent: <span class="fstat-no" title="function not covered" >function(exercise_id) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._exerciseCache[exercise_id].content.questions[0].stem_html;</span>
+    },
+    getTagContent: <span class="fstat-no" title="function not covered" >function(tag) {</span>
+<span class="cstat-no" title="statement not covered" >      var content, isLO;</span>
+<span class="cstat-no" title="statement not covered" >      content = getTagName(tag) || tag.id;</span>
+<span class="cstat-no" title="statement not covered" >      isLO = _.include(EXERCISE_TAGS.LO, tag.type);</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        content: content,
+        isLO: isLO
+      };
+    },
+    getTagStrings: <span class="fstat-no" title="function not covered" >function(exercise_id) {</span>
+<span class="cstat-no" title="statement not covered" >      var tags;</span>
+<span class="cstat-no" title="statement not covered" >      tags = this._exerciseCache[exercise_id].tags;</span>
+<span class="cstat-no" title="statement not covered" >      return getImportantTags(tags);</span>
+    },
+    removeTopicExercises: function(exercise_ids, topic_id) {
+      var cache, topic_chapter_section;
+      cache = this._exerciseCache;
+      topic_chapter_section = TocStore.getChapterSection(topic_id);
+      return _.reject(exercise_ids, <span class="fstat-no" title="function not covered" >function(exercise_id) {</span>
+<span class="cstat-no" title="statement not covered" >        var exercise, section;</span>
+<span class="cstat-no" title="statement not covered" >        exercise = cache[exercise_id];</span>
+<span class="cstat-no" title="statement not covered" >        section = getImportantTags(exercise.tags).section;</span>
+<span class="cstat-no" title="statement not covered" >        return section.toString() === topic_chapter_section.toString();</span>
+      });
+    },
+    getPagePoolTypes: <span class="fstat-no" title="function not covered" >function(pageId) {</span>
+<span class="cstat-no" title="statement not covered" >      var types;</span>
+<span class="cstat-no" title="statement not covered" >      types = _.unique(_.flatten(_.pluck(this._exercises[pageId], 'pool_types')));</span>
+<span class="cstat-no" title="statement not covered" >      return _.without(types, 'all_exercises').sort();</span>
+    },
+    poolTypes: <span class="fstat-no" title="function not covered" >function(exercise) {</span>
+<span class="cstat-no" title="statement not covered" >      return _.without(exercise.pool_types, 'all_exercises');</span>
+    },
+    allForPage: <span class="fstat-no" title="function not covered" >function(pageId) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._exercises[pageId] || [];</span>
+    }
+  }
+};
+&nbsp;
+ref = makeSimpleStore(ExerciseConfig), actions = ref.actions, store = ref.store;
+&nbsp;
+module.exports = {
+  ExerciseActions: actions,
+  ExerciseStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/task/index.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/task/</a> index.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.92% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>53/118</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.91% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">26.92% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.92% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>53/118</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, Breadcrumbs, CrumbMixin, Ends, PinnedHeaderFooterCard, React, Router, Spacer, StepFooterMixin, StepPanel, TaskActions, TaskStep, TaskStepActions, TaskStepStore, TaskStore, UnsavedStateMixin, _, camelCase, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+camelCase = require('camelcase');
+&nbsp;
+ref = require('../../flux/task'), TaskActions = ref.TaskActions, TaskStore = ref.TaskStore;
+&nbsp;
+ref1 = require('../../flux/task-step'), TaskStepActions = ref1.TaskStepActions, TaskStepStore = ref1.TaskStepStore;
+&nbsp;
+CrumbMixin = require('./crumb-mixin');
+&nbsp;
+StepFooterMixin = require('../task-step/step-footer-mixin');
+&nbsp;
+TaskStep = require('../task-step');
+&nbsp;
+Spacer = require('../task-step/all-steps').Spacer;
+&nbsp;
+Ends = require('../task-step/ends');
+&nbsp;
+Breadcrumbs = require('./breadcrumbs');
+&nbsp;
+StepPanel = require('../../helpers/policies').StepPanel;
+&nbsp;
+UnsavedStateMixin = require('../unsaved-state').UnsavedStateMixin;
+&nbsp;
+PinnedHeaderFooterCard = require('openstax-react-components').PinnedHeaderFooterCard;
+&nbsp;
+module.exports = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string
+  },
+  displayName: 'Task',
+  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin],
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  setStepKey: function() {
+    var crumb, crumbKey, defaultKey, stepIndex;
+    stepIndex = this.context.router.getCurrentParams().stepIndex;
+    defaultKey = this.getDefaultCurrentStep();
+    crumbKey = stepIndex ? parseInt(stepIndex) - 1 : <span class="branch-1 cbranch-no" title="branch not covered" >defaultKey;</span>
+    crumb = this.getCrumb(crumbKey);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (crumb != null ? crumb.crumb : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+      return this.setState({
+        currentStep: crumbKey
+      });
+    } else {
+<span class="cstat-no" title="statement not covered" >      return this.goToStep(defaultKey, true);</span>
+    }
+  },
+  getInitialState: function() {
+    return {
+      currentStep: 0,
+      refreshFrom: false,
+      refreshTo: false,
+      recoverForStepId: false,
+      recoveredStepId: false
+    };
+  },
+  hasUnsavedState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return TaskStore.hasAnyStepChanged(this.props.id);</span>
+  },
+  unsavedStateMessages: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return 'The assignment has unsaved changes';</span>
+  },
+  componentWillMount: function() {
+    this.setStepKey();
+    return TaskStepStore.on('step.recovered', this.prepareToRecover);
+  },
+  componentWillUnmount: function() {
+    return TaskStepStore.off('step.recovered', this.prepareToRecover);
+  },
+  componentWillReceiveProps: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setStepKey();</span>
+  },
+  _stepRecoveryQueued: <span class="fstat-no" title="function not covered" >function(nextState) {</span>
+<span class="cstat-no" title="statement not covered" >    return !this.state.recoverForStepId &amp;&amp; nextState.recoverForStepId;</span>
+  },
+  _stepRecovered: <span class="fstat-no" title="function not covered" >function(nextState) {</span>
+<span class="cstat-no" title="statement not covered" >    return !this.state.recoveredStepId &amp;&amp; nextState.recoveredStepId;</span>
+  },
+  _taskRecoveredStep: <span class="fstat-no" title="function not covered" >function(nextState) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.state.recoveredStepId &amp;&amp; !nextState.recoveredStepId;</span>
+  },
+  _leavingRefreshingStep: <span class="fstat-no" title="function not covered" >function(nextState) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.state.refreshTo &amp;&amp; !(nextState.currentStep === this.state.refreshTo);</span>
+  },
+  prepareToRecover: <span class="fstat-no" title="function not covered" >function(recoveredStep) {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = recoveredStep.id;</span>
+<span class="cstat-no" title="statement not covered" >    TaskStore.emit('task.beforeRecovery', id);</span>
+<span class="cstat-no" title="statement not covered" >    TaskStepStore.on('step.loaded', this.recoverStep);</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      recoveredStepId: id
+    });
+  },
+  shouldComponentUpdate: <span class="fstat-no" title="function not covered" >function(nextProps, nextState) {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    if (this._stepRecoveryQueued(nextState)) {</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this._stepRecovered(nextState)) {</span>
+<span class="cstat-no" title="statement not covered" >      TaskActions.load(id);</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this._taskRecoveredStep(nextState)) {</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.state.refreshTo) {</span>
+<span class="cstat-no" title="statement not covered" >        this.onNextStep();</span>
+      }
+<span class="cstat-no" title="statement not covered" >      TaskStore.emit('task.afterRecovery', id);</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this._leavingRefreshingStep(nextState)) {</span>
+<span class="cstat-no" title="statement not covered" >      this.continueAfterRefreshStep();</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return true;</span>
+  },
+  refreshStep: <span class="fstat-no" title="function not covered" >function(refreshTo, stepId) {</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      refreshFrom: this.state.currentStep,
+      refreshTo: refreshTo,
+      recoverForStepId: stepId
+    });
+<span class="cstat-no" title="statement not covered" >    return this.goToStep(refreshTo);</span>
+  },
+  continueAfterRefreshStep: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this.goToStep(this.state.refreshFrom + 1);</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      refreshFrom: false,
+      refreshTo: false,
+      recoverForStepId: false
+    });
+  },
+  recoverFor: <span class="fstat-no" title="function not covered" >function(stepId) {</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      recoverForStepId: stepId
+    });
+<span class="cstat-no" title="statement not covered" >    return TaskStepActions.loadRecovery(stepId);</span>
+  },
+  recoverStep: <span class="fstat-no" title="function not covered" >function(loadedStepId) {</span>
+<span class="cstat-no" title="statement not covered" >    if (loadedStepId === this.state.recoveredStepId) {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        recoveredStepId: false
+      });
+<span class="cstat-no" title="statement not covered" >      return TaskStepStore.off('step.loaded', this.recoverStep);</span>
+    }
+  },
+  goToStep: <span class="fstat-no" title="function not covered" >function(stepKey, silent) {</span>
+<span class="cstat-no" title="statement not covered" >    var params;</span>
+<span class="cstat-no" title="statement not covered" >    if (silent == null) {</span>
+<span class="cstat-no" title="statement not covered" >      silent = false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    params = _.clone(this.context.router.getCurrentParams());</span>
+<span class="cstat-no" title="statement not covered" >    params.stepIndex = stepKey + 1;</span>
+<span class="cstat-no" title="statement not covered" >    params.id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    if (silent) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.context.router.replaceWith('viewTaskStep', params);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return this.context.router.transitionTo('viewTaskStep', params);</span>
+    }
+  },
+  getCrumb: function(crumbKey) {
+    var crumbs;
+    crumbs = this.generateCrumbs();
+    return _.findWhere(crumbs, {
+      key: crumbKey
+    });
+  },
+  renderStep: function(data) {
+    var courseId;
+    courseId = this.context.router.getCurrentParams().courseId;
+    return React.createElement(TaskStep, {
+      "id": data.id,
+      "taskId": this.props.id,
+      "courseId": courseId,
+      "goToStep": this.goToStep,
+      "onNextStep": this.onNextStep,
+      "refreshStep": this.refreshStep,
+      "recoverFor": this.recoverFor
+    });
+  },
+  renderDefaultEndFooter: <span class="fstat-no" title="function not covered" >function(data) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, id, taskFooterParams;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = this.context.router.getCurrentParams().courseId;</span>
+<span class="cstat-no" title="statement not covered" >    taskFooterParams = {</span>
+      stepId: data.id,
+      taskId: id,
+      courseId: courseId
+    };
+<span class="cstat-no" title="statement not covered" >    return this.renderEndFooter(taskFooterParams);</span>
+  },
+  renderEnd: <span class="fstat-no" title="function not covered" >function(data) {</span>
+<span class="cstat-no" title="statement not covered" >    var End, courseId, footer, panel, type;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = this.context.router.getCurrentParams().courseId;</span>
+<span class="cstat-no" title="statement not covered" >    type = data.type ? data.type : 'task';</span>
+<span class="cstat-no" title="statement not covered" >    End = Ends.get(type);</span>
+<span class="cstat-no" title="statement not covered" >    footer = this.renderDefaultEndFooter(data);</span>
+<span class="cstat-no" title="statement not covered" >    return panel = React.createElement(End, {</span>
+      "courseId": courseId,
+      "taskId": data.id,
+      "reloadPractice": this.reloadTask,
+      "footer": footer
+    });
+  },
+  renderSpacer: <span class="fstat-no" title="function not covered" >function(data) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = this.context.router.getCurrentParams().courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(Spacer, {</span>
+      "onNextStep": this.onNextStep,
+      "taskId": this.props.id,
+      "courseId": courseId
+    });
+  },
+  render: function() {
+    var breadcrumbs, crumb, id, panel, panelData, panelType, ref2, renderPanelMethod, task, taskClasses;
+    id = this.props.id;
+    task = TaskStore.get(id);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (task == null) {
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+    crumb = this.getCrumb(this.state.currentStep);
+    panelType = StepPanel.getPanel((ref2 = crumb.data) != null ? ref2.id : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>;
+    renderPanelMethod = camelCase("render-" + crumb.type);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this[renderPanelMethod] == null) {
+<span class="cstat-no" title="statement not covered" >      throw new Error("BUG: panel " + crumb.type + " for " + task.type + " does not have a render method");</span>
+    }
+    panelData = _.extend({}, crumb.data, {
+      panelType: panelType
+    });
+    panel = typeof this[renderPanelMethod] === "function" ? this[renderPanelMethod](panelData) : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    taskClasses = "task task-" + task.type;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (panelType != null) {
+      taskClasses += " task-" + panelType;
+    }
+    if (TaskStore.isTaskCompleted(id)) {
+      taskClasses += ' task-completed';
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (TaskStore.hasCrumbs(id)) {
+      breadcrumbs = React.createElement(Breadcrumbs, {
+        "id": id,
+        "goToStep": this.goToStep,
+        "currentStep": this.state.currentStep,
+        "key": "task-" + id + "-breadcrumbs"
+      });
+    }
+    return React.createElement(PinnedHeaderFooterCard, {
+      "forceShy": true,
+      "className": taskClasses,
+      "fixedOffset": 0.,
+      "header": breadcrumbs,
+      "cardType": 'task'
+    }, panel);
+  },
+  reloadTask: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      currentStep: 0
+    });
+  },
+  onNextStep: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.goToStep(this.state.currentStep + 1);</span>
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

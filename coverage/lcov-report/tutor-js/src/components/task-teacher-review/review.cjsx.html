@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/task-teacher-review/review.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/task-teacher-review/</a> review.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>46/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>46/46</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">162×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-yes">162×</span>
+<span class="cline-any cline-yes">162×</span>
+<span class="cline-any cline-yes">162×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">174×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var ChapterSectionMixin, CrumbMixin, LoadableItem, React, Review, ReviewShell, ReviewTracker, ScrollListenerMixin, ScrollTracker, ScrollTrackerParentMixin, TaskTeacherReviewActions, TaskTeacherReviewExercise, TaskTeacherReviewStore, _, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+TaskTeacherReviewExercise = require('./exercise');
+&nbsp;
+ref = require('../scroll-tracker'), ScrollTracker = ref.ScrollTracker, ScrollTrackerParentMixin = ref.ScrollTrackerParentMixin;
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+CrumbMixin = require('./crumb-mixin');
+&nbsp;
+ChapterSectionMixin = require('openstax-react-components').ChapterSectionMixin;
+&nbsp;
+ScrollListenerMixin = require('react-scroll-components').ScrollListenerMixin;
+&nbsp;
+ref1 = require('../../flux/task-teacher-review'), TaskTeacherReviewActions = ref1.TaskTeacherReviewActions, TaskTeacherReviewStore = ref1.TaskTeacherReviewStore;
+&nbsp;
+ReviewTracker = React.createClass({
+  displayName: 'ReviewTracker',
+  mixins: [ScrollTracker],
+  renderQuestion: function() {
+    return React.createElement(TaskTeacherReviewExercise, React.__spread({}, this.props));
+  },
+  renderHeading: function() {
+    var ref2, sectionLabel, title;
+    ref2 = this.props, sectionLabel = ref2.sectionLabel, title = ref2.title;
+    return React.createElement("h2", null, React.createElement("span", {
+      "className": 'text-success'
+    }, sectionLabel), " ", title);
+  },
+  render: function() {
+    var content, renderFn;
+    content = this.props.content;
+    renderFn = 'renderQuestion';
+    if (content == null) {
+      renderFn = 'renderHeading';
+    }
+    return this[renderFn]();
+  }
+});
+&nbsp;
+Review = React.createClass({
+  displayName: 'Review',
+  mixins: [ChapterSectionMixin, CrumbMixin, ScrollListenerMixin, ScrollTrackerParentMixin],
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+    focus: React.PropTypes.bool.isRequired,
+    period: React.PropTypes.object.isRequired,
+    currentStep: React.PropTypes.number
+  },
+  getDefaultProps: function() {
+    return {
+      focus: false
+    };
+  },
+  render: function() {
+    var focus, id, ref2, steps, stepsList, stepsProps;
+    ref2 = this.props, id = ref2.id, focus = ref2.focus;
+    steps = this.getContents();
+    stepsProps = _.omit(this.props, 'focus');
+    stepsList = _.map(steps, (function(_this) {
+      return function(step, index) {
+        var item, scrollState, stepProps;
+        scrollState = _.pick(step, 'key', 'sectionLabel');
+        if (step.content != null) {
+          stepProps = _.extend({}, stepsProps, step);
+          stepProps.key = "task-review-question-" + step.content.questions[0].id + "-" + index;
+          stepProps.focus = focus &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >index === 0;</span>
+        } else {
+          stepProps = step;
+          stepProps.key = "task-review-heading-" + step.sectionLabel;
+        }
+        return item = React.createElement(ReviewTracker, React.__spread({}, stepProps, {
+          "scrollState": scrollState,
+          "setScrollPoint": _this.setScrollPoint,
+          "unsetScrollPoint": _this.unsetScrollPoint
+        }));
+      };
+    })(this));
+    return React.createElement("div", null, stepsList);
+  }
+});
+&nbsp;
+ReviewShell = React.createClass({displayName: "ReviewShell",
+  render: function() {
+    var id;
+    id = this.props.id;
+    return React.createElement(LoadableItem, {
+      "id": id,
+      "store": TaskTeacherReviewStore,
+      "actions": TaskTeacherReviewActions,
+      "renderItem": ((function(_this) {
+        return function() {
+          return React.createElement(Review, React.__spread({}, _this.props, {
+            "review": 'teacher',
+            "panel": 'teacher-review'
+          }));
+        };
+      })(this))
+    });
+  }
+});
+&nbsp;
+module.exports = {
+  Review: Review,
+  ReviewShell: ReviewShell
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/tutor-input.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">src/components/tutor-input.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">58.1% <small>(61 / 105)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">42.86% <small>(27 / 63)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">46.43% <small>(13 / 28)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">58.1% <small>(61 / 105)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/components/</a> &#187; tutor-input.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">196</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">196</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">196</span>
+<span class="cline-any cline-yes">196</span>
+<span class="cline-any cline-yes">196</span>
+<span class="cline-any cline-yes">196</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-yes">204</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">222</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, DatePicker, React, TimeHelper, TimeStore, TutorDateFormat, TutorDateInput, TutorErrors, TutorInput, TutorTextArea, _, classnames, moment;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+moment = require('moment-timezone');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+classnames = require('classnames');
+&nbsp;
+TimeStore = require('../flux/time').TimeStore;
+&nbsp;
+TimeHelper = require('../helpers/time');
+&nbsp;
+TutorDateFormat = TimeStore.getFormat();
+&nbsp;
+DatePicker = require('react-datepicker');
+&nbsp;
+TutorErrors = require('./tutor-errors');
+&nbsp;
+TutorInput = React.createClass({displayName: "TutorInput",
+  propTypes: {
+    label: React.PropTypes.node.isRequired,
+    id: React.PropTypes.string,
+    className: React.PropTypes.string,
+    type: React.PropTypes.string,
+    onChange: React.PropTypes.func,
+    validate: React.PropTypes.func
+  },
+  getDefaultProps: function() {
+    return {
+      validate: function(inputValue) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!((inputValue != null) &amp;&amp; inputValue.length &gt; 0)) {
+<span class="cstat-no" title="statement not covered" >          return ['required'];</span>
+        }
+      },
+      type: 'text'
+    };
+  },
+  getInitialState: function() {
+    var errors;
+    errors = this.props.validate(this.props["default"]);
+    return {
+      errors: errors || []
+    };
+  },
+  onChange: <span class="fstat-no" title="function not covered" >function(event) {</span>
+<span class="cstat-no" title="statement not covered" >    var ref, ref1;</span>
+<span class="cstat-no" title="statement not covered" >    this.props.onChange((ref = event.target) != null ? ref.value : void 0, event.target);</span>
+<span class="cstat-no" title="statement not covered" >    return this.validate((ref1 = event.target) != null ? ref1.value : void 0);</span>
+  },
+  validate: <span class="fstat-no" title="function not covered" >function(inputValue) {</span>
+<span class="cstat-no" title="statement not covered" >    var errors;</span>
+<span class="cstat-no" title="statement not covered" >    errors = this.props.validate(inputValue);</span>
+<span class="cstat-no" title="statement not covered" >    if (errors == null) {</span>
+<span class="cstat-no" title="statement not covered" >      errors = [];</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      errors: errors
+    });
+  },
+  focus: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var ref;</span>
+<span class="cstat-no" title="statement not covered" >    return (ref = React.findDOMNode(this.refs.input)) != null ? ref.focus() : void 0;</span>
+  },
+  cursorToEnd: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var input;</span>
+<span class="cstat-no" title="statement not covered" >    input = React.findDOMNode(this.refs.input);</span>
+<span class="cstat-no" title="statement not covered" >    return input.selectionStart = input.selectionEnd = input.value.length;</span>
+  },
+  forwardLabelClick: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.focus();</span>
+  },
+  render: function() {
+    var classes, errors, inputProps, ref, wrapperClasses;
+    classes = classnames('form-control', this.props["class"], {
+      empty: !this.props["default"]
+    });
+    wrapperClasses = classnames('form-control-wrapper', 'tutor-input', this.props.className, {
+      'is-required': this.props.required,
+      'has-error': (ref = this.state.errors) != null ? ref.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0</span>
+    });
+    errors = _.map(this.state.errors, <span class="fstat-no" title="function not covered" >function(error) {</span>
+<span class="cstat-no" title="statement not covered" >      var ErrorWarning;</span>
+<span class="cstat-no" title="statement not covered" >      if (TutorErrors[error] == null) {</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      ErrorWarning = TutorErrors[error];</span>
+<span class="cstat-no" title="statement not covered" >      return React.createElement(ErrorWarning, {</span>
+        "key": error
+      });
+    });
+    inputProps = _.omit(this.props, 'label', 'className', 'onChange', 'validate', 'default', 'value');
+    return React.createElement("div", {
+      "className": wrapperClasses
+    }, React.createElement("input", React.__spread({}, inputProps, {
+      "ref": 'input',
+      "className": classes,
+      "defaultValue": this.props["default"],
+      "onChange": this.onChange
+    })), React.createElement("div", {
+      "className": 'floating-label',
+      "onClick": this.forwardLabelClick
+    }, this.props.label), errors);
+  }
+});
+&nbsp;
+TutorDateInput = React.createClass({
+  displayName: 'TutorDateInput',
+  propTypes: {
+    currentLocale: React.PropTypes.shape({
+      abbr: React.PropTypes.string,
+      week: React.PropTypes.object,
+      weekdaysMin: React.PropTypes.array
+    })
+  },
+  getDefaultProps: function() {
+    var currentLocale;
+    currentLocale = TimeHelper.getCurrentLocales();
+    return {
+      currentLocale: currentLocale
+    };
+  },
+  getInitialState: function() {
+    return {
+      expandCalendar: false
+    };
+  },
+  componentWillUnmount: function() {
+    return this.restoreLocales();
+  },
+  restoreLocales: function() {
+    var abbr, localeOptions;
+    abbr = this.props.currentLocale.abbr;
+    localeOptions = _.omit(this.props.currentLocale, 'abbr');
+    return moment.locale(abbr, localeOptions);
+  },
+  expandCalendar: function() {
+    return this.setState({
+      expandCalendar: true,
+      hasFocus: true
+    });
+  },
+  isValid: <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >    var valid;</span>
+<span class="cstat-no" title="statement not covered" >    valid = true;</span>
+<span class="cstat-no" title="statement not covered" >    if (this.props.min &amp;&amp; value.isBefore(this.props.min, 'day')) {</span>
+<span class="cstat-no" title="statement not covered" >      valid = false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this.props.max &amp;&amp; value.isAfter(this.props.max, 'day')) {</span>
+<span class="cstat-no" title="statement not covered" >      valid = false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return valid;</span>
+  },
+  dateSelected: <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >    var date, valid;</span>
+<span class="cstat-no" title="statement not covered" >    valid = this.isValid(value);</span>
+<span class="cstat-no" title="statement not covered" >    if (!valid) {</span>
+<span class="cstat-no" title="statement not covered" >      value = moment(this.props.min) || null;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    date = value.format(TutorDateFormat);</span>
+<span class="cstat-no" title="statement not covered" >    this.props.onChange(date);</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      expandCalendar: false,
+      valid: valid,
+      value: date
+    });
+  },
+  getValue: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.props.value || this.state.value;</span>
+  },
+  onToggle: <span class="fstat-no" title="function not covered" >function(open) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      expandCalendar: open
+    });
+  },
+  clickHandler: <span class="fstat-no" title="function not covered" >function(event) {</span>
+<span class="cstat-no" title="statement not covered" >    if (event.target.tagName === "INPUT" &amp;&amp; !this.state.expandCalendar) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.setState({</span>
+        expandCalendar: true
+      });
+    }
+  },
+  onBlur: <span class="fstat-no" title="function not covered" >function(event) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      hasFocus: false
+    });
+  },
+  render: function() {
+    var classes, dateElem, displayValue, isDatePickerDisabled, max, min, now, ref, value, wrapperClasses;
+    classes = classnames('form-control', {
+      empty: !this.props.value &amp;&amp; !this.state.hasFocus
+    });
+    wrapperClasses = classnames('form-control-wrapper', 'tutor-input', '-tutor-date-input', this.props.className, {
+      'is-required': this.props.required,
+      'has-error': (ref = this.state.errors) != null ? <span class="branch-0 cbranch-no" title="branch not covered" >ref.length </span>: void 0,
+      'disabled-datepicker': isDatePickerDisabled
+    });
+    now = TimeStore.getNow();
+    value = this.props.value;
+    value = value &amp;&amp; value.getTime &amp;&amp; !isNaN(value.getTime()) ? TimeHelper.getMomentPreserveDate(value) : null;
+    isDatePickerDisabled = this.props.disabled &amp;&amp; value;
+    min = this.props.min ? moment(this.props.min) : moment(now).subtract(10, 'years');
+    max = this.props.max ? moment(this.props.max) : moment(now).add(10, 'years');
+    if (!this.props.disabled) {
+      dateElem = React.createElement(DatePicker, {
+        "moment": moment,
+        "minDate": min,
+        "maxDate": max,
+        "onFocus": this.expandCalendar,
+        "dateFormat": TutorDateFormat,
+        "onBlur": this.onBlur,
+        "key": this.props.id,
+        "ref": "picker",
+        "className": classes,
+        "onChange": this.dateSelected,
+        "disabled": this.props.disabled,
+        "selected": value,
+        "weekStart": this.props.currentLocale.week.dow
+      });
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (isDatePickerDisabled) {
+      displayValue = value.format(TutorDateFormat);
+    }
+    return React.createElement("div", {
+      "className": wrapperClasses
+    }, React.createElement("input", {
+      "type": 'text',
+      "disabled": true,
+      "className": classes,
+      "value": displayValue
+    }), React.createElement("div", {
+      "className": "floating-label"
+    }, this.props.label), React.createElement("div", {
+      "className": "hint required-hint"
+    }, "Required Field ", React.createElement("i", {
+      "className": "fa fa-exclamation-circle"
+    })), React.createElement("div", {
+      "className": "date-wrapper"
+    }, dateElem, React.createElement("i", {
+      "className": "fa fa-calendar"
+    })));
+  }
+});
+&nbsp;
+TutorTextArea = React.createClass({displayName: "TutorTextArea",
+  propTypes: {
+    label: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string,
+    className: React.PropTypes.string,
+    onChange: React.PropTypes.func
+  },
+  resize: function(event) {
+    var textarea;
+    textarea = this.refs.textarea.getDOMNode();
+    textarea.style.height = '';
+    return textarea.style.height = textarea.scrollHeight + "px";
+  },
+  componentDidMount: function() {
+    var ref;
+    if (((ref = this.props["default"]) != null ? ref.length : void 0) &gt; 0) {
+      return this.resize();
+    }
+  },
+  onChange: <span class="fstat-no" title="function not covered" >function(event) {</span>
+<span class="cstat-no" title="statement not covered" >    var ref;</span>
+<span class="cstat-no" title="statement not covered" >    return this.props.onChange((ref = event.target) != null ? ref.value : void 0, event.target);</span>
+  },
+  focus: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var ref;</span>
+<span class="cstat-no" title="statement not covered" >    return (ref = React.findDOMNode(this.refs.textarea)) != null ? ref.focus() : void 0;</span>
+  },
+  forwardLabelClick: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.focus();</span>
+  },
+  render: function() {
+    var classes, wrapperClasses;
+    classes = classnames('form-control', this.props.inputClass, {
+      empty: !this.props["default"]
+    });
+    wrapperClasses = classnames("form-control-wrapper", "tutor-input", this.props.className, {
+      'is-required': this.props.required
+    });
+    return React.createElement("div", {
+      "className": wrapperClasses
+    }, React.createElement("textarea", {
+      "id": this.props.inputId,
+      "ref": 'textarea',
+      "type": 'text',
+      "onKeyUp": this.resize,
+      "onPaste": this.resize,
+      "className": classes,
+      "defaultValue": this.props["default"],
+      "disabled": this.props.disabled,
+      "onChange": this.onChange
+    }), React.createElement("div", {
+      "className": "floating-label",
+      "onClick": this.forwardLabelClick
+    }, this.props.label), React.createElement("div", {
+      "className": "hint required-hint"
+    }, "Required Field ", React.createElement("i", {
+      "className": "fa fa-exclamation-circle"
+    })));
+  }
+});
+&nbsp;
+module.exports = {
+  TutorInput: TutorInput,
+  TutorDateInput: TutorDateInput,
+  TutorDateFormat: TutorDateFormat,
+  TutorTextArea: TutorTextArea
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

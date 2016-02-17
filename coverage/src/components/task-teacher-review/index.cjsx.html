@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task-teacher-review/index.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/task-teacher-review/index.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">22.22% <small>(14 / 63)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">22.22% <small>(14 / 63)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task-teacher-review/</a> &#187; index.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, Breadcrumbs, PinnedHeaderFooterCard, React, ReviewShell, Router, StatsModalShell, TaskTeacherReview, TaskTeacherReviewShell, TaskTeacherReviewStore, _, camelCase;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+Breadcrumbs = require('./breadcrumbs');
+&nbsp;
+ReviewShell = require('./review').ReviewShell;
+&nbsp;
+StatsModalShell = require('../plan-stats').StatsModalShell;
+&nbsp;
+PinnedHeaderFooterCard = require('openstax-react-components').PinnedHeaderFooterCard;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+camelCase = require('camelcase');
+&nbsp;
+TaskTeacherReviewStore = require('../../flux/task-teacher-review').TaskTeacherReviewStore;
+&nbsp;
+TaskTeacherReview = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string
+  },
+  displayName: 'TaskTeacherReview',
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  setStepKey: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var crumbKey, defaultKey, sectionIndex;</span>
+<span class="cstat-no" title="statement not covered" >    sectionIndex = this.context.router.getCurrentParams().sectionIndex;</span>
+<span class="cstat-no" title="statement not covered" >    defaultKey = null;</span>
+<span class="cstat-no" title="statement not covered" >    crumbKey = sectionIndex ? parseInt(sectionIndex) - 1 : defaultKey;</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      currentStep: crumbKey
+    });
+  },
+  getPeriodIndex: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var periodIndex;</span>
+<span class="cstat-no" title="statement not covered" >    periodIndex = this.context.router.getCurrentParams().periodIndex;</span>
+<span class="cstat-no" title="statement not covered" >    if (periodIndex == null) {</span>
+<span class="cstat-no" title="statement not covered" >      periodIndex = 1;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return parseInt(periodIndex) - 1;</span>
+  },
+  setScrollState: <span class="fstat-no" title="function not covered" >function(scrollState) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      scrollState: scrollState
+    });
+  },
+  getInitialState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      currentStep: null,
+      scrollState: {},
+      period: {},
+      isReviewLoaded: TaskTeacherReviewStore.get(id) != null
+    };
+  },
+  componentWillMount: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this.setStepKey();</span>
+<span class="cstat-no" title="statement not covered" >    return TaskTeacherReviewStore.on('review.loaded', this.setIsReviewLoaded);</span>
+  },
+  componentWillReceiveProps: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setStepKey();</span>
+  },
+  goToStep: <span class="fstat-no" title="function not covered" >function(stepKey) {</span>
+<span class="cstat-no" title="statement not covered" >    var params;</span>
+<span class="cstat-no" title="statement not covered" >    params = _.clone(this.context.router.getCurrentParams());</span>
+<span class="cstat-no" title="statement not covered" >    params.sectionIndex = stepKey + 1;</span>
+<span class="cstat-no" title="statement not covered" >    params.id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    if (params.periodIndex == null) {</span>
+<span class="cstat-no" title="statement not covered" >      params.periodIndex = 1;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.context.router.replaceWith('reviewTaskStep', params);</span>
+  },
+  setPeriod: <span class="fstat-no" title="function not covered" >function(period) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      period: period
+    });
+  },
+  setPeriodIndex: <span class="fstat-no" title="function not covered" >function(key) {</span>
+<span class="cstat-no" title="statement not covered" >    var params, periodKey;</span>
+<span class="cstat-no" title="statement not covered" >    periodKey = key + 1;</span>
+<span class="cstat-no" title="statement not covered" >    params = _.clone(this.context.router.getCurrentParams());</span>
+<span class="cstat-no" title="statement not covered" >    params.periodIndex = periodKey;</span>
+<span class="cstat-no" title="statement not covered" >    if (params.sectionIndex) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.context.router.replaceWith('reviewTaskStep', params);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return this.context.router.replaceWith('reviewTaskPeriod', params);</span>
+    }
+  },
+  setIsReviewLoaded: <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >    if (id !== this.props.id) {</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    TaskTeacherReviewStore.off('change', this.setIsReviewLoaded);</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      isReviewLoaded: true
+    });
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var breadcrumbs, courseId, id, panel, periodIndex, ref, ref1, task, taskClasses;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, id = ref.id, courseId = ref.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    periodIndex = this.getPeriodIndex();</span>
+<span class="cstat-no" title="statement not covered" >    panel = React.createElement(ReviewShell, {</span>
+      "id": id,
+      "review": 'teacher',
+      "panel": 'teacher-review',
+      "goToStep": this.goToStep,
+      "setScrollState": this.setScrollState,
+      "currentStep": this.state.currentStep,
+      "period": this.state.period
+    });
+<span class="cstat-no" title="statement not covered" >    taskClasses = 'task-teacher-review';</span>
+<span class="cstat-no" title="statement not covered" >    if (this.state.isReviewLoaded) {</span>
+<span class="cstat-no" title="statement not covered" >      task = TaskTeacherReviewStore.get(id);</span>
+<span class="cstat-no" title="statement not covered" >      taskClasses = "task-teacher-review task-" + task.type;</span>
+<span class="cstat-no" title="statement not covered" >      breadcrumbs = React.createElement(Breadcrumbs, {</span>
+        "id": id,
+        "goToStep": this.goToStep,
+        "currentStep": this.state.currentStep,
+        "title": task.title,
+        "courseId": courseId,
+        "key": "task-" + id + "-breadcrumbs"
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    return React.createElement(PinnedHeaderFooterCard, {</span>
+      "className": taskClasses,
+      "fixedOffset": 0.,
+      "header": breadcrumbs,
+      "cardType": 'task'
+    }, React.createElement(BS.Grid, {
+      "fluid": true
+    }, React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "sm": 8.
+    }, panel), React.createElement(BS.Col, {
+      "sm": 4.
+    }, React.createElement(StatsModalShell, {
+      "id": id,
+      "courseId": courseId,
+      "initialActivePeriod": periodIndex,
+      "shouldOverflowData": true,
+      "activeSection": ((ref1 = this.state.scrollState) != null ? ref1.sectionLabel : void 0),
+      "handlePeriodSelect": this.setPeriod,
+      "handlePeriodKeyUpdate": this.setPeriodIndex
+    })))));
+  }
+});
+&nbsp;
+TaskTeacherReviewShell = React.createClass({displayName: "TaskTeacherReviewShell",
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, id, ref;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.context.router.getCurrentParams(), id = ref.id, courseId = ref.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(TaskTeacherReview, {</span>
+      "key": id,
+      "id": id,
+      "courseId": courseId
+    });
+  }
+});
+&nbsp;
+module.exports = {
+  TaskTeacherReview: TaskTeacherReview,
+  TaskTeacherReviewShell: TaskTeacherReviewShell
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

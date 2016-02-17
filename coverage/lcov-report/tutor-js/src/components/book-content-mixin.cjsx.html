@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/book-content-mixin.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/</a> book-content-mixin.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">54.1% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>66/122</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.71% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/70</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.37% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">54.1% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>66/122</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BookContentMixin, CourseStore, EXERCISE_LINK_SELECTOR, LinkContentMixin, MediaPreview, MediaStore, React, ReadingContentMixin, S, ScrollTo, TaskStepStore, _, dom, sizeImage;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+S = require('../helpers/string');
+&nbsp;
+dom = require('../helpers/dom');
+&nbsp;
+MediaPreview = require('./media-preview').MediaPreview;
+&nbsp;
+CourseStore = require('../flux/course').CourseStore;
+&nbsp;
+TaskStepStore = require('../flux/task-step').TaskStepStore;
+&nbsp;
+MediaStore = require('../flux/media').MediaStore;
+&nbsp;
+CourseStore = require('../flux/course').CourseStore;
+&nbsp;
+ScrollTo = require('./scroll-to');
+&nbsp;
+EXERCISE_LINK_SELECTOR = '.os-exercise &gt; [data-type="problem"] &gt; p &gt; a[href]';
+&nbsp;
+LinkContentMixin = {
+  componentDidMount: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.processLinks();</span>
+  },
+  componentDidUpdate: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.processLinks();</span>
+  },
+  componentWillUnmount: function() {
+    return this.cleanUpLinks();
+  },
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  getCnxIdOfHref: <span class="fstat-no" title="function not covered" >function(href) {</span>
+<span class="cstat-no" title="statement not covered" >    var beforeHash;</span>
+<span class="cstat-no" title="statement not covered" >    beforeHash = _.first(href.split('#'));</span>
+<span class="cstat-no" title="statement not covered" >    return _.last(beforeHash.split('/'));</span>
+  },
+  buildReferenceBookLink: <span class="fstat-no" title="function not covered" >function(cnxId) {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, ecosystemId, id, query, ref, ref1, ref2, ref3, ref4, ref5, referenceBookLink, related_content, section;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.context.router.getCurrentParams(), courseId = ref.courseId, ecosystemId = ref.ecosystemId;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, query = ref1.query, id = ref1.id;</span>
+<span class="cstat-no" title="statement not covered" >    if (ecosystemId &amp;&amp; !courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      courseId = (ref2 = CourseStore.getByEcosystemId(ecosystemId)) != null ? ref2.id : void 0;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (!courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (id != null) {</span>
+<span class="cstat-no" title="statement not covered" >      related_content = (ref3 = TaskStepStore.get(id)) != null ? ref3.related_content : void 0;</span>
+<span class="cstat-no" title="statement not covered" >      if (related_content != null) {</span>
+<span class="cstat-no" title="statement not covered" >        section = typeof this.sectionFormat === "function" ? this.sectionFormat(((ref4 = related_content[0]) != null ? ref4.chapter_section : void 0) || ((ref5 = related_content[0]) != null ? ref5.book_location : void 0)) : void 0;</span>
+<span class="cstat-no" title="statement not covered" >        if (section != null) {</span>
+<span class="cstat-no" title="statement not covered" >          referenceBookLink = this.context.router.makeHref('viewReferenceBookSection', {</span>
+            courseId: courseId,
+            section: section
+          }, query);
+        }
+      }
+    } else <span class="cstat-no" title="statement not covered" >if (cnxId != null) {</span>
+<span class="cstat-no" title="statement not covered" >      referenceBookLink = this.context.router.makeHref('viewReferenceBookPage', {</span>
+        courseId: courseId,
+        cnxId: cnxId
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    return referenceBookLink;</span>
+  },
+  isMediaLink: <span class="fstat-no" title="function not covered" >function(link) {</span>
+<span class="cstat-no" title="statement not covered" >    return (link.hash.length &gt; 0 &amp;&amp; link.hash.search('/') === -1) || link.href !== link.getAttribute('href');</span>
+  },
+  hasCNXId: <span class="fstat-no" title="function not covered" >function(link) {</span>
+<span class="cstat-no" title="statement not covered" >    var trueHref;</span>
+<span class="cstat-no" title="statement not covered" >    trueHref = link.getAttribute('href');</span>
+<span class="cstat-no" title="statement not covered" >    return link.hash.length &gt; 0 &amp;&amp; trueHref.substr(0, 1) !== '#';</span>
+  },
+  getMedia: <span class="fstat-no" title="function not covered" >function(mediaId) {</span>
+<span class="cstat-no" title="statement not covered" >    var root;</span>
+<span class="cstat-no" title="statement not covered" >    root = this.getDOMNode();</span>
+<span class="cstat-no" title="statement not covered" >    return root.querySelector("#" + mediaId);</span>
+  },
+  cleanUpLinks: function() {
+    var previewNodes, root;
+    root = this.getDOMNode();
+    previewNodes = root.getElementsByClassName('media-preview-wrapper');
+    return _.each(previewNodes, <span class="fstat-no" title="function not covered" >function(previewNode) {</span>
+<span class="cstat-no" title="statement not covered" >      return React.unmountComponentAtNode(previewNode);</span>
+    });
+  },
+  linkPreview: <span class="fstat-no" title="function not covered" >function(link) {</span>
+<span class="cstat-no" title="statement not covered" >    var mediaCNXId, mediaDOM, mediaId, mediaPreview, mediaProps, previewNode;</span>
+<span class="cstat-no" title="statement not covered" >    mediaId = link.hash.replace('#', '');</span>
+<span class="cstat-no" title="statement not covered" >    if (mediaId) {</span>
+<span class="cstat-no" title="statement not covered" >      mediaDOM = this.getMedia(mediaId);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href')) || this.props.cnxId || (typeof this.getCnxId === "function" ? this.getCnxId() : void 0);</span>
+<span class="cstat-no" title="statement not covered" >    previewNode = document.createElement('span');</span>
+<span class="cstat-no" title="statement not covered" >    previewNode.classList.add('media-preview-wrapper');</span>
+<span class="cstat-no" title="statement not covered" >    link.parentNode.replaceChild(previewNode, link);</span>
+<span class="cstat-no" title="statement not covered" >    mediaProps = {</span>
+      mediaId: mediaId,
+      cnxId: mediaCNXId,
+      bookHref: this.buildReferenceBookLink(mediaCNXId),
+      mediaDOMOnParent: mediaDOM,
+      shouldLinkOut: typeof this.shouldOpenNewTab === "function" ? this.shouldOpenNewTab() : void 0,
+      originalHref: link.getAttribute('href')
+    };
+<span class="cstat-no" title="statement not covered" >    mediaPreview = React.createElement(MediaPreview, React.__spread({}, mediaProps), link.innerText);</span>
+<span class="cstat-no" title="statement not covered" >    return React.render(mediaPreview, previewNode);</span>
+  },
+  processLink: <span class="fstat-no" title="function not covered" >function(link) {</span>
+<span class="cstat-no" title="statement not covered" >    if (this.isMediaLink(link)) {</span>
+<span class="cstat-no" title="statement not covered" >      this.linkPreview(link);</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return link;</span>
+    }
+  },
+  processLinks: function() {
+    return _.defer(this._processLinks);
+  },
+  _processLinks: function() {
+    var exerciseLinks, mediaLinks, otherLinks, root;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.isMounted()) {
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+    root = this.getDOMNode();
+    mediaLinks = root.querySelectorAll(MediaStore.getSelector());
+    exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
+    otherLinks = _.chain(mediaLinks).map(this.processLink).compact().uniq().value();
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (otherLinks != null ? otherLinks.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+<span class="cstat-no" title="statement not covered" >      if (typeof this.renderOtherLinks === "function") {</span>
+<span class="cstat-no" title="statement not covered" >        this.renderOtherLinks(otherLinks);</span>
+      }
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (exerciseLinks != null ? exerciseLinks.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+<span class="cstat-no" title="statement not covered" >      return typeof this.renderExercises === "function" ? this.renderExercises(exerciseLinks) : void 0;</span>
+    }
+  }
+};
+&nbsp;
+ReadingContentMixin = {
+  mixins: [ScrollTo],
+  componentDidMount: function() {
+    this.insertOverlays();
+    this.detectImgAspectRatio();
+    return this.processLinks();
+  },
+  componentDidUpdate: function() {
+    this.insertOverlays();
+    this.detectImgAspectRatio();
+    return this.processLinks();
+  },
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  insertOverlays: function() {
+    var i, img, len, overlay, ref, results, root, title;
+    title = this.getSplashTitle();
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!title) {
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+    root = this.getDOMNode();
+    ref = root.querySelectorAll('.splash img');
+    results = [];
+    for (i = 0, len = ref.length; i &lt; len; i++) {
+      img = ref[i];
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (img.parentElement.querySelector('.ui-overlay')) {
+<span class="cstat-no" title="statement not covered" >        continue;</span>
+      }
+      overlay = document.createElement('div');
+      if (img.parentElement.querySelector('.tutor-ui-overlay')) {
+        continue;
+      }
+      overlay.className = 'tutor-ui-overlay';
+      overlay.innerHTML = title;
+      results.push(img.parentElement.appendChild(overlay));
+    }
+    return results;
+  },
+  detectImgAspectRatio: function() {
+    var i, img, len, ref, results, root;
+    root = this.getDOMNode();
+    ref = root.querySelectorAll('img');
+    results = [];
+    for (i = 0, len = ref.length; i &lt; len; i++) {
+      img = ref[i];
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (img.complete) {
+<span class="cstat-no" title="statement not covered" >        results.push(sizeImage.call(img));</span>
+      } else {
+        results.push(img.onload = sizeImage);
+      }
+    }
+    return results;
+  }
+};
+&nbsp;
+sizeImage = function() {
+  var figure;
+  figure = dom.closest(this, 'figure');
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (!figure) {
+    return;
+  }
+<span class="cstat-no" title="statement not covered" >  if (this.naturalWidth &gt; this.naturalHeight) {</span>
+<span class="cstat-no" title="statement not covered" >    figure.classList.add('tutor-ui-horizontal-img');</span>
+<span class="cstat-no" title="statement not covered" >    if (this.naturalWidth &gt; 450) {</span>
+<span class="cstat-no" title="statement not covered" >      return figure.classList.add('full-width');</span>
+    }
+  } else {
+<span class="cstat-no" title="statement not covered" >    return figure.classList.add('tutor-ui-vertical-img');</span>
+  }
+};
+&nbsp;
+BookContentMixin = _.extend({}, LinkContentMixin, ReadingContentMixin);
+&nbsp;
+module.exports = {
+  BookContentMixin: BookContentMixin,
+  LinkContentMixin: LinkContentMixin,
+  ReadingContentMixin: ReadingContentMixin
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

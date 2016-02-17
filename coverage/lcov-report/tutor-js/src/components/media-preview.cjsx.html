@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/media-preview.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/</a> media-preview.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.91% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>12/110</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/53</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.56% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.91% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>12/110</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var ArbitraryHtmlAndMath, LoadableItem, MediaPreview, MediaStore, React, ReferenceBookPageActions, ReferenceBookPageStore, S, TutorPopover, _, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+LoadableItem = require('./loadable-item');
+&nbsp;
+TutorPopover = require('./tutor-popover');
+&nbsp;
+ArbitraryHtmlAndMath = require('openstax-react-components').ArbitraryHtmlAndMath;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+S = require('../helpers/string');
+&nbsp;
+MediaStore = require('../flux/media').MediaStore;
+&nbsp;
+ref = require('../flux/reference-book-page'), ReferenceBookPageStore = ref.ReferenceBookPageStore, ReferenceBookPageActions = ref.ReferenceBookPageActions;
+&nbsp;
+MediaPreview = React.createClass({
+  displayName: 'MediaPreview',
+  getInitialState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      popped: false,
+      stick: false,
+      media: null
+    };
+  },
+  propTypes: {
+    mediaId: React.PropTypes.string.isRequired,
+    bookHref: React.PropTypes.string.isRequired,
+    cnxId: React.PropTypes.string.isRequired,
+    mediaDOMOnParent: React.PropTypes.object,
+    windowImpl: React.PropTypes.object,
+    buffer: React.PropTypes.number,
+    shouldLinkOut: React.PropTypes.bool,
+    originalHref: React.PropTypes.string
+  },
+  getDefaultProps: function() {
+    return {
+      buffer: 160,
+      shouldLinkOut: false,
+      windowImpl: window
+    };
+  },
+  componentWillMount: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var cnxId, media, mediaId, ref1;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, mediaId = ref1.mediaId, cnxId = ref1.cnxId;</span>
+<span class="cstat-no" title="statement not covered" >    media = MediaStore.get(mediaId);</span>
+<span class="cstat-no" title="statement not covered" >    if (media != null) {</span>
+<span class="cstat-no" title="statement not covered" >      this.updateMedia(media);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (!((media != null) || ReferenceBookPageStore.isLoading(cnxId) || ReferenceBookPageStore.isLoaded(cnxId))) {</span>
+<span class="cstat-no" title="statement not covered" >      ReferenceBookPageActions.loadSilent(cnxId);</span>
+<span class="cstat-no" title="statement not covered" >      return MediaStore.once("loaded." + mediaId, this.updateMedia);</span>
+    }
+  },
+  componentWillUnmount: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var mediaId;</span>
+<span class="cstat-no" title="statement not covered" >    mediaId = this.props.mediaId;</span>
+<span class="cstat-no" title="statement not covered" >    return MediaStore.off("loaded." + mediaId, this.updateMedia);</span>
+  },
+  updateMedia: <span class="fstat-no" title="function not covered" >function(media) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      media: media
+    });
+  },
+  checkShouldPop: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    if (!this.props.mediaDOMOnParent) {</span>
+<span class="cstat-no" title="statement not covered" >      return true;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return !this.isMediaInViewport();</span>
+  },
+  isMediaInViewport: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var buffer, mediaDOMOnParent, mediaRect, ref1, ref2, windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, mediaDOMOnParent = ref1.mediaDOMOnParent, buffer = ref1.buffer, windowImpl = ref1.windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    mediaRect = mediaDOMOnParent.getBoundingClientRect();</span>
+<span class="cstat-no" title="statement not covered" >    return (0 &lt;= (ref2 = mediaRect.top + buffer) &amp;&amp; ref2 &lt;= windowImpl.innerHeight);</span>
+  },
+  highlightMedia: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var mediaDOMOnParent;</span>
+<span class="cstat-no" title="statement not covered" >    mediaDOMOnParent = this.props.mediaDOMOnParent;</span>
+<span class="cstat-no" title="statement not covered" >    return mediaDOMOnParent.classList.add('link-target');</span>
+  },
+  unhighlightMedia: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var mediaDOMOnParent;</span>
+<span class="cstat-no" title="statement not covered" >    mediaDOMOnParent = this.props.mediaDOMOnParent;</span>
+<span class="cstat-no" title="statement not covered" >    return mediaDOMOnParent.classList.remove('link-target');</span>
+  },
+  stickMedia: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      stick: true
+    });
+<span class="cstat-no" title="statement not covered" >    if (!this.state.popped) {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        popped: true
+      });
+<span class="cstat-no" title="statement not covered" >      return this.refs.overlay.show();</span>
+    }
+  },
+  showMedia: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var shouldPop;</span>
+<span class="cstat-no" title="statement not covered" >    if (this.state.stick) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    shouldPop = this.checkShouldPop();</span>
+<span class="cstat-no" title="statement not covered" >    if (shouldPop) {</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.state.popped) {</span>
+<span class="cstat-no" title="statement not covered" >        this.setState({</span>
+          popped: true
+        });
+<span class="cstat-no" title="statement not covered" >        return this.refs.overlay.show();</span>
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      return this.highlightMedia();</span>
+    }
+  },
+  hideMedia: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    if (this.state.popped) {</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.state.stick) {</span>
+<span class="cstat-no" title="statement not covered" >        this.setState({</span>
+          popped: false
+        });
+<span class="cstat-no" title="statement not covered" >        return this.refs.overlay.hide();</span>
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      return this.unhighlightMedia();</span>
+    }
+  },
+  onMouseEnter: <span class="fstat-no" title="function not covered" >function(mouseEvent) {</span>
+<span class="cstat-no" title="statement not covered" >    mouseEvent.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >    return this.showMedia();</span>
+  },
+  onMouseLeave: <span class="fstat-no" title="function not covered" >function(mouseEvent) {</span>
+<span class="cstat-no" title="statement not covered" >    mouseEvent.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >    if (this.isMouseExited(mouseEvent)) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.hideMedia();</span>
+    }
+  },
+  isMouseExited: <span class="fstat-no" title="function not covered" >function(mouseEvent) {</span>
+<span class="cstat-no" title="statement not covered" >    var linkDOM, popoverDOM, ref1;</span>
+<span class="cstat-no" title="statement not covered" >    if (!((((ref1 = mouseEvent.relatedTarget) != null ? ref1.nodeType : void 0) != null) &amp;&amp; (this.refs.overlay.refs.popover != null))) {</span>
+<span class="cstat-no" title="statement not covered" >      return true;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    linkDOM = this.refs.overlay.refs.popper.getDOMNode();</span>
+<span class="cstat-no" title="statement not covered" >    popoverDOM = this.refs.overlay.refs.popover.getDOMNode();</span>
+<span class="cstat-no" title="statement not covered" >    return !(popoverDOM.contains(mouseEvent.relatedTarget) || linkDOM.isEqualNode(mouseEvent.relatedTarget));</span>
+  },
+  getOverlayProps: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return _.pick(this.props, 'containerPadding');</span>
+  },
+  getLinkProps: <span class="fstat-no" title="function not covered" >function(otherProps) {</span>
+<span class="cstat-no" title="statement not covered" >    var bookHref, defaultClassName, linkProps, media, mediaDOMOnParent, mediaId, originalHref, otherPropTypes, ref1, shouldLinkOut;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, mediaId = ref1.mediaId, mediaDOMOnParent = ref1.mediaDOMOnParent, bookHref = ref1.bookHref, shouldLinkOut = ref1.shouldLinkOut, originalHref = ref1.originalHref;</span>
+<span class="cstat-no" title="statement not covered" >    media = this.state.media;</span>
+<span class="cstat-no" title="statement not covered" >    otherPropTypes = _.chain(otherProps).keys().union(['mediaId', 'children', 'mediaDOMOnParent', 'buffer']).value();</span>
+<span class="cstat-no" title="statement not covered" >    linkProps = _.omit(this.props, otherPropTypes);</span>
+<span class="cstat-no" title="statement not covered" >    linkProps['data-targeted'] = 'media';</span>
+<span class="cstat-no" title="statement not covered" >    if (mediaDOMOnParent != null) {</span>
+<span class="cstat-no" title="statement not covered" >      linkProps.href = "#" + mediaId;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (media &amp;&amp; shouldLinkOut) {</span>
+<span class="cstat-no" title="statement not covered" >      linkProps.href = bookHref;</span>
+<span class="cstat-no" title="statement not covered" >      if (mediaId) {</span>
+<span class="cstat-no" title="statement not covered" >        linkProps.href += "#" + mediaId;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      linkProps.target = '_blank';</span>
+    } else <span class="cstat-no" title="statement not covered" >if (!media) {</span>
+<span class="cstat-no" title="statement not covered" >      linkProps.href = originalHref;</span>
+<span class="cstat-no" title="statement not covered" >      linkProps.target = '_blank';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    linkProps.onMouseEnter = this.onMouseEnter;</span>
+<span class="cstat-no" title="statement not covered" >    linkProps.onMouseLeave = this.onMouseLeave;</span>
+<span class="cstat-no" title="statement not covered" >    defaultClassName = 'media-preview-link';</span>
+<span class="cstat-no" title="statement not covered" >    if (linkProps.className != null) {</span>
+<span class="cstat-no" title="statement not covered" >      linkProps.className += " " + defaultClassName;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (linkProps.className == null) {</span>
+<span class="cstat-no" title="statement not covered" >      linkProps.className = defaultClassName;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return linkProps;</span>
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var allProps, bookHref, children, content, contentHtml, contentProps, linkProps, linkText, media, mediaId, overlayProps, popoverProps, ref1, windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, mediaId = ref1.mediaId, children = ref1.children, bookHref = ref1.bookHref, windowImpl = ref1.windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    media = this.state.media;</span>
+<span class="cstat-no" title="statement not covered" >    overlayProps = this.getOverlayProps();</span>
+<span class="cstat-no" title="statement not covered" >    linkProps = this.getLinkProps(overlayProps);</span>
+<span class="cstat-no" title="statement not covered" >    if (media != null) {</span>
+<span class="cstat-no" title="statement not covered" >      contentHtml = media.html;</span>
+<span class="cstat-no" title="statement not covered" >      contentProps = {</span>
+        className: 'media-preview-content'
+      };
+<span class="cstat-no" title="statement not covered" >      popoverProps = {</span>
+        'data-content-type': media.name,
+        className: 'media-preview',
+        ref: 'popover',
+        onMouseLeave: this.onMouseLeave
+      };
+<span class="cstat-no" title="statement not covered" >      content = React.createElement(ArbitraryHtmlAndMath, React.__spread({}, contentProps, {</span>
+        "html": contentHtml
+      }));
+<span class="cstat-no" title="statement not covered" >      allProps = {</span>
+        content: content,
+        overlayProps: overlayProps,
+        popoverProps: popoverProps,
+        windowImpl: windowImpl
+      };
+<span class="cstat-no" title="statement not covered" >      if (children !== '[link]') {</span>
+<span class="cstat-no" title="statement not covered" >        linkText = children;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (linkText == null) {</span>
+<span class="cstat-no" title="statement not covered" >        linkText = S.capitalize(media.name);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return React.createElement(TutorPopover, React.__spread({}, allProps, {</span>
+        "ref": 'overlay'
+      }), React.createElement("a", React.__spread({}, linkProps), linkText));
+    } else {
+<span class="cstat-no" title="statement not covered" >      linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave');</span>
+<span class="cstat-no" title="statement not covered" >      return React.createElement("a", React.__spread({}, linkProps), children);</span>
+    }
+  }
+});
+&nbsp;
+module.exports = {
+  MediaPreview: MediaPreview
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/tutor-popover.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/tutor-popover.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">94.57% <small>(87 / 92)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">78.95% <small>(30 / 38)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">94.74% <small>(18 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">94.57% <small>(87 / 92)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/components/</a> &#187; tutor-popover.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">41</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">41</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-yes">58</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-yes">20</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-yes">30</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">41</span>
+<span class="cline-any cline-yes">41</span>
+<span class="cline-any cline-yes">41</span>
+<span class="cline-any cline-yes">41</span>
+<span class="cline-any cline-yes">41</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-yes">44</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, React, TutorPopover, _;
+&nbsp;
+React = require('react/addons');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+TutorPopover = React.createClass({
+  displayName: 'TutorPopover',
+  getInitialState: function() {
+    return {
+      firstShow: true,
+      placement: 'right',
+      show: false,
+      scrollable: false,
+      imagesLoading: []
+    };
+  },
+  propTypes: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      content: React.PropTypes.node.isRequired,
+      popoverProps: React.PropTypes.object,
+      contentProps: React.PropTypes.object,
+      overlayProps: React.PropTypes.object,
+      windowImpl: React.PropTypes.object,
+      maxHeightMultiplier: React.PropTypes.number,
+      maxWidthMultiplier: React.PropTypes.number
+    };
+  },
+  getDefaultProps: function() {
+    return {
+      maxHeightMultiplier: 0.75,
+      maxWidthMultiplier: 0.75,
+      windowImpl: window
+    };
+  },
+  componentDidMount: function() {
+    return this.updateOverlayPositioning();
+  },
+  componentDidUpdate: function() {
+    var images, imagesLoading;
+    if ((this.refs.popcontent != null) &amp;&amp; this.state.firstShow) {
+      images = this.getImages();
+      imagesLoading = _.map(images, (function(_this) {
+        return function(image, iter) {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (!((image.onload != null) || image.complete)) {
+            image.onload = _.partial(_this.imageLoaded, iter);
+          }
+          return !image.complete;
+        };
+      })(this));
+      return this.setState({
+        imagesLoading: imagesLoading,
+        firstShow: false
+      });
+    }
+  },
+  getImages: function() {
+    var content;
+    content = this.refs.popcontent.getDOMNode();
+    return content.querySelectorAll('img');
+  },
+  imageLoaded: function(iter) {
+    var currentImageStatus, imagesLoading, ref;
+    if (!this.isMounted()) {
+      return;
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if ((ref = this.refs.popper) != null) {
+      ref.updateOverlayPosition();
+    }
+    imagesLoading = this.state.imagesLoading;
+    currentImageStatus = _.clone(imagesLoading);
+    currentImageStatus[iter] = false;
+    return this.setState({
+      imagesLoading: currentImageStatus
+    });
+  },
+  setMaxImageWidth: function(image, maxWidth) {
+    var width;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (image == null) {
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+    width = typeof image.getBoundingClientRect === "function" ? image.getBoundingClientRect().width : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (width &gt; maxWidth) {
+<span class="cstat-no" title="statement not covered" >      return image.width = maxWidth;</span>
+    }
+  },
+  areImagesLoading: function() {
+    return _.compact(this.state.imagesLoading).length !== 0;
+  },
+  updateOverlayPositioning: function() {
+    var updateOverlayPosition, windowImpl;
+    windowImpl = this.props.windowImpl;
+    updateOverlayPosition = this.refs.popper.updateOverlayPosition;
+    return this.refs.popper.updateOverlayPosition = (function(_this) {
+      return function() {
+        var height, images, ref, scrollable, viewer, width;
+        updateOverlayPosition();
+        viewer = _this.refs.popper.getOverlayDOMNode();
+        images = _this.getImages();
+        ref = viewer.getBoundingClientRect(), height = ref.height, width = ref.width;
+        _.each(images, _.partial(_this.setMaxImageWidth, _, width - 30));
+        scrollable = false;
+        if (height &gt; windowImpl.innerHeight) {
+          scrollable = true;
+          viewer.style.height = _this.props.maxHeightMultiplier * windowImpl.innerHeight + 'px';
+          updateOverlayPosition();
+        }
+        if (width &gt; windowImpl.innerWidth) {
+          scrollable = true;
+          viewer.style.width = _this.props.maxWidthMultiplier * windowImpl.innerWidth + 'px';
+          updateOverlayPosition();
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (_this.state.scrollable &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!scrollable)</span> {
+<span class="cstat-no" title="statement not covered" >          viewer.style.height = 'auto';</span>
+<span class="cstat-no" title="statement not covered" >          viewer.style.width = 'auto';</span>
+        }
+        _this.setState({
+          scrollable: scrollable
+        });
+        return updateOverlayPosition();
+      };
+    })(this);
+  },
+  setPlacement: function() {
+    var placement;
+    placement = this.guessPlacement();
+    if (this.state.placement !== placement) {
+      return this.setState({
+        placement: placement
+      });
+    }
+  },
+  guessPlacement: function() {
+    var midWindow, overlayLeft, windowImpl;
+    windowImpl = this.props.windowImpl;
+    overlayLeft = this.refs.popper.calcOverlayPosition().overlayLeft;
+    midWindow = windowImpl.innerWidth / 2;
+    if (overlayLeft &gt; midWindow) {
+      return 'left';
+    } else {
+      return 'right';
+    }
+  },
+  show: function() {
+    this.setPlacement();
+    this.setState({
+      show: true
+    });
+    return this.refs.popper.show();
+  },
+  hide: function() {
+    this.setState({
+      show: false
+    });
+    return this.refs.popper.hide();
+  },
+  render: function() {
+    var children, content, contentClassName, overlayProps, placement, popover, popoverProps, ref, ref1, scrollable;
+    ref = this.props, children = ref.children, content = ref.content, popoverProps = ref.popoverProps, overlayProps = ref.overlayProps;
+    ref1 = this.state, scrollable = ref1.scrollable, placement = ref1.placement;
+    if (scrollable) {
+      popoverProps = _.clone(popoverProps || {});
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (popoverProps.className == null) {
+        popoverProps.className = '';
+      }
+      popoverProps.className += ' scrollable';
+    }
+    if (this.areImagesLoading()) {
+      contentClassName = 'image-loading';
+    }
+    content = React.addons.cloneWithProps(content, {
+      className: contentClassName
+    });
+    popover = React.createElement(BS.Popover, React.__spread({}, popoverProps, {
+      "ref": 'popover'
+    }), React.createElement("div", {
+      "ref": 'popcontent'
+    }, content));
+    return React.createElement(BS.OverlayTrigger, React.__spread({}, overlayProps, {
+      "placement": placement,
+      "overlay": popover,
+      "trigger": 'manual',
+      "ref": 'popper'
+    }), children);
+  }
+});
+&nbsp;
+module.exports = TutorPopover;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

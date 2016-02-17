@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/course-calendar/list.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/course-calendar/list.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">17.65% <small>(6 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 3)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">17.65% <small>(6 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/course-calendar/</a> &#187; list.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var React, TaskPlan, TeacherTaskPlanListing, moment;
+&nbsp;
+moment = require('moment');
+&nbsp;
+React = require('react');
+&nbsp;
+TaskPlan = React.createClass({
+  displayName: 'TeacherTaskPlan',
+  propTypes: {
+    plan: React.PropTypes.object.isRequired,
+    courseId: React.PropTypes.string.isRequired
+  },
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  onEditPlan: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, id, ref, type;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = this.props.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props.plan, id = ref.id, type = ref.type;</span>
+<span class="cstat-no" title="statement not covered" >    switch (type) {</span>
+      case 'homework':
+<span class="cstat-no" title="statement not covered" >        return this.context.router.transitionTo('editHomework', {</span>
+          courseId: courseId,
+          id: id
+        });
+      case 'reading':
+<span class="cstat-no" title="statement not covered" >        return this.context.router.transitionTo('editReading', {</span>
+          courseId: courseId,
+          id: id
+        });
+      default:
+<span class="cstat-no" title="statement not covered" >        throw new Error("BUG: Unknown plan type '" + type + "'");</span>
+    }
+  },
+  onViewStats: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, id;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = this.props.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.plan.id;</span>
+<span class="cstat-no" title="statement not covered" >    return this.context.router.transitionTo('viewStats', {</span>
+      courseId: courseId,
+      id: id
+    });
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var duration, ending, plan, start;</span>
+<span class="cstat-no" title="statement not covered" >    plan = this.props.plan;</span>
+<span class="cstat-no" title="statement not covered" >    start = moment(plan.opens_at);</span>
+<span class="cstat-no" title="statement not covered" >    ending = moment(plan.due_at);</span>
+<span class="cstat-no" title="statement not covered" >    duration = moment.duration(ending.diff(start)).humanize();</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement("div", {</span>
+      "className": '-list-item'
+    }, React.createElement(BS.ListGroupItem, {
+      "header": plan.title,
+      "onClick": this.onEditPlan
+    }, start.fromNow(), " (", duration, ")"), React.createElement(BS.Button, {
+      "bsStyle": 'link',
+      "className": '-tasks-list-stats-button',
+      "onClick": this.onViewStats
+    }, "View Stats"));
+  }
+});
+&nbsp;
+TeacherTaskPlanListing = React.createClass({
+  displayName: 'TeacherTaskPlanListing',
+  propTypes: {
+    plan: React.PropTypes.object.isRequired,
+    courseId: React.PropTypes.string.isRequired
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId, plan, plans, plansList, ref, title;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, plansList = ref.plansList, courseId = ref.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    title = "Task plans for course ID " + courseId;</span>
+<span class="cstat-no" title="statement not covered" >    plans = (<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      var i, len, results;</span>
+<span class="cstat-no" title="statement not covered" >      results = [];</span>
+<span class="cstat-no" title="statement not covered" >      for (i = 0, len = plansList.length; i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        plan = plansList[i];</span>
+<span class="cstat-no" title="statement not covered" >        results.push(React.createElement(TaskPlan, {</span>
+          "key": plan.id,
+          "plan": plan,
+          "courseId": courseId
+        }));
+      }
+<span class="cstat-no" title="statement not covered" >      return results;</span>
+    })();
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.ListGroup, {</span>
+      "id": 'tasks-list'
+    }, plans);
+  }
+});
+&nbsp;
+module.exports = TeacherTaskPlanListing;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

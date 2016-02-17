@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/flux/task.coffee</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/flux/</a> task.coffee
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.9% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>80/167</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.66% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>13/47</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">39.22% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>20/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.9% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>80/167</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">898×</span>
+<span class="cline-any cline-yes">17484×</span>
+<span class="cline-any cline-yes">17484×</span>
+<span class="cline-any cline-yes">17484×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">362×</span>
+<span class="cline-any cline-yes">362×</span>
+<span class="cline-any cline-yes">362×</span>
+<span class="cline-any cline-yes">7516×</span>
+<span class="cline-any cline-yes">7516×</span>
+<span class="cline-any cline-yes">244×</span>
+<span class="cline-any cline-yes">244×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">362×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">144×</span>
+<span class="cline-any cline-yes">1897×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">380×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">380×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">362×</span>
+<span class="cline-any cline-yes">362×</span>
+<span class="cline-any cline-yes">362×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">138×</span>
+<span class="cline-any cline-yes">138×</span>
+<span class="cline-any cline-yes">138×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">360×</span>
+<span class="cline-any cline-yes">360×</span>
+<span class="cline-any cline-yes">360×</span>
+<span class="cline-any cline-yes">117×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">243×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">102×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CrudConfig, Durations, MediaActions, TaskConfig, TaskStepStore, _, actions, extendConfig, flux, getChangedSteps, getCompleteSteps, getCurrentStep, getCurrentStepIndex, getIncompleteSteps, getSteps, makeSimpleStore, moment, ref, ref1, store;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+moment = require('moment');
+&nbsp;
+flux = require('flux-react');
+&nbsp;
+Durations = require('../helpers/durations');
+&nbsp;
+ref = require('./helpers'), CrudConfig = ref.CrudConfig, makeSimpleStore = ref.makeSimpleStore, extendConfig = ref.extendConfig;
+&nbsp;
+TaskStepStore = require('./task-step').TaskStepStore;
+&nbsp;
+MediaActions = require('./media').MediaActions;
+&nbsp;
+getSteps = function(steps) {
+  return _.map(steps, function(arg) {
+    var id;
+    id = arg.id;
+    return TaskStepStore.get(id);
+  });
+};
+&nbsp;
+getCurrentStepIndex = function(steps) {
+  var currentStep, i, j, len, step;
+  currentStep = -1;
+  for (i = j = 0, len = steps.length; j &lt; len; i = ++j) {
+    step = steps[i];
+    if (!step.is_completed) {
+      currentStep = i;
+      break;
+    }
+  }
+  return currentStep;
+};
+&nbsp;
+getCurrentStep = function(steps) {
+  return _.find(steps, function(step) {
+    return !step.is_completed || (step.is_completed == null);
+  });
+};
+&nbsp;
+getIncompleteSteps = <span class="fstat-no" title="function not covered" >function(steps) {</span>
+<span class="cstat-no" title="statement not covered" >  return _.filter(steps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >    return (step != null) &amp;&amp; !step.is_completed;</span>
+  });
+};
+&nbsp;
+getCompleteSteps = <span class="fstat-no" title="function not covered" >function(steps) {</span>
+<span class="cstat-no" title="statement not covered" >  return _.filter(steps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >    return (step != null) &amp;&amp; step.is_completed;</span>
+  });
+};
+&nbsp;
+getChangedSteps = <span class="fstat-no" title="function not covered" >function(steps) {</span>
+<span class="cstat-no" title="statement not covered" >  return _.filter(steps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >    return (step != null) &amp;&amp; TaskStepStore.isChanged(step.id);</span>
+  });
+};
+&nbsp;
+TaskConfig = {
+  _steps: {},
+  _getStep: <span class="fstat-no" title="function not covered" >function(taskId, stepId) {</span>
+<span class="cstat-no" title="statement not covered" >    var step;</span>
+<span class="cstat-no" title="statement not covered" >    step = _.find(this._steps[taskId], <span class="fstat-no" title="function not covered" >function(s) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return s.id === stepId;</span>
+    });
+<span class="cstat-no" title="statement not covered" >    return step;</span>
+  },
+  _grabHtmlFromReading: function(step) {
+    return step.content_html;
+  },
+  _grabHtmlFromExercise: function(step) {
+    var html, questionHtml;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (step.content == null) {
+<span class="cstat-no" title="statement not covered" >      return '';</span>
+    }
+    html = step.content.stimulus_html;
+    questionHtml = _.pluck(step.content.questions, 'stem_html').join('');
+    return html += questionHtml;
+  },
+  _grabHtml: function(obj) {
+    var htmlToParse;
+    return htmlToParse = _.map(obj.steps, (function(_this) {
+      return function(step) {
+        var html;
+        if (step.type === 'reading') {
+          html = _this._grabHtmlFromReading(step);
+        } else <span class="missing-if-branch" title="else path not taken" >E</span>if (step.type === 'exercise') {
+          html = _this._grabHtmlFromExercise(step);
+        }
+        return html;
+      };
+    })(this)).join('');
+  },
+  _loaded: function(obj, id) {
+    var TaskStepActions, j, len, ref1, step, steps;
+    MediaActions.parse(this._grabHtml(obj));
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this._steps == null) {
+<span class="cstat-no" title="statement not covered" >      this._steps = {};</span>
+    }
+    steps = obj.steps;
+    delete obj.steps;
+    this._steps[id] = steps;
+    ref1 = require('./task-step'), TaskStepActions = ref1.TaskStepActions, TaskStepStore = ref1.TaskStepStore;
+    for (j = 0, len = steps.length; j &lt; len; j++) {
+      step = steps[j];
+      step.task_id = id;
+      TaskStepActions.loaded(step, step.id);
+    }
+    obj;
+    return obj;
+  },
+  loadUserTasks: <span class="fstat-no" title="function not covered" >function(courseId) {</span>},
+  loadedUserTasks: <span class="fstat-no" title="function not covered" >function(obj) {</span>
+<span class="cstat-no" title="statement not covered" >    var j, len, task, tasks;</span>
+<span class="cstat-no" title="statement not covered" >    tasks = obj.items;</span>
+<span class="cstat-no" title="statement not covered" >    for (j = 0, len = tasks.length; j &lt; len; j++) {</span>
+<span class="cstat-no" title="statement not covered" >      task = tasks[j];</span>
+<span class="cstat-no" title="statement not covered" >      this.loaded(task, task.id);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.emitChange();</span>
+  },
+  exports: {
+    getSteps: function(id) {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!this._steps[id]) {
+<span class="cstat-no" title="statement not covered" >        throw new Error('BUG: Steps not loaded');</span>
+      }
+      return getSteps(this._steps[id]);
+    },
+    getAll: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      return _.values(this._local);</span>
+    },
+    getCurrentStepIndex: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var steps;</span>
+<span class="cstat-no" title="statement not covered" >      steps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      return getCurrentStepIndex(steps);</span>
+    },
+    getReadingForTaskId: <span class="fstat-no" title="function not covered" >function(taskId, id) {</span>
+<span class="cstat-no" title="statement not covered" >      var relatedStepIndex, related_content, steps;</span>
+<span class="cstat-no" title="statement not covered" >      steps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      related_content = TaskStepStore.get(id).related_content;</span>
+<span class="cstat-no" title="statement not covered" >      relatedStepIndex = _.findIndex(steps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return (step.type === 'reading') &amp;&amp; (_.isEqual(step.chapter_section, _.first(related_content).chapter_section));</span>
+      });
+<span class="cstat-no" title="statement not covered" >      if (!(relatedStepIndex &gt; -1)) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('BUG: Invalid taskId.  Unable to find index');</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        reading: steps[relatedStepIndex],
+        index: relatedStepIndex
+      };
+    },
+    getDefaultStepIndex: function(taskId) {
+      var steps;
+      steps = getSteps(this._steps[taskId]);
+      return getCurrentStepIndex(steps);
+    },
+    getStepsIds: <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >      return _.map(this._steps[id], <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return _.pick(step, 'id');</span>
+      });
+    },
+    getCurrentStep: function(taskId) {
+      var step, steps;
+      steps = getSteps(this._steps[taskId]);
+      return step = getCurrentStep(steps);
+    },
+    getIncompleteSteps: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps, steps;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      return steps = getIncompleteSteps(allSteps);</span>
+    },
+    getCompletedSteps: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps, steps;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      return steps = getCompleteSteps(allSteps);</span>
+    },
+    getIncompleteCoreStepsIndexes: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps, coreSteps, firstIndex, lastIndex;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      firstIndex = _.findIndex(allSteps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return (step != null) &amp;&amp; !step.is_completed &amp;&amp; TaskStepStore.isCore(step.id);</span>
+      });
+<span class="cstat-no" title="statement not covered" >      lastIndex = _.findLastIndex(allSteps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return (step != null) &amp;&amp; !step.is_completed &amp;&amp; TaskStepStore.isCore(step.id);</span>
+      });
+<span class="cstat-no" title="statement not covered" >      coreSteps = [firstIndex];</span>
+<span class="cstat-no" title="statement not covered" >      if (lastIndex !== firstIndex) {</span>
+<span class="cstat-no" title="statement not covered" >        coreSteps.push(lastIndex);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return coreSteps;</span>
+    },
+    hasAnyStepChanged: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      return getChangedSteps(allSteps).length;</span>
+    },
+    hasIncompleteCoreStepsIndexes: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps, steps;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      steps = _.find(allSteps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return (step != null) &amp;&amp; !step.is_completed &amp;&amp; TaskStepStore.isCore(step.id);</span>
+      });
+<span class="cstat-no" title="statement not covered" >      return steps != null;</span>
+    },
+    getFirstNonCoreIndex: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps, stepIndex;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      return stepIndex = _.findIndex(allSteps, <span class="fstat-no" title="function not covered" >function(step) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return (step != null) &amp;&amp; !TaskStepStore.isCore(step.id);</span>
+      });
+    },
+    getPlaceholder: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      return _.findWhere(allSteps, {</span>
+        type: 'placeholder'
+      });
+    },
+    isTaskCompleted: function(taskId) {
+      var incompleteStep;
+      incompleteStep = getCurrentStep(getSteps(this._steps[taskId]));
+      return !incompleteStep;
+    },
+    hasCrumbs: function(taskId) {
+      return !(this._steps[taskId].length === 1 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this._get(taskId).type === 'external')</span>;
+    },
+    doesAllowSeeAhead: function(taskId) {
+      var allowed;
+      allowed = ['homework', 'practice', 'chapter_practice', 'page_practice'];
+      if (allowed.indexOf(this._get(taskId).type) &gt; -1) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    getRelatedSections: function(taskId) {
+      return _.chain(getSteps(this._steps[taskId])).pluck('chapter_section').compact().uniq(function(cs) {
+        return cs.join('.');
+      }).value();
+    },
+    getCompletedStepsCount: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps, steps;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      steps = getCompleteSteps(allSteps);</span>
+<span class="cstat-no" title="statement not covered" >      return steps.length;</span>
+    },
+    getTotalStepsCount: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var allSteps;</span>
+<span class="cstat-no" title="statement not covered" >      allSteps = getSteps(this._steps[taskId]);</span>
+<span class="cstat-no" title="statement not covered" >      return allSteps.length;</span>
+    },
+    isTaskPastDue: function(taskId) {
+      return Durations.isPastDue(this._get(taskId));
+    },
+    isPractice: <span class="fstat-no" title="function not covered" >function(taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var practices;</span>
+<span class="cstat-no" title="statement not covered" >      practices = ['practice', 'chapter_practice', 'page_practice'];</span>
+<span class="cstat-no" title="statement not covered" >      if (practices.indexOf(this._get(taskId).type) &gt; -1) {</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+      }
+    },
+    getStepLateness: <span class="fstat-no" title="function not covered" >function(taskId, stepId) {</span>
+<span class="cstat-no" title="statement not covered" >      var due_at, last_completed_at, ref1, result, step, type;</span>
+<span class="cstat-no" title="statement not covered" >      result = {</span>
+        late: false,
+        last_completed_at: null,
+        how_late: null
+      };
+<span class="cstat-no" title="statement not covered" >      step = this._getStep(taskId, stepId);</span>
+<span class="cstat-no" title="statement not covered" >      ref1 = this._get(taskId), due_at = ref1.due_at, type = ref1.type;</span>
+<span class="cstat-no" title="statement not covered" >      if (!((step != null) &amp;&amp; type === 'homework')) {</span>
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      last_completed_at = step.last_completed_at;</span>
+<span class="cstat-no" title="statement not covered" >      result.late = moment(due_at).isBefore(last_completed_at);</span>
+<span class="cstat-no" title="statement not covered" >      result.last_completed_at = last_completed_at;</span>
+<span class="cstat-no" title="statement not covered" >      result.how_late = moment(due_at).from(last_completed_at, true);</span>
+<span class="cstat-no" title="statement not covered" >      return result;</span>
+    }
+  }
+};
+&nbsp;
+extendConfig(TaskConfig, new CrudConfig());
+&nbsp;
+ref1 = makeSimpleStore(TaskConfig), actions = ref1.actions, store = ref1.store;
+&nbsp;
+module.exports = {
+  TaskActions: actions,
+  TaskStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

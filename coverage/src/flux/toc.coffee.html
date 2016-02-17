@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/flux/toc.coffee</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/flux/toc.coffee</span></h1>
+    <h2>
+        Statements: <span class="metric">30.77% <small>(8 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">30.77% <small>(8 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/flux/</a> &#187; toc.coffee</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CrudConfig, TocConfig, _, actions, extendConfig, flux, makeSimpleStore, ref, ref1, store;
+&nbsp;
+flux = require('flux-react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+ref = require('./helpers'), CrudConfig = ref.CrudConfig, extendConfig = ref.extendConfig, makeSimpleStore = ref.makeSimpleStore;
+&nbsp;
+TocConfig = {
+  _sections: {},
+  FAILED: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return console.error('BUG: could not load readings');</span>
+  },
+  _reset: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this._sections = {};</span>
+  },
+  _loaded: <span class="fstat-no" title="function not covered" >function(obj, id) {</span>
+<span class="cstat-no" title="statement not covered" >    var chap, chapters, i, j, len, len1, ref1, section;</span>
+<span class="cstat-no" title="statement not covered" >    chapters = obj[0].children;</span>
+<span class="cstat-no" title="statement not covered" >    for (i = 0, len = chapters.length; i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      chap = chapters[i];</span>
+<span class="cstat-no" title="statement not covered" >      ref1 = chap.children;</span>
+<span class="cstat-no" title="statement not covered" >      for (j = 0, len1 = ref1.length; j &lt; len1; j++) {</span>
+<span class="cstat-no" title="statement not covered" >        section = ref1[j];</span>
+<span class="cstat-no" title="statement not covered" >        this._sections[section.id] = section;</span>
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    return chapters;</span>
+  },
+  exports: {
+    getChapterSection: <span class="fstat-no" title="function not covered" >function(sectionId) {</span>
+<span class="cstat-no" title="statement not covered" >      var ref1;</span>
+<span class="cstat-no" title="statement not covered" >      return ((ref1 = this._sections[sectionId]) != null ? ref1.chapter_section : void 0) || (<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('BUG: Invalid section');</span>
+      })();
+    },
+    getSectionInfo: <span class="fstat-no" title="function not covered" >function(sectionId) {</span>
+<span class="cstat-no" title="statement not covered" >      return this._sections[sectionId] || (<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('BUG: Invalid section');</span>
+      })();
+    },
+    getSectionLabel: <span class="fstat-no" title="function not covered" >function(key) {</span>
+<span class="cstat-no" title="statement not covered" >      return _.find(this._sections, <span class="fstat-no" title="function not covered" >function(section) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return section.chapter_section.toString() === key;</span>
+      });
+    }
+  }
+};
+&nbsp;
+extendConfig(TocConfig, new CrudConfig());
+&nbsp;
+ref1 = makeSimpleStore(TocConfig), actions = ref1.actions, store = ref1.store;
+&nbsp;
+module.exports = {
+  TocActions: actions,
+  TocStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

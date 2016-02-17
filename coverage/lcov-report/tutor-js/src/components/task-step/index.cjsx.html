@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/task-step/index.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/task-step/</a> index.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>27/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var Exercise, ExternalUrl, Interactive, LoadableItem, Placeholder, React, Reading, STEP_TYPES, Spacer, SpyMode, StepPanel, TaskStepActions, TaskStepLoaded, TaskStepStore, TaskStore, Video, err, getStepType, ref, ref1,
+  slice = [].slice;
+&nbsp;
+React = require('react');
+&nbsp;
+SpyMode = require('openstax-react-components').SpyMode;
+&nbsp;
+TaskStore = require('../../flux/task').TaskStore;
+&nbsp;
+ref = require('../../flux/task-step'), TaskStepActions = ref.TaskStepActions, TaskStepStore = ref.TaskStepStore;
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+ref1 = require('./all-steps'), Reading = ref1.Reading, Interactive = ref1.Interactive, Video = ref1.Video, Exercise = ref1.Exercise, Placeholder = ref1.Placeholder, Spacer = ref1.Spacer, ExternalUrl = ref1.ExternalUrl;
+&nbsp;
+StepPanel = require('../../helpers/policies').StepPanel;
+&nbsp;
+err = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var msgs;</span>
+<span class="cstat-no" title="statement not covered" >  msgs = 1 &lt;= arguments.length ? slice.call(arguments, 0) : [];</span>
+<span class="cstat-no" title="statement not covered" >  console.error.apply(console, msgs);</span>
+<span class="cstat-no" title="statement not covered" >  throw new Error(JSON.stringify.apply(JSON, msgs));</span>
+};
+&nbsp;
+STEP_TYPES = {
+  reading: Reading,
+  interactive: Interactive,
+  video: Video,
+  exercise: Exercise,
+  placeholder: Placeholder,
+  spacer: Spacer,
+  external_url: ExternalUrl
+};
+&nbsp;
+getStepType = function(typeName) {
+  var type;
+  type = STEP_TYPES[typeName];
+  return type || <span class="branch-1 cbranch-no" title="branch not covered" >err('BUG: Invalid task step type', typeName);</span>
+};
+&nbsp;
+TaskStepLoaded = React.createClass({
+  displayName: 'TaskStepLoaded',
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+    onNextStep: React.PropTypes.func.isRequired,
+    onStepCompleted: React.PropTypes.func.isRequired
+  },
+  render: function() {
+    var Type, id, ref2, spy, taskId, type;
+    ref2 = this.props, id = ref2.id, taskId = ref2.taskId;
+    type = TaskStepStore.get(id).type;
+    spy = TaskStore.get(taskId).spy;
+    Type = getStepType(type);
+    return React.createElement("div", null, React.createElement(Type, React.__spread({}, this.props)), React.createElement(SpyMode.Content, {
+      "className": 'task-ecosystem-info'
+    }, "TaskId: ", taskId, ", StepId: ", id, ", Ecosystem: ", (spy != null ? spy.ecosystem_title : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>));
+  }
+});
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'TaskStep',
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+    onNextStep: React.PropTypes.func.isRequired
+  },
+  onStepCompleted: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var canWrite, id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    canWrite = StepPanel.canWrite(id);</span>
+<span class="cstat-no" title="statement not covered" >    if (canWrite) {</span>
+<span class="cstat-no" title="statement not covered" >      return TaskStepActions.complete(id);</span>
+    }
+  },
+  render: function() {
+    var id;
+    id = this.props.id;
+    return React.createElement(LoadableItem, {
+      "id": id,
+      "store": TaskStepStore,
+      "actions": TaskStepActions,
+      "renderItem": ((function(_this) {
+        return function() {
+          return React.createElement(TaskStepLoaded, React.__spread({}, _this.props, {
+            "onStepCompleted": _this.onStepCompleted
+          }));
+        };
+      })(this))
+    });
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

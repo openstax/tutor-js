@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/helpers/job.coffee</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/helpers/job.coffee</span></h1>
+    <h2>
+        Statements: <span class="metric">91.03% <small>(71 / 78)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">63.64% <small>(14 / 22)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">94.44% <small>(17 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">91.03% <small>(71 / 78)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/helpers/</a> &#187; job.coffee</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">88</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">136</span>
+<span class="cline-any cline-yes">136</span>
+<span class="cline-any cline-yes">136</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var JOBBED, JOBBING, JOB_FAILED, JOB_KILLED, JOB_QUEUED, JOB_REQUESTED, JOB_REQUESTING, JOB_UNSTARTED, JobActions, JobHelper, JobListenerConfig, JobStore, _, moment, ref;
+&nbsp;
+ref = require('../flux/job'), JobActions = ref.JobActions, JobStore = ref.JobStore;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+moment = require('moment');
+&nbsp;
+JOB_REQUESTING = 'job_requesting';
+&nbsp;
+JOB_REQUESTED = 'job_queued';
+&nbsp;
+JOB_UNSTARTED = 'unknown';
+&nbsp;
+JOBBING = 'working';
+&nbsp;
+JOB_QUEUED = 'queued';
+&nbsp;
+JOBBED = 'succeeded';
+&nbsp;
+JOB_FAILED = 'failed';
+&nbsp;
+JOB_KILLED = 'killed';
+&nbsp;
+JobListenerConfig = function(checkIntervals, checkRepeats) {
+  return {
+    _asyncStatus: {},
+    _job: {},
+    reset: function() {
+      this._asyncStatus = {};
+      this._job = {};
+      return this.emitChange();
+    },
+    _updateJobStatusFor: function(id) {
+      return (function(_this) {
+        return function(jobData) {
+          var progress;
+          progress = _.clone(jobData);
+          progress["for"] = id;
+          _this._asyncStatus[id] = progress.status;
+          return _this.emit("progress." + id + "." + progress.status, progress);
+        };
+      })(this);
+    },
+    saveJob: function(jobId, id) {
+      var base;
+      if ((base = this._job)[id] == null) {
+        base[id] = [];
+      }
+      return this._job[id].push(jobId);
+    },
+    que: function(id) {
+      this._asyncStatus[id] = JOB_REQUESTING;
+      return this.emit("progress." + id + "." + JOB_REQUESTING);
+    },
+    queued: function(obj, id) {
+      var jobId, ref1;
+      if (this._getIds != null) {
+        ref1 = this._getIds(obj), jobId = ref1.jobId, id = ref1.id;
+      } else {
+        jobId = obj.jobId;
+        id = obj.id || <span class="branch-1 cbranch-no" title="branch not covered" >id;</span>
+      }
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (jobId != null) {
+        this.emit("progress." + id + ".queued", {
+          jobId: jobId,
+          id: id
+        });
+        this._asyncStatus[id] = JOB_REQUESTED;
+        return this.saveJob(jobId, id);
+      }
+    },
+    startChecking: function(id, jobId) {
+      var checkJob, lastestJob, updateJobStatus;
+      lastestJob = this._getLatestJob(id);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if ((jobId != null) &amp;&amp; jobId !== lastestJob) {
+<span class="cstat-no" title="statement not covered" >        this.saveJob(jobId, id);</span>
+      }
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (jobId == null) {
+<span class="cstat-no" title="statement not covered" >        jobId = lastestJob;</span>
+      }
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (jobId == null) {
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+      checkJob = function() {
+        return JobActions.load(jobId);
+      };
+      JobActions.checkUntil(jobId, checkJob, checkIntervals, checkRepeats);
+      updateJobStatus = this._updateJobStatusFor(id);
+      JobStore.on("job." + jobId + ".*", updateJobStatus);
+      return JobStore.off("job." + jobId + ".final", updateJobStatus);
+    },
+    stopChecking: function(id) {
+      var jobId;
+      jobId = this._getLatestJob(id);
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (jobId != null) {
+        return JobActions.stopChecking(jobId);
+      }
+    },
+    _getJobs: function(id) {
+      return _.clone(this._job[id]);
+    },
+    _getLatestJob: function(id) {
+      return _.last(this._getJobs(id));
+    },
+    exports: {
+      getAsyncStatus: function(id) {
+        return this._asyncStatus[id];
+      },
+      isProgressing: function(id) {
+        var jobbingStates;
+        jobbingStates = [JOB_REQUESTING, JOB_REQUESTED, JOB_QUEUED, JOBBING];
+        return jobbingStates.indexOf(this._asyncStatus[id]) &gt; -1;
+      },
+      isFailed: <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >        var failedStates;</span>
+<span class="cstat-no" title="statement not covered" >        failedStates = [JOB_FAILED, JOB_KILLED];</span>
+<span class="cstat-no" title="statement not covered" >        return failedStates.indexOf(this._asyncStatus[id]) &gt; -1;</span>
+      },
+      isDone: function(id) {
+        var doneStates;
+        doneStates = [JOBBED, JOB_FAILED, JOB_KILLED];
+        return doneStates.indexOf(this._asyncStatus[id]) &gt; -1;
+      },
+      isSucceeded: function(id, jobId) {
+        var job, status;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (jobId == null) {
+          jobId = _.last(this._getJobs(id));
+        }
+        job = JobStore.get(jobId);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (job != null) {
+<span class="cstat-no" title="statement not covered" >          status = job.status;</span>
+        }
+        return status === JOBBED;
+      }
+    }
+  };
+};
+&nbsp;
+JobHelper = {
+  JobListenerConfig: JobListenerConfig
+};
+&nbsp;
+module.exports = JobHelper;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

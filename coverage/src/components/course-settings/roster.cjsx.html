@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/course-settings/roster.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/course-settings/roster.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">85% <small>(34 / 40)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">64.29% <small>(9 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">71.43% <small>(5 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">85% <small>(34 / 40)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/course-settings/</a> &#187; roster.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">374</span>
+<span class="cline-any cline-yes">374</span>
+<span class="cline-any cline-yes">2992</span>
+<span class="cline-any cline-yes">2992</span>
+<span class="cline-any cline-yes">374</span>
+<span class="cline-any cline-yes">374</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">374</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">272</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var AddPeriodLink, BS, BindStoreMixin, CourseActions, CourseStore, DeletePeriodLink, NoPeriods, PeriodEnrollmentCode, PeriodRoster, React, RenamePeriodLink, RosterActions, RosterStore, _, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BindStoreMixin = require('../bind-store-mixin');
+&nbsp;
+NoPeriods = require('../no-periods');
+&nbsp;
+ref = require('../../flux/course'), CourseStore = ref.CourseStore, CourseActions = ref.CourseActions;
+&nbsp;
+ref1 = require('../../flux/roster'), RosterStore = ref1.RosterStore, RosterActions = ref1.RosterActions;
+&nbsp;
+PeriodRoster = require('./period-roster');
+&nbsp;
+PeriodEnrollmentCode = require('./period-enrollment-code');
+&nbsp;
+AddPeriodLink = require('./add-period');
+&nbsp;
+RenamePeriodLink = require('./rename-period');
+&nbsp;
+DeletePeriodLink = require('./delete-period');
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'PeriodRoster',
+  mixins: [BindStoreMixin],
+  bindStore: RosterStore,
+  propTypes: {
+    courseId: React.PropTypes.string.isRequired
+  },
+  getInitialState: function() {
+    return {
+      key: 0
+    };
+  },
+  handleSelect: <span class="fstat-no" title="function not covered" >function(key) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      key: key
+    });
+  },
+  getActivePeriod: function(active, periods) {
+    var i, id, j, len, name, period;
+    for (i = j = 0, len = periods.length; j &lt; len; i = ++j) {
+      period = periods[i];
+      if (i === active) {
+        name = period.name;
+        id = period.id;
+      }
+    }
+    return {
+      name: name,
+      id: id
+    };
+  },
+  selectPreviousTab: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var previous;</span>
+<span class="cstat-no" title="statement not covered" >    if (this.state.key &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >      previous = this.state.key - 1;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      previous = 0;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.handleSelect(previous);</span>
+  },
+  render: function() {
+    var course, deleteButton, enrollmentButton, is_concept_coach, noPeriodMessage, periods, renameButton, tabs;
+    course = CourseStore.get(this.props.courseId);
+    is_concept_coach = course.is_concept_coach;
+    periods = course.periods.length &gt; 0;
+    tabs = _.map(course.periods, (function(_this) {
+      return function(period, index) {
+        return React.createElement(BS.TabPane, {
+          "key": period.id,
+          "eventKey": index,
+          "tab": period.name
+        }, React.createElement(PeriodRoster, {
+          "period": period,
+          "courseId": _this.props.courseId,
+          "activeTab": _this.getActivePeriod(_this.state.key, course.periods),
+          "isConceptCoach": is_concept_coach
+        }));
+      };
+    })(this));
+    enrollmentButton = React.createElement(PeriodEnrollmentCode, {
+      "activeTab": this.getActivePeriod(this.state.key, course.periods),
+      "periods": course.periods,
+      "bookUrl": course.webview_url,
+      "bookName": course.salesforce_book_name
+    });
+    renameButton = React.createElement(RenamePeriodLink, {
+      "courseId": this.props.courseId,
+      "periods": course.periods,
+      "activeTab": this.getActivePeriod(this.state.key, course.periods)
+    });
+    deleteButton = React.createElement(DeletePeriodLink, {
+      "courseId": this.props.courseId,
+      "periods": course.periods,
+      "activeTab": this.getActivePeriod(this.state.key, course.periods),
+      "selectPreviousTab": this.selectPreviousTab
+    });
+    noPeriodMessage = React.createElement(NoPeriods, {
+      "noPanel": true
+    });
+    return React.createElement(BS.TabbedArea, {
+      "activeKey": this.state.key,
+      "onSelect": this.handleSelect
+    }, React.createElement("div", {
+      "className": 'period-edit-ui'
+    }, React.createElement(AddPeriodLink, {
+      "courseId": this.props.courseId,
+      "periods": course.periods
+    }), (periods ? renameButton : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>, (periods ? deleteButton : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>), (periods &amp;&amp; is_concept_coach ? enrollmentButton : void 0), React.createElement("div", null, React.createElement("span", {
+      "className": 'course-settings-subtitle tabbed'
+    }, "Roster")), (!periods ? <span class="branch-0 cbranch-no" title="branch not covered" >noPeriodMessage </span>: void 0), tabs);
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

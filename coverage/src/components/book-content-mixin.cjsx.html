@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/book-content-mixin.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/book-content-mixin.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">89.34% <small>(109 / 122)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">51.43% <small>(36 / 70)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">94.74% <small>(18 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">89.34% <small>(109 / 122)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/components/</a> &#187; book-content-mixin.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125</span>
+<span class="cline-any cline-yes">125</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89</span>
+<span class="cline-any cline-yes">89</span>
+<span class="cline-any cline-yes">89</span>
+<span class="cline-any cline-yes">89</span>
+<span class="cline-any cline-yes">89</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">95</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-yes">94</span>
+<span class="cline-any cline-yes">94</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">78</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">111</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BookContentMixin, CourseStore, EXERCISE_LINK_SELECTOR, LinkContentMixin, MediaPreview, MediaStore, React, ReadingContentMixin, S, ScrollTo, TaskStepStore, _, dom, sizeImage;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+S = require('../helpers/string');
+&nbsp;
+dom = require('../helpers/dom');
+&nbsp;
+MediaPreview = require('./media-preview').MediaPreview;
+&nbsp;
+CourseStore = require('../flux/course').CourseStore;
+&nbsp;
+TaskStepStore = require('../flux/task-step').TaskStepStore;
+&nbsp;
+MediaStore = require('../flux/media').MediaStore;
+&nbsp;
+CourseStore = require('../flux/course').CourseStore;
+&nbsp;
+ScrollTo = require('./scroll-to');
+&nbsp;
+EXERCISE_LINK_SELECTOR = '.os-exercise &gt; [data-type="problem"] &gt; p &gt; a[href]';
+&nbsp;
+LinkContentMixin = {
+  componentDidMount: function() {
+    return this.processLinks();
+  },
+  componentDidUpdate: function() {
+    return this.processLinks();
+  },
+  componentWillUnmount: function() {
+    return this.cleanUpLinks();
+  },
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  getCnxIdOfHref: function(href) {
+    var beforeHash;
+    beforeHash = _.first(href.split('#'));
+    return _.last(beforeHash.split('/'));
+  },
+  buildReferenceBookLink: function(cnxId) {
+    var courseId, ecosystemId, id, query, ref, ref1, ref2, ref3, ref4, ref5, referenceBookLink, related_content, section;
+    ref = this.context.router.getCurrentParams(), courseId = ref.courseId, ecosystemId = ref.ecosystemId;
+    ref1 = this.props, query = ref1.query, id = ref1.id;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (ecosystemId &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!courseId)</span> {
+<span class="cstat-no" title="statement not covered" >      courseId = (ref2 = CourseStore.getByEcosystemId(ecosystemId)) != null ? ref2.id : void 0;</span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!courseId) {
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+    if (id != null) {
+      related_content = (ref3 = TaskStepStore.get(id)) != null ? ref3.related_content : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (related_content != null) {
+<span class="cstat-no" title="statement not covered" >        section = typeof this.sectionFormat === "function" ? this.sectionFormat(((ref4 = related_content[0]) != null ? ref4.chapter_section : void 0) || ((ref5 = related_content[0]) != null ? ref5.book_location : void 0)) : void 0;</span>
+<span class="cstat-no" title="statement not covered" >        if (section != null) {</span>
+<span class="cstat-no" title="statement not covered" >          referenceBookLink = this.context.router.makeHref('viewReferenceBookSection', {</span>
+            courseId: courseId,
+            section: section
+          }, query);
+        }
+      }
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (cnxId != null) {
+      referenceBookLink = this.context.router.makeHref('viewReferenceBookPage', {
+        courseId: courseId,
+        cnxId: cnxId
+      });
+    }
+    return referenceBookLink;
+  },
+  isMediaLink: function(link) {
+    return (link.hash.length &gt; 0 &amp;&amp; link.hash.search('/') === -1) || <span class="branch-2 cbranch-no" title="branch not covered" >link.href !== link.getAttribute('href');</span>
+  },
+  hasCNXId: <span class="fstat-no" title="function not covered" >function(link) {</span>
+<span class="cstat-no" title="statement not covered" >    var trueHref;</span>
+<span class="cstat-no" title="statement not covered" >    trueHref = link.getAttribute('href');</span>
+<span class="cstat-no" title="statement not covered" >    return link.hash.length &gt; 0 &amp;&amp; trueHref.substr(0, 1) !== '#';</span>
+  },
+  getMedia: function(mediaId) {
+    var root;
+    root = this.getDOMNode();
+    return root.querySelector("#" + mediaId);
+  },
+  cleanUpLinks: function() {
+    var previewNodes, root;
+    root = this.getDOMNode();
+    previewNodes = root.getElementsByClassName('media-preview-wrapper');
+    return _.each(previewNodes, function(previewNode) {
+      return React.unmountComponentAtNode(previewNode);
+    });
+  },
+  linkPreview: function(link) {
+    var mediaCNXId, mediaDOM, mediaId, mediaPreview, mediaProps, previewNode;
+    mediaId = link.hash.replace('#', '');
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (mediaId) {
+      mediaDOM = this.getMedia(mediaId);
+    }
+    mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href')) || this.props.cnxId || (typeof this.getCnxId === "function" ? this.getCnxId() : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>;
+    previewNode = document.createElement('span');
+    previewNode.classList.add('media-preview-wrapper');
+    link.parentNode.replaceChild(previewNode, link);
+    mediaProps = {
+      mediaId: mediaId,
+      cnxId: mediaCNXId,
+      bookHref: this.buildReferenceBookLink(mediaCNXId),
+      mediaDOMOnParent: mediaDOM,
+      shouldLinkOut: typeof this.shouldOpenNewTab === "function" ? this.shouldOpenNewTab() : <span class="branch-1 cbranch-no" title="branch not covered" >void 0,</span>
+      originalHref: link.getAttribute('href')
+    };
+    mediaPreview = React.createElement(MediaPreview, React.__spread({}, mediaProps), link.innerText);
+    return React.render(mediaPreview, previewNode);
+  },
+  processLink: function(link) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.isMediaLink(link)) {
+      this.linkPreview(link);
+      return null;
+    } else {
+<span class="cstat-no" title="statement not covered" >      return link;</span>
+    }
+  },
+  processLinks: function() {
+    return _.defer(this._processLinks);
+  },
+  _processLinks: function() {
+    var exerciseLinks, mediaLinks, otherLinks, root;
+    if (!this.isMounted()) {
+      return;
+    }
+    root = this.getDOMNode();
+    mediaLinks = root.querySelectorAll(MediaStore.getSelector());
+    exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
+    otherLinks = _.chain(mediaLinks).map(this.processLink).compact().uniq().value();
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (otherLinks != null ? otherLinks.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+<span class="cstat-no" title="statement not covered" >      if (typeof this.renderOtherLinks === "function") {</span>
+<span class="cstat-no" title="statement not covered" >        this.renderOtherLinks(otherLinks);</span>
+      }
+    }
+    if (exerciseLinks != null ? exerciseLinks.length : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span> {
+      return typeof this.renderExercises === "function" ? this.renderExercises(exerciseLinks) : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    }
+  }
+};
+&nbsp;
+ReadingContentMixin = {
+  mixins: [ScrollTo],
+  componentDidMount: function() {
+    this.insertOverlays();
+    this.detectImgAspectRatio();
+    return this.processLinks();
+  },
+  componentDidUpdate: function() {
+    this.insertOverlays();
+    this.detectImgAspectRatio();
+    return this.processLinks();
+  },
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  insertOverlays: function() {
+    var i, img, len, overlay, ref, results, root, title;
+    title = this.getSplashTitle();
+    if (!title) {
+      return;
+    }
+    root = this.getDOMNode();
+    ref = root.querySelectorAll('.splash img');
+    results = [];
+    for (i = 0, len = ref.length; i &lt; len; i++) {
+      img = ref[i];
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (img.parentElement.querySelector('.ui-overlay')) {
+<span class="cstat-no" title="statement not covered" >        continue;</span>
+      }
+      overlay = document.createElement('div');
+      if (img.parentElement.querySelector('.tutor-ui-overlay')) {
+        continue;
+      }
+      overlay.className = 'tutor-ui-overlay';
+      overlay.innerHTML = title;
+      results.push(img.parentElement.appendChild(overlay));
+    }
+    return results;
+  },
+  detectImgAspectRatio: function() {
+    var i, img, len, ref, results, root;
+    root = this.getDOMNode();
+    ref = root.querySelectorAll('img');
+    results = [];
+    for (i = 0, len = ref.length; i &lt; len; i++) {
+      img = ref[i];
+      if (img.complete) {
+        results.push(sizeImage.call(img));
+      } else {
+        results.push(img.onload = sizeImage);
+      }
+    }
+    return results;
+  }
+};
+&nbsp;
+sizeImage = function() {
+  var figure;
+  figure = dom.closest(this, 'figure');
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!figure) {
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
+  if (this.naturalWidth &gt; this.naturalHeight) {
+    figure.classList.add('tutor-ui-horizontal-img');
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.naturalWidth &gt; 450) {
+      return figure.classList.add('full-width');
+    }
+  } else {
+    return figure.classList.add('tutor-ui-vertical-img');
+  }
+};
+&nbsp;
+BookContentMixin = _.extend({}, LinkContentMixin, ReadingContentMixin);
+&nbsp;
+module.exports = {
+  BookContentMixin: BookContentMixin,
+  LinkContentMixin: LinkContentMixin,
+  ReadingContentMixin: ReadingContentMixin
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

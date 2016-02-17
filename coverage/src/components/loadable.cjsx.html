@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/loadable.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/loadable.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">88.24% <small>(30 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">72.22% <small>(13 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(6 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">88.24% <small>(30 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/components/</a> &#187; loadable.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">87</span>
+<span class="cline-any cline-yes">87</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">87</span>
+<span class="cline-any cline-yes">87</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">87</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">302</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">510</span>
+<span class="cline-any cline-yes">510</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">956</span>
+<span class="cline-any cline-yes">956</span>
+<span class="cline-any cline-yes">956</span>
+<span class="cline-any cline-yes">956</span>
+<span class="cline-any cline-yes">118</span>
+<span class="cline-any cline-yes">838</span>
+<span class="cline-any cline-yes">610</span>
+<span class="cline-any cline-yes">228</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, BindStoreMixin, React, RefreshButton;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+BindStoreMixin = require('./bind-store-mixin');
+&nbsp;
+RefreshButton = require('openstax-react-components').RefreshButton;
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'Loadable',
+  propTypes: {
+    render: React.PropTypes.func.isRequired,
+    saved: React.PropTypes.func,
+    store: React.PropTypes.object.isRequired,
+    isLoading: React.PropTypes.func.isRequired,
+    isLoaded: React.PropTypes.func.isRequired,
+    isFailed: React.PropTypes.func.isRequired,
+    renderLoading: React.PropTypes.func.isRequired,
+    renderError: React.PropTypes.func.isRequired,
+    isLong: React.PropTypes.bool
+  },
+  getDefaultProps: function() {
+    return {
+      renderLoading: function(refreshButton, isLong) {
+        var loadableClasses;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isLong == null) {
+<span class="cstat-no" title="statement not covered" >          isLong = false;</span>
+        }
+        loadableClasses = 'loadable is-loading';
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isLong) {
+<span class="cstat-no" title="statement not covered" >          loadableClasses += ' is-long';</span>
+        }
+        return React.createElement("div", {
+          "className": loadableClasses
+        }, "Loading... ", refreshButton);
+      },
+      renderError: function(refreshButton, isLong) {
+        var loadableClasses;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isLong == null) {
+<span class="cstat-no" title="statement not covered" >          isLong = false;</span>
+        }
+        loadableClasses = 'loadable is-error';
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isLong) {
+<span class="cstat-no" title="statement not covered" >          loadableClasses += ' is-long';</span>
+        }
+        return React.createElement("div", {
+          "className": loadableClasses
+        }, "Error Loading. ", refreshButton);
+      },
+      isLong: false
+    };
+  },
+  mixins: [BindStoreMixin],
+  bindStore: function() {
+    return this.props.store;
+  },
+  bindUpdate: function() {
+    var base;
+    return (typeof (base = this.props).update === "function" ? <span class="branch-0 cbranch-no" title="branch not covered" >base.update() </span>: void 0) || this.setState({});
+  },
+  render: function() {
+    var isFailed, isLoaded, isLoading, isLong, ref, refreshButton, render, renderError, renderLoading;
+    ref = this.props, isLoading = ref.isLoading, isLoaded = ref.isLoaded, isFailed = ref.isFailed, render = ref.render, renderLoading = ref.renderLoading, renderError = ref.renderError, isLong = ref.isLong;
+    refreshButton = React.createElement(RefreshButton, null);
+    if (isLoading()) {
+      return renderLoading(refreshButton, isLong);
+    } else if (isLoaded()) {
+      return render();
+    } else if (isFailed()) {
+      return renderError(refreshButton, isLong);
+    } else {
+      return render();
+    }
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

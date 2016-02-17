@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/cc-dashboard/dashboard.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/cc-dashboard/dashboard.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">97.14% <small>(34 / 35)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">66.67% <small>(4 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">80% <small>(4 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">97.14% <small>(34 / 35)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/cc-dashboard/</a> &#187; dashboard.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-yes">37</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, BlankCourse, CCDashboard, CCDashboardStore, CourseDataMixin, CoursePeriodsNav, CourseStore, DashboardChapter, Icon, React, Router, TOOLTIPS;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+CCDashboardStore = require('../../flux/cc-dashboard').CCDashboardStore;
+&nbsp;
+CoursePeriodsNav = require('../course-periods-nav').CoursePeriodsNav;
+&nbsp;
+CourseStore = require('../../flux/course').CourseStore;
+&nbsp;
+Icon = require('../icon');
+&nbsp;
+CourseDataMixin = require('../course-data-mixin');
+&nbsp;
+DashboardChapter = require('./chapter');
+&nbsp;
+BlankCourse = require('./blank-course');
+&nbsp;
+TOOLTIPS = {
+  complete: 'Complete shows the percentage of students who\nhave completed the Concept Coach for this section.\nStudents who have not answered all of the Concept Coach\nquestions for this section will not be counted, although\nthe questions they have answered will be included in the\nOriginal and Spaced Practice Performance percentages.',
+  original: 'The original performance shows the percentage of Concept Coach\nquestions that students answered correctly on this section of the\nbook the first time they were presented. The performance bars\nshow up for a section of the book once at least 10% of students\nin the class (or section) have submitted answers.',
+  spaced: 'Spaced practice performance shows the percentage of Concept Coach\nquestions on this section that were correctly answered after the\nsection was originally practiced. Compare this measure to\nOriginal Performance to gauge how well students are retaining\nthe information.'
+};
+&nbsp;
+CCDashboard = React.createClass({displayName: "CCDashboard",
+  mixins: [CourseDataMixin],
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  propTypes: {
+    courseId: React.PropTypes.string
+  },
+  getDefaultProps: function() {
+    return {
+      initialActivePeriod: 0
+    };
+  },
+  getInitialState: function() {
+    var activePeriod, ref;
+    activePeriod = (ref = CCDashboardStore.getPeriods(this.props.courseId)) != null ? ref[this.props.initialActivePeriod] : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    return {
+      activePeriodId: activePeriod != null ? activePeriod.id : <span class="branch-1 cbranch-no" title="branch not covered" >void 0</span>
+    };
+  },
+  handlePeriodSelect: <span class="fstat-no" title="function not covered" >function(period) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      activePeriodId: period.id
+    });
+  },
+  render: function() {
+    var chapter, chapters, course, courseDataProps, courseId, dashboardResults, emptyGraphic, emptyPeriod, index, periods;
+    courseId = this.props.courseId;
+    periods = CCDashboardStore.getPeriods(courseId);
+    chapters = CCDashboardStore.chaptersForDisplay(courseId, this.state.activePeriodId);
+    courseDataProps = this.getCourseDataProps(courseId);
+    course = CourseStore.get(courseId);
+    emptyPeriod = chapters.length === 0;
+    emptyGraphic = React.createElement(BlankCourse, {
+      "courseId": courseId,
+      "inPeriod": emptyPeriod
+    });
+    dashboardResults = React.createElement("div", null, React.createElement(BS.Row, {
+      "className": "column-legend"
+    }, React.createElement(BS.Col, {
+      "xs": 2.,
+      "xsOffset": 6.
+    }, "Complete", React.createElement(Icon, {
+      "type": 'info-circle',
+      "tooltipProps": {
+        placement: 'top'
+      },
+      "tooltip": TOOLTIPS.complete
+    })), React.createElement(BS.Col, {
+      "xs": 2.
+    }, "Original Performance", React.createElement(Icon, {
+      "type": 'info-circle',
+      "tooltipProps": {
+        placement: 'top'
+      },
+      "tooltip": TOOLTIPS.original
+    })), React.createElement(BS.Col, {
+      "xs": 2.
+    }, "Spaced Practice Performance", React.createElement(Icon, {
+      "type": 'info-circle',
+      "tooltipProps": {
+        placement: 'top'
+      },
+      "tooltip": TOOLTIPS.spaced
+    }))), (function() {
+      var i, len, results;
+      results = [];
+      for (index = i = 0, len = chapters.length; i &lt; len; index = ++i) {
+        chapter = chapters[index];
+        results.push(React.createElement(DashboardChapter, {
+          "chapter": chapter,
+          "key": index
+        }));
+      }
+      return results;
+    })(), React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "className": "hide-section-legend",
+      "xs": 12.
+    }, "Chapters and sections that are less than 10% complete are hidden")));
+    return React.createElement("div", {
+      "className": "dashboard",
+      "data-period": this.state.activePeriodId
+    }, React.createElement("div", React.__spread({}, courseDataProps, {
+      "className": 'tutor-booksplash-background'
+    })), React.createElement(BS.Panel, null, React.createElement("h2", null, "Class Dashboard"), React.createElement(Router.Link, {
+      "className": 'detailed-scores btn btn-default',
+      "to": 'viewScores',
+      "params": {
+        courseId: courseId
+      }
+    }, "View Detailed Scores"), React.createElement(CoursePeriodsNav, {
+      "handleSelect": this.handlePeriodSelect,
+      "initialActive": this.props.initialActivePeriod,
+      "periods": periods,
+      "courseId": courseId
+    }), (emptyPeriod ? emptyGraphic : dashboardResults)));
+  }
+});
+&nbsp;
+module.exports = CCDashboard;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

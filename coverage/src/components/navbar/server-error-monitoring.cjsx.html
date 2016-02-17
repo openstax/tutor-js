@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/navbar/server-error-monitoring.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/navbar/server-error-monitoring.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">32.35% <small>(11 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">33.33% <small>(2 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">32.35% <small>(11 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/navbar/</a> &#187; server-error-monitoring.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var AppActions, AppStore, BS, BindStoreMixin, Dialog, React, ServerErrorMessage, _, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+BindStoreMixin = require('../bind-store-mixin');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+ref = require('../../flux/app'), AppStore = ref.AppStore, AppActions = ref.AppActions;
+&nbsp;
+Dialog = require('../tutor-dialog');
+&nbsp;
+ServerErrorMessage = React.createClass({
+  displayName: 'ServerErrorMessage',
+  propTypes: {
+    statusCode: React.PropTypes.number.isRequired,
+    message: React.PropTypes.string.isRequired,
+    request: React.PropTypes.object.isRequired,
+    supportLink: React.PropTypes.string,
+    debug: React.PropTypes.bool
+  },
+  getDefaultProps: function() {
+    return {
+      supportLink: 'https://openstaxtutor.zendesk.com/hc/en-us/requests/new',
+      debug: true
+    };
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var dataMessage, debug, debugInfo, errorMessage, message, ref1, request, statusCode, supportLink;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.props, statusCode = ref1.statusCode, message = ref1.message, request = ref1.request, supportLink = ref1.supportLink, debug = ref1.debug;</span>
+<span class="cstat-no" title="statement not covered" >    if (request.opts.data != null) {</span>
+<span class="cstat-no" title="statement not covered" >      dataMessage = React.createElement("span", null, "with ", React.createElement("pre", null, request.opts.data));</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (debug) {</span>
+<span class="cstat-no" title="statement not covered" >      debugInfo = [</span>
+        React.createElement("p", null, "Additional error messages returned from the server is:"), React.createElement("pre", {
+          "className": 'response'
+        }, message || 'No response was received'), React.createElement("div", {
+          "className": 'request'
+        }, React.createElement("kbd", null, request.opts.method), " on ", request.url, " ", dataMessage)
+      ];
+    }
+<span class="cstat-no" title="statement not covered" >    return errorMessage = React.createElement("div", {</span>
+      "className": 'server-error'
+    }, React.createElement("h3", null, "An error with code ", statusCode, " has occured"), React.createElement("p", null, "Please visit ", React.createElement("a", {
+      "target": '_blank',
+      "href": supportLink
+    }, "our support page"), " to file a bug report."), debugInfo);
+  }
+});
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'ServerErrorMonitoring',
+  mixins: [BindStoreMixin],
+  bindStore: AppStore,
+  bindEvent: 'server-error',
+  bindUpdate: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var dismissError, serverErr;</span>
+<span class="cstat-no" title="statement not covered" >    serverErr = AppStore.getError();</span>
+<span class="cstat-no" title="statement not covered" >    if (!(serverErr &amp;&amp; -1 === window.location.search.indexOf('reloaded'))) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    dismissError = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      var join, navigation;</span>
+<span class="cstat-no" title="statement not covered" >      navigation = AppStore.errorNavigation();</span>
+<span class="cstat-no" title="statement not covered" >      if (_.isEmpty(navigation)) {</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (navigation.shouldReload) {</span>
+<span class="cstat-no" title="statement not covered" >        join = window.location.search ? '&amp;' : '?';</span>
+<span class="cstat-no" title="statement not covered" >        return window.location.href = window.location.href + join + 'reloaded';</span>
+      } else <span class="cstat-no" title="statement not covered" >if (navigation.href) {</span>
+<span class="cstat-no" title="statement not covered" >        return window.location.href = navigation.href;</span>
+      }
+    };
+<span class="cstat-no" title="statement not covered" >    return Dialog.show({</span>
+      title: 'Server Error',
+      body: React.createElement(ServerErrorMessage, React.__spread({}, serverErr)),
+      buttons: [
+        React.createElement(BS.Button, {
+          "key": 'ok',
+          "onClick": (<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            return Dialog.hide();</span>
+          }),
+          "bsStyle": 'primary'
+        }, "OK")
+      ]
+    }).then(dismissError, dismissError);
+  },
+  render: function() {
+    return null;
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

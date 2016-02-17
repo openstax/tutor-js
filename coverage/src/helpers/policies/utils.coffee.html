@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/helpers/policies/utils.coffee</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/helpers/policies/utils.coffee</span></h1>
+    <h2>
+        Statements: <span class="metric">94.03% <small>(63 / 67)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">80% <small>(20 / 25)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(14 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">94.03% <small>(63 / 67)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/helpers/policies/</a> &#187; utils.coffee</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1029</span>
+<span class="cline-any cline-yes">1029</span>
+<span class="cline-any cline-yes">1029</span>
+<span class="cline-any cline-yes">292</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1029</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4136</span>
+<span class="cline-any cline-yes">4136</span>
+<span class="cline-any cline-yes">4136</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3342</span>
+<span class="cline-any cline-yes">3342</span>
+<span class="cline-any cline-yes">3342</span>
+<span class="cline-any cline-yes">3342</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">1029</span>
+<span class="cline-any cline-yes">1029</span>
+<span class="cline-any cline-yes">1029</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2406</span>
+<span class="cline-any cline-yes">2406</span>
+<span class="cline-any cline-yes">3633</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2406</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-yes">5712</span>
+<span class="cline-any cline-yes">5712</span>
+<span class="cline-any cline-yes">1576</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4136</span>
+<span class="cline-any cline-yes">4136</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2313</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1404</span>
+<span class="cline-any cline-yes">1404</span>
+<span class="cline-any cline-yes">3371</span>
+<span class="cline-any cline-yes">3371</span>
+<span class="cline-any cline-yes">2406</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3371</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1382</span>
+<span class="cline-any cline-yes">1382</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1382</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">500</span>
+<span class="cline-any cline-yes">500</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">500</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">409</span>
+<span class="cline-any cline-yes">409</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">409</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CurrentUserStore, DEFAULT, TaskStore, _, policies, utils;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+policies = require('./policies');
+&nbsp;
+TaskStore = require('../../flux/task').TaskStore;
+&nbsp;
+CurrentUserStore = require('../../flux/current-user').CurrentUserStore;
+&nbsp;
+DEFAULT = 'default';
+&nbsp;
+utils = {
+  _dueState: function(task) {
+    var state;
+    state = 'before';
+    if ((task.due_at != null) &amp;&amp; TaskStore.isTaskPastDue(task.id)) {
+      state = 'after';
+    }
+    return state;
+  },
+  _role: function() {
+    return CurrentUserStore.getViewingCourseRole();
+  },
+  _checkQuestionFormat: function(task, step, panel) {
+    var question;
+    question = step.content.questions[0];
+    return question.formats.indexOf(panel.name) &gt; -1;
+  },
+  _getCheckedPolicy: function(task, step, possiblePolicies) {
+    var checkFn, state;
+    checkFn = "_" + possiblePolicies.check;
+    state = utils[checkFn](task, step);
+    return possiblePolicies.states[state];
+  },
+  _getPolicy: function(task, step, policyFor) {
+    var checkedPolicy, nestedCheckedPolicy, policy, possiblePolicies, taskType, warning;
+    taskType = task.type;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (policies[taskType] == null) {
+<span class="cstat-no" title="statement not covered" >      warning = taskType + " policy is missing. Please check src/helpers/policies/policies file. Default " + policyFor + " policy for " + step.type + " being used.";</span>
+<span class="cstat-no" title="statement not covered" >      console.warn(warning);</span>
+<span class="cstat-no" title="statement not covered" >      taskType = DEFAULT;</span>
+    }
+    possiblePolicies = policies[taskType][step.type][policyFor];
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (possiblePolicies["default"] != null) {
+      policy = possiblePolicies["default"];
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (possiblePolicies.check) {
+      checkedPolicy = utils._getCheckedPolicy(task, step, possiblePolicies);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (checkedPolicy != null) {
+<span class="cstat-no" title="statement not covered" >        policy = checkedPolicy;</span>
+      }
+    }
+    if (policy.check) {
+      nestedCheckedPolicy = utils._getCheckedPolicy(task, step, policy);
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (nestedCheckedPolicy != null) {
+        policy = nestedCheckedPolicy;
+      }
+    }
+    return policy;
+  },
+  _isPanelPassed: function(step, checks) {
+    var panelPassed;
+    panelPassed = _.reduce(checks, function(memo, next) {
+      return memo &amp;&amp; (step[next] != null) &amp;&amp; step[next];
+    }, true);
+    return panelPassed;
+  },
+  _getPanels: function(task, step) {
+    var allPanels, panels;
+    allPanels = utils._getPolicy(task, step, 'panels');
+    panels = _.filter(allPanels, function(panel) {
+      var optionalFn;
+      if (!panel.optional) {
+        return true;
+      }
+      optionalFn = "_" + panel.optional;
+      return utils[optionalFn](task, step, panel);
+    });
+    return panels;
+  },
+  _arePanelsPassed: function(task, step, panels) {
+    var panelsWithPass;
+    return panelsWithPass = _.map(panels, function(panel) {
+      panel.passed = false;
+      if (panel.passCheck != null) {
+        panel.passed = utils._isPanelPassed(step, panel.passCheck);
+      }
+      return panel;
+    });
+  },
+  _getPanel: function(panelsWithStatus) {
+    var panel;
+    panel = _.findWhere(panelsWithStatus, {
+      passed: false
+    });
+    return panel != null ? panel : panel = _.last(panelsWithStatus);
+  },
+  _canReview: function(panels) {
+    var reviewPanel;
+    reviewPanel = _.findWhere(panels, {
+      canReview: true
+    });
+    return reviewPanel != null;
+  },
+  _canWrite: function(panels) {
+    var cannotWrite;
+    cannotWrite = _.findWhere(panels, {
+      canWrite: false
+    });
+    return !(cannotWrite != null);
+  }
+};
+&nbsp;
+module.exports = utils;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

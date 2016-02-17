@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/plan-stats/index.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/plan-stats/</a> index.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.37% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>50/63</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">41.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.37% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>50/63</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, ChaptersPerformance, CourseBar, CoursePeriodsNav, LoadableItem, PeriodHelper, PracticesPerformance, React, Router, SmartOverflow, Stats, StatsModalShell, StatsShell, TaskPlanStatsActions, TaskPlanStatsStore, _, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+ref = require('../../flux/task-plan-stats'), TaskPlanStatsStore = ref.TaskPlanStatsStore, TaskPlanStatsActions = ref.TaskPlanStatsActions;
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+SmartOverflow = require('openstax-react-components').SmartOverflow;
+&nbsp;
+CoursePeriodsNav = require('../course-periods-nav').CoursePeriodsNav;
+&nbsp;
+CourseBar = require('./course-bar');
+&nbsp;
+ref1 = require('./performances'), ChaptersPerformance = ref1.ChaptersPerformance, PracticesPerformance = ref1.PracticesPerformance;
+&nbsp;
+PeriodHelper = require('../../helpers/period');
+&nbsp;
+Stats = React.createClass({displayName: "Stats",
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+    activeSection: React.PropTypes.string,
+    initialActivePeriod: React.PropTypes.number.isRequired,
+    handlePeriodKeyUpdate: React.PropTypes.func,
+    handlePeriodSelect: React.PropTypes.func,
+    shouldOverflowData: React.PropTypes.bool
+  },
+  getDefaultProps: function() {
+    return {
+      initialActivePeriod: 0,
+      shouldOverflowData: false
+    };
+  },
+  getInitialState: function() {
+    var periodIndex, stats;
+    periodIndex = this.props.initialActivePeriod;
+    stats = this.getStatsForPeriodByIndex(periodIndex);
+    return {
+      stats: stats
+    };
+  },
+  getStatsForPeriodByIndex: function(periodIndex) {
+    var id, orderedStats, periodStats, plan;
+    id = this.props.id;
+    plan = TaskPlanStatsStore.get(id);
+    orderedStats = PeriodHelper.sort(plan.stats);
+    return periodStats = orderedStats[periodIndex];
+  },
+  handlePeriodSelect: <span class="fstat-no" title="function not covered" >function(period) {</span>
+<span class="cstat-no" title="statement not covered" >    var handlePeriodSelect, id, periodStats, plan, ref2;</span>
+<span class="cstat-no" title="statement not covered" >    ref2 = this.props, id = ref2.id, handlePeriodSelect = ref2.handlePeriodSelect;</span>
+<span class="cstat-no" title="statement not covered" >    plan = TaskPlanStatsStore.get(id);</span>
+<span class="cstat-no" title="statement not covered" >    periodStats = _.findWhere(plan.stats, {</span>
+      period_id: period.id
+    });
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      stats: periodStats
+    });
+<span class="cstat-no" title="statement not covered" >    return typeof handlePeriodSelect === "function" ? handlePeriodSelect(period) : void 0;</span>
+  },
+  componentDidMount: function() {
+    var handlePeriodSelect, id, initialPeriod, periods, ref2;
+    ref2 = this.props, id = ref2.id, handlePeriodSelect = ref2.handlePeriodSelect;
+    periods = TaskPlanStatsStore.getPeriods(id);
+    initialPeriod = periods[this.props.initialActivePeriod];
+    return typeof handlePeriodSelect === "function" ? handlePeriodSelect(initialPeriod) : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+  },
+  render: function() {
+    var activeSection, chapters, course, courseId, dataComponent, id, periods, plan, practice, ref2, shouldOverflowData, stats;
+    ref2 = this.props, id = ref2.id, courseId = ref2.courseId, shouldOverflowData = ref2.shouldOverflowData, activeSection = ref2.activeSection;
+    stats = this.state.stats;
+    plan = TaskPlanStatsStore.get(id);
+    periods = TaskPlanStatsStore.getPeriods(id);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (stats) {
+      course = React.createElement(CourseBar, {
+        "data": stats,
+        "type": plan.type
+      });
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (_.isArray(stats.current_pages)) {
+        chapters = React.createElement(ChaptersPerformance, {
+          "currentPages": stats.current_pages,
+          "activeSection": activeSection
+        });
+      }
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (_.isArray(stats.spaced_pages)) {
+        practice = React.createElement(PracticesPerformance, {
+          "spacedPages": stats.spaced_pages,
+          "activeSection": activeSection
+        });
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      course = React.createElement("span", {</span>
+        "className": '-no-data'
+      }, "No Data (draft)");
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (shouldOverflowData) {
+      dataComponent = React.createElement(SmartOverflow, {
+        "className": 'reading-stats-data',
+        "heightBuffer": 24.
+      }, React.createElement("section", null, course), chapters, practice);
+    } else {
+<span class="cstat-no" title="statement not covered" >      dataComponent = React.createElement("div", {</span>
+        "className": 'reading-stats-data'
+      }, React.createElement("section", null, course), chapters, practice);
+    }
+    return React.createElement(BS.Panel, {
+      "className": 'reading-stats'
+    }, React.createElement(CoursePeriodsNav, {
+      "handleSelect": this.handlePeriodSelect,
+      "handleKeyUpdate": this.props.handlePeriodKeyUpdate,
+      "initialActive": this.props.initialActivePeriod,
+      "periods": periods,
+      "courseId": courseId
+    }), dataComponent);
+  }
+});
+&nbsp;
+StatsShell = React.createClass({displayName: "StatsShell",
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  getId: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.context.router.getCurrentParams().id;</span>
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.getId();</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(LoadableItem, {</span>
+      "id": id,
+      "store": TaskPlanStatsStore,
+      "actions": TaskPlanStatsActions,
+      "renderItem": (<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >        return React.createElement(Stats, {</span>
+          "id": id
+        });
+      })
+    });
+  }
+});
+&nbsp;
+StatsModalShell = React.createClass({displayName: "StatsModalShell",
+  render: function() {
+    var id;
+    id = this.props.id;
+    return React.createElement(LoadableItem, {
+      "id": id,
+      "store": TaskPlanStatsStore,
+      "actions": TaskPlanStatsActions,
+      "renderItem": ((function(_this) {
+        return function() {
+          return React.createElement(Stats, React.__spread({}, _this.props));
+        };
+      })(this))
+    });
+  }
+});
+&nbsp;
+module.exports = {
+  StatsShell: StatsShell,
+  StatsModalShell: StatsModalShell,
+  Stats: Stats
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

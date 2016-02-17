@@ -1,0 +1,1371 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task-plan/builder.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/components/task-plan/builder.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">92.41% <small>(146 / 158)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">85.44% <small>(88 / 103)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">90% <small>(27 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">92.41% <small>(146 / 158)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task-plan/</a> &#187; builder.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">560</span>
+<span class="cline-any cline-yes">560</span>
+<span class="cline-any cline-yes">168</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">560</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">226</span>
+<span class="cline-any cline-yes">226</span>
+<span class="cline-any cline-yes">226</span>
+<span class="cline-any cline-yes">226</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">560</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">70</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">112</span>
+<span class="cline-any cline-yes">112</span>
+<span class="cline-any cline-yes">112</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">112</span>
+<span class="cline-any cline-yes">112</span>
+<span class="cline-any cline-yes">93</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">112</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65</span>
+<span class="cline-any cline-yes">65</span>
+<span class="cline-any cline-yes">53</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65</span>
+<span class="cline-any cline-yes">31</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65</span>
+<span class="cline-any cline-yes">34</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65</span>
+<span class="cline-any cline-yes">65</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">248</span>
+<span class="cline-any cline-yes">72</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">176</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">176</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72</span>
+<span class="cline-any cline-yes">72</span>
+<span class="cline-any cline-yes">72</span>
+<span class="cline-any cline-yes">72</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, BindStoreMixin, CourseGroupingLabel, CourseStore, ISO_DATE_FORMAT, PlanMixin, React, Router, TaskPlanActions, TaskPlanStore, TimeHelper, TimeStore, TutorDateFormat, TutorDateInput, TutorInput, TutorTextArea, UnsavedStateMixin, _, moment, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+Router = require('react-router');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+moment = require('moment-timezone');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+CourseGroupingLabel = require('../course-grouping-label');
+&nbsp;
+PlanMixin = require('./plan-mixin');
+&nbsp;
+BindStoreMixin = require('../bind-store-mixin');
+&nbsp;
+TimeStore = require('../../flux/time').TimeStore;
+&nbsp;
+TutorDateFormat = TimeStore.getFormat();
+&nbsp;
+TimeHelper = require('../../helpers/time');
+&nbsp;
+ref = require('../../flux/task-plan'), TaskPlanStore = ref.TaskPlanStore, TaskPlanActions = ref.TaskPlanActions;
+&nbsp;
+ref1 = require('../tutor-input'), TutorInput = ref1.TutorInput, TutorDateInput = ref1.TutorDateInput, TutorDateFormat = ref1.TutorDateFormat, TutorTextArea = ref1.TutorTextArea;
+&nbsp;
+CourseStore = require('../../flux/course').CourseStore;
+&nbsp;
+UnsavedStateMixin = require('../unsaved-state').UnsavedStateMixin;
+&nbsp;
+ISO_DATE_FORMAT = 'YYYY-MM-DD';
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'TaskPlanBuilder',
+  mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin],
+  bindStore: CourseStore,
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string
+  },
+  getInitialState: function() {
+    var isNewPlan;
+    isNewPlan = TaskPlanStore.isNew(this.props.id);
+    return {
+      showingPeriods: !isNewPlan,
+      currentLocale: TimeHelper.getCurrentLocales()
+    };
+  },
+  getDefaultProps: function() {
+    return {
+      label: 'Assignment'
+    };
+  },
+  hasUnsavedState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return TaskPlanStore.hasChanged(this.props.id);</span>
+  },
+  unsavedStateMessages: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return 'The assignment has unsaved changes';</span>
+  },
+  mapPeriods: function(opensAt, dueAt) {
+    var course, isNewPlan, planId;
+    planId = this.props.id;
+    isNewPlan = TaskPlanStore.isNew(this.props.id);
+    course = CourseStore.get(this.props.courseId);
+    return _.map(CourseStore.getPeriods(this.props.courseId), function(period) {
+      var tasking;
+      if (!TaskPlanStore.hasTasking(planId, period.id) &amp;&amp; !isNewPlan) {
+        tasking = {
+          id: period.id
+        };
+      } else {
+        tasking = {
+          id: period.id,
+          due_at: dueAt,
+          opens_at: opensAt
+        };
+      }
+      return tasking;
+    });
+  },
+  getOpensAtDefault: function() {
+    return moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT);
+  },
+  getQueriedOpensAt: function() {
+    var dueAt, dueAtMoment, isNewPlan, opensAt, opens_at, ref2, ref3;
+    opens_at = (ref2 = this.context) != null ? (ref3 = ref2.router) != null ? ref3.getCurrentQuery().opens_at : <span class="branch-1 cbranch-no" title="branch not covered" >void 0 </span>: <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    isNewPlan = TaskPlanStore.isNew(this.props.id);
+    opensAt = opens_at &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isNewPlan </span>? <span class="branch-0 cbranch-no" title="branch not covered" >TimeHelper.getMomentPreserveDate(opens_at).toDate() </span>: void 0;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!opensAt) {
+      opensAt = this.getOpensAtDefault();
+    }
+    dueAt = this.getQueriedDueAt();
+    if (dueAt != null) {
+      dueAtMoment = TimeHelper.getMomentPreserveDate(dueAt);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!(dueAtMoment.isAfter(opensAt, 'day') &amp;&amp; dueAtMoment.format(ISO_DATE_FORMAT) !== opensAt)) {
+<span class="cstat-no" title="statement not covered" >        opensAt = moment(TimeStore.getNow()).format(ISO_DATE_FORMAT);</span>
+      }
+    }
+    return opensAt;
+  },
+  getQueriedDueAt: function() {
+    var dueAt, due_at, isNewPlan, ref2, ref3;
+    due_at = (ref2 = this.context) != null ? (ref3 = ref2.router) != null ? ref3.getCurrentQuery().due_at : <span class="branch-1 cbranch-no" title="branch not covered" >void 0 </span>: <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+    isNewPlan = TaskPlanStore.isNew(this.props.id);
+    return dueAt = due_at &amp;&amp; isNewPlan ? TimeHelper.getMomentPreserveDate(due_at).toDate() : void 0;
+  },
+  setPeriodDefaults: function() {
+    var commonDates, dueAt, hasAllTaskings, isNewPlan, periods, planId;
+    planId = this.props.id;
+    isNewPlan = TaskPlanStore.isNew(this.props.id);
+    dueAt = TaskPlanStore.getDueAt(this.props.id);
+    commonDates = dueAt &amp;&amp; TaskPlanStore.getOpensAt(this.props.id);
+    periods = this.mapPeriods(this.getQueriedOpensAt(), dueAt || this.getQueriedDueAt());
+    hasAllTaskings = _.reduce(periods, function(memo, period) {
+      return memo &amp;&amp; TaskPlanStore.hasTasking(planId, period.id);
+    }, true);
+    TaskPlanActions.setPeriods(planId, periods);
+    if (!isNewPlan) {
+      return this.setState({
+        showingPeriods: !(commonDates &amp;&amp; hasAllTaskings)
+      });
+    }
+  },
+  getDefaultPlanDates: function(periodId) {
+    var taskingDueAt, taskingOpensAt;
+    taskingOpensAt = TaskPlanStore.getOpensAt(this.props.id, periodId);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!taskingOpensAt || isNaN(taskingOpensAt.getTime())) {
+<span class="cstat-no" title="statement not covered" >      taskingOpensAt = this.getQueriedOpensAt();</span>
+    }
+    taskingDueAt = TaskPlanStore.getDueAt(this.props.id, periodId);
+    if (!taskingDueAt || isNaN(taskingDueAt.getTime())) {
+      taskingDueAt = this.getQueriedDueAt();
+    }
+    return {
+      taskingOpensAt: taskingOpensAt,
+      taskingDueAt: taskingDueAt
+    };
+  },
+  bindUpdate: function() {
+    return this.setPeriodDefaults();
+  },
+  componentWillMount: function() {
+    var courseId;
+    courseId = this.props.courseId;
+    TimeHelper.syncCourseTimezone(courseId);
+    return this.setPeriodDefaults();
+  },
+  componentWillUnmount: function() {
+    var courseId;
+    courseId = this.props.courseId;
+    return TimeHelper.unsyncCourseTimezone(courseId);
+  },
+  setOpensAt: function(value, period) {
+    var id;
+    id = this.props.id;
+    if (Object.prototype.toString.call(value) === '[object Date]') {
+      value = TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat);
+    }
+    return TaskPlanActions.updateOpensAt(id, value, period != null ? period.id : void 0);
+  },
+  setDueAt: function(value, period) {
+    var id;
+    id = this.props.id;
+    if (Object.prototype.toString.call(value) === '[object Date]') {
+      value = TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat);
+    }
+    return TaskPlanActions.updateDueAt(id, value, period != null ? period.id : void 0);
+  },
+  setAllPeriods: function() {
+    var periods, saveTaskings, taskingDueAt, taskingOpensAt;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.state.showingPeriods) {
+      saveTaskings = TaskPlanStore.getEnabledTaskings(this.props.id);
+      this.setState({
+        showingPeriods: false,
+        savedTaskings: saveTaskings
+      });
+    }
+    taskingOpensAt = TaskPlanStore.getOpensAt(this.props.id) || <span class="branch-1 cbranch-no" title="branch not covered" >TimeStore.getNow();</span>
+    this.setOpensAt(taskingOpensAt);
+    periods = _.map(CourseStore.getPeriods(this.props.courseId), function(period) {
+      return {
+        id: period.id
+      };
+    });
+    TaskPlanActions.setPeriods(this.props.id, periods);
+    taskingDueAt = TaskPlanStore.getDueAt(this.props.id) || this.getQueriedDueAt();
+    if (taskingDueAt) {
+      return this.setDueAt(taskingDueAt);
+    } else {
+      return TaskPlanActions.clearDueAt(this.props.id);
+    }
+  },
+  setIndividualPeriods: function() {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.state.savedTaskings) {
+<span class="cstat-no" title="statement not covered" >      TaskPlanActions.replaceTaskings(this.props.id, this.state.savedTaskings);</span>
+    }
+    return this.setState({
+      showingPeriods: true,
+      savedTaskings: null
+    });
+  },
+  getSavedTaskingFor: function(periodId) {
+    return _.findWhere(this.state.savedTaskings, {
+      id: periodId.toString()
+    });
+  },
+  togglePeriodEnabled: function(period, ev) {
+    var id, periodTasking, ref2, ref3, taskingDueAt, taskingOpensAt;
+    id = this.props.id;
+    periodTasking = this.getSavedTaskingFor(period.id);
+    ref2 = this.getDefaultPlanDates(period.id), taskingOpensAt = ref2.taskingOpensAt, taskingDueAt = ref2.taskingDueAt;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (ev.target.checked) {
+<span class="cstat-no" title="statement not covered" >      if (periodTasking != null) {</span>
+<span class="cstat-no" title="statement not covered" >        return TaskPlanActions.enableTasking(this.props.id, period.id, periodTasking.opens_at, periodTasking.due_at);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        ref3 = this.getDefaultPlanDates(period.id), taskingOpensAt = ref3.taskingOpensAt, taskingDueAt = ref3.taskingDueAt;</span>
+<span class="cstat-no" title="statement not covered" >        return TaskPlanActions.enableTasking(this.props.id, period.id, taskingOpensAt, taskingDueAt);</span>
+      }
+    } else {
+      return TaskPlanActions.disableTasking(this.props.id, period.id);
+    }
+  },
+  setDescription: <span class="fstat-no" title="function not covered" >function(desc, descNode) {</span>
+<span class="cstat-no" title="statement not covered" >    var id;</span>
+<span class="cstat-no" title="statement not covered" >    id = this.props.id;</span>
+<span class="cstat-no" title="statement not covered" >    return TaskPlanActions.updateDescription(id, desc);</span>
+  },
+  render: function() {
+    var assignmentNameLabel, cannotEditNote, feedbackNote, invalidPeriodsAlert, plan;
+    plan = TaskPlanStore.get(this.props.id);
+    if (this.state.showingPeriods &amp;&amp; !plan.tasking_plans.length) {
+      invalidPeriodsAlert = React.createElement(BS.Row, null, React.createElement(BS.Col, {
+        "className": "periods-invalid",
+        "sm": 12
+      }, "Please select at least one period", React.createElement("i", {
+        "className": "fa fa-exclamation-circle"
+      })));
+    }
+    if (plan.type === 'homework') {
+      feedbackNote = '  Feedback will be released after the due date.';
+    }
+    if (this.state.isVisibleToStudents) {
+      cannotEditNote = '  Open times cannot be edited after assignment is visible to students.';
+    }
+    assignmentNameLabel = [
+      this.props.label + " name", React.createElement("span", {
+        "className": 'instructions'
+      }, " (students will see this on their dashboard)")
+    ];
+    return React.createElement("div", {
+      "className": "assignment"
+    }, React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "xs": 12
+    }, React.createElement(TutorInput, {
+      "label": assignmentNameLabel,
+      "className": 'assignment-name',
+      "id": 'reading-title',
+      "default": plan.title,
+      "required": true,
+      "disabled": !this.state.isEditable,
+      "onChange": this.setTitle
+    }))), React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "xs": 12
+    }, React.createElement(TutorTextArea, {
+      "label": 'Description or special instructions',
+      "className": 'assignment-description',
+      "id": 'assignment-description',
+      "default": TaskPlanStore.getDescription(this.props.id),
+      "disabled": !this.state.isEditable,
+      "onChange": this.setDescription
+    }))), React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "sm": 12,
+      "className": 'assign-to-label'
+    }, "Assign to")), React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "sm": 12
+    }, React.createElement("div", {
+      "className": "instructions"
+    }, "Open time is 12:01am.\nSet date to today to open immediately.\nDue time is 7:00am.", cannotEditNote, feedbackNote))), (!(this.state.isVisibleToStudents &amp;&amp; this.state.showingPeriods) ? this.renderCommonChoice() : void 0), (!(this.state.isVisibleToStudents &amp;&amp; !this.state.showingPeriods) ? this.renderPeriodsChoice() : void 0), invalidPeriodsAlert);
+  },
+  renderCommonChoice: function() {
+    var radio;
+    if (!this.state.isVisibleToStudents) {
+      radio = React.createElement("input", {
+        "id": 'hide-periods-radio',
+        "name": 'toggle-periods-radio',
+        "ref": 'allPeriodsRadio',
+        "type": 'radio',
+        "onChange": this.setAllPeriods,
+        "disabled": this.state.isVisibleToStudents,
+        "checked": !this.state.showingPeriods
+      });
+    }
+    return React.createElement(BS.Row, {
+      "className": "common tutor-date-input"
+    }, React.createElement(BS.Col, {
+      "sm": 4,
+      "md": 3
+    }, radio, React.createElement("label", {
+      "className": "period",
+      "htmlFor": 'hide-periods-radio'
+    }, "All Periods")), (!this.state.showingPeriods ? this.renderCommonDateInputs() : void 0));
+  },
+  renderCommonDateInputs: function() {
+    var commonDueAt, commonOpensAt, dueAt, maxOpensAt, opensAt, ref2, taskingDueAt, taskingOpensAt;
+    ref2 = this.getDefaultPlanDates(), taskingOpensAt = ref2.taskingOpensAt, taskingDueAt = ref2.taskingDueAt;
+    commonOpensAt = taskingOpensAt;
+    commonDueAt = taskingDueAt;
+    maxOpensAt = new moment(TaskPlanStore.getDueAt(this.props.id)).subtract(1, 'day').toDate();
+    opensAt = React.createElement(BS.Col, {
+      "sm": 4,
+      "md": 3
+    }, React.createElement(TutorDateInput, {
+      "className": '-assignment-open-date',
+      "ref": "openDate",
+      "required": !this.state.showingPeriods,
+      "label": "Open Date",
+      "onChange": this.setOpensAt,
+      "disabled": this.state.showingPeriods || this.state.isVisibleToStudents || !this.state.isEditable,
+      "min": TimeStore.getNow(),
+      "max": maxOpensAt,
+      "value": commonOpensAt,
+      "currentLocale": this.state.currentLocale
+    }));
+    dueAt = React.createElement(BS.Col, {
+      "sm": 4,
+      "md": 3
+    }, React.createElement(TutorDateInput, {
+      "className": '-assignment-due-date',
+      "ref": "dueDate",
+      "required": !this.state.showingPeriods,
+      "label": "Due Date",
+      "onChange": this.setDueAt,
+      "disabled": this.state.showingPeriods || !this.state.isEditable,
+      "min": TaskPlanStore.getMinDueAt(this.props.id),
+      "value": commonDueAt,
+      "currentLocale": this.state.currentLocale
+    }));
+    return [opensAt, dueAt];
+  },
+  renderPeriodsChoice: function() {
+    var choiceLabel, periodsChoice, radio;
+    if (!this.state.isVisibleToStudents) {
+      radio = React.createElement("input", {
+        "id": 'show-periods-radio',
+        "name": 'toggle-periods-radio',
+        "type": 'radio',
+        "onChange": this.setIndividualPeriods,
+        "disabled": this.state.isVisibleToStudents,
+        "checked": this.state.showingPeriods
+      });
+    }
+    choiceLabel = React.createElement(BS.Row, null, React.createElement(BS.Col, {
+      "md": 12
+    }, radio, React.createElement("label", {
+      "className": "period",
+      "htmlFor": 'show-periods-radio'
+    }, "Individual ", React.createElement(CourseGroupingLabel, {
+      "courseId": this.props.courseId,
+      "plural": true
+    }))));
+    if (this.state.showingPeriods) {
+      periodsChoice = _.map(CourseStore.getPeriods(this.props.courseId), this.renderTaskPlanRow);
+    }
+    if (periodsChoice == null) {
+      periodsChoice = [];
+    }
+    periodsChoice.unshift(choiceLabel);
+    return periodsChoice;
+  },
+  renderTaskPlanRow: function(plan) {
+    if (TaskPlanStore.hasTasking(this.props.id, plan.id)) {
+      return this.renderEnabledTasking(plan);
+    } else {
+      return this.renderDisabledTasking(plan);
+    }
+  },
+  renderDisabledTasking: function(plan) {
+    return React.createElement(BS.Row, {
+      "key": plan.id,
+      "className": "tasking-plan disabled"
+    }, React.createElement(BS.Col, {
+      "sm": 12
+    }, React.createElement("input", {
+      "id": "period-toggle-" + plan.id,
+      "type": 'checkbox',
+      "disabled": this.state.isVisibleToStudents,
+      "onChange": _.partial(this.togglePeriodEnabled, plan),
+      "checked": false
+    }), React.createElement("label", {
+      "className": "period",
+      "htmlFor": "period-toggle-" + plan.id
+    }, plan.name)));
+  },
+  renderEnabledTasking: function(plan) {
+    var maxOpensAt, ref2, taskingDueAt, taskingOpensAt;
+    ref2 = this.getDefaultPlanDates(plan.id), taskingOpensAt = ref2.taskingOpensAt, taskingDueAt = ref2.taskingDueAt;
+    maxOpensAt = new moment(TaskPlanStore.getDueAt(this.props.id, plan.id)).subtract(1, 'day').toDate();
+    return React.createElement(BS.Row, {
+      "key": plan.id,
+      "className": "tasking-plan tutor-date-input"
+    }, React.createElement(BS.Col, {
+      "sm": 4,
+      "md": 3
+    }, React.createElement("input", {
+      "id": "period-toggle-" + plan.id,
+      "disabled": this.state.isVisibleToStudents,
+      "type": 'checkbox',
+      "onChange": _.partial(this.togglePeriodEnabled, plan),
+      "checked": true
+    }), React.createElement("label", {
+      "className": "period",
+      "htmlFor": "period-toggle-" + plan.id
+    }, plan.name)), React.createElement(BS.Col, {
+      "sm": 4,
+      "md": 3
+    }, React.createElement(TutorDateInput, {
+      "disabled": this.state.isVisibleToStudents || !this.state.isEditable,
+      "label": "Open Date",
+      "required": this.state.showingPeriods,
+      "min": TimeStore.getNow(),
+      "max": maxOpensAt,
+      "onChange": _.partial(this.setOpensAt, _, plan),
+      "value": taskingOpensAt,
+      "currentLocale": this.state.currentLocale
+    })), React.createElement(BS.Col, {
+      "sm": 4,
+      "md": 3
+    }, React.createElement(TutorDateInput, {
+      "disabled": !this.state.isEditable,
+      "label": "Due Date",
+      "required": this.state.showingPeriods,
+      "min": TaskPlanStore.getMinDueAt(this.props.id, plan.id),
+      "onChange": _.partial(this.setDueAt, _, plan),
+      "value": taskingDueAt,
+      "currentLocale": this.state.currentLocale
+    })));
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

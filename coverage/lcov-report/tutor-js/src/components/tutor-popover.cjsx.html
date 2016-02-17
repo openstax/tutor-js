@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/tutor-popover.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/</a> tutor-popover.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.61% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>7/92</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.26% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.61% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>7/92</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, React, TutorPopover, _;
+&nbsp;
+React = require('react/addons');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+TutorPopover = React.createClass({
+  displayName: 'TutorPopover',
+  getInitialState: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      firstShow: true,
+      placement: 'right',
+      show: false,
+      scrollable: false,
+      imagesLoading: []
+    };
+  },
+  propTypes: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      content: React.PropTypes.node.isRequired,
+      popoverProps: React.PropTypes.object,
+      contentProps: React.PropTypes.object,
+      overlayProps: React.PropTypes.object,
+      windowImpl: React.PropTypes.object,
+      maxHeightMultiplier: React.PropTypes.number,
+      maxWidthMultiplier: React.PropTypes.number
+    };
+  },
+  getDefaultProps: function() {
+    return {
+      maxHeightMultiplier: 0.75,
+      maxWidthMultiplier: 0.75,
+      windowImpl: window
+    };
+  },
+  componentDidMount: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.updateOverlayPositioning();</span>
+  },
+  componentDidUpdate: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var images, imagesLoading;</span>
+<span class="cstat-no" title="statement not covered" >    if ((this.refs.popcontent != null) &amp;&amp; this.state.firstShow) {</span>
+<span class="cstat-no" title="statement not covered" >      images = this.getImages();</span>
+<span class="cstat-no" title="statement not covered" >      imagesLoading = _.map(images, (<span class="fstat-no" title="function not covered" >function(_this) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return <span class="fstat-no" title="function not covered" >function(image, iter) {</span></span>
+<span class="cstat-no" title="statement not covered" >          if (!((image.onload != null) || image.complete)) {</span>
+<span class="cstat-no" title="statement not covered" >            image.onload = _.partial(_this.imageLoaded, iter);</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return !image.complete;</span>
+        };
+      })(this));
+<span class="cstat-no" title="statement not covered" >      return this.setState({</span>
+        imagesLoading: imagesLoading,
+        firstShow: false
+      });
+    }
+  },
+  getImages: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var content;</span>
+<span class="cstat-no" title="statement not covered" >    content = this.refs.popcontent.getDOMNode();</span>
+<span class="cstat-no" title="statement not covered" >    return content.querySelectorAll('img');</span>
+  },
+  imageLoaded: <span class="fstat-no" title="function not covered" >function(iter) {</span>
+<span class="cstat-no" title="statement not covered" >    var currentImageStatus, imagesLoading, ref;</span>
+<span class="cstat-no" title="statement not covered" >    if (!this.isMounted()) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if ((ref = this.refs.popper) != null) {</span>
+<span class="cstat-no" title="statement not covered" >      ref.updateOverlayPosition();</span>
+    }
+<span class="cstat-no" title="statement not covered" >    imagesLoading = this.state.imagesLoading;</span>
+<span class="cstat-no" title="statement not covered" >    currentImageStatus = _.clone(imagesLoading);</span>
+<span class="cstat-no" title="statement not covered" >    currentImageStatus[iter] = false;</span>
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      imagesLoading: currentImageStatus
+    });
+  },
+  setMaxImageWidth: <span class="fstat-no" title="function not covered" >function(image, maxWidth) {</span>
+<span class="cstat-no" title="statement not covered" >    var width;</span>
+<span class="cstat-no" title="statement not covered" >    if (image == null) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    width = typeof image.getBoundingClientRect === "function" ? image.getBoundingClientRect().width : void 0;</span>
+<span class="cstat-no" title="statement not covered" >    if (width &gt; maxWidth) {</span>
+<span class="cstat-no" title="statement not covered" >      return image.width = maxWidth;</span>
+    }
+  },
+  areImagesLoading: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return _.compact(this.state.imagesLoading).length !== 0;</span>
+  },
+  updateOverlayPositioning: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var updateOverlayPosition, windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    windowImpl = this.props.windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    updateOverlayPosition = this.refs.popper.updateOverlayPosition;</span>
+<span class="cstat-no" title="statement not covered" >    return this.refs.popper.updateOverlayPosition = (<span class="fstat-no" title="function not covered" >function(_this) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        var height, images, ref, scrollable, viewer, width;</span>
+<span class="cstat-no" title="statement not covered" >        updateOverlayPosition();</span>
+<span class="cstat-no" title="statement not covered" >        viewer = _this.refs.popper.getOverlayDOMNode();</span>
+<span class="cstat-no" title="statement not covered" >        images = _this.getImages();</span>
+<span class="cstat-no" title="statement not covered" >        ref = viewer.getBoundingClientRect(), height = ref.height, width = ref.width;</span>
+<span class="cstat-no" title="statement not covered" >        _.each(images, _.partial(_this.setMaxImageWidth, _, width - 30));</span>
+<span class="cstat-no" title="statement not covered" >        scrollable = false;</span>
+<span class="cstat-no" title="statement not covered" >        if (height &gt; windowImpl.innerHeight) {</span>
+<span class="cstat-no" title="statement not covered" >          scrollable = true;</span>
+<span class="cstat-no" title="statement not covered" >          viewer.style.height = _this.props.maxHeightMultiplier * windowImpl.innerHeight + 'px';</span>
+<span class="cstat-no" title="statement not covered" >          updateOverlayPosition();</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (width &gt; windowImpl.innerWidth) {</span>
+<span class="cstat-no" title="statement not covered" >          scrollable = true;</span>
+<span class="cstat-no" title="statement not covered" >          viewer.style.width = _this.props.maxWidthMultiplier * windowImpl.innerWidth + 'px';</span>
+<span class="cstat-no" title="statement not covered" >          updateOverlayPosition();</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (_this.state.scrollable &amp;&amp; !scrollable) {</span>
+<span class="cstat-no" title="statement not covered" >          viewer.style.height = 'auto';</span>
+<span class="cstat-no" title="statement not covered" >          viewer.style.width = 'auto';</span>
+        }
+<span class="cstat-no" title="statement not covered" >        _this.setState({</span>
+          scrollable: scrollable
+        });
+<span class="cstat-no" title="statement not covered" >        return updateOverlayPosition();</span>
+      };
+    })(this);
+  },
+  setPlacement: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var placement;</span>
+<span class="cstat-no" title="statement not covered" >    placement = this.guessPlacement();</span>
+<span class="cstat-no" title="statement not covered" >    if (this.state.placement !== placement) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.setState({</span>
+        placement: placement
+      });
+    }
+  },
+  guessPlacement: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var midWindow, overlayLeft, windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    windowImpl = this.props.windowImpl;</span>
+<span class="cstat-no" title="statement not covered" >    overlayLeft = this.refs.popper.calcOverlayPosition().overlayLeft;</span>
+<span class="cstat-no" title="statement not covered" >    midWindow = windowImpl.innerWidth / 2;</span>
+<span class="cstat-no" title="statement not covered" >    if (overlayLeft &gt; midWindow) {</span>
+<span class="cstat-no" title="statement not covered" >      return 'left';</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return 'right';</span>
+    }
+  },
+  show: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this.setPlacement();</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      show: true
+    });
+<span class="cstat-no" title="statement not covered" >    return this.refs.popper.show();</span>
+  },
+  hide: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      show: false
+    });
+<span class="cstat-no" title="statement not covered" >    return this.refs.popper.hide();</span>
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var children, content, contentClassName, overlayProps, placement, popover, popoverProps, ref, ref1, scrollable;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, children = ref.children, content = ref.content, popoverProps = ref.popoverProps, overlayProps = ref.overlayProps;</span>
+<span class="cstat-no" title="statement not covered" >    ref1 = this.state, scrollable = ref1.scrollable, placement = ref1.placement;</span>
+<span class="cstat-no" title="statement not covered" >    if (scrollable) {</span>
+<span class="cstat-no" title="statement not covered" >      popoverProps = _.clone(popoverProps || {});</span>
+<span class="cstat-no" title="statement not covered" >      if (popoverProps.className == null) {</span>
+<span class="cstat-no" title="statement not covered" >        popoverProps.className = '';</span>
+      }
+<span class="cstat-no" title="statement not covered" >      popoverProps.className += ' scrollable';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this.areImagesLoading()) {</span>
+<span class="cstat-no" title="statement not covered" >      contentClassName = 'image-loading';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    content = React.addons.cloneWithProps(content, {</span>
+      className: contentClassName
+    });
+<span class="cstat-no" title="statement not covered" >    popover = React.createElement(BS.Popover, React.__spread({}, popoverProps, {</span>
+      "ref": 'popover'
+    }), React.createElement("div", {
+      "ref": 'popcontent'
+    }, content));
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.OverlayTrigger, React.__spread({}, overlayProps, {</span>
+      "placement": placement,
+      "overlay": popover,
+      "trigger": 'manual',
+      "ref": 'popper'
+    }), children);
+  }
+});
+&nbsp;
+module.exports = TutorPopover;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/plan-stats/course-bar.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/plan-stats/course-bar.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">22.58% <small>(7 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">25% <small>(1 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">22.58% <small>(7 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/plan-stats/</a> &#187; course-bar.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, CourseBar, React, _;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+CourseBar = React.createClass({
+  displayName: 'CourseBar',
+  propTypes: {
+    data: React.PropTypes.object.isRequired,
+    type: React.PropTypes.string.isRequired,
+    totalCols: React.PropTypes.number
+  },
+  getDefaultProps: function() {
+    return {
+      totalCols: 12
+    };
+  },
+  getStats: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var completeLabel, data, inProgressLabel, notStartedLabel, ref, stats, type;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, data = ref.data, type = ref.type;</span>
+<span class="cstat-no" title="statement not covered" >    completeLabel = 'Complete';</span>
+<span class="cstat-no" title="statement not covered" >    inProgressLabel = 'In Progress';</span>
+<span class="cstat-no" title="statement not covered" >    notStartedLabel = 'Not Started';</span>
+<span class="cstat-no" title="statement not covered" >    stats = [</span>
+      {
+        type: 'complete',
+        label: completeLabel,
+        value: data.complete_count
+      }, {
+        type: 'in-progress',
+        label: inProgressLabel,
+        value: data.partially_complete_count
+      }, {
+        type: 'not-started',
+        label: notStartedLabel,
+        value: data.total_count - (data.complete_count + data.partially_complete_count)
+      }
+    ];
+<span class="cstat-no" title="statement not covered" >    if (type === 'external') {</span>
+<span class="cstat-no" title="statement not covered" >      completeLabel = 'Clicked';</span>
+<span class="cstat-no" title="statement not covered" >      inProgressLabel = 'Viewed';</span>
+<span class="cstat-no" title="statement not covered" >      stats = [</span>
+        {
+          type: 'complete',
+          label: completeLabel,
+          value: data.complete_count
+        }, {
+          type: 'not-started',
+          label: notStartedLabel,
+          value: data.total_count - (data.complete_count + data.partially_complete_count)
+        }
+      ];
+    }
+<span class="cstat-no" title="statement not covered" >    if (type === 'homework' &amp;&amp; data.mean_grade_percent) {</span>
+<span class="cstat-no" title="statement not covered" >      stats.unshift({</span>
+        type: 'average',
+        label: 'Average',
+        value: data.mean_grade_percent + "%"
+      });
+    }
+<span class="cstat-no" title="statement not covered" >    return stats;</span>
+  },
+  renderCourseStat: <span class="fstat-no" title="function not covered" >function(stat, cols) {</span>
+<span class="cstat-no" title="statement not covered" >    var key;</span>
+<span class="cstat-no" title="statement not covered" >    if (cols == null) {</span>
+<span class="cstat-no" title="statement not covered" >      cols = 4;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    key = "reading-stats-" + stat.type;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Col, {</span>
+      "xs": cols,
+      "className": key,
+      "key": key
+    }, React.createElement("label", null, stat.label), React.createElement("div", {
+      "className": "data-container-value text-" + stat.type
+    }, stat.value));
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var cols, stats, statsColumns, totalCols;</span>
+<span class="cstat-no" title="statement not covered" >    totalCols = this.props.totalCols;</span>
+<span class="cstat-no" title="statement not covered" >    stats = this.getStats();</span>
+<span class="cstat-no" title="statement not covered" >    cols = totalCols / stats.length;</span>
+<span class="cstat-no" title="statement not covered" >    statsColumns = _.map(stats, _.partial(this.renderCourseStat, _, cols));</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Grid, {</span>
+      "className": 'data-container',
+      "key": 'course-bar'
+    }, React.createElement(BS.Row, null, statsColumns));
+  }
+});
+&nbsp;
+module.exports = CourseBar;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

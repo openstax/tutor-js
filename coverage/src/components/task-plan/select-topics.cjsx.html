@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/task-plan/select-topics.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/components/task-plan/select-topics.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">25.76% <small>(17 / 66)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">13.33% <small>(2 / 15)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">25.76% <small>(17 / 66)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/task-plan/</a> &#187; select-topics.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, BrowseTheBook, ChapterAccordion, ChapterSection, CourseStore, Dialog, LoadableItem, React, SectionTopic, SelectTopics, TaskPlanActions, TaskPlanStore, TocActions, TocStore, _, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+Dialog = require('../dialog');
+&nbsp;
+BrowseTheBook = require('../buttons/browse-the-book');
+&nbsp;
+LoadableItem = require('../loadable-item');
+&nbsp;
+ref = require('../../flux/toc'), TocStore = ref.TocStore, TocActions = ref.TocActions;
+&nbsp;
+ref1 = require('../../flux/task-plan'), TaskPlanStore = ref1.TaskPlanStore, TaskPlanActions = ref1.TaskPlanActions;
+&nbsp;
+ChapterSection = require('./chapter-section');
+&nbsp;
+CourseStore = require('../../flux/course').CourseStore;
+&nbsp;
+SectionTopic = React.createClass({
+  displayName: 'SectionTopic',
+  propTypes: {
+    planId: React.PropTypes.string.isRequired,
+    section: React.PropTypes.object.isRequired,
+    active: React.PropTypes.bool
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var classes, isChecked;</span>
+<span class="cstat-no" title="statement not covered" >    classes = ['section'];</span>
+<span class="cstat-no" title="statement not covered" >    if (this.props.active) {</span>
+<span class="cstat-no" title="statement not covered" >      classes.push('selected');</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (this.props.active) {</span>
+<span class="cstat-no" title="statement not covered" >      isChecked = 'checked';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    classes = classes.join(' ');</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement("div", {</span>
+      "key": this.props.section.id,
+      "className": classes,
+      "onClick": this.toggleSection
+    }, React.createElement("span", {
+      "className": 'section-checkbox'
+    }, React.createElement("input", {
+      "type": 'checkbox',
+      "checked": isChecked
+    })), React.createElement(ChapterSection, {
+      "section": this.props.section.chapter_section
+    }), React.createElement("span", {
+      "className": '-section-title'
+    }, " ", this.props.section.title));
+  },
+  toggleSection: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var section;</span>
+<span class="cstat-no" title="statement not covered" >    section = this.props.section;</span>
+<span class="cstat-no" title="statement not covered" >    if (TaskPlanStore.hasTopic(this.props.planId, section.id)) {</span>
+<span class="cstat-no" title="statement not covered" >      return TaskPlanActions.removeTopic(this.props.planId, section.id);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return TaskPlanActions.addTopic(this.props.planId, section.id);</span>
+    }
+  }
+});
+&nbsp;
+ChapterAccordion = React.createClass({
+  displayName: 'ChapterAccordion',
+  propTypes: {
+    planId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired,
+    chapter: React.PropTypes.object.isRequired,
+    hide: React.PropTypes.func.isRequired,
+    selected: React.PropTypes.array,
+    expanded: React.PropTypes.bool
+  },
+  renderSections: <span class="fstat-no" title="function not covered" >function(section) {</span>
+<span class="cstat-no" title="statement not covered" >    var active;</span>
+<span class="cstat-no" title="statement not covered" >    active = TaskPlanStore.hasTopic(this.props.planId, section.id);</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(SectionTopic, {</span>
+      "active": active,
+      "section": section,
+      "planId": this.props.planId
+    });
+  },
+  areAllSectionsSelected: <span class="fstat-no" title="function not covered" >function(allSelected, section) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.props.selected.indexOf(section.id) &gt;= 0 &amp;&amp; allSelected;</span>
+  },
+  toggleAllSections: <span class="fstat-no" title="function not covered" >function(e) {</span>
+<span class="cstat-no" title="statement not covered" >    var action, planId;</span>
+<span class="cstat-no" title="statement not covered" >    if (e.target.checked) {</span>
+<span class="cstat-no" title="statement not covered" >      action = TaskPlanActions.addTopic;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      action = TaskPlanActions.removeTopic;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    planId = this.props.planId;</span>
+<span class="cstat-no" title="statement not covered" >    return _.each(this.props.chapter.children, <span class="fstat-no" title="function not covered" >function(section) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return action(planId, section.id);</span>
+    });
+  },
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  areAnySectionsSelected: <span class="fstat-no" title="function not covered" >function(anySelected, section) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.props.selected.indexOf(section.id) &gt;= 0 || anySelected;</span>
+  },
+  browseBook: <span class="fstat-no" title="function not covered" >function(ev) {</span>
+<span class="cstat-no" title="statement not covered" >    return ev.stopPropagation();</span>
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var activeKey, allChecked, chapter, chapterClass, ecosystemId, expandAccordion, expanded, header, ref2, ref3, ref4, sections;</span>
+<span class="cstat-no" title="statement not covered" >    ref2 = this.props, chapter = ref2.chapter, expanded = ref2.expanded, ecosystemId = ref2.ecosystemId;</span>
+<span class="cstat-no" title="statement not covered" >    sections = _.map(chapter.children, this.renderSections);</span>
+<span class="cstat-no" title="statement not covered" >    allChecked = _.reduce(chapter.children, this.areAllSectionsSelected, true) &amp;&amp; ((ref3 = chapter.children) != null ? ref3.length : void 0);</span>
+<span class="cstat-no" title="statement not covered" >    expandAccordion = _.reduce(chapter.children, this.areAnySectionsSelected, false) || expanded;</span>
+<span class="cstat-no" title="statement not covered" >    if (expandAccordion) {</span>
+<span class="cstat-no" title="statement not covered" >      activeKey = chapter.id;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    chapterClass = ["chapter-heading"];</span>
+<span class="cstat-no" title="statement not covered" >    if (!((ref4 = chapter.children) != null ? ref4.length : void 0)) {</span>
+<span class="cstat-no" title="statement not covered" >      chapterClass.push('empty-chapter');</span>
+    }
+<span class="cstat-no" title="statement not covered" >    header = React.createElement("h2", {</span>
+      "className": chapterClass.join(' '),
+      "data-chapter-section": chapter.chapter_section[0]
+    }, React.createElement("span", {
+      "className": 'chapter-checkbox'
+    }, React.createElement("input", {
+      "type": 'checkbox',
+      "id": "chapter-checkbox-" + chapter.id,
+      "onChange": this.toggleAllSections,
+      "checked": allChecked
+    })), React.createElement("span", {
+      "className": 'chapter-number'
+    }, "Chapter ", React.createElement(ChapterSection, {
+      "section": chapter.chapter_section
+    }), " -"), React.createElement("span", {
+      "className": 'chapter-title'
+    }, " ", chapter.title), React.createElement(BrowseTheBook, {
+      "onClick": this.browseBook,
+      "className": 'browse-book',
+      "section": chapter.chapter_section.join('.'),
+      "ecosystemId": ecosystemId,
+      "unstyled": true
+    }, "Browse this Chapter"));
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Accordion, {</span>
+      "activeKey": activeKey
+    }, React.createElement(BS.Panel, {
+      "key": chapter.id,
+      "header": header,
+      "eventKey": chapter.id
+    }, sections));
+  }
+});
+&nbsp;
+SelectTopics = React.createClass({
+  displayName: 'SelectTopics',
+  propTypes: {
+    planId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired,
+    hide: React.PropTypes.func.isRequired,
+    selected: React.PropTypes.array
+  },
+  getInitialState: function() {
+    return {
+      initialSelected: this.props.selected
+    };
+  },
+  renderChapterPanels: <span class="fstat-no" title="function not covered" >function(chapter, i) {</span>
+<span class="cstat-no" title="statement not covered" >    var expanded, ref2;</span>
+<span class="cstat-no" title="statement not covered" >    expanded = !((ref2 = this.props.selected) != null ? ref2.length : void 0) &amp;&amp; i === 0;</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(ChapterAccordion, React.__spread({}, this.props, {</span>
+      "expanded": expanded,
+      "chapter": chapter
+    }));
+  },
+  hasChanged: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.props.selected &amp;&amp; !_.isEqual(this.props.selected, this.state.initialSelected);</span>
+  },
+  renderDialog: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var cancel, changed, chapters, courseId, header, hide, planId, primary, ref2, selected;</span>
+<span class="cstat-no" title="statement not covered" >    ref2 = this.props, courseId = ref2.courseId, planId = ref2.planId, selected = ref2.selected, hide = ref2.hide, header = ref2.header, primary = ref2.primary, cancel = ref2.cancel;</span>
+<span class="cstat-no" title="statement not covered" >    selected = TaskPlanStore.getTopics(planId);</span>
+<span class="cstat-no" title="statement not covered" >    chapters = _.map(TocStore.get(this.props.ecosystemId), this.renderChapterPanels);</span>
+<span class="cstat-no" title="statement not covered" >    changed = this.hasChanged();</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(Dialog, {</span>
+      "className": 'select-reading-dialog',
+      "header": header,
+      "primary": primary,
+      "confirmMsg": 'You will lose unsaved changes if you continue.',
+      "cancel": 'Cancel',
+      "isChanged": (<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >        return changed;</span>
+      }),
+      "onCancel": cancel
+    }, React.createElement("div", {
+      "className": 'select-reading-chapters'
+    }, chapters));
+  },
+  render: function() {
+    return React.createElement(LoadableItem, {
+      "id": this.props.ecosystemId,
+      "store": TocStore,
+      "actions": TocActions,
+      "renderItem": this.renderDialog
+    });
+  }
+});
+&nbsp;
+module.exports = SelectTopics;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

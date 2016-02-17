@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/breadcrumb/index.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">src/components/breadcrumb/index.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">76.36% <small>(42 / 55)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">75% <small>(15 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">72.73% <small>(8 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">76.36% <small>(42 / 55)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/breadcrumb/</a> &#187; index.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-yes">122</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">149</span>
+<span class="cline-any cline-yes">149</span>
+<span class="cline-any cline-yes">149</span>
+<span class="cline-any cline-yes">149</span>
+<span class="cline-any cline-yes">123</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">149</span>
+<span class="cline-any cline-yes">123</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">149</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135</span>
+<span class="cline-any cline-yes">135</span>
+<span class="cline-any cline-yes">135</span>
+<span class="cline-any cline-yes">27</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">692</span>
+<span class="cline-any cline-yes">692</span>
+<span class="cline-any cline-yes">692</span>
+<span class="cline-any cline-yes">692</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var Breadcrumb, BreadcrumbStatic, BreadcrumbTaskDynamic, React, StepPanel, TaskStepActions, TaskStepStore, TaskStore, ref;
+&nbsp;
+React = require('react');
+&nbsp;
+Breadcrumb = require('openstax-react-components').Breadcrumb;
+&nbsp;
+StepPanel = require('../../helpers/policies').StepPanel;
+&nbsp;
+ref = require('../../flux/task-step'), TaskStepActions = ref.TaskStepActions, TaskStepStore = ref.TaskStepStore;
+&nbsp;
+TaskStore = require('../../flux/task').TaskStore;
+&nbsp;
+BreadcrumbStatic = React.createClass({
+  displayName: 'BreadcrumbStatic',
+  componentWillMount: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return this.setStep(this.props);</span>
+  },
+  setStep: <span class="fstat-no" title="function not covered" >function(props) {</span>
+<span class="cstat-no" title="statement not covered" >    var crumb, step;</span>
+<span class="cstat-no" title="statement not covered" >    crumb = props.crumb;</span>
+<span class="cstat-no" title="statement not covered" >    step = crumb.data;</span>
+<span class="cstat-no" title="statement not covered" >    if (crumb.type === 'step') {</span>
+<span class="cstat-no" title="statement not covered" >      step = crumb.data;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.setState({</span>
+      step: step
+    });
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var crumbProps, step;</span>
+<span class="cstat-no" title="statement not covered" >    step = this.state.step;</span>
+<span class="cstat-no" title="statement not covered" >    crumbProps = _.omit(this.props, 'step');</span>
+<span class="cstat-no" title="statement not covered" >    if (_.isArray(step)) {</span>
+<span class="cstat-no" title="statement not covered" >      step = _.first(step);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return React.createElement(Breadcrumb, React.__spread({}, crumbProps, {</span>
+      "step": step
+    }));
+  }
+});
+&nbsp;
+BreadcrumbTaskDynamic = React.createClass({
+  displayName: 'BreadcrumbTaskDynamic',
+  componentWillMount: function() {
+    var crumb;
+    crumb = this.props.crumb;
+    this.setStep(this.props);
+    TaskStepStore.on('step.completed', this.update);
+    if (crumb.type === 'step' &amp;&amp; TaskStepStore.isPlaceholder(crumb.data.id)) {
+      TaskStepStore.on('step.completed', this.checkPlaceholder);
+      return TaskStepStore.on('step.loaded', this.update);
+    }
+  },
+  removeListeners: function() {
+    TaskStepStore.off('step.completed', this.update);
+    TaskStepStore.off('step.completed', this.checkPlaceholder);
+    return TaskStepStore.off('step.loaded', this.update);
+  },
+  componentWillUnmount: function() {
+    return this.removeListeners();
+  },
+  componentDidMount: function() {
+    var base;
+    return typeof (base = this.props).onMount === "function" ? base.onMount() : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+  },
+  setStep: function(props) {
+    var canReview, crumb, step;
+    crumb = props.crumb;
+    step = crumb.data;
+    if (crumb.type === 'step') {
+      step = TaskStepStore.get(crumb.data.id);
+    }
+    if (crumb.type === 'step' &amp;&amp; (step != null)) {
+      canReview = StepPanel.canReview(step.id);
+    }
+    return this.setState({
+      step: step,
+      canReview: canReview
+    });
+  },
+  checkPlaceholder: function() {
+    var id, ref1, task_id;
+    ref1 = this.props.crumb.data, task_id = ref1.task_id, id = ref1.id;
+    if (!TaskStore.hasIncompleteCoreStepsIndexes(task_id)) {
+      return TaskStepActions.load(id);
+    }
+  },
+  update: function(id) {
+    var crumb;
+    crumb = this.props.crumb;
+    if (crumb.data.id === id) {
+      return this.setStep(this.props);
+    }
+  },
+  render: function() {
+    var crumbProps, step;
+    step = this.state.step;
+    crumbProps = _.omit(this.props, 'step');
+    return React.createElement(Breadcrumb, React.__spread({}, crumbProps, {
+      "step": step
+    }));
+  }
+});
+&nbsp;
+module.exports = {
+  BreadcrumbTaskDynamic: BreadcrumbTaskDynamic,
+  BreadcrumbStatic: BreadcrumbStatic
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

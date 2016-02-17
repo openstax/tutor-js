@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/course-settings/remove-teacher.cjsx</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">src/components/course-settings/remove-teacher.cjsx</span></h1>
+    <h2>
+        Statements: <span class="metric">66.67% <small>(18 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">25% <small>(1 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">42.86% <small>(3 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">66.67% <small>(18 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/course-settings/</a> &#187; remove-teacher.cjsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var AsyncButton, BS, CourseActions, CourseStore, Icon, Name, React, TeacherRosterActions, TeacherRosterStore, WARN_REMOVE_CURRENT, _, ref, ref1;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+ref = require('../../flux/teacher-roster'), TeacherRosterStore = ref.TeacherRosterStore, TeacherRosterActions = ref.TeacherRosterActions;
+&nbsp;
+ref1 = require('../../flux/course'), CourseStore = ref1.CourseStore, CourseActions = ref1.CourseActions;
+&nbsp;
+Icon = require('../icon');
+&nbsp;
+Name = require('../name');
+&nbsp;
+AsyncButton = require('openstax-react-components').AsyncButton;
+&nbsp;
+WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be redirected to the dashboard.';
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'RemoveTeacherLink',
+  propTypes: {
+    teacher: React.PropTypes.object.isRequired,
+    courseRoles: React.PropTypes.array.isRequired,
+    courseId: React.PropTypes.string.isRequired
+  },
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  isRemovalCurrentTeacher: function() {
+    var role;
+    return role = _.chain(this.props.courseRoles).pluck('id').contains(this.props.teacher.role_id).value();
+  },
+  goToDashboard: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return TeacherRosterStore.once('deleted', (<span class="fstat-no" title="function not covered" >function(_this) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        return _this.context.router.transitionTo('dashboard');</span>
+      };
+    })(this));
+  },
+  performDeletion: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var courseId;</span>
+<span class="cstat-no" title="statement not covered" >    courseId = this.props.courseId;</span>
+<span class="cstat-no" title="statement not covered" >    TeacherRosterActions["delete"](this.props.teacher.id, courseId);</span>
+<span class="cstat-no" title="statement not covered" >    if (this.isRemovalCurrentTeacher()) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.goToDashboard();</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return CourseActions.load(courseId);</span>
+    }
+  },
+  confirmPopOver: function() {
+    var removeButton, title;
+    removeButton = React.createElement(AsyncButton, {
+      "bsStyle": 'danger',
+      "onClick": this.performDeletion,
+      "isWaiting": TeacherRosterStore.isDeleting(this.props.courseId),
+      "waitingText": 'Removing Instructor…'
+    }, React.createElement(Icon, {
+      "type": 'ban'
+    }), " Remove");
+    title = React.createElement("span", null, "Remove ", React.createElement(Name, React.__spread({}, this.props.teacher)), "?");
+    return React.createElement(BS.Popover, React.__spread({
+      "className": 'teacher-remove',
+      "title": title
+    }, this.props), removeButton, React.createElement("div", {
+      "className": 'warning'
+    }, (this.isRemovalCurrentTeacher() ? <span class="branch-0 cbranch-no" title="branch not covered" >WARN_REMOVE_CURRENT </span>: void 0)));
+  },
+  render: function() {
+    return React.createElement(BS.OverlayTrigger, {
+      "rootClose": true,
+      "trigger": 'click',
+      "placement": 'left',
+      "overlay": this.confirmPopOver()
+    }, React.createElement("a", null, React.createElement(Icon, {
+      "type": 'ban'
+    }), " Remove"));
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

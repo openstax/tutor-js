@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/flux/scores.coffee</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">src/flux/scores.coffee</span></h1>
+    <h2>
+        Statements: <span class="metric">40% <small>(8 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">40% <small>(8 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/flux/</a> &#187; scores.coffee</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CrudConfig, ScoresConfig, _, actions, allStudents, extendConfig, makeSimpleStore, ref, ref1, store;
+&nbsp;
+ref = require('./helpers'), CrudConfig = ref.CrudConfig, makeSimpleStore = ref.makeSimpleStore, extendConfig = ref.extendConfig;
+&nbsp;
+_ = require('underscore');
+&nbsp;
+allStudents = <span class="fstat-no" title="function not covered" >function(scores) {</span>
+<span class="cstat-no" title="statement not covered" >  return _.chain(scores).pluck('students').flatten(true).value();</span>
+};
+&nbsp;
+ScoresConfig = {
+  exports: {
+    getStudent: <span class="fstat-no" title="function not covered" >function(courseId, roleId) {</span>
+<span class="cstat-no" title="statement not covered" >      var students;</span>
+<span class="cstat-no" title="statement not covered" >      students = allStudents(this._get(courseId));</span>
+<span class="cstat-no" title="statement not covered" >      return _.findWhere(allStudents(this._get(courseId)), {</span>
+        role: parseInt(roleId)
+      });
+    },
+    getAllStudents: <span class="fstat-no" title="function not covered" >function(courseId) {</span>
+<span class="cstat-no" title="statement not covered" >      return allStudents(this._get(courseId));</span>
+    },
+    getStudentOfTask: <span class="fstat-no" title="function not covered" >function(courseId, taskId) {</span>
+<span class="cstat-no" title="statement not covered" >      var students;</span>
+<span class="cstat-no" title="statement not covered" >      students = allStudents(this._get(courseId));</span>
+<span class="cstat-no" title="statement not covered" >      taskId = parseInt(taskId);</span>
+<span class="cstat-no" title="statement not covered" >      return _.find(students, <span class="fstat-no" title="function not covered" >function(student) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var taskIds;</span>
+<span class="cstat-no" title="statement not covered" >        taskIds = _.pluck(student.data, 'id');</span>
+<span class="cstat-no" title="statement not covered" >        return _.indexOf(taskIds, taskId) &gt; -1;</span>
+      });
+    }
+  }
+};
+&nbsp;
+extendConfig(ScoresConfig, new CrudConfig());
+&nbsp;
+ref1 = makeSimpleStore(ScoresConfig), actions = ref1.actions, store = ref1.store;
+&nbsp;
+module.exports = {
+  ScoresActions: actions,
+  ScoresStore: store
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

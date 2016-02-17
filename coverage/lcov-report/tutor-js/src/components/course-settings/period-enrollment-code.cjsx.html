@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/course-settings/period-enrollment-code.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/course-settings/</a> period-enrollment-code.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">34.78% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>8/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">34.78% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/23</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, CourseGroupingLabel, React, TITLE, TutorInput, _;
+&nbsp;
+React = require('react');
+&nbsp;
+BS = require('react-bootstrap');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+TutorInput = require('../tutor-input').TutorInput;
+&nbsp;
+CourseGroupingLabel = require('../course-grouping-label');
+&nbsp;
+TITLE = 'Get Student Enrollment Code';
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'PeriodEnrollmentCode',
+  propTypes: {
+    activeTab: React.PropTypes.object.isRequired,
+    periods: React.PropTypes.array.isRequired,
+    bookUrl: React.PropTypes.string.isRequired,
+    bookName: React.PropTypes.string.isRequired
+  },
+  getEnrollmentCode: <span class="fstat-no" title="function not covered" >function(name, periods) {</span>
+<span class="cstat-no" title="statement not covered" >    var period;</span>
+<span class="cstat-no" title="statement not covered" >    period = _.findWhere(periods, {</span>
+      name: name
+    });
+<span class="cstat-no" title="statement not covered" >    return period.enrollment_code;</span>
+  },
+  getInstructions: <span class="fstat-no" title="function not covered" >function(code) {</span>
+<span class="cstat-no" title="statement not covered" >    var bookName, bookUrl, msg, ref, url;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, bookUrl = ref.bookUrl, bookName = ref.bookName;</span>
+<span class="cstat-no" title="statement not covered" >    url = bookUrl + ':3';</span>
+<span class="cstat-no" title="statement not covered" >    msg = "As you read your OpenStax textbook online, you will come across embedded Concept Coach question sets to help you understand and retain what you’ve read.\n\nFollow the steps below to register for Concept Coach:\n\n1. Paste this link in your web browser to visit the class textbook:\n" + url + "\n\n2. Click on section 1.1 in the book. Scroll to the bottom of the section and click on the Concept Coach button.\n\n3. On the right side of the screen, enter your two-word enrollment code:\n" + code + "\n\n4. On the next screen, click “Click to begin login.” Then click “Sign up” and follow the prompts to create your free account.\n\n5. Continue to your Concept Coach questions!";</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement("div", null, React.createElement("div", {</span>
+      "className": 'summary'
+    }, React.createElement("p", null, "The two-word enrollment code for this section is:"), React.createElement("p", {
+      "className": 'code'
+    }, code), React.createElement("p", null, "Each section of your course will have a\ndifferent two-word enrollment code.")), React.createElement("div", {
+      "className": 'callout'
+    }, React.createElement("p", null, React.createElement("span", {
+      "className": 'emphasis'
+    }, "Copy the example message below "), "to post in your Learning Management System or to email your students:")), React.createElement("textarea", {
+      "readOnly": true,
+      "onClick": this.selectText,
+      "value": msg
+    }));
+  },
+  selectText: <span class="fstat-no" title="function not covered" >function(ev) {</span>
+<span class="cstat-no" title="statement not covered" >    return ev.target.select();</span>
+  },
+  renderForm: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    var activeTab, codeInstructions, enrollmentCode, periods, ref;</span>
+<span class="cstat-no" title="statement not covered" >    ref = this.props, activeTab = ref.activeTab, periods = ref.periods;</span>
+<span class="cstat-no" title="statement not covered" >    enrollmentCode = this.getEnrollmentCode(activeTab.name, periods);</span>
+<span class="cstat-no" title="statement not covered" >    codeInstructions = this.getInstructions(enrollmentCode);</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.Modal, React.__spread({}, this.props, {</span>
+      "title": TITLE,
+      "className": "teacher-edit-period-modal"
+    }), React.createElement("div", {
+      "className": 'modal-body teacher-enrollment-code-modal'
+    }, React.createElement("div", {
+      "className": 'enrollment-code'
+    }, codeInstructions)));
+  },
+  render: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return React.createElement(BS.OverlayTrigger, {</span>
+      "ref": 'overlay',
+      "rootClose": true,
+      "trigger": 'click',
+      "overlay": this.renderForm()
+    }, React.createElement(BS.Button, {
+      "bsStyle": 'link',
+      "className": 'show-enrollment-code'
+    }, React.createElement("i", {
+      "className": 'fa fa-qrcode'
+    }), " ", TITLE));
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

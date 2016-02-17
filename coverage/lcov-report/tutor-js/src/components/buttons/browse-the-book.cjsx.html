@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tutor-js/src/components/buttons/browse-the-book.cjsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">all files</a> / <a href="index.html">tutor-js/src/components/buttons/</a> browse-the-book.cjsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>32/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>20/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>32/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</td><td class="line-coverage quiet"><span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">780×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1007×</span>
+<span class="cline-any cline-yes">1007×</span>
+<span class="cline-any cline-yes">1007×</span>
+<span class="cline-any cline-yes">77×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-yes">930×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var CourseStore, NewTabLink, React, _;
+&nbsp;
+React = require('react');
+&nbsp;
+_ = require('underscore');
+&nbsp;
+NewTabLink = require('../new-tab-link');
+&nbsp;
+CourseStore = require('../../flux/course').CourseStore;
+&nbsp;
+module.exports = React.createClass({
+  displayName: 'BrowseTheBook',
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  getDefaultProps: function() {
+    return {
+      bsStyle: 'primary'
+    };
+  },
+  propTypes: {
+    courseId: React.PropTypes.string,
+    ecosystemId: React.PropTypes.string,
+    chapterId: React.PropTypes.number,
+    sectionId: React.PropTypes.number,
+    page: React.PropTypes.string,
+    unstyled: React.PropTypes.bool,
+    bsStyle: React.PropTypes.string
+  },
+  getLinkProps: function() {
+    var linkProps, omitProps, transferProps;
+    linkProps = {
+      className: 'view-reference-guide'
+    };
+    if (this.props.className) {
+      linkProps.className += " " + this.props.className;
+    }
+    if (!this.props.unstyled) {
+      linkProps.className += " btn btn-" + this.props.bsStyle;
+    }
+    omitProps = _.chain(this.propTypes).keys().union(['children', 'className', 'unstyled']).value();
+    transferProps = _.omit(this.props, omitProps);
+    return _.extend({}, transferProps, linkProps);
+  },
+  buildRouteProps: function(courseId) {
+    var courseEcosystemId, ecosystemId, linkType, queryParams, ref, routeProps;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.props.page) {
+      ecosystemId = this.props.ecosystemId;
+      courseEcosystemId = (ref = CourseStore.get(courseId)) != null ? ref.ecosystem_id : <span class="branch-1 cbranch-no" title="branch not covered" >void 0;</span>
+      if (ecosystemId !== courseEcosystemId) {
+        queryParams = {
+          ecosystemId: ecosystemId
+        };
+      }
+    }
+    linkType = this.props.page ? <span class="branch-0 cbranch-no" title="branch not covered" >'viewReferenceBookPage' </span>: this.props.section ? 'viewReferenceBookSection' : 'viewReferenceBook';
+    return routeProps = {
+      to: linkType,
+      params: {
+        courseId: courseId,
+        cnxId: this.props.page,
+        section: this.props.section
+      },
+      query: queryParams
+    };
+  },
+  render: function() {
+    var courseId, linkProps, ref, routeProps, text;
+    courseId = this.props.courseId || this.context.router.getCurrentParams().courseId;
+    if (!(courseId &amp;&amp; !((ref = CourseStore.get(courseId)) != null ? ref.is_concept_coach : <span class="branch-1 cbranch-no" title="branch not covered" >void 0)</span>)) {
+      return null;
+    }
+    routeProps = this.buildRouteProps(courseId);
+    linkProps = _.extend({}, routeProps, this.getLinkProps());
+    text = this.props.children || 'Browse the Book';
+    return React.createElement(NewTabLink, React.__spread({}, linkProps), text);
+  }
+});
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Feb 17 2016 11:15:30 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>
