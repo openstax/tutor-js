@@ -2,11 +2,20 @@ ExtractTextPlugin = require 'extract-text-webpack-plugin'
 webpack = require 'webpack'
 
 isStandaloneBuild = process.env.NODE_BUILD_TYPE is 'standalone'
+isCoverage = process.env.NODE_COVERAGE
 LOADERS = if isStandaloneBuild then [] else ["react-hot", "webpack-module-hot-accept"]
 lessLoader = if isStandaloneBuild
   { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
 else
   { test: /\.less$/,   loaders: LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
+
+if isCoverage
+  POST_LOADERS = [
+    { test: /\.coffee$/, loaders: ["istanbul-instrumenter"] }
+    { test: /\.cjsx$/, loaders: ["istanbul-instrumenter"] }
+  ]
+else
+  POST_LOADERS = []
 
 module.exports =
   cache: true
@@ -41,7 +50,8 @@ module.exports =
       { test: /\.cjsx$/,   loaders: LOADERS.concat("coffee-jsx-loader") }
       { test: /\.(png|jpg|svg)/, loader: 'file-loader?name=[name].[ext]'}
       { test: /\.(woff|woff2|eot|ttf)/, loader: "url-loader?limit=30000&name=[name]-[hash].[ext]" }
-   ]
+    ]
+    postLoaders: POST_LOADERS
   resolve:
     extensions: ['', '.js', '.json', '.coffee', '.cjsx']
 
