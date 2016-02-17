@@ -55,7 +55,7 @@ QAExercises = React.createClass
   renderExerciseContent: (exercises) ->
     exercises = _.map exercises, (ex) =>
       hideAnswers = @state.isShowing2StepPreview and
-        ExerciseStore.hasTag(ex, 'display-free-response')
+        ExerciseStore.hasQuestionWithFormat(ex, 'free-response')
       <ExerciseCard key={ex.id}
         exercise={ex}
         hideAnswers={hideAnswers}
