@@ -3,12 +3,6 @@ SIZE_PRESETS =
 
 windowPosition = (test) ->
 
-  scrollTop: ->
-    # test.utils.verbose('Scrolling to top')
-    # # @driver.executeScript("arguments[0].scrollIntoView(true);", el)
-    # test.driver.executeScript("window.scrollTo(0,0);")
-    # test.sleep(200)
-
   scrollTo: (el) ->
     test.utils.verbose('Scrolling to el')
     test.driver.executeScript("arguments[0].scrollIntoView(true);", el)

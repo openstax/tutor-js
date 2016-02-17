@@ -54,7 +54,6 @@ class PlanPopupHelper extends TestHelper
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
   close: =>
-    @test.utils.windowPosition.scrollTop()
     @el.closeButton.click()
     # waits until the locator element is not present
     @test.driver.wait =>
@@ -98,11 +97,9 @@ class Calendar extends TestHelper
       else expect(false, 'Invalid assignment type').to.be.true
 
   goPerformanceForecast: =>
-    @test.utils.windowPosition.scrollTop()
     @el.forecastLink.click()
 
   goStudentScores: =>
-    @test.utils.windowPosition.scrollTop()
     @el.studentScoresLink.click()
 
   goOpen: (title) =>
@@ -113,7 +110,6 @@ class Calendar extends TestHelper
     el = @el.planByTitle(title).get()
     @test.utils.windowPosition.scrollTo(el)
     @el.planByTitle(title).click()
-    @test.utils.windowPosition.scrollTop()
     @waitUntilLoaded() # Wait until either the popup opens or the Reading Builder opens (depending on the state of the thing clicked)
 
   waitUntilPublishingFinishedByTitle: (title) =>

@@ -139,7 +139,6 @@ class User extends TestHelper
         @_closeModal()
 
   canLogout: =>
-    @test.utils.windowPosition.scrollTop()
     @el.userMenu.isPresent()
 
   _logout: =>
@@ -158,7 +157,6 @@ class User extends TestHelper
       @_logout() if canLogout
 
   goHome: =>
-    @test.utils.windowPosition.scrollTop()
     @el.homeLink.click()
     @test.utils.wait.for(@el.courseListing.getLocator())
 

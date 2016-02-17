@@ -261,8 +261,6 @@ class ReadingBuilder extends TestHelper
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
       @openSelectReadingList()
-      # Make sure nav bar does not cover buttons
-      @test.utils.windowPosition.scrollTop()
 
       # Expand the chapter and then select the section
       for section in sections

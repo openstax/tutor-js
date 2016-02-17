@@ -44,7 +44,6 @@ class Scores extends TestHelper
 
   # this could be moved to cc-dashboard helper at some point
   goCCScores: =>
-    @test.utils.windowPosition.scrollTop()
     @el.ccScoresLink.click()
     @waitUntilLoaded()
 
