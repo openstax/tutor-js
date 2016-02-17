@@ -1,75 +1,73 @@
-{describe, User, CourseSelect, Calendar, ReadingBuilder} = require './helpers'
+{describe, User, CourseSelect, Calendar, ReadingBuilder, Scores} = require './helpers'
 {expect} = require 'chai'
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
-
 {CalendarHelper} = Calendar
+{ScoresHelper} = Scores
+
+# Quick test that nothing "blows up". For a more exhaustive version that clicks on all the items, see "./exhaustive"
 
 describe 'Calendar and Stats', ->
 
   @eachCourse = (msg, fn) =>
-    _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) => @it msg, ->
-      @courseSelect.goTo(courseCategory)
-      @calendar.waitUntilLoaded()
-      fn.call(@, courseCategory)
-      # Go back to the course selection after the spec
-      @user.goHome()
+    _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
+      @it "#{msg} for #{courseCategory}", (done) ->
+        @courseSelect.goTo(courseCategory)
+        @calendar.waitUntilLoaded()
+        fn.call(@, courseCategory)
+        # Go back to the course selection after the spec
+        @user.goHome()
+        done()
 
   beforeEach ->
     @user = new User(@)
     @calendar = new CalendarHelper(@)
     @courseSelect = new CourseSelect(@)
+    @scores = new ScoresHelper(@)
 
     @user.login(TEACHER_USERNAME)
 
-  @eachCourse 'Shows stats for all published plans (readonly)', (courseCategory) ->
-    @calendar.el.publishedPlan.forEach (plan, index, total) =>
-      console.log 'Opening', courseCategory, index, '/', total
-      plan.click()
-      @calendar.el.planPopup.waitUntilLoaded()
+  # These are commmented because they assume the existence of a plan to click on
+  # @eachCourse 'Shows stats for a published plan (readonly)', (courseCategory) ->
+  #   {publishedPlan, planPopup} = @calendar.el
+  #   publishedPlan.get().click()
+  #   planPopup.waitUntilLoaded()
+  #   planPopup.el.periodReviewTab.get().click()
+  #   planPopup.close()
+  #   @calendar.waitUntilLoaded()
+  #
+  # @eachCourse 'Opens the review page for a visible plan (readonly)', (courseCategory) ->
+  #   {publishedPlan, planPopup} = @calendar.el
+  #   publishedPlan.get().click()
+  #   planPopup.waitUntilLoaded()
+  #
+  #   planPopup.goReview()
+  #
+  #   # TODO: review helper
+  #   @utils.wait.for({css: '.task-teacher-review .task-breadcrumbs'});
+  #   # Loop over each tab
+  #   @utils.forEach({css: '.panel .nav.nav-tabs li'}, (period) -> period.click())
+  #   # TODO: Better way of targeting the "Back" button
+  #   # BUG: Back button goes back to course listing instead of calendar
+  #   @driver.navigate().back()
+  #
+  #   planPopup.waitUntilLoaded()
+  #   planPopup.close()
+  #   @calendar.waitUntilLoaded()
+  #
 
-      @calendar.el.planPopup.el.periodReviewTab.forEach (period) ->
-        period.click()
-
-      @calendar.el.planPopup.close()
-      @calendar.waitUntilLoaded()
-
-
-  @eachCourse 'Opens the review page for every visible plan (readonly)', (courseCategory) ->
-    @calendar.el.openPlan.forEach (plan, index, total) =>
-      @addTimeout(10)
-      console.log 'Looking at Review for', courseCategory, index, 'of', total
-      plan.click()
-      @calendar.el.planPopup.waitUntilLoaded()
-      @calendar.el.planPopup.goReview()
-
-      # TODO: review helper
-      @utils.wait.for(css: '.task-teacher-review .task-breadcrumbs')
-      # Loop over each tab
-      @utils.forEach css: '.panel .nav.nav-tabs li', (period) ->
-        period.click()
-      # TODO: Better way of targeting the "Back" button
-      # BUG: Back button goes back to course listing instead of calendar
-      @driver.navigate().back()
-
-      @calendar.el.planPopup.waitUntilLoaded()
-      @calendar.el.planPopup.close()
-      @calendar.waitUntilLoaded()
-
-
-  @eachCourse 'Opens the learning guide for each course (readonly)', (courseCategory) ->
-    @addTimeout(10)
+  @eachCourse 'Opens the learning guide (readonly)', (courseCategory) ->
     @calendar.goPerformanceForecast()
 
     # TODO: guide helper.
-    @utils.wait.for(css: '.guide-heading')
-    @utils.forEach css: '.panel .nav.nav-tabs li', (period) ->
-      period.click()
-    @utils.wait.click(css: '.back')
+    @utils.wait.for({css: '.guide-heading'})
+    @utils.forEach({css: '.panel .nav.nav-tabs li'}, (period) -> period.click())
+    @utils.wait.click({css: '.back'})
 
 
-  @eachCourse 'Clicks through the Student Scores (readonly)', (courseCategory) ->
+
+  @eachCourse 'Clicks an item in the Student Scores (readonly)', (courseCategory) ->
     # The facebook table has some "fancy" elements that don't move when the table
     # scrolls vertically. Unfortunately, they cover the links.
     # There is a UI "border shadow" element that ends up going right
@@ -80,32 +78,36 @@ describe 'Calendar and Stats', ->
       hider.textContent = '.public_fixedDataTable_bottomShadow { display: none; }'
       document.head.appendChild(hider)
 
-    @calendar.goStudentScores().then => @addTimeout(60)
-    @utils.wait.for(css: '.scores-report .course-scores-title')
+    @calendar.goStudentScores()
+    @scores.waitUntilLoaded()
+    @addTimeout(60)
+    @utils.wait.for({css: '.scores-report .course-scores-title'})
 
     # Click the "Review" links (each task-plan)
-    @utils.forEach css: '.review-plan', (item, index, total) =>
-      console.log 'opening Review', courseCategory, index, 'of', total
-      item.click()
-      @utils.wait.click(css: '.task-breadcrumbs > a')
-      @utils.wait.for(css: '.course-scores-wrap')
+    @utils.wait.click({css: '.review-plan'})
+    # Depending on the type of plan, the "Back to Scores" button could be pinned to the bottom (iReading) or up by the breadcrumbs (HW)
+    @utils.wait.for({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
+    @utils.wait.click({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
+    @utils.wait.for({css: '.course-scores-wrap'})
 
     # Click each Student Forecast
-    @utils.forEach css: '.student-name', ignoreLengthChange: true, (item, index, total) =>
-      console.log 'opening Student Forecast', courseCategory, index, 'of', total
-      item.click()
-      @utils.wait.for(css: '.chapter-panel.weaker, .no-data-message')
-      @utils.wait.click(css: '.performance-forecast a.back')
-      @utils.wait.for(css: '.course-scores-wrap')
+    @utils.wait.click({css: '.student-name'})
+    # console.log 'opening Student Forecast', courseCategory, index, 'of', total
+    @utils.wait.for({css: '.chapter-panel.weaker, .no-data-message'})
+    @utils.wait.click({css: '.performance-forecast a.back'})
+    @utils.wait.for({css: '.course-scores-wrap'})
 
     # only test the 1st row of each Student Response
-    @utils.forEach css: '.fixedDataTableRowLayout_rowWrapper:nth-of-type(1) .task-result', (item, index, total) =>
-      console.log 'opening Student view', courseCategory, index, 'of', total
-      item.click()
-      @utils.wait.for(css: '.async-button.continue')
-      # @utils.wait.click(linkText: 'Back to Student Scores')
-      @utils.wait.click(css: '.pinned-footer a.btn-default')
+    @utils.wait.click({css: '.fixedDataTableRowLayout_rowWrapper:nth-of-type(1) .task-result'})
+    # console.log 'opening Student view', courseCategory, index, 'of', total
+    @utils.wait.for({css: '.async-button.continue'})
+    # @utils.wait.click(linkText: 'Back to Student Scores')
+    # Depending on the type of plan, the "Back to Scores" button could be pinned to the bottom (iReading) or up by the breadcrumbs (HW)
+    @utils.wait.for({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
+    el = @driver.findElement({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
+    @utils.windowPosition.scrollTo(el)
+    @utils.wait.click({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
 
-      # # BUG: Click on "Period 1"
-      # @utils.wait.click(css: '.course-scores-wrap li:first-child')
-      # @utils.wait.for(css: '.course-scores-wrap li:first-child [aria-selected="true"]')
+    # # BUG: Click on "Period 1"
+    # @utils.wait.click({css: '.course-scores-wrap li:first-child'})
+    # @utils.wait.for({css: '.course-scores-wrap li:first-child [aria-selected="true"]'})

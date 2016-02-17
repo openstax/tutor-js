@@ -38,22 +38,25 @@ class Dashboard extends TestHelper
       css: '.panel.-this-week'
     visibleEvents:
       css: '.tab-pane.active .task'
+    workableTask:
+      css: '.tab-pane.active .workable.task'
 
   constructor: (test) ->
     super(test, '.student-dashboard')
 
   findVisibleEvents: (options = {}) ->
-    return @el.visibleEvents.getAll() if _.isEmpty(options.where)
-    makeEvent = _.partial(Event.fromElement, @test)
-    @el.visibleEvents.getAll().then( (tasks) ->
-      selenium.promise.map( tasks, makeEvent )
-    ).then( (events) ->
-      selenium.promise.map(events, (event) ->
-        event.isMatchFor(options.where))
-        .then( (events) ->
-          _.pluck( _.compact(events), 'element' )
-        )
-    )
+    @test.utils.wait.giveTime @options.defaultWaitTime, =>
+      return @el.visibleEvents.getAll() if _.isEmpty(options.where)
+      makeEvent = _.partial(Event.fromElement, @test)
+      @el.visibleEvents.getAll().then( (tasks) ->
+        selenium.promise.map( tasks, makeEvent )
+      ).then( (events) ->
+        selenium.promise.map(events, (event) ->
+          event.isMatchFor(options.where))
+          .then( (events) ->
+            _.pluck( _.compact(events), 'element' )
+          )
+      )
 
 
 module.exports = {Dashboard, Event}

@@ -3,6 +3,8 @@ selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
 
+PUBLISHING_TIMEOUT = 60 * 1000 # Wait up to a minute for publishing to complete.
+
 COMMON_ELEMENTS =
   forecastLink:
     linkText: 'Performance Forecast'
@@ -28,21 +30,27 @@ COMMON_ELEMENTS =
     ignoreLengthChange: true
   planByTitle: (title) ->
     css: ".plan label[data-title='#{title}']"
+  publishedPlanByTitle: (title) ->
+    css: ".plan.is-published label[data-title='#{title}']"
+
 
 COMMON_POPUP_ELEMENTS =
   closeButton:
     css: '.plan-modal .close'
   editLink:
-    linkText: 'Edit Assignment'
+    # linkText: 'Edit Assignment'
+    css: '.plan-modal.in .-edit-assignment'
   reviewLink:
     linkText: 'Review Metrics'
+  modal:
+    css: '.plan-modal.active'
 
 class PlanPopupHelper extends  TestHelper
   constructor: (test, testElementLocator) ->
 
     testElementLocator ?=
       css: '.plan-modal .panel.panel-default'
-    super(test, testElementLocator, COMMON_POPUP_ELEMENTS, defaultWaitTime: 3000)
+    super(test, testElementLocator, COMMON_POPUP_ELEMENTS)
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
   close: =>
@@ -54,10 +62,13 @@ class PlanPopupHelper extends  TestHelper
         not isPresent
 
   goEdit: =>
-    @el.editLink.click()
+    @el.editLink.waitClick()
+    @test.utils.wait.until 'modal is closed', =>
+      @el.modal.isPresent().then (isPresent) ->
+        !isPresent
 
   goReview: =>
-    @el.reviewLink.click()
+    @el.reviewLink.waitClick()
 
 
 class CalendarHelper extends TestHelper
@@ -68,7 +79,6 @@ class CalendarHelper extends TestHelper
     calendarOptions =
       loadingLocator:
         css: '.calendar-loading'
-      defaultWaitTime: 3000
 
     super(test, testElementLocator, COMMON_ELEMENTS, calendarOptions)
     @setCommonHelper('planPopup', new PlanPopupHelper(@test))
@@ -97,13 +107,18 @@ class CalendarHelper extends TestHelper
     @waitUntilLoaded()
     # TODO: Make this a `data-title` attribute
     # HACK: Might need to scroll the item to click on into view
-    el = @el.planByTitle.get(title)
+    el = @el.planByTitle(title).get()
     @test.utils.windowPosition.scrollTo(el)
-    el.click()
+    @el.planByTitle(title).click()
     @test.utils.windowPosition.scrollTop()
+    @waitUntilLoaded() # Wait until either the popup opens or the Reading Builder opens (depending on the state of the thing clicked)
 
+  waitUntilPublishingFinishedByTitle: (title) =>
+    @test.utils.verbose("Waiting to see if plan is published #{title}")
+    @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
+      @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
 
-verify = (test, ms) ->
-  new CalendarHelper(test).waitUntilLoaded(ms)
+verify = (test) ->
+  new CalendarHelper(test).waitUntilLoaded()
 
 module.exports = {CalendarHelper, verify}

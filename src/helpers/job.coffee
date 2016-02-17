@@ -4,12 +4,13 @@ moment = require 'moment'
 
 JOB_REQUESTING = 'job_requesting'
 JOB_REQUESTED = 'job_queued'
-JOB_UNSTARTED = 'unknown'
-JOBBING = 'working'
+JOB_UNSTARTED = 'unqueued'
 JOB_QUEUED = 'queued'
+JOB_STARTED = 'started'
 JOBBED = 'succeeded'
 JOB_FAILED = 'failed'
 JOB_KILLED = 'killed'
+JOB_UNKNOWN = 'unknown'
 
 JobListenerConfig = (checkIntervals, checkRepeats) ->
   {
@@ -85,7 +86,7 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
           JOB_REQUESTING
           JOB_REQUESTED
           JOB_QUEUED
-          JOBBING
+          JOB_STARTED
         ]
 
         jobbingStates.indexOf(@_asyncStatus[id]) > -1

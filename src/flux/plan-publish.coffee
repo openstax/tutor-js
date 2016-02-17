@@ -1,5 +1,4 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{JobActions, JobStore} = require './job'
 {JobListenerConfig} = require '../helpers/job'
 _ = require 'underscore'
 moment = require 'moment'

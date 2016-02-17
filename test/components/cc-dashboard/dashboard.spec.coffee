@@ -9,6 +9,7 @@ Chapter = require '../../../src/components/cc-dashboard/chapter'
 Section = require '../../../src/components/cc-dashboard/section'
 SectionProgress = require '../../../src/components/cc-dashboard/section-progress'
 SectionPerformance = require '../../../src/components/cc-dashboard/section-performance'
+PeriodHelper = require '../../../src/helpers/period'
 
 BaseModel = require '../../../api/courses/1/cc/dashboard.json'
 ExtendBaseStore = (props) -> _.extend({}, BaseModel, props)
@@ -30,12 +31,15 @@ RenderHelper = (component, courseId, initialPeriodIndex = 0, chapters = []) ->
 describe 'Concept Coach', ->
   beforeEach ->
     CourseObj = _.extend {}, _.pick(BaseModel.course, 'name', 'teachers'), {is_concept_coach: true}
+    BaseModel.course.periods = PeriodHelper.sort(BaseModel.course?.periods)
+
     BaseModel.course.periods[BLANK_PERIOD].chapters = []
     CCDashboardActions.loaded(BaseModel, COURSE_ID)
     CourseActions.loaded(CourseObj, COURSE_ID)
 
   describe 'Dashboard', ->
     it 'shows blank period graphic for blank periods', ->
+      periodId = BaseModel.course.periods[BLANK_PERIOD].id
       RenderHelper(Dashboard, COURSE_ID, BLANK_PERIOD).then ({dom}) ->
         expect(dom.querySelector('.blank-course')).to.not.be.null
         
@@ -43,7 +47,8 @@ describe 'Concept Coach', ->
       periodId = BaseModel.course.periods[activePeriod].id
       numChapters = CCDashboardStore.chaptersForDisplay(COURSE_ID, periodId).length
       RenderHelper(Dashboard, COURSE_ID, activePeriod).then ({dom}) ->
-        expect(dom.querySelector('.blank-course')).to.be.null
+        if (numChapters)
+          expect(dom.querySelector('.blank-course')).to.be.null
         expect(dom.querySelectorAll('.dashboard .chapter').length).to.equal(numChapters)
 
   describe 'Chapter', ->
@@ -67,15 +72,24 @@ describe 'Concept Coach', ->
         expect(dom.querySelector('.empty-spaced-practice')).to.not.be.null
 
     it 'shows a section with spaced practice', ->
-      options =
+      spacedPracticeOptions =
         props:
           section:
             completed_percentage: 1.0
             original_performance: 0.5
             spaced_practice_performance: 0.5
 
-      Testing.renderComponent(Section, options).then ({dom}) ->
+      zeroSpacedPracticeOptions =
+        props:
+          section:
+            spaced_practice_performance: 0.0
+
+      Testing.renderComponent(Section, spacedPracticeOptions).then ({dom}) ->
         expect(dom.querySelector('.empty-spaced-practice')).to.be.null
+
+      Testing.renderComponent(Section, zeroSpacedPracticeOptions).then ({dom}) ->
+        expect(dom.querySelector('.empty-spaced-practice')).to.be.null
+
 
   describe 'Section Progress Bars', ->
     #this is just in case the backend ever returns weird data

@@ -1,6 +1,7 @@
 {describe, xdescribe} = require './describe'
 
 module.exports =
+
   Calendar         : require './calendar'
   ReadingBuilder   : require './reading-builder'
   HomeworkBuilder  : require './homework-builder'
@@ -10,6 +11,8 @@ module.exports =
   Task             : require './task'
   User             : require './user'
   ReferenceBook    : require './reference-book'
+  Scores           : require './scores'
   util             : require './utils'
   describe         : describe
   xdescribe        : xdescribe
+

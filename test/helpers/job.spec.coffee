@@ -36,12 +36,13 @@ JOB_QUEUED_RESPONSE =
 JOB_STATUSES = [
   'job_requesting'
   'job_queued'
-  'unknown'
-  'working'
+  'unqueued'
+  'started'
   'queued'
   'succeeded'
   'failed'
   'killed'
+  'unknown'
 ]
 jobListenerConfig = null
 

@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 HSTable = require './table-hs'
 CCTable = require './table-cc'
+CCTableFilters = require './cc-table-filters'
 
 Router = require 'react-router'
 
@@ -37,9 +38,11 @@ Scores = React.createClass
     colSetWidth: 180
     colResizeWidth: 180
     colResizeKey: 0
-    sort: { key: 'name', asc: true }
+    sort: { key: 'name', asc: true, dataType: 'score' }
     # index of first column that contains data
     firstDataColumn: 1
+    displayAs: 'percentage'
+    basedOn: 'possible'
 
   componentDidMount: ->
     @sizeTable()
@@ -66,9 +69,9 @@ Scores = React.createClass
     windowEl.height - table.offsetTop - bottomMargin
 
 
-  changeSortingOrder: (key) ->
+  changeSortingOrder: (key, dataType) ->
     asc = if @state.sort.key is key then not @state.sort.asc else false
-    @setState(sort: {key, asc})
+    @setState(sort: {key, asc, dataType})
 
   isSortingByData: ->
     _.isNumber(@state.sort.key)
@@ -82,23 +85,41 @@ Scores = React.createClass
     @setState({periodIndex: key + 1})
 
 
+  changeDisplayAs: (mode) ->
+    @setState(displayAs: mode)
+
+  changeBasedOn: (mode) ->
+    @setState(basedOn: mode)
+
+  percent: (num, total) ->
+    Math.round((num / total) * 100)
+
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
-    {sort, period_id, firstDataColumn} = @state
+    {sort, period_id, firstDataColumn, displayAs} = @state
     data = ScoresStore.get(@props.courseId)
     scores = if period_id
       _.findWhere(data, {period_id})
     else
       data[0]
 
-    sortData = _.sortBy(scores.students, (d) ->
+    sortData = _.sortBy(scores.students, (d) =>
       if _.isNumber(sort.key)
         index = sort.key - firstDataColumn
         record = d.data[index]
         return 0 unless record
         switch record.type
-          when 'reading' then record.status
-          when 'homework', 'concept_coach' then record.correct_exercise_count or 0
+          when 'reading'  then record.status
+          when 'homework' then record.correct_exercise_count or 0
+          when 'concept_coach'
+            switch sort.dataType
+              when 'score'
+                if displayAs is 'number'
+                  record.correct_exercise_count or 0
+                else
+                  @percent(record.correct_exercise_count, record.exercise_count) or 0
+              when 'completed'
+                @percent(record.correct_exercise_count, record.exercise_count) or 0
       else
         (d.last_name or d.name).toLowerCase()
     )
@@ -126,15 +147,23 @@ Scores = React.createClass
         period_id={@state.period_id}
         periodIndex={@state.periodIndex}
         firstDataColumn={@state.firstDataColumn}
+        displayAs={@state.displayAs}
+        basedOn={@state.basedOn}
+        dataType={@state.sort.dataType}
           />
       afterTabsItem = ->
         <span className='course-scores-note tab'>
           Click on a student's score to review their work.
+          &nbsp 
+          Click the icon to see their progress completing the assignment.
         </span>
-      tableMarginNote =
-        <div className='course-scores-note right'>
-          Date indicates most recently submitted response.
-        </div>
+      tableFilters =
+        <CCTableFilters
+        displayAs={@state.displayAs}
+        basedOn={@state.basedOn}
+        changeDisplayAs={@changeDisplayAs}
+        changeBasedOn={@changeBasedOn}
+        />
     else
       scoresTable =
         <HSTable
@@ -150,7 +179,7 @@ Scores = React.createClass
         firstDataColumn={@state.firstDataColumn}
           />
       afterTabsItem = -> null
-      tableMarginNote = null
+      tableFilters = null
 
 
     periodNav =
@@ -169,7 +198,7 @@ Scores = React.createClass
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
-        {tableMarginNote}
+        {tableFilters}
         {periodNav}
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}
