@@ -48,6 +48,7 @@ EXERCISE_STEP_CARD_PROP_TYPES.pinned = React.PropTypes.bool
 EXERCISE_STEP_CARD_PROP_TYPES.allowKeyNav = React.PropTypes.bool
 EXERCISE_STEP_CARD_PROP_TYPES.panel = React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only'])
 EXERCISE_STEP_CARD_PROP_TYPES.review = React.PropTypes.string
+EXERCISE_STEP_CARD_PROP_TYPES.controlText = React.PropTypes.string
 
 EXERCISE_STEP_CARD_PROP_TYPES.onAnswerChanged = React.PropTypes.func
 EXERCISE_STEP_CARD_PROP_TYPES.onFreeResponseChange = React.PropTypes.func

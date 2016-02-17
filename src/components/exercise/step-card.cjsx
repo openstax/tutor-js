@@ -116,12 +116,12 @@ ExerciseStepCard = React.createClass
       onNextStep() unless canReview
 
   render: ->
-    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, className, footer} = @props
+    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, controlText, className, footer} = @props
     {group, related_content} = step
 
     ControlButtons = CONTROLS[panel]
     onInputChange = ON_CHANGE[panel]
-    controlText = CONTROLS_TEXT[panel]
+    controlText ?= CONTROLS_TEXT[panel]
 
     controlProps = _.pick(@props, props.ExReviewControls)
     controlProps.isContinueEnabled = isContinueEnabled and @isContinueEnabled(@props, @state)
