@@ -79,6 +79,7 @@ class TestItemHelper
 
   waitClick: (args...) =>
     locator = @getLocator(args...)
+    @test.utils.verbose "Waiting for #{JSON.stringify(locator)}"
     @test.utils.wait.for(locator)
     @click(args...)
 

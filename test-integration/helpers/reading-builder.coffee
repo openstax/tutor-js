@@ -276,7 +276,7 @@ class ReadingBuilder extends TestHelper
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
-        @test.sleep(500) # Not sure why this is needed
+        @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
         @el.addReadingsButton.waitClick()
 
     switch action

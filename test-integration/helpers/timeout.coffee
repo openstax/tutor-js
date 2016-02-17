@@ -16,9 +16,10 @@ installCustomImplementation = (test) ->
 
   test.addTimeout = (sec) -> test.addTimeoutMs(sec * 1000)
 
-  test.sleep = (ms) ->
+  test.sleep = (ms, msg) ->
+    throw new Error('BUG: A message is required for sleeping') unless msg
     test.driver.call ->
-      console.log("Sleeping for #{ms}ms. DANGEROUS. USE AS A LAST RESORT!!!")
+      console.log("Sleeping for #{ms}ms. DANGEROUS. USE AS A LAST RESORT!!! message: #{msg}")
       test.addTimeoutMs(ms * 2) # Add some extra ms just in case
       test.driver.sleep(ms)
 
