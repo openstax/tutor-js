@@ -1,6 +1,8 @@
+fs = require 'fs'
 selenium = require 'selenium-webdriver'
 seleniumMocha = require('selenium-webdriver/testing')
 _ = require 'underscore'
+
 chai = require 'chai'
 chai.use require 'chai-as-promised'
 expect = {chai}
@@ -26,6 +28,8 @@ logger.addHandler (record) ->
 
 
 
+
+
 describe = (name, cb) ->
   seleniumMocha.describe name, ->
 
@@ -40,6 +44,7 @@ describe = (name, cb) ->
     @__afterEach = afterEach
 
     @before ->
+      Verbose.reset()
 
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)
@@ -116,7 +121,11 @@ describe = (name, cb) ->
 
 
       Verbose.reset()
-      User.logout(@)
+      User.logout(@).then ->
+        # Save the coverage data to a file
+        # Keep replacing the file as tests finish (the object will continue to be appended to in memory)
+        coverageData = User.getCoverageData()
+        fs.writeFileSync('./coverage-selenium.json', JSON.stringify(coverageData), 'utf8')
 
 
     @after ->
