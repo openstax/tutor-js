@@ -158,6 +158,9 @@
           stroke: @pie-color-hover;
         }
       }
+      .trigger-wrap {
+        padding: 10px;
+      }
     }
   }
   .name-cell {
@@ -206,4 +209,23 @@
     }
   }
 
+}
+
+.cc-scores-tooltip-completed-info {
+  height: 88px;
+  th, td {
+    // overrides bootstrap
+    border: none !important;
+    padding: 0px 12px 8px 0px !important;
+  }
+  .data-row td {
+    text-align: center;
+  }
+  span {
+    font-weight: bold;
+    padding-right: 3px;
+  }
+  tr:last-child td {
+    padding-left: 0px !important;
+  }
 }
