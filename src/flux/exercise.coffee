@@ -102,7 +102,7 @@ ExerciseConfig =
       )
 
     hasQuestionWithFormat: (exercise, format) ->
-      _.detect exercise?.content.questions, (q) -> _.include(q.formats, format)
+      !!_.detect exercise?.content.questions, (q) -> _.include(q.formats, format)
 
     getPagePoolTypes: (pageId) ->
       types = _.unique _.flatten _.pluck @_exercises[pageId], 'pool_types'
