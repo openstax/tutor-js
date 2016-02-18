@@ -106,7 +106,6 @@ module.exports = React.createClass
     else if ExerciseStore.isFailed(id)
       return @renderFailed()
 
-    ExerciseActions.sync(id)
     exercise = ExerciseStore.get(id)
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
 
