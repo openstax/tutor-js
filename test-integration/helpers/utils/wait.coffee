@@ -6,13 +6,17 @@ class Wait
   # TODO reduce the copy pasta between for and forMultiple
   forMultiple: (locator, ms = 60 * 1000) ->
     locator = @test.utils.toLocator(locator)
-    @giveTime(ms, => @test.driver.wait(selenium.until.elementsLocated(locator)))
-    # Because of animations an element might be in the DOM but not visible
+    @giveTime ms, =>
+      @test.utils.verboseWrap "Waiting for multiple #{JSON.stringify(locator)}", =>
+        @test.driver.wait(selenium.until.elementsLocated(locator))
+        # Because of animations an element might be in the DOM but not visible
+        el = @test.driver.findElements(locator)
+
+        el.then (elements) =>
+          @test.utils.verbose("Found #{elements.count}")
+          @test.driver.wait(selenium.until.elementIsVisible(elements[0]))
+
     el = @test.driver.findElements(locator)
-
-    @test.utils.verboseWrap "Waiting for multiple #{JSON.stringify(locator)}", => el.then (elements) =>
-      @test.driver.wait(selenium.until.elementIsVisible(elements[0]))
-
     el
 
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
@@ -46,8 +50,16 @@ class Wait
       # console.log "Took #{spent / 1000}sec of #{ms / 1000}"
       if spent > ms
         throw new Error("BUG: Took longer than expected (#{spent / 1000}). Expected #{ms / 1000} sec")
-      @test.addTimeoutMs(-diff)
+
+      # @test.addTimeoutMs(-diff)
+      # Ensure there is at most 10sec left afterwards
+      @test.timeout.extendFromNow()
+
       val
+
+  until: (msg, fn) ->
+    @test.utils.verboseWrap msg, =>
+      @test.driver.wait(fn)
 
 wait = (test) ->
   return new Wait(test)

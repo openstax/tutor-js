@@ -270,15 +270,30 @@ checks.checkIsNotPendingStep = (matchStepIndex) ->
   (args...) ->
     Promise.resolve(checks._checkIsNotPendingStep(matchStepIndex, args...))
 
+
+checks._checkContinueButtonText = (buttonText, args...) ->
+  {div} = args[0]
+  continueButton = div.querySelector('.continue')
+  expect(continueButton.innerText).to.equal(buttonText)
+
+  args[0]
+
+checks.checkContinueButtonText = (buttonText) ->
+  (args...) ->
+    Promise.resolve(checks._checkContinueButtonText(buttonText, args...))
+
 checks._logStuff = (logMessage, args...) ->
   {div, stepId, taskId, router} = args[0]
   step = TaskStepStore.get(stepId)
 
-  console.info(logMessage)
-  console.info(router.getCurrentPath())
-  console.info(router.getCurrentParams())
-  console.info(step)
-  console.info(div)
+  console.info('logMessage', logMessage)
+
+  if router?
+    console.info('router.getCurrentPath', router.getCurrentPath())
+    console.info('router.getCurrentParams', router.getCurrentParams())
+
+  console.info('step', step)
+  console.info('div', div)
 
   args[0]
 

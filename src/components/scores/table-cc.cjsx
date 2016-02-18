@@ -44,8 +44,10 @@ module.exports = React.createClass
   renderNameHeader: ->
     {basedOn} = @props
     emptyCell = <div className='blank' />
-    helpText =
-      "(based on total #{basedOn})"
+    # temp disable
+    #helpText =
+      #"(based on total #{basedOn})"
+    helpText = null
     averageLabel =
       <div>
         Class Average &nbsp

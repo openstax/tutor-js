@@ -5,5 +5,8 @@
 /dist
 /test-failed-*.png
 /coverage
+/coverage-selenium.json
 
 *.cjsx.js
+
+/phantomjsdriver.log

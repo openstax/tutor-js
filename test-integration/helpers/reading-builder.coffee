@@ -32,7 +32,7 @@ COMMON_ELEMENTS =
   selectReadingsButton:
     css: '#reading-select'
   addReadingsButton:
-    css: '.dialog:not(.hide) .-show-problems'
+    css: '.dialog:not(.hide) .-show-problems:not([disabled])'
   disabledAddReadingsButton:
     css: '.dialog:not(.hide) .-show-problems[disabled]'
 
@@ -91,7 +91,7 @@ COMMON_SELECT_READING_ELEMENTS =
   chapterHeadingSelectAll: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] .chapter-checkbox input"
   chapterHeading: (section) ->
-    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}']"
+    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] > a"
 
 
 COMMON_UNSAVED_DIALOG_ELEMENTS =
@@ -109,15 +109,15 @@ class SelectReadingsList extends TestHelper
     # So handle chapters differently
     isChapter = not /\./.test(section)
     if isChapter
-      @el.chapterHeadingSelectAll.click(section)
+      @el.chapterHeadingSelectAll(section).click()
     else
       # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
-      @el.sectionItem.findElement(section).isDisplayed().then (isDisplayed) =>
+      @el.sectionItem(section).findElement().isDisplayed().then (isDisplayed) =>
         # Expand the chapter accordion if necessary
         unless isDisplayed
-          @el.chapterHeading.click(section)
+          @el.chapterHeading(section).click()
 
-        @el.sectionItem.click(section)
+        @el.sectionItem(section).click()
 
 
 # TODO could probably make this a general dialog/modal helper to extend from.
@@ -173,10 +173,10 @@ class ReadingBuilder extends TestHelper
       @_setDate('due', dueAt)
 
   openDatePicker: (type) =>
-    @el.dateInput.click(type)
+    @el.dateInput(type).click()
 
   chooseDate: (date) =>
-    @el.datepickerDay.click(date)
+    @el.datepickerDay(date).click()
 
   waitUntilDatepickerClosed: =>
     @test.driver.wait =>
@@ -193,25 +193,32 @@ class ReadingBuilder extends TestHelper
     @el.selectReadingsList.waitUntilLoaded()
 
   hasError: (type) =>
-    @el.hasErrorWarning.get(type).isDisplayed()
+    @el.hasErrorWarning(type).get().isDisplayed()
 
   hasRequiredHint: (type) =>
-    @el.requiredHint.get(type).isDisplayed()
+    @el.requiredHint(type).get().isDisplayed()
 
   hasRequiredMessage: (type) =>
-    @el.requiredItemNotice.get(type).isDisplayed()
+    @el.requiredItemNotice(type).get().isDisplayed()
 
-  publish: =>
-    # Wait up to 3min for publish to complete
-    @test.utils.wait.giveTime (3 * 60 * 1000), =>
-      @test.utils.verboseWrap 'Publishing', =>
-        @el.publishButton.click()
-        # wait for
-        @test.driver.wait =>
-          @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+  publish: (name) =>
+    @el.publishButton.waitClick()
+
+    # Wait up to 4min for publish to complete (Local, synchronous publish)
+    @test.utils.wait.giveTime (4 * 60 * 1000), =>
+      # wait for
+      @test.driver.wait =>
+        @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+
+    # Wait up to 2min for publish to complete (Remote, asynchronous publish)
+    @test.utils.wait.giveTime (2 * 60 * 1000), =>
+      # Publishing can be async so wait until the assignment shows up as 'published' in the calendar
+      # Added here because folks won't remember to wait for this
+      (new Calendar.CalendarHelper(@test)).waitUntilPublishingFinishedByTitle(name)
 
   save: =>
-    @el.saveButton.click()
+    @test.utils.wait.giveTime (2 * 60 * 1000), =>
+      @el.saveButton.waitClick()
 
   cancel: =>
     # BUG: "X" close button behaves differently than the footer close button
@@ -224,7 +231,7 @@ class ReadingBuilder extends TestHelper
   delete: =>
     # Wait up to 2min for delete to complete
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
-      @el.deleteButton.click()
+      @el.deleteButton.waitClick()
       # Accept the browser confirm dialog
       @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
         alert.accept()
@@ -249,7 +256,7 @@ class ReadingBuilder extends TestHelper
     # hangs around for quite awhile.  Bump the wait time up to 4 seconds to work around
     @waitUntilLoaded(4000)
     @setName(name) if name
-    @setDate({opensAt, dueAt})
+    @setDate({opensAt, dueAt}) if opensAt or dueAt
 
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
@@ -265,14 +272,15 @@ class ReadingBuilder extends TestHelper
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
-        @el.disabledAddReadingsButton.get().isDisplayed().then (isDisplayed) =>
+        @el.disabledAddReadingsButton.isPresent().then (isDisplayed) =>
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
-        @el.addReadingsButton.click()
+        @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
+        @el.addReadingsButton.waitClick()
 
     switch action
-      when 'PUBLISH' then @publish()
+      when 'PUBLISH' then @publish(name)
       when 'SAVE' then @save()
       when 'CANCEL' then @cancel()
       when 'DELETE' then @delete()

@@ -6,10 +6,10 @@ describe('Student Dashboard', function(){
 
   beforeEach( function(){
     this.student = new User(this);
-    this.student.login('student01');
     this.courseSelect = new CourseSelect(this);
-    this.courseSelect.goToCourseByName('Biology I');
     this.dash = new StudentDashboard.Dashboard(this);
+    this.student.login('student01');
+    this.courseSelect.goToCourseByName('Biology I');
   });
 
   this.xit('Has valid sub components', function(){
@@ -17,7 +17,7 @@ describe('Student Dashboard', function(){
     expect(this.dash.el.thisWeek).not.to.not.be.null;
   });
 
-  this.it('displays tasks that are assigned', async function(){
+  this.xit('displays tasks that are assigned', async function(){
 
     const title = this.utils.getFreshId();
     this.student.logout();

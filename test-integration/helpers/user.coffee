@@ -1,9 +1,19 @@
 _ = require 'underscore'
 {TestHelper} = require './test-element'
+selenium = require 'selenium-webdriver'
+
+# Record code coverage before logging out
+istanbul = require 'istanbul'
+{mergeFileCoverage} = istanbul.utils
 
 COMMON_ELEMENTS =
   loginLink:
     linkText: 'Login'
+
+  # When the screen is narrow the login button is not immediately visible. It is hidden under a dropdown
+  smallScreenNavbarToggle:
+    css: '.navbar-header .navbar-toggle'
+
   searchQuery:
     css: '#search_query'
   usernameLink: (username) ->
@@ -20,7 +30,10 @@ COMMON_ELEMENTS =
     css: '.modal-dialog .modal-header .close'
 
   userMenu:
-    css: '.-hamburger-menu'
+    css: '.-hamburger-menu .dropdown-toggle'
+
+  openHamburgerMenu:
+    css: '.-hamburger-menu.open'
 
   logoutForm:
     css: '.-hamburger-menu .-logout-form'
@@ -28,8 +41,29 @@ COMMON_ELEMENTS =
   homeLink:
     css: '.navbar-brand'
 
+  pageTitle:
+    css: '.navbar-brand.active'
+
+  courseListing:
+    css: '.course-listing'
+
 COMMON_ELEMENTS.eitherSignInElement =
   css: "#{COMMON_ELEMENTS.searchQuery.css}, #{COMMON_ELEMENTS.usernameInput.css}"
+
+
+# Record code coverage before logging out.
+# Merges the coverage results from multiple tests
+__coverage__ = {}
+mergeCoverage = (obj) ->
+  Object.keys(obj).forEach (filePath) ->
+    original = __coverage__[filePath]
+    added = obj[filePath]
+    if original
+      result = mergeFileCoverage(original, added)
+    else
+      result = added
+    __coverage__[filePath] = result
+
 
 class User extends TestHelper
   constructor: (test) ->
@@ -44,7 +78,7 @@ class User extends TestHelper
     # Login as local
     @el.searchQuery.get().sendKeys(username)
     @el.searchQuery.get().submit()
-    @el.usernameLink.click(username)
+    @el.usernameLink(username).click()
 
   logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
@@ -53,13 +87,44 @@ class User extends TestHelper
     @el.loginSubmit.click()
 
   login: (username, password = 'password') =>
-    @el.loginLink.click()
+    @el.loginLink.isDisplayed().then (isDisplayed) =>
+      unless isDisplayed
+        @el.smallScreenNavbarToggle.click()
+      @el.loginLink.click()
+
+    @test.utils.windowPosition.setLarge()
 
     @isLocal().then (isLocal) =>
       if isLocal
         @logInLocal(username)
       else
         @logInDeployed(username, password)
+    # Inject a little CSS to unfix the pesky fixed navbar
+    @test.driver.executeScript ->
+      hider = document.createElement('style')
+      hider.textContent = '''
+        .navbar-fixed-bottom, .navbar-fixed-top,
+        .pinned-on .pinned-header,
+        .pinned-footer {
+          z-index: initial !important;
+          position: initial !important;
+        }
+
+        body.pinned-shy .navbar-fixed-top, body.pinned-shy .pinned-header {
+          transform: initial !important;
+        }
+
+        body { padding: 0; }
+      '''
+      document.head.appendChild(hider)
+
+
+    # Wait until the page has loaded.
+    # Going to the root URL while logged in will redirect to dashboard
+    # which may redirect to the course page.
+    @test.utils.verbose('Waiting until tutor-js page loads up')
+    @test.driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu'))
+
 
   isModalOpen: =>
     @el.modalClose.isPresent()
@@ -78,7 +143,12 @@ class User extends TestHelper
     @el.userMenu.isPresent()
 
   _logout: =>
-    @el.userMenu.click()
+    @openHamburgerMenu()
+
+    # Pull out the coverage data
+    @test.driver.executeScript("var c = window.__coverage__; delete window.__coverage__; return c;").then (results) ->
+      mergeCoverage(results) if results
+
     @el.logoutForm.get().submit()
 
   logout: =>
@@ -90,7 +160,21 @@ class User extends TestHelper
   goHome: =>
     @test.utils.windowPosition.scrollTop()
     @el.homeLink.click()
+    @test.utils.wait.for(@el.courseListing.getLocator())
 
+  isHamburgerMenuOpen: =>
+    @el.openHamburgerMenu.isPresent()
+
+  toggleHamburgerMenu: =>
+    @el.userMenu.click()
+
+  openHamburgerMenu: =>
+    @isHamburgerMenuOpen().then (isOpen) =>
+      unless isOpen
+        @toggleHamburgerMenu()
+
+User.getCoverageData = ->
+  __coverage__
 
 User.logout = (test) ->
   user = new User(test).logout()

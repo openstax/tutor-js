@@ -1,20 +1,35 @@
-import {describe, CourseSelect, Calendar, ReadingBuilder, User, freshId} from './helpers';
-import {expect} from 'chai';
+import {describe, CourseSelect, User} from './helpers'
 
-const TEACHER_USERNAME = 'teacher01';
+var TEACHER_USERNAME = 'teacher01'
 
-describe('Simple Draft Tests', function() {
+describe('Simple ES7 Calendar Test', function() {
 
+  // This test should click on a teacher dashboard and, if it is `Biology I`,
+  // should goHome twice, and logging output as things are happening.
   this.it('Simply logs in and selects a course', async function() {
-    this.addTimeout(30);
+    this.user = new User(this)
+    this.courseSelect = new CourseSelect(this)
 
-    const title = this.utils.getFreshId();
-    var y = await new User(this).login(TEACHER_USERNAME)
-    console.log('Done logging in. No need for promises');
+    debugger // This line tells the debugger (using `npm run debug-integration`) to pause here
 
-    // Go to the 1st courses dashboard
-    const courseSelect = new CourseSelect(this)
-    var x = await courseSelect.goTo(this, 'ANY');
-    console.log('Done selecting a course. No need for promises');
-  });
-});
+    await this.user.login(TEACHER_USERNAME)
+
+    // Go to the dashboard for a course
+    await this.courseSelect.goTo('ANY')
+    var pageTitle = await this.user.el.pageTitle.get().getText()
+
+    debugger
+    if (pageTitle === 'Biology I') {
+      console.log('It is Biology I!!!')
+      for (var i=0; i < 2; i++) {
+        console.log('Going home ' + i)
+        await this.user.goHome()
+      }
+      console.log('The user is back on the home page')
+    } else {
+      console.log('It is not Biology I')
+      await this.user.goHome()
+      console.log('The user is back on the home page')
+    }
+  }) // End test
+}) // End describe

@@ -45,7 +45,6 @@ TaskStepConfig =
     @_save(id)
 
   updateTempFreeResponse: (id, temp_free_response) ->
-    console.log(temp_free_response)
     @_change(id, {temp_free_response})
 
   loadRecovery: (id) ->
