@@ -24,7 +24,7 @@ describe('Student Dashboard', function(){
     const teacher = new User(this);
     teacher.login('teacher01');
     this.courseSelect.goToCourseByName('Biology I');
-    const calendar = new Calendar.CalendarHelper(this);
+    const calendar = new Calendar(this);
     calendar.createNew('READING');
     const reading = new ReadingBuilder(this);
 

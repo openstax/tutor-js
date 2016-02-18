@@ -4,8 +4,6 @@
 
 TEACHER_USERNAME = 'teacher01'
 
-{CalendarHelper} =  Calendar
-
 describe 'Draft Tests', ->
 
   beforeEach ->
@@ -13,11 +11,11 @@ describe 'Draft Tests', ->
       expect(hasError).to.be.true
 
   beforeEach ->
+    @calendar = new Calendar(@)
     @title = @utils.getFreshId()
     new User(@).login(TEACHER_USERNAME)
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')
-    @calendar = new CalendarHelper(@)
     @calendar.createNew('READING')
     @reading = new ReadingBuilder(@)
 

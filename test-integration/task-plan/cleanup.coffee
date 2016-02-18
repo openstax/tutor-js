@@ -3,8 +3,6 @@ _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
 
-{CalendarHelper} =  Calendar
-
 describe 'Assignment Cleanup', ->
 
   beforeEach ->
@@ -12,7 +10,7 @@ describe 'Assignment Cleanup', ->
     @addTimeout(2)
     new CourseSelect(@).goTo('ANY')
 
-    @calendar = new CalendarHelper(@)
+    @calendar = new Calendar(@)
     @reading = new ReadingBuilder(@)
 
     @calendar.waitUntilLoaded()

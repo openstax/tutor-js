@@ -3,7 +3,6 @@
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
-{CalendarHelper} = Calendar
 {ScoresHelper} = Scores
 
 # Quick test that nothing "blows up". For a more exhaustive version that clicks on all the items, see "./exhaustive"
@@ -22,7 +21,7 @@ describe 'Calendar and Stats', ->
 
   beforeEach ->
     @user = new User(@)
-    @calendar = new CalendarHelper(@)
+    @calendar = new Calendar(@)
     @courseSelect = new CourseSelect(@)
     @scores = new ScoresHelper(@)
 

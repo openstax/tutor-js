@@ -4,8 +4,6 @@ _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
 
-{CalendarHelper} = Calendar
-
 describe 'Calendar and Stats', ->
 
   @eachCourse = (msg, fn) =>
@@ -18,7 +16,7 @@ describe 'Calendar and Stats', ->
 
   beforeEach ->
     @user = new User(@)
-    @calendar = new CalendarHelper(@)
+    @calendar = new Calendar(@)
     @courseSelect = new CourseSelect(@)
 
     @user.login(TEACHER_USERNAME)
