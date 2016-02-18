@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 Question = require './question'
 Preview = require './preview'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
-
+ImageChooser = require './image-chooser'
 {ArbitraryHtmlAndMath} = require 'openstax-react-components'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
@@ -37,6 +37,7 @@ module.exports = React.createClass
 
   saveExercise: ->
     if confirm('Are you sure you want to save?')
+
       ExerciseActions.save(@props.id)
 
   publishExercise: ->
@@ -78,6 +79,7 @@ module.exports = React.createClass
         <label>Exercise Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
         </textarea>
+        <ImageChooser exerciseId={id} />
       </div>
       {questions}
       <div>
@@ -128,7 +130,7 @@ module.exports = React.createClass
         </div>
         {publishedLabel}
         {editLink}
-        {form}
+        <form>{form}</form>
       </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
       </BS.Col></BS.Row>
