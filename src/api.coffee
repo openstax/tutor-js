@@ -90,4 +90,19 @@ start = ->
     httpMethod: 'PUT'
     payload: obj
 
-module.exports = {start}
+uploadExerciseImage = (exerciseId, image, cb) ->
+  url = "/api/exercises/#{exerciseId}/save-image"
+  xhr = new XMLHttpRequest()
+  xhr.open('POST', url, true)
+  xhr.onload = ->
+    cb(if p.currentTarget.status is 200 then {progress: 100} else {error: p.currentTarget.status})
+  xhr.onprogress = (ev) ->
+    cb(progress: ev)
+
+  form = new FormData()
+  form.append("image", image, image.name)
+  form.append("id",    exerciseId)
+  form.append("type",  file.type)
+  xhr.send(form)
+
+module.exports = {start, uploadExerciseImage}
