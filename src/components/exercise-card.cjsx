@@ -8,12 +8,13 @@ BS = require 'react-bootstrap'
 
 ExerciseCard = React.createClass
 
-  PropTypes:
+  propTypes:
     displayFeedback: React.PropTypes.bool
     panelStyle: React.PropTypes.string
     header:     React.PropTypes.element
     displayAllTags: React.PropTypes.bool
     hideAnswers: React.PropTypes.bool
+    toggleExercise: React.PropTypes.func
     className: React.PropTypes.className
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
@@ -46,7 +47,7 @@ ExerciseCard = React.createClass
 
   onClick: (ev) ->
     # don't toggle exercise selection click target is a link (such as "Report an error")
-    @props.toggleExercise() unless ev.target.tagName is 'A'
+    @props.toggleExercise?() unless ev.target.tagName is 'A'
 
   render: ->
     content = @props.exercise.content
