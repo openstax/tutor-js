@@ -1,8 +1,6 @@
 {describe, CourseSelect, User, CCDashboard, Scores} = require './helpers'
 {expect} = require 'chai'
 
-{ScoresHelper} = Scores
-
 TEACHER_USERNAME = 'teacher01'
 CC_HELP_LINK = 'openstaxcc.zendesk.com/hc/en-us'
 
@@ -12,7 +10,7 @@ describe 'Concept Coach Dashboard', ->
     @user = new User(@)
     @courseSelect = new CourseSelect(@)
     @conceptCoach = new CCDashboard(@)
-    @scores = new ScoresHelper(@)
+    @scores = new Scores(@)
 
     @user.login(TEACHER_USERNAME)
     @courseSelect.goTo('CONCEPT_COACH')

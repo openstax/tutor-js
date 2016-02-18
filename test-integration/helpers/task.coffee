@@ -25,7 +25,7 @@ COMMON_ELEMENTS =
   #   css: '.pinned-container.task.task-event'
 
 # all convenience functions for helping with task tests will be seen here.
-class TaskHelper extends TestHelper
+class Task extends TestHelper
   constructor: (test, testElementLocator) ->
 
     testElementLocator ?= '.task-reading, .task-homework'
@@ -51,4 +51,4 @@ class TaskHelper extends TestHelper
       @test.utils.verboseWrap 'Waiting for continue button to be enabled again', =>
         @test.driver.wait => selenium.until.elementIsEnabled(@el.continueButton.get())
 
-module.exports = {TaskHelper}
+module.exports = Task

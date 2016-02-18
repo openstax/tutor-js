@@ -4,15 +4,13 @@ _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
 
-{ScoresHelper} = Scores
-
 
 describe 'HS Student Scores', ->
 
   @beforeEach ->
     @user = new User(@)
     @calendar = new Calendar(@)
-    @scores = new ScoresHelper(@)
+    @scores = new Scores(@)
     @courseSelect = new CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goTo('PHYSICS')
@@ -37,7 +35,7 @@ describe 'CC Student Scores', ->
   beforeEach ->
     @user = new User(@)
     @calendar = new Calendar(@)
-    @scores = new ScoresHelper(@)
+    @scores = new Scores(@)
     @courseSelect = new CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goTo('CONCEPT_COACH')

@@ -29,7 +29,9 @@ class Event extends TestHelper
       selenium.promise.fulfilled(null)
 
 
-class Dashboard extends TestHelper
+class StudentDashboard extends TestHelper
+
+  @Event: Event
 
   elementRefs:
     progressGuide:
@@ -58,5 +60,4 @@ class Dashboard extends TestHelper
           )
       )
 
-
-module.exports = {Dashboard, Event}
+module.exports = StudentDashboard

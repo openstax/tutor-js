@@ -3,9 +3,6 @@
 _ = require 'underscore'
 selenium = require 'selenium-webdriver'
 
-{TaskHelper} = Task
-{Dashboard} = StudentDashboard
-
 STUDENT_USERNAME = 'student01'
 
 
@@ -13,9 +10,9 @@ describe 'Student performing tasks', ->
 
   beforeEach ->
     @user = new User(@)
-    @task = new TaskHelper(@)
+    @task = new Task(@)
     @courseSelect = new CourseSelect(@)
-    @dashboard = new Dashboard(@)
+    @dashboard = new StudentDashboard(@)
 
     @user.login(STUDENT_USERNAME)
 

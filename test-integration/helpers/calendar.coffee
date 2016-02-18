@@ -72,8 +72,11 @@ class PlanPopupHelper extends TestHelper
 
 
 class Calendar extends TestHelper
-  constructor: (test, testElementLocator) ->
+  @PlanPopupHelper: PlanPopupHelper
+  @verify: (test) ->
+    (new Calendar(test)).waitUntilLoaded()
 
+  constructor: (test, testElementLocator) ->
     testElementLocator ?=
       css: '.calendar-container'
     calendarOptions =
@@ -117,9 +120,5 @@ class Calendar extends TestHelper
     @test.utils.verbose("Waiting to see if plan is published #{title}")
     @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
       @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
-
-Calendar.PlanPopupHelper = PlanPopupHelper
-Calendar.verify = (test) ->
-  new Calendar(test).waitUntilLoaded()
 
 module.exports = Calendar

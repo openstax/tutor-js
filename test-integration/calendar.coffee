@@ -3,7 +3,6 @@
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
-{ScoresHelper} = Scores
 
 # Quick test that nothing "blows up". For a more exhaustive version that clicks on all the items, see "./exhaustive"
 
@@ -23,7 +22,7 @@ describe 'Calendar and Stats', ->
     @user = new User(@)
     @calendar = new Calendar(@)
     @courseSelect = new CourseSelect(@)
-    @scores = new ScoresHelper(@)
+    @scores = new Scores(@)
 
     @user.login(TEACHER_USERNAME)
 
