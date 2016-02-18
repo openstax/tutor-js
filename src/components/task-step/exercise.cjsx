@@ -26,6 +26,7 @@ module.exports = React.createClass
     {id, taskId} = @props
     step = TaskStepStore.get(id)
     task = TaskStore.get(taskId)
+    stepIndex = TaskStore.getStepIndex(taskId, id)
 
     waitingText = switch
       when TaskStepStore.isLoading(id) then "Loading…"
@@ -41,24 +42,26 @@ module.exports = React.createClass
 
     controlText = 'Continue' if task.type is 'reading' and @canOnlyContinue()
 
-    <Exercise
-      {...@props}
-      freeResponseValue={step.temp_free_response}
-      controlText={controlText}
-      step={step}
-      footer={<StepFooter/>}
-      waitingText={waitingText}
+    <div className='exercise-wrapper' data-step-number={stepIndex + 1}>
+      <Exercise
+        {...@props}
+        freeResponseValue={step.temp_free_response}
+        controlText={controlText}
+        step={step}
+        footer={<StepFooter/>}
+        waitingText={waitingText}
 
-      canTryAnother={TaskStepStore.canTryAnother(id, task)}
-      isRecovering={TaskStepStore.isRecovering(id)}
-      disabled={TaskStepStore.isSaving(id)}
-      canReview={StepPanel.canReview(id)}
-      isContinueEnabled={StepPanel.canContinue(id)}
+        canTryAnother={TaskStepStore.canTryAnother(id, task)}
+        isRecovering={TaskStepStore.isRecovering(id)}
+        disabled={TaskStepStore.isSaving(id)}
+        canReview={StepPanel.canReview(id)}
+        isContinueEnabled={StepPanel.canContinue(id)}
 
-      getCurrentPanel={getCurrentPanel}
-      getReadingForStep={getReadingForStep}
-      setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
-      onFreeResponseChange={@updateFreeResponse}
-      freeResponseValue={TaskStepStore.getTempFreeResponse(id)}
-      setAnswerId={TaskStepActions.setAnswerId}
-    />
+        getCurrentPanel={getCurrentPanel}
+        getReadingForStep={getReadingForStep}
+        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+        onFreeResponseChange={@updateFreeResponse}
+        freeResponseValue={TaskStepStore.getTempFreeResponse(id)}
+        setAnswerId={TaskStepActions.setAnswerId}
+      />
+    </div>

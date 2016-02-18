@@ -48,6 +48,20 @@
   }
 }
 
+.task-review {
+  .exercise-wrapper[data-step-number] {
+    position: relative;
+    &::before {
+      content: attr(data-step-number) ")";
+      position: absolute;
+      z-index: 1;
+      left: @tutor-card-body-padding-horizontal - 32px;
+      top: @tutor-panel-padding-vertical;
+      .exercise-typography();
+    }
+  }
+}
+
 .task-step {
   .placeholder-step {
     .size-exercise-card();
@@ -56,3 +70,5 @@
     .size-exercise-card();
   }
 }
+
+@import './concept-coach-end';

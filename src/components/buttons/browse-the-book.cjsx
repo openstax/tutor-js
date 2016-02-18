@@ -11,6 +11,7 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     bsStyle: 'primary'
+    onlyShowBrowsable: true
 
   propTypes:
     courseId:  React.PropTypes.string
@@ -19,6 +20,7 @@ module.exports = React.createClass
     sectionId: React.PropTypes.number
     page:      React.PropTypes.string
     unstyled:  React.PropTypes.bool
+    onlyShowBrowsable:  React.PropTypes.bool
     bsStyle:   React.PropTypes.string
 
   getLinkProps: ->
@@ -55,13 +57,25 @@ module.exports = React.createClass
       params: {courseId, cnxId: @props.page, section:@props.section}
       query: queryParams
 
+  getCourseId: ->
+    @props.courseId or @context.router.getCurrentParams().courseId
+
+  canBrowse: (courseId) ->
+    courseId? and not CourseStore.get(courseId)?.is_concept_coach
+
   render: ->
-    courseId = @props.courseId or @context.router.getCurrentParams().courseId
-    # Unable to browse course-less or concept coach books
-    return null unless courseId and not CourseStore.get(courseId)?.is_concept_coach
+    courseId = @getCourseId()
+    text = @props.children or 'Browse the Book'
+    linkProps = @getLinkProps()
+
+    # Unable to browse course-less
+    unless @canBrowse(courseId)
+      if @props.onlyShowBrowsable
+        return null
+      else
+        return <span {...linkProps}>{text}</span>
 
     routeProps = @buildRouteProps(courseId)
-    linkProps = _.extend({}, routeProps, @getLinkProps())
-    text = @props.children or 'Browse the Book'
+    linkProps = _.extend({}, routeProps, linkProps)
 
     <NewTabLink {...linkProps}>{text}</NewTabLink>
