@@ -1,0 +1,26 @@
+.image-chooser {
+  position: relative;
+  input.file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  label.selector {
+    &:extend(.btn);
+    &:extend(.btn-default);
+  }
+  &.with-image label.selector {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+    box-shadow: 0 8px 6px -6px black;
+  }
+  img {
+    height: auto;
+    width: 100%;
+  }
+}
