@@ -13,6 +13,7 @@ ScoresExport = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     className: React.PropTypes.string
+    isConceptCoach: React.PropTypes.bool.isRequired
 
   mixins: [BindStoreMixin]
   bindStore: ScoresExportStore
@@ -118,28 +119,31 @@ ScoresExport = React.createClass
     ScoresExportStore.off("progress.#{courseId}.succeeded", @handleCompletedExport)
     ScoresExportStore.off('loaded', @handleLoadedExport)
 
-  render: ->
-    {courseId, className} = @props
-    {downloadUrl, lastExported, downloadedSinceLoad, downloadHasError, tryToDownload, forceDownloadUrl} = @state
+  renderConceptCoachOptions: (actionButton) ->
+    <BS.Modal
+      {...@props}
+      title='Configure Export'
+      className='cc-export-modal'>
 
-    className += ' export-button'
+      <div className='modal-body'>
+        config form
+      </div>
+
+      <div className='modal-footer'>
+        {actionButton}
+      </div>
+
+    </BS.Modal>
+
+  renderActionButton: ->
+    {courseId} = @props
+    {downloadUrl, downloadedSinceLoad, tryToDownload, forceDownloadUrl, downloadHasError} = @state
+    
     actionButtonClass = 'primary'
     actionButtonClass = 'default' if downloadedSinceLoad
 
     failedProps =
       beforeText: 'There was a problem exporting. '
-
-    actionButton =
-      <AsyncButton
-        bsStyle={actionButtonClass}
-        onClick={-> ScoresExportActions.export(courseId)}
-        isWaiting={ScoresExportStore.isExporting(courseId) or tryToDownload}
-        isFailed={ScoresExportStore.isFailed(courseId) or downloadHasError}
-        failedProps={failedProps}
-        isJob={true}
-        waitingText='Generating Export…'>
-        Generate Export
-      </AsyncButton>
 
     if forceDownloadUrl?
       actionButton =
@@ -147,6 +151,39 @@ ScoresExport = React.createClass
           bsStyle={actionButtonClass}
           href={forceDownloadUrl}
           onClick={@downloadCurrentExport}>Download Export</BS.Button>
+    else
+      actionButton =
+        <AsyncButton
+          bsStyle={actionButtonClass}
+          onClick={-> ScoresExportActions.export(courseId)}
+          isWaiting={ScoresExportStore.isExporting(courseId) or tryToDownload}
+          isFailed={ScoresExportStore.isFailed(courseId) or downloadHasError}
+          failedProps={failedProps}
+          isJob={true}
+          waitingText='Generating Export…'>
+          Generate Export
+        </AsyncButton>
+    actionButton
+
+
+  render: ->
+    {className, isConceptCoach} = @props
+    {lastExported, downloadHasError} = @state
+    className += ' export-button'
+
+    actionModal =
+      <BS.OverlayTrigger
+        ref='overlay'
+        rootClose={true}
+        trigger='click'
+        overlay={@renderConceptCoachOptions(@renderActionButton())}>
+        <div className='export-button-buttons'>
+          <BS.Button
+          bsStyle='primary'>
+            Generate Export
+          </BS.Button>
+        </div>
+      </BS.OverlayTrigger>  
 
     if lastExported? and not downloadHasError
       lastExportedTime = <i>
@@ -158,7 +195,7 @@ ScoresExport = React.createClass
 
     <span className={className}>
       <div className='export-button-buttons'>
-        {actionButton}
+        {if isConceptCoach then actionModal else @renderActionButton()}
       </div>
       {lastExportedLabel}
     </span>
