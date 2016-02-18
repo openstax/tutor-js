@@ -2,6 +2,7 @@
     "total_count": 5,
     "items": [{
         "id": "1616",
+        "pool_types": ["reading_dynamic", "practice_widget", "all_exercises"],
         "url": "https://exercises-dev.openstax.org/exercises/1663@1",
         "content": {
             "uid": "1663@1",
@@ -99,6 +100,7 @@
     }, {
         "id": "1617",
         "url": "https://exercises-dev.openstax.org/exercises/1664@1",
+        "pool_types": ["reading_dynamic", "practice_widget", "all_exercises"],
         "content": {
             "uid": "1664@1",
             "number": 1664,
@@ -195,6 +197,7 @@
     }, {
         "id": "1618",
         "url": "https://exercises-dev.openstax.org/exercises/1665@1",
+        "pool_types": ["practice_widget", "all_exercises"],
         "content": {
             "uid": "1665@1",
             "number": 1665,
@@ -291,6 +294,7 @@
     }, {
         "id": "1619",
         "url": "https://exercises-dev.openstax.org/exercises/1666@1",
+        "pool_types": ["practice_widget", "all_exercises"],
         "content": {
             "uid": "1666@1",
             "number": 1666,
@@ -385,6 +389,7 @@
     }, {
         "id": "1620",
         "url": "https://exercises-dev.openstax.org/exercises/1667@1",
+        "pool_types": ["practice_widget", "all_exercises"],
         "content": {
             "uid": "1667@1",
             "number": 1667,
