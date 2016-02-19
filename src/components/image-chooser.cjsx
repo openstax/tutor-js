@@ -11,14 +11,10 @@ ImageChooser = React.createClass
     exerciseId: React.PropTypes.string
 
   getInitialState: ->
-
     ex = ExerciseStore.get(@props.exerciseId)
-    console.log ex.attachments
-    {asset: _.first(ex.attachments)}
-
-  # TBD
-  # componentWillMount:   -> ExerciseStore.on('saved',  @saveImage)
-  # componentWillUnmount: -> ExerciseStore.off('saved', @saveImage)
+    # TODO: Maybe we want to support multiple?
+    # If so this component should be passed the asset to update
+    {asset: _.first(ex.attachments)?.asset}
 
   updateUploadStatus: (status) ->
     if status.error
@@ -33,7 +29,7 @@ ImageChooser = React.createClass
 
   uploadImage: ->
     return unless @state.file
-    number = ExerciseStore.getNumber(@props.exerciseId)
+    number = ExerciseStore.getId(@props.exerciseId)
     api.uploadExerciseImage(number, @state.file, @updateUploadStatus)
     @setState(progress: 0)
 
@@ -58,7 +54,7 @@ ImageChooser = React.createClass
       ![Medium](#{@state.asset.medium.url} "Optional title")
       ![Small](#{@state.asset.small.url}   "Optional title")
     """
-    <textarea value={markdown} readOnly />
+    <textarea value={markdown} readOnly className="markdown" />
 
   renderUploadBtn: ->
     return unless @state.imageData and not @state.progress
