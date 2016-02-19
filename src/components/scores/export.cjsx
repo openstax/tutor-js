@@ -19,7 +19,6 @@ ScoresExport = React.createClass
 
   getInitialState: ->
     downloadUrl: null
-    forceDownloadUrl: null
     lastExported: null
     tryToDownload: false
     downloadedSinceLoad: false
@@ -32,9 +31,6 @@ ScoresExport = React.createClass
   componentWillMount: ->
     {courseId} = @props
     ScoresExportActions.load(courseId)
-
-  componentDidUpdate: (prevProps, prevState) ->
-    @setState(forceDownloadUrl: @state.downloadUrl) if @shouldTriggerDownload(prevState, @state)
 
   shouldTriggerDownload: (prevState, currentState) ->
     prevState.tryToDownload and not currentState.tryToDownload and not currentState.downloadHasError and currentState.downloadUrl?
@@ -90,7 +86,6 @@ ScoresExport = React.createClass
     invalidDownloadState =
       tryToDownload: false
       downloadHasError: true
-      forceDownloadUrl: null
 
     invalidDownloadState.downloadUrl = null if @state.downloadUrl is downloadUrl
 
@@ -101,12 +96,12 @@ ScoresExport = React.createClass
       tryToDownload: false
       downloadUrl: downloadUrl
       lastExported: lastExported
-      forceDownloadUrl: null
 
     @setState(downloadState)
+    @downloadCurrentExport(downloadUrl)
 
-  downloadCurrentExport: ->
-    @setState(tryToDownload: true, downloadedSinceLoad: true)
+  downloadCurrentExport: (url) ->
+    document.getElementById('downloadExport').src = url;
 
   addBindListener: ->
     {courseId} = @props
@@ -120,11 +115,10 @@ ScoresExport = React.createClass
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported, downloadedSinceLoad, downloadHasError, tryToDownload, forceDownloadUrl} = @state
+    {downloadUrl, lastExported, downloadHasError, tryToDownload} = @state
 
     className += ' export-button'
     actionButtonClass = 'primary'
-    actionButtonClass = 'default' if downloadedSinceLoad
 
     failedProps =
       beforeText: 'There was a problem exporting. '
@@ -138,15 +132,8 @@ ScoresExport = React.createClass
         failedProps={failedProps}
         isJob={true}
         waitingText='Generating Export…'>
-        Generate Export
+        Export
       </AsyncButton>
-
-    if forceDownloadUrl?
-      actionButton =
-        <BS.Button
-          bsStyle={actionButtonClass}
-          href={forceDownloadUrl}
-          onClick={@downloadCurrentExport}>Download Export</BS.Button>
 
     if lastExported? and not downloadHasError
       lastExportedTime = <i>
@@ -160,7 +147,7 @@ ScoresExport = React.createClass
       <div className='export-button-buttons'>
         {actionButton}
       </div>
-      {lastExportedLabel}
+      <iframe id="downloadExport"></iframe>
     </span>
 
 module.exports = ScoresExport
