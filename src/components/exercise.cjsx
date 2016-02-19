@@ -75,11 +75,11 @@ module.exports = React.createClass
     <div>
       <div>
         <label>Exercise Number</label>: {ExerciseStore.getNumber(id)}
+        <ImageChooser exerciseId={id} />
       </div><div>
         <label>Exercise Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
         </textarea>
-        <ImageChooser exerciseId={id} />
       </div>
       {questions}
       <div>
