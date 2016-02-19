@@ -91,18 +91,19 @@ start = ->
     payload: obj
 
 uploadExerciseImage = (exerciseId, image, cb) ->
-  url = "/api/exercises/#{exerciseId}/save-image"
+  url = "/api/exercises/#{exerciseId}/save_image"
   xhr = new XMLHttpRequest()
+  xhr.addEventListener 'load', (req) ->
+    cb(if req.currentTarget.status is 201
+      {response: JSON.parse(req.target.response), progress: 100}
+    else
+      {error: req.currentTarget.statusText})
+  xhr.addEventListener 'progress', (ev) ->
+    cb({progress: (ev.total / (ev.total or image.size) * 100) })
   xhr.open('POST', url, true)
-  xhr.onload = ->
-    cb(if p.currentTarget.status is 200 then {progress: 100} else {error: p.currentTarget.status})
-  xhr.onprogress = (ev) ->
-    cb(progress: ev)
-
+  xhr.setRequestHeader('X-CSRF-Token', CSRF_Token)
   form = new FormData()
   form.append("image", image, image.name)
-  form.append("id",    exerciseId)
-  form.append("type",  file.type)
   xhr.send(form)
 
 module.exports = {start, uploadExerciseImage}
