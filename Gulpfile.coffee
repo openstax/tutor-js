@@ -53,9 +53,9 @@ gulp.task '_buildFull', _.partial(gulpWebpack, 'fullBuild')
 gulp.task '_buildFullMin', _.partial(gulpWebpack, 'fullBuild.min')
 gulp.task '_buildDemo', _.partial(gulpWebpack, 'demo')
 
-gulp.task '_build', ['_cleanDist', '_buildMain', '_buildMainMin', '_buildFull', '_buildFullMin']
+gulp.task 'build', ['_cleanDist', '_buildMain', '_buildMainMin', '_buildFull', '_buildFullMin']
 
-gulp.task '_tagRev', ['_build'], ->
+gulp.task '_tagRev', ['build'], ->
   gulp.src("#{DIST_DIR}/*.min.*")
     .pipe(rev())
     .pipe(gulp.dest(DIST_DIR))
@@ -128,3 +128,5 @@ gulp.task 'testrunner', ->
 gulp.task 'tdd', ['_cleanDist', '_webserver', 'testrunner']
 
 gulp.task 'demo', ['_buildDemo']
+
+gulp.task 'release', ['build', 'demo']
