@@ -12,12 +12,31 @@
     &:extend(.btn);
     &:extend(.btn-default);
   }
-  &.with-image label.selector {
+  &.with-image .controls {
     position: absolute;
     top: 5px;
     right: 5px;
     z-index: 2;
-    box-shadow: 0 8px 6px -6px black;
+    > * {
+      margin-left: 0.25rem;
+      box-shadow: 0 8px 6px -6px black;
+    }
+  }
+  textarea {
+    position: absolute;
+    height: 130px;
+    max-height: 80%;
+    width: calc(100% - 20px);
+    background: white;
+    left: 10px;
+    bottom: 10px;
+    margin-bottom: 0;
+  }
+  .progress {
+    position: absolute;
+    bottom: 0px;
+    left: 5%;
+    width: 90%;
   }
   img {
     height: auto;
