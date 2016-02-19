@@ -10,37 +10,77 @@ ImageChooser = React.createClass
   propTypes:
     exerciseId: React.PropTypes.string
 
-  getInitialState: -> {}
+  getInitialState: ->
+
+    ex = ExerciseStore.get(@props.exerciseId)
+    console.log ex.attachments
+    {asset: _.first(ex.attachments)}
+
+  # TBD
+  # componentWillMount:   -> ExerciseStore.on('saved',  @saveImage)
+  # componentWillUnmount: -> ExerciseStore.off('saved', @saveImage)
+
+  updateUploadStatus: (status) ->
+    if status.error
+      @setState(error: status.error)
+    if status.progress?
+      @setState(progress: status.progress, error: false)
+    if status.response # 100%, we're done
+      _.delay =>
+        # N.B. replaceState, not setState.
+        @replaceState(asset: status.response.asset)
+      , 500 # wait a 1/2 second then display
 
   uploadImage: ->
     return unless @state.file
-    api.uploadExerciseImage(@props.exerciseId, @state.file, (status) ->
-      console.log status
-    )
+    number = ExerciseStore.getNumber(@props.exerciseId)
+    api.uploadExerciseImage(number, @state.file, @updateUploadStatus)
+    @setState(progress: 0)
+
+  renderUploadStatus: ->
+    return unless @state.progress
+    <BS.ProgressBar now={@state.progress} />
 
   onImageChange: (ev) ->
     ev.preventDefault()
     file = ev.target.files[0]
     reader = new FileReader()
     reader.onloadend = =>
-      ExerciseActions.updateImage(@props.exerciseId, reader.result)
-
-      @setState({file, imageData: reader.result})
+      @setState({file, imageData: reader.result, asset: null})
     reader.readAsDataURL(file)
 
+  renderTextCopyNPaste: ->
+    return unless @state.asset
+    console.log @state.asset
+    markdown = """
+      ![Image](#{@state.asset.url}         "Optional title")
+      ![Large](#{@state.asset.large.url}   "Optional title")
+      ![Medium](#{@state.asset.medium.url} "Optional title")
+      ![Small](#{@state.asset.small.url}   "Optional title")
+    """
+    <textarea value={markdown} readOnly />
+
+  renderUploadBtn: ->
+    return unless @state.imageData and not @state.progress
+    <BS.Button onClick={@uploadImage}>Upload</BS.Button>
+
   render: ->
-    imageSrc = @state.imageData or @props.url
+    imageSrc = @state.imageData or @state.asset?.large.url
     image = <img className="preview" src={imageSrc} /> if imageSrc
     classNames = classnames('image-chooser', {
       'with-image': image
     })
     <div className={classNames}>
       {image}
-      <label className="selector">
-        {if image then 'Choose different image' else 'Choose Image'}
-        <input id='file' className="file" type="file" onChange={@onImageChange} />
-      </label>
-      <BS.Button onClick={@uploadImage}>Save</BS.Button>
+      <div className="controls">
+        <label className="selector">
+          {if image then 'Choose different image' else 'Choose Image'}
+          <input id='file' className="file" type="file" onChange={@onImageChange} />
+        </label>
+        {@renderUploadBtn()}
+      </div>
+      {@renderTextCopyNPaste()}
+      {@renderUploadStatus()}
     </div>
 
 module.exports = ImageChooser
