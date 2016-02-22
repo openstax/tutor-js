@@ -82,7 +82,7 @@ CoursePeriodsNav = React.createClass
     {afterTabsItem} = @props
     periodsItems = _.map(sortedPeriods, @renderPeriod)
 
-    <BS.Nav ref='tabBar' bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
+    <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
       {periodsItems}
       {afterTabsItem?()}
     </BS.Nav>
