@@ -25,8 +25,6 @@ COMMON_ELEMENTS =
     css: '.nav-tabs li:nth-child(2)'
   displayAs:
     css: '.filter-item:nth-child(1) .filter-group .btn:nth-child(2)'
-  basedOn:
-    css: '.filter-item:nth-child(2) .filter-group .btn:nth-child(2)'
   scoreCell:
     css: '.cc-cell a.score'
   averageLabel:
