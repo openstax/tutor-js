@@ -6,7 +6,6 @@ camelCase = require 'camelcase'
 
 {CourseActions, CourseStore} = require '../flux/course'
 PeriodHelper = require '../helpers/period'
-{ResizeListenerMixin} = require 'openstax-react-components'
 
 CoursePeriodsNav = React.createClass
   displayName: 'CoursePeriodsNav'
@@ -19,7 +18,6 @@ CoursePeriodsNav = React.createClass
     periods: React.PropTypes.array.isRequired
     afterTabsItem: React.PropTypes.func
 
-  mixins: [ResizeListenerMixin]
 
   getDefaultProps: ->
     initialActive: 0
@@ -27,23 +25,6 @@ CoursePeriodsNav = React.createClass
 
   getInitialState: ->
     active: @props.initialActive
-    maxTabWidth: 100
-    tabWidth: 100
-
-  componentDidMount: ->
-    @sizeTabs()
-
-  _resizeListener: ->
-    @sizeTabs()
-
-  sizeTabs: ->
-    {maxTabWidth} = @props
-    count = @state.sortedPeriods.length
-    bar = React.findDOMNode(@refs.tabBar)
-    scale = (bar.clientWidth / 2) / count
-    width =
-      if scale > maxTabWidth then maxTabWidth else scale
-    @setState({tabWidth: width})
 
   componentWillMount: ->
     @setSortedPeriods(@props.periods)
@@ -91,7 +72,7 @@ CoursePeriodsNav = React.createClass
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
-          <span style={{maxWidth: @state.tabWidth + 'px'}}>{period.name}</span>
+          <span>{period.name}</span>
         </BS.OverlayTrigger>
     </BS.NavItem>
     
