@@ -101,8 +101,10 @@ ExerciseConfig =
         section.toString() is topic_chapter_section.toString()
       )
 
-    hasQuestionWithFormat: (exercise, format) ->
-      !!_.detect exercise?.content.questions, (q) -> _.include(q.formats, format)
+    # Searches for the given format in either an exercise or it's content
+    hasQuestionWithFormat: (format, {exercise, content}) ->
+      content = exercise.content unless content?
+      !!_.detect content.questions, (q) -> _.include(q.formats, format)
 
     getPagePoolTypes: (pageId) ->
       types = _.unique _.flatten _.pluck @_exercises[pageId], 'pool_types'
