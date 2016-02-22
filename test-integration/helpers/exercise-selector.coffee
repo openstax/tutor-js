@@ -32,7 +32,7 @@ class ExerciseSelector extends TestHelper
     testElementLocator ?= css: '.add-exercise-list'
     super test, testElementLocator, EXERCISE_SELECTOR_ELEMENTS, defaultWaitTime: 3000
 
-  selectExercises: (numExercises) ->
+  selectNumberOfExercises: (numExercises) ->
     _.times numExercises, =>
       @el.inactiveExerciseCard.click()
 

@@ -249,7 +249,7 @@ class TaskPlanBuilder extends TestHelper
 
     if numExercises
       @el.selectReadingsList.showProblems() #click on show problems
-      @addExercises(numExercises) #add exercises
+      @selectNumberOfExercises(numExercises) #add exercises
       @startReview() #start review
 
     switch action
@@ -258,9 +258,9 @@ class TaskPlanBuilder extends TestHelper
       when 'CANCEL' then @cancel()
       when 'DELETE' then @delete()
 
-  addExercises: (numExercises=4) ->
+  selectNumberOfExercises: (numExercises=4) ->
     @el.exerciseSelector.waitUntilLoaded()
-    @el.exerciseSelector.selectExercises(numExercises)
+    @el.exerciseSelector.selectNumberOfExercises(numExercises)
 
   verifySelectedExercises: (numExercises) ->
     @el.selectedExercises.findElements().then (els) ->
