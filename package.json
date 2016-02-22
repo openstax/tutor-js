@@ -4,8 +4,9 @@
   "description": "Client for OpenStax Tutor",
   "main": "index.js",
   "scripts": {
-    "ci": "gulp coverage",
-    "test": "gulp coverage",
+    "ci": "npm run test",
+    "test": "npm run coverage",
+    "precoverage": "npm run validate",
     "coverage": "gulp coverage",
     "build": "gulp build",
     "build-archive": "gulp build-archive",
@@ -15,6 +16,8 @@
     "test-integration": "./scripts/run-test-integration.sh",
     "posttest-integration": "istanbul report --include ./coverage-selenium.json json --dir ./coverage/ lcov",
     "lint-cjsx": "./scripts/lint-cjsx-files.sh",
+    "validate": "node ./scripts/validate-package-json.js",
+    "prestart": "npm run validate",
     "start": "gulp dev"
   },
   "repository": {
