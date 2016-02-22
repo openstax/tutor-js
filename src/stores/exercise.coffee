@@ -8,6 +8,8 @@ cascadeLoad = (obj, exerciseId) ->
     QuestionActions.loaded(question, question.id)
   obj
 
+EmptyFn = -> ''
+
 ExerciseConfig = {
   _loaded: cascadeLoad
   _asyncStatusPublish: {}
@@ -36,15 +38,28 @@ ExerciseConfig = {
     @_asyncStatusPublish[id] = true
     @emitChange()
 
+  deleteAttachment: EmptyFn
+
+  attachmentDeleted: (resp, exerciseUid, attachmentId) ->
+    exercise = _.findWhere(@_local, {uid: exerciseUid})
+    exercise.attachments = _.reject exercise.attachments, (attachment) -> attachment.id is attachmentId
+    @emitChange()
+
+
+  attachmentUploaded: (uid, attachment) ->
+    exercise = _.findWhere(@_local, {uid})
+    exercise.attachments.push(attachment)
+    @emitChange()
+
   exports:
     getQuestions: (id) -> @_local[id].questions
 
     getId: (id) -> @_local[id].uid
-    
+
     getNumber: (id) -> @_local[id].number
-    
+
     getStimulus: (id) -> @_local[id].stimulus_html
-    
+
     getTags: (id) -> @_local[id].tags
 
     getPublishedDate: (id) -> @_local[id].published_at
@@ -58,4 +73,3 @@ extendConfig(ExerciseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(ExerciseConfig)
 
 module.exports = {ExerciseActions:actions, ExerciseStore:store}
-

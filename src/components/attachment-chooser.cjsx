@@ -5,16 +5,12 @@ classnames = require 'classnames'
 api = require '../api'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
-ImageChooser = React.createClass
+AttachmentChooser = React.createClass
 
   propTypes:
-    exerciseId: React.PropTypes.string
+    exerciseUid: React.PropTypes.string.isRequired
 
-  getInitialState: ->
-    ex = ExerciseStore.get(@props.exerciseId)
-    # TODO: Maybe we want to support multiple?
-    # If so this component should be passed the asset to update
-    {asset: _.first(ex.attachments)?.asset}
+  getInitialState: -> {}
 
   updateUploadStatus: (status) ->
     if status.error
@@ -22,15 +18,11 @@ ImageChooser = React.createClass
     if status.progress?
       @setState(progress: status.progress, error: false)
     if status.response # 100%, we're done
-      _.delay =>
-        # N.B. replaceState, not setState.
-        @replaceState(asset: status.response.asset)
-      , 500 # wait a 1/2 second then display
+      @replaceState({}) # <- N.B. replaceState, not setState.
 
   uploadImage: ->
     return unless @state.file
-    number = ExerciseStore.getId(@props.exerciseId)
-    api.uploadExerciseImage(number, @state.file, @updateUploadStatus)
+    api.uploadExerciseImage(@props.exerciseUid, @state.file, @updateUploadStatus)
     @setState(progress: 0)
 
   renderUploadStatus: ->
@@ -45,38 +37,26 @@ ImageChooser = React.createClass
       @setState({file, imageData: reader.result, asset: null})
     reader.readAsDataURL(file)
 
-  renderTextCopyNPaste: ->
-    return unless @state.asset
-    console.log @state.asset
-    markdown = """
-      ![Image](#{@state.asset.url}         "Optional title")
-      ![Large](#{@state.asset.large.url}   "Optional title")
-      ![Medium](#{@state.asset.medium.url} "Optional title")
-      ![Small](#{@state.asset.small.url}   "Optional title")
-    """
-    <textarea value={markdown} readOnly className="markdown" />
 
   renderUploadBtn: ->
     return unless @state.imageData and not @state.progress
     <BS.Button onClick={@uploadImage}>Upload</BS.Button>
 
   render: ->
-    imageSrc = @state.imageData or @state.asset?.large.url
-    image = <img className="preview" src={imageSrc} /> if imageSrc
-    classNames = classnames('image-chooser', {
+    image = <img className="preview" src={@state.imageData} /> if @state.imageData
+    classNames = classnames('attachment', {
       'with-image': image
     })
     <div className={classNames}>
       {image}
       <div className="controls">
         <label className="selector">
-          {if image then 'Choose different image' else 'Choose Image'}
+          {if image then 'Choose different image' else 'Add new image'}
           <input id='file' className="file" type="file" onChange={@onImageChange} />
         </label>
         {@renderUploadBtn()}
       </div>
-      {@renderTextCopyNPaste()}
       {@renderUploadStatus()}
     </div>
 
-module.exports = ImageChooser
+module.exports = AttachmentChooser

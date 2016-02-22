@@ -90,12 +90,21 @@ start = ->
     httpMethod: 'PUT'
     payload: obj
 
-uploadExerciseImage = (exerciseId, image, cb) ->
-  url = "/api/exercises/#{exerciseId}/save_image"
+  apiHelper ExerciseActions, ExerciseActions.deleteAttachment, ExerciseActions.attachmentDeleted, 'DELETE',
+  (exerciseUid, attachmentId) ->
+    url: "/api/exercises/#{exerciseUid}/attachments/#{attachmentId}"
+    httpMethod: 'DELETE'
+
+
+
+uploadExerciseImage = (exerciseUid, image, cb) ->
+  url = "/api/exercises/#{exerciseUid}/attachments"
   xhr = new XMLHttpRequest()
   xhr.addEventListener 'load', (req) ->
     cb(if req.currentTarget.status is 201
-      {response: JSON.parse(req.target.response), progress: 100}
+      attachment = JSON.parse(req.target.response)
+      ExerciseActions.attachmentUploaded(exerciseUid, attachment)
+      {response: attachment, progress: 100}
     else
       {error: req.currentTarget.statusText})
   xhr.addEventListener 'progress', (ev) ->
