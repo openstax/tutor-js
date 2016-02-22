@@ -19,6 +19,7 @@ ScoresExport = React.createClass
 
   getInitialState: ->
     downloadUrl: null
+    finalDownloadUrl: null
     lastExported: null
     tryToDownload: false
     downloadedSinceLoad: false
@@ -31,6 +32,9 @@ ScoresExport = React.createClass
   componentWillMount: ->
     {courseId} = @props
     ScoresExportActions.load(courseId)
+
+  componentDidUpdate: (prevProps, prevState) ->
+    @setState(finalDownloadUrl: @state.downloadUrl) if @shouldTriggerDownload(prevState, @state)
 
   shouldTriggerDownload: (prevState, currentState) ->
     prevState.tryToDownload and not currentState.tryToDownload and not currentState.downloadHasError and currentState.downloadUrl?
@@ -86,6 +90,7 @@ ScoresExport = React.createClass
     invalidDownloadState =
       tryToDownload: false
       downloadHasError: true
+      finalDownloadUrl: null
 
     invalidDownloadState.downloadUrl = null if @state.downloadUrl is downloadUrl
 
@@ -96,12 +101,9 @@ ScoresExport = React.createClass
       tryToDownload: false
       downloadUrl: downloadUrl
       lastExported: lastExported
+      finalDownloadUrl: null
 
     @setState(downloadState)
-    @downloadCurrentExport(downloadUrl)
-
-  downloadCurrentExport: (url) ->
-    document.getElementById('downloadExport').src = url;
 
   addBindListener: ->
     {courseId} = @props
@@ -115,7 +117,7 @@ ScoresExport = React.createClass
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported, downloadHasError, tryToDownload} = @state
+    {downloadUrl, lastExported, downloadHasError, tryToDownload, finalDownloadUrl} = @state
 
     className += ' export-button'
     actionButtonClass = 'primary'
@@ -135,19 +137,11 @@ ScoresExport = React.createClass
         Export
       </AsyncButton>
 
-    if lastExported? and not downloadHasError
-      lastExportedTime = <i>
-        <TimeDifference date={lastExported}/>
-      </i>
-      lastExportedLabel = <small className='export-button-time pull-right'>
-        Last exported {lastExportedTime}
-      </small>
-
     <span className={className}>
       <div className='export-button-buttons'>
         {actionButton}
       </div>
-      <iframe id="downloadExport"></iframe>
+      <iframe id="downloadExport" src={finalDownloadUrl}></iframe>
     </span>
 
 module.exports = ScoresExport
