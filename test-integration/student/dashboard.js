@@ -1,4 +1,4 @@
-import {describe, CourseSelect, Calendar, ReadingBuilder, StudentDashboard, User, freshId} from '../helpers';
+import {describe, CourseSelect, Calendar, TaskPlanBuilder, StudentDashboard, User, freshId} from '../helpers';
 import {expect} from 'chai';
 import _ from 'underscore'
 
@@ -26,7 +26,7 @@ describe('Student Dashboard', function(){
     this.courseSelect.goToCourseByName('Biology I');
     const calendar = new Calendar.CalendarHelper(this);
     calendar.createNew('READING');
-    const reading = new ReadingBuilder(this);
+    const reading = new TaskPlanBuilder(this);
 
     reading.edit({
       name: title,

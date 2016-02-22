@@ -1,4 +1,4 @@
-{describe, CourseSelect, User, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, User, Calendar, TaskPlanBuilder} = require '../helpers'
 
 {expect} = require 'chai'
 
@@ -19,7 +19,7 @@ describe 'Draft Tests', ->
     new CourseSelect(@).goTo('ANY')
     @calendar = new CalendarHelper(@)
     @calendar.createNew('READING')
-    @reading = new ReadingBuilder(@)
+    @reading = new TaskPlanBuilder(@)
 
 
   @it 'Shows Validation Error when saving a blank Reading, Homework, and External (idempotent)', ->

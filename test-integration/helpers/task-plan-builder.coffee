@@ -2,6 +2,8 @@ selenium = require 'selenium-webdriver'
 Calendar = require './calendar'
 SelectReadingsList = require './select-readings-dialog'
 UnsavedDialog = require './unsaved-dialog'
+ExerciseSelector = require './exercise-selector'
+{expect} = require 'chai'
 
 {TestHelper} = require './test-element'
 
@@ -38,6 +40,20 @@ COMMON_ELEMENTS =
     css: '.dialog:not(.hide) .-show-problems:not([disabled])'
   disabledAddReadingsButton:
     css: '.dialog:not(.hide) .-show-problems[disabled]'
+
+  selectProblemsBtn:
+    css: '#problems-select'
+  selectedExercises:
+    css: '.card.exercise.panel'
+  numExercisesSelected:
+    css: '.exercise-summary .num-selected h2'
+
+  tutorSelections:
+    css: '.exercise-summary .tutor-selections h2'
+  addTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-up'
+  removeTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-down'
 
   deleteButton:
     css: '.dialog:not(.hide) .async-button.delete-link'
@@ -89,11 +105,12 @@ COMMON_ELEMENTS.anyPlan =
 # Helper methods for dealing with the Reading Assignment Builder
 # TODO this could probably be made into a BuilderHelper that extends the TestHelper
 # and then the ReadingBuilder and HomeworkBuilder can extend the BuilderHelper
-class ReadingBuilder extends TestHelper
+class TaskPlanBuilder extends TestHelper
 
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: '.task-plan.reading-plan'
+    testElementLocator ?= css: '.task-plan'
     super test, testElementLocator, COMMON_ELEMENTS
+    @setCommonHelper('exerciseSelector', new ExerciseSelector(@test))
     @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
     @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
 
@@ -137,6 +154,10 @@ class ReadingBuilder extends TestHelper
 
   openSelectReadingList: =>
     @el.selectReadingsButton.click()
+    @el.selectReadingsList.waitUntilLoaded()
+
+  openSelectProblems: =>
+    @el.selectProblemsBtn.click()
     @el.selectReadingsList.waitUntilLoaded()
 
   hasError: (type) =>
@@ -197,7 +218,7 @@ class ReadingBuilder extends TestHelper
   #   ]
   #   sections: ['1.1', '2.4']
   #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
-  edit: ({name, description, opensAt, dueAt, sections, action, verifyAddReadingsDisabled}) ->
+  edit: ({name, description, opensAt, dueAt, sections, action, numExercises, verifyAddReadingsDisabled}) ->
     # Just confirm the plan is actually open
     # Under selenium, a seemingly invisible .is-loading element is present and
     # hangs around for quite awhile.  Bump the wait time up to 4 seconds to work around
@@ -207,7 +228,11 @@ class ReadingBuilder extends TestHelper
 
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
-      @openSelectReadingList()
+      if numExercises
+        @openSelectProblems()
+      else
+        @openSelectReadingList()
+
       # Make sure nav bar does not cover buttons
       @test.utils.windowPosition.scrollTop()
 
@@ -217,10 +242,15 @@ class ReadingBuilder extends TestHelper
         # Verify "Add Readings" is disabled and click Cancel
         @el.disabledAddReadingsButton.isPresent().then (isDisplayed) =>
           @cancel() if isDisplayed
-      else
+      else if not numExercises
         # Click "Add Readings"
         @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
         @el.addReadingsButton.waitClick()
+
+    if numExercises
+      @el.selectReadingsList.showProblems() #click on show problems
+      @addExercises(numExercises) #add exercises
+      @startReview() #start review
 
     switch action
       when 'PUBLISH' then @publish(name)
@@ -228,5 +258,30 @@ class ReadingBuilder extends TestHelper
       when 'CANCEL' then @cancel()
       when 'DELETE' then @delete()
 
+  addExercises: (numExercises=4) ->
+    @el.exerciseSelector.waitUntilLoaded()
+    @el.exerciseSelector.selectExercises(numExercises)
 
-module.exports = ReadingBuilder
+  verifySelectedExercises: (numExercises) ->
+    @el.selectedExercises.findElements().then (els) ->
+      expect(numExercises).to.be.equal(els.length)
+
+    @el.numExercisesSelected.findElement().getText().then (text) ->
+      expect(numExercises).to.be.equal(parseInt(text))
+
+  verifyTutorSelection: (num) ->
+    @el.tutorSelections.findElement().getText().then (text) ->
+      expect(num).to.be.equal(parseInt(text))
+
+  startReview: ->
+    @el.exerciseSelector.startReview()
+    @test.utils.wait.for(css: '.exercise-table')
+
+  addTutorSelection: () ->
+    @el.addTutorSelection.click()
+
+  removeTutorSelection: () ->
+    @el.removeTutorSelection.click()
+
+
+module.exports = TaskPlanBuilder

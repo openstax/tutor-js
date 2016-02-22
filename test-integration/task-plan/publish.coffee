@@ -1,4 +1,4 @@
-{describe, CourseSelect, User, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, User, Calendar, TaskPlanBuilder} = require '../helpers'
 {expect} = require 'chai'
 
 TEACHER_USERNAME = 'teacher01'
@@ -17,7 +17,7 @@ describe 'Assignment Publishing Tests', ->
     @calendar = new CalendarHelper(@)
     @calendar.createNew('READING')
 
-    @reading = new ReadingBuilder(@)
+    @reading = new TaskPlanBuilder(@)
 
   @it 'Sets the name of an reading', ->
     @reading.setName(@title)

@@ -1,4 +1,4 @@
-{describe, CourseSelect, forEach, Calendar, User, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, forEach, Calendar, User, TaskPlanBuilder} = require '../helpers'
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
@@ -13,7 +13,7 @@ describe 'Assignment Cleanup', ->
     new CourseSelect(@).goTo('ANY')
 
     @calendar = new CalendarHelper(@)
-    @reading = new ReadingBuilder(@)
+    @reading = new TaskPlanBuilder(@)
 
     @calendar.waitUntilLoaded()
 

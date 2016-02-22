@@ -3,8 +3,7 @@
 module.exports =
 
   Calendar         : require './calendar'
-  ReadingBuilder   : require './reading-builder'
-  HomeworkBuilder  : require './homework-builder'
+  TaskPlanBuilder  : require './task-plan-builder'
   CourseSelect     : require './course-select'
   CCDashboard      : require './cc-dashboard'
   StudentDashboard : require './student-dashboard'

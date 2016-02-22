@@ -1,4 +1,4 @@
-{describe, User, CourseSelect, Calendar, ReadingBuilder, Scores} = require './helpers'
+{describe, User, CourseSelect, Calendar, Scores} = require './helpers'
 {expect} = require 'chai'
 _ = require 'underscore'
 

@@ -3,6 +3,9 @@
 OPENED_PANEL_SELECTOR = '.dialog:not(.hide)'
 
 COMMON_SELECT_READING_ELEMENTS =
+  showProblemsBtn:
+    css: '.homework-plan-exercise-select-topics button.-show-problems'
+
   sectionItem: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section}']"
   chapterHeadingSelectAll: (section) ->
@@ -40,5 +43,7 @@ class SelectReadingsList extends TestHelper
         section = "#{section}" # Ensure the section is a string so we can split it
         @selectSection(section)
 
+  showProblems: ->
+    @el.showProblemsBtn.click()
 
 module.exports = SelectReadingsList
