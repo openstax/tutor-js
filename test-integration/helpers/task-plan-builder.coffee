@@ -1,6 +1,6 @@
 selenium = require 'selenium-webdriver'
 Calendar = require './calendar'
-SelectReadingsList = require './select-readings-dialog'
+SelectSectionsList = require './select-readings-dialog'
 UnsavedDialog = require './unsaved-dialog'
 ExerciseSelector = require './exercise-selector'
 {expect} = require 'chai'
@@ -34,8 +34,8 @@ COMMON_ELEMENTS =
   externalPlan:
     css: '.external-plan'
 
-  selectReadingsButton:
-    css: '#reading-select'
+  selectSectionsButton:
+    css: '.-select-sections-btn'
   addReadingsButton:
     css: '.dialog:not(.hide) .-show-problems:not([disabled])'
   disabledAddReadingsButton:
@@ -110,9 +110,9 @@ class TaskPlanBuilder extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: '.task-plan'
     super test, testElementLocator, COMMON_ELEMENTS
-    @setCommonHelper('exerciseSelector', new ExerciseSelector(@test))
-    @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
-    @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
+    @_exerciseSelector = new ExerciseSelector(@test)
+    @_selectSectionsHelper = new SelectSectionsList(@test)
+    @_unsavedDialog = new UnsavedDialog(@test)
 
   waitUntilLoaded: (ms) =>
     super(ms)
@@ -152,13 +152,9 @@ class TaskPlanBuilder extends TestHelper
   getNameValue: =>
     @el.name.get().getAttribute('value')
 
-  openSelectReadingList: =>
-    @el.selectReadingsButton.click()
-    @el.selectReadingsList.waitUntilLoaded()
-
-  openSelectProblems: =>
-    @el.selectProblemsBtn.click()
-    @el.selectReadingsList.waitUntilLoaded()
+  openSelectSections: =>
+    @el.selectSectionsButton.click()
+    @_selectSectionsHelper.waitUntilLoaded()
 
   hasError: (type) =>
     @el.hasErrorWarning(type).get().isDisplayed()
@@ -193,7 +189,7 @@ class TaskPlanBuilder extends TestHelper
     @el.cancelButton.click()
     # BUG: Should not prompt when canceling
     # Confirm the "Unsaved Changes" dialog
-    @el.unsavedDialog.close()
+    @_unsavedDialog.close()
     Calendar.verify(@test)
 
   delete: =>
@@ -228,27 +224,23 @@ class TaskPlanBuilder extends TestHelper
 
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
-      if numExercises
-        @openSelectProblems()
-      else
-        @openSelectReadingList()
+      @openSelectSections()
 
       # Make sure nav bar does not cover buttons
       @test.utils.windowPosition.scrollTop()
 
-      @el.selectReadingsList.selectSections(sections)
+      @_selectSectionsHelper.selectSections(sections)
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
         @el.disabledAddReadingsButton.isPresent().then (isDisplayed) =>
           @cancel() if isDisplayed
-      else if not numExercises
+      else
         # Click "Add Readings"
         @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
-        @el.addReadingsButton.waitClick()
+        @_selectSectionsHelper.nextStep() #click on show problems
 
     if numExercises
-      @el.selectReadingsList.showProblems() #click on show problems
       @selectNumberOfExercises(numExercises) #add exercises
       @startReview() #start review
 
@@ -259,8 +251,8 @@ class TaskPlanBuilder extends TestHelper
       when 'DELETE' then @delete()
 
   selectNumberOfExercises: (numExercises=4) ->
-    @el.exerciseSelector.waitUntilLoaded()
-    @el.exerciseSelector.selectNumberOfExercises(numExercises)
+    @_exerciseSelector.waitUntilLoaded()
+    @_exerciseSelector.selectNumberOfExercises(numExercises)
 
   verifySelectedExercises: (numExercises) ->
     @el.selectedExercises.findElements().then (els) ->
@@ -274,7 +266,7 @@ class TaskPlanBuilder extends TestHelper
       expect(num).to.be.equal(parseInt(text))
 
   startReview: ->
-    @el.exerciseSelector.startReview()
+    @_exerciseSelector.startReview()
     @test.utils.wait.for(css: '.exercise-table')
 
   addTutorSelection: () ->
