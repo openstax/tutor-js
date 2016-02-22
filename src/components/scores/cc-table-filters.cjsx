@@ -7,15 +7,10 @@ module.exports = React.createClass
 
   propTypes:
     displayAs: React.PropTypes.string.isRequired
-    basedOn: React.PropTypes.string.isRequired
     changeDisplayAs: React.PropTypes.func.isRequired
-    changeBasedOn: React.PropTypes.func.isRequired
 
   clickDisplay: (mode) ->
     @props.changeDisplayAs(mode)
-
-  clickScore: (mode) ->
-    @props.changeBasedOn(mode)
 
   activeButton: (state, option) ->
     if state is option
@@ -33,15 +28,7 @@ module.exports = React.createClass
 
 
   render: ->
-    {displayAs, basedOn} = @props
-    # temp disable
-    basedOn =
-      <div className='filter-item'>
-        <div className='filter-label'>Score based on</div>
-        <BS.ButtonGroup className='filter-group'>
-          {@renderButtons(@clickScore, basedOn, ['possible', 'attempted'])}
-        </BS.ButtonGroup>
-      </div>
+    {displayAs} = @props
     <div className='filter-row'>
       <div className='filter-item'>
         <div className='filter-label'>Display as</div>
@@ -49,5 +36,4 @@ module.exports = React.createClass
           {@renderButtons(@clickDisplay, displayAs, ['percentage', 'number'])}
         </BS.ButtonGroup>
       </div>
-
     </div>

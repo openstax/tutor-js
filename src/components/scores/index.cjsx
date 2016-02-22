@@ -42,7 +42,6 @@ Scores = React.createClass
     # index of first column that contains data
     firstDataColumn: 1
     displayAs: 'percentage'
-    basedOn: 'possible'
 
   componentDidMount: ->
     @sizeTable()
@@ -87,9 +86,6 @@ Scores = React.createClass
 
   changeDisplayAs: (mode) ->
     @setState(displayAs: mode)
-
-  changeBasedOn: (mode) ->
-    @setState(basedOn: mode)
 
   percent: (num, total) ->
     Math.round((num / total) * 100)
@@ -148,7 +144,6 @@ Scores = React.createClass
         periodIndex={@state.periodIndex}
         firstDataColumn={@state.firstDataColumn}
         displayAs={@state.displayAs}
-        basedOn={@state.basedOn}
         dataType={@state.sort.dataType}
           />
       afterTabsItem = ->
@@ -160,9 +155,7 @@ Scores = React.createClass
       tableFilters =
         <CCTableFilters
         displayAs={@state.displayAs}
-        basedOn={@state.basedOn}
         changeDisplayAs={@changeDisplayAs}
-        changeBasedOn={@changeBasedOn}
         />
     else
       scoresTable =
