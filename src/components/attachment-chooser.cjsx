@@ -26,7 +26,7 @@ AttachmentChooser = React.createClass
     @setState(progress: 0)
 
   renderUploadStatus: ->
-    return unless @state.progress
+    return unless @state.progress?
     <BS.ProgressBar now={@state.progress} />
 
   onImageChange: (ev) ->
