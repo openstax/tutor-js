@@ -15,11 +15,13 @@ COMMON_SELECT_READING_ELEMENTS =
   loadingLocator:
     css: '.loadable.is-loading'
 
+  nextStepBtn:
+    css: '.panel-footer .btn.btn-primary'
 
 class SelectReadingsList extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: ".select-reading-dialog#{OPENED_PANEL_SELECTOR}"
-    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, defaultWaitTime: 3000
+    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, defaultWaitTime: 5000
 
   selectSection: (section) =>
     # Selecting an entire chapter requires clicking the input box
@@ -43,7 +45,7 @@ class SelectReadingsList extends TestHelper
         section = "#{section}" # Ensure the section is a string so we can split it
         @selectSection(section)
 
-  showProblems: ->
+  nextStep: ->
     @el.showProblemsBtn.click()
 
 module.exports = SelectReadingsList
