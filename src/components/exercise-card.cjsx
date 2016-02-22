@@ -15,7 +15,7 @@ ExerciseCard = React.createClass
     displayAllTags: React.PropTypes.bool
     hideAnswers: React.PropTypes.bool
     toggleExercise: React.PropTypes.func
-    className: React.PropTypes.className
+    className: React.PropTypes.string
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
