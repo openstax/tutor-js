@@ -1,4 +1,4 @@
-{describe, CourseSelect, User, Calendar, HomeworkBuilder} = require '../helpers'
+{describe, CourseSelect, User, Calendar, TaskPlanBuilder} = require '../helpers'
 {expect} = require 'chai'
 _ = require 'underscore'
 
@@ -16,28 +16,26 @@ describe 'Homework Builder', ->
     new CourseSelect(@).goTo('ANY')
     @calendar = new CalendarHelper(@)
     @calendar.createNew('HOMEWORK')
-    @homework = new HomeworkBuilder(@)
+    @homework = new TaskPlanBuilder(@)
 
   @it 'Can select exercises', ->
-    @homework.openSelectSections()
+    @homework.edit
+      name: @title
+      # opensAt: 'NOT_TODAY'
+      dueAt: 'EARLIEST'
+      sections: [1.1, 1.2, 2.1, 3, 3.1]
+      numExercises: NUM_EXERCISES
 
-    #select sections
-    @homework.addSections()
-
-    #select 4 exercises
-    @homework.addExercises(NUM_EXERCISES)
-
-    #verify exercises on review panel
-    @homework.startReview()
     @homework.verifySelectedExercises(NUM_EXERCISES)
-    @homework.closeBuilder()
+    @homework.cancel()
 
   @it 'Can update tutor selections', ->
-    @homework.openSelectSections()
-
-    @homework.addSections()
-    @homework.addExercises(NUM_EXERCISES)
-    @homework.startReview()
+    @homework.edit
+      name: @title
+      # opensAt: 'NOT_TODAY'
+      dueAt: 'EARLIEST'
+      sections: [1.1, 1.2, 2.1, 3, 3.1]
+      numExercises: NUM_EXERCISES
 
     #change amount of tutor selections
     @homework.verifyTutorSelection(3)
@@ -46,4 +44,4 @@ describe 'Homework Builder', ->
     @homework.removeTutorSelection()
     @homework.removeTutorSelection()
     @homework.verifyTutorSelection(2)
-    @homework.closeBuilder()
+    @homework.cancel()
