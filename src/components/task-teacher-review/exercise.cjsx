@@ -3,6 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 
 {ArbitraryHtmlAndMath, Question, CardBody, FreeResponse} = require 'openstax-react-components'
+{ExerciseStore} = require '../../flux/exercise'
 
 TaskTeacherReviewExercise = React.createClass
   displayName: 'TaskTeacherReviewExercise'
@@ -26,11 +27,6 @@ TaskTeacherReviewExercise = React.createClass
     {content} = @props
     # TODO: Assumes 1 question.
     content.questions[0]
-
-  expectsFreeResponse: ->
-    question = @getQuestion()
-    {formats} = question
-    formats.indexOf('free-response') > -1
 
   renderNoFreeResponse: ->
     freeResponsesClasses = 'teacher-review-answers has-no-answers'
@@ -67,7 +63,7 @@ TaskTeacherReviewExercise = React.createClass
     {answers, answered_count} = @props
     question = @getQuestion()
 
-    if @expectsFreeResponse()
+    if ExerciseStore.hasQuestionWithFormat('free-response', {content: @props.content})
       studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
 
     <CardBody className='task-step openstax-exercise' pinned={false}>
