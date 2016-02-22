@@ -1,6 +1,7 @@
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 React = require 'react'
+classnames = require 'classnames'
 {SpyMode} = require 'openstax-react-components'
 
 {ReferenceBookStore} = require '../../flux/reference-book'
@@ -48,17 +49,37 @@ QAExercises = React.createClass
     ignored[selection.id] = not ignored[selection.id]
     @setState({ignored})
 
+  on2StepPreviewChange: (ev) ->
+    @setState(isShowing2StepPreview: ev.target.checked)
+
   renderExerciseContent: (exercises) ->
-    exercises = _.map exercises, (ex) =>
-      <ExerciseCard key={ex.id} exercise={ex} ignoredPoolTypes={@state.ignored} />
+    exercises = _.map exercises, (exercise) =>
+      hideAnswers = @state.isShowing2StepPreview and
+        ExerciseStore.hasQuestionWithFormat('free-response', {exercise})
+      <ExerciseCard key={exercise.id}
+        exercise={exercise}
+        hideAnswers={hideAnswers}
+        ignoredPoolTypes={@state.ignored} />
     selections = _.map ExerciseStore.getPagePoolTypes(@state.pageId), (pt) =>
       id: pt, title: String.titleize(pt), selected: not @state.ignored[pt]
+    classNames = classnames("exercises", {
+      'show-2step': @state.isShowing2StepPreview
+    })
+    <div className={classNames} >
+      <div className="heading">
+        <label>
+          Show 2-Step Preview
+          <input type='checkbox'
+            className='preview2step'
+            checked={@state.isShowing2StepPreview}
+            onChange={@on2StepPreviewChange} />
+        </label>
+        <MultiSelect
+          title='Exercise Types'
+          selections={selections}
+          onSelect={@onSelectPoolType} />
 
-    <div className="-exercises">
-      <MultiSelect className="pull-right"
-        title='Exercise Types'
-        selections={selections}
-        onSelect={@onSelectPoolType} />
+      </div>
       {exercises}
     </div>
 

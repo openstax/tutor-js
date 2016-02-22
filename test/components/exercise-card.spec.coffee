@@ -26,3 +26,9 @@ describe 'Exercise Card Component', ->
     _.extend(@props, displayFeedback: true)
     Testing.renderComponent( ExerciseCard, props: @props ).then ({dom}) ->
       expect(dom.classList.contains('is-displaying-feedback')).to.be.true
+
+  it 'can hide the answers', ->
+    _.extend(@props, hideAnswers: true)
+    Testing.renderComponent( ExerciseCard, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.answers-table').textContent).to.be.empty
+      expect(dom.classList.contains('answers-hidden')).to.be.true
