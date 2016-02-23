@@ -137,6 +137,8 @@ ScoresExport = React.createClass
         Export
       </AsyncButton>
 
+    if finalDownloadUrl then className += ' generated'
+
     <span className={className}>
       <div className='export-button-buttons'>
         {actionButton}
