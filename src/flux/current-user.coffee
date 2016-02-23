@@ -39,6 +39,10 @@ ROUTES =
     roles:
       student: 'viewPerformanceForecast'
       teacher: 'viewTeacherPerformanceForecast'
+  questions:
+    label: 'Questions Library'
+    roles:
+      teacher: 'viewQuestionsLibrary'
   scores:
     label: 'Student Scores'
     roles:
