@@ -3,47 +3,53 @@
 With the UI helper, a spec can look like this:
 
 ```coffee
-{describe, User, CourseSelect, Calendar, ReadingBuilder} = require './helpers'
+# loading in helpers
+Helpers = require './helpers'
+{describe} = Helpers
 {expect} = require 'chai'
 
+# set constants
 TEACHER_USERNAME = 'teacher01'
+CC_HELP_LINK = 'openstaxcc.zendesk.com/hc/en-us'
 
-{CalendarHelper} = Calendar
-
-describe 'Calendar and Stats', ->
+# use loaded describe to run specs
+describe 'Concept Coach Dashboard', ->
 
   beforeEach ->
-    @user = new User(@)
-    @calendar = new CalendarHelper(@)
-    @courseSelect = new CourseSelect(@)
 
+    # load the necessary UI helpers for this spec and set them on @
+    # for easy access within tests
+    @user = new Helpers.User(@)
+    @courseSelect = new Helpers.CourseSelect(@)
+    @conceptCoach = new Helpers.CCDashboard(@)
+    @scores = new Helpers.Scores(@)
+
+    # perform other repetitive actions needed for before each test in this spec
     @user.login(TEACHER_USERNAME)
+    @courseSelect.goTo('CONCEPT_COACH')
 
-  @it 'Shows stats for all published plans (readonly)', ->
-    COURSE_CATEGORY = 'BIOLOGY'
-    @courseSelect.goTo(COURSE_CATEGORY)
-    @calendar.waitUntilLoaded()
+  @it 'Can switch periods (readonly)', ->
+    # access helper convenience methods/actions right off of the helper
+    @conceptCoach.switchPeriods()
 
-    @calendar.el.publishedPlan.forEach (plan, index, total) =>
-      console.log 'Opening', COURSE_CATEGORY, index, '/', total
-      plan.click()
-      @calendar.el.planPopup.waitUntilLoaded()
+    # each of the helper methods returns a selenium-style promise
+    @conceptCoach.getTabPeriod().then (periodId) =>
+      @conceptCoach.getDashboardPeriod().then (reactId) ->
+        expect(reactId.indexOf("period-nav-#{periodId}")).is.not.equal(-1)
 
-      @calendar.el.planPopup.isPresent().then (isPresent) ->
-        expect(isPresent).to.be.true
+  @it 'Can go to detailed scores (readonly)', ->
+    @conceptCoach.clickViewScores()
 
-      # -- advance/detailed usage --
-      popupTitle = @calendar.el.planPopup.getTitle()
-      planTitle = @calendar.getPlanTitle(plan)
+    # all helpers have a `waitUntilLoaded` function that will
+    # wait for the component to finish loading
+    @scores.waitUntilLoaded()
 
-      selenium.promise.all([popupTitle, planTitle]).then ([popupTitle, planTitle]) ->
-        expect(popupTitle).to.equal(planTitle)
-      # /-- advance/detailed usage --
+  @it 'Can display correct help link (readonly)', ->
+    # Go to the concept coach dashboard
+    @user.openHamburgerMenu()
+    @conceptCoach.getHelpLinkHref().then (href) ->
+      expect(href.indexOf(CC_HELP_LINK)).is.not.equal(-1)
 
-      @calendar.el.planPopup.el.periodReviewTab.forEach (period) ->
-        period.click()
-
-      @calendar.el.planPopup.close()
-
-    @user.goHome()
+    @conceptCoach.getHelpLinkTarget().then (target) ->
+      expect(target.toUpperCase().indexOf('_BLANK')).is.not.equal(-1)
 ```

@@ -9,7 +9,7 @@ To help with writing Selenium tests, we have two types of helpers --
       * taking screenshots...
   * **UI helpers**
     * attaches commonly useful util methods on common UI elements
-    * extend the base `TestHelper` in `./test-element.coffee`
+    * extend the base `TestHelper` in `./ui/test-element.coffee`
 
 # Guiding Principles
 
