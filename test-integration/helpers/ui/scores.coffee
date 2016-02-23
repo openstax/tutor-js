@@ -6,8 +6,6 @@ selenium = require 'selenium-webdriver'
 
 COMMON_ELEMENTS =
   ccScoresLink:
-    linkText: 'Student Scores'
-  ccScoresLink:
     linkText: 'View Detailed Scores'
   nameHeaderSort:
     css: '.header-cell.is-ascending'
@@ -37,13 +35,15 @@ COMMON_ELEMENTS =
     css: "#downloadExport[src$='.xlsx']"
   assignmentByType: (type) ->
     css: "a.scores-cell[data-assignment-type='#{type}']"
+  tableContainer: ->
+    css: '.course-scores-container'
 
 
 class Scores extends TestHelper
   constructor: (testContext, testElementLocator) ->
 
     testElementLocator ?=
-      css: '.course-scores-container'
+      css: '.scores-report'
 
     super(testContext, testElementLocator, COMMON_ELEMENTS)
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))

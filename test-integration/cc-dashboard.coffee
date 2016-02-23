@@ -17,15 +17,14 @@ describe 'Concept Coach Dashboard', ->
     @courseSelect.goToByType('CONCEPT_COACH')
 
   @it 'Can switch periods (readonly)', ->
-    @conceptCoach.switchPeriods(@)
+    @conceptCoach.switchPeriods()
 
     @conceptCoach.getTabPeriod().then (periodId) =>
       @conceptCoach.getDashboardPeriod().then (reactId) ->
         expect(reactId.indexOf("period-nav-#{periodId}")).is.not.equal(-1)
 
   @it 'Can go to detailed scores (readonly)', ->
-    @conceptCoach.clickViewScores(@)
-    @utils.wait.for(css: '.scores-report')
+    @conceptCoach.clickViewScores()
     @scores.waitUntilLoaded()
 
   @it 'Can display correct help link (readonly)', ->
