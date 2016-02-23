@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
+classnames = require 'classnames'
+
 BindStoreMixin = require '../bind-store-mixin'
 NoPeriods = require '../no-periods'
 
@@ -46,6 +48,7 @@ module.exports = React.createClass
     {is_concept_coach} = course
     periods = course.periods.length > 0
     tabs = _.map course.periods, (period, index) =>
+      className = classnames('tab-item-period', {'is-trouble': period.is_trouble})
       tooltip =
         <BS.Tooltip>
           {period.name}
@@ -56,10 +59,10 @@ module.exports = React.createClass
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
-          <span>{period.name}</span>
+          <span className='tab-item-period-name'>{period.name}</span>
         </BS.OverlayTrigger>
 
-      <BS.TabPane key={period.id}, eventKey={index} tab={name}>
+      <BS.TabPane key={period.id}, eventKey={index} tab={name} className={className}>
         <PeriodRoster
         period={period}
         courseId={@props.courseId}
@@ -69,7 +72,7 @@ module.exports = React.createClass
     enrollmentButton =
       <PeriodEnrollmentCode
       activeTab={@getActivePeriod(@state.key, course.periods)}
-      periods={course.periods} 
+      periods={course.periods}
       bookUrl={course.webview_url}
       bookName={course.salesforce_book_name} />
     renameButton =

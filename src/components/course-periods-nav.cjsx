@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 LoadableItem = require './loadable-item'
 _ = require 'underscore'
 camelCase = require 'camelcase'
+classnames = require 'classnames'
 
 {CourseActions, CourseStore} = require '../flux/course'
 PeriodHelper = require '../helpers/period'
@@ -59,12 +60,13 @@ CoursePeriodsNav = React.createClass
     @setState(active: key)
 
   renderPeriod: (period, key) ->
+    className = classnames('tab-item-period', {'is-trouble': period.is_trouble})
     tooltip =
       <BS.Tooltip>
         {period.name}
       </BS.Tooltip>
     <BS.NavItem
-      className={'is-trouble' if period.is_trouble}
+      className={className}
       eventKey={key}
       key="period-nav-#{period.id}">
         <BS.OverlayTrigger
@@ -72,10 +74,10 @@ CoursePeriodsNav = React.createClass
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
-          <span>{period.name}</span>
+          <span className='tab-item-period-name'>{period.name}</span>
         </BS.OverlayTrigger>
     </BS.NavItem>
-    
+
 
   render: ->
     {active, sortedPeriods} = @state
