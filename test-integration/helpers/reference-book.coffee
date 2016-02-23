@@ -14,7 +14,7 @@ COMMON_ELEMENTS =
     css: '.loading-exercise'
 
 
-class ReferenceBookHelper extends TestHelper
+class ReferenceBook extends TestHelper
   constructor: (test, testElementLocator) ->
     referenceBookOptions =
       loadingLocator:
@@ -38,7 +38,7 @@ class ReferenceBookHelper extends TestHelper
     @el.tocToggle.click()
 
   goNext: =>
-    # go next until old href isnt 
+    # go next until old href isnt
     @test.driver.wait =>
       oldNextHref = ''
       @el.nextPageButton.get().getAttribute('href').then (href) =>
@@ -73,4 +73,4 @@ class ReferenceBookHelper extends TestHelper
       {exercises, missingUrls}
 
 
-module.exports = {ReferenceBookHelper}
+module.exports = ReferenceBook

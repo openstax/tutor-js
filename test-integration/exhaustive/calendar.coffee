@@ -1,10 +1,9 @@
-{describe, User, CourseSelect, Calendar, ReadingBuilder} = require '../helpers'
+Helpers = require '../helpers'
+{describe} = Helpers
 {expect} = require 'chai'
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
-
-{CalendarHelper} = Calendar
 
 describe 'Calendar and Stats', ->
 
@@ -17,9 +16,9 @@ describe 'Calendar and Stats', ->
       @user.goHome()
 
   beforeEach ->
-    @user = new User(@)
-    @calendar = new CalendarHelper(@)
-    @courseSelect = new CourseSelect(@)
+    @user = new Helpers.User(@)
+    @calendar = new Helpers.Calendar(@)
+    @courseSelect = new Helpers.CourseSelect(@)
 
     @user.login(TEACHER_USERNAME)
 

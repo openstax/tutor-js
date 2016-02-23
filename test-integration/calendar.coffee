@@ -1,10 +1,9 @@
-{describe, User, CourseSelect, Calendar, ReadingBuilder, Scores} = require './helpers'
+Helpers = require './helpers'
+{describe} = Helpers
 {expect} = require 'chai'
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
-{CalendarHelper} = Calendar
-{ScoresHelper} = Scores
 
 # Quick test that nothing "blows up". For a more exhaustive version that clicks on all the items, see "./exhaustive"
 
@@ -21,10 +20,10 @@ describe 'Calendar and Stats', ->
         done()
 
   beforeEach ->
-    @user = new User(@)
-    @calendar = new CalendarHelper(@)
-    @courseSelect = new CourseSelect(@)
-    @scores = new ScoresHelper(@)
+    @user = new Helpers.User(@)
+    @calendar = new Helpers.Calendar(@)
+    @courseSelect = new Helpers.CourseSelect(@)
+    @scores = new Helpers.Scores(@)
 
     @user.login(TEACHER_USERNAME)
 

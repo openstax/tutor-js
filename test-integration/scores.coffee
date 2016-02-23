@@ -1,20 +1,18 @@
-{describe, User, CourseSelect, Calendar, Scores} = require './helpers'
+Helpers = require './helpers'
+{describe} = Helpers
 {expect} = require 'chai'
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
 
-{CalendarHelper} = Calendar
-{ScoresHelper} = Scores
-
 
 describe 'HS Student Scores', ->
 
   @beforeEach ->
-    @user = new User(@)
-    @calendar = new CalendarHelper(@)
-    @scores = new ScoresHelper(@)
-    @courseSelect = new CourseSelect(@)
+    @user = new Helpers.User(@)
+    @calendar = new Helpers.Calendar(@)
+    @scores = new Helpers.Scores(@)
+    @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goTo('PHYSICS')
     @calendar.goStudentScores()
@@ -36,10 +34,10 @@ describe 'HS Student Scores', ->
 describe 'CC Student Scores', ->
 
   beforeEach ->
-    @user = new User(@)
-    @calendar = new CalendarHelper(@)
-    @scores = new ScoresHelper(@)
-    @courseSelect = new CourseSelect(@)
+    @user = new Helpers.User(@)
+    @calendar = new Helpers.Calendar(@)
+    @scores = new Helpers.Scores(@)
+    @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goTo('CONCEPT_COACH')
     @scores.goCCScores()

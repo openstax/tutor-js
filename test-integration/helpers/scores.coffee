@@ -33,7 +33,7 @@ COMMON_ELEMENTS =
     css: "a.scores-cell[data-assignment-type='#{type}']"
 
 
-class ScoresHelper extends TestHelper
+class Scores extends TestHelper
   constructor: (testContext, testElementLocator) ->
 
     testElementLocator ?=
@@ -55,4 +55,4 @@ class ScoresHelper extends TestHelper
     @utils.isPresent(@el.downloadExport)
 
 
-module.exports = {ScoresHelper}
+module.exports = Scores

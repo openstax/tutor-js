@@ -45,7 +45,7 @@ COMMON_POPUP_ELEMENTS =
   modal:
     css: '.plan-modal.active'
 
-class PlanPopupHelper extends  TestHelper
+class PlanPopupHelper extends TestHelper
   constructor: (test, testElementLocator) ->
 
     testElementLocator ?=
@@ -71,9 +71,12 @@ class PlanPopupHelper extends  TestHelper
     @el.reviewLink.waitClick()
 
 
-class CalendarHelper extends TestHelper
-  constructor: (test, testElementLocator) ->
+class Calendar extends TestHelper
+  @PlanPopupHelper: PlanPopupHelper
+  @verify: (test) ->
+    (new Calendar(test)).waitUntilLoaded()
 
+  constructor: (test, testElementLocator) ->
     testElementLocator ?=
       css: '.calendar-container'
     calendarOptions =
@@ -118,7 +121,4 @@ class CalendarHelper extends TestHelper
     @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
       @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
 
-verify = (test) ->
-  new CalendarHelper(test).waitUntilLoaded()
-
-module.exports = {CalendarHelper, verify}
+module.exports = Calendar

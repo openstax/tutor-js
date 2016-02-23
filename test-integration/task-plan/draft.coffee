@@ -1,10 +1,9 @@
-{describe, CourseSelect, User, Calendar, ReadingBuilder} = require '../helpers'
+Helpers = require '../helpers'
+{describe} = Helpers
 
 {expect} = require 'chai'
 
 TEACHER_USERNAME = 'teacher01'
-
-{CalendarHelper} =  Calendar
 
 describe 'Draft Tests', ->
 
@@ -13,13 +12,13 @@ describe 'Draft Tests', ->
       expect(hasError).to.be.true
 
   beforeEach ->
+    @calendar = new Helpers.Calendar(@)
     @title = @utils.getFreshId()
-    new User(@).login(TEACHER_USERNAME)
+    new Helpers.User(@).login(TEACHER_USERNAME)
     # Go to the 1st courses dashboard
-    new CourseSelect(@).goTo('ANY')
-    @calendar = new CalendarHelper(@)
+    new Helpers.CourseSelect(@).goTo('ANY')
     @calendar.createNew('READING')
-    @reading = new ReadingBuilder(@)
+    @reading = new Helpers.ReadingBuilder(@)
 
 
   @it 'Shows Validation Error when saving a blank Reading, Homework, and External (idempotent)', ->

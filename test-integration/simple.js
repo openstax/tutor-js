@@ -1,4 +1,5 @@
-import {describe, CourseSelect, User} from './helpers'
+import Helpers from './helpers'
+var {describe} = Helpers
 
 var TEACHER_USERNAME = 'teacher01'
 
@@ -7,8 +8,8 @@ describe('Simple ES7 Calendar Test', function() {
   // This test should click on a teacher dashboard and, if it is `Biology I`,
   // should goHome twice, and logging output as things are happening.
   this.it('Simply logs in and selects a course', async function() {
-    this.user = new User(this)
-    this.courseSelect = new CourseSelect(this)
+    this.user = new Helpers.User(this)
+    this.courseSelect = new Helpers.CourseSelect(this)
 
     debugger // This line tells the debugger (using `npm run debug-integration`) to pause here
 

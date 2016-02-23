@@ -1,23 +1,23 @@
-{describe, CourseSelect, User, Calendar, ReadingBuilder} = require '../helpers'
+Helpers = require '../helpers'
+{describe} = Helpers
+
 {expect} = require 'chai'
 
 TEACHER_USERNAME = 'teacher01'
 
-{CalendarHelper} =  Calendar
-
 describe 'Assignment Publishing Tests', ->
 
   beforeEach ->
+    @calendar = new Helpers.Calendar(@)
+    @reading = new Helpers.ReadingBuilder(@)
+
     @title = @utils.getFreshId()
-    new User(@).login(TEACHER_USERNAME)
+    new Helpers.User(@).login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
-    new CourseSelect(@).goTo('ANY')
+    new Helpers.CourseSelect(@).goTo('ANY')
 
-    @calendar = new CalendarHelper(@)
     @calendar.createNew('READING')
-
-    @reading = new ReadingBuilder(@)
 
   @it 'Sets the name of an reading', ->
     @reading.setName(@title)
