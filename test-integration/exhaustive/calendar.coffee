@@ -9,15 +9,16 @@ describe 'Calendar and Stats', ->
 
   @eachCourse = (msg, fn) =>
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) => @it msg, ->
-      @courseSelect.goTo(courseCategory)
+      @courseSelect.goToByType(courseCategory)
       @calendar.waitUntilLoaded()
       fn.call(@, courseCategory)
       # Go back to the course selection after the spec
-      @user.goHome()
+      @user.goToHome()
 
   beforeEach ->
     @user = new Helpers.User(@)
     @calendar = new Helpers.Calendar(@)
+    @calendarPopup = new Helpers.Calendar.Popup(@)
     @courseSelect = new Helpers.CourseSelect(@)
 
     @user.login(TEACHER_USERNAME)
@@ -26,12 +27,12 @@ describe 'Calendar and Stats', ->
     @calendar.el.publishedPlan.forEach (plan, index, total) =>
       console.log 'Opening', courseCategory, index, '/', total
       plan.click()
-      @calendar.el.planPopup.waitUntilLoaded()
+      @calendarPopup.waitUntilLoaded()
 
-      @calendar.el.planPopup.el.periodReviewTab.forEach (period) ->
+      @calendarPopup.el.periodReviewTab.forEach (period) ->
         period.click()
 
-      @calendar.el.planPopup.close()
+      @calendarPopup.close()
       @calendar.waitUntilLoaded()
 
 
@@ -40,8 +41,8 @@ describe 'Calendar and Stats', ->
       @addTimeout(10)
       console.log 'Looking at Review for', courseCategory, index, 'of', total
       plan.click()
-      @calendar.el.planPopup.waitUntilLoaded()
-      @calendar.el.planPopup.goReview()
+      @calendarPopup.waitUntilLoaded()
+      @calendarPopup.goToReview()
 
       # TODO: review helper
       @utils.wait.for(css: '.task-teacher-review .task-breadcrumbs')
@@ -52,14 +53,14 @@ describe 'Calendar and Stats', ->
       # BUG: Back button goes back to course listing instead of calendar
       @driver.navigate().back()
 
-      @calendar.el.planPopup.waitUntilLoaded()
-      @calendar.el.planPopup.close()
+      @calendarPopup.waitUntilLoaded()
+      @calendarPopup.close()
       @calendar.waitUntilLoaded()
 
 
   @eachCourse 'Opens the learning guide for each course (readonly)', (courseCategory) ->
     @addTimeout(10)
-    @calendar.goPerformanceForecast()
+    @calendar.goToForecast()
 
     # TODO: guide helper.
     @utils.wait.for(css: '.guide-heading')
@@ -79,7 +80,7 @@ describe 'Calendar and Stats', ->
       hider.textContent = '.public_fixedDataTable_bottomShadow { display: none; }'
       document.head.appendChild(hider)
 
-    @calendar.goStudentScores().then => @addTimeout(60)
+    @calendar.goToScores().then => @addTimeout(60)
     @utils.wait.for(css: '.scores-report .course-scores-title')
 
     # Click the "Review" links (each task-plan)

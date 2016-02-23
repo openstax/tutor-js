@@ -16,7 +16,7 @@ describe 'Draft Tests', ->
     @title = @utils.getFreshId()
     new Helpers.User(@).login(TEACHER_USERNAME)
     # Go to the 1st courses dashboard
-    new Helpers.CourseSelect(@).goTo('ANY')
+    new Helpers.CourseSelect(@).goToByType('ANY')
     @calendar.createNew('READING')
     @reading = new Helpers.ReadingBuilder(@)
 
@@ -59,7 +59,7 @@ describe 'Draft Tests', ->
     # Wait until the Calendar loads back up
     # And then verify it was added by clicking on it again
     # BUG: .course-list shouldn't be in the DOM
-    @calendar.goOpen(@title)
+    @calendar.goToOpenByTitle(@title)
 
     @reading.edit(action: 'DELETE')
 
@@ -76,7 +76,7 @@ describe 'Draft Tests', ->
       action: 'SAVE'
 
     # Wait until the Calendar loads back up
-    @calendar.goOpen(@title)
+    @calendar.goToOpenByTitle(@title)
 
     @reading.edit
       sections: [1.1, 1.2, 2.1, 3]

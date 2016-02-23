@@ -9,13 +9,14 @@ describe 'Assignment Publishing Tests', ->
 
   beforeEach ->
     @calendar = new Helpers.Calendar(@)
+    @calendarPopup = new Helpers.Calendar.Popup(@)
     @reading = new Helpers.ReadingBuilder(@)
 
     @title = @utils.getFreshId()
     new Helpers.User(@).login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
-    new Helpers.CourseSelect(@).goTo('ANY')
+    new Helpers.CourseSelect(@).goToByType('ANY')
 
     @calendar.createNew('READING')
 
@@ -37,7 +38,7 @@ describe 'Assignment Publishing Tests', ->
     # Wait until the Calendar loads back up
     # Then, open the popup, click edit, and delete the assignment
     # BUG: .course-list shouldn't be in the DOM
-    @calendar.goOpen(@title)
-    @calendar.el.planPopup.goEdit()
+    @calendar.goToOpenByTitle(@title)
+    @calendarPopup.goToEdit()
     @reading.edit(action: 'DELETE')
     @calendar.waitUntilLoaded()

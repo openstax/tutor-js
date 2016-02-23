@@ -12,11 +12,11 @@ describe 'Calendar and Stats', ->
   @eachCourse = (msg, fn) =>
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       @it "#{msg} for #{courseCategory}", (done) ->
-        @courseSelect.goTo(courseCategory)
+        @courseSelect.goToByType(courseCategory)
         @calendar.waitUntilLoaded()
         fn.call(@, courseCategory)
         # Go back to the course selection after the spec
-        @user.goHome()
+        @user.goToHome()
         done()
 
   beforeEach ->
@@ -41,7 +41,7 @@ describe 'Calendar and Stats', ->
   #   publishedPlan.get().click()
   #   planPopup.waitUntilLoaded()
   #
-  #   planPopup.goReview()
+  #   planPopup.goToReview()
   #
   #   # TODO: review helper
   #   @utils.wait.for({css: '.task-teacher-review .task-breadcrumbs'});
@@ -57,7 +57,7 @@ describe 'Calendar and Stats', ->
   #
 
   @eachCourse 'Opens the learning guide (readonly)', (courseCategory) ->
-    @calendar.goPerformanceForecast()
+    @calendar.goToForecast()
 
     # TODO: guide helper.
     @utils.wait.for({css: '.guide-heading'})
@@ -77,7 +77,7 @@ describe 'Calendar and Stats', ->
       hider.textContent = '.public_fixedDataTable_bottomShadow { display: none; }'
       document.head.appendChild(hider)
 
-    @calendar.goStudentScores()
+    @calendar.goToScores()
     @scores.waitUntilLoaded()
     @addTimeout(60)
     @utils.wait.for({css: '.scores-report .course-scores-title'})

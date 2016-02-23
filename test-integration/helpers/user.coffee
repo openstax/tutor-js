@@ -156,7 +156,7 @@ class User extends TestHelper
     @canLogout().then (canLogout) =>
       @_logout() if canLogout
 
-  goHome: =>
+  goToHome: =>
     @el.homeLink.click()
     @test.utils.wait.for(@el.courseListing.getLocator())
 
@@ -170,6 +170,22 @@ class User extends TestHelper
     @isHamburgerMenuOpen().then (isOpen) =>
       unless isOpen
         @toggleHamburgerMenu()
+
+  # goToHome()
+  # goToCourseHome()
+  # goToDashboard()
+  # goToForecast()
+  # goToBook()
+  # goToAccount()
+  # goToHelp()
+  # goToLogout()
+  # openHamburgerMenu()
+  # toggleHamburgerMenu()
+  #
+  # # Teacher-only:
+  #
+  # goToScores()
+  # goToRoster()
 
 User.getCoverageData = ->
   __coverage__

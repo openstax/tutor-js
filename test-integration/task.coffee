@@ -17,7 +17,7 @@ describe 'Student performing tasks', ->
 
     @user.login(STUDENT_USERNAME)
 
-    @courseSelect.goTo('ANY')
+    @courseSelect.goToByType('ANY')
 
   @it 'Can continue and go to expected steps (readonly)', ->
     @dashboard.el.workableTask.isPresent().then (isPresent) =>
@@ -36,7 +36,7 @@ describe 'Student performing tasks', ->
       #   crumb.click()
 
       # Go back to the course selection
-      @user.goHome()
+      @user.goToHome()
 
 
   @it 'Can continue (readonly)', ->
@@ -49,4 +49,4 @@ describe 'Student performing tasks', ->
       @task.canContinue().then (canContinue) => @task.continue() if canContinue
 
       # Go back to the course selection
-      @user.goHome()
+      @user.goToHome()

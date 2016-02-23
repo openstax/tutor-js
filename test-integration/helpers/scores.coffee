@@ -54,4 +54,24 @@ class Scores extends TestHelper
     @utils.isPresent(@el.downloadExport)
 
 
+  # selectDisplayAsNumber()
+  # selectDisplayAsPercent()
+  # selectBasedOnPossible()
+  # selectBasedOnAttempted()
+  # selectPeriodByIndex(num)
+  # selectPeriodByTitle(title)
+  # sortName()
+  # goToAssignmentByIndexes(row, column)
+  # downloadExport()
+
+  # # CC Commands:
+  # sortAssignmentScoreByIndex(index)
+  # sortAssignmentCompletedByIndex(index)
+  # sortAssignmentScoreByTitle(title)
+  #
+  # # HS Commands:
+  # goToForecastByName(studentName)
+  # goToReviewByIndex(index)
+  # goToReviewByTitle(title)
+
 module.exports = Scores

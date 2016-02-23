@@ -45,7 +45,7 @@ COMMON_POPUP_ELEMENTS =
   modal:
     css: '.plan-modal.active'
 
-class PlanPopupHelper extends TestHelper
+class Popup extends TestHelper
   constructor: (test, testElementLocator) ->
 
     testElementLocator ?=
@@ -60,18 +60,20 @@ class PlanPopupHelper extends TestHelper
       @isPresent().then (isPresent) ->
         not isPresent
 
-  goEdit: =>
+  goToEdit: =>
     @el.editLink.waitClick()
     @test.utils.wait.until 'modal is closed', =>
       @el.modal.isPresent().then (isPresent) ->
         !isPresent
 
-  goReview: =>
+  goToReview: =>
     @el.reviewLink.waitClick()
 
+  # selectPeriodByIndex(num)
+  # selectPeriodByTitle(title)
 
 class Calendar extends TestHelper
-  @PlanPopupHelper: PlanPopupHelper
+  @Popup: Popup
   @verify: (test) ->
     (new Calendar(test)).waitUntilLoaded()
 
@@ -83,7 +85,6 @@ class Calendar extends TestHelper
         css: '.calendar-loading'
 
     super(test, testElementLocator, COMMON_ELEMENTS, calendarOptions)
-    @setCommonHelper('planPopup', new PlanPopupHelper(@test))
 
   createNew: (type) =>
     @waitUntilLoaded()
@@ -96,13 +97,13 @@ class Calendar extends TestHelper
       when 'EXTERNAL' then @el.addExternalButton.click()
       else expect(false, 'Invalid assignment type').to.be.true
 
-  goPerformanceForecast: =>
+  goToForecast: =>
     @el.forecastLink.click()
 
-  goStudentScores: =>
+  goToScores: =>
     @el.studentScoresLink.click()
 
-  goOpen: (title) =>
+  goToOpenByTitle: (title) =>
     # wait until the calendar is open
     @waitUntilLoaded()
     # TODO: Make this a `data-title` attribute
@@ -116,5 +117,13 @@ class Calendar extends TestHelper
     @test.utils.verbose("Waiting to see if plan is published #{title}")
     @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
       @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
+
+  # goToBook()
+  # goToAddByType(assignmentType)
+  # goToAddByTypeFromNow(assignmentType, relativeDate)
+  # goToPreviousMonth()
+  # goToNextMonth()
+  # goToEditByTitle(title)
+  # goToReviewByTitle(title)
 
 module.exports = Calendar

@@ -60,4 +60,17 @@ class StudentDashboard extends TestHelper
           )
       )
 
+  # showPastWork()
+  # showCurrentWork()
+  # goToPracticeByIndex(index)
+  # goToPracticeBySection('4.3')
+  # goToPracticeWeakest()
+  # goToForecast()
+  # goToBook()
+  #
+  # goToAssignmentByIndexe(index)
+  #
+  # goToAssignmentByType(assignmentType)
+  # goToAssignmentByTitle(title)
+
 module.exports = StudentDashboard

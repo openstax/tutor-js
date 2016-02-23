@@ -27,22 +27,27 @@ class CCDashboard extends TestHelper
     testElementLocator ?= '.cc-dashboard'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
-  switchPeriods: () ->
+  switchPeriods: ->
     @el.inactiveTab.click()
 
-  getTabPeriod: () ->
+  getTabPeriod: ->
     @el.dashboard.get().getAttribute('data-period')
 
-  getDashboardPeriod: () ->
+  getDashboardPeriod: ->
     @el.activeTab.get().getAttribute('data-reactid')
 
-  clickViewScores: () ->
+  clickViewScores: ->
     @el.viewScoresButton.click()
 
-  getHelpLinkHref: () ->
+  getHelpLinkHref: ->
     @el.helpLink.get().getAttribute('href')
 
-  getHelpLinkTarget: () ->
+  getHelpLinkTarget: ->
     @el.helpLink.get().getAttribute('target')
+
+  # goToScores()
+  # goToBook()
+  # selectPeriodByIndex(num)
+  # selectPeriodByTitle(title)
 
 module.exports = CCDashboard
