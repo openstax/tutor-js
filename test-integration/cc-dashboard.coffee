@@ -1,4 +1,5 @@
-{describe, CourseSelect, User, CCDashboard, Scores} = require './helpers'
+Helpers = require './helpers'
+{describe} = Helpers
 {expect} = require 'chai'
 
 TEACHER_USERNAME = 'teacher01'
@@ -7,10 +8,10 @@ CC_HELP_LINK = 'openstaxcc.zendesk.com/hc/en-us'
 
 describe 'Concept Coach Dashboard', ->
   beforeEach ->
-    @user = new User(@)
-    @courseSelect = new CourseSelect(@)
-    @conceptCoach = new CCDashboard(@)
-    @scores = new Scores(@)
+    @user = new Helpers.User(@)
+    @courseSelect = new Helpers.CourseSelect(@)
+    @conceptCoach = new Helpers.CCDashboard(@)
+    @scores = new Helpers.Scores(@)
 
     @user.login(TEACHER_USERNAME)
     @courseSelect.goTo('CONCEPT_COACH')

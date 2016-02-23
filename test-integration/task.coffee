@@ -1,4 +1,5 @@
-{describe, CourseSelect, Task, User, StudentDashboard} = require './helpers'
+Helpers = require './helpers'
+{describe} = Helpers
 {expect} = require 'chai'
 _ = require 'underscore'
 selenium = require 'selenium-webdriver'
@@ -9,10 +10,10 @@ STUDENT_USERNAME = 'student01'
 describe 'Student performing tasks', ->
 
   beforeEach ->
-    @user = new User(@)
-    @task = new Task(@)
-    @courseSelect = new CourseSelect(@)
-    @dashboard = new StudentDashboard(@)
+    @user = new Helpers.User(@)
+    @task = new Helpers.Task(@)
+    @courseSelect = new Helpers.CourseSelect(@)
+    @dashboard = new Helpers.StudentDashboard(@)
 
     @user.login(STUDENT_USERNAME)
 
