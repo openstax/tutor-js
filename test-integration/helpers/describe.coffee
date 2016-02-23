@@ -1,5 +1,7 @@
 fs = require 'fs'
 selenium = require 'selenium-webdriver'
+chrome = require 'selenium-webdriver/chrome'
+firefox = require 'selenium-webdriver/firefox'
 seleniumMocha = require('selenium-webdriver/testing')
 _ = require 'underscore'
 
@@ -49,8 +51,27 @@ describe = (name, cb) ->
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)
 
+      @downloadDirectory = "#{__dirname}/".replace('helpers/', 'downloaded-files')
+
+      chromeOptions = new chrome.Options()
+      prefs = {
+        download:
+          "default_directory": @downloadDirectory
+      }
+      chromeOptions.setUserPreferences(prefs)
+
+      firefoxProfile = new firefox.Profile()
+      firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+      firefoxProfile.setPreference("browser.helperApps.neverAsk.openFile", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+      firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false)
+      firefoxProfile.setPreference("browser.download.useDownloadDir", true)
+      firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false)
+      firefoxProfile.setPreference("browser.download.folderList", 2)
+      firefoxProfile.setPreference("browser.download.dir", @downloadDirectory)
+      firefoxOptions = new firefox.Options().setProfile(firefoxProfile)
+
       builder = new selenium.Builder()
-        # Choose which browser to run by setting the SELENIUM_BROWSER='firefox' envoronment variable
+        # Choose which browser to run by setting the SELENIUM_BROWSER='firefox' environment variable
         # see https://selenium.googlecode.com/git/docs/api/javascript/module_selenium-webdriver_class_Builder.html
         .withCapabilities(selenium.Capabilities.phantomjs()) # TODO: get alerts working https://github.com/robotframework/Selenium2Library/issues/441
         .withCapabilities(selenium.Capabilities.firefox())
@@ -60,7 +81,9 @@ describe = (name, cb) ->
       builder.withCapabilities(JSON.parse(process.env.SELENIUM_CAPABILITIES)) if _.isString(process.env.SELENIUM_CAPABILITIES)
 
       @driver = builder.build()
-
+        .setChromeOptions(chromeOptions)
+        .setFirefoxOptions(firefoxOptions)
+        .build()
 
       # Check for JS errors by injecting a little script before the test and then checking it afterEach
       @injectErrorLogging = =>
