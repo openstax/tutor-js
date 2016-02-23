@@ -22,11 +22,10 @@ Attachment = React.createClass
     ExerciseActions.deleteAttachment(@props.exerciseUid, @props.attachment.id)
 
   render: ->
+    # large.url will be null on non-image assets (like PDF)
+    url = @props.attachment.asset.large?.url or @props.attachment.asset.url
     copypaste = """
-      <img src="#{@props.attachment.asset.url}" alt="">
-      <img src="#{@props.attachment.asset.large.url}" alt="">
-      <img src="#{@props.attachment.asset.medium.url}" alt="">
-      <img src="#{@props.attachment.asset.small.url}" alt="">
+      <img src="#{url}" alt="">
     """
     <div className='attachment with-image'>
       <img className="preview" src={@props.attachment.asset.url} />
