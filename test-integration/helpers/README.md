@@ -42,5 +42,5 @@ Following these patterns, a spec would likely involve:
 
 # Learn More
 
-* [How to write specs](./ui)
-* [How to write/edit helpers, advanced](./ui/writing-a-helper.md)
+* [How to write specs](../writing-a-spec.md)
+* [How to write/edit helpers, advanced](./ui/README.md)
