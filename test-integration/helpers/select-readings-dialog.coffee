@@ -21,7 +21,7 @@ COMMON_SELECT_READING_ELEMENTS =
 class SelectReadingsList extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: ".select-reading-dialog#{OPENED_PANEL_SELECTOR}"
-    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, defaultWaitTime: 5000
+    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS
 
   selectSection: (section) =>
     # Selecting an entire chapter requires clicking the input box

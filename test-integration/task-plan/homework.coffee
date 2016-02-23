@@ -5,8 +5,6 @@ _ = require 'underscore'
 TEACHER_USERNAME = 'teacher01'
 NUM_EXERCISES = 4
 
-{CalendarHelper} =  Calendar
-
 describe 'Homework Builder', ->
 
   beforeEach ->
@@ -14,7 +12,7 @@ describe 'Homework Builder', ->
     new User(@).login(TEACHER_USERNAME)
     # Go to the 1st courses dashboard
     new CourseSelect(@).goTo('ANY')
-    @calendar = new CalendarHelper(@)
+    @calendar = new Calendar(@)
     @calendar.createNew('HOMEWORK')
     @homework = new TaskPlanBuilder(@)
 
