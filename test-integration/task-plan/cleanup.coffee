@@ -1,19 +1,20 @@
-{describe, CourseSelect, forEach, Calendar, User, TaskPlanBuilder} = require '../helpers'
+Helpers = require '../helpers'
+{describe} = Helpers
+{forEach} = Helpers
+
 _ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
 
-{CalendarHelper} =  Calendar
-
 describe 'Assignment Cleanup', ->
 
   beforeEach ->
-    new User(@).login(TEACHER_USERNAME)
+    new Helpers.User(@).login(TEACHER_USERNAME)
     @addTimeout(2)
-    new CourseSelect(@).goTo('ANY')
+    new Helpers.CourseSelect(@).goTo('ANY')
 
-    @calendar = new CalendarHelper(@)
-    @reading = new TaskPlanBuilder(@)
+    @calendar = new Helpers.Calendar(@)
+    @reading = new Helpers.TaskPlanBuilder(@)
 
     @calendar.waitUntilLoaded()
 

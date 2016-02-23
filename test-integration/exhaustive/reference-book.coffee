@@ -1,5 +1,5 @@
-{describe, User, ReferenceBook} = require '../helpers'
-{ReferenceBookHelper} = ReferenceBook
+Helpers = require '../helpers'
+{describe} = Helpers
 
 SERVER_URL = process.env['SERVER_URL'] or 'http://localhost:3001'
 TEACHER_USERNAME = 'teacher01'
@@ -9,8 +9,8 @@ SECTIONS_TO_TEST = 10
 describe 'Reference Book Exercises', ->
 
   beforeEach ->
-    new User(@).login(TEACHER_USERNAME)
-    @referenceBook = new ReferenceBookHelper(@)
+    new Helpers.User(@).login(TEACHER_USERNAME)
+    @referenceBook = new Helpers.ReferenceBook(@)
 
   @it 'Loads Biology reference book with exercises (readonly)', ->
 

@@ -3,12 +3,39 @@
   .reference-book .content { margin-top: 0; }
   .exercises {
     width: @reference-book-page-width;
+    > .heading {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      > * { margin-left: 1rem; }
+      .preview2step { margin-left: 0.5rem; }
+    }
+
     .exercise {
       margin-bottom: @tutor-card-body-padding-vertical;
+
+      &.answers-hidden {
+        .answers-table {
+          height: 80px;
+          border: 1px solid @tutor-neutral-dark;
+          &:after{
+            content: "Enter your response";
+            #fonts > .sans(1.8rem, 3rem);
+            margin-left: 1rem;
+            font-style: italic;
+            color: lightgrey;
+          };
+        }
+      }
+
       .panel-heading {
         position: inherit;
         display: block;
         padding: 0;
+      }
+      .exercise-identifier-link {
+        float: left;
+        position: initial;
       }
       .edit-link {
         .tutor-external-link-indicator();

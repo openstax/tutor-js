@@ -1,13 +1,15 @@
-import {describe, CourseSelect, Calendar, TaskPlanBuilder, StudentDashboard, User, freshId} from '../helpers';
+import Helpers from '../helpers';
+const {describe} = Helpers;
+const {freshId} = Helpers;
 import {expect} from 'chai';
 import _ from 'underscore'
 
 describe('Student Dashboard', function(){
 
   beforeEach( function(){
-    this.student = new User(this);
-    this.courseSelect = new CourseSelect(this);
-    this.dash = new StudentDashboard.Dashboard(this);
+    this.student = new Helpers.User(this);
+    this.courseSelect = new Helpers.CourseSelect(this);
+    this.dash = new Helpers.StudentDashboard.Dashboard(this);
     this.student.login('student01');
     this.courseSelect.goToCourseByName('Biology I');
   });
@@ -21,12 +23,12 @@ describe('Student Dashboard', function(){
 
     const title = this.utils.getFreshId();
     this.student.logout();
-    const teacher = new User(this);
+    const teacher = new Helpers.User(this);
     teacher.login('teacher01');
     this.courseSelect.goToCourseByName('Biology I');
-    const calendar = new Calendar.CalendarHelper(this);
+    const calendar = new Helpers.Calendar(this);
     calendar.createNew('READING');
-    const reading = new TaskPlanBuilder(this);
+    const reading = new Helpers.TaskPlanBuilder(this);
 
     reading.edit({
       name: title,

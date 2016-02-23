@@ -2,6 +2,10 @@ _ = require 'underscore'
 {TestHelper} = require './test-element'
 selenium = require 'selenium-webdriver'
 
+# Record code coverage before logging out
+istanbul = require 'istanbul'
+{mergeFileCoverage} = istanbul.utils
+
 COMMON_ELEMENTS =
   loginLink:
     linkText: 'Login'
@@ -45,6 +49,21 @@ COMMON_ELEMENTS =
 
 COMMON_ELEMENTS.eitherSignInElement =
   css: "#{COMMON_ELEMENTS.searchQuery.css}, #{COMMON_ELEMENTS.usernameInput.css}"
+
+
+# Record code coverage before logging out.
+# Merges the coverage results from multiple tests
+__coverage__ = {}
+mergeCoverage = (obj) ->
+  Object.keys(obj).forEach (filePath) ->
+    original = __coverage__[filePath]
+    added = obj[filePath]
+    if original
+      result = mergeFileCoverage(original, added)
+    else
+      result = added
+    __coverage__[filePath] = result
+
 
 class User extends TestHelper
   constructor: (test) ->
@@ -125,6 +144,11 @@ class User extends TestHelper
 
   _logout: =>
     @openHamburgerMenu()
+
+    # Pull out the coverage data
+    @test.driver.executeScript("var c = window.__coverage__; delete window.__coverage__; return c;").then (results) ->
+      mergeCoverage(results) if results
+
     @el.logoutForm.get().submit()
 
   logout: =>
@@ -148,6 +172,9 @@ class User extends TestHelper
     @isHamburgerMenuOpen().then (isOpen) =>
       unless isOpen
         @toggleHamburgerMenu()
+
+User.getCoverageData = ->
+  __coverage__
 
 User.logout = (test) ->
   user = new User(test).logout()

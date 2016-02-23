@@ -8,10 +8,14 @@ BS = require 'react-bootstrap'
 
 ExerciseCard = React.createClass
 
-  PropTypes:
+  propTypes:
     displayFeedback: React.PropTypes.bool
     panelStyle: React.PropTypes.string
     header:     React.PropTypes.element
+    displayAllTags: React.PropTypes.bool
+    hideAnswers: React.PropTypes.bool
+    toggleExercise: React.PropTypes.func
+    className: React.PropTypes.string
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -43,23 +47,28 @@ ExerciseCard = React.createClass
 
   onClick: (ev) ->
     # don't toggle exercise selection click target is a link (such as "Report an error")
-    @props.toggleExercise() unless ev.target.tagName is 'A'
+    @props.toggleExercise?() unless ev.target.tagName is 'A'
 
   render: ->
     content = @props.exercise.content
     question = content.questions[0]
-    renderedAnswers = _(question.answers).chain()
-      .sortBy('id')
-      .map(@renderAnswer)
-      .value()
+
+    unless @props.hideAnswers
+      renderedAnswers = _(question.answers)
+        .chain().sortBy('id').map(@renderAnswer).value()
+
     tags = _.clone @props.exercise.tags
+    unless @props.displayAllTags
+      tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
     renderedTags.push(
-      <ExerciseIdentifierLink exerciseId={@props.exercise.content.uid} />
+      <ExerciseIdentifierLink key='identifier'
+        exerciseId={@props.exercise.content.uid} />
     )
-    classes = classnames 'card', 'exercise',
+    classes = classnames( 'card', 'exercise', @props.className, {
+      'answers-hidden': @props.hideAnswers,
       'is-displaying-feedback': @props.displayFeedback
-
+    })
     <BS.Panel
       className={classes}
       bsStyle={@props.panelStyle}

@@ -1,6 +1,6 @@
 # coffeelint: disable=no_empty_functions
 
-React = require 'react/addons'
+React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
@@ -16,6 +16,7 @@ TaskStep = require './index'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require 'openstax-react-components'
 Review = require '../task/review'
+{ConceptCoachEnd} = require './concept-coach-end'
 
 # A function to render the status message.
 # Shared between the various ending components
@@ -84,7 +85,6 @@ HomeworkEnd = React.createClass
 
   renderReviewSteps: (taskId, steps, label, type) ->
     {courseId} = @props
-    task = TaskStore.get(taskId)
 
     stepsReview =
       <div className="task task-review-#{type}">
@@ -176,6 +176,7 @@ TaskEnd = React.createClass
 
 ends = {
   task: TaskEnd,
+  concept_coach: ConceptCoachEnd,
   homework: HomeworkEnd,
   practice: PracticeEnd,
   chapter_practice: PracticeEnd,

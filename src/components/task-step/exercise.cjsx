@@ -15,10 +15,18 @@ module.exports = React.createClass
 
   updateFreeResponse: (freeResponse) -> TaskStepActions.updateTempFreeResponse(@props.id, freeResponse)
 
+  canOnlyContinue: ->
+    {id} = @props
+    _.chain(StepPanel.getRemainingActions(id))
+      .difference(['clickContinue'])
+      .isEmpty()
+      .value()
+
   render: ->
     {id, taskId} = @props
     step = TaskStepStore.get(id)
     task = TaskStore.get(taskId)
+    stepIndex = TaskStore.getStepIndex(taskId, id)
 
     waitingText = switch
       when TaskStepStore.isLoading(id) then "Loading…"
@@ -32,22 +40,28 @@ module.exports = React.createClass
       unless TaskStepStore.isSaving(id)
         currentPanel = StepPanel.getPanel(id)
 
-    <Exercise
-      {...@props}
-      step={step}
-      footer={<StepFooter/>}
-      waitingText={waitingText}
+    controlText = 'Continue' if task.type is 'reading' and @canOnlyContinue()
 
-      canTryAnother={TaskStepStore.canTryAnother(id, task)}
-      isRecovering={TaskStepStore.isRecovering(id)}
-      disabled={TaskStepStore.isSaving(id)}
-      canReview={StepPanel.canReview(id)}
-      isContinueEnabled={StepPanel.canContinue(id)}
+    <div className='exercise-wrapper' data-step-number={stepIndex + 1}>
+      <Exercise
+        {...@props}
+        freeResponseValue={step.temp_free_response}
+        controlText={controlText}
+        step={step}
+        footer={<StepFooter/>}
+        waitingText={waitingText}
 
-      getCurrentPanel={getCurrentPanel}
-      getReadingForStep={getReadingForStep}
-      setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
-      onFreeResponseChange={@updateFreeResponse}
-      freeResponseValue={TaskStepStore.getTempFreeResponse(id)}
-      setAnswerId={TaskStepActions.setAnswerId}
-    />
+        canTryAnother={TaskStepStore.canTryAnother(id, task)}
+        isRecovering={TaskStepStore.isRecovering(id)}
+        disabled={TaskStepStore.isSaving(id)}
+        canReview={StepPanel.canReview(id)}
+        isContinueEnabled={StepPanel.canContinue(id)}
+
+        getCurrentPanel={getCurrentPanel}
+        getReadingForStep={getReadingForStep}
+        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+        onFreeResponseChange={@updateFreeResponse}
+        freeResponseValue={TaskStepStore.getTempFreeResponse(id)}
+        setAnswerId={TaskStepActions.setAnswerId}
+      />
+    </div>

@@ -21,7 +21,11 @@ Exercise = React.createClass
   render: ->
     return null if _.every( ExerciseStore.poolTypes(@props.exercise), (pt) => @props.ignoredPoolTypes[pt] )
     editUrl = @props.exercise.url.replace(/@\d+/, '@draft')
-    <ExerciseCard {...@props} header={@renderHeader()} displayFeedback>
+    <ExerciseCard {...@props}
+      header={@renderHeader()}
+      displayAllTags
+      displayFeedback
+    >
       <a target="_blank" className="edit-link" href={editUrl}>edit</a>
     </ExerciseCard>
 

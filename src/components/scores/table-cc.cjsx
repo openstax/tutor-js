@@ -37,19 +37,14 @@ module.exports = React.createClass
     periodIndex: React.PropTypes.number.isRequired
     firstDataColumn: React.PropTypes.number.isRequired
     displayAs: React.PropTypes.string.isRequired
-    basedOn: React.PropTypes.string.isRequired
     dataType: React.PropTypes.string
 
 
   renderNameHeader: ->
-    {basedOn} = @props
     emptyCell = <div className='blank' />
-    helpText =
-      "(based on total #{basedOn})"
     averageLabel =
       <div>
         Class Average &nbsp
-        <span className='help'>{helpText}</span>
       </div>
     studentHeader =
       <div className='cc-cell'>
@@ -88,13 +83,8 @@ module.exports = React.createClass
 
   renderHeadingCell: (heading, i) ->
     i += @props.firstDataColumn # for the first/last name columns
-    {basedOn} = @props
 
-    classAverage =
-      if basedOn is 'possible'
-        heading.total_average
-      else
-        heading.attempted_average
+    classAverage = heading.total_average
 
     if classAverage
       average =

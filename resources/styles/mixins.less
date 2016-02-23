@@ -71,7 +71,9 @@
 
 .tutor-nav-tabs() {
   background: none;
-  li {
+  display: flex;
+  flex-wrap: wrap;
+  li.tab-item-period {
     text-align: center;
     background: @tutor-neutral-lighter;
 
@@ -80,6 +82,14 @@
     a {
       font-weight: 400;
       color: @tutor-neutral !important;
+      span.tab-item-period-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        white-space: nowrap;
+        font-size: 1.3rem;
+        max-width: 100px;
+      }
     }
 
     &:hover {

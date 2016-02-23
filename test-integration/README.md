@@ -147,11 +147,11 @@ this.waitClick('.button').then(function() { console.log('debugging println'); })
 Example from [./task-plan/draft.coffee](./task-plan/draft.coffee)
 
 ```js
-var helpers = require('../helpers');
-var describe = helpers.describe;
-var CourseSelect = helpers.CourseSelect;
-var Calendar = helpers.Calendar;
-var ReadingBuilder = helpers.ReadingBuilder;
+var Helpers = require('../helpers');
+var describe = Helpers.describe;
+var CourseSelect = Helpers.CourseSelect;
+var Calendar = Helpers.Calendar;
+var ReadingBuilder = Helpers.ReadingBuilder;
 ```
 
 #### Coffee version

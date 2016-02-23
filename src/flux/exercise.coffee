@@ -10,7 +10,9 @@ EXERCISE_TAGS =
   GENERIC: ['blooms', 'dok', 'length']
 
 getTagName = (tag) ->
-  [tag.name, tag.description].join(' ')
+  name = _.compact([tag.name, tag.description]).join(' ')
+  name = tag.id unless name
+  name
 
 getImportantTags = (tags) ->
   obj =
@@ -98,6 +100,11 @@ ExerciseConfig =
         {section} = getImportantTags(exercise.tags)
         section.toString() is topic_chapter_section.toString()
       )
+
+    # Searches for the given format in either an exercise or it's content
+    hasQuestionWithFormat: (format, {exercise, content}) ->
+      content = exercise.content unless content?
+      !!_.detect content.questions, (q) -> _.include(q.formats, format)
 
     getPagePoolTypes: (pageId) ->
       types = _.unique _.flatten _.pluck @_exercises[pageId], 'pool_types'

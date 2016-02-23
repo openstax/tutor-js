@@ -178,7 +178,7 @@ class TaskPlanBuilder extends TestHelper
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
       # Publishing can be async so wait until the assignment shows up as 'published' in the calendar
       # Added here because folks won't remember to wait for this
-      (new Calendar.CalendarHelper(@test)).waitUntilPublishingFinishedByTitle(name)
+      (new Calendar(@test)).waitUntilPublishingFinishedByTitle(name)
 
   save: =>
     @test.utils.wait.giveTime (2 * 60 * 1000), =>

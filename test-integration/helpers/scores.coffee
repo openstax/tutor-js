@@ -25,8 +25,6 @@ COMMON_ELEMENTS =
     css: '.nav-tabs li:nth-child(2)'
   displayAs:
     css: '.filter-item:nth-child(1) .filter-group .btn:nth-child(2)'
-  basedOn:
-    css: '.filter-item:nth-child(2) .filter-group .btn:nth-child(2)'
   scoreCell:
     css: '.cc-cell a.score'
   averageLabel:
@@ -35,7 +33,7 @@ COMMON_ELEMENTS =
     css: "a.scores-cell[data-assignment-type='#{type}']"
 
 
-class ScoresHelper extends TestHelper
+class Scores extends TestHelper
   constructor: (testContext, testElementLocator) ->
 
     testElementLocator ?=
@@ -57,4 +55,4 @@ class ScoresHelper extends TestHelper
     @utils.isPresent(@el.downloadExport)
 
 
-module.exports = {ScoresHelper}
+module.exports = Scores
