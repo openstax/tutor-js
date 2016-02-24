@@ -4,7 +4,7 @@ camelCase = require 'camelcase'
 S = require '../../../src/helpers/string'
 
 class TestItemHelper
-  constructor: (test, testElementLocator) ->
+  constructor: (test, testElementLocator, options = {}) ->
     throw new Error('BUG: Missing the current test!') unless test
     throw new Error('BUG: Missing locator') unless testElementLocator
 
@@ -18,6 +18,10 @@ class TestItemHelper
       if _.isFunction(value) and not /^_locator/.test(key) # Exclude the _locator() function because that is used in waitUntil loops
         @[key] = (args...) =>
           @test.utils.verboseWrap("HELPER: #{key}", => value.apply(@, args))
+
+    @fn = wrapHelperToFunction(@, options, _.keys(TestItemHelper::))
+
+    @
 
   getLocator: (args...) =>
     locator = if _.isFunction(@locator)
@@ -86,9 +90,8 @@ class TestItemHelper
     @test.utils.dom.getParent(locator)
 
 
-class TestHelper extends TestItemHelper
+class TestHelper
   constructor: (test, testElementLocator, commonElements, options) ->
-    super(test, testElementLocator)
     commonElements ||= _.result(@, 'elementRefs', {})
     defaultOptions =
       loadingLocator:
@@ -96,10 +99,12 @@ class TestHelper extends TestItemHelper
       defaultWaitTime: 40 * 1000 # TODO: Letting tests define their own wait time is dangerous. tutor-dev takes > 10sec to delete a task-plan
       # defaultWaitTime: 20 * 1000 # 20sec seems to be enough for deployed code but not local
 
+    @test = test
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
 
     commonElements.loadingState = @options.loadingLocator
+    commonElements.self = testElementLocator
 
     _.each commonElements, @setCommonElement
     @
@@ -108,27 +113,40 @@ class TestHelper extends TestItemHelper
     # Adjust the test timeout *and* tell selenium to wait up to the same amount of time. Maybe this is redundant?
     @test.utils.wait.giveTime @options.defaultWaitTime, =>
       @test.utils.verboseWrap 'Waiting until Loadable .is-loading is gone', => @test.driver.wait(=>
-        @el.loadingState.isPresent().then (isPresent) -> not isPresent
+        @el.loadingState().isPresent().then (isPresent) -> not isPresent
       , @options.defaultWaitTime)
 
   setCommonHelper: (name, helper) =>
-    @el[name] = helper
+    @el[name] = helper.fn
 
   setCommonElement: (locator, name) =>
-    if _.isFunction(locator)
-      fn = (args...) => new TestItemHelper(@test, locator(args...))
-      # START: BACKWARDS_COMPATIBILITY Area
-      # For backwards compatibility, stick all the testItemHelper Methods onto the fn  (so it "looks like" a TestItemHelper)
-      oldItemHelper = new TestItemHelper(@test, locator)
-      _.each ['getLocator', 'get', 'getAll', 'findElement', 'findElements', 'forEach', 'isPresent', 'isDisplayed', 'click', 'waitClick'], (fnName) ->
-        fn[fnName] = (args...) ->
-          console.log "Deprecated call to el.#{name}.#{fnName}(...). Use el.#{name}(...).#{fnName}() instead"
-          oldItemHelper[fnName].apply(oldItemHelper, args)
-      # END: BACKWARDS_COMPATIBILITY Area
-      @setCommonHelper(name, fn)
-    else
-      @setCommonHelper(name, new TestItemHelper(@test, locator))
+    @setCommonHelper(name, new TestItemHelper(@test, locator,
+      onBeforeMethodCall: (methodName, args...) ->
+        console.log "Deprecated call to el.#{name}.#{methodName}(...). Use el.#{name}(...).#{methodName}() instead"
+    ))
 
+
+wrapHelperToFunction = (helper, options, methodNames) ->
+
+  helperFunction = (args...) ->
+    wrappedMethods = {}
+
+    # For each method, pass on args from helper function to method
+    _.each methodNames, (methodName) ->
+      if _.isFunction helper[methodName]
+        wrappedMethods[methodName] = _.partial helper[methodName], args...
+
+    # The helper function returns a fresh copy of
+    # the helper extended with the wrapped methods.
+    _.extend({}, helper, wrappedMethods)
+
+  # expose each method on the function as well
+  _.each methodNames, (methodName) ->
+    helperFunction[methodName] = (args...) ->
+      options.onBeforeMethodCall?(methodName, args...)
+      helper[methodName](args...)
+
+  helperFunction
 
 # Using defined properties for access eliminates the possibility
 # of accidental assignment
