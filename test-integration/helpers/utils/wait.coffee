@@ -6,6 +6,9 @@ class Wait
   # TODO reduce the copy pasta between for and forMultiple
   forMultiple: (locator, ms = 60 * 1000) ->
     locator = @test.utils.toLocator(locator)
+    locator.shouldBeVisible ?= true
+    waitUntil = if locator.shouldBeVisible then 'elementIsVisible' else 'elementIsEnabled'
+
     @giveTime ms, =>
       @test.utils.verboseWrap "Waiting for multiple #{JSON.stringify(locator)}", =>
         @test.driver.wait(selenium.until.elementsLocated(locator))
@@ -14,7 +17,7 @@ class Wait
 
         el.then (elements) =>
           @test.utils.verbose("Found #{elements.count}")
-          @test.driver.wait(selenium.until.elementIsVisible(elements[0]))
+          @test.driver.wait(selenium.until[waitUntil](elements[0]))
 
     el = @test.driver.findElements(locator)
     el
@@ -22,11 +25,14 @@ class Wait
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
   for: (locator, ms = 60 * 1000) ->
     locator = @test.utils.toLocator(locator)
+    locator.shouldBeVisible ?= true
+    waitUntil = if locator.shouldBeVisible then 'elementIsVisible' else 'elementIsEnabled'
+
     @giveTime ms, =>
       @test.driver.wait(selenium.until.elementLocated(locator))
       el = @test.driver.findElement(locator)
       # Because of animations an element might be in the DOM but not visible
-      @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until.elementIsVisible(el))
+      @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until[waitUntil](el))
     el = @test.driver.findElement(locator)
     el
 
