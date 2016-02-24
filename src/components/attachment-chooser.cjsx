@@ -34,13 +34,16 @@ AttachmentChooser = React.createClass
     file = ev.target.files[0]
     reader = new FileReader()
     reader.onloadend = =>
-      @setState({file, imageData: reader.result, asset: null})
+      @replaceState({file, imageData: reader.result})
     reader.readAsDataURL(file)
-
 
   renderUploadBtn: ->
     return unless @state.imageData and not @state.progress
     <BS.Button onClick={@uploadImage}>Upload</BS.Button>
+
+  renderErrors: ->
+    return null unless @state.error
+    <div className='error'>{@state.error}</div>
 
   render: ->
     image = <img className="preview" src={@state.imageData} /> if @state.imageData
@@ -56,6 +59,7 @@ AttachmentChooser = React.createClass
         </label>
         {@renderUploadBtn()}
       </div>
+      {@renderErrors()}
       {@renderUploadStatus()}
     </div>
 
