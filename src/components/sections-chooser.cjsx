@@ -21,7 +21,7 @@ SectionTopic = React.createClass
   isSelected:    -> @props.selections[@props.section.id]
   toggleSection: -> @props.onChange({"#{@props.section.id}": not @isSelected()})
   render: ->
-    classNames = classnames 'section', {selected: @props.selected}
+    classNames = classnames 'section', {selected: @isSelected()}
     <div key={@props.section.id} className={classNames} onClick={@toggleSection}>
       <span className='section-checkbox'>
         <input type='checkbox' readOnly checked={'checked' if @isSelected()} />
@@ -33,6 +33,7 @@ SectionTopic = React.createClass
 ChapterAccordion = React.createClass
 
   propTypes:
+    ecosystemId: React.PropTypes.string.isRequired
     onChange: React.PropTypes.func.isRequired
     chapter: React.PropTypes.shape(
       id: React.PropTypes.string
@@ -102,6 +103,7 @@ ChapterAccordion = React.createClass
 SectionsChooser = React.createClass
   propTypes:
     onSelectionChange: React.PropTypes.func
+    ecosystemId: React.PropTypes.string.isRequired
     chapters: React.PropTypes.arrayOf(
       React.PropTypes.shape(
         id: React.PropTypes.string

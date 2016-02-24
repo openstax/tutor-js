@@ -40,6 +40,7 @@ SelectTopics = React.createClass
 
       <div className='select-reading-chapters'>
         <SectionsChooser
+          ecosystemId={ecosystemId}
           chapters={TocStore.get(ecosystemId)}
           selectedSectionIds={TaskPlanStore.getTopics(planId)}
           onSelectionChange={@onSectionChange}
