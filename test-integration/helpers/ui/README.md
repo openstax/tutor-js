@@ -70,8 +70,7 @@ UI helpers should be in this folder.
     goOpen: (title) =>
       # wait until the calendar is open
       @waitUntilLoaded()
-      # TODO: Make this a `data-title` attribute
-      # HACK: Might need to scroll the item to click on into view
+
       el = @el.planByTitle.get(title)
       @test.utils.windowPosition.scrollTo(el)
       el.click()
@@ -157,38 +156,38 @@ where @ is the test context, and locator is either a css selector string, a sele
 As instances of `TestItemHelper`, each of the elements on `calendarHelper.el` exposes the following methods:
 
 ```coffee
-testItemHelper.getLocator(optionalParameters) # should return a valid Selenium locator object
+elementHelper.getLocator(optionalParameters) # should return a valid Selenium locator object
 ```
 
 The other methods uses `getLocator` to get a Selenium locator before passing on into functions on the testContext's `driver` or our own defined `utils`.
 
 ```coffee
-testItemHelper.get(optionalParams, optionalWaitTime)           # alias for @utils.wait.for, waits until element is displayed or time runs out
-testItemHelper.getAll(optionalParams, optionalWaitTime)        # alias for @utils.wait.forMultiple, "" for multiple elements
+elementHelper.get(optionalParams, optionalWaitTime)     # alias for @utils.wait.for, waits until element is displayed or time runs out
+elementHelper.getAll(optionalParams, optionalWaitTime)  # alias for @utils.wait.forMultiple, "" for multiple elements
 
-testItemHelper.findElement(optionalParams)   # @driver.findElement, tries to find element immediately without waiting
-testItemHelper.findElements(optionalParams)  # @driver.findElements, "" for mutiple elements
+elementHelper.findElement(optionalParams)   # @driver.findElement, tries to find element immediately without waiting
+elementHelper.findElements(optionalParams)  # @driver.findElements, "" for mutiple elements
 
-testItemHelper.forEach(optionalParams)       # alias for @utils.forEach
-testItemHelper.isPresent(optionalParams)     # alias for @driver.isElementPresent
+elementHelper.forEach(optionalParams)       # alias for @utils.forEach
+elementHelper.isPresent(optionalParams)     # alias for @driver.isElementPresent
 
-testItemHelper.isDisplayed(optionalParams)   # is element displayed? using Selenium WebElement's isDisplayed
+elementHelper.isDisplayed(optionalParams)   # is element displayed? using Selenium WebElement's isDisplayed
 
-testItemHelper.waitClick(optionalParams, optionalWaitTime)     # alias for @utils.wait.click, waits until element is displayed before clicking
-testItemHelper.getParent(optionalParams)     # alias for @utils.dom.getParent
+elementHelper.waitClick(optionalParams, optionalWaitTime) # alias for @utils.wait.click, waits until element is displayed before clicking
+elementHelper.getParent(optionalParams)     # alias for @utils.dom.getParent
 ```
 
-`TestItemHelper` is available as a function that returns methods exposed on `testItemHelper.fn`.  This means you can use this syntax:
+`TestItemHelper` is available as a function that returns methods exposed on `elementHelper.fn`.  This means you can use this syntax:
 
 ```coffee
-itemElement(optionalParams).get()
+elementHelper.fn(optionalParams).get()
 ```
 
 `TestItemHelper` also exposes the following properties:
 
 ```coffee
-testItemHelper.test       # testContext
-testItemHelper.locator    # locator from instantiation
+elementHelper.test       # testContext
+elementHelper.locator    # locator from instantiation
 ```
 
 See [test-element.coffee](./test-element.coffee) for details.
