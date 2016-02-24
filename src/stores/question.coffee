@@ -19,9 +19,6 @@ toggleFormat = (formats, form) ->
 
 QuestionConfig = {
   _loaded: (obj, id) ->
-    obj.answers = _.sortBy obj?.answers, (answer) ->
-      parseInt(answer.id)
-
     for answer in obj?.answers
       AnswerActions.loaded(answer, answer.id)
 
