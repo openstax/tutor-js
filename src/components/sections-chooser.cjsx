@@ -51,6 +51,7 @@ ChapterAccordion = React.createClass
   isAnySelected:                -> _.any @props.chapter.children, @isSectionSelected
   toggleSectionSelections: (ev) ->
     ev.stopPropagation()
+    ev.preventDefault()
     selected = not @isAnySelected()
     newSelections = {}
     newSelections[section.id] = selected for section in @props.chapter.children
