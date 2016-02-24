@@ -75,8 +75,6 @@ AnswersTable = React.createClass
       show_all_feedback: show_all_feedback
 
     answersHtml = _.chain(answers)
-      .sortBy (answer) ->
-        parseInt(answer.id)
       .map (answer, i) ->
         additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}", keyControl: KEYS[keySet]?[i]}
         answerProps = _.extend({}, additionalProps, questionAnswerProps)
