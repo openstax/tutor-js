@@ -225,6 +225,7 @@ TaskPlanConfig =
     {page_ids} = @_getClonedSettings(id, 'page_ids')
     @_changeSettings(id, page_ids: sortTopics(page_ids))
 
+<<<<<<< dcee8c903f73b70baba4c9a7ad123e1f69dc8627
   addTopic: (id, topicId) ->
     {page_ids} = @_getClonedSettings(id, 'page_ids')
     page_ids.push(topicId) unless page_ids.indexOf(topicId) >= 0
@@ -256,7 +257,6 @@ TaskPlanConfig =
     @_changeSettings(id, {exercise_ids})
 
   updateExercises: (id, exercise_ids) ->
-    # NOTE.  The previous method set page_ids to null here, but I think that was a bug
     @_changeSettings(id, {exercise_ids})
 
   moveReading: (id, topicId, step) ->
