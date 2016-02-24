@@ -40,14 +40,11 @@ class Wait
       untilReady = if shouldBeVisible then selenium.until.elementIsVisible else selenium.until.elementIsEnabled
 
       @giveTime ms, =>
-        @test.utils.verboseWrap buildWaitMessage(locator), =>
-          @test.driver.wait(untilLocated(locator))
-
-          # Because of animations an element might be in the DOM but not visible
-          find(locator).then (result) =>
-            @test.utils.verbose(buildFoundMessage(locator, result))
-            @test.utils.verboseWrap buildDisplayMessage(locator), =>
-              @test.driver.wait(untilReady(filter(result)))
+        @until buildWaitMessage(locator), untilLocated(locator)
+        # Because of animations an element might be in the DOM but not visible
+        find(locator).then (result) =>
+          @test.utils.verbose(buildFoundMessage(locator, result))
+          @until buildDisplayMessage(locator), untilReady(filter(result))
 
       el = find(locator)
       el
