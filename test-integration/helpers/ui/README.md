@@ -82,14 +82,16 @@ UI helpers should be in this folder.
 
 ## TestHelper
 
-UI helpers should be exposed in the [helper's index](../index.coffee).  In the specs, we can instantiate the CalendarHelper like this:
+UI helpers should be exposed in the [helper's index](../index.coffee).  In the specs, we can instantiate the `CalendarHelper` like this:
 
 ```coffee
 Helpers = require './helpers'
-calendar = new Helpers.Calendar(@)  # @ is the test context. See [`describe.coffee`](../describe.coffee) for what `@` has access to.
+calendar = new Helpers.Calendar(@)  # @ is the test context.
 ```
 
-This will expose some calendar specific helper functions.  These were defined on the prototype of CalendarHelper above.
+See [`describe.coffee`](../describe.coffee) for what `@` has access to.
+
+There are also some calendar specific helper functions.  These were defined on the prototype of `CalendarHelper` above.
 
 ```coffee
 calendar.createNew(type)
@@ -97,7 +99,7 @@ calendar.goPerformanceForecast()
 calendar.goOpen(title)
 ```
 
-These are elements you can use to test things about the calendar page.  They are defined by the COMMON_ELEMENTS object.
+These are elements you can use to test things about the calendar page.  They are defined by the `COMMON_ELEMENTS` object.
 
 ```coffee
 calendar.el.forecastLink()          # <TestItemHelper>
@@ -148,8 +150,9 @@ calendar.options    # options set when the calendar was instantiated
 A [`TestItemHelper`](./test-element.coffee#L6) can be instantiated like this:
 
 ```coffee
-elementHelper = new TestItemHelper(@, locator)  # @ is the test context, and locator is either a css selector string, a selenium locator object, or a function that returns a locator object based on some paramters.
+elementHelper = new TestItemHelper(@, locator)
 ```
+where @ is the test context, and locator is either a css selector string, a selenium locator object, or a function that returns a locator object based on some paramters.
 
 As instances of `TestItemHelper`, each of the elements on `calendarHelper.el` exposes the following methods:
 
