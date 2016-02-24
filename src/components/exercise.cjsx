@@ -101,14 +101,15 @@ module.exports = React.createClass
     </div>
 
   render: ->
-    console.log "RENDER EX"
-
     id = @getId()
     if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id)
       if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
       return @renderLoading()
     else if ExerciseStore.isFailed(id)
       return @renderFailed()
+
+    ExerciseActions.sync(id)
+    exercise = ExerciseStore.get(id)
 
     exerciseUid = ExerciseStore.getId(id)
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
