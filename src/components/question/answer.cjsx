@@ -5,6 +5,7 @@ keymaster = require 'keymaster'
 
 keysHelper = require '../../helpers/keys'
 ArbitraryHtmlAndMath = require '../html'
+{Feedback} = require './feedback'
 
 idCounter = 0
 
@@ -117,7 +118,7 @@ Answer = React.createClass
       </div>
 
     if @props.show_all_feedback and answer.feedback_html
-      feedback = <Feedback key='question-mc-feedback'>{answer.feedback_html}</Feedback>
+      feedback = <Feedback key='question-mc-feedback' children={answer.feedback_html} />
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
