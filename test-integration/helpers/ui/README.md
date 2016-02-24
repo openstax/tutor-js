@@ -50,7 +50,7 @@ UI helpers should be in this folder.
       # PlanPopupHelper is an extended TestHelper like CalendarHelper is.
       @setCommonHelper('planPopup', new PlanPopupHelper(@test))
   ```
-  You can read more about what happens when you instantiate [here](#helper-details).
+  You can read more about what happens when you instantiate [here](#details).
 
 4. Extend the helper with additional UI process/action methods as needed, using el's element accessor methods:
 
@@ -78,54 +78,83 @@ UI helpers should be in this folder.
       @test.utils.windowPosition.scrollTop()
   ```
 
-# Helper Details
+# Details
 
-From doing the above, if we instantiate CalendarHelper, we get back something that looks like this:
+## TestHelper
+
+UI helpers should be exposed in the [helper's index](../index.coffee).  In the specs, we can instantiate the CalendarHelper like this:
 
 ```coffee
-calendarHelper =
-  test: testContext
-  options: calendarOptions
-  el:
-    # from the COMMON_ELEMENTS
-    forecastLink: <TestItemHelper>
-    studentScoresLink: <TestItemHelper>
-    addToggle: <TestItemHelper>
-    planByTitle: <TestItemHelper>
-
-    # uses the loadingLocator option
-    loadingState: <TestItemHelper>
-
-    # from explicitly calling setCommonHelper
-    planPopup: <PlanPopupHelper>
-
-  # This function will block all selenium based promises until
-  # the loading element is absent before continuing.
-  waitUntilLoaded: (waitTime = @options.defaultWaitTime) =>
-    @test.driver.wait =>
-      @el.loadingState.isPresent().then (isPresent) -> not isPresent
-    , waitTime
-
-  # The following are used to attach the helpers that are now on CalendarHelper.el
-  # They are exposed here for customizing your helper as needed,
-  # as in this case with the planPopup.
-  # Usually, you can just rely on the commonElements object.
-  setCommonHelper: (name, helper) =>
-    @el[name] = helper
-  setCommonElement: (locator, name) =>
-    @setCommonHelper(name, new TestItemHelper(@test, locator))
+Helpers = require './helpers'
+calendar = new Helpers.Calendar(@)  # @ is the test context. See [`describe.coffee`](../describe.coffee) for what `@` has access to.
 ```
-Note that TestHelper itself is extended from `TestItemHelper`, meaning `calendarHelper` and the items on `calendarHelper.el` also have the following methods and properties:
+
+This will expose some calendar specific helper functions.  These were defined on the prototype of CalendarHelper above.
 
 ```coffee
-testItemHelper =
-  test: testContext
-  # Where locator is a locator object, or
-  # a function returning the locator object based in during instantiation
-  locator: locator
+calendar.createNew(type)
+calendar.goPerformanceForecast()
+calendar.goOpen(title)
+```
 
-  # function that will return only the locator object
-  getLocator: function
+These are elements you can use to test things about the calendar page.  They are defined by the COMMON_ELEMENTS object.
+
+```coffee
+calendar.el.forecastLink()          # <TestItemHelper>
+calendar.el.studentScoresLink()     # <TestItemHelper>
+calendar.el.addToggle()             # <TestItemHelper>
+calendar.el.planByTitle(title)      # <TestItemHelper>
+```
+
+This additional element is available from explicitly calling `setCommonHelper`.
+
+```coffee
+calendar.el.planPopup()
+```
+
+Additionally, as a [`TestHelper`](./test-element.coffee#L93), calendar helper has the following methods:
+
+```coffee
+# This function will block all selenium based promises until
+# the loading element is absent before continuing.
+calendar.waitUntilLoaded(optionalWaitTime)
+
+# The following are used to attach the helpers that are now on CalendarHelper.el
+# They are exposed here for customizing your helper as needed,
+# as in this case with the planPopup.
+# Usually, you can just rely on the commonElements object.
+calendar.setCommonHelper(name, helper)
+calendar.setCommonElement(locator, name)
+```
+
+the following elements:
+
+```coffee
+# uses the loadingLocator option
+calendar.el.loadingState()    # <TestItemHelper>
+# from the testElementLocator option
+calendar.el.self()            # <TestItemHelper>
+```
+
+and the following properties:
+
+```coffee
+calendar.test       # testContext
+calendar.options    # options set when the calendar was instantiated
+```
+
+## TestItemHelper
+
+A [`TestItemHelper`](./test-element.coffee#L6) can be instantiated like this:
+
+```coffee
+elementHelper = new TestItemHelper(@, locator)  # @ is the test context, and locator is either a css selector string, a selenium locator object, or a function that returns a locator object based on some paramters.
+```
+
+As instances of `TestItemHelper`, each of the elements on `calendarHelper.el` exposes the following methods:
+
+```coffee
+testItemHelper.getLocator(optionalParameters) # should return a valid Selenium locator object
 
   # The following are aliases of other useful functions
   # for getting elements based on the stored locator
@@ -137,7 +166,21 @@ testItemHelper =
 
   forEach: test.utils.forEach
   isPresent: test.driver.isElementPresent
+
+  isDisplayed(optionalParams)
+
+  click()
+  waitClick()
+  getParent()
 ```
+
+`TestItemHelper` also exposes the following properties:
+
+```coffee
+testItemHelper.test       # testContext
+testItemHelper.locator    # locator from instantiation
+```
+
 See [test-element.coffee](./test-element.coffee) for details.
 
 # Modifying the base UI helper
