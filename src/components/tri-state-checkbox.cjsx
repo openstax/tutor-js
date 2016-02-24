@@ -1,25 +1,28 @@
+_     = require 'underscore'
 React = require 'react'
+
 Icon  = require './icon'
+
+ICON_TYPES =
+  partial:   'check-square-o'
+  checked:   'check-square'
+  unchecked: 'square-o'
 
 TriStateCheckbox = React.createClass
 
   propTypes:
-    type: React.PropTypes.oneOf(['unchecked', 'checked', 'partial'])
+    type: React.PropTypes.oneOf(_.keys(ICON_TYPES)).isRequired
     onClick: React.PropTypes.func
 
   render: ->
-    [type, title] = switch @props.type
-      when 'unchecked' then ['square-o', 'Unselected']
-      when 'checked' then ['check-square-o', 'Fully selected']
-      when 'partial' then ['check-square', 'Partially selected']
     if @props.onClick
       styles = cursor: 'pointer'
 
-    <Icon type={type}
-      onClick={@props.oncClick}
+    <Icon
+      type={ICON_TYPES[@props.type]}
+      onClick={@props.onClick}
       style={styles}
-      tooltip={title}
-      tooltipProps={placement: 'top'}/>
+    />
 
 
 module.exports = TriStateCheckbox
