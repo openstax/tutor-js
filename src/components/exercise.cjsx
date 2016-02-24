@@ -52,12 +52,14 @@ module.exports = React.createClass
   renderFailed: ->
     <div>Failed loading exercise, please check id</div>
 
+  sync: -> ExerciseActions.sync(@props.id)
+
   renderForm: ->
     id = @getId()
 
     questions = []
     for question in ExerciseStore.getQuestions(id)
-      questions.push(<Question key={question.id} id={question.id} />)
+      questions.push(<Question key={question.id} sync={@sync} id={question.id} />)
 
     isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
 
@@ -101,14 +103,14 @@ module.exports = React.createClass
     </div>
 
   render: ->
-    console.log "RENDER EX"
-
     id = @getId()
     if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id)
       if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
       return @renderLoading()
     else if ExerciseStore.isFailed(id)
       return @renderFailed()
+
+    exercise = ExerciseStore.get(id)
 
     exerciseUid = ExerciseStore.getId(id)
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
