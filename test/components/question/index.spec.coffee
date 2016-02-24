@@ -1,7 +1,7 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
 
 Question = require 'components/question'
-STEP = require './exercise/step-data'
+STEP = require '../exercise/step-data'
 
 describe 'Question Component', ->
 
