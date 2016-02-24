@@ -1,15 +1,11 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
-LoadableItem = require './loadable-item'
+
 ChapterSection = require './task-plan/chapter-section'
 BrowseTheBook = require './buttons/browse-the-book'
 TriStateCheckbox = require './tri-state-checkbox'
 classnames = require 'classnames'
-
-{TocStore, TocActions} = require '../flux/toc'
-
-{CourseStore} = require '../flux/course'
 
 SectionTopic = React.createClass
 
@@ -22,11 +18,8 @@ SectionTopic = React.createClass
     selections: React.PropTypes.object.isRequired
     onChange: React.PropTypes.func.isRequired
 
-  isSelected: -> @props.selections[@props.section.id]
-
-  toggleSection: ->
-    @props.onChange({"#{@props.section.id}": not @isSelected()})
-
+  isSelected:    -> @props.selections[@props.section.id]
+  toggleSection: -> @props.onChange({"#{@props.section.id}": not @isSelected()})
   render: ->
     classNames = classnames 'section', {selected: @props.selected}
     <div key={@props.section.id} className={classNames} onClick={@toggleSection}>
@@ -51,52 +44,55 @@ ChapterAccordion = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  browseBook: (ev) -> ev.stopPropagation() # stop click from toggling the accordian
-  isSectionSelected: (section) -> @props.selections[section.id]
-  toggleSections: (ev, iconState) ->
-    newSelections = {}
+  getInitialState:              -> {expanded: @isAnySelected()}
+  browseBook: (ev)              -> ev.stopPropagation() # stop click from toggling the accordian
+  isSectionSelected: (section)  -> @props.selections[section.id]
+  isAnySelected:                -> _.any @props.chapter.children, @isSectionSelected
+  toggleSectionSelections: (ev) ->
     ev.stopPropagation()
-    newSelections[section.id] = not isSectionSelected(section) for section in chapter.children
-    @onChange(newSelections)
-
+    selected = not @isAnySelected()
+    newSelections = {}
+    newSelections[section.id] = selected for section in @props.chapter.children
+    @setState({expanded: true})
+    @props.onChange(newSelections)
 
   renderHeader: ->
     {chapter, ecosystemId} = @props
     selected = _.filter chapter.children, @isSectionSelected
+
     checkBoxType = if selected.length is chapter.children.length then 'checked'
-    else if selected.length then 'partial'
-    else 'unchecked'
+    else if selected.length then 'partial' else 'unchecked'
 
     classNames = classnames 'chapter-heading', 'empty-chapter': _.isEmpty(chapter.children)
 
     <h2 className={classNames} data-chapter-section={chapter.chapter_section[0]}>
-
       <span className='chapter-checkbox'>
-        <TriStateCheckbox
-          type={checkBoxType}
-          onClick={@toggleSections} />
+        <TriStateCheckbox type={checkBoxType} onClick={@toggleSectionSelections} />
       </span>
       <span className='chapter-number'>
         Chapter <ChapterSection section={chapter.chapter_section}/> -
       </span>
       <span className='chapter-title'> {chapter.title}</span>
-      <BrowseTheBook
-        onClick={@browseBook}
-        className='browse-book'
-        section={chapter.chapter_section.join('.')}
-        ecosystemId={ecosystemId}
-        unstyled={true}>
+      <BrowseTheBook ecosystemId={ecosystemId} unstyled={true}
+        onClick={@browseBook} className='browse-book' section={chapter.chapter_section.join('.')}
+      >
           Browse this Chapter
       </BrowseTheBook>
     </h2>
 
+  onAccordianToggle: ->
+    @setState(expanded: not @state.expanded)
+
   render: ->
     {chapter, expanded} = @props
-
-#    activeKey = chapter.id if expanded # or _.any chapter.children, @isSectionSelected
-
-    <BS.Accordion activeKey={@expanded}>
-      <BS.Panel key={chapter.id} header={@renderHeader()} eventKey={chapter.id}>
+    <BS.Accordion
+      expanded={@state.expanded}
+      onSelect={@onAccordianToggle}
+      activeKey={if @state.expanded then chapter.id else ''}
+    >
+      <BS.Panel key={chapter.id}
+        header={@renderHeader()}
+        eventKey={chapter.id}>
       {for section in chapter.children
         <SectionTopic key={section.id} {...@props} section={section} />}
       </BS.Panel>
@@ -105,58 +101,51 @@ ChapterAccordion = React.createClass
 
 SectionsChooser = React.createClass
   propTypes:
-    ecosystemId: React.PropTypes.string
-    courseId: React.PropTypes.string
-    onSelectionChange: React.PropTypes.func.isRequired
-    selectedSections: React.PropTypes.arrayOf(
+    onSelectionChange: React.PropTypes.func
+    chapters: React.PropTypes.arrayOf(
+      React.PropTypes.shape(
+        id: React.PropTypes.string
+        title: React.PropTypes.string
+        chapter_section: React.PropTypes.array
+        children: React.PropTypes.array
+      )
+    ).isRequired
+    selectedSectionIds: React.PropTypes.arrayOf(
       React.PropTypes.string
     )
 
   getInitialState: -> {selections: {}}
 
   componentWillMount: ->
-    @copySelectionStateFromProps(
-      if @props.selectedSections then @props.selectedSections else []
+    @copySelectionStateFrom(
+      if @props.selectedSectionIds then @props.selectedSectionIds else []
     )
 
   componentWillReceiveProps: (nextProps) ->
-    @copySelectionStateFrom(nextProps.selectedSections) if nextProps.selectedSections
+    @copySelectionStateFrom(nextProps.selectedSectionIds) if nextProps.selectedSectionIds?
 
-  copySelectionStateFromProps: (selections) ->
+  copySelectionStateFrom: (sectionIds) ->
     selections = {}
-    for sectionId in selections
-      selections[sectionId]
+    selections[id] = true for id in sectionIds
     @setState({selections})
-
-  getEcosystemId: ->
-    @props.ecosystemId or CourseStore.get(@props.courseId)?.ecosystem_id or (
-      throw new Error("BUG: ecosystemId wasn't provided and unable to find it on course")
-    )
 
   getSelectedSectionIds: (selections = @state.selections) ->
     sectionId for sectionId, value of selections when value
 
   onSectionSelectionChange: (update) ->
     selections = _.extend({}, @state.selections, update)
-    console.log selections
     @setState({selections})
     @props.onSelectionChange?( @getSelectedSectionIds(selections) )
 
-  renderChapters: ->
-    <div className="sections-chooser">
-    {for chapter in TocStore.get(@getEcosystemId())
-      <ChapterAccordion key={chapter.id} {...@props}
-        onChange={@onSectionSelectionChange}
-        selections={@state.selections} chapter={chapter} />}
-    </div>
 
   render: ->
-    <LoadableItem
-      id={@getEcosystemId()}
-      store={TocStore}
-      actions={TocActions}
-      renderItem={@renderChapters}
-    />
+    <div className="sections-chooser">
+      {for chapter in @props.chapters
+        <ChapterAccordion key={chapter.id} {...@props}
+          onChange={@onSectionSelectionChange}
+          selections={@state.selections} chapter={chapter} />}
+    </div>
+
 
 
 module.exports = SectionsChooser
