@@ -101,10 +101,10 @@ calendar.goOpen(title)
 These are elements you can use to test things about the calendar page.  They are defined by the `COMMON_ELEMENTS` object.
 
 ```coffee
-calendar.el.forecastLink()          # <TestItemHelper>
-calendar.el.studentScoresLink()     # <TestItemHelper>
-calendar.el.addToggle()             # <TestItemHelper>
-calendar.el.planByTitle(title)      # <TestItemHelper>
+calendar.el.forecastLink()          # <TestItemHelper>.fn
+calendar.el.studentScoresLink()     # <TestItemHelper>.fn
+calendar.el.addToggle()             # <TestItemHelper>.fn
+calendar.el.planByTitle(title)      # <TestItemHelper>.fn
 ```
 
 This additional element is available from explicitly calling `setCommonHelper`.
@@ -132,9 +132,9 @@ the following elements:
 
 ```coffee
 # uses the loadingLocator option
-calendar.el.loadingState()    # <TestItemHelper>
+calendar.el.loadingState()    # <TestItemHelper>.fn
 # from the testElementLocator option
-calendar.el.self()            # <TestItemHelper>
+calendar.el.self()            # <TestItemHelper>.fn
 ```
 
 and the following properties:
@@ -177,7 +177,7 @@ elementHelper.waitClick(optionalParams, optionalWaitTime) # alias for @utils.wai
 elementHelper.getParent(optionalParams)     # alias for @utils.dom.getParent
 ```
 
-`TestItemHelper` is available as a function that returns methods exposed on `elementHelper.fn`.  This means you can use this syntax:
+`TestItemHelper` is available as a function that returns methods exposed on `elementHelper.fn`.  This `fn` is what get's set on `TestHelper`'s `el`. This means you can use this syntax:
 
 ```coffee
 elementHelper.fn(optionalParams).get()
