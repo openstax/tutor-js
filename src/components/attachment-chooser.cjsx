@@ -31,7 +31,8 @@ AttachmentChooser = React.createClass
 
   onImageChange: (ev) ->
     ev.preventDefault()
-    file = ev.target.files[0]
+    file = _.first(ev.target.files)
+    return unless file
     reader = new FileReader()
     reader.onloadend = =>
       @replaceState({file, imageData: reader.result})
