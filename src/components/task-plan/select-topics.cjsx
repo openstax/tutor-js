@@ -6,7 +6,8 @@ LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {CourseStore} = require '../../flux/course'
-
+SectionsChooser = require '../sections-chooser'
+LoadableItem = require '../loadable-item'
 
 SelectTopics = React.createClass
   displayName: 'SelectTopics'
@@ -18,19 +19,15 @@ SelectTopics = React.createClass
 
   getInitialState: -> {initialSelected: @props.selected}
 
-  renderChapterPanels: (chapter, i) ->
-    expanded = not @props.selected?.length and i is 0
-    <ChapterAccordion {...@props} expanded={expanded} chapter={chapter}/>
-
   hasChanged: ->
     @props.selected and not _.isEqual(@props.selected, @state.initialSelected)
 
+  onSectionChange: (sectionIds) ->
+    TaskPlanActions.updateTopics(@props.planId, sectionIds)
+
   renderDialog: ->
     {courseId, planId, selected, hide, header, primary, cancel} = @props
-
-    selected = TaskPlanStore.getTopics(planId)
-    chapters = _.map(TocStore.get(@props.ecosystemId), @renderChapterPanels)
-    changed = @hasChanged()
+    ecosystemId = CourseStore.get(courseId).ecosystem_id
 
     <Dialog
       className='select-reading-dialog'
@@ -38,12 +35,17 @@ SelectTopics = React.createClass
       primary={primary}
       confirmMsg='You will lose unsaved changes if you continue.'
       cancel='Cancel'
-      isChanged={-> changed}
+      isChanged={_.constant(@hasChanged())}
       onCancel={cancel}>
 
       <div className='select-reading-chapters'>
-        {chapters}
+        <SectionsChooser
+          chapters={TocStore.get(ecosystemId)}
+          selectedSectionIds={TaskPlanStore.getTopics(planId)}
+          onSelectionChange={@onSectionChange}
+        />
       </div>
+
     </Dialog>
 
   render: ->
