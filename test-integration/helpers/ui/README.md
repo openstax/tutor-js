@@ -155,23 +155,30 @@ As instances of `TestItemHelper`, each of the elements on `calendarHelper.el` ex
 
 ```coffee
 testItemHelper.getLocator(optionalParameters) # should return a valid Selenium locator object
+```
 
-  # The following are aliases of other useful functions
-  # for getting elements based on the stored locator
-  get: test.utils.wait.for
-  getAll: test.utils.wait.forMultiple
+The other methods uses `getLocator` to get a Selenium locator before passing on into functions on the testContext's `driver` or our own defined `utils`.
 
-  findElement: test.driver.findElement
-  findElements: test.driver.findElements
+```coffee
+testItemHelper.get(optionalParams, optionalWaitTime)           # alias for @utils.wait.for, waits until element is displayed or time runs out
+testItemHelper.getAll(optionalParams, optionalWaitTime)        # alias for @utils.wait.forMultiple, "" for multiple elements
 
-  forEach: test.utils.forEach
-  isPresent: test.driver.isElementPresent
+testItemHelper.findElement(optionalParams)   # @driver.findElement, tries to find element immediately without waiting
+testItemHelper.findElements(optionalParams)  # @driver.findElements, "" for mutiple elements
 
-  isDisplayed(optionalParams)
+testItemHelper.forEach(optionalParams)       # alias for @utils.forEach
+testItemHelper.isPresent(optionalParams)     # alias for @driver.isElementPresent
 
-  click()
-  waitClick()
-  getParent()
+testItemHelper.isDisplayed(optionalParams)   # is element displayed? using Selenium WebElement's isDisplayed
+
+testItemHelper.waitClick(optionalParams, optionalWaitTime)     # alias for @utils.wait.click, waits until element is displayed before clicking
+testItemHelper.getParent(optionalParams)     # alias for @utils.dom.getParent
+```
+
+`TestItemHelper` is available as a function that returns methods exposed on `testItemHelper.fn`.  This means you can use this syntax:
+
+```coffee
+itemElement(optionalParams).get()
 ```
 
 `TestItemHelper` also exposes the following properties:
