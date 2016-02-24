@@ -1,6 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
-BS = require 'react-bootstrap'
+
 Dialog = require '../dialog'
 LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
