@@ -31,7 +31,7 @@ getTagTypes = (tags) ->
   #filter out all editable tags
   editable = _.filter tags, (tag) ->
     _.reduce(FixedTags, (memo, fixedTag) ->
-      memo and !isFixedTagType(tag, fixedTag)
+      memo and not isFixedTagType(tag, fixedTag)
     , true)
 
   fixedArray = _.filter tags, (tag) -> editable.indexOf(tag) is -1
