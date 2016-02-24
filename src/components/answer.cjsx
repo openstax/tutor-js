@@ -7,9 +7,17 @@ module.exports = React.createClass
 
   getInitialState: -> {}
 
-  updateContent: (event) -> AnswerActions.updateContent(@props.id, event.target?.value)
-  changeCorrect: (event) -> @props.changeAnswer(@props.id)
-  updateFeedback: (event) -> AnswerActions.updateFeedback(@props.id, event.target?.value)
+  updateContent: (event) ->
+    AnswerActions.updateContent(@props.id, event.target?.value)
+    @props.sync()
+
+  changeCorrect: (event) ->
+    @props.changeAnswer(@props.id)
+    @props.sync()
+
+  updateFeedback: (event) ->
+    AnswerActions.updateFeedback(@props.id, event.target?.value)
+    @props.sync()
 
   render: ->
     isCorrect = AnswerStore.isCorrect(@props.id)
