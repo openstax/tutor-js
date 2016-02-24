@@ -5,7 +5,8 @@ BS = require 'react-bootstrap'
 Question = require './question'
 Preview = require './preview'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
-
+Attachment = require './attachment'
+AttachmentChooser = require './attachment-chooser'
 {ArbitraryHtmlAndMath} = require 'openstax-react-components'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
@@ -37,6 +38,7 @@ module.exports = React.createClass
 
   saveExercise: ->
     if confirm('Are you sure you want to save?')
+
       ExerciseActions.save(@props.id)
 
   publishExercise: ->
@@ -99,6 +101,8 @@ module.exports = React.createClass
     </div>
 
   render: ->
+    console.log "RENDER EX"
+
     id = @getId()
     if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id)
       if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
@@ -106,8 +110,7 @@ module.exports = React.createClass
     else if ExerciseStore.isFailed(id)
       return @renderFailed()
 
-    ExerciseActions.sync(id)
-    exercise = ExerciseStore.get(id)
+    exerciseUid = ExerciseStore.getId(id)
     preview = <Preview exercise={exercise} closePreview={@closePreview}/>
 
     if ExerciseStore.isPublished(id)
@@ -123,13 +126,19 @@ module.exports = React.createClass
       form = @renderForm(id)
 
     <BS.Grid>
+      <div className="attachments">
+        { for attachment in ExerciseStore.get(id).attachments
+          <Attachment key={attachment.asset.url} exerciseUid={exerciseUid} attachment={attachment} /> }
+        <AttachmentChooser exerciseUid={exerciseUid} />
+      </div>
+
       <BS.Row><BS.Col xs={5} className="exercise-editor">
         <div>
-          <label>Exercise ID:</label> {ExerciseStore.getId(id)}
+          <label>Exercise ID:</label> {exerciseUid}
         </div>
         {publishedLabel}
         {editLink}
-        {form}
+        <form>{form}</form>
       </BS.Col><BS.Col xs={6} className="pull-right">
         {preview}
       </BS.Col></BS.Row>

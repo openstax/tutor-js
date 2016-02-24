@@ -67,22 +67,22 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 start = ->
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (id) ->
     url: "/api/exercises/#{id}@draft"
-    
+
   apiHelper ExerciseActions, ExerciseActions.save, ExerciseActions.saved, 'PUT', (id) ->
-    
+
     # backend expects the changed props and the entire exercise for some reason
     obj = ExerciseStore.getChanged(id)
     obj.exercise = ExerciseStore.get(id)
 
     exerciseId = if id.indexOf("@") is -1 then id else id.split("@")[0]
-      
+
     url:"/api/exercises/#{exerciseId}@draft"
     httpMethod: 'PUT'
     payload: obj
 
 
   apiHelper ExerciseActions, ExerciseActions.publish, ExerciseActions.saved, 'PUT', (id) ->
-    
+
     obj = ExerciseStore.get(id)
     uid = ExerciseStore.getId(id)
 
@@ -90,4 +90,29 @@ start = ->
     httpMethod: 'PUT'
     payload: obj
 
-module.exports = {start}
+  apiHelper ExerciseActions, ExerciseActions.deleteAttachment, ExerciseActions.attachmentDeleted, 'DELETE',
+  (exerciseUid, attachmentId) ->
+    url: "/api/exercises/#{exerciseUid}/attachments/#{attachmentId}"
+    httpMethod: 'DELETE'
+
+
+
+uploadExerciseImage = (exerciseUid, image, cb) ->
+  url = "/api/exercises/#{exerciseUid}/attachments"
+  xhr = new XMLHttpRequest()
+  xhr.addEventListener 'load', (req) ->
+    cb(if req.currentTarget.status is 201
+      attachment = JSON.parse(req.target.response)
+      ExerciseActions.attachmentUploaded(exerciseUid, attachment)
+      {response: attachment, progress: 100}
+    else
+      {error: req.currentTarget.statusText})
+  xhr.addEventListener 'progress', (ev) ->
+    cb({progress: (ev.total / (ev.total or image.size) * 100) })
+  xhr.open('POST', url, true)
+  xhr.setRequestHeader('X-CSRF-Token', CSRF_Token)
+  form = new FormData()
+  form.append("image", image, image.name)
+  xhr.send(form)
+
+module.exports = {start, uploadExerciseImage}
