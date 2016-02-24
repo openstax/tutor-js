@@ -1,9 +1,24 @@
 selenium = require 'selenium-webdriver'
+_ = require 'underscore'
 
 class Wait
   constructor: (test) -> @test = test
 
   _for: (settings) =>
+
+    defaultSettings =
+      find: @test.driver.findElement.bind(@test.driver)
+      untilLocated: selenium.until.elementLocated
+      buildWaitMessage: (locator) ->
+        "Looking for #{JSON.stringify(locator)}"
+      buildFoundMessage: (locator, result) ->
+        "Found #{JSON.stringify(locator)}"
+      buildDisplayMessage: (locator) ->
+        "Waiting for #{JSON.stringify(locator)} to show"
+      filter: (result) ->
+        result
+
+    settings = _.extend({}, defaultSettings, settings)
     {find, untilLocated, buildWaitMessage, buildFoundMessage, buildDisplayMessage, filter} = settings
 
     (locator, ms = 60 * 1000) =>
@@ -31,8 +46,6 @@ class Wait
         "Looking for multiple #{JSON.stringify(locator)}"
       buildFoundMessage: (locator, result) ->
         "Found #{result.count} matching #{JSON.stringify(locator)}"
-      buildDisplayMessage: (locator) ->
-        "Waiting for #{JSON.stringify(locator)} to show"
       filter: (result) ->
         result[0]
 
@@ -40,19 +53,7 @@ class Wait
 
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
   for: (locator, ms = 60 * 1000) ->
-    settings =
-      find: @test.driver.findElement.bind(@test.driver)
-      untilLocated: selenium.until.elementLocated
-      buildWaitMessage: (locator) ->
-        "Looking for #{JSON.stringify(locator)}"
-      buildFoundMessage: (locator, result) ->
-        "Found #{JSON.stringify(locator)}"
-      buildDisplayMessage: (locator) ->
-        "Waiting for #{JSON.stringify(locator)} to show"
-      filter: (result) ->
-        result
-
-    @_for(settings)(locator, ms)
+    @_for()(locator, ms)
 
   click: (locator, ms) =>
     @test.utils.verboseWrap "Wait and click #{JSON.stringify(locator)}", =>
