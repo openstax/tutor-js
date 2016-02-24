@@ -3,34 +3,8 @@ selenium = require 'selenium-webdriver'
 class Wait
   constructor: (test) -> @test = test
 
-  _for: (single = true) =>
-    singleOptions =
-      find: @test.driver.findElement.bind(@test.driver)
-      untilLocated: selenium.until.elementLocated
-      buildWaitMessage: (locator) ->
-        "Looking for #{JSON.stringify(locator)}"
-      buildFoundMessage: (locator, result) ->
-        "Found #{JSON.stringify(locator)}"
-      buildDisplayMessage: (locator) ->
-        "Waiting for #{JSON.stringify(locator)} to show"
-      filter: (result) ->
-        result
-
-    multipleOptions =
-      find: @test.driver.findElements.bind(@test.driver)
-      untilLocated: selenium.until.elementsLocated
-      buildWaitMessage: (locator) ->
-        "Looking for multiple #{JSON.stringify(locator)}"
-      buildFoundMessage: (locator, result) ->
-        "Found #{result.count} matching #{JSON.stringify(locator)}"
-      buildDisplayMessage: (locator) ->
-        "Waiting for #{JSON.stringify(locator)} to show"
-      filter: (result) ->
-        result[0]
-
-    options = if single then singleOptions else multipleOptions
-
-    {find, untilLocated, buildWaitMessage, buildFoundMessage, buildDisplayMessage, filter} = options
+  _for: (settings) =>
+    {find, untilLocated, buildWaitMessage, buildFoundMessage, buildDisplayMessage, filter} = settings
 
     (locator, ms = 60 * 1000) =>
       locator = @test.utils.toLocator(locator)
@@ -50,11 +24,35 @@ class Wait
       el
 
   forMultiple: (locator, ms = 60 * 1000) ->
-    @_for(false)(locator, ms)
+    settings =
+      find: @test.driver.findElements.bind(@test.driver)
+      untilLocated: selenium.until.elementsLocated
+      buildWaitMessage: (locator) ->
+        "Looking for multiple #{JSON.stringify(locator)}"
+      buildFoundMessage: (locator, result) ->
+        "Found #{result.count} matching #{JSON.stringify(locator)}"
+      buildDisplayMessage: (locator) ->
+        "Waiting for #{JSON.stringify(locator)} to show"
+      filter: (result) ->
+        result[0]
+
+    @_for(settings)(locator, ms)
 
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
   for: (locator, ms = 60 * 1000) ->
-    @_for(true)(locator, ms)
+    settings =
+      find: @test.driver.findElement.bind(@test.driver)
+      untilLocated: selenium.until.elementLocated
+      buildWaitMessage: (locator) ->
+        "Looking for #{JSON.stringify(locator)}"
+      buildFoundMessage: (locator, result) ->
+        "Found #{JSON.stringify(locator)}"
+      buildDisplayMessage: (locator) ->
+        "Waiting for #{JSON.stringify(locator)} to show"
+      filter: (result) ->
+        result
+
+    @_for(settings)(locator, ms)
 
   click: (locator, ms) =>
     @test.utils.verboseWrap "Wait and click #{JSON.stringify(locator)}", =>
