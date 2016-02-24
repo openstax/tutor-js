@@ -4,6 +4,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Question = require './question'
 Preview = require './preview'
+ExerciseTags = require './tags'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Attachment = require './attachment'
 AttachmentChooser = require './attachment-chooser'
@@ -25,9 +26,6 @@ module.exports = React.createClass
   update: -> @setState({})
   updateNumber: (event) -> ExerciseActions.updateNumber(@getId(), event.target?.value)
   updateStimulus: (event) -> ExerciseActions.updateStimulus(@getId(), event.target?.value)
-  updateTags: (event) ->
-    tagsArray = event.target?.value.split(",")
-    ExerciseActions.updateTags(@getId(), tagsArray)
 
   getId: ->
     @props.id or @state.id
@@ -82,11 +80,7 @@ module.exports = React.createClass
         </textarea>
       </div>
       {questions}
-      <div>
-        <label>Tags</label>
-        <textarea onChange={@updateTags} defaultValue={ExerciseStore.getTags(id).join(',')}>
-        </textarea>
-      </div>
+      <ExerciseTags id={id} />
       <AsyncButton
         bsStyle='info'
         onClick={@saveExercise}

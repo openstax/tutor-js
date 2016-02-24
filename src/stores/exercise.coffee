@@ -10,6 +10,47 @@ cascadeLoad = (obj, exerciseId) ->
 
 EmptyFn = -> ''
 
+FixedTags = [{
+  base: 'blooms'
+  range: [1...8]
+  separator: '-'
+}, {
+  base: 'dok'
+  range: [1...4]
+  separator: ''
+}, {
+  base: 'time'
+  range: ['short', 'medium', 'long']
+  separator: '-'
+}]
+
+
+isFixedTagType = (tag, fixedTag) -> tag.indexOf("#{fixedTag.base}#{fixedTag.separator}") isnt -1
+
+getTagTypes = (tags) ->
+  #filter out all editable tags
+  editable = _.filter tags, (tag) ->
+    _.reduce(FixedTags, (memo, fixedTag) ->
+      memo and !isFixedTagType(tag, fixedTag)
+    , true)
+
+  fixedArray = _.filter tags, (tag) -> editable.indexOf(tag) is -1
+
+  #get all fixed tags with value attribute
+  fixed = _.map(FixedTags, (fixedTag) ->
+    value = _.reduce(fixedArray, (memo, tag) ->
+      if isFixedTagType(tag, fixedTag)
+        tag
+      else
+        memo
+    , '')
+
+    _.extend({}, fixedTag, {value})
+  )
+
+  #return both types of tags
+  return {fixed, editable}
+
 ExerciseConfig = {
   _loaded: cascadeLoad
   _asyncStatusPublish: {}
@@ -20,6 +61,18 @@ ExerciseConfig = {
 
   updateTags: (id, tags) -> @_change(id, {tags})
 
+  updateFixedTag:(id, oldTag, newTag) ->
+    tags = @_local[id].tags
+    if (not newTag)
+      tags = _.filter(tags, (tag) -> tag isnt oldTag)
+    else if (not oldTag)
+      tags.push(newTag)
+    else
+      tags = _.filter(tags, (tag) -> tag isnt oldTag)
+      tags.push(newTag)
+  
+    @_change(id, {tags})
+    
   sync: (id) ->
     questions = _.map @_local[id].questions, (question) ->
       QuestionActions.sync(question.id)
@@ -60,13 +113,16 @@ ExerciseConfig = {
 
     getStimulus: (id) -> @_local[id].stimulus_html
 
-    getTags: (id) -> @_local[id].tags
+    getEditableTags: (id) -> getTagTypes(@_local[id].tags).editable
+
+    getFixedTags: (id) -> getTagTypes(@_local[id].tags).fixed
 
     getPublishedDate: (id) -> @_local[id].published_at
 
     isPublished: (id) -> @_local[id].published_at
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
+
 }
 
 extendConfig(ExerciseConfig, new CrudConfig())
