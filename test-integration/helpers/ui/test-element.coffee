@@ -32,18 +32,28 @@ class TestItemHelper
     else
       @locator
 
+  aliasWait: (waitFunction, args...) =>
+    locator = @getLocator(args...)
+
+    waitTime = _.last(args)
+    waitTime = null unless _.isNumber(waitTime)
+
+    waitFunction(locator, waitTime)
+
+  # methods that wait until elements are available before running
   get: (args...) =>
-    locator = @getLocator(args...)
-    waitTime = _.last(args)
-    waitTime = null unless _.isNumber(waitTime)
-    @test.utils.wait.for(locator, waitTime)
+    @aliasWait(@test.utils.wait.for, args...)
 
-  getAll: (args..., waitTime) =>
-    locator = @getLocator(args...)
-    waitTime = _.last(args)
-    waitTime = null unless _.isNumber(waitTime)
-    @test.utils.wait.forMultiple(locator, waitTime)
+  getAll: (args...) =>
+    @aliasWait(@test.utils.wait.forMultiple, args...)
 
+  # Helper for the common case of `wait.for(...).click()`.
+  # Plus, it allows a place to add logging since this is one of the most
+  # common places for Selenium to time out (trying to click on an element)
+  waitClick: (args...) =>
+    @aliasWait(@test.utils.wait.click, args...)
+
+  # methods that will try to run as soon as you call them
   findElement: (args...) =>
     locator = @getLocator(args...)
     @test.driver.findElement(locator)
@@ -51,6 +61,10 @@ class TestItemHelper
   findElements: (args...) =>
     locator = @getLocator(args...)
     @test.driver.findElements(locator)
+
+  # Helper for the common case of `findElement(...).click()`.
+  click: (args...) =>
+    @findElement(args...).click()
 
   forEach: (args..., forEachFunction, forEachFunction2) =>
     locator = @getLocator(args...)
@@ -68,27 +82,6 @@ class TestItemHelper
         el.isDisplayed()
       else
         false
-
-  # Helper for the common case of `get(...).click()`.
-  # Plus, it allows a place to add logging since this is one of the most
-  # common places for Selenium to time out (trying to click on an element)
-  click: (args...) =>
-    locator = @getLocator(args...)
-    # Scroll to the element so it is visible before clicking (this assumes `position: fixed` is overridden for all element)
-    # @isDisplayed(args...).then (isDisplayed) =>
-    #   unless isDisplayed
-    #     el = @findElement(args...)
-    #     @test.utils.windowPosition.scrollTo(el)
-    @test.utils.verboseWrap "Clicking #{JSON.stringify(locator)}", =>
-      el = @get(args...)
-      @test.utils.windowPosition.scrollTo(el)
-      el.click()
-
-  waitClick: (args...) =>
-    locator = @getLocator(args...)
-    @test.utils.verbose "Waiting for #{JSON.stringify(locator)}"
-    @test.utils.wait.for(locator)
-    @click(args...)
 
   getParent: (args...) =>
     locator = @getLocator(args...)
