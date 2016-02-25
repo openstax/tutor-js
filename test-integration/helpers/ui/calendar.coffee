@@ -62,7 +62,7 @@ class Popup extends TestHelper
     @el.closeButton.click()
     # waits until the locator element is not present
     @test.driver.wait =>
-      @isPresent().then (isPresent) ->
+      @el.self().isPresent().then (isPresent) ->
         not isPresent
 
   goToEdit: =>
