@@ -2,6 +2,7 @@ selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 S = require '../../../src/helpers/string'
+curry = require 'lodash.curry'
 
 class TestItemHelper
   constructor: (test, testElementLocator, options = {}) ->
@@ -33,11 +34,15 @@ class TestItemHelper
 
   get: (args...) =>
     locator = @getLocator(args...)
-    @test.utils.wait.for(locator)
+    waitTime = _.last(args)
+    waitTime = null unless _.isNumber(waitTime)
+    @test.utils.wait.for(locator, waitTime)
 
-  getAll: (args...) =>
+  getAll: (args..., waitTime) =>
     locator = @getLocator(args...)
-    @test.utils.wait.forMultiple(locator)
+    waitTime = _.last(args)
+    waitTime = null unless _.isNumber(waitTime)
+    @test.utils.wait.forMultiple(locator, waitTime)
 
   findElement: (args...) =>
     locator = @getLocator(args...)
@@ -134,7 +139,9 @@ wrapHelperToFunction = (helper, options, methodNames) ->
     # For each method, pass on args from helper function to method
     _.each methodNames, (methodName) ->
       if _.isFunction helper[methodName]
-        wrappedMethods[methodName] = _.partial helper[methodName], args...
+        # allows methods to be called like this:
+        # el.itemName(optionLocatorParams).get(getParams) -- where getParams would likely be waitTime
+        wrappedMethods[methodName] = _.partial curry(helper[methodName]), args...
 
     # The helper function returns a fresh copy of
     # the helper extended with the wrapped methods.
