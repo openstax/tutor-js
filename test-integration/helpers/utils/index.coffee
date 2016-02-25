@@ -1,6 +1,7 @@
 _ = require 'underscore'
 
 wait = require './wait'
+dom = require './dom'
 windowPosition = require './window-position'
 
 forEach = require './for-each'
@@ -15,6 +16,7 @@ class Utils
     @test = test
 
     @wait = wait(@test)
+    @dom = dom(@test)
     @windowPosition = windowPosition(@test)
 
     @forEach = _.partial forEach, @test
