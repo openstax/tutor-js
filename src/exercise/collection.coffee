@@ -20,9 +20,11 @@ quickLoad = (stepId, data) ->
 cacheFreeResponse = (stepId, freeResponse) ->
   freeResponseCache[stepId] = freeResponse
 
+uncachedFreeResponse = (stepId) ->
+  delete freeResponseCache[stepId] if freeResponseCache[stepId]?
+
 load = (stepId, data) ->
   steps[stepId] = data
-  delete freeResponseCache[stepId] if data.free_response?
   channel.emit("load.#{stepId}", {data})
 
 update = (eventData) ->
@@ -57,6 +59,7 @@ getCurrentPanel = (stepId) ->
   panel
 
 get = (stepId) ->
+  uncachedFreeResponse(stepId) if steps[stepId].free_response?
   cachedFreeResponse = freeResponseCache[stepId]
   _.extend {}, steps[stepId], {cachedFreeResponse}
 
