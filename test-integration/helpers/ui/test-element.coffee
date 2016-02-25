@@ -92,10 +92,6 @@ class TestItemHelper
     locator = @getLocator(args...)
     @test.utils.dom.getParent(locator)
 
-  getParent: (args...) =>
-    locator = @getLocator(args...)
-    @test.utils.dom.getParent(locator)
-
 
 class TestHelper
   constructor: (test, testElementLocator, commonElements, options) ->
