@@ -78,7 +78,7 @@ class User extends TestHelper
     # Login as local
     @el.searchQuery.get().sendKeys(username)
     @el.searchQuery.get().submit()
-    @el.usernameLink(username).click()
+    @el.usernameLink(username).waitClick()
 
   logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
