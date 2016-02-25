@@ -5,11 +5,14 @@ Collection = require 'exercise/collection'
 step = require '../../api/steps/4573/GET'
 
 
-# utility fn to set the free response
 setFreeResponse = (dom, answer) ->
   ta = dom.querySelector('textarea')
   ta.value = answer
   ReactTestUtils.Simulate.change(ta, target: {value: ta.value})
+
+# utility fn to set the free response
+saveFreeResponse = (dom, answer) ->
+  setFreeResponse(dom, answer)
   Testing.actions.click(dom.querySelector('button.continue'))
 
 describe 'Exercise Step', ->
@@ -26,14 +29,26 @@ describe 'Exercise Step', ->
     Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.openstax-exercise')).not.to.be.null
 
-  it 'sets free response', ->
-    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) =>
-      setFreeResponse(dom, 'My Answer')
-      expect(@props.item.free_response).equal('My Answer')
+  it 'caches free response', ->
+    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
+      setFreeResponse(dom, 'My Partial Answer')
+      expect(dom.querySelector('textarea').value).equal('My Partial Answer')
+      expect(dom.querySelector('.free-response')).to.be.null
+
+      setFreeResponse(dom, 'My Second Partial Answer')
+      expect(dom.querySelector('textarea').value).equal('My Second Partial Answer')
+      expect(dom.querySelector('.free-response')).to.be.null
+
+
+  it 'saves free response', ->
+    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
+      saveFreeResponse(dom, 'My Answer')
+      expect(dom.querySelector('textarea')).to.be.null
+      expect(dom.querySelector('.free-response').innerText).equal('My Answer')
 
   it 'renders answer choices after free response', ->
     Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
-      setFreeResponse(dom, 'My Second Answer')
+      saveFreeResponse(dom, 'My Second Answer')
       expect(dom.querySelector('.free-response').textContent).equal('My Second Answer')
       answers = _.pluck dom.querySelectorAll('.answer-content'), 'textContent'
       expect(answers).to.deep.equal(
@@ -42,7 +57,7 @@ describe 'Exercise Step', ->
 
   it 'sets answer id after selection', ->
     Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) =>
-      setFreeResponse(dom, 'My Second Answer')
+      saveFreeResponse(dom, 'My Second Answer')
       answer = dom.querySelectorAll('.answers-answer')[1]
       input = answer.querySelector('input')
       ReactTestUtils.Simulate.change(input, target:{checked: true})

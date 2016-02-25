@@ -60,8 +60,8 @@ getCurrentPanel = (stepId) ->
 
 get = (stepId) ->
   uncachedFreeResponse(stepId) if steps[stepId].free_response?
-  cachedFreeResponse = freeResponseCache[stepId]
-  _.extend {}, steps[stepId], {cachedFreeResponse}
+  steps[stepId].cachedFreeResponse = freeResponseCache[stepId]
+  steps[stepId]
 
 init = ->
   user.channel.on 'logout.received', ->
