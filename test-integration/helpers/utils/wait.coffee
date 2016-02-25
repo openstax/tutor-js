@@ -9,6 +9,7 @@ class Wait
     defaultSettings =
       find: @test.driver.findElement.bind(@test.driver)
       untilLocated: selenium.until.elementLocated
+      untilReady: selenium.until.elementIsVisible
       buildWaitMessage: (locator) ->
         "Looking for #{JSON.stringify(locator)}"
       buildFoundMessage: (locator, result) ->
@@ -19,14 +20,10 @@ class Wait
         result
 
     settings = _.extend({}, defaultSettings, settings)
-    {find, untilLocated, buildWaitMessage, buildFoundMessage, buildDisplayMessage, filter} = settings
+    {find, untilLocated, untilReady, buildWaitMessage, buildFoundMessage, buildDisplayMessage, filter} = settings
 
     (locator, ms = 60 * 1000) =>
       locator = @test.utils.toLocator(locator)
-
-      {shouldBeVisible} = locator
-      shouldBeVisible ?= true
-      untilReady = if shouldBeVisible then selenium.until.elementIsVisible else selenium.until.elementIsEnabled
 
       @giveTime ms, =>
         @until buildWaitMessage(locator), untilLocated(locator)
@@ -51,9 +48,16 @@ class Wait
 
     @_for(settings)(locator, ms)
 
-  # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
+  # Waits for an element to be displayed and bumps up the timeout to be at least 60sec from now
   for: (locator, ms = 60 * 1000) ->
     @_for()(locator, ms)
+
+  # Waits for an element to be enabled and bumps up the timeout to be at least 60sec from now
+  forHidden: (locator, ms = 60 * 1000) ->
+    settings = 
+      untilReady: selenium.until.elementIsEnabled
+
+    @_for(settings)(locator, ms)
 
   click: (locator, ms) =>
     @test.utils.verboseWrap "Wait and click #{JSON.stringify(locator)}", =>
