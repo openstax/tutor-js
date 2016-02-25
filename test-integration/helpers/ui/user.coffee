@@ -104,8 +104,7 @@ class User extends TestHelper
       hider = document.createElement('style')
       hider.textContent = '''
         .navbar-fixed-bottom, .navbar-fixed-top,
-        .pinned-on .pinned-header,
-        .pinned-footer {
+        .pinned-on .pinned-header {
           z-index: initial !important;
           position: initial !important;
         }
