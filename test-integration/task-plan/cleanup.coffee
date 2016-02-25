@@ -11,10 +11,11 @@ describe 'Assignment Cleanup', ->
   beforeEach ->
     new Helpers.User(@).login(TEACHER_USERNAME)
     @addTimeout(2)
-    new Helpers.CourseSelect(@).goTo('ANY')
+    new Helpers.CourseSelect(@).goToByType('ANY')
 
     @calendar = new Helpers.Calendar(@)
     @reading = new Helpers.ReadingBuilder(@)
+    @calendarPopup = new Helpers.Calendar.Popup(@)
 
     @calendar.waitUntilLoaded()
 
@@ -34,8 +35,8 @@ describe 'Assignment Cleanup', ->
     @calendar.el.unopenPlan.forEach (plan, index, total) =>
       @addTimeout(10) # Published plans take a while to delete
       plan.click()
-      @calendar.el.planPopup.waitUntilLoaded()
-      @calendar.el.planPopup.goEdit()
+      @calendarPopup.waitUntilLoaded()
+      @calendarPopup.goToEdit()
       @reading.edit(action: 'DELETE').then ->
         console.log 'Deleted Unopened', index, '/', total
       @calendar.waitUntilLoaded()

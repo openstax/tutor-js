@@ -11,7 +11,7 @@ describe('Student Dashboard', function(){
     this.courseSelect = new Helpers.CourseSelect(this);
     this.dash = new Helpers.StudentDashboard.Dashboard(this);
     this.student.login('student01');
-    this.courseSelect.goToCourseByName('Biology I');
+    this.courseSelect.goToByTitle('Biology I');
   });
 
   this.xit('Has valid sub components', function(){
@@ -25,7 +25,7 @@ describe('Student Dashboard', function(){
     this.student.logout();
     const teacher = new Helpers.User(this);
     teacher.login('teacher01');
-    this.courseSelect.goToCourseByName('Biology I');
+    this.courseSelect.goToByTitle('Biology I');
     const calendar = new Helpers.Calendar(this);
     calendar.createNew('READING');
     const reading = new Helpers.ReadingBuilder(this);
@@ -40,7 +40,7 @@ describe('Student Dashboard', function(){
     teacher.logout()
 
     this.student.login('student01');
-    this.courseSelect.goToCourseByName('Biology I');
+    this.courseSelect.goToByTitle('Biology I');
 
     const eventEls = await this.dash.findVisibleEvents({
       where: {title: title}

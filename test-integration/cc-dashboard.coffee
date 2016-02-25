@@ -14,7 +14,7 @@ describe 'Concept Coach Dashboard', ->
     @scores = new Helpers.Scores(@)
 
     @user.login(TEACHER_USERNAME)
-    @courseSelect.goTo('CONCEPT_COACH')
+    @courseSelect.goToByType('CONCEPT_COACH')
 
   @it 'Can switch periods (readonly)', ->
     @conceptCoach.switchPeriods(@)

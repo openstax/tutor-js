@@ -75,7 +75,7 @@ So, the test would look something like:
 
 ```coffee
 App.login(TEACHER_USERNAME)
-CourseSelect.goTo('ANY')            # Choose any course
+CourseSelect.goToByType('ANY')            # Choose any course
 Calendar.createNew('HOMEWORK')
 ReadingBuilder.edit(action: 'SAVE') # Try to save
 
@@ -177,7 +177,7 @@ describe('Draft Tests', function() {
     this.login(TEACHER_USERNAME);
 
     // Go to the 1st courses dashboard
-    CourseSelect.goTo(this, 'ANY');
+    CourseSelect.goToByType(this, 'ANY');
 
     // Click to add a reading
     Calendar.createNew(this, 'READING');
@@ -193,7 +193,7 @@ describe('Draft Tests', function() {
     // Wait until the Calendar loads back up
     // And then verify it was added by clicking on it again
     // BUG: .course-list shouldn't be in the DOM
-    Calendar.goOpen(this, title);
+    Calendar.goToOpenByTitle(this, title);
 
     ReadingBuilder.edit(this, {
       action: 'DELETE'
@@ -218,7 +218,7 @@ describe 'Draft Tests', ->
     @login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
-    CourseSelect.goTo(@, 'ANY')
+    CourseSelect.goToByType(@, 'ANY')
 
     # Click to add a reading
     Calendar.createNew(@, 'READING')
@@ -233,7 +233,7 @@ describe 'Draft Tests', ->
     # Wait until the Calendar loads back up
     # And then verify it was added by clicking on it again
     # BUG: .course-list shouldn't be in the DOM
-    Calendar.goOpen(@, title)
+    Calendar.goToOpenByTitle(@, title)
 
     ReadingBuilder.edit(@, action: 'DELETE')
 

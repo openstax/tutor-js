@@ -32,8 +32,6 @@ class Wait
 
   click: (locator, ms) ->
     el = @for(locator, ms)
-    # Scroll to the top so the navbar does not obstruct what we are clicking
-    @test.utils.windowPosition.scrollTop()
     el.click()
     # return el to support chaining the promises
 

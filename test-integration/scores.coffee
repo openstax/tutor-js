@@ -14,18 +14,18 @@ describe 'HS Student Scores', ->
     @scores = new Helpers.Scores(@)
     @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
-    @courseSelect.goTo('PHYSICS')
-    @calendar.goStudentScores()
+    @courseSelect.goToByType('PHYSICS')
+    @calendar.goToScores()
     @scores.waitUntilLoaded()
 
   @it 'sorts by name or data', ->
     @scores.el.nameHeaderSort.get().click() # If you use just `.click()` that will scroll to try to make the element visible but cause the next element to not be clickable
     @scores.el.dataHeaderSort.click()
-    @user.goHome()
+    @user.goToHome()
 
   @it 'changes periods', ->
     @scores.el.periodTab.click()
-    @user.goHome()
+    @user.goToHome()
 
 
 
@@ -39,17 +39,17 @@ describe 'CC Student Scores', ->
     @scores = new Helpers.Scores(@)
     @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
-    @courseSelect.goTo('CONCEPT_COACH')
+    @courseSelect.goToByType('CONCEPT_COACH')
     @scores.goCCScores()
 
   @it 'sorts by name or data', ->
     @scores.el.nameHeaderSort.get().click() # If you use just `.click()` that will scroll to try to make the element visible but cause the next element to not be clickable
     @scores.el.dataHeaderSort.click()
-    @user.goHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
+    @user.goToHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
 
   @it 'changes periods', ->
     @scores.el.periodTab.click()
-    @user.goHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
+    @user.goToHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
 
   @it 'toggles display as', ->
     @scores.el.scoreCell.isPresent().then (isPresent) =>
@@ -60,4 +60,4 @@ describe 'CC Student Scores', ->
       @scores.el.displayAs.click()
       @scores.el.scoreCell.get().getText().then (txt) ->
         expect(txt).to.contain('of')
-      @user.goHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.
+      @user.goToHome() # Because the logout from a CC page goes to cc.openstax, go home first so the logout goes to tutor.

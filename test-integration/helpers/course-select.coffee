@@ -26,7 +26,7 @@ class CourseSelect extends TestHelper
     testElementLocator ?= '.course-listing'
     super(test, '.course-listing', COMMON_ELEMENTS)
 
-  goTo: (category) ->
+  goToByType: (category) ->
     @waitUntilLoaded()
     # Go to the bio dashboard
     switch category
@@ -37,7 +37,7 @@ class CourseSelect extends TestHelper
 
     @waitUntilLoaded() # TODO: This should probably use the `dashboard.waitUntilLoaded()`
 
-  goToCourseByName: (name) ->
+  goToByTitle: (name) ->
     @test.utils.wait.click(css: "[data-title='#{name}'] > a")
 
 module.exports = CourseSelect

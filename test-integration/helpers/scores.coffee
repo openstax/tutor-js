@@ -44,7 +44,6 @@ class Scores extends TestHelper
 
   # this could be moved to cc-dashboard helper at some point
   goCCScores: =>
-    @test.utils.windowPosition.scrollTop()
     @el.ccScoresLink.click()
     @waitUntilLoaded()
 
@@ -54,5 +53,25 @@ class Scores extends TestHelper
 
     @utils.isPresent(@el.downloadExport)
 
+
+  # selectDisplayAsNumber()
+  # selectDisplayAsPercent()
+  # selectBasedOnPossible()
+  # selectBasedOnAttempted()
+  # selectPeriodByIndex(num)
+  # selectPeriodByTitle(title)
+  # sortName()
+  # goToAssignmentByIndexes(row, column)
+  # downloadExport()
+
+  # # CC Commands:
+  # sortAssignmentScoreByIndex(index)
+  # sortAssignmentCompletedByIndex(index)
+  # sortAssignmentScoreByTitle(title)
+  #
+  # # HS Commands:
+  # goToForecastByName(studentName)
+  # goToReviewByIndex(index)
+  # goToReviewByTitle(title)
 
 module.exports = Scores
