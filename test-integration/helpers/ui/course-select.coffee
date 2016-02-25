@@ -3,7 +3,7 @@ selenium = require 'selenium-webdriver'
 
 
 COMMON_ELEMENTS =
-  courseLink: (appearance, isCoach = false) ->
+  courseByAppearance: (appearance, isCoach = false) ->
     dataAttr = 'data-appearance'
 
     if appearance?
@@ -18,6 +18,8 @@ COMMON_ELEMENTS =
 
     css: "#{teacherLink}, #{studentLink}"
 
+  courseByTitle: (title) ->
+    css: "[data-title='#{name}'] > a"
 
 class CourseSelect extends TestHelper
 
@@ -30,14 +32,14 @@ class CourseSelect extends TestHelper
     @waitUntilLoaded()
     # Go to the bio dashboard
     switch category
-      when 'BIOLOGY' then @el.courseLink('biology').click()
-      when 'PHYSICS' then @el.courseLink('physics').click()
-      when 'CONCEPT_COACH' then @el.courseLink(null, true).click()
-      else @el.courseLink().click()
+      when 'BIOLOGY' then @el.courseByAppearance('biology').click()
+      when 'PHYSICS' then @el.courseByAppearance('physics').click()
+      when 'CONCEPT_COACH' then @el.courseByAppearance(null, true).click()
+      else @el.courseByAppearance().click()
 
     @waitUntilLoaded() # TODO: This should probably use the `dashboard.waitUntilLoaded()`
 
   goToByTitle: (name) ->
-    @test.utils.wait.click(css: "[data-title='#{name}'] > a")
+    @el.courseByTitle(name).waitClick()
 
 module.exports = CourseSelect

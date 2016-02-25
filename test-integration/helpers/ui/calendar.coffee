@@ -66,19 +66,19 @@ class Popup extends TestHelper
         not isPresent
 
   goToEdit: =>
-    @el.editLink.waitClick()
+    @el.editLink().waitClick()
     @test.utils.wait.until 'modal is closed', =>
-      @el.modal.isPresent().then (isPresent) ->
+      @el.modal().isPresent().then (isPresent) ->
         !isPresent
 
   canGoToReviewMetrics: =>
-    @el.reviewLink.isPresent()
+    @el.reviewLink().isPresent()
 
   goReview: =>
-    @el.reviewLink.waitClick()
+    @el.reviewLink().waitClick()
 
   getTitle: =>
-    @el.title.findElement().getText()
+    @el.title().findElement().getText()
 
   # selectPeriodByIndex(num)
   # selectPeriodByTitle(title)
@@ -100,19 +100,19 @@ class Calendar extends TestHelper
   createNew: (type) =>
     @waitUntilLoaded()
 
-    @el.addToggle.click()
+    @el.addToggle().click()
 
     switch type
-      when 'READING' then @el.addReadingButton.click()
-      when 'HOMEWORK' then @el.addHomeworkButton.click()
-      when 'EXTERNAL' then @el.addExternalButton.click()
+      when 'READING' then @el.addReadingButton().click()
+      when 'HOMEWORK' then @el.addHomeworkButton().click()
+      when 'EXTERNAL' then @el.addExternalButton().click()
       else expect(false, 'Invalid assignment type').to.be.true
 
   goToForecast: =>
-    @el.forecastLink.click()
+    @el.forecastLink().click()
 
   goToScores: =>
-    @el.studentScoresLink.click()
+    @el.studentScoresLink().click()
 
   goToOpenByTitle: (title) =>
     # wait until the calendar is open
@@ -130,7 +130,7 @@ class Calendar extends TestHelper
       @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
 
   canReviewPlan: (plan) =>
-    @test.utils.dom._getParent(plan).getAttribute(@el.canReview.locator.attr)
+    @test.utils.dom._getParent(plan).getAttribute(@el.canReview().locator.attr)
 
   getPlanTitle: (plan) ->
     plan.getText()

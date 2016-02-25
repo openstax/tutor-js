@@ -135,7 +135,7 @@ class UnsavedDialog extends TestHelper
       return unless modalIsOpened
 
       @waitUntilLoaded()
-      @el.dismissButton.click()
+      @el.dismissButton().click()
       @waitUntilClose()
 
 
@@ -147,13 +147,14 @@ class ReadingBuilder extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: '.task-plan.reading-plan'
     super test, testElementLocator, COMMON_ELEMENTS
+    # todo look at making these accessible as functions as well
     @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
     @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
 
   waitUntilLoaded: (ms) =>
     super(ms)
     @test.driver.wait =>
-      @el.anyPlan.isPresent()
+      @el.anyPlan().isPresent()
 
   # Helper for setting a date in the date picker
   # where
@@ -180,16 +181,16 @@ class ReadingBuilder extends TestHelper
 
   waitUntilDatepickerClosed: =>
     @test.driver.wait =>
-      @el.datepickerContainer.isPresent().then (isPresent) -> not isPresent
+      @el.datepickerContainer().isPresent().then (isPresent) -> not isPresent
 
   setName: (name) =>
-    @el.name.get().sendKeys(name)
+    @el.name().get().sendKeys(name)
 
   getNameValue: =>
-    @el.name.get().getAttribute('value')
+    @el.name().get().getAttribute('value')
 
   openSelectReadingList: =>
-    @el.selectReadingsButton.click()
+    @el.selectReadingsButton().click()
     @el.selectReadingsList.waitUntilLoaded()
 
   hasError: (type) =>
@@ -202,13 +203,13 @@ class ReadingBuilder extends TestHelper
     @el.requiredItemNotice(type).get().isDisplayed()
 
   publish: (name) =>
-    @el.publishButton.waitClick()
+    @el.publishButton().waitClick()
 
     # Wait up to 4min for publish to complete (Local, synchronous publish)
     @test.utils.wait.giveTime (4 * 60 * 1000), =>
       # wait for
       @test.driver.wait =>
-        @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+        @el.pendingPublishButton().isPresent().then (isPresent) -> not isPresent
 
     # Wait up to 2min for publish to complete (Remote, asynchronous publish)
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
@@ -218,11 +219,11 @@ class ReadingBuilder extends TestHelper
 
   save: =>
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
-      @el.saveButton.waitClick()
+      @el.saveButton().waitClick()
 
   cancel: =>
     # BUG: "X" close button behaves differently than the footer close button
-    @el.cancelButton.click()
+    @el.cancelButton().click()
     # BUG: Should not prompt when canceling
     # Confirm the "Unsaved Changes" dialog
     @el.unsavedDialog.close()
@@ -231,7 +232,7 @@ class ReadingBuilder extends TestHelper
   delete: =>
     # Wait up to 2min for delete to complete
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
-      @el.deleteButton.waitClick()
+      @el.deleteButton().waitClick()
       # Accept the browser confirm dialog
       @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
         alert.accept()
@@ -270,12 +271,12 @@ class ReadingBuilder extends TestHelper
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
-        @el.disabledAddReadingsButton.isPresent().then (isDisplayed) =>
+        @el.disabledAddReadingsButton().isPresent().then (isDisplayed) =>
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
         @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
-        @el.addReadingsButton.waitClick()
+        @el.addReadingsButton().waitClick()
 
     switch action
       when 'PUBLISH' then @publish(name)

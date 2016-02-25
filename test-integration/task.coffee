@@ -20,10 +20,10 @@ describe 'Student performing tasks', ->
     @courseSelect.goToByType('ANY')
 
   @it 'Can continue and go to expected steps (readonly)', ->
-    @dashboard.el.workableTask.isPresent().then (isPresent) =>
+    @dashboard.el.workableTask().isPresent().then (isPresent) =>
       return console.log('No Workable tasks to click on so skipping') unless isPresent
 
-      @dashboard.el.workableTask.click()
+      @dashboard.el.workableTask().click()
       @task.waitUntilLoaded()
 
       # demonstrating get in spec.
@@ -40,10 +40,10 @@ describe 'Student performing tasks', ->
 
 
   @it 'Can continue (readonly)', ->
-    @dashboard.el.workableTask.isPresent().then (isPresent) =>
+    @dashboard.el.workableTask().isPresent().then (isPresent) =>
       return console.log('No Workable tasks to click on so skipping') unless isPresent
 
-      @dashboard.el.workableTask.click()
+      @dashboard.el.workableTask().click()
       @task.waitUntilLoaded()
 
       @task.canContinue().then (canContinue) => @task.continue() if canContinue

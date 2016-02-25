@@ -20,7 +20,7 @@ describe 'Assignment Cleanup', ->
     @calendar.waitUntilLoaded()
 
   @it 'Deletes all drafts (not really a test but nice cleanup)', ->
-    @calendar.el.draftPlan.forEach (plan, index, total) =>
+    @calendar.el.draftPlan().forEach (plan, index, total) =>
       plan.click()
       @reading.waitUntilLoaded()
       @reading.edit(action: 'DELETE').then ->
@@ -32,7 +32,7 @@ describe 'Assignment Cleanup', ->
 
 
     # Delete published but not opened plans
-    @calendar.el.unopenPlan.forEach (plan, index, total) =>
+    @calendar.el.unopenPlan().forEach (plan, index, total) =>
       @addTimeout(10) # Published plans take a while to delete
       plan.click()
       @calendarPopup.waitUntilLoaded()

@@ -25,34 +25,34 @@ class ReferenceBook extends TestHelper
     super test, testElementLocator, COMMON_ELEMENTS, referenceBookOptions
 
   waitUntilExercisesLoaded: =>
-    @el.loadingExercises.findElements().then (loadingExercises) =>
+    @el.loadingExercises().findElements().then (loadingExercises) =>
       waitTime = loadingExercises.length * 3000
 
       @test.driver.wait =>
-        @el.loadingExercises.isPresent().then (isPresent) -> not isPresent
+        @el.loadingExercises().isPresent().then (isPresent) -> not isPresent
       , waitTime
 
   open: =>
     @waitUntilLoaded()
     @test.utils.windowPosition.setLarge()
-    @el.tocToggle.click()
+    @el.tocToggle().click()
 
   goNext: =>
     # go next until old href isnt
     @test.driver.wait =>
       oldNextHref = ''
-      @el.nextPageButton.get().getAttribute('href').then (href) =>
+      @el.nextPageButton().get().getAttribute('href').then (href) =>
         oldNextHref = href
-        @el.nextPageButton.click()
+        @el.nextPageButton().click()
         @waitUntilLoaded()
-        @el.nextPageButton.get().getAttribute('href')
+        @el.nextPageButton().get().getAttribute('href')
       .then (href) ->
         console.log 'From old next', oldNextHref, 'to next next', href
         oldNextHref isnt href
     , @_options.defaultWaitTime
 
   findMissingExerciseUrls: =>
-    @el.missingExercises.findElements().then (missingExercises) =>
+    @el.missingExercises().findElements().then (missingExercises) =>
       selenium.promise.fullyResolved missingExercises.map (missingExercise) ->
         missingExercise.getAttribute('data-exercise-url')
 
@@ -65,7 +65,7 @@ class ReferenceBook extends TestHelper
     @waitUntilExercisesLoaded()
 
     checkExercises = [
-      @el.exerciseElements.findElements()
+      @el.exerciseElements().findElements()
       @findMissingExerciseUrls()
     ]
 

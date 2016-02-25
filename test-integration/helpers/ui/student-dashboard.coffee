@@ -6,7 +6,7 @@ _ = require 'underscore'
 class Event extends TestHelper
 
   elementRefs: ->
-    locator = @getLocator().css or ''
+    locator = @el.self().getLocator().css or ''
     title:
       css: "#{locator} .title"
     progress:
