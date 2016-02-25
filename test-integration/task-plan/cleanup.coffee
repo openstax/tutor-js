@@ -14,7 +14,7 @@ describe 'Assignment Cleanup', ->
     new Helpers.CourseSelect(@).goTo('ANY')
 
     @calendar = new Helpers.Calendar(@)
-    @reading = new Helpers.ReadingBuilder(@)
+    @reading = new Helpers.TaskPlanBuilder(@)
 
     @calendar.waitUntilLoaded()
 

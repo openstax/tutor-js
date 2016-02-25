@@ -1,5 +1,10 @@
 selenium = require 'selenium-webdriver'
 Calendar = require './calendar'
+SelectSectionsList = require './select-readings-dialog'
+UnsavedDialog = require './unsaved-dialog'
+ExerciseSelector = require './exercise-selector'
+{expect} = require 'chai'
+
 {TestHelper} = require './test-element'
 
 COMMON_ELEMENTS =
@@ -29,12 +34,26 @@ COMMON_ELEMENTS =
   externalPlan:
     css: '.external-plan'
 
-  selectReadingsButton:
-    css: '#reading-select'
+  selectSectionsButton:
+    css: '.-select-sections-btn'
   addReadingsButton:
     css: '.dialog:not(.hide) .-show-problems:not([disabled])'
   disabledAddReadingsButton:
     css: '.dialog:not(.hide) .-show-problems[disabled]'
+
+  selectProblemsBtn:
+    css: '#problems-select'
+  selectedExercises:
+    css: '.card.exercise.panel'
+  numExercisesSelected:
+    css: '.exercise-summary .num-selected h2'
+
+  tutorSelections:
+    css: '.exercise-summary .tutor-selections h2'
+  addTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-up'
+  removeTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-down'
 
   deleteButton:
     css: '.dialog:not(.hide) .async-button.delete-link'
@@ -83,72 +102,17 @@ COMMON_ELEMENTS.anyPlan =
   css: "#{COMMON_ELEMENTS.readingPlan.css}, #{COMMON_ELEMENTS.homeworkPlan.css}, #{COMMON_ELEMENTS.externalPlan.css}"
 
 
-OPENED_PANEL_SELECTOR = '.dialog:not(.hide)'
-
-COMMON_SELECT_READING_ELEMENTS =
-  sectionItem: (section) ->
-    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section}']"
-  chapterHeadingSelectAll: (section) ->
-    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] .chapter-checkbox input"
-  chapterHeading: (section) ->
-    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] > a"
-
-
-COMMON_UNSAVED_DIALOG_ELEMENTS =
-  dismissButton:
-    css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
-
-
-class SelectReadingsList extends TestHelper
-  constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: ".select-reading-dialog#{OPENED_PANEL_SELECTOR}"
-    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, loadingLocator: css: '.select-reading-dialog.hide'
-
-  selectSection: (section) =>
-    # Selecting an entire chapter requires clicking the input box
-    # So handle chapters differently
-    isChapter = not /\./.test(section)
-    if isChapter
-      @el.chapterHeadingSelectAll(section).click()
-    else
-      # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
-      @el.sectionItem(section).findElement().isDisplayed().then (isDisplayed) =>
-        # Expand the chapter accordion if necessary
-        unless isDisplayed
-          @el.chapterHeading(section).click()
-
-        @el.sectionItem(section).click()
-
-
-# TODO could probably make this a general dialog/modal helper to extend from.
-class UnsavedDialog extends TestHelper
-  constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: '.tutor-dialog.modal'
-    super test, testElementLocator, COMMON_UNSAVED_DIALOG_ELEMENTS, loadingLocator: css: '.tutor-dialog.modal.fade:not(.in)'
-
-  waitUntilClose: =>
-    @test.driver.wait =>
-      @isPresent().then (isPresent) -> not isPresent
-
-  close: =>
-    @isPresent().then (modalIsOpened) =>
-      return unless modalIsOpened
-
-      @waitUntilLoaded()
-      @el.dismissButton.click()
-      @waitUntilClose()
-
-
 # Helper methods for dealing with the Reading Assignment Builder
 # TODO this could probably be made into a BuilderHelper that extends the TestHelper
 # and then the ReadingBuilder and HomeworkBuilder can extend the BuilderHelper
-class ReadingBuilder extends TestHelper
+class TaskPlanBuilder extends TestHelper
 
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: '.task-plan.reading-plan'
+    testElementLocator ?= css: '.task-plan'
     super test, testElementLocator, COMMON_ELEMENTS
-    @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
-    @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
+    @_exerciseSelector = new ExerciseSelector(@test)
+    @_selectSectionsHelper = new SelectSectionsList(@test)
+    @_unsavedDialog = new UnsavedDialog(@test)
 
   waitUntilLoaded: (ms) =>
     super(ms)
@@ -188,9 +152,9 @@ class ReadingBuilder extends TestHelper
   getNameValue: =>
     @el.name.get().getAttribute('value')
 
-  openSelectReadingList: =>
-    @el.selectReadingsButton.click()
-    @el.selectReadingsList.waitUntilLoaded()
+  openSelectSections: =>
+    @el.selectSectionsButton.click()
+    @_selectSectionsHelper.waitUntilLoaded()
 
   hasError: (type) =>
     @el.hasErrorWarning(type).get().isDisplayed()
@@ -225,7 +189,7 @@ class ReadingBuilder extends TestHelper
     @el.cancelButton.click()
     # BUG: Should not prompt when canceling
     # Confirm the "Unsaved Changes" dialog
-    @el.unsavedDialog.close()
+    @_unsavedDialog.close()
     Calendar.verify(@test)
 
   delete: =>
@@ -250,7 +214,7 @@ class ReadingBuilder extends TestHelper
   #   ]
   #   sections: ['1.1', '2.4']
   #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
-  edit: ({name, description, opensAt, dueAt, sections, action, verifyAddReadingsDisabled}) ->
+  edit: ({name, description, opensAt, dueAt, sections, action, numExercises, verifyAddReadingsDisabled}) ->
     # Just confirm the plan is actually open
     # Under selenium, a seemingly invisible .is-loading element is present and
     # hangs around for quite awhile.  Bump the wait time up to 4 seconds to work around
@@ -260,15 +224,12 @@ class ReadingBuilder extends TestHelper
 
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
-      @openSelectReadingList()
+      @openSelectSections()
+
       # Make sure nav bar does not cover buttons
       @test.utils.windowPosition.scrollTop()
 
-      # Expand the chapter and then select the section
-      for section in sections
-        do (section) =>
-          section = "#{section}" # Ensure the section is a string so we can split it
-          @el.selectReadingsList.selectSection(section)
+      @_selectSectionsHelper.selectSections(sections)
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
@@ -277,7 +238,11 @@ class ReadingBuilder extends TestHelper
       else
         # Click "Add Readings"
         @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
-        @el.addReadingsButton.waitClick()
+        @_selectSectionsHelper.nextStep() #click on show problems
+
+    if numExercises
+      @selectNumberOfExercises(numExercises) #add exercises
+      @startReview() #start review
 
     switch action
       when 'PUBLISH' then @publish(name)
@@ -285,5 +250,30 @@ class ReadingBuilder extends TestHelper
       when 'CANCEL' then @cancel()
       when 'DELETE' then @delete()
 
+  selectNumberOfExercises: (numExercises=4) ->
+    @_exerciseSelector.waitUntilLoaded()
+    @_exerciseSelector.selectNumberOfExercises(numExercises)
 
-module.exports = ReadingBuilder
+  verifySelectedExercises: (numExercises) ->
+    @el.selectedExercises.findElements().then (els) ->
+      expect(numExercises).to.be.equal(els.length)
+
+    @el.numExercisesSelected.findElement().getText().then (text) ->
+      expect(numExercises).to.be.equal(parseInt(text))
+
+  verifyTutorSelection: (num) ->
+    @el.tutorSelections.findElement().getText().then (text) ->
+      expect(num).to.be.equal(parseInt(text))
+
+  startReview: ->
+    @_exerciseSelector.startReview()
+    @test.utils.wait.for(css: '.exercise-table')
+
+  addTutorSelection: () ->
+    @el.addTutorSelection.click()
+
+  removeTutorSelection: () ->
+    @el.removeTutorSelection.click()
+
+
+module.exports = TaskPlanBuilder

@@ -1,3 +1,4 @@
+
 Helpers = require '../helpers'
 {describe} = Helpers
 
@@ -9,7 +10,7 @@ describe 'Assignment Publishing Tests', ->
 
   beforeEach ->
     @calendar = new Helpers.Calendar(@)
-    @reading = new Helpers.ReadingBuilder(@)
+    @reading = new Helpers.TaskPlanBuilder(@)
 
     @title = @utils.getFreshId()
     new Helpers.User(@).login(TEACHER_USERNAME)
@@ -18,6 +19,7 @@ describe 'Assignment Publishing Tests', ->
     new Helpers.CourseSelect(@).goTo('ANY')
 
     @calendar.createNew('READING')
+
 
   @it 'Sets the name of an reading', ->
     @reading.setName(@title)

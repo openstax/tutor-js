@@ -28,7 +28,7 @@ describe('Student Dashboard', function(){
     this.courseSelect.goToCourseByName('Biology I');
     const calendar = new Helpers.Calendar(this);
     calendar.createNew('READING');
-    const reading = new Helpers.ReadingBuilder(this);
+    const reading = new Helpers.TaskPlanBuilder(this);
 
     reading.edit({
       name: title,
