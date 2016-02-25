@@ -117,7 +117,7 @@ class TestHelper
       , @options.defaultWaitTime)
 
   setCommonHelper: (name, helper) =>
-    @el[name] = helper.fn
+    @el[name] = helper.fn or helper
 
   setCommonElement: (locator, name) =>
     @setCommonHelper(name, new TestItemHelper(@test, locator,

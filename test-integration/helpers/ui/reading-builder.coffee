@@ -128,10 +128,10 @@ class UnsavedDialog extends TestHelper
 
   waitUntilClose: =>
     @test.driver.wait =>
-      @isPresent().then (isPresent) -> not isPresent
+      @el.self().isPresent().then (isPresent) -> not isPresent
 
   close: =>
-    @isPresent().then (modalIsOpened) =>
+    @el.self().isPresent().then (modalIsOpened) =>
       return unless modalIsOpened
 
       @waitUntilLoaded()
