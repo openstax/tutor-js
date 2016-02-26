@@ -6,6 +6,28 @@ BS = require 'react-bootstrap'
 
 ExerciseCard = require '../exercise-card'
 ChapterSection = require '../task-plan/chapter-section'
+Icon = require '../icon'
+
+
+QLExerciseCard = React.createClass
+  getInitialState: -> {}
+  onExerciseToggle: (ev, ex)->
+    debugger
+
+  toggleFeedbackDisplay: ->
+    @setState(isShowingFeedback: not @state.isShowingFeedback)
+
+  render: ->
+    <ExerciseCard
+      displayFeedback={@state.isShowingFeedback}
+      toggleExercise={@onExerciseToggle} {...@props}
+    >
+      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
+        <Icon type={(if @state?.isShowingFeedback then 'check-' else '' ) + 'square-o'} />
+        Preview Feedback
+      </button>
+    </ExerciseCard>
+
 SectionsQuestions = React.createClass
 
   propTypes:
@@ -25,7 +47,7 @@ SectionsQuestions = React.createClass
       </label>
       <div className="exercises">
       {for exercise in @props.exercises
-        <ExerciseCard toggleExercise={@onExerciseToggle} key={exercise.id} exercise={exercise} />}
+        <QLExerciseCard key={exercise.id} exercise={exercise} />}
       </div>
     </div>
 
