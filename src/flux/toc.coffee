@@ -33,14 +33,6 @@ TocConfig =
         section.chapter_section.toString() is key
       )
 
-    groupSectionIdsByChapter: (ecosystemId, sectionIds) ->
-      chapters = @_get(ecosystemId)
-      _.groupBy(sectionIds, (id) ->
-        chapter = _.find chapters, (chapter) ->
-          _.find chapter.children, (section) -> section.id is id
-        chapter?.id or 0
-      )
-
 extendConfig(TocConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TocConfig)
 module.exports = {TocActions:actions, TocStore:store}
