@@ -11,11 +11,12 @@ ExerciseCard = React.createClass
   propTypes:
     displayFeedback: React.PropTypes.bool
     panelStyle: React.PropTypes.string
+    className:  React.PropTypes.string
     header:     React.PropTypes.element
     displayAllTags: React.PropTypes.bool
     hideAnswers: React.PropTypes.bool
     toggleExercise: React.PropTypes.func
-    className: React.PropTypes.string
+    isSelected: React.PropTypes.bool
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -45,9 +46,19 @@ ExerciseCard = React.createClass
       'exercise-tag'
     <span key={tag.id or tag.name} className={classes}>{content}</span>
 
-  onClick: (ev) ->
-    # don't toggle exercise selection click target is a link (such as "Report an error")
-    @props.toggleExercise?() unless ev.target.tagName is 'A'
+  onOverlayClick: (ev) ->
+    @props.toggleExercise(ev, not @props.isSelected)
+
+  renderFooter: ->
+    <div className="controls">
+      {@props.children}
+      <ExerciseIdentifierLink exerciseId={@props.exercise.content.uid} />
+    </div>
+
+  renderToggleOverlay: ->
+    <div onClick={@onOverlayClick} className={classnames('toggle-mask', {active: @props.isSelected})}>
+      <div className='icon' />
+    </div>
 
   render: ->
     content = @props.exercise.content
@@ -60,19 +71,19 @@ ExerciseCard = React.createClass
     unless @props.displayAllTags
       tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
-    renderedTags.push(
-      <ExerciseIdentifierLink key='identifier'
-        exerciseId={@props.exercise.content.uid} />
-    )
     classes = classnames( 'card', 'exercise', @props.className, {
       'answers-hidden': @props.hideAnswers,
+      'is-selectable' : @props.toggleExercise?
+      'is-selected': @props.isSelected
       'is-displaying-feedback': @props.displayFeedback
     })
     <BS.Panel
       className={classes}
       bsStyle={@props.panelStyle}
       header={@props.header}
-      onClick={@onClick}>
+      footer={@renderFooter()}
+    >
+      {@renderToggleOverlay() if @props.toggleExercise?}
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
       <div className='answers-table'>{renderedAnswers}</div>
@@ -82,7 +93,7 @@ ExerciseCard = React.createClass
           html={_.first(question.solutions)?.content_html} />
       </div>
       <div className='exercise-tags'>{renderedTags}</div>
-      {@props.children}
+
     </BS.Panel>
 
 module.exports = ExerciseCard

@@ -21,15 +21,16 @@ ExerciseCardMixin =
       <ExerciseCard
         {...@props}
         toggleExercise={@toggleExercise}
+        isSelected={@isSelected?()}
         header={@renderHeader()}
         displayFeedback={@state?.displayFeedback}
         panelStyle={@getPanelStyle()}>
+        <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
+          <Icon
+            type={(if @state?.displayFeedback then 'check-' else '' ) + 'square-o'}
+          /> Preview Feedback
+        </button>
       </ExerciseCard>
-      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
-        <Icon
-          type={(if @state?.displayFeedback then 'check-' else '' ) + 'square-o'}
-        /> Display Feedback
-      </button>
     </div>
 
 ReviewExerciseCard = React.createClass
@@ -77,7 +78,6 @@ ReviewExerciseCard = React.createClass
 
   renderHeader: ->
     actionButtons = @getActionButtons()
-
     <span className="-exercise-header">
       <span className="exercise-number">{@props.index + 1}</span>
       {actionButtons}
@@ -104,12 +104,9 @@ AddExerciseCard = React.createClass
     else
       TaskPlanActions.addExercise(@props.planId, @props.exercise)
 
-  renderHeader: ->
-    active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-    classes = 'add-or-remove -add-exercise'
-    classes = "#{classes} active" if active
-    <div className={classes}></div>
-
+  renderHeader: -> null
+  isSelected: ->
+    TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
   getPanelStyle: ->
     if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
       return "info"

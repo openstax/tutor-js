@@ -13,6 +13,9 @@ SectionsQuestions = React.createClass
     exercises:   React.PropTypes.array.isRequired
     chapter_section: React.PropTypes.string.isRequired
 
+  onExerciseToggle: ->
+    console.log "toggled", arguments
+
   render: ->
     section = TocStore.getSectionLabel(@props.chapter_section)
 
@@ -22,7 +25,7 @@ SectionsQuestions = React.createClass
       </label>
       <div className="exercises">
       {for exercise in @props.exercises
-        <ExerciseCard key={exercise.id} exercise={exercise} />}
+        <ExerciseCard toggleExercise={@onExerciseToggle} key={exercise.id} exercise={exercise} />}
       </div>
     </div>
 
