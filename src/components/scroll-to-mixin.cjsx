@@ -28,9 +28,11 @@ ScrollToMixin =
   getDefaultProps: ->
     windowImpl: window
 
+  _scrollingTargetDOM: -> @scrollingTargetDOM?() or React.findDOMNode(@)
+
   scrollToSelector: (selector) ->
     return if _.isEmpty(selector)
-    el = document.querySelector(selector)
+    el = @_scrollingTargetDOM().querySelector(selector)
     @scrollToElement(el) if el
 
   _onBeforeScroll: (el) ->

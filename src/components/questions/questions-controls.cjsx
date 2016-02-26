@@ -14,7 +14,7 @@ QuestionsControls = React.createClass
     selectedExercises: React.PropTypes.array
     filter: React.PropTypes.string
     onFilterChange: React.PropTypes.func.isRequired
-
+  scrollingTargetDOM: -> window.document
   getInitialState: ->
     {scrollingTo: _.first(@getSections())}
 
