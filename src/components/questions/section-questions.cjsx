@@ -8,7 +8,6 @@ ExerciseCard = require '../exercise-card'
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
 
-
 QLExerciseCard = React.createClass
   getInitialState: -> {}
 
@@ -19,7 +18,7 @@ QLExerciseCard = React.createClass
     @setState(isShowingFeedback: not @state.isShowingFeedback)
 
   render: ->
-    inc_ex = if @props.exercise.is_excluded then 'Include' else 'Exclude'
+    inc_ex = if @state.isSelected then 'Include' else 'Exclude'
     <ExerciseCard
       displayFeedback={@state.isShowingFeedback}
       hoverMessage={"#{inc_ex} this question"}
