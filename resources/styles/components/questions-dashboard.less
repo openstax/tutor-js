@@ -109,4 +109,13 @@
   }
 
 
+  .exercise-card {
+    .exercise-card-hover-colors(lighten(@tutor-primary, 20%), @tutor-neutral-dark);
+  }
+
+  .exercise-card.is-selected {
+    .panel-body { background-color: @tutor-neutral-lighter; }
+    .exercise-card-hover-colors(lighten(@tutor-secondary, 20%), @tutor-neutral-dark);
+  }
+
 }
