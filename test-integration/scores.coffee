@@ -67,3 +67,7 @@ describe 'CC Student Scores', ->
         expect(txt).to.contain('of')
       @user.goToHome()
 
+  @it 'hovers tooltip info popover', ->
+    @addTimeout(60)
+    @scores.hoverCCTooltip()
+

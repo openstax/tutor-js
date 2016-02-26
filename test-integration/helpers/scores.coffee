@@ -25,6 +25,10 @@ COMMON_ELEMENTS =
     css: '.filter-item:nth-child(1) .filter-group .btn:nth-child(2)'
   scoreCell:
     css: '.cc-cell a.score'
+  hoverCCTooltip:
+    css: '.cc-cell .worked .trigger-wrap'
+  ccTooltip:
+    css: '.cc-scores-tooltip-completed-info'
   averageLabel:
     css: '.average-label span:last-child'
   exportUrl:
@@ -57,6 +61,17 @@ class Scores extends TestHelper
     if @doneGenerating()
       @el.exportUrl.findElement().getAttribute("src").then (src) =>
         @test.driver.navigate().to(src)
+
+  tooltipVisible: =>
+    @test.utils.wait.until 'hover over cc info tooltip', =>
+      @test.driver.isElementPresent(COMMON_ELEMENTS.ccTooltip)
+
+  hoverCCTooltip: =>
+    @el.hoverCCTooltip.findElement().then (e) =>
+      @test.driver.actions().mouseMove(e).perform()
+      if @tooltipVisible()
+        @el.ccTooltip.findElement().getText().then (txt) ->
+          expect(txt).to.contain('Correct Attempted Total possible')
 
 
 
