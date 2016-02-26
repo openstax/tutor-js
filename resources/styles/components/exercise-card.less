@@ -1,10 +1,7 @@
-.exercise.card {
-  position: relative;
-  max-width: 1200px;
 
-  &:hover {
-    background-color: @tutor-info-bg;
-  }
+.exercise-card {
+  &:extend(.card);
+  position: relative;
 
   img {
     max-width: 100%;
@@ -21,9 +18,13 @@
     .panel-body {
       position: relative;
       &:hover {
-        .toggle-mask { display: block; }
+        .toggle-mask {
+          opacity: 0.85;
+          visibility: visible;
+        }
       }
     }
+
     .toggle-mask {
       cursor: pointer;
       position: absolute;
@@ -31,33 +32,37 @@
       right: 0;
       bottom: 0;
       left: 0;
-      display: none;
+      visibility: hidden;
       z-index: 1;
-      background-color: fade(@tutor-neutral-lighter, 0%);
+      opacity: 0;
+      transition: opacity .25s ease-in-out;
+      display: flex;
+//      background-color: @tutor-neutral;
       border: none;
-      .icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        height: 100px;
-        width: 100px;
-        margin-top: -50px;
-        margin-left: -50px;
-        background-color: fade(@tutor-white, 85%);
-        border: 1px solid @tutor-neutral-lighter;
-        border-radius: 100px;
-        color: @tutor-neutral;
+      justify-content: center;
+      align-items: center;
+
+      .message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+//        color: @tutor-neutral-lighter;
         &::before {
           .fa-icon();
           content: @fa-var-plus;
           font-weight: 300;
           text-align: center;
           font-size: 50px;
-          line-height: 100px;
-          width: 100px;
-          position: relative;
+          border-radius: 60px;
+          width: 60px;
+          height: 60px;
+          padding-top: 5px;
+//          background-color: darken(@tutor-neutral, 10%);
+//          border: 1px solid @tutor-neutral-lighter;
         }
-
       }
     }
     &.is-selected .toggle-mask .icon::before {

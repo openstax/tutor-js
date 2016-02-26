@@ -1,0 +1,12 @@
+.exercise-card-hover-colors(@background, @foreground: @tutor-neutral-lighter) {
+  .toggle-mask {
+    background-color: @background;
+    .message {
+      color: @foreground;
+      &::before {
+        background-color: darken(@background, 10%);
+        border: 1px solid @foreground;
+      }
+    }
+  }
+}
