@@ -17,6 +17,7 @@ ExerciseCard = React.createClass
     hideAnswers: React.PropTypes.bool
     toggleExercise: React.PropTypes.func
     isSelected: React.PropTypes.bool
+    hoverMessage: React.PropTypes.string
     exercise:   React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -57,7 +58,9 @@ ExerciseCard = React.createClass
 
   renderToggleOverlay: ->
     <div onClick={@onOverlayClick} className={classnames('toggle-mask', {active: @props.isSelected})}>
-      <div className='icon' />
+      <div className='message'>
+        {@props.hoverMessage}
+      </div>
     </div>
 
   render: ->
@@ -71,7 +74,7 @@ ExerciseCard = React.createClass
     unless @props.displayAllTags
       tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
-    classes = classnames( 'card', 'exercise', @props.className, {
+    classes = classnames( 'exercise-card', @props.className, {
       'answers-hidden': @props.hideAnswers,
       'is-selectable' : @props.toggleExercise?
       'is-selected': @props.isSelected
