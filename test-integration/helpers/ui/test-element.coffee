@@ -107,12 +107,11 @@ class TestHelper
     _.each commonElements, @setCommonElement
     @
 
-  waitUntilLoaded: () =>
+  waitUntilLoaded: =>
     # Adjust the test timeout *and* tell selenium to wait up to the same amount of time. Maybe this is redundant?
     @test.utils.wait.giveTime @options.defaultWaitTime, =>
-      @test.utils.verboseWrap 'Waiting until Loadable .is-loading is gone', => @test.driver.wait(=>
+      @test.utils.wait.until "Waiting until Loadable #{JSON.stringify(@el.loadingState().getLocator())} is gone", =>
         @el.loadingState().isPresent().then (isPresent) -> not isPresent
-      , @options.defaultWaitTime)
 
   setCommonHelper: (name, helper) =>
     @el[name] = helper.fn or helper
