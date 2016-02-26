@@ -3,6 +3,7 @@ flux = require 'flux-react'
 _ = require 'underscore'
 {TocStore} = require './toc'
 {makeSimpleStore} = require './helpers'
+LOADING = 'loading'
 
 EXERCISE_TAGS =
   TEKS: 'teks'
@@ -31,6 +32,7 @@ getImportantTags = (tags) ->
 
 ExerciseConfig =
   _exercises: []
+  _asyncStatus: null
 
   FAILED: -> console.error('BUG: could not load exercises')
 
@@ -39,11 +41,12 @@ ExerciseConfig =
     @_exerciseCache = []
 
   load: (courseId, pageIds) -> # Used by API
+    @_asyncStatus = LOADING
 
   loaded: (obj, courseId, pageIds) ->
     key = pageIds.toString()
+    delete @_asyncStatus
     return if @_exercises[key] and @_HACK_DO_NOT_RELOAD
-
     @_exercises[key] = obj.items
     _exerciseCache = []
     _.each obj.items, (exercise) ->
@@ -55,6 +58,8 @@ ExerciseConfig =
   HACK_DO_NOT_RELOAD: (bool) -> @_HACK_DO_NOT_RELOAD = bool
 
   exports:
+    isLoading: -> @_asyncStatus is LOADING
+
     isLoaded: (pageIds) ->
       !!@_exercises[pageIds.toString()]
 
@@ -69,6 +74,7 @@ ExerciseConfig =
         tag?.chapter_section
       exercises = _.sortBy(@_exercises[pageIds.toString()], byChapterSection)
       _.groupBy(exercises, byChapterSection)
+
 
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]
