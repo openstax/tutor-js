@@ -1,15 +1,22 @@
 .questions-dashboard {
   @padding: 20px;
+  .wrapper {
+    max-width: 1200px; // match panel width
+    margin: 0 auto;
 
+  }
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: @tutor-panel-padding-vertical auto 0 auto;
-    max-width: 1200px;
-    padding: @padding;
+    margin-top: @tutor-panel-padding-vertical;
     background-color: @tutor-white;
-
+    padding: 0 @padding;
+    .wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h2 {
+        #fonts >.sans(2.8rem, 2.8rem);
+      }
+    }
   }
 
   .instructions {
@@ -18,14 +25,88 @@
     #fonts >.sans(1.6rem, 1.6rem);
     font-weight: 700;
     font-style: italic;
-    margin: 0 0 28px 0;
+    margin: 0;
     padding: @padding;
     .tutor-icon { margin-left: 0.5rem; }
   }
 
-  .sections {
+  .sections-list {
+    margin-top: @tutor-panel-padding-vertical;
     padding: @padding;
     background-color: @tutor-white;
   }
+
+  .questions-controls {
+    background-color: @tutor-white;
+  }
+
+  .section-controls {
+    background-color: @tutor-neutral-bright;
+    border: 1px solid @tutor-neutral-light;
+    // important to override material-design styles
+    button.btn { margin-right: 1rem !important; }
+  }
+
+  .loading {
+    position: fixed;
+    width: 400px;
+    left: calc(~"50% - 200px");
+    top: 40%;
+    z-index: 2;
+    background-color: @tutor-neutral-bright;
+    border: 1px solid @tutor-neutral-light;
+    height: 200px;
+    text-align: center;
+    #fonts >.sans(3rem, 200px);
+  }
+  .questions-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 @padding;
+    .section-selection > * {
+      cursor: pointer;
+      display: inline-block;
+      margin: 5px;
+      padding: 5px;
+      &.active {
+        border: 1px solid @tutor-neutral;
+      }
+    }
+    .btn-group {
+      box-shadow: none;
+      button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+        border: 0 !important;
+        background-size: @icon-size-lg @icon-size-lg;
+        background-repeat: no-repeat;
+        background-position: 10px;
+        padding-left: 50px;
+        height: 50px;
+        border-radius: 0;
+        box-shadow: none !important;
+        background-color: @tutor-neutral-light;
+        margin-right: 0;
+        &.active {
+          background-color: @tutor-tertiary-light;
+        }
+        &.reading {.x-icon-bg(reading); }
+        &.practice { .x-icon-bg(homework); }
+      }
+    }
+  }
+
+  .questions-list {
+    margin-top: @tutor-panel-padding-vertical;
+    .exercises {
+      @column-width: 450px;
+      -webkit-column-width: @column-width;
+      -moz-column-width: @column-width;
+      column-width: @column-width;
+    }
+    .exercise-sections {
+      margin-top: @tutor-panel-padding-vertical;
+    }
+  }
+
 
 }
