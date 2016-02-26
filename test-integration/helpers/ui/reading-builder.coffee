@@ -109,15 +109,15 @@ class SelectReadingsList extends TestHelper
     # So handle chapters differently
     isChapter = not /\./.test(section)
     if isChapter
-      @el.chapterHeadingSelectAll(section).click()
+      @el.chapterHeadingSelectAll(section).waitClick()
     else
       # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
       @el.sectionItem(section).findElement().isDisplayed().then (isDisplayed) =>
         # Expand the chapter accordion if necessary
         unless isDisplayed
-          @el.chapterHeading(section).click()
+          @el.chapterHeading(section).waitClick()
 
-        @el.sectionItem(section).click()
+        @el.sectionItem(section).waitClick()
 
 
 # TODO could probably make this a general dialog/modal helper to extend from.
