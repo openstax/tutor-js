@@ -1,6 +1,7 @@
 EventEmitter2 = require 'eventemitter2'
 api = require '../api'
 steps = {}
+freeResponseCache = {}
 
 _ = require 'underscore'
 
@@ -16,9 +17,14 @@ quickLoad = (stepId, data) ->
   steps[stepId] = data
   channel.emit("quickLoad.#{stepId}", {data})
 
+cacheFreeResponse = (stepId, freeResponse) ->
+  freeResponseCache[stepId] = freeResponse
+
+uncachedFreeResponse = (stepId) ->
+  delete freeResponseCache[stepId] if freeResponseCache[stepId]?
+
 load = (stepId, data) ->
-  temp_free_response = steps[stepId].temp_free_response
-  steps[stepId] = _.extend({temp_free_response}, data)
+  steps[stepId] = data
   channel.emit("load.#{stepId}", {data})
 
 update = (eventData) ->
@@ -53,6 +59,8 @@ getCurrentPanel = (stepId) ->
   panel
 
 get = (stepId) ->
+  uncachedFreeResponse(stepId) if steps[stepId].free_response?
+  steps[stepId].cachedFreeResponse = freeResponseCache[stepId]
   steps[stepId]
 
 init = ->
@@ -61,4 +69,4 @@ init = ->
 
   api.channel.on("exercise.*.receive.*", update)
 
-module.exports = {fetch, getCurrentPanel, get, init, channel, quickLoad}
+module.exports = {fetch, getCurrentPanel, get, init, channel, quickLoad, cacheFreeResponse}
