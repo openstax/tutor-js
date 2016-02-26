@@ -1,10 +1,11 @@
 React    = require 'react'
 BS       = require 'react-bootstrap'
-
+classnames = require 'classnames'
 module.exports = React.createClass
   displayName: 'Icon'
   propTypes:
-    type: React.PropTypes.string
+    type: React.PropTypes.string.isRequired
+    spin: React.PropTypes.bool
     className: React.PropTypes.string
     tooltip: React.PropTypes.string
     tooltipProps: React.PropTypes.object
@@ -13,9 +14,11 @@ module.exports = React.createClass
     tooltipProps: { placement: 'bottom' }
 
   render: ->
-    classes = ['tutor-icon', 'fa', "fa-#{@props.type}"]
-    classes.push(@props.className) if @props.className
-    icon = <i {...@props} className={classes.join(' ')} />
+    classNames = classnames('tutor-icon', 'fa', "fa-#{@props.type}", @props.className, {
+      'fa-spin': @props.spin
+    })
+
+    icon = <i {...@props} className={classNames} />
 
     if @props.tooltip
       tooltip = <BS.Tooltip>{@props.tooltip}</BS.Tooltip>
