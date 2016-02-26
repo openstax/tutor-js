@@ -23,6 +23,7 @@ ExerciseCardMixin =
         toggleExercise={@toggleExercise}
         isSelected={@isSelected?()}
         header={@renderHeader()}
+        hoverMessage="Select Problem"
         displayFeedback={@state?.displayFeedback}
         panelStyle={@getPanelStyle()}>
         <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
