@@ -21,13 +21,32 @@ module.exports = React.createClass
 
   render: ->
     isCorrect = AnswerStore.isCorrect(@props.id)
+
     removeAnswer = _.partial(@props.removeAnswer, @props.id)
 
-    <li>
+
+    moveUp = <a className="pull-right" onClick={_.partial(@props.moveAnswer, @props.id, 1)}>
+      <i className="fa fa-arrow-circle-down"/>
+    </a> if @props.canMoveUp
+
+    moveDown = <a className="pull-right" onClick={_.partial(@props.moveAnswer, @props.id, -1)}>
+      <i className="fa fa-arrow-circle-up" />
+    </a> if @props.canMoveDown
+
+    correctClassname = 'correct-answer' if isCorrect
+
+    <li className={correctClassname}>
       <p>
-        <span>Correct Answer:</span>
-        <input type="checkbox" checked={isCorrect} onChange={@changeCorrect}/>
-        <a className="pull-right" onClick={removeAnswer}>Remove Answer</a>
+        <span className="answer-actions">
+          <a className="pull-right" onClick={removeAnswer}>
+            <i className="fa fa-ban" />
+          </a>
+          {moveUp}
+          {moveDown}
+          <a className="pull-right is-correct #{correctClassname}" onClick={@changeCorrect}>
+            <i className="fa fa-check-circle-o" />
+          </a>
+        </span>
       </p>
       <label>Answer Content</label>
       <textarea onChange={@updateContent} defaultValue={AnswerStore.getContent(@props.id)}>

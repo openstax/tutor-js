@@ -47,6 +47,17 @@ QuestionConfig = {
     @_local[id]?.answers = answers
     @sync(id)
 
+  moveAnswer: (id, answerId, direction) ->
+    index = _.findIndex @_local[id]?.answers, (answer) ->
+      answer.id is answerId
+
+    if (index isnt -1)
+      temp = @_local[id]?.answers[index]
+      @_local[id]?.answers[index] = @_local[id]?.answers[index + direction]
+      @_local[id]?.answers[index + direction] = temp
+
+    @sync(id)
+      
   updateStem: (id, stem_html) -> @_change(id, {stem_html})
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
@@ -70,6 +81,9 @@ QuestionConfig = {
     newFormats = toggleFormat(@_local[id].formats, __FORMATS.freeResponse)
     @_change(id, {formats: newFormats})
 
+  togglePreserveOrder: (id) ->
+    @_local[id].is_answer_order_important = !@_local[id].is_answer_order_important
+
   exports:
 
     getAnswers: (id) -> @_local[id]?.answers or []
@@ -91,6 +105,9 @@ QuestionConfig = {
       hasFormat(@_local[id].formats, __FORMATS.multipleChoice)
     isFreeResponse: (id) ->
       hasFormat(@_local[id].formats, __FORMATS.freeResponse)
+    isOrderPreserved: (id) ->
+      @_local[id].is_answer_order_important
+
 }
 
 extendConfig(QuestionConfig, new CrudConfig())

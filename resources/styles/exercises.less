@@ -30,6 +30,34 @@ body {
     width: 100%;
     height: 8rem;
   }
+
+  li.correct-answer {
+    label {
+      color: green;
+    }
+    textarea {
+      border-color: green;
+    }
+  }
+
+  .answer-actions {
+    > a {
+      margin-left: 10px;
+      cursor: pointer;
+      line-height: 2rem;
+
+      &.is-correct {
+        color: gray;
+      }
+      &.is-correct.correct-answer {
+        color: green;
+      }
+
+      i.fa {
+        font-size: 2rem;
+      }
+    }
+  }
   .tags select {
     width: 100%;
     margin-bottom: 1rem;
