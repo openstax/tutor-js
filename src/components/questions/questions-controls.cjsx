@@ -77,7 +77,7 @@ QuestionsControls = React.createClass
         <BS.Button data-filter='homework' onClick={@onFilterClick}
           className={if @props.filter is 'homework' then 'homework active' else 'homework'}
         >
-          Homework <span className="count">({@props.exercises.homework.count})</span>
+          Practice <span className="count">({@props.exercises.homework.count})</span>
         </BS.Button>
       </BS.ButtonGroup>
       <div className="section-selection">
