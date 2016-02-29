@@ -5,7 +5,9 @@
   "description":"yo yo yo",
   "is_publish_requested":true,
   "publish_last_requested_at":"2015-07-28T20:31:59.893Z",
-  "publish_job_uuid":"0a55b79f-56cb-40b7-83ef-9afa7875e1e9",
+  "publish_job": {
+    "id": "0a55b79f-56cb-40b7-83ef-9afa7875e1e9"
+  },
   "publish_job_url":"/api/jobs/0a55b79f-56cb-40b7-83ef-9afa7875e1e9",
   "settings":{
     "page_ids":["2","3"]

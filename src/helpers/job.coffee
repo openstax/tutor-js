@@ -11,6 +11,7 @@ JOBBED = 'succeeded'
 JOB_FAILED = 'failed'
 JOB_KILLED = 'killed'
 JOB_UNKNOWN = 'unknown'
+JOB_NOT_FOUND = 404
 
 JobListenerConfig = (checkIntervals, checkRepeats) ->
   {
@@ -95,6 +96,7 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
         failedStates = [
           JOB_FAILED
           JOB_KILLED
+          JOB_NOT_FOUND
         ]
 
         failedStates.indexOf(@_asyncStatus[id]) > -1
@@ -104,6 +106,7 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
           JOBBED
           JOB_FAILED
           JOB_KILLED
+          JOB_NOT_FOUND
         ]
 
         doneStates.indexOf(@_asyncStatus[id]) > -1

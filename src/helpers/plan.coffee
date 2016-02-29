@@ -19,19 +19,19 @@ PlanHelper =
     isPublishing
 
   subscribeToPublishing: (plan, callback) ->
-    {id, publish_job_uuid} = plan
+    {jobId, id} = PlanPublishStore._getIds(plan)
     isPublishing = PlanHelper.isPublishing(plan)
 
     publishStatus = PlanPublishStore.getAsyncStatus(id)
     isPublishingInStore = PlanPublishStore.isPublishing(id)
 
     if isPublishing and not isPublishingInStore and not PlanPublishStore.isPublished(id)
-      PlanPublishActions.queued({id, publish_job_uuid}) if publish_job_uuid?
+      PlanPublishActions.queued(plan, id) if jobId
 
     isPublishing = isPublishing or isPublishingInStore
 
     if isPublishing
-      PlanPublishActions.startChecking(id, publish_job_uuid)
+      PlanPublishActions.startChecking(id, jobId)
       PlanPublishStore.on("progress.#{id}.*", callback) if callback? and _.isFunction(callback)
 
     {isPublishing, publishStatus}
