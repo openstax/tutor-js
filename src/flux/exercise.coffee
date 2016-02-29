@@ -40,10 +40,18 @@ ExerciseConfig =
     @_exercises = []
     @_exerciseCache = []
 
-  load: (courseId, pageIds) -> # Used by API
+  loadForCourse: (courseId, pageIds) -> # Used by API
+    @_asyncStatus = LOADING
+  loadedForCourse: (obj, courseId, pageIds) ->
+    @processLoad(obj, pageIds)
+
+  load: (ecosystemId, pageIds) -> # Used by API
     @_asyncStatus = LOADING
 
-  loaded: (obj, courseId, pageIds) ->
+  loaded: (obj, ecosystemId, pageIds) ->
+    @processLoad(obj, pageIds)
+
+  processLoad: (obj, pageIds) ->
     key = pageIds.toString()
     delete @_asyncStatus
     return if @_exercises[key] and @_HACK_DO_NOT_RELOAD

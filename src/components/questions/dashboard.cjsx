@@ -26,7 +26,7 @@ QuestionsDashboard = React.createClass
 
   getInitialState: -> {}
   showQuestions: ->
-    ExerciseActions.load( @props.courseId, @state.sectionIds, '' )
+    ExerciseActions.loadForCourse( @props.courseId, @state.sectionIds, '' )
     @setState(displayingIds: @state.sectionIds)
 
   clearQuestions: -> @replaceState({sectionIds: []})
