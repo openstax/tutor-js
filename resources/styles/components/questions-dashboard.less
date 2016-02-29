@@ -87,10 +87,11 @@
         background-color: @tutor-neutral-light;
         margin-right: 0;
         &.active {
+          color: @tutor-white !important; // needed to override material styles
           background-color: @tutor-tertiary-light;
         }
         &.reading {.x-icon-bg(reading); }
-        &.practice { .x-icon-bg(homework); }
+        &.homework { .x-icon-bg(homework); }
       }
     }
   }
@@ -115,7 +116,7 @@
 
   .exercise-card.is-selected {
     .panel-body { background-color: @tutor-neutral-light; }
-    .exercise-card-hover-colors(lighten(@tutor-secondary, 20%), @tutor-neutral-dark);
+    .exercise-card-hover-colors(lighten(@homework-color, 30%), @tutor-neutral);
   }
 
 }
