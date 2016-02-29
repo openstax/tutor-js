@@ -18,7 +18,7 @@ QLExerciseCard = React.createClass
     @setState(isShowingFeedback: not @state.isShowingFeedback)
 
   render: ->
-    inc_ex = if @state.isSelected then 'Include' else 'Exclude'
+    inc_ex = if @state.isSelected then 'Reinclude' else 'Exclude'
     <ExerciseCard
       displayFeedback={@state.isShowingFeedback}
       hoverMessage={"#{inc_ex} this question"}

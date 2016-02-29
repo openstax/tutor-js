@@ -10,10 +10,23 @@ EXERCISE_TAGS =
   LO: ['lo', 'aplo']
   GENERIC: ['blooms', 'dok', 'length']
 
+getChapterSection = (exercise) ->
+  tag = _.find(exercise.tags, (t) ->
+    _.include(EXERCISE_TAGS.LO, t.type)
+  )
+  tag?.chapter_section
+
 getTagName = (tag) ->
   name = _.compact([tag.name, tag.description]).join(' ')
   name = tag.id unless name
   name
+
+EXERCISE_TYPE_MAPPING =
+  homework: 'homework_core'
+  reading:  'reading_dynamic'
+
+filterForPoolType = (exercises, pool_type) ->
+  _.filter exercises, (exercise) -> -1 isnt exercise.pool_types.indexOf(pool_type)
 
 getImportantTags = (tags) ->
   obj =
@@ -75,14 +88,22 @@ ExerciseConfig =
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
     getGroupedExercises: (pageIds) ->
-      byChapterSection = (exercise) ->
-        tag = _.find(exercise.tags, (t) ->
-          _.include(EXERCISE_TAGS.LO, t.type)
-        )
-        tag?.chapter_section
-      exercises = _.sortBy(@_exercises[pageIds.toString()], byChapterSection)
-      _.groupBy(exercises, byChapterSection)
+      _.groupBy(@_exercises[pageIds.toString()], getChapterSection)
 
+    groupBySectionsAndTypes: (pageIds) ->
+      all = @_exercises[pageIds.toString()]
+      results = {
+        all:
+          count: all.length
+          grouped: _.groupBy(all, getChapterSection)
+      }
+      for name, pool_type of EXERCISE_TYPE_MAPPING
+        exercises = filterForPoolType(all, pool_type)
+        results[name] = {
+          count: exercises.length
+          grouped: _.groupBy( exercises, getChapterSection)
+        }
+      results
 
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]

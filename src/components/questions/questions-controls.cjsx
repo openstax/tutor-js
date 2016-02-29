@@ -10,7 +10,11 @@ QuestionsControls = React.createClass
 
   mixins: [ScrollTo]
   propTypes:
-    exerciseGroups: React.PropTypes.object.isRequired
+    exercises: React.PropTypes.shape(
+      all: React.PropTypes.object
+      homework: React.PropTypes.object
+      reading: React.PropTypes.object
+    ).isRequired
     selectedExercises: React.PropTypes.array
     filter: React.PropTypes.string
     onFilterChange: React.PropTypes.func.isRequired
@@ -32,7 +36,7 @@ QuestionsControls = React.createClass
     @setState({scrollingTo: null, scrollPosition: @state.scrollingTo})
 
   getSections: ->
-    (cs.split(',').join('.') for cs, sections of @props.exerciseGroups)
+    (cs.split(',').join('.') for cs, sections of @props.exercises.all.grouped)
 
   goBack: ->
     sections = @getSections()
@@ -47,7 +51,7 @@ QuestionsControls = React.createClass
     )
 
   onFilterClick: (ev) ->
-    filter = ev.target.getAttribute('data-filter')
+    filter = ev.currentTarget.getAttribute('data-filter')
     if filter is @props.filter then filter = ''
     @props.onFilterChange( filter )
 
@@ -60,17 +64,18 @@ QuestionsControls = React.createClass
   render: ->
     sections = @getSections()
     selected = @props.selectedSection or _.first(sections)
+
     <div className="questions-controls">
       <BS.ButtonGroup key='filters'>
         <BS.Button data-filter='reading' onClick={@onFilterClick}
           className={if @props.filter is 'reading' then 'reading active' else 'reading'}
         >
-          Reading
+          Reading <span className="count">({@props.exercises.reading.count})</span>
         </BS.Button>
-        <BS.Button data-filter='practice' onClick={@onFilterClick}
-          className={if @props.filter is 'practice' then 'practice active' else 'practice'}
+        <BS.Button data-filter='homework' onClick={@onFilterClick}
+          className={if @props.filter is 'homework' then 'homework active' else 'homework'}
         >
-          Practice
+          Homework <span className="count">({@props.exercises.homework.count})</span>
         </BS.Button>
       </BS.ButtonGroup>
       <div className="section-selection">

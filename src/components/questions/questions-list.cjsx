@@ -27,40 +27,31 @@ QuestionsList = React.createClass
     </div>
 
   onFilterChange: (filter) ->
-    if filter
-      pool_type = switch filter
-        when 'practice' then 'homework_core'
-        when 'reading' then  'reading_dynamic'
-    else
-      pool_type = null
-    @setState({filter, pool_type})
+    @setState({filter})
 
-  renderQuestionControls: (groups) ->
+  renderQuestionControls: (exercises) ->
     <QuestionsControls
       filter={@state.filter}
       onFilterChange={@onFilterChange}
       onSectionSelect={@scrollToSection}
-      exerciseGroups={groups}
+      exercises={exercises}
     />
 
-  renderQuestions: (groups) ->
-    for cs, exercises of groups
+  renderQuestions: (exercises) ->
+    for cs, exercises of exercises.grouped
       <SectionQuestions key={cs} {...@props}
         chapter_section={cs} exercises={exercises} />
 
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
-    exerciseGroups = ExerciseStore.getGroupedExercises(@props.sectionIds)
-    if @state.filter
-      filter = @state.pool_type
-      filteredGroups = _.mapValues exerciseGroups, (exercises, section) ->
-        _.filter exercises, (ex) -> -1 isnt ex.pool_types.indexOf(filter)
-      exerciseGroups = _.pick filteredGroups, (exercises) -> not _.isEmpty(exercises)
 
-    questions = if _.isEmpty(exerciseGroups)
+    exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds)
+    selectedExercises = if @state.filter then exercises[@state.filter] else exercises.all
+
+    questions = if _.isEmpty(selectedExercises)
       @renderEmpty()
     else
-      @renderQuestions(exerciseGroups)
+      @renderQuestions(selectedExercises)
 
     <div className="questions-list">
       <div className="instructions">
@@ -73,7 +64,7 @@ QuestionsList = React.createClass
 
       <PinnedHeaderFooterCard
         containerBuffer={50}
-        header={@renderQuestionControls(exerciseGroups)}
+        header={@renderQuestionControls(exercises)}
         cardType='sections-questions'
       >
 
