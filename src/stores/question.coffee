@@ -82,7 +82,7 @@ QuestionConfig = {
     @_change(id, {formats: newFormats})
 
   togglePreserveOrder: (id) ->
-    @_local[id].is_answer_order_important = !@_local[id].is_answer_order_important
+    @_local[id].is_answer_order_important = not @_local[id].is_answer_order_important
 
   exports:
 
