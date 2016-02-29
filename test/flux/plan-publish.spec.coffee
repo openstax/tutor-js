@@ -1,7 +1,7 @@
-{expect} = require 'chai'
-sinon = require 'sinon'
+expect = chai.expect
 _ = require 'underscore'
 
+{JobActions, JobStore} = require '../../src/flux/job'
 {PlanPublishActions, PlanPublishStore} = require '../../src/flux/plan-publish'
 
 expectedActions = [
@@ -37,6 +37,16 @@ JOB_QUEUED_RESPONSE =
   id: JOB_FOR_ID
   jobId: JOB_DATA_ID
 
+JOB_NOT_FOUND_RESPONSE =
+  status: 404
+  msg: 'JOB_NOT_FOUND'
+  id: JOB_DATA_ID
+
+PLAN =
+  id: JOB_FOR_ID
+  publish_job:
+    id: JOB_DATA_ID
+
 JOB_STATUSES = [
   'job_requesting'
   'job_queued'
@@ -62,3 +72,12 @@ describe 'Plan Publish flux', ->
       expect(PlanPublishStore)
         .to.have.property(storeAsker).that.is.a('function')
     )
+
+  it 'should update status when failed', ->
+    JobStore.emit = sinon.spy()
+    JobActions.loaded = sinon.spy(JobActions.loaded)
+
+    PlanPublishActions.queued(PLAN, PLAN.id)
+    PlanPublishActions.startChecking(PLAN.id)
+    JobActions.FAILED(JOB_NOT_FOUND_RESPONSE.status, JOB_NOT_FOUND_RESPONSE.msg, JOB_DATA_ID)
+    expect(JobStore.emit).to.have.been.called

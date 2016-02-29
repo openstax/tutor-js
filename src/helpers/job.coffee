@@ -67,11 +67,15 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
       # whenever this job status is updated, emit the status for this wrapper
       updateJobStatus = @_updateJobStatusFor(id)
       JobStore.on("job.#{jobId}.*", updateJobStatus)
-      JobStore.off("job.#{jobId}.final", updateJobStatus)
+      JobStore.once("job.#{jobId}.final", @stopListening(updateJobStatus))
 
     stopChecking: (id) ->
       jobId = @_getLatestJob(id)
       JobActions.stopChecking(jobId) if jobId?
+
+    stopListening: (updateJobStatus) ->
+      (jobData) ->
+        JobStore.off("job.#{jobData.id}.*", updateJobStatus)
 
     _getJobs: (id) ->
       _.clone(@_job[id])
