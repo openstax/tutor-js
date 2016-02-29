@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{ExerciseStore} = require '../../flux/exercise'
+{ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {PinnedHeader} = require 'openstax-react-components'
 Icon = require '../icon'
 ScrollTo = require '../scroll-to-mixin'
@@ -55,16 +55,18 @@ QuestionsControls = React.createClass
     if filter is @props.filter then filter = ''
     @props.onFilterChange( filter )
 
+  resetExclusions: ->
+    ExerciseActions.resetUnsavedExclusions()
+
   renderSaveCancelButtons: ->
     [
         <BS.Button key='save' bsStyle='primary' className="save">Save</BS.Button>
-        <BS.Button key='cancel' className="cancel">Cancel</BS.Button>
+        <BS.Button key='cancel' className="cancel" onClick={@resetExclusions}>Cancel</BS.Button>
     ]
 
   render: ->
     sections = @getSections()
     selected = @props.selectedSection or _.first(sections)
-
     <div className="questions-controls">
       <BS.ButtonGroup key='filters'>
         <BS.Button data-filter='reading' onClick={@onFilterClick}
@@ -88,7 +90,7 @@ QuestionsControls = React.createClass
         <div className="next" onClick={@goNext}>❯</div>
       </div>
       <div className="save-cancel">
-        {@renderSaveCancelButtons() unless _.isEmpty(@props.selectedExercises)}
+        {@renderSaveCancelButtons() if ExerciseStore.hasUnsavedExclusions()}
       </div>
     </div>
 

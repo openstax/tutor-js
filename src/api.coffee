@@ -168,7 +168,7 @@ start = (bootstrapData) ->
   # And this one loads using a courseId
   apiHelper ExerciseActions, ExerciseActions.loadForCourse,
     ExerciseActions.loadedForCourse, 'GET', (courseId, pageIds, requestType = 'homework_core') ->
-      url: "/api/courses/#{courseId}/exercises/#{requestType}?#{arrayToParams(pageIds, 'page_ids')}"
+      url: "/api/ecosystems/#{courseId}/exercises/#{requestType}?#{arrayToParams(pageIds, 'page_ids')}"
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"

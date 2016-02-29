@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 {TocStore} = require '../../flux/toc'
-{ExerciseStore} = require '../../flux/exercise'
+{ExerciseActions, ExerciseStore} = require '../../flux/exercise'
 
 ExerciseCard = require '../exercise-card'
 ChapterSection = require '../task-plan/chapter-section'
@@ -10,19 +10,22 @@ Icon = require '../icon'
 
 QLExerciseCard = React.createClass
   getInitialState: -> {}
+  propTypes:
+    isExcluded: React.PropTypes.bool
+    exercise:   React.PropTypes.object.isRequired
 
-  onExerciseToggle: (ev, ex) ->
-    @setState(isSelected: not @state.isSelected)
+  onExerciseToggle: (ev) ->
+    @props.onExerciseToggle(@props.exercise, not @props.isExcluded)
 
   toggleFeedbackDisplay: ->
     @setState(isShowingFeedback: not @state.isShowingFeedback)
 
   render: ->
-    inc_ex = if @state.isSelected then 'Reinclude' else 'Exclude'
+    inc_ex = if @props.isExcluded then 'Reinclude' else 'Exclude'
     <ExerciseCard
       displayFeedback={@state.isShowingFeedback}
       hoverMessage={"#{inc_ex} this question"}
-      isSelected={@state.isSelected}
+      isSelected={@props.isExcluded}
       toggleExercise={@onExerciseToggle} {...@props}
     >
       <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
@@ -38,8 +41,8 @@ SectionsQuestions = React.createClass
     exercises:   React.PropTypes.array.isRequired
     chapter_section: React.PropTypes.string.isRequired
 
-  onExerciseToggle: ->
-    console.log "toggled", arguments
+  onExerciseToggle: (exercise, isSelected) ->
+    ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
 
   render: ->
     section = TocStore.getSectionLabel(@props.chapter_section)
@@ -50,7 +53,10 @@ SectionsQuestions = React.createClass
       </label>
       <div className="exercises">
       {for exercise in @props.exercises
-        <QLExerciseCard key={exercise.id} exercise={exercise} />}
+        <QLExerciseCard key={exercise.id}
+          isExcluded={ExerciseStore.isExerciseExcluded(exercise.id)}
+          exercise={exercise}
+          onExerciseToggle={@onExerciseToggle} />}
       </div>
     </div>
 

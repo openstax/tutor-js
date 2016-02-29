@@ -46,12 +46,14 @@ getImportantTags = (tags) ->
 ExerciseConfig =
   _exercises: []
   _asyncStatus: null
+  _unsavedExerciseExclusions: {}
 
   FAILED: -> console.error('BUG: could not load exercises')
 
   reset: ->
     @_exercises = []
     @_exerciseCache = []
+    @_unsavedExerciseExclusions = {}
 
   loadForCourse: (courseId, pageIds) -> # Used by API
     @_asyncStatus = LOADING
@@ -76,6 +78,19 @@ ExerciseConfig =
     @_exerciseCache = _exerciseCache
     @emitChange()
 
+
+  setExerciseExclusion: (exerciseId, isExcluded) ->
+    exercise = @_exerciseCache[exerciseId]
+    if exercise and exercise.is_excluded isnt isExcluded
+      @_unsavedExerciseExclusions[exerciseId] = isExcluded
+    else
+      delete @_unsavedExerciseExclusions[exerciseId]
+    @emitChange()
+
+  resetUnsavedExclusions: ->
+    @_unsavedExerciseExclusions = {}
+    @emitChange()
+
   HACK_DO_NOT_RELOAD: (bool) -> @_HACK_DO_NOT_RELOAD = bool
 
   exports:
@@ -86,6 +101,13 @@ ExerciseConfig =
 
     get: (pageIds) ->
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
+
+    hasUnsavedExclusions: ->
+      not _.isEmpty @_unsavedExerciseExclusions
+
+    isExerciseExcluded: (exerciseId) ->
+      exercise = @_exerciseCache[exerciseId]
+      exercise and ( exercise.is_excluded or @_unsavedExerciseExclusions[exerciseId] )
 
     getGroupedExercises: (pageIds) ->
       _.groupBy(@_exercises[pageIds.toString()], getChapterSection)
