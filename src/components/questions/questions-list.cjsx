@@ -47,11 +47,10 @@ QuestionsList = React.createClass
 
     exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds)
     selectedExercises = if @state.filter then exercises[@state.filter] else exercises.all
-
-    questions = if _.isEmpty(selectedExercises)
-      @renderEmpty()
-    else
+    questions = if selectedExercises.count
       @renderQuestions(selectedExercises)
+    else
+      @renderEmpty()
 
     <div className="questions-list">
       <div className="instructions">
