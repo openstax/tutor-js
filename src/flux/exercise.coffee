@@ -102,10 +102,10 @@ ExerciseConfig =
     get: (pageIds) ->
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
-    isExcludedNearMinimum: (exercises) ->
+    isExcludedAtMinimum: (exercises) ->
       excluded = _.filter _.pluck(exercises, 'id'),
         _.bind(@.exports.isExerciseExcluded, @)
-      exercises.length - excluded.length <= 6 # We need 5, so we warn on 6
+      exercises.length - excluded.length == 5
 
     hasUnsavedExclusions: ->
       not _.isEmpty @_unsavedExerciseExclusions

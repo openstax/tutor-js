@@ -55,7 +55,7 @@ SectionsQuestions = React.createClass
       </div>
     ]
   onExerciseToggle: (exercise, isSelected) ->
-    if isSelected and ExerciseStore.isExcludedNearMinimum(@props.exercises)
+    if isSelected and ExerciseStore.isExcludedAtMinimum(@props.exercises)
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'
         title: undefined, body: @renderMinimumExclusionWarning()
