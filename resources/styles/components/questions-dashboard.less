@@ -124,3 +124,31 @@
   }
 
 }
+
+.question-library-min-exercise-exclusions {
+  top: 30%;
+  .modal-dialog {
+    width: 400px;
+  }
+
+  .modal-body {
+    #fonts >.sans(1.8rem, 1.8rem);
+    padding: 3rem;
+    display: flex;
+    .tutor-icon {
+      font-size: 4rem;
+      margin-right: 1rem;
+      color: @tutor-primary;
+    }
+
+  }
+
+  .modal-footer{
+    text-align: right;
+    .btn-primary {
+      color: @tutor-white;
+      background-color: @tutor-tertiary-light !important; // material design override
+      border: 1px solid darken(@tutor-tertiary-light, 10%) !important;
+    }
+  }
+}

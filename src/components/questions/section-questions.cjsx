@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 
 {TocStore} = require '../../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
-
+Dialog = require '../tutor-dialog'
 ExerciseCard = require '../exercise-card'
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
@@ -41,8 +41,37 @@ SectionsQuestions = React.createClass
     exercises:   React.PropTypes.array.isRequired
     chapter_section: React.PropTypes.string.isRequired
 
+  renderMinimumExclusionWarning: ->
+    [
+      <Icon key="icon" type="exclamation" />
+      <div key="message" className="message">
+        <p>
+          Tutor needs at least 5 questions for this topic to be
+          included in spaced practice and personalized learning.
+        </p>
+        <p>
+          If you exclude too many, your students will not get to practice on this topic.
+        </p>
+      </div>
+    ]
   onExerciseToggle: (exercise, isSelected) ->
-    ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+    if isSelected and ExerciseStore.isExcludedNearMinimum(@props.exercises)
+      Dialog.show(
+        className: 'question-library-min-exercise-exclusions'
+        title: undefined, body: @renderMinimumExclusionWarning()
+        buttons: [
+          <BS.Button key='exclude'
+            onClick={->
+              ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+              Dialog.hide()
+            }>Exclude</BS.Button>
+
+          <BS.Button key='cancel' bsStyle='primary'
+            onClick={-> Dialog.hide()} bsStyle='primary'>Cancel</BS.Button>
+        ]
+      )
+    else
+      ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
 
   render: ->
     section = TocStore.getSectionLabel(@props.chapter_section)
