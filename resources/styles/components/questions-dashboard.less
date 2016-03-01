@@ -64,13 +64,17 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 @padding;
-    .section-selection > * {
+    .sectionizer > * {
       cursor: pointer;
       display: inline-block;
       margin: 5px;
       padding: 5px;
       &.active {
         border: 1px solid @tutor-neutral;
+      }
+      &.disabled {
+        cursor: default;
+        color: @tutor-neutral-light;
       }
     }
     .btn-group {
@@ -105,6 +109,8 @@
     margin-top: @tutor-panel-padding-vertical;
     .exercises {
       @column-width: 450px;
+
+
       -webkit-column-width: @column-width;
       -moz-column-width: @column-width;
       column-width: @column-width;

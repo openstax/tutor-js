@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+cn = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {PinnedHeader} = require 'openstax-react-components'
@@ -21,6 +22,7 @@ QuestionsControls = React.createClass
   scrollingTargetDOM: -> window.document
   getInitialState: ->
     {scrollingTo: _.first(@getSections())}
+  getScrollTopOffset: -> 120 # 70px high control bar and 50px spacing for label
 
   scrollToSection: (section) ->
     @setState({scrollingTo: section})
@@ -45,10 +47,14 @@ QuestionsControls = React.createClass
 
   goNext: ->
     sections = @getSections()
-    index = sections.indexOf(@state.scrollPosition)
+    index = @scrollIndex(sections)
     @scrollToSection(
       sections[ if index < sections.length then index + 1 else sections.length - 1]
     )
+
+  scrollIndex: (sections = @getSections() ) ->
+    sections.indexOf(@state.scrollPosition)
+
 
   onFilterClick: (ev) ->
     filter = ev.currentTarget.getAttribute('data-filter')
@@ -66,6 +72,7 @@ QuestionsControls = React.createClass
 
   render: ->
     sections = @getSections()
+    console.log
     selected = @props.selectedSection or _.first(sections)
     <div className="questions-controls">
       <BS.ButtonGroup key='filters'>
@@ -80,19 +87,25 @@ QuestionsControls = React.createClass
           Practice <span className="count">({@props.exercises.homework.count})</span>
         </BS.Button>
       </BS.ButtonGroup>
-      <div className="section-selection">
-        <div className="prev" onClick={@goBack}>❮</div>
+      <div className="sectionizer">
+        <div
+          className={cn('prev', disabled: 0 is @scrollIndex())}
+          onClick={@goBack}>❮</div>
         {for section in sections
           <div key={section}
             onClick={_.partial(@scrollToSection, section)}
             className={'active' if @state.scrollPosition is section}
           >{section}</div>}
-        <div className="next" onClick={@goNext}>❯</div>
+        <div className="next"
+          onClick={_.partial(@scrollToSection, section)}
+          className={cn('next', disabled: _.keys(@props.exercises.all.grouped).length - 1 is @scrollIndex())}
+          onClick={@goNext}>❯</div>
       </div>
       <div className="save-cancel">
         {@renderSaveCancelButtons() if ExerciseStore.hasUnsavedExclusions()}
       </div>
     </div>
+
 
 
 module.exports = QuestionsControls
