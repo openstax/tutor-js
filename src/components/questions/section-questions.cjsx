@@ -58,7 +58,7 @@ SectionsQuestions = React.createClass
     if isSelected and ExerciseStore.isExcludedAtMinimum(@props.exercises)
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'
-        title: undefined, body: @renderMinimumExclusionWarning()
+        title: '', body: @renderMinimumExclusionWarning()
         buttons: [
           <BS.Button key='exclude'
             onClick={->
