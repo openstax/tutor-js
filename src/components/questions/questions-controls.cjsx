@@ -3,7 +3,8 @@ BS = require 'react-bootstrap'
 cn = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
-{PinnedHeader} = require 'openstax-react-components'
+{AsyncButton} = require 'openstax-react-components'
+
 Icon = require '../icon'
 ScrollSpy = require '../scroll-spy'
 Sectionizer = require './sectionizer'
@@ -16,6 +17,7 @@ QuestionsControls = React.createClass
       homework: React.PropTypes.object
       reading: React.PropTypes.object
     ).isRequired
+    courseId: React.PropTypes.string.isRequired
     selectedExercises: React.PropTypes.array
     filter: React.PropTypes.string
     onFilterChange: React.PropTypes.func.isRequired
@@ -30,12 +32,19 @@ QuestionsControls = React.createClass
     if filter is @props.filter then filter = ''
     @props.onFilterChange( filter )
 
+  saveExclusions: ->
+    ExerciseActions.saveExclusions(@props.courseId)
+
   resetExclusions: ->
     ExerciseActions.resetUnsavedExclusions()
 
   renderSaveCancelButtons: ->
     [
-        <BS.Button key='save' bsStyle='primary' className="save">Save</BS.Button>
+        <AsyncButton key='save' bsStyle='primary' className="save"
+          onClick={@saveExclusions}
+          waitingText='Saving...'
+          isWaiting={ExerciseStore.isSavingExclusions()}
+        >Save</AsyncButton>
         <BS.Button key='cancel' className="cancel" onClick={@resetExclusions}>Cancel</BS.Button>
     ]
 
