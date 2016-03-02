@@ -28,7 +28,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require './flux/task-teacher-review'
 {TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
 {TocActions} = require './flux/toc'
-{ExerciseActions} = require './flux/exercise'
+{ExerciseActions, ExerciseStore} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 {StudentDashboardActions} = require './flux/student-dashboard'
 {CourseListingActions, CourseListingStore} = require './flux/course-listing'
@@ -169,7 +169,12 @@ start = (bootstrapData) ->
   # And this one loads using a courseId
   apiHelper ExerciseActions, ExerciseActions.loadForCourse,
     ExerciseActions.loadedForCourse, 'GET', (courseId, page_ids, requestType = 'homework_core') ->
-      url: "/api/ecosystems/#{courseId}/exercises/#{requestType}?#{toParams({page_ids})}"
+      url: "/api/courses/#{courseId}/exercises/#{requestType}?#{toParams({page_ids})}"
+
+  apiHelper ExerciseActions, ExerciseActions.saveExclusions,
+    ExerciseActions.exclusionsSaved, 'PUT', (courseId) ->
+      url: "/api/courses/#{courseId}/exercises"
+      payload: _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"

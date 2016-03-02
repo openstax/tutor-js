@@ -4,6 +4,7 @@ _ = require 'underscore'
 {TocStore} = require './toc'
 {makeSimpleStore} = require './helpers'
 LOADING = 'loading'
+SAVING  = 'saving'
 
 EXERCISE_TAGS =
   TEKS: 'teks'
@@ -46,14 +47,14 @@ getImportantTags = (tags) ->
 ExerciseConfig =
   _exercises: []
   _asyncStatus: null
-  _unsavedExerciseExclusions: {}
+  _unsavedExclusions: {}
 
   FAILED: -> console.error('BUG: could not load exercises')
 
   reset: ->
     @_exercises = []
     @_exerciseCache = []
-    @_unsavedExerciseExclusions = {}
+    @_unsavedExclusions = {}
 
   loadForCourse: (courseId, pageIds) -> # Used by API
     @_asyncStatus = LOADING
@@ -71,31 +72,36 @@ ExerciseConfig =
     delete @_asyncStatus
     return if @_exercises[key] and @_HACK_DO_NOT_RELOAD
     @_exercises[key] = obj.items
-    _exerciseCache = []
-    _.each obj.items, (exercise) ->
-      _exerciseCache[exercise.id] = exercise
+    @cacheExercises(obj.items)
 
+  cacheExercises: (exercises) ->
+    _exerciseCache = []
+    for exercise in exercises
+      _exerciseCache[exercise.id] = exercise
     @_exerciseCache = _exerciseCache
     @emitChange()
 
+  saveExclusions: (courseId) -> # Used to trigger save by API
+    @_exclusionsAsyncStatus = SAVING
+    @emitChange()
+  exclusionsSaved: (exercises, courseId) ->
+    @_unsavedExclusions = {}
+    delete @_exclusionsAsyncStatus
+    @cacheExercises(exercises)
 
   setExerciseExclusion: (exerciseId, isExcluded) ->
-    exercise = @_exerciseCache[exerciseId]
-    if exercise and exercise.is_excluded isnt isExcluded
-      @_unsavedExerciseExclusions[exerciseId] = isExcluded
-    else
-      delete @_unsavedExerciseExclusions[exerciseId]
+    @_unsavedExclusions[exerciseId] = isExcluded
     @emitChange()
 
   resetUnsavedExclusions: ->
-    @_unsavedExerciseExclusions = {}
+    @_unsavedExclusions = {}
     @emitChange()
 
   HACK_DO_NOT_RELOAD: (bool) -> @_HACK_DO_NOT_RELOAD = bool
 
   exports:
     isLoading: -> @_asyncStatus is LOADING
-
+    isSavingExclusions: -> @_exclusionsAsyncStatus is SAVING
     isLoaded: (pageIds) ->
       !!@_exercises[pageIds.toString()]
 
@@ -108,11 +114,15 @@ ExerciseConfig =
       (exercises.length - excluded.length) is 5
 
     hasUnsavedExclusions: ->
-      not _.isEmpty @_unsavedExerciseExclusions
+      not _.isEmpty @_unsavedExclusions
+    getUnsavedExclusions: ->
+      @_unsavedExclusions
 
     isExerciseExcluded: (exerciseId) ->
-      exercise = @_exerciseCache[exerciseId]
-      exercise and ( exercise.is_excluded or @_unsavedExerciseExclusions[exerciseId] )
+      if @_unsavedExclusions[exerciseId]?
+        @_unsavedExclusions[exerciseId]
+      else
+        @_exerciseCache[exerciseId]?.is_excluded
 
     getGroupedExercises: (pageIds) ->
       _.groupBy(@_exercises[pageIds.toString()], getChapterSection)
