@@ -11,7 +11,7 @@ QuestionsList = React.createClass
 
 
   propTypes:
-    ecosystemId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
     helpTooltip: React.PropTypes.string.isRequired
     sectionIds: React.PropTypes.array
 
@@ -32,6 +32,7 @@ QuestionsList = React.createClass
   renderQuestionControls: (exercises) ->
     <QuestionsControls
       filter={@state.filter}
+      courseId={@props.courseId}
       onFilterChange={@onFilterChange}
       onSectionSelect={@scrollToSection}
       exercises={exercises}
