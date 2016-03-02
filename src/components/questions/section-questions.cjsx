@@ -9,7 +9,9 @@ ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
 
 QLExerciseCard = React.createClass
+
   getInitialState: -> {}
+
   propTypes:
     isExcluded: React.PropTypes.bool
     exercise:   React.PropTypes.object.isRequired
@@ -54,6 +56,7 @@ SectionsQuestions = React.createClass
         </p>
       </div>
     ]
+
   onExerciseToggle: (exercise, isSelected) ->
     if isSelected and ExerciseStore.isExcludedAtMinimum(@props.exercises)
       Dialog.show(

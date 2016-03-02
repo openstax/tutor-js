@@ -9,7 +9,6 @@ SectionQuestions = require './section-questions'
 
 QuestionsList = React.createClass
 
-
   propTypes:
     courseId: React.PropTypes.string.isRequired
     helpTooltip: React.PropTypes.string.isRequired

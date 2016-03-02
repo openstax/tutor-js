@@ -2,7 +2,6 @@
 
 ScrollSpy = require '../../src/components/scroll-spy'
 
-
 NestedComponent = React.createClass
   render: -> React.createElement('div')
 

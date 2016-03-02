@@ -1,8 +1,6 @@
 React = require 'react/addons'
 _ = require 'underscore'
 
-{GetPositionMixin} = require 'openstax-react-components'
-
 # A component that accepts a dom selector that matches portions of the document
 #
 # It listens for scroll events and notifies it's children
@@ -49,7 +47,7 @@ ScrollSpy = React.createClass
       if visibleHeight > 0
         key = el.getAttribute(@props.dataSelector)
         # Calculate the percentage of the screen the element occupies
-        # 0.01 * index is added to it so that equivalent sized elements will be sorted by
+        # 0.01 * index is removed so that equivalent sized elements will be sorted by
         # the position they occur in
         onScreen.push([key, (visibleHeight / height) - (0.01 * onScreen.length)])
 
