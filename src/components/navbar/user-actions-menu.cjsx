@@ -32,6 +32,7 @@ UserActionsMenu = React.createClass
     isActive = @context.router.isActive(route.name)
     <BS.MenuItem
       key="dropdown-item-#{index}"
+      data-name={route.name}
       onSelect={_.partial(@transitionToMenuItem, route.name, route.params)}
       className={'active' if isActive}
       eventKey={index + 2}>{route.label}</BS.MenuItem>
