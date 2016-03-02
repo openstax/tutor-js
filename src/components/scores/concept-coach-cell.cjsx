@@ -10,17 +10,6 @@ ConceptCoachCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
-  getInitialState: ->
-    placement: 'right'
-
-  setPopoverPosition: ->
-    # place popover on left if close to right edge of window
-    trigger = React.findDOMNode(@refs.popoverTrigger)
-    hasRoom =
-      window.innerWidth - trigger.getBoundingClientRect().left - trigger.parentNode.clientWidth
-    placement = if hasRoom > 0 then 'right' else 'left'
-    @setState({placement: placement})
-
   render: ->
     pieValue =
       Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
@@ -66,13 +55,13 @@ ConceptCoachCell = React.createClass
           }
       </Router.Link>
 
-      <div ref="popoverTrigger" className="worked">
+      <div className="worked">
         <BS.OverlayTrigger
-        placement={@state.placement}
+        placement="left"
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
-          <span onMouseEnter={@setPopoverPosition} className='trigger-wrap'>
+          <span className='trigger-wrap'>
             <PieProgress size={24} value={pieValue} roundToQuarters />
           </span>
         </BS.OverlayTrigger>
