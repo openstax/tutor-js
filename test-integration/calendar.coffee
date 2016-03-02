@@ -1,6 +1,5 @@
 Helpers = require './helpers'
 {describe} = Helpers
-selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 _ = require 'underscore'
 

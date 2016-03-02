@@ -2,7 +2,7 @@ selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 S = require '../../../src/helpers/string'
-curry = require 'lodash.curry'
+curry = require 'lodash/curry'
 
 class TestItemHelper
   constructor: (test, testElementLocator, options = {}) ->
