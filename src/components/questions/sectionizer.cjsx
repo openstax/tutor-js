@@ -7,26 +7,20 @@ Sectionizer = React.createClass
   mixins: [ScrollTo]
 
   propTypes:
-    chapter_sections: React.PropTypes.array
+    chapter_sections: React.PropTypes.array.isRequired
+    onScreenElements: React.PropTypes.array.isRequired
 
   getInitialState: ->
     {scrollingTo: _.first(@props.chapter_sections)}
 
+  # the below properties are read by the ScrollTo mixin
   scrollingTargetDOM: -> window.document
-
-  componentWillMount: ->
-    @setState(scrollPosition: @props.exerciseGroups)
+  getScrollTopOffset: -> 140 # 70px high control bar and 50px spacing for label
 
   componentDidMount: ->
     @scrollToSelector(".questions-list")
 
-  onAfterScroll: ->
-    @setState({scrollingTo: null, scrollPosition: @state.scrollingTo})
-
-  getScrollTopOffset: -> 120 # 70px high control bar and 50px spacing for label
-
   scrollToSection: (section) ->
-    @setState({scrollingTo: section})
     @scrollToSelector("[data-section='#{section}']")
 
   scrollIndex: ->
@@ -47,10 +41,10 @@ Sectionizer = React.createClass
       <div
         className={cn('prev', disabled: 0 is @scrollIndex())}
         onClick={@goBack}>❮</div>
-      {for cs in @props.chapter_sections
+      {for cs in @props.chapter_sections.sort()
         <div key={cs}
           onClick={_.partial(@scrollToSection, cs)}
-          className={'active' if @state.scrollPosition is cs}
+          className={'active' if cs is _.first(@props.onScreenElements)}
         >{cs}</div>}
       <div className="next"
         className={cn('next', disabled: @props.chapter_sections.length - 1 is @scrollIndex())}

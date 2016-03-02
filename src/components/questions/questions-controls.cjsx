@@ -5,6 +5,7 @@ cn = require 'classnames'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {PinnedHeader} = require 'openstax-react-components'
 Icon = require '../icon'
+ScrollSpy = require '../scroll-spy'
 Sectionizer = require './sectionizer'
 
 QuestionsControls = React.createClass
@@ -55,7 +56,9 @@ QuestionsControls = React.createClass
           Practice <span className="count">({@props.exercises.homework.count})</span>
         </BS.Button>
       </BS.ButtonGroup>
-      <Sectionizer chapter_sections={@getSections()} />
+      <ScrollSpy dataSelector='data-section' >
+        <Sectionizer chapter_sections={@getSections()} />
+      </ScrollSpy>
       <div className="save-cancel">
         {@renderSaveCancelButtons() if ExerciseStore.hasUnsavedExclusions()}
       </div>
