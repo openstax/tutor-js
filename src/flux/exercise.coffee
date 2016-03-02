@@ -105,7 +105,7 @@ ExerciseConfig =
     isExcludedAtMinimum: (exercises) ->
       excluded = _.filter _.pluck(exercises, 'id'),
         _.bind(@.exports.isExerciseExcluded, @)
-      exercises.length - excluded.length == 5
+      (exercises.length - excluded.length) is 5
 
     hasUnsavedExclusions: ->
       not _.isEmpty @_unsavedExerciseExclusions
