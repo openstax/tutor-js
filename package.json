@@ -49,6 +49,7 @@
     "openstax-react-components": "openstax/react-components#d-20160322.a",
     "pluralize": "1.2.1",
     "promise-loader": "1.0.0",
+    "qs": "6.1.0",
     "react": "0.13.1",
     "react-bootstrap": "0.23.0",
     "react-calendar": "0.4.0",

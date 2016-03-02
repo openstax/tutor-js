@@ -7,6 +7,8 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
+QS = require 'qs'
+
 {AppActions} = require './flux/app'
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
@@ -46,9 +48,8 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
 
-# Join an array
-arrayToParams = (vals, name) ->
-  _.map(vals, (value) -> "#{name}[]=#{value}").join('&')
+toParams = (object) ->
+  QS.stringify(object, {arrayFormat: 'brackets'})
 
 setNow = (jqXhr) ->
   date = jqXhr.getResponseHeader('X-App-Date')
@@ -163,12 +164,12 @@ start = (bootstrapData) ->
   #
   # This one loads using an ecosystemId
   apiHelper ExerciseActions, ExerciseActions.load,
-    ExerciseActions.loaded, 'GET', (ecosystemId, pageIds, requestType = 'homework_core') ->
-      url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?#{arrayToParams(pageIds, 'page_ids')}"
+    ExerciseActions.loaded, 'GET', (ecosystemId, page_ids, requestType = 'homework_core') ->
+      url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?#{toParams({page_ids})}"
   # And this one loads using a courseId
   apiHelper ExerciseActions, ExerciseActions.loadForCourse,
-    ExerciseActions.loadedForCourse, 'GET', (courseId, pageIds, requestType = 'homework_core') ->
-      url: "/api/ecosystems/#{courseId}/exercises/#{requestType}?#{arrayToParams(pageIds, 'page_ids')}"
+    ExerciseActions.loadedForCourse, 'GET', (courseId, page_ids, requestType = 'homework_core') ->
+      url: "/api/ecosystems/#{courseId}/exercises/#{requestType}?#{toParams({page_ids})}"
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
