@@ -2,6 +2,8 @@ selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
 
 COMMON_ELEMENTS =
+  loadingState:
+    css: '.loadable.is-loading'
   nextPageButton:
     css: 'a.page-navigation.next'
   tocToggle:
@@ -16,13 +18,9 @@ COMMON_ELEMENTS =
 
 class ReferenceBook extends TestHelper
   constructor: (test, testElementLocator) ->
-    referenceBookOptions =
-      loadingLocator:
-        css: '.loadable.is-loading'
-      defaultWaitTime: 10000
 
     testElementLocator ?= css: '.page-wrapper .page.has-html'
-    super test, testElementLocator, COMMON_ELEMENTS, referenceBookOptions
+    super test, testElementLocator, COMMON_ELEMENTS, defaultWaitTime: 10000
 
   waitUntilExercisesLoaded: =>
     @el.loadingExercises().findElements().then (loadingExercises) =>

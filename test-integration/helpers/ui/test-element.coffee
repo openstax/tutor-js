@@ -4,6 +4,11 @@ camelCase = require 'camelcase'
 S = require '../../../src/helpers/string'
 curry = require 'lodash/curry'
 
+
+DEFAULT_ELEMENTS =
+  loadingState:
+    css: '.is-loading'
+
 class TestItemHelper
   constructor: (test, testElementLocator, options = {}) ->
     throw new Error('BUG: Missing the current test!') unless test
@@ -91,9 +96,9 @@ class TestItemHelper
 class TestHelper
   constructor: (test, testElementLocator, commonElements, options) ->
     commonElements ||= _.result(@, 'elementRefs', {})
+    commonElements = _.extend({}, DEFAULT_ELEMENTS, commonElements)
+
     defaultOptions =
-      loadingLocator:
-        css: '.is-loading'
       defaultWaitTime: 40 * 1000 # TODO: Letting tests define their own wait time is dangerous. tutor-dev takes > 10sec to delete a task-plan
       # defaultWaitTime: 20 * 1000 # 20sec seems to be enough for deployed code but not local
 
@@ -101,7 +106,6 @@ class TestHelper
     @_options = _.assign {}, defaultOptions, options
     @_el = {}
 
-    commonElements.loadingState = @options.loadingLocator
     commonElements.self = testElementLocator
 
     _.each commonElements, @setCommonElement

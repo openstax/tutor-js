@@ -6,6 +6,8 @@ selenium = require 'selenium-webdriver'
 PUBLISHING_TIMEOUT = 2 * 60 * 1000 # Wait up to 2 minutes for publishing to complete.
 
 COMMON_ELEMENTS =
+  loadingState:
+    css: '.calendar-loading'
   forecastLink:
     linkText: 'Performance Forecast'
   studentScoresLink:
@@ -91,11 +93,8 @@ class Calendar extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?=
       css: '.calendar-container'
-    calendarOptions =
-      loadingLocator:
-        css: '.calendar-loading'
 
-    super(test, testElementLocator, COMMON_ELEMENTS, calendarOptions)
+    super(test, testElementLocator, COMMON_ELEMENTS)
 
   createNew: (type) =>
     @waitUntilLoaded()

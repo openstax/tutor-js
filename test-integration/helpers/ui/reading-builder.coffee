@@ -86,6 +86,8 @@ COMMON_ELEMENTS.anyPlan =
 OPENED_PANEL_SELECTOR = '.dialog:not(.hide)'
 
 COMMON_SELECT_READING_ELEMENTS =
+  loadingState:
+    css: '.select-reading-dialog.hide'
   sectionItem: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section}']"
   chapterHeadingSelectAll: (section) ->
@@ -95,6 +97,8 @@ COMMON_SELECT_READING_ELEMENTS =
 
 
 COMMON_UNSAVED_DIALOG_ELEMENTS =
+  loadingState:
+    css: '.tutor-dialog.modal.fade:not(.in)'
   dismissButton:
     css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
 
@@ -102,7 +106,7 @@ COMMON_UNSAVED_DIALOG_ELEMENTS =
 class SelectReadingsList extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: ".select-reading-dialog#{OPENED_PANEL_SELECTOR}"
-    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, loadingLocator: css: '.select-reading-dialog.hide'
+    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS
 
   selectSection: (section) =>
     # Selecting an entire chapter requires clicking the input box
@@ -124,7 +128,7 @@ class SelectReadingsList extends TestHelper
 class UnsavedDialog extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: '.tutor-dialog.modal'
-    super test, testElementLocator, COMMON_UNSAVED_DIALOG_ELEMENTS, loadingLocator: css: '.tutor-dialog.modal.fade:not(.in)'
+    super test, testElementLocator, COMMON_UNSAVED_DIALOG_ELEMENTS
 
   waitUntilClose: =>
     @test.driver.wait =>
