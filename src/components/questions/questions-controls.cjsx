@@ -57,7 +57,7 @@ QuestionsControls = React.createClass
         </BS.Button>
       </BS.ButtonGroup>
       <ScrollSpy dataSelector='data-section' >
-        <Sectionizer chapter_sections={@getSections()} />
+        <Sectionizer onScreenElements={[]} chapter_sections={@getSections()} />
       </ScrollSpy>
       <div className="save-cancel">
         {@renderSaveCancelButtons() if ExerciseStore.hasUnsavedExclusions()}
