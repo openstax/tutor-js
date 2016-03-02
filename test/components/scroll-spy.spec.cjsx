@@ -3,16 +3,16 @@
 ScrollSpy = require '../../src/components/scroll-spy'
 
 NestedComponent = React.createClass
-  render: -> React.createElement('div')
+  render: ->
+    <span />
 
 RootComponent = React.createClass
   render: ->
-
-    React.createElement('div', {},
-      React.createElement(ScrollSpy, @props,
-        React.createElement(NestedComponent, onScreenElements:[])
-      )
-    )
+    <div>
+      <ScrollSpy {...@props}>
+        <NestedComponent onScreenElements={[]} />
+      </ScrollSpy>
+    </div>
 
 class FakeElement
   constructor: (@attr, top, bottom) -> @rect = {top, bottom}
