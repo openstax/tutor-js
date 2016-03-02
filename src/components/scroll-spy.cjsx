@@ -37,20 +37,21 @@ ScrollSpy = React.createClass
 
   calculateScroll: ->
     onScreen = []
+
     height = @props.windowImpl.innerHeight
-    position = {top: @props.windowImpl.innerHeight}
+
     elements = @props.windowImpl.document.querySelectorAll("[#{@props.dataSelector}]")
 
     for el, index in elements
       bounds = el.getBoundingClientRect()
       visibleHeight =
-        Math.min(window.innerHeight, bounds.bottom) - Math.max(0, bounds.top)
+        Math.min(height, bounds.bottom) - Math.max(0, bounds.top)
       if visibleHeight > 0
         key = el.getAttribute(@props.dataSelector)
         # Calculate the percentage of the screen the element occupies
         # 0.01 * index is added to it so that equivalent sized elements will be sorted by
         # the position they occur in
-        onScreen.push([key, (visibleHeight / window.innerHeight) - (0.01 * onScreen.length)])
+        onScreen.push([key, (visibleHeight / height) - (0.01 * onScreen.length)])
 
     @setState(
       onScreen: _.pluck( _.sortBy(onScreen, '1').reverse(), '0' )
