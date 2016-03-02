@@ -15,7 +15,7 @@ getChapterSection = (exercise) ->
   tag = _.find(exercise.tags, (t) ->
     _.include(EXERCISE_TAGS.LO, t.type)
   )
-  tag?.chapter_section
+  tag?.chapter_section.join('.')
 
 getTagName = (tag) ->
   name = _.compact([tag.name, tag.description]).join(' ')

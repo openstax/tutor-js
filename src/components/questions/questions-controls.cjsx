@@ -25,7 +25,7 @@ QuestionsControls = React.createClass
   getInitialState: -> {}
 
   getSections: ->
-    (cs.split(',').join('.') for cs, sections of @props.exercises.all.grouped)
+    _.keys @props.exercises.all.grouped
 
   onFilterClick: (ev) ->
     filter = ev.currentTarget.getAttribute('data-filter')

@@ -76,7 +76,7 @@ SectionsQuestions = React.createClass
   render: ->
     section = TocStore.getSectionLabel(@props.chapter_section)
 
-    <div className='exercise-sections' data-section={section.chapter_section.join('.')}>
+    <div className='exercise-sections' data-section={section.chapter_section}>
       <label className='exercises-section-label'>
         <ChapterSection section={section.chapter_section}/> {section.title}
       </label>
