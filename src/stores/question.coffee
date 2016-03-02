@@ -24,7 +24,7 @@ QuestionConfig = {
 
     obj
 
-  sync: (id) ->
+  syncAnswers: (id) ->
     answers = _.map @_local[id]?.answers, (answer) ->
       AnswerStore.get(answer.id)
     @_change(id, {answers})
@@ -38,14 +38,13 @@ QuestionConfig = {
 
     AnswerActions.created(newAnswer, newAnswer.id)
     answers = @_local[id]?.answers.push(newAnswer)
-    @sync(id)
+    @syncAnswers(id)
 
   removeAnswer: (id, answerId) ->
     AnswerActions.delete(answerId)
     answers = _.reject @_local[id]?.answers, (answer) ->
       answer.id is answerId
     @_local[id]?.answers = answers
-    @sync(id)
 
   moveAnswer: (id, answerId, direction) ->
     index = _.findIndex @_local[id]?.answers, (answer) ->
@@ -56,8 +55,6 @@ QuestionConfig = {
       @_local[id]?.answers[index] = @_local[id]?.answers[index + direction]
       @_local[id]?.answers[index + direction] = temp
 
-    @sync(id)
-      
   updateStem: (id, stem_html) -> @_change(id, {stem_html})
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})

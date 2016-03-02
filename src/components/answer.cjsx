@@ -20,11 +20,6 @@ module.exports = React.createClass
     @props.sync()
 
   render: ->
-    isCorrect = AnswerStore.isCorrect(@props.id)
-
-    removeAnswer = _.partial(@props.removeAnswer, @props.id)
-
-
     moveUp = <a className="pull-right" onClick={_.partial(@props.moveAnswer, @props.id, 1)}>
       <i className="fa fa-arrow-circle-down"/>
     </a> if @props.canMoveUp
@@ -33,12 +28,12 @@ module.exports = React.createClass
       <i className="fa fa-arrow-circle-up" />
     </a> if @props.canMoveDown
 
-    correctClassname = 'correct-answer' if isCorrect
+    correctClassname = 'correct-answer' if AnswerStore.isCorrect(@props.id)
 
     <li className={correctClassname}>
       <p>
         <span className="answer-actions">
-          <a className="pull-right" onClick={removeAnswer}>
+          <a className="pull-right" onClick={_.partial(@props.removeAnswer, @props.id)}>
             <i className="fa fa-ban" />
           </a>
           {moveUp}

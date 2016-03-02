@@ -75,7 +75,7 @@ ExerciseConfig = {
     
   sync: (id) ->
     questions = _.map @_local[id].questions, (question) ->
-      QuestionActions.sync(question.id)
+      QuestionActions.syncAnswers(question.id)
       QuestionStore.get(question.id)
     @_change(id, {questions})
 
