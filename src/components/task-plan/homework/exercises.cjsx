@@ -329,7 +329,9 @@ AddExercises = React.createClass
     renderSection = @renderSection
     renderInRows = @renderInRows
 
-    renderedExercises = _.reduce(groups, (memo, exercises, key) ->
+    sections = _.keys(groups).sort()
+    renderedExercises = _.reduce(sections, (memo, key) ->
+      exercises = groups[key]
       section = renderSection(key)
       exerciseCards = _.map(exercises, renderExercise)
       memo.push(section)
