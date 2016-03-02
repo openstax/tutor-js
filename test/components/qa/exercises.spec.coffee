@@ -23,7 +23,7 @@ describe 'QA Exercises Component', ->
     }
     EcosystemsActions.loaded(ECOSYSTEMS)
     ReferenceBookActions.loaded(PAGE, ECOSYSTEM_ID)
-    ExerciseActions.loaded(EXERCISES, COURSE_ID, ['146'])
+    ExerciseActions.loadedForCourse(EXERCISES, COURSE_ID, ['146'])
     _.defer(done) # defer done signal so it fires after exercise load emits
 
   it 'displays the exercise questions', ->
