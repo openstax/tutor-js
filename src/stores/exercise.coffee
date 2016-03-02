@@ -59,10 +59,13 @@ ExerciseConfig = {
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
-  updateTags: (id, tags) -> @_change(id, {tags})
+  updateTags: (id, editableTags) ->
+    fixedTags = getTagTypes(@_get(id).tags).fixed
+    tags = editableTags.concat(_.pluck(fixedTags, 'value'))
+    @_change(id, {tags})
 
   updateFixedTag:(id, oldTag, newTag) ->
-    tags = @_local[id].tags
+    tags = @_get(id).tags
     if (not newTag)
       tags = _.filter(tags, (tag) -> tag isnt oldTag)
     else if (not oldTag)
