@@ -15,7 +15,7 @@ QuestionsList = React.createClass
     helpTooltip: React.PropTypes.string.isRequired
     sectionIds: React.PropTypes.array
 
-  getInitialState:      -> {}
+  getInitialState:      -> {displayType: 'cols'}
   componentWillMount:   -> ExerciseStore.on('change',  @update)
   componentWillUnmount: -> ExerciseStore.off('change', @update)
   update: -> @forceUpdate()
@@ -43,6 +43,9 @@ QuestionsList = React.createClass
       <SectionQuestions key={cs} {...@props}
         chapter_section={cs} exercises={exercises.grouped[cs]} />
 
+  changeDisplay: (ev) ->
+    @setState({displayType: ev.currentTarget.value})
+
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
 
@@ -53,7 +56,7 @@ QuestionsList = React.createClass
     else
       @renderEmpty()
 
-    <div className="questions-list">
+    <div className={"questions-list #{@state.displayType}"}>
       <div className="instructions">
         <div className="wrapper">
           Click each question that you would like to exclude from
@@ -67,6 +70,24 @@ QuestionsList = React.createClass
         header={@renderQuestionControls(exercises)}
         cardType='sections-questions'
       >
+
+      <div>
+        <b>UX DISPLAY TEST:</b>
+        <br />
+        <label>
+          <input type="radio" name='coldisplay'
+            checked={@state.displayType is 'cols'}
+            value="cols" onChange={@changeDisplay}
+          /> Vertical Columns
+        </label>
+        <br />
+        <label>
+          <input type="radio" name='coldisplay'
+            checked={@state.displayType is 'rows'}
+            value="rows" onChange={@changeDisplay}
+          /> Horizontal Rows
+        </label>
+      </div>
 
       {questions}
 
