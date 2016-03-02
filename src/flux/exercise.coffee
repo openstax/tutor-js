@@ -61,10 +61,10 @@ ExerciseConfig =
   loadedForCourse: (obj, courseId, pageIds) ->
     @processLoad(obj, pageIds)
 
-  load: (ecosystemId, pageIds) -> # Used by API
+  loadForEcosystem: (ecosystemId, pageIds) -> # Used by API
     @_asyncStatus = LOADING
 
-  loaded: (obj, ecosystemId, pageIds) ->
+  loadedForEcosystem: (obj, ecosystemId, pageIds) ->
     @processLoad(obj, pageIds)
 
   processLoad: (obj, pageIds) ->

@@ -163,8 +163,8 @@ start = (bootstrapData) ->
   # since it operates at the course level
   #
   # This one loads using an ecosystemId
-  apiHelper ExerciseActions, ExerciseActions.load,
-    ExerciseActions.loaded, 'GET', (ecosystemId, page_ids, requestType = 'homework_core') ->
+  apiHelper ExerciseActions, ExerciseActions.loadForEcosystem,
+    ExerciseActions.loadedForEcosystem, 'GET', (ecosystemId, page_ids, requestType = 'homework_core') ->
       url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?#{toParams({page_ids})}"
   # And this one loads using a courseId
   apiHelper ExerciseActions, ExerciseActions.loadForCourse,

@@ -129,7 +129,7 @@ ExercisesRenderMixin =
     ecosystemId = TaskPlanStore.getEcosystemId(planId, courseId)
 
     unless ExerciseStore.isLoaded(pageIds)
-      ExerciseActions.load(ecosystemId, pageIds)
+      ExerciseActions.loadForEcosystem(ecosystemId, pageIds)
       return <span className="hw-loading-spinner">
         <i className="fa fa-spinner fa-spin"></i>
         Loading...
