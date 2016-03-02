@@ -38,9 +38,10 @@ QuestionsList = React.createClass
     />
 
   renderQuestions: (exercises) ->
-    for cs, exercises of exercises.grouped
+    chapter_sections = _.keys(exercises.grouped).sort()
+    for cs in chapter_sections
       <SectionQuestions key={cs} {...@props}
-        chapter_section={cs} exercises={exercises} />
+        chapter_section={cs} exercises={exercises.grouped[cs]} />
 
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
