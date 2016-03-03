@@ -1,6 +1,8 @@
 React = require 'react/addons'
 _ = require 'underscore'
 
+{ScrollListenerMixin} = require 'react-scroll-components'
+
 # A component that accepts a dom selector that matches portions of the document
 #
 # It listens for scroll events and notifies it's children
@@ -15,6 +17,7 @@ _ = require 'underscore'
 ScrollSpy = React.createClass
 
   getInitialState: -> {}
+  mixins: [ScrollListenerMixin]
 
   getDefaultProps: ->
     windowImpl: window
@@ -23,13 +26,9 @@ ScrollSpy = React.createClass
     dataSelector: React.PropTypes.string.isRequired
 
   componentWillMount: ->
-    @props.windowImpl.addEventListener('scroll', @onScroll)
     @calculateScroll()
 
-  componentWillUnmount: ->
-    @props.windowImpl.removeEventListener('scroll', @onScroll)
-
-  onScroll: _.debounce( ->
+  onPageScroll: _.debounce( ->
     @calculateScroll()
   , 100)
 
