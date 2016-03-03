@@ -60,7 +60,7 @@ CoursePeriodsNav = React.createClass
     @setState(active: key)
 
   renderPeriod: (period, key) ->
-    className = classnames('tab-item-period', {'is-trouble': period.is_trouble})
+    className = classnames({'is-trouble': period.is_trouble})
     tooltip =
       <BS.Tooltip>
         {period.name}
