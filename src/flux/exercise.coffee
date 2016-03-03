@@ -47,6 +47,7 @@ getImportantTags = (tags) ->
 ExerciseConfig =
   _exercises: []
   _asyncStatus: null
+  _exerciseCache: []
   _unsavedExclusions: {}
 
   FAILED: -> console.error('BUG: could not load exercises')
@@ -75,19 +76,28 @@ ExerciseConfig =
     @cacheExercises(obj.items)
 
   cacheExercises: (exercises) ->
-    _exerciseCache = []
     for exercise in exercises
-      _exerciseCache[exercise.id] = exercise
-    @_exerciseCache = _exerciseCache
+      if @_exerciseCache[exercise.id]
+        _.extend(@_exerciseCache[exercise.id], exercise)
+      else
+        @_exerciseCache[exercise.id] = exercise
     @emitChange()
 
   saveExclusions: (courseId) -> # Used to trigger save by API
     @_exclusionsAsyncStatus = SAVING
     @emitChange()
+
+  updateExercises: (updatedExercises) ->
+    for updatedExercise in updatedExercises
+      for pageIds, storedExercises of @_exercises
+        for storedExercise in storedExercises when storedExercise.id is updatedExercise.id
+          _.extend(storedExercise, updatedExercise)
+    @cacheExercises(updatedExercises) # will @emitChange() so we don't bother to ourselves
+
   exclusionsSaved: (exercises, courseId) ->
     @_unsavedExclusions = {}
     delete @_exclusionsAsyncStatus
-    @cacheExercises(exercises)
+    @updateExercises(exercises)
 
   setExerciseExclusion: (exerciseId, isExcluded) ->
     @_unsavedExclusions[exerciseId] = isExcluded
