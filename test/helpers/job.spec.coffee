@@ -101,7 +101,7 @@ describe 'Job Helper', ->
   it 'should be able update job status', ->
     jobWorking = _.clone(JOB_DATA)
     jobWorking.status = JOB_STATUSES[3]
-    jobListenerConfig._updateJobStatusFor(JOB_FOR_ID)(jobWorking)
+    jobListenerConfig._updateJobStatusFor(JOB_FOR_ID, jobWorking)
     jobWorking.for = JOB_FOR_ID
 
     expect(jobListenerConfig.exports.getAsyncStatus(JOB_FOR_ID)).to.equal(JOB_STATUSES[3])

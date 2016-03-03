@@ -3,11 +3,17 @@
 _ = require 'underscore'
 moment = require 'moment'
 
+getIds = (obj) ->
+  {publish_job, id} = obj
+  jobId = publish_job?.id or null
+  {id, jobId}
+
 PlanPublishConfig =
   _getIds: (obj) ->
-    {publish_job_uuid, id} = obj
-    jobId = publish_job_uuid
-    {id, jobId}
+    @exports._getIds(obj)
+
+  exports:
+    _getIds: getIds
 
 extendConfig(PlanPublishConfig, new JobListenerConfig(2000, 100))
 

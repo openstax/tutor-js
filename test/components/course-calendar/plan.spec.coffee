@@ -49,7 +49,7 @@ _.each(TEST_ITEMS, (item) ->
 fakePublishing = (plan) ->
   publishingPlan = _.clone(plan)
   publishingPlan.publish_last_requested_at = moment(TimeStore.getNow())
-  publishingPlan.publish_job_uuid = JOB_UUID
+  publishingPlan.publish_job = {id: JOB_UUID, status: 'queued'}
 
   if publishingPlan.published_at and moment(publishingPlan.published_at).isAfter(publishingPlan.publish_last_requested_at)
     publishingPlan.published_at = moment(publishingPlan.publish_last_requested_at).subtract(2, 'days')

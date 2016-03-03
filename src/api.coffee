@@ -202,6 +202,7 @@ start = (bootstrapData) ->
 
   apiHelper JobActions, JobActions.load, JobActions.loaded, 'GET', (id) ->
     url: "/api/jobs/#{id}"
+  , displayError: false
 
   apiHelper EcosystemsActions, EcosystemsActions.load, EcosystemsActions.loaded, 'GET', ->
     url: "/api/ecosystems"

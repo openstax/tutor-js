@@ -11,6 +11,7 @@ JOBBED = 'succeeded'
 JOB_FAILED = 'failed'
 JOB_KILLED = 'killed'
 JOB_UNKNOWN = 'unknown'
+JOB_NOT_FOUND = 404
 
 JobListenerConfig = (checkIntervals, checkRepeats) ->
   {
@@ -22,13 +23,15 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
       @_job = {}
       @emitChange()
 
-    _updateJobStatusFor: (id) ->
-      (jobData) =>
-        progress = _.clone(jobData)
-        progress.for = id
+    _updateJobStatusFor: (id, jobData) ->
+      progress = _.clone(jobData)
+      progress.for = id
 
-        @_asyncStatus[id] = progress.status
-        @emit("progress.#{id}.#{progress.status}", progress)
+      @_asyncStatus[id] = progress.status
+      @emit("progress.#{id}.#{progress.status}", progress)
+
+    _stopListeningToJob: (jobId, updateJobStatus) ->
+      JobStore.off("job.#{jobId}.*", updateJobStatus)
 
     saveJob: (jobId, id) ->
       @_job[id] ?= []
@@ -53,9 +56,10 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
         @saveJob(jobId, id)
 
     startChecking: (id, jobId) ->
-      lastestJob = @_getLatestJob(id)
-      @saveJob(jobId, id) if jobId? and jobId isnt lastestJob
-      jobId ?= lastestJob
+      latestJob = @_getLatestJob(id)
+
+      @saveJob(jobId, id) if jobId? and jobId isnt latestJob
+      jobId ?= latestJob
       return unless jobId?
 
       # checks job until final status is reached
@@ -63,10 +67,16 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
         JobActions.load(jobId)
       JobActions.checkUntil(jobId, checkJob, checkIntervals, checkRepeats)
 
-      # whenever this job status is updated, emit the status for this wrapper
-      updateJobStatus = @_updateJobStatusFor(id)
+      # whenever this job status is updated, emit the status for this wrapper's id
+      # make functions for updating the status for what started the job
+      # and for stopping updates
+      updateJobStatus = _.bind(@_updateJobStatusFor, @, id)
+      stopListening = _.bind(@_stopListeningToJob, @, jobId, updateJobStatus)
+
+      # on all job updates, update the job status for jobId
       JobStore.on("job.#{jobId}.*", updateJobStatus)
-      JobStore.off("job.#{jobId}.final", updateJobStatus)
+      # on a final job status, stop listening for updates
+      JobStore.once("job.#{jobId}.final", stopListening)
 
     stopChecking: (id) ->
       jobId = @_getLatestJob(id)
@@ -95,6 +105,7 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
         failedStates = [
           JOB_FAILED
           JOB_KILLED
+          JOB_NOT_FOUND
         ]
 
         failedStates.indexOf(@_asyncStatus[id]) > -1
@@ -104,6 +115,7 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
           JOBBED
           JOB_FAILED
           JOB_KILLED
+          JOB_NOT_FOUND
         ]
 
         doneStates.indexOf(@_asyncStatus[id]) > -1

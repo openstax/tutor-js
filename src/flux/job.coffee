@@ -28,7 +28,11 @@ JobConfig = {
 
     jobData
 
-  checkUntil: (id, checkJob, interval = 1000, maxRepeats = 50, finalStatus = ['succeeded', 'failed', 'killed']) ->
+  # load in to store on fail.
+  _failed: (obj, id) ->
+    @loaded(obj, id)
+
+  checkUntil: (id, checkJob, interval = 1000, maxRepeats = 50, finalStatus = ['succeeded', 'failed', 'killed', 404]) ->
     unless @_checkUntil[id]?
       @_checkUntil[id] = {checkJob, finalStatus, interval, maxRepeats, count: 0}
       checkJob()
