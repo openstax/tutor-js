@@ -35,18 +35,27 @@ module.exports = React.createClass
     QuestionActions.removeAnswer(@props.id, answerId)
     @props.sync()
 
+  moveAnswer: (answerId, direction) ->
+    QuestionActions.moveAnswer(@props.id, answerId, direction)
+    @props.sync()
+
   multipleChoiceClicked: (event) -> QuestionActions.toggleMultipleChoiceFormat(@props.id)
   freeResponseClicked: (event) -> QuestionActions.toggleFreeResponseFormat(@props.id)
+  preserveOrderClicked: (event) -> QuestionActions.togglePreserveOrder(@props.id)
 
   render: ->
     {id} = @props
     answers = []
 
-    for answer in QuestionStore.getAnswers(id)
+    for answer, index in QuestionStore.getAnswers(id)
       answers.push(<Answer key={answer.id} 
         sync={@props.sync}
-        id={answer.id} 
-        removeAnswer={@removeAnswer} changeAnswer={@changeAnswer}/>)
+        id={answer.id}
+        canMoveUp={index isnt QuestionStore.getAnswers(id).length - 1}
+        canMoveDown={index isnt 0}
+        moveAnswer={@moveAnswer}
+        removeAnswer={@removeAnswer}
+        changeAnswer={@changeAnswer}/>)
 
     if QuestionStore.hasFeedback(id)
       feedback = <div>
@@ -86,6 +95,13 @@ module.exports = React.createClass
           Answers:
         </label>
         <a className="pull-right" onClick={@addAnswer}>Add New</a>
+        <p>
+          <input onChange={@preserveOrderClicked}
+            id="preserveOrder#{id}"
+            type="checkbox"
+            defaultChecked={QuestionStore.isOrderPreserved(id)} />
+          <label htmlFor="preserveOrder#{id}">Preserve Answer Orders</label>
+        </p>
         <ol>
           {answers}
         </ol>
