@@ -23,15 +23,20 @@ Sectionizer = React.createClass
   scrollToSection: (section) ->
     @scrollToSelector("[data-section='#{section}']")
 
+  currentSection: ->
+    _.first @props.onScreenElements
+
   scrollIndex: ->
-    @props.chapter_sections.indexOf(@props.chapter_sections)
+    @props.chapter_sections.indexOf(@currentSection())
 
   goBack: ->
     index = @scrollIndex()
+    sections = @props.chapter_sections
     @scrollToSection(sections[ if index > 1 then index - 1 else 0])
 
   goNext: ->
     index = @scrollIndex()
+    sections = @props.chapter_sections
     @scrollToSection(
       sections[ if index < sections.length then index + 1 else sections.length - 1]
     )
@@ -44,7 +49,7 @@ Sectionizer = React.createClass
       {for cs in @props.chapter_sections.sort()
         <div key={cs}
           onClick={_.partial(@scrollToSection, cs)}
-          className={'active' if cs is _.first(@props.onScreenElements)}
+          className={'active' if cs is @currentSection()}
         >{cs}</div>}
       <div className="next"
         className={cn('next', disabled: @props.chapter_sections.length - 1 is @scrollIndex())}
