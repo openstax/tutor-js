@@ -1,5 +1,6 @@
 _     = require 'underscore'
 React = require 'react'
+classnames = require 'classnames'
 
 Icon  = require './icon'
 
@@ -21,7 +22,8 @@ TriStateCheckbox = React.createClass
   render: ->
     if @props.onClick
       styles = cursor: 'pointer'
-    <span tabIndex={1} className='tri-state-checkbox' onClick={@onClick}>
+    classNames = classnames('tri-state-checkbox', @props.type)
+    <span tabIndex={1} className={classNames} onClick={@onClick}>
       <Icon
         type={ICON_TYPES[@props.type]}
         onClick={@props.onClick}
