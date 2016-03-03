@@ -1,0 +1,23 @@
+.exercise-card-hover-styles(@color: @tutor-neutral-lighter,
+                            @background-color: lighten(@tutor-primary, 20%),
+                            @selection-icon: @fa-var-plus,
+                            @de-selection-icon: @fa-var-minus
+                           )
+{
+
+  .toggle-mask {
+    background-color: @background-color;
+    .message {
+      color: @color;
+      &::before {
+        background-color: darken(@background-color, 10%);
+        border: 1px solid @color;
+        content: @selection-icon;
+      }
+    }
+  }
+  &.is-selected .toggle-mask .message::before {
+    content: @de-selection-icon;
+  }
+
+}

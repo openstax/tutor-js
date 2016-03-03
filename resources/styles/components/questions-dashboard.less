@@ -138,12 +138,20 @@
   }
 
   .exercise-card {
-    .exercise-card-hover-colors(lighten(@tutor-primary, 20%), @tutor-neutral-dark);
+    .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
+                                 @background-color: lighten(@tutor-primary, 10%),
+                                 @selection-icon: @fa-var-minus,
+                                 @de-selection-icon: @fa-var-plus );
   }
 
   .exercise-card.is-selected {
     .panel-body { background-color: @tutor-neutral-light; }
-    .exercise-card-hover-colors(lighten(@homework-color, 30%), @tutor-neutral);
+
+    .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
+                                 @background-color: lighten(@homework-color, 10%),
+                                 @selection-icon: @fa-var-minus,
+                                 @de-selection-icon: @fa-var-plus );
+
   }
 
 }

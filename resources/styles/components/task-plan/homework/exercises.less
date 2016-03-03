@@ -116,6 +116,7 @@ label.exercises-section-label {
 
 .add-exercise-list {
   .exercise-card {
-    .exercise-card-hover-colors(lighten(@homework-color, 50%), @tutor-neutral);
+    .exercise-card-hover-styles(@color: @tutor-neutral,
+                                @background-color: lighten(@homework-color, 50%) );
   }
 }

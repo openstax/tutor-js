@@ -1,4 +1,3 @@
-
 .exercise-card {
   &:extend(.card);
   position: relative;
@@ -50,7 +49,6 @@
         font-weight: 700;
         &::before {
           .fa-icon();
-          content: @fa-var-plus;
           font-weight: 300;
           text-align: center;
           font-size: 50px;
@@ -60,9 +58,6 @@
           padding-top: 5px;
         }
       }
-    }
-    &.is-selected .toggle-mask .icon::before {
-      content: @fa-var-minus;
     }
   }
 
