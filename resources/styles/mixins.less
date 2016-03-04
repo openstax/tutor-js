@@ -73,7 +73,7 @@
   background: none;
   display: flex;
   flex-wrap: wrap;
-  li.tab-item-period {
+  li {
     text-align: center;
     background: @tutor-neutral-lighter;
 
@@ -108,9 +108,12 @@
       a {
       display: inline-block;
       padding: 10px;
+      height: 20px;
+      min-width: 55px;
         &:before {
           .is-trouble();
-          margin-right: 5px;
+          margin: 2px 5px 0px 0px;
+          float: left;
         }
       }
     }

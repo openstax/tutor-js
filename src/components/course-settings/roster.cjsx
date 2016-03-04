@@ -48,7 +48,7 @@ module.exports = React.createClass
     {is_concept_coach} = course
     periods = course.periods.length > 0
     tabs = _.map course.periods, (period, index) =>
-      className = classnames('tab-item-period', {'is-trouble': period.is_trouble})
+      className = classnames({'is-trouble': period.is_trouble})
       tooltip =
         <BS.Tooltip>
           {period.name}
