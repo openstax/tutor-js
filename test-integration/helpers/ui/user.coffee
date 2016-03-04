@@ -71,26 +71,26 @@ class User extends TestHelper
     super(test, testElementLocator, COMMON_ELEMENTS)
 
   isLocal: =>
-    @el.eitherSignInElement.get()
-    @el.searchQuery.isPresent()
+    @el.eitherSignInElement().get()
+    @el.searchQuery().isPresent()
 
   logInLocal: (username) =>
     # Login as local
-    @el.searchQuery.get().sendKeys(username)
-    @el.searchQuery.get().submit()
-    @el.usernameLink(username).click()
+    @el.searchQuery().get().sendKeys(username)
+    @el.searchQuery().get().submit()
+    @el.usernameLink(username).waitClick()
 
   logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
-    @el.usernameInput.get().sendKeys(username)
-    @el.passworkInput.get().sendKeys(password)
-    @el.loginSubmit.click()
+    @el.usernameInput().get().sendKeys(username)
+    @el.passworkInput().get().sendKeys(password)
+    @el.loginSubmit().click()
 
   login: (username, password = 'password') =>
-    @el.loginLink.isDisplayed().then (isDisplayed) =>
+    @el.loginLink().isDisplayed().then (isDisplayed) =>
       unless isDisplayed
-        @el.smallScreenNavbarToggle.click()
-      @el.loginLink.click()
+        @el.smallScreenNavbarToggle().click()
+      @el.loginLink().click()
 
     @test.utils.windowPosition.setLarge()
 
@@ -104,8 +104,7 @@ class User extends TestHelper
       hider = document.createElement('style')
       hider.textContent = '''
         .navbar-fixed-bottom, .navbar-fixed-top,
-        .pinned-on .pinned-header,
-        .pinned-footer {
+        .pinned-on .pinned-header {
           z-index: initial !important;
           position: initial !important;
         }
@@ -127,10 +126,10 @@ class User extends TestHelper
 
 
   isModalOpen: =>
-    @el.modalClose.isPresent()
+    @el.modalClose().isPresent()
 
   _closeModal: =>
-    @el.modalClose.click()
+    @el.modalClose().click()
 
   closeModal: =>
     @isModalOpen().then (isOpen) =>
@@ -139,7 +138,7 @@ class User extends TestHelper
         @_closeModal()
 
   canLogout: =>
-    @el.userMenu.isPresent()
+    @el.userMenu().isPresent()
 
   _logout: =>
     @openHamburgerMenu()
@@ -148,7 +147,7 @@ class User extends TestHelper
     @test.driver.executeScript("var c = window.__coverage__; delete window.__coverage__; return c;").then (results) ->
       mergeCoverage(results) if results
 
-    @el.logoutForm.get().submit()
+    @el.logoutForm().get().submit()
 
   logout: =>
     @closeModal()
@@ -157,14 +156,14 @@ class User extends TestHelper
       @_logout() if canLogout
 
   goToHome: =>
-    @el.homeLink.click()
-    @test.utils.wait.for(@el.courseListing.getLocator())
+    @el.homeLink().click()
+    @el.courseListing().get()
 
   isHamburgerMenuOpen: =>
-    @el.openHamburgerMenu.isPresent()
+    @el.openHamburgerMenu().isPresent()
 
   toggleHamburgerMenu: =>
-    @el.userMenu.click()
+    @el.userMenu().click()
 
   openHamburgerMenu: =>
     @isHamburgerMenuOpen().then (isOpen) =>

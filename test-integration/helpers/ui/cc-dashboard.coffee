@@ -28,22 +28,22 @@ class CCDashboard extends TestHelper
     super(test, testElementLocator, COMMON_ELEMENTS)
 
   switchPeriods: ->
-    @el.inactiveTab.click()
+    @el.inactiveTab().click()
 
   getTabPeriod: ->
-    @el.dashboard.get().getAttribute('data-period')
+    @el.dashboard().get().getAttribute('data-period')
 
   getDashboardPeriod: ->
-    @el.activeTab.get().getAttribute('data-reactid')
+    @el.activeTab().get().getAttribute('data-reactid')
 
   clickViewScores: ->
-    @el.viewScoresButton.click()
+    @el.viewScoresButton().click()
 
   getHelpLinkHref: ->
-    @el.helpLink.get().getAttribute('href')
+    @el.helpLink().get().getAttribute('href')
 
   getHelpLinkTarget: ->
-    @el.helpLink.get().getAttribute('target')
+    @el.helpLink().get().getAttribute('target')
 
   # goToScores()
   # goToBook()

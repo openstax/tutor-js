@@ -4,8 +4,11 @@ class Wait
   constructor: (test) -> @test = test
 
   # TODO reduce the copy pasta between for and forMultiple
-  forMultiple: (locator, ms = 60 * 1000) ->
+  forMultiple: (locator, ms = 60 * 1000) =>
     locator = @test.utils.toLocator(locator)
+    locator.shouldBeVisible ?= true
+    waitUntil = if locator.shouldBeVisible then 'elementIsVisible' else 'elementIsEnabled'
+
     @giveTime ms, =>
       @test.utils.verboseWrap "Waiting for multiple #{JSON.stringify(locator)}", =>
         @test.driver.wait(selenium.until.elementsLocated(locator))
@@ -14,29 +17,36 @@ class Wait
 
         el.then (elements) =>
           @test.utils.verbose("Found #{elements.count}")
-          @test.driver.wait(selenium.until.elementIsVisible(elements[0]))
+          @test.driver.wait(selenium.until[waitUntil](elements[0]))
 
     el = @test.driver.findElements(locator)
     el
 
   # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
-  for: (locator, ms = 60 * 1000) ->
+  for: (locator, ms = 60 * 1000) =>
     locator = @test.utils.toLocator(locator)
+    locator.shouldBeVisible ?= true
+    waitUntil = if locator.shouldBeVisible then 'elementIsVisible' else 'elementIsEnabled'
+
     @giveTime ms, =>
       @test.driver.wait(selenium.until.elementLocated(locator))
       el = @test.driver.findElement(locator)
       # Because of animations an element might be in the DOM but not visible
-      @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until.elementIsVisible(el))
+      @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until[waitUntil](el))
     el = @test.driver.findElement(locator)
     el
 
-  click: (locator, ms) ->
-    el = @for(locator, ms)
-    el.click()
-    # return el to support chaining the promises
+  click: (locator, ms) =>
+    @test.utils.verboseWrap "Wait and click #{JSON.stringify(locator)}", =>
+      el = @for(locator, ms)
+      # Scroll to element so that it's clickable
+      @test.utils.windowPosition.scrollTo(el)
+      @test.utils.verbose "Clicking #{JSON.stringify(locator)}"
+      # el click promise returns from verbose wrapping and can be chained
+      el.click()
 
   # Adjusts the test timeout for a function (which returns a Promise) time to execute
-  giveTime: (ms, fn) ->
+  giveTime: (ms, fn) =>
     start = null
     @test.driver.call => # Enqueue the timeout to increase only once this starts
       start = Date.now()
@@ -55,7 +65,7 @@ class Wait
 
       val
 
-  until: (msg, fn) ->
+  until: (msg, fn) =>
     @test.utils.verboseWrap msg, =>
       @test.driver.wait(fn)
 

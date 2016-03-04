@@ -3,9 +3,11 @@ selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
 
-PUBLISHING_TIMEOUT = 60 * 1000 # Wait up to a minute for publishing to complete.
+PUBLISHING_TIMEOUT = 2 * 60 * 1000 # Wait up to 2 minutes for publishing to complete.
 
 COMMON_ELEMENTS =
+  loadingState:
+    css: '.calendar-loading'
   forecastLink:
     linkText: 'Performance Forecast'
   studentScoresLink:
@@ -28,6 +30,9 @@ COMMON_ELEMENTS =
   unopenPlan:
     css: '.plan.is-published:not(.is-open) label:not(.continued)'
     ignoreLengthChange: true
+  canReview:
+    css: '[data-has-review]'
+    attr: 'data-has-review'
   planByTitle: (title) ->
     css: ".plan label[data-title='#{title}']"
   publishedPlanByTitle: (title) ->
@@ -44,6 +49,8 @@ COMMON_POPUP_ELEMENTS =
     linkText: 'Review Metrics'
   modal:
     css: '.plan-modal.active'
+  title:
+    css: '.modal-title'
 
 class Popup extends TestHelper
   constructor: (test, testElementLocator) ->
@@ -57,17 +64,23 @@ class Popup extends TestHelper
     @el.closeButton.click()
     # waits until the locator element is not present
     @test.driver.wait =>
-      @isPresent().then (isPresent) ->
+      @el.self().isPresent().then (isPresent) ->
         not isPresent
 
   goToEdit: =>
-    @el.editLink.waitClick()
+    @el.editLink().waitClick()
     @test.utils.wait.until 'modal is closed', =>
-      @el.modal.isPresent().then (isPresent) ->
+      @el.modal().isPresent().then (isPresent) ->
         !isPresent
 
-  goToReview: =>
-    @el.reviewLink.waitClick()
+  canGoToReviewMetrics: =>
+    @el.reviewLink().isPresent()
+
+  goReview: =>
+    @el.reviewLink().waitClick()
+
+  getTitle: =>
+    @el.title().findElement().getText()
 
   # selectPeriodByIndex(num)
   # selectPeriodByTitle(title)
@@ -80,28 +93,25 @@ class Calendar extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?=
       css: '.calendar-container'
-    calendarOptions =
-      loadingLocator:
-        css: '.calendar-loading'
 
-    super(test, testElementLocator, COMMON_ELEMENTS, calendarOptions)
+    super(test, testElementLocator, COMMON_ELEMENTS)
 
   createNew: (type) =>
     @waitUntilLoaded()
 
-    @el.addToggle.click()
+    @el.addToggle().click()
 
     switch type
-      when 'READING' then @el.addReadingButton.click()
-      when 'HOMEWORK' then @el.addHomeworkButton.click()
-      when 'EXTERNAL' then @el.addExternalButton.click()
+      when 'READING' then @el.addReadingButton().click()
+      when 'HOMEWORK' then @el.addHomeworkButton().click()
+      when 'EXTERNAL' then @el.addExternalButton().click()
       else expect(false, 'Invalid assignment type').to.be.true
 
   goToForecast: =>
-    @el.forecastLink.click()
+    @el.forecastLink().click()
 
   goToScores: =>
-    @el.studentScoresLink.click()
+    @el.studentScoresLink().click()
 
   goToOpenByTitle: (title) =>
     # wait until the calendar is open
@@ -117,6 +127,12 @@ class Calendar extends TestHelper
     @test.utils.verbose("Waiting to see if plan is published #{title}")
     @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
       @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
+
+  canReviewPlan: (plan) =>
+    @test.utils.dom._getParent(plan).getAttribute(@el.canReview().locator.attr)
+
+  getPlanTitle: (plan) ->
+    plan.getText()
 
   # goToBook()
   # goToAddByType(assignmentType)

@@ -31,24 +31,25 @@ class Task extends TestHelper
     testElementLocator ?= '.task-reading, .task-homework'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
-  # isExternal: => @el.taskTypeIsExternal.isPresent()
-  # isHomework: => @el.taskTypeIsHomework.isPresent()
-  # isReading:  => @el.taskTypeIsReading.isPresent()
-  # isEvent:    => @el.taskTypeIsEvent.isPresent()
+  # isExternal: => @el.taskTypeIsExternal().isPresent()
+  # isHomework: => @el.taskTypeIsHomework().isPresent()
+  # isReading:  => @el.taskTypeIsReading().isPresent()
+  # isEvent:    => @el.taskTypeIsEvent().isPresent()
 
-  canContinue: => @el.enabledContinueButton.isPresent()
+  canContinue: => @el.enabledContinueButton().isPresent()
 
   continue: =>
-    @test.utils.windowPosition.scrollTo(@el.continueButton.get()) # HACK For some reason we have to scroll down to the continue button
+    @test.utils.windowPosition.scrollTo(@el.continueButton().get()) # HACK For some reason we have to scroll down to the continue button
 
     # Get the current step, click continue, and wait until the current step changes
-    @el.currentBreadcrumbStep.get().getAttribute('data-reactid').then (oldStepId) =>
-      @el.enabledContinueButton.waitClick()
-      @test.utils.verboseWrap 'Waiting for current step to change', =>
-        @test.driver.wait =>
-          @el.currentBreadcrumbStep.get().getAttribute('data-reactid').then (newStepId) =>
-            newStepId isnt oldStepId
-      @test.utils.verboseWrap 'Waiting for continue button to be enabled again', =>
-        @test.driver.wait => selenium.until.elementIsEnabled(@el.continueButton.get())
+    @el.currentBreadcrumbStep().get().getAttribute('data-reactid').then (oldStepId) =>
+      @el.enabledContinueButton().waitClick()
+
+      @test.utils.wait.until 'Waiting for current step to change', =>
+        @el.currentBreadcrumbStep().get().getAttribute('data-reactid').then (newStepId) =>
+          newStepId isnt oldStepId
+
+      @test.utils.wait.until 'Waiting for continue button to be enabled again', =>
+        selenium.until.elementIsEnabled(@el.continueButton().get())
 
 module.exports = Task

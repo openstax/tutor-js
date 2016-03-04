@@ -86,6 +86,8 @@ COMMON_ELEMENTS.anyPlan =
 OPENED_PANEL_SELECTOR = '.dialog:not(.hide)'
 
 COMMON_SELECT_READING_ELEMENTS =
+  loadingState:
+    css: '.select-reading-dialog.hide'
   sectionItem: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section}']"
   chapterHeadingSelectAll: (section) ->
@@ -95,6 +97,8 @@ COMMON_SELECT_READING_ELEMENTS =
 
 
 COMMON_UNSAVED_DIALOG_ELEMENTS =
+  loadingState:
+    css: '.tutor-dialog.modal.fade:not(.in)'
   dismissButton:
     css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
 
@@ -102,40 +106,40 @@ COMMON_UNSAVED_DIALOG_ELEMENTS =
 class SelectReadingsList extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: ".select-reading-dialog#{OPENED_PANEL_SELECTOR}"
-    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS, loadingLocator: css: '.select-reading-dialog.hide'
+    super test, testElementLocator, COMMON_SELECT_READING_ELEMENTS
 
   selectSection: (section) =>
     # Selecting an entire chapter requires clicking the input box
     # So handle chapters differently
     isChapter = not /\./.test(section)
     if isChapter
-      @el.chapterHeadingSelectAll(section).click()
+      @el.chapterHeadingSelectAll(section).waitClick()
     else
       # BUG? Hidden dialogs remain in the DOM. When searching make sure it is in a dialog that is not hidden
       @el.sectionItem(section).findElement().isDisplayed().then (isDisplayed) =>
         # Expand the chapter accordion if necessary
         unless isDisplayed
-          @el.chapterHeading(section).click()
+          @el.chapterHeading(section).waitClick()
 
-        @el.sectionItem(section).click()
+        @el.sectionItem(section).waitClick()
 
 
 # TODO could probably make this a general dialog/modal helper to extend from.
 class UnsavedDialog extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: '.tutor-dialog.modal'
-    super test, testElementLocator, COMMON_UNSAVED_DIALOG_ELEMENTS, loadingLocator: css: '.tutor-dialog.modal.fade:not(.in)'
+    super test, testElementLocator, COMMON_UNSAVED_DIALOG_ELEMENTS
 
   waitUntilClose: =>
     @test.driver.wait =>
-      @isPresent().then (isPresent) -> not isPresent
+      @el.self().isPresent().then (isPresent) -> not isPresent
 
   close: =>
-    @isPresent().then (modalIsOpened) =>
+    @el.self().isPresent().then (modalIsOpened) =>
       return unless modalIsOpened
 
       @waitUntilLoaded()
-      @el.dismissButton.click()
+      @el.dismissButton().click()
       @waitUntilClose()
 
 
@@ -147,13 +151,14 @@ class ReadingBuilder extends TestHelper
   constructor: (test, testElementLocator) ->
     testElementLocator ?= css: '.task-plan.reading-plan'
     super test, testElementLocator, COMMON_ELEMENTS
+    # todo look at making these accessible as functions as well
     @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
     @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
 
   waitUntilLoaded: (ms) =>
     super(ms)
     @test.driver.wait =>
-      @el.anyPlan.isPresent()
+      @el.anyPlan().isPresent()
 
   # Helper for setting a date in the date picker
   # where
@@ -180,16 +185,16 @@ class ReadingBuilder extends TestHelper
 
   waitUntilDatepickerClosed: =>
     @test.driver.wait =>
-      @el.datepickerContainer.isPresent().then (isPresent) -> not isPresent
+      @el.datepickerContainer().isPresent().then (isPresent) -> not isPresent
 
   setName: (name) =>
-    @el.name.get().sendKeys(name)
+    @el.name().get().sendKeys(name)
 
   getNameValue: =>
-    @el.name.get().getAttribute('value')
+    @el.name().get().getAttribute('value')
 
   openSelectReadingList: =>
-    @el.selectReadingsButton.click()
+    @el.selectReadingsButton().click()
     @el.selectReadingsList.waitUntilLoaded()
 
   hasError: (type) =>
@@ -202,13 +207,13 @@ class ReadingBuilder extends TestHelper
     @el.requiredItemNotice(type).get().isDisplayed()
 
   publish: (name) =>
-    @el.publishButton.waitClick()
+    @el.publishButton().waitClick()
 
     # Wait up to 4min for publish to complete (Local, synchronous publish)
     @test.utils.wait.giveTime (4 * 60 * 1000), =>
       # wait for
       @test.driver.wait =>
-        @el.pendingPublishButton.isPresent().then (isPresent) -> not isPresent
+        @el.pendingPublishButton().isPresent().then (isPresent) -> not isPresent
 
     # Wait up to 2min for publish to complete (Remote, asynchronous publish)
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
@@ -218,11 +223,11 @@ class ReadingBuilder extends TestHelper
 
   save: =>
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
-      @el.saveButton.waitClick()
+      @el.saveButton().waitClick()
 
   cancel: =>
     # BUG: "X" close button behaves differently than the footer close button
-    @el.cancelButton.click()
+    @el.cancelButton().click()
     # BUG: Should not prompt when canceling
     # Confirm the "Unsaved Changes" dialog
     @el.unsavedDialog.close()
@@ -231,7 +236,7 @@ class ReadingBuilder extends TestHelper
   delete: =>
     # Wait up to 2min for delete to complete
     @test.utils.wait.giveTime (2 * 60 * 1000), =>
-      @el.deleteButton.waitClick()
+      @el.deleteButton().waitClick()
       # Accept the browser confirm dialog
       @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
         alert.accept()
@@ -270,12 +275,12 @@ class ReadingBuilder extends TestHelper
 
       if verifyAddReadingsDisabled
         # Verify "Add Readings" is disabled and click Cancel
-        @el.disabledAddReadingsButton.isPresent().then (isDisplayed) =>
+        @el.disabledAddReadingsButton().isPresent().then (isDisplayed) =>
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
         @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
-        @el.addReadingsButton.waitClick()
+        @el.addReadingsButton().waitClick()
 
     switch action
       when 'PUBLISH' then @publish(name)

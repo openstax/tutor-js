@@ -1,17 +1,15 @@
 {describe, xdescribe} = require './describe'
 
 module.exports =
-
-  Calendar         : require './calendar'
-  ReadingBuilder   : require './reading-builder'
-  CourseSelect     : require './course-select'
-  CCDashboard      : require './cc-dashboard'
-  StudentDashboard : require './student-dashboard'
-  Task             : require './task'
-  User             : require './user'
-  ReferenceBook    : require './reference-book'
-  Scores           : require './scores'
+  Calendar         : require './ui/calendar'
+  ReadingBuilder   : require './ui/reading-builder'
+  CourseSelect     : require './ui/course-select'
+  CCDashboard      : require './ui/cc-dashboard'
+  StudentDashboard : require './ui/student-dashboard'
+  Task             : require './ui/task'
+  User             : require './ui/user'
+  ReferenceBook    : require './ui/reference-book'
+  Scores           : require './ui/scores'
   util             : require './utils'
   describe         : describe
   xdescribe        : xdescribe
-
