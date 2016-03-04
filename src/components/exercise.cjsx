@@ -30,19 +30,19 @@ module.exports = React.createClass
   getId: ->
     @props.id or @state.id
 
-  getDraftId: ->
-    id = if @props.id.indexOf("@") is -1 then @props.id else @props.id.split("@")[0]
-    "#{id}@d"
+  getDraftId: (id) ->
+    draftId = if id.indexOf("@") is -1 then id else id.split("@")[0]
+    "#{draftId}@d"
 
   saveExercise: ->
     if confirm('Are you sure you want to save?')
 
-      ExerciseActions.save(@props.id)
+      ExerciseActions.save(@getId())
 
   publishExercise: ->
     if confirm('Are you sure you want to publish?')
-      ExerciseActions.save(@props.id)
-      ExerciseActions.publish(@props.id)
+      ExerciseActions.save(@getId())
+      ExerciseActions.publish(@getId())
 
   renderLoading: ->
     <div>Loading exercise: {@getId()}</div>
@@ -50,7 +50,7 @@ module.exports = React.createClass
   renderFailed: ->
     <div>Failed loading exercise, please check id</div>
 
-  sync: -> ExerciseActions.sync(@props.id)
+  sync: -> ExerciseActions.sync(@getId())
 
   renderForm: ->
     id = @getId()
