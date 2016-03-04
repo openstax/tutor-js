@@ -32,6 +32,7 @@ describe 'HS Student Scores', ->
 
   @it 'generates export', ->
     @scores.el.generateExport().click()
+    @addTimeout(60)
     @scores.downloadExport()
 
 
