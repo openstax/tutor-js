@@ -3,7 +3,7 @@ selenium = require 'selenium-webdriver'
 {expect} = require 'chai'
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
-
+Timeout = require '../timeout'
 
 COMMON_ELEMENTS =
   nameHeaderSort:
@@ -22,6 +22,10 @@ COMMON_ELEMENTS =
     css: '.filter-item:nth-child(1) .filter-group .btn:nth-child(2)'
   scoreCell:
     css: '.cc-cell a.score'
+  hoverCCTooltip:
+    css: '.cc-cell .worked .trigger-wrap'
+  ccTooltip:
+    css: '.cc-scores-tooltip-completed-info'
   averageLabel:
     css: '.average-label span:last-child'
   exportUrl:
@@ -55,6 +59,19 @@ class Scores extends TestHelper
         else
           throw new Error('BUG: Exported file not found!')
 
+  tooltipVisible: =>
+    @test.utils.wait.until 'hover over cc info tooltip', =>
+      @test.driver.isElementPresent(COMMON_ELEMENTS.ccTooltip)
+
+  hoverCCTooltip: =>
+    @el.hoverCCTooltip().findElement().then (e) =>
+      @test.driver.actions().mouseMove(e).perform()
+      if @tooltipVisible()
+        @test.addTimeout(60)
+        @el.ccTooltip().findElement().getText().then (txt) ->
+          expect(txt).to.contain('Correct')
+          expect(txt).to.contain('Attempted')
+          expect(txt).to.contain('Total possible')
 
 
 
