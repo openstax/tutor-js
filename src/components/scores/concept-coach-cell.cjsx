@@ -14,11 +14,34 @@ ConceptCoachCell = React.createClass
     pieValue =
       Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
     tooltip =
-      <BS.Tooltip>
+      <BS.Popover className='cc-scores-tooltip-completed-info'>
         <div>
-          Date Last Worked: <Time format='MMM. D' date={@props.task.last_worked_at} />
+          <BS.Table>
+            <thead>
+              <tr>
+                <th>Correct</th>
+                <th>Attempted</th>
+                <th>Total possible</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className='data-row'>
+                <td>{@props.task.correct_exercise_count}</td>
+                <td>{@props.task.completed_exercise_count}</td>
+                <td>{@props.task.exercise_count}</td>
+              </tr>
+              <tr>
+                <td colSpan="3">
+                  <span>Date Last Worked:</span> <Time 
+                  format='MMM. D' 
+                  date={@props.task.last_worked_at} />
+                </td>
+              </tr>
+            </tbody>
+          </BS.Table>
         </div>
-      </BS.Tooltip>
+      </BS.Popover>
+
 
     <div className="cc-cell">
       <Router.Link className="score" to='viewTaskStep'
@@ -31,15 +54,18 @@ ConceptCoachCell = React.createClass
               "#{pieValue}%"
           }
       </Router.Link>
-      <BS.OverlayTrigger
-        placement='top'
+
+      <div className="worked">
+        <BS.OverlayTrigger
+        placement="left"
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
-        <div className="worked">
-          <PieProgress size={24} value={pieValue} roundToQuarters />
-        </div>
-      </BS.OverlayTrigger>
+          <span className='trigger-wrap'>
+            <PieProgress size={24} value={pieValue} roundToQuarters />
+          </span>
+        </BS.OverlayTrigger>
+      </div>
     </div>
 
 
