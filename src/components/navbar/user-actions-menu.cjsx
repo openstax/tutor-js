@@ -64,6 +64,7 @@ UserActionsMenu = React.createClass
     <BS.DropdownButton navItem
       eventKey={1}
       className='-hamburger-menu'
+      id='navbar-dropdown'
       title={<UserName/>}
       ref='navDropDown'>
       {@renderMenuItems()}

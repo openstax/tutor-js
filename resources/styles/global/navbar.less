@@ -63,4 +63,16 @@
       &:hover { text-decoration: initial; }
     }
   }
+
+  .dropdown {
+    &.btn-group, &.btn-group:hover {
+      box-shadow: none;
+    }
+    :not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+      // override btn-default styles
+      background: none !important;
+      border: 0 !important;
+      color: @tutor-neutral-dark !important;
+    }
+  }
 }
