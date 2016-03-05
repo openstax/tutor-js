@@ -32,8 +32,8 @@ describe 'HS Student Scores', ->
 
   @it 'generates export', ->
     @scores.el.generateExport().click()
-    @addTimeout(60)
-    @scores.downloadExport()
+    @scores.getExportDownloadPath().then (downloadedFilePath) =>
+      expect(downloadedFilePath).to.contain(@downloadDirectory)
 
 
 
@@ -72,6 +72,8 @@ describe 'CC Student Scores', ->
       @user.goToHome()
 
   @it 'hovers tooltip info popover', ->
-    @addTimeout(60)
-    @scores.hoverCCTooltip()
+    @scores.getCCTooltip().getText().then (txt) ->
+      expect(txt).to.contain('Correct')
+      expect(txt).to.contain('Attempted')
+      expect(txt).to.contain('Total possible')
 
