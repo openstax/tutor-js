@@ -1,40 +1,63 @@
 selenium = require 'selenium-webdriver'
+_ = require 'underscore'
 
 class Wait
   constructor: (test) -> @test = test
 
-  # TODO reduce the copy pasta between for and forMultiple
-  forMultiple: (locator, ms = 60 * 1000) =>
-    locator = @test.utils.toLocator(locator)
-    locator.shouldBeVisible ?= true
-    waitUntil = if locator.shouldBeVisible then 'elementIsVisible' else 'elementIsEnabled'
+  _for: (settings) =>
 
-    @giveTime ms, =>
-      @test.utils.verboseWrap "Waiting for multiple #{JSON.stringify(locator)}", =>
-        @test.driver.wait(selenium.until.elementsLocated(locator))
+    defaultSettings =
+      find: @test.driver.findElement.bind(@test.driver)
+      untilLocated: selenium.until.elementLocated
+      untilReady: selenium.until.elementIsVisible
+      buildWaitMessage: (locator) ->
+        "Looking for #{JSON.stringify(locator)}"
+      buildFoundMessage: (locator, result) ->
+        "Found #{JSON.stringify(locator)}"
+      buildDisplayMessage: (locator) ->
+        "Waiting for #{JSON.stringify(locator)} to show"
+      filter: (result) ->
+        result
+
+    settings = _.extend({}, defaultSettings, settings)
+    {find, untilLocated, untilReady, buildWaitMessage, buildFoundMessage, buildDisplayMessage, filter} = settings
+
+    (locator, ms = 60 * 1000) =>
+      locator = @test.utils.toLocator(locator)
+
+      @giveTime ms, =>
+        @until buildWaitMessage(locator), untilLocated(locator)
         # Because of animations an element might be in the DOM but not visible
-        el = @test.driver.findElements(locator)
+        find(locator).then (result) =>
+          @test.utils.verbose(buildFoundMessage(locator, result))
+          @until buildDisplayMessage(locator), untilReady(filter(result))
 
-        el.then (elements) =>
-          @test.utils.verbose("Found #{elements.count}")
-          @test.driver.wait(selenium.until[waitUntil](elements[0]))
+      el = find(locator)
+      el
 
-    el = @test.driver.findElements(locator)
-    el
+  forMultiple: (locator, ms = 60 * 1000) =>
+    settings =
+      find: @test.driver.findElements.bind(@test.driver)
+      untilLocated: selenium.until.elementsLocated
+      buildWaitMessage: (locator) ->
+        "Looking for multiple #{JSON.stringify(locator)}"
+      buildFoundMessage: (locator, result) ->
+        "Found #{result.count} matching #{JSON.stringify(locator)}"
+      filter: (result) ->
+        result[0]
 
-  # Waits for an element to be available and bumps up the timeout to be at least 60sec from now
+    @_for(settings)(locator, ms)
+
+  # Waits for an element to be displayed and bumps up the timeout to be at least 60sec from now
   for: (locator, ms = 60 * 1000) =>
-    locator = @test.utils.toLocator(locator)
-    locator.shouldBeVisible ?= true
-    waitUntil = if locator.shouldBeVisible then 'elementIsVisible' else 'elementIsEnabled'
+    @_for()(locator, ms)
 
-    @giveTime ms, =>
-      @test.driver.wait(selenium.until.elementLocated(locator))
-      el = @test.driver.findElement(locator)
-      # Because of animations an element might be in the DOM but not visible
-      @test.utils.verboseWrap "Waiting for #{JSON.stringify(locator)}", => @test.driver.wait(selenium.until[waitUntil](el))
-    el = @test.driver.findElement(locator)
-    el
+  # Waits for an element to be enabled and bumps up the timeout to be at least 60sec from now
+  forHidden: (locator, ms = 60 * 1000) =>
+    settings = 
+      untilReady: selenium.until.elementIsEnabled
+
+    @_for(settings)(locator, ms)
 
   click: (locator, ms) =>
     @test.utils.verboseWrap "Wait and click #{JSON.stringify(locator)}", =>
