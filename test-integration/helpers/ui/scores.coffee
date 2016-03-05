@@ -1,6 +1,5 @@
 fs = require 'fs'
 selenium = require 'selenium-webdriver'
-{expect} = require 'chai'
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
 Timeout = require '../timeout'
@@ -45,34 +44,30 @@ class Scores extends TestHelper
     super(testContext, testElementLocator, COMMON_ELEMENTS)
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
-  doneGenerating: =>
-    @test.utils.wait.until 'export url is set', =>
-      @test.driver.isElementPresent(COMMON_ELEMENTS.doneGenerating)
+  # this could be moved to cc-dashboard helper at some point
+  goCCScores: =>
+    @el.ccScoresLink().click()
+    @waitUntilLoaded()
 
-  downloadExport: =>
-    if @doneGenerating()
-      @el.exportUrl().findElement().getAttribute("src").then (src) =>
-        file = src.split('/').pop()
-        path = "#{@test.downloadDirectory}/#{file}"
-        if fs.existsSync(path)
-          fs.unlink(path)
-        else
-          throw new Error('BUG: Exported file not found!')
+  getExportDownloadPath: =>
+    # need to wait for the hidden iframe with the expected [src]
+    # before checking for file
+    @test.utils.wait.forHidden(@el.doneGenerating().getLocator()).getAttribute("src").then (src) =>
+      file = src.split('/').pop()
+      path = "#{@test.downloadDirectory}/#{file}"
 
-  tooltipVisible: =>
-    @test.utils.wait.until 'hover over cc info tooltip', =>
-      @test.driver.isElementPresent(COMMON_ELEMENTS.ccTooltip)
+      filePath = if fs.existsSync(path) then path else null
+      fs.unlink(filePath) if filePath
+
+      filePath
 
   hoverCCTooltip: =>
     @el.hoverCCTooltip().findElement().then (e) =>
       @test.driver.actions().mouseMove(e).perform()
-      if @tooltipVisible()
-        @test.addTimeout(60)
-        @el.ccTooltip().findElement().getText().then (txt) ->
-          expect(txt).to.contain('Correct')
-          expect(txt).to.contain('Attempted')
-          expect(txt).to.contain('Total possible')
 
+  getCCTooltip: =>
+    @hoverCCTooltip()
+    @el.ccTooltip().get()
 
 
 
