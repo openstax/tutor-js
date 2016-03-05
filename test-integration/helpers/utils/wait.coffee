@@ -35,7 +35,7 @@ class Wait
       el = find(locator)
       el
 
-  forMultiple: (locator, ms = 60 * 1000) ->
+  forMultiple: (locator, ms = 60 * 1000) =>
     settings =
       find: @test.driver.findElements.bind(@test.driver)
       untilLocated: selenium.until.elementsLocated
@@ -49,11 +49,11 @@ class Wait
     @_for(settings)(locator, ms)
 
   # Waits for an element to be displayed and bumps up the timeout to be at least 60sec from now
-  for: (locator, ms = 60 * 1000) ->
+  for: (locator, ms = 60 * 1000) =>
     @_for()(locator, ms)
 
   # Waits for an element to be enabled and bumps up the timeout to be at least 60sec from now
-  forHidden: (locator, ms = 60 * 1000) ->
+  forHidden: (locator, ms = 60 * 1000) =>
     settings = 
       untilReady: selenium.until.elementIsEnabled
 
