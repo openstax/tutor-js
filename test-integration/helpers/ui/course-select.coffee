@@ -21,6 +21,10 @@ COMMON_ELEMENTS =
   courseByTitle: (title) ->
     css: "[data-title='#{name}'] > a"
 
+
+###
+Exposes helper functions for testing `.course-listing`
+###
 class CourseSelect extends TestHelper
 
   constructor: (test, testElementLocator) ->
