@@ -2,26 +2,31 @@
   position: absolute;
   left: 0;
   right: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-
+  background-color: @tutor-primary;
+  padding-left: 4rem;
   .notification {
-    width: 100%;
-    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     color: @tutor-neutral-lighter;
-    b {
-      font-size: 1.8rem;
-      margin-right: 1rem;
+    padding: 15px;
+    #fonts > .sans(2rem, 2rem);
+    & + .notification {
+      border-top: 1px solid darken(@tutor-primary, 5%);
     }
     .tutor-icon {
+      margin-right: 1rem;
+      font-size: 3rem;
+    }
+    a {
+      color: @tutor-neutral-lighter;
+
       cursor: pointer;
       font-size: 1.8rem;
       margin-left: 1rem;
     }
-    &.warning { background-color: @tutor-warning; color: black; }
-    &.error   { background-color: @tutor-danger;  }
+
 
   }
 }
