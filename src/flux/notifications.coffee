@@ -21,18 +21,13 @@ NotificationsConfig = {
     requestUpdates()
 
   loadUpdates: ->
-  loadedUpdates: (manifest) ->
+  loadedUpdates: (notifications) ->
     observedNotices = getObservedNotices()
-    for notice in manifest.notifications
-      # TODO: Check valid dates and product-ids
-      unless observedNotices[notice.notice_id]
-        Notifications.actions.loadNotification(@manifest_location, notice.notice_id)
-
-
-  loadNotification: ->
-  loadedNotification: (notice, url, notice_id) ->
-    @activeNotifications[notice_id] = notice
-    @emitChange()
+    changed = false
+    for notice in notifications when not observedNotices[notice.id]
+      @activeNotifications[notice.id] = notice
+      changed = true
+    @emitChange() if changed
 
   acknowledge: (notice_id) ->
     # localStorage.setItem('ox-notifications',
@@ -44,7 +39,7 @@ NotificationsConfig = {
   exports:
     getManifestUrl: -> @manifest_url
     getActiveNotifications: ->
-      @activeNotifications
+      _.values @activeNotifications
 
 }
 

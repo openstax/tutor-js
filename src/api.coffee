@@ -287,12 +287,7 @@ start = (bootstrapData) ->
     url: "/api/courses/#{courseId}/dashboard"
 
   apiHelper NotificationActions, NotificationActions.loadUpdates, NotificationActions.loadedUpdates, 'GET', ->
-    url: NotificationStore.getManifestUrl()
-
-  apiHelper NotificationActions, NotificationActions.loadNotification,
-    NotificationActions.loadedNotification, 'GET', (url, notice_id) -> {
-      url: "#{url}#{notice_id}.json"
-    }
+    url: "/api/notifications"
 
   CurrentUserActions.logout.addListener 'trigger', ->
     # Logging out programatically needs to be done via a form submission or follow redirects

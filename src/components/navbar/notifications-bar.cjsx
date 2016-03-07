@@ -7,20 +7,19 @@ BindStoreMixin = require '../bind-store-mixin'
 
 Notification = React.createClass
   propTypes:
-    notice_id: React.PropTypes.string.isRequired
     notice: React.PropTypes.shape(
-      type: React.PropTypes.string.isRequired
+      id: React.PropTypes.string.isRequired
       message: React.PropTypes.string.isRequired
     ).isRequired
 
   acknowledge: ->
-    NotificationActions.acknowledge(@props.notice_id)
+    NotificationActions.acknowledge(@props.notice.id)
 
   render: ->
-    <div className="notification #{@props.notice.type}">
-      <b>{@props.notice.title}</b>
+    <div className="notification">
+      <Icon type='info-circle' />
       {@props.notice.message}
-      <Icon type="close" onClick={@acknowledge} />
+      <a onClick={@acknowledge}>Dismiss</a>
     </div>
 
 
@@ -31,11 +30,11 @@ NotificationBar = React.createClass
 
   render: ->
     notifications = NotificationStore.getActiveNotifications()
-
     return null if _.isEmpty(notifications)
+
     <div className="notifications-bar">
-      {for notice_id, notice of notifications
-        <Notification key={notice.id} notice_id={notice_id} notice={notice} />}
+      {for notice in notifications
+        <Notification key={notice.id} notice={notice} />}
     </div>
 
 
