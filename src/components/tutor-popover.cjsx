@@ -105,7 +105,7 @@ TutorPopover = React.createClass
 
   guessPlacement: ->
     {windowImpl} = @props
-    {overlayLeft} = @refs.popper.calcOverlayPosition()
+    overlayLeft = React.findDOMNode(@refs.popper).getBoundingClientRect().left
     midWindow = windowImpl.innerWidth / 2
     if overlayLeft > midWindow then 'left' else 'right'
 
@@ -144,7 +144,6 @@ TutorPopover = React.createClass
       {...overlayProps}
       placement={placement}
       overlay={popover}
-      trigger='manual'
       ref='popper'>
       {children}
     </BS.OverlayTrigger>
