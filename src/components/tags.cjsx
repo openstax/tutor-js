@@ -10,7 +10,7 @@ FixedTag = React.createClass
 
   renderRangeValue: (value) ->
     optionValue = "#{@props.base}#{@props.separator}#{value}"
-    <option value={optionValue}>{optionValue}</option>
+    <option key={value} value={optionValue}>{optionValue}</option>
 
   render: ->
     <select onChange={@updateTag} defaultValue={@props.value}>
@@ -23,9 +23,10 @@ module.exports = React.createClass
 
   updateTags: (event) ->
     tagsArray = event.target?.value.split("\n")
-    ExerciseActions.updateTags(@getId(), tagsArray)
+    ExerciseActions.updateTags(@props.id, tagsArray)
 
-  renderFixedTag: (fixedTag) -> <FixedTag id={@props.id} {...fixedTag} />
+  renderFixedTag: (fixedTag) ->
+    <FixedTag key={fixedTag.base} id={@props.id} {...fixedTag} />
 
   render: ->
     {id} = @props
