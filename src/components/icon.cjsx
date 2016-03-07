@@ -15,7 +15,7 @@ module.exports = React.createClass
   render: ->
     classes = ['tutor-icon', 'fa', "fa-#{@props.type}"]
     classes.push(@props.className) if @props.className
-    icon = <i className={classes.join(' ')} />
+    icon = <i {...@props} className={classes.join(' ')} />
 
     if @props.tooltip
       tooltip = <BS.Tooltip>{@props.tooltip}</BS.Tooltip>
