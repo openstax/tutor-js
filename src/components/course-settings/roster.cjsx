@@ -62,13 +62,13 @@ module.exports = React.createClass
           <span className='tab-item-period-name'>{period.name}</span>
         </BS.OverlayTrigger>
 
-      <BS.TabPane key={period.id}, eventKey={index} tab={name} className={className}>
+      <BS.Tab key={period.id}, eventKey={index} tab={name} className={className}>
         <PeriodRoster
         period={period}
         courseId={@props.courseId}
         activeTab={@getActivePeriod(@state.key, course.periods)}
         isConceptCoach={is_concept_coach} />
-      </BS.TabPane>
+      </BS.Tab>
     enrollmentButton =
       <PeriodEnrollmentCode
       activeTab={@getActivePeriod(@state.key, course.periods)}
@@ -89,7 +89,7 @@ module.exports = React.createClass
     noPeriodMessage =
       <NoPeriods noPanel={true} />
 
-    <BS.TabbedArea activeKey={@state.key} onSelect={@handleSelect}>
+    <BS.Tabs activeKey={@state.key} onSelect={@handleSelect}>
       <div className='period-edit-ui'>
         <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
         {renameButton if periods}
@@ -99,4 +99,4 @@ module.exports = React.createClass
       <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
       {noPeriodMessage unless periods}
       {tabs}
-    </BS.TabbedArea>
+    </BS.Tabs>
