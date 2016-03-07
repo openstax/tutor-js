@@ -16,7 +16,7 @@ class TestItemHelper
   ###
   @param {Object} test The full context of the test element is being instantiated in
   @param {Object|Function|String} testElementLocator Selenium locator object, or a function that returns a locator object based on parameters. If a string is provided, the locator is assumed to be a css locator.
-  @param {Object} options Extra options, `onBeforeMethodCall` can be set.
+  @param {Object} [options] Extra options, `onBeforeMethodCall` can be set.
   ###
   constructor: (test, testElementLocator, options = {}) ->
     throw new Error('BUG: Missing the current test!') unless test
@@ -42,7 +42,7 @@ class TestItemHelper
 
   Can take arguments to pass into `locator` if `locator` is parameter dependent.
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @returns {Selenium.Locator}
   ###
   getLocator: (args...) =>
@@ -57,9 +57,9 @@ class TestItemHelper
   Helps pass through custom wait time to `get`, `getAll`, and `waitClick` if provided.
   *Intended for internal use*, but exposed for extensibility if need.
 
-  @param {Function} waitFunction The wait function to wrap
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
-  @param {Number} waitMs The last parameter, if provided and is a number.
+  @param {Function} waitFunction The wait function to wrap.
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
+  @param {Number} [waitMs] The last parameter, if provided and is a number.
   @returns {Function}
   ###
   aliasWait: (waitFunction, args...) =>
@@ -74,8 +74,8 @@ class TestItemHelper
   Waits until element is visible before trying to return the Selenium.Promise of the matching Selenium.WebElement
   This will only wait until waitMs (default `60000`).
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
-  @param {Number} waitMs The last parameter, if provided and is a number.
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
+  @param {Number} [waitMs] The last parameter, if provided and is a number.
   @returns {Selenium.Promise}
   ###
   get: (args...) =>
@@ -85,8 +85,8 @@ class TestItemHelper
   Waits until an element is visible before trying to return the Selenium.Promise of Array of matching Selenium.WebElements
   This will only wait until waitMs (default `60000`).
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
-  @param {Number} waitMs The last parameter, if provided and is a number.
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
+  @param {Number} [waitMs] The last parameter, if provided and is a number.
   @returns {Selenium.Promise}
   ###
   getAll: (args...) =>
@@ -99,8 +99,8 @@ class TestItemHelper
 
   This will only wait until waitMs (default `60000`).
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
-  @param {Number} waitMs The last parameter, if provided and is a number.
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
+  @param {Number} [waitMs] The last parameter, if provided and is a number.
   @returns {Selenium.Promise}
   ###
   waitClick: (args...) =>
@@ -109,7 +109,7 @@ class TestItemHelper
   ###
   Tries to find and return Selenium.Promise of Selenium.WebElement immediately
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @returns {Selenium.Promise}
   ###
   findElement: (args...) =>
@@ -119,7 +119,7 @@ class TestItemHelper
   ###
   Tries to find and return Selenium.Promise of array of matching Selenium.WebElement immediately
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @returns {Selenium.Promise}
   ###
   findElements: (args...) =>
@@ -129,7 +129,7 @@ class TestItemHelper
   ###
   Tries to find and click immediately
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @returns {Selenium.Promise}
   ###
   click: (args...) =>
@@ -138,9 +138,9 @@ class TestItemHelper
   ###
   Checks if element matching locator is immediately present, returns Selenium.Promise that resolves to a boolean
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @param {Function} forEachFunction The last parameter, if provided and is a function, will be run on each WebElement
-  @param {Function} forEachFunction2 optional, If an additional function is available, this will run once before.
+  @param {Function} [forEachFunction2] If an additional function is available, this will run once before.
   ###
   forEach: (args..., forEachFunction, forEachFunction2) =>
     locator = @getLocator(args...)
@@ -149,7 +149,7 @@ class TestItemHelper
   ###
   Checks if element matching locator is currently present, returns Selenium.Promise that resolves to a boolean
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @returns {Selenium.Promise}
   ###
   isPresent: (args...) =>
@@ -159,7 +159,7 @@ class TestItemHelper
   ###
   Checks if element matching locator is currently displayed, returns Selenium.Promise that resolves to a boolean
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @returns {Selenium.Promise}
   ###
   isDisplayed: (args...) =>
@@ -174,7 +174,7 @@ class TestItemHelper
   ###
   Tries to find the immediate parent of the element matching the locator, returns Selenium.Promise of Selenium.WebElement
 
-  @param {Any} args... Any number of parameters for `locator` to use if `locator` is a function dependent on parameters
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
   @returns {Selenium.Promise}
   ###
   getParent: (args...) =>
@@ -184,6 +184,8 @@ class TestItemHelper
 ###
 A collection of convenience methods for a test component.  Usually extended with additional helper methods before instantiation.
 
+[How to extend](https://github.com/openstax/tutor-js/tree/master/test-integration/helpers/ui)
+
 @property {Object} el Exposes instances of `TestItemHelper` of common test elements on this component.
 ###
 class TestHelper
@@ -191,7 +193,7 @@ class TestHelper
   @param {Object} test The full context of the test element is being instantiated in
   @param {Object|Function|String} testElementLocator Selenium locator object, or a function that returns a locator object based on parameters. If a string is provided, the locator is assumed to be a css locator.
   @param {Object} commonElements An Object where the `name` of `locator`s are the keys, and the locators are the values.
-  @param {Object} options Extra options, `defaultWaitTime` can be set.
+  @param {Object} [options] Extra options, `defaultWaitTime` can be set.
   ###
   constructor: (test, testElementLocator, commonElements, options) ->
     commonElements ||= _.result(@, 'elementRefs', {})
@@ -233,6 +235,8 @@ class TestHelper
   ###
   Takes `commonElements` from instantiation and wraps the `locator` with `TestItemHelper` methods
 
+  @private
+
   @param {Object|Function|String} locator Selenium locator object, or a function that returns a locator object based on parameters. If a string is provided, the locator is assumed to be a css locator.
   @param {String} name The name the `el` will be accessed by.
   ###
@@ -242,7 +246,9 @@ class TestHelper
         console.log "Deprecated call to el.#{name}.#{methodName}(...). Use el.#{name}(...).#{methodName}() instead"
     ))
 
-
+###
+@ignore
+###
 wrapHelperToFunction = (helper, options, methodNames) ->
 
   helperFunction = (args...) ->
@@ -267,8 +273,12 @@ wrapHelperToFunction = (helper, options, methodNames) ->
 
   helperFunction
 
-# Using defined properties for access eliminates the possibility
-# of accidental assignment
+
+###
+@ignore
+Using defined properties for access eliminates the possibility
+of accidental assignment
+###
 Object.defineProperties TestHelper.prototype,
   options:
     get: -> @_options
