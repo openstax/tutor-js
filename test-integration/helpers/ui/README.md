@@ -9,10 +9,12 @@ UI helpers should be in this folder.
   {TestHelper} = require './test-element'
   ```
 
-2. Declare the common elements your will need to access in an object where properties are the common element's name, and the values are the locator objects, or a function that returns a locator object based on parameters
+2. Declare the common elements your will need to access in an object where properties are the common element's name, and the values are the locator objects, or a function that returns a locator object based on parameters.
 
   ```coffee
   COMMON_ELEMENTS =
+    loadingState:
+      css: '.calendar-loading'
     forecastLink:
       linkText: 'Performance Forecast'
     studentScoresLink:
@@ -22,6 +24,8 @@ UI helpers should be in this folder.
     planByTitle: (title) ->
       css: ".plan label[data-title='#{title}']"
   ```
+
+  Note that `loadingState` is an element whose locator that will [default to `css: '.is-loading'`](https://github.com/openstax/tutor-js/blob/master/test-integration/helpers/ui/test-element.coffee#L8-L10).  Here in this example, the calendar has a custom loading indicator (not `.is-loading`, `.calendar-loading`).
 
 3. Create a new helper class that extends `TestHelper` and provide default options to the base constructor
 
@@ -34,11 +38,8 @@ UI helpers should be in this folder.
         css: '.calendar-container'
 
       # Options for this helper.
-      # The calendar has a custom loading indicator (not `.is-loading`),
       # and often takes longer than the default wait to load time of 1000ms.
       calendarOptions =
-        loadingLocator:
-          css: '.calendar-loading'
         defaultWaitTime: 3000
 
       # instantiate with options by calling the base `TestHelper`'s constructor
@@ -59,22 +60,20 @@ UI helpers should be in this folder.
     constructor: ...
     createNew: (type) =>
       @waitUntilLoaded()
-
-      @el.addToggle.get().click()
+      @el.addToggle().click()
       ...
 
     goPerformanceForecast: =>
-      @test.utils.windowPosition.scrollTop()
-      @el.forecastLink.get().click()
+      @el.forecastLink().click()
 
-    goOpen: (title) =>
+    goToOpenByTitle: (title) =>
       # wait until the calendar is open
       @waitUntilLoaded()
 
-      el = @el.planByTitle.get(title)
+      el = @el.planByTitle(title).get()
       @test.utils.windowPosition.scrollTo(el)
       el.click()
-      @test.utils.windowPosition.scrollTop()
+      @waitUntilLoaded()
   ```
 
 # Details
@@ -195,3 +194,8 @@ See [test-element.coffee](./test-element.coffee) for details.
 # Modifying the base UI helper
 
 Sometimes you will need to add methods for a UI item that would be helpful in multiple places.  Please add to the base `TestItemHelper` or `TestHelper` as appropriate.  Nothing that is particularly specific to one test or item should be added to the base helper.
+
+# Learn More
+
+* [How to write specs](../../writing-a-spec.md)
+* [Helpers Overview](../README.md)

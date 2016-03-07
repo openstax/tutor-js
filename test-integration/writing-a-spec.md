@@ -53,3 +53,8 @@ describe 'Concept Coach Dashboard', ->
     @conceptCoach.getHelpLinkTarget().then (target) ->
       expect(target.toUpperCase().indexOf('_BLANK')).is.not.equal(-1)
 ```
+
+# Learn More
+
+* [How to write/edit helpers, advanced](./helpers/ui/README.md)
+* [Helpers Overview](./helpers/README.md)
