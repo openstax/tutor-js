@@ -71,7 +71,7 @@ class Course
     # Currently the students listing only contains the current student
     # If that is ever extended then the bootstrap data will need to include
     # the current user's id so that the `students` array can be searched for it.
-    _.first(@students)
+    _.first(@students) or @students ||= [{}]
 
   hasErrors: ->
     not _.isEmpty(@errors)
@@ -116,6 +116,7 @@ class Course
       _.extend(@, data.to.course)
       @periods = [ data.to.period ]
     @errors = data?.errors
+    @getStudentRecord().student_identifier = response.data.student_identifier
     response.stopErrorDisplay = true if @errors
     delete @status unless @hasErrors() # blank status indicates good to go
     delete @isBusy
@@ -137,6 +138,7 @@ class Course
 
   _onStudentUpdated: (response) ->
     _.extend(@, response.data) if response?.data
+    @getStudentRecord().student_identifier = response.data.student_identifier
     @channel.emit('change')
 
   updateStudent: (attributes) ->
