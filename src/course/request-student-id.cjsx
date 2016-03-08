@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
+User = require '../user/model'
 Course = require './model'
 ErrorList = require './error-list'
 {AsyncButton} = require 'openstax-react-components'
@@ -46,6 +47,7 @@ RequestStudentId = React.createClass
         <div className='field'>
           <BS.Input type="text" ref="input" label={@props.label}
             placeholder="School issued ID" autoFocus
+            defaultValue={@props.course.getStudentIdentifier()}
             onKeyPress={@onKeyPress}
             buttonAfter={button} />
         </div>
