@@ -76,14 +76,7 @@ UserActionsMenu = React.createClass
         href={CurrentUserStore.getHelpLink(@props.courseId)}>
           Get Help
       </BS.MenuItem>
-      <BS.MenuItem
-        className="logout"
-        eventKey={4}
-        key='dropdown-item-logout'>
-          <LogOut
-          isConceptCoach={@props.course?.is_concept_coach}
-          className='btn btn-link btn-xs'>Log Out</LogOut>
-      </BS.MenuItem>
+      <LogOut isConceptCoach={@props.course?.is_concept_coach} />
     </BS.DropdownButton>
 
 
