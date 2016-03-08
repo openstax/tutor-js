@@ -19,7 +19,7 @@ Notification = React.createClass
     <div className="notification">
       <Icon type='info-circle' />
       {@props.notice.message}
-      <a onClick={@acknowledge}>Dismiss</a>
+      <a className='dismiss' onClick={@acknowledge}>Dismiss</a>
     </div>
 
 

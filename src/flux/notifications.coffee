@@ -52,7 +52,6 @@ NotificationsConfig = {
     @_setObservedNoticeIds(
       @_getObservedNoticeIds().concat(notice_id)
     )
-
     delete @activeNotifications[notice_id]
     @emitChange()
 
