@@ -14,13 +14,13 @@ describe 'Course Model', ->
 
 
   it 'gets the student record', ->
-    expect(@course.getStudentIdentifier()).to.deep.eq('1324')
+    expect(@course.getStudentIdentifier()).to.eq('1324')
 
 
   it 'sets student id when registering', ->
     @course._onConfirmed(data: {student_identifier: 'ABCDEF'})
-    expect(@course.getStudentIdentifier()).to.deep.eq('ABCDEF')
+    expect(@course.getStudentIdentifier()).to.eq('ABCDEF')
 
   it 'sets student id after modification is performed', ->
     @course._onStudentUpdated(data: {student_identifier: 'WXYZ'})
-    expect(@course.getStudentIdentifier()).to.deep.eq('WXYZ')
+    expect(@course.getStudentIdentifier()).to.eq('WXYZ')
