@@ -91,7 +91,7 @@ module.exports = React.createClass
     noPeriodMessage =
       <NoPeriods noPanel={true} />
 
-    <BS.Tabs activeKey={@state.key} onSelect={@handleSelect}>
+    <BS.Tabs activeKey={@state.key} onSelect={@handleSelect} animation={false}>
       <div className='period-edit-ui'>
         <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
         {renameButton if periods}
