@@ -21,7 +21,7 @@ Preview = React.createClass
     panelStyle: 'default'
 
   renderQuestions: (question) ->
-    feedback_html = _.first(question.solutions)?.content_html
+    feedback_html = _.first(question.collaborator_solutions)?.content_html
       
     if feedback_html
       feedback = <ArbitraryHtml className="free-response" html={feedback_html} />

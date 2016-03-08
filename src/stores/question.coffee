@@ -59,11 +59,17 @@ QuestionConfig = {
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
-  updateFeedback: (id, feedback) ->
-    solution = _.first(@_local[id].solutions)
-    solution.content_html = feedback
+  updateSolution: (id, feedback) ->
+    solution = _.first(@_local[id].collaborator_solutions)
+    if (solution)
+      solution.content_html = feedback
+    else
+      solution =
+        content_html: feedback
+        attachments: []
+        solution_type: 'detailed'
 
-    @_change(id, {solutions: [solution]})
+    @_change(id, {collaborator_solutions: [solution]})
 
   setCorrectAnswer: (id, newAnswer, curAnswer) ->
     if not AnswerStore.isCorrect(newAnswer)
@@ -89,11 +95,8 @@ QuestionConfig = {
 
     getStimulus: (id) -> @_local[id]?.stimulus_html
 
-    getFeedback: (id) ->
-      _.first(@_local[id].solutions)?.content_html
-
-    hasFeedback: (id) ->
-      @_local[id].solutions?.length > 0
+    getSolution: (id) ->
+      _.first(@_local[id].collaborator_solutions)?.content_html
 
     getCorrectAnswer: (id) ->
       _.find @_local[id]?.answers, (answer) -> AnswerStore.isCorrect(answer.id)

@@ -23,8 +23,8 @@ module.exports = React.createClass
     QuestionActions.updateStem(@props.id, event.target?.value)
     @props.sync()
 
-  updateFeedback: (event) ->
-    QuestionActions.updateFeedback(@props.id, event.target?.value)
+  updateSolution: (event) ->
+    QuestionActions.updateSolution(@props.id, event.target?.value)
     @props.sync()
 
   addAnswer: ->
@@ -57,12 +57,6 @@ module.exports = React.createClass
         removeAnswer={@removeAnswer}
         changeAnswer={@changeAnswer}/>)
 
-    if QuestionStore.hasFeedback(id)
-      feedback = <div>
-        <label>Detailed Solution</label>
-        <textarea onChange={@updateFeedback} defaultValue={QuestionStore.getFeedback(id)}></textarea>
-      </div>
-
     <div>
       <div>
         <label>Question Stem</label>
@@ -89,7 +83,10 @@ module.exports = React.createClass
           defaultChecked={QuestionStore.isFreeResponse(id)} />
         <label htmlFor="freeResponseFormat#{id}">Free Response</label>
       </div>
-      {feedback}
+      <div>
+        <label>Detailed Solution</label>
+        <textarea onChange={@updateSolution} defaultValue={QuestionStore.getSolution(id)}></textarea>
+      </div>
       <div>
         <label>
           Answers:
