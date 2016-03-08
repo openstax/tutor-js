@@ -62,7 +62,7 @@ module.exports = React.createClass
           <span className='tab-item-period-name'>{period.name}</span>
         </BS.OverlayTrigger>
 
-      <BS.Tab key={period.id} eventKey={index} title={name} className={className}>
+      <BS.Tab key={period.id} eventKey={index} title={name} tabClassName={className}>
         <PeriodRoster
         period={period}
         courseId={@props.courseId}
