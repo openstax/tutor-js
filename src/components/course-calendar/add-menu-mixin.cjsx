@@ -63,12 +63,14 @@ CourseAddMenuMixin =
 
     _.map(links, (link) =>
       href = @context.router.makeHref(link.to, link.params, link.query)
-      <BS.MenuItem
-        onClick={@goToBuilder(link)}
-        href={href}
+      <li
         key={link.type}
         data-assignment-type={link.type}
-        ref="#{link.type}Link">{link.text}</BS.MenuItem>
+        ref="#{link.type}Link">
+        <a href={href} onClick={@goToBuilder(link)} >
+          {link.text}
+        </a>
+      </li>
     )
 
 module.exports = CourseAddMenuMixin
