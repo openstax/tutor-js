@@ -34,7 +34,7 @@ loadApp = ->
     return false
 
   api.start(dom.readBootstrapData())
-  NotificationActions.startPolling('https://s3.amazonaws.com/ox-notification-testing/notifications.json')
+  NotificationActions.startPolling()
 
   startMathJax()
   TransitionAssistant.startMonitoring()
