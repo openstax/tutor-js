@@ -16,6 +16,7 @@ ERROR_MAP = {
   already_approved: 'The request has already been approved'
   already_rejected: 'The request has been rejected'
   taken: 'The Student ID is already a member'
+  blank_student_identifer: 'Student Identifier cannot be blank'
 }
 
 
@@ -64,11 +65,21 @@ class Course
     else
       _.first(names)
 
+  getStudentIdentifier: ->
+    @getStudentRecord()?.student_identifier
+
+  getStudentRecord: ->
+    # Currently the students listing only contains the current student
+    # If that is ever extended then the bootstrap data will need to include
+    # the current user's id so that the `students` array can be searched for it.
+    @students = [{}] if _.isEmpty(@students)
+    _.first(@students)
+
   hasErrors: ->
     not _.isEmpty(@errors)
 
   errorMessages: ->
-    _.map @errors, (err) -> ERROR_MAP[err.code]
+    _.map @errors, (err) -> ERROR_MAP[err.code] or "An unknown error with code #{err.code} occured."
 
   # When a course needs to be manipluated, it's cloned
   clone: ->
@@ -107,6 +118,7 @@ class Course
       _.extend(@, data.to.course)
       @periods = [ data.to.period ]
     @errors = data?.errors
+    @getStudentRecord().student_identifier = response.data.student_identifier
     response.stopErrorDisplay = true if @errors
     delete @status unless @hasErrors() # blank status indicates good to go
     delete @isBusy
@@ -128,7 +140,15 @@ class Course
 
   _onStudentUpdated: (response) ->
     _.extend(@, response.data) if response?.data
+    @getStudentRecord().student_identifier = response.data.student_identifier
     @channel.emit('change')
+
+  updateStudentIdentifier: ( newIdentifier ) ->
+    if _.isEmpty(newIdentifier)
+      @errors = [{code: 'blank_student_identifer'}]
+      @channel.emit('change')
+    else
+      @updateStudent(student_identifier: newIdentifier)
 
   updateStudent: (attributes) ->
     data = _.extend({}, attributes, id: @id)

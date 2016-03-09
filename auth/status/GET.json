@@ -19,6 +19,15 @@
       "catalog_offering_identifier": "biology",
       "ecosystem_id": "1",
       "ecosystem_book_uuid": "d52e93f4-8653-4273-86da-3850001c0786",
+      "students": [
+        {
+          "last_name": "Morris",
+          "name": "Charles Morris",
+          "period_id": "7",
+          "role_id": "85",
+          "student_identifier":"1324"
+        }
+      ],
       "roles": [
         {
           "id": "11",

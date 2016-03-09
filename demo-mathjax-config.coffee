@@ -42,7 +42,7 @@ MATHJAX_CONFIG =
 typesetMath = (node) ->
   # straight up copy of webview's mathjax fn
   $mathElements = $(node).find('[data-math]:not(.math-rendered)')
-  console.log $mathElements
+
   $mathElements.each (iter, element) ->
 
     $element = $(element)

@@ -5,7 +5,6 @@ BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
 Course = require './model'
-ErrorList = require './error-list'
 RequestStudentId = require './request-student-id'
 Navigation = require '../navigation/model'
 
@@ -44,7 +43,7 @@ UpdateStudentIdentifer = React.createClass
     @props.course.resetToBlankState()
 
   onSubmit: (studentId) ->
-    @props.course.updateStudent(student_identifier: studentId)
+    @props.course.updateStudentIdentifier(studentId)
 
   onCancel: ->
     Navigation.channel.emit('show.task', view: 'task')
