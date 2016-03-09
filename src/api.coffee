@@ -287,7 +287,7 @@ start = (bootstrapData) ->
     url: "/api/courses/#{courseId}/dashboard"
 
   apiHelper NotificationActions, NotificationActions.loadUpdates, NotificationActions.loadedUpdates, 'GET', ->
-    url: "/api/notifications"
+    displayError: false, url: "/api/notifications"
 
   CurrentUserActions.logout.addListener 'trigger', ->
     # Logging out programatically needs to be done via a form submission or follow redirects

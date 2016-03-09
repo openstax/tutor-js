@@ -4,10 +4,7 @@ NotificationsBar = require '../../../src/components/navbar/notifications-bar'
 
 {NotificationActions, NotificationStore} = require '../../../src/flux/notifications'
 
-TEST_NOTICES = [
-  {id: '1', message:'message one'}
-]
-
+TEST_NOTICES = require '../../../api/notifications'
 
 describe 'Notifications Bar', ->
   beforeEach ->
