@@ -26,7 +26,7 @@ CoursePlanDetails = React.createClass
       type: React.PropTypes.string.isRequired
     ).isRequired
     courseId: React.PropTypes.string.isRequired
-    onRequestHide: React.PropTypes.func.isRequired
+    onHide: React.PropTypes.func.isRequired
     hasReview: React.PropTypes.bool
 
   renderReviewButton: ->
@@ -97,9 +97,14 @@ CoursePlanDetails = React.createClass
 
     <BS.Modal
       {...@props}
-      title={title}
+      show={true}
       data-assignment-type={type}
       className={classes}>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
+
       <div className='modal-body'>
         {body}
       </div>
