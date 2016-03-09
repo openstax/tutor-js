@@ -42,6 +42,13 @@ module.exports = React.createClass
 
   getInitialState: ->
     period_name: @props.activeTab.name
+    showModal: false
+
+  close: ->
+    @setState({showModal: false})
+
+  open: ->
+    @setState({showModal: true})
 
   validate: (name) ->
     error = PeriodStore.validatePeriodName(name, @props.periods, @props.activeTab.name)
@@ -52,7 +59,7 @@ module.exports = React.createClass
     if not @state.invalid
       id = @props.activeTab.id
       PeriodActions.save(@props.courseId, id, period: {name: @state.period_name})
-      @refs.overlay.hide()
+      @close()
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
@@ -66,8 +73,13 @@ module.exports = React.createClass
 
     <BS.Modal
       {...@props}
-      title={title}
+      show={@state.showModal}
+      onHide={@close}
       className='teacher-edit-period-modal'>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
 
       <div className={formClasses.join(' ')}>
         <RenamePeriodField
@@ -91,13 +103,10 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger
-      ref='overlay'
-      rootClose={true}
-      trigger='click'
-      overlay={@renderForm()}>
-        <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-pencil' />
-          Rename <CourseGroupingLabel courseId={@props.courseId}/>
-        </BS.Button>
-    </BS.OverlayTrigger>
+    <span>
+      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+        <i className='fa fa-pencil' />
+        Rename <CourseGroupingLabel courseId={@props.courseId}/>
+      </BS.Button>
+      {@renderForm()}
+    </span>
