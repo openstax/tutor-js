@@ -45,6 +45,10 @@ ScoresExport = React.createClass
       ScoresExportActions.load(courseId)
       @setState(tryToDownload: true)
 
+  handleExportProgress: (progressData) ->
+    {courseId} = @props
+    @setState(downloadHasError: true) if ScoresExportStore.isFailed(courseId)
+
   handleLoadedExport: (id) ->
     if @isUpdateValid(id)
       lastExport = ScoresExportStore.getLatestExport(id)
@@ -108,11 +112,13 @@ ScoresExport = React.createClass
   addBindListener: ->
     {courseId} = @props
     ScoresExportStore.on("progress.#{courseId}.succeeded", @handleCompletedExport)
+    ScoresExportStore.on("progress.#{courseId}.*", @handleExportProgress)
     ScoresExportStore.on('loaded', @handleLoadedExport)
 
   removeBindListener: ->
     {courseId} = @props
     ScoresExportStore.off("progress.#{courseId}.succeeded", @handleCompletedExport)
+    ScoresExportStore.off("progress.#{courseId}.*", @handleExportProgress)
     ScoresExportStore.off('loaded', @handleLoadedExport)
 
   render: ->
