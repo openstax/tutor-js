@@ -6,6 +6,7 @@
 /test-failed-*.png
 /coverage
 /coverage-selenium.json
+/docs*
 
 *.cjsx.js
 

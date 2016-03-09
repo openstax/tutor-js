@@ -19,7 +19,7 @@
     "validate": "node ./scripts/validate-package-json.js",
     "prestart": "npm run validate",
     "start": "gulp dev",
-    "test-docs": "csdoc --template dependency <test-integration/helpers/ui/test-element.coffee >doc-dependency.json; csdoc --template html --dep ../../../doc-dependency test-integration/helpers/ui/"
+    "test-docs": "csdoc --template dependency <test-integration/helpers/ui/test-element.coffee >docs-dependency.json; csdoc --template html --dep ../../../docs-dependency test-integration/helpers/ui/"
   },
   "repository": {
     "type": "git",
