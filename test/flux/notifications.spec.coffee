@@ -2,10 +2,7 @@ _ = require 'underscore'
 
 {NotificationActions, NotificationStore} = require '../../src/flux/notifications'
 
-TEST_NOTICES = [
-  {id: '1', message:'message one'}
-  {id: '2', message:'message two'}
-]
+TEST_NOTICES = require '../../api/notifications'
 
 describe 'Notifications store', ->
 
