@@ -43,7 +43,7 @@ UpdateStudentIdentifer = React.createClass
     @props.course.resetToBlankState()
 
   onSubmit: (studentId) ->
-    @props.course.updateStudent(student_identifier: studentId)
+    @props.course.updateStudentIdentifier(studentId)
 
   onCancel: ->
     Navigation.channel.emit('show.task', view: 'task')
