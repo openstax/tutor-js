@@ -41,6 +41,13 @@ module.exports = React.createClass
 
   getInitialState: ->
     period_name: ''
+    showModal: false
+
+  close: ->
+    @setState({showModal: false})
+
+  open: ->
+    @setState({showModal: true})
 
   validate: (name) ->
     error = PeriodStore.validatePeriodName(name, @props.periods)
@@ -50,7 +57,7 @@ module.exports = React.createClass
   performUpdate: ->
     if not @state.invalid
       PeriodActions.create(@props.courseId, period: {name: @state.period_name})
-      @refs.overlay.hide()
+      @close()
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
@@ -59,10 +66,16 @@ module.exports = React.createClass
       disabled = true
     title = <h4>Add <CourseGroupingLabel courseId={@props.courseId} /></h4>
     label = <span><CourseGroupingLabel courseId={@props.courseId} /> Name</span>
+
     <BS.Modal
       {...@props}
-      title={title}
+      show={@state.showModal}
+      onHide={@close}
       className='teacher-edit-period-modal'>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
 
       <div className={formClasses.join(' ')}>
         <AddPeriodField
@@ -85,13 +98,10 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger
-      ref='overlay'
-      rootClose={true}
-      trigger='click'
-      overlay={@renderForm()}>
-        <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-plus' />
-          Add <CourseGroupingLabel courseId={@props.courseId} />
-        </BS.Button>
-    </BS.OverlayTrigger>
+    <span>
+      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+        <i className='fa fa-plus' />
+        Add <CourseGroupingLabel courseId={@props.courseId} />
+      </BS.Button>
+      {@renderForm()}
+    </span>
