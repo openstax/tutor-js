@@ -2,9 +2,7 @@
 *.orig
 /bower_components
 /.tmp
-/dist
 /test-failed-*.png
-/coverage
 /coverage-selenium.json
 
 *.cjsx.js

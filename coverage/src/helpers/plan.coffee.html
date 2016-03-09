@@ -79,65 +79,59 @@
 52
 53
 54
-55
-56
-57
-58</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+55</td><td class="line-coverage"><span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">420</span>
-<span class="cline-any cline-yes">420</span>
-<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">420×</span>
+<span class="cline-any cline-yes">420×</span>
+<span class="cline-any cline-yes">42×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">420</span>
-<span class="cline-any cline-yes">420</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">418</span>
-<span class="cline-any cline-yes">57</span>
-<span class="cline-any cline-yes">361</span>
-<span class="cline-any cline-yes">5</span>
-<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">420×</span>
+<span class="cline-any cline-yes">420×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">418×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-yes">361×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">420</span>
+<span class="cline-any cline-yes">420×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">7</span>
-<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">42</span>
-<span class="cline-any cline-yes">7</span>
-<span class="cline-any cline-yes">7</span>
-<span class="cline-any cline-yes">7</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">42</span>
+<span class="cline-any cline-yes">42×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var PlanHelper, PlanPublishActions, PlanPublishStore, TimeActions, TimeStore, _, moment, ref, ref1;
 &nbsp;
@@ -167,22 +161,19 @@ PlanHelper = {
     return isPublishing;
   },
   subscribeToPublishing: function(plan, callback) {
-    var id, isPublishing, isPublishingInStore, publishStatus, publish_job_uuid;
-    id = plan.id, publish_job_uuid = plan.publish_job_uuid;
+    var id, isPublishing, isPublishingInStore, jobId, publishStatus, ref2;
+    ref2 = PlanPublishStore._getIds(plan), jobId = ref2.jobId, id = ref2.id;
     isPublishing = PlanHelper.isPublishing(plan);
     publishStatus = PlanPublishStore.getAsyncStatus(id);
     isPublishingInStore = PlanPublishStore.isPublishing(id);
     if (isPublishing &amp;&amp; !isPublishingInStore &amp;&amp; !PlanPublishStore.isPublished(id)) {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (publish_job_uuid != null) {
-        PlanPublishActions.queued({
-          id: id,
-          publish_job_uuid: publish_job_uuid
-        });
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (jobId) {
+        PlanPublishActions.queued(plan, id);
       }
     }
     isPublishing = isPublishing || isPublishingInStore;
     if (isPublishing) {
-      PlanPublishActions.startChecking(id, publish_job_uuid);
+      PlanPublishActions.startChecking(id, jobId);
       <span class="missing-if-branch" title="else path not taken" >E</span>if ((callback != null) &amp;&amp; _.isFunction(callback)) {
         PlanPublishStore.on("progress." + id + ".*", callback);
       }
@@ -201,7 +192,7 @@ module.exports = PlanHelper;
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 14:59:33 GMT-0600 (CST)</div>
 </div>
 <script src="../../prettify.js"></script>
 <script>

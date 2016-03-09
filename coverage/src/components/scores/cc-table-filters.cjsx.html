@@ -15,10 +15,10 @@
 <div class="header low">
     <h1>Code coverage report for <span class="entity">src/components/scores/cc-table-filters.cjsx</span></h1>
     <h2>
-        Statements: <span class="metric">25% <small>(5 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">26.32% <small>(5 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         Branches: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Functions: <span class="metric">0% <small>(0 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Lines: <span class="metric">25% <small>(5 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">26.32% <small>(5 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
     <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">src/components/scores/</a> &#187; cc-table-filters.cjsx</div>
@@ -79,35 +79,19 @@
 52
 53
 54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+55</td><td class="line-coverage"><span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -138,12 +122,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,15 +145,10 @@ module.exports = React.createClass({
   displayName: 'CCTableFilters',
   propTypes: {
     displayAs: React.PropTypes.string.isRequired,
-    basedOn: React.PropTypes.string.isRequired,
-    changeDisplayAs: React.PropTypes.func.isRequired,
-    changeBasedOn: React.PropTypes.func.isRequired
+    changeDisplayAs: React.PropTypes.func.isRequired
   },
   clickDisplay: <span class="fstat-no" title="function not covered" >function(mode) {</span>
 <span class="cstat-no" title="statement not covered" >    return this.props.changeDisplayAs(mode);</span>
-  },
-  clickScore: <span class="fstat-no" title="function not covered" >function(mode) {</span>
-<span class="cstat-no" title="statement not covered" >    return this.props.changeBasedOn(mode);</span>
   },
   activeButton: <span class="fstat-no" title="function not covered" >function(state, option) {</span>
 <span class="cstat-no" title="statement not covered" >    var style;</span>
@@ -200,8 +173,8 @@ module.exports = React.createClass({
 <span class="cstat-no" title="statement not covered" >    return results;</span>
   },
   render: <span class="fstat-no" title="function not covered" >function() {</span>
-<span class="cstat-no" title="statement not covered" >    var basedOn, displayAs, ref;</span>
-<span class="cstat-no" title="statement not covered" >    ref = this.props, displayAs = ref.displayAs, basedOn = ref.basedOn;</span>
+<span class="cstat-no" title="statement not covered" >    var displayAs;</span>
+<span class="cstat-no" title="statement not covered" >    displayAs = this.props.displayAs;</span>
 <span class="cstat-no" title="statement not covered" >    return React.createElement("div", {</span>
       "className": 'filter-row'
     }, React.createElement("div", {
@@ -210,13 +183,7 @@ module.exports = React.createClass({
       "className": 'filter-label'
     }, "Display as"), React.createElement(BS.ButtonGroup, {
       "className": 'filter-group'
-    }, this.renderButtons(this.clickDisplay, displayAs, ['percentage', 'number']))), React.createElement("div", {
-      "className": 'filter-item'
-    }, React.createElement("div", {
-      "className": 'filter-label'
-    }, "Score based on"), React.createElement(BS.ButtonGroup, {
-      "className": 'filter-group'
-    }, this.renderButtons(this.clickScore, basedOn, ['possible', 'attempted']))));
+    }, this.renderButtons(this.clickDisplay, displayAs, ['percentage', 'number']))));
   }
 });
 &nbsp;
@@ -225,7 +192,7 @@ module.exports = React.createClass({
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 14:59:33 GMT-0600 (CST)</div>
 </div>
 <script src="../../../prettify.js"></script>
 <script>

@@ -76,21 +76,29 @@
 49
 50
 51
-52</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+52
+53
+54
+55
+56
+57
+58
+59
+60</td><td class="line-coverage"><span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -99,6 +107,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,7 +139,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var BS, CellStatusMixin, ConceptCoachCell, PieProgress, React, Router, Time;
 &nbsp;
@@ -146,10 +162,16 @@ ConceptCoachCell = React.createClass({displayName: "ConceptCoachCell",
   render: <span class="fstat-no" title="function not covered" >function() {</span>
 <span class="cstat-no" title="statement not covered" >    var pieValue, tooltip;</span>
 <span class="cstat-no" title="statement not covered" >    pieValue = Math.round((this.props.task.correct_exercise_count / this.props.task.exercise_count) * 100);</span>
-<span class="cstat-no" title="statement not covered" >    tooltip = React.createElement(BS.Tooltip, null, React.createElement("div", null, "Date Last Worked: ", React.createElement(Time, {</span>
+<span class="cstat-no" title="statement not covered" >    tooltip = React.createElement(BS.Popover, {</span>
+      "className": 'cc-scores-tooltip-completed-info'
+    }, React.createElement("div", null, React.createElement(BS.Table, null, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Correct"), React.createElement("th", null, "Attempted"), React.createElement("th", null, "Total possible"))), React.createElement("tbody", null, React.createElement("tr", {
+      "className": 'data-row'
+    }, React.createElement("td", null, this.props.task.correct_exercise_count), React.createElement("td", null, this.props.task.completed_exercise_count), React.createElement("td", null, this.props.task.exercise_count)), React.createElement("tr", null, React.createElement("td", {
+      "colSpan": "3"
+    }, React.createElement("span", null, "Date Last Worked:"), " ", React.createElement(Time, {
       "format": 'MMM. D',
       "date": this.props.task.last_worked_at
-    })));
+    })))))));
 <span class="cstat-no" title="statement not covered" >    return React.createElement("div", {</span>
       "className": "cc-cell"
     }, React.createElement(Router.Link, {
@@ -161,18 +183,20 @@ ConceptCoachCell = React.createClass({displayName: "ConceptCoachCell",
         id: this.props.task.id,
         stepIndex: 1
       }
-    }, (this.props.displayAs === 'number' ? this.props.task.correct_exercise_count + " of " + this.props.task.exercise_count : pieValue + "%")), React.createElement(BS.OverlayTrigger, {
-      "placement": 'top',
+    }, (this.props.displayAs === 'number' ? this.props.task.correct_exercise_count + " of " + this.props.task.exercise_count : pieValue + "%")), React.createElement("div", {
+      "className": "worked"
+    }, React.createElement(BS.OverlayTrigger, {
+      "placement": "left",
       "delayShow": 1000.,
       "delayHide": 0.,
       "overlay": tooltip
-    }, React.createElement("div", {
-      "className": "worked"
+    }, React.createElement("span", {
+      "className": 'trigger-wrap'
     }, React.createElement(PieProgress, {
       "size": 24.,
       "value": pieValue,
       "roundToQuarters": true
-    }))));
+    })))));
   }
 });
 &nbsp;
@@ -183,7 +207,7 @@ module.exports = ConceptCoachCell;
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Feb 14 2016 23:08:46 GMT-0500 (EST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 14:59:33 GMT-0600 (CST)</div>
 </div>
 <script src="../../../prettify.js"></script>
 <script>
