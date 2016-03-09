@@ -217,7 +217,7 @@ CoursePlan = React.createClass
         plan: plan
         courseId: courseId
         className: planClasses
-        onRequestHide: _.partial(@syncIsViewingStats, false)
+        onHide: _.partial(@syncIsViewingStats, false)
         ref: 'details'
         isPublished: isPublished
         isPublishing: isPublishing
