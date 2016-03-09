@@ -1,4 +1,5 @@
 fs = require 'fs'
+path = require 'path'
 selenium = require 'selenium-webdriver'
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
@@ -52,8 +53,8 @@ class Scores extends TestHelper
   getExportDownloadPath: =>
     # need to wait for the hidden iframe with the expected [src]
     # before checking for file
-    @test.utils.wait.forHidden(@el.doneGenerating().getLocator()).getAttribute("src").then (src) =>
-      file = src.split('/').pop()
+    @test.utils.wait.forHidden(@el.doneGenerating().getLocator()).getAttribute('src').then (src) =>
+      file = path.basename(src)
       path = "#{@test.downloadDirectory}/#{file}"
 
       filePath = if fs.existsSync(path) then path else null
