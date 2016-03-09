@@ -71,7 +71,8 @@ class Course
     # Currently the students listing only contains the current student
     # If that is ever extended then the bootstrap data will need to include
     # the current user's id so that the `students` array can be searched for it.
-    _.first(@students) or @students ||= [{}]
+    @students = [{}] if _.isEmpty(@students)
+    _.first(@students)
 
   hasErrors: ->
     not _.isEmpty(@errors)
