@@ -58,8 +58,8 @@ CourseAdd = React.createClass
         <span className='no-add-text'>Cannot assign to {dayType}</span>
       </li>
 
-    <BS.DropdownButton ref='addOnDayMenu' style={style} className={className}>
+    <BS.Dropdown.Menu ref='addOnDayMenu' style={style} className={className}>
       {dropdownContent}
-    </BS.DropdownButton>
+    </BS.Dropdown.Menu>
 
 module.exports = CourseAdd
