@@ -34,6 +34,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {ReferenceBookActions, ReferenceBookStore} = require './flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require './flux/reference-book-page'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require './flux/reference-book-exercise'
+{NotificationActions, NotificationStore} = require './flux/notifications'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -284,6 +285,9 @@ start = (bootstrapData) ->
 
   apiHelper StudentDashboardActions, StudentDashboardActions.load, StudentDashboardActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/dashboard"
+
+  apiHelper NotificationActions, NotificationActions.loadUpdates, NotificationActions.loadedUpdates, 'GET', ->
+    url: "/api/notifications"
 
   CurrentUserActions.logout.addListener 'trigger', ->
     # Logging out programatically needs to be done via a form submission or follow redirects

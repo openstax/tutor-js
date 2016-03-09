@@ -10,7 +10,7 @@ router = require './src/router'
 dom = require './src/helpers/dom'
 {startMathJax} = require 'openstax-react-components/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
-
+{NotificationActions} = require './src/flux/notifications'
 
 window._STORES =
   APP: require './src/flux/app'
@@ -25,6 +25,7 @@ window._STORES =
   TASK: require './src/flux/task'
   TEACHER_TASK_PLAN: require './src/flux/teacher-task-plan'
   TIME: require './src/flux/time'
+  NOTIFICATIONS: require './src/flux/notifications'
   TOC: require './src/flux/toc'
 
 
@@ -33,6 +34,8 @@ loadApp = ->
     return false
 
   api.start(dom.readBootstrapData())
+  NotificationActions.startPolling()
+
   startMathJax()
   TransitionAssistant.startMonitoring()
   # This is added because MathJax puts in extra divs on initial load.
