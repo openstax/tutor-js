@@ -5,7 +5,6 @@ BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
 Course = require './model'
-ErrorList = require './error-list'
 RequestStudentId = require './request-student-id'
 Navigation = require '../navigation/model'
 
