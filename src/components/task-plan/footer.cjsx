@@ -77,7 +77,7 @@ PlanFooter = React.createClass
     deleteable = not TaskPlanStore.isNew(id) and not (TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
 
-    tips = <BS.Popover>
+    tips = <BS.Popover id='plan-footer-popover'>
       <p>
         <strong>Publish</strong> will make the assignment visible to students on the open date.
         If open date is today, it will be available immediately.

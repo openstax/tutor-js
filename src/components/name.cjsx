@@ -20,7 +20,7 @@ Name = React.createClass
     span = <span className={@props.className or "-name"}>{name}</span>
 
     if @props.tooltip?.enable
-      tooltip = <BS.Tooltip>{name}</BS.Tooltip>
+      tooltip = <BS.Tooltip id="name-tooltip-#{@props.first_name}-#{@props.last_name}">{name}</BS.Tooltip>
       <BS.OverlayTrigger 
         placement={@props.tooltip.placement}
         delayShow={@props.tooltip.delayShow}

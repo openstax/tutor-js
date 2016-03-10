@@ -50,7 +50,7 @@ module.exports = React.createClass
     tabs = _.map course.periods, (period, index) =>
       className = classnames({'is-trouble': period.is_trouble})
       tooltip =
-        <BS.Tooltip>
+        <BS.Tooltip id="roster-periods-nav-tab-#{index}">
           {period.name}
         </BS.Tooltip>
       name =
