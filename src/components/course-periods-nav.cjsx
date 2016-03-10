@@ -62,7 +62,7 @@ CoursePeriodsNav = React.createClass
   renderPeriod: (period, key) ->
     className = classnames({'is-trouble': period.is_trouble})
     tooltip =
-      <BS.Tooltip>
+      <BS.Tooltip id="course-periods-nav-tab-#{key}">
         {period.name}
       </BS.Tooltip>
     <BS.NavItem

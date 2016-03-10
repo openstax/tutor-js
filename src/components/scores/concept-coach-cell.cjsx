@@ -16,7 +16,7 @@ ConceptCoachCell = React.createClass
     pieValue =
       Math.round((@props.task.completed_exercise_count / @props.task.exercise_count) * 100)
     tooltip =
-      <BS.Popover className='cc-scores-tooltip-completed-info'>
+      <BS.Popover id="cc-cell-info-popover-#{@props.task.id}">
         <div>
           <BS.Table>
             <thead>

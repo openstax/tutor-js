@@ -75,6 +75,7 @@ CourseCalendarHeader = React.createClass
       <BS.Row>
         <BS.Col xs={4}>
           <BS.DropdownButton
+            id='add-assignment'
             className='add-assignment'
             title='Add Assignment'
             bsStyle='primary'>
