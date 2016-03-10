@@ -30,7 +30,7 @@ module.exports = React.createClass
 
   bindStore: PerformanceForecast.TeacherStudent.store
 
-  onSelectStudent: (roleId) ->
+  onSelectStudent: (ev, roleId) ->
     {courseId} = @props
     PerformanceForecast.TeacherStudent.actions.load(courseId, {roleId})
     @setState({roleId})
