@@ -21,7 +21,7 @@ module.exports = React.createClass
     # use 'day' granularity for checking if the due date is today or after today
     status = if due.isSame(now, 'd') then 'incomplete' else 'late'
 
-    tooltip = <BS.Tooltip><b>{S.capitalize(status)}</b></BS.Tooltip>
+    tooltip = <BS.Tooltip id="event-info-icon-#{@props.event.id}"><b>{S.capitalize(status)}</b></BS.Tooltip>
     <BS.OverlayTrigger placement='top' overlay={tooltip}>
       <i className="info #{status}"/>
     </BS.OverlayTrigger>

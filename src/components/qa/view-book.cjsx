@@ -33,7 +33,7 @@ QAViewBook = React.createClass
         {teacherContent}
         <QAContentToggle isShowingBook={@state.isShowingBook} onChange={@setContentShowing}/>
       </BS.NavItem>
-      <BS.DropdownButton title="Available Books" className="available-books">
+      <BS.DropdownButton title="Available Books" id='available-books' className="available-books">
         {for book in EcosystemsStore.allBooks()
           <li key={book.id} className={'active' if @props.ecosystemId is book.ecosystemId}>
             <BookLink book={book} />
