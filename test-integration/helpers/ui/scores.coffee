@@ -5,6 +5,9 @@ selenium = require 'selenium-webdriver'
 {PeriodReviewTab} = require './items'
 Timeout = require '../timeout'
 
+FAILED_EXPORT_SELECTOR = '.export-button-buttons .refresh-button'
+SUCCEEDED_EXPORT_SELECTOR = '#downloadExport[src$=".xlsx"]'
+
 COMMON_ELEMENTS =
   nameHeaderSort:
     css: '.header-cell.is-ascending'
@@ -30,8 +33,12 @@ COMMON_ELEMENTS =
     css: '.average-label span:last-child'
   exportUrl:
     css: '#downloadExport'
+  exportFailed:
+    css: FAILED_EXPORT_SELECTOR
+  exportSucceeded:
+    css: SUCCEEDED_EXPORT_SELECTOR
   doneGenerating:
-    css: "#downloadExport[src$='.xlsx']"
+    css: "#{FAILED_EXPORT_SELECTOR}, #{SUCCEEDED_EXPORT_SELECTOR}"
   assignmentByType: (type) ->
     css: "a.scores-cell[data-assignment-type='#{type}']"
 
@@ -50,17 +57,23 @@ class Scores extends TestHelper
     @el.ccScoresLink().click()
     @waitUntilLoaded()
 
-  getExportDownloadPath: =>
-    # need to wait for the hidden iframe with the expected [src]
-    # before checking for file
-    @test.utils.wait.forHidden(@el.doneGenerating().getLocator()).getAttribute('src').then (src) =>
+  waitUntilDoneExporting: =>
+    @test.utils.wait.forHidden(@el.doneGenerating().getLocator())
+
+  isExportSucceeded: =>
+    @el.exportSucceeded().isPresent()
+
+  isExportDownloaded: =>
+    @el.exportSucceeded().findElement().getAttribute('src').then (src) =>
       file = path.basename(src)
       path = "#{@test.downloadDirectory}/#{file}"
+      isExportDownloaded = false
 
-      filePath = if fs.existsSync(path) then path else null
-      fs.unlink(filePath) if filePath
+      if fs.existsSync(path)
+        isExportDownloaded = true
+        fs.unlink(path)
 
-      filePath
+      isExportDownloaded
 
   hoverCCTooltip: =>
     @el.hoverCCTooltip().findElement().then (e) =>

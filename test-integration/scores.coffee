@@ -33,9 +33,17 @@ describe 'HS Student Scores', ->
 
   @it 'generates export', ->
     @scores.el.generateExport().click()
-    @scores.getExportDownloadPath().then (downloadedFilePath) =>
-      expect(downloadedFilePath).to.contain(@downloadDirectory)
+    @scores.waitUntilDoneExporting()
 
+    # Did export succeeed?
+    @scores.isExportSucceeded().then (isExportSucceeded) =>
+      console.log('exported:', isExportSucceeded)
+      expect(isExportSucceeded).to.be.true
+
+    # Is export downloaded?
+    @scores.isExportDownloaded().then (isExportDownloaded) =>
+      console.log('downloaded:', isExportDownloaded)
+      expect(isExportDownloaded).to.be.true
 
 
 describe 'CC Student Scores', ->

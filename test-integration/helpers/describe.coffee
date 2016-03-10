@@ -1,4 +1,6 @@
 fs = require 'fs'
+path = require 'path'
+{exec} = require 'child_process'
 selenium = require 'selenium-webdriver'
 chrome = require 'selenium-webdriver/chrome'
 firefox = require 'selenium-webdriver/firefox'
@@ -51,13 +53,13 @@ describe = (name, cb) ->
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)
 
-      @downloadDirectory = "#{__dirname}/".replace('helpers/', 'downloaded-files')
+      @downloadDirectory = path.normalize "#{__dirname}/../downloaded-files"
+      exec "rm -Rf #{@downloadDirectory}"
 
       chromeOptions = new chrome.Options()
-      prefs = {
+      prefs =
         download:
           "default_directory": @downloadDirectory
-      }
       chromeOptions.setUserPreferences(prefs)
 
       firefoxProfile = new firefox.Profile()
