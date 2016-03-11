@@ -154,6 +154,7 @@ MediaPreview = React.createClass
         'data-content-type': media.name
         className: 'media-preview'
         ref: 'popover'
+        mediaId: mediaId
         onMouseLeave: @onMouseLeave
 
       content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml}/>

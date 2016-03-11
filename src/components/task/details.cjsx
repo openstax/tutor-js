@@ -26,7 +26,7 @@ Instructions = React.createClass
     return null unless task.description?
 
     instructionsPopover =
-      <BS.Popover className={popverClassName} title={title}>
+      <BS.Popover id="task-details-popover-#{task.id}" className={popverClassName} title={title}>
         <Markdown text={task.description} />
       </BS.Popover>
 

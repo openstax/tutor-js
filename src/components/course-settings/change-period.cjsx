@@ -10,6 +10,7 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     student: React.PropTypes.object.isRequired
+    id: React.PropTypes.string.isRequired
 
   updatePeriod: (periodId) ->
     if not @isSaving()
