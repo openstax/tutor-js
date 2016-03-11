@@ -9,6 +9,7 @@ module.exports = React.createClass
   displayName: 'DropStudentLink'
   propTypes:
     student: React.PropTypes.object.isRequired
+    id: React.PropTypes.string.isRequired
 
   performDeletion: ->
     RosterActions.delete(@props.student.id)

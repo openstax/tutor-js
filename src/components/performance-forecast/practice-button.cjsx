@@ -15,6 +15,10 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  componentWillMount: ->
+    uniqueId = _.uniqueId('practice-button-tooltip-')
+    @setState({uniqueId: uniqueId})
+
   onClick: ->
     {courseId, sections} = @props
     page_ids = PerformanceForecast.Helpers.pagesForSections(sections)
@@ -34,7 +38,7 @@ module.exports = React.createClass
     </BS.Button>
 
     if isDisabled
-      tooltip = <BS.Tooltip id={_.uniqueId('practice-button-tooltip-')}>No problems are available for practicing</BS.Tooltip>
+      tooltip = <BS.Tooltip id={@state.uniqueId}>No problems are available for practicing</BS.Tooltip>
       <BS.OverlayTrigger placement='top' overlay={tooltip}>
         {button}
       </BS.OverlayTrigger>

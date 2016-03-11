@@ -10,7 +10,7 @@ RenamePeriodField = React.createClass
   displayName: 'RenamePeriodField'
   propTypes:
     courseId: React.PropTypes.string
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.object.isRequired
     name:  React.PropTypes.string.isRequired
     default: React.PropTypes.string.isRequired
     onChange:  React.PropTypes.func.isRequired

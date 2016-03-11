@@ -134,6 +134,7 @@ TutorPopover = React.createClass
 
     popover = <BS.Popover
       {...popoverProps}
+      id="tutor-popover-#{popoverProps.mediaId}"
       ref='popover'>
       <div ref='popcontent'>
         {content}
