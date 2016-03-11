@@ -4,6 +4,7 @@ path = require 'path'
 selenium = require 'selenium-webdriver'
 chrome = require 'selenium-webdriver/chrome'
 firefox = require 'selenium-webdriver/firefox'
+io = require 'selenium-webdriver/io'
 seleniumMocha = require('selenium-webdriver/testing')
 _ = require 'underscore'
 
@@ -54,7 +55,6 @@ describe = (name, cb) ->
       @timeout(20 * 1000, true)
 
       @downloadDirectory = path.normalize "#{__dirname}/../downloaded-files"
-      exec "rm -Rf #{@downloadDirectory}"
 
       chromeOptions = new chrome.Options()
       prefs =
@@ -86,6 +86,8 @@ describe = (name, cb) ->
         .setChromeOptions(chromeOptions)
         .setFirefoxOptions(firefoxOptions)
         .build()
+
+      io.rmDir(@downloadDirectory)
 
       # Check for JS errors by injecting a little script before the test and then checking it afterEach
       @injectErrorLogging = =>

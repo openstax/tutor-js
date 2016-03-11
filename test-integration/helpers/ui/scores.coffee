@@ -1,6 +1,8 @@
 fs = require 'fs'
 path = require 'path'
 selenium = require 'selenium-webdriver'
+io = require 'selenium-webdriver/io'
+
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
 Timeout = require '../timeout'
@@ -67,12 +69,12 @@ class Scores extends TestHelper
     @el.exportSucceeded().findElement().getAttribute('src').then (src) =>
       file = path.basename(src)
       path = "#{@test.downloadDirectory}/#{file}"
-      isExportDownloaded = false
 
-      if fs.existsSync(path)
-        isExportDownloaded = true
-        fs.unlink(path)
+      io.exists(path)
 
+    .then (isExportDownloaded) =>
+
+      io.unlink(path)
       isExportDownloaded
 
   hoverCCTooltip: =>
