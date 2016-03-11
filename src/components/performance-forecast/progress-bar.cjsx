@@ -14,6 +14,10 @@ module.exports = React.createClass
     courseId:    React.PropTypes.string.isRequired
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
+  componentWillMount: ->
+    uniqueId = _.uniqueId('progress-bar-tooltip-')
+    @setState({uniqueId: uniqueId})
+
   render: ->
     {section, onPractice} = @props
 
@@ -27,7 +31,7 @@ module.exports = React.createClass
       </span>
 
     if onPractice
-      tooltip = <BS.Tooltip id={_.uniqueId('progress-bar-tooltip-')}>Click to practice</BS.Tooltip>
+      tooltip = <BS.Tooltip id={@state.uniqueId}>Click to practice</BS.Tooltip>
       <BS.OverlayTrigger placement='bottom' overlay={tooltip}>
         <BS.Button onClick={-> onPractice(section)} block>{bar}</BS.Button>
       </BS.OverlayTrigger>

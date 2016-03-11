@@ -13,7 +13,6 @@ module.exports = {
       due_at:          React.PropTypes.string
       last_worked_at:  React.PropTypes.string
       type:            React.PropTypes.string
-      id:              React.PropTypes.number
     ).isRequired
 
   renderLink: ({message}) ->

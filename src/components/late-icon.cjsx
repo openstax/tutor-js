@@ -11,7 +11,6 @@ module.exports = React.createClass
       last_worked_at:  React.PropTypes.string
       type:            React.PropTypes.string
       status:          React.PropTypes.string
-      id:              React.PropTypes.number
     ).isRequired
 
     buildLateMessage: React.PropTypes.func
