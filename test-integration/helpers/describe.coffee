@@ -57,7 +57,7 @@ describe = (name, cb) ->
         .withCapabilities(selenium.Capabilities.chrome())
 
       # Make capabilities extendable as an env, used in test-automation
-      builder.withCapabilities(process.env.SELENIUM_CAPABILITIES) if process.env.SELENIUM_CAPABILITIES
+      builder.withCapabilities(JSON.parse(process.env.SELENIUM_CAPABILITIES)) if _.isString(process.env.SELENIUM_CAPABILITIES)
 
       @driver = builder.build()
 
