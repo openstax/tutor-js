@@ -58,7 +58,11 @@ CourseAdd = React.createClass
         <span className='no-add-text'>Cannot assign to {dayType}</span>
       </li>
 
-    <BS.Dropdown.Menu id='course-add-dropdown' ref='addOnDayMenu' style={style} className={className}>
+    <BS.Dropdown.Menu
+    id='course-add-dropdown'
+    ref='addOnDayMenu'
+    style={style}
+    className={className}>
       {dropdownContent}
     </BS.Dropdown.Menu>
 
