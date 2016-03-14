@@ -11,8 +11,10 @@ ConceptCoachCell = React.createClass
   mixins: [CellStatusMixin] # prop validation
 
   render: ->
-    pieValue =
+    scorePercent =
       Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
+    pieValue =
+      Math.round((@props.task.completed_exercise_count / @props.task.exercise_count) * 100)
     tooltip =
       <BS.Popover className='cc-scores-tooltip-completed-info'>
         <div>
@@ -51,7 +53,7 @@ ConceptCoachCell = React.createClass
             if @props.displayAs is 'number'
               "#{@props.task.correct_exercise_count} of #{@props.task.exercise_count}"
             else
-              "#{pieValue}%"
+              "#{scorePercent}%"
           }
       </Router.Link>
 
