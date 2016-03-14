@@ -142,9 +142,12 @@ class TestItemHelper
   @param {Function} forEachFunction The last parameter, if provided and is a function, will be run on each WebElement
   @param {Function} [forEachFunction2] If an additional function is available, this will run once before.
   ###
-  forEach: (args..., forEachFunction, forEachFunction2) =>
-    locator = @getLocator(args...)
-    @test.utils.forEach(locator, forEachFunction, forEachFunction2)
+  forEach: (args...) =>
+    [argsForEach, argsForLocator] = _.partition(args, _.isFunction)
+    locator = @getLocator(argsForLocator...)
+    argsForEach.unshift(locator)
+
+    @test.utils.forEach(argsForEach...)
 
   ###
   Checks if element matching locator is currently present, returns Selenium.Promise that resolves to a boolean
