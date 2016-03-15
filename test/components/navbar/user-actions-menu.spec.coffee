@@ -17,8 +17,7 @@ testWithRole = (roleType) ->
     it 'should have expected dropdown menu', (done) ->
       Testing.renderComponent( UserActionsMenu, props: {courseId: courseModel.id} ).then ({dom}) =>
         dropdownItems = dom.querySelectorAll('li')
-        roleItems = Array.prototype.slice.call(dropdownItems, 0, -4)
-
+        roleItems = Array.prototype.slice.call(dropdownItems, 1, -4)
         labels = _.pluck(@roleTestParams.menu, 'label')
         labels.push 'Browse the Book'
         expect(_.pluck(roleItems, 'innerText')).to.deep.equal(labels)
