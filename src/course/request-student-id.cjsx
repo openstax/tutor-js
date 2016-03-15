@@ -26,6 +26,10 @@ RequestStudentId = React.createClass
   onKeyPress: (ev) ->
     @onSubmit() if ev.key is ENTER
 
+  onCancel: (ev) ->
+    ev.preventDefault()
+    @props.onCancel()
+
   onSubmit: ->
     @props.onSubmit(@refs.input.getValue())
 
@@ -52,8 +56,7 @@ RequestStudentId = React.createClass
             buttonAfter={button} />
         </div>
         <div className="cancel">
-          <button className="btn"
-            onClick={@props.onCancel}>Cancel</button>
+          <a href='#' onClick={@onCancel}>Cancel</a>
         </div>
       </div>
     </div>
