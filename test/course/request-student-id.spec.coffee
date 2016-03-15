@@ -30,5 +30,5 @@ describe 'RequestStudentId Component', ->
   it 'calls onCancel when cancel button is clicked', ->
     Testing.renderComponent( RequestStudentId, props: @props ).then ({dom}) =>
       expect(@props.onCancel).not.to.have.been.called
-      Testing.actions.click(dom.querySelector('.cancel .btn'))
+      Testing.actions.click(dom.querySelector('.cancel a'))
       expect(@props.onCancel).to.have.been.called

@@ -15,12 +15,10 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      .btn {
-        background-color: white;
-        transition: background-color 200ms linear;
-        &:hover {
-          background-color: @openstax-neutral-lighter;
-        }
+      a {
+        border-bottom: 0;
+        color: @link-color;
+        &:hover{ color: darken(@link-color, 20%); }
       }
     }
   }
