@@ -23,9 +23,11 @@ module.exports = React.createClass
     {section, ecosystemId} = @props
     title = ReferenceBookStore.getPageTitle({section, ecosystemId})
 
-    <BS.Nav navbar className="section-title">
-      <ChapterSection section={section} />
-      {title}
+    <BS.Nav navbar>
+      <div className="section-title">
+        <ChapterSection section={section} />
+        {title}
+      </div>
     </BS.Nav>
 
   render: ->
