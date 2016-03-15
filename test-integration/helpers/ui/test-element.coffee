@@ -226,6 +226,16 @@ class TestHelper
       @test.utils.wait.until "Waiting until Loadable #{JSON.stringify(@el.loadingState().getLocator())} is gone", =>
         @el.loadingState().isPresent().then (isPresent) -> not isPresent
 
+    @validate()
+
+  ###
+  Check whether base/parent element for test is present.
+
+  @returns {Selenium.Promise}
+  ###
+  validate: =>
+    @el.self().isPresent()
+
   ###
   Set item helper as a function that takes arguments for the locator on `el`.
 

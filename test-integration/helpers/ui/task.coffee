@@ -28,7 +28,8 @@ COMMON_ELEMENTS =
 class Task extends TestHelper
   constructor: (test, testElementLocator) ->
 
-    testElementLocator ?= '.task-reading, .task-homework'
+    testElementLocator ?=
+      css: '.task-reading, .task-homework'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
   # isExternal: => @el.taskTypeIsExternal().isPresent()

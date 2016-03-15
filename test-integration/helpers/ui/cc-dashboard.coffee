@@ -20,11 +20,15 @@ COMMON_ELEMENTS =
   scoresReport:
     css: '.scores-report'
 
+  bookLink:
+    linkText: 'Online Book'
+
 
 class CCDashboard extends TestHelper
 
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= '.cc-dashboard'
+    testElementLocator ?=
+      css: '.cc-dashboard'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
   switchPeriods: ->
@@ -45,8 +49,10 @@ class CCDashboard extends TestHelper
   getHelpLinkTarget: ->
     @el.helpLink().get().getAttribute('target')
 
+  goToBook: ->
+    @el.bookLink().click()
+
   # goToScores()
-  # goToBook()
   # selectPeriodByIndex(num)
   # selectPeriodByTitle(title)
 

@@ -29,8 +29,9 @@ class CourseSelect extends TestHelper
 
   constructor: (test, testElementLocator) ->
 
-    testElementLocator ?= '.course-listing'
-    super(test, '.course-listing', COMMON_ELEMENTS)
+    testElementLocator ?=
+      css: '.course-listing'
+    super(test, testElementLocator, COMMON_ELEMENTS)
 
   goToByType: (category) ->
     @waitUntilLoaded()

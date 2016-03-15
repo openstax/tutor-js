@@ -12,6 +12,8 @@ COMMON_ELEMENTS =
     linkText: 'Performance Forecast'
   studentScoresLink:
     linkText: 'Student Scores'
+  bookLink:
+    linkText: 'Browse The Book'
   addToggle:
     css: '.add-assignment .dropdown-toggle'
   addReadingButton:
@@ -134,7 +136,9 @@ class Calendar extends TestHelper
   getPlanTitle: (plan) ->
     plan.getText()
 
-  # goToBook()
+  goToBook: ->
+    @el.bookLink().click()
+
   # goToAddByType(assignmentType)
   # goToAddByTypeFromNow(assignmentType, relativeDate)
   # goToPreviousMonth()

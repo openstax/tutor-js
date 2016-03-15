@@ -70,7 +70,8 @@ mergeCoverage = (obj) ->
 
 class User extends TestHelper
   constructor: (test) ->
-    testElementLocator = 'body'
+    testElementLocator =
+      css: 'body'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
   isLocal: =>
