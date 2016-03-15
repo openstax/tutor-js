@@ -35,6 +35,16 @@ class ReferenceBook extends TestHelper
     @test.utils.windowPosition.setLarge()
     @el.tocToggle().click()
 
+  focus: =>
+    @test.driver.getAllWindowHandles().then (handles) =>
+      @test.driver.switchTo().window(handles[1])
+
+  close: =>
+    @test.driver.getAllWindowHandles().then (handles) =>
+      @test.driver.switchTo().window(handles[1])
+      @test.driver.close()
+      @test.driver.switchTo().window(handles[0])
+
   goNext: =>
     # go next until old href isnt
     @test.driver.wait =>

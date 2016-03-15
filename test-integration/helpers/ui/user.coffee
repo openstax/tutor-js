@@ -50,6 +50,9 @@ COMMON_ELEMENTS =
   courseListing:
     css: '.course-listing'
 
+  courseRosterLink:
+    linkText: 'Course Roster'
+
 COMMON_ELEMENTS.eitherSignInElement =
   css: "#{COMMON_ELEMENTS.searchQuery.css}, #{COMMON_ELEMENTS.usernameInput.css}"
 
@@ -189,7 +192,9 @@ class User extends TestHelper
   # # Teacher-only:
   #
   # goToScores()
-  # goToRoster()
+  goToRoster: =>
+    @openHamburgerMenu()
+    @el.courseRosterLink().waitClick()
 
 User.getCoverageData = ->
   __coverage__

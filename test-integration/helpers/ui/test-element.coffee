@@ -145,7 +145,8 @@ class TestItemHelper
   forEach: (args...) =>
     [argsForEach, argsForLocator] = _.partition(args, _.isFunction)
     locator = @getLocator(argsForLocator...)
-    argsForEach.unshift(locator)
+    options = _.defaults({}, locator, argsForLocator...)
+    argsForEach.unshift(options)
 
     @test.utils.forEach(argsForEach...)
 
