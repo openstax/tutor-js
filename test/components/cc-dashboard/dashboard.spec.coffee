@@ -100,7 +100,7 @@ describe 'Concept Coach', ->
             completed_percentage: 1.10
 
       Testing.renderComponent(SectionProgress, options).then ({dom}) ->
-        expect(dom.querySelector('.reading-progress-bar').attributes.label.value).to.equal('100% completed')
+        expect(dom.querySelector('.reading-progress-bar span span').innerHTML).to.equal('100% completed')
 
     it 'hides complete progress bar when 0% complete', ->
       options =
@@ -120,7 +120,7 @@ describe 'Concept Coach', ->
           performance: 1.0
 
       Testing.renderComponent(SectionPerformance, options).then ({dom}) ->
-        expect(dom.querySelector('.progress-bar-correct').attributes.label.value).to.be.equal('100% correct')
+        expect(dom.querySelector('.progress-bar-correct span span').innerHTML).to.be.equal('100% correct')
         expect(dom.querySelector('.progress-bar-incorrect')).to.be.null
 
     it 'hides correct progress bar when all incorrect', ->
@@ -129,7 +129,7 @@ describe 'Concept Coach', ->
           performance: 0.0
 
       Testing.renderComponent(SectionPerformance, options).then ({dom}) ->
-        expect(dom.querySelector('.progress-bar-incorrect').attributes.label.value).to.be.equal('100% incorrect')
+        expect(dom.querySelector('.progress-bar-incorrect span span').innerHTML).to.be.equal('100% incorrect')
         expect(dom.querySelector('.progress-bar-correct')).to.be.null
 
 
