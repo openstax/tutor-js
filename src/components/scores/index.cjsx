@@ -115,7 +115,7 @@ Scores = React.createClass
                 else
                   @percent(record.correct_exercise_count, record.exercise_count) or 0
               when 'completed'
-                @percent(record.correct_exercise_count, record.exercise_count) or 0
+                @percent(record.completed_exercise_count, record.exercise_count) or 0
       else
         (d.last_name or d.name).toLowerCase()
     )
