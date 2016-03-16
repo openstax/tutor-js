@@ -63,7 +63,7 @@ class Popup extends TestHelper
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
   close: =>
-    @el.closeButton.click()
+    @el.closeButton().click()
     # waits until the locator element is not present
     @test.driver.wait =>
       @el.self().isPresent().then (isPresent) ->

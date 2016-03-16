@@ -1,4 +1,5 @@
 selenium = require 'selenium-webdriver'
+_ = require 'underscore'
 Calendar = require './calendar'
 {TestHelper} = require './test-element'
 
@@ -28,6 +29,8 @@ COMMON_ELEMENTS =
     css: '.homework-plan'
   externalPlan:
     css: '.external-plan'
+  eventPlan:
+    css: '.event-plan'
 
   selectReadingsButton:
     css: '#reading-select'
@@ -78,9 +81,14 @@ COMMON_ELEMENTS =
 
     css: ".#{typeClass}-required"
 
+planLocators = [COMMON_ELEMENTS.readingPlan, COMMON_ELEMENTS.homeworkPlan, COMMON_ELEMENTS.externalPlan, COMMON_ELEMENTS.eventPlan]
+
+anyBuilderLocator = _.map(planLocators, (planLocator) ->
+  ".task-plan#{planLocator.css}"
+).join(', ')
 
 COMMON_ELEMENTS.anyPlan =
-  css: "#{COMMON_ELEMENTS.readingPlan.css}, #{COMMON_ELEMENTS.homeworkPlan.css}, #{COMMON_ELEMENTS.externalPlan.css}"
+  css: anyBuilderLocator
 
 
 OPENED_PANEL_SELECTOR = '.dialog:not(.hide)'
@@ -149,16 +157,11 @@ class UnsavedDialog extends TestHelper
 class ReadingBuilder extends TestHelper
 
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: '.task-plan.reading-plan'
+    testElementLocator ?= COMMON_ELEMENTS.anyPlan
     super test, testElementLocator, COMMON_ELEMENTS
     # todo look at making these accessible as functions as well
     @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
     @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
-
-  waitUntilLoaded: (ms) =>
-    super(ms)
-    @test.driver.wait =>
-      @el.anyPlan().isPresent()
 
   # Helper for setting a date in the date picker
   # where

@@ -15,6 +15,7 @@ describe 'HS Student Scores', ->
     @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goToByType('PHYSICS')
+    @calendar.waitUntilLoaded()
     @calendar.goToScores()
     @scores.waitUntilLoaded()
 
@@ -42,6 +43,7 @@ describe 'CC Student Scores', ->
     @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goToByType('CONCEPT_COACH')
+    @calendar.waitUntilLoaded()
     @scores.goCCScores()
 
   @it 'sorts by name or data', ->

@@ -42,8 +42,6 @@ class CourseSelect extends TestHelper
       when 'CONCEPT_COACH' then @el.courseByAppearance(null, true).click()
       else @el.courseByAppearance().click()
 
-    @waitUntilLoaded() # TODO: This should probably use the `dashboard.waitUntilLoaded()`
-
   goToByTitle: (name) ->
     @el.courseByTitle(name).waitClick()
 

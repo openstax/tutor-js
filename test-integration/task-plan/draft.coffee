@@ -16,6 +16,7 @@ describe 'Draft Tests', ->
     new Helpers.User(@).login(TEACHER_USERNAME)
     # Go to the 1st courses dashboard
     new Helpers.CourseSelect(@).goToByType('ANY')
+    @calendar.waitUntilLoaded()
     @calendar.createNew('READING')
     @reading = new Helpers.ReadingBuilder(@)
 

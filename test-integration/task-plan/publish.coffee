@@ -17,6 +17,7 @@ describe 'Assignment Publishing Tests', ->
 
     # Go to the 1st courses dashboard
     new Helpers.CourseSelect(@).goToByType('ANY')
+    @calendar.waitUntilLoaded()
 
     @calendar.createNew('READING')
 

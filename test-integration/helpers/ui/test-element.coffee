@@ -235,7 +235,7 @@ class TestHelper
   @returns {Selenium.Promise}
   ###
   validate: =>
-    @el.self().isPresent()
+    @el.self().get()
 
   ###
   Set item helper as a function that takes arguments for the locator on `el`.

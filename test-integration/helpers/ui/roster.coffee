@@ -48,7 +48,8 @@ class PeriodEditModal extends TestHelper
         not isPresent
 
   close: =>
-    @el.closeButton.click()
+    @waitUntilLoaded()
+    @el.closeButton().click()
     @waitUntilClose()
 
   addPeriodWithName: (name) =>
