@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
+$ = require 'jquery'
 
 {ArbitraryHtmlAndMath} = require 'openstax-react-components'
 ExerciseCard = require '../../exercise-card'
@@ -182,7 +183,10 @@ ExerciseTable = React.createClass
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
-    content = ExerciseStore.getContent(exerciseId)
+    content = $("<span>#{ExerciseStore.getContent(exerciseId)}</span>")
+
+    _.each(content.find('img'), (img) -> $(img).before("<span>[image] #{img.alt}</span>"))
+    content = content.html()
 
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
