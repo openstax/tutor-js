@@ -60,6 +60,7 @@ describe 'Draft Tests', ->
     # And then verify it was added by clicking on it again
     # BUG: .course-list shouldn't be in the DOM
     @calendar.goToOpenByTitle(@title)
+    @reading.waitUntilLoaded()
 
     @reading.edit(action: 'DELETE')
 
@@ -77,6 +78,7 @@ describe 'Draft Tests', ->
 
     # Wait until the Calendar loads back up
     @calendar.goToOpenByTitle(@title)
+    @reading.waitUntilLoaded()
 
     @reading.edit
       sections: [1.1, 1.2, 2.1, 3]

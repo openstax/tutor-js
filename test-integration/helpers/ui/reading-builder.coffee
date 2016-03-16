@@ -234,15 +234,13 @@ class ReadingBuilder extends TestHelper
     # BUG: Should not prompt when canceling
     # Confirm the "Unsaved Changes" dialog
     @el.unsavedDialog.close()
-    Calendar.verify(@test)
 
   delete: =>
     # Wait up to 2min for delete to complete
-    @test.utils.wait.giveTime (2 * 60 * 1000), =>
-      @el.deleteButton().waitClick()
-      # Accept the browser confirm dialog
-      @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
-        alert.accept()
+    @el.deleteButton().waitClick(2 * 60 * 1000)
+    # Accept the browser confirm dialog
+    @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
+      alert.accept()
 
     Calendar.verify(@test, 2 * 60 * 100)
 
@@ -282,7 +280,7 @@ class ReadingBuilder extends TestHelper
           @cancel() if isDisplayed
       else
         # Click "Add Readings"
-        @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
+        # @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
         @el.addReadingsButton().waitClick()
 
     switch action
