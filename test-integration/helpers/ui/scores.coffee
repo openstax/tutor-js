@@ -5,8 +5,6 @@ selenium = require 'selenium-webdriver'
 
 
 COMMON_ELEMENTS =
-  ccScoresLink:
-    linkText: 'View Detailed Scores'
   nameHeaderSort:
     css: '.header-cell.is-ascending'
   dataHeaderSort:
@@ -48,11 +46,6 @@ class Scores extends TestHelper
     super(testContext, testElementLocator, COMMON_ELEMENTS)
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
-  # this could be moved to cc-dashboard helper at some point
-  goCCScores: =>
-    @el.ccScoresLink.click()
-    @waitUntilLoaded()
-
   doneGenerating: =>
     @test.utils.wait.until 'export url is set', =>
       @test.driver.isElementPresent(COMMON_ELEMENTS.doneGenerating)
@@ -67,10 +60,10 @@ class Scores extends TestHelper
       @test.driver.isElementPresent(COMMON_ELEMENTS.ccTooltip)
 
   hoverCCTooltip: =>
-    @el.hoverCCTooltip.findElement().then (e) =>
+    @el.hoverCCTooltip().findElement().then (e) =>
       @test.driver.actions().mouseMove(e).perform()
       if @tooltipVisible()
-        @el.ccTooltip.findElement().getText().then (txt) ->
+        @el.ccTooltip().findElement().getText().then (txt) ->
           expect(txt).to.contain('Correct Attempted Total possible')
 
 

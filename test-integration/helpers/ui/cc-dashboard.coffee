@@ -23,6 +23,8 @@ COMMON_ELEMENTS =
   bookLink:
     linkText: 'Online Book'
 
+  studentScoresLink:
+    linkText: 'View Detailed Scores'
 
 class CCDashboard extends TestHelper
 
@@ -52,7 +54,9 @@ class CCDashboard extends TestHelper
   goToBook: ->
     @el.bookLink().click()
 
-  # goToScores()
+  goToScores: =>
+    @el.studentScoresLink().click()
+
   # selectPeriodByIndex(num)
   # selectPeriodByTitle(title)
 
