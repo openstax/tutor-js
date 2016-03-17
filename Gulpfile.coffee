@@ -113,6 +113,9 @@ gulp.task 'coverage', ->
   server = new karma.Server(KARMA_COVERAGE_CONFIG)
   server.start()
 
+gulp.task 'watch-lint', ->
+  gulp.watch(['./src/**/*.{cjsx,coffee}', './*.coffee', './test/**/*.{cjsx,coffee}'], ['lint'])
+
 # clean out the dist directory before running since otherwise stale files might be served from there.
 # The _webserver task builds and serves from memory with a fallback to files in dist
-gulp.task 'dev', ['_cleanDist', '_webserver']
+gulp.task 'dev', ['_cleanDist', '_webserver', 'watch-lint']
