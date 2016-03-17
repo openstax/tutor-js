@@ -230,6 +230,9 @@ TaskPlanConfig =
     page_ids.push(topicId) unless page_ids.indexOf(topicId) >= 0
     @_changeSettings(id, {page_ids})
 
+  setImmediateFeedback: (id, is_feedback_immediate) ->
+    @_change(id, {is_feedback_immediate})
+
   removeTopic: (id, topicId) ->
     {page_ids, exercise_ids} = @_getClonedSettings(id, 'page_ids', 'exercise_ids')
     index = page_ids?.indexOf(topicId)
@@ -332,6 +335,10 @@ TaskPlanConfig =
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
+
+    isFeedbackImmediate: (id) ->
+      plan = @_getPlan(id)
+      plan?.is_feedback_immediate
 
     getEcosystemId: (id, courseId) ->
       plan = @_getPlan(id)
