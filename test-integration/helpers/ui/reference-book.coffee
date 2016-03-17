@@ -19,7 +19,7 @@ COMMON_ELEMENTS =
 class ReferenceBook extends TestHelper
   constructor: (test, testElementLocator) ->
 
-    testElementLocator ?= css: '.page-wrapper .page.has-html'
+    testElementLocator ?= css: '.reference-book'
     super test, testElementLocator, COMMON_ELEMENTS, defaultWaitTime: 10000
 
   waitUntilExercisesLoaded: =>
