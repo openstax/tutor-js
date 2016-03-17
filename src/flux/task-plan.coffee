@@ -88,6 +88,19 @@ TaskPlanConfig =
     _.reject tasking_plans, (tasking) ->
       not (tasking.due_at and tasking.opens_at)
 
+  # Returns copies of the given property names from settings
+  # Copies are returned so that the store can be reset
+  _getClonedSettings: (id, names...) ->
+    plan = @_getPlan(id)
+    settings = {}
+    for name in names
+      settings[name] = _.clone(plan.settings[name])
+    return settings
+
+  _changeSettings: (id, attributes) ->
+    plan = @_getPlan(id)
+    @_change(id, settings: _.extend({}, plan.settings, attributes))
+
   setPeriods: (id, periods) ->
     plan = @_getPlan(id)
     curTaskings = plan?.tasking_plans
@@ -147,14 +160,13 @@ TaskPlanConfig =
     sortedTaskings[0] if sortedTaskings?.length
 
   updateTutorSelection: (id, direction) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
+    {exercises_count_dynamic} = @_getClonedSettings(id, 'exercises_count_dynamic')
+
     exercises_count_dynamic += direction
 
     exercises_count_dynamic = Math.min(TUTOR_SELECTIONS.max, exercises_count_dynamic)
     exercises_count_dynamic = Math.max(TUTOR_SELECTIONS.min, exercises_count_dynamic)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {exercises_count_dynamic})
 
   updateTitle: (id, title) ->
     @_change(id, {title})
@@ -210,68 +222,42 @@ TaskPlanConfig =
     @_change(id, {settings: {}})
 
   sortTopics: (id) ->
-    plan = @_getPlan(id)
-    {page_ids, exercises_count_dynamic} = plan.settings
-
-    page_ids = sortTopics(page_ids)
-    @_change(id, {settings: {page_ids, exercises_count_dynamic}})
+    {page_ids} = @_getClonedSettings(id, 'page_ids')
+    @_changeSettings(id, page_ids: sortTopics(page_ids))
 
   addTopic: (id, topicId) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
-
-    page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
-    #sortTopics(page_ids)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    {page_ids} = @_getClonedSettings(id, 'page_ids')
+    page_ids.push(topicId) unless page_ids.indexOf(topicId) >= 0
+    @_changeSettings(id, {page_ids})
 
   removeTopic: (id, topicId) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
-
+    {page_ids, exercise_ids} = @_getClonedSettings(id, 'page_ids', 'exercise_ids')
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
-
     exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {page_ids, exercise_ids })
 
   updateTopics: (id, page_ids) ->
-    plan = @_getPlan(id)
-    {exercise_ids, exercises_count_dynamic} = plan.settings
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {page_ids})
 
   addExercise: (id, exercise) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    exercise_ids = exercise_ids[..]
-
-    unless plan.settings.exercise_ids.indexOf(exercise.id) >= 0
+    {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
+    unless exercise_ids.indexOf(exercise.id) >= 0
       exercise_ids.push(exercise.id)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {exercise_ids})
 
   removeExercise: (id, exercise) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    exercise_ids = exercise_ids[..]
-
+    {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
     index = exercise_ids?.indexOf(exercise.id)
     exercise_ids?.splice(index, 1)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {exercise_ids})
 
   updateExercises: (id, exercise_ids) ->
-    plan = @_getPlan(id)
-    {page_ids, exercises_count_dynamic} = plan.settings
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
-    
-  moveReading: (id, topicId, step) ->
-    plan = @_getPlan(id)
-    {page_ids, exercises_count_dynamic} = plan.settings
-    page_ids = page_ids[..]
+    # NOTE.  The previous method set page_ids to null here, but I think that was a bug
+    @_changeSettings(id, {exercise_ids})
 
+  moveReading: (id, topicId, step) ->
+    {page_ids} = @_getClonedSettings(id, 'page_ids')
     curIndex = page_ids?.indexOf(topicId)
     newIndex = curIndex + step
 
@@ -283,13 +269,10 @@ TaskPlanConfig =
     page_ids[curIndex] = page_ids[newIndex]
     page_ids[newIndex] = topicId
 
-    @_change(id, {settings: {page_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {page_ids})
 
   moveExercise: (id, exercise, step) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    exercise_ids = exercise_ids[..]
-
+    {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
     curIndex = exercise_ids?.indexOf(exercise.id)
     newIndex = curIndex + step
 
@@ -301,8 +284,7 @@ TaskPlanConfig =
     exercise_ids[curIndex] = exercise_ids[newIndex]
     exercise_ids[newIndex] = exercise.id
 
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
-
+    @_changeSettings(id, {exercise_ids})
 
   _getStats: (id) ->
     @_stats[id]
