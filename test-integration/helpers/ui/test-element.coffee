@@ -142,9 +142,13 @@ class TestItemHelper
   @param {Function} forEachFunction The last parameter, if provided and is a function, will be run on each WebElement
   @param {Function} [forEachFunction2] If an additional function is available, this will run once before.
   ###
-  forEach: (args..., forEachFunction, forEachFunction2) =>
-    locator = @getLocator(args...)
-    @test.utils.forEach(locator, forEachFunction, forEachFunction2)
+  forEach: (args...) =>
+    [argsForEach, argsForLocator] = _.partition(args, _.isFunction)
+    locator = @getLocator(argsForLocator...)
+    options = _.defaults({}, locator, argsForLocator...)
+    argsForEach.unshift(options)
+
+    @test.utils.forEach(argsForEach...)
 
   ###
   Checks if element matching locator is currently present, returns Selenium.Promise that resolves to a boolean
@@ -222,6 +226,16 @@ class TestHelper
     @test.utils.wait.giveTime @options.defaultWaitTime, =>
       @test.utils.wait.until "Waiting until Loadable #{JSON.stringify(@el.loadingState().getLocator())} is gone", =>
         @el.loadingState().isPresent().then (isPresent) -> not isPresent
+
+    @validate()
+
+  ###
+  Check whether base/parent element for test is present.
+
+  @returns {Selenium.Promise}
+  ###
+  validate: =>
+    @el.self().get()
 
   ###
   Set item helper as a function that takes arguments for the locator on `el`.

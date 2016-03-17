@@ -15,6 +15,7 @@ describe 'Concept Coach Dashboard', ->
 
     @user.login(TEACHER_USERNAME)
     @courseSelect.goToByType('CONCEPT_COACH')
+    @conceptCoach.waitUntilLoaded()
 
   @it 'Can switch periods (readonly)', ->
     @conceptCoach.switchPeriods()

@@ -10,6 +10,8 @@ module.exports =
   User             : require './ui/user'
   ReferenceBook    : require './ui/reference-book'
   Scores           : require './ui/scores'
+  Roster           : require './ui/roster'
+  CCRoster         : require './ui/cc-roster'
   util             : require './utils'
   describe         : describe
   xdescribe        : xdescribe

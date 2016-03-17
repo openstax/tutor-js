@@ -29,8 +29,9 @@ class CourseSelect extends TestHelper
 
   constructor: (test, testElementLocator) ->
 
-    testElementLocator ?= '.course-listing'
-    super(test, '.course-listing', COMMON_ELEMENTS)
+    testElementLocator ?=
+      css: '.course-listing'
+    super(test, testElementLocator, COMMON_ELEMENTS)
 
   goToByType: (category) ->
     @waitUntilLoaded()
@@ -40,8 +41,6 @@ class CourseSelect extends TestHelper
       when 'PHYSICS' then @el.courseByAppearance('physics').click()
       when 'CONCEPT_COACH' then @el.courseByAppearance(null, true).click()
       else @el.courseByAppearance().click()
-
-    @waitUntilLoaded() # TODO: This should probably use the `dashboard.waitUntilLoaded()`
 
   goToByTitle: (name) ->
     @el.courseByTitle(name).waitClick()

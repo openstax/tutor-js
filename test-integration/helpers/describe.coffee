@@ -49,13 +49,17 @@ describe = (name, cb) ->
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)
 
-      @driver = new selenium.Builder()
+      builder = new selenium.Builder()
         # Choose which browser to run by setting the SELENIUM_BROWSER='firefox' envoronment variable
         # see https://selenium.googlecode.com/git/docs/api/javascript/module_selenium-webdriver_class_Builder.html
         .withCapabilities(selenium.Capabilities.phantomjs()) # TODO: get alerts working https://github.com/robotframework/Selenium2Library/issues/441
         .withCapabilities(selenium.Capabilities.firefox())
         .withCapabilities(selenium.Capabilities.chrome())
-        .build()
+
+      # Make capabilities extendable as an env, used in test-automation
+      builder.withCapabilities(JSON.parse(process.env.SELENIUM_CAPABILITIES)) if _.isString(process.env.SELENIUM_CAPABILITIES)
+
+      @driver = builder.build()
 
 
       # Check for JS errors by injecting a little script before the test and then checking it afterEach

@@ -15,6 +15,7 @@ describe 'HS Student Scores', ->
     @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goToByType('PHYSICS')
+    @calendar.waitUntilLoaded()
     @calendar.goToScores()
     @scores.waitUntilLoaded()
 
@@ -40,9 +41,12 @@ describe 'CC Student Scores', ->
     @calendar = new Helpers.Calendar(@)
     @scores = new Helpers.Scores(@)
     @courseSelect = new Helpers.CourseSelect(@)
+    @conceptCoach = new Helpers.CCDashboard(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goToByType('CONCEPT_COACH')
-    @scores.goCCScores()
+    @conceptCoach.waitUntilLoaded()
+    @conceptCoach.goToScores()
+    @scores.waitUntilLoaded()
 
   @it 'sorts by name or data', ->
     @scores.el.scoreCell().isPresent().then (isPresent) =>
@@ -62,7 +66,7 @@ describe 'CC Student Scores', ->
 
       @scores.el.scoreCell().get().getText().then (txt) ->
         expect(txt).to.contain('%')
-      @scores.el.displayAs.click()
+      @scores.el.displayAs().click()
       @scores.el.scoreCell().get().getText().then (txt) ->
         expect(txt).to.contain('of')
       @user.goToHome()
