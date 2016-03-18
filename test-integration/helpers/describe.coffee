@@ -54,7 +54,7 @@ describe = (name, cb) ->
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)
 
-      @downloadDirectory = path.normalize "#{__dirname}/../downloaded-files"
+      @downloadDirectory = path.normalize "#{__dirname}/../../.tmp/test-integration"
 
       chromeOptions = new chrome.Options()
       prefs =
