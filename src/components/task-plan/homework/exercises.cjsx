@@ -183,10 +183,13 @@ ExerciseTable = React.createClass
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
-    content = $("<span>#{ExerciseStore.getContent(exerciseId)}</span>")
+    content = document.createElement("span")
+    content.innerHTML = ExerciseStore.getContent(exerciseId)
+    _.each(content.getElementsByTagName('img'), (img) ->
+      if img.nextSibling then img.remove() else img.parentElement?.remove()
+    )
 
-    _.each(content.find('img'), (img) -> $(img).before("<span>[image] #{img.alt}</span>"))
-    content = content.html()
+    content = content.innerHTML
 
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
