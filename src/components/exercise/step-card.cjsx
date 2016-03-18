@@ -61,7 +61,7 @@ ExerciseStepCard = React.createClass
       @isContinueEnabled(@props, @state) is @isContinueEnabled(nextProps, nextState))
 
   componentWillReceiveProps: (nextProps) ->
-    unless _.isEqual(@getStepState(@props), @getStepState(nextProps))
+    unless _.isEqual(@getStepState(@props, @state), @getStepState(nextProps))
       nextStepState = @getStepState(nextProps)
       @setState(nextStepState)
 
@@ -79,9 +79,10 @@ ExerciseStepCard = React.createClass
     keymaster.unbind('enter', 'multiple-choice')
     keymaster.deleteScope('multiple-choice')
 
-  getStepState: (props) ->
+  getStepState: (props, state = {}) ->
+    {freeResponse} = state
     {step} = props
-    freeResponse: step.free_response or props.freeResponseValue or ''
+    freeResponse: step.free_response or props.freeResponseValue or freeResponse or ''
     answerId: step.answer_id or ''
 
   isContinueEnabled: (props, state) ->
