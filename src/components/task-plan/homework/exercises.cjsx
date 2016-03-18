@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
+$ = require 'jquery'
 
 {ArbitraryHtmlAndMath} = require 'openstax-react-components'
 ExerciseCard = require '../../exercise-card'
@@ -182,7 +183,13 @@ ExerciseTable = React.createClass
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
-    content = ExerciseStore.getContent(exerciseId)
+    content = document.createElement("span")
+    content.innerHTML = ExerciseStore.getContent(exerciseId)
+    _.each(content.getElementsByTagName('img'), (img) ->
+      if img.nextSibling then img.remove() else img.parentElement?.remove()
+    )
+
+    content = content.innerHTML
 
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
