@@ -118,7 +118,7 @@ Answer = React.createClass
       </div>
 
     if @props.show_all_feedback and answer.feedback_html
-      feedback = <Feedback key='question-mc-feedback' children={answer.feedback_html} />
+      feedback = <Feedback key='question-mc-feedback'>{answer.feedback_html}</Feedback>
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 

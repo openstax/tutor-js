@@ -81,7 +81,7 @@ ExerciseStepCard = React.createClass
 
   getStepState: (props) ->
     {step} = props
-    freeResponse: step.free_response or ''
+    freeResponse: step.free_response or props.freeResponseValue or ''
     answerId: step.answer_id or ''
 
   isContinueEnabled: (props, state) ->
