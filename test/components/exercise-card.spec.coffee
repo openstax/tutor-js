@@ -3,7 +3,7 @@
 ExerciseCard = require '../../src/components/exercise-card'
 
 EXERCISE = (require '../../api/exercises.json').items[0]
-ANSWERS  = _.sortBy(EXERCISE.content.questions[0].answers, 'id')
+ANSWERS  = EXERCISE.content.questions[0].answers, 'id'
 
 describe 'Exercise Card Component', ->
 
@@ -12,7 +12,7 @@ describe 'Exercise Card Component', ->
       exercise: EXERCISE
     }
 
-  it 'displays the exercise questions sorted by id', ->
+  it 'displays the exercise answers', ->
     Testing.renderComponent( ExerciseCard, props: @props ).then ({dom}) ->
       for answer, i in _.pluck(dom.querySelectorAll('.answers-answer .answer .choice'), 'textContent')
         expect(answer).to.equal( ANSWERS[i].content_html )

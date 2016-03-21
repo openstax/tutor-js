@@ -54,8 +54,7 @@ ExerciseCard = React.createClass
     question = content.questions[0]
 
     unless @props.hideAnswers
-      renderedAnswers = _(question.answers)
-        .chain().sortBy('id').map(@renderAnswer).value()
+      renderedAnswers = _.map(question.answers, @renderAnswer)
 
     tags = _.clone @props.exercise.tags
     unless @props.displayAllTags
