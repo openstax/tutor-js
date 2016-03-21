@@ -63,7 +63,7 @@ destroy = (windowImpl = window) ->
 
 init = (windowImpl = window) ->
   WINDOW = windowImpl
-  return if POLLING # if set that indicates we've been called twice
+  WINDOW.clearInterval(POLLING) if POLLING
   api.channel.on 'notifications.fetch.*', loaded
   pollForUpdate()
   POLLING = WINDOW.setInterval(pollForUpdate, POLL_INTERVAL)
