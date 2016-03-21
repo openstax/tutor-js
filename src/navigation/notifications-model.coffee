@@ -34,7 +34,8 @@ getActive = ->
 
 
 loaded = (resp) ->
-  notifications = resp.data
+  resp.stopErrorDisplay = true
+  notifications = resp.data or []
   observedIds = getObservedNoticeIds()
   newActiveNotices = {}
   currentIds = []
