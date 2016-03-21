@@ -5,13 +5,13 @@ api = require '../api'
 POLL_INTERVAL = 5 * 60 * 1000 # 5 minutes
 STORAGE_KEY   = 'ox-cc-notifications'
 WINDOW = window
+POLLING = null
 
 pollForUpdate = ->
   api.channel.emit('notifications.send.fetch') unless window.document.hidden is true
 
 channel = new EventEmitter2
 
-polling = null
 
 activeNotifications = {}
 
@@ -56,15 +56,17 @@ loaded = (resp) ->
 destroy = (windowImpl = window) ->
   WINDOW = windowImpl
   activeNotifications = {}
-  WINDOW.clearInterval(polling) if polling
+  api.channel.off 'notifications.fetch.*', loaded
+  WINDOW.clearInterval(POLLING) if POLLING
+  POLLING = null
 
 
 init = (windowImpl = window) ->
   WINDOW = windowImpl
-  return if polling
+  return if POLLING # if set that indicates we've been called twice
   api.channel.on 'notifications.fetch.*', loaded
   pollForUpdate()
-  polling = WINDOW.setInterval(pollForUpdate, POLL_INTERVAL)
+  POLLING = WINDOW.setInterval(pollForUpdate, POLL_INTERVAL)
 
 
 module.exports = {
