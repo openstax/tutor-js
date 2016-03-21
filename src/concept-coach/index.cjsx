@@ -10,6 +10,7 @@ User = require '../user/model'
 exercise = require '../exercise/collection'
 progress = require '../progress/collection'
 task = require '../task/collection'
+notifications = require '../navigation/notifications-model'
 
 {Coach} = require './coach'
 coachWrapped = helpers.wrapComponent(Coach)
@@ -83,7 +84,7 @@ class ConceptCoachAPI extends EventEmitter2
     restAPI.init = _.partial restAPI.initialize, baseUrl
     navigation.init = _.partial navigation.initialize, navOptions
 
-    @models = [restAPI, navigation, User, exercise, progress, task, componentModel]
+    @models = [restAPI, navigation, User, exercise, progress, task, componentModel, notifications]
     initializeModels(@models)
 
     listenAndBroadcast(@)

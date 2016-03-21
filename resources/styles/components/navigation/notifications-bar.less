@@ -1,0 +1,32 @@
+.concept-coach {
+  .notifications-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: @openstax-primary;
+    padding-left: 4rem;
+    .notification {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      color: @openstax-neutral-lighter;
+      padding: 15px;
+      font-size: 2rem;
+
+      & + .notification {
+        border-top: 1px solid darken(@openstax-primary, 5%);
+      }
+      .icon {
+        margin-right: 1rem;
+        font-size: 3rem;
+      }
+      .dismiss {
+        color: @openstax-neutral-lighter;
+        cursor: pointer;
+        font-size: 1.8rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+}
