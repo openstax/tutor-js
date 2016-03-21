@@ -12,6 +12,7 @@ describe 'Notifications Model', ->
         setItem: sinon.stub()
       document:
         hidden: false
+      clearInterval: sinon.spy()
     Notifications.init(@windowImpl)
     Notifications.loaded(data: TEST_NOTICES)
 
