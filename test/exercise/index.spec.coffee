@@ -52,13 +52,13 @@ describe 'Exercise Step', ->
       expect(dom.querySelector('.free-response').textContent).equal('My Second Answer')
       answers = _.pluck dom.querySelectorAll('.answer-content'), 'textContent'
       expect(answers).to.deep.equal(
-        _.pluck(step.content.questions[0].answers, 'content_html').reverse()
+        _.pluck(step.content.questions[0].answers, 'content_html')
       )
 
   it 'sets answer id after selection', ->
     Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) =>
       saveFreeResponse(dom, 'My Second Answer')
-      answer = dom.querySelectorAll('.answers-answer')[1]
+      answer = dom.querySelectorAll('.answers-answer')[0]
       input = answer.querySelector('input')
       ReactTestUtils.Simulate.change(input, target:{checked: true})
       Testing.actions.click(input)
