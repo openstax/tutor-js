@@ -1,5 +1,6 @@
 fs = require 'fs'
 path = require 'path'
+_ = require 'underscore'
 selenium = require 'selenium-webdriver'
 io = require 'selenium-webdriver/io'
 
@@ -67,14 +68,20 @@ class Scores extends TestHelper
   isExportDownloaded: =>
     @el.exportSucceeded().findElement().getAttribute('src').then (src) =>
       file = path.basename(src)
-      path = "#{@test.downloadDirectory}/#{file}"
-
-      io.exists(path)
+      # TODO get actual filename to test for full file path
+      io.exists(@test.downloadDirectory)
 
     .then (isExportDownloaded) =>
-
-      io.unlink(path)
+      @cleanUpDownloadedExports() if isExportDownloaded
       isExportDownloaded
+
+  cleanUpDownloadedExports: =>
+    fs.readdir @test.downloadDirectory, (err, files) =>
+      _.each(files, (file) =>
+        fullPath = "#{@test.downloadDirectory}/#{file}"
+        @test.utils.verbose("Removing #{fullPath}.")
+        io.unlink(fullPath)
+      )
 
   hoverCCTooltip: =>
     @el.hoverCCTooltip().findElement().then (e) =>
