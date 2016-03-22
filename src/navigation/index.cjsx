@@ -8,6 +8,7 @@ user = require '../user/model'
 {channel} = require './model'
 api = require '../api'
 UserMenu = require '../user/menu'
+NotificationsBar = require './notifications-bar'
 
 Navigation = React.createClass
   displayName: 'Navigation'
@@ -66,6 +67,7 @@ Navigation = React.createClass
           </BS.NavItem>
         </BS.Nav>
       </BS.CollapsibleNav>
+      <NotificationsBar />
     </BS.Navbar>
 
 module.exports = {Navigation, channel}
