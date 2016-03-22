@@ -5,7 +5,6 @@ io = require 'selenium-webdriver/io'
 
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
-Timeout = require '../timeout'
 
 FAILED_EXPORT_SELECTOR = '.export-button-buttons .refresh-button'
 SUCCEEDED_EXPORT_SELECTOR = '#downloadExport[src$=".xlsx"]'

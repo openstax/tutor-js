@@ -82,7 +82,7 @@ describe = (name, cb) ->
       # Make capabilities extendable as an env, used in test-automation
       builder.withCapabilities(JSON.parse(process.env.SELENIUM_CAPABILITIES)) if _.isString(process.env.SELENIUM_CAPABILITIES)
 
-      @driver = builder.build()
+      @driver = builder
         .setChromeOptions(chromeOptions)
         .setFirefoxOptions(firefoxOptions)
         .build()
