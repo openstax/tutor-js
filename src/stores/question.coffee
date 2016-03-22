@@ -28,7 +28,7 @@ QuestionConfig = {
     answers = _.map @_local[id]?.answers, (answer) ->
       AnswerStore.get(answer.id)
     @_change(id, {answers})
-    
+
   addNewAnswer: (id) ->
     newAnswer =
       id: AnswerStore.freshLocalId()
@@ -87,6 +87,7 @@ QuestionConfig = {
   togglePreserveOrder: (id) ->
     @_local[id].is_answer_order_important = not @_local[id].is_answer_order_important
 
+
   exports:
 
     getAnswers: (id) -> @_local[id]?.answers or []
@@ -108,6 +109,26 @@ QuestionConfig = {
     isOrderPreserved: (id) ->
       @_local[id].is_answer_order_important
 
+    getTemplate: ->
+      answerId = AnswerStore.freshLocalId()
+
+      stem_html:"",
+      stimulus_html:"",
+      formats:[],
+      collaborator_solutions: [{"content_html": "", "solution_type": "detailed"}],
+      answers:[_.extend({}, AnswerStore.getTemplate(), {id: answerId})],
+      is_answer_order_important: false
+
+    validate: (id) ->
+      if (not @_get(id).stem_html)
+        return valid: false, reason: 'Question Stem is invalid'
+
+      _.reduce @_get(id).answers, (memo, answer) ->
+        validity = AnswerStore.validate(answer.id)
+
+        valid: memo.valid and validity.valid
+        reason: memo.reason or validity.reason
+      , valid: true
 }
 
 extendConfig(QuestionConfig, new CrudConfig())

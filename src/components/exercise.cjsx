@@ -17,10 +17,12 @@ module.exports = React.createClass
   getInitialState: -> {}
 
   componentWillMount: ->
-    if (not @props.id)
-      @setState({
-        id: prompt('Enter exercise id:')
-      })
+    id = if not @props.id then prompt('Enter exercise id:') else @props.id
+    if (id.toLowerCase() is 'new')
+      id = ExerciseStore.freshLocalId()
+      @create(id)
+
+    @setState({id})
     ExerciseStore.addChangeListener(@update)
 
   update: -> @setState({})
@@ -28,16 +30,27 @@ module.exports = React.createClass
   updateStimulus: (event) -> ExerciseActions.updateStimulus(@getId(), event.target?.value)
 
   getId: ->
-    @props.id or @state.id
+    @state.id or @props.id
 
   getDraftId: (id) ->
     draftId = if id.indexOf("@") is -1 then id else id.split("@")[0]
     "#{draftId}@d"
 
-  saveExercise: ->
-    if confirm('Are you sure you want to save?')
+  redirect:(id) ->
+    window.location = "/exercises/#{id}"
 
-      ExerciseActions.save(@getId())
+  saveExercise: ->
+    validity = ExerciseStore.validate(@getId())
+    if not validity?.valid
+      alert(validity?.reason or 'Not a valid exercise')
+      return
+
+    if confirm('Are you sure you want to save?')
+      if ExerciseStore.isNew(@getId())
+        ExerciseStore.on 'created', @redirect
+        ExerciseActions.create(@getId(), ExerciseStore.get(@getId()))
+      else
+        ExerciseActions.save(@getId())
 
   publishExercise: ->
     if confirm('Are you sure you want to publish?')
@@ -52,6 +65,10 @@ module.exports = React.createClass
 
   sync: -> ExerciseActions.sync(@getId())
 
+  create: (id) ->
+    template = ExerciseStore.getTemplate()
+    ExerciseActions.loaded(template, id)
+
   renderForm: ->
     id = @getId()
 
@@ -61,7 +78,7 @@ module.exports = React.createClass
 
     isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
 
-    if not ExerciseStore.isPublished(id)
+    if not ExerciseStore.isPublished(id) and not ExerciseStore.isNew(id)
       publishButton = <AsyncButton
         bsStyle='primary'
         onClick={@publishExercise}
@@ -98,7 +115,8 @@ module.exports = React.createClass
 
   render: ->
     id = @getId()
-    if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id)
+
+    if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id) and not ExerciseStore.isNew(id)
       if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
       return @renderLoading()
     else if ExerciseStore.isFailed(id)
@@ -121,13 +139,15 @@ module.exports = React.createClass
     else
       form = @renderForm(id)
 
-    <BS.Grid>
-      <div className="attachments">
+    if not ExerciseStore.isNew(id)
+      attachments = <div className="attachments">
         { for attachment in ExerciseStore.get(id).attachments
           <Attachment key={attachment.asset.url} exerciseUid={exerciseUid} attachment={attachment} /> }
         <AttachmentChooser exerciseUid={exerciseUid} />
       </div>
 
+    <BS.Grid>
+      { attachments }
       <BS.Row><BS.Col xs={5} className="exercise-editor">
         <div>
           <label>Exercise ID:</label> {exerciseUid}

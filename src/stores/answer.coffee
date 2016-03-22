@@ -18,10 +18,23 @@ AnswerConfig = {
     @_local[id].feedback_html = feedback
     @emitChange()
 
+
+
   exports:
     getContent: (id) -> @_local[id].content_html
     getFeedback: (id) -> @_local[id].feedback_html
     isCorrect: (id) -> @_local[id].correctness is "1.0"
+
+    validate: (id) ->
+      if (not @_get(id).content_html)
+        return valid: false, reason: 'Answer has no content'
+
+      return valid: true
+
+    getTemplate: ->
+      content_html:"",
+      feedback_html:"",
+      correctness:"1.0"
 }
 
 extendConfig(AnswerConfig, new CrudConfig())
