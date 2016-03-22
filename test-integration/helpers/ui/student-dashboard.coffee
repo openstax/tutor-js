@@ -44,7 +44,7 @@ class StudentDashboard extends TestHelper
       css: '.tab-pane.active .workable.task'
 
   constructor: (test) ->
-    super(test, '.student-dashboard')
+    super(test, css: '.student-dashboard')
 
   findVisibleEvents: (options = {}) ->
     @test.utils.wait.giveTime @options.defaultWaitTime, =>

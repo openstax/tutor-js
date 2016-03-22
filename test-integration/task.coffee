@@ -18,6 +18,7 @@ describe 'Student performing tasks', ->
     @user.login(STUDENT_USERNAME)
 
     @courseSelect.goToByType('ANY')
+    @dashboard.waitUntilLoaded()
 
   @it 'Can continue and go to expected steps (readonly)', ->
     @dashboard.el.workableTask().isPresent().then (isPresent) =>
