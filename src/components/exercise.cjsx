@@ -145,9 +145,11 @@ module.exports = React.createClass
           <Attachment key={attachment.asset.url} exerciseUid={exerciseUid} attachment={attachment} /> }
         <AttachmentChooser exerciseUid={exerciseUid} />
       </div>
+      addExerciseBtn = <p className="btn btn-success add-exercise"><a href="/exercises/new">
+        <i className="fa fa-plus-circle" />Add New Exercise
+      </a></p>
 
     <BS.Grid>
-      { attachments }
       <BS.Row><BS.Col xs={5} className="exercise-editor">
         <div>
           <label>Exercise ID:</label> {exerciseUid}
@@ -156,6 +158,8 @@ module.exports = React.createClass
         {editLink}
         <form>{form}</form>
       </BS.Col><BS.Col xs={6} className="pull-right">
-        {preview}
+        { addExerciseBtn }
+        { preview }
+        { attachments }
       </BS.Col></BS.Row>
     </BS.Grid>
