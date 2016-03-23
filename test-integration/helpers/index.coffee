@@ -2,7 +2,7 @@
 
 module.exports =
   Calendar         : require './ui/calendar'
-  ReadingBuilder   : require './ui/reading-builder'
+  TaskBuilder      : require './ui/task-builder'
   CourseSelect     : require './ui/course-select'
   CCDashboard      : require './ui/cc-dashboard'
   StudentDashboard : require './ui/student-dashboard'
