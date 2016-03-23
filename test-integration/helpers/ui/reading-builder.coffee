@@ -49,6 +49,8 @@ COMMON_ELEMENTS =
     css: '.dialog:not(.hide) .async-button.-publish.is-waiting'
   cancelButton:
     css: '.dialog:not(.hide) .panel-footer [aria-role="close"]'
+  feedbackSelection:
+    css: '#feedback-select'
 
   hasErrorWarning: (type) ->
     typeClass = switch type
@@ -193,6 +195,13 @@ class ReadingBuilder extends TestHelper
   setName: (name) =>
     @el.name().get().sendKeys(name)
 
+  isFeedbackImmediate: ->
+    @el.feedbackSelection().get().getAttribute('value').then (value)->
+      value is 'immediate'
+
+  setFeedbackImmediate: (isFeedbackImmediate) ->
+    @el.feedbackSelection().get().sendKeys(if isFeedbackImmediate then 'i' else 'o')
+
   getNameValue: =>
     @el.name().get().getAttribute('value')
 
@@ -256,14 +265,14 @@ class ReadingBuilder extends TestHelper
   #   ]
   #   sections: ['1.1', '2.4']
   #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
-  edit: ({name, description, opensAt, dueAt, sections, action, verifyAddReadingsDisabled}) ->
+  edit: ({name, description, opensAt, dueAt, sections, action, isFeedbackImmediate, verifyAddReadingsDisabled}) ->
     # Just confirm the plan is actually open
     # Under selenium, a seemingly invisible .is-loading element is present and
     # hangs around for quite awhile.  Bump the wait time up to 4 seconds to work around
     @waitUntilLoaded(4000)
     @setName(name) if name
     @setDate({opensAt, dueAt}) if opensAt or dueAt
-
+    @setFeedbackImmediate(isFeedbackImmediate) if isFeedbackImmediate?
     if sections
       # Open the chapter list by clicking the button and waiting for the list to load
       @openSelectReadingList()
