@@ -62,4 +62,5 @@ describe 'Exercise Step', ->
       input = answer.querySelector('input')
       ReactTestUtils.Simulate.change(input, target:{checked: true})
       Testing.actions.click(input)
-      expect(@props.item.answer_id).equal(step.content.questions[0].answers[0].id)
+      selectedAnswer = _.find(step.content.questions[0].answers, id: @props.item.answer_id)
+      expect(selectedAnswer.content_html).equal(answer.innerText)
