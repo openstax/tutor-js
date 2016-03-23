@@ -145,9 +145,11 @@ module.exports = React.createClass
           <Attachment key={attachment.asset.url} exerciseUid={exerciseUid} attachment={attachment} /> }
         <AttachmentChooser exerciseUid={exerciseUid} />
       </div>
-      addExerciseBtn = <p className="btn btn-success add-exercise"><a href="/exercises/new">
-        <i className="fa fa-plus-circle" />Add New Exercise
-      </a></p>
+      addExerciseBtn = <p className="btn btn-success add-exercise">
+        <a href="/exercises/new">
+          <i className="fa fa-plus-circle" />Add New Exercise
+        </a>
+      </p>
 
     <BS.Grid>
       <BS.Row><BS.Col xs={5} className="exercise-editor">
