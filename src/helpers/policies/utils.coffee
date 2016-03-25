@@ -9,7 +9,7 @@ DEFAULT = 'default'
 utils =
   _dueState: (task) ->
     state = 'before'
-    state = 'after' if task.due_at? and TaskStore.isTaskPastDue(task.id)
+    state = 'after' if task.is_feedback_available or (task.due_at? and TaskStore.isTaskPastDue(task.id))
 
     state
 
