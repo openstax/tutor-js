@@ -54,6 +54,10 @@ module.exports = React.createClass
 
       tasking
 
+  getIsFeedbackInstant: ->
+    TaskPlanStore.getFeedbackAt(@props.id)
+    .isSame( @getQueriedDueAt().isSame() )
+
   getOpensAtDefault: ->
     moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
 
@@ -218,9 +222,7 @@ module.exports = React.createClass
         </BS.Col>
       </BS.Row>
 
-    feedbackNote = '  Feedback will be released after the due date.' if plan.type is 'homework'
     cannotEditNote = '  Open times cannot be edited after assignment is visible to students.' if @state.isVisibleToStudents
-
 
     assignmentNameLabel = [
       "#{@props.label} name"
@@ -262,7 +264,6 @@ module.exports = React.createClass
             Set date to today to open immediately.
             Due time is 7:00am.
             {cannotEditNote}
-            {feedbackNote}
           </div>
         </BS.Col>
       </BS.Row>

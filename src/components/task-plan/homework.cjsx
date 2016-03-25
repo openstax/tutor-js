@@ -83,6 +83,9 @@ HomeworkPlan = React.createClass
   displayName: 'HomeworkPlan'
   mixins: [PlanMixin]
 
+  setImmediateFeedback: (ev) ->
+    TaskPlanActions.setImmediateFeedback( @props.id, ev.target.value is 'immediate' )
+
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
@@ -165,13 +168,32 @@ HomeworkPlan = React.createClass
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
           <BS.Row>
-          <BS.Col xs=12 md=12>
-            {addProblemsButton}
-            {problemsRequired}
-          </BS.Col>
+            <BS.Col xs=8>
+              <div className="form-group">
+                <label htmlFor="feedback-select">Show feedback</label>
+                <select
+                  onChange={@setImmediateFeedback}
+                  value={if TaskPlanStore.isFeedbackImmediate(id) then 'immediate' else 'due_at'}
+                  id="feedback-select" className="form-control"
+                >
+                  <option value="immediate">
+                    instantly after the student answers each question
+                  </option>
+                  <option value="due_at">
+                    only after due date/time passes
+                  </option>
+                </select>
+              </div>
+            </BS.Col>
+          </BS.Row>
+          <BS.Row>
+            <BS.Col xs=12 md=12>
+              {addProblemsButton}
+              {problemsRequired}
+            </BS.Col>
           </BS.Row>
         </BS.Grid>
-        
+
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}
