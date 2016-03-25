@@ -10,7 +10,7 @@ Instructions = React.createClass
     task: React.PropTypes.object.isRequired
 
     title: React.PropTypes.string
-    trigger: React.PropTypes.string
+    trigger: React.PropTypes.array
     placement: React.PropTypes.string
     popverClassName: React.PropTypes.string
 

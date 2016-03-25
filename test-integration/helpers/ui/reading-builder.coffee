@@ -110,7 +110,7 @@ COMMON_UNSAVED_DIALOG_ELEMENTS =
   loadingState:
     css: '.tutor-dialog.modal.fade:not(.in)'
   dismissButton:
-    css: '.-tutor-dialog-parent .tutor-dialog.modal.fade.in .modal-footer .ok.btn'
+    css: '.tutor-dialog.modal.fade.in .modal-footer .ok.btn'
 
 
 class SelectReadingsList extends TestHelper
