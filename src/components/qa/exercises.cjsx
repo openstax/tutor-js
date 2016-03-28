@@ -36,7 +36,7 @@ QAExercises = React.createClass
     page = ReferenceBookStore.getPageInfo(props)
     @setState(pageId: page.id)
     if page and not ExerciseStore.isLoaded([page.id])
-      ExerciseActions.load(@props.ecosystemId, [page.id], '')
+      ExerciseActions.loadForEcosystem(@props.ecosystemId, [page.id], '')
 
   renderSpyInfo: ->
     book = EcosystemsStore.getBook(@props.ecosystemId)

@@ -256,7 +256,6 @@ TaskPlanConfig =
     @_changeSettings(id, {exercise_ids})
 
   updateExercises: (id, exercise_ids) ->
-    # NOTE.  The previous method set page_ids to null here, but I think that was a bug
     @_changeSettings(id, {exercise_ids})
 
   moveReading: (id, topicId, step) ->

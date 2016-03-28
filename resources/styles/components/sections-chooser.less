@@ -1,4 +1,4 @@
-.select-reading-chapters {
+.sections-chooser {
 
   .panel-group {
     margin-bottom: 0;
@@ -31,19 +31,14 @@
           .chapter-number,
           .chapter-title {
             vertical-align: middle;
-
-            span {
+            span, .tutor-icon i {
               font-size: 1.7rem;
               font-weight: 700;
-              color: @tutor-tertiary;
               line-height: normal;
               vertical-align: baseline;
             }
-
-            input {
-              margin: 0 20px 0 0;
-              vertical-align: baseline;
-            }
+            span { color: @tutor-tertiary; }
+            .tutor-icon { margin-right: 10px; }
           }
         }
         .browse-book {

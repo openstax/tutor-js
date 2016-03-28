@@ -111,24 +111,12 @@ label.exercises-section-label {
     max-width: 1200px;
     margin: 10px auto;
   }
-}
-
-.card-list.exercises {
-  .exercise.card {
-    text-align: left;
-    .panel-body { padding: 20px 100px; }
-  }
 
 }
 
-.task-plan {
-
-  .feedback-toggle {
-    float: right;
-    margin-top: -@tutor-card-body-padding-vertical;
-    color: @tutor-neutral;
-    background-color: @tutor-white;
-    border: 0;
+.add-exercise-list {
+  .exercise-card {
+    .exercise-card-hover-styles(@color: @tutor-neutral,
+                                @background-color: lighten(@homework-color, 50%) );
   }
-
 }

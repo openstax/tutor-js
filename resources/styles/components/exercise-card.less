@@ -1,11 +1,6 @@
-.exercise.card {
+.exercise-card {
+  &:extend(.card);
   position: relative;
-  max-width: 1200px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: @tutor-info-bg;
-  }
 
   img {
     max-width: 100%;
@@ -18,51 +13,49 @@
     background-color: @selected-exercise-background;
   }
 
-  .panel-heading {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: none;
-    background-color: fade(@tutor-neutral-lighter, 0%);
-    border: none;
-
-    .add-or-remove {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      height: 100px;
-      width: 100px;
-      margin-top: -50px;
-      margin-left: -50px;
-      background-color: fade(@tutor-white, 85%);
-      border: 1px solid @tutor-neutral-lighter;
-      border-radius: 100px;
-      color: @tutor-neutral;
-
-      &::before {
-        .fa-icon();
-        content: @fa-var-plus;
-        font-weight: 300;
-        text-align: center;
-        font-size: 50px;
-        line-height: 100px;
-        width: 100px;
-        position: relative;
-      }
-
-      &.active {
-        &::before {
-          content: @fa-var-minus;
+  &.is-selectable {
+    .panel-body {
+      position: relative;
+      &:hover {
+        .toggle-mask {
+          visibility: visible;
         }
       }
     }
-  }
 
-  &:hover {
-    .panel-heading {
-      display: block;
+    .toggle-mask {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      visibility: hidden;
+      z-index: 1;
+      transition: all .25s ease-in-out;
+      display: flex;
+      border: none;
+      justify-content: center;
+      align-items: center;
+
+      .message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        &::before {
+          .fa-icon();
+          font-weight: 300;
+          text-align: center;
+          font-size: 50px;
+          border-radius: 60px;
+          width: 60px;
+          height: 60px;
+          padding-top: 5px;
+        }
+      }
     }
   }
 
@@ -154,5 +147,19 @@
   }
 
   // use absolute positioning for the identifer so it's link is clickable through the overlay
-  .exercise-identifier-link { position: absolute; }
+  .panel-footer .controls {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    color: @tutor-neutral;
+
+    .exercise-identifier-link a { color: @tutor-neutral; }
+    .feedback-toggle {
+      border: 0;
+      background-color: transparent;
+      font-size: 1.2rem;
+    }
+
+  }
+
 } // end of exercise.card styles

@@ -1,0 +1,38 @@
+.exercise-card-hover-styles(@color: @tutor-neutral-lighter,
+                            @background-color: lighten(@tutor-primary, 20%),
+                            @selection-icon: @fa-var-plus,
+                            @de-selection-icon: @fa-var-minus
+                           )
+{
+  .toggle-mask {
+    background-color: fade(@background-color, 0%);
+    .message {
+      color: fade(@color, 0%);
+      &::before {
+        background-color: fade(@background-color, 0%);
+        border: 1px solid fade(@color, 0%);
+        content: @selection-icon;
+      }
+    }
+  }
+  &.is-selected .toggle-mask .message::before {
+    content: @de-selection-icon;
+  }
+  &.is-selectable {
+    .panel-body {
+      &:hover {
+        .toggle-mask {
+          background-color: fade(@background-color, 80%);
+          .message {
+            color: fade(@color, 100%);
+            &::before{
+              border: 1px solid fade(@color, 100%);
+              background-color: fade(darken(@background-color, 10%), 100%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

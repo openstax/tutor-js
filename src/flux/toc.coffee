@@ -30,7 +30,7 @@ TocConfig =
 
     getSectionLabel: (key) ->
       _.find(@_sections, (section) ->
-        section.chapter_section.toString() is key
+        section.chapter_section.join('.') is key
       )
 
 extendConfig(TocConfig, new CrudConfig())

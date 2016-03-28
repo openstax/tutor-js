@@ -101,7 +101,7 @@ COMMON_SELECT_READING_ELEMENTS =
   sectionItem: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section}']"
   chapterHeadingSelectAll: (section) ->
-    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] .chapter-checkbox input"
+    css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] .chapter-checkbox .tri-state-checkbox"
   chapterHeading: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] > a"
 

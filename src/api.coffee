@@ -7,6 +7,8 @@
 
 $ = require 'jquery'
 _ = require 'underscore'
+QS = require 'qs'
+
 {AppActions} = require './flux/app'
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
@@ -26,7 +28,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require './flux/task-teacher-review'
 {TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
 {TocActions} = require './flux/toc'
-{ExerciseActions} = require './flux/exercise'
+{ExerciseActions, ExerciseStore} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 {StudentDashboardActions} = require './flux/student-dashboard'
 {CourseListingActions, CourseListingStore} = require './flux/course-listing'
@@ -45,6 +47,9 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
+
+toParams = (object) ->
+  QS.stringify(object, {arrayFormat: 'brackets'})
 
 setNow = (jqXhr) ->
   date = jqXhr.getResponseHeader('X-App-Date')
@@ -153,10 +158,23 @@ start = (bootstrapData) ->
   apiHelper TaskPlanStatsActions, TaskPlanStatsActions.load , TaskPlanStatsActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/stats"
 
-  apiHelper ExerciseActions, ExerciseActions.load,
-    ExerciseActions.loaded, 'GET', (ecosystemId, pageIds, requestType = 'homework_core') ->
-      page_id_str = pageIds.join('&page_ids[]=')
-      url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?page_ids[]=#{page_id_str}"
+  # Note: the below exercise endpoints share the same store.
+  # The contents of the json payload is identical, except the second includes an is_excluded flag
+  # since it operates at the course level
+  #
+  # This one loads using an ecosystemId
+  apiHelper ExerciseActions, ExerciseActions.loadForEcosystem,
+    ExerciseActions.loadedForEcosystem, 'GET', (ecosystemId, page_ids, requestType = 'homework_core') ->
+      url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?#{toParams({page_ids})}"
+  # And this one loads using a courseId
+  apiHelper ExerciseActions, ExerciseActions.loadForCourse,
+    ExerciseActions.loadedForCourse, 'GET', (courseId, page_ids, requestType = 'homework_core') ->
+      url: "/api/courses/#{courseId}/exercises/#{requestType}?#{toParams({page_ids})}"
+
+  apiHelper ExerciseActions, ExerciseActions.saveExclusions,
+    ExerciseActions.exclusionsSaved, 'PUT', (courseId) ->
+      url: "/api/courses/#{courseId}/exercises"
+      payload: _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"

@@ -3,16 +3,31 @@ flux = require 'flux-react'
 _ = require 'underscore'
 {TocStore} = require './toc'
 {makeSimpleStore} = require './helpers'
+LOADING = 'loading'
+SAVING  = 'saving'
 
 EXERCISE_TAGS =
   TEKS: 'teks'
   LO: ['lo', 'aplo']
   GENERIC: ['blooms', 'dok', 'length']
 
+getChapterSection = (exercise) ->
+  tag = _.find(exercise.tags, (t) ->
+    _.include(EXERCISE_TAGS.LO, t.type)
+  )
+  tag?.chapter_section.join('.')
+
 getTagName = (tag) ->
   name = _.compact([tag.name, tag.description]).join(' ')
   name = tag.id unless name
   name
+
+EXERCISE_TYPE_MAPPING =
+  homework: 'homework_core'
+  reading:  'reading_dynamic'
+
+filterForPoolType = (exercises, pool_type) ->
+  _.filter exercises, (exercise) -> -1 isnt exercise.pool_types.indexOf(pool_type)
 
 getImportantTags = (tags) ->
   obj =
@@ -31,44 +46,111 @@ getImportantTags = (tags) ->
 
 ExerciseConfig =
   _exercises: []
+  _asyncStatus: null
+  _exerciseCache: []
+  _unsavedExclusions: {}
 
   FAILED: -> console.error('BUG: could not load exercises')
 
   reset: ->
     @_exercises = []
     @_exerciseCache = []
+    @_unsavedExclusions = {}
 
-  load: (courseId, pageIds) -> # Used by API
+  loadForCourse: (courseId, pageIds) -> # Used by API
+    @_asyncStatus = LOADING
+  loadedForCourse: (obj, courseId, pageIds) ->
+    @processLoad(obj, pageIds)
 
-  loaded: (obj, courseId, pageIds) ->
+  loadForEcosystem: (ecosystemId, pageIds) -> # Used by API
+    @_asyncStatus = LOADING
+
+  loadedForEcosystem: (obj, ecosystemId, pageIds) ->
+    @processLoad(obj, pageIds)
+
+  processLoad: (obj, pageIds) ->
     key = pageIds.toString()
+    delete @_asyncStatus
     return if @_exercises[key] and @_HACK_DO_NOT_RELOAD
-
     @_exercises[key] = obj.items
-    _exerciseCache = []
-    _.each obj.items, (exercise) ->
-      _exerciseCache[exercise.id] = exercise
+    @cacheExercises(obj.items)
 
-    @_exerciseCache = _exerciseCache
+  cacheExercises: (exercises) ->
+    for exercise in exercises
+      if @_exerciseCache[exercise.id]
+        _.extend(@_exerciseCache[exercise.id], exercise)
+      else
+        @_exerciseCache[exercise.id] = exercise
+    @emitChange()
+
+  saveExclusions: (courseId) -> # Used to trigger save by API
+    @_exclusionsAsyncStatus = SAVING
+    @emitChange()
+
+  updateExercises: (updatedExercises) ->
+    for updatedExercise in updatedExercises
+      for pageIds, storedExercises of @_exercises
+        for storedExercise in storedExercises when storedExercise.id is updatedExercise.id
+          _.extend(storedExercise, updatedExercise)
+    @cacheExercises(updatedExercises) # will @emitChange() so we don't bother to ourselves
+
+  exclusionsSaved: (exercises, courseId) ->
+    @_unsavedExclusions = {}
+    delete @_exclusionsAsyncStatus
+    @updateExercises(exercises)
+
+  setExerciseExclusion: (exerciseId, isExcluded) ->
+    @_unsavedExclusions[exerciseId] = isExcluded
+    @emitChange()
+
+  resetUnsavedExclusions: ->
+    @_unsavedExclusions = {}
     @emitChange()
 
   HACK_DO_NOT_RELOAD: (bool) -> @_HACK_DO_NOT_RELOAD = bool
 
   exports:
+    isLoading: -> @_asyncStatus is LOADING
+    isSavingExclusions: -> @_exclusionsAsyncStatus is SAVING
     isLoaded: (pageIds) ->
       !!@_exercises[pageIds.toString()]
 
     get: (pageIds) ->
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
+    isExcludedAtMinimum: (exercises) ->
+      excluded = _.filter _.pluck(exercises, 'id'),
+        _.bind(@.exports.isExerciseExcluded, @)
+      (exercises.length - excluded.length) is 5
+
+    hasUnsavedExclusions: ->
+      not _.isEmpty @_unsavedExclusions
+    getUnsavedExclusions: ->
+      @_unsavedExclusions
+
+    isExerciseExcluded: (exerciseId) ->
+      if @_unsavedExclusions[exerciseId]?
+        @_unsavedExclusions[exerciseId]
+      else
+        @_exerciseCache[exerciseId]?.is_excluded
+
     getGroupedExercises: (pageIds) ->
-      byChapterSection = (exercise) ->
-        tag = _.find(exercise.tags, (t) ->
-          _.include(EXERCISE_TAGS.LO, t.type)
-        )
-        tag?.chapter_section
-      exercises = _.sortBy(@_exercises[pageIds.toString()], byChapterSection)
-      _.groupBy(exercises, byChapterSection)
+      _.groupBy(@_exercises[pageIds.toString()], getChapterSection)
+
+    groupBySectionsAndTypes: (pageIds) ->
+      all = @_exercises[pageIds.toString()]
+      results = {
+        all:
+          count: all.length
+          grouped: _.groupBy(all, getChapterSection)
+      }
+      for name, pool_type of EXERCISE_TYPE_MAPPING
+        exercises = filterForPoolType(all, pool_type)
+        results[name] = {
+          count: exercises.length
+          grouped: _.groupBy( exercises, getChapterSection)
+        }
+      results
 
     getExerciseById: (exercise_id) ->
       @_exerciseCache[exercise_id]
