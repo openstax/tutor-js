@@ -1,8 +1,14 @@
+fs = require 'fs'
+path = require 'path'
+_ = require 'underscore'
 selenium = require 'selenium-webdriver'
-{expect} = require 'chai'
+io = require 'selenium-webdriver/io'
+
 {TestHelper} = require './test-element'
 {PeriodReviewTab} = require './items'
 
+FAILED_EXPORT_SELECTOR = '.export-button-buttons .refresh-button'
+SUCCEEDED_EXPORT_SELECTOR = '#downloadExport[src$=".xlsx"]'
 
 COMMON_ELEMENTS =
   nameHeaderSort:
@@ -10,7 +16,7 @@ COMMON_ELEMENTS =
   dataHeaderSort:
     css: '.header-cell'
   generateExport:
-    css: '.export-button'
+    css: '.export-button button'
   hsNameLink:
     css: '.name-cell a.student-name'
   hsReviewLink:
@@ -29,44 +35,61 @@ COMMON_ELEMENTS =
     css: '.average-label span:last-child'
   exportUrl:
     css: '#downloadExport'
+  exportFailed:
+    css: FAILED_EXPORT_SELECTOR
+  exportSucceeded:
+    css: SUCCEEDED_EXPORT_SELECTOR
   doneGenerating:
-    css: "#downloadExport[src$='.xlsx']"
+    css: "#{FAILED_EXPORT_SELECTOR}, #{SUCCEEDED_EXPORT_SELECTOR}"
   assignmentByType: (type) ->
     css: "a.scores-cell[data-assignment-type='#{type}']"
-  tableContainer: ->
-    css: '.course-scores-container'
 
 
 class Scores extends TestHelper
   constructor: (testContext, testElementLocator) ->
 
     testElementLocator ?=
-      css: '.scores-report'
+      css: '.course-scores-container'
 
     super(testContext, testElementLocator, COMMON_ELEMENTS)
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
-  doneGenerating: =>
-    @test.utils.wait.until 'export url is set', =>
-      @test.driver.isElementPresent(COMMON_ELEMENTS.doneGenerating)
+  # this could be moved to cc-dashboard helper at some point
+  goCCScores: =>
+    @el.ccScoresLink().click()
+    @waitUntilLoaded()
 
-  downloadExport: =>
-    if @doneGenerating()
-      @el.exportUrl.findElement().getAttribute("src").then (src) =>
-        @test.driver.navigate().to(src)
+  waitUntilDoneExporting: =>
+    @test.utils.wait.forHidden(@el.doneGenerating().getLocator())
 
-  tooltipVisible: =>
-    @test.utils.wait.until 'hover over cc info tooltip', =>
-      @test.driver.isElementPresent(COMMON_ELEMENTS.ccTooltip)
+  isExportSucceeded: =>
+    @el.exportSucceeded().isPresent()
+
+  isExportDownloaded: =>
+    @el.exportSucceeded().findElement().getAttribute('src').then (src) =>
+      file = path.basename(src)
+      # TODO get actual filename to test for full file path
+      io.exists(@test.downloadDirectory)
+
+    .then (isExportDownloaded) =>
+      @cleanUpDownloadedExports() if isExportDownloaded
+      isExportDownloaded
+
+  cleanUpDownloadedExports: =>
+    fs.readdir @test.downloadDirectory, (err, files) =>
+      _.each(files, (file) =>
+        fullPath = "#{@test.downloadDirectory}/#{file}"
+        @test.utils.verbose("Removing #{fullPath}.")
+        io.unlink(fullPath)
+      )
 
   hoverCCTooltip: =>
     @el.hoverCCTooltip().findElement().then (e) =>
       @test.driver.actions().mouseMove(e).perform()
-      if @tooltipVisible()
-        @el.ccTooltip().findElement().getText().then (txt) ->
-          expect(txt).to.contain('Correct Attempted Total possible')
 
-
+  getCCTooltip: =>
+    @hoverCCTooltip()
+    @el.ccTooltip().get()
 
 
 

@@ -31,7 +31,19 @@ describe 'HS Student Scores', ->
     @scores.el.periodTab().click()
     @user.goToHome()
 
+  @it 'generates export', ->
+    @scores.el.generateExport().click()
+    @scores.waitUntilDoneExporting()
 
+    # Did export succeeed?
+    @scores.isExportSucceeded().then (isExportSucceeded) =>
+      console.log('exported:', isExportSucceeded)
+      expect(isExportSucceeded).to.be.true
+
+    # Is export downloaded?
+    @scores.isExportDownloaded().then (isExportDownloaded) =>
+      console.log('downloaded:', isExportDownloaded)
+      expect(isExportDownloaded).to.be.true
 
 
 describe 'CC Student Scores', ->
@@ -72,6 +84,8 @@ describe 'CC Student Scores', ->
       @user.goToHome()
 
   @it 'hovers tooltip info popover', ->
-    @addTimeout(60)
-    @scores.hoverCCTooltip()
+    @scores.getCCTooltip().getText().then (txt) ->
+      expect(txt).to.contain('Correct')
+      expect(txt).to.contain('Attempted')
+      expect(txt).to.contain('Total possible')
 

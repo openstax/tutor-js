@@ -19,7 +19,7 @@ ScoresExport = React.createClass
 
   getInitialState: ->
     downloadUrl: null
-    forceDownloadUrl: null
+    finalDownloadUrl: null
     lastExported: null
     tryToDownload: false
     downloadedSinceLoad: false
@@ -34,7 +34,7 @@ ScoresExport = React.createClass
     ScoresExportActions.load(courseId)
 
   componentDidUpdate: (prevProps, prevState) ->
-    @setState(forceDownloadUrl: @state.downloadUrl) if @shouldTriggerDownload(prevState, @state)
+    @setState(finalDownloadUrl: @state.downloadUrl) if @shouldTriggerDownload(prevState, @state)
 
   shouldTriggerDownload: (prevState, currentState) ->
     prevState.tryToDownload and not currentState.tryToDownload and not currentState.downloadHasError and currentState.downloadUrl?
@@ -44,6 +44,10 @@ ScoresExport = React.createClass
     if @isUpdateValid(exportData.for)
       ScoresExportActions.load(courseId)
       @setState(tryToDownload: true)
+
+  handleExportProgress: (progressData) ->
+    {courseId} = @props
+    @setState(downloadHasError: true) if ScoresExportStore.isFailed(courseId)
 
   handleLoadedExport: (id) ->
     if @isUpdateValid(id)
@@ -90,7 +94,7 @@ ScoresExport = React.createClass
     invalidDownloadState =
       tryToDownload: false
       downloadHasError: true
-      forceDownloadUrl: null
+      finalDownloadUrl: null
 
     invalidDownloadState.downloadUrl = null if @state.downloadUrl is downloadUrl
 
@@ -101,30 +105,28 @@ ScoresExport = React.createClass
       tryToDownload: false
       downloadUrl: downloadUrl
       lastExported: lastExported
-      forceDownloadUrl: null
+      finalDownloadUrl: null
 
     @setState(downloadState)
-
-  downloadCurrentExport: ->
-    @setState(tryToDownload: true, downloadedSinceLoad: true)
 
   addBindListener: ->
     {courseId} = @props
     ScoresExportStore.on("progress.#{courseId}.succeeded", @handleCompletedExport)
+    ScoresExportStore.on("progress.#{courseId}.*", @handleExportProgress)
     ScoresExportStore.on('loaded', @handleLoadedExport)
 
   removeBindListener: ->
     {courseId} = @props
     ScoresExportStore.off("progress.#{courseId}.succeeded", @handleCompletedExport)
+    ScoresExportStore.off("progress.#{courseId}.*", @handleExportProgress)
     ScoresExportStore.off('loaded', @handleLoadedExport)
 
   render: ->
     {courseId, className} = @props
-    {downloadUrl, lastExported, downloadedSinceLoad, downloadHasError, tryToDownload, forceDownloadUrl} = @state
+    {downloadUrl, lastExported, downloadHasError, tryToDownload, finalDownloadUrl} = @state
 
     className += ' export-button'
     actionButtonClass = 'primary'
-    actionButtonClass = 'default' if downloadedSinceLoad
 
     failedProps =
       beforeText: 'There was a problem exporting. '
@@ -138,29 +140,14 @@ ScoresExport = React.createClass
         failedProps={failedProps}
         isJob={true}
         waitingText='Generating Export…'>
-        Generate Export
+        Export
       </AsyncButton>
-
-    if forceDownloadUrl?
-      actionButton =
-        <BS.Button
-          bsStyle={actionButtonClass}
-          href={forceDownloadUrl}
-          onClick={@downloadCurrentExport}>Download Export</BS.Button>
-
-    if lastExported? and not downloadHasError
-      lastExportedTime = <i>
-        <TimeDifference date={lastExported}/>
-      </i>
-      lastExportedLabel = <small className='export-button-time pull-right'>
-        Last exported {lastExportedTime}
-      </small>
 
     <span className={className}>
       <div className='export-button-buttons'>
         {actionButton}
       </div>
-      {lastExportedLabel}
+      <iframe id="downloadExport" src={finalDownloadUrl}></iframe>
     </span>
 
 module.exports = ScoresExport
