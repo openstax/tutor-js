@@ -3,7 +3,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 { typesetMath } = require '../helpers/mathjax'
-{ wrapVideos } = require '../helpers/html-videos'
+{ wrapFrames } = require '../helpers/html-videos'
 
 module.exports = React.createClass
   displayName: 'ArbitraryHtmlAndMath'
@@ -36,7 +36,7 @@ module.exports = React.createClass
   getHTMLFromProp: ->
     {html} = @props
     if html
-      __html: wrapVideos(html)
+      __html: wrapFrames(html)
 
   # rendering uses dangerouslySetInnerHTML and then runs MathJax,
   # Both of which React can't optimize like it's normal render operations

@@ -11,17 +11,17 @@ getRatioClass = (frame) ->
     return "embed-responsive-16by9"
 
 
-wrapVideos = (html) ->
+wrapFrames = (html) ->
   dom = document.createElement("div")
   dom.innerHTML = html
 
   each(dom.getElementsByTagName('iframe'), (frame) ->
     wrapper = document.createElement("div")
-    wrapper.className = "embed-responsive #{getRatioClass(frame)}"
+    wrapper.className = "frame-wrapper embed-responsive #{getRatioClass(frame)}"
     dom.replaceChild(wrapper, frame)
     wrapper.appendChild(frame)
   )
 
   dom.innerHTML
 
-module.exports = { wrapVideos, getRatioClass }
+module.exports = { wrapFrames, getRatioClass }
