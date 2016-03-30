@@ -107,7 +107,8 @@ ExerciseConfig =
       !!_.detect content.questions, (q) -> _.include(q.formats, format)
 
     getExerciseTypes: (exercise) ->
-      tags = _.filter exercise.tags, (tag) -> tag.id.indexOf('type:') is 0
+      tags = _.filter exercise.tags, (tag) ->
+        tag.id.indexOf('filter-type:') is 0 or tag.id.indexOf('type:') is 0
       _.map tags, (tag) -> _.last tag.id.split(':')
 
     getPageExerciseTypes: (pageId) ->
