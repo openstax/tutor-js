@@ -9,20 +9,21 @@ Exercise = React.createClass
 
   propTypes:
     exercise: React.PropTypes.object.isRequired
-    ignoredPoolTypes: React.PropTypes.object.isRequired
+    ignoredTypes: React.PropTypes.object.isRequired
 
-  renderHeader: ->
-    <div className='pools'>
-      {for pool in ExerciseStore.poolTypes(@props.exercise)
-        className = classnames(pool, {'is-ignored': @props.ignoredPoolTypes[pool]})
-        <span key={pool} className={className}>{String.titleize(pool)}</span>}
+  renderHeader: (types) ->
+    <div className='types'>
+      {for type in types
+        className = classnames(type, {'is-ignored': @props.ignoredTypes[type]})
+        <span key={type} className={className}>{String.titleize(type)}</span>}
     </div>
 
   render: ->
-    return null if _.every( ExerciseStore.poolTypes(@props.exercise), (pt) => @props.ignoredPoolTypes[pt] )
+    types = ExerciseStore.getExerciseTypes(@props.exercise)
+    return null if _.every( types, (pt) => @props.ignoredTypes[pt] )
     editUrl = @props.exercise.url.replace(/@\d+/, '@draft')
     <ExerciseCard {...@props}
-      header={@renderHeader()}
+      header={@renderHeader(types)}
       displayAllTags
       displayFeedback
     >

@@ -50,21 +50,26 @@
       }
 
     }
-    .pools {
+    .types {
       text-align: right;
       > span {
         font-size: 1.6rem;
         background-color: @tutor-quaternary;
+        color: black;
         margin-left: 0.5rem;
         padding: 0 5px;
         border-radius: @border-radius-base;
       }
       .is-ignored { text-decoration: line-through; }
-      .reading_dynamic     { background-color: @reading-color;     }
-      .homework_dynamic    { background-color: @homework-color;    }
-      .practice_widget     { background-color: @qa-practice-color;    }
-      .reading_try_another { background-color: @qa-try-another-color; }
-      .homework_core       { background-color: @homework-color;    }
+      .practice    { background-color: @reading-color;  }
+      .conceptual  { background-color: @homework-color; }
+      .conceptual-or-recall  {
+        background-color: @reading-color;
+        background-image: repeating-linear-gradient(
+                              45deg, @reading-color, @reading-color 10px,
+                              @homework-color 10px, @homework-color 20px
+                            );
+      }
     }
   }
   .navbar-nav {

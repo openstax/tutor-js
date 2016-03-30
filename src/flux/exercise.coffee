@@ -106,12 +106,15 @@ ExerciseConfig =
       content = exercise.content unless content?
       !!_.detect content.questions, (q) -> _.include(q.formats, format)
 
-    getPagePoolTypes: (pageId) ->
-      types = _.unique _.flatten _.pluck @_exercises[pageId], 'pool_types'
-      _.without( types, 'all_exercises' ).sort()
+    getExerciseTypes: (exercise) ->
+      tags = _.filter exercise.tags, (tag) -> tag.id.indexOf('type:') is 0
+      _.map tags, (tag) -> _.last tag.id.split(':')
 
-    poolTypes: (exercise) ->
-      _.without( exercise.pool_types, 'all_exercises')
+    getPageExerciseTypes: (pageId) ->
+      _.unique _.flatten _.map @_exercises[pageId], @exports.getExerciseTypes
+
+    # poolTypes: (exercise) ->
+    #   _.without( exercise.pool_types, 'all_exercises')
 
     allForPage: (pageId) ->
       @_exercises[pageId] or []

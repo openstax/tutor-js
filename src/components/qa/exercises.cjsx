@@ -44,7 +44,7 @@ QAExercises = React.createClass
       Page: {@props.cnxId} :: Book: {book.uuid}@{book.version}
     </SpyMode.Content>
 
-  onSelectPoolType: (selection) ->
+  onSelectType: (selection) ->
     ignored = _.clone(@state.ignored)
     ignored[selection.id] = not ignored[selection.id]
     @setState({ignored})
@@ -59,8 +59,9 @@ QAExercises = React.createClass
       <ExerciseCard key={exercise.id}
         exercise={exercise}
         hideAnswers={hideAnswers}
-        ignoredPoolTypes={@state.ignored} />
-    selections = _.map ExerciseStore.getPagePoolTypes(@state.pageId), (pt) =>
+        ignoredTypes={@state.ignored} />
+
+    selections = _.map ExerciseStore.getPageExerciseTypes(@state.pageId), (pt) =>
       id: pt, title: String.titleize(pt), selected: not @state.ignored[pt]
     classNames = classnames("exercises", {
       'show-2step': @state.isShowing2StepPreview
@@ -77,7 +78,7 @@ QAExercises = React.createClass
         <MultiSelect
           title='Exercise Types'
           selections={selections}
-          onSelect={@onSelectPoolType} />
+          onSelect={@onSelectType} />
 
       </div>
       {exercises}
