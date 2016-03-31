@@ -57,7 +57,6 @@ fakePublishing = (plan) ->
   publishingPlan
 
 checkChildrenComponents = (planComponent, item, checks) ->
-
   {plan, displays} = item
 
   displaysComponents = _.map(displays, (display) ->
@@ -72,7 +71,6 @@ checkChildrenComponents = (planComponent, item, checks) ->
 
   details = planComponent.refs.details
   checks?.details?({details}, {plan})
-
   {displaysComponents, detailsComponent: details}
 
 
@@ -98,19 +96,18 @@ checkHasEditLinkBeenRendered = (plan) ->
 
   expect(Testing.router.makeHref).to.have.been.calledWith(linkTo, params)
 
-checkHasMatchingModalBeenRendered = (detailsComponent, displayNode, plan) ->
-  fullModal = detailsComponent.getDOMNode()
-  detailsModal = fullModal.querySelector('.plan-modal')
+checkHasMatchingModalBeenRendered = (detailsComponent, displayNode, plan, root) ->
+  detailsModal = root.querySelector('.plan-modal')
 
   expect(detailsComponent).to.not.be.undefined
-  expect(fullModal.querySelector('.modal-backdrop')).to.be.an('object')
+  expect(root.querySelector('.modal-backdrop')).to.be.an('object')
   # plan and modal should match
   displayClasses = displayNode.className.replace('plan ', '')
   expect(detailsModal.className).to.contain(displayClasses)
 
-  {detailsModal, fullModal}
+  {detailsModal}
 
-checkModalByClick = (element, item) ->
+checkModalByClick = (element, item, root) ->
   {plan} = item
   {displaysComponents, detailsComponent} = checkChildrenComponents(element, item)
 
@@ -121,9 +118,18 @@ checkModalByClick = (element, item) ->
   Testing.actions.click(displayNode)
 
   {detailsComponent} = checkChildrenComponents(element, item)
-  {detailsModal, fullModal} = checkHasMatchingModalBeenRendered(detailsComponent, displayNode, plan)
+  {detailsModal} = checkHasMatchingModalBeenRendered(detailsComponent, displayNode, plan, root)
 
-  {detailsComponent, detailsModal, fullModal, displayComponent}
+  {detailsComponent, detailsModal, displayComponent}
+
+
+
+ContainedPlan = React.createClass
+  displayName: 'ContainedPlan'
+  render: ->
+    <div className='plan-container'>
+      <Plan ref='plan' container={@} {...@props}/>
+    </div>
 
 
 describe 'Plan on Course Calendar', ->
@@ -133,8 +139,8 @@ describe 'Plan on Course Calendar', ->
 
   it 'should render a properly positioned plan', ->
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
-      .then ({dom, element}) ->
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
+      .then ({dom, element, root}) ->
         {plan} = ITEM_DRAFT_ONE_DAY
         widthStrings = buildWidthString(plan.durationLength)
 
@@ -147,14 +153,14 @@ describe 'Plan on Course Calendar', ->
             expect(labelNode.innerText).to.equal(plan.title)
             expect(isLeftApproximate(display.offset, displayNode.style.left)).to.be.true
 
-        checkChildrenComponents(element, ITEM_DRAFT_ONE_DAY, checks)
+        checkChildrenComponents(element.refs.plan, ITEM_DRAFT_ONE_DAY, checks)
         expect(dom.innerText).to.equal(plan.title)
         expect(dom.innerHTML).to.contain(widthStrings[0])
 
 
   it 'should display as draft when plan is saved as draft', ->
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
       .then ({dom, element}) ->
         checks =
           display: (components, {display}) ->
@@ -162,19 +168,19 @@ describe 'Plan on Course Calendar', ->
             # classes should not contain either is-published or is-publishing
             expect(displayNode.className).to.not.contain('is-publish')
 
-        checkChildrenComponents(element, ITEM_DRAFT_ONE_DAY, checks)
+        checkChildrenComponents(element.refs.plan, ITEM_DRAFT_ONE_DAY, checks)
 
 
   it 'should make a link for drafts to edit route', ->
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
       .then ({dom, element}) ->
         checkHasEditLinkBeenRendered(ITEM_DRAFT_ONE_DAY.plan)
 
 
   it 'should render a plan sized to the range', ->
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
       .then ({dom, element}) ->
         {plan} = ITEM_PUBLISHED_THREE_DAYS
         widthStrings = buildWidthString(plan.durationLength)
@@ -185,12 +191,12 @@ describe 'Plan on Course Calendar', ->
 
             expect(isLeftApproximate(display.offset, displayNode.style.left)).to.be.true
 
-        checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS, checks)
+        checkChildrenComponents(element.refs.plan, ITEM_PUBLISHED_THREE_DAYS, checks)
         expect(dom.innerHTML).to.contain(widthStrings[0])
 
   it 'should render a plan with the right type', ->
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
       .then ({dom, element}) ->
         {plan} = ITEM_PUBLISHED_THREE_DAYS
 
@@ -200,14 +206,14 @@ describe 'Plan on Course Calendar', ->
             expect(displayNode.dataset.assignmentType).to.equal(plan.type)
             expect(displayNode.classList.contains('is-published')).to.be.true
 
-        checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS, checks)
+        checkChildrenComponents(element.refs.plan, ITEM_PUBLISHED_THREE_DAYS, checks)
 
 
   it 'should render the modal when published plan is clicked', ->
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
-      .then ({element}) ->
-        checkModalByClick(element, ITEM_PUBLISHED_THREE_DAYS)
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
+      .then ({root, element}) ->
+        checkModalByClick(element.refs.plan, ITEM_PUBLISHED_THREE_DAYS, root)
         checkHasEditLinkBeenRendered(ITEM_PUBLISHED_THREE_DAYS.plan)
 
 
@@ -223,15 +229,15 @@ describe 'Plan on Course Calendar', ->
         date: moment(ITEM_PUBLISHED_THREE_DAYS.displays[0].rangeDuration.start).format(CALENDAR_DATE_FORMAT)
 
     Testing
-      .renderComponent( Plan, optionsWithParams)
-      .then ({dom, element}) ->
+      .renderComponent( ContainedPlan, optionsWithParams)
+      .then ({dom, element, root}) ->
         {plan} = ITEM_PUBLISHED_THREE_DAYS
-        {displaysComponents, detailsComponent} = checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS)
+        {displaysComponents, detailsComponent} = checkChildrenComponents(element.refs.plan, ITEM_PUBLISHED_THREE_DAYS)
         {displayComponent} = _.first(displaysComponents)
         displayNode = displayComponent.getDOMNode()
 
-        {detailsComponent} = checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS)
-        checkHasMatchingModalBeenRendered(detailsComponent, displayNode, plan)
+        {detailsComponent} = checkChildrenComponents(element.refs.plan, ITEM_PUBLISHED_THREE_DAYS)
+        checkHasMatchingModalBeenRendered(detailsComponent, displayNode, plan, root)
         checkHasEditLinkBeenRendered(plan)
 
 
@@ -247,7 +253,7 @@ describe 'Plan on Course Calendar', ->
         date: moment(ITEM_PUBLISHED_TWO_DAYS.displays[0].rangeDuration.start).format(CALENDAR_DATE_FORMAT)
 
     Testing
-      .renderComponent( Plan, optionsWithParams)
+      .renderComponent( ContainedPlan, optionsWithParams)
       .then ({dom, element}) ->
         {details} = checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS)
 
@@ -258,7 +264,7 @@ describe 'Plan on Course Calendar', ->
     item.plan = fakePublishing(item.plan)
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
       .then ({dom, element}) ->
         {plan} = item
 
@@ -269,16 +275,16 @@ describe 'Plan on Course Calendar', ->
             expect(displayNode.dataset.assignmentType).to.equal(plan.type)
             expect(displayNode.classList.contains('is-publishing')).to.be.true
 
-        checkChildrenComponents(element, item, checks)
+        checkChildrenComponents(element.refs.plan, item, checks)
 
   it 'should show publishing modal for a clicked first publish plan', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
     item.plan = fakePublishing(item.plan)
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
-      .then ({dom, element}) ->
-        {detailsModal} = checkModalByClick(element, item)
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
+      .then ({dom, element, root}) ->
+        {detailsModal} = checkModalByClick(element.refs.plan, item, root)
         modalBody = detailsModal.querySelector('.modal-body')
 
         expect(detailsModal.classList.contains('is-publishing')).to.be.true
@@ -295,7 +301,7 @@ describe 'Plan on Course Calendar', ->
       status: 'succeeded'
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
       .then ({dom, element}) ->
         {plan} = item
 
@@ -304,7 +310,7 @@ describe 'Plan on Course Calendar', ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-publishing')).to.be.true
 
-        checkChildrenComponents(element, item, checks)
+        checkChildrenComponents(element.refs.plan, item, checks)
 
         PlanPublishStore.emit("progress.#{plan.id}.#{succeededProgress.status}", succeededProgress)
 
@@ -313,14 +319,14 @@ describe 'Plan on Course Calendar', ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-published')).to.be.true
 
-        checkChildrenComponents(element, item, checksIsPublished)
+        checkChildrenComponents(element.refs.plan, item, checksIsPublished)
 
   it 'should show as publishing when re-publishing', ->
     item = _.clone(ITEM_PUBLISHED_THREE_DAYS)
     item.plan = fakePublishing(item.plan)
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
       .then ({dom, element}) ->
         {plan} = item
 
@@ -331,7 +337,7 @@ describe 'Plan on Course Calendar', ->
             expect(displayNode.dataset.assignmentType).to.equal(plan.type)
             expect(displayNode.classList.contains('is-publishing')).to.be.true
 
-        checkChildrenComponents(element, item, checks)
+        checkChildrenComponents(element.refs.plan, item, checks)
 
 
   it 'should show full modal if re-publishing', ->
@@ -339,9 +345,9 @@ describe 'Plan on Course Calendar', ->
     item.plan = fakePublishing(item.plan)
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
-      .then ({dom, element}) ->
-        {detailsModal} = checkModalByClick(element, item)
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
+      .then ({dom, element, root}) ->
+        {detailsModal} = checkModalByClick(element.refs.plan, item, root)
 
         modalBody = detailsModal.querySelector('.modal-body')
 
@@ -354,12 +360,12 @@ describe 'Plan on Course Calendar', ->
     item.plan = fakePublishing(item.plan)
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
       .then ({dom, element}) ->
-        element.stopCheckingPlan = sinon.spy()
-        element.componentWillUnmount()
+        element.refs.plan.stopCheckingPlan = sinon.spy()
+        element.refs.plan.componentWillUnmount()
 
-        expect(element.stopCheckingPlan).to.have.been.calledWith(item.plan)
+        expect(element.refs.plan.stopCheckingPlan).to.have.been.calledWith(item.plan)
 
 
   it 'should check for publishing subscribe if plan id props update', ->
@@ -372,7 +378,7 @@ describe 'Plan on Course Calendar', ->
       status: 'succeeded'
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
       .then ({dom, element}) ->
 
         checks =
@@ -380,19 +386,19 @@ describe 'Plan on Course Calendar', ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-publishing')).to.be.false
 
-        checkChildrenComponents(element, ITEM_PUBLISHED_THREE_DAYS, checks)
+        checkChildrenComponents(element.refs.plan, ITEM_PUBLISHED_THREE_DAYS, checks)
 
-        element.stopCheckingPlan = sinon.spy()
-        element.componentWillReceiveProps({courseId: PLAN_COURSE_ID, item})
+        element.refs.plan.stopCheckingPlan = sinon.spy()
+        element.refs.plan.componentWillReceiveProps({courseId: PLAN_COURSE_ID, item})
 
-        expect(element.stopCheckingPlan).to.have.been.calledWith(ITEM_PUBLISHED_THREE_DAYS.plan)
+        expect(element.refs.plan.stopCheckingPlan).to.have.been.calledWith(ITEM_PUBLISHED_THREE_DAYS.plan)
 
         checksForIsPublishing =
           display: (components, {display}) ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-publishing')).to.be.true
 
-        checkChildrenComponents(element, item, checksForIsPublishing)
+        checkChildrenComponents(element.refs.plan, item, checksForIsPublishing)
 
         PlanPublishStore.emit("progress.#{item.plan.id}.#{succeededProgress.status}", succeededProgress)
 
@@ -401,7 +407,7 @@ describe 'Plan on Course Calendar', ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-published')).to.be.true
 
-        checkChildrenComponents(element, item, checksIsPublished)
+        checkChildrenComponents(element.refs.plan, item, checksIsPublished)
 
 
   it 'should check for publishing subscribe if plan isPublishing props update', ->
@@ -415,7 +421,7 @@ describe 'Plan on Course Calendar', ->
       status: 'succeeded'
 
     Testing
-      .renderComponent( Plan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
+      .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )
       .then ({dom, element}) ->
 
         checks =
@@ -423,12 +429,12 @@ describe 'Plan on Course Calendar', ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-publishing')).to.be.false
 
-        checkChildrenComponents(element, ITEM_DRAFT_ONE_DAY, checks)
+        checkChildrenComponents(element.refs.plan, ITEM_DRAFT_ONE_DAY, checks)
 
-        element.subscribeToPublishing = sinon.spy()
-        element.componentWillReceiveProps({courseId: PLAN_COURSE_ID, item})
+        element.refs.plan.subscribeToPublishing = sinon.spy()
+        element.refs.plan.componentWillReceiveProps({courseId: PLAN_COURSE_ID, item})
 
-        expect(element.subscribeToPublishing).to.have.been.calledWith(item.plan)
+        expect(element.refs.plan.subscribeToPublishing).to.have.been.calledWith(item.plan)
 
 
 
