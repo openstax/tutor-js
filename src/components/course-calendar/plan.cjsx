@@ -223,6 +223,7 @@ CoursePlan = React.createClass
         isPublishing: isPublishing
         hasReview: hasReview
 
+      modalProps = _.defaults({}, modalProps, @props)
       planModal = <CoursePlanDetails {...modalProps}/>
 
     planClasses = "plan #{planClasses}"
