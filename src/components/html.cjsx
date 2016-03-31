@@ -36,7 +36,7 @@ module.exports = React.createClass
   getHTMLFromProp: ->
     {html} = @props
     if html
-      __html: wrapFrames(html)
+      __html: html
 
   # rendering uses dangerouslySetInnerHTML and then runs MathJax,
   # Both of which React can't optimize like it's normal render operations
@@ -57,3 +57,4 @@ module.exports = React.createClass
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
     @props.processHtmlAndMath?(root) or typesetMath(root)
+    wrapFrames(root)
