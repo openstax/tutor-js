@@ -15,7 +15,7 @@ PAGE_DATA = require '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.jso
 
 checkDoesOverlayHTMLMatch = (overlay, media) ->
   popcontentDOM = overlay.refs.popcontent.getDOMNode()
-  overlayDOM = overlay.refs.popper.getOverlayDOMNode()
+  overlayDOM = overlay.refs.popover.getDOMNode()
 
   expect(popcontentDOM.innerHTML).to.contain(media.html)
   expect(overlayDOM.innerHTML).to.contain(media.html)
@@ -116,7 +116,6 @@ describe 'Media Preview', ->
         Testing.actions.mouseLeave(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent).to.not.be.ok
 
   it 'should render external link book link when without media prop and shouldLinkOut is true', ->
 
@@ -269,7 +268,6 @@ describe 'Media Preview', ->
         Testing.actions.mouseLeave(dom)
         expect(element.state.popped).to.be.false
         expect(element.state.stick).to.be.false
-        expect(element.refs.overlay.refs.popcontent).to.not.be.ok
 
   it 'should display as plain link if media is not loaded and does not load', ->
 

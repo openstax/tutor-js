@@ -27,9 +27,12 @@ TutorPopover = React.createClass
     windowImpl: window
 
   componentDidMount: ->
-    @updateOverlayPositioning()
+    @setPlacement()
 
-  componentDidUpdate: ->
+  checkOverlay: ->
+    @checkImages()
+
+  checkImages: ->
     # Make sure the popover re-positions after the image loads
     if @refs.popcontent? and @state.firstShow
       images = @getImages()
@@ -47,7 +50,6 @@ TutorPopover = React.createClass
 
   imageLoaded: (iter) ->
     return unless @isMounted()
-    @refs.popper?.updateOverlayPosition()
     {imagesLoading} = @state
 
     currentImageStatus = _.clone(imagesLoading)
@@ -66,48 +68,15 @@ TutorPopover = React.createClass
   areImagesLoading: ->
     _.compact(@state.imagesLoading).length isnt 0
 
-  updateOverlayPositioning: ->
-    {windowImpl} = @props
-    # updates popper positioning function to
-    # explicitly set height so that content
-    # can inherit the height for scrolling content
-    updateOverlayPosition = @refs.popper.updateOverlayPosition
-    @refs.popper.updateOverlayPosition = =>
-      updateOverlayPosition()
-      viewer = @refs.popper.getOverlayDOMNode()
-      images = @getImages()
-      {height, width} = viewer.getBoundingClientRect()
-      _.each images, _.partial(@setMaxImageWidth, _, width - 30)
-
-      scrollable = false
-
-      if height > windowImpl.innerHeight
-        scrollable = true
-        viewer.style.height = @props.maxHeightMultiplier * windowImpl.innerHeight + 'px'
-        updateOverlayPosition()
-
-      if width > windowImpl.innerWidth
-        scrollable = true
-        viewer.style.width = @props.maxWidthMultiplier * windowImpl.innerWidth + 'px'
-        updateOverlayPosition()
-
-      if @state.scrollable and not scrollable
-        viewer.style.height = 'auto'
-        viewer.style.width = 'auto'
-
-      @setState({scrollable})
-      updateOverlayPosition()
-
-
   setPlacement: ->
     placement = @guessPlacement()
     @setState({placement}) unless @state.placement is placement
 
   guessPlacement: ->
     {windowImpl} = @props
-    overlayLeft = React.findDOMNode(@refs.popper).getBoundingClientRect().left
+    trigger = @refs.popper.getDOMNode().getBoundingClientRect().left
     midWindow = windowImpl.innerWidth / 2
-    if overlayLeft > midWindow then 'left' else 'right'
+    if trigger > midWindow then 'left' else 'right'
 
   show: ->
     @setPlacement()
@@ -119,8 +88,8 @@ TutorPopover = React.createClass
     @refs.popper.hide()
 
   render: ->
-    {children, content, popoverProps, overlayProps} = @props
-    {scrollable, placement} = @state
+    {children, content, popoverProps, overlayProps, id} = @props
+    {scrollable, placement, delayShow} = @state
 
     if scrollable
       popoverProps = _.clone(popoverProps or {})
@@ -132,9 +101,13 @@ TutorPopover = React.createClass
 
     content = React.addons.cloneWithProps(content, className: contentClassName)
 
+    popoverId = if id then "tutor-popover-#{id}" else "tutor-popover-#{@_reactInternalInstance._rootNodeID}"
+
+    overlayProps = _.extend({}, overlayProps, {onEnter: @checkOverlay})
+
     popover = <BS.Popover
       {...popoverProps}
-      id="tutor-popover-#{popoverProps.mediaId}"
+      id={popoverId}
       ref='popover'>
       <div ref='popcontent'>
         {content}
