@@ -66,13 +66,7 @@
       .chapter-review { background-color: @qa-chapter-review-color; }
       .grasp-check    { background-color: @qa-grasp-check-color     }
       .test-prep      { background-color: @qa-test-prep-color       }
-      .conceptual-or-recall  {
-        background-color: @reading-color;
-        background-image: repeating-linear-gradient(
-                              45deg, @reading-color, @reading-color 10px,
-                              @homework-color 10px, @homework-color 20px
-                            );
-      }
+      .conceptual-or-recall  {  background-color: lighten(@homework-color, 15%) }
     }
   }
   .navbar-nav {
