@@ -74,7 +74,7 @@ gulp.task '_disableMinify', ->
 
 # Used for selenium testing.
 # Disable minify so the test process is quicker
-gulp.task 'build', ['_disableMinify', '_build'], ->
+gulp.task 'build', ['_disableMinify', '_build']
 
 
 gulp.task '_tagRev', ['_build'], ->
