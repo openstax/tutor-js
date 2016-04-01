@@ -41,7 +41,7 @@
     "font-awesome": "4.4.0",
     "htmlparser2": "3.8.3",
     "jquery": "2.1.4",
-    "lodash": "4.5.1",
+    "lodash": "2.4.1",
     "markdown-it": "4.4.0",
     "mime-types": "2.1.7",
     "moment": "2.10.6",
