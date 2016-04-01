@@ -2,7 +2,8 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 
-{typesetMath} = require '../helpers/mathjax'
+{ typesetMath } = require '../helpers/mathjax'
+{ wrapFrames } = require '../helpers/html-videos'
 
 module.exports = React.createClass
   displayName: 'ArbitraryHtmlAndMath'
@@ -56,3 +57,4 @@ module.exports = React.createClass
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
     @props.processHtmlAndMath?(root) or typesetMath(root)
+    wrapFrames(root)

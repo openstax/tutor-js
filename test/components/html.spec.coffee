@@ -11,6 +11,13 @@ describe 'Arbitrary Html Component', ->
       processHtmlAndMath: sinon.spy()
       block: true
 
+    @frameProps =
+      className: 'html'
+      html: """<iframe width="560" height="315" src="https://www.youtube.com/embed/BINK6r1Wy78"
+      frameborder="0" allowfullscreen></iframe>"""
+      processHtmlAndMath: sinon.spy()
+      block: true
+
   it 'renders html', ->
     Testing.renderComponent( Html, props: @props ).then ({dom}) ->
       expect(dom.tagName).equal('DIV')
@@ -24,3 +31,7 @@ describe 'Arbitrary Html Component', ->
     @props.block = false
     Testing.renderComponent( Html, props: @props ).then ({dom}) ->
       expect(dom.tagName).equal('SPAN')
+
+  it 'wraps iframes with embed classes', ->
+    Testing.renderComponent( Html, props: @frameProps ).then ({dom}) ->
+      expect(dom.getElementsByClassName('embed-responsive').length).equal(1)
