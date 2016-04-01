@@ -77,7 +77,7 @@ So, the test would look something like:
 App.login(TEACHER_USERNAME)
 CourseSelect.goToByType('ANY')            # Choose any course
 Calendar.createNew('HOMEWORK')
-ReadingBuilder.edit(action: 'SAVE') # Try to save
+TaskBuilder.edit(action: 'SAVE') # Try to save
 
 (validation tests would go here)
 ```
@@ -151,13 +151,13 @@ var Helpers = require('../helpers');
 var describe = Helpers.describe;
 var CourseSelect = Helpers.CourseSelect;
 var Calendar = Helpers.Calendar;
-var ReadingBuilder = Helpers.ReadingBuilder;
+var TaskBuilder = Helpers.TaskBuilder;
 ```
 
 #### Coffee version
 
 ```coffee
-{describe, CourseSelect, Calendar, ReadingBuilder} = require '../helpers'
+{describe, CourseSelect, Calendar, TaskBuilder} = require '../helpers'
 ```
 
 
@@ -182,7 +182,7 @@ describe('Draft Tests', function() {
     // Click to add a reading
     Calendar.createNew(this, 'READING');
 
-    ReadingBuilder.edit(this, {
+    TaskBuilder.edit(this, {
       name: title,
       // opensAt: 'NOT_TODAY'
       dueAt: 'EARLIEST',
@@ -195,7 +195,7 @@ describe('Draft Tests', function() {
     // BUG: .course-list shouldn't be in the DOM
     Calendar.goToOpenByTitle(this, title);
 
-    ReadingBuilder.edit(this, {
+    TaskBuilder.edit(this, {
       action: 'DELETE'
     });
 
@@ -223,7 +223,7 @@ describe 'Draft Tests', ->
     # Click to add a reading
     Calendar.createNew(@, 'READING')
 
-    ReadingBuilder.edit @,
+    TaskBuilder.edit @,
       name: title
       # opensAt: 'NOT_TODAY'
       dueAt: 'EARLIEST'
@@ -235,7 +235,7 @@ describe 'Draft Tests', ->
     # BUG: .course-list shouldn't be in the DOM
     Calendar.goToOpenByTitle(@, title)
 
-    ReadingBuilder.edit(@, action: 'DELETE')
+    TaskBuilder.edit(@, action: 'DELETE')
 
     # Just verify we get back to the calendar
     Calendar.verify(@)

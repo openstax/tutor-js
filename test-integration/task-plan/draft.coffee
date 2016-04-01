@@ -18,7 +18,7 @@ describe 'Draft Tests', ->
     new Helpers.CourseSelect(@).goToByType('ANY')
     @calendar.waitUntilLoaded()
     @calendar.createNew('READING')
-    @reading = new Helpers.ReadingBuilder(@)
+    @reading = new Helpers.TaskBuilder(@)
 
 
   @it 'Shows Validation Error when saving a blank Reading, Homework, and External (idempotent)', ->

@@ -155,8 +155,8 @@ class UnsavedDialog extends TestHelper
 
 # Helper methods for dealing with the Reading Assignment Builder
 # TODO this could probably be made into a BuilderHelper that extends the TestHelper
-# and then the ReadingBuilder and HomeworkBuilder can extend the BuilderHelper
-class ReadingBuilder extends TestHelper
+# and then the TaskBuilder and HomeworkBuilder can extend the BuilderHelper
+class TaskBuilder extends TestHelper
 
   constructor: (test, testElementLocator) ->
     testElementLocator ?= COMMON_ELEMENTS.anyPlan
@@ -299,4 +299,4 @@ class ReadingBuilder extends TestHelper
       when 'DELETE' then @delete()
 
 
-module.exports = ReadingBuilder
+module.exports = TaskBuilder
