@@ -24,7 +24,7 @@ COMMON_ELEMENTS =
   passworkInput:
     css: '#password'
   loginSubmit:
-    css: '.password-actions button.standard'
+    css: 'button[type=submit]'
 
   modalClose:
     css: '.modal-dialog .modal-header .close'
