@@ -77,15 +77,27 @@ ExerciseConfig = {
 
     @_change(id, {tags})
 
-  removeTag: (id, badTag) ->
-    tags = @_get(id).tags
-    cleanedTags = _.without(tags, badTag)
-    @_change(id, {tags: cleanedTags}) if cleanedTags.length isnt tags.length
+  # these may not be needed
+  #
+  # removeTag: (id, badTag) ->
+  #   tags = @_get(id).tags
+  #   cleanedTags = _.without(tags, badTag)
+  #   @_change(id, {tags: cleanedTags}) if cleanedTags.length isnt tags.length
 
-  addTag: (id, tag) ->
-    tags = @_get(id).tags
-    tags.push(tag)
-    console.log "Added: #{tags}"
+  # addTag: (id, tag) ->
+  #   tags = @_get(id).tags
+  #   tags.push(tag)
+  #   console.log "Added: #{tags}"
+  #   @_change(id, {tags})
+
+  setPrefixedTag: (id, prefix, value) ->
+    prefix += ':'
+    tags = _.clone( @_get(id).tags )
+    existing = _.find tags, (tag) -> 0 is tag.indexOf(prefix)
+    if existing
+      tags _.without(tags, existing)
+    if value
+      tags.push(prefix + value)
     @_change(id, {tags})
 
   sync: (id) ->
@@ -145,6 +157,12 @@ ExerciseConfig = {
     isPublished: (id) -> @_local[id].published_at
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
+
+    getPrefixedTag: (id, prefix) ->
+      prefix += ':'
+      tags = @_get(id).tags
+      tag = _.find tags, (tag) -> 0 is tag.indexOf(prefix)
+      if tag then tag.split(':')[1] else null
 
     getTemplate: (id) ->
       questionId = QuestionStore.freshLocalId()

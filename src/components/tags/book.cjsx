@@ -22,17 +22,13 @@ BookTag = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   updateTag: (ev) ->
-    for tag, name of BOOKS
-      ExerciseActions.removeTag(@props.exerciseId, tag)
-    newTag = ev.target.value
-    if newTag
-      ExerciseActions.addTag(@props.exerciseId, newTag)
+    ExerciseActions.setPrefixedTag(@props.exerciseId, 'book', ev.target.value)
 
   render: ->
-    {tags} = ExerciseStore.get(@props.exerciseId)
-    tag = _.find tags, (tag) -> BOOKS[tag.id]
+    tag = ExerciseStore.getPrefixedTag(@props.exerciseId, 'book')
+
     <Wrapper label="Book">
-      <select onChange={@updateTag} value={tag?.id}>
+      <select onChange={@updateTag} value={tag}>
         <option key='blank' value={''}>{name}</option>}
         {for tag, name of BOOKS
           <option key={tag} value={tag}>{name}</option>}
