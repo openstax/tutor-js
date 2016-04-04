@@ -2,8 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 classnames = require 'classnames'
-api = require '../api'
-{ExerciseActions, ExerciseStore} = require '../stores/exercise'
+api = require '../../api'
+{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 Attachment = React.createClass
 
