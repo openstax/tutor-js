@@ -11,9 +11,11 @@ ExerciseWrapper = React.createClass
   getInitialState: ->
     {}
 
-
   addNew: ->
-    @setState({exerciseId: ExerciseStore.freshLocalId() })
+    id = ExerciseStore.freshLocalId()
+    template = ExerciseStore.getTemplate()
+    ExerciseActions.loaded(template, id)
+    @setState({exerciseId: id })
 
   loadExercise: ->
     exerciseId = this.refs.exerciseId.getDOMNode().value
