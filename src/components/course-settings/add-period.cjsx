@@ -98,7 +98,7 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span>
+    <span className='-add-period-link'>
       <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
         <i className='fa fa-plus' />
         Add <CourseGroupingLabel courseId={@props.courseId} />

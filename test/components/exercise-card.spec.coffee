@@ -3,7 +3,7 @@
 ExerciseCard = require '../../src/components/exercise-card'
 
 EXERCISE = (require '../../api/exercises.json').items[0]
-ANSWERS  = EXERCISE.content.questions[0].answers, 'id'
+ANSWERS  = EXERCISE.content.questions[0].answers
 
 describe 'Exercise Card Component', ->
 

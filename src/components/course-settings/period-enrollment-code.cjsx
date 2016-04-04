@@ -97,7 +97,7 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span>
+    <span className='-show-enrollment-code-link'>
       <BS.Button onClick={@open} bsStyle='link' className='show-enrollment-code'>
         <i className='fa fa-qrcode' /> {TITLE}
       </BS.Button>
