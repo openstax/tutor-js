@@ -77,6 +77,14 @@ ExerciseConfig = {
 
     @_change(id, {tags})
 
+  addBlankPrefixedTag: (id, {prefix}) ->
+    prefix += ':'
+    tags = _.clone( @_get(id).tags )
+    unless 0 is tags.indexOf(prefix) # is there already a blank one?
+      tags.push(prefix)
+      @_change(id, {tags})
+
+
   # these may not be needed
   #
   # removeTag: (id, badTag) ->
@@ -90,14 +98,11 @@ ExerciseConfig = {
   #   console.log "Added: #{tags}"
   #   @_change(id, {tags})
 
-  setPrefixedTag: (id, prefix, value) ->
+  setPrefixedTag: (id, {prefix, tag, previous}) ->
     prefix += ':'
-    tags = _.clone( @_get(id).tags )
-    existing = _.find tags, (tag) -> 0 is tag.indexOf(prefix)
-    if existing
-      tags _.without(tags, existing)
-    if value
-      tags.push(prefix + value)
+    tags = _.without(@_get(id).tags, prefix + previous)
+    if tag
+      tags.push(prefix + tag)
     @_change(id, {tags})
 
   sync: (id) ->
@@ -158,11 +163,10 @@ ExerciseConfig = {
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
 
-    getPrefixedTag: (id, prefix) ->
+    getTagsWithPrefix: (id, prefix) ->
       prefix += ':'
-      tags = @_get(id).tags
-      tag = _.find tags, (tag) -> 0 is tag.indexOf(prefix)
-      if tag then tag.split(':')[1] else null
+      tags = _.select @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
+      _.map tags, (tag) -> tag.replace(/^[\w\-]+:/, '')
 
     getTemplate: (id) ->
       questionId = QuestionStore.freshLocalId()

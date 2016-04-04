@@ -3,5 +3,39 @@
 
   padding: 2rem;
 
+  .controls i {
+    cursor: pointer;
+    font-size: 120%;
+  }
 
+  .tag-type {
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      .label { font-weight: bolder; font-size: 110%; }
+    }
+    .tag {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+
+      &.has-error {
+        input, select {
+          border-color: red;
+        }
+        .fa-exclamation-triangle {
+          color: red;
+          margin: 0 0.5rem;
+        }
+      }
+
+      input, select {
+        width: 100%;
+        flex: 1;
+        margin-right: 0.5rem;
+      }
+    }
+  }
 }

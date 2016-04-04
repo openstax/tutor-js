@@ -34,7 +34,7 @@ loadApp = ->
   pathArr = window.location.pathname.split("/")
   if (pathArr.length > 2)
     config = {
-      id: pathArr[2]
+      exerciseId: pathArr[2]
     }
 
   exercise = window.ExerciseComponent(config)

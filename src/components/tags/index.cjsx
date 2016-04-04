@@ -3,7 +3,9 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
-BookTag = require './book'
+BookTags = require './books'
+
+LoTag = require './lo'
 
 FixedTag = React.createClass
   updateTag: (event) ->
@@ -47,7 +49,8 @@ ExerciseTags = React.createClass
     <div className="tags">
 
       <BS.Row>
-        <BookTag {...@props} />
+        <BookTags {...@props} />
+        <LoTag {...@props} />
       </BS.Row>
     </div>
 
