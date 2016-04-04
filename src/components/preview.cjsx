@@ -22,7 +22,7 @@ Preview = React.createClass
 
   renderQuestions: (question) ->
     feedback_html = _.first(question.collaborator_solutions)?.content_html
-      
+
     if feedback_html
       feedback = <ArbitraryHtml className="free-response" html={feedback_html} />
 
@@ -33,6 +33,8 @@ Preview = React.createClass
   render: ->
     questions = _.map(@props.exercise.questions, @renderQuestions)
 
-    <div>{questions}</div>
+    <div>
+      {questions}
+    </div>
 
 module.exports = Preview

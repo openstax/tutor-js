@@ -80,6 +80,13 @@ start = ->
     httpMethod: 'PUT'
     payload: obj
 
+  apiHelper ExerciseActions, ExerciseActions.create, ExerciseActions.created, 'POST', (id, obj) ->
+    # backend expects the changed props and the entire exercise for some reason
+    obj = ExerciseStore.get(id)
+
+    url:"/api/exercises"
+    httpMethod: 'POST'
+    payload: obj
 
   apiHelper ExerciseActions, ExerciseActions.publish, ExerciseActions.saved, 'PUT', (id) ->
 

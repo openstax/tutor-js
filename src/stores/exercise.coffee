@@ -62,6 +62,7 @@ ExerciseConfig = {
   updateTags: (id, editableTags) ->
     fixedTags = getTagTypes(@_get(id).tags).fixed
     tags = editableTags.concat(_.pluck(fixedTags, 'value'))
+    tags = _.filter(tags, (tag) -> tag isnt '')
     @_change(id, {tags})
 
   updateFixedTag:(id, oldTag, newTag) ->
@@ -73,9 +74,9 @@ ExerciseConfig = {
     else
       tags = _.filter(tags, (tag) -> tag isnt oldTag)
       tags.push(newTag)
-  
+
     @_change(id, {tags})
-    
+
   sync: (id) ->
     questions = _.map @_local[id].questions, (question) ->
       QuestionActions.syncAnswers(question.id)
@@ -89,6 +90,8 @@ ExerciseConfig = {
   _saved: (obj, id) ->
     cascadeLoad(obj, id)
     @_asyncStatusPublish[id] = false
+  created:(obj, id) ->
+    @emit('created', obj.uid)
 
   publish: (id) ->
     @_asyncStatusPublish[id] = true
@@ -126,6 +129,21 @@ ExerciseConfig = {
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
 
+    getTemplate: (id) ->
+      questionId = QuestionStore.freshLocalId()
+
+      attachments:[],
+      tags:[],
+      stimulus_html:"",
+      questions:[_.extend({}, QuestionStore.getTemplate(), {id: questionId})]
+
+    validate: (id) ->
+      _.reduce @_local[id].questions, (memo, question) ->
+        validity = QuestionStore.validate(question.id)
+
+        valid: memo.valid and validity.valid
+        reason: memo.reason or validity.reason
+      , valid: true
 }
 
 extendConfig(ExerciseConfig, new CrudConfig())
