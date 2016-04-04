@@ -104,6 +104,11 @@ ExerciseConfig = {
     exercise.attachments = _.reject exercise.attachments, (attachment) -> attachment.id is attachmentId
     @emitChange()
 
+  addQuestionPart: (id) ->
+    @_local[id].questions.push({})
+
+    @emitChange()
+
 
   attachmentUploaded: (uid, attachment) ->
     exercise = _.findWhere(@_local, {uid})
@@ -144,6 +149,7 @@ ExerciseConfig = {
         valid: memo.valid and validity.valid
         reason: memo.reason or validity.reason
       , valid: true
+
 }
 
 extendConfig(ExerciseConfig, new CrudConfig())

@@ -6,13 +6,18 @@ React = require 'react'
 
 MathJaxHelper =  require 'openstax-react-components/src/helpers/mathjax'
 
+<<<<<<< 26489675a1a1376eb29709eb5382e6eb50253019
 App = require './components/app'
+=======
+Exercise = require './components/exercise'
+ExerciseWrapper = require './components/exercise-wrapper'
+>>>>>>> First commit towards new exercise editing flow
 api = require './api'
 
 
 # Just for debugging
 window.React = React
-window.AppComponent = React.createFactory(App)
+window.ExerciseComponent = React.createFactory(ExerciseWrapper)
 window.ExerciseActions = ExerciseActions
 window.ExerciseStore = ExerciseStore
 window.AnswerStore = AnswerStore

@@ -10,7 +10,14 @@
 @import (reference) './mixins/generic';
 
 @import '~openstax-react-components/resources/styles/main.less';
-@import './attachments';
+
+// @import './global/tutor-bootstrap';
+@import "@{bootstrap-path}/navs";
+@import "@{bootstrap-path}/navbar";
+@import "@{bootstrap-path}/buttons";
+@import "@{bootstrap-path}/button-groups";
+
+// @import './attachments';
 
 // @answer-correct: #34b27d;
 // @answer-incorrect: #cb4d4d;
@@ -22,96 +29,106 @@ body {
   padding: 10px;
 }
 
-
-.exercise-editor {
-  textarea {
-    display: block;
-    margin-bottom: 2rem;
-    width: 100%;
-    height: 8rem;
-  }
-
-  li.correct-answer {
-    label {
-      color: @green;
-    }
-    textarea {
-      border-color: @green;
-    }
-  }
-
-  .answer-actions {
-    > a {
-      margin-left: 10px;
-      cursor: pointer;
-      line-height: 2rem;
-
-      &.is-correct {
-        color: @openstax-neutral;
-      }
-      &.is-correct.correct-answer {
-        color: @green;
-      }
-
-      i.fa {
-        font-size: 2rem;
-      }
-    }
-  }
-  .tags select {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-}
-p.add-exercise {
-  width: 100%;
-  margin-bottom: 2em;
-  a {
-    font-size: 2rem;
-    color: white;
-    text-align: center;
-
-    i {
-      margin-right: 10px;
-    }
-  }
-}
-.btn-toolbar,
-.btn-dialog {
-  margin-bottom: 0;
-
-  box-shadow: none;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  .x-user-select(none);
+.mpq-toggle label {
+  width: 140px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 12px;
+  justify-content: flex-start;
+  text-align: center;
+  input { margin: 0; }
 }
 
-.btn-dialog {
-  text-transform: uppercase;
-  color: #ffab40;
+// .exercise-editor {
+//   textarea {
+//     display: block;
+//     margin-bottom: 2rem;
+//     width: 100%;
+//     height: 8rem;
+//   }
 
-  &:hover { color: #ffd8a6; }
+//   li.correct-answer {
+//     label {
+//       color: @green;
+//     }
+//     textarea {
+//       border-color: @green;
+//     }
+//   }
 
-  &.btn-dialog-danger {
-    i { color: #ccc; }
-    &:hover i { color: #f33; }
-  }
+//   .answer-actions {
+//     > a {
+//       margin-left: 10px;
+//       cursor: pointer;
+//       line-height: 2rem;
 
-  // Subsequent dialog buttons should be spaced
-  + .btn-dialog { margin-left: 1.5rem; }
+//       &.is-correct {
+//         color: @openstax-neutral;
+//       }
+//       &.is-correct.correct-answer {
+//         color: @green;
+//       }
 
-}
+//       i.fa {
+//         font-size: 2rem;
+//       }
+//     }
+//   }
+//   .tags select {
+//     width: 100%;
+//     margin-bottom: 1rem;
+//   }
+// }
+// p.add-exercise {
+//   width: 100%;
+//   margin-bottom: 2em;
+//   a {
+//     font-size: 2rem;
+//     color: white;
+//     text-align: center;
 
-.btn-toolbar,
-.btn-dialog i {
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
+//     i {
+//       margin-right: 10px;
+//     }
+//   }
+// }
+// .btn-toolbar,
+// .btn-dialog {
+//   margin-bottom: 0;
+
+//   box-shadow: none;
+//   border: none;
+//   background-color: transparent;
+//   cursor: pointer;
+
+//   .x-user-select(none);
+// }
+
+// .btn-dialog {
+//   text-transform: uppercase;
+//   color: #ffab40;
+
+//   &:hover { color: #ffd8a6; }
+
+//   &.btn-dialog-danger {
+//     i { color: #ccc; }
+//     &:hover i { color: #f33; }
+//   }
+
+//   // Subsequent dialog buttons should be spaced
+//   + .btn-dialog { margin-left: 1.5rem; }
+
+// }
+
+// .btn-toolbar,
+// .btn-dialog i {
+//   font-size: 1.5rem;
+//   transition: color 0.3s ease;
+// }
 
 
 
-.btn-info {
-  margin-right: 10px;
-}
+// .btn-info {
+//   margin-right: 10px;
+// }

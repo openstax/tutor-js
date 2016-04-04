@@ -8,160 +8,196 @@ ExerciseTags = require './tags'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Attachment = require './attachment'
 AttachmentChooser = require './attachment-chooser'
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
-module.exports = React.createClass
-  displayName: 'Exercise'
+
+Exercise = React.createClass
+  exerciseId:   React.PropTypes.string.isRequired
 
   getInitialState: -> {}
+  update: -> @setState({})
 
   componentWillMount: ->
-    {id} = @props
-    if (id.toLowerCase() is 'new')
-      id = ExerciseStore.freshLocalId()
-      @create(id)
-
-    @setState({id})
     ExerciseStore.addChangeListener(@update)
 
-  update: -> @setState({})
-  updateNumber: (event) -> ExerciseActions.updateNumber(@getId(), event.target?.value)
-  updateStimulus: (event) -> ExerciseActions.updateStimulus(@getId(), event.target?.value)
-
-  getId: ->
-    @state.id or @props.id
-
-  getDraftId: (id) ->
-    draftId = if id.indexOf("@") is -1 then id else id.split("@")[0]
-    "#{draftId}@d"
-
-  redirect:(id) ->
-    window.location = "/exercises/#{id}"
-
-  saveExercise: ->
-    validity = ExerciseStore.validate(@getId())
-    if not validity?.valid
-      alert(validity?.reason or 'Not a valid exercise')
-      return
-
-    if confirm('Are you sure you want to save?')
-      if ExerciseStore.isNew(@getId())
-        ExerciseStore.on 'created', @redirect
-        ExerciseActions.create(@getId(), ExerciseStore.get(@getId()))
-      else
-        ExerciseActions.save(@getId())
-
-  publishExercise: ->
-    if confirm('Are you sure you want to publish?')
-      ExerciseActions.save(@getId())
-      ExerciseActions.publish(@getId())
-
-  renderLoading: ->
-    <div>Loading exercise: {@getId()}</div>
-
-  renderFailed: ->
-    <div>Failed loading exercise, please check id</div>
+  componentWillUnmount: ->
+    ExerciseStore.removeChangeListener(@update)
 
   sync: -> ExerciseActions.sync(@getId())
 
-  create: (id) ->
-    template = ExerciseStore.getTemplate()
-    ExerciseActions.loaded(template, id)
+  #   if (not @props.id)
+  #     @setState({
+  #       id: prompt('Enter exercise id:')
+  #     })
+  #   ExerciseStore.addChangeListener(@update)
 
-  renderForm: ->
-    id = @getId()
+  # updateNumber: (event) -> ExerciseActions.updateNumber(@getId(), event.target?.value)
+  # updateStimulus: (event) -> ExerciseActions.updateStimulus(@getId(), event.target?.value)
 
-    questions = []
-    for question in ExerciseStore.getQuestions(id)
-      questions.push(<Question key={question.id} sync={@sync} id={question.id} />)
+  # getId: ->
+  #   @props.id or @state.id
 
-    isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
+  # getDraftId: (id) ->
+  #   draftId = if id.indexOf("@") is -1 then id else id.split("@")[0]
+  #   "#{draftId}@d"
 
-    if not ExerciseStore.isPublished(id) and not ExerciseStore.isNew(id)
-      publishButton = <AsyncButton
-        bsStyle='primary'
-        onClick={@publishExercise}
-        disabled={isWorking}
-        isWaiting={ExerciseStore.isPublishing(id)}
-        waitingText='Publishing...'
-        isFailed={ExerciseStore.isFailed(id)}
-        >
-        Publish
-      </AsyncButton>
+  # saveExercise: ->
+  #   if confirm('Are you sure you want to save?')
 
-    <div>
-      <div>
-        <label>Exercise Number</label>: {ExerciseStore.getNumber(id)}
-      </div><div>
-        <label>Exercise Stimulus</label>
-        <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
-        </textarea>
-      </div>
-      {questions}
-      <ExerciseTags id={id} />
-      <AsyncButton
-        bsStyle='info'
-        onClick={@saveExercise}
-        disabled={isWorking}
-        isWaiting={ExerciseStore.isSaving(id)}
-        waitingText='Saving...'
-        isFailed={ExerciseStore.isFailed(id)}
-        >
-        Save
-      </AsyncButton>
-      {publishButton}
-    </div>
+  #     ExerciseActions.save(@getId())
+
+  # publishExercise: ->
+  #   if confirm('Are you sure you want to publish?')
+  #     ExerciseActions.save(@getId())
+  #     ExerciseActions.publish(@getId())
+
+  # renderLoading: ->
+  #   <div>Loading exercise: {@getId()}</div>
+
+  # renderFailed: ->
+  #   <div>Failed loading exercise, please check id</div>
+
+  # renderForm: ->
+  #   id = @getId()
+
+  #   questions = []
+  #   for question in ExerciseStore.getQuestions(id)
+  #     questions.push(<Question key={question.id} sync={@sync} id={question.id} />)
+
+  #   isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
+
+  #   if not ExerciseStore.isPublished(id)
+  #     publishButton = <AsyncButton
+  #       bsStyle='primary'
+  #       onClick={@publishExercise}
+  #       disabled={isWorking}
+  #       isWaiting={ExerciseStore.isPublishing(id)}
+  #       waitingText='Publishing...'
+  #       isFailed={ExerciseStore.isFailed(id)}
+  #       >
+  #       Publish
+  #     </AsyncButton>
+
+  #   <div>
+  #     <div>
+  #       <label>Exercise Number</label>: {ExerciseStore.getNumber(id)}
+  #     </div><div>
+  #       <label>Exercise Stimulus</label>
+  #       <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}>
+  #       </textarea>
+  #     </div>
+  #     {questions}
+  #     <ExerciseTags id={id} />
+  #     <AsyncButton
+  #       bsStyle='info'
+  #       onClick={@saveExercise}
+  #       disabled={isWorking}
+  #       isWaiting={ExerciseStore.isSaving(id)}
+  #       waitingText='Saving...'
+  #       isFailed={ExerciseStore.isFailed(id)}
+  #       >
+  #       Save
+  #     </AsyncButton>
+  #     {publishButton}
+  #   </div>
+
+
+  renderMpqTabs: ->
+    {questions} = ExerciseStore.get(@props.exerciseId)
+    for question, i in questions
+      <BS.TabPane key={i} eventKey={"question-#{i}"} tab={"Question #{i+1}"}>
+        <Question id={question.id} sync={@sync} />
+      </BS.TabPane>
+
+  renderSingleQuestionTab: ->
+    {questions} = ExerciseStore.get(@props.exerciseId)
+    <BS.TabPane key={0} eventKey='question-0' tab='Question'>
+      <Question id={_.first(questions)?.id} sync={@sync} />
+    </BS.TabPane>
+
+  previewTag: ->
+    content = _.compact([tag.name, tag.description]).join(' ') or tag.id
+    isLO = _.include(['lo', 'aplo'], tag.type)
+    {content, isLO}
+
+  onToggleMPQ: (ev) ->
+    @setState(isShowingMPQ: ev.target.checked)
+
+  addQuestion: ->
+    ExerciseActions.addQuestionPart(@props.exerciseId)
 
   render: ->
-    id = @getId()
+    exercise = ExerciseStore.get(@props.exerciseId)
+    return null unless exercise
 
-    if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id) and not ExerciseStore.isNew(id)
-      if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
-      return @renderLoading()
-    else if ExerciseStore.isFailed(id)
-      return @renderFailed()
-
-    exercise = ExerciseStore.get(id)
-
-    exerciseUid = ExerciseStore.getId(id)
-    preview = <Preview exercise={exercise} closePreview={@closePreview}/>
-
-    if ExerciseStore.isPublished(id)
-      publishedLabel =
-        <div>
-          <label>Published: {ExerciseStore.getPublishedDate(id)}</label>
+    <div className="exercise">
+      <ExercisePreview extractTag={@previewTag} exercise={tags: exercise.tags, content: exercise} />
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <form className="navbar-form navbar-right" role="search">
+            <BS.Input type="checkbox" label="Exercise contains multiple parts"
+              checked={@state.isShowingMPQ} wrapperClassName="mpq-toggle" onChange={@onToggleMPQ} />
+            {if @state.isShowingMPQ
+              <BS.Button onClick={@addQuestion} className="navbar-btn"
+                bsStyle="primary">Add Question</BS.Button>}
+          </form>
         </div>
-      editLink =
-        <div>
-          <a href="/exercise/#{@getDraftId(id)}">Edit Exercise</a>
-        </div>
-    else
-      form = @renderForm(id)
+      </nav>
 
-    if not ExerciseStore.isNew(id)
-      attachments = <div className="attachments">
-        { for attachment in ExerciseStore.get(id).attachments
-          <Attachment key={attachment.asset.url} exerciseUid={exerciseUid} attachment={attachment} /> }
-        <AttachmentChooser exerciseUid={exerciseUid} />
-      </div>
-      addExerciseBtn = <p className="btn btn-success add-exercise">
-        <a href="/exercises/new">
-          <i className="fa fa-plus-circle" />Add New Exercise
-        </a>
-      </p>
+      <BS.TabbedArea defaultActiveKey='tags'>
+        <BS.TabPane eventKey='tags' tab='Tags'>
+          Tags
+        </BS.TabPane>
+        <BS.TabPane eventKey='assets' tab='Assets'>
+          Assets
+        </BS.TabPane>
+        {if @state.isShowingMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
+      </BS.TabbedArea>
+    </div>
 
-    <BS.Grid>
-      <BS.Row><BS.Col xs={5} className="exercise-editor">
-        <div>
-          <label>Exercise ID:</label> {exerciseUid}
-        </div>
-        {publishedLabel}
-        {editLink}
-        <form>{form}</form>
-      </BS.Col><BS.Col xs={6} className="pull-right">
-        { addExerciseBtn }
-        { preview }
-        { attachments }
-      </BS.Col></BS.Row>
-    </BS.Grid>
+
+    # id = @getId()
+    # if not ExerciseStore.get(id) and not ExerciseStore.isFailed(id)
+    #   if not ExerciseStore.isLoading(id) then ExerciseActions.load(id)
+    #   return @renderLoading()
+    # else if ExerciseStore.isFailed(id)
+    #   return @renderFailed()
+
+    #
+
+    # exerciseUid = ExerciseStore.getId(id)
+    # preview = <Preview exercise={exercise} closePreview={@closePreview}/>
+
+    # if ExerciseStore.isPublished(id)
+    #   publishedLabel =
+    #     <div>
+    #       <label>Published: {ExerciseStore.getPublishedDate(id)}</label>
+    #     </div>
+    #   editLink =
+    #     <div>
+    #       <a href="/exercise/#{@getDraftId(id)}">Edit Exercise</a>
+    #     </div>
+    # else
+    #   form = @renderForm(id)
+
+    # <BS.Grid>
+    #   <div className="attachments">
+    #     { for attachment in ExerciseStore.get(id).attachments || []
+    #       <Attachment key={attachment.asset.url} exerciseUid={exerciseUid} attachment={attachment} /> }
+    #     <AttachmentChooser exerciseUid={exerciseUid} />
+    #   </div>
+
+    #   <BS.Row><BS.Col xs={5} className="exercise-editor">
+    #     <div>
+    #       <label>Exercise ID:</label> {exerciseUid}
+    #     </div>
+    #     {publishedLabel}
+    #     {editLink}
+    #     <form>{form}</form>
+    #   </BS.Col><BS.Col xs={6} className="pull-right">
+    #     {preview}
+    #   </BS.Col></BS.Row>
+    # </BS.Grid>
+
+module.exports = Exercise
