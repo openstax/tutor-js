@@ -48,7 +48,7 @@ module.exports = React.createClass
     answers = []
 
     for answer, index in QuestionStore.getAnswers(id)
-      answers.push(<Answer key={answer.id} 
+      answers.push(<Answer key={answer.id}
         sync={@props.sync}
         id={answer.id}
         canMoveUp={index isnt QuestionStore.getAnswers(id).length - 1}
@@ -57,7 +57,7 @@ module.exports = React.createClass
         removeAnswer={@removeAnswer}
         changeAnswer={@changeAnswer}/>)
 
-    <div>
+    <div className="question">
       <div>
         <label>Question Stem</label>
         <textarea onChange={@updateStem} defaultValue={QuestionStore.getStem(id)}></textarea>

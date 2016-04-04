@@ -131,7 +131,7 @@ Exercise = React.createClass
     exercise = ExerciseStore.get(@props.exerciseId)
     return null unless exercise
 
-    <div className="exercise">
+    <div className="exercise-editor">
       <ExercisePreview extractTag={@previewTag} exercise={tags: exercise.tags, content: exercise} />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
