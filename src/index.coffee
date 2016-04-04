@@ -5,13 +5,8 @@ React = require 'react'
 {ExerciseActions, ExerciseStore} = require './stores/exercise'
 
 MathJaxHelper =  require 'openstax-react-components/src/helpers/mathjax'
-
-<<<<<<< 26489675a1a1376eb29709eb5382e6eb50253019
-App = require './components/app'
-=======
 Exercise = require './components/exercise'
 ExerciseWrapper = require './components/exercise-wrapper'
->>>>>>> First commit towards new exercise editing flow
 api = require './api'
 
 
@@ -42,7 +37,7 @@ loadApp = ->
       id: pathArr[2]
     }
 
-  exercise = window.AppComponent(config)
+  exercise = window.ExerciseComponent(config)
   window.React.render(exercise, root)
 
 document.addEventListener('DOMContentLoaded', loadApp)
