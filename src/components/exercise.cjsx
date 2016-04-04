@@ -69,7 +69,7 @@ Exercise = React.createClass
 
       <BS.TabbedArea defaultActiveKey='tags'>
         <BS.TabPane eventKey='tags' tab='Tags'>
-          <ExerciseTags id={@props.exerciseId} sync={@sync} />
+          <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
         </BS.TabPane>
         <BS.TabPane eventKey='assets' tab='Assets'>
           <Attachments exerciseId={@props.exerciseId} />

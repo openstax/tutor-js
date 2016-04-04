@@ -77,6 +77,17 @@ ExerciseConfig = {
 
     @_change(id, {tags})
 
+  removeTag: (id, badTag) ->
+    tags = @_get(id).tags
+    cleanedTags = _.without(tags, badTag)
+    @_change(id, {tags: cleanedTags}) if cleanedTags.length isnt tags.length
+
+  addTag: (id, tag) ->
+    tags = @_get(id).tags
+    tags.push(tag)
+    console.log "Added: #{tags}"
+    @_change(id, {tags})
+
   sync: (id) ->
     questions = _.map @_local[id].questions, (question) ->
       QuestionActions.syncAnswers(question.id)
