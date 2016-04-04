@@ -6,10 +6,16 @@ _ = require 'underscore'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Exercise = require './exercise'
 
+
 ExerciseWrapper = React.createClass
 
   getInitialState: ->
     {}
+
+  publishExercise: ->
+    if confirm('Are you sure you want to publish?')
+      ExerciseActions.save(@state.exerciseId)
+      ExerciseActions.publish(@state.exerciseId)
 
   addNew: ->
     id = ExerciseStore.freshLocalId()
@@ -49,17 +55,18 @@ ExerciseWrapper = React.createClass
 
 
   saveExercise: ->
-    validity = ExerciseStore.validate(@getId())
+    id = @state.exerciseId
+    validity = ExerciseStore.validate(id)
     if not validity?.valid
       alert(validity?.reason or 'Not a valid exercise')
       return
 
     if confirm('Are you sure you want to save?')
-      if ExerciseStore.isNew(@getId())
+      if ExerciseStore.isNew(id)
         ExerciseStore.on 'created', @redirect
-        ExerciseActions.create(@getId(), ExerciseStore.get(@getId()))
+        ExerciseActions.create(id, ExerciseStore.get(@getId()))
       else
-        ExerciseActions.save(@getId())
+        ExerciseActions.save(id)
 
   render: ->
     classes = classnames('exercise', 'openstax', 'container-fluid',
@@ -72,8 +79,8 @@ ExerciseWrapper = React.createClass
           <div className="navbar-header">
             <BS.ButtonToolbar className="navbar-btn">
               <BS.Button bsStyle="primary" onClick={@addNew}>New</BS.Button>
-              <BS.Button bsStyle="primary">Save Draft</BS.Button>
-              <BS.Button bsStyle="primary">Publish</BS.Button>
+              <BS.Button bsStyle="primary" onClick={@saveExercise}>Save Draft</BS.Button>
+              <BS.Button bsStyle="primary" onClick={@publishExercise}>Publish</BS.Button>
             </BS.ButtonToolbar>
           </div>
 
