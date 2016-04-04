@@ -103,7 +103,7 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span>
+    <span className='-rename-period-link'>
       <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
         <i className='fa fa-pencil' />
         Rename <CourseGroupingLabel courseId={@props.courseId}/>
