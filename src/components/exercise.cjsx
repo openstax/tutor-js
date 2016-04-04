@@ -6,8 +6,7 @@ Question = require './question'
 Preview = require './preview'
 ExerciseTags = require './tags'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
-Attachment = require './attachment'
-AttachmentChooser = require './attachment-chooser'
+Attachments = require './attachments'
 {ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
@@ -73,7 +72,7 @@ Exercise = React.createClass
           <ExerciseTags id={@props.exerciseId} sync={@sync} />
         </BS.TabPane>
         <BS.TabPane eventKey='assets' tab='Assets'>
-          Assets
+          <Attachments exerciseId={@props.exerciseId} />
         </BS.TabPane>
         {if @state.isShowingMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
       </BS.TabbedArea>

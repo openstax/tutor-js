@@ -112,6 +112,7 @@ ExerciseConfig = {
 
   attachmentUploaded: (uid, attachment) ->
     exercise = _.findWhere(@_local, {uid})
+    exercise.attachments ||= []
     exercise.attachments.push(attachment)
     @emitChange()
 
