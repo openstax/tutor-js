@@ -87,7 +87,7 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span>
+    <span className='-delete-period-link'>
       <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
         <i className='fa fa-trash-o' />
         Delete <CourseGroupingLabel courseId={@props.courseId}/>
