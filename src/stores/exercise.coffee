@@ -181,7 +181,7 @@ ExerciseConfig = {
     getTagsWithPrefix: (id, prefix) ->
       prefix += ':'
       tags = _.select @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
-      _.map tags, (tag) -> tag.replace(/^[\w\-]+:/, '')
+      _.map( tags, (tag) -> tag.replace(/^[\w\-]+:/, '') ).sort()
 
     getTemplate: (id) ->
       questionId = QuestionStore.freshLocalId()
