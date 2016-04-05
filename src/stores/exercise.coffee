@@ -101,14 +101,19 @@ ExerciseConfig = {
   # Updates or creates a prefixed tag
   # If previous is given, then only the tag with that value will be updated
   # Otherwise, all other tags with prefix will be removed
-  setPrefixedTag: (id, {prefix, tag, tags, previous}) ->
+  setPrefixedTag: (id, {prefix, tag, tags, previous, replaceOthers}) ->
     prefix += ':'
-    previous ||= ''
     if tags
       tags = _.reject(@_get(id).tags, (tag) -> 0 is tag.indexOf(prefix))
         .concat( _.map tags, (tag) -> prefix + tag )
+    else if replaceOthers
+      _.reject @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
     else
-      tags = _.reject @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix + previous)
+      tags = _.clone @_get(id).tags
+
+    if previous?
+      tags = _.reject tags, (tag) -> tag is prefix + previous
+
     if tag
       tags.push(prefix + tag)
 

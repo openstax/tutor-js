@@ -16,7 +16,9 @@ QuestionTypeTag = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   updateTag: (ev) ->
-    ExerciseActions.setPrefixedTag(@props.exerciseId, prefix: PREFIX, tag: ev.target.value)
+    ExerciseActions.setPrefixedTag(@props.exerciseId,
+      tag: ev.target.value, prefix: PREFIX, replaceOthers: true
+    )
 
   render: ->
     tag = _.first ExerciseStore.getTagsWithPrefix(@props.exerciseId, PREFIX)
