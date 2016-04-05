@@ -68,6 +68,35 @@ TutorPopover = React.createClass
   areImagesLoading: ->
     _.compact(@state.imagesLoading).length isnt 0
 
+  updateOverlayPositioning: ->
+    {windowImpl} = @props
+    # updates popper positioning function to
+    # explicitly set height so that content
+    # can inherit the height for scrolling content
+    # @refs.popper.updateOverlayPosition = =>
+
+    viewer = @refs.popover.getDOMNode()
+    images = @getImages()
+    {height, width} = viewer.getBoundingClientRect()
+    _.each(images, _.partial(@setMaxImageWidth, _, width - 30)) if width > 0
+
+    scrollable = false
+
+    if height > windowImpl.innerHeight
+      scrollable = true
+      viewer.style.height = @props.maxHeightMultiplier * windowImpl.innerHeight + 'px'
+
+    if width > windowImpl.innerWidth
+      scrollable = true
+      viewer.style.width = @props.maxWidthMultiplier * windowImpl.innerWidth + 'px'
+
+    if @state.scrollable and not scrollable
+      viewer.style.height = 'auto'
+      viewer.style.width = 'auto'
+
+    @setState({scrollable})
+
+
   setPlacement: ->
     placement = @guessPlacement()
     @setState({placement}) unless @state.placement is placement
@@ -103,7 +132,7 @@ TutorPopover = React.createClass
 
     popoverId = if id then "tutor-popover-#{id}" else "tutor-popover-#{@_reactInternalInstance._rootNodeID}"
 
-    overlayProps = _.extend({}, overlayProps, {onEnter: @checkOverlay})
+    overlayProps = _.extend({}, overlayProps, {onEnter: @checkOverlay, onEntering: @updateOverlayPositioning})
 
     popover = <BS.Popover
       {...popoverProps}
