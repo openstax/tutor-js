@@ -7,7 +7,7 @@ BookTags        = require './books'
 LoTag           = require './lo'
 QuestionTypeTag = require './question-type'
 FilterTypeTag   = require './filter-type'
-FormatTypeTag   = require './format-type'
+
 
 ExerciseTags = React.createClass
   propTypes:
@@ -31,7 +31,7 @@ ExerciseTags = React.createClass
         <FilterTypeTag   {...@props} />
       </BS.Row>
       <BS.Row>
-        <FormatTypeTag   {...@props} />
+
 
       </BS.Row>
     </div>
