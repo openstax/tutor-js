@@ -64,7 +64,7 @@ MultiInput = React.createClass
   render: ->
     tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, @props.prefix)
 
-    <Wrapper label={@props.label} onAdd={@add}>
+    <Wrapper label={@props.label} onAdd={@add} singleTag={tags.length is 1}>
       {for tag in tags
         <Input key={tag} {...@props} tag={tag} />}
     </Wrapper>

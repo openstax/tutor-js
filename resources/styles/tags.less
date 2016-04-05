@@ -15,6 +15,9 @@
       justify-content: space-between;
       .label { font-weight: bolder; font-size: 110%; }
     }
+    &.has-single-tag {
+      .tag .controls{ visibility: hidden; }
+    }
     .tag {
       display: flex;
       justify-content: space-between;
@@ -46,6 +49,8 @@
           .checkbox { margin: 0; }
         }
       }
+
     }
+
   }
 }

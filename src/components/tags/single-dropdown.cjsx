@@ -25,7 +25,7 @@ SingleDropdown = React.createClass
 
   render: ->
     tag = _.first ExerciseStore.getTagsWithPrefix(@props.exerciseId, @props.prefix)
-    <Wrapper label={@props.label}>
+    <Wrapper label={@props.label} singleTag={true}>
       <div className="tag">
         <select className='form-control' onChange={@updateTag} value={tag}>
           {unless tag # a tag cannot be blank once it's set

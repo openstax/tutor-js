@@ -8,8 +8,12 @@ TagWrapper = React.createClass
     label: React.PropTypes.string.isRequired
 
   render: ->
-    <BS.Col sm=3 className={classnames('tag-type', 'has-error': @props.error)}>
+    classes = classnames('tag-type',
+      'has-error': @props.error
+      'has-single-tag': @props.singleTag is true
+    )
 
+    <BS.Col sm=3 className={classes}>
       <div className="heading">
         <span className="label">{@props.label}</span>
         <div className="controls">
