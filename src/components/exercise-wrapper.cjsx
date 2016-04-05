@@ -5,7 +5,7 @@ _ = require 'underscore'
 
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Exercise = require './exercise'
-
+ErrorModal = require './error-modal'
 
 ExerciseWrapper = React.createClass
 
@@ -79,6 +79,7 @@ ExerciseWrapper = React.createClass
     )
 
     <div className={classes}>
+      <ErrorModal />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
