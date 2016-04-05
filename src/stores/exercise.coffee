@@ -21,11 +21,10 @@ ExerciseConfig = {
   addBlankPrefixedTag: (id, {prefix}) ->
     prefix += ':'
     tags = _.clone( @_get(id).tags )
-    unless 0 is tags.indexOf(prefix) # is there already a blank one?
+    # is there already a blank one?
+    unless _.find( tags, (tag) -> tag is prefix )
       tags.push(prefix)
       @_change(id, {tags})
-
-
 
   # Updates or creates a prefixed tag
   # If previous is given, then only the tag with that value will be updated
