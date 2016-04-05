@@ -37,6 +37,7 @@ Input = React.createClass
   render: ->
     <div className={classnames('tag', 'has-error': @state.errorMsg)}>
       <input
+        className='form-control'
         type={@props.inputType}
         onChange={@onChange}
         onBlur={@validateAndSave}

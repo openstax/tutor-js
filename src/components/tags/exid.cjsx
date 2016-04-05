@@ -42,6 +42,7 @@ Input = React.createClass
     <div className={classnames('tag', 'has-error': @state.errorMsg)}>
       <span>{@props.book}:</span>
       <input
+        className='form-control'
         type={@props.inputType}
         onChange={@onChange}
         onBlur={@validateAndSave}

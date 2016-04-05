@@ -27,7 +27,10 @@ BookTagSelect = React.createClass
     )
   render: ->
     <div className="tag">
-      <select onChange={@updateTag} value={@props.tag}>
+      <select
+        className='form-control'
+        onChange={@updateTag} value={@props.tag}
+      >
         <option key='blank' value={''}>{name}</option>}
         {for tag, name of BOOKS
           <option key={tag} value={tag}>{name}</option>}
