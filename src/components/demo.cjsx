@@ -12,6 +12,10 @@ STEP_ID = exerciseStub['free-response'].content.questions[0].id
 steps = []
 steps[STEP_ID] = {}
 
+
+ExercisePreview = require './exercise/preview'
+exercisePreviewStub = require '../../stubs/exercise-preview/data'
+
 Breadcrumb = require './breadcrumb'
 breadcrumbStub = require '../../stubs/breadcrumbs/steps'
 
@@ -62,6 +66,11 @@ ExerciseDemo = React.createClass
   render: ->
     {exerciseProps} = @state
     <Exercise {...exerciseProps} pinned={false}/>
+
+ExercisePreviewDemo = React.createClass
+  displayName: 'ExercisePreviewDemo'
+  render: ->
+    <ExercisePreview exercise={exercisePreviewStub}/>
 
 
 BreadcrumbDemo = React.createClass
@@ -139,6 +148,7 @@ Demo = React.createClass
   render: ->
     demos =
       exercise: <ExerciseDemo/>
+      exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
 
     demos = _.map(demos, (demo, name) ->

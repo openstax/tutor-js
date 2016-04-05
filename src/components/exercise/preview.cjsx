@@ -9,7 +9,7 @@ ExerciseIdentifierLink = require './identifier-link'
 ExercisePreview = React.createClass
 
   propTypes:
-    extractTag: React.PropTypes.func.isRequired
+    extractTag: React.PropTypes.func
     displayFeedback: React.PropTypes.bool
     panelStyle: React.PropTypes.string
     className:  React.PropTypes.string
@@ -26,6 +26,11 @@ ExercisePreview = React.createClass
 
   getDefaultProps: ->
     panelStyle: 'default'
+    extractTag: (tag) ->
+      content = _.compact([tag.name, tag.description]).join(' ') or tag.id
+      isLO = _.include(['lo', 'aplo'], tag.type)
+      {content, isLO}
+
 
   renderAnswer: (answer) ->
     classes = classnames 'answers-answer',
