@@ -103,7 +103,8 @@ ExerciseConfig = {
   # Otherwise, all other tags with prefix will be removed
   setPrefixedTag: (id, {prefix, tag, previous}) ->
     prefix += ':'
-    tags = _.without(@_get(id).tags, prefix + previous)
+    previous ||= ''
+    tags = _.reject @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix + previous)
     if tag
       tags.push(prefix + tag)
     @_change(id, {tags})
