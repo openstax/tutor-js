@@ -59,23 +59,23 @@ ExerciseConfig = {
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
-  updateTags: (id, editableTags) ->
-    fixedTags = getTagTypes(@_get(id).tags).fixed
-    tags = editableTags.concat(_.pluck(fixedTags, 'value'))
-    tags = _.filter(tags, (tag) -> tag isnt '')
-    @_change(id, {tags})
+  # updateTags: (id, editableTags) ->
+  #   fixedTags = getTagTypes(@_get(id).tags).fixed
+  #   tags = editableTags.concat(_.pluck(fixedTags, 'value'))
+  #   tags = _.filter(tags, (tag) -> tag isnt '')
+  #   @_change(id, {tags})
 
-  updateFixedTag:(id, oldTag, newTag) ->
-    tags = @_get(id).tags
-    if (not newTag)
-      tags = _.filter(tags, (tag) -> tag isnt oldTag)
-    else if (not oldTag)
-      tags.push(newTag)
-    else
-      tags = _.filter(tags, (tag) -> tag isnt oldTag)
-      tags.push(newTag)
+  # updateFixedTag:(id, oldTag, newTag) ->
+  #   tags = @_get(id).tags
+  #   if (not newTag)
+  #     tags = _.filter(tags, (tag) -> tag isnt oldTag)
+  #   else if (not oldTag)
+  #     tags.push(newTag)
+  #   else
+  #     tags = _.filter(tags, (tag) -> tag isnt oldTag)
+  #     tags.push(newTag)
 
-    @_change(id, {tags})
+  #   @_change(id, {tags})
 
   addBlankPrefixedTag: (id, {prefix}) ->
     prefix += ':'
@@ -84,19 +84,6 @@ ExerciseConfig = {
       tags.push(prefix)
       @_change(id, {tags})
 
-
-  # these may not be needed
-  #
-  # removeTag: (id, badTag) ->
-  #   tags = @_get(id).tags
-  #   cleanedTags = _.without(tags, badTag)
-  #   @_change(id, {tags: cleanedTags}) if cleanedTags.length isnt tags.length
-
-  # addTag: (id, tag) ->
-  #   tags = @_get(id).tags
-  #   tags.push(tag)
-  #   console.log "Added: #{tags}"
-  #   @_change(id, {tags})
 
   # Updates or creates a prefixed tag
   # If previous is given, then only the tag with that value will be updated
@@ -168,9 +155,9 @@ ExerciseConfig = {
 
     getStimulus: (id) -> @_local[id].stimulus_html
 
-    getEditableTags: (id) -> getTagTypes(@_local[id].tags).editable
+    # getEditableTags: (id) -> getTagTypes(@_local[id].tags).editable
 
-    getFixedTags: (id) -> getTagTypes(@_local[id].tags).fixed
+    # getFixedTags: (id) -> getTagTypes(@_local[id].tags).fixed
 
     getPublishedDate: (id) -> @_local[id].published_at
 
@@ -181,7 +168,7 @@ ExerciseConfig = {
     getTagsWithPrefix: (id, prefix) ->
       prefix += ':'
       tags = _.select @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
-      _.map( tags, (tag) -> tag.replace(/^[\w\-]+:/, '') ).sort()
+      _.map( tags, (tag) -> tag.replace(prefix, '') ).sort()
 
     getTemplate: (id) ->
       questionId = QuestionStore.freshLocalId()
