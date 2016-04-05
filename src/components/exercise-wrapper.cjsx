@@ -12,6 +12,11 @@ ExerciseWrapper = React.createClass
   getInitialState: ->
     {}
 
+  componentDidMount: ->
+    if @props.exerciseId
+      this.refs.exerciseId.getDOMNode().value = @props.exerciseId
+      @loadExercise()
+
   publishExercise: ->
     if confirm('Are you sure you want to publish?')
       ExerciseActions.save(@state.exerciseId)

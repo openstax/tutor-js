@@ -38,13 +38,17 @@ Exercise = React.createClass
       <Question id={_.first(questions)?.id} sync={@sync} />
     </BS.TabPane>
 
-  previewTag: ->
+  previewTag: (tag) ->
     content = _.compact([tag.name, tag.description]).join(' ') or tag.id
     isLO = _.include(['lo', 'aplo'], tag.type)
     {content, isLO}
 
   onToggleMPQ: (ev) ->
     @setState(isShowingMPQ: ev.target.checked)
+
+  exercisePreviewData: (ex) ->
+    content: ex
+    tags: _.map ex.tags, (tag) -> name: tag
 
   addQuestion: ->
     ExerciseActions.addQuestionPart(@props.exerciseId)
@@ -54,7 +58,11 @@ Exercise = React.createClass
     return null unless exercise
 
     <div className="exercise-editor">
-      <ExercisePreview extractTag={@previewTag} exercise={tags: exercise.tags, content: exercise} />
+      <ExercisePreview
+        extractTag={@previewTag}
+        displayAllTags={true}
+        exercise={@exercisePreviewData(exercise)}
+      />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <form className="navbar-form navbar-right" role="search">
@@ -69,7 +77,7 @@ Exercise = React.createClass
 
       <BS.TabbedArea defaultActiveKey='tags'>
         <BS.TabPane eventKey='tags' tab='Tags'>
-          <ExerciseTags id={@props.exerciseId} sync={@sync} />
+          <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
         </BS.TabPane>
         <BS.TabPane eventKey='assets' tab='Assets'>
           <Attachments exerciseId={@props.exerciseId} />
