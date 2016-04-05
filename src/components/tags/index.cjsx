@@ -6,6 +6,7 @@ _ = require 'underscore'
 BookTags = require './books'
 LoTag = require './lo'
 QuestionTypeTag = require './question-type'
+FilterTypeTag = require './filter-type'
 
 ExerciseTags = React.createClass
   propTypes:
@@ -26,6 +27,8 @@ ExerciseTags = React.createClass
         <BookTags        {...@props} />
         <LoTag           {...@props} />
         <QuestionTypeTag {...@props} />
+        <FilterTypeTag   {...@props} />
+
       </BS.Row>
     </div>
 
