@@ -49,9 +49,6 @@ Input = React.createClass
         value={@state.value}
         placeholder={@props.placeholder} />
       <Error error={@state.errorMsg} />
-      <span className="controls">
-        <i onClick={@onDelete} className="fa fa-trash" />
-      </span>
     </div>
 
 ExIdTags = React.createClass
