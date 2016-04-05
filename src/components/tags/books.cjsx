@@ -23,8 +23,12 @@ BookTagSelect = React.createClass
     )
   onDelete: ->
     ExerciseActions.setPrefixedTag(@props.exerciseId,
-      prefix: 'book', tag: '', previous: @props.tag
+      prefix: 'book', tag: false, previous: @props.tag
     )
+    ExerciseActions.setPrefixedTag(@props.exerciseId,
+      prefix: "exid:#{@props.tag}", tag: false, replaceOthers: true
+    )
+
   render: ->
     <div className="tag">
       <select
