@@ -4,6 +4,7 @@ classnames = require 'classnames'
 Wrapper = require './wrapper'
 Error = require './error'
 
+PREFIX = 'lo'
 {ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 LoTagInput = React.createClass
@@ -24,7 +25,7 @@ LoTagInput = React.createClass
     {value} = @state
     if value.match(/^\d+-\d+-\d+$/)
       ExerciseActions.setPrefixedTag(@props.exerciseId,
-        prefix: 'lo', tag: value, previous: @props.tag
+        prefix: PREFIX, tag: value, previous: @props.tag
       )
     else
       @setState({errorMsg: 'Must match LO format'})
@@ -48,10 +49,10 @@ LoTags = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   add: ->
-    ExerciseActions.addBlankPrefixedTag(@props.exerciseId, prefix: 'lo')
+    ExerciseActions.addBlankPrefixedTag(@props.exerciseId, prefix: PREFIX)
 
   render: ->
-    tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, 'lo')
+    tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, PREFIX)
 
     <Wrapper label="LO" onAdd={@add}>
       {for tag in tags
