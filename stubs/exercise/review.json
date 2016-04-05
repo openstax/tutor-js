@@ -52,16 +52,20 @@
       "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table>\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\"> </th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\"> </th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my coffeemaker from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
       "answers": [{
         "id": "4",
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken. <span data-math=\"-4.81 \\times 10^{-19}\\,\\text{C}.\">-4.81 \\times 10^{-19}\\,\\text{C}.</span>"
+        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "feedback_html": "Why wouldn't this be true?"
       }, {
         "id": "3",
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet. <span data-math=\"-1.602 \\times 10^{-19}\\,\\text{C}.\">-1.602 \\times 10^{-19}\\,\\text{C}.</span>"
+        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "feedback_html": "Correct"
       }, {
         "id": "2",
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.  <span data-math=\"1.602 \\times 10^{-19}\\,\\text{C}.\">1.602 \\times 10^{-19}\\,\\text{C}.</span>"
+        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "feedback_html": "Why wouldn't this be true? are you sure?"
       }, {
         "id": "1",
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work. <span data-math=\"4.81 \\times 10^{-19}\\,\\text{C}.\">4.81 \\times 10^{-19}\\,\\text{C}.</span>"
+        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "feedback_html": "Why wouldn't this be true? The electrical outlet is good."
       }],
       "solutions": [{
         "uid": "1@1",
