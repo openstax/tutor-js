@@ -20,7 +20,6 @@ QuestionTypeTag = React.createClass
 
   render: ->
     tag = _.first ExerciseStore.getTagsWithPrefix(@props.exerciseId, PREFIX)
-    console.log 'Render q', tag
     <Wrapper label="Question Type">
       <div className="tag">
         <select onChange={@updateTag} value={@props.tag}>
