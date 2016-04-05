@@ -34,6 +34,11 @@ Input = React.createClass
         prefix: @props.prefix, tag: value, previous: @props.tag
       )
 
+  onDelete: ->
+    ExerciseActions.setPrefixedTag(@props.exerciseId,
+      prefix: @props.prefix, tag: false, previous: @props.tag
+    )
+
   render: ->
     <div className={classnames('tag', 'has-error': @state.errorMsg)}>
       <input
