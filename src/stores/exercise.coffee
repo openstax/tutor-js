@@ -98,6 +98,9 @@ ExerciseConfig = {
   #   console.log "Added: #{tags}"
   #   @_change(id, {tags})
 
+  # Updates or creates a prefixed tag
+  # If previous is given, then only the tag with that value will be updated
+  # Otherwise, all other tags with prefix will be removed
   setPrefixedTag: (id, {prefix, tag, previous}) ->
     prefix += ':'
     tags = _.without(@_get(id).tags, prefix + previous)
