@@ -3,10 +3,11 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
-BookTags = require './books'
-LoTag = require './lo'
+BookTags        = require './books'
+LoTag           = require './lo'
 QuestionTypeTag = require './question-type'
-FilterTypeTag = require './filter-type'
+FilterTypeTag   = require './filter-type'
+FormatTypeTag   = require './format-type'
 
 ExerciseTags = React.createClass
   propTypes:
@@ -28,6 +29,9 @@ ExerciseTags = React.createClass
         <LoTag           {...@props} />
         <QuestionTypeTag {...@props} />
         <FilterTypeTag   {...@props} />
+      </BS.Row>
+      <BS.Row>
+        <FormatTypeTag   {...@props} />
 
       </BS.Row>
     </div>
