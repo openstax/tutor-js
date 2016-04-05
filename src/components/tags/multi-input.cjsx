@@ -1,4 +1,5 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 _ = require 'underscore'
 classnames = require 'classnames'
 
@@ -7,6 +8,9 @@ Error = require './error'
 {ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 Input = React.createClass
+
+  getDefaultProps: ->
+    inputType: 'text'
 
   propTypes:
     tag: React.PropTypes.string.isRequired
@@ -33,6 +37,7 @@ Input = React.createClass
   render: ->
     <div className={classnames('tag', 'has-error': @state.errorMsg)}>
       <input
+        type={@props.inputType}
         onChange={@onChange}
         onBlur={@validateAndSave}
         value={@state.value}
@@ -59,7 +64,7 @@ MultiInput = React.createClass
     tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, @props.prefix)
 
     <Wrapper label={@props.label} onAdd={@add}>
-      {for tag in tags
+      {for tag in tags.sort()
         <Input key={tag} {...@props} tag={tag} />}
     </Wrapper>
 

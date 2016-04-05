@@ -9,6 +9,9 @@ QuestionTypeTag = require './question-type'
 FilterTypeTag   = require './filter-type'
 CnxModTag       = require './cnx-mod'
 CnxFeatureTag   = require './cnx-feature'
+DokTag   = require './dok'
+BloomsTag   = require './blooms'
+TimeTag   = require './time'
 
 ExerciseTags = React.createClass
   propTypes:
@@ -34,7 +37,11 @@ ExerciseTags = React.createClass
       <BS.Row>
         <CnxModTag       {...@props} />
         <CnxFeatureTag   {...@props} />
-
+        <DokTag   {...@props} />
+        <BloomsTag   {...@props} />
+      </BS.Row>
+      <BS.Row>
+        <TimeTag   {...@props} />
       </BS.Row>
     </div>
 

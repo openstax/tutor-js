@@ -107,7 +107,7 @@ ExerciseConfig = {
       tags = _.reject(@_get(id).tags, (tag) -> 0 is tag.indexOf(prefix))
         .concat( _.map tags, (tag) -> prefix + tag )
     else if replaceOthers
-      _.reject @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
+      tags = _.reject @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
     else
       tags = _.clone @_get(id).tags
 
