@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 Exercise = require './exercise'
-
+ErrorModal = require './error-modal'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
 module.exports = React.createClass
@@ -79,6 +79,7 @@ module.exports = React.createClass
     )
 
     <div className={classes}>
+      <ErrorModal />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">

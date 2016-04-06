@@ -5,7 +5,6 @@ _ = require 'underscore'
 
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Exercise = require './exercise'
-ErrorModal = require './error-modal'
 
 ExerciseWrapper = React.createClass
 
