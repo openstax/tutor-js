@@ -7,10 +7,10 @@ __FORMATS =
   freeResponse: 'free-response'
   multipleChoice: 'multiple-choice'
 
-hasFormat = (formats, form) ->
+hasFormat = (formats = [], form) ->
   _.find formats, (format) -> format is form
 
-toggleFormat = (formats, form) ->
+toggleFormat = (formats = [], form) ->
   if hasFormat(formats, form)
     _.reject formats, (format) -> format is form
   else
@@ -60,7 +60,7 @@ QuestionConfig = {
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
   updateSolution: (id, feedback) ->
-    solution = _.first(@_local[id].collaborator_solutions)
+    solution = _.first(@_get(id).collaborator_solutions)
     if (solution)
       solution.content_html = feedback
     else
@@ -77,44 +77,43 @@ QuestionConfig = {
       AnswerActions.setIncorrect(curAnswer) if curAnswer
 
   toggleMultipleChoiceFormat: (id) ->
-    newFormats = toggleFormat(@_local[id].formats, __FORMATS.multipleChoice)
+    newFormats = toggleFormat(@_get(id).formats, __FORMATS.multipleChoice)
     @_change(id, {formats: newFormats})
 
   toggleFreeResponseFormat: (id) ->
-    newFormats = toggleFormat(@_local[id].formats, __FORMATS.freeResponse)
+    newFormats = toggleFormat(@_get(id).formats, __FORMATS.freeResponse)
     @_change(id, {formats: newFormats})
 
   togglePreserveOrder: (id) ->
-    @_local[id].is_answer_order_important = not @_local[id].is_answer_order_important
+    @_get(id).is_answer_order_important = not @_get(id).is_answer_order_important
 
 
   exports:
 
-    getAnswers: (id) -> @_local[id]?.answers or []
+    getAnswers: (id) -> @_get(id)?.answers or []
 
-    getStem: (id) -> @_local[id]?.stem_html
+    getStem: (id) -> @_get(id)?.stem_html
 
-    getStimulus: (id) -> @_local[id]?.stimulus_html
+    getStimulus: (id) -> @_get(id)?.stimulus_html
 
     getSolution: (id) ->
-      _.first(@_local[id].collaborator_solutions)?.content_html
+      _.first(@_get(id).collaborator_solutions)?.content_html
 
     getCorrectAnswer: (id) ->
-      _.find @_local[id]?.answers, (answer) -> AnswerStore.isCorrect(answer.id)
+      _.find @_get(id)?.answers, (answer) -> AnswerStore.isCorrect(answer.id)
 
     isMultipleChoice: (id) ->
-      hasFormat(@_local[id].formats, __FORMATS.multipleChoice)
+      hasFormat(@_get(id).formats, __FORMATS.multipleChoice)
     isFreeResponse: (id) ->
-      hasFormat(@_local[id].formats, __FORMATS.freeResponse)
+      hasFormat(@_get(id).formats, __FORMATS.freeResponse)
     isOrderPreserved: (id) ->
-      @_local[id].is_answer_order_important
+      @_get(id).is_answer_order_important
 
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()
 
       stem_html:"",
       stimulus_html:"",
-      formats:[],
       collaborator_solutions: [{"content_html": "", "solution_type": "detailed"}],
       answers:[_.extend({}, AnswerStore.getTemplate(), {id: answerId})],
       is_answer_order_important: false

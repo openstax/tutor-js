@@ -15,6 +15,7 @@
 @import "@{bootstrap-path}/navbar";
 @import "@{bootstrap-path}/buttons";
 @import "@{bootstrap-path}/button-groups";
+@import "@{bootstrap-path}/responsive-embed";
 
 @import "@{widgets-path}/variables";
 @import "@{widgets-path}/bootstrap-theme";
@@ -60,6 +61,22 @@ body {
   .navbar-form {
     .navbar-btn { margin-top: 0; }
   }
+
+	.exercise-stimulus {
+		label {
+			display: block;
+		}
+
+		textarea {
+			display: block;
+			margin-bottom: 2rem;
+			width: 100%;
+			height: 8rem;
+		}
+	}
+	a {
+		cursor: pointer;
+	}
   @import './tags';
   @import './attachments';
   @import './question';

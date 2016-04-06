@@ -3,27 +3,21 @@ flux = require 'flux-react'
 
 AnswerConfig = {
   updateContent: (id, content) ->
-    @_local[id].content_html = content
-    @emitChange()
+    @_change(id, {content_html: content})
 
   setCorrect: (id) ->
-    @_local[id].correctness = "1.0"
-    @emitChange()
+    @_change(id, {correctness: "1.0"})
 
   setIncorrect: (id) ->
-    @_local[id].correctness = "0.0"
-    @emitChange()
+    @_change(id, {correctness: "0.0"})
 
   updateFeedback: (id, feedback) ->
-    @_local[id].feedback_html = feedback
-    @emitChange()
-
-
+    @_change(id, {feedback_html: feedback})
 
   exports:
-    getContent: (id) -> @_local[id].content_html
-    getFeedback: (id) -> @_local[id].feedback_html
-    isCorrect: (id) -> @_local[id].correctness is "1.0"
+    getContent: (id) -> @_get(id).content_html
+    getFeedback: (id) -> @_get(id).feedback_html
+    isCorrect: (id) -> @_get(id).correctness is "1.0"
 
     validate: (id) ->
       if (not @_get(id).content_html)
