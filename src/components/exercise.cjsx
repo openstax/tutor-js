@@ -96,7 +96,11 @@ Exercise = React.createClass
     tab = @getActiveTab(showMPQ)
 
     <div className="exercise-editor">
-
+      <ExercisePreview
+        extractTag={@previewTag}
+        displayAllTags={true}
+        exercise={@exercisePreviewData(exercise)}
+      />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <form className="navbar-form navbar-right" role="search">
