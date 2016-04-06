@@ -3,13 +3,6 @@ _ = require 'underscore'
 
 Wrapper = require './wrapper'
 
-# PREFIX = 'question-type'
-# TYPES =
-#   'conceptual-or-recall' : 'Conceptual or Recall'
-#   'conceptual'           : 'Conceptual'
-#   'recall'               : 'Recall'
-#   'practice'             : 'Practice'
-
 SingleDropdown = React.createClass
 
   propTypes:
