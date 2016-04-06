@@ -91,7 +91,9 @@ ExercisePreview = React.createClass
         choicesEnabled={false}
         show_all_feedback={@props.displayFeedback}
         type='teacher-review'
-        details={details}/>
+        details={details}>
+        {@props.questionFooter}
+      </Question>
     )
 
     <BS.Panel
