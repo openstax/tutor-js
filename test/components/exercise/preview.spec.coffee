@@ -31,5 +31,5 @@ describe 'Exercise Preview Component', ->
   it 'can hide the answers', ->
     _.extend(@props, hideAnswers: true)
     Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.answers-table').textContent).to.be.empty
+      expect(dom.querySelector('.answers-table')).to.be.not.ok
       expect(dom.classList.contains('answers-hidden')).to.be.true

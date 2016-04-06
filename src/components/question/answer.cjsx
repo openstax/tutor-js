@@ -109,7 +109,7 @@ Answer = React.createClass
         disabled={disabled}
       />
 
-    if type is 'teacher-review'
+    if type is 'teacher-review' and answer.selected_count
       percent = Math.round(answer.selected_count / answered_count * 100) or 0
       selectedCount = <div
         className='selected-count'

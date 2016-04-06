@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 
 ArbitraryHtmlAndMath = require '../html'
 ExerciseIdentifierLink = require './identifier-link'
+Question = require '../question'
 
 ExercisePreview = React.createClass
 
@@ -86,6 +87,27 @@ ExercisePreview = React.createClass
       'is-selected': @props.isSelected
       'is-displaying-feedback': @props.displayFeedback
     })
+
+    questions = _.map(content.questions, (question) =>
+      question = _.omit(question, 'answers') if @props.hideAnswers
+
+      solution = [
+        <div className='detailed-solution' key='solution'>
+          <div className='header'>Detailed solution</div>
+          <ArbitraryHtmlAndMath className="solution" block
+            html={_.first(question.solutions)?.content_html} />
+        </div>
+        <div className='exercise-tags' key='tags'>{renderedTags}</div>
+      ]
+
+      <Question
+        model={question}
+        choicesEnabled={false}
+        show_all_feedback={true}
+        type='teacher-review'
+        solution={solution}/>
+    )
+
     <BS.Panel
       className={classes}
       bsStyle={@props.panelStyle}
@@ -94,15 +116,7 @@ ExercisePreview = React.createClass
     >
       {@renderToggleOverlay() if @props.toggleExercise?}
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
-      <ArbitraryHtmlAndMath className='stem' block={true} html={question.stem_html} />
-      <div className='answers-table'>{renderedAnswers}</div>
-      <div className='detailed-solution'>
-        <div className='header'>Detailed solution</div>
-        <ArbitraryHtmlAndMath className="solution" block
-          html={_.first(question.solutions)?.content_html} />
-      </div>
-      <div className='exercise-tags'>{renderedTags}</div>
-
+      {questions}
     </BS.Panel>
 
 module.exports = ExercisePreview

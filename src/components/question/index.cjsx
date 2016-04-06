@@ -56,6 +56,7 @@ Question = React.createClass
       <QuestionHtml type='stimulus' html={stimulus_html} />
       {@props.children}
       <AnswersTable {...@props}/>
+      {@props.solution}
       <div className="exercise-uid">{exercise_uid}</div>
     </div>
 
