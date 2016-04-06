@@ -7,7 +7,6 @@ ExerciseTags = require './tags'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Attachments = require './attachments'
 {ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
-AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
 
 Exercise = React.createClass
@@ -29,7 +28,6 @@ Exercise = React.createClass
 
   updateStimulus: (event) ->
     ExerciseActions.updateStimulus(@props.exerciseId, event.target?.value)
-    @props.sync()
 
   renderIntroTab: ->
     id = @props.exerciseId
@@ -118,9 +116,11 @@ Exercise = React.createClass
         <BS.TabPane eventKey='tags' tab='Tags'>
           <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
         </BS.TabPane>
-        <BS.TabPane eventKey='assets' tab='Assets'>
-          <Attachments exerciseId={@props.exerciseId} />
-        </BS.TabPane>
+        { if not ExerciseStore.isNew(@props.exerciseId)
+          <BS.TabPane eventKey='assets' tab='Assets'>
+            <Attachments exerciseId={@props.exerciseId} />
+          </BS.TabPane>
+        }
       </BS.TabbedArea>
     </div>
 
