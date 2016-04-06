@@ -44,7 +44,7 @@ module.exports = React.createClass
   preserveOrderClicked: (event) -> QuestionActions.togglePreserveOrder(@props.id)
 
   render: ->
-    {id} = @props
+    {id, removeQuestion, hideStimulus} = @props
     answers = []
 
     for answer, index in QuestionStore.getAnswers(id)
@@ -58,14 +58,14 @@ module.exports = React.createClass
         changeAnswer={@changeAnswer}/>)
 
     <div className="question">
-      <div>
-        <label>Question Stem</label>
-        <textarea onChange={@updateStem} defaultValue={QuestionStore.getStem(id)}></textarea>
-      </div>
-      <div>
-        <label>Question Stimulus</label>
-        <textarea onChange={@updateStimulus} defaultValue={QuestionStore.getStimulus(id)}></textarea>
-      </div>
+      {if removeQuestion
+        <div>
+          <a className="remove-question" onClick={removeQuestion}>
+            <i className="fa fa-trash" />
+            Remove Question
+          </a>
+        </div>
+      }
       <div>
         <label>Question Formats</label>
       </div>
@@ -82,6 +82,16 @@ module.exports = React.createClass
           type="checkbox"
           defaultChecked={QuestionStore.isFreeResponse(id)} />
         <label htmlFor="freeResponseFormat#{id}">Free Response</label>
+      </div>
+      { if not hideStimulus
+        <div>
+          <label>Question Stimulus</label>
+          <textarea onChange={@updateStimulus} defaultValue={QuestionStore.getStimulus(id)}></textarea>
+        </div>
+      }
+      <div>
+        <label>Question Stem</label>
+        <textarea onChange={@updateStem} defaultValue={QuestionStore.getStem(id)}></textarea>
       </div>
       <div>
         <label>Detailed Solution</label>
