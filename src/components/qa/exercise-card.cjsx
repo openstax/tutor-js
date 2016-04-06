@@ -3,7 +3,7 @@ React = require 'react'
 classnames = require 'classnames'
 {ExerciseStore} = require '../../flux/exercise'
 String = require '../../helpers/string'
-ExerciseCard = require '../exercise-card'
+{ExercisePreview} = require 'openstax-react-components'
 
 Exercise = React.createClass
 
@@ -22,13 +22,14 @@ Exercise = React.createClass
     types = ExerciseStore.getExerciseTypes(@props.exercise)
     return null if _.every( types, (pt) => @props.ignoredTypes[pt] )
     editUrl = @props.exercise.url.replace(/@\d+/, '@draft')
-    <ExerciseCard {...@props}
+    <ExercisePreview {...@props}
+      className='exercise-card'
       header={@renderHeader(types)}
       displayAllTags
       displayFeedback
     >
       <a target="_blank" className="edit-link" href={editUrl}>edit</a>
-    </ExerciseCard>
+    </ExercisePreview>
 
 
 module.exports = Exercise

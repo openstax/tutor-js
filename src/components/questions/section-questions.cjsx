@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 {TocStore} = require '../../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
 Dialog = require '../tutor-dialog'
-ExerciseCard = require '../exercise-card'
+{ExercisePreview} = require 'openstax-react-components'
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
 
@@ -24,7 +24,8 @@ QLExerciseCard = React.createClass
 
   render: ->
     inc_ex = if @props.isExcluded then 'Reinclude' else 'Exclude'
-    <ExerciseCard
+    <ExercisePreview
+      className='exercise-card'
       displayFeedback={@state.isShowingFeedback}
       hoverMessage={"#{inc_ex} this question"}
       isSelected={@props.isExcluded}
@@ -34,7 +35,7 @@ QLExerciseCard = React.createClass
         <Icon type={(if @state?.isShowingFeedback then 'check-' else '' ) + 'square-o'} />
         Preview Feedback
       </button>
-    </ExerciseCard>
+    </ExercisePreview>
 
 SectionsQuestions = React.createClass
 
