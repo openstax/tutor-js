@@ -10,7 +10,7 @@ describe 'Assignment Publishing Tests', ->
   beforeEach ->
     @calendar = new Helpers.Calendar(@)
     @calendarPopup = new Helpers.Calendar.Popup(@)
-    @homework = new Helpers.ReadingBuilder(@)
+    @homework = new Helpers.TaskBuilder(@)
 
     @title = @utils.getFreshId()
     new Helpers.User(@).login(TEACHER_USERNAME)
