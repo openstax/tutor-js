@@ -19,12 +19,19 @@ Exercise = React.createClass
     </div>
 
   render: ->
-    types = ExerciseStore.getExerciseTypes(@props.exercise)
-    return null if _.every( types, (pt) => @props.ignoredTypes[pt] )
-    editUrl = @props.exercise.url.replace(/@\d+/, '@draft')
+    {exercise, ignoredTypes, show2StepPreview} = @props
+    types = ExerciseStore.getExerciseTypes(exercise)
+    return null if _.every( types, (pt) -> ignoredTypes[pt] )
+
+    editUrl = exercise.url.replace(/@\d+/, '@draft')
+
+    if show2StepPreview and ExerciseStore.hasQuestionWithFormat('free-response', {exercise})
+      freeResponse = <div className='exercise-free-response-preview'/>
+
     <ExercisePreview {...@props}
       className='exercise-card'
       header={@renderHeader(types)}
+      questionFooter={freeResponse}
       displayAllTags
       displayFeedback
     >

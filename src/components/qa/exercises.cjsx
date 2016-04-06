@@ -54,11 +54,9 @@ QAExercises = React.createClass
 
   renderExerciseContent: (exercises) ->
     exercises = _.map exercises, (exercise) =>
-      hideAnswers = @state.isShowing2StepPreview and
-        ExerciseStore.hasQuestionWithFormat('free-response', {exercise})
       <ExerciseCard key={exercise.id}
         exercise={exercise}
-        hideAnswers={hideAnswers}
+        show2StepPreview={@state.isShowing2StepPreview}
         ignoredTypes={@state.ignored} />
 
     selections = _.map ExerciseStore.getPageExerciseTypes(@state.pageId), (pt) =>
