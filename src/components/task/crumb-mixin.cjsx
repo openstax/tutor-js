@@ -71,6 +71,7 @@ module.exports =
       crumb: @_shouldStepCrumb(steps.length)
       type: crumbType
       listeners: @_getStepListeners(crumbType)
+      label: 'Summary'
 
     crumbs
 
