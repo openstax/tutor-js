@@ -4,6 +4,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Question = require './question'
 ExerciseTags = require './tags'
+MPQToggle = require './mpq-toggle'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Attachments = require './attachments'
 {ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
@@ -59,8 +60,6 @@ Exercise = React.createClass
     isLO = _.include(['lo', 'aplo'], tag.type)
     {content, isLO}
 
-  onToggleMPQ: (ev) ->
-    ExerciseActions.toggleMultiPart(@props.exerciseId)
 
   exercisePreviewData: (ex) ->
     content: ex
@@ -82,6 +81,7 @@ Exercise = React.createClass
 
     @state.tab
 
+
   render: ->
     exercise = ExerciseStore.get(@props.exerciseId)
     return null unless exercise
@@ -99,8 +99,7 @@ Exercise = React.createClass
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <form className="navbar-form navbar-right" role="search">
-            <BS.Input type="checkbox" label="Exercise contains multiple parts"
-              checked={showMPQ} wrapperClassName="mpq-toggle" onChange={@onToggleMPQ} />
+            <MPQToggle exerciseId={@props.exerciseId} />
             {if showMPQ
               <BS.Button onClick={@addQuestion} className="navbar-btn"
                 bsStyle="primary">Add Question</BS.Button>}
