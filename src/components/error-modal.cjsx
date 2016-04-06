@@ -4,6 +4,8 @@ _ = require 'underscore'
 
 {ErrorsStore, ErrorsActions} = require '../stores/errors'
 
+SUPPORT_URL = 'https://docs.google.com/a/rice.edu/forms/d/1gw-KCCQ1oHzfCQ8JjgDgZa9K5bfGEbp959RweYCKcG8/viewform'
+
 ErrorModal = React.createClass
 
   componentWillMount: ->
@@ -41,12 +43,17 @@ ErrorModal = React.createClass
       onHide={@onHide}>
 
       <div className='modal-body'>
-         <p>Please let the content and/or QA teams know.</p>
-         <p>Additional error messages returned from the server is:</p>
-         <pre className='response'>{message or 'No response was received'}</pre>
-         <div className='request'>
-           <kbd>{request.opts.method}</kbd> on {request.url} {dataMessage}
-         </div>
+        <p>Please fill out an <a target="_blank" href={SUPPORT_URL}>internal support
+          request</a> <i>(opens in new tab)</i>.
+        </p>
+        <p>
+          When submitting the request, please include the error details show below.
+        </p>
+        <p>Error details returned from the server:</p>
+        <pre className='response'>{message or 'No response was received'}</pre>
+        <div className='request'>
+          <kbd>{request.opts.method}</kbd> on {request.url} {dataMessage}
+        </div>
       </div>
 
       <div className='modal-footer'>
