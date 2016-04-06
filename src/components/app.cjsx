@@ -4,6 +4,7 @@ classnames = require 'classnames'
 Exercise = require './exercise'
 ErrorModal = require './error-modal'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
+AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
 module.exports = React.createClass
   displayName: 'App'
@@ -74,9 +75,12 @@ module.exports = React.createClass
         ExerciseActions.save(id)
 
   render: ->
+    id = @state.exerciseId
     classes = classnames('exercise', 'openstax', 'container-fluid',
       {'is-loading': ExerciseStore.isLoading()}
     )
+
+    isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
 
     <div className={classes}>
       <ErrorModal />
@@ -84,9 +88,29 @@ module.exports = React.createClass
         <div className="container-fluid">
           <div className="navbar-header">
             <BS.ButtonToolbar className="navbar-btn">
-              <BS.Button bsStyle="primary" onClick={@addNew}>New</BS.Button>
-              <BS.Button bsStyle="primary" onClick={@saveExercise}>Save Draft</BS.Button>
-              <BS.Button bsStyle="primary" onClick={@publishExercise}>Publish</BS.Button>
+              <a href="/exercises/new" className="btn btn-success">New Exercise</a>
+              <AsyncButton
+                bsStyle='info'
+                onClick={@saveExercise}
+                disabled={isWorking}
+                isWaiting={ExerciseStore.isSaving(id)}
+                waitingText='Saving...'
+                isFailed={ExerciseStore.isFailed(id)}
+                >
+                Save Draft
+              </AsyncButton>
+              { if not ExerciseStore.isNew(id)
+                <AsyncButton
+                  bsStyle='primary'
+                  onClick={@publishExercise}
+                  disabled={isWorking}
+                  isWaiting={ExerciseStore.isPublishing(id)}
+                  waitingText='Publishing...'
+                  isFailed={ExerciseStore.isFailed(id)}
+                  >
+                  Publish
+                </AsyncButton>
+              }
             </BS.ButtonToolbar>
           </div>
 
