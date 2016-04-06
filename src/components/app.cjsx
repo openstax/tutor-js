@@ -41,6 +41,9 @@ module.exports = React.createClass
     @loadExercise()
     ev.preventDefault()
 
+  toggleVerticalDisplay: (ev) ->
+    @setState(verticalDisplay: ev.target.checked)
+
   renderExerciseOrLoad: ->
     if @state.exerciseId and not ExerciseStore.isNew(@state.exerciseId)
       <div>Exercise ID: {@state.exerciseId}</div>
@@ -58,7 +61,7 @@ module.exports = React.createClass
     if ExerciseStore.isLoading()
       <div>Loading...</div>
     else
-      <Exercise exerciseId={@state.exerciseId} />
+      <Exercise displayVertically={@state.verticalDisplay} exerciseId={@state.exerciseId} />
 
   saveExercise: ->
     id = @state.exerciseId
@@ -111,6 +114,10 @@ module.exports = React.createClass
                   Publish
                 </AsyncButton>
               }
+              <form className="navbar-form navbar-right">
+                <BS.Input type="checkbox" label=" Split Vertically"
+                  checked={@state.displayVertical} onChange={@toggleVerticalDisplay} />
+              </form>
             </BS.ButtonToolbar>
           </div>
 

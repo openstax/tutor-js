@@ -2,6 +2,8 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
+classnames = require 'classnames'
+
 Question = require './question'
 ExerciseTags = require './tags'
 MPQToggle = require './mpq-toggle'
@@ -95,7 +97,11 @@ Exercise = React.createClass
 
     tab = @getActiveTab(showMPQ)
 
-    <div className="exercise-editor">
+    classes = classnames('exercise-editor',
+      'vertical-layout': @props.displayVertically
+    )
+
+    <div className={classes}>
       <ExercisePreview
         extractTag={@previewTag}
         exercise={@exercisePreviewData(exercise)}
@@ -103,31 +109,33 @@ Exercise = React.createClass
         displayFeedback={true}
         hideAnswers={false}
       />
-      <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <form className="navbar-form navbar-right" role="search">
-            <MPQToggle exerciseId={@props.exerciseId} />
-            {if showMPQ
-              <BS.Button onClick={@addQuestion} className="navbar-btn"
-                bsStyle="primary">Add Question</BS.Button>}
-          </form>
-        </div>
-      </nav>
+      <div className="controls">
+        <nav className="navbar navbar-default">
+          <div className="container-fluid">
+            <form className="navbar-form navbar-right" role="search">
+              <MPQToggle exerciseId={@props.exerciseId} />
+              {if showMPQ
+                <BS.Button onClick={@addQuestion} className="navbar-btn"
+                  bsStyle="primary">Add Question</BS.Button>}
+            </form>
+          </div>
+        </nav>
 
-      <BS.TabbedArea defaultActiveKey='question-0' animation={false}
-        activeKey={tab} onSelect={@selectTab}
-      >
-        {if showMPQ then @renderIntroTab()}
-        {if showMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
-        <BS.TabPane eventKey='tags' tab='Tags'>
-          <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
-        </BS.TabPane>
-        { if not ExerciseStore.isNew(@props.exerciseId)
-          <BS.TabPane eventKey='assets' tab='Assets'>
-            <Attachments exerciseId={@props.exerciseId} />
+        <BS.TabbedArea defaultActiveKey='question-0' animation={false}
+          activeKey={tab} onSelect={@selectTab}
+        >
+          {if showMPQ then @renderIntroTab()}
+          {if showMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
+          <BS.TabPane eventKey='tags' tab='Tags'>
+            <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
           </BS.TabPane>
-        }
-      </BS.TabbedArea>
+          { if not ExerciseStore.isNew(@props.exerciseId)
+            <BS.TabPane eventKey='assets' tab='Assets'>
+              <Attachments exerciseId={@props.exerciseId} />
+            </BS.TabPane>
+          }
+        </BS.TabbedArea>
+      </div>
     </div>
 
 
