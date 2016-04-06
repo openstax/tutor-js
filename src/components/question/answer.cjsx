@@ -130,11 +130,13 @@ Answer = React.createClass
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'>
           <div className='answer-letter' />
-          <ArbitraryHtmlAndMath
-            {...htmlAndMathProps}
-            className='answer-content'
-            html={answer.content_html} />
-          {feedback}
+          <div className='answer-answer'>
+            <ArbitraryHtmlAndMath
+              {...htmlAndMathProps}
+              className='answer-content'
+              html={answer.content_html} />
+            {feedback}
+          </div>
         </label>
       </div>
     </div>

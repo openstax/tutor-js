@@ -78,14 +78,11 @@ ExercisePreview = React.createClass
     questions = _.map(content.questions, (question) =>
       question = _.omit(question, 'answers') if @props.hideAnswers
 
-      details = [
-        <div className='detailed-solution' key='solution'>
-          <div className='header'>Detailed solution</div>
-          <ArbitraryHtmlAndMath className="solution" block
-            html={_.first(question.solutions)?.content_html} />
-        </div>
-        <div className='exercise-tags' key='tags'>{renderedTags}</div>
-      ]
+      details = <div className='detailed-solution' key='solution'>
+        <div className='header'>Detailed solution</div>
+        <ArbitraryHtmlAndMath className="solution" block
+          html={_.first(question.solutions)?.content_html} />
+      </div>
 
       <Question
         className='openstax-question-preview'
@@ -105,6 +102,7 @@ ExercisePreview = React.createClass
       {@renderToggleOverlay() if @props.toggleExercise?}
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       {questions}
+      <div className='exercise-tags' key='tags'>{renderedTags}</div>
     </BS.Panel>
 
 module.exports = ExercisePreview
