@@ -52,8 +52,8 @@ Question = React.createClass
     exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
 
     <div className={classes}>
-      <QuestionHtml type='stem' html={stem_html} />
       <QuestionHtml type='stimulus' html={stimulus_html} />
+      <QuestionHtml type='stem' html={stem_html} />
       {@props.children}
       <AnswersTable {...@props}/>
       {details}
