@@ -32,7 +32,7 @@ Exercise = React.createClass
         <div className='exercise-free-response-preview'/> if hasFreeResponse
 
     <ExercisePreview {...@props}
-      className='exercise-card'
+      className='exercise'
       header={@renderHeader(types)}
       questionFooters={freeResponse}
       displayAllTags

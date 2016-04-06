@@ -11,27 +11,28 @@
       .preview2step { margin-left: 0.5rem; }
     }
 
-    .exercise-free-response-preview {
-      height: 80px;
-      border: 1px solid @tutor-neutral-dark;
-      margin-bottom: 2rem;
-
-      &::after{
-        content: "Enter your response";
-        #fonts > .sans(1.8rem, 3rem);
-        margin-left: 1rem;
-        font-style: italic;
-        color: lightgrey;
-      };
-    }
-
     .exercise {
       margin-bottom: @tutor-card-body-padding-vertical;
 
+      .exercise-free-response-preview {
+        height: 80px;
+        border: 1px solid @tutor-neutral-dark;
+        margin-bottom: 2rem;
+
+        &::after{
+          content: "Enter your response";
+          #fonts > .sans(1.8rem, 3rem);
+          margin-left: 1rem;
+          font-style: italic;
+          color: lightgrey;
+        };
+      }
       .panel-heading {
         position: inherit;
         display: block;
         padding: 0;
+        background-color: transparent;
+        border: none;
       }
       .exercise-identifier-link {
         float: left;
