@@ -6,13 +6,13 @@ React = require 'react'
 
 MathJaxHelper =  require 'openstax-react-components/src/helpers/mathjax'
 Exercise = require './components/exercise'
-ExerciseWrapper = require './components/exercise-wrapper'
+App = require './components/app'
 api = require './api'
 
 
 # Just for debugging
 window.React = React
-window.ExerciseComponent = React.createFactory(ExerciseWrapper)
+window.App = React.createFactory(App)
 window.ExerciseActions = ExerciseActions
 window.ExerciseStore = ExerciseStore
 window.AnswerStore = AnswerStore
@@ -37,7 +37,7 @@ loadApp = ->
       exerciseId: pathArr[2]
     }
 
-  exercise = window.ExerciseComponent(config)
-  window.React.render(exercise, root)
+  app = window.App(config)
+  window.React.render(app, root)
 
 document.addEventListener('DOMContentLoaded', loadApp)
