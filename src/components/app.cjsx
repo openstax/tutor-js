@@ -88,7 +88,7 @@ module.exports = React.createClass
         <div className="container-fluid">
           <div className="navbar-header">
             <BS.ButtonToolbar className="navbar-btn">
-              <a href="/exercises/new" className="btn btn-success">New Exercise</a>
+              <a href="/exercises/new" className="btn btn-success">New Blank Exercise</a>
               <AsyncButton
                 bsStyle='info'
                 onClick={@saveExercise}
