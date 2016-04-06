@@ -90,7 +90,7 @@ ExercisePreview = React.createClass
       <Question
         model={question}
         choicesEnabled={false}
-        show_all_feedback={true}
+        show_all_feedback={@props.displayFeedback}
         type='teacher-review'
         details={details}/>
     )
