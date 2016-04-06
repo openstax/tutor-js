@@ -79,7 +79,7 @@ ExercisePreviewDemo = React.createClass
 
     displayFeedbackIconClasses = classnames 'fa',
       'fa-check-square-o': displayFeedback
-      'fa-square-o':  !displayFeedback
+      'fa-square-o':  not displayFeedback
 
     <ExercisePreview exercise={exercisePreviewStub} displayFeedback={displayFeedback}>
       <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
