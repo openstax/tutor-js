@@ -81,7 +81,8 @@ ExercisePreview = React.createClass
       details = <div className='detailed-solution' key='solution'>
         <div className='header'>Detailed solution</div>
         <ArbitraryHtmlAndMath className="solution" block
-          html={_.first(question.solutions)?.content_html} />
+          html={_.pluck(question.collaborator_solutions, 'content_html').join('')}
+        />
       </div>
 
       <Question
