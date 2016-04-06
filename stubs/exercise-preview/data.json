@@ -1,210 +1,197 @@
 {
-"id": "3",
-"url": "https://exercises-dev.openstax.org/exercises/3@43",
-"content": {
-"tags": [
-"book:stax-apbio",
-"apbio-ch01",
-"apbio-ch01-s01",
-"apbio-ch01-s01-lo02",
-"apbio-ch01-ex003",
-"ost-chapter-review",
-"review",
-"dok1",
-"time-short",
-"blooms-2",
-"blooms:2",
-"time:short",
-"dok:1",
-"exid:stax-apbio:3",
-"cnxmod:4d5fc58c-cdea-4950-a91d-a5f141a38744",
-"type:conceptual-or-recall",
-"type:practice",
-"filter-type:chapter-review"
-],
-"uid": "3@43",
-"number": 3,
-"version": 43,
-"published_at": "2015-12-16T20:46:58.862Z",
-"editors": [],
-"authors": [
-{
-"user_id": 1,
-"name": "OpenStax"
-}
-],
-"copyright_holders": [
-{
-"user_id": 2,
-"name": "Rice University"
-}
-],
-"derived_from": [],
-"stimulus_html": "",
-"questions": [
-{
-"id": 5882,
-"is_answer_order_important": true,
-"stimulus_html": "",
-"stem_html": "What is a suggested and testable explanation for an event called?",
-"answers": [
-{
-"id": 23238,
-"content_html": "discovery",
-"correctness": "0.0",
-"feedback_html": "A hypothesis is a suggested and testable explanation for an event."
-},
-{
-"id": 23239,
-"content_html": "hypothesis",
-"correctness": "1.0",
-"feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
-},
-{
-"id": 23237,
-"content_html": "scientific method",
-"correctness": "0.0",
-"feedback_html": "A hypothesis refers to the suggested and testable explanation of an event."
-},
-{
-"id": 23236,
-"content_html": "theory",
-"correctness": "0.0",
-"feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses while a hypothesis refers to the suggested and testable explanation for an event."
-}
-],
-"collaborator_solutions": [
-{
-"attachments": [],
-"solution_type": "detailed",
-"content_html": "A hypothesis is a proposed explanation for an occurance or event based on previous observations that can be tested."
-}
-],
-"community_solutions": [],
-"hints": [],
-"formats": [
-"free-response",
-"multiple-choice"
-],
-"combo_choices": []
-}
-]
-},
-"tags": [
-{
-"id": "cnxmod:4d5fc58c-cdea-4950-a91d-a5f141a38744",
-"type": "cnxmod",
-"is_visible": false,
-"data": "4d5fc58c-cdea-4950-a91d-a5f141a38744"
-},
-{
-"id": "apbio-ch01-s01-lo02",
-"type": "lo",
-"description": "What are the steps of the scientific method?",
-"chapter_section": [
-1,
-1
-],
-"is_visible": true
-},
-{
-"id": "book:stax-apbio",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "apbio-ch01",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "apbio-ch01-s01",
-"type": "generic",
-"chapter_section": [
-1,
-1
-],
-"is_visible": false
-},
-{
-"id": "type:conceptual-or-recall",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "apbio-ch01-ex003",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "ost-chapter-review",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "review",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "dok1",
-"type": "dok",
-"name": "DOK: 1",
-"is_visible": true,
-"data": "1"
-},
-{
-"id": "time-short",
-"type": "length",
-"name": "Length: S",
-"is_visible": true,
-"data": "short"
-},
-{
-"id": "blooms-2",
-"type": "blooms",
-"name": "Blooms: 2",
-"is_visible": true,
-"data": "2"
-},
-{
-"id": "blooms:2",
-"type": "blooms",
-"name": "Blooms: 2",
-"is_visible": true,
-"data": "2"
-},
-{
-"id": "time:short",
-"type": "length",
-"name": "Length: S",
-"is_visible": true,
-"data": "short"
-},
-{
-"id": "dok:1",
-"type": "dok",
-"name": "DOK: 1",
-"is_visible": true,
-"data": "1"
-},
-{
-"id": "exid:stax-apbio:3",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "type:practice",
-"type": "generic",
-"is_visible": false
-},
-{
-"id": "filter-type:chapter-review",
-"type": "generic",
-"is_visible": false
-}
-],
-"pool_types": [
-"homework_core"
-]
+    "id": "3",
+    "url": "https://exercises-dev.openstax.org/exercises/3@43",
+    "content": {
+        "tags": [
+            "book:stax-apbio",
+            "apbio-ch01",
+            "apbio-ch01-s01",
+            "apbio-ch01-s01-lo02",
+            "apbio-ch01-ex003",
+            "ost-chapter-review",
+            "review",
+            "dok1",
+            "time-short",
+            "blooms-2",
+            "blooms:2",
+            "time:short",
+            "dok:1",
+            "exid:stax-apbio:3",
+            "cnxmod:4d5fc58c-cdea-4950-a91d-a5f141a38744",
+            "type:conceptual-or-recall",
+            "type:practice",
+            "filter-type:chapter-review"
+        ],
+        "uid": "3@43",
+        "number": 3,
+        "version": 43,
+        "published_at": "2015-12-16T20:46:58.862Z",
+        "editors": [],
+        "authors": [{
+            "user_id": 1,
+            "name": "OpenStax"
+        }],
+        "copyright_holders": [{
+            "user_id": 2,
+            "name": "Rice University"
+        }],
+        "derived_from": [],
+        "stimulus_html": "",
+        "questions": [{
+            "id": 5882,
+            "is_answer_order_important": true,
+            "stimulus_html": "",
+            "stem_html": "What is a suggested and testable explanation for an event called?",
+            "answers": [{
+                "id": 23238,
+                "content_html": "discovery",
+                "correctness": "0.0",
+                "feedback_html": "A hypothesis is a suggested and testable explanation for an event."
+            }, {
+                "id": 23239,
+                "content_html": "hypothesis",
+                "correctness": "1.0",
+                "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+            }, {
+                "id": 23237,
+                "content_html": "scientific method",
+                "correctness": "0.0",
+                "feedback_html": "A hypothesis refers to the suggested and testable explanation of an event."
+            }, {
+                "id": 23236,
+                "content_html": "theory",
+                "correctness": "0.0",
+                "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses while a hypothesis refers to the suggested and testable explanation for an event."
+            }],
+            "collaborator_solutions": [{
+                "attachments": [],
+                "solution_type": "detailed",
+                "content_html": "A hypothesis is a proposed explanation for an occurance or event based on previous observations that can be tested."
+            }],
+            "solutions": [{
+              "uid": "1@1",
+              "number": 1,
+              "version": 1,
+              "published_at": "2015-09-16T20:13:32.533Z",
+              "editors": [],
+              "authors": [{
+                "user_id": 1,
+                "name": "OpenStax"
+              }],
+              "copyright_holders": [{
+                "user_id": 2,
+                "name": "Rice University"
+              }],
+              "derived_from": [],
+              "attachments": [],
+              "solution_type": "detailed",
+              "content_html": "<ol>\n  <li>C</li>\n  <li>F</li>\n  <li>A</li>\n  <li>B</li>\n  <li>D</li>\n  <li>E</li>\n</ol>\n\n<p>The original hypothesis is incorrect, as the coffeemaker works when plugged into the outlet. Alternative hypotheses include that the toaster might be broken or that the toaster wasn’t turned on.</p>\n"
+            }],
+            "community_solutions": [],
+            "hints": [],
+            "formats": [
+                "free-response",
+                "multiple-choice"
+            ],
+            "combo_choices": []
+        }]
+    },
+    "tags": [{
+        "id": "cnxmod:4d5fc58c-cdea-4950-a91d-a5f141a38744",
+        "type": "cnxmod",
+        "is_visible": false,
+        "data": "4d5fc58c-cdea-4950-a91d-a5f141a38744"
+    }, {
+        "id": "apbio-ch01-s01-lo02",
+        "type": "lo",
+        "description": "What are the steps of the scientific method?",
+        "chapter_section": [
+            1,
+            1
+        ],
+        "is_visible": true
+    }, {
+        "id": "book:stax-apbio",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "apbio-ch01",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "apbio-ch01-s01",
+        "type": "generic",
+        "chapter_section": [
+            1,
+            1
+        ],
+        "is_visible": false
+    }, {
+        "id": "type:conceptual-or-recall",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "apbio-ch01-ex003",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "ost-chapter-review",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "review",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "dok1",
+        "type": "dok",
+        "name": "DOK: 1",
+        "is_visible": true,
+        "data": "1"
+    }, {
+        "id": "time-short",
+        "type": "length",
+        "name": "Length: S",
+        "is_visible": true,
+        "data": "short"
+    }, {
+        "id": "blooms-2",
+        "type": "blooms",
+        "name": "Blooms: 2",
+        "is_visible": true,
+        "data": "2"
+    }, {
+        "id": "blooms:2",
+        "type": "blooms",
+        "name": "Blooms: 2",
+        "is_visible": true,
+        "data": "2"
+    }, {
+        "id": "time:short",
+        "type": "length",
+        "name": "Length: S",
+        "is_visible": true,
+        "data": "short"
+    }, {
+        "id": "dok:1",
+        "type": "dok",
+        "name": "DOK: 1",
+        "is_visible": true,
+        "data": "1"
+    }, {
+        "id": "exid:stax-apbio:3",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "type:practice",
+        "type": "generic",
+        "is_visible": false
+    }, {
+        "id": "filter-type:chapter-review",
+        "type": "generic",
+        "is_visible": false
+    }],
+    "pool_types": [
+        "homework_core"
+    ]
 }

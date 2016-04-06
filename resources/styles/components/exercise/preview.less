@@ -1,4 +1,6 @@
-.exercise-preview {
+&-exercise-preview {
+
+  position: relative;
 
   .sans(@size: 1.5rem, @line-height: 3rem) {
     font-family: 'Lato', Helvetica, sans-serif;
@@ -7,9 +9,6 @@
     font-size: @size;
     line-height: @line-height;
   }
-
-  &:extend(.card);
-  position: relative;
 
   img {
     max-width: 100%;
@@ -70,7 +69,7 @@
 
   .panel-body {
 
-    .stem {
+    .question-stem {
       font-weight: 700;
       margin-bottom: 2rem;
       font-size: 1.6rem;
@@ -82,38 +81,47 @@
       font-size: 1.4rem;
       line-height: 1.4em;
       margin-bottom: 2rem;
-      .answers-answer.correct {
-        color: @openstax-secondary;
-        padding-left: 0;
-        &::before {
-          .fa;
-          float: left;
-          margin-top: 0.15em;
-          margin-right: .125em;
-          content: @fa-var-check;
-        }
-      }
 
       .answers-answer {
         padding-left: 15px;
         counter-increment: answer;
+
+        &.answer-correct {
+          color: @openstax-secondary;
+          padding-left: 0;
+
+          &::before {
+            .fa();
+            float: left;
+            margin-top: 0.15em;
+            margin-right: .125em;
+            content: @fa-var-check;
+          }
+        }
+
+        label {
+          font-weight: 400;
+        }
+
         .answer-letter {
           margin-right: 1rem;
           float: left;
           &::after { content: counter(answer, lower-latin) ')'; }
         }
-        .answer {
+
+        .answer-content {
           display: table;
           margin-bottom: 5px;
         }
-        .feedback {
-          display: none;
-          margin-bottom: 5px;
-          color: @openstax-neutral;
-          margin-left: 0;
-          .sans(1.1rem, 1.1rem);
-          font-style: italic;
-        }
+      }
+
+      .question-feedback-content {
+        display: none;
+        margin-bottom: 5px;
+        color: @openstax-neutral;
+        margin-left: 0;
+        .sans(1.1rem, 1.1rem);
+        font-style: italic;
       }
 
     }
@@ -121,6 +129,7 @@
     .detailed-solution {
       display: none;
       margin-bottom: 1.5rem;
+
       .header {
         color: @openstax-neutral-darker;
         .sans(1.3rem, 1.3rem);
@@ -152,7 +161,7 @@
 
 
   &.is-displaying-feedback {
-    .panel-body .answers-table .feedback{ display: table; }
+    .panel-body .answers-table .question-feedback-content { display: table; }
     .detailed-solution{ display: block; }
   }
 

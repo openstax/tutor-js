@@ -134,9 +134,9 @@ Answer = React.createClass
             {...htmlAndMathProps}
             className='answer-content'
             html={answer.content_html} />
+          {feedback}
         </label>
       </div>
-      {feedback}
     </div>
 
 module.exports = {Answer}

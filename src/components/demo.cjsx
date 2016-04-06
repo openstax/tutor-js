@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'lodash'
 EventEmitter2 = require 'eventemitter2'
+classnames = require 'classnames'
 
 Exercise = require './exercise'
 
@@ -69,8 +70,22 @@ ExerciseDemo = React.createClass
 
 ExercisePreviewDemo = React.createClass
   displayName: 'ExercisePreviewDemo'
+  getInitialState: ->
+    displayFeedback: false
+  toggleFeedbackDisplay: (ev) ->
+    @setState(displayFeedback: not @state?.displayFeedback)
   render: ->
-    <ExercisePreview exercise={exercisePreviewStub}/>
+    {displayFeedback} = @state
+
+    displayFeedbackIconClasses = classnames 'fa',
+      'fa-check-square-o': displayFeedback
+      'fa-square-o':  !displayFeedback
+
+    <ExercisePreview exercise={exercisePreviewStub} displayFeedback={displayFeedback}>
+      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
+        <i className={displayFeedbackIconClasses}/> Preview Feedback
+      </button>
+    </ExercisePreview>
 
 
 BreadcrumbDemo = React.createClass

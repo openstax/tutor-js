@@ -68,7 +68,7 @@ ExercisePreview = React.createClass
     unless @props.displayAllTags
       tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
-    classes = classnames( 'exercise-preview', @props.className, {
+    classes = classnames( 'openstax-exercise-preview', @props.className, {
       'answers-hidden': @props.hideAnswers,
       'is-selectable' : @props.toggleExercise?
       'is-selected': @props.isSelected
@@ -88,6 +88,7 @@ ExercisePreview = React.createClass
       ]
 
       <Question
+        className='openstax-question-preview'
         model={question}
         choicesEnabled={false}
         show_all_feedback={@props.displayFeedback}
