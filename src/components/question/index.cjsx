@@ -3,8 +3,6 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 {AnswersTable} = require './answers-table'
-{Answer} = require './answer'
-{Feedback} = require './feedback'
 ArbitraryHtmlAndMath = require '../html'
 
 QuestionHtml = React.createClass
@@ -44,20 +42,22 @@ Question = React.createClass
     processHtmlAndMath: @props.processHtmlAndMath
 
   render: ->
-    {model, correct_answer_id, exercise_uid} = @props
+    {model, correct_answer_id, exercise_uid, details} = @props
     {stem_html, stimulus_html} = model
 
     hasCorrectAnswer = !! correct_answer_id
     classes = classnames 'openstax-question',
       'has-correct-answer': hasCorrectAnswer
 
+    exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
+
     <div className={classes}>
       <QuestionHtml type='stem' html={stem_html} />
       <QuestionHtml type='stimulus' html={stimulus_html} />
       {@props.children}
       <AnswersTable {...@props}/>
-      {@props.solution}
-      <div className="exercise-uid">{exercise_uid}</div>
+      {details}
+      {exerciseUid}
     </div>
 
 module.exports = Question

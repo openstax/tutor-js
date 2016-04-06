@@ -4,6 +4,22 @@ _ = require 'underscore'
 
 ArbitraryHtmlAndMath = require '../html'
 
+SimpleFeedback = React.createClass
+  displayName: 'SimpleFeedback'
+  propTypes:
+    children: React.PropTypes.string.isRequired
+  contextTypes:
+    processHtmlAndMath: React.PropTypes.func
+  render: ->
+    wrapperClasses = classnames 'question-feedback-content', 'has-html', @props.className
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+
+    <ArbitraryHtmlAndMath
+      {...htmlAndMathProps}
+      className='question-feedback-content has-html'
+      html={@props.children}
+      block={true}/>
+
 Feedback = React.createClass
   displayName: 'Feedback'
   propTypes:
@@ -19,11 +35,7 @@ Feedback = React.createClass
 
     <div className={wrapperClasses}>
       <div className='arrow'/>
-      <ArbitraryHtmlAndMath
-        {...htmlAndMathProps}
-        className='question-feedback-content has-html'
-        html={@props.children}
-        block={true}/>
+      <SimpleFeedback {...htmlAndMathProps}>{@props.children}</SimpleFeedback>
     </div>
 
-module.exports = {Feedback}
+module.exports = {Feedback, SimpleFeedback}

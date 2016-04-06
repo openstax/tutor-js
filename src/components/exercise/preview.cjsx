@@ -32,19 +32,6 @@ ExercisePreview = React.createClass
       isLO = _.include(['lo', 'aplo'], tag.type)
       {content, isLO}
 
-
-  renderAnswer: (answer) ->
-    classes = classnames 'answers-answer',
-      correct: (answer.correctness is '1.0')
-
-    <div key={answer.id} className={classes}>
-      <div className="answer-letter" />
-      <div className="answer">
-        <ArbitraryHtmlAndMath className="choice" block={false} html={answer.content_html} />
-        <ArbitraryHtmlAndMath className="feedback" block={false} html={answer.feedback_html} />
-      </div>
-    </div>
-
   renderTag: (tag) ->
     {content, isLO} = @props.extractTag(tag)
     classes = if isLO
@@ -91,7 +78,7 @@ ExercisePreview = React.createClass
     questions = _.map(content.questions, (question) =>
       question = _.omit(question, 'answers') if @props.hideAnswers
 
-      solution = [
+      details = [
         <div className='detailed-solution' key='solution'>
           <div className='header'>Detailed solution</div>
           <ArbitraryHtmlAndMath className="solution" block
@@ -105,7 +92,7 @@ ExercisePreview = React.createClass
         choicesEnabled={false}
         show_all_feedback={true}
         type='teacher-review'
-        solution={solution}/>
+        details={details}/>
     )
 
     <BS.Panel
