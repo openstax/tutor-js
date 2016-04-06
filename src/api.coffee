@@ -1,6 +1,7 @@
 $ = require 'jquery'
 _ = require 'underscore'
 {ExerciseActions} = require './stores/exercise'
+{ErrorsActions} = require './stores/errors'
 
 # Do some special things when running without a tutor-server backend.
 #
@@ -44,6 +45,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         successAction(results, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
         statusCode = jqXhr.status
+        ErrorsActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
         if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
           if httpMethod is 'PUT' or httpMethod is 'PATCH'
             # HACK for PUT
