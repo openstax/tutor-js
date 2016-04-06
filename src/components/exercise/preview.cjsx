@@ -75,7 +75,7 @@ ExercisePreview = React.createClass
       'is-displaying-feedback': @props.displayFeedback
     })
 
-    questions = _.map(content.questions, (question) =>
+    questions = _.map(content.questions, (question, questionIter) =>
       question = _.omit(question, 'answers') if @props.hideAnswers
 
       details = <div className='detailed-solution' key='solution'>
@@ -92,7 +92,7 @@ ExercisePreview = React.createClass
         show_all_feedback={@props.displayFeedback}
         type='teacher-review'
         details={details}>
-        {@props.questionFooter}
+        {@props.questionFooters?[questionIter]}
       </Question>
     )
 
