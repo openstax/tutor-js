@@ -28,5 +28,5 @@ describe 'Answer Component', ->
   it 'renders answer feedback based on props', ->
 
     Testing.renderComponent( Answer, props: @propsWithFeedback ).then ({dom}) ->
-      answers = _.pluck dom.querySelectorAll('.question-feedback'), 'textContent'
+      answers = _.pluck dom.querySelectorAll('.question-feedback-content'), 'textContent'
       expect(answers).to.deep.equal(['feedback yo'])
