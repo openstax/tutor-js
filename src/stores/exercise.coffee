@@ -113,6 +113,18 @@ ExerciseConfig = {
       @_local[id].questions = newQuestions
       @sync(id)
 
+  moveQuestion: (id, questionId, direction) ->
+    { questions } = @_get(id)
+    index = _.findIndex questions, (question) ->
+      question.id is questionId
+
+    if (index isnt -1)
+      temp = questions[index]
+      questions[index] = questions[index + direction]
+      questions[index + direction] = temp
+      @_local[id].questions = questions
+      @sync(id)
+
 
   attachmentUploaded: (uid, attachment) ->
     exercise = _.findWhere(@_local, {uid})
