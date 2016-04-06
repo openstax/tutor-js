@@ -10,11 +10,11 @@ cascadeLoad = (obj, exerciseId) ->
 
 EmptyFn = -> ''
 
+multipartCache = {}
+
 ExerciseConfig = {
   _loaded: cascadeLoad
   _asyncStatusPublish: {}
-
-  updateNumber: (id, number) -> @_change(id, {number})
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
@@ -77,9 +77,41 @@ ExerciseConfig = {
     @emitChange()
 
   addQuestionPart: (id) ->
-    @_local[id].questions.push({})
+    { questions } = @_get(id)
 
-    @emitChange()
+    newId = QuestionStore.freshLocalId()
+    template = _.extend({}, QuestionStore.getTemplate(), {id: newId})
+    QuestionActions.loaded(template, newId)
+    question = QuestionStore.get(newId)
+
+    @_local[id].questions.push(question)
+    @sync(id)
+
+  toggleMultiPart: (id) ->
+    { questions } = @_get(id)
+
+    if (@_local[id].questions.length > 1)
+      multipartCache[id] = questions
+      newQuestions = [_.first(questions)]
+    else if (multipartCache[id])
+      newQuestions = multipartCache[id]
+      multipartCache[id] = null
+    else
+      return @addQuestionPart(id)
+
+    @_local[id].questions = newQuestions
+    @sync(id)
+
+  removeQuestion: (id, questionId) ->
+    { questions } = @_get(id)
+
+    newQuestions = _.filter(questions, (question) -> question.id isnt questionId)
+    if (newQuestions.length is 0)
+      @_local[id].questions = []
+      @addQuestionPart(id)
+    else
+      @_local[id].questions = newQuestions
+      @sync(id)
 
 
   attachmentUploaded: (uid, attachment) ->
@@ -89,17 +121,19 @@ ExerciseConfig = {
     @emitChange()
 
   exports:
-    getQuestions: (id) -> @_local[id].questions
+    getQuestions: (id) -> @_get(id).questions
 
-    getId: (id) -> @_local[id].uid
+    isMultiPart: (id) -> @_get(id)?.questions.length > 1
 
-    getNumber: (id) -> @_local[id].number
+    getId: (id) -> @_get(id).uid
 
-    getStimulus: (id) -> @_local[id].stimulus_html
+    getNumber: (id) -> @_get(id).number
+
+    getStimulus: (id) -> @_get(id).stimulus_html
 
     getPublishedDate: (id) -> @_local[id].published_at
 
-    isPublished: (id) -> @_local[id].published_at
+    isPublished: (id) -> @_get(id).published_at
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
 

@@ -3,7 +3,6 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Question = require './question'
-Preview = require './preview'
 ExerciseTags = require './tags'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Attachments = require './attachments'
@@ -23,13 +22,32 @@ Exercise = React.createClass
   componentWillUnmount: ->
     ExerciseStore.removeChangeListener(@update)
 
-  sync: -> ExerciseActions.sync(@getId())
+  sync: -> ExerciseActions.sync(@props.exerciseId)
+
+  removeQuestion: (questionId) ->
+    ExerciseActions.removeQuestion(@props.exerciseId, questionId)
+
+  updateStimulus: (event) ->
+    ExerciseActions.updateStimulus(@props.exerciseId, event.target?.value)
+    @props.sync()
+
+  renderIntroTab: ->
+    id = @props.exerciseId
+    <BS.TabPane eventKey="intro" tab="intro">
+      <div className="exercise-stimulus">
+        <label>Exercise Stimulus</label>
+        <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}></textarea>
+      </div>
+    </BS.TabPane>
 
   renderMpqTabs: ->
     {questions} = ExerciseStore.get(@props.exerciseId)
     for question, i in questions
       <BS.TabPane key={i} eventKey={"question-#{i}"} tab={"Question #{i+1}"}>
-        <Question id={question.id} sync={@sync} />
+        <Question id={question.id}
+          sync={@sync}
+          hideStimulus
+          removeQuestion={_.partial(@removeQuestion, question.id)} />
       </BS.TabPane>
 
   renderSingleQuestionTab: ->
@@ -44,7 +62,7 @@ Exercise = React.createClass
     {content, isLO}
 
   onToggleMPQ: (ev) ->
-    @setState(isShowingMPQ: ev.target.checked)
+    ExerciseActions.toggleMultiPart(@props.exerciseId)
 
   exercisePreviewData: (ex) ->
     content: ex
@@ -53,9 +71,26 @@ Exercise = React.createClass
   addQuestion: ->
     ExerciseActions.addQuestionPart(@props.exerciseId)
 
+  selectTab: (tab) -> @setState({tab})
+
+  getActiveTab: (showMPQ) ->
+    if (not @state.tab or @state.tab?.indexOf('question-') is -1)
+      return @state.tab
+
+    question = @state.tab.split('-')[1]
+    numQuestions = ExerciseStore.getQuestions(@props.exerciseId).length
+    if (not showMPQ or question >= numQuestions)
+      return 'question-0'
+
+    @state.tab
+
   render: ->
     exercise = ExerciseStore.get(@props.exerciseId)
     return null unless exercise
+
+    showMPQ = ExerciseStore.isMultiPart(@props.exerciseId)
+
+    tab = @getActiveTab(showMPQ)
 
     <div className="exercise-editor">
       <ExercisePreview
@@ -67,22 +102,25 @@ Exercise = React.createClass
         <div className="container-fluid">
           <form className="navbar-form navbar-right" role="search">
             <BS.Input type="checkbox" label="Exercise contains multiple parts"
-              checked={@state.isShowingMPQ} wrapperClassName="mpq-toggle" onChange={@onToggleMPQ} />
-            {if @state.isShowingMPQ
+              checked={showMPQ} wrapperClassName="mpq-toggle" onChange={@onToggleMPQ} />
+            {if showMPQ
               <BS.Button onClick={@addQuestion} className="navbar-btn"
                 bsStyle="primary">Add Question</BS.Button>}
           </form>
         </div>
       </nav>
 
-      <BS.TabbedArea defaultActiveKey='tags'>
+      <BS.TabbedArea defaultActiveKey='question-0' animation={false}
+        activeKey={tab} onSelect={@selectTab}
+      >
+        {if showMPQ then @renderIntroTab()}
+        {if showMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
         <BS.TabPane eventKey='tags' tab='Tags'>
           <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
         </BS.TabPane>
         <BS.TabPane eventKey='assets' tab='Assets'>
           <Attachments exerciseId={@props.exerciseId} />
         </BS.TabPane>
-        {if @state.isShowingMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
       </BS.TabbedArea>
     </div>
 
