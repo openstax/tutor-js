@@ -23,11 +23,18 @@ BookTagSelect = React.createClass
     )
   onDelete: ->
     ExerciseActions.setPrefixedTag(@props.exerciseId,
-      prefix: 'book', tag: '', previous: @props.tag
+      prefix: 'book', tag: false, previous: @props.tag
     )
+    ExerciseActions.setPrefixedTag(@props.exerciseId,
+      prefix: "exid:#{@props.tag}", tag: false, replaceOthers: true
+    )
+
   render: ->
     <div className="tag">
-      <select onChange={@updateTag} value={@props.tag}>
+      <select
+        className='form-control'
+        onChange={@updateTag} value={@props.tag}
+      >
         <option key='blank' value={''}>{name}</option>}
         {for tag, name of BOOKS
           <option key={tag} value={tag}>{name}</option>}
@@ -49,7 +56,7 @@ BookTags = React.createClass
 
   render: ->
     tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, 'book')
-    <Wrapper label="Book" onAdd={@add}>
+    <Wrapper label="Book" onAdd={@add}  singleTag={tags.length is 1}>
       {for tag in tags
         <BookTagSelect key={tag} {...@props} tag={tag} />}
     </Wrapper>

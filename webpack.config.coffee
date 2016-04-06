@@ -34,7 +34,7 @@ module.exports =
       { test: /\.json$/,   loader: "json-loader" }
       { test: /\.coffee$/, loaders: LOADERS.concat("coffee-loader") }
       { test: /\.cjsx$/,   loaders: LOADERS.concat("coffee-jsx-loader") }
-      { test: /\.(png|jpg|svg)/, loader: 'file-loader?name=[name].[ext]'}
+      { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader?name=[name].[ext]'}
       { test: /\.(woff|woff2|eot|ttf)/, loader: "url-loader?limit=30000&name=[name]-[hash].[ext]" }
    ]
   resolve:
