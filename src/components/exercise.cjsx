@@ -67,7 +67,11 @@ Exercise = React.createClass
 
 
   exercisePreviewData: (ex) ->
-    content: ex
+    exercise = _.clone(ex)
+    exercise.questions = _.map(exercise.questions, (q) -> _.extend({}, q, {
+      solutions: q.collaborator_solutions
+    }))
+    content: exercise,
     tags: _.map ex.tags, (tag) -> name: tag
 
   addQuestion: ->
@@ -98,8 +102,10 @@ Exercise = React.createClass
     <div className="exercise-editor">
       <ExercisePreview
         extractTag={@previewTag}
-        displayAllTags={true}
         exercise={@exercisePreviewData(exercise)}
+        displayAllTags={true}
+        displayFeedback={true}
+        hideAnswers={false}
       />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
