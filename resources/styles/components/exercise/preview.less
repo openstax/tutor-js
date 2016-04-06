@@ -40,11 +40,11 @@
       left: 0;
       visibility: hidden;
       z-index: 1;
-      transition: all .25s ease-in-out;
       display: flex;
       border: none;
       justify-content: center;
       align-items: center;
+      .transition(all .25s ease-in-out);
 
       .message {
         display: flex;
@@ -53,6 +53,7 @@
         align-items: center;
         font-size: 2.5rem;
         font-weight: 700;
+
         &::before {
           .fa-icon();
           font-weight: 300;
@@ -71,7 +72,7 @@
 
     .question-stem {
       font-weight: 700;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       font-size: 1.6rem;
       line-height: 1.4em;
     }
@@ -99,7 +100,7 @@
           }
         }
 
-        label.answer-label {
+        .answer-label {
           font-weight: 400;
           display: table;
         }
@@ -107,7 +108,10 @@
         .answer-letter {
           margin-right: 1rem;
           float: left;
-          &::after { content: counter(answer, lower-latin) ')'; }
+
+          &::after {
+            content: counter(answer, lower-latin) ')';
+          }
         }
 
         .answer-answer {
@@ -133,8 +137,10 @@
 
       .header {
         color: @openstax-neutral-darker;
+        margin-bottom: 0.5rem;
         .sans(1.3rem, 1.3rem);
       }
+
       .solution {
         color: @openstax-neutral;
         .sans(1.1rem, 1.1rem);
@@ -174,12 +180,12 @@
     color: @openstax-neutral;
 
     .exercise-identifier-link a { color: @openstax-neutral; }
+
     .feedback-toggle {
       border: 0;
       background-color: transparent;
       font-size: 1.2rem;
     }
-
   }
 
 } // end of exercise.card styles
