@@ -98,8 +98,10 @@ Exercise = React.createClass
     <div className="exercise-editor">
       <ExercisePreview
         extractTag={@previewTag}
-        displayAllTags={true}
         exercise={@exercisePreviewData(exercise)}
+        displayAllTags={true}
+        displayFeedback={true}
+        hideAnswers={false}
       />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
