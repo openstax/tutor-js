@@ -7,10 +7,10 @@ __FORMATS =
   freeResponse: 'free-response'
   multipleChoice: 'multiple-choice'
 
-hasFormat = (formats, form) ->
+hasFormat = (formats = [], form) ->
   _.find formats, (format) -> format is form
 
-toggleFormat = (formats, form) ->
+toggleFormat = (formats = [], form) ->
   if hasFormat(formats, form)
     _.reject formats, (format) -> format is form
   else
@@ -114,7 +114,6 @@ QuestionConfig = {
 
       stem_html:"",
       stimulus_html:"",
-      formats:[],
       collaborator_solutions: [{"content_html": "", "solution_type": "detailed"}],
       answers:[_.extend({}, AnswerStore.getTemplate(), {id: answerId})],
       is_answer_order_important: false
