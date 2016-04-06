@@ -25,13 +25,16 @@ Exercise = React.createClass
 
     editUrl = exercise.url.replace(/@\d+/, '@draft')
 
-    if show2StepPreview and ExerciseStore.hasQuestionWithFormat('free-response', {exercise})
-      freeResponse = <div className='exercise-free-response-preview'/>
+    doQuestionsHaveFormat = ExerciseStore.doQuestionsHaveFormat('free-response', {exercise})
+
+    if show2StepPreview
+      freeResponse = _.map doQuestionsHaveFormat, (hasFreeResponse) ->
+        <div className='exercise-free-response-preview'/> if hasFreeResponse
 
     <ExercisePreview {...@props}
       className='exercise-card'
       header={@renderHeader(types)}
-      questionFooter={freeResponse}
+      questionFooters={freeResponse}
       displayAllTags
       displayFeedback
     >
