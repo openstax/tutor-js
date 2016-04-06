@@ -106,8 +106,8 @@ module.exports = React.createClass
           <input onChange={@preserveOrderClicked}
             id="preserveOrder#{id}"
             type="checkbox"
-            defaultChecked={QuestionStore.isOrderPreserved(id)} />
-          <label htmlFor="preserveOrder#{id}">Preserve Answer Orders</label>
+            defaultChecked={QuestionStore.isOrderPreserved(id)}
+          /> <label htmlFor="preserveOrder#{id}">Order Matters</label>
         </p>
         <ol>
           {answers}
