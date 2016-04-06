@@ -23,6 +23,9 @@ Exercise = React.createClass
 
   sync: -> ExerciseActions.sync(@props.exerciseId)
 
+  moveQuestion: (questionId, direction) ->
+    ExerciseActions.moveQuestion(@props.exerciseId, questionId, direction)
+
   removeQuestion: (questionId) ->
     ExerciseActions.removeQuestion(@props.exerciseId, questionId)
 
@@ -41,10 +44,12 @@ Exercise = React.createClass
   renderMpqTabs: ->
     {questions} = ExerciseStore.get(@props.exerciseId)
     for question, i in questions
-      <BS.TabPane key={i} eventKey={"question-#{i}"} tab={"Question #{i+1}"}>
+      <BS.TabPane key={question.id} eventKey={"question-#{i}"} tab={"Question #{i+1}"}>
         <Question id={question.id}
           sync={@sync}
-          hideStimulus
+          canMoveLeft={i isnt 0}
+          canMoveRight={i isnt questions.length - 1}
+          moveQuestion={@moveQuestion}
           removeQuestion={_.partial(@removeQuestion, question.id)} />
       </BS.TabPane>
 
@@ -91,11 +96,7 @@ Exercise = React.createClass
     tab = @getActiveTab(showMPQ)
 
     <div className="exercise-editor">
-      <ExercisePreview
-        extractTag={@previewTag}
-        displayAllTags={true}
-        exercise={@exercisePreviewData(exercise)}
-      />
+
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <form className="navbar-form navbar-right" role="search">
