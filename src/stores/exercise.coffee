@@ -28,7 +28,8 @@ ExerciseConfig = {
 
   # Updates or creates a prefixed tag
   # If previous is given, then only the tag with that value will be updated
-  # Otherwise, all other tags with prefix will be removed
+  # Otherwise it will be added (unless it exists)
+  # If replaceOthers is set, all others will prefix will be removed
   setPrefixedTag: (id, {prefix, tag, tags, previous, replaceOthers}) ->
     prefix += ':'
     if tags
@@ -42,7 +43,7 @@ ExerciseConfig = {
     if previous?
       tags = _.reject tags, (tag) -> tag is prefix + previous
 
-    if tag
+    if tag and not _.find(tags, (tag) -> tag is prefix + tag)
       tags.push(prefix + tag)
 
     @_change(id, {tags})
