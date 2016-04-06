@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
