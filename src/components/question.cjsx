@@ -80,8 +80,8 @@ module.exports = React.createClass
         <input onChange={@freeResponseClicked}
           id="freeResponseFormat#{id}"
           type="checkbox"
-          defaultChecked={QuestionStore.isFreeResponse(id)} />
-        <label htmlFor="freeResponseFormat#{id}">Free Response</label>
+          defaultChecked={QuestionStore.isFreeResponse(id)}
+        /> <label htmlFor="freeResponseFormat#{id}">Requires viewing choices to answer question</label>
       </div>
       { if not hideStimulus
         <div>
