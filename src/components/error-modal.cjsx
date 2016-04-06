@@ -6,6 +6,14 @@ _ = require 'underscore'
 
 SUPPORT_URL = 'https://docs.google.com/a/rice.edu/forms/d/1gw-KCCQ1oHzfCQ8JjgDgZa9K5bfGEbp959RweYCKcG8/viewform'
 
+HTMLResponse = React.createClass
+
+  markup: ->
+    __html: @props.message
+
+  render: ->
+    <div className="html" dangerouslySetInnerHTML={@markup()} />
+
 ErrorModal = React.createClass
 
   componentWillMount: ->
@@ -31,6 +39,8 @@ ErrorModal = React.createClass
     debugInfo = [
     ]
 
+    if statusCode is 500 # 500 errors from BE are HTML encoded
+      message = <HTMLResponse message={message} />
 
     <BS.Modal
       className='error-modal'
@@ -50,7 +60,7 @@ ErrorModal = React.createClass
           When submitting the request, please include the error details show below.
         </p>
         <p>Error details returned from the server:</p>
-        <pre className='response'>{message or 'No response was received'}</pre>
+        <div className='response'>{message or 'No response was received'}</div>
         <div className='request'>
           <kbd>{request.opts.method}</kbd> on {request.url} {dataMessage}
         </div>
