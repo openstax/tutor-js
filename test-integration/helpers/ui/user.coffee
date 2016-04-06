@@ -21,10 +21,10 @@ COMMON_ELEMENTS =
 
   usernameInput:
     css: '#auth_key'
-  passworkInput:
+  passwordInput:
     css: '#password'
   loginSubmit:
-    css: '.password-actions button.standard'
+    css: '.password-actions button[type="submit"]'
 
   modalClose:
     css: '.modal-dialog .modal-header .close'
@@ -90,7 +90,7 @@ class User extends TestHelper
   logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
     @el.usernameInput().get().sendKeys(username)
-    @el.passworkInput().get().sendKeys(password)
+    @el.passwordInput().get().sendKeys(password)
     @el.loginSubmit().click()
 
   login: (username, password = 'password') =>
