@@ -1,4 +1,4 @@
-{ each } = require 'lodash'
+_ = require 'underscore'
 
 getRatioClass = (frame) ->
   if (not frame.width or not frame.height)
@@ -12,7 +12,7 @@ getRatioClass = (frame) ->
 
 
 wrapFrames = (dom) ->
-  each(dom.getElementsByTagName('iframe'), (frame) ->
+  _.each(dom.getElementsByTagName('iframe'), (frame) ->
     if (frame.parentNode?.classList.contains('embed-responsive')) then return
 
     wrapper = document.createElement("div")
