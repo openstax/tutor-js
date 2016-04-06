@@ -45,7 +45,7 @@ Breadcrumb = React.createClass
     {step, crumb, goToStep, className} = @props
     {isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType} = @state
 
-    propsToPassOn = _.omit(@props, 'onClick', 'title', 'className', 'data-chapter', 'key')
+    propsToPassOn = _.omit(@props, 'onClick', 'title', 'className', 'data-chapter', 'key', 'step')
 
     if isCurrent
       title = "Current Step (#{crumbType})"
