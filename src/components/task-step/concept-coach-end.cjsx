@@ -35,7 +35,6 @@ ConceptCoachEnd = React.createClass
     completedReview = @renderReviewSteps(taskId, completedSteps)
 
     <div className='task-review -concept-coach-completed'>
-      <h1>Summary</h1>
       {completedReview}
       <PinnableFooter>
         {footer}
