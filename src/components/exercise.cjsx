@@ -67,11 +67,7 @@ Exercise = React.createClass
 
 
   exercisePreviewData: (ex) ->
-    exercise = _.clone(ex)
-    exercise.questions = _.map(exercise.questions, (q) -> _.extend({}, q, {
-      solutions: q.collaborator_solutions
-    }))
-    content: exercise,
+    content: ex
     tags: _.map ex.tags, (tag) -> name: tag
 
   addQuestion: ->
