@@ -34,7 +34,7 @@ Exercise = React.createClass
 
   renderIntroTab: ->
     id = @props.exerciseId
-    <BS.TabPane eventKey="intro" tab="intro">
+    <BS.TabPane eventKey="intro" tab="Intro">
       <div className="exercise-stimulus">
         <label>Exercise Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}></textarea>
