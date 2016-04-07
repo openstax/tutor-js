@@ -116,7 +116,7 @@ module.exports = React.createClass
               }
               <form className="navbar-form navbar-right">
                 <BS.Input type="checkbox" label=" Split Vertically"
-                  checked={@state.displayVertical} onChange={@toggleVerticalDisplay} />
+                  defaultChecked={@state.verticalDisplay} onChange={@toggleVerticalDisplay} />
               </form>
             </BS.ButtonToolbar>
           </div>
