@@ -9,8 +9,8 @@ PREFIX = 'format'
 TYPES =
   'multiple-choice' : 'Multiple Choice'
   'true-false'      : 'True/False'
-  'free-response'   : 'Open Ended'
   'vocabulary'      : 'Vocabulary'
+  'open-ended'      : 'Open Ended'
 
 QuestionFormatType = React.createClass
 
