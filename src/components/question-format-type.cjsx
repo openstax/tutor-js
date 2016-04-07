@@ -14,7 +14,7 @@ TYPES =
 
 QuestionFormatType = React.createClass
 
-  getInitialState: -> { isChoiceRequired: false }
+
   update: -> @forceUpdate()
 
   componentWillMount: ->
@@ -35,37 +35,25 @@ QuestionFormatType = React.createClass
     QuestionActions.setFormats(@props.questionId, formats)
 
   setChoiceRequired: (ev) ->
+    QuestionActions.setChoiceRequired(@props.questionId, ev.target.checked)
 
-    isChoiceRequired = ev.target.checked
-    formats =  QuestionStore.get(@props.questionId).formats
-
-    if isChoiceRequired # remove 'free-response'
-      formats = _.without( formats, 'free-response' )
-    else # Must have 'multiple-choice', 'free-response'
-      formats = _.unique formats.concat(['multiple-choice', 'free-response'] )
-
-    QuestionActions.setFormats(@props.questionId, formats)
-
-    @setState({isChoiceRequired})
-
-
-  isFormatDisabled: (id) ->
-    id is 'free-response' and @state.isChoiceRequired
+  isFormatDisabled: (id, required) ->
+    id is 'free-response' and required
 
   render: ->
     formats =  QuestionStore.get(@props.questionId).formats
-
+    isChoiceRequired = QuestionStore.isChoiceRequired(@props.questionId)
 
     <div className="format-type">
       {for id, name of TYPES
         <BS.Input key={id} name={id} type="checkbox" label={name}
-          disabled={@isFormatDisabled(id)}
+          disabled={@isFormatDisabled(id, isChoiceRequired)}
           checked={_.contains(formats, id)}
           onChange={@updateFormat} />}
 
       <BS.Input type="checkbox" label="Requires Choices"
         onChange={@setChoiceRequired}
-        checked={@state.isChoiceRequired} />
+        checked={isChoiceRequired} />
     </div>
 
 

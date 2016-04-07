@@ -69,6 +69,16 @@ QuestionConfig = {
     {is_answer_order_important} = @_get(id)
     @_change(id, {is_answer_order_important: not is_answer_order_important})
 
+  setChoiceRequired: (id, isChoiceRequired) ->
+    {formats} = @_get(id)
+
+    if isChoiceRequired # remove 'free-response'
+      formats = _.without( formats, 'free-response' )
+    else # Must have 'multiple-choice', 'free-response'
+      formats = _.unique formats.concat(['multiple-choice', 'free-response'] )
+
+    @_change(id, {formats: _.unique(formats)})
+
   exports:
 
     getAnswers: (id) -> @_get(id)?.answers or []
@@ -85,6 +95,9 @@ QuestionConfig = {
 
     isOrderPreserved: (id) ->
       @_get(id).is_answer_order_important
+
+    isChoiceRequired: (id) ->
+      not _.include( @_get(id)?.formats, 'free-response' )
 
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()
