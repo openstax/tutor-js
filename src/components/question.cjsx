@@ -23,24 +23,31 @@ module.exports = React.createClass
   changeAnswer: (answerId) ->
     curAnswer = QuestionStore.getCorrectAnswer(@props.id)
     QuestionActions.setCorrectAnswer(@props.id, answerId, curAnswer?.id)
+    @props.sync()
 
   updateStimulus: (event) ->
     QuestionActions.updateStimulus(@props.id, event.target?.value)
+    @props.sync()
 
   updateStem: (event) ->
     QuestionActions.updateStem(@props.id, event.target?.value)
+    @props.sync()
 
   updateSolution: (event) ->
     QuestionActions.updateSolution(@props.id, event.target?.value)
+    @props.sync()
 
   addAnswer: ->
     QuestionActions.addNewAnswer(@props.id)
+    @props.sync()
 
   removeAnswer:(answerId) ->
     QuestionActions.removeAnswer(@props.id, answerId)
+    @props.sync()
 
   moveAnswer: (answerId, direction) ->
     QuestionActions.moveAnswer(@props.id, answerId, direction)
+    @props.sync()
 
   multipleChoiceClicked: (event) -> QuestionActions.toggleMultipleChoiceFormat(@props.id)
   freeResponseClicked: (event) -> QuestionActions.toggleFreeResponseFormat(@props.id)
