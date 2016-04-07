@@ -27,7 +27,7 @@ QuestionFormatType = React.createClass
     questionId: React.PropTypes.number.isRequired
 
   updateFormat: (ev) ->
-    formats =  QuestionStore.get(@props.questionId).formats
+    formats =  QuestionStore.get(@props.questionId).formats or []
     if ev.target.checked
       formats.push(ev.target.name)
     else
