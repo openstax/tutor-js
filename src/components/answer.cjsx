@@ -43,10 +43,10 @@ module.exports = React.createClass
           </a>
         </span>
       </p>
-      <label>Answer Content</label>
+      <label>Distractor</label>
       <textarea onChange={@updateContent} defaultValue={AnswerStore.getContent(@props.id)}>
       </textarea>
-      <label>Answer Feedback</label>
+      <label>Choice-Level Feedback</label>
       <textarea onChange={@updateFeedback} defaultValue={AnswerStore.getFeedback(@props.id)}>
       </textarea>
     </li>
