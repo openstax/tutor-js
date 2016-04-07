@@ -1,4 +1,4 @@
-_ = require 'lodash'
+_ = require 'underscore'
 expect = chai.expect
 React = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
