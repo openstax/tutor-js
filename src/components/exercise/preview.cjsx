@@ -61,9 +61,6 @@ ExercisePreview = React.createClass
     content = @props.exercise.content
     question = content.questions[0]
 
-    unless @props.hideAnswers
-      renderedAnswers = _.map(question.answers, @renderAnswer)
-
     tags = _.clone @props.exercise.tags
     unless @props.displayAllTags
       tags = _.where tags, is_visible: true
