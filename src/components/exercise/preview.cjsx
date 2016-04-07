@@ -78,7 +78,7 @@ ExercisePreview = React.createClass
     questions = _.map(content.questions, (question, questionIter) =>
       question = _.omit(question, 'answers') if @props.hideAnswers
 
-      details = <div className='detailed-solution' key='solution'>
+      details = <div className='detailed-solution'>
         <div className='header'>Detailed solution</div>
         <ArbitraryHtmlAndMath className="solution" block
           html={_.pluck(question.collaborator_solutions, 'content_html').join('')}
@@ -86,6 +86,7 @@ ExercisePreview = React.createClass
       </div>
 
       <Question
+        key={questionIter}
         className='openstax-question-preview'
         model={question}
         choicesEnabled={false}
