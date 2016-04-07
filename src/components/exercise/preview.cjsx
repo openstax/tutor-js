@@ -90,7 +90,7 @@ ExercisePreview = React.createClass
         model={question}
         choicesEnabled={false}
         show_all_feedback={@props.displayFeedback}
-        type='teacher-review'
+        type='teacher-preview'
         details={details}>
         {@props.questionFooters?[questionIter]}
       </Question>

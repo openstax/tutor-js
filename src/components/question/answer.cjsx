@@ -98,7 +98,7 @@ Answer = React.createClass
       'answer-checked': isChecked
       'answer-correct': isCorrect
 
-    unless (hasCorrectAnswer or type is 'teacher-review')
+    unless (hasCorrectAnswer or type is 'teacher-review' or type is 'teacher-preview')
       radioBox = <input
         type='radio'
         className='answer-input-box'
@@ -109,7 +109,7 @@ Answer = React.createClass
         disabled={disabled}
       />
 
-    if type is 'teacher-review' and answer.selected_count
+    if type is 'teacher-review'
       percent = Math.round(answer.selected_count / answered_count * 100) or 0
       selectedCount = <div
         className='selected-count'
