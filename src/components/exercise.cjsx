@@ -9,7 +9,7 @@ ExerciseTags = require './tags'
 MPQToggle = require './mpq-toggle'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Attachments = require './attachments'
-{ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
+{ExercisePreview} = require 'openstax-react-components'
 
 
 Exercise = React.createClass

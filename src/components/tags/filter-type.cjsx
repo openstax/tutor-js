@@ -3,6 +3,7 @@ _ = require 'underscore'
 
 Wrapper = require './wrapper'
 Multiselect = require 'react-widgets/lib/Multiselect'
+{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 PREFIX = 'filter-type'
 TYPES = [
