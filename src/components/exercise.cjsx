@@ -16,7 +16,7 @@ Exercise = React.createClass
   exerciseId:   React.PropTypes.string.isRequired
 
   getInitialState: -> {}
-  update: -> @setState({})
+  update: -> @forceUpdate()
 
   componentWillMount: ->
     ExerciseStore.addChangeListener(@update)

@@ -8,8 +8,8 @@ LoTags = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   validateInput: (value) ->
-    'Must match CNX feature' unless value.match(
-      /^\d+-\d+-\d+$/
+    'Must match LO pattern of dd-dd-dd' unless value.match(
+      /^\d{1,2}-\d{1,2}-\d{1,2}$/
     )
 
   cleanInput: (val) ->

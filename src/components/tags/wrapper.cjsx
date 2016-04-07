@@ -13,7 +13,7 @@ TagWrapper = React.createClass
       'has-single-tag': @props.singleTag is true
     )
 
-    <BS.Col sm=3 className={classes}>
+    <BS.Col sm=12 lg=6 className={classes}>
       <div className="heading">
         <span className="label">{@props.label}</span>
         <div className="controls">
