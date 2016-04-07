@@ -3,20 +3,6 @@ flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {AnswerActions, AnswerStore} = require './answer'
 
-__FORMATS =
-  freeResponse: 'free-response'
-  multipleChoice: 'multiple-choice'
-
-hasFormat = (formats = [], form) ->
-  _.find formats, (format) -> format is form
-
-toggleFormat = (formats = [], form) ->
-  if hasFormat(formats, form)
-    _.reject formats, (format) -> format is form
-  else
-    formats.push(form)
-    return formats
-
 QuestionConfig = {
   _loaded: (obj, id) ->
     for answer in obj?.answers
@@ -76,17 +62,12 @@ QuestionConfig = {
       AnswerActions.setCorrect(newAnswer)
       AnswerActions.setIncorrect(curAnswer) if curAnswer
 
-  toggleMultipleChoiceFormat: (id) ->
-    newFormats = toggleFormat(@_get(id).formats, __FORMATS.multipleChoice)
-    @_change(id, {formats: newFormats})
-
-  toggleFreeResponseFormat: (id) ->
-    newFormats = toggleFormat(@_get(id).formats, __FORMATS.freeResponse)
-    @_change(id, {formats: newFormats})
+  setFormats: (id, formats) ->
+    @_change(id, {formats: _.unique(formats)})
 
   togglePreserveOrder: (id) ->
-    @_get(id).is_answer_order_important = not @_get(id).is_answer_order_important
-
+    {is_answer_order_important} = @_get(id)
+    @_change(id, {is_answer_order_important: not is_answer_order_important})
 
   exports:
 
@@ -102,10 +83,6 @@ QuestionConfig = {
     getCorrectAnswer: (id) ->
       _.find @_get(id)?.answers, (answer) -> AnswerStore.isCorrect(answer.id)
 
-    isMultipleChoice: (id) ->
-      hasFormat(@_get(id).formats, __FORMATS.multipleChoice)
-    isFreeResponse: (id) ->
-      hasFormat(@_get(id).formats, __FORMATS.freeResponse)
     isOrderPreserved: (id) ->
       @_get(id).is_answer_order_important
 

@@ -32,7 +32,7 @@ QuestionFormatType = React.createClass
       formats.push(ev.target.name)
     else
       formats = _.without(formats, ev.target.name)
-    QuestionActions.setFormats(@props.questionId, _.unique(formats))
+    QuestionActions.setFormats(@props.questionId, formats)
 
   setChoiceRequired: (ev) ->
 
@@ -44,7 +44,7 @@ QuestionFormatType = React.createClass
     else # Must have 'multiple-choice', 'free-response'
       formats = _.unique formats.concat(['multiple-choice', 'free-response'] )
 
-    QuestionActions.setFormats(@props.questionId, _.unique formats)
+    QuestionActions.setFormats(@props.questionId, formats)
 
     @setState({isChoiceRequired})
 
