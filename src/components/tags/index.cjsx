@@ -5,7 +5,6 @@ _ = require 'underscore'
 
 BookTags        = require './books'
 LoTag           = require './lo'
-ExIdTags        = require './exid'
 QuestionTypeTag = require './question-type'
 FilterTypeTag   = require './filter-type'
 CnxModTag       = require './cnx-mod'
@@ -31,18 +30,17 @@ ExerciseTags = React.createClass
     <div className="tags">
       <BS.Row>
         <BookTags        {...@props} />
-        <ExIdTags  {...@props} />
         <LoTag           {...@props} />
         <QuestionTypeTag {...@props} />
-      </BS.Row>
-      <BS.Row>
         <FilterTypeTag   {...@props} />
+
+
         <CnxModTag     {...@props} />
         <CnxFeatureTag {...@props} />
         <DokTag        {...@props} />
-      </BS.Row>
-      <BS.Row>
         <BloomsTag     {...@props} />
+
+
         <TimeTag   {...@props} />
       </BS.Row>
     </div>

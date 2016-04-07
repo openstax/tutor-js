@@ -8,7 +8,7 @@ AsyncButton = require 'openstax-react-components/src/components/buttons/async-bu
 
 module.exports = React.createClass
   displayName: 'App'
-  getInitialState: -> {}
+  getInitialState: -> {verticalDisplay: true}
 
   componentDidMount: ->
     if @props.exerciseId is 'new'
