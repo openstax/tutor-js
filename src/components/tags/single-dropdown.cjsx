@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 
 Wrapper = require './wrapper'
+{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 SingleDropdown = React.createClass
 

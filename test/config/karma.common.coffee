@@ -1,4 +1,5 @@
 _ = require 'underscore'
+path = require 'path'
 
 module.exports =
   basePath: '../../'
@@ -18,6 +19,7 @@ module.exports =
   webpack:
     devtool: 'eval-source-map'
     resolve:
+      root: [ path.resolve(__dirname, '../../src'), path.resolve(__dirname, '../../api') ]
       extensions: ['', '.js', '.json', '.coffee', '.cjsx']
     module:
       noParse: [

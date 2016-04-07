@@ -116,6 +116,14 @@ gulp.task 'coverage', ->
 gulp.task 'watch-lint', ->
   gulp.watch(['./src/**/*.{cjsx,coffee}', './*.coffee', './test/**/*.{cjsx,coffee}'], ['lint'])
 
+TestRunner = require './test/config/test-runner'
+
+gulp.task 'tdd', ['_cleanDist', '_webserver'], ->
+  runner = new TestRunner()
+  watch('{src,test}/**/*', (change) ->
+    runner.onFileChange(change) unless change.unlink
+  )
+
 # clean out the dist directory before running since otherwise stale files might be served from there.
 # The _webserver task builds and serves from memory with a fallback to files in dist
 gulp.task 'dev', ['_cleanDist', '_webserver', 'watch-lint']

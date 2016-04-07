@@ -46,7 +46,7 @@ MPQToggle = React.createClass
         </BS.Popover>
       <BS.OverlayTrigger
         ref="overlay"
-        placement="top"
+        placement="left"
         trigger="click"
         overlay={warning}
       >
