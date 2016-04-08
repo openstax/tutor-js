@@ -12,7 +12,6 @@ RequiresContextTag = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   updateTag: (ev) ->
-    console.log ev.target.checked
     tag = if ev.target.checked then 'true' else false # false will remove tag
     ExerciseActions.setPrefixedTag(@props.exerciseId, prefix: PREFIX, tag: tag, replaceOthers:true)
 
