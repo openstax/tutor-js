@@ -1,28 +1,86 @@
 React = require 'react'
+_ = require 'underscore'
+classnames = require 'classnames'
 
-MultiInput = require './multi-input'
+Error = require './error'
+Wrapper = require './wrapper'
+{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
-LoTags = React.createClass
+PREFIX = 'lo'
+BookSelection = require './book-selection'
+
+Input = React.createClass
+
+  getDefaultProps: ->
+    inputType: 'text'
 
   propTypes:
-    exerciseId: React.PropTypes.string.isRequired
+    tag: React.PropTypes.string.isRequired
+
+  getInitialState: ->
+    [book, lo] = @props.tag.split(':')
+    {book, lo}
 
   validateInput: (value) ->
     'Must match LO pattern of dd-dd-dd' unless value.match(
       /^\d{1,2}-\d{1,2}-\d{1,2}$/
     )
 
-  cleanInput: (val) ->
-    val.replace(/[^0-9\-]/g, '')
+  componentWillReceiveProps: (nextProps) ->
+    [book, lo] = @props.tag.split(':')
+    @setState({book, lo})
+
+  onTextChange: (ev) ->
+    lo = ev.target.value.replace(/[^0-9\-]/g, '')
+    @setState({errorMsg: null, lo})
+
+  validateAndSave: (attrs = {}) ->
+    {lo, book} = _.defaults attrs, @state
+    if book and lo?.match( /^\d{1,2}-\d{1,2}-\d{1,2}$/ )
+      ExerciseActions.setPrefixedTag(@props.exerciseId,
+        prefix: PREFIX, tag: "#{book}:#{lo}", previous: @props.tag
+      )
+    else
+      @setState({lo, book, errorMsg: 'Must match LO pattern of book:dd-dd-dd'})
+
+  onTextBlur: -> @validateAndSave()
+  updateBook: (ev) -> @validateAndSave(book: ev.target.value)
+
+  onDelete: ->
+    ExerciseActions.setPrefixedTag(@props.exerciseId,
+      prefix: PREFIX, tag: false, previous: @props.tag
+    )
 
   render: ->
-    <MultiInput
-      {...@props}
-      label='LO'
-      prefix='lo'
-      placeholder='nn-nn-nn'
-      cleanInput={@cleanInput}
-      validateInput={@validateInput}
-    />
 
-module.exports = LoTags
+    <div className={classnames('tag', 'has-error': @state.errorMsg)}>
+      <BookSelection onChange={@updateBook} selected={@state.book} />
+      <input
+        className='form-control'
+        type={@props.inputType}
+        onChange={@onTextChange}
+        onBlur={@onTextBlur}
+        value={@state.lo}
+        placeholder={@props.placeholder} />
+      <Error error={@state.errorMsg} />
+      <span className="controls">
+        <i onClick={@onDelete} className="fa fa-trash" />
+      </span>
+    </div>
+
+ExIdTags = React.createClass
+
+  propTypes:
+    exerciseId: React.PropTypes.string.isRequired
+
+  onAdd: ->
+    ExerciseActions.addBlankPrefixedTag(@props.exerciseId, prefix: PREFIX)
+
+  render: ->
+    tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, PREFIX)
+    <Wrapper label="LO" onAdd={@onAdd}>
+      {for tag in tags
+        <Input key={tag} {...@props} tag={tag} />}
+    </Wrapper>
+
+module.exports = ExIdTags
