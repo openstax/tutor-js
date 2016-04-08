@@ -86,15 +86,18 @@ PopoverWrapper = React.createClass
       onBlur: =>
         @refs.overlay.hide()
     ref = 'overlay'
-    {content, linkProps, ref}
+    overlayProps =
+      container: @
+    {content, linkProps, ref, overlayProps}
   render: ->
     tutorPopoverProps = @makeProps()
     allProps = _.extend({}, tutorPopoverProps, @props)
     {linkProps} = allProps
-
-    <TutorPopover {...allProps}>
-      <a {...linkProps}>{TEST_LINK_TEXT}</a>
-    </TutorPopover>
+    <div className='popover-container'>
+      <TutorPopover {...allProps}>
+        <a {...linkProps}>{TEST_LINK_TEXT}</a>
+      </TutorPopover>
+    </div>
 
 fakeImageLoad = (images, overlay, iter) ->
   if images[iter].onload?
@@ -107,31 +110,34 @@ describe 'Tutor Popover', ->
   it 'should render Tutor popover as a link with expected link text', ->
     Testing
       .renderComponent( PopoverWrapper )
-      .then ({dom, element}) ->
-        expect(dom).to.have.property('tagName').and.equal('A')
-        expect(dom).to.have.property('innerText').and.equal(TEST_LINK_TEXT)
+      .then ({element}) ->
+        linkDOM = element.refs.overlay.getDOMNode()
+        expect(linkDOM).to.have.property('tagName').and.equal('A')
+        expect(linkDOM).to.have.property('innerText').and.equal(TEST_LINK_TEXT)
 
   it 'should render popover html content on click', ->
     Testing
       .renderComponent( PopoverWrapper )
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
+        linkDOM = element.refs.overlay.getDOMNode()
 
         expect(overlay.refs.popcontent).to.not.be.ok
         expect(overlay.state.show).to.be.false
 
-        Testing.actions.click(dom)
-
+        Testing.actions.click(linkDOM)
         checkDoesOverlayHTMLMatch(overlay, TEST_HTML)
         expect(overlay.state.show).to.be.true
 
   it 'should close popover on blur', ->
     Testing
       .renderComponent( PopoverWrapper )
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
-        Testing.actions.click(dom)
-        Testing.actions.blur(dom)
+        linkDOM = element.refs.overlay.getDOMNode()
+
+        Testing.actions.click(linkDOM)
+        Testing.actions.blur(linkDOM)
 
         expect(overlay.state.show).to.be.false
 
@@ -140,11 +146,13 @@ describe 'Tutor Popover', ->
 
     Testing
       .renderComponent( PopoverWrapper , props: {windowImpl})
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('right', dom, popper, overlay)
-        Testing.actions.click(dom)
+        linkDOM = element.refs.overlay.getDOMNode()
+
+        fakePopoverShould('right', linkDOM, popper, overlay)
+        Testing.actions.click(linkDOM)
         overlayDOM = overlay.refs.popover.getDOMNode()
 
         expect(overlay.state.placement).to.equal('right')
@@ -155,11 +163,13 @@ describe 'Tutor Popover', ->
 
     Testing
       .renderComponent( PopoverWrapper , props: {windowImpl})
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('left', dom, popper, overlay)
-        Testing.actions.click(dom)
+        linkDOM = element.refs.overlay.getDOMNode()
+
+        fakePopoverShould('left', linkDOM, popper, overlay)
+        Testing.actions.click(linkDOM)
         overlayDOM = overlay.refs.popover.getDOMNode()
 
         expect(overlay.state.placement).to.equal('left')
@@ -168,11 +178,12 @@ describe 'Tutor Popover', ->
   xit 'should retrigger positioning and have image-loading class when image(s) loading', ->
     Testing
       .renderComponent( PopoverWrapper )
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
+        linkDOM = element.refs.overlay.getDOMNode()
 
-        Testing.actions.click(dom)
+        Testing.actions.click(linkDOM)
         overlayDOM = overlay.refs.popover.getDOMNode()
 
         expect(overlayDOM.querySelector('.image-loading')).to.be.ok
@@ -187,11 +198,12 @@ describe 'Tutor Popover', ->
   it 'should retrigger positioning and not have image-loading when all images loaded', ->
     Testing
       .renderComponent( PopoverWrapper )
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
+        linkDOM = element.refs.overlay.getDOMNode()
 
-        Testing.actions.click(dom)
+        Testing.actions.click(linkDOM)
         overlayDOM = overlay.refs.popover.getDOMNode()
         images = overlayDOM.getElementsByTagName('img')
         fakeImageLoad(images, overlay, 0)
@@ -205,8 +217,10 @@ describe 'Tutor Popover', ->
   it 'should not set overlay width or height by default', ->
     Testing
       .renderComponent( PopoverWrapper )
-      .then ({dom, element}) ->
-        Testing.actions.click(dom)
+      .then ({element}) ->
+        linkDOM = element.refs.overlay.getDOMNode()
+
+        Testing.actions.click(linkDOM)
         overlayDOM = element.refs.overlay.refs.popover.getDOMNode()
         expect(overlayDOM.style.cssText).to.not.contain('height')
         expect(overlayDOM.style.cssText).to.not.contain('width')
@@ -216,11 +230,13 @@ describe 'Tutor Popover', ->
 
     Testing
       .renderComponent( PopoverWrapper , props: {windowImpl})
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('scrollHeight', dom, popper, overlay)
-        Testing.actions.click(dom)
+        linkDOM = element.refs.overlay.getDOMNode()
+
+        fakePopoverShould('scrollHeight', linkDOM, popper, overlay)
+        Testing.actions.click(linkDOM)
         overlayDOM = overlay.refs.popover.getDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('height')
@@ -233,11 +249,13 @@ describe 'Tutor Popover', ->
 
     Testing
       .renderComponent( PopoverWrapper , props: {windowImpl})
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('scrollWidth', dom, popper, overlay)
-        Testing.actions.click(dom)
+        linkDOM = element.refs.overlay.getDOMNode()
+
+        fakePopoverShould('scrollWidth', linkDOM, popper, overlay)
+        Testing.actions.click(linkDOM)
         overlayDOM = overlay.refs.popover.getDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('width')
@@ -250,11 +268,13 @@ describe 'Tutor Popover', ->
 
     Testing
       .renderComponent( PopoverWrapper , props: {windowImpl})
-      .then ({dom, element}) ->
+      .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        fakePopoverShould('scrollBoth', dom, popper, overlay)
-        Testing.actions.click(dom)
+        linkDOM = element.refs.overlay.getDOMNode()
+
+        fakePopoverShould('scrollBoth', linkDOM, popper, overlay)
+        Testing.actions.click(linkDOM)
         overlayDOM = overlay.refs.popover.getDOMNode()
 
         expect(overlayDOM.style.cssText).to.contain('width')

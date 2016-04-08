@@ -19,7 +19,7 @@ MultiSelect = React.createClass
     onSelect: React.PropTypes.func
 
 
-  onSelect: (selection) ->
+  onSelect: (ev, selection) ->
     @props.onSelect?( _.findWhere(@props.selections, id: selection))
 
   renderMenuSelection: (selection) ->
