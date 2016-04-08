@@ -18,15 +18,20 @@ BookSelection = React.createClass
   propTypes:
     onChange: React.PropTypes.func
     selected: React.PropTypes.string
+    limit: React.PropTypes.array
 
   render: ->
+    books = if @props.limit
+      _.pick(BOOKS, @props.limit)
+    else
+      BOOKS
     <select
       className='form-control'
       onChange={@props.onChange} value={@props.selected}
     >
       {if _.isEmpty(@props.selected)
         <option key='blank' value={''}></option>}
-      {for tag, name of BOOKS
+      {for tag, name of books
         <option key={tag} value={tag}>{name}</option>}
     </select>
 

@@ -44,7 +44,9 @@ Input = React.createClass
       @setState({lo, book, errorMsg: 'Must match LO pattern of book:dd-dd-dd'})
 
   onTextBlur: -> @validateAndSave()
-  updateBook: (ev) -> @validateAndSave(book: ev.target.value)
+  updateBook: (ev) ->
+    book = ev.target.value
+    @validateAndSave({book})
 
   onDelete: ->
     ExerciseActions.setPrefixedTag(@props.exerciseId,
@@ -54,7 +56,9 @@ Input = React.createClass
   render: ->
 
     <div className={classnames('tag', 'has-error': @state.errorMsg)}>
-      <BookSelection onChange={@updateBook} selected={@state.book} />
+      <BookSelection onChange={@updateBook} selected={@state.book}
+        limit={ExerciseStore.getTagsWithPrefix(@props.exerciseId, 'book')}
+      />
       <input
         className='form-control'
         type={@props.inputType}
