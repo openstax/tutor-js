@@ -145,7 +145,7 @@ ExerciseConfig = {
 
     getPublishedDate: (id) -> @_local[id].published_at
 
-    isPublished: (id) -> @_get(id).published_at
+    isPublished: (id) -> !!@_get(id)?.published_at
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
 

@@ -10,6 +10,14 @@ module.exports = React.createClass
   displayName: 'App'
   getInitialState: -> {verticalDisplay: true}
 
+  update: -> @forceUpdate()
+
+  componentWillMount: ->
+    ExerciseStore.addChangeListener(@update)
+
+  componentWillUnmount: ->
+    ExerciseStore.removeChangeListener(@update)
+
   componentDidMount: ->
     if @props.exerciseId is 'new'
       @addNew()
@@ -106,7 +114,7 @@ module.exports = React.createClass
                 <AsyncButton
                   bsStyle='primary'
                   onClick={@publishExercise}
-                  disabled={isWorking}
+                  disabled={not id or isWorking or ExerciseStore.isPublished(id)}
                   isWaiting={ExerciseStore.isPublishing(id)}
                   waitingText='Publishing...'
                   isFailed={ExerciseStore.isFailed(id)}
