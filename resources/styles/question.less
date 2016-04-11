@@ -1,20 +1,20 @@
 .question {
 
-  .move-question {
+  .controls {
     float: right;
-    font-size: 2rem;
-    margin: 0 10px;
-  }
-
-  .remove-question {
-    float: right;
-    color: @red;
-    margin-top: 0.7rem;
-    i {
-      margin-right: 10px;
+    display: flex;
+    display: flex;
+    align-items: center;
+    .move-question {
+      cursor: pointer;
+      margin: 0 1rem;
+      font-size: 2rem;
+    }
+    .remove-question {
+      color: @red;
+      i { margin-right: 0.5rem; }
     }
   }
-
   textarea {
     margin-bottom: 2rem;
     width: 100%;

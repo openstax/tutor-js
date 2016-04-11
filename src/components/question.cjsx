@@ -69,25 +69,26 @@ module.exports = React.createClass
         changeAnswer={@changeAnswer}/>)
 
     <div className="question">
-
-      {if removeQuestion
-        <div>
-          {if canMoveRight
-            <a className="move-question" onClick={_.partial(moveQuestion, id, 1)}>
-              <i className="fa fa-arrow-circle-right"/>
+      <BS.Row>
+      {if removeQuestion # if we can remove it, that means we're a MPQ
+        <div className="controls">
+          {if canMoveLeft
+            <a className="move-question" onClick={_.partial(moveQuestion, id, -1)}>
+              <i className="fa fa-arrow-circle-left"/>
             </a>
           }
           <a className="remove-question" onClick={removeQuestion}>
             <i className="fa fa-trash" />
             Remove Question
           </a>
-          {if canMoveLeft
-            <a className="move-question" onClick={_.partial(moveQuestion, id, -1)}>
-              <i className="fa fa-arrow-circle-left"/>
+          {if canMoveRight
+            <a className="move-question" onClick={_.partial(moveQuestion, id, 1)}>
+              <i className="fa fa-arrow-circle-right"/>
             </a>
           }
         </div>
       }
+      </BS.Row>
       <QuestionFormatType questionId={id} />
 
       <BS.Input type="checkbox" label="Order Matters"
