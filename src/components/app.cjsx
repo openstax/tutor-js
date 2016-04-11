@@ -23,7 +23,6 @@ module.exports = React.createClass
     if @props.exerciseId is 'new'
       @addNew()
     else if @props.exerciseId
-      this.refs.exerciseId.getDOMNode().value = @props.exerciseId
       @loadExercise()
 
   publishExercise: ->
@@ -41,7 +40,7 @@ module.exports = React.createClass
     @setState({exerciseId: id })
 
   loadExercise: ->
-    exerciseId = this.refs.exerciseId.getDOMNode().value
+    exerciseId = @props.exerciseId or this.refs.exerciseId.getDOMNode().value
     @setState({exerciseId})
     ExerciseActions.load(exerciseId)
 
