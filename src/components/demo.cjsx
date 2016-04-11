@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'lodash'
 EventEmitter2 = require 'eventemitter2'
+classnames = require 'classnames'
 
 Exercise = require './exercise'
 
@@ -11,6 +12,10 @@ STEP_ID = exerciseStub['free-response'].content.questions[0].id
 
 steps = []
 steps[STEP_ID] = {}
+
+
+ExercisePreview = require './exercise/preview'
+exercisePreviewStub = require '../../stubs/exercise-preview/data'
 
 Breadcrumb = require './breadcrumb'
 breadcrumbStub = require '../../stubs/breadcrumbs/steps'
@@ -63,6 +68,25 @@ ExerciseDemo = React.createClass
     {exerciseProps} = @state
     <Exercise {...exerciseProps} pinned={false}/>
 
+ExercisePreviewDemo = React.createClass
+  displayName: 'ExercisePreviewDemo'
+  getInitialState: ->
+    displayFeedback: false
+  toggleFeedbackDisplay: (ev) ->
+    @setState(displayFeedback: not @state?.displayFeedback)
+  render: ->
+    {displayFeedback} = @state
+
+    displayFeedbackIconClasses = classnames 'fa',
+      'fa-check-square-o': displayFeedback
+      'fa-square-o':  not displayFeedback
+
+    <ExercisePreview exercise={exercisePreviewStub} displayFeedback={displayFeedback}>
+      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
+        <i className={displayFeedbackIconClasses}/> Preview Feedback
+      </button>
+    </ExercisePreview>
+
 
 BreadcrumbDemo = React.createClass
   displayName: 'BreadcrumbDemo'
@@ -84,22 +108,24 @@ BreadcrumbDemo = React.createClass
         type: 'step'
     )
 
-    crumbs.push(type: 'end', key: crumbs.length, data: {})
+    crumbs.push(type: 'end', key: crumbs.length + 1, data: {})
 
     breadcrumbsNoReview = _.map(crumbs, (crumb) =>
       <Breadcrumb
         crumb={crumb}
+        key={crumb.key}
         step={crumb.data or {}}
         currentStep={currentStep}
         canReview={false}
         goToStep={@goToStep}/>
     )
 
-    breadcrumbsReview = _.map(crumbs, (crumb) =>
+    breadcrumbsReview = _.map(crumbs, (crumb, key) =>
       if crumb.type is 'step' and crumb.data.is_completed
         crumb.data.correct_answer_id = "3"
 
       <Breadcrumb
+        key={key}
         crumb={crumb}
         step={crumb.data or {}}
         currentStep={currentStep}
@@ -139,10 +165,11 @@ Demo = React.createClass
   render: ->
     demos =
       exercise: <ExerciseDemo/>
+      exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
 
     demos = _.map(demos, (demo, name) ->
-      <BS.Row className='demo openstax-wrapper'>
+      <BS.Row key={name} className='demo openstax-wrapper'>
         <BS.Col xs={12}>
           <h1>{"#{name}"}</h1>
           <section className={"#{name}-demo"}>{demo}</section>

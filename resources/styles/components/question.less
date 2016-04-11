@@ -182,132 +182,135 @@
     font-style: italic;
   }
 
-  // answers
-  counter-reset: answer 0;
 
-  .answers-answer {
-    counter-increment: answer 1;
-    width: initial;
-  }
+  &:not(.openstax-question-preview) {
+    // answers
+    counter-reset: answer 0;
 
-  .answer-content {
-    width: calc(~'100% - @{answer-label-spacing}');
-    margin-left: @answer-horizontal-spacing;
-    margin-top: 0.5 * @answer-horizontal-spacing;
-    .answer-left-block();
-  }
-
-  .answer-letter {
-    .answer-left-block();
-    &::after {
-      content: counter(answer, lower-latin);
+    .answers-answer {
+      counter-increment: answer 1;
+      width: initial;
     }
-  }
 
-  .answer-label {
-    font-weight: normal;
-    width: 100%;
-    padding: @answer-vertical-spacing 0 0 0;
-    margin: 0;
-
-    .transition(~'color @{answer-transition}');
-    .answer();
-  }
-
-  // a selectable answer
-  .answer-input-box:not([disabled]) ~ .answer-label {
-    cursor: pointer;
-
-    &:hover {
-      .answer(hover);
+    .answer-content {
+      width: calc(~'100% - @{answer-label-spacing}');
+      margin-left: @answer-horizontal-spacing;
+      margin-top: 0.5 * @answer-horizontal-spacing;
+      .answer-left-block();
     }
-  }
 
-  // a selected answer
-  &:not(.has-correct-answer){
-    .answer-input-box {
-      display: none;
+    .answer-letter {
+      .answer-left-block();
+      &::after {
+        content: counter(answer, lower-latin);
+      }
+    }
 
-      &:checked {
-        + .answer-label,
-        + .answer-label:hover {
+    .answer-label {
+      font-weight: normal;
+      width: 100%;
+      padding: @answer-vertical-spacing 0 0 0;
+      margin: 0;
+
+      .transition(~'color @{answer-transition}');
+      .answer();
+    }
+
+    // a selectable answer
+    .answer-input-box:not([disabled]) ~ .answer-label {
+      cursor: pointer;
+
+      &:hover {
+        .answer(hover);
+      }
+    }
+
+    // a selected answer
+    &:not(.has-correct-answer){
+      .answer-input-box {
+        display: none;
+
+        &:checked {
+          + .answer-label,
+          + .answer-label:hover {
+            .answer(checked);
+          }
+        }
+      }
+
+      .answer-checked{
+        .answer-label {
           .answer(checked);
         }
       }
     }
 
-    .answer-checked{
-      .answer-label {
-        .answer(checked);
-      }
-    }
-  }
+    // answer that has been checked
+    &.has-correct-answer {
+      .answer-checked {
+        &:not(.answer-correct) {
+          .answer-label {
+            .answer(wrong);
+          }
+        }
 
-  // answer that has been checked
-  &.has-correct-answer {
-    .answer-checked {
-      &:not(.answer-correct) {
-        .answer-label {
-          .answer(wrong);
+        &.answer-correct {
+          .answer-label {
+            .answer(correct);
+          }
         }
       }
 
-      &.answer-correct {
+      .answer-correct:not(.answer-checked) {
         .answer-label {
-          .answer(correct);
+          .answer(correct-answer);
         }
       }
     }
 
-    .answer-correct:not(.answer-checked) {
-      .answer-label {
-        .answer(correct-answer);
-      }
-    }
-  }
+    .question-feedback {
+      .popover();
 
-  .question-feedback {
-    .popover();
+      font-style: italic;
+      color: @answer-label-color;
 
-    font-style: italic;
-    color: @answer-label-color;
+      position: relative;
+      display: block;
+      width: calc(~'100% + @{feedback-horizontal-buffer}');
+      max-width: calc(~'100% + @{feedback-horizontal-buffer}');
+      margin-left: -1 * @feedback-horizontal-spacing;
+      margin-top: -1 * (@answer-vertical-spacing - @popover-arrow-width/10);
+      margin-bottom: @answer-horizontal-spacing;
+      z-index: 1;
+      .box-shadow(0 0 10px rgba(0, 0, 0, .25));
+      border: none;
 
-    position: relative;
-    display: block;
-    width: calc(~'100% + @{feedback-horizontal-buffer}');
-    max-width: calc(~'100% + @{feedback-horizontal-buffer}');
-    margin-left: -1 * @feedback-horizontal-spacing;
-    margin-top: -1 * (@answer-vertical-spacing - @popover-arrow-width/10);
-    margin-bottom: @answer-horizontal-spacing;
-    z-index: 1;
-    .box-shadow(0 0 10px rgba(0, 0, 0, .25));
-    border: none;
-
-    .arrow {
-      &::after {
-        border-width: @popover-arrow-width;
-        content: "";
-      }
-      .popover > .arrow();
-    }
-
-    &.bottom,
-    &.top {
-      > .arrow {
-        left: @answer-bubble-size/2 + @feedback-horizontal-spacing;
+      .arrow {
+        &::after {
+          border-width: @popover-arrow-width;
+          content: "";
+        }
+        .popover > .arrow();
       }
 
-    }
-    &.bottom {
-      margin-top: -5px;      
-    }
-    &.top {
-      margin-bottom: -5px;
-    }
+      &.bottom,
+      &.top {
+        > .arrow {
+          left: @answer-bubble-size/2 + @feedback-horizontal-spacing;
+        }
 
-    .question-feedback-content {
-      .popover-content();
-      padding: @feedback-vertical-spacing @feedback-horizontal-spacing;
+      }
+      &.bottom {
+        margin-top: -5px;      
+      }
+      &.top {
+        margin-bottom: -5px;
+      }
+
+      .question-feedback-content {
+        .popover-content();
+        padding: @feedback-vertical-spacing @feedback-horizontal-spacing;
+      }
     }
   }
 }

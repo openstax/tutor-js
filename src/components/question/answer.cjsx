@@ -5,7 +5,7 @@ keymaster = require 'keymaster'
 
 keysHelper = require '../../helpers/keys'
 ArbitraryHtmlAndMath = require '../html'
-{Feedback} = require './feedback'
+{SimpleFeedback} = require './feedback'
 
 idCounter = 0
 
@@ -98,7 +98,7 @@ Answer = React.createClass
       'answer-checked': isChecked
       'answer-correct': isCorrect
 
-    unless (hasCorrectAnswer or type is 'teacher-review')
+    unless (hasCorrectAnswer or type is 'teacher-review' or type is 'teacher-preview')
       radioBox = <input
         type='radio'
         className='answer-input-box'
@@ -118,7 +118,7 @@ Answer = React.createClass
       </div>
 
     if @props.show_all_feedback and answer.feedback_html
-      feedback = <Feedback key='question-mc-feedback'>{answer.feedback_html}</Feedback>
+      feedback = <SimpleFeedback key='question-mc-feedback'>{answer.feedback_html}</SimpleFeedback>
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
@@ -130,13 +130,15 @@ Answer = React.createClass
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'>
           <div className='answer-letter' />
-          <ArbitraryHtmlAndMath
-            {...htmlAndMathProps}
-            className='answer-content'
-            html={answer.content_html} />
+          <div className='answer-answer'>
+            <ArbitraryHtmlAndMath
+              {...htmlAndMathProps}
+              className='answer-content'
+              html={answer.content_html} />
+            {feedback}
+          </div>
         </label>
       </div>
-      {feedback}
     </div>
 
 module.exports = {Answer}

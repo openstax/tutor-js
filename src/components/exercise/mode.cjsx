@@ -79,8 +79,6 @@ ExMode = React.createClass
     {answerId} = @state
 
     answerKeySet = null unless choicesEnabled
-    question = content.questions[0]
-    question = _.omit(question, 'answers') if mode is 'free-response'
 
     questionProps = _.pick(@props, 'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id', 'feedback_html', 'type')
     if mode is 'multiple-choice'
@@ -93,21 +91,26 @@ ExMode = React.createClass
     htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
     {stimulus_html} = content
 
+    questions = _.map(content.questions, (question) =>
+      question = _.omit(question, 'answers') if mode is 'free-response'
+      <Question
+        {...questionProps}
+        {...changeProps}
+        key="step-question-#{question.id}"
+        model={question}
+        answer_id={answerId}
+        keySet={answerKeySet}>
+        {@getFreeResponse()}
+      </Question>
+    )
+
     <div className='openstax-exercise'>
       <ArbitraryHtmlAndMath
         {...htmlAndMathProps}
         className='exercise-stimulus'
         block={true}
         html={stimulus_html} />
-      <Question
-        {...questionProps}
-        {...changeProps}
-        key='step-question'
-        model={question}
-        answer_id={answerId}
-        keySet={answerKeySet}>
-        {@getFreeResponse()}
-      </Question>
+        {questions}
     </div>
 
 
