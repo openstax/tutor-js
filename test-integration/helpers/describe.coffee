@@ -158,6 +158,16 @@ describe = (name, cb) ->
         coverageData = User.getCoverageData()
         fs.writeFileSync('./coverage-selenium.json', JSON.stringify(coverageData), 'utf8')
 
+    @maybeIt = ({maybe, beforeEach}, title, fn) =>
+      mochaContext = @
+      @it title, ->
+        testContext = @
+        maybe.call(testContext).then (canGo) ->
+          if canGo
+            beforeEach.call(testContext)
+            fn.call(testContext)
+          else
+            console.log 'Skipping test, maybe condition failed.'
 
     @after ->
       @driver.quit()

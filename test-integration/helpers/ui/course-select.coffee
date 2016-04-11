@@ -41,9 +41,9 @@ class CourseSelect extends TestHelper
       css: '.course-listing'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
-  goToByType: (category, roles) ->
+  getByType: (category, roles) ->
     @waitUntilLoaded()
-    # Go to the bio dashboard
+
     switch category
       when 'BIOLOGY'
         course = @el.courseByAppearance({appearance: 'biology'}, roles).findElement()
@@ -54,21 +54,19 @@ class CourseSelect extends TestHelper
       else
         course = @el.courseByAppearance().findElement()
 
-    console.info('course gotten or something')
-
     course
-      .then ->
-        console.info('then')
-        course.click()
+
+  canGoToType: (category, roles) ->
+    @getByType(category, roles).then ->
         true
-      .thenCatch (error) ->
-        console.info('thenCatch')
-        console.info("Course matching #{category}, #{roles} not found.")
-        # @test.utils.verbose("Course matching #{category}, #{roles} not found.  #{error.message}")
-        console.info(_.keys(@), _.keys(course))
-        course.cancel()
+      .thenCatch (error) =>
+        console.log("Course matching #{category}, #{roles} not found.")
+        @test.utils.verbose("Course matching #{category}, #{roles} not found.  #{error.message}")
         false
 
+  goToByType: (category, roles) ->
+    course = @getByType(category, roles)
+    course.click()
 
 
   goToByTitle: (name) ->
