@@ -44,7 +44,7 @@ RosterConfig = {
       _.where(@_get(courseId).students, period_id: periodId, is_active: true)
 
     getDroppedStudents: (courseId, periodId) ->
-      _.where(@_get(courseId).students, period_id: periodId, dropped: true)
+      _.where(@_get(courseId).students, period_id: periodId, is_active: false)
 
 }
 

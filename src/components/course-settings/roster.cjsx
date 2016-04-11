@@ -72,7 +72,6 @@ module.exports = React.createClass
         activeTab={@getActivePeriod(@state.key, course.periods)}
         isConceptCoach={is_concept_coach} />
         <div className="settings-section dropped-students">
-          <div><span className='course-settings-subtitle tabbed'>Dropped Students</span></div>
           <DroppedRoster
           period={period}
           courseId={@props.courseId}

@@ -23,29 +23,32 @@ module.exports = React.createClass
       </td>
     </tr>
 
-  isPeriodEmpty: ->
+  hasDroppedStudents: ->
     id = @props.activeTab.id
-    students = RosterStore.getActiveStudentsForPeriod(@props.courseId, id)
-    students.length is 0
+    students = RosterStore.getDroppedStudents(@props.courseId, id)
+    students.length > 0
 
   render: ->
-    students = RosterStore.getActiveStudentsForPeriod(@props.courseId, @props.period.id)
+    students = RosterStore.getDroppedStudents(@props.courseId, @props.period.id)
     studentsTable =
-      <BS.Table striped bordered condensed hover className="roster">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {for student in _.sortBy(students, 'last_name')
-            @renderStudentRow(student)}
-        </tbody>
-      </BS.Table>
+      <div>
+        <div><span className='course-settings-subtitle tabbed'>Dropped Students</span></div>
+        <BS.Table striped bordered condensed hover className="roster">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {for student in _.sortBy(students, 'last_name')
+              @renderStudentRow(student)}
+          </tbody>
+        </BS.Table>
+      </div>
     empty = <div />
 
     <div className="period">
-      {if @isPeriodEmpty() then empty else studentsTable}
+      {if @hasDroppedStudents() then studentsTable else empty}
     </div>
