@@ -64,7 +64,7 @@ module.exports = React.createClass
   renderEditingBody: ->
     return null unless @state.exerciseId
     if ExerciseStore.isLoading()
-      <div>Loading...</div>
+      <div className="loadable is-loading">Loading...</div>
     else
       <Exercise exerciseId={@state.exerciseId} />
 
