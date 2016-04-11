@@ -8,7 +8,7 @@ CnxModTag = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   validateInput: (value) ->
-    'Must match CNX feature' unless value.match(
+    'Must match CNX module ID (without version number)' unless value.match(
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
     )
 
@@ -22,7 +22,7 @@ CnxModTag = React.createClass
       prefix='cnx-module'
       cleanInput={@cleanInput}
       validateInput={@validateInput}
-      placeholder='1d1fd537-77fb-4eac-8a8a-60bbaa747b6d'
+      placeholder='#########-####-###-####-############'
     />
 
 module.exports = CnxModTag
