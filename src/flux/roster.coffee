@@ -24,18 +24,25 @@ RosterConfig = {
     @emitChange()
 
   deleted: (unused, studentId) ->
-    # remove the student from all the courses rosters
+    # set inactive
     for courseId, roster of @_local
       students = roster.students
-      index = _.findIndex(students, id: studentId)
-      students.splice(index, 1) unless -1 is index
+      student = _.findWhere(students, id: studentId)
+      student.is_active = false
     @emitChange()
 
-  # studentUndrop: () ->
+  undrop: (unused, studentId) ->
+
+  undropped: (unused, studentId) ->
+    # set active
+    for courseId, roster of @_local
+      students = roster.students
+      student = _.findWhere(students, id: studentId)
+      student.is_active = true
+    @emitChange()
 
 
 
-  # studentUndropped: () ->
 
 
   exports:

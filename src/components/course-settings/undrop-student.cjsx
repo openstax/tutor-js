@@ -12,7 +12,7 @@ module.exports = React.createClass
     id: React.PropTypes.string.isRequired
 
   performDeletion: ->
-    RosterActions.delete(@props.student.id)
+    RosterActions.undrop(@props.student.id)
 
   confirmPopOver: ->
     title = <span>Add <Name {...@props.student} />?</span>
