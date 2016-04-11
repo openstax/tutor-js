@@ -12,7 +12,7 @@ describe 'Calendar and Stats', ->
   @eachCourse = (msg, fn) =>
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       @it "#{msg} for #{courseCategory}", (done) ->
-        @courseSelect.goToByType(courseCategory)
+        @courseSelect.goToByType(courseCategory, 'teacher')
         @calendar.waitUntilLoaded()
         fn.call(@, courseCategory)
         # Go back to the course selection after the spec
