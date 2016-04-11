@@ -48,18 +48,18 @@ module.exports = React.createClass
         <BS.Row>
 
           <BS.Col xs=12 md=8 lg=9>
-            <BS.TabbedArea
+            <BS.Tabs
               activeKey = {@state.selectedTabIndex}
               onSelect  = {@selectTab}
               animation = {false}>
-              <BS.TabPane eventKey={1} tab='This Week'>
+              <BS.Tab eventKey={1} title='This Week'>
                 <ThisWeekPanel courseId={courseId}/>
                 <UpcomingPanel courseId={courseId}/>
-              </BS.TabPane>
-              <BS.TabPane eventKey={2} tab='All Past Work'>
+              </BS.Tab>
+              <BS.Tab eventKey={2} title='All Past Work'>
                 <AllEventsByWeek courseId={courseId}/>
-              </BS.TabPane>
-            </BS.TabbedArea>
+              </BS.Tab>
+            </BS.Tabs>
           </BS.Col>
 
           <BS.Col xs=12 md=4 lg=3>

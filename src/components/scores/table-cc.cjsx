@@ -113,7 +113,7 @@ module.exports = React.createClass
       </div>
 
     titleHeaderTooltip =
-      <BS.Tooltip>
+      <BS.Tooltip id="header-cell-title-#{i}">
         <div>{heading.title}</div>
       </BS.Tooltip>
     titleHeader =

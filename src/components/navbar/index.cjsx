@@ -53,7 +53,10 @@ module.exports = React.createClass
               <i className='ui-brand-logo'></i>
             </Router.Link>
 
-    <BS.Navbar brand={brand} toggleNavKey={0} fixedTop fluid>
+    <BS.Navbar toggleNavKey={0} fixedTop fluid>
+      <BS.NavBrand>
+        {brand}
+      </BS.NavBrand>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>

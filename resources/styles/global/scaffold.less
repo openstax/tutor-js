@@ -10,6 +10,14 @@ body {
   background: @tutor-neutral-lighter;
 }
 
+// Turns out we need this padding, at least for now, to counter-act this:
+// https://github.com/react-bootstrap/react-bootstrap/blob/v0.26.2/src/Modal.js#L314-L318
+body.modal-open {
+  #react-root-container {
+    padding-right: 40px;
+  }
+}
+
 .panel {
   max-width: 1200px;
   margin: 20px auto;

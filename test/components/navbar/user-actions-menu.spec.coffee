@@ -18,7 +18,6 @@ testWithRole = (roleType) ->
       Testing.renderComponent( UserActionsMenu, props: {courseId: courseModel.id} ).then ({dom}) =>
         dropdownItems = dom.querySelectorAll('li')
         roleItems = Array.prototype.slice.call(dropdownItems, 0, -4)
-
         labels = _.pluck(@roleTestParams.menu, 'label')
         labels.push 'Browse the Book'
         expect(_.pluck(roleItems, 'innerText')).to.deep.equal(labels)
@@ -51,6 +50,7 @@ testWithRole = (roleType) ->
           expect(_.pluck(dropdownItems, 'innerText')).to.not.include('Performance Forecast')
           expect(_.pluck(dropdownItems, 'innerText')).to.not.include('Browse the Book')
           done()
+
 
 
 describe 'Student Navbar Component', testWithRole('student')

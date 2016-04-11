@@ -28,7 +28,7 @@ module.exports = React.createClass
     classes = 'late'
     classes += " #{className}" if className?
 
-    tooltip = <BS.Tooltip>{buildLateMessage(task, status)}</BS.Tooltip>
+    tooltip = <BS.Tooltip id="late-icon-tooltip-#{task.id}">{buildLateMessage(task, status)}</BS.Tooltip>
     <BS.OverlayTrigger placement='top' overlay={tooltip}>
       <i className={classes}/>
     </BS.OverlayTrigger>

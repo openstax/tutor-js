@@ -18,14 +18,21 @@ module.exports = React.createClass
 
   getInitialState: ->
     warning: ''
+    showModal: false
+
+  close: ->
+    @setState({showModal: false})
+
+  open: ->
+    @setState({showModal: true})
 
   performUpdate: ->
     if @isPeriodEmpty()
-      @refs.overlay.hide()
       # tab to be deleted cannot be activeTab unless first, so select previous or first
       @props.selectPreviousTab()
       id = @props.activeTab.id
       PeriodActions.delete(id, @props.courseId)
+      @close()
     else
       @setState(warning: EMPTY_WARNING)
 
@@ -54,8 +61,13 @@ module.exports = React.createClass
 
     <BS.Modal
       {...@props}
-      title={title}
+      show={@state.showModal}
+      onHide={@close}
       className="teacher-edit-period-modal">
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
 
       <div className='modal-body teacher-edit-period-form'>
 
@@ -72,18 +84,13 @@ module.exports = React.createClass
         {deleteButton if @isPeriodEmpty()}
       </div>
 
-
-
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger
-      ref='overlay'
-      rootClose={true}
-      trigger='click'
-      overlay={@renderForm()}>
-        <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-trash-o' />
-          Delete <CourseGroupingLabel courseId={@props.courseId}/>
-        </BS.Button>
-    </BS.OverlayTrigger>
+    <span className='-delete-period-link'>
+      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+        <i className='fa fa-trash-o' />
+        Delete <CourseGroupingLabel courseId={@props.courseId}/>
+      </BS.Button>
+      {@renderForm()}
+    </span>

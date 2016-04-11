@@ -1,6 +1,8 @@
 React    = require 'react'
 BS       = require 'react-bootstrap'
 classnames = require 'classnames'
+_ = require 'underscore'
+
 module.exports = React.createClass
   displayName: 'Icon'
   propTypes:
@@ -9,6 +11,10 @@ module.exports = React.createClass
     className: React.PropTypes.string
     tooltip: React.PropTypes.string
     tooltipProps: React.PropTypes.object
+
+  componentWillMount: ->
+    uniqueId = _.uniqueId('icon-tooltip-')
+    @setState({uniqueId: uniqueId})
 
   getDefaultProps: ->
     tooltipProps: { placement: 'bottom' }
@@ -21,7 +27,7 @@ module.exports = React.createClass
     icon = <i {...@props} className={classNames} />
 
     if @props.tooltip
-      tooltip = <BS.Tooltip>{@props.tooltip}</BS.Tooltip>
+      tooltip = <BS.Tooltip id={@state.uniqueId}>{@props.tooltip}</BS.Tooltip>
       <BS.OverlayTrigger {...@props.tooltipProps} overlay={tooltip}>{icon}</BS.OverlayTrigger>
     else
       icon
