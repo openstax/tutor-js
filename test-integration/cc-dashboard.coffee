@@ -14,8 +14,10 @@ describe 'Concept Coach Dashboard', ->
     @scores = new Helpers.Scores(@)
 
     @user.login(TEACHER_USERNAME)
-    @courseSelect.goToByType('CONCEPT_COACH')
-    @conceptCoach.waitUntilLoaded()
+    @courseSelect.goToByType('CONCEPT_COACH', 'teacher')
+      .then (wentToType) =>
+        if wentToType
+          @conceptCoach.waitUntilLoaded()
 
   @it 'Can switch periods (readonly)', ->
     @conceptCoach.switchPeriods()
