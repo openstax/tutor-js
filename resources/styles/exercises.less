@@ -52,21 +52,20 @@ body {
 .exercise-editor {
 
   display: flex;
-  flex-direction: column;
 
-  &.vertical-layout {
-    flex-direction: row;
-    > * {
-      height: 100%;
-    }
-    > .controls {
-      order: -1;
-      margin-right: 1rem;
-    }
-  }
-  > * {
+  .openstax-exercise-preview,
+  .editing-controls {
     flex: 1;
+    height: 100%;
     justify-content: flex-start;
+  }
+
+  .openstax-exercise-preview {
+    max-width: 800px;
+  }
+
+  .editing-controls {
+    margin-right: 1rem;
   }
 
   .mpq-toggle label {

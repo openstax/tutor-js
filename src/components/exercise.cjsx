@@ -97,19 +97,8 @@ Exercise = React.createClass
 
     tab = @getActiveTab(showMPQ)
 
-    classes = classnames('exercise-editor',
-      'vertical-layout': @props.displayVertically
-    )
-
-    <div className={classes}>
-      <ExercisePreview
-        extractTag={@previewTag}
-        exercise={@exercisePreviewData(exercise)}
-        displayAllTags={true}
-        displayFeedback={true}
-        hideAnswers={false}
-      />
-      <div className="controls">
+    <div className='exercise-editor'>
+      <div className="editing-controls">
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <form className="navbar-form navbar-right" role="search">
@@ -136,6 +125,14 @@ Exercise = React.createClass
           }
         </BS.TabbedArea>
       </div>
+
+      <ExercisePreview
+        extractTag={@previewTag}
+        exercise={@exercisePreviewData(exercise)}
+        displayAllTags={true}
+        displayFeedback={true}
+        hideAnswers={false}
+      />
     </div>
 
 
