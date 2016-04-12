@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 Exercise = require './exercise'
 ErrorModal = require './error-modal'
+MPQToggle = require './mpq-toggle'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
@@ -51,7 +52,7 @@ module.exports = React.createClass
 
   renderExerciseOrLoad: ->
     if @state.exerciseId and not ExerciseStore.isNew(@state.exerciseId)
-      <div>Exercise ID: {@state.exerciseId}</div>
+      <MPQToggle exerciseId={@props.exerciseId} />
     else
       <div className="input-group">
         <input type="text" className="form-control" onKeyPress={@onFindKeyPress}
