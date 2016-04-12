@@ -76,25 +76,22 @@ body {
     height: 100%;
     justify-content: flex-start;
   }
-
   .openstax-exercise-preview {
     max-width: 800px;
   }
 
   .editing-controls {
     margin-right: 1rem;
+    position: relative;
+    min-width: 700px;
+    .add-mpq {
+      position: absolute;
+      right: 0;
+      z-index: 2; // above tabs;
+    }
+
   }
 
-  .mpq-toggle label {
-    width: 140px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    line-height: 12px;
-    justify-content: flex-start;
-    text-align: center;
-    input { margin: 0; }
-  }
 
   .tab-pane {
     padding: 20px;

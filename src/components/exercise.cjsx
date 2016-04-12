@@ -6,7 +6,6 @@ classnames = require 'classnames'
 
 Question = require './question'
 ExerciseTags = require './tags'
-MPQToggle = require './mpq-toggle'
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 Attachments = require './attachments'
 {ExercisePreview} = require 'openstax-react-components'
@@ -99,16 +98,10 @@ Exercise = React.createClass
 
     <div className='exercise-editor'>
       <div className="editing-controls">
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
-            <form className="navbar-form navbar-right" role="search">
-              <MPQToggle exerciseId={@props.exerciseId} />
-              {if showMPQ
-                <BS.Button onClick={@addQuestion} className="navbar-btn"
-                  bsStyle="primary">Add Question</BS.Button>}
-            </form>
-          </div>
-        </nav>
+
+       {if showMPQ
+         <BS.Button onClick={@addQuestion} className="add-mpq"
+           bsStyle="primary">Add Question</BS.Button>}
 
         <BS.TabbedArea defaultActiveKey='question-0' animation={false}
           activeKey={tab} onSelect={@selectTab}
