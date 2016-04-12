@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 UserName = require './username'
 AccountLink = require './account-link'
@@ -40,11 +41,12 @@ UserActionsMenu = React.createClass
 
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"
 
+    # MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
     <BS.MenuItem
       {...menuGoProps}
+      className={classnames(route.name, 'active': isActive)}
       key={key}
       data-name={route.name}
-      className={'active' if isActive}
       eventKey={index + 2}>
         {route.label}
     </BS.MenuItem>

@@ -1,3 +1,5 @@
+@import '~openstax-react-components/resources/styles/components/breadcrumbs/coach';
+
 .task {
   iframe {
     width: 960px;
@@ -37,7 +39,11 @@
     }
   }
   // only visible when "spy mode" is enabled
-  .task-ecosystem-info { .tutor-spy-mode-content() }
+  .task-ecosystem-info { .tutor-spy-mode-content() };
+
+  &.task-concept_coach {
+    .concept-coach-breadcrumbs();
+  }
 }
 
 @import './external';

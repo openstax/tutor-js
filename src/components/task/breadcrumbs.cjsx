@@ -108,6 +108,7 @@ module.exports = React.createClass
         onMount={@crumbMounted}
         style={crumbStyle}
         crumb={crumb}
+        data-label={crumb.label}
         currentStep={currentStep}
         goToStep={goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"

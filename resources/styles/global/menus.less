@@ -4,7 +4,7 @@
 
   // The QuestionLibrary is hidden until it's ready for release
   // it's re-enabled below when spy mode is engaged
-  [data-name=viewQuestionsLibrary] {
+  .viewQuestionsLibrary {
     display: none;
   }
 
@@ -14,5 +14,5 @@
 // This and the above 'display: none' should be removed when the
 // Question Library is released
 .openstax-debug-content.is-enabled {
-  .dropdown-menu [data-name=viewQuestionsLibrary] { display: block; }
+  .dropdown-menu .viewQuestionsLibrary { display: block; }
 }
