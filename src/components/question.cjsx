@@ -95,7 +95,7 @@ module.exports = React.createClass
 
       <div>
         <label>Question Stem</label>
-        <textarea onChange={@updateStem} defaultValue={QuestionStore.getStem(id)}></textarea>
+        <textarea onChange={@updateStem} value={QuestionStore.getStem(id)}></textarea>
       </div>
       <div>
         <label>
@@ -108,6 +108,6 @@ module.exports = React.createClass
       </div>
       <div>
         <label>Detailed Solution</label>
-        <textarea onChange={@updateSolution} defaultValue={QuestionStore.getSolution(id)}></textarea>
+        <textarea onChange={@updateSolution} value={QuestionStore.getSolution(id)}></textarea>
       </div>
     </div>

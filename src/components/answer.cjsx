@@ -44,9 +44,9 @@ module.exports = React.createClass
         </span>
       </p>
       <label>Distractor</label>
-      <textarea onChange={@updateContent} defaultValue={AnswerStore.getContent(@props.id)}>
+      <textarea onChange={@updateContent} value={AnswerStore.getContent(@props.id)}>
       </textarea>
       <label>Choice-Level Feedback</label>
-      <textarea onChange={@updateFeedback} defaultValue={AnswerStore.getFeedback(@props.id)}>
+      <textarea onChange={@updateFeedback} value={AnswerStore.getFeedback(@props.id)}>
       </textarea>
     </li>
