@@ -10,7 +10,23 @@
 @import (reference) './mixins/generic';
 
 @import '~openstax-react-components/resources/styles/main.less';
-@import './attachments';
+
+@import "@{bootstrap-path}/navs";
+@import "@{bootstrap-path}/navbar";
+@import "@{bootstrap-path}/buttons";
+@import "@{bootstrap-path}/button-groups";
+@import "@{bootstrap-path}/responsive-embed";
+
+@import "@{widgets-path}/variables";
+@import "@{widgets-path}/bootstrap-theme";
+@import "@{widgets-path}/mixins";
+@import "@{widgets-path}/core";
+@import "@{widgets-path}/popup";
+@import "@{widgets-path}/selectlist";
+@import "@{widgets-path}/multiselect";
+
+
+@import "global/error-modal";
 
 // @answer-correct: #34b27d;
 // @answer-incorrect: #cb4d4d;
@@ -22,96 +38,75 @@ body {
   padding: 10px;
 }
 
+// renders outside of editor, appended to body
+.mpq-toggle-prompt {
+  .controls {
+    border-top: 1px solid @openstax-neutral-light;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+}
 
 .exercise-editor {
-  textarea {
-    display: block;
-    margin-bottom: 2rem;
-    width: 100%;
-    height: 8rem;
+
+  display: flex;
+
+  .openstax-exercise-preview,
+  .editing-controls {
+    flex: 1;
+    height: 100%;
+    justify-content: flex-start;
   }
 
-  li.correct-answer {
-    label {
-      color: @green;
-    }
-    textarea {
-      border-color: @green;
-    }
+  .openstax-exercise-preview {
+    max-width: 800px;
   }
 
-  .answer-actions {
-    > a {
-      margin-left: 10px;
-      cursor: pointer;
-      line-height: 2rem;
-
-      &.is-correct {
-        color: @openstax-neutral;
-      }
-      &.is-correct.correct-answer {
-        color: @green;
-      }
-
-      i.fa {
-        font-size: 2rem;
-      }
-    }
+  .editing-controls {
+    margin-right: 1rem;
   }
-  .tags select {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-}
-p.add-exercise {
-  width: 100%;
-  margin-bottom: 2em;
-  a {
-    font-size: 2rem;
-    color: white;
+
+  .mpq-toggle label {
+    width: 140px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    line-height: 12px;
+    justify-content: flex-start;
     text-align: center;
+    input { margin: 0; }
+  }
 
-    i {
-      margin-right: 10px;
+  .tab-pane {
+    padding: 20px;
+    background-color: white;
+    border-left: 1px solid @nav-tabs-border-color;
+    border-right: 1px solid @nav-tabs-border-color;
+    border-bottom: 1px solid @nav-tabs-border-color;
+  }
+  .navbar-form {
+    .navbar-btn { margin-top: 0; }
+  }
+
+  .exercise-stimulus {
+    label {
+      display: block;
+    }
+
+    textarea {
+      display: block;
+      margin-bottom: 2rem;
+      width: 100%;
+      height: 8rem;
     }
   }
-}
-.btn-toolbar,
-.btn-dialog {
-  margin-bottom: 0;
-
-  box-shadow: none;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  .x-user-select(none);
-}
-
-.btn-dialog {
-  text-transform: uppercase;
-  color: #ffab40;
-
-  &:hover { color: #ffd8a6; }
-
-  &.btn-dialog-danger {
-    i { color: #ccc; }
-    &:hover i { color: #f33; }
+  a {
+    cursor: pointer;
   }
+  @import './tags';
+  @import './attachments';
+  @import './question';
 
-  // Subsequent dialog buttons should be spaced
-  + .btn-dialog { margin-left: 1.5rem; }
-
-}
-
-.btn-toolbar,
-.btn-dialog i {
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
-
-
-
-.btn-info {
-  margin-right: 10px;
 }

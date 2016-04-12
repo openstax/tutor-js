@@ -1,6 +1,9 @@
 React = require 'react'
+BS = require 'react-bootstrap'
+
 _ = require 'underscore'
 
+QuestionFormatType = require './question-format-type'
 Answer = require './answer'
 {QuestionActions, QuestionStore} = require '../stores/question'
 {AnswerActions, AnswerStore} = require '../stores/answer'
@@ -9,6 +12,13 @@ module.exports = React.createClass
   displayName: 'Question'
 
   getInitialState: -> {}
+  update: -> @forceUpdate()
+
+  componentWillMount: ->
+    QuestionStore.addChangeListener(@update)
+
+  componentWillUnmount: ->
+    QuestionStore.removeChangeListener(@update)
 
   changeAnswer: (answerId) ->
     curAnswer = QuestionStore.getCorrectAnswer(@props.id)
@@ -44,11 +54,12 @@ module.exports = React.createClass
   preserveOrderClicked: (event) -> QuestionActions.togglePreserveOrder(@props.id)
 
   render: ->
-    {id} = @props
+    { id, removeQuestion, moveQuestion, canMoveLeft, canMoveRight } = @props
+
     answers = []
 
     for answer, index in QuestionStore.getAnswers(id)
-      answers.push(<Answer key={answer.id} 
+      answers.push(<Answer key={answer.id}
         sync={@props.sync}
         id={answer.id}
         canMoveUp={index isnt QuestionStore.getAnswers(id).length - 1}
@@ -57,50 +68,48 @@ module.exports = React.createClass
         removeAnswer={@removeAnswer}
         changeAnswer={@changeAnswer}/>)
 
-    <div>
+    <div className="question">
+      <BS.Row>
+      {if removeQuestion # if we can remove it, that means we're a MPQ
+        <div className="controls">
+          {if canMoveLeft
+            <a className="move-question" onClick={_.partial(moveQuestion, id, -1)}>
+              <i className="fa fa-arrow-circle-left"/>
+            </a>
+          }
+          <a className="remove-question" onClick={removeQuestion}>
+            <i className="fa fa-trash" />
+            Remove Question
+          </a>
+          {if canMoveRight
+            <a className="move-question" onClick={_.partial(moveQuestion, id, 1)}>
+              <i className="fa fa-arrow-circle-right"/>
+            </a>
+          }
+        </div>
+      }
+      </BS.Row>
+      <QuestionFormatType questionId={id} />
+
+      <BS.Input type="checkbox" label="Order Matters"
+        onChange={@preserveOrderClicked}
+        checked={QuestionStore.isOrderPreserved(id)} />
+
       <div>
         <label>Question Stem</label>
         <textarea onChange={@updateStem} defaultValue={QuestionStore.getStem(id)}></textarea>
-      </div>
-      <div>
-        <label>Question Stimulus</label>
-        <textarea onChange={@updateStimulus} defaultValue={QuestionStore.getStimulus(id)}></textarea>
-      </div>
-      <div>
-        <label>Question Formats</label>
-      </div>
-      <div>
-        <input onChange={@multipleChoiceClicked}
-          id="multipleChoiceFormat#{id}"
-          type="checkbox"
-          defaultChecked={QuestionStore.isMultipleChoice(id)} />
-        <label htmlFor="multipleChoiceFormat#{id}">Multiple Choice</label>
-      </div>
-      <div>
-        <input onChange={@freeResponseClicked}
-          id="freeResponseFormat#{id}"
-          type="checkbox"
-          defaultChecked={QuestionStore.isFreeResponse(id)} />
-        <label htmlFor="freeResponseFormat#{id}">Free Response</label>
-      </div>
-      <div>
-        <label>Detailed Solution</label>
-        <textarea onChange={@updateSolution} defaultValue={QuestionStore.getSolution(id)}></textarea>
       </div>
       <div>
         <label>
           Answers:
         </label>
         <a className="pull-right" onClick={@addAnswer}>Add New</a>
-        <p>
-          <input onChange={@preserveOrderClicked}
-            id="preserveOrder#{id}"
-            type="checkbox"
-            defaultChecked={QuestionStore.isOrderPreserved(id)} />
-          <label htmlFor="preserveOrder#{id}">Preserve Answer Orders</label>
-        </p>
         <ol>
           {answers}
         </ol>
+      </div>
+      <div>
+        <label>Detailed Solution</label>
+        <textarea onChange={@updateSolution} defaultValue={QuestionStore.getSolution(id)}></textarea>
       </div>
     </div>

@@ -7,6 +7,7 @@ moment = require 'moment'
 path   = require 'path'
 spawn  = require('child_process').spawn
 fileExists = require 'file-exists'
+_ = require 'underscore'
 
 class TestRunner
 
@@ -15,24 +16,37 @@ class TestRunner
   pendingSpecs: []
 
   runKarma: ->
-    return if @isKarmaRunning or _.isEmpty(@pendingSpecs)
-    @isKarmaRunning = true
     specs = _.unique @pendingSpecs
+
+    # no need to start a server if there are no pending specs, or the spec list hasn't changed
+    return if _.isEmpty(@pendingSpecs)
+    if _.isEqual(@curSpecs?.sort(), specs.sort())
+      @pendingSpecs = []
+      return
+
+    # if there's already a karma instance running, then kill it, since we're starting a new one
+    if @isKarmaRunning and @child
+      process.kill(@child.pid, 'SIGTERM')
+      @child = null
+
+    @isKarmaRunning = true
     gutil.log("[specs]", gutil.colors.green("testing #{specs.join(' ')}"))
     @pendingSpecs = []
     startAt = moment()
 
-    child = spawn( 'node', [
+    @child = spawn( 'node', [
       path.join(__dirname, 'karma-in-background.js'),
       JSON.stringify(specs)
     ], {stdio: 'inherit'} )
 
-    child.on('exit', (exitCode) =>
+    #save the spec list that is being run
+    @curSpecs = specs[...]
+
+    @child.on('exit', (exitCode) =>
       @isKarmaRunning = false
       duration = moment.duration(moment().diff(startAt))
       elapsed = duration.minutes() + ':' + duration.seconds()
       gutil.log("[test]", gutil.colors.green("done. #{specs.length} specs in #{elapsed}"))
-      @runKarma()
     )
 
   onFileChange: (change) ->
