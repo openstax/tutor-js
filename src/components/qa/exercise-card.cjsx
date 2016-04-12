@@ -3,7 +3,7 @@ React = require 'react'
 classnames = require 'classnames'
 {ExerciseStore} = require '../../flux/exercise'
 String = require '../../helpers/string'
-ExerciseCard = require '../exercise-card'
+{ExercisePreview} = require 'openstax-react-components'
 
 Exercise = React.createClass
 
@@ -19,16 +19,27 @@ Exercise = React.createClass
     </div>
 
   render: ->
-    types = ExerciseStore.getExerciseTypes(@props.exercise)
-    return null if _.every( types, (pt) => @props.ignoredTypes[pt] )
-    editUrl = @props.exercise.url.replace(/@\d+/, '@draft')
-    <ExerciseCard {...@props}
+    {exercise, ignoredTypes, show2StepPreview} = @props
+    types = ExerciseStore.getExerciseTypes(exercise)
+    return null if _.every( types, (pt) -> ignoredTypes[pt] )
+
+    editUrl = exercise.url.replace(/@\d+/, '@draft')
+
+    doQuestionsHaveFormat = ExerciseStore.doQuestionsHaveFormat('free-response', {exercise})
+
+    if show2StepPreview
+      freeResponse = _.map doQuestionsHaveFormat, (hasFreeResponse) ->
+        <div className='exercise-free-response-preview'/> if hasFreeResponse
+
+    <ExercisePreview {...@props}
+      className='exercise'
       header={@renderHeader(types)}
+      questionFooters={freeResponse}
       displayAllTags
       displayFeedback
     >
       <a target="_blank" className="edit-link" href={editUrl}>edit</a>
-    </ExerciseCard>
+    </ExercisePreview>
 
 
 module.exports = Exercise

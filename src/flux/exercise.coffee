@@ -188,6 +188,11 @@ ExerciseConfig =
       content = exercise.content unless content?
       !!_.detect content.questions, (q) -> _.include(q.formats, format)
 
+    # Searches for the given format in either an exercise or it's content
+    doQuestionsHaveFormat: (format, {exercise, content}) ->
+      content = exercise.content unless content?
+      _.map content.questions, (q) -> _.include(q.formats, format)
+
     getExerciseTypes: (exercise) ->
       tags = _.filter exercise.tags, (tag) ->
         tag.id.indexOf('filter-type:') is 0 or tag.id.indexOf('type:') is 0

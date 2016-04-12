@@ -3,8 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 $ = require 'jquery'
 
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
-ExerciseCard = require '../../exercise-card'
+{ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
 ChapterSection = require '../chapter-section'
 Icon = require '../../icon'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
@@ -17,9 +16,10 @@ ExerciseCardMixin =
     @setState(displayFeedback: not @state?.displayFeedback)
 
   renderExercise: ->
-    <div className="exercise-wrapper">
-      <ExerciseCard
+    <div className="openstax exercise-wrapper">
+      <ExercisePreview
         {...@props}
+        className='exercise-card'
         toggleExercise={@toggleExercise}
         isSelected={@isSelected?()}
         header={@renderHeader()}
@@ -31,7 +31,7 @@ ExerciseCardMixin =
             type={(if @state?.displayFeedback then 'check-' else '' ) + 'square-o'}
           /> Preview Feedback
         </button>
-      </ExerciseCard>
+      </ExercisePreview>
     </div>
 
 ReviewExerciseCard = React.createClass
