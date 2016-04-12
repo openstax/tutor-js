@@ -28,7 +28,7 @@ RosterConfig = {
     for courseId, roster of @_local
       students = roster.students
       student = _.findWhere(students, id: studentId)
-      student.is_active = false
+      student?.is_active = false
     @emitChange()
 
   undrop: (unused, studentId) ->
@@ -38,7 +38,7 @@ RosterConfig = {
     for courseId, roster of @_local
       students = roster.students
       student = _.findWhere(students, id: studentId)
-      student.is_active = true
+      student?.is_active = true
     @emitChange()
 
 
@@ -48,10 +48,10 @@ RosterConfig = {
   exports:
 
     getActiveStudentsForPeriod: (courseId, periodId) ->
-      _.where(@_get(courseId).students, period_id: periodId, is_active: true)
+      _.where(@_get(courseId)?.students, period_id: periodId, is_active: true)
 
     getDroppedStudents: (courseId, periodId) ->
-      _.where(@_get(courseId).students, period_id: periodId, is_active: false)
+      _.where(@_get(courseId)?.students, period_id: periodId, is_active: false)
 
 }
 
