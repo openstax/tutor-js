@@ -92,11 +92,13 @@ Scores = React.createClass
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
     {sort, period_id, firstDataColumn, displayAs} = @state
+    sortedPeriods = CourseStore.getPeriods(@props.courseId)
+
     data = ScoresStore.get(@props.courseId)
     scores = if period_id
       _.findWhere(data, {period_id})
     else
-      data[0]
+      sortedPeriods[0].id
 
     sortData = _.sortBy(scores.students, (d) =>
       if _.isNumber(sort.key)

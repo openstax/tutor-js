@@ -43,6 +43,14 @@ COMMON_ELEMENTS =
     css: "#{FAILED_EXPORT_SELECTOR}, #{SUCCEEDED_EXPORT_SELECTOR}"
   assignmentByType: (type) ->
     css: "a.scores-cell[data-assignment-type='#{type}']"
+  noAssignmentNotice:
+    css: '.course-scores-notice'
+  scoresTable:
+    css: '.course-scores-container .fixedDataTableLayout_main'
+  shadow:
+    css: '.public_fixedDataTable_bottomShadow'
+  taskResultByRow: (rowNumber) ->
+    css: ".fixedDataTableRowLayout_rowWrapper:nth-of-type(#{rowNumber}) .task-result"
 
 
 class Scores extends TestHelper
@@ -53,6 +61,29 @@ class Scores extends TestHelper
 
     super(testContext, testElementLocator, COMMON_ELEMENTS)
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
+
+  waitUntilLoaded: =>
+    super()
+    @disableShadow()
+
+  disableShadow: =>
+    # The facebook table has some "fancy" elements that don't move when the table
+    # scrolls vertically. Unfortunately, they cover the links.
+    # There is a UI "border shadow" element that ends up going right
+    # through the middle of a link. So, just hide the element
+    @el.shadow().isDisplayed().then (isDisplayed) =>
+      if isDisplayed
+        @test.driver.executeScript ->
+          hider = document.createElement('style')
+          hider.textContent = '.public_fixedDataTable_bottomShadow { display: none; }'
+          document.head.appendChild(hider)
+
+  goToPeriodWithAssignments: =>
+    @el.periodTab().forEach (periodTab) =>
+      @el.noAssignmentNotice().isDisplayed().then (hasNoAssignments) =>
+        if hasNoAssignments
+          periodTab.click()
+          @waitUntilLoaded()
 
   # this could be moved to cc-dashboard helper at some point
   goCCScores: =>
