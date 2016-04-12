@@ -69,7 +69,6 @@ module.exports = React.createClass
         changeAnswer={@changeAnswer}/>)
 
     <div className="question">
-      <BS.Row>
       {if removeQuestion # if we can remove it, that means we're a MPQ
         <div className="controls">
           {if canMoveLeft
@@ -88,7 +87,6 @@ module.exports = React.createClass
           }
         </div>
       }
-      </BS.Row>
       <QuestionFormatType questionId={id} />
 
       <BS.Input type="checkbox" label="Order Matters"
