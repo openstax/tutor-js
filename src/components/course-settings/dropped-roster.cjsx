@@ -32,7 +32,9 @@ module.exports = React.createClass
     students = RosterStore.getDroppedStudents(@props.courseId, @props.period.id)
     studentsTable =
       <div>
-        <div><span className='course-settings-subtitle tabbed'>Dropped Students</span></div>
+        <div>
+          <span className='course-settings-subtitle tabbed'>Dropped Students</span>
+        </div>
         <BS.Table striped bordered condensed hover className="roster">
           <thead>
             <tr>
