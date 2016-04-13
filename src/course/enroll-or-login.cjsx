@@ -6,13 +6,21 @@ LoginGateway = require '../user/login-gateway'
 
 EnrollOrLogin = React.createClass
 
-  propTypes:
-    collectionUUID: React.PropTypes.string.isRequired
-
   render: ->
     <div className="enroll-or-login">
-      <LoginGateway title="Already entered an enrollment code?" />
-      <NewCourseRegistration title='First time here?' {...@props} />
+      <h2 className="title">I already have an account.</h2>
+      <LoginGateway className='login'>Log in</LoginGateway>
+      <div className="enroll">
+        <h3>
+          I’m new to Concept
+          Coach. <LoginGateway className="sign-up">
+            Sign up with enrollment code
+          </LoginGateway>
+        </h3>
+        <p className="hint">
+          If you don’t have an enrollment code, contact your instructor.
+        </p>
+      </div>
     </div>
 
 module.exports = EnrollOrLogin

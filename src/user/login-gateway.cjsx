@@ -2,18 +2,23 @@ React = require 'react'
 _ = require 'underscore'
 User  = require './model'
 api   = require '../api'
+classnames = require 'classnames'
 
 SECOND = 1000
 
 LoginGateway = React.createClass
 
   propTypes:
+    wrapperElement: React.PropTypes.element
     title: React.PropTypes.string
+
     window: React.PropTypes.shape(
       open: React.PropTypes.func
     )
 
   getDefaultProps: ->
+    wrapperElement: React.createElement('p')
+
     title: 'You need to login or signup in order to use ConceptCoach™'
     window: window
 
@@ -55,28 +60,23 @@ LoginGateway = React.createClass
     else
       _.delay( @windowClosedCheck, SECOND)
 
-  renderWaiting: ->
-    <p>
-      Please log in using your OpenStax account in the window. {@loginLink('Click to reopen window.')}
-    </p>
-
   urlForLogin: ->
     User.endpoints.login + '?parent=' + encodeURIComponent(window.location.href)
 
-  loginLink: (msg) ->
-    <a data-bypass className='login' onClick={@openLogin} href={@urlForLogin()}>
-      {msg}
-    </a>
-
-  renderLogin: ->
-    <p>
-      {@loginLink('click to begin login.')}
-    </p>
+  renderOpenMessage: ->
+    <span className="message">
+      Please log in using your OpenStax account in the window. <a data-bypass
+        onClick={@openLogin} href={@urlForLogin()}
+      >Click to reopen window.</a>
+    </span>
 
   render: ->
-    <div className='login'>
-      <h3>{@props.title}</h3>
-      {if @state.loginWindow then @renderWaiting() else @renderLogin()}
+    classes = classnames('login-gateway', @props.className,
+      'is-open': @state.loginWindow
+      'is-closed': not @state.loginWindow
+    )
+    <div className={classes} onClick={@openLogin}>
+      {if @state.loginWindow then @renderOpenMessage() else @props.children}
     </div>
 
 module.exports = LoginGateway
