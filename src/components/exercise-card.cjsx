@@ -79,7 +79,7 @@ ExerciseCard = React.createClass
       <div className='detailed-solution'>
         <div className='header'>Detailed solution</div>
         <ArbitraryHtmlAndMath className="solution" block
-          html={_.first(question.solutions)?.content_html} />
+          html={_.pluck(question.collaborator_solutions, 'content_html').join('')}
       </div>
       <div className='exercise-tags'>{renderedTags}</div>
       {@props.children}
