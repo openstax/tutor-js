@@ -9,17 +9,11 @@ SECOND = 1000
 LoginGateway = React.createClass
 
   propTypes:
-    wrapperElement: React.PropTypes.element
-    title: React.PropTypes.string
-
     window: React.PropTypes.shape(
       open: React.PropTypes.func
     )
 
   getDefaultProps: ->
-    wrapperElement: React.createElement('p')
-
-    title: 'You need to login or signup in order to use ConceptCoach™'
     window: window
 
   getInitialState: ->
