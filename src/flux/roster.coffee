@@ -4,6 +4,12 @@ _ = require 'underscore'
 
 LOADED  = 'loaded'
 
+DELETING = 'deleting'
+DELETED = 'deleted'
+
+UNDROPPING = 'undropping'
+UNDROPPED = 'undropped'
+
 RosterConfig = {
 
   _asyncStatus: {}
@@ -23,7 +29,12 @@ RosterConfig = {
       _.extend(student, newProps) if student
     @emitChange()
 
+  delete: (studentId) ->
+    @_asyncStatus[studentId] = DELETING
+    @emitChange()
+
   deleted: (unused, studentId) ->
+    @_asyncStatus[studentId] = DELETED
     # set inactive
     for courseId, roster of @_local
       students = roster.students
@@ -31,9 +42,12 @@ RosterConfig = {
       student?.is_active = false
     @emitChange()
 
-  undrop: (unused, studentId) ->
+  undrop: (studentId) ->
+    @_asyncStatus[studentId] = UNDROPPING
+    @emitChange()
 
   undropped: (unused, studentId) ->
+    @_asyncStatus[studentId] = UNDROPPED
     # set active
     for courseId, roster of @_local
       students = roster.students
@@ -52,6 +66,10 @@ RosterConfig = {
 
     getDroppedStudents: (courseId, periodId) ->
       _.where(@_get(courseId)?.students, period_id: periodId, is_active: false)
+
+    isDeleting: (studentId) -> @_asyncStatus[studentId] is DELETING
+
+    isUnDropping: (studentId) -> @_asyncStatus[studentId] is UNDROPPING
 
 }
 
