@@ -4,4 +4,24 @@
   > :not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
     border: 0 !important; // override !important that's set by bootstrap material design
   }
+
+  .dropdown-menu a {
+    .flex-display();
+    .justify-content(space-between);
+    .align-items(center);
+    .title {
+      .flex(1);
+      text-align: left;
+    }
+    .only {
+      opacity: 0;
+      margin-left: 0.5rem;
+      transition: opacity .25s ease-in-out;
+      &:hover { text-decoration: underline; }
+    }
+    &:hover {
+      .only { opacity: 1; }
+    }
+
+  }
 }
