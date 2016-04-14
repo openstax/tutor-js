@@ -52,6 +52,13 @@ QAExercises = React.createClass
   on2StepPreviewChange: (ev) ->
     @setState(isShowing2StepPreview: ev.target.checked)
 
+  onOnlySelection: (onlyType) ->
+    console.log onlyType
+    ignored =  {}
+    _.each ExerciseStore.getPageExerciseTypes(@state.pageId), (pt) ->
+      ignored[pt] = pt isnt onlyType
+    @setState({ignored})
+
   renderExerciseContent: (exercises) ->
     exercises = _.map exercises, (exercise) =>
       <ExerciseCard key={exercise.id}
@@ -76,6 +83,7 @@ QAExercises = React.createClass
         <MultiSelect
           title='Exercise Types'
           selections={selections}
+          onOnlySelection={@onOnlySelection}
           onSelect={@onSelectType} />
 
       </div>
