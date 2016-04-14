@@ -12,6 +12,9 @@ module.exports = React.createClass
   getInitialState: ->
     exerciseId: null
 
+  setBrowserUrlId: (id) ->
+    window.history.pushState({}, "Exercise Editor", "/exercises/#{id}")
+
   update: -> @forceUpdate()
 
   componentWillMount: ->
@@ -41,6 +44,7 @@ module.exports = React.createClass
   loadExercise: (exerciseId) ->
     @setState({exerciseId})
     ExerciseActions.load(exerciseId)
+    @setBrowserUrlId(exerciseId)
 
   onFindExercise: ->
     @loadExercise(this.refs.exerciseId.getDOMNode().value)
@@ -87,13 +91,13 @@ module.exports = React.createClass
   onNewBlank: (ev) ->
     ev.preventDefault()
     if @canResetPage('Are you sure you want create a blank Exercise?  You will lose all unsaved changes')
-      window.history.pushState({}, "Exercise Editor", "/exercises/new")
+      @setBrowserUrlId('new')
       @addNew()
 
   onReset: (ev) ->
     ev.preventDefault()
     if @canResetPage('Are you sure you want reset editing?  You will lose all unsaved changes')
-      window.history.pushState({}, "Exercise Editor", "/exercises/")
+      @setBrowserUrlId('')
       @replaceState({})
 
   canResetPage: (msg) ->
