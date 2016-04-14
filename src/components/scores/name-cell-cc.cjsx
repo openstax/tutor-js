@@ -17,5 +17,4 @@ module.exports = React.createClass
   render: ->
     <div className="name-cell">
       <Name tooltip={TOOLTIP_OPTIONS} className="name" {...@props.student} />
-      <div className="student-id">{@props.student.student_identifier}</div>
     </div>

@@ -54,7 +54,6 @@ module.exports = React.createClass
         onSort={@props.onSort}>
           <div className='student-name'>Student Name</div>
         </SortingHeader>
-        <div className='student-id'>Student ID</div>
       </div>
 
     customHeader =
@@ -67,7 +66,7 @@ module.exports = React.createClass
         </div>
       </div>
     # student name column count
-    nameColumns = 2
+    nameColumns = 1
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
         width={@props.colSetWidth * nameColumns}

@@ -102,8 +102,11 @@
       font-weight: 600;
     }
     .student-header {
+      .header-cell {
+        width: 100%;
+      }
       padding: 0px;
-      .student-id, .student-name {
+      .student-name {
         text-align: left;
         padding-left: 8px;
       }
@@ -117,8 +120,7 @@
   }
 
   // concept coach cells that are split
-  .cc-cell,
-  .name-cell {
+  .cc-cell {
     & > * {
       line-height: @table-row-height;
       display: inline-block;
@@ -171,12 +173,9 @@
     }
   }
   .name-cell {
-    .name, .student-id {
+    .name {
       text-align: left;
       padding-left: 8px;
-    }
-    .student-id {
-      font-size: 1.15rem;
     }
   }
 
