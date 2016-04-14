@@ -224,5 +224,5 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING, {due_at: getISODateString(dayAfter)} ).then ({dom, element}) ->
       dueAt = TaskPlanStore.getDueAt(NEW_READING.id)
       expect(getDateString(dueAt)).to.be.equal(getDateString(dayAfter))
-      expect(dom.querySelector('.-assignment-due-date input.datepicker__input').value)
+      expect(dom.querySelector('.-assignment-due-date .datepicker__input-container input').value)
         .to.be.equal(getDateString(dayAfter))
