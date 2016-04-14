@@ -69,7 +69,7 @@ LoginGateway = React.createClass
       'is-open': @state.loginWindow
       'is-closed': not @state.loginWindow
     )
-    <div className={classes} onClick={@openLogin}>
+    <div role="link" className={classes} onClick={@openLogin}>
       {if @state.loginWindow then @renderOpenMessage() else @props.children}
     </div>
 
