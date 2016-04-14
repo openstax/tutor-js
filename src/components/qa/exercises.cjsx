@@ -53,7 +53,6 @@ QAExercises = React.createClass
     @setState(isShowing2StepPreview: ev.target.checked)
 
   onOnlySelection: (onlyType) ->
-    console.log onlyType
     ignored =  {}
     _.each ExerciseStore.getPageExerciseTypes(@state.pageId), (pt) ->
       ignored[pt] = pt isnt onlyType
