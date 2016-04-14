@@ -27,7 +27,7 @@ module.exports = React.createClass
       else
         <span>Add <Name {...@props.student} />?</span>
     <BS.Popover title={title} {...@props}>
-      <BS.Button onClick={@performDeletion} bsStyle="success">
+      <BS.Button className='-undrop-student' onClick={@performDeletion} bsStyle="success">
         <Icon type='plus' /> Add
       </BS.Button>
     </BS.Popover>
