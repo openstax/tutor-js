@@ -1,6 +1,7 @@
 .scores-report.cc {
   @table-row-height: 46px;
-  @pie-color: lighten(@tutor-neutral,30%);
+  @pie-color: lighten(@tutor-neutral,10%);
+  @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
 
@@ -151,11 +152,17 @@
       .pie-progress {
         .slice {
           fill: @pie-color;
-          stroke: @pie-color;
+          mask: url(#dividers);
         }
         &:hover .slice {
           fill: @pie-color-hover;
-          stroke: @pie-color-hover;
+        }
+        .dividers rect {
+          fill: @tutor-white;
+        }
+        .backdrop {
+          fill: @pie-bg-color;
+          mask: url(#dividers);
         }
       }
       .trigger-wrap {

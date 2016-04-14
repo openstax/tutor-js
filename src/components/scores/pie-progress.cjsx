@@ -31,17 +31,34 @@ PieProgress = React.createClass
     else
       75
 
+  renderQuarterDividers: ->
+    {size} = @props
+    dWidth = 1.3
+    dSize = (size / 2) - (dWidth / 2)
+    dOffset = dSize + dWidth
+    <defs>
+      <mask id="dividers" className="dividers">
+        <rect x="0" y="0" width="#{dSize}" height="#{dSize}" />
+        <rect x="#{dOffset}" y="0" width="#{dSize}" height="#{dSize}" />
+        <rect x="#{dOffset}" y="#{dOffset}" width="#{dSize}" height="#{dSize}" />
+        <rect x="0" y="#{dOffset}" width="#{dSize}" height="#{dSize}" />
+      </mask>
+    </defs>
+
   render: ->
     {size, value, roundToQuarters} = @props
     radius = @radius(size)
     fullCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
+    backCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='backdrop'></circle>
     circle = if roundToQuarters? then @buildCircle(@roundToQuarters(value)) else @buildCircle(value)
     path = <path d="#{circle}" className='slice' />
     pieCircle =
       <svg width="#{size}" height="#{size}" className='pie-progress'>
+        {backCircle}
         {path}
+        {@renderQuarterDividers() if roundToQuarters}
       </svg>
-    finished =
+    finishedIcon =
       <svg className='finished'>
         <path
         d="M12 0C5.372 0 0 5.373 0 12c0 6.627 5.372 12 12 12c6.628 0 12-5.373 12-12C24 5.373 18.628 0 12 0z
@@ -50,7 +67,7 @@ PieProgress = React.createClass
     notStarted = <i className="fa fa-minus"/>
     
     if value >= 100
-      finished
+      finishedIcon
     else if value <= 0
       notStarted
     else
