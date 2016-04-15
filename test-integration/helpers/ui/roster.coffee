@@ -100,16 +100,14 @@ class Roster extends TestHelper
 
   goToRoster: =>
     @el.navbarLink().click()
-    @el.rosterLink().click()
+    @el.rosterLink().waitClick()
 
   dropStudent: =>
     @el.dropPopover().click()
-    @waitUntilLoaded()
-    @el.dropStudent().click()
+    @el.dropStudent().waitClick()
 
   undropStudent: =>
-    @el.undropPopover().click()
-    @waitUntilLoaded()
-    @el.undropStudent().click()
+    @el.undropPopover().waitClick()
+    @el.undropStudent().waitClick()
 
 module.exports = Roster

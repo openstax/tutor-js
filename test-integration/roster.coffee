@@ -19,8 +19,6 @@ describe 'Course Roster', ->
     @roster.goToRoster()
     @roster.waitUntilLoaded()
 
-  @it 'drops student', ->
-    @roster.dropStudent()  
-
-  @it 'undrops student', ->
+  @it 'drops / undrops student', ->
+    @roster.dropStudent()
     @roster.undropStudent()
