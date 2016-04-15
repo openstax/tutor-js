@@ -30,10 +30,8 @@ module.exports = React.createClass
       @loadExercise(@props.exerciseId)
 
   publishExercise: ->
-    if confirm('Are you sure you want to publish?')
-      ExerciseActions.save(@state.exerciseId)
-      ExerciseActions.publish(@state.exerciseId)
-
+    ExerciseActions.save(@state.exerciseId)
+    ExerciseActions.publish(@state.exerciseId)
 
   addNew: ->
     id = ExerciseStore.freshLocalId()
