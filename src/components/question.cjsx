@@ -59,7 +59,7 @@ module.exports = React.createClass
 
   render: ->
     { id, removeQuestion, moveQuestion, canMoveLeft, canMoveRight } = @props
-
+    invalid = QuestionStore.validate(id)
     answers = []
 
     for answer, index in QuestionStore.getAnswers(id)
@@ -114,4 +114,8 @@ module.exports = React.createClass
         <label>Detailed Solution</label>
         <textarea onChange={@updateSolution} value={QuestionStore.getSolution(id)}></textarea>
       </div>
+      {<BS.Alert bsStyle="danger">
+         <strong>Invalid:</strong> {invalid.reason}
+        </BS.Alert> unless invalid.valid}
+
     </div>
