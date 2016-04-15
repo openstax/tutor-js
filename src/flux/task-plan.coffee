@@ -29,6 +29,12 @@ sortTopics = (topics) ->
     TaskHelpers.chapterSectionToNumber(topic.chapter_section)
   )
 
+
+
+isSameOrBeforeNow = (time) ->
+  moment(time).isSame(TimeStore.getNow()) or moment(time).isBefore(TimeStore.getNow())
+
+
 TaskPlanConfig =
 
   _stats: {}
@@ -54,7 +60,6 @@ TaskPlanConfig =
       @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
 
     #TODO take out once TaskPlan api is in place
-    _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
@@ -135,18 +140,22 @@ TaskPlanConfig =
     if tasking_plans
       @_findTasking(tasking_plans, period)
     else
-      null
+      undefined
 
   # detects if all taskings are set to the same due_at/opens_at date
-  # if so the date is returned, else null
+  # if so the date is returned, else undefined
   _getTaskingsCommonDate: (id, attr) ->
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
-    dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
-      date = TimeHelper.getMomentPreserveDate(plan[attr]).toDate() if plan[attr]?
-      if isNaN(date?.getTime()) then 0 else date.getTime()
+    taskingDates = _.map(tasking_plans, (plan) ->
+      date = TimeHelper.getMomentPreserveDate(plan[attr]) if plan[attr]?
     )
-    if dates.length is 1 then new Date(_.first(dates)) else null
+
+    commonDate = _.reduce taskingDates, (previous, current) ->
+      if not _.isUndefined(previous) and current.isSame(previous, 'day')
+        current
+      else
+        undefined
 
   _getFirstTaskingByOpenDate: (id) ->
     {tasking_plans} = @_getPlan(id)
@@ -189,12 +198,14 @@ TaskPlanConfig =
     # use of moment(date).toDate() will make sure to convert
     # any type of date (string, js date, moment, etc) to date for
     # the BE to accept.
+
+    console.info(date, 'updateDateAttribute')
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
+      tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]) #.format('YYYY-MM-DD')
     else
       for tasking in tasking_plans
-        tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
+        tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]) #.format('YYYY-MM-DD')
 
     @_change(id, {tasking_plans})
 
@@ -205,7 +216,7 @@ TaskPlanConfig =
     tasking_plans = tasking_plans[..] # Clone it
 
     for tasking in tasking_plans
-      tasking['due_at'] = null
+      tasking['due_at'] = undefined
 
     @_change(id, {tasking_plans})
 
@@ -387,12 +398,12 @@ TaskPlanConfig =
 
     isOpened: (id) ->
       firstTasking = @_getFirstTaskingByOpenDate(id)
-      new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+      isSameOrBeforeNow(firstTasking?.opens_at)
 
     isVisibleToStudents: (id) ->
       plan = @_getPlan(id)
       firstTasking = @_getFirstTaskingByOpenDate(id)
-      (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+      (!!plan?.published_at or !!plan?.is_publish_requested) and isSameOrBeforeNow(firstTasking?.opens_at)
 
     getFirstDueDate: (id) ->
       due_at = @_getFirstTaskingByDueDate(id)?.due_at
@@ -401,7 +412,7 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       firstDueTasking = @_getFirstTaskingByDueDate(id)
       isPublishedOrPublishing = !!plan?.published_at or !!plan?.is_publish_requested
-      isPastDue = new Date(firstDueTasking?.due_at) < TimeStore.getNow()
+      isPastDue = moment(firstDueTasking?.due_at).isBefore(TimeStore.getNow())
       # cannot be a publishing/published past due assignment, and
       # cannot be/being deleted
       not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
@@ -427,7 +438,7 @@ TaskPlanConfig =
     getOpensAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        opensAt = TimeHelper.getMomentPreserveDate(tasking?.opens_at).toDate() if tasking?.opens_at?
+        opensAt = TimeHelper.getMomentPreserveDate(tasking?.opens_at) if tasking?.opens_at?
       else
         # default opens_at to 1 day from now
         opensAt = @_getTaskingsCommonDate(id, 'opens_at')
@@ -437,7 +448,7 @@ TaskPlanConfig =
     getDueAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        dueAt = TimeHelper.getMomentPreserveDate(tasking?.due_at).toDate() if tasking?.due_at?
+        dueAt = TimeHelper.getMomentPreserveDate(tasking?.due_at) if tasking?.due_at?
       else
         dueAt = @_getTaskingsCommonDate(id, 'due_at')
 
@@ -447,7 +458,7 @@ TaskPlanConfig =
       opensAt = moment(@exports.getOpensAt.call(@, id, periodId))
       if opensAt.isBefore(TimeStore.getNow())
         opensAt = moment(TimeStore.getNow())
-      opensAt.startOf('day').add(1, 'day').toDate()
+      opensAt.startOf('day').add(1, 'day')
 
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)

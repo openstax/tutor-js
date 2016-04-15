@@ -54,17 +54,13 @@ module.exports = React.createClass
 
       tasking
 
-  getIsFeedbackInstant: ->
-    TaskPlanStore.getFeedbackAt(@props.id)
-    .isSame( @getQueriedDueAt().isSame() )
-
   getOpensAtDefault: ->
     moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
 
   getQueriedOpensAt: ->
     {opens_at} = @context?.router?.getCurrentQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at).toDate()
+    opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at)
     if not opensAt
       # default open date is tomorrow
       opensAt = @getOpensAtDefault()
@@ -85,7 +81,7 @@ module.exports = React.createClass
   getQueriedDueAt: ->
     {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at).toDate()
+    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at)
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -108,17 +104,15 @@ module.exports = React.createClass
     # Inform the store of the available periods
     TaskPlanActions.setPeriods(planId, periods)
 
-    if not isNewPlan
+    unless isNewPlan
       @setState({showingPeriods: not (commonDates and hasAllTaskings)})
 
   getDefaultPlanDates: (periodId) ->
     taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, periodId)
-    if not taskingOpensAt or isNaN(taskingOpensAt.getTime())
-      taskingOpensAt = @getQueriedOpensAt()
+    taskingOpensAt ?= @getQueriedOpensAt()
 
     taskingDueAt = TaskPlanStore.getDueAt(@props.id, periodId)
-    if not taskingDueAt or isNaN(taskingDueAt.getTime())
-      taskingDueAt = @getQueriedDueAt()
+    taskingDueAt ?= @getQueriedDueAt()
 
     {taskingOpensAt, taskingDueAt}
 
@@ -296,7 +290,7 @@ module.exports = React.createClass
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates()
     commonOpensAt = taskingOpensAt
     commonDueAt = taskingDueAt
-    maxOpensAt = new moment(TaskPlanStore.getDueAt(@props.id)).subtract(1, 'day').toDate()
+    maxOpensAt = moment(TaskPlanStore.getDueAt(@props.id)).subtract(1, 'day')
 
     opensAt = <BS.Col sm=4 md=3>
       <TutorDateInput
@@ -377,7 +371,7 @@ module.exports = React.createClass
 
   renderEnabledTasking: (plan) ->
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(plan.id)
-    maxOpensAt = new moment(TaskPlanStore.getDueAt(@props.id, plan.id)).subtract(1, 'day').toDate()
+    maxOpensAt = moment(TaskPlanStore.getDueAt(@props.id, plan.id)).subtract(1, 'day')
 
     <BS.Row key={plan.id} className="tasking-plan tutor-date-input">
       <BS.Col sm=4 md=3>

@@ -67,7 +67,7 @@ TimeHelper =
     if @_local
       return moment(value, args...).tz(@_local).hour(12)
 
-    moment(value, args...).hour(12)
+    moment(value, args...).hour(12).locale(moment.locale())
 
   getLocal: ->
     @_local
