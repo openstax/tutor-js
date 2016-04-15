@@ -100,8 +100,7 @@ module.exports = React.createClass
 
 
   renderHeadingCell: (heading, i) ->
-    i += @props.firstDataColumn + 1 # for the first/last name columns
-    # + 1 is temp until tutor table / props
+    i += @props.firstDataColumn # for the first/last name columns
 
     classAverage = heading.total_average
 

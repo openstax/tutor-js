@@ -40,7 +40,7 @@ Scores = React.createClass
     colResizeKey: 0
     sort: { key: 'name', asc: true, dataType: 'score' }
     # index of first column that contains data
-    firstDataColumn: 1
+    firstDataColumn: 2
     displayAs: 'percentage'
 
   componentDidMount: ->

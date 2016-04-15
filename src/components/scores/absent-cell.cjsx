@@ -4,4 +4,7 @@ module.exports = React.createClass
   displayName: 'AbsentCell'
 
   render: ->
-    <span/>
+    <div className="cc-cell">
+      <div className="score">---</div>
+      <div className="worked">---</div>
+    </div>
