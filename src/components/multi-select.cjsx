@@ -16,16 +16,25 @@ MultiSelect = React.createClass
         selected: React.PropTypes.bool
       )
     ).isRequired
+    onOnlySelection: React.PropTypes.func
     onSelect: React.PropTypes.func
 
+  toggleOnly: (ev) ->
+    ev.preventDefault()
+    ev.stopPropagation()
+    @props.onOnlySelection(ev.target.getAttribute('data-id'))
 
   onSelect: (ev, selection) ->
     @props.onSelect?( _.findWhere(@props.selections, id: selection))
 
   renderMenuSelection: (selection) ->
+    if @props.onOnlySelection
+      onlyToggle = <span className="only" data-id={selection.id} onClick={@toggleOnly}>only</span>
+
     <BS.MenuItem key={selection.id} eventKey={selection.id}>
       <Icon type={if selection.selected then 'check-square-o' else 'square-o'} />
-      {selection.title}
+      <span className="title">{selection.title}</span>
+      {onlyToggle}
     </BS.MenuItem>
 
   render: ->
