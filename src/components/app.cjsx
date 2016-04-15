@@ -55,7 +55,7 @@ module.exports = React.createClass
     ev.preventDefault()
 
   renderExerciseOrLoad: ->
-    if @state.exerciseId and not ExerciseStore.isNew(@state.exerciseId)
+    if @state.exerciseId
       <MPQToggle exerciseId={@props.exerciseId} />
     else
       <div className="input-group">
