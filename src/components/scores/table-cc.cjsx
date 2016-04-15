@@ -79,9 +79,29 @@ module.exports = React.createClass
         headerRenderer={-> customHeader} />
     </ColumnGroup>
 
+  renderOverallHeader: ->
+    overallTitle = <div className='overall-header-cell'>Overall</div>
+    customHeader = 
+      <div className='overall-average-cell'>
+        <div className='average'><span>test</span></div>
+        <div className='average empty'></div>
+      </div>
+    <ColumnGroup fixed={true} groupHeaderRenderer={-> overallTitle}>
+      <Column
+        width={@props.colSetWidth / 2}
+        flexGrow={0}
+        allowCellsRecycling={true}
+        isResizable=false
+        dataKey='1'
+        fixed={true}
+        cellRenderer={-> @cellData}
+        headerRenderer={-> customHeader} />
+    </ColumnGroup>
+
 
   renderHeadingCell: (heading, i) ->
-    i += @props.firstDataColumn # for the first/last name columns
+    i += @props.firstDataColumn + 1 # for the first/last name columns
+    # + 1 is temp until tutor table / props
 
     classAverage = heading.total_average
 
@@ -107,7 +127,7 @@ module.exports = React.createClass
         dataType={@props.dataType}
         sortState={@props.sort}
         onSort={@props.onSort}>
-          <div ref='completed' className='completed'>Completed</div>
+          <div ref='completed' className='completed'>Progress</div>
         </SortingHeader>
       </div>
 
@@ -150,7 +170,7 @@ module.exports = React.createClass
     </ColumnGroup>
 
 
-  renderStudentRow: (student_data) ->
+  renderStudentRow: (student_data, rowIndex) ->
     props =
       {
         student: student_data,
@@ -158,8 +178,10 @@ module.exports = React.createClass
         roleId: student_data.role,
         displayAs: @props.displayAs
       }
+    isBottom = if @props.data.rows.length is rowIndex + 1 then 'bottom' else ''
     columns = [
-      <CCNameCell key='name' {...props} />
+      <CCNameCell key='name' {...props} />,
+      <div className="overall-cell #{isBottom}">test</div>
     ]
 
     for task in student_data.data
@@ -172,7 +194,7 @@ module.exports = React.createClass
 
   render: ->
     rowGetter = (rowIndex) =>
-      @renderStudentRow(@props.data.rows[rowIndex])
+      @renderStudentRow(@props.data.rows[rowIndex], rowIndex)
 
     <Table
       rowHeight={46}
@@ -184,6 +206,7 @@ module.exports = React.createClass
       groupHeaderHeight={50}>
 
       {@renderNameHeader()}
+      {@renderOverallHeader()}
       {_.map(@props.data.headings, @renderHeadingCell)}
 
     </Table>

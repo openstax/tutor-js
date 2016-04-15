@@ -37,11 +37,64 @@
     &.title {
       padding: 8px;
       cursor: default;
+      text-align: center;
     }
     &.sortable:hover {
       background: @tutor-neutral-lightest;
       .transition(background 0.2s);
     }
+  }
+
+  .overall-border-style() {
+    border-style: solid;
+    border-color: @tutor-tertiary-light;
+  }
+
+  .overall-border-top() {
+    border-width: 2px 3px 0px 2px;
+    .overall-border-style();
+  }
+
+  .overall-border-middle() {
+    border-width: 0px 3px 0px 2px;
+    .overall-border-style();
+  }
+
+  .overall-border-bottom() {
+    border-width: 0px 3px 2px 2px;
+    .overall-border-style();
+  }
+
+  .overall-header-cell {
+    text-align: center;
+    background: @tutor-info-bg;
+    height: 100%;
+    .overall-border-top();
+  }
+
+  .overall-average-cell {
+    .overall-border-middle();
+    padding: 0;
+    .average {
+      height: @table-row-height;
+      span {
+        .align-center();
+        padding: 8px;
+      }
+      &.empty {
+        background: @tutor-neutral-lighter; 
+      }
+    }
+  }
+
+  .overall-cell {
+    .align-center();
+    .overall-border-middle();
+    &.bottom {
+      .overall-border-bottom();
+      height: @table-row-height - 1;
+      padding-top: 7px;
+    }  
   }
 
   .scores-cell,
