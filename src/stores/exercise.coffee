@@ -48,7 +48,6 @@ ExerciseConfig = {
 
     @_change(id, {tags})
 
-
   sync: (id) ->
     questions = _.map @_local[id].questions, (question) ->
       QuestionActions.syncAnswers(question.id)
@@ -148,6 +147,17 @@ ExerciseConfig = {
     isPublished: (id) -> !!@_get(id)?.published_at
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
+
+    isSavable: (id) ->
+      @exports.isChanged.call(@, id) and
+        not @exports.isSaving.call(@, id) and
+        not @exports.isPublishing.call(@, id)
+
+    isPublishable: (id) ->
+      @exports.isChanged.call(@, id) and
+        not @exports.isSaving.call(@, id) and
+        not @exports.isPublishing.call(@, id) and
+        not @_get(id)?.published_at
 
     getTagsWithPrefix: (id, prefix) ->
       prefix += ':'

@@ -111,9 +111,6 @@ module.exports = React.createClass
     classes = classnames('exercise', 'openstax', 'container-fluid',
       {'is-loading': ExerciseStore.isLoading()}
     )
-
-    isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
-
     <div className={classes}>
       <ErrorModal />
       <nav className="navbar navbar-default">
@@ -127,7 +124,7 @@ module.exports = React.createClass
                 <AsyncButton
                   bsStyle='info'
                   onClick={@saveExercise}
-                  disabled={isWorking}
+                  disabled={not ExerciseStore.isSavable(id)}
                   isWaiting={ExerciseStore.isSaving(id)}
                   waitingText='Saving...'
                   isFailed={ExerciseStore.isFailed(id)}
@@ -139,7 +136,7 @@ module.exports = React.createClass
                 <AsyncButton
                   bsStyle='primary'
                   onClick={@publishExercise}
-                  disabled={not id or isWorking or ExerciseStore.isPublished(id)}
+                  disabled={not ExerciseStore.isPublishable(id)}
                   isWaiting={ExerciseStore.isPublishing(id)}
                   waitingText='Publishing...'
                   isFailed={ExerciseStore.isFailed(id)}

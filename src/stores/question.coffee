@@ -41,7 +41,8 @@ QuestionConfig = {
       @_local[id]?.answers[index] = @_local[id]?.answers[index + direction]
       @_local[id]?.answers[index + direction] = temp
 
-  updateStem: (id, stem_html) -> @_change(id, {stem_html})
+  updateStem: (id, stem_html) ->
+    @_change(id, {stem_html})
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
