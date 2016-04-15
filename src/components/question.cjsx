@@ -20,34 +20,38 @@ module.exports = React.createClass
   componentWillUnmount: ->
     QuestionStore.removeChangeListener(@update)
 
+  sync: ->
+    @props.sync()
+    @forceUpdate()
+
   changeAnswer: (answerId) ->
     curAnswer = QuestionStore.getCorrectAnswer(@props.id)
     QuestionActions.setCorrectAnswer(@props.id, answerId, curAnswer?.id)
-    @props.sync()
+    @sync()
 
   updateStimulus: (event) ->
     QuestionActions.updateStimulus(@props.id, event.target?.value)
-    @props.sync()
+    @sync()
 
   updateStem: (event) ->
     QuestionActions.updateStem(@props.id, event.target?.value)
-    @props.sync()
+    @sync()
 
   updateSolution: (event) ->
     QuestionActions.updateSolution(@props.id, event.target?.value)
-    @props.sync()
+    @sync()
 
   addAnswer: ->
     QuestionActions.addNewAnswer(@props.id)
-    @props.sync()
+    @sync()
 
   removeAnswer:(answerId) ->
     QuestionActions.removeAnswer(@props.id, answerId)
-    @props.sync()
+    @sync()
 
   moveAnswer: (answerId, direction) ->
     QuestionActions.moveAnswer(@props.id, answerId, direction)
-    @props.sync()
+    @sync()
 
   multipleChoiceClicked: (event) -> QuestionActions.toggleMultipleChoiceFormat(@props.id)
   freeResponseClicked: (event) -> QuestionActions.toggleFreeResponseFormat(@props.id)
