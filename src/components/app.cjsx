@@ -12,6 +12,9 @@ module.exports = React.createClass
   getInitialState: ->
     exerciseId: null
 
+  setBrowserUrlId: (id) ->
+    window.history.pushState({}, "Exercise Editor", "/exercises/#{id}")
+
   update: -> @forceUpdate()
 
   componentWillMount: ->
@@ -24,15 +27,13 @@ module.exports = React.createClass
     if @props.exerciseId is 'new'
       @addNew()
     else if @props.exerciseId
-      @loadExercise()
+      @loadExercise(@props.exerciseId)
 
   publishExercise: ->
     if confirm('Are you sure you want to publish?')
       ExerciseActions.save(@state.exerciseId)
       ExerciseActions.publish(@state.exerciseId)
 
-  redirect:(id) ->
-    window.location = "/exercises/#{id}"
 
   addNew: ->
     id = ExerciseStore.freshLocalId()
@@ -40,14 +41,17 @@ module.exports = React.createClass
     ExerciseActions.loaded(template, id)
     @setState({exerciseId: id })
 
-  loadExercise: ->
-    exerciseId = @props.exerciseId or this.refs.exerciseId.getDOMNode().value
+  loadExercise: (exerciseId) ->
     @setState({exerciseId})
     ExerciseActions.load(exerciseId)
+    @setBrowserUrlId(exerciseId)
+
+  onFindExercise: ->
+    @loadExercise(this.refs.exerciseId.getDOMNode().value)
 
   onFindKeyPress: (ev) ->
     return unless ev.key is 'Enter'
-    @loadExercise()
+    @loadExercise(this.refs.exerciseId.getDOMNode().value)
     ev.preventDefault()
 
   renderExerciseOrLoad: ->
@@ -58,7 +62,7 @@ module.exports = React.createClass
         <input type="text" className="form-control" onKeyPress={@onFindKeyPress}
           ref="exerciseId" placeholder="Exercise ID"/>
         <span className="input-group-btn">
-          <button className="btn btn-default" type="button" onClick={@loadExercise}>Load</button>
+          <button className="btn btn-default" type="button" onClick={@onFindExercise}>Load</button>
         </span>
       </div>
 
@@ -78,10 +82,29 @@ module.exports = React.createClass
 
     if confirm('Are you sure you want to save?')
       if ExerciseStore.isNew(id)
-        ExerciseStore.on 'created', @redirect
+        ExerciseStore.once 'created', @loadExercise
+
         ExerciseActions.create(id, ExerciseStore.get(id))
       else
         ExerciseActions.save(id)
+
+  onNewBlank: (ev) ->
+    ev.preventDefault()
+    if @canResetPage('Are you sure you want create a blank Exercise?  You will lose all unsaved changes')
+      @setBrowserUrlId('new')
+      @addNew()
+
+  onReset: (ev) ->
+    ev.preventDefault()
+    if @canResetPage('Are you sure you want reset editing?  You will lose all unsaved changes')
+      @setBrowserUrlId('')
+      @replaceState({})
+
+  canResetPage: (msg) ->
+    not @state.exerciseId or
+      not ExerciseStore.isChanged(@state.exerciseId) or
+      confirm(msg)
+
 
   render: ->
     id = @state.exerciseId
@@ -97,18 +120,22 @@ module.exports = React.createClass
         <div className="container-fluid">
           <div className="navbar-header">
             <BS.ButtonToolbar className="navbar-btn">
-              <a href="/exercises/new" className="btn btn-success">New Blank Exercise</a>
-              <AsyncButton
-                bsStyle='info'
-                onClick={@saveExercise}
-                disabled={isWorking}
-                isWaiting={ExerciseStore.isSaving(id)}
-                waitingText='Saving...'
-                isFailed={ExerciseStore.isFailed(id)}
-                >
-                Save Draft
-              </AsyncButton>
-              { if not ExerciseStore.isNew(id)
+              <a href="/exercises" onClick={@onReset} className="btn btn-danger">Reset</a>
+              <a href="/exercises/new" onClick={@onNewBlank}
+                className="btn btn-success">New Blank Exercise</a>
+              { if id?
+                <AsyncButton
+                  bsStyle='info'
+                  onClick={@saveExercise}
+                  disabled={isWorking}
+                  isWaiting={ExerciseStore.isSaving(id)}
+                  waitingText='Saving...'
+                  isFailed={ExerciseStore.isFailed(id)}
+                  >
+                  Save Draft
+                </AsyncButton>
+              }
+              { if id and not ExerciseStore.isNew(id)
                 <AsyncButton
                   bsStyle='primary'
                   onClick={@publishExercise}
