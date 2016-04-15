@@ -54,7 +54,7 @@ module.exports = React.createClass
 
   renderExerciseOrLoad: ->
     if @state.exerciseId
-      <MPQToggle exerciseId={@props.exerciseId} />
+      <MPQToggle exerciseId={@state.exerciseId} />
     else
       <div className="input-group">
         <input type="text" className="form-control" onKeyPress={@onFindKeyPress}
