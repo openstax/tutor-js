@@ -110,8 +110,11 @@ QuestionConfig = {
       is_answer_order_important: false
 
     validate: (id) ->
-      if (not @_get(id).stem_html)
+      question = @_get(id)
+      if (not question.stem_html)
         return valid: false, reason: 'Question Stem is invalid'
+      if _.isEmpty(question.collaborator_solutions) or not _.first(question.collaborator_solutions)?.content_html
+        return valid: false, reason: 'Detailed Solution is invalid'
 
       _.reduce @_get(id).answers, (memo, answer) ->
         validity = AnswerStore.validate(answer.id)
