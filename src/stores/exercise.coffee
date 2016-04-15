@@ -150,11 +150,13 @@ ExerciseConfig = {
 
     isSavable: (id) ->
       @exports.isChanged.call(@, id) and
+        @exports.validate.call(@, id).valid and
         not @exports.isSaving.call(@, id) and
         not @exports.isPublishing.call(@, id)
 
     isPublishable: (id) ->
       @exports.isChanged.call(@, id) and
+        @exports.validate.call(@, id).valid and
         not @exports.isSaving.call(@, id) and
         not @exports.isPublishing.call(@, id) and
         not @_get(id)?.published_at
