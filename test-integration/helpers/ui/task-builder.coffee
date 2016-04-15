@@ -2,6 +2,7 @@ selenium = require 'selenium-webdriver'
 _ = require 'underscore'
 Calendar = require './calendar'
 {TestHelper} = require './test-element'
+ExerciseSelector = require './exercise-selector'
 
 COMMON_ELEMENTS =
   name:
@@ -32,12 +33,26 @@ COMMON_ELEMENTS =
   eventPlan:
     css: '.event-plan'
 
-  selectReadingsButton:
-    css: '#reading-select'
+  selectSectionsButton:
+    css: '.-select-sections-btn'
   addReadingsButton:
     css: '.dialog:not(.hide) .-show-problems:not([disabled])'
   disabledAddReadingsButton:
     css: '.dialog:not(.hide) .-show-problems[disabled]'
+
+  selectProblemsBtn:
+    css: '#problems-select'
+  selectedExercises:
+    css: '.openstax.exercise-wrapper .is-selected'
+  numExercisesSelected:
+    css: '.exercise-summary .num-selected h2'
+
+  tutorSelections:
+    css: '.exercise-summary .tutor-selections h2'
+  addTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-up'
+  removeTutorSelection:
+    css: '.exercise-summary .tutor-selections .btn.-move-exercise-down'
 
   deleteButton:
     css: '.dialog:not(.hide) .async-button.delete-link'
@@ -164,6 +179,7 @@ class TaskBuilder extends TestHelper
     # todo look at making these accessible as functions as well
     @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
     @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
+    @setCommonHelper('exerciseSelector', new ExerciseSelector(@test))
 
   # Helper for setting a date in the date picker
   # where
@@ -206,7 +222,7 @@ class TaskBuilder extends TestHelper
     @el.name().get().getAttribute('value')
 
   openSelectReadingList: =>
-    @el.selectReadingsButton().click()
+    @el.selectSectionsButton().click()
     @el.selectReadingsList.waitUntilLoaded()
 
   hasError: (type) =>
@@ -244,6 +260,27 @@ class TaskBuilder extends TestHelper
     # Confirm the "Unsaved Changes" dialog
     @el.unsavedDialog.close()
 
+  selectNumberOfExercises: (numExercises) ->
+    @el.exerciseSelector.selectNumberOfExercises(numExercises)
+
+  countSelectedExercises: ->
+    @el.numExercisesSelected().findElement().getText().then (text) ->
+      parseInt(text)
+
+  countTutorSelection: ->
+    @el.tutorSelections().findElement().getText().then (text) ->
+      parseInt(text)
+
+  startReview: ->
+    @el.exerciseSelector.startReview()
+    @test.utils.wait.for(css: '.exercise-table')
+
+  addTutorSelection: () ->
+    @el.addTutorSelection().click()
+
+  removeTutorSelection: () ->
+    @el.removeTutorSelection().click()
+
   delete: =>
     # Wait up to 2min for delete to complete
     @el.deleteButton().waitClick(2 * 60 * 1000)
@@ -265,7 +302,7 @@ class TaskBuilder extends TestHelper
   #   ]
   #   sections: ['1.1', '2.4']
   #   action: 'PUBLISH', 'SAVE', 'DELETE', 'CANCEL', 'X_BUTTON'
-  edit: ({name, description, opensAt, dueAt, sections, action, isFeedbackImmediate, verifyAddReadingsDisabled}) ->
+  edit: ({name, description, opensAt, dueAt, sections, action, numExercises, isFeedbackImmediate, verifyAddReadingsDisabled}) ->
     # Just confirm the plan is actually open
     # Under selenium, a seemingly invisible .is-loading element is present and
     # hangs around for quite awhile.  Bump the wait time up to 4 seconds to work around
@@ -291,6 +328,10 @@ class TaskBuilder extends TestHelper
         # Click "Add Readings"
         # @test.sleep(1500, 'about to click Add Readings Button') # Not sure why this is needed
         @el.addReadingsButton().waitClick()
+
+    if numExercises
+      @selectNumberOfExercises(numExercises) #add exercises
+      @startReview() #start review
 
     switch action
       when 'PUBLISH' then @publish(name)

@@ -149,6 +149,7 @@ HomeworkPlan = React.createClass
 
     if not @state.isVisibleToStudents
       addProblemsButton = <BS.Button id='problems-select'
+        className="-select-sections-btn"
         onClick={@showSectionTopics}
         bsStyle='default'>+ Select Problems
       </BS.Button>
