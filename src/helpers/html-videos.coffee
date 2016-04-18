@@ -17,7 +17,7 @@ wrapFrames = (dom) ->
 
     wrapper = document.createElement("div")
     wrapper.className = "frame-wrapper embed-responsive #{getRatioClass(frame)}"
-    dom.replaceChild(wrapper, frame)
+    frame.parentNode.replaceChild(wrapper, frame)
     wrapper.appendChild(frame)
   )
 
