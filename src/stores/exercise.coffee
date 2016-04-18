@@ -168,6 +168,7 @@ ExerciseConfig = {
     getTemplate: (id) ->
       questionId = QuestionStore.freshLocalId()
 
+      tags: _.clone []
       stimulus_html:"",
       questions:[_.extend({}, QuestionStore.getTemplate(), {id: questionId})]
 
