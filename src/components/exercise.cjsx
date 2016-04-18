@@ -3,6 +3,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
+PublishedModal = require './published-modal'
 
 Question = require './question'
 ExerciseTags = require './tags'
@@ -22,6 +23,9 @@ Exercise = React.createClass
 
   componentWillUnmount: ->
     ExerciseStore.removeChangeListener(@update)
+
+  showPublishedModal: ->
+    @setState(hasPublished: true)
 
   sync: -> ExerciseActions.sync(@props.exerciseId)
 
@@ -97,6 +101,7 @@ Exercise = React.createClass
     tab = @getActiveTab(showMPQ)
 
     <div className='exercise-editor'>
+      <PublishedModal exerciseId={@props.exerciseId} />
       <div className="editing-controls">
 
        {if showMPQ
