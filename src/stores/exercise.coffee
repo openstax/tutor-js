@@ -59,6 +59,7 @@ ExerciseConfig = {
     @_save(id)
 
   published: (obj, id) ->
+    @emit('published')
     @saved(obj, id)
 
   _saved: (obj, id) ->
