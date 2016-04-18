@@ -62,7 +62,7 @@ module.exports = React.createClass
         <input type="text" className="form-control" onKeyPress={@onFindKeyPress}
           ref="exerciseId" placeholder="Exercise ID"/>
         <span className="input-group-btn">
-          <button className="btn btn-default" type="button" onClick={@onFindExercise}>Load</button>
+          <button className="btn btn-default load" type="button" onClick={@onFindExercise}>Load</button>
         </span>
       </div>
 
@@ -116,17 +116,18 @@ module.exports = React.createClass
                 onConfirm={@onReset}
                 {...guardProps}
               >
-                <a href="/exercises" onClick={@onReset} className="btn btn-danger">Reset</a>
+                <a href="/exercises" onClick={@onReset} className="btn btn-danger reset">Reset</a>
               </SuretyGuard>
               <SuretyGuard
                 onConfirm={@onNewBlank}
                 {...guardProps}
               >
-                <a className="btn btn-success">New Blank Exercise</a>
+                <a className="btn btn-success blank">New Blank Exercise</a>
               </SuretyGuard>
               { if id?
                 <AsyncButton
                   bsStyle='info'
+                  className='draft'
                   onClick={@saveExercise}
                   disabled={not ExerciseStore.isSavable(id)}
                   isWaiting={ExerciseStore.isSaving(id)}
@@ -145,6 +146,7 @@ module.exports = React.createClass
                 >
                   <AsyncButton
                     bsStyle='primary'
+                    className='publish'
                     disabled={not ExerciseStore.isPublishable(id)}
                     isWaiting={ExerciseStore.isPublishing(id)}
                     waitingText='Publishing...'
