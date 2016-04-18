@@ -271,24 +271,36 @@
 }
 
 .cc-scores-tooltip-completed-info {
-  height: 88px;
+  @completed-popover-row-height: 30px;
+  height: @completed-popover-row-height * 3;
   .popover-content {
     height: 100%;
     overflow: hidden;
+    padding: 0;
   }
-  th, td {
-    // overrides bootstrap
-    border: none !important;
-    padding: 0px 12px 8px 0px !important;
+  .info {
+    display:table;
+    .row {
+      display: table-row;
+      &:nth-child(1) {
+        background: darken(@tutor-info-bg, 5%);
+      }
+      &:nth-child(2) {
+        color: @tutor-neutral;
+      }
+      &:nth-child(3) {
+        background: @tutor-neutral-lighter;
+        color: @tutor-black;
+      }
+      div {
+        font-weight: bold;
+        width: 150px;
+        height: @completed-popover-row-height;
+        vertical-align: middle;
+        display: table-cell;
+        padding-left: 20px;
+      }
+    }
   }
-  .data-row td {
-    text-align: center;
-  }
-  span {
-    font-weight: bold;
-    padding-right: 3px;
-  }
-  tr:last-child td {
-    padding-left: 0px !important;
-  }
+
 }

@@ -19,30 +19,23 @@ ConceptCoachCell = React.createClass
       <BS.Popover
         id="cc-cell-info-popover-#{@props.task.id}"
         className='cc-scores-tooltip-completed-info'>
-        <div>
-          <BS.Table>
-            <thead>
-              <tr>
-                <th>Correct</th>
-                <th>Attempted</th>
-                <th>Total possible</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className='data-row'>
-                <td>{@props.task.correct_exercise_count}</td>
-                <td>{@props.task.completed_exercise_count}</td>
-                <td>{@props.task.exercise_count}</td>
-              </tr>
-              <tr>
-                <td colSpan="3">
-                  <span>Date Last Worked:</span> <Time 
-                  format='MMM. D' 
-                  date={@props.task.last_worked_at} />
-                </td>
-              </tr>
-            </tbody>
-          </BS.Table>
+        <div className='info'>
+          <div className='row'>
+            <div>Completed {pieValue}%</div>
+          </div>
+          <div className='row'>
+            <div>
+              {@props.task.completed_exercise_count} of 
+               {@props.task.exercise_count} questions
+            </div>
+          </div>
+          <div className='row'>
+            <div>
+              <span>Last Worked:</span> <Time
+                    format='M/M' 
+                    date={@props.task.last_worked_at} />
+            </div>
+          </div>
         </div>
       </BS.Popover>
 
