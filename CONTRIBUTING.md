@@ -5,7 +5,7 @@ See [openstax/CONTRIBUTING.md](https://github.com/openstax/napkin-notes/CONTRIBU
 
 # Creating a Pull Request or Issue
 
-- include a screenshot in the **Issue/PR body**
+- include a screenshot in the **Issue/PR body** (if UI changed)
 - add either `Needs Code` or `Needs Review` label
 - if it is waiting on input from someone add the `blocked` label
 - if it is linked to another Issue or Pull Request, link the Issue/PR number by editing the Issue/PR **body**
@@ -28,6 +28,7 @@ See [openstax/CONTRIBUTING.md](https://github.com/openstax/napkin-notes/CONTRIBU
 - Fix lint warnings by running `npm run lint-cjsx`
 - Every element should have a `className`
   - prefix the classname with `-` if it does not appear in CSS
+- Add Unit tests if the model or logic changed
 
 
 # Reviewing a Pull Request
