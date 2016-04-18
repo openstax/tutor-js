@@ -21,6 +21,18 @@ COMMON_ELEMENTS =
     linkText: 'Change Period'
   editCourseLink:
     css: '.edit-course'
+  navbarLink:
+    css: '.navbar a.dropdown-toggle'
+  rosterLink:
+    css: '.navbar .dropdown-menu li:nth-child(5) a'
+  dropPopover:
+    css: '.period .roster tbody tr .actions a:nth-child(2)'
+  dropStudent:
+    css: '.-drop-student'
+  undropPopover:
+    css: '.dropped-students .roster tbody tr .actions a'
+  undropStudent:
+    css: '.-undrop-student'
 
 COMMON_POPUP_ELEMENTS =
   closeButton:
@@ -85,5 +97,17 @@ class Roster extends TestHelper
 
   getPeriodTypeFromEditLinks: =>
     @el.editPeriodLinks().findElements().getText()
+
+  goToRoster: =>
+    @el.navbarLink().click()
+    @el.rosterLink().waitClick()
+
+  dropStudent: =>
+    @el.dropPopover().click()
+    @el.dropStudent().waitClick()
+
+  undropStudent: =>
+    @el.undropPopover().waitClick()
+    @el.undropStudent().waitClick()
 
 module.exports = Roster

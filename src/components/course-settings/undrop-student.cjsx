@@ -6,34 +6,34 @@ Icon = require '../icon'
 Name = require '../name'
 
 module.exports = React.createClass
-  displayName: 'DropStudentLink'
+  displayName: 'UnDropStudentLink'
   propTypes:
     student: React.PropTypes.object.isRequired
     id: React.PropTypes.string.isRequired
 
   performDeletion: ->
-    if not @isDeleting()
-      RosterActions.delete(@props.student.id)
+    if not @isUnDropping()
+      RosterActions.undrop(@props.student.id)
 
-  isDeleting: ->
-    RosterStore.isDeleting(@props.student.id)
+  isUnDropping: ->
+    RosterStore.isUnDropping(@props.student.id)
 
   confirmPopOver: ->
     title =
-      if @isDeleting()
+      if @isUnDropping()
         <span>
-          <i className='fa fa-spinner fa-spin'/> Dropping...
+          <i className='fa fa-spinner fa-spin'/> Adding...
         </span>
       else
-        <span>Drop <Name {...@props.student} />?</span>
+        <span>Add <Name {...@props.student} />?</span>
     <BS.Popover title={title} {...@props}>
-      <BS.Button className='-drop-student' onClick={@performDeletion} bsStyle="danger">
-        <Icon type='ban' /> Drop
+      <BS.Button className='-undrop-student' onClick={@performDeletion} bsStyle="success">
+        <Icon type='plus' /> Add
       </BS.Button>
     </BS.Popover>
 
   render: ->
     <BS.OverlayTrigger rootClose={true} trigger='click' placement='left'
       overlay={@confirmPopOver()}>
-        <a><Icon type='ban' /> Drop</a>
+        <a><Icon type='plus' /> Add Back to Active Roster</a>
     </BS.OverlayTrigger>

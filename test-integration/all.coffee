@@ -8,5 +8,6 @@ require './task-plan/draft'
 require './task-plan/publish'
 require './task'
 require './scores'
+require './roster'
 
 # require './exhaustive' # Exhaustive Tests

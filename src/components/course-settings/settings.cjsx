@@ -47,13 +47,11 @@ module.exports = React.createClass
         />
       </div>
 
-      <div className="settings-section periods">
-        <LoadableItem
-          id={@props.courseId}
-          store={RosterStore}
-          actions={RosterActions}
-          renderItem={=> <Roster courseId={@props.courseId}/>}
-        />
-      </div>
+      <LoadableItem
+        id={@props.courseId}
+        store={RosterStore}
+        actions={RosterActions}
+        renderItem={=> <Roster courseId={@props.courseId}/>}
+      />
 
     </BS.Panel>

@@ -233,6 +233,8 @@ start = (bootstrapData) ->
     url: "/api/students/#{id}"
   apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
     url: "/api/students/#{id}", payload: params
+  apiHelper RosterActions, RosterActions.undrop, RosterActions.undropped, 'PUT', (id) ->
+    url: "/api/students/#{id}/undrop"
   apiHelper RosterActions, RosterActions.create, RosterActions.created, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/roster", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
