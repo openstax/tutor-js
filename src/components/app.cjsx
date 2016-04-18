@@ -4,6 +4,8 @@ classnames = require 'classnames'
 Exercise = require './exercise'
 ErrorModal = require './error-modal'
 MPQToggle = require './mpq-toggle'
+SuretyGuard = require './surety-guard'
+
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
@@ -73,51 +75,55 @@ module.exports = React.createClass
 
   saveExercise: ->
     id = @state.exerciseId
-    validity = ExerciseStore.validate(id)
-    if not validity?.valid
-      alert(validity?.reason or 'Not a valid exercise')
-      return
-
-    if confirm('Are you sure you want to save?')
-      if ExerciseStore.isNew(id)
-        ExerciseStore.once 'created', @loadExercise
-
-        ExerciseActions.create(id, ExerciseStore.get(id))
-      else
-        ExerciseActions.save(id)
+    if ExerciseStore.isNew(id)
+      ExerciseStore.once 'created', @loadExercise
+      ExerciseActions.create(id, ExerciseStore.get(id))
+    else
+      ExerciseActions.save(id)
 
   onNewBlank: (ev) ->
     ev.preventDefault()
-    if @canResetPage('Are you sure you want create a blank Exercise?  You will lose all unsaved changes')
-      @setBrowserUrlId('new')
-      @addNew()
+    @setBrowserUrlId('new')
+    @addNew()
 
   onReset: (ev) ->
     ev.preventDefault()
-    if @canResetPage('Are you sure you want reset editing?  You will lose all unsaved changes')
-      @setBrowserUrlId('')
-      @replaceState({})
+    @setBrowserUrlId('')
+    @replaceState({})
 
-  canResetPage: (msg) ->
-    not @state.exerciseId or
-      not ExerciseStore.isChanged(@state.exerciseId) or
-      confirm(msg)
-
+  isExerciseDirty: ->
+    @state.exerciseId and ExerciseStore.isChanged(@state.exerciseId)
 
   render: ->
     id = @state.exerciseId
+    guardProps =
+      onlyPromptIf: @isExerciseDirty
+      okButtonLabel: 'Reset'
+      placement: 'right'
+      message: "You will lose all unsaved changes"
+
     classes = classnames('exercise', 'openstax', 'container-fluid',
       {'is-loading': ExerciseStore.isLoading()}
     )
+
     <div className={classes}>
       <ErrorModal />
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
             <BS.ButtonToolbar className="navbar-btn">
-              <a href="/exercises" onClick={@onReset} className="btn btn-danger">Reset</a>
-              <a href="/exercises/new" onClick={@onNewBlank}
-                className="btn btn-success">New Blank Exercise</a>
+              <SuretyGuard
+                onConfirm={@onReset}
+                {...guardProps}
+              >
+                <a href="/exercises" onClick={@onReset} className="btn btn-danger">Reset</a>
+              </SuretyGuard>
+              <SuretyGuard
+                onConfirm={@onNewBlank}
+                {...guardProps}
+              >
+                <a className="btn btn-success">New Blank Exercise</a>
+              </SuretyGuard>
               { if id?
                 <AsyncButton
                   bsStyle='info'
@@ -131,16 +137,22 @@ module.exports = React.createClass
                 </AsyncButton>
               }
               { if id and not ExerciseStore.isNew(id)
-                <AsyncButton
-                  bsStyle='primary'
-                  onClick={@publishExercise}
-                  disabled={not ExerciseStore.isPublishable(id)}
-                  isWaiting={ExerciseStore.isPublishing(id)}
-                  waitingText='Publishing...'
-                  isFailed={ExerciseStore.isFailed(id)}
-                  >
-                  Publish
-                </AsyncButton>
+                <SuretyGuard
+                  onConfirm={@publishExercise}
+                  okButtonLabel='Publish'
+                  placement='right'
+                  message="Once an exericse is published, it is available for use."
+                >
+                  <AsyncButton
+                    bsStyle='primary'
+                    disabled={not ExerciseStore.isPublishable(id)}
+                    isWaiting={ExerciseStore.isPublishing(id)}
+                    waitingText='Publishing...'
+                    isFailed={ExerciseStore.isFailed(id)}
+                    >
+                    Publish
+                  </AsyncButton>
+                </SuretyGuard>
               }
             </BS.ButtonToolbar>
           </div>
