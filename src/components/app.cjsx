@@ -1,4 +1,5 @@
 React = require 'react'
+_ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 Exercise = require './exercise'
@@ -29,7 +30,7 @@ module.exports = React.createClass
     if @props.exerciseId is 'new'
       @addNew()
     else if @props.exerciseId
-      @loadExercise(@props.exerciseId)
+      @loadExercise(_.first @props.exerciseId.split('@'))
 
   publishExercise: ->
     ExerciseActions.save(@state.exerciseId)
