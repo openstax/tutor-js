@@ -112,15 +112,15 @@ QuestionConfig = {
     validate: (id) ->
       question = @_get(id)
       if (not question.stem_html)
-        return valid: false, reason: 'Question Stem is invalid'
+        return valid: false, part: 'Question Stem'
       if _.isEmpty(question.collaborator_solutions) or not _.first(question.collaborator_solutions)?.content_html
-        return valid: false, reason: 'Detailed Solution is invalid'
+        return valid: false, part: 'Detailed Solution'
 
       _.reduce @_get(id).answers, (memo, answer) ->
         validity = AnswerStore.validate(answer.id)
 
         valid: memo.valid and validity.valid
-        reason: memo.reason or validity.reason
+        part: memo.part or validity.part
       , valid: true
 }
 

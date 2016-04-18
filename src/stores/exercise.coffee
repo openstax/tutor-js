@@ -58,6 +58,9 @@ ExerciseConfig = {
     @sync(id)
     @_save(id)
 
+  published: (obj, id) ->
+    @saved(obj, id)
+
   _saved: (obj, id) ->
     cascadeLoad(obj, id)
     @_asyncStatusPublish[id] = false
@@ -173,12 +176,12 @@ ExerciseConfig = {
       questions:[_.extend({}, QuestionStore.getTemplate(), {id: questionId})]
 
     validate: (id) ->
-      return {valid: false, reason: 'exercise not found'} unless @_local[id]
+      return {valid: false, part: 'exercise'} unless @_local[id]
       _.reduce @_local[id].questions, (memo, question) ->
         validity = QuestionStore.validate(question.id)
 
         valid: memo.valid and validity.valid
-        reason: memo.reason or validity.reason
+        part: memo.part or validity.part
       , valid: true
 
 }

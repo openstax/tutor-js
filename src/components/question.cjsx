@@ -91,11 +91,10 @@ module.exports = React.createClass
           }
         </div>
       }
-      {<BS.Alert bsStyle="danger">
-         <strong>Invalid:</strong> {invalid.reason}
-        </BS.Alert> unless invalid.valid}
+      {<BS.Alert bsStyle="warning"
+        >To save your work, you must fill out the {invalid.part}</BS.Alert> unless invalid.valid}
 
-      <QuestionFormatType questionId={id} sync={@props.sync} />
+      <QuestionFormatType questionId={id} />
 
       <BS.Input type="checkbox" label="Order Matters"
         onChange={@preserveOrderClicked}
