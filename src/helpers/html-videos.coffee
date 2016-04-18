@@ -11,10 +11,10 @@ getRatioClass = (frame) ->
     return "embed-responsive-16by9"
 
 
-wrapFrames = (dom) ->
+wrapFrames = (dom, excludeFrame) ->
   _.each(dom.getElementsByTagName('iframe'), (frame) ->
     if (frame.parentNode?.classList.contains('embed-responsive')) then return
-    if (/cnx.org\/specials\//.test(frame.src)) then return
+    if (excludeFrame(frame)) then return
 
     wrapper = document.createElement("div")
     wrapper.className = "frame-wrapper embed-responsive #{getRatioClass(frame)}"
