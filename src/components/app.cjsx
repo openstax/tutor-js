@@ -117,7 +117,7 @@ module.exports = React.createClass
                 onConfirm={@onReset}
                 {...guardProps}
               >
-                <a href="/exercises" onClick={@onReset} className="btn btn-danger reset">Reset</a>
+                <a href="/exercises" className="btn btn-danger reset">Reset</a>
               </SuretyGuard>
               <SuretyGuard
                 onConfirm={@onNewBlank}
