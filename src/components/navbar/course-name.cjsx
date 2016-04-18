@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 _ = require 'underscore'
 
 BindStoreMixin = require '../bind-store-mixin'
@@ -27,12 +27,12 @@ CourseName = React.createClass
     routeName = CurrentUserStore.getDashboardRoute(course?.id)
 
     if course
-      coursenameComponent = <Router.Link
+      coursenameComponent = <Link
         to={routeName}
         params={{courseId: course.id}}
         className='navbar-brand'>
         {course.name}
-      </Router.Link>
+      </Link>
 
     coursenameComponent
 

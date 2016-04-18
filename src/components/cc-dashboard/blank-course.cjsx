@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 
 DesktopImage = require './desktop-image'
 CourseGroupingLabel = require '../course-grouping-label'
@@ -56,12 +56,12 @@ BlankCourse = React.createClass
                 </p>
               </li>
             </ol>
-            <Router.Link className='settings btn btn-default btn-large'
-              to='courseSettings' params={courseId: @props.courseId}
+            <Link className='settings btn btn-default btn-large'
+              to="/courses/#{@props.courseId}/t/settings"
             >
               <Icon type='plus' /> Add
               a <CourseGroupingLabel {...glprops} /> to your course
-            </Router.Link>
+            </Link>
 
           </div>
           <div className='graphic'>

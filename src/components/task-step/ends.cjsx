@@ -2,7 +2,6 @@
 
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 _ = require 'underscore'
 
 PracticeButton = require '../buttons/practice-button'

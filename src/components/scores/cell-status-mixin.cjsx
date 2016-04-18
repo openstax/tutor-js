@@ -1,5 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 LateIcon = require '../late-icon'
 TaskHelper = require '../../helpers/task'
 
@@ -16,11 +16,11 @@ module.exports = {
     ).isRequired
 
   renderLink: ({message}) ->
-    <Router.Link className={"task-result scores-cell #{@props.className}"} to='viewTaskStep'
-      data-assignment-type="#{@props.task.type}"
-      params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
+    <Link className={"task-result scores-cell #{@props.className}"}
+      to="/courses/#{@props.courseId}/tasks/#{@props.task.id}/steps/1"
+      data-assignment-type="#{@props.task.type}">
       <span>{message}</span>
       <LateIcon {...@props}/>
-    </Router.Link>
+    </Link>
 
 }

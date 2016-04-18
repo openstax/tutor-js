@@ -1,6 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
-camelCase = require 'camelcase'
+{ Link } = require 'react-router'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
@@ -77,8 +76,7 @@ CoursePlanDisplayEdit = React.createClass
   render: ->
     {plan, planClasses, label, courseId, setHover} = @props
 
-    linkTo = camelCase("edit-#{plan.type}")
-    params = {id: plan.id, courseId}
+    linkTo = "/courses/#{courseId}/t/#{plan.type}/#{plan.id}"
 
     planStyle = @buildPlanStyles()
 
@@ -89,11 +87,9 @@ CoursePlanDisplayEdit = React.createClass
       onMouseEnter={_.partial(setHover, true)}
       onMouseLeave={_.partial(setHover, false)}
       ref='plan'>
-      <Router.Link
-        to={linkTo}
-        params={params}>
+      <Link to={linkTo}>
           {label}
-      </Router.Link>
+      </Link>
     </div>
 
 

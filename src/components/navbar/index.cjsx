@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 _ = require 'underscore'
 
 CourseName = require './course-name'
@@ -49,9 +49,9 @@ module.exports = React.createClass
     {course} = @state
     {courseId} = @context.router.getCurrentParams()
 
-    brand = <Router.Link to='dashboard' className='navbar-brand'>
+    brand = <Link to='/dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
-            </Router.Link>
+            </Link>
 
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
       <BS.NavBrand>

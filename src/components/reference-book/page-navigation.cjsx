@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 
 PageNavigation = React.createClass
 
@@ -24,12 +24,12 @@ PageNavigation = React.createClass
 
     params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), section: @props.section)
 
-    <Router.Link className={classnames('page-navigation', @props.direction)}
+    <Link className={classnames('page-navigation', @props.direction)}
       to={@props.pageNavRouterLinkTarget}
       query={@context.router.getCurrentQuery()}
       onClick={@onClick}
       params={params}>
       <div className='triangle' />
-    </Router.Link>
+    </Link>
 
 module.exports = PageNavigation

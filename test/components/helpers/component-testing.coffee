@@ -1,8 +1,8 @@
 _ = require 'underscore'
 expect = chai.expect
 React = require 'react'
-ReactAddons    = require('react/addons')
-ReactTestUtils = React.addons.TestUtils
+ReactDOM = require 'react-dom'
+ReactTestUtils = require 'react-addons-test-utils'
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'
 sandbox = null
@@ -50,7 +50,7 @@ Testing = {
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
       props._wrapped_component = component
-      wrapper = React.render( React.createElement(Wrapper, props), root )
+      wrapper = ReactDOM.render( React.createElement(Wrapper, props), root )
       resolve({
         root,
         wrapper,
@@ -60,7 +60,7 @@ Testing = {
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return
     _.defer -> promise.then ->
-      React.unmountComponentAtNode(root)
+      ReactDOM.unmountComponentAtNode(root)
       CURRENT_ROUTER_PATH   = '/'
       CURRENT_ROUTER_PARAMS = {}
       return arguments

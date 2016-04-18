@@ -1,5 +1,6 @@
 {expect} = require 'chai'
 React = require 'react'
+ReactDOM = require 'react-dom'
 
 LoadableItem = require '../src/components/loadable-item'
 {CrudConfig, makeSimpleStore, extendConfig} = require '../src/flux/helpers'
@@ -38,7 +39,7 @@ describe 'Loadable Mixin', ->
     expect(CrudStore.isUnknown(id)).to.be.true
     CrudActions.load.once 'trigger', (args...) ->
       done()
-    React.render(<TestClass id={id}/>, DIV)
+    ReactDOM.render(<TestClass id={id}/>, DIV)
 
 
   it 'should call load when props updated', (done) ->
@@ -47,7 +48,7 @@ describe 'Loadable Mixin', ->
     CrudActions.load.once 'trigger', (myId) ->
       expect(myId).to.equal(id)
       done()
-    React.render(<TestClass id={id}/>, DIV)
+    ReactDOM.render(<TestClass id={id}/>, DIV)
 
 
   it 'should reflect the state changes from loading to loaded', (done) ->
@@ -65,7 +66,7 @@ describe 'Loadable Mixin', ->
         expect(DIV.querySelector('.test-loaded')).to.not.be.null
         done()
 
-    React.render(<TestClass id={id}/>, DIV)
+    ReactDOM.render(<TestClass id={id}/>, DIV)
 
 
   it 'should show an error when loading fails', (done) ->
@@ -83,4 +84,4 @@ describe 'Loadable Mixin', ->
         expect(DIV.querySelector('.loadable.is-error')).to.not.be.null
         done()
 
-    React.render(<TestClass id={id}/>, DIV)
+    ReactDOM.render(<TestClass id={id}/>, DIV)

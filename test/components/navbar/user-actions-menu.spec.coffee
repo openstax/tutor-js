@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require '../helpers/component-testing'
+{Testing, expect, sinon, React, _} = require '../helpers/component-testing'
 
 UserActionsMenu = require '../../../src/components/navbar/user-actions-menu'
 {CourseActions, CourseStore} = require '../../../src/flux/course'

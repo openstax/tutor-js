@@ -1,5 +1,5 @@
 React  = require 'react'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 BS = require 'react-bootstrap'
 
 Time = require '../time'
@@ -48,7 +48,8 @@ ConceptCoachCell = React.createClass
 
 
     <div className="cc-cell">
-      <Router.Link className="score" to='viewTaskStep'
+      <Link className="score"
+        to="/courses/#{@props.courseId}/tasks/#{@props.task.id}/steps/1"
         data-assignment-type="#{@props.task.type}"
         params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
           {
@@ -57,7 +58,7 @@ ConceptCoachCell = React.createClass
             else
               "#{scorePercent}%"
           }
-      </Router.Link>
+      </Link>
 
       <div className="worked">
         <BS.OverlayTrigger

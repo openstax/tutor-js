@@ -1,8 +1,8 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-React = require 'react/addons'
-
+React = require 'react'
+TestUtils = require 'react-addons-test-utils'
 {componentStub, commonActions}   = require './helpers/utilities'
 
 {TutorDateInput} = require '../../src/components/tutor-input'
@@ -13,7 +13,7 @@ checkForClosedDatepicker = ->
   expect(datepickerContainers.length).to.equal(0)
 
 triggerAndCheckDatePicker = (dateInput) ->
-  React.addons.TestUtils.Simulate.focus(dateInput.getDOMNode().querySelector('.datepicker__input'))
+  TestUtils.Simulate.focus(dateInput.getDOMNode().querySelector('.datepicker__input'))
   dateInput.expandCalendar()
   datepickerContainers = Array.prototype.slice.call(document.querySelectorAll('.datepicker__container'))
   hasDatepicker = datepickerContainers.length > 0

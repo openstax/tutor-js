@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 PlanHelper = require '../../helpers/plan'
@@ -117,11 +117,11 @@ PlanFooter = React.createClass
         </BS.OverlayTrigger>
     else
       backToCalendarParams = getBackToCalendarParams()
-      backButton = <Router.Link
+      backButton = <Link
         {...backToCalendarParams}
         className='btn btn-default'>
           Back to Calendar
-      </Router.Link>
+      </Link>
 
 
     if deleteable

@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
 Breadcrumbs = require './breadcrumbs'
 {ReviewShell} = require './review'

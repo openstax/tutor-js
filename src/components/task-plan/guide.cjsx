@@ -1,7 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 LoadableItem = require '../loadable-item'

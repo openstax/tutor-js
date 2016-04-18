@@ -3,8 +3,7 @@ _              = require 'underscore'
 React          = require 'react'
 {Promise}      = require 'es6-promise'
 
-ReactAddons    = require 'react/addons'
-ReactTestUtils = React.addons.TestUtils
+ReactTestUtils = require 'react-addons-test-utils'
 {routerStub}   = require './helpers/utilities'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'

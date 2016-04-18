@@ -1,11 +1,11 @@
 # coffeelint: disable=no_empty_functions
 
-React = require 'react/addons'
+React = require 'react'
 _ = require 'underscore'
 
 TaskStep = require '../task-step'
 
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+ReactCSSTransitionGroup = require 'react-addons-css-transition-group'
 
 Review = React.createClass
   displayName: 'Review'

@@ -1,5 +1,4 @@
 _ = require 'underscore'
-Router = require 'react-router'
 
 {CurrentUserStore} = require '../flux/current-user'
 {HistoryLocation}  = require 'react-router'

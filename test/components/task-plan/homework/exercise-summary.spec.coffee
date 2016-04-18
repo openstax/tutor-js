@@ -1,5 +1,6 @@
 {expect} = require 'chai'
 React = require 'react'
+ReactDOMServer = require 'react-dom/server'
 _ = require 'underscore'
 
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
@@ -8,7 +9,7 @@ ExerciseSummary = require '../../../../src/components/task-plan/homework/exercis
 VALID_MODEL = require '../../../../api/plans/2.json'
 
 helper = (props) ->
-  html = React.renderToString(<ExerciseSummary {...props} />)
+  html = ReactDOMServer.renderToString(<ExerciseSummary {...props} />)
   div = document.createElement('div')
   div.innerHTML = html
   div

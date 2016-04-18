@@ -1,8 +1,7 @@
-camelCase = require 'camelcase'
 classnames = require 'classnames'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 
 {StatsModalShell} = require '../plan-stats'
 {EventModalShell} = require '../plan-stats/event'
@@ -34,20 +33,18 @@ CoursePlanDetails = React.createClass
     {type, id} = plan
     linkParams = {courseId, id}
 
-    reviewButton = <Router.Link
+    reviewButton = <Link
       className='btn btn-default'
-      to='reviewTask'
-      params={linkParams}>
+      to="/courses/#{courseId}/t/plans/#{id}/summary/?">
       Review Metrics
-    </Router.Link>
+    </Link>
 
     if type is 'external'
-      reviewButton = <Router.Link
+      reviewButton = <Link
         className='btn btn-default -view-scores'
-        to='viewScores'
-        params={linkParams}>
+        to="/courses/#{courseId}/t/scores/?">
         View Scores
-      </Router.Link>
+      </Link>
 
     reviewButton
 
@@ -62,21 +59,19 @@ CoursePlanDetails = React.createClass
   render: ->
     {plan, courseId, className, isPublishing, isPublished, hasReview} = @props
     {title, type, id} = plan
-    linkParams = {courseId, id}
     {keepVisible} = @state
     return null unless isPublishing or isPublished
 
     reviewButton = @renderReviewButton() if hasReview
 
-    editLinkName = camelCase("edit-#{type}")
+    editPath = "/courses/#{courseId}/t/#{type}/#{id}"
     viewOrEdit = if plan.isEditable then 'Edit' else 'View'
     assignmentOrEvent = if type is 'event' then 'Event' else 'Assignment'
-    editButton = <Router.Link
+    editButton = <Link
       className='btn btn-default -edit-assignment'
-      to={editLinkName}
-      params={linkParams}>
+      to={editPath}>
       {viewOrEdit} {assignmentOrEvent}
-    </Router.Link>
+    </Link>
 
     body = if isPublished
       footer =  <div className='modal-footer'>

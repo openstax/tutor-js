@@ -15,7 +15,7 @@ Table = FixedDataTable.Table
 Column = FixedDataTable.Column
 ColumnGroup = FixedDataTable.ColumnGroup
 
-Router = require 'react-router'
+{ Link } = require 'react-router'
 {QuickStatsShell} = require './quick-external-stats'
 
 module.exports = React.createClass
@@ -77,18 +77,14 @@ module.exports = React.createClass
         periodId={@props.period_id}/>
 
     else if heading.plan_id?
-      linkParams =
-        id: heading.plan_id
-        periodIndex: @props.periodIndex
-        courseId: @props.courseId
+      linkTo = "/course/#{@props.courseId}/t/plans/#{heading.plan_id}/summary/"
+      periodTo = "periods/#{@props.periodIndex}?"
 
       review =
-        <Router.Link
-          to='reviewTaskPeriod'
-          params={linkParams}
+        <Link to="#{linkTo}#{periodTo}"
           className='review-plan btn btn-default'>
           Review
-        </Router.Link>
+        </Link>
 
     if heading.attempted_average
       summary =

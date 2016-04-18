@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 _ = require 'underscore'
 
 {CoursePeriodsNavShell} = require '../course-periods-nav'
@@ -37,11 +37,10 @@ module.exports = React.createClass
           <div className='guide-group-key teacher'>
             <ColorKey />
           </div>
-          <Router.Link activeClassName='' to='viewTeacherDashBoard'
-            className='btn btn-default back'
-            params={courseId: @props.courseId}>
+          <Link activeClassName='' to="/courses/#{@props.courseId}/t"
+            className='btn btn-default back'>
             Return to Dashboard
-          </Router.Link>
+          </Link>
         </div>
       </div>
       <CoursePeriodsNavShell
