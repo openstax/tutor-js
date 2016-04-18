@@ -41,6 +41,7 @@ SuretyGuard = React.createClass
     </BS.Popover>
 
   maybeShow: (ev) ->
+    ev.preventDefault()
     @onConfirm(ev) if @props.onlyPromptIf and not @props.onlyPromptIf()
 
   render: ->
