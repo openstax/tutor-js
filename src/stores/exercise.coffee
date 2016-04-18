@@ -173,6 +173,7 @@ ExerciseConfig = {
       questions:[_.extend({}, QuestionStore.getTemplate(), {id: questionId})]
 
     validate: (id) ->
+      return {valid: false, reason: 'exercise not found'} unless @_local[id]
       _.reduce @_local[id].questions, (memo, question) ->
         validity = QuestionStore.validate(question.id)
 
