@@ -99,7 +99,6 @@ module.exports = React.createClass
     id = @state.exerciseId
     guardProps =
       onlyPromptIf: @isExerciseDirty
-      okButtonLabel: 'Reset'
       placement: 'right'
       message: "You will lose all unsaved changes"
 
@@ -117,7 +116,7 @@ module.exports = React.createClass
                 onConfirm={@onReset}
                 {...guardProps}
               >
-                <a href="/exercises" className="btn btn-danger reset">Reset</a>
+                <a href="/exercises" className="btn btn-danger back">Back</a>
               </SuretyGuard>
               <SuretyGuard
                 onConfirm={@onNewBlank}
