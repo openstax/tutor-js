@@ -20,6 +20,10 @@ module.exports = React.createClass
   componentWillUnmount: ->
     QuestionStore.removeChangeListener(@update)
 
+  propTypes:
+    id: React.PropTypes.number.isRequired
+    sync: React.PropTypes.func.isRequired
+
   sync: ->
     @props.sync()
     @forceUpdate()

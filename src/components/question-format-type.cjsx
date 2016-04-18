@@ -25,6 +25,7 @@ QuestionFormatType = React.createClass
 
   propTypes:
     questionId: React.PropTypes.number.isRequired
+    sync: React.PropTypes.func.isRequired
 
   updateFormat: (ev) ->
     formats =  QuestionStore.get(@props.questionId).formats or []

@@ -7,6 +7,10 @@ module.exports = React.createClass
 
   getInitialState: -> {}
 
+  propTypes:
+    id: React.PropTypes.number.isRequired
+    sync: React.PropTypes.func.isRequired
+
   updateContent: (event) ->
     AnswerActions.updateContent(@props.id, event.target?.value)
     @sync()
