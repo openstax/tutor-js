@@ -91,6 +91,10 @@ module.exports = React.createClass
           }
         </div>
       }
+      {<BS.Alert bsStyle="danger">
+         <strong>Invalid:</strong> {invalid.reason}
+        </BS.Alert> unless invalid.valid}
+
       <QuestionFormatType questionId={id} />
 
       <BS.Input type="checkbox" label="Order Matters"
@@ -114,8 +118,5 @@ module.exports = React.createClass
         <label>Detailed Solution</label>
         <textarea onChange={@updateSolution} value={QuestionStore.getSolution(id)}></textarea>
       </div>
-      {<BS.Alert bsStyle="danger">
-         <strong>Invalid:</strong> {invalid.reason}
-        </BS.Alert> unless invalid.valid}
 
     </div>
