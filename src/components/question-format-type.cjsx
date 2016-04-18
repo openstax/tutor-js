@@ -33,6 +33,7 @@ QuestionFormatType = React.createClass
     else
       formats = _.without(formats, ev.target.name)
     QuestionActions.setFormats(@props.questionId, formats)
+    @props.sync()
 
   setChoiceRequired: (ev) ->
     QuestionActions.setChoiceRequired(@props.questionId, ev.target.checked)
