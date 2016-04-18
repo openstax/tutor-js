@@ -24,9 +24,6 @@ Exercise = React.createClass
   componentWillUnmount: ->
     ExerciseStore.removeChangeListener(@update)
 
-  showPublishedModal: ->
-    @setState(hasPublished: true)
-
   sync: -> ExerciseActions.sync(@props.exerciseId)
 
   moveQuestion: (questionId, direction) ->
