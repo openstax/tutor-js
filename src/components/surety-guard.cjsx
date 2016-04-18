@@ -9,7 +9,7 @@ SuretyGuard = React.createClass
     placement:  React.PropTypes.string
     okButtonLabel: React.PropTypes.string
     cancelButtonLabel: React.PropTypes.string
-    onlyPromptIf: React.PropTypes.func.isRequired
+    onlyPromptIf: React.PropTypes.func
 
   getDefaultProps: ->
     title:             'Are you sure?'
