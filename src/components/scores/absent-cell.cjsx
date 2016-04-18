@@ -5,6 +5,6 @@ module.exports = React.createClass
 
   render: ->
     <div className="cc-cell">
-      <div className="score">---</div>
-      <div className="worked">---</div>
+      <div className="score not-started">---</div>
+      <div className="worked not-started">---</div>
     </div>
