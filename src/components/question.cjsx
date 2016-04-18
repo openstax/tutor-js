@@ -94,7 +94,7 @@ module.exports = React.createClass
       {<BS.Alert bsStyle="warning"
         >To save your work, you must fill out the {invalid.part}</BS.Alert> unless invalid.valid}
 
-      <QuestionFormatType questionId={id} />
+      <QuestionFormatType sync={@props.sync} questionId={id} />
 
       <BS.Input type="checkbox" label="Order Matters"
         onChange={@preserveOrderClicked}
