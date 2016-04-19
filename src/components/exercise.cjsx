@@ -62,12 +62,6 @@ Exercise = React.createClass
       <Question id={_.first(questions)?.id} sync={@sync} />
     </BS.TabPane>
 
-  previewTag: (tag) ->
-    content = _.compact([tag.name, tag.description]).join(' ') or tag.id
-    isLO = _.include(['lo', 'aplo'], tag.type)
-    {content, isLO}
-
-
   exercisePreviewData: (ex) ->
     content: ex
     tags: _.map ex.tags, (tag) -> name: tag
@@ -122,7 +116,6 @@ Exercise = React.createClass
       </div>
 
       <ExercisePreview
-        extractTag={@previewTag}
         exercise={@exercisePreviewData(exercise)}
         displayAllTags={true}
         displayFeedback={true}
