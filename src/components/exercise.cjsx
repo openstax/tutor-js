@@ -118,6 +118,7 @@ Exercise = React.createClass
       <ExercisePreview
         exercise={@exercisePreviewData(exercise)}
         displayAllTags={true}
+        displayFormats={true}
         displayFeedback={true}
         hideAnswers={false}
       />
