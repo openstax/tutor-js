@@ -123,8 +123,9 @@ module.exports = React.createClass
     classAverage = heading.total_average
 
     if classAverage
+      cellWidth = if @props.isConceptCoach then 'wide' else ''
       average =
-        <span className='average'>
+        <span className="average #{cellWidth}">
           {(classAverage * 100).toFixed(0)}%
         </span>
 
@@ -149,6 +150,8 @@ module.exports = React.createClass
         </SortingHeader>
       </div>
 
+    HSHeadingTitleDueDate = <div>{heading.due_at}</div>
+
     titleHeaderTooltip =
       <BS.Tooltip id="header-cell-title-#{i}">
         <div>{heading.title}</div>
@@ -159,17 +162,18 @@ module.exports = React.createClass
         delayShow={1000}
         delayHide={0}
         overlay={titleHeaderTooltip}>
-        <div className='header-cell title'>
+        <div
+        data-assignment-type="#{heading.type}" 
+        className='header-cell title'>
           {heading.title}
         </div>
       </BS.OverlayTrigger>
 
     customHeader = <div
-      data-assignment-type="#{heading.type}"
       className='assignment-header-cell'>
       <div className='average-cell'>
         {average}
-        {review}
+        {review unless @props.isConceptCoach}
       </div>
       <div className='label-cell'>
         {label}
