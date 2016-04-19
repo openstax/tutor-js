@@ -38,6 +38,7 @@ module.exports = React.createClass
     firstDataColumn: React.PropTypes.number.isRequired
     displayAs: React.PropTypes.string.isRequired
     dataType: React.PropTypes.string
+    isConceptCoach: React.PropTypes.bool.isRequired
 
 
   renderNameHeader: ->

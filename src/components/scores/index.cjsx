@@ -130,50 +130,40 @@ Scores = React.createClass
 
     scoresExport = <ScoresExport courseId={courseId}/>
 
-    if isConceptCoach
-      scoresTable =
-        <CCTable
-        courseId={@props.courseId} 
-        data={data}
-        width={tableWidth}
-        height={tableHeight}
-        sort={@state.sort}
-        onSort={@changeSortingOrder}
-        colSetWidth={@state.colSetWidth}
-        period_id={@state.period_id}
-        periodIndex={@state.periodIndex}
-        firstDataColumn={@state.firstDataColumn}
-        displayAs={@state.displayAs}
-        dataType={@state.sort.dataType}
-          />
-      afterTabsItem = ->
+    scoresTable =
+      <CCTable
+      courseId={@props.courseId} 
+      data={data}
+      width={tableWidth}
+      height={tableHeight}
+      sort={@state.sort}
+      onSort={@changeSortingOrder}
+      colSetWidth={@state.colSetWidth}
+      period_id={@state.period_id}
+      periodIndex={@state.periodIndex}
+      firstDataColumn={@state.firstDataColumn}
+      displayAs={@state.displayAs}
+      dataType={@state.sort.dataType}
+      isConceptCoach={isConceptCoach}
+        />
+    afterTabsItem = ->
+      if isConceptCoach
         <span className='course-scores-note tab'>
           Click on a student's score to review their work.
-          &nbsp 
+          &nbsp
           Click the icon to see their progress completing the assignment.
         </span>
-      tableFilters =
-        <CCTableFilters
-        displayAs={@state.displayAs}
-        changeDisplayAs={@changeDisplayAs}
-        />
-    else
-      scoresTable =
-        <HSTable
-        courseId={@props.courseId}
-        data={data}
-        width={tableWidth}
-        height={tableHeight}
-        sort={@state.sort}
-        onSort={@changeSortingOrder}
-        colSetWidth={@state.colSetWidth}
-        period_id={@state.period_id}
-        periodIndex={@state.periodIndex}
-        firstDataColumn={@state.firstDataColumn}
-          />
-      afterTabsItem = -> null
-      tableFilters = null
-
+      else
+        <span className='course-scores-note tab'>
+          Scores on the due date are displayed.
+          &nbsp
+          Click an orange triangle to see late work.
+        </span>
+    tableFilters =
+      <CCTableFilters
+      displayAs={@state.displayAs}
+      changeDisplayAs={@changeDisplayAs}
+      />
 
     periodNav =
       <CoursePeriodsNavShell
@@ -184,7 +174,6 @@ Scores = React.createClass
         afterTabsItem={afterTabsItem} />
 
     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
-
 
     if data.rows.length > 0 then students = true
 
@@ -207,7 +196,7 @@ ScoresShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)
-    tableClass = if course.is_concept_coach then 'cc' else 'hs'
+    tableClass = if course.is_concept_coach then 'cc' else 'cc'  ## temp
     <BS.Panel className="scores-report #{tableClass}">
       <LoadableItem
         id={courseId}
