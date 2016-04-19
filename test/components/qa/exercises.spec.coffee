@@ -1,5 +1,8 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 
+ld = require 'lodash'
+
+
 Exercises = require '../../../src/components/qa/exercises'
 {ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
 {EcosystemsActions, EcosystemsStore} = require '../../../src/flux/ecosystems'
@@ -30,7 +33,8 @@ describe 'QA Exercises Component', ->
     Testing.renderComponent( Exercises, props: @props ).then ({dom}) ->
       questions = _.map EXERCISES.items, (e) ->
         e.content.questions[0].stem_html
-      renderedQs = _.pluck dom.querySelectorAll('.panel-body .stem'), 'innerHTML'
+
+      renderedQs = _.pluck dom.querySelectorAll('.panel-body .question-stem'), 'textContent'
       expect(renderedQs).to.deep.equal(questions)
 
   it 'hides answers when previewing 2-step', ->
@@ -45,3 +49,10 @@ describe 'QA Exercises Component', ->
       expect(all.length).to.equal(EXERCISES.items.length)
       expect(hidden.length).to.equal(freeResponseCount)
       expect(hidden[0].querySelector('.answers-table').textContent).to.be.empty
+
+  it 'renders exercises even if they dont have tags', ->
+    ex = ld.cloneDeep EXERCISES
+    _.each ex.items, (e) -> e.content.tags = []
+    ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
+    Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
+      expect( dom.querySelectorAll('.exercise').length ).to.equal(5)
