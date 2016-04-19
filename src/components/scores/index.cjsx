@@ -2,7 +2,6 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-HSTable = require './table-hs'
 CCTable = require './table-cc'
 CCTableFilters = require './cc-table-filters'
 

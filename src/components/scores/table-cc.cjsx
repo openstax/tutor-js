@@ -6,7 +6,7 @@ Time   = require '../time'
 Icon = require '../icon'
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
-CCNameCell     = require './name-cell-cc'
+NameCell     = require './name-cell'
 AbsentCell   = require './absent-cell'
 ExternalCell = require './external-cell'
 SortingHeader = require './sorting-header'
@@ -199,11 +199,12 @@ module.exports = React.createClass
         student: student_data,
         courseId: @props.courseId,
         roleId: student_data.role,
-        displayAs: @props.displayAs
+        displayAs: @props.displayAs,
+        isConceptCoach: @props.isConceptCoach
       }
     isBottom = if @props.data.rows.length is rowIndex + 1 then 'bottom' else ''
     columns = [
-      <CCNameCell key='name' {...props} />,
+      <NameCell key='name' {...props} />,
       <div className="overall-cell #{isBottom}">test</div>
     ]
 
@@ -212,6 +213,9 @@ module.exports = React.createClass
       columns.push switch task?.type or 'null'
         when 'null'          then <AbsentCell       key='absent' {...props} />
         when 'concept_coach' then <ConceptCoachCell key='cc'     {...props} />
+        when 'reading'  then <ReadingCell  key='reading'  {...props} />
+        when 'homework' then <HomeworkCell key='homework' {...props} />
+        when 'external' then <ExternalCell key='extern'   {...props} />
     columns
 
 
