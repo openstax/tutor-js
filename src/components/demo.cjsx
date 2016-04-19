@@ -20,6 +20,9 @@ exercisePreviewStub = require '../../stubs/exercise-preview/data'
 Breadcrumb = require './breadcrumb'
 breadcrumbStub = require '../../stubs/breadcrumbs/steps'
 
+ArbitraryHtmlAndMath = require './html'
+HTMLStub = require '../../stubs/html/data'
+
 getCurrentPanel = (stepId) ->
   step = steps[stepId]
   panel = 'free-response'
@@ -160,6 +163,11 @@ BreadcrumbDemo = React.createClass
       </div>
     </div>
 
+HTMLDemo = React.createClass
+  displayName: 'HTMLDemo'
+  render: ->
+    <ArbitraryHtmlAndMath {...HTMLStub} className='col-xs-6'/>
+
 Demo = React.createClass
   displayName: 'Demo'
   render: ->
@@ -167,6 +175,7 @@ Demo = React.createClass
       exercise: <ExerciseDemo/>
       exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
+      html: <HTMLDemo/>
 
     demos = _.map(demos, (demo, name) ->
       <BS.Row key={name} className='demo openstax-wrapper'>

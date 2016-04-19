@@ -31,6 +31,17 @@ describe 'Html Video Helper', ->
     dom = HtmlVideo.wrapFrames(dom)
     expect(dom.getElementsByClassName('embed-responsive').length).to.equal(1)
 
+  it 'can wrap html videos frame even if nested', ->
+    dom = document.createElement('div')
+    html = """<div><div><iframe width="560" height="315" src="https://www.youtube.com/embed/BINK6r1Wy78"
+    frameborder="0" allowfullscreen></iframe></div></div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/BINK6r1Wy78"
+    frameborder="0" allowfullscreen></iframe>"""
+
+    dom.innerHTML = html
+    dom = HtmlVideo.wrapFrames(dom)
+    expect(dom.getElementsByClassName('embed-responsive').length).to.equal(2)
+
   it 'can add responsive embed classes with correct aspect ratio', ->
     dom = document.createElement('div')
 

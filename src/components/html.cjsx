@@ -14,7 +14,7 @@ module.exports = React.createClass
     processHtmlAndMath: React.PropTypes.func
   getDefaultProps: ->
     block: false
-    excludeFrame: (frame) ->
+    shouldExcludeFrame: (frame) ->
       /cnx.org\/specials\//.test(frame.src)
 
   render: ->
@@ -59,4 +59,4 @@ module.exports = React.createClass
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
     @props.processHtmlAndMath?(root) or typesetMath(root)
-    wrapFrames(root, @props.excludeFrame)
+    wrapFrames(root, @props.shouldExcludeFrame)
