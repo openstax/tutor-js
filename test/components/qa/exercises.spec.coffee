@@ -61,3 +61,7 @@ describe 'QA Exercises Component', ->
     ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
     Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
       expect( dom.textContent ).not.to.contain('uknown-fake-uuid')
+
+  it 'displays question formats', ->
+    Testing.renderComponent( Exercises, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.formats-listing')).to.exist

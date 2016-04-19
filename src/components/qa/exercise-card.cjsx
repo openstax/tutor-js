@@ -39,6 +39,7 @@ Exercise = React.createClass
       exercise={exerciseDataFilter(exercise, @props)}
       className='exercise'
       header={@renderHeader(types)}
+      displayFormats={true}
       questionFooters={freeResponse}
       displayAllTags
       displayFeedback
