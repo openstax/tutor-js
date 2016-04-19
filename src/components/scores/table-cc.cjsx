@@ -102,6 +102,23 @@ module.exports = React.createClass
   renderHeadingCell: (heading, i) ->
     i += @props.firstDataColumn # for the first/last name columns
 
+
+    if heading.plan_id? or true ## temp until plan_id
+      linkParams =
+        ## id: heading.plan_id
+        periodIndex: @props.periodIndex
+        courseId: @props.courseId
+
+      review =
+        <span className="review-link">
+          <Router.Link
+            to='dashboard'
+            params={linkParams}>
+            Review
+          </Router.Link>
+        </span>
+
+
     classAverage = heading.total_average
 
     if classAverage
@@ -109,6 +126,7 @@ module.exports = React.createClass
         <span className='average'>
           {(classAverage * 100).toFixed(0)}%
         </span>
+
 
     label =
       <div className='cc-cell'>
@@ -150,6 +168,7 @@ module.exports = React.createClass
       className='assignment-header-cell'>
       <div className='average-cell'>
         {average}
+        {review}
       </div>
       <div className='label-cell'>
         {label}
