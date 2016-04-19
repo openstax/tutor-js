@@ -9,6 +9,7 @@ See [openstax/CONTRIBUTING.md](https://github.com/openstax/napkin-notes/CONTRIBU
 - add either `Needs Code` or `Needs Review` label
 - if it is waiting on input from someone add the `blocked` label
 - if it is linked to another Issue or Pull Request, link the Issue/PR number by editing the Issue/PR **body**
+- link to the Ticket/Issue in the Issue/PR **body**
 
 ### Creating a hotfix
 
