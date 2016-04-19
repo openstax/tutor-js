@@ -10,6 +10,9 @@ FormatsListing = React.createClass
   propTypes:
     formats: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 
+  getDefaultProps: ->
+    formats: []
+
   render: ->
     <div className="formats-listing">
       <div className='header'>Formats:</div>
