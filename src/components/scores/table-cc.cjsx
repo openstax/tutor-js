@@ -104,16 +104,16 @@ module.exports = React.createClass
     i += @props.firstDataColumn # for the first/last name columns
 
 
-    if heading.plan_id? or true ## temp until plan_id
+    if heading.plan_id?
       linkParams =
-        ## id: heading.plan_id
+        id: heading.plan_id
         periodIndex: @props.periodIndex
         courseId: @props.courseId
 
       review =
         <span className="review-link">
           <Router.Link
-            to='dashboard'
+            to='reviewTaskPeriod'
             params={linkParams}>
             Review
           </Router.Link>
