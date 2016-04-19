@@ -69,7 +69,12 @@
   }
 
   .panel-body {
-
+    // used by formats and tags
+    .metadata-styles() {
+      color: @openstax-neutral;
+      font-size: 1.2rem;
+      line-height: 1.4em;
+    }
     .question-stem {
       font-weight: 700;
       margin-bottom: 1rem;
@@ -131,6 +136,21 @@
 
     }
 
+    .formats-listing {
+      .metadata-styles();
+      .header {
+        display: inline-block;
+        margin-right: 1rem;
+      }
+      span {
+        &:after { content: ", "; }
+        &:last-of-type {
+          &:after{ content: ""; }
+        }
+      }
+
+    }
+
     .detailed-solution {
       display: none;
       margin-bottom: 1.5rem;
@@ -149,10 +169,7 @@
     }
 
     .exercise-tags {
-      color: @openstax-neutral;
-      font-size: 1.2rem;
-      line-height: 1.4em;
-
+      .metadata-styles();
       .exercise-tag + .exercise-tag::before {
         content: ',';
         margin-right: 1rem;
@@ -181,7 +198,7 @@
 
     .exercise-identifier-link a { color: @openstax-neutral; }
 
-    .feedback-toggle {
+    .toggle {
       border: 0;
       background-color: transparent;
       font-size: 1.2rem;
