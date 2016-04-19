@@ -21,7 +21,8 @@ Exercise = React.createClass
   render: ->
     {exercise, ignoredTypes, show2StepPreview} = @props
     types = ExerciseStore.getExerciseTypes(exercise)
-    return null if _.every( types, (pt) -> ignoredTypes[pt] )
+
+    return null if _.any(types) and _.every( types, (pt) -> ignoredTypes[pt] )
 
     editUrl = exercise.url.replace(/@\d+/, '@draft')
 
