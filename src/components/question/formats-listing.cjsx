@@ -10,12 +10,11 @@ FormatsListing = React.createClass
   propTypes:
     formats: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 
-
   render: ->
     <div className="formats-listing">
       <div className='header'>Formats:</div>
-      {for format in @props.formats
-        <span key={format}>{format}</span>}
+      {for format, i in @props.formats
+        <span key={i}>{format}</span>}
     </div>
 
 
