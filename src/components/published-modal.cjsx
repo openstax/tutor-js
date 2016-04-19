@@ -9,10 +9,13 @@ PublishedModal = React.createClass
   getInitialState: -> {}
 
   componentWillMount: ->
-    ExerciseStore.on('published', @show)
+    ExerciseStore.on('published', @onPublished)
 
   componentWillUnmount: ->
-    ExerciseStore.off('published', @show)
+    ExerciseStore.off('published', @onPublished)
+
+  onPublished: (publishedId, opt) ->
+    @show() if publishedId is @props.exerciseId
 
   show: ->
     @setState(isShowing: true)
