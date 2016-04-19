@@ -72,18 +72,46 @@ ExercisePreviewDemo = React.createClass
   displayName: 'ExercisePreviewDemo'
   getInitialState: ->
     displayFeedback: false
+    displayFormats:  false
+    displayTags: false
+
   toggleFeedbackDisplay: (ev) ->
-    @setState(displayFeedback: not @state?.displayFeedback)
+    @setState(displayFeedback: not @state.displayFeedback)
+
+  toggleFormatsDisplay: (ev) ->
+    @setState(displayFormats: not @state.displayFormats)
+
+  toggleTagsDisplay: (ev) ->
+    @setState(displayTags: not @state.TagsFormats)
+
   render: ->
-    {displayFeedback} = @state
+    {displayFeedback, displayFormats, displayTags} = @state
+
+    displayFormatsIconClasses = classnames 'fa',
+      'fa-check-square-o': displayFormats
+      'fa-square-o':  not displayFormats
 
     displayFeedbackIconClasses = classnames 'fa',
       'fa-check-square-o': displayFeedback
       'fa-square-o':  not displayFeedback
 
-    <ExercisePreview exercise={exercisePreviewStub} displayFeedback={displayFeedback}>
-      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
+    displayTagsIconClasses = classnames 'fa',
+      'fa-check-square-o': displayTags
+      'fa-square-o':  not displayTags
+
+    <ExercisePreview exercise={exercisePreviewStub}
+      displayFormats={displayFormats}
+      displayAllTags={displayTags}
+      displayFeedback={displayFeedback}
+    >
+      <button className="toggle" onClick={@toggleFeedbackDisplay}>
         <i className={displayFeedbackIconClasses}/> Preview Feedback
+      </button>
+      <button className="toggle" onClick={@toggleTagsDisplay}>
+        <i className={displayTagsIconClasses}/> Display All Tags
+      </button>
+      <button className="toggle" onClick={@toggleFormatsDisplay}>
+        <i className={displayFormatsIconClasses}/> Show Formats
       </button>
     </ExercisePreview>
 
