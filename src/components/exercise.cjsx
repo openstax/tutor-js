@@ -13,7 +13,8 @@ Attachments = require './attachments'
 
 
 Exercise = React.createClass
-  exerciseId:   React.PropTypes.string.isRequired
+  propTypes:
+    exerciseId:   React.PropTypes.string.isRequired
 
   getInitialState: -> {}
   update: -> @forceUpdate()
