@@ -103,6 +103,7 @@ QuestionConfig = {
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()
 
+      formats: []
       stem_html:"",
       stimulus_html:"",
       collaborator_solutions: [{"content_html": "", "solution_type": "detailed"}],
