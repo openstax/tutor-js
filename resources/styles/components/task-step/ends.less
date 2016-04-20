@@ -47,17 +47,21 @@
     }
   }
 
-  &.task-review {
-    .exercise-wrapper[data-step-number] {
-      position: relative;
-      &::before {
-        content: attr(data-step-number) ")";
-        position: absolute;
-        z-index: 1;
-        left: @tutor-card-body-padding-horizontal - 32px;
-        top: @tutor-panel-padding-vertical;
-        .exercise-typography();
-      }
+}
+
+.task-practice,
+.task-chapter_practice,
+.task-page_practice,
+.task-homework {
+  .exercise-wrapper[data-step-number] {
+    position: relative;
+    &::before {
+      content: attr(data-step-number) ")";
+      position: absolute;
+      z-index: 1;
+      left: @tutor-card-body-padding-horizontal - 32px;
+      top: @tutor-panel-padding-vertical;
+      .exercise-typography();
     }
   }
 }

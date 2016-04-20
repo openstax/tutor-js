@@ -1,4 +1,5 @@
 React = require 'react'
+_ = require 'underscore'
 
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
@@ -53,6 +54,41 @@ module.exports = React.createClass
 
   updateFreeResponse: (freeResponse) -> TaskStepActions.updateTempFreeResponse(@props.id, freeResponse)
 
+  getInitialState: ->
+    partsInfo = @getPartsInfo()
+    taskInfo = @getTaskInfo()
+
+    _.extend({}, partsInfo, taskInfo)
+
+  getPartsInfo: (props) ->
+    props ?= @props
+
+    {id, taskId, courseId, onNextStep} = props
+    parts = TaskStore.getStepParts(taskId, id)
+
+    lastPartId = _.last(parts).id
+    isSinglePartExercise = @isSinglePart(parts)
+
+    {parts, lastPartId, isSinglePartExercise}
+
+  getTaskInfo: (props) ->
+    props ?= @props
+    {taskId} = props
+
+    task = TaskStore.get(taskId)
+
+    {task}
+
+  isSinglePart: (parts) ->
+    parts.length is 1
+
+  componentWillReceiveProps: (nextProps) ->
+    if nextProps.taskId isnt @props.taskId
+      nextState = _.extend({}, @getTaskInfo(nextProps), @getPartsInfo(nextProps))
+      @setState(nextState)
+    else if nextProps.id isnt @props.id
+      @setState(@getPartsInfo(nextProps))
+
   canOnlyContinue: (id) ->
     _.chain(StepPanel.getRemainingActions(id))
       .difference(['clickContinue'])
@@ -85,16 +121,14 @@ module.exports = React.createClass
     if sectionsLinks.length > 0 then helpLink
 
   canAllContinue: ->
-    {id, taskId} = @props
-    parts = TaskStore.getStepParts(taskId, id)
+    {parts} = @state
 
     _.reduce parts, (previous, part) =>
       previous and @canOnlyContinue(part.id)
     , true
 
   allCorrect: ->
-    {id, taskId} = @props
-    parts = TaskStore.getStepParts(taskId, id)
+    {parts} = @state
 
     _.reduce parts, (previous, part) ->
       previous and (part.correct_answer_id is part.answer_id)
@@ -113,61 +147,86 @@ module.exports = React.createClass
     unless TaskStepStore.isSaving(id)
       currentPanel = StepPanel.getPanel(id)
 
-  render: ->
-    {id, taskId, courseId, onNextStep} = @props
-    task = TaskStore.get(taskId)
-    parts = TaskStore.getStepParts(taskId, id)
+  getReviewProps: ->
+    {refreshStep, recoverFor} = @props
+    {task, lastPartId} = @state
 
-    lastPartId = _.last(parts).id
+    refreshMemory: _.partial(refreshStep, lastPartId)
+    tryAnother: _.partial(recoverFor, lastPartId)
+    canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
+    isRecovering: TaskStepStore.isRecovering(lastPartId)
+
+  isLastPart: (id) ->
+    {lastPartId} = @state
+
+    id is lastPartId
+
+  shouldControl: (id) ->
+    {isSinglePartExercise} = @state
+
+    isSinglePartExercise or not (@isLastPart(id) and @canOnlyContinue(id))
+
+  renderPart: (taskId, stepProps, onStepCompleted, part, index = 0) ->
+    stepIndex = TaskStore.getStepIndex(taskId, part.id)
+    step = TaskStepStore.get(part.id)
+    waitingText = @getWaitingText(part.id)
+    partProp = _.pick(part, 'id', 'taskId')
+    partProp.focus = index is 0
+    controlButtons = [] unless @shouldControl(part.id)
+
+    <div
+      className='exercise-wrapper'
+      data-step-number={stepIndex + 1}
+      key="exercise-part-#{part.id}">
+      <Exercise
+        {...partProp}
+        {...stepProps}
+        onStepCompleted={_.partial(onStepCompleted, part.id)}
+        freeResponseValue={step.temp_free_response}
+        step={step}
+        waitingText={waitingText}
+        controlButtons={controlButtons}
+
+        canReview={StepPanel.canReview(part.id)}
+        disabled={TaskStepStore.isSaving(part.id)}
+        isContinueEnabled={StepPanel.canContinue(part.id)}
+
+        getCurrentPanel={@getCurrentPanel}
+        getReadingForStep={@getReadingForStep}
+        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+        onFreeResponseChange={_.partial(TaskStepActions.updateTempFreeResponse, part.id)}
+        freeResponseValue={TaskStepStore.getTempFreeResponse(part.id)}
+        setAnswerId={TaskStepActions.setAnswerId}
+      />
+    </div>
+
+  render: ->
+    {id, taskId, courseId, onNextStep, onStepCompleted} = @props
+    {parts, lastPartId, isSinglePartExercise, task} = @state
 
     stepProps = _.pick(@props, 'taskId', 'courseId', 'goToStep', 'onNextStep')
-    {onStepCompleted, refreshStep, recoverFor} = @props
 
-    reviewProps =
-      refreshMemory: _.partial(refreshStep, lastPartId)
-      tryAnother: _.partial(recoverFor, lastPartId)
-      canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
-      isRecovering: TaskStepStore.isRecovering(lastPartId)
+    if isSinglePartExercise
+      stepProps = _.extend {}, stepProps, @getReviewProps()
+      stepProps.pinned = true
+      stepProps.footer = <StepFooter/>
+      stepProps.focus = true
 
-    stepParts = _.map parts, (part, index) =>
-      stepIndex = TaskStore.getStepIndex(taskId, part.id)
-      step = TaskStepStore.get(part.id)
-      waitingText = @getWaitingText(part.id)
-      partProp = _.pick(part, 'id', 'taskId')
-      controlButtons = [] if @canOnlyContinue(part.id)
+      # render as single part
+      return @renderPart(taskId, stepProps, onStepCompleted, _.last(parts))
 
-      <div className='exercise-wrapper' data-step-number={stepIndex + 1} key="exercise-part-#{part.id}">
-        <Exercise
-          {...partProp}
-          {...stepProps}
-          helpLink={@renderHelpLink(step.related_content)}
-          {...reviewProps}
-          onStepCompleted={_.partial(onStepCompleted, part.id)}
-          freeResponseValue={step.temp_free_response}
-          step={step}
-          waitingText={waitingText}
-          pinned={false}
-          controlButtons={controlButtons}
-          focus={parts.length is 1 or index is 0}
-
-          canReview={StepPanel.canReview(part.id)}
-          disabled={TaskStepStore.isSaving(part.id)}
-          isContinueEnabled={StepPanel.canContinue(part.id)}
-
-          getCurrentPanel={@getCurrentPanel}
-          getReadingForStep={@getReadingForStep}
-          setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
-          onFreeResponseChange={_.partial(TaskStepActions.updateTempFreeResponse, part.id)}
-          freeResponseValue={TaskStepStore.getTempFreeResponse(part.id)}
-          setAnswerId={TaskStepActions.setAnswerId}
-        />
-      </div>
+    # otherwise, continue with rendering as multi-part
+    stepProps.pinned = false
+    stepParts = _.map parts, _.partial(@renderPart, taskId, stepProps, onStepCompleted), @
 
     controlProps =
       panel: @getCurrentPanel(lastPartId)
       controlText: 'Continue' if task.type is 'reading'
 
     if @canAllContinue()
+
+      reviewProps = @getReviewProps()
+
       canContinueControlProps =
         isContinueEnabled: true
         onContinue: onNextStep
