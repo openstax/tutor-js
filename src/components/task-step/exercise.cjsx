@@ -30,8 +30,10 @@ ExerciseControlButtons = React.createClass
     disabled: false
     isContinueEnabled: false
     allowKeyNext: false
+  shouldComponentUpdate: (nextProps) ->
+    nextProps.panel?
   render: ->
-    {panel, controlButtons, controlText, footer} = @props
+    {panel, controlButtons, controlText} = @props
 
     ControlButtons = CONTROLS[panel]
     controlText ?= CONTROLS_TEXT[panel]
@@ -94,7 +96,7 @@ module.exports = React.createClass
     {id, taskId} = @props
     parts = TaskStore.getStepParts(taskId, id)
 
-    _.reduce parts, (previous, part) =>
+    _.reduce parts, (previous, part) ->
       previous and (part.correct_answer_id is part.answer_id)
     , true
 
